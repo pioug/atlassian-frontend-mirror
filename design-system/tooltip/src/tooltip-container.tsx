@@ -6,7 +6,6 @@ import { forwardRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import TooltipPrimitive, { type TooltipPrimitiveProps } from './tooltip-primitive';
@@ -24,15 +23,11 @@ const styles = cssMap({
 		insetBlockStart: token('space.0', '0px'),
 		insetInlineStart: token('space.0', '0px'),
 		overflowWrap: 'break-word',
-		paddingBlockEnd: token('space.025', '2px'),
-		paddingBlockStart: token('space.025', '2px'),
+		paddingBlockStart: token('space.050', '4px'),
+		paddingBlockEnd: token('space.050', '4px'),
 		paddingInlineEnd: token('space.075', '6px'),
 		paddingInlineStart: token('space.075', '6px'),
 		wordWrap: 'break-word',
-	},
-	baseRefreshedPadding: {
-		paddingBlockStart: token('space.050', '4px'),
-		paddingBlockEnd: token('space.050', '4px'),
 	},
 	truncate: {
 		maxWidth: '420px',
@@ -76,11 +71,7 @@ const TooltipContainer: React.ForwardRefExoticComponent<
 			onMouseOut={onMouseOut}
 			onMouseOver={onMouseOver}
 			shortcut={shortcut}
-			css={[
-				styles.base,
-				fg('platform-dst-tooltip-shortcuts') && styles.baseRefreshedPadding,
-				truncate && styles.truncate,
-			]}
+			css={[styles.base, truncate && styles.truncate]}
 		>
 			{children}
 		</TooltipPrimitive>

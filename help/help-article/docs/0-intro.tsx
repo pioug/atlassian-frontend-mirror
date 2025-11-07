@@ -1,7 +1,7 @@
 import React from 'react';
 import { md, code, Example, Props, AtlassianInternalWarning } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   ## Usage
@@ -34,3 +34,4 @@ export default md`
 
   ${(<Props props={require('!!extract-react-types-loader!../src/components/HelpArticle')} />)}
 `;
+export default _default_1;

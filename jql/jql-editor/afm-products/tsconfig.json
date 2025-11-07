@@ -74,6 +74,9 @@
 			"path": "../../../design-system/spinner/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../people-and-teams/teams-avatar/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/theme/afm-products/tsconfig.json"
 		},
 		{

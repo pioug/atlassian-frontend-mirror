@@ -12,7 +12,10 @@ import { TeamAvatarImage } from './teams-avatar-image';
  * Else if teamId is provided, use that to generate the static image URL.
  * Else fallback.
  */
-export type TeamAvatarProps = Omit<AvatarPropTypes, 'appearance'> & { teamId?: string };
+export type TeamAvatarProps = Omit<AvatarPropTypes, 'appearance'> & {
+	teamId?: string;
+	compact?: boolean;
+};
 
 export const ICON_BACKGROUND = token('color.icon.inverse', N0);
 export const ICON_COLOR = token('color.icon.subtle', N90);
@@ -22,13 +25,14 @@ export default function TeamAvatar({
 	src,
 	size = 'medium',
 	teamId = '',
+	compact = false,
 	...props
 }: TeamAvatarProps) {
 	// Strip ARI in case the teamId was given in that format
 	teamId = teamId.replace('ari:cloud:identity::team/', '');
 	return (
 		<Avatar appearance="square" {...props} size={size} src={src} testId={`${testId}-team-avatar`}>
-			<TeamAvatarImage src={src} size={size} testId={testId} teamId={teamId} />
+			<TeamAvatarImage src={src} size={size} testId={testId} teamId={teamId} compact={compact} />
 		</Avatar>
 	);
 }

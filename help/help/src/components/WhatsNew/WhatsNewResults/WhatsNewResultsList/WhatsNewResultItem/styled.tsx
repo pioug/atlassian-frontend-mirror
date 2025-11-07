@@ -47,7 +47,7 @@ export const WhatsNewResultListItemWrapper = ({
 	[rest: string]: any;
 	children: React.ReactNode;
 	styles?: React.CSSProperties;
-}) => (
+}): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/no-html-button, @atlaskit/ui-styling-standard/enforce-style-prop
 	<button css={whatsNewResultListItemWrapperStyles} style={styles} {...rest}>
 		{children}
@@ -64,7 +64,7 @@ export const WhatsNewResultListItemTitleContainer = ({
 	children,
 }: {
 	children: React.ReactNode;
-}) => <div css={whatsNewResultListItemTitleContainerStyles}>{children}</div>;
+}): JSX.Element => <div css={whatsNewResultListItemTitleContainerStyles}>{children}</div>;
 
 const whatsNewResultListItemTitleTextStyles = css({
 	font: token('font.body.small'),
@@ -76,9 +76,11 @@ const whatsNewResultListItemTitleTextStyles = css({
 	overflowX: 'hidden',
 });
 
-export const WhatsNewResultListItemTitleText = ({ children }: { children: React.ReactNode }) => (
-	<span css={whatsNewResultListItemTitleTextStyles}>{children}</span>
-);
+export const WhatsNewResultListItemTitleText = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <span css={whatsNewResultListItemTitleTextStyles}>{children}</span>;
 
 const whatsNewResultListItemDescriptionStyles = css({
 	display: 'block',
@@ -88,7 +90,11 @@ const whatsNewResultListItemDescriptionStyles = css({
 	margin: 0,
 });
 
-export const WhatsNewResultListItemDescription = ({ children }: { children: React.ReactNode }) => (
+export const WhatsNewResultListItemDescription = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 	<p css={whatsNewResultListItemDescriptionStyles}>{children}</p>
 );

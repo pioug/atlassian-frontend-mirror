@@ -97,7 +97,7 @@ const PICKER_CONTROL_ID = 'emoji-picker';
 
 export interface ReactionPickerProps
 	extends Pick<SelectorProps, 'pickerQuickReactionEmojiIds'>,
-	Partial<Pick<TriggerProps, 'tooltipContent' | 'miniMode'>> {
+		Partial<Pick<TriggerProps, 'tooltipContent' | 'miniMode'>> {
 	/**
 	 * Optional Show the "more emoji" selector icon for choosing emoji beyond the default list of emojis (defaults to false)
 	 */
@@ -537,7 +537,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 							}
 						>
 							{settings.showFullPicker ||
-								(hoverableReactionPicker && isHoverableReactionPickerEmojiPickerOpen) ? (
+							(hoverableReactionPicker && isHoverableReactionPickerEmojiPickerOpen) ? (
 								<Box
 									xcss={additionalStyles.selectorContainer}
 									onMouseEnter={handlePopupMouseEnter}

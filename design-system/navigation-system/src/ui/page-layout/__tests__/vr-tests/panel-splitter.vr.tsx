@@ -76,7 +76,6 @@ snapshot(PanelSplitterWithTooltip, {
 	description: 'Panel splitter with tooltip content - hovered',
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		'platform-dst-tooltip-shortcuts': true,
 	},
 	states: [
 		{
@@ -93,7 +92,6 @@ snapshot(PanelSplitterWithTooltip, {
 snapshot(PanelSplitterWithTooltipAndShortcut, {
 	description: 'Panel splitter with both tooltip content and shortcut - hovered',
 	featureFlags: {
-		'platform-dst-tooltip-shortcuts': true,
 		'navx-full-height-sidebar': true,
 	},
 	states: [

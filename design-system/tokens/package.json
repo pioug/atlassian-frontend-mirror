@@ -144,7 +144,7 @@
 		"platform_increased-contrast-themes": {
 			"type": "boolean"
 		},
-		"platform-component-visual-refresh": {
+		"platform-default-typography-refreshed": {
 			"type": "boolean"
 		},
 		"platform-disable-default-typography": {

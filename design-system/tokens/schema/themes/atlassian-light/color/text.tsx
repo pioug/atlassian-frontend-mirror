@@ -37,7 +37,7 @@ const color: ValueSchema<TextColorTokenSchema<BaseToken>> = {
 				},
 			},
 			success: {
-				value: 'Green800',
+				value: 'Lime800',
 			},
 			information: {
 				value: 'Blue800',

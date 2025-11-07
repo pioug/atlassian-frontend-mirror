@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.47.1
+
+### Patch Changes
+
+- [`4e9eb6e62cb01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e9eb6e62cb01) -
+  Update FileCard and FilePicker props and add adaptEventHandler
+- Updated dependencies
+
 ## 0.47.0
 
 ### Minor Changes

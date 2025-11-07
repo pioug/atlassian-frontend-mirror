@@ -6,7 +6,7 @@ import { getAppearanceForAppType } from '@atlaskit/avatar';
 import { B400, N800, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import React from 'react';
 import { type User } from '../types';
 import { AvatarItemOption, textWrapper } from './AvatarItemOption';
@@ -20,6 +20,16 @@ export type UserOptionProps = {
 	status?: string;
 	user: User;
 };
+
+const styles = (color: string) =>
+	css({
+		display: 'inline',
+		verticalAlign: 'top',
+		overflow: 'hidden',
+		whiteSpace: 'nowrap',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		color,
+	});
 
 export class UserOption extends React.PureComponent<UserOptionProps> {
 	getPrimaryText = () => {
@@ -39,16 +49,16 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 			</span>,
 		];
 		if (hasValue(publicName) && name.trim() !== publicName.trim()) {
+			const color = this.props.isSelected
+				? token('color.text.selected', B400)
+				: token('color.text.subtlest', N200);
+
 			result.push(
 				<React.Fragment key="publicName">
 					{' '}
 					<span
 						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						css={textWrapper(
-							this.props.isSelected
-								? token('color.text.selected', B400)
-								: token('color.text.subtlest', N200),
-						)}
+						css={fg('platform_user_picker_firefox_tab_fix') ? styles(color) : textWrapper(color)}
 					>
 						(
 						<HighlightText highlights={highlight && highlight.publicName}>

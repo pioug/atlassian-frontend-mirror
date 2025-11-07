@@ -171,75 +171,9 @@ describe('Nested table transformations', () => {
 			}).toThrow('Failed to parse nested table content');
 		});
 
-		// TODO: EDITOR-806 - Remove when cleaning feature gate platform_editor_nested_table_extension_comment_fix
-		it('should not transform nested table extension if inside bodied extension if invoked from renderer', () => {
+		it('should transform nested table extension if inside bodied extension', () => {
 			const result = transformNestedTablesIncomingDocument(
 				nestedTableExtensionInsideBodiedExtensionAdf,
-				{ environment: 'renderer' },
-			);
-
-			expect(result.isTransformed).toBe(false);
-			expect(result.transformedAdf).toMatchInlineSnapshot(`
-			{
-			  "content": [
-			    {
-			      "attrs": {
-			        "extensionKey": "bodied-eh",
-			        "extensionType": "com.atlassian.confluence.macro.core",
-			        "layout": "default",
-			        "localId": "testId",
-			        "parameters": {
-			          "macroMetadata": {
-			            "placeholder": [
-			              {
-			                "data": {
-			                  "url": "",
-			                },
-			                "type": "icon",
-			              },
-			            ],
-			          },
-			          "macroParams": {},
-			        },
-			      },
-			      "content": [
-			        {
-			          "content": [
-			            {
-			              "content": [
-			                {
-			                  "attrs": {
-			                    "extensionKey": "nested-table",
-			                    "extensionType": "com.atlassian.confluence.migration",
-			                    "parameters": {
-			                      "adf": "{"type":"doc","version":1,"content":[{"type":"table","content":[{"type":"tableRow","content":[{"type":"tableHeader","content":[{"type":"text","text":"Header 1"}]},{"type":"tableHeader","content":[{"type":"text","text":"Header 2"}]}]},{"type":"tableRow","content":[{"type":"tableCell","content":[{"type":"text","text":"Cell 1"}]},{"type":"tableCell","content":[{"type":"text","text":"Cell 2"}]}]}]}]}",
-			                    },
-			                  },
-			                  "type": "extension",
-			                },
-			              ],
-			              "type": "tableRow",
-			            },
-			          ],
-			          "type": "table",
-			        },
-			      ],
-			      "type": "bodiedExtension",
-			    },
-			  ],
-			  "type": "doc",
-			  "version": 1,
-			}
-		`);
-		});
-
-		it('should transform nested table extension if inside bodied extension if invoked from renderer and disableNestedRendererTreatment is true', () => {
-			const result = transformNestedTablesIncomingDocument(
-				nestedTableExtensionInsideBodiedExtensionAdf,
-				{
-					environment: 'renderer',
-					disableNestedRendererTreatment: true,
-				},
 			);
 
 			expect(result.isTransformed).toBe(true);

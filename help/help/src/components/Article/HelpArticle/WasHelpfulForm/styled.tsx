@@ -15,9 +15,11 @@ const articleFeedbackContainerStyles = css({
 	position: 'relative',
 });
 
-export const ArticleFeedbackContainer = ({ children }: { children: React.ReactNode }) => (
-	<div css={articleFeedbackContainerStyles}>{children}</div>
-);
+export const ArticleFeedbackContainer = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <div css={articleFeedbackContainerStyles}>{children}</div>;
 
 const articleFeedbackTextStyles = css({
 	font: token('font.heading.xxsmall', heading.xxsmall),
@@ -38,7 +40,7 @@ export const ArticleFeedbackText = ({
 	id?: string;
 	paddingRight?: string;
 	top?: string;
-}) => (
+}): JSX.Element => (
 	<div
 		id={id}
 		css={articleFeedbackTextStyles}
@@ -56,7 +58,11 @@ const articleFeedbackAnswerWrapperStyles = css({
 	paddingTop: token('space.200', '16px'),
 });
 
-export const ArticleFeedbackAnswerWrapper = ({ children }: { children: React.ReactNode }) => (
+export const ArticleFeedbackAnswerWrapper = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/use-primitives
 	<div css={articleFeedbackAnswerWrapperStyles}>{children}</div>
 );

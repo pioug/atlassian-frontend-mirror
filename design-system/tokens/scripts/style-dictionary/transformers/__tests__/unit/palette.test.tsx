@@ -46,7 +46,7 @@ describe('palette transformer', () => {
 
 		const actual = palette.transformer({ original: token } as any, {});
 
-		expect(actual).toEqual('#1D7AFC');
+		expect(actual).toEqual('#357DE8');
 	});
 
 	it('should transform a shadow token value to a palette value', () => {
@@ -62,7 +62,7 @@ describe('palette transformer', () => {
 
 		const actual = palette.transformer({ original: token } as any, {});
 
-		expect(actual[0].color).toEqual('#E9F2FF');
+		expect(actual[0].color).toEqual('#E9F2FE');
 	});
 
 	it('should transfer raw color values', () => {

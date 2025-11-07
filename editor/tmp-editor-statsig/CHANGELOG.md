@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.32.0
+
+### Minor Changes
+
+- [`7a3ccae3a8cf5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a3ccae3a8cf5) -
+  ED-29457Clean up platform_editor_toolbar_aifc_renderer_selection
+
 ## 13.31.0
 
 ### Minor Changes

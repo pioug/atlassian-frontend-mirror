@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@atlaskit/button';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import ErrorImage from '../../../assets/ErrorImage';
@@ -37,4 +37,7 @@ export const SearchResultsError: React.FC<Props & WrappedComponentProps> = ({
 	</>
 );
 
-export default injectIntl(SearchResultsError);
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(SearchResultsError);
+export default _default_1;

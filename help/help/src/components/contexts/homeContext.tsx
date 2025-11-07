@@ -7,13 +7,15 @@ export interface HomeContextInterface {
 	homeOptions?: HelpContentButtonProps[];
 }
 
-export const [useHomeContext, CtxProvider] = createCtx<HomeContextInterface>();
+const dest = createCtx<HomeContextInterface>();
+export const useHomeContext: () => HomeContextInterface = dest[0];
+export const CtxProvider: React.Provider<HomeContextInterface | undefined> = dest[1];
 
 export const HomeContextProvider = ({
 	homeOptions,
 	homeContent,
 	children,
-}: PropsWithChildren<HomeContextInterface>) => {
+}: PropsWithChildren<HomeContextInterface>): React.JSX.Element => {
 	return (
 		<CtxProvider
 			value={{

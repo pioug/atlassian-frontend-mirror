@@ -1,15 +1,8 @@
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { THEME_DATA_ATTRIBUTE } from '../../constants';
 import { type ThemeIdsWithOverrides } from '../../theme-config';
 import { loadAndAppendThemeCss } from '../../utils/theme-loading';
 
-import {
-	verifyDarkBrandRefershColor,
-	verifyDarkNonBrandRefershColor,
-	verifyLightBrandRefershColor,
-	verifyLightNonBrandRefershColor,
-} from './brand-refresh-assertion-helper.mock';
+import { verifyDarkColor, verifyLightColor } from './brand-refresh-assertion-helper.mock';
 
 describe('loadAndAppendThemeCss', () => {
 	beforeEach(() => {
@@ -30,17 +23,12 @@ describe('loadAndAppendThemeCss', () => {
 	}
 
 	describe('should add themes to the page when requested', () => {
-		ffTest(
-			'platform-component-visual-refresh',
-			async () => {
-				await verifyTheme('light', verifyLightBrandRefershColor);
-				await verifyTheme('dark', verifyDarkBrandRefershColor);
-			},
-			async () => {
-				await verifyTheme('light', verifyLightNonBrandRefershColor);
-				await verifyTheme('dark', verifyDarkNonBrandRefershColor);
-			},
-		);
+		it('should add light theme', async () => {
+			await verifyTheme('light', verifyLightColor);
+		});
+		it('should add dark theme', async () => {
+			await verifyTheme('dark', verifyDarkColor);
+		});
 	});
 
 	it('should not add a theme a second time if one is already present on the page', async () => {

@@ -26,7 +26,6 @@ snapshot(SingleUserPickerWithAutoFocus, {
 	},
 });
 
-
 snapshot(MultiUserPicker);
 
 snapshot(MultiWithAutoFocus, {
@@ -55,10 +54,10 @@ snapshot(SimpleMultiWithExternalUsersWithTooltip, {
 	drawsOutsideBounds: true,
 	states: [
 		{
-			'state': 'hovered',
-			'selector': {
-				byTestId: 'source-icon'
-			}
+			state: 'hovered',
+			selector: {
+				byTestId: 'source-icon',
+			},
 		},
 	],
 });

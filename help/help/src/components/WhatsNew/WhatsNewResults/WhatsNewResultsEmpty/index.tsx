@@ -4,7 +4,7 @@ import {
 	type UIAnalyticsEvent,
 	AnalyticsContext,
 } from '@atlaskit/analytics-next';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 import { Text } from '@atlaskit/primitives/compiled';
 import Button from '@atlaskit/button/new';
 
@@ -62,4 +62,7 @@ export const WhatsNewResultsEmpty: React.FC<Props & WrappedComponentProps> = ({
 	);
 };
 
-export default injectIntl(WhatsNewResultsEmpty);
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(WhatsNewResultsEmpty);
+export default _default_1;

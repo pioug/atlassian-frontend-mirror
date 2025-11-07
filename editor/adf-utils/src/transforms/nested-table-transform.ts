@@ -1,4 +1,4 @@
-import type { ADFEntity, EntityParent } from '../types';
+import type { ADFEntity } from '../types';
 import { traverse } from '../traverse/traverse';
 import { extension } from '../builders';
 import { NodeNestingTransformError } from './errors';
@@ -27,27 +27,8 @@ const transformNestedTableExtension = (nestedTableExtension: ADFEntity): ADFEnti
 	}
 };
 
-// TODO: EDITOR-806 - Remove when cleaning feature gate platform_editor_nested_table_extension_comment_fix
-function isInsideBodiedExtension(parent: EntityParent) {
-	if (parent.node === undefined) {
-		return false;
-	}
-
-	if (parent.node.type === 'bodiedExtension') {
-		return true;
-	}
-
-	if (parent?.parent?.node) {
-		return isInsideBodiedExtension(parent.parent);
-	}
-
-	return false;
-}
-
 export const transformNestedTablesIncomingDocument = (
 	adf: ADFEntity,
-	// TODO: EDITOR-806 - Remove options when cleaning feature gate platform_editor_nested_table_extension_comment_fix as no longer needed
-	options: { disableNestedRendererTreatment?: boolean; environment?: 'renderer' | 'editor' } = {},
 ): {
 	isTransformed: boolean;
 	transformedAdf: ADFEntity;
@@ -55,21 +36,8 @@ export const transformNestedTablesIncomingDocument = (
 	let isTransformed: boolean = false;
 
 	const transformedAdf = traverse(adf, {
-		extension: (node, parent) => {
+		extension: (node) => {
 			if (isNestedTableExtension(node)) {
-				// TODO: EDITOR-806 - Remove this block when cleaning feature gate platform_editor_nested_table_extension_comment_fix
-				// Bodied extensions in renderer use their own nested renderer to render the content.
-				// This results in the document being validated/transformed twice, once with untransformed content and again with transformed content.
-				// Since the untransformed content is valid ADF (table as extension in table) but the transformed content is not valid ADF, (table in table)
-				// we need to skip transforming nested tables inside bodied extensions in renderer on the first pass or else it will fail validation and render an unsupported block.
-				if (
-					options.environment === 'renderer' &&
-					isInsideBodiedExtension(parent) &&
-					!options.disableNestedRendererTreatment
-				) {
-					return undefined;
-				}
-
 				isTransformed = true;
 				return transformNestedTableExtension(node);
 			}

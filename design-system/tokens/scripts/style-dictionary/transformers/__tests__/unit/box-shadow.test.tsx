@@ -41,7 +41,7 @@ describe('palette transformer', () => {
 
 		const actual = boxShadow(palette).transformer({ original: token } as any, {});
 
-		expect(actual).toEqual('1px 2px 3px #E9F2FF');
+		expect(actual).toEqual('1px 2px 3px #E9F2FE');
 	});
 
 	it('should should transform a single shadow with spread to box shadow', () => {
@@ -65,7 +65,7 @@ describe('palette transformer', () => {
 
 		const actual = boxShadow(palette).transformer({ original: token } as any, {});
 
-		expect(actual).toEqual('1px 2px 3px 4px #E9F2FF');
+		expect(actual).toEqual('1px 2px 3px 4px #E9F2FE');
 	});
 
 	it('should should transform a single inset shadow to box shadow', () => {
@@ -89,7 +89,7 @@ describe('palette transformer', () => {
 
 		const actual = boxShadow(palette).transformer({ original: token } as any, {});
 
-		expect(actual).toEqual('inset 1px 2px 3px #E9F2FF');
+		expect(actual).toEqual('inset 1px 2px 3px #E9F2FE');
 	});
 
 	it('should should transform a single opaque shadow to box shadow', () => {
@@ -112,7 +112,7 @@ describe('palette transformer', () => {
 
 		const actual = boxShadow(palette).transformer({ original: token } as any, {});
 
-		expect(actual).toEqual('1px 2px 3px #E9F2FF80');
+		expect(actual).toEqual('1px 2px 3px #E9F2FE80');
 	});
 
 	it('should transform two shadows to a box shadow', () => {
@@ -141,6 +141,6 @@ describe('palette transformer', () => {
 
 		const actual = boxShadow(palette).transformer({ original: token } as any, {});
 
-		expect(actual).toEqual('1px 2px 3px #E9F2FF80, 0px 0px 1px #388BFF');
+		expect(actual).toEqual('1px 2px 3px #E9F2FE80, 0px 0px 1px #4688EC');
 	});
 });

@@ -1,13 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type CSSObject } from '@emotion/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import { type Appearance, type Spacing } from '../types';
-
-import colors, { type ColorGroup, type ColorRule } from './colors';
 
 const gridSize: number = 8;
 const HAS_DISABLED_BACKGROUND = ['default', 'primary', 'danger', 'warning'];
@@ -220,43 +217,6 @@ const hasOverlayStyles: CSSObject = {
 	},
 };
 
-function getColor({
-	group,
-	key,
-	mode,
-}: {
-	group: ColorGroup;
-	key: keyof ColorGroup;
-	mode: ThemeModes;
-}): string {
-	const rule: ColorRule = group[key] || group.default;
-	return rule[mode];
-}
-
-function getColors({
-	appearance,
-	key,
-	mode,
-}: {
-	appearance: Appearance;
-	key: keyof ColorGroup;
-	mode: ThemeModes;
-}) {
-	return {
-		background: getColor({
-			group: colors.background[appearance],
-			key,
-			mode,
-		}),
-		// Needing to add !important to overcome specificity issue caused by deprecated AtlaskitThemeProvider
-		color: `${getColor({
-			group: colors.color[appearance],
-			key,
-			mode,
-		})} !important`,
-	};
-}
-
 type GetCssArgs = {
 	appearance: Appearance;
 	spacing: Spacing;
@@ -269,17 +229,10 @@ type GetCssArgs = {
 export function getCss({
 	appearance,
 	spacing,
-	mode,
 	isSelected,
 	shouldFitContainer,
 	isOnlySingleIcon,
 }: GetCssArgs): CSSObject {
-	const baseColors = getColors({
-		appearance,
-		key: isSelected ? 'selected' : 'default',
-		mode,
-	});
-
 	return {
 		// 0px margin added to css-reset
 		alignItems: 'baseline',
@@ -300,10 +253,6 @@ export function getCss({
 		textDecoration: 'none',
 		transition: 'background 0.1s ease-out, box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)',
 		whiteSpace: 'nowrap',
-
-		// dynamic styles
-		...(!fg('platform-component-visual-refresh') && baseColors),
-
 		cursor: 'pointer',
 		height: heights[spacing],
 		lineHeight: lineHeights[spacing],
@@ -312,113 +261,40 @@ export function getCss({
 		width: shouldFitContainer ? '100%' : 'auto',
 		// justifyContent required for shouldFitContainer buttons with an icon inside
 		justifyContent: 'center',
+		...(isSelected
+			? selectedStyles
+			: {
+					...(appearance === 'default' && defaultStyles),
+					...(appearance === 'primary' && primaryStyles),
+					...(appearance === 'link' && linkStyles),
+					...(appearance === 'subtle' && subtleStyles),
+					...(appearance === 'subtle-link' && subtleLinkStyles),
+					...(appearance === 'warning' && warningStyles),
+					...(appearance === 'danger' && dangerStyles),
 
-		// Note: we cannot disable pointer events when there is an overlay.
-		// That would be easy for styling, but it would start letting events through on disabled buttons
+					'&[disabled]': {
+						color: token('color.text.disabled'),
+						backgroundColor: HAS_DISABLED_BACKGROUND.includes(appearance)
+							? token('color.background.disabled')
+							: 'transparent',
+						cursor: 'not-allowed',
+						textDecoration: 'none',
 
-		...(!fg('platform-component-visual-refresh') && {
-			// Disabling visited styles (just using the base colors)
-			'&:visited': {
-				...baseColors,
-			},
-
-			'&:hover': {
-				...getColors({
-					appearance,
-					key: isSelected ? 'selected' : 'hover',
-					mode,
-				}),
-				textDecoration:
-					!isSelected && (appearance === 'link' || appearance === 'subtle-link')
-						? 'underline'
-						: 'inherit',
-				// background, box-shadow
-				transitionDuration: '0s, 0.15s',
-			},
-
-			// giving active styles preference by listing them after focus
-			'&:active': {
-				...getColors({
-					appearance,
-					key: isSelected ? 'selected' : 'active',
-					mode,
-				}),
-				// background, box-shadow
-				transitionDuration: '0s, 0s',
-			},
-
-			// preventDefault prevents regular active styles from applying in Firefox
-			'&[data-firefox-is-active="true"]': {
-				...getColors({
-					appearance,
-					key: isSelected ? 'selected' : 'active',
-					mode,
-				}),
-				// background, box-shadow
-				transitionDuration: '0s, 0s',
-			},
-
-			// Giving disabled styles preference over active by listing them after.
-			// Not using '&:disabled' because :disabled is not a valid state for all element types
-			// so we are targeting the attribute
-			// Attributes have the same specificity a pseudo classes so we are overriding :disabled here
-			'&[disabled]': {
-				// always using 'disabled' even when selected
-				...getColors({ appearance, key: 'disabled', mode }),
-				cursor: 'not-allowed',
-				textDecoration: 'none',
-			},
-
-			...hasOverlayStyles,
-
-			// disabling hover and active color changes when there is an overlay, but the button is not disabled
-			'&[data-has-overlay="true"]:not([disabled]):hover, &[data-has-overlay="true"]:not([disabled]):active':
-				{
-					...getColors({
-						appearance,
-						key: isSelected ? 'selected' : 'default',
-						mode,
-					}),
-				},
-		}),
-
-		// dynamic colours for visual refresh:
-		...(fg('platform-component-visual-refresh') &&
-			(isSelected
-				? selectedStyles
-				: {
-						...(appearance === 'default' && defaultStyles),
-						...(appearance === 'primary' && primaryStyles),
-						...(appearance === 'link' && linkStyles),
-						...(appearance === 'subtle' && subtleStyles),
-						...(appearance === 'subtle-link' && subtleLinkStyles),
-						...(appearance === 'warning' && warningStyles),
-						...(appearance === 'danger' && dangerStyles),
-
-						'&[disabled]': {
-							color: token('color.text.disabled'),
+						'&:hovered': {
 							backgroundColor: HAS_DISABLED_BACKGROUND.includes(appearance)
 								? token('color.background.disabled')
 								: 'transparent',
-							cursor: 'not-allowed',
-							textDecoration: 'none',
-
-							'&:hovered': {
-								backgroundColor: HAS_DISABLED_BACKGROUND.includes(appearance)
-									? token('color.background.disabled')
-									: 'transparent',
-							},
-
-							'&:active': {
-								backgroundColor: HAS_DISABLED_BACKGROUND.includes(appearance)
-									? token('color.background.disabled')
-									: 'transparent',
-							},
 						},
 
-						...hasOverlayStyles,
-					})),
+						'&:active': {
+							backgroundColor: HAS_DISABLED_BACKGROUND.includes(appearance)
+								? token('color.background.disabled')
+								: 'transparent',
+						},
+					},
 
+					...hasOverlayStyles,
+				}),
 		'&::-moz-focus-inner': {
 			border: 0,
 			margin: 0,

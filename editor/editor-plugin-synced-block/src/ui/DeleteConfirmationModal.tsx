@@ -64,7 +64,9 @@ export const DeleteConfirmationModal = ({
 			{isOpen && (
 				<ModalDialog onClose={handleClose(false)}>
 					<ModalHeader hasCloseButton>
-						<ModalTitle appearance='warning'>{formatMessage(messages.deleteConfirmationModalTitle)}</ModalTitle>
+						<ModalTitle appearance="warning">
+							{formatMessage(messages.deleteConfirmationModalTitle)}
+						</ModalTitle>
 					</ModalHeader>
 					<ModalBody>
 						<Text>

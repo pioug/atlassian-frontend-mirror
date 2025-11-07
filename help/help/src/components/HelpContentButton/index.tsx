@@ -43,7 +43,7 @@ const HelpContentButton = ({
 	icon,
 	onClick,
 	tooltipText,
-}: Props) => {
+}: Props): React.JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	const handleOnClick = useCallback(

@@ -12,9 +12,11 @@ const whatsNewResultsListContainerStyles = css({
 	position: 'relative',
 });
 
-export const WhatsNewResultsListContainer = ({ children }: { children: React.ReactNode }) => (
-	<div css={whatsNewResultsListContainerStyles}>{children}</div>
-);
+export const WhatsNewResultsListContainer = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <div css={whatsNewResultsListContainerStyles}>{children}</div>;
 
 const whatsNewResultsListGroupWrapperStyles = css({
 	paddingTop: token('space.100', '8px'),
@@ -29,7 +31,7 @@ export const WhatsNewResultsListGroupWrapper = ({
 }: {
 	children: React.ReactNode;
 	key: string | number;
-}) => (
+}): JSX.Element => (
 	<div css={whatsNewResultsListGroupWrapperStyles} key={key}>
 		{children}
 	</div>
@@ -47,6 +49,8 @@ const whatsNewResultsListGroupTitleStyles = css({
 	textTransform: 'uppercase',
 });
 
-export const WhatsNewResultsListGroupTitle = ({ children }: { children: React.ReactNode }) => (
-	<div css={whatsNewResultsListGroupTitleStyles}>{children}</div>
-);
+export const WhatsNewResultsListGroupTitle = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <div css={whatsNewResultsListGroupTitleStyles}>{children}</div>;

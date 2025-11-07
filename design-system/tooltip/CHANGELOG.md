@@ -1,5 +1,17 @@
 # @atlaskit/tooltip
 
+## 20.8.0
+
+### Minor Changes
+
+- [`8f79c1a030071`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f79c1a030071) -
+  The built-in support for displaying keyboard shortcuts via the `shortcut` prop is now available
+  for use. It was previously behind the `platform-dst-tooltip-shortcuts` feature flag, which has now
+  been cleaned up.
+
+  The top and bottom padding of the tooltip container has also been increased from `2px` to `4px` -
+  this change previously also behind the same feature flag.
+
 ## 20.7.1
 
 ### Patch Changes

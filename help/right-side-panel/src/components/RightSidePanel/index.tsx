@@ -39,14 +39,14 @@ export interface State {
 }
 
 export class RightSidePanel extends Component<Props, State> {
-	attachPanelTo = this.props.attachPanelTo;
+	attachPanelTo: string = this.props.attachPanelTo;
 
 	state = {
 		entered: false,
 		container: undefined,
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.setState({
 			container: canUseDOM ? document.querySelector('#' + this.attachPanelTo) : undefined,
 		});
@@ -89,7 +89,7 @@ export class RightSidePanel extends Component<Props, State> {
 		);
 	}
 
-	render() {
+	render(): React.ReactNode {
 		const { container } = this.state;
 
 		return !!container ? this.renderDrawer(container!) : null;

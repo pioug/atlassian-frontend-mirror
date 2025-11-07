@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tooltip",
-	"version": "20.7.1",
+	"version": "20.8.0",
 	"description": "A tooltip describes an interactive element on mouse hover or keyboard focus.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -107,9 +107,6 @@
 		"platform-component-visual-refresh": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform-dst-tooltip-shortcuts": {
-			"type": "boolean"
 		},
 		"should-render-to-parent-should-be-true-design-syst": {
 			"type": "boolean"

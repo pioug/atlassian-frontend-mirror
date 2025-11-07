@@ -74,6 +74,9 @@
 			"path": "../../../design-system/spinner/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../people-and-teams/teams-avatar/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/theme/afm-jira/tsconfig.json"
 		},
 		{

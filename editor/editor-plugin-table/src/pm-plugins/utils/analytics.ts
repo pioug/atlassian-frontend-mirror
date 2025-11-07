@@ -310,3 +310,60 @@ export const getWidthInfoPayload = (
 		eventType: EVENT_TYPE.OPERATIONAL,
 	};
 };
+
+export const getHeightInfoPayload = (editorView: EditorView): TableEventPayload | undefined => {
+	const tablesInfo: Array<{
+		isNestedTable: boolean;
+		tableHeight: number;
+	}> = [];
+
+	const editorPopupScrollParent = editorView.dom.closest('.fabric-editor-popup-scroll-parent');
+
+	// don't send the event if the editor scroll parent is not available
+	if (!editorPopupScrollParent) {
+		return undefined;
+	}
+
+	const editorScrollParentClientHeight = editorPopupScrollParent.clientHeight;
+	const isEditorScrollable = editorPopupScrollParent.scrollHeight > editorScrollParentClientHeight;
+
+	editorView.state.doc.nodesBetween(0, editorView.state.doc.content.size, (node, pos, parent) => {
+		if (!tableContainerNodes.has(node.type.name)) {
+			return false;
+		}
+
+		if (node.type.name === 'table') {
+			const domAtPos = editorView.domAtPos(pos + 1);
+			const table = domAtPos.node?.parentElement;
+
+			const isNestedTable =
+				parent?.type.name === 'tableCell' || parent?.type.name === 'tableHeader';
+
+			if (table instanceof HTMLTableElement) {
+				tablesInfo.push({
+					isNestedTable: isNestedTable,
+					tableHeight: table.scrollHeight,
+				});
+			}
+		}
+	});
+
+	// only send the event if there are tables on the page
+	if (tablesInfo.length === 0) {
+		return undefined;
+	}
+
+	const maxTableHeight = Math.max(...tablesInfo.map((table) => table.tableHeight));
+
+	return {
+		action: TABLE_ACTION.TABLE_EDITOR_HEIGHT_INFO,
+		actionSubject: ACTION_SUBJECT.TABLE,
+		attributes: {
+			editorScrollParentClientHeight,
+			isEditorScrollable,
+			maxTableToEditorHeightRatio: maxTableHeight / editorScrollParentClientHeight,
+			tableHeightInfo: tablesInfo,
+		},
+		eventType: EVENT_TYPE.OPERATIONAL,
+	};
+};

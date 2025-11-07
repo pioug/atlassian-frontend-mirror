@@ -10,4 +10,5 @@ import DOCUMENT from '../src/error-handling/convert-to-error/README.md';
 const adfEncoder = new ADFEncoder((schema) => new MarkdownTransformer(schema));
 const document = adfEncoder.encode(DOCUMENT);
 
-export default <ReactRenderer document={document} />;
+const _default_1: React.JSX.Element = <ReactRenderer document={document} />;
+export default _default_1;

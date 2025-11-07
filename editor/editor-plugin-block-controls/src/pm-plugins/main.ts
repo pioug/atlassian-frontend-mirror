@@ -526,7 +526,6 @@ export const apply = (
 				}
 			}
 		}
-
 	}
 
 	// Check if editor dimensions have changed

@@ -21,7 +21,7 @@ const whatsNewTypeTitleStyles = css({
 	overflowX: 'hidden',
 });
 
-export const WhatsNewTypeTitle = ({ children }: { children: React.ReactNode }) => (
+export const WhatsNewTypeTitle = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<span css={whatsNewTypeTitleStyles}>{children}</span>
 );
 
@@ -30,7 +30,7 @@ const whatsNewIconContainerStyles = css({
 	paddingBottom: token('space.100', '8px'),
 });
 
-export const WhatsNewIconContainer = ({ children }: { children: React.ReactNode }) => (
+export const WhatsNewIconContainer = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={whatsNewIconContainerStyles}>{children}</div>
 );
 
@@ -45,7 +45,7 @@ const whatsNewTitleText = css({
 	display: 'block',
 });
 
-export const WhatsNewTitleText = ({ children }: { children: React.ReactNode }) => (
+export const WhatsNewTitleText = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<span css={whatsNewTitleText}>{children}</span>
 );
 
@@ -53,7 +53,7 @@ const relatedLinkContainerStyles = css({
 	marginBottom: token('space.100', '8px'),
 });
 
-export const RelatedLinkContainer = ({ children }: { children: React.ReactNode }) => (
+export const RelatedLinkContainer = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/use-primitives
 	<div css={relatedLinkContainerStyles}>{children}</div>
 );
@@ -64,6 +64,8 @@ const externalLinkIconContainerStyles = css({
 	paddingLeft: token('space.050', '4px'),
 });
 
-export const ExternalLinkIconContainer = ({ children }: { children: React.ReactNode }) => (
-	<div css={externalLinkIconContainerStyles}>{children}</div>
-);
+export const ExternalLinkIconContainer = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <div css={externalLinkIconContainerStyles}>{children}</div>;

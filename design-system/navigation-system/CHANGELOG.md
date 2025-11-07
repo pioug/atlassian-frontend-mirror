@@ -1,5 +1,14 @@
 # @atlassian/navigation-system
 
+## 5.3.1
+
+### Patch Changes
+
+- [`8f79c1a030071`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f79c1a030071) -
+  References to the `platform-dst-tooltip-shortcuts` feature flag have been removed from prop
+  JSDocs.
+- Updated dependencies
+
 ## 5.3.0
 
 ### Minor Changes

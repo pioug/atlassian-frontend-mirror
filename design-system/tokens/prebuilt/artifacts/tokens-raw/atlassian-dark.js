@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e5a01f19d58623f99b97e4dd2aef4926>>
+ * @codegen <<SignedSource::5be81818cd5004bcdfaa1d2ab995fd75>>
  * @codegenCommand yarn build tokens
  */
 
@@ -17,7 +17,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for primary text, such as body copy, sentence case headers, and buttons."
   },
-  "value": "#B6C2CF",
+  "value": "#CECFD2",
   "filePath": "schema/themes/atlassian-dark/color/text.tsx",
   "isSource": true,
   "original": {
@@ -27,7 +27,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Use for primary text, such as body copy, sentence case headers, and buttons."
     },
-    "value": "DarkNeutral900"
+    "value": "DarkNeutral1000"
   },
   "name": "color.text.[default]",
   "path": ["color", "text", "[default]"],
@@ -127,7 +127,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for orange text on subtlest and subtler orange accent backgrounds when there is no meaning tied to the color."
   },
-  "value": "#FEC195",
+  "value": "#FBC828",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -149,7 +149,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for orange text on subtle orange accent backgrounds when there is no meaning tied to the color."
   },
-  "value": "#FEDEC8",
+  "value": "#FCE4A6",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -171,7 +171,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for yellow text on subtlest and subtler yellow accent backgrounds when there is no meaning tied to the color."
   },
-  "value": "#F5CD47",
+  "value": "#EED12B",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -193,7 +193,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for yellow text on subtle yellow accent backgrounds when there is no meaning tied to the color."
   },
-  "value": "#F8E6A0",
+  "value": "#F5E989",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -303,7 +303,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for blue text on subtlest and subtler blue accent backgrounds when there is no meaning tied to the color."
   },
-  "value": "#85B8FF",
+  "value": "#8FB8F6",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -325,7 +325,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for blue text on subtle blue accent backgrounds when there is no meaning tied to the color."
   },
-  "value": "#CCE0FF",
+  "value": "#CFE1FD",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -347,7 +347,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for purple text on subtlest and subtler purple accent backgrounds when there is no meaning tied to the color."
   },
-  "value": "#B8ACF6",
+  "value": "#D8A0F7",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -369,7 +369,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for purple text on subtle purple accent backgrounds when there is no meaning tied to the color."
   },
-  "value": "#DFD8FD",
+  "value": "#EED7FC",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -435,7 +435,7 @@ var tokens = [{
     "introduced": "0.10.5",
     "description": "Use for text on non-bold gray accent backgrounds, such as colored tags."
   },
-  "value": "#9FADBC",
+  "value": "#A9ABAF",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -457,7 +457,7 @@ var tokens = [{
     "introduced": "0.10.5",
     "description": "Use for text and icons on gray subtle accent backgrounds."
   },
-  "value": "#DEE4EA",
+  "value": "#E2E3E4",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -479,7 +479,7 @@ var tokens = [{
     "introduced": "0.0.15",
     "description": "Use for text in a disabled state."
   },
-  "value": "#BFDBF847",
+  "value": "#E5E9F640",
   "filePath": "schema/themes/atlassian-dark/color/text.tsx",
   "isSource": true,
   "original": {
@@ -501,7 +501,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for text on bold backgrounds."
   },
-  "value": "#1D2125",
+  "value": "#1F1F21",
   "filePath": "schema/themes/atlassian-dark/color/text.tsx",
   "isSource": true,
   "original": {
@@ -523,7 +523,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for text in selected or opened states, such as tabs and dropdown buttons."
   },
-  "value": "#579DFF",
+  "value": "#669DF1",
   "filePath": "schema/themes/atlassian-dark/color/text.tsx",
   "isSource": true,
   "original": {
@@ -545,7 +545,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for text that reinforces our brand."
   },
-  "value": "#579DFF",
+  "value": "#669DF1",
   "filePath": "schema/themes/atlassian-dark/color/text.tsx",
   "isSource": true,
   "original": {
@@ -589,7 +589,7 @@ var tokens = [{
     "introduced": "0.0.15",
     "description": "Use for text to emphasize caution, such as in moved lozenges."
   },
-  "value": "#F5CD47",
+  "value": "#FBC828",
   "filePath": "schema/themes/atlassian-dark/color/text.tsx",
   "isSource": true,
   "original": {
@@ -599,7 +599,7 @@ var tokens = [{
       "introduced": "0.0.15",
       "description": "Use for text to emphasize caution, such as in moved lozenges."
     },
-    "value": "Yellow300"
+    "value": "Orange300"
   },
   "name": "color.text.warning.[default]",
   "path": ["color", "text", "warning", "[default]"],
@@ -611,7 +611,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for text when on bold warning backgrounds."
   },
-  "value": "#1D2125",
+  "value": "#1F1F21",
   "filePath": "schema/themes/atlassian-dark/color/text.tsx",
   "isSource": true,
   "original": {
@@ -633,7 +633,7 @@ var tokens = [{
     "introduced": "0.0.15",
     "description": "Use for text to communicate a favorable outcome, such as input field success messaging."
   },
-  "value": "#7EE2B8",
+  "value": "#B3DF72",
   "filePath": "schema/themes/atlassian-dark/color/text.tsx",
   "isSource": true,
   "original": {
@@ -643,7 +643,7 @@ var tokens = [{
       "introduced": "0.0.15",
       "description": "Use for text to communicate a favorable outcome, such as input field success messaging."
     },
-    "value": "Green300"
+    "value": "Lime300"
   },
   "name": "color.text.success",
   "path": ["color", "text", "success"],
@@ -655,7 +655,7 @@ var tokens = [{
     "introduced": "0.0.15",
     "description": "Use for text to emphasize change or something new, such as in new lozenges."
   },
-  "value": "#B8ACF6",
+  "value": "#D8A0F7",
   "filePath": "schema/themes/atlassian-dark/color/text.tsx",
   "isSource": true,
   "original": {
@@ -677,7 +677,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for informative text or to communicate something is in progress, such as in-progress lozenges."
   },
-  "value": "#85B8FF",
+  "value": "#8FB8F6",
   "filePath": "schema/themes/atlassian-dark/color/text.tsx",
   "isSource": true,
   "original": {
@@ -699,7 +699,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text."
   },
-  "value": "#8C9BAB",
+  "value": "#96999E",
   "filePath": "schema/themes/atlassian-dark/color/text.tsx",
   "isSource": true,
   "original": {
@@ -721,7 +721,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings."
   },
-  "value": "#9FADBC",
+  "value": "#A9ABAF",
   "filePath": "schema/themes/atlassian-dark/color/text.tsx",
   "isSource": true,
   "original": {
@@ -743,7 +743,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for links in a default or hovered state. Add an underline for hovered states."
   },
-  "value": "#579DFF",
+  "value": "#669DF1",
   "filePath": "schema/themes/atlassian-dark/color/text.tsx",
   "isSource": true,
   "original": {
@@ -765,7 +765,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for links in a pressed state."
   },
-  "value": "#85B8FF",
+  "value": "#8FB8F6",
   "filePath": "schema/themes/atlassian-dark/color/text.tsx",
   "isSource": true,
   "original": {
@@ -787,7 +787,7 @@ var tokens = [{
     "introduced": "1.23.0",
     "description": "Use for visited links."
   },
-  "value": "#B8ACF6",
+  "value": "#D8A0F7",
   "filePath": "schema/themes/atlassian-dark/color/text.tsx",
   "isSource": true,
   "original": {
@@ -809,7 +809,7 @@ var tokens = [{
     "introduced": "1.43.0",
     "description": "Use for visited links in a pressed state."
   },
-  "value": "#DFD8FD",
+  "value": "#EED7FC",
   "filePath": "schema/themes/atlassian-dark/color/text.tsx",
   "isSource": true,
   "original": {
@@ -831,7 +831,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for icon-only buttons, or icons paired with color.text"
   },
-  "value": "#9FADBC",
+  "value": "#CECFD2",
   "filePath": "schema/themes/atlassian-dark/color/icon.tsx",
   "isSource": true,
   "original": {
@@ -841,7 +841,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Use for icon-only buttons, or icons paired with color.text"
     },
-    "value": "DarkNeutral800"
+    "value": "DarkNeutral1000"
   },
   "name": "color.icon.[default]",
   "path": ["color", "icon", "[default]"],
@@ -897,7 +897,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for orange icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
   },
-  "value": "#F38A3F",
+  "value": "#F68909",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -919,7 +919,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for yellow icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
   },
-  "value": "#F5CD47",
+  "value": "#EED12B",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -985,7 +985,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for blue icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
   },
-  "value": "#388BFF",
+  "value": "#4688EC",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -1007,7 +1007,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for purple icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
   },
-  "value": "#8F7EE7",
+  "value": "#BF63F3",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -1051,7 +1051,7 @@ var tokens = [{
     "introduced": "0.10.5",
     "description": "Use for icons on non-bold gray accent backgrounds, such as file type icons."
   },
-  "value": "#738496",
+  "value": "#7E8188",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -1073,7 +1073,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for icons in a disabled state."
   },
-  "value": "#BFDBF847",
+  "value": "#E5E9F640",
   "filePath": "schema/themes/atlassian-dark/color/icon.tsx",
   "isSource": true,
   "original": {
@@ -1095,7 +1095,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for icons on bold backgrounds."
   },
-  "value": "#1D2125",
+  "value": "#1F1F21",
   "filePath": "schema/themes/atlassian-dark/color/icon.tsx",
   "isSource": true,
   "original": {
@@ -1117,7 +1117,7 @@ var tokens = [{
     "introduced": "0.6.2",
     "description": "Use for icons in selected or opened states, such as those used in dropdown buttons."
   },
-  "value": "#579DFF",
+  "value": "#669DF1",
   "filePath": "schema/themes/atlassian-dark/color/icon.tsx",
   "isSource": true,
   "original": {
@@ -1139,7 +1139,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for icons that reinforce our brand."
   },
-  "value": "#579DFF",
+  "value": "#669DF1",
   "filePath": "schema/themes/atlassian-dark/color/icon.tsx",
   "isSource": true,
   "original": {
@@ -1183,7 +1183,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for icons communicating caution, such as those used in warning section messages."
   },
-  "value": "#F5CD47",
+  "value": "#FBC828",
   "filePath": "schema/themes/atlassian-dark/color/icon.tsx",
   "isSource": true,
   "original": {
@@ -1193,7 +1193,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Use for icons communicating caution, such as those used in warning section messages."
     },
-    "value": "Yellow300"
+    "value": "Orange300"
   },
   "name": "color.icon.warning.[default]",
   "path": ["color", "icon", "warning", "[default]"],
@@ -1205,7 +1205,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for icons when on bold warning backgrounds."
   },
-  "value": "#1D2125",
+  "value": "#1F1F21",
   "filePath": "schema/themes/atlassian-dark/color/icon.tsx",
   "isSource": true,
   "original": {
@@ -1227,7 +1227,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for icons communicating a favorable outcome, such as those used in success section messaged."
   },
-  "value": "#2ABB7F",
+  "value": "#82B536",
   "filePath": "schema/themes/atlassian-dark/color/icon.tsx",
   "isSource": true,
   "original": {
@@ -1237,7 +1237,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Use for icons communicating a favorable outcome, such as those used in success section messaged."
     },
-    "value": "Green500"
+    "value": "Lime500"
   },
   "name": "color.icon.success",
   "path": ["color", "icon", "success"],
@@ -1249,7 +1249,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for icons communicating change or something new, such as discovery section messages."
   },
-  "value": "#8F7EE7",
+  "value": "#BF63F3",
   "filePath": "schema/themes/atlassian-dark/color/icon.tsx",
   "isSource": true,
   "original": {
@@ -1271,7 +1271,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for icons communicating information or something in-progress, such as information section messages."
   },
-  "value": "#388BFF",
+  "value": "#4688EC",
   "filePath": "schema/themes/atlassian-dark/color/icon.tsx",
   "isSource": true,
   "original": {
@@ -1293,7 +1293,7 @@ var tokens = [{
     "introduced": "1.54.0",
     "description": "Use for icons paired with color.text.subtlest"
   },
-  "value": "#8C9BAB",
+  "value": "#96999E",
   "filePath": "schema/themes/atlassian-dark/color/icon.tsx",
   "isSource": true,
   "original": {
@@ -1315,7 +1315,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for icons paired with color.text.subtle"
   },
-  "value": "#8C9BAB",
+  "value": "#A9ABAF",
   "filePath": "schema/themes/atlassian-dark/color/icon.tsx",
   "isSource": true,
   "original": {
@@ -1325,7 +1325,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Use for icons paired with color.text.subtle"
     },
-    "value": "DarkNeutral700"
+    "value": "DarkNeutral800"
   },
   "name": "color.icon.subtle",
   "path": ["color", "icon", "subtle"],
@@ -1337,7 +1337,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use to visually group or separate UI elements, such as flat cards or side panel dividers."
   },
-  "value": "#A6C5E229",
+  "value": "#E3E4F21F",
   "filePath": "schema/themes/atlassian-dark/color/border.tsx",
   "isSource": true,
   "original": {
@@ -1403,7 +1403,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for orange borders on non-bold backgrounds when there is no meaning tied to the color."
   },
-  "value": "#F38A3F",
+  "value": "#F68909",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -1491,7 +1491,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color."
   },
-  "value": "#388BFF",
+  "value": "#4688EC",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -1513,7 +1513,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for purple borders on non-bold backgrounds when there is no meaning tied to the color."
   },
-  "value": "#8F7EE7",
+  "value": "#BF63F3",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -1557,7 +1557,7 @@ var tokens = [{
     "introduced": "0.10.5",
     "description": "Use for borders on non-bold gray accent backgrounds."
   },
-  "value": "#738496",
+  "value": "#7E8188",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -1579,7 +1579,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for borders of elements in a disabled state."
   },
-  "value": "#A1BDD914",
+  "value": "#CECED912",
   "filePath": "schema/themes/atlassian-dark/color/border.tsx",
   "isSource": true,
   "original": {
@@ -1601,7 +1601,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for focus rings of elements in a focus state."
   },
-  "value": "#85B8FF",
+  "value": "#8FB8F6",
   "filePath": "schema/themes/atlassian-dark/color/border.tsx",
   "isSource": true,
   "original": {
@@ -1623,7 +1623,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
   },
-  "value": "#738496",
+  "value": "#7E8188",
   "filePath": "schema/themes/atlassian-dark/color/border.tsx",
   "isSource": true,
   "original": {
@@ -1645,7 +1645,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for borders on bold backgrounds."
   },
-  "value": "#161A1D",
+  "value": "#18191A",
   "filePath": "schema/themes/atlassian-dark/color/border.tsx",
   "isSource": true,
   "original": {
@@ -1667,7 +1667,7 @@ var tokens = [{
     "introduced": "0.6.2",
     "description": "Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items."
   },
-  "value": "#579DFF",
+  "value": "#669DF1",
   "filePath": "schema/themes/atlassian-dark/color/border.tsx",
   "isSource": true,
   "original": {
@@ -1689,7 +1689,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons."
   },
-  "value": "#579DFF",
+  "value": "#669DF1",
   "filePath": "schema/themes/atlassian-dark/color/border.tsx",
   "isSource": true,
   "original": {
@@ -1733,7 +1733,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for borders communicating caution."
   },
-  "value": "#CF9F02",
+  "value": "#F68909",
   "filePath": "schema/themes/atlassian-dark/color/border.tsx",
   "isSource": true,
   "original": {
@@ -1743,7 +1743,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Use for borders communicating caution."
     },
-    "value": "Yellow500"
+    "value": "Orange500"
   },
   "name": "color.border.warning",
   "path": ["color", "border", "warning"],
@@ -1755,7 +1755,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for borders communicating a favorable outcome, such as the borders on validated text fields."
   },
-  "value": "#2ABB7F",
+  "value": "#82B536",
   "filePath": "schema/themes/atlassian-dark/color/border.tsx",
   "isSource": true,
   "original": {
@@ -1765,7 +1765,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Use for borders communicating a favorable outcome, such as the borders on validated text fields."
     },
-    "value": "Green500"
+    "value": "Lime500"
   },
   "name": "color.border.success",
   "path": ["color", "border", "success"],
@@ -1777,7 +1777,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for borders communicating change or something new, such as the borders in onboarding spotlights."
   },
-  "value": "#8F7EE7",
+  "value": "#BF63F3",
   "filePath": "schema/themes/atlassian-dark/color/border.tsx",
   "isSource": true,
   "original": {
@@ -1799,7 +1799,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for borders communicating information or something in-progress."
   },
-  "value": "#388BFF",
+  "value": "#4688EC",
   "filePath": "schema/themes/atlassian-dark/color/border.tsx",
   "isSource": true,
   "original": {
@@ -1821,7 +1821,7 @@ var tokens = [{
     "introduced": "0.10.8",
     "description": "A neutral border option that passes min 3:1 contrast ratios."
   },
-  "value": "#738496",
+  "value": "#7E8188",
   "filePath": "schema/themes/atlassian-dark/color/border.tsx",
   "isSource": true,
   "original": {
@@ -1843,7 +1843,7 @@ var tokens = [{
     "introduced": "1.6.0",
     "description": "Use for for backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
   },
-  "value": "#28311B",
+  "value": "#37471F",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -1853,7 +1853,7 @@ var tokens = [{
       "introduced": "1.6.0",
       "description": "Use for for backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "Lime1000"
+    "value": "Lime900"
   },
   "name": "color.background.accent.lime.subtlest.[default]",
   "path": ["color", "background", "accent", "lime", "subtlest", "[default]"],
@@ -1865,7 +1865,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.lime.subtlest."
   },
-  "value": "#37471F",
+  "value": "#3F5224",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -1875,7 +1875,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.lime.subtlest."
     },
-    "value": "Lime900"
+    "value": "Lime850"
   },
   "name": "color.background.accent.lime.subtlest.hovered",
   "path": ["color", "background", "accent", "lime", "subtlest", "hovered"],
@@ -1887,7 +1887,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.lime.subtlest."
   },
-  "value": "#4C6B1F",
+  "value": "#3F5224",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -1897,7 +1897,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.lime.subtlest."
     },
-    "value": "Lime800"
+    "value": "Lime850"
   },
   "name": "color.background.accent.lime.subtlest.pressed",
   "path": ["color", "background", "accent", "lime", "subtlest", "pressed"],
@@ -1931,7 +1931,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.lime.subtler."
   },
-  "value": "#4C6B1F",
+  "value": "#3F5224",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -1941,7 +1941,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.lime.subtler."
     },
-    "value": "Lime800"
+    "value": "Lime850"
   },
   "name": "color.background.accent.lime.subtler.hovered",
   "path": ["color", "background", "accent", "lime", "subtler", "hovered"],
@@ -1953,7 +1953,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.lime.subtler."
   },
-  "value": "#5B7F24",
+  "value": "#4C6B1F",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -1963,7 +1963,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.lime.subtler."
     },
-    "value": "Lime700"
+    "value": "Lime800"
   },
   "name": "color.background.accent.lime.subtler.pressed",
   "path": ["color", "background", "accent", "lime", "subtler", "pressed"],
@@ -1997,7 +1997,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.lime.subtle."
   },
-  "value": "#37471F",
+  "value": "#3F5224",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2007,7 +2007,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.lime.subtle."
     },
-    "value": "Lime900"
+    "value": "Lime850"
   },
   "name": "color.background.accent.lime.subtle.hovered",
   "path": ["color", "background", "accent", "lime", "subtle", "hovered"],
@@ -2019,7 +2019,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.lime.subtle."
   },
-  "value": "#28311B",
+  "value": "#37471F",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2029,7 +2029,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.lime.subtle."
     },
-    "value": "Lime1000"
+    "value": "Lime900"
   },
   "name": "color.background.accent.lime.subtle.pressed",
   "path": ["color", "background", "accent", "lime", "subtle", "pressed"],
@@ -2085,7 +2085,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.lime.bolder."
   },
-  "value": "#D3F1A7",
+  "value": "#BDE97C",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2095,7 +2095,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.lime.bolder."
     },
-    "value": "Lime200"
+    "value": "Lime250"
   },
   "name": "color.background.accent.lime.bolder.pressed",
   "path": ["color", "background", "accent", "lime", "bolder", "pressed"],
@@ -2151,7 +2151,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.red.subtlest."
   },
-  "value": "#AE2E24",
+  "value": "#872821",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2161,7 +2161,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.red.subtlest."
     },
-    "value": "Red800"
+    "value": "Red850"
   },
   "name": "color.background.accent.red.subtlest.pressed",
   "path": ["color", "background", "accent", "red", "subtlest", "pressed"],
@@ -2195,7 +2195,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.red.subtler."
   },
-  "value": "#AE2E24",
+  "value": "#872821",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2205,7 +2205,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.red.subtler."
     },
-    "value": "Red800"
+    "value": "Red850"
   },
   "name": "color.background.accent.red.subtler.hovered",
   "path": ["color", "background", "accent", "red", "subtler", "hovered"],
@@ -2217,7 +2217,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.red.subtler."
   },
-  "value": "#C9372C",
+  "value": "#AE2E24",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2227,7 +2227,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.red.subtler."
     },
-    "value": "Red700"
+    "value": "Red800"
   },
   "name": "color.background.accent.red.subtler.pressed",
   "path": ["color", "background", "accent", "red", "subtler", "pressed"],
@@ -2261,7 +2261,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.red.subtle."
   },
-  "value": "#5D1F1A",
+  "value": "#872821",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2271,7 +2271,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.red.subtle."
     },
-    "value": "Red900"
+    "value": "Red850"
   },
   "name": "color.background.accent.red.subtle.hovered",
   "path": ["color", "background", "accent", "red", "subtle", "hovered"],
@@ -2283,7 +2283,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.red.subtle."
   },
-  "value": "#42221F",
+  "value": "#5D1F1A",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2293,7 +2293,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.red.subtle."
     },
-    "value": "Red1000"
+    "value": "Red900"
   },
   "name": "color.background.accent.red.subtle.pressed",
   "path": ["color", "background", "accent", "red", "subtle", "pressed"],
@@ -2349,7 +2349,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.red.bolder."
   },
-  "value": "#FFD5D2",
+  "value": "#FFB8B2",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2359,7 +2359,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.red.bolder."
     },
-    "value": "Red200"
+    "value": "Red250"
   },
   "name": "color.background.accent.red.bolder.pressed",
   "path": ["color", "background", "accent", "red", "bolder", "pressed"],
@@ -2371,7 +2371,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
   },
-  "value": "#38291E",
+  "value": "#693200",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2381,7 +2381,7 @@ var tokens = [{
       "introduced": "0.7.0",
       "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "Orange1000"
+    "value": "Orange900"
   },
   "name": "color.background.accent.orange.subtlest.[default]",
   "path": ["color", "background", "accent", "orange", "subtlest", "[default]"],
@@ -2393,7 +2393,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.orange.subtlest."
   },
-  "value": "#702E00",
+  "value": "#7A3B00",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2403,7 +2403,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.orange.subtlest."
     },
-    "value": "Orange900"
+    "value": "Orange850"
   },
   "name": "color.background.accent.orange.subtlest.hovered",
   "path": ["color", "background", "accent", "orange", "subtlest", "hovered"],
@@ -2415,7 +2415,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.orange.subtlest."
   },
-  "value": "#A54800",
+  "value": "#7A3B00",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2425,7 +2425,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.orange.subtlest."
     },
-    "value": "Orange800"
+    "value": "Orange850"
   },
   "name": "color.background.accent.orange.subtlest.pressed",
   "path": ["color", "background", "accent", "orange", "subtlest", "pressed"],
@@ -2437,7 +2437,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for orange backgrounds when there is no meaning tied to the color, such as colored tags."
   },
-  "value": "#702E00",
+  "value": "#693200",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2459,7 +2459,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.orange.subtler."
   },
-  "value": "#A54800",
+  "value": "#7A3B00",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2469,7 +2469,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.orange.subtler."
     },
-    "value": "Orange800"
+    "value": "Orange850"
   },
   "name": "color.background.accent.orange.subtler.hovered",
   "path": ["color", "background", "accent", "orange", "subtler", "hovered"],
@@ -2481,7 +2481,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.orange.subtler."
   },
-  "value": "#C25100",
+  "value": "#9E4C00",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2491,7 +2491,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.orange.subtler."
     },
-    "value": "Orange700"
+    "value": "Orange800"
   },
   "name": "color.background.accent.orange.subtler.pressed",
   "path": ["color", "background", "accent", "orange", "subtler", "pressed"],
@@ -2503,7 +2503,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for vibrant orange backgrounds when there is no meaning tied to the color, such as colored tags."
   },
-  "value": "#A54800",
+  "value": "#9E4C00",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2525,7 +2525,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.orange.subtle."
   },
-  "value": "#702E00",
+  "value": "#7A3B00",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2535,7 +2535,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.orange.subtle."
     },
-    "value": "Orange900"
+    "value": "Orange850"
   },
   "name": "color.background.accent.orange.subtle.hovered",
   "path": ["color", "background", "accent", "orange", "subtle", "hovered"],
@@ -2547,7 +2547,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.orange.subtle."
   },
-  "value": "#38291E",
+  "value": "#693200",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2557,7 +2557,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.orange.subtle."
     },
-    "value": "Orange1000"
+    "value": "Orange900"
   },
   "name": "color.background.accent.orange.subtle.pressed",
   "path": ["color", "background", "accent", "orange", "subtle", "pressed"],
@@ -2569,7 +2569,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
   },
-  "value": "#FEA362",
+  "value": "#FCA700",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2591,7 +2591,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.orange.bolder."
   },
-  "value": "#FEC195",
+  "value": "#FBC828",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2613,7 +2613,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.orange.bolder."
   },
-  "value": "#FEDEC8",
+  "value": "#FBD779",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2623,7 +2623,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.orange.bolder."
     },
-    "value": "Orange200"
+    "value": "Orange250"
   },
   "name": "color.background.accent.orange.bolder.pressed",
   "path": ["color", "background", "accent", "orange", "bolder", "pressed"],
@@ -2635,7 +2635,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
   },
-  "value": "#332E1B",
+  "value": "#533F04",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2645,7 +2645,7 @@ var tokens = [{
       "introduced": "0.7.0",
       "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "Yellow1000"
+    "value": "Yellow900"
   },
   "name": "color.background.accent.yellow.subtlest.[default]",
   "path": ["color", "background", "accent", "yellow", "subtlest", "[default]"],
@@ -2657,7 +2657,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.yellow.subtlest."
   },
-  "value": "#533F04",
+  "value": "#614A05",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2667,7 +2667,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.yellow.subtlest."
     },
-    "value": "Yellow900"
+    "value": "Yellow850"
   },
   "name": "color.background.accent.yellow.subtlest.hovered",
   "path": ["color", "background", "accent", "yellow", "subtlest", "hovered"],
@@ -2679,7 +2679,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.yellow.subtlest."
   },
-  "value": "#7F5F01",
+  "value": "#614A05",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2689,7 +2689,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.yellow.subtlest."
     },
-    "value": "Yellow800"
+    "value": "Yellow850"
   },
   "name": "color.background.accent.yellow.subtlest.pressed",
   "path": ["color", "background", "accent", "yellow", "subtlest", "pressed"],
@@ -2723,7 +2723,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.yellow.subtler."
   },
-  "value": "#7F5F01",
+  "value": "#614A05",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2733,7 +2733,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.yellow.subtler."
     },
-    "value": "Yellow800"
+    "value": "Yellow850"
   },
   "name": "color.background.accent.yellow.subtler.hovered",
   "path": ["color", "background", "accent", "yellow", "subtler", "hovered"],
@@ -2745,7 +2745,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.yellow.subtler."
   },
-  "value": "#946F00",
+  "value": "#7F5F01",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2755,7 +2755,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.yellow.subtler."
     },
-    "value": "Yellow700"
+    "value": "Yellow800"
   },
   "name": "color.background.accent.yellow.subtler.pressed",
   "path": ["color", "background", "accent", "yellow", "subtler", "pressed"],
@@ -2789,7 +2789,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.yellow.subtle."
   },
-  "value": "#533F04",
+  "value": "#614A05",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2799,7 +2799,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.yellow.subtle."
     },
-    "value": "Yellow900"
+    "value": "Yellow850"
   },
   "name": "color.background.accent.yellow.subtle.hovered",
   "path": ["color", "background", "accent", "yellow", "subtle", "hovered"],
@@ -2811,7 +2811,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.yellow.subtle."
   },
-  "value": "#332E1B",
+  "value": "#533F04",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2821,7 +2821,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.yellow.subtle."
     },
-    "value": "Yellow1000"
+    "value": "Yellow900"
   },
   "name": "color.background.accent.yellow.subtle.pressed",
   "path": ["color", "background", "accent", "yellow", "subtle", "pressed"],
@@ -2833,7 +2833,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
   },
-  "value": "#E2B203",
+  "value": "#DDB30E",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2855,7 +2855,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.yellow.bolder."
   },
-  "value": "#F5CD47",
+  "value": "#EED12B",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2877,7 +2877,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.yellow.bolder."
   },
-  "value": "#F8E6A0",
+  "value": "#EFDD4E",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2887,7 +2887,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.yellow.bolder."
     },
-    "value": "Yellow200"
+    "value": "Yellow250"
   },
   "name": "color.background.accent.yellow.bolder.pressed",
   "path": ["color", "background", "accent", "yellow", "bolder", "pressed"],
@@ -2899,7 +2899,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
   },
-  "value": "#1C3329",
+  "value": "#164B35",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2909,7 +2909,7 @@ var tokens = [{
       "introduced": "0.7.0",
       "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "Green1000"
+    "value": "Green900"
   },
   "name": "color.background.accent.green.subtlest.[default]",
   "path": ["color", "background", "accent", "green", "subtlest", "[default]"],
@@ -2921,7 +2921,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.green.subtlest."
   },
-  "value": "#164B35",
+  "value": "#19573D",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2931,7 +2931,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.green.subtlest."
     },
-    "value": "Green900"
+    "value": "Green850"
   },
   "name": "color.background.accent.green.subtlest.hovered",
   "path": ["color", "background", "accent", "green", "subtlest", "hovered"],
@@ -2943,7 +2943,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.green.subtlest."
   },
-  "value": "#216E4E",
+  "value": "#19573D",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2953,7 +2953,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.green.subtlest."
     },
-    "value": "Green800"
+    "value": "Green850"
   },
   "name": "color.background.accent.green.subtlest.pressed",
   "path": ["color", "background", "accent", "green", "subtlest", "pressed"],
@@ -2987,7 +2987,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.green.subtler."
   },
-  "value": "#216E4E",
+  "value": "#19573D",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2997,7 +2997,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.green.subtler."
     },
-    "value": "Green800"
+    "value": "Green850"
   },
   "name": "color.background.accent.green.subtler.hovered",
   "path": ["color", "background", "accent", "green", "subtler", "hovered"],
@@ -3009,7 +3009,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.green.subtler."
   },
-  "value": "#1F845A",
+  "value": "#216E4E",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3019,7 +3019,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.green.subtler."
     },
-    "value": "Green700"
+    "value": "Green800"
   },
   "name": "color.background.accent.green.subtler.pressed",
   "path": ["color", "background", "accent", "green", "subtler", "pressed"],
@@ -3053,7 +3053,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.green.subtle."
   },
-  "value": "#164B35",
+  "value": "#19573D",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3063,7 +3063,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.green.subtle."
     },
-    "value": "Green900"
+    "value": "Green850"
   },
   "name": "color.background.accent.green.subtle.hovered",
   "path": ["color", "background", "accent", "green", "subtle", "hovered"],
@@ -3075,7 +3075,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.green.subtle."
   },
-  "value": "#1C3329",
+  "value": "#164B35",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3085,7 +3085,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.green.subtle."
     },
-    "value": "Green1000"
+    "value": "Green900"
   },
   "name": "color.background.accent.green.subtle.pressed",
   "path": ["color", "background", "accent", "green", "subtle", "pressed"],
@@ -3141,7 +3141,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.green.bolder."
   },
-  "value": "#BAF3DB",
+  "value": "#97EDC9",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3151,7 +3151,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.green.bolder."
     },
-    "value": "Green200"
+    "value": "Green250"
   },
   "name": "color.background.accent.green.bolder.pressed",
   "path": ["color", "background", "accent", "green", "bolder", "pressed"],
@@ -3163,7 +3163,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
   },
-  "value": "#1E3137",
+  "value": "#164555",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3173,7 +3173,7 @@ var tokens = [{
       "introduced": "0.7.0",
       "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "Teal1000"
+    "value": "Teal900"
   },
   "name": "color.background.accent.teal.subtlest.[default]",
   "path": ["color", "background", "accent", "teal", "subtlest", "[default]"],
@@ -3185,7 +3185,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.teal.subtlest."
   },
-  "value": "#164555",
+  "value": "#1A5265",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3195,7 +3195,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.teal.subtlest."
     },
-    "value": "Teal900"
+    "value": "Teal850"
   },
   "name": "color.background.accent.teal.subtlest.hovered",
   "path": ["color", "background", "accent", "teal", "subtlest", "hovered"],
@@ -3207,7 +3207,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.teal.subtlest."
   },
-  "value": "#206A83",
+  "value": "#1A5265",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3217,7 +3217,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.teal.subtlest."
     },
-    "value": "Teal800"
+    "value": "Teal850"
   },
   "name": "color.background.accent.teal.subtlest.pressed",
   "path": ["color", "background", "accent", "teal", "subtlest", "pressed"],
@@ -3251,7 +3251,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.teal.subtler."
   },
-  "value": "#206A83",
+  "value": "#1A5265",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3261,7 +3261,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.teal.subtler."
     },
-    "value": "Teal800"
+    "value": "Teal850"
   },
   "name": "color.background.accent.teal.subtler.hovered",
   "path": ["color", "background", "accent", "teal", "subtler", "hovered"],
@@ -3273,7 +3273,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.teal.subtler."
   },
-  "value": "#227D9B",
+  "value": "#206A83",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3283,7 +3283,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.teal.subtler."
     },
-    "value": "Teal700"
+    "value": "Teal800"
   },
   "name": "color.background.accent.teal.subtler.pressed",
   "path": ["color", "background", "accent", "teal", "subtler", "pressed"],
@@ -3317,7 +3317,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.teal.subtle."
   },
-  "value": "#164555",
+  "value": "#1A5265",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3327,7 +3327,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.teal.subtle."
     },
-    "value": "Teal900"
+    "value": "Teal850"
   },
   "name": "color.background.accent.teal.subtle.hovered",
   "path": ["color", "background", "accent", "teal", "subtle", "hovered"],
@@ -3339,7 +3339,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.teal.subtle."
   },
-  "value": "#1E3137",
+  "value": "#164555",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3349,7 +3349,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.teal.subtle."
     },
-    "value": "Teal1000"
+    "value": "Teal900"
   },
   "name": "color.background.accent.teal.subtle.pressed",
   "path": ["color", "background", "accent", "teal", "subtle", "pressed"],
@@ -3405,7 +3405,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.teal.bolder."
   },
-  "value": "#C6EDFB",
+  "value": "#B1E4F7",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3415,7 +3415,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.teal.bolder."
     },
-    "value": "Teal200"
+    "value": "Teal250"
   },
   "name": "color.background.accent.teal.bolder.pressed",
   "path": ["color", "background", "accent", "teal", "bolder", "pressed"],
@@ -3427,7 +3427,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for blue backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
   },
-  "value": "#1C2B41",
+  "value": "#1C2B42",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3449,7 +3449,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.blue.subtlest."
   },
-  "value": "#09326C",
+  "value": "#123263",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3471,7 +3471,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.blue.subtlest."
   },
-  "value": "#0055CC",
+  "value": "#144794",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3481,7 +3481,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.blue.subtlest."
     },
-    "value": "Blue800"
+    "value": "Blue850"
   },
   "name": "color.background.accent.blue.subtlest.pressed",
   "path": ["color", "background", "accent", "blue", "subtlest", "pressed"],
@@ -3493,7 +3493,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
   },
-  "value": "#09326C",
+  "value": "#123263",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3515,7 +3515,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.blue.subtler."
   },
-  "value": "#0055CC",
+  "value": "#144794",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3525,7 +3525,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.blue.subtler."
     },
-    "value": "Blue800"
+    "value": "Blue850"
   },
   "name": "color.background.accent.blue.subtler.hovered",
   "path": ["color", "background", "accent", "blue", "subtler", "hovered"],
@@ -3537,7 +3537,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.blue.subtler."
   },
-  "value": "#0C66E4",
+  "value": "#1558BC",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3547,7 +3547,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.blue.subtler."
     },
-    "value": "Blue700"
+    "value": "Blue800"
   },
   "name": "color.background.accent.blue.subtler.pressed",
   "path": ["color", "background", "accent", "blue", "subtler", "pressed"],
@@ -3559,7 +3559,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for vibrant blue backgrounds when there is no meaning tied to the color, such as colored tags."
   },
-  "value": "#0055CC",
+  "value": "#1558BC",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3581,7 +3581,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.blue.subtle."
   },
-  "value": "#09326C",
+  "value": "#144794",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3591,7 +3591,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.blue.subtle."
     },
-    "value": "Blue900"
+    "value": "Blue850"
   },
   "name": "color.background.accent.blue.subtle.hovered",
   "path": ["color", "background", "accent", "blue", "subtle", "hovered"],
@@ -3603,7 +3603,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.blue.subtle."
   },
-  "value": "#1C2B41",
+  "value": "#123263",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3613,7 +3613,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.blue.subtle."
     },
-    "value": "Blue1000"
+    "value": "Blue900"
   },
   "name": "color.background.accent.blue.subtle.pressed",
   "path": ["color", "background", "accent", "blue", "subtle", "pressed"],
@@ -3625,7 +3625,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
   },
-  "value": "#579DFF",
+  "value": "#669DF1",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3647,7 +3647,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.blue.bolder."
   },
-  "value": "#85B8FF",
+  "value": "#8FB8F6",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3669,7 +3669,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.blue.bolder."
   },
-  "value": "#CCE0FF",
+  "value": "#ADCBFB",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3679,7 +3679,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.blue.bolder."
     },
-    "value": "Blue200"
+    "value": "Blue250"
   },
   "name": "color.background.accent.blue.bolder.pressed",
   "path": ["color", "background", "accent", "blue", "bolder", "pressed"],
@@ -3691,7 +3691,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
   },
-  "value": "#2B273F",
+  "value": "#48245D",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3701,7 +3701,7 @@ var tokens = [{
       "introduced": "0.7.0",
       "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "Purple1000"
+    "value": "Purple900"
   },
   "name": "color.background.accent.purple.subtlest.[default]",
   "path": ["color", "background", "accent", "purple", "subtlest", "[default]"],
@@ -3713,7 +3713,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.purple.subtlest."
   },
-  "value": "#352C63",
+  "value": "#673286",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3723,7 +3723,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.purple.subtlest."
     },
-    "value": "Purple900"
+    "value": "Purple850"
   },
   "name": "color.background.accent.purple.subtlest.hovered",
   "path": ["color", "background", "accent", "purple", "subtlest", "hovered"],
@@ -3735,7 +3735,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.purple.subtlest."
   },
-  "value": "#5E4DB2",
+  "value": "#673286",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3745,7 +3745,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.purple.subtlest."
     },
-    "value": "Purple800"
+    "value": "Purple850"
   },
   "name": "color.background.accent.purple.subtlest.pressed",
   "path": ["color", "background", "accent", "purple", "subtlest", "pressed"],
@@ -3757,7 +3757,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for purple backgrounds when there is no meaning tied to the color, such as colored tags."
   },
-  "value": "#352C63",
+  "value": "#48245D",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3779,7 +3779,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.purple.subtler."
   },
-  "value": "#5E4DB2",
+  "value": "#673286",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3789,7 +3789,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.purple.subtler."
     },
-    "value": "Purple800"
+    "value": "Purple850"
   },
   "name": "color.background.accent.purple.subtler.hovered",
   "path": ["color", "background", "accent", "purple", "subtler", "hovered"],
@@ -3801,7 +3801,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.purple.subtler."
   },
-  "value": "#6E5DC6",
+  "value": "#803FA5",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3811,7 +3811,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.purple.subtler."
     },
-    "value": "Purple700"
+    "value": "Purple800"
   },
   "name": "color.background.accent.purple.subtler.pressed",
   "path": ["color", "background", "accent", "purple", "subtler", "pressed"],
@@ -3823,7 +3823,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for vibrant purple backgrounds when there is no meaning tied to the color, such as colored tags."
   },
-  "value": "#5E4DB2",
+  "value": "#803FA5",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3845,7 +3845,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.purple.subtle."
   },
-  "value": "#352C63",
+  "value": "#673286",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3855,7 +3855,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.purple.subtle."
     },
-    "value": "Purple900"
+    "value": "Purple850"
   },
   "name": "color.background.accent.purple.subtle.hovered",
   "path": ["color", "background", "accent", "purple", "subtle", "hovered"],
@@ -3867,7 +3867,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.purple.subtle."
   },
-  "value": "#2B273F",
+  "value": "#48245D",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3877,7 +3877,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.purple.subtle."
     },
-    "value": "Purple1000"
+    "value": "Purple900"
   },
   "name": "color.background.accent.purple.subtle.pressed",
   "path": ["color", "background", "accent", "purple", "subtle", "pressed"],
@@ -3889,7 +3889,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
   },
-  "value": "#9F8FEF",
+  "value": "#C97CF4",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3911,7 +3911,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.purple.bolder."
   },
-  "value": "#B8ACF6",
+  "value": "#D8A0F7",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3933,7 +3933,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.purple.bolder."
   },
-  "value": "#DFD8FD",
+  "value": "#E3BDFA",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3943,7 +3943,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.purple.bolder."
     },
-    "value": "Purple200"
+    "value": "Purple250"
   },
   "name": "color.background.accent.purple.bolder.pressed",
   "path": ["color", "background", "accent", "purple", "bolder", "pressed"],
@@ -3955,7 +3955,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
   },
-  "value": "#3D2232",
+  "value": "#50253F",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3965,7 +3965,7 @@ var tokens = [{
       "introduced": "0.7.0",
       "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "Magenta1000"
+    "value": "Magenta900"
   },
   "name": "color.background.accent.magenta.subtlest.[default]",
   "path": ["color", "background", "accent", "magenta", "subtlest", "[default]"],
@@ -3977,7 +3977,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.magenta.subtlest."
   },
-  "value": "#50253F",
+  "value": "#77325B",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3987,7 +3987,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.magenta.subtlest."
     },
-    "value": "Magenta900"
+    "value": "Magenta850"
   },
   "name": "color.background.accent.magenta.subtlest.hovered",
   "path": ["color", "background", "accent", "magenta", "subtlest", "hovered"],
@@ -3999,7 +3999,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.magenta.subtlest."
   },
-  "value": "#943D73",
+  "value": "#77325B",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4009,7 +4009,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.magenta.subtlest."
     },
-    "value": "Magenta800"
+    "value": "Magenta850"
   },
   "name": "color.background.accent.magenta.subtlest.pressed",
   "path": ["color", "background", "accent", "magenta", "subtlest", "pressed"],
@@ -4043,7 +4043,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.magenta.subtler."
   },
-  "value": "#943D73",
+  "value": "#77325B",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4053,7 +4053,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.magenta.subtler."
     },
-    "value": "Magenta800"
+    "value": "Magenta850"
   },
   "name": "color.background.accent.magenta.subtler.hovered",
   "path": ["color", "background", "accent", "magenta", "subtler", "hovered"],
@@ -4065,7 +4065,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.magenta.subtler."
   },
-  "value": "#AE4787",
+  "value": "#943D73",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4075,7 +4075,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.magenta.subtler."
     },
-    "value": "Magenta700"
+    "value": "Magenta800"
   },
   "name": "color.background.accent.magenta.subtler.pressed",
   "path": ["color", "background", "accent", "magenta", "subtler", "pressed"],
@@ -4109,7 +4109,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.magenta.subtle."
   },
-  "value": "#50253F",
+  "value": "#77325B",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4119,7 +4119,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.magenta.subtle."
     },
-    "value": "Magenta900"
+    "value": "Magenta850"
   },
   "name": "color.background.accent.magenta.subtle.hovered",
   "path": ["color", "background", "accent", "magenta", "subtle", "hovered"],
@@ -4131,7 +4131,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.magenta.subtle."
   },
-  "value": "#3D2232",
+  "value": "#50253F",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4141,7 +4141,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.magenta.subtle."
     },
-    "value": "Magenta1000"
+    "value": "Magenta900"
   },
   "name": "color.background.accent.magenta.subtle.pressed",
   "path": ["color", "background", "accent", "magenta", "subtle", "pressed"],
@@ -4197,7 +4197,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.magenta.bolder."
   },
-  "value": "#FDD0EC",
+  "value": "#FCB6E1",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4207,7 +4207,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Pressed state of color.background.accent.magenta.bolder."
     },
-    "value": "Magenta200"
+    "value": "Magenta250"
   },
   "name": "color.background.accent.magenta.bolder.pressed",
   "path": ["color", "background", "accent", "magenta", "bolder", "pressed"],
@@ -4219,7 +4219,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for gray backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
   },
-  "value": "#2C333A",
+  "value": "#303134",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4241,7 +4241,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.gray.subtlest."
   },
-  "value": "#38414A",
+  "value": "#3D3F43",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4263,7 +4263,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.gray.subtlest."
   },
-  "value": "#454F59",
+  "value": "#4B4D51",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4285,7 +4285,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for gray backgrounds when there is no meaning tied to the color, such as colored tags."
   },
-  "value": "#454F59",
+  "value": "#4B4D51",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4307,7 +4307,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.gray.subtler."
   },
-  "value": "#596773",
+  "value": "#63666B",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4329,7 +4329,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.gray.subtler."
   },
-  "value": "#738496",
+  "value": "#7E8188",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4351,7 +4351,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags."
   },
-  "value": "#596773",
+  "value": "#63666B",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4373,7 +4373,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.gray.subtle."
   },
-  "value": "#454F59",
+  "value": "#4B4D51",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4395,7 +4395,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.gray.subtle."
   },
-  "value": "#38414A",
+  "value": "#3D3F43",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4417,7 +4417,7 @@ var tokens = [{
     "introduced": "0.7.0",
     "description": "Use for gray backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
   },
-  "value": "#8C9BAB",
+  "value": "#96999E",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4439,7 +4439,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.gray.bolder."
   },
-  "value": "#9FADBC",
+  "value": "#A9ABAF",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4461,7 +4461,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Pressed state of color.background.accent.gray.subtlest."
   },
-  "value": "#B6C2CF",
+  "value": "#BFC1C4",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4483,7 +4483,7 @@ var tokens = [{
     "introduced": "0.0.15",
     "description": "Use for backgrounds of elements in a disabled state."
   },
-  "value": "#BCD6F00A",
+  "value": "#BDBDBD0A",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4505,7 +4505,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for background of form UI elements, such as text fields, checkboxes, and radio buttons."
   },
-  "value": "#22272B",
+  "value": "#242528",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4527,7 +4527,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Hovered state for color.background.input"
   },
-  "value": "#282E33",
+  "value": "#2B2C2F",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4549,7 +4549,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Pressed state for color.background.input"
   },
-  "value": "#22272B",
+  "value": "#242528",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4637,7 +4637,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "The default background for neutral elements, such as default buttons."
   },
-  "value": "#A1BDD914",
+  "value": "#CECED912",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4659,7 +4659,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Hovered state for color.background.neutral"
   },
-  "value": "#A6C5E229",
+  "value": "#E3E4F21F",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4681,7 +4681,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Pressed state for color.background.neutral"
   },
-  "value": "#BFDBF847",
+  "value": "#E5E9F640",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4725,7 +4725,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Hovered state for color.background.neutral.subtle"
   },
-  "value": "#A1BDD914",
+  "value": "#CECED912",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4747,7 +4747,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Pressed state for color.background.neutral.subtle"
   },
-  "value": "#A6C5E229",
+  "value": "#E3E4F21F",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4769,7 +4769,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "A vibrant background option for neutral UI elements, such as announcement banners."
   },
-  "value": "#9FADBC",
+  "value": "#CECFD2",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4779,7 +4779,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "A vibrant background option for neutral UI elements, such as announcement banners."
     },
-    "value": "DarkNeutral800"
+    "value": "DarkNeutral1000"
   },
   "name": "color.background.neutral.bold.[default]",
   "path": ["color", "background", "neutral", "bold", "[default]"],
@@ -4791,7 +4791,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Hovered state of color.background.neutral.bold"
   },
-  "value": "#B6C2CF",
+  "value": "#BFC1C4",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4813,7 +4813,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Pressed state of color.background.neutral.bold"
   },
-  "value": "#C7D1DB",
+  "value": "#A9ABAF",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4823,7 +4823,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Pressed state of color.background.neutral.bold"
     },
-    "value": "DarkNeutral1000"
+    "value": "DarkNeutral800"
   },
   "name": "color.background.neutral.bold.pressed",
   "path": ["color", "background", "neutral", "bold", "pressed"],
@@ -4835,7 +4835,7 @@ var tokens = [{
     "introduced": "0.6.2",
     "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
   },
-  "value": "#1C2B41",
+  "value": "#1C2B42",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4857,7 +4857,7 @@ var tokens = [{
     "introduced": "0.6.2",
     "description": "Hovered state for color.background.selected"
   },
-  "value": "#09326C",
+  "value": "#123263",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4879,7 +4879,7 @@ var tokens = [{
     "introduced": "0.6.2",
     "description": "Pressed state for color.background.selected"
   },
-  "value": "#0055CC",
+  "value": "#1558BC",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4901,7 +4901,7 @@ var tokens = [{
     "introduced": "0.6.2",
     "description": "Use for the backgrounds of elements in a selected state, such as checkboxes and radio buttons."
   },
-  "value": "#579DFF",
+  "value": "#669DF1",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4923,7 +4923,7 @@ var tokens = [{
     "introduced": "0.6.2",
     "description": "Hovered state of color.background.selected.bold"
   },
-  "value": "#85B8FF",
+  "value": "#8FB8F6",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4945,7 +4945,7 @@ var tokens = [{
     "introduced": "0.6.2",
     "description": "Pressed state of color.background.selected.bold"
   },
-  "value": "#CCE0FF",
+  "value": "#CFE1FD",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4967,7 +4967,7 @@ var tokens = [{
     "introduced": "1.13.0",
     "description": "Use for the background of elements used to reinforce our brand, but with less emphasis."
   },
-  "value": "#1C2B41",
+  "value": "#1C2B42",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -4989,7 +4989,7 @@ var tokens = [{
     "introduced": "1.13.0",
     "description": "Hovered state of color.background.brand.subtlest."
   },
-  "value": "#09326C",
+  "value": "#123263",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5011,7 +5011,7 @@ var tokens = [{
     "introduced": "1.13.0",
     "description": "Pressed state of color.background.brand.subtlest"
   },
-  "value": "#0055CC",
+  "value": "#144794",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5021,7 +5021,7 @@ var tokens = [{
       "introduced": "1.13.0",
       "description": "Pressed state of color.background.brand.subtlest"
     },
-    "value": "Blue800"
+    "value": "Blue850"
   },
   "name": "color.background.brand.subtlest.pressed",
   "path": ["color", "background", "brand", "subtlest", "pressed"],
@@ -5033,7 +5033,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for the background of elements used to reinforce our brand, but with more emphasis."
   },
-  "value": "#579DFF",
+  "value": "#669DF1",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5055,7 +5055,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Hovered state of color.background.brand.bold."
   },
-  "value": "#85B8FF",
+  "value": "#8FB8F6",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5077,7 +5077,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Pressed state of color.background.brand.bold."
   },
-  "value": "#CCE0FF",
+  "value": "#ADCBFB",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5087,7 +5087,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Pressed state of color.background.brand.bold."
     },
-    "value": "Blue200"
+    "value": "Blue250"
   },
   "name": "color.background.brand.bold.pressed",
   "path": ["color", "background", "brand", "bold", "pressed"],
@@ -5099,7 +5099,7 @@ var tokens = [{
     "introduced": "1.13.0",
     "description": "Use for the background of elements used to reinforce our brand, that need to stand out a lot."
   },
-  "value": "#E9F2FF",
+  "value": "#E9F2FE",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5121,7 +5121,7 @@ var tokens = [{
     "introduced": "1.13.0",
     "description": "Hovered state of color.background.brand.boldest."
   },
-  "value": "#CCE0FF",
+  "value": "#CFE1FD",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5143,7 +5143,7 @@ var tokens = [{
     "introduced": "1.13.0",
     "description": "Pressed state of color.background.brand.boldest."
   },
-  "value": "#85B8FF",
+  "value": "#ADCBFB",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5153,7 +5153,7 @@ var tokens = [{
       "introduced": "1.13.0",
       "description": "Pressed state of color.background.brand.boldest."
     },
-    "value": "Blue300"
+    "value": "Blue250"
   },
   "name": "color.background.brand.boldest.pressed",
   "path": ["color", "background", "brand", "boldest", "pressed"],
@@ -5209,7 +5209,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Pressed state for color.background.danger"
   },
-  "value": "#AE2E24",
+  "value": "#872821",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5219,7 +5219,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Pressed state for color.background.danger"
     },
-    "value": "Red800"
+    "value": "Red850"
   },
   "name": "color.background.danger.[default].pressed",
   "path": ["color", "background", "danger", "[default]", "pressed"],
@@ -5275,7 +5275,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Pressed state of color.background.danger.bold"
   },
-  "value": "#FFD5D2",
+  "value": "#FFB8B2",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5285,7 +5285,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Pressed state of color.background.danger.bold"
     },
-    "value": "Red200"
+    "value": "Red250"
   },
   "name": "color.background.danger.bold.pressed",
   "path": ["color", "background", "danger", "bold", "pressed"],
@@ -5297,7 +5297,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for backgrounds communicating caution, such as in warning section messages."
   },
-  "value": "#332E1B",
+  "value": "#3A2C1F",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5307,7 +5307,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Use for backgrounds communicating caution, such as in warning section messages."
     },
-    "value": "Yellow1000"
+    "value": "Orange1000"
   },
   "name": "color.background.warning.[default].[default]",
   "path": ["color", "background", "warning", "[default]", "[default]"],
@@ -5319,7 +5319,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Hovered state for color.background.warning"
   },
-  "value": "#533F04",
+  "value": "#693200",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5329,7 +5329,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Hovered state for color.background.warning"
     },
-    "value": "Yellow900"
+    "value": "Orange900"
   },
   "name": "color.background.warning.[default].hovered",
   "path": ["color", "background", "warning", "[default]", "hovered"],
@@ -5341,7 +5341,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Pressed state for color.background.warning"
   },
-  "value": "#7F5F01",
+  "value": "#7A3B00",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5351,7 +5351,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Pressed state for color.background.warning"
     },
-    "value": "Yellow800"
+    "value": "Orange850"
   },
   "name": "color.background.warning.[default].pressed",
   "path": ["color", "background", "warning", "[default]", "pressed"],
@@ -5363,7 +5363,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "A vibrant background option for communicating caution, such as in warning buttons and warning banners."
   },
-  "value": "#F5CD47",
+  "value": "#FBC828",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5373,7 +5373,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "A vibrant background option for communicating caution, such as in warning buttons and warning banners."
     },
-    "value": "Yellow300"
+    "value": "Orange300"
   },
   "name": "color.background.warning.bold.[default]",
   "path": ["color", "background", "warning", "bold", "[default]"],
@@ -5385,7 +5385,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Hovered state of color.background.warning.bold"
   },
-  "value": "#E2B203",
+  "value": "#FCA700",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5395,7 +5395,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Hovered state of color.background.warning.bold"
     },
-    "value": "Yellow400"
+    "value": "Orange400"
   },
   "name": "color.background.warning.bold.hovered",
   "path": ["color", "background", "warning", "bold", "hovered"],
@@ -5407,7 +5407,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Pressed state of color.background.warning.bold"
   },
-  "value": "#CF9F02",
+  "value": "#F68909",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5417,7 +5417,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Pressed state of color.background.warning.bold"
     },
-    "value": "Yellow500"
+    "value": "Orange500"
   },
   "name": "color.background.warning.bold.pressed",
   "path": ["color", "background", "warning", "bold", "pressed"],
@@ -5429,7 +5429,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for backgrounds communicating a favorable outcome, such as in success section messages."
   },
-  "value": "#1C3329",
+  "value": "#28311B",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5439,7 +5439,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Use for backgrounds communicating a favorable outcome, such as in success section messages."
     },
-    "value": "Green1000"
+    "value": "Lime1000"
   },
   "name": "color.background.success.[default].[default]",
   "path": ["color", "background", "success", "[default]", "[default]"],
@@ -5451,7 +5451,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Hovered state for color.background.success"
   },
-  "value": "#164B35",
+  "value": "#37471F",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5461,7 +5461,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Hovered state for color.background.success"
     },
-    "value": "Green900"
+    "value": "Lime900"
   },
   "name": "color.background.success.[default].hovered",
   "path": ["color", "background", "success", "[default]", "hovered"],
@@ -5473,7 +5473,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Pressed state for color.background.success"
   },
-  "value": "#216E4E",
+  "value": "#3F5224",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5483,7 +5483,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Pressed state for color.background.success"
     },
-    "value": "Green800"
+    "value": "Lime850"
   },
   "name": "color.background.success.[default].pressed",
   "path": ["color", "background", "success", "[default]", "pressed"],
@@ -5495,7 +5495,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "A vibrant background option for communicating a favorable outcome, such as in checked toggles."
   },
-  "value": "#4BCE97",
+  "value": "#94C748",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5505,7 +5505,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "A vibrant background option for communicating a favorable outcome, such as in checked toggles."
     },
-    "value": "Green400"
+    "value": "Lime400"
   },
   "name": "color.background.success.bold.[default]",
   "path": ["color", "background", "success", "bold", "[default]"],
@@ -5517,7 +5517,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Hovered state of color.background.success.bold"
   },
-  "value": "#7EE2B8",
+  "value": "#B3DF72",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5527,7 +5527,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Hovered state of color.background.success.bold"
     },
-    "value": "Green300"
+    "value": "Lime300"
   },
   "name": "color.background.success.bold.hovered",
   "path": ["color", "background", "success", "bold", "hovered"],
@@ -5539,7 +5539,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Pressed state of color.background.success.bold"
   },
-  "value": "#BAF3DB",
+  "value": "#BDE97C",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5549,7 +5549,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Pressed state of color.background.success.bold"
     },
-    "value": "Green200"
+    "value": "Lime250"
   },
   "name": "color.background.success.bold.pressed",
   "path": ["color", "background", "success", "bold", "pressed"],
@@ -5561,7 +5561,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for backgrounds communicating change or something new, such as in discovery section messages."
   },
-  "value": "#2B273F",
+  "value": "#35243F",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5583,7 +5583,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Hover state for color.background.discovery"
   },
-  "value": "#352C63",
+  "value": "#48245D",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5605,7 +5605,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Pressed state for color.background.discovery"
   },
-  "value": "#5E4DB2",
+  "value": "#673286",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5615,7 +5615,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Pressed state for color.background.discovery"
     },
-    "value": "Purple800"
+    "value": "Purple850"
   },
   "name": "color.background.discovery.[default].pressed",
   "path": ["color", "background", "discovery", "[default]", "pressed"],
@@ -5627,7 +5627,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "A vibrant background option communicating change or something new, such as in onboarding spotlights."
   },
-  "value": "#9F8FEF",
+  "value": "#C97CF4",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5649,7 +5649,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Hovered state of color.background.discovery.bold"
   },
-  "value": "#B8ACF6",
+  "value": "#D8A0F7",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5671,7 +5671,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Pressed state of color.background.discovery.bold"
   },
-  "value": "#DFD8FD",
+  "value": "#E3BDFA",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5681,7 +5681,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Pressed state of color.background.discovery.bold"
     },
-    "value": "Purple200"
+    "value": "Purple250"
   },
   "name": "color.background.discovery.bold.pressed",
   "path": ["color", "background", "discovery", "bold", "pressed"],
@@ -5693,7 +5693,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for backgrounds communicating information or something in-progress, such as in information section messages."
   },
-  "value": "#1C2B41",
+  "value": "#1C2B42",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5715,7 +5715,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Hovered state of color.background.information"
   },
-  "value": "#09326C",
+  "value": "#123263",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5737,7 +5737,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Pressed state of color.background.information"
   },
-  "value": "#0055CC",
+  "value": "#144794",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5747,7 +5747,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Pressed state of color.background.information"
     },
-    "value": "Blue800"
+    "value": "Blue850"
   },
   "name": "color.background.information.[default].pressed",
   "path": ["color", "background", "information", "[default]", "pressed"],
@@ -5759,7 +5759,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "A vibrant background option for communicating information or something in-progress."
   },
-  "value": "#579DFF",
+  "value": "#669DF1",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5781,7 +5781,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Hovered state of color.background.information.bold"
   },
-  "value": "#85B8FF",
+  "value": "#8FB8F6",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5803,7 +5803,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Pressed state of color.background.information.bold"
   },
-  "value": "#CCE0FF",
+  "value": "#ADCBFB",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": true,
   "original": {
@@ -5813,7 +5813,7 @@ var tokens = [{
       "introduced": "0.6.0",
       "description": "Pressed state of color.background.information.bold"
     },
-    "value": "Blue200"
+    "value": "Blue250"
   },
   "name": "color.background.information.bold.pressed",
   "path": ["color", "background", "information", "bold", "pressed"],
@@ -5935,7 +5935,7 @@ var tokens = [{
     "introduced": "0.8.0",
     "description": "Use for skeleton loading states"
   },
-  "value": "#A1BDD914",
+  "value": "#CECED912",
   "filePath": "schema/themes/atlassian-dark/color/skeleton.tsx",
   "isSource": true,
   "original": {
@@ -5957,7 +5957,7 @@ var tokens = [{
     "introduced": "0.8.0",
     "description": "Use for the pulse or shimmer effect in skeleton loading states"
   },
-  "value": "#BCD6F00A",
+  "value": "#BDBDBD0A",
   "filePath": "schema/themes/atlassian-dark/color/skeleton.tsx",
   "isSource": true,
   "original": {
@@ -5979,7 +5979,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only. Follow numbered sequence."
   },
-  "value": "#2898BD",
+  "value": "#4688EC",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -5989,7 +5989,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
-    "value": "Teal600"
+    "value": "Blue500"
   },
   "name": "color.chart.categorical.1.[default]",
   "path": ["color", "chart", "categorical", "1", "[default]"],
@@ -6001,7 +6001,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.categorical.1."
   },
-  "value": "#42B2D7",
+  "value": "#669DF1",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6011,7 +6011,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.1."
     },
-    "value": "Teal500"
+    "value": "Blue400"
   },
   "name": "color.chart.categorical.1.hovered",
   "path": ["color", "chart", "categorical", "1", "hovered"],
@@ -6023,7 +6023,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only. Follow numbered sequence."
   },
-  "value": "#B8ACF6",
+  "value": "#94C748",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6033,7 +6033,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
-    "value": "Purple300"
+    "value": "Lime400"
   },
   "name": "color.chart.categorical.2.[default]",
   "path": ["color", "chart", "categorical", "2", "[default]"],
@@ -6045,7 +6045,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.categorical.2."
   },
-  "value": "#DFD8FD",
+  "value": "#B3DF72",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6055,7 +6055,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.2."
     },
-    "value": "Purple200"
+    "value": "Lime300"
   },
   "name": "color.chart.categorical.2.hovered",
   "path": ["color", "chart", "categorical", "2", "hovered"],
@@ -6067,7 +6067,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only. Follow numbered sequence."
   },
-  "value": "#E56910",
+  "value": "#C97CF4",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6077,7 +6077,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
-    "value": "Orange600"
+    "value": "Purple400"
   },
   "name": "color.chart.categorical.3.[default]",
   "path": ["color", "chart", "categorical", "3", "[default]"],
@@ -6089,7 +6089,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.categorical.3."
   },
-  "value": "#F38A3F",
+  "value": "#D8A0F7",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6099,7 +6099,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.3."
     },
-    "value": "Orange500"
+    "value": "Purple300"
   },
   "name": "color.chart.categorical.3.hovered",
   "path": ["color", "chart", "categorical", "3", "hovered"],
@@ -6111,7 +6111,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only. Follow numbered sequence."
   },
-  "value": "#F797D2",
+  "value": "#FCA700",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6121,7 +6121,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
-    "value": "Magenta300"
+    "value": "Orange400"
   },
   "name": "color.chart.categorical.4.[default]",
   "path": ["color", "chart", "categorical", "4", "[default]"],
@@ -6133,7 +6133,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.categorical.4."
   },
-  "value": "#FDD0EC",
+  "value": "#FBC828",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6143,7 +6143,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.4."
     },
-    "value": "Magenta200"
+    "value": "Orange300"
   },
   "name": "color.chart.categorical.4.hovered",
   "path": ["color", "chart", "categorical", "4", "hovered"],
@@ -6155,7 +6155,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only. Follow numbered sequence."
   },
-  "value": "#CCE0FF",
+  "value": "#1558BC",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6165,7 +6165,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
-    "value": "Blue200"
+    "value": "Blue800"
   },
   "name": "color.chart.categorical.5.[default]",
   "path": ["color", "chart", "categorical", "5", "[default]"],
@@ -6177,7 +6177,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.categorical.5."
   },
-  "value": "#E9F2FF",
+  "value": "#1868DB",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6187,7 +6187,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.5."
     },
-    "value": "Blue100"
+    "value": "Blue700"
   },
   "name": "color.chart.categorical.5.hovered",
   "path": ["color", "chart", "categorical", "5", "hovered"],
@@ -6199,7 +6199,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only. Follow numbered sequence."
   },
-  "value": "#8270DB",
+  "value": "#964AC0",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6209,7 +6209,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
-    "value": "Purple600"
+    "value": "Purple700"
   },
   "name": "color.chart.categorical.6.[default]",
   "path": ["color", "chart", "categorical", "6", "[default]"],
@@ -6221,7 +6221,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.categorical.6."
   },
-  "value": "#8F7EE7",
+  "value": "#AF59E1",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6231,7 +6231,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.6."
     },
-    "value": "Purple500"
+    "value": "Purple600"
   },
   "name": "color.chart.categorical.6.hovered",
   "path": ["color", "chart", "categorical", "6", "hovered"],
@@ -6243,7 +6243,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only. Follow numbered sequence."
   },
-  "value": "#FDD0EC",
+  "value": "#42B2D7",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6253,7 +6253,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
-    "value": "Magenta200"
+    "value": "Teal500"
   },
   "name": "color.chart.categorical.7.[default]",
   "path": ["color", "chart", "categorical", "7", "[default]"],
@@ -6265,7 +6265,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.categorical.7."
   },
-  "value": "#FFECF8",
+  "value": "#6CC3E0",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6275,7 +6275,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.7."
     },
-    "value": "Magenta100"
+    "value": "Teal400"
   },
   "name": "color.chart.categorical.7.hovered",
   "path": ["color", "chart", "categorical", "7", "hovered"],
@@ -6287,7 +6287,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only. Follow numbered sequence."
   },
-  "value": "#FEC195",
+  "value": "#E06C00",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6297,7 +6297,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
-    "value": "Orange300"
+    "value": "Orange600"
   },
   "name": "color.chart.categorical.8.[default]",
   "path": ["color", "chart", "categorical", "8", "[default]"],
@@ -6309,7 +6309,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.categorical.8."
   },
-  "value": "#FEDEC8",
+  "value": "#FBD779",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6319,7 +6319,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.8."
     },
-    "value": "Orange200"
+    "value": "Orange250"
   },
   "name": "color.chart.categorical.8.hovered",
   "path": ["color", "chart", "categorical", "8", "hovered"],
@@ -6463,7 +6463,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "A secondary color for data visualisation or to communicate 'to-do' statues."
   },
-  "value": "#738496",
+  "value": "#7E8188",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6485,7 +6485,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.neutral."
   },
-  "value": "#8C9BAB",
+  "value": "#96999E",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6639,7 +6639,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only."
   },
-  "value": "#F38A3F",
+  "value": "#F68909",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6661,7 +6661,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.orange.bold."
   },
-  "value": "#FEA362",
+  "value": "#FCA700",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6683,7 +6683,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only."
   },
-  "value": "#FEA362",
+  "value": "#FCA700",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6705,7 +6705,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.orange.bolder."
   },
-  "value": "#FEC195",
+  "value": "#FBC828",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6727,7 +6727,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only."
   },
-  "value": "#FEC195",
+  "value": "#FBD779",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6737,7 +6737,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
-    "value": "Orange300"
+    "value": "Orange250"
   },
   "name": "color.chart.orange.boldest.[default]",
   "path": ["color", "chart", "orange", "boldest", "[default]"],
@@ -6749,7 +6749,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.orange.boldest."
   },
-  "value": "#FEDEC8",
+  "value": "#FCE4A6",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6793,7 +6793,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.yellow.bold."
   },
-  "value": "#E2B203",
+  "value": "#DDB30E",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6815,7 +6815,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only."
   },
-  "value": "#E2B203",
+  "value": "#DDB30E",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6837,7 +6837,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.yellow.bolder."
   },
-  "value": "#F5CD47",
+  "value": "#EED12B",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6859,7 +6859,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only."
   },
-  "value": "#F5CD47",
+  "value": "#EED12B",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -6881,7 +6881,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.yellow.boldest."
   },
-  "value": "#F8E6A0",
+  "value": "#F5E989",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7167,7 +7167,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only."
   },
-  "value": "#1D7AFC",
+  "value": "#357DE8",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7189,7 +7189,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.blue.bold."
   },
-  "value": "#388BFF",
+  "value": "#4688EC",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7211,7 +7211,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only."
   },
-  "value": "#388BFF",
+  "value": "#4688EC",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7233,7 +7233,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.blue.bolder."
   },
-  "value": "#579DFF",
+  "value": "#669DF1",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7255,7 +7255,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only."
   },
-  "value": "#85B8FF",
+  "value": "#8FB8F6",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7277,7 +7277,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.blue.boldest."
   },
-  "value": "#CCE0FF",
+  "value": "#CFE1FD",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7299,7 +7299,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only."
   },
-  "value": "#8270DB",
+  "value": "#AF59E1",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7321,7 +7321,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.purple.bold."
   },
-  "value": "#8F7EE7",
+  "value": "#BF63F3",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7343,7 +7343,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only."
   },
-  "value": "#8F7EE7",
+  "value": "#BF63F3",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7365,7 +7365,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.purple.bolder."
   },
-  "value": "#9F8FEF",
+  "value": "#C97CF4",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7387,7 +7387,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only."
   },
-  "value": "#B8ACF6",
+  "value": "#D8A0F7",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7409,7 +7409,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.purple.boldest."
   },
-  "value": "#DFD8FD",
+  "value": "#EED7FC",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7563,7 +7563,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only."
   },
-  "value": "#738496",
+  "value": "#7E8188",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7585,7 +7585,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.gray.bold."
   },
-  "value": "#8C9BAB",
+  "value": "#96999E",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7607,7 +7607,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only."
   },
-  "value": "#8C9BAB",
+  "value": "#96999E",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7629,7 +7629,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.gray.bolder."
   },
-  "value": "#9FADBC",
+  "value": "#A9ABAF",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7651,7 +7651,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation only."
   },
-  "value": "#9FADBC",
+  "value": "#A9ABAF",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7673,7 +7673,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.gray.boldest."
   },
-  "value": "#B6C2CF",
+  "value": "#BFC1C4",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7695,7 +7695,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Our primary color for data visualisation. Use when only one color is required."
   },
-  "value": "#388BFF",
+  "value": "#4688EC",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7717,7 +7717,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.brand."
   },
-  "value": "#579DFF",
+  "value": "#669DF1",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7783,7 +7783,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "A stronger emphasis option of color.chart.danger."
   },
-  "value": "#FD9891",
+  "value": "#FFB8B2",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7793,7 +7793,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "A stronger emphasis option of color.chart.danger."
     },
-    "value": "Red300"
+    "value": "Red250"
   },
   "name": "color.chart.danger.bold.[default]",
   "path": ["color", "chart", "danger", "bold", "[default]"],
@@ -7805,7 +7805,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.danger.bold."
   },
-  "value": "#FFD5D2",
+  "value": "#FD9891",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7815,7 +7815,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.danger.bold."
     },
-    "value": "Red200"
+    "value": "Red300"
   },
   "name": "color.chart.danger.bold.hovered",
   "path": ["color", "chart", "danger", "bold", "hovered"],
@@ -7827,7 +7827,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation communicating caution, such as 'at risk' statuses."
   },
-  "value": "#CF9F02",
+  "value": "#F68909",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7837,7 +7837,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "For data visualisation communicating caution, such as 'at risk' statuses."
     },
-    "value": "Yellow500"
+    "value": "Orange500"
   },
   "name": "color.chart.warning.[default].[default]",
   "path": ["color", "chart", "warning", "[default]", "[default]"],
@@ -7849,7 +7849,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.warning."
   },
-  "value": "#E2B203",
+  "value": "#FCA700",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7859,7 +7859,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.warning."
     },
-    "value": "Yellow400"
+    "value": "Orange400"
   },
   "name": "color.chart.warning.[default].hovered",
   "path": ["color", "chart", "warning", "[default]", "hovered"],
@@ -7871,7 +7871,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "A stronger emphasis option of color.chart.warning."
   },
-  "value": "#F5CD47",
+  "value": "#FBC828",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7881,7 +7881,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "A stronger emphasis option of color.chart.warning."
     },
-    "value": "Yellow300"
+    "value": "Orange300"
   },
   "name": "color.chart.warning.bold.[default]",
   "path": ["color", "chart", "warning", "bold", "[default]"],
@@ -7893,7 +7893,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.warning.bold."
   },
-  "value": "#F8E6A0",
+  "value": "#FCE4A6",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7903,7 +7903,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.warning.bold."
     },
-    "value": "Yellow200"
+    "value": "Orange200"
   },
   "name": "color.chart.warning.bold.hovered",
   "path": ["color", "chart", "warning", "bold", "hovered"],
@@ -7915,7 +7915,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation communicating positive information, such as 'on track'."
   },
-  "value": "#2ABB7F",
+  "value": "#82B536",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7925,7 +7925,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "For data visualisation communicating positive information, such as 'on track'."
     },
-    "value": "Green500"
+    "value": "Lime500"
   },
   "name": "color.chart.success.[default].[default]",
   "path": ["color", "chart", "success", "[default]", "[default]"],
@@ -7937,7 +7937,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.success."
   },
-  "value": "#4BCE97",
+  "value": "#94C748",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7947,7 +7947,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.success."
     },
-    "value": "Green400"
+    "value": "Lime400"
   },
   "name": "color.chart.success.[default].hovered",
   "path": ["color", "chart", "success", "[default]", "hovered"],
@@ -7959,7 +7959,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "A stronger emphasis option of color.chart.success."
   },
-  "value": "#7EE2B8",
+  "value": "#B3DF72",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7969,7 +7969,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "A stronger emphasis option of color.chart.success."
     },
-    "value": "Green300"
+    "value": "Lime300"
   },
   "name": "color.chart.success.bold.[default]",
   "path": ["color", "chart", "success", "bold", "[default]"],
@@ -7981,7 +7981,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.success.bold."
   },
-  "value": "#BAF3DB",
+  "value": "#D3F1A7",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -7991,7 +7991,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.success.bold."
     },
-    "value": "Green200"
+    "value": "Lime200"
   },
   "name": "color.chart.success.bold.hovered",
   "path": ["color", "chart", "success", "bold", "hovered"],
@@ -8003,7 +8003,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation communicating 'new' statuses."
   },
-  "value": "#8270DB",
+  "value": "#BF63F3",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -8013,7 +8013,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "For data visualisation communicating 'new' statuses."
     },
-    "value": "Purple600"
+    "value": "Purple500"
   },
   "name": "color.chart.discovery.[default].[default]",
   "path": ["color", "chart", "discovery", "[default]", "[default]"],
@@ -8025,7 +8025,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.discovery."
   },
-  "value": "#8F7EE7",
+  "value": "#C97CF4",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -8035,7 +8035,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.discovery."
     },
-    "value": "Purple500"
+    "value": "Purple400"
   },
   "name": "color.chart.discovery.[default].hovered",
   "path": ["color", "chart", "discovery", "[default]", "hovered"],
@@ -8047,7 +8047,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "A stronger emphasis option of color.chart.discovery."
   },
-  "value": "#B8ACF6",
+  "value": "#D8A0F7",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -8069,7 +8069,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.discovery.bold."
   },
-  "value": "#DFD8FD",
+  "value": "#EED7FC",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -8091,7 +8091,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "For data visualisation communicating low priority or in-progress statuses."
   },
-  "value": "#1D7AFC",
+  "value": "#4688EC",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -8101,7 +8101,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "For data visualisation communicating low priority or in-progress statuses."
     },
-    "value": "Blue600"
+    "value": "Blue500"
   },
   "name": "color.chart.information.[default].[default]",
   "path": ["color", "chart", "information", "[default]", "[default]"],
@@ -8113,7 +8113,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.information."
   },
-  "value": "#388BFF",
+  "value": "#669DF1",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -8123,7 +8123,7 @@ var tokens = [{
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.information."
     },
-    "value": "Blue500"
+    "value": "Blue400"
   },
   "name": "color.chart.information.[default].hovered",
   "path": ["color", "chart", "information", "[default]", "hovered"],
@@ -8135,7 +8135,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "A stronger emphasis option of color.chart.information."
   },
-  "value": "#85B8FF",
+  "value": "#8FB8F6",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -8157,7 +8157,7 @@ var tokens = [{
     "introduced": "0.13.3",
     "description": "Hovered state of color.chart.information.bold."
   },
-  "value": "#CCE0FF",
+  "value": "#CFE1FD",
   "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
   "isSource": true,
   "original": {
@@ -8179,7 +8179,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use as the primary background for the UI."
   },
-  "value": "#1D2125",
+  "value": "#1F1F21",
   "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
   "isSource": true,
   "original": {
@@ -8201,7 +8201,7 @@ var tokens = [{
     "introduced": "0.10.20",
     "description": "Hovered state of elevation.surface"
   },
-  "value": "#22272B",
+  "value": "#242528",
   "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
   "isSource": true,
   "original": {
@@ -8223,7 +8223,7 @@ var tokens = [{
     "introduced": "0.10.20",
     "description": "Pressed state of elevation.surface"
   },
-  "value": "#282E33",
+  "value": "#2B2C2F",
   "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
   "isSource": true,
   "original": {
@@ -8245,7 +8245,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for the background of elements that sit on top of they UI, such as modals, dialogs, dropdown menus, floating toolbars, and floating single-action buttons. Also use for the background of raised cards in a dragged state. Combine with elevation.shadow.overlay."
   },
-  "value": "#282E33",
+  "value": "#2B2C2F",
   "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
   "isSource": true,
   "original": {
@@ -8267,7 +8267,7 @@ var tokens = [{
     "introduced": "0.10.20",
     "description": "Hovered state of elevation.surface.overlay"
   },
-  "value": "#2C333A",
+  "value": "#303134",
   "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
   "isSource": true,
   "original": {
@@ -8289,7 +8289,7 @@ var tokens = [{
     "introduced": "0.10.20",
     "description": "Pressed state of elevation.surface.overlay"
   },
-  "value": "#38414A",
+  "value": "#3D3F43",
   "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
   "isSource": true,
   "original": {
@@ -8311,7 +8311,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "Use for the background of cards that can be moved, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised."
   },
-  "value": "#22272B",
+  "value": "#242528",
   "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
   "isSource": true,
   "original": {
@@ -8333,7 +8333,7 @@ var tokens = [{
     "introduced": "0.10.20",
     "description": "Hovered state of elevation.surface.raised"
   },
-  "value": "#282E33",
+  "value": "#2B2C2F",
   "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
   "isSource": true,
   "original": {
@@ -8355,7 +8355,7 @@ var tokens = [{
     "introduced": "0.10.20",
     "description": "Pressed state of elevation.surface.raised"
   },
-  "value": "#2C333A",
+  "value": "#303134",
   "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
   "isSource": true,
   "original": {
@@ -8377,7 +8377,7 @@ var tokens = [{
     "introduced": "0.6.0",
     "description": "A secondary background for the UI commonly used for grouping items, such as Jira cards in columns."
   },
-  "value": "#161A1D",
+  "value": "#18191A",
   "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
   "isSource": true,
   "original": {
@@ -8405,7 +8405,7 @@ var tokens = [{
       "x": 0,
       "y": 0
     },
-    "color": "#030404",
+    "color": "#01040475",
     "opacity": 0.56
   }, {
     "radius": 1,
@@ -8413,7 +8413,7 @@ var tokens = [{
       "x": 0,
       "y": 0
     },
-    "color": "#030404",
+    "color": "#01040475",
     "opacity": 0.5
   }],
   "filePath": "schema/themes/atlassian-dark/elevation/shadow.tsx",
@@ -8431,7 +8431,7 @@ var tokens = [{
         "x": 0,
         "y": 0
       },
-      "color": "#030404",
+      "color": "DarkNeutral-100A",
       "opacity": 0.56
     }, {
       "radius": 1,
@@ -8439,7 +8439,7 @@ var tokens = [{
         "x": 0,
         "y": 0
       },
-      "color": "#030404",
+      "color": "DarkNeutral-100A",
       "opacity": 0.5
     }]
   },
@@ -8453,7 +8453,7 @@ var tokens = [{
     "introduced": "0.10.32",
     "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow."
   },
-  "value": "#03040480",
+  "value": "#01040480",
   "filePath": "schema/themes/atlassian-dark/elevation/shadow.tsx",
   "isSource": true,
   "original": {
@@ -8463,7 +8463,7 @@ var tokens = [{
       "introduced": "0.10.32",
       "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow."
     },
-    "value": "#03040480"
+    "value": "#01040480"
   },
   "name": "elevation.shadow.overflow.perimeter",
   "path": ["elevation", "shadow", "overflow", "perimeter"],
@@ -8475,7 +8475,7 @@ var tokens = [{
     "introduced": "0.10.32",
     "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow."
   },
-  "value": "#0304048f",
+  "value": "#0104048f",
   "filePath": "schema/themes/atlassian-dark/elevation/shadow.tsx",
   "isSource": true,
   "original": {
@@ -8485,7 +8485,7 @@ var tokens = [{
       "introduced": "0.10.32",
       "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow."
     },
-    "value": "#0304048f"
+    "value": "#0104048f"
   },
   "name": "elevation.shadow.overflow.spread",
   "path": ["elevation", "shadow", "overflow", "spread"],
@@ -8500,19 +8500,19 @@ var tokens = [{
   "value": [{
     "radius": 0,
     "spread": 1,
-    "color": "#39424a",
+    "color": "#BDBDBD",
     "offset": {
       "x": 0,
       "y": 0
     },
-    "opacity": 1
+    "opacity": 0.12
   }, {
     "radius": 12,
     "offset": {
       "x": 0,
       "y": 8
     },
-    "color": "#03040442",
+    "color": "#01040475",
     "opacity": 0.36
   }, {
     "radius": 1,
@@ -8521,7 +8521,7 @@ var tokens = [{
       "x": 0,
       "y": 0
     },
-    "color": "#03040442",
+    "color": "#01040475",
     "opacity": 0.5
   }],
   "filePath": "schema/themes/atlassian-dark/elevation/shadow.tsx",
@@ -8536,12 +8536,12 @@ var tokens = [{
     "value": [{
       "radius": 0,
       "spread": 1,
-      "color": "#39424a",
+      "color": "#BDBDBD",
       "offset": {
         "x": 0,
         "y": 0
       },
-      "opacity": 1
+      "opacity": 0.12
     }, {
       "radius": 12,
       "offset": {
@@ -8586,7 +8586,7 @@ var tokens = [{
       "x": 0,
       "y": 1
     },
-    "color": "#03040442",
+    "color": "#01040475",
     "opacity": 0.5
   }, {
     "radius": 1,
@@ -8594,7 +8594,7 @@ var tokens = [{
       "x": 0,
       "y": 0
     },
-    "color": "#03040442",
+    "color": "#01040475",
     "opacity": 0.5
   }],
   "filePath": "schema/themes/atlassian-dark/elevation/shadow.tsx",
@@ -8709,7 +8709,7 @@ var tokens = [{
     "introduced": "1.14.0",
     "description": "A dynamic token that represents the current surface color set by a parent element. It defaults to the 'elevation.surface' token value."
   },
-  "value": "#1D2125",
+  "value": "#1F1F21",
   "filePath": "schema/themes/atlassian-dark/utility/utility.tsx",
   "isSource": true,
   "original": {

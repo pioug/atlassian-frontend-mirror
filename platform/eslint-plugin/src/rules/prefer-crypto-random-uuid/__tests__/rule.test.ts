@@ -39,10 +39,7 @@ tester.run('prefer-crypto-random-uuid', rule, {
 
 				const id = crypto.randomUUID();
 			`,
-			errors: [
-				{ messageId: 'preferCryptoRandomUUID' },
-				{ messageId: 'preferCryptoRandomUUID' },
-			],
+			errors: [{ messageId: 'preferCryptoRandomUUID' }, { messageId: 'preferCryptoRandomUUID' }],
 		},
 		{
 			name: 'import { v4 as uuid } from uuid',
@@ -54,10 +51,7 @@ tester.run('prefer-crypto-random-uuid', rule, {
 
 				const id = crypto.randomUUID();
 			`,
-			errors: [
-				{ messageId: 'preferCryptoRandomUUID' },
-				{ messageId: 'preferCryptoRandomUUID' },
-			],
+			errors: [{ messageId: 'preferCryptoRandomUUID' }, { messageId: 'preferCryptoRandomUUID' }],
 		},
 		{
 			name: 'import uuid from uuid/v4',
@@ -69,10 +63,7 @@ tester.run('prefer-crypto-random-uuid', rule, {
 
 				const id = crypto.randomUUID();
 			`,
-			errors: [
-				{ messageId: 'preferCryptoRandomUUID' },
-				{ messageId: 'preferCryptoRandomUUID' },
-			],
+			errors: [{ messageId: 'preferCryptoRandomUUID' }, { messageId: 'preferCryptoRandomUUID' }],
 		},
 		{
 			name: 'import { v1 } from uuid',
@@ -84,10 +75,7 @@ tester.run('prefer-crypto-random-uuid', rule, {
 
 				const id = crypto.randomUUID();
 			`,
-			errors: [
-				{ messageId: 'preferCryptoRandomUUID' },
-				{ messageId: 'preferCryptoRandomUUID' },
-			],
+			errors: [{ messageId: 'preferCryptoRandomUUID' }, { messageId: 'preferCryptoRandomUUID' }],
 		},
 		{
 			name: 'import from uuid/v1',
@@ -99,10 +87,7 @@ tester.run('prefer-crypto-random-uuid', rule, {
 
 				const id = crypto.randomUUID();
 			`,
-			errors: [
-				{ messageId: 'preferCryptoRandomUUID' },
-				{ messageId: 'preferCryptoRandomUUID' },
-			],
+			errors: [{ messageId: 'preferCryptoRandomUUID' }, { messageId: 'preferCryptoRandomUUID' }],
 		},
 		{
 			name: 'multiple usages',
@@ -163,10 +148,7 @@ tester.run('prefer-crypto-random-uuid', rule, {
 					return path.join('/tmp', filename);
 				}
 			`,
-			errors: [
-				{ messageId: 'preferCryptoRandomUUID' },
-				{ messageId: 'preferCryptoRandomUUID' },
-			],
+			errors: [{ messageId: 'preferCryptoRandomUUID' }, { messageId: 'preferCryptoRandomUUID' }],
 		},
 		{
 			name: 'in arrow function',
@@ -178,10 +160,7 @@ tester.run('prefer-crypto-random-uuid', rule, {
 
 				const getId = () => crypto.randomUUID();
 			`,
-			errors: [
-				{ messageId: 'preferCryptoRandomUUID' },
-				{ messageId: 'preferCryptoRandomUUID' },
-			],
+			errors: [{ messageId: 'preferCryptoRandomUUID' }, { messageId: 'preferCryptoRandomUUID' }],
 		},
 		{
 			name: 'in object property',
@@ -199,11 +178,7 @@ tester.run('prefer-crypto-random-uuid', rule, {
 					name: 'test'
 				};
 			`,
-			errors: [
-				{ messageId: 'preferCryptoRandomUUID' },
-				{ messageId: 'preferCryptoRandomUUID' },
-			],
+			errors: [{ messageId: 'preferCryptoRandomUUID' }, { messageId: 'preferCryptoRandomUUID' }],
 		},
 	],
 });
-

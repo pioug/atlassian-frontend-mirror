@@ -4,7 +4,7 @@ import {
 	type UIAnalyticsEvent,
 	AnalyticsContext,
 } from '@atlaskit/analytics-next';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 
 import { type WhatsNewArticleItem, WHATS_NEW_ITEM_TYPES } from '../../../../../model/WhatsNew';
 import { getTypeIcon, getTypeTitle } from '../../../../../util';
@@ -79,4 +79,11 @@ const WhatsNewResultListItemWithContext: React.FC<
 	);
 };
 
-export default injectIntl(WhatsNewResultListItemWithContext);
+const _default_1: React.FC<
+	WithIntlProps<Props & Partial<WhatsNewArticleItem> & WrappedComponentProps>
+> & {
+	WrappedComponent: React.ComponentType<
+		Props & Partial<WhatsNewArticleItem> & WrappedComponentProps
+	>;
+} = injectIntl(WhatsNewResultListItemWithContext);
+export default _default_1;

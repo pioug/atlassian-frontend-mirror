@@ -38,7 +38,7 @@ describe('@atlaskit/reactions/components/Counter', () => {
 
 		const wrapper = await screen.findByTestId(RENDER_COMPONENT_WRAPPER);
 		expect(wrapper).toBeInTheDocument();
-		expect(wrapper).toHaveCompiledCss('color', 'var(--ds-text-subtlest,#626f86)');
+		expect(wrapper).toHaveCompiledCss('color', 'var(--ds-text-subtlest,#6b6e76)');
 	});
 
 	it('should render counter with darker font if useDarkerFont is true', async () => {
@@ -46,7 +46,7 @@ describe('@atlaskit/reactions/components/Counter', () => {
 		renderCounter({ value, useDarkerFont: true });
 		const wrapper = await screen.findByTestId(RENDER_COMPONENT_WRAPPER);
 		expect(wrapper).toBeInTheDocument();
-		expect(wrapper).toHaveCompiledCss('color', 'var(--ds-text-subtle,#44546f)');
+		expect(wrapper).toHaveCompiledCss('color', 'var(--ds-text-subtle,#505258)');
 	});
 
 	it('should render counter with margin top if useUpdatedStyles is true', async () => {

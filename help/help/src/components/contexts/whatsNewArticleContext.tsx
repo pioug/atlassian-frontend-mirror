@@ -59,8 +59,9 @@ interface WhatsNewArticleProviderInterface extends WhatsNewArticleSharedInterfac
 	): Promise<whatsNewSearchResult>;
 }
 
-export const [useWhatsNewArticleContext, CtxProvider] =
-	createCtx<WhatsNewArticleContextInterface>();
+const dest = createCtx<WhatsNewArticleContextInterface>();
+export const useWhatsNewArticleContext: () => WhatsNewArticleContextInterface = dest[0];
+export const CtxProvider: React.Provider<WhatsNewArticleContextInterface | undefined> = dest[1];
 
 export const WhatsNewArticleProvider = ({
 	whatsNewGetNotificationProvider,
@@ -71,7 +72,7 @@ export const WhatsNewArticleProvider = ({
 	onGetWhatsNewArticle,
 	productName,
 	children,
-}: PropsWithChildren<WhatsNewArticleProviderInterface>) => {
+}: PropsWithChildren<WhatsNewArticleProviderInterface>): React.JSX.Element => {
 	// What's new
 	const [whatsNewSearchType, setWhatsNewSearchType] = useState<
 		WHATS_NEW_ITEM_TYPES | '' | undefined

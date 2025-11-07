@@ -17,7 +17,6 @@ type InteractionMap = {
 const stateToSelectorMap: Partial<InteractionMap> = {
 	hover: '&:hover',
 	active: '&:active',
-	disabled: '&[disabled]',
 };
 
 // const selectors: string[] = Object.values(stateToSelectorMap);

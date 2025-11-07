@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 17.1.7
+
+### Patch Changes
+
+- [`329c88647d73e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/329c88647d73e) -
+  Improve accessible description of date picker.
+
 ## 17.1.6
 
 ### Patch Changes

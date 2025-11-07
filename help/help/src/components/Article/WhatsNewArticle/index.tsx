@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
 import HelpArticleContent from '@atlaskit/help-article';
 import { token } from '@atlaskit/tokens';
@@ -117,4 +117,7 @@ const WhatsNewArticleWithContext: React.FC<Props & WrappedComponentProps> = (pro
 	);
 };
 
-export default injectIntl(WhatsNewArticleWithContext);
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(WhatsNewArticleWithContext);
+export default _default_1;

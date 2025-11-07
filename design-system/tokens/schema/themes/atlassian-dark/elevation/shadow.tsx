@@ -37,25 +37,23 @@ const shadow: ValueSchema<ShadowTokenSchema<BaseToken>> = {
 						{
 							radius: 12,
 							offset: { x: 0, y: 0 },
-							// @ts-ignore no current palette colour for this yet
-							color: '#030404',
+							color: 'DarkNeutral-100A',
 							// This opacity overrides the color alpha.
 							opacity: 0.56,
 						},
 						{
 							radius: 1,
 							offset: { x: 0, y: 0 },
-							// @ts-ignore no current palette colour for this yet
-							color: '#030404',
+							color: 'DarkNeutral-100A',
 							// This opacity overrides the color alpha.
 							opacity: 0.5,
 						},
 					],
 				},
 				// @ts-ignore no current palette colour for this yet
-				spread: { value: '#0304048f' },
+				spread: { value: '#0104048f' },
 				// @ts-ignore no current palette colour for this yet
-				perimeter: { value: '#03040480' },
+				perimeter: { value: '#01040480' },
 			},
 			overlay: {
 				value: [
@@ -63,9 +61,9 @@ const shadow: ValueSchema<ShadowTokenSchema<BaseToken>> = {
 						radius: 0,
 						spread: 1,
 						// @ts-ignore no current palette colour for this yet
-						color: '#39424a',
+						color: '#BDBDBD',
 						offset: { x: 0, y: 0 },
-						opacity: 1,
+						opacity: 0.12,
 					},
 					{
 						radius: 12,

@@ -7,7 +7,6 @@ import { forwardRef, useRef } from 'react';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -101,25 +100,6 @@ const styles = cssMap({
 
 const defaultStyles = cssMap({
 	root: {
-		backgroundColor: token('color.background.neutral', 'rgba(9, 30, 66, 0.04)'),
-		color: token('color.text', '#42526E'),
-		'&:visited': {
-			color: token('color.text', '#42526E'),
-		},
-		'&:hover': {
-			backgroundColor: token('color.background.neutral.hovered', '#091e4214'),
-			color: token('color.text', '#42526E'),
-		},
-		'&:active': {
-			backgroundColor: token('color.background.neutral.pressed'),
-			// @ts-expect-error
-			color: token('color.text', '#42526E'),
-		},
-		'&:focus': {
-			color: token('color.text', '#42526E'),
-		},
-	},
-	rootRefreshed: {
 		backgroundColor: token('color.background.neutral.subtle'),
 		color: token('color.text.subtle'),
 		'&::after': {
@@ -146,19 +126,19 @@ const defaultStyles = cssMap({
 
 const primaryStyles = cssMap({
 	root: {
-		backgroundColor: token('color.background.brand.bold', '#0052CC'),
+		backgroundColor: token('color.background.brand.bold'),
 		color: token('color.text.inverse'),
 		'&:visited': {
 			color: token('color.text.inverse'),
 		},
 		'&:hover': {
 			color: token('color.text.inverse'),
-			backgroundColor: token('color.background.brand.bold.hovered', '#0065FF'),
+			backgroundColor: token('color.background.brand.bold.hovered'),
 		},
 		'&:active': {
 			// @ts-expect-error
 			color: token('color.text.inverse'),
-			backgroundColor: token('color.background.brand.bold.pressed', '#0747A6'),
+			backgroundColor: token('color.background.brand.bold.pressed'),
 		},
 		'&:focus': {
 			color: token('color.text.inverse'),
@@ -168,41 +148,41 @@ const primaryStyles = cssMap({
 
 const warningStyles = cssMap({
 	root: {
-		backgroundColor: token('color.background.warning.bold', '#FFAB00'),
-		color: token('color.text.warning.inverse', '#172B4D'),
+		backgroundColor: token('color.background.warning.bold'),
+		color: token('color.text.warning.inverse'),
 		'&:visited': {
-			color: token('color.text.warning.inverse', '#172B4D'),
+			color: token('color.text.warning.inverse'),
 		},
 		'&:hover': {
-			color: token('color.text.warning.inverse', '#172B4D'),
-			backgroundColor: token('color.background.warning.bold.hovered', '#FFC400'),
+			color: token('color.text.warning.inverse'),
+			backgroundColor: token('color.background.warning.bold.hovered'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			color: token('color.text.warning.inverse', '#172B4D'),
-			backgroundColor: token('color.background.warning.bold.pressed', '#FF991F'),
+			color: token('color.text.warning.inverse'),
+			backgroundColor: token('color.background.warning.bold.pressed'),
 		},
 		'&:focus': {
-			color: token('color.text.warning.inverse', '#172B4D'),
+			color: token('color.text.warning.inverse'),
 		},
 	},
 });
 
 const dangerStyles = cssMap({
 	root: {
-		backgroundColor: token('color.background.danger.bold', '#DE350B'),
+		backgroundColor: token('color.background.danger.bold'),
 		color: token('color.text.inverse'),
 		'&:visited': {
 			color: token('color.text.inverse'),
 		},
 		'&:hover': {
 			color: token('color.text.inverse'),
-			backgroundColor: token('color.background.danger.bold.hovered', '#FF5630'),
+			backgroundColor: token('color.background.danger.bold.hovered'),
 		},
 		'&:active': {
 			// @ts-expect-error
 			color: token('color.text.inverse'),
-			backgroundColor: token('color.background.danger.bold.pressed', '#BF2600'),
+			backgroundColor: token('color.background.danger.bold.pressed'),
 		},
 		'&:focus': {
 			color: token('color.text.inverse'),
@@ -212,19 +192,19 @@ const dangerStyles = cssMap({
 
 const discoveryStyles = cssMap({
 	root: {
-		backgroundColor: token('color.background.discovery.bold', '#5243AA'),
+		backgroundColor: token('color.background.discovery.bold'),
 		color: token('color.text.inverse'),
 		'&:visited': {
 			color: token('color.text.inverse'),
 		},
 		'&:hover': {
 			color: token('color.text.inverse'),
-			backgroundColor: token('color.background.discovery.bold.hovered', '#8777D9'),
+			backgroundColor: token('color.background.discovery.bold.hovered'),
 		},
 		'&:active': {
 			// @ts-expect-error
 			color: token('color.text.inverse'),
-			backgroundColor: token('color.background.discovery.bold.pressed', '#5243AA'),
+			backgroundColor: token('color.background.discovery.bold.pressed'),
 		},
 		'&:focus': {
 			color: token('color.text.inverse'),
@@ -234,36 +214,17 @@ const discoveryStyles = cssMap({
 
 const subtleStyles = cssMap({
 	root: {
-		backgroundColor: token('color.background.neutral.subtle', 'transparent'),
-		color: token('color.text', '#42526E'),
-		'&:visited': {
-			color: token('color.text', '#42526E'),
-		},
-		'&:hover': {
-			backgroundColor: token('color.background.neutral.subtle.hovered', '#091e4214'),
-			color: token('color.text', '#42526E'),
-		},
-		'&:active': {
-			backgroundColor: token('color.background.neutral.subtle.pressed', '#B3D4FF'),
-			// @ts-expect-error
-			color: token('color.text', '#42526E'),
-		},
-		'&:focus': {
-			color: token('color.text', '#42526E'),
-		},
-	},
-	rootRefreshed: {
-		backgroundColor: token('color.background.neutral.subtle', 'transparent'),
+		backgroundColor: token('color.background.neutral.subtle'),
 		color: token('color.text.subtle'),
 		'&:visited': {
 			color: token('color.text.subtle'),
 		},
 		'&:hover': {
-			backgroundColor: token('color.background.neutral.subtle.hovered', '#091e4214'),
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
 			color: token('color.text.subtle'),
 		},
 		'&:active': {
-			backgroundColor: token('color.background.neutral.subtle.pressed', '#B3D4FF'),
+			backgroundColor: token('color.background.neutral.subtle.pressed'),
 			// @ts-expect-error
 			color: token('color.text.subtle'),
 		},
@@ -276,91 +237,69 @@ const subtleStyles = cssMap({
 
 const selectedStyles = cssMap({
 	root: {
-		backgroundColor: token('color.background.selected', '#253858'),
-		color: token('color.text.selected', '#F4F5F7'),
-		'&:visited': {
-			color: token('color.text.selected', '#F4F5F7'),
-		},
-		'&:hover': {
-			backgroundColor: token('color.background.selected.hovered'),
-			color: token('color.text.selected', '#F4F5F7'),
-		},
-		'&:active': {
-			backgroundColor: token('color.background.selected.pressed'),
-			// @ts-expect-error
-			color: token('color.text.selected', '#F4F5F7'),
-		},
-		'&:focus': {
-			color: token('color.text.selected', '#F4F5F7'),
-		},
-	},
-	rootRefreshed: {
 		backgroundColor: token('color.background.selected'),
-		color: token('color.text.selected', '#0052cc'),
+		color: token('color.text.selected'),
 		'&::after': {
 			content: '""',
-			borderColor: token('color.border.selected', '#0052cc'),
+			borderColor: token('color.border.selected'),
 		},
 		'&:visited': {
-			color: token('color.text.selected', '#0052cc'),
+			color: token('color.text.selected'),
 		},
 		'&:hover': {
-			color: token('color.text.selected', '#0052cc'),
+			color: token('color.text.selected'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			color: token('color.text.selected', '#0052cc'),
+			color: token('color.text.selected'),
 		},
 		'&:focus': {
-			color: token('color.text.selected', '#0052cc'),
+			color: token('color.text.selected'),
 		},
 	},
-	// TODO: Remove me once we kill color fallbacks
 	warning: {
-		backgroundColor: token('color.background.selected', '#FF991F'),
-		color: token('color.text.selected', '#172B4D'),
+		backgroundColor: token('color.background.selected'),
+		color: token('color.text.selected'),
 		'&:hover': {
-			color: token('color.text.selected', '#F4F5F7'),
+			color: token('color.text.selected'),
 			// @ts-expect-error
-			backgroundColor: token('color.background.selected', '#FF991F'),
+			backgroundColor: token('color.background.selected'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			color: token('color.text.selected', '#F4F5F7'),
+			color: token('color.text.selected'),
 			// @ts-expect-error
-			backgroundColor: token('color.background.selected', '#FF991F'),
+			backgroundColor: token('color.background.selected'),
 		},
 	},
-	// TODO: Remove me once we kill color fallbacks
 	danger: {
-		backgroundColor: token('color.background.selected', '#BF2600'),
-		color: token('color.text.selected', '#F4F5F7'),
+		backgroundColor: token('color.background.selected'),
+		color: token('color.text.selected'),
 		'&:hover': {
-			color: token('color.text.selected', '#F4F5F7'),
+			color: token('color.text.selected'),
 			// @ts-expect-error
-			backgroundColor: token('color.background.selected', '#BF2600'),
+			backgroundColor: token('color.background.selected'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			color: token('color.text.selected', '#F4F5F7'),
+			color: token('color.text.selected'),
 			// @ts-expect-error
-			backgroundColor: token('color.background.selected', '#BF2600'),
+			backgroundColor: token('color.background.selected'),
 		},
 	},
-	// TODO: Remove me once we kill color fallbacks
 	discovery: {
-		backgroundColor: token('color.background.selected', '#403294'),
-		color: token('color.text.selected', '#F4F5F7'),
+		backgroundColor: token('color.background.selected'),
+		color: token('color.text.selected'),
 		'&:hover': {
-			color: token('color.text.selected', '#F4F5F7'),
+			color: token('color.text.selected'),
 			// @ts-expect-error
-			backgroundColor: token('color.background.selected', '#403294'),
+			backgroundColor: token('color.background.selected'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			color: token('color.text.selected', '#F4F5F7'),
+			color: token('color.text.selected'),
 			// @ts-expect-error
-			backgroundColor: token('color.background.selected', '#403294'),
+			backgroundColor: token('color.background.selected'),
 		},
 	},
 });
@@ -444,28 +383,16 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 			{...saferRest}
 			xcss={cx(
 				styles.base,
-				appearance === 'default' &&
-					(fg('platform-component-visual-refresh')
-						? defaultStyles.rootRefreshed
-						: defaultStyles.root),
+				appearance === 'default' && defaultStyles.root,
 				appearance === 'primary' && primaryStyles.root,
 				appearance === 'warning' && warningStyles.root,
 				appearance === 'danger' && dangerStyles.root,
 				appearance === 'discovery' && discoveryStyles.root,
-				appearance === 'subtle' &&
-					(fg('platform-component-visual-refresh')
-						? subtleStyles.rootRefreshed
-						: subtleStyles.root),
+				appearance === 'subtle' && subtleStyles.root,
 				styles.linkDecorationUnset,
-				isSelected &&
-					(fg('platform-component-visual-refresh')
-						? selectedStyles.rootRefreshed
-						: selectedStyles.root),
-				// TODO: remove me once we kill color fallbacks
+				isSelected && selectedStyles.root,
 				isSelected && appearance === 'danger' && selectedStyles.danger,
-				// TODO: remove me once we kill color fallbacks
 				isSelected && appearance === 'warning' && selectedStyles.warning,
-				// TODO: remove me once we kill color fallbacks
 				isSelected && appearance === 'discovery' && selectedStyles.discovery,
 				isDisabled && styles.disabled,
 				spacing === 'compact' && styles.spacingCompact,

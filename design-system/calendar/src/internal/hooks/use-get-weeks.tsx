@@ -35,6 +35,8 @@ function useGetCalendarWithSixthWeek(
 				.slice(sliceStart, sliceStart + daysPerWeek)
 				.map((date) => ({ ...date, siblingMonth: true }));
 		}
+
+		return [];
 	}, [calendarLastValue, month, shouldDisplaySixthWeek, weekStartDay, year]);
 }
 

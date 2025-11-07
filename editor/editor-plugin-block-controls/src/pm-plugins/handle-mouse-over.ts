@@ -36,13 +36,20 @@ const getNodeSelector = (ignoreNodes: string[], ignoreNodeDescendants: string[])
 		(node) => `[data-prosemirror-node-name="${node}"]`,
 	);
 
-	const ignoreNodeDescendantsSelectorList = ignoreNodeDescendants.map(
-		(node) => `[data-prosemirror-node-name="${node}"] [data-node-anchor]`,
-	);
+	const ignoreNodeDescendantsSelectorList = ignoreNodeDescendants.map((node) => {
+		if (node === 'table' && fg('platform_editor_native_anchor_table_nested_fix')) {
+			// Special case for table to exclude its direct descendants
+			return [
+				`[data-prosemirror-node-name="tableCell"] > [data-node-anchor]`,
+				`[data-prosemirror-node-name="tableHeader"] > [data-node-anchor]`,
+			];
+		}
+		return `[data-prosemirror-node-name="${node}"] [data-node-anchor]`;
+	});
 
 	const ignoreSelector = [
 		...ignoreNodeSelectorList,
-		...ignoreNodeDescendantsSelectorList,
+		...ignoreNodeDescendantsSelectorList.flat(),
 		'[data-prosemirror-node-inline="true"]',
 	].join(', ');
 
@@ -177,6 +184,7 @@ export const handleMouseOver = (
 
 		const parentRootElement = rootElement.parentElement;
 		let pos: number;
+
 		if (parentRootElement) {
 			const childNodes = Array.from(parentRootElement.childNodes);
 			const index = childNodes.indexOf(rootElement);

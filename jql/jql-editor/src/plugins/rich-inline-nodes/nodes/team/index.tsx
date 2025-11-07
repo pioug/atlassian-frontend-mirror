@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Avatar from '@atlaskit/avatar';
+import TeamsAvatar from '@atlaskit/teams-avatar';
 
 import { useHydratedTeam } from '../../../../state';
 import { type NodeViewProps } from '../../util/react-node-view';
@@ -22,8 +22,14 @@ const Team = ({ id, name, fieldName, selected, error }: NodeViewProps<Props>) =>
 
 	return (
 		<TeamContainer selected={selected} error={error}>
-			<AvatarWrapper>
-				<Avatar src={team?.avatarUrl} appearance="square" borderColor="transparent" size="xsmall" />
+			<AvatarWrapper data-testid="team-avatar-wrapper">
+				<TeamsAvatar
+					teamId={id}
+					src={team?.avatarUrl}
+					borderColor="transparent"
+					size="xsmall"
+					compact={true}
+				/>
 			</AvatarWrapper>
 			<NameContainer>{name}</NameContainer>
 		</TeamContainer>

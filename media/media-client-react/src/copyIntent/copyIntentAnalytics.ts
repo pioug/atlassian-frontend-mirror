@@ -11,6 +11,8 @@ const getRequestErrorDetails = (err: any) => {
 			},
 		};
 	}
+
+	return undefined;
 };
 
 export const getCopyIntentErrorPayload = (error: any, fileId = '') => {

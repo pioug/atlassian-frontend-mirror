@@ -7,7 +7,7 @@ import { coreIconMetadata } from '@atlaskit/icon/metadata';
 
 import { cleanQuery } from '../../helpers';
 
-const inputSchema = z.object({
+export const searchIconsInputSchema = z.object({
 	terms: z
 		.array(z.string())
 		.describe(
@@ -58,11 +58,11 @@ import AddIcon from '@atlaskit/icon/core/add';
 		idempotentHint: true,
 		openWorldHint: true,
 	},
-	inputSchema: zodToJsonSchema(inputSchema),
+	inputSchema: zodToJsonSchema(searchIconsInputSchema),
 };
 
 export const searchIconsTool = async (
-	params: z.infer<typeof inputSchema>,
+	params: z.infer<typeof searchIconsInputSchema>,
 ): Promise<CallToolResult> => {
 	const { terms, limit = 1, exactName = false } = params;
 	const searchTerms = terms.filter(Boolean).map(cleanQuery);

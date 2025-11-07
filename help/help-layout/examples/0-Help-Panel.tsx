@@ -12,7 +12,7 @@ const handleEvent = (analyticsEvent: { context: any; payload: any }) => {
 	console.log('Received event:', { payload, context });
 };
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	return (
 		<ExampleWrapper>
 			<Page>

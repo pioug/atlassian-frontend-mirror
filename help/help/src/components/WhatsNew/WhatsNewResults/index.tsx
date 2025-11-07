@@ -8,7 +8,7 @@ import React, { useCallback, useState, useRef } from 'react';
 import { Transition } from 'react-transition-group';
 import isEqual from 'lodash/isEqual';
 import Select from '@atlaskit/select';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { Label } from '@atlaskit/form';
@@ -378,4 +378,7 @@ export const WhatsNewResults: React.FC<WrappedComponentProps> = ({ intl: { forma
 	);
 };
 
-export default injectIntl(WhatsNewResults);
+const _default_1: React.FC<WithIntlProps<WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<WrappedComponentProps>;
+} = injectIntl(WhatsNewResults);
+export default _default_1;

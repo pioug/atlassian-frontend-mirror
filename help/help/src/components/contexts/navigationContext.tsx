@@ -57,7 +57,9 @@ interface NavigationContextInterface {
 
 const DEFAULT_ARTICLE_ID = { id: '', type: ARTICLE_TYPE.HELP_ARTICLE };
 
-export const [useNavigationContext, CtxProvider] = createCtx<NavigationContextInterface>();
+const dest = createCtx<NavigationContextInterface>();
+export const useNavigationContext: () => NavigationContextInterface = dest[0];
+export const CtxProvider: React.Provider<NavigationContextInterface | undefined> = dest[1];
 
 const getNewHistoryItem = (id: string, type: ARTICLE_TYPE, contentAri?: string) => {
 	let uid = Math.floor(Math.random() * Math.pow(10, 17));
@@ -260,7 +262,7 @@ export const NavigationContextProvider = ({
 	},
 	setNavigationData,
 	children,
-}: NavigationProviderInterface) => {
+}: NavigationProviderInterface): React.JSX.Element => {
 	const { onGetHelpArticle } = useHelpArticleContext();
 	const { onGetWhatsNewArticle } = useWhatsNewArticleContext();
 	const { homeContent, homeOptions } = useHomeContext();

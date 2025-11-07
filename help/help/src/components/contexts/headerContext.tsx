@@ -14,13 +14,15 @@ interface HeaderSharedInterface {
 	): void;
 }
 
-export const [useHeaderContext, CtxProvider] = createCtx<HeaderSharedInterface>();
+const dest = createCtx<HeaderSharedInterface>();
+export const useHeaderContext: () => HeaderSharedInterface = dest[0];
+export const CtxProvider: React.Provider<HeaderSharedInterface | undefined> = dest[1];
 
 export const HeaderContextProvider = ({
 	onCloseButtonClick,
 	onBackButtonClick,
 	children,
-}: PropsWithChildren<HeaderSharedInterface>) => {
+}: PropsWithChildren<HeaderSharedInterface>): React.JSX.Element => {
 	return (
 		<CtxProvider
 			value={{

@@ -8,7 +8,7 @@ import * as colors from '@atlaskit/theme/colors';
 import Button from '@atlaskit/button';
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import { token } from '@atlaskit/tokens';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import NotFoundImage from '../../../assets/NotFoundImage';
@@ -88,4 +88,7 @@ export const SearchResultsEmpty: React.FC<Props & WrappedComponentProps> = ({
 	);
 };
 
-export default injectIntl(SearchResultsEmpty);
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(SearchResultsEmpty);
+export default _default_1;

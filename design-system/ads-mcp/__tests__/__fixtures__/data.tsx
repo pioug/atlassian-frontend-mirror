@@ -166,7 +166,7 @@ export const testData: TestDataCase[] = [
 		},
 	],
 	[
-		'the suggest a11y fixes tool with a violation with a violation and some example code',
+		'the suggest a11y fixes tool with a violation and some example code',
 		{
 			tool: 'ads_suggest_a11y_fixes',
 			args: {

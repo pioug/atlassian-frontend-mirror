@@ -8,7 +8,7 @@ const LocaleIntlProvider = ({
 }: {
 	children: React.ReactNode;
 	locale?: string;
-}) => (
+}): React.JSX.Element => (
 	<IntlProvider key={locale} locale={locale}>
 		{children}
 	</IntlProvider>
@@ -20,7 +20,7 @@ const LocaleAndMessagesIntlProvider = ({
 }: {
 	children: any;
 	locale?: string;
-}) => (
+}): React.JSX.Element => (
 	<LocaleIntlProvider key={locale} locale={locale}>
 		<MessagesIntlProvider locale={locale}>{children}</MessagesIntlProvider>
 	</LocaleIntlProvider>

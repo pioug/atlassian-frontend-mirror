@@ -24,7 +24,7 @@ import { HelpFooter } from './styled';
 import { Tabs } from './Tabs';
 import AiChatIcon from '@atlaskit/icon/core/ai-chat';
 import SearchIcon from '@atlaskit/icon/core/search';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 import { messages } from '../messages';
 
 interface HelpContentInterface {
@@ -170,4 +170,7 @@ export const HelpContent: React.FC<HelpContentInterface & WrappedComponentProps>
 	return isAiEnabled ? HelpLayoutWithAi : HelpLayoutWithoutAi;
 };
 
-export default injectIntl(HelpContent);
+const _default_1: React.FC<WithIntlProps<HelpContentInterface & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<HelpContentInterface & WrappedComponentProps>;
+} = injectIntl(HelpContent);
+export default _default_1;

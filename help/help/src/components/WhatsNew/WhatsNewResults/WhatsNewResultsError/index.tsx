@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@atlaskit/button';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 import { type WHATS_NEW_ITEM_TYPES } from '../../../../model/WhatsNew';
 
 import ErrorImage from '../../../../assets/ErrorImage';
@@ -42,4 +42,7 @@ export const WhatsNewResultsError: React.FC<Props & WrappedComponentProps> = ({
 	</>
 );
 
-export default injectIntl(WhatsNewResultsError);
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(WhatsNewResultsError);
+export default _default_1;

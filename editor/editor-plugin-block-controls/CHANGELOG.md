@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.5.6
+
+### Patch Changes
+
+- [`945cca63ae433`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/945cca63ae433) -
+  ED-29335: Fixed drop hints height not right for layout column inline drop targets
+- Updated dependencies
+
 ## 7.5.5
 
 ### Patch Changes

@@ -79,15 +79,4 @@ export const AvatarWrapper = styled.div({
 	height: token('space.200', '16px'),
 	width: token('space.200', '16px'),
 	alignSelf: 'center',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'> div span': {
-		margin: token('space.0', '0px'),
-	},
-	// Fix fallback icon alignment by targeting the outer AvatarContent span
-	// This contains the icon background and needs to move as a unit
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'> div > span:has(> span)': {
-		position: 'relative',
-		top: '-2px',
-	},
 });

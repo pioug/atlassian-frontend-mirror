@@ -6,24 +6,36 @@ import {
 	ListToolsRequestSchema,
 	McpError,
 } from '@modelcontextprotocol/sdk/types.js';
+import type { z } from 'zod';
 
 import { sendOperationalEvent } from './helpers/analytics';
+import { validateToolArguments } from './helpers/validation';
 import { instructions } from './instructions';
 import {
+	analyzeA11yInputSchema,
+	analyzeA11yLocalhostInputSchema,
 	analyzeA11yTool,
 	analyzeLocalhostA11yTool,
 	listAnalyzeA11yTool,
 	listAnalyzeLocalhostA11yTool,
 } from './tools/analyze-a11y';
-import { getA11yGuidelinesTool, listGetA11yGuidelinesTool } from './tools/get-a11y-guidelines';
+import {
+	getA11yGuidelinesInputSchema,
+	getA11yGuidelinesTool,
+	listGetA11yGuidelinesTool,
+} from './tools/get-a11y-guidelines';
 import { getAllIconsTool, listGetAllIconsTool } from './tools/get-all-icons';
 import { getAllTokensTool, listGetAllTokensTool } from './tools/get-all-tokens';
 import { getComponentsTool, listGetComponentsTool } from './tools/get-components';
-import { listPlanTool, planTool } from './tools/plan';
-import { searchComponentsTool } from './tools/search-components';
-import { searchIconsTool } from './tools/search-icons';
-import { searchTokensTool } from './tools/search-tokens';
-import { listSuggestA11yFixesTool, suggestA11yFixesTool } from './tools/suggest-a11y-fixes';
+import { listPlanTool, planInputSchema, planTool } from './tools/plan';
+import { searchComponentsInputSchema, searchComponentsTool } from './tools/search-components';
+import { searchIconsInputSchema, searchIconsTool } from './tools/search-icons';
+import { searchTokensInputSchema, searchTokensTool } from './tools/search-tokens';
+import {
+	listSuggestA11yFixesTool,
+	suggestA11yFixesInputSchema,
+	suggestA11yFixesTool,
+} from './tools/suggest-a11y-fixes';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- this uses require because not all node versions this package supports use the same import assertions/attributes
 const pkgJson = require('@atlaskit/ads-mcp/package.json');
@@ -94,26 +106,26 @@ server.setRequestHandler(ListToolsRequestSchema, async (request, extra) => {
 	};
 });
 
-const callTools: Record<string, (params: any) => Promise<any>> = {
-	ads_analyze_a11y: analyzeA11yTool,
-	ads_analyze_localhost_a11y: analyzeLocalhostA11yTool,
-	ads_get_a11y_guidelines: getA11yGuidelinesTool,
-	ads_get_all_icons: getAllIconsTool,
-	ads_get_all_tokens: getAllTokensTool,
-	ads_get_components: getComponentsTool,
-	ads_plan: planTool,
+const callTools: Record<string, [(params: any) => Promise<any>, z.ZodSchema | null]> = {
+	ads_analyze_a11y: [analyzeA11yTool, analyzeA11yInputSchema],
+	ads_analyze_localhost_a11y: [analyzeLocalhostA11yTool, analyzeA11yLocalhostInputSchema],
+	ads_get_a11y_guidelines: [getA11yGuidelinesTool, getA11yGuidelinesInputSchema],
+	ads_get_all_icons: [getAllIconsTool, null],
+	ads_get_all_tokens: [getAllTokensTool, null],
+	ads_get_components: [getComponentsTool, null],
+	ads_plan: [planTool, planInputSchema],
 	// NOTE: These should not actually be called as they're not in the `list_tools` endpoint.
 	// But there might be a reason to keep them around for backwards-compatibility.
-	ads_search_components: searchComponentsTool,
-	ads_search_icons: searchIconsTool,
-	ads_search_tokens: searchTokensTool,
-	ads_suggest_a11y_fixes: suggestA11yFixesTool,
+	ads_search_components: [searchComponentsTool, searchComponentsInputSchema],
+	ads_search_icons: [searchIconsTool, searchIconsInputSchema],
+	ads_search_tokens: [searchTokensTool, searchTokensInputSchema],
+	ads_suggest_a11y_fixes: [suggestA11yFixesTool, suggestA11yFixesInputSchema],
 };
 
 // Handle tool execution
 server.setRequestHandler(CallToolRequestSchema, async (request, extra) => {
 	const toolName = request.params.name;
-	const tool = callTools[toolName];
+	const [tool, inputSchema] = callTools[toolName];
 	const actionSubject = `ads.mcp.callTool`;
 
 	// Track call tool request
@@ -130,7 +142,32 @@ server.setRequestHandler(CallToolRequestSchema, async (request, extra) => {
 
 	if (tool) {
 		try {
-			const result = await tool(request.params.arguments);
+			let toolArguments;
+
+			if (inputSchema) {
+				const inputValidation = validateToolArguments(inputSchema, request.params.arguments);
+
+				if (!inputValidation.success) {
+					sendOperationalEvent({
+						action: 'failed',
+						actionSubject,
+						actionSubjectId: toolName,
+						attributes: {
+							toolName,
+							request,
+							extra,
+							errorMessage: 'Invalid arguments provided',
+							failedValidation: true,
+						},
+					});
+
+					return inputValidation.error;
+				}
+
+				toolArguments = inputValidation.data;
+			}
+
+			const result = await tool(toolArguments);
 			// Track successful tool execution
 			sendOperationalEvent({
 				action: 'succeeded',

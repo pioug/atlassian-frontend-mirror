@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, type Dispatch, type SetStateAction } from 'react';
 import algoliasearch from 'algoliasearch';
 import type { Article, ArticleItem, articleId as articleIdType } from '../../../src/index';
 import { ARTICLE_ITEM_TYPES, createArticleObject } from '../../../src/index';
@@ -99,7 +99,21 @@ export const useAlgolia = ({
 	productName: productNameValue = 'Jira Software',
 	productExperience: productExperienceValue = 'Classic',
 	algoliaIndexName: algoliaIndexNameValue = 'product_help_uat',
-}: useAlgoliaProps) => {
+}: useAlgoliaProps): {
+	algoliaIndexName: string;
+	getArticleById: (articleId: articleIdType) => Promise<Article>;
+	getRelatedArticles: (
+		routeGroup?: string | string[],
+		routeName?: string | string[],
+		articleId?: articleIdType,
+	) => Promise<ArticleItem[]>;
+	productExperience: string;
+	productName: string;
+	searchArticles: (query: string) => Promise<ArticleItem[]>;
+	setAlgoliaIndexName: Dispatch<SetStateAction<string>>;
+	setProductExperience: Dispatch<SetStateAction<string>>;
+	setProductName: Dispatch<SetStateAction<string>>;
+} => {
 	const [algoliaIndexName, setAlgoliaIndexName] = useState(algoliaIndexNameValue);
 	const [productName, setProductName] = useState(productNameValue);
 	const [productExperience, setProductExperience] = useState(productExperienceValue);

@@ -32,10 +32,10 @@ const color: ValueSchema<BorderColorTokenSchema<BaseToken>> = {
 				value: 'Red500',
 			},
 			warning: {
-				value: 'Yellow500',
+				value: 'Orange500',
 			},
 			success: {
-				value: 'Green500',
+				value: 'Lime500',
 			},
 			discovery: {
 				value: 'Purple500',

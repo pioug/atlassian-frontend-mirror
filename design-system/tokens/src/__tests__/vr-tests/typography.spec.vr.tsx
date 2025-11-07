@@ -15,7 +15,4 @@ snapshot(TypographyVr, {
 			device: Device.MOBILE_CHROME,
 		},
 	],
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });

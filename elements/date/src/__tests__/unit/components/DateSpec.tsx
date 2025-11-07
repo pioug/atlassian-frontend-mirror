@@ -25,7 +25,7 @@ describe('Date', () => {
 	describe('color', () => {
 		it('should use default color', () => {
 			renderDate();
-			expect(screen.getByRole('button')).toHaveCompiledCss('color', 'var(--ds-text,#172b4d)');
+			expect(screen.getByRole('button')).toHaveCompiledCss('color', 'var(--ds-text,#292a2e)');
 		});
 
 		it('should set custom color', () => {

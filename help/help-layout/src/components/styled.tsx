@@ -20,7 +20,7 @@ const containerStyles = css({
 	backgroundColor: token('elevation.surface', '#FFFFFF'),
 });
 
-export const Container = ({ children }: { children: React.ReactNode }) => (
+export const Container = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={containerStyles}>{children}</div>
 );
 
@@ -31,7 +31,7 @@ const sectionStyles = css({
 	minHeight: 0,
 });
 
-export const Section = ({ children }: { children: React.ReactNode }) => (
+export const Section = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={sectionStyles}>{children}</div>
 );
 
@@ -52,7 +52,7 @@ export const HelpFooter = ({
 }: {
 	children: React.ReactNode;
 	dataTestId: string;
-}) => (
+}): JSX.Element => (
 	<div css={helpFooterStyles} data-testid={dataTestId}>
 		{children}
 	</div>
@@ -73,7 +73,7 @@ const loadingContainerStyles = css({
 export const LoadingContainer = ({
 	children,
 	...rest
-}: { children: React.ReactNode } & React.HTMLAttributes<HTMLDivElement>) => (
+}: { children: React.ReactNode } & React.HTMLAttributes<HTMLDivElement>): JSX.Element => (
 	<div css={loadingContainerStyles} {...rest}>
 		{children}
 	</div>
@@ -119,7 +119,7 @@ export const LoadingRectangle = ({
 	contentWidth,
 	contentHeight,
 	marginTop,
-}: LoadingRectangleProps) => (
+}: LoadingRectangleProps): JSX.Element => (
 	<div
 		css={[loadingRectangleStyles]}
 		style={{ width: contentWidth, height: contentHeight, marginTop }}

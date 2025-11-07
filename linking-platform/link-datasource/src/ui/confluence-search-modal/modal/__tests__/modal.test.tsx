@@ -8,7 +8,6 @@ import invariant from 'tiny-invariant';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { type InlineCardAdf } from '@atlaskit/linking-common';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { mockTransformedUserHydrationResponse } from '../../../../services/mocks';
 import { LINK_TYPE_TEST_ID } from '../../../issue-like-table/render-type/link';
@@ -218,41 +217,39 @@ describe('ConfluenceSearchConfigModal', () => {
 	});
 
 	describe('siteSelectorLabel', () => {
-		ffTest.on('add-disablesiteselector', 'when feature flag is enabled', () => {
-			it('should show "Insert Confluence list" when disableSiteSelector is true regardless of number of sites', async () => {
-				(getAvailableSites as jest.Mock).mockResolvedValueOnce(mockSiteData);
-				const { getConfigModalTitleText } = await setup({
-					disableSiteSelector: true,
-					dontWaitForSitesToLoad: true,
-				});
-				await waitFor(async () => {
-					const modalTitle = await getConfigModalTitleText();
-					expect(modalTitle).toEqual('Insert Confluence list');
-				});
+		it('should show "Insert Confluence list" when disableSiteSelector is true regardless of number of sites', async () => {
+			(getAvailableSites as jest.Mock).mockResolvedValueOnce(mockSiteData);
+			const { getConfigModalTitleText } = await setup({
+				disableSiteSelector: true,
+				dontWaitForSitesToLoad: true,
 			});
-
-			it('should show "Insert Confluence list from" when disableSiteSelector is false with multiple sites', async () => {
-				(getAvailableSites as jest.Mock).mockResolvedValueOnce(mockSiteData);
-				const { getConfigModalTitleText } = await setup({
-					disableSiteSelector: false,
-					dontWaitForSitesToLoad: true,
-				});
-				await waitFor(async () => {
-					const modalTitle = await getConfigModalTitleText();
-					expect(modalTitle).toEqual('Insert Confluence list from hello');
-				});
+			await waitFor(async () => {
+				const modalTitle = await getConfigModalTitleText();
+				expect(modalTitle).toEqual('Insert Confluence list');
 			});
+		});
 
-			it('should show "Insert Confluence list" when disableSiteSelector is false with single site', async () => {
-				(getAvailableSites as jest.Mock).mockResolvedValueOnce(mockSiteData.slice(0, 1));
-				const { getConfigModalTitleText } = await setup({
-					disableSiteSelector: false,
-					dontWaitForSitesToLoad: true,
-				});
-				await waitFor(async () => {
-					const modalTitle = await getConfigModalTitleText();
-					expect(modalTitle).toEqual('Insert Confluence list');
-				});
+		it('should show "Insert Confluence list from" when disableSiteSelector is false with multiple sites', async () => {
+			(getAvailableSites as jest.Mock).mockResolvedValueOnce(mockSiteData);
+			const { getConfigModalTitleText } = await setup({
+				disableSiteSelector: false,
+				dontWaitForSitesToLoad: true,
+			});
+			await waitFor(async () => {
+				const modalTitle = await getConfigModalTitleText();
+				expect(modalTitle).toEqual('Insert Confluence list from hello');
+			});
+		});
+
+		it('should show "Insert Confluence list" when disableSiteSelector is false with single site', async () => {
+			(getAvailableSites as jest.Mock).mockResolvedValueOnce(mockSiteData.slice(0, 1));
+			const { getConfigModalTitleText } = await setup({
+				disableSiteSelector: false,
+				dontWaitForSitesToLoad: true,
+			});
+			await waitFor(async () => {
+				const modalTitle = await getConfigModalTitleText();
+				expect(modalTitle).toEqual('Insert Confluence list');
 			});
 		});
 	});

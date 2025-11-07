@@ -9,16 +9,16 @@ exports.default = void 0;
  *
  * Token names mapped to their values, used for contrast checking when generating custom themes
  *
- * @codegen <<SignedSource::023110f136ad929098f2d5a341b7ad7c>>
+ * @codegen <<SignedSource::a4300b2e54a0be0fd9143a9438bedc56>>
  * @codegenCommand yarn build tokens
  */
 var tokenValues = {
-  'color.text.brand': '#579DFF',
-  'elevation.surface.overlay': '#282E33',
-  'color.background.selected': '#1C2B41',
-  'color.text.selected': '#579DFF',
-  'color.border.brand': '#579DFF',
-  'color.chart.brand': '#388BFF',
-  'color.text.inverse': '#1D2125'
+  'color.text.brand': '#669DF1',
+  'elevation.surface.overlay': '#2B2C2F',
+  'color.background.selected': '#1C2B42',
+  'color.text.selected': '#669DF1',
+  'color.border.brand': '#669DF1',
+  'color.chart.brand': '#4688EC',
+  'color.text.inverse': '#1F1F21'
 };
 var _default = exports.default = tokenValues;

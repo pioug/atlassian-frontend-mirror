@@ -1,6 +1,297 @@
 import { defineMessages } from 'react-intl-next';
 
-export const messages = defineMessages({
+export const messages: {
+	help_ai_tab: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_article_error_button_label: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_article_error_text: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_article_error_title: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_article_list_item_type_help_article: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_article_list_item_type_whats_new: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_article_rating_accurate: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_article_rating_clear: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_article_rating_form_cancel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_article_rating_form_contact_me: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_article_rating_form_failed: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_article_rating_form_failed_try_again: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_article_rating_form_submit: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_article_rating_form_Success: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_article_rating_form_title: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_article_rating_option_no: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_article_rating_option_yes: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_article_rating_relevant: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_article_rating_title: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_close: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_header: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_header_whats_new: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_loading: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_navigation_back: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_need_more_help_label: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_need_more_help_text: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_panel_search_back: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_related_article_endpoint_error_button_label: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_related_article_endpoint_error_description: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_related_article_endpoint_error_title: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_related_article_title: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_search_error: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_search_error_button_label: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_search_error_line_two: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_search_placeholder: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_search_results_external_site_link: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_search_results_no_results: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_search_results_no_results_line_two: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_search_results_search_external_site: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_search_tab: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_show_more_button_label_less: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_show_more_button_label_more: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_whats_new_button_label: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_whats_new_button_label_without_product_name: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_whats_new_button_tooltip: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_whats_new_filter_select_label: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_whats_new_filter_select_option_all: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_whats_new_filter_select_option_experiment: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_whats_new_filter_select_option_fix: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_whats_new_filter_select_option_improvement: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_whats_new_filter_select_option_new: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_whats_new_filter_select_option_removed: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_whats_new_no_results: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_whats_new_no_results_clear_filter_button_label: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_whats_new_no_results_clear_filter_info: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_whats_new_no_results_info: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_whats_new_related_link_community: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_whats_new_related_link_support: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+} = defineMessages({
 	help_loading: {
 		id: 'help.loading',
 		defaultMessage: 'Loading',

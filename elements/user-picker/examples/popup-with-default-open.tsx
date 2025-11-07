@@ -14,7 +14,7 @@ const Example = () => {
 						fieldId="example"
 						target={({ ref }) => {
 							return <Button ref={ref}>Target</Button>;
-						}}	
+						}}
 						width={200}
 						placement="right"
 						shouldFlip={true}

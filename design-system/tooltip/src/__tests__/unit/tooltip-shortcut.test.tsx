@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { act, render, screen, userEvent } from '@atlassian/testing-library';
 
 import Tooltip from '../../tooltip';
@@ -16,7 +15,7 @@ describe('tooltip shortcuts', () => {
 		jest.useRealTimers();
 	});
 
-	ffTest.on('platform-dst-tooltip-shortcuts', 'shortcuts flag enabled', () => {
+	describe('shortcuts flag enabled', () => {
 		it('should display the keyboard shortcut in the tooltip when provided', async () => {
 			const user = createUser();
 			render(
@@ -56,25 +55,6 @@ describe('tooltip shortcuts', () => {
 			// Using regex to match the exact content of the hidden element. The string arg allows partial matching, which
 			// we don't want here.
 			expect(hiddenElement).toHaveTextContent(/^Save$/);
-		});
-	});
-
-	ffTest.off('platform-dst-tooltip-shortcuts', 'shortcuts flag disabled', () => {
-		it('should not display the keyboard shortcut in the tooltip when provided', async () => {
-			const user = createUser();
-			render(
-				<Tooltip testId="tooltip" content="Save" shortcut={['Ctrl', '[']}>
-					<button data-testid="trigger" type="button">
-						focus me
-					</button>
-				</Tooltip>,
-			);
-			await user.hover(screen.getByTestId('trigger'));
-			act(() => {
-				jest.runAllTimers();
-			});
-
-			expect(screen.getByRole('tooltip', { name: 'Save' })).toBeVisible();
 		});
 	});
 });

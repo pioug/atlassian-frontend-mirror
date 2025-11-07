@@ -1,7 +1,7 @@
 import React from 'react';
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Spinner from '@atlaskit/spinner';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 import Button from '@atlaskit/button';
 
 import { messages } from '../../messages';
@@ -51,4 +51,7 @@ export const ShowMoreButton: React.FC<Props & WrappedComponentProps> = ({
 		</ToggleShowMoreArticlesContainer>
 	);
 
-export default injectIntl(ShowMoreButton);
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(ShowMoreButton);
+export default _default_1;

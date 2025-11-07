@@ -17,7 +17,4 @@ snapshotInformational(SiteSelector, {
 
 snapshotInformational(SiteSelectorDisabled, {
 	description: 'site selector with disableSiteSelector set to true',
-	featureFlags: {
-		'add-disablesiteselector': true,
-	},
 });

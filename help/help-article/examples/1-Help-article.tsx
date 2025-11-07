@@ -18,13 +18,13 @@ export default class extends React.Component<Props, State> {
 		};
 	}
 
-	changeContent() {
+	changeContent(): void {
 		this.setState({
 			body: '<p>before image</p> <img src="https://via.placeholder.com/600x600.png/" class="page-list__image" alt="LoremFlickr placeholder image"/> <p>after image</p>',
 		});
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			<div style={{ padding: token('space.100', '8px') }}>

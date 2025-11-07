@@ -5,7 +5,7 @@ import { accessibilityGuidelines } from './guidelines';
 
 const topics = Object.keys(accessibilityGuidelines) as (keyof typeof accessibilityGuidelines)[];
 
-const inputSchema = z.object({
+export const getA11yGuidelinesInputSchema = z.object({
 	topic: z
 		.string()
 		.optional()
@@ -22,10 +22,12 @@ export const listGetA11yGuidelinesTool = {
 		idempotentHint: true,
 		openWorldHint: true,
 	},
-	inputSchema: zodToJsonSchema(inputSchema),
+	inputSchema: zodToJsonSchema(getA11yGuidelinesInputSchema),
 };
 
-export const getA11yGuidelinesTool = async ({ topic }: { topic?: string }) => {
+export const getA11yGuidelinesTool = async ({
+	topic,
+}: z.infer<typeof getA11yGuidelinesInputSchema>) => {
 	if (topic && accessibilityGuidelines[topic as keyof typeof accessibilityGuidelines]) {
 		const guidelines = accessibilityGuidelines[topic as keyof typeof accessibilityGuidelines];
 		return {

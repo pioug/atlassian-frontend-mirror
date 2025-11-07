@@ -57,7 +57,7 @@ const Footer = (
 	</FooterContent>
 );
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const {
 		token: articlesToken,
 		setToken: setArticlesToken,

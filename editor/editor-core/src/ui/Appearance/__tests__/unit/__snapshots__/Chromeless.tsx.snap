@@ -32,12 +32,12 @@ exports[`Chromeless editor platform_fix_extra_space_last_line_comment_editor is 
 }
 
 .emotion-0:hover::-webkit-scrollbar-thumb {
-  background-color: var(--ds-background-neutral-bold, #44546F);
+  background-color: var(--ds-background-neutral-bold, #292A2E);
   border-radius: var(--ds-radius-large, 8px);
 }
 
 .emotion-0::-webkit-scrollbar-thumb:hover {
-  background-color: var(--ds-background-neutral-bold-hovered, #2C3E5D);
+  background-color: var(--ds-background-neutral-bold-hovered, #3B3D42);
 }
 
 

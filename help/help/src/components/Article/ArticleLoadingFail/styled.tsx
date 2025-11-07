@@ -12,7 +12,7 @@ const loadingErrorMessageStyles = css({
 	textAlign: 'center',
 });
 
-export const LoadingErrorMessage = ({ children }: { children: React.ReactNode }) => (
+export const LoadingErrorMessage = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={loadingErrorMessageStyles}>{children}</div>
 );
 
@@ -21,15 +21,17 @@ const loadingErrorButtonContainerStyles = css({
 	textAlign: 'center',
 });
 
-export const LoadingErrorButtonContainer = ({ children }: { children: React.ReactNode }) => (
-	<div css={loadingErrorButtonContainerStyles}>{children}</div>
-);
+export const LoadingErrorButtonContainer = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <div css={loadingErrorButtonContainerStyles}>{children}</div>;
 
 const loadingErrorHeadingStyles = css({
 	paddingTop: token('space.500', '40px'),
 	textAlign: 'center',
 });
 
-export const LoadingErrorHeading = ({ children }: { children: React.ReactNode }) => (
+export const LoadingErrorHeading = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={loadingErrorHeadingStyles}>{children}</div>
 );

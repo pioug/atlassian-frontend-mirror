@@ -25,7 +25,6 @@ import type {
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--editor-more';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { createInsertItem, openElementBrowserModal } from './pm-plugins/commands';
 import { getQuickInsertOpenExperiencePlugin } from './pm-plugins/experiences/quick-insert-open-experience';
@@ -47,12 +46,11 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 		headless: options?.headless,
 		getItems({ query, editorState }) {
 			const quickInsertState = pluginKey.getState(editorState);
-			const queryAllItems = '';
 
 			return Promise.resolve(
 				getQuickInsertSuggestions(
 					{
-						query: editorExperiment('platform_editor_insertion', 'control') ? query : queryAllItems,
+						query: query,
 						disableDefaultItems: options?.disableDefaultItems,
 						prioritySortingFn: options?.prioritySortingFn,
 					},

@@ -281,7 +281,7 @@ describe('Anchor', () => {
 			expect(screen.getByTestId(testId)).toHaveCompiledCss({
 				// Every value in here overrides the props values
 				// eg. `props.padding="space.0"` is overridden by `xcss.padding: 'space.100'`
-				backgroundColor: 'var(--ds-background-brand-bold,#0c66e4)',
+				backgroundColor: 'var(--ds-background-brand-bold,#1868db)',
 				padding: 'var(--ds-space-100,8px)',
 				paddingBlock: 'var(--ds-space-100,8px)',
 				paddingBlockStart: 'var(--ds-space-100,8px)',

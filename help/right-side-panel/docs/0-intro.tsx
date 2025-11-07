@@ -3,7 +3,7 @@ import { md, code, Props, AtlassianInternalWarning } from '@atlaskit/docs';
 import Button from '@atlaskit/button';
 import { token } from '@atlaskit/tokens';
 
-export default md`
+const _default_1: any = md`
   ${(
 		<>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
@@ -87,3 +87,4 @@ export default md`
 		<Props props={require('!!extract-react-types-loader!../src/components/RightSidePanel/index')} />
 	)}
 `;
+export default _default_1;

@@ -1,6 +1,37 @@
 import { defineMessages } from 'react-intl-next';
 
-export const messages = defineMessages({
+export const messages: {
+	help_loading: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_panel_header_back: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_panel_header_close: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_panel_header_close_button: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_panel_header_title: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_panel_new_chat_button: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+} = defineMessages({
 	help_loading: {
 		id: 'helpPanel.loading',
 		defaultMessage: 'Loading',

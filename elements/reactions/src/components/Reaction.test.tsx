@@ -201,8 +201,8 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 		});
 		const btn = await screen.findByRole('button');
 		expect(btn).toBeInTheDocument();
-		expect(btn).toHaveCompiledCss('background-color', 'var(--ds-background-selected,#e9f2ff)');
-		expect(btn).toHaveCompiledCss('border-color', 'var(--ds-border-selected,#0c66e4)');
+		expect(btn).toHaveCompiledCss('background-color', 'var(--ds-background-selected,#e9f2fe)');
+		expect(btn).toHaveCompiledCss('border-color', 'var(--ds-border-selected,#1868db)');
 	});
 
 	it('should render with opaque background if showOpaqueBackground is true', async () => {

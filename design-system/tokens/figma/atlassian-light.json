@@ -8,7 +8,7 @@
         "introduced": "0.6.0",
         "description": "Use for primary text, such as body copy, sentence case headers, and buttons."
       },
-      "value": "#172B4D"
+      "value": "#292A2E"
     },
     "Light/color.text.accent.lime": {
       "attributes": {
@@ -53,7 +53,7 @@
         "introduced": "0.6.0",
         "description": "Use for orange text on subtlest and subtler orange accent backgrounds when there is no meaning tied to the color."
       },
-      "value": "#A54800"
+      "value": "#9E4C00"
     },
     "Light/color.text.accent.orange.bolder": {
       "attributes": {
@@ -62,7 +62,7 @@
         "introduced": "0.7.0",
         "description": "Use for orange text on subtle orange accent backgrounds when there is no meaning tied to the color."
       },
-      "value": "#702E00"
+      "value": "#693200"
     },
     "Light/color.text.accent.yellow": {
       "attributes": {
@@ -125,7 +125,7 @@
         "introduced": "0.6.0",
         "description": "Use for blue text on subtlest and subtler blue accent backgrounds when there is no meaning tied to the color."
       },
-      "value": "#0055CC"
+      "value": "#1558BC"
     },
     "Light/color.text.accent.blue.bolder": {
       "attributes": {
@@ -134,7 +134,7 @@
         "introduced": "0.7.0",
         "description": "Use for blue text on subtle blue accent backgrounds when there is no meaning tied to the color."
       },
-      "value": "#09326C"
+      "value": "#123263"
     },
     "Light/color.text.accent.purple": {
       "attributes": {
@@ -143,7 +143,7 @@
         "introduced": "0.6.0",
         "description": "Use for purple text on subtlest and subtler purple accent backgrounds when there is no meaning tied to the color."
       },
-      "value": "#5E4DB2"
+      "value": "#803FA5"
     },
     "Light/color.text.accent.purple.bolder": {
       "attributes": {
@@ -152,7 +152,7 @@
         "introduced": "0.7.0",
         "description": "Use for purple text on subtle purple accent backgrounds when there is no meaning tied to the color."
       },
-      "value": "#352C63"
+      "value": "#48245D"
     },
     "Light/color.text.accent.magenta": {
       "attributes": {
@@ -179,7 +179,7 @@
         "introduced": "0.10.5",
         "description": "Use for text on non-bold gray accent backgrounds, such as colored tags."
       },
-      "value": "#44546F"
+      "value": "#505258"
     },
     "Light/color.text.accent.gray.bolder": {
       "attributes": {
@@ -188,7 +188,7 @@
         "introduced": "0.10.5",
         "description": "Use for text and icons on gray subtle accent backgrounds."
       },
-      "value": "#091E42"
+      "value": "#1E1F21"
     },
     "Light/color.text.disabled": {
       "attributes": {
@@ -197,7 +197,7 @@
         "introduced": "0.0.15",
         "description": "Use for text in a disabled state."
       },
-      "value": "#091E424F"
+      "value": "#080F214A"
     },
     "Light/color.text.inverse": {
       "attributes": {
@@ -215,7 +215,7 @@
         "introduced": "0.6.0",
         "description": "Use for text in selected or opened states, such as tabs and dropdown buttons."
       },
-      "value": "#0C66E4"
+      "value": "#1868DB"
     },
     "Light/color.text.brand": {
       "attributes": {
@@ -224,7 +224,7 @@
         "introduced": "0.6.0",
         "description": "Use for text that reinforces our brand."
       },
-      "value": "#0C66E4"
+      "value": "#1868DB"
     },
     "Light/color.text.danger": {
       "attributes": {
@@ -242,7 +242,7 @@
         "introduced": "0.0.15",
         "description": "Use for text to emphasize caution, such as in moved lozenges."
       },
-      "value": "#A54800"
+      "value": "#9E4C00"
     },
     "Light/color.text.warning.inverse": {
       "attributes": {
@@ -251,7 +251,7 @@
         "introduced": "0.6.0",
         "description": "Use for text when on bold warning backgrounds."
       },
-      "value": "#172B4D"
+      "value": "#292A2E"
     },
     "Light/color.text.success": {
       "attributes": {
@@ -260,7 +260,7 @@
         "introduced": "0.0.15",
         "description": "Use for text to communicate a favorable outcome, such as input field success messaging."
       },
-      "value": "#216E4E"
+      "value": "#4C6B1F"
     },
     "Light/color.text.discovery": {
       "attributes": {
@@ -269,7 +269,7 @@
         "introduced": "0.0.15",
         "description": "Use for text to emphasize change or something new, such as in new lozenges."
       },
-      "value": "#5E4DB2"
+      "value": "#803FA5"
     },
     "Light/color.text.information": {
       "attributes": {
@@ -278,7 +278,7 @@
         "introduced": "0.6.0",
         "description": "Use for informative text or to communicate something is in progress, such as in-progress lozenges."
       },
-      "value": "#0055CC"
+      "value": "#1558BC"
     },
     "Light/color.text.subtlest": {
       "attributes": {
@@ -287,7 +287,7 @@
         "introduced": "0.6.0",
         "description": "Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text."
       },
-      "value": "#626F86"
+      "value": "#6B6E76"
     },
     "Light/color.text.subtle": {
       "attributes": {
@@ -296,7 +296,7 @@
         "introduced": "0.6.0",
         "description": "Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings."
       },
-      "value": "#44546F"
+      "value": "#505258"
     },
     "Light/color.link": {
       "attributes": {
@@ -305,7 +305,7 @@
         "introduced": "0.6.0",
         "description": "Use for links in a default or hovered state. Add an underline for hovered states."
       },
-      "value": "#0C66E4"
+      "value": "#1868DB"
     },
     "Light/color.link.pressed": {
       "attributes": {
@@ -314,7 +314,7 @@
         "introduced": "0.6.0",
         "description": "Use for links in a pressed state."
       },
-      "value": "#0055CC"
+      "value": "#1558BC"
     },
     "Light/color.link.visited": {
       "attributes": {
@@ -323,7 +323,7 @@
         "introduced": "1.23.0",
         "description": "Use for visited links."
       },
-      "value": "#5E4DB2"
+      "value": "#803FA5"
     },
     "Light/color.link.visited.pressed": {
       "attributes": {
@@ -332,7 +332,7 @@
         "introduced": "1.43.0",
         "description": "Use for visited links in a pressed state."
       },
-      "value": "#352C63"
+      "value": "#48245D"
     },
     "Light/color.icon": {
       "attributes": {
@@ -341,7 +341,7 @@
         "introduced": "0.6.0",
         "description": "Use for icon-only buttons, or icons paired with color.text"
       },
-      "value": "#44546F"
+      "value": "#292A2E"
     },
     "Light/color.icon.accent.lime": {
       "attributes": {
@@ -368,7 +368,7 @@
         "introduced": "0.6.0",
         "description": "Use for orange icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
       },
-      "value": "#E56910"
+      "value": "#E06C00"
     },
     "Light/color.icon.accent.yellow": {
       "attributes": {
@@ -404,7 +404,7 @@
         "introduced": "0.6.0",
         "description": "Use for blue icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
       },
-      "value": "#1D7AFC"
+      "value": "#357DE8"
     },
     "Light/color.icon.accent.purple": {
       "attributes": {
@@ -413,7 +413,7 @@
         "introduced": "0.6.0",
         "description": "Use for purple icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
       },
-      "value": "#8270DB"
+      "value": "#AF59E1"
     },
     "Light/color.icon.accent.magenta": {
       "attributes": {
@@ -431,7 +431,7 @@
         "introduced": "0.10.5",
         "description": "Use for icons on non-bold gray accent backgrounds, such as file type icons."
       },
-      "value": "#758195"
+      "value": "#7D818A"
     },
     "Light/color.icon.disabled": {
       "attributes": {
@@ -440,7 +440,7 @@
         "introduced": "0.6.0",
         "description": "Use for icons in a disabled state."
       },
-      "value": "#091E424F"
+      "value": "#080F214A"
     },
     "Light/color.icon.inverse": {
       "attributes": {
@@ -458,7 +458,7 @@
         "introduced": "0.6.2",
         "description": "Use for icons in selected or opened states, such as those used in dropdown buttons."
       },
-      "value": "#0C66E4"
+      "value": "#1868DB"
     },
     "Light/color.icon.brand": {
       "attributes": {
@@ -467,7 +467,7 @@
         "introduced": "0.6.0",
         "description": "Use for icons that reinforce our brand."
       },
-      "value": "#0C66E4"
+      "value": "#1868DB"
     },
     "Light/color.icon.danger": {
       "attributes": {
@@ -485,7 +485,7 @@
         "introduced": "0.6.0",
         "description": "Use for icons communicating caution, such as those used in warning section messages."
       },
-      "value": "#E56910"
+      "value": "#E06C00"
     },
     "Light/color.icon.warning.inverse": {
       "attributes": {
@@ -494,7 +494,7 @@
         "introduced": "0.6.0",
         "description": "Use for icons when on bold warning backgrounds."
       },
-      "value": "#172B4D"
+      "value": "#292A2E"
     },
     "Light/color.icon.success": {
       "attributes": {
@@ -503,7 +503,7 @@
         "introduced": "0.6.0",
         "description": "Use for icons communicating a favorable outcome, such as those used in success section messaged."
       },
-      "value": "#22A06B"
+      "value": "#6A9A23"
     },
     "Light/color.icon.discovery": {
       "attributes": {
@@ -512,7 +512,7 @@
         "introduced": "0.6.0",
         "description": "Use for icons communicating change or something new, such as discovery section messages."
       },
-      "value": "#8270DB"
+      "value": "#AF59E1"
     },
     "Light/color.icon.information": {
       "attributes": {
@@ -521,7 +521,7 @@
         "introduced": "0.6.0",
         "description": "Use for icons communicating information or something in-progress, such as information section messages."
       },
-      "value": "#1D7AFC"
+      "value": "#357DE8"
     },
     "Light/color.icon.subtlest": {
       "attributes": {
@@ -530,7 +530,7 @@
         "introduced": "1.54.0",
         "description": "Use for icons paired with color.text.subtlest"
       },
-      "value": "#626F86"
+      "value": "#6B6E76"
     },
     "Light/color.icon.subtle": {
       "attributes": {
@@ -539,7 +539,7 @@
         "introduced": "0.6.0",
         "description": "Use for icons paired with color.text.subtle"
       },
-      "value": "#626F86"
+      "value": "#505258"
     },
     "Light/color.border": {
       "attributes": {
@@ -548,7 +548,7 @@
         "introduced": "0.6.0",
         "description": "Use to visually group or separate UI elements, such as flat cards or side panel dividers."
       },
-      "value": "#091E4224"
+      "value": "#0B120E24"
     },
     "Light/color.border.accent.lime": {
       "attributes": {
@@ -575,7 +575,7 @@
         "introduced": "0.6.0",
         "description": "Use for orange borders on non-bold backgrounds when there is no meaning tied to the color."
       },
-      "value": "#E56910"
+      "value": "#E06C00"
     },
     "Light/color.border.accent.yellow": {
       "attributes": {
@@ -611,7 +611,7 @@
         "introduced": "0.6.0",
         "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color."
       },
-      "value": "#1D7AFC"
+      "value": "#357DE8"
     },
     "Light/color.border.accent.purple": {
       "attributes": {
@@ -620,7 +620,7 @@
         "introduced": "0.6.0",
         "description": "Use for purple borders on non-bold backgrounds when there is no meaning tied to the color."
       },
-      "value": "#8270DB"
+      "value": "#AF59E1"
     },
     "Light/color.border.accent.magenta": {
       "attributes": {
@@ -638,7 +638,7 @@
         "introduced": "0.10.5",
         "description": "Use for borders on non-bold gray accent backgrounds."
       },
-      "value": "#758195"
+      "value": "#7D818A"
     },
     "Light/color.border.disabled": {
       "attributes": {
@@ -647,7 +647,7 @@
         "introduced": "0.6.0",
         "description": "Use for borders of elements in a disabled state."
       },
-      "value": "#091E420F"
+      "value": "#0515240F"
     },
     "Light/color.border.focused": {
       "attributes": {
@@ -656,7 +656,7 @@
         "introduced": "0.6.0",
         "description": "Use for focus rings of elements in a focus state."
       },
-      "value": "#388BFF"
+      "value": "#4688EC"
     },
     "Light/color.border.input": {
       "attributes": {
@@ -665,7 +665,7 @@
         "introduced": "0.6.0",
         "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
       },
-      "value": "#8590A2"
+      "value": "#8C8F97"
     },
     "Light/color.border.inverse": {
       "attributes": {
@@ -683,7 +683,7 @@
         "introduced": "0.6.2",
         "description": "Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items."
       },
-      "value": "#0C66E4"
+      "value": "#1868DB"
     },
     "Light/color.border.brand": {
       "attributes": {
@@ -692,7 +692,7 @@
         "introduced": "0.6.0",
         "description": "Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons."
       },
-      "value": "#0C66E4"
+      "value": "#1868DB"
     },
     "Light/color.border.danger": {
       "attributes": {
@@ -710,7 +710,7 @@
         "introduced": "0.6.0",
         "description": "Use for borders communicating caution."
       },
-      "value": "#E56910"
+      "value": "#E06C00"
     },
     "Light/color.border.success": {
       "attributes": {
@@ -719,7 +719,7 @@
         "introduced": "0.6.0",
         "description": "Use for borders communicating a favorable outcome, such as the borders on validated text fields."
       },
-      "value": "#22A06B"
+      "value": "#6A9A23"
     },
     "Light/color.border.discovery": {
       "attributes": {
@@ -728,7 +728,7 @@
         "introduced": "0.6.0",
         "description": "Use for borders communicating change or something new, such as the borders in onboarding spotlights."
       },
-      "value": "#8270DB"
+      "value": "#AF59E1"
     },
     "Light/color.border.information": {
       "attributes": {
@@ -737,7 +737,7 @@
         "introduced": "0.6.0",
         "description": "Use for borders communicating information or something in-progress."
       },
-      "value": "#1D7AFC"
+      "value": "#357DE8"
     },
     "Light/color.border.bold": {
       "attributes": {
@@ -746,7 +746,7 @@
         "introduced": "0.10.8",
         "description": "A neutral border option that passes min 3:1 contrast ratios."
       },
-      "value": "#758195"
+      "value": "#7D818A"
     },
     "Light/color.background.accent.lime.subtlest": {
       "attributes": {
@@ -773,7 +773,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.lime.subtlest."
       },
-      "value": "#B3DF72"
+      "value": "#BDE97C"
     },
     "Light/color.background.accent.lime.subtler": {
       "attributes": {
@@ -791,7 +791,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.lime.subtler."
       },
-      "value": "#B3DF72"
+      "value": "#BDE97C"
     },
     "Light/color.background.accent.lime.subtler.pressed": {
       "attributes": {
@@ -800,7 +800,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.lime.subtler."
       },
-      "value": "#94C748"
+      "value": "#B3DF72"
     },
     "Light/color.background.accent.lime.subtle": {
       "attributes": {
@@ -827,7 +827,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.lime.subtle."
       },
-      "value": "#D3F1A7"
+      "value": "#BDE97C"
     },
     "Light/color.background.accent.lime.bolder": {
       "attributes": {
@@ -854,7 +854,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.lime.bolder."
       },
-      "value": "#37471F"
+      "value": "#3F5224"
     },
     "Light/color.background.accent.red.subtlest": {
       "attributes": {
@@ -881,7 +881,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.red.subtlest."
       },
-      "value": "#FD9891"
+      "value": "#FFB8B2"
     },
     "Light/color.background.accent.red.subtler": {
       "attributes": {
@@ -899,7 +899,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.red.subtler."
       },
-      "value": "#FD9891"
+      "value": "#FFB8B2"
     },
     "Light/color.background.accent.red.subtler.pressed": {
       "attributes": {
@@ -908,7 +908,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.red.subtler."
       },
-      "value": "#F87168"
+      "value": "#FD9891"
     },
     "Light/color.background.accent.red.subtle": {
       "attributes": {
@@ -935,7 +935,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.red.subtle."
       },
-      "value": "#FFD5D2"
+      "value": "#FFB8B2"
     },
     "Light/color.background.accent.red.bolder": {
       "attributes": {
@@ -962,7 +962,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.red.bolder."
       },
-      "value": "#5D1F1A"
+      "value": "#872821"
     },
     "Light/color.background.accent.orange.subtlest": {
       "attributes": {
@@ -971,7 +971,7 @@
         "introduced": "0.7.0",
         "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "#FFF3EB"
+      "value": "#FFF5DB"
     },
     "Light/color.background.accent.orange.subtlest.hovered": {
       "attributes": {
@@ -980,7 +980,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.orange.subtlest."
       },
-      "value": "#FEDEC8"
+      "value": "#FCE4A6"
     },
     "Light/color.background.accent.orange.subtlest.pressed": {
       "attributes": {
@@ -989,7 +989,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.orange.subtlest."
       },
-      "value": "#FEC195"
+      "value": "#FBD779"
     },
     "Light/color.background.accent.orange.subtler": {
       "attributes": {
@@ -998,7 +998,7 @@
         "introduced": "0.7.0",
         "description": "Use for orange backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "#FEDEC8"
+      "value": "#FCE4A6"
     },
     "Light/color.background.accent.orange.subtler.hovered": {
       "attributes": {
@@ -1007,7 +1007,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.orange.subtler."
       },
-      "value": "#FEC195"
+      "value": "#FBD779"
     },
     "Light/color.background.accent.orange.subtler.pressed": {
       "attributes": {
@@ -1016,7 +1016,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.orange.subtler."
       },
-      "value": "#FEA362"
+      "value": "#FBC828"
     },
     "Light/color.background.accent.orange.subtle": {
       "attributes": {
@@ -1025,7 +1025,7 @@
         "introduced": "0.7.0",
         "description": "Use for vibrant orange backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "#FEA362"
+      "value": "#FCA700"
     },
     "Light/color.background.accent.orange.subtle.hovered": {
       "attributes": {
@@ -1034,7 +1034,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.orange.subtle."
       },
-      "value": "#FEC195"
+      "value": "#FBC828"
     },
     "Light/color.background.accent.orange.subtle.pressed": {
       "attributes": {
@@ -1043,7 +1043,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.orange.subtle."
       },
-      "value": "#FEDEC8"
+      "value": "#FBD779"
     },
     "Light/color.background.accent.orange.bolder": {
       "attributes": {
@@ -1052,7 +1052,7 @@
         "introduced": "0.7.0",
         "description": "Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "#C25100"
+      "value": "#BD5B00"
     },
     "Light/color.background.accent.orange.bolder.hovered": {
       "attributes": {
@@ -1061,7 +1061,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.orange.bolder."
       },
-      "value": "#A54800"
+      "value": "#9E4C00"
     },
     "Light/color.background.accent.orange.bolder.pressed": {
       "attributes": {
@@ -1070,7 +1070,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.orange.bolder."
       },
-      "value": "#702E00"
+      "value": "#7A3B00"
     },
     "Light/color.background.accent.yellow.subtlest": {
       "attributes": {
@@ -1079,7 +1079,7 @@
         "introduced": "0.7.0",
         "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "#FFF7D6"
+      "value": "#FEF7C8"
     },
     "Light/color.background.accent.yellow.subtlest.hovered": {
       "attributes": {
@@ -1088,7 +1088,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.yellow.subtlest."
       },
-      "value": "#F8E6A0"
+      "value": "#F5E989"
     },
     "Light/color.background.accent.yellow.subtlest.pressed": {
       "attributes": {
@@ -1097,7 +1097,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.yellow.subtlest."
       },
-      "value": "#F5CD47"
+      "value": "#EFDD4E"
     },
     "Light/color.background.accent.yellow.subtler": {
       "attributes": {
@@ -1106,7 +1106,7 @@
         "introduced": "0.7.0",
         "description": "Use for yellow backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "#F8E6A0"
+      "value": "#F5E989"
     },
     "Light/color.background.accent.yellow.subtler.hovered": {
       "attributes": {
@@ -1115,7 +1115,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.yellow.subtler."
       },
-      "value": "#F5CD47"
+      "value": "#EFDD4E"
     },
     "Light/color.background.accent.yellow.subtler.pressed": {
       "attributes": {
@@ -1124,7 +1124,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.yellow.subtler."
       },
-      "value": "#E2B203"
+      "value": "#EED12B"
     },
     "Light/color.background.accent.yellow.subtle": {
       "attributes": {
@@ -1133,7 +1133,7 @@
         "introduced": "0.7.0",
         "description": "Use for vibrant yellow backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "#F5CD47"
+      "value": "#EED12B"
     },
     "Light/color.background.accent.yellow.subtle.hovered": {
       "attributes": {
@@ -1142,7 +1142,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.yellow.subtle."
       },
-      "value": "#E2B203"
+      "value": "#DDB30E"
     },
     "Light/color.background.accent.yellow.subtle.pressed": {
       "attributes": {
@@ -1151,7 +1151,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.yellow.subtle."
       },
-      "value": "#CF9F02"
+      "value": "#EFDD4E"
     },
     "Light/color.background.accent.yellow.bolder": {
       "attributes": {
@@ -1178,7 +1178,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.yellow.bolder."
       },
-      "value": "#533F04"
+      "value": "#614A05"
     },
     "Light/color.background.accent.green.subtlest": {
       "attributes": {
@@ -1205,7 +1205,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.green.subtlest."
       },
-      "value": "#7EE2B8"
+      "value": "#97EDC9"
     },
     "Light/color.background.accent.green.subtler": {
       "attributes": {
@@ -1223,7 +1223,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.green.subtler."
       },
-      "value": "#7EE2B8"
+      "value": "#97EDC9"
     },
     "Light/color.background.accent.green.subtler.pressed": {
       "attributes": {
@@ -1232,7 +1232,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.green.subtler."
       },
-      "value": "#4BCE97"
+      "value": "#7EE2B8"
     },
     "Light/color.background.accent.green.subtle": {
       "attributes": {
@@ -1259,7 +1259,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.green.subtle."
       },
-      "value": "#BAF3DB"
+      "value": "#97EDC9"
     },
     "Light/color.background.accent.green.bolder": {
       "attributes": {
@@ -1286,7 +1286,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.green.bolder."
       },
-      "value": "#164B35"
+      "value": "#19573D"
     },
     "Light/color.background.accent.teal.subtlest": {
       "attributes": {
@@ -1313,7 +1313,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.teal.subtlest."
       },
-      "value": "#9DD9EE"
+      "value": "#B1E4F7"
     },
     "Light/color.background.accent.teal.subtler": {
       "attributes": {
@@ -1331,7 +1331,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.teal.subtler."
       },
-      "value": "#9DD9EE"
+      "value": "#B1E4F7"
     },
     "Light/color.background.accent.teal.subtler.pressed": {
       "attributes": {
@@ -1340,7 +1340,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.teal.subtler."
       },
-      "value": "#6CC3E0"
+      "value": "#9DD9EE"
     },
     "Light/color.background.accent.teal.subtle": {
       "attributes": {
@@ -1367,7 +1367,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.teal.subtle."
       },
-      "value": "#C6EDFB"
+      "value": "#B1E4F7"
     },
     "Light/color.background.accent.teal.bolder": {
       "attributes": {
@@ -1394,7 +1394,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.teal.bolder."
       },
-      "value": "#164555"
+      "value": "#1A5265"
     },
     "Light/color.background.accent.blue.subtlest": {
       "attributes": {
@@ -1403,7 +1403,7 @@
         "introduced": "0.7.0",
         "description": "Use for blue backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "#E9F2FF"
+      "value": "#E9F2FE"
     },
     "Light/color.background.accent.blue.subtlest.hovered": {
       "attributes": {
@@ -1412,7 +1412,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.blue.subtlest."
       },
-      "value": "#CCE0FF"
+      "value": "#CFE1FD"
     },
     "Light/color.background.accent.blue.subtlest.pressed": {
       "attributes": {
@@ -1421,7 +1421,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.blue.subtlest."
       },
-      "value": "#85B8FF"
+      "value": "#ADCBFB"
     },
     "Light/color.background.accent.blue.subtler": {
       "attributes": {
@@ -1430,7 +1430,7 @@
         "introduced": "0.7.0",
         "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "#CCE0FF"
+      "value": "#CFE1FD"
     },
     "Light/color.background.accent.blue.subtler.hovered": {
       "attributes": {
@@ -1439,7 +1439,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.blue.subtler."
       },
-      "value": "#85B8FF"
+      "value": "#ADCBFB"
     },
     "Light/color.background.accent.blue.subtler.pressed": {
       "attributes": {
@@ -1448,7 +1448,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.blue.subtler."
       },
-      "value": "#579DFF"
+      "value": "#8FB8F6"
     },
     "Light/color.background.accent.blue.subtle": {
       "attributes": {
@@ -1457,7 +1457,7 @@
         "introduced": "0.7.0",
         "description": "Use for vibrant blue backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "#579DFF"
+      "value": "#669DF1"
     },
     "Light/color.background.accent.blue.subtle.hovered": {
       "attributes": {
@@ -1466,7 +1466,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.blue.subtle."
       },
-      "value": "#85B8FF"
+      "value": "#8FB8F6"
     },
     "Light/color.background.accent.blue.subtle.pressed": {
       "attributes": {
@@ -1475,7 +1475,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.blue.subtle."
       },
-      "value": "#CCE0FF"
+      "value": "#ADCBFB"
     },
     "Light/color.background.accent.blue.bolder": {
       "attributes": {
@@ -1484,7 +1484,7 @@
         "introduced": "0.7.0",
         "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "#0C66E4"
+      "value": "#1868DB"
     },
     "Light/color.background.accent.blue.bolder.hovered": {
       "attributes": {
@@ -1493,7 +1493,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.blue.bolder."
       },
-      "value": "#0055CC"
+      "value": "#1558BC"
     },
     "Light/color.background.accent.blue.bolder.pressed": {
       "attributes": {
@@ -1502,7 +1502,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.blue.bolder."
       },
-      "value": "#09326C"
+      "value": "#144794"
     },
     "Light/color.background.accent.purple.subtlest": {
       "attributes": {
@@ -1511,7 +1511,7 @@
         "introduced": "0.7.0",
         "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "#F3F0FF"
+      "value": "#F8EEFE"
     },
     "Light/color.background.accent.purple.subtlest.hovered": {
       "attributes": {
@@ -1520,7 +1520,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.purple.subtlest."
       },
-      "value": "#DFD8FD"
+      "value": "#EED7FC"
     },
     "Light/color.background.accent.purple.subtlest.pressed": {
       "attributes": {
@@ -1529,7 +1529,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.purple.subtlest."
       },
-      "value": "#B8ACF6"
+      "value": "#E3BDFA"
     },
     "Light/color.background.accent.purple.subtler": {
       "attributes": {
@@ -1538,7 +1538,7 @@
         "introduced": "0.7.0",
         "description": "Use for purple backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "#DFD8FD"
+      "value": "#EED7FC"
     },
     "Light/color.background.accent.purple.subtler.hovered": {
       "attributes": {
@@ -1547,7 +1547,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.purple.subtler."
       },
-      "value": "#B8ACF6"
+      "value": "#E3BDFA"
     },
     "Light/color.background.accent.purple.subtler.pressed": {
       "attributes": {
@@ -1556,7 +1556,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.purple.subtler."
       },
-      "value": "#9F8FEF"
+      "value": "#D8A0F7"
     },
     "Light/color.background.accent.purple.subtle": {
       "attributes": {
@@ -1565,7 +1565,7 @@
         "introduced": "0.7.0",
         "description": "Use for vibrant purple backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "#9F8FEF"
+      "value": "#C97CF4"
     },
     "Light/color.background.accent.purple.subtle.hovered": {
       "attributes": {
@@ -1574,7 +1574,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.purple.subtle."
       },
-      "value": "#B8ACF6"
+      "value": "#D8A0F7"
     },
     "Light/color.background.accent.purple.subtle.pressed": {
       "attributes": {
@@ -1583,7 +1583,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.purple.subtle."
       },
-      "value": "#DFD8FD"
+      "value": "#E3BDFA"
     },
     "Light/color.background.accent.purple.bolder": {
       "attributes": {
@@ -1592,7 +1592,7 @@
         "introduced": "0.7.0",
         "description": "Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "#6E5DC6"
+      "value": "#964AC0"
     },
     "Light/color.background.accent.purple.bolder.hovered": {
       "attributes": {
@@ -1601,7 +1601,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.purple.bolder."
       },
-      "value": "#5E4DB2"
+      "value": "#803FA5"
     },
     "Light/color.background.accent.purple.bolder.pressed": {
       "attributes": {
@@ -1610,7 +1610,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.purple.bolder."
       },
-      "value": "#352C63"
+      "value": "#673286"
     },
     "Light/color.background.accent.magenta.subtlest": {
       "attributes": {
@@ -1637,7 +1637,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.magenta.subtlest."
       },
-      "value": "#F797D2"
+      "value": "#FCB6E1"
     },
     "Light/color.background.accent.magenta.subtler": {
       "attributes": {
@@ -1655,7 +1655,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.magenta.subtler."
       },
-      "value": "#F797D2"
+      "value": "#FCB6E1"
     },
     "Light/color.background.accent.magenta.subtler.pressed": {
       "attributes": {
@@ -1664,7 +1664,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.magenta.subtler."
       },
-      "value": "#E774BB"
+      "value": "#F797D2"
     },
     "Light/color.background.accent.magenta.subtle": {
       "attributes": {
@@ -1691,7 +1691,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.magenta.subtle."
       },
-      "value": "#FDD0EC"
+      "value": "#FCB6E1"
     },
     "Light/color.background.accent.magenta.bolder": {
       "attributes": {
@@ -1718,7 +1718,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.magenta.bolder."
       },
-      "value": "#50253F"
+      "value": "#77325B"
     },
     "Light/color.background.accent.gray.subtlest": {
       "attributes": {
@@ -1727,7 +1727,7 @@
         "introduced": "0.7.0",
         "description": "Use for gray backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "#F1F2F4"
+      "value": "#F0F1F2"
     },
     "Light/color.background.accent.gray.subtlest.hovered": {
       "attributes": {
@@ -1736,7 +1736,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.gray.subtlest."
       },
-      "value": "#DCDFE4"
+      "value": "#DDDEE1"
     },
     "Light/color.background.accent.gray.subtlest.pressed": {
       "attributes": {
@@ -1745,7 +1745,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.gray.subtlest."
       },
-      "value": "#B3B9C4"
+      "value": "#B7B9BE"
     },
     "Light/color.background.accent.gray.subtler": {
       "attributes": {
@@ -1754,7 +1754,7 @@
         "introduced": "0.7.0",
         "description": "Use for gray backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "#DCDFE4"
+      "value": "#DDDEE1"
     },
     "Light/color.background.accent.gray.subtler.hovered": {
       "attributes": {
@@ -1763,7 +1763,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.gray.subtler."
       },
-      "value": "#B3B9C4"
+      "value": "#B7B9BE"
     },
     "Light/color.background.accent.gray.subtler.pressed": {
       "attributes": {
@@ -1772,7 +1772,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.gray.subtler."
       },
-      "value": "#8590A2"
+      "value": "#8C8F97"
     },
     "Light/color.background.accent.gray.subtle": {
       "attributes": {
@@ -1781,7 +1781,7 @@
         "introduced": "0.7.0",
         "description": "Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "#8590A2"
+      "value": "#8C8F97"
     },
     "Light/color.background.accent.gray.subtle.hovered": {
       "attributes": {
@@ -1790,7 +1790,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.gray.subtle."
       },
-      "value": "#B3B9C4"
+      "value": "#B7B9BE"
     },
     "Light/color.background.accent.gray.subtle.pressed": {
       "attributes": {
@@ -1799,7 +1799,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.gray.subtle."
       },
-      "value": "#DCDFE4"
+      "value": "#DDDEE1"
     },
     "Light/color.background.accent.gray.bolder": {
       "attributes": {
@@ -1808,7 +1808,7 @@
         "introduced": "0.7.0",
         "description": "Use for gray backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "#626F86"
+      "value": "#6B6E76"
     },
     "Light/color.background.accent.gray.bolder.hovered": {
       "attributes": {
@@ -1817,7 +1817,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.gray.bolder."
       },
-      "value": "#44546F"
+      "value": "#505258"
     },
     "Light/color.background.accent.gray.bolder.pressed": {
       "attributes": {
@@ -1826,7 +1826,7 @@
         "introduced": "1.19.0",
         "description": "Pressed state of color.background.accent.gray.subtlest."
       },
-      "value": "#2C3E5D"
+      "value": "#3B3D42"
     },
     "Light/color.background.disabled": {
       "attributes": {
@@ -1835,7 +1835,7 @@
         "introduced": "0.0.15",
         "description": "Use for backgrounds of elements in a disabled state."
       },
-      "value": "#091E4208"
+      "value": "#17171708"
     },
     "Light/color.background.input": {
       "attributes": {
@@ -1853,7 +1853,7 @@
         "introduced": "0.6.0",
         "description": "Hovered state for color.background.input"
       },
-      "value": "#F7F8F9"
+      "value": "#F8F8F8"
     },
     "Light/color.background.input.pressed": {
       "attributes": {
@@ -1898,7 +1898,7 @@
         "introduced": "0.6.0",
         "description": "The default background for neutral elements, such as default buttons."
       },
-      "value": "#091E420F"
+      "value": "#0515240F"
     },
     "Light/color.background.neutral.hovered": {
       "attributes": {
@@ -1907,7 +1907,7 @@
         "introduced": "0.6.0",
         "description": "Hovered state for color.background.neutral"
       },
-      "value": "#091E4224"
+      "value": "#0B120E24"
     },
     "Light/color.background.neutral.pressed": {
       "attributes": {
@@ -1916,7 +1916,7 @@
         "introduced": "0.6.0",
         "description": "Pressed state for color.background.neutral"
       },
-      "value": "#091E424F"
+      "value": "#080F214A"
     },
     "Light/color.background.neutral.subtle": {
       "attributes": {
@@ -1934,7 +1934,7 @@
         "introduced": "0.6.0",
         "description": "Hovered state for color.background.neutral.subtle"
       },
-      "value": "#091E420F"
+      "value": "#0515240F"
     },
     "Light/color.background.neutral.subtle.pressed": {
       "attributes": {
@@ -1943,7 +1943,7 @@
         "introduced": "0.6.0",
         "description": "Pressed state for color.background.neutral.subtle"
       },
-      "value": "#091E4224"
+      "value": "#0B120E24"
     },
     "Light/color.background.neutral.bold": {
       "attributes": {
@@ -1952,7 +1952,7 @@
         "introduced": "0.6.0",
         "description": "A vibrant background option for neutral UI elements, such as announcement banners."
       },
-      "value": "#44546F"
+      "value": "#292A2E"
     },
     "Light/color.background.neutral.bold.hovered": {
       "attributes": {
@@ -1961,7 +1961,7 @@
         "introduced": "0.6.0",
         "description": "Hovered state of color.background.neutral.bold"
       },
-      "value": "#2C3E5D"
+      "value": "#3B3D42"
     },
     "Light/color.background.neutral.bold.pressed": {
       "attributes": {
@@ -1970,7 +1970,7 @@
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.neutral.bold"
       },
-      "value": "#172B4D"
+      "value": "#505258"
     },
     "Light/color.background.selected": {
       "attributes": {
@@ -1979,7 +1979,7 @@
         "introduced": "0.6.2",
         "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
       },
-      "value": "#E9F2FF"
+      "value": "#E9F2FE"
     },
     "Light/color.background.selected.hovered": {
       "attributes": {
@@ -1988,7 +1988,7 @@
         "introduced": "0.6.2",
         "description": "Hovered state for color.background.selected"
       },
-      "value": "#CCE0FF"
+      "value": "#CFE1FD"
     },
     "Light/color.background.selected.pressed": {
       "attributes": {
@@ -1997,7 +1997,7 @@
         "introduced": "0.6.2",
         "description": "Pressed state for color.background.selected"
       },
-      "value": "#85B8FF"
+      "value": "#8FB8F6"
     },
     "Light/color.background.selected.bold": {
       "attributes": {
@@ -2006,7 +2006,7 @@
         "introduced": "0.6.2",
         "description": "Use for the backgrounds of elements in a selected state, such as checkboxes and radio buttons."
       },
-      "value": "#0C66E4"
+      "value": "#1868DB"
     },
     "Light/color.background.selected.bold.hovered": {
       "attributes": {
@@ -2015,7 +2015,7 @@
         "introduced": "0.6.2",
         "description": "Hovered state of color.background.selected.bold"
       },
-      "value": "#0055CC"
+      "value": "#1558BC"
     },
     "Light/color.background.selected.bold.pressed": {
       "attributes": {
@@ -2024,7 +2024,7 @@
         "introduced": "0.6.2",
         "description": "Pressed state of color.background.selected.bold"
       },
-      "value": "#09326C"
+      "value": "#123263"
     },
     "Light/color.background.brand.subtlest": {
       "attributes": {
@@ -2033,7 +2033,7 @@
         "introduced": "1.13.0",
         "description": "Use for the background of elements used to reinforce our brand, but with less emphasis."
       },
-      "value": "#E9F2FF"
+      "value": "#E9F2FE"
     },
     "Light/color.background.brand.subtlest.hovered": {
       "attributes": {
@@ -2042,7 +2042,7 @@
         "introduced": "1.13.0",
         "description": "Hovered state of color.background.brand.subtlest."
       },
-      "value": "#CCE0FF"
+      "value": "#CFE1FD"
     },
     "Light/color.background.brand.subtlest.pressed": {
       "attributes": {
@@ -2051,7 +2051,7 @@
         "introduced": "1.13.0",
         "description": "Pressed state of color.background.brand.subtlest"
       },
-      "value": "#85B8FF"
+      "value": "#ADCBFB"
     },
     "Light/color.background.brand.bold": {
       "attributes": {
@@ -2060,7 +2060,7 @@
         "introduced": "0.6.0",
         "description": "Use for the background of elements used to reinforce our brand, but with more emphasis."
       },
-      "value": "#0C66E4"
+      "value": "#1868DB"
     },
     "Light/color.background.brand.bold.hovered": {
       "attributes": {
@@ -2069,7 +2069,7 @@
         "introduced": "0.6.0",
         "description": "Hovered state of color.background.brand.bold."
       },
-      "value": "#0055CC"
+      "value": "#1558BC"
     },
     "Light/color.background.brand.bold.pressed": {
       "attributes": {
@@ -2078,7 +2078,7 @@
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.brand.bold."
       },
-      "value": "#09326C"
+      "value": "#144794"
     },
     "Light/color.background.brand.boldest": {
       "attributes": {
@@ -2087,7 +2087,7 @@
         "introduced": "1.13.0",
         "description": "Use for the background of elements used to reinforce our brand, that need to stand out a lot."
       },
-      "value": "#1C2B41"
+      "value": "#1C2B42"
     },
     "Light/color.background.brand.boldest.hovered": {
       "attributes": {
@@ -2096,7 +2096,7 @@
         "introduced": "1.13.0",
         "description": "Hovered state of color.background.brand.boldest."
       },
-      "value": "#09326C"
+      "value": "#123263"
     },
     "Light/color.background.brand.boldest.pressed": {
       "attributes": {
@@ -2105,7 +2105,7 @@
         "introduced": "1.13.0",
         "description": "Pressed state of color.background.brand.boldest."
       },
-      "value": "#0055CC"
+      "value": "#144794"
     },
     "Light/color.background.danger": {
       "attributes": {
@@ -2132,7 +2132,7 @@
         "introduced": "0.6.0",
         "description": "Pressed state for color.background.danger"
       },
-      "value": "#FD9891"
+      "value": "#FFB8B2"
     },
     "Light/color.background.danger.bold": {
       "attributes": {
@@ -2159,7 +2159,7 @@
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.danger.bold"
       },
-      "value": "#5D1F1A"
+      "value": "#872821"
     },
     "Light/color.background.warning": {
       "attributes": {
@@ -2168,7 +2168,7 @@
         "introduced": "0.6.0",
         "description": "Use for backgrounds communicating caution, such as in warning section messages."
       },
-      "value": "#FFF7D6"
+      "value": "#FFF5DB"
     },
     "Light/color.background.warning.hovered": {
       "attributes": {
@@ -2177,7 +2177,7 @@
         "introduced": "0.6.0",
         "description": "Hovered state for color.background.warning"
       },
-      "value": "#F8E6A0"
+      "value": "#FCE4A6"
     },
     "Light/color.background.warning.pressed": {
       "attributes": {
@@ -2186,7 +2186,7 @@
         "introduced": "0.6.0",
         "description": "Pressed state for color.background.warning"
       },
-      "value": "#F5CD47"
+      "value": "#FBD779"
     },
     "Light/color.background.warning.bold": {
       "attributes": {
@@ -2195,7 +2195,7 @@
         "introduced": "0.6.0",
         "description": "A vibrant background option for communicating caution, such as in warning buttons and warning banners."
       },
-      "value": "#F5CD47"
+      "value": "#FBC828"
     },
     "Light/color.background.warning.bold.hovered": {
       "attributes": {
@@ -2204,7 +2204,7 @@
         "introduced": "0.6.0",
         "description": "Hovered state of color.background.warning.bold"
       },
-      "value": "#E2B203"
+      "value": "#FCA700"
     },
     "Light/color.background.warning.bold.pressed": {
       "attributes": {
@@ -2213,7 +2213,7 @@
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.warning.bold"
       },
-      "value": "#CF9F02"
+      "value": "#F68909"
     },
     "Light/color.background.success": {
       "attributes": {
@@ -2222,7 +2222,7 @@
         "introduced": "0.6.0",
         "description": "Use for backgrounds communicating a favorable outcome, such as in success section messages."
       },
-      "value": "#DCFFF1"
+      "value": "#EFFFD6"
     },
     "Light/color.background.success.hovered": {
       "attributes": {
@@ -2231,7 +2231,7 @@
         "introduced": "0.6.0",
         "description": "Hovered state for color.background.success"
       },
-      "value": "#BAF3DB"
+      "value": "#D3F1A7"
     },
     "Light/color.background.success.pressed": {
       "attributes": {
@@ -2240,7 +2240,7 @@
         "introduced": "0.6.0",
         "description": "Pressed state for color.background.success"
       },
-      "value": "#7EE2B8"
+      "value": "#BDE97C"
     },
     "Light/color.background.success.bold": {
       "attributes": {
@@ -2249,7 +2249,7 @@
         "introduced": "0.6.0",
         "description": "A vibrant background option for communicating a favorable outcome, such as in checked toggles."
       },
-      "value": "#1F845A"
+      "value": "#5B7F24"
     },
     "Light/color.background.success.bold.hovered": {
       "attributes": {
@@ -2258,7 +2258,7 @@
         "introduced": "0.6.0",
         "description": "Hovered state of color.background.success.bold"
       },
-      "value": "#216E4E"
+      "value": "#4C6B1F"
     },
     "Light/color.background.success.bold.pressed": {
       "attributes": {
@@ -2267,7 +2267,7 @@
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.success.bold"
       },
-      "value": "#164B35"
+      "value": "#3F5224"
     },
     "Light/color.background.discovery": {
       "attributes": {
@@ -2276,7 +2276,7 @@
         "introduced": "0.6.0",
         "description": "Use for backgrounds communicating change or something new, such as in discovery section messages."
       },
-      "value": "#F3F0FF"
+      "value": "#F8EEFE"
     },
     "Light/color.background.discovery.hovered": {
       "attributes": {
@@ -2285,7 +2285,7 @@
         "introduced": "0.6.0",
         "description": "Hover state for color.background.discovery"
       },
-      "value": "#DFD8FD"
+      "value": "#EED7FC"
     },
     "Light/color.background.discovery.pressed": {
       "attributes": {
@@ -2294,7 +2294,7 @@
         "introduced": "0.6.0",
         "description": "Pressed state for color.background.discovery"
       },
-      "value": "#B8ACF6"
+      "value": "#E3BDFA"
     },
     "Light/color.background.discovery.bold": {
       "attributes": {
@@ -2303,7 +2303,7 @@
         "introduced": "0.6.0",
         "description": "A vibrant background option communicating change or something new, such as in onboarding spotlights."
       },
-      "value": "#6E5DC6"
+      "value": "#964AC0"
     },
     "Light/color.background.discovery.bold.hovered": {
       "attributes": {
@@ -2312,7 +2312,7 @@
         "introduced": "0.6.0",
         "description": "Hovered state of color.background.discovery.bold"
       },
-      "value": "#5E4DB2"
+      "value": "#803FA5"
     },
     "Light/color.background.discovery.bold.pressed": {
       "attributes": {
@@ -2321,7 +2321,7 @@
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.discovery.bold"
       },
-      "value": "#352C63"
+      "value": "#673286"
     },
     "Light/color.background.information": {
       "attributes": {
@@ -2330,7 +2330,7 @@
         "introduced": "0.6.0",
         "description": "Use for backgrounds communicating information or something in-progress, such as in information section messages."
       },
-      "value": "#E9F2FF"
+      "value": "#E9F2FE"
     },
     "Light/color.background.information.hovered": {
       "attributes": {
@@ -2339,7 +2339,7 @@
         "introduced": "0.6.0",
         "description": "Hovered state of color.background.information"
       },
-      "value": "#CCE0FF"
+      "value": "#CFE1FD"
     },
     "Light/color.background.information.pressed": {
       "attributes": {
@@ -2348,7 +2348,7 @@
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.information"
       },
-      "value": "#85B8FF"
+      "value": "#ADCBFB"
     },
     "Light/color.background.information.bold": {
       "attributes": {
@@ -2357,7 +2357,7 @@
         "introduced": "0.6.0",
         "description": "A vibrant background option for communicating information or something in-progress."
       },
-      "value": "#0C66E4"
+      "value": "#1868DB"
     },
     "Light/color.background.information.bold.hovered": {
       "attributes": {
@@ -2366,7 +2366,7 @@
         "introduced": "0.6.0",
         "description": "Hovered state of color.background.information.bold"
       },
-      "value": "#0055CC"
+      "value": "#1558BC"
     },
     "Light/color.background.information.bold.pressed": {
       "attributes": {
@@ -2375,7 +2375,7 @@
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.information.bold"
       },
-      "value": "#09326C"
+      "value": "#144794"
     },
     "Light/color.blanket": {
       "attributes": {
@@ -2384,7 +2384,7 @@
         "introduced": "0.0.15",
         "description": "Use for the screen overlay that appears with modal dialogs"
       },
-      "value": "#091E427D"
+      "value": "#050C1F75"
     },
     "Light/color.blanket.selected": {
       "attributes": {
@@ -2429,7 +2429,7 @@
         "introduced": "0.8.0",
         "description": "Use for skeleton loading states"
       },
-      "value": "#091E420F"
+      "value": "#0515240F"
     },
     "Light/color.skeleton.subtle": {
       "attributes": {
@@ -2438,7 +2438,7 @@
         "introduced": "0.8.0",
         "description": "Use for the pulse or shimmer effect in skeleton loading states"
       },
-      "value": "#091E4208"
+      "value": "#17171708"
     },
     "Light/color.chart.categorical.1": {
       "attributes": {
@@ -2447,7 +2447,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
-      "value": "#2898BD"
+      "value": "#357DE8"
     },
     "Light/color.chart.categorical.1.hovered": {
       "attributes": {
@@ -2456,7 +2456,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.1."
       },
-      "value": "#227D9B"
+      "value": "#1868DB"
     },
     "Light/color.chart.categorical.2": {
       "attributes": {
@@ -2465,7 +2465,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
-      "value": "#5E4DB2"
+      "value": "#82B536"
     },
     "Light/color.chart.categorical.2.hovered": {
       "attributes": {
@@ -2474,7 +2474,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.2."
       },
-      "value": "#352C63"
+      "value": "#6A9A23"
     },
     "Light/color.chart.categorical.3": {
       "attributes": {
@@ -2483,7 +2483,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
-      "value": "#E56910"
+      "value": "#BF63F3"
     },
     "Light/color.chart.categorical.3.hovered": {
       "attributes": {
@@ -2492,7 +2492,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.3."
       },
-      "value": "#C25100"
+      "value": "#AF59E1"
     },
     "Light/color.chart.categorical.4": {
       "attributes": {
@@ -2501,7 +2501,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
-      "value": "#943D73"
+      "value": "#F68909"
     },
     "Light/color.chart.categorical.4.hovered": {
       "attributes": {
@@ -2510,7 +2510,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.4."
       },
-      "value": "#50253F"
+      "value": "#E06C00"
     },
     "Light/color.chart.categorical.5": {
       "attributes": {
@@ -2519,7 +2519,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
-      "value": "#09326C"
+      "value": "#1558BC"
     },
     "Light/color.chart.categorical.5.hovered": {
       "attributes": {
@@ -2528,7 +2528,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.5."
       },
-      "value": "#1C2B41"
+      "value": "#123263"
     },
     "Light/color.chart.categorical.6": {
       "attributes": {
@@ -2537,7 +2537,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
-      "value": "#8F7EE7"
+      "value": "#964AC0"
     },
     "Light/color.chart.categorical.6.hovered": {
       "attributes": {
@@ -2546,7 +2546,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.6."
       },
-      "value": "#8270DB"
+      "value": "#803FA5"
     },
     "Light/color.chart.categorical.7": {
       "attributes": {
@@ -2555,7 +2555,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
-      "value": "#50253F"
+      "value": "#42B2D7"
     },
     "Light/color.chart.categorical.7.hovered": {
       "attributes": {
@@ -2564,7 +2564,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.7."
       },
-      "value": "#3D2232"
+      "value": "#2898BD"
     },
     "Light/color.chart.categorical.8": {
       "attributes": {
@@ -2573,7 +2573,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
-      "value": "#A54800"
+      "value": "#BD5B00"
     },
     "Light/color.chart.categorical.8.hovered": {
       "attributes": {
@@ -2582,7 +2582,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.8."
       },
-      "value": "#702E00"
+      "value": "#7A3B00"
     },
     "Light/color.chart.lime.bold": {
       "attributes": {
@@ -2645,7 +2645,7 @@
         "introduced": "0.13.3",
         "description": "A secondary color for data visualisation or to communicate 'to-do' statues."
       },
-      "value": "#8590A2"
+      "value": "#8C8F97"
     },
     "Light/color.chart.neutral.hovered": {
       "attributes": {
@@ -2654,7 +2654,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.neutral."
       },
-      "value": "#758195"
+      "value": "#7D818A"
     },
     "Light/color.chart.red.bold": {
       "attributes": {
@@ -2717,7 +2717,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
-      "value": "#E56910"
+      "value": "#E06C00"
     },
     "Light/color.chart.orange.bold.hovered": {
       "attributes": {
@@ -2726,7 +2726,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.orange.bold."
       },
-      "value": "#C25100"
+      "value": "#BD5B00"
     },
     "Light/color.chart.orange.bolder": {
       "attributes": {
@@ -2735,7 +2735,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
-      "value": "#C25100"
+      "value": "#BD5B00"
     },
     "Light/color.chart.orange.bolder.hovered": {
       "attributes": {
@@ -2744,7 +2744,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.orange.bolder."
       },
-      "value": "#A54800"
+      "value": "#9E4C00"
     },
     "Light/color.chart.orange.boldest": {
       "attributes": {
@@ -2753,7 +2753,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
-      "value": "#A54800"
+      "value": "#7A3B00"
     },
     "Light/color.chart.orange.boldest.hovered": {
       "attributes": {
@@ -2762,7 +2762,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.orange.boldest."
       },
-      "value": "#702E00"
+      "value": "#693200"
     },
     "Light/color.chart.yellow.bold": {
       "attributes": {
@@ -2933,7 +2933,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
-      "value": "#388BFF"
+      "value": "#4688EC"
     },
     "Light/color.chart.blue.bold.hovered": {
       "attributes": {
@@ -2942,7 +2942,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.blue.bold."
       },
-      "value": "#1D7AFC"
+      "value": "#357DE8"
     },
     "Light/color.chart.blue.bolder": {
       "attributes": {
@@ -2951,7 +2951,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
-      "value": "#1D7AFC"
+      "value": "#357DE8"
     },
     "Light/color.chart.blue.bolder.hovered": {
       "attributes": {
@@ -2960,7 +2960,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.blue.bolder."
       },
-      "value": "#0C66E4"
+      "value": "#1868DB"
     },
     "Light/color.chart.blue.boldest": {
       "attributes": {
@@ -2969,7 +2969,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
-      "value": "#0055CC"
+      "value": "#1558BC"
     },
     "Light/color.chart.blue.boldest.hovered": {
       "attributes": {
@@ -2978,7 +2978,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.blue.boldest."
       },
-      "value": "#09326C"
+      "value": "#123263"
     },
     "Light/color.chart.purple.bold": {
       "attributes": {
@@ -2987,7 +2987,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
-      "value": "#8F7EE7"
+      "value": "#BF63F3"
     },
     "Light/color.chart.purple.bold.hovered": {
       "attributes": {
@@ -2996,7 +2996,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.purple.bold."
       },
-      "value": "#8270DB"
+      "value": "#AF59E1"
     },
     "Light/color.chart.purple.bolder": {
       "attributes": {
@@ -3005,7 +3005,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
-      "value": "#8270DB"
+      "value": "#AF59E1"
     },
     "Light/color.chart.purple.bolder.hovered": {
       "attributes": {
@@ -3014,7 +3014,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.purple.bolder."
       },
-      "value": "#6E5DC6"
+      "value": "#964AC0"
     },
     "Light/color.chart.purple.boldest": {
       "attributes": {
@@ -3023,7 +3023,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
-      "value": "#5E4DB2"
+      "value": "#803FA5"
     },
     "Light/color.chart.purple.boldest.hovered": {
       "attributes": {
@@ -3032,7 +3032,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.purple.boldest."
       },
-      "value": "#352C63"
+      "value": "#48245D"
     },
     "Light/color.chart.magenta.bold": {
       "attributes": {
@@ -3095,7 +3095,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
-      "value": "#8590A2"
+      "value": "#8C8F97"
     },
     "Light/color.chart.gray.bold.hovered": {
       "attributes": {
@@ -3104,7 +3104,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.gray.bold."
       },
-      "value": "#758195"
+      "value": "#7D818A"
     },
     "Light/color.chart.gray.bolder": {
       "attributes": {
@@ -3113,7 +3113,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
-      "value": "#758195"
+      "value": "#7D818A"
     },
     "Light/color.chart.gray.bolder.hovered": {
       "attributes": {
@@ -3122,7 +3122,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.gray.bolder."
       },
-      "value": "#626F86"
+      "value": "#6B6E76"
     },
     "Light/color.chart.gray.boldest": {
       "attributes": {
@@ -3131,7 +3131,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
-      "value": "#44546F"
+      "value": "#505258"
     },
     "Light/color.chart.gray.boldest.hovered": {
       "attributes": {
@@ -3140,7 +3140,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.gray.boldest."
       },
-      "value": "#2C3E5D"
+      "value": "#3B3D42"
     },
     "Light/color.chart.brand": {
       "attributes": {
@@ -3149,7 +3149,7 @@
         "introduced": "0.13.3",
         "description": "Our primary color for data visualisation. Use when only one color is required."
       },
-      "value": "#1D7AFC"
+      "value": "#357DE8"
     },
     "Light/color.chart.brand.hovered": {
       "attributes": {
@@ -3158,7 +3158,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.brand."
       },
-      "value": "#0C66E4"
+      "value": "#1868DB"
     },
     "Light/color.chart.danger": {
       "attributes": {
@@ -3167,7 +3167,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation communicating negative information, such as 'off track'."
       },
-      "value": "#F15B50"
+      "value": "#E2483D"
     },
     "Light/color.chart.danger.hovered": {
       "attributes": {
@@ -3176,7 +3176,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.danger."
       },
-      "value": "#E2483D"
+      "value": "#C9372C"
     },
     "Light/color.chart.danger.bold": {
       "attributes": {
@@ -3185,7 +3185,7 @@
         "introduced": "0.13.3",
         "description": "A stronger emphasis option of color.chart.danger."
       },
-      "value": "#AE2E24"
+      "value": "#872821"
     },
     "Light/color.chart.danger.bold.hovered": {
       "attributes": {
@@ -3203,7 +3203,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation communicating caution, such as 'at risk' statuses."
       },
-      "value": "#B38600"
+      "value": "#F68909"
     },
     "Light/color.chart.warning.hovered": {
       "attributes": {
@@ -3212,7 +3212,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.warning."
       },
-      "value": "#946F00"
+      "value": "#E06C00"
     },
     "Light/color.chart.warning.bold": {
       "attributes": {
@@ -3221,7 +3221,7 @@
         "introduced": "0.13.3",
         "description": "A stronger emphasis option of color.chart.warning."
       },
-      "value": "#7F5F01"
+      "value": "#BD5B00"
     },
     "Light/color.chart.warning.bold.hovered": {
       "attributes": {
@@ -3230,7 +3230,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.warning.bold."
       },
-      "value": "#533F04"
+      "value": "#9E4C00"
     },
     "Light/color.chart.success": {
       "attributes": {
@@ -3239,7 +3239,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation communicating positive information, such as 'on track'."
       },
-      "value": "#22A06B"
+      "value": "#82B536"
     },
     "Light/color.chart.success.hovered": {
       "attributes": {
@@ -3248,7 +3248,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.success."
       },
-      "value": "#1F845A"
+      "value": "#6A9A23"
     },
     "Light/color.chart.success.bold": {
       "attributes": {
@@ -3257,7 +3257,7 @@
         "introduced": "0.13.3",
         "description": "A stronger emphasis option of color.chart.success."
       },
-      "value": "#216E4E"
+      "value": "#5B7F24"
     },
     "Light/color.chart.success.bold.hovered": {
       "attributes": {
@@ -3266,7 +3266,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.success.bold."
       },
-      "value": "#164B35"
+      "value": "#4C6B1F"
     },
     "Light/color.chart.discovery": {
       "attributes": {
@@ -3275,7 +3275,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation communicating 'new' statuses."
       },
-      "value": "#8F7EE7"
+      "value": "#BF63F3"
     },
     "Light/color.chart.discovery.hovered": {
       "attributes": {
@@ -3284,7 +3284,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.discovery."
       },
-      "value": "#8270DB"
+      "value": "#AF59E1"
     },
     "Light/color.chart.discovery.bold": {
       "attributes": {
@@ -3293,7 +3293,7 @@
         "introduced": "0.13.3",
         "description": "A stronger emphasis option of color.chart.discovery."
       },
-      "value": "#5E4DB2"
+      "value": "#803FA5"
     },
     "Light/color.chart.discovery.bold.hovered": {
       "attributes": {
@@ -3302,7 +3302,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.discovery.bold."
       },
-      "value": "#352C63"
+      "value": "#964AC0"
     },
     "Light/color.chart.information": {
       "attributes": {
@@ -3311,7 +3311,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation communicating low priority or in-progress statuses."
       },
-      "value": "#388BFF"
+      "value": "#357DE8"
     },
     "Light/color.chart.information.hovered": {
       "attributes": {
@@ -3320,7 +3320,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.information."
       },
-      "value": "#1D7AFC"
+      "value": "#1868DB"
     },
     "Light/color.chart.information.bold": {
       "attributes": {
@@ -3329,7 +3329,7 @@
         "introduced": "0.13.3",
         "description": "A stronger emphasis option of color.chart.information."
       },
-      "value": "#0055CC"
+      "value": "#1558BC"
     },
     "Light/color.chart.information.bold.hovered": {
       "attributes": {
@@ -3338,7 +3338,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.information.bold."
       },
-      "value": "#09326C"
+      "value": "#123263"
     },
     "Light/elevation.surface": {
       "attributes": {
@@ -3356,7 +3356,7 @@
         "introduced": "0.10.20",
         "description": "Hovered state of elevation.surface"
       },
-      "value": "#F1F2F4"
+      "value": "#F0F1F2"
     },
     "Light/elevation.surface.pressed": {
       "attributes": {
@@ -3365,7 +3365,7 @@
         "introduced": "0.10.20",
         "description": "Pressed state of elevation.surface"
       },
-      "value": "#DCDFE4"
+      "value": "#DDDEE1"
     },
     "Light/elevation.surface.overlay": {
       "attributes": {
@@ -3383,7 +3383,7 @@
         "introduced": "0.10.20",
         "description": "Hovered state of elevation.surface.overlay"
       },
-      "value": "#F1F2F4"
+      "value": "#F0F1F2"
     },
     "Light/elevation.surface.overlay.pressed": {
       "attributes": {
@@ -3392,7 +3392,7 @@
         "introduced": "0.10.20",
         "description": "Pressed state of elevation.surface.overlay"
       },
-      "value": "#DCDFE4"
+      "value": "#DDDEE1"
     },
     "Light/elevation.surface.raised": {
       "attributes": {
@@ -3410,7 +3410,7 @@
         "introduced": "0.10.20",
         "description": "Hovered state of elevation.surface.raised"
       },
-      "value": "#F1F2F4"
+      "value": "#F0F1F2"
     },
     "Light/elevation.surface.raised.pressed": {
       "attributes": {
@@ -3419,7 +3419,7 @@
         "introduced": "0.10.20",
         "description": "Pressed state of elevation.surface.raised"
       },
-      "value": "#DCDFE4"
+      "value": "#DDDEE1"
     },
     "Light/elevation.surface.sunken": {
       "attributes": {
@@ -3428,7 +3428,7 @@
         "introduced": "0.6.0",
         "description": "A secondary background for the UI commonly used for grouping items, such as Jira cards in columns."
       },
-      "value": "#F7F8F9"
+      "value": "#F8F8F8"
     },
     "Light/elevation.shadow.overflow": {
       "attributes": {
@@ -3444,7 +3444,7 @@
             "x": 0,
             "y": 0
           },
-          "color": "#091E42",
+          "color": "#1E1F21",
           "opacity": 0.16
         },
         {
@@ -3453,7 +3453,7 @@
             "x": 0,
             "y": 0
           },
-          "color": "#091E42",
+          "color": "#1E1F21",
           "opacity": 0.12
         }
       ]
@@ -3465,7 +3465,7 @@
         "introduced": "0.10.32",
         "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow."
       },
-      "value": "#091e421f"
+      "value": "#1E1F211f"
     },
     "Light/elevation.shadow.overflow.spread": {
       "attributes": {
@@ -3474,7 +3474,7 @@
         "introduced": "0.10.32",
         "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow."
       },
-      "value": "#091e4229"
+      "value": "#1E1F2129"
     },
     "Light/elevation.shadow.overlay": {
       "attributes": {
@@ -3490,7 +3490,7 @@
             "x": 0,
             "y": 8
           },
-          "color": "#091E42",
+          "color": "#1E1F21",
           "opacity": 0.15
         },
         {
@@ -3499,7 +3499,7 @@
             "x": 0,
             "y": 0
           },
-          "color": "#091E42",
+          "color": "#1E1F21",
           "opacity": 0.31
         }
       ]
@@ -3518,7 +3518,7 @@
             "x": 0,
             "y": 1
           },
-          "color": "#091E42",
+          "color": "#1E1F21",
           "opacity": 0.25
         },
         {
@@ -3527,7 +3527,7 @@
             "x": 0,
             "y": 0
           },
-          "color": "#091E42",
+          "color": "#1E1F21",
           "opacity": 0.31
         }
       ]

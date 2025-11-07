@@ -4,7 +4,7 @@ import { zodToJsonSchema } from 'zod-to-json-schema';
 import { accessibilityFixes } from './fixes';
 import { violationKeywords } from './keywords';
 
-const inputSchema = z.object({
+export const suggestA11yFixesInputSchema = z.object({
 	violation: z.string().describe('Description of the accessibility violation'),
 	code: z.string().describe('The problematic code that needs fixing'),
 	component: z.string().optional().describe('Component name or type'),
@@ -21,7 +21,7 @@ export const listSuggestA11yFixesTool = {
 		idempotentHint: true,
 		openWorldHint: true,
 	},
-	inputSchema: zodToJsonSchema(inputSchema),
+	inputSchema: zodToJsonSchema(suggestA11yFixesInputSchema),
 };
 
 // Keyword mappings for fuzzy matching - imported from keywords.ts
@@ -83,12 +83,7 @@ function findBestMatchingFix(violation: string): [string, any] | null {
 	return bestScore >= 1 ? bestMatch : null;
 }
 
-export const suggestA11yFixesTool = async (params: {
-	violation: string;
-	code: string;
-	component?: string;
-	context?: string;
-}) => {
+export const suggestA11yFixesTool = async (params: z.infer<typeof suggestA11yFixesInputSchema>) => {
 	const { violation, component, context } = params;
 
 	// Use improved matching logic

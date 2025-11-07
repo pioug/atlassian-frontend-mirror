@@ -45,7 +45,7 @@ var themeContrastModes = ['more', 'no-preference', 'auto'];
  *
  * These ids must be kebab case
  */
-var themeIds = exports.themeIds = ['light-increased-contrast', 'light', 'light-future', 'light-brand-refresh', 'dark', 'dark-future', 'dark-increased-contrast', 'dark-brand-refresh', 'legacy-light', 'legacy-dark', 'spacing', 'shape', 'typography', 'typography-adg3', 'typography-modernized', 'typography-refreshed'];
+var themeIds = exports.themeIds = ['light-increased-contrast', 'light', 'light-future', 'dark', 'dark-future', 'dark-increased-contrast', 'legacy-light', 'legacy-dark', 'spacing', 'shape', 'typography', 'typography-adg3', 'typography-modernized', 'typography-refreshed'];
 /**
  * Theme override ids: the equivalent of themeIds for theme overrides.
  * Theme overrides are temporary and there may not be any defined at times.
@@ -195,24 +195,6 @@ var themeConfig = {
     palette: 'typographyPalette',
     attributes: {
       type: 'typography'
-    }
-  },
-  'atlassian-light-brand-refresh': {
-    id: 'light-brand-refresh',
-    displayName: 'Light theme (Brand refresh)',
-    palette: 'brandRefreshPalette',
-    attributes: {
-      type: 'color',
-      mode: 'light'
-    }
-  },
-  'atlassian-dark-brand-refresh': {
-    id: 'dark-brand-refresh',
-    displayName: 'Dark theme (Brand refresh)',
-    palette: 'brandRefreshPalette',
-    attributes: {
-      type: 'color',
-      mode: 'dark'
     }
   }
 };

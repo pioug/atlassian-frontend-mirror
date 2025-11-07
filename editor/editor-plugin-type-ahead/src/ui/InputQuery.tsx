@@ -141,12 +141,10 @@ export const InputQuery = React.memo(
 		const ref = useRef<HTMLSpanElement>(document.createElement('span'));
 		const inputRef = useRef<HTMLInputElement | null>(null);
 		const [query, setQuery] = useState<string | null>(null);
-		const isEditorInsertionEnabled = editorExperiment('platform_editor_insertion', 'variant1');
 		const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
 		const isSearchPlaceholderEnabled =
-			isEditorInsertionEnabled ||
-			(editorExperiment('platform_editor_controls', 'variant1') &&
-				fg('platform_editor_quick_insert_placeholder'));
+			editorExperiment('platform_editor_controls', 'variant1') &&
+			fg('platform_editor_quick_insert_placeholder');
 		const selection = editorView.state.selection;
 		const { table } = editorView.state.schema.nodes;
 		const [showPlaceholder, setShowPlaceholder] = useState(

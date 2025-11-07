@@ -11,7 +11,7 @@ const articlesListContainerStyles = css({
 	position: 'relative',
 });
 
-export const ArticlesListContainer = ({ children }: { children: React.ReactNode }) => (
+export const ArticlesListContainer = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={articlesListContainerStyles}>{children}</div>
 );
 
@@ -26,6 +26,8 @@ const toggleShowMoreArticlesContainerStyles = css({
 	},
 });
 
-export const ToggleShowMoreArticlesContainer = ({ children }: { children: React.ReactNode }) => (
-	<div css={toggleShowMoreArticlesContainerStyles}>{children}</div>
-);
+export const ToggleShowMoreArticlesContainer = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <div css={toggleShowMoreArticlesContainerStyles}>{children}</div>;

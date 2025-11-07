@@ -3,6 +3,7 @@ import {
 	withAnalyticsEvents,
 	type WithAnalyticsEventsProps,
 	withAnalyticsContext,
+	type WithContextProps,
 } from '@atlaskit/analytics-next';
 import { IntlProvider } from 'react-intl-next';
 import { defaultAnalyticsAttributes } from '../analytics';
@@ -34,7 +35,7 @@ const LocaleIntlProvider = ({
 );
 
 export class Help extends React.PureComponent<Props> {
-	render() {
+	render(): React.JSX.Element {
 		const { children, footer, ...rest } = this.props;
 		return (
 			<LocaleIntlProvider>
@@ -60,4 +61,13 @@ export class Help extends React.PureComponent<Props> {
 	}
 }
 
-export default withAnalyticsContext(defaultAnalyticsAttributes)(withAnalyticsEvents()(Help));
+const _default_1: React.ForwardRefExoticComponent<
+	Omit<
+		Omit<HelpInterface, keyof WithAnalyticsEventsProps> &
+			React.RefAttributes<any> &
+			WithContextProps,
+		'ref'
+	> &
+		React.RefAttributes<any>
+> = withAnalyticsContext(defaultAnalyticsAttributes)(withAnalyticsEvents()(Help));
+export default _default_1;

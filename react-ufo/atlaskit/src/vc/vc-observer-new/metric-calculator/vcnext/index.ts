@@ -7,7 +7,9 @@ import VCCalculator_FY25_03 from '../fy25_03';
 const REVISION_NO = 'next';
 
 const getConsideredEntryTypes = () => {
-	const consideredEntryTypes: VCObserverEntryType[] = ['mutation:display-contents-children-element'];
+	const consideredEntryTypes: VCObserverEntryType[] = [
+		'mutation:display-contents-children-element',
+	];
 
 	if (fg('platform_ufo_remove_ssr_placeholder_in_ttvc_v4')) {
 		consideredEntryTypes.push('mutation:ssr-placeholder');

@@ -8,6 +8,29 @@ provides tools to access design tokens, icons, and components/primitives program
 **New: Accessibility Analysis & Guidance** The server now includes comprehensive accessibility tools
 to help ensure your interfaces are accessible to all users.
 
+## Table of Contents
+
+- [Available Tools](#available-tools)
+  - [Design System Tools](#design-system-tools)
+  - [Accessibility Tools](#accessibility-tools)
+- [Accessibility Features](#accessibility-features)
+  - [Example Usage](#example-usage)
+- [Usage](#usage)
+  - [For AFM Users (internal Atlassians only)](#for-afm-users-internal-atlassians-only)
+  - [For non-AFM Users](#for-non-afm-users)
+    - [Cursor IDE](#cursor-ide)
+    - [Visual Studio Code](#visual-studio-code)
+      - [Github Copilot](#github-copilot)
+      - [Codelassian](#codelassian)
+    - [Rovodev](#rovodev)
+    - [MCP Plugin for Atlas CLI](#mcp-plugin-for-atlas-cli)
+  - [Environment Variables](#environment-variables)
+- [Analytics](#analytics)
+  - [What We Track](#what-we-track)
+  - [Privacy & Error Handling](#privacy--error-handling)
+- [Development](#development)
+- [FAQs](#faqs)
+
 ## Available Tools
 
 ### Design System Tools
@@ -104,7 +127,20 @@ const fixes = await suggest_a11y_fixes({
 
 ## Usage
 
-### Cursor IDE
+### For AFM Users (internal Atlassians only)
+
+If you are working in the AFM root folder or any of the main product folders (`platform/`, `jira/`,
+`confluence/`, `post-office/`, `confluence/`, or `townsquare/`), ads-mcp is pre-configured and ready
+to use with supported tools like Cursor, VSCode (Copilot/Codelassian), and Rovodev.
+
+For most users, ads-mcp is pre-configured in AFM, but you may need to manually enable it in Cursor
+or Copilot. Rovodev users get ads-mcp enabled automatically anywhere within AFM. For other tools,
+make sure you are running them from the AFM root or one of the main product folders to access
+ads-mcp.
+
+### For non-AFM Users
+
+#### Cursor IDE
 
 Add the following entry to your `mcp.json` file (located at `~/.cursor/mcp.json` for user-level or
 `.cursor/mcp.json` in your workspace):
@@ -123,7 +159,9 @@ Add the following entry to your `mcp.json` file (located at `~/.cursor/mcp.json`
 }
 ```
 
-### Visual Studio Code (Github Copilot and/or Codelassian)
+#### Visual Studio Code
+
+##### Github Copilot
 
 Add the following entry to your `mcp.json` file (located at
 `~/Library/Application Support/Code/User/mcp.json` for user-level or `.vscode/mcp.json` in your
@@ -136,12 +174,34 @@ workspace):
 			"type": "stdio",
 			"command": "npx",
 			"args": ["-y", "@atlaskit/ads-mcp"]
+		},
+		"env": {
+			"ADSMCMP_AGENT": "vscode"
 		}
 	}
 }
 ```
 
-### Rovodev
+##### Codelassian
+
+Add the following entry to your `mcp.json` file (located at `~/.codelassian/mcp.json` for user-level
+or `.codelassian/mcp.json` in your workspace):
+
+```json
+{
+	"mcpServers": {
+		"ads-mcp": {
+			"command": "npx",
+			"args": ["-y", "@atlaskit/ads-mcp"],
+			"env": {
+				"ADSMCP_AGENT": "codelassian"
+			}
+		}
+	}
+}
+```
+
+#### Rovodev
 
 Add the following entry to your `mcp.json` file (located at `~/.rovodev/mcp.json` for user-level or
 `mcp.json` in your workspace):
@@ -151,7 +211,10 @@ Add the following entry to your `mcp.json` file (located at `~/.rovodev/mcp.json
 	"mcpServers": {
 		"ads-mcp": {
 			"command": "npx",
-			"args": ["-y", "@atlaskit/ads-mcp"]
+			"args": ["-y", "@atlaskit/ads-mcp"],
+			"env": {
+				"ADSMCP_AGENT": "rovodev"
+			}
 		}
 	}
 }
@@ -163,7 +226,7 @@ Add the following entry to your `mcp.json` file (located at `~/.rovodev/mcp.json
 > terminating the process if it becomes unresponsive. Adjust this value as needed for your
 > environment or workflow.
 
-### MCP Plugin for Atlas CLI
+#### MCP Plugin for Atlas CLI
 
 Atlas CLI provides a plugin for managing MCP servers, including listing available servers from a
 registry and installing new ones.
@@ -184,68 +247,14 @@ atlas mcp install --name=ads-mcp --agent=rovodev
 > To see the list of available agents, visit:
 > [Introducing the MCP plugin for Atlas CLI](https://hello.atlassian.net/wiki/spaces/~dnorton/blog/2025/10/07/5931517464/Introducing+the+MCP+plugin+for+Atlas+CLI)
 
-### AFM-specific issues
-
-When using the Atlassian Frontend Monorepo (AFM), there are some issues with project-level or
-workspace-level MCP configuration when using `npx`. These issues typically manifest as:
-
-- **Performance**: `npx` can be slower in AFM environments due to package resolution overhead
-- **Reliability**: Network timeouts and package resolution conflicts are more common
-
-> **Note:** These issues only affect project-level or workspace-level MCP configurations. User-level
-> settings (like `~/.cursor/mcp.json` or `~/.rovodev/mcp.json`) work fine with `npx` and don't
-> require the workarounds below.
-
-#### Recommended Solution
-
-Instead of using `npx`, `yarn dlx` provides better speed and reliability in AFM environments
-because:
-
-- **Faster execution**: Leverages AFM's existing yarn workspace configuration
-- **Better caching**: Uses yarn's package cache more effectively
-- **Consistent resolution**: Respects AFM's package resolution strategy
-
-#### Simple Configuration
-
-For most AFM users, this configuration will work reliably:
-
-```json
-{
-	"mcpServers": {
-		"ads-mcp": {
-			"command": "yarn",
-			"args": ["dlx", "-q", "@atlaskit/ads-mcp"]
-		}
-	}
-}
-```
-
-#### Robust Configuration with Fallback
-
-If you need maximum reliability across different environments, use this configuration that falls
-back to `npm` if `yarn` is unavailable:
-
-```json
-{
-	"mcpServers": {
-		"ads-mcp": {
-			"command": "sh",
-			"args": [
-				"-c",
-				"which yarn &>/dev/null && [ \"$(yarn --version | cut -d. -f1)\" -ge 2 ] && yarn dlx -q @atlaskit/ads-mcp || (which ads-mcp &>/dev/null && (npm update -g @atlaskit/ads-mcp && ads-mcp) || (npm install -g @atlaskit/ads-mcp && ads-mcp))"
-			]
-		}
-	}
-}
-```
-
-This robust configuration:
-
-1. **First tries yarn dlx** if yarn v2+ is available
-2. **Falls back to npm update** if the package is already installed globally
-3. **Finally installs globally** with npm if nothing else works
-
 ### Environment Variables
+
+The ADS MCP server supports several environment variables, mainly for analytics purposes to help
+improve the service. These variables enable platform identification, specification of configuration
+paths, and opting out of analytics collection if needed.
+
+> **Note:** All environment variables are optional. The MCP server will work without any of them
+> set.
 
 - `ADSMCP_AGENT` - Identifies the AI agent/platform using the MCP server. Supported values:
   - `cursor` - Cursor editor
@@ -257,21 +266,28 @@ This robust configuration:
   The `ADSMCP_AGENT` variable helps track which platforms are using the MCP server for analytics
   purposes.
 
+- `ADSMCP_CONFIG_PATH` - Specifies the path to the MCP config file being used to run the server.
+  This is used for analytics to understand where the server is being configured from (e.g.,
+  `mcp.json`, `jira/.cursor/mcp.json`, `platform/.vscode/mcp.json`). Defaults to `unknown` if not
+  specified.
+
 - `ADSMCP_ANALYTICS_OPT_OUT` - Opt out of analytics collection. Set to `true` to disable:
-  ```json
-  {
-  	"mcpServers": {
-  		"ads": {
-  			"command": "npx",
-  			"args": ["-y", "@atlaskit/ads-mcp"],
-  			"env": {
-  				"ADSMCP_AGENT": "cursor",
-  				"ADSMCP_ANALYTICS_OPT_OUT": true
-  			}
-  		}
-  	}
-  }
-  ```
+
+```json
+{
+	"mcpServers": {
+		"ads": {
+			"command": "npx",
+			"args": ["-y", "@atlaskit/ads-mcp"],
+			"env": {
+				"ADSMCP_AGENT": "codelassian",
+				"ADSMCP_CONFIG_PATH": "platform/.codelassian/mcp.json",
+				"ADSMCP_ANALYTICS_OPT_OUT": true
+			}
+		}
+	}
+}
+```
 
 ## Analytics
 
@@ -321,3 +337,26 @@ running it from, but you should force it like so:
 	}
 }
 ```
+
+## FAQs
+
+1. I'm seeing an error like "Error: Cannot find module
+   `/Users/[username]/.npm/_npx/[hash]/node_modules/[module]/...`"
+
+   This usually means the cached package is corrupted or outdated. To resolve:
+   1. Disable `ads-mcp` in your list of installed MCP servers.
+   2. Delete the affected `/Users/[username]/.npm/_npx/[hash]` directory.
+   3. Re-enable `ads-mcp` in your MCP servers.
+
+2. In VSCode (Copilot), `ads-mcp` keeps auto-starting in the chat panel even when disabled.
+
+   To prevent auto-start:
+   1. Open VSCode settings.
+   2. Search for `@feature:chat mcp`.
+   3. Set `Chat › Mcp: Autostart` to `never`.
+
+3. Who should I contact for support or questions?
+
+   For internal Atlassians, please reach out in the
+   [#help-ads-ai](https://atlassian.enterprise.slack.com/archives/C091C8JCUTV) Slack channel with
+   any issues or inquiries.

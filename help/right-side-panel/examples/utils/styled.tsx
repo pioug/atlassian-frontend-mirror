@@ -14,7 +14,7 @@ const buttonsWrapperStyles = css({
 	paddingLeft: token('space.200', '16px'),
 });
 
-export const ButtonsWrapper = ({ children }: { children: React.ReactNode }) => (
+export const ButtonsWrapper = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/use-primitives
 	<div css={buttonsWrapperStyles}>{children}</div>
 );
@@ -27,6 +27,6 @@ const textWrapperStyles = css({
 	textAlign: 'center',
 });
 
-export const TextWrapper = ({ children }: { children: React.ReactNode }) => (
+export const TextWrapper = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={textWrapperStyles}>{children}</div>
 );

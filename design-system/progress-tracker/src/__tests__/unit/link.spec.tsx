@@ -3,7 +3,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import ProgressTrackerLink from '../../internal/link';
@@ -30,7 +29,7 @@ describe('@atlaskit/progress-tracker/link', () => {
 		render(<ProgressTrackerLink {...item} />);
 		const element = screen.getByText(item.label);
 		expect(element).toHaveStyle(
-			`color: ${token('color.text', colors.N800).toLowerCase().replace(/\s+/g, '')}`,
+			`color: ${token('color.text', '#292a2e').toLowerCase().replace(/\s+/g, '')}`,
 		);
 		expect(element).toHaveAttribute('href', item.href);
 	});

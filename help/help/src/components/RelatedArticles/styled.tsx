@@ -18,7 +18,7 @@ const relatedArticlesTitleStyles = css({
 	paddingLeft: 0,
 });
 
-export const RelatedArticlesTitle = ({ children }: { children: React.ReactNode }) => (
+export const RelatedArticlesTitle = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={relatedArticlesTitleStyles}>
 		<Heading size="large" as="h3" color="color.text">
 			{children}
@@ -43,7 +43,7 @@ export const LoadingRelatedArticleList = ({
 }: {
 	[rest: string]: any;
 	children: React.ReactNode;
-}) => (
+}): JSX.Element => (
 	<ul css={loadingRelatedArticleListStyles} {...rest}>
 		{children}
 	</ul>
@@ -60,6 +60,8 @@ const loadingRelatedArticleListItemStyles = css({
 	boxSizing: 'border-box',
 });
 
-export const LoadingRelatedArticleListItem = ({ children }: { children: React.ReactNode }) => (
-	<li css={loadingRelatedArticleListItemStyles}>{children}</li>
-);
+export const LoadingRelatedArticleListItem = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <li css={loadingRelatedArticleListItemStyles}>{children}</li>;

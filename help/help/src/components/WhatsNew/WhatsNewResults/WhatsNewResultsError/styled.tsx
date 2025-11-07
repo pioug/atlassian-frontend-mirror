@@ -16,9 +16,11 @@ const searchResultEmptyMessageImageStyles = css({
 	textAlign: 'center',
 });
 
-export const SearchResultEmptyMessageImage = ({ children }: { children: React.ReactNode }) => (
-	<div css={searchResultEmptyMessageImageStyles}>{children}</div>
-);
+export const SearchResultEmptyMessageImage = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <div css={searchResultEmptyMessageImageStyles}>{children}</div>;
 
 const searchResultEmptyMessageTextStyles = css({
 	paddingTop: token('space.300', '24px'),
@@ -32,6 +34,8 @@ const searchResultEmptyMessageTextStyles = css({
 	},
 });
 
-export const SearchResultEmptyMessageText = ({ children }: { children: React.ReactNode }) => (
-	<div css={searchResultEmptyMessageTextStyles}>{children}</div>
-);
+export const SearchResultEmptyMessageText = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <div css={searchResultEmptyMessageTextStyles}>{children}</div>;

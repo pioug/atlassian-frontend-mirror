@@ -18,7 +18,7 @@ const headerContainerStyles = css({
 	position: 'relative',
 });
 
-export const HeaderContainer = ({ children }: { children: React.ReactNode }) => (
+export const HeaderContainer = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={headerContainerStyles}>{children}</div>
 );
 
@@ -36,7 +36,7 @@ export const CloseButtonContainer = ({
 }: {
 	children: React.ReactNode;
 	inDynamicHeader: boolean;
-}) => <Box xcss={!inDynamicHeader && styles.closeButtonContainer}>{children}</Box>;
+}): JSX.Element => <Box xcss={!inDynamicHeader && styles.closeButtonContainer}>{children}</Box>;
 
 export const TRANSITION_DURATION_MS = 220;
 
@@ -59,7 +59,7 @@ export const BackButtonContainer = ({
 }: {
 	children: React.ReactNode;
 	transitionState: TransitionStatus;
-}) => (
+}): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 	<div css={backButtonContainerStyles} style={backButtonContainerTransitionStyles[transitionState]}>
 		{children}
@@ -81,7 +81,7 @@ const headerTitleStyles = css({
 	verticalAlign: 'middle',
 });
 
-export const HeaderTitle = ({ children }: { children: React.ReactNode }) => (
+export const HeaderTitle = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/use-heading
 	<h1 css={headerTitleStyles}>{children}</h1>
 );
@@ -93,6 +93,6 @@ const headerContentStyles = css({
 	paddingLeft: token('space.200', '16px'),
 });
 
-export const HeaderContent = ({ children }: { children: React.ReactNode }) => (
+export const HeaderContent = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={headerContentStyles}>{children}</div>
 );

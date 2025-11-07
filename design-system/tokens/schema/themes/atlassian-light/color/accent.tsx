@@ -84,16 +84,16 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Blue200',
 						},
 						pressed: {
-							value: 'Blue300',
+							value: 'Blue250',
 						},
 					},
 					subtler: {
 						'[default]': { value: 'Blue200' },
 						hovered: {
-							value: 'Blue300',
+							value: 'Blue250',
 						},
 						pressed: {
-							value: 'Blue400',
+							value: 'Blue300',
 						},
 					},
 					subtle: {
@@ -102,7 +102,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Blue300',
 						},
 						pressed: {
-							value: 'Blue200',
+							value: 'Blue250',
 						},
 					},
 					bolder: {
@@ -111,7 +111,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Blue800',
 						},
 						pressed: {
-							value: 'Blue900',
+							value: 'Blue850',
 						},
 					},
 				},
@@ -122,16 +122,16 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Red200',
 						},
 						pressed: {
-							value: 'Red300',
+							value: 'Red250',
 						},
 					},
 					subtler: {
 						'[default]': { value: 'Red200' },
 						hovered: {
-							value: 'Red300',
+							value: 'Red250',
 						},
 						pressed: {
-							value: 'Red400',
+							value: 'Red300',
 						},
 					},
 					subtle: {
@@ -140,7 +140,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Red300',
 						},
 						pressed: {
-							value: 'Red200',
+							value: 'Red250',
 						},
 					},
 					bolder: {
@@ -149,7 +149,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Red800',
 						},
 						pressed: {
-							value: 'Red900',
+							value: 'Red850',
 						},
 					},
 				},
@@ -160,16 +160,16 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Orange200',
 						},
 						pressed: {
-							value: 'Orange300',
+							value: 'Orange250',
 						},
 					},
 					subtler: {
 						'[default]': { value: 'Orange200' },
 						hovered: {
-							value: 'Orange300',
+							value: 'Orange250',
 						},
 						pressed: {
-							value: 'Orange400',
+							value: 'Orange300',
 						},
 					},
 					subtle: {
@@ -178,7 +178,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Orange300',
 						},
 						pressed: {
-							value: 'Orange200',
+							value: 'Orange250',
 						},
 					},
 					bolder: {
@@ -187,7 +187,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Orange800',
 						},
 						pressed: {
-							value: 'Orange900',
+							value: 'Orange850',
 						},
 					},
 				},
@@ -198,16 +198,16 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Yellow200',
 						},
 						pressed: {
-							value: 'Yellow300',
+							value: 'Yellow250',
 						},
 					},
 					subtler: {
 						'[default]': { value: 'Yellow200' },
 						hovered: {
-							value: 'Yellow300',
+							value: 'Yellow250',
 						},
 						pressed: {
-							value: 'Yellow400',
+							value: 'Yellow300',
 						},
 					},
 					subtle: {
@@ -216,7 +216,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Yellow400',
 						},
 						pressed: {
-							value: 'Yellow500',
+							value: 'Yellow250',
 						},
 					},
 					bolder: {
@@ -225,7 +225,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Yellow800',
 						},
 						pressed: {
-							value: 'Yellow900',
+							value: 'Yellow850',
 						},
 					},
 				},
@@ -236,16 +236,16 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Green200',
 						},
 						pressed: {
-							value: 'Green300',
+							value: 'Green250',
 						},
 					},
 					subtler: {
 						'[default]': { value: 'Green200' },
 						hovered: {
-							value: 'Green300',
+							value: 'Green250',
 						},
 						pressed: {
-							value: 'Green400',
+							value: 'Green300',
 						},
 					},
 					subtle: {
@@ -254,7 +254,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Green300',
 						},
 						pressed: {
-							value: 'Green200',
+							value: 'Green250',
 						},
 					},
 					bolder: {
@@ -263,7 +263,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Green800',
 						},
 						pressed: {
-							value: 'Green900',
+							value: 'Green850',
 						},
 					},
 				},
@@ -274,16 +274,16 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Purple200',
 						},
 						pressed: {
-							value: 'Purple300',
+							value: 'Purple250',
 						},
 					},
 					subtler: {
 						'[default]': { value: 'Purple200' },
 						hovered: {
-							value: 'Purple300',
+							value: 'Purple250',
 						},
 						pressed: {
-							value: 'Purple400',
+							value: 'Purple300',
 						},
 					},
 					subtle: {
@@ -292,7 +292,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Purple300',
 						},
 						pressed: {
-							value: 'Purple200',
+							value: 'Purple250',
 						},
 					},
 					bolder: {
@@ -301,7 +301,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Purple800',
 						},
 						pressed: {
-							value: 'Purple900',
+							value: 'Purple850',
 						},
 					},
 				},
@@ -312,16 +312,16 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Teal200',
 						},
 						pressed: {
-							value: 'Teal300',
+							value: 'Teal250',
 						},
 					},
 					subtler: {
 						'[default]': { value: 'Teal200' },
 						hovered: {
-							value: 'Teal300',
+							value: 'Teal250',
 						},
 						pressed: {
-							value: 'Teal400',
+							value: 'Teal300',
 						},
 					},
 					subtle: {
@@ -330,7 +330,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Teal300',
 						},
 						pressed: {
-							value: 'Teal200',
+							value: 'Teal250',
 						},
 					},
 					bolder: {
@@ -339,7 +339,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Teal800',
 						},
 						pressed: {
-							value: 'Teal900',
+							value: 'Teal850',
 						},
 					},
 				},
@@ -350,16 +350,16 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Magenta200',
 						},
 						pressed: {
-							value: 'Magenta300',
+							value: 'Magenta250',
 						},
 					},
 					subtler: {
 						'[default]': { value: 'Magenta200' },
 						hovered: {
-							value: 'Magenta300',
+							value: 'Magenta250',
 						},
 						pressed: {
-							value: 'Magenta400',
+							value: 'Magenta300',
 						},
 					},
 					subtle: {
@@ -368,7 +368,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Magenta300',
 						},
 						pressed: {
-							value: 'Magenta200',
+							value: 'Magenta250',
 						},
 					},
 					bolder: {
@@ -377,7 +377,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Magenta800',
 						},
 						pressed: {
-							value: 'Magenta900',
+							value: 'Magenta850',
 						},
 					},
 				},
@@ -388,16 +388,16 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Lime200',
 						},
 						pressed: {
-							value: 'Lime300',
+							value: 'Lime250',
 						},
 					},
 					subtler: {
 						'[default]': { value: 'Lime200' },
 						hovered: {
-							value: 'Lime300',
+							value: 'Lime250',
 						},
 						pressed: {
-							value: 'Lime400',
+							value: 'Lime300',
 						},
 					},
 					subtle: {
@@ -406,7 +406,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Lime300',
 						},
 						pressed: {
-							value: 'Lime200',
+							value: 'Lime250',
 						},
 					},
 					bolder: {
@@ -415,7 +415,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 							value: 'Lime800',
 						},
 						pressed: {
-							value: 'Lime900',
+							value: 'Lime850',
 						},
 					},
 				},

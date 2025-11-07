@@ -101,4 +101,21 @@ describe('ADS MCP Server E2E', () => {
 			expect(JSON.parse(result[0].text)).toEqual(expectedFirstResult);
 		},
 	);
+
+	it('Returns a useful error if a tool is called with the wrong arguments', async () => {
+		const result = (
+			await client.callTool({
+				name: 'ads_analyze_a11y',
+				arguments: {
+					/* There should be a `code` in here */
+				},
+			})
+		).content as { type: 'text'; text: string; isError: boolean }[];
+		expect(result[0].isError).toEqual(true);
+		const errorText = JSON.parse(result[0].text);
+		expect(errorText.error).toEqual('Invalid arguments provided');
+		expect(errorText.validationErrors).toBeDefined();
+		expect(errorText.expectedSchema).toBeDefined();
+		expect(errorText.receivedArguments).toBeDefined();
+	});
 });

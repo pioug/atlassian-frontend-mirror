@@ -5,7 +5,10 @@ interface CancellablePromise {
 	promise: Promise<unknown>;
 }
 
-export function makeCancelable(promise: Promise<any>) {
+export function makeCancelable(promise: Promise<any>): {
+	cancel(): void;
+	promise: Promise<unknown>;
+} {
 	let isCanceled: boolean = false;
 
 	const wrappedPromise = new Promise((resolve, reject) => {
@@ -16,13 +19,15 @@ export function makeCancelable(promise: Promise<any>) {
 
 	return {
 		promise: wrappedPromise,
-		cancel() {
+		cancel(): void {
 			isCanceled = true;
 		},
 	};
 }
 
-export default function useCancellablePromise(cancelable = makeCancelable) {
+export default function useCancellablePromise(cancelable: typeof makeCancelable = makeCancelable): {
+	cancellablePromise: (p: Promise<any>) => Promise<any>;
+} {
 	const emptyPromise = Promise.resolve(true);
 
 	// check if the input argument is a cancelable promise generator

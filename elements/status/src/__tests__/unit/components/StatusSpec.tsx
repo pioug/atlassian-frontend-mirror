@@ -42,12 +42,12 @@ describe('Status', () => {
 
 	describe('should map colors to lozenge appearances', () => {
 		const colorToLozengeAppearanceMap: { [key in Color]: string } = {
-			neutral: token('color.text.subtle', '#42526E'),
-			purple: token('color.text.discovery', '#403294'),
-			blue: token('color.text.information', '#0052CC'),
-			red: token('color.text.danger', '#DE350B'),
-			yellow: token('color.text.warning', '#974F0C'),
-			green: token('color.text.success', '#064'),
+			neutral: token('color.text', '#292a2e'),
+			purple: token('color.text', '#292a2e'),
+			blue: token('color.text', '#292a2e'),
+			red: token('color.text', '#292a2e'),
+			yellow: token('color.text', '#292a2e'),
+			green: token('color.text', '#292a2e'),
 		};
 
 		Object.entries(colorToLozengeAppearanceMap).forEach(([color, appearance]) => {
@@ -78,7 +78,7 @@ describe('Status', () => {
 		);
 		expect(screen.getByText('In progress')).toHaveCompiledCss(
 			'color',
-			formatColorToken(token('color.text.subtle', '#42526E')),
+			formatColorToken(token('color.text', '#292a2e')),
 		);
 	});
 

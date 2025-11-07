@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 110.24.1
+
+### Patch Changes
+
+- [`ca454ed251e1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca454ed251e1e) -
+  Add table height analytics
+
 ## 110.24.0
 
 ### Minor Changes

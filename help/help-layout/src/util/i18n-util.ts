@@ -95,7 +95,7 @@ const localesMessagesMap: LocaleMessagesMap = {
  *
  * @param locale string specifying the locale like 'en_GB', or 'fr'.
  */
-export const getMessagesForLocale = (locale: LangCode) => {
+export const getMessagesForLocale = (locale: LangCode): LocaleMessages => {
 	let messages = localesMessagesMap[locale];
 
 	if (!messages) {

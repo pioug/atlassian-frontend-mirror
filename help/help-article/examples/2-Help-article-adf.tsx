@@ -38,13 +38,13 @@ export default class extends React.Component<Props, State> {
 		this.state = dataExamples[this.currentExample];
 	}
 
-	changeContent() {
+	changeContent(): void {
 		this.currentExample =
 			this.currentExample + 1 < dataExamples.length ? this.currentExample + 1 : 0;
 		this.setState(dataExamples[this.currentExample]);
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			<div style={{ padding: token('space.100', '8px') }}>

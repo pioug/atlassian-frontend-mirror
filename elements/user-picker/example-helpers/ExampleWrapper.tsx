@@ -8,7 +8,6 @@ import {
 	type UserPickerProps,
 } from '../src/types';
 
-
 const mockOptions = withLocalResource(exampleOptions);
 
 type ChildrenProps = {

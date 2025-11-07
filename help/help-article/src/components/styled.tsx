@@ -12,7 +12,7 @@ const articleContentInnerStyles = css({
 	position: 'relative',
 });
 
-export const ArticleContentInner = ({ children }: { children: React.ReactNode }) => (
+export const ArticleContentInner = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={articleContentInnerStyles}>{children}</div>
 );
 
@@ -20,7 +20,7 @@ const articleContentTitleStyles = css({
 	paddingBottom: token('space.200', '16px'),
 });
 
-export const ArticleContentTitle = ({ children }: { children: React.ReactNode }) => (
+export const ArticleContentTitle = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/use-primitives
 	<div css={articleContentTitleStyles}>{children}</div>
 );
@@ -39,7 +39,7 @@ export const ArticleContentTitleLink = ({
 	children: React.ReactNode;
 	href: string;
 	target: string;
-}) => (
+}): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 	<a href={href} target={target} css={articleContentTitleLinkStyles}>
 		{children}

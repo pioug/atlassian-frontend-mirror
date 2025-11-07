@@ -3,23 +3,13 @@
  *
  * Extract component prop types from UIKit 2 components - FileCardProps
  *
- * @codegen <<SignedSource::9d37f634e1e60eac0f6536fd9bff9abc>>
+ * @codegen <<SignedSource::5e4cd4ee511a47757b164e01f7e9df18>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/filecard/index.tsx <<SignedSource::9312e79a0aa240027297b3e080a2960a>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/filecard/index.tsx <<SignedSource::299b4e55a3fa01b21b492cf98c3de2f2>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 export type FileCardProps = {
-	/**
-	 * Whether the file can be deleted
-	 */
-	canDelete?: boolean;
-
-	/**
-	 * Whether the file can be downloaded
-	 */
-	canDownload?: boolean;
-
 	/**
 	 * Error message to display if there's an error
 	 */

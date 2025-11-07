@@ -70,7 +70,7 @@ import {
 	pluginKey as tableWidthPluginKey,
 } from './pm-plugins/table-width';
 import { createPlugin as createTableWidthInCommentFixPlugin } from './pm-plugins/table-width-in-comment-fix';
-import { getWidthInfoPayload } from './pm-plugins/utils/analytics';
+import { getHeightInfoPayload, getWidthInfoPayload } from './pm-plugins/utils/analytics';
 import { createTableWithWidth } from './pm-plugins/utils/create';
 import { createPlugin as createViewModeSortPlugin } from './pm-plugins/view-mode-sort';
 import type { TablePlugin, TablePluginOptions } from './tablePluginType';
@@ -564,10 +564,18 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 										const requestIdleCallbackFn = () => {
 											const editorWidth = api?.width.sharedState.currentState()?.width;
 
-											if (editorWidth && editorViewRef.current) {
-												const payload = getWidthInfoPayload(editorViewRef.current, editorWidth);
-												if (payload) {
-													dispatchAnalyticsEvent(payload);
+											if (editorViewRef.current) {
+												if (editorWidth) {
+													const payload = getWidthInfoPayload(editorViewRef.current, editorWidth);
+													if (payload) {
+														dispatchAnalyticsEvent(payload);
+													}
+												}
+												if (fg('platform_editor_table_height_analytics_event')) {
+													const payloadHeight = getHeightInfoPayload(editorViewRef.current);
+													if (payloadHeight) {
+														dispatchAnalyticsEvent(payloadHeight);
+													}
 												}
 											}
 										};

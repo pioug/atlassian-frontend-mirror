@@ -31,7 +31,7 @@ describe('Snippet', () => {
 		setup({ snippet: snippetContent });
 		const snippet = screen.queryByTestId(testId);
 		expect(snippet).toHaveTextContent(snippetContent);
-		expect(snippet).toHaveCompiledCss('color', 'var(--ds-text,#172b4d)');
+		expect(snippet).toHaveCompiledCss('color', 'var(--ds-text,#292a2e)');
 	});
 
 	it('does not renders Snippet element without data context', () => {
@@ -89,7 +89,7 @@ describe('Snippet', () => {
 	});
 
 	describe('overrideCss', () => {
-		const defaultColor = 'var(--ds-text,#172b4d)';
+		const defaultColor = 'var(--ds-text,#292a2e)';
 
 		it('should capture and report a11y violations', async () => {
 			const overrideCss = css({

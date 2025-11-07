@@ -4,11 +4,7 @@ import getThemeStyles, { type ThemeStyles } from '../../get-theme-styles';
 import { type ThemeIdsWithOverrides, type ThemeOptionsSchema } from '../../theme-config';
 import { hash } from '../../utils/hash';
 
-import {
-	mainThemes,
-	verifyBrandRefreshColors,
-	verifyNonBrandRefreshColors,
-} from './brand-refresh-assertion-helper.mock';
+import { mainThemes, verifyBrandRefreshColors } from './brand-refresh-assertion-helper.mock';
 
 const UNSAFE_themeOptions: ThemeOptionsSchema = {
 	brandColor: '#ff0000',
@@ -399,16 +395,6 @@ describe('getThemeStyles', () => {
 				]);
 			},
 			(ff) => {
-				const ensureNoVisualRefreshThemes = (results: ThemeStyles[]) => {
-					if (
-						results.find((x) => x.id === 'light-brand-refresh') ||
-						results.find((x) => x.id === 'dark-brand-refresh')
-					) {
-						throw new Error(
-							`Results should not contain light-brand-refresh and dark-brand-refresh entries.`,
-						);
-					}
-				};
 				const assertThemeDataIsCorrect = (results: ThemeStyles[]) => {
 					expect(getThemeData(results)).toEqual([
 						{ id: 'light', attrs: { 'data-theme': 'light' } },
@@ -436,8 +422,6 @@ describe('getThemeStyles', () => {
 				) => {
 					const results = await getThemeStyles('all');
 
-					ensureNoVisualRefreshThemes(results);
-
 					// Check that CSS is defined for each result
 					// Regular expression to find the --ds-text variable and its value
 					results.forEach((result) => {
@@ -452,16 +436,9 @@ describe('getThemeStyles', () => {
 					assertThemeDataIsCorrect(results);
 				};
 
-				return ffTest(
-					'platform-component-visual-refresh',
-					async () => {
-						await testWithVisualRefreshVariation(verifyBrandRefreshColors);
-					},
-					async () => {
-						await testWithVisualRefreshVariation(verifyNonBrandRefreshColors);
-					},
-					ff,
-				);
+				return async () => {
+					await testWithVisualRefreshVariation(verifyBrandRefreshColors);
+				};
 			},
 		);
 	});

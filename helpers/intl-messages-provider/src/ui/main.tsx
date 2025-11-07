@@ -11,7 +11,7 @@ export default function IntlMessagesProvider({
 	loaderFn,
 	children,
 	defaultMessages,
-}: IntlMessagesProviderProps) {
+}: IntlMessagesProviderProps): React.JSX.Element {
 	const intl = useSafeIntl();
 	const messages = useMessages(intl.locale, loaderFn);
 

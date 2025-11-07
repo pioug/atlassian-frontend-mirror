@@ -260,15 +260,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 28-02-2025
-	platform_editor_insertion: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'platform_editor_insertion',
-		},
-		param: 'cohort',
-		values: ['control', 'variant1'],
-		defaultValue: 'control',
-	}),
 	// Added 2025-09-03
 	platform_editor_hydratable_ui: createBooleanExperiment({
 		productKeys: {
@@ -951,14 +942,6 @@ export const editorExperimentsConfig = {
 	platform_editor_toolbar_aifc_patch_5: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_toolbar_aifc_patch_5',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-09-18
-	platform_editor_toolbar_aifc_renderer_selection: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_aifc_renderer_selection',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

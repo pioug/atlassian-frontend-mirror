@@ -23,7 +23,7 @@ const helpBodyContainerStyles = css({
 	alignItems: 'flex-start',
 });
 
-export const HelpBodyContainer = ({ children }: { children: React.ReactNode }) => (
+export const HelpBodyContainer = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={helpBodyContainerStyles}>{children}</div>
 );
 
@@ -38,7 +38,7 @@ const helpBodyStyles = css({
 	overflowY: 'auto',
 });
 
-export const HelpBody = ({ children }: { children: React.ReactNode }) => (
+export const HelpBody = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={helpBodyStyles}>{children}</div>
 );
 
@@ -51,7 +51,7 @@ const helpBodyAiStyles = css({
 	position: 'relative',
 });
 
-export const HelpBodyAi = ({ children }: { children: React.ReactNode }) => (
+export const HelpBodyAi = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={helpBodyAiStyles}>{children}</div>
 );
 
@@ -73,7 +73,11 @@ const homeStyles = css({
 	marginTop: 0,
 });
 
-export const Home = ({ isOverlayFullyVisible, isOverlayVisible, children }: HomeProps) => (
+export const Home = ({
+	isOverlayFullyVisible,
+	isOverlayVisible,
+	children,
+}: HomeProps): JSX.Element => (
 	<div
 		css={homeStyles}
 		style={{
@@ -95,7 +99,11 @@ const homeAiStyles = css({
 	marginTop: 0,
 });
 
-export const HomeAi = ({ isOverlayFullyVisible, isOverlayVisible, children }: HomeProps) => (
+export const HomeAi = ({
+	isOverlayFullyVisible,
+	isOverlayVisible,
+	children,
+}: HomeProps): JSX.Element => (
 	<div
 		css={homeAiStyles}
 		style={{
@@ -125,7 +133,7 @@ export const HelpFooter = ({
 }: {
 	[rest: string]: any;
 	children: React.ReactNode;
-}) => (
+}): JSX.Element => (
 	<div css={helpFooterStyles} {...rest}>
 		{children}
 	</div>
@@ -155,7 +163,7 @@ export const BackButtonContainer = ({
 }: {
 	children: React.ReactNode;
 	transitionState: TransitionStatus;
-}) => (
+}): JSX.Element => (
 	<div
 		css={backButtonContainerStyles}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
@@ -171,6 +179,6 @@ const ulStyles = css({
 	padding: 0,
 });
 
-export const StyledUl = ({ children }: { children: React.ReactNode }) => (
+export const StyledUl = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<ul css={ulStyles}>{children}</ul>
 );

@@ -96,7 +96,7 @@ const TimePicker: React.ForwardRefExoticComponent<
 			times = defaultTimes,
 			value: providedValue,
 		}: TimePickerBaseProps,
-		ref,
+		_ref,
 	) => {
 		const [containerRef, setContainerRef] = useState<HTMLElement | null>(null);
 		/**

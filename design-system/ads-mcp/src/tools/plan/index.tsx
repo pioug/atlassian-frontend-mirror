@@ -6,7 +6,7 @@ import { searchComponentsTool } from '../search-components';
 import { searchIconsTool } from '../search-icons';
 import { searchTokensTool } from '../search-tokens';
 
-const inputSchema = z.object({
+export const planInputSchema = z.object({
 	tokens: z
 		.array(z.string())
 		.describe(
@@ -69,10 +69,10 @@ import AddIcon from '@atlaskit/icon/core/add';
 		idempotentHint: true,
 		openWorldHint: true,
 	},
-	inputSchema: zodToJsonSchema(inputSchema),
+	inputSchema: zodToJsonSchema(planInputSchema),
 };
 
-export const planTool = async (params: z.infer<typeof inputSchema>) => {
+export const planTool = async (params: z.infer<typeof planInputSchema>) => {
 	const {
 		tokens: tokens_search,
 		icons: icons_search,

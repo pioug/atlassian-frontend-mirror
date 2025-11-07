@@ -9,7 +9,4 @@ snapshot(ColorRoles, {
 			environment: {},
 		},
 	],
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });

@@ -15,4 +15,6 @@ export const setSkinToneAriaLabelText = (tone?: string) => {
 	if (tone) {
 		return skinToneVariations[tone];
 	}
+
+	return undefined;
 };

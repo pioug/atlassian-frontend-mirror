@@ -8,7 +8,7 @@ import { Text } from '@atlaskit/primitives/compiled';
 import { ArticleContentInner, ArticleContentTitle, ArticleContentTitleLink } from './styled';
 import ArticleBody from './ArticleBody';
 
-const HelpArticle = (props: HelpArticleType) => {
+const HelpArticle = (props: HelpArticleType): React.JSX.Element => {
 	const {
 		title = '',
 		body,

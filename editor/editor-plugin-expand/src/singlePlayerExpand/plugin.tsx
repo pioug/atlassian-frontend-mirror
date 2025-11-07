@@ -25,6 +25,7 @@ import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
+import { toggleExpandRange } from '../editor-commands/toggleExpandRange';
 import type { ExpandPlugin } from '../types';
 import { createExpandBlockMenuItem } from '../ui/ExpandBlockMenuItem';
 
@@ -81,6 +82,7 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 		},
 		commands: {
 			toggleExpandWithMatch: (selection) => toggleExpandWithMatch(selection),
+			toggleExpandRange,
 		},
 		pmPlugins() {
 			return [

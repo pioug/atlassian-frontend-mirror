@@ -83,6 +83,34 @@ export type ExpandPlugin = NextEditorPlugin<
 			 * Toggle the expand or nested expand node open
 			 */
 			toggleExpandWithMatch: (selection: Selection) => EditorCommand;
+			/**
+			 * Expand or collapse a range of expand nodes. With no parameters
+			 *
+			 *
+			 * @param from Starting range (defaults to 0)
+			 * @param to Ending range (defaults to the document size)
+			 * @param open Boolean to open (defaults to opening expands)
+			 * @returns EditorCommand to be executed
+			 *
+			 * @example
+			 * ```ts
+			 * // Opens all the expands on the page
+			 * editorAPI.core.actions.execute(
+			 *   editorAPI.expand.commands.toggleExpandRange()
+			 * )
+			 *
+			 * // Closes all the expands between positions 0 and 34 on the page
+			 * editorAPI.core.actions.execute(
+			 *   editorAPI.expand.commands.toggleExpandRange(0, 34, false)
+			 * )
+			 *
+			 * // Closes all the expands on the page
+			 * editorAPI.core.actions.execute(
+			 *   editorAPI.expand.commands.toggleExpandRange(undefined, undefined, false)
+			 * )
+			 * ```
+			 */
+			toggleExpandRange: (from?: number, to?: number, open?: boolean) => EditorCommand;
 		};
 		dependencies: ExpandPluginDependencies;
 		pluginConfiguration: ExpandPluginOptions | undefined;

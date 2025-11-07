@@ -7,7 +7,7 @@ export enum RESPONSE_TYPE {
 export const createArticleObject = (
 	styles: any,
 	content: any,
-	responseType = RESPONSE_TYPE.ALGOLIA,
+	responseType: RESPONSE_TYPE = RESPONSE_TYPE.ALGOLIA,
 ): Article => {
 	const bodyObject = content.body;
 	const stylesObject = styles.body;

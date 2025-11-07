@@ -1,5 +1,13 @@
 # @atlaskit/people-teams-ui-public
 
+## 3.6.0
+
+### Minor Changes
+
+- [`b98b0340b08c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b98b0340b08c0) -
+  [ux] Updating verified team icon to surface for all groups and verified teams. Updated bylines for
+  team and group principals to "Official team" and "Admin group".
+
 ## 3.5.4
 
 ### Patch Changes

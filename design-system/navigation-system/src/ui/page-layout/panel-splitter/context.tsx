@@ -57,7 +57,7 @@ export type PanelSplitterContextType = {
 
 	/**
 	 * The keyboard shortcut to display in the tooltip.
-	 * Only used if the `platform-dst-tooltip-shortcuts` feature flag is enabled.
+	 *
 	 * Note this does not handle the keyboard shortcut functionality, it only displays the shortcut in the tooltip.
 	 */
 	shortcut?: TooltipProps['shortcut'];

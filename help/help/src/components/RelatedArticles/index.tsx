@@ -5,7 +5,11 @@
 /** @jsxFrag */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { type UIAnalyticsEvent, withAnalyticsContext } from '@atlaskit/analytics-next';
+import {
+	type UIAnalyticsEvent,
+	withAnalyticsContext,
+	type WithContextProps,
+} from '@atlaskit/analytics-next';
 import SectionMessage from '@atlaskit/section-message';
 import Button from '@atlaskit/button/custom-theme-button';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
@@ -158,8 +162,14 @@ export const RelatedArticles: React.FC<Props & WrappedComponentProps> = ({
 	}
 };
 
-export default withAnalyticsContext({
+const _default_1: React.ForwardRefExoticComponent<
+	Omit<Props & WrappedComponentProps, 'intl'> & {
+		forwardedRef?: React.Ref<any>;
+	} & WithContextProps &
+		React.RefAttributes<any>
+> = withAnalyticsContext({
 	componentName: 'RelatedArticles',
 	packageName,
 	packageVersion,
 })(injectIntl(RelatedArticles));
+export default _default_1;

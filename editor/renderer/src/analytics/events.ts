@@ -212,6 +212,23 @@ type TableWidthInfoAEP = AEP<
 	EVENT_TYPE.OPERATIONAL
 >;
 
+type TableRendererHeightInfoAEP = AEP<
+	TABLE_ACTION.TABLE_RENDERER_HEIGHT_INFO,
+	ACTION_SUBJECT.TABLE,
+	undefined,
+	{
+		maxTableHeight: number;
+		maxTableToViewportHeightRatio: number;
+		rendererHeight: number;
+		tableHeightInfo: Array<{
+			isNestedTable: boolean;
+			tableHeight: number;
+		}>;
+		viewportHeight: number;
+	},
+	EVENT_TYPE.OPERATIONAL
+>;
+
 type VisitLinkAEP = AEP<
 	ACTION.VISITED,
 	ACTION_SUBJECT.LINK,
@@ -327,6 +344,7 @@ export type AnalyticsEventPayload<T = void> =
 	| TableSortColumnNotAllowedAEP
 	| TableSortColumnAEP
 	| TableWidthInfoAEP
+	| TableRendererHeightInfoAEP
 	| VisitLinkAEP
 	| VisitMediaLinkAEP
 	| ExpandAEP

@@ -50,7 +50,7 @@ describe('SideNavToggleButton', () => {
 		jest.useRealTimers();
 	});
 
-	ffTest.on('platform-dst-tooltip-shortcuts', 'tooltip', () => {
+	describe('tooltip', () => {
 		beforeEach(() => {
 			setMediaQuery('(min-width: 64rem)', { initial: true });
 		});

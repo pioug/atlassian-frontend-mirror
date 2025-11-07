@@ -19,6 +19,7 @@ type AvatarImageProps = {
 	src?: string;
 	testId?: string;
 	teamId?: string;
+	compact?: boolean;
 };
 
 const boxShadowCssVar = '--avatar-box-shadow';
@@ -37,10 +38,6 @@ const containerStyles = cssMap({
 		flexDirection: 'column',
 		border: 'none',
 		cursor: 'inherit',
-		marginBlockEnd: token('space.025'),
-		marginBlockStart: token('space.025'),
-		marginInlineEnd: token('space.025'),
-		marginInlineStart: token('space.025'),
 		outline: 'none',
 		overflow: 'hidden',
 		paddingBlockEnd: token('space.0'),
@@ -59,6 +56,18 @@ const containerStyles = cssMap({
 			pointerEvents: 'none',
 			transition: 'opacity 200ms',
 		},
+	},
+	nonCompactSpacing: {
+		marginBlockEnd: token('space.025'),
+		marginBlockStart: token('space.025'),
+		marginInlineEnd: token('space.025'),
+		marginInlineStart: token('space.025'),
+	},
+	compactSpacing: {
+		marginBlockEnd: token('space.0'),
+		marginBlockStart: token('space.0'),
+		marginInlineEnd: token('space.0'),
+		marginInlineStart: token('space.0'),
 	},
 	circle: {
 		borderRadius: token('radius.full', '50%'),
@@ -173,7 +182,14 @@ const widthHeightMap = cssMap({
  *
  * An avatar image is an internal component used to control the rendering phases of an image.
  */
-export const TeamAvatarImage = ({ alt = '', src, size, testId, teamId }: AvatarImageProps) => {
+export const TeamAvatarImage = ({
+	alt = '',
+	src,
+	size,
+	testId,
+	teamId,
+	compact = false,
+}: AvatarImageProps) => {
 	const [hasImageErrored, setHasImageErrored] = useState(false);
 
 	const avatarSrc = getTeamAvatarSrc(src, teamId);
@@ -190,13 +206,20 @@ export const TeamAvatarImage = ({ alt = '', src, size, testId, teamId }: AvatarI
 				width={SIZES[size]}
 				height={SIZES[size]}
 				data-testid={testId}
+				compact={compact}
 			/>
 		);
 	}
 
 	return (
 		<span
-			css={[unboundStyles.root, containerStyles.root, borderRadiusMap[size], widthHeightMap[size]]}
+			css={[
+				unboundStyles.root,
+				containerStyles.root,
+				borderRadiusMap[size],
+				widthHeightMap[size],
+				compact ? containerStyles.compactSpacing : containerStyles.nonCompactSpacing,
+			]}
 			data-testid={testId}
 			aria-label={alt}
 		>

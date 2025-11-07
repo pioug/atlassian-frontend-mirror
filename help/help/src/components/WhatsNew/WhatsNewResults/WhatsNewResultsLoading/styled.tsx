@@ -24,7 +24,7 @@ export const LoadingWhatsNewResultsList = ({
 }: {
 	[rest: string]: any;
 	children: React.ReactNode;
-}) => (
+}): JSX.Element => (
 	<ul css={loadingWhatsNewResultsListStyles} {...rest}>
 		{children}
 	</ul>
@@ -41,6 +41,8 @@ const loadingWhatsNewResultsListItemStyles = css({
 	boxSizing: 'border-box',
 });
 
-export const LoadingWhatsNewResultsListItem = ({ children }: { children: React.ReactNode }) => (
-	<li css={loadingWhatsNewResultsListItemStyles}>{children}</li>
-);
+export const LoadingWhatsNewResultsListItem = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <li css={loadingWhatsNewResultsListItemStyles}>{children}</li>;

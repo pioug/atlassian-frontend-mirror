@@ -6,19 +6,19 @@ import UserPicker from '../src';
 import { isExternalUser } from '../src/components/utils';
 
 const Example = () => {
-    return (
-        <ExampleWrapper>
-            {({ onInputChange }) => (
-                <UserPicker
-                    fieldId="example"
-                    options={exampleOptions.filter((o) => isExternalUser(o))}
-                    onChange={console.log}
-                    onInputChange={onInputChange}
-                    isMulti
-                    autoFocus
-                />
-            )}
-        </ExampleWrapper>
-    );
+	return (
+		<ExampleWrapper>
+			{({ onInputChange }) => (
+				<UserPicker
+					fieldId="example"
+					options={exampleOptions.filter((o) => isExternalUser(o))}
+					onChange={console.log}
+					onInputChange={onInputChange}
+					isMulti
+					autoFocus
+				/>
+			)}
+		</ExampleWrapper>
+	);
 };
 export default Example;

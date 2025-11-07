@@ -25,8 +25,6 @@ exports[`ArticleContent Match snapshot 1`] = `
   -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
   transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
   white-space: nowrap;
-  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
-  color: var(--ds-text, #42526E)!important;
   cursor: pointer;
   height: 2.2857142857142856em;
   line-height: 2.2857142857142856em;
@@ -37,51 +35,65 @@ exports[`ArticleContent Match snapshot 1`] = `
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
+  background: var(--ds-background-neutral-subtle, #00000000);
+  color: var(--ds-text, #292A2E);
 }
 
-.emotion-1:visited {
-  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
-  color: var(--ds-text, #42526E)!important;
+.emotion-1::after {
+  border-radius: inherit;
+  inset: var(--ds-space-0, 0px);
+  border-style: solid;
+  border-width: var(--ds-border-width, 1px);
+  pointer-events: none;
+  position: absolute;
+  content: "";
+  border-color: var(--ds-border, #0B120E24);
 }
 
 .emotion-1:hover {
-  background: var(--ds-background-neutral-hovered, rgba(9, 30, 66, 0.08));
-  color: var(--ds-text, #42526E)!important;
-  -webkit-text-decoration: inherit;
-  text-decoration: inherit;
-  transition-duration: 0s,0.15s;
+  background: var(--ds-background-neutral-hovered, #0B120E24);
 }
 
 .emotion-1:active {
-  background: var(--ds-background-neutral-pressed, rgba(179, 212, 255, 0.6));
-  color: var(--ds-text, #0052CC)!important;
-  transition-duration: 0s,0s;
+  background: var(--ds-background-neutral-pressed, #080F214A);
 }
 
-.emotion-1[data-firefox-is-active="true"] {
-  background: var(--ds-background-neutral-pressed, rgba(179, 212, 255, 0.6));
-  color: var(--ds-text, #0052CC)!important;
-  transition-duration: 0s,0s;
+.emotion-1[data-has-overlay="true"]:not([disabled]):hover {
+  background: var(--ds-background-neutral-subtle, #00000000);
+}
+
+.emotion-1:disabled[disabled] {
+  background: var(--ds-background-neutral-subtle, #00000000);
+}
+
+.emotion-1:disabled[disabled]:hover {
+  background: var(--ds-background-neutral-subtle, #00000000);
+}
+
+.emotion-1:disabled[disabled]:active {
+  background: var(--ds-background-neutral-subtle, #00000000);
 }
 
 .emotion-1[disabled] {
-  background: var(--ds-background-disabled, rgba(9, 30, 66, 0.04));
-  color: var(--ds-text-disabled, #A5ADBA)!important;
+  color: var(--ds-text-disabled, #080F214A);
+  background-color: var(--ds-background-disabled, #17171708);
   cursor: not-allowed;
   -webkit-text-decoration: none;
   text-decoration: none;
+}
+
+.emotion-1[disabled]:hovered {
+  background-color: var(--ds-background-disabled, #17171708);
+}
+
+.emotion-1[disabled]:active {
+  background-color: var(--ds-background-disabled, #17171708);
 }
 
 .emotion-1[data-has-overlay="true"] {
   cursor: default;
   -webkit-text-decoration: none;
   text-decoration: none;
-}
-
-.emotion-1[data-has-overlay="true"]:not([disabled]):hover,
-.emotion-1[data-has-overlay="true"]:not([disabled]):active {
-  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
-  color: var(--ds-text, #42526E)!important;
 }
 
 .emotion-1::-moz-focus-inner {

@@ -47,9 +47,6 @@ var getThemeStyles = /*#__PURE__*/function () {
                 return n !== 'light-increased-contrast' && n !== 'dark-increased-contrast';
               });
             }
-            themePreferences = themePreferences.filter(function (n) {
-              return n !== 'light-brand-refresh' && n !== 'dark-brand-refresh';
-            });
           } else {
             themeState = {
               colorMode: (preferences === null || preferences === void 0 ? void 0 : preferences.colorMode) || _themeConfig.themeStateDefaults['colorMode'],

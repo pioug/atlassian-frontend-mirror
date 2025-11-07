@@ -75,4 +75,3 @@ export const isWithinPreviewPanel = (): boolean => {
 export const isWithinPreviewPanelIFrame = (): boolean => {
 	return isInIframe() && isWithinPreviewPanel();
 };
-

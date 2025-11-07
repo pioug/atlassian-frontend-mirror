@@ -40,26 +40,26 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 					pressed: { value: 'Neutral300A' },
 				},
 				bold: {
-					'[default]': { value: 'Neutral800' },
+					'[default]': { value: 'Neutral1000' },
 					hovered: { value: 'Neutral900' },
-					pressed: { value: 'Neutral1000' },
+					pressed: { value: 'Neutral800' },
 				},
 			},
 			brand: {
 				subtlest: {
 					'[default]': { value: 'Blue100' },
 					hovered: { value: 'Blue200' },
-					pressed: { value: 'Blue300' },
+					pressed: { value: 'Blue250' },
 				},
 				bold: {
 					'[default]': { value: 'Blue700' },
 					hovered: { value: 'Blue800' },
-					pressed: { value: 'Blue900' },
+					pressed: { value: 'Blue850' },
 				},
 				boldest: {
 					'[default]': { value: 'Blue1000' },
 					hovered: { value: 'Blue900' },
-					pressed: { value: 'Blue800' },
+					pressed: { value: 'Blue850' },
 				},
 			},
 			selected: {
@@ -78,60 +78,60 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 				'[default]': {
 					'[default]': { value: 'Red100' },
 					hovered: { value: 'Red200' },
-					pressed: { value: 'Red300' },
+					pressed: { value: 'Red250' },
 				},
 				bold: {
 					'[default]': { value: 'Red700' },
 					hovered: { value: 'Red800' },
-					pressed: { value: 'Red900' },
+					pressed: { value: 'Red850' },
 				},
 			},
 			warning: {
 				'[default]': {
-					'[default]': { value: 'Yellow100' },
-					hovered: { value: 'Yellow200' },
-					pressed: { value: 'Yellow300' },
+					'[default]': { value: 'Orange100' },
+					hovered: { value: 'Orange200' },
+					pressed: { value: 'Orange250' },
 				},
 				bold: {
-					'[default]': { value: 'Yellow300' },
-					hovered: { value: 'Yellow400' },
-					pressed: { value: 'Yellow500' },
+					'[default]': { value: 'Orange300' },
+					hovered: { value: 'Orange400' },
+					pressed: { value: 'Orange500' },
 				},
 			},
 			success: {
 				'[default]': {
-					'[default]': { value: 'Green100' },
-					hovered: { value: 'Green200' },
-					pressed: { value: 'Green300' },
+					'[default]': { value: 'Lime100' },
+					hovered: { value: 'Lime200' },
+					pressed: { value: 'Lime250' },
 				},
 				bold: {
-					'[default]': { value: 'Green700' },
-					hovered: { value: 'Green800' },
-					pressed: { value: 'Green900' },
+					'[default]': { value: 'Lime700' },
+					hovered: { value: 'Lime800' },
+					pressed: { value: 'Lime850' },
 				},
 			},
 			discovery: {
 				'[default]': {
 					'[default]': { value: 'Purple100' },
 					hovered: { value: 'Purple200' },
-					pressed: { value: 'Purple300' },
+					pressed: { value: 'Purple250' },
 				},
 				bold: {
 					'[default]': { value: 'Purple700' },
 					hovered: { value: 'Purple800' },
-					pressed: { value: 'Purple900' },
+					pressed: { value: 'Purple850' },
 				},
 			},
 			information: {
 				'[default]': {
 					'[default]': { value: 'Blue100' },
 					hovered: { value: 'Blue200' },
-					pressed: { value: 'Blue300' },
+					pressed: { value: 'Blue250' },
 				},
 				bold: {
 					'[default]': { value: 'Blue700' },
 					hovered: { value: 'Blue800' },
-					pressed: { value: 'Blue900' },
+					pressed: { value: 'Blue850' },
 				},
 			},
 		},

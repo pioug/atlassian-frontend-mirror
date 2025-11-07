@@ -7,9 +7,6 @@ import { themeVariants } from './utils';
 
 snapshot(SplitButtonExample, {
 	variants: themeVariants,
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });
 
 snapshot(SplitButtonNestedModalExample, {

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 15.3.13
+
+### Patch Changes
+
+- [`ca454ed251e1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca454ed251e1e) -
+  Add table height analytics
+- Updated dependencies
+
 ## 15.3.12
 
 ### Patch Changes

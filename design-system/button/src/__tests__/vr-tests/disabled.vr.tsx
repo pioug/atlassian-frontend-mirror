@@ -6,7 +6,4 @@ import { themeVariants } from './utils';
 
 snapshot(DisabledExample, {
 	variants: themeVariants,
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });

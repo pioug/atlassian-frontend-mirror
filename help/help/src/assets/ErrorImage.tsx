@@ -25,6 +25,6 @@ export const svg = `<?xml version="1.0" encoding="UTF-8"?>
 </svg>
 `;
 
-export default function ErrorImage() {
+export default function ErrorImage(): React.JSX.Element {
 	return <span dangerouslySetInnerHTML={{ __html: svg }} />;
 }

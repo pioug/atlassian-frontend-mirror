@@ -11,7 +11,11 @@ type IconWrapperProps = {
 	LegacyIcon: ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => JSX.Element;
 };
 
-export const IconWrapper = ({ Icon, LegacyIcon, appearance }: IconWrapperProps) => {
+export const IconWrapper = ({
+	Icon,
+	LegacyIcon,
+	appearance,
+}: IconWrapperProps): React.JSX.Element => {
 	return (
 		<Flex alignItems="center" justifyContent="center">
 			{!fg('platform-visual-refresh-icons') ? (

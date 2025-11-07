@@ -31,6 +31,7 @@ export const useEmoji = () => {
 				try {
 					const supported = await emojiProvider.isUploadSupported();
 					setIsUploadSupported(supported);
+					return true;
 				} catch (error) {
 					return false;
 				}

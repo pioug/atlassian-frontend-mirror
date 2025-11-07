@@ -468,9 +468,9 @@ describe('DateTimePicker', () => {
 			render(createDateTimePicker({ 'aria-describedby': describedBy }));
 
 			const datePicker = screen.getByTestId(datePickerTestId);
-			expect(datePicker).toHaveAttribute('aria-describedby', describedBy);
+			expect(datePicker).toHaveAttribute('aria-describedby', expect.stringContaining(describedBy));
 			const timePicker = screen.getByTestId(timePickerTestId);
-			expect(timePicker).toHaveAttribute('aria-describedby', describedBy);
+			expect(timePicker).toHaveAttribute('aria-describedby', expect.stringContaining(describedBy));
 		});
 
 		it('should have a label for the clear button label when prop is supplied', async () => {

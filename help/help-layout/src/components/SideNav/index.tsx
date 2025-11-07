@@ -68,7 +68,7 @@ const styles = cssMap({
 	},
 });
 
-export const SideNav = ({ sideNavTabs }: SideNavProps) => {
+export const SideNav = ({ sideNavTabs }: SideNavProps): JSX.Element => {
 	const [activeIndex, setActiveIndex] = useState(0);
 
 	return (

@@ -5,7 +5,6 @@ import { type Config, type Core } from 'style-dictionary';
 
 import legacyPalette from '../../schema/palettes/legacy-palette';
 import defaultPalette from '../../schema/palettes/palette';
-import brandRefreshPalette from '../../schema/palettes/palette-brand-refresh';
 import shapePalette from '../../schema/palettes/shape-palette';
 import spacingScale from '../../schema/palettes/spacing-scale';
 import typographyPalette from '../../schema/palettes/typography-palette';
@@ -39,8 +38,6 @@ const getPalette = (paletteId: Palettes) => {
 			return legacyPalette;
 		case 'shapePalette':
 			return shapePalette;
-		case 'brandRefreshPalette':
-			return brandRefreshPalette;
 		case 'defaultPalette':
 		default:
 			return defaultPalette;

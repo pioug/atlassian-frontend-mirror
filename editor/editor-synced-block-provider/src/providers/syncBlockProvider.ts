@@ -106,9 +106,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		return this.sourceId;
 	}
 
-	retrieveSyncBlockSourceInfo(
-		node: SyncBlockNode,
-	): Promise<SyncBlockSourceInfo | undefined> {
+	retrieveSyncBlockSourceInfo(node: SyncBlockNode): Promise<SyncBlockSourceInfo | undefined> {
 		const { resourceId } = node.attrs;
 		let pageARI;
 		let sourceLocalId;

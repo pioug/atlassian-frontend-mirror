@@ -8,7 +8,6 @@ import {
 	mockBasicFilterAGGFetchRequests,
 	mockDatasourceFetchRequests,
 } from '@atlaskit/link-test-helpers/datasource';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 
 import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
 import { CONFLUENCE_SEARCH_DATASOURCE_ID } from '../../src/ui/confluence-search-modal';
@@ -25,18 +24,7 @@ const parameters = {
 	cloudId: '67899',
 };
 
-const setupFeatureFlags = (): void => {
-	setBooleanFeatureFlagResolver((flagKey) => {
-		if (flagKey === 'add-disablesiteselector') {
-			return true;
-		}
-		return false;
-	});
-};
-
 const ConfluenceSearchConfigModalDisableSiteSelector = (): React.JSX.Element => {
-	setupFeatureFlags();
-
 	return (
 		<IntlProvider locale="en">
 			<SmartCardProvider client={new SmartLinkClient()}>

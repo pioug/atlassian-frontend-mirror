@@ -16,9 +16,11 @@ const whatsNewResultsEmptyMessageImageStyles = css({
 	textAlign: 'center',
 });
 
-export const WhatsNewResultsEmptyMessageImage = ({ children }: { children: React.ReactNode }) => (
-	<div css={whatsNewResultsEmptyMessageImageStyles}>{children}</div>
-);
+export const WhatsNewResultsEmptyMessageImage = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <div css={whatsNewResultsEmptyMessageImageStyles}>{children}</div>;
 
 const whatsNewResultsEmptyMessageTextStyles = css({
 	paddingTop: token('space.300', '24px'),
@@ -32,6 +34,8 @@ const whatsNewResultsEmptyMessageTextStyles = css({
 	},
 });
 
-export const WhatsNewResultsEmptyMessageText = ({ children }: { children: React.ReactNode }) => (
-	<div css={whatsNewResultsEmptyMessageTextStyles}>{children}</div>
-);
+export const WhatsNewResultsEmptyMessageText = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <div css={whatsNewResultsEmptyMessageTextStyles}>{children}</div>;

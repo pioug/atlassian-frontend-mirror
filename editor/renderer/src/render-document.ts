@@ -116,10 +116,7 @@ const _validation = (
 
 	// Convert nested-table extensions into nested tables
 	try {
-		const { transformedAdf, isTransformed } = transformNestedTablesIncomingDocument(result, {
-			environment: 'renderer',
-			disableNestedRendererTreatment: fg('platform_editor_nested_table_extension_comment_fix'),
-		});
+		const { transformedAdf, isTransformed } = transformNestedTablesIncomingDocument(result);
 
 		if (isTransformed) {
 			dispatchAnalyticsEvent?.({

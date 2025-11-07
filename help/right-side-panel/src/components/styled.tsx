@@ -10,7 +10,13 @@ const flexContainerStyles = css({
 	display: 'flex',
 });
 
-export const FlexContainer = ({ id, children }: { children: React.ReactNode; id: string }) => (
+export const FlexContainer = ({
+	id,
+	children,
+}: {
+	children: React.ReactNode;
+	id: string;
+}): JSX.Element => (
 	<div id={id} css={flexContainerStyles}>
 		{children}
 	</div>
@@ -23,6 +29,6 @@ const contentWrapperStyles = css({
 	overflowX: 'hidden',
 });
 
-export const ContentWrapper = ({ children }: { children: React.ReactNode }) => (
+export const ContentWrapper = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={contentWrapperStyles}>{children}</div>
 );

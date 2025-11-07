@@ -16,7 +16,7 @@ import {
 const client = algoliasearch('8K6J5OJIQW', '55176fdca77978d05c6da060d8724fe7');
 const index = client.initIndex('product_help_uat');
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const [navigationData, setNavigationData] = useState<{
 		articleId: articleId;
 		history: HistoryItem[];

@@ -69,7 +69,12 @@ export default () => {
 							<Text>`position: absolute` target pushed to the right.</Text>
 						</Box>
 					</PopoverTarget>
-					<PopoverContent offset={[400, 40]} dismiss={dismiss} placement="bottom-start" isVisible={isVisible}>
+					<PopoverContent
+						offset={[400, 40]}
+						dismiss={dismiss}
+						placement="bottom-start"
+						isVisible={isVisible}
+					>
 						<SpotlightCard testId="spotlight">
 							<SpotlightHeader>
 								<SpotlightHeadline>Headline</SpotlightHeadline>
@@ -78,7 +83,9 @@ export default () => {
 								</SpotlightControls>
 							</SpotlightHeader>
 							<SpotlightBody>
-								<Text>`PopoverContent` with an `offset` to match the `position: absolute` styles.</Text>
+								<Text>
+									`PopoverContent` with an `offset` to match the `position: absolute` styles.
+								</Text>
 							</SpotlightBody>
 							<SpotlightFooter>
 								<SpotlightActions>

@@ -20,28 +20,11 @@ snapshot(Basic, {
 		},
 	],
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
 		'platform-lozenge-custom-letterspacing': [true, false],
 	},
 });
 
-snapshot(BaselineAlignment, {
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
-});
-snapshot(CustomColor, {
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
-});
-snapshot(WidthHandling, {
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
-});
-snapshot(LozengeContainers, {
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
-});
+snapshot(BaselineAlignment);
+snapshot(CustomColor);
+snapshot(WidthHandling);
+snapshot(LozengeContainers);

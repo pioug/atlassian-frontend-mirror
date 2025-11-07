@@ -42,7 +42,7 @@ export const RightSidePanelDrawer = ({
 	children: React.ReactNode;
 	transitionState: TransitionStatus;
 	width?: number;
-}) => (
+}): JSX.Element => (
 	<div
 		css={rightSidePanelDrawerStyles}
 		style={{
@@ -75,7 +75,7 @@ export const RightSidePanelDrawerContent = ({
 }: {
 	children: React.ReactNode;
 	width?: number;
-}) => (
+}): JSX.Element => (
 	<div
 		css={rightSidePanelDrawerContentStyles}
 		style={{

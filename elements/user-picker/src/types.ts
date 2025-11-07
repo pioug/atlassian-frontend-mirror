@@ -5,7 +5,11 @@ import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { type Placement } from '@atlaskit/popper';
 
 import { type EmailValidator } from './components/emailValidation';
-import { type StylesConfig, type SelectComponentsConfig, type PopupSelectProps } from '@atlaskit/select';
+import {
+	type StylesConfig,
+	type SelectComponentsConfig,
+	type PopupSelectProps,
+} from '@atlaskit/select';
 import { type BaseUserPickerWithoutAnalytics } from './components/BaseUserPicker';
 
 export type UserPickerProps = WithAnalyticsEventsProps & {

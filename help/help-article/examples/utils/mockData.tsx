@@ -1,4 +1,24 @@
-export const AdfDocument = {
+export const AdfDocument: {
+	content: {
+		content: (
+			| {
+					marks?: undefined;
+					text: string;
+					type: string;
+			  }
+			| {
+					marks: {
+						type: string;
+					}[];
+					text: string;
+					type: string;
+			  }
+		)[];
+		type: string;
+	}[];
+	type: string;
+	version: number;
+} = {
 	type: 'doc',
 	version: 1,
 	content: [
@@ -49,7 +69,1147 @@ export const AdfDocument = {
 	],
 };
 
-export const AdfDocumentComplex = {
+export const AdfDocumentComplex: {
+	content: (
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							marks: (
+								| {
+										attrs?: undefined;
+										type: string;
+								  }
+								| {
+										attrs: {
+											href: string;
+										};
+										type: string;
+								  }
+							)[];
+							text: string;
+							type: string;
+					  }
+					| {
+							marks?: undefined;
+							text: string;
+							type: string;
+					  }
+					| {
+							marks: {
+								attrs: {
+									key: string;
+									parameters: {
+										test: number;
+									};
+									target: {
+										key: string;
+										receiver: string;
+									};
+									title: string;
+								};
+								type: string;
+							}[];
+							text: string;
+							type: string;
+					  }
+					| {
+							marks: {
+								attrs: {
+									key: string;
+									parameters: {
+										test: number;
+									};
+									target: {
+										receiver: string;
+									};
+									title: string;
+								};
+								type: string;
+							}[];
+							text: string;
+							type: string;
+					  }
+				)[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							attrs?: undefined;
+							marks?: undefined;
+							text: string;
+							type: string;
+					  }
+					| {
+							attrs: {
+								id: string;
+								shortName: string;
+								text: string;
+							};
+							marks?: undefined;
+							text?: undefined;
+							type: string;
+					  }
+					| {
+							attrs: {
+								id?: undefined;
+								shortName: string;
+								text?: undefined;
+							};
+							marks?: undefined;
+							text?: undefined;
+							type: string;
+					  }
+					| {
+							attrs?: undefined;
+							marks: {
+								type: string;
+							}[];
+							text: string;
+							type: string;
+					  }
+				)[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							attrs: {
+								timestamp: string;
+							};
+							text?: undefined;
+							type: string;
+					  }
+					| {
+							attrs?: undefined;
+							text: string;
+							type: string;
+					  }
+				)[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							attrs?: undefined;
+							marks?: undefined;
+							text: string;
+							type: string;
+					  }
+					| {
+							attrs: {
+								id: string;
+								text: string;
+							};
+							marks?: undefined;
+							text?: undefined;
+							type: string;
+					  }
+					| {
+							attrs?: undefined;
+							marks: {
+								type: string;
+							}[];
+							text: string;
+							type: string;
+					  }
+				)[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							attrs?: undefined;
+							text: string;
+							type: string;
+					  }
+					| {
+							attrs: {
+								id: string;
+								text: string;
+								textxtx?: undefined;
+							};
+							text?: undefined;
+							type: string;
+					  }
+					| {
+							attrs: {
+								id: string;
+								text?: undefined;
+								textxtx: string;
+							};
+							text?: undefined;
+							type: string;
+					  }
+				)[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							attrs?: undefined;
+							text: string;
+							type: string;
+					  }
+					| {
+							attrs: {
+								accessLevel: string;
+								id: string;
+							};
+							text: string;
+							type: string;
+					  }
+				)[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							marks: {
+								type: string;
+							}[];
+							text: string;
+							type: string;
+					  }
+					| {
+							marks: {
+								attrs: {
+									href: string;
+								};
+								type: string;
+							}[];
+							text: string;
+							type: string;
+					  }
+					| {
+							marks: {
+								attrs: {
+									type: string;
+								};
+								type: string;
+							}[];
+							text: string;
+							type: string;
+					  }
+					| {
+							marks: {
+								attrs: {
+									color: string;
+								};
+								type: string;
+							}[];
+							text: string;
+							type: string;
+					  }
+				)[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							attrs: {
+								text: string;
+							};
+							text?: undefined;
+							type: string;
+					  }
+					| {
+							attrs?: undefined;
+							text?: undefined;
+							type: string;
+					  }
+					| {
+							attrs?: undefined;
+							text: string;
+							type: string;
+					  }
+				)[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: {
+					text: string;
+					type: string;
+				}[];
+				marks?: undefined;
+				text: string;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: {
+					content: (
+						| {
+								content: {
+									text: string;
+									type: string;
+								}[];
+								type: string;
+						  }
+						| {
+								content: {
+									attrs: {
+										textUrl: string;
+									};
+									text: string;
+									type: string;
+								}[];
+								type: string;
+						  }
+					)[];
+					type: string;
+				}[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							attrs?: undefined;
+							text: string;
+							type: string;
+					  }
+					| {
+							attrs: {
+								color: string;
+								text: string;
+							};
+							text?: undefined;
+							type: string;
+					  }
+				)[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: {
+					text: string;
+					type: string;
+				}[];
+				marks: {
+					attrs: {
+						level: number;
+					};
+					type: string;
+				}[];
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: {
+					text: string;
+					type: string;
+				}[];
+				marks: {
+					attrs: {
+						align: string;
+					};
+					type: string;
+				}[];
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs: {
+					extensionKey?: undefined;
+					extensionType?: undefined;
+					language?: undefined;
+					layout?: undefined;
+					level: number;
+					localId?: undefined;
+					panelType?: undefined;
+				};
+				content: {
+					text: string;
+					type: string;
+				}[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs: {
+					extensionKey?: undefined;
+					extensionType?: undefined;
+					language?: undefined;
+					layout?: undefined;
+					level: number;
+					localId?: undefined;
+					panelType?: undefined;
+				};
+				content: {
+					marks: {
+						attrs: {
+							href: string;
+						};
+						type: string;
+					}[];
+					text: string;
+					type: string;
+				}[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs: {
+					extensionKey?: undefined;
+					extensionType?: undefined;
+					language?: undefined;
+					layout?: undefined;
+					level: number;
+					localId?: undefined;
+					panelType?: undefined;
+				};
+				content: {
+					text: string;
+					type: string;
+				}[];
+				marks: {
+					attrs: {
+						level: number;
+					};
+					type: string;
+				}[];
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs: {
+					extensionKey?: undefined;
+					extensionType?: undefined;
+					language?: undefined;
+					layout?: undefined;
+					level: number;
+					localId?: undefined;
+					panelType?: undefined;
+				};
+				content: {
+					marks: {
+						attrs: {
+							href: string;
+						};
+						type: string;
+					}[];
+					text: string;
+					type: string;
+				}[];
+				marks: {
+					attrs: {
+						level: number;
+					};
+					type: string;
+				}[];
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs: {
+					extensionKey?: undefined;
+					extensionType?: undefined;
+					language?: undefined;
+					layout?: undefined;
+					level: number;
+					localId?: undefined;
+					panelType?: undefined;
+				};
+				content: {
+					text: string;
+					type: string;
+				}[];
+				marks: {
+					attrs: {
+						align: string;
+					};
+					type: string;
+				}[];
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs: {
+					extensionKey?: undefined;
+					extensionType?: undefined;
+					language?: undefined;
+					layout: string;
+					level?: undefined;
+					localId?: undefined;
+					panelType?: undefined;
+				};
+				content: {
+					attrs: {
+						collection: string;
+						height: number;
+						id: string;
+						type: string;
+						width: number;
+					};
+					type: string;
+				}[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs: {
+					extensionKey?: undefined;
+					extensionType?: undefined;
+					language: string;
+					layout?: undefined;
+					level?: undefined;
+					localId?: undefined;
+					panelType?: undefined;
+				};
+				content: {
+					text: string;
+					type: string;
+				}[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs: {
+					extensionKey?: undefined;
+					extensionType?: undefined;
+					language?: undefined;
+					layout?: undefined;
+					level?: undefined;
+					localId?: undefined;
+					panelType?: undefined;
+				};
+				content: {
+					attrs: {
+						collection: string;
+						height: number;
+						id: string;
+						type: string;
+						width: number;
+					};
+					type: string;
+				}[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: {
+					attrs: {
+						collection: string;
+						id: string;
+						type: string;
+					};
+					type: string;
+				}[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs: {
+					extensionKey?: undefined;
+					extensionType?: undefined;
+					language: string;
+					layout?: undefined;
+					level?: undefined;
+					localId?: undefined;
+					panelType?: undefined;
+				};
+				content: {
+					text: string;
+					type: string;
+				}[];
+				marks: {
+					attrs: {
+						mode: string;
+					};
+					type: string;
+				}[];
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							content: {
+								text: string;
+								type: string;
+							}[];
+							type: string;
+					  }
+					| {
+							content: {
+								marks: {
+									type: string;
+								}[];
+								text: string;
+								type: string;
+							}[];
+							type: string;
+					  }
+				)[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs: {
+					extensionKey?: undefined;
+					extensionType?: undefined;
+					language?: undefined;
+					layout?: undefined;
+					level?: undefined;
+					localId?: undefined;
+					panelType: string;
+				};
+				content: {
+					content: (
+						| {
+								marks?: undefined;
+								text: string;
+								type: string;
+						  }
+						| {
+								marks: {
+									type: string;
+								}[];
+								text: string;
+								type: string;
+						  }
+					)[];
+					type: string;
+				}[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content?: undefined;
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							attrs?: undefined;
+							text: string;
+							type: string;
+					  }
+					| {
+							attrs: {
+								alt: string;
+								src: string;
+								title: string;
+							};
+							text?: undefined;
+							type: string;
+					  }
+				)[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs: {
+					extensionKey?: undefined;
+					extensionType?: undefined;
+					language?: undefined;
+					layout?: undefined;
+					level?: undefined;
+					localId: string;
+					panelType?: undefined;
+				};
+				content: {
+					attrs: {
+						localId: string;
+						state: string;
+					};
+					type: string;
+				}[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs: {
+					extensionKey?: undefined;
+					extensionType?: undefined;
+					language?: undefined;
+					layout?: undefined;
+					level?: undefined;
+					localId: string;
+					panelType?: undefined;
+				};
+				content: (
+					| {
+							attrs: {
+								localId: string;
+								state: string;
+							};
+							content: (
+								| {
+										attrs?: undefined;
+										text: string;
+										type: string;
+								  }
+								| {
+										attrs: {
+											accessLevel?: undefined;
+											color?: undefined;
+											id: string;
+											localId?: undefined;
+											shortName: string;
+											text: string;
+											timestamp?: undefined;
+										};
+										text?: undefined;
+										type: string;
+								  }
+								| {
+										attrs: {
+											accessLevel?: undefined;
+											color: string;
+											id?: undefined;
+											localId: string;
+											shortName?: undefined;
+											text: string;
+											timestamp?: undefined;
+										};
+										text?: undefined;
+										type: string;
+								  }
+								| {
+										attrs: {
+											accessLevel?: undefined;
+											color?: undefined;
+											id?: undefined;
+											localId?: undefined;
+											shortName?: undefined;
+											text?: undefined;
+											timestamp: string;
+										};
+										text?: undefined;
+										type: string;
+								  }
+								| {
+										attrs: {
+											accessLevel: string;
+											color?: undefined;
+											id: string;
+											localId?: undefined;
+											shortName?: undefined;
+											text: string;
+											timestamp?: undefined;
+										};
+										text?: undefined;
+										type: string;
+								  }
+							)[];
+							type: string;
+					  }
+					| {
+							attrs: {
+								localId: string;
+								state: string;
+							};
+							content: (
+								| {
+										text: string;
+										type: string;
+								  }
+								| {
+										text?: undefined;
+										type: string;
+								  }
+							)[];
+							type: string;
+					  }
+				)[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							content: (
+								| {
+										attrs: {
+											background?: undefined;
+											colspan: number;
+											colwidth: number[];
+										};
+										content: {
+											content: {
+												text: string;
+												type: string;
+											}[];
+											type: string;
+										}[];
+										type: string;
+								  }
+								| {
+										attrs: {
+											background: string;
+											colspan?: undefined;
+											colwidth?: undefined;
+										};
+										content: {
+											content: {
+												text: string;
+												type: string;
+											}[];
+											type: string;
+										}[];
+										type: string;
+								  }
+							)[];
+							type: string;
+					  }
+					| {
+							content: (
+								| {
+										attrs: {
+											background: null;
+											colspan: number;
+											rowspan: number;
+										};
+										content: {
+											content: {
+												text: string;
+												type: string;
+											}[];
+											type: string;
+										}[];
+										type: string;
+								  }
+								| {
+										attrs?: undefined;
+										content: {
+											content: {
+												text: string;
+												type: string;
+											}[];
+											type: string;
+										}[];
+										type: string;
+								  }
+							)[];
+							type: string;
+					  }
+				)[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: {
+					attrs: {
+						collection: string;
+						id: string;
+						type: string;
+					};
+					type: string;
+				}[];
+				marks: {
+					attrs: {
+						href: string;
+					};
+					type: string;
+				}[];
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs: {
+					extensionKey: string;
+					extensionType: string;
+					language?: undefined;
+					layout?: undefined;
+					level?: undefined;
+					localId?: undefined;
+					panelType?: undefined;
+				};
+				content: {
+					content: {
+						text: string;
+						type: string;
+					}[];
+					type: string;
+				}[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							attrs: {
+								width: number;
+							};
+							content: {
+								attrs: {
+									isNumberColumnEnabled: boolean;
+									layout: string;
+								};
+								content: (
+									| {
+											content: {
+												attrs: {
+													colwidth: number[];
+													defaultMarks: {
+														type: string;
+													}[];
+												};
+												content: {
+													content: {
+														marks: {
+															type: string;
+														}[];
+														text: string;
+														type: string;
+													}[];
+													type: string;
+												}[];
+												type: string;
+											}[];
+											type: string;
+									  }
+									| {
+											content: (
+												| {
+														attrs: {
+															colwidth: number[];
+														};
+														content: {
+															attrs: {
+																localId: string;
+															};
+															content: {
+																attrs: {
+																	localId: string;
+																	state: string;
+																};
+																content: (
+																	| {
+																			attrs: {
+																				accessLevel: string;
+																				id: string;
+																				shortName?: undefined;
+																				text: string;
+																				timestamp?: undefined;
+																			};
+																			marks?: undefined;
+																			text?: undefined;
+																			type: string;
+																	  }
+																	| {
+																			attrs?: undefined;
+																			marks?: undefined;
+																			text: string;
+																			type: string;
+																	  }
+																	| {
+																			attrs: {
+																				accessLevel?: undefined;
+																				id?: undefined;
+																				shortName?: undefined;
+																				text?: undefined;
+																				timestamp: string;
+																			};
+																			marks?: undefined;
+																			text?: undefined;
+																			type: string;
+																	  }
+																	| {
+																			attrs: {
+																				accessLevel?: undefined;
+																				id: string;
+																				shortName: string;
+																				text: string;
+																				timestamp?: undefined;
+																			};
+																			marks?: undefined;
+																			text?: undefined;
+																			type: string;
+																	  }
+																	| {
+																			attrs?: undefined;
+																			marks: (
+																				| {
+																						attrs: {
+																							href: string;
+																						};
+																						type: string;
+																				  }
+																				| {
+																						attrs?: undefined;
+																						type: string;
+																				  }
+																			)[];
+																			text: string;
+																			type: string;
+																	  }
+																)[];
+																type: string;
+															}[];
+															type: string;
+														}[];
+														type: string;
+												  }
+												| {
+														attrs: {
+															colwidth: number[];
+														};
+														content: {
+															content: never[];
+															type: string;
+														}[];
+														type: string;
+												  }
+											)[];
+											type: string;
+									  }
+									| {
+											content: (
+												| {
+														attrs: {
+															colwidth: number[];
+														};
+														content: {
+															attrs: {
+																panelType: string;
+															};
+															content: {
+																content: {
+																	content: (
+																		| {
+																				content: {
+																					type: string;
+																					text: string;
+																				}[];
+																				type: string;
+																		  }
+																		| {
+																				content: {
+																					type: string;
+																					content: {
+																						type: string;
+																						content: (
+																							| {
+																									type: string;
+																									attrs: {
+																										id: string;
+																										text: string;
+																										accessLevel: string;
+																										timestamp?: undefined;
+																									};
+																									text?: undefined;
+																							  }
+																							| {
+																									type: string;
+																									text: string;
+																									attrs?: undefined;
+																							  }
+																							| {
+																									type: string;
+																									attrs: {
+																										timestamp: string;
+																										id?: undefined;
+																										text?: undefined;
+																										accessLevel?: undefined;
+																									};
+																									text?: undefined;
+																							  }
+																						)[];
+																					}[];
+																				}[];
+																				type: string;
+																		  }
+																	)[];
+																	type: string;
+																}[];
+																type: string;
+															}[];
+															type: string;
+														}[];
+														type: string;
+												  }
+												| {
+														attrs: {
+															colwidth: number[];
+														};
+														content: {
+															content: never[];
+															type: string;
+														}[];
+														type: string;
+												  }
+											)[];
+											type: string;
+									  }
+								)[];
+								type: string;
+							}[];
+							type: string;
+					  }
+					| {
+							attrs: {
+								width: number;
+							};
+							content: {
+								content: never[];
+								type: string;
+							}[];
+							type: string;
+					  }
+				)[];
+				marks?: undefined;
+				text?: undefined;
+				type: string;
+		  }
+	)[];
+	type: string;
+	version: number;
+} = {
 	type: 'doc',
 	version: 1,
 	content: [

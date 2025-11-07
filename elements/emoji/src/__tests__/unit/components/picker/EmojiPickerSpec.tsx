@@ -224,7 +224,7 @@ describe('<EmojiPicker />', () => {
 			await waitFor(() => {
 				expect(categorySelectorButtons[0]).toHaveCompiledCss(
 					'color',
-					'var(--ds-text-selected,#0c66e4)',
+					'var(--ds-text-selected,#1868db)',
 				);
 			});
 		});
@@ -411,7 +411,7 @@ describe('<EmojiPicker />', () => {
 			await waitFor(() => {
 				expect(categorySelectorButtons[0]).toHaveCompiledCss(
 					'color',
-					'var(--ds-text-selected,#0c66e4)',
+					'var(--ds-text-selected,#1868db)',
 				);
 			});
 		});
@@ -1044,12 +1044,6 @@ describe('<EmojiPicker />', () => {
 			// Mock the suppressKeyPress function with feature gate disabled
 			const suppressKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
 				childEscapeReceived = true;
-
-				// Allow escape key to propagate so parent components can handle it (behind feature gate)
-				if ((e.key === 'Escape' || e.key === 'Esc') && false) {
-					// feature gate disabled
-					return;
-				}
 
 				e.stopPropagation(); // This should block escape key when gate is off
 				if (e.key === 'Enter') {

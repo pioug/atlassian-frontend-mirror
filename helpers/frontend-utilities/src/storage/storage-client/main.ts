@@ -58,7 +58,7 @@ export default class StorageClient {
 		{ useExpiredItem }: GetStoredItemOptions = {
 			useExpiredItem: false,
 		},
-	) => {
+	): any => {
 		const item = this.client.getItem(this.itemKey(key));
 		if (item) {
 			try {
@@ -77,7 +77,7 @@ export default class StorageClient {
 		return undefined;
 	};
 
-	removeItem = (key: string) => {
+	removeItem = (key: string): void => {
 		try {
 			this.client.removeItem(this.itemKey(key));
 		} catch (e) {
@@ -85,7 +85,7 @@ export default class StorageClient {
 		}
 	};
 
-	setItemWithExpiry = (key: string, value: any, expireInMS?: number) => {
+	setItemWithExpiry = (key: string, value: any, expireInMS?: number): void => {
 		const itemWithExpiry: StoredItem = {
 			value,
 			expires: typeof expireInMS === 'number' ? Date.now() + expireInMS : undefined,

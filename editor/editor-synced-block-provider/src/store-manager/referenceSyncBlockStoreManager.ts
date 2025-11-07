@@ -1,6 +1,11 @@
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import type { BlockInstanceId, ResourceId, SyncBlockNode } from '../common/types';
+import {
+	SyncBlockError,
+	type BlockInstanceId,
+	type ResourceId,
+	type SyncBlockNode,
+} from '../common/types';
 import type {
 	SyncBlockInstance,
 	SubscriptionCallback,
@@ -97,7 +102,20 @@ export class ReferenceSyncBlockStoreManager {
 			throw new Error('Data provider not set');
 		}
 
-		const data = await this.dataProvider.fetchNodesData(syncBlockNodes);
+		// Don't fetch for not_found error since the source is already deleted
+		const nodesToFetch: SyncBlockNode[] = [],
+			blocksWithNotFoundError: SyncBlockInstance[] = [];
+
+		syncBlockNodes.forEach((node) => {
+			const existingSyncBlock = this.getFromCache(node.attrs.resourceId);
+			if (existingSyncBlock?.error === SyncBlockError.NotFound) {
+				blocksWithNotFoundError.push(existingSyncBlock);
+			} else {
+				nodesToFetch.push(node);
+			}
+		});
+
+		const data = await this.dataProvider.fetchNodesData(nodesToFetch);
 		if (!data) {
 			throw new Error('Failed to fetch sync block node data');
 		}
@@ -106,6 +124,12 @@ export class ReferenceSyncBlockStoreManager {
 
 		data.forEach((syncBlockInstance) => {
 			if (!syncBlockInstance.resourceId) {
+				return;
+			}
+
+			if (syncBlockInstance.error) {
+				this.updateCache(syncBlockInstance);
+				resolvedData.push(syncBlockInstance);
 				return;
 			}
 
@@ -128,7 +152,7 @@ export class ReferenceSyncBlockStoreManager {
 			}
 		});
 
-		return resolvedData;
+		return [...resolvedData, ...blocksWithNotFoundError];
 	}
 
 	private updateCache(syncBlock: SyncBlockInstance) {

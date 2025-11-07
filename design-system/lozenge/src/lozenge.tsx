@@ -6,75 +6,9 @@ import { type CSSProperties, memo, type ReactNode, useMemo } from 'react';
 
 import { cssMap as cssMapUnbounded } from '@compiled/react';
 
-import { cssMap, jsx } from '@atlaskit/css';
+import { jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { type BackgroundColor, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-
-const stylesOld = cssMap({
-	container: {
-		display: 'inline-flex',
-		borderRadius: token('radius.small'),
-		blockSize: 'min-content',
-		position: 'static',
-		overflow: 'hidden',
-		paddingInline: token('space.050'),
-		boxSizing: 'border-box',
-	},
-	'text.bold.default': { color: token('color.text.inverse', '#FFFFFF') },
-	'text.bold.inprogress': { color: token('color.text.inverse', '#FFFFFF') },
-	'text.bold.moved': { color: token('color.text.warning.inverse', '#172B4D') },
-	'text.bold.new': { color: token('color.text.inverse', '#FFFFFF') },
-	'text.bold.removed': { color: token('color.text.inverse', '#FFFFFF') },
-	'text.bold.success': { color: token('color.text.inverse', '#FFFFFF') },
-	'text.subtle.default': { color: token('color.text.subtle', '#42526E') },
-	'text.subtle.inprogress': { color: token('color.text.information', '#0052CC') },
-	'text.subtle.moved': { color: token('color.text.warning', '#974F0C') },
-	'text.subtle.new': { color: token('color.text.discovery', '#403294') },
-	'text.subtle.removed': { color: token('color.text.danger', '#DE350B') },
-	'text.subtle.success': { color: token('color.text.success', '#006644') },
-});
-
-// NOTE: This is isolated to avoid breaking the bounded `stylesOld` interface as they do not fall within the Design System.
-const stylesOldUnbounded = cssMapUnbounded({
-	text: {
-		fontFamily: token('font.family.body'),
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		fontSize: '11px',
-		fontStyle: 'normal',
-		fontWeight: token('font.weight.bold'),
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: '16px',
-		overflow: 'hidden',
-		textOverflow: 'ellipsis',
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		textTransform: 'uppercase',
-		whiteSpace: 'nowrap',
-	},
-	customLetterspacing: {
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		letterSpacing: 0.165,
-	},
-});
-
-const backgroundColorsOld: Record<'bold' | 'subtle', Record<ThemeAppearance, BackgroundColor>> = {
-	bold: {
-		default: 'color.background.neutral.bold',
-		inprogress: 'color.background.information.bold',
-		moved: 'color.background.warning.bold',
-		new: 'color.background.discovery.bold',
-		removed: 'color.background.danger.bold',
-		success: 'color.background.success.bold',
-	},
-	subtle: {
-		default: 'color.background.neutral',
-		inprogress: 'color.background.information',
-		moved: 'color.background.warning',
-		new: 'color.background.discovery',
-		removed: 'color.background.danger',
-		success: 'color.background.success',
-	},
-};
 
 /**
  * TODO: We should be using our bounded `cssMap` here, but most of
@@ -124,19 +58,12 @@ const stylesNew = cssMapUnbounded({
 	'bg.subtle.new': { backgroundColor: token('color.background.neutral.subtle') },
 	'bg.subtle.removed': { backgroundColor: token('color.background.neutral.subtle') },
 	'bg.subtle.success': { backgroundColor: token('color.background.neutral.subtle') },
-	// Remove `border.subtle` when cleaning up visual-refresh_drop_5
-	'border.subtle.default': { border: `${token('border.width')} solid #B7B9BE` },
-	'border.subtle.inprogress': { border: `${token('border.width')} solid #669DF1` },
-	'border.subtle.moved': { border: `${token('border.width')} solid #FCA700` },
-	'border.subtle.new': { border: `${token('border.width')} solid #C97CF4` },
-	'border.subtle.removed': { border: `${token('border.width')} solid #F87168` },
-	'border.subtle.success': { border: `${token('border.width')} solid #94C748` },
-	'outline.subtle.default': { outline: `${token('border.width')} solid #B7B9BE` },
-	'outline.subtle.inprogress': { outline: `${token('border.width')} solid #669DF1` },
-	'outline.subtle.moved': { outline: `${token('border.width')} solid #FCA700` },
-	'outline.subtle.new': { outline: `${token('border.width')} solid #C97CF4` },
-	'outline.subtle.removed': { outline: `${token('border.width')} solid #F87168` },
-	'outline.subtle.success': { outline: `${token('border.width')} solid #94C748` },
+	'outline.subtle.default': { outline: `1px solid #B7B9BE` },
+	'outline.subtle.inprogress': { outline: `1px solid #669DF1` },
+	'outline.subtle.moved': { outline: `1px solid #FCA700` },
+	'outline.subtle.new': { outline: `1px solid #C97CF4` },
+	'outline.subtle.removed': { outline: `1px solid #F87168` },
+	'outline.subtle.success': { outline: `1px solid #94C748` },
 	'text.subtle': { color: token('color.text') },
 	'text.bold': { color: '#292A2E' },
 });
@@ -212,66 +139,25 @@ const Lozenge = memo(
 		const maxWidthValue = typeof maxWidth === 'string' ? maxWidth : `${maxWidth}px`;
 		const maxWidthIsPc = typeof maxWidth === 'string' && /%$/.test(maxWidth);
 
-		if (fg('platform-component-visual-refresh')) {
-			return (
-				<span
-					style={{
-						backgroundColor: style?.backgroundColor,
-						maxWidth: maxWidthIsPc ? maxWidth : '100%',
-					}}
-					css={[
-						stylesNew.container,
-						stylesNew[`bg.${appearanceStyle}.${appearanceType}`],
-						appearanceStyle === 'subtle' &&
-							!fg('visual-refresh_drop_5') &&
-							stylesNew[`border.subtle.${appearanceType}`],
-						appearanceStyle === 'subtle' &&
-							fg('visual-refresh_drop_5') &&
-							stylesNew[`outline.subtle.${appearanceType}`],
-						appearanceStyle === 'subtle' &&
-							fg('visual-refresh_drop_5') &&
-							stylesNew.containerSubtle,
-					]}
-					data-testid={testId}
-				>
-					<span
-						css={[
-							stylesNew.text,
-							fg('platform-lozenge-custom-letterspacing') && stylesNew.customLetterspacing,
-							stylesNew[`text.${appearanceStyle}`],
-						]}
-						style={{
-							color: style?.color,
-							// to negate paddingInline specified on Box above
-							maxWidth: maxWidthIsPc
-								? '100%'
-								: `calc(${maxWidthValue} - ${token('space.100', '8px')})`,
-						}}
-						data-testid={testId && `${testId}--text`}
-					>
-						{children}
-					</span>
-				</span>
-			);
-		}
-
 		return (
-			<Box
-				as="span"
-				backgroundColor={backgroundColorsOld[appearanceStyle][appearanceType]}
+			<span
 				style={{
 					backgroundColor: style?.backgroundColor,
 					maxWidth: maxWidthIsPc ? maxWidth : '100%',
 				}}
-				paddingInline="space.050"
-				xcss={stylesOld.container}
-				testId={testId}
+				css={[
+					stylesNew.container,
+					stylesNew[`bg.${appearanceStyle}.${appearanceType}`],
+					appearanceStyle === 'subtle' && stylesNew[`outline.subtle.${appearanceType}`],
+					appearanceStyle === 'subtle' && stylesNew.containerSubtle,
+				]}
+				data-testid={testId}
 			>
 				<span
 					css={[
-						stylesOldUnbounded.text,
-						fg('platform-lozenge-custom-letterspacing') && stylesOldUnbounded.customLetterspacing,
-						stylesOld[`text.${appearanceStyle}.${appearanceType}`],
+						stylesNew.text,
+						fg('platform-lozenge-custom-letterspacing') && stylesNew.customLetterspacing,
+						stylesNew[`text.${appearanceStyle}`],
 					]}
 					style={{
 						color: style?.color,
@@ -284,7 +170,7 @@ const Lozenge = memo(
 				>
 					{children}
 				</span>
-			</Box>
+			</span>
 		);
 	},
 );

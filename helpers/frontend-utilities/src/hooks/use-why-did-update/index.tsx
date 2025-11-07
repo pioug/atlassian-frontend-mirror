@@ -38,7 +38,7 @@ import isEqual from 'lodash/isEqual';
  * - Finding actual data updates in complex objects
  * - Identifying when your data changes structurally vs just getting new references
  */
-export function useWhyDidUpdate(name: string, deps: any[], depsNames?: string[]) {
+export function useWhyDidUpdate(name: string, deps: any[], depsNames?: string[]): void {
 	const prevDeps = useRef(deps);
 
 	useEffect(() => {
@@ -86,7 +86,7 @@ export function useWhyDidUpdate(name: string, deps: any[], depsNames?: string[])
  * }
  * ```
  */
-export function useWhyDidUpdateShallow(name: string, deps: any[], depsNames?: string[]) {
+export function useWhyDidUpdateShallow(name: string, deps: any[], depsNames?: string[]): void {
 	const prevDeps = useRef(deps);
 
 	useEffect(() => {

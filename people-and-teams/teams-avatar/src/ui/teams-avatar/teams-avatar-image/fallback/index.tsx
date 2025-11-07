@@ -1,22 +1,35 @@
 import React from 'react';
 
-import { cssMap } from '@atlaskit/css';
+import { cssMap, cx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	wrapper: {
 		display: 'flex',
+	},
+	wrapperSpacing: {
 		marginTop: token('space.025'), // Match @atlaskit.avatar
 		marginRight: token('space.025'),
 		marginBottom: token('space.025'),
 		marginLeft: token('space.025'),
 	},
+	compactWrapperSpacing: {
+		marginTop: token('space.0'),
+		marginRight: token('space.0'),
+		marginBottom: token('space.0'),
+		marginLeft: token('space.0'),
+	},
 });
 
-export function FallbackAvatar(props: React.SVGProps<SVGSVGElement>) {
+export function FallbackAvatar(props: React.SVGProps<SVGSVGElement> & { compact?: boolean }) {
 	return (
-		<Box xcss={styles.wrapper}>
+		<Box
+			xcss={cx(
+				styles.wrapper,
+				props.compact ? styles.compactWrapperSpacing : styles.wrapperSpacing,
+			)}
+		>
 			<svg
 				width="32"
 				height="32"

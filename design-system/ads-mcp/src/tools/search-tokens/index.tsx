@@ -7,7 +7,7 @@ import { type Token, tokens } from '@atlaskit/tokens/token-metadata';
 
 import { cleanQuery } from '../../helpers';
 
-const inputSchema = z.object({
+export const searchTokensInputSchema = z.object({
 	terms: z
 		.array(z.string())
 		.describe(
@@ -43,11 +43,11 @@ const styles = css({ color: token('color.text'), padding: token('space.100') });
 		idempotentHint: true,
 		openWorldHint: true,
 	},
-	inputSchema: zodToJsonSchema(inputSchema),
+	inputSchema: zodToJsonSchema(searchTokensInputSchema),
 };
 
 export const searchTokensTool = async (
-	params: z.infer<typeof inputSchema>,
+	params: z.infer<typeof searchTokensInputSchema>,
 ): Promise<CallToolResult> => {
 	const { terms, limit = 1, exactName = false } = params;
 	const searchTerms = terms.filter(Boolean).map(cleanQuery);

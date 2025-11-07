@@ -130,9 +130,6 @@
 	},
 	"homepage": "https://atlassian.design/components/button/",
 	"platform-feature-flags": {
-		"platform-component-visual-refresh": {
-			"type": "boolean"
-		},
 		"platform_dst_button_chevron_sizing": {
 			"type": "boolean"
 		}

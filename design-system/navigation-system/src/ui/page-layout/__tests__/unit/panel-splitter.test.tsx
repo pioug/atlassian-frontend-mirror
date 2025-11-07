@@ -924,22 +924,18 @@ describe('PanelSplitter', () => {
 			expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
 		});
 
-		ffTest.on('platform-dst-tooltip-shortcuts', 'tooltip shortcuts flag enabled', () => {
-			it('should display tooltip shortcuts when the shortcut prop is provided to the provider', async () => {
-				const user = createUser();
-				render(
-					<TestComponent tooltipContent="Double click to collapse" shortcut={['Ctrl', '[']} />,
-				);
+		it('should display tooltip shortcuts when the shortcut prop is provided to the provider', async () => {
+			const user = createUser();
+			render(<TestComponent tooltipContent="Double click to collapse" shortcut={['Ctrl', '[']} />);
 
-				await user.hover(screen.getByTestId('panel-splitter'));
-				act(() => {
-					jest.runAllTimers();
-				});
-
-				expect(
-					await screen.findByRole('tooltip', { name: 'Double click to collapse Ctrl [' }),
-				).toBeInTheDocument();
+			await user.hover(screen.getByTestId('panel-splitter'));
+			act(() => {
+				jest.runAllTimers();
 			});
+
+			expect(
+				await screen.findByRole('tooltip', { name: 'Double click to collapse Ctrl [' }),
+			).toBeInTheDocument();
 		});
 	});
 });

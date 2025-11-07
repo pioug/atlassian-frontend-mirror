@@ -1,5 +1,12 @@
 # @atlaskit/teams-avatar
 
+## 2.4.0
+
+### Minor Changes
+
+- [`9b64a2eecf044`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b64a2eecf044) -
+  Add prop for compact usage
+
 ## 2.3.25
 
 ### Patch Changes

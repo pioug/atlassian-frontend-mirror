@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 import {
 	useAnalyticsEvents,
 	type UIAnalyticsEvent,
@@ -78,4 +78,7 @@ const CloseButtonWithContext: React.FC<Props & WrappedComponentProps> = (props) 
 	);
 };
 
-export default injectIntl(CloseButtonWithContext);
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(CloseButtonWithContext);
+export default _default_1;

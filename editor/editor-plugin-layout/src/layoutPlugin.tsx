@@ -226,114 +226,89 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 					: [];
 
 				if (editorExperiment('advanced_layouts', true)) {
-					if (editorExperiment('platform_editor_insertion', 'variant1')) {
-						return [
-							{
-								id: 'threecolumnslayout',
-								title: formatMessage(layoutMessages.threeColumnsAdvancedLayout),
-								description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
-									numberOfColumns: 'three',
-								}),
-								keywords: ['layout', 'column', 'section', 'three column'],
-								priority: 1100,
-								icon: () => <IconThreeColumnLayout />,
-								action(insert, state) {
-									const tr = insert(createMultiColumnLayoutSection(state, 3));
-									if (fg('platform_editor_column_count_analytics')) {
-										withInsertLayoutAnalytics(tr, 3);
-									} else {
-										withInsertLayoutAnalytics(tr);
-									}
-									selectIntoLayoutSection(tr);
-									return tr;
-								},
+					return [
+						...advancedSingleColumnOption,
+						{
+							id: 'twocolumnslayout',
+							title: formatMessage(layoutMessages.twoColumnsAdvancedLayout),
+							description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
+								numberOfColumns: 'two',
+							}),
+							keywords: ['layout', 'column', 'section', 'two column'],
+							priority: 1100,
+							icon: () => <IconTwoColumnLayout />,
+							action(insert, state) {
+								const tr = insert(createMultiColumnLayoutSection(state, 2));
+								if (fg('platform_editor_column_count_analytics')) {
+									withInsertLayoutAnalytics(tr, 2);
+								} else {
+									withInsertLayoutAnalytics(tr);
+								}
+								selectIntoLayoutSection(tr);
+								return tr;
 							},
-						];
-					} else {
-						return [
-							...advancedSingleColumnOption,
-							{
-								id: 'twocolumnslayout',
-								title: formatMessage(layoutMessages.twoColumnsAdvancedLayout),
-								description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
-									numberOfColumns: 'two',
-								}),
-								keywords: ['layout', 'column', 'section', 'two column'],
-								priority: 1100,
-								icon: () => <IconTwoColumnLayout />,
-								action(insert, state) {
-									const tr = insert(createMultiColumnLayoutSection(state, 2));
-									if (fg('platform_editor_column_count_analytics')) {
-										withInsertLayoutAnalytics(tr, 2);
-									} else {
-										withInsertLayoutAnalytics(tr);
-									}
-									selectIntoLayoutSection(tr);
-									return tr;
-								},
+						},
+						{
+							id: 'threecolumnslayout',
+							title: formatMessage(layoutMessages.threeColumnsAdvancedLayout),
+							description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
+								numberOfColumns: 'three',
+							}),
+							keywords: ['layout', 'column', 'section', 'three column'],
+							priority: 1100,
+							icon: () => <IconThreeColumnLayout />,
+							action(insert, state) {
+								const tr = insert(createMultiColumnLayoutSection(state, 3));
+								if (fg('platform_editor_column_count_analytics')) {
+									withInsertLayoutAnalytics(tr, 3);
+								} else {
+									withInsertLayoutAnalytics(tr);
+								}
+								selectIntoLayoutSection(tr);
+								return tr;
 							},
-							{
-								id: 'threecolumnslayout',
-								title: formatMessage(layoutMessages.threeColumnsAdvancedLayout),
-								description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
-									numberOfColumns: 'three',
-								}),
-								keywords: ['layout', 'column', 'section', 'three column'],
-								priority: 1100,
-								icon: () => <IconThreeColumnLayout />,
-								action(insert, state) {
-									const tr = insert(createMultiColumnLayoutSection(state, 3));
-									if (fg('platform_editor_column_count_analytics')) {
-										withInsertLayoutAnalytics(tr, 3);
-									} else {
-										withInsertLayoutAnalytics(tr);
-									}
-									selectIntoLayoutSection(tr);
-									return tr;
-								},
+						},
+						{
+							id: 'fourcolumnslayout',
+							title: formatMessage(layoutMessages.fourColumns),
+							description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
+								numberOfColumns: 'four',
+							}),
+							keywords: ['layout', 'column', 'section', 'four column'],
+							priority: 1100,
+							icon: () => <IconFourColumnLayout />,
+							action(insert, state) {
+								const tr = insert(createMultiColumnLayoutSection(state, 4));
+								if (fg('platform_editor_column_count_analytics')) {
+									withInsertLayoutAnalytics(tr, 4);
+								} else {
+									withInsertLayoutAnalytics(tr);
+								}
+								selectIntoLayoutSection(tr);
+								return tr;
 							},
-							{
-								id: 'fourcolumnslayout',
-								title: formatMessage(layoutMessages.fourColumns),
-								description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
-									numberOfColumns: 'four',
-								}),
-								keywords: ['layout', 'column', 'section', 'four column'],
-								priority: 1100,
-								icon: () => <IconFourColumnLayout />,
-								action(insert, state) {
-									const tr = insert(createMultiColumnLayoutSection(state, 4));
-									if (fg('platform_editor_column_count_analytics')) {
-										withInsertLayoutAnalytics(tr, 4);
-									} else {
-										withInsertLayoutAnalytics(tr);
-									}
-									selectIntoLayoutSection(tr);
-									return tr;
-								},
+						},
+						{
+							id: 'fivecolumnslayout',
+							title: formatMessage(layoutMessages.fiveColumns),
+							description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
+								numberOfColumns: 'five',
+							}),
+							keywords: ['layout', 'column', 'section', 'five column'],
+							priority: 1100,
+							icon: () => <IconFiveColumnLayout />,
+							action(insert, state) {
+								const tr = insert(createMultiColumnLayoutSection(state, 5));
+								if (fg('platform_editor_column_count_analytics')) {
+									withInsertLayoutAnalytics(tr, 5);
+								} else {
+									withInsertLayoutAnalytics(tr);
+								}
+								selectIntoLayoutSection(tr);
+								return tr;
 							},
-							{
-								id: 'fivecolumnslayout',
-								title: formatMessage(layoutMessages.fiveColumns),
-								description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
-									numberOfColumns: 'five',
-								}),
-								keywords: ['layout', 'column', 'section', 'five column'],
-								priority: 1100,
-								icon: () => <IconFiveColumnLayout />,
-								action(insert, state) {
-									const tr = insert(createMultiColumnLayoutSection(state, 5));
-									if (fg('platform_editor_column_count_analytics')) {
-										withInsertLayoutAnalytics(tr, 5);
-									} else {
-										withInsertLayoutAnalytics(tr);
-									}
-									selectIntoLayoutSection(tr);
-									return tr;
-								},
-							},
-						];
-					}
+						},
+					];
 				} else {
 					return [
 						{

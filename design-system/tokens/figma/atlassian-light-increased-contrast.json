@@ -2,7 +2,7 @@
   "name": "Light increased-contrast",
   "tokens": {
     "Light increased-contrast/color.text": {
-      "value": "#091E42",
+      "value": "#1E1F21",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -47,7 +47,7 @@
       }
     },
     "Light increased-contrast/color.text.accent.orange": {
-      "value": "#702E00",
+      "value": "#693200",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -56,7 +56,7 @@
       }
     },
     "Light increased-contrast/color.text.accent.orange.bolder": {
-      "value": "#38291E",
+      "value": "#3A2C1F",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -119,7 +119,7 @@
       }
     },
     "Light increased-contrast/color.text.accent.blue": {
-      "value": "#09326C",
+      "value": "#123263",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -128,7 +128,7 @@
       }
     },
     "Light increased-contrast/color.text.accent.blue.bolder": {
-      "value": "#1C2B41",
+      "value": "#1C2B42",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -137,7 +137,7 @@
       }
     },
     "Light increased-contrast/color.text.accent.purple": {
-      "value": "#352C63",
+      "value": "#48245D",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -146,7 +146,7 @@
       }
     },
     "Light increased-contrast/color.text.accent.purple.bolder": {
-      "value": "#2B273F",
+      "value": "#35243F",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -173,7 +173,7 @@
       }
     },
     "Light increased-contrast/color.text.accent.gray": {
-      "value": "#2C3E5D",
+      "value": "#3B3D42",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -182,7 +182,7 @@
       }
     },
     "Light increased-contrast/color.text.accent.gray.bolder": {
-      "value": "#172B4D",
+      "value": "#292A2E",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -191,7 +191,7 @@
       }
     },
     "Light increased-contrast/color.text.disabled": {
-      "value": "#091E424F",
+      "value": "#080F214A",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -209,7 +209,7 @@
       }
     },
     "Light increased-contrast/color.text.selected": {
-      "value": "#09326C",
+      "value": "#123263",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -218,7 +218,7 @@
       }
     },
     "Light increased-contrast/color.text.brand": {
-      "value": "#09326C",
+      "value": "#123263",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -236,7 +236,7 @@
       }
     },
     "Light increased-contrast/color.text.warning": {
-      "value": "#702E00",
+      "value": "#693200",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -263,7 +263,7 @@
       }
     },
     "Light increased-contrast/color.text.discovery": {
-      "value": "#352C63",
+      "value": "#48245D",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -272,7 +272,7 @@
       }
     },
     "Light increased-contrast/color.text.information": {
-      "value": "#09326C",
+      "value": "#123263",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -281,7 +281,7 @@
       }
     },
     "Light increased-contrast/color.text.subtlest": {
-      "value": "#2C3E5D",
+      "value": "#3B3D42",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -290,7 +290,7 @@
       }
     },
     "Light increased-contrast/color.text.subtle": {
-      "value": "#172B4D",
+      "value": "#292A2E",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -299,7 +299,7 @@
       }
     },
     "Light increased-contrast/color.link": {
-      "value": "#09326C",
+      "value": "#123263",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -308,7 +308,7 @@
       }
     },
     "Light increased-contrast/color.link.pressed": {
-      "value": "#09326C",
+      "value": "#123263",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -317,7 +317,7 @@
       }
     },
     "Light increased-contrast/color.link.visited": {
-      "value": "#5E4DB2",
+      "value": "#803FA5",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -326,7 +326,7 @@
       }
     },
     "Light increased-contrast/color.link.visited.pressed": {
-      "value": "#352C63",
+      "value": "#48245D",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -335,7 +335,7 @@
       }
     },
     "Light increased-contrast/color.icon": {
-      "value": "#172B4D",
+      "value": "#292A2E",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -362,7 +362,7 @@
       }
     },
     "Light increased-contrast/color.icon.accent.orange": {
-      "value": "#A54800",
+      "value": "#9E4C00",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -398,7 +398,7 @@
       }
     },
     "Light increased-contrast/color.icon.accent.blue": {
-      "value": "#0055CC",
+      "value": "#1558BC",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -407,7 +407,7 @@
       }
     },
     "Light increased-contrast/color.icon.accent.purple": {
-      "value": "#5E4DB2",
+      "value": "#803FA5",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -425,7 +425,7 @@
       }
     },
     "Light increased-contrast/color.icon.accent.gray": {
-      "value": "#44546F",
+      "value": "#505258",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -434,7 +434,7 @@
       }
     },
     "Light increased-contrast/color.icon.disabled": {
-      "value": "#091E424F",
+      "value": "#080F214A",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -452,7 +452,7 @@
       }
     },
     "Light increased-contrast/color.icon.selected": {
-      "value": "#0055CC",
+      "value": "#1558BC",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -461,7 +461,7 @@
       }
     },
     "Light increased-contrast/color.icon.brand": {
-      "value": "#0055CC",
+      "value": "#1558BC",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -479,7 +479,7 @@
       }
     },
     "Light increased-contrast/color.icon.warning": {
-      "value": "#A54800",
+      "value": "#9E4C00",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -506,7 +506,7 @@
       }
     },
     "Light increased-contrast/color.icon.discovery": {
-      "value": "#6E5DC6",
+      "value": "#964AC0",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -515,7 +515,7 @@
       }
     },
     "Light increased-contrast/color.icon.information": {
-      "value": "#0055CC",
+      "value": "#1558BC",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -524,7 +524,7 @@
       }
     },
     "Light increased-contrast/color.icon.subtlest": {
-      "value": "#2C3E5D",
+      "value": "#3B3D42",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -533,7 +533,7 @@
       }
     },
     "Light increased-contrast/color.icon.subtle": {
-      "value": "#2C3E5D",
+      "value": "#3B3D42",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -542,7 +542,7 @@
       }
     },
     "Light increased-contrast/color.border": {
-      "value": "#9BB4CA80",
+      "value": "#E9F0FB5C",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -569,7 +569,7 @@
       }
     },
     "Light increased-contrast/color.border.accent.orange": {
-      "value": "#A54800",
+      "value": "#9E4C00",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -605,7 +605,7 @@
       }
     },
     "Light increased-contrast/color.border.accent.blue": {
-      "value": "#0055CC",
+      "value": "#1558BC",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -614,7 +614,7 @@
       }
     },
     "Light increased-contrast/color.border.accent.purple": {
-      "value": "#5E4DB2",
+      "value": "#803FA5",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -632,7 +632,7 @@
       }
     },
     "Light increased-contrast/color.border.accent.gray": {
-      "value": "#44546F",
+      "value": "#505258",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -641,7 +641,7 @@
       }
     },
     "Light increased-contrast/color.border.disabled": {
-      "value": "#091E4224",
+      "value": "#0B120E24",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -650,7 +650,7 @@
       }
     },
     "Light increased-contrast/color.border.focused": {
-      "value": "#0055CC",
+      "value": "#1558BC",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -659,7 +659,7 @@
       }
     },
     "Light increased-contrast/color.border.input": {
-      "value": "#44546F",
+      "value": "#505258",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -677,7 +677,7 @@
       }
     },
     "Light increased-contrast/color.border.selected": {
-      "value": "#0055CC",
+      "value": "#1558BC",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -686,7 +686,7 @@
       }
     },
     "Light increased-contrast/color.border.brand": {
-      "value": "#0055CC",
+      "value": "#1558BC",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -704,7 +704,7 @@
       }
     },
     "Light increased-contrast/color.border.warning": {
-      "value": "#A54800",
+      "value": "#9E4C00",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -722,7 +722,7 @@
       }
     },
     "Light increased-contrast/color.border.discovery": {
-      "value": "#6E5DC6",
+      "value": "#964AC0",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -731,7 +731,7 @@
       }
     },
     "Light increased-contrast/color.border.information": {
-      "value": "#0055CC",
+      "value": "#1558BC",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -740,7 +740,7 @@
       }
     },
     "Light increased-contrast/color.border.bold": {
-      "value": "#44546F",
+      "value": "#505258",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -767,7 +767,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.lime.subtlest.pressed": {
-      "value": "#B3DF72",
+      "value": "#BDE97C",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -785,7 +785,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.lime.subtler.hovered": {
-      "value": "#B3DF72",
+      "value": "#BDE97C",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -794,7 +794,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.lime.subtler.pressed": {
-      "value": "#94C748",
+      "value": "#B3DF72",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -875,7 +875,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.red.subtlest.pressed": {
-      "value": "#FD9891",
+      "value": "#FFB8B2",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -893,7 +893,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.red.subtler.hovered": {
-      "value": "#FD9891",
+      "value": "#FFB8B2",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -902,7 +902,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.red.subtler.pressed": {
-      "value": "#F87168",
+      "value": "#FD9891",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -965,7 +965,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.orange.subtlest": {
-      "value": "#FFF3EB",
+      "value": "#FFF5DB",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -974,7 +974,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.orange.subtlest.hovered": {
-      "value": "#FEDEC8",
+      "value": "#FCE4A6",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -983,7 +983,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.orange.subtlest.pressed": {
-      "value": "#FEC195",
+      "value": "#FBD779",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -992,7 +992,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.orange.subtler": {
-      "value": "#FEDEC8",
+      "value": "#FCE4A6",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1001,7 +1001,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.orange.subtler.hovered": {
-      "value": "#FEC195",
+      "value": "#FBD779",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1010,7 +1010,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.orange.subtler.pressed": {
-      "value": "#FEA362",
+      "value": "#FBC828",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1019,7 +1019,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.orange.subtle": {
-      "value": "#FEC195",
+      "value": "#FBC828",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1028,7 +1028,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.orange.subtle.hovered": {
-      "value": "#FEDEC8",
+      "value": "#FCE4A6",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1037,7 +1037,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.orange.subtle.pressed": {
-      "value": "#FFF3EB",
+      "value": "#FFF5DB",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1046,7 +1046,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.orange.bolder": {
-      "value": "#702E00",
+      "value": "#693200",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1055,7 +1055,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.orange.bolder.hovered": {
-      "value": "#38291E",
+      "value": "#3A2C1F",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1073,7 +1073,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.yellow.subtlest": {
-      "value": "#FFF7D6",
+      "value": "#FEF7C8",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1082,7 +1082,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.yellow.subtlest.hovered": {
-      "value": "#F8E6A0",
+      "value": "#F5E989",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1091,7 +1091,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.yellow.subtlest.pressed": {
-      "value": "#F5CD47",
+      "value": "#EFDD4E",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1100,7 +1100,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.yellow.subtler": {
-      "value": "#F8E6A0",
+      "value": "#F5E989",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1109,7 +1109,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.yellow.subtler.hovered": {
-      "value": "#F5CD47",
+      "value": "#EFDD4E",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1118,7 +1118,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.yellow.subtler.pressed": {
-      "value": "#E2B203",
+      "value": "#EED12B",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1127,7 +1127,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.yellow.subtle": {
-      "value": "#F5CD47",
+      "value": "#EED12B",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1136,7 +1136,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.yellow.subtle.hovered": {
-      "value": "#F8E6A0",
+      "value": "#F5E989",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1145,7 +1145,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.yellow.subtle.pressed": {
-      "value": "#FFF7D6",
+      "value": "#FEF7C8",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1199,7 +1199,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.green.subtlest.pressed": {
-      "value": "#7EE2B8",
+      "value": "#97EDC9",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1217,7 +1217,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.green.subtler.hovered": {
-      "value": "#7EE2B8",
+      "value": "#97EDC9",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1226,7 +1226,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.green.subtler.pressed": {
-      "value": "#4BCE97",
+      "value": "#7EE2B8",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1307,7 +1307,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.teal.subtlest.pressed": {
-      "value": "#9DD9EE",
+      "value": "#B1E4F7",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1325,7 +1325,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.teal.subtler.hovered": {
-      "value": "#9DD9EE",
+      "value": "#B1E4F7",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1334,7 +1334,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.teal.subtler.pressed": {
-      "value": "#6CC3E0",
+      "value": "#9DD9EE",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1397,7 +1397,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.blue.subtlest": {
-      "value": "#E9F2FF",
+      "value": "#E9F2FE",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1406,7 +1406,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.blue.subtlest.hovered": {
-      "value": "#CCE0FF",
+      "value": "#CFE1FD",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1415,7 +1415,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.blue.subtlest.pressed": {
-      "value": "#85B8FF",
+      "value": "#ADCBFB",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1424,7 +1424,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.blue.subtler": {
-      "value": "#CCE0FF",
+      "value": "#CFE1FD",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1433,7 +1433,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.blue.subtler.hovered": {
-      "value": "#85B8FF",
+      "value": "#ADCBFB",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1442,7 +1442,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.blue.subtler.pressed": {
-      "value": "#579DFF",
+      "value": "#8FB8F6",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1451,7 +1451,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.blue.subtle": {
-      "value": "#85B8FF",
+      "value": "#8FB8F6",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1460,7 +1460,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.blue.subtle.hovered": {
-      "value": "#CCE0FF",
+      "value": "#CFE1FD",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1469,7 +1469,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.blue.subtle.pressed": {
-      "value": "#E9F2FF",
+      "value": "#E9F2FE",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1478,7 +1478,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.blue.bolder": {
-      "value": "#09326C",
+      "value": "#123263",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1487,7 +1487,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.blue.bolder.hovered": {
-      "value": "#1C2B41",
+      "value": "#1C2B42",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1505,7 +1505,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.purple.subtlest": {
-      "value": "#F3F0FF",
+      "value": "#F8EEFE",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1514,7 +1514,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.purple.subtlest.hovered": {
-      "value": "#DFD8FD",
+      "value": "#EED7FC",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1523,7 +1523,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.purple.subtlest.pressed": {
-      "value": "#B8ACF6",
+      "value": "#E3BDFA",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1532,7 +1532,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.purple.subtler": {
-      "value": "#DFD8FD",
+      "value": "#EED7FC",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1541,7 +1541,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.purple.subtler.hovered": {
-      "value": "#B8ACF6",
+      "value": "#E3BDFA",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1550,7 +1550,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.purple.subtler.pressed": {
-      "value": "#9F8FEF",
+      "value": "#D8A0F7",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1568,7 +1568,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.purple.subtle.hovered": {
-      "value": "#DFD8FD",
+      "value": "#EED7FC",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1577,7 +1577,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.purple.subtle.pressed": {
-      "value": "#F3F0FF",
+      "value": "#F8EEFE",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1586,7 +1586,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.purple.bolder": {
-      "value": "#352C63",
+      "value": "#48245D",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1595,7 +1595,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.purple.bolder.hovered": {
-      "value": "#2B273F",
+      "value": "#35243F",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1631,7 +1631,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.magenta.subtlest.pressed": {
-      "value": "#F797D2",
+      "value": "#FCB6E1",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1649,7 +1649,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.magenta.subtler.hovered": {
-      "value": "#F797D2",
+      "value": "#FCB6E1",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1658,7 +1658,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.magenta.subtler.pressed": {
-      "value": "#E774BB",
+      "value": "#F797D2",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1721,7 +1721,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.gray.subtlest": {
-      "value": "#F1F2F4",
+      "value": "#F0F1F2",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1730,7 +1730,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.gray.subtlest.hovered": {
-      "value": "#DCDFE4",
+      "value": "#DDDEE1",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1739,7 +1739,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.gray.subtlest.pressed": {
-      "value": "#B3B9C4",
+      "value": "#B7B9BE",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1748,7 +1748,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.gray.subtler": {
-      "value": "#DCDFE4",
+      "value": "#DDDEE1",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1757,7 +1757,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.gray.subtler.hovered": {
-      "value": "#B3B9C4",
+      "value": "#B7B9BE",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1766,7 +1766,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.gray.subtler.pressed": {
-      "value": "#8590A2",
+      "value": "#8C8F97",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1775,7 +1775,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.gray.subtle": {
-      "value": "#B3B9C4",
+      "value": "#B7B9BE",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1784,7 +1784,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.gray.subtle.hovered": {
-      "value": "#DCDFE4",
+      "value": "#DDDEE1",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1793,7 +1793,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.gray.subtle.pressed": {
-      "value": "#F1F2F4",
+      "value": "#F0F1F2",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1802,7 +1802,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.gray.bolder": {
-      "value": "#44546F",
+      "value": "#505258",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1811,7 +1811,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.gray.bolder.hovered": {
-      "value": "#2C3E5D",
+      "value": "#3B3D42",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1820,7 +1820,7 @@
       }
     },
     "Light increased-contrast/color.background.accent.gray.bolder.pressed": {
-      "value": "#172B4D",
+      "value": "#292A2E",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1829,7 +1829,7 @@
       }
     },
     "Light increased-contrast/color.background.disabled": {
-      "value": "#091E4208",
+      "value": "#17171708",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1847,7 +1847,7 @@
       }
     },
     "Light increased-contrast/color.background.input.hovered": {
-      "value": "#F7F8F9",
+      "value": "#F8F8F8",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1892,7 +1892,7 @@
       }
     },
     "Light increased-contrast/color.background.neutral": {
-      "value": "#091E420F",
+      "value": "#0515240F",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1901,7 +1901,7 @@
       }
     },
     "Light increased-contrast/color.background.neutral.hovered": {
-      "value": "#091E4224",
+      "value": "#0B120E24",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1910,7 +1910,7 @@
       }
     },
     "Light increased-contrast/color.background.neutral.pressed": {
-      "value": "#091E424F",
+      "value": "#080F214A",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1928,7 +1928,7 @@
       }
     },
     "Light increased-contrast/color.background.neutral.subtle.hovered": {
-      "value": "#091E420F",
+      "value": "#0515240F",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1937,7 +1937,7 @@
       }
     },
     "Light increased-contrast/color.background.neutral.subtle.pressed": {
-      "value": "#091E4224",
+      "value": "#0B120E24",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1946,7 +1946,7 @@
       }
     },
     "Light increased-contrast/color.background.neutral.bold": {
-      "value": "#44546F",
+      "value": "#292A2E",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1955,7 +1955,7 @@
       }
     },
     "Light increased-contrast/color.background.neutral.bold.hovered": {
-      "value": "#2C3E5D",
+      "value": "#3B3D42",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1964,7 +1964,7 @@
       }
     },
     "Light increased-contrast/color.background.neutral.bold.pressed": {
-      "value": "#172B4D",
+      "value": "#505258",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1973,7 +1973,7 @@
       }
     },
     "Light increased-contrast/color.background.selected": {
-      "value": "#E9F2FF",
+      "value": "#E9F2FE",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1982,7 +1982,7 @@
       }
     },
     "Light increased-contrast/color.background.selected.hovered": {
-      "value": "#CCE0FF",
+      "value": "#CFE1FD",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1991,7 +1991,7 @@
       }
     },
     "Light increased-contrast/color.background.selected.pressed": {
-      "value": "#85B8FF",
+      "value": "#8FB8F6",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2000,7 +2000,7 @@
       }
     },
     "Light increased-contrast/color.background.selected.bold": {
-      "value": "#09326C",
+      "value": "#123263",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2009,7 +2009,7 @@
       }
     },
     "Light increased-contrast/color.background.selected.bold.hovered": {
-      "value": "#1C2B41",
+      "value": "#1C2B42",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2027,7 +2027,7 @@
       }
     },
     "Light increased-contrast/color.background.brand.subtlest": {
-      "value": "#E9F2FF",
+      "value": "#E9F2FE",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2036,7 +2036,7 @@
       }
     },
     "Light increased-contrast/color.background.brand.subtlest.hovered": {
-      "value": "#CCE0FF",
+      "value": "#CFE1FD",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2045,7 +2045,7 @@
       }
     },
     "Light increased-contrast/color.background.brand.subtlest.pressed": {
-      "value": "#85B8FF",
+      "value": "#ADCBFB",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2054,7 +2054,7 @@
       }
     },
     "Light increased-contrast/color.background.brand.bold": {
-      "value": "#09326C",
+      "value": "#123263",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2063,7 +2063,7 @@
       }
     },
     "Light increased-contrast/color.background.brand.bold.hovered": {
-      "value": "#1C2B41",
+      "value": "#1C2B42",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2081,7 +2081,7 @@
       }
     },
     "Light increased-contrast/color.background.brand.boldest": {
-      "value": "#1C2B41",
+      "value": "#1C2B42",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2090,7 +2090,7 @@
       }
     },
     "Light increased-contrast/color.background.brand.boldest.hovered": {
-      "value": "#09326C",
+      "value": "#123263",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2099,7 +2099,7 @@
       }
     },
     "Light increased-contrast/color.background.brand.boldest.pressed": {
-      "value": "#0055CC",
+      "value": "#144794",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2126,7 +2126,7 @@
       }
     },
     "Light increased-contrast/color.background.danger.pressed": {
-      "value": "#FD9891",
+      "value": "#FFB8B2",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2162,7 +2162,7 @@
       }
     },
     "Light increased-contrast/color.background.warning": {
-      "value": "#FFF7D6",
+      "value": "#FFF5DB",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2171,7 +2171,7 @@
       }
     },
     "Light increased-contrast/color.background.warning.hovered": {
-      "value": "#F8E6A0",
+      "value": "#FCE4A6",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2180,7 +2180,7 @@
       }
     },
     "Light increased-contrast/color.background.warning.pressed": {
-      "value": "#F5CD47",
+      "value": "#FBD779",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2216,7 +2216,7 @@
       }
     },
     "Light increased-contrast/color.background.success": {
-      "value": "#DCFFF1",
+      "value": "#EFFFD6",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2225,7 +2225,7 @@
       }
     },
     "Light increased-contrast/color.background.success.hovered": {
-      "value": "#BAF3DB",
+      "value": "#D3F1A7",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2234,7 +2234,7 @@
       }
     },
     "Light increased-contrast/color.background.success.pressed": {
-      "value": "#7EE2B8",
+      "value": "#BDE97C",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2270,7 +2270,7 @@
       }
     },
     "Light increased-contrast/color.background.discovery": {
-      "value": "#F3F0FF",
+      "value": "#F8EEFE",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2279,7 +2279,7 @@
       }
     },
     "Light increased-contrast/color.background.discovery.hovered": {
-      "value": "#DFD8FD",
+      "value": "#EED7FC",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2288,7 +2288,7 @@
       }
     },
     "Light increased-contrast/color.background.discovery.pressed": {
-      "value": "#B8ACF6",
+      "value": "#E3BDFA",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2297,7 +2297,7 @@
       }
     },
     "Light increased-contrast/color.background.discovery.bold": {
-      "value": "#352C63",
+      "value": "#48245D",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2306,7 +2306,7 @@
       }
     },
     "Light increased-contrast/color.background.discovery.bold.hovered": {
-      "value": "#2B273F",
+      "value": "#35243F",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2324,7 +2324,7 @@
       }
     },
     "Light increased-contrast/color.background.information": {
-      "value": "#E9F2FF",
+      "value": "#E9F2FE",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2333,7 +2333,7 @@
       }
     },
     "Light increased-contrast/color.background.information.hovered": {
-      "value": "#CCE0FF",
+      "value": "#CFE1FD",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2342,7 +2342,7 @@
       }
     },
     "Light increased-contrast/color.background.information.pressed": {
-      "value": "#85B8FF",
+      "value": "#ADCBFB",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2351,7 +2351,7 @@
       }
     },
     "Light increased-contrast/color.background.information.bold": {
-      "value": "#09326C",
+      "value": "#123263",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2360,7 +2360,7 @@
       }
     },
     "Light increased-contrast/color.background.information.bold.hovered": {
-      "value": "#1C2B41",
+      "value": "#1C2B42",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2378,7 +2378,7 @@
       }
     },
     "Light increased-contrast/color.blanket": {
-      "value": "#091E427D",
+      "value": "#050C1F75",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2423,7 +2423,7 @@
       }
     },
     "Light increased-contrast/color.skeleton": {
-      "value": "#091E420F",
+      "value": "#0515240F",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2432,7 +2432,7 @@
       }
     },
     "Light increased-contrast/color.skeleton.subtle": {
-      "value": "#091E4208",
+      "value": "#17171708",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2459,7 +2459,7 @@
       }
     },
     "Light increased-contrast/color.chart.categorical.2": {
-      "value": "#5E4DB2",
+      "value": "#82B536",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2468,7 +2468,7 @@
       }
     },
     "Light increased-contrast/color.chart.categorical.2.hovered": {
-      "value": "#352C63",
+      "value": "#6A9A23",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2477,7 +2477,7 @@
       }
     },
     "Light increased-contrast/color.chart.categorical.3": {
-      "value": "#A54800",
+      "value": "#9E4C00",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2486,7 +2486,7 @@
       }
     },
     "Light increased-contrast/color.chart.categorical.3.hovered": {
-      "value": "#702E00",
+      "value": "#693200",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2495,7 +2495,7 @@
       }
     },
     "Light increased-contrast/color.chart.categorical.4": {
-      "value": "#943D73",
+      "value": "#F68909",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2504,7 +2504,7 @@
       }
     },
     "Light increased-contrast/color.chart.categorical.4.hovered": {
-      "value": "#50253F",
+      "value": "#E06C00",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2513,7 +2513,7 @@
       }
     },
     "Light increased-contrast/color.chart.categorical.5": {
-      "value": "#09326C",
+      "value": "#1558BC",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2522,7 +2522,7 @@
       }
     },
     "Light increased-contrast/color.chart.categorical.5.hovered": {
-      "value": "#1C2B41",
+      "value": "#123263",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2531,7 +2531,7 @@
       }
     },
     "Light increased-contrast/color.chart.categorical.6": {
-      "value": "#5E4DB2",
+      "value": "#803FA5",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2540,7 +2540,7 @@
       }
     },
     "Light increased-contrast/color.chart.categorical.6.hovered": {
-      "value": "#352C63",
+      "value": "#48245D",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2549,7 +2549,7 @@
       }
     },
     "Light increased-contrast/color.chart.categorical.7": {
-      "value": "#50253F",
+      "value": "#42B2D7",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2558,7 +2558,7 @@
       }
     },
     "Light increased-contrast/color.chart.categorical.7.hovered": {
-      "value": "#3D2232",
+      "value": "#2898BD",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2567,7 +2567,7 @@
       }
     },
     "Light increased-contrast/color.chart.categorical.8": {
-      "value": "#A54800",
+      "value": "#BD5B00",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2576,7 +2576,7 @@
       }
     },
     "Light increased-contrast/color.chart.categorical.8.hovered": {
-      "value": "#702E00",
+      "value": "#7A3B00",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2639,7 +2639,7 @@
       }
     },
     "Light increased-contrast/color.chart.neutral": {
-      "value": "#626F86",
+      "value": "#6B6E76",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2648,7 +2648,7 @@
       }
     },
     "Light increased-contrast/color.chart.neutral.hovered": {
-      "value": "#44546F",
+      "value": "#505258",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2711,7 +2711,7 @@
       }
     },
     "Light increased-contrast/color.chart.orange.bold": {
-      "value": "#A54800",
+      "value": "#9E4C00",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2720,7 +2720,7 @@
       }
     },
     "Light increased-contrast/color.chart.orange.bold.hovered": {
-      "value": "#702E00",
+      "value": "#693200",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2729,7 +2729,7 @@
       }
     },
     "Light increased-contrast/color.chart.orange.bolder": {
-      "value": "#702E00",
+      "value": "#693200",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2738,7 +2738,7 @@
       }
     },
     "Light increased-contrast/color.chart.orange.bolder.hovered": {
-      "value": "#38291E",
+      "value": "#3A2C1F",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2747,7 +2747,7 @@
       }
     },
     "Light increased-contrast/color.chart.orange.boldest": {
-      "value": "#38291E",
+      "value": "#3A2C1F",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2927,7 +2927,7 @@
       }
     },
     "Light increased-contrast/color.chart.blue.bold": {
-      "value": "#0055CC",
+      "value": "#1558BC",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2936,7 +2936,7 @@
       }
     },
     "Light increased-contrast/color.chart.blue.bold.hovered": {
-      "value": "#09326C",
+      "value": "#123263",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2945,7 +2945,7 @@
       }
     },
     "Light increased-contrast/color.chart.blue.bolder": {
-      "value": "#09326C",
+      "value": "#123263",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2954,7 +2954,7 @@
       }
     },
     "Light increased-contrast/color.chart.blue.bolder.hovered": {
-      "value": "#1C2B41",
+      "value": "#1C2B42",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2963,7 +2963,7 @@
       }
     },
     "Light increased-contrast/color.chart.blue.boldest": {
-      "value": "#1C2B41",
+      "value": "#1C2B42",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2981,7 +2981,7 @@
       }
     },
     "Light increased-contrast/color.chart.purple.bold": {
-      "value": "#5E4DB2",
+      "value": "#803FA5",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2990,7 +2990,7 @@
       }
     },
     "Light increased-contrast/color.chart.purple.bold.hovered": {
-      "value": "#352C63",
+      "value": "#48245D",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2999,7 +2999,7 @@
       }
     },
     "Light increased-contrast/color.chart.purple.bolder": {
-      "value": "#352C63",
+      "value": "#48245D",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3008,7 +3008,7 @@
       }
     },
     "Light increased-contrast/color.chart.purple.bolder.hovered": {
-      "value": "#2B273F",
+      "value": "#35243F",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3017,7 +3017,7 @@
       }
     },
     "Light increased-contrast/color.chart.purple.boldest": {
-      "value": "#2B273F",
+      "value": "#35243F",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3089,7 +3089,7 @@
       }
     },
     "Light increased-contrast/color.chart.gray.bold": {
-      "value": "#626F86",
+      "value": "#6B6E76",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3098,7 +3098,7 @@
       }
     },
     "Light increased-contrast/color.chart.gray.bold.hovered": {
-      "value": "#44546F",
+      "value": "#505258",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3107,7 +3107,7 @@
       }
     },
     "Light increased-contrast/color.chart.gray.bolder": {
-      "value": "#44546F",
+      "value": "#505258",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3116,7 +3116,7 @@
       }
     },
     "Light increased-contrast/color.chart.gray.bolder.hovered": {
-      "value": "#2C3E5D",
+      "value": "#3B3D42",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3125,7 +3125,7 @@
       }
     },
     "Light increased-contrast/color.chart.gray.boldest": {
-      "value": "#2C3E5D",
+      "value": "#3B3D42",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3134,7 +3134,7 @@
       }
     },
     "Light increased-contrast/color.chart.gray.boldest.hovered": {
-      "value": "#172B4D",
+      "value": "#292A2E",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3143,7 +3143,7 @@
       }
     },
     "Light increased-contrast/color.chart.brand": {
-      "value": "#0C66E4",
+      "value": "#1868DB",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3152,7 +3152,7 @@
       }
     },
     "Light increased-contrast/color.chart.brand.hovered": {
-      "value": "#0055CC",
+      "value": "#1558BC",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3269,7 +3269,7 @@
       }
     },
     "Light increased-contrast/color.chart.discovery": {
-      "value": "#6E5DC6",
+      "value": "#964AC0",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3278,7 +3278,7 @@
       }
     },
     "Light increased-contrast/color.chart.discovery.hovered": {
-      "value": "#5E4DB2",
+      "value": "#803FA5",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3287,7 +3287,7 @@
       }
     },
     "Light increased-contrast/color.chart.discovery.bold": {
-      "value": "#352C63",
+      "value": "#48245D",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3296,7 +3296,7 @@
       }
     },
     "Light increased-contrast/color.chart.discovery.bold.hovered": {
-      "value": "#2B273F",
+      "value": "#35243F",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3305,7 +3305,7 @@
       }
     },
     "Light increased-contrast/color.chart.information": {
-      "value": "#0C66E4",
+      "value": "#1868DB",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3314,7 +3314,7 @@
       }
     },
     "Light increased-contrast/color.chart.information.hovered": {
-      "value": "#0055CC",
+      "value": "#1558BC",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3323,7 +3323,7 @@
       }
     },
     "Light increased-contrast/color.chart.information.bold": {
-      "value": "#09326C",
+      "value": "#123263",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3332,7 +3332,7 @@
       }
     },
     "Light increased-contrast/color.chart.information.bold.hovered": {
-      "value": "#1C2B41",
+      "value": "#1C2B42",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3350,7 +3350,7 @@
       }
     },
     "Light increased-contrast/elevation.surface.hovered": {
-      "value": "#F1F2F4",
+      "value": "#F0F1F2",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3359,7 +3359,7 @@
       }
     },
     "Light increased-contrast/elevation.surface.pressed": {
-      "value": "#DCDFE4",
+      "value": "#DDDEE1",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3377,7 +3377,7 @@
       }
     },
     "Light increased-contrast/elevation.surface.overlay.hovered": {
-      "value": "#F1F2F4",
+      "value": "#F0F1F2",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3386,7 +3386,7 @@
       }
     },
     "Light increased-contrast/elevation.surface.overlay.pressed": {
-      "value": "#DCDFE4",
+      "value": "#DDDEE1",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3404,7 +3404,7 @@
       }
     },
     "Light increased-contrast/elevation.surface.raised.hovered": {
-      "value": "#F1F2F4",
+      "value": "#F0F1F2",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3413,7 +3413,7 @@
       }
     },
     "Light increased-contrast/elevation.surface.raised.pressed": {
-      "value": "#DCDFE4",
+      "value": "#DDDEE1",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3438,7 +3438,7 @@
             "x": 0,
             "y": 0
           },
-          "color": "#091E42",
+          "color": "#1E1F21",
           "opacity": 0.16
         },
         {
@@ -3447,7 +3447,7 @@
             "x": 0,
             "y": 0
           },
-          "color": "#091E42",
+          "color": "#1E1F21",
           "opacity": 0.12
         }
       ],
@@ -3459,7 +3459,7 @@
       }
     },
     "Light increased-contrast/elevation.shadow.overflow.perimeter": {
-      "value": "#091e421f",
+      "value": "#1E1F211f",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3468,7 +3468,7 @@
       }
     },
     "Light increased-contrast/elevation.shadow.overflow.spread": {
-      "value": "#091e4229",
+      "value": "#1E1F2129",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3484,7 +3484,7 @@
             "x": 0,
             "y": 0
           },
-          "color": "#091E42",
+          "color": "#1E1F21",
           "opacity": 0.5,
           "spread": 1,
           "inset": true
@@ -3495,7 +3495,7 @@
             "x": 0,
             "y": 0
           },
-          "color": "#091E42",
+          "color": "#1E1F21",
           "opacity": 0.31
         }
       ],
@@ -3514,7 +3514,7 @@
             "x": 0,
             "y": 0
           },
-          "color": "#091E42",
+          "color": "#1E1F21",
           "opacity": 0.5,
           "spread": 1,
           "inset": true
@@ -3525,7 +3525,7 @@
             "x": 0,
             "y": 0
           },
-          "color": "#091E42",
+          "color": "#1E1F21",
           "opacity": 0.31
         }
       ],

@@ -20,7 +20,6 @@ import { listMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconList, IconListNumber } from '@atlaskit/editor-common/quick-insert';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ListPlugin } from './listPluginType';
 import {
@@ -112,72 +111,70 @@ export const listPlugin: ListPlugin = ({ config: options, api }) => {
 		},
 
 		pluginsOptions: {
-			...(editorExperiment('platform_editor_insertion', 'control') && {
-				quickInsert: ({ formatMessage }) => {
-					return [
-						{
-							id: 'unorderedList',
-							title: formatMessage(messages.unorderedList),
-							description: formatMessage(messages.unorderedListDescription),
-							keywords: ['ul', 'unordered'],
-							priority: 1100,
-							keyshortcut: tooltip(toggleBulletList),
-							icon: () => <IconList />,
-							action(insert, state) {
-								const tr = insert(
-									state.schema.nodes.bulletList.createChecked(
+			quickInsert: ({ formatMessage }) => {
+				return [
+					{
+						id: 'unorderedList',
+						title: formatMessage(messages.unorderedList),
+						description: formatMessage(messages.unorderedListDescription),
+						keywords: ['ul', 'unordered'],
+						priority: 1100,
+						keyshortcut: tooltip(toggleBulletList),
+						icon: () => <IconList />,
+						action(insert, state) {
+							const tr = insert(
+								state.schema.nodes.bulletList.createChecked(
+									{},
+									state.schema.nodes.listItem.createChecked(
 										{},
-										state.schema.nodes.listItem.createChecked(
-											{},
-											state.schema.nodes.paragraph.createChecked(),
-										),
+										state.schema.nodes.paragraph.createChecked(),
 									),
-								);
-								editorAnalyticsAPI?.attachAnalyticsEvent({
-									action: ACTION.INSERTED,
-									actionSubject: ACTION_SUBJECT.LIST,
-									actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
-									eventType: EVENT_TYPE.TRACK,
-									attributes: {
-										inputMethod: INPUT_METHOD.QUICK_INSERT,
-									},
-								})(tr);
-								return tr;
-							},
+								),
+							);
+							editorAnalyticsAPI?.attachAnalyticsEvent({
+								action: ACTION.INSERTED,
+								actionSubject: ACTION_SUBJECT.LIST,
+								actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
+								eventType: EVENT_TYPE.TRACK,
+								attributes: {
+									inputMethod: INPUT_METHOD.QUICK_INSERT,
+								},
+							})(tr);
+							return tr;
 						},
-						{
-							id: 'orderedList',
-							title: formatMessage(messages.orderedList),
-							description: formatMessage(messages.orderedListDescription),
-							keywords: ['ol', 'ordered'],
-							priority: 1200,
-							keyshortcut: tooltip(toggleOrderedList),
-							icon: () => <IconListNumber />,
-							action(insert, state) {
-								const tr = insert(
-									state.schema.nodes.orderedList.createChecked(
+					},
+					{
+						id: 'orderedList',
+						title: formatMessage(messages.orderedList),
+						description: formatMessage(messages.orderedListDescription),
+						keywords: ['ol', 'ordered'],
+						priority: 1200,
+						keyshortcut: tooltip(toggleOrderedList),
+						icon: () => <IconListNumber />,
+						action(insert, state) {
+							const tr = insert(
+								state.schema.nodes.orderedList.createChecked(
+									{},
+									state.schema.nodes.listItem.createChecked(
 										{},
-										state.schema.nodes.listItem.createChecked(
-											{},
-											state.schema.nodes.paragraph.createChecked(),
-										),
+										state.schema.nodes.paragraph.createChecked(),
 									),
-								);
-								editorAnalyticsAPI?.attachAnalyticsEvent({
-									action: ACTION.INSERTED,
-									actionSubject: ACTION_SUBJECT.LIST,
-									actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
-									eventType: EVENT_TYPE.TRACK,
-									attributes: {
-										inputMethod: INPUT_METHOD.QUICK_INSERT,
-									},
-								})(tr);
-								return tr;
-							},
+								),
+							);
+							editorAnalyticsAPI?.attachAnalyticsEvent({
+								action: ACTION.INSERTED,
+								actionSubject: ACTION_SUBJECT.LIST,
+								actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
+								eventType: EVENT_TYPE.TRACK,
+								attributes: {
+									inputMethod: INPUT_METHOD.QUICK_INSERT,
+								},
+							})(tr);
+							return tr;
 						},
-					];
-				},
-			}),
+					},
+				];
+			},
 		},
 	};
 };

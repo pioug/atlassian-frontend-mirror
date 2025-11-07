@@ -3,7 +3,6 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import warnOnce from '@atlaskit/ds-lib/warn-once';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { COLOR_MODE_ATTRIBUTE } from '../../constants';
 import getTokenValue from '../../get-token-value';
@@ -73,28 +72,6 @@ describe('getTokenValue', () => {
 
 			expect(warnOnce).toHaveBeenCalledWith(
 				`Unknown token id at path: this-token-does-not-exist in @atlaskit/tokens`,
-			);
-		});
-
-		describe('should log error when color.icon.subtlest tokens is used when feature flag is off', () => {
-			ffTest(
-				'platform-component-visual-refresh',
-				() => {
-					setup();
-					const result = getTokenValue('color.icon.subtlest');
-					expect(result).toEqual('#626F86');
-					expect(warnOnce).not.toHaveBeenCalledWith(
-						`Token "color.icon.subtlest" is only available when feature flag "platform-component-visual-refresh" is on, don't use it if the flag can't be turned on on this page`,
-					);
-				},
-				() => {
-					setup();
-					const result = getTokenValue('color.icon.subtlest');
-					expect(result).toEqual('#626F86');
-					expect(warnOnce).toHaveBeenCalledWith(
-						`Token "color.icon.subtlest" is only available when feature flag "platform-component-visual-refresh" is on, don't use it if the flag can't be turned on on this page`,
-					);
-				},
 			);
 		});
 

@@ -5,10 +5,10 @@ const color: ValueSchema<IconColorTokenSchema<BaseToken>> = {
 	color: {
 		icon: {
 			'[default]': {
-				value: 'DarkNeutral800',
+				value: 'DarkNeutral1000',
 			},
 			subtle: {
-				value: 'DarkNeutral700',
+				value: 'DarkNeutral800',
 			},
 			subtlest: {
 				value: 'DarkNeutral700',
@@ -30,14 +30,14 @@ const color: ValueSchema<IconColorTokenSchema<BaseToken>> = {
 			},
 			warning: {
 				'[default]': {
-					value: 'Yellow300',
+					value: 'Orange300',
 				},
 				inverse: {
 					value: 'DarkNeutral100',
 				},
 			},
 			success: {
-				value: 'Green500',
+				value: 'Lime500',
 			},
 			discovery: {
 				value: 'Purple500',

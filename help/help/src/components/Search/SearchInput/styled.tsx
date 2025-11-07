@@ -15,7 +15,7 @@ const searchInputContainerStyles = css({
 	boxSizing: 'border-box',
 });
 
-export const SearchInputContainer = ({ children }: { children: React.ReactNode }) => (
+export const SearchInputContainer = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={searchInputContainerStyles}>{children}</div>
 );
 
@@ -32,9 +32,11 @@ const searchInputContainerAiStyles = css({
 	boxSizing: 'border-box',
 });
 
-export const SearchInputContainerAi = ({ children }: { children: React.ReactNode }) => (
-	<div css={searchInputContainerAiStyles}>{children}</div>
-);
+export const SearchInputContainerAi = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <div css={searchInputContainerAiStyles}>{children}</div>;
 
 const searchIconContainerStyles = css({
 	width: token('space.300', '24px'),
@@ -50,7 +52,7 @@ const searchIconContainerStyles = css({
 	},
 });
 
-export const SearchIconContainer = ({ children }: { children: React.ReactNode }) => (
+export const SearchIconContainer = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={searchIconContainerStyles}>{children}</div>
 );
 
@@ -71,6 +73,8 @@ const closeButtonAndSpinnerContainerStyles = css({
 	},
 });
 
-export const CloseButtonAndSpinnerContainer = ({ children }: { children: React.ReactNode }) => (
-	<div css={closeButtonAndSpinnerContainerStyles}>{children}</div>
-);
+export const CloseButtonAndSpinnerContainer = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <div css={closeButtonAndSpinnerContainerStyles}>{children}</div>;

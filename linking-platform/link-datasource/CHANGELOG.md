@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 4.29.2
+
+### Patch Changes
+
+- [`e4abc23d0af19`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4abc23d0af19) -
+  Clean up add-disablesiteselector feature gate
+
 ## 4.29.1
 
 ### Patch Changes

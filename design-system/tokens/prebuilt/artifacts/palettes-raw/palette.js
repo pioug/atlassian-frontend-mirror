@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f849f805d616c9bf8df9d8ec6afa5b0c>>
+ * @codegen <<SignedSource::3ab6d06ceee07a33f01831ba39d1781a>>
  * @codegenCommand yarn build tokens
  */
 
@@ -419,7 +419,7 @@ var tokens = [{
   "name": "color.palette.Red1000",
   "path": ["color", "palette", "Red1000"]
 }, {
-  "value": "#FFF3EB",
+  "value": "#FFF5DB",
   "attributes": {
     "group": "palette",
     "category": "orange"
@@ -427,7 +427,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#FFF3EB",
+    "value": "#FFF5DB",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -436,7 +436,7 @@ var tokens = [{
   "name": "color.palette.Orange100",
   "path": ["color", "palette", "Orange100"]
 }, {
-  "value": "#FEDEC8",
+  "value": "#FCE4A6",
   "attributes": {
     "group": "palette",
     "category": "orange"
@@ -444,7 +444,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#FEDEC8",
+    "value": "#FCE4A6",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -470,7 +470,7 @@ var tokens = [{
   "name": "color.palette.Orange250",
   "path": ["color", "palette", "Orange250"]
 }, {
-  "value": "#FEC195",
+  "value": "#FBC828",
   "attributes": {
     "group": "palette",
     "category": "orange"
@@ -478,7 +478,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#FEC195",
+    "value": "#FBC828",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -487,7 +487,7 @@ var tokens = [{
   "name": "color.palette.Orange300",
   "path": ["color", "palette", "Orange300"]
 }, {
-  "value": "#FEA362",
+  "value": "#FCA700",
   "attributes": {
     "group": "palette",
     "category": "orange"
@@ -495,7 +495,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#FEA362",
+    "value": "#FCA700",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -504,7 +504,7 @@ var tokens = [{
   "name": "color.palette.Orange400",
   "path": ["color", "palette", "Orange400"]
 }, {
-  "value": "#F38A3F",
+  "value": "#F68909",
   "attributes": {
     "group": "palette",
     "category": "orange"
@@ -512,7 +512,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#F38A3F",
+    "value": "#F68909",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -521,7 +521,7 @@ var tokens = [{
   "name": "color.palette.Orange500",
   "path": ["color", "palette", "Orange500"]
 }, {
-  "value": "#E56910",
+  "value": "#E06C00",
   "attributes": {
     "group": "palette",
     "category": "orange"
@@ -529,7 +529,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#E56910",
+    "value": "#E06C00",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -538,7 +538,7 @@ var tokens = [{
   "name": "color.palette.Orange600",
   "path": ["color", "palette", "Orange600"]
 }, {
-  "value": "#C25100",
+  "value": "#BD5B00",
   "attributes": {
     "group": "palette",
     "category": "orange"
@@ -546,7 +546,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#C25100",
+    "value": "#BD5B00",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -555,7 +555,7 @@ var tokens = [{
   "name": "color.palette.Orange700",
   "path": ["color", "palette", "Orange700"]
 }, {
-  "value": "#A54800",
+  "value": "#9E4C00",
   "attributes": {
     "group": "palette",
     "category": "orange"
@@ -563,7 +563,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#A54800",
+    "value": "#9E4C00",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -589,7 +589,7 @@ var tokens = [{
   "name": "color.palette.Orange850",
   "path": ["color", "palette", "Orange850"]
 }, {
-  "value": "#702E00",
+  "value": "#693200",
   "attributes": {
     "group": "palette",
     "category": "orange"
@@ -597,7 +597,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#702E00",
+    "value": "#693200",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -606,7 +606,7 @@ var tokens = [{
   "name": "color.palette.Orange900",
   "path": ["color", "palette", "Orange900"]
 }, {
-  "value": "#38291E",
+  "value": "#3A2C1F",
   "attributes": {
     "group": "palette",
     "category": "orange"
@@ -614,7 +614,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#38291E",
+    "value": "#3A2C1F",
     "attributes": {
       "group": "palette",
       "category": "orange"
@@ -623,7 +623,7 @@ var tokens = [{
   "name": "color.palette.Orange1000",
   "path": ["color", "palette", "Orange1000"]
 }, {
-  "value": "#FFF7D6",
+  "value": "#FEF7C8",
   "attributes": {
     "group": "palette",
     "category": "yellow"
@@ -631,7 +631,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#FFF7D6",
+    "value": "#FEF7C8",
     "attributes": {
       "group": "palette",
       "category": "yellow"
@@ -640,7 +640,7 @@ var tokens = [{
   "name": "color.palette.Yellow100",
   "path": ["color", "palette", "Yellow100"]
 }, {
-  "value": "#F8E6A0",
+  "value": "#F5E989",
   "attributes": {
     "group": "palette",
     "category": "yellow"
@@ -648,7 +648,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#F8E6A0",
+    "value": "#F5E989",
     "attributes": {
       "group": "palette",
       "category": "yellow"
@@ -674,7 +674,7 @@ var tokens = [{
   "name": "color.palette.Yellow250",
   "path": ["color", "palette", "Yellow250"]
 }, {
-  "value": "#F5CD47",
+  "value": "#EED12B",
   "attributes": {
     "group": "palette",
     "category": "yellow"
@@ -682,7 +682,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#F5CD47",
+    "value": "#EED12B",
     "attributes": {
       "group": "palette",
       "category": "yellow"
@@ -691,7 +691,7 @@ var tokens = [{
   "name": "color.palette.Yellow300",
   "path": ["color", "palette", "Yellow300"]
 }, {
-  "value": "#E2B203",
+  "value": "#DDB30E",
   "attributes": {
     "group": "palette",
     "category": "yellow"
@@ -699,7 +699,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#E2B203",
+    "value": "#DDB30E",
     "attributes": {
       "group": "palette",
       "category": "yellow"
@@ -1235,7 +1235,7 @@ var tokens = [{
   "name": "color.palette.Teal1000",
   "path": ["color", "palette", "Teal1000"]
 }, {
-  "value": "#E9F2FF",
+  "value": "#E9F2FE",
   "attributes": {
     "group": "palette",
     "category": "blue"
@@ -1243,7 +1243,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#E9F2FF",
+    "value": "#E9F2FE",
     "attributes": {
       "group": "palette",
       "category": "blue"
@@ -1252,7 +1252,7 @@ var tokens = [{
   "name": "color.palette.Blue100",
   "path": ["color", "palette", "Blue100"]
 }, {
-  "value": "#CCE0FF",
+  "value": "#CFE1FD",
   "attributes": {
     "group": "palette",
     "category": "blue"
@@ -1260,7 +1260,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#CCE0FF",
+    "value": "#CFE1FD",
     "attributes": {
       "group": "palette",
       "category": "blue"
@@ -1286,7 +1286,7 @@ var tokens = [{
   "name": "color.palette.Blue250",
   "path": ["color", "palette", "Blue250"]
 }, {
-  "value": "#85B8FF",
+  "value": "#8FB8F6",
   "attributes": {
     "group": "palette",
     "category": "blue"
@@ -1294,7 +1294,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#85B8FF",
+    "value": "#8FB8F6",
     "attributes": {
       "group": "palette",
       "category": "blue"
@@ -1303,7 +1303,7 @@ var tokens = [{
   "name": "color.palette.Blue300",
   "path": ["color", "palette", "Blue300"]
 }, {
-  "value": "#579DFF",
+  "value": "#669DF1",
   "attributes": {
     "group": "palette",
     "category": "blue"
@@ -1311,7 +1311,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#579DFF",
+    "value": "#669DF1",
     "attributes": {
       "group": "palette",
       "category": "blue"
@@ -1320,7 +1320,7 @@ var tokens = [{
   "name": "color.palette.Blue400",
   "path": ["color", "palette", "Blue400"]
 }, {
-  "value": "#388BFF",
+  "value": "#4688EC",
   "attributes": {
     "group": "palette",
     "category": "blue"
@@ -1328,7 +1328,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#388BFF",
+    "value": "#4688EC",
     "attributes": {
       "group": "palette",
       "category": "blue"
@@ -1337,7 +1337,7 @@ var tokens = [{
   "name": "color.palette.Blue500",
   "path": ["color", "palette", "Blue500"]
 }, {
-  "value": "#1D7AFC",
+  "value": "#357DE8",
   "attributes": {
     "group": "palette",
     "category": "blue"
@@ -1345,7 +1345,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#1D7AFC",
+    "value": "#357DE8",
     "attributes": {
       "group": "palette",
       "category": "blue"
@@ -1354,7 +1354,7 @@ var tokens = [{
   "name": "color.palette.Blue600",
   "path": ["color", "palette", "Blue600"]
 }, {
-  "value": "#0C66E4",
+  "value": "#1868DB",
   "attributes": {
     "group": "palette",
     "category": "blue"
@@ -1362,7 +1362,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#0C66E4",
+    "value": "#1868DB",
     "attributes": {
       "group": "palette",
       "category": "blue"
@@ -1371,7 +1371,7 @@ var tokens = [{
   "name": "color.palette.Blue700",
   "path": ["color", "palette", "Blue700"]
 }, {
-  "value": "#0055CC",
+  "value": "#1558BC",
   "attributes": {
     "group": "palette",
     "category": "blue"
@@ -1379,7 +1379,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#0055CC",
+    "value": "#1558BC",
     "attributes": {
       "group": "palette",
       "category": "blue"
@@ -1405,7 +1405,7 @@ var tokens = [{
   "name": "color.palette.Blue850",
   "path": ["color", "palette", "Blue850"]
 }, {
-  "value": "#09326C",
+  "value": "#123263",
   "attributes": {
     "group": "palette",
     "category": "blue"
@@ -1413,7 +1413,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#09326C",
+    "value": "#123263",
     "attributes": {
       "group": "palette",
       "category": "blue"
@@ -1422,7 +1422,7 @@ var tokens = [{
   "name": "color.palette.Blue900",
   "path": ["color", "palette", "Blue900"]
 }, {
-  "value": "#1C2B41",
+  "value": "#1C2B42",
   "attributes": {
     "group": "palette",
     "category": "blue"
@@ -1430,7 +1430,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#1C2B41",
+    "value": "#1C2B42",
     "attributes": {
       "group": "palette",
       "category": "blue"
@@ -1439,7 +1439,7 @@ var tokens = [{
   "name": "color.palette.Blue1000",
   "path": ["color", "palette", "Blue1000"]
 }, {
-  "value": "#F3F0FF",
+  "value": "#F8EEFE",
   "attributes": {
     "group": "palette",
     "category": "purple"
@@ -1447,7 +1447,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#F3F0FF",
+    "value": "#F8EEFE",
     "attributes": {
       "group": "palette",
       "category": "purple"
@@ -1456,7 +1456,7 @@ var tokens = [{
   "name": "color.palette.Purple100",
   "path": ["color", "palette", "Purple100"]
 }, {
-  "value": "#DFD8FD",
+  "value": "#EED7FC",
   "attributes": {
     "group": "palette",
     "category": "purple"
@@ -1464,7 +1464,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#DFD8FD",
+    "value": "#EED7FC",
     "attributes": {
       "group": "palette",
       "category": "purple"
@@ -1490,7 +1490,7 @@ var tokens = [{
   "name": "color.palette.Purple250",
   "path": ["color", "palette", "Purple250"]
 }, {
-  "value": "#B8ACF6",
+  "value": "#D8A0F7",
   "attributes": {
     "group": "palette",
     "category": "purple"
@@ -1498,7 +1498,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#B8ACF6",
+    "value": "#D8A0F7",
     "attributes": {
       "group": "palette",
       "category": "purple"
@@ -1507,7 +1507,7 @@ var tokens = [{
   "name": "color.palette.Purple300",
   "path": ["color", "palette", "Purple300"]
 }, {
-  "value": "#9F8FEF",
+  "value": "#C97CF4",
   "attributes": {
     "group": "palette",
     "category": "purple"
@@ -1515,7 +1515,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#9F8FEF",
+    "value": "#C97CF4",
     "attributes": {
       "group": "palette",
       "category": "purple"
@@ -1524,7 +1524,7 @@ var tokens = [{
   "name": "color.palette.Purple400",
   "path": ["color", "palette", "Purple400"]
 }, {
-  "value": "#8F7EE7",
+  "value": "#BF63F3",
   "attributes": {
     "group": "palette",
     "category": "purple"
@@ -1532,7 +1532,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#8F7EE7",
+    "value": "#BF63F3",
     "attributes": {
       "group": "palette",
       "category": "purple"
@@ -1541,7 +1541,7 @@ var tokens = [{
   "name": "color.palette.Purple500",
   "path": ["color", "palette", "Purple500"]
 }, {
-  "value": "#8270DB",
+  "value": "#AF59E1",
   "attributes": {
     "group": "palette",
     "category": "purple"
@@ -1549,7 +1549,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#8270DB",
+    "value": "#AF59E1",
     "attributes": {
       "group": "palette",
       "category": "purple"
@@ -1558,7 +1558,7 @@ var tokens = [{
   "name": "color.palette.Purple600",
   "path": ["color", "palette", "Purple600"]
 }, {
-  "value": "#6E5DC6",
+  "value": "#964AC0",
   "attributes": {
     "group": "palette",
     "category": "purple"
@@ -1566,7 +1566,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#6E5DC6",
+    "value": "#964AC0",
     "attributes": {
       "group": "palette",
       "category": "purple"
@@ -1575,7 +1575,7 @@ var tokens = [{
   "name": "color.palette.Purple700",
   "path": ["color", "palette", "Purple700"]
 }, {
-  "value": "#5E4DB2",
+  "value": "#803FA5",
   "attributes": {
     "group": "palette",
     "category": "purple"
@@ -1583,7 +1583,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#5E4DB2",
+    "value": "#803FA5",
     "attributes": {
       "group": "palette",
       "category": "purple"
@@ -1609,7 +1609,7 @@ var tokens = [{
   "name": "color.palette.Purple850",
   "path": ["color", "palette", "Purple850"]
 }, {
-  "value": "#352C63",
+  "value": "#48245D",
   "attributes": {
     "group": "palette",
     "category": "purple"
@@ -1617,7 +1617,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#352C63",
+    "value": "#48245D",
     "attributes": {
       "group": "palette",
       "category": "purple"
@@ -1626,7 +1626,7 @@ var tokens = [{
   "name": "color.palette.Purple900",
   "path": ["color", "palette", "Purple900"]
 }, {
-  "value": "#2B273F",
+  "value": "#35243F",
   "attributes": {
     "group": "palette",
     "category": "purple"
@@ -1634,7 +1634,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#2B273F",
+    "value": "#35243F",
     "attributes": {
       "group": "palette",
       "category": "purple"
@@ -1864,7 +1864,7 @@ var tokens = [{
   "name": "color.palette.Neutral0",
   "path": ["color", "palette", "Neutral0"]
 }, {
-  "value": "#F7F8F9",
+  "value": "#F8F8F8",
   "attributes": {
     "group": "palette",
     "category": "light mode neutral"
@@ -1872,7 +1872,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#F7F8F9",
+    "value": "#F8F8F8",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1881,7 +1881,7 @@ var tokens = [{
   "name": "color.palette.Neutral100",
   "path": ["color", "palette", "Neutral100"]
 }, {
-  "value": "#F1F2F4",
+  "value": "#F0F1F2",
   "attributes": {
     "group": "palette",
     "category": "light mode neutral"
@@ -1889,7 +1889,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#F1F2F4",
+    "value": "#F0F1F2",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1898,7 +1898,7 @@ var tokens = [{
   "name": "color.palette.Neutral200",
   "path": ["color", "palette", "Neutral200"]
 }, {
-  "value": "#DCDFE4",
+  "value": "#DDDEE1",
   "attributes": {
     "group": "palette",
     "category": "light mode neutral"
@@ -1906,7 +1906,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#DCDFE4",
+    "value": "#DDDEE1",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1915,7 +1915,7 @@ var tokens = [{
   "name": "color.palette.Neutral300",
   "path": ["color", "palette", "Neutral300"]
 }, {
-  "value": "#B3B9C4",
+  "value": "#B7B9BE",
   "attributes": {
     "group": "palette",
     "category": "light mode neutral"
@@ -1923,7 +1923,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#B3B9C4",
+    "value": "#B7B9BE",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1932,7 +1932,7 @@ var tokens = [{
   "name": "color.palette.Neutral400",
   "path": ["color", "palette", "Neutral400"]
 }, {
-  "value": "#8590A2",
+  "value": "#8C8F97",
   "attributes": {
     "group": "palette",
     "category": "light mode neutral"
@@ -1940,7 +1940,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#8590A2",
+    "value": "#8C8F97",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1949,7 +1949,7 @@ var tokens = [{
   "name": "color.palette.Neutral500",
   "path": ["color", "palette", "Neutral500"]
 }, {
-  "value": "#758195",
+  "value": "#7D818A",
   "attributes": {
     "group": "palette",
     "category": "light mode neutral"
@@ -1957,7 +1957,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#758195",
+    "value": "#7D818A",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1966,7 +1966,7 @@ var tokens = [{
   "name": "color.palette.Neutral600",
   "path": ["color", "palette", "Neutral600"]
 }, {
-  "value": "#626F86",
+  "value": "#6B6E76",
   "attributes": {
     "group": "palette",
     "category": "light mode neutral"
@@ -1974,7 +1974,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#626F86",
+    "value": "#6B6E76",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1983,7 +1983,7 @@ var tokens = [{
   "name": "color.palette.Neutral700",
   "path": ["color", "palette", "Neutral700"]
 }, {
-  "value": "#44546F",
+  "value": "#505258",
   "attributes": {
     "group": "palette",
     "category": "light mode neutral"
@@ -1991,7 +1991,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#44546F",
+    "value": "#505258",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -2000,7 +2000,7 @@ var tokens = [{
   "name": "color.palette.Neutral800",
   "path": ["color", "palette", "Neutral800"]
 }, {
-  "value": "#2C3E5D",
+  "value": "#3B3D42",
   "attributes": {
     "group": "palette",
     "category": "light mode neutral"
@@ -2008,7 +2008,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#2C3E5D",
+    "value": "#3B3D42",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -2017,7 +2017,7 @@ var tokens = [{
   "name": "color.palette.Neutral900",
   "path": ["color", "palette", "Neutral900"]
 }, {
-  "value": "#172B4D",
+  "value": "#292A2E",
   "attributes": {
     "group": "palette",
     "category": "light mode neutral"
@@ -2025,7 +2025,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#172B4D",
+    "value": "#292A2E",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -2034,7 +2034,7 @@ var tokens = [{
   "name": "color.palette.Neutral1000",
   "path": ["color", "palette", "Neutral1000"]
 }, {
-  "value": "#091E42",
+  "value": "#1E1F21",
   "attributes": {
     "group": "palette",
     "category": "light mode neutral"
@@ -2042,7 +2042,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#091E42",
+    "value": "#1E1F21",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -2051,7 +2051,7 @@ var tokens = [{
   "name": "color.palette.Neutral1100",
   "path": ["color", "palette", "Neutral1100"]
 }, {
-  "value": "#091E4208",
+  "value": "#17171708",
   "attributes": {
     "group": "palette",
     "category": "light mode neutral"
@@ -2059,7 +2059,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#091E4208",
+    "value": "#17171708",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -2068,7 +2068,7 @@ var tokens = [{
   "name": "color.palette.Neutral100A",
   "path": ["color", "palette", "Neutral100A"]
 }, {
-  "value": "#091E420F",
+  "value": "#0515240F",
   "attributes": {
     "group": "palette",
     "category": "light mode neutral"
@@ -2076,7 +2076,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#091E420F",
+    "value": "#0515240F",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -2085,7 +2085,7 @@ var tokens = [{
   "name": "color.palette.Neutral200A",
   "path": ["color", "palette", "Neutral200A"]
 }, {
-  "value": "#091E4224",
+  "value": "#0B120E24",
   "attributes": {
     "group": "palette",
     "category": "light mode neutral"
@@ -2093,7 +2093,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#091E4224",
+    "value": "#0B120E24",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -2102,7 +2102,7 @@ var tokens = [{
   "name": "color.palette.Neutral300A",
   "path": ["color", "palette", "Neutral300A"]
 }, {
-  "value": "#091E424F",
+  "value": "#080F214A",
   "attributes": {
     "group": "palette",
     "category": "light mode neutral"
@@ -2110,7 +2110,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#091E424F",
+    "value": "#080F214A",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -2119,7 +2119,7 @@ var tokens = [{
   "name": "color.palette.Neutral400A",
   "path": ["color", "palette", "Neutral400A"]
 }, {
-  "value": "#091E427D",
+  "value": "#050C1F75",
   "attributes": {
     "group": "palette",
     "category": "light mode neutral"
@@ -2127,7 +2127,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#091E427D",
+    "value": "#050C1F75",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -2136,7 +2136,7 @@ var tokens = [{
   "name": "color.palette.Neutral500A",
   "path": ["color", "palette", "Neutral500A"]
 }, {
-  "value": "#101214",
+  "value": "#111213",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2144,7 +2144,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#101214",
+    "value": "#111213",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2153,7 +2153,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral-100",
   "path": ["color", "palette", "DarkNeutral-100"]
 }, {
-  "value": "#161A1D",
+  "value": "#18191A",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2161,7 +2161,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#161A1D",
+    "value": "#18191A",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2170,7 +2170,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral0",
   "path": ["color", "palette", "DarkNeutral0"]
 }, {
-  "value": "#1D2125",
+  "value": "#1F1F21",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2178,7 +2178,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#1D2125",
+    "value": "#1F1F21",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2187,7 +2187,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral100",
   "path": ["color", "palette", "DarkNeutral100"]
 }, {
-  "value": "#22272B",
+  "value": "#242528",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2195,7 +2195,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#22272B",
+    "value": "#242528",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2204,7 +2204,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral200",
   "path": ["color", "palette", "DarkNeutral200"]
 }, {
-  "value": "#282E33",
+  "value": "#2B2C2F",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2212,7 +2212,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#282E33",
+    "value": "#2B2C2F",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2221,7 +2221,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral250",
   "path": ["color", "palette", "DarkNeutral250"]
 }, {
-  "value": "#2C333A",
+  "value": "#303134",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2229,7 +2229,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#2C333A",
+    "value": "#303134",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2238,7 +2238,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral300",
   "path": ["color", "palette", "DarkNeutral300"]
 }, {
-  "value": "#38414A",
+  "value": "#3D3F43",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2246,7 +2246,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#38414A",
+    "value": "#3D3F43",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2255,7 +2255,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral350",
   "path": ["color", "palette", "DarkNeutral350"]
 }, {
-  "value": "#454F59",
+  "value": "#4B4D51",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2263,7 +2263,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#454F59",
+    "value": "#4B4D51",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2272,7 +2272,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral400",
   "path": ["color", "palette", "DarkNeutral400"]
 }, {
-  "value": "#596773",
+  "value": "#63666B",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2280,7 +2280,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#596773",
+    "value": "#63666B",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2289,7 +2289,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral500",
   "path": ["color", "palette", "DarkNeutral500"]
 }, {
-  "value": "#738496",
+  "value": "#7E8188",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2297,7 +2297,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#738496",
+    "value": "#7E8188",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2306,7 +2306,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral600",
   "path": ["color", "palette", "DarkNeutral600"]
 }, {
-  "value": "#8C9BAB",
+  "value": "#96999E",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2314,7 +2314,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#8C9BAB",
+    "value": "#96999E",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2323,7 +2323,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral700",
   "path": ["color", "palette", "DarkNeutral700"]
 }, {
-  "value": "#9FADBC",
+  "value": "#A9ABAF",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2331,7 +2331,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#9FADBC",
+    "value": "#A9ABAF",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2340,7 +2340,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral800",
   "path": ["color", "palette", "DarkNeutral800"]
 }, {
-  "value": "#B6C2CF",
+  "value": "#BFC1C4",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2348,7 +2348,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#B6C2CF",
+    "value": "#BFC1C4",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2357,7 +2357,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral900",
   "path": ["color", "palette", "DarkNeutral900"]
 }, {
-  "value": "#C7D1DB",
+  "value": "#CECFD2",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2365,7 +2365,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#C7D1DB",
+    "value": "#CECFD2",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2374,7 +2374,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral1000",
   "path": ["color", "palette", "DarkNeutral1000"]
 }, {
-  "value": "#DEE4EA",
+  "value": "#E2E3E4",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2382,7 +2382,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#DEE4EA",
+    "value": "#E2E3E4",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2391,7 +2391,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral1100",
   "path": ["color", "palette", "DarkNeutral1100"]
 }, {
-  "value": "#03040442",
+  "value": "#01040475",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2399,7 +2399,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#03040442",
+    "value": "#01040475",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2408,7 +2408,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral-100A",
   "path": ["color", "palette", "DarkNeutral-100A"]
 }, {
-  "value": "#BCD6F00A",
+  "value": "#BDBDBD0A",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2416,7 +2416,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#BCD6F00A",
+    "value": "#BDBDBD0A",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2425,7 +2425,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral100A",
   "path": ["color", "palette", "DarkNeutral100A"]
 }, {
-  "value": "#A1BDD914",
+  "value": "#CECED912",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2433,7 +2433,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#A1BDD914",
+    "value": "#CECED912",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2442,7 +2442,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral200A",
   "path": ["color", "palette", "DarkNeutral200A"]
 }, {
-  "value": "#C8E1F91A",
+  "value": "#D9DAE71A",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2450,7 +2450,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#C8E1F91A",
+    "value": "#D9DAE71A",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2459,7 +2459,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral250A",
   "path": ["color", "palette", "DarkNeutral250A"]
 }, {
-  "value": "#A6C5E229",
+  "value": "#E3E4F21F",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2467,7 +2467,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#A6C5E229",
+    "value": "#E3E4F21F",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2476,7 +2476,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral300A",
   "path": ["color", "palette", "DarkNeutral300A"]
 }, {
-  "value": "#C3DEFE33",
+  "value": "#E8EDFD2E",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2484,7 +2484,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#C3DEFE33",
+    "value": "#E8EDFD2E",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2493,7 +2493,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral350A",
   "path": ["color", "palette", "DarkNeutral350A"]
 }, {
-  "value": "#BFDBF847",
+  "value": "#E5E9F640",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2501,7 +2501,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#BFDBF847",
+    "value": "#E5E9F640",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2510,7 +2510,7 @@ var tokens = [{
   "name": "color.palette.DarkNeutral400A",
   "path": ["color", "palette", "DarkNeutral400A"]
 }, {
-  "value": "#9BB4CA80",
+  "value": "#E9F0FB5C",
   "attributes": {
     "group": "palette",
     "category": "dark mode neutral"
@@ -2518,7 +2518,7 @@ var tokens = [{
   "filePath": "schema/palettes/palette.tsx",
   "isSource": true,
   "original": {
-    "value": "#9BB4CA80",
+    "value": "#E9F0FB5C",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"

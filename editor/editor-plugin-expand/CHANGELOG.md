@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-expand
 
+## 7.4.0
+
+### Minor Changes
+
+- [`fd552090f0285`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd552090f0285) -
+  Introduce new toggle expand command API to toggle expands across a range.
+
 ## 7.3.0
 
 ### Minor Changes

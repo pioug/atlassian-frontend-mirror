@@ -440,8 +440,44 @@ export const darkViolationsVisualRefresh = [
 		background: 'color.background.accent.gray.subtle',
 	},
 	{
+		foreground: 'color.text.subtlest',
+		background: 'color.background.accent.lime.subtlest',
+	},
+	{
+		foreground: 'color.text.subtlest',
+		background: 'color.background.accent.orange.subtlest',
+	},
+	{
+		foreground: 'color.text.subtlest',
+		background: 'color.background.accent.yellow.subtlest',
+	},
+	{
+		foreground: 'color.text.subtlest',
+		background: 'color.background.accent.green.subtlest',
+	},
+	{
+		foreground: 'color.text.subtlest',
+		background: 'color.background.accent.teal.subtlest',
+	},
+	{
+		foreground: 'color.text.subtlest',
+		background: 'color.background.accent.purple.subtlest',
+	},
+	{
+		foreground: 'color.text.subtlest',
+		background: 'color.background.accent.magenta.subtlest',
+	},
+	{
+		foreground: 'color.text.subtle',
+		background: 'color.background.accent.lime.subtlest',
+	},
+	{
 		foreground: 'color.text.subtle',
 		background: 'color.background.accent.lime.subtler',
+	},
+	{
+		foreground: 'color.text.subtle',
+		background: 'color.background.accent.orange.subtlest',
 	},
 	{
 		foreground: 'color.text.subtle',
@@ -449,7 +485,15 @@ export const darkViolationsVisualRefresh = [
 	},
 	{
 		foreground: 'color.text.subtle',
+		background: 'color.background.accent.yellow.subtlest',
+	},
+	{
+		foreground: 'color.text.subtle',
 		background: 'color.background.accent.yellow.subtler',
+	},
+	{
+		foreground: 'color.text.subtle',
+		background: 'color.background.accent.green.subtlest',
 	},
 	{
 		foreground: 'color.text.subtle',
@@ -461,7 +505,15 @@ export const darkViolationsVisualRefresh = [
 	},
 	{
 		foreground: 'color.link',
+		background: 'color.background.accent.lime.subtlest',
+	},
+	{
+		foreground: 'color.link',
 		background: 'color.background.accent.lime.subtler',
+	},
+	{
+		foreground: 'color.link',
+		background: 'color.background.accent.orange.subtlest',
 	},
 	{
 		foreground: 'color.link',
@@ -469,11 +521,23 @@ export const darkViolationsVisualRefresh = [
 	},
 	{
 		foreground: 'color.link',
+		background: 'color.background.accent.yellow.subtlest',
+	},
+	{
+		foreground: 'color.link',
 		background: 'color.background.accent.yellow.subtler',
 	},
 	{
 		foreground: 'color.link',
+		background: 'color.background.accent.green.subtlest',
+	},
+	{
+		foreground: 'color.link',
 		background: 'color.background.accent.green.subtler',
+	},
+	{
+		foreground: 'color.link',
+		background: 'color.background.accent.teal.subtlest',
 	},
 	{
 		foreground: 'color.link',
@@ -497,7 +561,15 @@ export const darkViolationsVisualRefresh = [
 	},
 	{
 		foreground: 'color.border.bold',
+		background: 'color.background.accent.lime.subtlest',
+	},
+	{
+		foreground: 'color.border.bold',
 		background: 'color.background.accent.lime.subtler',
+	},
+	{
+		foreground: 'color.border.bold',
+		background: 'color.background.accent.orange.subtlest',
 	},
 	{
 		foreground: 'color.border.bold',
@@ -505,11 +577,23 @@ export const darkViolationsVisualRefresh = [
 	},
 	{
 		foreground: 'color.border.bold',
+		background: 'color.background.accent.yellow.subtlest',
+	},
+	{
+		foreground: 'color.border.bold',
 		background: 'color.background.accent.yellow.subtler',
 	},
 	{
 		foreground: 'color.border.bold',
+		background: 'color.background.accent.green.subtlest',
+	},
+	{
+		foreground: 'color.border.bold',
 		background: 'color.background.accent.green.subtler',
+	},
+	{
+		foreground: 'color.border.bold',
+		background: 'color.background.accent.teal.subtlest',
 	},
 	{
 		foreground: 'color.border.bold',

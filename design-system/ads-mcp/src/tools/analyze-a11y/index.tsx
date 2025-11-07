@@ -4,15 +4,15 @@ import puppeteer from 'puppeteer';
 import { z } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 
-const inputSchema = z.object({
+export const analyzeA11yInputSchema = z.object({
 	code: z.string().describe('React component code to analyze for accessibility'),
-	componentName: z.string().optional().describe('Name of the component being analyzed'),
-	context: z.string().optional().describe('Additional context about the component usage'),
+	componentName: z.string().describe('Name of the component being analyzed').optional(),
+	context: z.string().describe('Additional context about the component usage').optional(),
 	includePatternAnalysis: z
 		.boolean()
-		.optional()
 		.default(true)
-		.describe('Include pattern-based analysis in addition to axe-core'),
+		.describe('Include pattern-based analysis in addition to axe-core')
+		.optional(),
 });
 
 export const listAnalyzeA11yTool = {
@@ -26,10 +26,10 @@ export const listAnalyzeA11yTool = {
 		idempotentHint: true,
 		openWorldHint: true,
 	},
-	inputSchema: zodToJsonSchema(inputSchema),
+	inputSchema: zodToJsonSchema(analyzeA11yInputSchema),
 };
 
-const urlInputSchema = z.object({
+export const analyzeA11yLocalhostInputSchema = z.object({
 	url: z.string().describe('The URL to analyze for accessibility (e.g. `http://localhost:9000`)'),
 	componentName: z.string().optional().describe('Name of the component being analyzed'),
 	context: z.string().optional().describe('Additional context about the component usage'),
@@ -51,7 +51,7 @@ export const listAnalyzeLocalhostA11yTool = {
 		idempotentHint: true,
 		openWorldHint: true,
 	},
-	inputSchema: zodToJsonSchema(urlInputSchema),
+	inputSchema: zodToJsonSchema(analyzeA11yLocalhostInputSchema),
 };
 
 // Common accessibility patterns to detect in code
@@ -189,12 +189,7 @@ function generateADSFixForViolation(violation: any): any {
 	};
 }
 
-export const analyzeA11yTool = async (params: {
-	code: string;
-	componentName?: string;
-	context?: string;
-	includePatternAnalysis?: boolean;
-}) => {
+export const analyzeA11yTool = async (params: z.infer<typeof analyzeA11yInputSchema>) => {
 	const { code, componentName, context, includePatternAnalysis = true } = params;
 	const violations: any[] = [];
 	const suggestions: any[] = [];
@@ -372,12 +367,9 @@ export const analyzeA11yTool = async (params: {
 	}
 };
 
-export const analyzeLocalhostA11yTool = async (params: {
-	url: string;
-	componentName?: string;
-	context?: string;
-	selector?: string;
-}) => {
+export const analyzeLocalhostA11yTool = async (
+	params: z.infer<typeof analyzeA11yLocalhostInputSchema>,
+) => {
 	const { url, componentName, context, selector } = params;
 	const violations: any[] = [];
 	const suggestions: any[] = [];

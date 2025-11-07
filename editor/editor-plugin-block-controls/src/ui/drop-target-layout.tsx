@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
@@ -145,11 +145,121 @@ export const DropTargetLayout = (
 			) : (
 				(isActiveAnchor ||
 					expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) && (
-					<div
-						data-testid="block-ctrl-drop-hint"
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-						css={dropTargetLayoutHintStyle}
-					></div>
+					<div data-testid="block-ctrl-drop-hint" css={dropTargetLayoutHintStyle}></div>
+				)
+			)}
+		</div>
+	);
+};
+
+export const DropTargetLayoutNativeAnchorSupport = (
+	props: DropTargetLayoutProps & {
+		anchorRectCache?: AnchorRectCache;
+	},
+) => {
+	const { api, getPos, parent, anchorRectCache } = props;
+
+	const ref = useRef<HTMLDivElement | null>(null);
+	const [isDraggedOver, setIsDraggedOver] = useState(false);
+	const anchorName = getNodeAnchor(parent);
+	const [nextNodeAnchorName, setNextNodeAnchorName] = useState<string | null>(null);
+	const readNextNodeAnchor = useCallback(() => {
+		const nextElementSibling = ref.current?.parentElement?.nextElementSibling as HTMLElement | null;
+		const attrName = getAnchorAttrName();
+		const nextAnchorName = nextElementSibling?.getAttribute(attrName) ?? null;
+		setNextNodeAnchorName((prev) => (prev === nextAnchorName ? prev : nextAnchorName));
+	}, []);
+
+	const height = useMemo(() => {
+		if (nextNodeAnchorName) {
+			if (isAnchorSupported()) {
+				return `anchor-size(${nextNodeAnchorName} height)`;
+			} else if (anchorRectCache) {
+				const layoutColumnRect = anchorRectCache.getRect(nextNodeAnchorName);
+				return `${layoutColumnRect?.height || 0}px`;
+			}
+		}
+		// Stacked mode fallback: minimal height to avoid oversized hint on first render
+		return '0px';
+	}, [nextNodeAnchorName, anchorRectCache]);
+
+	useLayoutEffect(() => {
+		const raf = requestAnimationFrame(() => {
+			readNextNodeAnchor();
+		});
+		return () => cancelAnimationFrame(raf);
+	}, [readNextNodeAnchor]);
+
+	const dropTargetStackLayoutHintStyle = css({
+		// jest warning: JSDOM version (22) doesn't support the new @container CSS rule
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		[`@container layout-area (max-width:${layoutBreakpointWidth.MEDIUM - 1}px)`]: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			height,
+			marginTop: `${token('space.050', '4px')}`,
+		},
+	});
+	const [isActiveAnchor] = useActiveAnchorTracker(anchorName);
+
+	const { activeNode } = api?.blockControls?.sharedState.currentState() || {};
+	const onDrop = useCallback(() => {
+		if (!activeNode) {
+			return;
+		}
+
+		const to = getPos();
+		let mappedTo: number | undefined;
+		if (to !== undefined) {
+			const { pos: from } = activeNode;
+			api?.core?.actions.execute(({ tr }) => {
+				api?.blockControls?.commands?.moveToLayout(from, to)({ tr });
+				const insertColumnStep = getInsertLayoutStep(tr);
+				mappedTo = (insertColumnStep as ReplaceStep)?.from;
+
+				return tr;
+			});
+
+			api?.core?.actions.execute(({ tr }) => {
+				if (mappedTo !== undefined) {
+					updateSelection(tr, mappedTo);
+				}
+				return tr;
+			});
+		}
+	}, [api, getPos, activeNode]);
+
+	useEffect(() => {
+		if (ref.current) {
+			return dropTargetForElements({
+				element: ref.current,
+				onDragEnter: () => {
+					setIsDraggedOver(true);
+					readNextNodeAnchor();
+				},
+				onDragLeave: () => {
+					setIsDraggedOver(false);
+				},
+				onDrop,
+			});
+		}
+	}, [onDrop, readNextNodeAnchor]);
+
+	if (activeNode?.nodeType === 'layoutSection') {
+		return null;
+	}
+	return (
+		<div
+			ref={ref}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+			css={[dropTargetLayoutStyle, dropTargetStackLayoutHintStyle]}
+			data-testid="block-ctrl-drop-indicator"
+		>
+			{isDraggedOver ? (
+				<DropIndicator edge="right" gap={`-${DROP_TARGET_LAYOUT_DROP_ZONE_WIDTH}px`} />
+			) : (
+				(isActiveAnchor ||
+					expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) && (
+					<div data-testid="block-ctrl-drop-hint" css={dropTargetLayoutHintStyle}></div>
 				)
 			)}
 		</div>

@@ -325,7 +325,7 @@ describe('Drawer panel', () => {
 
 		const sidebar = screen.getByTestId('drawer-sidebar');
 		expect(sidebar).toHaveCompiledCss({
-			backgroundColor: 'var(--ds-background-discovery,#f3f0ff)',
+			backgroundColor: 'var(--ds-background-discovery,#f8eefe)',
 		});
 	});
 });

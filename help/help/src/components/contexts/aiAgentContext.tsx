@@ -17,14 +17,16 @@ export interface AiContextInterface {
 	): void;
 }
 
-export const [useAiContext, CtxProvider] = createCtx<AiContextInterface>();
+const dest = createCtx<AiContextInterface>();
+export const useAiContext: () => AiContextInterface = dest[0];
+export const CtxProvider: React.Provider<AiContextInterface | undefined> = dest[1];
 
 export const AiContextProvider = ({
 	isAiEnabled,
 	onSearchTabClicked,
 	onAiTabClicked,
 	children,
-}: PropsWithChildren<AiContextInterface>) => {
+}: PropsWithChildren<AiContextInterface>): React.JSX.Element => {
 	return (
 		<CtxProvider
 			value={{

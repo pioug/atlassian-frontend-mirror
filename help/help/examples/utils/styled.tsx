@@ -15,7 +15,7 @@ const exampleWrapperStyles = css({
 	height: '100%',
 });
 
-export const ExampleWrapper = ({ children }: { children: React.ReactNode }) => (
+export const ExampleWrapper = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={exampleWrapperStyles}>{children}</div>
 );
 
@@ -26,7 +26,7 @@ const exampleDefaultContentStyles = css({
 	paddingLeft: token('space.200', '16px'),
 });
 
-export const ExampleDefaultContent = ({ children }: { children: React.ReactNode }) => (
+export const ExampleDefaultContent = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/use-primitives
 	<div css={exampleDefaultContentStyles}>{children}</div>
 );
@@ -37,7 +37,7 @@ const footerContentStyles = css({
 	color: token('color.text.subtlest', N200),
 });
 
-export const FooterContent = ({ children }: { children: React.ReactNode }) => (
+export const FooterContent = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={footerContentStyles}>{children}</div>
 );
 
@@ -51,7 +51,7 @@ const buttonsWrapperStyles = css({
 	width: '100%',
 });
 
-export const ButtonsWrapper = ({ children }: { children: React.ReactNode }) => (
+export const ButtonsWrapper = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={buttonsWrapperStyles}>{children}</div>
 );
 
@@ -71,7 +71,7 @@ export const ControlsWrapper = ({
 }: {
 	children: React.ReactNode;
 	width?: string;
-}) => (
+}): JSX.Element => (
 	<div
 		css={controlsWrapperStyles}
 		style={{
@@ -90,7 +90,7 @@ const helpWrapperStyles = css({
 	backgroundColor: token('elevation.surface', N200),
 });
 
-export const HelpWrapper = ({ children }: { children: React.ReactNode }) => (
+export const HelpWrapper = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={helpWrapperStyles}>{children}</div>
 );
 
@@ -106,6 +106,6 @@ const helpContainerStyles = css({
 	backgroundColor: token('color.background.neutral.bold', N200),
 });
 
-export const HelpContainer = ({ children }: { children: React.ReactNode }) => (
+export const HelpContainer = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={helpContainerStyles}>{children}</div>
 );

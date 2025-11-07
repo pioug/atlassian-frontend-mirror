@@ -307,27 +307,21 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 				},
 			}),
 
-			...(editorExperiment('platform_editor_insertion', 'control') && {
-				quickInsert: (intl) => {
-					const exclude =
-						options && options.allowBlockType && options.allowBlockType.exclude
-							? options.allowBlockType.exclude
-							: [];
+			quickInsert: (intl) => {
+				const exclude =
+					options && options.allowBlockType && options.allowBlockType.exclude
+						? options.allowBlockType.exclude
+						: [];
 
-					return [
-						...blockquotePluginOptions(
-							intl,
-							exclude.indexOf('blockquote') === -1,
-							api?.analytics?.actions,
-						),
-						...headingPluginOptions(
-							intl,
-							exclude.indexOf('heading') === -1,
-							api?.analytics?.actions,
-						),
-					];
-				},
-			}),
+				return [
+					...blockquotePluginOptions(
+						intl,
+						exclude.indexOf('blockquote') === -1,
+						api?.analytics?.actions,
+					),
+					...headingPluginOptions(intl, exclude.indexOf('heading') === -1, api?.analytics?.actions),
+				];
+			},
 		},
 	};
 };

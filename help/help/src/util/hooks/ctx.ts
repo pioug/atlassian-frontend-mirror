@@ -1,6 +1,9 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, type Provider } from 'react';
 
-export function createCtx<ContextType>() {
+export function createCtx<ContextType>(): readonly [
+	() => NonNullable<ContextType>,
+	Provider<ContextType | undefined>,
+] {
 	const ctx = createContext<ContextType | undefined>(undefined);
 	function useCtx() {
 		const c = useContext(ctx);

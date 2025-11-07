@@ -19,7 +19,7 @@ interface Props {
 	): void;
 }
 
-export const NewChatButton = ({ onClick, isDisabled }: Props) => {
+export const NewChatButton = ({ onClick, isDisabled }: Props): JSX.Element => {
 	const { formatMessage } = useIntl();
 	return (
 		<Button onClick={onClick} isDisabled={isDisabled} testId="new-chat-button">

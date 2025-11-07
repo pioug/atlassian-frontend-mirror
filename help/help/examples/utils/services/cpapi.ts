@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type Dispatch, type SetStateAction } from 'react';
 import type { WhatsNewArticleItem, WhatsNewArticle, articleId } from '../../../src';
 import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
 
@@ -16,14 +16,31 @@ export interface FilterConfiguration {
 const CPAPI_URL = 'https://jdog.jira-dev.com/gateway/api/graphql';
 const DEFAULT_NUMBER_OF_WHATS_NEW_ITEMS_RESULTS = 10;
 
-export const useContentPlatformApi = () => {
+export const useContentPlatformApi = (): {
+	getWhatsNewArticle: (articleId: articleId) => Promise<WhatsNewArticle>;
+	searchWhatsNewArticles: (
+		filter?: FilterConfiguration,
+		numberOfItems?: number,
+		page?: string,
+	) => Promise<{
+		articles: WhatsNewArticleItem[];
+		hasNextPage: boolean;
+		nextPage: string;
+	}>;
+	setToken: Dispatch<SetStateAction<string>>;
+	token: string;
+} => {
 	const [token, setToken] = useState('');
 
 	const searchWhatsNewArticles = async (
 		filter?: FilterConfiguration,
 		numberOfItems?: number,
 		page?: string,
-	) => {
+	): Promise<{
+		articles: WhatsNewArticleItem[];
+		hasNextPage: boolean;
+		nextPage: string;
+	}> => {
 		let filterValue = '';
 
 		if (filter && Object.keys(filter).length > 0) {
@@ -121,7 +138,7 @@ export const useContentPlatformApi = () => {
 		throw new Error('Data format is not compatible');
 	};
 
-	const getWhatsNewArticle = async (articleId: articleId) => {
+	const getWhatsNewArticle = async (articleId: articleId): Promise<WhatsNewArticle> => {
 		const graphqlRequest = JSON.stringify({
 			query: `
         query {

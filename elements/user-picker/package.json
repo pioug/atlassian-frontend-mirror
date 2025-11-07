@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/user-picker",
-	"version": "11.12.0",
+	"version": "11.13.0",
 	"description": "Fabric component for display a dropdown to select a user from",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -114,6 +114,9 @@
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},
+		"platform_user_picker_firefox_tab_fix": {
+			"type": "boolean"
+		},
 		"jifjam_bulk_operations": {
 			"type": "boolean"
 		},
@@ -127,6 +130,9 @@
 			"type": "boolean"
 		},
 		"user_picker_migrate_aria_label_description": {
+			"type": "boolean"
+		},
+		"confluence_frontend_perms_exp_teams_as_principals": {
 			"type": "boolean"
 		}
 	}

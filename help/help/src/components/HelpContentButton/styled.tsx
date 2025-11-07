@@ -65,7 +65,7 @@ export const HelpContentButtonContainer = ({
 	tabIndex,
 	target,
 	children,
-}: HelpContentButtonContainerProps) => {
+}: HelpContentButtonContainerProps): JSX.Element => {
 	if (href) {
 		return (
 			<li css={parentListItemHelpContentButtonContainerStyles}>
@@ -116,7 +116,7 @@ const helpContentButtonIconStyles = css({
 	},
 });
 
-export const HelpContentButtonIcon = ({ children }: { children: React.ReactNode }) => (
+export const HelpContentButtonIcon = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={helpContentButtonIconStyles}>{children}</div>
 );
 
@@ -131,7 +131,7 @@ const helpContentButtonTextStyles = css({
 	boxSizing: 'border-box',
 });
 
-export const HelpContentButtonText = ({ children }: { children: React.ReactNode }) => (
+export const HelpContentButtonText = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={helpContentButtonTextStyles}>{children}</div>
 );
 
@@ -147,7 +147,7 @@ export const HelpContentButtonExternalLinkIcon = ({
 }: {
 	children: React.ReactNode;
 	dataTestId: string;
-}) => (
+}): JSX.Element => (
 	<div css={helpContentButtonExternalLinkIconStyles} data-testid={dataTestId}>
 		{children}
 	</div>
@@ -164,4 +164,4 @@ export const HelpContentButtonExternalNotificationIcon = ({
 	children,
 }: {
 	children: React.ReactNode;
-}) => <div css={helpContentButtonExternalNotificationIconStyles}>{children}</div>;
+}): JSX.Element => <div css={helpContentButtonExternalNotificationIconStyles}>{children}</div>;

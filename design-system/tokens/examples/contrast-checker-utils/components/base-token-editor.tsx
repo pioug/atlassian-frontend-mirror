@@ -10,11 +10,9 @@ import Button, { IconButton } from '@atlaskit/button/new';
 import CheckIcon from '@atlaskit/icon/core/check-mark';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import EditIcon from '@atlaskit/icon/core/edit';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
-import palettesRaw from '@atlaskit/tokens/palettes-raw';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import palettesBrandRefreshRaw from '../../../src/artifacts/palettes-raw/palette-brand-refresh';
@@ -23,14 +21,11 @@ import { getAlpha, getContrastRatio } from '../../../src/utils/color-utils';
 import { isHex } from '../utils/search-params';
 import { type BaseTokens } from '../utils/types';
 
-const palettes = () =>
-	fg('platform-component-visual-refresh') ? palettesBrandRefreshRaw : palettesRaw;
-
-export const baseTokenNames = palettes()
+export const baseTokenNames = palettesBrandRefreshRaw
 	.filter((base) => base.attributes.category !== 'opacity')
 	.map(({ path }) => path[path.length - 1]);
 
-export const baseTokens: Record<string, string> = palettes()
+export const baseTokens: Record<string, string> = palettesBrandRefreshRaw
 	.filter((base) => base.attributes.category !== 'opacity')
 	.reduce(
 		(acc, { path, value }) => ({
@@ -62,7 +57,7 @@ function generateColorPair(bg: string) {
 	}
 }
 
-const groupedBaseTokens = palettes()
+const groupedBaseTokens = palettesBrandRefreshRaw
 	.filter((base) => base.attributes.category !== 'opacity')
 	.reduce(
 		(acc, baseToken) => {

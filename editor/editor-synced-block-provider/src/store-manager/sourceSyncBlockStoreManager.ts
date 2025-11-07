@@ -6,13 +6,24 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { rebaseTransaction } from '../common/rebase-transaction';
-import type { ResourceId, SyncBlockAttrs, SyncBlockData, SyncBlockNode } from '../common/types';
+import type {
+	ResourceId,
+	SyncBlockAttrs,
+	SyncBlockData as Data,
+	SyncBlockNode,
+} from '../common/types';
 import type { SyncBlockDataProvider } from '../providers/types';
 import { resourceIdFromSourceAndLocalId } from '../utils/ari';
 import { convertSyncBlockPMNodeToSyncBlockData, createBodiedSyncBlockNode } from '../utils/utils';
 
 export type ConfirmationCallback = (syncBlockCount: number) => Promise<boolean>;
 export type CreationCallback = () => void;
+type SyncBlockData = Data & {
+	/**
+	 * Whether the block is waiting to be deleted in backend
+	 */
+	pendingDeletion?: boolean;
+};
 
 export class SourceSyncBlockStoreManager {
 	private dataProvider?: SyncBlockDataProvider;
@@ -43,7 +54,7 @@ export class SourceSyncBlockStoreManager {
 		}
 
 		const syncBlockData = convertSyncBlockPMNodeToSyncBlockData(syncBlockNode);
-		this.syncBlockCache.set(localId, syncBlockData);
+		this.syncBlockCache.set(resourceId, syncBlockData);
 		return true;
 	}
 
@@ -62,14 +73,17 @@ export class SourceSyncBlockStoreManager {
 			const bodiedSyncBlockData: SyncBlockData[] = [];
 
 			Array.from(this.syncBlockCache.values()).forEach((syncBlockData) => {
-				bodiedSyncBlockNodes.push({
-					type: 'bodiedSyncBlock',
-					attrs: {
-						localId: syncBlockData.blockInstanceId,
-						resourceId: syncBlockData.resourceId,
-					},
-				});
-				bodiedSyncBlockData.push(syncBlockData);
+				// Don't flush nodes that are waiting to be deleted to avoid nodes being re-created
+				if (!syncBlockData.pendingDeletion) {
+					bodiedSyncBlockNodes.push({
+						type: 'bodiedSyncBlock',
+						attrs: {
+							localId: syncBlockData.blockInstanceId,
+							resourceId: syncBlockData.resourceId,
+						},
+					});
+					bodiedSyncBlockData.push(syncBlockData);
+				}
 			});
 
 			if (bodiedSyncBlockNodes.length === 0) {
@@ -184,6 +198,13 @@ export class SourceSyncBlockStoreManager {
 		}
 	}
 
+	private setPendingDeletion = (Ids: SyncBlockAttrs, value: boolean) => {
+		const syncBlock = this.syncBlockCache.get(Ids.resourceId);
+		if (syncBlock) {
+			syncBlock.pendingDeletion = value;
+		}
+	};
+
 	public async deleteSyncBlocksWithConfirmation(
 		tr: Transaction,
 		syncBlockIds: SyncBlockAttrs[],
@@ -201,19 +222,27 @@ export class SourceSyncBlockStoreManager {
 						throw new Error('Data provider not set');
 					}
 
+					syncBlockIds.forEach((Ids) => {
+						this.setPendingDeletion(Ids, true);
+					});
 					const results = await this.dataProvider.deleteNodesData(
 						syncBlockIds.map((attrs) => attrs.resourceId),
 					);
 
-					results.forEach((result) => {
-						if (result.success) {
-							// Only delete when it's deleted successfully in backend
-							this.syncBlockCache.delete(result.resourceId);
-						} else {
-							// TODO: EDITOR-1921 - add error analytics with result.error
-						}
-					});
+					let callback;
+					if (results.every((result) => result.success)) {
+						callback = (Ids: SyncBlockAttrs) => this.syncBlockCache.delete(Ids.resourceId);
+					} else {
+						callback = (Ids: SyncBlockAttrs) => {
+							this.setPendingDeletion(Ids, false);
+						};
+						// TODO: EDITOR-1921 - add error analytics
+					}
+					syncBlockIds.forEach(callback);
 				} catch (_error) {
+					syncBlockIds.forEach((Ids) => {
+						this.setPendingDeletion(Ids, false);
+					});
 					// TODO: EDITOR-1921 - add error analytics
 				}
 			}

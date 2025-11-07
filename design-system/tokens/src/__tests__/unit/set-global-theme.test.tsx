@@ -17,11 +17,7 @@ import type * as setGlobalThemeTypes from '../../set-global-theme';
 import { type ThemeIdsWithOverrides, type ThemeOptionsSchema } from '../../theme-config';
 import { hash } from '../../utils/hash';
 
-import {
-	mainThemes,
-	verifyBrandRefreshColors,
-	verifyNonBrandRefreshColors,
-} from './brand-refresh-assertion-helper.mock';
+import { mainThemes, verifyBrandRefreshColors } from './brand-refresh-assertion-helper.mock';
 
 // Mock window.matchMedia before importing setGlobalTheme
 const matchMediaObject = {
@@ -153,16 +149,9 @@ describe('setGlobalTheme style loading', () => {
 					});
 				};
 
-				return ffTest(
-					'platform-component-visual-refresh',
-					async () => {
-						await testWithVisualRefreshVariation(verifyBrandRefreshColors);
-					},
-					async () => {
-						await testWithVisualRefreshVariation(verifyNonBrandRefreshColors);
-					},
-					ff,
-				);
+				return async () => {
+					await testWithVisualRefreshVariation(verifyBrandRefreshColors);
+				};
 			},
 		);
 	});

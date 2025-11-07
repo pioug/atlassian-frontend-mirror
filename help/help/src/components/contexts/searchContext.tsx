@@ -49,7 +49,9 @@ export interface SearchProviderInterface extends SearchSharedInterface {
 	): void;
 }
 
-export const [useSearchContext, CtxProvider] = createCtx<SearchContextInterface>();
+const dest = createCtx<SearchContextInterface>();
+export const useSearchContext: () => SearchContextInterface = dest[0];
+export const CtxProvider: React.Provider<SearchContextInterface | undefined> = dest[1];
 
 export const SearchContextProvider = ({
 	onSearch,
@@ -61,7 +63,7 @@ export const SearchContextProvider = ({
 	children,
 	openExternalSearchUrlInNewTab,
 	searchOnEnterKeyPress,
-}: PropsWithChildren<SearchProviderInterface>) => {
+}: PropsWithChildren<SearchProviderInterface>): React.JSX.Element => {
 	// Search
 	const [searchValue, setSearchValue] = useState<string>('');
 	const [searchResult, setSearchResult] = useState<ArticleItem[] | null>(null);

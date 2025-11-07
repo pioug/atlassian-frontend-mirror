@@ -26,7 +26,7 @@ export const ArticleFrame = ({
 	name: string;
 	onLoad: () => void;
 	sandbox: string;
-}) => (
+}): JSX.Element => (
 	<iframe
 		css={articleFrameStyles}
 		id={id}

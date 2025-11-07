@@ -17,7 +17,7 @@ const IFRAME_FIX_CSS = `
     padding: 0;
   }`;
 
-const DEFAULT_CSS =
+const DEFAULT_CSS: string =
 	RESET_CSS +
 	BASE_CSS +
 	UTILS_CSS +

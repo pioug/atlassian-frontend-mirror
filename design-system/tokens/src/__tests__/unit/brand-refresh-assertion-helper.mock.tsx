@@ -7,11 +7,11 @@ export const mainThemes: ThemeIdsWithOverrides[] = ['light', 'dark'];
 export const verifyBrandRefreshColors = (css: string, id: ThemeIdsWithOverrides) => {
 	switch (id) {
 		case 'light': {
-			verifyLightBrandRefershColor(css);
+			verifyLightColor(css);
 			break;
 		}
 		case 'dark': {
-			verifyDarkBrandRefershColor(css);
+			verifyDarkColor(css);
 			break;
 		}
 		default:
@@ -19,26 +19,8 @@ export const verifyBrandRefreshColors = (css: string, id: ThemeIdsWithOverrides)
 	}
 };
 
-export const verifyNonBrandRefreshColors = (css: string, id: ThemeIdsWithOverrides) => {
-	switch (id) {
-		case 'light': {
-			verifyLightNonBrandRefershColor(css);
-			break;
-		}
-		case 'dark': {
-			verifyDarkNonBrandRefershColor(css);
-			break;
-		}
-		default:
-			throw new Error(`Theme ${id} not supported`);
-	}
-};
-
-export const verifyLightBrandRefershColor = (css: string) => verifyColors(css, '#EFFFD6');
-export const verifyDarkBrandRefershColor = (css: string) => verifyColors(css, '#28311B');
-
-export const verifyLightNonBrandRefershColor = (css: string) => verifyColors(css, '#DCFFF1');
-export const verifyDarkNonBrandRefershColor = (css: string) => verifyColors(css, '#1C3329');
+export const verifyLightColor = (css: string) => verifyColors(css, '#EFFFD6');
+export const verifyDarkColor = (css: string) => verifyColors(css, '#28311B');
 
 const verifyColors = (css: string, color: string) => {
 	// Using the regular expression to match the string

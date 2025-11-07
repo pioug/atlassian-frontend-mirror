@@ -5,7 +5,7 @@
 /** @jsxFrag */
 
 import React, { useRef, useState } from 'react';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 import {
 	useAnalyticsEvents,
 	type UIAnalyticsEvent,
@@ -375,4 +375,7 @@ const ArticleWasHelpfulFormWithContext: React.FC<Props & WrappedComponentProps> 
 	);
 };
 
-export default injectIntl(ArticleWasHelpfulFormWithContext);
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(ArticleWasHelpfulFormWithContext);
+export default _default_1;

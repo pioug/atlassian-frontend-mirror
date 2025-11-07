@@ -174,14 +174,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 	color: {
 		palette: {
 			Blue100: {
-				value: '#E9F2FF',
+				value: '#E9F2FE',
 				attributes: {
 					group: 'palette',
 					category: 'blue',
 				},
 			},
 			Blue200: {
-				value: '#CCE0FF',
+				value: '#CFE1FD',
 				attributes: {
 					group: 'palette',
 					category: 'blue',
@@ -195,42 +195,42 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 				},
 			},
 			Blue300: {
-				value: '#85B8FF',
+				value: '#8FB8F6',
 				attributes: {
 					group: 'palette',
 					category: 'blue',
 				},
 			},
 			Blue400: {
-				value: '#579DFF',
+				value: '#669DF1',
 				attributes: {
 					group: 'palette',
 					category: 'blue',
 				},
 			},
 			Blue500: {
-				value: '#388BFF',
+				value: '#4688EC',
 				attributes: {
 					group: 'palette',
 					category: 'blue',
 				},
 			},
 			Blue600: {
-				value: '#1D7AFC',
+				value: '#357DE8',
 				attributes: {
 					group: 'palette',
 					category: 'blue',
 				},
 			},
 			Blue700: {
-				value: '#0C66E4',
+				value: '#1868DB',
 				attributes: {
 					group: 'palette',
 					category: 'blue',
 				},
 			},
 			Blue800: {
-				value: '#0055CC',
+				value: '#1558BC',
 				attributes: {
 					group: 'palette',
 					category: 'blue',
@@ -244,14 +244,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 				},
 			},
 			Blue900: {
-				value: '#09326C',
+				value: '#123263',
 				attributes: {
 					group: 'palette',
 					category: 'blue',
 				},
 			},
 			Blue1000: {
-				value: '#1C2B41',
+				value: '#1C2B42',
 				attributes: {
 					group: 'palette',
 					category: 'blue',
@@ -342,14 +342,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 				},
 			},
 			Yellow100: {
-				value: '#FFF7D6',
+				value: '#FEF7C8',
 				attributes: {
 					group: 'palette',
 					category: 'yellow',
 				},
 			},
 			Yellow200: {
-				value: '#F8E6A0',
+				value: '#F5E989',
 				attributes: {
 					group: 'palette',
 					category: 'yellow',
@@ -363,14 +363,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 				},
 			},
 			Yellow300: {
-				value: '#F5CD47',
+				value: '#EED12B',
 				attributes: {
 					group: 'palette',
 					category: 'yellow',
 				},
 			},
 			Yellow400: {
-				value: '#E2B203',
+				value: '#DDB30E',
 				attributes: {
 					group: 'palette',
 					category: 'yellow',
@@ -510,14 +510,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 				},
 			},
 			Purple100: {
-				value: '#F3F0FF',
+				value: '#F8EEFE',
 				attributes: {
 					group: 'palette',
 					category: 'purple',
 				},
 			},
 			Purple200: {
-				value: '#DFD8FD',
+				value: '#EED7FC',
 				attributes: {
 					group: 'palette',
 					category: 'purple',
@@ -531,42 +531,42 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 				},
 			},
 			Purple300: {
-				value: '#B8ACF6',
+				value: '#D8A0F7',
 				attributes: {
 					group: 'palette',
 					category: 'purple',
 				},
 			},
 			Purple400: {
-				value: '#9F8FEF',
+				value: '#C97CF4',
 				attributes: {
 					group: 'palette',
 					category: 'purple',
 				},
 			},
 			Purple500: {
-				value: '#8F7EE7',
+				value: '#BF63F3',
 				attributes: {
 					group: 'palette',
 					category: 'purple',
 				},
 			},
 			Purple600: {
-				value: '#8270DB',
+				value: '#AF59E1',
 				attributes: {
 					group: 'palette',
 					category: 'purple',
 				},
 			},
 			Purple700: {
-				value: '#6E5DC6',
+				value: '#964AC0',
 				attributes: {
 					group: 'palette',
 					category: 'purple',
 				},
 			},
 			Purple800: {
-				value: '#5E4DB2',
+				value: '#803FA5',
 				attributes: {
 					group: 'palette',
 					category: 'purple',
@@ -580,14 +580,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 				},
 			},
 			Purple900: {
-				value: '#352C63',
+				value: '#48245D',
 				attributes: {
 					group: 'palette',
 					category: 'purple',
 				},
 			},
 			Purple1000: {
-				value: '#2B273F',
+				value: '#35243F',
 				attributes: {
 					group: 'palette',
 					category: 'purple',
@@ -678,14 +678,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 				},
 			},
 			Orange100: {
-				value: '#FFF3EB',
+				value: '#FFF5DB',
 				attributes: {
 					group: 'palette',
 					category: 'orange',
 				},
 			},
 			Orange200: {
-				value: '#FEDEC8',
+				value: '#FCE4A6',
 				attributes: {
 					group: 'palette',
 					category: 'orange',
@@ -699,42 +699,42 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 				},
 			},
 			Orange300: {
-				value: '#FEC195',
+				value: '#FBC828',
 				attributes: {
 					group: 'palette',
 					category: 'orange',
 				},
 			},
 			Orange400: {
-				value: '#FEA362',
+				value: '#FCA700',
 				attributes: {
 					group: 'palette',
 					category: 'orange',
 				},
 			},
 			Orange500: {
-				value: '#F38A3F',
+				value: '#F68909',
 				attributes: {
 					group: 'palette',
 					category: 'orange',
 				},
 			},
 			Orange600: {
-				value: '#E56910',
+				value: '#E06C00',
 				attributes: {
 					group: 'palette',
 					category: 'orange',
 				},
 			},
 			Orange700: {
-				value: '#C25100',
+				value: '#BD5B00',
 				attributes: {
 					group: 'palette',
 					category: 'orange',
 				},
 			},
 			Orange800: {
-				value: '#A54800',
+				value: '#9E4C00',
 				attributes: {
 					group: 'palette',
 					category: 'orange',
@@ -748,14 +748,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 				},
 			},
 			Orange900: {
-				value: '#702E00',
+				value: '#693200',
 				attributes: {
 					group: 'palette',
 					category: 'orange',
 				},
 			},
 			Orange1000: {
-				value: '#38291E',
+				value: '#3A2C1F',
 				attributes: {
 					group: 'palette',
 					category: 'orange',
@@ -930,169 +930,169 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 				},
 			},
 			'DarkNeutral-100': {
-				value: '#101214',
+				value: '#111213',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			'DarkNeutral-100A': {
-				// #030404 26%
-				value: '#03040442',
+				// #010404 46%
+				value: '#01040475',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral0: {
-				value: '#161A1D',
+				value: '#18191A',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral100: {
-				value: '#1D2125',
+				value: '#1F1F21',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral100A: {
-				// #BCD6F0 4%
-				value: '#BCD6F00A',
+				// #BDBDBD 4%
+				value: '#BDBDBD0A',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral200: {
-				value: '#22272B',
+				value: '#242528',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral200A: {
-				// #A1BDD9 8%
-				value: '#A1BDD914',
+				// #CECED9 7%
+				value: '#CECED912',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral250: {
-				value: '#282E33',
+				value: '#2B2C2F',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral250A: {
-				// #C8E1F9 10%
-				value: '#C8E1F91A',
+				// #D9DAE7 10%
+				value: '#D9DAE71A',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral300: {
-				value: '#2C333A',
+				value: '#303134',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral300A: {
-				// #A6C5E2 16%
-				value: '#A6C5E229',
+				// #E3E4F2 12%
+				value: '#E3E4F21F',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral350: {
-				value: '#38414A',
+				value: '#3D3F43',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral350A: {
-				// #C3DEFE 20%
-				value: '#C3DEFE33',
+				// #E8EDFD 18%
+				value: '#E8EDFD2E',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral400: {
-				value: '#454F59',
+				value: '#4B4D51',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral400A: {
-				// #BFDBF8 28%
-				value: '#BFDBF847',
+				// #E5E9F6 25%
+				value: '#E5E9F640',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral500: {
-				value: '#596773',
+				value: '#63666B',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral500A: {
-				// #9BB4CA @50%
-				value: '#9BB4CA80',
+				// #E9F0FB 36%
+				value: '#E9F0FB5C',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral600: {
-				value: '#738496',
+				value: '#7E8188',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral700: {
-				value: '#8C9BAB',
+				value: '#96999E',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral800: {
-				value: '#9FADBC',
+				value: '#A9ABAF',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral900: {
-				value: '#B6C2CF',
+				value: '#BFC1C4',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral1000: {
-				value: '#C7D1DB',
+				value: '#CECFD2',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
 				},
 			},
 			DarkNeutral1100: {
-				value: '#DEE4EA',
+				value: '#E2E3E4',
 				attributes: {
 					group: 'palette',
 					category: 'dark mode neutral',
@@ -1106,117 +1106,117 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 				},
 			},
 			Neutral100: {
-				value: '#F7F8F9',
+				value: '#F8F8F8',
 				attributes: {
 					group: 'palette',
 					category: 'light mode neutral',
 				},
 			},
 			Neutral100A: {
-				// #091E42 3%
-				value: '#091E4208',
+				// #171717 3%
+				value: '#17171708',
 				attributes: {
 					group: 'palette',
 					category: 'light mode neutral',
 				},
 			},
 			Neutral200: {
-				value: '#F1F2F4',
+				value: '#F0F1F2',
 				attributes: {
 					group: 'palette',
 					category: 'light mode neutral',
 				},
 			},
 			Neutral200A: {
-				// #091E42 6%
-				value: '#091E420F',
+				// #051524 6%
+				value: '#0515240F',
 				attributes: {
 					group: 'palette',
 					category: 'light mode neutral',
 				},
 			},
 			Neutral300: {
-				value: '#DCDFE4',
+				value: '#DDDEE1',
 				attributes: {
 					group: 'palette',
 					category: 'light mode neutral',
 				},
 			},
 			Neutral300A: {
-				// #091E42 14%
-				value: '#091E4224',
+				// #0B120E 14%
+				value: '#0B120E24',
 				attributes: {
 					group: 'palette',
 					category: 'light mode neutral',
 				},
 			},
 			Neutral400: {
-				value: '#B3B9C4',
+				value: '#B7B9BE',
 				attributes: {
 					group: 'palette',
 					category: 'light mode neutral',
 				},
 			},
 			Neutral400A: {
-				// #091E42 31%
-				value: '#091E424F',
+				// #080F21 29%
+				value: '#080F214A',
 				attributes: {
 					group: 'palette',
 					category: 'light mode neutral',
 				},
 			},
 			Neutral500: {
-				value: '#8590A2',
+				value: '#8C8F97',
 				attributes: {
 					group: 'palette',
 					category: 'light mode neutral',
 				},
 			},
 			Neutral500A: {
-				// #091E42 49%
-				value: '#091E427D',
+				// #050C1F 46%
+				value: '#050C1F75',
 				attributes: {
 					group: 'palette',
 					category: 'light mode neutral',
 				},
 			},
 			Neutral600: {
-				value: '#758195',
+				value: '#7D818A',
 				attributes: {
 					group: 'palette',
 					category: 'light mode neutral',
 				},
 			},
 			Neutral700: {
-				value: '#626F86',
+				value: '#6B6E76',
 				attributes: {
 					group: 'palette',
 					category: 'light mode neutral',
 				},
 			},
 			Neutral800: {
-				value: '#44546F',
+				value: '#505258',
 				attributes: {
 					group: 'palette',
 					category: 'light mode neutral',
 				},
 			},
 			Neutral900: {
-				value: '#2C3E5D',
+				value: '#3B3D42',
 				attributes: {
 					group: 'palette',
 					category: 'light mode neutral',
 				},
 			},
 			Neutral1000: {
-				value: '#172B4D',
+				value: '#292A2E',
 				attributes: {
 					group: 'palette',
 					category: 'light mode neutral',
 				},
 			},
 			Neutral1100: {
-				value: '#091E42',
+				value: '#1E1F21',
 				attributes: {
 					group: 'palette',
 					category: 'light mode neutral',

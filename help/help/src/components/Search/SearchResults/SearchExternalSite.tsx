@@ -7,7 +7,7 @@ import {
 import * as colors from '@atlaskit/theme/colors';
 import Button from '@atlaskit/button';
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import { messages } from '../../../messages';
@@ -71,4 +71,7 @@ export const SearchExternalSite: React.FC<Props & WrappedComponentProps> = ({
 	) : null;
 };
 
-export default injectIntl(SearchExternalSite);
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(SearchExternalSite);
+export default _default_1;

@@ -90,10 +90,8 @@ describe('ResolvedView', () => {
 		};
 		render(<InlineCardResolvedView title="some text content" lozenge={lozengeProps} />);
 		const lozenge = await screen.findByTestId('inline-card-resolved-view-lozenge');
-		expect(lozenge).toHaveCompiledCss(
-			'background-color',
-			'var(--ds-background-information-bold,#0c66e4)',
-		);
+		// Lozenge background color is hardcoded in the lozenge component for now
+		expect(lozenge).toHaveCompiledCss('background-color', '#8fb8f6');
 
 		expect(lozenge).toHaveStyle(`color: var(--ds-link,#0052cc)`);
 	});

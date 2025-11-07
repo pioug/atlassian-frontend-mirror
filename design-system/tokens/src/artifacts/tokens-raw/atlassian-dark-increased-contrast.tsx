@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b10cb2c641a28d967973840725505a5d>>
+ * @codegen <<SignedSource::1f9bb1e2b5ec2edbfe1a6eb0d52859b6>>
  * @codegenCommand yarn build tokens
  */
 
@@ -59,7 +59,7 @@ type Token = {
 
 const tokens: Token[] = [
   {
-    "value": "#DEE4EA",
+    "value": "#E2E3E4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
@@ -202,7 +202,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.accent.red.bolder"
   },
   {
-    "value": "#FEDEC8",
+    "value": "#FCE4A6",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -231,7 +231,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.accent.orange"
   },
   {
-    "value": "#FFF3EB",
+    "value": "#FFF5DB",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -260,7 +260,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.accent.orange.bolder"
   },
   {
-    "value": "#F8E6A0",
+    "value": "#F5E989",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -289,7 +289,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.accent.yellow"
   },
   {
-    "value": "#FFF7D6",
+    "value": "#FEF7C8",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -434,7 +434,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.accent.teal.bolder"
   },
   {
-    "value": "#CCE0FF",
+    "value": "#CFE1FD",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -463,7 +463,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.accent.blue"
   },
   {
-    "value": "#E9F2FF",
+    "value": "#E9F2FE",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -492,7 +492,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.accent.blue.bolder"
   },
   {
-    "value": "#DFD8FD",
+    "value": "#EED7FC",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -521,7 +521,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.accent.purple"
   },
   {
-    "value": "#F3F0FF",
+    "value": "#F8EEFE",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -608,7 +608,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.accent.magenta.bolder"
   },
   {
-    "value": "#B6C2CF",
+    "value": "#BFC1C4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -637,7 +637,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.accent.gray"
   },
   {
-    "value": "#DEE4EA",
+    "value": "#E2E3E4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -666,7 +666,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.accent.gray.bolder"
   },
   {
-    "value": "#BFDBF847",
+    "value": "#E5E9F640",
     "filePath": "schema/themes/atlassian-dark/color/text.tsx",
     "isSource": false,
     "attributes": {
@@ -693,7 +693,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.disabled"
   },
   {
-    "value": "#1D2125",
+    "value": "#1F1F21",
     "filePath": "schema/themes/atlassian-dark/color/text.tsx",
     "isSource": false,
     "attributes": {
@@ -720,7 +720,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.inverse"
   },
   {
-    "value": "#CCE0FF",
+    "value": "#CFE1FD",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
@@ -747,7 +747,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.selected"
   },
   {
-    "value": "#CCE0FF",
+    "value": "#CFE1FD",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
@@ -801,7 +801,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.danger"
   },
   {
-    "value": "#FEDEC8",
+    "value": "#FCE4A6",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
@@ -829,7 +829,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.warning"
   },
   {
-    "value": "#161A1D",
+    "value": "#18191A",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
@@ -884,7 +884,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.success"
   },
   {
-    "value": "#DFD8FD",
+    "value": "#EED7FC",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
@@ -911,7 +911,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.discovery"
   },
   {
-    "value": "#CCE0FF",
+    "value": "#CFE1FD",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
@@ -938,7 +938,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.information"
   },
   {
-    "value": "#B6C2CF",
+    "value": "#BFC1C4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
@@ -965,7 +965,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.subtlest"
   },
   {
-    "value": "#C7D1DB",
+    "value": "#CECFD2",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
@@ -992,7 +992,7 @@ const tokens: Token[] = [
     "cleanName": "color.text.subtle"
   },
   {
-    "value": "#CCE0FF",
+    "value": "#CFE1FD",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
@@ -1019,7 +1019,7 @@ const tokens: Token[] = [
     "cleanName": "color.link"
   },
   {
-    "value": "#CCE0FF",
+    "value": "#CFE1FD",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
@@ -1046,7 +1046,7 @@ const tokens: Token[] = [
     "cleanName": "color.link.pressed"
   },
   {
-    "value": "#B8ACF6",
+    "value": "#D8A0F7",
     "filePath": "schema/themes/atlassian-dark/color/text.tsx",
     "isSource": false,
     "attributes": {
@@ -1074,7 +1074,7 @@ const tokens: Token[] = [
     "cleanName": "color.link.visited"
   },
   {
-    "value": "#DFD8FD",
+    "value": "#EED7FC",
     "filePath": "schema/themes/atlassian-dark/color/text.tsx",
     "isSource": false,
     "attributes": {
@@ -1102,7 +1102,7 @@ const tokens: Token[] = [
     "cleanName": "color.link.visited.pressed"
   },
   {
-    "value": "#C7D1DB",
+    "value": "#CECFD2",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
@@ -1185,7 +1185,7 @@ const tokens: Token[] = [
     "cleanName": "color.icon.accent.red"
   },
   {
-    "value": "#FEC195",
+    "value": "#FBC828",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -1213,7 +1213,7 @@ const tokens: Token[] = [
     "cleanName": "color.icon.accent.orange"
   },
   {
-    "value": "#F5CD47",
+    "value": "#EED12B",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -1297,7 +1297,7 @@ const tokens: Token[] = [
     "cleanName": "color.icon.accent.teal"
   },
   {
-    "value": "#85B8FF",
+    "value": "#8FB8F6",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -1325,7 +1325,7 @@ const tokens: Token[] = [
     "cleanName": "color.icon.accent.blue"
   },
   {
-    "value": "#B8ACF6",
+    "value": "#D8A0F7",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -1381,7 +1381,7 @@ const tokens: Token[] = [
     "cleanName": "color.icon.accent.magenta"
   },
   {
-    "value": "#9FADBC",
+    "value": "#A9ABAF",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -1409,7 +1409,7 @@ const tokens: Token[] = [
     "cleanName": "color.icon.accent.gray"
   },
   {
-    "value": "#BFDBF847",
+    "value": "#E5E9F640",
     "filePath": "schema/themes/atlassian-dark/color/icon.tsx",
     "isSource": false,
     "attributes": {
@@ -1436,7 +1436,7 @@ const tokens: Token[] = [
     "cleanName": "color.icon.disabled"
   },
   {
-    "value": "#1D2125",
+    "value": "#1F1F21",
     "filePath": "schema/themes/atlassian-dark/color/icon.tsx",
     "isSource": false,
     "attributes": {
@@ -1463,7 +1463,7 @@ const tokens: Token[] = [
     "cleanName": "color.icon.inverse"
   },
   {
-    "value": "#85B8FF",
+    "value": "#8FB8F6",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
@@ -1490,7 +1490,7 @@ const tokens: Token[] = [
     "cleanName": "color.icon.selected"
   },
   {
-    "value": "#85B8FF",
+    "value": "#8FB8F6",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
@@ -1544,7 +1544,7 @@ const tokens: Token[] = [
     "cleanName": "color.icon.danger"
   },
   {
-    "value": "#FEC195",
+    "value": "#FBC828",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
@@ -1572,7 +1572,7 @@ const tokens: Token[] = [
     "cleanName": "color.icon.warning"
   },
   {
-    "value": "#161A1D",
+    "value": "#18191A",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
@@ -1627,7 +1627,7 @@ const tokens: Token[] = [
     "cleanName": "color.icon.success"
   },
   {
-    "value": "#9F8FEF",
+    "value": "#C97CF4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
@@ -1654,7 +1654,7 @@ const tokens: Token[] = [
     "cleanName": "color.icon.discovery"
   },
   {
-    "value": "#85B8FF",
+    "value": "#8FB8F6",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
@@ -1681,7 +1681,7 @@ const tokens: Token[] = [
     "cleanName": "color.icon.information"
   },
   {
-    "value": "#B6C2CF",
+    "value": "#BFC1C4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
@@ -1708,7 +1708,7 @@ const tokens: Token[] = [
     "cleanName": "color.icon.subtlest"
   },
   {
-    "value": "#B6C2CF",
+    "value": "#BFC1C4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
@@ -1735,7 +1735,7 @@ const tokens: Token[] = [
     "cleanName": "color.icon.subtle"
   },
   {
-    "value": "#9BB4CA80",
+    "value": "#E9F0FB5C",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
@@ -1818,7 +1818,7 @@ const tokens: Token[] = [
     "cleanName": "color.border.accent.red"
   },
   {
-    "value": "#FEC195",
+    "value": "#FBC828",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -1846,7 +1846,7 @@ const tokens: Token[] = [
     "cleanName": "color.border.accent.orange"
   },
   {
-    "value": "#F5CD47",
+    "value": "#EED12B",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -1930,7 +1930,7 @@ const tokens: Token[] = [
     "cleanName": "color.border.accent.teal"
   },
   {
-    "value": "#85B8FF",
+    "value": "#8FB8F6",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -1958,7 +1958,7 @@ const tokens: Token[] = [
     "cleanName": "color.border.accent.blue"
   },
   {
-    "value": "#B8ACF6",
+    "value": "#D8A0F7",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -2014,7 +2014,7 @@ const tokens: Token[] = [
     "cleanName": "color.border.accent.magenta"
   },
   {
-    "value": "#9FADBC",
+    "value": "#A9ABAF",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -2042,7 +2042,7 @@ const tokens: Token[] = [
     "cleanName": "color.border.accent.gray"
   },
   {
-    "value": "#A6C5E229",
+    "value": "#E3E4F21F",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
@@ -2069,7 +2069,7 @@ const tokens: Token[] = [
     "cleanName": "color.border.disabled"
   },
   {
-    "value": "#85B8FF",
+    "value": "#8FB8F6",
     "filePath": "schema/themes/atlassian-dark/color/border.tsx",
     "isSource": false,
     "attributes": {
@@ -2096,7 +2096,7 @@ const tokens: Token[] = [
     "cleanName": "color.border.focused"
   },
   {
-    "value": "#9FADBC",
+    "value": "#A9ABAF",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
@@ -2123,7 +2123,7 @@ const tokens: Token[] = [
     "cleanName": "color.border.input"
   },
   {
-    "value": "#161A1D",
+    "value": "#18191A",
     "filePath": "schema/themes/atlassian-dark/color/border.tsx",
     "isSource": false,
     "attributes": {
@@ -2150,7 +2150,7 @@ const tokens: Token[] = [
     "cleanName": "color.border.inverse"
   },
   {
-    "value": "#85B8FF",
+    "value": "#8FB8F6",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
@@ -2177,7 +2177,7 @@ const tokens: Token[] = [
     "cleanName": "color.border.selected"
   },
   {
-    "value": "#85B8FF",
+    "value": "#8FB8F6",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
@@ -2231,7 +2231,7 @@ const tokens: Token[] = [
     "cleanName": "color.border.danger"
   },
   {
-    "value": "#FEC195",
+    "value": "#FBC828",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
@@ -2285,7 +2285,7 @@ const tokens: Token[] = [
     "cleanName": "color.border.success"
   },
   {
-    "value": "#9F8FEF",
+    "value": "#C97CF4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
@@ -2312,7 +2312,7 @@ const tokens: Token[] = [
     "cleanName": "color.border.discovery"
   },
   {
-    "value": "#85B8FF",
+    "value": "#8FB8F6",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
@@ -2339,7 +2339,7 @@ const tokens: Token[] = [
     "cleanName": "color.border.information"
   },
   {
-    "value": "#9FADBC",
+    "value": "#A9ABAF",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
@@ -2366,7 +2366,7 @@ const tokens: Token[] = [
     "cleanName": "color.border.bold"
   },
   {
-    "value": "#28311B",
+    "value": "#37471F",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2376,7 +2376,7 @@ const tokens: Token[] = [
       "description": "Use for for backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "original": {
-      "value": "Lime1000",
+      "value": "Lime900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2396,7 +2396,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.lime.subtlest"
   },
   {
-    "value": "#37471F",
+    "value": "#3F5224",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2406,7 +2406,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.lime.subtlest."
     },
     "original": {
-      "value": "Lime900",
+      "value": "Lime850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2426,7 +2426,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.lime.subtlest.hovered"
   },
   {
-    "value": "#4C6B1F",
+    "value": "#3F5224",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2436,7 +2436,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.lime.subtlest."
     },
     "original": {
-      "value": "Lime800",
+      "value": "Lime850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2486,7 +2486,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.lime.subtler"
   },
   {
-    "value": "#4C6B1F",
+    "value": "#3F5224",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2496,7 +2496,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.lime.subtler."
     },
     "original": {
-      "value": "Lime800",
+      "value": "Lime850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2516,7 +2516,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.lime.subtler.hovered"
   },
   {
-    "value": "#5B7F24",
+    "value": "#4C6B1F",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2526,7 +2526,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.lime.subtler."
     },
     "original": {
-      "value": "Lime700",
+      "value": "Lime800",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2576,7 +2576,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.lime.subtle"
   },
   {
-    "value": "#37471F",
+    "value": "#3F5224",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2586,7 +2586,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.lime.subtle."
     },
     "original": {
-      "value": "Lime900",
+      "value": "Lime850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2606,7 +2606,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.lime.subtle.hovered"
   },
   {
-    "value": "#28311B",
+    "value": "#37471F",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2616,7 +2616,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.lime.subtle."
     },
     "original": {
-      "value": "Lime1000",
+      "value": "Lime900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2696,7 +2696,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.lime.bolder.hovered"
   },
   {
-    "value": "#D3F1A7",
+    "value": "#BDE97C",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2706,7 +2706,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.lime.bolder."
     },
     "original": {
-      "value": "Lime200",
+      "value": "Lime250",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2786,7 +2786,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.red.subtlest.hovered"
   },
   {
-    "value": "#AE2E24",
+    "value": "#872821",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2796,7 +2796,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.red.subtlest."
     },
     "original": {
-      "value": "Red800",
+      "value": "Red850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2846,7 +2846,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.red.subtler"
   },
   {
-    "value": "#AE2E24",
+    "value": "#872821",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2856,7 +2856,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.red.subtler."
     },
     "original": {
-      "value": "Red800",
+      "value": "Red850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2876,7 +2876,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.red.subtler.hovered"
   },
   {
-    "value": "#C9372C",
+    "value": "#AE2E24",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2886,7 +2886,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.red.subtler."
     },
     "original": {
-      "value": "Red700",
+      "value": "Red800",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2936,7 +2936,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.red.subtle"
   },
   {
-    "value": "#5D1F1A",
+    "value": "#872821",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2946,7 +2946,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.red.subtle."
     },
     "original": {
-      "value": "Red900",
+      "value": "Red850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -2966,7 +2966,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.red.subtle.hovered"
   },
   {
-    "value": "#42221F",
+    "value": "#5D1F1A",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2976,7 +2976,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.red.subtle."
     },
     "original": {
-      "value": "Red1000",
+      "value": "Red900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3056,7 +3056,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.red.bolder.hovered"
   },
   {
-    "value": "#FFD5D2",
+    "value": "#FFB8B2",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3066,7 +3066,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.red.bolder."
     },
     "original": {
-      "value": "Red200",
+      "value": "Red250",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3086,7 +3086,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.red.bolder.pressed"
   },
   {
-    "value": "#38291E",
+    "value": "#693200",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3096,7 +3096,7 @@ const tokens: Token[] = [
       "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "original": {
-      "value": "Orange1000",
+      "value": "Orange900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3116,7 +3116,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.orange.subtlest"
   },
   {
-    "value": "#702E00",
+    "value": "#7A3B00",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3126,7 +3126,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.orange.subtlest."
     },
     "original": {
-      "value": "Orange900",
+      "value": "Orange850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3146,7 +3146,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.orange.subtlest.hovered"
   },
   {
-    "value": "#A54800",
+    "value": "#7A3B00",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3156,7 +3156,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.orange.subtlest."
     },
     "original": {
-      "value": "Orange800",
+      "value": "Orange850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3176,7 +3176,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.orange.subtlest.pressed"
   },
   {
-    "value": "#702E00",
+    "value": "#693200",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3206,7 +3206,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.orange.subtler"
   },
   {
-    "value": "#A54800",
+    "value": "#7A3B00",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3216,7 +3216,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.orange.subtler."
     },
     "original": {
-      "value": "Orange800",
+      "value": "Orange850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3236,7 +3236,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.orange.subtler.hovered"
   },
   {
-    "value": "#C25100",
+    "value": "#9E4C00",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3246,7 +3246,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.orange.subtler."
     },
     "original": {
-      "value": "Orange700",
+      "value": "Orange800",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3266,7 +3266,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.orange.subtler.pressed"
   },
   {
-    "value": "#A54800",
+    "value": "#9E4C00",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3296,7 +3296,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.orange.subtle"
   },
   {
-    "value": "#702E00",
+    "value": "#7A3B00",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3306,7 +3306,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.orange.subtle."
     },
     "original": {
-      "value": "Orange900",
+      "value": "Orange850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3326,7 +3326,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.orange.subtle.hovered"
   },
   {
-    "value": "#38291E",
+    "value": "#693200",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3336,7 +3336,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.orange.subtle."
     },
     "original": {
-      "value": "Orange1000",
+      "value": "Orange900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3356,7 +3356,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.orange.subtle.pressed"
   },
   {
-    "value": "#FEDEC8",
+    "value": "#FCE4A6",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -3386,7 +3386,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.orange.bolder"
   },
   {
-    "value": "#FFF3EB",
+    "value": "#FFF5DB",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -3416,7 +3416,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.orange.bolder.hovered"
   },
   {
-    "value": "#FEDEC8",
+    "value": "#FBD779",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3426,7 +3426,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.orange.bolder."
     },
     "original": {
-      "value": "Orange200",
+      "value": "Orange250",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3446,7 +3446,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.orange.bolder.pressed"
   },
   {
-    "value": "#332E1B",
+    "value": "#533F04",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3456,7 +3456,7 @@ const tokens: Token[] = [
       "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "original": {
-      "value": "Yellow1000",
+      "value": "Yellow900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3476,7 +3476,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.yellow.subtlest"
   },
   {
-    "value": "#533F04",
+    "value": "#614A05",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3486,7 +3486,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.yellow.subtlest."
     },
     "original": {
-      "value": "Yellow900",
+      "value": "Yellow850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3506,7 +3506,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.yellow.subtlest.hovered"
   },
   {
-    "value": "#7F5F01",
+    "value": "#614A05",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3516,7 +3516,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.yellow.subtlest."
     },
     "original": {
-      "value": "Yellow800",
+      "value": "Yellow850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3566,7 +3566,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.yellow.subtler"
   },
   {
-    "value": "#7F5F01",
+    "value": "#614A05",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3576,7 +3576,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.yellow.subtler."
     },
     "original": {
-      "value": "Yellow800",
+      "value": "Yellow850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3596,7 +3596,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.yellow.subtler.hovered"
   },
   {
-    "value": "#946F00",
+    "value": "#7F5F01",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3606,7 +3606,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.yellow.subtler."
     },
     "original": {
-      "value": "Yellow700",
+      "value": "Yellow800",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3656,7 +3656,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.yellow.subtle"
   },
   {
-    "value": "#533F04",
+    "value": "#614A05",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3666,7 +3666,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.yellow.subtle."
     },
     "original": {
-      "value": "Yellow900",
+      "value": "Yellow850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3686,7 +3686,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.yellow.subtle.hovered"
   },
   {
-    "value": "#332E1B",
+    "value": "#533F04",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3696,7 +3696,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.yellow.subtle."
     },
     "original": {
-      "value": "Yellow1000",
+      "value": "Yellow900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3716,7 +3716,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.yellow.subtle.pressed"
   },
   {
-    "value": "#F8E6A0",
+    "value": "#F5E989",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -3746,7 +3746,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.yellow.bolder"
   },
   {
-    "value": "#FFF7D6",
+    "value": "#FEF7C8",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -3776,7 +3776,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.yellow.bolder.hovered"
   },
   {
-    "value": "#F8E6A0",
+    "value": "#EFDD4E",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3786,7 +3786,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.yellow.bolder."
     },
     "original": {
-      "value": "Yellow200",
+      "value": "Yellow250",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3806,7 +3806,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.yellow.bolder.pressed"
   },
   {
-    "value": "#1C3329",
+    "value": "#164B35",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3816,7 +3816,7 @@ const tokens: Token[] = [
       "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "original": {
-      "value": "Green1000",
+      "value": "Green900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3836,7 +3836,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.green.subtlest"
   },
   {
-    "value": "#164B35",
+    "value": "#19573D",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3846,7 +3846,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.green.subtlest."
     },
     "original": {
-      "value": "Green900",
+      "value": "Green850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3866,7 +3866,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.green.subtlest.hovered"
   },
   {
-    "value": "#216E4E",
+    "value": "#19573D",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3876,7 +3876,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.green.subtlest."
     },
     "original": {
-      "value": "Green800",
+      "value": "Green850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3926,7 +3926,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.green.subtler"
   },
   {
-    "value": "#216E4E",
+    "value": "#19573D",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3936,7 +3936,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.green.subtler."
     },
     "original": {
-      "value": "Green800",
+      "value": "Green850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3956,7 +3956,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.green.subtler.hovered"
   },
   {
-    "value": "#1F845A",
+    "value": "#216E4E",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3966,7 +3966,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.green.subtler."
     },
     "original": {
-      "value": "Green700",
+      "value": "Green800",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4016,7 +4016,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.green.subtle"
   },
   {
-    "value": "#164B35",
+    "value": "#19573D",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4026,7 +4026,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.green.subtle."
     },
     "original": {
-      "value": "Green900",
+      "value": "Green850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4046,7 +4046,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.green.subtle.hovered"
   },
   {
-    "value": "#1C3329",
+    "value": "#164B35",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4056,7 +4056,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.green.subtle."
     },
     "original": {
-      "value": "Green1000",
+      "value": "Green900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4136,7 +4136,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.green.bolder.hovered"
   },
   {
-    "value": "#BAF3DB",
+    "value": "#97EDC9",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4146,7 +4146,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.green.bolder."
     },
     "original": {
-      "value": "Green200",
+      "value": "Green250",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4166,7 +4166,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.green.bolder.pressed"
   },
   {
-    "value": "#1E3137",
+    "value": "#164555",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4176,7 +4176,7 @@ const tokens: Token[] = [
       "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "original": {
-      "value": "Teal1000",
+      "value": "Teal900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4196,7 +4196,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.teal.subtlest"
   },
   {
-    "value": "#164555",
+    "value": "#1A5265",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4206,7 +4206,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.teal.subtlest."
     },
     "original": {
-      "value": "Teal900",
+      "value": "Teal850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4226,7 +4226,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.teal.subtlest.hovered"
   },
   {
-    "value": "#206A83",
+    "value": "#1A5265",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4236,7 +4236,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.teal.subtlest."
     },
     "original": {
-      "value": "Teal800",
+      "value": "Teal850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4286,7 +4286,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.teal.subtler"
   },
   {
-    "value": "#206A83",
+    "value": "#1A5265",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4296,7 +4296,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.teal.subtler."
     },
     "original": {
-      "value": "Teal800",
+      "value": "Teal850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4316,7 +4316,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.teal.subtler.hovered"
   },
   {
-    "value": "#227D9B",
+    "value": "#206A83",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4326,7 +4326,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.teal.subtler."
     },
     "original": {
-      "value": "Teal700",
+      "value": "Teal800",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4376,7 +4376,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.teal.subtle"
   },
   {
-    "value": "#164555",
+    "value": "#1A5265",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4386,7 +4386,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.teal.subtle."
     },
     "original": {
-      "value": "Teal900",
+      "value": "Teal850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4406,7 +4406,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.teal.subtle.hovered"
   },
   {
-    "value": "#1E3137",
+    "value": "#164555",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4416,7 +4416,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.teal.subtle."
     },
     "original": {
-      "value": "Teal1000",
+      "value": "Teal900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4496,7 +4496,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.teal.bolder.hovered"
   },
   {
-    "value": "#C6EDFB",
+    "value": "#B1E4F7",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4506,7 +4506,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.teal.bolder."
     },
     "original": {
-      "value": "Teal200",
+      "value": "Teal250",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4526,7 +4526,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.teal.bolder.pressed"
   },
   {
-    "value": "#1C2B41",
+    "value": "#1C2B42",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4556,7 +4556,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.blue.subtlest"
   },
   {
-    "value": "#09326C",
+    "value": "#123263",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4586,7 +4586,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.blue.subtlest.hovered"
   },
   {
-    "value": "#0055CC",
+    "value": "#144794",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4596,7 +4596,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.blue.subtlest."
     },
     "original": {
-      "value": "Blue800",
+      "value": "Blue850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4616,7 +4616,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.blue.subtlest.pressed"
   },
   {
-    "value": "#09326C",
+    "value": "#123263",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4646,7 +4646,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.blue.subtler"
   },
   {
-    "value": "#0055CC",
+    "value": "#144794",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4656,7 +4656,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.blue.subtler."
     },
     "original": {
-      "value": "Blue800",
+      "value": "Blue850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4676,7 +4676,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.blue.subtler.hovered"
   },
   {
-    "value": "#0C66E4",
+    "value": "#1558BC",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4686,7 +4686,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.blue.subtler."
     },
     "original": {
-      "value": "Blue700",
+      "value": "Blue800",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4706,7 +4706,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.blue.subtler.pressed"
   },
   {
-    "value": "#0055CC",
+    "value": "#1558BC",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4736,7 +4736,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.blue.subtle"
   },
   {
-    "value": "#09326C",
+    "value": "#144794",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4746,7 +4746,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.blue.subtle."
     },
     "original": {
-      "value": "Blue900",
+      "value": "Blue850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4766,7 +4766,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.blue.subtle.hovered"
   },
   {
-    "value": "#1C2B41",
+    "value": "#123263",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4776,7 +4776,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.blue.subtle."
     },
     "original": {
-      "value": "Blue1000",
+      "value": "Blue900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4796,7 +4796,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.blue.subtle.pressed"
   },
   {
-    "value": "#579DFF",
+    "value": "#669DF1",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4826,7 +4826,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.blue.bolder"
   },
   {
-    "value": "#85B8FF",
+    "value": "#8FB8F6",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4856,7 +4856,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.blue.bolder.hovered"
   },
   {
-    "value": "#CCE0FF",
+    "value": "#ADCBFB",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4866,7 +4866,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.blue.bolder."
     },
     "original": {
-      "value": "Blue200",
+      "value": "Blue250",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4886,7 +4886,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.blue.bolder.pressed"
   },
   {
-    "value": "#2B273F",
+    "value": "#48245D",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4896,7 +4896,7 @@ const tokens: Token[] = [
       "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "original": {
-      "value": "Purple1000",
+      "value": "Purple900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4916,7 +4916,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.purple.subtlest"
   },
   {
-    "value": "#352C63",
+    "value": "#673286",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4926,7 +4926,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.purple.subtlest."
     },
     "original": {
-      "value": "Purple900",
+      "value": "Purple850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4946,7 +4946,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.purple.subtlest.hovered"
   },
   {
-    "value": "#5E4DB2",
+    "value": "#673286",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4956,7 +4956,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.purple.subtlest."
     },
     "original": {
-      "value": "Purple800",
+      "value": "Purple850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4976,7 +4976,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.purple.subtlest.pressed"
   },
   {
-    "value": "#352C63",
+    "value": "#48245D",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5006,7 +5006,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.purple.subtler"
   },
   {
-    "value": "#5E4DB2",
+    "value": "#673286",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5016,7 +5016,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.purple.subtler."
     },
     "original": {
-      "value": "Purple800",
+      "value": "Purple850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -5036,7 +5036,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.purple.subtler.hovered"
   },
   {
-    "value": "#6E5DC6",
+    "value": "#803FA5",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5046,7 +5046,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.purple.subtler."
     },
     "original": {
-      "value": "Purple700",
+      "value": "Purple800",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -5066,7 +5066,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.purple.subtler.pressed"
   },
   {
-    "value": "#5E4DB2",
+    "value": "#803FA5",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5096,7 +5096,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.purple.subtle"
   },
   {
-    "value": "#352C63",
+    "value": "#673286",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5106,7 +5106,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.purple.subtle."
     },
     "original": {
-      "value": "Purple900",
+      "value": "Purple850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -5126,7 +5126,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.purple.subtle.hovered"
   },
   {
-    "value": "#2B273F",
+    "value": "#48245D",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5136,7 +5136,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.purple.subtle."
     },
     "original": {
-      "value": "Purple1000",
+      "value": "Purple900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -5156,7 +5156,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.purple.subtle.pressed"
   },
   {
-    "value": "#DFD8FD",
+    "value": "#EED7FC",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -5186,7 +5186,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.purple.bolder"
   },
   {
-    "value": "#F3F0FF",
+    "value": "#F8EEFE",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -5216,7 +5216,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.purple.bolder.hovered"
   },
   {
-    "value": "#DFD8FD",
+    "value": "#E3BDFA",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5226,7 +5226,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.purple.bolder."
     },
     "original": {
-      "value": "Purple200",
+      "value": "Purple250",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -5246,7 +5246,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.purple.bolder.pressed"
   },
   {
-    "value": "#3D2232",
+    "value": "#50253F",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5256,7 +5256,7 @@ const tokens: Token[] = [
       "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "original": {
-      "value": "Magenta1000",
+      "value": "Magenta900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -5276,7 +5276,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.magenta.subtlest"
   },
   {
-    "value": "#50253F",
+    "value": "#77325B",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5286,7 +5286,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.magenta.subtlest."
     },
     "original": {
-      "value": "Magenta900",
+      "value": "Magenta850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -5306,7 +5306,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.magenta.subtlest.hovered"
   },
   {
-    "value": "#943D73",
+    "value": "#77325B",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5316,7 +5316,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.magenta.subtlest."
     },
     "original": {
-      "value": "Magenta800",
+      "value": "Magenta850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -5366,7 +5366,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.magenta.subtler"
   },
   {
-    "value": "#943D73",
+    "value": "#77325B",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5376,7 +5376,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.magenta.subtler."
     },
     "original": {
-      "value": "Magenta800",
+      "value": "Magenta850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -5396,7 +5396,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.magenta.subtler.hovered"
   },
   {
-    "value": "#AE4787",
+    "value": "#943D73",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5406,7 +5406,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.magenta.subtler."
     },
     "original": {
-      "value": "Magenta700",
+      "value": "Magenta800",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -5456,7 +5456,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.magenta.subtle"
   },
   {
-    "value": "#50253F",
+    "value": "#77325B",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5466,7 +5466,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.magenta.subtle."
     },
     "original": {
-      "value": "Magenta900",
+      "value": "Magenta850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -5486,7 +5486,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.magenta.subtle.hovered"
   },
   {
-    "value": "#3D2232",
+    "value": "#50253F",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5496,7 +5496,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.magenta.subtle."
     },
     "original": {
-      "value": "Magenta1000",
+      "value": "Magenta900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -5576,7 +5576,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.magenta.bolder.hovered"
   },
   {
-    "value": "#FDD0EC",
+    "value": "#FCB6E1",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5586,7 +5586,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.accent.magenta.bolder."
     },
     "original": {
-      "value": "Magenta200",
+      "value": "Magenta250",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -5606,7 +5606,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.magenta.bolder.pressed"
   },
   {
-    "value": "#2C333A",
+    "value": "#303134",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5636,7 +5636,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.gray.subtlest"
   },
   {
-    "value": "#38414A",
+    "value": "#3D3F43",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5666,7 +5666,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.gray.subtlest.hovered"
   },
   {
-    "value": "#454F59",
+    "value": "#4B4D51",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5696,7 +5696,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.gray.subtlest.pressed"
   },
   {
-    "value": "#454F59",
+    "value": "#4B4D51",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5726,7 +5726,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.gray.subtler"
   },
   {
-    "value": "#596773",
+    "value": "#63666B",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5756,7 +5756,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.gray.subtler.hovered"
   },
   {
-    "value": "#738496",
+    "value": "#7E8188",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5786,7 +5786,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.gray.subtler.pressed"
   },
   {
-    "value": "#454F59",
+    "value": "#4B4D51",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -5816,7 +5816,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.gray.subtle"
   },
   {
-    "value": "#2C333A",
+    "value": "#303134",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -5846,7 +5846,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.gray.subtle.hovered"
   },
   {
-    "value": "#22272B",
+    "value": "#242528",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -5876,7 +5876,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.gray.subtle.pressed"
   },
   {
-    "value": "#9FADBC",
+    "value": "#A9ABAF",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -5906,7 +5906,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.gray.bolder"
   },
   {
-    "value": "#B6C2CF",
+    "value": "#BFC1C4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -5936,7 +5936,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.gray.bolder.hovered"
   },
   {
-    "value": "#C7D1DB",
+    "value": "#CECFD2",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
@@ -5966,7 +5966,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.gray.bolder.pressed"
   },
   {
-    "value": "#BCD6F00A",
+    "value": "#BDBDBD0A",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -5993,7 +5993,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.disabled"
   },
   {
-    "value": "#22272B",
+    "value": "#242528",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6021,7 +6021,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.input"
   },
   {
-    "value": "#282E33",
+    "value": "#2B2C2F",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6049,7 +6049,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.input.hovered"
   },
   {
-    "value": "#22272B",
+    "value": "#242528",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6164,7 +6164,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.inverse.subtle.pressed"
   },
   {
-    "value": "#A1BDD914",
+    "value": "#CECED912",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6193,7 +6193,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.neutral"
   },
   {
-    "value": "#A6C5E229",
+    "value": "#E3E4F21F",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6222,7 +6222,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.neutral.hovered"
   },
   {
-    "value": "#BFDBF847",
+    "value": "#E5E9F640",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6280,7 +6280,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.neutral.subtle"
   },
   {
-    "value": "#A1BDD914",
+    "value": "#CECED912",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6309,7 +6309,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.neutral.subtle.hovered"
   },
   {
-    "value": "#A6C5E229",
+    "value": "#E3E4F21F",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6338,7 +6338,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.neutral.subtle.pressed"
   },
   {
-    "value": "#9FADBC",
+    "value": "#CECFD2",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6348,7 +6348,7 @@ const tokens: Token[] = [
       "description": "A vibrant background option for neutral UI elements, such as announcement banners."
     },
     "original": {
-      "value": "DarkNeutral800",
+      "value": "DarkNeutral1000",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -6367,7 +6367,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.neutral.bold"
   },
   {
-    "value": "#B6C2CF",
+    "value": "#BFC1C4",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6396,7 +6396,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.neutral.bold.hovered"
   },
   {
-    "value": "#C7D1DB",
+    "value": "#A9ABAF",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6406,7 +6406,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.neutral.bold"
     },
     "original": {
-      "value": "DarkNeutral1000",
+      "value": "DarkNeutral800",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -6425,7 +6425,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.neutral.bold.pressed"
   },
   {
-    "value": "#1C2B41",
+    "value": "#1C2B42",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6454,7 +6454,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.selected"
   },
   {
-    "value": "#09326C",
+    "value": "#123263",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6483,7 +6483,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.selected.hovered"
   },
   {
-    "value": "#0055CC",
+    "value": "#1558BC",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6512,7 +6512,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.selected.pressed"
   },
   {
-    "value": "#CCE0FF",
+    "value": "#CFE1FD",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -6541,7 +6541,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.selected.bold"
   },
   {
-    "value": "#E9F2FF",
+    "value": "#E9F2FE",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -6570,7 +6570,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.selected.bold.hovered"
   },
   {
-    "value": "#DEE4EA",
+    "value": "#E2E3E4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -6599,7 +6599,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.selected.bold.pressed"
   },
   {
-    "value": "#1C2B41",
+    "value": "#1C2B42",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6628,7 +6628,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.brand.subtlest"
   },
   {
-    "value": "#09326C",
+    "value": "#123263",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6657,7 +6657,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.brand.subtlest.hovered"
   },
   {
-    "value": "#0055CC",
+    "value": "#144794",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6667,7 +6667,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.brand.subtlest"
     },
     "original": {
-      "value": "Blue800",
+      "value": "Blue850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -6686,7 +6686,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.brand.subtlest.pressed"
   },
   {
-    "value": "#CCE0FF",
+    "value": "#CFE1FD",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -6715,7 +6715,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.brand.bold"
   },
   {
-    "value": "#E9F2FF",
+    "value": "#E9F2FE",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -6744,7 +6744,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.brand.bold.hovered"
   },
   {
-    "value": "#DEE4EA",
+    "value": "#E2E3E4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -6773,7 +6773,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.brand.bold.pressed"
   },
   {
-    "value": "#E9F2FF",
+    "value": "#E9F2FE",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6802,7 +6802,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.brand.boldest"
   },
   {
-    "value": "#CCE0FF",
+    "value": "#CFE1FD",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6831,7 +6831,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.brand.boldest.hovered"
   },
   {
-    "value": "#85B8FF",
+    "value": "#ADCBFB",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6841,7 +6841,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.brand.boldest."
     },
     "original": {
-      "value": "Blue300",
+      "value": "Blue250",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -6918,7 +6918,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.danger.hovered"
   },
   {
-    "value": "#AE2E24",
+    "value": "#872821",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -6928,7 +6928,7 @@ const tokens: Token[] = [
       "description": "Pressed state for color.background.danger"
     },
     "original": {
-      "value": "Red800",
+      "value": "Red850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -7005,7 +7005,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.danger.bold.hovered"
   },
   {
-    "value": "#DEE4EA",
+    "value": "#E2E3E4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -7034,7 +7034,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.danger.bold.pressed"
   },
   {
-    "value": "#332E1B",
+    "value": "#3A2C1F",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -7044,7 +7044,7 @@ const tokens: Token[] = [
       "description": "Use for backgrounds communicating caution, such as in warning section messages."
     },
     "original": {
-      "value": "Yellow1000",
+      "value": "Orange1000",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -7063,7 +7063,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.warning"
   },
   {
-    "value": "#533F04",
+    "value": "#693200",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -7073,7 +7073,7 @@ const tokens: Token[] = [
       "description": "Hovered state for color.background.warning"
     },
     "original": {
-      "value": "Yellow900",
+      "value": "Orange900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -7092,7 +7092,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.warning.hovered"
   },
   {
-    "value": "#7F5F01",
+    "value": "#7A3B00",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -7102,7 +7102,7 @@ const tokens: Token[] = [
       "description": "Pressed state for color.background.warning"
     },
     "original": {
-      "value": "Yellow800",
+      "value": "Orange850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -7121,7 +7121,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.warning.pressed"
   },
   {
-    "value": "#F8E6A0",
+    "value": "#F5E989",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -7150,7 +7150,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.warning.bold"
   },
   {
-    "value": "#FFF7D6",
+    "value": "#FEF7C8",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -7179,7 +7179,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.warning.bold.hovered"
   },
   {
-    "value": "#DEE4EA",
+    "value": "#E2E3E4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -7208,7 +7208,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.warning.bold.pressed"
   },
   {
-    "value": "#1C3329",
+    "value": "#28311B",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -7218,7 +7218,7 @@ const tokens: Token[] = [
       "description": "Use for backgrounds communicating a favorable outcome, such as in success section messages."
     },
     "original": {
-      "value": "Green1000",
+      "value": "Lime1000",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -7237,7 +7237,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.success"
   },
   {
-    "value": "#164B35",
+    "value": "#37471F",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -7247,7 +7247,7 @@ const tokens: Token[] = [
       "description": "Hovered state for color.background.success"
     },
     "original": {
-      "value": "Green900",
+      "value": "Lime900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -7266,7 +7266,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.success.hovered"
   },
   {
-    "value": "#216E4E",
+    "value": "#3F5224",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -7276,7 +7276,7 @@ const tokens: Token[] = [
       "description": "Pressed state for color.background.success"
     },
     "original": {
-      "value": "Green800",
+      "value": "Lime850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -7353,7 +7353,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.success.bold.hovered"
   },
   {
-    "value": "#DEE4EA",
+    "value": "#E2E3E4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -7382,7 +7382,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.success.bold.pressed"
   },
   {
-    "value": "#2B273F",
+    "value": "#35243F",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -7411,7 +7411,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.discovery"
   },
   {
-    "value": "#352C63",
+    "value": "#48245D",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -7440,7 +7440,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.discovery.hovered"
   },
   {
-    "value": "#5E4DB2",
+    "value": "#673286",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -7450,7 +7450,7 @@ const tokens: Token[] = [
       "description": "Pressed state for color.background.discovery"
     },
     "original": {
-      "value": "Purple800",
+      "value": "Purple850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -7469,7 +7469,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.discovery.pressed"
   },
   {
-    "value": "#DFD8FD",
+    "value": "#EED7FC",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -7498,7 +7498,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.discovery.bold"
   },
   {
-    "value": "#F3F0FF",
+    "value": "#F8EEFE",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -7527,7 +7527,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.discovery.bold.hovered"
   },
   {
-    "value": "#DEE4EA",
+    "value": "#E2E3E4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -7556,7 +7556,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.discovery.bold.pressed"
   },
   {
-    "value": "#1C2B41",
+    "value": "#1C2B42",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -7585,7 +7585,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.information"
   },
   {
-    "value": "#09326C",
+    "value": "#123263",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -7614,7 +7614,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.information.hovered"
   },
   {
-    "value": "#0055CC",
+    "value": "#144794",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": false,
     "attributes": {
@@ -7624,7 +7624,7 @@ const tokens: Token[] = [
       "description": "Pressed state of color.background.information"
     },
     "original": {
-      "value": "Blue800",
+      "value": "Blue850",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -7643,7 +7643,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.information.pressed"
   },
   {
-    "value": "#CCE0FF",
+    "value": "#CFE1FD",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -7672,7 +7672,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.information.bold"
   },
   {
-    "value": "#E9F2FF",
+    "value": "#E9F2FE",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -7701,7 +7701,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.information.bold.hovered"
   },
   {
-    "value": "#DEE4EA",
+    "value": "#E2E3E4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
@@ -7865,7 +7865,7 @@ const tokens: Token[] = [
     "cleanName": "color.interaction.pressed"
   },
   {
-    "value": "#A1BDD914",
+    "value": "#CECED912",
     "filePath": "schema/themes/atlassian-dark/color/skeleton.tsx",
     "isSource": false,
     "attributes": {
@@ -7892,7 +7892,7 @@ const tokens: Token[] = [
     "cleanName": "color.skeleton"
   },
   {
-    "value": "#BCD6F00A",
+    "value": "#BDBDBD0A",
     "filePath": "schema/themes/atlassian-dark/color/skeleton.tsx",
     "isSource": false,
     "attributes": {
@@ -7977,7 +7977,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.categorical.1.hovered"
   },
   {
-    "value": "#B8ACF6",
+    "value": "#94C748",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -7987,7 +7987,7 @@ const tokens: Token[] = [
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "original": {
-      "value": "Purple300",
+      "value": "Lime400",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -8006,7 +8006,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.categorical.2"
   },
   {
-    "value": "#DFD8FD",
+    "value": "#B3DF72",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -8016,7 +8016,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.chart.categorical.2."
     },
     "original": {
-      "value": "Purple200",
+      "value": "Lime300",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -8035,7 +8035,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.categorical.2.hovered"
   },
   {
-    "value": "#FEC195",
+    "value": "#FBC828",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8064,7 +8064,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.categorical.3"
   },
   {
-    "value": "#FEDEC8",
+    "value": "#FCE4A6",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8093,7 +8093,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.categorical.3.hovered"
   },
   {
-    "value": "#F797D2",
+    "value": "#FCA700",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -8103,7 +8103,7 @@ const tokens: Token[] = [
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "original": {
-      "value": "Magenta300",
+      "value": "Orange400",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -8122,7 +8122,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.categorical.4"
   },
   {
-    "value": "#FDD0EC",
+    "value": "#FBC828",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -8132,7 +8132,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.chart.categorical.4."
     },
     "original": {
-      "value": "Magenta200",
+      "value": "Orange300",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -8151,7 +8151,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.categorical.4.hovered"
   },
   {
-    "value": "#CCE0FF",
+    "value": "#1558BC",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -8161,7 +8161,7 @@ const tokens: Token[] = [
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "original": {
-      "value": "Blue200",
+      "value": "Blue800",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -8180,7 +8180,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.categorical.5"
   },
   {
-    "value": "#E9F2FF",
+    "value": "#1868DB",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -8190,7 +8190,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.chart.categorical.5."
     },
     "original": {
-      "value": "Blue100",
+      "value": "Blue700",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -8209,7 +8209,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.categorical.5.hovered"
   },
   {
-    "value": "#B8ACF6",
+    "value": "#D8A0F7",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8238,7 +8238,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.categorical.6"
   },
   {
-    "value": "#DFD8FD",
+    "value": "#EED7FC",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8267,7 +8267,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.categorical.6.hovered"
   },
   {
-    "value": "#FDD0EC",
+    "value": "#42B2D7",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -8277,7 +8277,7 @@ const tokens: Token[] = [
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "original": {
-      "value": "Magenta200",
+      "value": "Teal500",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -8296,7 +8296,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.categorical.7"
   },
   {
-    "value": "#FFECF8",
+    "value": "#6CC3E0",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -8306,7 +8306,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.chart.categorical.7."
     },
     "original": {
-      "value": "Magenta100",
+      "value": "Teal400",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -8325,7 +8325,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.categorical.7.hovered"
   },
   {
-    "value": "#FEC195",
+    "value": "#E06C00",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -8335,7 +8335,7 @@ const tokens: Token[] = [
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "original": {
-      "value": "Orange300",
+      "value": "Orange600",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -8354,7 +8354,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.categorical.8"
   },
   {
-    "value": "#FEDEC8",
+    "value": "#FBD779",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -8364,7 +8364,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.chart.categorical.8."
     },
     "original": {
-      "value": "Orange200",
+      "value": "Orange250",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -8557,7 +8557,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.lime.boldest.hovered"
   },
   {
-    "value": "#8C9BAB",
+    "value": "#96999E",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8585,7 +8585,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.neutral"
   },
   {
-    "value": "#9FADBC",
+    "value": "#A9ABAF",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8787,7 +8787,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.red.boldest.hovered"
   },
   {
-    "value": "#FEC195",
+    "value": "#FBC828",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8816,7 +8816,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.orange.bold"
   },
   {
-    "value": "#FEDEC8",
+    "value": "#FCE4A6",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8845,7 +8845,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.orange.bold.hovered"
   },
   {
-    "value": "#FEDEC8",
+    "value": "#FCE4A6",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8874,7 +8874,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.orange.bolder"
   },
   {
-    "value": "#FFF3EB",
+    "value": "#FFF5DB",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8903,7 +8903,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.orange.bolder.hovered"
   },
   {
-    "value": "#FFF3EB",
+    "value": "#FFF5DB",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8932,7 +8932,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.orange.boldest"
   },
   {
-    "value": "#FEDEC8",
+    "value": "#FCE4A6",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -8961,7 +8961,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.orange.boldest.hovered"
   },
   {
-    "value": "#F5CD47",
+    "value": "#EED12B",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -8990,7 +8990,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.yellow.bold"
   },
   {
-    "value": "#F8E6A0",
+    "value": "#F5E989",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9019,7 +9019,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.yellow.bold.hovered"
   },
   {
-    "value": "#F8E6A0",
+    "value": "#F5E989",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9048,7 +9048,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.yellow.bolder"
   },
   {
-    "value": "#FFF7D6",
+    "value": "#FEF7C8",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9077,7 +9077,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.yellow.bolder.hovered"
   },
   {
-    "value": "#FFF7D6",
+    "value": "#FEF7C8",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9106,7 +9106,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.yellow.boldest"
   },
   {
-    "value": "#F8E6A0",
+    "value": "#F5E989",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -9483,7 +9483,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.teal.boldest.hovered"
   },
   {
-    "value": "#85B8FF",
+    "value": "#8FB8F6",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9512,7 +9512,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.blue.bold"
   },
   {
-    "value": "#CCE0FF",
+    "value": "#CFE1FD",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9541,7 +9541,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.blue.bold.hovered"
   },
   {
-    "value": "#CCE0FF",
+    "value": "#CFE1FD",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9570,7 +9570,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.blue.bolder"
   },
   {
-    "value": "#E9F2FF",
+    "value": "#E9F2FE",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9599,7 +9599,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.blue.bolder.hovered"
   },
   {
-    "value": "#E9F2FF",
+    "value": "#E9F2FE",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9628,7 +9628,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.blue.boldest"
   },
   {
-    "value": "#CCE0FF",
+    "value": "#CFE1FD",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -9657,7 +9657,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.blue.boldest.hovered"
   },
   {
-    "value": "#B8ACF6",
+    "value": "#D8A0F7",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9686,7 +9686,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.purple.bold"
   },
   {
-    "value": "#DFD8FD",
+    "value": "#EED7FC",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9715,7 +9715,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.purple.bold.hovered"
   },
   {
-    "value": "#DFD8FD",
+    "value": "#EED7FC",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9744,7 +9744,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.purple.bolder"
   },
   {
-    "value": "#F3F0FF",
+    "value": "#F8EEFE",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9773,7 +9773,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.purple.bolder.hovered"
   },
   {
-    "value": "#F3F0FF",
+    "value": "#F8EEFE",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -9802,7 +9802,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.purple.boldest"
   },
   {
-    "value": "#DFD8FD",
+    "value": "#EED7FC",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -10005,7 +10005,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.magenta.boldest.hovered"
   },
   {
-    "value": "#8C9BAB",
+    "value": "#96999E",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -10034,7 +10034,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.gray.bold"
   },
   {
-    "value": "#9FADBC",
+    "value": "#A9ABAF",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -10063,7 +10063,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.gray.bold.hovered"
   },
   {
-    "value": "#9FADBC",
+    "value": "#A9ABAF",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -10092,7 +10092,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.gray.bolder"
   },
   {
-    "value": "#B6C2CF",
+    "value": "#BFC1C4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -10121,7 +10121,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.gray.bolder.hovered"
   },
   {
-    "value": "#B6C2CF",
+    "value": "#BFC1C4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -10150,7 +10150,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.gray.boldest"
   },
   {
-    "value": "#C7D1DB",
+    "value": "#CECFD2",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -10179,7 +10179,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.gray.boldest.hovered"
   },
   {
-    "value": "#579DFF",
+    "value": "#669DF1",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -10207,7 +10207,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.brand"
   },
   {
-    "value": "#85B8FF",
+    "value": "#8FB8F6",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -10293,7 +10293,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.danger.hovered"
   },
   {
-    "value": "#FD9891",
+    "value": "#FFB8B2",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -10303,7 +10303,7 @@ const tokens: Token[] = [
       "description": "A stronger emphasis option of color.chart.danger."
     },
     "original": {
-      "value": "Red300",
+      "value": "Red250",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -10322,7 +10322,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.danger.bold"
   },
   {
-    "value": "#FFD5D2",
+    "value": "#FD9891",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -10332,7 +10332,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.chart.danger.bold."
     },
     "original": {
-      "value": "Red200",
+      "value": "Red300",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -10351,7 +10351,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.danger.bold.hovered"
   },
   {
-    "value": "#CF9F02",
+    "value": "#F68909",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -10361,7 +10361,7 @@ const tokens: Token[] = [
       "description": "For data visualisation communicating caution, such as 'at risk' statuses."
     },
     "original": {
-      "value": "Yellow500",
+      "value": "Orange500",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -10380,7 +10380,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.warning"
   },
   {
-    "value": "#E2B203",
+    "value": "#FCA700",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -10390,7 +10390,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.chart.warning."
     },
     "original": {
-      "value": "Yellow400",
+      "value": "Orange400",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -10409,7 +10409,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.warning.hovered"
   },
   {
-    "value": "#F5CD47",
+    "value": "#FBC828",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -10419,7 +10419,7 @@ const tokens: Token[] = [
       "description": "A stronger emphasis option of color.chart.warning."
     },
     "original": {
-      "value": "Yellow300",
+      "value": "Orange300",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -10438,7 +10438,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.warning.bold"
   },
   {
-    "value": "#F8E6A0",
+    "value": "#FCE4A6",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -10448,7 +10448,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.chart.warning.bold."
     },
     "original": {
-      "value": "Yellow200",
+      "value": "Orange200",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -10467,7 +10467,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.warning.bold.hovered"
   },
   {
-    "value": "#2ABB7F",
+    "value": "#82B536",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -10477,7 +10477,7 @@ const tokens: Token[] = [
       "description": "For data visualisation communicating positive information, such as 'on track'."
     },
     "original": {
-      "value": "Green500",
+      "value": "Lime500",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -10496,7 +10496,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.success"
   },
   {
-    "value": "#4BCE97",
+    "value": "#94C748",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -10506,7 +10506,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.chart.success."
     },
     "original": {
-      "value": "Green400",
+      "value": "Lime400",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -10525,7 +10525,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.success.hovered"
   },
   {
-    "value": "#7EE2B8",
+    "value": "#B3DF72",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -10535,7 +10535,7 @@ const tokens: Token[] = [
       "description": "A stronger emphasis option of color.chart.success."
     },
     "original": {
-      "value": "Green300",
+      "value": "Lime300",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -10554,7 +10554,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.success.bold"
   },
   {
-    "value": "#BAF3DB",
+    "value": "#D3F1A7",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -10564,7 +10564,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.chart.success.bold."
     },
     "original": {
-      "value": "Green200",
+      "value": "Lime200",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -10583,7 +10583,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.success.bold.hovered"
   },
   {
-    "value": "#9F8FEF",
+    "value": "#C97CF4",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -10612,7 +10612,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.discovery"
   },
   {
-    "value": "#8F7EE7",
+    "value": "#C97CF4",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -10622,7 +10622,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.chart.discovery."
     },
     "original": {
-      "value": "Purple500",
+      "value": "Purple400",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -10641,7 +10641,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.discovery.hovered"
   },
   {
-    "value": "#B8ACF6",
+    "value": "#D8A0F7",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -10670,7 +10670,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.discovery.bold"
   },
   {
-    "value": "#DFD8FD",
+    "value": "#EED7FC",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -10699,7 +10699,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.discovery.bold.hovered"
   },
   {
-    "value": "#579DFF",
+    "value": "#669DF1",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
@@ -10728,7 +10728,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.information"
   },
   {
-    "value": "#388BFF",
+    "value": "#669DF1",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -10738,7 +10738,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.chart.information."
     },
     "original": {
-      "value": "Blue500",
+      "value": "Blue400",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -10757,7 +10757,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.information.hovered"
   },
   {
-    "value": "#85B8FF",
+    "value": "#8FB8F6",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -10786,7 +10786,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.information.bold"
   },
   {
-    "value": "#CCE0FF",
+    "value": "#CFE1FD",
     "filePath": "schema/themes/atlassian-dark/color/chart.tsx",
     "isSource": false,
     "attributes": {
@@ -10815,7 +10815,7 @@ const tokens: Token[] = [
     "cleanName": "color.chart.information.bold.hovered"
   },
   {
-    "value": "#1D2125",
+    "value": "#1F1F21",
     "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
@@ -10843,7 +10843,7 @@ const tokens: Token[] = [
     "cleanName": "elevation.surface"
   },
   {
-    "value": "#22272B",
+    "value": "#242528",
     "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
@@ -10871,7 +10871,7 @@ const tokens: Token[] = [
     "cleanName": "elevation.surface.hovered"
   },
   {
-    "value": "#282E33",
+    "value": "#2B2C2F",
     "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
@@ -10899,7 +10899,7 @@ const tokens: Token[] = [
     "cleanName": "elevation.surface.pressed"
   },
   {
-    "value": "#282E33",
+    "value": "#2B2C2F",
     "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
@@ -10927,7 +10927,7 @@ const tokens: Token[] = [
     "cleanName": "elevation.surface.overlay"
   },
   {
-    "value": "#2C333A",
+    "value": "#303134",
     "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
@@ -10955,7 +10955,7 @@ const tokens: Token[] = [
     "cleanName": "elevation.surface.overlay.hovered"
   },
   {
-    "value": "#38414A",
+    "value": "#3D3F43",
     "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
@@ -10983,7 +10983,7 @@ const tokens: Token[] = [
     "cleanName": "elevation.surface.overlay.pressed"
   },
   {
-    "value": "#22272B",
+    "value": "#242528",
     "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
@@ -11011,7 +11011,7 @@ const tokens: Token[] = [
     "cleanName": "elevation.surface.raised"
   },
   {
-    "value": "#282E33",
+    "value": "#2B2C2F",
     "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
@@ -11039,7 +11039,7 @@ const tokens: Token[] = [
     "cleanName": "elevation.surface.raised.hovered"
   },
   {
-    "value": "#2C333A",
+    "value": "#303134",
     "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
@@ -11067,7 +11067,7 @@ const tokens: Token[] = [
     "cleanName": "elevation.surface.raised.pressed"
   },
   {
-    "value": "#161A1D",
+    "value": "#18191A",
     "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
@@ -11101,7 +11101,7 @@ const tokens: Token[] = [
           "x": 0,
           "y": 0
         },
-        "color": "#030404",
+        "color": "#01040475",
         "opacity": 0.56
       },
       {
@@ -11110,7 +11110,7 @@ const tokens: Token[] = [
           "x": 0,
           "y": 0
         },
-        "color": "#030404",
+        "color": "#01040475",
         "opacity": 0.5
       }
     ],
@@ -11130,7 +11130,7 @@ const tokens: Token[] = [
             "x": 0,
             "y": 0
           },
-          "color": "#030404",
+          "color": "DarkNeutral-100A",
           "opacity": 0.56
         },
         {
@@ -11139,7 +11139,7 @@ const tokens: Token[] = [
             "x": 0,
             "y": 0
           },
-          "color": "#030404",
+          "color": "DarkNeutral-100A",
           "opacity": 0.5
         }
       ],
@@ -11160,7 +11160,7 @@ const tokens: Token[] = [
     "cleanName": "elevation.shadow.overflow"
   },
   {
-    "value": "#03040480",
+    "value": "#01040480",
     "filePath": "schema/themes/atlassian-dark/elevation/shadow.tsx",
     "isSource": false,
     "attributes": {
@@ -11170,7 +11170,7 @@ const tokens: Token[] = [
       "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow."
     },
     "original": {
-      "value": "#03040480",
+      "value": "#01040480",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -11188,7 +11188,7 @@ const tokens: Token[] = [
     "cleanName": "elevation.shadow.overflow.perimeter"
   },
   {
-    "value": "#0304048f",
+    "value": "#0104048f",
     "filePath": "schema/themes/atlassian-dark/elevation/shadow.tsx",
     "isSource": false,
     "attributes": {
@@ -11198,7 +11198,7 @@ const tokens: Token[] = [
       "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow."
     },
     "original": {
-      "value": "#0304048f",
+      "value": "#0104048f",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -11220,7 +11220,7 @@ const tokens: Token[] = [
       {
         "radius": 0,
         "spread": 1,
-        "color": "#9BB4CA80",
+        "color": "#E9F0FB5C",
         "offset": {
           "x": 0,
           "y": 0
@@ -11234,7 +11234,7 @@ const tokens: Token[] = [
           "x": 0,
           "y": 8
         },
-        "color": "#03040442",
+        "color": "#01040475",
         "opacity": 0.36
       },
       {
@@ -11244,7 +11244,7 @@ const tokens: Token[] = [
           "x": 0,
           "y": 0
         },
-        "color": "#03040442",
+        "color": "#01040475",
         "opacity": 0.5
       }
     ],
@@ -11309,7 +11309,7 @@ const tokens: Token[] = [
       {
         "radius": 0,
         "spread": 1,
-        "color": "#9BB4CA80",
+        "color": "#E9F0FB5C",
         "offset": {
           "x": 0,
           "y": 0
@@ -11323,7 +11323,7 @@ const tokens: Token[] = [
           "x": 0,
           "y": 1
         },
-        "color": "#03040442",
+        "color": "#01040475",
         "opacity": 0.5
       },
       {
@@ -11332,7 +11332,7 @@ const tokens: Token[] = [
           "x": 0,
           "y": 0
         },
-        "color": "#03040442",
+        "color": "#01040475",
         "opacity": 0.5
       }
     ],
@@ -11471,7 +11471,7 @@ const tokens: Token[] = [
     "cleanName": "utility.UNSAFE.transparent"
   },
   {
-    "value": "#1D2125",
+    "value": "#1F1F21",
     "filePath": "schema/themes/atlassian-dark/utility/utility.tsx",
     "isSource": false,
     "attributes": {

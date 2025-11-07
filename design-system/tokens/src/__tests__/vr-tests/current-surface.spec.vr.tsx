@@ -19,8 +19,4 @@ snapshot(CurrentSurfaceVr, {
 			environment: {},
 		},
 	],
-	// Note: When the enviromnent is set the feature flags are always false regardless of this setting. That's why a separate test is introduced
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });

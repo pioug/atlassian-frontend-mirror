@@ -42,7 +42,6 @@ export const SiteSelector = (props: SiteSelectorProps) => {
 		props;
 
 	const { formatMessage } = useIntl();
-	const isSiteSelectorEnabled = !fg('add-disablesiteselector') || !disableSiteSelector;
 
 	const onChange = (newValue: ValueType<OptionType>) => {
 		const selectedSite = availableSites?.find((site) => site.cloudId === newValue?.value);
@@ -72,7 +71,7 @@ export const SiteSelector = (props: SiteSelectorProps) => {
 				{formatMessage(label)}
 			</Heading>
 
-			{isSiteSelectorEnabled && availableSites && availableSites.length > 1 && (
+			{!disableSiteSelector && availableSites && availableSites.length > 1 && (
 				<span data-testid={`${testId}--trigger`}>
 					<PopupSelect
 						searchThreshold={10}

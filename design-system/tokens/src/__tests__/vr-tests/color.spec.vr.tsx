@@ -9,7 +9,4 @@ snapshot(CustomThemeVr, {
 			environment: {},
 		},
 	],
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });

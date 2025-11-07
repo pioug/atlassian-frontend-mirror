@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { createIntl, createIntlCache, IntlContext } from 'react-intl-next';
+import { createIntl, createIntlCache, IntlContext, type IntlShape } from 'react-intl-next';
 
 import { DEFAULT_LOCALE_STATE } from '../../common/constants';
 
@@ -12,7 +12,7 @@ const cache = createIntlCache();
  * an `IntlShape` with default `{locale: 'en', messages: {}}`
  * Removes the need for an `IntlProvodier` to be present in the DOM Tree
  */
-export const useSafeIntl = () => {
+export const useSafeIntl = (): IntlShape => {
 	const context = useContext(IntlContext);
 	if (!context) {
 		return createIntl(DEFAULT_LOCALE_STATE, cache);

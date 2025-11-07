@@ -11,6 +11,8 @@ import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ActiveNode, BlockControlsPlugin } from '../blockControlsPluginType';
@@ -21,7 +23,11 @@ import {
 	EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_GAP,
 	EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_OFFSET,
 } from '../ui/drop-target';
-import { DropTargetLayout, type DropTargetLayoutProps } from '../ui/drop-target-layout';
+import {
+	DropTargetLayout,
+	DropTargetLayoutNativeAnchorSupport,
+	type DropTargetLayoutProps,
+} from '../ui/drop-target-layout';
 
 import { NESTED_DEPTH, TYPE_DROP_TARGET_DEC } from './decorations-common';
 import { type AnchorRectCache } from './utils/anchor-utils';
@@ -182,9 +188,14 @@ export const createLayoutDropTargetDecoration = (
 			element.setAttribute('data-blocks-drop-target-container', 'true');
 			element.setAttribute('data-blocks-drop-target-key', key);
 			element.style.clear = 'unset';
+			const DropTargetLayoutComponent =
+				expValEquals('platform_editor_native_anchor_support', 'isEnabled', true) &&
+				fg('editor_native_anchor_update_layout_drop_hint')
+					? DropTargetLayoutNativeAnchorSupport
+					: DropTargetLayout;
 
 			nodeViewPortalProviderAPI.render(
-				() => createElement(DropTargetLayout, { ...props, getPos, anchorRectCache }),
+				() => createElement(DropTargetLayoutComponent, { ...props, getPos, anchorRectCache }),
 				element,
 				key,
 				undefined,

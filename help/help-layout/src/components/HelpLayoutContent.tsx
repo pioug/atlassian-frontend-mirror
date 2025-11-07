@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 
 import Header from './Header';
 import { SideNav } from './SideNav';
@@ -59,4 +59,7 @@ export const HelpContent: React.FC<HelpLayout & WrappedComponentProps> = (props)
 	);
 };
 
-export default injectIntl(HelpContent);
+const _default_1: React.FC<WithIntlProps<HelpLayout & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<HelpLayout & WrappedComponentProps>;
+} = injectIntl(HelpContent);
+export default _default_1;

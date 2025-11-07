@@ -19,7 +19,7 @@ const handleEvent = (analyticsEvent: { context: any; payload: any }) => {
 	console.log('Received event:', { payload, context });
 };
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const [navigationData, setNavigationData] = useState<{
 		articleId: articleId;
 		history: HistoryItem[];

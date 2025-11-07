@@ -38,7 +38,7 @@ const Message = ({ message }: { message: keyof typeof messages }) => {
 	return <span>{intl.formatMessage(messages[message])}</span>;
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const fetchMessages = useCallback(async (locale: string) => {
 		// Arbitrary import of language->locale messages ;
 		return await new Promise<Record<string, string>>((res) => {

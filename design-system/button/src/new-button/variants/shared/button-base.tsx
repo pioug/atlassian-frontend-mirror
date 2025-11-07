@@ -9,7 +9,6 @@ import { cssMap, cx, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import { useId } from '@atlaskit/ds-lib/use-id';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -213,23 +212,6 @@ const styles = cssMap({
 
 const defaultStyles = cssMap({
 	root: {
-		backgroundColor: token('color.background.neutral', 'rgba(9, 30, 66, 0.04)'),
-		color: token('color.text', '#42526E'),
-		'&:visited': {
-			color: token('color.text', '#42526E'),
-		},
-		'&:hover': {
-			color: token('color.text', '#42526E'),
-		},
-		'&:active': {
-			// @ts-expect-error
-			color: token('color.text', '#42526E'),
-		},
-		'&:focus': {
-			color: token('color.text', '#42526E'),
-		},
-	},
-	rootRefreshed: {
 		backgroundColor: token('color.background.neutral.subtle'),
 		color: token('color.text.subtle'),
 		'&::after': {
@@ -252,17 +234,6 @@ const defaultStyles = cssMap({
 	},
 	interactive: {
 		'&:hover': {
-			backgroundColor: token('color.background.neutral.hovered', '#091e4214'),
-			color: token('color.text', '#42526E'),
-		},
-		'&:active': {
-			backgroundColor: token('color.background.neutral.pressed', '#B3D4FF'),
-			// @ts-expect-error
-			color: token('color.text', '#42526E'),
-		},
-	},
-	interactiveRefreshed: {
-		'&:hover': {
 			backgroundColor: token('color.background.neutral.subtle.hovered'),
 			color: token('color.text.subtle'),
 		},
@@ -272,7 +243,7 @@ const defaultStyles = cssMap({
 			color: token('color.text.subtle'),
 		},
 	},
-	disabledRefreshed: {
+	disabled: {
 		backgroundColor: 'transparent',
 		'&:hover': {
 			// @ts-expect-error
@@ -415,23 +386,6 @@ const discoveryStyles = cssMap({
 const subtleStyles = cssMap({
 	root: {
 		backgroundColor: token('color.background.neutral.subtle', 'transparent'),
-		color: token('color.text', '#42526E'),
-		'&:visited': {
-			color: token('color.text', '#42526E'),
-		},
-		'&:hover': {
-			color: token('color.text', '#42526E'),
-		},
-		'&:active': {
-			// @ts-expect-error
-			color: token('color.text', '#42526E'),
-		},
-		'&:focus': {
-			color: token('color.text', '#42526E'),
-		},
-	},
-	rootRefreshed: {
-		backgroundColor: token('color.background.neutral.subtle', 'transparent'),
 		color: token('color.text.subtle'),
 		'&:visited': {
 			color: token('color.text.subtle'),
@@ -450,17 +404,6 @@ const subtleStyles = cssMap({
 	interactive: {
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.subtle.hovered', '#091e4214'),
-			color: token('color.text', '#42526E'),
-		},
-		'&:active': {
-			backgroundColor: token('color.background.neutral.subtle.pressed', '#B3D4FF'),
-			// @ts-expect-error
-			color: token('color.text', '#42526E'),
-		},
-	},
-	interactiveRefreshed: {
-		'&:hover': {
-			backgroundColor: token('color.background.neutral.subtle.hovered', '#091e4214'),
 			color: token('color.text.subtle'),
 		},
 		'&:active': {
@@ -469,7 +412,7 @@ const subtleStyles = cssMap({
 			color: token('color.text.subtle'),
 		},
 	},
-	disabledRefreshed: {
+	disabled: {
 		backgroundColor: 'transparent',
 		'&:hover': {
 			// @ts-expect-error
@@ -487,23 +430,6 @@ const subtleStyles = cssMap({
 
 const selectedStyles = cssMap({
 	root: {
-		backgroundColor: token('color.background.selected', '#253858'),
-		color: token('color.text.selected', '#F4F5F7'),
-		'&:visited': {
-			color: token('color.text.selected', '#F4F5F7'),
-		},
-		'&:hover': {
-			color: token('color.text.selected', '#F4F5F7'),
-		},
-		'&:active': {
-			// @ts-expect-error
-			color: token('color.text.selected', '#F4F5F7'),
-		},
-		'&:focus': {
-			color: token('color.text.selected', '#F4F5F7'),
-		},
-	},
-	rootRefreshed: {
 		backgroundColor: token('color.background.selected'),
 		color: token('color.text.selected', '#0052cc'),
 		'&::after': {
@@ -660,10 +586,9 @@ const ButtonBase: React.ForwardRefExoticComponent<
 		const isSplitButton = Boolean(splitButtonContext);
 		const isNavigationSplitButton = splitButtonContext?.isNavigationSplitButton || false;
 		const isDefaultAppearanceSplitButton = splitButtonContext?.appearance === 'default';
-		const appearance =
-			isDefaultAppearanceSplitButton && fg('platform-component-visual-refresh')
-				? 'subtle'
-				: propAppearance || splitButtonContext?.appearance || 'default';
+		const appearance = isDefaultAppearanceSplitButton
+			? 'subtle'
+			: propAppearance || splitButtonContext?.appearance || 'default';
 
 		const spacing = splitButtonContext?.spacing || propSpacing;
 		const isDisabled = splitButtonContext?.isDisabled || propIsDisabled;
@@ -686,15 +611,8 @@ const ButtonBase: React.ForwardRefExoticComponent<
 				ref={mergeRefs([localRef, ref])}
 				xcss={cx(
 					styles.base,
-					appearance === 'default' &&
-						(fg('platform-component-visual-refresh')
-							? defaultStyles.rootRefreshed
-							: defaultStyles.root),
-					appearance === 'default' &&
-						isInteractive &&
-						(fg('platform-component-visual-refresh')
-							? defaultStyles.interactiveRefreshed
-							: defaultStyles.interactive),
+					appearance === 'default' && defaultStyles.root,
+					appearance === 'default' && isInteractive && defaultStyles.interactive,
 					appearance === 'primary' && primaryStyles.root,
 					appearance === 'primary' && isInteractive && primaryStyles.interactive,
 					appearance === 'warning' && warningStyles.root,
@@ -703,20 +621,10 @@ const ButtonBase: React.ForwardRefExoticComponent<
 					appearance === 'danger' && isInteractive && dangerStyles.interactive,
 					appearance === 'discovery' && discoveryStyles.root,
 					appearance === 'discovery' && isInteractive && discoveryStyles.interactive,
-					appearance === 'subtle' &&
-						(fg('platform-component-visual-refresh')
-							? subtleStyles.rootRefreshed
-							: subtleStyles.root),
-					appearance === 'subtle' &&
-						isInteractive &&
-						(fg('platform-component-visual-refresh')
-							? subtleStyles.interactiveRefreshed
-							: subtleStyles.interactive),
+					appearance === 'subtle' && subtleStyles.root,
+					appearance === 'subtle' && isInteractive && subtleStyles.interactive,
 					styles.linkDecorationUnset,
-					isSelected &&
-						(fg('platform-component-visual-refresh')
-							? selectedStyles.rootRefreshed
-							: selectedStyles.root),
+					isSelected && selectedStyles.root,
 					isSelected && isSplitButton && selectedStyles.insideSplitButton,
 					isSelected && isInteractive && selectedStyles.interactive,
 					// TODO: remove me once we kill color fallbacks
@@ -727,14 +635,10 @@ const ButtonBase: React.ForwardRefExoticComponent<
 					isSelected && appearance === 'discovery' && selectedStyles.discovery,
 					isDisabled && styles.disabled,
 					isDisabled &&
-						(!fg('platform-component-visual-refresh') ||
-							(appearance !== 'default' && appearance !== 'subtle')) &&
+						appearance !== 'default' &&
+						appearance !== 'subtle' &&
 						styles.sharedDisabled,
-					isDisabled &&
-						appearance === 'default' &&
-						(fg('platform-component-visual-refresh')
-							? defaultStyles.disabledRefreshed
-							: defaultStyles.disabled),
+					isDisabled && appearance === 'default' && defaultStyles.disabled,
 					isCircle && !isSplitButton && styles.circle,
 					spacing === 'compact' && styles.spacingCompact,
 					hasIconBefore && styles.buttonIconBefore,

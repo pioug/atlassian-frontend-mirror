@@ -1,5 +1,4 @@
 import warnOnce from '@atlaskit/ds-lib/warn-once';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import tokens from './artifacts/token-names';
 
@@ -33,12 +32,6 @@ function getTokenValue<T extends keyof Tokens>(tokenId: T, fallback: string = ''
 	if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
 		if (!token) {
 			warnOnce(`Unknown token id at path: ${tokenId} in @atlaskit/tokens`);
-		}
-
-		if (token === '--ds-icon-subtlest' && !fg('platform-component-visual-refresh')) {
-			warnOnce(
-				`Token "color.icon.subtlest" is only available when feature flag "platform-component-visual-refresh" is on, don't use it if the flag can't be turned on on this page`,
-			);
 		}
 	}
 

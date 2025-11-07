@@ -3,7 +3,7 @@ import { type UIAnalyticsEvent, AnalyticsContext } from '@atlaskit/analytics-nex
 import * as colors from '@atlaskit/theme/colors';
 import LightbulbIcon from '@atlaskit/icon/core/migration/lightbulb';
 import { token } from '@atlaskit/tokens';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 
 import { useWhatsNewArticleContext } from '../../contexts/whatsNewArticleContext';
 import { useNavigationContext } from '../../contexts/navigationContext';
@@ -79,4 +79,7 @@ const WhatsNewButtonWithContext: React.FC<WrappedComponentProps & WhatsNewButton
 	);
 };
 
-export default injectIntl(WhatsNewButtonWithContext);
+const _default_1: React.FC<WithIntlProps<WrappedComponentProps & WhatsNewButtonProps>> & {
+	WrappedComponent: React.ComponentType<WrappedComponentProps & WhatsNewButtonProps>;
+} = injectIntl(WhatsNewButtonWithContext);
+export default _default_1;

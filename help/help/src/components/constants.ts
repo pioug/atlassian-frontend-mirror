@@ -13,6 +13,6 @@ export enum VIEW {
 // Animation related consts
 export const SLIDEIN_OVERLAY_TRANSITION_DURATION_MS = 300;
 export const FADEIN_OVERLAY_TRANSITION_DURATION_MS = 440;
-export const HIDE_CONTENT_DELAY = FADEIN_OVERLAY_TRANSITION_DURATION_MS + 200;
+export const HIDE_CONTENT_DELAY: number = FADEIN_OVERLAY_TRANSITION_DURATION_MS + 200;
 
 export type TransitionStatus = 'unmounted' | 'exiting' | 'entering' | 'entered' | 'exited';

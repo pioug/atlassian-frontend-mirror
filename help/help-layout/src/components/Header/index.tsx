@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { messages } from '../../messages';
@@ -40,4 +40,7 @@ export const HelpContent: React.FC<HelpPanelHeader & WrappedComponentProps> = ({
 	);
 };
 
-export default injectIntl(HelpContent);
+const _default_1: React.FC<WithIntlProps<HelpPanelHeader & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<HelpPanelHeader & WrappedComponentProps>;
+} = injectIntl(HelpContent);
+export default _default_1;

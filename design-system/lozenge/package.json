@@ -86,12 +86,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform-component-visual-refresh": {
-			"type": "boolean"
-		},
-		"visual-refresh_drop_5": {
-			"type": "boolean"
-		},
 		"platform-lozenge-custom-letterspacing": {
 			"type": "boolean"
 		}

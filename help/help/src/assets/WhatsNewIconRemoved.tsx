@@ -6,7 +6,7 @@ import { IconWrapper } from './IconWrapper';
 import { N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-export default function WhatsNewIconRemoved() {
+export default function WhatsNewIconRemoved(): React.JSX.Element {
 	return (
 		<IconWrapper
 			Icon={DeleteIcon}

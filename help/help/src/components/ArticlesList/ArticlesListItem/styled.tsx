@@ -50,7 +50,7 @@ export const ArticlesListItemWrapper = ({
 	[rest: string]: any;
 	children: React.ReactNode;
 	styles?: React.CSSProperties;
-}) => (
+}): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlaskit/ui-styling-standard/enforce-style-prop
 	<a css={articlesListItemWrapperStyles} style={styles} {...rest}>
 		{children}
@@ -63,7 +63,11 @@ const articlesListItemContainerStyles = css({
 	display: 'flex',
 });
 
-export const ArticlesListItemContainer = ({ children }: { children: React.ReactNode }) => (
+export const ArticlesListItemContainer = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/use-primitives
 	<div css={articlesListItemContainerStyles}>{children}</div>
 );
@@ -74,9 +78,11 @@ const articlesListItemTitleSectionStyles = css({
 	flexGrow: 1,
 });
 
-export const ArticlesListItemTitleSection = ({ children }: { children: React.ReactNode }) => (
-	<div css={articlesListItemTitleSectionStyles}>{children}</div>
-);
+export const ArticlesListItemTitleSection = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <div css={articlesListItemTitleSectionStyles}>{children}</div>;
 
 const articlesListItemLinkIconStyles = css({
 	alignSelf: 'auto',
@@ -84,9 +90,11 @@ const articlesListItemLinkIconStyles = css({
 	verticalAlign: 'middle',
 });
 
-export const ArticlesListItemLinkIcon = ({ children }: { children: React.ReactNode }) => (
-	<span css={articlesListItemLinkIconStyles}>{children}</span>
-);
+export const ArticlesListItemLinkIcon = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <span css={articlesListItemLinkIconStyles}>{children}</span>;
 
 const articlesListItemTitleTextStyles = css({
 	textDecoration: 'none',
@@ -98,7 +106,11 @@ const articlesListItemTitleTextStyles = css({
 	marginBottom: token('space.100', '4px'),
 });
 
-export const ArticlesListItemTitleText = ({ children }: { children: React.ReactNode }) => (
+export const ArticlesListItemTitleText = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => (
 	<div css={articlesListItemTitleTextStyles}>
 		<Heading size="xsmall" as="h4">
 			{children}
@@ -115,7 +127,11 @@ const articlesListItemDescriptionStyles = css({
 	paddingBottom: token('space.025', '2px'),
 });
 
-export const ArticlesListItemDescription = ({ children }: { children: React.ReactNode }) => (
+export const ArticlesListItemDescription = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 	<p css={articlesListItemDescriptionStyles}>{children}</p>
 );
@@ -134,7 +150,11 @@ const articlesListItemSourceStyles = css({
 	textTransform: 'uppercase',
 });
 
-export const ArticlesListItemSource = ({ children }: { children: React.ReactNode }) => (
+export const ArticlesListItemSource = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 	<div css={articlesListItemSourceStyles}>{children}</div>
 );
@@ -147,17 +167,21 @@ const articlesListItemTrustFactorStyles = css({
 	paddingTop: token('space.025', '2px'),
 });
 
-export const ArticlesListItemTrustFactor = ({ children }: { children: React.ReactNode }) => (
-	<div css={articlesListItemTrustFactorStyles}>{children}</div>
-);
+export const ArticlesListItemTrustFactor = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <div css={articlesListItemTrustFactorStyles}>{children}</div>;
 
 const articlesListItemViewCountStyles = css({
 	paddingRight: token('space.100', '8px'),
 });
 
-export const ArticlesListItemViewCount = ({ children }: { children: React.ReactNode }) => (
-	<span css={articlesListItemViewCountStyles}>{children}</span>
-);
+export const ArticlesListItemViewCount = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <span css={articlesListItemViewCountStyles}>{children}</span>;
 
 const articlesListItemHelpfulCountStyles = css({
 	display: 'inline-flex',
@@ -169,9 +193,11 @@ const articlesListItemHelpfulCountStyles = css({
 	},
 });
 
-export const ArticlesListItemHelpfulCount = ({ children }: { children: React.ReactNode }) => (
-	<span css={articlesListItemHelpfulCountStyles}>{children}</span>
-);
+export const ArticlesListItemHelpfulCount = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <span css={articlesListItemHelpfulCountStyles}>{children}</span>;
 
 const articlesListItemLastModifiedStyles = css({
 	font: token('font.body.small', body.small),
@@ -182,9 +208,11 @@ const articlesListItemLastModifiedStyles = css({
 	paddingLeft: 0,
 });
 
-export const ArticlesListItemLastModified = ({ children }: { children: React.ReactNode }) => (
-	<div css={articlesListItemLastModifiedStyles}>{children}</div>
-);
+export const ArticlesListItemLastModified = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <div css={articlesListItemLastModifiedStyles}>{children}</div>;
 
 const articlesListItemDescriptionHighlightStyles = css({
 	backgroundColor: token('color.background.accent.yellow.subtlest', Y100),
@@ -196,7 +224,7 @@ export const ArticlesListItemDescriptionHighlight = ({
 }: {
 	children: React.ReactNode;
 	key: number | string;
-}) => (
+}): JSX.Element => (
 	<mark key={key} css={articlesListItemDescriptionHighlightStyles}>
 		{children}
 	</mark>

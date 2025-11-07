@@ -20,8 +20,9 @@ export interface RelatedArticlesContextInterface {
 	routeName?: string;
 }
 
-export const [useRelatedArticlesContext, CtxProvider] =
-	createCtx<RelatedArticlesContextInterface>();
+const dest = createCtx<RelatedArticlesContextInterface>();
+export const useRelatedArticlesContext: () => RelatedArticlesContextInterface = dest[0];
+export const CtxProvider: React.Provider<RelatedArticlesContextInterface | undefined> = dest[1];
 
 export const RelatedArticlesContextProvider = ({
 	routeGroup,
@@ -30,7 +31,7 @@ export const RelatedArticlesContextProvider = ({
 	onRelatedArticlesShowMoreClick,
 	onRelatedArticlesListItemClick,
 	children,
-}: PropsWithChildren<RelatedArticlesContextInterface>) => {
+}: PropsWithChildren<RelatedArticlesContextInterface>): React.JSX.Element => {
 	return (
 		<CtxProvider
 			value={{

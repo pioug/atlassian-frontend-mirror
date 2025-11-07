@@ -46,6 +46,8 @@ export enum TABLE_ACTION {
 	// Temporary to track usage of CONFCLOUD-78239 bug
 	TABLE_CELL_BACKGROUND_FIXED = 'tableCellBackgroundFixed',
 	TABLE_WIDTH_INFO = 'tableWidthInformation',
+	TABLE_EDITOR_HEIGHT_INFO = 'tableEditorHeightInformation',
+	TABLE_RENDERER_HEIGHT_INFO = 'tableRendererHeightInformation',
 }
 
 export enum TABLE_BREAKOUT {
@@ -400,6 +402,20 @@ type TableWidthInfoAEP = TableAEP<
 	undefined
 >;
 
+type TableHeightInfoAEP = TableAEP<
+	TABLE_ACTION.TABLE_EDITOR_HEIGHT_INFO,
+	{
+		editorScrollParentClientHeight: number;
+		isEditorScrollable: boolean;
+		maxTableToEditorHeightRatio: number;
+		tableHeightInfo: Array<{
+			isNestedTable: boolean;
+			tableHeight: number;
+		}>;
+	},
+	undefined
+>;
+
 export type TableEventPayload =
 	| TableDeleteAEP
 	| TableClearAEP
@@ -427,4 +443,5 @@ export type TableEventPayload =
 	| TableColumnResizedAEP
 	| TableBackgroundColorFixAEP
 	| TableChangedAlignmentAEP
-	| TableWidthInfoAEP;
+	| TableWidthInfoAEP
+	| TableHeightInfoAEP;

@@ -124,6 +124,20 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 					nodes.push(this.view.state.schema.nodes.user.create(attributes, textContent));
 					break;
 				}
+				case 'team': {
+					if (fg('jira_update_jql_teams')) {
+						const attributes = {
+							type: 'team',
+							id: value,
+							name: nameOnRichInlineNode ?? name,
+							fieldName: context?.field,
+						};
+						nodes.push(this.view.state.schema.nodes.team.create(attributes, textContent));
+					} else {
+						nodes.push(textContent);
+					}
+					break;
+				}
 				default: {
 					nodes.push(textContent);
 					break;

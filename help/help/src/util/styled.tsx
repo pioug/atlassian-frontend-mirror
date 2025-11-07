@@ -21,7 +21,7 @@ const dividerLineStyles = css({
 	boxSizing: 'border-box',
 });
 
-export const DividerLine = ({ style }: { style?: React.CSSProperties }) => (
+export const DividerLine = ({ style }: { style?: React.CSSProperties }): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 	<div css={dividerLineStyles} style={style} />
 );
@@ -76,7 +76,7 @@ export const LoadingRectangle = ({
 	contentHeight,
 	contentWidth,
 	marginTop,
-}: LoadingRectangleProps) => (
+}: LoadingRectangleProps): JSX.Element => (
 	<div
 		css={loadingRectangleStyles}
 		style={{
@@ -118,7 +118,7 @@ const whatsNewTypeIconStyles = css({
 	},
 });
 
-export const WhatsNewTypeIcon = ({ type, children }: WhatsNewTypeIconProps) => {
+export const WhatsNewTypeIcon = ({ type, children }: WhatsNewTypeIconProps): JSX.Element => {
 	const [backgroundColor, setBackgroundColor] = useState<string>(token('color.icon', N400));
 	useEffect(() => {
 		switch (type) {

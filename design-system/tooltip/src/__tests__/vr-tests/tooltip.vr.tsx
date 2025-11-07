@@ -26,7 +26,6 @@ snapshot(TooltipBasic, {
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
 	featureFlags: {
-		'platform-dst-tooltip-shortcuts': [true, false],
 		'platform-component-visual-refresh': true,
 	},
 });
@@ -43,7 +42,6 @@ snapshot(TooltipCustom, {
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
 	featureFlags: {
-		'platform-dst-tooltip-shortcuts': [true, false],
 		'platform-component-visual-refresh': true,
 	},
 });
@@ -75,7 +73,6 @@ snapshot(TooltipTruncateExample, {
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
 	featureFlags: {
-		'platform-dst-tooltip-shortcuts': [true, false],
 		'platform-component-visual-refresh': true,
 	},
 });
@@ -96,7 +93,6 @@ snapshot(KeyboardShortcutsExample, {
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
 	featureFlags: {
-		'platform-dst-tooltip-shortcuts': true,
 		'platform-component-visual-refresh': true,
 	},
 });
@@ -117,7 +113,6 @@ snapshot(KeyboardShortcutsExample, {
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
 	featureFlags: {
-		'platform-dst-tooltip-shortcuts': true,
 		'platform-component-visual-refresh': true,
 	},
 });
@@ -138,7 +133,6 @@ snapshot(KeyboardShortcutsExample, {
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
 	featureFlags: {
-		'platform-dst-tooltip-shortcuts': true,
 		'platform-component-visual-refresh': true,
 	},
 });
@@ -159,7 +153,6 @@ snapshot(KeyboardShortcutGlobalStylesExample, {
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
 	featureFlags: {
-		'platform-dst-tooltip-shortcuts': true,
 		'platform-component-visual-refresh': true,
 	},
 });

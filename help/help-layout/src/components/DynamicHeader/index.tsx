@@ -30,7 +30,7 @@ export const DynamicHeader = ({
 	newChatButtonDisabled,
 	onGoBackToHistoryList,
 	isBackButtonVisible,
-}: HeaderContent) => {
+}: HeaderContent): JSX.Element => {
 	return (
 		<Flex direction="row" justifyContent="space-between" xcss={styles.container}>
 			<Flex direction="row" alignItems="center" justifyContent="start" gap="space.050">

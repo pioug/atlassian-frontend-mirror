@@ -11,7 +11,7 @@ const tabContainerStyles = css({
 	width: '100%',
 });
 
-export const TabContainer = ({ children }: { children: React.ReactNode }) => (
+export const TabContainer = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/use-primitives
 	<div css={tabContainerStyles}>{children}</div>
 );
@@ -21,7 +21,7 @@ const tabLabelsStyles = css({
 	justifyContent: 'space-between',
 });
 
-export const TabLabels = ({ children }: { children: React.ReactNode }) => (
+export const TabLabels = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={tabLabelsStyles}>{children}</div>
 );
 
@@ -44,7 +44,7 @@ export const TabLabel = ({
 	children: React.ReactNode;
 	isActive: boolean;
 	onClick: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-}) => (
+}): JSX.Element => (
 	// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
 	<div
 		css={tabLabelStyles}

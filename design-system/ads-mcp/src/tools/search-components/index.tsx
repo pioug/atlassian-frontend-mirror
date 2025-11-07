@@ -7,7 +7,7 @@ import { cleanQuery } from '../../helpers';
 import { components } from '../get-components/components';
 import { type Component } from '../get-components/types';
 
-const inputSchema = z.object({
+export const searchComponentsInputSchema = z.object({
 	terms: z
 		.array(z.string())
 		.describe(
@@ -37,7 +37,7 @@ export const listSearchComponentsTool = {
 		idempotentHint: true,
 		openWorldHint: true,
 	},
-	inputSchema: zodToJsonSchema(inputSchema),
+	inputSchema: zodToJsonSchema(searchComponentsInputSchema),
 };
 
 // Clean component result to only return name, package name, example, and props
@@ -51,7 +51,7 @@ const cleanComponentResult = (result: Component) => {
 };
 
 export const searchComponentsTool = async (
-	params: z.infer<typeof inputSchema>,
+	params: z.infer<typeof searchComponentsInputSchema>,
 ): Promise<CallToolResult> => {
 	const { terms, limit = 1, exactName = false } = params;
 	const searchTerms = terms.filter(Boolean).map(cleanQuery);

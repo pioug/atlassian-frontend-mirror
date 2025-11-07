@@ -13,19 +13,21 @@ const mockRequest = [
 		body: JSON.stringify({
 			data: {
 				content: {
-					nodes: [{
-						id: '123456789',
-						links: {
-							base: 'https://example.atlassian.net/wiki'
+					nodes: [
+						{
+							id: '123456789',
+							links: {
+								base: 'https://example.atlassian.net/wiki',
+							},
+							space: {
+								key: '~712020d8b13e02dd3c421fbcefd6c171aa5cff',
+							},
+							subType: null,
+							title: 'Test Blog',
 						},
-						space: {
-							key: '~712020d8b13e02dd3c421fbcefd6c171aa5cff'
-						},
-						subType: null,
-						title: 'Test Blog'
-					}]
-				}
-			}
+					],
+				},
+			},
 		}),
 	},
 ];

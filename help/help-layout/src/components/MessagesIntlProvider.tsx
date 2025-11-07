@@ -1,5 +1,10 @@
 import React from 'react';
-import { IntlProvider, injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import {
+	IntlProvider,
+	injectIntl,
+	type WithIntlProps,
+	type WrappedComponentProps,
+} from 'react-intl-next';
 
 export interface Props {
 	children: React.ReactNode;
@@ -15,4 +20,7 @@ export const MessagesIntlProvider: React.FC<Props & WrappedComponentProps> = ({
 	</IntlProvider>
 );
 
-export default injectIntl(MessagesIntlProvider);
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(MessagesIntlProvider);
+export default _default_1;

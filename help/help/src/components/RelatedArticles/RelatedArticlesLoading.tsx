@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 
 import { messages } from '../../messages';
 
@@ -40,4 +40,7 @@ const RelatedArticlesLoading: React.FC<WrappedComponentProps> = ({ intl: { forma
 	);
 };
 
-export default injectIntl(RelatedArticlesLoading);
+const _default_1: React.FC<WithIntlProps<WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<WrappedComponentProps>;
+} = injectIntl(RelatedArticlesLoading);
+export default _default_1;

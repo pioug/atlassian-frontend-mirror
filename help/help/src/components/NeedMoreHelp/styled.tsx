@@ -22,7 +22,7 @@ const needMoreHelpContainerStyles = css({
 		'drop-shadow(0px 8px 12px var(--shadow-overlay-second, rgba(9,30,66,0.15))) drop-shadow(0px 0px 1px rgba(9,30,66,0.31))',
 });
 
-export const NeedMoreHelpContainer = ({ children }: { children: React.ReactNode }) => (
+export const NeedMoreHelpContainer = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={needMoreHelpContainerStyles}>{children}</div>
 );
 
@@ -34,7 +34,7 @@ const needMoreHelpContentStyles = css({
 	margin: 0,
 });
 
-export const NeedMoreHelpContent = ({ children }: { children: React.ReactNode }) => (
+export const NeedMoreHelpContent = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 	<p css={needMoreHelpContentStyles}>{children}</p>
 );
@@ -57,7 +57,7 @@ export const HelpAskAI = ({
 }: {
 	children: React.ReactNode;
 	onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-}) => (
+}): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/use-primitives-text, @atlassian/a11y/no-noninteractive-element-interactions, @atlassian/a11y/click-events-have-key-events
 	<p css={helpAskAIStyles} onClick={onClick}>
 		{children}

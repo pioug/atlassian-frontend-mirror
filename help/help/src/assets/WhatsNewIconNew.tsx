@@ -6,7 +6,7 @@ import { IconWrapper } from './IconWrapper';
 import { N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-export default function WhatsNewIconNew() {
+export default function WhatsNewIconNew(): React.JSX.Element {
 	return (
 		<IconWrapper
 			Icon={MegaphoneIcon}

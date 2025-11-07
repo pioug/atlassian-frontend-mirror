@@ -109,7 +109,7 @@ const analyticsAttributes = {
  */
 const DatePicker: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<DatePickerProps> & React.RefAttributes<HTMLElement>
-> = forwardRef((props: DatePickerProps, forwardedRef) => {
+> = forwardRef((props: DatePickerProps, _forwardedRef) => {
 	const containerRef: React.MutableRefObject<HTMLElement | null> = useRef<HTMLElement>(null);
 	const calendarRef: React.RefObject<HTMLDivElement | null> = useRef<HTMLDivElement>(null);
 	const calendarButtonRef: React.RefObject<HTMLButtonElement> = useRef<HTMLButtonElement>(null);
@@ -583,13 +583,7 @@ const DatePicker: React.ForwardRefExoticComponent<
 			/>
 			<Select
 				appearance={appearance}
-				aria-describedby={
-					fg('platform-dtp_a11y_fix-dsp-23950')
-						? ariaDescribedBy
-							? `${ariaDescribedBy} ${valueId}`
-							: valueId
-						: ariaDescribedBy
-				}
+				aria-describedby={ariaDescribedBy ? `${ariaDescribedBy} ${valueId}` : valueId}
 				label={label || undefined}
 				autoFocus={autoFocus}
 				clearControlLabel={clearControlLabel}

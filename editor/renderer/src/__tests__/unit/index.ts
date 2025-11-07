@@ -39,7 +39,6 @@ import { PLATFORM } from '../../analytics/events';
 import doc from '../__fixtures__/basic-document.adf.json';
 import dateDoc from '../__fixtures__/date.adf.json';
 import headingsDoc from '../__fixtures__/headings-adf.json';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 class MockSerializer implements Serializer<string> {
 	serializeFragment(_fragment: any) {
@@ -309,10 +308,7 @@ describe('Renderer', () => {
 					mockDispatchAnalyticsEvent,
 				);
 
-				expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document, {
-					environment: 'renderer',
-					disableNestedRendererTreatment: false,
-				});
+				expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document);
 				expect(mockDispatchAnalyticsEvent).toHaveBeenCalledWith({
 					action: 'nestedTableTransformed',
 					actionSubject: 'renderer',
@@ -355,10 +351,7 @@ describe('Renderer', () => {
 					undefined,
 					mockDispatchAnalyticsEvent,
 				);
-				expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document, {
-					environment: 'renderer',
-					disableNestedRendererTreatment: false,
-				});
+				expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document);
 				expect(mockDispatchAnalyticsEvent).toHaveBeenCalledWith({
 					action: 'invalidProsemirrorDocument',
 					actionSubject: 'renderer',
@@ -370,42 +363,33 @@ describe('Renderer', () => {
 				});
 			});
 
-			ffTest.on(
-				'platform_editor_nested_table_extension_comment_fix',
-				'bodied extension comment fix enabled',
-				() => {
-					it('should pass disableNestedRendererTreatment as true', () => {
-						const document = {
-							type: 'doc',
-							version: 1,
-							content: [
-								{
-									attrs: {
-										localId: null,
-									},
-									type: 'paragraph',
-									content: [{ type: 'text', text: 'A' }],
-								},
-							],
-						};
+			it('should call transformNestedTablesIncomingDocument without options', () => {
+				const document = {
+					type: 'doc',
+					version: 1,
+					content: [
+						{
+							attrs: {
+								localId: null,
+							},
+							type: 'paragraph',
+							content: [{ type: 'text', text: 'A' }],
+						},
+					],
+				};
 
-						renderDocument(
-							document,
-							serializer,
-							schema,
-							undefined,
-							true,
-							undefined,
-							mockDispatchAnalyticsEvent,
-						);
+				renderDocument(
+					document,
+					serializer,
+					schema,
+					undefined,
+					true,
+					undefined,
+					mockDispatchAnalyticsEvent,
+				);
 
-						expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document, {
-							environment: 'renderer',
-							disableNestedRendererTreatment: true,
-						});
-					});
-				},
-			);
+				expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document);
+			});
 		});
 	});
 });

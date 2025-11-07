@@ -11,17 +11,15 @@ import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import Heading from '@atlaskit/heading';
 import SearchIcon from '@atlaskit/icon/core/search';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
 import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
-import { dark as rawTokensDark, light as rawTokensLight } from '@atlaskit/tokens/tokens-raw';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import rawTokensBrandRefreshDark from '../../../src/artifacts/tokens-raw/atlassian-dark-brand-refresh';
+import rawTokensDark from '../../../src/artifacts/tokens-raw/atlassian-dark';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import rawTokensBrandRefreshLight from '../../../src/artifacts/tokens-raw/atlassian-light-brand-refresh';
+import rawTokensLight from '../../../src/artifacts/tokens-raw/atlassian-light';
 import checkThemePairContrasts, {
 	darkResults,
 	darkResultsAAA,
@@ -174,14 +172,9 @@ export function getCustomTheme(
 	customTheme: Theme,
 	customBaseTokens: typeof baseTokens,
 	baseThemeType: ColorMode,
-): typeof rawTokensLight {
-	const baseRawTokens = fg('platform-component-visual-refresh')
-		? baseThemeType === 'light'
-			? rawTokensBrandRefreshLight
-			: rawTokensBrandRefreshDark
-		: baseThemeType === 'light'
-			? rawTokensLight
-			: rawTokensDark;
+) {
+	const baseRawTokens = baseThemeType === 'light' ? rawTokensLight : rawTokensDark;
+
 	const rawTokens: typeof rawTokensLight = JSON.parse(JSON.stringify(baseRawTokens));
 	rawTokens.forEach((token) => {
 		// set metadata based on custom theme value (base token or raw hex)

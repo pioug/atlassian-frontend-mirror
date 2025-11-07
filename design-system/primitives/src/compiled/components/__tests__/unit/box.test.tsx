@@ -120,7 +120,7 @@ describe('Box component', () => {
 		expect(screen.getByTestId(testId)).toHaveCompiledCss({
 			// NOTE: This does still override, the `styles.root` backgroundColor is used
 			// However, note the `props.style` will actually win, it's just not accounted for in `toHaveCompiledCss`
-			backgroundColor: 'var(--ds-background-brand-bold,#0c66e4)',
+			backgroundColor: 'var(--ds-background-brand-bold,#1868db)',
 		});
 	});
 

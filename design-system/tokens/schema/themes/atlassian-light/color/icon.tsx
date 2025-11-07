@@ -5,10 +5,10 @@ const color: ValueSchema<IconColorTokenSchema<BaseToken>> = {
 	color: {
 		icon: {
 			'[default]': {
-				value: 'Neutral800',
+				value: 'Neutral1000',
 			},
 			subtle: {
-				value: 'Neutral700',
+				value: 'Neutral800',
 			},
 			subtlest: {
 				value: 'Neutral700',
@@ -37,7 +37,7 @@ const color: ValueSchema<IconColorTokenSchema<BaseToken>> = {
 				},
 			},
 			success: {
-				value: 'Green600',
+				value: 'Lime600',
 			},
 			discovery: {
 				value: 'Purple600',

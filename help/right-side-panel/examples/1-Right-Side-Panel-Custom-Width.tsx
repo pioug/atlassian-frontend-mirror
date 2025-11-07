@@ -13,18 +13,18 @@ export default class extends React.Component {
 		isOpen: false,
 	};
 
-	openDrawer = () => {
+	openDrawer = (): void => {
 		this.setState({
 			isOpen: true,
 		});
 	};
 
-	closeDrawer = () =>
+	closeDrawer = (): void =>
 		this.setState({
 			isOpen: false,
 		});
 
-	render() {
+	render(): React.JSX.Element {
 		const { isOpen } = this.state;
 		return (
 			<FlexContainer id="RightSidePanelExample">

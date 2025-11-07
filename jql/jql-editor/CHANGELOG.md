@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 5.8.1
+
+### Patch Changes
+
+- [`9b64a2eecf044`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b64a2eecf044) -
+  Fix for team rich node on autocomplete
+- Updated dependencies
+
 ## 5.8.0
 
 ### Minor Changes

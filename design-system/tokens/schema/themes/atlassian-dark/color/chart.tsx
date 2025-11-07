@@ -23,18 +23,18 @@ const color: ValueSchema<ChartColorTokenSchema<BaseToken>> = {
 			success: {
 				'[default]': {
 					'[default]': {
-						value: 'Green500',
+						value: 'Lime500',
 					},
 					hovered: {
-						value: 'Green400',
+						value: 'Lime400',
 					},
 				},
 				bold: {
 					'[default]': {
-						value: 'Green300',
+						value: 'Lime300',
 					},
 					hovered: {
-						value: 'Green200',
+						value: 'Lime200',
 					},
 				},
 			},
@@ -49,38 +49,38 @@ const color: ValueSchema<ChartColorTokenSchema<BaseToken>> = {
 				},
 				bold: {
 					'[default]': {
-						value: 'Red300',
+						value: 'Red250',
 					},
 					hovered: {
-						value: 'Red200',
+						value: 'Red300',
 					},
 				},
 			},
 			warning: {
 				'[default]': {
 					'[default]': {
-						value: 'Yellow500',
+						value: 'Orange500',
 					},
 					hovered: {
-						value: 'Yellow400',
+						value: 'Orange400',
 					},
 				},
 				bold: {
 					'[default]': {
-						value: 'Yellow300',
+						value: 'Orange300',
 					},
 					hovered: {
-						value: 'Yellow200',
+						value: 'Orange200',
 					},
 				},
 			},
 			information: {
 				'[default]': {
 					'[default]': {
-						value: 'Blue600',
+						value: 'Blue500',
 					},
 					hovered: {
-						value: 'Blue500',
+						value: 'Blue400',
 					},
 				},
 				bold: {
@@ -95,10 +95,10 @@ const color: ValueSchema<ChartColorTokenSchema<BaseToken>> = {
 			discovery: {
 				'[default]': {
 					'[default]': {
-						value: 'Purple600',
+						value: 'Purple500',
 					},
 					hovered: {
-						value: 'Purple500',
+						value: 'Purple400',
 					},
 				},
 				bold: {
@@ -113,66 +113,66 @@ const color: ValueSchema<ChartColorTokenSchema<BaseToken>> = {
 			categorical: {
 				1: {
 					'[default]': {
-						value: 'Teal600',
+						value: 'Blue500',
 					},
 					hovered: {
-						value: 'Teal500',
+						value: 'Blue400',
 					},
 				},
 				2: {
 					'[default]': {
-						value: 'Purple300',
+						value: 'Lime400',
 					},
 					hovered: {
-						value: 'Purple200',
+						value: 'Lime300',
 					},
 				},
 				3: {
 					'[default]': {
-						value: 'Orange600',
+						value: 'Purple400',
 					},
 					hovered: {
-						value: 'Orange500',
+						value: 'Purple300',
 					},
 				},
 				4: {
 					'[default]': {
-						value: 'Magenta300',
+						value: 'Orange400',
 					},
 					hovered: {
-						value: 'Magenta200',
+						value: 'Orange300',
 					},
 				},
 				5: {
 					'[default]': {
-						value: 'Blue200',
+						value: 'Blue800',
 					},
 					hovered: {
-						value: 'Blue100',
+						value: 'Blue700',
 					},
 				},
 				6: {
 					'[default]': {
-						value: 'Purple600',
+						value: 'Purple700',
 					},
 					hovered: {
-						value: 'Purple500',
+						value: 'Purple600',
 					},
 				},
 				7: {
 					'[default]': {
-						value: 'Magenta200',
+						value: 'Teal500',
 					},
 					hovered: {
-						value: 'Magenta100',
+						value: 'Teal400',
 					},
 				},
 				8: {
 					'[default]': {
-						value: 'Orange300',
+						value: 'Orange600',
 					},
 					hovered: {
-						value: 'Orange200',
+						value: 'Orange250',
 					},
 				},
 			},
@@ -247,7 +247,7 @@ const color: ValueSchema<ChartColorTokenSchema<BaseToken>> = {
 				},
 				boldest: {
 					'[default]': {
-						value: 'Orange300',
+						value: 'Orange250',
 					},
 					hovered: {
 						value: 'Orange200',

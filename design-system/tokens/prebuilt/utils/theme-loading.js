@@ -7,7 +7,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.moreContrastMediaQuery = exports.loadThemeCss = exports.loadAndAppendThemeCss = exports.darkModeMediaQuery = void 0;
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
-var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
 var _themeImportMap = _interopRequireDefault(require("../artifacts/theme-import-map"));
 var _constants = require("../constants");
 var loadAndAppendThemeCss = exports.loadAndAppendThemeCss = /*#__PURE__*/function () {
@@ -52,16 +51,13 @@ var loadThemeCss = exports.loadThemeCss = /*#__PURE__*/function () {
     return _regenerator.default.wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
-          if ((themeId === 'light' || themeId === 'dark') && (0, _platformFeatureFlags.fg)('platform-component-visual-refresh')) {
-            themeId += '-brand-refresh';
-          }
-          _context2.next = 3;
+          _context2.next = 2;
           return _themeImportMap.default[themeId]();
-        case 3:
+        case 2:
           _yield$themeImportMap = _context2.sent;
           themeCss = _yield$themeImportMap.default;
           return _context2.abrupt("return", themeCss);
-        case 6:
+        case 5:
         case "end":
           return _context2.stop();
       }

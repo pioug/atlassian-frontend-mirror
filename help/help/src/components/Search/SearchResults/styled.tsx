@@ -45,7 +45,7 @@ export const SearchResultsContainer = ({
 }: {
 	children: React.ReactNode;
 	transitionState: TransitionStatus;
-}) => (
+}): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 	<div css={searchResultsContainerStyles} style={transitionStyles[transitionState]}>
 		{children}
@@ -79,7 +79,7 @@ export const SearchResultsContainerAi = ({
 }: {
 	children: React.ReactNode;
 	transitionState: TransitionStatus;
-}) => (
+}): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 	<div css={searchResultsContainerAiStyles} style={transitionStyles[transitionState]}>
 		{children}
@@ -94,9 +94,11 @@ const searchResultEmptyMessageImageStyles = css({
 	textAlign: 'center',
 });
 
-export const SearchResultEmptyMessageImage = ({ children }: { children: React.ReactNode }) => (
-	<div css={searchResultEmptyMessageImageStyles}>{children}</div>
-);
+export const SearchResultEmptyMessageImage = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <div css={searchResultEmptyMessageImageStyles}>{children}</div>;
 
 const searchResultEmptyMessageTextStyles = css({
 	paddingTop: token('space.300', '24px'),
@@ -110,9 +112,11 @@ const searchResultEmptyMessageTextStyles = css({
 	},
 });
 
-export const SearchResultEmptyMessageText = ({ children }: { children: React.ReactNode }) => (
-	<div css={searchResultEmptyMessageTextStyles}>{children}</div>
-);
+export const SearchResultEmptyMessageText = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => <div css={searchResultEmptyMessageTextStyles}>{children}</div>;
 
 const searchResultEmptyMessageHeaderTextStyles = css({
 	color: token('color.text', N500),
@@ -120,7 +124,11 @@ const searchResultEmptyMessageHeaderTextStyles = css({
 	fontWeight: token('font.weight.bold'),
 });
 
-export const SearchResultEmptyMessageHeaderText = ({ children }: { children: React.ReactNode }) => (
+export const SearchResultEmptyMessageHeaderText = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/use-heading
 	<h2 css={searchResultEmptyMessageHeaderTextStyles}>{children}</h2>
 );
@@ -141,4 +149,4 @@ export const SearchResultSearchExternalSiteContainer = ({
 	children,
 }: {
 	children: React.ReactNode;
-}) => <div css={searchResultSearchExternalSiteContainerStyles}>{children}</div>;
+}): JSX.Element => <div css={searchResultSearchExternalSiteContainerStyles}>{children}</div>;

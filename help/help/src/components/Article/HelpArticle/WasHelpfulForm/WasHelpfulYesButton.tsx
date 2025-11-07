@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 import {
 	useAnalyticsEvents,
 	type UIAnalyticsEvent,
@@ -62,4 +62,7 @@ const ArticleWasHelpfulYesButtonWithContext: React.FC<Props & WrappedComponentPr
 	);
 };
 
-export default injectIntl(ArticleWasHelpfulYesButtonWithContext);
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(ArticleWasHelpfulYesButtonWithContext);
+export default _default_1;

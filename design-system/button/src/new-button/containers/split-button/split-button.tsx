@@ -6,7 +6,6 @@ import { type ReactNode } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { SplitButtonContext } from './split-button-context';
@@ -28,40 +27,16 @@ const dividerStyles = cssMap({
 		zIndex: 1,
 	},
 	dividerDisabled: {
-		backgroundColor: token('color.text.disabled', '#091E4224'),
-		cursor: 'not-allowed',
-		opacity: 0.51,
-	},
-	dividerDisabledRefreshed: {
 		backgroundColor: token('color.border.disabled', '#091E4224'),
 		cursor: 'not-allowed',
 	},
-	dividerOffsetRefreshed: {
+	dividerOffset: {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		marginInline: -1,
 	},
 });
 
 const dividerAppearanceStyles = cssMap({
-	default: {
-		backgroundColor: token('color.text', '#172B4D'),
-		opacity: 0.51,
-	},
-	primary: {
-		backgroundColor: token('color.text.inverse', '#FFF'),
-		opacity: 0.64,
-	},
-	navigation: {
-		height: '16px',
-		marginBlock: token('space.100', '8px'),
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-		marginInline: '-0.03125rem', // -0.5px
-		backgroundColor: token('color.text.subtle', '#0052cc'),
-		opacity: 0.62,
-	},
-});
-
-const dividerRefreshedAppearanceStyles = cssMap({
 	default: {
 		backgroundColor: token('color.border', '#091E4224'),
 	},
@@ -110,8 +85,7 @@ type DividerProps = {
  * TODO: Add JSDoc
  */
 export const Divider = ({ appearance, spacing, isDisabled = false }: DividerProps) => {
-	const isDefaultDivider =
-		appearance === 'default' && !isDisabled && fg('platform-component-visual-refresh');
+	const isDefaultDivider = appearance === 'default' && !isDisabled;
 	return (
 		// I find it funny to provide a div for Divider
 		<div
@@ -119,17 +93,9 @@ export const Divider = ({ appearance, spacing, isDisabled = false }: DividerProp
 				dividerStyles.baseDivider,
 				isDefaultDivider && defaultDividerHeightStyles[spacing],
 				!isDefaultDivider && dividerHeightStyles[spacing],
-				isDisabled &&
-					fg('platform-component-visual-refresh') &&
-					dividerStyles.dividerDisabledRefreshed,
-				isDisabled && !fg('platform-component-visual-refresh') && dividerStyles.dividerDisabled,
-				!isDisabled &&
-					fg('platform-component-visual-refresh') &&
-					dividerRefreshedAppearanceStyles[appearance],
-				!isDisabled &&
-					!fg('platform-component-visual-refresh') &&
-					dividerAppearanceStyles[appearance],
-				fg('platform-component-visual-refresh') && dividerStyles.dividerOffsetRefreshed,
+				isDisabled && dividerStyles.dividerDisabled,
+				!isDisabled && dividerAppearanceStyles[appearance],
+				dividerStyles.dividerOffset,
 			]}
 		/>
 	);
@@ -184,13 +150,8 @@ export const SplitButtonContainer = ({
 	return (
 		<div
 			css={[
-				appearance === 'default' &&
-					fg('platform-component-visual-refresh') &&
-					buttonStyles.defaultAppearanceContainer,
-				appearance === 'default' &&
-					isDisabled &&
-					fg('platform-component-visual-refresh') &&
-					buttonStyles.defaultAppearanceDisabledContainer,
+				appearance === 'default' && buttonStyles.defaultAppearanceContainer,
+				appearance === 'default' && isDisabled && buttonStyles.defaultAppearanceDisabledContainer,
 				buttonStyles.splitButton,
 			]}
 		>

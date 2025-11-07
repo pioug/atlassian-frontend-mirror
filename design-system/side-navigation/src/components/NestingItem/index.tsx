@@ -334,7 +334,7 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
 				css={[styles.nestingItem, isDisabled && styles.nestingItemDisabled]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 				className={className}
-				//@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
+				//@ts-ignore TODO Fix legit TypeScript 3.9.6 improved inference error
 				component={component}
 			/>
 		);

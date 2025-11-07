@@ -6,8 +6,6 @@ import { type CSSProperties, forwardRef, type ReactNode } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { TooltipShortcut } from './tooltip-shortcut';
 import { type PositionType } from './types';
 
@@ -61,9 +59,7 @@ const TooltipPrimitive: React.ForwardRefExoticComponent<
 				id={id}
 			>
 				{children}
-				{shortcut && fg('platform-dst-tooltip-shortcuts') && (
-					<TooltipShortcut shortcut={shortcut} />
-				)}
+				{shortcut && <TooltipShortcut shortcut={shortcut} />}
 			</div>
 		</div>
 	);

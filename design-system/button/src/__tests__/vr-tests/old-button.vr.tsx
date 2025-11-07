@@ -7,7 +7,4 @@ import { themeVariants } from './utils';
 snapshot(OldButtonExample, {
 	description: 'Old button appearances',
 	variants: themeVariants,
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });

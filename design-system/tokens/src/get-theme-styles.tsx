@@ -47,10 +47,6 @@ const getThemeStyles = async (
 				(n) => n !== 'light-increased-contrast' && n !== 'dark-increased-contrast',
 			);
 		}
-
-		themePreferences = themePreferences.filter(
-			(n) => n !== 'light-brand-refresh' && n !== 'dark-brand-refresh',
-		);
 	} else {
 		const themeState = {
 			colorMode: preferences?.colorMode || themeStateDefaults['colorMode'],

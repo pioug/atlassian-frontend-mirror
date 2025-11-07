@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/analytics-next';
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import { token } from '@atlaskit/tokens';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 
 import { type ArticleItem } from '../../../model/Article';
 import LikeIcon from '@atlaskit/icon/core/migration/thumbs-up--like';
@@ -158,4 +158,7 @@ const ArticlesListItemWithContext: React.FC<
 	);
 };
 
-export default injectIntl(ArticlesListItemWithContext);
+const _default_1: React.FC<WithIntlProps<Props & Partial<ArticleItem> & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & Partial<ArticleItem> & WrappedComponentProps>;
+} = injectIntl(ArticlesListItemWithContext);
+export default _default_1;

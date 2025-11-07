@@ -1,9 +1,9 @@
 /* eslint-disable require-unicode-regexp  */
 
-import type { SyncBlockSourceInfo } from "../providers/types";
+import type { SyncBlockSourceInfo } from '../providers/types';
 
-import { getPageIdAndTypeFromAri } from "./ari";
-import { isBlogPageType } from "./utils";
+import { getPageIdAndTypeFromAri } from './ari';
+import { isBlogPageType } from './utils';
 
 const COMMON_HEADERS = {
 	'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ const AGG_HEADERS = {
 
 const GRAPHQL_ENDPOINT = '/gateway/api/graphql';
 
-const GET_SOURCE_INFO_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_GET_SOURCE_INFO'
+const GET_SOURCE_INFO_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_GET_SOURCE_INFO';
 
 type GetSourceInfoResult = {
 	data: {
@@ -25,13 +25,13 @@ type GetSourceInfoResult = {
 				id: string;
 				links: {
 					base: string;
-				}
+				};
 				space: {
 					key: string;
-				}
+				};
 				subType: string | null;
 				title: string;
-			}[]
+			}[];
 		} | null;
 	};
 };
@@ -57,7 +57,7 @@ const GET_SOURCE_INFO_QUERY = `query ${GET_SOURCE_INFO_OPERATION_NAME} ($id: ID!
 	}
 }`;
 
-const getSourceInfo = async (ari: string): Promise<GetSourceInfoResult> =>  {
+const getSourceInfo = async (ari: string): Promise<GetSourceInfoResult> => {
 	const bodyData = {
 		query: GET_SOURCE_INFO_QUERY,
 		operationName: GET_SOURCE_INFO_OPERATION_NAME,
@@ -77,7 +77,7 @@ const getSourceInfo = async (ari: string): Promise<GetSourceInfoResult> =>  {
 	}
 
 	return (await response.json()) as GetSourceInfoResult;
-}
+};
 
 export const fetchSourceInfo = async (
 	ari: string,
@@ -87,9 +87,9 @@ export const fetchSourceInfo = async (
 		const { type: pageType } = getPageIdAndTypeFromAri(ari);
 		const response = await getSourceInfo(ari);
 
-		const contentData = response.data?.content?.nodes?.[0]
+		const contentData = response.data?.content?.nodes?.[0];
 		if (!contentData) {
-			throw new Error(`Failed to get content data`)
+			throw new Error(`Failed to get content data`);
 		}
 
 		const title = contentData.title;
@@ -98,19 +98,19 @@ export const fetchSourceInfo = async (
 		const { base } = contentData.links || {};
 		if (base && contentData.space?.key && contentData.id) {
 			if (isBlogPageType(pageType)) {
-				url = `${base}/spaces/${contentData.space.key}/blog/edit-v2/${contentData.id}`
+				url = `${base}/spaces/${contentData.space.key}/blog/edit-v2/${contentData.id}`;
 			} else if (contentData.subType === 'live') {
-				url = `${base}/spaces/${contentData.space.key}/pages/${contentData.id}`
+				url = `${base}/spaces/${contentData.space.key}/pages/${contentData.id}`;
 			} else {
-				url = `${base}/spaces/${contentData.space.key}/pages/edit-v2/${contentData.id}`
+				url = `${base}/spaces/${contentData.space.key}/pages/edit-v2/${contentData.id}`;
 			}
 		}
 
-		url = (url && localId) ? `${url}#block-${localId}` : url;
+		url = url && localId ? `${url}#block-${localId}` : url;
 
 		return Promise.resolve({ title, url });
 	} catch (error) {
 		// TODO: EDITOR-1921 - add error analytics
-		return Promise.resolve(undefined)
+		return Promise.resolve(undefined);
 	}
-}
+};

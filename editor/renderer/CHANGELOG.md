@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 124.10.3
+
+### Patch Changes
+
+- [`4660917b9e6b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4660917b9e6b9) -
+  Cleaned platform_editor_nested_table_extension_comment_fix FG.
+- Updated dependencies
+
+## 124.10.2
+
+### Patch Changes
+
+- [`ca454ed251e1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca454ed251e1e) -
+  Add table height analytics
+- Updated dependencies
+
 ## 124.10.1
 
 ### Patch Changes

@@ -49,3 +49,53 @@ export const getWidthInfoPayload = (renderer: HTMLElement): AnalyticsEventPayloa
 		eventType: EVENT_TYPE.OPERATIONAL,
 	};
 };
+
+export const getHeightInfoPayload = (renderer: HTMLElement): AnalyticsEventPayload | undefined => {
+	const tablesInfo: Array<{
+		isNestedTable: boolean;
+		tableHeight: number;
+	}> = [];
+
+	const tableWrappers = renderer.querySelectorAll<HTMLDivElement>('.pm-table-wrapper');
+
+	// only send the event if there are tables on the page
+	if (tableWrappers.length === 0) {
+		return undefined;
+	}
+
+	tableWrappers.forEach((tableWrapper) => {
+		const table = tableWrapper.querySelector(':scope > table');
+
+		if (table) {
+			const isNestedTable = Boolean(table.closest('td, th'));
+
+			tablesInfo.push({
+				tableHeight: table.scrollHeight,
+				isNestedTable,
+			});
+		}
+	});
+
+	const maxTableHeight = Math.max(...tablesInfo.map((table) => table.tableHeight));
+
+	/** NOTE: Renderer is not scrollable, so this height represents the height of the content */
+	const rendererClientHeight = renderer.clientHeight;
+	const viewportHeight = window.innerHeight;
+
+	if (!viewportHeight) {
+		return undefined;
+	}
+
+	return {
+		action: TABLE_ACTION.TABLE_RENDERER_HEIGHT_INFO,
+		actionSubject: ACTION_SUBJECT.TABLE,
+		attributes: {
+			viewportHeight,
+			rendererHeight: rendererClientHeight,
+			maxTableHeight,
+			maxTableToViewportHeightRatio: maxTableHeight / viewportHeight,
+			tableHeightInfo: tablesInfo,
+		},
+		eventType: EVENT_TYPE.OPERATIONAL,
+	};
+};

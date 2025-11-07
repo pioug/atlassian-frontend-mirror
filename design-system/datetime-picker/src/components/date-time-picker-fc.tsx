@@ -115,7 +115,7 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 			timePickerProps: timePickerPropsWithSelectProps = {},
 			value: providedValue,
 		}: DateTimePickerBaseProps,
-		ref,
+		_ref,
 	) => {
 		const [dateValue, setDateValue] = useState<string>(
 			datePickerPropsWithSelectProps?.defaultValue || '',

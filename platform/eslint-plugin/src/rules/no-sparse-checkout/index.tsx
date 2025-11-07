@@ -5,15 +5,15 @@ import type { Property } from 'estree';
 // We will be incrementally removing sparse-checkout from the files below as it is probably unnecessasry.
 // If you must add an exception below, please go through the chopper process before doing so
 const sparseCheckoutExceptions = [
-	'bitbucket-pipelines/pipelines/custom/run-issue-automat.ts',
-	'bitbucket-pipelines/pipelines/custom/marketplace/utils.ts',
-	'bitbucket-pipelines/pipelines/custom/confluence/utils/index.ts',
-	'bitbucket-pipelines/pipelines/custom/afm-tools/upload-afm-dependency-graph-cache.ts',
-	'bitbucket-pipelines/pipelines/custom/afm-tools/default-afm-tools.ts',
-	'bitbucket-pipelines/pipelines/custom/marketplace/utils.ts',
-	'bitbucket-pipelines/pipelines/custom/afm-git-hooks.ts',
-	'bitbucket-pipelines/pipelines/custom/update-codeowners-and-teams-gen.ts',
-	'bitbucket-pipelines/pipelines/custom/run-issue-automat.ts',
+	'pipeline-definitions/pipelines/custom/run-issue-automat.ts',
+	'pipeline-definitions/pipelines/custom/marketplace/utils.ts',
+	'pipeline-definitions/pipelines/custom/confluence/utils/index.ts',
+	'pipeline-definitions/pipelines/custom/afm-tools/upload-afm-dependency-graph-cache.ts',
+	'pipeline-definitions/pipelines/custom/afm-tools/default-afm-tools.ts',
+	'pipeline-definitions/pipelines/custom/marketplace/utils.ts',
+	'pipeline-definitions/pipelines/custom/afm-git-hooks.ts',
+	'pipeline-definitions/pipelines/custom/update-codeowners-and-teams-gen.ts',
+	'pipeline-definitions/pipelines/custom/run-issue-automat.ts',
 ];
 
 const rule: Rule.RuleModule = {

@@ -35,7 +35,7 @@ const color: ValueSchema<BorderColorTokenSchema<BaseToken>> = {
 				value: 'Orange600',
 			},
 			success: {
-				value: 'Green600',
+				value: 'Lime600',
 			},
 			discovery: {
 				value: 'Purple600',

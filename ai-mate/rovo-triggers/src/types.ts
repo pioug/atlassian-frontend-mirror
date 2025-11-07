@@ -293,8 +293,8 @@ export type JiraWorkflowWizardActionsPayload = PayloadCore<
 	}
 >;
 
-export type GenericActionErrorPayload = PayloadCore<
-	'generic-action-error',
+export type GenericExternalActionErrorPayload = PayloadCore<
+	'generic-external-action-error',
 	{
 		invocationId: string;
 		errors: string[];
@@ -333,7 +333,7 @@ export type Payload =
 	| DashboardInsightsActionsPayload
 	| SetChatContextPayload
 	| InsertUrlsPayload
-	| GenericActionErrorPayload;
+	| GenericExternalActionErrorPayload;
 
 export type Callback = (payload: Payload) => void;
 

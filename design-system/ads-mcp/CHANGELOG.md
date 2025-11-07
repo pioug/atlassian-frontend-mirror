@@ -1,5 +1,14 @@
 # @atlaskit/ads-mcp
 
+## 0.8.2
+
+### Patch Changes
+
+- [`64561aae4b705`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64561aae4b705) -
+  Enhance README.md with comprehensive updates including a new Table of Contents, detailed usage
+  instructions for various tools, and FAQs for troubleshooting. Added sections on accessibility
+  features and environment variables for better user guidance.
+
 ## 0.8.1
 
 ### Patch Changes

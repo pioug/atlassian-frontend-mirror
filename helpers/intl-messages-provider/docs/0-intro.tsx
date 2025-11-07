@@ -2,7 +2,7 @@ import React from 'react';
 
 import { code, Example, md, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
    IntlMessagesProvider is a Frontend Utility to asynchronously load i18n translated messages and feed them to IntlProvider based on the locale in product.
 
    ## Installation
@@ -42,3 +42,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

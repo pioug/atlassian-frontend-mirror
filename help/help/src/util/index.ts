@@ -5,8 +5,9 @@ import WhatsNewIconImprovement from '../assets/WhatsNewIconImprovement';
 import WhatsNewIconNew from '../assets/WhatsNewIconNew';
 import { WHATS_NEW_ITEM_TYPES } from '../model/WhatsNew';
 import { messages } from '../messages';
+import type { JSX } from 'react';
 
-export const getTypeIcon = (itemType?: WHATS_NEW_ITEM_TYPES) => {
+export const getTypeIcon = (itemType?: WHATS_NEW_ITEM_TYPES): JSX.Element | '' => {
 	switch (itemType) {
 		case WHATS_NEW_ITEM_TYPES.NEW_FEATURE:
 			return WhatsNewIconNew();
@@ -28,7 +29,13 @@ export const getTypeIcon = (itemType?: WHATS_NEW_ITEM_TYPES) => {
 	}
 };
 
-export const getTypeTitle = (itemType: WHATS_NEW_ITEM_TYPES) => {
+export const getTypeTitle = (
+	itemType: WHATS_NEW_ITEM_TYPES,
+): {
+	defaultMessage: string;
+	description: string;
+	id: string;
+} => {
 	switch (itemType) {
 		case WHATS_NEW_ITEM_TYPES.NEW_FEATURE:
 			return messages.help_whats_new_filter_select_option_new;

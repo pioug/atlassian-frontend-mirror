@@ -14,7 +14,6 @@ import {
 	ModalHeader,
 	ModalTitle,
 } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -196,7 +195,7 @@ export const PlainConfluenceSearchConfigModal = (
 	);
 
 	let siteSelectorLabel;
-	if (disableSiteSelector && fg('add-disablesiteselector')) {
+	if (disableSiteSelector) {
 		siteSelectorLabel = confluenceSearchModalMessages.insertIssuesTitle;
 	} else {
 		siteSelectorLabel =

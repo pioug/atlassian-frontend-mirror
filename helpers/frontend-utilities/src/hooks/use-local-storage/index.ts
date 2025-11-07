@@ -24,10 +24,20 @@ export const useLocalStorage = <T extends unknown>(
 	return [value, setValue];
 };
 
-export function useLocalStorageRecord<T>(key: string, initialValue: T[] = [], maxLength = 100) {
+export function useLocalStorageRecord<T>(
+	key: string,
+	initialValue: T[] = [],
+	maxLength = 100,
+): {
+	actions: {
+		putRecord: (record: T) => void;
+		removeRecord: (query: string) => void;
+	};
+	records: T[];
+} {
 	const [records, setRecords] = useLocalStorage<T[]>(key, initialValue);
 
-	const putRecord = (record: T) => {
+	const putRecord = (record: T): void => {
 		if (!records) {
 			setRecords([record]);
 			return;
@@ -41,7 +51,7 @@ export function useLocalStorageRecord<T>(key: string, initialValue: T[] = [], ma
 		}
 	};
 
-	const removeRecord = (query: string) => {
+	const removeRecord = (query: string): void => {
 		if (!records) {
 			return;
 		}

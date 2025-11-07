@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@atlaskit/button';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 import {
 	useAnalyticsEvents,
 	type UIAnalyticsEvent,
@@ -26,7 +26,10 @@ interface Props {
 	onTryAgainButtonClick?(event: React.MouseEvent, analyticsEvent: UIAnalyticsEvent): void;
 }
 
-export const ArticleLoadingFail = ({ onTryAgainButtonClick, intl: { formatMessage } }: Props) => {
+export const ArticleLoadingFail = ({
+	onTryAgainButtonClick,
+	intl: { formatMessage },
+}: Props): React.JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	const handleOnTryAgainButtonClick =
@@ -65,4 +68,7 @@ const ArticleLoadingFailWithContext: React.FC<Props> = (props) => {
 	);
 };
 
-export default injectIntl(ArticleLoadingFailWithContext);
+const _default_1: React.FC<WithIntlProps<Props>> & {
+	WrappedComponent: React.ComponentType<Props>;
+} = injectIntl(ArticleLoadingFailWithContext);
+export default _default_1;

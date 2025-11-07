@@ -29,7 +29,9 @@ export interface HelpArticleContextInterface {
 	): void;
 }
 
-export const [useHelpArticleContext, CtxProvider] = createCtx<HelpArticleContextInterface>();
+const dest = createCtx<HelpArticleContextInterface>();
+export const useHelpArticleContext: () => HelpArticleContextInterface = dest[0];
+export const CtxProvider: React.Provider<HelpArticleContextInterface | undefined> = dest[1];
 
 export const HelpArticleContextProvider = ({
 	onGetHelpArticle,
@@ -38,7 +40,7 @@ export const HelpArticleContextProvider = ({
 	onWasHelpfulNoButtonClick,
 	onWasHelpfulSubmit,
 	children,
-}: PropsWithChildren<HelpArticleContextInterface>) => {
+}: PropsWithChildren<HelpArticleContextInterface>): React.JSX.Element => {
 	return (
 		<CtxProvider
 			value={{

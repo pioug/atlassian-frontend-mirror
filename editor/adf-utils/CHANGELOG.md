@@ -1,5 +1,12 @@
 # @atlaskit/adf-utils
 
+## 19.25.3
+
+### Patch Changes
+
+- [`4660917b9e6b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4660917b9e6b9) -
+  Cleaned platform_editor_nested_table_extension_comment_fix FG.
+
 ## 19.25.2
 
 ### Patch Changes

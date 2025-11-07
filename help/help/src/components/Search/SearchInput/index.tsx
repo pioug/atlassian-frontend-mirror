@@ -15,7 +15,7 @@ import Spinner from '@atlaskit/spinner';
 import SearchIcon from '@atlaskit/icon/core/migration/search';
 import EditorCloseIcon from '@atlaskit/icon/core/migration/cross--editor-close';
 import { css, jsx } from '@compiled/react';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 
 import { REQUEST_STATE } from '../../../model/Requests';
 import { useSearchContext } from '../../contexts/searchContext';
@@ -154,4 +154,7 @@ const SearchInputWithContext: React.FC<SearchInputProps> = (props) => {
 	);
 };
 
-export default injectIntl(SearchInputWithContext);
+const _default_1: React.FC<WithIntlProps<SearchInputProps>> & {
+	WrappedComponent: React.ComponentType<SearchInputProps>;
+} = injectIntl(SearchInputWithContext);
+export default _default_1;

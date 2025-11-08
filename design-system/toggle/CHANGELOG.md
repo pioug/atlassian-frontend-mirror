@@ -1,5 +1,11 @@
 # @atlaskit/toggle
 
+## 15.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.1.11
 
 ### Patch Changes

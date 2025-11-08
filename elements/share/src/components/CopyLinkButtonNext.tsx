@@ -173,7 +173,6 @@ export class CopyLinkButton extends React.Component<Props, State> {
 	render() {
 		const { shouldShowCopiedMessage } = this.state;
 		const { copyTooltipText, copiedToClipboardText } = this.props;
-
 		return (
 			<React.Fragment>
 				{/* Added ARIA live region specifically for VoiceOver + Safari since the status */}
@@ -189,25 +188,27 @@ export class CopyLinkButton extends React.Component<Props, State> {
 				<Popup
 					zIndex={Z_INDEX}
 					autoFocus={false}
-					content={() => (
-						<InlineDialogContentWrapper>
-							<Box xcss={cx(styles.messageContainer)} testId="message-container" aria-hidden>
-								<React.Fragment>
+					content={() =>
+						fg('jfind-copy-link-modal-invite-tooltip') ? null : (
+							<InlineDialogContentWrapper>
+								<Box xcss={cx(styles.messageContainer)} testId="message-container" aria-hidden>
 									<CheckCircleIcon
 										spacing="spacious"
 										label=""
 										color={token('color.icon.success', G300)}
 									/>
 									<Box xcss={cx(styles.messageText)}>{copiedToClipboardText}</Box>
-								</React.Fragment>
-							</Box>
-						</InlineDialogContentWrapper>
-					)}
+								</Box>
+							</InlineDialogContentWrapper>
+						)
+					}
 					isOpen={shouldShowCopiedMessage}
 					onClose={this.handleDismissCopiedMessage}
 					placement="top-start"
 					trigger={(triggerProps: TriggerProps) =>
-						copyTooltipText ? (
+						copyTooltipText &&
+						shouldShowCopiedMessage &&
+						fg('jfind-copy-link-modal-invite-tooltip') ? (
 							<Tooltip content={copyTooltipText} position="bottom-start">
 								{this.renderTriggerButton(triggerProps)}
 							</Tooltip>

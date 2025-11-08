@@ -1,5 +1,17 @@
 # @atlaskit/button
 
+## 23.6.0
+
+### Minor Changes
+
+- [`1e31925550257`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e31925550257) -
+  [ux] Updates button styles to reflect our new visual design language. These changes were
+  previously behind a feature flag and are now fully rolled out.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.5.4
 
 ### Patch Changes

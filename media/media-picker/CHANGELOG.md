@@ -1,5 +1,11 @@
 # @atlaskit/media-picker
 
+## 70.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 70.0.7
 
 ### Patch Changes

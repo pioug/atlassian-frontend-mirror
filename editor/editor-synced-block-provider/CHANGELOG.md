@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.7.3
+
+### Patch Changes
+
+- [`2ccc83663f44b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ccc83663f44b) -
+  [EDITOR-2744] Fix deleting source sync block re-creates the node in live page
+- Updated dependencies
+
 ## 2.7.2
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 15.3.14
+
+### Patch Changes
+
+- [`21ffffe31e25a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21ffffe31e25a) -
+  Cleaned platform_editor_fix_table_resizing_undo FG.
+- Updated dependencies
+
 ## 15.3.13
 
 ### Patch Changes

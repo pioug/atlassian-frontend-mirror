@@ -1,5 +1,12 @@
 # @atlaskit/adf-utils
 
+## 19.25.4
+
+### Patch Changes
+
+- [`0fc48508d98fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fc48508d98fc) -
+  EDITOR-2807 Added syncBlock and bodiedSyncBlock fallback transform
+
 ## 19.25.3
 
 ### Patch Changes

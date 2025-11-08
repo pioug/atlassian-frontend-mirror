@@ -624,6 +624,29 @@ export const LINKING_BUTTON = {
 } as const;
 
 /**
+ * Synced Block group
+ */
+export const SYNCED_BLOCK_GROUP = {
+	key: 'synced-block-group',
+	type: 'group',
+} as const;
+
+export const SYNCED_BLOCK_BUTTON = {
+	key: 'synced-block-button',
+	type: 'button',
+} as const;
+
+export const SYNCED_BLOCK_ITEM = {
+	key: 'synced-block-item',
+	type: 'menu-item',
+} as const;
+
+export const SYNCED_BLOCK_SECTION = {
+	key: 'synced-block-section',
+	type: 'menu-section',
+} as const;
+
+/**
  * Collab section
  */
 export const COLLAB_SECTION = {

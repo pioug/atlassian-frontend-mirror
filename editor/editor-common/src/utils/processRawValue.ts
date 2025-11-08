@@ -1,4 +1,5 @@
 import {
+	syncBlockFallbackTransform,
 	transformDedupeMarks,
 	transformIndentationMarks,
 	transformInvalidMediaContent,
@@ -10,6 +11,7 @@ import {
 import type { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Fragment, Node, type Schema } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { DispatchAnalyticsEvent } from '../analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
@@ -84,10 +86,17 @@ export function processRawValueWithoutValidation(
 	}
 
 	// Convert nested-table extensions into nested tables
-	const { transformedAdf } = transformNestedTablesWithAnalytics(
+	let { transformedAdf } = transformNestedTablesWithAnalytics(
 		node as ADFEntity,
 		dispatchAnalyticsEvent,
 	);
+
+	if (fg('platform_editor_sync_block_fallback_transform')) {
+		const result = syncBlockFallbackTransform(schema, transformedAdf);
+		if (result.isTransformed && result.transformedAdf) {
+			transformedAdf = result.transformedAdf;
+		}
+	}
 
 	return Node.fromJSON(schema, transformedAdf);
 }

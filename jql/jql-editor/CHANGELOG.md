@@ -1,5 +1,11 @@
 # @atlaskit/jql-editor
 
+## 5.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.8.1
 
 ### Patch Changes

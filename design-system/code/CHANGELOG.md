@@ -1,5 +1,11 @@
 # @atlaskit/code
 
+## 17.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.3.0
 
 ### Minor Changes

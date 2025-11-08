@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-list
 
+## 8.2.7
+
+### Patch Changes
+
+- [`0d661119b4293`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d661119b4293) -
+  Clean up platform_editor_insertion experiment by shipping control variant. Remove modern TypeAhead
+  components and experiment infrastructure while preserving all existing functionality.
+- Updated dependencies
+
 ## 8.2.6
 
 ### Patch Changes

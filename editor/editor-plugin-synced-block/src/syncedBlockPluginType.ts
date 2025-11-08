@@ -11,7 +11,8 @@ import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
-import type { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
 	SyncBlockDataProvider,
 	UseFetchSyncBlockDataResult,
@@ -76,6 +77,7 @@ export type SyncedBlockPlugin = NextEditorPlugin<
 			FloatingToolbarPlugin,
 			DecorationsPlugin,
 			OptionalPlugin<BlockControlsPlugin>,
+			OptionalPlugin<ToolbarPlugin>,
 			OptionalPlugin<BlockMenuPlugin>,
 			OptionalPlugin<AnalyticsPlugin>,
 		];

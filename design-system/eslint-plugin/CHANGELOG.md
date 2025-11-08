@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.23.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.23.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.19.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.19.1
 
 ### Patch Changes

@@ -1,5 +1,31 @@
 # @atlaskit/tokens
 
+## 8.0.0
+
+### Major Changes
+
+- [`1e31925550257`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e31925550257) -
+  [ux] We have removed the `platform-component-visual-refresh` feature flag. As a result:
+  - Default Themes Changed `light-brand-refresh` and `dark-brand-refresh` are now the default themes
+    for light and dark. If you were using on the `light-brand-refresh` or `dark-brand-refresh`
+    themes in `setGlobalTheme`, you'll need to update to the default themes.
+
+  ```diff
+  - setGlobalTheme('light-brand-refresh');
+  + setGlobalTheme('light');
+
+  - setGlobalTheme('dark-brand-refresh');
+  + setGlobalTheme('dark');
+  ```
+
+  - Accent Tokens Updated Pressed/hovered background tokens for accent colors (e.g.,
+    `background.accent.blue.subtle.pressed`) now use new 250/850 base tokens to improve
+    accessibility. This will cause visible color changes in light and dark themes. Checkout the new
+    color palette [here](https://atlassian.design/foundations/color-new/color-palette-new).
+
+  - Visual Regression (VR) Impact If you're using these tokens in your components, expect widespread
+    snapshot updates. This change may affect VR snapshots across apps and packages.
+
 ## 7.1.1
 
 ### Patch Changes

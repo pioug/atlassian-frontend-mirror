@@ -1,5 +1,18 @@
 # @atlaskit/emoji
 
+## 69.7.0
+
+### Minor Changes
+
+- [`fd2d25f0335ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd2d25f0335ae) -
+  clean up platform_reactions_placeholder_custom_background
+
+## 69.6.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 69.6.5
 
 ### Patch Changes

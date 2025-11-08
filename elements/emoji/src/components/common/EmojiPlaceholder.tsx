@@ -4,7 +4,6 @@
  */
 import { css, jsx } from '@compiled/react';
 import type { StrictXCSSProp } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { defaultEmojiHeight } from '../../util/constants';
 import type { EmojiImageRepresentation } from '../../types';
@@ -69,10 +68,7 @@ const EmojiPlaceholder = (props: Props) => {
 			role="status"
 			aria-label={shortName}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={[
-				placeholder,
-				fg('platform_reactions_placeholder_custom_background') ? xcss : '',
-			].join(' ')}
+			className={[placeholder, xcss].join(' ')}
 			css={[placeholderContainer]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={style}

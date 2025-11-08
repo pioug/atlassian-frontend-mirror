@@ -16,11 +16,13 @@ import { getBlockMenuComponents } from './ui/block-menu-components';
 import { DeleteConfirmationModal } from './ui/DeleteConfirmationModal';
 import { getToolbarConfig } from './ui/floating-toolbar';
 import { SyncBlockRefresher } from './ui/SyncBlockRefresher';
+import { getToolbarComponents } from './ui/toolbar-components';
 
 export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 	const syncBlockStore = new SyncBlockStoreManager(config?.syncBlockDataProvider);
 
 	api?.blockMenu?.actions.registerBlockMenuComponents(getBlockMenuComponents(api));
+	api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
 
 	return {
 		name: 'syncedBlock',

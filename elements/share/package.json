@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/share",
-	"version": "6.16.15",
+	"version": "6.16.16",
 	"description": "Fabric Share Element",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -147,6 +147,9 @@
 			"type": "boolean"
 		},
 		"jira-warepil-track-sharing-to-email-disabled": {
+			"type": "boolean"
+		},
+		"jfind-copy-link-modal-invite-tooltip": {
 			"type": "boolean"
 		}
 	},

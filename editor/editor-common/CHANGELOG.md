@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 110.25.0
+
+### Minor Changes
+
+- [`cd4d309562a37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd4d309562a37) -
+  EDITOR-2534 add sync-block toolbar option
+
+## 110.24.3
+
+### Patch Changes
+
+- [`0fc48508d98fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fc48508d98fc) -
+  EDITOR-2807 Added syncBlock and bodiedSyncBlock fallback transform
+- Updated dependencies
+
+## 110.24.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 110.24.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/empty-state
 
+## 10.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.8
 
 ### Patch Changes

@@ -90,7 +90,6 @@ export const syncBlockMessages = defineMessages({
 		defaultMessage: 'Synced from: {title}',
 		description: 'Tooltip that shows the source page title of the synced block',
 	},
-
 	deleteConfirmationModalTitle: {
 		id: 'fabric.editor.deleteConfirmationModalTitle',
 		defaultMessage: "You're about to delete synced content",
@@ -115,5 +114,10 @@ export const syncBlockMessages = defineMessages({
 			'Deleting this content will also remove {syncBlockCount, plural, one {a synced block. References to this block} other {# synced blocks. References to these blocks}} in other locations will show an error. Continue with deletion?',
 		description:
 			'Description of delete confirmation modal that appears when user tries to delete source synced block',
+	},
+	createSyncBlockLabel: {
+		id: 'fabric.editor.createSyncBlockLabel',
+		defaultMessage: 'Create a synced block',
+		description: 'Label for button which creates a new synced block',
 	},
 });

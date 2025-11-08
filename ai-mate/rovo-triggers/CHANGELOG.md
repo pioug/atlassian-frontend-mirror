@@ -1,5 +1,20 @@
 # @atlaskit/rovo-triggers
 
+## 4.0.1
+
+### Patch Changes
+
+- [`fa6ccc7d15810`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa6ccc7d15810) -
+  Tooling: Add eslint-plugin-no-barrel-files and ignore existing violations. No published code
+  affected
+
+## 4.0.0
+
+### Major Changes
+
+- [`7df1d25b57424`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7df1d25b57424) -
+  Rovo types have been updated for generic external action errors for consistent naming.
+
 ## 3.18.0
 
 ### Minor Changes

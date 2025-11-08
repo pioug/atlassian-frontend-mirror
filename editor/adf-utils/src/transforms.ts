@@ -13,3 +13,4 @@ export {
 } from './transforms/nested-table-transform';
 export { transformNestedTableNodeOutgoingDocument } from './transforms/nested-table-transform';
 export { NodeNestingTransformError } from './transforms/errors';
+export { syncBlockFallbackTransform } from './transforms/sync-block-fallback-transform';

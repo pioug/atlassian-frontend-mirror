@@ -1,5 +1,14 @@
 # @atlaskit/user-picker
 
+## 11.13.1
+
+### Patch Changes
+
+- [`ce660199aaa9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce660199aaa9a) -
+  [ux] Fix keyboard tab navigation between multiple user pickers in Firefox behind feature gate
+  'user-dialog-tab-fix'
+- Updated dependencies
+
 ## 11.13.0
 
 ### Minor Changes

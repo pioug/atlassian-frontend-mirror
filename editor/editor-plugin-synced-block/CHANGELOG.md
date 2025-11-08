@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.2.0
+
+### Minor Changes
+
+- [`cd4d309562a37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd4d309562a37) -
+  EDITOR-2534 add sync-block toolbar option
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.3
 
 ### Patch Changes

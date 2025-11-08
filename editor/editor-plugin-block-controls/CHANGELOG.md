@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.5.7
+
+### Patch Changes
+
+- [`2dfcadf1c9593`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2dfcadf1c9593) -
+  [ux] fix drag handle not appearing inside a panel/expand nested in a table
+- Updated dependencies
+
 ## 7.5.6
 
 ### Patch Changes

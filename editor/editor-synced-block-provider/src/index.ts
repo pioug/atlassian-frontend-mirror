@@ -1,7 +1,6 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 
 export { rebaseTransaction } from './common/rebase-transaction';
-export { getDefaultSyncBlockSchema } from './common/schema';
 export { SyncBlockError } from './common/types';
 export type { SyncBlockData, SyncBlockNode } from './common/types';
 export {

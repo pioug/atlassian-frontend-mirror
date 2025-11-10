@@ -59,13 +59,8 @@ export const messages = defineMessages({
 	createSyncedBlock: {
 		id: 'fabric.editor.block.menu.create.synced.block',
 		defaultMessage: 'Create synced block',
-		description: 'Create a synced block at this empty line',
-	},
-	convertToSyncedBlock: {
-		id: 'fabric.editor.block.menu.convert.to.synced.block',
-		defaultMessage: 'Convert to synced block',
 		description:
-			'Convert the selection to a synced block by putting all of the content inside a new synced block',
+			'Create a synced block at this line, converting the selection to a synced block if applicable',
 	},
 	newLozenge: {
 		id: 'fabric.editor.block.menu.new.lozenge',

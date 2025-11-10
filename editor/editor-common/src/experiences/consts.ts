@@ -20,3 +20,14 @@ export const EXPERIENCE_FAILURE_REASON = {
 	 */
 	DOM_MUTATION_CHECK_ERROR: 'dom-mutation-check-error',
 } as const;
+
+/**
+ * Default sample rate for experienceSampled events.
+ * Set to 1 in 1000 (0.001) to balance data collection with event volume.
+ *
+ * Newly defined experiences should use this default unless they have data
+ * to justify a different rate. The expectation is that measurements will be
+ * gathered after initial instrumentation, then the sample rate can be tuned
+ * up to a safe threshold.
+ */
+export const DEFAULT_EXPERIENCE_SAMPLE_RATE = 0.001;

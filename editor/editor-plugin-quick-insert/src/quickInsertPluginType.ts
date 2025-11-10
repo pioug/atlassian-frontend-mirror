@@ -2,15 +2,16 @@ import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import type {
 	Command,
+	QuickInsertPluginOptions as CommonQuickInsertPluginOptions,
 	QuickInsertSharedState as CommonQuickInsertSharedState,
 	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
 	QuickInsertHandler,
-	QuickInsertPluginOptions as CommonQuickInsertPluginOptions,
 	QuickInsertSearchOptions,
 	TypeAheadHandler,
 } from '@atlaskit/editor-common/types';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { type ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import { type MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
 import type { TypeAheadInputMethod, TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
@@ -43,6 +44,7 @@ export type QuickInsertPlugin = NextEditorPlugin<
 			TypeAheadPlugin,
 			OptionalPlugin<ConnectivityPlugin>,
 			OptionalPlugin<MetricsPlugin>,
+			OptionalPlugin<AnalyticsPlugin>,
 		];
 		pluginConfiguration: QuickInsertPluginOptions | undefined;
 		sharedState: QuickInsertSharedState | null;

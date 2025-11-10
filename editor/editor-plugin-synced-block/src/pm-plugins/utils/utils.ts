@@ -1,9 +1,12 @@
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
+import {
+	TextSelection,
+	type EditorState,
+	type Selection,
+} from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import { getDefaultSyncBlockSchema } from '@atlaskit/editor-synced-block-provider';
 import { CellSelection, findTable } from '@atlaskit/editor-tables';
 
 export const findSyncBlock = (
@@ -41,13 +44,31 @@ export interface SyncBlockConversionInfo {
 	to: number;
 }
 
+const UNSUPPORTED_NODE_TYPES = new Set([
+	'inlineExtension',
+	'extension',
+	'bodiedExtension',
+	'syncBlock',
+	'bodiedSyncBlock',
+]);
+
+/**
+ * Checks whether the selection can be converted to sync block
+ *
+ * @param selection - the current editor selection to validate for sync block conversion
+ * @returns A fragment containing the content to include in the synced block,
+ * stripping out unsupported marks (breakout on codeblock/expand/layout), as well as from and to positions,
+ * or false if conversion is not possible
+ */
 export const canBeConvertedToSyncBlock = (
 	selection: Selection,
 ): SyncBlockConversionInfo | false => {
+	const schema = selection.$from.doc.type.schema;
+	const { nodes } = schema;
+
 	let from = selection.from;
 	let to = selection.to;
-	let depth = selection.$from.depth;
-	let contentToInclude: Fragment;
+	let contentToInclude = selection.content().content;
 
 	if (selection instanceof CellSelection) {
 		const table = findTable(selection);
@@ -58,39 +79,50 @@ export const canBeConvertedToSyncBlock = (
 		contentToInclude = Fragment.from([table.node]);
 		from = table.pos;
 		to = table.pos + table.node.nodeSize;
-		depth = selection.$from.doc.resolve(table.pos).depth;
-	} else {
-		contentToInclude = Fragment.from(selection.content().content);
-	}
+	} else if (selection instanceof TextSelection) {
+		const trueParent = findParentNodeOfType([
+			nodes.bulletList,
+			nodes.orderedList,
+			nodes.taskList,
+			nodes.blockquote,
+		])(selection);
 
-	// sync blocks can't be nested
-	if (depth > 1) {
-		return false;
+		if (trueParent) {
+			contentToInclude = Fragment.from([trueParent.node]);
+			from = trueParent.pos;
+			to = trueParent.pos + trueParent.node.nodeSize;
+		}
 	}
-
-	const syncBlockSchema = getDefaultSyncBlockSchema();
 
 	let canBeConverted = true;
 	selection.$from.doc.nodesBetween(from, to, (node) => {
-		if (!(node.type.name in syncBlockSchema.nodes)) {
+		if (UNSUPPORTED_NODE_TYPES.has(node.type.name)) {
 			canBeConverted = false;
 			return false;
 		}
-		node.marks.forEach((mark) => {
-			if (!(mark.type.name in syncBlockSchema.marks)) {
-				canBeConverted = false;
-				return false;
-			}
-		});
 	});
-
 	if (!canBeConverted) {
 		return false;
 	}
+
+	contentToInclude = removeBreakoutMarks(contentToInclude);
 
 	return {
 		contentToInclude,
 		from,
 		to,
 	};
+};
+
+const removeBreakoutMarks = (content: Fragment): Fragment => {
+	const nodes: PMNode[] = [];
+
+	// we only need to recurse at the top level, because breakout has to be on a top level
+	content.forEach((node) => {
+		const filteredMarks = node.marks.filter((mark) => mark.type.name !== 'breakout');
+		const newNode = node.type.create(node.attrs, node.content, filteredMarks);
+		nodes.push(newNode);
+	});
+
+	return Fragment.from(nodes);
 };

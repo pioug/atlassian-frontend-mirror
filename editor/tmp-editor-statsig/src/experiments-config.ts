@@ -441,14 +441,6 @@ export const editorExperimentsConfig = {
 		values: ['control', 'adf_gemini25flash', 'adf_gpt41mini'],
 		defaultValue: 'control',
 	}),
-	// Added 2025-06-18
-	platform_editor_ai_ct_sg_adf_streaming: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_ct_sg_adf_streaming',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-08-20
 	platform_editor_ai_non_iw_adf_streaming: createMultivariateExperiment({
 		productKeys: {
@@ -1117,6 +1109,14 @@ export const editorExperimentsConfig = {
 	platform_editor_lovability_emoji_scaling: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_lovability_emoji_scaling',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-11-07
+	cc_editor_limited_mode_table_align_bttn: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_editor_limited_mode_table_align_bttn',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

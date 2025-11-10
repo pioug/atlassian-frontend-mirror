@@ -2,7 +2,11 @@ import React, { memo, useMemo } from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { ReactRenderer, ValidationContextProvider } from '@atlaskit/renderer';
+import {
+	ReactRenderer,
+	ValidationContextProvider,
+	defaultNodeComponents,
+} from '@atlaskit/renderer';
 import { RendererActionsContext } from '@atlaskit/renderer/actions';
 
 import type { SyncedBlockRendererOptions } from '../types';
@@ -69,6 +73,23 @@ export const AKRendererWrapper = memo(
 			stickyHeaders,
 		} = mergedOptions ?? {};
 
+		const nodeComponents = useMemo(() => {
+			return {
+				taskItem: (props: React.ComponentProps<(typeof defaultNodeComponents)['taskItem']>) => {
+					const TaskItem = defaultNodeComponents['taskItem'];
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					return <TaskItem {...props} disabled={true} />;
+				},
+				blockTaskItem: (
+					props: React.ComponentProps<(typeof defaultNodeComponents)['blockTaskItem']>,
+				) => {
+					const BlockTaskItem = defaultNodeComponents['blockTaskItem'];
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					return <BlockTaskItem {...props} disabled={true} />;
+				},
+			};
+		}, []);
+
 		return (
 			<RendererActionsContext>
 				<ValidationContextWrapper>
@@ -79,6 +100,7 @@ export const AKRendererWrapper = memo(
 							document={doc}
 							disableHeadingIDs={true}
 							dataProviders={dataProviders}
+							nodeComponents={nodeComponents}
 							allowAltTextOnImages={allowAltTextOnImages}
 							allowAnnotations={allowAnnotations}
 							allowColumnSorting={allowColumnSorting}

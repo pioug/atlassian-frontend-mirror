@@ -12,7 +12,11 @@ import type {
 	TypeAheadInsert,
 } from '@atlaskit/editor-common/types';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import {
+	type EditorState,
+	type Transaction,
+	TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
 import {
 	findSelectedNodeOfType,
 	removeParentNodeOfType,
@@ -90,10 +94,13 @@ export const createSyncedBlock = ({
 		syncBlockStore.createBodiedSyncBlockNode(attrs);
 
 		tr.replaceWith(
-			conversionInfo.from - 1,
+			conversionInfo.from > 0 ? conversionInfo.from - 1 : 0,
 			conversionInfo.to,
 			newBodiedSyncBlockNode,
 		).scrollIntoView();
+
+		// set selection to the end of the previous selection + 1 for the position taken up by the start of the new synced block
+		tr.setSelection(TextSelection.create(tr.doc, conversionInfo.to + 1));
 	}
 
 	// This transaction will be intercepted in filterTransaction and dispatched when saving to backend succeeds

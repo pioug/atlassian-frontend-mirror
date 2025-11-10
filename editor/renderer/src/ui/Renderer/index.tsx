@@ -837,6 +837,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 					 * Telepointer changes are always a singular node-adds or node-removes.
 					 */
 					const isAdfStreamingEnabled =
+						fg('platform_editor_ai_adf_prompts_in_all_products') ||
 						expValEqualsNoExposure(
 							'platform_editor_ai_iw_adf_streaming',
 							'cohort',
@@ -847,7 +848,6 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 							'cohort',
 							'adf_gemini25flash',
 						) ||
-						expValEqualsNoExposure('platform_editor_ai_ct_sg_adf_streaming', 'isEnabled', true) ||
 						expValEqualsNoExposure(
 							'platform_editor_ai_non_iw_adf_streaming',
 							'cohort',

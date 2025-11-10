@@ -56,6 +56,8 @@ export enum ACTION {
 	ENTERED = 'entered',
 	ERROR = 'error',
 	ERRORED = 'errored',
+	EXPERIENCE_MEASURED = 'experienceMeasured',
+	EXPERIENCE_SAMPLED = 'experienceSampled',
 	EXPOSED = 'exposed',
 	FAILED_TO_UNMOUNT = 'failedToUnmount',
 	FAILED_TO_INSERT = 'failedToInsert',

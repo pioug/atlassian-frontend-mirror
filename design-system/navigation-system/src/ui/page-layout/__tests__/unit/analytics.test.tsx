@@ -29,7 +29,7 @@ window.scrollTo = noop;
 
 ffTest.both('platform_dst_nav4_side_nav_default_collapsed_api', 'default state changes', () => {
 	ffTest.on('platform_dst_nav4_fhs_instrumentation_1', 'analytics', () => {
-		describe('sideNavMenu viewed', () => {
+		describe('sideNavMenu viewedOnLoad', () => {
 			it('should fire if the menu is open on initial load (desktop)', () => {
 				setMediaQuery('(min-width: 64rem)', { initial: true });
 
@@ -52,7 +52,7 @@ ffTest.both('platform_dst_nav4_side_nav_default_collapsed_api', 'default state c
 				expect(onAnalyticsEvent).toHaveBeenCalledTimes(1);
 				expect(onAnalyticsEvent.mock.calls[0][0].payload).toEqual({
 					source: 'topNav',
-					action: 'viewed',
+					action: 'viewedOnLoad',
 					actionSubject: 'sideNav',
 					actionSubjectId: 'sideNavMenu',
 					attributes: {

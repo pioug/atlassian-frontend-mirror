@@ -1,6 +1,8 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 import getDocument from './getDocument';
 
+const mediaApiPathPrefix = '/media-api';
+
 function getRelativeUrl(absoluteUrl: string) {
 	const url = new URL(absoluteUrl);
 	return `${url.pathname}${url.search}${url.hash}`;
@@ -15,7 +17,9 @@ export function mapToPathBasedUrl(url: string) {
 	if (isPathBasedEnabled()) {
 		const parsedUrl = new URL(url);
 
-		parsedUrl.pathname = `/media-api${parsedUrl.pathname}`;
+		if (!parsedUrl.pathname.startsWith(mediaApiPathPrefix)) {
+			parsedUrl.pathname = `${mediaApiPathPrefix}${parsedUrl.pathname}`;
+		}
 		const location = getDocument()?.location;
 
 		// in this case we are most likely in SSR / a non browser environment so just return a relative URL
@@ -39,6 +43,8 @@ export function mapRetryUrlToPathBasedUrl(url: string) {
 	if (pathname.endsWith('/cdn')) {
 		parsedUrl.pathname = pathname.replace('/cdn', '');
 	}
-	parsedUrl.pathname = `/media-api${parsedUrl.pathname}`;
+	if (!parsedUrl.pathname.startsWith(mediaApiPathPrefix)) {
+		parsedUrl.pathname = `${mediaApiPathPrefix}${parsedUrl.pathname}`;
+	}
 	return parsedUrl;
 }

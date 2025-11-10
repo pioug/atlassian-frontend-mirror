@@ -1,5 +1,44 @@
 # @atlaskit/icon-lab
 
+## 5.12.0
+
+### Minor Changes
+
+- [`35c97ff8e4633`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/35c97ff8e4633) -
+  This release deprecates icons in `@atlaskit/icon-lab`.
+
+  ### Deprecated:
+
+  **`@atlaskit/icon-lab/core`**
+  - `roadmaps-plan`
+  - `roadmaps-service`
+
+- [`35c97ff8e4633`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/35c97ff8e4633) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `pipeline`
+  - `plan`
+  - `playlist-add`
+  - `playlist-added`
+  - `playlist-remove`
+  - `playlist`
+  - `service`
+  - `status-workflow-cancelled`
+  - `status-workflow-danger`
+  - `status-workflow-in-progress`
+  - `status-workflow-in-review`
+  - `status-workflow-inactive`
+  - `status-workflow-incomplete`
+  - `status-workflow-paused`
+  - `status-workflow-returned`
+  - `status-workflow-scheduled`
+  - `status-workflow-stopped`
+  - `status-workflow-success`
+  - `status-workflow-warning`
+
 ## 5.11.0
 
 ### Minor Changes

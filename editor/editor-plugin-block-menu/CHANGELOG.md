@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.0.5
+
+### Patch Changes
+
+- [`292d52fa1530f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/292d52fa1530f) -
+  EDITOR-2759 Copy content block menu option copies source sync block content
+- Updated dependencies
+
 ## 5.0.4
 
 ### Patch Changes

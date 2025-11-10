@@ -1,3 +1,4 @@
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
 	containsPopupWithNestedElement,
 	Experience,
@@ -22,6 +23,7 @@ const ABORT_REASON = {
 };
 
 type QuickInsertOpenExperienceOptions = {
+	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 	refs: { popupsMountPoint?: HTMLElement; wrapperElement?: HTMLElement };
 };
 
@@ -33,7 +35,10 @@ type QuickInsertOpenExperienceOptions = {
  * Failure: When 500ms passes without the quick insert menu being added to the DOM
  * Abort: When user presses escape or backspace
  */
-export const getQuickInsertOpenExperiencePlugin = ({ refs }: QuickInsertOpenExperienceOptions) => {
+export const getQuickInsertOpenExperiencePlugin = ({
+	refs,
+	dispatchAnalyticsEvent,
+}: QuickInsertOpenExperienceOptions) => {
 	let targetEl: HTMLElement | undefined;
 	let editorViewEl: HTMLElement | undefined;
 
@@ -48,6 +53,7 @@ export const getQuickInsertOpenExperiencePlugin = ({ refs }: QuickInsertOpenExpe
 	};
 
 	const experience = new Experience('quick-insert-open', {
+		dispatchAnalyticsEvent,
 		checks: [
 			new ExperienceCheckTimeout({ durationMs: 500 }),
 			new ExperienceCheckDomMutation({

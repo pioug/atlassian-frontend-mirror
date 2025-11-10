@@ -145,6 +145,18 @@ describe('pathBasedUrl', () => {
 						'https://current.atlassian.net/media-api/file/123456',
 					);
 				});
+
+				it('should not double-prepend /media-api when already present in path', () => {
+					const originalUrl = 'https://api.media.atlassian.com/media-api/path/to/resource';
+					expect(mapToPathBasedUrl(originalUrl)).toBe(
+						'https://current.atlassian.net/media-api/path/to/resource',
+					);
+				});
+
+				it('should not double-prepend when pathname is exactly /media-api', () => {
+					const originalUrl = 'https://api.media.atlassian.com/media-api';
+					expect(mapToPathBasedUrl(originalUrl)).toBe('https://current.atlassian.net/media-api');
+				});
 			});
 
 			describe('when document is undefined', () => {
@@ -155,6 +167,14 @@ describe('pathBasedUrl', () => {
 				it('should return relative URL when document is undefined', () => {
 					const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
 					expect(mapToPathBasedUrl(originalUrl)).toBe('/media-api/path/to/resource');
+				});
+
+				it('should not double-prepend when document is undefined and pathname already includes /media-api', () => {
+					const originalUrl =
+						'https://api.media.atlassian.com/media-api/path/to/resource?param=value#hash';
+					expect(mapToPathBasedUrl(originalUrl)).toBe(
+						'/media-api/path/to/resource?param=value#hash',
+					);
 				});
 			});
 
@@ -264,6 +284,13 @@ describe('pathBasedUrl', () => {
 
 			it('should return path-based URL without /cdn suffix when not present', () => {
 				const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+				expect(mapRetryUrlToPathBasedUrl(originalUrl).toString()).toBe(
+					'https://current.atlassian.net/media-api/path/to/resource',
+				);
+			});
+
+			it('should not double-prepend /media-api when already present in path', () => {
+				const originalUrl = 'https://api.media.atlassian.com/media-api/path/to/resource';
 				expect(mapRetryUrlToPathBasedUrl(originalUrl).toString()).toBe(
 					'https://current.atlassian.net/media-api/path/to/resource',
 				);

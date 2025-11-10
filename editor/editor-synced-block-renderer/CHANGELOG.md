@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 3.1.5
+
+### Patch Changes
+
+- [`0ec25274ceb77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ec25274ceb77) -
+  EDITOR-2769 Disable task items in reference sync blocks
+- Updated dependencies
+
 ## 3.1.4
 
 ### Patch Changes

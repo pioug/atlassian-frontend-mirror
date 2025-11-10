@@ -22,6 +22,7 @@ import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
@@ -99,7 +100,7 @@ const CopyBlockMenuItem = ({ api }: CopyBlockMenuItemProps & WrappedComponentPro
 			}
 
 			// for table
-			if (isTableSelected(selection)) {
+			else if (isTableSelected(selection)) {
 				const nodeType = schema.nodes.table;
 				const tableNode = (selection as CellSelection).$anchorCell.node(-1);
 				if (!tableNode) {
@@ -110,7 +111,7 @@ const CopyBlockMenuItem = ({ api }: CopyBlockMenuItemProps & WrappedComponentPro
 			}
 
 			// for other nodes
-			if (selection instanceof NodeSelection) {
+			else if (selection instanceof NodeSelection) {
 				const nodeType = selection.node.type;
 
 				// code block is a special case where it is a block node but has inlineContent to true,
@@ -120,7 +121,20 @@ const CopyBlockMenuItem = ({ api }: CopyBlockMenuItemProps & WrappedComponentPro
 					const codeBlockNodeType = { ...nodeType, inlineContent: false };
 					const domNode = toDOM(selection.node, schema);
 					copyDomNode(domNode, codeBlockNodeType as NodeType, selection);
-				} else {
+				}
+				// source sync block (bodiedSyncBlock) is also a special case
+				// where we need to copy the content of the bodiedSyncBlock node
+				else if (
+					selection.node.type.name === 'bodiedSyncBlock' &&
+					expValEquals('platform_synced_block', 'isEnabled', true) &&
+					fg('platform_editor_block_menu_patch_1')
+				) {
+					const bodiedSyncBlockNode = selection.node;
+					const domNode = toDOMFromFragment(bodiedSyncBlockNode.content, schema);
+					copyDomNode(domNode, bodiedSyncBlockNode.type, selection);
+				}
+				// for other nodes
+				else {
 					const domNode = toDOM(selection.node, schema);
 					copyDomNode(domNode, nodeType, selection);
 				}

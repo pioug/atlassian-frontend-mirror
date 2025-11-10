@@ -37,6 +37,7 @@ import type {
 	FLOATING_CONTROLS_TITLE,
 	INPUT_METHOD,
 } from './enums';
+import type { ExperienceEventPayload } from './experience-events';
 import type { ExtensionEventPayload } from './extension-events';
 import type { FindReplaceEventPayload } from './find-replace-events';
 import type { FloatingToolbarEventPayload } from './floating-toolbar-events';
@@ -148,6 +149,7 @@ export type AnalyticsEventPayload<T = void> =
 	| SelectionExtensionEventPayload
 	| TelepointerClickPayload
 	| SelectionToolbarEventPayload
+	| ExperienceEventPayload
 	| AlignmentEventPayload
 	| UndoRedoAEP
 	| OfflineEditingEventPayload

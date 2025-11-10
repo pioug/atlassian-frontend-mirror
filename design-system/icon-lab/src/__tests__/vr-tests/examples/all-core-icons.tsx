@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::29eb33cb8b1bd5d0db598011d20e45ef>>
+ * @codegen <<SignedSource::f2da11be100d1dd7eca9486a93b24543>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -182,6 +182,12 @@ import PartyPopperIcon from '../../../../core/party-popper';
 import PencilIcon from '../../../../core/pencil';
 import PersonVoiceoverIcon from '../../../../core/person-voiceover';
 import PinStrikethroughIcon from '../../../../core/pin-strikethrough';
+import PipelineIcon from '../../../../core/pipeline';
+import PlanIcon from '../../../../core/plan';
+import PlaylistIcon from '../../../../core/playlist';
+import PlaylistAddIcon from '../../../../core/playlist-add';
+import PlaylistAddedIcon from '../../../../core/playlist-added';
+import PlaylistRemoveIcon from '../../../../core/playlist-remove';
 import PlusCircleIcon from '../../../../core/plus-circle';
 import PowerIcon from '../../../../core/power';
 import PowerCableIcon from '../../../../core/power-cable';
@@ -200,6 +206,7 @@ import RssFeedIcon from '../../../../core/rss-feed';
 import SaveIcon from '../../../../core/save';
 import ScreenRecordIcon from '../../../../core/screen-record';
 import SectionIcon from '../../../../core/section';
+import ServiceIcon from '../../../../core/service';
 import ShapeDiamondIcon from '../../../../core/shape-diamond';
 import ShapeEllipseIcon from '../../../../core/shape-ellipse';
 import ShapeParallelogramSkewLeftIcon from '../../../../core/shape-parallelogram-skew-left';
@@ -220,6 +227,18 @@ import SpeedometerRightIcon from '../../../../core/speedometer-right';
 import SpeedometerUpIcon from '../../../../core/speedometer-up';
 import SplitParallelIcon from '../../../../core/split-parallel';
 import StampIcon from '../../../../core/stamp';
+import StatusWorkflowCancelledIcon from '../../../../core/status-workflow-cancelled';
+import StatusWorkflowDangerIcon from '../../../../core/status-workflow-danger';
+import StatusWorkflowInProgressIcon from '../../../../core/status-workflow-in-progress';
+import StatusWorkflowInReviewIcon from '../../../../core/status-workflow-in-review';
+import StatusWorkflowInactiveIcon from '../../../../core/status-workflow-inactive';
+import StatusWorkflowIncompleteIcon from '../../../../core/status-workflow-incomplete';
+import StatusWorkflowPausedIcon from '../../../../core/status-workflow-paused';
+import StatusWorkflowReturnedIcon from '../../../../core/status-workflow-returned';
+import StatusWorkflowScheduledIcon from '../../../../core/status-workflow-scheduled';
+import StatusWorkflowStoppedIcon from '../../../../core/status-workflow-stopped';
+import StatusWorkflowSuccessIcon from '../../../../core/status-workflow-success';
+import StatusWorkflowWarningIcon from '../../../../core/status-workflow-warning';
 import StickerIcon from '../../../../core/sticker';
 import StrokeCurvatureCurvedIcon from '../../../../core/stroke-curvature-curved';
 import StrokeCurvatureDynamicIcon from '../../../../core/stroke-curvature-dynamic';
@@ -607,6 +626,25 @@ const Icons = [
 	SkipIcon,
 	SkipUnskipIcon,
 	BlockSyncedIcon,
+	PipelineIcon,
+	PlanIcon,
+	PlaylistIcon,
+	PlaylistAddIcon,
+	PlaylistAddedIcon,
+	PlaylistRemoveIcon,
+	ServiceIcon,
+	StatusWorkflowCancelledIcon,
+	StatusWorkflowDangerIcon,
+	StatusWorkflowInProgressIcon,
+	StatusWorkflowInReviewIcon,
+	StatusWorkflowInactiveIcon,
+	StatusWorkflowIncompleteIcon,
+	StatusWorkflowPausedIcon,
+	StatusWorkflowReturnedIcon,
+	StatusWorkflowScheduledIcon,
+	StatusWorkflowStoppedIcon,
+	StatusWorkflowSuccessIcon,
+	StatusWorkflowWarningIcon,
 ];
 
 const groupSize = 50;
@@ -651,6 +689,8 @@ export const MediumIconGroup3: () => React.JSX.Element = allMediumExamples[3];
 export const MediumIconGroup4: () => React.JSX.Element = allMediumExamples[4];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const MediumIconGroup5: () => React.JSX.Element = allMediumExamples[5];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const MediumIconGroup6: () => React.JSX.Element = allMediumExamples[6];
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SmallIconGroup0: () => React.JSX.Element = allSmallExamples[0];
@@ -664,3 +704,5 @@ export const SmallIconGroup3: () => React.JSX.Element = allSmallExamples[3];
 export const SmallIconGroup4: () => React.JSX.Element = allSmallExamples[4];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SmallIconGroup5: () => React.JSX.Element = allSmallExamples[5];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup6: () => React.JSX.Element = allSmallExamples[6];

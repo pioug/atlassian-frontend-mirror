@@ -83,7 +83,7 @@ const headerTitleStyles = css({
 
 export const HeaderTitle = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/use-heading
-	<h1 css={headerTitleStyles}>{children}</h1>
+	<h2 css={headerTitleStyles}>{children}</h2>
 );
 
 const headerContentStyles = css({

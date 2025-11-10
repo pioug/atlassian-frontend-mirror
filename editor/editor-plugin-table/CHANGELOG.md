@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 15.3.16
+
+### Patch Changes
+
+- [`855e2a1085226`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/855e2a1085226) -
+  [ux] Scaffolding for native sticky headers
+- Updated dependencies
+
+## 15.3.15
+
+### Patch Changes
+
+- [`fd0c8ec823f49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd0c8ec823f49) -
+  NOISSUE - Add limited mode check for expensive getTableScalingPercent calls for the table floating
+  toolbar alignment button.
+- Updated dependencies
+
 ## 15.3.14
 
 ### Patch Changes

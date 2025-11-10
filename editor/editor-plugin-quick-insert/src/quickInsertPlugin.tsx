@@ -103,7 +103,12 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 					? [
 							{
 								name: 'quickInsertOpenExperience',
-								plugin: () => getQuickInsertOpenExperiencePlugin({ refs }),
+								plugin: () =>
+									getQuickInsertOpenExperiencePlugin({
+										refs,
+										dispatchAnalyticsEvent: (payload) =>
+											api?.analytics?.actions?.fireAnalyticsEvent(payload),
+									}),
 							},
 						]
 					: []),

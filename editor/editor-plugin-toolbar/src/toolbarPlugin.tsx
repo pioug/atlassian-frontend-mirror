@@ -235,7 +235,12 @@ export const toolbarPlugin: ToolbarPlugin = ({
 					? [
 							{
 								name: 'selectionToolbarOpenExperience',
-								plugin: () => getSelectionToolbarOpenExperiencePlugin({ refs }),
+								plugin: () =>
+									getSelectionToolbarOpenExperiencePlugin({
+										refs,
+										dispatchAnalyticsEvent: (payload) =>
+											api?.analytics?.actions?.fireAnalyticsEvent(payload),
+									}),
 							},
 						]
 					: []),

@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.7.4
+
+### Patch Changes
+
+- [`3432c4a4a074c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3432c4a4a074c) -
+  [ux] EDITOR-2525 update block menu convert to sync block to support all fishfooding node types
+
 ## 2.7.3
 
 ### Patch Changes

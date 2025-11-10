@@ -549,6 +549,12 @@ export const baseTableStyles = (props: {
 		z-index: 1;
 	}
 
+	tr.${ClassName.NATIVE_STICKY} {
+		position: sticky;
+		top: 0;
+		z-index: ${akEditorTableCellOnStickyHeaderZIndex};
+	}
+
 	.${ClassName.WITH_CONTROLS} tr.sticky {
 		padding-top: ${tableControlsSpacing}px;
 	}
@@ -1227,6 +1233,10 @@ export const baseTableStyles = (props: {
 		overflow: auto;
 		overflow-y: hidden;
 		position: relative;
+	}
+
+	.${ClassName.TABLE_NODE_WRAPPER}.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} {
+		overflow: visible;
 	}
 `;
 

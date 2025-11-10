@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.2.2
+
+### Patch Changes
+
+- [`3432c4a4a074c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3432c4a4a074c) -
+  [ux] EDITOR-2525 update block menu convert to sync block to support all fishfooding node types
+- Updated dependencies
+
+## 4.2.1
+
+### Patch Changes
+
+- [`88512cf867666`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88512cf867666) -
+  [ux] EDITOR-2751 fix focus not inside sync block after insert sync block from block menu
+
 ## 4.2.0
 
 ### Minor Changes

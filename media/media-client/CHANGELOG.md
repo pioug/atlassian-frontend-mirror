@@ -1,5 +1,12 @@
 # @atlaskit/media-client
 
+## 35.6.0
+
+### Minor Changes
+
+- [`b3183021fdece`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3183021fdece) -
+  Bug fix for path based routing - "/media-api" getting prepended twice resolved"
+
 ## 35.5.0
 
 ### Minor Changes
@@ -299,7 +306,6 @@
 - [#102527](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102527)
   [`a90d34cd14faf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a90d34cd14faf) -
   Updated the constructor of the following classes. Consult the type definitions for details.
-
   - `RequestError`
 
   - `PollingError`
@@ -311,7 +317,6 @@
 - [#102527](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102527)
   [`a90d34cd14faf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a90d34cd14faf) - -
   New error verification helper `isCommonMediaClientError`
-
   - `ErrorFileState` is now deserializable into a `CommonMediaClientError` using new export
     `toCommonMediaClientError`
 
@@ -491,7 +496,6 @@
 - [#134882](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134882)
   [`ba204702f8e32`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba204702f8e32) -
   [ED-24567]
-
   - **@atlaskit/editor-common** Add MEDIA_PICKER as a variable fo analytics
   - **@atlaskit/media-client** Return the mime-type from when calling the `uploadExternal` function
 
@@ -919,7 +923,6 @@
 - [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424)
   [`0f99ed9df35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f99ed9df35) - BREAKING
   CHANGES:
-
   - Media Store class no longer exposes getCollectionItems method
 
   - `MediaClient.collection.removeFile` method is now accessible through the replacement method
@@ -927,7 +930,6 @@
 
   - `MediaClient.collection` has been fully removed. The following classes, types and utils have
     been also removed:
-
     - MediaCollection
     - MediaCollectionItem
     - MediaCollectionItems
@@ -1132,7 +1134,6 @@
   Client Uploader enforces a hard limit of 2Tb files.
 
   To mitigate these changes:
-
   - Set the feature flag mediaUploadApiV2 as false or Revert to a previous version for affected
     consumers and methods; Media Client uploadFile method. Media Client File Fetcher upload method.
     Media Picker.
@@ -1437,7 +1438,6 @@
   pollingMaxFailuresExceeded error from implementation and feature flags
 - [`50cc05dde71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50cc05dde71) - Mark the
   following members as deprecated:
-
   - getMediaTypeFromMimeType
   - isImageMimeTypeSupportedByBrowser
   - isDocumentMimeTypeSupportedByBrowser
@@ -1885,7 +1885,6 @@
 ### Minor Changes
 
 - [minor][eb962d2c36](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb962d2c36):
-
   - Add MAX_RESOLUTION constant. Can be imported via direct entry point
     `import { MAX_RESOLUTION } from '@atlaskit/media-client/constants';`
   - `Preview` class (`preview` prop in most `FileState`) now has optional field `origin` that can be
@@ -1981,7 +1980,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/button@13.3.7
   - @atlaskit/type-helpers@4.2.3
@@ -2074,7 +2072,6 @@
   Check if the subscription is defined before calling unsubscribe in utils observableToPromise-
   Updated dependencies
   [24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
-
   - @atlaskit/media-card@66.1.2
 
 ## 4.1.1
@@ -2230,7 +2227,6 @@ Bumped dependencies.
   ### Changed
 
   **getMediaClient**
-
   - Before
 
   > works with passing either mediaClientConfig or context
@@ -2301,7 +2297,6 @@ Bumped dependencies.
 - [minor][65ada7f318](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/65ada7f318):
 
   **FABDODGEM-12 Editor Cashmere Release**
-
   - [Internal post](http://go.atlassian.com/cashmere-release)
 
   **Affected editor components:**
@@ -2309,19 +2304,16 @@ Bumped dependencies.
   tables, media, mobile, text color, emoji, copy/paste, analytics
 
   **Performance**
-
   - Async import for code blocks and task items on renderer
     - https://product-fabric.atlassian.net/browse/ED-7155
 
   **Table**
-
   - Add support to sort tables that contains smart links
     - https://product-fabric.atlassian.net/browse/ED-7449
   - Scale table when changing to full width mode
     - https://product-fabric.atlassian.net/browse/ED-7724
 
   **Text color**
-
   - Update text color toolbar with right color when text is inside a list, panel, etc.
     - https://product-fabric.atlassian.net/browse/FM-1752
 
@@ -2508,7 +2500,6 @@ https://product-fabric.atlassian.net/browse/FM-2393
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -2567,14 +2558,12 @@ https://product-fabric.atlassian.net/browse/FM-2393
 ## 1.2.1
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
 ## 1.2.0
 
 - [minor][dcda79d48c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dcda79d48c):
-
   - `withMediaClient` and associated Props are introduced to make possible soft transition from
     Context based media components to Media Client Config ones.
 
@@ -2587,13 +2576,11 @@ https://product-fabric.atlassian.net/browse/FM-2393
 ## 1.1.5
 
 - [patch][af1cbd4ce4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/af1cbd4ce4):
-
   - Removing unnecessary deps and dev deps in media-core and media-client
 
 ## 1.1.4
 
 - [patch][12aa76d5b5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/12aa76d5b5):
-
   - ED-6814: fixed rendering mediaSingle without collection
 
 ## 1.1.3
@@ -2607,27 +2594,23 @@ https://product-fabric.atlassian.net/browse/FM-2393
 ## 1.1.2
 
 - [patch][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 1.1.1
 
 - [patch][2f58d39758](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2f58d39758):
-
   - Fix problem with double exporting one of the existing items
 
 ## 1.1.0
 
 - [minor][8536258182](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8536258182):
-
   - expose on + off + emit methods on client in order to communicate events with integrators. At
     this point the only emitted event is 'file-added'
 
 ## 1.0.0
 
 - [major][e38d662f7d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e38d662f7d):
-
   - Media API Web Client Library initial release. It contains mostly combined code from media-core
     and media-store.
 

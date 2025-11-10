@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 215.10.2
+
+### Patch Changes
+
+- [`855e2a1085226`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/855e2a1085226) -
+  [ux] Scaffolding for native sticky headers
+- Updated dependencies
+
 ## 215.10.1
 
 ### Patch Changes

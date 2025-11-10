@@ -116,7 +116,7 @@ export const ArticlesListItem: React.FC<Props & Partial<ArticleItem> & WrappedCo
 					<ArticlesListItemLinkIcon>
 						<ShortcutIcon
 							LEGACY_size="small"
-							label=""
+							label="Opens in a new window"
 							color={token('color.icon.subtle', colors.N90)}
 							LEGACY_secondaryColor={token('color.icon.subtle', colors.N90)}
 						/>

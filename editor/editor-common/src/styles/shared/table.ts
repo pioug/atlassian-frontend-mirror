@@ -42,6 +42,7 @@ export const tableControlsSpacing = tableMarginTop + tablePadding - tableCellBor
 export const TableSharedCssClassName = {
 	TABLE_CONTAINER: `${tablePrefixSelector}-container`,
 	TABLE_NODE_WRAPPER: `${tablePrefixSelector}-wrapper`,
+	TABLE_NODE_WRAPPER_NO_OVERFLOW: `${tablePrefixSelector}-wrapper-no-overflow`,
 	TABLE_SCROLL_INLINE_SHADOW: `${tablePrefixSelector}-scroll-inline-shadow`,
 	TABLE_RIGHT_BORDER: `${tablePrefixSelector}-right-border`,
 	TABLE_LEFT_BORDER: `${tablePrefixSelector}-left-border`,

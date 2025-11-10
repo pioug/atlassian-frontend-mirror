@@ -1,4 +1,4 @@
-import { AnalyticsStep, SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import { AnalyticsStep, BatchAttrsStep, SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import {
@@ -22,6 +22,7 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { getParticipantColor } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const findPointers = (id: string, decorations: DecorationSet): Decoration[] =>
 	decorations
@@ -273,6 +274,12 @@ export const isOrganicChange = (tr: ReadonlyTransaction) => {
 		// editor-plugin-local-id uses AttrStep to set the localId attribute
 		if (step instanceof AttrStep && step.attr === 'localId') {
 			return false;
+		}
+
+		// editor-plugin-local-id uses BatchAttrStep to set the localId attribute
+		if (step instanceof BatchAttrsStep && fg('platform_editor_inorganic_batchattrsstep_localid')) {
+			const allAttributes = step.data.map((data) => Object.keys(data.attrs)).flat();
+			return allAttributes.some((attr) => attr !== 'localId');
 		}
 
 		// If a step is not an instance of SetAttrsStep, it is considered organic

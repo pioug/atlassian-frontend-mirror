@@ -1,5 +1,13 @@
 # @atlaskit/spotlight
 
+## 0.9.2
+
+### Patch Changes
+
+- [`80f0a09eede30`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80f0a09eede30) -
+  Fix bug where PopoverContent initially renders in the default position before updating to user
+  supplied position.
+
 ## 0.9.1
 
 ### Patch Changes

@@ -4951,6 +4951,10 @@ td>.emotion-0 .ak-editor-expand {
   box-sizing: border-box;
 }
 
+.emotion-0 .ProseMirror .pm-table-wrapper.pm-table-wrapper-no-overflow {
+  overflow-x: visible;
+}
+
 .emotion-0 .ProseMirror .pm-table-wrapper table {
   max-width: 100%;
   width: 100%;
@@ -9938,6 +9942,10 @@ td>.emotion-0 .ak-editor-expand {
   overflow-x: auto;
   width: 100%;
   box-sizing: border-box;
+}
+
+.emotion-0 .ProseMirror .pm-table-wrapper.pm-table-wrapper-no-overflow {
+  overflow-x: visible;
 }
 
 .emotion-0 .ProseMirror .pm-table-wrapper table {

@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 124.11.0
+
+### Minor Changes
+
+- [`83b11ab9079a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83b11ab9079a9) -
+  EDITOR-2480 Enabled ADF prompts for all products behind new fg.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 124.10.4
 
 ### Patch Changes

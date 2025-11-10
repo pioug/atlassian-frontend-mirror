@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 7.1.4
+
+### Patch Changes
+
+- [`b9fcf9966a0a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9fcf9966a0a4) -
+  Treat BatchAttrsStep as not organic when only localIds are being changed
+
 ## 7.1.3
 
 ### Patch Changes

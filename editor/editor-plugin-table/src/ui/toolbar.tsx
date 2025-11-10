@@ -212,6 +212,7 @@ export const getToolbarCellOptionsConfig = (
 	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent = false,
 	isCommentEditor = false,
+	isLimitedModeEnabled = false,
 ): FloatingToolbarDropdown<Command> => {
 	const { top, bottom, right, left } = initialSelectionRect;
 	const numberOfColumns = right - left;
@@ -332,28 +333,66 @@ export const getToolbarCellOptionsConfig = (
 	}
 
 	if (pluginState?.pluginConfig?.allowDistributeColumns) {
-		const newResizeStateWithAnalytics = editorView
-			? getNewResizeStateFromSelectedColumns(
-					initialSelectionRect,
-					editorState,
-					editorView.domAtPos.bind(editorView),
-					getEditorContainerWidth,
-					isTableScalingEnabled,
-					isTableFixedColumnWidthsOptionEnabled,
-					isCommentEditor,
-				)
-			: undefined;
-		const wouldChange = newResizeStateWithAnalytics?.changed ?? false;
+		let wouldChange = true; // Default to enabled - show the button.
+		let newResizeStateWithAnalytics: ReturnType<typeof getNewResizeStateFromSelectedColumns>;
 
-		const distributeColumnWidths: Command = (state, dispatch) => {
-			if (newResizeStateWithAnalytics) {
-				distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI, api)(
-					INPUT_METHOD.FLOATING_TB,
-					newResizeStateWithAnalytics,
-				)(state, dispatch);
-				return true;
+		// Performance optimization: Skip expensive getTableScalingPercent() DOM query when limited mode is enabled.
+		// This avoids layout reflows on every transaction. Instead, button stays enabled and calculates on-demand when clicked.
+		if (
+			!expValEquals('cc_editor_limited_mode_table_align_bttn', 'isEnabled', true) ||
+			!isLimitedModeEnabled
+		) {
+			newResizeStateWithAnalytics = editorView
+				? getNewResizeStateFromSelectedColumns(
+						initialSelectionRect,
+						editorState,
+						editorView.domAtPos.bind(editorView),
+						getEditorContainerWidth,
+						isTableScalingEnabled,
+						isTableFixedColumnWidthsOptionEnabled,
+						isCommentEditor,
+					)
+				: undefined;
+			wouldChange = newResizeStateWithAnalytics?.changed ?? false;
+		}
+
+		const distributeColumnWidths: Command = (state, dispatch, view) => {
+			// When optimization is enabled, calculate on-demand when clicked
+			if (
+				expValEquals('cc_editor_limited_mode_table_align_bttn', 'isEnabled', true) &&
+				isLimitedModeEnabled
+			) {
+				if (view) {
+					const resizeState = getNewResizeStateFromSelectedColumns(
+						initialSelectionRect,
+						state,
+						view.domAtPos.bind(view),
+						getEditorContainerWidth,
+						isTableScalingEnabled,
+						isTableFixedColumnWidthsOptionEnabled,
+						isCommentEditor,
+					);
+
+					if (resizeState) {
+						distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI, api)(
+							INPUT_METHOD.FLOATING_TB,
+							resizeState,
+						)(state, dispatch);
+						return true;
+					}
+				}
+				return false;
+			} else {
+				// Original behavior: use pre-calculated state
+				if (newResizeStateWithAnalytics) {
+					distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI, api)(
+						INPUT_METHOD.FLOATING_TB,
+						newResizeStateWithAnalytics,
+					)(state, dispatch);
+					return true;
+				}
+				return false;
 			}
-			return false;
 		};
 
 		options.push({
@@ -584,6 +623,8 @@ export const getToolbarConfig =
 						)
 					: [];
 
+			const isLimitedModeEnabled = api?.limitedMode?.sharedState.currentState()?.enabled ?? false;
+
 			const cellItems = pluginState.isDragAndDropEnabled
 				? []
 				: getCellItems(
@@ -597,6 +638,7 @@ export const getToolbarConfig =
 						isTableFixedColumnWidthsOptionEnabled,
 						shouldUseIncreasedScalingPercent,
 						options?.isCommentEditor,
+						isLimitedModeEnabled,
 					);
 
 			const columnSettingsItems = pluginState.isDragAndDropEnabled
@@ -610,6 +652,7 @@ export const getToolbarConfig =
 						isTableScalingEnabled,
 						isTableFixedColumnWidthsOptionEnabled,
 						options?.isCommentEditor,
+						isLimitedModeEnabled,
 					)
 				: [];
 
@@ -812,6 +855,7 @@ const getCellItems = (
 	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent = false,
 	isCommentEditor = false,
+	isLimitedModeEnabled = false,
 ): Array<FloatingToolbarItem<Command>> => {
 	const initialSelectionRect = getClosestSelectionRect(state);
 	if (initialSelectionRect) {
@@ -827,6 +871,7 @@ const getCellItems = (
 			isTableFixedColumnWidthsOptionEnabled,
 			shouldUseIncreasedScalingPercent,
 			isCommentEditor,
+			isLimitedModeEnabled,
 		);
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -882,23 +927,34 @@ const getColumnSettingItems = (
 	isTableScalingEnabled = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
 	isCommentEditor = false,
+	isLimitedModeEnabled = false,
 ): Array<FloatingToolbarItem<Command>> => {
 	const pluginState = getPluginState(editorState);
 	const selectionOrTableRect = getClosestSelectionOrTableRect(editorState);
 	if (!selectionOrTableRect || !editorView) {
 		return [];
 	}
-	const newResizeStateWithAnalytics = getNewResizeStateFromSelectedColumns(
-		selectionOrTableRect,
-		editorState,
-		editorView.domAtPos.bind(editorView),
-		getEditorContainerWidth,
-		isTableScalingEnabled,
-		isTableFixedColumnWidthsOptionEnabled,
-		isCommentEditor,
-	);
 
-	const wouldChange = newResizeStateWithAnalytics?.changed ?? false;
+	let wouldChange = true; // Default to enabled - show the button.
+	let newResizeStateWithAnalytics: ReturnType<typeof getNewResizeStateFromSelectedColumns>;
+
+	// Performance optimization: Skip expensive getTableScalingPercent() DOM query when limited mode is enabled.
+	// This avoids layout reflows on every transaction. Instead, button stays enabled and calculates on-demand when clicked.
+	if (
+		!expValEquals('cc_editor_limited_mode_table_align_bttn', 'isEnabled', true) ||
+		!isLimitedModeEnabled
+	) {
+		newResizeStateWithAnalytics = getNewResizeStateFromSelectedColumns(
+			selectionOrTableRect,
+			editorState,
+			editorView.domAtPos.bind(editorView),
+			getEditorContainerWidth,
+			isTableScalingEnabled,
+			isTableFixedColumnWidthsOptionEnabled,
+			isCommentEditor,
+		);
+		wouldChange = newResizeStateWithAnalytics?.changed ?? false;
+	}
 
 	const items: Array<FloatingToolbarItem<Command>> = [];
 

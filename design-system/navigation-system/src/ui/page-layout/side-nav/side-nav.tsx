@@ -494,7 +494,7 @@ function SideNavInternal({
 				const navigationAnalyticsEvent = createAnalyticsEvent({
 					source: 'topNav',
 					actionSubject: 'sideNav',
-					action: 'viewed',
+					action: 'viewedOnLoad',
 					actionSubjectId: 'sideNavMenu',
 					attributes: {
 						screen: 'desktop',

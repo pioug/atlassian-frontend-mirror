@@ -1,5 +1,14 @@
 # @atlassian/navigation-system
 
+## 5.3.3
+
+### Patch Changes
+
+- [`5e4877d22ecd0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e4877d22ecd0) -
+  Renames the `viewed` analytics event behind the `platform_dst_nav4_fhs_instrumentation_1` feature
+  gate to use `viewedOnLoad` as the action name. This is to avoid a conflict with an existing event
+  in Global Side Navigation.
+
 ## 5.3.2
 
 ### Patch Changes

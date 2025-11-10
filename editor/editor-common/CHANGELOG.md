@@ -1,5 +1,30 @@
 # @atlaskit/editor-common
 
+## 110.25.3
+
+### Patch Changes
+
+- [`3432c4a4a074c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3432c4a4a074c) -
+  [ux] EDITOR-2525 update block menu convert to sync block to support all fishfooding node types
+
+## 110.25.2
+
+### Patch Changes
+
+- [`855e2a1085226`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/855e2a1085226) -
+  [ux] Scaffolding for native sticky headers
+- Updated dependencies
+
+## 110.25.1
+
+### Patch Changes
+
+- [`bedd622f2826d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bedd622f2826d) -
+  Fix sentry error where currentUserIntent state is undefined
+- [`373dccb169d0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/373dccb169d0b) -
+  ED-29654 Editor experience custom tracking
+- Updated dependencies
+
 ## 110.25.0
 
 ### Minor Changes

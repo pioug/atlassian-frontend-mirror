@@ -1,5 +1,20 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.34.0
+
+### Minor Changes
+
+- [`83b11ab9079a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83b11ab9079a9) -
+  EDITOR-2480 Enabled ADF prompts for all products behind new fg.
+
+## 13.33.0
+
+### Minor Changes
+
+- [`fd0c8ec823f49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd0c8ec823f49) -
+  NOISSUE - Add limited mode check for expensive getTableScalingPercent calls for the table floating
+  toolbar alignment button.
+
 ## 13.32.1
 
 ### Patch Changes

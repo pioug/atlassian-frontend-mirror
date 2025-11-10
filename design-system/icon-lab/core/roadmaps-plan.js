@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::56a48b6e9d6992ba3e844b7827f74013>>
+ * @codegen <<SignedSource::6b7be9690353c7bf82b96c9a0cc89ae3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "RoadmapsPlan".
  * Category: single-purpose
  * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for roadmaps plan.
+ * Usage guidance: Reserved for representing plans.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

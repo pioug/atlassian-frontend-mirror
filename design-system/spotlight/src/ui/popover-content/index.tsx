@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ReactNode, useContext, useEffect, useRef } from 'react';
+import { type ReactNode, useContext, useEffect, useLayoutEffect, useRef } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
@@ -201,7 +201,7 @@ export const PopoverContent = (props: PopoverContentProps) => {
 		secondaryAction.setAction(back);
 	}, [back, secondaryAction]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		card.setPlacement(placement);
 	}, [placement, card]);
 

@@ -44,6 +44,11 @@ export const tableContainerStyles: SerializedStyles = css({
 		boxSizing: 'border-box',
 	},
 
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror .pm-table-wrapper.pm-table-wrapper-no-overflow': {
+		overflowX: 'visible',
+	},
+
 	/* Fix for HOT-119925: Ensure table elements are responsive and don't overflow */
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror .pm-table-wrapper table': {

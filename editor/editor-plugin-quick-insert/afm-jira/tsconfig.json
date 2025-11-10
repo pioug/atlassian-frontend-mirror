@@ -26,6 +26,9 @@
 			"path": "../../../design-system/button/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-connectivity/afm-jira/tsconfig.json"
 		},
 		{

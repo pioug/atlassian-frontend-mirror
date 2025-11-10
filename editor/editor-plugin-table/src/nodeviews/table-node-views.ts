@@ -4,6 +4,7 @@ import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PluginInjectionAPI } from '../types';
 
@@ -11,6 +12,7 @@ import type { PluginInjectionAPI } from '../types';
 import { createTableView } from './table';
 import TableCell from './TableCell';
 import TableRow from './TableRow';
+import TableRowNativeStickyWithFallback from './TableRowNativeStickyWithFallback';
 
 type TableViewOptions = {
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
@@ -71,6 +73,22 @@ export const tableHeaderView = (options: TableCellViewOptions) => {
 
 export const tableRowView = (options: TableCellViewOptions) => {
 	return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
-		return new TableRow(node, view, getPos, options.eventDispatcher, options.pluginInjectionApi);
+		if (
+			expValEquals(
+				'platform_editor_table_sticky_header_improvements',
+				'cohort',
+				'test_with_overflow',
+			)
+		) {
+			return new TableRowNativeStickyWithFallback(
+				node,
+				view,
+				getPos,
+				options.eventDispatcher,
+				options.pluginInjectionApi,
+			);
+		} else {
+			return new TableRow(node, view, getPos, options.eventDispatcher, options.pluginInjectionApi);
+		}
 	};
 };

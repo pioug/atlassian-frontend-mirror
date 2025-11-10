@@ -31,7 +31,7 @@ export const UserIntentPopupWrapper = ({
 
 		return () => {
 			if (
-				userIntent === api?.userIntent?.sharedState.currentState().currentUserIntent &&
+				userIntent === api?.userIntent?.sharedState.currentState()?.currentUserIntent &&
 				expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)
 			) {
 				api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('default'));

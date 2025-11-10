@@ -1,3 +1,4 @@
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
 	Experience,
 	ExperienceCheckDomMutation,
@@ -23,6 +24,7 @@ const ABORT_REASON = {
 };
 
 type SelectionToolbarOpenExperienceOptions = {
+	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 	refs: { popupsMountPoint?: HTMLElement };
 };
 
@@ -36,6 +38,7 @@ type SelectionToolbarOpenExperienceOptions = {
  */
 export const getSelectionToolbarOpenExperiencePlugin = ({
 	refs,
+	dispatchAnalyticsEvent,
 }: SelectionToolbarOpenExperienceOptions) => {
 	let targetEl: HTMLElement | undefined;
 	let editorViewEl: HTMLElement | undefined;
@@ -48,6 +51,7 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 	};
 
 	const experience = new Experience('selection-toolbar-open', {
+		dispatchAnalyticsEvent,
 		checks: [
 			new ExperienceCheckTimeout({
 				durationMs: 500,

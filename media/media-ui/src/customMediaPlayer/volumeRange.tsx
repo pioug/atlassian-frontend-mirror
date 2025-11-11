@@ -6,10 +6,8 @@ import React, {
 	useState,
 } from 'react';
 
-import { TimeRangeWrapper as EmotionTimeRangeWrapper } from './styled-emotion';
 import { TimeRangeWrapper as CompiledTimeRangeWrapper } from './styled-compiled';
 import Range from '@atlaskit/range';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export type VolumeRangeProps = {
 	currentVolume: number;
@@ -23,7 +21,7 @@ const increaseVolumeKeys = new Set(['ArrowRight', 'ArrowUp']);
 const decreaseVolumeKeys = new Set(['ArrowLeft', 'ArrowDown']);
 
 const VolumeRange = (props: VolumeRangeProps) => {
-	const { isAlwaysActive = false, onChange, currentVolume, onChanged, ariaLabel } = props;
+	const { onChange, currentVolume, onChanged, ariaLabel } = props;
 	const wrapperElement = useRef<HTMLDivElement>(null);
 
 	const mouseEventsSharedData = useRef({
@@ -152,7 +150,7 @@ const VolumeRange = (props: VolumeRangeProps) => {
 
 	const currentPosition = currentVolume * 100;
 
-	return fg('platform_media_compiled') ? (
+	return (
 		<CompiledTimeRangeWrapper
 			onMouseDown={onThumbMouseDown}
 			onKeyDown={onThumbKeyDown}
@@ -171,24 +169,6 @@ const VolumeRange = (props: VolumeRangeProps) => {
 				style={{ width: '100%', cursor: 'pointer', height: '14px' }}
 			/>
 		</CompiledTimeRangeWrapper>
-	) : (
-		<EmotionTimeRangeWrapper
-			showAsActive={isAlwaysActive}
-			onMouseDown={onThumbMouseDown}
-			onKeyDown={onThumbKeyDown}
-			ref={wrapperElement}
-			data-testid="volume-range"
-		>
-			<Range
-				tabIndex={0}
-				step={1}
-				min={0}
-				max={100}
-				value={currentPosition}
-				onChange={onInputChange}
-				aria-label={ariaLabel}
-			/>
-		</EmotionTimeRangeWrapper>
 	);
 };
 

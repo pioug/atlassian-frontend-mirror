@@ -22,6 +22,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
+import { LOCAL_WIDTH_VARIABLE } from '../../card/ui/wrapper/wrapper-compiled';
 
 const identifier = {
 	id: 'some-id',
@@ -230,7 +231,9 @@ describe('CardView', () => {
 					/>,
 				);
 				const mediaCard = screen.getByTestId(cardTestId);
-				expect(window.getComputedStyle(mediaCard).width).toBe(`${width}px`);
+				const style = window.getComputedStyle(mediaCard);
+				const retrievedWidth = style.getPropertyValue(LOCAL_WIDTH_VARIABLE);
+				expect(retrievedWidth).toBe(`${width}px`);
 			});
 		});
 	});

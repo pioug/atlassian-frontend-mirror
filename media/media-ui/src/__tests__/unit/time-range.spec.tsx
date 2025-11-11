@@ -1,6 +1,6 @@
 import React from 'react';
 import { TimeRange, TimeRangeBase, type TimeRangeProps } from '../../customMediaPlayer/timeRange';
-import { CurrentTimeTooltip } from '../../customMediaPlayer/styled-emotion';
+import { CurrentTimeTooltip } from '../../customMediaPlayer/styled-compiled';
 import { mountWithIntlContext } from '../../test-helpers/mountWithIntlContext';
 import type { IntlShape } from 'react-intl-next';
 import { fireEvent, screen, waitFor, act } from '@testing-library/react';

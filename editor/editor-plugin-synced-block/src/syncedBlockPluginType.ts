@@ -70,6 +70,7 @@ export type SyncedBlockPlugin = NextEditorPlugin<
 			flushBodiedSyncBlocks: () => Promise<boolean>;
 		};
 		commands: {
+			copySyncedBlockReferenceToClipboard: () => EditorCommand;
 			insertSyncedBlock: () => EditorCommand;
 		};
 		dependencies: [

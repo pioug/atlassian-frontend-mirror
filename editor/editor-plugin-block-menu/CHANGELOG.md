@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.0.6
+
+### Patch Changes
+
+- [`9aaf4b9af9258`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9aaf4b9af9258) -
+  Clean up `platform_editor_block_menu_selection_fix` feature gate
+
 ## 5.0.5
 
 ### Patch Changes

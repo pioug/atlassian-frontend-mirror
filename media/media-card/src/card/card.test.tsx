@@ -68,6 +68,7 @@ import { DateOverrideContext } from '../dateOverrideContext';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { failDataURIConversionOnce } from '@atlaskit/media-svg/test-helpers';
+import { LOCAL_HEIGHT_VARIABLE, LOCAL_WIDTH_VARIABLE } from './ui/wrapper/wrapper-compiled';
 
 const event = { fire: jest.fn() };
 const mockCreateAnalyticsEvent = jest.fn(() => event) as unknown as CreateUIAnalyticsEvent;
@@ -655,8 +656,11 @@ describe('Card ', () => {
 
 			const card = await screen.findByTestId(cardTestId);
 			const style = window.getComputedStyle(card);
-			expect(style.height).toBe('125px');
-			expect(style.width).toBe('156px');
+			// Retrieve the value of the CSS variable
+			const width = style.getPropertyValue(LOCAL_WIDTH_VARIABLE);
+			const height = style.getPropertyValue(LOCAL_HEIGHT_VARIABLE);
+			expect(height).toBe('125px');
+			expect(width).toBe('156px');
 		});
 
 		it('should use default dimensions for a "square" appearance', async () => {
@@ -676,8 +680,11 @@ describe('Card ', () => {
 
 			const card = await screen.findByTestId(cardTestId);
 			const style = window.getComputedStyle(card);
-			expect(style.height).toBe('300px');
-			expect(style.width).toBe('300px');
+			// Retrieve the value of the CSS variable
+			const width = style.getPropertyValue(LOCAL_WIDTH_VARIABLE);
+			const height = style.getPropertyValue(LOCAL_HEIGHT_VARIABLE);
+			expect(height).toBe('300px');
+			expect(width).toBe('300px');
 		});
 
 		it('should use default dimensions for a "horizontal" appearance', async () => {
@@ -697,8 +704,11 @@ describe('Card ', () => {
 
 			const card = await screen.findByTestId(cardTestId);
 			const style = window.getComputedStyle(card);
-			expect(style.height).toBe('125px');
-			expect(style.width).toBe('435px');
+			// Retrieve the value of the CSS variable
+			const width = style.getPropertyValue(LOCAL_WIDTH_VARIABLE);
+			const height = style.getPropertyValue(LOCAL_HEIGHT_VARIABLE);
+			expect(height).toBe('125px');
+			expect(width).toBe('435px');
 		});
 
 		it('should update with new dimensions', async () => {
@@ -731,8 +741,11 @@ describe('Card ', () => {
 
 			const card = await screen.findByTestId(cardTestId);
 			const style = window.getComputedStyle(card);
-			expect(style.height).toBe('400px');
-			expect(style.width).toBe('400px');
+			// Retrieve the value of the CSS variable
+			const width = style.getPropertyValue(LOCAL_WIDTH_VARIABLE);
+			const height = style.getPropertyValue(LOCAL_HEIGHT_VARIABLE);
+			expect(height).toBe('400px');
+			expect(width).toBe('400px');
 		});
 
 		it('should set custom dimensions', async () => {
@@ -753,8 +766,11 @@ describe('Card ', () => {
 
 			const card = await screen.findByTestId(cardTestId);
 			const style = window.getComputedStyle(card);
-			expect(style.height).toBe('500px');
-			expect(style.width).toBe('100px');
+			// Retrieve the value of the CSS variable
+			const width = style.getPropertyValue(LOCAL_WIDTH_VARIABLE);
+			const height = style.getPropertyValue(LOCAL_HEIGHT_VARIABLE);
+			expect(height).toBe('500px');
+			expect(width).toBe('100px');
 		});
 
 		it('should set custom percentage dimensions', async () => {
@@ -775,8 +791,11 @@ describe('Card ', () => {
 
 			const card = await screen.findByTestId(cardTestId);
 			const style = window.getComputedStyle(card);
-			expect(style.height).toBe('20%');
-			expect(style.width).toBe('20%');
+			// Retrieve the value of the CSS variable
+			const width = style.getPropertyValue(LOCAL_WIDTH_VARIABLE);
+			const height = style.getPropertyValue(LOCAL_HEIGHT_VARIABLE);
+			expect(height).toBe('20%');
+			expect(width).toBe('20%');
 		});
 
 		// TODO - this actually successfully renders but has bad behaviour: it renders to be 100% width and 0 height (i.e. you can't see it)
@@ -798,8 +817,11 @@ describe('Card ', () => {
 
 			const card = await screen.findByTestId(cardTestId);
 			const style = window.getComputedStyle(card);
-			expect(style.height).toBe('300px');
-			expect(style.width).toBe('300px');
+			// Retrieve the value of the CSS variable
+			const width = style.getPropertyValue(LOCAL_WIDTH_VARIABLE);
+			const height = style.getPropertyValue(LOCAL_HEIGHT_VARIABLE);
+			expect(height).toBe('300px');
+			expect(width).toBe('300px');
 		});
 	});
 

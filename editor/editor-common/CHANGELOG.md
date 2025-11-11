@@ -1,5 +1,38 @@
 # @atlaskit/editor-common
 
+## 110.27.0
+
+### Minor Changes
+
+- [`4303503b123a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4303503b123a8) -
+  Revert fg-cleanup platform_editor_disable_rerender_tracking_jira
+
+### Patch Changes
+
+- [`9aaeaa5054b55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9aaeaa5054b55) -
+  EDITOR-2863 Add copy sync block option to block menu
+
+## 110.26.0
+
+### Minor Changes
+
+- [`3ff7946f17075`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ff7946f17075) -
+  EDF-2768 add adf width validation transform
+
+### Patch Changes
+
+- [`f79abec64be13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f79abec64be13) -
+  [EDITOR-2624] Add max width mode for ultra wide monitors to the Editor and Renderer
+- Updated dependencies
+
+## 110.25.4
+
+### Patch Changes
+
+- [`be55d2a043969`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be55d2a043969) -
+  Use shorter localIds and fix duplicate bug to store less data.
+- Updated dependencies
+
 ## 110.25.3
 
 ### Patch Changes

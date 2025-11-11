@@ -33,7 +33,7 @@ export const getToolbarConfig = (
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
 	syncBlockStore: SyncBlockStoreManager,
 ): FloatingToolbarConfig | undefined => {
-	const syncBlockObject = findSyncBlockOrBodiedSyncBlock(state);
+	const syncBlockObject = findSyncBlockOrBodiedSyncBlock(state.schema, state.selection);
 	if (!syncBlockObject) {
 		return;
 	}
@@ -63,7 +63,7 @@ export const getToolbarConfig = (
 		title: formatMessage(messages.copySyncBlockLabel),
 		showTitle: false,
 		tooltipContent: formatMessage(messages.copySyncBlockTooltip),
-		onClick: copySyncedBlockReferenceToClipboard(api),
+		onClick: copySyncedBlockReferenceToClipboard,
 		...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
 	};
 	items.push(copyButton);

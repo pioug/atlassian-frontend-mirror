@@ -1,17 +1,12 @@
 import React from 'react';
 import { Component } from 'react';
 import {
-	CurrentTimeTooltip as EmotionCurrentTimeTooltip,
-	TimeRangeWrapper as EmotionTimeRangeWrapper,
-} from './styled-emotion';
-import {
 	CurrentTimeTooltip as CompiledCurrentTimeTooltip,
 	TimeRangeWrapper as CompiledTimeRangeWrapper,
 } from './styled-compiled';
 import { formatDuration, secondsToTime } from '../formatDuration';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { messages } from '../messages';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { BufferedTime, CurrentTimeLine, CurrentTimeLineThumb, TimeLine } from './styled';
 
 export interface TimeRangeProps {
@@ -214,7 +209,7 @@ export class TimeRangeBase extends Component<
 
 	render() {
 		const { isDragging, timeLineThumbIsHover, timeLineThumbIsFocus } = this.state;
-		const { currentTime, duration, bufferedTime, disableThumbTooltip, isAlwaysActive, intl } =
+		const { currentTime, duration, bufferedTime, disableThumbTooltip, intl } =
 			this.props;
 		const currentPosition = (currentTime * 100) / duration;
 		const bufferedTimePercentage = (bufferedTime * 100) / duration;
@@ -239,7 +234,7 @@ export class TimeRangeBase extends Component<
 			videoTotalSeconds: this.numberFormatterSeconds.format(videoTotalSeconds),
 		});
 
-		const currentTimeTooltip = fg('platform_media_compiled') ? (
+		const currentTimeTooltip = (
 			<CompiledCurrentTimeTooltip
 				draggable={false}
 				isDragging={isDragging}
@@ -248,15 +243,6 @@ export class TimeRangeBase extends Component<
 			>
 				{formatDuration(currentTime)}
 			</CompiledCurrentTimeTooltip>
-		) : (
-			<EmotionCurrentTimeTooltip
-				draggable={false}
-				isDragging={isDragging}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className="current-time-tooltip"
-			>
-				{formatDuration(currentTime)}
-			</EmotionCurrentTimeTooltip>
 		);
 
 		const timeline = (
@@ -285,18 +271,10 @@ export class TimeRangeBase extends Component<
 			</TimeLine>
 		);
 
-		return fg('platform_media_compiled') ? (
+		return (
 			<CompiledTimeRangeWrapper onPointerDown={this.onPointerDown} data-testid="time-range-wrapper">
 				{timeline}
 			</CompiledTimeRangeWrapper>
-		) : (
-			<EmotionTimeRangeWrapper
-				showAsActive={isAlwaysActive}
-				onPointerDown={this.onPointerDown}
-				data-testid="time-range-wrapper"
-			>
-				{timeline}
-			</EmotionTimeRangeWrapper>
 		);
 	}
 }

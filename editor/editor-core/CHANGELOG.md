@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 215.11.1
+
+### Patch Changes
+
+- [`4303503b123a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4303503b123a8) -
+  Revert fg-cleanup platform_editor_disable_rerender_tracking_jira
+- Updated dependencies
+
+## 215.11.0
+
+### Minor Changes
+
+- [`f79abec64be13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f79abec64be13) -
+  [EDITOR-2624] Add max width mode for ultra wide monitors to the Editor and Renderer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 215.10.2
 
 ### Patch Changes

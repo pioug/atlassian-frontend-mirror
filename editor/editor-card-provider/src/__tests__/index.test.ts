@@ -177,7 +177,11 @@ describe('providers > editor', () => {
 		mockFetch = jest.fn();
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(global as any).fetch = mockFetch;
-		setBooleanFeatureFlagResolver((flag) => flag === 'smartlink_jira_software_form');
+		setBooleanFeatureFlagResolver(
+			(flag) =>
+				flag === 'smartlink_jira_software_form' ||
+				flag === 'avp_unfurl_shared_charts_embed_by_default_2',
+		);
 	});
 
 	afterEach(() => {
@@ -600,6 +604,25 @@ describe('providers > editor', () => {
 			'Jira Issue Navigator embed',
 			'https://jdog.jira-dev.com/jira/software/c/projects/DL39857/issues',
 		],
+		['AVP Visualization view with numeric entity-id', 'https://hello.atlassian.net/avpviz/c/12345'],
+		[
+			'AVP Visualization view with UUID entity-id',
+			'https://hello.atlassian.net/avpviz/c/8fb8c642-803d-59fe-8d1c-066610e860c6',
+		],
+		[
+			'AVP Visualization view with alphanumeric entity-id',
+			'https://hello.atlassian.net/avpviz/c/abc123-def456',
+		],
+		[
+			'AVP Visualization view with query parameters',
+			'https://hello.atlassian.net/avpviz/c/12345?foo=bar&baz=qux',
+		],
+		['AVP Visualization view with trailing slash', 'https://hello.atlassian.net/avpviz/c/12345/'],
+		[
+			'AVP Visualization view with query parameters and trailing slash',
+			'https://hello.atlassian.net/avpviz/c/12345/?foo=bar',
+		],
+		['AVP Visualization view on different domain', 'https://jdog.jira-dev.com/avpviz/c/entity-123'],
 	])(
 		'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',
 		async (_, url) => {
@@ -625,6 +648,14 @@ describe('providers > editor', () => {
 			'https://dodgygiphy.com/gifs/happy-kawaii-nice-yCZEmKBKejysx5V2Yaa',
 		],
 		['Giphy profile', 'https://giphy.com/Ellienka'],
+		['URL with avpviz but missing /c/ segment', 'https://hello.atlassian.net/avpviz/12345'],
+		[
+			'URL with avpviz but different path structure',
+			'https://hello.atlassian.net/avpviz/view/12345',
+		],
+		['URL with avpviz but empty entity-id', 'https://hello.atlassian.net/avpviz/c/'],
+		['URL with avpviz in query parameter', 'https://hello.atlassian.net/some/path?avpviz=c/12345'],
+		['URL with avpviz in fragment', 'https://hello.atlassian.net/some/path#avpviz/c/12345'],
 	])(
 		'returns inlineCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',
 		async (_, url) => {
@@ -1626,6 +1657,56 @@ describe('providers > editor', () => {
 				'https://jdog.jira-dev.com/wiki/spaces/kb/calendars/1bb45655-f521-4379-8353-59b423abfffb';
 			const adf = await provider.resolve(url, 'inline', false, true);
 			expect(adf).toEqual(expectedInlineAdf(url));
+		});
+
+		it('should not use embed appearance for AVP Visualization URLs when FF is off', async () => {
+			setBooleanFeatureFlagResolver(() => false);
+			const provider = setupEditorCardProvider();
+			mockFetch.mockResolvedValueOnce({
+				json: async () =>
+					getMockProvidersResponse({
+						userPreferences: {
+							defaultAppearance: 'inline',
+							appearances: [],
+						},
+					}),
+				ok: true,
+			});
+			// Mocking call to /resolve/batch
+			mockFetch.mockResolvedValueOnce({
+				json: async () => [{ body: mocks.success, status: 200 }],
+				ok: true,
+			});
+
+			const url = 'https://hello.atlassian.net/avpviz/c/12345';
+			const adf = await provider.resolve(url, 'inline', false, true);
+			expect(adf).toEqual(expectedInlineAdf(url));
+		});
+
+		it('should use embed appearance for AVP Visualization URLs when FF is on', async () => {
+			setBooleanFeatureFlagResolver(
+				(flag) => flag === 'avp_unfurl_shared_charts_embed_by_default_2',
+			);
+			const provider = setupEditorCardProvider();
+			mockFetch.mockResolvedValueOnce({
+				json: async () =>
+					getMockProvidersResponse({
+						userPreferences: {
+							defaultAppearance: 'inline',
+							appearances: [],
+						},
+					}),
+				ok: true,
+			});
+			// Mocking call to /resolve/batch
+			mockFetch.mockResolvedValueOnce({
+				json: async () => [{ body: mocks.success, status: 200 }],
+				ok: true,
+			});
+
+			const url = 'https://hello.atlassian.net/avpviz/c/12345';
+			const adf = await provider.resolve(url, 'inline', false, true);
+			expect(adf).toEqual(expectedEmbedAdf(url));
 		});
 
 		it('should use embed appearance for team calendar smart link when FF is on', async () => {

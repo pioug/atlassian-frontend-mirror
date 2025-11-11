@@ -38,11 +38,11 @@ const SelectInputPrompt = ({ userInputPrompt }: SelectInputPromptProps) => {
 		<Field name={variableName} label={displayName} isRequired={required} validate={validate}>
 			{({ fieldProps, error }) => (
 				<>
-					{/* @ts-expect-error - TS2322 - Type '{ isClearable: boolean; isLoading?: boolean | undefined; isMulti: boolean; isSearchable: boolean; backspaceRemovesValue: boolean; blurInputOnSelect?: boolean | undefined; controlShouldRenderValue: boolean; ... 17 more ...; options: T[] | undefined; }' is not assignable to type 'Readonly<SelectProps<unknown, boolean>>'. */}
+					{/* @ts-ignore - TS2322 - Type '{ isClearable: boolean; isLoading?: boolean | undefined; isMulti: boolean; isSearchable: boolean; backspaceRemovesValue: boolean; blurInputOnSelect?: boolean | undefined; controlShouldRenderValue: boolean; ... 17 more ...; options: T[] | undefined; }' is not assignable to type 'Readonly<SelectProps<unknown, boolean>>'. */}
 					<Select
 						isClearable
 						isSearchable
-						options={selectOptions}
+						options={selectOptions as any}
 						menuPosition="fixed"
 						{...fieldProps}
 					/>

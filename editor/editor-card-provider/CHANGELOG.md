@@ -1,5 +1,16 @@
 # @atlaskit/editor-card-provider
 
+## 6.1.0
+
+### Minor Changes
+
+- [`7eefb2f8ae3d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7eefb2f8ae3d0) -
+  Unfurl avp charts in embed by default behind FF
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.3
 
 ### Patch Changes
@@ -69,7 +80,6 @@
 - [`6b61788ba65a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b61788ba65a2) - -
   Added a new `custom` environment to `EnvironmentsKeys`. Now, you can pass the `baseUrlOverride`
   parameter to both `EditorCardProvider` and `CardClient` to access a service directly.
-
   - Introduced a new `setHeaders` method in CardClient, allowing you to specify custom HTTP headers
     for requests to the object-resolver service.
   - `EditorCardProvider` now supports passing a custom `CardClient` instance, so you can use your
@@ -89,7 +99,6 @@
 - [`e5b3e00a23242`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5b3e00a23242) - -
   Added a new `custom` environment to `EnvironmentsKeys`. Now, you can pass the `baseUrlOverride`
   parameter to both `EditorCardProvider` and `CardClient` to access a service directly.
-
   - Introduced a new `setHeaders` method in CardClient, allowing you to specify custom HTTP headers
     for requests to the object-resolver service.
   - `EditorCardProvider` now supports passing a custom `CardClient` instance, so you can use your
@@ -109,7 +118,6 @@
 - [`19da7355cd815`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19da7355cd815) - -
   Added a new `custom` environment to `EnvironmentsKeys`. Now, you can pass the `baseUrlOverride`
   parameter to both `EditorCardProvider` and `CardClient` to access a service directly.
-
   - Introduced a new `setHeaders` method in CardClient, allowing you to specify custom HTTP headers
     for requests to the object-resolver service.
   - `EditorCardProvider` now supports passing a custom `CardClient` instance, so you can use your

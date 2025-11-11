@@ -86,9 +86,7 @@ const _AgentActions = ({
 		} = await resourceClient.getRovoAgentPermissions(agent.id);
 
 		return {
-			...(fg('agent_studio_fe_permissions_settings_m1') && {
-				isCreateEnabled: AGENT_CREATE.permitted,
-			}),
+			isCreateEnabled: AGENT_CREATE.permitted,
 			isEditEnabled: AGENT_UPDATE.permitted,
 			isDeleteEnabled: AGENT_DEACTIVATE.permitted,
 		};

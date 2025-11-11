@@ -1,12 +1,30 @@
 import { uuid } from '@atlaskit/adf-schema';
 import { BatchAttrsStep } from '@atlaskit/adf-schema/steps';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { stepHasSlice } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import type { LocalIdPlugin } from '../localIdPluginType';
+
 export const localIdPluginKey = new PluginKey('localIdPlugin');
+
+const generateUUID = (
+	api: ExtractInjectionAPI<LocalIdPlugin> | undefined,
+	node: PMNode,
+	pos: number,
+) => {
+	if (fg('platform_editor_ai_local_id_short')) {
+		// Use the same technique as the anchor id which is faster and shorter
+		return (
+			api?.core.actions.getAnchorIdForNode(node, pos)?.replace('--anchor-', '') ?? uuid.generate()
+		);
+	}
+	// When the flag is NOT enabled, existing uuid
+	return uuid.generate();
+};
 
 // Fallback for Safari which doesn't support requestIdleCallback
 const requestIdleCallbackWithFallback = (callback: () => void) => {
@@ -18,7 +36,7 @@ const requestIdleCallbackWithFallback = (callback: () => void) => {
 	}
 };
 
-export const createPlugin = () => {
+export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined) => {
 	return new SafePlugin({
 		key: localIdPluginKey,
 		view: (editorView) => {
@@ -46,10 +64,10 @@ export const createPlugin = () => {
 						!!node.type.spec.attrs?.localId
 					) {
 						if (fg('platform_editor_localid_improvements')) {
-							nodesToUpdate.set(pos, uuid.generate());
+							nodesToUpdate.set(pos, generateUUID(api, node, pos));
 						} else {
 							localIdWasAdded = true;
-							addLocalIdToNode(pos, tr);
+							addLocalIdToNode(api, pos, tr, node);
 						}
 					}
 					return true; // Continue traversing
@@ -127,10 +145,10 @@ export const createPlugin = () => {
 							} else {
 								if (!node?.attrs.localId) {
 									if (fg('platform_editor_localid_improvements')) {
-										nodesToUpdate.set(pos, uuid.generate());
+										nodesToUpdate.set(pos, generateUUID(api, node, pos));
 									} else {
 										// Legacy behavior - individual steps
-										addLocalIdToNode(pos, tr);
+										addLocalIdToNode(api, pos, tr, node);
 									}
 								}
 							}
@@ -150,18 +168,29 @@ export const createPlugin = () => {
 					localIds.add(node.attrs.localId);
 					return true;
 				});
+				// Also ensure the added have no duplicates
+				const seenIds = new Set<string>();
 
 				for (const node of addedNodes) {
-					if (!node.attrs.localId || localIds.has(node.attrs.localId)) {
+					if (
+						!node.attrs.localId ||
+						localIds.has(node.attrs.localId) ||
+						(seenIds.has(node.attrs.localId) && fg('platform_editor_ai_local_id_short'))
+					) {
 						const pos = addedNodePos.get(node);
 						if (pos !== undefined) {
 							if (fg('platform_editor_localid_improvements')) {
-								nodesToUpdate.set(pos, uuid.generate());
+								const newId = generateUUID(api, node, pos);
+								nodesToUpdate.set(pos, newId);
+								seenIds.add(newId);
 							} else {
-								addLocalIdToNode(pos, tr);
+								addLocalIdToNode(api, pos, tr, node);
 							}
 							modified = true;
 						}
+					}
+					if (node.attrs.localId) {
+						seenIds.add(node.attrs.localId);
 					}
 				}
 			}
@@ -184,9 +213,16 @@ export const createPlugin = () => {
  *
  * @param pos - The position of the node in the document
  * @param tr - The transaction to apply the change to
+ * @param node - Node reference for integer ID generator
  */
-export const addLocalIdToNode = (pos: number, tr: Transaction) => {
-	tr.setNodeAttribute(pos, 'localId', uuid.generate());
+export const addLocalIdToNode = (
+	api: ExtractInjectionAPI<LocalIdPlugin> | undefined,
+	pos: number,
+	tr: Transaction,
+	node: PMNode,
+) => {
+	const targetNode = node || tr.doc.nodeAt(pos);
+	tr.setNodeAttribute(pos, 'localId', generateUUID(api, targetNode, pos));
 	tr.setMeta('addToHistory', false);
 };
 

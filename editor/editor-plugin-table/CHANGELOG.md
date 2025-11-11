@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 15.3.17
+
+### Patch Changes
+
+- [`cdde660f1ee48`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdde660f1ee48) -
+  Refresh sticky header when native sticky positioning is removed
+- Updated dependencies
+
 ## 15.3.16
 
 ### Patch Changes

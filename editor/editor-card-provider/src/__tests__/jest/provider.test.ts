@@ -2,6 +2,7 @@ import { EditorCardProvider } from '../../provider';
 import { CardClient } from '@atlaskit/link-provider';
 import { type BlockCardAdf, type EmbedCardAdf, type InlineCardAdf } from '@atlaskit/linking-common';
 import { type JSONNode } from '@atlaskit/editor-json-transformer';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 
 jest.spyOn(CardClient.prototype, 'fetchData').mockRejectedValue({});
 
@@ -10,6 +11,11 @@ describe('EditorCardProvider', () => {
 	let mockCardClient: jest.Mocked<CardClient>;
 
 	beforeEach(() => {
+		setBooleanFeatureFlagResolver(
+			(flag) =>
+				flag === 'smartlink_jira_software_form' ||
+				flag === 'avp_unfurl_shared_charts_embed_by_default_2',
+		);
 		provider = new EditorCardProvider();
 		// Access the mocked instance created in the provider's constructor
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -163,5 +169,106 @@ describe('EditorCardProvider', () => {
 		new EditorCardProvider(undefined, undefined, undefined, undefined, customCardClient);
 
 		expect(customCardClient.setProduct).not.toHaveBeenCalled();
+	});
+
+	describe('getHardCodedAppearance - AVP Visualization URLs', () => {
+		// Create a test subclass to access protected method
+		class TestableEditorCardProvider extends EditorCardProvider {
+			public testGetHardCodedAppearance(url: string) {
+				return this.getHardCodedAppearance(url);
+			}
+		}
+
+		let testProvider: TestableEditorCardProvider;
+
+		beforeEach(() => {
+			// Set up feature flag resolver for AVP tests
+			setBooleanFeatureFlagResolver(
+				(flag) =>
+					flag === 'smartlink_jira_software_form' ||
+					flag === 'avp_unfurl_shared_charts_embed_by_default_2',
+			);
+			testProvider = new TestableEditorCardProvider();
+		});
+
+		afterEach(() => {
+			// Restore the original resolver to prevent test pollution
+			setBooleanFeatureFlagResolver(
+				(flag) =>
+					flag === 'smartlink_jira_software_form' ||
+					flag === 'avp_unfurl_shared_charts_embed_by_default_2',
+			);
+		});
+
+		it('should return embed for AVP Visualization URLs with numeric entity-id', () => {
+			const url = 'https://hello.atlassian.net/avpviz/c/12345';
+			expect(testProvider.testGetHardCodedAppearance(url)).toBe('embed');
+		});
+
+		it('should return embed for AVP Visualization URLs with UUID entity-id', () => {
+			const url = 'https://hello.atlassian.net/avpviz/c/8fb8c642-803d-59fe-8d1c-066610e860c6';
+			expect(testProvider.testGetHardCodedAppearance(url)).toBe('embed');
+		});
+
+		it('should return embed for AVP Visualization URLs with alphanumeric entity-id', () => {
+			const url = 'https://hello.atlassian.net/avpviz/c/abc123-def456';
+			expect(testProvider.testGetHardCodedAppearance(url)).toBe('embed');
+		});
+
+		it('should return embed for AVP Visualization URLs with query parameters', () => {
+			const url = 'https://hello.atlassian.net/avpviz/c/12345?foo=bar&baz=qux';
+			expect(testProvider.testGetHardCodedAppearance(url)).toBe('embed');
+		});
+
+		it('should return embed for AVP Visualization URLs with trailing slash', () => {
+			const url = 'https://hello.atlassian.net/avpviz/c/12345/';
+			expect(testProvider.testGetHardCodedAppearance(url)).toBe('embed');
+		});
+
+		it('should return embed for AVP Visualization URLs on different domains', () => {
+			const url = 'https://jdog.jira-dev.com/avpviz/c/entity-123';
+			expect(testProvider.testGetHardCodedAppearance(url)).toBe('embed');
+		});
+
+		it('should return undefined for URLs missing /c/ segment', () => {
+			const url = 'https://hello.atlassian.net/avpviz/12345';
+			expect(testProvider.testGetHardCodedAppearance(url)).toBeUndefined();
+		});
+
+		it('should return undefined for URLs with different path structure', () => {
+			const url = 'https://hello.atlassian.net/avpviz/view/12345';
+			expect(testProvider.testGetHardCodedAppearance(url)).toBeUndefined();
+		});
+
+		it('should return undefined for URLs with empty entity-id', () => {
+			const url = 'https://hello.atlassian.net/avpviz/c/';
+			expect(testProvider.testGetHardCodedAppearance(url)).toBeUndefined();
+		});
+
+		it('should return undefined for URLs with avpviz in query parameter', () => {
+			const url = 'https://hello.atlassian.net/some/path?avpviz=c/12345';
+			expect(testProvider.testGetHardCodedAppearance(url)).toBeUndefined();
+		});
+
+		it('should return undefined for regular URLs', () => {
+			const url = 'https://hello.atlassian.net/some/other/path';
+			expect(testProvider.testGetHardCodedAppearance(url)).toBeUndefined();
+		});
+
+		it('should return undefined for AVP Visualization URLs when feature gate is disabled', () => {
+			setBooleanFeatureFlagResolver(() => false);
+			const disabledProvider = new TestableEditorCardProvider();
+			const url = 'https://hello.atlassian.net/avpviz/c/12345';
+			expect(disabledProvider.testGetHardCodedAppearance(url)).toBeUndefined();
+		});
+
+		it('should return embed for AVP Visualization URLs when feature gate is enabled', () => {
+			setBooleanFeatureFlagResolver(
+				(flag) => flag === 'avp_unfurl_shared_charts_embed_by_default_2',
+			);
+			const enabledProvider = new TestableEditorCardProvider();
+			const url = 'https://hello.atlassian.net/avpviz/c/12345';
+			expect(enabledProvider.testGetHardCodedAppearance(url)).toBe('embed');
+		});
 	});
 });

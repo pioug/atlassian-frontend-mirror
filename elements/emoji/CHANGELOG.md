@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 69.7.1
+
+### Patch Changes
+
+- [`acf73d58208f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acf73d58208f1) -
+  If the optimisticImageURL is provided for the emoji page title, do not swap to the media reference
+  once it is loaded
+
 ## 69.7.0
 
 ### Minor Changes

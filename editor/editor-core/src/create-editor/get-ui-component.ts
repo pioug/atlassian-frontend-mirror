@@ -17,6 +17,7 @@ export default function getUiComponent(appearance: EditorAppearance): ReturnType
 	switch (appearance) {
 		case 'full-page':
 		case 'full-width':
+		case 'max':
 			return FullPage;
 		case 'chromeless':
 			return Chromeless;

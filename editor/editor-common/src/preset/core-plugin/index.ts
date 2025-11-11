@@ -177,13 +177,20 @@ export const corePlugin: CorePlugin = ({ config }) => {
 					return undefined;
 				}
 
-				const cachedId = getNodeIdProvider(view).getIdForNode(node);
+				const nodeIdProvider = getNodeIdProvider(view);
+				const cachedId = nodeIdProvider.getIdForNode(node);
 				if (cachedId) {
 					return cachedId;
 				}
 
 				if (pos < 0) {
 					return undefined;
+				}
+				if (fg('platform_editor_ai_local_id_short')) {
+					const generatedId = nodeIdProvider.getOrGenerateId(node, pos);
+					if (generatedId) {
+						return generatedId;
+					}
 				}
 				const nodeDOM = view.nodeDOM(pos);
 				if (nodeDOM instanceof HTMLElement) {

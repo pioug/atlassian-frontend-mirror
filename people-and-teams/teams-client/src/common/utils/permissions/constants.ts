@@ -38,6 +38,7 @@ export const allPermissions = (
 	ADD_AGENT_TO_TEAM: defaultPermission,
 	ARCHIVE_TEAM: defaultPermission && isMember,
 	UNARCHIVE_TEAM: false,
+	CAN_EDIT_HIERARCHY: defaultPermission && isMember,
 });
 
 export const vanityActions: TeamAction[] = [
@@ -106,6 +107,7 @@ const getDisbandedTeamPermissionMap = (
 
 	return {
 		...basePermissions,
+		CAN_EDIT_HIERARCHY: false,
 		UNARCHIVE_TEAM: canUnarchive,
 		DELETE_TEAM: canUnarchive,
 	};
@@ -148,6 +150,7 @@ const getActiveTeamPermissionMap = (
 			REMOVE_AGENT_FROM_TEAM: newTeamProfileEnabled && (isMember || isOrgAdmin),
 			ARCHIVE_TEAM: isArchiveTeamEnabled && isOrgAdmin,
 			EDIT_TEAM_TYPE: isOrgAdmin,
+			CAN_EDIT_HIERARCHY: permission === 'FULL_WRITE',
 		};
 	}
 	return allPermissions(false, false, false);

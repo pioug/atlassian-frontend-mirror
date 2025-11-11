@@ -97,7 +97,7 @@ describe('teams app navigation utils', () => {
 					...orgAndCloudId,
 				};
 				const path = 'somepath';
-				const expectedPath = `https://teams.atlassian-us-gov.com/somepath?cloudId=${config.cloudId}`;
+				const expectedPath = `https://teams.atlassian-us-gov-mod.com/somepath?cloudId=${config.cloudId}`;
 				expect(generateTeamsAppPath(path, config)).toEqual(expectedPath);
 			});
 			it('should generate the correct path for a path with people prefix', () => {
@@ -105,7 +105,7 @@ describe('teams app navigation utils', () => {
 					...orgAndCloudId,
 				};
 				const path = 'people/somepath';
-				const expectedPath = `https://teams.atlassian-us-gov.com/somepath?cloudId=${config.cloudId}`;
+				const expectedPath = `https://teams.atlassian-us-gov-mod.com/somepath?cloudId=${config.cloudId}`;
 				expect(generateTeamsAppPath(path, config)).toEqual(expectedPath);
 			});
 		});
@@ -238,7 +238,7 @@ describe('teams app navigation utils', () => {
 						...baseConfig,
 					};
 					const path = 'somepath';
-					const expectedPath = `https://teams.atlassian-us-gov.com/${path}?cloudId=${config.cloudId}`;
+					const expectedPath = `https://teams.atlassian-us-gov-mod.com/${path}?cloudId=${config.cloudId}`;
 					expect(generatePath(path, config)).toEqual(expectedPath);
 				});
 
@@ -248,7 +248,7 @@ describe('teams app navigation utils', () => {
 						hostProduct: 'confluence',
 					};
 					const path = 'somepath';
-					const expectedPath = `https://teams.atlassian-us-gov.com/${path}?cloudId=${config.cloudId}`;
+					const expectedPath = `https://teams.atlassian-us-gov-mod.com/${path}?cloudId=${config.cloudId}`;
 					expect(generatePath(path, config)).toEqual(expectedPath);
 				});
 
@@ -258,7 +258,7 @@ describe('teams app navigation utils', () => {
 						...baseConfig,
 					};
 					const path = 'somepath';
-					const expectedPath = `https://teams.stg.atlassian-us-gov.com/${path}?cloudId=${config.cloudId}`;
+					const expectedPath = `https://teams.stg.atlassian-us-gov-mod.com/${path}?cloudId=${config.cloudId}`;
 					expect(generatePath(path, config)).toEqual(expectedPath);
 				});
 			});

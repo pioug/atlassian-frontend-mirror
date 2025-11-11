@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 4.1.0
+
+### Minor Changes
+
+- [`8bb807d8c76e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bb807d8c76e6) -
+  Adding \*.ts files for no barrel files detection for ai-mate packages
+
 ## 4.0.1
 
 ### Patch Changes

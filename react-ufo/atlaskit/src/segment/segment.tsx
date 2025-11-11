@@ -43,6 +43,7 @@ import {
 	type CustomData,
 	type CustomTiming,
 	getActiveInteraction,
+	markFirstSegmentLoad,
 	removeHoldByID,
 	removeSegment,
 	type RequestInfo,
@@ -63,6 +64,7 @@ export type Props = {
 };
 
 let tryCompleteHandle: number | undefined;
+let hasMarkedFirstSegmentLoad = false;
 
 /** A portion of the page we apply measurement to */
 export default function UFOSegment({
@@ -116,6 +118,10 @@ export default function UFOSegment({
 	);
 
 	const interactionId = useContext(UFOInteractionIDContext);
+	if (interactionId.current != null && !hasMarkedFirstSegmentLoad) {
+		markFirstSegmentLoad(interactionId.current, labelStack, performance.now());
+		hasMarkedFirstSegmentLoad = true;
+	}
 
 	const interactionContext = useMemo<EnhancedUFOInteractionContextType>(() => {
 		let lastCompleteEndTime = 0;

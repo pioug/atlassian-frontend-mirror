@@ -135,6 +135,8 @@ const isConfluenceTeamCalendars = (url: string) =>
 const isJiraIssueNavigator = (url: string) =>
 	url.match(/^https:\/\/.*?\/jira\/software|core\/(c\/)?projects\/[^\/]+?\/issues\/?/);
 
+const isAvpVisualizationView = (url: string) => url.match(/^https:\/\/.*?\/avpviz\/c\/[^\/]+.*/);
+
 export const isJiraWorkItem = (url: string): boolean => /\/browse\/((?:\w+)-(?:\d+))/i.test(url);
 
 type CardNode = InlineCardAdf | BlockCardAdf | EmbedCardAdf;
@@ -386,7 +388,8 @@ export class EditorCardProvider
 			isJiraSummaryEvaluated ||
 			isCustomer360LandingPage(url) ||
 			isConfluenceTeamCalendarsEvaluated ||
-			isJiraIssueNavigator(url)
+			isJiraIssueNavigator(url) ||
+			(isAvpVisualizationView(url) && fg('avp_unfurl_shared_charts_embed_by_default_2'))
 		) {
 			return 'embed';
 		}

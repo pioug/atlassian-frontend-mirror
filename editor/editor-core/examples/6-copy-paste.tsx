@@ -38,6 +38,7 @@ import { fileToDataURI } from '@atlaskit/media-ui';
 import Modal, { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
 import { Box } from '@atlaskit/primitives/compiled';
 import { ReactRenderer } from '@atlaskit/renderer';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
@@ -351,8 +352,13 @@ class ExampleEditorComponent extends React.Component<EditorProps & ExampleProps,
 		}
 	}
 
-	private setFullWidthMode = (fullWidthMode: boolean) => {
-		this.setState({ appearance: fullWidthMode ? 'full-width' : 'full-page' });
+	private setFullWidthMode = (appearance: 'full-page' | 'full-width' | 'max') => {
+		this.setState({
+			appearance:
+				appearance === 'max' && expValEquals('editor_tinymce_full_width_mode', 'isEnabled', false)
+					? 'full-width'
+					: appearance,
+		});
 	};
 
 	private onKeyPressed = (e: React.KeyboardEvent, actions: EditorActions) => {

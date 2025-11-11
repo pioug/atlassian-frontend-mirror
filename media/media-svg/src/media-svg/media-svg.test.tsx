@@ -4,12 +4,13 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 
-import * as svgRendererModule from '../media-svg/svgRenderer';
+import * as svgRendererModule from '../media-svg/svgRenderer-compiled';
 import { failDataURIConversionOnce } from '../test-helpers';
 
 import { createMockedMediaClientProvider } from './__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 import { MediaSVGError } from './errors';
-import MediaSvg from './media-svg';
+
+import MediaSvg from './index';
 
 describe('MediaSvg', () => {
 	it('should capture and report a11y violations', async () => {

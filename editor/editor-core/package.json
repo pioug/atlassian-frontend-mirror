@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.10.2",
+	"version": "215.11.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -198,6 +198,9 @@
 		"platform_editor_typography_ugc": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_disable_rerender_tracking_jira": {
+			"type": "boolean"
 		},
 		"platform-component-visual-refresh": {
 			"type": "boolean",

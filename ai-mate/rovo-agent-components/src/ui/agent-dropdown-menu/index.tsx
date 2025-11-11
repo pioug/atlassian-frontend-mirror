@@ -183,9 +183,7 @@ export const AgentDropdownMenu = ({
 		);
 	};
 
-	const isCreateAgentsEnabled = fg('agent_studio_fe_permissions_settings_m1')
-		? permissions?.isCreateEnabled
-		: true;
+	const isCreateAgentsEnabled = permissions?.isCreateEnabled;
 
 	return (
 		<DropdownMenu<HTMLButtonElement>

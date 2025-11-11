@@ -9,6 +9,7 @@ import { FormattedMessage } from 'react-intl-next';
 import { jsx } from '@atlaskit/css';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import LegacyLockIcon from '@atlaskit/icon/glyph/lock-filled';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -103,7 +104,9 @@ export const InlineCardUnauthorizedView = ({
 				onClick={onClick}
 				titleColor={token('color.text.subtle', N500)}
 			/>
-			{renderActionButton()}
+			{fg('navx-2479-sl-fix-inilne-card-show-connect-button')
+				? onAuthorise && renderActionButton()
+				: renderActionButton()}
 		</Frame>
 	);
 

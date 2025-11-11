@@ -154,15 +154,6 @@ const errorMessageWrapperStyles = css({
 	justifyContent: 'flex-start',
 	paddingInlineStart: token('space.025'),
 	gap: token('space.025'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	span: {
-		verticalAlign: 'middle',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-		':nth-child(2)': {
-			marginLeft: token('space.050', '4px'),
-			marginRight: token('space.050', '4px'),
-		},
-	},
 });
 
 export const ErrorMessageWrapper = (props: any) => {

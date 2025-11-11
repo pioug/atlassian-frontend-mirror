@@ -1,74 +1,52 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FilmstripView .render() styles 1`] = `
-.emotion-5 {
-  position: relative;
-  padding: var(--ds-space-025, 3px) 0;
-  border-radius: var(--ds-radius-small, 3px);
-}
-
-.emotion-5:hover .arrow {
-  opacity: 1;
-}
-
-.emotion-5 .ellipsed-text {
-  white-space: initial;
-}
-
-.emotion-4 {
-  width: inherit;
-  overflow: hidden;
-  padding: var(--ds-space-025, 2px) var(--ds-space-025, 3px);
-}
-
-.emotion-3 {
-  margin: 0;
-  padding: 0!important;
-  transition-property: transform;
-  transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
-  white-space: nowrap;
-  display: inline-block;
-}
-
-.emotion-0 {
-  list-style-type: none;
-  margin: 0;
-  padding: 0 var(--ds-space-050, 4px);
-  display: inline-block;
-  vertical-align: middle;
-  font-size: 0;
-}
-
-.emotion-0:first-of-type {
-  padding-left: 0;
-}
-
 <div>
-  <div
-    class="emotion-5"
+  <style
+    data-cmpld="true"
   >
+    ._2rkofajl{border-radius:var(--ds-radius-small,3px)}._kqswh2mm{position:relative}._ca0q1ysw{padding-top:var(--ds-space-025,3px)}._u5f3idpf{padding-right:0}._n3td1ysw{padding-bottom:var(--ds-space-025,3px)}._19bvidpf{padding-left:0}._1yqxkb7n:hover .arrow{opacity:1}._1ajs4jg8 .ellipsed-text{white-space:normal}
+  </style>
+  <div
+    class="_2rkofajl _kqswh2mm _ca0q1ysw _u5f3idpf _n3td1ysw _19bvidpf _1yqxkb7n _1ajs4jg8"
+  >
+    <style
+      data-cmpld="true"
+    >
+      ._1reo15vq{overflow-x:hidden}._18m915vq{overflow-y:hidden}._1bsb1kw7{width:inherit}._ca0qv77o{padding-top:var(--ds-space-025,2px)}._u5f31ysw{padding-right:var(--ds-space-025,3px)}._n3tdv77o{padding-bottom:var(--ds-space-025,2px)}._19bv1ysw{padding-left:var(--ds-space-025,3px)}
+    </style>
     <div
-      class="emotion-4"
+      class="_1reo15vq _18m915vq _1bsb1kw7 _ca0qv77o _u5f31ysw _n3tdv77o _19bv1ysw"
       data-testid="filmstrip-list-wrapper"
     >
+      <style
+        data-cmpld="true"
+      >
+        ._19pkidpf{margin-top:0}._2hwxidpf{margin-right:0}._otyridpf{margin-bottom:0}._18u0idpf{margin-left:0}._ca0qgrf3{padding-top:0!important}._u5f3grf3{padding-right:0!important}._n3tdgrf3{padding-bottom:0!important}._19bvgrf3{padding-left:0!important}._k8m01e03{transition-property:transform}._6fl41kli{transition-timing-function:cubic-bezier(.77,0,.175,1)}._o5721q9c{white-space:nowrap}._1e0c1o8l{display:inline-block}
+      </style>
       <ul
-        class="emotion-3"
+        class="_19pkidpf _2hwxidpf _otyridpf _18u0idpf _ca0qgrf3 _u5f3grf3 _n3tdgrf3 _19bvgrf3 _k8m01e03 _6fl41kli _o5721q9c _1e0c1o8l"
         style="transform: translateX(0px); transition-property: none; transition-duration: 0s;"
       >
+        <style
+          data-cmpld="true"
+        >
+          ._2mzuglyw{list-style-type:none}._ca0qidpf{padding-top:0}._u5f31b66{padding-right:var(--ds-space-050,4px)}._n3tdidpf{padding-bottom:0}._19bv1b66{padding-left:var(--ds-space-050,4px)}._s7n4nkob{vertical-align:middle}._1wybidpf{font-size:0}._1lhcidpf:first-of-type{padding-left:0}
+        </style>
         <li
-          class="media-filmstrip-list-item emotion-0"
+          class="_19pkidpf _2hwxidpf _otyridpf _18u0idpf _2mzuglyw _ca0qidpf _u5f31b66 _n3tdidpf _19bv1b66 _1e0c1o8l _s7n4nkob _1wybidpf _1lhcidpf media-filmstrip-list-item"
           data-testid="media-filmstrip-list-item"
         >
           a
         </li>
         <li
-          class="media-filmstrip-list-item emotion-0"
+          class="_19pkidpf _2hwxidpf _otyridpf _18u0idpf _2mzuglyw _ca0qidpf _u5f31b66 _n3tdidpf _19bv1b66 _1e0c1o8l _s7n4nkob _1wybidpf _1lhcidpf media-filmstrip-list-item"
           data-testid="media-filmstrip-list-item"
         >
           b
         </li>
         <li
-          class="media-filmstrip-list-item emotion-0"
+          class="_19pkidpf _2hwxidpf _otyridpf _18u0idpf _2mzuglyw _ca0qidpf _u5f31b66 _n3tdidpf _19bv1b66 _1e0c1o8l _s7n4nkob _1wybidpf _1lhcidpf media-filmstrip-list-item"
           data-testid="media-filmstrip-list-item"
         >
           c

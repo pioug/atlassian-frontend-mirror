@@ -1,22 +1,17 @@
 import React from 'react';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { CustomMediaPlayerBase as EmotionCustomMediaPlayerBase } from './index-emotion';
 import {
 	CustomMediaPlayerBase as CompiledCustomMediaPlayerBase,
 	type CustomMediaPlayerProps,
 } from './index-compiled';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { withMediaAnalyticsContext } from '@atlaskit/media-common';
 
 export const CustomMediaPlayerBase = (
 	props: CustomMediaPlayerProps & WrappedComponentProps & WithAnalyticsEventsProps,
-) =>
-	fg('platform_media_compiled') ? (
-		<CompiledCustomMediaPlayerBase {...props} />
-	) : (
-		<EmotionCustomMediaPlayerBase {...props} />
-	);
+) => (
+	<CompiledCustomMediaPlayerBase {...props} />
+);
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

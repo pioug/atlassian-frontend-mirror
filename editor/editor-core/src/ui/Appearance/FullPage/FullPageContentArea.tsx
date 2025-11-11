@@ -34,6 +34,7 @@ import {
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
@@ -53,6 +54,7 @@ import { contentAreaWrapper, sidebarArea } from './StyledComponents';
 import type { ScrollContainerRefs } from './types';
 
 const akEditorFullWidthLayoutWidth = 1800;
+const akEditorUltraWideLayoutWidth = 4000;
 const akEditorSwoopCubicBezier = `cubic-bezier(0.15, 1, 0.3, 1)`;
 const tableMarginFullWidthMode = 2;
 const akLayoutGutterOffset = 12;
@@ -281,6 +283,7 @@ const Content = React.forwardRef<
 >((props, ref) => {
 	const theme: Theme = useTheme();
 	const fullWidthMode = props.appearance === 'full-width';
+	const maxWidthMode = props.appearance === 'max';
 	const scrollContainerRef = useRef(null);
 	const contentAreaRef = useRef(null);
 	const containerRef = useRef(null);
@@ -350,8 +353,10 @@ const Content = React.forwardRef<
 							style={
 								{
 									'--ak-editor-content-area-max-width': !fullWidthMode
-										? // @ts-ignore
-											`${theme.layoutMaxWidth + getTotalPadding()}px`
+										? Boolean(maxWidthMode) &&
+											expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+											? `${akEditorUltraWideLayoutWidth + getTotalPadding()}px`
+											: `${theme.layoutMaxWidth + getTotalPadding()}px`
 										: `${akEditorFullWidthLayoutWidth + getTotalPadding()}px`,
 								} as React.CSSProperties
 							}

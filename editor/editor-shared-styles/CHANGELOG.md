@@ -1,5 +1,16 @@
 # @atlaskit/editor-shared-styles
 
+## 3.9.0
+
+### Minor Changes
+
+- [`f79abec64be13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f79abec64be13) -
+  [EDITOR-2624] Add max width mode for ultra wide monitors to the Editor and Renderer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.8.1
 
 ### Patch Changes

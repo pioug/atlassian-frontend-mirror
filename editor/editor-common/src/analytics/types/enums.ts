@@ -187,6 +187,7 @@ export enum ACTION {
 	LOCAL_ID_NOT_FOUND = 'localIdNotFound',
 	NO_DOC_CHANGE_FOUND = 'noDocChangeFound',
 	INVALID_COMMAND_FOUND = 'invalidCommandFound',
+	MEDIA_SINGLE_WIDTH_TRANSFORMED = 'mediaSingleWidthTransformed',
 	/**
 	 * used in Editor AI inline suggestion for a track event when a suggestion is inserted
 	 * previously tracked events being used by Editor AI proactive suggestion

@@ -32,6 +32,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-11-03
+	editor_tinymce_full_width_mode: createBooleanExperiment({
+		productKeys: {
+			confluence: 'editor_tinymce_full_width_mode',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	cc_editor_insm_doc_size_stats: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_editor_insm_doc_size_stats',

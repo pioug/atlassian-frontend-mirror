@@ -108,7 +108,13 @@ export class VCObserverWrapper implements VCObserverInterface {
 	}
 
 	async getVCResult(param: GetVCResultType): Promise<VCResult> {
-		const { experienceKey, include3p, excludeSmartAnswersInSearch, includeSSRRatio } = param;
+		const {
+			experienceKey,
+			include3p,
+			excludeSmartAnswersInSearch,
+			includeSSRRatio,
+			includeRawData,
+		} = param;
 
 		const v1v2Result =
 			isVCRevisionEnabled('fy25.01', experienceKey) || isVCRevisionEnabled('fy25.02', experienceKey)
@@ -127,6 +133,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 					interactionType: param.interactionType,
 					isPageVisible: param.isPageVisible,
 					interactionAbortReason: param.interactionAbortReason,
+					includeRawData,
 				})
 			: [];
 

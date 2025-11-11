@@ -10,7 +10,7 @@ import type { RegisterBlockMenuComponent } from '@atlaskit/editor-plugin-block-m
 
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 
-import { CreateSyncedBlockDropdownItem } from './CreateSyncedBlockDropdownItem';
+import { CreateOrCopySyncedBlockDropdownItem } from './CreateSyncedBlockDropdownItem';
 
 export const getBlockMenuComponents = (
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
@@ -24,7 +24,7 @@ export const getBlockMenuComponents = (
 				key: ADD_BLOCKS_MENU_SECTION.key,
 				rank: ADD_BLOCKS_MENU_SECTION_RANK[CREATE_SYNCED_BLOCK_MENU_ITEM.key],
 			},
-			component: () => <CreateSyncedBlockDropdownItem api={api} />,
+			component: () => <CreateOrCopySyncedBlockDropdownItem api={api} />,
 		},
 	];
 };

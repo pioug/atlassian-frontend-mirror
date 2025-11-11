@@ -187,6 +187,11 @@ export type Config = {
 		readonly enabled: boolean;
 		readonly searchPageMetricName: string;
 	};
+	readonly enableVCRawDataRates?: {
+		readonly enabled?: boolean;
+		readonly rates?: Rates;
+		readonly kind?: Record<InteractionType, number>;
+	};
 };
 
 export function setUFOConfig(newConfig: Config) {
@@ -371,6 +376,13 @@ export function getExperimentalInteractionRate(
 	}
 }
 
+export function getVCRawDataInteractionRate(
+	name: string,
+	interactionType: InteractionType,
+): number {
+	return getConfigRate(name, interactionType, 'enableVCRawDataRates');
+}
+
 export function getPostInteractionRate(name: string, interactionType: InteractionType): number {
 	return getConfigRate(name, interactionType, 'postInteractionLog');
 }
@@ -400,7 +412,7 @@ export function getCapabilityRate(capability: Capability): number {
 function getConfigRate(
 	name: string,
 	interactionType: InteractionType,
-	configName: 'postInteractionLog' | 'extraInteractionMetrics',
+	configName: 'postInteractionLog' | 'extraInteractionMetrics' | 'enableVCRawDataRates',
 ): number {
 	try {
 		if (!config) {

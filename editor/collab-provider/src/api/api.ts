@@ -3,8 +3,6 @@ import { getProduct, getSubProduct, createLogger } from '../helpers/utils';
 import type { Channel } from '../channel';
 import type { DocumentService } from '../document/document-service';
 import { getActiveTraceHttpRequestHeaders } from '@atlaskit/react-ufo/experience-trace-id-context';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { addFeatureFlagAccessed } from '@atlaskit/react-ufo/feature-flags-accessed';
 
 const logger = createLogger('Api', 'blue');
 
@@ -88,16 +86,7 @@ export class Api {
 		)}/comment`;
 		logger(`Request url: `, url);
 
-		//Get tracing headers from UFO
-		const tracingHeaderEnabled = fg('platform_collab_provider_tracingheaders');
-		addFeatureFlagAccessed('platform_collab_provider_tracingheaders', tracingHeaderEnabled);
-		let tracingHeaders: {
-			'X-B3-SpanId'?: string;
-			'X-B3-TraceId'?: string;
-		} | null = {};
-		if (tracingHeaderEnabled) {
-			tracingHeaders = getActiveTraceHttpRequestHeaders(url);
-		}
+		const tracingHeaders = getActiveTraceHttpRequestHeaders(url);
 
 		const fetchOptions: RequestInit = {
 			credentials: 'include',

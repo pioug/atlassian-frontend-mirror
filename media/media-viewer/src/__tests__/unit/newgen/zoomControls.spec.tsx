@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { ZoomControlsBase, type ZoomControlsProps } from '../../../zoomControls';
-import { ZoomRightControls } from '../../../styleWrappers';
 import { ZoomLevel } from '../../../domain/zoomLevel';
 import { fakeIntl } from '@atlaskit/media-test-helpers';
 
@@ -58,7 +57,11 @@ describe('Zooming', () => {
 		describe('zoom level indicator', () => {
 			it('shows 100% zoom level', () => {
 				const { component } = setupBase();
-				expect(component.find(ZoomRightControls).text()).toEqual('100 %');
+				const zoomText = component
+					.find('[data-testid="zoom-level-indicator"]')
+					.last()
+					.text();
+				expect(zoomText).toContain('100 %');
 			});
 		});
 

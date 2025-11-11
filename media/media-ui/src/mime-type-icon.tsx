@@ -6,8 +6,7 @@ import { css, cssMap, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 import { type MediaType } from '@atlaskit/media-common';
 import { getMimeIcon } from './util';
-import { IconWrapper, MediaTypeIcon } from './media-type-icon';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { MediaTypeIcon } from './media-type-icon';
 type MediaTypeProps = {
 	testId?: string;
 	mediaType?: MediaType;
@@ -47,7 +46,7 @@ export const MimeTypeIcon = ({
 	// a corresponding mimetype icon and label was found.
 	if (iconInfo) {
 		const Icon = iconInfo.icon;
-		return fg('platform_media_compiled') ? (
+		return (
 			<div
 				data-testid={testId}
 				data-type={iconInfo.label}
@@ -55,10 +54,6 @@ export const MimeTypeIcon = ({
 			>
 				<Icon label={iconInfo.label} />
 			</div>
-		) : (
-			<IconWrapper data-testid={testId} data-type={iconInfo.label} size={size}>
-				<Icon label={iconInfo.label} />
-			</IconWrapper>
 		);
 	}
 

@@ -301,10 +301,7 @@ export const formatNode =
 					})(newTr);
 				}
 
-				if (newTr && fg('platform_editor_block_menu_selection_fix')) {
-					return setSelectionAfterTransform(newTr, nodePos, targetType);
-				}
-				return newTr;
+				return newTr ? setSelectionAfterTransform(newTr, nodePos, targetType) : newTr;
 			} catch (error) {
 				logException(error as Error, { location: 'editor-plugin-block-menu' });
 

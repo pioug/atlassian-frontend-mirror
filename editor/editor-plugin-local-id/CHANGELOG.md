@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-local-id
 
+## 4.2.3
+
+### Patch Changes
+
+- [`be55d2a043969`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be55d2a043969) -
+  Use shorter localIds and fix duplicate bug to store less data.
+- Updated dependencies
+
 ## 4.2.2
 
 ### Patch Changes

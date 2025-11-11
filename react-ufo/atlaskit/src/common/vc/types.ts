@@ -13,7 +13,8 @@ export type VCAbortReason =
 	| 'resize'
 	| 'error'
 	| 'not-supported'
-	| 'wheel';
+	| 'wheel'
+	| 'browser_backgrounded';
 
 export type VCAbortReasonType = {
 	reason: null | VCAbortReason;
@@ -150,6 +151,14 @@ export type CalculateTTVCResult = {
 	ssrRatio: number;
 };
 
+export type RawObservation = {
+	t: number;
+	r: [number, number, number, number];
+	chg: number | string;
+	eid: number;
+	att?: number;
+};
+
 export type RevisionPayloadEntry = {
 	'metric:vc90': number | null;
 	revision: string;
@@ -160,6 +169,15 @@ export type RevisionPayloadEntry = {
 	labelStacks?: VCLabelStacks;
 	abortReason?: VCAbortReason | null;
 	abortTimestamp?: number;
+	rawData?: {
+		obs?: Array<RawObservation>;
+		eid?: Record<number, string>;
+		chg?: Record<number, string>;
+		att?: Record<number, string>;
+	};
+	viewport?: { w: number; h: number };
+	feVCTime?: number;
+	rawVCTime?: number;
 };
 
 export type RevisionPayload = RevisionPayloadEntry[];

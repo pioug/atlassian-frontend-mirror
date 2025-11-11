@@ -121,7 +121,7 @@ describe('InteractiveImg', () => {
 
 		const img = screen.getByTestId('media-viewer-image');
 
-		expect(img.getAttribute('style')).toBe('width: 400px; height: 300px;');
+		expect(img.getAttribute('style')).toContain('width: 400px; height: 300px;');
 	});
 
 	it('should set the correct scrollLeft value on the ImageWrapper', async () => {

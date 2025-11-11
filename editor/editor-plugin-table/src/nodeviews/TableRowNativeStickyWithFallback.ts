@@ -360,6 +360,7 @@ export default class TableRowNativeStickyWithFallback
 					(observer.root as HTMLElement).classList.remove(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
 					this.dom.classList.remove(ClassName.NATIVE_STICKY);
 					this.isNativeSticky = false;
+					this.refreshStickyState();
 				}
 			});
 		}, options);

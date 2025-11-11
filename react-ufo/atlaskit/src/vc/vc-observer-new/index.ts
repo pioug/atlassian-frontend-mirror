@@ -9,6 +9,7 @@ import VCCalculator_FY25_03 from './metric-calculator/fy25_03';
 import getViewportHeight from './metric-calculator/utils/get-viewport-height';
 import getViewportWidth from './metric-calculator/utils/get-viewport-width';
 import VCNextCalculator from './metric-calculator/vcnext';
+import RawDataHandler from './raw-data-handler';
 import type { VCObserverGetVCResultParam, VCObserverLabelStacks, ViewportEntryData } from './types';
 import ViewportObserver from './viewport-observer';
 import WindowEventObserver from './window-event-observer';
@@ -237,10 +238,11 @@ export default class VCObserverNew {
 			include3p,
 			includeSSRRatio,
 			excludeSmartAnswersInSearch,
+			includeRawData,
 		} = param;
 		const results: RevisionPayloadEntry[] = [];
-
 		this.addStartEntry(start);
+		const feVCCalculationStartTime = performance.now();
 
 		const calculator_fy25_03 = new VCCalculator_FY25_03();
 
@@ -286,7 +288,24 @@ export default class VCObserverNew {
 		if (vcNext) {
 			results.push(vcNext);
 		}
+		const feVCCalculationEndTime = performance.now();
 
+		if (includeRawData && fg('platform_ufo_enable_vc_raw_data')) {
+			const rawVCCalculationStartTime = performance.now();
+			const rawHandler = new RawDataHandler();
+			const raw = await rawHandler.getRawData({
+				entries: orderedEntries,
+				startTime: start,
+				stopTime: stop,
+				isPageVisible,
+			});
+
+			if (raw) {
+				raw.rawVCTime = Number((performance.now() - rawVCCalculationStartTime).toFixed(2));
+				raw.feVCTime = Number((feVCCalculationEndTime - feVCCalculationStartTime).toFixed(2));
+				results.push(raw);
+			}
+		}
 		return results;
 	}
 

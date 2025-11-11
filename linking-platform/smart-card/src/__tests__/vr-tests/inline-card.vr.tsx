@@ -250,7 +250,9 @@ snapshot(InlineCardUnauthorised, {
 });
 snapshot(InlineCardUnauthorisedNoAuth, {
 	description: `inline card unauthorised view with no auth`,
-	featureFlags: {},
+	featureFlags: {
+		'navx-2479-sl-fix-inilne-card-show-connect-button': [true, false],
+	},
 });
 
 snapshot(InlineCardFontSizeDefault, {

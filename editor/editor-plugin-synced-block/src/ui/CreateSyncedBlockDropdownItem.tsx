@@ -12,7 +12,7 @@ import { Flex, Text } from '@atlaskit/primitives/compiled';
 import { canBeConvertedToSyncBlock } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 
-export const CreateSyncedBlockDropdownItem = ({
+const CreateSyncedBlockDropdownItem = ({
 	api,
 }: {
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined;
@@ -49,4 +49,42 @@ export const CreateSyncedBlockDropdownItem = ({
 			</Flex>
 		</ToolbarDropdownItem>
 	);
+};
+
+const CopySyncedBlockDropdownItem = ({
+	api,
+}: {
+	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined;
+}) => {
+	const { formatMessage } = useIntl();
+
+	const onClick = () => {
+		api?.core?.actions.execute(api?.syncedBlock.commands.copySyncedBlockReferenceToClipboard());
+		api?.core?.actions.execute(api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true }));
+	};
+
+	return (
+		<ToolbarDropdownItem elemBefore={<SyncBlocksIcon label="" />} onClick={onClick}>
+			<Flex alignItems="center" gap="space.050">
+				<Text>{formatMessage(blockMenuMessages.copySyncedBlock)}</Text>
+				<Lozenge appearance="new">{formatMessage(blockMenuMessages.newLozenge)}</Lozenge>
+			</Flex>
+		</ToolbarDropdownItem>
+	);
+};
+
+export const CreateOrCopySyncedBlockDropdownItem = ({
+	api,
+}: {
+	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined;
+}) => {
+	const { menuTriggerBy } = useSharedPluginStateWithSelector(api, ['blockControls'], (states) => ({
+		menuTriggerBy: states.blockControlsState?.menuTriggerBy,
+	}));
+
+	if (menuTriggerBy === 'syncBlock' || menuTriggerBy === 'bodiedSyncBlock') {
+		return <CopySyncedBlockDropdownItem api={api} />;
+	} else {
+		return <CreateSyncedBlockDropdownItem api={api} />;
+	}
 };

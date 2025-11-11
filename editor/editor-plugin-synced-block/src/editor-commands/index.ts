@@ -8,14 +8,17 @@ import { copyDomNode, toDOM } from '@atlaskit/editor-common/copy-button';
 import type {
 	Command,
 	CommandDispatch,
+	EditorCommand,
 	ExtractInjectionAPI,
 	TypeAheadInsert,
 } from '@atlaskit/editor-common/types';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	type EditorState,
 	type Transaction,
 	TextSelection,
+	type Selection,
 } from '@atlaskit/editor-prosemirror/state';
 import {
 	findSelectedNodeOfType,
@@ -108,56 +111,67 @@ export const createSyncedBlock = ({
 	return tr;
 };
 
-export const copySyncedBlockReferenceToClipboard =
-	(api?: ExtractInjectionAPI<SyncedBlockPlugin>): Command =>
-	(state: EditorState, _dispatch?: CommandDispatch, _view?: EditorView) => {
-		if (!api?.floatingToolbar) {
-			return false;
-		}
+export const copySyncedBlockReferenceToClipboardEditorCommand: EditorCommand = ({ tr }) => {
+	if (copySyncedBlockReferenceToClipboardInternal(tr.doc.type.schema, tr.selection)) {
+		return tr;
+	}
 
-		const syncBlockFindResult = findSyncBlockOrBodiedSyncBlock(state);
-		if (!syncBlockFindResult) {
-			return false;
-		}
+	return null;
+};
 
-		const isBodiedSyncBlock = isBodiedSyncBlockNode(
-			syncBlockFindResult.node,
-			state.schema.nodes.bodiedSyncBlock,
-		);
-		let referenceSyncBlockNode: PMNode | null = null;
+export const copySyncedBlockReferenceToClipboard: Command = (
+	state: EditorState,
+	_dispatch?: CommandDispatch,
+	_view?: EditorView,
+) => {
+	return copySyncedBlockReferenceToClipboardInternal(state.tr.doc.type.schema, state.tr.selection);
+};
 
-		if (isBodiedSyncBlock) {
-			const {
-				schema: {
-					nodes: { syncBlock },
-				},
-			} = state.tr.doc.type;
+const copySyncedBlockReferenceToClipboardInternal = (
+	schema: Schema,
+	selection: Selection,
+): boolean => {
+	const syncBlockFindResult = findSyncBlockOrBodiedSyncBlock(schema, selection);
+	if (!syncBlockFindResult) {
+		return false;
+	}
 
-			// create sync block reference node
-			referenceSyncBlockNode = syncBlock.createAndFill({
-				resourceId: syncBlockFindResult.node.attrs.resourceId,
-			});
-			if (!referenceSyncBlockNode) {
-				return false;
-			}
-		} else {
-			referenceSyncBlockNode = syncBlockFindResult.node;
-		}
+	const isBodiedSyncBlock = isBodiedSyncBlockNode(
+		syncBlockFindResult.node,
+		schema.nodes.bodiedSyncBlock,
+	);
+	let referenceSyncBlockNode: PMNode | null = null;
 
+	if (isBodiedSyncBlock) {
+		const {
+			nodes: { syncBlock },
+		} = schema;
+
+		// create sync block reference node
+		referenceSyncBlockNode = syncBlock.createAndFill({
+			resourceId: syncBlockFindResult.node.attrs.resourceId,
+		});
 		if (!referenceSyncBlockNode) {
 			return false;
 		}
+	} else {
+		referenceSyncBlockNode = syncBlockFindResult.node;
+	}
 
-		const domNode = toDOM(referenceSyncBlockNode, state.tr.doc.type.schema);
-		copyDomNode(domNode, referenceSyncBlockNode.type, state.tr.selection);
+	if (!referenceSyncBlockNode) {
+		return false;
+	}
 
-		return true;
-	};
+	const domNode = toDOM(referenceSyncBlockNode, schema);
+	copyDomNode(domNode, referenceSyncBlockNode.type, selection);
+
+	return true;
+};
 
 export const editSyncedBlockSource =
 	(syncBlockStore: SyncBlockStoreManager, api?: ExtractInjectionAPI<SyncedBlockPlugin>): Command =>
 	(state: EditorState, dispatch?: CommandDispatch, _view?: EditorView) => {
-		const syncBlock = findSyncBlock(state);
+		const syncBlock = findSyncBlock(state.schema, state.selection);
 
 		const resourceId = syncBlock?.node?.attrs?.resourceId;
 		if (!resourceId) {

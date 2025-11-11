@@ -15,7 +15,7 @@ test.describe('ReactUFO: transition VC', () => {
 		expect(ufoPageLoadPayload).toBeDefined();
 
 		// Click on the projects menu item to trigger a transition
-		await page.click('[data-testid="left-nav-item-projects"]');
+		await page.click('text=projects');
 
 		// Wait for the transition payload
 		const transitionPayload = await waitForReactUFOPayload();
@@ -57,6 +57,6 @@ test.describe('ReactUFO: transition VC', () => {
 		const ufoPageLoadPayload = await waitForReactUFOPayload();
 		expect(ufoPageLoadPayload).toBeDefined();
 
-		await expect(page).toBeAccessible({ violationCount: 2 });
+		await expect(page).toBeAccessible();
 	});
 });

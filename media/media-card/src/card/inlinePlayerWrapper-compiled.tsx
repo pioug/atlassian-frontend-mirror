@@ -44,8 +44,8 @@ const borderStyle = css({
 });
 
 export const inlinePlayerClassName = 'media-card-inline-player';
-const LOCAL_WIDTH_VARIABLE = '--media-inline-player-wrapper-width';
-const LOCAL_HEIGHT_VARIABLE = '--media-inline-player-wrapper-height';
+export const LOCAL_WIDTH_VARIABLE = '--media-inline-player-wrapper-width';
+export const LOCAL_HEIGHT_VARIABLE = '--media-inline-player-wrapper-height';
 
 const inlinePlayerWrapperStyles = css({
 	overflow: 'hidden',

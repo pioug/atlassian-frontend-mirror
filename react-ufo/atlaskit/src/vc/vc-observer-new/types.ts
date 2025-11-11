@@ -47,6 +47,7 @@ export type WindowEventEntryData = {
 export type VCObserverEntry = {
 	readonly time: DOMHighResTimeStamp;
 	readonly data: ViewportEntryData | WindowEventEntryData;
+	ignoredInRevision?: string[];
 };
 
 export type VCObserverGetVCResultParam = {
@@ -60,4 +61,5 @@ export type VCObserverGetVCResultParam = {
 	interactionType: InteractionType;
 	isPageVisible: boolean;
 	interactionAbortReason?: AbortReasonType;
+	includeRawData?: boolean;
 };

@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.14.5
+
+### Patch Changes
+
+- [`7fa9699d9340f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fa9699d9340f) -
+  Marks first ufo segment load time
+
+## 4.14.4
+
+### Patch Changes
+
+- [`e52ace29dfa64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e52ace29dfa64) -
+  Enable raw vc data for React UFO
+
 ## 4.14.3
 
 ### Patch Changes

@@ -18,6 +18,7 @@ export type GetVCResultType = {
 	interactionType: InteractionType;
 	isPageVisible: boolean;
 	interactionAbortReason?: AbortReasonType;
+	includeRawData?: boolean;
 };
 
 export type SelectorConfig = {

@@ -16,7 +16,7 @@ import { extractIsTrusted } from '../common/meta/extractIsTrusted';
 
 export const extractEmbedProps = (
 	response?: SmartLinkResponse,
-	platform?: CardPlatform,
+	_platform?: CardPlatform,
 	iframeUrlType?: EmbedIframeUrlType,
 ): EmbedCardResolvedViewProps => {
 	const meta = response?.meta;

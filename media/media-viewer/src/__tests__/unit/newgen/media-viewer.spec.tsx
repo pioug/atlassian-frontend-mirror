@@ -346,7 +346,7 @@ describe('<MediaViewer />', () => {
 			// The presence of closeButton means that the mediaViewer opened
 			const closeButton = screen.getByLabelText('Close');
 			expect(closeButton).toBeInTheDocument();
-			await user.click(downloadButton);
+			fireEvent.click(downloadButton); // since default state of headerWrapperStyles is pointerEvents: 'none', we need to use fireEvent.click instead of user.click
 			expect(closeButton).toBeInTheDocument();
 		});
 
@@ -370,7 +370,7 @@ describe('<MediaViewer />', () => {
 			// The presence of closeButton means that the mediaViewer opened
 			const closeButton = screen.getByLabelText('Close');
 			expect(closeButton).toBeInTheDocument();
-			await user.click(closeButton);
+			fireEvent.click(closeButton);
 			expect(closeButton).not.toBeInTheDocument();
 		});
 	});
@@ -418,7 +418,7 @@ describe('<MediaViewer />', () => {
 			);
 
 			const closeButton = screen.getByLabelText('Close');
-			await user.click(closeButton);
+			fireEvent.click(closeButton);
 			expect(onEvent).toHaveBeenCalled();
 			// Here, we check if any event has been called with the attribute input = button, not just the last call.
 			// This is because the onEvent call stack can get out of order sometimes due to React 18's batched updates
@@ -486,7 +486,7 @@ describe('<MediaViewer />', () => {
 				);
 
 				const sidebarButton = screen.getByLabelText('sidebar');
-				await user.click(sidebarButton);
+				fireEvent.click(sidebarButton);
 				expect(screen.queryByText('Sidebar Content')).toBeInTheDocument();
 				expect(mockSidebarRenderer).toHaveBeenLastCalledWith(identifier1, {
 					close: expect.any(Function),
@@ -512,7 +512,7 @@ describe('<MediaViewer />', () => {
 
 				const sidebarButton = screen.getByLabelText('sidebar');
 
-				await user.click(sidebarButton);
+				fireEvent.click(sidebarButton);
 				expect(screen.queryByText('Sidebar Content')).toBeInTheDocument();
 				expect(mockSidebarRenderer).toHaveBeenLastCalledWith(identifier1, {
 					close: expect.any(Function),
@@ -579,9 +579,9 @@ describe('<MediaViewer />', () => {
 				</MockedMediaClientProvider>,
 			);
 			const sidebarButton = screen.getByLabelText('sidebar');
-			await user.click(sidebarButton);
+			fireEvent.click(sidebarButton);
 			expect(screen.queryByText('Sidebar Content')).toBeInTheDocument();
-			await user.click(sidebarButton);
+			fireEvent.click(sidebarButton);
 			expect(screen.queryByText('Sidebar Content')).not.toBeInTheDocument();
 		});
 	});
@@ -908,11 +908,13 @@ describe('<MediaViewer />', () => {
 			const downloadButton = await screen.findByTestId('media-viewer-download-button');
 			expect(downloadButton).toBeInTheDocument();
 
-			await user.click(downloadButton);
+			fireEvent.click(downloadButton);
 
 			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
-			expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
-				traceContext: { traceId: expect.any(String) },
+			await waitFor(() => {
+				expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
+					traceContext: { traceId: expect.any(String) },
+				});
 			});
 
 			expect(downloadUrlSpy).toHaveBeenCalledWith(expect.any(String), {
@@ -986,7 +988,7 @@ describe('<MediaViewer />', () => {
 			const downloadButton = await screen.findByTestId('media-viewer-download-button');
 			expect(downloadButton).toBeInTheDocument();
 
-			await user.click(downloadButton);
+			fireEvent.click(downloadButton);
 
 			expect(getFileBinaryURL).not.toHaveBeenCalled();
 			expect(testUrl).not.toHaveBeenCalled();
@@ -1029,11 +1031,13 @@ describe('<MediaViewer />', () => {
 			const downloadButton = await screen.findByTestId('media-viewer-error-download-button');
 
 			expect(downloadButton).toBeInTheDocument();
-			await user.click(downloadButton);
+			fireEvent.click(downloadButton);
 
 			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
-			expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
-				traceContext: { traceId: expect.any(String) },
+			await waitFor(() => {
+				expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
+					traceContext: { traceId: expect.any(String) },
+				});
 			});
 
 			expect(downloadUrlSpy).toHaveBeenCalledWith(expect.any(String), {
@@ -1108,7 +1112,7 @@ describe('<MediaViewer />', () => {
 			const downloadButton = await screen.findByTestId('media-viewer-error-download-button');
 			expect(downloadButton).toBeInTheDocument();
 
-			await user.click(downloadButton);
+			fireEvent.click(downloadButton);;
 
 			expect(getFileBinaryURL).not.toHaveBeenCalled();
 			expect(testUrl).not.toHaveBeenCalled();
@@ -1151,7 +1155,7 @@ describe('<MediaViewer />', () => {
 			const downloadButton = await screen.findByTestId('media-viewer-download-button');
 			expect(downloadButton).toBeInTheDocument();
 
-			await user.click(downloadButton);
+			fireEvent.click(downloadButton);
 
 			const warningMsg = await screen.findByTestId('mediaAbuseModal');
 			expect(warningMsg).toBeInTheDocument();
@@ -1160,8 +1164,10 @@ describe('<MediaViewer />', () => {
 			await user.click(proceed);
 
 			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
-			expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
-				traceContext: { traceId: expect.any(String) },
+			await waitFor(() => {
+				expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
+					traceContext: { traceId: expect.any(String) },
+				});
 			});
 
 			expect(downloadUrlSpy).toHaveBeenCalledWith(expect.any(String), {
@@ -1232,7 +1238,7 @@ describe('<MediaViewer />', () => {
 			const downloadButton = await screen.findByTestId('media-viewer-download-button');
 			expect(downloadButton).toBeInTheDocument();
 
-			await user.click(downloadButton);
+			fireEvent.click(downloadButton);;
 
 			const warningMsg = await screen.findByTestId('mediaAbuseModal');
 			expect(warningMsg).toBeInTheDocument();
@@ -1281,7 +1287,7 @@ describe('<MediaViewer />', () => {
 			const downloadButton = await screen.findByTestId('media-viewer-error-download-button');
 			expect(downloadButton).toBeInTheDocument();
 
-			await user.click(downloadButton);
+			fireEvent.click(downloadButton);
 
 			const warningMsg = await screen.findByTestId('mediaAbuseModal');
 			expect(warningMsg).toBeInTheDocument();
@@ -1290,8 +1296,10 @@ describe('<MediaViewer />', () => {
 			await user.click(proceed);
 
 			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
-			expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
-				traceContext: { traceId: expect.any(String) },
+			await waitFor(() => {
+				expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
+					traceContext: { traceId: expect.any(String) },
+				});
 			});
 
 			expect(downloadUrlSpy).toHaveBeenCalledWith(expect.any(String), {
@@ -1363,7 +1371,7 @@ describe('<MediaViewer />', () => {
 			const downloadButton = await screen.findByTestId('media-viewer-error-download-button');
 			expect(downloadButton).toBeInTheDocument();
 
-			await user.click(downloadButton);
+			fireEvent.click(downloadButton);;
 
 			const warningMsg = await screen.findByTestId('mediaAbuseModal');
 			expect(warningMsg).toBeInTheDocument();
@@ -1417,11 +1425,13 @@ describe('<MediaViewer />', () => {
 			// Clearing Media Viewer reliability calls for easier debugging
 			fireAnalyticsMock.mockClear();
 
-			await user.click(downloadButton);
+			fireEvent.click(downloadButton);
 
 			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
-			expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
-				traceContext: { traceId: expect.any(String) },
+			await waitFor(() => {
+				expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
+					traceContext: { traceId: expect.any(String) },
+				});
 			});
 
 			expect(downloadUrlSpy).toHaveBeenCalledWith(expect.any(String), {
@@ -1448,37 +1458,39 @@ describe('<MediaViewer />', () => {
 				},
 				expect.anything(),
 			);
-			expect(fireAnalyticsMock).toHaveBeenCalledWith(
-				{
-					eventType: 'operational',
-					actionSubject: 'mediaFile',
-					action: 'downloadFailed',
-					attributes: {
-						error: 'serverUnauthorized',
-						errorDetail: 'inner error message',
-						failReason: 'download',
-						status: 'fail',
-						fileMediatype: fileItem.details.mediaType,
-						fileMimetype: fileItem.details.mimeType,
-						fileAttributes,
-						traceContext: {
-							traceId: expect.any(String),
-						},
-						request: {
-							attempts: 5,
-							clientExhaustedRetries: true,
-							mediaEnv: 'test-media-env',
-							mediaRegion: 'test-media-region',
-							statusCode: 403,
+			await waitFor(() => {
+				expect(fireAnalyticsMock).toHaveBeenCalledWith(
+					{
+						eventType: 'operational',
+						actionSubject: 'mediaFile',
+						action: 'downloadFailed',
+						attributes: {
+							error: 'serverUnauthorized',
+							errorDetail: 'inner error message',
+							failReason: 'download',
+							status: 'fail',
+							fileMediatype: fileItem.details.mediaType,
+							fileMimetype: fileItem.details.mimeType,
+							fileAttributes,
 							traceContext: {
 								traceId: expect.any(String),
-								spanId: expect.any(String),
+							},
+							request: {
+								attempts: 5,
+								clientExhaustedRetries: true,
+								mediaEnv: 'test-media-env',
+								mediaRegion: 'test-media-region',
+								statusCode: 403,
+								traceContext: {
+									traceId: expect.any(String),
+									spanId: expect.any(String),
+								},
 							},
 						},
 					},
-				},
-				expect.anything(),
-			);
+					expect.anything(),
+				);
+			});
 		});
 
 		it('should log failed event when download fails on error view', async () => {
@@ -1508,11 +1520,13 @@ describe('<MediaViewer />', () => {
 			const downloadButton = await screen.findByTestId('media-viewer-error-download-button');
 
 			expect(downloadButton).toBeInTheDocument();
-			await user.click(downloadButton);
+			fireEvent.click(downloadButton);
 
 			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
-			expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
-				traceContext: { traceId: expect.any(String) },
+			await waitFor(() => {
+				expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
+					traceContext: { traceId: expect.any(String) },
+				});
 			});
 
 			expect(downloadUrlSpy).toHaveBeenCalledWith(expect.any(String), {
@@ -1540,37 +1554,39 @@ describe('<MediaViewer />', () => {
 				},
 				expect.anything(),
 			);
-			expect(fireAnalyticsMock).toHaveBeenCalledWith(
-				{
-					eventType: 'operational',
-					actionSubject: 'mediaFile',
-					action: 'downloadFailed',
-					attributes: {
-						error: 'serverUnauthorized',
-						errorDetail: 'inner error message',
-						failReason: 'download',
-						status: 'fail',
-						fileMediatype: fileItem.details.mediaType,
-						fileMimetype: fileItem.details.mimeType,
-						fileAttributes,
-						traceContext: {
-							traceId: expect.any(String),
-						},
-						request: {
-							attempts: 5,
-							clientExhaustedRetries: true,
-							mediaEnv: 'test-media-env',
-							mediaRegion: 'test-media-region',
-							statusCode: 403,
+			await waitFor(() => {
+				expect(fireAnalyticsMock).toHaveBeenCalledWith(
+					{
+						eventType: 'operational',
+						actionSubject: 'mediaFile',
+						action: 'downloadFailed',
+						attributes: {
+							error: 'serverUnauthorized',
+							errorDetail: 'inner error message',
+							failReason: 'download',
+							status: 'fail',
+							fileMediatype: fileItem.details.mediaType,
+							fileMimetype: fileItem.details.mimeType,
+							fileAttributes,
 							traceContext: {
 								traceId: expect.any(String),
-								spanId: expect.any(String),
+							},
+							request: {
+								attempts: 5,
+								clientExhaustedRetries: true,
+								mediaEnv: 'test-media-env',
+								mediaRegion: 'test-media-region',
+								statusCode: 403,
+								traceContext: {
+									traceId: expect.any(String),
+									spanId: expect.any(String),
+								},
 							},
 						},
 					},
-				},
-				expect.anything(),
-			);
+					expect.anything(),
+				);
+			});
 		});
 	});
 });

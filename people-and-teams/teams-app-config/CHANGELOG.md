@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-config
 
+## 1.12.6
+
+### Patch Changes
+
+- [`3392d247d8fcc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3392d247d8fcc) -
+  Fix for teams app URL in FRamp
+
 ## 1.12.5
 
 ### Patch Changes

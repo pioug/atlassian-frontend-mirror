@@ -37,7 +37,7 @@ export function generateTeamsAppPath(
 	// but for now, we need to generate a different URL for FedRamp.
 	if (isFedRamp()) {
 		// We can't use getATLContextUrl here as the URL doesn't yet exist in commercial. When it does, we should properly define it there.
-		return `https://teams${isFedRampStaging() ? '.stg' : ''}.atlassian-us-gov.com${pathWithoutPeoplePrefix}${anchor ? `#${anchor}` : ''}${queryString}`;
+		return `https://teams${isFedRampStaging() ? '.stg' : ''}.atlassian-us-gov-mod.com${pathWithoutPeoplePrefix}${anchor ? `#${anchor}` : ''}${queryString}`;
 	}
 
 	const orgIdString = config.orgId ? `/o/${config.orgId}` : '';

@@ -1,5 +1,12 @@
 # @atlaskit/adf-utils
 
+## 19.26.0
+
+### Minor Changes
+
+- [`3ff7946f17075`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ff7946f17075) -
+  EDF-2768 add adf width validation transform
+
 ## 19.25.4
 
 ### Patch Changes

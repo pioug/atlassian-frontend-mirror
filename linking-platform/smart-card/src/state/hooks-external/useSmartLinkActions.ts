@@ -94,7 +94,7 @@ export function useSmartLinkActions({
 	}
 
 	if (linkState.details && !actionOptions?.hide) {
-		const actions = [];
+		const actions: LinkAction[] = [];
 
 		const invokeParam = { actionOptions, appearance, id, response: linkState.details };
 		const downloadActionProps = extractInvokeDownloadAction(invokeParam);

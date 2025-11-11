@@ -19,6 +19,7 @@ import type {
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { Transformer } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../actions';
 import ErrorBoundary from '../create-editor/ErrorBoundary';
@@ -86,7 +87,9 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 
 		// Render tracking is firing too many events in Jira so we are disabling them for now. See - https://product-fabric.atlassian.net/browse/ED-25616
 		// Also firing too many events for the legacy content macro, so disabling for now. See - https://product-fabric.atlassian.net/browse/ED-26650
-		const renderTrackingEnabled = false;
+		const renderTrackingEnabled =
+			!fg('platform_editor_disable_rerender_tracking_jira') &&
+			!featureFlags.lcmPreventRenderTracking;
 
 		const useShallow = false;
 		const [portalProviderAPI, PortalRenderer] = usePortalProvider();

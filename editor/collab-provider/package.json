@@ -72,9 +72,6 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^"
 	},
 	"platform-feature-flags": {
-		"platform_collab_provider_tracingheaders": {
-			"type": "boolean"
-		},
 		"platform-editor-presence-websocket-only": {
 			"type": "boolean"
 		},

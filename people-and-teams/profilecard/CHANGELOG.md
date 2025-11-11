@@ -1,5 +1,16 @@
 # @atlaskit/profilecard
 
+## 24.21.0
+
+### Minor Changes
+
+- [`539c393faefd0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/539c393faefd0) -
+  Studio permissions settings m1 cleanup
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.20.5
 
 ### Patch Changes

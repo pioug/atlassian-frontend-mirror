@@ -9,7 +9,10 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
 import { flushBodiedSyncBlocks } from './editor-actions';
-import { createSyncedBlock } from './editor-commands';
+import {
+	copySyncedBlockReferenceToClipboardEditorCommand,
+	createSyncedBlock,
+} from './editor-commands';
 import { createPlugin } from './pm-plugins/main';
 import type { SyncedBlockPlugin } from './syncedBlockPluginType';
 import { getBlockMenuComponents } from './ui/block-menu-components';
@@ -51,6 +54,8 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 		},
 
 		commands: {
+			copySyncedBlockReferenceToClipboard: (): EditorCommand =>
+				copySyncedBlockReferenceToClipboardEditorCommand,
 			insertSyncedBlock:
 				(): EditorCommand =>
 				({ tr }) =>

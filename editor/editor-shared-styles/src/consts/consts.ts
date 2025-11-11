@@ -177,6 +177,7 @@ export const relativeSizeToBaseFontSize = (value: number) => {
 };
 
 export const VIEWPORT_SIZES = {
+	a4KMonitor: { width: 3440, height: 1440 },
 	laptopHiDPI: { width: 1440, height: 900 },
 	laptopMDPI: { width: 1280, height: 800 },
 	tabletL: { width: 1024, height: 1366 },

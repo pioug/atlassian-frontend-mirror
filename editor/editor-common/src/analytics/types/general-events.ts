@@ -384,6 +384,13 @@ type MediaLinkTransformedAEP = OperationalAEP<
 	undefined
 >;
 
+type MediaSingleWidthTransformedAEP = OperationalAEP<
+	ACTION.MEDIA_SINGLE_WIDTH_TRANSFORMED,
+	ACTION_SUBJECT.EDITOR,
+	undefined,
+	undefined
+>;
+
 type TextLinkCodeMarkTransformedAEP = OperationalAEP<
 	ACTION.TEXT_LINK_MARK_TRANSFORMED,
 	ACTION_SUBJECT.EDITOR,
@@ -574,4 +581,5 @@ export type GeneralEventPayload<T = void> =
 	| RovoMoreOptionsClickedAEP
 	| AskRovoButtonClickedAEP
 	| ChangeToneMenuItemClickedAEP
-	| TranslateMenuItemClickedAEP;
+	| TranslateMenuItemClickedAEP
+	| MediaSingleWidthTransformedAEP;

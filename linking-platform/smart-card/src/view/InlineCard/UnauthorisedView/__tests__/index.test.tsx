@@ -1,7 +1,9 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { fireEvent, screen } from '@testing-library/react';
+
+import { renderWithIntl } from '@atlaskit/link-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { InlineCardUnauthorizedView } from '../index';
 
@@ -12,22 +14,14 @@ describe('Unauthorised View', () => {
 
 	it('should have correct text', () => {
 		const testUrl = 'http://unauthorised-test/';
-		const { container } = render(
-			<IntlProvider locale="en">
-				<InlineCardUnauthorizedView url={testUrl} />
-			</IntlProvider>,
-		);
+		const { container } = renderWithIntl(<InlineCardUnauthorizedView url={testUrl} />);
 
 		expect(container).toHaveTextContent(testUrl);
 	});
 
 	it('should have a link to the url', () => {
 		const testUrl = 'http://unauthorised-test/';
-		render(
-			<IntlProvider locale="en">
-				<InlineCardUnauthorizedView url={testUrl} />
-			</IntlProvider>,
-		);
+		renderWithIntl(<InlineCardUnauthorizedView url={testUrl} />);
 		const link = screen.getByText(testUrl, { exact: false }).closest('a');
 
 		expect(link).not.toBeNull;
@@ -37,23 +31,43 @@ describe('Unauthorised View', () => {
 	it('should show correct text if action is available', () => {
 		const testUrl = 'http://unauthorised-test/';
 
-		const { container } = render(
-			<IntlProvider locale="en">
-				<InlineCardUnauthorizedView context="3P" url={testUrl} onAuthorise={jest.fn()} />
-			</IntlProvider>,
+		const { container } = renderWithIntl(
+			<InlineCardUnauthorizedView context="3P" url={testUrl} onAuthorise={jest.fn()} />,
 		);
 
 		expect(container).toHaveTextContent(`${testUrl}Connect your 3P account`);
+	});
+
+	ffTest.off('navx-2479-sl-fix-inilne-card-show-connect-button', '', () => {
+		it('should show action button when action is not available', () => {
+			const testUrl = 'http://unauthorised-test/';
+
+			const { container } = renderWithIntl(
+				<InlineCardUnauthorizedView context="3P" url={testUrl} onAuthorise={jest.fn()} />,
+			);
+
+			expect(container).toHaveTextContent(`${testUrl}Connect your 3P account`);
+		});
+	});
+
+	ffTest.on('navx-2479-sl-fix-inilne-card-show-connect-button', '', () => {
+		it('should not show action button when action is not available', () => {
+			const testUrl = 'http://unauthorised-test/';
+
+			const { container } = renderWithIntl(
+				<InlineCardUnauthorizedView context="3P" url={testUrl} />,
+			);
+
+			expect(container).not.toHaveTextContent('Connect');
+		});
 	});
 
 	it('should not redirect user if they do not click on the authorize button', () => {
 		const onClick = jest.fn();
 		const onAuthorise = jest.fn();
 		const testUrl = 'http://unauthorised-test/';
-		render(
-			<IntlProvider locale="en">
-				<InlineCardUnauthorizedView url={testUrl} onClick={onClick} onAuthorise={onAuthorise} />
-			</IntlProvider>,
+		renderWithIntl(
+			<InlineCardUnauthorizedView url={testUrl} onClick={onClick} onAuthorise={onAuthorise} />,
 		);
 
 		const message = screen.getByText(testUrl);
@@ -61,13 +75,10 @@ describe('Unauthorised View', () => {
 		expect(onClick).toHaveBeenCalled();
 		expect(onAuthorise).not.toHaveBeenCalled();
 	});
+
 	it('should capture and report a11y violations', async () => {
 		const testUrl = 'http://unauthorised-test/';
-		const { container } = render(
-			<IntlProvider locale="en">
-				<InlineCardUnauthorizedView url={testUrl} />
-			</IntlProvider>,
-		);
+		const { container } = renderWithIntl(<InlineCardUnauthorizedView url={testUrl} />);
 		await expect(container).toBeAccessible();
 	});
 });

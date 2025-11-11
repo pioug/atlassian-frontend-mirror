@@ -1,19 +1,5 @@
 import React, { forwardRef } from 'react';
 import {
-	VolumeWrapper as EmotionVolumeWrapper,
-	CurrentTime as EmotionCurrentTime,
-	TimeLine as EmotionTimeLine,
-	CurrentTimeLine as EmotionCurrentTimeLine,
-	Thumb as EmotionThumb,
-	CurrentTimeLineThumb as EmotionCurrentTimeLineThumb,
-	BufferedTime as EmotionBufferedTime,
-	LeftControls as EmotionLeftControls,
-	RightControls as EmotionRightControls,
-	VolumeToggleWrapper as EmotionVolumeToggleWrapper,
-	VolumeTimeRangeWrapper as EmotionVolumeTimeRangeWrapper,
-	MutedIndicator as EmotionMutedIndicator,
-} from './styled-emotion';
-import {
 	VolumeWrapper as CompiledVolumeWrapper,
 	CurrentTime as CompiledCurrentTime,
 	TimeLine as CompiledTimeLine,
@@ -29,26 +15,19 @@ import {
 	type VolumeWrapperProps,
 	type MutedIndicatorProps,
 } from './styled-compiled';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export const VolumeWrapper = (
 	props: VolumeWrapperProps &
 		React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) =>
-	fg('platform_media_compiled') ? (
-		<CompiledVolumeWrapper {...props} />
-	) : (
-		<EmotionVolumeWrapper {...props} />
-	);
+) => (
+	<CompiledVolumeWrapper {...props} />
+);
 
 export const CurrentTime = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) =>
-	fg('platform_media_compiled') ? (
-		<CompiledCurrentTime {...props} />
-	) : (
-		<EmotionCurrentTime {...props} />
-	);
+) => (
+	<CompiledCurrentTime {...props} />
+);
 
 export const TimeLine = forwardRef(
 	(
@@ -56,26 +35,22 @@ export const TimeLine = forwardRef(
 			React.ClassAttributes<HTMLDivElement>,
 		ref,
 	) => {
-		return fg('platform_media_compiled') ? (
+		return (
 			<CompiledTimeLine {...props} ref={ref as React.RefObject<HTMLDivElement>} />
-		) : (
-			<EmotionTimeLine {...props} ref={ref as React.RefObject<HTMLDivElement>} />
 		);
+
 	},
 );
 
 export const CurrentTimeLine = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) =>
-	fg('platform_media_compiled') ? (
-		<CompiledCurrentTimeLine {...props} />
-	) : (
-		<EmotionCurrentTimeLine {...props} />
-	);
+) => (
+	<CompiledCurrentTimeLine {...props} />
+);
 
 export const Thumb = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) => (fg('platform_media_compiled') ? <CompiledThumb {...props} /> : <EmotionThumb {...props} />);
+) => (<CompiledThumb {...props} />);
 
 export const CurrentTimeLineThumb = forwardRef(
 	(
@@ -83,69 +58,50 @@ export const CurrentTimeLineThumb = forwardRef(
 			React.ClassAttributes<HTMLDivElement>,
 		ref,
 	) => {
-		return fg('platform_media_compiled') ? (
+		return (
 			<CompiledCurrentTimeLineThumb {...props} ref={ref as React.RefObject<HTMLDivElement>} />
-		) : (
-			<EmotionCurrentTimeLineThumb {...props} ref={ref as React.RefObject<HTMLDivElement>} />
 		);
+
 	},
 );
 
 export const BufferedTime = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) =>
-	fg('platform_media_compiled') ? (
-		<CompiledBufferedTime {...props} />
-	) : (
-		<EmotionBufferedTime {...props} />
-	);
+) => (
+	<CompiledBufferedTime {...props} />
+);
 
 export const LeftControls = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) =>
-	fg('platform_media_compiled') ? (
-		<CompiledLeftControls {...props} />
-	) : (
-		<EmotionLeftControls {...props} />
-	);
+) => (
+	<CompiledLeftControls {...props} />
+);
 
 export const RightControls = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) =>
-	fg('platform_media_compiled') ? (
-		<CompiledRightControls {...props} />
-	) : (
-		<EmotionRightControls {...props} />
-	);
+) => (
+	<CompiledRightControls {...props} />
+);
 
 export const VolumeToggleWrapper = (
 	props: MutedIndicatorProps &
 		React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) =>
-	fg('platform_media_compiled') ? (
-		<CompiledVolumeToggleWrapper {...props} />
-	) : (
-		<EmotionVolumeToggleWrapper {...props} />
-	);
+) => (
+	<CompiledVolumeToggleWrapper {...props} />
+);
 
 export const VolumeTimeRangeWrapper = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) =>
-	fg('platform_media_compiled') ? (
-		<CompiledVolumeTimeRangeWrapper {...props} />
-	) : (
-		<EmotionVolumeTimeRangeWrapper {...props} />
-	);
+) => (
+	<CompiledVolumeTimeRangeWrapper {...props} />
+);
 
 export const MutedIndicator = (
 	props: MutedIndicatorProps &
 		React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) =>
-	fg('platform_media_compiled') ? (
-		<CompiledMutedIndicator {...props} />
-	) : (
-		<EmotionMutedIndicator {...props} />
-	);
+) => (
+	<CompiledMutedIndicator {...props} />
+);
 
-export type { MutedIndicatorProps } from './styled-compiled';
-export type { CurrentTimeTooltipProps } from './styled-emotion';
+
+export type { MutedIndicatorProps, CurrentTimeTooltipProps } from './styled-compiled';

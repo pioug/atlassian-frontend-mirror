@@ -12,7 +12,7 @@ export type LifecycleMarkType =
 	| 'mount'
 	| 'commit';
 export type MarkType =
-	| ('placeholder' | 'bm3_stop' | 'bundle_preload' | 'custom')
+	| ('placeholder' | 'bm3_stop' | 'bundle_preload' | 'custom' | 'first_segment_load')
 	| LifecycleMarkType;
 export type SpanType =
 	| 'placeholder'

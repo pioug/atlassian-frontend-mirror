@@ -76,7 +76,7 @@ const SkeletonLine: () => JSX.Element = () => (
 );
 
 const getSkeletonLines = (lineCount: number) => {
-	const skeletonLines = [];
+	const skeletonLines: JSX.Element[] = [];
 	for (let i = 0; i < lineCount; i++) {
 		skeletonLines.push(<SkeletonLine key={`skeleton-line-${i}`} />);
 	}

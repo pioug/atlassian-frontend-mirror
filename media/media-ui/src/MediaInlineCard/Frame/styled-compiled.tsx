@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
 import { token } from '@atlaskit/tokens';
 import { css, jsx } from '@compiled/react';
 import { B300, N30A, N40A, N900, R50 } from '@atlaskit/theme/colors';
@@ -68,14 +69,12 @@ const wrapperStyles = css({
 // NB: `padding` consistent with @mentions.
 // NB: `display: inline` required for `box-decoration-break` to work.
 // NB: `box-decoration-break` required for retaining properties (border-radius) on wrap.
-export const Wrapper = ({
-	isSelected,
-	isError,
-	children,
-	...props
-}: WrapperProps &
-	React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>) => (
+export const Wrapper = React.forwardRef<
+	HTMLSpanElement,
+	WrapperProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>
+>(({ isSelected, isError, children, ...props }, ref) => (
 	<span
+		ref={ref}
 		css={[
 			wrapperStyles,
 			isSelected && selectedStyles,
@@ -87,4 +86,4 @@ export const Wrapper = ({
 	>
 		{children}
 	</span>
-);
+));

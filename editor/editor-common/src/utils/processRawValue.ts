@@ -7,6 +7,7 @@ import {
 	transformNestedTablesIncomingDocument,
 	transformNodesMissingContent,
 	transformTextLinkCodeMarks,
+	transformMediaSingleWidth,
 } from '@atlaskit/adf-utils/transforms';
 import type { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
@@ -167,6 +168,19 @@ export function processRawValue(
 				actionSubject: ACTION_SUBJECT.EDITOR,
 				eventType: EVENT_TYPE.OPERATIONAL,
 			});
+		}
+
+		if (fg('platform_editor_transform_invalid_media_width')) {
+			// Fix mediaSingle width issues
+			({ transformedAdf, isTransformed } = transformMediaSingleWidth(transformedAdf as ADFEntity));
+
+			if (isTransformed && dispatchAnalyticsEvent) {
+				dispatchAnalyticsEvent({
+					action: ACTION.MEDIA_SINGLE_WIDTH_TRANSFORMED,
+					actionSubject: ACTION_SUBJECT.EDITOR,
+					eventType: EVENT_TYPE.OPERATIONAL,
+				});
+			}
 		}
 
 		// See: HOT-97965 https://product-fabric.atlassian.net/browse/ED-14400

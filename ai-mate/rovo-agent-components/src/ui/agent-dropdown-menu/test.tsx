@@ -5,8 +5,6 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 import { DiProvider, type Injectable } from 'react-magnetic-di';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { AgentDropdownMenu } from './index';
 
 describe('AgentDropdownMenu', () => {
@@ -28,7 +26,7 @@ describe('AgentDropdownMenu', () => {
 						agentId="1"
 						isForgeAgent={false}
 						loadAgentPermissions={() =>
-							Promise.resolve({ isEditEnabled: true, isDeleteEnabled: true })
+							Promise.resolve({ isEditEnabled: true, isDeleteEnabled: true, isCreateEnabled: true })
 						}
 						/** Not sure how to satisfy the compiler
 						 *  because there's a union for the `showViewAgentOption` and `doesAgentHaveIdentityAccountId`
@@ -154,19 +152,17 @@ describe('AgentDropdownMenu', () => {
 		expect(onDuplicateAgent).toHaveBeenCalled();
 	});
 
-	ffTest.on('agent_studio_fe_permissions_settings_m1', 'create permission m1 tests', () => {
-		it('does not show duplicate agent option if isAbleToCreateAgents is false', async () => {
-			const user = userEvent.setup();
-			renderComponent({
-				loadAgentPermissions: () =>
-					Promise.resolve({ isCreateEnabled: false, isEditEnabled: true, isDeleteEnabled: true }),
-			});
-			await user.click(moreActions());
-			const duplicateAgentButton = screen.queryByRole('menuitem', {
-				name: 'Duplicate Agent',
-			});
-			expect(duplicateAgentButton).toBeNull();
+	it('does not show duplicate agent option if isAbleToCreateAgents is false', async () => {
+		const user = userEvent.setup();
+		renderComponent({
+			loadAgentPermissions: () =>
+				Promise.resolve({ isCreateEnabled: false, isEditEnabled: true, isDeleteEnabled: true }),
 		});
+		await user.click(moreActions());
+		const duplicateAgentButton = screen.queryByRole('menuitem', {
+			name: 'Duplicate Agent',
+		});
+		expect(duplicateAgentButton).toBeNull();
 	});
 
 	it('shows copy link to profile option', async () => {

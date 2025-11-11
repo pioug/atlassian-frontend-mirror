@@ -21,7 +21,6 @@ const styles = cssMap({
 		borderRadius: token('radius.small', '8px'),
 		backgroundColor: token('elevation.surface'),
 		'&:hover': {
-			cursor: 'pointer',
 			backgroundColor: token('elevation.surface.hovered'),
 		},
 	},
@@ -35,17 +34,20 @@ interface AddContainerCardProps {
 	containerType: ContainerTypes;
 	onAddAContainerClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 	isLoading?: boolean;
+	isDisabled?: boolean;
 }
 
 const AddContainerCardWrapper = ({
 	children,
 	onClick,
+	isDisabled,
 }: {
 	children: React.ReactNode;
 	onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+	isDisabled?: boolean;
 }) => {
 	return (
-		<Pressable xcss={styles.container} onClick={onClick}>
+		<Pressable xcss={styles.container} isDisabled={isDisabled} onClick={onClick}>
 			{children}
 		</Pressable>
 	);
@@ -55,6 +57,7 @@ export const AddContainerCard = ({
 	containerType,
 	onAddAContainerClick,
 	isLoading = false,
+	isDisabled = false,
 }: AddContainerCardProps) => {
 	const { icon, title } = getContainerProperties({
 		containerType,
@@ -66,7 +69,7 @@ export const AddContainerCard = ({
 	}
 
 	return (
-		<AddContainerCardWrapper onClick={onAddAContainerClick}>
+		<AddContainerCardWrapper onClick={onAddAContainerClick} isDisabled={isDisabled}>
 			<Inline space="space.100" xcss={styles.card}>
 				<Box xcss={styles.iconWrapper}>{icon}</Box>
 				<Text maxLines={1} color="color.text.subtlest">

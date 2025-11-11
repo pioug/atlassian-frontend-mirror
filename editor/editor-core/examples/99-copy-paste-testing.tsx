@@ -225,8 +225,10 @@ class ExampleEditorComponent extends React.Component<EditorProps & ExampleProps,
 		}
 	}
 
-	private setFullWidthMode = (fullWidthMode: boolean) => {
-		this.setState({ appearance: fullWidthMode ? 'full-width' : 'full-page' });
+	private setFullWidthMode = () => {
+		this.setState({
+			appearance: this.state.appearance === 'full-width' ? 'full-page' : 'full-width',
+		});
 	};
 
 	private onKeyPressed = (e: KeyboardEvent, actions: EditorActions) => {

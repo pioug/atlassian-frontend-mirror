@@ -12,7 +12,7 @@ export const localIdPlugin: LocalIdPlugin = ({ api }) => ({
 		return [
 			{
 				name: 'localIdPlugin',
-				plugin: () => createPlugin(),
+				plugin: () => createPlugin(api),
 			},
 		];
 	},

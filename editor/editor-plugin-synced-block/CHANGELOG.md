@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.2.3
+
+### Patch Changes
+
+- [`9aaeaa5054b55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9aaeaa5054b55) -
+  EDITOR-2863 Add copy sync block option to block menu
+- Updated dependencies
+
 ## 4.2.2
 
 ### Patch Changes

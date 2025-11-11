@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 43.6.3
+
+### Patch Changes
+
+- [`0dbba3ef76ee9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0dbba3ef76ee9) -
+  [ux] Fix InlineCard showing Connect button when there is no action available (behind fg
+  navx-2479-sl-fix-inilne-card-show-connect-button)
+- Updated dependencies
+
+## 43.6.2
+
+### Patch Changes
+
+- [`34dac1ed9f48c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34dac1ed9f48c) -
+  Typescript fixes
+
 ## 43.6.1
 
 ### Patch Changes

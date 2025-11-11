@@ -19,6 +19,7 @@ import { generateSampleFileItem } from '@atlaskit/media-test-data';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 import { createMockedMediaClientProvider } from '../../../utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { LOCAL_HEIGHT_VARIABLE, LOCAL_WIDTH_VARIABLE } from '../../inlinePlayerWrapper-compiled';
 
 const HTMLMediaElement_play = HTMLMediaElement.prototype.play;
 const HTMLMediaElement_pause = HTMLMediaElement.prototype.pause;
@@ -230,11 +231,14 @@ describe('<InlinePlayer />', () => {
 				</IntlProvider>,
 			);
 
-			const inlinePlayer = await screen.findByTestId(inlinePlayerTestId);
-			const styles = getComputedStyle(inlinePlayer);
+		const inlinePlayer = await screen.findByTestId(inlinePlayerTestId);
+		const styles = getComputedStyle(inlinePlayer);
 
-			expect(styles.width).toBe(dimensions.width);
-			expect(styles.height).toBe(dimensions.height);
+		// Retrieve the value of the CSS variable
+		const width = styles.getPropertyValue(LOCAL_WIDTH_VARIABLE);
+		const height = styles.getPropertyValue(LOCAL_HEIGHT_VARIABLE);
+		expect(width).toBe(dimensions.width);
+		expect(height).toBe(dimensions.height);
 		});
 
 		it('default to 100%/auto width/height if no dimensions given', async () => {
@@ -248,10 +252,14 @@ describe('<InlinePlayer />', () => {
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
-			const inlinePlayer = await screen.findByTestId(inlinePlayerTestId);
-			const styles = getComputedStyle(inlinePlayer);
-			expect(styles.width).toBe('100%');
-			expect(styles.height).toBe('auto');
+		const inlinePlayer = await screen.findByTestId(inlinePlayerTestId);
+		const styles = getComputedStyle(inlinePlayer);
+
+		// Retrieve the value of the CSS variable
+		const width = styles.getPropertyValue(LOCAL_WIDTH_VARIABLE);
+		const height = styles.getPropertyValue(LOCAL_HEIGHT_VARIABLE);
+		expect(width).toBe('100%');
+		expect(height).toBe('auto');
 		});
 	});
 
@@ -454,7 +462,7 @@ describe('<InlinePlayer />', () => {
 		const { mediaApi } = createMockedMediaApi(fileItem);
 
 		const user = userEvent.setup();
-		render(
+		const { rerender } = render(
 			<IntlProvider locale="en">
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<InlinePlayer autoplay={true} identifier={identifier} />
@@ -475,6 +483,13 @@ describe('<InlinePlayer />', () => {
 
 		await waitFor(
 			() => {
+				rerender(
+					<IntlProvider locale="en">
+						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+							<InlinePlayer autoplay={true} identifier={identifier} />
+						</MockedMediaClientProvider>
+					</IntlProvider>
+				);
 				expect(playButton).not.toBeVisible();
 			},
 			{ timeout: 3000 },

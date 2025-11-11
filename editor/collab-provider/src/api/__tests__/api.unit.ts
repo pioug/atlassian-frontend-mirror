@@ -1,6 +1,4 @@
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
-// eslint-disable-next-line @atlaskit/platform/no-alias
-import * as ff from '@atlaskit/platform-feature-flags';
 import * as traceInfo from '@atlaskit/react-ufo/experience-trace-id-context';
 
 jest.mock('../../channel', () => {
@@ -102,7 +100,6 @@ describe('addComment', () => {
 			'X-B3-TraceId': 'f34ab6dfca3b864f77372a38c78b28f5',
 			'X-B3-SpanId': '1cfcba17ff41722a',
 		};
-		jest.spyOn(ff, 'fg').mockReturnValue(true);
 		jest
 			.spyOn(traceInfo, 'getActiveTraceHttpRequestHeaders')
 			.mockReturnValue(givenActiveTraceHttpRequestHeaders);

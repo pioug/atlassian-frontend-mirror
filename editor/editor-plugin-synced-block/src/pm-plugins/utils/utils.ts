@@ -1,38 +1,30 @@
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import {
-	TextSelection,
-	type EditorState,
-	type Selection,
-} from '@atlaskit/editor-prosemirror/state';
+import type { NodeType, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { TextSelection, type Selection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection, findTable } from '@atlaskit/editor-tables';
 
-export const findSyncBlock = (
-	state: EditorState,
-	selection?: Selection | null,
-): ContentNodeWithPos | undefined => {
-	const { syncBlock } = state.schema.nodes;
-	return findSelectedNodeOfType(syncBlock)(selection || state.selection);
+export const findSyncBlock = (schema: Schema, selection: Selection): ContentNodeWithPos | undefined => {
+	const { syncBlock } = schema.nodes;
+	return findSelectedNodeOfType(syncBlock)(selection);
 };
 
 export const findBodiedSyncBlock = (
-	state: EditorState,
-	selection?: Selection | null,
+	schema: Schema,
+	selection: Selection,
 ): ContentNodeWithPos | undefined => {
-	const { bodiedSyncBlock } = state.schema.nodes;
 	return (
-		findSelectedNodeOfType(bodiedSyncBlock)(selection || state.selection) ||
-		findParentNodeOfType(bodiedSyncBlock)(selection || state.selection)
+		findSelectedNodeOfType(schema.nodes.bodiedSyncBlock)(selection) ||
+		findParentNodeOfType(schema.nodes.bodiedSyncBlock)(selection)
 	);
 };
 
 export const findSyncBlockOrBodiedSyncBlock = (
-	state: EditorState,
-	selection?: Selection | null,
+	schema: Schema,
+	selection: Selection,
 ): ContentNodeWithPos | undefined => {
-	return findSyncBlock(state, selection) || findBodiedSyncBlock(state, selection);
+	return findSyncBlock(schema, selection) || findBodiedSyncBlock(schema, selection);
 };
 
 export const isBodiedSyncBlockNode = (node: PMNode, bodiedSyncBlock: NodeType): boolean =>

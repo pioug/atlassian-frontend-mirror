@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.35.0
+
+### Minor Changes
+
+- [`f79abec64be13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f79abec64be13) -
+  [EDITOR-2624] Add max width mode for ultra wide monitors to the Editor and Renderer
+
 ## 13.34.0
 
 ### Minor Changes

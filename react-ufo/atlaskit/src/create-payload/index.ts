@@ -58,6 +58,8 @@ import { optimizeReactProfilerTimings } from './utils/optimize-react-profiler-ti
 import { optimizeRequestInfo } from './utils/optimize-request-info';
 import { optimizeSpans } from './utils/optimize-spans';
 
+const MAX_PAYLOAD_SIZE = 250;
+
 function getUfoNameOverride(interaction: InteractionMetrics): string {
 	const { ufoName, apdex } = interaction;
 	try {
@@ -727,7 +729,25 @@ async function createInteractionMetricsPayload(
 		expTTAI = undefined;
 	}
 
-	payload.attributes.properties['event:sizeInKb'] = getPayloadSize(payload.attributes.properties);
+	if (fg('platform_ufo_enable_vc_raw_data')) {
+		const size = getPayloadSize(payload.attributes.properties);
+		const vcRev = (payload.attributes.properties as Record<string, any>)['ufo:vc:rev'];
+		const rawData = vcRev.find((item: { revision: string }) => item.revision === 'raw-handler');
+		if (rawData) {
+			const rawDataSize = getPayloadSize(rawData);
+			(payload.attributes.properties as Record<string, unknown>)['ufo:vc:raw:size'] = rawDataSize;
+			if (size > MAX_PAYLOAD_SIZE && Array.isArray(vcRev) && vcRev.length > 0) {
+				(payload.attributes.properties as Record<string, any>)['ufo:vc:rev'] = vcRev.filter(
+					(item: { revision: string }) => item.revision !== 'raw-handler',
+				);
+				(payload.attributes.properties as Record<string, unknown>)['ufo:vc:raw:removed'] = true;
+			}
+		}
+		payload.attributes.properties['event:sizeInKb'] = getPayloadSize(payload.attributes.properties);
+	} else {
+		payload.attributes.properties['event:sizeInKb'] = getPayloadSize(payload.attributes.properties);
+	}
+
 	return payload;
 }
 

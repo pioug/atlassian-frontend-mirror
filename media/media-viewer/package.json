@@ -116,9 +116,6 @@
 		"platform_media_disable_video_640p_artifact_usage": {
 			"type": "boolean"
 		},
-		"platform_media_compiled": {
-			"type": "boolean"
-		},
 		"platform_media_video_captions": {
 			"type": "boolean"
 		},

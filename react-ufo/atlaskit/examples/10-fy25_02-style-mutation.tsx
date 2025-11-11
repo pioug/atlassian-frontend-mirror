@@ -55,6 +55,7 @@ const contentDivStyle = convertToInlineCss({
 
 const contentDivStyleUpdated = convertToInlineCss({
 	backgroundColor: '#ff0000',
+	color: '#ffffff',
 	padding: '20px',
 	marginBottom: '10px',
 	borderRadius: '4px',

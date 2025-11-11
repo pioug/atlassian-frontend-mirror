@@ -1,5 +1,12 @@
 # @atlaskit/media-file-preview
 
+## 0.12.0
+
+### Minor Changes
+
+- [`dee4c84f3e878`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dee4c84f3e878) -
+  Fixes media card loading during SSR fallback for items without a preview image
+
 ## 0.11.9
 
 ### Patch Changes

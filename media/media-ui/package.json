@@ -91,9 +91,6 @@
 		"platform_media_disable_video_640p_artifact_usage": {
 			"type": "boolean"
 		},
-		"platform_media_compiled": {
-			"type": "boolean"
-		},
 		"platform_media_resume_video_on_token_expiry": {
 			"type": "boolean"
 		},

@@ -54,9 +54,5 @@
 			"tree-shaking": []
 		}
 	},
-	"platform-feature-flags": {
-		"platform_collab_provider_tracingheaders": {
-			"type": "boolean"
-		}
-	}
+	"platform-feature-flags": {}
 }

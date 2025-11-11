@@ -10,6 +10,7 @@ export const AllTeamActions = [
 	'LEAVE_TEAM',
 	'REMOVE_AGENT_FROM_TEAM',
 	'ADD_AGENT_TO_TEAM',
+	'CAN_EDIT_HIERARCHY',
 
 	// Visual
 	'EDIT_TEAM_NAME',

@@ -1,5 +1,11 @@
 # @atlaskit/media-image
 
+## 20.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.1.0
 
 ### Minor Changes
@@ -765,7 +771,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/field-text@10.0.1
   - @atlaskit/select@11.0.7
@@ -833,7 +838,6 @@
   > remove deprecated "context" property from media components in favor of "mediaClientConfig"
 
   This affects all public media UI components:
-
   - Card
   - Filmstrip
   - SmartMediaEditor

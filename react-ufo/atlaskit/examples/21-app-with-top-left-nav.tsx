@@ -138,36 +138,15 @@ const LeftNavigation = ({ onMenuItemClick }: { onMenuItemClick: (title: string) 
 		onMenuItemClick(item);
 	};
 
-	const handleItemKeyDown = (event: React.KeyboardEvent, item: string) => {
-		if (event.key === 'Enter' || event.key === ' ') {
-			event.preventDefault();
-			onMenuItemClick(item);
-		}
-	};
-
 	return (
 		<div data-testid="left-nav" css={leftNavStyle}>
 			<h2>Left Navigation</h2>
 			<ul>
 				{menuItems.map((item, index) => (
-					<li
-						key={index}
-						css={menuItemStyle}
-						onClick={() => handleItemClick(item)}
-						onKeyDown={(event) => handleItemKeyDown(event, item)}
-						// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
-						onMouseEnter={(e) => {
-							e.currentTarget.style.textDecoration = 'underline';
-						}}
-						// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
-						onMouseLeave={(e) => {
-							e.currentTarget.style.textDecoration = 'none';
-						}}
-						data-testid={`left-nav-item-${item}`}
-						role="button"
-						tabIndex={0}
-					>
-						{item}
+					<li key={index} css={menuItemStyle}>
+						<button type="button" onClick={() => handleItemClick(item)}>
+							{item}
+						</button>
 					</li>
 				))}
 			</ul>

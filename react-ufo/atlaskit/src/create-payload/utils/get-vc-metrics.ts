@@ -1,6 +1,7 @@
+import coinflip from '../../coinflip';
 import { type InteractionMetrics } from '../../common';
 import type { RevisionPayload, VCResult } from '../../common/vc/types';
-import { getConfig, getMostRecentVCRevision } from '../../config';
+import { getConfig, getMostRecentVCRevision, getVCRawDataInteractionRate } from '../../config';
 import { interactionExtraMetrics, postInteractionLog } from '../../interaction-metrics';
 
 import getInteractionStatus from './get-interaction-status';
@@ -37,6 +38,10 @@ async function getVCMetrics(
 		return {};
 	}
 
+	const includeRawData = coinflip(
+		getVCRawDataInteractionRate(interaction.ufoName, interaction.type),
+	);
+
 	const isSSREnabled =
 		interaction.type === 'page_load' &&
 		(config?.ssr || config?.vc.ssrWhitelist?.includes(interaction.ufoName));
@@ -64,6 +69,7 @@ async function getVCMetrics(
 		excludeSmartAnswersInSearch,
 		interactionType: interaction.type,
 		isPageVisible,
+		includeRawData,
 	});
 
 	observer.stop(interaction.ufoName);

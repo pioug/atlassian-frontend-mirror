@@ -338,7 +338,7 @@ export const MutedIndicator = ({
 	</div>
 );
 
-interface CurrentTimeTooltipProps {
+export interface CurrentTimeTooltipProps {
 	isDragging: boolean;
 	timeLineThumbIsHover: boolean;
 	timeLineThumbIsFocus: boolean;

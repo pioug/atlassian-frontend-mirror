@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "3.10.1",
+	"version": "3.11.0",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -120,9 +120,6 @@
 			"type": "boolean"
 		},
 		"a11y_agents_fixes": {
-			"type": "boolean"
-		},
-		"agent_studio_fe_permissions_settings_m1": {
 			"type": "boolean"
 		},
 		"agent_studio_permissions_settings_m3_profiles": {

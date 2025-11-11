@@ -62,6 +62,11 @@ export const messages = defineMessages({
 		description:
 			'Create a synced block at this line, converting the selection to a synced block if applicable',
 	},
+	copySyncedBlock: {
+		id: 'fabric.editor.block.menu.copy.synced.block',
+		defaultMessage: 'Copy synced block',
+		description: 'Copy the selected synced block to the clipboard',
+	},
 	newLozenge: {
 		id: 'fabric.editor.block.menu.new.lozenge',
 		defaultMessage: 'New',

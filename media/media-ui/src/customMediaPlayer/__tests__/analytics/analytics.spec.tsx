@@ -9,7 +9,7 @@ import MediaPlayer, { type VideoProps, type VideoState } from '../../react-video
 
 import { CustomMediaPlayer, type CustomMediaPlayerProps, type CustomMediaPlayerState } from '../..';
 
-import { type CustomMediaPlayerBase } from '../../index-emotion';
+import { type CustomMediaPlayerBase } from '../../index-compiled';
 
 type mockWidthObserver = typeof WidthObserver;
 

@@ -53,6 +53,13 @@ export interface BaseResourcedEmojiProps {
 	optimisticImageURL?: string;
 
 	/**
+	 * Indicates that this emoji is being rendered in a page title context.
+	 * This is used to adjust certain behaviors to reduce TTVC issues.
+	 * Defaults to `false`.
+	 */
+	pageTitleEmoji?: boolean;
+
+	/**
 	 * allows custom styling to the placeholder component while the emoji is loading.
 	 */
 	placeholderXcss?: StrictXCSSProp<'backgroundColor', never>;
@@ -96,6 +103,7 @@ export const ResourcedEmojiComponent = ({
 	optimistic = false,
 	optimisticImageURL = undefined,
 	editorEmoji,
+	pageTitleEmoji = false,
 	placeholderXcss,
 	onEmojiLoadSuccess,
 	onEmojiLoadFail,
@@ -205,6 +213,22 @@ export const ResourcedEmojiComponent = ({
 	}, [emoji, loaded, optimisticImageURL, imageLoadError]);
 
 	const optimisticEmojiDescription = useMemo(() => {
+		// reduce blast radius by targeting page title
+		if (pageTitleEmoji && optimisticImageURL && fg('platform_emoji_prevent_img_src_changing')) {
+			return {
+				id,
+				shortName,
+				fallback,
+				type: '',
+				category: '',
+				searchable: true,
+				representation: {
+					height: fitToHeight || defaultEmojiHeight,
+					width: fitToHeight || defaultEmojiHeight,
+					imagePath: optimisticImageURL,
+				},
+			};
+		}
 		if (optimisticImageURL) {
 			if (
 				emoji &&
@@ -238,7 +262,7 @@ export const ResourcedEmojiComponent = ({
 		}
 
 		return emoji;
-	}, [emoji, optimisticImageURL, fallback, fitToHeight, id, shortName]);
+	}, [emoji, optimisticImageURL, fallback, fitToHeight, id, shortName, pageTitleEmoji]);
 
 	const handleOnLoadError = useCallback(
 		(emojiId: EmojiId) => {

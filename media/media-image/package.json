@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-image",
-	"version": "20.1.0",
+	"version": "20.1.1",
 	"description": "Media image element - provides single display of image",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

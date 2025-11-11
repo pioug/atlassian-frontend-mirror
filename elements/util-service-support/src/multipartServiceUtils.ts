@@ -1,8 +1,6 @@
 import { meros } from 'meros/browser';
 import { buildCredentials, type RequestServiceOptions, type ServiceConfig } from './types';
 import { buildHeaders, buildUrl, defaultRequestServiceOptions } from './shared';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { addFeatureFlagAccessed } from '@atlaskit/react-ufo/feature-flags-accessed';
 import { getActiveTraceHttpRequestHeaders } from '@atlaskit/react-ufo/experience-trace-id-context';
 
 export type PartsGenerator<PartsType> = AsyncGenerator<Part<PartsType, unknown>>;
@@ -45,16 +43,7 @@ export const requestServiceMultipart = async <PartsType, BodyType>(
 	const credentials = buildCredentials(secOptions);
 
 	// Get tracing headers from UFO
-	const TRACING_HEADER_FOR_SERVICE_UTIL = 'platform_collab_provider_tracingheaders';
-	const tracingHeaderEnabled = fg('platform_collab_provider_tracingheaders');
-	addFeatureFlagAccessed(TRACING_HEADER_FOR_SERVICE_UTIL, tracingHeaderEnabled);
-	let tracingHeaders: {
-		'X-B3-SpanId'?: string;
-		'X-B3-TraceId'?: string;
-	} | null = {};
-	if (tracingHeaderEnabled) {
-		tracingHeaders = getActiveTraceHttpRequestHeaders(url);
-	}
+	const tracingHeaders = getActiveTraceHttpRequestHeaders(url);
 
 	const requestOptions: RequestInit = {
 		...requestInit,

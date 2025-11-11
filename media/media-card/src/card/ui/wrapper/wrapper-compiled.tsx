@@ -15,8 +15,8 @@ import { getCSSUnitValue } from '../../../utils/getCSSUnitValue';
 import { type Breakpoint } from '../common';
 import UFOCustomData from '@atlaskit/react-ufo/custom-data';
 
-const LOCAL_WIDTH_VARIABLE = '--media-wrapper-width';
-const LOCAL_HEIGHT_VARIABLE = '--media-wrapper-height';
+export const LOCAL_WIDTH_VARIABLE = '--media-wrapper-width';
+export const LOCAL_HEIGHT_VARIABLE = '--media-wrapper-height';
 
 const wrapperStyles = cssMap({
 	default: {

@@ -1,4 +1,4 @@
-export type RendererAppearance = 'comment' | 'full-page' | 'full-width' | undefined;
+export type RendererAppearance = 'comment' | 'full-page' | 'full-width' | 'max' | undefined;
 
 // TODO: EDITOR-2435 - remove `dense` when cleaning up 'confluence_content_mode_replace_dense_with_compact'
 export type RendererContentMode = 'standard' | 'dense' | 'compact' | undefined;

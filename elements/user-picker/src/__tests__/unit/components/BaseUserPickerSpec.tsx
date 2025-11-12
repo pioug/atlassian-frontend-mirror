@@ -8,7 +8,6 @@ import { type ConcurrentExperience, type UFOExperience, ufologger } from '@atlas
 import { mount, shallow, type ReactWrapper } from 'enzyme';
 import debounce from 'lodash/debounce';
 import React from 'react';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
 	BaseUserPicker,
@@ -2111,93 +2110,51 @@ describe('BaseUserPicker', () => {
 	});
 
 	describe('a11y', () => {
-		ffTest.on(
-			'user_picker_migrate_aria_label_description',
-			'user_picker_migrate_aria_label_description on',
-			() => {
-				it('should consolidate label and description id when both custom and standard props are provided', () => {
-					const props: Partial<UserPickerProps> & Partial<AriaAttributes> = {
-						ariaLabelledBy: 'labelId',
-						ariaDescribedBy: 'descriptionId',
-						'aria-labelledby': 'labelId 2',
-						'aria-describedby': 'descriptionId 2',
-					};
+		it('should consolidate label and description id when both custom and standard props are provided', () => {
+			const props: Partial<UserPickerProps> & Partial<AriaAttributes> = {
+				ariaLabelledBy: 'labelId',
+				ariaDescribedBy: 'descriptionId',
+				'aria-labelledby': 'labelId 2',
+				'aria-describedby': 'descriptionId 2',
+			};
 
-					const component = shallowUserPicker(props);
-					const select = component.find(Select);
+			const component = shallowUserPicker(props);
+			const select = component.find(Select);
 
-					expect(select.prop('labelId')).toBe('labelId');
-					expect(select.prop('descriptionId')).toBe('descriptionId');
-					expect(select.prop('aria-labelledby')).toBe(undefined);
-					expect(select.prop('aria-describedby')).toBe(undefined);
-				});
+			expect(select.prop('labelId')).toBe('labelId');
+			expect(select.prop('descriptionId')).toBe('descriptionId');
+			expect(select.prop('aria-labelledby')).toBe(undefined);
+			expect(select.prop('aria-describedby')).toBe(undefined);
+		});
 
-				it('should consolidate label and description id when custom props are provided', () => {
-					const props: Partial<UserPickerProps> = {
-						ariaLabelledBy: 'labelId',
-						ariaDescribedBy: 'descriptionId',
-					};
+		it('should consolidate label and description id when custom props are provided', () => {
+			const props: Partial<UserPickerProps> = {
+				ariaLabelledBy: 'labelId',
+				ariaDescribedBy: 'descriptionId',
+			};
 
-					const component = shallowUserPicker(props);
-					const select = component.find(Select);
+			const component = shallowUserPicker(props);
+			const select = component.find(Select);
 
-					expect(select.prop('labelId')).toBe('labelId');
-					expect(select.prop('descriptionId')).toBe('descriptionId');
-					expect(select.prop('aria-labelledby')).toBe(undefined);
-					expect(select.prop('aria-describedby')).toBe(undefined);
-				});
+			expect(select.prop('labelId')).toBe('labelId');
+			expect(select.prop('descriptionId')).toBe('descriptionId');
+			expect(select.prop('aria-labelledby')).toBe(undefined);
+			expect(select.prop('aria-describedby')).toBe(undefined);
+		});
 
-				it('should consolidate label and description id when standard props are provided', () => {
-					const props: Partial<UserPickerProps> & Partial<AriaAttributes> = {
-						'aria-labelledby': 'labelId',
-						'aria-describedby': 'descriptionId',
-					};
+		it('should consolidate label and description id when standard props are provided', () => {
+			const props: Partial<UserPickerProps> & Partial<AriaAttributes> = {
+				'aria-labelledby': 'labelId',
+				'aria-describedby': 'descriptionId',
+			};
 
-					const component = shallowUserPicker(props);
-					const select = component.find(Select);
+			const component = shallowUserPicker(props);
+			const select = component.find(Select);
 
-					expect(select.prop('labelId')).toBe('labelId');
-					expect(select.prop('descriptionId')).toBe('descriptionId');
-					expect(select.prop('aria-labelledby')).toBe(undefined);
-					expect(select.prop('aria-describedby')).toBe(undefined);
-				});
-			},
-		);
-
-		ffTest.off(
-			'user_picker_migrate_aria_label_description',
-			'user_picker_migrate_aria_label_description off',
-			() => {
-				it('should pass standard aria labelledby and aria describedby props', () => {
-					const props: Partial<UserPickerProps> & Partial<AriaAttributes> = {
-						'aria-labelledby': 'labelId',
-						'aria-describedby': 'descriptionId',
-					};
-
-					const component = shallowUserPicker(props);
-					const select = component.find(Select);
-
-					expect(select.prop('aria-labelledby')).toBe('labelId');
-					expect(select.prop('aria-describedby')).toBe('descriptionId');
-					expect(select.prop('labelId')).toBe(undefined);
-					expect(select.prop('descriptionId')).toBe(undefined);
-				});
-
-				it('should pass custom aria labelledby and aria describedby props', () => {
-					const props: Partial<UserPickerProps> & Partial<AriaAttributes> = {
-						ariaLabelledBy: 'labelId',
-						ariaDescribedBy: 'descriptionId',
-					};
-
-					const component = shallowUserPicker(props);
-					const select = component.find(Select);
-
-					expect(select.prop('aria-labelledby')).toBe('labelId');
-					expect(select.prop('aria-describedby')).toBe('descriptionId');
-					expect(select.prop('labelId')).toBe(undefined);
-					expect(select.prop('descriptionId')).toBe(undefined);
-				});
-			},
-		);
+			expect(select.prop('labelId')).toBe('labelId');
+			expect(select.prop('descriptionId')).toBe('descriptionId');
+			expect(select.prop('aria-labelledby')).toBe(undefined);
+			expect(select.prop('aria-describedby')).toBe(undefined);
+		});
 	});
 });

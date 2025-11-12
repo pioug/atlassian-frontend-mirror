@@ -7,6 +7,8 @@ import { syncBlockMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import BlockSyncedIcon from '@atlaskit/icon-lab/core/block-synced';
+import Lozenge from '@atlaskit/lozenge';
+import { Flex } from '@atlaskit/primitives/compiled';
 
 import { canBeConvertedToSyncBlock } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
@@ -36,9 +38,12 @@ export const CreateSyncedBlockItem = ({ api }: CreateSyncedBlockItemProps) => {
 		<ToolbarDropdownItem
 			onClick={onClick}
 			isDisabled={isDisabled}
-			elemBefore={<BlockSyncedIcon label="" />}
+			elemBefore={<BlockSyncedIcon size="small" label="" />}
 		>
-			{message}
+			<Flex alignItems="center" gap="space.050">
+				{message}
+				<Lozenge appearance="new">{intl.formatMessage(syncBlockMessages.newLozenge)}</Lozenge>
+			</Flex>
 		</ToolbarDropdownItem>
 	);
 };

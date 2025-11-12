@@ -7,7 +7,7 @@ describe('Actions Bar Styles', () => {
 	it('Opacity should be 0 if Action Bar is not fixed', () => {
 		render(<ActionsBarWrapper />);
 
-		const wrapper = screen.getByTestId("actionsBarWrapper");
+		const wrapper = screen.getByTestId('actionsBarWrapper');
 		const styles = getComputedStyle(wrapper);
 
 		expect(styles['opacity']).toBe('0');
@@ -16,7 +16,7 @@ describe('Actions Bar Styles', () => {
 	it('Opactiy should be 1 if Action Bar is fixed', () => {
 		render(<ActionsBarWrapper isFixed={true} />);
 
-		const wrapper = screen.getByTestId("actionsBarWrapper");
+		const wrapper = screen.getByTestId('actionsBarWrapper');
 		const styles = getComputedStyle(wrapper);
 
 		expect(styles['opacity']).toBe('1');

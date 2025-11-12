@@ -68,7 +68,7 @@ export const getSSRPreview = (
 			const doubleDataURI = getDataUri(
 				mediaClient,
 				id,
-				{ ...params, width: params.width * 2 },
+				{ ...params, width: params.width * 2, height: params.height && params.height * 2 },
 				mediaBlobUrlAttrs,
 			);
 			// We want to embed some meta context into dataURI for Copy/Paste to work.

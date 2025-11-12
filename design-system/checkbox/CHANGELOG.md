@@ -1,5 +1,11 @@
 # @atlaskit/checkbox
 
+## 17.1.20
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.1.19
 
 ### Patch Changes

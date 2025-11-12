@@ -1,6 +1,7 @@
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type {
 	EditorCommand,
+	LongPressSelectionPluginOptions,
 	NextEditorPlugin,
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
@@ -50,11 +51,10 @@ export type SyncedBlockEditorProps = {
 export type SyncedBlockRendererProps = {
 	useFetchSyncBlockData: () => UseFetchSyncBlockDataResult;
 };
-
-export type SyncedBlockPluginOptions = {
+export interface SyncedBlockPluginOptions extends LongPressSelectionPluginOptions {
 	syncBlockDataProvider: SyncBlockDataProvider;
 	syncedBlockRenderer: (props: SyncedBlockRendererProps) => React.JSX.Element;
-};
+}
 
 export type SyncedBlockPlugin = NextEditorPlugin<
 	'syncedBlock',

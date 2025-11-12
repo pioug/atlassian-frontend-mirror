@@ -231,14 +231,14 @@ describe('<InlinePlayer />', () => {
 				</IntlProvider>,
 			);
 
-		const inlinePlayer = await screen.findByTestId(inlinePlayerTestId);
-		const styles = getComputedStyle(inlinePlayer);
+			const inlinePlayer = await screen.findByTestId(inlinePlayerTestId);
+			const styles = getComputedStyle(inlinePlayer);
 
-		// Retrieve the value of the CSS variable
-		const width = styles.getPropertyValue(LOCAL_WIDTH_VARIABLE);
-		const height = styles.getPropertyValue(LOCAL_HEIGHT_VARIABLE);
-		expect(width).toBe(dimensions.width);
-		expect(height).toBe(dimensions.height);
+			// Retrieve the value of the CSS variable
+			const width = styles.getPropertyValue(LOCAL_WIDTH_VARIABLE);
+			const height = styles.getPropertyValue(LOCAL_HEIGHT_VARIABLE);
+			expect(width).toBe(dimensions.width);
+			expect(height).toBe(dimensions.height);
 		});
 
 		it('default to 100%/auto width/height if no dimensions given', async () => {
@@ -252,14 +252,14 @@ describe('<InlinePlayer />', () => {
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
-		const inlinePlayer = await screen.findByTestId(inlinePlayerTestId);
-		const styles = getComputedStyle(inlinePlayer);
+			const inlinePlayer = await screen.findByTestId(inlinePlayerTestId);
+			const styles = getComputedStyle(inlinePlayer);
 
-		// Retrieve the value of the CSS variable
-		const width = styles.getPropertyValue(LOCAL_WIDTH_VARIABLE);
-		const height = styles.getPropertyValue(LOCAL_HEIGHT_VARIABLE);
-		expect(width).toBe('100%');
-		expect(height).toBe('auto');
+			// Retrieve the value of the CSS variable
+			const width = styles.getPropertyValue(LOCAL_WIDTH_VARIABLE);
+			const height = styles.getPropertyValue(LOCAL_HEIGHT_VARIABLE);
+			expect(width).toBe('100%');
+			expect(height).toBe('auto');
 		});
 	});
 
@@ -488,7 +488,7 @@ describe('<InlinePlayer />', () => {
 						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 							<InlinePlayer autoplay={true} identifier={identifier} />
 						</MockedMediaClientProvider>
-					</IntlProvider>
+					</IntlProvider>,
 				);
 				expect(playButton).not.toBeVisible();
 			},

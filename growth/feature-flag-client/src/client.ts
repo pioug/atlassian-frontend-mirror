@@ -52,7 +52,7 @@ export default class FeatureFlagClient {
 		this.setAnalyticsHandler(analyticsHandler);
 	}
 
-	setFlags(flags: Flags) {
+	setFlags(flags: Flags): void {
 		if (!isObject(flags)) {
 			return;
 		}
@@ -75,11 +75,11 @@ export default class FeatureFlagClient {
 		}
 	}
 
-	setAnalyticsHandler(analyticsHandler?: AnalyticsHandler) {
+	setAnalyticsHandler(analyticsHandler?: AnalyticsHandler): void {
 		this.analyticsHandler = analyticsHandler;
 	}
 
-	setIsAutomaticExposuresEnabled(isEnabled: boolean) {
+	setIsAutomaticExposuresEnabled(isEnabled: boolean): void {
 		this.isAutomaticExposuresEnabled = isEnabled;
 	}
 
@@ -112,7 +112,7 @@ export default class FeatureFlagClient {
 		return wrapper;
 	}
 
-	clear() {
+	clear(): void {
 		this.flags.clear();
 		this.flagWrapperCache.clear();
 		this.trackedFlags.clear();
@@ -181,7 +181,7 @@ export default class FeatureFlagClient {
 	 * one endpoint. Depending on the passed in trigger reason a manual or automatic exposure
 	 * is sent.
 	 **/
-	trackFeatureFlag(flagKey: string, options: TrackFeatureFlagOptions = {}) {
+	trackFeatureFlag(flagKey: string, options: TrackFeatureFlagOptions = {}): void {
 		const triggerReason = options?.triggerReason
 			? options.triggerReason
 			: ExposureTriggerReason.Manual;
@@ -215,7 +215,7 @@ export default class FeatureFlagClient {
 		}
 	}
 
-	trackExposure(flagKey: string, flag: FlagShape, exposureData: CustomAttributes = {}) {
+	trackExposure(flagKey: string, flag: FlagShape, exposureData: CustomAttributes = {}): void {
 		return this._trackExposure(flagKey, flag, ExposureTriggerReason.Manual, exposureData);
 	}
 

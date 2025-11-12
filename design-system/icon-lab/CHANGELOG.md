@@ -1,5 +1,14 @@
 # @atlaskit/icon-lab
 
+## 5.12.1
+
+### Patch Changes
+
+- [`f0d92beae2f40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0d92beae2f40) -
+  Removes utility icons entrypoints from the '@atlaskit/icon' package. Migrates related packages to
+  update their imports.
+- Updated dependencies
+
 ## 5.12.0
 
 ### Minor Changes

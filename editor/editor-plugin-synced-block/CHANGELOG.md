@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.2.6
+
+### Patch Changes
+
+- [`9e7aa73151ed0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e7aa73151ed0) -
+  [ux] EDITOR-2670 add selected state for sync block when selection is inside
+- [`18f894b7433f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18f894b7433f3) -
+  EDITOR-2863 Fix Add copy sync block option to block menu
+- Updated dependencies
+
+## 4.2.5
+
+### Patch Changes
+
+- [`7e8c949e9c8c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e8c949e9c8c0) -
+  [ux] Add new lozenge next to create synced block in toolbar and typeahead, and text updates
+- Updated dependencies
+
+## 4.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.2.3
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @atlaskit/media-ui
 
+## 28.7.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.7.11
+
+### Patch Changes
+
+- [`93e3d7d5724d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93e3d7d5724d0) -
+  FG cleanup - platform_media_compiled
+
 ## 28.7.10
 
 ### Patch Changes

@@ -1,4 +1,5 @@
 import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common/toolbar';
+import type { BreakpointPreset } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 // export type ContextualFormattingEnabledOptions =
@@ -24,6 +25,10 @@ import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 // 	| 'controlled';
 
 export type ToolbarPluginOptions = {
+	/**
+	 * Option to set the breakpoint preset for the toolbar.
+	 */
+	breakpointPreset?: BreakpointPreset;
 	/**
 	 * Controls which toolbars are available for in the editor.
 	 *
@@ -77,6 +82,7 @@ export type ToolbarPluginOptions = {
 	 * ```
 	 */
 	disableSelectionToolbar?: boolean;
+
 	disableSelectionToolbarWhenPinned?: boolean;
 
 	/**

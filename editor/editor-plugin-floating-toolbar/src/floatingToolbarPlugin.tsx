@@ -333,8 +333,7 @@ export function ContentComponent({
 	if (
 		(userIntentState?.currentUserIntent === 'dragging' ||
 			(userIntentState?.currentUserIntent === 'blockMenuOpen' &&
-				expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
-				fg('platform_editor_block_menu_hide_floating_toolbar'))) &&
+				expValEquals('platform_editor_block_menu', 'isEnabled', true))) &&
 		!userIntentEnabled
 	) {
 		return null;

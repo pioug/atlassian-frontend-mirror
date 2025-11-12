@@ -1,7 +1,7 @@
 import React from 'react';
 import { code, md, Example, AtlassianInternalWarning } from '@atlaskit/docs';
 
-export default md`
+const intro: React.ReactElement = md`
 ${(<AtlassianInternalWarning />)}
 
   This client makes it easy to work with feature flags and dark features.
@@ -118,7 +118,7 @@ ${(<AtlassianInternalWarning />)}
 
   ### Using the trackFeatureFlag endpoint
   The trackFeatureFlag endpoint can be used to trigger both manual and automatic exposures depending on how your client is
-  configured and what trigger reason is provided to the endpoint. It is possible to but not required to supply a trigger reason, 
+  configured and what trigger reason is provided to the endpoint. It is possible to but not required to supply a trigger reason,
   value and explanation. The trigger reason will be defaulted to ExposureTriggerReason.Manual and value and explanation will be retrieved
   from the flags field on the client.
 
@@ -144,3 +144,4 @@ ${(<AtlassianInternalWarning />)}
   });
   `}
 `;
+export default intro;

@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 124.13.0
+
+### Minor Changes
+
+- [`7ecc830bdd14e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ecc830bdd14e) -
+  Updated media group resizing mode from stretchy fit to crop to match editor and enabling removing
+  of late mutation caused by dependancy of stretchy-fit on image rendered dimensions
+
+### Patch Changes
+
+- Updated dependencies
+
+## 124.12.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 124.12.0
 
 ### Minor Changes

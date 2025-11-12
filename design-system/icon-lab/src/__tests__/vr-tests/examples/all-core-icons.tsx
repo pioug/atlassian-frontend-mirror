@@ -329,7 +329,6 @@ import WorkItemAddIcon from '../../../../core/work-item-add';
 import WorkflowControlsIcon from '../../../../core/workflow-controls';
 import WorldIcon from '../../../../core/world';
 import WrenchIcon from '../../../../core/wrench';
-
 // eslint-disable-next-line import/order
 import type { NewCoreIconProps } from '@atlaskit/icon';
 

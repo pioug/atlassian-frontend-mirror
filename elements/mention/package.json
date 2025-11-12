@@ -43,6 +43,7 @@
 	},
 	"description": "A React component used to display user profiles in a list for 'Mention' functionality",
 	"devDependencies": {
+		"@af/visual-regression": "workspace:^",
 		"@atlaskit/elements-test-helpers": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "root:*",
@@ -120,5 +121,5 @@
 			]
 		}
 	},
-	"version": "24.4.1"
+	"version": "24.4.2"
 }

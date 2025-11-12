@@ -15,7 +15,6 @@ import {
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 
-import { isSSR } from '../../core-utils/is-ssr';
 import { nonWrappedLayouts } from '../../utils';
 import { calcBreakoutWidth, calcWideWidth } from '../../utils/breakout';
 
@@ -230,7 +229,6 @@ export interface MediaSingleWrapperProps {
 	isResized?: boolean;
 	layout: MediaSingleLayout;
 	mediaSingleWidth?: number;
-	nodeType?: string;
 	/**
 	 * @private
 	 * @deprecated Use {@link MediaSingleWrapperProps["mediaSingleWidth"]} instead.
@@ -238,6 +236,7 @@ export interface MediaSingleWrapperProps {
 	 */
 	pctWidth?: number;
 	width?: number;
+	isInRenderer?: boolean;
 }
 
 /**
@@ -253,7 +252,7 @@ export interface MediaSingleWrapperProps {
  * @param root0.isExtendedResizeExperienceOn
  * @param root0.isNestedNode
  * @param root0.isInsideOfInlineExtension
- * @param root0.nodeType
+ * @param root0.isInRenderer
  * @example
  */
 export const MediaSingleDimensionHelper = ({
@@ -266,7 +265,7 @@ export const MediaSingleDimensionHelper = ({
 	isExtendedResizeExperienceOn,
 	isNestedNode = false,
 	isInsideOfInlineExtension = false,
-	nodeType,
+	isInRenderer = false,
 }: MediaSingleWrapperProps) => {
 	const calculatedWidth = roundToClosestEvenPxValue(
 		isExtendedResizeExperienceOn
@@ -309,13 +308,15 @@ export const MediaSingleDimensionHelper = ({
 			minWidth: '100%',
 		})}
 
-		/* If container doesn't exists, it will fallback to this */
-		max-width: ${isSSR() && !calculatedMaxWidth.endsWith('%')
-			? Math.max(
-					parseInt(calculatedWidth.replace('px', '')),
-					parseInt(calculatedMaxWidth.replace('px', '')),
-				) + 'px'
-			: calculatedMaxWidth};
+		${isInRenderer
+			? css({
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries
+					'@container ak-renderer-wrapper (min-width: 1px)': {
+						maxWidth: '100cqw',
+					},
+				})
+			: `max-width: ${calculatedMaxWidth};`}
+		
 		${isExtendedResizeExperienceOn &&
 		`&[class*='is-resizing'] {
     .new-file-experience-wrapper {

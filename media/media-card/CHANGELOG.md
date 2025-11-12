@@ -1,5 +1,32 @@
 # @atlaskit/media-card
 
+## 79.7.0
+
+### Minor Changes
+
+- [`7ecc830bdd14e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ecc830bdd14e) -
+  Updated the image renderer to maintain ssr dimensions if the returned image is the same ratio as
+  the parent, and maintained the native "lazy" attribute for images that are in view to avoid late
+  mutation
+
+### Patch Changes
+
+- Updated dependencies
+
+## 79.6.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 79.6.3
+
+### Patch Changes
+
+- [`93e3d7d5724d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93e3d7d5724d0) -
+  FG cleanup - platform_media_compiled
+- Updated dependencies
+
 ## 79.6.2
 
 ### Patch Changes

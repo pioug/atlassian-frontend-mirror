@@ -3,6 +3,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 import { act, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 import { Main } from '../../main/main';
@@ -22,9 +23,7 @@ import {
 	filterFromConsoleErrorOutput,
 	parseCssErrorRegex,
 	type ResetConsoleErrorFn,
-	resetMatchMedia,
-	setMediaQuery,
-} from './_test-utils';
+} from './_filter-from-console-error-output';
 
 /**
  * Mocking `TopNavStart` here because JSDOM struggles to properly resolve the Compiled styles,

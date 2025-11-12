@@ -2,12 +2,15 @@ import type { Change } from 'prosemirror-changeset';
 import type { IntlShape } from 'react-intl-next';
 
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
-import { trackChangesMessages } from '@atlaskit/editor-common/messages';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
+import {
+	createDeletedStyleWrapperWithoutOpacity,
+	handleBlockNodeView,
+} from './deletedBlocksHandler';
 import { handleDeletedRows } from './deletedRowsHandler';
 import { findSafeInsertPos } from './findSafeInsertPos';
 import type { NodeViewSerializer } from './NodeViewSerializer';
@@ -96,63 +99,6 @@ const getEditorStyleNode = (nodeName: string, colourScheme?: 'standard' | 'tradi
 	}
 };
 
-const getDeletedStyleNode = (nodeName: string) => {
-	switch (nodeName) {
-		case 'blockquote':
-			return deletedStyleQuoteNode;
-		case 'expand':
-		case 'decisionList':
-			return deletedBlockOutline;
-		case 'panel':
-		case 'codeBlock':
-			return deletedBlockOutlineRounded;
-		default:
-			return undefined;
-	}
-};
-
-const shouldShowRemovedLozenge = (nodeName: string) => {
-	switch (nodeName) {
-		case 'expand':
-		case 'codeBlock':
-		case 'mediaSingle':
-		case 'panel':
-		case 'decisionList':
-			return true;
-		default:
-			return false;
-	}
-};
-
-const shouldFitContentWidth = (nodeName: string) => {
-	switch (nodeName) {
-		case 'mediaSingle':
-		case 'embedCard':
-		case 'blockCard':
-			return true;
-		default:
-			return false;
-	}
-};
-
-const shouldAddShowDiffDeletedNodeClass = (nodeName: string) => {
-	switch (nodeName) {
-		case 'mediaSingle':
-		case 'embedCard':
-			return true;
-		default:
-			return false;
-	}
-};
-
-/**
- * Checks if a node should apply deleted styles directly without wrapper
- * to preserve natural block-level margins
- */
-const shouldApplyDeletedStylesDirectly = (nodeName: string): boolean => {
-	return nodeName === 'blockquote' || nodeName === 'heading';
-};
-
 const editingStyleQuoteNode = convertToInlineCss({
 	borderLeft: `2px solid ${token('color.border.accent.purple')}`,
 });
@@ -189,49 +135,6 @@ const traditionalStyleCardBlockNode = convertToInlineCss({
 	borderRadius: token('radius.medium'),
 });
 
-const deletedStyleQuoteNode = convertToInlineCss({
-	borderLeft: `2px solid ${token('color.border.accent.gray')}`,
-});
-
-const deletedBlockOutline = convertToInlineCss({
-	boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
-	borderRadius: token('radius.small'),
-});
-
-const deletedBlockOutlineRounded = convertToInlineCss({
-	boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
-	borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
-});
-
-/**
- * Inline decoration used for insertions as the content already exists in the document
- *
- * @param change Changeset "change" containing information about the change content + range
- * @returns Prosemirror inline decoration
- */
-export const createBlockChangedDecoration = (
-	change: { from: number; name: string; to: number },
-	colourScheme?: 'standard' | 'traditional',
-) =>
-	Decoration.node(
-		change.from,
-		change.to,
-		{
-			style: getEditorStyleNode(change.name, colourScheme),
-			'data-testid': 'show-diff-changed-decoration-node',
-		},
-		{},
-	);
-
-interface DeletedContentDecorationProps {
-	change: Pick<Change, 'fromA' | 'toA' | 'fromB' | 'deleted'>;
-	colourScheme?: 'standard' | 'traditional';
-	doc: PMNode;
-	intl: IntlShape;
-	newDoc: PMNode;
-	nodeViewSerializer: NodeViewSerializer;
-}
-
 const deletedContentStyle = convertToInlineCss({
 	color: token('color.text.accent.gray'),
 	textDecoration: 'line-through',
@@ -266,174 +169,42 @@ const deletedTraditionalContentStyleUnbounded = convertToInlineCss({
 	zIndex: 1,
 });
 
-const lozengeStyle = convertToInlineCss({
-	display: 'inline-flex',
-	boxSizing: 'border-box',
-	position: 'static',
-	blockSize: 'min-content',
-	borderRadius: token('radius.small'),
-	overflow: 'hidden',
-	paddingInlineStart: token('space.050'),
-	paddingInlineEnd: token('space.050'),
-	backgroundColor: token('color.background.accent.gray.subtler'),
-	font: token('font.body.small'),
-	fontWeight: token('font.weight.bold'),
-	textOverflow: 'ellipsis',
-	whiteSpace: 'nowrap',
-	color: token('color.text.warning.inverse'),
-});
-
-const getDeletedContentStyleUnbounded = (colourScheme?: 'standard' | 'traditional') =>
+export const getDeletedContentStyleUnbounded = (colourScheme?: 'standard' | 'traditional') =>
 	colourScheme === 'traditional'
 		? deletedTraditionalContentStyleUnbounded
 		: deletedContentStyleUnbounded;
 
-const getDeletedContentStyle = (colourScheme?: 'standard' | 'traditional') =>
+export const getDeletedContentStyle = (colourScheme?: 'standard' | 'traditional') =>
 	colourScheme === 'traditional' ? deletedTraditionalContentStyle : deletedContentStyle;
 
 /**
- * Creates a "Removed" lozenge to be displayed at the top right corner of deleted block nodes
+ * Inline decoration used for insertions as the content already exists in the document
+ *
+ * @param change Changeset "change" containing information about the change content + range
+ * @returns Prosemirror inline decoration
  */
-const createRemovedLozenge = (intl: IntlShape, nodeName?: string): HTMLElement => {
-	const container = document.createElement('span');
+export const createBlockChangedDecoration = (
+	change: { from: number; name: string; to: number },
+	colourScheme?: 'standard' | 'traditional',
+) =>
+	Decoration.node(
+		change.from,
+		change.to,
+		{
+			style: getEditorStyleNode(change.name, colourScheme),
+			'data-testid': 'show-diff-changed-decoration-node',
+		},
+		{},
+	);
 
-	let borderTopRightRadius: string | undefined;
-	let borderTopLeftRadius: string | undefined;
-	if (['expand', 'decisionList'].includes(nodeName || '')) {
-		borderTopRightRadius = token('radius.small');
-	} else if (['panel', 'codeBlock'].includes(nodeName || '')) {
-		borderTopRightRadius = `calc(${token('radius.xsmall')} + 1px)`;
-	} else if (nodeName === 'mediaSingle') {
-		borderTopLeftRadius = token('radius.small');
-	}
-
-	const containerStyle = convertToInlineCss({
-		position: 'absolute',
-		top: nodeName === 'mediaSingle' ? token('space.300') : token('space.0'),
-		right: nodeName === 'mediaSingle' ? undefined : token('space.0'),
-		left: nodeName === 'mediaSingle' ? token('space.0') : undefined,
-		zIndex: 2,
-		pointerEvents: 'none',
-		display: 'flex',
-		overflow: 'hidden',
-		borderTopRightRadius,
-		borderTopLeftRadius,
-	});
-
-	container.setAttribute('style', containerStyle);
-	container.setAttribute('data-testid', 'show-diff-removed-lozenge');
-
-	// Create vanilla HTML lozenge element with Atlaskit Lozenge styling (visual refresh)
-	const lozengeElement = document.createElement('span');
-
-	lozengeElement.setAttribute('style', lozengeStyle);
-	lozengeElement.textContent = intl.formatMessage(trackChangesMessages.removed).toUpperCase();
-
-	container.appendChild(lozengeElement);
-
-	return container;
-};
-
-/**
- * Wraps a block node in a container with relative positioning to support absolute positioned lozenge
- */
-const createBlockNodeWrapper = (nodeName: string) => {
-	const wrapper = document.createElement('div');
-
-	const fitContent = shouldFitContentWidth(nodeName);
-	const baseStyle = convertToInlineCss({
-		position: 'relative',
-		display: fitContent ? 'inline-block' : 'block',
-		width: fitContent ? 'fit-content' : undefined,
-		height: fitContent ? 'fit-content' : undefined,
-		opacity: 1,
-	});
-
-	wrapper.setAttribute('style', baseStyle);
-
-	return wrapper;
-};
-
-/**
- * Wraps content with deleted styling without opacity (for use when content is a direct child of dom)
- */
-const createDeletedStyleWrapperWithoutOpacity = (colourScheme?: 'standard' | 'traditional') => {
-	const wrapper = document.createElement('span');
-	wrapper.setAttribute('style', getDeletedContentStyle(colourScheme));
-	return wrapper;
-};
-
-/**
- * Applies deleted styles directly to an HTML element by merging with existing styles
- */
-const applyDeletedStylesToElement = (
-	element: HTMLElement,
-	targetNode: PMNode,
-	colourScheme: 'standard' | 'traditional' | undefined,
-): void => {
-	const currentStyle = element.getAttribute('style') || '';
-	const deletedContentStyle = getDeletedContentStyle(colourScheme);
-	const nodeSpecificStyle = getDeletedStyleNode(targetNode.type.name) || '';
-
-	element.setAttribute('style', `${currentStyle}${deletedContentStyle}${nodeSpecificStyle}`);
-};
-
-/**
- * Appends a block node with wrapper, lozenge, and appropriate styling
- */
-const appendBlockNodeWithWrapper = (
-	dom: HTMLElement,
-	nodeView: Node,
-	targetNode: PMNode,
-	colourScheme: 'standard' | 'traditional' | undefined,
-	intl: IntlShape,
-) => {
-	const blockWrapper = createBlockNodeWrapper(targetNode.type.name);
-
-	if (shouldShowRemovedLozenge(targetNode.type.name)) {
-		const lozenge = createRemovedLozenge(intl, targetNode.type.name);
-		blockWrapper.append(lozenge);
-	}
-
-	// Wrap the nodeView in a content wrapper that has the opacity style AND the box-shadow
-	// This keeps the lozenge at full opacity while the content AND border are faded
-	const contentWrapper = document.createElement('div');
-	const nodeStyle = getDeletedStyleNode(targetNode.type.name);
-	contentWrapper.setAttribute('style', `${getDeletedContentStyle(colourScheme)}${nodeStyle || ''}`);
-	contentWrapper.append(nodeView);
-
-	blockWrapper.append(contentWrapper);
-
-	if (nodeView instanceof HTMLElement) {
-		if (shouldAddShowDiffDeletedNodeClass(targetNode.type.name)) {
-			nodeView.classList.add('show-diff-deleted-node');
-		}
-	}
-
-	dom.append(blockWrapper);
-};
-
-/**
- * Handles all block node rendering with appropriate deleted styling.
- * For blockquote and heading nodes, applies styles directly to preserve natural margins.
- * For other block nodes, uses wrapper approach with optional lozenge.
- */
-const handleBlockNodeView = (
-	dom: HTMLElement,
-	nodeView: Node,
-	targetNode: PMNode,
-	colourScheme: 'standard' | 'traditional' | undefined,
-	intl: IntlShape,
-): void => {
-	if (shouldApplyDeletedStylesDirectly(targetNode.type.name) && nodeView instanceof HTMLElement) {
-		// Apply deleted styles directly to preserve natural block-level margins
-		applyDeletedStylesToElement(nodeView, targetNode, colourScheme);
-		dom.append(nodeView);
-	} else {
-		// Use wrapper approach for other block nodes
-		appendBlockNodeWithWrapper(dom, nodeView, targetNode, colourScheme, intl);
-	}
-};
+interface DeletedContentDecorationProps {
+	change: Pick<Change, 'fromA' | 'toA' | 'fromB' | 'deleted'>;
+	colourScheme?: 'standard' | 'traditional';
+	doc: PMNode;
+	intl: IntlShape;
+	newDoc: PMNode;
+	nodeViewSerializer: NodeViewSerializer;
+}
 
 export const createDeletedContentDecoration = ({
 	change,

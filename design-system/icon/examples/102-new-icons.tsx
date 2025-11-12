@@ -5,11 +5,11 @@ import Heading from '@atlaskit/heading';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 import AppIcon from '../core/app';
+import ChevronDownIcon from '../core/chevron-down';
 import AppIconMigration from '../core/migration/app--addon';
+import ChevronDownIconMigration from '../core/migration/chevron-down--hipchat-chevron-down';
 import AppIconOld from '../glyph/addon';
 import HipchatChevronDownOld from '../glyph/hipchat/chevron-down';
-import ChevronDownIcon from '../utility/chevron-down';
-import ChevronDownIconMigration from '../utility/migration/chevron-down--hipchat-chevron-down';
 
 const iconContainerStyles = xcss({
 	border: '1px dashed',
@@ -30,13 +30,13 @@ const IconSizeExample = () => {
 
 			<Inline space="space.100">
 				<IconContainer>
-					<ChevronDownIcon label="" />
+					<ChevronDownIcon label="" size="small" />
 				</IconContainer>
 				<IconContainer>
-					<ChevronDownIcon label="" spacing="compact" />
+					<ChevronDownIcon label="" spacing="compact" size="small" />
 				</IconContainer>
 				<IconContainer>
-					<ChevronDownIcon label="" spacing="spacious" />
+					<ChevronDownIcon label="" spacing="spacious" size="small" />
 				</IconContainer>
 				<IconContainer>
 					<AppIcon label="" spacing="none" />
@@ -56,6 +56,7 @@ const IconSizeExample = () => {
 						label=""
 						LEGACY_fallbackIcon={HipchatChevronDownOld}
 						LEGACY_size="small"
+						size="small"
 					/>
 				</IconContainer>
 				<IconContainer>
@@ -69,7 +70,7 @@ const IconSizeExample = () => {
 
 			<Inline space="space.100">
 				<IconContainer>
-					<ChevronDownIconMigration label="" LEGACY_size="small" />
+					<ChevronDownIconMigration label="" LEGACY_size="small" size="small" />
 				</IconContainer>
 				<IconContainer>
 					<AppIconMigration label="" spacing="none" LEGACY_size="small" />

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.5.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.5.7
 
 ### Patch Changes

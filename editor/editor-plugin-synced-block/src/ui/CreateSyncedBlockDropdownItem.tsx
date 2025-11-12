@@ -78,11 +78,11 @@ export const CreateOrCopySyncedBlockDropdownItem = ({
 }: {
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined;
 }) => {
-	const { menuTriggerBy } = useSharedPluginStateWithSelector(api, ['blockControls'], (states) => ({
-		menuTriggerBy: states.blockControlsState?.menuTriggerBy,
+	const { activeNodeType } = useSharedPluginStateWithSelector(api, ['blockControls'], (states) => ({
+		activeNodeType: states.blockControlsState?.activeNode?.nodeType ?? undefined,
 	}));
 
-	if (menuTriggerBy === 'syncBlock' || menuTriggerBy === 'bodiedSyncBlock') {
+	if (activeNodeType === 'syncBlock' || activeNodeType === 'bodiedSyncBlock') {
 		return <CopySyncedBlockDropdownItem api={api} />;
 	} else {
 		return <CreateSyncedBlockDropdownItem api={api} />;

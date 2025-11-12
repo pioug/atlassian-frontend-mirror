@@ -25,6 +25,12 @@ export const resourceProvider = mentionResourceProvider;
 export const slowResourceProvider = mentionSlowResourceProvider;
 export const sampleAvatarUrl = mentionSampleAvatarUrl;
 
+export const withLocalResource = <T extends { avatarUrl?: string }>(items: T[]): T[] => {
+	return items.map((item) => ({ ...item, avatarUrl: mentionSampleAvatarUrl }));
+};
+
+export const mentionsWithLocalResource: MentionDescription[] = withLocalResource(mentionsData);
+
 export const generateMentionItem = (component: JSX.Element, description?: string) => (
 	<div>
 		<Text as="p">{description}</Text>

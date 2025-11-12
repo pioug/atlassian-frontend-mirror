@@ -83,7 +83,7 @@ export function createInputRulePlugin(
 				expValEquals('platform_editor_lovability_inline_code', 'isEnabled', true)
 			) {
 				const prevSelection = oldState.selection.map(tr.doc, tr.mapping);
-				tr.setSelection(prevSelection);
+				tr.setSelection(new TextSelection(prevSelection.$from));
 			}
 
 			return tr;

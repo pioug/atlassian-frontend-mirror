@@ -28,7 +28,7 @@ export type {
 	LoadingIndicatorProps,
 } from './components/indicators';
 export type { InputProps } from './components/input';
-export type { MenuListProps, MenuProps, NoticeProps } from './components/menu';
+export type { MenuListProps, MenuProps, NoticeProps, MenuPortalProps } from './components/menu';
 export type {
 	MultiValueGenericProps,
 	MultiValueProps,

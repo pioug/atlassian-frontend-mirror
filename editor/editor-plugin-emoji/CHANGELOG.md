@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-emoji
 
+## 7.6.3
+
+### Patch Changes
+
+- [`a8137975c5ecb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8137975c5ecb) -
+  [ux] [EDITOR-2459] css behind an experiment gate to scale emoji sizes with text styles
+- Updated dependencies
+
+## 7.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.6.1
 
 ### Patch Changes

@@ -5,10 +5,7 @@ import {
 	deprecatedCore as deprecatedIconLabCore,
 	deprecatedUtility as deprecatedIconLabUtility,
 } from '@atlaskit/icon-lab/deprecated-map';
-import {
-	deprecatedCore as deprecatedIconCore,
-	deprecatedUtility as deprecatedIconUtility,
-} from '@atlaskit/icon/deprecated-map';
+import { deprecatedCore as deprecatedIconCore } from '@atlaskit/icon/deprecated-map';
 
 import type { DeprecatedCategories, DeprecatedConfig } from './types';
 
@@ -22,7 +19,6 @@ export const getConfig = (specifier: DeprecatedCategories): DeprecatedConfig => 
 		imports: {
 			...parsedConfig.imports,
 			...deprecatedIconCore,
-			...deprecatedIconUtility,
 			...deprecatedIconLabCore,
 			...deprecatedIconLabUtility,
 		},

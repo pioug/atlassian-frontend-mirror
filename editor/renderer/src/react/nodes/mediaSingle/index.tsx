@@ -312,6 +312,7 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 				isInsideOfInlineExtension={isInsideOfInlineExtension}
 				dataAttributes={dataAttributes}
 				editorAppearance={editorAppearance}
+				isInRenderer={true}
 			>
 				<Fragment>{mediaComponent}</Fragment>
 				{allowCaptions && caption}

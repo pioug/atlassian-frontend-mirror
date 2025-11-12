@@ -304,11 +304,13 @@ export class EmojiNodeView implements NodeView {
 		spriteElement.style.backgroundImage = `url(${sprite.url})`;
 		spriteElement.style.backgroundPosition = `${xPositionInPercent}% ${yPositionInPercent}%`;
 		spriteElement.style.backgroundSize = `${sprite.column * 100}% ${sprite.row * 100}%`;
-		spriteElement.style.width = `${defaultEmojiHeight}px`;
 		spriteElement.style.minWidth = `${defaultEmojiHeight}px`;
-		spriteElement.style.height = `${defaultEmojiHeight}px`;
 		spriteElement.style.minHeight = `${defaultEmojiHeight}px`;
 
+		if (!expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)) {
+			spriteElement.style.width = `${defaultEmojiHeight}px`;
+			spriteElement.style.height = `${defaultEmojiHeight}px`;
+		}
 		return spriteElement;
 	}
 

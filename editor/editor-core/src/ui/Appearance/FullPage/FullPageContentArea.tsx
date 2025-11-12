@@ -355,8 +355,10 @@ const Content = React.forwardRef<
 									'--ak-editor-content-area-max-width': !fullWidthMode
 										? Boolean(maxWidthMode) &&
 											expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
-											? `${akEditorUltraWideLayoutWidth + getTotalPadding()}px`
-											: `${theme.layoutMaxWidth + getTotalPadding()}px`
+											? // @ts-ignore
+												`${akEditorUltraWideLayoutWidth + getTotalPadding()}px`
+											: // @ts-ignore
+												`${theme.layoutMaxWidth + getTotalPadding()}px`
 										: `${akEditorFullWidthLayoutWidth + getTotalPadding()}px`,
 								} as React.CSSProperties
 							}

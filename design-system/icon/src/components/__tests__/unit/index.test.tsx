@@ -8,7 +8,6 @@ import BookIcon from '../../../../glyph/book';
 import { size as defaultSize } from '../../..';
 import metadata from '../../../metadata';
 import metadataCore from '../../../metadata-core';
-import metadataUtility from '../../../metadata-utility';
 
 // List all files in a directory in Node.js recursively in a synchronous fashion
 const walkSync = (dir: string, filelist: string[]) => {
@@ -449,20 +448,6 @@ describe('@atlaskit/icon', () => {
 
 			expect(actualPaths.sort()).toEqual(expectedPaths.sort());
 		});
-		it('utility icons align with metadata', () => {
-			// NOTE: An addition is a feature, a removal or rename is a BREAKING CHANGE
-			const expectedIcons = Object.keys(metadataUtility);
-
-			const expectedPaths = expectedIcons.map((a) =>
-				path.join(__dirname, '../../../../utility', `${a}.js`),
-			);
-
-			const actualPaths = walkSync(path.join(__dirname, '../../../../utility'), []).filter(
-				(ab) => /.*\.js$/.test(ab) && !ab.includes('/migration'),
-			);
-
-			expect(actualPaths.sort()).toEqual(expectedPaths.sort());
-		});
 	});
 
 	describe('bundle', () => {
@@ -499,32 +484,6 @@ describe('@atlaskit/icon', () => {
 					it(`should be possible to create the ${oldName} -> ${key} migration icon component`, async () => {
 						const componentName = key === oldName ? key : `${key}--${oldName.replace('/', '-')}`;
 						const component = await import(`../../../../core/migration/${componentName}`);
-
-						const Icon = component.default;
-						render(<Icon label={Icon.name} />);
-						expect(screen.getByRole('img')).toBeInTheDocument();
-						expect(Icon).toBeInstanceOf(Function);
-					});
-				});
-			}
-		});
-
-		Object.keys(metadataUtility).forEach((key) => {
-			it(`should be possible to create the ${key} utility icon component`, async () => {
-				const component = await import(`../../../../utility/${key}`);
-
-				const Icon = component.default;
-				render(<Icon label={Icon.name} />);
-				expect(screen.getByRole('img')).toBeInTheDocument();
-				expect(Icon).toBeInstanceOf(Function);
-			});
-
-			const oldNames = metadataUtility[key].oldName;
-			if (oldNames) {
-				oldNames.forEach((oldName) => {
-					it(`should be possible to create the ${oldName} -> ${key} migration icon component`, async () => {
-						const componentName = key === oldName ? key : `${key}--${oldName.replace('/', '-')}`;
-						const component = await import(`../../../../utility/migration/${componentName}`);
 
 						const Icon = component.default;
 						render(<Icon label={Icon.name} />);

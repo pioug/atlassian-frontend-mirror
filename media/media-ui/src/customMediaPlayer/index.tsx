@@ -9,9 +9,7 @@ import { withMediaAnalyticsContext } from '@atlaskit/media-common';
 
 export const CustomMediaPlayerBase = (
 	props: CustomMediaPlayerProps & WrappedComponentProps & WithAnalyticsEventsProps,
-) => (
-	<CompiledCustomMediaPlayerBase {...props} />
-);
+) => <CompiledCustomMediaPlayerBase {...props} />;
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

@@ -42,7 +42,6 @@ import {
 } from './utils';
 import { groupOptionsByType } from '../util/group-options-by-type';
 import { userPickerOptionsShownUfoExperience } from '../util/ufoExperiences';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { AriaAttributes } from 'react';
 
 export type BaseUserPickerProps = UserPickerProps & {
@@ -595,22 +594,8 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 				name={name}
 				value={value}
 				autoFocus={autoFocus !== undefined ? autoFocus : menuIsOpen}
-				labelId={
-					fg('user_picker_migrate_aria_label_description')
-						? (ariaLabelledBy ?? ariaLabelledByStandard)
-						: undefined
-				}
-				aria-labelledby={
-					fg('user_picker_migrate_aria_label_description') ? undefined : ariaLabelledBy
-				}
-				descriptionId={
-					fg('user_picker_migrate_aria_label_description')
-						? (ariaDescribedBy ?? ariaDescribedByStandard)
-						: undefined
-				}
-				aria-describedby={
-					fg('user_picker_migrate_aria_label_description') ? undefined : ariaDescribedBy
-				}
+				labelId={ariaLabelledBy ?? ariaLabelledByStandard}
+				descriptionId={ariaDescribedBy ?? ariaDescribedByStandard}
 				aria-live={ariaLive}
 				aria-required={required} // This has been added as a safety net.
 				required={required}
@@ -665,7 +650,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 				textFieldBackgroundColor={textFieldBackgroundColor}
 				header={header}
 				placeholderAvatar={placeholderAvatar}
-				{...(fg('user_picker_migrate_aria_label_description') ? restAriaProps : this.ariaProps)}
+				{...restAriaProps}
 				{...pickerProps}
 				{...(UNSAFE_hasDraggableParentComponent && {
 					onValueContainerClick: this.handleClickDraggableParentComponent,

@@ -17,6 +17,9 @@ import {
 	DELETE_SECTION_RANK,
 	NESTED_FORMAT_MENU_SECTION,
 	NESTED_FORMAT_MENU,
+	TRANSFORM_MENU_ITEM_RANK,
+	TRANSFORM_STRUCTURE_MENU_SECTION,
+	TRANSFORM_HEADINGS_MENU_SECTION,
 } from '@atlaskit/editor-common/block-menu';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
@@ -91,6 +94,36 @@ const getFormatMenuComponents = (
 			},
 			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
 				return <ToolbarDropdownItemSection>{children}</ToolbarDropdownItemSection>;
+			},
+		},
+		{
+			type: 'block-menu-section' as const,
+			key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
+			parent: {
+				type: 'block-menu-nested' as const,
+				key: NESTED_FORMAT_MENU.key,
+				rank: TRANSFORM_MENU_ITEM_RANK[TRANSFORM_STRUCTURE_MENU_SECTION.key],
+			},
+			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
+				return (
+					<ToolbarDropdownItemSection title="Structure">{children}</ToolbarDropdownItemSection>
+				);
+			},
+		},
+		{
+			type: 'block-menu-section' as const,
+			key: TRANSFORM_HEADINGS_MENU_SECTION.key,
+			parent: {
+				type: 'block-menu-nested' as const,
+				key: NESTED_FORMAT_MENU.key,
+				rank: TRANSFORM_MENU_ITEM_RANK[TRANSFORM_HEADINGS_MENU_SECTION.key],
+			},
+			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
+				return (
+					<ToolbarDropdownItemSection title="Headings" hasSeparator>
+						{children}
+					</ToolbarDropdownItemSection>
+				);
 			},
 		},
 		{

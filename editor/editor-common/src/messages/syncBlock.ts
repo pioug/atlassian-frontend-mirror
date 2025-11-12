@@ -117,7 +117,13 @@ export const syncBlockMessages = defineMessages({
 	},
 	createSyncBlockLabel: {
 		id: 'fabric.editor.createSyncBlockLabel',
-		defaultMessage: 'Create a synced block',
+		defaultMessage: 'Create synced block',
 		description: 'Label for button which creates a new synced block',
+	},
+	newLozenge: {
+		id: 'fabric.editor.syncBlock.toolbar.newLozenge',
+		defaultMessage: 'New',
+		description:
+			'Text in lozenge that appears next to the create synced block button in the toolbar dropdown menu to show that it is a new feature',
 	},
 });

@@ -294,19 +294,6 @@ export const InputQuery = React.memo(
 			],
 		);
 
-		// Remove when cleaning up platform_editor_a11y_remove_input_query_on_click
-		const onClick = useCallback(
-			(event: React.MouseEvent) => {
-				event.stopPropagation();
-				event.preventDefault();
-				onQueryFocus();
-				inputRef.current?.focus();
-
-				return false;
-			},
-			[onQueryFocus],
-		);
-
 		useLayoutEffect(() => {
 			if (!ref.current) {
 				return;
@@ -489,11 +476,9 @@ export const InputQuery = React.memo(
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			element.addEventListener('beforeinput', beforeinput);
-			if (expValEquals('platform_editor_paste_rich_text_bugfix', 'isEnabled', true)) {
-				// Ignored via go/ees005
-				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-				element.addEventListener('paste', onPaste);
-			}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+			element.addEventListener('paste', onPaste);
 
 			return () => {
 				// Ignored via go/ees005
@@ -508,11 +493,9 @@ export const InputQuery = React.memo(
 				// Ignored via go/ees005
 				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				element.removeEventListener('beforeinput', beforeinput);
-				if (expValEquals('platform_editor_paste_rich_text_bugfix', 'isEnabled', true)) {
-					// Ignored via go/ees005
-					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-					element.removeEventListener('paste', onPaste);
-				}
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+				element.removeEventListener('paste', onPaste);
 
 				if (browser.safari) {
 					// Ignored via go/ees005
@@ -581,8 +564,6 @@ export const InputQuery = React.memo(
 		return (
 			<Fragment>
 				{triggerQueryPrefix}
-				{/* When cleaning up platform_editor_a11y_remove_input_query_on_click remove the eslint disable */}
-				{/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable */}
 				<span
 					css={[
 						querySpanStyles,
@@ -592,8 +573,7 @@ export const InputQuery = React.memo(
 					contentEditable={true}
 					ref={ref}
 					onKeyUp={onKeyUp}
-					onClick={fg('platform_editor_a11y_remove_input_query_on_click') ? undefined : onClick}
-					tabIndex={fg('platform_editor_a11y_remove_input_query_on_click') ? -1 : undefined}
+					tabIndex={-1}
 					onInput={isSearchPlaceholderEnabled ? onInput : undefined}
 					role="combobox"
 					aria-controls={TYPE_AHEAD_DECORATION_ELEMENT_ID}

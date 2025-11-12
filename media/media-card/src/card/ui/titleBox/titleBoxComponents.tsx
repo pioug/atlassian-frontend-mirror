@@ -14,21 +14,13 @@ import {
 } from './types';
 
 export const TitleBoxWrapper = (props: TitleBoxWrapperProps) => (
-  <CompiledTitleBoxWrapper {...props} />
+	<CompiledTitleBoxWrapper {...props} />
 );
 
-export const TitleBoxHeader = (props: TitleBoxHeaderProps) => (
-  <CompiledTitleBoxHeader {...props} />
-);
+export const TitleBoxHeader = (props: TitleBoxHeaderProps) => <CompiledTitleBoxHeader {...props} />;
 
-export const TitleBoxFooter = (props: TitleBoxFooterProps) => (
-  <CompiledTitleBoxFooter {...props} />
-);
+export const TitleBoxFooter = (props: TitleBoxFooterProps) => <CompiledTitleBoxFooter {...props} />;
 
-export const TitleBoxIcon = (props: any) => (
-  <CompiledTitleBoxIcon {...props} />
-);
+export const TitleBoxIcon = (props: any) => <CompiledTitleBoxIcon {...props} />;
 
-export const ErrorMessageWrapper = (props: any) => (
-  <CompiledErrorMessageWrapper {...props} />
-);
+export const ErrorMessageWrapper = (props: any) => <CompiledErrorMessageWrapper {...props} />;

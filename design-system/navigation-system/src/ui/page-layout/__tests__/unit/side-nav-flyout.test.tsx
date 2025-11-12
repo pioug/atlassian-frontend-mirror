@@ -10,6 +10,7 @@ import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open
 import { Popup } from '@atlaskit/popup';
 import Tooltip from '@atlaskit/tooltip';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 
 import { FlyoutMenuItem } from '../../../menu-item/flyout-menu-item/flyout-menu-item';
 import { FlyoutMenuItemContent } from '../../../menu-item/flyout-menu-item/flyout-menu-item-content';
@@ -25,9 +26,7 @@ import {
 	filterFromConsoleErrorOutput,
 	parseCssErrorRegex,
 	type ResetConsoleErrorFn,
-	resetMatchMedia,
-	setMediaQuery,
-} from './_test-utils';
+} from './_filter-from-console-error-output';
 
 /**
  * In this test suite, we need to use `fireEvent` instead of `userEvent` when interacting with

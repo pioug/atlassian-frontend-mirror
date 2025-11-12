@@ -492,7 +492,7 @@ const HoverLinkOverlayNew = ({
 	);
 };
 
-const HoverLinkOverlay = componentWithCondition(
+const HoverLinkOverlay: React.ComponentType<HoverLinkOverlayProps> = componentWithCondition(
 	() => expValEquals('platform_editor_hoverlink_ui_fixes_exp', 'cohort', 'css_js_changes'),
 	HoverLinkOverlayNew,
 	HoverLinkOverlayOriginal,

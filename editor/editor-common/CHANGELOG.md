@@ -1,5 +1,40 @@
 # @atlaskit/editor-common
 
+## 110.28.0
+
+### Minor Changes
+
+- [`a8137975c5ecb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8137975c5ecb) -
+  [ux] [EDITOR-2459] css behind an experiment gate to scale emoji sizes with text styles
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.27.3
+
+### Patch Changes
+
+- [`9e7aa73151ed0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e7aa73151ed0) -
+  [ux] EDITOR-2670 add selected state for sync block when selection is inside
+- [`66669e4c6a5d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66669e4c6a5d3) -
+  [ux] Update block menu renderer to support mulitple sections inside of a nested menu
+- Updated dependencies
+
+## 110.27.2
+
+### Patch Changes
+
+- [`7e8c949e9c8c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e8c949e9c8c0) -
+  [ux] Add new lozenge next to create synced block in toolbar and typeahead, and text updates
+- Updated dependencies
+
+## 110.27.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 110.27.0
 
 ### Minor Changes

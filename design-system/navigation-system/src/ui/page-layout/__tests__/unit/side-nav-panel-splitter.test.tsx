@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 import { act, render, screen, userEvent } from '@atlassian/testing-library';
 
 import { SideNavPanelSplitter } from '../../panel-splitter/side-nav-panel-splitter';
@@ -11,9 +12,7 @@ import {
 	filterFromConsoleErrorOutput,
 	parseCssErrorRegex,
 	type ResetConsoleErrorFn,
-	resetMatchMedia,
-	setMediaQuery,
-} from './_test-utils';
+} from './_filter-from-console-error-output';
 
 const createUser = () => userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 

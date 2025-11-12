@@ -2,10 +2,10 @@ import React, { type ComponentProps } from 'react';
 import OldButton from '@atlaskit/button';
 import Button, { IconButton } from '@atlaskit/button/new';
 
+import AddIcon from '../../core/add';
+import ChevronDownIcon from '../../core/chevron-down';
 import AddIconOld from '../../glyph/add';
 import ChevronDownOld from '../../glyph/hipchat/chevron-down';
-import AddIcon from '../../core/add';
-import ChevronDownIcon from '../../utility/chevron-down';
 
 import Heading from '@atlaskit/heading';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -26,6 +26,7 @@ const FFChevronDownIcon = (props: ComponentProps<typeof AddIcon>) => (
 		LEGACY_fallbackIcon={ChevronDownOld}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
+		size="small"
 	/>
 );
 
@@ -70,7 +71,7 @@ const IconSizeExample = () => {
 						<Inline space="space.100" alignBlock="center">
 							<OldButton
 								iconBefore={<AddIcon label="" color="currentColor" />}
-								iconAfter={<ChevronDownIcon label="" color="currentColor" />}
+								iconAfter={<ChevronDownIcon label="" color="currentColor" size="small" />}
 								isSelected={isSelected}
 							>
 								Button
@@ -88,7 +89,13 @@ const IconSizeExample = () => {
 							Old button, new icon
 						</Inline>
 						<Inline space="space.100" alignBlock="center">
-							<Button isSelected={isSelected} iconBefore={AddIcon} iconAfter={ChevronDownIcon}>
+							<Button
+								isSelected={isSelected}
+								iconBefore={AddIcon}
+								iconAfter={(iconProps) => (
+									<ChevronDownIcon {...iconProps} color="currentColor" size="small" />
+								)}
+							>
 								Button
 							</Button>
 							<Button isSelected={isSelected} iconBefore={AddIcon}>

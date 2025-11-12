@@ -6,6 +6,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
+import { isAnchorSupported } from '../pm-plugins/utils/anchor';
 import type { PluginInjectionAPI } from '../types';
 
 // TODO: ED-23976 - Clean up
@@ -74,6 +75,7 @@ export const tableHeaderView = (options: TableCellViewOptions) => {
 export const tableRowView = (options: TableCellViewOptions) => {
 	return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
 		if (
+			isAnchorSupported() &&
 			expValEquals(
 				'platform_editor_table_sticky_header_improvements',
 				'cohort',

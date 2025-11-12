@@ -1,5 +1,13 @@
 # @atlaskit/prosemirror-input-rules
 
+## 3.6.1
+
+### Patch Changes
+
+- [`483638368fadb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/483638368fadb) -
+  [ux] [EDITOR-2675] add test coverage and prevent range selections after inline formatting
+- Updated dependencies
+
 ## 3.6.0
 
 ### Minor Changes

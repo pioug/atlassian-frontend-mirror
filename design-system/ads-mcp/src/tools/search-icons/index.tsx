@@ -35,7 +35,6 @@ const icons = Object.entries(coreIconMetadata)
 		keywords: icon.keywords,
 		status: icon.status,
 		usage: icon.usage,
-		type: icon.type,
 		shouldRecommendSmallIcon: icon.shouldRecommendSmallIcon,
 	}))
 	.filter((icon) => icon.status === 'published');

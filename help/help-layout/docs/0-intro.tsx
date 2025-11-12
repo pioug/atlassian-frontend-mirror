@@ -3,7 +3,7 @@ import { md, code, Props, AtlassianInternalWarning } from '@atlaskit/docs';
 
 const helpPanelProps = require('!!extract-react-types-loader!../src/components/HelpLayout');
 
-const _default_1: any = md`
+const intro: React.ReactElement = md`
   ${(<AtlassianInternalWarning />)}
 
   ## Usage
@@ -60,4 +60,4 @@ export default Example;
 
   ${(<Props props={helpPanelProps} />)}
 `;
-export default _default_1;
+export default intro;

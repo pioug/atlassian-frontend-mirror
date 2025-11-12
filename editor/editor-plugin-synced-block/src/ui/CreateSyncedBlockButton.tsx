@@ -40,7 +40,7 @@ export const CreateSyncedBlockButton = ({ api }: CreateSyncedBlockButtonProps) =
 		<ToolbarTooltip content={message}>
 			<ToolbarButton
 				label={message}
-				iconBefore={<BlockSyncedIcon label="" />}
+				iconBefore={<BlockSyncedIcon size="small" label="" />}
 				isDisabled={isDisabled}
 				onClick={onClick}
 			/>

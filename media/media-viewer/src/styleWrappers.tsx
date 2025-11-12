@@ -59,8 +59,7 @@ type DataTestID = {
 
 type BlanketProps = DataTestID & Children & ClassName;
 // We are keeping this data-testid since JIRA is still using it in their codebase to perform checks. Before removing this, we need to ensure this 'media-viewer-popup' test id is not being used anywhere else in other codebases
-export const Blanket = (props: BlanketProps) =>
-<CompiledBlanket {...props} />;
+export const Blanket = (props: BlanketProps) => <CompiledBlanket {...props} />;
 
 type HeaderWrapperProps = {
 	isArchiveSideBarVisible: boolean;
@@ -72,15 +71,11 @@ export const HeaderWrapper = (props: ClassName & Children & HeaderWrapperProps) 
 
 HeaderWrapper.displayName = 'HeaderWrapper';
 
-export const ListWrapper = (props: Children) => (
-	<CompiledListWrapper {...props} />
-);
+export const ListWrapper = (props: Children) => <CompiledListWrapper {...props} />;
 
 ListWrapper.displayName = 'ListWrapper';
 
-export const ArrowsWrapper = (props: Children) => (
-	<CompiledArrowsWrapper {...props} />
-);
+export const ArrowsWrapper = (props: Children) => <CompiledArrowsWrapper {...props} />;
 
 export const CloseButtonWrapper = (props: ClassName & Children) => (
 	<CompiledCloseButtonWrapper {...props} />
@@ -90,21 +85,13 @@ type ContentWrapperProps = {
 	isSidebarVisible: boolean | undefined;
 } & Children;
 
-export const ContentWrapper = (props: ContentWrapperProps) => (
-	<CompiledContentWrapper {...props} />
-);
+export const ContentWrapper = (props: ContentWrapperProps) => <CompiledContentWrapper {...props} />;
 
-export const ZoomWrapper = (props: ClassName & Children) => (
-	<CompiledZoomWrapper {...props} />
-);
+export const ZoomWrapper = (props: ClassName & Children) => <CompiledZoomWrapper {...props} />;
 
-export const ZoomCenterControls = (props: Children) => (
-	<CompiledZoomCenterControls {...props} />
-);
+export const ZoomCenterControls = (props: Children) => <CompiledZoomCenterControls {...props} />;
 
-export const ZoomRightControls = (props: Children) => (
-	<CompiledZoomRightControls {...props} />
-);
+export const ZoomRightControls = (props: Children) => <CompiledZoomRightControls {...props} />;
 
 export const ZoomLevelIndicator = (props: Children) => (
 	<CompiledZoomLevelIndicator {...props} data-testid="zoom-level-indicator" />
@@ -125,9 +112,7 @@ type ErrorImageProps = {
 	src: string;
 };
 
-export const ErrorImage = (props: ErrorImageProps) => (
-	<CompiledErrorImage {...props} />
-);
+export const ErrorImage = (props: ErrorImageProps) => <CompiledErrorImage {...props} />;
 
 type VideoProps = {
 	controls: boolean;
@@ -152,9 +137,7 @@ export const LeftWrapper = (props: Children & LeftWrapperProps) => (
 	<CompiledLeftWrapper {...props} />
 );
 
-export const RightWrapper = (props: Children) => (
-	<CompiledRightWrapper {...props} />
-);
+export const RightWrapper = (props: Children) => <CompiledRightWrapper {...props} />;
 
 // header.tsx
 export type HeaderProps = {
@@ -163,9 +146,7 @@ export type HeaderProps = {
 
 export const Header = (props: Children & HeaderProps & ClassName) => <CompiledHeader {...props} />;
 
-export const LeftHeader = (props: Children) => (
-	<CompiledLeftHeader {...props} />
-);
+export const LeftHeader = (props: Children) => <CompiledLeftHeader {...props} />;
 
 export type ImageWrapperProps = {
 	onClick: (event: MouseEvent<HTMLDivElement>) => void;
@@ -173,9 +154,9 @@ export type ImageWrapperProps = {
 } & Children &
 	DataTestID;
 
-export const ImageWrapper = forwardRef<HTMLDivElement, ImageWrapperProps & ClassName>((props, ref) => (
-	<CompiledImageWrapper ref={ref} {...props} />
-));
+export const ImageWrapper = forwardRef<HTMLDivElement, ImageWrapperProps & ClassName>(
+	(props, ref) => <CompiledImageWrapper ref={ref} {...props} />,
+);
 
 export const BaselineExtend = () => <CompiledBaselineExtend />;
 
@@ -198,9 +179,7 @@ export const MedatadataTextWrapper = (props: Children) => (
 	<CompiledMedatadataTextWrapper {...props} />
 );
 
-export const MetadataWrapper = (props: Children) => (
-	<CompiledMetadataWrapper {...props} />
-);
+export const MetadataWrapper = (props: Children) => <CompiledMetadataWrapper {...props} />;
 
 type MetadataFileNameProps = DataTestID & Children;
 
@@ -214,17 +193,13 @@ export const MetadataSubText = (props: MetadataSubTextProps) => (
 	<CompiledMetadataSubText {...props} />
 );
 
-export const MetadataIconWrapper = (props: Children) => (
-	<CompiledMetadataIconWrapper {...props} />
-);
+export const MetadataIconWrapper = (props: Children) => <CompiledMetadataIconWrapper {...props} />;
 
 export interface IconWrapperProps {
 	type: MediaType;
 }
 
-export const RightHeader = (props: Children) => (
-	<CompiledRightHeader {...props} />
-);
+export const RightHeader = (props: Children) => <CompiledRightHeader {...props} />;
 
 export const CustomAudioPlayerWrapper = (props: Children) => (
 	<CompiledCustomAudioPlayerWrapper {...props} />
@@ -232,9 +207,7 @@ export const CustomAudioPlayerWrapper = (props: Children) => (
 
 type AudioPlayerProps = DataTestID & Children;
 
-export const AudioPlayer = (props: AudioPlayerProps) => (
-	<CompiledAudioPlayer {...props} />
-);
+export const AudioPlayer = (props: AudioPlayerProps) => <CompiledAudioPlayer {...props} />;
 
 AudioPlayer.displayName = 'AudioPlayer';
 
@@ -254,13 +227,9 @@ type AudioCoverProps = {
 	src: string;
 };
 
-export const AudioCover = (props: AudioCoverProps) => (
-	<CompiledAudioCover {...props} />
-);
+export const AudioCover = (props: AudioCoverProps) => <CompiledAudioCover {...props} />;
 
-export const DefaultCoverWrapper = (props: Children) => (
-	<CompiledDefaultCoverWrapper {...props} />
-);
+export const DefaultCoverWrapper = (props: Children) => <CompiledDefaultCoverWrapper {...props} />;
 
 export const DownloadButtonWrapper = (props: Children) => (
 	<CompiledDownloadButtonWrapper {...props} />
@@ -274,13 +243,9 @@ export const CustomVideoPlayerWrapper = (props: CustomVideoPlayerWrapperProps) =
 
 type SidebarWrapperProps = DataTestID & Children;
 
-export const SidebarWrapper = (props: SidebarWrapperProps) => (
-	<CompiledSidebarWrapper {...props} />
-);
+export const SidebarWrapper = (props: SidebarWrapperProps) => <CompiledSidebarWrapper {...props} />;
 
-export const SpinnerWrapper = (props: Children) => (
-	<CompiledSpinnerWrapper {...props} />
-);
+export const SpinnerWrapper = (props: Children) => <CompiledSpinnerWrapper {...props} />;
 
 export const FormattedMessageWrapper = (props: Children) => (
 	<CompiledFormattedMessageWrapper {...props} />

@@ -1,9 +1,8 @@
 import legacyMetadata from '../../metadata';
 import metadataCore from '../../metadata-core';
-import metadataUtility from '../../metadata-utility';
 import migrationMap from '../../migration-map';
 
-const newIconKeys = Object.keys(metadataCore).concat(Object.keys(metadataUtility));
+const newIconKeys = Object.keys(metadataCore);
 
 // TODO: skip this test until migration map is updated
 xdescribe('Migration map', () => {

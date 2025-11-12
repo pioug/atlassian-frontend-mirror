@@ -9,7 +9,7 @@ import {
 } from 'eslint-codemod-utils';
 
 import coreIconLabMetadata from '@atlaskit/icon-lab/metadata';
-import { coreIconMetadata, utilityIconMetadata } from '@atlaskit/icon/metadata';
+import { coreIconMetadata } from '@atlaskit/icon/metadata';
 
 import { type DeprecatedImportConfigEntry } from '../../utils/types';
 import { pathWithCustomMessageId } from '../constants';
@@ -124,28 +124,27 @@ export const getDeprecationIconHandler: DeprecationIconHandler = (context: Rule.
 		const shouldTurnOffAutoFixer = getConfigFlag('turnOffAutoFixer', false);
 		for (const [importSource, error] of Object.entries(importErrors)) {
 			if (importSource.includes('/migration/')) {
-				const [_location, type, _migration, name] = importSource.split('/').slice(1);
-				const metadata = type === 'core' ? coreIconMetadata : utilityIconMetadata;
+				const [_location, _, _migration, name] = importSource.split('/').slice(1);
 				const [deprecatedIconName, legacyIconName] = name.split('--');
 
-				const replacement = metadata?.[deprecatedIconName]?.replacement;
+				const replacement = coreIconMetadata[deprecatedIconName]?.replacement;
 				if (replacement && error.data?.unfixable === 'false') {
 					const newIconName = getIconComponentName(replacement.name);
 					if (!shouldTurnOffAutoFixer) {
 						addAutoFix(
 							error,
 							importSource,
-							`${replacement.location}/${replacement.type}/migration/${replacement.name}--${legacyIconName}`,
+							`${replacement.location}/core/migration/${replacement.name}--${legacyIconName}`,
 							newIconName,
 						);
 					}
 				}
 			} else {
-				const [location, type, name] = importSource.split('/').slice(1);
+				const [location, _, name] = importSource.split('/').slice(1);
 
 				let metadata;
 				if (location === 'icon') {
-					metadata = type === 'core' ? coreIconMetadata : utilityIconMetadata;
+					metadata = coreIconMetadata;
 				} else if (location === 'icon-lab') {
 					metadata = coreIconLabMetadata;
 				}
@@ -157,7 +156,7 @@ export const getDeprecationIconHandler: DeprecationIconHandler = (context: Rule.
 						addAutoFix(
 							error,
 							importSource,
-							`${replacement.location}/${replacement.type}/${replacement.name}`,
+							`${replacement.location}/core/${replacement.name}`,
 							newIconName,
 						);
 					}

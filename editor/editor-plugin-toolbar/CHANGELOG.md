@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 3.4.7
+
+### Patch Changes
+
+- [`8263f21e34dff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8263f21e34dff) -
+  [ux] ED-29646 Implement ResponsiveContainer breakpoint preset system
+- Updated dependencies
+
 ## 3.4.6
 
 ### Patch Changes

@@ -57,10 +57,7 @@ describe('Zooming', () => {
 		describe('zoom level indicator', () => {
 			it('shows 100% zoom level', () => {
 				const { component } = setupBase();
-				const zoomText = component
-					.find('[data-testid="zoom-level-indicator"]')
-					.last()
-					.text();
+				const zoomText = component.find('[data-testid="zoom-level-indicator"]').last().text();
 				expect(zoomText).toContain('100 %');
 			});
 		});

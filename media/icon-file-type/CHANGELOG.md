@@ -1,5 +1,11 @@
 # @atlaskit/icon-file-type
 
+## 7.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.6
 
 ### Patch Changes
@@ -228,7 +234,6 @@
   [`d2f7ffb6b78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2f7ffb6b78) - [ux]
   Updated the fill color of the following file icons to use new colors from the new color palette to
   avoid contrast issue in dark mode:
-
   - archive
   - excel-spreadsheet
   - executable
@@ -479,7 +484,6 @@
 - [patch][fd5292fd5a](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5292fd5a):
 
   Corrects accessibility behavior for wrapping span. It now will now:
-
   - conditionally set the `aria-label` if `label` is defined
   - conditionally set the `role` to either `img` if `label` is defined, or `presentation` if it is
     not defined- Updated dependencies
@@ -501,7 +505,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/button@13.3.7
   - @atlaskit/modal-dialog@10.5.2
@@ -517,7 +520,6 @@
 
   Fix main/module fields in package.json pointing to the wrong place- Updated dependencies
   [ccbd1b390b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ccbd1b390b):
-
   - @atlaskit/build-utils@2.6.0
 
 ## 5.0.0
@@ -595,7 +597,6 @@
 ## 4.0.2
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
-
   - This is just a safety release in case anything strange happened in in the previous one. See Pull
     Request #5942 for details
 
@@ -608,7 +609,6 @@
 ## 4.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
@@ -637,7 +637,6 @@
 ## 3.0.6
 
 - [patch][98e11001ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/98e11001ff):
-
   - Removes duplicate babel-runtime dependency
 
 ## 3.0.5
@@ -665,7 +664,6 @@
 ## 3.0.3
 
 - [patch][1d1f6d1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1d1f6d1):
-
   - Make icon glyphs not import metadata
 
 ## 3.0.2
@@ -691,7 +689,6 @@
 ## 3.0.0
 
 - [major][ab9b69c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ab9b69c):
-
   - Remove onClick props as icon is only a presentational placeholder. Please wrap icon into a
     Button or a Link component.
 
@@ -708,7 +705,6 @@
 ## 2.0.0
 
 - [patch][29b160f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/29b160f):
-
   - Simplify the icons build process
 
   Icons no longer need a custom `build` step to be accurate on npm. This has come about by renaming
@@ -718,7 +714,6 @@
 - [major][80304f0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/80304f0):
 
   **NOTE** Unless you are using the `iconsInfo` export, this change is not breaking.
-
   - Rename `iconsInfo` to `metadata` to more accurately reflect its role
 
   This change comes with rethinking what is exported from this object, which no longer includes

@@ -5,6 +5,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import Button from '@atlaskit/button/new';
 import DropdownMenu from '@atlaskit/dropdown-menu';
 import Select, { type OptionType, PopupSelect } from '@atlaskit/select';
+import { resetMatchMedia } from '@atlassian/test-utils';
 
 import { FlyoutMenuItem } from '../../../menu-item/flyout-menu-item/flyout-menu-item';
 import { FlyoutMenuItemContent } from '../../../menu-item/flyout-menu-item/flyout-menu-item-content';
@@ -22,8 +23,7 @@ import {
 	filterFromConsoleErrorOutput,
 	parseCssErrorRegex,
 	type ResetConsoleErrorFn,
-	resetMatchMedia,
-} from './_test-utils';
+} from './_filter-from-console-error-output';
 
 function ControlledPopupSelect({ options }: { options: OptionType[] }) {
 	const [isOpen, setIsOpen] = useState(true);

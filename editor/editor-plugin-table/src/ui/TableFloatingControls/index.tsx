@@ -1,4 +1,11 @@
-import React, { useCallback } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Fragment, useCallback } from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, jsx } from '@emotion/react';
 
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
@@ -37,6 +44,7 @@ interface TableFloatingControlsProps {
 	isNumberColumnEnabled?: boolean;
 	isResizing?: boolean;
 	isTableHovered?: boolean;
+	isTableWrapperOverflowStyled?: boolean;
 	ordering?: TableColumnOrdering;
 	selection?: Selection;
 	stickyHeader?: RowStickyState;
@@ -45,6 +53,13 @@ interface TableFloatingControlsProps {
 	tableRef?: HTMLTableElement;
 	tableWrapperWidth?: number;
 }
+
+const styles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:has(~ .pm-table-wrapper-no-overflow)': {
+		marginTop: 0,
+	},
+});
 
 // Row controls
 export const TableFloatingControls = ({
@@ -143,8 +158,17 @@ export const TableFloatingControls = ({
 	const shouldShowCornerControls = isNested && !fg('platform_editor_nested_dnd_styles_changes');
 
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-		<div className={wrapperClassName}>
+		<div
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={wrapperClassName}
+			css={[
+				expValEquals(
+					'platform_editor_table_sticky_header_improvements',
+					'cohort',
+					'test_with_overflow',
+				) && styles,
+			]}
+		>
 			{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions */}
 			<div onMouseDown={(e) => !isDragAndDropEnabled && e.preventDefault()}>
 				{isNumberColumnEnabled ? (
@@ -165,9 +189,9 @@ export const TableFloatingControls = ({
 				) : null}
 
 				{tableActive && (
-					<>
+					<Fragment>
 						{isDragAndDropEnabled ? (
-							<>
+							<Fragment>
 								{shouldShowCornerControls && (
 									<DragCornerControlsWithSelection
 										editorView={editorView}
@@ -195,7 +219,7 @@ export const TableFloatingControls = ({
 									updateCellHoverLocation={updateCellHoverLocation}
 									api={api}
 								/>
-							</>
+							</Fragment>
 						) : (
 							<FloatingControlsWithSelection
 								editorView={editorView}
@@ -212,7 +236,7 @@ export const TableFloatingControls = ({
 								api={api}
 							/>
 						)}
-					</>
+					</Fragment>
 				)}
 			</div>
 		</div>

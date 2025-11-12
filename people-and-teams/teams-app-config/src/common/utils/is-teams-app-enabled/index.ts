@@ -12,6 +12,11 @@ export function isTeamsAppEnabled(
 		return false;
 	}
 
+	// Hard kill switch for customers that have requested extensions.
+	if (fg('teams-app-migration-exclusions')) {
+		return false;
+	}
+
 	// Due to experiment exposures, we need to first check if Nav4 is enabled to see if the user is in the cohort
 	// In FedRamp, we are ignoring the Nav4 dependency
 	if (!isFedRamp() && config.userHasNav4Enabled !== undefined && !config.userHasNav4Enabled) {

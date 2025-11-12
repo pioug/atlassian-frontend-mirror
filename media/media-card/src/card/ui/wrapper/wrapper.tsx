@@ -2,6 +2,4 @@ import React from 'react';
 import { type WrapperProps } from './types';
 import { Wrapper as CompiledWrapper } from './wrapper-compiled';
 
-export const Wrapper = (props: WrapperProps) => (
-  <CompiledWrapper {...props} />
-);
+export const Wrapper = (props: WrapperProps) => <CompiledWrapper {...props} />;

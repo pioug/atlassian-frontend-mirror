@@ -6,8 +6,10 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
+import { isAnchorSupported } from '../../pm-plugins/utils/anchor';
 import { getColumnsWidths } from '../../pm-plugins/utils/column-controls';
 import { containsHeaderColumn } from '../../pm-plugins/utils/nodes';
 import { getRowHeights } from '../../pm-plugins/utils/row-controls';
@@ -105,6 +107,17 @@ const TableFloatingColumnControls = ({
 		containerRef?.current?.style.removeProperty('top');
 	}
 
+	let anchorStyles = {};
+	if (
+		isAnchorSupported() &&
+		expValEquals('platform_editor_table_sticky_header_improvements', 'cohort', 'test_with_overflow')
+	) {
+		// cast here is due to CSSProperties missing valid positionAnchor property
+		anchorStyles = {
+			positionAnchor: tableRef.querySelector('tr')?.style.getPropertyValue('anchor-name'),
+		} as React.CSSProperties;
+	}
+
 	return (
 		<div
 			ref={containerRef}
@@ -114,6 +127,9 @@ const TableFloatingColumnControls = ({
 				(isChromelessEditor ? ' ' + ClassName.TABLE_CHROMELESS : '')
 			}
 			data-testid="table-floating-column-controls-wrapper"
+			// anchor name is determined dynamically so can't use static styles
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={anchorStyles}
 		>
 			<ColumnControls
 				editorView={editorView}

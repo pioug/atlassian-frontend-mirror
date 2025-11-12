@@ -1,5 +1,19 @@
 # @atlaskit/media-viewer
 
+## 52.4.32
+
+### Patch Changes
+
+- Updated dependencies
+
+## 52.4.31
+
+### Patch Changes
+
+- [`93e3d7d5724d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93e3d7d5724d0) -
+  FG cleanup - platform_media_compiled
+- Updated dependencies
+
 ## 52.4.30
 
 ### Patch Changes

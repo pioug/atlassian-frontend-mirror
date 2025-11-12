@@ -60,7 +60,13 @@ import { cursorStyles } from './styles/cursorStyles';
 import { dangerDateStyles, dateStyles, dateVanillaStyles } from './styles/dateStyles';
 import { editorUGCTokensDefault, editorUGCTokensRefreshed } from './styles/editorUGCTokenStyles';
 import { embedCardStyles } from './styles/embedCardStyles';
-import { emojiDangerStyles, emojiStyles, getDenseEmojiStyles } from './styles/emoji';
+import {
+	emojiDangerStyles,
+	emojiStyles,
+	scaledEmojiStyles,
+	getDenseEmojiStyles,
+	getScaledDenseEmojiStyles,
+} from './styles/emoji';
 import {
 	expandStyles,
 	getDenseExpandTitleStyles,
@@ -646,12 +652,20 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							mentionsSelectionStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					emojiStyles,
+					expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							scaledEmojiStyles
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							emojiStyles,
 					// Dense emoji scaling based on base font size
 					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-						fg('platform_editor_content_mode_button_mvp') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						getDenseEmojiStyles(baseFontSize),
+					fg('platform_editor_content_mode_button_mvp')
+						? expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
+							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								getScaledDenseEmojiStyles(baseFontSize)
+							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								getDenseEmojiStyles(baseFontSize)
+						: undefined,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					panelViewStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

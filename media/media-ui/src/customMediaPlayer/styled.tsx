@@ -19,15 +19,11 @@ import {
 export const VolumeWrapper = (
 	props: VolumeWrapperProps &
 		React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) => (
-	<CompiledVolumeWrapper {...props} />
-);
+) => <CompiledVolumeWrapper {...props} />;
 
 export const CurrentTime = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) => (
-	<CompiledCurrentTime {...props} />
-);
+) => <CompiledCurrentTime {...props} />;
 
 export const TimeLine = forwardRef(
 	(
@@ -35,22 +31,17 @@ export const TimeLine = forwardRef(
 			React.ClassAttributes<HTMLDivElement>,
 		ref,
 	) => {
-		return (
-			<CompiledTimeLine {...props} ref={ref as React.RefObject<HTMLDivElement>} />
-		);
-
+		return <CompiledTimeLine {...props} ref={ref as React.RefObject<HTMLDivElement>} />;
 	},
 );
 
 export const CurrentTimeLine = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) => (
-	<CompiledCurrentTimeLine {...props} />
-);
+) => <CompiledCurrentTimeLine {...props} />;
 
 export const Thumb = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) => (<CompiledThumb {...props} />);
+) => <CompiledThumb {...props} />;
 
 export const CurrentTimeLineThumb = forwardRef(
 	(
@@ -58,50 +49,34 @@ export const CurrentTimeLineThumb = forwardRef(
 			React.ClassAttributes<HTMLDivElement>,
 		ref,
 	) => {
-		return (
-			<CompiledCurrentTimeLineThumb {...props} ref={ref as React.RefObject<HTMLDivElement>} />
-		);
-
+		return <CompiledCurrentTimeLineThumb {...props} ref={ref as React.RefObject<HTMLDivElement>} />;
 	},
 );
 
 export const BufferedTime = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) => (
-	<CompiledBufferedTime {...props} />
-);
+) => <CompiledBufferedTime {...props} />;
 
 export const LeftControls = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) => (
-	<CompiledLeftControls {...props} />
-);
+) => <CompiledLeftControls {...props} />;
 
 export const RightControls = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) => (
-	<CompiledRightControls {...props} />
-);
+) => <CompiledRightControls {...props} />;
 
 export const VolumeToggleWrapper = (
 	props: MutedIndicatorProps &
 		React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) => (
-	<CompiledVolumeToggleWrapper {...props} />
-);
+) => <CompiledVolumeToggleWrapper {...props} />;
 
 export const VolumeTimeRangeWrapper = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) => (
-	<CompiledVolumeTimeRangeWrapper {...props} />
-);
+) => <CompiledVolumeTimeRangeWrapper {...props} />;
 
 export const MutedIndicator = (
 	props: MutedIndicatorProps &
 		React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) => (
-	<CompiledMutedIndicator {...props} />
-);
-
+) => <CompiledMutedIndicator {...props} />;
 
 export type { MutedIndicatorProps, CurrentTimeTooltipProps } from './styled-compiled';

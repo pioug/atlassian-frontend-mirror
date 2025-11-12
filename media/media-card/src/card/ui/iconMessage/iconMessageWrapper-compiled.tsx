@@ -42,7 +42,11 @@ export const IconMessageWrapper = (props: IconMessageWrapperProps) => {
 	const { animated } = props;
 
 	return (
-		<div id="iconMessageWrapper" data-testid="icon-message-wrapper" css={[baseStyles, animated && animatedStyles]}>
+		<div
+			id="iconMessageWrapper"
+			data-testid="icon-message-wrapper"
+			css={[baseStyles, animated && animatedStyles]}
+		>
 			{props.children}
 		</div>
 	);

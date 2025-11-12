@@ -1,5 +1,13 @@
 # @atlaskit/media-file-preview
 
+## 0.13.0
+
+### Minor Changes
+
+- [`7ecc830bdd14e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ecc830bdd14e) -
+  Fixed the srcset 2x to include the correct scaled height param if provided and added resize mode
+  to SSR cache param to avoid reusing incorrect image due to caching
+
 ## 0.12.0
 
 ### Minor Changes

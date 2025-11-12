@@ -57,12 +57,13 @@ export const showDiffDeletedNodeStyles: SerializedStyles = css({
 		},
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.mediaSingleView-content-wrap.show-diff-deleted-node': {
+	'.show-diff-deleted-node .media-card-wrapper': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'& > div': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
 			boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
-			borderRadius: token('radius.small'),
+			borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
+			opacity: 0.6,
 		},
 	},
 });

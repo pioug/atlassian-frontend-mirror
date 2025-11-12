@@ -10,10 +10,10 @@ import { Bleed, Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import AppIcon from '../core/app';
+import ChevronDownIcon from '../core/chevron-down';
 import AppIconMigration from '../core/migration/app--addon';
 import AppIconOld from '../glyph/addon';
 import HipchatChevronDownOld from '../glyph/hipchat/chevron-down';
-import ChevronDownIcon from '../utility/chevron-down';
 
 const styles = xcss({ padding: 'space.200' });
 
@@ -53,7 +53,7 @@ const LegacyIconMarginExample = () => {
 
 			<Inline space="space.100">
 				<IconContainer>
-					<ChevronDownIcon label="" />
+					<ChevronDownIcon label="" size="small" />
 				</IconContainer>
 				<IconContainer>
 					<AppIcon label="" spacing="none" />
@@ -73,6 +73,7 @@ const LegacyIconMarginExample = () => {
 						LEGACY_fallbackIcon={HipchatChevronDownOld}
 						LEGACY_size="small"
 						LEGACY_margin="-4px 10px 40px 5px"
+						size="small"
 					/>
 				</IconContainer>
 				<IconContainer>
@@ -123,6 +124,7 @@ const LegacyIconMarginExample = () => {
 						LEGACY_fallbackIcon={HipchatChevronDownOld}
 						LEGACY_size="small"
 						LEGACY_margin={token('space.050')}
+						size="small"
 					/>
 				</IconContainer>
 				<IconContainer>

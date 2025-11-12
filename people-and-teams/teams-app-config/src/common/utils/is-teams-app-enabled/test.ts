@@ -70,6 +70,7 @@ describe('isTeamsAppEnabled', () => {
 			(isFedRamp as jest.Mock).mockReturnValue(false);
 		});
 	});
+
 	describe('Experiments', () => {
 		beforeEach(() => {
 			(FeatureGates.getExperimentValue as jest.Mock).mockClear();
@@ -84,6 +85,36 @@ describe('isTeamsAppEnabled', () => {
 			};
 			const result = isTeamsAppEnabled(config);
 			expect(result).toBe(true);
+		});
+		ffTest.off(
+			'teams-app-migration-exclusions',
+			'without teams app migration exclusions fg',
+			() => {
+				it('should true false when the feature flag is off & the experiment is enabled', () => {
+					(FeatureGates.getExperimentValue as jest.Mock).mockImplementation(
+						(exp) => exp === 'migrate-jira-people-directory-to-teams-app',
+					);
+					const config: Config = {
+						...baseConfig,
+						hostProduct: 'jira',
+					};
+					const result = isTeamsAppEnabled(config);
+					expect(result).toBe(true);
+				});
+			},
+		);
+		ffTest.on('teams-app-migration-exclusions', 'with teams app migration exclusions fg', () => {
+			it('should return false when the feature flag is on & the experiment is enabled', () => {
+				(FeatureGates.getExperimentValue as jest.Mock).mockImplementation(
+					(exp) => exp === 'migrate-jira-people-directory-to-teams-app',
+				);
+				const config: Config = {
+					...baseConfig,
+					hostProduct: 'jira',
+				};
+				const result = isTeamsAppEnabled(config);
+				expect(result).toBe(false);
+			});
 		});
 		it('should return false when the Jira experiment is disabled & the host product is Jira', () => {
 			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>

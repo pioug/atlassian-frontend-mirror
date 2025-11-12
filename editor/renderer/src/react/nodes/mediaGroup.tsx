@@ -12,6 +12,7 @@ import type {
 import type { Identifier } from '@atlaskit/media-client';
 import type { MediaProps } from './media';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 
 export interface MediaGroupProps {
@@ -72,7 +73,9 @@ export default class MediaGroup extends PureComponent<MediaGroupProps, MediaGrou
 
 	renderSingleFile(child: ReactElement<MediaProps>) {
 		return React.cloneElement(child, {
-			resizeMode: 'stretchy-fit',
+			// the media group component renders in crop mode in editor thus this enables consistency
+			// also crop is much easier to make consistent across SSR and hydration
+			resizeMode: fg('media-perf-uplift-mutation-fix') ? 'crop' : 'stretchy-fit',
 			cardDimensions: defaultImageCardDimensions,
 			useInlinePlayer: false,
 			featureFlags: this.props.featureFlags,

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { toBeSuspendable } from '@af/react-unit-testing';
+import { resetMatchMedia } from '@atlassian/test-utils';
 
 import { PanelSplitter } from '../../panel-splitter/panel-splitter';
 import { Root } from '../../root';
@@ -11,8 +12,7 @@ import {
 	filterFromConsoleErrorOutput,
 	parseCssErrorRegex,
 	type ResetConsoleErrorFn,
-	resetMatchMedia,
-} from './_test-utils';
+} from './_filter-from-console-error-output';
 
 let resetConsoleErrorSpyFn: ResetConsoleErrorFn;
 beforeAll(() => {

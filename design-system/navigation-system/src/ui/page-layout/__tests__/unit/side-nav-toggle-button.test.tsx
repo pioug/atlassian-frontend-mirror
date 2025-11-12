@@ -3,6 +3,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import { Root } from '../../root';
@@ -15,9 +16,7 @@ import {
 	filterFromConsoleErrorOutput,
 	parseCssErrorRegex,
 	type ResetConsoleErrorFn,
-	resetMatchMedia,
-	setMediaQuery,
-} from './_test-utils';
+} from './_filter-from-console-error-output';
 
 /**
  * In this test suite, we need to use `fireEvent` instead of `userEvent` when interacting with

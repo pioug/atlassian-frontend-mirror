@@ -3,6 +3,4 @@ import { PlayPauseBlanket as CompiledPlayPauseBlanket } from './playPauseBlanket
 
 export const PlayPauseBlanket = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-) => (
-	<CompiledPlayPauseBlanket {...props} />
-);
+) => <CompiledPlayPauseBlanket {...props} />;

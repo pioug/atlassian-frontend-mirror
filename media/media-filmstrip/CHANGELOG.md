@@ -1,5 +1,19 @@
 # @atlaskit/media-filmstrip
 
+## 51.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 51.1.2
+
+### Patch Changes
+
+- [`93e3d7d5724d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93e3d7d5724d0) -
+  FG cleanup - platform_media_compiled
+- Updated dependencies
+
 ## 51.1.1
 
 ### Patch Changes

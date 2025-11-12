@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 15.3.19
+
+### Patch Changes
+
+- [`1432eb6affaee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1432eb6affaee) -
+  [ux] Fix column control alignment when table header is using sticky positioning
+- Updated dependencies
+
+## 15.3.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.3.17
 
 ### Patch Changes

@@ -4969,7 +4969,7 @@ describe('Card ', () => {
 			};
 
 			const { id, collectionName } = identifier;
-			setGlobalSSRData(`${id}-${collectionName}`, expectedPreview);
+			setGlobalSSRData(`${id}-${collectionName}-crop`, expectedPreview);
 
 			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>

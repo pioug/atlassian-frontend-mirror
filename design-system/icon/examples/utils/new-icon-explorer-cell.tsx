@@ -55,7 +55,6 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 	oldName,
 	categorization,
 	team,
-	type,
 	usage,
 }) => {
 	const inputEl = useRef<HTMLInputElement>(null);
@@ -85,7 +84,6 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 		: `import ${componentName} from '${packageName}';`;
 
 	const metadata: { [index: string]: string } = {
-		'Icon type': type || 'TBD',
 		Category: categorization || 'TBD',
 		'Owning team': team || 'TBD',
 		'Recommended usage': usage || '',
@@ -114,11 +112,7 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 		<Modal onClose={closeModal}>
 			<ModalHeader hasCloseButton>
 				<Inline space="space.100" alignBlock="center">
-					{type !== 'utility' ? (
-						<IconTile label={componentName} appearance={'blue'} icon={Icon} size="32" />
-					) : (
-						<Icon label={componentName} />
-					)}
+					<IconTile label={componentName} appearance={'blue'} icon={Icon} size="32" />
 					<ModalTitle>{componentName}</ModalTitle>
 				</Inline>
 			</ModalHeader>

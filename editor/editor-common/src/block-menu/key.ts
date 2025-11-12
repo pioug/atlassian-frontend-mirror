@@ -66,10 +66,6 @@ export const PRIMARY_MENU_SECTION = {
 	key: 'block-menu-section-primary',
 };
 
-export const NESTED_FORMAT_MENU_SECTION = {
-	key: 'nested-menu-format-section-primary',
-};
-
 export const ADD_BLOCKS_MENU_SECTION = {
 	key: 'block-menu-section-synced-block',
 };
@@ -86,8 +82,8 @@ export const MOVE_UP_DOWN_MENU_SECTION = {
 	key: 'block-menu-section-move-up-down',
 };
 
-export const FORMAT_MENU_ITEM = {
-	key: 'nested-menu-format-section-primary',
+export const TRANSFORM_MENU_ITEM = {
+	key: 'transform-menu-item',
 };
 
 export const CREATE_SYNCED_BLOCK_MENU_ITEM = {
@@ -112,4 +108,20 @@ export const MOVE_DOWN_MENU_ITEM = {
 
 export const DELETE_MENU_ITEM = {
 	key: 'block-menu-item-delete',
+};
+
+export const TRANSFORM_CREATE_MENU_SECTION = {
+	key: 'transform-create-menu-section',
+};
+
+export const TRANSFORM_HEADINGS_MENU_SECTION = {
+	key: 'transform-headings-menu-secion',
+};
+
+export const TRANSFORM_SUGGESTED_MENU_SECTION = {
+	key: 'transform-suggested-menu-section',
+};
+
+export const TRANSFORM_STRUCTURE_MENU_SECTION = {
+	key: 'transform-structure-menu-section',
 };

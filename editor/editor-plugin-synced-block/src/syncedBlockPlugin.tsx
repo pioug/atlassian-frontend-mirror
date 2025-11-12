@@ -7,6 +7,7 @@ import { IconSyncBlock } from '@atlaskit/editor-common/quick-insert';
 import type { EditorCommand, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import Lozenge from '@atlaskit/lozenge';
 
 import { flushBodiedSyncBlocks } from './editor-actions';
 import {
@@ -90,6 +91,9 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 						'connect',
 					],
 					keyshortcut: '',
+					lozenge: (
+						<Lozenge appearance="new">{formatMessage(blockTypeMessages.newLozenge)}</Lozenge>
+					),
 					icon: () => <IconSyncBlock label={formatMessage(blockTypeMessages.syncedBlock)} />,
 					action: (insert: QuickInsertActionInsert, state: EditorState) => {
 						return createSyncedBlock({

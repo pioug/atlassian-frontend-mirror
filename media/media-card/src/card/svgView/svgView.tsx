@@ -7,8 +7,8 @@ import type { SvgViewProps } from './types';
 
 export const SvgView = (props: SvgViewProps) => {
 	return fg('platform_media_card_image_render') ? (
-    <SvgViewV2 {...props} />
-  ) : (
-    <SvgViewCompiled {...props} />
-  );
+		<SvgViewV2 {...props} />
+	) : (
+		<SvgViewCompiled {...props} />
+	);
 };

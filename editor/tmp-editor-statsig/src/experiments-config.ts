@@ -806,14 +806,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-08-18
-	platform_editor_find_replace_a11y_fixes: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_find_replace_a11y_fixes',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-08-19
 	platform_editor_breakout_resizing_vc90_fix: createBooleanExperiment({
 		productKeys: {
@@ -826,15 +818,6 @@ export const editorExperimentsConfig = {
 	platform_editor_toolbar_support_custom_components: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_toolbar_support_custom_components',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-08-21
-	platform_editor_paste_rich_text_bugfix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_paste_rich_text_bugfix',
-			jira: 'platform_editor_paste_rich_text_bugfix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

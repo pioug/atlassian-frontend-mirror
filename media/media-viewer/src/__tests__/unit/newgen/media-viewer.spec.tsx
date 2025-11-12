@@ -1112,7 +1112,7 @@ describe('<MediaViewer />', () => {
 			const downloadButton = await screen.findByTestId('media-viewer-error-download-button');
 			expect(downloadButton).toBeInTheDocument();
 
-			fireEvent.click(downloadButton);;
+			fireEvent.click(downloadButton);
 
 			expect(getFileBinaryURL).not.toHaveBeenCalled();
 			expect(testUrl).not.toHaveBeenCalled();
@@ -1238,7 +1238,7 @@ describe('<MediaViewer />', () => {
 			const downloadButton = await screen.findByTestId('media-viewer-download-button');
 			expect(downloadButton).toBeInTheDocument();
 
-			fireEvent.click(downloadButton);;
+			fireEvent.click(downloadButton);
 
 			const warningMsg = await screen.findByTestId('mediaAbuseModal');
 			expect(warningMsg).toBeInTheDocument();
@@ -1371,7 +1371,7 @@ describe('<MediaViewer />', () => {
 			const downloadButton = await screen.findByTestId('media-viewer-error-download-button');
 			expect(downloadButton).toBeInTheDocument();
 
-			fireEvent.click(downloadButton);;
+			fireEvent.click(downloadButton);
 
 			const warningMsg = await screen.findByTestId('mediaAbuseModal');
 			expect(warningMsg).toBeInTheDocument();

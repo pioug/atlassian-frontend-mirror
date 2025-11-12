@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 8.2.18
+
+### Patch Changes
+
+- [`695e971dbebd6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/695e971dbebd6) -
+  FG cleanup platform_editor_block_menu_hide_floating_toolbar
+- Updated dependencies
+
+## 8.2.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.16
 
 ### Patch Changes

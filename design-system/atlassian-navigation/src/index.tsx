@@ -20,7 +20,7 @@ export { PrimaryDropdownButton } from './components/PrimaryDropdownButton';
 export type { PrimaryDropdownButtonProps } from './components/PrimaryDropdownButton/types';
 
 export { IconButton } from './components/IconButton';
-export type { IconButtonProps } from './components/IconButton/types';
+export type { IconButtonProps, BaseIconButtonProps } from './components/IconButton/types';
 
 export { CustomProductHome, ProductHome, AppHome } from './components/ProductHome';
 export type {

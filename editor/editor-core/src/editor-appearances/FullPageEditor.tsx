@@ -32,7 +32,7 @@ export type FullPageEditorProps = Pick<
 	| 'sanitizePrivateContent'
 	| '__livePage'
 > & {
-	appearance: 'full-page' | 'full-width';
+	appearance: 'full-page' | 'full-width' | 'max';
 	onChange?: () => void;
 	onEditorReady?: (editorActions: EditorActions) => void;
 };

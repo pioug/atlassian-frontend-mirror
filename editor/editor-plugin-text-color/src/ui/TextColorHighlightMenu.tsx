@@ -7,7 +7,10 @@ import { toggleHighlightPalette, ToolTipContent } from '@atlaskit/editor-common/
 import { textColorMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';
+import {
+	hexToEditorTextPaletteColor,
+	hexToEditorTextBackgroundPaletteColor,
+} from '@atlaskit/editor-palette';
 import {
 	TextColorIcon,
 	ToolbarColorSwatch,
@@ -47,6 +50,13 @@ const getIconColor = (
 	}
 
 	return hexToEditorTextPaletteColor(textColor) || token('color.text');
+};
+
+const getHighlightColorIcon = (highlightColor: string | null | undefined) => {
+	if (highlightColor) {
+		return hexToEditorTextBackgroundPaletteColor(highlightColor);
+	}
+	return undefined;
 };
 
 export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenuProps) => {
@@ -119,7 +129,13 @@ export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenu
 			>
 				<ToolbarDropdownMenu
 					iconBefore={
-						<ToolbarColorSwatch highlightColor={highlightColorIcon}>
+						<ToolbarColorSwatch
+							highlightColor={
+								fg('platform_editor_toolbar_aifc_patch_8')
+									? getHighlightColorIcon(highlightColor)
+									: highlightColorIcon
+							}
+						>
 							<TextColorIcon
 								label={formatMessage(messages.textColorTooltip)}
 								iconColor={iconColor as IconColor}

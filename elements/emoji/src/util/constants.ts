@@ -18,7 +18,18 @@ export const deleteEmojiLabel = 'delete-emoji';
  */
 export const MAX_ORDINAL = 100000;
 
+export const scaledEmojiHeightH1 = 28;
+export const scaledEmojiHeightH2 = 26;
+export const scaledEmojiHeightH3 = 24;
+export const scaledEmojiHeightH4 = 22;
+
+export const denseEmojiHeightH1 = 24.25;
+export const denseEmojiHeightH2 = 22.25;
+export const denseEmojiHeightH3 = 20.25;
+export const denseEmojiHeightH4 = 18.25;
+
 export const defaultEmojiHeight = 20;
+export const defaultDenseEmojiHeight = 16.25;
 
 export type EmojiPickerWidth = 350;
 export const emojiPickerWidth: EmojiPickerWidth = 350;

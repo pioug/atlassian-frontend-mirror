@@ -1,8 +1,8 @@
 import React from 'react';
 
-import CompositionExample from '../../../../../examples/composition';
+import { resetMatchMedia } from '@atlassian/test-utils';
 
-import { resetMatchMedia } from './_test-utils';
+import CompositionExample from '../../../../../examples/composition';
 
 beforeEach(() => {
 	resetMatchMedia();

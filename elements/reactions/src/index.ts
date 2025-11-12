@@ -37,6 +37,7 @@ export type {
 	Client as ReactionClient,
 	Request as ReactionRequest,
 	Store as ReactionsStore,
+	Reactions as ReactionsType,
 	StorePropInput,
 	State,
 } from './types';

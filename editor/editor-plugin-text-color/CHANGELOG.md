@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-text-color
 
+## 6.3.10
+
+### Patch Changes
+
+- [`e584fc1d47ba6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e584fc1d47ba6) -
+  [ux] ED-29650 Fix Text Highlight colour toolbar button to use ads colour token
+- Updated dependencies
+
+## 6.3.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.3.8
 
 ### Patch Changes

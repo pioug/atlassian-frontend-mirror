@@ -1,5 +1,18 @@
 # @atlaskit/jql-editor
 
+## 5.8.4
+
+### Patch Changes
+
+- [`d87f35a08c765`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d87f35a08c765) -
+  Add undefined checks for autocomplete dropdown keyboard navigation.
+
+## 5.8.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.8.2
 
 ### Patch Changes

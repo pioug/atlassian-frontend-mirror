@@ -2,6 +2,7 @@ import React, { type ReactNode, useEffect, useState } from 'react';
 
 import debounce from 'lodash/debounce';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -84,8 +85,13 @@ export const MediaBadges = ({
 		children = children({ visible });
 	}
 
-	if (!mediaElement || React.Children.count(children) === 0) {
-		return null;
+	// delete this block on cleanup of media-perf-uplift-mutation-fix
+	if (!fg('media-perf-uplift-mutation-fix')) {
+		// becuase it is wrapped in a fragment, React.Children.count(children) will always be 1.
+		// That makes this check a source of late mutations that we don't need.
+		if (!mediaElement || React.Children.count(children) === 0) {
+			return null;
+		}
 	}
 
 	return (

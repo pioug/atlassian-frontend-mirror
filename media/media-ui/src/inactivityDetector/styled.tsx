@@ -10,10 +10,9 @@ export const InactivityDetectorWrapper = forwardRef(
 			React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> &
 			React.ClassAttributes<HTMLDivElement>,
 		ref,
-	) =>
-		(
-			<CompiledInactivityDetectorWrapper {...props} ref={ref as React.RefObject<HTMLDivElement>} />
-		),
+	) => (
+		<CompiledInactivityDetectorWrapper {...props} ref={ref as React.RefObject<HTMLDivElement>} />
+	),
 );
 
 export type { ContentWrapperProps } from './styled-compiled';

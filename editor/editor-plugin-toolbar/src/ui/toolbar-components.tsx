@@ -25,7 +25,12 @@ import {
 	TOOLBARS,
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { PrimaryToolbar as PrimaryToolbarBase, Show, Toolbar } from '@atlaskit/editor-toolbar';
+import {
+	PrimaryToolbar as PrimaryToolbarBase,
+	Show,
+	Toolbar,
+	type BreakpointPreset,
+} from '@atlaskit/editor-toolbar';
 import { type RegisterComponent, type ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -63,13 +68,15 @@ const getInlineTextToolbarComponents = () => {
 	] as RegisterComponent[];
 };
 
-const getPrimaryToolbarComponents = () => {
+const getPrimaryToolbarComponents = (breakpointPreset?: BreakpointPreset) => {
 	return [
 		{
 			type: 'toolbar',
 			key: TOOLBARS.PRIMARY_TOOLBAR,
 			component: expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
-				? PrimaryToolbar
+				? ({ children }) => (
+						<PrimaryToolbar breakpointPreset={breakpointPreset}>{children}</PrimaryToolbar>
+					)
 				: ({ children }) => (
 						<PrimaryToolbarBase label="Primary Toolbar" testId="primary-toolbar">
 							{children}
@@ -83,6 +90,7 @@ export const getToolbarComponents = (
 	contextualFormattingEnabled: ContextualFormattingEnabledOptions,
 	api?: ExtractInjectionAPI<ToolbarPlugin>,
 	disableSelectionToolbar?: boolean,
+	breakpointPreset?: BreakpointPreset,
 ): RegisterComponent[] => {
 	const components: RegisterComponent[] = [
 		{
@@ -373,16 +381,16 @@ export const getToolbarComponents = (
 				components.unshift(...getInlineTextToolbarComponents());
 				break;
 			case 'always-pinned':
-				components.unshift(...getPrimaryToolbarComponents());
+				components.unshift(...getPrimaryToolbarComponents(breakpointPreset));
 				break;
 			case 'controlled':
 				components.unshift(...getInlineTextToolbarComponents());
-				components.unshift(...getPrimaryToolbarComponents());
+				components.unshift(...getPrimaryToolbarComponents(breakpointPreset));
 				break;
 		}
 	} else {
 		components.unshift(...getInlineTextToolbarComponents());
-		components.unshift(...getPrimaryToolbarComponents());
+		components.unshift(...getPrimaryToolbarComponents(breakpointPreset));
 	}
 
 	return components;

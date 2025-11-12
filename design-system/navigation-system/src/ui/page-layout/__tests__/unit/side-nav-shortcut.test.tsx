@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Button from '@atlaskit/button/new';
 import Modal, { ModalBody, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 import { fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import { Main } from '../../main/main';
@@ -13,9 +14,7 @@ import {
 	filterFromConsoleErrorOutput,
 	parseCssErrorRegex,
 	type ResetConsoleErrorFn,
-	resetMatchMedia,
-	setMediaQuery,
-} from './_test-utils';
+} from './_filter-from-console-error-output';
 
 describe('Side nav keyboard shortcut', () => {
 	let resetConsoleErrorSpyFn: ResetConsoleErrorFn;

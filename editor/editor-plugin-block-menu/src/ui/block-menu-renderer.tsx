@@ -114,22 +114,26 @@ export const BlockMenuRenderer = ({ components, fallbacks }: BlockMenuProps) => 
 						return items.map((item) => {
 							if (isNestedMenu(item)) {
 								const sortedNestedSections = getSortedNestedSections(components, item.key);
-								return sortedNestedSections.map((section) => {
+
+								const sections = sortedNestedSections.map((section) => {
 									const sortedNestedMenuItems = getSortedChildren(menuItems, section.key);
-									const NestedMenuComponent = item.component || fallbacks.nestedMenu || NoOp;
+									if (sortedNestedMenuItems.length === 0) {
+										return null;
+									}
 									const NestedSection = section.component || fallbacks.section || NoOp;
 									return (
-										<NestedMenuComponent key={item.key}>
-											<NestedSection key={section.key}>
-												{sortedNestedMenuItems.map((nestedItem) => {
-													const NestedMenuItemComponent =
-														nestedItem.component || fallbacks.item || NoOp;
-													return <NestedMenuItemComponent key={nestedItem.key} />;
-												})}
-											</NestedSection>
-										</NestedMenuComponent>
+										<NestedSection key={section.key}>
+											{sortedNestedMenuItems.map((nestedItem) => {
+												const NestedMenuItemComponent =
+													nestedItem.component || fallbacks.item || NoOp;
+												return <NestedMenuItemComponent key={nestedItem.key} />;
+											})}
+										</NestedSection>
 									);
 								});
+
+								const NestedMenuComponent = item.component || fallbacks.nestedMenu || NoOp;
+								return <NestedMenuComponent key={item.key}>{sections}</NestedMenuComponent>;
 							} else {
 								const ItemComponent = item.component || fallbacks.item || NoOp;
 								return <ItemComponent key={item.key} />;

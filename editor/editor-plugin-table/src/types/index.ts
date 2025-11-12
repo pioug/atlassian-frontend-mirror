@@ -506,6 +506,7 @@ export const TableCssClassName = {
 	WITH_LAST_ROW_INSERT_LINE_INACTIVE: `${tablePrefixSelector}-last-row-insert-line__inactive`,
 
 	NATIVE_STICKY: `${tablePrefixSelector}-row-native-sticky`,
+	NO_OVERFLOW: `${tablePrefixSelector}-no-overflow`,
 };
 
 export interface ToolbarMenuConfig {

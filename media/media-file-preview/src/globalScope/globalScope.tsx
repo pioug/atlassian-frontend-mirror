@@ -46,13 +46,16 @@ export function getMediaCardSSR(globalScope: any = window): MediaCardSsr {
 
 const dashed = (param?: string) => (param ? `-${param}` : '');
 
-export const getKey = ({ id, collectionName, occurrenceKey }: FileIdentifier) =>
-	`${id}${dashed(collectionName)}${dashed(occurrenceKey)}`;
+export const getKey = (
+	{ id, collectionName, occurrenceKey }: FileIdentifier,
+	resizeMode?: string,
+) => `${id}${dashed(collectionName)}${dashed(occurrenceKey)}${dashed(resizeMode)}`;
 
 declare const script: HTMLScriptElement;
 export const storeDataURI = (
 	key: string,
 	paramDataURI?: string,
+	paramMode?: string,
 	paramSrcSet?: string,
 	dimensions?: Partial<NumericalCardDimensions>,
 	error?: MediaFilePreviewErrorInfo,
@@ -64,6 +67,7 @@ export const storeDataURI = (
 	if (featureFlags['media-perf-uplift-mutation-fix']) {
 		const prevData = mediaCardSsr[key];
 		const isPreviousImageLarger =
+			prevData?.mode === paramMode &&
 			prevData &&
 			prevData.dimensions?.width &&
 			dimensions?.width &&
@@ -106,6 +110,7 @@ export const storeDataURI = (
 const generateScript = (
 	identifier: FileIdentifier,
 	dataURI?: string,
+	mode?: string,
 	srcSet?: string,
 	dimensions?: Partial<NumericalCardDimensions>,
 	error?: MediaFilePreviewErrorInfo,
@@ -113,8 +118,9 @@ const generateScript = (
 ) => {
 	const functionCall = printFunctionCall(
 		storeDataURI,
-		getKey(identifier),
+		getKey(identifier, mode),
 		dataURI,
+		mode,
 		srcSet,
 		dimensions,
 		error,
@@ -127,12 +133,13 @@ const generateScript = (
 export const generateScriptProps = (
 	identifier: FileIdentifier,
 	dataURI?: string,
+	mode?: string,
 	srcSet?: string,
 	dimensions?: Partial<NumericalCardDimensions>,
 	error?: MediaFilePreviewErrorInfo,
 	featureFlags: MediaFeatureFlags = {},
 ): React.ScriptHTMLAttributes<HTMLScriptElement> => ({
 	dangerouslySetInnerHTML: {
-		__html: generateScript(identifier, dataURI, srcSet, dimensions, error, featureFlags),
+		__html: generateScript(identifier, dataURI, mode, srcSet, dimensions, error, featureFlags),
 	},
 });

@@ -6,14 +6,13 @@ import { userEvent } from '@testing-library/user-event';
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { setMediaQuery } from '@atlassian/test-utils';
 
 import { SideNavPanelSplitter } from '../../panel-splitter/side-nav-panel-splitter';
 import { Root } from '../../root';
 import { SideNav } from '../../side-nav/side-nav';
 import { SideNavToggleButton } from '../../side-nav/toggle-button';
 import { TopNav } from '../../top-nav/top-nav';
-
-import { setMediaQuery } from './_test-utils';
 
 type OnAnalyticsEventMock = jest.Mock<unknown, [UIAnalyticsEvent, string | undefined], unknown>;
 

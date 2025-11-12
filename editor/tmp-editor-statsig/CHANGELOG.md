@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.37.0
+
+### Minor Changes
+
+- [`c25e49b317dd8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c25e49b317dd8) -
+  [ED-29492] clean up references to platform_editor_paste_rich_text_bugfix
+
+## 13.36.0
+
+### Minor Changes
+
+- [`6dca69f45fa7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6dca69f45fa7f) -
+  [ED-29493] clean up references to platform_editor_find_replace_a11y_fixes
+
 ## 13.35.0
 
 ### Minor Changes

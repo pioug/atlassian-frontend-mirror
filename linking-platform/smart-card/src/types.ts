@@ -17,3 +17,5 @@ export interface LozengeProps {
 	style?: AtlaskitLozengeProps['style'];
 	text: string;
 }
+
+export type { TitleBlockProps } from './view/FlexibleCard/components/blocks/title-block/types';

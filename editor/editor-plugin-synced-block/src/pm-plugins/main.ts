@@ -1,20 +1,24 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
+import { BodiedSyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
 import { lazyBodiedSyncBlockView } from '../nodeviews/bodiedLazySyncedBlock';
 import { lazySyncBlockView } from '../nodeviews/lazySyncedBlock';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 
+import { calculateDecorations } from './utils/selection-decorations';
 import { trackSyncBlocks } from './utils/track-sync-blocks';
 
 export const syncedBlockPluginKey = new PluginKey('syncedBlockPlugin');
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-type SyncedBlockPluginState = {};
+type SyncedBlockPluginState = {
+	decorationSet: DecorationSet;
+};
 
 export const createPlugin = (
 	options: SyncedBlockPluginOptions | undefined,
@@ -22,6 +26,8 @@ export const createPlugin = (
 	syncBlockStore: SyncBlockStoreManager,
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>,
 ) => {
+	const { useLongPressSelection = false } = options || {};
+
 	return new SafePlugin<SyncedBlockPluginState>({
 		key: syncedBlockPluginKey,
 		state: {
@@ -30,14 +36,29 @@ export const createPlugin = (
 					(node) => node.type.name === 'syncBlock',
 				);
 				syncBlockStore.fetchSyncBlocksData(syncBlockNodes);
-				return {};
+				return {
+					decorationSet: calculateDecorations(instance.doc, instance.selection, instance.schema),
+				};
 			},
-			apply: (tr, currentPluginState) => {
+			apply: (tr, currentPluginState, oldEditorState) => {
 				const meta = tr.getMeta(syncedBlockPluginKey);
 				if (meta) {
 					return meta;
 				}
-				return currentPluginState;
+
+				let newState = currentPluginState;
+				if (!tr.selection.eq(oldEditorState.selection)) {
+					newState = {
+						...newState,
+						decorationSet: calculateDecorations(tr.doc, tr.selection, tr.doc.type.schema),
+					};
+				} else if (newState.decorationSet) {
+					newState = {
+						...newState,
+						decorationSet: newState.decorationSet.map(tr.mapping, tr.doc),
+					};
+				}
+				return newState;
 			},
 		},
 		props: {
@@ -55,6 +76,15 @@ export const createPlugin = (
 					syncBlockStore,
 				}),
 			},
+			decorations: (state) => {
+				const pluginState = syncedBlockPluginKey.getState(state);
+				return pluginState?.decorationSet;
+			},
+			handleClickOn: createSelectionClickHandler(
+				['bodiedSyncBlock'],
+				(target) => !!target.closest(`.${BodiedSyncBlockSharedCssClassName.prefix}`),
+				{ useLongPressSelection },
+			),
 		},
 		view: (editorView: EditorView) => {
 			syncBlockStore.setEditorView(editorView);

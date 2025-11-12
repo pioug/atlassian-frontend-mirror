@@ -3,5 +3,5 @@ import { InlinePlayerWrapper as CompiledInlinePlayerWrapper } from './inlinePlay
 import { type InlinePlayerWrapperProps } from './types';
 
 export const InlinePlayerWrapper = (props: InlinePlayerWrapperProps) => (
-  <CompiledInlinePlayerWrapper {...props} />
+	<CompiledInlinePlayerWrapper {...props} />
 );

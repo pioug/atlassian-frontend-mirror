@@ -17,8 +17,71 @@ export const syncBlockStyles: SerializedStyles = css({
 		[`.${SyncBlockSharedCssClassName.prefix}, .${BodiedSyncBlockSharedCssClassName.prefix}`]: {
 			position: 'relative',
 			cursor: 'pointer',
+			borderRadius: token('radius.small', '3px'),
+			marginTop: token('space.150', '12px'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			marginRight: `-${akEditorGutterPadding}px`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			marginLeft: `-${akEditorGutterPadding}px`,
+			marginBottom: 0,
+			paddingTop: token('space.050', '4px'),
+			paddingBottom: token('space.050', '4px'),
+			color: 'inherit',
 
-			/* Danger when top level node */
+			/* Hover state */
+			'&:hover': {
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+				boxShadow: `0px 0px 0px 1px ${token('color.border')}`,
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
+					opacity: 1,
+					visibility: 'visible',
+				},
+			},
+
+			/* Selection state when cursor inside sync block */
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`&.${BodiedSyncBlockSharedCssClassName.selectionInside}`]: {
+				boxShadow: `0 0 0 1px ${token('color.border.focused')}`,
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
+					opacity: 1,
+					visibility: 'visible',
+				},
+			},
+
+			/* Node selection state */
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'&.ak-editor-selected-node': {
+				boxShadow: `0 0 0 1px ${token('color.border.focused')}`,
+				backgroundColor: token('color.background.selected'),
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
+					opacity: 1,
+					visibility: 'visible',
+					backgroundColor: token('color.background.selected'),
+
+					'&::before': {
+						content: '""',
+						position: 'absolute',
+						top: '-1px',
+						left: '-1px',
+						right: '-1px',
+						bottom: '-1px',
+						border: `1px solid ${token('color.border.focused')}`,
+						borderRadius: token('radius.small', '3px'),
+						mask: 'linear-gradient(to bottom, black 55%, transparent 55%)',
+						WebkitMask: 'linear-gradient(to bottom, black 55%, transparent 55%)',
+						pointerEvents: 'none',
+						zIndex: -1,
+					},
+				},
+			},
+
+			/* Danger state */
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'&.danger': {
 				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
@@ -52,21 +115,20 @@ export const syncBlockStyles: SerializedStyles = css({
 				},
 			},
 
-			borderRadius: token('radius.small', '3px'),
-			marginTop: token('space.150', '12px'),
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			marginRight: `-${akEditorGutterPadding}px`,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			marginLeft: `-${akEditorGutterPadding}px`,
-			marginBottom: 0,
-			paddingTop: token('space.050', '4px'),
-			paddingBottom: token('space.050', '4px'),
+			/* Error state */
+			/* In error state sync block should not have hover styles or show the label */
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`&has(.${SyncBlockSharedCssClassName.error})`]: {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'&:hover:not(.ak-editor-selected-node)': {
+					boxShadow: 'none',
+				},
 
-			color: 'inherit',
-
-			'&:hover': {
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-				boxShadow: `0px 0px 0px 1px ${token('color.border')}`,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
+					opacity: 0,
+					visibility: 'hidden',
+				},
 			},
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
@@ -81,61 +143,6 @@ export const syncBlockStyles: SerializedStyles = css({
 			},
 		},
 	},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-	[`.${SyncBlockSharedCssClassName.prefix}.ak-editor-selected-node:not(.danger), .${BodiedSyncBlockSharedCssClassName.prefix}.ak-editor-selected-node:not(.danger)`]:
-		{
-			boxShadow: `0 0 0 1px ${token('color.border.focused')}`,
-			backgroundColor: token('color.background.selected'),
-
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
-				backgroundColor: token('color.background.selected'),
-
-				'&::before': {
-					content: '""',
-					position: 'absolute',
-					top: '-1px',
-					left: '-1px',
-					right: '-1px',
-					bottom: '-1px',
-					border: `1px solid ${token('color.border.focused')}`,
-					borderRadius: token('radius.small', '3px'),
-					mask: 'linear-gradient(to bottom, black 55%, transparent 55%)',
-					WebkitMask: 'linear-gradient(to bottom, black 55%, transparent 55%)',
-					pointerEvents: 'none',
-					zIndex: -1,
-				},
-			},
-		},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-	[`.${SyncBlockSharedCssClassName.prefix}.ak-editor-selected-node, .${SyncBlockSharedCssClassName.prefix}:hover, .${BodiedSyncBlockSharedCssClassName.prefix}.ak-editor-selected-node, .${BodiedSyncBlockSharedCssClassName.prefix}:hover, .${BodiedSyncBlockSharedCssClassName.prefix}.danger, ${SyncBlockLabelSharedCssClassName.labelClassName}:hover`]:
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
-				opacity: 1,
-				visibility: 'visible',
-			},
-		},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-	[`.${SyncBlockSharedCssClassName.prefix}:has(.${SyncBlockSharedCssClassName.error}), .${BodiedSyncBlockSharedCssClassName.prefix}:has(.${SyncBlockSharedCssClassName.error})`]:
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-			'&:hover:not(.ak-editor-selected-node)': {
-				boxShadow: 'none',
-			},
-
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'&.ak-editor-selected-node, &:hover': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
-					opacity: 0,
-					visibility: 'hidden',
-				},
-			},
-		},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {

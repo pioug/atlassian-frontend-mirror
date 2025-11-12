@@ -15,7 +15,7 @@ export {
 	useToolbarDropdownMenu,
 	ToolbarDropdownMenuProvider,
 } from './ui/ToolbarDropdownMenuContext';
-export { ResponsiveContainer } from './ui/ResponsiveContainer';
+export { ResponsiveContainer, type BreakpointPreset } from './ui/ResponsiveContainer';
 export { Show } from './ui/Show';
 
 export { AIAdjustLengthIcon } from './ui/icons/AIAdjustLengthIcon';

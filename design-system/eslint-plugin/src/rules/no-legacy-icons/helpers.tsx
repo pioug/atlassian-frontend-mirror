@@ -118,13 +118,11 @@ const getNewIconNameAndImportPath = (
 
 	const migrationPath =
 		newIcon.name === legacyIconName
-			? `${newIcon.package}/${newIcon.type}/migration/${newIcon.name}`
-			: `${newIcon.package}/${newIcon.type}/migration/${newIcon.name}--${legacyIconName.replaceAll('/', '-')}`;
+			? `${newIcon.package}/core/migration/${newIcon.name}`
+			: `${newIcon.package}/core/migration/${newIcon.name}--${legacyIconName.replaceAll('/', '-')}`;
 	return {
 		iconName: newIcon.name,
-		importPath: shouldUseMigrationPath
-			? migrationPath
-			: `${newIcon.package}/${newIcon.type}/${newIcon.name}`,
+		importPath: shouldUseMigrationPath ? migrationPath : `${newIcon.package}/core/${newIcon.name}`,
 	};
 };
 

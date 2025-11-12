@@ -90,12 +90,18 @@ export const toolbarPlugin: ToolbarPlugin = ({
 		disableSelectionToolbar,
 		disableSelectionToolbarWhenPinned,
 		contextualFormattingEnabled = 'always-pinned',
+		breakpointPreset,
 	} = config;
 
 	const registry = createComponentRegistry();
 
 	registry.register(
-		getToolbarComponents(contextualFormattingEnabled, api, disableSelectionToolbar),
+		getToolbarComponents(
+			contextualFormattingEnabled,
+			api,
+			disableSelectionToolbar,
+			breakpointPreset,
+		),
 	);
 
 	return {

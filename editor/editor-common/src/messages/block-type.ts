@@ -164,6 +164,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Sync content across multiple locations',
 		description: 'Description of the synced block that auto-updates content across Atlassian apps',
 	},
+	newLozenge: {
+		id: 'fabric.editor.quickinsert.new.lozenge',
+		defaultMessage: 'New',
+		description: 'Text in lozenge that appears next to new quick insert items',
+	},
 	panel: {
 		id: 'fabric.editor.panel',
 		defaultMessage: 'Panel',

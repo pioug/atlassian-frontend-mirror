@@ -6,20 +6,17 @@ import {
 	type TruncateStyledProps,
 } from './truncateText-compiled';
 
-export const Truncate: typeof CompiledTruncate = (props) =>
-	(<CompiledTruncate {...props} />);
+export const Truncate: typeof CompiledTruncate = (props) => <CompiledTruncate {...props} />;
 
 export const TruncateLeft = (
 	props: TruncateStyledProps &
 		React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
-) =>
-	(<CompiledTruncateLeft {...props} />);
+) => <CompiledTruncateLeft {...props} />;
 
 export const TruncateRight = (
 	props: TruncateStyledProps &
 		React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
-) =>
-	(<CompiledTruncateRight {...props} />);
+) => <CompiledTruncateRight {...props} />;
 
 export { calculateTruncation } from './truncateText-compiled';
 

@@ -1,4 +1,12 @@
 import { type ImageResizeMode } from '@atlaskit/media-client';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+const roundedRatio = (ratio: number): number => {
+	return Math.round(ratio * 100) / 100;
+};
+
+const DEFAULT_CROP_DIMENSIONS = { maxWidth: '100%' };
+const DEFAULT_STRETCHY_FIT_DIMENSIONS = { width: '100%', maxHeight: '100%' };
 
 export const calculateDimensions = (
 	imgElement: HTMLImageElement,
@@ -19,6 +27,18 @@ export const calculateDimensions = (
 
 	const imgRatio = imgWidth / imgHeight;
 	const cardRatio = parentWidth / parentHeight;
+
+	if (fg('media-perf-uplift-mutation-fix')) {
+		const isSameRatio =
+			roundedRatio(imgWidth / parentWidth) === roundedRatio(imgHeight / parentHeight);
+		if (isSameRatio) {
+			if (resizeMode === 'stretchy-fit') {
+				return DEFAULT_STRETCHY_FIT_DIMENSIONS;
+			}
+			return DEFAULT_CROP_DIMENSIONS;
+		}
+	}
+
 	const isImageLandscapier = imgRatio > cardRatio;
 
 	if (resizeMode === 'stretchy-fit') {
@@ -47,10 +67,10 @@ export const calculateInitialDimensions = (resizeMode: ImageResizeMode): React.C
 
 	if (resizeMode === 'stretchy-fit') {
 		// assume the image is landscape
-		return { width: '100%', maxHeight: '100%' };
+		return DEFAULT_STRETCHY_FIT_DIMENSIONS;
 	}
 
 	// resizeMode === 'crop'
 	// assume the image is landscape
-	return { width: '100%' };
+	return fg('media-perf-uplift-mutation-fix') ? DEFAULT_CROP_DIMENSIONS : { width: '100%' };
 };

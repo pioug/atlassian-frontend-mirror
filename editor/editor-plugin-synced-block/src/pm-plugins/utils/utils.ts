@@ -5,7 +5,10 @@ import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-p
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection, findTable } from '@atlaskit/editor-tables';
 
-export const findSyncBlock = (schema: Schema, selection: Selection): ContentNodeWithPos | undefined => {
+export const findSyncBlock = (
+	schema: Schema,
+	selection: Selection,
+): ContentNodeWithPos | undefined => {
 	const { syncBlock } = schema.nodes;
 	return findSelectedNodeOfType(syncBlock)(selection);
 };

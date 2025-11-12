@@ -49,7 +49,7 @@ const iconStyles = css({
 	paddingInlineStart: 'var(--ds--button--new-icon-padding-start, 0)',
 });
 
-const utilityIconStyles = css({
+const smallIconStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: token('space.150'),
 });
@@ -104,50 +104,16 @@ const coreSizeSmall = cssMap({
 	},
 });
 
-const utilSizes = cssMap({
-	none: {
-		width: token('space.150'),
-		height: token('space.150'),
-	},
-	compact: {
-		width: token('space.200'),
-		height: token('space.200'),
-	},
-	spacious: {
-		width: token('space.300'),
-		height: token('space.300'),
-	},
-});
-
-const baseSizeMap = {
-	core: 16,
-	utility: 12,
-};
-
 const paddingMap = {
-	core: {
-		medium: {
-			none: 0,
-			compact: 4,
-			spacious: 4,
-		},
-		small: {
-			none: 0,
-			compact: 2.66,
-			spacious: 8,
-		},
+	medium: {
+		none: 0,
+		compact: 4,
+		spacious: 4,
 	},
-	utility: {
-		medium: {
-			none: 0,
-			compact: 2,
-			spacious: 6,
-		},
-		small: {
-			none: 0,
-			compact: 2,
-			spacious: 6,
-		},
+	small: {
+		none: 0,
+		compact: 2.66,
+		spacious: 8,
 	},
 } as const;
 
@@ -199,8 +165,6 @@ export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 			/>
 		);
 	}
-
-	const type: 'core' | 'utility' = props.type ?? 'core';
 	let size: 'medium' | 'small' = 'medium';
 	if ('size' in props && props.size !== undefined) {
 		if (typeof props.size === 'string') {
@@ -211,8 +175,8 @@ export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 		}
 	}
 
-	const baseSize = baseSizeMap[type];
-	const viewBoxPadding = paddingMap[type][size][spacing];
+	const baseSize = 16;
+	const viewBoxPadding = paddingMap[size][spacing];
 	const viewBoxSize = baseSize + 2 * viewBoxPadding;
 
 	return (
@@ -226,7 +190,7 @@ export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 				iconStyles,
 				baseHcmStyles,
 				shouldScale && scaleStyles,
-				(type === 'utility' || size === 'small') && utilityIconStyles,
+				size === 'small' && smallIconStyles,
 			]}
 		>
 			<svg
@@ -239,11 +203,9 @@ export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 					svgStyles,
 					shouldScale
 						? scaleSize
-						: type === 'utility'
-							? utilSizes[spacing]
-							: size === 'small'
-								? coreSizeSmall[spacing]
-								: coreSizeMedium[spacing],
+						: size === 'small'
+							? coreSizeSmall[spacing]
+							: coreSizeMedium[spacing],
 				]}
 				dangerouslySetInnerHTML={dangerouslySetInnerHTML}
 			/>

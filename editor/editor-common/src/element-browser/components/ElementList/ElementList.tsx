@@ -17,7 +17,7 @@ import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Stack, Text } from '@atlaskit/primitives/compiled';
+import { Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -554,7 +554,7 @@ export function ElementItem({
 		[index, inlineMode, item, onInsertItem, setFocusedItemIndex],
 	);
 
-	const { icon, title, description, keyshortcut, isDisabled } = item;
+	const { icon, title, description, keyshortcut, isDisabled, lozenge } = item;
 	return (
 		<Tooltip content={description} testId={`element-item-tooltip-${index}`}>
 			<ButtonItem
@@ -581,6 +581,7 @@ export function ElementItem({
 					description={description}
 					keyshortcut={keyshortcut}
 					isDisabled={isDisabled}
+					lozenge={lozenge}
 				/>
 			</ButtonItem>
 		</Tooltip>
@@ -599,7 +600,7 @@ const ElementBefore = memo(({ icon }: Partial<QuickInsertItem>) => (
 ));
 
 const ItemContent = memo(
-	({ title, description, keyshortcut, isDisabled }: Partial<QuickInsertItem>) => {
+	({ title, description, keyshortcut, lozenge, isDisabled }: Partial<QuickInsertItem>) => {
 		if (fg('platform_editor_typography_ugc')) {
 			return (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -607,9 +608,18 @@ const ItemContent = memo(
 					<div css={itemText}>
 						<Stack space="space.025">
 							<div css={itemTitleWrapper}>
-								<Text color={isDisabled ? 'color.text.disabled' : undefined} maxLines={1}>
-									{title}
-								</Text>
+								{expValEquals('platform_synced_block', 'isEnabled', true) ? (
+									<Flex alignItems="center" gap="space.050">
+										<Text color={isDisabled ? 'color.text.disabled' : undefined} maxLines={1}>
+											{title}
+										</Text>
+										{lozenge}
+									</Flex>
+								) : (
+									<Text color={isDisabled ? 'color.text.disabled' : undefined} maxLines={1}>
+										{title}
+									</Text>
+								)}
 								<div css={itemAfter}>
 									{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 									{keyshortcut && <div css={shortcutStyle}>{keyshortcut}</div>}

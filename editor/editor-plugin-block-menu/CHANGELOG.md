@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.0.8
+
+### Patch Changes
+
+- [`66669e4c6a5d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66669e4c6a5d3) -
+  [ux] Update block menu renderer to support mulitple sections inside of a nested menu
+- Updated dependencies
+
+## 5.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.6
 
 ### Patch Changes

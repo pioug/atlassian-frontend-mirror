@@ -354,7 +354,7 @@ function OurExpandableMenuItem({
 			>
 				<ExpandableMenuItemTrigger
 					testId={triggerTestId}
-					dropIndicator={dropIndicator}
+					dropIndicator={forcedDropIndicator || dropIndicator}
 					ref={draggableButtonRef}
 					visualContentRef={dropTargetRef}
 					isDragging={state.type === 'dragging'}

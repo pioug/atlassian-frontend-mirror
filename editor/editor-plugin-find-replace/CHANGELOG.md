@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 6.0.9
+
+### Patch Changes
+
+- [`6dca69f45fa7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6dca69f45fa7f) -
+  [ED-29493] clean up references to platform_editor_find_replace_a11y_fixes
+- Updated dependencies
+
+## 6.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.7
 
 ### Patch Changes

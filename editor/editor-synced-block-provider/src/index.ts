@@ -9,6 +9,7 @@ export {
 } from './hooks/useFetchSyncBlockData';
 export { useFetchSyncBlockTitle } from './hooks/useFetchSyncBlockTitle';
 export { useHandleContentChanges } from './hooks/useHandleContentChanges';
+export { useMemoizedBlockServiceAPIProviders } from './providers/block-service/blockServiceAPI';
 export {
 	createContentAPIProvidersWithDefaultKey,
 	useMemoizedContentAPIProviders,

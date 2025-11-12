@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 3.2.4
+
+### Patch Changes
+
+- [`0b00861d972cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b00861d972cd) -
+  [EDITOR-2668] refactored deleted mediaSingle decorations to maintain alignment/wrap on diff view
+- Updated dependencies
+
 ## 3.2.3
 
 ### Patch Changes

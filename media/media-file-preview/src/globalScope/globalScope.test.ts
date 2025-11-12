@@ -53,14 +53,15 @@ describe('Media Global Scope', () => {
 			const globalScope = {
 				[GLOBAL_MEDIA_NAMESPACE]: { [GLOBAL_MEDIA_CARD_SSR]: mediaCardSSR },
 			};
-			const key = getKey(identifier);
+			const mode = 'crop';
+			const key = getKey(identifier, mode);
 			const dataURI = 'some-data-uri';
 			const srcSet = 'some-src-set';
 			const dimensions = { width: 3, height: 4 };
 			const error = extractErrorInfo(
 				new MediaFilePreviewError('ssr-server-uri', new MediaStoreError('missingInitialAuth')),
 			);
-			storeDataURI(key, dataURI, srcSet, dimensions, error, {}, globalScope);
+			storeDataURI(key, dataURI, mode, srcSet, dimensions, error, {}, globalScope);
 
 			expect(mediaCardSSR[key]).toEqual({ dataURI, dimensions, error });
 		});

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
 
 import { type MediaClient, type MediaClientConfig } from '@atlaskit/media-client';
 
+import { getMediaClient } from './getMediaClient';
 import { MediaClientContext } from './MediaClientProvider';
-import { MediaContext, MediaProvider } from './MediaProvider';
+import { MediaContext } from './MediaProvider';
 import {
 	type MediaParsedSettings,
 	type MediaSettings,
@@ -27,29 +28,8 @@ export type WithMediaClientAndParsedSettingsFunction = <P extends WithMediaClien
 	Component: React.ComponentType<P>,
 ) => React.ComponentType<WithMediaClientConfigAndSettingsProps<P>>;
 
-interface MediaContextConsumerProps<P extends WithMediaClientAndParsedSettings> {
-	Component: React.ComponentType<P>;
-	otherProps: any;
-	mediaSettings?: MediaParsedSettings;
-}
-
-const MediaContextConsumer = <P extends WithMediaClientAndParsedSettings>({
-	Component,
-	otherProps,
-}: MediaContextConsumerProps<P>) => (
-	<MediaContext.Consumer>
-		{(mediaProviderValue) => (
-			<Component
-				{...otherProps}
-				mediaClient={mediaProviderValue?.mediaClient}
-				mediaSettings={mediaProviderValue?.settings}
-			/>
-		)}
-	</MediaContext.Consumer>
-);
-
 /**
- * Injects a MediaProvider as a partent of the supplied component, if no MediaProvider or MediaClientProvider is found in the tree.
+ * Injects a MediaProvider as a partent of the supplied component, regardless of whether MediaProvider or MediaClientProvider is found in the tree.
  * It also conciliates the passed mediaClientConfig and mediaSettings with the Provider settings, giving priority to the passed props.
  */
 export const withMediaClientAndSettings: WithMediaClientAndParsedSettingsFunction =
@@ -59,55 +39,37 @@ export const withMediaClientAndSettings: WithMediaClientAndParsedSettingsFunctio
 		mediaSettings,
 		...otherProps
 	}: WithMediaClientConfigAndSettingsProps<P>) => {
-		const parsedSettings = useMediaParsedSettings(mediaSettings);
+		const parsedSettings: MediaParsedSettings = useMediaParsedSettings(mediaSettings);
+		const mediaProviderValue = useContext(MediaContext);
+		const mediaClientValue = useContext(MediaClientContext);
 
+		const mediaContext: {
+			mediaClient: MediaClient;
+			settings: MediaParsedSettings;
+		} = useMemo(
+			() => ({
+				mediaClient:
+					mediaProviderValue?.mediaClient ?? mediaClientValue ?? getMediaClient(mediaClientConfig),
+				settings: {
+					...mediaProviderValue?.settings,
+					...parsedSettings,
+				},
+			}),
+			[
+				mediaProviderValue?.settings,
+				mediaProviderValue?.mediaClient,
+				parsedSettings,
+				mediaClientConfig,
+				mediaClientValue,
+			],
+		);
 		return (
-			<MediaContext.Consumer>
-				{(outterMediaProviderValue) => {
-					// If there is a MediaProvider up in the tree, use the top mediaClient and merge settings
-					if (outterMediaProviderValue) {
-						const mergedParsedSettings = {
-							...outterMediaProviderValue.settings,
-							...parsedSettings,
-						};
-						return (
-							<MediaContext.Provider
-								value={{
-									mediaClient: outterMediaProviderValue.mediaClient,
-									settings: mergedParsedSettings,
-								}}
-							>
-								<MediaContextConsumer Component={Component} otherProps={otherProps} />
-							</MediaContext.Provider>
-						);
-					}
-					// Otherwise, check if there is a MediaClientProvider up in the tree
-					return (
-						<MediaClientContext.Consumer>
-							{(mediaClientProviderValue) =>
-								// If there is a MediaClientProvider, we reinject the mediaClient and mediaSettings into a new MediaProvider
-								mediaClientProviderValue ? (
-									<MediaContext.Provider
-										value={{
-											mediaClient: mediaClientProviderValue,
-											settings: parsedSettings,
-										}}
-									>
-										<MediaContextConsumer Component={Component} otherProps={otherProps} />
-									</MediaContext.Provider>
-								) : (
-									// If no poviders found, we mount a MediaProvider and inject the given props mediaClientConfig and mediaSettings
-									<MediaProvider
-										mediaClientConfig={mediaClientConfig}
-										mediaSettings={mediaSettings}
-									>
-										<MediaContextConsumer Component={Component} otherProps={otherProps} />
-									</MediaProvider>
-								)
-							}
-						</MediaClientContext.Consumer>
-					);
-				}}
-			</MediaContext.Consumer>
+			<MediaContext.Provider value={mediaContext}>
+				<Component
+					{...(otherProps as any)}
+					mediaClient={mediaContext.mediaClient}
+					mediaSettings={mediaContext.settings}
+				/>
+			</MediaContext.Provider>
 		);
 	};

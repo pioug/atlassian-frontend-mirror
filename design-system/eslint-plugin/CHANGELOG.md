@@ -1,5 +1,22 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.24.0
+
+### Minor Changes
+
+- [`6346354ff2153`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6346354ff2153) -
+  Add a new rule `lozenge-appearance-and-isbold-migration` to help migrate deprecated Lozenge usages
+  to the new API or Tag component as part of the Labelling System Phase 1 migration
+
+## 13.23.4
+
+### Patch Changes
+
+- [`f0d92beae2f40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0d92beae2f40) -
+  Removes utility icons entrypoints from the '@atlaskit/icon' package. Migrates related packages to
+  update their imports.
+- Updated dependencies
+
 ## 13.23.3
 
 ### Patch Changes

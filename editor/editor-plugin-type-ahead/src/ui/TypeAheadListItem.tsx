@@ -140,6 +140,12 @@ const disabledStyle = css({
 	color: token('color.text.disabled'),
 });
 
+const titleWithLozengeStyle = css({
+	display: 'flex',
+	alignItems: 'center',
+	gap: `${token('space.050', '4px')}`,
+});
+
 const FallbackIcon = React.memo(({ label }: Record<'label', string>) => {
 	return <IconFallback />;
 });
@@ -326,7 +332,7 @@ export const TypeAheadListItem = React.memo(
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			<span css={listItemClasses}>
-				{(descriptionText || shortcutText) && fg('platform_editor_a11y_fix_aria_description') && (
+				{(descriptionText || shortcutText) && (
 					<VisuallyHidden id={descriptionId}>
 						{descriptionText} {shortcutText}
 					</VisuallyHidden>
@@ -337,11 +343,7 @@ export const TypeAheadListItem = React.memo(
 					isSelected={isSelected}
 					aria-selected={isSelected}
 					aria-label={title}
-					aria-describedby={
-						(descriptionText || shortcutText) && fg('platform_editor_a11y_fix_aria_description')
-							? descriptionId
-							: undefined
-					}
+					aria-describedby={descriptionText || shortcutText ? descriptionId : undefined}
 					aria-setsize={itemsLength}
 					aria-posinset={
 						expValEquals('platform_editor_fix_a11y_aria_posinset_0', 'isEnabled', true)
@@ -363,9 +365,13 @@ export const TypeAheadListItem = React.memo(
 										itemTitle,
 										moreElementsInQuickInsertViewEnabled && itemTitleOverride,
 										itemIsDisabled && disabledStyle,
+										item.lozenge &&
+											expValEquals('platform_synced_block', 'isEnabled', true) &&
+											titleWithLozengeStyle,
 									]}
 								>
 									{item.title}
+									{expValEquals('platform_synced_block', 'isEnabled', true) && item.lozenge}
 								</div>
 								<div css={itemAfter}>
 									{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}

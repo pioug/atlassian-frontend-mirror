@@ -776,7 +776,11 @@ export const FileCard = ({
 		// Side note: We should not lazy load if the cardPreview is available from local cache,
 		// in order to avoid flickers during re-mount of the component
 		// CXP-2723 TODO: Create test cases for the above scenarios
-		const nativeLazyLoad = isLazyWithOverride && !isCardVisible && preview && isSSRPreview(preview);
+		const nativeLazyLoad =
+			isLazyWithOverride &&
+			(fg('media-perf-uplift-mutation-fix') || !isCardVisible) &&
+			preview &&
+			isSSRPreview(preview);
 		// Force Media Image to always display img for SSR
 		const forceSyncDisplay = !!ssr;
 

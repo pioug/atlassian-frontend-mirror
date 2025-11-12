@@ -1,5 +1,11 @@
 # @atlassian/navigation-system
 
+## 5.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.3
 
 ### Patch Changes

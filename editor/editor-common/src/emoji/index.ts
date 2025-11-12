@@ -5,4 +5,15 @@ export { default as Emoji } from '../ui/Emoji';
 export type { EmojiProps } from '../ui/Emoji';
 export { EmojiSharedCssClassName } from '../styles/shared/emoji';
 export { messages } from './messages';
-export { defaultEmojiHeight } from '@atlaskit/emoji';
+export {
+	defaultEmojiHeight,
+	defaultDenseEmojiHeight,
+	scaledEmojiHeightH1,
+	scaledEmojiHeightH2,
+	scaledEmojiHeightH3,
+	scaledEmojiHeightH4,
+	denseEmojiHeightH1,
+	denseEmojiHeightH2,
+	denseEmojiHeightH3,
+	denseEmojiHeightH4,
+} from '@atlaskit/emoji';

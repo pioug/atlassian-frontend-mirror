@@ -10,11 +10,22 @@ export default function Example() {
 		name: 'Craig Petchell',
 		mentionName: 'petch',
 	};
+
+	const teamMention = {
+		id: '777',
+		name: 'Team Rocket',
+		mentionName: 'teamrocket',
+		userType: 'TEAM',
+	};
+
 	const description = 'Simple mention item with no nickname or avatar';
 	const component = (
 		<IntlProvider locale="en">
 			<div data-testid="vr-tested">
 				<MentionItem mention={mention} onSelection={onSelection} />
+			</div>
+			<div data-testid="vr-tested-team">
+				<MentionItem mention={teamMention} onSelection={onSelection} />
 			</div>
 		</IntlProvider>
 	);

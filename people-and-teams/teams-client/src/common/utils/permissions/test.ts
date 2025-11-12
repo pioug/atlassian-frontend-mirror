@@ -33,7 +33,10 @@ const allActionsExceptJoin = [
 ];
 const allActionsExceptJoinAndType = [
 	...AllTeamActions.filter(
-		(a) => !['REQUEST_TO_JOIN', 'CANCEL_JOIN_REQUEST', 'EDIT_TEAM_TYPE', 'CAN_EDIT_HIERARCHY'].includes(a),
+		(a) =>
+			!['REQUEST_TO_JOIN', 'CANCEL_JOIN_REQUEST', 'EDIT_TEAM_TYPE', 'CAN_EDIT_HIERARCHY'].includes(
+				a,
+			),
 	),
 ];
 

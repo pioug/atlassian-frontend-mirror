@@ -46,7 +46,7 @@ const client = new FeatureFlagClient({
 
 const JSONFlag: any = client.getJSONValue('my.json.flag');
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Stack space="space.300">
 		<Heading size="large">Feature flag client</Heading>
 		<Stack space="space.150">

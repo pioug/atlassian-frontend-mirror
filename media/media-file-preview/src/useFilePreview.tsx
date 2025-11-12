@@ -133,7 +133,7 @@ export const useFilePreview = ({
 		}
 
 		if (ssr) {
-			const ssrData = getSSRData(identifier);
+			const ssrData = getSSRData(identifier, resizeMode);
 			if (ssrData?.error) {
 				ssrReliabilityRef.current.server = {
 					status: 'fail',
@@ -444,6 +444,7 @@ export const useFilePreview = ({
 					generateScriptProps(
 						identifier,
 						preview?.dataURI,
+						resizeMode,
 						preview?.srcSet,
 						requestDimensions,
 						ssrReliabilityRef.current.server?.status === 'fail'

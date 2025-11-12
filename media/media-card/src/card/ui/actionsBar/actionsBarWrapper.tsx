@@ -4,5 +4,5 @@ import { ActionsBarWrapper as CompiledActionsBarWrapper } from './actionsBarWrap
 import { type ActionBarWrapperProps } from './types';
 
 export const ActionsBarWrapper = (props: ActionBarWrapperProps) => (
-  <CompiledActionsBarWrapper {...props} />
+	<CompiledActionsBarWrapper {...props} />
 );

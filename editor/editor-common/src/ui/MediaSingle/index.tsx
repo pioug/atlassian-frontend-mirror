@@ -47,6 +47,7 @@ export interface Props {
 	 */
 	pctWidth?: number;
 	size?: MediaSingleSize;
+	isInRenderer?: boolean;
 	width?: number;
 }
 
@@ -69,6 +70,7 @@ export interface Props {
  * @param root0.handleMediaSingleRef
  * @param root0.isInsideOfInlineExtension
  * @param root0.dataAttributes
+ * @param root0.isInRenderer
  * @example
  */
 export default function MediaSingle({
@@ -88,6 +90,7 @@ export default function MediaSingle({
 	handleMediaSingleRef,
 	isInsideOfInlineExtension = false,
 	dataAttributes,
+	isInRenderer = false,
 }: Props) {
 	const isPixelWidth = size?.widthType === 'pixel';
 
@@ -158,7 +161,8 @@ export default function MediaSingle({
 				fullWidthMode,
 				isExtendedResizeExperienceOn: isPixelWidth,
 				isInsideOfInlineExtension,
-				nodeType,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				isInRenderer: isInRenderer && fg('media-perf-uplift-mutation-fix'),
 			})}
 			// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/platform/no-preconditioning
 			{...(!fg('platform_editor_fix_media_in_renderer') ? {} : { 'data-layout': layout })}

@@ -404,7 +404,7 @@ describe('useFilePreview', () => {
 						dimensions: globalScopeDimensions,
 					};
 					const { id, collectionName } = identifier;
-					setGlobalSSRData(`${id}-${collectionName}`, globalScopePreview);
+					setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopePreview);
 
 					const { result } = renderHook(useFilePreview, {
 						wrapper: ({ children }) => (
@@ -438,7 +438,7 @@ describe('useFilePreview', () => {
 				};
 
 				const { id, collectionName } = identifier;
-				setGlobalSSRData(`${id}-${collectionName}`, globalScopeData);
+				setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopeData);
 
 				const { result } = renderHook(useFilePreview, {
 					wrapper: ({ children }) => (
@@ -779,7 +779,7 @@ describe('useFilePreview', () => {
 					source: 'ssr-data',
 				};
 				const { id, collectionName } = identifier;
-				setGlobalSSRData(`${id}-${collectionName}`, globalScopePreview);
+				setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopePreview);
 
 				const initialProps: UseFilePreviewParams = {
 					identifier,
@@ -955,7 +955,7 @@ describe('useFilePreview', () => {
 				});
 
 				const { id, collectionName } = identifier;
-				setGlobalSSRData(`${id}-${collectionName}`, globalScopePreview);
+				setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopePreview);
 
 				const initialProps = {
 					identifier,
@@ -1083,7 +1083,7 @@ describe('useFilePreview', () => {
 					};
 
 					const { id, collectionName } = identifier;
-					setGlobalSSRData(`${id}-${collectionName}`, globalScopePreview);
+					setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopePreview);
 
 					const initialProps = {
 						identifier,
@@ -1158,7 +1158,7 @@ describe('useFilePreview', () => {
 					};
 
 					const { id, collectionName } = identifier;
-					setGlobalSSRData(`${id}-${collectionName}`, globalScopePreview);
+					setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopePreview);
 
 					const initialProps = {
 						identifier,
@@ -1699,7 +1699,7 @@ describe('useFilePreview', () => {
 				};
 
 				const { id, collectionName } = identifier;
-				setGlobalSSRData(`${id}-${collectionName}`, globalScopePreview);
+				setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopePreview);
 
 				const initialProps = {
 					identifier,

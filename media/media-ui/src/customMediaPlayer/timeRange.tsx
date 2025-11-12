@@ -209,8 +209,7 @@ export class TimeRangeBase extends Component<
 
 	render() {
 		const { isDragging, timeLineThumbIsHover, timeLineThumbIsFocus } = this.state;
-		const { currentTime, duration, bufferedTime, disableThumbTooltip, intl } =
-			this.props;
+		const { currentTime, duration, bufferedTime, disableThumbTooltip, intl } = this.props;
 		const currentPosition = (currentTime * 100) / duration;
 		const bufferedTimePercentage = (bufferedTime * 100) / duration;
 

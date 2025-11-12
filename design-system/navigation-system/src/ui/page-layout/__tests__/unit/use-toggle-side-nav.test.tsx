@@ -3,14 +3,14 @@ import React, { useContext, useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
+
 import type { SideNavState, SideNavTrigger } from '../../side-nav/types';
 import { useToggleSideNav } from '../../side-nav/use-toggle-side-nav';
 import {
 	SetSideNavVisibilityState,
 	SideNavVisibilityState,
 } from '../../side-nav/visibility-context';
-
-import { resetMatchMedia, setMediaQuery } from './_test-utils';
 
 describe('useToggleSideNav', () => {
 	beforeEach(() => {

@@ -45,17 +45,13 @@ export const DisabledArchiveDownloadButtonWrapper = (props: Children) => (
 	<CompiledDisabledArchiveDownloadButtonWrapper {...props} />
 );
 
-export const SidebarItemWrapper = (props: Children) => (
-	<CompiledSidebarItemWrapper {...props} />
-);
+export const SidebarItemWrapper = (props: Children) => <CompiledSidebarItemWrapper {...props} />;
 
 export const ArchiveSidebarFileEntryWrapper = (props: { index: Key } & Children) => (
 	<CompiledArchiveSidebarFileEntryWrapper {...props} />
 );
 
-export const ArchiveLayout = (props: Children) => (
-	<CompiledArchiveLayout {...props} />
-);
+export const ArchiveLayout = (props: Children) => <CompiledArchiveLayout {...props} />;
 
 export const ArchiveViewerWrapper = (props: Children) => (
 	<CompiledArchiveViewerWrapper {...props} />
@@ -67,10 +63,6 @@ export const SidebarHeaderWrapper = (props: Children) => (
 	<CompiledSidebarHeaderWrapper {...props} />
 );
 
-export const SidebarHeaderIcon = (props: Children) => (
-	<CompiledSidebarHeaderIcon {...props} />
-);
+export const SidebarHeaderIcon = (props: Children) => <CompiledSidebarHeaderIcon {...props} />;
 
-export const SidebarHeaderEntry = (props: Children) => (
-	<CompiledSidebarHeaderEntry {...props} />
-);
+export const SidebarHeaderEntry = (props: Children) => <CompiledSidebarHeaderEntry {...props} />;

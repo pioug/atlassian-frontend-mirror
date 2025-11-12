@@ -19,9 +19,7 @@ export const CodeViewWrapper = (props: {
 	</TouchScrollable>
 );
 
-export const CodeViewerHeaderBar = () => (
-	<CompiledCodeViewerHeaderBar />
-);
+export const CodeViewerHeaderBar = () => <CompiledCodeViewerHeaderBar />;
 
 export type Props = {
 	item: Exclude<FileState, ErrorFileState>;
@@ -37,6 +35,4 @@ export type State = {
 	doc: Outcome<any, MediaViewerError>;
 };
 
-export const CodeViewRenderer = (props: Props) => (
-	<CompiledCodeViewRenderer {...props} />
-);
+export const CodeViewRenderer = (props: Props) => <CompiledCodeViewRenderer {...props} />;

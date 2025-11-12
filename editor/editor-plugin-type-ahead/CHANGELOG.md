@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 6.5.15
+
+### Patch Changes
+
+- [`c25e49b317dd8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c25e49b317dd8) -
+  [ED-29492] clean up references to platform_editor_paste_rich_text_bugfix
+- Updated dependencies
+
+## 6.5.14
+
+### Patch Changes
+
+- [`7e8c949e9c8c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e8c949e9c8c0) -
+  [ux] Add new lozenge next to create synced block in toolbar and typeahead, and text updates
+- [`4b5b1f0b43c2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b5b1f0b43c2f) -
+  Tidy fg platform_editor_a11y_fix_aria_description
+- Updated dependencies
+
+## 6.5.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.5.12
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @atlaskit/icon
 
+## 29.0.0
+
+### Major Changes
+
+- [`f0d92beae2f40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0d92beae2f40) -
+  Removes utility icons entrypoints from the '@atlaskit/icon' package. Migrates related packages to
+  update their imports.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.5.4
 
 ### Patch Changes

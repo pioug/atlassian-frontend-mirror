@@ -158,10 +158,18 @@ type PrimaryToolbarProps = ToolbarProps & ResponsiveContainerProps;
 /**
  *  A simple component representing a toolbar without box shadows - used to represent a primary toolbar
  */
-export const PrimaryToolbar = ({ children, label, reducedBreakpoints }: PrimaryToolbarProps) => {
+export const PrimaryToolbar = ({
+	children,
+	label,
+	breakpointPreset,
+	reducedBreakpoints,
+}: PrimaryToolbarProps) => {
 	if (expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)) {
 		return (
-			<ResponsiveContainer reducedBreakpoints={reducedBreakpoints}>
+			<ResponsiveContainer
+				breakpointPreset={breakpointPreset}
+				reducedBreakpoints={reducedBreakpoints}
+			>
 				<Box
 					xcss={cx(styles.toolbarBase, styles.primaryToolbar, styles.hiddenSelectors)}
 					role="toolbar"

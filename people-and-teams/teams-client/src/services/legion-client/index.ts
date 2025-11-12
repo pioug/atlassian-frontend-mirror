@@ -529,6 +529,17 @@ export class LegionClient extends RestClient implements LegionClient {
 			JSON.stringify([this.trimTeamARI(teamId)]),
 		);
 	}
+	async unlinkTeamFromGroup(
+		teamId: string,
+		membershipSettings: TeamMembershipSettings,
+	): Promise<void> {
+		return this.patchResource(
+			`${v4UrlPath}/${this.trimTeamARI(teamId)}`,
+			{
+				membershipSettings,
+			},
+		);
+	}
 
 	/**
 	 * @private

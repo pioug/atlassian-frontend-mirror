@@ -5,13 +5,13 @@ import {
 	type ReservedAttributes,
 } from './types';
 
-export const isObject = (value: any) => typeof value === 'object';
+export const isObject = (value: any): boolean => typeof value === 'object';
 
 export const isObjectEmptyOrUndefined = (obj?: object): boolean => {
 	return obj ? Object.keys(obj).length === 0 : true;
 };
 
-export const enforceAttributes = (obj: any, attributes: string[], identifier?: string) => {
+export const enforceAttributes = (obj: any, attributes: string[], identifier?: string): void => {
 	attributes.forEach((attribute: string) => {
 		if (!(attribute in obj)) {
 			const title = identifier ? `${identifier}: ` : '';
@@ -20,7 +20,7 @@ export const enforceAttributes = (obj: any, attributes: string[], identifier?: s
 	});
 };
 
-export const checkForReservedAttributes = (customAttributes?: CustomAttributes) => {
+export const checkForReservedAttributes = (customAttributes?: CustomAttributes): void => {
 	const reservedAttributes: Array<keyof ReservedAttributes> = [
 		'flagKey',
 		'ruleId',
@@ -50,6 +50,6 @@ const validateFlag: any = (flagKey: string, flag: FlagShape) => {
 	}
 };
 
-export const validateFlags = (flags: Flags) => {
+export const validateFlags = (flags: Flags): void => {
 	Object.keys(flags).forEach((key) => validateFlag(key, flags[key]));
 };

@@ -4,14 +4,14 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import noop from '@atlaskit/ds-lib/noop';
+import { resetMatchMedia } from '@atlassian/test-utils';
 
 import { useSkipLink } from '../../../../context/skip-links/skip-links-context';
 import {
 	filterFromConsoleErrorOutput,
 	parseCssErrorRegex,
 	type ResetConsoleErrorFn,
-	resetMatchMedia,
-} from '../../../../ui/page-layout/__tests__/unit/_test-utils';
+} from '../../../../ui/page-layout/__tests__/unit/_filter-from-console-error-output';
 import { Aside } from '../../../../ui/page-layout/aside';
 import { Banner } from '../../../../ui/page-layout/banner';
 import { Main } from '../../../../ui/page-layout/main/main';

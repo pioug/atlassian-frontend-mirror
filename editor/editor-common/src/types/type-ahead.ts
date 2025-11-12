@@ -60,6 +60,7 @@ export type TypeAheadItem = {
 	isDisabledOffline?: boolean;
 	key?: string | number;
 	keyshortcut?: string;
+	lozenge?: ReactNode;
 	render?: (props: TypeAheadItemRenderProps) => React.ReactElement<TypeAheadItemRenderProps> | null;
 	title: string;
 };

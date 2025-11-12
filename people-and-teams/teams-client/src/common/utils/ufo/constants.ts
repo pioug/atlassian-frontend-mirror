@@ -28,6 +28,7 @@ const TeamsClientExperienceKeyList = [
 	'deleteTeam',
 	'archiveTeam',
 	'unarchiveTeam',
+	'unlinkTeamFromGroup',
 	'isSingleFullMemberTeam',
 	'createTeam',
 	'createTeamContainers',

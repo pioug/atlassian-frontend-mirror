@@ -91,7 +91,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-app-config",
-	"version": "1.12.6",
+	"version": "1.12.7",
 	"description": "Teams App related config",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -103,6 +103,9 @@
 			"type": "boolean"
 		},
 		"enable_teams_app_breadcrumb_respect_directories": {
+			"type": "boolean"
+		},
+		"teams-app-migration-exclusions": {
 			"type": "boolean"
 		}
 	}

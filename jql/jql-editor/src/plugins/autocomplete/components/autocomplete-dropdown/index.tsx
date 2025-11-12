@@ -54,11 +54,13 @@ const getPreviousOptionId = (
 	selectedOptionId: string | undefined,
 ) => {
 	if (!selectedOptionId) {
-		return options[options.length - 1].id;
+		// Options can be empty if the user presses arrow keys while results are loading
+		return options[options.length - 1]?.id;
 	}
 	const index = options.findIndex((option) => option.id === selectedOptionId);
 	if (index === -1) {
-		return options[options.length - 1].id;
+		// Options can be empty if the user presses arrow keys while results are loading
+		return options[options.length - 1]?.id;
 	}
 	if (index > 0) {
 		return options[index - 1].id;
@@ -71,11 +73,13 @@ const getNextOptionId = (
 	selectedOptionId: string | undefined,
 ) => {
 	if (!selectedOptionId) {
-		return options[0].id;
+		// Options can be empty if the user presses arrow keys while results are loading
+		return options[0]?.id;
 	}
 	const index = options.findIndex((option) => option.id === selectedOptionId);
 	if (index === -1) {
-		return options[0].id;
+		// Options can be empty if the user presses arrow keys while results are loading
+		return options[0]?.id;
 	}
 	if (index < options.length - 1) {
 		return options[index + 1].id;

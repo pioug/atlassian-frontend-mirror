@@ -2,7 +2,7 @@ import type { IconMigrationMap } from '@atlaskit/icon/types';
 
 const migrationMap: IconMigrationMap = {
 	'bitbucket/builds': {
-		newIcon: { name: 'roadmaps-plan', type: 'core', package: '@atlaskit/icon-lab' },
+		newIcon: { name: 'roadmaps-plan', package: '@atlaskit/icon-lab' },
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -11,7 +11,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'bitbucket/forks': {
-		newIcon: { name: 'roadmaps-service', type: 'core', package: '@atlaskit/icon-lab' },
+		newIcon: { name: 'roadmaps-service', package: '@atlaskit/icon-lab' },
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',

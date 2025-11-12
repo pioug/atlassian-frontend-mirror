@@ -7,11 +7,11 @@ import Heading from '@atlaskit/heading';
 import { Inline, Stack, xcss } from '@atlaskit/primitives';
 
 import AddIcon from '../core/add';
+import ChevronDownIcon from '../core/chevron-down';
 import AddIconMigration from '../core/migration/add';
+import ChevronDownIconMigration from '../core/migration/chevron-down--hipchat-chevron-down';
 import AddIconOld from '../glyph/add';
 import HipchatChevronDownIconOld from '../glyph/hipchat/chevron-down';
-import ChevronDownIcon from '../utility/chevron-down';
-import ChevronDownIconMigration from '../utility/migration/chevron-down--hipchat-chevron-down';
 
 const styles = xcss({ padding: 'space.200' });
 const IconSizeExample = () => {
@@ -53,7 +53,7 @@ const IconSizeExample = () => {
 						<OldButton
 							isSelected={isSelected}
 							iconBefore={<AddIconMigration label="" color="currentColor" />}
-							iconAfter={<ChevronDownIconMigration label="" color="currentColor" />}
+							iconAfter={<ChevronDownIconMigration label="" color="currentColor" size="small" />}
 						>
 							Button
 						</OldButton>
@@ -73,7 +73,9 @@ const IconSizeExample = () => {
 						<Button
 							isSelected={isSelected}
 							iconBefore={AddIconMigration}
-							iconAfter={ChevronDownIconMigration}
+							iconAfter={(iconProps) => (
+								<ChevronDownIconMigration {...iconProps} size="small" color="currentColor" />
+							)}
 						>
 							Button
 						</Button>
@@ -87,7 +89,7 @@ const IconSizeExample = () => {
 						<OldButton
 							isSelected={isSelected}
 							iconBefore={<AddIcon label="" color="currentColor" />}
-							iconAfter={<ChevronDownIcon label="" color="currentColor" />}
+							iconAfter={<ChevronDownIcon label="" color="currentColor" size="small" />}
 						>
 							Button
 						</OldButton>
@@ -104,7 +106,13 @@ const IconSizeExample = () => {
 						Old button, new icon
 					</Inline>
 					<Inline space="space.100" alignBlock="center">
-						<Button isSelected={isSelected} iconBefore={AddIcon} iconAfter={ChevronDownIcon}>
+						<Button
+							isSelected={isSelected}
+							iconBefore={AddIcon}
+							iconAfter={(iconProps) => (
+								<ChevronDownIcon {...iconProps} size="small" color="currentColor" />
+							)}
+						>
 							Button
 						</Button>
 						<Button isSelected={isSelected} iconBefore={AddIcon}>

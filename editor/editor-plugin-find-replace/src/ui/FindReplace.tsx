@@ -160,21 +160,9 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 
 		return (
 			<div
-				role={
-					expValEquals('platform_editor_find_replace_a11y_fixes', 'isEnabled', true)
-						? 'dialog'
-						: undefined
-				}
-				aria-label={
-					expValEquals('platform_editor_find_replace_a11y_fixes', 'isEnabled', true)
-						? 'Find and Replace'
-						: undefined
-				}
-				aria-modal={
-					expValEquals('platform_editor_find_replace_a11y_fixes', 'isEnabled', true)
-						? false
-						: undefined
-				}
+				role={'dialog'}
+				aria-label={'Find and Replace'}
+				aria-modal={false}
 				ref={this.modalRef}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={[wrapperStyles, wrapperPaddingStyles]}

@@ -10,7 +10,6 @@ const icons = Object.entries(coreIconMetadata).map(([_key, icon]) => ({
 	keywords: icon.keywords,
 	status: icon.status,
 	usage: icon.usage,
-	type: icon.type,
 	shouldRecommendSmallIcon: icon.shouldRecommendSmallIcon,
 }));
 

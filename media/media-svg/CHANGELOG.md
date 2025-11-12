@@ -1,5 +1,12 @@
 # @atlaskit/media-svg
 
+## 2.1.10
+
+### Patch Changes
+
+- [`93e3d7d5724d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93e3d7d5724d0) -
+  FG cleanup - platform_media_compiled
+
 ## 2.1.9
 
 ### Patch Changes

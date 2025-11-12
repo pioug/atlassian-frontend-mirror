@@ -11,7 +11,7 @@ import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
 import { IconTile } from '@atlaskit/icon';
 import coreIconLabMetadata from '@atlaskit/icon-lab/metadata';
-import metadata, { coreIconMetadata, utilityIconMetadata } from '@atlaskit/icon/metadata';
+import metadata, { coreIconMetadata } from '@atlaskit/icon/metadata';
 import migrationMap from '@atlaskit/icon/migration-map';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Stack } from '@atlaskit/primitives';
@@ -59,25 +59,6 @@ const iconInfo = Promise.all(
 			[importedIcon.name]: {
 				component: importedIcon.icon,
 				...coreIconMetadata[importedIcon.name],
-			},
-		}))
-		.reduce((acc, b) => ({ ...acc, ...b })),
-);
-
-const utilityIconInfo = Promise.all(
-	Object.keys(utilityIconMetadata).map(async (name: string) => {
-		const icon = await import(
-			/* webpackChunkName: "@atlaskit-internal_icon-lab" */
-			`@atlaskit/icon/utility/${name}.js`
-		);
-		return { name, icon: icon.default };
-	}),
-).then((importedIconData) =>
-	importedIconData
-		.map((importedIcon) => ({
-			[importedIcon.name]: {
-				component: importedIcon.icon,
-				...utilityIconMetadata[importedIcon.name],
 			},
 		}))
 		.reduce((acc, b) => ({ ...acc, ...b })),
@@ -134,13 +115,11 @@ const filterIcons = (icons: IconsList, query: string) => {
 };
 
 const iconPromise = iconInfo;
-const utilityIconPromise = utilityIconInfo;
 const localIconPromise = localIconInfo;
 
 const IconAllExample = () => {
 	const [singlePurposeAdsIcons, setSinglePurposeAdsIcons] = useState<IconsList>();
 	const [multiPurposeAdsIcons, setMultiPurposeAdsIcons] = useState<IconsList>();
-	const [utilityIcons, setUtilityIcons] = useState<IconsList>();
 	const [singlePurposeLabIcons, setSinglePurposeLabIcons] = useState<IconsList>();
 	const [multiPurposeLabIcons, setMultiPurposeLabIcons] = useState<IconsList>();
 	const [query, setQuery] = useState('');
@@ -159,7 +138,6 @@ const IconAllExample = () => {
 				),
 			);
 		});
-		utilityIconPromise.then(setUtilityIcons);
 		localIconPromise.then((icons) => {
 			// Filter icons object into two categories
 			setSinglePurposeLabIcons(
@@ -178,7 +156,6 @@ const IconAllExample = () => {
 		setSinglePurposeAdsIcons,
 		setMultiPurposeLabIcons,
 		setMultiPurposeAdsIcons,
-		setUtilityIcons,
 	]);
 
 	const updateQuery = useCallback(
@@ -230,10 +207,6 @@ const IconAllExample = () => {
 						{renderIcons(multiPurposeAdsIcons)}
 					</Fragment>
 				)}
-				<Heading size="small">
-					Utility icons (exported from <Code>@atlaskit/icon/utility/*</Code>)
-				</Heading>
-				{utilityIcons && renderIcons(utilityIcons)}
 				<Inline alignBlock="center" space="space.100">
 					<IconTile size="24" appearance="green" label="" icon={FlaskIcon} />
 					<Heading size="small">

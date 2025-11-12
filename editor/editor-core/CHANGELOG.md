@@ -1,5 +1,43 @@
 # @atlaskit/editor-core
 
+## 215.13.0
+
+### Minor Changes
+
+- [`a8137975c5ecb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8137975c5ecb) -
+  [ux] [EDITOR-2459] css behind an experiment gate to scale emoji sizes with text styles
+
+### Patch Changes
+
+- Updated dependencies
+
+## 215.12.1
+
+### Patch Changes
+
+- [`9e7aa73151ed0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e7aa73151ed0) -
+  [ux] EDITOR-2670 add selected state for sync block when selection is inside
+- [`0b00861d972cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b00861d972cd) -
+  [EDITOR-2668] refactored deleted mediaSingle decorations to maintain alignment/wrap on diff view
+- Updated dependencies
+
+## 215.12.0
+
+### Minor Changes
+
+- [`71fde95667d6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71fde95667d6f) -
+  [EDITOR-2426] Fix more types for Editor Appearance so they work with Confluence
+
+### Patch Changes
+
+- Updated dependencies
+
+## 215.11.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 215.11.1
 
 ### Patch Changes

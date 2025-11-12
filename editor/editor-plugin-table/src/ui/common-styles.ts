@@ -552,7 +552,12 @@ export const baseTableStyles = (props: {
 	tr.${ClassName.NATIVE_STICKY} {
 		position: sticky;
 		top: 0;
-		z-index: ${akEditorTableCellOnStickyHeaderZIndex};
+		z-index: calc(${akEditorTableCellOnStickyHeaderZIndex} - 5);
+		box-shadow: inset -1px 1px ${tableBorderColor};
+	}
+
+	.${ClassName.WITH_CONTROLS} tr.${ClassName.NATIVE_STICKY} {
+		top: ${tableMarginTop}px;
 	}
 
 	.${ClassName.WITH_CONTROLS} tr.sticky {
@@ -1211,6 +1216,24 @@ export const baseTableStyles = (props: {
 	.${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER} {
 		position: absolute;
 		top: ${tableMarginTop}px;
+	}
+
+	.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} > .${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER} {
+		/* +2px is to overlap the table border on the sides */
+		width: calc(anchor-size(width) + 2px);
+		height: ${tableMarginTop}px;
+		background: ${token('elevation.surface')};
+		position: fixed;
+		position-area: top center;
+		position-visibility: anchors-visible;
+		/* higher zIndex than sticky header which is akEditorTableCellOnStickyHeaderZIndex - 5 */
+		z-index: ${akEditorTableCellOnStickyHeaderZIndex - 4};
+	}
+
+	.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW}
+		.${ClassName.DRAG_COLUMN_CONTROLS_INNER}:not(.${ClassName.NESTED_TABLE_WITH_CONTROLS} *) {
+		/* !important to override the inline style in the inner controls component */
+		margin-top: ${tableMarginTop}px !important;
 	}
 
 	.${ClassName.TABLE_STICKY} .${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER} {

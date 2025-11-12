@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-config
 
+## 1.12.7
+
+### Patch Changes
+
+- [`b1317607bb828`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1317607bb828) -
+  Add exclusion list for teams app
+
 ## 1.12.6
 
 ### Patch Changes

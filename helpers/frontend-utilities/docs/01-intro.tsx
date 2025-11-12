@@ -1,6 +1,6 @@
 import { md } from '@atlaskit/docs';
 
-const _default_1: any = md`
+const intro: React.ReactElement = md`
 	## Error Handling
 
 	- [Convert to Error](./frontend-utilities/docs/convert-to-error)
@@ -14,4 +14,4 @@ const _default_1: any = md`
 	- [Local Storage mock](./frontend-utilities/docs/local-storage)
 	- [Storage Client](./frontend-utilities/docs/storage-client)
 `;
-export default _default_1;
+export default intro;

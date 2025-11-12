@@ -23,7 +23,6 @@ import { useMergeRefs } from 'use-callback-ref';
 const CheckboxUncheckedIcon = (props: NewCoreIconProps) => (
 	<Icon
 		dangerouslySetGlyph={`<rect width="12.5" height="12.5" x="1.75" y="1.75" stroke="currentcolor" stroke-width="1.5" rx="1.25"/>`}
-		type={'core'}
 		{...props}
 	/>
 );

@@ -52,66 +52,6 @@ export const invalidDeprecatedIconTests: {
 		],
 	},
 	{
-		name: 'Deprecated utility icon from @atlaskit/icon with replacement',
-		code: `import ChevronUpCircleIcon from '@atlaskit/icon/utility/chevron-up-circle';
-
-		<ChevronUpCircleIcon spacing="spacious" color="currentColor" />
-		`,
-		output: `import ChevronUpIcon from '@atlaskit/icon/core/chevron-up';
-
-		<ChevronUpIcon spacing="spacious" color="currentColor" />
-		`,
-		errors: [{ messageId: 'pathWithCustomMessage' }],
-		options: [
-			{
-				deprecatedConfig: {
-					'@atlaskit/icon/utility/chevron-up-circle': {
-						message:
-							'The icon "chevron-up-circle" is deprecated in favour of "chevron-up" from "@atlaskit/icon/utility"',
-					},
-				},
-			},
-		],
-	},
-	{
-		name: 'Deprecated utility icon from @atlaskit/icon with replacement but AutoFixer is turned off',
-		code: `import ChevronUpCircleIcon from '@atlaskit/icon/utility/chevron-up-circle';
-
-		<ChevronUpCircleIcon spacing="spacious" color="currentColor" />
-		`,
-		output: `import ChevronUpCircleIcon from '@atlaskit/icon/utility/chevron-up-circle';
-
-		<ChevronUpCircleIcon spacing="spacious" color="currentColor" />
-		`,
-		errors: [{ messageId: 'pathWithCustomMessage' }],
-		options: [
-			{
-				deprecatedConfig: {
-					'@atlaskit/icon/utility/chevron-up-circle': {
-						message:
-							'The icon "chevron-up-circle" is deprecated in favour of "chevron-up" from "@atlaskit/icon/utility"',
-					},
-				},
-				turnOffAutoFixer: true,
-			},
-		],
-	},
-	{
-		name: 'Deprecated utility icon from @atlaskit/icon without replacement',
-		code: `import ChevronDownCircleIcon from '@atlaskit/icon/utility/chevron-down-circle';`,
-		errors: [{ messageId: 'pathWithCustomMessage' }],
-		options: [
-			{
-				deprecatedConfig: {
-					'@atlaskit/icon/utility/chevron-down-circle': {
-						message:
-							'The icon "chevron-down-circle" is deprecated, Please refer to the changelog for guidance on how to migrate. https://atlassian.design/components/icon/changelog',
-					},
-				},
-			},
-		],
-	},
-	{
 		name: 'Deprecated core icon from @atlaskit/icon-lab with replacement',
 		code: `import ActivityIcon from '@atlaskit/icon-lab/core/activity';
 

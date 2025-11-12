@@ -42,10 +42,7 @@ tidy(config16)
 	.then(() => Promise.all([build(config16), build(config24)]))
 	.then(([sixteen, twentyfour]) => {
 		const allIcons = [...sixteen, ...twentyfour];
-		const iconDocs = createIconDocs(allIcons, '@atlaskit/icon-object', {}, [
-			'object',
-			'icon-object',
-		]);
+		const iconDocs = createIconDocs(allIcons, './artifacts', {}, ['object', 'icon-object']);
 
 		console.log('@atlaskit-icon-object built');
 

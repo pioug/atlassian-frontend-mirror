@@ -32,6 +32,7 @@
 	"dependencies": {
 		"@atlaskit/media-client": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@babel/runtime": "root:*",
 		"zustand": "root:*"
 	},
@@ -59,6 +60,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_media_cross_client_copy": {
+			"type": "boolean"
+		},
+		"media-perf-uplift-mutation-fix": {
 			"type": "boolean"
 		}
 	},

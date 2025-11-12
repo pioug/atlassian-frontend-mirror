@@ -150,7 +150,7 @@ const getActiveTeamPermissionMap = (
 			REMOVE_AGENT_FROM_TEAM: newTeamProfileEnabled && (isMember || isOrgAdmin),
 			ARCHIVE_TEAM: isArchiveTeamEnabled && isOrgAdmin,
 			EDIT_TEAM_TYPE: isOrgAdmin,
-			CAN_EDIT_HIERARCHY: permission === 'FULL_WRITE',
+			CAN_EDIT_HIERARCHY: permission === 'FULL_WRITE' && isOrgAdmin,
 		};
 	}
 	return allPermissions(false, false, false);

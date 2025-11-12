@@ -350,14 +350,15 @@ export default class TableRowNativeStickyWithFallback
 		};
 		this.overflowObserver = new IntersectionObserver((entries, observer) => {
 			entries.forEach((entry) => {
+				if (!(observer.root instanceof HTMLElement)) {
+					return;
+				}
 				if (entry.isIntersecting) {
-					// eslint-disable-next-line @atlaskit/editor/no-as-casting
-					(observer.root as HTMLElement).classList.add(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
+					observer.root.classList.add(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
 					this.dom.classList.add(ClassName.NATIVE_STICKY);
 					this.isNativeSticky = true;
 				} else {
-					// eslint-disable-next-line @atlaskit/editor/no-as-casting
-					(observer.root as HTMLElement).classList.remove(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
+					observer.root.classList.remove(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
 					this.dom.classList.remove(ClassName.NATIVE_STICKY);
 					this.isNativeSticky = false;
 					this.refreshStickyState();
@@ -380,8 +381,10 @@ export default class TableRowNativeStickyWithFallback
 
 		if (this.isHeaderRow && !this.isInNestedTable) {
 			this.initOverflowObserver();
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting
-			this.overflowObserver?.observe(this.dom.closest('table') as HTMLElement);
+			const closestTable = this.dom.closest('table');
+			if (closestTable) {
+				this.overflowObserver?.observe(closestTable);
+			}
 		}
 
 		this.resizeObserver.observe(this.dom);

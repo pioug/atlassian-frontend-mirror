@@ -9,8 +9,6 @@ import type {
 
 export type Size = 'small' | 'medium' | 'large' | 'xlarge';
 
-export type NewCoreIconSize = 'small' | 'medium';
-
 export type IconSpacing = 'none' | 'spacious' | 'compact';
 export type IconSize = 'small' | 'medium';
 
@@ -78,16 +76,6 @@ interface NewCoreGlyphSpacingProps {
 	 * - `none` is default, and allows the icon to be placed in buttons and allows the parent component to manage spacing.
 	 * - `compact` provides accessible compact spacing between the icon and other elements. **Only available for small icons.**
 	 * - `spacious` provides accessible spacing between the icon and other elements.
-	 */
-	spacing?: IconSpacing;
-}
-
-interface NewUtilityGlyphSpacingProps {
-	/**
-	 * Utility Icons have only one available size, but can be displayed with additional spacing.
-	 * "none" is default, and allows the icon to be placed in buttons and allows the parent component to manage spacing.
-	 * "compact" provides accessible compact spacing between the icon and other elements.
-	 * "spacious" provides accessible spacing between the icon and other elements.
 	 */
 	spacing?: IconSpacing;
 }
@@ -165,11 +153,6 @@ interface NewCoreGlyphProps
 		NewCoreGlyphSpacingProps,
 		NewCoreGlyphSizeProps,
 		NewGlyphColorProps {}
-interface NewUtilityGlyphProps
-	extends OtherGlyphProps,
-		NewUtilityGlyphSpacingProps,
-		NewCoreGlyphSizeProps,
-		NewGlyphColorProps {}
 
 export interface IconProps extends GlyphProps, IconInternalGlyphProps {
 	/**
@@ -208,7 +191,6 @@ export interface UNSAFE_NewCoreGlyphProps
 	extends BaseNewIconProps,
 		NewCoreGlyphProps,
 		IconInternalGlyphProps {
-	type?: 'core';
 	shouldRecommendSmallIcon?: boolean;
 	/**
 	 * Display name of the icon.
@@ -216,29 +198,10 @@ export interface UNSAFE_NewCoreGlyphProps
 	name?: string;
 }
 
-export interface UNSAFE_NewUtilityGlyphProps
-	extends BaseNewIconProps,
-		NewUtilityGlyphProps,
-		IconInternalGlyphProps {
-	type: 'utility';
-	/**
-	 * Display name of the icon.
-	 */
-	name?: string;
-}
+export type NewCoreIconProps = Omit<UNSAFE_NewCoreGlyphProps, 'dangerouslySetGlyph'>;
 
-export type NewCoreIconProps = Omit<
-	UNSAFE_NewCoreGlyphProps,
-	'dangerouslySetGlyph' | 'type' | 'name'
->;
-export type NewUtilityIconProps = Omit<
-	UNSAFE_NewUtilityGlyphProps,
-	'dangerouslySetGlyph' | 'type' | 'name'
->;
-
-export type UNSAFE_NewGlyphProps = UNSAFE_NewUtilityGlyphProps | UNSAFE_NewCoreGlyphProps;
-
-export type NewIconProps = Omit<UNSAFE_NewGlyphProps, 'dangerouslySetGlyph' | 'type' | 'name'>;
+export type UNSAFE_NewGlyphProps = UNSAFE_NewCoreGlyphProps;
+export type NewIconProps = Omit<UNSAFE_NewGlyphProps, 'dangerouslySetGlyph'>;
 
 export type IconTileAppearance =
 	| 'gray'
@@ -270,7 +233,7 @@ export interface IconTileProps {
 	/**
 	 * The icon to display
 	 */
-	icon: ComponentType<NewUtilityIconProps> | ComponentType<NewCoreIconProps>;
+	icon: ComponentType<NewCoreIconProps>;
 	/**
 	 * The label for the icon
 	 */
@@ -362,7 +325,6 @@ type IconMigrationResult = {
 	 */
 	newIcon?: {
 		name: string;
-		type: string;
 		package: string;
 		isMigrationUnsafe?: boolean;
 		/**
@@ -379,7 +341,6 @@ type IconMigrationResult = {
 	 */
 	additionalIcons?: {
 		name: string;
-		type: string;
 		package: string;
 	}[];
 	/**

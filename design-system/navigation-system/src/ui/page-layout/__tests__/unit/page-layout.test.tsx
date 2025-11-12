@@ -3,6 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
+import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 
 import { Aside } from '../../aside';
 import { Banner } from '../../banner';
@@ -13,8 +14,6 @@ import { Root } from '../../root';
 import { SideNav } from '../../side-nav/side-nav';
 import { SideNavToggleButton } from '../../side-nav/toggle-button';
 import { TopNav } from '../../top-nav/top-nav';
-
-import { resetMatchMedia, setMediaQuery } from './_test-utils';
 
 const originalNodeEnv = process.env.NODE_ENV;
 

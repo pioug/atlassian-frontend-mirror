@@ -56,7 +56,7 @@ export const ImageRenderer = ({
 		}
 	}, [didRender, ufoContext]);
 
-	const imgRef = useRef<HTMLImageElement>(null);
+	const imgRef = useRef<HTMLImageElement | null>(null);
 
 	const onLoad = (evt: React.SyntheticEvent<HTMLImageElement, Event>) => {
 		wrapperRef.current &&
@@ -79,7 +79,17 @@ export const ImageRenderer = ({
 		<ImageRendererWrapper>
 			<UFOCustomData data={{ hasMediaComponent: true }} />
 			<img
-				ref={imgRef}
+				ref={(ref) => {
+					if (fg('media-perf-uplift-mutation-fix')) {
+						if (!imgRef.current && ref?.complete) {
+							// we need to set the imgRef before calling onLoad to avoid recursive rendering
+							imgRef.current = ref;
+							onLoad({ currentTarget: ref } as React.SyntheticEvent<HTMLImageElement, Event>);
+						}
+					} else {
+						imgRef.current = ref;
+					}
+				}}
 				data-testid={testId}
 				data-fileid={isFileIdentifier(identifier) ? identifier.id : null}
 				data-filecollection={isFileIdentifier(identifier) ? identifier.collectionName : null}

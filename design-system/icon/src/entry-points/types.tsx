@@ -7,7 +7,6 @@ export type {
 	SVGProps,
 	NewIconProps,
 	NewGlyphColorProps,
-	NewUtilityIconProps,
 	NewCoreIconProps,
 	IconMigrationMap,
 	IconSpacing,

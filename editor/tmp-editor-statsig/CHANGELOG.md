@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.38.0
+
+### Minor Changes
+
+- [`dbf82f5cfa21e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbf82f5cfa21e) -
+  fix media border styles mutation
+
 ## 13.37.0
 
 ### Minor Changes

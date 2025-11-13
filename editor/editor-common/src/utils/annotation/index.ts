@@ -261,10 +261,6 @@ export function getAnnotationInlineNodeTypes(
 	Used with the creation of the inline nodes: emoji, status, dates, mentions & inlineCards.
 */
 export function getAnnotationMarksForPos(pos: ResolvedPos): Mark[] | undefined {
-	if (!fg('editor_inline_comments_paste_insert_nodes')) {
-		return undefined;
-	}
-
 	const annotationMarks = pos
 		.marks()
 		.filter((mark) => mark.type === pos.doc.type.schema.marks.annotation);

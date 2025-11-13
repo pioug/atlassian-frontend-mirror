@@ -161,9 +161,6 @@
 		"platform_ufo_remove_ssr_placeholder_in_ttvc_v4": {
 			"type": "boolean"
 		},
-		"platform_ufo_enable_interactivity_jsm": {
-			"type": "boolean"
-		},
 		"platform_ufo_exclude_3p_elements_from_ttai": {
 			"type": "boolean"
 		},
@@ -219,6 +216,9 @@
 			"type": "boolean"
 		},
 		"platform_ufo_exclude_3p_attribute_changes": {
+			"type": "boolean"
+		},
+		"platform_ufo_auto_add_ssr_entry_in_ttvc_v4": {
 			"type": "boolean"
 		},
 		"platform_ufo_enable_vc_raw_data": {

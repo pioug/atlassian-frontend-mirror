@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "3.8.9",
+	"version": "3.9.0",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -55,9 +55,6 @@
 	},
 	"platform-feature-flags": {
 		"custom-interactive-elements-not-keyboard-focusable": {
-			"type": "boolean"
-		},
-		"platform_design_system_team_safari_input_fix": {
 			"type": "boolean"
 		},
 		"platform_dst_select_menu_close_on_blur": {

@@ -32,7 +32,6 @@ snapshot(ButtonMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -48,7 +47,6 @@ snapshot(ButtonMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -64,7 +62,6 @@ snapshot(ButtonMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -80,7 +77,6 @@ snapshot(ButtonMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -96,7 +92,6 @@ snapshot(ButtonMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -112,7 +107,6 @@ snapshot(ButtonMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -128,7 +122,6 @@ snapshot(ButtonMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -154,7 +147,6 @@ snapshot(ButtonMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -170,7 +162,6 @@ snapshot(ButtonMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -190,7 +181,6 @@ snapshot(LinkMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -206,7 +196,6 @@ snapshot(LinkMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -222,7 +211,6 @@ snapshot(LinkMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -238,7 +226,6 @@ snapshot(LinkMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -254,7 +241,6 @@ snapshot(LinkMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -270,7 +256,6 @@ snapshot(LinkMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -286,7 +271,6 @@ snapshot(LinkMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -308,7 +292,6 @@ snapshot(ExpandableMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -324,7 +307,6 @@ snapshot(ExpandableMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -340,7 +322,6 @@ snapshot(ExpandableMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -362,7 +343,6 @@ snapshot(FlyoutMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -378,7 +358,6 @@ snapshot(FlyoutMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });
@@ -394,7 +373,6 @@ snapshot(FlyoutMenuItemExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_dst_side_nav_remove_custom_tooltip: true,
 		platform_dst_tooltip_shortcuts: true,
 	},
 });

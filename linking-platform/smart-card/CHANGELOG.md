@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 43.6.5
+
+### Patch Changes
+
+- [`831b80402e030`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/831b80402e030) -
+  Make SmartCard layered link keyboard interactive
+- Updated dependencies
+
 ## 43.6.4
 
 ### Patch Changes

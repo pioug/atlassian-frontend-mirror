@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"declaration": true,
 		"target": "es5",
-		"outDir": "../../../../../tsDist/@atlaskit__progress-indicator/app",
+		"outDir": "../../../../../jira/tsDist/@atlaskit__progress-indicator/app",
 		"rootDir": "../",
 		"composite": true
 	},

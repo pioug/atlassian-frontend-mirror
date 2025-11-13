@@ -16,6 +16,8 @@ import { isTeamType } from './utils';
 
 const componentName = 'mention';
 
+const source = 'mentionInEditor';
+
 type QueryAttributes = Partial<{
 	queryLength: number;
 	spaceInQuery: boolean;
@@ -92,6 +94,7 @@ export const buildTypeAheadInviteItemViewedPayload = (
 			childObjectId,
 			userRole,
 			sessionId,
+			source,
 		},
 	};
 };

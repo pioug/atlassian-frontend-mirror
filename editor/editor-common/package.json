@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "110.28.0",
+	"version": "110.29.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -265,9 +265,6 @@
 			"type": "boolean"
 		},
 		"editor_inline_comments_on_inline_nodes": {
-			"type": "boolean"
-		},
-		"editor_inline_comments_paste_insert_nodes": {
 			"type": "boolean"
 		},
 		"platform_editor_typography_ugc": {

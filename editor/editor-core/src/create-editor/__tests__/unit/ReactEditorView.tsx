@@ -375,50 +375,22 @@ describe('@atlaskit/editor-core', () => {
 				);
 			};
 
-			ffTest.on(
-				'platform_editor_lce_scrolltop_mitigation',
-				'with LCE scrolltop mitigation enabled',
-				() => {
-					it('does not call scrollTop for editors nested inside Legacy Content Extension', async () => {
-						const mockElement = {
-							get scrollTop() {
-								return 9001;
-							},
-							scrollTo: jest.fn(),
-						};
-						const querySelectorSpy = jest.spyOn(document, 'querySelector');
-						const scrollTopSpy = jest.spyOn(mockElement, 'scrollTop', 'get');
-						// @ts-expect-error	mock implementation
-						querySelectorSpy.mockImplementation(() => mockElement);
-						renderWithIntl(<ExtensionWrappedEditorView />);
+			it('does not call scrollTop for editors nested inside Legacy Content Extension', async () => {
+				const mockElement = {
+					get scrollTop() {
+						return 9001;
+					},
+					scrollTo: jest.fn(),
+				};
+				const querySelectorSpy = jest.spyOn(document, 'querySelector');
+				const scrollTopSpy = jest.spyOn(mockElement, 'scrollTop', 'get');
+				// @ts-expect-error	mock implementation
+				querySelectorSpy.mockImplementation(() => mockElement);
+				renderWithIntl(<ExtensionWrappedEditorView />);
 
-						// twice is expected because editorRef hasn't been setup (twice in the same cycle)
-						expect(scrollTopSpy).toHaveBeenCalledTimes(2);
-					});
-				},
-			);
-
-			ffTest.off(
-				'platform_editor_lce_scrolltop_mitigation',
-				'with LCE scrolltop mitigation enabled',
-				() => {
-					it('calls scrollTop for editors nested inside Legacy Content Extension', () => {
-						const mockElement = {
-							get scrollTop() {
-								return 9001;
-							},
-							scrollTo: jest.fn(),
-						};
-						const querySelectorSpy = jest.spyOn(document, 'querySelector');
-						const scrollTopSpy = jest.spyOn(mockElement, 'scrollTop', 'get');
-						// @ts-expect-error	mock implementation
-						querySelectorSpy.mockImplementation(() => mockElement);
-						renderWithIntl(<ExtensionWrappedEditorView />);
-
-						expect(scrollTopSpy).toHaveBeenCalledTimes(3);
-					});
-				},
-			);
+				// twice is expected because editorRef hasn't been setup (twice in the same cycle)
+				expect(scrollTopSpy).toHaveBeenCalledTimes(2);
+			});
 		});
 	});
 

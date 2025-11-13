@@ -1,5 +1,40 @@
 # @atlassian/navigation-system
 
+## 5.5.1
+
+### Patch Changes
+
+- [`31921a1c13971`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31921a1c13971) -
+  Fixes centering of top nav middle items when the `navx-full-height-sidebar` flag is enabled.
+
+## 5.5.0
+
+### Minor Changes
+
+- [`0fd231aa18bd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fd231aa18bd4) -
+  The tooltip for truncated side nav menu item has been updated:
+  - The tooltip now uses the standard tooltip styling and behavior, instead of using a custom
+    component.
+  - The tooltip position has been updated to `right-start` (previously it was `right`).
+
+  These changes were previously behind the feature gate
+  `platform_dst_side_nav_remove_custom_tooltip`, which has now been removed.
+
+## 5.4.0
+
+### Minor Changes
+
+- [`05dd9b7db95b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05dd9b7db95b7) -
+  The built-in keyboard shortcut for toggling the side nav will check if there are any open modals
+  and ignore the shortcut if there are.
+
+  This check was previously behind the feature gate `platform-dst-open-layer-observer-layer-type`,
+  which has now been removed.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.4
 
 ### Patch Changes

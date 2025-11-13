@@ -31,6 +31,11 @@ export type BaseLozengeElementProps = ElementProps & {
 	 */
 	appearance?: LozengeAppearance;
 	/**
+	 * Callback fired after lozenge value has changed
+	 */
+	onAfterChanged?: () => void;
+
+	/**
 	 * Determines the custom styles of the Atlaskit lozenge.
 	 */
 	style?: AtlaskitLozengeProps['style'];
@@ -55,6 +60,7 @@ const BaseLozengeElement = ({
 	style,
 	text,
 	testId = 'smart-element-lozenge',
+	onAfterChanged,
 }: BaseLozengeElementProps) => {
 	const ui = useFlexibleUiOptionContext();
 	if (!text) {
@@ -68,6 +74,7 @@ const BaseLozengeElement = ({
 			testId={testId}
 			text={text}
 			zIndex={ui?.zIndex}
+			onAfterChanged={onAfterChanged}
 		/>
 	) : (
 		<AtlaskitLozenge

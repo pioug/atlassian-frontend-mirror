@@ -3,7 +3,11 @@ import React from 'react';
 
 import { type AvatarIconProps } from './types';
 
-export default ({ size, primaryColor, secondaryColor }: AvatarIconProps) => (
+export default ({
+	size,
+	primaryColor: _primaryColor,
+	secondaryColor: _secondaryColor,
+}: AvatarIconProps) => (
 	<svg
 		width={size}
 		height={size}

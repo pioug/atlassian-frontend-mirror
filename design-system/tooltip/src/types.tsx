@@ -40,6 +40,7 @@ export interface TooltipProps {
 	/**
 	 * Extend `TooltipPrimitive` to create your own tooltip and pass it as component.
 	 */
+	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	component?:
 		| ComponentType<TooltipPrimitiveProps>
 		| React.ForwardRefExoticComponent<
@@ -54,12 +55,14 @@ export interface TooltipProps {
 	/**
 	 * Adds `pointer-events: none` to the tooltip itself. Setting this to true will also prevent the tooltip from persisting when hovered.
 	 */
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	ignoreTooltipPointerEvents?: boolean;
 
 	/**
 	 * Hide the tooltip when the click event is triggered. Use this when the tooltip should be hidden if `onClick` react synthetic event
 	 * is triggered, which happens after `onMouseDown` event.
 	 */
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	hideTooltipOnClick?: boolean;
 
 	/**
@@ -67,6 +70,7 @@ export interface TooltipProps {
 	 * used when tooltip should be hidden if `onMouseDown` react synthetic event
 	 * is triggered, which happens before `onClick` event.
 	 */
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	hideTooltipOnMouseDown?: boolean;
 
 	/**
@@ -136,6 +140,7 @@ export interface TooltipProps {
 	 *
 	 * @deprecated
 	 */
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	truncate?: boolean;
 
 	/**

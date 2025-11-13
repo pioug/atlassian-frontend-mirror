@@ -71,4 +71,5 @@ const SpotlightTarget = ({ children, name }: SpotlightTargetProps) => (
 		}}
 	</TargetConsumer>
 );
+SpotlightTarget.displayName = 'SpotlightTarget';
 export default SpotlightTarget;

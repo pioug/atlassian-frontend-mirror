@@ -1,5 +1,20 @@
 # @atlaskit/editor-common
 
+## 110.29.1
+
+### Patch Changes
+
+- [`4cab7924c4af0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cab7924c4af0) -
+  [ux] Clean up editor_inline_comments_paste_insert_nodes
+- Updated dependencies
+
+## 110.29.0
+
+### Minor Changes
+
+- [`2faceafe1c4dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2faceafe1c4dd) -
+  [ux] fixing media late mutation for confluence view page
+
 ## 110.28.0
 
 ### Minor Changes

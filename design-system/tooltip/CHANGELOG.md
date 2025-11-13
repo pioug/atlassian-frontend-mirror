@@ -1,5 +1,13 @@
 # @atlaskit/tooltip
 
+## 20.8.2
+
+### Patch Changes
+
+- [`28d426b7134d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28d426b7134d8) -
+  Internal renaming. Public API is unaffected.
+- Updated dependencies
+
 ## 20.8.1
 
 ### Patch Changes

@@ -136,7 +136,7 @@ export default class UserProfileCardClient extends CachingClient<any> {
 		this.options = options;
 	}
 
-	async makeRequest(cloudId: string, userId: string): Promise<ProfileCardClientData> {
+	async makeRequest(_cloudId: string, userId: string): Promise<ProfileCardClientData> {
 		const gatewayGraphqlUrl = this.options.gatewayGraphqlUrl || '/gateway/api/graphql';
 		const urlWithOperationName = `${gatewayGraphqlUrl}?operationName=aggUserQuery`;
 		const userQueryPromise = queryAGGUser(urlWithOperationName, userId);

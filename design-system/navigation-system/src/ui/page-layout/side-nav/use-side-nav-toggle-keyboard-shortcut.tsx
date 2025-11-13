@@ -47,13 +47,8 @@ export function useSideNavToggleKeyboardShortcut({
 						return;
 					}
 
-					if (
-						openLayerObserver.getCount({ type: 'modal' }) > 0 &&
-						fg('platform-dst-open-layer-observer-layer-type')
-					) {
+					if (openLayerObserver.getCount({ type: 'modal' }) > 0) {
 						// Return early if there are any open modals
-						// This check is behind the layer type FG, as `getCount` will return the count of all layers when
-						// the FG is disabled - meaning we would ignore the shortcut if there is any open layer (not just modals).
 						return;
 					}
 

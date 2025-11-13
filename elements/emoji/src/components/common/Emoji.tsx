@@ -311,12 +311,19 @@ export const SpriteEmoji = (props: Props) => {
 
 	let sizing = {};
 	if (fitToHeight) {
-		sizing = {
-			width: `${fitToHeight}px`,
-			height: `${fitToHeight}px`,
-			minHeight: `${fitToHeight}px`,
-			minWidth: `${fitToHeight}px`,
-		};
+		if (expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)) {
+			sizing = {
+				minHeight: `${fitToHeight}px`,
+				minWidth: `${fitToHeight}px`,
+			};
+		} else {
+			sizing = {
+				width: `${fitToHeight}px`,
+				height: `${fitToHeight}px`,
+				minHeight: `${fitToHeight}px`,
+				minWidth: `${fitToHeight}px`,
+			};
+		}
 	}
 
 	const xPositionInPercent = (100 / (sprite.column - 1)) * (representation.xIndex - 0);

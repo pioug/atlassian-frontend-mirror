@@ -1,4 +1,4 @@
-import type { ExperienceState } from '../../experiences/experience-state';
+import type { CustomExperienceMetadata, ExperienceState } from '../../experiences/types';
 
 import type { ACTION, ACTION_SUBJECT } from './enums';
 import type { OperationalAEP } from './utils';
@@ -6,10 +6,7 @@ import type { OperationalAEP } from './utils';
 /**
  * Experience event attributes for tracking experience state transitions.
  */
-type ExperienceEventAttributes = {
-	// Allow any additional custom metadata
-	[key: string]: unknown;
-
+export type ExperienceEventAttributes = CustomExperienceMetadata & {
 	/**
 	 * The unique key identifying the experience being tracked.
 	 */
@@ -24,7 +21,36 @@ type ExperienceEventAttributes = {
 	 * Whether this is the first transition to this status for this experience
 	 * in the current editor session.
 	 */
-	firstInSession: boolean;
+	experienceStatusFirstSeen: boolean;
+
+	/**
+	 * Timestamp when the experience started.
+	 *
+	 * Milliseconds since epoch.
+	 */
+	experienceStartTime: number;
+
+	/**
+	 * Duration from experience start to current status transition.
+	 *
+	 * Measured in milliseconds.
+	 */
+	experienceDuration: number;
+
+	/**
+	 * Optional method for experience start, e.g., how the experience was initiated.
+	 */
+	experienceStartMethod?: string;
+
+	/**
+	 * Optional reason for experience end, e.g., abort or failure reason.
+	 */
+	experienceEndReason?: string;
+
+	/**
+	 * Optional action that triggered the experience, if applicable.
+	 */
+	experienceAction?: string;
 };
 
 /**

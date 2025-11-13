@@ -2,7 +2,7 @@
 	"extends": "../../../../tsconfig.entry-points.jira.json",
 	"compilerOptions": {
 		"target": "es5",
-		"outDir": "../../../../../tsDist/@atlaskit__editor-plugins/app",
+		"outDir": "../../../../../jira/tsDist/@atlaskit__editor-plugins/app",
 		"rootDir": "../",
 		"composite": true
 	},

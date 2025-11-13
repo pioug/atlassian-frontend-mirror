@@ -76,7 +76,19 @@ import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
 import { LightWeightCodeBlockCssClassName } from '../../react/nodes/codeBlock/components/lightWeightCodeBlock';
 import { editorUGCToken } from '@atlaskit/editor-common/ugc-tokens';
 import { getBaseFontSize } from './get-base-font-size';
-import { defaultEmojiHeight, EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
+import {
+	EmojiSharedCssClassName,
+	defaultEmojiHeight,
+	defaultDenseEmojiHeight,
+	scaledEmojiHeightH1,
+	scaledEmojiHeightH2,
+	scaledEmojiHeightH3,
+	scaledEmojiHeightH4,
+	denseEmojiHeightH1,
+	denseEmojiHeightH2,
+	denseEmojiHeightH3,
+	denseEmojiHeightH4,
+} from '@atlaskit/editor-common/emoji';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const wrappedMediaBreakoutPoint = 410;
@@ -2180,6 +2192,70 @@ const rendererAnnotationStylesCommentHeightFix = css({
 const RENDERER_LIST_DENSE_GAP = `max(0px,calc((var(--ak-renderer-base-font-size) - ${akEditorFullPageDenseFontSize}px)* (4/3)))`;
 const TASKLIST_CONTAINER_DENSE_MARGIN = `max(calc(10px + (var(--ak-renderer-base-font-size) - ${akEditorFullPageDenseFontSize}px) *( 2 / 3)))`;
 
+const scaledDenseEmojiStyles = css({
+	[`.${EmojiSharedCssClassName.EMOJI_IMAGE}`]: {
+		height: `${defaultDenseEmojiHeight}px`,
+		minHeight: `${defaultDenseEmojiHeight}px`,
+		minWidth: `${defaultDenseEmojiHeight}px`,
+		maxHeight: `${denseEmojiHeightH1}px`,
+		maxWidth: `${denseEmojiHeightH1}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		img: {
+			width: '100%',
+			height: '100%',
+			objectFit: 'contain',
+		},
+	},
+	[`h1 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE})`]: {
+		height: `${denseEmojiHeightH1}px`,
+		width: `${denseEmojiHeightH1}px`,
+	},
+	[`h2 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE})`]: {
+		height: `${denseEmojiHeightH2}px`,
+		width: `${denseEmojiHeightH2}px`,
+	},
+	[`h3 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE})`]: {
+		height: `${denseEmojiHeightH3}px`,
+		width: `${denseEmojiHeightH3}px`,
+	},
+	[`h4 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE})`]: {
+		height: `${denseEmojiHeightH4}px`,
+		width: `${denseEmojiHeightH4}px`,
+	},
+});
+
+const scaledEmojiStyles = css({
+	[`.${EmojiSharedCssClassName.EMOJI_IMAGE}`]: {
+		height: `${defaultEmojiHeight}px`,
+		minHeight: `${defaultEmojiHeight}px`,
+		minWidth: `${defaultEmojiHeight}px`,
+		maxHeight: `${scaledEmojiHeightH1}px`,
+		maxWidth: `${scaledEmojiHeightH1}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		img: {
+			width: '100%',
+			height: '100%',
+			objectFit: 'contain',
+		},
+	},
+	[`h1 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE})`]: {
+		height: `${scaledEmojiHeightH1}px`,
+		width: `${scaledEmojiHeightH1}px`,
+	},
+	[`h2 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE})`]: {
+		height: `${scaledEmojiHeightH2}px`,
+		width: `${scaledEmojiHeightH2}px`,
+	},
+	[`h3 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE})`]: {
+		height: `${scaledEmojiHeightH3}px`,
+		width: `${scaledEmojiHeightH3}px`,
+	},
+	[`h4 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE})`]: {
+		height: `${scaledEmojiHeightH4}px`,
+		width: `${scaledEmojiHeightH4}px`,
+	},
+});
+
 const denseStyles = css({
 	// Scale emoji size based on base font size
 	// Default: 20px emoji at 16px base font
@@ -2286,6 +2362,11 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 		{ exposure: true },
 	);
 
+	const isCompactModeSupported =
+		expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+		fg('platform_editor_content_mode_button_mvp');
+	const isCompactModeEnabled = contentMode === 'compact' && isCompactModeSupported;
+
 	const baseFontSize = getBaseFontSize(appearance, contentMode);
 	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
 		? getBrowserInfo()
@@ -2329,16 +2410,13 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				headingWithAlignmentStyles,
 				ruleSharedStyles,
 				(contentMode === 'compact' || contentMode === 'dense') &&
-					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-					fg('platform_editor_content_mode_button_mvp') &&
+					isCompactModeSupported &&
 					extensionStyle,
 				fg('platform_editor_typography_ugc')
-					? expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-						fg('platform_editor_content_mode_button_mvp')
+					? isCompactModeSupported
 						? paragraphStylesUGCScaledMargin
 						: paragraphSharedStylesWithEditorUGC
-					: expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-						  fg('platform_editor_content_mode_button_mvp')
+					: isCompactModeSupported
 						? paragraphSharedStyleScaledMargin
 						: paragraphSharedStyles,
 				listsSharedStyles,
@@ -2400,9 +2478,13 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					isPreviewPanelResponsivenessOn &&
 					responsiveBreakoutWidthWithReducedPadding,
 				appearance === 'full-width' && responsiveBreakoutWidthFullWidth,
-				expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-					fg('platform_editor_content_mode_button_mvp') &&
-					denseStyles,
+				expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
+					? isCompactModeEnabled
+						? scaledDenseEmojiStyles
+						: scaledEmojiStyles
+					: isCompactModeEnabled
+						? denseStyles
+						: undefined,
 			]}
 			data-testid={testId}
 		>

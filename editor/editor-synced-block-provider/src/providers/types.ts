@@ -40,6 +40,7 @@ export interface ADFFetchProvider {
 }
 export interface ADFWriteProvider {
 	deleteData: (resourceId: string) => Promise<DeleteSyncBlockResult>;
+	generateResourceId: (sourceId: string, localId: string) => ResourceId;
 	writeData: (data: SyncBlockData) => Promise<WriteSyncBlockResult>;
 }
 export abstract class SyncBlockDataProvider extends NodeDataProvider<
@@ -55,6 +56,13 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 	abstract retrieveSyncBlockSourceInfo(
 		node: SyncBlockNode,
 	): Promise<SyncBlockSourceInfo | undefined>;
+	/**
+	 * Generates a resource ID from a source ID and local ID.
+	 * @param sourceId - The source document ID (e.g., page ARI)
+	 * @param localId - The local block ID (usually a UUID)
+	 * @returns The generated resource ID
+	 */
+	abstract generateResourceId(sourceId: ResourceId, localId: string): ResourceId;
 }
 
 export type SubscriptionCallback = (data: SyncBlockInstance) => void;

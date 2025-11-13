@@ -2,7 +2,7 @@
 	"extends": "../../../../tsconfig.entry-points.jira.json",
 	"compilerOptions": {
 		"target": "es5",
-		"outDir": "../../../../../tsDist/@atlaskit__editor-synced-block-provider/app",
+		"outDir": "../../../../../jira/tsDist/@atlaskit__editor-synced-block-provider/app",
 		"rootDir": "../",
 		"composite": true
 	},
@@ -33,6 +33,9 @@
 		},
 		{
 			"path": "../../node-data-provider/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"

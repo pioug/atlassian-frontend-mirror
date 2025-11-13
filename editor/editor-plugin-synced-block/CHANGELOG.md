@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.2.7
+
+### Patch Changes
+
+- [`42b421f5241a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42b421f5241a4) -
+  EDITOR-2865 Add menuTriggerByNode to block plugin state and use for sync block options
+
 ## 4.2.6
 
 ### Patch Changes

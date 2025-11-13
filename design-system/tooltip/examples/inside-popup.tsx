@@ -28,6 +28,7 @@ export default function InsidePopupExample() {
 	);
 
 	const renderTrigger = (triggerProps: TriggerProps) => (
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		<Button {...triggerProps} onClick={() => setIsOpen((current) => !current)}>
 			Popup trigger
 		</Button>

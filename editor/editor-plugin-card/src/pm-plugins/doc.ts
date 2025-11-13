@@ -102,15 +102,13 @@ function replaceLinksToCards(
 
 	tr.replaceWith(pos, pos + (node.text || url).length, nodes);
 
-	if (fg('editor_inline_comments_paste_insert_nodes')) {
-		const annotationMarksForPos = getAnnotationMarksForPos($head);
+	const annotationMarksForPos = getAnnotationMarksForPos($head);
 
-		if (annotationMarksForPos && annotationMarksForPos.length > 0) {
-			annotationMarksForPos.forEach((annotationMark) => {
-				// Add the annotation mark on to the inlineCard node and the trailing space node.
-				tr.addMark(pos, pos + nodes[0].nodeSize + nodes[1].nodeSize, annotationMark);
-			});
-		}
+	if (annotationMarksForPos && annotationMarksForPos.length > 0) {
+		annotationMarksForPos.forEach((annotationMark) => {
+			// Add the annotation mark on to the inlineCard node and the trailing space node.
+			tr.addMark(pos, pos + nodes[0].nodeSize + nodes[1].nodeSize, annotationMark);
+		});
 	}
 
 	return $pos.node($pos.depth - 1).type.name;

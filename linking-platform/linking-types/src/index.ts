@@ -1,5 +1,7 @@
 export type {
 	Access,
+	DateRange,
+	DateRangeType,
 	AuthService,
 	BooleanType,
 	DatasourceData,

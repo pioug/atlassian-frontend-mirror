@@ -37,6 +37,7 @@ const LozengeAction = ({
 	testId = 'smart-element-lozenge-action',
 	text,
 	zIndex,
+	onAfterChanged,
 }: LozengeActionProps) => {
 	const [selected, setSelected] = useState<Partial<LozengeActionTriggerProps>>({
 		appearance,
@@ -128,6 +129,7 @@ const LozengeAction = ({
 					const request = createStatusUpdateRequest(updateAction, id);
 					await invoke(request);
 
+					onAfterChanged?.();
 					setSelected({ appearance, text });
 					setIsLoading(false);
 					setIsLoaded(false);
@@ -154,7 +156,7 @@ const LozengeAction = ({
 				}
 			}
 		},
-		[action?.update, invoke, linkId, reload, url, fireEvent],
+		[action?.update, invoke, linkId, reload, url, fireEvent, onAfterChanged],
 	);
 
 	const dropdownItemGroup = useMemo(() => {

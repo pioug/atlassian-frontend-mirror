@@ -10,6 +10,7 @@ import { TooltipShortcut } from './tooltip-shortcut';
 import { type PositionType } from './types';
 
 export interface TooltipPrimitiveProps {
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	truncate?: boolean;
 	style?: CSSProperties;
 	className?: string;

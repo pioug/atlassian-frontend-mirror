@@ -3,7 +3,10 @@ import type { Page } from '@playwright/test';
 import { snapshotInformational } from '@af/visual-regression';
 
 import { VREmptyStateHoverable } from '../../examples/vr/empty-state-vr';
-import { VRJiraIssueTableHoverable } from '../../examples/vr/jira-issues-table-vr';
+import {
+	VRJiraIssueTableDaterangeHoverable,
+	VRJiraIssueTableHoverable,
+} from '../../examples/vr/jira-issues-table-vr';
 
 type OptionsType = Parameters<typeof snapshotInformational>[1];
 
@@ -35,6 +38,25 @@ snapshotInformational(VRJiraIssueTableHoverable, {
 		},
 	],
 	featureFlags: {},
+	waitForHold: true,
+});
+
+snapshotInformational(VRJiraIssueTableDaterangeHoverable, {
+	...options,
+	prepare: async (page: Page) => {
+		await page.hover(hoverableContainerSelector);
+	},
+	description: 'jira issues table with daterange column on a hoverable surface',
+	ignoredErrors: [
+		{
+			pattern: /(received unsupported error)|(The above error occurred in the)/,
+			ignoredBecause: 'Intentionally triggering an error to capture error boundary fallback',
+			jiraIssueId: 'NONE-123',
+		},
+	],
+	featureFlags: {
+		jpd_confluence_date_fields_improvements: true,
+	},
 	waitForHold: true,
 });
 

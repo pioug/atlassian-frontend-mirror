@@ -1,5 +1,17 @@
 # @atlaskit/select
 
+## 21.4.0
+
+### Minor Changes
+
+- [`2568622464f45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2568622464f45) -
+  release previously feature-gated change to textfield, textarea, and select to increase font size
+  to 16px on mobile
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.3.10
 
 ### Patch Changes

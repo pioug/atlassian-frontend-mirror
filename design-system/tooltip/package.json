@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tooltip",
-	"version": "20.8.1",
+	"version": "20.8.2",
 	"description": "A tooltip describes an interactive element on mouse hover or keyboard focus.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,7 +23,7 @@
 	"sideEffects": [
 		"**/*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
+	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"team": "Design System Team",
 		"website": {
@@ -32,12 +32,12 @@
 		}
 	},
 	"exports": {
-		".": "./src/index.ts",
+		".": "./src/index.tsx",
 		"./Tooltip": "./src/tooltip.tsx",
 		"./TooltipContainer": "./src/tooltip-container.tsx",
 		"./TooltipPrimitive": "./src/tooltip-primitive.tsx",
 		"./types": "./src/types.tsx",
-		"./utilities": "./src/utilities.ts"
+		"./utilities": "./src/utilities.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",

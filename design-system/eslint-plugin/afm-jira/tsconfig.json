@@ -5,7 +5,7 @@
 		"lib": [
 			"ES2021.String"
 		],
-		"outDir": "../../../../../tsDist/@atlaskit__eslint-plugin-design-system/app",
+		"outDir": "../../../../../jira/tsDist/@atlaskit__eslint-plugin-design-system/app",
 		"rootDir": "../",
 		"composite": true
 	},

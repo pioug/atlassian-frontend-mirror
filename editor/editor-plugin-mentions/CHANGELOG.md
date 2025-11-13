@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-mentions
 
+## 8.2.11
+
+### Patch Changes
+
+- [`3d5a2ca32c070`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d5a2ca32c070) -
+  adding source as attribute to analytics event
+
+## 8.2.10
+
+### Patch Changes
+
+- [`4cab7924c4af0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cab7924c4af0) -
+  [ux] Clean up editor_inline_comments_paste_insert_nodes
+- Updated dependencies
+
 ## 8.2.9
 
 ### Patch Changes

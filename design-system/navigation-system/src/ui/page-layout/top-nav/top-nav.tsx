@@ -74,7 +74,9 @@ const styles = cssMap({
 		// We don't want start padding, because `TopNavStart` has exactly the same width as the side nav
 		// If we had padding it would be misaligned
 		paddingInlineStart: token('space.0'),
-		paddingInlineEnd: token('space.150'),
+		// We can't have end padding if there is no start padding, otherwise the top nav middle items become lopsided
+		// We need to apply the end padding inside of `TopNavEnd`
+		paddingInlineEnd: token('space.0'),
 		// The background and border are now on a sibling element for layering reasons
 		backgroundColor: 'none',
 		borderBlockEnd: 'none',

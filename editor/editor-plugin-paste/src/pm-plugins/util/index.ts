@@ -234,21 +234,19 @@ export function applyTextMarksToSlice(
 				].sort(sortByOrderWithTypeName('marks'));
 				return false;
 			}
-			if (fg('editor_inline_comments_paste_insert_nodes')) {
-				if (
-					node.isInline &&
-					['inlineCard', 'emoji', 'status', 'date', 'mention'].includes(node.type.name) &&
-					parent &&
-					parent.isBlock
-				) {
-					// @ts-ignore - [unblock prosemirror bump] assigning to readonly prop
-					node.marks = [
-						...node.marks,
-						...parent.type
-							.allowedMarks(marks)
-							.filter((mark) => mark.type === schema.marks.annotation),
-					];
-				}
+			if (
+				node.isInline &&
+				['inlineCard', 'emoji', 'status', 'date', 'mention'].includes(node.type.name) &&
+				parent &&
+				parent.isBlock
+			) {
+				// @ts-ignore - [unblock prosemirror bump] assigning to readonly prop
+				node.marks = [
+					...node.marks,
+					...parent.type
+						.allowedMarks(marks)
+						.filter((mark) => mark.type === schema.marks.annotation),
+				];
 			}
 
 			return true;

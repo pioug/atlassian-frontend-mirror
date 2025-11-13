@@ -33,6 +33,9 @@
 			"path": "../../linking-types/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../react-ufo/atlaskit/afm-cc/tsconfig.json"
 		}
 	]

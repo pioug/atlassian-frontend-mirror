@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-extension
 
+## 9.2.3
+
+### Patch Changes
+
+- [`3797699385665`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3797699385665) -
+  [FG-CLEANUP] platform_editor_update_extension_local_id_on_reset
+- Updated dependencies
+
 ## 9.2.2
 
 ### Patch Changes

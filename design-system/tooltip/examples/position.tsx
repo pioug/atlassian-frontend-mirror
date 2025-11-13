@@ -7,11 +7,11 @@ import { type Color, Target } from './styled';
 
 const VALID_POSITIONS: PositionType[] = ['mouse', 'top', 'right', 'bottom', 'left'];
 
-interface Props {
+interface PositionExampleProps {
 	color: Color;
 }
 
-export default function PositionExample({ color = 'blue' }: Props) {
+export default function PositionExample({ color = 'blue' }: PositionExampleProps) {
 	const [position, setPosition] = useState(0);
 
 	const changeDirection = () => {

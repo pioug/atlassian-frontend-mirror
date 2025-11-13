@@ -1,13 +1,15 @@
-import type { CustomData } from '@atlaskit/ufo';
-
 import type { DispatchAnalyticsEvent } from '../analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
-import type { ExperienceEventPayload } from '../analytics/types/experience-events';
+import type {
+	ExperienceEventAttributes,
+	ExperienceEventPayload,
+} from '../analytics/types/experience-events';
 
-import { DEFAULT_EXPERIENCE_SAMPLE_RATE } from './consts';
-import { canTransition, type ExperienceState } from './experience-state';
+import { DEFAULT_EXPERIENCE_SAMPLE_RATE, EXPERIENCE_ABORT_REASON } from './consts';
+import { canTransition } from './experience-state';
 import type { ExperienceCheck } from './ExperienceCheck';
 import { ExperienceCheckComposite } from './ExperienceCheckComposite';
+import type { CustomExperienceMetadata, ExperienceState } from './types';
 
 type ExperienceOptions = {
 	/**
@@ -35,25 +37,47 @@ type ExperienceOptions = {
 	 * instrumentation, then the sample rate can be tuned up to a safe threshold.
 	 */
 	sampleRate?: number;
+
+	/**
+	 * Optional global metadata to attach to all analytics events for this experience.
+	 *
+	 * Can be overridden by metadata provided in individual start/abort/fail/success calls.
+	 */
+	metadata?: CustomExperienceMetadata;
+
+	/**
+	 * An optional sub identifier to further classify the specific experience action taken
+	 *
+	 * e.g. 'bold' 'bullet' 'insert-table'
+	 */
+	action?: string;
 };
 
 type ExperienceStartOptions = {
-	metadata?: CustomData;
+	metadata?: CustomExperienceMetadata;
+	method?: string;
+	forceRestart?: boolean;
 };
 
 type ExperienceEndOptions = {
-	metadata?: CustomData;
+	reason?: string;
+	metadata?: CustomExperienceMetadata;
 };
 
 export class Experience {
 	private readonly id: string;
 	private readonly dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 	private readonly sampleRate: number;
-
-	private check: ExperienceCheck;
-	private startOptions: ExperienceStartOptions | undefined;
+	private readonly globalMetadata: CustomExperienceMetadata | undefined;
+	private readonly check: ExperienceCheck;
 
 	private currentState: ExperienceState = 'pending';
+
+	/**
+	 * Set of experience states that have been seen in the current session.
+	 *
+	 * Used to determine if experienceStatusFirstSeen flag should be set in events.
+	 */
 	private statesSeen: Set<ExperienceState> = new Set();
 
 	/**
@@ -65,10 +89,39 @@ export class Experience {
 	 */
 	private isSampledTrackingEnabled: boolean | undefined;
 
+	/**
+	 * Timestamp (in milliseconds) when the experience transitioned to 'started' state.
+	 *
+	 * Used to calculate experience duration. Set via Date.now() when experience starts.
+	 */
+	private startTimeMs: number | undefined;
+
+	/**
+	 * Metadata provided at experience start time to merge into subsequent events.
+	 *
+	 * Used to retain experienceStartMethod and other start-specific metadata.
+	 */
+	private startMetadata: CustomExperienceMetadata | undefined;
+
+	/**
+	 * Creates a new Experience instance for tracking user experiences.
+	 *
+	 * @param id - Unique identifier for the experience
+	 * @param options - Configuration options for the experience
+	 * @param options.checks - Experience checks to monitor for completion
+	 * @param options.dispatchAnalyticsEvent - Function to dispatch analytics events
+	 * @param options.sampleRate - Sample rate for experienceSampled events
+	 * @param options.metadata - Global metadata to attach to all events
+	 * @param options.action - Optional sub identifier for the specific experience action
+	 */
 	constructor(id: string, options: ExperienceOptions) {
 		this.id = id;
 		this.dispatchAnalyticsEvent = options.dispatchAnalyticsEvent;
 		this.sampleRate = options.sampleRate ?? DEFAULT_EXPERIENCE_SAMPLE_RATE;
+		this.globalMetadata = {
+			...options.metadata,
+			experienceAction: options.action,
+		};
 
 		this.check = new ExperienceCheckComposite(options.checks || []);
 	}
@@ -76,13 +129,13 @@ export class Experience {
 	private startCheck() {
 		this.stopCheck();
 
-		this.check.start(({ status, metadata }) => {
+		this.check.start(({ status, reason, metadata }) => {
 			if (status === 'success') {
-				this.success({ metadata });
+				this.success({ reason, metadata });
 			} else if (status === 'abort') {
-				this.abort({ metadata });
+				this.abort({ reason, metadata });
 			} else if (status === 'failure') {
-				this.failure({ metadata });
+				this.failure({ reason, metadata });
 			}
 		});
 	}
@@ -91,16 +144,16 @@ export class Experience {
 		this.check.stop();
 	}
 
-	private getEndStateConfig(options?: ExperienceEndOptions) {
-		return {
-			metadata:
-				options?.metadata || this.startOptions?.metadata
-					? {
-							...this.startOptions?.metadata,
-							...options?.metadata,
-						}
-					: undefined,
+	private getEndStateMetadata(options?: ExperienceEndOptions): CustomExperienceMetadata {
+		const metadata: CustomExperienceMetadata = {
+			...options?.metadata,
 		};
+
+		if (options?.reason) {
+			metadata.experienceEndReason = options.reason;
+		}
+
+		return metadata;
 	}
 
 	/**
@@ -114,19 +167,29 @@ export class Experience {
 	 * @param metadata - Optional metadata to attach to the analytics events
 	 * @returns true if transition was successful, false if invalid transition
 	 */
-	private transitionTo(toState: ExperienceState, metadata?: Record<string, unknown>): boolean {
+	private transitionTo(toState: ExperienceState, metadata?: CustomExperienceMetadata): boolean {
 		if (!canTransition(this.currentState, toState)) {
 			return false;
 		}
 
-		this.statesSeen.add(toState);
 		this.currentState = toState;
 
 		if (toState === 'started') {
 			this.isSampledTrackingEnabled = Math.random() < this.sampleRate;
+			this.startTimeMs = Date.now();
+			this.startMetadata = metadata;
 		}
 
 		this.trackTransition(toState, metadata);
+
+		if (toState === 'started') {
+			this.startCheck();
+		} else {
+			this.stopCheck();
+			this.startMetadata = undefined;
+		}
+
+		this.statesSeen.add(toState);
 
 		return true;
 	}
@@ -139,11 +202,15 @@ export class Experience {
 	 * @param toState - The state that was transitioned to
 	 * @param metadata - Metadata to include in the event, including firstInSession flag
 	 */
-	private trackTransition(toState: ExperienceState, metadata?: Record<string, unknown>): void {
-		const attributes = {
+	private trackTransition(toState: ExperienceState, metadata?: CustomExperienceMetadata): void {
+		const attributes: ExperienceEventAttributes = {
 			experienceKey: this.id,
 			experienceStatus: toState,
-			firstInSession: !this.statesSeen.has(toState),
+			experienceStatusFirstSeen: !this.statesSeen.has(toState),
+			experienceStartTime: this.startTimeMs || 0,
+			experienceDuration: this.startTimeMs ? Date.now() - this.startTimeMs : 0,
+			...this.globalMetadata,
+			...this.startMetadata,
 			...metadata,
 		};
 
@@ -176,29 +243,33 @@ export class Experience {
 	 * Metadata from options will be merged with metadata provided in subsequent events.
 	 *
 	 * @param options - Configuration for starting the experience
-	 * @param options.metadata - Optional metadata attached to all subsequent events for this started experience
+	 * @param options.metadata - Optional custom metadata attached to all subsequent events for this started experience
+	 * @param options.forceRestart - If true and experience already in progress will abort and restart
+	 * @param options.method - Optional method for experience start, e.g., how the experience was initiated
 	 */
-	start(options?: ExperienceStartOptions) {
-		this.startOptions = options;
-
-		if (this.transitionTo('started', options?.metadata)) {
-			this.startCheck();
+	start(options: ExperienceStartOptions) {
+		if (options.forceRestart && this.currentState === 'started') {
+			this.abort({ reason: EXPERIENCE_ABORT_REASON.RESTARTED });
 		}
+
+		return this.transitionTo('started', {
+			experienceStartMethod: options.method,
+			...options.metadata,
+		});
 	}
 
 	/**
 	 * Marks the experience as successful and stops any ongoing checks.
 	 *
 	 * @param options - Configuration for the success event
-	 * @param options.metadata - Optional metadata attached to the success event
+	 * @param options.metadata - Optional custom metadata attached to the success event
+	 * @param options.reason - Optional reason for success
+	 * @returns false if transition to success state was not valid
 	 */
 	success(options?: ExperienceEndOptions) {
-		const mergedConfig = this.getEndStateConfig(options);
+		const metadata = this.getEndStateMetadata(options);
 
-		if (this.transitionTo('succeeded', mergedConfig.metadata)) {
-			this.stopCheck();
-			this.startOptions = undefined;
-		}
+		return this.transitionTo('succeeded', metadata);
 	}
 
 	/**
@@ -208,21 +279,21 @@ export class Experience {
 	 * (e.g., component unmount, navigation). This is neither success nor failure.
 	 *
 	 * @param options - Configuration for the abort event
-	 * @param options.metadata - Optional metadata attached to the abort event
+	 * @param options.metadata - Optional custom metadata attached to the abort event
+	 * @param options.reason - Optional reason for abort
 	 *
 	 * @example
 	 * // Abort on component unmount
 	 * useEffect(() => {
-	 *   return () => experience.abort({ metadata: { reason: 'unmount' } });
+	 *   return () => experience.abort({ reason: 'unmount', metadata: { someKey: 'someValue' } });
 	 * }, []);
+	 *
+	 * @returns false if transition to aborted state was not valid
 	 */
 	abort(options?: ExperienceEndOptions) {
-		const mergedConfig = this.getEndStateConfig(options);
+		const metadata = this.getEndStateMetadata(options);
 
-		if (this.transitionTo('aborted', mergedConfig.metadata)) {
-			this.stopCheck();
-			this.startOptions = undefined;
-		}
+		return this.transitionTo('aborted', metadata);
 	}
 
 	/**
@@ -231,14 +302,13 @@ export class Experience {
 	 * Use this for actual failures in the experience flow (e.g., timeout, error conditions).
 	 *
 	 * @param options - Configuration for the failure event
-	 * @param options.metadata - Optional metadata attached to the failure event
+	 * @param options.metadata - Optional custom metadata attached to the failure event
+	 * @param options.reason - Optional reason for failure
+	 * @returns false if transition to failed state was not valid
 	 */
 	failure(options?: ExperienceEndOptions) {
-		const mergedConfig = this.getEndStateConfig(options);
+		const metadata = this.getEndStateMetadata(options);
 
-		if (this.transitionTo('failed', mergedConfig.metadata)) {
-			this.stopCheck();
-			this.startOptions = undefined;
-		}
+		return this.transitionTo('failed', metadata);
 	}
 }

@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"declaration": true,
 		"target": "es5",
-		"outDir": "../../../../../tsDist/@atlaskit__color-picker/app",
+		"outDir": "../../../../../jira/tsDist/@atlaskit__color-picker/app",
 		"rootDir": "../",
 		"composite": true
 	},

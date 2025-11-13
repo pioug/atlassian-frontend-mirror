@@ -331,109 +331,58 @@ describe('Side nav keyboard shortcut', () => {
 			});
 		});
 
-		ffTest.on('platform-dst-open-layer-observer-layer-type', 'keyboard shortcut', () => {
-			it('should not toggle when a modal is open', async () => {
-				const user = userEvent.setup();
-				setMediaQuery('(min-width: 64rem)', { initial: true });
+		it('should not toggle when a modal is open', async () => {
+			const user = userEvent.setup();
+			setMediaQuery('(min-width: 64rem)', { initial: true });
 
-				function TestComponent() {
-					const [isModalOpen, setIsModalOpen] = useState(false);
+			function TestComponent() {
+				const [isModalOpen, setIsModalOpen] = useState(false);
 
-					return (
-						<Root isSideNavShortcutEnabled>
-							<SideNav testId="sidenav">sidenav</SideNav>
-							<Main>
-								<Button onClick={() => setIsModalOpen(true)}>Open modal</Button>
-								{isModalOpen && (
-									<Modal onClose={() => setIsModalOpen(false)}>
-										<ModalHeader hasCloseButton>
-											<ModalTitle>Modal title</ModalTitle>
-										</ModalHeader>
-										<ModalBody>modal body</ModalBody>
-									</Modal>
-								)}
-							</Main>
-						</Root>
-					);
-				}
+				return (
+					<Root isSideNavShortcutEnabled>
+						<SideNav testId="sidenav">sidenav</SideNav>
+						<Main>
+							<Button onClick={() => setIsModalOpen(true)}>Open modal</Button>
+							{isModalOpen && (
+								<Modal onClose={() => setIsModalOpen(false)}>
+									<ModalHeader hasCloseButton>
+										<ModalTitle>Modal title</ModalTitle>
+									</ModalHeader>
+									<ModalBody>modal body</ModalBody>
+								</Modal>
+							)}
+						</Main>
+					</Root>
+				);
+			}
 
-				render(<TestComponent />);
+			render(<TestComponent />);
 
-				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
+			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
 
-				// Toggling should work now that the modal is closed
-				// > is a special testing-library character to keep the key pressed
-				// [[ evaluates to a single [ being pressed
-				await user.keyboard('{Control>}[[');
+			// Toggling should work now that the modal is closed
+			// > is a special testing-library character to keep the key pressed
+			// [[ evaluates to a single [ being pressed
+			await user.keyboard('{Control>}[[');
 
-				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
+			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
 
-				// Open modal
-				await user.click(screen.getByRole('button', { name: 'Open modal' }));
+			// Open modal
+			await user.click(screen.getByRole('button', { name: 'Open modal' }));
 
-				expect(await screen.findByRole('dialog')).toBeVisible();
+			expect(await screen.findByRole('dialog')).toBeVisible();
 
-				await user.keyboard('{Control>}[[');
+			await user.keyboard('{Control>}[[');
 
-				// Should not have toggled
-				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
+			// Should not have toggled
+			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
 
-				// Close modal
-				await user.click(screen.getByRole('button', { name: 'Close Modal' }));
+			// Close modal
+			await user.click(screen.getByRole('button', { name: 'Close Modal' }));
 
-				await user.keyboard('{Control>}[[');
+			await user.keyboard('{Control>}[[');
 
-				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
-			});
-		});
-
-		ffTest.off('platform-dst-open-layer-observer-layer-type', 'keyboard shortcut', () => {
-			it('should toggle the side nav when a modal is open when the feature flag is disabled', async () => {
-				const user = userEvent.setup();
-				setMediaQuery('(min-width: 64rem)', { initial: true });
-
-				function TestComponent() {
-					const [isModalOpen, setIsModalOpen] = useState(false);
-
-					return (
-						<Root isSideNavShortcutEnabled>
-							<SideNav testId="sidenav">sidenav</SideNav>
-							<Main>
-								<Button onClick={() => setIsModalOpen(true)}>Open modal</Button>
-								{isModalOpen && (
-									<Modal onClose={() => setIsModalOpen(false)}>
-										<ModalHeader hasCloseButton>
-											<ModalTitle>Modal title</ModalTitle>
-										</ModalHeader>
-										<ModalBody>modal body</ModalBody>
-									</Modal>
-								)}
-							</Main>
-						</Root>
-					);
-				}
-
-				render(<TestComponent />);
-
-				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
-
-				// Toggling should work now that the modal is closed
-				// > is a special testing-library character to keep the key pressed
-				// [[ evaluates to a single [ being pressed
-				await user.keyboard('{Control>}[[');
-
-				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
-
-				// Open modal
-				await user.click(screen.getByRole('button', { name: 'Open modal' }));
-
-				expect(await screen.findByRole('dialog')).toBeVisible();
-
-				await user.keyboard('{Control>}[[');
-
-				// Should still have toggled as the FG is disabled
-				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
-			});
+			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
 		});
 	});
 

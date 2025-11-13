@@ -17,6 +17,7 @@ import type {
 	BlockControlsSharedState,
 	HandleOptions,
 	MultiSelectDnD,
+	TriggerByNode,
 } from './blockControlsPluginType';
 import { moveNode } from './editor-commands/move-node';
 import { moveNodeWithBlockMenu } from './editor-commands/move-node-with-block-menu';
@@ -99,7 +100,12 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				return tr;
 			},
 		toggleBlockMenu:
-			(options?: { anchorName?: string; closeMenu?: boolean; openedViaKeyboard?: boolean }) =>
+			(options?: {
+				anchorName?: string;
+				closeMenu?: boolean;
+				openedViaKeyboard?: boolean;
+				triggerByNode?: TriggerByNode;
+			}) =>
 			({ tr }: { tr: Transaction }) => {
 				if (!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
 					return tr;
@@ -129,8 +135,10 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 					moveDown?: boolean;
 					moveUp?: boolean;
 					openedViaKeyboard?: boolean;
+					triggerByNode?: TriggerByNode;
 				} = {
 					anchorName: options?.anchorName,
+					triggerByNode: options?.triggerByNode,
 				};
 				const menuTriggerBy = api?.blockControls?.sharedState.currentState()?.menuTriggerBy;
 				if (options?.anchorName) {
@@ -266,6 +274,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 		const sharedState: BlockControlsSharedState = {
 			isMenuOpen: key.getState(editorState)?.isMenuOpen ?? false,
 			menuTriggerBy: key.getState(editorState)?.menuTriggerBy ?? undefined,
+			menuTriggerByNode: key.getState(editorState)?.menuTriggerByNode ?? undefined,
 			blockMenuOptions: key.getState(editorState)?.blockMenuOptions ?? undefined,
 			activeNode: key.getState(editorState)?.activeNode ?? undefined,
 			activeDropTargetNode: key.getState(editorState)?.activeDropTargetNode ?? undefined,

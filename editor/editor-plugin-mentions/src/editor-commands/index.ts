@@ -11,7 +11,6 @@ import {
 	type MentionProvider,
 	type MentionDescription,
 } from '@atlaskit/mention/resource';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
 
@@ -76,11 +75,7 @@ export const createSingleMentionFragment =
 			mentionProvider.cacheMentionName(id, renderName);
 		}
 
-		const annotationMarksForPos: Mark[] | undefined = fg(
-			'editor_inline_comments_paste_insert_nodes',
-		)
-			? getAnnotationMarksForPos(tr.selection.$head)
-			: undefined;
+		const annotationMarksForPos: Mark[] | undefined = getAnnotationMarksForPos(tr.selection.$head);
 
 		const mentionNode = schema.nodes.mention.createChecked(
 			{
@@ -92,12 +87,9 @@ export const createSingleMentionFragment =
 				localId: localId ?? uuid(),
 			},
 			null,
-			fg('editor_inline_comments_paste_insert_nodes') ? annotationMarksForPos : undefined,
+			annotationMarksForPos,
 		);
-		const space = schema.text(
-			' ',
-			fg('editor_inline_comments_paste_insert_nodes') ? annotationMarksForPos : undefined,
-		);
+		const space = schema.text(' ', annotationMarksForPos);
 		return Fragment.from([mentionNode, space]);
 	};
 

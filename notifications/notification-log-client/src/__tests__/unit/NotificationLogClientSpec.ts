@@ -11,6 +11,13 @@ describe('NotificationLogClient', () => {
 		count: 10,
 	};
 	const mockTenantExperience = () => {
+		// Fire-and-forget call made internally to post-office unseen count endpoint
+		fetchMock.mock({
+			matcher: `/gateway/api/post-office/api/v1/in-app-notifications/unseen/count`,
+			response: { status: 204 },
+			name: 'post-office-unseen-tenant',
+		});
+
 		fetchMock.mock({
 			matcher: `${notificationLogUrl}/api/3/notifications/count/unseen?cloudId=123&source=atlaskitNotificationLogClient`,
 			response: cloudIdResponse,
@@ -18,6 +25,13 @@ describe('NotificationLogClient', () => {
 		});
 	};
 	const mockUserCentricExperience = () => {
+		// Fire-and-forget call made internally to post-office unseen count endpoint (no cloudId)
+		fetchMock.mock({
+			matcher: `/gateway/api/post-office/api/v1/in-app-notifications/unseen/count`,
+			response: { status: 204 },
+			name: 'post-office-unseen-user-centric',
+		});
+
 		fetchMock.mock({
 			matcher: `${notificationLogUrl}/api/3/notifications/count/unseen?source=atlaskitNotificationLogClient`,
 			response: userCentricResponse,

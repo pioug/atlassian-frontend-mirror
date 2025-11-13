@@ -1,5 +1,34 @@
 # @atlaskit/editor-core
 
+## 215.13.3
+
+### Patch Changes
+
+- [`26449d20b062d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26449d20b062d) -
+  [ux] EDITOR-2868 Enable scrollbar for editor max width
+
+## 215.13.2
+
+### Patch Changes
+
+- [`768cc7c86e0af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/768cc7c86e0af) -
+  [FG-CLEANUP] platform_editor_track_media_fail_to_insert
+- [`446c532f14585`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/446c532f14585) -
+  [FG-CLEANUP] platform_editor_lce_scrolltop_mitigation
+- [`3797699385665`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3797699385665) -
+  [FG-CLEANUP] platform_editor_update_extension_local_id_on_reset
+- [`a2263cbfb6899`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2263cbfb6899) -
+  [FG-CLEANUP] platform_editor_breakout_resizing_widget_fix
+- Updated dependencies
+
+## 215.13.1
+
+### Patch Changes
+
+- [`4cab7924c4af0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cab7924c4af0) -
+  [ux] Clean up editor_inline_comments_paste_insert_nodes
+- Updated dependencies
+
 ## 215.13.0
 
 ### Minor Changes

@@ -6,7 +6,11 @@ export type AvatarIconProps = {
 	secondaryColor: string;
 };
 
-export default ({ size, primaryColor, secondaryColor }: AvatarIconProps) => (
+export default ({
+	size,
+	primaryColor: _primaryColor,
+	secondaryColor: _secondaryColor,
+}: AvatarIconProps) => (
 	<svg
 		width={size}
 		height={size}

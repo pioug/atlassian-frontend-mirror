@@ -15,7 +15,7 @@
 		"../src/**/stories/**/*"
 	],
 	"compilerOptions": {
-		"outDir": "../../../../../tsDist/@atlaskit__platform-feature-flags/app",
+		"outDir": "../../../../../jira/tsDist/@atlaskit__platform-feature-flags/app",
 		"rootDir": "../",
 		"composite": true
 	},

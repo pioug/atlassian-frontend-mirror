@@ -13,6 +13,18 @@ export default function JiraIssuesTable() {
 	);
 }
 
+export const JiraIssuesTableDaterange = () => {
+	return (
+		<HoverableContainer>
+			<ExampleJiraIssuesTableView visibleColumnKeys={['type', 'key', 'summary', 'daterange']} />
+		</HoverableContainer>
+	);
+};
+
 export const VRJiraIssueTableHoverable = withWaitForItem(JiraIssuesTable, () => {
+	return document.body.querySelector('[data-testid="examples-hoverable-container"]') !== null;
+});
+
+export const VRJiraIssueTableDaterangeHoverable = withWaitForItem(JiraIssuesTableDaterange, () => {
 	return document.body.querySelector('[data-testid="examples-hoverable-container"]') !== null;
 });

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 11.5.3
+
+### Patch Changes
+
+- [`4cab7924c4af0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cab7924c4af0) -
+  [ux] Clean up editor_inline_comments_paste_insert_nodes
+- Updated dependencies
+
 ## 11.5.2
 
 ### Patch Changes

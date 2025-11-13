@@ -1,7 +1,12 @@
 import { useMemo } from 'react';
 
 import { SyncBlockError, type SyncBlockData } from '../../common/types';
-import { getLocalIdFromAri, getPageIdAndTypeFromAri, type PAGE_TYPE } from '../../utils/ari';
+import {
+	getLocalIdFromAri,
+	getPageIdAndTypeFromAri,
+	resourceIdFromSourceAndLocalId,
+	type PAGE_TYPE,
+} from '../../utils/ari';
 import {
 	getContentProperty,
 	createContentProperty,
@@ -243,6 +248,10 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 		}
 
 		return { resourceId, success: deleteResult.success, error: deleteResult.errors.join() };
+	}
+
+	generateResourceId(sourceId: string, localId: string): string {
+		return resourceIdFromSourceAndLocalId(sourceId, localId);
 	}
 }
 

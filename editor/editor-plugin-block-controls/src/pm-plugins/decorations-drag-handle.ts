@@ -90,9 +90,7 @@ export const dragHandleDecoration = ({
 				 * Exclude 'breakout' on purpose, so the widgets render at the top of the document to avoid z-index issues
 				 * Other block marks must be added, otherwise PM will split the DOM elements causing mutations and re-draws
 				 */
-				marks: fg('platform_editor_breakout_resizing_widget_fix')
-					? getActiveBlockMarks(editorState, pos)
-					: [],
+				marks: getActiveBlockMarks(editorState, pos),
 				destroy: (node: Node) => {
 					unbind && unbind();
 

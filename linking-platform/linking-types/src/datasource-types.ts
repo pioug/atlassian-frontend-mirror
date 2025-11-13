@@ -32,6 +32,16 @@ export interface DateTimeType {
 	value: string; // ISO Format like 2023-03-16T14:04:02.200+0000
 }
 
+export interface DateRange {
+	end: string; // ISO Format like 2023-03-16 (YYYY-MM-DD)
+	start: string; // ISO Format like 2023-03-16 (YYYY-MM-DD)
+}
+
+export interface DateRangeType {
+	type: 'daterange';
+	value: DateRange;
+}
+
 /*
  Complex object types
  */
@@ -127,6 +137,7 @@ export interface IconType {
 export type DatasourceType =
 	| BooleanType
 	| DateTimeType
+	| DateRangeType
 	| DateType
 	| IconType
 	| LinkType

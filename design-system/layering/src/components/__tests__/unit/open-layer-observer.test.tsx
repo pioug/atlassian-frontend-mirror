@@ -4,7 +4,6 @@ import { render } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { OpenLayerObserver } from '../../open-layer-observer/open-layer-observer';
 import { OpenLayerObserverNamespaceProvider } from '../../open-layer-observer/open-layer-observer-namespace-provider';
@@ -73,7 +72,7 @@ describe('OpenLayerObserver', () => {
 	});
 });
 
-ffTest.both('platform-dst-open-layer-observer-layer-type', 'OpenLayerObserver', () => {
+describe('OpenLayerObserver', () => {
 	describe('getting layer count', () => {
 		it('should have a layer count of 0 when there are no open layers', () => {
 			const { result } = renderHook(useOpenLayerObserver, {
@@ -1024,9 +1023,7 @@ ffTest.both('platform-dst-open-layer-observer-layer-type', 'OpenLayerObserver', 
 			expect(onClose).toHaveBeenCalledTimes(0);
 		});
 	});
-});
 
-ffTest.on('platform-dst-open-layer-observer-layer-type', 'OpenLayerObserver', () => {
 	it('should return the correct layer count when requesting for a specific type', () => {
 		const { result } = renderHook(useOpenLayerObserver, {
 			wrapper: ({ children }) => (
@@ -1123,34 +1120,5 @@ ffTest.on('platform-dst-open-layer-observer-layer-type', 'OpenLayerObserver', ()
 		expect(api.getCount({ namespace: 'test-namespace-1' })).toBe(5);
 		expect(api.getCount({ type: 'modal' })).toBe(4);
 		expect(api.getCount({ namespace: 'test-namespace-1', type: 'modal' })).toBe(2);
-	});
-});
-
-ffTest.off('platform-dst-open-layer-observer-layer-type', 'OpenLayerObserver', () => {
-	it('should not support the `type` parameter when the feature flag is disabled', () => {
-		const { result } = renderHook(useOpenLayerObserver, {
-			wrapper: ({ children }) => (
-				<OpenLayerObserver>
-					{children}
-					<MockLayerComponent />
-					<MockLayerComponent />
-					<MockLayerComponent type="modal" />
-
-					<OpenLayerObserverNamespaceProvider namespace="test-namespace-1">
-						<MockLayerComponent />
-						<MockLayerComponent type="modal" />
-						<MockLayerComponent type="modal" />
-					</OpenLayerObserverNamespaceProvider>
-				</OpenLayerObserver>
-			),
-		});
-
-		const api = result.current;
-
-		// The `type` parameter should be ignored, and all layers should be counted
-		expect(api.getCount({ type: 'modal' })).toBe(6);
-		expect(api.getCount({ namespace: 'test-namespace-1' })).toBe(3);
-		expect(api.getCount({ namespace: 'test-namespace-1', type: 'modal' })).toBe(3);
-		expect(api.getCount()).toBe(6);
 	});
 });

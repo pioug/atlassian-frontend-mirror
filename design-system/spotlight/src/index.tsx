@@ -22,3 +22,4 @@ export { PopoverContent, type PopoverContentProps } from './ui/popover-content';
 export { PopoverTarget } from './ui/popover-target';
 export { type Placement, type DismissEvent } from './types';
 export { UNSAFE_UpdateOnChange } from './ui/UNSAFE_update-on-change';
+export { usePreloadMedia } from './utils/use-preload-media';

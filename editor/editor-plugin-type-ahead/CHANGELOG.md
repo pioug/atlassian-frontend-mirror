@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 6.5.16
+
+### Patch Changes
+
+- [`f666392fdb3df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f666392fdb3df) -
+  Tidy fg platform_editor_a11y_remove_input_query_on_click
+- Updated dependencies
+
 ## 6.5.15
 
 ### Patch Changes

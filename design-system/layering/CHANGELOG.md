@@ -1,5 +1,16 @@
 # @atlaskit/layering
 
+## 3.3.0
+
+### Minor Changes
+
+- [`05dd9b7db95b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05dd9b7db95b7) -
+  The open layer observer has been updated to support getting the count of open layers of a specific
+  type, using `getCount` with a `type` parameter.
+
+  This change was previously behind the FG `platform-dst-open-layer-observer-layer-type`, which has
+  now been removed.
+
 ## 3.2.1
 
 ### Patch Changes

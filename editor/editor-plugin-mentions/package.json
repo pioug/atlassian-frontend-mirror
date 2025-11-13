@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-mentions",
-	"version": "8.2.9",
+	"version": "8.2.11",
 	"description": "Mentions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -107,9 +107,6 @@
 		]
 	},
 	"platform-feature-flags": {
-		"editor_inline_comments_paste_insert_nodes": {
-			"type": "boolean"
-		},
 		"team-mention-inline-smartlink": {
 			"type": "boolean"
 		},

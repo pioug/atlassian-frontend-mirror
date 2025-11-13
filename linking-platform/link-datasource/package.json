@@ -92,6 +92,7 @@
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@types/dompurify": "root:*",
+		"date-fns": "root:*",
 		"debounce-promise": "root:*",
 		"dompurify": "root:*",
 		"lodash": "root:*",
@@ -196,6 +197,9 @@
 			"type": "boolean"
 		},
 		"platform_navx_jira_sllv_rich_text_gate": {
+			"type": "boolean"
+		},
+		"jpd_confluence_date_fields_improvements": {
 			"type": "boolean"
 		}
 	},

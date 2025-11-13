@@ -231,6 +231,11 @@ export class CopyLinkButtonInner extends React.Component<Props, State> {
 	}
 }
 
+/**
+ * @deprecated
+ * ⚠️ DO NOT USE — This package has been replaced by @atlassian/jira-share-dialog.
+ * It will be removed once the switch-over is complete.
+ */
 export const CopyLinkButton = (props: Props) =>
 	fg('share-compiled-migration') ? (
 		<CopyLinkButtonNext {...props} />

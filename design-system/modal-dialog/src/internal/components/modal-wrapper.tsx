@@ -15,7 +15,6 @@ import noop from '@atlaskit/ds-lib/noop';
 import { Layering } from '@atlaskit/layering';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import FadeIn from '@atlaskit/motion/fade-in';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -121,7 +120,7 @@ const InternalModalWrapper = (props: InternalModalWrapperProps) => {
 	useNotifyOpenLayerObserver({
 		type: 'modal',
 		// Modal dialog is conditionally rendered when visible, so when this runs it is always open.
-		isOpen: fg('platform-dst-open-layer-observer-layer-type'),
+		isOpen: true,
 		// Passing a no-op for now, as there isn't a real use case for closing the modal dialog programmatically
 		// by the OpenLayerObserver. The only current use case is closing layers when resizing the nav layout,
 		// which cannot happen while a modal dialog is open.

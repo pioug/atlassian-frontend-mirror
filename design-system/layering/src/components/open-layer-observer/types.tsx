@@ -20,8 +20,6 @@ export type OpenLayerObserverInternalAPI = {
 	 * - If a type is provided, only layers of that type are counted.
 	 * - If both are provided, only layers matching both criteria are counted.
 	 * - Otherwise, the sum of all namespace counts is returned.
-	 *
-	 * Note: the `type` parameter is only supported if the `platform-dst-open-layer-observer-layer-type` feature flag is enabled.
 	 */
 	getCount: (options?: {
 		/**
@@ -30,8 +28,6 @@ export type OpenLayerObserverInternalAPI = {
 		namespace?: string;
 		/**
 		 * The type of layer to get the count of.
-		 *
-		 * Note: the `type` parameter is only supported if the `platform-dst-open-layer-observer-layer-type` feature flag is enabled.
 		 */
 		type?: LayerType;
 	}) => number;

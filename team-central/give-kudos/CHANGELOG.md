@@ -1,5 +1,12 @@
 # @atlassian/give-kudos
 
+## 4.4.6
+
+### Patch Changes
+
+- [`6cf9d0da3e1d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cf9d0da3e1d4) -
+  fix typescript issues
+
 ## 4.4.5
 
 ### Patch Changes

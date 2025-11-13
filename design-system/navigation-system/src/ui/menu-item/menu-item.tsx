@@ -3,7 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { forwardRef, lazy, Suspense, useCallback, useRef } from 'react';
+import React, { lazy, Suspense, useCallback, useRef } from 'react';
 
 import { cssMap, cx, jsx, keyframes } from '@compiled/react';
 
@@ -11,14 +11,9 @@ import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AvatarContext, type AvatarContextProps } from '@atlaskit/avatar';
 import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Pressable, Text, type TextColor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import Tooltip, {
-	TooltipPrimitive,
-	type TooltipPrimitiveProps,
-	type TooltipProps,
-} from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip';
 
 import { expandableMenuItemIndentation } from './constants';
 import { useLevel } from './expandable-menu-item/expandable-menu-item-context';
@@ -38,59 +33,6 @@ const LazyDragHandle = lazy(
 			'./drag-handle'
 		),
 );
-
-const tooltipStyles = cssMap({
-	root: {
-		// Unique styles for our tooltip
-		display: 'flex',
-		flexDirection: 'column',
-		justifyContent: 'center',
-		// matching the height of standard items
-		minHeight: '32px',
-		// increased max width from standard tooltip
-		maxWidth: '420px',
-
-		// Mostly copied styles from `tooltip/src/tooltip-container.tsx`
-		// Could likely use `TooltipContainer` from Tooltip and override styles,
-		// but that could lead to some unexpected results as Tooltip is styled
-		// using emotion.
-		boxSizing: 'border-box',
-		paddingBlockStart: token('space.025'),
-		paddingInlineEnd: token('space.075'),
-		paddingBlockEnd: token('space.025'),
-		paddingInlineStart: token('space.075'),
-		backgroundColor: token('color.background.neutral.bold'),
-		borderRadius: token('radius.small'),
-		color: token('color.text.inverse'),
-		font: token('font.body.UNSAFE_small'),
-		insetBlockStart: token('space.0'),
-		insetInlineStart: token('space.0'),
-		overflowWrap: 'break-word',
-		wordWrap: 'break-word',
-	},
-});
-
-const MenuItemTooltip: React.ForwardRefExoticComponent<
-	React.PropsWithoutRef<TooltipPrimitiveProps> & React.RefAttributes<HTMLDivElement>
-> = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(function MenuItemTooltip(
-	{ children, className, ...rest },
-	ref,
-) {
-	return (
-		<TooltipPrimitive
-			{...rest}
-			// Manually passing on `className` so it gets merged correctly in the build output.
-			// The passed classname is mostly used for integration testing (`.Tooltip`)
-			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-classname-prop
-			className={className}
-			// "css" does not "exist" - it gets transformed into "className" by compiled
-			css={tooltipStyles.root}
-			ref={ref}
-		>
-			{children}
-		</TooltipPrimitive>
-	);
-});
 
 function isTextClamped(element: HTMLElement): boolean {
 	// Checking for vertical height rather than horizontal height.
@@ -754,13 +696,7 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 							{description ? <div>{description}</div> : null}
 						</>
 					)}
-					position={fg('platform_dst_side_nav_remove_custom_tooltip') ? 'right-start' : 'right'}
-					// NOTE: Types in React 18 have changed and `forwardRef(() => <TooltipPrimitive>)` no longer appears to match 100%
-					component={
-						fg('platform_dst_side_nav_remove_custom_tooltip')
-							? undefined
-							: (MenuItemTooltip as TooltipProps['component'])
-					}
+					position="right-start"
 					ignoreTooltipPointerEvents
 					hideTooltipOnMouseDown
 					// We don't need a duplicate hidden element containing tooltip content

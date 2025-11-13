@@ -8,6 +8,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { type TableViewPropsRenderType } from '../types';
 
 import BooleanRenderType from './boolean';
+import DateRangeRenderType, { getFormattedDateRange } from './date-range';
 import DateTimeRenderType, { getFormattedDate } from './date-time';
 import IconRenderType from './icon';
 import LinkRenderType from './link';
@@ -32,6 +33,13 @@ export const stringifyType = (
 			return getFormattedDate(value, 'date', formatDate);
 		case 'datetime':
 			return getFormattedDate(value, 'datetime', formatDate);
+		case 'daterange': {
+			if (fg('jpd_confluence_date_fields_improvements')) {
+				return getFormattedDateRange(value.start, value.end, formatDate, formatMessage);
+			}
+
+			return '';
+		}
 		case 'time':
 			return getFormattedDate(value, 'time', formatDate);
 		case 'icon':
@@ -69,6 +77,13 @@ export const renderType: TableViewPropsRenderType = (item) => {
 			return item.values.map((datTimeValue) => (
 				<DateTimeRenderType value={datTimeValue} display="datetime" />
 			));
+		case 'daterange': {
+			if (fg('jpd_confluence_date_fields_improvements')) {
+				return item.values.map((dateRangeValue) => <DateRangeRenderType value={dateRangeValue} />);
+			}
+
+			return <></>;
+		}
 		case 'icon':
 			return item.values.map((iconValue) => <IconRenderType {...iconValue} />);
 		case 'link':

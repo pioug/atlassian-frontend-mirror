@@ -122,8 +122,7 @@ export function Root({
 	 *
 	 * The shortcut is not enabled by default.
 	 *
-	 * The shortcut will also be ignored if there are any open ADS modal dialogs (`@atlaskit/modal-dialog`). This is behind
-	 * the `platform-dst-open-layer-observer-layer-type` feature flag.
+	 * The shortcut will also be ignored if there are any open ADS modal dialogs (`@atlaskit/modal-dialog`).
 	 *
 	 * `SideNav` has another prop `canToggleWithShortcut()` that can be used to run additional checks after the shortcut
 	 * is pressed, before the SideNav is toggled. You can use this to conditionally disable the shortcut based on your

@@ -33,6 +33,7 @@ type MentionTypeaheadInviteItemViewedPayload = UIAEP<
 		containerId: string;
 		objectId: string;
 		sessionId: string;
+		source: string;
 		userRole?: string;
 	},
 	undefined

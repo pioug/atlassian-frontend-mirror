@@ -10,7 +10,6 @@ import { Fragment, type Mark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import { canInsert } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { DatePlugin, DateType } from '../types';
 import { isToday } from '../ui/DatePicker/utils/internal';
@@ -22,26 +21,16 @@ export const createDate =
 	(isQuickInsertAction?: boolean) =>
 	(state: EditorState): Transaction => {
 		const tr = state.tr;
-		const annotationMarksForPos: Mark[] | undefined = fg(
-			'editor_inline_comments_paste_insert_nodes',
-		)
-			? getAnnotationMarksForPos(tr.selection.$head)
-			: undefined;
+		const annotationMarksForPos: Mark[] | undefined = getAnnotationMarksForPos(tr.selection.$head);
 
 		const dateNode = state.schema.nodes.date.createChecked(
 			{
 				timestamp: todayTimestampInUTC(),
 			},
 			null,
-			fg('editor_inline_comments_paste_insert_nodes') ? annotationMarksForPos : undefined,
+			annotationMarksForPos,
 		);
-		const fragment = Fragment.fromArray([
-			dateNode,
-			state.schema.text(
-				' ',
-				fg('editor_inline_comments_paste_insert_nodes') ? annotationMarksForPos : undefined,
-			),
-		]);
+		const fragment = Fragment.fromArray([dateNode, state.schema.text(' ', annotationMarksForPos)]);
 
 		const insertable = canInsert(tr.selection.$from, fragment);
 		if (!insertable) {

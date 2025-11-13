@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.5.10
+
+### Patch Changes
+
+- [`a2263cbfb6899`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2263cbfb6899) -
+  [FG-CLEANUP] platform_editor_breakout_resizing_widget_fix
+
+## 7.5.9
+
+### Patch Changes
+
+- [`42b421f5241a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42b421f5241a4) -
+  EDITOR-2865 Add menuTriggerByNode to block plugin state and use for sync block options
+
 ## 7.5.8
 
 ### Patch Changes

@@ -26,7 +26,15 @@ export type {
 } from './providers/types';
 export { ReferenceSyncBlockStoreManager } from './store-manager/referenceSyncBlockStoreManager';
 export { SyncBlockStoreManager } from './store-manager/syncBlockStoreManager';
-export { getConfluencePageAri, getPageIdAndTypeFromAri } from './utils/ari';
+export {
+	blockResourceIdFromSourceAndLocalId,
+	getConfluencePageAri,
+	getLocalIdFromAri,
+	getLocalIdFromResourceId,
+	getPageARIFromResourceId,
+	getPageIdAndTypeFromAri,
+	resourceIdFromSourceAndLocalId,
+} from './utils/ari';
 export {
 	createSyncBlockNode,
 	convertSyncBlockPMNodeToSyncBlockData,

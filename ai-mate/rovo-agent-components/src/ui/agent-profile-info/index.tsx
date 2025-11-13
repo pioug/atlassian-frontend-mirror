@@ -119,6 +119,7 @@ export const getAgentCreator = ({
 			status: userCreator.status,
 		};
 	}
+	return;
 };
 
 export const AgentProfileCreator = ({

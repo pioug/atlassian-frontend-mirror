@@ -18,16 +18,16 @@ const CreateSyncedBlockDropdownItem = ({
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined;
 }) => {
 	const { formatMessage } = useIntl();
-	const { selection, activeNode } = useSharedPluginStateWithSelector(
+	const { selection, menuTriggerByNode } = useSharedPluginStateWithSelector(
 		api,
 		['selection', 'blockControls'],
 		(states) => ({
 			selection: states.selectionState?.selection,
-			activeNode: states.blockControlsState?.activeNode,
+			menuTriggerByNode: states.blockControlsState?.menuTriggerByNode ?? undefined,
 		}),
 	);
 
-	const isNested = activeNode && activeNode.rootPos !== activeNode.pos;
+	const isNested = menuTriggerByNode && menuTriggerByNode.rootPos !== menuTriggerByNode.pos;
 	const canBeConverted = useMemo(
 		() => selection && canBeConvertedToSyncBlock(selection),
 		[selection],
@@ -78,11 +78,18 @@ export const CreateOrCopySyncedBlockDropdownItem = ({
 }: {
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined;
 }) => {
-	const { activeNodeType } = useSharedPluginStateWithSelector(api, ['blockControls'], (states) => ({
-		activeNodeType: states.blockControlsState?.activeNode?.nodeType ?? undefined,
-	}));
+	const { menuTriggerByNode } = useSharedPluginStateWithSelector(
+		api,
+		['blockControls'],
+		(states) => ({
+			menuTriggerByNode: states.blockControlsState?.menuTriggerByNode ?? undefined,
+		}),
+	);
 
-	if (activeNodeType === 'syncBlock' || activeNodeType === 'bodiedSyncBlock') {
+	if (
+		menuTriggerByNode?.nodeType === 'syncBlock' ||
+		menuTriggerByNode?.nodeType === 'bodiedSyncBlock'
+	) {
 		return <CopySyncedBlockDropdownItem api={api} />;
 	} else {
 		return <CreateSyncedBlockDropdownItem api={api} />;

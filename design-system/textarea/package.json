@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/textarea",
-	"version": "8.0.14",
+	"version": "8.1.0",
 	"description": "A text area lets users enter long form text which spans over multiple lines.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -90,11 +90,6 @@
 				"emotion"
 			],
 			"deprecation": "no-deprecated-imports"
-		}
-	},
-	"platform-feature-flags": {
-		"platform_design_system_team_safari_input_fix": {
-			"type": "boolean"
 		}
 	}
 }

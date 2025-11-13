@@ -45,11 +45,11 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 	TeamProfileCardTriggerProps & AnalyticsProps & WrappedComponentProps,
 	TeamProfileCardTriggerState
 > {
-	static defaultProps: Partial<TeamProfileCardTriggerProps> = {
+	static defaultProps = {
 		actions: [],
-		trigger: 'hover',
-		position: 'bottom-start',
-		triggerLinkType: 'link',
+		trigger: 'hover' as const,
+		position: 'bottom-start' as const,
+		triggerLinkType: 'link' as const,
 		shouldRenderToParent: true,
 	};
 

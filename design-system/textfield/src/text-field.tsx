@@ -7,7 +7,6 @@ import React, { forwardRef, useCallback, useRef } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type TextfieldProps } from './types';
@@ -230,7 +229,7 @@ const inputDisabledStyle = css({
 	},
 });
 
-const inputCompactStyleWithFg = css({
+const inputCompactStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
 	'&[data-compact]': {
 		paddingBlockEnd: token('space.025'),
@@ -249,54 +248,20 @@ const inputCompactStyleWithFg = css({
 		},
 	},
 });
-const inputCompactStyle = css({
-	paddingBlockEnd: token('space.050'),
-	paddingBlockStart: token('space.050'),
-	paddingInlineEnd: token('space.075'),
-	paddingInlineStart: token('space.075'),
-});
 
 const inputMonospacedStyle = css({
-	// eslint-disable-next-line @compiled/shorthand-property-sorting
-	fontFamily: token('font.family.code'),
-});
-
-const inputFontStyleWithFG = css({
-	// eslint-disable-next-line @compiled/shorthand-property-sorting
-	font: token('font.body.large'),
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-	'@media (min-width: 30rem)': {
-		font: token('font.body'),
-	},
-});
-
-const inputStyleMonospacedWithFg = css({
 	fontFamily: token('font.family.code'),
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// Must reapply font family here, otherwise it gets overridden by font.body in inputStyle's media query
 	'@media (min-width: 30rem)': {
 		fontFamily: token('font.family.code'),
 	},
 });
 
-const inputStyleNotDataCompactWithFG = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'&:not([data-compact])': {
-		paddingBlockEnd: token('space.075'),
-		paddingBlockStart: token('space.075'),
-		paddingInlineEnd: token('space.075'),
-		paddingInlineStart: token('space.075'),
-	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-	'@media (min-width: 30rem)': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:not([data-compact])': {
-			paddingBlockEnd: token('space.100'),
-			paddingBlockStart: token('space.100'),
-			paddingInlineEnd: token('space.075'),
-			paddingInlineStart: token('space.075'),
-		},
-	},
-});
+// iOS Safari automatically zooms into form inputs on focus when the font size is less than 16px.
+// To prevent this zoom behaviour on mobile devices, the textfield uses font.body.large (16px) by default,
+// then switches to the smaller font.body on screens wider than 30rem (desktop).
+// @see: https://medium.com/@rares.popescu/2-ways-to-avoid-the-automatic-zoom-in-on-input-fields-8a71479e542e
 
 const inputStyle = css({
 	boxSizing: 'border-box',
@@ -306,12 +271,12 @@ const inputStyle = css({
 	border: 0,
 	color: 'inherit',
 	cursor: 'inherit',
-	font: token('font.body'),
+	font: token('font.body.large'),
 	outline: 'none',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:not([data-compact])': {
-		paddingBlockEnd: token('space.100'),
-		paddingBlockStart: token('space.100'),
+		paddingBlockEnd: token('space.075'),
+		paddingBlockStart: token('space.075'),
 		paddingInlineEnd: token('space.075'),
 		paddingInlineStart: token('space.075'),
 	},
@@ -327,6 +292,17 @@ const inputStyle = css({
 	},
 	'&::placeholder': {
 		color: token('color.text.subtlest'),
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 30rem)': {
+		font: token('font.body'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:not([data-compact])': {
+			paddingBlockEnd: token('space.100'),
+			paddingBlockStart: token('space.100'),
+			paddingInlineEnd: token('space.075'),
+			paddingInlineStart: token('space.075'),
+		},
 	},
 });
 
@@ -468,16 +444,6 @@ const Textfield: React.ForwardRefExoticComponent<
 					isCompact && inputCompactStyle,
 					isDisabled && inputDisabledStyle,
 					isDisabled && inputMediaDisabled,
-					!isCompact &&
-						fg('platform_design_system_team_safari_input_fix') &&
-						inputStyleNotDataCompactWithFG,
-					fg('platform_design_system_team_safari_input_fix') && inputFontStyleWithFG,
-					isCompact &&
-						fg('platform_design_system_team_safari_input_fix') &&
-						inputCompactStyleWithFg,
-					isMonospaced &&
-						fg('platform_design_system_team_safari_input_fix') &&
-						inputStyleMonospacedWithFg,
 				]}
 				data-compact={isCompact ? isCompact : undefined}
 				data-ds--text-field--input

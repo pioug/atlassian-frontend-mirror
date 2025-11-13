@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-media
 
+## 8.4.9
+
+### Patch Changes
+
+- [`768cc7c86e0af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/768cc7c86e0af) -
+  [FG-CLEANUP] platform_editor_track_media_fail_to_insert
+- Updated dependencies
+
+## 8.4.8
+
+### Patch Changes
+
+- [`dbf82f5cfa21e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbf82f5cfa21e) -
+  fix media border styles mutation
+- Updated dependencies
+
 ## 8.4.7
 
 ### Patch Changes

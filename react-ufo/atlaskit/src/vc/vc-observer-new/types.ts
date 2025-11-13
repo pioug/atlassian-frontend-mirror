@@ -62,4 +62,5 @@ export type VCObserverGetVCResultParam = {
 	isPageVisible: boolean;
 	interactionAbortReason?: AbortReasonType;
 	includeRawData?: boolean;
+	includeSSRInV3?: boolean;
 };

@@ -230,10 +230,11 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 			);
 			if (response.ok) {
 				const workspaceType = await response.text();
-				return Promise.resolve(workspaceType);
+				return workspaceType;
 			}
+			return undefined;
 		} catch (err) {
-			return Promise.resolve(undefined);
+			return undefined;
 		}
 	}
 

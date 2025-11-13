@@ -1,7 +1,4 @@
-/**
- * Represents the state of an experience throughout its lifecycle.
- */
-export type ExperienceState = 'pending' | 'started' | 'aborted' | 'failed' | 'succeeded';
+import type { ExperienceState } from './types';
 
 /**
  * State transition map defining valid state transitions.

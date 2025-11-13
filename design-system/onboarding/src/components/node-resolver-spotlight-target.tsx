@@ -54,5 +54,6 @@ const NodeResolverSpotlightTarget = ({
 		</span>
 	);
 };
+NodeResolverSpotlightTarget.displayName = 'NodeResolverSpotlightTarget';
 
 export default NodeResolverSpotlightTarget;

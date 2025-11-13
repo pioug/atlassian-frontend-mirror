@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/frontend-utilities",
-	"version": "3.2.1",
+	"version": "3.2.2",
 	"description": "Collecton of small useful frontend utilities",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

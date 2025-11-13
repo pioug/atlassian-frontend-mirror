@@ -972,4 +972,25 @@ describe('LozengeAction', () => {
 			);
 		});
 	});
+
+	it('fires onAfterChanged callback after status is updated successfully', async () => {
+		const mockInvoke = jest
+			.fn()
+			.mockResolvedValueOnce([{ id: '1', text: 'Done' }])
+			.mockResolvedValueOnce(undefined);
+		const onAfterChanged = jest.fn();
+
+		renderComponent({ action: getAction(), onAfterChanged }, mockInvoke);
+
+		const element = await screen.findByTestId(triggerTestId);
+		await act(async () => {
+			await userEvent.click(element);
+		});
+		const item = await screen.findByTestId(`${testId}-item-0`);
+		await act(async () => {
+			await userEvent.click(item);
+		});
+
+		expect(onAfterChanged).toHaveBeenCalledTimes(1);
+	});
 });

@@ -246,7 +246,7 @@ export default class VCObserverNew {
 
 		const calculator_fy25_03 = new VCCalculator_FY25_03();
 
-		if (param.ssr) {
+		if (param.includeSSRInV3 && param.ssr) {
 			this.addSSR(param.ssr);
 		}
 
@@ -267,6 +267,12 @@ export default class VCObserverNew {
 
 		if (fy25_03) {
 			results.push(fy25_03);
+		}
+
+		// From TTVC v4 onwards, ensuring that SSR entry is always auto-added, whenever it is configured.
+		// From the next major version release (where TTVC v4 becomes the default TTVC version), the config for `includeSSRInV3` will be deprecated
+		if (param.ssr && !param.includeSSRInV3 && fg('platform_ufo_auto_add_ssr_entry_in_ttvc_v4')) {
+			this.addSSR(param.ssr);
 		}
 
 		// TODO on cleanup: put behind `enabledVCRevisions` config

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 7.4.5
+
+### Patch Changes
+
+- [`4cab7924c4af0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cab7924c4af0) -
+  [ux] Clean up editor_inline_comments_paste_insert_nodes
+- Updated dependencies
+
 ## 7.4.4
 
 ### Patch Changes

@@ -7,6 +7,7 @@ import {
 	type StatusType,
 	type User,
 } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { YouTubeVideoUrl } from '../../index';
 import { type GenerateDataResponse } from '../types';
@@ -14,6 +15,12 @@ import { type GenerateDataResponse } from '../types';
 import { defaultInitialVisibleColumnKeys, mockJiraData } from './data';
 
 export { defaultInitialVisibleColumnKeys };
+
+export const daterangeColumn: DatasourceResponseSchemaProperty = {
+	key: 'daterange',
+	title: 'Date range',
+	type: 'daterange',
+};
 
 const columns: DatasourceResponseSchemaProperty[] = [
 	{
@@ -83,6 +90,9 @@ const columns: DatasourceResponseSchemaProperty[] = [
 		title: 'Due Date',
 		type: 'date',
 	},
+	// TODO: Uncomment this when cleaning up jpd_confluence_date_fields_improvements
+	// or include it in the `defaultDetailsResponse` when cleaning up jpd_confluence_date_fields_improvements
+	// daterangeColumn,
 	...new Array<DatasourceResponseSchemaProperty>(100)
 		.fill({
 			key: 'due',
@@ -164,6 +174,48 @@ const resolveJqlSuccess = {
 	status: 200,
 };
 
+const daterangeMocks = {
+	day: {
+		start: '2025-01-01',
+		end: '2025-01-01',
+	},
+	month: {
+		start: '2025-01-01',
+		end: '2025-01-31',
+	},
+	quarter: {
+		start: '2025-01-01',
+		end: '2025-03-31',
+	},
+	customQuarter: {
+		start: '2025-02-01',
+		end: '2025-04-30',
+	},
+	full: {
+		start: '2025-11-10T13:30:00.000Z',
+		end: '2025-11-20T20:00:00.000Z',
+	},
+};
+
+const getDaterangeMock = (index: number): DatasourceDataResponseItem['daterange']['data'] => {
+	const interval = index % 5;
+
+	switch (interval) {
+		case 0:
+			return daterangeMocks.day;
+		case 1:
+			return daterangeMocks.month;
+		case 2:
+			return daterangeMocks.quarter;
+		case 3:
+			return daterangeMocks.customQuarter;
+		case 4:
+			return daterangeMocks.full;
+		default:
+			return daterangeMocks.day;
+	}
+};
+
 export const generateResolveResponse = (resourceUrl: string) => {
 	const url = new URL(resourceUrl);
 	if (url.search.includes('jql=')) {
@@ -177,8 +229,24 @@ export const generateDetailsResponse = (
 	...defaultDetailsResponse,
 	meta: {
 		...defaultDetailsResponse.meta,
+		...(fg('jpd_confluence_date_fields_improvements')
+			? // meta does not have `schema` property, currently it does nothing
+				undefined
+			: {
+					schema: {
+						...defaultDetailsResponse.meta.schema,
+						defaultProperties: initialColumnKeys,
+					},
+				}),
+	},
+	data: {
+		...defaultDetailsResponse.data,
 		schema: {
-			...defaultDetailsResponse.meta.schema,
+			...defaultDetailsResponse.data.schema,
+			// Remove `properties` here and uncomment the line in the `columns` array when cleaning up jpd_confluence_date_fields_improvements
+			properties: fg('jpd_confluence_date_fields_improvements')
+				? [...defaultDetailsResponse.data.schema.properties, daterangeColumn]
+				: defaultDetailsResponse.data.schema.properties,
 			defaultProperties: initialColumnKeys,
 		},
 	},
@@ -199,8 +267,15 @@ const buildDataResponse = ({
 	isUnauthorized?: boolean;
 	maxItems?: number;
 }): ReturnType<GenerateDataResponse> => {
+	// Remove `schemaProperties` here and uncomment the line in the `defaultDetailsResponse` when cleaning up jpd_confluence_date_fields_improvements
+	const schemaProperties: DatasourceResponseSchemaProperty[] = fg(
+		'jpd_confluence_date_fields_improvements',
+	)
+		? [...defaultDetailsResponse.data.schema.properties, daterangeColumn]
+		: defaultDetailsResponse.data.schema.properties;
+
 	const schema = {
-		properties: defaultDetailsResponse.data.schema.properties.filter(({ key }) => {
+		properties: schemaProperties.filter(({ key }) => {
 			return initialVisibleColumnKeys.includes(key);
 		}),
 	};
@@ -309,6 +384,11 @@ const buildDataResponse = ({
 					...(item.labels?.length && {
 						labels: {
 							data: item.labels.map((label) => ({ text: label })),
+						},
+					}),
+					...(fg('jpd_confluence_date_fields_improvements') && {
+						daterange: {
+							data: getDaterangeMock(idx),
 						},
 					}),
 				};

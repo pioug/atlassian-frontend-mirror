@@ -7,7 +7,6 @@ import React, { forwardRef, memo, useCallback, useEffect, useMemo, useRef } from
 import { css, cssMap, jsx } from '@compiled/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { B200, N0, N10, N20, N200, N30, N70, N900, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -231,22 +230,25 @@ const appearanceStyles = cssMap({
 	},
 });
 
+// iOS Safari automatically zooms into form inputs on focus when the font size is less than 16px.
+// To prevent this zoom behaviour on mobile devices, the textarea uses font.body.large (16px) by default,
+// then switches to the smaller font.body on screens wider than 30rem (desktop).
+// @see: https://medium.com/@rares.popescu/2-ways-to-avoid-the-automatic-zoom-in-on-input-fields-8a71479e542e
+
 const fontStyles = cssMap({
 	default: {
-		fontFamily: token('font.family.body'),
+		font: token('font.body.large'),
+		'@media (min-width: 30rem)': {
+			font: token('font.body'),
+		},
 	},
 	monospace: {
+		font: token('font.body.large'),
 		fontFamily: token('font.family.code'),
 		'@media (min-width: 30rem)': {
 			font: token('font.body'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			fontFamily: `${token('font.family.code')} !important`,
-		},
-	},
-	large: {
-		font: token('font.body.large'),
-		'@media (min-width: 30rem)': {
-			font: token('font.body'),
 		},
 	},
 });
@@ -384,7 +386,6 @@ const InnerTextArea: React.ForwardRefExoticComponent<
 			css={[
 				baseStyles,
 				appearanceStyles[appearance],
-				fg('platform_design_system_team_safari_input_fix') && fontStyles['large'],
 				fontStyles[isMonospaced ? 'monospace' : 'default'],
 				resizeStyles[resize],
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage

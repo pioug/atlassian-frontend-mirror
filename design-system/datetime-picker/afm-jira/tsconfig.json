@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"declaration": true,
 		"target": "es5",
-		"outDir": "../../../../../tsDist/@atlaskit__datetime-picker/app",
+		"outDir": "../../../../../jira/tsDist/@atlaskit__datetime-picker/app",
 		"rootDir": "../",
 		"composite": true
 	},

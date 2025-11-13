@@ -1,5 +1,12 @@
 # @atlaskit/notification-log-service
 
+## 6.3.0
+
+### Minor Changes
+
+- [`afd2e03d617f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/afd2e03d617f3) -
+  Makes empty calls to Post Office for load testing, should have 0 impact on performance
+
 ## 6.2.0
 
 ### Minor Changes
@@ -184,7 +191,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/util-service-support@5.0.1
   - @atlaskit/notification-indicator@7.0.11
@@ -227,7 +233,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -248,7 +253,6 @@
 ## 4.0.3
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 ## 4.0.2
@@ -260,13 +264,11 @@
 ## 4.0.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 4.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 3.1.2

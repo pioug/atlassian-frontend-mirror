@@ -39,6 +39,7 @@
 		"@atlaskit/json-ld-types": "workspace:^",
 		"@atlaskit/link-provider": "workspace:^",
 		"@atlaskit/linking-types": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@jest/globals": "root:*",
@@ -81,6 +82,11 @@
 			"deprecation": [
 				"no-deprecated-imports"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"jpd_confluence_date_fields_improvements": {
+			"type": "boolean"
 		}
 	}
 }

@@ -3,7 +3,7 @@
 
 export { Experience } from './Experience';
 
-export { EXPERIENCE_FAILURE_REASON } from './consts';
+export { EXPERIENCE_ABORT_REASON, EXPERIENCE_FAILURE_REASON } from './consts';
 
 export { ExperienceCheckComposite } from './ExperienceCheckComposite';
 export { ExperienceCheckDomMutation } from './ExperienceCheckDomMutation';

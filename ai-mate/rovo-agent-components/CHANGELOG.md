@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.11.2
+
+### Patch Changes
+
+- [`6cf9d0da3e1d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cf9d0da3e1d4) -
+  fix typescript issues
+
 ## 3.11.1
 
 ### Patch Changes

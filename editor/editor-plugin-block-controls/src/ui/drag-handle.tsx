@@ -52,7 +52,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginType';
+import type { BlockControlsPlugin, HandleOptions, TriggerByNode } from '../blockControlsPluginType';
 import { getNodeTypeWithLevel } from '../pm-plugins/decorations-common';
 import { key } from '../pm-plugins/main';
 import { getMultiSelectAnalyticsAttributes } from '../pm-plugins/utils/analytics';
@@ -482,9 +482,21 @@ export const DragHandle = ({
 						tr = selectNode(tr, startPos, nodeType, api);
 					}
 
+					const rootPos = expValEqualsNoExposure('platform_synced_block', 'isEnabled', true)
+						? tr.doc.resolve(startPos).before(1)
+						: undefined;
+					const triggerByNode: TriggerByNode | undefined = expValEqualsNoExposure(
+						'platform_synced_block',
+						'isEnabled',
+						true,
+					)
+						? { nodeType, pos: startPos, rootPos }
+						: undefined;
+
 					if (BLOCK_MENU_ENABLED && editorExperiment('platform_editor_controls', 'variant1')) {
 						api?.blockControls?.commands.toggleBlockMenu({
 							anchorName,
+							triggerByNode,
 							openedViaKeyboard: expValEqualsNoExposure(
 								'platform_editor_block_menu_keyboard_navigation',
 								'isEnabled',
@@ -499,6 +511,7 @@ export const DragHandle = ({
 					} else if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
 						api?.blockControls?.commands.toggleBlockMenu({
 							anchorName,
+							triggerByNode,
 							openedViaKeyboard: expValEqualsNoExposure(
 								'platform_editor_block_menu_keyboard_navigation',
 								'isEnabled',
@@ -596,7 +609,21 @@ export const DragHandle = ({
 					tr = selectNode(tr, startPos, nodeType, api);
 					!isMultiSelect && tr.setMeta(key, { pos: startPos });
 
-					api?.blockControls?.commands.toggleBlockMenu({ anchorName, openedViaKeyboard: true })({
+					const rootPos = expValEqualsNoExposure('platform_synced_block', 'isEnabled', true)
+						? tr.doc.resolve(startPos).before(1)
+						: undefined;
+					const triggerByNode: TriggerByNode | undefined = expValEqualsNoExposure(
+						'platform_synced_block',
+						'isEnabled',
+						true,
+					)
+						? { nodeType, pos: startPos, rootPos }
+						: undefined;
+					api?.blockControls?.commands.toggleBlockMenu({
+						anchorName,
+						triggerByNode,
+						openedViaKeyboard: true,
+					})({
 						tr,
 					});
 					api?.userIntent?.commands.setCurrentUserIntent('blockMenuOpen')({ tr });

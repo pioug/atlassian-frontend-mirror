@@ -190,7 +190,7 @@ export const actions = {
 
 	fetchWebLinkTitle:
 		(url: string) =>
-		async ({ setState }: StoreApi): Promise<string | undefined> => {
+		async ({ setState: _setState }: StoreApi): Promise<string | undefined> => {
 			if (!url) {
 				return undefined;
 			}

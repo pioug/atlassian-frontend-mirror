@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/layering",
-	"version": "3.2.1",
+	"version": "3.3.0",
 	"description": "Layering provides consistent and accessible layered experience",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -61,11 +61,6 @@
 				"static",
 				"emotion"
 			]
-		}
-	},
-	"platform-feature-flags": {
-		"platform-dst-open-layer-observer-layer-type": {
-			"type": "boolean"
 		}
 	},
 	"homepage": "https://atlassian.design/components",

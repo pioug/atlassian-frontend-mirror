@@ -46,7 +46,7 @@ export const TeamActions = ({
 	}, []);
 
 	const actions: ActionItem[] = [];
-	let kudosProps = null;
+	let kudosProps: KudosEnabledProps | null = null;
 	if (isKudosEnabled) {
 		actions.push({
 			id: GIVE_KUDOS_ACTION_ID,

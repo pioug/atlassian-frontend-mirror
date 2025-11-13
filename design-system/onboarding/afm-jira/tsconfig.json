@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"declaration": true,
 		"target": "es5",
-		"outDir": "../../../../../tsDist/@atlaskit__onboarding/app",
+		"outDir": "../../../../../jira/tsDist/@atlaskit__onboarding/app",
 		"rootDir": "../",
 		"composite": true
 	},

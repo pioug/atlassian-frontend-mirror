@@ -1,5 +1,25 @@
 # @atlaskit/spotlight
 
+## 0.9.4
+
+### Patch Changes
+
+- [`063f646d9daec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/063f646d9daec) -
+  Added `usePreloadMedia` hook to preload video and image assets before they are rendered in the
+  DOM.
+
+  This hook is useful in the context of `@atlaskit/spotlight` where by default media will only load
+  when `PopoverContent.isVisible` is set to true. `usePreloadMedia` preloads the assets for better
+  performance and user experience. The hook accepts a source URL and a MIME type, creates a
+  temporary media element to trigger browser caching, and the cached asset will be used when the
+  actual media element is rendered.
+
+  Supported MIME types:
+  - Videos: `video/mp4`, `video/webm`, `video/ogg`, `video/mpeg`, `video/x-matroska`
+  - Images: `image/jpeg`, `image/png`, `image/gif`, `image/webp`, `image/svg+xml`
+
+  Example usage: usePreloadMedia(videoSrc, { mimetype: 'video/mp4' });
+
 ## 0.9.3
 
 ### Patch Changes

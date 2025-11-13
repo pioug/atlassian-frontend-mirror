@@ -2,8 +2,6 @@ import React, { useContext, useState } from 'react';
 
 import invariant from 'tiny-invariant';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { OpenLayerObserverContext } from './open-layer-observer-context';
 import type {
 	CleanupFn,
@@ -139,14 +137,6 @@ function createInternalAPI(): OpenLayerObserverInternalAPI {
 	 * - Otherwise, the sum of all namespace counts is returned.
 	 */
 	function getCount({ namespace, type }: { namespace?: string; type?: LayerType } = {}): number {
-		if (!fg('platform-dst-open-layer-observer-layer-type')) {
-			if (namespace) {
-				return namespaceToLayerRegistry.get(namespace)?.size ?? 0;
-			}
-
-			return getTotalOpenLayerCount(namespaceToLayerRegistry);
-		}
-
 		if (namespace) {
 			// 1. A namespace was requested, so we count only layers in that namespace
 			const layersForNamespace = namespaceToLayerRegistry.get(namespace);

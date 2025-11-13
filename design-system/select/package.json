@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "21.3.10",
+	"version": "21.4.0",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -104,9 +104,6 @@
 			"type": "boolean"
 		},
 		"platform-visual-refresh-icons": {
-			"type": "boolean"
-		},
-		"platform_design_system_team_safari_input_fix": {
 			"type": "boolean"
 		},
 		"platform_dst_nav4_layering_in_main_slot_fixes": {

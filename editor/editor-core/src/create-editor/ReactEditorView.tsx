@@ -660,11 +660,9 @@ export function ReactEditorView(props: EditorViewProps) {
 	// Detects if the editor is nested inside an extension - ie. it is a Legacy Content Extension (LCE)
 	const isNestedEditor = useRef<boolean | null>(null);
 	const isNestedEditorCalculated = useRef(false);
-	if (fg('platform_editor_lce_scrolltop_mitigation')) {
-		if (editorRef.current !== null && !isNestedEditorCalculated.current) {
-			isNestedEditor.current = !!editorRef.current?.closest('.extension-editable-area');
-			isNestedEditorCalculated.current = true;
-		}
+	if (editorRef.current !== null && !isNestedEditorCalculated.current) {
+		isNestedEditor.current = !!editorRef.current?.closest('.extension-editable-area');
+		isNestedEditorCalculated.current = true;
 	}
 
 	const originalScrollToRestore = React.useRef(

@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react';
 import { BaseTheme } from '@atlaskit/editor-common/ui';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { setGlobalTheme } from '@atlaskit/tokens';
 jest.mock('@atlaskit/platform-feature-flags', () => ({
@@ -127,6 +128,42 @@ describe('Editor Content styles', () => {
 			});
 		});
 	});
+
+	eeTest
+		.describe('editor_tinymce_full_width_mode', 'when max width mode feature is enabled')
+		.variant(true, () => {
+			describe('max width editor', () => {
+				it('should render scroll container styles in new editor styles', () => {
+					render(
+						<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
+							<EditorContentContainer
+								appearance="max"
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+								className="fabric-editor-popup-scroll-parent"
+								viewMode={'edit'}
+								isScrollable
+							>
+								<div data-testid="child-component">Full page</div>
+							</EditorContentContainer>
+						</BaseTheme>,
+					);
+
+					const results = screen.getByTestId('editor-content-container');
+					expect(results).toBeInTheDocument();
+					expect(results).toHaveCompiledCss({
+						flexGrow: '1',
+						height: '100%',
+						overflowY: 'scroll',
+						position: 'relative',
+						display: 'flex',
+						flexDirection: 'column',
+						scrollBehavior: 'smooth',
+						// style from scrollbarStyles
+						'-ms-overflow-style': '-ms-autohiding-scrollbar',
+					});
+				});
+			});
+		});
 
 	describe('comment editor', () => {
 		it('should render comment specific styles in new editor styles', () => {

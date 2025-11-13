@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"declaration": true,
 		"target": "es5",
-		"outDir": "../../../../../tsDist/@atlaskit__editor-plugin-feature-flags/app",
+		"outDir": "../../../../../jira/tsDist/@atlaskit__editor-plugin-feature-flags/app",
 		"rootDir": "../",
 		"composite": true
 	},

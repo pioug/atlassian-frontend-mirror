@@ -14,14 +14,14 @@ export type ExperienceCheckTimeoutConfig = {
 	/**
 	 * Optional callback to provide custom result on timeout
 	 *
-	 * If not provided, or callback returns undefined, defaults to failure with reason 'timeout'
+	 * If not provided, or callback returns undefined, defaults to failure with experienceFailureReason 'timeout'
 	 */
 	onTimeout?: () => ExperienceCheckResult | undefined;
 };
 
 const DEFAULT_FAILURE_RESULT: ExperienceCheckResult = {
 	status: 'failure',
-	metadata: { reason: EXPERIENCE_FAILURE_REASON.TIMEOUT },
+	reason: EXPERIENCE_FAILURE_REASON.TIMEOUT,
 };
 
 /**

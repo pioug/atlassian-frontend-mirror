@@ -24,7 +24,7 @@ import type {
 	TypeAheadItem,
 } from '@atlaskit/editor-common/types';
 import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/utils';
-import { type Node as ProseMirrorNode, Fragment } from '@atlaskit/editor-prosemirror/model';
+import { type Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, SafeStateField, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EmojiDescription, EmojiProvider } from '@atlaskit/emoji';
@@ -36,7 +36,6 @@ import {
 	SearchSort,
 } from '@atlaskit/emoji';
 import CommentIcon from '@atlaskit/icon/core/comment';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -214,23 +213,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 					);
 			}
 
-			let fragment: Fragment;
-
-			if (fg('editor_inline_comments_paste_insert_nodes')) {
-				fragment = createEmojiFragment(state.doc, state.selection.$head, item.emoji);
-			} else {
-				const { id = '', fallback, shortName } = item.emoji;
-				const text = fallback || shortName;
-
-				const emojiNode = state.schema.nodes.emoji.createChecked({
-					shortName,
-					id,
-					text,
-				});
-				const space = state.schema.text(' ');
-
-				fragment = Fragment.from([emojiNode, space]);
-			}
+			const fragment = createEmojiFragment(state.doc, state.selection.$head, item.emoji);
 
 			const tr = insert(fragment);
 			api?.analytics?.actions.attachAnalyticsEvent({

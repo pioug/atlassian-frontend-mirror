@@ -126,6 +126,10 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 
 		return pageARI ? fetchSourceInfo(pageARI, sourceLocalId) : Promise.resolve(undefined);
 	}
+
+	generateResourceId(sourceId: string, localId: string): string {
+		return this.writeProvider.generateResourceId(sourceId, localId);
+	}
 }
 
 export const useMemoizedSyncedBlockProvider = (

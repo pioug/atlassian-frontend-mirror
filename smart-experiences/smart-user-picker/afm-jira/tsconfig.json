@@ -2,7 +2,7 @@
 	"extends": "../../../../tsconfig.entry-points.jira.json",
 	"compilerOptions": {
 		"target": "es5",
-		"outDir": "../../../../../tsDist/@atlaskit__smart-user-picker/app",
+		"outDir": "../../../../../jira/tsDist/@atlaskit__smart-user-picker/app",
 		"rootDir": "../",
 		"composite": true
 	},

@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import { SyncBlockError, type SyncBlockData } from '../../common/types';
-import { getLocalIdFromAri, resourceIdFromSourceAndLocalId } from '../../utils/ari';
+import { blockResourceIdFromSourceAndLocalId, getLocalIdFromResourceId } from '../../utils/ari';
 import {
 	BlockError,
 	createSyncedBlock,
@@ -35,18 +35,19 @@ const mapBlockError = (error: BlockError): SyncBlockError => {
  */
 class BlockServiceADFFetchProvider implements ADFFetchProvider {
 	// resourceId is the ARI of the block. E.G ari:cloud:blocks:site-123:synced-block/uuid-456
+	// in the content API provider, this was the concatenation of the source document's ARI and the local ID. E.G ari:cloud:confluence:site-123:page/pageId/uuid-456
 	async fetchData(resourceId: string): Promise<SyncBlockInstance> {
-		const localId = getLocalIdFromAri(resourceId);
+		const localId = getLocalIdFromResourceId(resourceId);
 
 		try {
-			const contentProperty = await getSyncedBlockContent({ blockAri: resourceId });
-			const value = contentProperty.content;
+			const blockContentResponse = await getSyncedBlockContent({ blockAri: resourceId });
+			const value = blockContentResponse.content;
 
 			if (!value) {
 				return { error: SyncBlockError.NotFound, resourceId };
 			}
 
-			// Parse the synced block content from the property value
+			// Parse the synced block content from the response's content
 			const syncedBlockData = JSON.parse(value) as Array<ADFEntity>;
 
 			return {
@@ -83,7 +84,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 				if (error.status === 404) {
 					// Create the block
 					await createSyncedBlock({
-						blockAri: resourceIdFromSourceAndLocalId(resourceId, data.blockInstanceId),
+						blockAri: resourceId,
 						blockInstanceId: data.blockInstanceId,
 						sourceAri: resourceId,
 						product: 'confluence-page',
@@ -108,6 +109,10 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			}
 			return { resourceId, success: false, error: stringifyError(error) };
 		}
+	}
+
+	generateResourceId(sourceId: string, localId: string): string {
+		return blockResourceIdFromSourceAndLocalId(sourceId, localId);
 	}
 }
 

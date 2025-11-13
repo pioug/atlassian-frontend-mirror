@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"declaration": true,
 		"target": "es5",
-		"outDir": "../../../../../tsDist/@atlaskit__popper/app",
+		"outDir": "../../../../../jira/tsDist/@atlaskit__popper/app",
 		"rootDir": "../",
 		"composite": true
 	},

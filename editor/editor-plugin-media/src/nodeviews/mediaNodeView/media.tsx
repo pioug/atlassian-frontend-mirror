@@ -255,6 +255,17 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			(fg('platform_media_video_captions') ? !viewAndUploadMediaClientConfig : true);
 
 		if (isLoading || (type !== 'external' && hasNoMediaClientConfig)) {
+			if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
+				return (
+					<MediaCardWrapper
+						dimensions={originalDimensions}
+						borderWidth={borderMark?.attrs.size}
+						selected={selected}
+					>
+						<CardLoading interactionName="editor-media-card-loading" />
+					</MediaCardWrapper>
+				);
+			}
 			return (
 				<MediaCardWrapper dimensions={originalDimensions}>
 					<CardLoading interactionName="editor-media-card-loading" />

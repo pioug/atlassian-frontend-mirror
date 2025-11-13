@@ -155,6 +155,7 @@ snapshotInformational(CompositionVR, {
 		await page.getByRole('button', { name: 'Expand sidebar' }).hover();
 
 		// Wait until flyout is stable
+		await page.waitForSelector('[data-visible="flyout"]');
 		const sidebar = await page.getByRole('navigation', { name: 'Sidebar' }).elementHandle();
 		await sidebar?.waitForElementState('stable');
 

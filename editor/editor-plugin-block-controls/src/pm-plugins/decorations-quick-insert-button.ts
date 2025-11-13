@@ -68,9 +68,7 @@ export const quickInsertButtonDecoration = ({
 				 * Other block marks must be added, otherwise PM will split the DOM elements causing mutations and re-draws
 				 */
 
-				marks: fg('platform_editor_breakout_resizing_widget_fix')
-					? getActiveBlockMarks(editorState, rootPos)
-					: [],
+				marks: getActiveBlockMarks(editorState, rootPos),
 				destroy: (_: Node) => {
 					if (fg('platform_editor_fix_widget_destroy')) {
 						nodeViewPortalProviderAPI.remove(key);

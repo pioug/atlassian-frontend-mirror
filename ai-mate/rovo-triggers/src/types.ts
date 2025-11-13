@@ -293,11 +293,21 @@ export type JiraWorkflowWizardActionsPayload = PayloadCore<
 	}
 >;
 
+type MessageDescriptorWithValues = {
+	// MessageDescriptor values
+	id?: string;
+	description?: string | object;
+	defaultMessage?: string;
+
+	// Message values to be passed to the message formatter
+	messageValues?: Record<string, string | number | boolean | null | undefined | Date>;
+};
+
 export type GenericExternalActionErrorPayload = PayloadCore<
 	'generic-external-action-error',
 	{
 		invocationId: string;
-		errors: string[];
+		errors: (string | MessageDescriptorWithValues)[];
 	}
 >;
 

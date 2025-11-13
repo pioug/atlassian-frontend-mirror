@@ -39,7 +39,6 @@ import {
 	safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaState } from '../../types';
 
@@ -249,48 +248,36 @@ export const insertMediaInlineNode =
 		// Delete the selection if a selection is made
 		const deleteRange = findDeleteRange(state);
 
-		if (fg('platform_editor_track_media_fail_to_insert')) {
-			let payload: InsertEventPayload;
-			try {
-				if (!deleteRange) {
-					tr.insert(pos, content);
-				} else {
-					tr.insert(pos, content).deleteRange(deleteRange.start, deleteRange.end);
-				}
-
-				if (hasInsertedNodeOfType(tr, 'mediaInline')) {
-					payload = getInsertMediaInlineAnalytics(mediaState, inputMethod, insertMediaVia);
-				} else {
-					payload = getFailToInsertAnalytics(
-						mediaState,
-						ACTION_SUBJECT_ID.MEDIA_INLINE,
-						inputMethod,
-						insertMediaVia,
-					);
-				}
-			} catch (error) {
-				payload = getFailToInsertAnalytics(
-					mediaState,
-					ACTION_SUBJECT_ID.MEDIA_INLINE,
-					inputMethod,
-					insertMediaVia,
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					(error as any).toString(),
-				);
-			}
-
-			editorAnalyticsAPI?.attachAnalyticsEvent(payload)(tr);
-		} else {
+		let payload: InsertEventPayload;
+		try {
 			if (!deleteRange) {
 				tr.insert(pos, content);
 			} else {
 				tr.insert(pos, content).deleteRange(deleteRange.start, deleteRange.end);
 			}
 
-			editorAnalyticsAPI?.attachAnalyticsEvent(
-				getInsertMediaInlineAnalytics(mediaState, inputMethod, insertMediaVia),
-			)(tr);
+			if (hasInsertedNodeOfType(tr, 'mediaInline')) {
+				payload = getInsertMediaInlineAnalytics(mediaState, inputMethod, insertMediaVia);
+			} else {
+				payload = getFailToInsertAnalytics(
+					mediaState,
+					ACTION_SUBJECT_ID.MEDIA_INLINE,
+					inputMethod,
+					insertMediaVia,
+				);
+			}
+		} catch (error) {
+			payload = getFailToInsertAnalytics(
+				mediaState,
+				ACTION_SUBJECT_ID.MEDIA_INLINE,
+				inputMethod,
+				insertMediaVia,
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				(error as any).toString(),
+			);
 		}
+
+		editorAnalyticsAPI?.attachAnalyticsEvent(payload)(tr);
 
 		dispatch(tr);
 		return true;

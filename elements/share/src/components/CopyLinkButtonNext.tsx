@@ -209,7 +209,7 @@ export class CopyLinkButton extends React.Component<Props, State> {
 						copyTooltipText &&
 						shouldShowCopiedMessage &&
 						fg('jfind-copy-link-modal-invite-tooltip') ? (
-							<Tooltip content={copyTooltipText} position="bottom-start">
+							<Tooltip content={copyTooltipText} position="bottom">
 								{this.renderTriggerButton(triggerProps)}
 							</Tooltip>
 						) : (

@@ -1,5 +1,15 @@
 # @atlaskit/profilecard
 
+## 24.21.2
+
+### Patch Changes
+
+- [`6cf9d0da3e1d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cf9d0da3e1d4) -
+  fix typescript issues
+- [`6cf9d0da3e1d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cf9d0da3e1d4) -
+  fix typescript issues
+- Updated dependencies
+
 ## 24.21.1
 
 ### Patch Changes

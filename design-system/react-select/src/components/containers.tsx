@@ -6,7 +6,6 @@ import { type CSSProperties, type ReactNode } from 'react';
 
 import { css, cssMap, cx, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type CommonPropsAndClassName, type GroupBase } from '../types';
@@ -40,20 +39,17 @@ export const containerCSS = () => ({});
 const containerStyles = cssMap({
 	default: {
 		position: 'relative',
-		font: token('font.body'),
+		font: token('font.body.large'),
 		pointerEvents: 'all',
+		'@media (min-width: 30rem)': {
+			font: token('font.body'),
+		},
 	},
 	rtl: {
 		direction: 'rtl',
 	},
 	disabled: {
 		cursor: 'not-allowed',
-	},
-	ff_safari_input_fix: {
-		font: token('font.body.large'),
-		'@media (min-width: 30rem)': {
-			font: token('font.body'),
-		},
 	},
 });
 
@@ -73,7 +69,6 @@ export const SelectContainer = <Option, IsMulti extends boolean, Group extends G
 				containerStyles.default,
 				isRtl && containerStyles.rtl,
 				isDisabled && containerStyles.disabled,
-				fg('platform_design_system_team_safari_input_fix') && containerStyles.ff_safari_input_fix,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 			className={cx(className as any, xcss, '-container')}

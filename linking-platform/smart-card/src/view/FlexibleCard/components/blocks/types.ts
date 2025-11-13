@@ -474,6 +474,7 @@ export type SourceBranch = {
  */
 export type State = {
 	name: ElementName.State;
+	onAfterChanged?: () => void;
 };
 /**
  * Represents the props available for a SubscriberCount element.

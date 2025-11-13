@@ -1,5 +1,7 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import {
 	mockActionsDiscovery,
 	mockActionsExecution,
@@ -134,7 +136,10 @@ export const mockDatasourceFetchRequests = ({
 			return rest.initialVisibleColumnKeys;
 		}
 		if (type === 'jira') {
-			return jiraMocks.defaultInitialVisibleColumnKeys;
+			// Return just jiraMocks.defaultInitialVisibleColumnKeys when cleaning up jpd_confluence_date_fields_improvements
+			return fg('jpd_confluence_date_fields_improvements')
+				? [...jiraMocks.defaultInitialVisibleColumnKeys, 'daterange']
+				: jiraMocks.defaultInitialVisibleColumnKeys;
 		}
 		if (type === 'confluence') {
 			return confluenceMocks.defaultInitialVisibleColumnKeys;

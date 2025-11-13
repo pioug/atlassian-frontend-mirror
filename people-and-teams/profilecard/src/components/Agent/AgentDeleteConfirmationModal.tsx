@@ -52,7 +52,7 @@ export const AgentDeleteConfirmationModal = ({
 							</Button>
 							<Button
 								appearance="danger"
-								onClick={(_e, event: UIAnalyticsEvent) => {
+								onClick={(_e, _event: UIAnalyticsEvent) => {
 									handleDeleteAgent();
 								}}
 							>

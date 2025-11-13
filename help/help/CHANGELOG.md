@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 9.2.0
+
+### Minor Changes
+
+- [`662c52bb64e22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/662c52bb64e22) -
+  [ux] Added openInSameTab props to HelpContentButtonProps / home.homeOptions to support opening
+  help link in the same tab. This also removes the external icon next to the help link
+
 ## 9.1.26
 
 ### Patch Changes

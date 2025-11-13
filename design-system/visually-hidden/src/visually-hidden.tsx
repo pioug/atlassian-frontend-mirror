@@ -45,5 +45,6 @@ const VisuallyHidden: FC<VisuallyHiddenProps> = ({ children, testId, role, id })
 		</span>
 	);
 };
+VisuallyHidden.displayName = 'VisuallyHidden';
 
 export default VisuallyHidden;

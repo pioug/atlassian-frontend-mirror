@@ -57,8 +57,8 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 	const [isCloseConfirmModalOpen, setIsCloseConfirmModalOpen] = useState(false);
 	const [isDirty, setIsDirty] = useState(false);
 	const iframeEl = useRef(null);
-	const messageListenerEventHandler = useRef((e: any) => {});
-	const unloadEventHandler = useRef((e: any) => {});
+	const messageListenerEventHandler = useRef((_e: any) => {});
+	const unloadEventHandler = useRef((_e: any) => {});
 	const intl = useIntl();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 

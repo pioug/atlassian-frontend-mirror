@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 15.3.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.3.20
+
+### Patch Changes
+
+- [`cf07075f295f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf07075f295f9) -
+  Remove casting to HTMLElement in TableRowNativeStickyWithFallback
+- Updated dependencies
+
 ## 15.3.19
 
 ### Patch Changes

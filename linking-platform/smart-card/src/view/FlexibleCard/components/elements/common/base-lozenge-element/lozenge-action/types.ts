@@ -11,6 +11,7 @@ export type LozengeItem = {
 export type LozengeActionProps = {
 	action: LinkLozengeInvokeActions;
 	appearance?: ThemeAppearance;
+	onAfterChanged?: () => void;
 	testId?: string;
 	text: string | React.ReactNode;
 	zIndex?: number;

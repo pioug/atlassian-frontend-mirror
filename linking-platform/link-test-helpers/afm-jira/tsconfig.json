@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"declaration": true,
 		"target": "es5",
-		"outDir": "../../../../../tsDist/@atlaskit__link-test-helpers/app",
+		"outDir": "../../../../../jira/tsDist/@atlaskit__link-test-helpers/app",
 		"rootDir": "../",
 		"composite": true
 	},
@@ -31,6 +31,9 @@
 		},
 		{
 			"path": "../../linking-types/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../react-ufo/atlaskit/afm-jira/tsconfig.json"

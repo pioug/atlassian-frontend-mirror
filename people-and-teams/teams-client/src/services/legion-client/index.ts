@@ -533,12 +533,9 @@ export class LegionClient extends RestClient implements LegionClient {
 		teamId: string,
 		membershipSettings: TeamMembershipSettings,
 	): Promise<void> {
-		return this.patchResource(
-			`${v4UrlPath}/${this.trimTeamARI(teamId)}`,
-			{
-				membershipSettings,
-			},
-		);
+		return this.patchResource(`${v4UrlPath}/${this.trimTeamARI(teamId)}`, {
+			membershipSettings,
+		});
 	}
 
 	/**

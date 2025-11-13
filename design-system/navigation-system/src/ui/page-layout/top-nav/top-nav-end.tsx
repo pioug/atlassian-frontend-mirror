@@ -67,6 +67,7 @@ const containerStyles = cssMap({
 		// Pointer events are disabled on the top nav
 		// So we need to restore them for the slot
 		pointerEvents: 'auto',
+		paddingInlineEnd: token('space.150'),
 	},
 });
 

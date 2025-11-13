@@ -121,12 +121,12 @@ export class VCObserverWrapper implements VCObserverInterface {
 				? await this.oldVCObserver?.getVCResult(param)
 				: {};
 
-		const v3Result = isVCRevisionEnabled('fy25.03', experienceKey)
+		const v3v4Result = isVCRevisionEnabled('fy25.03', experienceKey)
 			? await this.newVCObserver?.getVCResult({
 					start: param.start,
 					stop: param.stop,
 					interactionId: param.interactionId,
-					ssr: param.includeSSRInV3 ? param.ssr : undefined,
+					ssr: param.ssr,
 					include3p,
 					excludeSmartAnswersInSearch,
 					includeSSRRatio,
@@ -134,21 +134,22 @@ export class VCObserverWrapper implements VCObserverInterface {
 					isPageVisible: param.isPageVisible,
 					interactionAbortReason: param.interactionAbortReason,
 					includeRawData,
+					includeSSRInV3: param.includeSSRInV3,
 				})
 			: [];
 
-		if (!v3Result) {
+		if (!v3v4Result) {
 			return v1v2Result ?? {};
 		}
 
-		const ssrRatio = v3Result[0].ssrRatio;
+		const ssrRatio = v3v4Result[0].ssrRatio;
 
 		return {
 			...(includeSSRRatio && ssrRatio !== undefined ? { 'ufo:vc:ssrRatio': ssrRatio } : {}),
 			...v1v2Result,
 			'ufo:vc:rev': [
 				...((v1v2Result?.['ufo:vc:rev'] as RevisionPayload | undefined) ?? []),
-				...(v3Result ?? []),
+				...(v3v4Result ?? []),
 			],
 		};
 	}

@@ -70,6 +70,15 @@ export const editorExperimentsConfig = {
 		defaultValue: 'control',
 	}),
 
+	// Added 2025-11-12
+	platform_editor_media_vc_fixes: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_media_vc_fixes',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+
 	// Added 2025-05-27
 	platform_editor_reduce_noisy_steps_ncs: createBooleanExperiment({
 		productKeys: {

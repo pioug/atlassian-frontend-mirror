@@ -21,7 +21,6 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import { canInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ClosingPayload, StatusType } from '../types';
 
@@ -37,13 +36,7 @@ export const verifyAndInsertStatus = (
 	tr: Transaction,
 	annotationMarks?: Mark[] | undefined,
 ): Transaction => {
-	const fragment = Fragment.fromArray([
-		statusNode,
-		tr.doc.type.schema.text(
-			' ',
-			fg('editor_inline_comments_paste_insert_nodes') ? annotationMarks : undefined,
-		),
-	]);
+	const fragment = Fragment.fromArray([statusNode, tr.doc.type.schema.text(' ', annotationMarks)]);
 	const insertable = canInsert(tr.selection.$from, fragment);
 	if (!insertable) {
 		const parentSelection = NodeSelection.create(
@@ -67,9 +60,7 @@ export const verifyAndInsertStatus = (
 };
 
 export const createStatus = (tr: Transaction): Transaction => {
-	const annotationMarksForPos: Mark[] | undefined = fg('editor_inline_comments_paste_insert_nodes')
-		? getAnnotationMarksForPos(tr.selection.$head)
-		: undefined;
+	const annotationMarksForPos: Mark[] | undefined = getAnnotationMarksForPos(tr.selection.$head);
 
 	const statusNode = tr.doc.type.schema.nodes.status.createChecked(
 		{
@@ -77,13 +68,9 @@ export const createStatus = (tr: Transaction): Transaction => {
 			localId: uuid.generate(),
 		},
 		null,
-		fg('editor_inline_comments_paste_insert_nodes') ? annotationMarksForPos : undefined,
+		annotationMarksForPos,
 	);
-	return verifyAndInsertStatus(
-		statusNode,
-		tr,
-		fg('editor_inline_comments_paste_insert_nodes') ? annotationMarksForPos : undefined,
-	);
+	return verifyAndInsertStatus(statusNode, tr, annotationMarksForPos);
 };
 
 export const insertStatus =

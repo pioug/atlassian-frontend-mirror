@@ -1,9 +1,10 @@
-import type { CustomData } from '@atlaskit/ufo';
+import type { CustomExperienceMetadata } from './types';
 
 type ExperienceCheckResultStatus = 'success' | 'failure' | 'abort';
 
 export type ExperienceCheckResult = {
-	metadata?: CustomData;
+	metadata?: CustomExperienceMetadata;
+	reason?: string;
 	status: ExperienceCheckResultStatus;
 };
 

@@ -24,6 +24,7 @@ export type Props = {
 	notificationLogProvider?: Promise<NotificationLogProvider>;
 	notificationMax?: number;
 	onClick?: (id: string, analytics: UIAnalyticsEvent, event: React.MouseEvent<HTMLElement>) => void;
+	openInSameTab?: boolean;
 	text: string;
 	tooltipText?: string;
 };
@@ -43,6 +44,7 @@ const HelpContentButton = ({
 	icon,
 	onClick,
 	tooltipText,
+	openInSameTab,
 }: Props): React.JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -86,7 +88,7 @@ const HelpContentButton = ({
 						/>
 					</HelpContentButtonExternalNotificationIcon>
 				)}
-				{href != null && (
+				{!openInSameTab && href != null && (
 					<HelpContentButtonExternalLinkIcon dataTestId="shortcutIcon">
 						<ShortcutIcon color="currentColor" LEGACY_size="small" label="" />
 					</HelpContentButtonExternalLinkIcon>
@@ -94,6 +96,8 @@ const HelpContentButton = ({
 			</HelpContentButtonText>
 		</>
 	);
+
+	const target = href ? (openInSameTab ? '_self' : '_blank') : undefined;
 
 	return (
 		<AnalyticsContext data={analitycsContextData}>
@@ -103,7 +107,7 @@ const HelpContentButton = ({
 				href={href}
 				id={id}
 				tabIndex={0}
-				target={href && '_blank'}
+				target={target}
 			>
 				{tooltipText ? (
 					<Tooltip content={tooltipText} position="left">

@@ -57,10 +57,7 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 				durationMs: 500,
 				onTimeout: () => {
 					if (isBlockMenuWithinNode(getTarget())) {
-						return {
-							status: 'abort',
-							metadata: { reason: ABORT_REASON.BLOCK_MENU_OPENED },
-						};
+						return { status: 'abort', reason: ABORT_REASON.BLOCK_MENU_OPENED };
 					}
 				},
 			}),
@@ -86,7 +83,7 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 			init: () => ({}),
 			apply: (_tr, pluginState, oldState, newState) => {
 				if (!oldState.selection.empty && newState.selection.empty) {
-					experience.abort({ metadata: { reason: ABORT_REASON.SELECTION_CLEARED } });
+					experience.abort({ reason: ABORT_REASON.SELECTION_CLEARED });
 				}
 
 				return pluginState;
@@ -96,12 +93,12 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 			handleDOMEvents: {
 				mouseup: (view: EditorView) => {
 					if (!view.state.selection.empty && !isSelectionToolbarWithinNode(getTarget())) {
-						experience.start({ metadata: { method: START_METHOD.MOUSE_UP } });
+						experience.start({ method: START_METHOD.MOUSE_UP });
 					}
 				},
 				keydown: (_view: EditorView, { shiftKey, key }: KeyboardEvent) => {
 					if (shiftKey && key.includes('Arrow') && !isSelectionToolbarWithinNode(getTarget())) {
-						experience.start({ metadata: { method: START_METHOD.KEY_DOWN } });
+						experience.start({ method: START_METHOD.KEY_DOWN });
 					}
 				},
 			},
@@ -111,7 +108,7 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 
 			return {
 				destroy: () => {
-					experience.abort({ metadata: { reason: ABORT_REASON.EDITOR_DESTROYED } });
+					experience.abort({ reason: ABORT_REASON.EDITOR_DESTROYED });
 				},
 			};
 		},

@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.9.0
+
+### Minor Changes
+
+- [`e0dc40edfc665`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0dc40edfc665) -
+  Update the resource ID generation for blockAri format
+
 ## 2.8.0
 
 ### Minor Changes

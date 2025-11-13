@@ -23,4 +23,10 @@ export {
 
 export { usePageLayoutResize, useLeftSidebarFlyoutLock } from './controllers';
 
-export type { SlotHeightProps, SlotWidthProps, Dimensions, LeftSidebarState } from './common/types';
+export type {
+	SlotHeightProps,
+	SlotWidthProps,
+	Dimensions,
+	LeftSidebarState,
+	PageLayoutProps,
+} from './common/types';

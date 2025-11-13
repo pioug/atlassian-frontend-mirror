@@ -464,7 +464,9 @@ export class TeamsClient {
 	 * Unlink a team from group
 	 */
 	async unlinkTeamFromGroup(teamId: string): Promise<void> {
-		return this.measurePerformance('unlinkTeamFromGroup', () => this._legionClient.unlinkTeamFromGroup(teamId, 'MEMBER_INVITE'));
+		return this.measurePerformance('unlinkTeamFromGroup', () =>
+			this._legionClient.unlinkTeamFromGroup(teamId, 'MEMBER_INVITE'),
+		);
 	}
 
 	/**

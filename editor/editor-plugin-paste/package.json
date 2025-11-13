@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste",
-	"version": "7.4.4",
+	"version": "7.4.5",
 	"description": "Paste plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -105,9 +105,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"editor_inline_comments_paste_insert_nodes": {
-			"type": "boolean"
-		},
 		"platform_editor_use_nested_table_pm_nodes": {
 			"type": "boolean"
 		},

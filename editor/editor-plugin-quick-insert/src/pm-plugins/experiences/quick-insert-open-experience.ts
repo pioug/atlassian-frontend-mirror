@@ -78,17 +78,17 @@ export const getQuickInsertOpenExperiencePlugin = ({
 			handleDOMEvents: {
 				click: (_view, event) => {
 					if (isTargetQuickInsertButton(event.target)) {
-						experience.start({ metadata: { method: START_METHOD.QUICK_INSERT_BUTTON } });
+						experience.start({ method: START_METHOD.QUICK_INSERT_BUTTON });
 					}
 				},
 				beforeinput: (view, event) => {
 					if (isQuickInsertTrigger(event) && isSelectionWhichSupportsTypeahead(view)) {
-						experience.start({ metadata: { method: START_METHOD.TYPEAHEAD } });
+						experience.start({ method: START_METHOD.TYPEAHEAD });
 					}
 				},
 				keydown: (_view, event) => {
 					if (isCancelKey(event.key) && !isQuickInsertMenuWithinNode(getTarget())) {
-						experience.abort({ metadata: { reason: ABORT_REASON.USER_CANCELED } });
+						experience.abort({ reason: ABORT_REASON.USER_CANCELED });
 					}
 				},
 			},
@@ -98,7 +98,7 @@ export const getQuickInsertOpenExperiencePlugin = ({
 
 			return {
 				destroy: () => {
-					experience.abort({ metadata: { reason: ABORT_REASON.EDITOR_DESTROYED } });
+					experience.abort({ reason: ABORT_REASON.EDITOR_DESTROYED });
 				},
 			};
 		},

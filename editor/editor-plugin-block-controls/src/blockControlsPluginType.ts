@@ -32,6 +32,12 @@ export type ActiveNode = {
 	rootPos?: number;
 };
 
+export type TriggerByNode = {
+	nodeType: string;
+	pos: number;
+	rootPos?: number;
+};
+
 export type ActiveDropTargetNode = {
 	nodeTypeName: string | null;
 	pos: number;
@@ -70,6 +76,7 @@ export interface PluginState {
 	isShiftDown?: boolean;
 	lastDragCancelled: boolean;
 	menuTriggerBy?: string;
+	menuTriggerByNode?: TriggerByNode;
 	multiSelectDnD?: MultiSelectDnD;
 }
 
@@ -93,6 +100,7 @@ export type BlockControlsSharedState =
 			isShiftDown?: boolean;
 			lastDragCancelled: boolean;
 			menuTriggerBy?: string;
+			menuTriggerByNode?: TriggerByNode;
 			multiSelectDnD?: MultiSelectDnD;
 	  }
 	| undefined;
@@ -161,6 +169,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 				anchorName?: string;
 				closeMenu?: boolean;
 				openedViaKeyboard?: boolean;
+				triggerByNode?: TriggerByNode;
 			}) => EditorCommand;
 		};
 		dependencies: BlockControlsPluginDependencies;

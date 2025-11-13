@@ -6,7 +6,8 @@ import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 
 import { openEmbedModal } from '../utils';
 
-describe('openEmbedModal', () => {
+// Skipping due to test issue with modal not closing between runs https://atlassian.slack.com/archives/CFKGAQZRV/p1762903223827709
+describe.skip('openEmbedModal', () => {
 	const testId = 'smart-embed-preview-modal';
 
 	beforeEach(() => {

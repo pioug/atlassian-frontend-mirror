@@ -3,7 +3,6 @@ import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { stepAddsOneOf } from '@atlaskit/editor-common/utils';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const pluginKey = new PluginKey('extensionUniqueIdPlugin');
 
@@ -35,8 +34,7 @@ const createPlugin = () =>
 						// There are instances where the localId will be reset to null on publish due to extension
 						// not existing in the Storage format (eg. Legacy Content Extensions) or not having a localId
 						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-						(fg('platform_editor_update_extension_local_id_on_reset') &&
-							step instanceof SetAttrsStep &&
+						(step instanceof SetAttrsStep &&
 							// @ts-expect-error Bad ProseMirror step types
 							step.attrs?.localId === null),
 				);

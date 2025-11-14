@@ -229,6 +229,7 @@ export const HoverCardComponent = ({
 				actionOptions,
 				url,
 				id,
+				hoverPreviewOptions,
 			};
 
 			return (
@@ -242,7 +243,17 @@ export const HoverCardComponent = ({
 				</SmartLinkAnalyticsContext>
 			);
 		},
-		[initShowCard, initHideCard, linkState, onActionClick, renderers, actionOptions, url, id],
+		[
+			initShowCard,
+			initHideCard,
+			linkState,
+			onActionClick,
+			renderers,
+			actionOptions,
+			url,
+			id,
+			hoverPreviewOptions,
+		],
 	);
 
 	const trigger = useCallback(

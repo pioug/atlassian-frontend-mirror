@@ -24,8 +24,8 @@ export interface BodiedSyncBlockNodeViewProps extends ReactComponentProps {
 	node: PMNode;
 	pluginOptions: SyncedBlockPluginOptions | undefined;
 	portalProviderAPI: PortalProviderAPI;
-	view: EditorView;
 	syncBlockStore: SyncBlockStoreManager;
+	view: EditorView;
 }
 
 const toDOM = (): DOMOutputSpec => [
@@ -39,6 +39,8 @@ const toDOM = (): DOMOutputSpec => [
 
 class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 	private syncBlockStore: SyncBlockStoreManager;
+	private cleanupConnectivityModeListener?: () => void;
+	private api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 
 	constructor(props: BodiedSyncBlockNodeViewProps) {
 		super(
@@ -50,11 +52,27 @@ class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 			props,
 		);
 		this.syncBlockStore = props.syncBlockStore;
+		this.api = props.api;
+		this.handleConnectivityModeChange();
+	}
+
+	handleConnectivityModeChange() {
+		if (this.api?.connectivity) {
+			this.cleanupConnectivityModeListener = this.api.connectivity.sharedState.onChange(
+				({ nextSharedState }) => {
+					this.contentDOM?.setAttribute(
+						'contenteditable',
+						nextSharedState.mode === 'online' ? 'true' : 'false',
+					);
+				},
+			);
+		}
 	}
 
 	createDomRef(): HTMLElement {
 		const domRef = document.createElement('div');
 		domRef.classList.add(BodiedSyncBlockSharedCssClassName.prefix);
+
 		return domRef;
 	}
 
@@ -75,6 +93,12 @@ class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 		}
 
 		return undefined;
+	}
+
+	destroy() {
+		if (this.cleanupConnectivityModeListener) {
+			this.cleanupConnectivityModeListener();
+		}
 	}
 }
 

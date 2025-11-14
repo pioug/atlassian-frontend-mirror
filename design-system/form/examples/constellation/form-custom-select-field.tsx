@@ -8,7 +8,7 @@ import { css } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import { jsx } from '@atlaskit/css';
-import Form, { ErrorMessage, Field, FormFooter, MessageWrapper } from '@atlaskit/form';
+import Form, { Field, FormFooter } from '@atlaskit/form';
 import { Flex } from '@atlaskit/primitives/compiled';
 import Select, {
 	components,
@@ -129,8 +129,10 @@ const FormCustomSelectFieldExample = () => {
 					return Promise.resolve(validateOnSubmit(data));
 				}}
 			>
-				<Field<ValueType<Option>> name="colors" label="Select a color">
-					{({ fieldProps: { id, ...rest }, error }) => (
+				<Field<ValueType<Option>>
+					name="colors"
+					label="Select a color"
+					component={({ fieldProps: { id, ...rest } }) => (
 						<Fragment>
 							<Select<Option>
 								inputId={id}
@@ -143,18 +145,17 @@ const FormCustomSelectFieldExample = () => {
 								isClearable
 								clearControlLabel="Clear color"
 							/>
-							<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
 						</Fragment>
 					)}
-				</Field>
-				<Field<ValueType<Option, true>> name="icecream" label="Select a flavor" defaultValue={[]}>
-					{({ fieldProps: { id, ...rest }, error }) => (
-						<Fragment>
-							<Select inputId={id} {...rest} options={flavors} isMulti />
-							<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
-						</Fragment>
+				/>
+				<Field<ValueType<Option, true>>
+					name="icecream"
+					label="Select a flavor"
+					defaultValue={[]}
+					component={({ fieldProps: { id, ...rest } }) => (
+						<Select inputId={id} {...rest} options={flavors} isMulti />
 					)}
-				</Field>
+				/>
 				<FormFooter>
 					<Button type="submit" appearance="primary">
 						Submit

@@ -3,6 +3,7 @@ import React from 'react';
 import { useIntl } from 'react-intl-next';
 
 import VerifiedIcon from '@atlaskit/icon/core/status-verified';
+import type { IconSpacing } from '@atlaskit/icon/types';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -29,6 +30,11 @@ interface VerifiedTeamIconProps {
 	 * The size of the icon.
 	 */
 	size?: 'small' | 'medium';
+
+	/**
+	 * The spacing of the icon.
+	 */
+	spacing?: IconSpacing;
 }
 
 export const VerifiedTeamIcon = ({
@@ -36,6 +42,7 @@ export const VerifiedTeamIcon = ({
 	showTooltip,
 	customTooltipContent,
 	size = 'medium',
+	spacing = 'spacious',
 }: VerifiedTeamIconProps) => {
 	const { formatMessage } = useIntl();
 	const tooltipContent = showTooltip
@@ -50,7 +57,7 @@ export const VerifiedTeamIcon = ({
 					color={token('color.icon.accent.blue')}
 					size={size}
 					label={tooltipContent}
-					spacing="spacious"
+					spacing={spacing}
 				/>
 			</span>
 		</Tooltip>
@@ -58,7 +65,7 @@ export const VerifiedTeamIcon = ({
 		<VerifiedIcon
 			color={token('color.icon.accent.blue')}
 			size={size}
-			spacing="spacious"
+			spacing={spacing}
 			label={label}
 		/>
 	);

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-import { cssMap } from '@atlaskit/css';
+import { cssMap, cx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -8,6 +8,7 @@ import { token } from '@atlaskit/tokens';
 interface CoverImageProps {
 	src: string;
 	alt?: string;
+	isDisabled?: boolean;
 }
 
 const styles = cssMap({
@@ -30,12 +31,15 @@ const styles = cssMap({
 		height: '100%',
 		objectFit: 'cover',
 	},
+	grayoutImage: {
+		filter: 'grayscale(100%)',
+	},
 });
 
 /**
  * This is instead of using background-image in CSS as design-system doesn't support that
  */
-export const CoverImage = ({ src, alt = '' }: CoverImageProps) => {
+export const CoverImage = ({ src, alt = '', isDisabled }: CoverImageProps) => {
 	const containerRef = useRef<HTMLDivElement | null>(null);
 	const imgRef = useRef<HTMLImageElement | null>(null);
 
@@ -46,7 +50,10 @@ export const CoverImage = ({ src, alt = '' }: CoverImageProps) => {
 				ref={imgRef}
 				src={src}
 				alt={alt}
-				xcss={fg('cover-header-image-team-profilecard') ? styles.imageNext : styles.image}
+				xcss={cx(
+					fg('cover-header-image-team-profilecard') ? styles.imageNext : styles.image,
+					isDisabled && styles.grayoutImage,
+				)}
 			/>
 		</Box>
 	);

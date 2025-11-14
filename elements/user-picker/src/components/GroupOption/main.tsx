@@ -10,6 +10,7 @@ import { css, jsx } from '@emotion/react';
 import { N20, B400, N800, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import PeopleIcon from '@atlaskit/icon/core/migration/people-group--people';
+import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
 
 import { type Group } from '../../types';
 import { AvatarItemOption, textWrapper } from '../AvatarItemOption';
@@ -29,6 +30,7 @@ export const groupOptionIconWrapper = css({
 
 export type GroupOptionProps = {
 	group: Group;
+	includeTeamsUpdates?: boolean;
 	isSelected: boolean;
 };
 
@@ -57,8 +59,25 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
 		</span>
 	);
 
+	private renderVerifiedIcon = () => {
+		return <VerifiedTeamIcon label="" size="small" spacing="none" />;
+	};
+
 	private renderByline = () => {
-		const { isSelected, group } = this.props;
+		const { isSelected, group, includeTeamsUpdates } = this.props;
+		const getGroupByline = () => {
+			if (includeTeamsUpdates) {
+				return (
+					<FormattedMessage
+						{...messages.adminManagedGroupByline}
+						values={{ verifiedIcon: this.renderVerifiedIcon() }}
+					/>
+				);
+			} else {
+				return <FormattedMessage {...messages.groupByline} />;
+			}
+		};
+
 		return (
 			<span
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -67,7 +86,7 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
 				)}
 				data-testid="user-picker-group-secondary-text"
 			>
-				{group.byline ? group.byline : <FormattedMessage {...messages.groupByline} />}
+				{group.byline ? group.byline : getGroupByline()}
 			</span>
 		);
 	};

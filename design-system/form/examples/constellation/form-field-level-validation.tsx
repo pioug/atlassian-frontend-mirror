@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Form, {
@@ -8,7 +8,6 @@ import Form, {
 	FormHeader,
 	MessageWrapper,
 	RequiredAsterisk,
-	ValidMessage,
 } from '@atlaskit/form';
 import { Flex, Text } from '@atlaskit/primitives/compiled';
 import Select, { type ValueType } from '@atlaskit/select';
@@ -37,61 +36,18 @@ const errorMessages = {
 	shortUsername: 'Please enter a username longer than 4 characters',
 	validUsername: 'Nice one, this username is available',
 	usernameInUse: 'This username is already taken, try entering another one',
+	usernameIsRequired: 'A username is required.',
 	selectError: 'Please select a color',
 };
 
-const { shortUsername, validUsername, usernameInUse, selectError } = errorMessages;
-
-const checkUserName = (value: string) => {
-	return userNameData.includes(value);
+const checkUserName = (value: string | undefined) => {
+	return value && userNameData.includes(value);
 };
 
-let isUsernameUsed: boolean = false;
-
 export default function FieldLevelValidationExample() {
-	const [fieldValue, setFieldValue] = useState('');
-	const [fieldHasError, setFieldHasError] = useState(false);
-	const [selectHasError, setSelectHasError] = useState(false);
-	const [selectValue, setSelectValue] = useState<ValueType<Option>>();
-	const [errorMessageText, setErrorMessageText] = useState('');
-	const [messageId, setMessageId] = useState('');
-
 	const handleSubmit = (formState: { command: string }) => {
 		console.log('form state', formState);
 	};
-
-	const handleBlurEvent = () => {
-		isUsernameUsed = checkUserName(fieldValue);
-		if (fieldValue.length >= 5 && !isUsernameUsed) {
-			setFieldHasError(false);
-			setErrorMessageText('IS_VALID');
-		} else {
-			setFieldHasError(true);
-			if (fieldValue.length <= 5) {
-				setErrorMessageText('TOO_SHORT');
-			} else if (isUsernameUsed) {
-				setErrorMessageText('IN_USE');
-			}
-		}
-	};
-
-	const handleSelectBlurEvent = () => {
-		selectValue ? setSelectHasError(false) : setSelectHasError(true);
-	};
-
-	useEffect(() => {
-		switch (errorMessageText) {
-			case 'IS_VALID':
-				setMessageId('-valid');
-				break;
-			case 'TOO_SHORT':
-			case 'IN_USE':
-				setMessageId('-error');
-				break;
-			default:
-				setMessageId('-error');
-		}
-	}, [errorMessageText]);
 
 	return (
 		<Flex direction="column">
@@ -107,45 +63,29 @@ export default function FieldLevelValidationExample() {
 					defaultValue=""
 					isRequired
 					validate={(value) => {
-						if (value) {
-							setFieldValue(value);
+						if (!value) {
+							return errorMessages.usernameIsRequired;
+						} else if (value.length <= 5) {
+							return errorMessages.shortUsername;
+						} else if (checkUserName(value)) {
+							return errorMessages.usernameInUse;
 						}
 					}}
-				>
-					{({ fieldProps: { id, ...rest } }) => {
-						return (
-							<Fragment>
-								<TextField
-									{...rest}
-									aria-describedby={fieldHasError ? `${id}${messageId}` : undefined}
-									isInvalid={fieldHasError}
-									onBlur={handleBlurEvent}
-								/>
-								<MessageWrapper>
-									{!fieldHasError && errorMessageText === 'IS_VALID' && (
-										<ValidMessage>{validUsername}</ValidMessage>
-									)}
-									{fieldHasError && errorMessageText === 'TOO_SHORT' && (
-										<ErrorMessage>{shortUsername}</ErrorMessage>
-									)}
-									{fieldHasError && errorMessageText === 'IN_USE' && (
-										<ErrorMessage>{usernameInUse}</ErrorMessage>
-									)}
-								</MessageWrapper>
-							</Fragment>
-						);
-					}}
-				</Field>
+					validMessage={errorMessages.validUsername}
+					component={({ fieldProps }) => <TextField {...fieldProps} />}
+				/>
 				<Field<ValueType<Option>>
 					name="colors"
 					label="Select a color"
 					defaultValue={null}
 					isRequired
 					validate={(value) => {
-						setSelectValue(value);
+						if (!value) {
+							return errorMessages.selectError;
+						}
 					}}
 				>
-					{({ fieldProps: { id, ...rest } }) => {
+					{({ fieldProps: { id, ...rest }, error }) => {
 						return (
 							<Fragment>
 								<Select<Option>
@@ -154,13 +94,9 @@ export default function FieldLevelValidationExample() {
 									options={colors}
 									isClearable
 									clearControlLabel="Clear color"
-									isInvalid={selectHasError}
-									descriptionId={selectHasError ? `${id}-error` : undefined}
-									onBlur={handleSelectBlurEvent}
+									descriptionId={error ? `${id}-error` : undefined}
 								/>
-								<MessageWrapper>
-									{selectHasError && <ErrorMessage>{selectError}</ErrorMessage>}
-								</MessageWrapper>
+								<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
 							</Fragment>
 						);
 					}}

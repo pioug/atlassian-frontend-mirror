@@ -14,10 +14,12 @@ import {
 	copySyncedBlockReferenceToClipboardEditorCommand,
 	createSyncedBlock,
 } from './editor-commands';
-import { createPlugin } from './pm-plugins/main';
+import { createPlugin, syncedBlockPluginKey } from './pm-plugins/main';
 import type { SyncedBlockPlugin } from './syncedBlockPluginType';
+import type { SyncedBlockSharedState } from './types';
 import { getBlockMenuComponents } from './ui/block-menu-components';
 import { DeleteConfirmationModal } from './ui/DeleteConfirmationModal';
+import { Flag } from './ui/Flag';
 import { getToolbarConfig } from './ui/floating-toolbar';
 import { SyncBlockRefresher } from './ui/SyncBlockRefresher';
 import { getToolbarComponents } from './ui/toolbar-components';
@@ -90,6 +92,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 						'excerpt',
 						'connect',
 					],
+					isDisabledOffline: true,
 					keyshortcut: '',
 					lozenge: (
 						<Lozenge appearance="new">{formatMessage(blockTypeMessages.newLozenge)}</Lozenge>
@@ -111,9 +114,18 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 			return (
 				<>
 					<SyncBlockRefresher syncBlockStoreManager={syncBlockStore} />
-					<DeleteConfirmationModal syncBlockStoreManager={syncBlockStore} />
+					<DeleteConfirmationModal syncBlockStoreManager={syncBlockStore} api={api} />
+					<Flag api={api} />
 				</>
 			);
+		},
+
+		getSharedState: (editorState?: EditorState): SyncedBlockSharedState | undefined => {
+			if (!editorState) {
+				return;
+			}
+			const { showFlag } = syncedBlockPluginKey.getState(editorState);
+			return { showFlag };
 		},
 	};
 };

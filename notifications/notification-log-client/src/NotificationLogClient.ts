@@ -44,9 +44,9 @@ export default class NotificationLogClient implements NotificationLogProvider {
 			void utils
 				.requestService(
 					{
-						url: '/gateway/api/post-office/api/v1/in-app-notifications/unseen/count',
+						url: '/gateway/api/post-office',
 					},
-					mergedOptions,
+					{ ...mergedOptions, path: '/api/v1/in-app-notifications/unseen/count' },
 				)
 				.catch(() => {});
 		}

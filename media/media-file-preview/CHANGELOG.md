@@ -1,5 +1,13 @@
 # @atlaskit/media-file-preview
 
+## 0.14.0
+
+### Minor Changes
+
+- [`0fca09ae4fa6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fca09ae4fa6d) -
+  Removing the blob URL conversion and fixing the unnecessary dual fetching of images when VC fixes
+  are active
+
 ## 0.13.0
 
 ### Minor Changes

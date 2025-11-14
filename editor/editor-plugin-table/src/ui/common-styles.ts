@@ -37,6 +37,7 @@ import { TableCssClassName as ClassName } from '../types';
 
 import {
 	columnControlsDecorationHeight,
+	dragRowControlsWidth,
 	resizeHandlerAreaWidth,
 	resizeHandlerZIndex,
 	resizeLineWidth,
@@ -50,6 +51,7 @@ import {
 	tableCellBackgroundColor,
 	tableCellDeleteColor,
 	tableCellSelectedColor,
+	tableColumnControlsHeight,
 	tableControlsSpacing,
 	tableHeaderCellBackgroundColor,
 	tableInsertColumnButtonSize,
@@ -551,9 +553,47 @@ export const baseTableStyles = (props: {
 
 	tr.${ClassName.NATIVE_STICKY} {
 		position: sticky;
-		top: 0;
+		top: ${stickyRowOffsetTop}px;
 		z-index: calc(${akEditorTableCellOnStickyHeaderZIndex} - 5);
-		box-shadow: inset -1px 1px ${tableBorderColor};
+		box-shadow:
+			inset -1px 1px ${tableBorderColor},
+			inset 1px -1px ${tableBorderColor};
+	}
+
+	/** Adds mask above sticky header to prevent table content from bleeding through on scroll */
+	.${ClassName.TABLE_NODE_WRAPPER}:has(tr.${ClassName.NATIVE_STICKY})::before {
+		content: ' ';
+		display: block;
+		top: 0;
+		box-sizing: border-box;
+		width: 100%;
+		height: 0;
+		margin-bottom: -${stickyRowOffsetTop}px;
+		position: sticky;
+		border-top: ${stickyRowOffsetTop}px solid ${token('elevation.surface')};
+		z-index: ${akEditorUnitZIndex};
+	}
+
+	/** Corrects position of drag row controls when sticky header top mask is present */
+	.${ClassName.TABLE_CONTAINER}:has(.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW})
+		> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
+		> div
+		> .${ClassName.DRAG_ROW_CONTROLS} {
+		top: ${tableColumnControlsHeight}px;
+	}
+
+	/** Corrects position of numbered column when sticky header top mask is present */
+	.${ClassName.TABLE_CONTAINER}:has(.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW})
+		> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
+		> div
+		> .${ClassName.NUMBERED_COLUMN} {
+		top: ${tableColumnControlsHeight}px;
+	}
+
+	/** Expands the mask to encompass the numbered column */
+	.pm-table-wrapper:has([data-number-column='true'] tr.${ClassName.NATIVE_STICKY})::before {
+		margin-left: -${akEditorTableNumberColumnWidth}px;
+		width: calc(100% + ${akEditorTableNumberColumnWidth}px);
 	}
 
 	.${ClassName.WITH_CONTROLS} tr.${ClassName.NATIVE_STICKY} {
@@ -813,7 +853,7 @@ export const baseTableStyles = (props: {
 
 	.${ClassName.DRAG_COLUMN_CONTROLS} {
 		.${ClassName.DRAG_COLUMN_CONTROLS_INNER} {
-			height: 24px;
+			height: ${tableColumnControlsHeight}px;
 			position: absolute;
 			top: ${token('space.negative.150', '-12px')};
 			z-index: ${resizeHandlerZIndex};
@@ -821,7 +861,7 @@ export const baseTableStyles = (props: {
 
 		.${ClassName.DRAG_COLUMN_FLOATING_INSERT_DOT_WRAPPER} {
 			position: absolute;
-			height: 24px;
+			height: ${tableColumnControlsHeight}px;
 			width: 100%;
 		}
 
@@ -1228,6 +1268,35 @@ export const baseTableStyles = (props: {
 		position-visibility: anchors-visible;
 		/* higher zIndex than sticky header which is akEditorTableCellOnStickyHeaderZIndex - 5 */
 		z-index: ${akEditorTableCellOnStickyHeaderZIndex - 4};
+	}
+
+	/** Mask for content to the left of the column controls */
+	.${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} > .${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER}::before {
+		content: '';
+		position: relative;
+		display: inline-block;
+		margin-left: -${akEditorTableNumberColumnWidth + dragRowControlsWidth}px;
+		width: ${akEditorTableNumberColumnWidth + dragRowControlsWidth}px;
+		height: ${tableMarginTop}px;
+		background: ${token('elevation.surface')};
+		/* higher zIndex than sticky header which is akEditorTableCellOnStickyHeaderZIndex - 5 */
+		z-index: ${akEditorTableCellOnStickyHeaderZIndex - 4};
+	}
+
+	/** Mask for numbered column content to the left of the header row */
+	.${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} th:first-of-type::before {
+		content: '';
+		position: absolute;
+		display: inline-block;
+		box-sizing: border-box;
+		left: 0;
+		width: ${akEditorTableNumberColumnWidth - 1}px;
+		height: 100%;
+		margin-left: -${akEditorTableNumberColumnWidth}px;
+		margin-top: -${stickyRowOffsetTop}px;
+		outline: 1px solid ${tableBorderColor};
+		border-left: 1px solid ${tableBorderColor};
+		background: ${token('color.background.accent.gray.subtlest')};
 	}
 
 	.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW}

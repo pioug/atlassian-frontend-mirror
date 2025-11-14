@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import Form, { ErrorMessage, Field, FormFooter, MessageWrapper } from '@atlaskit/form';
+import Form, { Field, FormFooter } from '@atlaskit/form';
 import { Flex } from '@atlaskit/primitives/compiled';
 import Select, { type ValueType as Value } from '@atlaskit/select';
 
@@ -81,36 +81,36 @@ const FormSelectExample = () => {
 					return Promise.resolve(validateOnSubmit(data));
 				}}
 			>
-				<Field<Value<Option>> name="colors" label="Select a color" defaultValue={null}>
-					{({ fieldProps: { id, ...rest }, error }) => (
-						<Fragment>
-							<Select<Option>
-								inputId={id}
-								{...rest}
-								options={colors}
-								isClearable
-								clearControlLabel="Clear color"
-							/>
-							<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
-						</Fragment>
+				<Field<Value<Option>>
+					name="colors"
+					label="Select a color"
+					defaultValue={null}
+					component={({ fieldProps: { id, ...rest } }) => (
+						<Select<Option>
+							inputId={id}
+							{...rest}
+							options={colors}
+							isClearable
+							clearControlLabel="Clear color"
+						/>
 					)}
-				</Field>
-				<Field<Value<Option, true>> name="icecream" label="Select a flavor" defaultValue={[]}>
-					{({ fieldProps: { id, ...rest }, error }) => (
-						<Fragment>
-							<Select inputId={id} {...rest} options={flavors} isMulti />
-							<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
-						</Fragment>
+				/>
+				<Field<Value<Option, true>>
+					name="icecream"
+					label="Select a flavor"
+					defaultValue={[]}
+					component={({ fieldProps: { id, ...rest } }) => (
+						<Select inputId={id} {...rest} options={flavors} isMulti />
 					)}
-				</Field>
-				<Field<Value<Option, true>> name="suits" label="Select suits" defaultValue={suits.slice(2)}>
-					{({ fieldProps: { id, ...rest }, error }) => (
-						<Fragment>
-							<Select inputId={id} {...rest} options={suits} isMulti />
-							<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
-						</Fragment>
+				/>
+				<Field<Value<Option, true>>
+					name="suits"
+					label="Select suits"
+					defaultValue={suits.slice(2)}
+					component={({ fieldProps: { id, ...rest } }) => (
+						<Select inputId={id} {...rest} options={suits} isMulti />
 					)}
-				</Field>
+				/>
 				<FormFooter>
 					<Button type="submit" appearance="primary">
 						Submit

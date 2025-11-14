@@ -74,6 +74,7 @@ export interface Team {
 		avatarUrl: string;
 	}[];
 	isVerified?: boolean;
+	state?: 'ACTIVE' | 'DISBANDED';
 }
 
 export interface RovoAgent {
@@ -191,15 +192,15 @@ export interface ProfileCardResourcedState {
 export interface ProfileCardTriggerProps {
 	userId: string;
 	/**
-    A cloudId can be provided, and we'll verify that the target userId is an
-    actual user in the specified site.
+	A cloudId can be provided, and we'll verify that the target userId is an
+	actual user in the specified site.
 
-    Instead you can omit the cloudId and we won't do such a check.
+	Instead you can omit the cloudId and we won't do such a check.
 
-    If you have a cloudId and only want to show users who are in that site
-    then please provide it. If you're a site-less product or don't care about
-    verifying that the shown user is in a particular site, don't provide a
-    cloudId.
+	If you have a cloudId and only want to show users who are in that site
+	then please provide it. If you're a site-less product or don't care about
+	verifying that the shown user is in a particular site, don't provide a
+	cloudId.
    */
 	cloudId?: string;
 	autoFocus?: boolean;
@@ -256,45 +257,45 @@ export interface TeamProfileCardTriggerState {
 
 export interface TeamProfilecardCoreProps {
 	/**
-    The id of the user viewing the profile card.
+	The id of the user viewing the profile card.
 
-    This is used to determine whether to say that the member count is
-    "including you" or not.
+	This is used to determine whether to say that the member count is
+	"including you" or not.
    */
 	viewingUserId?: string;
 	/**
-    A list of extra buttons to be displayed at the bottom of the card.
-    View Profile is always included by default.
+	A list of extra buttons to be displayed at the bottom of the card.
+	View Profile is always included by default.
    */
 	actions?: ProfileCardAction[];
 	/**
-    A function allowing products to provide an href for the user avatars in the
-    profilecard, e.g. so they can link to user's profile pages.
+	A function allowing products to provide an href for the user avatars in the
+	profilecard, e.g. so they can link to user's profile pages.
    */
 	generateUserLink?: (userId: string) => string;
 	/**
-    A function allowing products to provide an onClick handler for when the
-    user clicks on a user's avatar or avatar group item.
+	A function allowing products to provide an onClick handler for when the
+	user clicks on a user's avatar or avatar group item.
    */
 	onUserClick?: (userId: string, event: React.MouseEvent<Element>) => void;
 	/**
-    This should be a link to the team's profile page. This will be used for:
+	This should be a link to the team's profile page. This will be used for:
 
-    - Wrapping the trigger in a link to the team profile page (unless
-      triggerLinkType is `none`).
+	- Wrapping the trigger in a link to the team profile page (unless
+	  triggerLinkType is `none`).
 
-    - Providing the link for the View Profile action button on the card.
+	- Providing the link for the View Profile action button on the card.
    */
 	viewProfileLink: string;
 	/**
-    An onClick action that navigates to the team's profile page. Something you
-    may want, e.g. for an SPA site or tracking analytics of navigation. This
-    is optional, just the viewProfileLink will suffice. Will be used for:
+	An onClick action that navigates to the team's profile page. Something you
+	may want, e.g. for an SPA site or tracking analytics of navigation. This
+	is optional, just the viewProfileLink will suffice. Will be used for:
 
-    - Adding an onClick to the trigger if the triggerLinkType is
-      `clickable-link`.
+	- Adding an onClick to the trigger if the triggerLinkType is
+	  `clickable-link`.
 
-    - Providing an onClick for the View Profile action button on the card.
+	- Providing an onClick for the View Profile action button on the card.
    */
 	viewProfileOnClick?: (event?: React.MouseEvent<Element>) => void;
 }
@@ -303,53 +304,53 @@ export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
 	/** The id of the team. */
 	teamId: string;
 	/**
-    Optional orgId. The id of the organization that the team belongs to.
+	Optional orgId. The id of the organization that the team belongs to.
 		Not in use.
    */
 	orgId?: string;
 	/** An instance of ProfileClient. */
 	resourceClient: ProfileClient;
 	/**
-    The position relative to the trigger that the card should be displayed in.
+	The position relative to the trigger that the card should be displayed in.
    */
 	position?: ProfilecardTriggerPosition;
 	/**
-    The interaction method used to trigger the team profile card to appear.
+	The interaction method used to trigger the team profile card to appear.
 
-    - Click is generally recommended, but your needs may vary.
+	- Click is generally recommended, but your needs may vary.
 
-    - Hover works for mouse users, but does not support those who use a
-      keyboard or screen reader, avoid using this if it's possible or makes
-      sense.
+	- Hover works for mouse users, but does not support those who use a
+	  keyboard or screen reader, avoid using this if it's possible or makes
+	  sense.
 
-    - Hover-click is usable for scenarios like inline-edits, where mouse users
-      cannot click on the trigger without causing side effects, but keyboard
-      users are still able to navigate into and trigger the profile card.
+	- Hover-click is usable for scenarios like inline-edits, where mouse users
+	  cannot click on the trigger without causing side effects, but keyboard
+	  users are still able to navigate into and trigger the profile card.
 
-    Look at the "Team Profilecard Trigger" or "Trigger Link Types" examples to
-    see how they behave, or ask in #help-people-and-teams-xpc on Slack for our
-    recommendations.
+	Look at the "Team Profilecard Trigger" or "Trigger Link Types" examples to
+	see how they behave, or ask in #help-people-and-teams-xpc on Slack for our
+	recommendations.
    */
 	trigger?: 'hover' | 'click' | 'hover-click';
 	/**
-    We generally prefer to wrap the trigger in a link to the team profile
-    page. This prop determines how that link behaves.
+	We generally prefer to wrap the trigger in a link to the team profile
+	page. This prop determines how that link behaves.
 
-    - Link is generally the recommended prop (especially in combination with
-      click or hover-click for the trigger prop above). It wraps the trigger in
-      an anchor tag with the team profile link (that users can interact with
-      via middle-click, etc.), but left clicking on the link is suppressed.
+	- Link is generally the recommended prop (especially in combination with
+	  click or hover-click for the trigger prop above). It wraps the trigger in
+	  an anchor tag with the team profile link (that users can interact with
+	  via middle-click, etc.), but left clicking on the link is suppressed.
 
-    - None does not wrap the trigger in a link at all. This makes it difficult
-      for keyboard or screen reader users to know how to trigger the profile
-      card. Generally avoid this.
+	- None does not wrap the trigger in a link at all. This makes it difficult
+	  for keyboard or screen reader users to know how to trigger the profile
+	  card. Generally avoid this.
 
-    - Clickable-link wraps the trigger in a link with no special behaviour.
-      This is suitable for places where you want the trigger to serve primarily
-      as a link, and optionally allow hovering to preview the team first.
+	- Clickable-link wraps the trigger in a link with no special behaviour.
+	  This is suitable for places where you want the trigger to serve primarily
+	  as a link, and optionally allow hovering to preview the team first.
 
-    Look at the example on "Trigger Link Types" for more in-depth analysis, or
-    ask in #help-people-and-teams-xpc on Slack for our recommendations.
+	Look at the example on "Trigger Link Types" for more in-depth analysis, or
+	ask in #help-people-and-teams-xpc on Slack for our recommendations.
 
 		@deprecated
 		Consumers should always pass it as "none" from now on.
@@ -358,8 +359,8 @@ export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
    */
 	triggerLinkType?: 'none' | 'link' | 'clickable-link';
 	/**
-    This is the component that will cause a team profile card to appear when
-    interacted with according to the method specified by the trigger prop.
+	This is the component that will cause a team profile card to appear when
+	interacted with according to the method specified by the trigger prop.
    */
 	children?: React.ReactNode;
 	/**

@@ -22,8 +22,12 @@ export default () => (
 							Required fields are marked with an asterisk <RequiredAsterisk />
 						</p>
 					</FormHeader>
-					<Field name="username" label="Username" isRequired defaultValue="">
-						{({ fieldProps }) => (
+					<Field
+						name="username"
+						label="Username"
+						isRequired
+						defaultValue=""
+						component={({ fieldProps }) => (
 							<TextField
 								autoComplete="username"
 								{...fieldProps}
@@ -39,10 +43,14 @@ export default () => (
 								}}
 							/>
 						)}
-					</Field>
-					<Field name="slug" label="Slug" isDisabled defaultValue={BASE_SLUG}>
-						{({ fieldProps }) => <TextField {...fieldProps} />}
-					</Field>
+					/>
+					<Field
+						name="slug"
+						label="Slug"
+						isDisabled
+						defaultValue={BASE_SLUG}
+						component={({ fieldProps }) => <TextField {...fieldProps} />}
+					/>
 					<FormFooter>
 						<ButtonGroup label="Form submit options">
 							<Button appearance="subtle">Cancel</Button>

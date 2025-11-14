@@ -24,7 +24,9 @@ const FormDefaultExample = () => (
 			onSubmit={(data) => {
 				console.log('form data', data);
 				return new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>
-					data.username === 'error' ? { username: 'IN_USE' } : undefined,
+					data.username === 'error'
+						? { username: 'This username is already in use, try another one' }
+						: undefined,
 				);
 			}}
 		>
@@ -36,27 +38,24 @@ const FormDefaultExample = () => (
 						</p>
 					</FormHeader>
 					<FormSection>
-						<Field name="username" label="Username" isRequired defaultValue="dst12">
-							{({ fieldProps, error }) => (
-								<Fragment>
-									<TextField autoComplete="off" {...fieldProps} />
-									<MessageWrapper>
-										{!error && (
-											<HelperMessage>You can use letters, numbers, and periods</HelperMessage>
-										)}
-										{error && (
-											<ErrorMessage>This username is already in use, try another one</ErrorMessage>
-										)}
-									</MessageWrapper>
-								</Fragment>
-							)}
-						</Field>
+						<Field
+							name="username"
+							label="Username"
+							isRequired
+							defaultValue="dst12"
+							helperMessage="You can use letters, numbers, and periods."
+							component={({ fieldProps }) => <TextField autoComplete="off" {...fieldProps} />}
+						/>
 						<Field
 							name="password"
 							label="Password"
 							defaultValue=""
 							isRequired
-							validate={(value) => (value && value.length < 8 ? 'TOO_SHORT' : undefined)}
+							validate={(value) =>
+								value && value.length < 8
+									? 'Password needs to be more than 8 characters.'
+									: undefined
+							}
 						>
 							{({ fieldProps, error, valid, meta }) => {
 								return (
@@ -68,9 +67,7 @@ const FormDefaultExample = () => (
 													Use 8 or more characters with a mix of letters, numbers, and symbols
 												</HelperMessage>
 											)}
-											{error && (
-												<ErrorMessage>Password needs to be more than 8 characters</ErrorMessage>
-											)}
+											{error && <ErrorMessage>{error}</ErrorMessage>}
 											{valid && meta.dirty ? <ValidMessage>Awesome password!</ValidMessage> : null}
 										</MessageWrapper>
 									</Fragment>

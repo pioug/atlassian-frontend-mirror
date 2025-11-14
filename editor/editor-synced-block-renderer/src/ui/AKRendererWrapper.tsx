@@ -40,7 +40,6 @@ const defaultOptions: SyncedBlockRendererOptions = {
 		featureFlags: { mediaInline: true },
 	},
 	smartLinks: undefined,
-	stickyHeaders: true,
 };
 
 export const AKRendererWrapper = memo(

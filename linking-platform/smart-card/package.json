@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.6.5",
+	"version": "43.7.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -248,6 +248,9 @@
 			"type": "boolean"
 		},
 		"platform-linking-smart-card-layered-link-a11y": {
+			"type": "boolean"
+		},
+		"smart-link-custom-hover-card-content": {
 			"type": "boolean"
 		}
 	},

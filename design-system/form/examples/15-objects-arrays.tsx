@@ -11,9 +11,6 @@ export default () => (
 		<Form<{ username: string; password: string; remember: boolean }>
 			onSubmit={(data) => {
 				console.log('form data', data);
-				return new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>
-					data.username === 'error' ? { username: 'IN_USE' } : undefined,
-				);
 			}}
 		>
 			{({ formProps, submitting }) => (
@@ -28,21 +25,36 @@ export default () => (
 						label="User name"
 						isRequired
 						defaultValue="Mike Cannon-Brookes"
-					>
-						{({ fieldProps }) => <TextField autoComplete="username" {...fieldProps} />}
-					</Field>
-					<Field name="username.email" label="Email" isRequired defaultValue="mike@atlassian.com">
-						{({ fieldProps }) => <TextField autoComplete="email" {...fieldProps} />}
-					</Field>
-					<Field name="address[0]" label="Address 1" isRequired defaultValue="">
-						{({ fieldProps }) => <TextField autoComplete="address-line1" {...fieldProps} />}
-					</Field>
-					<Field name="address[1]" label="Address 2" isRequired defaultValue="">
-						{({ fieldProps }) => <TextField autoComplete="address-line2" {...fieldProps} />}
-					</Field>
-					<Field name="address[2]" label="Address 3" isRequired defaultValue="">
-						{({ fieldProps }) => <TextField autoComplete="address-line3" {...fieldProps} />}
-					</Field>
+						component={({ fieldProps }) => <TextField autoComplete="username" {...fieldProps} />}
+					/>
+					<Field
+						name="username.email"
+						label="Email"
+						isRequired
+						defaultValue="mike@atlassian.com"
+						component={({ fieldProps }) => <TextField {...fieldProps} />}
+					/>
+					<Field
+						name="address[0]"
+						label="Address 1"
+						isRequired
+						defaultValue=""
+						component={({ fieldProps }) => <TextField {...fieldProps} />}
+					/>
+					<Field
+						name="address[1]"
+						label="Address 2"
+						isRequired
+						defaultValue=""
+						component={({ fieldProps }) => <TextField {...fieldProps} />}
+					/>
+					<Field
+						name="address[2]"
+						label="Address 3"
+						isRequired
+						defaultValue=""
+						component={({ fieldProps }) => <TextField {...fieldProps} />}
+					/>
 					<FormFooter>
 						<ButtonGroup label="Form submit options">
 							<Button appearance="subtle">Cancel</Button>

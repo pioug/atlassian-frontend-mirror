@@ -9,6 +9,7 @@ import React from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { MediaPlacement, SmartLinkSize } from '../../../../constants';
@@ -272,7 +273,10 @@ const Container = ({
 	const context = useFlexibleUiContext();
 
 	const { previewOnLeft, previewOnRight } = getChildrenOptions(children, context);
-	const canShowHoverPreview = showHoverPreview && status === 'resolved';
+	const canShowHoverPreview =
+		showHoverPreview &&
+		(status === 'resolved' ||
+			(hoverPreviewOptions?.render !== undefined && fg('smart-link-custom-hover-card-content')));
 	// `retry` object contains action that can be performed on
 	// unresolved link (unauthorized, forbidden, not found, etc.)
 	const canShowAuthTooltip = showHoverPreview && status === 'unauthorized' && retry !== undefined;

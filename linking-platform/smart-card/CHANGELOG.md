@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 43.7.0
+
+### Minor Changes
+
+- [`b1b3d2990d636`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1b3d2990d636) -
+  add a new optional render props in HoverPreviewOptions to render a custom component
+
 ## 43.6.5
 
 ### Patch Changes

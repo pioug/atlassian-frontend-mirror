@@ -9,6 +9,7 @@ export enum EDITOR_APPEARANCE_CONTEXT {
 	COMMENT = 'comment',
 	CHROMELESS = 'chromeless',
 	MOBILE = 'mobile',
+	MAX = 'max',
 }
 
 type FabricEditorAnalyticsContextProps = Props & {

@@ -22,8 +22,11 @@ const FormCheckboxExample = () => {
 					</CheckboxField>
 				</Fieldset>
 
-				<Field name="permission" defaultValue="" label="Permissions">
-					{({ fieldProps }) => (
+				<Field
+					name="permission"
+					defaultValue=""
+					label="Permissions"
+					component={({ fieldProps }) => (
 						<RadioGroup
 							options={[
 								{ name: 'permission', value: 'user', label: 'End user' },
@@ -41,7 +44,7 @@ const FormCheckboxExample = () => {
 							{...fieldProps}
 						/>
 					)}
-				</Field>
+				/>
 
 				<CheckboxField name="remember" defaultIsChecked>
 					{({ fieldProps }) => <Checkbox {...fieldProps} label="Remember me" />}

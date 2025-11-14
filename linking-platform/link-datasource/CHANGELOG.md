@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 4.30.0
+
+### Minor Changes
+
+- [`a477f1382d9c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a477f1382d9c3) -
+  [ux] Add support for daterange data type in link-datasource to better represents data ranges like
+  day, month or quarter
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.29.4
 
 ### Patch Changes

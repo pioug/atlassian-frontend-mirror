@@ -1,5 +1,17 @@
 # @atlaskit/link-test-helpers
 
+## 8.5.0
+
+### Minor Changes
+
+- [`a477f1382d9c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a477f1382d9c3) -
+  [ux] Add support for daterange data type in link-datasource to better represents data ranges like
+  day, month or quarter
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.4.1
 
 ### Patch Changes
@@ -605,7 +617,6 @@
 - [#37194](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37194)
   [`dadcc574c94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dadcc574c94) - Removed
   and moved to @atlaskit/link-picker
-
   - MockLinkPickerPromisePlugin
   - MockLinkPickerGeneratorPlugin
   - UnstableMockLinkPickerPlugin
@@ -781,7 +792,6 @@
 - [#33841](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33841)
   [`9434c1e3f40`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9434c1e3f40) -
   Introduce entry point /datasource where exported members are:
-
   - `mockAutoCompleteData`
   - `mockJiraData`
   - `mockSiteData`

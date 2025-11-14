@@ -16,3 +16,8 @@ const labelClassName = 'ak-editor-sync-block__label';
 export const SyncBlockLabelSharedCssClassName = {
 	labelClassName,
 };
+
+export const disabledClassName = 'disabled';
+export const SyncBlockStateCssClassName = {
+	disabledClassName,
+};

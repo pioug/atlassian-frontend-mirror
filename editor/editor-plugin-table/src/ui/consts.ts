@@ -84,6 +84,7 @@ export const stickyHeaderBorderBottomWidth = 1;
 export const tableOverflowShadowWidth = 8;
 export const tableOverflowShadowWidthWide = 32;
 export const tablePopupMenuFitHeight = 188;
+export const tableColumnControlsHeight = 24;
 
 export const dropTargetsZIndex = 14;
 
@@ -104,6 +105,7 @@ export const TABLE_DRAG_MENU_MENU_GROUP_BEFORE_HEIGHT = 6;
 export const dragMenuDropdownWidth = 250;
 export const dragTableInsertColumnButtonSize = 16;
 export const dropTargetExtendedWidth = 150;
+export const dragRowControlsWidth = 14;
 export const colorPalletteColumns = 7;
 
 export const tableResizerWidth = 8;

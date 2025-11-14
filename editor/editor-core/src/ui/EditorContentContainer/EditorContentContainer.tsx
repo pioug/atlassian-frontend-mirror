@@ -272,7 +272,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 		const isFullPage =
 			appearance === 'full-page' ||
 			appearance === 'full-width' ||
-			(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) && appearance === 'max');
+			(expValEqualsNoExposure('editor_tinymce_full_width_mode', 'isEnabled', true) &&
+				appearance === 'max');
 		const isComment = appearance === 'comment';
 
 		const baseFontSize = getBaseFontSize(appearance, contentMode);

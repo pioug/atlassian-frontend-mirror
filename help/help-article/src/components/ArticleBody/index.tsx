@@ -25,6 +25,43 @@ export interface Props {
 const IFRAME_CONTAINER_ID = 'help-iframe-container';
 const IFRAME_ID = 'help-iframe';
 
+/**
+ * Processes HTML content to ensure all links open in a new tab
+ * @param htmlContent - The HTML string to process
+ * @returns The processed HTML with target="_blank" added to all links
+ */
+export const processLinksForNewTab = (htmlContent: string): string => {
+	// Create a temporary DOM element to parse the HTML
+	const tempDiv = document.createElement('div');
+	tempDiv.innerHTML = htmlContent;
+
+	// Find all anchor tags
+	const links = tempDiv.querySelectorAll('a[href]');
+
+	// Process each link
+	links.forEach((link) => {
+		// Add target="_blank" if no target is specified or if target is not already "_blank"
+		if (!link.hasAttribute('target') || link.getAttribute('target') !== '_blank') {
+			link.setAttribute('target', '_blank');
+		}
+
+		// Always add security attributes for all external links
+		const existingRel = link.getAttribute('rel');
+		const relValues = existingRel ? existingRel.split(' ') : [];
+
+		if (!relValues.includes('noopener')) {
+			relValues.push('noopener');
+		}
+		if (!relValues.includes('noreferrer')) {
+			relValues.push('noreferrer');
+		}
+
+		link.setAttribute('rel', relValues.join(' '));
+	});
+
+	return tempDiv.innerHTML;
+};
+
 export const ArticleBody = (props: Props): React.JSX.Element | null => {
 	/**
 	 * Set article height
@@ -117,9 +154,10 @@ export const ArticleBody = (props: Props): React.JSX.Element | null => {
 							if (newIframe !== null) {
 								const iframeDocument = newIframe.document;
 								iframeDocument.open();
-								iframeDocument.write(`<div>${body}</div>`);
+								// Process the HTML to ensure all links open in new tabs
+								const processedBody = processLinksForNewTab(body);
+								iframeDocument.write(`<div>${processedBody}</div>`);
 								iframeDocument.close();
-
 								const head = iframeDocument.head || iframeDocument.getElementsByTagName('head')[0];
 								const style = iframeDocument.createElement('style');
 								style.innerText = resetCSS;

@@ -53,6 +53,9 @@
 			"path": "../editor-plugin-block-menu/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-connectivity/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-decorations/tsconfig.app.json"
 		},
 		{
@@ -80,6 +83,9 @@
 			"path": "../editor-toolbar-model/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/flag/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
@@ -96,6 +102,9 @@
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/tooltip/tsconfig.app.json"

@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 215.13.5
+
+### Patch Changes
+
+- [`63628e69e52e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63628e69e52e7) -
+  [ux] [EDITOR-2557] Disable sync block creation, edition and deletion in offline mode
+- Updated dependencies
+
+## 215.13.4
+
+### Patch Changes
+
+- [`42bd907443147`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42bd907443147) -
+  NO-ISSUE Ensures INP metrics and other analytics account for max appearance
+- Updated dependencies
+
 ## 215.13.3
 
 ### Patch Changes

@@ -11,6 +11,7 @@ import {
 } from '@atlaskit/media-client';
 import { createMediaStoreError } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem, sampleBinaries } from '@atlaskit/media-test-data';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { createMockedMediaClientProvider } from './__tests__/helpers/_MockedMediaClientProvider';
 import { mediaFilePreviewCache } from './getPreview';
@@ -421,6 +422,152 @@ describe('useFilePreview', () => {
 					expect(result?.current.preview).toMatchObject(globalScopePreview);
 				},
 			);
+
+			ffTest.on('media-perf-uplift-mutation-fix', 'SSR loadPromise handling', () => {
+				it('should set status to complete when loadPromise resolves', async () => {
+					const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+					const { MockedMediaClientProvider } = createMockedMediaClientProvider({
+						initialItems: fileItem,
+					});
+
+					let resolveLoadPromise: () => void = () => {};
+					const loadPromise = new Promise<void>((resolve) => {
+						resolveLoadPromise = resolve;
+					});
+
+					const globalScopePreview = {
+						dataURI: 'global-scope-datauri',
+						source: 'ssr-data',
+						dimensions: { width: 100, height: 100 },
+						loadPromise,
+					};
+
+					const { id, collectionName } = identifier;
+					setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopePreview);
+
+					const { result } = renderHook(useFilePreview, {
+						wrapper: ({ children }) => (
+							<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
+						),
+						initialProps: {
+							identifier,
+							ssr: 'client',
+						},
+					});
+
+					expect(result?.current.status).toBe('complete');
+					expect(result?.current.preview).toMatchObject({
+						dataURI: 'global-scope-datauri',
+						source: 'ssr-data',
+						dimensions: { width: 100, height: 100 },
+					});
+
+					// Resolve the load promise
+					resolveLoadPromise();
+
+					// Status should remain complete after promise resolves
+					await waitFor(() => expect(result?.current.status).toBe('complete'));
+				});
+
+				it('should reset preview when loadPromise rejects', async () => {
+					const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+					const { MockedMediaClientProvider } = createMockedMediaClientProvider({
+						initialItems: fileItem,
+					});
+
+					let rejectLoadPromise: (reason?: any) => void = () => {};
+					const loadPromise = new Promise<void>((_, reject) => {
+						rejectLoadPromise = reject;
+					});
+
+					const globalScopePreview = {
+						dataURI: 'global-scope-datauri',
+						source: 'ssr-data',
+						dimensions: { width: 100, height: 100 },
+						loadPromise,
+					};
+
+					const { id, collectionName } = identifier;
+					setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopePreview);
+
+					const { result } = renderHook(useFilePreview, {
+						wrapper: ({ children }) => (
+							<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
+						),
+						initialProps: {
+							identifier,
+							ssr: 'client',
+							skipRemote: true,
+						},
+					});
+
+					expect(result?.current.status).toBe('complete');
+					expect(result?.current.preview).toMatchObject({
+						dataURI: 'global-scope-datauri',
+						source: 'ssr-data',
+						dimensions: { width: 100, height: 100 },
+					});
+
+					// Reject the load promise
+					rejectLoadPromise(new Error('Load failed'));
+
+					// Preview should be reset to undefined
+					await waitFor(() => expect(result?.current.preview).toBeUndefined());
+				});
+
+				it('should not fetch remote preview when SSR preview with loadPromise is still resolving', async () => {
+					const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+					const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+						initialItems: fileItem,
+					});
+
+					const getImageSpy = jest.spyOn(mediaApi, 'getImage');
+
+					let resolveLoadPromise: () => void = () => {};
+					const loadPromise = new Promise<void>((resolve) => {
+						resolveLoadPromise = resolve;
+					});
+
+					const globalScopePreview = {
+						dataURI: 'global-scope-datauri',
+						source: 'ssr-data',
+						dimensions: { width: 100, height: 100 },
+						loadPromise,
+					};
+
+					const { id, collectionName } = identifier;
+					setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopePreview);
+
+					const { result } = renderHook(useFilePreview, {
+						wrapper: ({ children }) => (
+							<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
+						),
+						initialProps: {
+							identifier,
+							ssr: 'client',
+						},
+					});
+
+					expect(result?.current.status).toBe('complete');
+					expect(result?.current.preview).toMatchObject({
+						dataURI: 'global-scope-datauri',
+						source: 'ssr-data',
+						dimensions: { width: 100, height: 100 },
+					});
+
+					// Remote preview should not be fetched while SSR preview is active
+					expect(getImageSpy).not.toHaveBeenCalled();
+
+					// Resolve the load promise
+					resolveLoadPromise();
+
+					await waitFor(() => expect(result?.current.status).toBe('complete'));
+
+					// Remote preview should still not be fetched after load promise resolves
+					// because the SSR preview refetch is skipped by the feature flag
+					expect(getImageSpy).not.toHaveBeenCalled();
+				});
+			});
 
 			it('should set ssrReliability using the error from global scope', async () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();

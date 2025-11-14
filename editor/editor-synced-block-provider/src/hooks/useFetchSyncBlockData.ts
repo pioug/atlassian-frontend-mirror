@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+
 import { SyncBlockError } from '../common/types';
 import type { SyncBlockInstance } from '../providers/types';
 import type { SyncBlockStoreManager } from '../store-manager/syncBlockStoreManager';
@@ -7,6 +9,7 @@ import { createSyncBlockNode } from '../utils/utils';
 
 export interface UseFetchSyncBlockDataResult {
 	isLoading: boolean;
+	providerFactory: ProviderFactory | undefined;
 	reloadData: () => Promise<void>;
 	syncBlockInstance: SyncBlockInstance | null;
 }
@@ -61,5 +64,10 @@ export const useFetchSyncBlockData = (
 		};
 	}, [localId, referenceSyncBlockStoreManager, resourceId]);
 
-	return { syncBlockInstance, isLoading, reloadData };
+	return {
+		isLoading,
+		providerFactory: referenceSyncBlockStoreManager.getProviderFactory(resourceId || ''),
+		reloadData,
+		syncBlockInstance,
+	};
 };

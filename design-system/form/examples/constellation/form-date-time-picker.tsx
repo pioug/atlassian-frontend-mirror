@@ -6,23 +6,33 @@ import Form, { ErrorMessage, Field, FormFooter, MessageWrapper } from '@atlaskit
 import { Flex } from '@atlaskit/primitives/compiled';
 
 interface FormData {
-	[key: string]: string;
 	DOB: string;
 	preference: string;
 }
 
 const validateOnSubmit = (data: FormData) => {
-	let errors;
-	errors = requiredValidator(data, 'DOB', errors);
-	errors = requiredValidator(data, 'preference', errors);
+	let errors: Record<string, string> = {};
+	errors = dobValidator(data, errors);
+	errors = preferenceValidator(data, errors);
 	return errors;
 };
 
-const requiredValidator = (data: FormData, key: string, errors?: Record<string, string>) => {
-	if (!data[key]) {
+const dobValidator = (data: FormData, errors: Record<string, string>) => {
+	if (!data.DOB) {
 		return {
 			...errors,
-			[key]: `Please select a date to continue.`,
+			DOB: `Please select a date to continue.`,
+		};
+	}
+
+	return errors;
+};
+
+const preferenceValidator = (data: FormData, errors: Record<string, string>) => {
+	if (!data.preference) {
+		return {
+			...errors,
+			preference: `Please select preferred appointment date & time.`,
 		};
 	}
 
@@ -38,16 +48,13 @@ const FormDateTimePickerExample = () => {
 					return Promise.resolve(validateOnSubmit(data));
 				}}
 			>
-				<Field name="DOB" label="Date of Birth" defaultValue="" isRequired>
-					{({ fieldProps: { id, ...rest }, error }) => (
-						<Fragment>
-							<DatePicker shouldShowCalendarButton {...rest} id={id} />
-							<MessageWrapper>
-								{error && <ErrorMessage>Please select a date of birth.</ErrorMessage>}
-							</MessageWrapper>
-						</Fragment>
-					)}
-				</Field>
+				<Field
+					name="DOB"
+					label="Date of Birth"
+					defaultValue=""
+					isRequired
+					component={({ fieldProps }) => <DatePicker shouldShowCalendarButton {...fieldProps} />}
+				/>
 				<Field
 					name="preference"
 					label="Preferred appointment date & time"
@@ -62,28 +69,16 @@ const FormDateTimePickerExample = () => {
 									{...rest}
 									datePickerProps={{
 										shouldShowCalendarButton: true,
-										selectProps: {
-											// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
-											validationState,
-										},
+										selectProps: { validationState },
 										label: 'Date, Preferred appointment date & time',
-										id: id,
+										id,
 									}}
 									timePickerProps={{
-										selectProps: {
-											// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
-											validationState,
-										},
+										selectProps: { validationState },
 										label: 'Time, Preferred appointment date & time',
 									}}
 								/>
-								<MessageWrapper>
-									{error && (
-										<ErrorMessage>
-											{`Please select preferred appointment date & time.`}
-										</ErrorMessage>
-									)}
-								</MessageWrapper>
+								<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
 							</Fragment>
 						);
 					}}

@@ -1,3 +1,5 @@
+import type React from 'react';
+
 import type { DocNode } from '@atlaskit/adf-schema';
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import {

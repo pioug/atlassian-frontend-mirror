@@ -652,6 +652,50 @@ describe('standalone hover card', () => {
 			});
 		});
 
+		describe('custom hoverPreviewOptions render via feature flag', () => {
+			const customContentTestId = 'custom-hover-card-content';
+
+			ffTest.on('smart-link-custom-hover-card-content', 'when flag enabled', () => {
+				it('renders custom content instead of default view', async () => {
+					await standaloneSetUp(undefined, {
+						noFadeDelay: true,
+						hoverPreviewOptions: {
+							render: () => <div data-testid={customContentTestId}>Custom Content</div>,
+						},
+					});
+
+					expect(await screen.findByTestId(customContentTestId)).toBeInTheDocument();
+					expect(screen.queryByTestId('smart-block-title-resolved-view')).toBeNull();
+				});
+
+				it('falls back to default view when render returns null', async () => {
+					await standaloneSetUp(undefined, {
+						noFadeDelay: true,
+						hoverPreviewOptions: {
+							render: () => null,
+						},
+					});
+
+					expect(screen.queryByTestId(customContentTestId)).toBeNull();
+					expect(await screen.findByTestId('smart-block-title-resolved-view')).toBeInTheDocument();
+				});
+			});
+
+			ffTest.off('smart-link-custom-hover-card-content', 'when flag disabled', () => {
+				it('does not render custom content and shows default view', async () => {
+					await standaloneSetUp(undefined, {
+						noFadeDelay: true,
+						hoverPreviewOptions: {
+							render: () => <div data-testid={customContentTestId}>Custom Content</div>,
+						},
+					});
+
+					expect(screen.queryByTestId(customContentTestId)).toBeNull();
+					expect(await screen.findByTestId('smart-block-title-resolved-view')).toBeInTheDocument();
+				});
+			});
+		});
+
 		describe('z-index', () => {
 			it('renders with defaults z-index', async () => {
 				await standaloneSetUp();

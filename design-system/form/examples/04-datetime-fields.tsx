@@ -1,15 +1,8 @@
-import React, { Fragment, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { DatePicker, DateTimePicker } from '@atlaskit/datetime-picker';
-import Form, {
-	ErrorMessage,
-	Field,
-	FormFooter,
-	FormHeader,
-	MessageWrapper,
-	RequiredAsterisk,
-} from '@atlaskit/form';
+import Form, { Field, FormFooter, FormHeader, RequiredAsterisk } from '@atlaskit/form';
 import { Flex } from '@atlaskit/primitives/compiled';
 
 interface FormData {
@@ -63,25 +56,19 @@ export default () => {
 
 						return 'Please select a date to continue';
 					}}
-				>
-					{({ fieldProps: { id, ['aria-invalid']: ariaInvalid, ...rest }, error }) => {
-						return (
-							<Fragment>
-								<DatePicker
-									selectProps={{
-										ref: DOBfieldRef,
-										'aria-invalid': ariaInvalid,
-										clearControlLabel: 'Clear date of birth',
-									}}
-									{...rest}
-									id={id}
-									shouldShowCalendarButton
-								/>
-								<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
-							</Fragment>
-						);
-					}}
-				</Field>
+					component={({ fieldProps: { id, ['aria-invalid']: ariaInvalid, ...rest } }) => (
+						<DatePicker
+							selectProps={{
+								ref: DOBfieldRef,
+								'aria-invalid': ariaInvalid,
+								clearControlLabel: 'Clear date of birth',
+							}}
+							{...rest}
+							id={id}
+							shouldShowCalendarButton
+						/>
+					)}
+				/>
 				<Field
 					name="preference"
 					label="Preferred appointment date & time"
@@ -98,31 +85,25 @@ export default () => {
 
 						return 'Please select a date to continue';
 					}}
-				>
-					{({ fieldProps: { id, ['aria-invalid']: ariaInvalid, ...rest }, error }) => {
-						return (
-							<Fragment>
-								<DateTimePicker
-									{...rest}
-									clearControlLabel="Clear preferred appointment date & time"
-									datePickerProps={{
-										shouldShowCalendarButton: true,
-										selectProps: {
-											'aria-invalid': ariaInvalid,
-											ref: preferenceFieldRef,
-										},
-									}}
-									timePickerProps={{
-										selectProps: {
-											'aria-invalid': ariaInvalid,
-										},
-									}}
-								/>
-								<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
-							</Fragment>
-						);
-					}}
-				</Field>
+					component={({ fieldProps: { id, ['aria-invalid']: ariaInvalid, ...rest } }) => (
+						<DateTimePicker
+							{...rest}
+							clearControlLabel="Clear preferred appointment date & time"
+							datePickerProps={{
+								shouldShowCalendarButton: true,
+								selectProps: {
+									'aria-invalid': ariaInvalid,
+									ref: preferenceFieldRef,
+								},
+							}}
+							timePickerProps={{
+								selectProps: {
+									'aria-invalid': ariaInvalid,
+								},
+							}}
+						/>
+					)}
+				/>
 				<FormFooter>
 					<Button type="submit" appearance="primary" onClick={setFocusOnFirstInvalidField}>
 						Submit

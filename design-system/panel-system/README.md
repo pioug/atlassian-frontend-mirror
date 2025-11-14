@@ -1,6 +1,6 @@
 # PanelSystem
 
-A set of UI components to standardise the display of content in panels across Atlassian products.
+A set of UI components to standardise the display of content in panels across Atlassian apps.
 
 ## Usage
 

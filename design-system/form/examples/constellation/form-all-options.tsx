@@ -1,9 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import { DateTimePicker } from '@atlaskit/datetime-picker';
+import noop from '@atlaskit/ds-lib/noop';
 import Form, {
 	CheckboxField,
 	Field,
@@ -11,9 +12,7 @@ import Form, {
 	FormFooter,
 	FormHeader,
 	FormSection,
-	HelperMessage,
 	Label,
-	MessageWrapper,
 	RangeField,
 	RequiredAsterisk,
 } from '@atlaskit/form';
@@ -27,14 +26,7 @@ import Toggle from '@atlaskit/toggle';
 
 const FormAllOptionsExample = () => (
 	<Flex direction="column">
-		<Form<{ username: string; password: string; remember: boolean }>
-			onSubmit={(data) => {
-				console.log('form data', data);
-				return new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>
-					data.username === 'error' ? { username: 'IN_USE' } : undefined,
-				);
-			}}
-		>
+		<Form onSubmit={noop}>
 			{({ formProps, submitting }) => (
 				<form {...formProps}>
 					<FormHeader title="Form header">
@@ -49,24 +41,16 @@ const FormAllOptionsExample = () => (
 							label="Textfield label"
 							isRequired
 							defaultValue="default value"
-						>
-							{({ fieldProps }) => (
-								<Fragment>
-									<TextField autoComplete="off" {...fieldProps} />
-									<MessageWrapper>
-										<HelperMessage>This is a helper message</HelperMessage>
-									</MessageWrapper>
-								</Fragment>
-							)}
-						</Field>
+							helperMessage="This is a helper message."
+							component={({ fieldProps }) => <TextField autoComplete="off" {...fieldProps} />}
+						/>
 
-						<Field label="Textarea field label" isRequired name="textarea-field-name">
-							{({ fieldProps }: any) => (
-								<Fragment>
-									<TextArea {...fieldProps} />
-								</Fragment>
-							)}
-						</Field>
+						<Field
+							label="Textarea field label"
+							isRequired
+							name="textarea-field-name"
+							component={({ fieldProps }: any) => <TextArea {...fieldProps} />}
+						/>
 
 						<Fieldset legend="Checkbox fieldset legend">
 							<CheckboxField name="app" value="jira">
@@ -82,8 +66,10 @@ const FormAllOptionsExample = () => (
 
 						<Fieldset legend="Datetime picker legend">
 							{/* This label uses a legend because datetime picker has two fields in it. */}
-							<Field name="datetime-picker-accessible" isRequired>
-								{({ fieldProps: { id, ...rest } }) => (
+							<Field
+								name="datetime-picker-accessible"
+								isRequired
+								component={({ fieldProps: { id, ...rest } }) => (
 									<DateTimePicker
 										{...rest}
 										datePickerProps={{
@@ -96,7 +82,7 @@ const FormAllOptionsExample = () => (
 										}}
 									/>
 								)}
-							</Field>
+							/>
 						</Fieldset>
 
 						<RangeField name="rangefield-name" defaultValue={50} label="Range field label">
@@ -111,8 +97,7 @@ const FormAllOptionsExample = () => (
 								label: 'Atlassian',
 								value: 'atlassian',
 							}}
-						>
-							{({ fieldProps }) => (
+							component={({ fieldProps }) => (
 								<Select
 									isSearchable={false}
 									inputId={fieldProps.id}
@@ -125,11 +110,12 @@ const FormAllOptionsExample = () => (
 									{...fieldProps}
 								/>
 							)}
-						</Field>
+						/>
 
 						<Fieldset legend="Radio group legend">
-							<Field name="color-selection">
-								{({ fieldProps: { value, ...rest } }) => (
+							<Field
+								name="color-selection"
+								component={({ fieldProps: { value, ...rest } }) => (
 									<RadioGroup
 										options={[
 											{ name: 'color', value: 'red', label: 'Red' },
@@ -145,7 +131,7 @@ const FormAllOptionsExample = () => (
 										{...rest}
 									/>
 								)}
-							</Field>
+							/>
 						</Fieldset>
 
 						<CheckboxField name="toggle-default">

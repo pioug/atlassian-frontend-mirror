@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 124.13.3
+
+### Patch Changes
+
+- [`b1dc704a3fb83`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1dc704a3fb83) -
+  Cleans up platform_table_number_column
+- Updated dependencies
+
+## 124.13.2
+
+### Patch Changes
+
+- [`42bd907443147`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42bd907443147) -
+  NO-ISSUE Ensures INP metrics and other analytics account for max appearance
+- Updated dependencies
+
 ## 124.13.1
 
 ### Patch Changes

@@ -5,4 +5,5 @@ export {
 	BodiedSyncBlockSharedCssClassName,
 	SyncBlockSharedCssClassName,
 	SyncBlockLabelSharedCssClassName,
+	SyncBlockStateCssClassName,
 } from './styles/shared/sync-block';

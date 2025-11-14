@@ -85,31 +85,32 @@ export default () => {
 					resetFormValue();
 				}}
 			>
-				<Field name="favourite-color" defaultValue="" label="Favourite color">
-					{({ fieldProps }) => {
-						return (
-							<div data-name={fieldProps.id} data-value={fieldProps.value}>
-								<p
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									style={{ margin: '10px 0' }}
-									role={isSubmit ? 'status' : undefined}
-								>
-									Selected color:{' '}
-									{selectedColor !== 'none' ? (
-										<span style={{ color: fieldProps.value }}>{selectedColor}</span>
-									) : (
-										selectedColor
-									)}
-								</p>
-								<ColorButtons
-									colors={['red', 'green', 'orange', 'blue']}
-									changeHandler={fieldProps.onChange}
-									setSelectedColor={setSelectedColor}
-								/>
-							</div>
-						);
-					}}
-				</Field>
+				<Field
+					name="favourite-color"
+					defaultValue=""
+					label="Favourite color"
+					component={({ fieldProps }) => (
+						<div data-name={fieldProps.id} data-value={fieldProps.value}>
+							<p
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								style={{ margin: '10px 0' }}
+								role={isSubmit ? 'status' : undefined}
+							>
+								Selected color:{' '}
+								{selectedColor !== 'none' ? (
+									<span style={{ color: fieldProps.value }}>{selectedColor}</span>
+								) : (
+									selectedColor
+								)}
+							</p>
+							<ColorButtons
+								colors={['red', 'green', 'orange', 'blue']}
+								changeHandler={fieldProps.onChange}
+								setSelectedColor={setSelectedColor}
+							/>
+						</div>
+					)}
+				/>
 				<FormFooter>
 					<Button type="submit" appearance="primary">
 						Submit

@@ -21,8 +21,11 @@ export default () => (
 				</CheckboxField>
 			</Fieldset>
 
-			<Field name="permission" defaultValue="" label="Permissions">
-				{({ fieldProps }) => (
+			<Field
+				name="permission"
+				defaultValue=""
+				label="Permissions"
+				component={({ fieldProps }) => (
 					<RadioGroup
 						options={[
 							{ name: 'permission', value: 'user', label: 'End user' },
@@ -40,7 +43,7 @@ export default () => (
 						{...fieldProps}
 					/>
 				)}
-			</Field>
+			/>
 
 			<CheckboxField name="remember" defaultIsChecked>
 				{({ fieldProps }) => <Checkbox {...fieldProps} label="Remember me" />}

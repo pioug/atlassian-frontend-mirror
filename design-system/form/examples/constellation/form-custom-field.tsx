@@ -65,8 +65,11 @@ const FormCustomFieldExample = () => {
 	return (
 		<Flex direction="column">
 			<Form onSubmit={(data) => console.log(data)}>
-				<Field name="favorite-color" defaultValue="" label="Favorite color">
-					{({ fieldProps }) => (
+				<Field
+					name="favorite-color"
+					defaultValue=""
+					label="Favorite color"
+					component={({ fieldProps }) => (
 						<Box data-name={fieldProps.id} data-value={fieldProps.value}>
 							<p css={paragraphStyles}>
 								Selected color:{' '}
@@ -82,7 +85,7 @@ const FormCustomFieldExample = () => {
 							/>
 						</Box>
 					)}
-				</Field>
+				/>
 				<FormFooter>
 					<Button type="submit" appearance="primary">
 						Submit

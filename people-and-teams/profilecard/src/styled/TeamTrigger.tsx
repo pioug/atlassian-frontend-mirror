@@ -33,6 +33,9 @@ const styles = cssMap({
 		marginTop: token('space.500', '40px'),
 		marginBottom: token('space.500', '40px'),
 	},
+	grayoutImage: {
+		filter: 'grayscale(100%)',
+	},
 });
 
 export const CardTriggerWrapper = () => <Box xcss={cx(styles.cardtriggerwrapper)} />;
@@ -53,15 +56,20 @@ export const CardHeader = ({
 	image,
 	isLoading,
 	label,
+	isDisabled,
 }: {
 	image?: string;
 	isLoading?: boolean;
 	label?: string;
+	isDisabled?: boolean;
 }) =>
 	isLoading || !image ? (
-		<Box xcss={cx(styles.cardheader)} backgroundColor="color.background.neutral" />
+		<Box
+			xcss={cx(styles.cardheader, isDisabled && styles.grayoutImage)}
+			backgroundColor="color.background.neutral"
+		/>
 	) : (
-		<CoverImage alt={label || ''} src={image} />
+		<CoverImage alt={label || ''} src={image} isDisabled={isDisabled} />
 	);
 
 export const CardContent = (props: { children: React.ReactNode }) => (

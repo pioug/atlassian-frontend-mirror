@@ -1,5 +1,14 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.9.1
+
+### Patch Changes
+
+- [`e3aafa008fcf4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3aafa008fcf4) -
+  EDITOR-2771 Pass parent Editor/Renderer data providers through SyncBlockDataProvider to the nested
+  renderer
+- Updated dependencies
+
 ## 2.9.0
 
 ### Minor Changes

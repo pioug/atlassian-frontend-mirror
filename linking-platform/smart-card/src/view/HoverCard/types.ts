@@ -111,6 +111,7 @@ export type HoverCardContentProps = {
 	onResolve: () => void;
 	renderers?: CardProviderRenderers;
 	url: string;
+	hoverPreviewOptions?: HoverPreviewOptions;
 };
 
 export type ContentContainerProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -128,4 +129,8 @@ export interface HoverPreviewOptions {
 	 * Delay (in milliseconds) between hovering over the trigger element and the hover card opening. Defaults to 500ms.
 	 */
 	fadeInDelay?: number;
+	/**
+	 * Render a custom component instead of the default hover card.
+	 */
+	render?: () => React.ReactNode;
 }

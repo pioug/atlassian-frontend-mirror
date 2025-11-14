@@ -1,5 +1,12 @@
 # @atlaskit/help-article
 
+## 6.0.25
+
+### Patch Changes
+
+- [`a7e68749821fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7e68749821fe) -
+  [ux] fix issue where link inside article was opening within an iframe
+
 ## 6.0.24
 
 ### Patch Changes

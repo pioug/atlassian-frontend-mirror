@@ -249,6 +249,10 @@ export interface SmartProps {
 	 * Optional callback to provide additional user resolvers, such as for fetching and adding users from third party sources
 	 */
 	userResolvers?: Array<(query: string) => Promise<OptionData[]>>;
+	/**
+	 * Whether to include teams UI updates in the resultset. @default false
+	 */
+	includeTeamsUpdates?: boolean;
 }
 
 // Override UserPickerProps below with replacement documentation

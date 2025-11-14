@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.2.8
+
+### Patch Changes
+
+- [`63628e69e52e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63628e69e52e7) -
+  [ux] [EDITOR-2557] Disable sync block creation, edition and deletion in offline mode
+- Updated dependencies
+
 ## 4.2.7
 
 ### Patch Changes

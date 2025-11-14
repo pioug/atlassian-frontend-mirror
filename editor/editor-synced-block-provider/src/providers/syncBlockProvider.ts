@@ -10,6 +10,7 @@ import {
 	type DeleteSyncBlockResult,
 	type SyncBlockInstance,
 	type SyncBlockSourceInfo,
+	type SyncedBlockRendererProviderOptions,
 	type WriteSyncBlockResult,
 } from '../providers/types';
 import { getLocalIdFromAri, getPageARIFromResourceId } from '../utils/ari';
@@ -20,19 +21,58 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	private fetchProvider: ADFFetchProvider;
 	private writeProvider: ADFWriteProvider;
 	private sourceId: string;
+	private providerOptions: SyncedBlockRendererProviderOptions;
 
-	constructor(fetchProvider: ADFFetchProvider, writeProvider: ADFWriteProvider, sourceId: string) {
+	/**
+	 * Constructor for the SyncBlockProvider
+	 *
+	 * @param fetchProvider
+	 * @param writeProvider
+	 * @param sourceId
+	 * @param nestedRendererDataProviders
+	 */
+	constructor(
+		fetchProvider: ADFFetchProvider,
+		writeProvider: ADFWriteProvider,
+		sourceId: string,
+		providerOptions: SyncedBlockRendererProviderOptions,
+	) {
 		super();
 		this.fetchProvider = fetchProvider;
 		this.writeProvider = writeProvider;
 		this.sourceId = sourceId;
+		this.providerOptions = providerOptions;
 	}
+
+	/**
+	 * Check if the node is supported by the provider
+	 *
+	 * @param node
+	 *
+	 * @returns True if the node is supported, false otherwise
+	 */
 	isNodeSupported(node: JSONNode): node is SyncBlockNode {
-		return node.type === 'syncBlock';
+		return node.type === 'syncBlock' || node.type === 'bodiedSyncBlock';
 	}
+
+	/**
+	 * Get the data key for the node
+	 *
+	 * @param node
+	 *
+	 * @returns The data key
+	 */
 	nodeDataKey(node: SyncBlockNode) {
 		return node.attrs.localId;
 	}
+
+	/**
+	 * Fetch the data from the fetch provider
+	 *
+	 * @param nodes
+	 *
+	 * @returns Array of {resourceId?: string, error?: string}.
+	 */
 	fetchNodesData(nodes: SyncBlockNode[]): Promise<SyncBlockInstance[]> {
 		const resourceIdSet = new Set<string>(nodes.map((node) => node.attrs.resourceId));
 		const resourceIds = [...resourceIdSet];
@@ -61,6 +101,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	}
 
 	/**
+	 * Write the data to the write provider
 	 *
 	 * @param nodes
 	 * @param data
@@ -89,6 +130,13 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		});
 	}
 
+	/**
+	 * Delete the data from the write provider
+	 *
+	 * @param resourceIds
+	 *
+	 * @returns Array of {resourceId?: string, error?: string}.
+	 */
 	async deleteNodesData(resourceIds: string[]): Promise<Array<DeleteSyncBlockResult>> {
 		const results = await Promise.allSettled(
 			resourceIds.map((resourceId) => this.writeProvider.deleteData(resourceId)),
@@ -102,10 +150,22 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		});
 	}
 
+	/**
+	 * Get the source id
+	 *
+	 * @returns The source id
+	 */
 	getSourceId() {
 		return this.sourceId;
 	}
 
+	/**
+	 * Retrieve the source info from the source id
+	 *
+	 * @param node
+	 *
+	 * @returns The source info
+	 */
 	retrieveSyncBlockSourceInfo(node: SyncBlockNode): Promise<SyncBlockSourceInfo | undefined> {
 		const { resourceId } = node.attrs;
 		let pageARI;
@@ -130,14 +190,24 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	generateResourceId(sourceId: string, localId: string): string {
 		return this.writeProvider.generateResourceId(sourceId, localId);
 	}
+
+	/**
+	 * Get the synced block renderer provider options
+	 *
+	 * @returns The synced block renderer provider options
+	 */
+	getSyncedBlockRendererProviderOptions(): SyncedBlockRendererProviderOptions {
+		return this.providerOptions;
+	}
 }
 
 export const useMemoizedSyncedBlockProvider = (
 	fetchProvider: ADFFetchProvider,
 	writeProvider: ADFWriteProvider,
 	sourceId: string,
+	providerOptions: SyncedBlockRendererProviderOptions,
 ) => {
 	return useMemo(() => {
-		return new SyncBlockProvider(fetchProvider, writeProvider, sourceId);
-	}, [fetchProvider, writeProvider, sourceId]);
+		return new SyncBlockProvider(fetchProvider, writeProvider, sourceId, providerOptions);
+	}, [fetchProvider, writeProvider, sourceId, providerOptions]);
 };

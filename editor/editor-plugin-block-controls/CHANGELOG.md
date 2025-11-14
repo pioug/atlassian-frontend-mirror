@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.6.0
+
+### Minor Changes
+
+- [`a68556d4ce662`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a68556d4ce662) -
+  [ux] Stop flickering on synced blocks as first child + expands as f irst child in synced blocks
+
 ## 7.5.10
 
 ### Patch Changes

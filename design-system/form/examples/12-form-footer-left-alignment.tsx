@@ -13,9 +13,13 @@ export default () => (
 					Required fields are marked with an asterisk <RequiredAsterisk />
 				</p>
 			</FormHeader>
-			<Field name="firstname" defaultValue="" label="First name" isRequired>
-				{({ fieldProps }) => <TextField autoComplete="given-name" {...fieldProps} />}
-			</Field>
+			<Field
+				name="firstname"
+				defaultValue=""
+				label="First name"
+				isRequired
+				component={({ fieldProps }) => <TextField {...fieldProps} />}
+			/>
 			<FormFooter align="start">
 				<Button type="submit" appearance="primary">
 					Submit

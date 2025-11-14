@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 11.14.0
+
+### Minor Changes
+
+- [`24ef0db8a2bb6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24ef0db8a2bb6) -
+  [ux] Updating verified team icon to surface for all groups and verified teams. Updated bylines for
+  team and group principals to "Official team" and "Admin group".
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.13.2
 
 ### Patch Changes

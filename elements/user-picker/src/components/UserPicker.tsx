@@ -74,6 +74,7 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 			loadUserSource,
 			required = false,
 			showClearIndicator = false,
+			includeTeamsUpdates = false,
 		} = this.props;
 		const width = this.props.width as string | number;
 
@@ -89,6 +90,7 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 			menuShouldBlockScroll,
 			captureMenuScroll,
 			required,
+			includeTeamsUpdates,
 		};
 
 		const pickerProps = allowEmail

@@ -18,12 +18,13 @@ const CreateSyncedBlockDropdownItem = ({
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined;
 }) => {
 	const { formatMessage } = useIntl();
-	const { selection, menuTriggerByNode } = useSharedPluginStateWithSelector(
+	const { selection, menuTriggerByNode, mode } = useSharedPluginStateWithSelector(
 		api,
-		['selection', 'blockControls'],
+		['selection', 'blockControls', 'connectivity'],
 		(states) => ({
 			selection: states.selectionState?.selection,
 			menuTriggerByNode: states.blockControlsState?.menuTriggerByNode ?? undefined,
+			mode: states.connectivityState?.mode,
 		}),
 	);
 
@@ -41,12 +42,16 @@ const CreateSyncedBlockDropdownItem = ({
 		api?.core?.actions.execute(api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true }));
 	};
 
+	const isOffline = mode === 'offline';
+
 	return (
-		<ToolbarDropdownItem elemBefore={<SyncBlocksIcon label="" />} onClick={onClick}>
-			<Flex alignItems="center" gap="space.050">
-				<Text>{formatMessage(blockMenuMessages.createSyncedBlock)}</Text>
-				<Lozenge appearance="new">{formatMessage(blockMenuMessages.newLozenge)}</Lozenge>
-			</Flex>
+		<ToolbarDropdownItem
+			elemBefore={<SyncBlocksIcon label="" />}
+			onClick={onClick}
+			isDisabled={isOffline}
+			elemAfter={<Lozenge appearance="new">{formatMessage(blockMenuMessages.newLozenge)}</Lozenge>}
+		>
+			{formatMessage(blockMenuMessages.createSyncedBlock)}
 		</ToolbarDropdownItem>
 	);
 };

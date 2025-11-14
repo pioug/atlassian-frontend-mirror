@@ -126,4 +126,40 @@ export const syncBlockMessages = defineMessages({
 		description:
 			'Text in lozenge that appears next to the create synced block button in the toolbar dropdown menu to show that it is a new feature',
 	},
+	failToDeleteTitle: {
+		id: 'fabric.editor.error.title.failToDelete',
+		defaultMessage: 'Failed to delete',
+		description: 'Title in flag which appears when a sync block cannot be deleted',
+	},
+	failToDeleteWhenOfflineDescription: {
+		id: 'fabric.editor.error.description.failToDeleteWhenOffline',
+		defaultMessage:
+			'You appear to be offline. Please connect to the internet to delete synced content.',
+		description:
+			'Description in flag which appears when a sync block cannot be deleted in offline mode',
+	},
+	failToEditTitle: {
+		id: 'fabric.editor.error.title.failToEdit',
+		defaultMessage: 'Cannot edit synced content offline',
+		description: 'Title in flag which appears when a sync block cannot be edited',
+	},
+	failToEditWhenOfflineDescription: {
+		id: 'fabric.editor.error.description.failToEditWhenOffline',
+		defaultMessage:
+			'You appear to be offline. Please connect to the internet to edit synced content.',
+		description:
+			'Description in flag which appears when a sync block cannot be edited in offline mode',
+	},
+	failToCreateTitle: {
+		id: 'fabric.editor.error.title.failToCreate',
+		defaultMessage: 'Cannot create synced content offline',
+		description: 'Title in flag which appears when a sync block cannot be created',
+	},
+	failToCreateWhenOfflineDescription: {
+		id: 'fabric.editor.error.description.failToCreateWhenOffline',
+		defaultMessage:
+			'You appear to be offline. Please connect to the internet to create synced content.',
+		description:
+			'Description in flag which appears when a sync block cannot be created in offline mode',
+	},
 });

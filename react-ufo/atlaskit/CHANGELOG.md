@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.14.7
+
+### Patch Changes
+
+- [`ae14db0f1f0c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae14db0f1f0c7) -
+  Add isDnDStyleMutation back to attribute change detection in vc observer
+
+## 4.14.6
+
+### Patch Changes
+
+- [`95ab6a9cc653c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95ab6a9cc653c) -
+  Auto add SSR entry for TTVC v4 onwards
+
 ## 4.14.5
 
 ### Patch Changes

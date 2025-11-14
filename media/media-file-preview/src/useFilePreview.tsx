@@ -212,6 +212,27 @@ export const useFilePreview = ({
 	]);
 
 	//----------------------------------------------------------------
+	// SSR Loading
+	//----------------------------------------------------------------
+
+	useEffect(() => {
+		if (!fg('media-perf-uplift-mutation-fix')) {
+			return;
+		}
+
+		const loadPromise = getSSRData(identifier, resizeMode)?.loadPromise;
+		if (preview && isSSRDataPreview(preview) && loadPromise) {
+			loadPromise
+				.then(() => {
+					setStatus('complete');
+				})
+				.catch(() => {
+					setPreview(undefined);
+				});
+		}
+	}, [preview, identifier, resizeMode]);
+
+	//----------------------------------------------------------------
 	// Preview Fetch Helper
 	//----------------------------------------------------------------
 	const getAndCacheRemotePreviewRef = useCurrentValueRef(() => {
@@ -317,13 +338,8 @@ export const useFilePreview = ({
 			upfrontPreviewStatus === 'resolved' &&
 			isBackendPreviewReady
 		) {
-			// If the preview is SSR and it's a blob URL, we can skip the refetch
-			if (
-				preview &&
-				isSSRPreview(preview) &&
-				preview.dataURI.startsWith('blob:') &&
-				fg('media-perf-uplift-mutation-fix')
-			) {
+			// If the preview is SSR, we can skip the refetch as it will be handled by the global scope promise
+			if (preview && isSSRPreview(preview) && fg('media-perf-uplift-mutation-fix')) {
 				return;
 			}
 			setIsLoading(true);

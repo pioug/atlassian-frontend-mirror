@@ -1,5 +1,6 @@
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncBlockAttrs } from '../../syncedBlockPluginType';
@@ -70,4 +71,43 @@ export const trackSyncBlocks = (
 		removed: Object.values(sourceSyncBlockRemoved),
 		added: Object.values(sourceSyncBlockAdded),
 	};
+};
+
+/**
+ *
+ * @returns true if steps modifies children node within bodiedSyncBlock
+ */
+export const hasEditInSyncBlock = (tr: Transaction, state: EditorState) => {
+	const { bodiedSyncBlock } = state.schema.nodes;
+
+	for (const step of tr.steps) {
+		const map = step.getMap();
+		const { doc } = tr;
+		const positions: number[] = [];
+
+		// Extract positions from steps dynamically based on applicable properties
+		if (
+			'from' in step &&
+			typeof step.from === 'number' &&
+			'to' in step &&
+			typeof step.to === 'number'
+		) {
+			const { from, to } = step as { from: number; to: number };
+			positions.push(from, to);
+		} else if ('pos' in step && typeof step.pos === 'number') {
+			const { pos } = step as { pos: number };
+			positions.push(pos);
+		}
+
+		for (const pos of positions) {
+			const newPos = map.map(pos);
+			if (newPos >= 0 && newPos <= doc.content.size) {
+				if (findParentNodeOfTypeClosestToPos(doc.resolve(newPos), bodiedSyncBlock)) {
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
 };

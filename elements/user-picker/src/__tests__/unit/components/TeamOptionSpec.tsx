@@ -1,21 +1,18 @@
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { shallow } from 'enzyme';
-import { render, screen } from '@testing-library/react';
 import React, { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl-next';
+import { render, screen } from '@testing-library/react';
 import { AvatarItemOption, textWrapper } from '../../../components/AvatarItemOption';
 import { SizeableAvatar } from '../../../components/SizeableAvatar';
 import { TeamOption, type TeamOptionProps } from '../../../components/TeamOption/main';
 import { type Team } from '../../../types';
+import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
 
 jest.mock('../../../components/AvatarItemOption', () => ({
 	...(jest.requireActual('../../../components/AvatarItemOption') as any),
 	textWrapper: jest.fn(),
-}));
-
-jest.mock('@atlaskit/people-teams-ui-public/verified-team-icon', () => ({
-	VerifiedTeamIcon: () => <div>VerifiedTeamIcon</div>,
 }));
 
 describe('Team Option', () => {
@@ -33,7 +30,7 @@ describe('Team Option', () => {
 	};
 
 	const shallowOption = (props: Partial<TeamOptionProps> = {}, team: Team) =>
-		shallow(<TeamOption team={team} isSelected={false} {...props} />);
+		shallow(<TeamOption team={team} isSelected={false} includeTeamsUpdates={false} {...props} />);
 
 	const buildTeam = (teamData: Partial<Team> = {}): Team => {
 		return {
@@ -42,8 +39,14 @@ describe('Team Option', () => {
 		};
 	};
 
-	it('should not render byline if member count is undefined', () => {
-		render(<TeamOption team={buildTeam({ includesYou: true })} isSelected={true} />);
+	it('should not render basic byline if member count is undefined', () => {
+		render(
+			<TeamOption
+				team={buildTeam({ includesYou: true })}
+				isSelected={true}
+				includeTeamsUpdates={false}
+			/>,
+		);
 		expect(screen.queryByTestId('user-picker-team-secondary-text')).not.toBeInTheDocument();
 	});
 
@@ -208,14 +211,46 @@ describe('Team Option', () => {
 
 		expect(secondaryText.props.children).toEqual(customByline);
 	});
-
 	it('should render the verified team icon if the team is verified', () => {
-		render(<TeamOption team={buildTeam({ verified: true })} isSelected={false} />);
-		expect(screen.getByText('VerifiedTeamIcon')).toBeInTheDocument();
+		const component = shallowOption(
+			{ isSelected: true, includeTeamsUpdates: true },
+			buildTeam({
+				verified: true,
+				memberCount: 2,
+			}),
+		);
+		const avatarItemOption = component.find(AvatarItemOption);
+		const secondaryText = avatarItemOption.props().secondaryText as ReactElement;
+		expect(secondaryText.props.children).toEqual(
+			<FormattedMessage
+				id="fabric.elements.user-picker.team.member.count.official"
+				defaultMessage="Official team {verifiedIcon} • {count} {count, plural, one {member} other {members}}"
+				description="Byline to show the number of members in the team when the current user is not a member of the team"
+				values={{
+					verifiedIcon: <VerifiedTeamIcon label="" size="small" spacing="none" />,
+					count: 2,
+				}}
+			/>,
+		);
 	});
 
 	it('should not render the verified team icon if the team is not verified', () => {
-		render(<TeamOption team={buildTeam({ verified: false })} isSelected={false} />);
-		expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
+		const component = shallowOption(
+			{ isSelected: true, includeTeamsUpdates: true },
+			buildTeam({
+				verified: false,
+				memberCount: 2,
+			}),
+		);
+		const avatarItemOption = component.find(AvatarItemOption);
+		const secondaryText = avatarItemOption.props().secondaryText as ReactElement;
+		expect(secondaryText.props.children).toEqual(
+			<FormattedMessage
+				id="fabric.elements.user-picker.team.member.count"
+				defaultMessage="Team • {count} {count, plural, one {member} other {members}}"
+				description="Byline to show the number of members in the team when the current user is not a member of the team"
+				values={{ count: 2 }}
+			/>,
+		);
 	});
 });

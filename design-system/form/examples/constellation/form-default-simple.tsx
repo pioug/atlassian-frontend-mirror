@@ -33,9 +33,13 @@ const FormDefaultExample = () => (
 				</p>
 			</FormHeader>
 			<FormSection>
-				<Field name="username" label="Username" isRequired defaultValue="dst12">
-					{({ fieldProps }) => <TextField autoComplete="off" {...fieldProps} />}
-				</Field>
+				<Field
+					name="username"
+					label="Username"
+					isRequired
+					defaultValue="dst12"
+					component={({ fieldProps }) => <TextField {...fieldProps} />}
+				/>
 				<Field
 					name="password"
 					label="Password"

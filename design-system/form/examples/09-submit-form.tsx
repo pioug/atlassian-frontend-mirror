@@ -22,17 +22,20 @@ const FormWithoutField = () => {
 							Required fields are marked with an asterisk <RequiredAsterisk />
 						</p>
 					</FormHeader>
-					<Field name="name" defaultValue="" label="Name" isRequired>
-						{({ fieldProps }) => <TextField autoComplete="name" {...fieldProps} />}
-					</Field>
+					<Field
+						name="name"
+						defaultValue=""
+						label="Name"
+						isRequired
+						component={({ fieldProps }) => <TextField autoComplete="name" {...fieldProps} />}
+					/>
 
 					<Field<string, HTMLTextAreaElement>
 						name="description"
 						defaultValue=""
 						label="Description"
-					>
-						{({ fieldProps }) => <TextArea {...fieldProps} />}
-					</Field>
+						component={({ fieldProps }) => <TextArea {...fieldProps} />}
+					/>
 
 					<FormFooter>
 						<Button type="submit" appearance="primary">

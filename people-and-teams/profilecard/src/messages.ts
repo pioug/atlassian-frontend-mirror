@@ -220,6 +220,11 @@ const messages = defineMessages({
 		description:
 			'Label for the "more members" indicator in the members section of the team profile card',
 	},
+	archivedLozenge: {
+		id: 'pt.team-profile-card.archived-lozenge',
+		defaultMessage: 'Archived',
+		description: 'Lozenge to indicate that a team is archived',
+	},
 });
 
 export default messages;

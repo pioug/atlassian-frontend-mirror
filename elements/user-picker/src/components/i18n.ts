@@ -26,6 +26,30 @@ export const messages = defineMessages({
 		defaultMessage: 'Something went wrong',
 		description: 'Error message to display when options fail to load.',
 	},
+	teamByline: {
+		id: 'fabric.elements.user-picker.team.byline',
+		defaultMessage: 'Team',
+		description: 'Byline for team',
+	},
+	officialTeamByline: {
+		id: 'fabric.elements.user-picker.team.byline.official',
+		defaultMessage: 'Official team {verifiedIcon}',
+		description: 'Byline for official team',
+	},
+	officialMemberCountWithoutYou: {
+		id: 'fabric.elements.user-picker.team.member.count.official',
+		defaultMessage:
+			'Official team {verifiedIcon} • {count} {count, plural, one {member} other {members}}',
+		description:
+			'Byline to show the number of members in the team when the current user is not a member of the team',
+	},
+	officialMemberCountWithYou: {
+		id: 'fabric.elements.user-picker.team.member.count.official.including.you',
+		defaultMessage:
+			'Official team {verifiedIcon} • {count} {count, plural, one {member} other {members}}, including you',
+		description:
+			'Byline to show the number of members in the team when the current user is also a member of the team',
+	},
 	memberCountWithoutYou: {
 		id: 'fabric.elements.user-picker.team.member.count',
 		defaultMessage: 'Team • {count} {count, plural, one {member} other {members}}',
@@ -37,6 +61,17 @@ export const messages = defineMessages({
 		defaultMessage: 'Team • {count} {count, plural, one {member} other {members}}, including you',
 		description:
 			'Byline to show the number of members in the team when the current user is also a member of the team',
+	},
+	officialPlus50MembersWithoutYou: {
+		id: 'fabric.elements.user-picker.team.member.50plus.official',
+		defaultMessage: 'Official team {verifiedIcon} • 50+ members',
+		description: 'Byline to show the number of members in the team when the number exceeds 50',
+	},
+	officialPlus50MembersWithYou: {
+		id: 'fabric.elements.user-picker.team.member.50plus.official.including.you',
+		defaultMessage: 'Official team {verifiedIcon} • 50+ members, including you',
+		description:
+			'Byline to show the number of members in the team when the number exceeds 50 and also includes the current user',
 	},
 	plus50MembersWithoutYou: {
 		id: 'fabric.elements.user-picker.team.member.50plus',
@@ -63,6 +98,11 @@ export const messages = defineMessages({
 		id: 'fabric.elements.user-picker.email.add.potential',
 		defaultMessage: 'Enter an email address',
 		description: 'Byline for a potentially valid email option.',
+	},
+	adminManagedGroupByline: {
+		id: 'fabric.elements.user-picker.group.byline.admin-managed',
+		defaultMessage: 'Admin group {verifiedIcon}',
+		description: 'Byline for admin-managed groups with verified icon',
 	},
 	groupByline: {
 		id: 'fabric.elements.user-picker.group.byline',

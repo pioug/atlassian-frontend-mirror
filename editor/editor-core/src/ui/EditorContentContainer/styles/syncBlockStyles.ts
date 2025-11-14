@@ -5,6 +5,7 @@ import {
 	BodiedSyncBlockSharedCssClassName,
 	SyncBlockSharedCssClassName,
 	SyncBlockLabelSharedCssClassName,
+	SyncBlockStateCssClassName,
 } from '@atlaskit/editor-common/sync-block';
 import { akEditorGutterPadding } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
@@ -111,6 +112,23 @@ export const syncBlockStyles: SerializedStyles = css({
 						WebkitMask: 'linear-gradient(to bottom, black 55%, transparent 55%)',
 						pointerEvents: 'none',
 						zIndex: -1,
+					},
+				},
+			},
+
+			/* Node disabled state */
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`&.${SyncBlockStateCssClassName.disabledClassName}`]: {
+				backgroundColor: token('color.background.disabled'),
+				boxShadow: `0 0 0 1px ${token('color.border.disabled')}`,
+				userSelect: 'none',
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values,  @atlaskit/ui-styling-standard/no-imported-style-values
+				[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
+					backgroundColor: token('elevation.surface'),
+
+					'&::before': {
+						border: 'none',
 					},
 				},
 			},

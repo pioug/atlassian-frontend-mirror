@@ -1,3 +1,4 @@
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import {
@@ -23,6 +24,7 @@ export class ReferenceSyncBlockStoreManager {
 		ResourceId,
 		{ [localId: BlockInstanceId]: TitleSubscriptionCallback }
 	>;
+	private providerFactories: Map<ResourceId, ProviderFactory>;
 
 	private syncBlockURLRequests: Map<ResourceId, boolean>;
 	private isRefreshingSubscriptions: boolean = false;
@@ -33,6 +35,7 @@ export class ReferenceSyncBlockStoreManager {
 		this.titleSubscriptions = new Map();
 		this.dataProvider = dataProvider;
 		this.syncBlockURLRequests = new Map();
+		this.providerFactories = new Map();
 	}
 
 	/**
@@ -184,6 +187,7 @@ export class ReferenceSyncBlockStoreManager {
 
 	private deleteFromCache(resourceId: ResourceId) {
 		this.syncBlockCache.delete(resourceId);
+		this.providerFactories.delete(resourceId);
 	}
 
 	public subscribeToSyncBlock(
@@ -279,9 +283,36 @@ export class ReferenceSyncBlockStoreManager {
 		return syncBlock.data?.sourceURL;
 	}
 
+	public getProviderFactory(resourceId: ResourceId): ProviderFactory | undefined {
+		if (!this.dataProvider) {
+			return undefined;
+		}
+
+		const { parentDataProviders } = this.dataProvider.getSyncedBlockRendererProviderOptions();
+
+		if (!this.providerFactories.has(resourceId)) {
+			// TODO: EDITOR-2771 - In follow up PR, create media & emoji providers per ref sync block
+			// The media & emoji providers will be set later, once we get ref sync block data with page ID
+			// So we need to keep the reference to the Provider Factory so we can then set media & emoji providers later
+			this.providerFactories.set(
+				resourceId,
+				ProviderFactory.create({
+					emojiProvider: parentDataProviders?.emojiProvider,
+					mediaProvider: parentDataProviders?.mediaProvider,
+					mentionProvider: parentDataProviders?.mentionProvider,
+					profilecardProvider: parentDataProviders?.profilecardProvider,
+					taskDecisionProvider: parentDataProviders?.taskDecisionProvider,
+				}),
+			);
+		}
+
+		return this.providerFactories.get(resourceId);
+	}
+
 	destroy() {
 		this.syncBlockCache.clear();
 		this.subscriptions.clear();
 		this.syncBlockURLRequests.clear();
+		this.providerFactories.clear();
 	}
 }

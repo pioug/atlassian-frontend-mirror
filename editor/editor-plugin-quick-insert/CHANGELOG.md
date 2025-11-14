@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 6.0.10
+
+### Patch Changes
+
+- [`76e788fce7750`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76e788fce7750) -
+  ED-29665 experience tracking updates
+- Updated dependencies
+
 ## 6.0.9
 
 ### Patch Changes

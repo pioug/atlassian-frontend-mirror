@@ -11,9 +11,22 @@ const FormFieldExample = () => (
 		<Form onSubmit={(data) => console.log('form data', data)}>
 			{({ formProps, submitting }) => (
 				<form {...formProps}>
-					<Field name="username" defaultValue="" label="Username" isRequired>
-						{({ fieldProps }) => <TextField {...fieldProps} />}
-					</Field>
+					<Field
+						name="username"
+						defaultValue=""
+						label="Username"
+						isRequired
+						helperMessage="Please create a new username that is under 16 characters."
+						validMessage="This is a valid username."
+						validate={(value) => {
+							if (!value) {
+								return 'Username is required.';
+							} else if (value && value.length > 16) {
+								return 'Your new username should be under 16 characters.';
+							}
+						}}
+						component={({ fieldProps }) => <TextField {...fieldProps} />}
+					/>
 					<FormFooter>
 						<ButtonGroup label="Form submit options">
 							<Button appearance="subtle">Cancel</Button>

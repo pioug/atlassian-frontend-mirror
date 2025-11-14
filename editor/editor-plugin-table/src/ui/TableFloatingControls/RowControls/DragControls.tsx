@@ -21,7 +21,7 @@ import { getSelectedRowIndexes } from '../../../pm-plugins/utils/selection';
 import type { TablePlugin } from '../../../tablePluginType';
 import { TableCssClassName as ClassName } from '../../../types';
 import type { CellHoverMeta, DraggableSourceData, HandleTypes } from '../../../types';
-import { dropTargetExtendedWidth } from '../../consts';
+import { dragRowControlsWidth, dropTargetExtendedWidth } from '../../consts';
 import type { DragHandleAppearance } from '../../DragHandle';
 import { DragHandle } from '../../DragHandle';
 import RowDropTarget from '../RowDropTarget';
@@ -285,8 +285,9 @@ export const DragControls = ({
 				gridTemplateRows: heights,
 				gridTemplateColumns: isDragging
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						`${dropTargetExtendedWidth}px 14px ${tableWidth}px`
-					: '0px 14px 0px',
+						`${dropTargetExtendedWidth}px ${dragRowControlsWidth}px ${tableWidth}px`
+					: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						`0px ${dragRowControlsWidth}px 0px`,
 				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 				left: isDragging
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

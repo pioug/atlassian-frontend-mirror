@@ -53,16 +53,18 @@ export default function StateSubscriptionExample() {
 			}}
 		>
 			<div css={styles.formContainer}>
-				<Field<string, HTMLTextAreaElement> name="content" defaultValue=" " label="Banner content">
-					{({ fieldProps }) => <TextArea {...fieldProps} />}
-				</Field>
+				<Field<string, HTMLTextAreaElement>
+					name="content"
+					defaultValue=" "
+					label="Banner content"
+					component={({ fieldProps }) => <TextArea {...fieldProps} />}
+				/>
 
 				<Field<Value<Option>>
 					name="appearance"
 					label="Select banner appearance"
 					defaultValue={{ label: 'Announcement', value: 'announcement' }}
-				>
-					{({ fieldProps: { id, ...rest }, error }) => (
+					component={({ fieldProps: { id, ...rest } }) => (
 						<Select<Option>
 							inputId={id}
 							{...rest}
@@ -75,7 +77,7 @@ export default function StateSubscriptionExample() {
 							clearControlLabel="Clear appearance"
 						/>
 					)}
-				</Field>
+				/>
 			</div>
 			<FormPreview />
 		</Form>

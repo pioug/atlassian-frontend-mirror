@@ -3,7 +3,7 @@ import React from 'react';
 import { cssMap, cx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -57,6 +57,9 @@ const styles = cssMap({
 	accesslocksvgwrapper: {
 		marginBottom: token('space.300', '24px'),
 	},
+	archiveLozengeWrapper: {
+		marginTop: token('space.050', '4px'),
+	},
 });
 
 export const TeamForbiddenErrorStateWrapper = (props: {
@@ -105,4 +108,8 @@ export const MoreButton = (props: { children: React.ReactNode }) => (
 
 export const AccessLockSVGWrapper = (props: { children: React.ReactNode }) => (
 	<Box xcss={cx(styles.accesslocksvgwrapper)} {...props} />
+);
+
+export const ArchiveLozengeWrapper = (props: { children: React.ReactNode }) => (
+	<Inline xcss={cx(styles.archiveLozengeWrapper)} {...props} />
 );

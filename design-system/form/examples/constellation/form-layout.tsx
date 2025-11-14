@@ -3,7 +3,14 @@ import React from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
-import Form, { Field, FormFooter, FormHeader, FormSection, RequiredAsterisk } from '@atlaskit/form';
+import Form, {
+	CheckboxField,
+	Field,
+	FormFooter,
+	FormHeader,
+	FormSection,
+	RequiredAsterisk,
+} from '@atlaskit/form';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
 import Select, { type OptionType, type ValueType } from '@atlaskit/select';
@@ -51,9 +58,12 @@ const FormLayoutExample = () => {
 							/>
 						)}
 					</Field>
-
-					<Field<ValueType<OptionType>> name="project" id="project" label="Project" isRequired>
-						{({ fieldProps: { id, ...rest } }) => (
+					<Field<ValueType<OptionType>>
+						name="project"
+						id="project"
+						label="Project"
+						isRequired
+						component={({ fieldProps: { id, ...rest } }) => (
 							<Select
 								id={`${id}-select`}
 								options={[
@@ -66,19 +76,20 @@ const FormLayoutExample = () => {
 								{...rest}
 							/>
 						)}
-					</Field>
-
-					<Field name="repo-name" label="Repository name" defaultValue="">
-						{({ fieldProps }) => <Textfield {...fieldProps} />}
-					</Field>
-
-					<Field name="access-level" label="Access level">
-						{({ fieldProps: { value, ...others } }) => (
-							<Checkbox label="This is a private repository" isChecked={!!value} {...others} />
-						)}
-					</Field>
-					<Field name="color" label="Pick a color">
-						{({ fieldProps: { value, ...others } }) => (
+					/>
+					<Field
+						name="repo-name"
+						label="Repository name"
+						defaultValue=""
+						component={({ fieldProps }) => <Textfield {...fieldProps} />}
+					/>
+					<CheckboxField name="access-level" label="Access level">
+						{({ fieldProps }) => <Checkbox label="This is a private repository" {...fieldProps} />}
+					</CheckboxField>
+					<Field
+						name="color"
+						label="Pick a color"
+						component={({ fieldProps: { value, ...others } }) => (
 							<RadioGroup
 								options={[
 									{ name: 'color', value: 'red', label: 'Red' },
@@ -94,14 +105,13 @@ const FormLayoutExample = () => {
 								{...others}
 							/>
 						)}
-					</Field>
+					/>
 					<Field<ValueType<OptionType>>
 						name="include-readme"
 						id="include-readme"
 						label="Include a README?"
 						defaultValue={{ label: 'No', value: 'no' }}
-					>
-						{({ fieldProps: { id, ...rest } }) => (
+						component={({ fieldProps: { id, ...rest } }) => (
 							<Select
 								id={`${id}-select`}
 								isSearchable={false}
@@ -119,7 +129,7 @@ const FormLayoutExample = () => {
 								{...rest}
 							/>
 						)}
-					</Field>
+					/>
 				</FormSection>
 				<FormFooter>
 					<ButtonGroup label="Form submit options">

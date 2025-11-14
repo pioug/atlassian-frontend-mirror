@@ -177,6 +177,9 @@
 		},
 		"agent_studio_permissions_settings_m3_profiles": {
 			"type": "boolean"
+		},
+		"legion-enable-archive-teams": {
+			"type": "boolean"
 		}
 	},
 	"sideEffects": [

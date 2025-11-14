@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import Form, { ErrorMessage, Field, FormFooter, MessageWrapper } from '@atlaskit/form';
+import Form, { Field, FormFooter } from '@atlaskit/form';
 import { Flex } from '@atlaskit/primitives/compiled';
 import Select, {
 	components,
@@ -126,38 +126,37 @@ export default () => (
 				return Promise.resolve(validateOnSubmit(data));
 			}}
 		>
-			<Field<ValueType<Option>> name="colors" label="Select a colour">
-				{({ fieldProps: { id, ...rest }, error }) => (
-					<Fragment>
-						<Select<Option>
-							inputId={id}
-							components={{
-								Option: CustomColorOption,
-								SingleValue: CustomValueOption,
-							}}
-							{...rest}
-							options={colors}
-							isClearable
-							clearControlLabel="Clear colour"
-						/>
-						<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
-					</Fragment>
+			<Field<ValueType<Option>>
+				name="colors"
+				label="Select a colour"
+				component={({ fieldProps: { id, ...rest } }) => (
+					<Select<Option>
+						inputId={id}
+						components={{
+							Option: CustomColorOption,
+							SingleValue: CustomValueOption,
+						}}
+						{...rest}
+						options={colors}
+						isClearable
+						clearControlLabel="Clear colour"
+					/>
 				)}
-			</Field>
-			<Field<ValueType<Option, true>> name="icecream" label="Select a flavor" defaultValue={[]}>
-				{({ fieldProps: { id, ...rest }, error }) => (
-					<Fragment>
-						<Select
-							inputId={id}
-							{...rest}
-							options={flavors}
-							isMulti
-							clearControlLabel="Clear flavor"
-						/>
-						<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
-					</Fragment>
+			/>
+			<Field<ValueType<Option, true>>
+				name="icecream"
+				label="Select a flavor"
+				defaultValue={[]}
+				component={({ fieldProps: { id, ...rest } }) => (
+					<Select
+						inputId={id}
+						{...rest}
+						options={flavors}
+						isMulti
+						clearControlLabel="Clear flavor"
+					/>
 				)}
-			</Field>
+			/>
 			<FormFooter>
 				<Button type="submit" appearance="primary">
 					Submit

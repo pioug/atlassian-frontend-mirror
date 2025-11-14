@@ -29,9 +29,9 @@ export const SyncedBlockNodeComponentRenderer = ({
 	syncBlockStoreManager,
 	rendererOptions,
 }: SyncedBlockNodeComponentRendererProps): React.JSX.Element => {
-	const { resourceId, localId, providers } = nodeProps;
+	const { resourceId, localId } = nodeProps;
 
-	const { syncBlockInstance, isLoading } = useFetchSyncBlockData(
+	const { syncBlockInstance, isLoading, providerFactory } = useFetchSyncBlockData(
 		syncBlockStoreManager,
 		resourceId,
 		localId,
@@ -41,7 +41,7 @@ export const SyncedBlockNodeComponentRenderer = ({
 		return <SyncedBlockLoadingState />;
 	}
 
-	if (syncBlockInstance?.error || !syncBlockInstance?.data) {
+	if (!resourceId || syncBlockInstance?.error || !syncBlockInstance?.data) {
 		return (
 			<SyncedBlockErrorComponent
 				error={syncBlockInstance?.error ?? SyncBlockError.Errored}
@@ -57,6 +57,12 @@ export const SyncedBlockNodeComponentRenderer = ({
 	} as DocNode;
 
 	return (
-		<AKRendererWrapper doc={syncBlockDoc} dataProviders={providers} options={rendererOptions} />
+		<div data-sync-block-renderer>
+			<AKRendererWrapper
+				doc={syncBlockDoc}
+				dataProviders={providerFactory}
+				options={rendererOptions}
+			/>
+		</div>
 	);
 };

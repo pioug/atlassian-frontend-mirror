@@ -39,26 +39,37 @@ export default function ModalDialogForm() {
 							<ModalBody>
 								<p>Enter some text then submit the form to see the response.</p>
 
-								<Field label="Name" name="my-name" defaultValue="">
-									{({ fieldProps }) => <Textfield autoComplete="name" {...fieldProps} />}
-								</Field>
+								<Field
+									label="Name"
+									name="my-name"
+									defaultValue=""
+									component={({ fieldProps }) => <Textfield autoComplete="name" {...fieldProps} />}
+								/>
 
-								<Field label="Email" name="my-email" defaultValue="">
-									{({ fieldProps }) => (
+								<Field
+									label="Email"
+									name="my-email"
+									defaultValue=""
+									component={({ fieldProps }) => (
 										<Textfield
 											autoComplete="email"
 											placeholder="charlie@atlassian.com"
 											{...fieldProps}
 										/>
 									)}
-								</Field>
+								/>
+
 								<CheckboxField name="remember" defaultIsChecked>
 									{({ fieldProps }) => (
 										<Checkbox {...fieldProps} label="Always sign in on this device" />
 									)}
 								</CheckboxField>
-								<Field name="radiogroup" label="Colors" defaultValue="">
-									{({ fieldProps: { value, ...others } }) => (
+
+								<Field
+									name="radiogroup"
+									label="Colors"
+									defaultValue=""
+									component={({ fieldProps: { value, ...others } }) => (
 										<RadioGroup
 											options={[
 												{ name: 'color', value: 'red', label: 'Red' },
@@ -68,7 +79,7 @@ export default function ModalDialogForm() {
 											{...others}
 										/>
 									)}
-								</Field>
+								/>
 							</ModalBody>
 							<ModalFooter>
 								<Button onClick={close} appearance="subtle">

@@ -948,7 +948,10 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 	// Only apply container-type = inline-size when having a known width in full-page/full-width/comment mode.
 	// Otherwise when appearance is unspecified the renderer size is decided by the content.
 	// In this case we can't set the container-type = inline-size as it will collapse width to 0.
-	return (appearance === 'full-page' || appearance === 'full-width') &&
+	return (appearance === 'full-page' ||
+		appearance === 'full-width' ||
+		(expValEqualsNoExposure('editor_tinymce_full_width_mode', 'isEnabled', true) &&
+			appearance === 'max')) &&
 		// In case of having excerpt-include on page there are multiple renderers nested.
 		// Make sure only the root renderer is set to be query container.
 		isTopLevelRenderer &&

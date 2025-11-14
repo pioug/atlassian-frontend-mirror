@@ -55,8 +55,7 @@ export const Table = React.memo(
 		// for columns that are evenly distributed, do not return `colgroup` since existing table containerQuery
 		// scales up the columns width. This ensures columns always have 42px.
 		if (rendererAppearance === 'comment') {
-			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-			if (fg('platform-ssr-table-resize') && fg('platform_table_number_column')) {
+			if (fg('platform-ssr-table-resize')) {
 				tableColumnWidths = columnWidths && colWidthSum(columnWidths) ? columnWidths : undefined;
 			}
 		}

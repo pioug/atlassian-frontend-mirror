@@ -38,6 +38,9 @@
 		},
 		{
 			"path": "../../../design-system/tokens/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-cc/tsconfig.json"
 		}
 	]
 }

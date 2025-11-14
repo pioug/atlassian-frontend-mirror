@@ -84,24 +84,21 @@ export const storeDataURI = (
 			img.srcset = srcSet;
 		}
 
-		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-		img?.addEventListener('load', () => {
-			if (img.currentSrc.startsWith('blob:')) {
-				return;
-			}
-			fetch(img.currentSrc)
-				.then((res) => res.blob())
-				.then((blob) => URL.createObjectURL(blob))
-				.then((blobUrl) => {
-					img.src = blobUrl;
-					img.srcset = '';
-					mediaCardSsr[key] = { ...mediaCardSsr[key], dataURI: blobUrl, srcSet: '' };
-				})
-				.catch((err) => {
-					mediaCardSsr[key] = { ...mediaCardSsr[key], error: err };
-				});
+		const loadPromise = new Promise<void>((resolve, reject) => {
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+			img?.addEventListener('load', () => {
+				resolve(void 0);
+			});
+
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+			img?.addEventListener('error', () => {
+				reject(new Error('Failed to load image'));
+			});
 		});
-		mediaCardSsr[key] = isPreviousImageLarger ? prevData : { dataURI, dimensions, error, srcSet };
+
+		mediaCardSsr[key] = isPreviousImageLarger
+			? prevData
+			: { dataURI, dimensions, error, srcSet, loadPromise };
 	} else {
 		mediaCardSsr[key] = { dataURI: paramDataURI, dimensions, error };
 	}

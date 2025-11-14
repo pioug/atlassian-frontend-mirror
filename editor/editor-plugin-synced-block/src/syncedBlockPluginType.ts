@@ -9,6 +9,7 @@ import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
 import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
@@ -18,6 +19,8 @@ import type {
 	SyncBlockDataProvider,
 	UseFetchSyncBlockDataResult,
 } from '@atlaskit/editor-synced-block-provider';
+
+import type { SyncedBlockSharedState } from './types';
 
 export type SyncedBlockEditorProps = {
 	defaultDocument: JSONDocNode;
@@ -81,8 +84,10 @@ export type SyncedBlockPlugin = NextEditorPlugin<
 			OptionalPlugin<ToolbarPlugin>,
 			OptionalPlugin<BlockMenuPlugin>,
 			OptionalPlugin<AnalyticsPlugin>,
+			OptionalPlugin<ConnectivityPlugin>,
 		];
 		pluginConfiguration: SyncedBlockPluginOptions | undefined;
+		sharedState: SyncedBlockSharedState | undefined;
 	}
 >;
 

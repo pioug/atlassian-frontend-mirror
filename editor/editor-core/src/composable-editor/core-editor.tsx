@@ -19,6 +19,7 @@ import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-m
 import type { Transformer } from '@atlaskit/editor-common/types';
 import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils/analytics';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import EditorActions from '../actions';
 import type { EditorNextProps, EditorProps } from '../types/editor-props';
@@ -133,13 +134,18 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 		},
 		[onSaveFromProps],
 	);
-	const isFullPageApperance = Boolean(
-		props.appearance && ['full-page', 'full-width'].includes(props.appearance),
+	const isFullPageAppearance = Boolean(
+		props.appearance &&
+			[
+				'full-page',
+				'full-width',
+				...(expValEqualsNoExposure('platform_synced_block', 'isEnabled', true) ? ['max'] : []),
+			].includes(props.appearance),
 	);
 
 	return (
 		<Fragment>
-			{isFullPageApperance ? <EditorINPMetrics /> : null}
+			{isFullPageAppearance ? <EditorINPMetrics /> : null}
 			<EditorInternal
 				props={props}
 				handleAnalyticsEvent={handleAnalyticsEvent}

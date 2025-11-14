@@ -5,7 +5,9 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import Avatar from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
 import Button, { IconButton, LinkButton } from '@atlaskit/button/new';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
+import Lozenge from '@atlaskit/lozenge';
 import { LinkItem, MenuGroup } from '@atlaskit/menu';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -19,6 +21,7 @@ import { AnimatedKudosButton, AnimationWrapper, KudosBlobAnimation } from '../..
 import { ErrorWrapper, TeamErrorText } from '../../styled/Error';
 import {
 	ActionButtons,
+	ArchiveLozengeWrapper,
 	AvatarSection,
 	Description,
 	DescriptionWrapper,
@@ -52,6 +55,7 @@ import TeamForbiddenErrorState from './TeamForbiddenErrorState';
 import TeamLoadingState from './TeamLoadingState';
 
 interface TeamMembers {
+	isArchived?: boolean;
 	analytics: AnalyticsFunction;
 	analyticsNext: AnalyticsFunctionNext;
 	members?: Team['members'];
@@ -104,6 +108,7 @@ const TeamMembers = ({
 	analytics,
 	generateUserLink,
 	members,
+	isArchived,
 	onUserClick,
 	includingYou,
 	analyticsNext,
@@ -167,6 +172,13 @@ const TeamMembers = ({
 			<MemberCount>
 				<FormattedMessage {...message} values={{ count }} />
 			</MemberCount>
+			{isArchived && (
+				<ArchiveLozengeWrapper>
+					<Lozenge appearance="default" isBold>
+						<FormattedMessage {...messages.archivedLozenge} />
+					</Lozenge>
+				</ArchiveLozengeWrapper>
+			)}
 			{members && members.length > 0 && (
 				<AvatarSection>
 					{
@@ -415,6 +427,14 @@ const TeamProfilecardContent = ({
 
 	const includingYou = team.members && team.members.some((member) => member.id === viewingUserId);
 
+	const newTeamProfileEnabled = FeatureGates.getExperimentValue(
+		'new_team_profile',
+		'isEnabled',
+		false,
+	);
+	const isTeamArchived =
+		team.state === 'DISBANDED' && fg('legion-enable-archive-teams') && newTeamProfileEnabled;
+
 	useEffect(() => {
 		if (fg('ptc-enable-profile-card-analytics-refactor')) {
 			analyticsNext('ui.teamProfileCard.rendered.content', (duration) => ({
@@ -448,6 +468,7 @@ const TeamProfilecardContent = ({
 			<CardHeader
 				image={team.largeHeaderImageUrl || team.smallHeaderImageUrl}
 				label={team.displayName}
+				isDisabled={isTeamArchived}
 			/>
 			<CardContent>
 				<Tooltip content={team.displayName}>
@@ -460,6 +481,7 @@ const TeamProfilecardContent = ({
 					analytics={analytics}
 					analyticsNext={analyticsNext}
 					members={team.members}
+					isArchived={isTeamArchived}
 					generateUserLink={generateUserLink}
 					includingYou={includingYou}
 					onUserClick={onUserClick}

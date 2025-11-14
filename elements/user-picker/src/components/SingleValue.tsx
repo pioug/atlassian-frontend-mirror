@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@compiled/react';
-import { type Option } from '../types';
+import { type Option, type OptionData } from '../types';
 import { components, type SingleValueProps } from '@atlaskit/select';
 import { SizeableAvatar } from './SizeableAvatar';
 import { getAvatarUrl, isTeam } from './utils';
@@ -33,14 +33,21 @@ const styles = cssMap({
 	},
 });
 
-export type Props = SingleValueProps<Option>;
+export type Props = SingleValueProps<Option> & {
+	shouldShowVerifiedIcon?: (data: OptionData) => boolean;
+};
 
 const ElementAfter = (props: Props) => {
 	const {
 		data: { data },
+		shouldShowVerifiedIcon,
 	} = props;
 
-	if (isTeam(data) && data.verified) {
+	const showIcon = shouldShowVerifiedIcon
+		? shouldShowVerifiedIcon(data)
+		: isTeam(data) && data.verified;
+
+	if (showIcon) {
 		return <VerifiedTeamIcon />;
 	}
 

@@ -17,6 +17,8 @@ import Form, {
 import { Flex } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
 
+const TOO_SHORT = `Please enter a username that's longer than 4 characters.`;
+
 export default () => {
 	const simpleMemoize = <T, U>(fn: (arg: T) => U): ((arg: T) => U) => {
 		let lastArg: T;
@@ -32,14 +34,14 @@ export default () => {
 
 	const validateUsername = (value: string = '') => {
 		if (value.length < 5) {
-			return 'TOO_SHORT';
+			return TOO_SHORT;
 		}
 		return undefined;
 	};
 
 	const validatePassword = simpleMemoize((value: string = '') => {
 		if (value.length < 8) {
-			return new Promise((resolve) => setTimeout(resolve, 300)).then(() => 'TOO_SHORT');
+			return new Promise((resolve) => setTimeout(resolve, 300)).then(() => TOO_SHORT);
 		}
 		return undefined;
 	});
@@ -50,7 +52,9 @@ export default () => {
 				onSubmit={(data) => {
 					console.log('form data', data);
 					return new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>
-						data.username === 'error' ? { username: 'IN_USE' } : undefined,
+						data.username === 'error'
+							? { username: 'This username is already in use, try another one.' }
+							: undefined,
 					);
 				}}
 			>
@@ -66,27 +70,10 @@ export default () => {
 							label="Username"
 							isRequired
 							defaultValue="hello"
+							helperMessage="You can use letters, numbers, and periods."
 							validate={validateUsername}
-						>
-							{({ fieldProps, error }) => (
-								<Fragment>
-									<TextField autoComplete="username" {...fieldProps} />
-									<MessageWrapper>
-										{!error && (
-											<HelperMessage>You can use letters, numbers, and periods.</HelperMessage>
-										)}
-										{error === 'TOO_SHORT' && (
-											<ErrorMessage>
-												Please enter a username that's longer than 4 characters.
-											</ErrorMessage>
-										)}
-										{error === 'IN_USE' && (
-											<ErrorMessage>This username is already in use, try another one.</ErrorMessage>
-										)}
-									</MessageWrapper>
-								</Fragment>
-							)}
-						</Field>
+							component={({ fieldProps }) => <TextField autoComplete="username" {...fieldProps} />}
+						/>
 						<Field
 							name="password"
 							label="Password"
@@ -98,11 +85,7 @@ export default () => {
 								<Fragment>
 									<TextField type="password" {...fieldProps} />
 									<MessageWrapper>
-										{error === 'TOO_SHORT' && (
-											<ErrorMessage>
-												Please enter a password that's longer than 8 characters.
-											</ErrorMessage>
-										)}
+										{error && <ErrorMessage>{error}</ErrorMessage>}
 										{meta.validating && meta.dirty ? (
 											<HelperMessage>Checking......</HelperMessage>
 										) : null}

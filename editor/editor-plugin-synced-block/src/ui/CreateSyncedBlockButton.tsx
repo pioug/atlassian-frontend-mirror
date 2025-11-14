@@ -16,10 +16,13 @@ type CreateSyncedBlockButtonProps = {
 
 export const CreateSyncedBlockButton = ({ api }: CreateSyncedBlockButtonProps) => {
 	const intl = useIntl();
-	const selection = useSharedPluginStateWithSelector(
+	const { selection, mode } = useSharedPluginStateWithSelector(
 		api,
-		['selection'],
-		(states) => states.selectionState?.selection,
+		['selection', 'connectivity'],
+		(states) => ({
+			selection: states.selectionState?.selection,
+			mode: states.connectivityState?.mode,
+		}),
 	);
 
 	// for toolbar button, we allow both creating a new synced block
@@ -27,7 +30,7 @@ export const CreateSyncedBlockButton = ({ api }: CreateSyncedBlockButtonProps) =
 	const canBeConverted = Boolean(selection && canBeConvertedToSyncBlock(selection));
 	const canInsertEmptyBlock = Boolean(selection?.empty);
 
-	const isDisabled = Boolean(!canBeConverted && !canInsertEmptyBlock);
+	const isDisabled = Boolean(mode === 'offline' || (!canBeConverted && !canInsertEmptyBlock));
 
 	const onClick = useCallback(() => {
 		api?.core?.actions.execute(({ tr }) => api?.syncedBlock.commands.insertSyncedBlock()({ tr }));

@@ -35,6 +35,9 @@
 			"path": "../../editor-plugin-block-menu/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-connectivity/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-decorations/afm-products/tsconfig.json"
 		},
 		{
@@ -56,6 +59,9 @@
 			"path": "../../editor-toolbar/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/flag/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
 		},
 		{
@@ -72,6 +78,9 @@
 		},
 		{
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tooltip/afm-products/tsconfig.json"

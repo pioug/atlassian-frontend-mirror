@@ -6,6 +6,7 @@ import { jsx, css, cssMap } from '@compiled/react';
 import { newFileExperienceClassName } from '../../cardConstants';
 import { type WrapperProps } from './types';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { N0, N100, N20, N60A, N90A, B100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -164,7 +165,8 @@ export const Wrapper = (props: WrapperProps) => {
 				{
 					[LOCAL_WIDTH_VARIABLE]: width,
 					[LOCAL_HEIGHT_VARIABLE]: height,
-					cusror: mediaCardCursor,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					...(fg('jfp-magma-media-cursor') ? { cursor: mediaCardCursor } : undefined),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					...getResponsiveStyles(breakpoint),
 				} as React.CSSProperties

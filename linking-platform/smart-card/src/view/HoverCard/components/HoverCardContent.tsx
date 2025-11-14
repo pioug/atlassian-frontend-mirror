@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
@@ -36,6 +37,7 @@ const HoverCardContent = ({
 	onMouseEnter,
 	onMouseLeave,
 	actionOptions,
+	hoverPreviewOptions,
 }: HoverCardContentProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEventsNext();
 	const { fireEvent } = useAnalyticsEvents();
@@ -135,7 +137,15 @@ const HoverCardContent = ({
 	};
 
 	const onClickStopPropagation = useCallback((e: any) => e.stopPropagation(), []);
+
 	const getCardView = (cardState: CardState) => {
+		const overrideView = fg('smart-link-custom-hover-card-content')
+			? hoverPreviewOptions?.render?.()
+			: undefined;
+		if (overrideView) {
+			return overrideView;
+		}
+
 		if (cardState.metadataStatus === 'pending') {
 			return (
 				<HoverCardLoadingView

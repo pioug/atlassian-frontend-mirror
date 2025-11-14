@@ -173,6 +173,8 @@ export class CopyLinkButton extends React.Component<Props, State> {
 	render() {
 		const { shouldShowCopiedMessage } = this.state;
 		const { copyTooltipText, copiedToClipboardText } = this.props;
+		const shouldUpdateTooltipCss =
+			fg('jfind-copy-link-modal-invite-tooltip') || fg('jfind-copy-link-modal-invite-tooltip-jira');
 		return (
 			<React.Fragment>
 				{/* Added ARIA live region specifically for VoiceOver + Safari since the status */}
@@ -189,7 +191,7 @@ export class CopyLinkButton extends React.Component<Props, State> {
 					zIndex={Z_INDEX}
 					autoFocus={false}
 					content={() =>
-						fg('jfind-copy-link-modal-invite-tooltip') ? null : (
+						shouldUpdateTooltipCss ? null : (
 							<InlineDialogContentWrapper>
 								<Box xcss={cx(styles.messageContainer)} testId="message-container" aria-hidden>
 									<CheckCircleIcon
@@ -206,9 +208,7 @@ export class CopyLinkButton extends React.Component<Props, State> {
 					onClose={this.handleDismissCopiedMessage}
 					placement="top-start"
 					trigger={(triggerProps: TriggerProps) =>
-						copyTooltipText &&
-						shouldShowCopiedMessage &&
-						fg('jfind-copy-link-modal-invite-tooltip') ? (
+						copyTooltipText && shouldShowCopiedMessage && shouldUpdateTooltipCss ? (
 							<Tooltip content={copyTooltipText} position="bottom">
 								{this.renderTriggerButton(triggerProps)}
 							</Tooltip>

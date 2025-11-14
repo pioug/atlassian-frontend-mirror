@@ -1,5 +1,21 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 3.2.0
+
+### Minor Changes
+
+- [`9efdcfd413c6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9efdcfd413c6d) -
+  [ux] Stop sticky table headers within synced blocks
+
+### Patch Changes
+
+- [`df3d682372ee2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df3d682372ee2) -
+  EDITOR-2379 add data-sync-block attribute to reference sync block wrapper
+- [`e3aafa008fcf4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3aafa008fcf4) -
+  EDITOR-2771 Pass parent Editor/Renderer data providers through SyncBlockDataProvider to the nested
+  renderer
+- Updated dependencies
+
 ## 3.1.6
 
 ### Patch Changes

@@ -41,7 +41,13 @@
 			"path": "../adf-utils/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-common/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-json-transformer/tsconfig.app.json"
+		},
+		{
+			"path": "../../elements/emoji/tsconfig.app.json"
 		},
 		{
 			"path": "../node-data-provider/tsconfig.app.json"

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 15.3.22
+
+### Patch Changes
+
+- [`a4b46d14da1ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4b46d14da1ad) -
+  [ux] Add mask to table sticky header and col controls when sticky positioned
+- [`7a405ff491f5e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a405ff491f5e) -
+  [ux] Add gap between viewport and table header when sticky positioned
+- Updated dependencies
+
 ## 15.3.21
 
 ### Patch Changes

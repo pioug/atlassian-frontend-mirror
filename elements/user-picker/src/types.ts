@@ -76,6 +76,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	header?: React.ReactNode;
 	/** Sets the height of the user picker. If not set, the height settings will be based on the "compact" or "normal" appearance. */
 	height?: number | string;
+	/** Whether to include teams UI updates in the resultset. @default false */
+	includeTeamsUpdates?: boolean;
 	/** Allows clicking on a label with the same id to open user picker. */
 	inputId?: string;
 	/** Display a remove button on the single picker. True by default. */
@@ -279,6 +281,7 @@ export interface OptionData {
 	avatarUrl?: any;
 	fixed?: boolean;
 	id: string;
+	includeTeamsUpdates?: boolean;
 	isDisabled?: boolean;
 	lozenge?: string | LozengeProps | ReactNode;
 	name: string;
@@ -340,6 +343,7 @@ export interface Team extends OptionData {
 	description?: string;
 	highlight?: TeamHighlight;
 	includesYou?: boolean;
+	includeTeamsUpdates?: boolean;
 	memberCount?: number;
 	members?: TeamMember[];
 	type: 'team';
@@ -351,6 +355,7 @@ export const GroupType = 'group';
 export interface Group extends OptionData {
 	byline?: string;
 	highlight?: GroupHighlight;
+	includeTeamsUpdates?: boolean;
 	type: 'group';
 }
 

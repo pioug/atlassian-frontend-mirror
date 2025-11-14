@@ -8,6 +8,7 @@ export type MediaCardSsrData = {
 	error?: MediaFilePreviewErrorInfo;
 	mode?: string;
 	srcSet?: string;
+	loadPromise?: Promise<void>;
 };
 
 export type MediaCardSsr = Record<string, MediaCardSsrData>;

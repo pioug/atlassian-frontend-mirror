@@ -9,6 +9,7 @@ import { AvatarItemOption, textWrapper } from '../../../components/AvatarItemOpt
 import { HighlightText } from '../../../components/HighlightText';
 import { GroupOption, type GroupOptionProps } from '../../../components/GroupOption/main';
 import { type Group } from '../../../types';
+import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
 
 jest.mock('../../../components/AvatarItemOption', () => ({
 	...(jest.requireActual('../../../components/AvatarItemOption') as any),
@@ -29,7 +30,9 @@ describe('GroupOption', () => {
 	};
 
 	const shallowOption = (props: Partial<GroupOptionProps> = {}) =>
-		shallow(<GroupOption isSelected={false} group={group} {...props} />);
+		shallow(
+			<GroupOption isSelected={false} group={group} includeTeamsUpdates={false} {...props} />,
+		);
 
 	it('should render GroupOption component', () => {
 		const component = shallowOption();
@@ -102,6 +105,20 @@ describe('GroupOption', () => {
 		expect(primaryText[0].key).toEqual('name');
 		expect(primaryText[0].props.children).toEqual(
 			<HighlightText highlights={[testHighlightRange]}>dead-jedi-admins</HighlightText>,
+		);
+	});
+
+	it('should render the admin managed group with verified icon byline if teams is enabled', () => {
+		const component = shallowOption({ includeTeamsUpdates: true });
+		const avatarItemOption = component.find(AvatarItemOption);
+		const secondaryText = avatarItemOption.props().secondaryText as ReactElement;
+		expect(secondaryText.props.children).toEqual(
+			<FormattedMessage
+				id="fabric.elements.user-picker.group.byline.admin-managed"
+				defaultMessage="Admin group {verifiedIcon}"
+				description="Byline for admin-managed groups with verified icon"
+				values={{ verifiedIcon: <VerifiedTeamIcon label="" size="small" spacing="none" /> }}
+			/>,
 		);
 	});
 });

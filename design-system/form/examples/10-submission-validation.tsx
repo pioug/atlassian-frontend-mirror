@@ -1,15 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import Form, {
-	ErrorMessage,
-	Field,
-	FormFooter,
-	FormHeader,
-	HelperMessage,
-	MessageWrapper,
-	RequiredAsterisk,
-} from '@atlaskit/form';
+import Form, { Field, FormFooter, FormHeader, RequiredAsterisk } from '@atlaskit/form';
 import { Flex, Text } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
 
@@ -46,28 +38,22 @@ export default () => {
 								Required fields are marked with an asterisk <RequiredAsterisk />
 							</Text>
 						</FormHeader>
-						<Field name="username" label="Username" defaultValue="" isRequired>
-							{({ fieldProps, error }) => (
-								<Fragment>
-									<TextField autoComplete="username" {...fieldProps} />
-									<MessageWrapper>
-										{!error && <HelperMessage>Try 'jsmith' or 'mchan'</HelperMessage>}
-										{error && <ErrorMessage testId="userSubmissionError">{error}</ErrorMessage>}
-									</MessageWrapper>
-								</Fragment>
-							)}
-						</Field>
-						<Field name="email" label="Email" defaultValue="" isRequired>
-							{({ fieldProps, error }) => (
-								<Fragment>
-									<TextField autoComplete="email" {...fieldProps} />
-									<MessageWrapper>
-										{!error && <HelperMessage>Must contain @ symbol</HelperMessage>}
-										{error && <ErrorMessage>{error}</ErrorMessage>}
-									</MessageWrapper>
-								</Fragment>
-							)}
-						</Field>
+						<Field
+							name="username"
+							label="Username"
+							defaultValue=""
+							isRequired
+							helperMessage="Try 'jsmith' or 'mchan'."
+							component={({ fieldProps }) => <TextField {...fieldProps} />}
+						/>
+						<Field
+							name="email"
+							label="Email"
+							defaultValue=""
+							isRequired
+							helperMessage="Must contain @ symbol"
+							component={({ fieldProps }) => <TextField {...fieldProps} />}
+						/>
 						<FormFooter>
 							<Button appearance="primary" type="submit" isLoading={submitting}>
 								Create account

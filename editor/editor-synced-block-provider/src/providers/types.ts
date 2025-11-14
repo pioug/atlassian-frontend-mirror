@@ -1,3 +1,8 @@
+import type {
+	SyncedBlockRendererDataProviders,
+	MediaProvider,
+} from '@atlaskit/editor-common/provider-factory';
+import type { EmojiProvider } from '@atlaskit/emoji';
 import { NodeDataProvider } from '@atlaskit/node-data-provider';
 
 import type { SyncBlockData, ResourceId, SyncBlockError, SyncBlockNode } from '../common/types';
@@ -43,6 +48,27 @@ export interface ADFWriteProvider {
 	generateResourceId: (sourceId: string, localId: string) => ResourceId;
 	writeData: (data: SyncBlockData) => Promise<WriteSyncBlockResult>;
 }
+
+export type MediaEmojiProviderOptions = {
+	contentId: string;
+	contentType: string;
+	spaceKey?: string | null;
+};
+
+export type SyncedBlockRendererProviderOptions = {
+	parentDataProviders?: SyncedBlockRendererDataProviders;
+	providerCreator?: {
+		// TODO: EDITOR-2771 - In follow up PR, create emoji & media providers per ref sync block
+		// For now the below are not used, but I want to plug in the interface through
+		createEmojiProvider:
+			| ((options: MediaEmojiProviderOptions) => Promise<EmojiProvider>)
+			| undefined;
+		createMediaProvider:
+			| ((options: MediaEmojiProviderOptions) => Promise<MediaProvider>)
+			| undefined;
+	};
+};
+
 export abstract class SyncBlockDataProvider extends NodeDataProvider<
 	SyncBlockNode,
 	SyncBlockInstance
@@ -56,6 +82,7 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 	abstract retrieveSyncBlockSourceInfo(
 		node: SyncBlockNode,
 	): Promise<SyncBlockSourceInfo | undefined>;
+	abstract getSyncedBlockRendererProviderOptions(): SyncedBlockRendererProviderOptions;
 	/**
 	 * Generates a resource ID from a source ID and local ID.
 	 * @param sourceId - The source document ID (e.g., page ARI)

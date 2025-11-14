@@ -1,3 +1,4 @@
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -162,6 +163,10 @@ export class SyncBlockStoreManager {
 	public rebaseTransaction(incomingTr: Transaction, state: EditorState): void {
 		// only applicable to source sync block, for now (will be refactored further)
 		this.sourceSyncBlockStoreManager.rebaseTransaction(incomingTr, state);
+	}
+
+	public getReferenceSyncBlockProviderFactory(resourceId: ResourceId): ProviderFactory | undefined {
+		return this.referenceSyncBlockStoreManager.getProviderFactory(resourceId);
 	}
 
 	destroy() {

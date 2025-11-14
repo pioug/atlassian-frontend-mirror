@@ -4,12 +4,11 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, {
-	ErrorMessage,
+	CheckboxField,
 	Field,
 	FormFooter,
 	FormHeader,
 	FormSection,
-	MessageWrapper,
 	RequiredAsterisk,
 } from '@atlaskit/form';
 import { Flex } from '@atlaskit/primitives/compiled';
@@ -44,8 +43,7 @@ export default () => {
 							label: 'Atlassian',
 							value: 'atlassian',
 						}}
-					>
-						{({ fieldProps: { id, ...rest } }) => (
+						component={({ fieldProps: { id, ...rest } }) => (
 							<Select
 								id={`${id}-select`}
 								isSearchable={false}
@@ -58,7 +56,7 @@ export default () => {
 								{...rest}
 							/>
 						)}
-					</Field>
+					/>
 
 					<Field<ValueType<OptionType>>
 						name="project"
@@ -74,37 +72,36 @@ export default () => {
 								() => 'Please select a project',
 							);
 						}}
-					>
-						{({ fieldProps: { id, ...rest }, error }) => (
-							<>
-								<Select
-									id={`${id}-select`}
-									options={[
-										{ label: 'Atlaskit', value: 'brisbane' },
-										{ label: 'Bitbucket', value: 'bb' },
-										{ label: 'Confluence', value: 'conf' },
-										{ label: 'Jira', value: 'jra' },
-										{ label: 'Stride', value: 'stride' },
-									]}
-									placeholder="Choose a project&hellip;"
-									{...rest}
-								/>
-								<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
-							</>
+						component={({ fieldProps: { id, ...rest } }) => (
+							<Select
+								id={`${id}-select`}
+								options={[
+									{ label: 'Atlaskit', value: 'brisbane' },
+									{ label: 'Bitbucket', value: 'bb' },
+									{ label: 'Confluence', value: 'conf' },
+									{ label: 'Jira', value: 'jra' },
+									{ label: 'Stride', value: 'stride' },
+								]}
+								placeholder="Choose a project&hellip;"
+								{...rest}
+							/>
 						)}
-					</Field>
+					/>
 
-					<Field name="repo-name" label="Repository name" defaultValue="">
-						{({ fieldProps }) => <Textfield {...fieldProps} />}
-					</Field>
+					<Field
+						name="repo-name"
+						label="Repository name"
+						defaultValue=""
+						component={({ fieldProps }) => <Textfield {...fieldProps} />}
+					/>
 
-					<Field name="access-level">
-						{({ fieldProps: { value, ...others } }) => (
-							<Checkbox label="This is a private repository" isChecked={!!value} {...others} />
-						)}
-					</Field>
-					<Field name="color" label="Pick a color">
-						{({ fieldProps: { value, ...others } }) => (
+					<CheckboxField name="access-level">
+						{({ fieldProps }) => <Checkbox label="This is a private repository" {...fieldProps} />}
+					</CheckboxField>
+					<Field
+						name="color"
+						label="Pick a color"
+						component={({ fieldProps: { value, ...others } }) => (
 							<RadioGroup
 								options={[
 									{ name: 'color', value: 'red', label: 'Red' },
@@ -120,14 +117,13 @@ export default () => {
 								{...others}
 							/>
 						)}
-					</Field>
+					/>
 					<Field<ValueType<OptionType>>
 						name="include-readme"
 						id="include-readme"
 						label="Include a readme file?"
 						defaultValue={{ label: 'No', value: 'no' }}
-					>
-						{({ fieldProps: { id, ...rest } }) => (
+						component={({ fieldProps: { id, ...rest } }) => (
 							<Select
 								id={`${id}-select`}
 								isSearchable={false}
@@ -145,7 +141,7 @@ export default () => {
 								{...rest}
 							/>
 						)}
-					</Field>
+					/>
 				</FormSection>
 
 				<FormFooter>

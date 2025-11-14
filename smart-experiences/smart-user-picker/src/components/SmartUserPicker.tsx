@@ -10,6 +10,7 @@ import UserPicker, {
 	type OptionData,
 	isExternalUser,
 	isTeam,
+	isGroup,
 	isUser,
 	isValidEmail,
 } from '@atlaskit/user-picker';
@@ -109,6 +110,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 		includeUsers: true,
 		includeGroups: false,
 		includeTeams: false,
+		includeTeamsUpdates: false,
 		includeNonLicensedUsers: false,
 		displayEmailInByline: false,
 		prefetch: false,
@@ -219,6 +221,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			fieldId,
 			includeGroups,
 			includeTeams,
+			includeTeamsUpdates,
 			includeUsers,
 			includeNonLicensedUsers,
 			intl,
@@ -328,6 +331,14 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 								option.byline = option.email;
 							}
 						}
+					}
+				}
+			}
+
+			if (includeTeamsUpdates) {
+				for (let option of recommendedUsers) {
+					if (isGroup(option) || isTeam(option)) {
+						option.includeTeamsUpdates = includeTeamsUpdates;
 					}
 				}
 			}

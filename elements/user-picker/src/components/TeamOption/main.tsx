@@ -17,6 +17,7 @@ import { messages } from '../i18n';
 import { SizeableAvatar } from '../SizeableAvatar';
 
 export type TeamOptionProps = {
+	includeTeamsUpdates?: boolean;
 	isSelected: boolean;
 	team: Team;
 };
@@ -25,6 +26,7 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
 	private getPrimaryText = () => {
 		const {
 			team: { name, highlight, verified },
+			includeTeamsUpdates,
 		} = this.props;
 
 		return [
@@ -38,7 +40,7 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
 				{
 					<Inline alignBlock="center">
 						<HighlightText highlights={highlight && highlight.name}>{name}</HighlightText>
-						{verified && <VerifiedTeamIcon />}
+						{verified && !includeTeamsUpdates && this.renderVerifiedIcon()}
 					</Inline>
 				}
 			</span>,
@@ -48,8 +50,11 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
 	private renderByline = () => {
 		const {
 			isSelected,
-			team: { memberCount, includesYou },
+			team: { memberCount, includesYou, verified },
+			includeTeamsUpdates,
 		} = this.props;
+
+		const isVerified = includeTeamsUpdates && verified;
 
 		// if Member count is missing, do not show the byline, regardless of the availability of includesYou
 		if (memberCount === null || typeof memberCount === 'undefined') {
@@ -59,34 +64,55 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
 				if (memberCount > 50) {
 					return this.getBylineComponent(
 						isSelected,
-						<FormattedMessage {...messages.plus50MembersWithYou} />,
+						isVerified ? (
+							<FormattedMessage
+								{...messages.officialPlus50MembersWithYou}
+								values={{ verifiedIcon: this.renderVerifiedIcon() }}
+							/>
+						) : (
+							<FormattedMessage {...messages.plus50MembersWithYou} />
+						),
 					);
 				} else {
 					return this.getBylineComponent(
 						isSelected,
-						<FormattedMessage
-							{...messages.memberCountWithYou}
-							values={{
-								count: memberCount,
-							}}
-						/>,
+						isVerified ? (
+							<FormattedMessage
+								{...messages.officialMemberCountWithYou}
+								values={{ verifiedIcon: this.renderVerifiedIcon(), count: memberCount }}
+							/>
+						) : (
+							<FormattedMessage {...messages.memberCountWithYou} values={{ count: memberCount }} />
+						),
 					);
 				}
 			} else {
 				if (memberCount > 50) {
 					return this.getBylineComponent(
 						isSelected,
-						<FormattedMessage {...messages.plus50MembersWithoutYou} />,
+						isVerified ? (
+							<FormattedMessage
+								{...messages.officialPlus50MembersWithoutYou}
+								values={{ verifiedIcon: this.renderVerifiedIcon() }}
+							/>
+						) : (
+							<FormattedMessage {...messages.plus50MembersWithoutYou} />
+						),
 					);
 				} else {
 					return this.getBylineComponent(
 						isSelected,
-						<FormattedMessage
-							{...messages.memberCountWithoutYou}
-							values={{
-								count: memberCount,
-							}}
-						/>,
+						isVerified ? (
+							<FormattedMessage
+								{...messages.officialMemberCountWithoutYou}
+								values={{ verifiedIcon: this.renderVerifiedIcon(), count: memberCount }}
+							/>
+						) : (
+							<FormattedMessage
+								{...messages.memberCountWithoutYou}
+								values={{ count: memberCount }}
+							/>
+						),
 					);
 				}
 			}
@@ -110,6 +136,13 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
 			team: { avatarUrl },
 		} = this.props;
 		return <SizeableAvatar appearance="big" src={avatarUrl} type="team" />;
+	};
+
+	private renderVerifiedIcon = () => {
+		if (this.props.team.verified) {
+			return <VerifiedTeamIcon label="" size="small" spacing="none" />;
+		}
+		return undefined;
 	};
 
 	private getLozengeProps = () =>

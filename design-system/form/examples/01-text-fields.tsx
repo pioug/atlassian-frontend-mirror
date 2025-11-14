@@ -14,12 +14,20 @@ export default () => (
 					Required fields are marked with an asterisk <RequiredAsterisk />
 				</p>
 			</FormHeader>
-			<Field name="firstname" defaultValue="" label="First name" isRequired>
-				{({ fieldProps }) => <TextField autoComplete="given-name" {...fieldProps} />}
-			</Field>
+			<Field
+				name="firstname"
+				defaultValue=""
+				label="First name"
+				isRequired
+				component={({ fieldProps }) => <TextField autoComplete="given-name" {...fieldProps} />}
+			/>
 
-			<Field name="lastname" defaultValue="" label="Last name" isRequired>
-				{({ fieldProps: { isRequired, isDisabled, ...others } }) => (
+			<Field
+				name="lastname"
+				defaultValue=""
+				label="Last name"
+				isRequired
+				component={({ fieldProps: { isRequired, isDisabled, ...others } }) => (
 					<TextField
 						isDisabled={isDisabled}
 						isRequired={isRequired}
@@ -27,19 +35,21 @@ export default () => (
 						{...others}
 					/>
 				)}
-			</Field>
+			/>
 
-			<Field<string, HTMLTextAreaElement> name="description" defaultValue="" label="Description">
-				{({ fieldProps }) => <TextArea {...fieldProps} />}
-			</Field>
+			<Field<string, HTMLTextAreaElement>
+				name="description"
+				defaultValue=""
+				label="Description"
+				component={({ fieldProps }) => <TextArea {...fieldProps} />}
+			/>
 
 			<Field<string, HTMLTextAreaElement>
 				name="comments"
 				defaultValue=""
 				label="Additional comments"
-			>
-				{({ fieldProps }) => <TextArea {...fieldProps} />}
-			</Field>
+				component={({ fieldProps }) => <TextArea {...fieldProps} />}
+			/>
 
 			<FormFooter>
 				<Button type="submit" appearance="primary">

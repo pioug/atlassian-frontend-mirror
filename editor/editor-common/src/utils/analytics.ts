@@ -18,6 +18,8 @@ export const getAnalyticsAppearance = (
 			return EDITOR_APPEARANCE_CONTEXT.CHROMELESS;
 		case 'mobile':
 			return EDITOR_APPEARANCE_CONTEXT.MOBILE;
+		case 'max':
+			return EDITOR_APPEARANCE_CONTEXT.MAX;
 	}
 };
 

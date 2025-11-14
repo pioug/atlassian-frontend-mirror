@@ -10,5 +10,11 @@ export interface Props {
     onArticleRenderBegin?(): void;
     onArticleRenderDone?(): void;
 }
+/**
+ * Processes HTML content to ensure all links open in a new tab
+ * @param htmlContent - The HTML string to process
+ * @returns The processed HTML with target="_blank" added to all links
+ */
+export declare const processLinksForNewTab: (htmlContent: string) => string;
 export declare const ArticleBody: (props: Props) => React.JSX.Element | null;
 export default ArticleBody;

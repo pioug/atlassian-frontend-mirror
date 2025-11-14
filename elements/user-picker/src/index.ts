@@ -2,6 +2,7 @@ export { isValidEmail } from './components/emailValidation';
 export type { EmailValidationResponse, EmailValidator } from './components/emailValidation';
 export { UserPicker as default } from './components/UserPicker';
 export { PopupUserPicker } from './components/PopupUserPicker';
+export { SingleValue } from './components/SingleValue';
 export { isEmail, isExternalUser, isTeam, isUser, isGroup } from './components/utils';
 export {
 	// Constants

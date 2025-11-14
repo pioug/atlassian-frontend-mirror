@@ -14,6 +14,7 @@ import { isValidEmail } from './emailValidation';
 
 export type OptionProps = AkOptionProps & {
 	data: OptionType;
+	includeTeamsUpdates?: boolean;
 	isDisabled: boolean;
 	isFocused: boolean;
 	isSelected: boolean;
@@ -49,11 +50,23 @@ const dataOption = ({ data: { data }, isSelected, status, selectProps }: OptionP
 	}
 
 	if (isTeam(data)) {
-		return <AsyncTeamOption team={data} isSelected={isSelected} />;
+		return (
+			<AsyncTeamOption
+				team={data}
+				isSelected={isSelected}
+				includeTeamsUpdates={data.includeTeamsUpdates}
+			/>
+		);
 	}
 
 	if (isGroup(data)) {
-		return <AsyncGroupOption group={data} isSelected={isSelected} />;
+		return (
+			<AsyncGroupOption
+				group={data}
+				isSelected={isSelected}
+				includeTeamsUpdates={data.includeTeamsUpdates}
+			/>
+		);
 	}
 
 	if (isCustom(data)) {

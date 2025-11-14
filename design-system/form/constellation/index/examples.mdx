@@ -6,7 +6,8 @@ import FormDateTimePicker from '../../examples/constellation/form-date-time-pick
 import FormCustomField from '../../examples/constellation/form-custom-field.tsx';
 import FormDefaultComplex from '../../examples/constellation/form-default-complex.tsx';
 import FormDefaultSimple from '../../examples/constellation/form-default-simple.tsx';
-import FormField from '../../examples/constellation/form-field.tsx';
+import FormFieldComplex from '../../examples/constellation/form-field-complex.tsx';
+import FormFieldSimple from '../../examples/constellation/form-field-simple.tsx';
 import FormSelect from '../../examples/constellation/form-select.tsx';
 import FormCheckboxField from '../../examples/constellation/form-checkbox-field.tsx';
 import FormFieldset from '../../examples/constellation/form-fieldset.tsx';
@@ -88,7 +89,30 @@ field state. The state can be passed onto the inner component.
 
 When a user focuses on a field and starts changing content, the focus color becomes blue.
 
-<Example Component={FormField} packageName="@atlaskit/form" />
+<Example Component={FormFieldComplex} packageName="@atlaskit/form" />
+
+### Simple implementation
+
+If your field only requires spreading `fieldProps` on the input element and doesn't utilize any
+other render props like `meta`, you can simplify how it's written in your code by putting the
+contents of your field within the `component` prop and omitting the messaging component (for
+example, `ErrorMessage`).
+
+This simplified implementation will provide greater accessibility and more consistent styling
+through rendering components of your field internally.
+
+To use the simplified implementation, put the contents of your field within the `component` prop and
+omit the messaging components (e.g. `ErrorMessage`, etc.).
+
+If an error is returned by the function provided in the `validate` prop, it will be rendered
+automatically in an internal `ErrorMessage` component. Content that would previously go in the
+`HelperMessage` and `ValidMessage` components will be rendered when provided using the
+`helperMessage` and `validMessage` props.
+
+If you need more control of how messaging or labeling renders, we recommend against using the simple
+implementation.
+
+<Example Component={FormFieldSimple} packageName="@atlaskit/form" />
 
 ### Checkbox field
 

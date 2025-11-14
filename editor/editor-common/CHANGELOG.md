@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 110.30.1
+
+### Patch Changes
+
+- [`63628e69e52e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63628e69e52e7) -
+  [ux] [EDITOR-2557] Disable sync block creation, edition and deletion in offline mode
+- [`e3aafa008fcf4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3aafa008fcf4) -
+  EDITOR-2771 Pass parent Editor/Renderer data providers through SyncBlockDataProvider to the nested
+  renderer
+- Updated dependencies
+
+## 110.30.0
+
+### Minor Changes
+
+- [`42bd907443147`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42bd907443147) -
+  NO-ISSUE Ensures INP metrics and other analytics account for max appearance
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.29.2
+
+### Patch Changes
+
+- [`76e788fce7750`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76e788fce7750) -
+  ED-29665 experience tracking updates
+- Updated dependencies
+
 ## 110.29.1
 
 ### Patch Changes

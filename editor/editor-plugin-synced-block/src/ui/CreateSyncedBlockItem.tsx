@@ -8,7 +8,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import BlockSyncedIcon from '@atlaskit/icon-lab/core/block-synced';
 import Lozenge from '@atlaskit/lozenge';
-import { Flex } from '@atlaskit/primitives/compiled';
 
 import { canBeConvertedToSyncBlock } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
@@ -18,32 +17,33 @@ type CreateSyncedBlockItemProps = {
 };
 
 export const CreateSyncedBlockItem = ({ api }: CreateSyncedBlockItemProps) => {
-	const intl = useIntl();
+	const { formatMessage } = useIntl();
 
-	const selection = useSharedPluginStateWithSelector(
+	const { selection, mode } = useSharedPluginStateWithSelector(
 		api,
-		['selection'],
-		(states) => states.selectionState?.selection,
+		['selection', 'connectivity'],
+		(states) => ({
+			selection: states.selectionState?.selection,
+			mode: states.connectivityState?.mode,
+		}),
 	);
-	const isDisabled = Boolean(!selection || !canBeConvertedToSyncBlock(selection));
+	const isDisabled = Boolean(
+		!selection || !canBeConvertedToSyncBlock(selection) || mode === 'offline',
+	);
 
 	const onClick = useCallback(() => {
 		api?.core?.actions.execute(({ tr }) => api?.syncedBlock.commands.insertSyncedBlock()({ tr }));
 		api?.core?.actions.focus();
 	}, [api]);
 
-	const message = intl.formatMessage(syncBlockMessages.createSyncBlockLabel);
-
 	return (
 		<ToolbarDropdownItem
 			onClick={onClick}
 			isDisabled={isDisabled}
 			elemBefore={<BlockSyncedIcon size="small" label="" />}
+			elemAfter={<Lozenge appearance="new">{formatMessage(syncBlockMessages.newLozenge)}</Lozenge>}
 		>
-			<Flex alignItems="center" gap="space.050">
-				{message}
-				<Lozenge appearance="new">{intl.formatMessage(syncBlockMessages.newLozenge)}</Lozenge>
-			</Flex>
+			{formatMessage(syncBlockMessages.createSyncBlockLabel)}
 		</ToolbarDropdownItem>
 	);
 };

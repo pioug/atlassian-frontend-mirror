@@ -23,7 +23,9 @@ export default () => (
 			onSubmit={(data) => {
 				console.log('form data', data);
 				return new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>
-					data.username === 'error' ? { username: 'IN_USE' } : undefined,
+					data.username === 'error'
+						? { username: 'This username is already in use, try another one.' }
+						: undefined,
 				);
 			}}
 		>
@@ -34,19 +36,14 @@ export default () => (
 							Required fields are marked with an asterisk <RequiredAsterisk />
 						</p>
 					</FormHeader>
-					<Field name="username" label="Username" defaultValue="" isRequired>
-						{({ fieldProps, error }) => (
-							<Fragment>
-								<TextField autoComplete="username" {...fieldProps} />
-								<MessageWrapper>
-									{!error && <HelperMessage>You can use letters, numbers & periods.</HelperMessage>}
-									{error && (
-										<ErrorMessage>This username is already in use, try another one.</ErrorMessage>
-									)}
-								</MessageWrapper>
-							</Fragment>
-						)}
-					</Field>
+					<Field
+						name="username"
+						label="Username"
+						defaultValue=""
+						isRequired
+						helperMessage="You can use letters, numbers & periods."
+						component={({ fieldProps }) => <TextField autoComplete="username" {...fieldProps} />}
+					></Field>
 					<Field
 						name="password"
 						label="Password"

@@ -151,6 +151,9 @@
 		},
 		"jfind-copy-link-modal-invite-tooltip": {
 			"type": "boolean"
+		},
+		"jfind-copy-link-modal-invite-tooltip-jira": {
+			"type": "boolean"
 		}
 	},
 	"sideEffects": [

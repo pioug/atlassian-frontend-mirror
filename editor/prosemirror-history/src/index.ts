@@ -128,7 +128,7 @@ class Branch {
 		histOptions: Required<HistoryOptions>,
 		preserveItems: boolean,
 	) {
-		const newItems = [];
+		const newItems: Item[] = [];
 		let eventCount = this.eventCount;
 		let oldItems = this.items,
 			lastItem = !preserveItems && oldItems.length ? oldItems.get(oldItems.length - 1) : null;
@@ -232,7 +232,7 @@ class Branch {
 			}
 		}, start);
 
-		const newMaps = [];
+		const newMaps: Item[] = [];
 		for (let i = rebasedCount; i < newUntil; i++) {
 			newMaps.push(new Item(mapping.maps[i]));
 		}
@@ -580,7 +580,7 @@ function mapRanges(ranges: readonly number[], mapping: Mapping) {
 	if (!ranges) {
 		return null;
 	}
-	const result = [];
+	const result: number[] = [];
 	for (let i = 0; i < ranges.length; i += 2) {
 		const from = mapping.map(ranges[i], 1),
 			to = mapping.map(ranges[i + 1], -1);

@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 110.30.2
+
+### Patch Changes
+
+- [`c60de47015108`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c60de47015108) -
+  Fix types for editor related dependencies
+- Updated dependencies
+
 ## 110.30.1
 
 ### Patch Changes

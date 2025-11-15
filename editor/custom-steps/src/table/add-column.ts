@@ -29,7 +29,7 @@ import type { SideEffects } from './utils/side-effects/types';
 const ADD_COLUMN_STEP = 'ak-add-column';
 
 function printColumnInfo(columnInfo: ColumnInfo) {
-	const cellsFrom = [];
+	const cellsFrom: number[] = [];
 	for (const cellInfo of columnInfo.values()) {
 		cellsFrom.push(cellInfo.from);
 	}
@@ -69,7 +69,7 @@ const getTableRectAndColumnFactory = (
  */
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class AddColumnStep<S extends Schema = any> extends Step {
+export class AddColumnStep<_S extends Schema = any> extends Step {
 	private readonly tablePos: number;
 	private readonly isDelete: boolean;
 	private columnInfo: ColumnInfo;
@@ -257,7 +257,7 @@ export class AddColumnStep<S extends Schema = any> extends Step {
 	 * after it. Returns the merged step when possible, null if the
 	 * steps can't be merged.
 	 */
-	merge(other: Step): Step | null {
+	merge(_other: Step): Step | null {
 		// We cannot merge add column step at the moment
 		return null;
 	}

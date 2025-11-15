@@ -17,8 +17,8 @@ export interface TimeRangeProps {
 	disableThumbTooltip: boolean;
 	isAlwaysActive: boolean;
 	onChanged?: () => void;
-	skipBackward?: (skipAmount: number) => void;
-	skipForward?: (skipAmount: number) => void;
+	skipBackward?: (skipAmount?: number) => void;
+	skipForward?: (skipAmount?: number) => void;
 }
 
 export interface TimeRangeState {
@@ -44,7 +44,7 @@ export class TimeRangeBase extends Component<
 		dragStartClientX: 0,
 	};
 
-	static defaultProps: Partial<TimeRangeProps> = {
+	static defaultProps = {
 		disableThumbTooltip: false,
 		isAlwaysActive: false,
 	};
@@ -278,4 +278,4 @@ export class TimeRangeBase extends Component<
 	}
 }
 
-export const TimeRange = injectIntl(TimeRangeBase);
+export const TimeRange = injectIntl(TimeRangeBase) as React.ComponentType<TimeRangeProps>;

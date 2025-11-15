@@ -1,5 +1,13 @@
 # @atlaskit/custom-steps
 
+## 0.16.3
+
+### Patch Changes
+
+- [`c60de47015108`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c60de47015108) -
+  Fix types for editor related dependencies
+- Updated dependencies
+
 ## 0.16.2
 
 ### Patch Changes

@@ -157,7 +157,7 @@ export class RowsSideEffectHandler {
 	private deleteHandler = (): RowsHandler => {
 		const newRows: RowSideEffect[] = [];
 		return {
-			handle: (tr, rect, row, col, cell) => {
+			handle: (tr, rect, row, col, _cell) => {
 				if (!isLastCellInRow(rect, row, col)) {
 					return {
 						handled: false,
@@ -184,7 +184,7 @@ export class RowsSideEffectHandler {
 		let i = 0;
 
 		return {
-			handle: (tr, rect, row, col, cell) => {
+			handle: (tr, rect, row, _col, cell) => {
 				// // If not sideEffects stored return;
 				if (!this.rows || i >= this.rows.length) {
 					return { handled: false };
@@ -214,7 +214,7 @@ export class RowsSideEffectHandler {
 					skipRows: skipRows - 1,
 				};
 			},
-			end: (tr, rect, col: number) => {
+			end: (tr, rect, _col: number) => {
 				if (!this.rows || i >= this.rows.length) {
 					return;
 				}
@@ -258,12 +258,12 @@ export class RowsSideEffectHandler {
 		return mergedRanges(ranges, rowRanges);
 	}
 
-	map(mapping: Mappable): RowSideEffect[] {
+	map(_mapping: Mappable): RowSideEffect[] {
 		return [];
 	}
 
 	invert(
-		originalDoc: ProseMirrorNode,
+		_originalDoc: ProseMirrorNode,
 		isDelete: boolean,
 		map: StepMap,
 	): RowSideEffect[] | undefined {

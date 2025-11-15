@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 79.7.2
+
+### Patch Changes
+
+- [`c60de47015108`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c60de47015108) -
+  Fix types for editor related dependencies
+- Updated dependencies
+
 ## 79.7.1
 
 ### Patch Changes

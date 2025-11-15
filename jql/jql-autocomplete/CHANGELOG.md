@@ -1,5 +1,12 @@
 # @atlaskit/jql-autocomplete
 
+## 2.0.3
+
+### Patch Changes
+
+- [`c60de47015108`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c60de47015108) -
+  Fix types for editor related dependencies
+
 ## 2.0.2
 
 ### Patch Changes

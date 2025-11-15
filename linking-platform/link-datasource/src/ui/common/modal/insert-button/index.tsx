@@ -12,7 +12,7 @@ import { useUserInteractions } from '../../../../contexts/user-interactions';
 import { useDatasourceContext } from '../datasource-context';
 import { useViewModeContext } from '../mode-switcher/useViewModeContext';
 
-export type InsertButtonProps<Parameters extends DatasourceParameters> = PropsWithChildren<{
+export type InsertButtonProps<_Parameters extends DatasourceParameters> = PropsWithChildren<{
 	getAnalyticsPayload: () => Record<string, any>;
 	testId?: string;
 	url: string | undefined;
@@ -45,7 +45,7 @@ export const InsertButton = <Parameters extends DatasourceParameters>({
 		status === 'loading';
 
 	const onInsertPressed = useCallback(
-		(e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
+		(_e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
 			if (!parameters || !isValidParameters(parameters) || !url) {
 				return;
 			}

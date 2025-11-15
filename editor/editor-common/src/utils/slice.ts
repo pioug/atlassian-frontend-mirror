@@ -71,7 +71,7 @@ export function mapChildren<T>(node: Node | Fragment, callback: MapWithCallback<
 const findNode =
 	(predicate: (node: Node) => boolean) =>
 	(slice: Slice): Node | null => {
-		let foundNode = null;
+		let foundNode: Node | null = null;
 		slice.content.nodesBetween(0, slice.content.size, (node) => {
 			if (predicate(node)) {
 				foundNode = node;

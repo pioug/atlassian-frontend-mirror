@@ -274,7 +274,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 	}, [responseItems]);
 
 	const onInsertPressed = useCallback(
-		(e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
+		(_e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
 			if (!aql || !schemaId || !workspaceId) {
 				return;
 			}

@@ -191,7 +191,7 @@ export function getRangeAncestorNodeNames({
 		// This isn't as precise as calling resolve() on each parent, but it's a lot faster
 		// and should hopefully provide a good approximation of the ancestor nodes
 		const seenParents = new Set<PMNode>();
-		doc.nodesBetween(pos.from, pos.to, (node, nodePos, parent) => {
+		doc.nodesBetween(pos.from, pos.to, (_node, _nodePos, parent) => {
 			// Collect parent chain using the parent parameter
 			const currentParent = parent;
 			if (!!currentParent && !seenParents.has(currentParent)) {
@@ -245,7 +245,7 @@ export function getAnnotationInlineNodeTypes(
 	});
 
 	const inlineNodeNames = new Set<string>();
-	state.doc.descendants((node, pos) => {
+	state.doc.descendants((node, _pos) => {
 		if (mark.isInSet(node.marks)) {
 			inlineNodeNames.add(node.type.name);
 		}

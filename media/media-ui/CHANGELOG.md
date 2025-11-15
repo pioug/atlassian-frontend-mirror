@@ -1,5 +1,12 @@
 # @atlaskit/media-ui
 
+## 28.7.13
+
+### Patch Changes
+
+- [`c60de47015108`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c60de47015108) -
+  Fix types for editor related dependencies
+
 ## 28.7.12
 
 ### Patch Changes

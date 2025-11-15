@@ -148,7 +148,7 @@ export function createSelectionClickHandler(
 ) {
 	return function handleClickOn(
 		view: EditorView,
-		pos: number,
+		_pos: number,
 		node: PmNode,
 		nodePos: number,
 		event: MouseEvent,

@@ -85,11 +85,8 @@ export const InlineImageCard = ({
 				ref={copyNodeRef}
 			/>
 			{getSsrScriptProps && (
-				<script
-					// Ignored via go/ees005
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					{...getSsrScriptProps()}
-				/>
+				// eslint-disable-next-line react/jsx-props-no-spreading
+				<script {...(getSsrScriptProps() as Omit<ReturnType<typeof getSsrScriptProps>, 'css'>)} />
 			)}
 		</Fragment>
 	);

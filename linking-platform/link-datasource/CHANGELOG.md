@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.30.1
+
+### Patch Changes
+
+- [`c60de47015108`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c60de47015108) -
+  Fix types for editor related dependencies
+- Updated dependencies
+
 ## 4.30.0
 
 ### Minor Changes

@@ -98,7 +98,7 @@ export class RenderCountProfiler {
 		componentId: string;
 	}): ComponentInstanceRenderCounter[] {
 		const component = this.store?.[PROFILER_KEY]?.components?.[componentId] ?? {};
-		const counters = [];
+		const counters: ComponentInstanceRenderCounter[] = [];
 		// eslint-disable-next-line guard-for-in
 		for (const instanceId in component) {
 			const counter = { instanceId, count: component[instanceId].count };

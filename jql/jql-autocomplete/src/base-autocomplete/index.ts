@@ -278,9 +278,9 @@ export class BaseAutocomplete<RuleContext extends {} = {}> {
 	 * @protected
 	 */
 	protected overrideReplacePosition(
-		replaceStartToken: Token | void,
-		maybeCaretToken: Token | void,
-		caretSelectionRange: Position,
+		_replaceStartToken: Token | void,
+		_maybeCaretToken: Token | void,
+		_caretSelectionRange: Position,
 	): Position | null {
 		return null;
 	}
@@ -437,7 +437,7 @@ export class BaseAutocomplete<RuleContext extends {} = {}> {
 	 * @protected
 	 */
 	protected assignRuleContextData(
-		maybeCaretToken: Token | void,
+		_maybeCaretToken: Token | void,
 		rules: RuleSuggestionsWithRuleList<RuleContext>,
 	): RuleSuggestionsWithRuleList<RuleContext> {
 		return rules;

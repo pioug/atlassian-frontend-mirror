@@ -258,7 +258,7 @@ const HoverLinkOverlayOriginal = ({
 		? formatMessage(cardMessages.previewButtonTitle)
 		: formatMessage(cardMessages.openButtonTitle);
 
-	let icon = null;
+	let icon: React.ReactElement | null = null;
 	if (isPreviewButton && showPanelButtonIcon === 'panel') {
 		icon = <PanelRightIcon label="" />;
 	} else if (isPreviewButton && showPanelButtonIcon === 'modal') {
@@ -428,7 +428,7 @@ const HoverLinkOverlayNew = ({
 		? formatMessage(cardMessages.previewButtonTitle)
 		: formatMessage(cardMessages.openButtonTitle);
 
-	let icon = null;
+	let icon: React.ReactElement | null = null;
 	if (isPreviewButton && showPanelButtonIcon === 'panel') {
 		icon = <PanelRightIcon label="" />;
 	} else if (isPreviewButton && showPanelButtonIcon === 'modal') {

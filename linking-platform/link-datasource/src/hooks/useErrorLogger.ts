@@ -42,7 +42,7 @@ const getNetworkFields = (
 	}
 };
 
-type Tail<T extends any[]> = T extends [infer A, ...infer R] ? R : never;
+type Tail<T extends any[]> = T extends [infer _A, ...infer R] ? R : never;
 
 /**
  * This function is just a wrapper around captureException that checks if the enable-sentry-client FF is enabled

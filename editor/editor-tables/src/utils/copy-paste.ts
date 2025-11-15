@@ -74,7 +74,7 @@ export function pastedCells(slice: Slice): CellSelectionRect | null {
 	const first = content.firstChild;
 	const role = first.type.spec.tableRole;
 	const { schema } = first.type;
-	const rows = [];
+	const rows: Fragment[] = [];
 	if (role === 'row') {
 		for (let i = 0; i < content.childCount; i++) {
 			let cells = content.child(i).content;
@@ -159,10 +159,10 @@ export function clipCells(
 
 	if (width !== newWidth) {
 		const added: number[] = [];
-		const newRows = [];
+		const newRows: Fragment[] = [];
 		for (let row = 0; row < rows.length; row++) {
 			const frag = rows[row];
-			const cells = [];
+			const cells: PMNode[] = [];
 			for (let col = added[row] || 0, i = 0; col < newWidth; i++) {
 				let cell = frag.child(i % frag.childCount);
 				if (col + cell.attrs.colspan > newWidth) {
@@ -184,9 +184,9 @@ export function clipCells(
 	}
 
 	if (height !== newHeight) {
-		const newRows = [];
+		const newRows: Fragment[] = [];
 		for (let row = 0, i = 0; row < newHeight; row++, i++) {
-			const cells = [];
+			const cells: PMNode[] = [];
 			const source = rows[i % height];
 			for (let j = 0; j < source.childCount; j++) {
 				let cell = source.child(j);
@@ -273,7 +273,7 @@ function growTable(
 		}
 
 		const emptyRow = types.row.create(null, Fragment.from(cells));
-		const rows = [];
+		const rows: PMNode[] = [];
 		for (let i = map.height; i < height; i++) {
 			rows.push(emptyRow);
 		}

@@ -27,6 +27,8 @@ type DisallowedWrapperProps = React.HTMLAttributes<HTMLDivElement> & {
 };
 
 const DisallowedWrapper = ({ disabled, ...props }: DisallowedWrapperProps) => {
+	// adding this ignore to avoid having to use compiled (can be fixed at a later date)
+	// @ts-ignore
 	// Ignored via go/ees005
 	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <div {...props} />;

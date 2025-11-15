@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-autocomplete",
-	"version": "2.0.2",
+	"version": "2.0.3",
 	"description": "JQL autocomplete engine",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

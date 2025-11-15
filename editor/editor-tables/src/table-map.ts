@@ -262,7 +262,7 @@ export class TableMap {
 	// Return the position of all cells that have the top left corner in
 	// the given rectangle.
 	cellsInRect(rect: Rect) {
-		const result = [];
+		const result: number[] = [];
 		const seen: { [key: number]: boolean } = {};
 		for (let row = rect.top; row < rect.bottom; row++) {
 			for (let col = rect.left; col < rect.right; col++) {
@@ -328,7 +328,7 @@ function computeMap(table: PMNode) {
 	}
 	const width = findWidth(table);
 	const height = table.childCount;
-	const map = [];
+	const map: number[] = [];
 	const colWidths: number[] = [];
 	let mapPos = 0,
 		problems: TableProblem[] | null = null;
@@ -519,7 +519,7 @@ function freshColWidth(attrs: { [key: string]: any }) {
 	if (attrs.colwidth) {
 		return attrs.colwidth.slice();
 	}
-	const result = [];
+	const result: number[] = [];
 	for (let i = 0; i < attrs.colspan; i++) {
 		result.push(0);
 	}

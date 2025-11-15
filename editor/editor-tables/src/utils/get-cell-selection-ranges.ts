@@ -12,7 +12,7 @@ export function getCellSelectionRanges(
 	const start = $anchorCell.start(-1);
 	const rect = map.rectBetween($anchorCell.pos - start, $headCell.pos - start);
 	const doc = $anchorCell.node(0);
-	const cells = map.cellsInRect(rect).filter((p) => p !== $headCell.pos - start);
+	const cells: number[] = map.cellsInRect(rect).filter((p) => p !== $headCell.pos - start);
 	// Make the head cell the first range, so that it counts as the
 	// primary part of the selection
 	cells.unshift($headCell.pos - start);

@@ -73,7 +73,7 @@ export const useLoadOptions = <T>({
 					});
 				}
 			})
-			.catch((err) => {
+			.catch((_err) => {
 				showErrorFlag();
 				dispatch({ isLoading: false, options: [], hasFailed: true });
 			});

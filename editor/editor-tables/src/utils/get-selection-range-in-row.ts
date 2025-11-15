@@ -41,7 +41,7 @@ export const getSelectionRangeInRow =
 		}
 
 		// filter out rows without cells (where all columns have rowspan > 1 in the same row)
-		const indexes = [];
+		const indexes: number[] = [];
 		for (let i = startIndex; i <= endIndex; i++) {
 			const maybeCells = getCellsInRow(i)(tr.selection);
 			if (maybeCells && maybeCells.length) {

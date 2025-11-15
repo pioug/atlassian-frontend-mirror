@@ -29,7 +29,7 @@ export const findChangedNodesFromTransaction = (tr: Transaction): PMNode[] => {
 	})[];
 
 	steps.forEach((step) => {
-		step.getMap().forEach((oldStart, oldEnd, newStart, newEnd) => {
+		step.getMap().forEach((_oldStart, _oldEnd, newStart, newEnd) => {
 			tr.doc.nodesBetween(newStart, Math.min(newEnd, tr.doc.content.size), (node) => {
 				if (!nodes.find((n) => n === node)) {
 					nodes.push(node);

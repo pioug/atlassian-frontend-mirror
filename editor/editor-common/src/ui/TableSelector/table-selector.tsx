@@ -117,7 +117,7 @@ interface TableSelectorPopupProps {
 }
 
 const createArray = (maxCols: number, maxRows: number) => {
-	const arr = [];
+	const arr: Array<{ col: number; row: number }> = [];
 	for (let i = 1; i < maxRows + 1; i++) {
 		for (let j = 1; j < maxCols + 1; j++) {
 			arr.push({ col: j, row: i });

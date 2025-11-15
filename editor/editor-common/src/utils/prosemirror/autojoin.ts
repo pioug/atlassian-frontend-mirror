@@ -32,7 +32,7 @@ export function autoJoinTr(
 
 	// Figure out which joinable points exist inside those ranges,
 	// by checking all node boundaries in their parent nodes.
-	const joinable = [];
+	const joinable: number[] = [];
 	for (let i = 0; i < ranges.length; i += 2) {
 		const from = ranges[i];
 		const to = ranges[i + 1];

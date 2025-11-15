@@ -24,7 +24,7 @@ export const TitleBox = injectIntl(
 		breakpoint,
 		titleBoxBgColor,
 		titleBoxIcon,
-		hidden,
+		hidden: _hidden,
 		intl,
 	}: TitleBoxProps & WrappedComponentProps) => (
 		<TitleBoxWrapper breakpoint={breakpoint} titleBoxBgColor={titleBoxBgColor}>

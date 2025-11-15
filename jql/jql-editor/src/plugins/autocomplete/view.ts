@@ -1,6 +1,6 @@
 import { type FunctionComponent } from 'react';
 
-import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, type Node, Slice } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isListOperator } from '@atlaskit/jql-ast';
@@ -102,7 +102,7 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 	getSliceForSuggestion = (option: SelectableAutocompleteOption): Slice => {
 		const { value, name, nameOnRichInlineNode, valueType, context } = option;
 
-		const nodes = [];
+		const nodes: Node[] = [];
 
 		if (shouldInsertOpeningParenthesis(option)) {
 			nodes.push(this.view.state.schema.text('('));

@@ -169,7 +169,7 @@ export const findFilepaths = (text: string, offset: number = 0): Array<filepathM
 	// eslint-disable-next-line require-unicode-regexp
 	const localRegExp = new RegExp(FILEPATH_REGEXP);
 	let match;
-	const matchesList = [];
+	const matchesList: filepathMatch[] = [];
 	const maxFilepathSize = 260;
 	// Ignored via go/ees005
 	// eslint-disable-next-line no-cond-assign

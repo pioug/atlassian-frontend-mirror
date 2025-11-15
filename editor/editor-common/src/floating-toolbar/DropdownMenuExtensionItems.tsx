@@ -175,7 +175,7 @@ export const DropdownMenuExtensionItems = (props: OverflowExtensionPlaceholderPr
 
 	return (
 		<>
-			{extensionItems.map((item, idx) => {
+			{extensionItems.map((item, _idx) => {
 				if (!('key' in item)) {
 					return null;
 				}

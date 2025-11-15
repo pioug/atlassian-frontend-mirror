@@ -46,7 +46,7 @@ const headingWithAlignmentStyles = () =>
 // @see typography spreadsheet: https://docs.google.com/spreadsheets/d/1iYusRGCT4PoPfvxbJ8NrgjtfFgXLm5lpDWXzjua1W2E/edit#gid=93913128
 // text sizing prototype: http://proto/fabricrender/
 export const headingsSharedStyles = (
-	typographyTheme?:
+	_typographyTheme?:
 		| 'typography'
 		| 'typography-adg3'
 		| 'typography-modernized'

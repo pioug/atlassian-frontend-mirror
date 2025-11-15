@@ -173,13 +173,13 @@ type ExtractPluginAllBuilderPlugins<Plugin extends PresetPlugin> =
 			Plugin extends [infer MPlugin, ...any]
 			? // Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				MPlugin extends NextEditorPlugin<infer Name, any>
+				MPlugin extends NextEditorPlugin<infer _Name, any>
 				? MPlugin
 				: never
 			: never
 		: // Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			Plugin extends NextEditorPlugin<infer Name, any>
+			Plugin extends NextEditorPlugin<infer _Name, any>
 			? Plugin
 			: never;
 

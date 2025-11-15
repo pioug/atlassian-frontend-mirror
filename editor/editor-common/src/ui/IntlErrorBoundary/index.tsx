@@ -22,7 +22,7 @@ export class IntlErrorBoundary extends React.Component<ErrorBoundaryProps, Error
 		missingIntlProviderInAncestry: false,
 	};
 
-	componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+	componentDidCatch(error: Error, _errorInfo: React.ErrorInfo) {
 		// if missing IntlProvider in ancestry, we setup a fallback IntlProvider ourselves
 		if (isMissingIntlProviderInAncestryError(error)) {
 			this.setState({ missingIntlProviderInAncestry: true });

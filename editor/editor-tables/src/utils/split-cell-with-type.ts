@@ -56,7 +56,12 @@ export function splitCellWithType(getCellType: GetCellTypeCallback): Command {
 		}
 		if (cellNode && dispatch) {
 			let cellAttrs = cellNode.attrs as CellAttributes;
-			const attrs = [];
+			const attrs: {
+				background?: string;
+				colspan?: number;
+				colwidth?: number[] | null;
+				rowspan?: number;
+			}[] = [];
 			const colwidth = cellAttrs.colwidth;
 			if (cellAttrs.rowspan && cellAttrs.rowspan > 1) {
 				cellAttrs = { ...cellAttrs, rowspan: 1 };

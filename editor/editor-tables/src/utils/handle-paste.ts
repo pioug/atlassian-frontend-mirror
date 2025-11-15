@@ -1,4 +1,4 @@
-import { Fragment, type Slice } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, type Slice, type Node } from '@atlaskit/editor-prosemirror/model';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -21,7 +21,7 @@ const SKIP_NESTED_TABLE_PASTE_SOURCES = ['microsoft-excel', 'google-spreadsheets
 
 export function handlePaste(
 	view: EditorView,
-	event: ClipboardEvent,
+	_event: ClipboardEvent,
 	slice: Slice,
 	options?: PasteOptions,
 ): boolean {
@@ -119,7 +119,7 @@ export function handlePaste(
 // If the table grows on paste, keep the column widhts of the
 // original table.
 const clearColumnWidthOfCells = (cells: CellSelectionRect, rect: Rect, table: TableMap) => {
-	const overlappingCells = [];
+	const overlappingCells: Node[] = [];
 
 	for (const row of cells.rows) {
 		let colNum = rect.left;

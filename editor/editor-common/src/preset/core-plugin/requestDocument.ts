@@ -73,7 +73,7 @@ export function returnDocumentRequest<GenericTransformer extends Transformer<any
 		: InferTransformerResultCallback<GenericTransformer>,
 	transformer?: GenericTransformer,
 	fireAnalyticsEvent?: FireAnalyticsCallback,
-	alwaysFire?: boolean,
+	_alwaysFire?: boolean,
 ) {
 	const { doc, schema } = editorView?.state ?? {};
 	if (!doc || !schema) {

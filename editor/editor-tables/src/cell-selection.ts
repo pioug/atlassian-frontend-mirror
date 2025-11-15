@@ -84,7 +84,7 @@ export class CellSelection extends Selection {
 		const start = this.$anchorCell.start(-1);
 		const rect = map.rectBetween(this.$anchorCell.pos - start, this.$headCell.pos - start);
 		const seen: { [pos: number]: boolean } = {};
-		const rows = [];
+		const rows: PMNode[] = [];
 		for (let row = rect.top; row < rect.bottom; row++) {
 			const rowContent: PMNode[] = [];
 			for (
@@ -141,7 +141,8 @@ export class CellSelection extends Selection {
 					rowContent.push(cell);
 				}
 			}
-			rows.push(table.child(row).copy(Fragment.from(rowContent)));
+			const rowNode: PMNode = table.child(row).copy(Fragment.from(rowContent));
+			rows.push(rowNode);
 		}
 
 		const fragment = this.isColSelection() && this.isRowSelection() ? table : rows;

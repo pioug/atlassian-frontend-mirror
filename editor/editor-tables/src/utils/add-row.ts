@@ -1,4 +1,4 @@
-import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type NodeType, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { TableContext, TableMap } from '../table-map';
@@ -27,7 +27,7 @@ export function addRow(
 	for (let i = 0; i < row; i++) {
 		rowPos += table.child(i).nodeSize;
 	}
-	const cells = [];
+	const cells: PMNode[] = [];
 	let refRow: number | null = row > 0 ? -1 : 0;
 	if (rowIsHeader(map, table, row + refRow)) {
 		refRow = row === 0 || row === map.height ? null : 0;

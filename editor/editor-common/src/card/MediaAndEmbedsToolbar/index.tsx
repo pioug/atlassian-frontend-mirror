@@ -450,7 +450,7 @@ export const buildLayoutDropdown = (
 
 	const { layout } = selection.node.attrs;
 
-	const icons = [];
+	const icons: LayoutIcon[] = [];
 
 	if (allowAlignment) {
 		icons.push(...alignmentIconsControls);

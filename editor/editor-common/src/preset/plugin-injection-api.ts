@@ -175,7 +175,7 @@ class ActionsAPI {
 		}
 
 		return new Proxy(plugin.actions || {}, {
-			get: function (target, prop: string, receiver) {
+			get: function (target, prop: string, _receiver) {
 				// We will be able to track perfomance here
 				return Reflect.get(target, prop);
 			},
@@ -196,7 +196,7 @@ class EditorCommandsAPI {
 		}
 
 		return new Proxy(plugin.commands || {}, {
-			get: function (target, prop: string, receiver) {
+			get: function (target, prop: string, _receiver) {
 				// We will be able to track perfomance here
 				return Reflect.get(target, prop);
 			},
@@ -221,7 +221,7 @@ export class SharedStateAPI {
 		if (!plugin) {
 			return {
 				currentState: () => undefined,
-				onChange: (sub: Callback) => {
+				onChange: (_sub: Callback) => {
 					return () => {};
 				},
 			};
@@ -336,7 +336,7 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		return new Proxy<GenericAPIWithCore>({} as any, {
-			get: function (target, prop: string, receiver) {
+			get: function (target, prop: string, _receiver) {
 				// If we pass this as a prop React hates us
 				// Let's just reflect the result and ignore these
 				if (prop === 'toJSON') {

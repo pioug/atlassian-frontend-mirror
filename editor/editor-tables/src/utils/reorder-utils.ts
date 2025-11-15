@@ -72,11 +72,11 @@ export const convertArrayOfRowsToTableNode = (
 	tableNode: PMNode,
 	arrayOfNodes: ArrayOfRows,
 ): PMNode => {
-	const rowsPM = [];
+	const rowsPM: PMNode[] = [];
 	const map = TableMap.get(tableNode);
 	for (let rowIndex = 0; rowIndex < map.height; rowIndex++) {
 		const row = tableNode.child(rowIndex);
-		const rowCells = [];
+		const rowCells: PMNode[] = [];
 
 		for (let colIndex = 0; colIndex < map.width; colIndex++) {
 			if (!arrayOfNodes[rowIndex][colIndex]) {
@@ -162,9 +162,9 @@ const moveRowInArrayOfRows = (
 // ```
 export const convertTableNodeToArrayOfRows = (tableNode: PMNode): ArrayOfRows => {
 	const map = TableMap.get(tableNode);
-	const rows = [];
+	const rows: ArrayOfRows = [];
 	for (let rowIndex = 0; rowIndex < map.height; rowIndex++) {
-		const rowCells = [];
+		const rowCells: Array<PMNode | null> = [];
 		const seen: { [key: number]: boolean } = {};
 
 		for (let colIndex = 0; colIndex < map.width; colIndex++) {

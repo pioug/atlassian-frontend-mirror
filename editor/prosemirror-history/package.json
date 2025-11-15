@@ -74,7 +74,7 @@
 		}
 	},
 	"name": "@atlaskit/prosemirror-history",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"description": "Fork of the prosemirror-history plugin",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

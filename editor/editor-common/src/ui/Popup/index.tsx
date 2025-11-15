@@ -247,7 +247,7 @@ export default class Popup extends React.Component<Props, State> {
 		this.initPopup(popup);
 	};
 
-	private scheduledUpdatePosition = rafSchedule((props: Props) => {
+	private scheduledUpdatePosition = rafSchedule((_props: Props) => {
 		this.updatePosition(this.props);
 	});
 

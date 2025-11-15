@@ -63,7 +63,7 @@ export const AssetsObjectSchemaSelect = ({
 	value,
 	workspaceId,
 	initialObjectSchemas,
-	classNamePrefix = 'assets-datasource-modal--object-schema-select',
+	classNamePrefix: _classNamePrefix = 'assets-datasource-modal--object-schema-select',
 	testId = 'assets-datasource-modal--object-schema-select',
 }: AssetsObjectSchemaSelectProps) => {
 	const { formatMessage } = useIntl();

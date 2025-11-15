@@ -95,8 +95,8 @@ export const ExpandLayoutWrapperWithRef = forwardRef(
 		const { children, ...rest } = props;
 		return (
 			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
-			<div css={expandLayoutWrapperStyle} {...rest} ref={ref}>
+			// eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
+			<div css={expandLayoutWrapperStyle as any} {...rest} ref={ref}>
 				{children}
 			</div>
 		);

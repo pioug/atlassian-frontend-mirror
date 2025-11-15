@@ -102,7 +102,7 @@ export function fixTable(
 
 	// Track which rows we must add cells to, so that we can adjust that
 	// when fixing collisions.
-	const mustAdd = [];
+	const mustAdd: number[] = [];
 	for (let i = 0; i < map.height; i++) {
 		mustAdd.push(0);
 	}

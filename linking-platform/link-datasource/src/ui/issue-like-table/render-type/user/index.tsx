@@ -51,7 +51,7 @@ export interface UserProps extends User {
 	testId?: string;
 }
 
-const getMaxUserCount = (userCount: number, availableWidth: number) => {
+const getMaxUserCount = (_userCount: number, availableWidth: number) => {
 	if (availableWidth <= 28) {
 		// If width is less than or equal to 28px, we should only display the user count
 		return 1;

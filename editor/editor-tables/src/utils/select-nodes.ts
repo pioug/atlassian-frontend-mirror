@@ -28,7 +28,7 @@ const select =
 				let right = isRowSelection ? map.width : index + 1;
 				let bottom = isRowSelection ? index + 1 : map.height;
 
-				let cellsInFirstRow = [];
+				let cellsInFirstRow: number[] = [];
 
 				if (expand) {
 					const cell = findCellClosestToPos(tr.selection.$from);

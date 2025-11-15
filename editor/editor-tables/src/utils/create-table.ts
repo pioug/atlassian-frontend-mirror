@@ -59,7 +59,7 @@ export const createTable = ({
 		}
 	}
 
-	const rows = [];
+	const rows: PMNode[] = [];
 	for (let i = 0; i < rowsCount; i++) {
 		rows.push(tableRow.createChecked(null, withHeaderRow && i === 0 ? headerCells : cells));
 	}

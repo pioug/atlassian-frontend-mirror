@@ -4,6 +4,8 @@ import { screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	type AnalyticsEventAttributes,
 	useAnalyticsEvents as useAnalyticsEventsNext,
@@ -49,6 +51,18 @@ const actions = [
 mockRunItLaterSynchronously();
 jest.mock('@atlaskit/people-teams-ui-public/verified-team-icon', () => ({
 	VerifiedTeamIcon: () => <div>VerifiedTeamIcon</div>,
+}));
+
+jest.mock('@atlaskit/platform-feature-flags');
+
+jest.mock('@atlaskit/feature-gate-js-client', () => ({
+	...jest.requireActual('@atlaskit/feature-gate-js-client'),
+	initialize: jest.fn(),
+	initializeCalled: jest.fn(),
+	initializeFromValues: jest.fn(),
+	getExperimentValue: jest.fn(),
+	checkGate: jest.fn(),
+	initializeCompleted: () => true,
 }));
 
 const TeamProfileCardTestWrapper = (props = {}) => {
@@ -131,6 +145,71 @@ describe('TeamProfileCard', () => {
 	it('should capture and report a11y violations', async () => {
 		const { container } = renderComponent();
 		await expect(container).toBeAccessible();
+	});
+
+	describe('DISBANDED team state', () => {
+		beforeEach(() => {
+			jest.clearAllMocks();
+			(fg as jest.Mock).mockImplementation(
+				(flagName) => flagName === 'legion-enable-archive-teams',
+			);
+			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+				exp === 'new_team_profile' ? true : false,
+			);
+		});
+
+		it('displays archived lozenge when team is DISBANDED', () => {
+			const disbandedTeam = {
+				...createTeam(),
+				state: 'DISBANDED' as const,
+			};
+			renderComponent({ team: disbandedTeam });
+
+			expect(screen.getByText('Archived')).toBeInTheDocument();
+		});
+
+		it('does not display archived lozenge when team is ACTIVE', () => {
+			const activeTeam = {
+				...createTeam(),
+				state: 'ACTIVE' as const,
+			};
+			renderComponent({ team: activeTeam });
+
+			expect(screen.queryByText('Archived')).not.toBeInTheDocument();
+		});
+
+		it('does not display archived lozenge when team state is undefined', () => {
+			const teamWithoutState = createTeam();
+			renderComponent({ team: teamWithoutState });
+
+			expect(screen.queryByText('Archived')).not.toBeInTheDocument();
+		});
+
+		it('does not display archived lozenge when feature flag is off', () => {
+			(fg as jest.Mock)
+				.mockImplementation((flagName) => flagName === 'legion-enable-archive-teams')
+				.mockReturnValue(false);
+			const disbandedTeam = {
+				...createTeam(),
+				state: 'DISBANDED' as const,
+			};
+			renderComponent({ team: disbandedTeam });
+
+			expect(screen.queryByText('Archived')).not.toBeInTheDocument();
+		});
+
+		it('does not display archived lozenge when experiment is disabled', () => {
+			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+				exp === 'new_team_profile' ? false : true,
+			);
+			const disbandedTeam = {
+				...createTeam(),
+				state: 'DISBANDED' as const,
+			};
+			renderComponent({ team: disbandedTeam });
+
+			expect(screen.queryByText('Archived')).not.toBeInTheDocument();
+		});
 	});
 
 	describe('analytics', () => {

@@ -41,12 +41,20 @@ const PARENT_WITH_END_DROP_TARGET = [
 	'bodiedExtension',
 ];
 
+const PARENT_WITH_END_DROP_TARGET_SYNC_BLOCK = [...PARENT_WITH_END_DROP_TARGET, 'bodiedSyncBlock'];
+
 /**
  * List of node types that does not allow drop targets at before or after the node.
  */
 const NODE_WITH_NO_PARENT_POS = ['tableCell', 'tableHeader', 'layoutColumn'];
 
+const UNSUPPORTED_LAYOUT_CONTENT = ['syncBlock', 'bodiedSyncBlock'];
+
 const isContainerNode = (node: PMNode) => {
+	if (expValEquals('platform_synced_block', 'isEnabled', true)) {
+		return PARENT_WITH_END_DROP_TARGET_SYNC_BLOCK.includes(node.type.name);
+	}
+
 	return PARENT_WITH_END_DROP_TARGET.includes(node.type.name);
 };
 
@@ -334,7 +342,11 @@ export const getActiveDropTargetDecorations = (
 		const isSameLayout =
 			$activeNodePos && isInSameLayout($activeNodePos, state.doc.resolve(rootNodeWithPos.pos));
 
-		if (rootNodeWithPos.node.type.name === 'layoutSection') {
+		const hasUnsupportedContent =
+			UNSUPPORTED_LAYOUT_CONTENT.includes(activeNode?.nodeType || '') &&
+			expValEquals('platform_synced_block', 'isEnabled', true);
+
+		if (rootNodeWithPos.node.type.name === 'layoutSection' && !hasUnsupportedContent) {
 			const layoutSectionNode = rootNodeWithPos.node;
 
 			if (layoutSectionNode.childCount < maxLayoutColumnSupported() || isSameLayout) {

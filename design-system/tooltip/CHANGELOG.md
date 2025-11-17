@@ -1,5 +1,12 @@
 # @atlaskit/tooltip
 
+## 20.9.0
+
+### Minor Changes
+
+- [`f4cdda6ef6ca0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4cdda6ef6ca0) -
+  Removed FG that improves tooltip visibility behavior on focus
+
 ## 20.8.2
 
 ### Patch Changes

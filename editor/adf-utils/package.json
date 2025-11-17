@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/adf-utils",
-	"version": "19.26.0",
+	"version": "19.26.1",
 	"description": "Set of utilities to traverse, modify and create ADF documents.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -37,10 +37,12 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
 		"@atlassian/adf-schema-json": "root:*",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"react": "root:*",
 		"wait-for-expect": "root:*"
 	},
@@ -57,5 +59,9 @@
 			]
 		}
 	},
-	"platform-feature-flags": {}
+	"platform-feature-flags": {
+		"platform_adf-utils_fix-dummy-text-index-oob": {
+			"type": "boolean"
+		}
+	}
 }

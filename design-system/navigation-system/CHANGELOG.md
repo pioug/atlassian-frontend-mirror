@@ -1,5 +1,13 @@
 # @atlassian/navigation-system
 
+## 5.6.0
+
+### Minor Changes
+
+- [`b5802cb0960a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5802cb0960a2) -
+  Change how full height sidebar is enabled. Instead of a feature gate, use a context value that
+  apps can set themselves using their own feature gate or experiment.
+
 ## 5.5.1
 
 ### Patch Changes

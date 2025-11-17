@@ -31,7 +31,7 @@ export const SyncedBlockNodeComponentRenderer = ({
 }: SyncedBlockNodeComponentRendererProps): React.JSX.Element => {
 	const { resourceId, localId } = nodeProps;
 
-	const { syncBlockInstance, isLoading, providerFactory } = useFetchSyncBlockData(
+	const { syncBlockInstance, isLoading, reloadData, providerFactory } = useFetchSyncBlockData(
 		syncBlockStoreManager,
 		resourceId,
 		localId,
@@ -46,6 +46,8 @@ export const SyncedBlockNodeComponentRenderer = ({
 			<SyncedBlockErrorComponent
 				error={syncBlockInstance?.error ?? SyncBlockError.Errored}
 				resourceId={resourceId}
+				onRetry={reloadData}
+				isLoading={isLoading}
 			/>
 		);
 	}

@@ -86,120 +86,122 @@ describe('SideNavToggleButton', () => {
 			expect(await screen.findByRole('tooltip', { name: 'Collapse sidebar' })).toBeInTheDocument();
 		});
 
-		ffTest.on('navx-full-height-sidebar', 'FHS flag enabled', () => {
-			ffTest.on(
-				'platform_dst_nav4_side_nav_default_collapsed_api',
-				'default collapsed API flag enabled',
-				() => {
-					it('should include the built-in keyboard shortcut in the tooltip when side nav is collapsed and the shortcut is enabled on Root', async () => {
-						render(
-							<Root isSideNavShortcutEnabled defaultSideNavCollapsed>
-								<TopNav>
-									<TopNavStart
-										sideNavToggleButton={
-											<SideNavToggleButton
-												collapseLabel="Collapse sidebar"
-												expandLabel="Expand sidebar"
-											/>
-										}
-									>
-										top nav start
-									</TopNavStart>
-								</TopNav>
-							</Root>,
-						);
+		ffTest.both('navx-2566-implement-fhs-rollout', '', () => {
+			ffTest.on('navx-full-height-sidebar', 'with useIsFhsEnabled true', () => {
+				ffTest.on(
+					'platform_dst_nav4_side_nav_default_collapsed_api',
+					'default collapsed API flag enabled',
+					() => {
+						it('should include the built-in keyboard shortcut in the tooltip when side nav is collapsed and the shortcut is enabled on Root', async () => {
+							render(
+								<Root isSideNavShortcutEnabled defaultSideNavCollapsed>
+									<TopNav>
+										<TopNavStart
+											sideNavToggleButton={
+												<SideNavToggleButton
+													collapseLabel="Collapse sidebar"
+													expandLabel="Expand sidebar"
+												/>
+											}
+										>
+											top nav start
+										</TopNavStart>
+									</TopNav>
+								</Root>,
+							);
 
-						fireEvent.mouseOver(screen.getByRole('button', { name: 'Expand sidebar' }));
-						act(() => {
-							jest.runAllTimers();
+							fireEvent.mouseOver(screen.getByRole('button', { name: 'Expand sidebar' }));
+							act(() => {
+								jest.runAllTimers();
+							});
+
+							expect(
+								await screen.findByRole('tooltip', { name: 'Expand sidebar Ctrl [' }),
+							).toBeInTheDocument();
 						});
 
-						expect(
-							await screen.findByRole('tooltip', { name: 'Expand sidebar Ctrl [' }),
-						).toBeInTheDocument();
-					});
+						it('should include the built-in keyboard shortcut in the tooltip when side nav is expanded and the shortcut is enabled on Root', async () => {
+							render(
+								<Root isSideNavShortcutEnabled>
+									<TopNav>
+										<SideNavToggleButton
+											collapseLabel="Collapse sidebar"
+											expandLabel="Expand sidebar"
+										/>
+									</TopNav>
+								</Root>,
+							);
 
-					it('should include the built-in keyboard shortcut in the tooltip when side nav is expanded and the shortcut is enabled on Root', async () => {
-						render(
-							<Root isSideNavShortcutEnabled>
-								<TopNav>
-									<SideNavToggleButton
-										collapseLabel="Collapse sidebar"
-										expandLabel="Expand sidebar"
-									/>
-								</TopNav>
-							</Root>,
-						);
+							fireEvent.mouseOver(screen.getByRole('button', { name: 'Collapse sidebar' }));
+							act(() => {
+								jest.runAllTimers();
+							});
 
-						fireEvent.mouseOver(screen.getByRole('button', { name: 'Collapse sidebar' }));
-						act(() => {
-							jest.runAllTimers();
+							expect(
+								await screen.findByRole('tooltip', { name: 'Collapse sidebar Ctrl [' }),
+							).toBeInTheDocument();
 						});
 
-						expect(
-							await screen.findByRole('tooltip', { name: 'Collapse sidebar Ctrl [' }),
-						).toBeInTheDocument();
-					});
+						it('should not include the built-in keyboard shortcut in the tooltip when the shortcut is disabled on Root', async () => {
+							render(
+								<Root isSideNavShortcutEnabled={false} defaultSideNavCollapsed>
+									<TopNav>
+										<TopNavStart
+											sideNavToggleButton={
+												<SideNavToggleButton
+													collapseLabel="Collapse sidebar"
+													expandLabel="Expand sidebar"
+												/>
+											}
+										>
+											top nav start
+										</TopNavStart>
+									</TopNav>
+								</Root>,
+							);
 
-					it('should not include the built-in keyboard shortcut in the tooltip when the shortcut is disabled on Root', async () => {
-						render(
-							<Root isSideNavShortcutEnabled={false} defaultSideNavCollapsed>
-								<TopNav>
-									<TopNavStart
-										sideNavToggleButton={
-											<SideNavToggleButton
-												collapseLabel="Collapse sidebar"
-												expandLabel="Expand sidebar"
-											/>
-										}
-									>
-										top nav start
-									</TopNavStart>
-								</TopNav>
-							</Root>,
-						);
+							fireEvent.mouseOver(screen.getByRole('button', { name: 'Expand sidebar' }));
+							act(() => {
+								jest.runAllTimers();
+							});
 
-						fireEvent.mouseOver(screen.getByRole('button', { name: 'Expand sidebar' }));
-						act(() => {
-							jest.runAllTimers();
+							expect(
+								// Tooltip does not include keyboard shortcut
+								await screen.findByRole('tooltip', { name: 'Expand sidebar' }),
+							).toBeInTheDocument();
 						});
 
-						expect(
-							// Tooltip does not include keyboard shortcut
-							await screen.findByRole('tooltip', { name: 'Expand sidebar' }),
-						).toBeInTheDocument();
-					});
+						it('should not include the built-in keyboard shortcut in the tooltip when the isSideNavShortcutEnabled prop on Root is not provided', async () => {
+							render(
+								<Root defaultSideNavCollapsed>
+									<TopNav>
+										<TopNavStart
+											sideNavToggleButton={
+												<SideNavToggleButton
+													collapseLabel="Collapse sidebar"
+													expandLabel="Expand sidebar"
+												/>
+											}
+										>
+											top nav start
+										</TopNavStart>
+									</TopNav>
+								</Root>,
+							);
 
-					it('should not include the built-in keyboard shortcut in the tooltip when the isSideNavShortcutEnabled prop on Root is not provided', async () => {
-						render(
-							<Root defaultSideNavCollapsed>
-								<TopNav>
-									<TopNavStart
-										sideNavToggleButton={
-											<SideNavToggleButton
-												collapseLabel="Collapse sidebar"
-												expandLabel="Expand sidebar"
-											/>
-										}
-									>
-										top nav start
-									</TopNavStart>
-								</TopNav>
-							</Root>,
-						);
+							fireEvent.mouseOver(screen.getByRole('button', { name: 'Expand sidebar' }));
+							act(() => {
+								jest.runAllTimers();
+							});
 
-						fireEvent.mouseOver(screen.getByRole('button', { name: 'Expand sidebar' }));
-						act(() => {
-							jest.runAllTimers();
+							expect(
+								// Tooltip does not include keyboard shortcut
+								await screen.findByRole('tooltip', { name: 'Expand sidebar' }),
+							).toBeInTheDocument();
 						});
-
-						expect(
-							// Tooltip does not include keyboard shortcut
-							await screen.findByRole('tooltip', { name: 'Expand sidebar' }),
-						).toBeInTheDocument();
-					});
-				},
-			);
+					},
+				);
+			});
 		});
 	});
 

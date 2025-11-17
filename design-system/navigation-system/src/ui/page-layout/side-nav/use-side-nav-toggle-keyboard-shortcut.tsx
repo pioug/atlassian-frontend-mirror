@@ -6,6 +6,8 @@ import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { useOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
+
 import { useIsSideNavShortcutEnabled } from './is-side-nav-shortcut-enabled-context';
 import { useToggleSideNav } from './use-toggle-side-nav';
 
@@ -17,6 +19,11 @@ export function useSideNavToggleKeyboardShortcut({
 }: {
 	canToggleWithShortcut?: () => boolean;
 }) {
+	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useIsFhsEnabled()
+		: fg('navx-full-height-sidebar');
+
 	const openLayerObserver = useOpenLayerObserver();
 	const toggleVisibilityByShortcut = useToggleSideNav({ trigger: 'keyboard' });
 
@@ -24,7 +31,7 @@ export function useSideNavToggleKeyboardShortcut({
 	const isSideNavShortcutEnabled = useIsSideNavShortcutEnabled();
 
 	useEffect(() => {
-		if (!fg('navx-full-height-sidebar')) {
+		if (!isFhsEnabled) {
 			return;
 		}
 
@@ -58,8 +65,9 @@ export function useSideNavToggleKeyboardShortcut({
 		});
 	}, [
 		canToggleWithShortcutStableRef,
+		isFhsEnabled,
+		isSideNavShortcutEnabled,
 		openLayerObserver,
 		toggleVisibilityByShortcut,
-		isSideNavShortcutEnabled,
 	]);
 }

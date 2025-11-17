@@ -128,7 +128,7 @@ export function Root({
 	 * is pressed, before the SideNav is toggled. You can use this to conditionally disable the shortcut based on your
 	 * your own custom checks, e.g. if there is a legacy dialog open.
 	 *
-	 * Note: The built-in keyboard shortcut is behind the `navx-full-height-sidebar` feature flag.
+	 * Note: The built-in keyboard shortcut is behind `useIsFhsEnabled`.
 	 */
 	isSideNavShortcutEnabled?: boolean;
 }) {

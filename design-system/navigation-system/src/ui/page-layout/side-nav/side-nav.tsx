@@ -31,6 +31,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useSkipLinkInternal } from '../../../context/skip-links/skip-links-context';
 import { TopNavStartElement } from '../../../context/top-nav-start/top-nav-start-context';
+import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import {
 	bannerMountedVar,
 	contentHeightWhenFixed,
@@ -417,7 +418,7 @@ type SideNavProps = CommonSlotProps & {
 	 *
 	 * The shortcut key is `Ctrl` + `[`.
 	 *
-	 * Note: The built-in keyboard shortcut is behind the `navx-full-height-sidebar` feature flag.
+	 * Note: The built-in keyboard shortcut is behind `useIsFhsEnabled`.
 	 */
 	canToggleWithShortcut?: () => boolean;
 };
@@ -444,6 +445,11 @@ function SideNavInternal({
 	id: providedId,
 	canToggleWithShortcut,
 }: SideNavProps) {
+	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useIsFhsEnabled()
+		: fg('navx-full-height-sidebar');
+
 	const id = useLayoutId({ providedId });
 	const expandSideNav = useExpandSideNav({ trigger: 'skip-link' });
 	/**
@@ -1104,14 +1110,14 @@ function SideNavInternal({
 	const isFirstRenderRef = useRef(true);
 
 	useEffect(() => {
-		if (!fg('navx-full-height-sidebar')) {
+		if (!isFhsEnabled) {
 			return;
 		}
 
 		if (isFirstRenderRef.current) {
 			isFirstRenderRef.current = false;
 		}
-	}, []);
+	}, [isFhsEnabled]);
 
 	// This is only used for the regular expand and collapse animations, not the flyout animations.
 	const shouldShowSidebarToggleAnimation =
@@ -1163,54 +1169,52 @@ function SideNavInternal({
 					!isFlyoutVisible &&
 					styles.hiddenMobileAndDesktop,
 
-				fg('navx-full-height-sidebar') && styles.animationRTLSupport,
+				isFhsEnabled && styles.animationRTLSupport,
 				// Expand/collapse animation styles
-				shouldShowSidebarToggleAnimation &&
-					fg('navx-full-height-sidebar') &&
-					styles.animationBaseStyles,
+				shouldShowSidebarToggleAnimation && isFhsEnabled && styles.animationBaseStyles,
 				// We need to separately apply the styles for the expand or collapse animations for both mobile and desktop
 				// based on their relevant expansion state.
 				isExpandedOnMobile &&
 					shouldShowSidebarToggleAnimation &&
-					fg('navx-full-height-sidebar') &&
+					isFhsEnabled &&
 					styles.expandAnimationMobile,
 				!isExpandedOnMobile &&
 					shouldShowSidebarToggleAnimation &&
-					fg('navx-full-height-sidebar') &&
+					isFhsEnabled &&
 					styles.collapseAnimationMobile,
 				isExpandedOnDesktop &&
 					shouldShowSidebarToggleAnimation &&
-					fg('navx-full-height-sidebar') &&
+					isFhsEnabled &&
 					styles.expandAnimationDesktop,
 				!isExpandedOnDesktop &&
 					shouldShowSidebarToggleAnimation &&
-					fg('navx-full-height-sidebar') &&
+					isFhsEnabled &&
 					styles.collapseAnimationDesktop,
 
 				// Flyout styles
-				sideNavState?.flyout === 'open' && !fg('navx-full-height-sidebar') && styles.flyoutOpen,
+				sideNavState?.flyout === 'open' && !isFhsEnabled && styles.flyoutOpen,
 				sideNavState?.flyout === 'triggered-animate-close' &&
-					!fg('navx-full-height-sidebar') &&
+					!isFhsEnabled &&
 					styles.flyoutAnimateClosed,
 
 				(sideNavState?.flyout === 'open' || sideNavState?.flyout === 'triggered-animate-close') &&
 					!isFirefox &&
-					fg('navx-full-height-sidebar') &&
+					isFhsEnabled &&
 					styles.flyoutBaseStylesFullHeightSidebar,
 				sideNavState?.flyout === 'triggered-animate-close' &&
 					!isFirefox &&
-					fg('navx-full-height-sidebar') &&
+					isFhsEnabled &&
 					styles.flyoutAnimateClosedFullHeightSidebar,
 				sideNavState?.flyout === 'open' &&
 					!isFirefox &&
-					fg('navx-full-height-sidebar') &&
+					isFhsEnabled &&
 					styles.flyoutOpenFullHeightSidebar,
 				sideNavState?.flyout === 'triggered-animate-close' &&
 					!isFirefox &&
-					fg('navx-full-height-sidebar') &&
+					isFhsEnabled &&
 					styles.flyoutAnimateClosedFullHeightSidebar,
 				// Flyout is not using full height styles
-				isFlyoutClosed && fg('navx-full-height-sidebar') && styles.fullHeightSidebar,
+				isFlyoutClosed && isFhsEnabled && styles.fullHeightSidebar,
 			]}
 			data-testid={testId}
 		>

@@ -9,6 +9,8 @@ import { SizeableAvatar } from './SizeableAvatar';
 import ValueContainerWrapper from './ValueContainerWrapper';
 import { token } from '@atlaskit/tokens';
 import { css, cssMap, jsx } from '@compiled/react';
+import { getAppearanceForAppType } from '@atlaskit/avatar';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const valueContainerStyles = cssMap({
 	root: {
@@ -56,6 +58,13 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 					src={
 						showUserAvatar(inputValue, value as Option<User>)
 							? (value as Option<User>).data.avatarUrl
+							: undefined
+					}
+					avatarAppearanceShape={
+						value &&
+						(value as Option<User>).data &&
+						fg('jira_ai_agent_avatar_user_picker_user_option')
+							? getAppearanceForAppType((value as Option<User>).data.appType)
 							: undefined
 					}
 				/>

@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 0.48.0
+
+### Minor Changes
+
+- [`671e0e819f9ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/671e0e819f9ae) -
+  Support borderWidth and borderRadius tokens in xcss
+
 ## 0.47.2
 
 ### Patch Changes

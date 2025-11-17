@@ -7,7 +7,9 @@ import { SingleValue } from '../../../components/SingleValue';
 import { SizeableAvatar } from '../../../components/SizeableAvatar';
 import { type Team } from '../../../types';
 import { type Props as SizeableAvatarProps } from '../../../components/SizeableAvatar';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { getAppearanceForAppType } from '@atlaskit/avatar';
 
 const data = {
 	label: 'Jace Beleren',
@@ -60,6 +62,11 @@ jest.mock('@atlaskit/people-teams-ui-public/verified-team-icon', () => ({
 jest.mock('@atlaskit/platform-feature-flags', () => ({
 	...jest.requireActual('@atlaskit/platform-feature-flags'),
 	fg: jest.fn(),
+}));
+
+jest.mock('@atlaskit/avatar', () => ({
+	...jest.requireActual('@atlaskit/avatar'),
+	getAppearanceForAppType: jest.fn(),
 }));
 
 describe('SingleValue', () => {
@@ -141,6 +148,70 @@ describe('SingleValue', () => {
 				verified: false,
 			});
 			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
+		});
+	});
+
+	describe('avatarAppearanceShape', () => {
+		beforeEach(() => {
+			jest.clearAllMocks();
+		});
+
+		ffTest.on('jira_ai_agent_avatar_user_picker_user_option', 'on', () => {
+			it('should set avatarAppearanceShape', async () => {
+				(getAppearanceForAppType as jest.Mock).mockReturnValue('hexagon');
+
+				render(
+					<SingleValue
+						{...defaultSingleValueProps}
+						data={{
+							label: 'Jace Beleren',
+							value: 'abc-123',
+							data: {
+								id: 'abc-123',
+								name: 'Jace Beleren',
+								avatarUrl: 'http://avatars.atlassian.com/jace.png',
+								appType: 'agent',
+							},
+						}}
+					/>,
+				);
+
+				expect(getAppearanceForAppType).toHaveBeenCalledWith('agent');
+				expect(
+					await screen.findByText(
+						'SizeableAvatar - {"src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person","avatarAppearanceShape":"hexagon"}',
+					),
+				).toBeInTheDocument();
+			});
+		});
+
+		ffTest.off('jira_ai_agent_avatar_user_picker_user_option', 'off', () => {
+			it('should not set avatarAppearanceShape when jira_ai_agent_avatar_user_picker_user_option gate is disabled', async () => {
+				(getAppearanceForAppType as jest.Mock).mockReturnValue('hexagon');
+
+				render(
+					<SingleValue
+						{...defaultSingleValueProps}
+						data={{
+							label: 'Jace Beleren',
+							value: 'abc-123',
+							data: {
+								id: 'abc-123',
+								name: 'Jace Beleren',
+								avatarUrl: 'http://avatars.atlassian.com/jace.png',
+								appType: 'agent',
+							},
+						}}
+					/>,
+				);
+
+				expect(getAppearanceForAppType).not.toHaveBeenCalled();
+				expect(
+					await screen.findByText(
+						'SizeableAvatar - {"src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person"}',
+					),
+				).toBeInTheDocument();
+			});
 		});
 	});
 });

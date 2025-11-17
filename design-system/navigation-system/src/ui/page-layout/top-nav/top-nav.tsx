@@ -11,6 +11,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useSkipLink } from '../../../context/skip-links/skip-links-context';
+import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { type CustomTheme } from '../../top-nav-items/themed/get-custom-theme-styles';
 import { HasCustomThemeContext } from '../../top-nav-items/themed/has-custom-theme-context';
 import { useCustomTheme } from '../../top-nav-items/themed/use-custom-theme';
@@ -167,6 +168,11 @@ export function TopNav({
 	 */
 	UNSAFE_theme?: CustomTheme;
 }) {
+	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useIsFhsEnabled()
+		: fg('navx-full-height-sidebar');
+
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	const id = useLayoutId({ providedId });
 	useSkipLink(id, skipLinkLabel);
@@ -197,7 +203,7 @@ export function TopNav({
 
 	return (
 		<HasCustomThemeContext.Provider value={customTheme.isEnabled}>
-			{fg('navx-full-height-sidebar') && (
+			{isFhsEnabled && (
 				// The separate element allows top nav items to sit in front of the sidebar, while the background sits behind.
 				// It also has a simple story around z-index and positioning.
 				<div
@@ -205,7 +211,7 @@ export function TopNav({
 					css={[backgroundStyles.root, isExpandedOnDesktop && backgroundStyles.sideNavExpanded]}
 					aria-hidden
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					style={fg('navx-full-height-sidebar') ? backgroundStyle : undefined}
+					style={isFhsEnabled ? backgroundStyle : undefined}
 				/>
 			)}
 			<header
@@ -213,18 +219,14 @@ export function TopNav({
 				data-layout-slot
 				css={[
 					styles.root,
-					fg('navx-full-height-sidebar') && styles.fullHeightSidebar,
-					isExpandedOnDesktop && fg('navx-full-height-sidebar') && styles.fullHeightSidebarExpanded,
+					isFhsEnabled && styles.fullHeightSidebar,
+					isExpandedOnDesktop && isFhsEnabled && styles.fullHeightSidebarExpanded,
 				]}
 				className={xcss}
 				data-testid={testId}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={
-					fg('navx-full-height-sidebar')
-						? foregroundStyle
-						: customTheme.isEnabled
-							? customTheme.style
-							: undefined
+					isFhsEnabled ? foregroundStyle : customTheme.isEnabled ? customTheme.style : undefined
 				}
 			>
 				<HoistCssVarToLocalGrid variableName={topNavMountedVar} value={height} />

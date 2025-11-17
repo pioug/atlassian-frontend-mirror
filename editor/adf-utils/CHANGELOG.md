@@ -1,5 +1,12 @@
 # @atlaskit/adf-utils
 
+## 19.26.1
+
+### Patch Changes
+
+- [`97ab189b05912`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97ab189b05912) -
+  Fix bug causing the ADF scrubber to throw an error when document contains very long words
+
 ## 19.26.0
 
 ### Minor Changes

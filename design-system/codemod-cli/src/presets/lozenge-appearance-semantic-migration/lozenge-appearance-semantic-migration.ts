@@ -1,9 +1,9 @@
 import type { API, FileInfo } from 'jscodeshift';
 
-import lozengeAppearanceToColorTransformer from './codemods/lozenge-appearance-to-color';
+import lozengeAppearanceSemanticMigrationTransformer from './codemods/lozenge-appearance-semantic-migration';
 
 export default async function transformer(file: FileInfo, api: API): Promise<string> {
-	const transformers = [lozengeAppearanceToColorTransformer];
+	const transformers = [lozengeAppearanceSemanticMigrationTransformer];
 	let src = file.source;
 
 	transformers.forEach((transformer) => {

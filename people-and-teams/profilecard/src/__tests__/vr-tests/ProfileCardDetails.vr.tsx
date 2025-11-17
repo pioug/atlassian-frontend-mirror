@@ -4,7 +4,10 @@ import {
 	ProfileCardExampleWithoutReportingLines,
 	ProfileCardExampleWithReportingLines,
 } from './ProfileCardDetails.fixtures';
-import { TeamProfileCardWithTriggerTest } from './TeamProfileCardWithTriggerTest';
+import {
+	TeamProfileCardWithDisbandedState,
+	TeamProfileCardWithTriggerTest,
+} from './TeamProfileCardWithTriggerTest';
 
 const defaultSettings: SnapshotTestOptions<Hooks> = {
 	drawsOutsideBounds: true,
@@ -21,4 +24,17 @@ snapshot(TeamProfileCardWithTriggerTest, {
 	],
 	mockTimers: true,
 	waitForReactLazy: true,
+});
+
+snapshot(TeamProfileCardWithDisbandedState, {
+	...defaultSettings,
+	states: [
+		{ state: 'hovered', selector: { byTestId: 'trigger-disbanded' } },
+		{ state: 'focused', selector: { byTestId: 'profilecard-avatar-group--avatar-group' } },
+	],
+	mockTimers: true,
+	waitForReactLazy: true,
+	featureFlags: {
+		'legion-enable-archive-teams': true,
+	},
 });

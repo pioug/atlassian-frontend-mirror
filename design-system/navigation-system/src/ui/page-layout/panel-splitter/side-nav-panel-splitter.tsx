@@ -30,7 +30,7 @@ type SideNavPanelSplitterProps = Omit<
 	 *
 	 * If the `isSideNavShortcutEnabled` prop is enabled on `<Root />`, the built-in keyboard shortcut will be displayed with the tooltip.
 	 *
-	 * Only used if the `navx-full-height-sidebar` feature flag is enabled.
+	 * Only used if `useIsFhsEnabled` is true.
 	 */
 	tooltipContent?: PanelSplitterProps['tooltipContent'];
 };

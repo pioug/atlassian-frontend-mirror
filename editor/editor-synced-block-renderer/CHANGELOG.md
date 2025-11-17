@@ -1,5 +1,16 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 3.3.0
+
+### Minor Changes
+
+- [`721d3790d48fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/721d3790d48fe) -
+  EDITOR-2533 implement error-ui with retry
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.0
 
 ### Minor Changes

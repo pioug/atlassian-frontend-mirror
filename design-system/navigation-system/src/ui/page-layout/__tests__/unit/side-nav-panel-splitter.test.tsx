@@ -77,29 +77,34 @@ describe('SideNavPanelSplitter', () => {
 			});
 		});
 
-		ffTest.on('navx-full-height-sidebar', 'callback should include trigger', async () => {
-			// Trigger info is behind separate instrumentation flag
-			ffTest.on('platform_dst_nav4_fhs_instrumentation_1', 'analytics', () => {
-				it('should collapse the side nav on double click by default', async () => {
-					const user = createUser();
-					const onCollapse = jest.fn();
-					setMediaQuery('(min-width: 64rem)', { initial: true });
+		ffTest.both('navx-2566-implement-fhs-rollout', '', () => {
+			ffTest.on('navx-full-height-sidebar', 'callback should include trigger', async () => {
+				// Trigger info is behind separate instrumentation flag
+				ffTest.on('platform_dst_nav4_fhs_instrumentation_1', 'analytics', () => {
+					it('should collapse the side nav on double click by default', async () => {
+						const user = createUser();
+						const onCollapse = jest.fn();
+						setMediaQuery('(min-width: 64rem)', { initial: true });
 
-					render(
-						<Root>
-							<SideNav testId="sidenav" onCollapse={onCollapse}>
-								<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
-							</SideNav>
-						</Root>,
-					);
+						render(
+							<Root>
+								<SideNav testId="sidenav" onCollapse={onCollapse}>
+									<SideNavPanelSplitter
+										label="Resize or collapse side nav"
+										testId="panel-splitter"
+									/>
+								</SideNav>
+							</Root>,
+						);
 
-					await user.dblClick(screen.getByTestId('panel-splitter'));
+						await user.dblClick(screen.getByTestId('panel-splitter'));
 
-					expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
-					expect(onCollapse).toHaveBeenCalledTimes(1);
-					expect(onCollapse).toHaveBeenCalledWith({
-						screen: 'desktop',
-						trigger: 'double-click',
+						expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
+						expect(onCollapse).toHaveBeenCalledTimes(1);
+						expect(onCollapse).toHaveBeenCalledWith({
+							screen: 'desktop',
+							trigger: 'double-click',
+						});
 					});
 				});
 			});
@@ -129,119 +134,121 @@ describe('SideNavPanelSplitter', () => {
 		});
 	});
 
-	ffTest.on('navx-full-height-sidebar', 'FHS flag enabled', () => {
-		it('should display a tooltip when the tooltipContent prop is provided and shouldCollapseOnDoubleClick is true', async () => {
-			const user = createUser();
-			const onCollapse = jest.fn();
-			setMediaQuery('(min-width: 64rem)', { initial: true });
+	ffTest.both('navx-2566-implement-fhs-rollout', '', () => {
+		ffTest.on('navx-full-height-sidebar', 'with useIsFhsEnabled true', () => {
+			it('should display a tooltip when the tooltipContent prop is provided and shouldCollapseOnDoubleClick is true', async () => {
+				const user = createUser();
+				const onCollapse = jest.fn();
+				setMediaQuery('(min-width: 64rem)', { initial: true });
 
-			render(
-				<Root>
-					<SideNav testId="sidenav" onCollapse={onCollapse}>
-						<SideNavPanelSplitter
-							label="Resize or collapse side nav"
-							testId="panel-splitter"
-							tooltipContent="Double click to collapse"
-							shouldCollapseOnDoubleClick={true}
-						/>
-					</SideNav>
-				</Root>,
-			);
+				render(
+					<Root>
+						<SideNav testId="sidenav" onCollapse={onCollapse}>
+							<SideNavPanelSplitter
+								label="Resize or collapse side nav"
+								testId="panel-splitter"
+								tooltipContent="Double click to collapse"
+								shouldCollapseOnDoubleClick={true}
+							/>
+						</SideNav>
+					</Root>,
+				);
 
-			await user.hover(screen.getByTestId('panel-splitter'));
-			act(() => {
-				jest.runAllTimers();
+				await user.hover(screen.getByTestId('panel-splitter'));
+				act(() => {
+					jest.runAllTimers();
+				});
+
+				expect(
+					await screen.findByRole('tooltip', { name: 'Double click to collapse' }),
+				).toBeInTheDocument();
 			});
 
-			expect(
-				await screen.findByRole('tooltip', { name: 'Double click to collapse' }),
-			).toBeInTheDocument();
-		});
+			it('should include the built-in keyboard shortcut in the tooltip when the shortcut is enabled on Root', async () => {
+				const user = createUser();
+				const onCollapse = jest.fn();
+				setMediaQuery('(min-width: 64rem)', { initial: true });
 
-		it('should include the built-in keyboard shortcut in the tooltip when the shortcut is enabled on Root', async () => {
-			const user = createUser();
-			const onCollapse = jest.fn();
-			setMediaQuery('(min-width: 64rem)', { initial: true });
+				render(
+					<Root isSideNavShortcutEnabled>
+						<SideNav testId="sidenav" onCollapse={onCollapse}>
+							<SideNavPanelSplitter
+								label="Resize or collapse side nav"
+								testId="panel-splitter"
+								tooltipContent="Double click to collapse"
+								shouldCollapseOnDoubleClick={true}
+							/>
+						</SideNav>
+					</Root>,
+				);
 
-			render(
-				<Root isSideNavShortcutEnabled>
-					<SideNav testId="sidenav" onCollapse={onCollapse}>
-						<SideNavPanelSplitter
-							label="Resize or collapse side nav"
-							testId="panel-splitter"
-							tooltipContent="Double click to collapse"
-							shouldCollapseOnDoubleClick={true}
-						/>
-					</SideNav>
-				</Root>,
-			);
+				await user.hover(screen.getByTestId('panel-splitter'));
+				act(() => {
+					jest.runAllTimers();
+				});
 
-			await user.hover(screen.getByTestId('panel-splitter'));
-			act(() => {
-				jest.runAllTimers();
+				expect(
+					await screen.findByRole('tooltip', { name: 'Double click to collapse Ctrl [' }),
+				).toBeInTheDocument();
 			});
 
-			expect(
-				await screen.findByRole('tooltip', { name: 'Double click to collapse Ctrl [' }),
-			).toBeInTheDocument();
-		});
+			it('should not include the built-in keyboard shortcut in the tooltip when the shortcut is disabled on Root', async () => {
+				const user = createUser();
+				const onCollapse = jest.fn();
+				setMediaQuery('(min-width: 64rem)', { initial: true });
 
-		it('should not include the built-in keyboard shortcut in the tooltip when the shortcut is disabled on Root', async () => {
-			const user = createUser();
-			const onCollapse = jest.fn();
-			setMediaQuery('(min-width: 64rem)', { initial: true });
+				render(
+					<Root isSideNavShortcutEnabled={false}>
+						<SideNav testId="sidenav" onCollapse={onCollapse}>
+							<SideNavPanelSplitter
+								label="Resize or collapse side nav"
+								testId="panel-splitter"
+								tooltipContent="Double click to collapse"
+								shouldCollapseOnDoubleClick={true}
+							/>
+						</SideNav>
+					</Root>,
+				);
 
-			render(
-				<Root isSideNavShortcutEnabled={false}>
-					<SideNav testId="sidenav" onCollapse={onCollapse}>
-						<SideNavPanelSplitter
-							label="Resize or collapse side nav"
-							testId="panel-splitter"
-							tooltipContent="Double click to collapse"
-							shouldCollapseOnDoubleClick={true}
-						/>
-					</SideNav>
-				</Root>,
-			);
+				await user.hover(screen.getByTestId('panel-splitter'));
+				act(() => {
+					jest.runAllTimers();
+				});
 
-			await user.hover(screen.getByTestId('panel-splitter'));
-			act(() => {
-				jest.runAllTimers();
+				expect(
+					// Tooltip does not include keyboard shortcut
+					await screen.findByRole('tooltip', { name: 'Double click to collapse' }),
+				).toBeInTheDocument();
 			});
 
-			expect(
-				// Tooltip does not include keyboard shortcut
-				await screen.findByRole('tooltip', { name: 'Double click to collapse' }),
-			).toBeInTheDocument();
-		});
+			it('should not include the built-in keyboard shortcut in the tooltip when the isSideNavShortcutEnabled prop on Root is not provided', async () => {
+				const user = createUser();
+				const onCollapse = jest.fn();
+				setMediaQuery('(min-width: 64rem)', { initial: true });
 
-		it('should not include the built-in keyboard shortcut in the tooltip when the isSideNavShortcutEnabled prop on Root is not provided', async () => {
-			const user = createUser();
-			const onCollapse = jest.fn();
-			setMediaQuery('(min-width: 64rem)', { initial: true });
+				render(
+					<Root>
+						<SideNav testId="sidenav" onCollapse={onCollapse}>
+							<SideNavPanelSplitter
+								label="Resize or collapse side nav"
+								testId="panel-splitter"
+								tooltipContent="Double click to collapse"
+								shouldCollapseOnDoubleClick={true}
+							/>
+						</SideNav>
+					</Root>,
+				);
 
-			render(
-				<Root>
-					<SideNav testId="sidenav" onCollapse={onCollapse}>
-						<SideNavPanelSplitter
-							label="Resize or collapse side nav"
-							testId="panel-splitter"
-							tooltipContent="Double click to collapse"
-							shouldCollapseOnDoubleClick={true}
-						/>
-					</SideNav>
-				</Root>,
-			);
+				await user.hover(screen.getByTestId('panel-splitter'));
+				act(() => {
+					jest.runAllTimers();
+				});
 
-			await user.hover(screen.getByTestId('panel-splitter'));
-			act(() => {
-				jest.runAllTimers();
+				expect(
+					// Tooltip does not include keyboard shortcut
+					await screen.findByRole('tooltip', { name: 'Double click to collapse' }),
+				).toBeInTheDocument();
 			});
-
-			expect(
-				// Tooltip does not include keyboard shortcut
-				await screen.findByRole('tooltip', { name: 'Double click to collapse' }),
-			).toBeInTheDocument();
 		});
 	});
 });

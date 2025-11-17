@@ -6,8 +6,8 @@ import { addCommentBefore } from '@atlaskit/codemod-utils';
 const LOZENGE_ENTRY_POINT = '@atlaskit/lozenge';
 const PRINT_SETTINGS = { quote: 'single' as const };
 
-// Semantic appearance values that map directly to color values
-const APPEARANCE_TO_COLOR_MAP: Record<string, string> = {
+// Old appearance values that map to new semantic appearance values
+const OLD_TO_NEW_APPEARANCE_MAP: Record<string, string> = {
 	default: 'neutral',
 	inprogress: 'information',
 	moved: 'warning',
@@ -23,11 +23,11 @@ type LozengeElement = {
 };
 
 /**
- * Codemod to migrate Lozenge component from `appearance` prop to `color` prop.
+ * Codemod to migrate Lozenge component appearance semantic values.
  *
  * This codemod:
- * 1. Renames `appearance` prop to `color` for semantic values
- * 2. Maps existing semantic values directly (e.g. success → success)
+ * 1. Updates `appearance` prop values to new semantic values
+ * 2. Maps old semantic values to new semantic values (e.g. default → neutral, inprogress → information)
  * 3. Adds comments for dynamic values that need manual verification
  */
 export default function transformer(file: FileInfo, api: API) {
@@ -109,7 +109,7 @@ export default function transformer(file: FileInfo, api: API) {
 		const { path, hasAppearanceProp, appearanceValue } = element;
 		const openingElement = path.value.openingElement;
 
-		// Transform appearance prop to color prop
+		// Update appearance prop values to new semantic values
 		if (hasAppearanceProp) {
 			openingElement.attributes?.forEach((attr) => {
 				if (
@@ -117,31 +117,29 @@ export default function transformer(file: FileInfo, api: API) {
 					attr.name?.type === 'JSXIdentifier' &&
 					attr.name.name === 'appearance'
 				) {
-					// Rename appearance to color
-					attr.name.name = 'color';
-
 					// Handle different types of appearance values
 					if (appearanceValue === 'dynamic') {
 						// For dynamic values, add a comment
 						addCommentBefore(
 							j,
 							j(path),
-							`FIXME: This Lozenge component uses a dynamic \`appearance\` prop that has been renamed to \`color\`.
-Please verify that the values being passed are valid color values (semantic: default, inprogress, moved, new, removed, success).`,
+							`FIXME: This Lozenge component uses a dynamic \`appearance\` prop with updated semantic values.
+Please verify that the values being passed use the new semantic values: neutral, information, warning, discovery, danger, success.
+Old values mapping: default→neutral, inprogress→information, moved→warning, new→discovery, removed→danger, success→success.`,
 						);
-					} else if (appearanceValue && !APPEARANCE_TO_COLOR_MAP[appearanceValue]) {
+					} else if (appearanceValue && !OLD_TO_NEW_APPEARANCE_MAP[appearanceValue]) {
 						// For invalid string values, add a warning comment
 						addCommentBefore(
 							j,
 							j(path),
-							`FIXME: This Lozenge component uses an invalid \`appearance\` value "${appearanceValue}" that has been renamed to \`color\`.
-Valid semantic color values are: ${Object.keys(APPEARANCE_TO_COLOR_MAP).join(', ')}.
-Please update this value to a valid semantic color or use a custom color value.`,
+							`FIXME: This Lozenge component uses an unknown \`appearance\` value "${appearanceValue}".
+Valid new semantic appearance values are: ${Object.values(OLD_TO_NEW_APPEARANCE_MAP).join(', ')}.
+Please update this value to a valid semantic appearance value.`,
 						);
-					} else if (appearanceValue && APPEARANCE_TO_COLOR_MAP[appearanceValue]) {
-						// For valid string values, update the value to the mapped color
+					} else if (appearanceValue && OLD_TO_NEW_APPEARANCE_MAP[appearanceValue]) {
+						// For valid string values, update the value to the new semantic value
 						if (attr.value?.type === 'StringLiteral') {
-							attr.value.value = APPEARANCE_TO_COLOR_MAP[appearanceValue];
+							attr.value.value = OLD_TO_NEW_APPEARANCE_MAP[appearanceValue];
 						}
 					}
 				}

@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 11.15.0
+
+### Minor Changes
+
+- [`9b49b64b62885`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b49b64b62885) -
+  set avatarAppearanceShape for SingleValue and SingleValueContainer based on appType
+
 ## 11.14.0
 
 ### Minor Changes

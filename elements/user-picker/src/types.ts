@@ -278,6 +278,7 @@ export interface CustomHighlight {
 }
 
 export interface OptionData {
+	appType?: string | null;
 	avatarUrl?: any;
 	fixed?: boolean;
 	id: string;

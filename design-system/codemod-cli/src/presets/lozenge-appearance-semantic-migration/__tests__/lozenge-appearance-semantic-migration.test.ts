@@ -1,12 +1,12 @@
 import { createCheck } from '../../../__tests__/test-utils';
-import transformer from '../codemods/lozenge-appearance-to-color';
+import transformer from '../codemods/lozenge-appearance-semantic-migration';
 
 const check = createCheck(transformer);
 
-describe('lozenge-appearance-to-color', () => {
-	describe('appearance prop migration', () => {
+describe('lozenge-appearance-semantic-migration', () => {
+	describe('appearance semantic migration', () => {
 		check({
-			it: 'should rename appearance prop to color for semantic values',
+			it: 'should update appearance values to new semantic values',
 			original: `
 import Lozenge from '@atlaskit/lozenge';
 
@@ -29,12 +29,12 @@ import Lozenge from '@atlaskit/lozenge';
 export default function App() {
 	return (
 		<div>
-			<Lozenge color="success">Success</Lozenge>
-			<Lozenge color="neutral">Default</Lozenge>
-			<Lozenge color="information">In Progress</Lozenge>
-			<Lozenge color="warning">Moved</Lozenge>
-			<Lozenge color="discovery">New</Lozenge>
-			<Lozenge color="danger">Removed</Lozenge>
+			<Lozenge appearance="success">Success</Lozenge>
+			<Lozenge appearance="neutral">Default</Lozenge>
+			<Lozenge appearance="information">In Progress</Lozenge>
+			<Lozenge appearance="warning">Moved</Lozenge>
+			<Lozenge appearance="discovery">New</Lozenge>
+			<Lozenge appearance="danger">Removed</Lozenge>
 		</div>
 	);
 }
@@ -57,9 +57,10 @@ import Lozenge from '@atlaskit/lozenge';
 export default function App() {
 	const status = getStatus();
 	return (
-		/* TODO: (from codemod) FIXME: This Lozenge component uses a dynamic \`appearance\` prop that has been renamed to \`color\`.
-        Please verify that the values being passed are valid color values (semantic: default, inprogress, moved, new, removed, success). */
-		<Lozenge color={status}>Dynamic</Lozenge>
+		/* TODO: (from codemod) FIXME: This Lozenge component uses a dynamic \`appearance\` prop with updated semantic values.
+        Please verify that the values being passed use the new semantic values: neutral, information, warning, discovery, danger, success.
+        Old values mapping: default→neutral, inprogress→information, moved→warning, new→discovery, removed→danger, success→success. */
+		<Lozenge appearance={status}>Dynamic</Lozenge>
 	);
 }
 `,
@@ -71,25 +72,25 @@ export default function App() {
 import { default as Badge } from '@atlaskit/lozenge';
 
 export default function App() {
-	return <Badge appearance="success">Success</Badge>;
+	return <Badge appearance="default">Default</Badge>;
 }
 `,
 			expected: `
 import { default as Badge } from '@atlaskit/lozenge';
 
 export default function App() {
-	return <Badge color="success">Success</Badge>;
+	return <Badge appearance="neutral">Default</Badge>;
 }
 `,
 		});
 
 		check({
-			it: 'should handle invalid appearance values with warning',
+			it: 'should handle unknown appearance values with warning',
 			original: `
 import Lozenge from '@atlaskit/lozenge';
 
 export default function App() {
-	return <Lozenge appearance="invalid">Invalid Value</Lozenge>;
+	return <Lozenge appearance="unknown">Unknown Value</Lozenge>;
 }
 `,
 			expected: `
@@ -97,28 +98,30 @@ import Lozenge from '@atlaskit/lozenge';
 
 export default function App() {
 	return (
-		/* TODO: (from codemod) FIXME: This Lozenge component uses an invalid \`appearance\` value "invalid" that has been renamed to \`color\`.
-        Valid semantic color values are: default, inprogress, moved, new, removed, success.
-        Please update this value to a valid semantic color or use a custom color value. */
-		<Lozenge color="invalid">Invalid Value</Lozenge>
+		/* TODO: (from codemod) FIXME: This Lozenge component uses an unknown \`appearance\` value "unknown".
+        Valid new semantic appearance values are: neutral, information, warning, discovery, danger, success.
+        Please update this value to a valid semantic appearance value. */
+		<Lozenge appearance="unknown">Unknown Value</Lozenge>
 	);
 }
 `,
 		});
 	});
 
-	describe('multiple lozenges', () => {
+	describe('mapping verification', () => {
 		check({
-			it: 'should handle multiple Lozenges with different appearance values',
+			it: 'should map individual appearance values correctly',
 			original: `
 import Lozenge from '@atlaskit/lozenge';
 
 export default function App() {
 	return (
 		<div>
-			<Lozenge appearance="success">Success</Lozenge>
-			<Lozenge appearance="default">Default</Lozenge>
-			<Lozenge appearance="removed">Removed</Lozenge>
+			<Lozenge appearance="default">Old Default</Lozenge>
+			<Lozenge appearance="inprogress">Old InProgress</Lozenge>
+			<Lozenge appearance="moved">Old Moved</Lozenge>
+			<Lozenge appearance="new">Old New</Lozenge>
+			<Lozenge appearance="removed">Old Removed</Lozenge>
 		</div>
 	);
 }
@@ -129,11 +132,31 @@ import Lozenge from '@atlaskit/lozenge';
 export default function App() {
 	return (
 		<div>
-			<Lozenge color="success">Success</Lozenge>
-			<Lozenge color="neutral">Default</Lozenge>
-			<Lozenge color="danger">Removed</Lozenge>
+			<Lozenge appearance="neutral">Old Default</Lozenge>
+			<Lozenge appearance="information">Old InProgress</Lozenge>
+			<Lozenge appearance="warning">Old Moved</Lozenge>
+			<Lozenge appearance="discovery">Old New</Lozenge>
+			<Lozenge appearance="danger">Old Removed</Lozenge>
 		</div>
 	);
+}
+`,
+		});
+
+		check({
+			it: 'should not change success value as it maps to itself',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	return <Lozenge appearance="success">Success stays same</Lozenge>;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	return <Lozenge appearance="success">Success stays same</Lozenge>;
 }
 `,
 		});
@@ -150,7 +173,7 @@ export default function App() {
 	return (
 		<div>
 			<Button appearance="primary">Button</Button>
-			<Lozenge appearance="success">Lozenge</Lozenge>
+			<Lozenge appearance="default">Lozenge</Lozenge>
 		</div>
 	);
 }
@@ -163,7 +186,7 @@ export default function App() {
 	return (
 		<div>
 			<Button appearance="primary">Button</Button>
-			<Lozenge color="success">Lozenge</Lozenge>
+			<Lozenge appearance="neutral">Lozenge</Lozenge>
 		</div>
 	);
 }
@@ -214,7 +237,7 @@ import Lozenge from '@atlaskit/lozenge';
 export default function App() {
 	return (
 		<Lozenge
-			appearance="success"
+			appearance="default"
 			testId="my-lozenge"
 			maxWidth={150}
 			isBold={true}
@@ -230,7 +253,7 @@ import Lozenge from '@atlaskit/lozenge';
 export default function App() {
 	return (
 		<Lozenge
-			color="success"
+			appearance="neutral"
 			testId="my-lozenge"
 			maxWidth={150}
 			isBold={true}

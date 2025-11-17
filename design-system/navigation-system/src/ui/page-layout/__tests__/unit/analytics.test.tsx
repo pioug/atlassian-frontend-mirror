@@ -272,51 +272,53 @@ ffTest.both('platform_dst_nav4_side_nav_default_collapsed_api', 'default state c
 				});
 			});
 
-			ffTest.on('navx-full-height-sidebar', 'with FHS', () => {
-				it('should fire when expanding from the keyboard shortcut', async () => {
-					const user = userEvent.setup();
-					setMediaQuery('(min-width: 64rem)', { initial: true });
+			ffTest.both('navx-2566-implement-fhs-rollout', '', () => {
+				ffTest.on('navx-full-height-sidebar', 'with useIsFhsEnabled true', () => {
+					it('should fire when expanding from the keyboard shortcut', async () => {
+						const user = userEvent.setup();
+						setMediaQuery('(min-width: 64rem)', { initial: true });
 
-					const onAnalyticsEvent: OnAnalyticsEventMock = jest.fn();
+						const onAnalyticsEvent: OnAnalyticsEventMock = jest.fn();
 
-					render(
-						<AnalyticsListener
-							channel="navigation"
-							onEvent={filterByAction(onAnalyticsEvent, 'expanded')}
-						>
-							<Root defaultSideNavCollapsed isSideNavShortcutEnabled>
-								<TopNav>
-									<SideNavToggleButton
-										collapseLabel="Collapse sidebar"
-										expandLabel="Expand sidebar"
-										defaultCollapsed
-									/>
-								</TopNav>
-								<SideNav defaultCollapsed>side nav</SideNav>
-							</Root>
-						</AnalyticsListener>,
-					);
+						render(
+							<AnalyticsListener
+								channel="navigation"
+								onEvent={filterByAction(onAnalyticsEvent, 'expanded')}
+							>
+								<Root defaultSideNavCollapsed isSideNavShortcutEnabled>
+									<TopNav>
+										<SideNavToggleButton
+											collapseLabel="Collapse sidebar"
+											expandLabel="Expand sidebar"
+											defaultCollapsed
+										/>
+									</TopNav>
+									<SideNav defaultCollapsed>side nav</SideNav>
+								</Root>
+							</AnalyticsListener>,
+						);
 
-					expect(onAnalyticsEvent).toHaveBeenCalledTimes(0);
+						expect(onAnalyticsEvent).toHaveBeenCalledTimes(0);
 
-					/**
-					 * Docs for key syntax are available at https://testing-library.com/docs/user-event/keyboard/.
-					 *
-					 * - The `{}` allow writing input by `KeyboardEvent.key` name. This is needed for `Control` because it is not a printable character.
-					 * - The `>` keeps it pressed.
-					 * - The `[[` is needed for a literal `[` because `[` is treated as a special character.
-					 */
-					await user.keyboard('{Control>}[[');
+						/**
+						 * Docs for key syntax are available at https://testing-library.com/docs/user-event/keyboard/.
+						 *
+						 * - The `{}` allow writing input by `KeyboardEvent.key` name. This is needed for `Control` because it is not a printable character.
+						 * - The `>` keeps it pressed.
+						 * - The `[[` is needed for a literal `[` because `[` is treated as a special character.
+						 */
+						await user.keyboard('{Control>}[[');
 
-					expect(onAnalyticsEvent).toHaveBeenCalledTimes(1);
-					expect(onAnalyticsEvent.mock.calls[0][0].payload).toEqual({
-						source: 'topNav',
-						action: 'expanded',
-						actionSubject: 'sideNav',
-						actionSubjectId: 'sideNavMenu',
-						attributes: {
-							trigger: 'keyboard',
-						},
+						expect(onAnalyticsEvent).toHaveBeenCalledTimes(1);
+						expect(onAnalyticsEvent.mock.calls[0][0].payload).toEqual({
+							source: 'topNav',
+							action: 'expanded',
+							actionSubject: 'sideNav',
+							actionSubjectId: 'sideNavMenu',
+							attributes: {
+								trigger: 'keyboard',
+							},
+						});
 					});
 				});
 			});
@@ -362,96 +364,98 @@ ffTest.both('platform_dst_nav4_side_nav_default_collapsed_api', 'default state c
 				});
 			});
 
-			ffTest.on('navx-full-height-sidebar', 'with FHS', () => {
-				it('should fire when collapsing from the keyboard shortcut', async () => {
-					const user = userEvent.setup();
-					setMediaQuery('(min-width: 64rem)', { initial: true });
+			ffTest.both('navx-2566-implement-fhs-rollout', '', () => {
+				ffTest.on('navx-full-height-sidebar', 'with useIsFhsEnabled true', () => {
+					it('should fire when collapsing from the keyboard shortcut', async () => {
+						const user = userEvent.setup();
+						setMediaQuery('(min-width: 64rem)', { initial: true });
 
-					const onAnalyticsEvent: OnAnalyticsEventMock = jest.fn();
+						const onAnalyticsEvent: OnAnalyticsEventMock = jest.fn();
 
-					render(
-						<AnalyticsListener
-							channel="navigation"
-							onEvent={filterByAction(onAnalyticsEvent, 'collapsed')}
-						>
-							<Root isSideNavShortcutEnabled>
-								<TopNav>
-									<SideNavToggleButton
-										collapseLabel="Collapse sidebar"
-										expandLabel="Expand sidebar"
-									/>
-								</TopNav>
-								<SideNav>side nav</SideNav>
-							</Root>
-						</AnalyticsListener>,
-					);
+						render(
+							<AnalyticsListener
+								channel="navigation"
+								onEvent={filterByAction(onAnalyticsEvent, 'collapsed')}
+							>
+								<Root isSideNavShortcutEnabled>
+									<TopNav>
+										<SideNavToggleButton
+											collapseLabel="Collapse sidebar"
+											expandLabel="Expand sidebar"
+										/>
+									</TopNav>
+									<SideNav>side nav</SideNav>
+								</Root>
+							</AnalyticsListener>,
+						);
 
-					expect(onAnalyticsEvent).toHaveBeenCalledTimes(0);
+						expect(onAnalyticsEvent).toHaveBeenCalledTimes(0);
 
-					/**
-					 * Docs for key syntax are available at https://testing-library.com/docs/user-event/keyboard/.
-					 *
-					 * - The `{}` allow writing input by `KeyboardEvent.key` name. This is needed for `Control` because it is not a printable character.
-					 * - The `>` keeps it pressed.
-					 * - The `[[` is needed for a literal `[` because `[` is treated as a special character.
-					 */
-					await user.keyboard('{Control>}[[');
+						/**
+						 * Docs for key syntax are available at https://testing-library.com/docs/user-event/keyboard/.
+						 *
+						 * - The `{}` allow writing input by `KeyboardEvent.key` name. This is needed for `Control` because it is not a printable character.
+						 * - The `>` keeps it pressed.
+						 * - The `[[` is needed for a literal `[` because `[` is treated as a special character.
+						 */
+						await user.keyboard('{Control>}[[');
 
-					expect(onAnalyticsEvent).toHaveBeenCalledTimes(1);
-					expect(onAnalyticsEvent.mock.calls[0][0].payload).toEqual({
-						source: 'topNav',
-						action: 'collapsed',
-						actionSubject: 'sideNav',
-						actionSubjectId: 'sideNavMenu',
-						attributes: {
-							trigger: 'keyboard',
-						},
+						expect(onAnalyticsEvent).toHaveBeenCalledTimes(1);
+						expect(onAnalyticsEvent.mock.calls[0][0].payload).toEqual({
+							source: 'topNav',
+							action: 'collapsed',
+							actionSubject: 'sideNav',
+							actionSubjectId: 'sideNavMenu',
+							attributes: {
+								trigger: 'keyboard',
+							},
+						});
 					});
-				});
 
-				it('should fire when collapsing from the panel splitter', async () => {
-					const user = userEvent.setup();
-					setMediaQuery('(min-width: 64rem)', { initial: true });
+					it('should fire when collapsing from the panel splitter', async () => {
+						const user = userEvent.setup();
+						setMediaQuery('(min-width: 64rem)', { initial: true });
 
-					const onAnalyticsEvent: OnAnalyticsEventMock = jest.fn();
+						const onAnalyticsEvent: OnAnalyticsEventMock = jest.fn();
 
-					render(
-						<AnalyticsListener
-							channel="navigation"
-							onEvent={filterByAction(onAnalyticsEvent, 'collapsed')}
-						>
-							<Root isSideNavShortcutEnabled>
-								<TopNav>
-									<SideNavToggleButton
-										collapseLabel="Collapse sidebar"
-										expandLabel="Expand sidebar"
-									/>
-								</TopNav>
-								<SideNav>
-									side nav
-									<SideNavPanelSplitter
-										label="Double click to collapse"
-										testId="panel-splitter"
-										shouldCollapseOnDoubleClick
-									/>
-								</SideNav>
-							</Root>
-						</AnalyticsListener>,
-					);
+						render(
+							<AnalyticsListener
+								channel="navigation"
+								onEvent={filterByAction(onAnalyticsEvent, 'collapsed')}
+							>
+								<Root isSideNavShortcutEnabled>
+									<TopNav>
+										<SideNavToggleButton
+											collapseLabel="Collapse sidebar"
+											expandLabel="Expand sidebar"
+										/>
+									</TopNav>
+									<SideNav>
+										side nav
+										<SideNavPanelSplitter
+											label="Double click to collapse"
+											testId="panel-splitter"
+											shouldCollapseOnDoubleClick
+										/>
+									</SideNav>
+								</Root>
+							</AnalyticsListener>,
+						);
 
-					expect(onAnalyticsEvent).toHaveBeenCalledTimes(0);
+						expect(onAnalyticsEvent).toHaveBeenCalledTimes(0);
 
-					await user.dblClick(screen.getByTestId('panel-splitter'));
+						await user.dblClick(screen.getByTestId('panel-splitter'));
 
-					expect(onAnalyticsEvent).toHaveBeenCalledTimes(1);
-					expect(onAnalyticsEvent.mock.calls[0][0].payload).toEqual({
-						source: 'topNav',
-						action: 'collapsed',
-						actionSubject: 'sideNav',
-						actionSubjectId: 'sideNavMenu',
-						attributes: {
-							trigger: 'double-click',
-						},
+						expect(onAnalyticsEvent).toHaveBeenCalledTimes(1);
+						expect(onAnalyticsEvent.mock.calls[0][0].payload).toEqual({
+							source: 'topNav',
+							action: 'collapsed',
+							actionSubject: 'sideNav',
+							actionSubjectId: 'sideNavMenu',
+							attributes: {
+								trigger: 'double-click',
+							},
+						});
 					});
 				});
 			});

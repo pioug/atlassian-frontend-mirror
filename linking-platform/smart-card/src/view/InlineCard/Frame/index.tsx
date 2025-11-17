@@ -18,6 +18,8 @@ export interface FrameViewProps {
 	testId?: string;
 	/** A flag that determines whether a card is truncated to 1 line */
 	truncateInline?: boolean;
+	/** A flag that determines the type of view */
+	viewType?: 'default' | 'unauthorised';
 	/** A flag that determines whether the card needs a backgorund or not */
 	withoutBackground?: boolean;
 }
@@ -28,6 +30,7 @@ export const Frame = forwardRef<HTMLSpanElement & null, FrameViewProps>((props, 
 		children,
 		onClick,
 		link,
+		viewType,
 		withoutBackground,
 		testId,
 		className,
@@ -85,6 +88,7 @@ export const Frame = forwardRef<HTMLSpanElement & null, FrameViewProps>((props, 
 			ref={ref}
 			isHovered={isHovered}
 			truncateInline={truncateInline}
+			viewType={viewType}
 		>
 			{children}
 		</Wrapper>

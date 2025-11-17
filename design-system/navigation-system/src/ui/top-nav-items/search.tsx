@@ -11,6 +11,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable, Show, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
+import { useIsFhsEnabled } from '../fhs-rollout/use-is-fhs-enabled';
+
 import { IconButton } from './themed/migration';
 
 const styles = cssMap({
@@ -91,39 +93,46 @@ export const Search = ({
 	 */
 	interactionName?: string;
 	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
-}) => (
-	<Fragment>
-		<Pressable
-			style={{
-				// To win the specificity war against Emotion we move this into inline styles
-				// When Emotion has been stripped from the Design System move this to Compiled.
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				cursor: 'text',
-				border: `${token('border.width')} solid ${token('color.border.input')}`,
-			}}
-			onClick={onClick}
-			xcss={cx(styles.root, fg('navx-full-height-sidebar') && styles.fullHeightSidebar)}
-			interactionName={interactionName}
-			aria-haspopup={ariaHaspopup}
-		>
-			<span css={styles.iconBefore}>
-				<IconBefore color={token('color.icon.subtle')} spacing="spacious" label="" />
-			</span>
-			<div css={styles.buttonText}>
-				<Text color="color.text.subtlest">{label}</Text>
-			</div>
-			{elemAfter && <span css={styles.elemAfter}>{elemAfter}</span>}
-		</Pressable>
-		{/* TODO: replace with media query */}
-		<Show below="xs">
-			<IconButton
-				label={label}
-				appearance="subtle"
-				icon={SearchIcon}
+}) => {
+	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useIsFhsEnabled()
+		: fg('navx-full-height-sidebar');
+
+	return (
+		<Fragment>
+			<Pressable
+				style={{
+					// To win the specificity war against Emotion we move this into inline styles
+					// When Emotion has been stripped from the Design System move this to Compiled.
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					cursor: 'text',
+					border: `${token('border.width')} solid ${token('color.border.input')}`,
+				}}
 				onClick={onClick}
+				xcss={cx(styles.root, isFhsEnabled && styles.fullHeightSidebar)}
 				interactionName={interactionName}
 				aria-haspopup={ariaHaspopup}
-			/>
-		</Show>
-	</Fragment>
-);
+			>
+				<span css={styles.iconBefore}>
+					<IconBefore color={token('color.icon.subtle')} spacing="spacious" label="" />
+				</span>
+				<div css={styles.buttonText}>
+					<Text color="color.text.subtlest">{label}</Text>
+				</div>
+				{elemAfter && <span css={styles.elemAfter}>{elemAfter}</span>}
+			</Pressable>
+			{/* TODO: replace with media query */}
+			<Show below="xs">
+				<IconButton
+					label={label}
+					appearance="subtle"
+					icon={SearchIcon}
+					onClick={onClick}
+					interactionName={interactionName}
+					aria-haspopup={ariaHaspopup}
+				/>
+			</Show>
+		</Fragment>
+	);
+};

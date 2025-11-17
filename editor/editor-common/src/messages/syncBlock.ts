@@ -162,4 +162,26 @@ export const syncBlockMessages = defineMessages({
 		description:
 			'Description in flag which appears when a sync block cannot be created in offline mode',
 	},
+	generalErrorDescription: {
+		id: 'fabric.editor.syncedBlockGeneralErrorDescription',
+		defaultMessage: 'Something went wrong while loading this synced block.',
+		description: 'Description for general error state of the synced block',
+	},
+	notFoundDescription: {
+		id: 'fabric.editor.syncedBlockNotFoundDescription',
+		defaultMessage: 'We’re unable to load this synced block.',
+		description:
+			'Description for error state where the synced block cannot be found or no longer exists',
+	},
+	notFoundAltText: {
+		id: 'fabric.editor.syncedBlockNotFoundIconAltText',
+		defaultMessage: 'Synced block not found.',
+		description:
+			'Alt text for icon on error state where the synced block cannot be found or no longer exists',
+	},
+	retryButton: {
+		id: 'fabric.editor.retrySyncedBlock',
+		defaultMessage: 'Retry',
+		description: 'Label for button which retries loading the synced block',
+	},
 });

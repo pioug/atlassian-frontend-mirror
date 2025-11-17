@@ -10,11 +10,21 @@ import type { BlockMenuPlugin } from '../../blockMenuPluginType';
 
 import { isNestedNode } from './isNestedNode';
 
+const TRANSFORM_MENU_ENABLED_FOR_ALL_TOP_LEVEL_NODES = true;
+
 const getIsFormatMenuHidden = (selection: Selection, schema: Schema, menuTriggerBy: string) => {
 	const nodes = schema.nodes;
 
 	if (!nodes) {
 		return false;
+	}
+
+	const isNested = isNestedNode(selection, menuTriggerBy);
+	if (TRANSFORM_MENU_ENABLED_FOR_ALL_TOP_LEVEL_NODES) {
+		const disabledOnNodes = [nodes.syncBlock, nodes.bodiedSyncBlock, nodes.rule];
+		const disabledNode = findSelectedNodeOfType(disabledOnNodes)(selection);
+
+		return !!disabledNode || (isNested && !fg('platform_editor_block_menu_transform_nested_node'));
 	}
 
 	let content: PMNode | undefined;
@@ -56,7 +66,6 @@ const getIsFormatMenuHidden = (selection: Selection, schema: Schema, menuTrigger
 		}
 	}
 
-	const isNested = isNestedNode(selection, menuTriggerBy);
 	return !content || (isNested && !fg('platform_editor_block_menu_transform_nested_node'));
 };
 
@@ -72,6 +81,13 @@ const getIsFormatMenuHiddenEmptyLine = (
 	}
 
 	const isNested = isNestedNode(selection, menuTriggerBy);
+	if (TRANSFORM_MENU_ENABLED_FOR_ALL_TOP_LEVEL_NODES) {
+		const disabledOnNodes = [nodes.syncBlock, nodes.bodiedSyncBlock, nodes.rule];
+		const disabledNode = findSelectedNodeOfType(disabledOnNodes)(selection);
+
+		return !!disabledNode || (isNested && !fg('platform_editor_block_menu_transform_nested_node'));
+	}
+
 	if (selection.empty || selection.content().size === 0) {
 		// if empty selection, show format menu
 		return false;

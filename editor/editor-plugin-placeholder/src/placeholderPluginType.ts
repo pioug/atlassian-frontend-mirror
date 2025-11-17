@@ -1,3 +1,4 @@
+import type { DocNode } from '@atlaskit/adf-schema';
 import type {
 	EditorCommand,
 	NextEditorPlugin,
@@ -11,6 +12,7 @@ import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 export interface PlaceholderPluginOptions {
 	emptyLinePlaceholder?: string;
 	placeholder?: string;
+	placeholderADF?: DocNode;
 	placeholderBracketHint?: string;
 	placeholderPrompts?: string[];
 	withEmptyParagraph?: boolean;

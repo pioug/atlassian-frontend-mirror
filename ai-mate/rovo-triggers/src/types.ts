@@ -74,6 +74,7 @@ export type EditorContextPayloadData =
 			selectionLocalIds?: string;
 			isViewMode?: boolean;
 			useGenericEditorSkill?: boolean;
+			additionalContext?: Record<string, unknown>;
 	  }
 	| undefined;
 

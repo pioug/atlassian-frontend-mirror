@@ -14,7 +14,6 @@ import {
 	findSelectedNodeOfType,
 	safeInsert as pmSafeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -147,7 +146,7 @@ export const formatNode =
 				});
 				//	get the first list node as when click on drag handle if there are list node
 				//  can only select one list at a time, so we just need to find the first one
-				if (listNodes.length > 0 && fg('platform_editor_block_menu_patch_2')) {
+				if (listNodes.length > 0) {
 					const firstChild = listNodes[0];
 					const newTr = formatNodeSelectEmptyList(tr, targetType, firstChild, schema);
 					if (newTr) {

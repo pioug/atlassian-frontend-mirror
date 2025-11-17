@@ -1,5 +1,13 @@
 # @atlaskit/codemod-cli
 
+## 0.31.2
+
+### Patch Changes
+
+- [`100f9ea636d3a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/100f9ea636d3a) -
+  Updated lozenge codemod to preserve appearance prop (no color prop change), also renamed to
+  lozenge-appearance-semantic-migration
+
 ## 0.31.1
 
 ### Patch Changes

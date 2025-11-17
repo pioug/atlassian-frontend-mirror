@@ -1,8 +1,7 @@
+import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-rule';
-
-type ThemeAppearance = 'default' | 'inprogress' | 'moved' | 'new' | 'removed' | 'success';
 
 const rule = createLintRule({
 	meta: {
@@ -16,18 +15,17 @@ const rule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			replaceAppearance: "'appearance' prop on <Lozenge> is deprecated — use 'color' instead.",
+			updateAppearance: 'Update appearance value to new semantic value.',
 			migrateTag: 'Non-bold <Lozenge> variants should migrate to <Tag> component.',
 			manualReview: "Dynamic 'isBold' props require manual review before migration.",
 		},
 	},
 
-	create(context) {
+	create(context: Rule.RuleContext) {
 		/**
 		 * Contains a map of imported Lozenge components.
 		 */
 		const lozengeImports: Record<string, string> = {}; // local name -> import source
-		const tagImports: Record<string, string> = {}; // local name -> import source
 
 		/**
 		 * Check if a JSX attribute value is a literal false
@@ -67,33 +65,20 @@ const rule = createLintRule({
 		}
 
 		/**
-		 * Map Lozenge appearance values to Tag color values
+		 * Map old appearance values to new semantic appearance values
+		 * Both Lozenge and Tag now use the same appearance prop with new semantic values
 		 */
-		function mapAppearanceToTagColor(appearanceValue: ThemeAppearance): string {
+		function mapToNewAppearanceValue(oldValue: string): string {
 			const mapping: Record<string, string> = {
-				success: 'lime',
-				default: 'standard',
-				removed: 'red',
-				inprogress: 'blue',
-				new: 'purple',
-				moved: 'orange',
-			};
-			return mapping[appearanceValue] || appearanceValue;
-		}
-
-		/**
-		 * Map Lozenge appearance values to Lozenge color values
-		 */
-		function mapAppearanceToLozengeColor(appearanceValue: ThemeAppearance): string {
-			const mapping: Record<string, string> = {
-				default: 'neutral',
-				inprogress: 'information',
-				moved: 'warning',
-				new: 'discovery',
-				removed: 'danger',
 				success: 'success',
+				default: 'default',
+				removed: 'removed',
+				inprogress: 'inprogress',
+				new: 'new',
+				moved: 'moved',
 			};
-			return mapping[appearanceValue] || appearanceValue;
+			// TODO: Update this mapping based on actual new semantic values when provided
+			return mapping[oldValue] || oldValue;
 		}
 
 		/**
@@ -122,11 +107,11 @@ const rule = createLintRule({
 		/**
 		 * Generate the replacement JSX element text
 		 */
-		function generateTagReplacement(node: any, lozengeLocalName: string): string {
+		function generateTagReplacement(node: any): string {
 			const sourceCode = context.getSourceCode();
 			const attributes = node.openingElement.attributes;
 
-			// Build new attributes array, excluding isBold and mapping appearance to color
+			// Build new attributes array, excluding isBold and mapping appearance values to new semantics
 			const newAttributes: string[] = [];
 
 			attributes.forEach((attr: any) => {
@@ -139,15 +124,15 @@ const rule = createLintRule({
 					}
 
 					if (attrName === 'appearance') {
-						// Map appearance to color with value transformation
-						const stringValue = extractStringValue(attr.value) as ThemeAppearance;
+						// Map appearance value to new semantic value but keep the prop name as appearance
+						const stringValue = extractStringValue(attr.value);
 						if (stringValue && typeof stringValue === 'string') {
-							const mappedColor = mapAppearanceToTagColor(stringValue);
-							newAttributes.push(`color="${mappedColor}"`);
+							const mappedAppearance = mapToNewAppearanceValue(stringValue);
+							newAttributes.push(`appearance="${mappedAppearance}"`);
 						} else {
-							// If we can't extract the string value, keep as-is but rename to color
+							// If we can't extract the string value, keep as-is with appearance prop
 							const value = attr.value ? sourceCode.getText(attr.value) : '';
-							newAttributes.push(`color${value ? `=${value}` : ''}`);
+							newAttributes.push(`appearance${value ? `=${value}` : ''}`);
 						}
 						return;
 					}
@@ -197,18 +182,6 @@ const rule = createLintRule({
 							}
 						});
 					}
-					// Track Tag imports
-					if (moduleSource === '@atlaskit/tag' || moduleSource.startsWith('@atlaskit/tag/')) {
-						node.specifiers.forEach((spec) => {
-							if (spec.type === 'ImportDefaultSpecifier') {
-								tagImports[spec.local.name] = moduleSource;
-							} else if (spec.type === 'ImportSpecifier' && spec.imported.type === 'Identifier') {
-								if (spec.imported.name === 'Tag') {
-									tagImports[spec.local.name] = moduleSource;
-								}
-							}
-						});
-					}
 				}
 			},
 
@@ -231,42 +204,34 @@ const rule = createLintRule({
 				const appearanceProp = attributesMap.appearance;
 				const isBoldProp = attributesMap.isBold;
 
-				// Handle appearance prop migration
+				// Handle appearance prop value migration
 				if (appearanceProp) {
-					context.report({
-						node: appearanceProp,
-						messageId: 'replaceAppearance',
-						fix: (fixer) => {
-							const fixes = [];
-							// Always rename the prop name
-							fixes.push(fixer.replaceText(appearanceProp.name, 'color'));
-
-							// Also map the value if it's a string literal and we're not migrating to Tag
-							const shouldMigrateToTag = !isBoldProp || isLiteralFalse(isBoldProp.value);
-							if (!shouldMigrateToTag) {
-								const stringValue = extractStringValue(appearanceProp.value) as ThemeAppearance;
-								if (stringValue && typeof stringValue === 'string') {
-									const mappedColor = mapAppearanceToLozengeColor(stringValue);
-									if (mappedColor !== stringValue) {
-										// Update the value if it changed
+					const shouldMigrateToTag = !isBoldProp || isLiteralFalse(isBoldProp.value);
+					if (!shouldMigrateToTag) {
+						// Only update appearance values for Lozenge components that stay as Lozenge
+						const stringValue = extractStringValue(appearanceProp.value);
+						if (stringValue && typeof stringValue === 'string') {
+							const mappedValue = mapToNewAppearanceValue(stringValue);
+							if (mappedValue !== stringValue) {
+								context.report({
+									node: appearanceProp,
+									messageId: 'updateAppearance',
+									fix: (fixer) => {
 										if (appearanceProp.value.type === 'Literal') {
-											fixes.push(fixer.replaceText(appearanceProp.value, `"${mappedColor}"`));
+											return fixer.replaceText(appearanceProp.value, `"${mappedValue}"`);
 										} else if (
 											appearanceProp.value.type === 'JSXExpressionContainer' &&
 											appearanceProp.value.expression &&
 											appearanceProp.value.expression.type === 'Literal'
 										) {
-											fixes.push(
-												fixer.replaceText(appearanceProp.value.expression, `"${mappedColor}"`),
-											);
+											return fixer.replaceText(appearanceProp.value.expression, `"${mappedValue}"`);
 										}
-									}
-								}
+										return null;
+									},
+								});
 							}
-
-							return fixes;
-						},
-					});
+						}
+					}
 				}
 
 				// Handle isBold prop and Tag migration
@@ -277,7 +242,7 @@ const rule = createLintRule({
 							node: node,
 							messageId: 'migrateTag',
 							fix: (fixer) => {
-								const replacement = generateTagReplacement(node, elementName);
+								const replacement = generateTagReplacement(node);
 								return fixer.replaceText(node, replacement);
 							},
 						});
@@ -295,7 +260,7 @@ const rule = createLintRule({
 						node: node,
 						messageId: 'migrateTag',
 						fix: (fixer) => {
-							const replacement = generateTagReplacement(node, elementName);
+							const replacement = generateTagReplacement(node);
 							return fixer.replaceText(node, replacement);
 						},
 					});

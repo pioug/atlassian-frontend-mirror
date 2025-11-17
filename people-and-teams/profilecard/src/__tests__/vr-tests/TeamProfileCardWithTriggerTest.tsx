@@ -2,9 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
+
+import FeatureGates, { FeatureGateEnvironment } from '@atlaskit/feature-gate-js-client';
 
 import TeamProfilecardTrigger from '../../components/Team';
 import { staticTeamData } from '../../mocks/team-data';
@@ -73,6 +75,52 @@ export const TeamProfileCardWithTriggerTest = () => {
 				Hover to preview the team:{' '}
 				<TeamProfilecardTrigger {...defaultProps} trigger="hover">
 					<strong data-testId="trigger">The Cool Team</strong>
+				</TeamProfilecardTrigger>
+			</span>
+		</Wrapper>
+	);
+};
+
+export const TeamProfileCardWithDisbandedState = () => {
+	const disbandedTeam: Team = {
+		...staticTeamData({
+			headerImage: 'Picture',
+			members: 15,
+		}),
+		state: 'DISBANDED',
+	};
+
+	useEffect(() => {
+		async function setUpExperiments() {
+			if (!FeatureGates.initializeCalled()) {
+				const formValues = {
+					environment: FeatureGateEnvironment.Development,
+					localMode: true,
+					targetApp: '',
+				};
+				await FeatureGates.initializeFromValues(formValues, {});
+			}
+			FeatureGates.overrideConfig('new_team_profile', { isEnabled: true });
+		}
+		setUpExperiments();
+	}, []);
+
+	const disbandedProfileClient = {
+		getTeamProfile: () => Promise.resolve(disbandedTeam),
+		shouldShowGiveKudos: () => Promise.resolve(true),
+		getTeamCentralBaseUrl: () => Promise.resolve('mock-team-central-base-url'),
+	} as unknown as ProfileClient;
+
+	return (
+		<Wrapper>
+			<span>
+				Hover to preview the disbanded team:{' '}
+				<TeamProfilecardTrigger
+					{...defaultProps}
+					resourceClient={disbandedProfileClient}
+					trigger="hover"
+				>
+					<strong data-testId="trigger-disbanded">The Archived Team</strong>
 				</TeamProfilecardTrigger>
 			</span>
 		</Wrapper>

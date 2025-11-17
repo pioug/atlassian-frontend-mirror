@@ -889,53 +889,57 @@ describe('PanelSplitter', () => {
 		).toEqual('');
 	});
 
-	ffTest.on('navx-full-height-sidebar', 'FHS flag enabled', () => {
-		beforeEach(() => {
-			jest.useFakeTimers();
-		});
-
-		afterEach(() => {
-			jest.useRealTimers();
-		});
-
-		it('should display a tooltip when the tooltipContent prop is provided', async () => {
-			const user = createUser();
-			render(<TestComponent tooltipContent="Double click to collapse" />);
-
-			await user.hover(screen.getByTestId('panel-splitter'));
-			act(() => {
-				jest.runAllTimers();
+	ffTest.both('navx-2566-implement-fhs-rollout', '', () => {
+		ffTest.on('navx-full-height-sidebar', 'with useIsFhsEnabled true', () => {
+			beforeEach(() => {
+				jest.useFakeTimers();
 			});
 
-			expect(
-				await screen.findByRole('tooltip', { name: 'Double click to collapse' }),
-			).toBeInTheDocument();
-		});
-
-		it('should not display a tooltip when the tooltipContent prop is not provided', async () => {
-			const user = createUser();
-			render(<TestComponent />);
-
-			await user.hover(screen.getByTestId('panel-splitter'));
-			act(() => {
-				jest.runAllTimers();
+			afterEach(() => {
+				jest.useRealTimers();
 			});
 
-			expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
-		});
+			it('should display a tooltip when the tooltipContent prop is provided', async () => {
+				const user = createUser();
+				render(<TestComponent tooltipContent="Double click to collapse" />);
 
-		it('should display tooltip shortcuts when the shortcut prop is provided to the provider', async () => {
-			const user = createUser();
-			render(<TestComponent tooltipContent="Double click to collapse" shortcut={['Ctrl', '[']} />);
+				await user.hover(screen.getByTestId('panel-splitter'));
+				act(() => {
+					jest.runAllTimers();
+				});
 
-			await user.hover(screen.getByTestId('panel-splitter'));
-			act(() => {
-				jest.runAllTimers();
+				expect(
+					await screen.findByRole('tooltip', { name: 'Double click to collapse' }),
+				).toBeInTheDocument();
 			});
 
-			expect(
-				await screen.findByRole('tooltip', { name: 'Double click to collapse Ctrl [' }),
-			).toBeInTheDocument();
+			it('should not display a tooltip when the tooltipContent prop is not provided', async () => {
+				const user = createUser();
+				render(<TestComponent />);
+
+				await user.hover(screen.getByTestId('panel-splitter'));
+				act(() => {
+					jest.runAllTimers();
+				});
+
+				expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+			});
+
+			it('should display tooltip shortcuts when the shortcut prop is provided to the provider', async () => {
+				const user = createUser();
+				render(
+					<TestComponent tooltipContent="Double click to collapse" shortcut={['Ctrl', '[']} />,
+				);
+
+				await user.hover(screen.getByTestId('panel-splitter'));
+				act(() => {
+					jest.runAllTimers();
+				});
+
+				expect(
+					await screen.findByRole('tooltip', { name: 'Double click to collapse Ctrl [' }),
+				).toBeInTheDocument();
+			});
 		});
 	});
 });

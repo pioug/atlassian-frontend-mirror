@@ -2,6 +2,7 @@ import React from 'react';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import UserPicker from '../src';
 import { type User } from '../src/types';
+const mockAvatarUrl = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
 
 const agentUsers: User[] = [
 	{
@@ -9,7 +10,7 @@ const agentUsers: User[] = [
 		name: 'Agent Rovo',
 		publicName: 'rovo',
 		appType: 'agent',
-		avatarUrl: 'https://api.adorable.io/avatars/agent-rovo',
+		avatarUrl: mockAvatarUrl,
 		byline: 'AI Assistant',
 		lozenge: 'AGENT',
 	},
@@ -18,7 +19,7 @@ const agentUsers: User[] = [
 		name: 'Agent Smith',
 		publicName: 'smith',
 		appType: 'agent',
-		avatarUrl: 'https://api.adorable.io/avatars/agent-smith',
+		avatarUrl: mockAvatarUrl,
 		byline: 'Task Automation',
 		lozenge: 'AGENT',
 	},
@@ -26,14 +27,14 @@ const agentUsers: User[] = [
 		id: '3',
 		name: 'Regular User',
 		publicName: 'user',
-		avatarUrl: 'https://api.adorable.io/avatars/regular-user',
+		avatarUrl: mockAvatarUrl,
 		byline: 'Team Member',
 	},
 	{
 		id: '4',
 		name: 'Team Name',
 		publicName: 'team-name',
-		avatarUrl: 'https://api.adorable.io/avatars/team-name',
+		avatarUrl: mockAvatarUrl,
 		byline: 'Team Name',
 		appType: 'team',
 	},
@@ -41,14 +42,16 @@ const agentUsers: User[] = [
 
 const Example = (): JSX.Element => (
 	<ExampleWrapper>
-		{({ onInputChange }) => (
+		{({ onInputChange, onSelection }) => (
 			<UserPicker
 				fieldId="agent-example"
 				options={agentUsers}
+				defaultValue={agentUsers[0]}
 				onChange={console.log}
 				onInputChange={onInputChange}
+				onSelection={onSelection}
 				placeholder="Select a user or agent..."
-				isMulti
+				autoFocus
 			/>
 		)}
 	</ExampleWrapper>

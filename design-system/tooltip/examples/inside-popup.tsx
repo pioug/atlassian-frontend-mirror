@@ -7,14 +7,13 @@ import { useState } from 'react';
 import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
-import { fg, setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type ContentProps, type TriggerProps } from '@atlaskit/popup';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
 export default function InsidePopupExample() {
-	setBooleanFeatureFlagResolver((key) => key === 'platform-tooltip-focus-visible-new');
 	const [isOpen, setIsOpen] = useState(false);
 
 	const renderContent = ({ setInitialFocusRef }: ContentProps) => (

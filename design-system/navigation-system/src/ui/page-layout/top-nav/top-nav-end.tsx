@@ -15,6 +15,7 @@ import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/comp
 import { token } from '@atlaskit/tokens';
 
 import { List } from '../../../components/list';
+import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { HasCustomThemeContext } from '../../top-nav-items/themed/has-custom-theme-context';
 import { IconButton } from '../../top-nav-items/themed/migration';
 
@@ -120,6 +121,11 @@ export function TopNavEnd({
 	 */
 	showMoreButtonLabel?: string;
 }) {
+	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useIsFhsEnabled()
+		: fg('navx-full-height-sidebar');
+
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	// Always setting to `false` for the initial render (will flip in an effect for mobile)
 	const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -142,7 +148,7 @@ export function TopNavEnd({
 			aria-label={label}
 			css={[
 				containerStyles.root,
-				fg('navx-full-height-sidebar') && containerStyles.fullHeightSidebar,
+				isFhsEnabled && containerStyles.fullHeightSidebar,
 				fg('team25-eu-jira-logo-updates-csm-jsm') && containerStyles.jiraProductLogoUpdate,
 			]}
 		>

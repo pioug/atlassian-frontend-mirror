@@ -648,7 +648,7 @@ export const apply = (
 	if (api) {
 		if (expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true)) {
 			// If page is updated while dragging (likely by remote updates), we simply remove the drop targets
-			// and add them back when the use interacts with the editor again
+			// and add them back when the user interacts with the editor again
 			if (isDropTargetsMissing) {
 				const oldDropTargetDecs = findDropTargetDecs(decorations);
 				decorations = decorations.remove(oldDropTargetDecs);

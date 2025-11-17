@@ -243,6 +243,13 @@ snapshot(InlineCardUnauthorisedTruncate, {
 	featureFlags: {},
 });
 
+snapshot(InlineCardUnauthorisedTruncate, {
+	description: `inline card unauthorised view with truncation and experiment`,
+	featureFlags: {
+		platform_inline_smartcard_connect_button_exp: ['control', 'test1'],
+	},
+});
+
 snapshot(InlineCardUnauthorised, {
 	description: 'inline card unauthorised view renders correctly when hovering over connect account',
 	featureFlags: {},

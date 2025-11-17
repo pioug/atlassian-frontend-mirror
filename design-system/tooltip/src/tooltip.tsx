@@ -8,7 +8,6 @@ import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { type Direction, ExitingPersistence, FadeIn, type Transition } from '@atlaskit/motion';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type Placement, Popper } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
@@ -383,7 +382,7 @@ function Tooltip({
 			// Prevents tooltips from showing when focus is not visible,
 			// i.e., when focus is moved onto tooltip trigger inside a popup on open
 			try {
-				if (!e.target.matches(':focus-visible') && fg('platform-tooltip-focus-visible-new')) {
+				if (!e.target.matches(':focus-visible')) {
 					return;
 				}
 			} catch (_) {

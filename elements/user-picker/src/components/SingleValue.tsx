@@ -7,6 +7,8 @@ import { type Option, type OptionData } from '../types';
 import { components, type SingleValueProps } from '@atlaskit/select';
 import { SizeableAvatar } from './SizeableAvatar';
 import { getAvatarUrl, isTeam } from './utils';
+import { getAppearanceForAppType } from '@atlaskit/avatar';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
 import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
@@ -68,6 +70,11 @@ export const SingleValue = (props: Props) => {
 					src={getAvatarUrl(data)}
 					appearance={appearance}
 					type={isTeam(data) ? 'team' : 'person'}
+					avatarAppearanceShape={
+						fg('jira_ai_agent_avatar_user_picker_user_option')
+							? getAppearanceForAppType(data.appType)
+							: undefined
+					}
 				/>
 				<Box xcss={styles.avatarItem}>
 					<div css={styles.avatarItemTextWrapper}>

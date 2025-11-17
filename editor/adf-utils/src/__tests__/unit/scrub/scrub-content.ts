@@ -1,3 +1,5 @@
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { scrubAttrs, scrubStr, scrubLink } from '../../../scrub/scrub-content';
 
 describe('scrubAttrs', () => {
@@ -318,6 +320,24 @@ describe('scrubStr', () => {
 		const scrubbedStr = scrubStr('𝖀𝖓𝖎𝖈𝖔𝖉𝖊');
 		expect(scrubbedStr).toEqual('loremip');
 	});
+
+	ffTest(
+		'platform_adf-utils_fix-dummy-text-index-oob',
+		async () => {
+			// Test that the modulo wrap-around maintains the expected DUMMY_TEXT pattern
+			// Even when offset exceeds base string length
+
+			// Use a case where we know we'll exceed base length (string matching DUMMY_TEXT size without spaces)
+			const longInput = 'a'.repeat(437);
+			const result = scrubStr(longInput, 0);
+			expect(result.length).toBe(437);
+		},
+		async () => {
+			// Before the fix, throws an error when reaching `raw.toUpperCase()` when index goes out of bounds
+			const longInput = 'a'.repeat(437);
+			expect(() => scrubStr(longInput, 0)).toThrow();
+		},
+	);
 });
 
 describe('scrubLink', () => {

@@ -10,6 +10,8 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
+import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
+
 /**
  * The main content of the side nav, filling up the middle section. It acts as a scroll container.
  *
@@ -70,6 +72,11 @@ function _SideNavContent(
 	{ children, testId }: SideNavContentProps,
 	forwardedRef: Ref<HTMLDivElement>,
 ) {
+	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useIsFhsEnabled()
+		: fg('navx-full-height-sidebar');
+
 	const internalRef = useRef<HTMLDivElement>(null);
 	const mergedRef = useMemo(() => mergeRefs([internalRef, forwardedRef]), [forwardedRef]);
 
@@ -80,11 +87,8 @@ function _SideNavContent(
 		 * the scrollable area doesn't, so other non-sticky children can be seen above/below the sticky element's stick point.
 		 */
 		<div
-			css={[
-				styles.scrollContainer,
-				fg('navx-full-height-sidebar') && fullHeightSidebarStyles.scrollContainer,
-			]}
-			ref={fg('navx-full-height-sidebar') ? mergedRef : forwardedRef}
+			css={[styles.scrollContainer, isFhsEnabled && fullHeightSidebarStyles.scrollContainer]}
+			ref={isFhsEnabled ? mergedRef : forwardedRef}
 			data-testid={testId}
 		>
 			<div css={styles.paddingContainer}>{children}</div>

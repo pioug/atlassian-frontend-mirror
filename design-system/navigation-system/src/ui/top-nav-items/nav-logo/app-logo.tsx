@@ -12,6 +12,7 @@ import { Anchor, Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
+import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { useHasCustomTheme } from '../themed/has-custom-theme-context';
 
 import { LogoRenderer } from './logo-renderer';
@@ -148,6 +149,11 @@ export const AppLogo = ({
 	 */
 	onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }) => {
+	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useIsFhsEnabled()
+		: fg('navx-full-height-sidebar');
+
 	const ref = useRef<HTMLAnchorElement>(null);
 	const nameRef = useRef<HTMLSpanElement | null>(null);
 
@@ -173,23 +179,17 @@ export const AppLogo = ({
 				hasCustomTheme
 					? anchorStyles.interactionStatesCustomTheming
 					: anchorStyles.interactionStates,
-				fg('navx-full-height-sidebar') && anchorStyles.fullHeightSidebar,
+				isFhsEnabled && anchorStyles.fullHeightSidebar,
 			)}
 			onClick={onClick}
 		>
 			<Inline
 				space="space.075"
 				alignBlock="center"
-				xcss={cx(
-					logoWrapperStyles.root,
-					fg('navx-full-height-sidebar') && logoWrapperStyles.fullHeightSidebar,
-				)}
+				xcss={cx(logoWrapperStyles.root, isFhsEnabled && logoWrapperStyles.fullHeightSidebar)}
 			>
 				<div
-					css={[
-						iconContainerStyles.root,
-						fg('navx-full-height-sidebar') && iconContainerStyles.fullHeightSidebar,
-					]}
+					css={[iconContainerStyles.root, isFhsEnabled && iconContainerStyles.fullHeightSidebar]}
 				>
 					<LogoRenderer
 						// Top nav always uses the new logo design

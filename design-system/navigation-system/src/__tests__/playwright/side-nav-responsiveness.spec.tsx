@@ -4,7 +4,7 @@ const desktopViewport = { width: 1366, height: 768 };
 const mobileViewport = { width: 360, height: 800 };
 
 test.describe('side nav responsive behaviour', () => {
-	test.describe('when navx-full-height-sidebar is enabled', () => {
+	test.describe('when useIsFhsEnabled is true', () => {
 		test.beforeEach(async ({ page }) => {
 			await page.visitExample('design-system', 'navigation-system', 'menu-item-integration', {
 				featureFlag: 'navx-full-height-sidebar',
@@ -94,7 +94,7 @@ test.describe('side nav responsive behaviour', () => {
 			await expect(sideNav).toBeVisible();
 		});
 
-		// This test only passes when navx-full-height-sidebar is enabled
+		// This test only passes when `useIsFhsEnabled` is true
 		test('should maintain mobile expanded state when collapsed on desktop, peeking side nav open, then resizing back to small', async ({
 			page,
 		}) => {
@@ -179,7 +179,7 @@ test.describe('side nav responsive behaviour', () => {
 		});
 	});
 
-	test.describe('when navx-full-height-sidebar is disabled', () => {
+	test.describe('when useIsFhsEnabled is false', () => {
 		test.beforeEach(async ({ page }) => {
 			await page.visitExample('design-system', 'navigation-system', 'menu-item-integration');
 		});

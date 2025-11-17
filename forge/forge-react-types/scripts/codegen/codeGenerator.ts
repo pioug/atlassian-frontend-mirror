@@ -6,7 +6,9 @@ import {
 	type TypeAliasDeclaration,
 	type ImportDeclaration,
 	type TypeReferenceNode,
+	type VariableDeclaration,
 	SyntaxKind,
+	Node,
 } from 'ts-morph';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import kebabCase from 'lodash/kebabCase';
@@ -772,6 +774,143 @@ const generateComponentPropTypeSourceCodeWithSerializedType = (
 	});
 };
 
+/**
+ * Extracts variable declarations that are referenced in the given variable declaration node.
+ * This recursively finds all variable references and extracts their declarations.
+ */
+const extractReferencedVariables = (
+	sourceFile: SourceFile,
+	variableDeclaration: VariableDeclaration,
+	visited: Set<string> = new Set(),
+): string[] => {
+	const variableDeclarations: string[] = [];
+	const identifiers = new Set<string>();
+
+	// Traverse the AST to find identifier references
+	const initializer = variableDeclaration.getInitializer();
+	if (initializer) {
+		initializer.forEachDescendant((node) => {
+			if (Node.isIdentifier(node)) {
+				// Only consider identifiers that are not part of property access
+				// (e.g., `obj.prop` - we want to skip `prop` but consider `obj` if it's a variable)
+				const parent = node.getParent();
+				const isPropertyAccess =
+					Node.isPropertyAccessExpression(parent) && parent.getNameNode() === node;
+				const isPropertyName = Node.isPropertyAssignment(parent) && parent.getNameNode() === node;
+
+				if (!isPropertyAccess && !isPropertyName) {
+					const identifier = node.getText();
+					// Skip keywords and already visited variables
+					if (
+						!visited.has(identifier) &&
+						![
+							'const',
+							'let',
+							'var',
+							'function',
+							'return',
+							'if',
+							'else',
+							'for',
+							'while',
+							'true',
+							'false',
+							'null',
+							'undefined',
+							'this',
+							'super',
+							'makeXCSSValidator',
+						].includes(identifier)
+					) {
+						identifiers.add(identifier);
+					}
+				}
+			}
+		});
+	}
+
+	// Try to find variable declarations for each identifier
+	for (const identifier of identifiers) {
+		try {
+			const referencedVar = sourceFile.getVariableDeclaration(identifier);
+			if (referencedVar && !visited.has(identifier)) {
+				visited.add(identifier);
+				const declarationText = referencedVar.getVariableStatement()?.getText();
+				if (declarationText) {
+					variableDeclarations.push(declarationText);
+					// Recursively extract variables referenced in this declaration
+					const nestedVariables = extractReferencedVariables(sourceFile, referencedVar, visited);
+					variableDeclarations.push(...nestedVariables);
+				}
+			}
+		} catch {
+			// Variable not found in this file, skip it
+		}
+	}
+
+	return variableDeclarations;
+};
+
+/**
+ * Extracts import declarations that are used by the given variable declarations.
+ */
+const extractImportsForVariables = (
+	sourceFile: SourceFile,
+	variableDeclarations: string[],
+): string[] => {
+	const importDeclarations: string[] = [];
+	const allVariableCode = variableDeclarations.join('\n');
+
+	// Get all import declarations from the source file
+	const imports = sourceFile.getImportDeclarations();
+
+	for (const importDecl of imports) {
+		const moduleSpecifier = importDecl.getModuleSpecifierValue();
+		// Only extract imports from @atlaskit packages (not local imports)
+		if (moduleSpecifier.startsWith('@atlaskit/')) {
+			const namedImports = importDecl.getNamedImports();
+			const isTypeOnlyImport = importDecl.isTypeOnly();
+
+			// Check if any of the imported names are used in the variable declarations
+			const usedNamedImports: string[] = [];
+			const usedTypeImports: string[] = [];
+
+			for (const namedImport of namedImports) {
+				const importName = namedImport.getAliasNode()?.getText() ?? namedImport.getName();
+				if (isTokenUsed(importName, [allVariableCode])) {
+					// Check if this specific import specifier is type-only
+					// by checking if the import declaration text contains "type" before this import
+					const importText = importDecl.getText();
+					const importNamePattern = new RegExp(`\\btype\\s+${importName}\\b`);
+					const isTypeOnly = isTypeOnlyImport || importNamePattern.test(importText);
+
+					if (isTypeOnly) {
+						usedTypeImports.push(importName);
+					} else {
+						usedNamedImports.push(importName);
+					}
+				}
+			}
+
+			// If any imports are used, create an import statement
+			if (usedNamedImports.length > 0 || usedTypeImports.length > 0) {
+				const importParts: string[] = [];
+				if (usedTypeImports.length > 0) {
+					importParts.push(`type { ${usedTypeImports.join(', ')} }`);
+				}
+				if (usedNamedImports.length > 0) {
+					importParts.push(`{ ${usedNamedImports.join(', ')} }`);
+				}
+				if (importParts.length > 0) {
+					importDeclarations.push(`import ${importParts.join(', ')} from '${moduleSpecifier}';`);
+				}
+			}
+		}
+	}
+
+	return importDeclarations;
+};
+
 const handleXCSSProp: CodeConsolidator = ({
 	sourceFile,
 	importCode,
@@ -783,11 +922,24 @@ const handleXCSSProp: CodeConsolidator = ({
 	const xcssValidatorfile = sourceFile
 		.getProject()
 		.addSourceFileAtPath(require.resolve('@atlassian/forge-ui/utils/xcssValidator'));
-	const xcssValidator = xcssValidatorfile.getVariableDeclarationOrThrow('xcssValidator').getText();
+	const xcssValidatorDeclaration = xcssValidatorfile.getVariableDeclarationOrThrow('xcssValidator');
+	const xcssValidator = xcssValidatorDeclaration.getText();
 	const XCSSPropType = xcssValidatorfile
 		.getTypeAliasOrThrow('XCSSProp')
 		.setIsExported(false)
 		.getText();
+
+	// Extract variables referenced in xcssValidator
+	const referencedVariables = extractReferencedVariables(
+		xcssValidatorfile,
+		xcssValidatorDeclaration,
+	);
+	// Reverse to maintain dependency order (dependencies first)
+	const referencedVariablesCode = referencedVariables.reverse().join('\n');
+
+	// Extract imports used by the extracted variables
+	const variableImports = extractImportsForVariables(xcssValidatorfile, referencedVariables);
+	const variableImportsCode = variableImports.join('\n');
 
 	const utilsFile = sourceFile
 		.getProject()
@@ -798,9 +950,13 @@ const handleXCSSProp: CodeConsolidator = ({
 		}).compilerObject.outputFiles[0].text;
 		const xcssValidatorVariableDeclarationCode = [
 			xcssValidatorDeclarationCode,
+			variableImportsCode,
+			referencedVariablesCode,
 			`const ${xcssValidator};`,
 			XCSSPropType,
-		].join('\n');
+		]
+			.filter((code) => !!code)
+			.join('\n');
 
 		return [
 			'/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */',

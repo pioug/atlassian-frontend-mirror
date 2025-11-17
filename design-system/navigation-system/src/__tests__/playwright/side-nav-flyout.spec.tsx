@@ -5,7 +5,7 @@ import { sideNavFlyoutCloseDelayMs } from '../../ui/page-layout/side-nav/flyout-
 const mobileViewport = { width: 360, height: 800 };
 
 test.describe('side nav flyout', () => {
-	test.describe('when navx-full-height-sidebar is enabled', () => {
+	test.describe('when useIsFhsEnabled is true', () => {
 		test.beforeEach(async ({ page }) => {
 			await page.visitExample('design-system', 'navigation-system', 'side-nav-flyout', {
 				featureFlag: 'navx-full-height-sidebar',
@@ -247,7 +247,7 @@ test.describe('side nav flyout', () => {
 		});
 	});
 
-	test.describe('when navx-full-height-sidebar is disabled', () => {
+	test.describe('when useIsFhsEnabled is false', () => {
 		test.beforeEach(async ({ page }) => {
 			await page.visitExample('design-system', 'navigation-system', 'side-nav-flyout');
 		});

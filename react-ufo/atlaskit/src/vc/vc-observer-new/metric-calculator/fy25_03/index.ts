@@ -1,6 +1,8 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { VCAbortReason } from '../../../../common/vc/types';
+import { expVal } from '../../../expVal';
+import { containsDnDMutationInStyle } from '../../../vc-observer/observers/non-visual-styles/is-dnd-style-mutation';
 import type {
 	VCObserverEntry,
 	VCObserverEntryType,
@@ -106,9 +108,27 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 
 			if (
 				attributeName &&
-				(/data-(test|file|context)-\S+/g.test(attributeName) || attributeName === 'alt')
+				(/data-(test|file|context)-\S+/g.test(attributeName) ||
+					attributeName === 'alt' ||
+					((attributeName === 'localid' ||
+						attributeName === 'contenteditable' ||
+						attributeName === 'anchor-name') &&
+						expVal('platform_editor_media_vc_fixes', 'isEnabled', false)))
 			) {
 				return false;
+			}
+
+			// special case for style attribute to ignore only anchor-name changes
+			if (expVal('platform_editor_media_vc_fixes', 'isEnabled', false)) {
+				if (
+					containsDnDMutationInStyle({
+						attributeName: entryData.attributeName,
+						oldValue: entryData.oldValue,
+						newValue: entryData.newValue,
+					})
+				) {
+					return false;
+				}
 			}
 		}
 

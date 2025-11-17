@@ -85,8 +85,7 @@ const CopyBlockMenuItem = ({ api }: CopyBlockMenuItemProps & WrappedComponentPro
 				if (
 					fragment?.firstChild &&
 					(fragment.firstChild.type.name === 'expand' ||
-						(fragment.firstChild.type.name === 'bodiedExtension' &&
-							fg('platform_editor_block_menu_patch_2')))
+						fragment.firstChild.type.name === 'bodiedExtension')
 				) {
 					const expandOrExtensionNode = fragment.firstChild;
 					const actualNodeToCopy = expandOrExtensionNode.firstChild;

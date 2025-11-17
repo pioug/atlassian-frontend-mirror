@@ -1,12 +1,12 @@
 /**
- * I originally enabled the `navx-full-height-sidebar` gate for the tests in `page-layout.vr.tsx`
+ * I originally enabled the full height sidebar for the tests in `page-layout.vr.tsx`
  * but it was a lot of snapshots and I'm not sure there was a lot of value in all of them.
  *
  * Some edge cases were also not captured, so I'm making this separate file with more targeted tests.
  *
  * Most of these tests are targeting actual issues I noticed during development.
  *
- * TODO: when cleaning up `navx-full-height-sidebar` merge these back into `page-layout.vr.tsx` or other suitable test suite.
+ * TODO: when cleaning up `useIsFhsEnabled` merge these back into `page-layout.vr.tsx` or other suitable test suite.
  */
 
 import { Device, snapshotInformational } from '@af/visual-regression';

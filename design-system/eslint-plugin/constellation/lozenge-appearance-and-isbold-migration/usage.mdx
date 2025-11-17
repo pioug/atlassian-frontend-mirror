@@ -8,9 +8,6 @@ the Labelling System Phase 1 migration.
 ### Incorrect
 
 ```tsx
-// appearance prop should be renamed to color
-<Lozenge appearance="success" />
-
 // Non-bold Lozenge variants should migrate to Tag
 <Lozenge isBold={false} />
 <Lozenge /> // no isBold means implicit false
@@ -23,56 +20,50 @@ the Labelling System Phase 1 migration.
 ### Correct
 
 ```tsx
-// Use color instead of appearance
-<Lozenge color="lime" /> // note: success -> lime mapping
-
-// Non-bold variants should use Tag component with mapped colors
-<Tag color="lime" /> // success -> lime
-<Tag color="standard" /> // default -> standard
+// Non-bold variants should use Tag component with appearance prop
+<Tag appearance="success" />
+<Tag appearance="default" />
 
 // Bold Lozenge variants can stay as Lozenge
 <Lozenge isBold />
 <Lozenge isBold={true} />
+<Lozenge appearance="success" isBold />
 ```
 
 ## Rule Details
 
-This rule enforces three migration patterns:
+This rule enforces two migration patterns:
 
-1. **Replace `appearance` → `color`**: Detects `<Lozenge appearance="..." />` and replaces the prop
-   name with `color` while preserving the value.
+1. **Migrate `isBold={false}` or missing `isBold` → `<Tag />`**: Detects non-bold Lozenge variants
+   and suggests migrating to the Tag component, preserving other props including the `appearance`
+   prop with its value.
 
-2. **Migrate `isBold={false}` or missing `isBold` → `<Tag />`**: Detects non-bold Lozenge variants
-   and suggests migrating to the Tag component, preserving other props like text, href, onRemove,
-   etc. When migrating to Tag, appearance values are automatically mapped to the correct color
-   values.
-
-3. **Warn on dynamic `isBold` expressions**: Detects dynamic `isBold` props that cannot be safely
+2. **Warn on dynamic `isBold` expressions**: Detects dynamic `isBold` props that cannot be safely
    auto-fixed and require manual review.
 
-## Appearance to Color Value Mapping
+## Appearance Prop Handling
 
-When migrating from `<Lozenge>` to `<Tag>`, the appearance values are automatically mapped to the
-correct Tag color values:
+Both `<Lozenge>` and `<Tag>` now use the `appearance` prop with new semantic values. The rule will
+automatically map old appearance values to the new semantic values when they differ.
 
-| Lozenge `appearance` | Tag `color`  |
-| -------------------- | ------------ |
-| `"success"`          | `"lime"`     |
-| `"default"`          | `"standard"` |
-| `"removed"`          | `"red"`      |
-| `"inprogress"`       | `"blue"`     |
-| `"new"`              | `"purple"`   |
-| `"moved"`            | `"orange"`   |
+### Appearance Value Mapping
 
-Unknown appearance values will be passed through unchanged.
+The rule includes a mapping function that will update old appearance values to new semantic values:
+
+```tsx
+// Example mappings (to be updated with actual semantic values)
+'success' → 'success'      // or new semantic equivalent
+'default' → 'default'      // or new semantic equivalent
+'removed' → 'removed'      // or new semantic equivalent
+'inprogress' → 'inprogress' // or new semantic equivalent
+'new' → 'new'             // or new semantic equivalent
+'moved' → 'moved'         // or new semantic equivalent
+```
+
+**Note**: The current implementation preserves existing values. The mapping will be updated once the
+new semantic values are finalized.
 
 ## Auto-fixes
 
-- ✅ `appearance` prop renaming to `color`
-- ✅ `isBold={false}` and missing `isBold` migration to `<Tag>`
+- ✅ `isBold={false}` and missing `isBold` migration to `<Tag>` with preserved `appearance` prop
 - ❌ Dynamic `isBold` expressions (warning only)
-
-## When not to use it
-
-This rule should be disabled if you are not participating in the Labelling System Phase 1 migration
-or if you need to maintain backward compatibility with the old Lozenge API.

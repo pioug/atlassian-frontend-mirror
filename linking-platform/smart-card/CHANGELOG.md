@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 43.7.1
+
+### Patch Changes
+
+- [`f14d0a4924e18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f14d0a4924e18) -
+  [ux] Add the design follow ups requested for the blue button on unauthorized smartlinks
+
 ## 43.7.0
 
 ### Minor Changes

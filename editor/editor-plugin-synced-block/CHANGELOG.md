@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.2.9
+
+### Patch Changes
+
+- [`b7d44770ef1bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7d44770ef1bf) -
+  EDITOR-2913 fix error nodetype create cannot create text nodes by filtering out text nodes
+
 ## 4.2.8
 
 ### Patch Changes

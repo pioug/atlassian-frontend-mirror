@@ -1,7 +1,6 @@
 import React, { forwardRef } from 'react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import Tooltip from '../../tooltip';
@@ -352,46 +351,44 @@ describe('Tooltip', () => {
 		}
 	});
 
-	ffTest.on('platform-tooltip-focus-visible-new', 'focus-visible', () => {
-		it('should not show the tooltip when the trigger is focused and focus is not visible', async () => {
-			const wrapped = (
-				<Tooltip testId="tooltip" content="hello world">
-					<button data-testid="trigger" type="button">
+	it('should not show the tooltip when the trigger is focused and focus is not visible', async () => {
+		const wrapped = (
+			<Tooltip testId="tooltip" content="hello world">
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
+			</Tooltip>
+		);
+		const renderProp = (
+			<Tooltip testId="tooltip" content="hello world">
+				{(tooltipProps) => (
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
-				</Tooltip>
-			);
-			const renderProp = (
-				<Tooltip testId="tooltip" content="hello world">
-					{(tooltipProps) => (
-						<button {...tooltipProps} data-testid="trigger" type="button">
-							focus me
-						</button>
-					)}
-				</Tooltip>
-			);
+				)}
+			</Tooltip>
+		);
 
-			for (const jsx of [wrapped, renderProp]) {
-				const { unmount } = render(jsx);
+		for (const jsx of [wrapped, renderProp]) {
+			const { unmount } = render(jsx);
 
-				const trigger = screen.getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
 
-				// Mocking `event.target.matches` to return false, so the check for
-				// e.target.matches(':focus-visible') returns false.
-				fireEvent.focus(trigger, {
-					target: {
-						matches: () => false,
-					},
-				});
+			// Mocking `event.target.matches` to return false, so the check for
+			// e.target.matches(':focus-visible') returns false.
+			fireEvent.focus(trigger, {
+				target: {
+					matches: () => false,
+				},
+			});
 
-				act(() => {
-					jest.runAllTimers();
-				});
+			act(() => {
+				jest.runAllTimers();
+			});
 
-				expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
-				unmount();
-			}
-		});
+			expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
+			unmount();
+		}
 	});
 
 	it('should hide the tooltip when the trigger loses focus', async () => {

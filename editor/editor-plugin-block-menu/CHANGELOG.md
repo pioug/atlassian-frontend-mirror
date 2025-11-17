@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.0.10
+
+### Patch Changes
+
+- [`c0f06bd1a9b63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0f06bd1a9b63) -
+  Feature flag removal platform_editor_block_menu_patch_2
+- Updated dependencies
+
+## 5.0.9
+
+### Patch Changes
+
+- [`d43ebcd35ce11`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d43ebcd35ce11) -
+  [ux] Enable block menu on all top level nodes by default
+
 ## 5.0.8
 
 ### Patch Changes

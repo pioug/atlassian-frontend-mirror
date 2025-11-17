@@ -96,7 +96,13 @@ export const InlineCardUnauthorizedView = ({
 	}, [handleConnectAccount, context]);
 
 	const inlineCardUnauthenticatedView = (
-		<Frame testId={testId} isSelected={isSelected} ref={frameRef} truncateInline={truncateInline}>
+		<Frame
+			testId={testId}
+			isSelected={isSelected}
+			ref={frameRef}
+			truncateInline={truncateInline}
+			viewType="unauthorised"
+		>
 			<IconAndTitleLayout
 				icon={icon ? icon : fallbackUnauthorizedIcon()}
 				title={url}

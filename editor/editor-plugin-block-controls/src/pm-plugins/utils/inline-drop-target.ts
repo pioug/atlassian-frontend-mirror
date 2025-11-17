@@ -1,11 +1,14 @@
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type ActiveNode } from '../../blockControlsPluginType';
 
 import { isWrappedMedia } from './check-media-layout';
 import { maxLayoutColumnSupported } from './consts';
+
+const syncedBlockTypes = ['syncBlock', 'bodiedSyncBlock'];
 
 export const shouldAllowInlineDropTarget = (
 	isNested: boolean,
@@ -24,6 +27,14 @@ export const shouldAllowInlineDropTarget = (
 		return false;
 	}
 	if (activeNode?.nodeType === 'layoutSection') {
+		return false;
+	}
+
+	if (
+		(syncedBlockTypes.includes(activeNode?.nodeType || '') ||
+			syncedBlockTypes.includes(node?.type.name || '')) &&
+		expValEquals('platform_synced_block', 'isEnabled', true)
+	) {
 		return false;
 	}
 

@@ -12,6 +12,7 @@ import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { TopNavStartAttachRef } from '../../../context/top-nav-start/top-nav-start-context';
+import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { useSideNavVisibility } from '../side-nav/use-side-nav-visibility';
 import { SideNavVisibilityState } from '../side-nav/visibility-context';
 
@@ -31,7 +32,7 @@ const flexGap = token('space.050');
 /**
  * Styles for the TopNavStart element.
  *
- * When `navx-full-height-sidebar` is enabled this is the styling for the inner element,
+ * When `useIsFhsEnabled` is true this is the styling for the inner element,
  * which re-enables pointer events.
  */
 const innerStyles = cssMap({
@@ -87,7 +88,7 @@ const innerStyles = cssMap({
  * Styles for the outer element, that does not have re-enabled pointer events and spans the entire
  * width of the TopNavStart area.
  *
- * This wrapper element is only rendered when `navx-full-height-sidebar` is enabled.
+ * This wrapper element is only rendered when `useIsFhsEnabled` is true.
  */
 const wrapperStyles = cssMap({
 	root: {
@@ -302,6 +303,11 @@ const TopNavStartInnerFHS = forwardRef(function TopNavStartInnerFHS(
  * Wrapper for the top navigation actions on the inline-start (left) side of the top navigation.
  */
 export function TopNavStart({ children, testId, sideNavToggleButton }: TopNavStartProps) {
+	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useIsFhsEnabled()
+		: fg('navx-full-height-sidebar');
+
 	const ref = useContext(TopNavStartAttachRef);
 	const elementRef = useRef(null);
 
@@ -345,7 +351,7 @@ export function TopNavStart({ children, testId, sideNavToggleButton }: TopNavSta
 	const sideNavState = useContext(SideNavVisibilityState);
 
 	useEffect(() => {
-		if (!fg('navx-full-height-sidebar')) {
+		if (!isFhsEnabled) {
 			return;
 		}
 
@@ -359,14 +365,14 @@ export function TopNavStart({ children, testId, sideNavToggleButton }: TopNavSta
 		if (isFirstRenderRef.current) {
 			isFirstRenderRef.current = false;
 		}
-	}, [sideNavState]);
+	}, [isFhsEnabled, sideNavState]);
 
 	// Using a stable ref to avoid re-running the animation layout effect when the toggle button prop value changes, which
 	// can happen a lot (e.g. if the parent re-renders)
 	const sideNavToggleButtonStableRef = useStableRef(sideNavToggleButton);
 
 	useLayoutEffect(() => {
-		if (!fg('navx-full-height-sidebar')) {
+		if (!isFhsEnabled) {
 			return;
 		}
 
@@ -403,45 +409,39 @@ export function TopNavStart({ children, testId, sideNavToggleButton }: TopNavSta
 		});
 
 		// This layout effect is called when the sidebar's desktop expansion state changes.
-	}, [isExpandedOnDesktop, sideNavToggleButtonStableRef]);
+	}, [isExpandedOnDesktop, isFhsEnabled, sideNavToggleButtonStableRef]);
 
-	const TopNavStartInner = fg('navx-full-height-sidebar')
-		? TopNavStartInnerFHS
-		: TopNavStartInnerOld;
+	const TopNavStartInner = isFhsEnabled ? TopNavStartInnerFHS : TopNavStartInnerOld;
 
 	return (
 		<TopNavStartInner ref={elementRef} testId={testId}>
 			{/* If FHS is not enabled, the toggle button is always at the start */}
-			{!fg('navx-full-height-sidebar') && sideNavToggleButton}
+			{!isFhsEnabled && sideNavToggleButton}
 			{/**
 			 * If FHS is enabled, the toggle button is at the start when:
 			 *
 			 * - on mobile (always)
 			 * - collapsed on desktop
 			 */}
-			{sideNavToggleButton &&
-				(!isDesktop || !isExpandedOnDesktop) &&
-				fg('navx-full-height-sidebar') && (
-					<div
-						key={sideNavToggleButtonKey}
-						css={[
-							!isFirefox && toggleButtonWrapperStyles.root,
-							!isFirefox &&
-								animationState.type === 'idle' &&
-								toggleButtonWrapperStyles.finalPosition,
-							!isFirefox &&
-								// Timing function is applied when the browser animates to the idle position.
-								animationState.type === 'idle' &&
-								toggleButtonWrapperStyles.collapseAnimationTimingFunction,
-							!isFirefox &&
-								animationState.type === 'collapse' &&
-								toggleButtonWrapperStyles.collapseAnimationStartPosition,
-						]}
-					>
-						{sideNavToggleButton}
-					</div>
-				)}
-			{fg('navx-full-height-sidebar') ? (
+			{sideNavToggleButton && (!isDesktop || !isExpandedOnDesktop) && isFhsEnabled && (
+				<div
+					key={sideNavToggleButtonKey}
+					css={[
+						!isFirefox && toggleButtonWrapperStyles.root,
+						!isFirefox && animationState.type === 'idle' && toggleButtonWrapperStyles.finalPosition,
+						!isFirefox &&
+							// Timing function is applied when the browser animates to the idle position.
+							animationState.type === 'idle' &&
+							toggleButtonWrapperStyles.collapseAnimationTimingFunction,
+						!isFirefox &&
+							animationState.type === 'collapse' &&
+							toggleButtonWrapperStyles.collapseAnimationStartPosition,
+					]}
+				>
+					{sideNavToggleButton}
+				</div>
+			)}
+			{isFhsEnabled ? (
 				// Wrapper element is used to animate the TopNavStart children content to its new position during
 				// the sidebar toggle animation.
 				<div
@@ -463,30 +463,25 @@ export function TopNavStart({ children, testId, sideNavToggleButton }: TopNavSta
 				children
 			)}
 			{/* If FHS is enabled, the toggle button is at the end ONLY when expanded on desktop */}
-			{sideNavToggleButton &&
-				isDesktop &&
-				isExpandedOnDesktop &&
-				fg('navx-full-height-sidebar') && (
-					<div
-						key={sideNavToggleButtonKey}
-						css={[
-							!isFirefox && toggleButtonWrapperStyles.root,
-							toggleButtonWrapperStyles.alignEnd,
-							!isFirefox &&
-								animationState.type === 'idle' &&
-								toggleButtonWrapperStyles.finalPosition,
-							!isFirefox &&
-								// Timing function is applied when the browser animates to the idle position.
-								animationState.type === 'idle' &&
-								toggleButtonWrapperStyles.expandAnimationTimingFunction,
-							!isFirefox &&
-								animationState.type === 'expand' &&
-								toggleButtonWrapperStyles.expandAnimationStartPosition,
-						]}
-					>
-						{sideNavToggleButton}
-					</div>
-				)}
+			{sideNavToggleButton && isDesktop && isExpandedOnDesktop && isFhsEnabled && (
+				<div
+					key={sideNavToggleButtonKey}
+					css={[
+						!isFirefox && toggleButtonWrapperStyles.root,
+						toggleButtonWrapperStyles.alignEnd,
+						!isFirefox && animationState.type === 'idle' && toggleButtonWrapperStyles.finalPosition,
+						!isFirefox &&
+							// Timing function is applied when the browser animates to the idle position.
+							animationState.type === 'idle' &&
+							toggleButtonWrapperStyles.expandAnimationTimingFunction,
+						!isFirefox &&
+							animationState.type === 'expand' &&
+							toggleButtonWrapperStyles.expandAnimationStartPosition,
+					]}
+				>
+					{sideNavToggleButton}
+				</div>
+			)}
 		</TopNavStartInner>
 	);
 }

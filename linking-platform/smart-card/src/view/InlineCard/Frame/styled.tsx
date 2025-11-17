@@ -7,6 +7,7 @@ import React, { forwardRef } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { B100, B200, B400, B50, N40 } from '@atlaskit/theme/colors';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
 
 export interface WrapperProps extends React.ComponentProps<any> {
@@ -15,19 +16,34 @@ export interface WrapperProps extends React.ComponentProps<any> {
 	isInteractive?: boolean;
 	isSelected?: boolean;
 	truncateInline?: boolean;
+	viewType?: 'default' | 'unauthorised';
 	withoutBackground?: boolean;
 }
 
 export const WrapperSpan = forwardRef<HTMLSpanElement, WrapperProps>(
 	(
-		{ truncateInline, withoutBackground, isHovered, isInteractive, isSelected, href, ...props },
+		{
+			truncateInline,
+			withoutBackground,
+			isHovered,
+			isInteractive,
+			isSelected,
+			href,
+			viewType,
+			...props
+		},
 		ref,
 	) => {
+		const experimentValue =
+			viewType === 'unauthorised'
+				? expVal('platform_inline_smartcard_connect_button_exp', 'cohort', 'control')
+				: 'control';
 		return (
 			<span
 				css={[
 					baseWrapperStyles,
 					truncateInline && truncateStyles,
+					truncateInline && experimentValue !== 'control' && unauthorisedTruncateStyles,
 					withoutBackground ? withoutBackgroundStyles : withBackgroundStyles,
 					isHovered && hoveredStyles,
 					isHovered && !withoutBackground && hoveredWithBackgroundStyles,
@@ -44,9 +60,23 @@ export const WrapperSpan = forwardRef<HTMLSpanElement, WrapperProps>(
 
 export const WrapperAnchor = forwardRef<HTMLAnchorElement, WrapperProps>(
 	(
-		{ truncateInline, withoutBackground, isHovered, isInteractive, isSelected, href, ...props },
+		{
+			truncateInline,
+			withoutBackground,
+			isHovered,
+			isInteractive,
+			isSelected,
+			href,
+			viewType,
+			...props
+		},
 		ref,
 	) => {
+		const experimentValue =
+			viewType === 'unauthorised'
+				? expVal('platform_inline_smartcard_connect_button_exp', 'cohort', 'control')
+				: 'control';
+
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 			// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
@@ -55,6 +85,7 @@ export const WrapperAnchor = forwardRef<HTMLAnchorElement, WrapperProps>(
 				css={[
 					baseWrapperStyles,
 					truncateInline && truncateStyles,
+					truncateInline && experimentValue !== 'control' && unauthorisedTruncateStyles,
 					withoutBackground ? withoutBackgroundStyles : withBackgroundStyles,
 					isHovered && hoveredStyles,
 					isHovered && !withoutBackground && hoveredWithBackgroundStyles,
@@ -135,6 +166,10 @@ const truncateStyles = css({
 		paddingBottom: token('space.025'),
 		paddingLeft: '0px',
 	},
+});
+
+const unauthorisedTruncateStyles = css({
+	color: token('color.text.inverse'),
 });
 
 const notSelectedStyle = css({ userSelect: 'text' });

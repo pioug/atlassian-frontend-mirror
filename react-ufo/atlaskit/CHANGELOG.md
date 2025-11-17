@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.14.8
+
+### Patch Changes
+
+- [`60636efa6fba9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60636efa6fba9) -
+  exclude media mutation from ttvc if matching DnD style change, localId and contenteditable
+  attribute change, as they are non-visual changes
+
 ## 4.14.7
 
 ### Patch Changes

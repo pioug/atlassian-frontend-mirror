@@ -2,6 +2,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const aiExperienceApplicationMessages = defineMessages({
+	dialogAriaLabel: {
+		id: 'fabric.editor.ai.experience.dialogAriaLabel',
+		defaultMessage: 'Atlassian Intelligence Dialog',
+		description: 'Aria label for the Atlassian Intelligence dialog',
+	},
 	responseTooSimilarMessage: {
 		id: 'fabric.editor.ai.experience.responseTooSimilarMessage',
 		defaultMessage:

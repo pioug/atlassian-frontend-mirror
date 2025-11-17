@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.7.1
+
+### Patch Changes
+
+- [`27d4ba93d0702`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27d4ba93d0702) -
+  EDITOR-3201 disable layout drop targets for sync blocks
+
+## 7.7.0
+
+### Minor Changes
+
+- [`1bfde822534e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bfde822534e5) -
+  EDITOR-2749 fix drag and drop issue in bodied sync block
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.6.0
 
 ### Minor Changes

@@ -57,6 +57,7 @@ const experimentEnabledStyles = cssMap({
 		},
 	},
 	test1: {
+		// This will be renamed to 'unauthorised' once the experiment gate can be cleaned up
 		color: token('color.text.inverse'),
 		cursor: 'pointer',
 		backgroundColor: token('color.background.selected.bold'),
@@ -68,6 +69,16 @@ const experimentEnabledStyles = cssMap({
 		},
 		borderTopRightRadius: token('radius.xsmall'),
 		borderBottomRightRadius: token('radius.xsmall'),
+		borderTopLeftRadius: token('radius.xsmall'),
+		borderBottomLeftRadius: token('radius.xsmall'),
+		// The following style rules are ignored by https://atlassian.slack.com/archives/C09A7MGD4R2/p1762172701565049?thread_ts=1761943025.332209&cid=C09A7MGD4R2
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		paddingTop: '1px' as any,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		paddingBottom: '1px' as any,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		marginRight: '1px' as any,
+		fontWeight: token('font.weight.regular'),
 	},
 	test2: {
 		color: token('color.text.inverse'),

@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - BoxProps
  *
- * @codegen <<SignedSource::97f15631a172af79bb692d529c0cfdd2>>
+ * @codegen <<SignedSource::2aa8902478f587c656a335fdbf945043>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/__generated__/index.partial.tsx <<SignedSource::8e5857e8580db0dac17ebc42ab6115c9>>
  */
@@ -67,6 +67,17 @@ declare const makeXCSSValidator: <U extends XCSSValidatorParam>(supportedXCSSPro
 export { makeXCSSValidator };
 export type { SafeCSSObject };
 
+import type { BorderRadius } from '@atlaskit/primitives';
+const borderRadiusTokens: BorderRadius[] = [
+	'radius.xsmall',
+	'radius.small',
+	'radius.medium',
+	'radius.large',
+	'radius.xlarge',
+	'radius.full',
+	'radius.tile',
+];
+const borderRadiusSupportedValues = [...borderRadiusTokens, 'border.radius'];
 const xcssValidator = makeXCSSValidator({
 	// text related props
 	textAlign: {
@@ -150,26 +161,26 @@ const xcssValidator = makeXCSSValidator({
 	paddingTop: true,
 
 	// other box related props
-	borderRadius: { supportedValues: ['border.radius'] },
-	borderBottomLeftRadius: { supportedValues: ['border.radius'] },
-	borderBottomRightRadius: { supportedValues: ['border.radius'] },
-	borderTopLeftRadius: { supportedValues: ['border.radius'] },
-	borderTopRightRadius: { supportedValues: ['border.radius'] },
-	borderEndEndRadius: { supportedValues: ['border.radius'] },
-	borderEndStartRadius: { supportedValues: ['border.radius'] },
-	borderStartEndRadius: { supportedValues: ['border.radius'] },
-	borderStartStartRadius: { supportedValues: ['border.radius'] },
-	borderWidth: { supportedValues: ['border.width'] },
-	borderBlockWidth: { supportedValues: ['border.width'] },
-	borderBlockEndWidth: { supportedValues: ['border.width'] },
-	borderBlockStartWidth: { supportedValues: ['border.width'] },
-	borderBottomWidth: { supportedValues: ['border.width'] },
-	borderInlineWidth: { supportedValues: ['border.width'] },
-	borderInlineEndWidth: { supportedValues: ['border.width'] },
-	borderInlineStartWidth: { supportedValues: ['border.width'] },
-	borderLeftWidth: { supportedValues: ['border.width'] },
-	borderRightWidth: { supportedValues: ['border.width'] },
-	borderTopWidth: { supportedValues: ['border.width'] },
+	borderRadius: { supportedValues: borderRadiusSupportedValues },
+	borderBottomLeftRadius: { supportedValues: borderRadiusSupportedValues },
+	borderBottomRightRadius: { supportedValues: borderRadiusSupportedValues },
+	borderTopLeftRadius: { supportedValues: borderRadiusSupportedValues },
+	borderTopRightRadius: { supportedValues: borderRadiusSupportedValues },
+	borderEndEndRadius: { supportedValues: borderRadiusSupportedValues },
+	borderEndStartRadius: { supportedValues: borderRadiusSupportedValues },
+	borderStartEndRadius: { supportedValues: borderRadiusSupportedValues },
+	borderStartStartRadius: { supportedValues: borderRadiusSupportedValues },
+	borderWidth: true,
+	borderBlockWidth: true,
+	borderBlockEndWidth: true,
+	borderBlockStartWidth: true,
+	borderBottomWidth: true,
+	borderInlineWidth: true,
+	borderInlineEndWidth: true,
+	borderInlineStartWidth: true,
+	borderLeftWidth: true,
+	borderRightWidth: true,
+	borderTopWidth: true,
 
 	// other props not in tokens based props
 	borderTopStyle: {

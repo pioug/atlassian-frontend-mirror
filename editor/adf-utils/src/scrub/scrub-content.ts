@@ -1,4 +1,5 @@
 import { type ValueReplacements } from './default-value-replacements';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const DUMMY_TEXT = `Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum`;
 const DUMMY_DIGITS = ['2', '7', '4', '3', '5', '9', '1', '8', '0', '5'];
@@ -79,8 +80,12 @@ export const scrubStr = (val: string, offset = 0) => {
 				return '';
 			} else {
 				// Everything else
-				const correction = base[offset] === ' ' ? 1 : 0;
-				const raw = base[offset + correction];
+
+				// modulo to ensure wrapping occurs around base string (no OOB access)
+				const correction = base[offset % base.length] === ' ' ? 1 : 0;
+				const raw = fg('platform_adf-utils_fix-dummy-text-index-oob')
+					? base[(offset + correction) % base.length]
+					: base[offset + correction];
 				const isLower = char.toLowerCase() === char;
 				const result = isLower ? raw.toLowerCase() : raw.toUpperCase();
 				offset += 1 + correction;

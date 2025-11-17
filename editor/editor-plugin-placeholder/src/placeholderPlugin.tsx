@@ -1,6 +1,8 @@
 import type { IntlShape } from 'react-intl-next';
 
+import type { DocNode } from '@atlaskit/adf-schema';
 import { placeholderTextMessages as messages } from '@atlaskit/editor-common/messages';
+import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
@@ -10,6 +12,7 @@ import {
 	isEmptyDocument,
 	isEmptyParagraph,
 } from '@atlaskit/editor-common/utils';
+import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
@@ -17,6 +20,7 @@ import { Decoration, DecorationSet, type EditorView } from '@atlaskit/editor-pro
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { token } from '@atlaskit/tokens';
 
 import type { PlaceholderPlugin } from './placeholderPluginType';
 
@@ -121,6 +125,7 @@ export function createPlaceholderDecoration(
 	activeTypewriterTimeouts?: (() => void)[],
 	pos: number = 1,
 	initialDelayWhenUserTypedAndDeleted: number = 0,
+	placeholderADF?: DocNode,
 ): DecorationSet {
 	const placeholderDecoration = document.createElement('span');
 	let placeholderNodeWithText = placeholderDecoration;
@@ -136,8 +141,45 @@ export function createPlaceholderDecoration(
 		placeholderDecoration.appendChild(placeholderNode);
 		placeholderNodeWithText = placeholderNode;
 	}
-
-	if (placeholderText) {
+	if (placeholderADF) {
+		const serializer = DOMSerializer.fromSchema(editorState.schema);
+		// Get a PMNode from docnode
+		const docNode = processRawValue(editorState.schema, placeholderADF);
+		if (docNode) {
+			// Extract only the inline content from paragraphs, avoiding block-level elements
+			// that can interfere with cursor rendering
+			docNode.children.forEach((node) => {
+				// For paragraph nodes, serialize their content (inline elements) directly
+				// without the wrapping <p> tag
+				if (node.type.name === 'paragraph') {
+					node.content.forEach((inlineNode) => {
+						const inlineDOM = serializer.serializeNode(inlineNode);
+						placeholderNodeWithText.append(inlineDOM);
+					});
+				} else {
+					// For non-paragraph nodes, serialize normally
+					const nodeDOM = serializer.serializeNode(node);
+					placeholderNodeWithText.append(nodeDOM);
+				}
+			});
+			const markElements = placeholderNodeWithText.querySelectorAll(
+				'[data-prosemirror-content-type="mark"]',
+			);
+			markElements.forEach((markEl) => {
+				if (markEl instanceof HTMLElement) {
+					markEl.style.setProperty('color', token('color.text.subtlest'));
+				}
+			});
+			// Ensure all child elements don't block pointer events or cursor
+			const allElements = placeholderNodeWithText.querySelectorAll('*');
+			allElements.forEach((el) => {
+				if (el instanceof HTMLElement) {
+					el.style.pointerEvents = 'none';
+					el.style.userSelect = 'none';
+				}
+			});
+		}
+	} else if (placeholderText) {
 		placeholderNodeWithText.textContent = placeholderText || ' ';
 	} else if (placeholderPrompts) {
 		cycleThroughPlaceholderPrompts(
@@ -468,9 +510,15 @@ export function createPlugin(
 	emptyLinePlaceholder?: string,
 	placeholderPrompts?: string[],
 	withEmptyParagraph?: boolean,
+	placeholderADF?: DocNode,
 	api?: ExtractInjectionAPI<PlaceholderPlugin>,
 ): SafePlugin | undefined {
-	if (!defaultPlaceholderText && !placeholderPrompts && !bracketPlaceholderText) {
+	if (
+		!defaultPlaceholderText &&
+		!placeholderPrompts &&
+		!bracketPlaceholderText &&
+		!placeholderADF
+	) {
 		return;
 	}
 
@@ -565,7 +613,7 @@ export function createPlugin(
 
 				if (
 					hasPlaceholder &&
-					((placeholderText ?? '') || placeholderPrompts) &&
+					((placeholderText ?? '') || placeholderPrompts || placeholderADF) &&
 					pos !== undefined &&
 					!compositionPluginState?.isComposing &&
 					!isShowingDiff
@@ -580,6 +628,7 @@ export function createPlugin(
 						activeTypewriterTimeouts,
 						pos,
 						initialDelayWhenUserTypedAndDeleted,
+						placeholderADF,
 					);
 				}
 				return;
@@ -696,6 +745,7 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 							options && options.emptyLinePlaceholder,
 							options && options.placeholderPrompts,
 							options?.withEmptyParagraph,
+							options && options.placeholderADF,
 							api,
 						),
 				},

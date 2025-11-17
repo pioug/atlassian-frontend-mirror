@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "5.5.1",
+	"version": "5.6.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -24,6 +24,7 @@
 	],
 	"exports": {
 		".": "./src/index.tsx",
+		"./fhs-rollout": "./src/entry-points/fhs-rollout.tsx",
 		"./top-nav-items/notifications": "./src/entry-points/top-nav-items/notifications.tsx",
 		"./top-nav-items/create-button": "./src/entry-points/top-nav-items/create-button.tsx",
 		"./top-nav-items/help": "./src/entry-points/top-nav-items/help.tsx",
@@ -215,6 +216,9 @@
 			"type": "boolean"
 		},
 		"navx-full-height-sidebar": {
+			"type": "boolean"
+		},
+		"navx-2566-implement-fhs-rollout": {
 			"type": "boolean"
 		},
 		"team25-eu-jira-logo-updates-csm-jsm": {

@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 6.4.0
+
+### Minor Changes
+
+- [`f34c6075cc3a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f34c6075cc3a4) -
+  [ux] [EDITOR-2327] added support to add marks on placeholder plugin texts
+
 ## 6.3.0
 
 ### Minor Changes

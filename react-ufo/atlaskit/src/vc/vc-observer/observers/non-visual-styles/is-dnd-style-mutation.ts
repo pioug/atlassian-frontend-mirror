@@ -47,6 +47,18 @@ function isDnDStyleMutation({
 		return false;
 	}
 
+	return containsDnDMutationInStyle({ attributeName, oldValue, newValue });
+}
+
+function containsDnDMutationInStyle({
+	attributeName,
+	oldValue,
+	newValue,
+}: {
+	attributeName?: string | null;
+	oldValue?: string | undefined | null;
+	newValue?: string | undefined | null;
+}) {
 	if (attributeName !== 'style') {
 		return false;
 	}
@@ -78,3 +90,5 @@ function isDnDStyleMutation({
 }
 
 export default isDnDStyleMutation;
+
+export { isDnDStyleMutation, containsDnDMutationInStyle };

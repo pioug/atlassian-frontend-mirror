@@ -18,6 +18,7 @@ import SimpleDisabledOption from '../../../examples/simple-disabled-option';
 import SimpleMultiWithExternalUsers from '../../../examples/simple-multi-with-external-users';
 import SimpleMultiWithExternalUsersWithTooltip from '../../../examples/simple-multi-with-external-users-with-tooltip';
 import SingleUserPickerWithAutoFocus from '../../../examples/single-with-auto-focus';
+import SingleUserPickerWithAgentHexagonAvatar from '../../../examples/35-agent-hexagon-avatar';
 
 snapshot(SingleUserPickerWithAutoFocus, {
 	drawsOutsideBounds: true,
@@ -82,4 +83,11 @@ snapshot(MultiInvalid);
 
 snapshot(GroupByTypeWithDefaultValue, {
 	drawsOutsideBounds: true,
+});
+
+snapshot(SingleUserPickerWithAgentHexagonAvatar, {
+	drawsOutsideBounds: true,
+	featureFlags: {
+		jira_ai_agent_avatar_user_picker_user_option: true,
+	},
 });

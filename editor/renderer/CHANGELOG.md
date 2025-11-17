@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 124.14.0
+
+### Minor Changes
+
+- [`721d3790d48fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/721d3790d48fe) -
+  EDITOR-2533 implement error-ui with retry
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 124.13.3
 
 ### Patch Changes

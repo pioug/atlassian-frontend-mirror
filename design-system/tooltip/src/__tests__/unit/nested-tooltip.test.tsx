@@ -2,16 +2,10 @@ import React from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import Tooltip from '../../tooltip';
-
-jest.mock('@atlaskit/platform-feature-flags');
-const mockGetBooleanFF = fg as jest.MockedFunction<typeof fg>;
 
 describe('test nested tooltip', () => {
 	beforeEach(() => {
-		mockGetBooleanFF.mockImplementation((key) => key === 'platform-tooltip-focus-visible-new');
 		HTMLElement.prototype.matches = jest.fn().mockReturnValue(true);
 
 		jest.useFakeTimers();

@@ -14,6 +14,7 @@ import SidebarCollapseIcon from '@atlaskit/icon/core/sidebar-collapse';
 import SidebarExpandIcon from '@atlaskit/icon/core/sidebar-expand';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { IconButton } from '../../top-nav-items/themed/migration';
 
 import { useIsSideNavShortcutEnabled } from './is-side-nav-shortcut-enabled-context';
@@ -95,6 +96,11 @@ export const SideNavToggleButton = ({
 		attributes?: SideNavVisibilityChangeAnalyticsAttributes,
 	) => void;
 }) => {
+	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useIsFhsEnabled()
+		: fg('navx-full-height-sidebar');
+
 	const {
 		isExpandedOnDesktop: isSideNavExpandedOnDesktop,
 		isExpandedOnMobile: isSideNavExpandedOnMobile,
@@ -214,7 +220,7 @@ export const SideNavToggleButton = ({
 	const isShortcutEnabled = useIsSideNavShortcutEnabled();
 
 	const tooltipProps = useMemo(() => {
-		if (fg('navx-full-height-sidebar')) {
+		if (isFhsEnabled) {
 			return {
 				...toggleButtonTooltipOptions,
 				shortcut: isShortcutEnabled ? sideNavToggleTooltipKeyboardShortcut : undefined,
@@ -222,7 +228,7 @@ export const SideNavToggleButton = ({
 		}
 
 		return toggleButtonTooltipOptions;
-	}, [isShortcutEnabled]);
+	}, [isFhsEnabled, isShortcutEnabled]);
 
 	return (
 		<IconButton

@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 4.2.0
+
+### Minor Changes
+
+- [`118d4ca79d39c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/118d4ca79d39c) -
+  EDITOR-2894 - Support Jira additionalContext
+
 ## 4.1.0
 
 ### Minor Changes

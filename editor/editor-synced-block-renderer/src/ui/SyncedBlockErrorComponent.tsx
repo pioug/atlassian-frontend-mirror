@@ -1,37 +1,44 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import { getPageIdAndTypeFromAri, SyncBlockError } from '@atlaskit/editor-synced-block-provider';
 
+import { SyncedBlockGenericError } from './SyncedBlockGenericError';
+import { SyncedBlockLoadError } from './SyncedBlockLoadError';
 import { SyncedBlockPermissionDenied } from './SyncedBlockPermissionDenied';
 
 export const SyncedBlockErrorComponent = ({
 	error,
+	isLoading,
+	onRetry,
 	resourceId,
 }: {
 	error: SyncBlockError;
+	isLoading?: boolean;
+	onRetry?: () => void;
 	resourceId?: string;
 }) => {
-	const getErrorContent = () => {
+	const getErrorContent = useMemo(() => {
 		switch (error) {
 			case SyncBlockError.Forbidden:
-				if (resourceId) {
-					const { id: contentId } = getPageIdAndTypeFromAri(resourceId);
-					if (contentId) {
-						return <SyncedBlockPermissionDenied contentId={contentId} />;
-					}
+				if (!resourceId) {
+					return <SyncedBlockGenericError />;
 				}
-				return <div>Something went wrong</div>;
+				const { id: contentId } = getPageIdAndTypeFromAri(resourceId);
+				if (contentId) {
+					return <SyncedBlockPermissionDenied contentId={contentId} />;
+				}
+				return <SyncedBlockGenericError />;
 			case SyncBlockError.NotFound:
-				return <div>Sync Block Not Found</div>;
 			case SyncBlockError.Errored:
+				return <SyncedBlockLoadError onRetry={onRetry} isLoading={isLoading} />;
 			default:
-				return <div>Something went wrong</div>;
+				return <SyncedBlockGenericError />;
 		}
-	};
+	}, [error, isLoading, onRetry, resourceId]);
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-		<div className={SyncBlockSharedCssClassName.error}>{getErrorContent()}</div>
+		<div className={SyncBlockSharedCssClassName.error}>{getErrorContent}</div>
 	);
 };

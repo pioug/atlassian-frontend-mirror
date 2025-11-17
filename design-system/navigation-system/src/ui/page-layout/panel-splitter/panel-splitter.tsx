@@ -30,6 +30,8 @@ import { token } from '@atlaskit/tokens';
 import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
+import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
+
 import {
 	OnDoubleClickContext,
 	PanelSplitterContext,
@@ -156,7 +158,7 @@ export type PanelSplitterProps = {
 	 * The `tooltipContent` will not be announced by screen readers because it pertains to the draggable element, which lacks keyboard functionality.
 	 * Use the `label` prop to provide accessible information about the panel splitter.
 	 *
-	 * Only used if the `navx-full-height-sidebar` feature flag is enabled.
+	 * Only used if `useIsFhsEnabled` is true.
 	 */
 	tooltipContent?: TooltipProps['content'];
 };
@@ -184,7 +186,12 @@ type MaybeTooltipProps = Pick<PanelSplitterProps, 'tooltipContent'> & {
  * A wrapper component that renders a tooltip if the tooltipContent or shortcut is provided.
  */
 const MaybeTooltip = ({ tooltipContent, shortcut, children }: MaybeTooltipProps) => {
-	if (tooltipContent && fg('navx-full-height-sidebar')) {
+	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useIsFhsEnabled()
+		: fg('navx-full-height-sidebar');
+
+	if (tooltipContent && isFhsEnabled) {
 		return (
 			<Tooltip
 				content={tooltipContent}
@@ -237,6 +244,11 @@ const PortaledPanelSplitter = ({
 		| 'position'
 		| 'shortcut'
 	>): ReactNode => {
+	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useIsFhsEnabled()
+		: fg('navx-full-height-sidebar');
+
 	const splitterRef = useRef<HTMLDivElement | null>(null);
 	const labelId = useId();
 	// Separate state used for the input range width to remove the UI's dependency on the "persisted" layout state value being updated
@@ -459,10 +471,7 @@ const PortaledPanelSplitter = ({
 				is provided via a dedicated keyboard shortcut elsewhere in the application. */}
 				<div
 					ref={splitterRef}
-					css={[
-						grabAreaStyles.root,
-						fg('navx-full-height-sidebar') && grabAreaStyles.fullHeightSidebar,
-					]}
+					css={[grabAreaStyles.root, isFhsEnabled && grabAreaStyles.fullHeightSidebar]}
 					data-testid={testId}
 					onDoubleClick={onDoubleClick}
 				>

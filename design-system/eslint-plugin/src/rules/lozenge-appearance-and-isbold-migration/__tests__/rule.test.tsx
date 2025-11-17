@@ -6,27 +6,22 @@ tester.run('lozenge-appearance-and-isbold-migration', rule, {
 		// Lozenge with isBold={true} should not trigger any warnings
 		`
 			import Lozenge from '@atlaskit/lozenge';
-			<Lozenge isBold={true} color="success">Bold lozenge</Lozenge>
-		`,
-		// Lozenge with isBold={true} and non-standard import name should not trigger any warnings
-		`
-			import AKLozenge from '@atlaskit/lozenge';
-			<AKLozenge isBold={true} color="success">Bold lozenge</AKLozenge>
+			<Lozenge isBold={true} appearance="success">Bold lozenge</Lozenge>
 		`,
 		// Lozenge with implicit isBold (no value) should not trigger warnings
 		`
 			import Lozenge from '@atlaskit/lozenge';
-			<Lozenge isBold color="success">Bold lozenge</Lozenge>
+			<Lozenge isBold appearance="success">Bold lozenge</Lozenge>
 		`,
-		// Already correct usage with color prop
+		// Already correct usage with appearance prop (no value changes needed)
 		`
 			import Lozenge from '@atlaskit/lozenge';
-			<Lozenge color="success" isBold>Correct usage</Lozenge>
+			<Lozenge appearance="success" isBold>Correct usage</Lozenge>
 		`,
 		// Tag component usage (should not be affected)
 		`
 			import Tag from '@atlaskit/tag';
-			<Tag color="success">Tag content</Tag>
+			<Tag appearance="success">Tag content</Tag>
 		`,
 		// Non-Lozenge components should not be affected
 		`
@@ -40,39 +35,7 @@ tester.run('lozenge-appearance-and-isbold-migration', rule, {
 		`,
 	],
 	invalid: [
-		// appearance prop should be renamed to color
-		{
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance="success" isBold>Test</Lozenge>
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge color="success" isBold>Test</Lozenge>
-			`,
-			errors: [
-				{
-					messageId: 'replaceAppearance',
-				},
-			],
-		},
-		// appearance prop with different values (value mapping for Lozenge)
-		{
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance="inprogress" isBold />
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge color="information" isBold />
-			`,
-			errors: [
-				{
-					messageId: 'replaceAppearance',
-				},
-			],
-		},
-		// isBold={false} should migrate to Tag with appearance mapping
+		// Test case 1: isBold={false} should migrate to Tag
 		{
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
@@ -80,18 +43,15 @@ tester.run('lozenge-appearance-and-isbold-migration', rule, {
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="lime">Test</Tag>
+				<Tag appearance="success">Test</Tag>
 			`,
 			errors: [
 				{
 					messageId: 'migrateTag',
 				},
-				{
-					messageId: 'replaceAppearance',
-				},
 			],
 		},
-		// Missing isBold should migrate to Tag with appearance mapping
+		// Test case 2: Missing isBold should migrate to Tag
 		{
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
@@ -99,18 +59,15 @@ tester.run('lozenge-appearance-and-isbold-migration', rule, {
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="lime">Test</Tag>
+				<Tag appearance="success">Test</Tag>
 			`,
 			errors: [
 				{
 					messageId: 'migrateTag',
 				},
-				{
-					messageId: 'replaceAppearance',
-				},
 			],
 		},
-		// Self-closing Lozenge without isBold with appearance mapping
+		// Test case 3: Self-closing Lozenge without isBold
 		{
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
@@ -118,18 +75,15 @@ tester.run('lozenge-appearance-and-isbold-migration', rule, {
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="lime" />
+				<Tag appearance="success" />
 			`,
 			errors: [
 				{
 					messageId: 'migrateTag',
 				},
-				{
-					messageId: 'replaceAppearance',
-				},
 			],
 		},
-		// Lozenge with only isBold={false}
+		// Test case 4: Lozenge with only isBold={false}
 		{
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
@@ -145,7 +99,7 @@ tester.run('lozenge-appearance-and-isbold-migration', rule, {
 				},
 			],
 		},
-		// Lozenge with no props (should migrate to Tag)
+		// Test case 5: Lozenge with no props (should migrate to Tag)
 		{
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
@@ -161,7 +115,7 @@ tester.run('lozenge-appearance-and-isbold-migration', rule, {
 				},
 			],
 		},
-		// Dynamic isBold should warn without autofix
+		// Test case 6: Dynamic isBold should warn without autofix
 		{
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
@@ -173,7 +127,7 @@ tester.run('lozenge-appearance-and-isbold-migration', rule, {
 				},
 			],
 		},
-		// Conditional isBold should warn without autofix
+		// Test case 7: Conditional isBold should warn without autofix
 		{
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
@@ -185,7 +139,7 @@ tester.run('lozenge-appearance-and-isbold-migration', rule, {
 				},
 			],
 		},
-		// Named import with appearance mapping
+		// Test case 8: Named import
 		{
 			code: `
 				import { Lozenge } from '@atlaskit/lozenge';
@@ -193,37 +147,15 @@ tester.run('lozenge-appearance-and-isbold-migration', rule, {
 			`,
 			output: `
 				import { Lozenge } from '@atlaskit/lozenge';
-				<Tag color="lime">Test</Tag>
+				<Tag appearance="success">Test</Tag>
 			`,
 			errors: [
 				{
 					messageId: 'migrateTag',
 				},
-				{
-					messageId: 'replaceAppearance',
-				},
 			],
 		},
-		// Non-standard import name should work
-		{
-			code: `
-				import akLozenge from '@atlaskit/lozenge';
-				<akLozenge appearance="success" isBold={false}>Test</akLozenge>
-			`,
-			output: `
-				import akLozenge from '@atlaskit/lozenge';
-				<Tag color="lime">Test</Tag>
-			`,
-			errors: [
-				{
-					messageId: 'migrateTag',
-				},
-				{
-					messageId: 'replaceAppearance',
-				},
-			],
-		},
-		// Lozenge with multiple props and appearance mapping
+		// Test case 9: Lozenge with multiple props
 		{
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
@@ -233,7 +165,7 @@ tester.run('lozenge-appearance-and-isbold-migration', rule, {
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="lime" testId="test-lozenge" className="custom-class">
+				<Tag appearance="success" testId="test-lozenge" className="custom-class">
 					Complex content
 				</Tag>
 			`,
@@ -241,12 +173,9 @@ tester.run('lozenge-appearance-and-isbold-migration', rule, {
 				{
 					messageId: 'migrateTag',
 				},
-				{
-					messageId: 'replaceAppearance',
-				},
 			],
 		},
-		// Lozenge with spread attributes and appearance mapping
+		// Test case 10: Lozenge with spread attributes
 		{
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
@@ -256,18 +185,15 @@ tester.run('lozenge-appearance-and-isbold-migration', rule, {
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
 				const props = { testId: 'test' };
-				<Tag {...props} color="lime">Test</Tag>
+				<Tag {...props} appearance="success">Test</Tag>
 			`,
 			errors: [
 				{
 					messageId: 'migrateTag',
 				},
-				{
-					messageId: 'replaceAppearance',
-				},
 			],
 		},
-		// Test all appearance value mappings
+		// Test case 11: Test different appearance values for Tag migration
 		{
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
@@ -275,18 +201,15 @@ tester.run('lozenge-appearance-and-isbold-migration', rule, {
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="standard">Default</Tag>
+				<Tag appearance="default">Default</Tag>
 			`,
 			errors: [
 				{
 					messageId: 'migrateTag',
 				},
-				{
-					messageId: 'replaceAppearance',
-				},
 			],
 		},
-		// Test removed appearance mapping
+		// Test case 12: Test removed appearance for Tag migration
 		{
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
@@ -294,151 +217,11 @@ tester.run('lozenge-appearance-and-isbold-migration', rule, {
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="red">Removed</Tag>
+				<Tag appearance="removed">Removed</Tag>
 			`,
 			errors: [
 				{
 					messageId: 'migrateTag',
-				},
-				{
-					messageId: 'replaceAppearance',
-				},
-			],
-		},
-		// Test inprogress appearance mapping
-		{
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance="inprogress" />
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="blue" />
-			`,
-			errors: [
-				{
-					messageId: 'migrateTag',
-				},
-				{
-					messageId: 'replaceAppearance',
-				},
-			],
-		},
-		// Test new appearance mapping
-		{
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance="new" isBold={false}>New</Lozenge>
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="purple">New</Tag>
-			`,
-			errors: [
-				{
-					messageId: 'migrateTag',
-				},
-				{
-					messageId: 'replaceAppearance',
-				},
-			],
-		},
-		// Test moved appearance mapping
-		{
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance="moved">Moved</Lozenge>
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="orange">Moved</Tag>
-			`,
-			errors: [
-				{
-					messageId: 'migrateTag',
-				},
-				{
-					messageId: 'replaceAppearance',
-				},
-			],
-		},
-		// Test unknown appearance value (should pass through)
-		{
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance="unknown" isBold={false}>Unknown</Lozenge>
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="unknown">Unknown</Tag>
-			`,
-			errors: [
-				{
-					messageId: 'migrateTag',
-				},
-				{
-					messageId: 'replaceAppearance',
-				},
-			],
-		},
-		// Test Lozenge appearance to color mapping when staying as Lozenge (isBold true)
-		{
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance="default" isBold={true}>Default</Lozenge>
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge color="neutral" isBold={true}>Default</Lozenge>
-			`,
-			errors: [
-				{
-					messageId: 'replaceAppearance',
-				},
-			],
-		},
-		{
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance="removed" isBold>Removed</Lozenge>
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge color="danger" isBold>Removed</Lozenge>
-			`,
-			errors: [
-				{
-					messageId: 'replaceAppearance',
-				},
-			],
-		},
-		{
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance="moved" isBold={true}>Moved</Lozenge>
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge color="warning" isBold={true}>Moved</Lozenge>
-			`,
-			errors: [
-				{
-					messageId: 'replaceAppearance',
-				},
-			],
-		},
-		{
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance="new" isBold>New</Lozenge>
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge color="discovery" isBold>New</Lozenge>
-			`,
-			errors: [
-				{
-					messageId: 'replaceAppearance',
 				},
 			],
 		},

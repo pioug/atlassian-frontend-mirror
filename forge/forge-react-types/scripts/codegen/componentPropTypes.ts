@@ -147,21 +147,33 @@ const updatePackageJsonWithADSComponentDependencies = (componentOutputDir: strin
 	const packageJsonPath = resolve(__dirname, '..', '..', 'package.json');
 	const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 
-	// remove all existing @atlaskit dependencies from packageJson
+	// Build updated dependencies: keep non-@atlaskit packages, and add/update @atlaskit packages
 	const updatedDependencies = Object.entries<string>(packageJson.dependencies)
 		.filter(([key]) => !key.startsWith('@atlaskit/'))
-		.concat(
-			Object.entries<string>(forgeUIPackageJson.dependencies).filter(([key]) =>
-				utilizedPackages.has(key),
-			),
-		)
-		.sort(([a], [b]) => a.localeCompare(b))
 		.reduce<Record<string, string>>((acc, [key, value]) => {
 			acc[key] = value;
 			return acc;
 		}, {});
 
-	packageJson.dependencies = updatedDependencies;
+	// Add @atlaskit packages that are being used
+	// Prefer version from forgeUIPackageJson if available, otherwise keep existing version
+	for (const packageName of utilizedPackages) {
+		if (forgeUIPackageJson.dependencies?.[packageName]) {
+			// Use version from forgeUIPackageJson
+			updatedDependencies[packageName] = forgeUIPackageJson.dependencies[packageName];
+		} else if (packageJson.dependencies?.[packageName]) {
+			// Keep existing version if not in forgeUIPackageJson
+			updatedDependencies[packageName] = packageJson.dependencies[packageName];
+		}
+		// If package is not in either, we skip it (shouldn't happen if codegen is working correctly)
+	}
+
+	// Sort dependencies alphabetically
+	const sortedDependencies = Object.entries(updatedDependencies).sort(([a], [b]) =>
+		a.localeCompare(b),
+	);
+
+	packageJson.dependencies = Object.fromEntries(sortedDependencies);
 	fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, '\t') + '\n');
 };
 /**

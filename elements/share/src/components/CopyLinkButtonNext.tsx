@@ -173,8 +173,10 @@ export class CopyLinkButton extends React.Component<Props, State> {
 	render() {
 		const { shouldShowCopiedMessage } = this.state;
 		const { copyTooltipText, copiedToClipboardText } = this.props;
-		const shouldUpdateTooltipCss =
-			fg('jfind-copy-link-modal-invite-tooltip') || fg('jfind-copy-link-modal-invite-tooltip-jira');
+		const shouldUpdateTooltipCssConfluence = fg('jfind-copy-link-modal-invite-tooltip');
+		const shouldUpdateTooltipCssJira = fg('jfind-copy-link-modal-invite-tooltip-jira');
+
+		const shouldUpdateTooltipCss = shouldUpdateTooltipCssConfluence || shouldUpdateTooltipCssJira;
 		return (
 			<React.Fragment>
 				{/* Added ARIA live region specifically for VoiceOver + Safari since the status */}

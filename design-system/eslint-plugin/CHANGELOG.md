@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.24.1
+
+### Patch Changes
+
+- [`9e8597d0a762f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e8597d0a762f) -
+  Update lozenge-appearance-and-isbold-migration rule to preserve appearance prop (no color prop
+  change)
+
 ## 13.24.0
 
 ### Minor Changes

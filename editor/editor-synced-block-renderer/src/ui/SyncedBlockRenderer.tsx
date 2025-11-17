@@ -21,7 +21,7 @@ const SyncedBlockRendererComponent = ({
 	useFetchSyncBlockData,
 	syncBlockRendererOptions,
 }: SyncedBlockRendererProps) => {
-	const { syncBlockInstance, providerFactory } = useFetchSyncBlockData();
+	const { syncBlockInstance, providerFactory, isLoading, reloadData } = useFetchSyncBlockData();
 
 	if (!syncBlockInstance) {
 		return <SyncedBlockLoadingState />;
@@ -32,6 +32,8 @@ const SyncedBlockRendererComponent = ({
 			<SyncedBlockErrorComponent
 				error={syncBlockInstance.error ?? SyncBlockError.Errored}
 				resourceId={syncBlockInstance.resourceId}
+				onRetry={reloadData}
+				isLoading={isLoading}
 			/>
 		);
 	}

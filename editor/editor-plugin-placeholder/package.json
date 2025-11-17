@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-placeholder",
-	"version": "6.3.0",
+	"version": "6.4.0",
 	"description": "Placeholder plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,6 +37,7 @@
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
@@ -53,6 +54,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_ai_aifc_patch_beta_2": {
+			"type": "boolean"
+		},
+		"platform_editor_ai_aifc_patch_ga": {
 			"type": "boolean"
 		}
 	},

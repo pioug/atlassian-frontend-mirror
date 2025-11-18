@@ -9,7 +9,7 @@ export const IntlProviderWithResolvedMessages = ({
 	locale,
 }: PropsWithChildren<{
 	locale?: string;
-}>) => {
+}>): React.JSX.Element => {
 	const [resolvedMessagesForLocale, setResolvedMessagesForLocale] = useState();
 	useEffect(() => {
 		const fetchMessageLocale = async () => {

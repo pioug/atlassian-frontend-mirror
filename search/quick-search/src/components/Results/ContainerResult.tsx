@@ -35,7 +35,7 @@ export default class ContainerResult extends React.PureComponent<Props> {
 		);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { name, isPrivate, type = 'container', subText, ...commonResultProps } = this.props;
 
 		return (

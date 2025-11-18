@@ -1,7 +1,5 @@
 import { useContext, useMemo } from 'react';
 
-import invariant from 'tiny-invariant';
-
 import { OpenLayerObserverContext } from './open-layer-observer-context';
 import { type OpenLayerObserverInternalAPI } from './types';
 
@@ -11,7 +9,10 @@ type OpenLayerObserverPublicAPI = Pick<
 >;
 
 /**
- * A hook for use within an `OpenLayerObserver` component. It provides access to:
+ * A hook for use within an `OpenLayerObserver` component.  It will return `null` if there is no
+ * `OpenLayerObserver` in the component tree.
+ *
+ * It provides access to:
  *
  * - `getCount`: a function that returns the current count of open layers under the observer.
  * - `onChange`: a function that allows you to subscribe to changes in the layer count. It returns a
@@ -22,25 +23,26 @@ type OpenLayerObserverPublicAPI = Pick<
  * ```tsx
  * const openLayerObserver = useOpenLayerObserver();
  * useEffect(() => {
- *   return openLayerObserver.onChange(function onChange({ count }) {
+ *   return openLayerObserver?.onChange(function onChange({ count }) {
  *     // react to changes in the layer count
  *   });
  * }, [openLayerObserver]);
  * ```
  */
-export function useOpenLayerObserver(): OpenLayerObserverPublicAPI {
+export function useOpenLayerObserver(): OpenLayerObserverPublicAPI | null {
 	const context = useContext(OpenLayerObserverContext);
 
-	invariant(context, 'useOpenLayerObserver must be used within an OpenLayerObserver');
+	const publicAPI: OpenLayerObserverPublicAPI | null = useMemo(() => {
+		if (context === null) {
+			return null;
+		}
 
-	const publicAPI: OpenLayerObserverPublicAPI = useMemo(
-		() => ({
+		return {
 			getCount: context.getCount,
 			onChange: context.onChange,
 			closeLayers: context.closeLayers,
-		}),
-		[context.getCount, context.onChange, context.closeLayers],
-	);
+		};
+	}, [context]);
 
 	return publicAPI;
 }

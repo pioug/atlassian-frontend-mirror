@@ -31,9 +31,6 @@
 	},
 	"references": [
 		{
-			"path": "../../../build/formatting/tsconfig.app.json"
-		},
-		{
 			"path": "../theme/tsconfig.app.json"
 		},
 		{

@@ -37,6 +37,7 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
+	akEditorMaxWidthLayoutWidth,
 	akEditorGutterPadding,
 	akEditorLineHeight,
 	akEditorSelectedNodeClassName,
@@ -370,6 +371,16 @@ const rendererFullPageStylesWithReducedPadding = css({
 const rendererFullWidthStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 	maxWidth: `${akEditorFullWidthLayoutWidth}px`,
+	margin: `0 auto`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.fabric-editor-breakout-mark:not([data-has-width="true"]), .ak-renderer-extension': {
+		width: '100% !important',
+	},
+});
+
+const rendererMaxWidthStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	maxWidth: `${akEditorMaxWidthLayoutWidth}px`,
 	margin: `0 auto`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.fabric-editor-breakout-mark:not([data-has-width="true"]), .ak-renderer-extension': {
@@ -2397,9 +2408,14 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					rendererFullPageStylesWithReducedPadding,
 				appearance === 'full-page' && !isPreviewPanelResponsivenessOn && rendererFullPageStyles,
 				appearance === 'full-width' && rendererFullWidthStyles,
-				appearance === 'full-width' &&
+				(appearance === 'full-width' ||
+					(appearance === 'max' &&
+						expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true))) &&
 					!isTableResizingEnabled(appearance) &&
 					rendererFullWidthStylesForTableResizing,
+				appearance === 'max' &&
+					expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) &&
+					rendererMaxWidthStyles,
 				!fg('aifc_create_enabled') && telepointerStyles,
 				fg('aifc_create_enabled') && rovoTelepointerStyles,
 				whitespaceSharedStyles,
@@ -2477,7 +2493,10 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				appearance === 'full-page' &&
 					isPreviewPanelResponsivenessOn &&
 					responsiveBreakoutWidthWithReducedPadding,
-				appearance === 'full-width' && responsiveBreakoutWidthFullWidth,
+				(appearance === 'full-width' ||
+					(appearance === 'max' &&
+						expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true))) &&
+					responsiveBreakoutWidthFullWidth,
 				expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
 					? isCompactModeEnabled
 						? scaledDenseEmojiStyles

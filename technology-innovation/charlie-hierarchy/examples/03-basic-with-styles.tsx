@@ -10,7 +10,7 @@ import { CharlieHierarchy } from '../src';
 
 import { rootNode } from './common/basic-hierarchy';
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	const root = hierarchy(rootNode);
 	return (
 		<IntlProvider locale="en">

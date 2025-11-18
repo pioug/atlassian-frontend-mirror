@@ -11,6 +11,7 @@ import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 	akEditorCalculatedWideLayoutWidth,
+	akEditorMaxLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import type { ElementDragPayload } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
@@ -19,6 +20,7 @@ import type {
 	DragLocationHistory,
 	ElementDragType,
 } from '@atlaskit/pragmatic-drag-and-drop/types';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
@@ -36,7 +38,8 @@ const SNAP_GAP = 10;
 const WIDTHS = {
 	MIN: akEditorDefaultLayoutWidth,
 	WIDE: akEditorCalculatedWideLayoutWidth,
-	MAX: akEditorFullWidthLayoutWidth,
+	FULL: akEditorFullWidthLayoutWidth,
+	MAX: akEditorMaxLayoutWidth,
 };
 
 export function getProposedWidth({
@@ -70,7 +73,11 @@ export function getProposedWidth({
 	// the node width may be greater than the container width so we resize using the smaller value
 	const proposedWidth = Math.min(initialWidth, containerWidth) + diffX;
 
-	const snapPoints = [WIDTHS.MIN, WIDTHS.WIDE, Math.min(containerWidth, WIDTHS.MAX)];
+	const snapPoints = [WIDTHS.MIN, WIDTHS.WIDE, Math.min(containerWidth, WIDTHS.FULL)];
+
+	if (expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)) {
+		snapPoints.push(Math.min(containerWidth, WIDTHS.MAX));
+	}
 
 	for (const snapPoint of snapPoints) {
 		if (snapPoint - SNAP_GAP < proposedWidth && snapPoint + SNAP_GAP > proposedWidth) {
@@ -78,7 +85,11 @@ export function getProposedWidth({
 		}
 	}
 
-	return Math.min(Math.max(WIDTHS.MIN, Math.min(proposedWidth, containerWidth)), WIDTHS.MAX);
+	const hardMax = expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+		? Math.min(containerWidth, WIDTHS.MAX)
+		: Math.min(containerWidth, WIDTHS.FULL);
+
+	return Math.max(WIDTHS.MIN, Math.min(proposedWidth, hardMax));
 }
 
 export function createResizerCallbacks({
@@ -182,15 +193,28 @@ export function createResizerCallbacks({
 				(guideline) => guideline.key.startsWith('full_width') && guideline.active,
 			);
 
+			let isResizedToMaxWidth = false;
+			if (expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)) {
+				isResizedToMaxWidth = !!guidelines.find(
+					(guideline) => guideline.key.startsWith('max_width') && guideline.active,
+				);
+			}
+
 			guidelines = getGuidelines(false, 0, getEditorWidth);
 			api?.guideline?.actions?.displayGuideline(view)({ guidelines });
 
 			const pos = view.posAtDOM(dom, 0);
 			const mode = mark.attrs.mode;
 			const initialWidth = mark.attrs.width;
-			const newWidth = isResizedToFullWidth
-				? WIDTHS.MAX
+			let newWidth = isResizedToFullWidth
+				? WIDTHS.FULL
 				: getProposedWidth({ initialWidth, location, api, source });
+
+			if (expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)) {
+				if (isResizedToMaxWidth) {
+					newWidth = WIDTHS.MAX;
+				}
+			}
 
 			const isEditMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'edit';
 

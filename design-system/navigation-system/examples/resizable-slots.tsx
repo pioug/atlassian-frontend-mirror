@@ -162,7 +162,7 @@ function OpenLayerCountTracker() {
 	const openLayerObserver = useOpenLayerObserver();
 
 	useEffect(() => {
-		return openLayerObserver.onChange(({ count }) => {
+		return openLayerObserver?.onChange(({ count }) => {
 			setOpenLayerCount(count);
 		});
 	}, [openLayerObserver]);

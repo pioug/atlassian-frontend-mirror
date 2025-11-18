@@ -22,6 +22,7 @@ export interface WithOutsideClickProps {
 	 */
 	captureClick?: boolean;
 	closeOnTab?: boolean;
+	handleBackspaceDeleteKeydown?: SimpleEventHandler<KeyboardEvent>;
 	handleClickOutside?: SimpleEventHandler<MouseEvent>;
 	handleEnterKeydown?: SimpleEventHandler<KeyboardEvent>;
 	handleEscapeKeydown?: SimpleEventHandler<KeyboardEvent>;
@@ -54,7 +55,7 @@ class WithOutsideClick extends PureComponent<
 			document.addEventListener('click', this.handleClick, options);
 		}
 
-		if (this.props.handleEscapeKeydown) {
+		if (this.props.handleEscapeKeydown || this.props.handleBackspaceDeleteKeydown) {
 			// Attached event to the menu so that 'ESC' events from the opened menu also will be handled.
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
@@ -80,7 +81,7 @@ class WithOutsideClick extends PureComponent<
 			document.removeEventListener('click', this.handleClick, options);
 		}
 
-		if (this.props.handleEscapeKeydown) {
+		if (this.props.handleEscapeKeydown || this.props.handleBackspaceDeleteKeydown) {
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			(this.props.popupsMountPoint
@@ -126,6 +127,11 @@ class WithOutsideClick extends PureComponent<
 		} else if (evt.code === 'Tab' && this.props.handleEscapeKeydown && this.props.closeOnTab) {
 			// The menus should be closed when the tab is pressed as it takes the focus out of the menu
 			this.props.handleEscapeKeydown(evt);
+		} else if (
+			(evt.code === 'Delete' || evt.code === 'Backspace') &&
+			this.props.handleBackspaceDeleteKeydown
+		) {
+			this.props.handleBackspaceDeleteKeydown(evt);
 		}
 	};
 
@@ -151,6 +157,7 @@ export default function withReactEditorViewOuterListeners<P extends Object>(
 		handleClickOutside,
 		handleEnterKeydown,
 		handleEscapeKeydown,
+		handleBackspaceDeleteKeydown,
 		closeOnTab,
 		captureClick,
 		...props
@@ -185,6 +192,7 @@ export default function withReactEditorViewOuterListeners<P extends Object>(
 							handleClickOutside={handleClickOutside}
 							handleEnterKeydown={handleEnterKeydown}
 							handleEscapeKeydown={handleEscapeKeydown}
+							handleBackspaceDeleteKeydown={handleBackspaceDeleteKeydown}
 							closeOnTab={closeOnTab}
 							captureClick={captureClick}
 						>

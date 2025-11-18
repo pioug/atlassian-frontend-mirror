@@ -21,7 +21,6 @@ import { type CardAction } from './card/actions';
 import { type MediaCardError, type MediaCardErrorPrimaryReason } from './errors';
 import { type ViewerOptionsProps } from '@atlaskit/media-viewer';
 import type { MediaFilePreviewErrorPrimaryReason } from '@atlaskit/media-file-preview';
-import type { ImageLoadErrorType } from './card/fileCard';
 
 export type CardStatus =
 	| 'uploading'
@@ -186,7 +185,7 @@ export interface CardProps extends SharedCardProps, CardEventProps {
 	readonly mediaSettings?: MediaSettings;
 	/** General Error handling include status errors and display errors*/
 	readonly onError?: (
-		reason: MediaFilePreviewErrorPrimaryReason | MediaCardErrorPrimaryReason | ImageLoadErrorType,
+		reason: MediaFilePreviewErrorPrimaryReason | MediaCardErrorPrimaryReason,
 	) => void;
 }
 

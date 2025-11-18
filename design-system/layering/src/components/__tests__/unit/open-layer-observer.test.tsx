@@ -2,6 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
+import invariant from 'tiny-invariant';
 
 import noop from '@atlaskit/ds-lib/noop';
 
@@ -22,14 +23,11 @@ const MockLayerComponent = ({ type }: { type?: LayerType }) => {
 };
 
 describe('OpenLayerObserver', () => {
-	// These tests are outside of the ffTest block as they don't check any feature flag values,
-	// causing ffTest to fail.
-	it('useOpenLayerObserver should throw an error if used when there is no layer observer', () => {
+	it('useOpenLayerObserver should not throw an error if used when there is no layer observer', () => {
 		const { result } = renderHook(useOpenLayerObserver);
 
-		expect(result.error?.message).toEqual(
-			expect.stringMatching('useOpenLayerObserver must be used within an OpenLayerObserver'),
-		);
+		expect(result.error).toBeUndefined();
+		expect(result.current).toBeNull();
 	});
 
 	it('should throw an error if there are nested layer namespace providers', () => {
@@ -80,6 +78,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			expect(api.getCount()).toBe(0);
 		});
@@ -95,6 +94,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			expect(api.getCount()).toBe(1);
 		});
@@ -112,6 +112,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			expect(api.getCount()).toBe(3);
 		});
@@ -132,6 +133,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			expect(api.getCount({ namespace: 'test-namespace-1' })).toBe(1);
 		});
@@ -150,6 +152,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			expect(api.getCount({ namespace: 'test-namespace-1' })).toBe(2);
 		});
@@ -167,6 +170,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			expect(api.getCount({ namespace: 'test-namespace-2' })).toBe(0);
 		});
@@ -189,6 +193,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			expect(api.getCount({ namespace: 'test-namespace-1' })).toBe(1);
 			expect(api.getCount({ namespace: 'test-namespace-2' })).toBe(2);
@@ -214,6 +219,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			expect(api.getCount()).toBe(3);
 		});
@@ -237,6 +243,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			expect(api.getCount()).toBe(1);
 		});
@@ -258,6 +265,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			expect(api.getCount()).toBe(0);
 		});
@@ -280,6 +288,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			expect(api.getCount()).toBe(1);
 
@@ -308,6 +317,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			expect(api.getCount()).toBe(1);
 			expect(api.getCount({ namespace: 'test-namespace-1' })).toBe(1);
@@ -330,6 +340,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			expect(api.getCount()).toBe(1);
 
@@ -352,6 +363,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			expect(api.getCount()).toBe(1);
 			expect(api.getCount({ namespace: 'test-namespace-1' })).toBe(1);
@@ -375,6 +387,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			// Register a change listener (jest mock function)
 			const listener = jest.fn();
@@ -405,6 +418,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			const listener = jest.fn();
 			const unsubscribe = api.onChange(listener);
@@ -433,6 +447,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			// Register a change listener (jest mock function)
 			const listener = jest.fn();
@@ -471,6 +486,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			// Register a change listener (jest mock function) for a different namespace
 			const listener = jest.fn();
@@ -505,6 +521,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			// Register a change listener (jest mock function) for a different namespace
 			const listener = jest.fn();
@@ -541,6 +558,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			// Register a change listener (jest mock function)
 			const listener = jest.fn();
@@ -581,6 +599,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			// Register a change listener (jest mock function)
 			const listener = jest.fn();
@@ -622,6 +641,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			// Register a change listener (jest mock function) without specifying a namespace,
 			// It should be called when any layer opens/closes
@@ -678,6 +698,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			const orderedCalls: string[] = [];
 
@@ -721,6 +742,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			const listener = jest.fn();
 			const unsubscribe = api.onChange(listener);
@@ -749,6 +771,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			const listener = jest.fn();
 			const unsubscribe = api.onChange(listener, { namespace: 'test-namespace-1' });
@@ -777,6 +800,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			const listener = jest.fn();
 			const unsubscribe = api.onChange(listener, { namespace: 'test-namespace-1' });
@@ -814,6 +838,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			const listener = jest.fn();
 			const unsubscribe1 = api.onChange(listener);
@@ -838,6 +863,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			const listener = jest.fn();
 			const unsubscribe1 = api.onChange(listener);
@@ -873,7 +899,7 @@ describe('OpenLayerObserver', () => {
 			const api = result.current;
 
 			function addListener() {
-				api.onChange(() => {
+				api?.onChange(() => {
 					addListener();
 				});
 			}
@@ -912,6 +938,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			expect(onClose1).not.toHaveBeenCalled();
 			expect(onClose2).not.toHaveBeenCalled();
@@ -941,6 +968,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			expect(onClose).not.toHaveBeenCalled();
 
@@ -973,6 +1001,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			expect(onClose).not.toHaveBeenCalled();
 
@@ -1006,6 +1035,7 @@ describe('OpenLayerObserver', () => {
 			});
 
 			const api = result.current;
+			invariant(api);
 
 			expect(onClose).not.toHaveBeenCalled();
 
@@ -1037,6 +1067,7 @@ describe('OpenLayerObserver', () => {
 		});
 
 		const api = result.current;
+		invariant(api);
 
 		expect(api.getCount({ type: 'modal' })).toBe(1);
 	});
@@ -1056,6 +1087,7 @@ describe('OpenLayerObserver', () => {
 		});
 
 		const api = result.current;
+		invariant(api);
 
 		expect(api.getCount({ type: 'modal' })).toBe(3);
 	});
@@ -1071,6 +1103,7 @@ describe('OpenLayerObserver', () => {
 		});
 
 		const api = result.current;
+		invariant(api);
 
 		expect(api.getCount({ type: 'modal' })).toBe(0);
 	});
@@ -1089,6 +1122,7 @@ describe('OpenLayerObserver', () => {
 		});
 
 		const api = result.current;
+		invariant(api);
 
 		expect(api.getCount()).toBe(4);
 	});
@@ -1115,6 +1149,7 @@ describe('OpenLayerObserver', () => {
 		});
 
 		const api = result.current;
+		invariant(api);
 
 		expect(api.getCount()).toBe(9);
 		expect(api.getCount({ namespace: 'test-namespace-1' })).toBe(5);

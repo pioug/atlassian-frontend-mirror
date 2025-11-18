@@ -1,5 +1,24 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.10.1
+
+### Patch Changes
+
+- [`a05464ea42678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a05464ea42678) -
+  EDITOR-2791 bump adf-schema
+- Updated dependencies
+
+## 2.10.0
+
+### Minor Changes
+
+- [`00d86f82d23fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00d86f82d23fa) -
+  Move ARI checks to providers
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.9.1
 
 ### Patch Changes

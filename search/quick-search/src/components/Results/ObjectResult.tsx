@@ -50,7 +50,7 @@ export default class ObjectResult extends React.PureComponent<Props> {
 		return containerName || objectKey;
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			name,
 			containerName,

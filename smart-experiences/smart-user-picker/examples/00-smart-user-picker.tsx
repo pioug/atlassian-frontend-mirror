@@ -72,7 +72,7 @@ const productsMap = products
 	.map((p) => ({ [p.value]: p }))
 	.reduce((acc, val) => ({ ...acc, ...val }), {});
 
-const SmartUserPickerCustomizableExample = () => {
+const SmartUserPickerCustomizableExample = (): React.JSX.Element => {
 	useEndpointMocks();
 
 	let [state, setState] = useState<State>({

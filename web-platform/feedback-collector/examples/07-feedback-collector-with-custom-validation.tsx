@@ -122,4 +122,4 @@ const DisplayFeedback = () => {
 	);
 };
 
-export default () => <DisplayFeedback />;
+export default (): React.JSX.Element => <DisplayFeedback />;

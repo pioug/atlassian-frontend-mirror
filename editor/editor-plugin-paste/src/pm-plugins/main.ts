@@ -26,7 +26,7 @@ import {
 	transformSliceToJoinAdjacentCodeBlocks,
 	transformSliceToRemoveLegacyContentMacro,
 	transformSliceToRemoveMacroId,
-	transformToNewReferenceSyncBlock,
+	transformSyncBlock,
 } from '@atlaskit/editor-common/transforms';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import {
@@ -425,6 +425,10 @@ export function createPlugin(
 				slice = handleParagraphBlockMarks(state, slice);
 
 				slice = handleVSCodeBlock({ state, slice, event, text });
+
+				if (expValEquals('platform_synced_block', 'isEnabled', true)) {
+					slice = transformSyncBlock(slice, schema, getPasteSource(event));
+				}
 
 				const plainTextPasteSlice = linkifyContent(state.schema)(slice);
 
@@ -837,10 +841,6 @@ export function createPlugin(
 				}
 
 				slice = transformSliceToRemoveMacroId(slice, schema);
-
-				if (expValEquals('platform_synced_block', 'isEnabled', true)) {
-					slice = transformToNewReferenceSyncBlock(slice, schema);
-				}
 
 				return slice;
 			},

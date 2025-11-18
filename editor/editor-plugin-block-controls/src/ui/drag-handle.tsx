@@ -27,6 +27,7 @@ import {
 	TooltipContentWithMultipleShortcuts,
 } from '@atlaskit/editor-common/keymaps';
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
+import { deleteSelectedRange } from '@atlaskit/editor-common/selection';
 import { tableControlsSpacing, DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
@@ -627,6 +628,14 @@ export const DragHandle = ({
 						tr,
 					});
 					api?.userIntent?.commands.setCurrentUserIntent('blockMenuOpen')({ tr });
+					return tr;
+				});
+			} else if (e.key === 'Backspace' || e.key === 'Delete') {
+				e.preventDefault();
+				e.stopPropagation();
+				api?.core.actions.execute(({ tr }) => {
+					deleteSelectedRange(tr);
+					api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
 					return tr;
 				});
 			} else if (![e.altKey, e.ctrlKey, e.shiftKey].some((pressed) => pressed)) {

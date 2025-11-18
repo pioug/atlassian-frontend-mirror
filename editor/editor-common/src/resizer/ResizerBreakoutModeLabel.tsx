@@ -37,10 +37,13 @@ export const ResizerBreakoutModeLabel = ({ layout: breakoutLayout }: props) => {
 
 	const message = React.useMemo(() => {
 		switch (breakoutLayout) {
+			case 'max':
+				return formatMessage(messages.maxWidthLabel);
 			case 'full-width':
 				return formatMessage(messages.fullWidthLabel);
 			case 'wide':
 				return formatMessage(messages.wideWidthLabel);
+
 			default:
 				return null;
 		}

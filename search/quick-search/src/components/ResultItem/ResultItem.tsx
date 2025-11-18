@@ -41,7 +41,7 @@ class ResultItem extends React.PureComponent<Props> {
 		isMouseSelected: false,
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const icon = this.props.icon ? <ResultItemIcon>{this.props.icon}</ResultItemIcon> : null;
 
 		const textAfter = this.props.textAfter ? (

@@ -1,6 +1,7 @@
 import type { ResolvedPos, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 
 import { GapCursorSelection } from './gap-cursor/selection';
 
@@ -136,4 +137,28 @@ export const expandSelectionBounds = (
 		$anchor: $anchor === $from ? $expandedFrom : $expandedTo,
 		$head: $head === $to ? $expandedTo : $expandedFrom,
 	};
+};
+
+/**
+ * Delete what is selected in the given transaction.
+ * @param tr the transaction to delete the selection from
+ * @returns the updated transaction
+ */
+export const deleteSelectedRange = (tr: Transaction): Transaction => {
+	const selection = tr.selection;
+	let from = selection.$from.pos;
+	let to = selection.$to.pos;
+
+	if (selection instanceof TextSelection) {
+		from = from - 1;
+		to = to + 1;
+	} else if (isTableSelected(selection)) {
+		const table = findTable(selection);
+		if (table) {
+			from = table.pos;
+			to = table.pos + table.node.nodeSize;
+		}
+	}
+	tr.deleteRange(from, to);
+	return tr;
 };

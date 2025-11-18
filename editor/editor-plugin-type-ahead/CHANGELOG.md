@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 6.5.17
+
+### Patch Changes
+
+- [`a05464ea42678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a05464ea42678) -
+  EDITOR-2791 bump adf-schema
+- [`42a664a17cbff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42a664a17cbff) -
+  Tidy platform_editor_a11y_fix_typeahead_tabindex
+- Updated dependencies
+
 ## 6.5.16
 
 ### Patch Changes

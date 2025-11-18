@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.15.1
+
+### Patch Changes
+
+- [`30a6e92ff3dda`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30a6e92ff3dda) -
+  disable usage of getComputedStyle in VC observer
+
+## 4.15.0
+
+### Minor Changes
+
+- [`5bd9159b5173c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bd9159b5173c) -
+  Change fy25_03 media measurement to correctly exclude cursor styles
+
 ## 4.14.8
 
 ### Patch Changes

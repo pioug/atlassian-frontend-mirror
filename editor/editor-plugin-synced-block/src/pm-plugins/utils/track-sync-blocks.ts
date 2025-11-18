@@ -1,7 +1,7 @@
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncBlockAttrs } from '../../syncedBlockPluginType';
 
@@ -10,12 +10,12 @@ type syncBlockMap = {
 };
 
 export const trackSyncBlocks = (
-	storeManager: SyncBlockStoreManager,
+	predicate: (node: PMNode) => boolean,
 	tr: Transaction,
 	state: EditorState,
 ) => {
-	const sourceSyncBlockRemoved: syncBlockMap = {};
-	const sourceSyncBlockAdded: syncBlockMap = {};
+	const removed: syncBlockMap = {};
+	const added: syncBlockMap = {};
 
 	// and cast to specific step types
 	const replaceSteps = tr.steps.filter(
@@ -32,15 +32,16 @@ export const trackSyncBlocks = (
 					const deletedSlice = state.doc.slice(oldStart, oldEnd);
 
 					deletedSlice.content.nodesBetween(0, deletedSlice.content.size, (node) => {
-						if (storeManager.isSourceBlock(node)) {
-							if (sourceSyncBlockAdded[node.attrs.localId]) {
+						if (predicate(node)) {
+							if (added[node.attrs.localId]) {
 								// If a source block added and then removed in the same transaction,
 								// we treat it as no-op.
-								delete sourceSyncBlockAdded[node.attrs.localId];
+								delete added[node.attrs.localId];
 							} else {
-								sourceSyncBlockRemoved[node.attrs.localId] = node.attrs as SyncBlockAttrs;
+								removed[node.attrs.localId] = node.attrs as SyncBlockAttrs;
 							}
 						}
+
 						// we don't need to go deeper
 						return false;
 					});
@@ -52,13 +53,13 @@ export const trackSyncBlocks = (
 		// if only one replace step, we have already checked the entire replaced range above
 		if (step.slice.content.size > 0) {
 			step.slice.content.nodesBetween(0, step.slice.content.size, (node) => {
-				if (storeManager.isSourceBlock(node)) {
-					if (sourceSyncBlockRemoved[node.attrs.localId]) {
+				if (predicate(node)) {
+					if (removed[node.attrs.localId]) {
 						// If a source block is removed and added back in the same transaction,
 						// we treat it as no-op.
-						delete sourceSyncBlockRemoved[node.attrs.localId];
+						delete removed[node.attrs.localId];
 					} else {
-						sourceSyncBlockAdded[node.attrs.localId] = node.attrs as SyncBlockAttrs;
+						added[node.attrs.localId] = node.attrs as SyncBlockAttrs;
 					}
 				}
 				// we don't need to go deeper
@@ -68,8 +69,8 @@ export const trackSyncBlocks = (
 	});
 
 	return {
-		removed: Object.values(sourceSyncBlockRemoved),
-		added: Object.values(sourceSyncBlockAdded),
+		removed: Object.values(removed),
+		added: Object.values(added),
 	};
 };
 

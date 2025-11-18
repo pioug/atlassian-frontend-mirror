@@ -154,7 +154,7 @@ describe('Video viewer', () => {
 		fireEvent.click(screen.getByTestId('custom-media-player-hd-button'));
 
 		await waitFor(() => {
-			expect(screen.getByLabelText('hd')).toBeInTheDocument();
+			expect(screen.getByLabelText('hd inactive')).toBeInTheDocument();
 		});
 	});
 
@@ -208,7 +208,7 @@ describe('Video viewer', () => {
 		setup();
 		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
 
-		expect(screen.getByLabelText('hd')).toBeInTheDocument();
+		expect(screen.getByLabelText('hd inactive')).toBeInTheDocument();
 	});
 
 	describe('should use hd video artifact when available even if previous quality was sd when disable_video_640p_artifact feature flag is on', () => {

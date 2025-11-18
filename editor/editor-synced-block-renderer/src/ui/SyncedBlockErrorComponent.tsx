@@ -12,7 +12,9 @@ export const SyncedBlockErrorComponent = ({
 	isLoading,
 	onRetry,
 	resourceId,
+	documentAri,
 }: {
+	documentAri?: string;
 	error: SyncBlockError;
 	isLoading?: boolean;
 	onRetry?: () => void;
@@ -23,6 +25,12 @@ export const SyncedBlockErrorComponent = ({
 			case SyncBlockError.Forbidden:
 				if (!resourceId) {
 					return <SyncedBlockGenericError />;
+				}
+				if (documentAri) {
+					const { id: contentId } = getPageIdAndTypeFromAri(documentAri);
+					if (contentId) {
+						return <SyncedBlockPermissionDenied contentId={contentId} />;
+					}
 				}
 				const { id: contentId } = getPageIdAndTypeFromAri(resourceId);
 				if (contentId) {
@@ -35,7 +43,7 @@ export const SyncedBlockErrorComponent = ({
 			default:
 				return <SyncedBlockGenericError />;
 		}
-	}, [error, isLoading, onRetry, resourceId]);
+	}, [documentAri, error, isLoading, onRetry, resourceId]);
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

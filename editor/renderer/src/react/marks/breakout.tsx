@@ -8,6 +8,7 @@ import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
+	akEditorMaxLayoutWidth,
 	blockNodesVerticalMargin,
 } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -28,6 +29,12 @@ const getWidth = (width: number | null, mode: BreakoutMode) => {
 	if (editorExperiment('advanced_layouts', true) && width) {
 		return `min(${width}px, var(--ak-editor--breakout-container-without-gutter-width))`;
 	} else {
+		if (expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)) {
+			if (mode === 'max' || (typeof width === 'number' && width >= akEditorFullWidthLayoutWidth)) {
+				return `min(${akEditorMaxLayoutWidth}px, var(--ak-editor--breakout-container-without-gutter-width))`;
+			}
+		}
+
 		if (mode === 'full-width') {
 			if (expValEquals('platform_editor_renderer_breakout_fix', 'isEnabled', true)) {
 				return `min(${akEditorFullWidthLayoutWidth}px, var(--ak-editor--breakout-container-without-gutter-width))`;

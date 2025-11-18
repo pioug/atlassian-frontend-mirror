@@ -9,6 +9,10 @@ export {
 } from './hooks/useFetchSyncBlockData';
 export { useFetchSyncBlockTitle } from './hooks/useFetchSyncBlockTitle';
 export { useHandleContentChanges } from './hooks/useHandleContentChanges';
+export {
+	blockResourceIdFromSourceAndLocalId,
+	getLocalIdFromResourceId,
+} from './providers/block-service/ari';
 export { useMemoizedBlockServiceAPIProviders } from './providers/block-service/blockServiceAPI';
 export {
 	createContentAPIProvidersWithDefaultKey,
@@ -27,10 +31,8 @@ export type {
 export { ReferenceSyncBlockStoreManager } from './store-manager/referenceSyncBlockStoreManager';
 export { SyncBlockStoreManager } from './store-manager/syncBlockStoreManager';
 export {
-	blockResourceIdFromSourceAndLocalId,
 	getConfluencePageAri,
 	getLocalIdFromAri,
-	getLocalIdFromResourceId,
 	getPageARIFromResourceId,
 	getPageIdAndTypeFromAri,
 	resourceIdFromSourceAndLocalId,

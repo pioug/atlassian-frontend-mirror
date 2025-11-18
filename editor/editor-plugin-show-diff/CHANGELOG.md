@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 3.2.5
+
+### Patch Changes
+
+- [`a05464ea42678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a05464ea42678) -
+  EDITOR-2791 bump adf-schema
+- [`657693883946f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/657693883946f) -
+  Fix diffs for extension nodes
+- Updated dependencies
+
 ## 3.2.4
 
 ### Patch Changes

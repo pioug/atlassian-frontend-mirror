@@ -32,7 +32,7 @@ const ExampleCheckbox = ({
 	</p>
 );
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const [ursRequestsSucceed, setUrsRequestsSucceed] = useState(false);
 	const [fallbackRequestsSucceed, setFallbackRequestsSucceed] = useState(true);
 	useEndpointMocks({ failRecommendations: !ursRequestsSucceed });

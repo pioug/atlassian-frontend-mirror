@@ -1,3 +1,5 @@
+import { createPlaceholderImageDataUrl } from '@atlaskit/editor-test-helpers/placeholder-images';
+
 export const mediaSingleWithCaptionsFixture = {
 	version: 1,
 	type: 'doc',
@@ -18,7 +20,7 @@ export const mediaSingleWithCaptionsFixture = {
 						collection: 'LoremIpsumdolOrsita',
 						width: 1920,
 						height: 1080,
-						url: 'https://dummyimage.com/1920x1080/f4f5f7/a5adba',
+						url: createPlaceholderImageDataUrl(1920, 1080, 'f4f5f7', 'a5adba'),
 					},
 				},
 				{

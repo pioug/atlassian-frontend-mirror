@@ -13,13 +13,13 @@ import {
 	type SyncedBlockRendererProviderOptions,
 	type WriteSyncBlockResult,
 } from '../providers/types';
-import { getLocalIdFromAri, getPageARIFromResourceId } from '../utils/ari';
 import { fetchSourceInfo } from '../utils/sourceInfo';
 
 export class SyncBlockProvider extends SyncBlockDataProvider {
 	name = 'syncBlockProvider';
 	private fetchProvider: ADFFetchProvider;
 	private writeProvider: ADFWriteProvider;
+	// the source document ARI; that the source sync block is on.
 	private sourceId: string;
 	private providerOptions: SyncedBlockRendererProviderOptions;
 
@@ -167,20 +167,19 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	 * @returns The source info
 	 */
 	retrieveSyncBlockSourceInfo(node: SyncBlockNode): Promise<SyncBlockSourceInfo | undefined> {
+		// with content API, this is the concatenation of the page ARI and the block's localId.
+		// with block service, this is the ARI of the block.
+		// this can be cleaned up from the specific providers and placed here after platform_synced_blocks_block_service_provider
 		const { resourceId } = node.attrs;
 		let pageARI;
 		let sourceLocalId;
 		if (resourceId && typeof resourceId === 'string') {
 			try {
-				pageARI = getPageARIFromResourceId(resourceId);
+				const fetchData = this.fetchProvider.retrieveSourceInfoFetchData(resourceId, this.sourceId);
+				pageARI = fetchData.pageARI;
+				sourceLocalId = fetchData.sourceLocalId;
 			} catch (error) {
 				return Promise.reject(error);
-			}
-
-			try {
-				sourceLocalId = getLocalIdFromAri(resourceId);
-			} catch (error) {
-				// EDITOR-1921: log analytic here, safe to continue
 			}
 		}
 

@@ -4,7 +4,7 @@ import SmartUserPicker from '../src';
 import { useEndpointMocks } from '../example-helpers/mock-endpoints-for-emails';
 import '../example-helpers/mock-ufo';
 
-const ExampleWithEmailSearch = () => {
+const ExampleWithEmailSearch = (): React.JSX.Element => {
 	useEndpointMocks();
 
 	const baseProps = {

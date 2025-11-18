@@ -1,5 +1,16 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 3.4.0
+
+### Minor Changes
+
+- [`00d86f82d23fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00d86f82d23fa) -
+  Move ARI checks to providers
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.3.0
 
 ### Minor Changes

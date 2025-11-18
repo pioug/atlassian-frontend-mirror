@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.13.5",
+	"version": "215.13.8",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -387,6 +387,9 @@
 		"platform_editor_table_width_refactor": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_toolbar_aifc_responsive_improve": {
+			"type": "boolean"
 		}
 	},
 	"stricter": {

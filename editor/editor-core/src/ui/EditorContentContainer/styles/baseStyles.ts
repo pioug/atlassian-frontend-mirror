@@ -65,6 +65,14 @@ export const baseStyles: SerializedStyles = css({
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const baseStylesMaxContainerWidthFixes = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		'--ak-editor-max-container-width': 'calc(100cqw - var(--ak-editor--large-gutter-padding)*2)',
+	},
+});
+
 // This is to avoid using akEditorGutterPaddingDynamic()
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const editorLargeGutterPuddingBaseStyles: SerializedStyles = css({

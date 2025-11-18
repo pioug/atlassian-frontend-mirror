@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-selection
 
+## 6.1.4
+
+### Patch Changes
+
+- [`43fc1f554344a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43fc1f554344a) -
+  [EDITOR-3092] fg platform_editor_fix_right_arrow_nav_bug_in_layout cleanup
+
 ## 6.1.3
 
 ### Patch Changes

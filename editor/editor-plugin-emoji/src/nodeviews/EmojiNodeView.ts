@@ -103,30 +103,26 @@ export class EmojiNodeView implements NodeView {
 					return;
 				}
 
-				const emojiDescription = payload.data;
+				const optionalEmojiDescription = payload.data;
 
-				if (!emojiDescription) {
-					EmojiNodeView.logError(new Error('Emoji description is not loaded'));
+				if (!optionalEmojiDescription) {
 					this.renderFallback();
 					return;
 				}
 
-				const emojiRepresentation = emojiDescription?.representation;
+				const emojiRepresentation = optionalEmojiDescription?.representation;
 				if (!EmojiNodeView.isEmojiRepresentationSupported(emojiRepresentation)) {
-					EmojiNodeView.logError(new Error('Emoji representation is not supported'));
-
 					this.renderFallback();
-
 					return;
 				}
 
-				if (isEqual(previousEmojiDescription, emojiDescription)) {
+				if (isEqual(previousEmojiDescription, optionalEmojiDescription)) {
 					// Do not re-render if the emoji description is the same as before
 					return;
 				}
-				previousEmojiDescription = emojiDescription;
+				previousEmojiDescription = optionalEmojiDescription;
 
-				this.renderEmoji(emojiDescription, emojiRepresentation);
+				this.renderEmoji(optionalEmojiDescription, emojiRepresentation);
 			});
 		} else {
 			if (isSSR()) {

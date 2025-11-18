@@ -1,5 +1,12 @@
 # @atlaskit/editor-markdown-transformer
 
+## 5.20.3
+
+### Patch Changes
+
+- [`a05464ea42678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a05464ea42678) -
+  EDITOR-2791 bump adf-schema
+
 ## 5.20.2
 
 ### Patch Changes

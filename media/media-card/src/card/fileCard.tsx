@@ -74,10 +74,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { getActiveTrace } from '@atlaskit/react-ufo/experience-trace-id-context';
 import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
 
-const IMAGE_LOAD_ERROR = 'image-load-error';
-
-export type ImageLoadErrorType = typeof IMAGE_LOAD_ERROR;
-
 export interface FileCardProps extends CardEventProps {
 	/** Overlay the media file. */
 	readonly disableOverlay?: boolean;
@@ -129,7 +125,7 @@ export interface FileCardProps extends CardEventProps {
 	readonly includeHashForDuplicateFiles?: boolean;
 	/** General Error handling include status errors and display errors*/
 	readonly onError?: (
-		reason: MediaFilePreviewErrorPrimaryReason | MediaCardErrorPrimaryReason | ImageLoadErrorType,
+		reason: MediaFilePreviewErrorPrimaryReason | MediaCardErrorPrimaryReason,
 	) => void;
 }
 
@@ -528,11 +524,6 @@ export const FileCard = ({
 			return;
 		}
 		onImageErrorBase(newCardPreview);
-
-		// The image error is not reflected in the status,
-		// as the preview might fail to load if the file itself is broken.
-		// In that case we want call onError callback.
-		onErrorRef.current?.(IMAGE_LOAD_ERROR);
 	};
 
 	const onSvgLoad = () => {

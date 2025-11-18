@@ -24,6 +24,7 @@ const styles = cssMap({
  * Taken from `@atlaskit/popper`
  */
 type Offset = [number | null | undefined, number | null | undefined];
+type Strategy = 'absolute' | 'fixed';
 
 /**
  * The `transform: rotate(45deg);` styles used to rotate the `Caret` component result in the corners of
@@ -81,6 +82,14 @@ interface BasePopoverContentProps {
 	 * by the `placement` prop.
 	 */
 	offset?: Offset;
+
+	/**
+	 * Describes the positioning strategy to use. By default, it is `absolute`, which in the simplest cases does not require
+	 * repositioning of the popper. If your reference element is in a fixed container, use the `fixed` strategy
+	 *
+	 * For more details see: https://popper.js.org/docs/v2/constructors/#strategy
+	 */
+	strategy?: Strategy;
 
 	/**
 	 * The content to be rendered in `PopoverContent`. This is intended to be a `SpotlightCard`.
@@ -156,6 +165,7 @@ export const PopoverContent = (props: PopoverContentProps) => {
 		back,
 		testId,
 		offset = defaultOffset,
+		strategy,
 	} = props;
 
 	/**
@@ -228,7 +238,7 @@ export const PopoverContent = (props: PopoverContentProps) => {
 	});
 
 	return (
-		<Popper offset={offset} placement={popperPlacementMap[placement]}>
+		<Popper offset={offset} strategy={strategy} placement={popperPlacementMap[placement]}>
 			{({ ref: localRef, style, update }) => {
 				if (!isVisible) {
 					return;

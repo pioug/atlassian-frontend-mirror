@@ -41,9 +41,6 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
-			"path": "../../analytics/analytics/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/avatar/tsconfig.app.json"
 		},
 		{

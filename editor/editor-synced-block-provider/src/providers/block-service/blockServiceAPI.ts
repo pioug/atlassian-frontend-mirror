@@ -2,8 +2,7 @@ import { useMemo } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
-import { SyncBlockError, type SyncBlockData } from '../../common/types';
-import { blockResourceIdFromSourceAndLocalId, getLocalIdFromResourceId } from '../../utils/ari';
+import { SyncBlockError, type ResourceId, type SyncBlockData } from '../../common/types';
 import {
 	BlockError,
 	createSyncedBlock,
@@ -16,9 +15,12 @@ import type {
 	ADFFetchProvider,
 	ADFWriteProvider,
 	DeleteSyncBlockResult,
+	SourceInfoFetchData,
 	SyncBlockInstance,
 	WriteSyncBlockResult,
 } from '../types';
+
+import { blockResourceIdFromSourceAndLocalId, getLocalIdFromResourceId } from './ari';
 
 const mapBlockError = (error: BlockError): SyncBlockError => {
 	switch (error.status) {
@@ -64,6 +66,19 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 			}
 			return { error: SyncBlockError.Errored, resourceId };
 		}
+	}
+
+	retrieveSourceInfoFetchData(resourceId: ResourceId, pageARI: string): SourceInfoFetchData {
+		let sourceLocalId;
+		try {
+			sourceLocalId = getLocalIdFromResourceId(resourceId);
+		} catch (error) {
+			// EDITOR-1921: log analytic here, safe to continue
+		}
+		return {
+			pageARI,
+			sourceLocalId,
+		};
 	}
 }
 

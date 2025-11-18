@@ -40,6 +40,7 @@ const toDOM = (): DOMOutputSpec => [
 class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 	private syncBlockStore: SyncBlockStoreManager;
 	private cleanupConnectivityModeListener?: () => void;
+	private cleanupViewModeListener?: () => void;
 	private api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 
 	constructor(props: BodiedSyncBlockNodeViewProps) {
@@ -54,16 +55,50 @@ class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 		this.syncBlockStore = props.syncBlockStore;
 		this.api = props.api;
 		this.handleConnectivityModeChange();
+		this.handleViewModeChange();
 	}
 
-	handleConnectivityModeChange() {
+	private updateContentEditable({
+		contentDOM,
+		nextConnectivityMode,
+		nextViewMode,
+	}: {
+		contentDOM?: HTMLElement | null;
+		nextConnectivityMode?: 'online' | 'offline';
+		nextViewMode?: 'view' | 'edit';
+	}) {
+		const connectivityMode =
+			nextConnectivityMode ?? this.api?.connectivity?.sharedState?.currentState()?.mode;
+		const viewMode = nextViewMode ?? this.api?.editorViewMode?.sharedState?.currentState()?.mode;
+
+		const isOnline = connectivityMode !== 'offline';
+		const isEditMode = viewMode !== 'view';
+		const shouldBeEditable = isOnline && isEditMode;
+
+		contentDOM?.setAttribute('contenteditable', shouldBeEditable ? 'true' : 'false');
+	}
+
+	private handleConnectivityModeChange() {
 		if (this.api?.connectivity) {
 			this.cleanupConnectivityModeListener = this.api.connectivity.sharedState.onChange(
 				({ nextSharedState }) => {
-					this.contentDOM?.setAttribute(
-						'contenteditable',
-						nextSharedState.mode === 'online' ? 'true' : 'false',
-					);
+					this.updateContentEditable({
+						contentDOM: this.contentDOM,
+						nextConnectivityMode: nextSharedState.mode,
+					});
+				},
+			);
+		}
+	}
+
+	private handleViewModeChange() {
+		if (this.api?.editorViewMode) {
+			this.cleanupViewModeListener = this.api.editorViewMode.sharedState.onChange(
+				({ nextSharedState }) => {
+					this.updateContentEditable({
+						contentDOM: this.contentDOM,
+						nextViewMode: nextSharedState?.mode,
+					});
 				},
 			);
 		}
@@ -89,6 +124,7 @@ class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 	getContentDOM() {
 		const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOM());
 		if (dom instanceof HTMLElement) {
+			this.updateContentEditable({ contentDOM });
 			return { dom, contentDOM };
 		}
 
@@ -98,6 +134,9 @@ class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 	destroy() {
 		if (this.cleanupConnectivityModeListener) {
 			this.cleanupConnectivityModeListener();
+		}
+		if (this.cleanupViewModeListener) {
+			this.cleanupViewModeListener();
 		}
 	}
 }

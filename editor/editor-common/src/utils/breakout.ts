@@ -205,7 +205,7 @@ export function calcBreakoutWidthPx(
 	return parsePx(calcBreakoutWidth(mode, widthStateWidth, padding));
 }
 
-export const getNextBreakoutMode = (currentMode?: BreakoutMode): BreakoutMode => {
+export const getNextBreakoutMode = (currentMode?: BreakoutMode): Exclude<BreakoutMode, 'max'> => {
 	if (currentMode === 'full-width') {
 		return 'center';
 	} else if (currentMode === 'wide') {

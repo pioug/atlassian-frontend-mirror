@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-paste
 
+## 7.4.7
+
+### Patch Changes
+
+- [`a05464ea42678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a05464ea42678) -
+  EDITOR-2791 bump adf-schema
+- Updated dependencies
+
+## 7.4.6
+
+### Patch Changes
+
+- [`b14a5fc14cf22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b14a5fc14cf22) -
+  [ux] EDITOR-2606 copy sync block from renderer should flatten out content instead of creating new
+  reference
+- Updated dependencies
+
 ## 7.4.5
 
 ### Patch Changes

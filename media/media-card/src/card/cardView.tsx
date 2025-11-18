@@ -337,6 +337,7 @@ export const CardViewBase = ({
 				mediaName={name}
 				status={status}
 				progress={progress}
+				mediaCardCursor={mediaCardCursor}
 				selected={selected}
 				source={cardPreview?.source}
 			>

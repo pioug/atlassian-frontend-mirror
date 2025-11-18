@@ -12,6 +12,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { deleteSelectedRange } from '@atlaskit/editor-common/selection';
 import { DRAG_HANDLE_SELECTOR, DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
@@ -310,6 +311,14 @@ const BlockMenu = ({
 	if (!isMenuOpen) {
 		return null;
 	}
+	const handleBackspaceDeleteKeydown = () => {
+		api?.core.actions.execute(({ tr }) => {
+			deleteSelectedRange(tr);
+			api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
+
+			return tr;
+		});
+	};
 
 	const closeMenu = () => {
 		api?.core.actions.execute(({ tr }) => {
@@ -352,6 +361,15 @@ const BlockMenu = ({
 					alignY={'start'} // respected when forcePlacement is true
 					handleClickOutside={closeMenu}
 					handleEscapeKeydown={closeMenu}
+					handleBackspaceDeleteKeydown={
+						expValEqualsNoExposure(
+							'platform_editor_block_menu_keyboard_navigation',
+							'isEnabled',
+							true,
+						)
+							? handleBackspaceDeleteKeydown
+							: undefined
+					}
 					mountTo={mountTo}
 					boundariesElement={boundariesElement}
 					scrollableElement={scrollableElement}
@@ -366,8 +384,9 @@ const BlockMenu = ({
 							'platform_editor_block_menu_keyboard_navigation',
 							'isEnabled',
 							true,
-						)
-							? { initialFocus: openedViaKeyboard ? undefined : targetHandleRef }
+						) && openedViaKeyboard
+							? // Only enable focus trap when opened via keyboard to make sure the focus is on the first focusable menu item
+								{ initialFocus: undefined }
 							: undefined
 					}
 					offset={[DRAG_HANDLE_WIDTH + DRAG_HANDLE_OFFSET_PADDING, 0]}

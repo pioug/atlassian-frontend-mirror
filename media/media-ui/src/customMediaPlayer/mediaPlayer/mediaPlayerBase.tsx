@@ -346,7 +346,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 						: undefined
 				}
 				iconBefore={
-					isHDActive ? <VideoHdFilledIcon label="hd active" /> : <VideoHdIcon label="hd" />
+					isHDActive ? <VideoHdFilledIcon label="hd active" /> : <VideoHdIcon label="hd inactive" />
 				}
 				aria-pressed={isHDActive}
 			/>

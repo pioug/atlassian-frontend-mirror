@@ -100,7 +100,7 @@ export class ResultBase extends React.PureComponent<DefaultProps & Props> {
 		this.setState({ isMouseSelected: false });
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { caption, elemAfter, selectedIcon, href, target, icon, subText, text, resultId } =
 			this.props;
 
@@ -128,7 +128,7 @@ export class ResultBase extends React.PureComponent<DefaultProps & Props> {
 	}
 }
 
-export default (props: Props) => (
+export default (props: Props): React.JSX.Element => (
 	<ResultContext.Consumer>
 		{(context) => <ResultBase context={context} {...props} />}
 	</ResultContext.Consumer>

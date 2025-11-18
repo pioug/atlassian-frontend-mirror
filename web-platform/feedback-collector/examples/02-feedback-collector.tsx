@@ -48,7 +48,7 @@ const DisplayFeedback = () => {
 	);
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		<>Click the button to display the feedback collector.</>
 		<DisplayFeedback />

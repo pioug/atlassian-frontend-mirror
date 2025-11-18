@@ -1,12 +1,6 @@
 import { type TeamMembership } from './membership';
 
-/**
- * @private
- * @deprecated state has been removed as part of migration to V4
- */
-export type DeprecatedTeamState = 'DISBANDED';
-
-export type TeamState = 'ACTIVE' | 'PURGED' | DeprecatedTeamState;
+export type TeamState = 'ACTIVE' | 'PURGED' | 'DISBANDED';
 
 export type TeamMembershipSettings = 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL';
 

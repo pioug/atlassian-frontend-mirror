@@ -51,6 +51,7 @@ import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-deci
 import { textColorPlugin } from '@atlaskit/editor-plugins/text-color';
 import { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugins/toolbar-lists-indentation';
 import { ufoPlugin } from '@atlaskit/editor-plugins/ufo';
+import type { BreakpointPreset } from '@atlaskit/editor-toolbar';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -109,6 +110,7 @@ export type InitialPluginConfiguration = {
 		taskPlaceholder?: string;
 	};
 	toolbarPlugin?: {
+		breakpointPreset?: BreakpointPreset;
 		contextualFormattingEnabled?: ContextualFormattingEnabledOptions;
 		/**
 		 * The disableSelectionToolbar option is deprecated and will be removed in the future, replaced with `contextualFormattingEnabled`.

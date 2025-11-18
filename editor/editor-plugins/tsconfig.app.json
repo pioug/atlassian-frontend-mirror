@@ -32,9 +32,6 @@
 	},
 	"references": [
 		{
-			"path": "../../../build/formatting/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-plugin-accessibility-utils/tsconfig.app.json"
 		},
 		{

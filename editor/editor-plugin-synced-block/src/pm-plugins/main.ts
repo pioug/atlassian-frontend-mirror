@@ -85,20 +85,35 @@ export const createPlugin = (
 				const selectionDecorationSet: DecorationSet =
 					syncedBlockPluginKey.getState(state)?.selectionDecorationSet ?? DecorationSet.empty;
 				const { doc } = state;
-				const decorations: Decoration[] = [];
-				if (api?.connectivity?.sharedState.currentState()?.mode === 'offline') {
-					state.doc.descendants((node, pos) => {
-						if (node.type.name === 'bodiedSyncBlock') {
-							decorations.push(
-								Decoration.node(pos, pos + node.nodeSize, {
-									class: SyncBlockStateCssClassName.disabledClassName,
-								}),
-							);
-						}
-					});
-				}
 
-				return selectionDecorationSet.add(doc, decorations);
+				const isOffline = api?.connectivity?.sharedState.currentState()?.mode === 'offline';
+				const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+
+				const offlineDecorations: Decoration[] = [];
+				const viewModeDecorations: Decoration[] = [];
+
+				state.doc.descendants((node, pos) => {
+					if (node.type.name === 'bodiedSyncBlock' && isOffline) {
+						offlineDecorations.push(
+							Decoration.node(pos, pos + node.nodeSize, {
+								class: SyncBlockStateCssClassName.disabledClassName,
+							}),
+						);
+					}
+
+					if (
+						(node.type.name === 'bodiedSyncBlock' || node.type.name === 'syncBlock') &&
+						isViewMode
+					) {
+						viewModeDecorations.push(
+							Decoration.node(pos, pos + node.nodeSize, {
+								class: SyncBlockStateCssClassName.viewModeClassName,
+							}),
+						);
+					}
+				});
+
+				return selectionDecorationSet.add(doc, offlineDecorations).add(doc, viewModeDecorations);
 			},
 			handleClickOn: createSelectionClickHandler(
 				['bodiedSyncBlock'],
@@ -141,20 +156,24 @@ export const createPlugin = (
 				return true;
 			}
 
-			const { removed, added } = trackSyncBlocks(syncBlockStore, tr, state);
+			const { removed: bodiedSyncBlockRemoved, added: bodiedSyncBlockAdded } = trackSyncBlocks(
+				syncBlockStore.isSourceBlock,
+				tr,
+				state,
+			);
 
 			if (!isOffline) {
-				if (removed.length > 0) {
+				if (bodiedSyncBlockRemoved.length > 0) {
 					// If there are source sync blocks being removed, and we need to confirm with user before deleting,
 					// we block the transaction here, and wait for user confirmation to proceed with deletion.
 					// See editor-common/src/sync-block/sync-block-store-manager.ts for how we handle user confirmation and
 					// proceed with deletion.
-					syncBlockStore.deleteSyncBlocksWithConfirmation(tr, removed);
+					syncBlockStore.deleteSyncBlocksWithConfirmation(tr, bodiedSyncBlockRemoved);
 
 					return false;
 				}
 
-				if (added.length > 0) {
+				if (bodiedSyncBlockAdded.length > 0) {
 					// If there is bodiedSyncBlock node addition and it's waiting for the result of saving the node to backend (syncBlockStore.hasPendingCreation()),
 					// we need to intercept the transaction and save it in insert callback so that we only insert it to the document when backend call if backend call is successful
 					// The callback will be evoked by in SourceSyncBlockStoreManager.commitPendingCreation
@@ -168,24 +187,34 @@ export const createPlugin = (
 					return false;
 				}
 			} else {
-				// Disable node deletion/creation/edition in offline mode and trigger an error flag instead
+				// Disable (bodied)syncBlock node deletion/creation/edition in offline mode and trigger an error flag instead
+				const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(
+					(node) => node.type.name === 'syncBlock',
+					tr,
+					state,
+				);
 				let errorFlag: FLAG_ID | false = false;
-				if (isConfirmedSyncBlockDeletion || removed.length > 0) {
+				if (
+					isConfirmedSyncBlockDeletion ||
+					bodiedSyncBlockRemoved.length > 0 ||
+					syncBlockRemoved.length > 0
+				) {
 					errorFlag = FLAG_ID.CANNOT_DELETE_WHEN_OFFLINE;
-				} else if (added.length > 0) {
+				} else if (bodiedSyncBlockAdded.length > 0 || syncBlockAdded.length > 0) {
 					errorFlag = FLAG_ID.CANNOT_CREATE_WHEN_OFFLINE;
 				} else if (hasEditInSyncBlock(tr, state)) {
 					errorFlag = FLAG_ID.CANNOT_EDIT_WHEN_OFFLINE;
 				}
 
 				if (errorFlag) {
-					api?.core.actions.execute(({ tr }) => {
-						tr.setMeta(syncedBlockPluginKey, {
-							showFlag: errorFlag,
+					// Use setTimeout to dispatch transaction in next tick and avoid re-entrant dispatch
+					setTimeout(() => {
+						api?.core.actions.execute(({ tr }) => {
+							return tr.setMeta(syncedBlockPluginKey, {
+								showFlag: errorFlag,
+							});
 						});
-
-						return tr;
-					});
+					}, 0);
 					return false;
 				}
 			}

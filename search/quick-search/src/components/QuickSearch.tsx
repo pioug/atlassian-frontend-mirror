@@ -426,7 +426,7 @@ export class QuickSearch extends React.Component<Props, State> {
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<AkSearch
 				isLoading={this.props.isLoading}

@@ -41,9 +41,6 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
-			"path": "../../../build/formatting/tsconfig.app.json"
-		},
-		{
 			"path": "../button/tsconfig.app.json"
 		},
 		{

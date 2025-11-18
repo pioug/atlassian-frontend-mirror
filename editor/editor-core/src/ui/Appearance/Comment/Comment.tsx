@@ -86,6 +86,10 @@ const mainToolbarCustomComponentsSlotStyleNew = css({
 	},
 });
 
+const mainToolbarCustomComponentsSlotStylePaddingOverride = css({
+	paddingRight: 0,
+});
+
 const mainToolbarCustomComponentsSlotStyleTwoLineToolbarNew = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 	[`@media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px)`]: {
@@ -200,19 +204,21 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 	if (Array.isArray(primaryToolbarState?.components) && Array.isArray(primaryToolbarComponents)) {
 		primaryToolbarComponents = primaryToolbarState.components.concat(primaryToolbarComponents);
 	}
-
+	const isToolbarAIFCEnabled = Boolean(editorAPI?.toolbar);
 	const customToolbarSlot = (
 		<div
 			css={[
 				mainToolbarCustomComponentsSlotStyleNew,
 				isTwoLineToolbarEnabled && mainToolbarCustomComponentsSlotStyleTwoLineToolbarNew,
+				isToolbarAIFCEnabled &&
+					fg('platform_editor_toolbar_aifc_responsive_improve') &&
+					mainToolbarCustomComponentsSlotStylePaddingOverride,
 			]}
 		>
 			{customPrimaryToolbarComponents as React.ReactNode}
 		</div>
 	);
 
-	const isToolbarAIFCEnabled = Boolean(editorAPI?.toolbar);
 	const patch6Enabled = expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true);
 
 	return (

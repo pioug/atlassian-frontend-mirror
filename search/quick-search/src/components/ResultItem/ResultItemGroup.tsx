@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default class ResultItemGroup extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		const { title, children } = this.props;
 
 		return (

@@ -7,7 +7,7 @@ import SmartUserPicker from '../src';
 import { useEndpointMocks } from '../example-helpers/mock-endpoints';
 import '../example-helpers/mock-ufo';
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	useEndpointMocks();
 
 	const styles: StylesConfig = {

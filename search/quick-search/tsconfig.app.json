@@ -33,9 +33,6 @@
 	"files": ["../../../typings/atlaskit.d.ts"],
 	"references": [
 		{
-			"path": "../../analytics/analytics/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/avatar/tsconfig.app.json"
 		},
 		{

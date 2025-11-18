@@ -21,7 +21,7 @@ const nodeStyles = xcss({
 	color: 'color.text.inverse',
 	textAlign: 'center',
 });
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	const root = hierarchy(rootNode);
 	return (
 		<Box xcss={containerStyles}>

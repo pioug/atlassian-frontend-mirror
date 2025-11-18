@@ -2,4 +2,4 @@ import React from 'react';
 
 import { FeedbackButton } from '../src';
 
-export default () => <FeedbackButton locale={'en'} entrypointId={'key1'} />;
+export default (): React.JSX.Element => <FeedbackButton locale={'en'} entrypointId={'key1'} />;

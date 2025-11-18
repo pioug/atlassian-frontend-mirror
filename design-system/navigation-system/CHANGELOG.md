@@ -1,5 +1,19 @@
 # @atlassian/navigation-system
 
+## 5.7.0
+
+### Minor Changes
+
+- [`8b3783c70ef57`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b3783c70ef57) -
+  Clicking on the side nav toggle button will now close any open layers such as tooltips. This
+  ensures tooltips don't linger on the screen when the buttons inside `TopNavStart` are reordered.
+
+  This change is behind the feature flag `navx-full-height-sidebar`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.6.0
 
 ### Minor Changes

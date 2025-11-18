@@ -149,6 +149,19 @@ export const syncBlockStyles: SerializedStyles = css({
 				},
 			},
 
+			/* Live doc view mode state */
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`&.${SyncBlockStateCssClassName.viewModeClassName}`]: {
+				boxShadow: 'none',
+				backgroundColor: 'unset',
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
+					opacity: 0,
+					visibility: 'hidden',
+				},
+			},
+
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 			[`.${BodiedSyncBlockSharedCssClassName.content}`]: {
 				padding: '0 32px',

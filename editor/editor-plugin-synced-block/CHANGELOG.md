@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.2.12
+
+### Patch Changes
+
+- [`21110d2ba4a71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21110d2ba4a71) -
+  EDITOR-2893 disable editing sync block in live doc view mode
+- Updated dependencies
+
+## 4.2.11
+
+### Patch Changes
+
+- [`a05464ea42678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a05464ea42678) -
+  EDITOR-2791 bump adf-schema
+- Updated dependencies
+
+## 4.2.10
+
+### Patch Changes
+
+- [`f727550ca4b3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f727550ca4b3d) -
+  [ux] [EDITOR-2738] Disable creation/deletion/data fetching of reference sync block in offline mode
+- Updated dependencies
+
 ## 4.2.9
 
 ### Patch Changes

@@ -182,7 +182,7 @@ const UserPickerExample = React.memo(() => {
 	);
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	let onEvent = (e: UIAnalyticsEvent) => {
 		console.log(
 			`Analytics ${e.payload.attributes.sessionId} ${e.payload.actionSubject} ${e.payload.action} `,

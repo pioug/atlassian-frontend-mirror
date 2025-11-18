@@ -501,7 +501,7 @@ export default class FeedbackCollector extends Component<Props> {
 		setTimeout(() => this.props.onSubmit(formValues), this.props.timeoutOnSubmit);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const anonymousFeedback: boolean = !this.shouldShowOptInCheckboxes();
 		return (
 			<FeedbackForm

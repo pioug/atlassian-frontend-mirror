@@ -1,1 +1,1 @@
-export type BreakoutMode = 'wide' | 'full-width' | 'center';
+export type BreakoutMode = 'wide' | 'full-width' | 'max' | 'center';

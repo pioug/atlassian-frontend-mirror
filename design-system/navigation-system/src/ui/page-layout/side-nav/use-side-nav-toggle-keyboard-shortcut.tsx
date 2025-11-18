@@ -54,7 +54,7 @@ export function useSideNavToggleKeyboardShortcut({
 						return;
 					}
 
-					if (openLayerObserver.getCount({ type: 'modal' }) > 0) {
+					if (openLayerObserver && openLayerObserver.getCount({ type: 'modal' }) > 0) {
 						// Return early if there are any open modals
 						return;
 					}

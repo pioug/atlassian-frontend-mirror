@@ -1,5 +1,12 @@
 # @atlaskit/editor-toolbar
 
+## 0.17.6
+
+### Patch Changes
+
+- [`fd59b4b1d712d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd59b4b1d712d) -
+  [ux] ED-29573 Improve JSM comment responsiveness
+
 ## 0.17.5
 
 ### Patch Changes

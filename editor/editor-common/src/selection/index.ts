@@ -35,6 +35,7 @@ export {
 	atTheBeginningOfDoc,
 	atTheEndOfBlock,
 	atTheEndOfDoc,
+	deleteSelectedRange,
 	endPositionOfParent,
 	expandSelectionBounds,
 	isSelectionAtEndOfNode,

@@ -114,7 +114,7 @@ export default function LayersInMain({
 }) {
 	return (
 		<WithResponsiveViewport>
-			<Root testId="root">
+			<Root testId="root" isSideNavShortcutEnabled>
 				<Banner xcss={bannerStyles.root}> </Banner>
 				<TopNav>
 					<TopNavStart

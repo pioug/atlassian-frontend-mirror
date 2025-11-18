@@ -169,6 +169,7 @@ export interface LegionClient {
 		originQuery: OriginQuery,
 		members?: string[],
 		membershipSettings?: TeamMembershipSettings,
+		typeId?: string,
 	): Promise<Team>;
 
 	createExternalTeam(
@@ -557,6 +558,7 @@ export class LegionClient extends RestClient implements LegionClient {
 		originQuery: OriginQuery,
 		members?: string[],
 		membershipSettings: TeamMembershipSettings = 'OPEN',
+		typeId?: string,
 	): Promise<Team> {
 		const organizationId = this.getContext().orgId;
 
@@ -575,6 +577,7 @@ export class LegionClient extends RestClient implements LegionClient {
 			siteId: this.getCloudId(),
 			organizationId: organizationId,
 			members: [...new Set(members)],
+			typeId,
 		});
 
 		return this.mapTeamCreateResponseV4ToTeam(legionTeam);

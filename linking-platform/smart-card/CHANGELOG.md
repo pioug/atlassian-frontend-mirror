@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 43.7.2
+
+### Patch Changes
+
+- [`47806d831b118`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47806d831b118) -
+  NAVX-2338 cleaning up navx-1910-fix-hovercard-performance-metrics
+
 ## 43.7.1
 
 ### Patch Changes

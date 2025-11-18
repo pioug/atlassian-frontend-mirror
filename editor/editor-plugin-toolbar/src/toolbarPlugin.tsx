@@ -123,6 +123,10 @@ export const toolbarPlugin: ToolbarPlugin = ({
 			contextualFormattingMode: () => {
 				return contextualFormattingEnabled;
 			},
+
+			getBreakpointPreset: () => {
+				return fg('platform_editor_toolbar_aifc_responsive_improve') ? breakpointPreset : undefined;
+			},
 		},
 
 		getSharedState(editorState) {

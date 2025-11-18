@@ -108,7 +108,7 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 
 			if (
 				attributeName &&
-				(/data-(test|file|context)-\S+/g.test(attributeName) ||
+				(/data-(test|file|context|cursor)-\S+/g.test(attributeName) ||
 					attributeName === 'alt' ||
 					((attributeName === 'localid' ||
 						attributeName === 'contenteditable' ||

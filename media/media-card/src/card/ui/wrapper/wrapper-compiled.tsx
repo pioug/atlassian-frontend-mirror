@@ -6,7 +6,6 @@ import { jsx, css, cssMap } from '@compiled/react';
 import { newFileExperienceClassName } from '../../cardConstants';
 import { type WrapperProps } from './types';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { N0, N100, N20, N60A, N90A, B100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -122,6 +121,18 @@ const tooltipStyle = css({
 	},
 });
 
+// These styles target data attributes to enable the exclusion from TTVC metric calculation.
+const cursorStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-cursor="pointer"]': {
+		cursor: 'pointer',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-cursor="wait"]': {
+		cursor: 'wait',
+	},
+});
+
 const getResponsiveStyles = (breakpoint: Breakpoint) => {
 	// dynamically setting the properties to avoid ratcheting build errors. These need to be removed however for the compiled transformation.
 	return breakpoint === 'small'
@@ -138,7 +149,6 @@ export const Wrapper = (props: WrapperProps) => {
 		onMouseEnter,
 		innerRef,
 		breakpoint,
-		mediaCardCursor,
 		disableOverlay,
 		selected,
 		displayBackground,
@@ -166,13 +176,12 @@ export const Wrapper = (props: WrapperProps) => {
 					[LOCAL_WIDTH_VARIABLE]: width,
 					[LOCAL_HEIGHT_VARIABLE]: height,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					...(fg('jfp-magma-media-cursor') ? { cursor: mediaCardCursor } : undefined),
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					...getResponsiveStyles(breakpoint),
 				} as React.CSSProperties
 			}
 			css={[
 				wrapperStyles.default,
+				cursorStyle,
 				displayBackground && backgroundStyle,
 				wrapperShadowKey && shadowStyleMap[wrapperShadowKey],
 				selected && hideNativeBrowserTextSelectionStyles,

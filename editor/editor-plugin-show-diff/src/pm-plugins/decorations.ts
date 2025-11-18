@@ -62,13 +62,6 @@ const getEditorStyleNode = (nodeName: string, colourScheme?: 'standard' | 'tradi
 		case 'tableCell':
 		case 'tableHeader':
 			return undefined; // Handle table separately to avoid border issues
-		case 'embedCard':
-			return convertToInlineCss({
-				'--diff-decoration-marker-color':
-					colourScheme === 'traditional'
-						? token('color.border.accent.green')
-						: token('color.border.accent.purple'),
-			});
 		case 'paragraph':
 		case 'heading':
 		case 'hardBreak':
@@ -79,6 +72,8 @@ const getEditorStyleNode = (nodeName: string, colourScheme?: 'standard' | 'tradi
 		case 'bulletList':
 		case 'orderedList':
 			return undefined;
+		case 'extension':
+		case 'embedCard':
 		case 'listItem':
 			return convertToInlineCss({
 				'--diff-decoration-marker-color':
@@ -177,6 +172,15 @@ export const getDeletedContentStyleUnbounded = (colourScheme?: 'standard' | 'tra
 export const getDeletedContentStyle = (colourScheme?: 'standard' | 'traditional') =>
 	colourScheme === 'traditional' ? deletedTraditionalContentStyle : deletedContentStyle;
 
+const getNodeClass = (name: string) => {
+	switch (name) {
+		case 'extension':
+			return 'show-diff-changed-decoration-node';
+		default:
+			return undefined;
+	}
+};
+
 /**
  * Inline decoration used for insertions as the content already exists in the document
  *
@@ -193,6 +197,7 @@ export const createBlockChangedDecoration = (
 		{
 			style: getEditorStyleNode(change.name, colourScheme),
 			'data-testid': 'show-diff-changed-decoration-node',
+			class: getNodeClass(change.name),
 		},
 		{},
 	);

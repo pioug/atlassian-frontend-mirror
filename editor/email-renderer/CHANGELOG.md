@@ -1,5 +1,13 @@
 # @atlaskit/email-renderer
 
+## 9.11.3
+
+### Patch Changes
+
+- [`a05464ea42678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a05464ea42678) -
+  EDITOR-2791 bump adf-schema
+- Updated dependencies
+
 ## 9.11.2
 
 ### Patch Changes

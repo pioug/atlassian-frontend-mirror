@@ -1,5 +1,42 @@
 # @atlaskit/editor-common
 
+## 110.32.2
+
+### Patch Changes
+
+- [`21110d2ba4a71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21110d2ba4a71) -
+  EDITOR-2893 disable editing sync block in live doc view mode
+- Updated dependencies
+
+## 110.32.1
+
+### Patch Changes
+
+- [`a05464ea42678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a05464ea42678) -
+  EDITOR-2791 bump adf-schema
+- Updated dependencies
+
+## 110.32.0
+
+### Minor Changes
+
+- [`81ac927e830b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81ac927e830b5) -
+  [ux] EDITOR-2866: Add max-width support and guideline wiring for node custom resizers
+
+### Patch Changes
+
+- [`98517a05bfada`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98517a05bfada) -
+  fix styling for full-width and wide media single
+- Updated dependencies
+
+## 110.31.1
+
+### Patch Changes
+
+- [`b14a5fc14cf22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b14a5fc14cf22) -
+  [ux] EDITOR-2606 copy sync block from renderer should flatten out content instead of creating new
+  reference
+
 ## 110.31.0
 
 ### Minor Changes

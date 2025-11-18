@@ -1,5 +1,19 @@
 # @atlaskit/editor-shared-styles
 
+## 3.10.1
+
+### Patch Changes
+
+- [`d155989f1f294`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d155989f1f294) -
+  [ux] EDITOR-2885 Add max-width styles for "max" width appearance in renderer
+
+## 3.10.0
+
+### Minor Changes
+
+- [`81ac927e830b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81ac927e830b5) -
+  [ux] EDITOR-2866: Add max-width support and guideline wiring for node custom resizers
+
 ## 3.9.0
 
 ### Minor Changes

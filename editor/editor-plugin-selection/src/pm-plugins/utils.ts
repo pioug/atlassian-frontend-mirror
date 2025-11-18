@@ -336,10 +336,7 @@ export const isSelectionAtEndOfParentNode = ($pos: ResolvedPos, selection: Selec
 	}
 
 	// Handle layout columns: if another node follows, not at end
-	if (
-		isSelectionAtEndOfLayoutColumn($pos) &&
-		fg('platform_editor_fix_right_arrow_nav_bug_in_layout')
-	) {
+	if (isSelectionAtEndOfLayoutColumn($pos)) {
 		return false;
 	}
 

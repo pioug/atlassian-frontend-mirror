@@ -34,7 +34,7 @@ export default class PersonResult extends React.PureComponent<Props> {
 		return <Avatar presence={this.props.presenceState} size="small" src={this.props.avatarUrl} />;
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			name,
 			mentionName,

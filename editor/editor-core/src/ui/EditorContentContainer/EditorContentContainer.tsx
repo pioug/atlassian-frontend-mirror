@@ -35,6 +35,7 @@ import { annotationStyles } from './styles/annotationStyles';
 import { backgroundColorStyles, textHighlightPaddingStyles } from './styles/backgroundColorStyles';
 import {
 	baseStyles,
+	baseStylesMaxContainerWidthFixes,
 	editorLargeGutterPuddingBaseStyles,
 	editorLargeGutterPuddingBaseStylesEditorControls,
 	editorLargeGutterPuddingReducedBaseStyles,
@@ -74,7 +75,7 @@ import {
 	expandStylesMixin_fg_platform_visual_refresh_icons,
 	expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
 } from './styles/expandStyles';
-import { getExtensionStyles } from './styles/extensionStyles';
+import { getExtensionStyles, extensionDiffStyles } from './styles/extensionStyles';
 import {
 	findReplaceStyles,
 	findReplaceStylesWithCodeblockColorContrastFix,
@@ -310,6 +311,9 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 				css={[
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					baseStyles,
+					expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						baseStylesMaxContainerWidthFixes,
 					// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 					fg('platform_editor_controls_increase_full_page_gutter') &&
 					editorExperiment('platform_editor_controls', 'variant1')
@@ -443,6 +447,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					dateStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					getExtensionStyles(contentMode),
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					fg('aifc_create_enabled') && extensionDiffStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					expandStyles,
 					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&

@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 
-import { SyncBlockError, type SyncBlockData } from '../../common/types';
+import { SyncBlockError, type ResourceId, type SyncBlockData } from '../../common/types';
 import {
 	getLocalIdFromAri,
+	getPageARIFromResourceId,
 	getPageIdAndTypeFromAri,
 	resourceIdFromSourceAndLocalId,
 	type PAGE_TYPE,
@@ -27,6 +28,7 @@ import type {
 	ADFFetchProvider,
 	ADFWriteProvider,
 	DeleteSyncBlockResult,
+	SourceInfoFetchData,
 	SyncBlockInstance,
 	WriteSyncBlockResult,
 } from '../types';
@@ -126,6 +128,22 @@ class ConfluenceADFFetchProvider implements ADFFetchProvider {
 		} catch {
 			return { error: SyncBlockError.Errored, resourceId };
 		}
+	}
+
+	retrieveSourceInfoFetchData(resourceId: ResourceId): SourceInfoFetchData {
+		const pageARI = getPageARIFromResourceId(resourceId);
+		let sourceLocalId;
+
+		try {
+			sourceLocalId = getLocalIdFromAri(resourceId);
+		} catch (error) {
+			// EDITOR-1921: log analytic here, safe to continue
+		}
+
+		return {
+			pageARI,
+			sourceLocalId,
+		};
 	}
 }
 

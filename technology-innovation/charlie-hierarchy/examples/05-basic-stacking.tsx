@@ -81,7 +81,7 @@ const testData = {
 	],
 };
 
-export default function SimpleStackingTest() {
+export default function SimpleStackingTest(): React.JSX.Element {
 	const [stackingThreshold, setStackingThreshold] = useState(3);
 	const root = hierarchy(testData);
 

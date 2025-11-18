@@ -142,12 +142,12 @@ const styles = cssMap({
 			},
 		},
 	},
-	// Preset: jsm-comment (210, 408, 550, 1024)
+	// Preset: jsm-comment (320, 460, 590, 1024)
 	// Used for JSM comment editor with canned responses button
 	jsmComment: {
 		// @ts-expect-error - container queries are not typed in cssMap
 		'&&': {
-			'@container toolbar-container (max-width: 210px)': {
+			'@container toolbar-container (max-width: 320px)': {
 				'.show-above-sm': {
 					display: 'none',
 				},
@@ -155,7 +155,7 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
-			'@container toolbar-container (max-width: 408px)': {
+			'@container toolbar-container (max-width: 460px)': {
 				'.show-above-md': {
 					display: 'none',
 				},
@@ -163,7 +163,7 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
-			'@container toolbar-container (max-width: 550px)': {
+			'@container toolbar-container (max-width: 590px)': {
 				'.show-above-lg': {
 					display: 'none',
 				},

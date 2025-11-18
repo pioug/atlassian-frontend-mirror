@@ -1,5 +1,19 @@
 # @atlaskit/rovo-triggers
 
+## 4.3.0
+
+### Minor Changes
+
+- [`f5cfc5eacefad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5cfc5eacefad) -
+  [ux] App + agent handoff flow from solution architect
+
+## 4.2.1
+
+### Patch Changes
+
+- [`a05464ea42678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a05464ea42678) -
+  EDITOR-2791 bump adf-schema
+
 ## 4.2.0
 
 ### Minor Changes

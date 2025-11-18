@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-media
 
+## 8.4.11
+
+### Patch Changes
+
+- [`a05464ea42678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a05464ea42678) -
+  EDITOR-2791 bump adf-schema
+- Updated dependencies
+
+## 8.4.10
+
+### Patch Changes
+
+- [`98517a05bfada`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98517a05bfada) -
+  fix styling for full-width and wide media single
+- Updated dependencies
+
 ## 8.4.9
 
 ### Patch Changes

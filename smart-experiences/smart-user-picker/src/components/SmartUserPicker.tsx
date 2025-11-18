@@ -500,7 +500,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { allowEmail, enableEmailSearch, allowEmailSelectionWhenEmailMatched, ...restProps } =
 			this.props;
 

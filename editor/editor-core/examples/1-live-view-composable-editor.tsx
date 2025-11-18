@@ -3,7 +3,12 @@ import React, { useRef, useState } from 'react';
 import type { BlockMenuItemConfiguration } from 'packages/editor/editor-plugin-selection-extension/src/types';
 import { IntlProvider } from 'react-intl-next';
 
-import { EditorExampleControls, getExamplesProviders } from '@af/editor-examples-helpers/utils';
+import {
+	EditorExampleControls,
+	getExamplesProviders,
+	localStorageFetchProvider,
+	localStorageWriteProvider,
+} from '@af/editor-examples-helpers/utils';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { EditorContext } from '@atlaskit/editor-core/editor-context';
@@ -19,6 +24,9 @@ import {
 	selectionExtensionPlugin,
 } from '@atlaskit/editor-plugin-selection-extension';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
+import type { SyncedBlockPluginOptions } from '@atlaskit/editor-plugin-synced-block';
+import { SyncedBlockProvider } from '@atlaskit/editor-synced-block-provider';
+import { getSyncedBlockRenderer } from '@atlaskit/editor-synced-block-renderer';
 import { useEditorAnnotationProviders } from '@atlaskit/editor-test-helpers/annotation-example';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
@@ -65,6 +73,31 @@ function ComposableEditorPage() {
 	const selectedNodeAdfRef = React.useRef<any>(null);
 	const selectionRangesRef = React.useRef<any>(null);
 	const editorAnnotationProviders = useEditorAnnotationProviders();
+
+	const syncedBlock: SyncedBlockPluginOptions = {
+		syncedBlockRenderer: getSyncedBlockRenderer({
+			syncBlockRendererOptions: undefined,
+		}),
+		syncBlockDataProvider: new SyncedBlockProvider(
+			localStorageFetchProvider,
+			localStorageWriteProvider,
+			'sourceId',
+			{
+				parentDataProviders: {
+					emojiProvider: undefined,
+					mediaProvider: undefined,
+					mentionProvider: undefined,
+					profilecardProvider: undefined,
+					taskDecisionProvider: undefined,
+				},
+				providerCreator: {
+					createEmojiProvider: undefined,
+					createMediaProvider: undefined,
+				},
+			},
+		),
+	};
+
 	const universalPreset = useUniversalPreset({
 		props: {
 			appearance,
@@ -152,6 +185,7 @@ function ComposableEditorPage() {
 				'table-drag-and-drop': true,
 			},
 			allowTemplatePlaceholders: true,
+			syncBlock: syncedBlock,
 		},
 
 		initialPluginConfiguration: {

@@ -7,7 +7,6 @@ import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { SyncBlocksIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import Lozenge from '@atlaskit/lozenge';
-import { Flex, Text } from '@atlaskit/primitives/compiled';
 
 import { canBeConvertedToSyncBlock } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
@@ -62,6 +61,9 @@ const CopySyncedBlockDropdownItem = ({
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined;
 }) => {
 	const { formatMessage } = useIntl();
+	const { mode } = useSharedPluginStateWithSelector(api, ['connectivity'], (states) => ({
+		mode: states.connectivityState?.mode,
+	}));
 
 	const onClick = () => {
 		api?.core?.actions.execute(api?.syncedBlock.commands.copySyncedBlockReferenceToClipboard());
@@ -69,11 +71,13 @@ const CopySyncedBlockDropdownItem = ({
 	};
 
 	return (
-		<ToolbarDropdownItem elemBefore={<SyncBlocksIcon label="" />} onClick={onClick}>
-			<Flex alignItems="center" gap="space.050">
-				<Text>{formatMessage(blockMenuMessages.copySyncedBlock)}</Text>
-				<Lozenge appearance="new">{formatMessage(blockMenuMessages.newLozenge)}</Lozenge>
-			</Flex>
+		<ToolbarDropdownItem
+			elemBefore={<SyncBlocksIcon label="" />}
+			onClick={onClick}
+			isDisabled={mode === 'offline'}
+			elemAfter={<Lozenge appearance="new">{formatMessage(blockMenuMessages.newLozenge)}</Lozenge>}
+		>
+			{formatMessage(blockMenuMessages.copySyncedBlock)}
 		</ToolbarDropdownItem>
 	);
 };

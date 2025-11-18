@@ -1,5 +1,33 @@
 # @atlaskit/editor-core
 
+## 215.13.8
+
+### Patch Changes
+
+- [`21110d2ba4a71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21110d2ba4a71) -
+  EDITOR-2893 disable editing sync block in live doc view mode
+- [`fd59b4b1d712d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd59b4b1d712d) -
+  [ux] ED-29573 Improve JSM comment responsiveness
+- Updated dependencies
+
+## 215.13.7
+
+### Patch Changes
+
+- [`a05464ea42678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a05464ea42678) -
+  EDITOR-2791 bump adf-schema
+- [`657693883946f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/657693883946f) -
+  Fix diffs for extension nodes
+- Updated dependencies
+
+## 215.13.6
+
+### Patch Changes
+
+- [`98517a05bfada`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98517a05bfada) -
+  fix styling for full-width and wide media single
+- Updated dependencies
+
 ## 215.13.5
 
 ### Patch Changes

@@ -1,5 +1,34 @@
 # @atlaskit/renderer
 
+## 124.15.1
+
+### Patch Changes
+
+- [`d155989f1f294`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d155989f1f294) -
+  [ux] EDITOR-2885 Add max-width styles for "max" width appearance in renderer
+- [`a05464ea42678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a05464ea42678) -
+  EDITOR-2791 bump adf-schema
+- Updated dependencies
+
+## 124.15.0
+
+### Minor Changes
+
+- [`81ac927e830b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81ac927e830b5) -
+  [ux] EDITOR-2866: Add max-width support and guideline wiring for node custom resizers
+
+### Patch Changes
+
+- Updated dependencies
+
+## 124.14.1
+
+### Patch Changes
+
+- [`dce46a29986fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dce46a29986fe) -
+  Fix media with wide layout is not rendered with correct width
+- Updated dependencies
+
 ## 124.14.0
 
 ### Minor Changes

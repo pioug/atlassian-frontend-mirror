@@ -40,8 +40,14 @@ export type WriteSyncBlockResult = {
 	resourceId?: string;
 };
 
+export type SourceInfoFetchData = {
+	pageARI: string;
+	sourceLocalId?: string;
+};
+
 export interface ADFFetchProvider {
 	fetchData: (resourceId: ResourceId) => Promise<SyncBlockInstance>;
+	retrieveSourceInfoFetchData: (resourceId: ResourceId, pageAri: string) => SourceInfoFetchData;
 }
 export interface ADFWriteProvider {
 	deleteData: (resourceId: string) => Promise<DeleteSyncBlockResult>;

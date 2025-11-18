@@ -14,6 +14,7 @@ import {
 	akEditorFullPageMaxWidth,
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { nonWrappedLayouts } from '../../utils';
 import { calcBreakoutWidth, calcWideWidth } from '../../utils/breakout';
@@ -184,6 +185,17 @@ function calcMargin(layout: MediaSingleLayout): string {
 	}
 }
 
+function calcMaxCssForPercentageTypeMedia(layout: MediaSingleLayout): string {
+	switch (layout) {
+		case 'wide':
+			return `min(var(--ak-editor--breakout-wide-layout-width), var(--ak-editor-max-container-width))`;
+		case 'full-width':
+			return `min(var(--ak-editor--full-width-layout-width), var(--ak-editor-max-container-width))`;
+		default:
+			return 'var(--ak-editor-max-container-width)';
+	}
+}
+
 function isImageAligned(layout: MediaSingleLayout): string {
 	switch (layout) {
 		case 'align-end':
@@ -224,6 +236,7 @@ export interface MediaSingleWrapperProps {
 	fullWidthMode?: boolean;
 	innerRef?: ((elem: HTMLDivElement) => void) | RefObject<HTMLDivElement>;
 	isExtendedResizeExperienceOn?: boolean;
+	isInRenderer?: boolean;
 	isInsideOfInlineExtension?: boolean;
 	isNestedNode?: boolean;
 	isResized?: boolean;
@@ -236,7 +249,6 @@ export interface MediaSingleWrapperProps {
 	 */
 	pctWidth?: number;
 	width?: number;
-	isInRenderer?: boolean;
 }
 
 /**
@@ -286,6 +298,10 @@ export const MediaSingleDimensionHelper = ({
 		isExtendedResizeExperienceOn ? `${containerWidth}px` : calcMaxWidth(layout, containerWidth),
 	);
 
+	const cssMaxWidth = isExtendedResizeExperienceOn
+		? 'var(--ak-editor-max-container-width)'
+		: calcMaxCssForPercentageTypeMedia(layout);
+
 	// jest warning: JSDOM version (22) doesn't support the new @container CSS rule
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
 	return css`
@@ -315,8 +331,10 @@ export const MediaSingleDimensionHelper = ({
 						maxWidth: '100cqw',
 					},
 				})
-			: `max-width: ${calculatedMaxWidth};`}
-		
+			: expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)
+				? `max-width: ${cssMaxWidth};`
+				: `max-width: ${calculatedMaxWidth};`}
+
 		${isExtendedResizeExperienceOn &&
 		`&[class*='is-resizing'] {
     .new-file-experience-wrapper {

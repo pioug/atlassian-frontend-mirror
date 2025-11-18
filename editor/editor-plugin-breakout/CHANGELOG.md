@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-breakout
 
+## 6.2.1
+
+### Patch Changes
+
+- [`a05464ea42678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a05464ea42678) -
+  EDITOR-2791 bump adf-schema
+- Updated dependencies
+
+## 6.2.0
+
+### Minor Changes
+
+- [`81ac927e830b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81ac927e830b5) -
+  [ux] EDITOR-2866: Add max-width support and guideline wiring for node custom resizers
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.5
 
 ### Patch Changes

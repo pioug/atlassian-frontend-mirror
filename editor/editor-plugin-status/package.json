@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-status",
-	"version": "7.1.7",
+	"version": "7.1.8",
 	"description": "Status plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

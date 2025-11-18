@@ -113,7 +113,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 		contentComponent: () => {
 			return (
 				<>
-					<SyncBlockRefresher syncBlockStoreManager={syncBlockStore} />
+					<SyncBlockRefresher syncBlockStoreManager={syncBlockStore} api={api} />
 					<DeleteConfirmationModal syncBlockStoreManager={syncBlockStore} api={api} />
 					<Flag api={api} />
 				</>

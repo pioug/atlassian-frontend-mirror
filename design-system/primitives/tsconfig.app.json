@@ -31,9 +31,6 @@
 	},
 	"references": [
 		{
-			"path": "../../../build/formatting/tsconfig.app.json"
-		},
-		{
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{

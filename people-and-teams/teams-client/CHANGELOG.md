@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.23.0
+
+### Minor Changes
+
+- [`c49c45398b080`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c49c45398b080) -
+  [ux] Add types to the team create
+
 ## 4.22.0
 
 ### Minor Changes

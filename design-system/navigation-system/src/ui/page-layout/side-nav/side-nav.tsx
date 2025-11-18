@@ -667,7 +667,7 @@ function SideNavInternal({
 
 			if (action === 'ready-to-close') {
 				// If there are no open layers, we can close the flyout.
-				if (openLayerObserver.getCount({ namespace: openLayerObserverSideNavNamespace }) === 0) {
+				if (openLayerObserver?.getCount({ namespace: openLayerObserverSideNavNamespace }) === 0) {
 					close();
 					return;
 				}
@@ -1060,7 +1060,7 @@ function SideNavInternal({
 		// Close the flyout if there are no more layers open and the user is not mousing over the
 		// flyout areas (side nav, TopNavStart element)
 
-		return openLayerObserver.onChange(
+		return openLayerObserver?.onChange(
 			({ count }) => {
 				if (flyoutStateRef.current.type === 'ready-to-close' && count === 0) {
 					updateFlyoutState('force-close');

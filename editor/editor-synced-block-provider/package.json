@@ -33,7 +33,6 @@
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/node-data-provider": "workspace:^",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -87,16 +86,11 @@
 		}
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "2.9.1",
+	"version": "2.10.1",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
-	},
-	"platform-feature-flags": {
-		"platform_editor_synced_block_provider_use_block_service": {
-			"type": "boolean"
-		}
 	}
 }

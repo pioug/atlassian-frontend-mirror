@@ -23,6 +23,8 @@ const GUIDELINE_KEY_TO_LAYOUT: Record<ActiveGuidelineKey, BreakoutMode> = {
 	wide_right: 'wide',
 	full_width_left: 'full-width',
 	full_width_right: 'full-width',
+	max_width_left: 'max',
+	max_width_right: 'max',
 };
 
 export const GuidelineLabel = ({

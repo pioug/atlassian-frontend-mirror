@@ -39,6 +39,7 @@ export const allPermissions = (
 	ARCHIVE_TEAM: defaultPermission && isMember,
 	UNARCHIVE_TEAM: false,
 	CAN_EDIT_HIERARCHY: defaultPermission && isMember,
+	CAN_CHANGE_MEMBERSHIP_SETTINGS: defaultPermission,
 });
 
 export const vanityActions: TeamAction[] = [

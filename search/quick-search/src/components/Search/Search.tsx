@@ -65,7 +65,7 @@ export default class Search extends React.PureComponent<Props> {
 		this.inputRef = ref;
 	};
 
-	renderInputControls = () => {
+	renderInputControls = (): React.JSX.Element | null => {
 		return this.props.inputControls ? (
 			<SearchInputControlsContainer>{this.props.inputControls}</SearchInputControlsContainer>
 		) : null;
@@ -73,7 +73,7 @@ export default class Search extends React.PureComponent<Props> {
 
 	inputRef?: React.Ref<any>;
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			children,
 			onBlur,

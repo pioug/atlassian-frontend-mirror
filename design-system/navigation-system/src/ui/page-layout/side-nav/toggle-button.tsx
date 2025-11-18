@@ -12,6 +12,7 @@ import { type IconButtonProps } from '@atlaskit/button/new';
 import { type NewCoreIconProps } from '@atlaskit/icon';
 import SidebarCollapseIcon from '@atlaskit/icon/core/sidebar-collapse';
 import SidebarExpandIcon from '@atlaskit/icon/core/sidebar-expand';
+import { useOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
@@ -162,14 +163,19 @@ export const SideNavToggleButton = ({
 	const toggleVisibility = useToggleSideNav({ trigger: 'toggle-button' });
 
 	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const openLayerObserver = useOpenLayerObserver();
 
 	const handleClick = useCallback(
 		(event: React.MouseEvent<HTMLButtonElement>, analyticsEvent: UIAnalyticsEvent) => {
 			onClick?.(event, analyticsEvent, { isSideNavVisible: isSideNavExpanded });
 
 			toggleVisibility();
+
+			if (fg('navx-full-height-sidebar')) {
+				openLayerObserver?.closeLayers();
+			}
 		},
-		[onClick, isSideNavExpanded, toggleVisibility],
+		[onClick, isSideNavExpanded, toggleVisibility, openLayerObserver],
 	);
 
 	const handlePointerEnter = useCallback(() => {

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 15.3.23
+
+### Patch Changes
+
+- [`a05464ea42678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a05464ea42678) -
+  EDITOR-2791 bump adf-schema
+- Updated dependencies
+
 ## 15.3.22
 
 ### Patch Changes

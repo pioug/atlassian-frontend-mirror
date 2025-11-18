@@ -11,6 +11,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { messages } from '@atlaskit/editor-common/block-menu';
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
+import { deleteSelectedRange } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
@@ -45,21 +46,27 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 			};
 			api?.analytics?.actions?.attachAnalyticsEvent(payload)(tr);
 
-			const selection = tr.selection;
-			let from = selection.$from.pos;
-			let to = selection.$to.pos;
+			if (
+				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
+			) {
+				deleteSelectedRange(tr);
+			} else {
+				const selection = tr.selection;
+				let from = selection.$from.pos;
+				let to = selection.$to.pos;
 
-			if (selection instanceof TextSelection) {
-				from = from - 1;
-				to = to + 1;
-			} else if (isTableSelected(selection)) {
-				const table = findTable(selection);
-				if (table) {
-					from = table.pos;
-					to = table.pos + table.node.nodeSize;
+				if (selection instanceof TextSelection) {
+					from = from - 1;
+					to = to + 1;
+				} else if (isTableSelected(selection)) {
+					const table = findTable(selection);
+					if (table) {
+						from = table.pos;
+						to = table.pos + table.node.nodeSize;
+					}
 				}
+				tr.deleteRange(from, to);
 			}
-			tr.deleteRange(from, to);
 			api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true })({ tr });
 			return tr;
 		});

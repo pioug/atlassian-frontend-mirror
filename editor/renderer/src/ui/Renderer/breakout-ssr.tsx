@@ -51,6 +51,7 @@ export function BreakoutSSRInlineScript({ noOpSSRInlineScript }: { noOpSSRInline
 export function createBreakoutInlineScript(id: number, shouldSkipScript: { table: boolean }) {
 	const flags = {
 		platform_editor_fix_media_in_renderer: fg('platform_editor_fix_media_in_renderer'),
+		platform_editor_fix_wide_media_in_renderer: fg('platform_editor_fix_wide_media_in_renderer'),
 	};
 	return `(function(window){
 if(typeof window !== 'undefined' && window.__RENDERER_BYPASS_BREAKOUT_SSR__) { return; }
@@ -203,12 +204,12 @@ function applyBreakoutAfterSSR(
 			) {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				applyMediaBreakout(item.target as HTMLElement);
+				applyMediaBreakout(item.target as HTMLElement, flags);
 			}
 		});
 	});
 
-	const applyMediaBreakout = (card: HTMLElement) => {
+	const applyMediaBreakout = (card: HTMLElement, flags: Record<string, boolean>) => {
 		// width was already set by another breakout script
 		if (card.style.width) {
 			return;
@@ -226,11 +227,18 @@ function applyBreakoutAfterSSR(
 		const width = card.dataset.width;
 		const isPixelBasedResizing = card.dataset.widthType === 'pixel';
 
+		// Pixel based resizing has width set in pixels based on its width attribute
+		// Thus, no need to override width
+		if (flags['platform_editor_fix_wide_media_in_renderer'] && isPixelBasedResizing) {
+			return;
+		}
+
 		if (WIDE_LAYOUT_MODES.includes(mode)) {
 			card.style.width = '100%';
-		} else if (width && !isPixelBasedResizing) {
-			// Pixel based resizing has width set in pixels based on its width attribute
-			// Thus, no need to override for non-wide layouts
+		} else if (
+			width &&
+			(!isPixelBasedResizing || flags['platform_editor_fix_wide_media_in_renderer'])
+		) {
 			card.style.width = `${width}%`;
 		}
 	};

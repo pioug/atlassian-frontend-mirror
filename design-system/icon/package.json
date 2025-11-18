@@ -94,7 +94,6 @@
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tile": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/register": "root:*",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"
 	},
@@ -128,6 +127,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@babel/core": "root:*",
+		"@babel/register": "root:*",
 		"@codeshift/utils": "root:*",
 		"@testing-library/react": "root:*",
 		"fs-extra": "root:*",

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.0.11
+
+### Patch Changes
+
+- [`bf1f847655683`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf1f847655683) -
+  ED-29512: Fixed not able to delete node when block menu is visible
+- Updated dependencies
+
 ## 5.0.10
 
 ### Patch Changes

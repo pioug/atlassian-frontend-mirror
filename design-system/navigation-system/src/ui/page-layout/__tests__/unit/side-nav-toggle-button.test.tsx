@@ -199,9 +199,66 @@ describe('SideNavToggleButton', () => {
 								await screen.findByRole('tooltip', { name: 'Expand sidebar' }),
 							).toBeInTheDocument();
 						});
+
+						it('should close any open tooltips when clicking the toggle button', async () => {
+							render(
+								<Root isSideNavShortcutEnabled>
+									<TopNav>
+										<SideNavToggleButton
+											collapseLabel="Collapse sidebar"
+											expandLabel="Expand sidebar"
+										/>
+									</TopNav>
+								</Root>,
+							);
+
+							fireEvent.mouseOver(screen.getByRole('button', { name: 'Collapse sidebar' }));
+							act(() => {
+								jest.runAllTimers();
+							});
+
+							// Tooltip is visible
+							expect(
+								await screen.findByRole('tooltip', { name: 'Collapse sidebar Ctrl [' }),
+							).toBeInTheDocument();
+
+							fireEvent.click(screen.getByRole('button', { name: 'Collapse sidebar' }));
+
+							// Tooltip is now gone
+							expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+						});
 					},
 				);
 			});
+		});
+	});
+
+	ffTest.off('navx-full-height-sidebar', 'FHS flag disabled', () => {
+		// Testing old behaviour
+		it('should not close any tooltips when clicking the toggle button', async () => {
+			const user = createUser();
+			render(
+				<Root isSideNavShortcutEnabled>
+					<TopNav>
+						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					</TopNav>
+				</Root>,
+			);
+
+			await user.hover(screen.getByRole('button', { name: 'Expand sidebar' }));
+			act(() => {
+				jest.runAllTimers();
+			});
+
+			// Tooltip is visible
+			expect(await screen.findByRole('tooltip', { name: 'Expand sidebar' })).toBeInTheDocument();
+
+			await user.click(screen.getByRole('button', { name: 'Expand sidebar' }));
+			act(() => {
+				jest.runAllTimers();
+			});
+			// Tooltip is still there
+			expect(screen.getByRole('tooltip')).toBeInTheDocument();
 		});
 	});
 

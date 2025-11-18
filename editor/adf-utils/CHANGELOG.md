@@ -1,5 +1,12 @@
 # @atlaskit/adf-utils
 
+## 19.26.2
+
+### Patch Changes
+
+- [`a05464ea42678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a05464ea42678) -
+  EDITOR-2791 bump adf-schema
+
 ## 19.26.1
 
 ### Patch Changes

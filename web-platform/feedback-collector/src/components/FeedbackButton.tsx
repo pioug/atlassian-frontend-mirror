@@ -57,7 +57,7 @@ const FeedbackButton = (props: Props) => {
 	);
 };
 
-const FeedbackButtonWithIntl = (props: Props) => {
+const FeedbackButtonWithIntl = (props: Props): React.JSX.Element => {
 	const { locale } = useIntl();
 	return (
 		<IntlProviderWithResolvedMessages locale={locale}>

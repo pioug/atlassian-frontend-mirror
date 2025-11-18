@@ -1,5 +1,13 @@
 # @atlaskit/layering
 
+## 3.4.0
+
+### Minor Changes
+
+- [`8b3783c70ef57`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b3783c70ef57) -
+  The `useOpenLayerObserver` hook will no longer throw an error if there is no `OpenLayerObserver`
+  in the component tree. Instead, it will return `null`.
+
 ## 3.3.0
 
 ### Minor Changes

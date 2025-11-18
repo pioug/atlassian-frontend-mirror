@@ -16,13 +16,16 @@ import {
 	akEditorCalculatedWideLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 	akEditorDefaultLayoutWidth,
+	akEditorMaxLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 const WIDTHS = {
 	MIN: akEditorDefaultLayoutWidth,
 	WIDE: akEditorCalculatedWideLayoutWidth,
-	MAX: akEditorFullWidthLayoutWidth,
+	FULL: akEditorFullWidthLayoutWidth,
+	MAX: akEditorMaxLayoutWidth,
 };
 
 export const GUIDELINE_KEYS = {
@@ -32,6 +35,8 @@ export const GUIDELINE_KEYS = {
 	wideRight: 'wide_right',
 	fullWidthLeft: 'full_width_left',
 	fullWidthRight: 'full_width_right',
+	maxWidthLeft: 'max_width_left',
+	maxWidthRight: 'max_width_right',
 } as const;
 
 const AK_NESTED_DND_GUTTER_OFFSET = 8;
@@ -76,8 +81,13 @@ export const getGuidelines = memoizeOne(
 				: akEditorGutterPaddingDynamic();
 
 		const fullWidth = width
-			? Math.min(WIDTHS.MAX, width - 2 * padding - akEditorGutterPadding)
+			? Math.min(WIDTHS.FULL, width - 2 * padding - akEditorGutterPadding)
 			: undefined;
+
+		const maxWidth =
+			width && expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+				? Math.min(WIDTHS.MAX, width - 2 * padding - akEditorGutterPadding)
+				: undefined;
 
 		guidelines.push({
 			key: GUIDELINE_KEYS.lineLengthLeft,
@@ -111,6 +121,19 @@ export const getGuidelines = memoizeOne(
 				key: GUIDELINE_KEYS.fullWidthRight,
 				position: { x: roundToNearest(fullWidth / 2 + innerPaddingOffset) },
 				active: newWidth === fullWidth,
+			});
+		}
+
+		if (maxWidth) {
+			guidelines.push({
+				key: GUIDELINE_KEYS.maxWidthLeft,
+				position: { x: -roundToNearest(maxWidth / 2 + innerPaddingOffset) },
+				active: newWidth === maxWidth,
+			});
+			guidelines.push({
+				key: GUIDELINE_KEYS.maxWidthRight,
+				position: { x: roundToNearest(maxWidth / 2 + innerPaddingOffset) },
+				active: newWidth === maxWidth,
 			});
 		}
 

@@ -1,5 +1,12 @@
 # @atlaskit/media-ui
 
+## 28.7.14
+
+### Patch Changes
+
+- [`80eb37089f8a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80eb37089f8a2) -
+  Fix HD button inactive state label to properly announce 'hd inactive' for screen readers
+
 ## 28.7.13
 
 ### Patch Changes

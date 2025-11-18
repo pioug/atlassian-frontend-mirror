@@ -1061,7 +1061,20 @@ export const createPlugin = (
 								event.key === 'ArrowUp') &&
 							editorExperiment('platform_editor_controls', 'variant1')
 						) {
-							if (api?.blockControls.sharedState.currentState()?.isSelectedViaDragHandle) {
+							const isBlockMenuOpen =
+								api?.blockControls.sharedState.currentState()?.isMenuOpen &&
+								expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+								expValEqualsNoExposure(
+									'platform_editor_block_menu_keyboard_navigation',
+									'isEnabled',
+									true,
+								);
+							// when block menu is just open, and we press arrow keys, we want to use the arrow keys to navigate the block menu
+							// in this scenario, isSelectedViaDragHandle should not be set to false
+							if (
+								api?.blockControls.sharedState.currentState()?.isSelectedViaDragHandle &&
+								!isBlockMenuOpen
+							) {
 								api?.core.actions.execute(
 									api?.blockControls.commands.setSelectedViaDragHandle(false),
 								);
@@ -1111,7 +1124,20 @@ export const createPlugin = (
 								event.key === 'ArrowUp') &&
 							editorExperiment('platform_editor_controls', 'variant1')
 						) {
-							if (api?.blockControls.sharedState.currentState()?.isSelectedViaDragHandle) {
+							const isBlockMenuOpen =
+								api?.blockControls.sharedState.currentState()?.isMenuOpen &&
+								expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+								expValEqualsNoExposure(
+									'platform_editor_block_menu_keyboard_navigation',
+									'isEnabled',
+									true,
+								);
+							// when block menu is just open, and we press arrow keys, we want to use the arrow keys to navigate the block menu
+							// in this scenario, isSelectedViaDragHandle should not be set to false
+							if (
+								api?.blockControls.sharedState.currentState()?.isSelectedViaDragHandle &&
+								!isBlockMenuOpen
+							) {
 								api?.core.actions.execute(
 									api?.blockControls.commands.setSelectedViaDragHandle(false),
 								);

@@ -23,6 +23,7 @@ export type {
 	DashboardInsightsActionsPayload,
 	DashboardInsightsActionsPayloadData,
 } from './types';
+export type { SolutionArchitectHandoffPayload } from './common/types/solution-architect';
 export {
 	getRovoParams,
 	updatePageRovoParams,

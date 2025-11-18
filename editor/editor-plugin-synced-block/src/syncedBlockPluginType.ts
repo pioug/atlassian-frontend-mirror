@@ -11,6 +11,7 @@ import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls
 import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
@@ -85,6 +86,7 @@ export type SyncedBlockPlugin = NextEditorPlugin<
 			OptionalPlugin<BlockMenuPlugin>,
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<ConnectivityPlugin>,
+			OptionalPlugin<EditorViewModePlugin>,
 		];
 		pluginConfiguration: SyncedBlockPluginOptions | undefined;
 		sharedState: SyncedBlockSharedState | undefined;

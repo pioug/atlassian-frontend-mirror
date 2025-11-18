@@ -11,6 +11,7 @@ import {
 	TRACK_CHANGES_SECTION_RANK,
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { Show, ToolbarButtonGroup } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { UndoRedoPlugin } from '../../undoRedoPluginType';
@@ -21,6 +22,7 @@ import { UndoButton } from './UndoButton';
 export const getToolbarComponents = (
 	api?: ExtractInjectionAPI<UndoRedoPlugin>,
 ): RegisterComponent[] => {
+	const breakpointPreset = api?.toolbar?.actions.getBreakpointPreset();
 	return [
 		{
 			type: UNDO_CHANGES_GROUP.type,
@@ -32,6 +34,14 @@ export const getToolbarComponents = (
 					rank: TRACK_CHANGES_SECTION_RANK[UNDO_CHANGES_GROUP.key],
 				},
 			],
+			component: ({ children }) =>
+				breakpointPreset === 'jsm-comment' ? (
+					<Show above="lg">
+						<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
+					</Show>
+				) : (
+					<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
+				),
 		},
 		{
 			type: UNDO_BUTTON.type,
@@ -55,6 +65,14 @@ export const getToolbarComponents = (
 					rank: TRACK_CHANGES_SECTION_RANK[REDO_CHANGES_GROUP.key],
 				},
 			],
+			component: ({ children }) =>
+				breakpointPreset === 'jsm-comment' ? (
+					<Show above="lg">
+						<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
+					</Show>
+				) : (
+					<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
+				),
 		},
 		{
 			type: REDO_BUTTON.type,

@@ -1,6 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages = defineMessages({
+	maxWidthLabel: {
+		id: 'fabric.editor.breakoutMaxWidthLabel',
+		defaultMessage: 'Max-width',
+		description: 'Resize current element to max-width mode',
+	},
 	fullWidthLabel: {
 		id: 'fabric.editor.breakoutFullWidthLabel',
 		defaultMessage: 'Full-width',

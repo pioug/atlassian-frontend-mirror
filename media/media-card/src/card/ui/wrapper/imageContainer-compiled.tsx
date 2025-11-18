@@ -5,6 +5,7 @@
 import { jsx, css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { fileCardImageViewSelector } from '../../classnames';
+import type { MediaCardCursor } from '../../../types';
 
 const imageContainerStyles = css({
 	display: 'flex',
@@ -27,7 +28,7 @@ type ImageContainerProps = {
 	children: React.ReactNode;
 	centerElements?: boolean;
 	testId: string;
-
+	mediaCardCursor?: MediaCardCursor;
 	mediaName?: string;
 	status?: string;
 	progress?: number;
@@ -43,6 +44,7 @@ export const ImageContainer = ({
 	selected,
 	source,
 	centerElements,
+	mediaCardCursor,
 }: ImageContainerProps) => (
 	<div
 		css={[imageContainerStyles, centerElements && imageContainerCenterStyles]}
@@ -59,6 +61,7 @@ export const ImageContainer = ({
 		data-test-progress={progress}
 		data-test-selected={selected}
 		data-test-source={source}
+		data-cursor={mediaCardCursor}
 	>
 		{children}
 	</div>

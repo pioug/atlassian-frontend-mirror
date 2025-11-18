@@ -1,5 +1,13 @@
 # @atlaskit/spotlight
 
+## 0.9.5
+
+### Patch Changes
+
+- [`e0d5103c4e6cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0d5103c4e6cd) -
+  Expose `strategy` prop on `PopoverContent` which is passed through to the underlying
+  `react-popper`.
+
 ## 0.9.4
 
 ### Patch Changes

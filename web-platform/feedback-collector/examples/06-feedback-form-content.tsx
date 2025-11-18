@@ -18,4 +18,4 @@ class DisplayFeedback extends Component {
 	}
 }
 
-export default () => <DisplayFeedback />;
+export default (): React.JSX.Element => <DisplayFeedback />;

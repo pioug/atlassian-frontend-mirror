@@ -7,6 +7,7 @@ import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { BreakpointPreset } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { RegisterComponentsAction, ToolbarPluginOptions } from './types';
@@ -37,6 +38,15 @@ export type ToolbarPlugin = NextEditorPlugin<
 			 * - `controlled`: Both inline and primary toolbars are available
 			 */
 			contextualFormattingMode: () => ContextualFormattingEnabledOptions;
+			/**
+			 * Returns the breakpoint preset configuration for the toolbar.
+			 *
+			 * This method retrieves the breakpoint preset that determines how the toolbar
+			 * responds to different viewport sizes and layouts.
+			 *
+			 * @returns The configured breakpoint preset, or `undefined` if not set.
+			 */
+			getBreakpointPreset: () => BreakpointPreset | undefined;
 			getComponents: () => Array<RegisterComponent>;
 			registerComponents: RegisterComponentsAction;
 		};

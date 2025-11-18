@@ -48,6 +48,7 @@ export const SyncedBlockNodeComponentRenderer = ({
 				resourceId={resourceId}
 				onRetry={reloadData}
 				isLoading={isLoading}
+				documentAri={syncBlockInstance?.data?.sourceDocumentAri}
 			/>
 		);
 	}

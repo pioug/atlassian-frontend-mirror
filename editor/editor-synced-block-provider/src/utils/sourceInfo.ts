@@ -80,12 +80,12 @@ const getSourceInfo = async (ari: string): Promise<GetSourceInfoResult> => {
 };
 
 export const fetchSourceInfo = async (
-	ari: string,
+	pageAri: string,
 	localId?: string,
 ): Promise<SyncBlockSourceInfo | undefined> => {
 	try {
-		const { type: pageType } = getPageIdAndTypeFromAri(ari);
-		const response = await getSourceInfo(ari);
+		const { type: pageType } = getPageIdAndTypeFromAri(pageAri);
+		const response = await getSourceInfo(pageAri);
 
 		const contentData = response.data?.content?.nodes?.[0];
 		if (!contentData) {

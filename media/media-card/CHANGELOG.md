@@ -1,5 +1,19 @@
 # @atlaskit/media-card
 
+## 79.8.0
+
+### Minor Changes
+
+- [`3aebb34f01aad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3aebb34f01aad) -
+  remove-image-load-error-from-media-card
+
+### Patch Changes
+
+- [`5bd9159b5173c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bd9159b5173c) -
+  Removing curosr styles from VC metric calculations by switching to a data-cursor attribute
+  enabling change exclusion
+- Updated dependencies
+
 ## 79.7.2
 
 ### Patch Changes

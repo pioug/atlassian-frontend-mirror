@@ -214,7 +214,7 @@ export default class Fetcher {
 		return null;
 	}
 
-	static getWindowLocation() {
+	static getWindowLocation(): Location | undefined {
 		if (typeof window !== 'undefined' && window.location) {
 			return window.location;
 		}

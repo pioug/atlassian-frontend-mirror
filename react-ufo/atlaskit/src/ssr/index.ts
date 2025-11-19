@@ -66,7 +66,7 @@ function mapKey(key: string) {
 
 let config: SSRConfig | null;
 
-export function configure(ssrConfig: SSRConfig) {
+export function configure(ssrConfig: SSRConfig): void {
 	config = ssrConfig;
 }
 

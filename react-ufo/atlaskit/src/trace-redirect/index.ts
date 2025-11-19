@@ -7,7 +7,7 @@ function traceUFORedirect(
 	nextUfoName: string,
 	nextRouteName: string,
 	time: number,
-) {
+): void {
 	UFORouteName.current = nextUfoName;
 	const interactionId = DefaultInteractionID.current;
 	if (interactionId) {

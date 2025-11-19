@@ -5,7 +5,7 @@ import {
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
-function scheduleIdleCallback(work: () => void) {
+function scheduleIdleCallback(work: () => void): void {
 	if (
 		typeof window !== 'undefined' &&
 		typeof window.requestIdleCallback === 'function' &&

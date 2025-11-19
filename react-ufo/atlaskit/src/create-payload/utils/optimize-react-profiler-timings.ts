@@ -10,7 +10,7 @@ export function optimizeReactProfilerTimings(
 	reactProfilerTimings: InteractionMetrics['reactProfilerTimings'],
 	interactionStart: number,
 	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
-) {
+): any[] {
 	const reactProfilerTimingsMap = reactProfilerTimings.reduce(
 		(result, { labelStack, startTime, commitTime, actualDuration, type }) => {
 			if (labelStack && startTime >= interactionStart) {

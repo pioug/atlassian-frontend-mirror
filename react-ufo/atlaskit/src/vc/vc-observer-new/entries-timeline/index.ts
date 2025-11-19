@@ -9,7 +9,7 @@ export default class EntriesTimeline {
 		this.sortedEntriesCache = new Map();
 	}
 
-	push(entry: VCObserverEntry) {
+	push(entry: VCObserverEntry): void {
 		this.unorderedEntries.push(entry);
 		this.sortedEntriesCache.clear();
 	}
@@ -46,7 +46,7 @@ export default class EntriesTimeline {
 		return sortedEntries;
 	}
 
-	clear() {
+	clear(): void {
 		this.unorderedEntries = [];
 		this.sortedEntriesCache.clear();
 	}

@@ -68,7 +68,7 @@ export class SSRPlaceholderHandlers {
 		return '';
 	};
 
-	clear() {
+	clear(): void {
 		this.staticPlaceholders = new Map();
 		this.callbacks = new Map();
 		this.getSizeCallbacks = new Map();
@@ -119,7 +119,7 @@ export class SSRPlaceholderHandlers {
 	 * Added this method to be utilised for testing purposes.
 	 * In production it collection placeholder should only happens on constructor
 	 */
-	collectExistingPlaceholders() {
+	collectExistingPlaceholders(): void {
 		if (!window.document) {
 			return;
 		}
@@ -134,20 +134,20 @@ export class SSRPlaceholderHandlers {
 		}
 	}
 
-	isPlaceholder(element: HTMLElement) {
+	isPlaceholder(element: HTMLElement): boolean {
 		return Boolean(this.getPlaceholderId(element));
 	}
 
-	isPlaceholderReplacement(element: HTMLElement) {
+	isPlaceholderReplacement(element: HTMLElement): boolean {
 		return Boolean(this.getPlaceholderReplacementId(element));
 	}
 
-	isPlaceholderIgnored(element: HTMLElement) {
+	isPlaceholderIgnored(element: HTMLElement): boolean {
 		// data-ssr-placeholder-ignored doesn't have a value.
 		return 'ssrPlaceholderIgnored' in element.dataset;
 	}
 
-	findNearestPlaceholderContainerIfIgnored(element: HTMLElement) {
+	findNearestPlaceholderContainerIfIgnored(element: HTMLElement): HTMLElement {
 		if (!this.isPlaceholderIgnored(element)) {
 			return element;
 		}
@@ -165,7 +165,7 @@ export class SSRPlaceholderHandlers {
 	}
 
 	// Validates placeholder match using asynchronous observation and resolves with the result
-	checkIfExistedAndSizeMatching(el: HTMLElement) {
+	checkIfExistedAndSizeMatching(el: HTMLElement): Promise<boolean> {
 		el = this.findNearestPlaceholderContainerIfIgnored(el);
 		const id = this.getPlaceholderId(el);
 		return new Promise((resolve) => {
@@ -180,7 +180,7 @@ export class SSRPlaceholderHandlers {
 	}
 
 	// Validates placeholder match synchronously using stored SSR dimensions and current bounds
-	checkIfExistedAndSizeMatchingV3(el: HTMLElement) {
+	checkIfExistedAndSizeMatchingV3(el: HTMLElement): boolean {
 		el = this.findNearestPlaceholderContainerIfIgnored(el);
 		const id = this.getPlaceholderId(el);
 		const placeholderRects = this.staticPlaceholders.get(id);
@@ -198,7 +198,7 @@ export class SSRPlaceholderHandlers {
 		});
 	}
 
-	validateReactComponentMatchToPlaceholder(el: HTMLElement) {
+	validateReactComponentMatchToPlaceholder(el: HTMLElement): Promise<boolean> {
 		el = this.findNearestPlaceholderContainerIfIgnored(el);
 		const id = this.getPlaceholderReplacementId(el);
 		return new Promise((resolve) => {
@@ -212,7 +212,7 @@ export class SSRPlaceholderHandlers {
 		});
 	}
 
-	hasSameSizePosition(rect: Rect | undefined, boundingClientRect: DOMRectReadOnly) {
+	hasSameSizePosition(rect: Rect | undefined, boundingClientRect: DOMRectReadOnly): boolean {
 		if (!rect) {
 			return false;
 		}
@@ -276,11 +276,14 @@ export class SSRPlaceholderHandlers {
 		return el.getBoundingClientRect();
 	}
 
-	isDummyRect(rect: Rect | undefined) {
+	isDummyRect(rect: Rect | undefined): boolean {
 		return (rect && rect.width < 0 && rect.height < 0) || false;
 	}
 
-	intersectionObserverCallback = ({ target, boundingClientRect }: IntersectionObserverEntry) => {
+	intersectionObserverCallback = ({
+		target,
+		boundingClientRect,
+	}: IntersectionObserverEntry): void => {
 		this.intersectionObserver?.unobserve(target);
 		if (!(target instanceof HTMLElement)) {
 			// impossible case - keep typescript healthy

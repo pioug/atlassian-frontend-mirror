@@ -166,7 +166,7 @@ function getViewportWidth(document = window.document) {
  *
  *	The next section component needs to wait for the previous one to be printed before rendering itself
  */
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const widthViewport = useMemo(() => getViewportWidth(), []);
 	const sectionNumbers = useMemo(() => {
 		return Array.from({ length: widthViewport }, (_, i) => i + 1);

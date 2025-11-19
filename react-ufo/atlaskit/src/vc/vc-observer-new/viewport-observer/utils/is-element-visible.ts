@@ -1,4 +1,4 @@
-export function isElementVisible(element: Element) {
+export function isElementVisible(element: Element): boolean {
 	if (!(element instanceof HTMLElement)) {
 		return true;
 	}

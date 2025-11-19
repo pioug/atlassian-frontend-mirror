@@ -1,6 +1,6 @@
 import { code, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 This guide describes how to set up analytics for a React component that is a
 container for children that fire analytics events, and where you wish to include
 contextual information to those children about where it is embeded in the event fired.
@@ -61,3 +61,4 @@ While it is possible to use the React context from \`@atlaskit/analytics-next-st
 we encourage you to use one of these two approaches instead, as they are optimised to ensure the value provided
 to React Context is a stable reference, and won't introduce unnecessary re-renders.
 `;
+export default _default_1;

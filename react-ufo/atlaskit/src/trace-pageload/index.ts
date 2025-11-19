@@ -20,7 +20,7 @@ const AWAITING_PAGELOAD_NAME = 'awaiting_pageload_name';
 function traceUFOPageLoad(
 	ufoName?: string | null | undefined,
 	routeName: string | null | undefined = ufoName,
-) {
+): void {
 	const activeInteraction = getActiveInteraction();
 	if (activeInteraction && !ufoName) {
 		return;
@@ -69,7 +69,7 @@ export default traceUFOPageLoad;
 export function updatePageloadName(
 	ufoName: string,
 	routeName: string | null | undefined = ufoName,
-) {
+): void {
 	const interaction = getActiveInteraction();
 	if (!interaction || (interaction.type !== 'page_load' && interaction.type !== 'transition')) {
 		return;

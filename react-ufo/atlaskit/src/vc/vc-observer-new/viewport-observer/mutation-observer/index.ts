@@ -29,7 +29,7 @@ function createMutationObserver({
 	onAttributeMutation,
 	onChildListMutation,
 	onMutationFinished,
-}: CreateMutationObserverProps) {
+}: CreateMutationObserverProps): MutationObserver | null {
 	if (!window || typeof window.IntersectionObserver !== 'function') {
 		return null;
 	}

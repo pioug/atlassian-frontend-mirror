@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::92aa276c532558dbd384c96eb2906f50>>
+ * @codegen <<SignedSource::9e9bc5d40f9d5b5fed4a027237e3b005>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -53,8 +53,8 @@ export type TeamCreateDialogClickedTeamLinkSuccessFlagAttributesType = {
 export type TeamCreateDialogSucceededAttributesType = {
 	teamId: string;
 	numberOfMembers: number;
-	defaultTeamType: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL' | null;
-	chosenTeamType: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL';
+	defaultTeamType: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL' | 'ORG_ADMIN_MANAGED' | null;
+	chosenTeamType: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL' | 'ORG_ADMIN_MANAGED';
 	teamTypeChoiceEnabled: boolean | null;
 };
 export type TeamCreateDialogFailedAttributesType = {
@@ -65,7 +65,7 @@ export type TeamCreateDialogFailedAttributesType = {
 	traceId: string | null;
 };
 export type TeamTypePickerClickedAttributesType = {
-	defaultType: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL' | null;
+	defaultType: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL' | 'ORG_ADMIN_MANAGED' | null;
 	chosenType: 'OPEN' | 'MEMBER_INVITE';
 };
 export type TeamCreateDialogClosedAttributesType = {};
@@ -285,8 +285,8 @@ export type TeamProfileDescriptionEditedAttributesType = {
 	memberOfTeam: boolean;
 };
 export type TeamMembershipControlEditedAttributesType = {
-	teamType: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL';
-	currentTeamType: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL';
+	teamType: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL' | 'ORG_ADMIN_MANAGED';
+	currentTeamType: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL' | 'ORG_ADMIN_MANAGED';
 	isTeamNameChanged: boolean;
 	avatarColour: string;
 };

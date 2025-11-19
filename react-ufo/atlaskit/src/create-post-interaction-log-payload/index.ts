@@ -18,7 +18,12 @@ import {
 import { getReactUFOPayloadVersion } from '../create-payload/utils/get-react-ufo-payload-version';
 import { getPageVisibilityState } from '../hidden-timing';
 import { type LabelStack } from '../interaction-context';
-import { segmentUnmountCache } from '../interaction-metrics';
+import {
+	type AbortReasonType,
+	type InteractionError,
+	type InteractionType,
+	segmentUnmountCache,
+} from '../interaction-metrics';
 
 import getLateMutations from './get-late-mutations';
 
@@ -143,7 +148,59 @@ function createPostInteractionLogPayload({
 	lastInteractionFinishVCResult,
 	postInteractionFinishVCResult,
 	postInteractionHoldInfo,
-}: PostInteractionLogOutput) {
+}: PostInteractionLogOutput): {
+	actionSubject: string;
+	action: string;
+	eventType: string;
+	source: string;
+	tags: string[];
+	attributes: {
+		properties: {
+			// basic
+			'event:hostname': string;
+			'event:product': string;
+			'event:schema': string;
+			'event:source': {
+				name: string;
+				version: string;
+			};
+			'event:region': string;
+			'experience:key': string;
+			postInteractionLog: {
+				postInteractionHoldInfo?:
+					| {
+							labelStack: string;
+							name: string;
+							start: number;
+							ignoreOnSubmit?: boolean;
+					  }[]
+					| undefined;
+				lastInteractionFinish: {
+					ufoName: string;
+					start: number;
+					end: number;
+					ttai: number;
+					vc90: number | null;
+					vcClean: boolean;
+					type: InteractionType;
+					routeName: string | null;
+					abortReason?: AbortReasonType | undefined;
+					abortedByInteractionName?: string | undefined;
+					errors: InteractionError[];
+					id: string;
+					experimentalVC90?: number | undefined;
+					experimentalTTAI?: number | undefined;
+				};
+				revisedEndTime: number;
+				revisedTtai: number;
+				revisedVC90: number | null;
+				vcClean: boolean;
+				lateMutations: LateMutation[];
+				reactProfilerTimings: any[];
+			};
+		};
+	};
+} | null {
 	const config = getConfig();
 
 	if (!config) {

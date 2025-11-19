@@ -23,7 +23,7 @@ const ErrorScreen = () => {
 	);
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<AnalyticsErrorBoundary
 			channel="atlaskit"

@@ -85,12 +85,12 @@ export class FilePersistentOverrideAdapter extends PersistentOverrideAdapter {
 		}
 	}
 
-	override initFromStoredOverrides() {
+	override initFromStoredOverrides(): void {
 		const storedOverrides = this.readStoredOverrides();
 		this.applyOverrides(storedOverrides);
 	}
 
-	override saveOverrides() {
+	override saveOverrides(): void {
 		// Instead of saving to localStorage, persist using the file system.
 		const overrides = this.getOverrides();
 		this.saveOverridesToFile(overrides);

@@ -11,7 +11,15 @@ export type BM3TimingsConfig = {
 	endMark?: string;
 };
 
-export function getBm3Timings(marks?: BM3Marks, timingConfigs?: BM3TimingsConfig[]) {
+export function getBm3Timings(
+	marks?: BM3Marks,
+	timingConfigs?: BM3TimingsConfig[],
+): {
+	[key: string]: {
+		startTime: number;
+		endTime: number;
+	};
+} {
 	const bm3Timings: { [key: string]: { startTime: number; endTime: number } } = {};
 	if (!marks || !timingConfigs) {
 		return bm3Timings;
@@ -55,7 +63,7 @@ export function UFOBM3TimingsToUFO({
 	return null;
 }
 
-export function addBM3TimingsToUFO(marks?: BM3Marks, timingsConfig?: BM3TimingsConfig[]) {
+export function addBM3TimingsToUFO(marks?: BM3Marks, timingsConfig?: BM3TimingsConfig[]): void {
 	const interactionId = getInteractionId().current;
 	if (interactionId) {
 		const interactionType = getCurrentInteractionType(interactionId);

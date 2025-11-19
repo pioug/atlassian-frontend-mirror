@@ -5,7 +5,7 @@ export function collectSSRPlaceholderDimensions(
 	document: Document,
 	window: Window,
 	enablePageLayoutPlaceholder: boolean = false,
-) {
+): void {
 	const ssrPlaceholders = document?.querySelectorAll('[data-ssr-placeholder]');
 	ssrPlaceholders.forEach((elem: Element) => {
 		const placeholderId = elem.getAttribute('data-ssr-placeholder');

@@ -98,7 +98,7 @@ const SectionThree = ({ base }: { base: number }) => {
 };
 
 // Main App component
-export default function Example() {
+export default function Example(): JSX.Element {
 	useLayoutEffect(() => {
 		const config = getConfig();
 		// @ts-ignore

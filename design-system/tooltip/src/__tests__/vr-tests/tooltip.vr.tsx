@@ -94,6 +94,7 @@ snapshot(KeyboardShortcutsExample, {
 	variants: lightModeVariant,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform-tooltip-shortcuts-regular-font': true,
 	},
 });
 
@@ -114,6 +115,7 @@ snapshot(KeyboardShortcutsExample, {
 	variants: lightModeVariant,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform-tooltip-shortcuts-regular-font': true,
 	},
 });
 
@@ -134,6 +136,7 @@ snapshot(KeyboardShortcutsExample, {
 	variants: lightModeVariant,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform-tooltip-shortcuts-regular-font': true,
 	},
 });
 
@@ -154,5 +157,6 @@ snapshot(KeyboardShortcutGlobalStylesExample, {
 	variants: lightModeVariant,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform-tooltip-shortcuts-regular-font': true,
 	},
 });

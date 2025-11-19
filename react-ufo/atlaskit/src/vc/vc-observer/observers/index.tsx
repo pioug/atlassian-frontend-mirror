@@ -115,14 +115,14 @@ export class Observers implements BrowserObservers {
 		}
 	}
 
-	isBrowserSupported() {
+	isBrowserSupported(): boolean {
 		return (
 			typeof window.IntersectionObserver === 'function' &&
 			typeof window.MutationObserver === 'function'
 		);
 	}
 
-	observe() {
+	observe(): void {
 		this.totalTime = 0;
 		this.ssr = {
 			state: state.normal,
@@ -139,7 +139,7 @@ export class Observers implements BrowserObservers {
 		});
 	}
 
-	disconnect() {
+	disconnect(): void {
 		this.mutationObserver?.disconnect();
 		this.intersectionObserver?.disconnect();
 		this.observedMutations = new WeakMap();
@@ -149,24 +149,24 @@ export class Observers implements BrowserObservers {
 		this.ssrPlaceholderHandler.clear();
 	}
 
-	subscribeResults = (cb: Callback) => {
+	subscribeResults = (cb: Callback): void => {
 		this.callbacks.add(cb);
 	};
 
-	getTotalTime() {
+	getTotalTime(): number {
 		return this.totalTime;
 	}
 
-	setReactRootElement(element: HTMLElement) {
+	setReactRootElement(element: HTMLElement): void {
 		this.ssr.reactRootElement = element;
 	}
 
-	setReactRootRenderStart(startTime = performance.now()) {
+	setReactRootRenderStart(startTime: number = performance.now()): void {
 		this.ssr.renderStart = startTime;
 		this.ssr.state = state.waitingForFirstRender;
 	}
 
-	setReactRootRenderStop(stopTime = performance.now()) {
+	setReactRootRenderStop(stopTime: number = performance.now()): void {
 		this.ssr.renderStop = stopTime;
 	}
 
@@ -245,11 +245,13 @@ export class Observers implements BrowserObservers {
 								this.ssrPlaceholderHandler.isPlaceholder(node) ||
 								this.ssrPlaceholderHandler.isPlaceholderIgnored(node)
 							) {
-								this.ssrPlaceholderHandler.checkIfExistedAndSizeMatching(node).then((result) => {
-									if (result === false) {
-										this.observeElement(node, mutation, 'html', ignoreReason);
-									}
-								});
+								this.ssrPlaceholderHandler
+									.checkIfExistedAndSizeMatching(node)
+									.then((result: boolean) => {
+										if (result === false) {
+											this.observeElement(node, mutation, 'html', ignoreReason);
+										}
+									});
 								return;
 							}
 
@@ -259,7 +261,7 @@ export class Observers implements BrowserObservers {
 							) {
 								this.ssrPlaceholderHandler
 									.validateReactComponentMatchToPlaceholder(node)
-									.then((result) => {
+									.then((result: boolean) => {
 										if (result === false) {
 											this.observeElement(node, mutation, 'html', ignoreReason);
 										}

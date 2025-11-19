@@ -23,7 +23,7 @@ globalThis[CACHE_MAP_KEY] =
  * Calling this function will cause all instances of conditional hooks to be re-evaluated
  * and may lead to unexpected behaviour if the conditions change.
  */
-export function DO_NOT_USE_THIS_IN_PRODUCTION_EVER_resetConditionalHooksFactoryCache() {
+export function DO_NOT_USE_THIS_IN_PRODUCTION_EVER_resetConditionalHooksFactoryCache(): void {
 	globalThis[CACHE_MAP_KEY] = new WeakMap();
 }
 

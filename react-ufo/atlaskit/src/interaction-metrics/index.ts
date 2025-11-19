@@ -78,12 +78,12 @@ const PreviousInteractionLog = {
 	isAborted: undefined as boolean | undefined,
 };
 
-export const postInteractionLog = new PostInteractionLog();
-export const interactionExtraMetrics = new InteractionExtraMetrics();
+export const postInteractionLog: PostInteractionLog = new PostInteractionLog();
+export const interactionExtraMetrics: InteractionExtraMetrics = new InteractionExtraMetrics();
 
 const interactionQueue: { id: string; data: InteractionMetrics }[] = [];
 const segmentCache = new Map<string, SegmentInfo>();
-export const segmentUnmountCache = new Map<string, number>(); // Temporarily store segment unmount counts
+export const segmentUnmountCache: Map<string, number> = new Map<string, number>(); // Temporarily store segment unmount counts
 
 let firstSegmentLoadMarked = false;
 
@@ -93,7 +93,7 @@ interface SegmentObserver {
 }
 const segmentObservers: SegmentObserver[] = [];
 
-export function getActiveInteraction() {
+export function getActiveInteraction(): InteractionMetrics | undefined {
 	const interactionId = getInteractionId();
 	if (!interactionId.current) {
 		return;
@@ -125,7 +125,7 @@ export const getPerformanceObserver = (): PerformanceObserver => {
 	return performanceEventObserver;
 };
 
-export const setInteractionPerformanceEvent = (entry: PerformanceEventTiming) => {
+export const setInteractionPerformanceEvent = (entry: PerformanceEventTiming): void => {
 	const interaction = getActiveInteraction();
 	if (interaction?.type === 'press') {
 		const responsiveness = interaction.responsiveness || {};
@@ -176,14 +176,14 @@ function removeSegmentObserver(observer: SegmentObserver) {
 	}
 }
 
-export function remove(interactionId: string) {
+export function remove(interactionId: string): void {
 	interactions.delete(interactionId);
 }
 
 export function updatePageLoadInteractionName(
 	ufoName: string,
 	routeName: string | null | undefined = ufoName,
-) {
+): void {
 	const interaction = getActiveInteraction();
 	if (!interaction || (interaction.type !== 'page_load' && interaction.type !== 'transition')) {
 		return;
@@ -192,7 +192,7 @@ export function updatePageLoadInteractionName(
 	interaction.routeName = routeName;
 }
 
-export function addMetadata(interactionId: string, data: Record<string, unknown>) {
+export function addMetadata(interactionId: string, data: Record<string, unknown>): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		Object.keys(data).forEach((key) => {
@@ -201,7 +201,11 @@ export function addMetadata(interactionId: string, data: Record<string, unknown>
 	}
 }
 
-export function addCustomData(interactionId: string, labelStack: LabelStack, data: CustomData) {
+export function addCustomData(
+	interactionId: string,
+	labelStack: LabelStack,
+	data: CustomData,
+): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		Object.keys(data).forEach((i) => {
@@ -214,7 +218,7 @@ export function addCohortingCustomData(
 	interactionId: string,
 	key: string,
 	value: number | boolean | string | null | undefined,
-) {
+): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction == null) {
 		return;
@@ -239,7 +243,11 @@ export function addCohortingCustomData(
 	interaction.cohortingCustomData.set(key, value);
 }
 
-export function addCustomTiming(interactionId: string, labelStack: LabelStack, data: CustomTiming) {
+export function addCustomTiming(
+	interactionId: string,
+	labelStack: LabelStack,
+	data: CustomTiming,
+): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		interaction.customTimings.push({ labelStack, data });
@@ -272,7 +280,7 @@ export function addMark(
 	name: string,
 	labelStack: LabelStack | null,
 	time: number = performance.now(),
-) {
+): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		interaction.marks.push({ type, name, labelStack, time });
@@ -309,7 +317,7 @@ export function addMarkToAll(
 	name: string,
 	labelStack: LabelStack | null,
 	time: number = performance.now(),
-) {
+): void {
 	interactions.forEach((interaction) => {
 		interaction.marks.push({ type, name, labelStack, time });
 	});
@@ -328,7 +336,7 @@ export function addSpan(
 	start: number,
 	end: number = performance.now(),
 	size?: number,
-) {
+): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		interaction.spans.push({ type, name, labelStack, start, end, size });
@@ -359,7 +367,7 @@ export function addSpanToAll(
 	start: number,
 	end: number = performance.now(),
 	size = 0,
-) {
+): void {
 	interactions.forEach((interaction) => {
 		interaction.spans.push({ type, name, labelStack, start, end, size });
 	});
@@ -382,11 +390,11 @@ export function addSpanToAll(
 	}
 }
 
-export function addPreload(moduleId: string, timestamp: number) {
+export function addPreload(moduleId: string, timestamp: number): void {
 	addMarkToAll('bundle_preload', moduleId, null, timestamp);
 }
 
-export function addLoad(identifier: string, start: number, end: number) {
+export function addLoad(identifier: string, start: number, end: number): void {
 	addSpanToAll('bundle_load', identifier, null, start, end - start);
 }
 
@@ -427,7 +435,7 @@ export function addHold(
 	labelStack: LabelStack,
 	name: string,
 	experimental: boolean,
-) {
+): () => void {
 	const interaction = interactions.get(interactionId);
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const id = createUUID();
@@ -540,10 +548,10 @@ export function addHoldByID(
 			addHoldCriterion(id, labelStack, name, start);
 		}
 	}
-	return () => {};
+	return (): void => {};
 }
 
-export function removeHoldByID(interactionId: string, id: string) {
+export function removeHoldByID(interactionId: string, id: string): void {
 	const interaction = interactions.get(interactionId);
 
 	if (interaction != null) {
@@ -571,7 +579,7 @@ export function removeHoldByID(interactionId: string, id: string) {
 	}
 }
 
-export function getCurrentInteractionType(interactionId: string) {
+export function getCurrentInteractionType(interactionId: string): InteractionType | null {
 	const interaction = interactions.get(interactionId);
 	if (interaction) {
 		return interaction.type;
@@ -580,7 +588,7 @@ export function getCurrentInteractionType(interactionId: string) {
 }
 
 export const ModuleLoadingProfiler = {
-	onPreload(moduleId: string, _priority?: number) {
+	onPreload(moduleId: string, _priority?: number): void {
 		addPreload(extractModuleName(moduleId), performance.now());
 	},
 	onLoadStart(info: LoadProfilerEventInfo): void {
@@ -625,7 +633,7 @@ export function addError(
 	forcedError?: boolean,
 	errorHash?: string,
 	errorStatusCode?: number,
-) {
+): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		interaction.errors.push({
@@ -649,7 +657,7 @@ export function addErrorToAll(
 	errorStack?: string,
 	errorHash?: string,
 	errorStatusCode?: number,
-) {
+): void {
 	interactions.forEach((interaction) => {
 		interaction.errors.push({
 			name,
@@ -671,7 +679,7 @@ export function addProfilerTimings(
 	baseDuration: number,
 	startTime: number,
 	commitTime: number,
-) {
+): void {
 	if (isPerformanceTracingEnabled()) {
 		try {
 			// for Firefox 102 and older
@@ -855,7 +863,9 @@ function finishInteraction(
 	}
 }
 
-export function sinkInteractionHandler(sinkFn: (id: string, data: InteractionMetrics) => void) {
+export function sinkInteractionHandler(
+	sinkFn: (id: string, data: InteractionMetrics) => void,
+): void {
 	if (handleInteraction === pushToQueue) {
 		handleInteraction = sinkFn;
 		interactionQueue.forEach((interaction) => {
@@ -867,14 +877,14 @@ export function sinkInteractionHandler(sinkFn: (id: string, data: InteractionMet
 
 export function sinkPostInteractionLogHandler(
 	sinkFn: (output: PostInteractionLogOutput) => void | Promise<void>,
-) {
+): void {
 	postInteractionLog.sinkHandler(sinkFn);
 }
 
 // a flag to prevent multiple submitting
 let activeSubmitted = false;
 
-export function tryComplete(interactionId: string, endTime?: number) {
+export function tryComplete(interactionId: string, endTime?: number): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		const noMoreActiveHolds = interaction.holdActive.size === 0;
@@ -979,7 +989,7 @@ function callCancelCallbacks(interaction: InteractionMetrics) {
 	});
 }
 
-export function abort(interactionId: string, abortReason: AbortReasonType) {
+export function abort(interactionId: string, abortReason: AbortReasonType): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		callCancelCallbacks(interaction);
@@ -999,7 +1009,7 @@ export function abort(interactionId: string, abortReason: AbortReasonType) {
 	}
 }
 
-export function abortByNewInteraction(interactionId: string, interactionName: string) {
+export function abortByNewInteraction(interactionId: string, interactionName: string): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		callCancelCallbacks(interaction);
@@ -1020,7 +1030,7 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 	}
 }
 
-export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?: string) {
+export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?: string): void {
 	const activeInteraction = getActiveInteraction();
 	const finishInteractions = getFinishInteractionOnTransition();
 	interactions.forEach((interaction, interactionId) => {
@@ -1060,7 +1070,7 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 	});
 }
 
-export function addOnCancelCallback(id: string, cancelCallback: () => void) {
+export function addOnCancelCallback(id: string, cancelCallback: () => void): void {
 	const interaction = interactions.get(id);
 
 	interaction?.cancelCallbacks.push(cancelCallback);
@@ -1075,7 +1085,7 @@ export function addNewInteraction(
 	labelStack: LabelStack | null,
 	routeName?: string | null,
 	trace: TraceIdContext | null = null,
-) {
+): void {
 	interactionExtraMetrics.reset();
 	postInteractionLog.reset();
 	let vcObserver: VCObserverInterface | undefined;
@@ -1227,7 +1237,7 @@ export function addNewInteraction(
 	}
 }
 
-export function addBrowserMetricEvent(event: BM3Event) {
+export function addBrowserMetricEvent(event: BM3Event): void {
 	const interaction = getActiveInteraction();
 	if (interaction) {
 		interaction.legacyMetrics = interaction.legacyMetrics || [];
@@ -1242,7 +1252,7 @@ export function addBrowserMetricEvent(event: BM3Event) {
 	}
 }
 
-export function addApdexToAll(apdex: ApdexType) {
+export function addApdexToAll(apdex: ApdexType): void {
 	interactions.forEach((interaction, key) => {
 		interaction.apdex.push(apdex);
 		try {
@@ -1284,7 +1294,7 @@ export function addApdex(
 		startTime?: number;
 		labelStack?: LabelStack;
 	},
-) {
+): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		interaction.apdex.push(apdexInfo);
@@ -1323,7 +1333,7 @@ export function addRequestInfo(
 	interactionId: string,
 	labelStack: LabelStack,
 	requestInfo: RequestInfo,
-) {
+): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		interaction.requestInfo.push({
@@ -1348,7 +1358,7 @@ function getSegmentCacheKey(labelStack: LabelStack) {
 		.join('|');
 }
 
-export function addSegment(labelStack: LabelStack) {
+export function addSegment(labelStack: LabelStack): void {
 	const key = getSegmentCacheKey(labelStack);
 	const existingSegment = segmentCache.get(key);
 	if (!existingSegment) {
@@ -1360,7 +1370,7 @@ export function addSegment(labelStack: LabelStack) {
 	}
 }
 
-export function removeSegment(labelStack: LabelStack) {
+export function removeSegment(labelStack: LabelStack): void {
 	const key = getSegmentCacheKey(labelStack);
 	const segmentInfo = segmentCache.get(key);
 
@@ -1384,7 +1394,7 @@ export function addRedirect(
 	nextUfoName: string,
 	nextRouteName: string,
 	time: number,
-) {
+): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		interaction.ufoName = nextUfoName;
@@ -1436,7 +1446,7 @@ export function addCustomSpans(
 	end: number = performance.now(),
 	size = 0,
 	labelStack: LabelStack = defaultLabelStack,
-) {
+): void {
 	const customSpan: Span = {
 		type: 'custom',
 		name,

@@ -4,7 +4,7 @@ import {
 	TEAMS_CLIENT_EXPERIENCES,
 	type TeamsClientExperienceKeys,
 } from '../common/utils/ufo/constants';
-import { type MembershipState, type TeamMembership } from '../types';
+import { type MembershipState, type TeamMembership, type TeamWithImageUrls } from '../types';
 
 import { aggClient } from './agg-client';
 import { type AGGPageInfoVariables, type ResultWithPageInfo } from './agg-client/types';
@@ -450,13 +450,13 @@ export class TeamsClient {
 	/**
 	 * Archive a team
 	 */
-	async archiveTeam(teamId: string): Promise<void> {
+	async archiveTeam(teamId: string): Promise<TeamWithImageUrls> {
 		return this.measurePerformance('archiveTeam', () => this._legionClient.archiveTeam(teamId));
 	}
 	/**
 	 * Unarchive a team
 	 */
-	async unarchiveTeam(teamId: string): Promise<void> {
+	async unarchiveTeam(teamId: string): Promise<TeamWithImageUrls> {
 		return this.measurePerformance('unarchiveTeam', () => this._legionClient.unArchiveTeam(teamId));
 	}
 

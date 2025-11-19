@@ -27,7 +27,7 @@ const container = css({
 	borderRadius: '5px',
 });
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	const [showNewSegments, setShowNewSegments] = useState(false);
 	const [showHold, setShowHold] = useState(false);
 

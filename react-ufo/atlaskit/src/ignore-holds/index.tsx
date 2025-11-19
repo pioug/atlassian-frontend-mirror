@@ -29,7 +29,10 @@ export type UFOIgnoreHoldsProps = {
  * Has an `ignore` prop, to allow you to use it conditionally
  * Has a `reason` prop, to specify why the hold is being ignored
  */
-export default function UFOIgnoreHolds({ children, ignore = true }: UFOIgnoreHoldsProps) {
+export default function UFOIgnoreHolds({
+	children,
+	ignore = true,
+}: UFOIgnoreHoldsProps): React.JSX.Element {
 	const parentContext = useContext(InteractionContext);
 
 	const ignoredInteractionContext: InteractionContextType | null = useMemo(() => {
@@ -59,4 +62,5 @@ export default function UFOIgnoreHolds({ children, ignore = true }: UFOIgnoreHol
 		</InteractionContext.Provider>
 	);
 }
+
 UFOIgnoreHolds.displayName = 'UFOIgnoreHolds';

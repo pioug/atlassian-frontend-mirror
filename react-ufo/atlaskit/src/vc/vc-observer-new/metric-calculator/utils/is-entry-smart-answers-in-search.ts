@@ -2,7 +2,7 @@ import { getDocument } from '@atlaskit/browser-apis';
 
 import type { VCObserverEntry, ViewportEntryData } from '../../types';
 
-export function isEntrySmartAnswersInSearch(entry: VCObserverEntry) {
+export function isEntrySmartAnswersInSearch(entry: VCObserverEntry): boolean {
 	const { elementName } = entry.data as ViewportEntryData;
 	if (!elementName || elementName === 'START') {
 		return false;

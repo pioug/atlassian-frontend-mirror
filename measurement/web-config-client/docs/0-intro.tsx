@@ -1,6 +1,6 @@
 import { md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 	# JavaScript Frontend Web Client for Dynamic Configuration.
 
 	## Usage
@@ -122,3 +122,4 @@ export default md`
 	be anything you want. These have less capabilities than identifiers and are not standardized so
 	identifiers should be used if possible.
 `;
+export default _default_1;

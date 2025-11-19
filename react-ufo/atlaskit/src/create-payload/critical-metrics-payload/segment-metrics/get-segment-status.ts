@@ -8,7 +8,10 @@ import isLabelStackUnderSegment from './is-label-stack-under-segment';
 export default function getSegmentStatus(
 	interaction: InteractionMetrics,
 	segment: { labelStack: LabelStack },
-) {
+): {
+	status: string;
+	abortReason: string | undefined;
+} {
 	const segmentId = getSegmentId(segment.labelStack);
 
 	// Get the root interaction status info

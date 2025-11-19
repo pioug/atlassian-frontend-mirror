@@ -29,7 +29,7 @@ export function usePlatformLeafSyntheticEventHandler({
 	packageName,
 	packageVersion,
 	analyticsData,
-}: UsePlatformLeafSyntheticEventHandlerHookArgs) {
+}: UsePlatformLeafSyntheticEventHandlerHookArgs): () => void {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	// We put analyticsData and fn in a ref so that we don't need to break

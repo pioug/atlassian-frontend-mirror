@@ -20,7 +20,7 @@ import React, {
  * GetRefAttributes(P1, P2) // {ref: Ref(HTMLDivElement | HTMLSpanElement)}
  * ```
  */
-type GetRefAttributes<A, B> =
+export type GetRefAttributes<A, B> =
 	A extends RefAttributes<infer RefA>
 		? B extends RefAttributes<infer RefB>
 			? RefAttributes<RefA | RefB>

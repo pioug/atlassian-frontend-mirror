@@ -86,7 +86,7 @@ export const getPerformanceObserver = (): PerformanceObserver => {
 	return performanceEventObserver;
 };
 
-export const setInteractionPerformanceEvent = (entry: PerformanceEventTiming) => {
+export const setInteractionPerformanceEvent = (entry: PerformanceEventTiming): void => {
 	const interaction = getActiveInteraction();
 	if (interaction?.type === 'press') {
 		if (!interaction.responsiveness?.experimentalInputToNextPaint) {

@@ -12,7 +12,7 @@ import getSegmentStatus from './get-segment-status';
 export async function createSegmentMetricsPayloads(
 	interactionId: string,
 	interaction: InteractionMetrics,
-) {
+): Promise<CriticalMetricsPayload[]> {
 	const config = getConfig();
 	if (!config) {
 		throw Error('UFO Configuration not provided');

@@ -2,7 +2,7 @@ import { addError, getActiveInteraction, type InteractionError } from '../intera
 
 type InteractionErrorManual = Pick<InteractionError, 'errorMessage' | 'name'>;
 
-export function setInteractionError(interactionName: string, error: InteractionErrorManual) {
+export function setInteractionError(interactionName: string, error: InteractionErrorManual): void {
 	const interaction = getActiveInteraction();
 	if (!interaction) {
 		return;

@@ -28,7 +28,18 @@ class DummyComponent extends React.Component<Props> {
 	}
 }
 
-export const createDummyComponentWithAnalytics = (channel?: string) =>
+export const createDummyComponentWithAnalytics = (
+	channel?: string,
+): React.ForwardRefExoticComponent<
+	Omit<
+		{
+			onClick: (e: React.SyntheticEvent) => void;
+			text?: string;
+		},
+		keyof WithAnalyticsEventsProps
+	> &
+		React.RefAttributes<any>
+> =>
 	withAnalyticsEvents({
 		onClick: createAndFireEvent(channel)({
 			action: 'someAction',

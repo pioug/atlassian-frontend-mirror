@@ -1925,3 +1925,101 @@ export const multiBodiedExtensionExtNodeAdf: DocNode = {
 		},
 	],
 };
+
+export const multiBodiedExtensionExtNodeWideAdf: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'multiBodiedExtension',
+			attrs: {
+				extensionKey: 'mbe-section',
+				extensionType: 'com.atlassian.mbe.section',
+				parameters: {
+					extensionTitle: 'MBE Section',
+					backgroundColor: 'lightblue',
+				},
+				text: 'fa3017fa-dcdd-4c9f-80e7-9fefbde3974f',
+				layout: 'wide',
+				localId: 'a8c460db-d287-4903-a4cf-de7231f4b62d',
+			},
+			content: [
+				{
+					type: 'extensionFrame',
+					content: [
+						{
+							type: 'paragraph',
+							attrs: {
+								localId: '24d23d24-91a0-4a21-845c-c811a3184e94',
+							},
+							content: [
+								{
+									type: 'text',
+									text: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.',
+								},
+							],
+						},
+					],
+				},
+			],
+		},
+		{
+			type: 'paragraph',
+			content: [
+				{
+					type: 'text',
+					text: 'MBE - Section',
+				},
+			],
+		},
+	],
+};
+
+export const multiBodiedExtensionExtNodeFullWidthAdf: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'multiBodiedExtension',
+			attrs: {
+				extensionKey: 'mbe-section',
+				extensionType: 'com.atlassian.mbe.section',
+				parameters: {
+					extensionTitle: 'MBE Section',
+					backgroundColor: 'lightblue',
+				},
+				text: 'fa3017fa-dcdd-4c9f-80e7-9fefbde3974f',
+				layout: 'full-width',
+				localId: 'a8c460db-d287-4903-a4cf-de7231f4b62d',
+			},
+			content: [
+				{
+					type: 'extensionFrame',
+					content: [
+						{
+							type: 'paragraph',
+							attrs: {
+								localId: '24d23d24-91a0-4a21-845c-c811a3184e94',
+							},
+							content: [
+								{
+									type: 'text',
+									text: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.',
+								},
+							],
+						},
+					],
+				},
+			],
+		},
+		{
+			type: 'paragraph',
+			content: [
+				{
+					type: 'text',
+					text: 'MBE - Section',
+				},
+			],
+		},
+	],
+};

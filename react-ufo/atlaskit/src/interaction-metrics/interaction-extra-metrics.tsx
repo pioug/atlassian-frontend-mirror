@@ -21,17 +21,17 @@ export default class InteractionExtraMetrics {
 		lastInteractionFinishVCResult?: VCResult,
 	) => void | Promise<void> = () => {};
 
-	initializeVCObserver(options: VCObserverOptions) {
+	initializeVCObserver(options: VCObserverOptions): void {
 		this.vcObserver = new VCObserverWrapper({ ...options, isPostInteraction: true });
 	}
 
-	startVCObserver({ startTime }: { startTime: number }, interactionId: string) {
+	startVCObserver({ startTime }: { startTime: number }, interactionId: string): void {
 		if (this.eligibleToMeasure(interactionId)) {
 			this.vcObserver?.start({ startTime });
 		}
 	}
 
-	stopVCObserver() {
+	stopVCObserver(): void {
 		this.vcObserver?.stop();
 	}
 
@@ -41,13 +41,13 @@ export default class InteractionExtraMetrics {
 		return interaction?.type === 'page_load' || interaction?.type === 'transition';
 	}
 
-	updateFinishedInteraction(interaction: InteractionMetrics) {
+	updateFinishedInteraction(interaction: InteractionMetrics): void {
 		if (interaction?.type === 'page_load' || interaction?.type === 'transition') {
 			this.finishedInteraction = interaction;
 		}
 	}
 
-	setLastInteractionFinishVCResult(result: VCResult) {
+	setLastInteractionFinishVCResult(result: VCResult): void {
 		this.lastInteractionFinishVCResult = result;
 	}
 
@@ -58,11 +58,11 @@ export default class InteractionExtraMetrics {
 			lastInteractionFinish: InteractionMetrics | null,
 			lastInteractionFinishVCResult?: VCResult,
 		) => void | Promise<void>,
-	) {
+	): void {
 		this.sinkHandlerFn = fn;
 	}
 
-	onInteractionComplete(id: string, data: InteractionMetrics) {
+	onInteractionComplete(id: string, data: InteractionMetrics): void {
 		if (data.ufoName) {
 			const updatedData = {
 				...data,
@@ -80,7 +80,7 @@ export default class InteractionExtraMetrics {
 		this.reset();
 	}
 
-	reset() {
+	reset(): void {
 		this.stopVCObserver();
 		if (this.finishedInteraction?.id) {
 			remove(this.finishedInteraction.id);
@@ -89,7 +89,7 @@ export default class InteractionExtraMetrics {
 		this.lastInteractionFinishVCResult = undefined;
 	}
 
-	stopAll(id: string) {
+	stopAll(id: string): void {
 		remove(id);
 		this.reset();
 	}

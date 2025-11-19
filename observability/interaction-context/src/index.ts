@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { type Context, createContext } from 'react';
 
 export interface InteractionContextType {
 	/**
@@ -46,4 +46,6 @@ export interface InteractionContextType {
 	tracePress(name: string | undefined, timestamp?: number): void;
 }
 
-export default createContext<InteractionContextType | null>(null);
+const _default_1: Context<InteractionContextType | null> =
+	createContext<InteractionContextType | null>(null);
+export default _default_1;

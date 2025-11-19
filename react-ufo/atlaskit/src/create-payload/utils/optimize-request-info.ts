@@ -8,7 +8,11 @@ export function optimizeRequestInfo(
 	requestInfo: InteractionMetrics['requestInfo'],
 	interactionStart: number,
 	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
-) {
+): {
+	labelStack: OptimizedLabelStack;
+	startTime: number;
+	endTime: number;
+}[] {
 	const updatedRequestInfo = requestInfo.reduce(
 		(result, reqInfo) => {
 			const { labelStack, name, start, end, networkStart, networkComplete } = reqInfo;

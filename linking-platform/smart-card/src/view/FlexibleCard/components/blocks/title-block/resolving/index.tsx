@@ -1,8 +1,11 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
 import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { SmartLinkSize } from '../../../../../../constants';
 import { LoadingSkeleton } from '../../../common/loading-skeleton';
+import { LinkIcon } from '../../../elements';
 import { getIconWidth } from '../../../utils';
 import Block from '../../block';
 import { type TitleBlockViewProps } from '../types';
@@ -15,6 +18,8 @@ import { type TitleBlockViewProps } from '../types';
  */
 const TitleBlockResolvingView = ({
 	actionGroup,
+	icon,
+	position,
 	testId,
 	title,
 	hideIcon,
@@ -26,7 +31,10 @@ const TitleBlockResolvingView = ({
 
 	return (
 		<Block {...blockProps} testId={`${testId}-resolving-view`}>
-			{!hideIcon && (
+			{!hideIcon && icon && fg('platform_initial_icon_for_title_block') && (
+				<LinkIcon overrideIcon={icon} position={position} size={size} hideLoadingSkeleton={true} />
+			)}
+			{!hideIcon && (!icon || !fg('platform_initial_icon_for_title_block')) && (
 				<span style={{ width: iconWidth, height: iconWidth }} data-testid={`${testId}-icon`}>
 					<LoadingSkeleton width={iconWidth} height={iconWidth} testId={`${testId}-icon-loading`} />
 				</span>

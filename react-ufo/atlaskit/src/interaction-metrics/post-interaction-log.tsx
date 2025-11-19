@@ -44,15 +44,15 @@ export default class PostInteractionLog {
 
 	lastInteractionFinishVCResult?: VCResult;
 
-	initializeVCObserver(options: VCObserverOptions) {
+	initializeVCObserver(options: VCObserverOptions): void {
 		this.vcObserver = new VCObserverWrapper({ ...options, isPostInteraction: true });
 	}
 
-	startVCObserver({ startTime }: { startTime: number }) {
+	startVCObserver({ startTime }: { startTime: number }): void {
 		this.vcObserver?.start({ startTime });
 	}
 
-	stopVCObserver() {
+	stopVCObserver(): void {
 		this.vcObserver?.stop();
 	}
 
@@ -60,7 +60,7 @@ export default class PostInteractionLog {
 		vcObserverSSRConfig: {
 			ssr: number | undefined;
 		} | null,
-	) {
+	): void {
 		this.vcObserverSSRConfig = vcObserverSSRConfig;
 	}
 
@@ -69,7 +69,7 @@ export default class PostInteractionLog {
 	 * Used to compare diffs of VC updates vs post interaction VC observer
 	 * @param result - VC result as calculated by UFO create payload
 	 */
-	setLastInteractionFinishVCResult(result: VCResult) {
+	setLastInteractionFinishVCResult(result: VCResult): void {
 		this.lastInteractionFinishVCResult = result;
 	}
 
@@ -81,14 +81,14 @@ export default class PostInteractionLog {
 	/**
 	 * Set the fn that would be invoked to process / send the observation data
 	 */
-	sinkHandler(sinkHandlerFn: (output: PostInteractionLogOutput) => void | Promise<void>) {
+	sinkHandler(sinkHandlerFn: (output: PostInteractionLogOutput) => void | Promise<void>): void {
 		this.sinkHandlerFn = sinkHandlerFn;
 	}
 
 	/**
 	 * Reset state of the log
 	 */
-	reset() {
+	reset(): void {
 		this.lastInteractionFinish = null;
 		this.reactProfilerTimings = [];
 		this.holdInfo = [];
@@ -104,14 +104,14 @@ export default class PostInteractionLog {
 	/**
 	 * Check if there is data in the log
 	 */
-	hasData() {
+	hasData(): boolean {
 		return this.reactProfilerTimings?.length > 0;
 	}
 
 	/**
 	 * Send the log if there is data
 	 */
-	async sendPostInteractionLog() {
+	async sendPostInteractionLog(): Promise<void> {
 		if (
 			!this.lastInteractionFinish ||
 			!this.sinkHandlerFn ||
@@ -176,7 +176,7 @@ export default class PostInteractionLog {
 		experimentalTTAI,
 		experimentalVC90,
 		errors,
-	}: LastInteractionFinishInfo) {
+	}: LastInteractionFinishInfo): void {
 		this.lastInteractionFinish = {
 			ufoName,
 			start,
@@ -210,7 +210,7 @@ export default class PostInteractionLog {
 		baseDuration: number,
 		startTime: number,
 		commitTime: number,
-	) {
+	): void {
 		if (this.lastInteractionFinish != null) {
 			this.reactProfilerTimings.push({
 				type,
@@ -223,7 +223,7 @@ export default class PostInteractionLog {
 		}
 	}
 
-	addHoldInfo(labelStack: LabelStack, name: string, start: number) {
+	addHoldInfo(labelStack: LabelStack, name: string, start: number): void {
 		this.holdInfo.push({ name, labelStack, start });
 	}
 }

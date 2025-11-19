@@ -20,7 +20,7 @@ export const currentFeatureFlagsAccessed: Map<string, FeatureFlagValue> = new Ma
 export function addFeatureFlagAccessed(
 	featureFlagName: string,
 	featureFlagValue: FeatureFlagValue,
-) {
+): void {
 	try {
 		// Inform Criterion about FF being accessed
 		if (

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.7.3
+
+### Patch Changes
+
+- [`aa5913a5d4962`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa5913a5d4962) -
+  [ux] EDITOR-2679 Fix multiselect collapsing issues for drag handle selections and block menu
+- Updated dependencies
+
 ## 7.7.2
 
 ### Patch Changes

@@ -40,14 +40,14 @@ export default class WindowEventObserver {
 		this.unbindFns.push(unbindCallback);
 	}
 
-	start() {
+	start(): void {
 		this.bindEvent('wheel');
 		this.bindEvent('scroll');
 		this.bindEvent('keydown');
 		this.bindEvent('resize');
 	}
 
-	stop() {
+	stop(): void {
 		this.unbindFns.forEach((cb) => {
 			cb();
 		});

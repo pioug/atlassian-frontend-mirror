@@ -97,7 +97,7 @@ const SectionThree = ({ base }: { base: number }) => {
 };
 
 // Main App component
-export default function Example() {
+export default function Example(): JSX.Element {
 	useEffect(() => {
 		// Simulate a transition to represents a user navigating to a different page after some time
 		const timer = setTimeout(() => {

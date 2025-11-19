@@ -78,7 +78,7 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 		return merged;
 	}
 
-	initFromStoredOverrides() {
+	initFromStoredOverrides(): void {
 		const storedOverrides = this.mergeOverrides(
 			this._overrides,
 			this.parseStoredOverrides(LEGACY_LOCAL_STORAGE_KEY),
@@ -110,7 +110,7 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 		this.applyOverrides(storedOverrides);
 	}
 
-	saveOverrides() {
+	saveOverrides(): void {
 		try {
 			window.localStorage.setItem(this._localStorageKey, JSON.stringify(this._overrides));
 		} catch {
@@ -123,7 +123,7 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 		return this.mergeOverrides(this._overrides);
 	}
 
-	protected applyOverrides(overrides: Partial<LocalOverrides>) {
+	protected applyOverrides(overrides: Partial<LocalOverrides>): void {
 		const newOverrides = { ...makeEmptyStore(), ...overrides };
 
 		this._djb2Map.clear();
@@ -136,7 +136,7 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 		this._overrides = newOverrides;
 	}
 
-	setOverrides(overrides: Partial<LocalOverrides>) {
+	setOverrides(overrides: Partial<LocalOverrides>): void {
 		this.applyOverrides(overrides);
 		this.saveOverrides();
 	}

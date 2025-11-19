@@ -1,6 +1,9 @@
 const DIMENSIONS_CHECK_TOLERANCE_MARGIN_IN_PX = 1;
 
-export function isSameRectDimensions(a: DOMRect | null | undefined, b: DOMRect | null | undefined) {
+export function isSameRectDimensions(
+	a: DOMRect | null | undefined,
+	b: DOMRect | null | undefined,
+): boolean {
 	if (!a || !b) {
 		return false;
 	}

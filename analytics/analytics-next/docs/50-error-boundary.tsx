@@ -2,7 +2,7 @@ import React from 'react';
 
 import { code, md, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${code`import { AnalyticsErrorBoundary } from '@atlaskit/analytics-next';`}
 
   Wrap part of your tree in \`AnalyticsErrorBoundary\` to provide error boundary track to any events created beneath it.
@@ -52,3 +52,4 @@ class ButtonWithAnalyticsErrorBoundary extends React.Component {
 		/>
 	)}
 `;
+export default _default_1;

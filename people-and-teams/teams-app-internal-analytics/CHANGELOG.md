@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.20.0
+
+### Minor Changes
+
+- [`0f5306d6607ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f5306d6607ab) -
+  Add ORG_ADMIN_MANAGED to membership settings
+
 ## 1.19.2
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/codemod-cli
 
+## 0.32.0
+
+### Minor Changes
+
+- [`a5b157e56828d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5b157e56828d) -
+  Add a new codemod `badge-appearance-semantic-migration` to migrate deprecated Badge appearances to
+  colorsas part of the Labelling System Phase 1 migration.
+
 ## 0.31.2
 
 ### Patch Changes

@@ -86,7 +86,7 @@ const generateBackgroundColors = (count: number) => {
 };
 
 // Main App component
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const appCreatedAt = useMemo(() => performance.now(), []);
 
 	// Number of sections to render

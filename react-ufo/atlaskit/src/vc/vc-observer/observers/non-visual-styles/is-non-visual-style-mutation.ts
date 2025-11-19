@@ -15,7 +15,7 @@ function isNonVisualStyleMutation({
 	type: string;
 	target?: Node | null;
 	attributeName?: string | null;
-}) {
+}): boolean {
 	if (!(target instanceof Element)) {
 		return false;
 	}

@@ -48,6 +48,30 @@ describe('HyperlinkResolver - 3P Click Events', () => {
 		jest.clearAllMocks();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		// Override the mock for useResolveHyperlink to return resolved state
+		jest
+			.requireMock('../../../state/hooks/use-resolve-hyperlink')
+			.default.mockImplementation(() => ({
+				actions: { authorize: jest.fn() },
+				state: {
+					status: 'resolved',
+					details: { meta: { definitionId: 'test-definition-id' } },
+				},
+			}));
+
+		// Render the component
+		const { container } = render(
+			<SmartCardProvider client={new CardClient()}>
+				<HyperlinkWithSmartLinkResolver href="https://atlassian.com">
+					Click Me
+				</HyperlinkWithSmartLinkResolver>
+			</SmartCardProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	ffTest.on('platform_smartlink_3pclick_analytics', '', () => {
 		it('fires 3P click event when status is resolved, primary button is clicked, and FF is on', () => {
 			// Create a mock for the fire3PClickEvent function

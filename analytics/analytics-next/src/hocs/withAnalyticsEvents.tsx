@@ -22,7 +22,12 @@ const withAnalyticsEvents =
 			| React.ForwardRefExoticComponent<Omit<WithAnalyticsEventsProps, 'ref'> & Props>
 		) &
 			Component,
-	) => {
+	): React.ForwardRefExoticComponent<
+		React.PropsWithoutRef<
+			JSX.LibraryManagedAttributes<Component, Omit<Props, keyof WithAnalyticsEventsProps>>
+		> &
+			React.RefAttributes<any>
+	> => {
 		type WrappedProps = JSX.LibraryManagedAttributes<
 			Component,
 			Omit<Props, keyof WithAnalyticsEventsProps>

@@ -1,5 +1,12 @@
 # @atlassian/navigation-system
 
+## 5.8.0
+
+### Minor Changes
+
+- [`6a51c2d83eea1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a51c2d83eea1) -
+  Export LazyDragHandle for use by custom menu items that wish to implement drag and drop.
+
 ## 5.7.0
 
 ### Minor Changes

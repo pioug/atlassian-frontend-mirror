@@ -40,7 +40,7 @@ export const resourceTimingBuffer = {
 			decodedSize: roundEpsilon(entry.decodedBodySize),
 		};
 	},
-	start() {
+	start(): void {
 		const performance = getPerformanceObject();
 		const PerformanceObserver = getPerformanceObserverObject();
 
@@ -59,14 +59,14 @@ export const resourceTimingBuffer = {
 		resourceTimingBuffer.observer = new PerformanceObserver(resourceTimingBuffer.addTimings);
 		resourceTimingBuffer.observer.observe({ entryTypes: ['resource'] });
 	},
-	stop() {
+	stop(): void {
 		if (resourceTimingBuffer.observer) {
 			resourceTimingBuffer.observer.disconnect();
 			resourceTimingBuffer.observer = null;
 		}
 		resourceTimingBuffer.timings = [];
 	},
-	addTimings(list: PerformanceObserverEntryList) {
+	addTimings(list: PerformanceObserverEntryList): void {
 		const entries = list
 			.getEntries()
 			.map((entry: PerformanceEntry) =>

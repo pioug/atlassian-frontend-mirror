@@ -57,6 +57,15 @@ export const editorExperimentsConfig = {
 		defaultValue: 'control',
 	}),
 
+	// Added 2025-11-17
+	platform_editor_renderer_extension_width_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_renderer_extension_width_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+
 	// Added 2025-09-30
 	// variant 1: remove table overflow shadows completely, no table border shown when scrolling.
 	// variant 2: remove table overflow shadows, show table border when scrolling.
@@ -466,14 +475,6 @@ export const editorExperimentsConfig = {
 		param: 'cohort',
 		values: ['control', 'adf_gemini25flash', 'adf_gpt41mini'],
 		defaultValue: 'control',
-	}),
-	// Added 2025-07-07
-	platform_editor_ai_remove_trivial_prompts_cc: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_remove_trivial_prompts_cc',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
 	}),
 	//Added 2025-07-25
 	platform_editor_extension_styles: createBooleanExperiment({

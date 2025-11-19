@@ -10,7 +10,7 @@ const Suspense = ({
 	children: React.ReactNode;
 	fallback: React.ReactNode;
 	interactionName: string;
-}) => {
+}): React.JSX.Element => {
 	return (
 		<React.Suspense fallback={<UFOLoadHold name={interactionName}>{fallback}</UFOLoadHold>}>
 			{children}

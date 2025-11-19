@@ -194,7 +194,7 @@ export type Config = {
 	};
 };
 
-export function setUFOConfig(newConfig: Config) {
+export function setUFOConfig(newConfig: Config): void {
 	// Handle edge cases with `enabledVCRevisions`
 	const { enabledVCRevisions } = newConfig?.vc ?? {};
 	if (typeof enabledVCRevisions?.byExperience === 'object') {
@@ -220,7 +220,7 @@ export function setUFOConfig(newConfig: Config) {
 	}
 }
 
-export function getConfig() {
+export function getConfig(): Config | undefined {
 	return config;
 }
 
@@ -254,11 +254,11 @@ export function getEnabledVCRevisions(experienceKey: string = ''): readonly TTVC
 	}
 }
 
-export function isVCRevisionEnabled(revision: TTVCRevision, experienceKey?: string) {
+export function isVCRevisionEnabled(revision: TTVCRevision, experienceKey?: string): boolean {
 	return getEnabledVCRevisions(experienceKey).includes(revision);
 }
 
-export function getMostRecentVCRevision(experienceKey: string = '') {
+export function getMostRecentVCRevision(experienceKey: string = ''): TTVCRevision {
 	const enabledVCRevisions = getEnabledVCRevisions(experienceKey);
 	return enabledVCRevisions[enabledVCRevisions.length - 1];
 }
@@ -562,7 +562,7 @@ export function getFinishInteractionOnTransition(): string[] | undefined {
 	}
 }
 
-export const CLEANUP_TIMEOUT = 60 * 1000;
+export const CLEANUP_TIMEOUT: number = 60 * 1000;
 
 export function getInteractionTimeout(ufoName: string): number {
 	try {

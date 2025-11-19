@@ -1,4 +1,5 @@
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+// eslint-disable-next-line no-restricted-imports
 import type { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';

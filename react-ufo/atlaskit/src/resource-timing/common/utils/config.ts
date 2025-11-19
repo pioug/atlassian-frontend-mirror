@@ -34,7 +34,7 @@ let config: ResourceTimingsConfig = {
 	},
 };
 
-export function configure(resourceTimingConfig: ResourceTimingsConfig) {
+export function configure(resourceTimingConfig: ResourceTimingsConfig): void {
 	const newConfig = {
 		mapResources: resourceTimingConfig.mapResources,
 		sanitiseEndpoints: (url: string) => {
@@ -48,6 +48,6 @@ export function configure(resourceTimingConfig: ResourceTimingsConfig) {
 	config = newConfig;
 }
 
-export function getConfig() {
+export function getConfig(): ResourceTimingsConfig {
 	return config;
 }

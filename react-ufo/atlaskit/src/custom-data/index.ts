@@ -24,7 +24,7 @@ export default function UFOCustomData({ data }: UFOCustomDataProps) {
 	return null;
 }
 
-export function addUFOCustomData(data: CustomData) {
+export function addUFOCustomData(data: CustomData): void {
 	const interactionId = getInteractionId();
 	const currentInteractionId = interactionId.current;
 	if (!currentInteractionId) {

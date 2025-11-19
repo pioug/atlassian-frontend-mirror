@@ -1,4 +1,4 @@
-function getViewportHeight(document = window.document) {
+function getViewportHeight(document: Document = window.document): number {
 	let documentHeight;
 	try {
 		documentHeight = document.documentElement.clientHeight || 0;

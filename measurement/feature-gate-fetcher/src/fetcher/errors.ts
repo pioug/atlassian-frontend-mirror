@@ -7,11 +7,11 @@ export class ResponseError extends Error {
 		this._body = body;
 	}
 
-	get status() {
+	get status(): number {
 		return this._status;
 	}
 
-	get body() {
+	get body(): string {
 		return this._body;
 	}
 }

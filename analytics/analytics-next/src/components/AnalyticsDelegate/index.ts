@@ -21,9 +21,13 @@ const ContextTypes = {
  */
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class AnalyticsDelegate extends Component<AnalyticsDelegateProps> {
-	static contextTypes = ContextTypes;
+	static contextTypes: {
+		onAnalyticsEvent: PropTypes.Requireable<(...args: any[]) => any>;
+	} = ContextTypes;
 
-	static childContextTypes = ContextTypes;
+	static childContextTypes: {
+		onAnalyticsEvent: PropTypes.Requireable<(...args: any[]) => any>;
+	} = ContextTypes;
 
 	getChildContext(): AnalyticsDelegateContext {
 		return {
@@ -45,7 +49,7 @@ class AnalyticsDelegate extends Component<AnalyticsDelegateProps> {
 		}
 	};
 
-	render() {
+	render(): React.ReactNode {
 		const { children } = this.props;
 		return React.Children.only(children);
 	}

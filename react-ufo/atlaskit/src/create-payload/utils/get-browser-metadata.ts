@@ -2,7 +2,27 @@ import Bowser from 'bowser-ultralight';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
-export default function getBrowserMetadata() {
+export default function getBrowserMetadata(): {
+	browser?: {
+		name: string;
+		version: string;
+	};
+	device?: {
+		cpus?: number;
+		memory?: number;
+	};
+	network?: {
+		effectiveType: string;
+		rtt: number;
+		downlink: number;
+	};
+	webdriver?: boolean;
+	time: {
+		localHour: number;
+		localDayOfWeek: number;
+		localTimezoneOffset: number;
+	};
+} {
 	const data: {
 		browser?: {
 			name: string;
@@ -75,7 +95,7 @@ export default function getBrowserMetadata() {
 }
 
 // Helper function to get browser metadata in legacy colon format for backward compatibility
-export function getBrowserMetadataToLegacyFormat() {
+export function getBrowserMetadataToLegacyFormat(): Record<string, any> {
 	const metadata = getBrowserMetadata();
 	const legacyFormat: Record<string, any> = {};
 

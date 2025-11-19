@@ -2,7 +2,7 @@ import React from 'react';
 
 import { code, Example, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ### Contents
 
   * [Adding more information to an event](#adding-more-information-to-an-event)
@@ -268,3 +268,4 @@ const fetchBacon = async () => {
 };
 `}
 `;
+export default _default_1;

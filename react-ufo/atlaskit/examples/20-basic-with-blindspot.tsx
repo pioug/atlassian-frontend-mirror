@@ -249,7 +249,7 @@ const SectionTen = ({ base, appCreatedAt }: { base: number; appCreatedAt: number
 };
 
 // Main App component
-export default function Example() {
+export default function Example(): JSX.Element {
 	const appCreatedAt = useMemo(() => performance.now(), []);
 
 	return (

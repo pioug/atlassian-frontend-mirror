@@ -14,6 +14,7 @@ import './remove-dark-theme-vr-options/remove-dark-theme-vr-options';
 import './remove-token-fallbacks/remove-token-fallbacks';
 import './lozenge-appearance-semantic-migration/lozenge-appearance-semantic-migration';
 import './lozenge-to-tag-migration/lozenge-to-tag-migration';
+import './badge-appearance-semantic-migration/badge-appearance-semantic-migration';
 
 const presets = [
 	'styled-to-emotion',
@@ -26,6 +27,7 @@ const presets = [
 	'remove-token-fallbacks',
 	'lozenge-appearance-semantic-migration',
 	'lozenge-to-tag-migration',
+	'badge-appearance-semantic-migration',
 ].map((preset) => path.join(__dirname, preset, `${preset}.@(ts|js|tsx)`));
 
 export default presets;

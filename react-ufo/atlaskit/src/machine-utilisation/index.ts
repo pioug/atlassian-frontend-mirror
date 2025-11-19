@@ -15,23 +15,39 @@ let pressureObserver: PressureObserverInstance | null = null;
 let memoryRecordBuffer: MemoryRecord[] = [];
 let memoryInterval: ReturnType<typeof setInterval>;
 
-export function resetPressureRecordBuffer() {
+export function resetPressureRecordBuffer(): void {
 	pressureRecordBuffer.length = 0;
 }
 
-export function resetMemoryRecordBuffer() {
+export function resetMemoryRecordBuffer(): void {
 	memoryRecordBuffer.length = 0;
 }
 
-export function removeOldPressureBufferRecords(filter: DOMHighResTimeStamp) {
+export function removeOldPressureBufferRecords(filter: DOMHighResTimeStamp): void {
 	pressureRecordBuffer = pressureRecordBuffer.filter(({ time }) => time > filter);
 }
 
-export function removeOldMemoryBufferRecords(filter: DOMHighResTimeStamp) {
+export function removeOldMemoryBufferRecords(filter: DOMHighResTimeStamp): void {
 	memoryRecordBuffer = memoryRecordBuffer.filter(({ time }) => time > filter);
 }
 
-export function createPressureStateReport(start: DOMHighResTimeStamp, end: DOMHighResTimeStamp) {
+export function createPressureStateReport(
+	start: DOMHighResTimeStamp,
+	end: DOMHighResTimeStamp,
+): {
+	count: {
+		nominal: number;
+		fair: number;
+		serious: number;
+		critical: number;
+	};
+	percentage: {
+		nominal: number;
+		fair: number;
+		serious: number;
+		critical: number;
+	};
+} | null {
 	try {
 		// To differentiate between the API not available, vs no PressureRecords added
 		if (!('PressureObserver' in globalThis)) {
@@ -77,7 +93,14 @@ function convertBytesToMegabytes(bytes: number): number {
 	return Math.round(Math.round((bytes / (1024 * 1024)) * 100) / 100);
 }
 
-export function createMemoryStateReport(start: DOMHighResTimeStamp, end: DOMHighResTimeStamp) {
+export function createMemoryStateReport(
+	start: DOMHighResTimeStamp,
+	end: DOMHighResTimeStamp,
+): {
+	jsHeapSizeLimitInMB: number;
+	avgTotalJSHeapSizeInMB: number;
+	avgUsedJSHeapSizeInMB: number;
+} | null {
 	try {
 		if (!('memory' in performance)) {
 			return null;
@@ -117,7 +140,7 @@ export function createMemoryStateReport(start: DOMHighResTimeStamp, end: DOMHigh
 	}
 }
 
-export function initialisePressureObserver() {
+export function initialisePressureObserver(): void {
 	try {
 		if ('PressureObserver' in globalThis) {
 			pressureObserver = new PressureObserver((records) => {
@@ -136,7 +159,7 @@ export function initialisePressureObserver() {
 	}
 }
 
-export function initialiseMemoryObserver() {
+export function initialiseMemoryObserver(): void {
 	try {
 		// only set up the interval if `performance.memory` is available in the browser
 		if ('memory' in performance) {
@@ -161,10 +184,10 @@ export function initialiseMemoryObserver() {
 	}
 }
 
-export function disconnectMemoryObserver() {
+export function disconnectMemoryObserver(): void {
 	clearInterval(memoryInterval);
 }
 
-export function disconnectPressureObserver() {
+export function disconnectPressureObserver(): void {
 	pressureObserver?.disconnect();
 }

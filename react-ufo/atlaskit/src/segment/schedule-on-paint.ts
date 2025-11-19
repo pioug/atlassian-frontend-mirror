@@ -1,6 +1,6 @@
 export type OnPaintCallback = () => any;
 
-function scheduleOnPaint(callback: OnPaintCallback) {
+function scheduleOnPaint(callback: OnPaintCallback): void {
 	if (globalThis.document?.visibilityState !== 'visible') {
 		// last resort fallback
 		setTimeout(callback, 100);

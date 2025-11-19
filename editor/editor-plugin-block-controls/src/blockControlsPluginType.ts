@@ -2,10 +2,10 @@ import { type IntlShape } from 'react-intl-next';
 
 import { type INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
+	DIRECTION,
 	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
-	DIRECTION,
 } from '@atlaskit/editor-common/types';
 import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils';
 import { type AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -165,6 +165,17 @@ export type BlockControlsPlugin = NextEditorPlugin<
 				rootAnchorName?: string,
 				rootNodeType?: string,
 			) => EditorCommand;
+			/**
+			 * Starts preserving the current selection across transactions.
+			 * Used when opening block menus, dragging, or other interactions
+			 * where multi-node selections should remain stable.
+			 */
+			startPreservingSelection: () => EditorCommand;
+			/**
+			 * Stops preserving the selection, allowing it to change freely.
+			 * Called when block menus close or drag operations end.
+			 */
+			stopPreservingSelection: () => EditorCommand;
 			toggleBlockMenu: (options?: {
 				anchorName?: string;
 				closeMenu?: boolean;

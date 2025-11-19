@@ -22,7 +22,7 @@ export function GlobalStyleSimulator(): JSX.Element {
 					box-shadow: 0 1px 0 green, 0 0 0 2px brown inset;
 					color: teal;
 					display: inline-block;
-					font-family: sans-serif;
+					font-family: cursive;
 					font-size: 18px;
 					line-height: 20px;
 					margin: 0 0.1em;

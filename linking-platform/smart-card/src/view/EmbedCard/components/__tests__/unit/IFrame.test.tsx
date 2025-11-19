@@ -18,7 +18,12 @@ jest.mock('@atlaskit/embedded-confluence', () => ({
 }));
 
 describe('IFrame', () => {
-	it('should render Page with expected props when platform_deprecate_lp_cc_embed on', () => {
+	const onLoad = jest.fn();
+	const onMouseEnter = jest.fn();
+	const onMouseLeave = jest.fn();
+	const childRef = React.createRef<HTMLIFrameElement>();
+
+	const renderComponent = () => {
 		const { useConfluencePageData } = require('../../../../../hooks/useConfluencePageData');
 		(useConfluencePageData as jest.Mock).mockReturnValue({
 			hostname: 'mock.host',
@@ -33,12 +38,7 @@ describe('IFrame', () => {
 			userInfo: { userId: 'testUser', userIdType: 'atlassianAccount' },
 		});
 
-		const onLoad = jest.fn();
-		const onMouseEnter = jest.fn();
-		const onMouseLeave = jest.fn();
-		const childRef = React.createRef<HTMLIFrameElement>();
-
-		render(
+		const { container } = render(
 			<IFrame
 				childRef={childRef}
 				onLoad={onLoad}
@@ -49,6 +49,21 @@ describe('IFrame', () => {
 				extensionKey="confluence.page"
 			/>,
 		);
+
+		return { container };
+	};
+
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderComponent();
+		await expect(container).toBeAccessible();
+	});
+
+	it('should render Page with expected props when platform_deprecate_lp_cc_embed on', async () => {
+		renderComponent();
 
 		expect(mockPage).toHaveBeenCalledTimes(1);
 		const props = (mockPage as jest.Mock).mock.calls[0][0];

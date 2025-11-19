@@ -21,7 +21,9 @@ import {
  * ```
  * @returns `reportError` function
  */
-export function useUFOReportError() {
+export function useUFOReportError(): (
+	error: Omit<InteractionError, 'labelStack' | 'errorType'>,
+) => void {
 	const ufoContext = useInteractionContext();
 
 	const reportError = (error: Omit<InteractionError, 'labelStack' | 'errorType'>) => {

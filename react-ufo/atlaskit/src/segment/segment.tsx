@@ -72,7 +72,7 @@ export default function UFOSegment({
 	children,
 	mode = 'single',
 	type = 'first-party',
-}: Props) {
+}: Props): React.JSX.Element {
 	const parentContext = useContext(UFOInteractionContext) as EnhancedUFOInteractionContextType;
 
 	const segmentIdMap = useMemo(() => {

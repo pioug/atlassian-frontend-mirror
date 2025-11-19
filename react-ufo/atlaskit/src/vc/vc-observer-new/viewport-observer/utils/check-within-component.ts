@@ -16,7 +16,9 @@ function maybeCleanup(resultCache: WeakMap<HTMLElement, boolean>) {
 	}
 }
 
-export function cleanupCaches(resultCache: WeakMap<HTMLElement, boolean>) {
+export function cleanupCaches(
+	resultCache: WeakMap<HTMLElement, boolean>,
+): WeakMap<HTMLElement, boolean> {
 	resultCache = new WeakMap<HTMLElement, boolean>();
 	callCount = 0;
 

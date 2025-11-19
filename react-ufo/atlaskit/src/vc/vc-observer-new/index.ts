@@ -133,7 +133,7 @@ export default class VCObserverNew {
 		});
 	}
 
-	start(_: any) {
+	start(_: any): void {
 		// Reset SSR state on start (matches old VCObserver behavior)
 		this.ssr = {
 			state: SSRState.normal,
@@ -167,7 +167,7 @@ export default class VCObserverNew {
 		this.entriesTimeline.clear();
 	}
 
-	stop() {
+	stop(): void {
 		this.viewportObserver?.stop();
 		this.windowEventObserver?.stop();
 
@@ -176,20 +176,20 @@ export default class VCObserverNew {
 	}
 
 	// SSR related methods
-	setReactRootElement(element: HTMLElement) {
+	setReactRootElement(element: HTMLElement): void {
 		this.ssr.reactRootElement = element;
 	}
 
-	setReactRootRenderStart(startTime: number = performance.now()) {
+	setReactRootRenderStart(startTime: number = performance.now()): void {
 		this.ssr.renderStart = startTime;
 		this.ssr.state = SSRState.waitingForFirstRender;
 	}
 
-	setReactRootRenderStop(stopTime: number = performance.now()) {
+	setReactRootRenderStop(stopTime: number = performance.now()): void {
 		this.ssr.renderStop = stopTime;
 	}
 
-	collectSSRPlaceholders() {
+	collectSSRPlaceholders(): void {
 		// This is handled by the shared SSRPlaceholderHandlers in VCObserverWrapper
 		// Individual observers don't need to implement this
 	}
@@ -203,7 +203,7 @@ export default class VCObserverNew {
 		return this.ssrPlaceholderHandler;
 	}
 
-	addSSR(ssr: number) {
+	addSSR(ssr: number): void {
 		this.entriesTimeline.push({
 			time: ssr,
 			data: {
@@ -227,7 +227,7 @@ export default class VCObserverNew {
 		});
 	}
 
-	async getVCResult(param: VCObserverGetVCResultParam) {
+	async getVCResult(param: VCObserverGetVCResultParam): Promise<RevisionPayloadEntry[]> {
 		const {
 			start,
 			stop,

@@ -19,7 +19,7 @@ export function addTimingFromPerformanceMark(
 	stopMark: string,
 	cleanStart = false,
 	cleanStop = false,
-) {
+): void {
 	timings.push({
 		name,
 		startMark,

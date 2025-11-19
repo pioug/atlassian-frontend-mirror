@@ -15,7 +15,7 @@ type CacheEntry = {
 };
 
 export function usePatchedProps<Props extends Record<string, any>>(
-	createEventMap: CreateEventMap = {},
+	createEventMap: CreateEventMap | undefined = {},
 	wrappedComponentProps: Props,
 ): PatchedPropsHook {
 	const { createAnalyticsEvent } = useAnalyticsEvents();

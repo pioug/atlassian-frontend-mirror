@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.7.2",
+	"version": "43.8.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -230,6 +230,9 @@
 			"type": "boolean"
 		},
 		"platform_initial_data_for_smart_cards": {
+			"type": "boolean"
+		},
+		"platform_initial_icon_for_title_block": {
 			"type": "boolean"
 		},
 		"jfp-magma-platform-lozenge-jump-fix": {

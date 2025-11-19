@@ -1,6 +1,6 @@
 import { code, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 There are 3 abstract layers as part of \`@atlaskit/analytics-next\`:
 
 - [Analytics Listeners](./listeners) (responsible for sending events over the network)
@@ -119,3 +119,4 @@ ${code`
 [legacy-context]: https://reactjs.org/docs/legacy-context.html
 [modern-context]: https://reactjs.org/docs/context.html
 `;
+export default _default_1;

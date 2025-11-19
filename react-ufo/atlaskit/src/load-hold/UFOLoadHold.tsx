@@ -79,7 +79,12 @@ type Props = {
 	experimental?: boolean;
 };
 
-export default function UFOLoadHold({ children, name, hold = true, experimental = false }: Props) {
+export default function UFOLoadHold({
+	children,
+	name,
+	hold = true,
+	experimental = false,
+}: Props): React.JSX.Element | null {
 	const currentInteractionId = useInteractionIdValue();
 
 	// react-18: useId instead

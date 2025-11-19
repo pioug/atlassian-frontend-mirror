@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0311febdad396820af1b01dd2825b63f>>
+ * @codegen <<SignedSource::07d2533eef1accad3c7ace7be7a8ea24>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -47,6 +47,7 @@ const rules: ESLint.ConfigData = {
 		'@atlaskit/design-system/use-cx-function-in-xcss': 'error',
 		'@atlaskit/design-system/use-datetime-picker-calendar-button': 'warn',
 		'@atlaskit/design-system/use-drawer-label': 'warn',
+		'@atlaskit/design-system/use-heading': 'warn',
 		'@atlaskit/design-system/use-heading-level-in-spotlight-card': 'warn',
 		'@atlaskit/design-system/use-href-in-link-item': 'warn',
 		'@atlaskit/design-system/use-latest-xcss-syntax': 'error',
@@ -55,8 +56,10 @@ const rules: ESLint.ConfigData = {
 		'@atlaskit/design-system/use-modal-dialog-close-button': 'warn',
 		'@atlaskit/design-system/use-onboarding-spotlight-label': 'warn',
 		'@atlaskit/design-system/use-popup-label': 'warn',
+		'@atlaskit/design-system/use-primitives-text': 'warn',
 		'@atlaskit/design-system/use-should-render-to-parent': 'warn',
 		'@atlaskit/design-system/use-tag-group-label': 'warn',
+		'@atlaskit/design-system/use-tokens-typography': 'warn',
 		'@atlaskit/design-system/use-visually-hidden': 'error',
 	},
 } satisfies ESLint.ConfigData;

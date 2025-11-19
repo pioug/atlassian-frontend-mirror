@@ -30,7 +30,7 @@ const rule = createLintRule({
 		],
 		docs: {
 			description: 'Encourage the usage of heading components.',
-			recommended: false,
+			recommended: true,
 			severity: 'warn',
 		},
 		messages: {

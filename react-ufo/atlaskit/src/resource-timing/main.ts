@@ -131,7 +131,10 @@ function getNetworkData(
 	};
 }
 
-export function getResourceTimings(interactionStart: number, interactionEnd: number) {
+export function getResourceTimings(
+	interactionStart: number,
+	interactionEnd: number,
+): ResourceTimings {
 	const resourceTiming: ResourceTimings = {};
 	if (interactionStart === null) {
 		return resourceTiming;

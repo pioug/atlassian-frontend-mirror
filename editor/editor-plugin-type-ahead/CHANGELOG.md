@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 6.5.18
+
+### Patch Changes
+
+- [`5f9e0f5b96e75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f9e0f5b96e75) -
+  [ux] Cleans up FG platform_editor_typeahead_description_text_colour
+
 ## 6.5.17
 
 ### Patch Changes

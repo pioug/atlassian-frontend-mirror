@@ -33,11 +33,14 @@ function installInteractionSink(handler: InteractionMetricsHandler) {
 
 export function sinkExtraSearchPageInteractionHandler(
 	sinkFn: (interactionId: string, interaction: InteractionMetrics) => void | Promise<void>,
-) {
+): void {
 	installInteractionSink(sinkFn);
 }
 
-export function onSearchPageInteractionComplete(interactionId: string, data: InteractionMetrics) {
+export function onSearchPageInteractionComplete(
+	interactionId: string,
+	data: InteractionMetrics,
+): void {
 	if (data.ufoName) {
 		appendInteractionData(interactionId, data);
 		clearInteractionBuffer();

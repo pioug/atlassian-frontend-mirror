@@ -20,6 +20,8 @@ import { RendererCssClassName } from '../../consts';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import { useMultiBodiedExtensionActions } from './multiBodiedExtension/actions';
 import { useMultiBodiedExtensionContext } from './multiBodiedExtension/context';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { calcBreakoutWidthCss } from '../utils/breakout';
 
 type Props = React.PropsWithChildren<{
 	// Ignored via go/ees005
@@ -61,7 +63,7 @@ const MultiBodiedExtensionNavigation = ({ children }: React.PropsWithChildren) =
 	return <nav data-testid="multiBodiedExtension-navigation">{children}</nav>;
 };
 
-const MultiBodiedExtensionWrapper = ({
+const MultiBodiedExtensionWrapperLegacy = ({
 	width,
 	path,
 	layout,
@@ -83,8 +85,46 @@ const MultiBodiedExtensionWrapper = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={`${RendererCssClassName.EXTENSION} ${centerAlignClass}`}
 			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				width: isTopLevel ? calcBreakoutWidth(layout, width) : '100%',
+			}}
+			data-layout={layout}
+			data-testid="multiBodiedExtension--wrapper"
+		>
+			<div
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				className={`${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER}`}
+			>
+				{children}
+			</div>
+		</div>
+	);
+};
+
+const MultiBodiedExtensionWrapperNext = ({
+	path,
+	layout,
+	children,
+}: React.PropsWithChildren<{
+	layout: ExtensionLayout;
+	path: PMNode[];
+}>) => {
+	const isTopLevel = path.length < 1;
+	const centerAlignClass =
+		isTopLevel && ['wide', 'full-width'].includes(layout)
+			? RendererCssClassName.EXTENSION_CENTER_ALIGN
+			: '';
+
+	// This hierarchy is copied from regular extension (see extension.tsx)
+	return (
+		<div
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={`${RendererCssClassName.EXTENSION} ${centerAlignClass}`}
+			style={{
+				width: isTopLevel
+					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						calcBreakoutWidthCss(layout)
+					: '100%',
 			}}
 			data-layout={layout}
 			data-testid="multiBodiedExtension--wrapper"
@@ -178,6 +218,23 @@ const MultiBodiedExtension = (props: Props) => {
 		}
 	`;
 
+	if (expValEquals('platform_editor_renderer_extension_width_fix', 'isEnabled', true)) {
+		return (
+			<section
+				css={[containerStyles, containerActiveFrameStyles]}
+				data-testid="multiBodiedExtension--container"
+				data-multiBodiedExtension-container
+				data-active-child-index={activeChildIndex}
+				data-layout={layout}
+				data-local-id={localId}
+			>
+				<MultiBodiedExtensionWrapperNext layout={layout} path={path}>
+					{renderContent()}
+				</MultiBodiedExtensionWrapperNext>
+			</section>
+		);
+	}
+
 	return (
 		<section
 			css={[containerStyles, containerActiveFrameStyles]}
@@ -189,9 +246,9 @@ const MultiBodiedExtension = (props: Props) => {
 		>
 			<WidthConsumer>
 				{({ width }) => (
-					<MultiBodiedExtensionWrapper layout={layout} width={width} path={path}>
+					<MultiBodiedExtensionWrapperLegacy layout={layout} width={width} path={path}>
 						{renderContent()}
-					</MultiBodiedExtensionWrapper>
+					</MultiBodiedExtensionWrapperLegacy>
 				)}
 			</WidthConsumer>
 		</section>

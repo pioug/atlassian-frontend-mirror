@@ -1,5 +1,23 @@
 import { Client } from './Client';
-import { type FeatureFlagValue, type WithDocComments } from './types';
+import type { DynamicConfig } from './compat/DynamicConfig';
+import type { Layer } from './compat/Layer';
+import type { FetcherOptions } from './fetcher';
+import type { LocalOverrides } from './PersistentOverrideAdapter';
+import {
+	type BaseClientOptions,
+	type CheckGateOptions,
+	type ClientOptions,
+	type CustomAttributes,
+	type FeatureFlagValue,
+	type FromValuesClientOptions,
+	type GetExperimentOptions,
+	type GetExperimentValueOptions,
+	type GetLayerOptions,
+	type GetLayerValueOptions,
+	type Identifiers,
+	type Provider,
+	type WithDocComments,
+} from './types';
 import { CLIENT_VERSION } from './version';
 
 export { type EvaluationDetails, EvaluationReason } from './compat/types';
@@ -129,36 +147,91 @@ class FeatureGates {
 		return this.client.getExperimentValue(experimentName, parameterName, defaultValue, options);
 	};
 
-	static initializeCalled = this.client.initializeCalled.bind(this.client);
-	static initializeCompleted = this.client.initializeCompleted.bind(this.client);
-	static waitUntilInitializeCompleted = this.client.waitUntilInitializeCompleted.bind(this.client);
-	static initialize = this.client.initialize.bind(this.client);
-	static initializeWithProvider = this.client.initializeWithProvider.bind(this.client);
-	static initializeFromValues = this.client.initializeFromValues.bind(this.client);
-	static manuallyLogGateExposure = this.client.manuallyLogGateExposure.bind(this.client);
-	static getExperiment = this.client.getExperiment.bind(this.client);
-	static manuallyLogExperimentExposure = this.client.manuallyLogExperimentExposure.bind(
+	static initializeCalled: () => boolean = this.client.initializeCalled.bind(this.client);
+	static initializeCompleted: () => boolean = this.client.initializeCompleted.bind(this.client);
+	static waitUntilInitializeCompleted: () => Promise<void> =
+		this.client.waitUntilInitializeCompleted.bind(this.client);
+	static initialize: (
+		clientOptions: ClientOptions,
+		identifiers: Identifiers,
+		customAttributes?: CustomAttributes,
+	) => Promise<void> = this.client.initialize.bind(this.client);
+	static initializeWithProvider: (
+		clientOptions: BaseClientOptions,
+		provider: Provider,
+		identifiers: Identifiers,
+		customAttributes?: CustomAttributes,
+	) => Promise<void> = this.client.initializeWithProvider.bind(this.client);
+	static initializeFromValues: (
+		clientOptions: FromValuesClientOptions,
+		identifiers: Identifiers,
+		customAttributes?: CustomAttributes,
+		initializeValues?: Record<string, unknown>,
+	) => Promise<void> = this.client.initializeFromValues.bind(this.client);
+	static manuallyLogGateExposure: (gateName: string) => void =
+		this.client.manuallyLogGateExposure.bind(this.client);
+	static getExperiment: (experimentName: string, options?: GetExperimentOptions) => DynamicConfig =
+		this.client.getExperiment.bind(this.client);
+	static manuallyLogExperimentExposure: (experimentName: string) => void =
+		this.client.manuallyLogExperimentExposure.bind(this.client);
+	static manuallyLogLayerExposure: (layerName: string, parameterName: string) => void =
+		this.client.manuallyLogLayerExposure.bind(this.client);
+	static shutdownStatsig: () => void = this.client.shutdownStatsig.bind(this.client);
+	static overrideGate: (gateName: string, value: boolean) => void = this.client.overrideGate.bind(
 		this.client,
 	);
-	static manuallyLogLayerExposure = this.client.manuallyLogLayerExposure.bind(this.client);
-	static shutdownStatsig = this.client.shutdownStatsig.bind(this.client);
-	static overrideGate = this.client.overrideGate.bind(this.client);
-	static clearGateOverride = this.client.clearGateOverride.bind(this.client);
-	static overrideConfig = this.client.overrideConfig.bind(this.client);
-	static clearConfigOverride = this.client.clearConfigOverride.bind(this.client);
-	static setOverrides = this.client.setOverrides.bind(this.client);
-	static getOverrides = this.client.getOverrides.bind(this.client);
-	static clearAllOverrides = this.client.clearAllOverrides.bind(this.client);
-	static isCurrentUser = this.client.isCurrentUser.bind(this.client);
-	static onGateUpdated = this.client.onGateUpdated.bind(this.client);
-	static onExperimentValueUpdated = this.client.onExperimentValueUpdated.bind(this.client);
-	static onAnyUpdated = this.client.onAnyUpdated.bind(this.client);
-	static updateUser = this.client.updateUser.bind(this.client);
-	static updateUserWithProvider = this.client.updateUserWithProvider.bind(this.client);
-	static updateUserWithValues = this.client.updateUserWithValues.bind(this.client);
-	static getPackageVersion = this.client.getPackageVersion.bind(this.client);
-	static getLayer = this.client.getLayer.bind(this.client);
-	static getLayerValue = this.client.getLayerValue.bind(this.client);
+	static clearGateOverride: (gateName: string) => void = this.client.clearGateOverride.bind(
+		this.client,
+	);
+	static overrideConfig: (experimentName: string, values: Record<string, unknown>) => void =
+		this.client.overrideConfig.bind(this.client);
+	static clearConfigOverride: (experimentName: string) => void =
+		this.client.clearConfigOverride.bind(this.client);
+	static setOverrides: (overrides: Partial<LocalOverrides>) => void = this.client.setOverrides.bind(
+		this.client,
+	);
+	static getOverrides: () => LocalOverrides = this.client.getOverrides.bind(this.client);
+	static clearAllOverrides: () => void = this.client.clearAllOverrides.bind(this.client);
+	static isCurrentUser: (identifiers: Identifiers, customAttributes?: CustomAttributes) => boolean =
+		this.client.isCurrentUser.bind(this.client);
+	static onGateUpdated: (
+		gateName: string,
+		callback: (value: boolean) => void,
+		options?: CheckGateOptions,
+	) => () => void = this.client.onGateUpdated.bind(this.client);
+	static onExperimentValueUpdated: <T>(
+		experimentName: string,
+		parameterName: string,
+		defaultValue: T,
+		callback: (value: T) => void,
+		options?: GetExperimentValueOptions<T>,
+	) => () => void = this.client.onExperimentValueUpdated.bind(this.client);
+	static onAnyUpdated: (callback: () => void) => () => void = this.client.onAnyUpdated.bind(
+		this.client,
+	);
+	static updateUser: (
+		fetchOptions: FetcherOptions,
+		identifiers: Identifiers,
+		customAttributes?: CustomAttributes,
+	) => Promise<void> = this.client.updateUser.bind(this.client);
+	static updateUserWithProvider: (
+		identifiers: Identifiers,
+		customAttributes?: CustomAttributes,
+	) => Promise<void> = this.client.updateUserWithProvider.bind(this.client);
+	static updateUserWithValues: (
+		identifiers: Identifiers,
+		customAttributes?: CustomAttributes,
+		initializeValues?: Record<string, unknown>,
+	) => Promise<void> = this.client.updateUserWithValues.bind(this.client);
+	static getPackageVersion: () => string = this.client.getPackageVersion.bind(this.client);
+	static getLayer: (layerName: string, options?: GetLayerOptions) => Layer =
+		this.client.getLayer.bind(this.client);
+	static getLayerValue: <T>(
+		layerName: string,
+		parameterName: string,
+		defaultValue: T,
+		options?: GetLayerValueOptions<T>,
+	) => T = this.client.getLayerValue.bind(this.client);
 }
 
 type StaticFeatureGatesClient = WithDocComments<typeof FeatureGates, Client>;

@@ -8,7 +8,12 @@ export function optimizeSpans(
 	spans: InteractionMetrics['spans'],
 	interactionStart: number,
 	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
-) {
+): {
+	labelStack: OptimizedLabelStack;
+	startTime: number;
+	endTime: number;
+	type: string;
+}[] {
 	const updatedSpans = spans.reduce(
 		(result, span) => {
 			const { labelStack, type, name, start, end } = span;

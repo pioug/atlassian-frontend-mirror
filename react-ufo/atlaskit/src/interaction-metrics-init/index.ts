@@ -219,7 +219,7 @@ export function init(
 		| Promise<GenericAnalyticWebClientPromise>
 		| Promise<GenericAnalyticWebClientInstance>,
 	config: Config,
-) {
+): void {
 	if (initialized) {
 		return;
 	}

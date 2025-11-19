@@ -1,6 +1,6 @@
 import { code, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   <a name="UIAnalyticsEvent"></a>
   ### UIAnalyticsEvent
 
@@ -52,3 +52,4 @@ update(
 
   Please see [UIAnalyticsEvent](#UIAnalyticsEvent) for more information.
 `;
+export default _default_1;

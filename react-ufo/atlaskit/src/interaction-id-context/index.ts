@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { type Context, createContext } from 'react';
 
 // Same structure as react's useRef.
 // This allows modals to use a ref to scope their value
@@ -64,8 +64,10 @@ export const subscribeToInteractionIdChanges = (listener: InteractionIDListener)
 };
 
 // We use a context to allow modals to have their own lifecycle
-export default createContext<InteractionIDContextType>(DefaultInteractionID);
+const _default_1: Context<InteractionIDContextType> =
+	createContext<InteractionIDContextType>(DefaultInteractionID);
+export default _default_1;
 
-export const getInteractionId = () => DefaultInteractionID;
+export const getInteractionId = (): InteractionIDContextType => DefaultInteractionID;
 
-export const useInteractionId = () => DefaultInteractionID;
+export const useInteractionId = (): InteractionIDContextType => DefaultInteractionID;

@@ -3,7 +3,7 @@
  *
  * Generates TypeScript components data for AI tooling from offerings.json files
  *
- * @codegen <<SignedSource::1792e8b918fbdc85769f6ddf38970c58>>
+ * @codegen <<SignedSource::f835c392bd49a057135d06af127f2dfa>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:prototyping
  */
 import type { Component } from './types';
@@ -2986,7 +2986,7 @@ export const components: Component[] = [
 			{
 				name: 'icon',
 				description: 'The icon to display',
-				type: 'React.ComponentType<NewUtilityIconProps> | React.ComponentType<NewCoreIconProps>',
+				type: 'React.ComponentClass<NewCoreIconProps, any> | React.FunctionComponent<NewCoreIconProps>',
 			},
 			{
 				name: 'label',
@@ -6694,7 +6694,7 @@ export const components: Component[] = [
 			{
 				name: 'shortcut',
 				description:
-					'Display a keyboard shortcut in the tooltip.\n\nKeys will be displayed as individual keyboard key segments after the tooltip content.\n\nThis prop requires the `platform-dst-tooltip-shortcuts` feature flag to be enabled.',
+					'Display a keyboard shortcut in the tooltip.\n\nKeys will be displayed as individual keyboard key segments after the tooltip content.',
 				type: 'string[]',
 			},
 			{

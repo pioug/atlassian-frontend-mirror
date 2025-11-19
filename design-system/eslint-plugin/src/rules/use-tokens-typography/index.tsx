@@ -54,7 +54,7 @@ const rule = createLintRule({
 		docs: {
 			description:
 				'Enforces usage of design tokens for typography properties rather than hard-coded values.',
-			recommended: false,
+			recommended: true,
 			severity: 'warn',
 		},
 		messages: {

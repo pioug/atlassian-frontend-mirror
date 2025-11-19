@@ -56,6 +56,13 @@ describe('UnauthorisedViewContent', () => {
 		jest.clearAllMocks();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<TestComponent providerName="Google" appearance={'hoverCardPreview'} />,
+		);
+		await expect(container).toBeAccessible();
+	});
+
 	it('renders Unauthorised hover card content', () => {
 		render(<TestComponent providerName="Google" appearance={'hoverCardPreview'} />);
 

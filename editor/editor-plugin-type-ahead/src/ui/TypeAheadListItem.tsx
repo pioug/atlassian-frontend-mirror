@@ -19,8 +19,7 @@ import {
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { B400, N200, N30, N800 } from '@atlaskit/theme/colors';
+import { B400, N30, N800 } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -82,13 +81,8 @@ const itemTitleOverride = css({
 const itemDescription = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography
 	fontSize: `${relativeFontSizeToBase16(12)};`,
-	color: `${token('color.text.subtlest', N200)};`,
-	marginTop: `${token('space.050', '4px')};`,
-});
-// when cleaning up FG `platform_editor_typeahead_description_text_colour`
-// replace above color with this and delete itemDescriptionColor
-const itemDescriptionColor = css({
 	color: `${token('color.text.subtle')};`,
+	marginTop: `${token('space.050', '4px')};`,
 });
 const itemDescriptionOverride = css({
 	font: token('font.body.small'),
@@ -382,7 +376,6 @@ export const TypeAheadListItem = React.memo(
 							<div
 								css={[
 									itemDescription,
-									fg('platform_editor_typeahead_description_text_colour') && itemDescriptionColor,
 									moreElementsInQuickInsertViewEnabled && itemDescriptionOverride,
 									itemIsDisabled && disabledStyle,
 								]}

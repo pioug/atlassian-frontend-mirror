@@ -1,8 +1,9 @@
-import { createContext } from 'react';
+import { type Context, createContext } from 'react';
 
 import { type SubscriptionContextValue } from './types';
 
-export const WaitContext = createContext<SubscriptionContextValue>({
-	subscribe: () => () => {},
-	currentValue: () => 1,
-});
+export const WaitContext: Context<SubscriptionContextValue> =
+	createContext<SubscriptionContextValue>({
+		subscribe: () => () => {},
+		currentValue: () => 1,
+	});

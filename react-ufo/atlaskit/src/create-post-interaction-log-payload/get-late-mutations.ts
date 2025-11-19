@@ -6,7 +6,7 @@ import type { RevisionPayloadVCDetails, VCLabelStacks } from '../common/vc/types
 
 function getLateMutations(
 	vcDetails: RevisionPayloadVCDetails,
-	labelStacks: VCLabelStacks = {},
+	labelStacks: VCLabelStacks | undefined = {},
 	lastInteractionFinish: LastInteractionFinishInfo,
 	postInteractionFinishVCRatios?: Record<string, number>,
 ): LateMutation[] {

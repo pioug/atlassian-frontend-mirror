@@ -14,7 +14,7 @@ const onError = () => {
 	console.log('An error was caught.');
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<AnalyticsErrorBoundary
 			channel="atlaskit"

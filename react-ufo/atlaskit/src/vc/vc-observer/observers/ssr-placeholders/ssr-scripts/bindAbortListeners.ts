@@ -2,7 +2,7 @@ import { type AbortEvent } from '../../../../../common/vc/types';
 import { attachAbortListeners } from '../../../attachAbortListeners';
 import { getViewportHeight, getViewportWidth } from '../../../getViewport';
 
-export function bindAbortListeners(document: Document, window: Window) {
+export function bindAbortListeners(document: Document, window: Window): void {
 	const viewport = {
 		w: getViewportWidth(document),
 		h: getViewportHeight(document),

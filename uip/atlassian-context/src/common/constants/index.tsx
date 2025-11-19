@@ -7,10 +7,13 @@ export const DEV = 'dev';
 
 export type EnvironmentType = typeof STAGING | typeof PRODUCTION | typeof DEV;
 
-export const ISOLATED_CLOUD_PERIMETERS = [COMMERCIAL] as const;
+export const ISOLATED_CLOUD_PERIMETERS: readonly ['commercial'] = [COMMERCIAL] as const;
 export type IsolatedCloudPerimeterType = (typeof ISOLATED_CLOUD_PERIMETERS)[number];
 
-export const NON_ISOLATED_CLOUD_PERIMETERS = [COMMERCIAL, FEDRAMP_MODERATE] as const;
+export const NON_ISOLATED_CLOUD_PERIMETERS: readonly ['commercial', 'fedramp-moderate'] = [
+	COMMERCIAL,
+	FEDRAMP_MODERATE,
+] as const;
 export type NonIsolatedCloudPerimeterType = (typeof NON_ISOLATED_CLOUD_PERIMETERS)[number];
 
 export type GeneralizedPerimeterType = IsolatedCloudPerimeterType | NonIsolatedCloudPerimeterType;

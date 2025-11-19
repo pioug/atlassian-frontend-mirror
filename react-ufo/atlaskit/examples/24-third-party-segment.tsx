@@ -169,7 +169,7 @@ const SectionThree = ({ base, appCreatedAt }: { base: number; appCreatedAt: numb
 };
 
 // Main App component
-export default function Example() {
+export default function Example(): JSX.Element {
 	const appCreatedAt = useMemo(() => performance.now(), []);
 
 	return (

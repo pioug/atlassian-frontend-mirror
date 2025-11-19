@@ -2,6 +2,7 @@ import React from 'react';
 
 import Icon from '@atlaskit/icon';
 import type { CustomGlyphProps, GlyphProps } from '@atlaskit/icon/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const BorderIconGlyph = (props: CustomGlyphProps) => {
 	return (
@@ -30,7 +31,11 @@ const BorderIconGlyph = (props: CustomGlyphProps) => {
 };
 
 export const BorderIcon = (props: GlyphProps) => {
-	// Ignored via go/ees005
-	// eslint-disable-next-line react/jsx-props-no-spreading
-	return <Icon glyph={BorderIconGlyph} {...props} />;
+	return fg('platform-custom-icon-migration') ? (
+		<BorderIconGlyph aria-label={props.label} />
+	) : (
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<Icon glyph={BorderIconGlyph} {...props} />
+	);
 };

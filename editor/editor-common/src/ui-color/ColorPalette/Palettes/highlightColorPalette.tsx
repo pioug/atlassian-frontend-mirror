@@ -7,7 +7,8 @@
 import { jsx } from '@emotion/react';
 
 import { backgroundColorPalette, backgroundColorPaletteNext } from '@atlaskit/adf-schema';
-import Icon from '@atlaskit/icon';
+import Icon, { type CustomGlyphProps } from '@atlaskit/icon';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import getColorMessage from './getColorMessage';
@@ -17,8 +18,16 @@ import type { PaletteColor } from './type';
 
 export const REMOVE_HIGHLIGHT_COLOR = '#00000000';
 
-const DiagonalLineGlyph = () => (
-	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+const DiagonalLineGlyph = (props: CustomGlyphProps) => (
+	<svg
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+		style={props.style}
+	>
 		<rect width="24" height="24" fill="white" fillOpacity="0.01" />
 		<path
 			fillRule="evenodd"
@@ -36,7 +45,12 @@ export const EditorDiagonalLineIcon = () => {
 		colorMode === 'dark'
 			? token('color.background.accent.gray.bolder', '#626F86')
 			: token('color.background.accent.gray.subtle', '#8590A2');
-	return <Icon glyph={DiagonalLineGlyph} label="" primaryColor={primaryColor} />;
+	return fg('platform-custom-icon-migration') ? (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+		<DiagonalLineGlyph aria-label="" style={{ color: primaryColor }} />
+	) : (
+		<Icon glyph={DiagonalLineGlyph} label="" primaryColor={primaryColor} />
+	);
 };
 
 // eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required

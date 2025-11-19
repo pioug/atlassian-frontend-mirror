@@ -1,6 +1,6 @@
 import { code, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 ## v5 to v6
 
 ### ✨ TypeScript support
@@ -119,3 +119,4 @@ export default withAnalyticsContext({})(
 
 
 `;
+export default _default_1;

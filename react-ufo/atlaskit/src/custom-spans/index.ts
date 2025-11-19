@@ -5,6 +5,6 @@ export function addCustomSpans(
 	start: number,
 	end: number = performance.now(),
 	size = 0,
-) {
+): void {
 	addSpanToAll('custom', name, [{ name: 'custom' }], start, end, size);
 }

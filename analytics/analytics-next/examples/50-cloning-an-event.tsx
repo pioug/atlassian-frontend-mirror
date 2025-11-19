@@ -60,7 +60,7 @@ const JiraApp: FC<JiraProps> = ({ onClick, ...rest }: JiraProps) => {
 		</MediaComponent>
 	);
 };
-export default () => {
+export default (): React.JSX.Element => {
 	const onEvent = (event: UIAnalyticsEvent, channel: string = 'undefined') => {
 		console.log(`Received event on ${channel.toUpperCase()} channel. Payload:`, event.payload);
 	};

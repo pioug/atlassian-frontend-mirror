@@ -97,7 +97,7 @@ const SectionThree = ({ base }: { base: number }) => {
 };
 
 // Main App component
-export default function Example() {
+export default function Example(): JSX.Element {
 	// NOTE: changed timeout only for the purposes of integration testing the UFO abort by timeout scenario
 	useEffect(() => {
 		const interaction = getActiveInteraction();

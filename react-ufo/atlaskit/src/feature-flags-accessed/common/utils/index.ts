@@ -31,6 +31,6 @@ export function shouldRedactValue(value: any): boolean {
 	return (isString(value) && startsAsObject(value)) || isObject(value);
 }
 
-export function redactValue(featureFlagValue: FeatureFlagValue) {
+export function redactValue(featureFlagValue: FeatureFlagValue): FeatureFlagValue {
 	return shouldRedactValue(featureFlagValue) ? NON_BOOLEAN_VALUE : featureFlagValue;
 }

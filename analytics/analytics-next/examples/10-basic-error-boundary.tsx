@@ -40,7 +40,7 @@ const ButtonBase = ({ createAnalyticsEvent, onClick, ...rest }: ButtonProps) => 
 
 const Button = withAnalyticsEvents()(ButtonBase);
 
-export default () => {
+export default (): React.JSX.Element => {
 	const handleEvent = (analyticsEvent: UIAnalyticsEvent) => {
 		const { payload, context } = analyticsEvent;
 		console.log('Received event:', analyticsEvent, { payload, context });

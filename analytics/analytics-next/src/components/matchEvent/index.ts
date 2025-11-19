@@ -2,7 +2,7 @@ const ENDS_WITH_DOT = /\.$/;
 
 export type Matcher = string | RegExp | ((name: string) => boolean) | '*';
 
-function matchEvent(matcher: Matcher, name: string) {
+function matchEvent(matcher: Matcher, name: string): boolean {
 	if (matcher === '*' || name === undefined) {
 		return true;
 	}

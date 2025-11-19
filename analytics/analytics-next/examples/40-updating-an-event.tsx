@@ -39,7 +39,7 @@ const Form = () => {
 	);
 };
 
-const App = () => {
+const App = (): React.JSX.Element => {
 	const onEvent = ({ payload }: UIAnalyticsEvent) => console.log('Event payload:', payload);
 
 	return (

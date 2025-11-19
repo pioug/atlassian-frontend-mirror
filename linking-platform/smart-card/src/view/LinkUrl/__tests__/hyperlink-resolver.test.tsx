@@ -62,6 +62,19 @@ describe('LinkUrl', () => {
 		getExperimentValueMock.mockReturnValue(false);
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<SmartCardProvider client={new CardClient()}>
+				<TestComponent
+					enableResolve={true}
+					href="https://atlassianmpsa-my.sharepoint.com/personal/test"
+				/>
+			</SmartCardProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	describe('resolve hyperlink', () => {
 		it('should not attempt to resolve a hyperlink if there is no SmartCardProvider context', () => {
 			useSmartCardActionsMock.mockReturnValue({

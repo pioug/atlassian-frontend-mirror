@@ -234,7 +234,7 @@ const MainContent = ({
 };
 
 // Main App component
-export default function Example() {
+export default function Example(): JSX.Element {
 	const [selectedMenuItem, setSelectedMenuItem] = useState<string | null>(null);
 	const [isContentLoading, setIsContentLoading] = useState(false);
 

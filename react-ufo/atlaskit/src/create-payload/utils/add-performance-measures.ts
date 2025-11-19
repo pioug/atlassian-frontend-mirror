@@ -1,6 +1,6 @@
 import type { RevisionPayload } from '../../common/vc/types';
 
-export const addPerformanceMeasures = (start: number, measures: RevisionPayload) => {
+export const addPerformanceMeasures = (start: number, measures: RevisionPayload): void => {
 	try {
 		measures
 			.sort((a, b) => b.revision.localeCompare(a.revision))

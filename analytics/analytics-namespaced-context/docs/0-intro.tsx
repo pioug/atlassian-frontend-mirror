@@ -1,6 +1,6 @@
 import { md, code } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   # Fabric Elements analytics context
 
   The main purpose of this component is to provide a namespace for Fabric Elements contextual data related to @atlaskit/analytics-next framework.
@@ -76,3 +76,4 @@ ReactDOM.render(
 );
 `}
 `;
+export default _default_1;

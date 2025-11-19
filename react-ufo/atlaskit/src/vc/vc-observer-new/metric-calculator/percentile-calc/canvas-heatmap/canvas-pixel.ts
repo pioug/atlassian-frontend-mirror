@@ -90,7 +90,10 @@ export class ViewportCanvas {
 		return canvas;
 	}
 
-	public getScaledDimensions() {
+	public getScaledDimensions(): {
+		width: number;
+		height: number;
+	} {
 		return {
 			width: this.scaledWidth,
 			height: this.scaledHeight,

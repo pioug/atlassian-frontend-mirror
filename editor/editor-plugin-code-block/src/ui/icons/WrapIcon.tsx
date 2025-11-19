@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Icon from '@atlaskit/icon';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const CustomGlyph = () => (
 	<svg width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -15,5 +16,9 @@ const CustomGlyph = () => (
 );
 
 export const WrapIcon = () => {
-	return <Icon glyph={CustomGlyph} label="wrapIcon" />;
+	return fg('platform-custom-icon-migration') ? (
+		<CustomGlyph aria-label="wrapIcon" />
+	) : (
+		<Icon glyph={CustomGlyph} label="wrapIcon" />
+	);
 };

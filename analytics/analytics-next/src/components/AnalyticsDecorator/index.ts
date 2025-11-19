@@ -21,7 +21,10 @@ type AnalyticsDecoratorContext = {
 	onAnalyticsEvent?: (name: string, data: AnalyticsData, isPrivate: boolean) => void;
 };
 
-export const ContextTypes = {
+export const ContextTypes: {
+	onAnalyticsEvent: PropTypes.Requireable<(...args: any[]) => any>;
+	getParentAnalyticsData: PropTypes.Requireable<(...args: any[]) => any>;
+} = {
 	onAnalyticsEvent: PropTypes.func,
 	getParentAnalyticsData: PropTypes.func,
 };
@@ -38,9 +41,15 @@ export class AnalyticsDecorator extends Component<AnalyticsDecoratorProps> {
 		matchPrivate: false,
 	};
 
-	static contextTypes = ContextTypes;
+	static contextTypes: {
+		onAnalyticsEvent: PropTypes.Requireable<(...args: any[]) => any>;
+		getParentAnalyticsData: PropTypes.Requireable<(...args: any[]) => any>;
+	} = ContextTypes;
 
-	static childContextTypes = ContextTypes;
+	static childContextTypes: {
+		onAnalyticsEvent: PropTypes.Requireable<(...args: any[]) => any>;
+		getParentAnalyticsData: PropTypes.Requireable<(...args: any[]) => any>;
+	} = ContextTypes;
 
 	getChildContext(): AnalyticsDecoratorContext {
 		return {
@@ -85,7 +94,7 @@ export class AnalyticsDecorator extends Component<AnalyticsDecoratorProps> {
 		return parentData;
 	};
 
-	render() {
+	render(): React.ReactNode {
 		const { children } = this.props;
 		return React.Children.only(children);
 	}

@@ -40,6 +40,6 @@ export type TeamARI = `${typeof TEAM_ARI_PREFIX}${string}`;
 
 export type UserStatus = 'active' | 'inactive' | 'closed';
 export type TeamState = 'ACTIVE' | 'PURGED' | 'DISBANDED';
-export type TeamMembershipSettings = 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL';
+export type TeamMembershipSettings = 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL' | 'ORG_ADMIN_MANAGED';
 export type MembershipRole = 'REGULAR' | 'ADMIN';
 export type MembershipState = 'FULL_MEMBER' | 'ALUMNI' | 'REQUESTING_TO_JOIN';

@@ -75,7 +75,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_ai_quickstart_command: false,
 	platform_editor_block_controls_perf_optimization: false,
 	platform_editor_enable_single_player_step_merging: false,
-	platform_editor_ai_remove_trivial_prompts_cc: false,
 	platform_editor_find_and_replace_improvements: false,
 	platform_editor_toggle_expand_on_match_found: false,
 	platform_editor_reduce_noisy_steps_ncs: false,

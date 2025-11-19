@@ -7,4 +7,4 @@ export const functionWithFG = <Fn extends (...args: any[]) => any>(
 	functionTrue: Fn,
 	functionFalse: Fn,
 	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration, @atlaskit/platform/static-feature-flags
-) => functionWithCondition(() => fg(featureFlagName), functionTrue, functionFalse);
+): Fn => functionWithCondition(() => fg(featureFlagName), functionTrue, functionFalse);

@@ -7,7 +7,12 @@ export interface WithContextProps {
 
 const withAnalyticsContext =
 	(defaultData?: any) =>
-	<Props, Component>(WrappedComponent: React.ComponentType<Props> & Component) => {
+	<Props, Component>(
+		WrappedComponent: React.ComponentType<Props> & Component,
+	): React.ForwardRefExoticComponent<
+		React.PropsWithoutRef<JSX.LibraryManagedAttributes<Component, Props & WithContextProps>> &
+			React.RefAttributes<any>
+	> => {
 		type WrappedProps = JSX.LibraryManagedAttributes<Component, Props & WithContextProps>;
 
 		const WithAnalyticsContext = forwardRef<any, WrappedProps>(

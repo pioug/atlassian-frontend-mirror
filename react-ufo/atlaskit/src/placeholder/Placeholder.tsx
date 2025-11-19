@@ -18,7 +18,7 @@ export default function Placeholder({
 	name: string;
 	children?: LazySuspenseProps['children'];
 	fallback?: LazySuspenseProps['fallback'];
-}) {
+}): React.JSX.Element {
 	const waitContext = useContext(WaitContext);
 	const shouldHold = !waitContext || !!waitContext.currentValue();
 

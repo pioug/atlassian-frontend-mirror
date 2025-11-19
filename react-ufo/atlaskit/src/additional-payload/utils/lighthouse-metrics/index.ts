@@ -4,7 +4,7 @@ import { getTBT } from './tbt';
 import { EntriesBuffer } from './utils/buffer';
 import { startLSObserver, startLTObserver } from './utils/observer';
 
-export function startLighthouseObserver() {
+export function startLighthouseObserver(): void {
 	startLSObserver();
 	startLTObserver();
 }

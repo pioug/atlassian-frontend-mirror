@@ -1,6 +1,9 @@
 const SIZE_CHECK_TOLERANCE_MARGIN_IN_PX = 1;
 
-export function isSameRectSize(a: DOMRect | null | undefined, b: DOMRect | null | undefined) {
+export function isSameRectSize(
+	a: DOMRect | null | undefined,
+	b: DOMRect | null | undefined,
+): boolean {
 	if (!a || !b) {
 		return false;
 	}

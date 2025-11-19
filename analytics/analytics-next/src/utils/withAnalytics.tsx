@@ -54,11 +54,81 @@ const withAnalytics = (
 		  }) = {},
 	defaultProps: Partial<WithAnalyticsProps> = {},
 	withDelegation?: boolean,
-) => {
+): {
+	new (props: WithAnalyticsProps): {
+		componentDidMount(): void;
+		delegateAnalyticsEvent: (analyticsId: string, data: any, isPrivate: boolean) => void;
+		fireAnalyticsEvent: (name: string, data?: AnalyticsData) => void;
+		privateAnalyticsEvent: (name: string, data?: AnalyticsData) => void;
+		getParentAnalyticsData: (name: string) => AnalyticsData;
+		render(): React.JSX.Element;
+		context: unknown;
+		setState<K extends 'evaluatedMap'>(
+			state:
+				| WithAnalyticsState
+				| ((
+						prevState: Readonly<WithAnalyticsState>,
+						props: Readonly<WithAnalyticsProps>,
+				  ) => WithAnalyticsState | Pick<WithAnalyticsState, K> | null)
+				| Pick<WithAnalyticsState, K>
+				| null,
+			callback?: (() => void) | undefined,
+		): void;
+		forceUpdate(callback?: (() => void) | undefined): void;
+		readonly props: Readonly<WithAnalyticsProps>;
+		state: Readonly<WithAnalyticsState>;
+		refs: {
+			[key: string]: React.ReactInstance;
+		};
+		shouldComponentUpdate?(
+			nextProps: Readonly<WithAnalyticsProps>,
+			nextState: Readonly<WithAnalyticsState>,
+			nextContext: any,
+		): boolean;
+		componentWillUnmount?(): void;
+		componentDidCatch?(error: Error, errorInfo: React.ErrorInfo): void;
+		getSnapshotBeforeUpdate?(
+			prevProps: Readonly<WithAnalyticsProps>,
+			prevState: Readonly<WithAnalyticsState>,
+		): any;
+		componentDidUpdate?(
+			prevProps: Readonly<WithAnalyticsProps>,
+			prevState: Readonly<WithAnalyticsState>,
+			snapshot?: any,
+		): void;
+		componentWillMount?(): void;
+		UNSAFE_componentWillMount?(): void;
+		componentWillReceiveProps?(nextProps: Readonly<WithAnalyticsProps>, nextContext: any): void;
+		UNSAFE_componentWillReceiveProps?(
+			nextProps: Readonly<WithAnalyticsProps>,
+			nextContext: any,
+		): void;
+		componentWillUpdate?(
+			nextProps: Readonly<WithAnalyticsProps>,
+			nextState: Readonly<WithAnalyticsState>,
+			nextContext: any,
+		): void;
+		UNSAFE_componentWillUpdate?(
+			nextProps: Readonly<WithAnalyticsProps>,
+			nextState: Readonly<WithAnalyticsState>,
+			nextContext: any,
+		): void;
+	};
+	displayName: string;
+	contextTypes: {
+		onAnalyticsEvent: PropTypes.Requireable<(...args: any[]) => any>;
+		getParentAnalyticsData: PropTypes.Requireable<(...args: any[]) => any>;
+	};
+	defaultProps: Partial<WithAnalyticsProps>;
+	contextType?: React.Context<any> | undefined;
+} => {
 	return class WithAnalytics extends Component<WithAnalyticsProps, WithAnalyticsState> {
 		static displayName = `WithAnalytics(${WrappedComponent.displayName || WrappedComponent.name})`;
 
-		static contextTypes = {
+		static contextTypes: {
+			onAnalyticsEvent: PropTypes.Requireable<(...args: any[]) => any>;
+			getParentAnalyticsData: PropTypes.Requireable<(...args: any[]) => any>;
+		} = {
 			onAnalyticsEvent: PropTypes.func,
 			getParentAnalyticsData: PropTypes.func,
 		};

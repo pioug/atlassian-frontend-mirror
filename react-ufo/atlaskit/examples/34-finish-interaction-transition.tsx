@@ -23,7 +23,7 @@ const mainStyles = css({
 });
 
 // Main App component
-export default function Example() {
+export default function Example(): JSX.Element {
 	const [waiting, setWaiting] = useState(false);
 	const handleClick = useCallback(() => {
 		if (waiting) {

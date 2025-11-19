@@ -2,7 +2,7 @@ import { type TeamMembership } from './membership';
 
 export type TeamState = 'ACTIVE' | 'PURGED' | 'DISBANDED';
 
-export type TeamMembershipSettings = 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL';
+export type TeamMembershipSettings = 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL' | 'ORG_ADMIN_MANAGED';
 
 export type TeamDiscoverability = 'DISCOVERABLE';
 

@@ -1,7 +1,7 @@
 import type { ResourceEntry } from '../resource-timing/common/types';
 
 /* Borrowed from https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/performance/browser-metrics/src/plugins/timings/resource.ts */
-export const cacheableTypes = ['script', 'link', 'other'];
+export const cacheableTypes: string[] = ['script', 'link', 'other'];
 
 export const MEMORY_KEY = 'mem';
 
@@ -14,7 +14,7 @@ export function calculateTransferType(
 	type: string,
 	duration: number,
 	size: number | undefined,
-) {
+): 'mem' | 'disk' | 'net' | null {
 	if (!cacheableTypes.includes(type) && !(type === 'other' && name.includes('.js'))) {
 		return null;
 	}
@@ -32,7 +32,7 @@ export function calculateTransferType(
 	return NETWORK_KEY;
 }
 
-export function getTypeOfRequest({ name, initiatorType: type }: ResourceEntry) {
+export function getTypeOfRequest({ name, initiatorType: type }: ResourceEntry): string {
 	let category = 'other';
 	const urlWithoutQuery = name.split('?')[0];
 
@@ -69,7 +69,7 @@ export function getTypeOfRequest({ name, initiatorType: type }: ResourceEntry) {
 	return category;
 }
 
-export function checkIfTimingsAvailable(entry: ResourceEntry) {
+export function checkIfTimingsAvailable(entry: ResourceEntry): boolean {
 	if (
 		entry.decodedSize === 0 &&
 		entry.encodedSize === 0 &&
@@ -82,7 +82,7 @@ export function checkIfTimingsAvailable(entry: ResourceEntry) {
 	return true;
 }
 
-export function round(n: number) {
+export function round(n: number): number {
 	if (isNaN(n)) {
 		return 0;
 	}

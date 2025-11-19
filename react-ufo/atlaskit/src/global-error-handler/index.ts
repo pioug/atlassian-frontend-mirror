@@ -37,7 +37,7 @@ export function sinkErrorHandler(
 		errorMessage: string,
 		errorStack?: string,
 	) => void,
-) {
+): void {
 	push = sinkFunc;
 	errors.forEach((e) => {
 		sinkFunc(e.name, e.labelStack, e.errorType, e.errorMessage, e.errorStack);
@@ -45,7 +45,7 @@ export function sinkErrorHandler(
 	errors.length = 0;
 }
 
-export function getGlobalErrorCount() {
+export function getGlobalErrorCount(): number {
 	return globalCount;
 }
 
@@ -84,7 +84,7 @@ function handlePromiseRejection(e: PromiseRejectionEvent) {
 	}
 }
 
-function setupUFOGlobalErrorHandler() {
+function setupUFOGlobalErrorHandler(): void {
 	if (shouldInitilizeGlobalErrorHandler) {
 		bind(window, {
 			type: 'error',

@@ -27,7 +27,7 @@ export class NoFetchDataAdapter extends DataAdapterCore implements EvaluationsDa
 	 * Make sure to call this **before** calling `initializeAsync` or `updateUserAsync` but
 	 * after the Statsig client has been created!
 	 */
-	setBootstrapData(data?: Record<string, unknown>) {
+	setBootstrapData(data?: Record<string, unknown>): void {
 		this.bootstrapResult = data
 			? {
 					source: 'Bootstrap',
@@ -88,14 +88,14 @@ export class NoFetchDataAdapter extends DataAdapterCore implements EvaluationsDa
 		return false;
 	}
 
-	setDataLegacy(data: string, user: StatsigUser) {
+	setDataLegacy(data: string, user: StatsigUser): void {
 		super.setData(data, user);
 	}
 
 	// Do not stringify options property since that includes this adapter and will
 	// cause a circular reference when Statsig sends diagnostic events and including
 	// values is not necessary and makes the result huge
-	toJSON() {
+	toJSON(): Record<string, unknown> {
 		const result = { ...this } as Record<string, unknown>;
 		delete result._options;
 		delete result._inMemoryCache;

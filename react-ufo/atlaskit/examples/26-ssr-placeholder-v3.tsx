@@ -181,7 +181,7 @@ function SSRFallback() {
 /**
  * Simulate React Loosely Lazy behavior
  */
-export default function Example() {
+export default function Example(): JSX.Element {
 	const [hasTTFB, setHasTTFB] = useState(false);
 	const [startSuspense, setStartSuspense] = useState(false);
 

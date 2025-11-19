@@ -1,5 +1,14 @@
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
 /* eslint-disable compat/compat */
+import type { PlaywrightCoverageOptions } from 'build/test-tooling/integration-testing/src/fixtures';
+import type {
+	PlaywrightTestArgs,
+	PlaywrightTestOptions,
+	PlaywrightWorkerArgs,
+	PlaywrightWorkerOptions,
+	TestType,
+} from 'playwright/test';
+
 import {
 	test as base,
 	expect as baseExpect,
@@ -55,7 +64,67 @@ const getExampleURL = (props: {
 	return url;
 };
 
-export const test = base.extend<{
+export const test: TestType<
+	PlaywrightTestArgs &
+		PlaywrightTestOptions & {
+			skipAxeCheck: () => void;
+		} & PlaywrightCoverageOptions & {
+			viewport: {
+				width: number;
+				height: number;
+			};
+			featureFlags: string[];
+			examplePage: string;
+			waitForReactUFOPayload: () => Promise<ReactUFOPayload | null>;
+			waitForReactUFOPayloadCriticalMetrics: () => Promise<CriticalMetricsPayload[] | null>;
+			waitForReactUFOInteractionPayload: () => Promise<ReactUFOPayload | null>;
+			waitForPostInteractionLogPayload: () => Promise<PostInteractionLogPayload | null>;
+			waitForInteractionExtraMetricsPayload: () => Promise<ReactUFOPayload | null>;
+			waitForExtraSearchPageInteractionPayload: () => Promise<ReactUFOPayload | null>;
+			/*
+			 * ATTENTION: This function uses a `performance.now()` from the DOMMutation callback.
+			 * This is not valid for the last ReactUFO TTVC version,
+			 * the new versions uses the IntersectionObserver `entry.time`.
+			 * Please, if you are writting a new test, then use the `getSectionVisibleAt`
+			 *
+			 * Usage:
+			 *
+			 * Best way to found out when a Section div was "rendered".
+			 *
+			 * When a DOM Element with `data-testid` is added into the DOM for the first time,
+			 * we save the timestamp in a map.
+			 *
+			 * This function will wait until the given Element testId is added into an internal map.
+			 * It does that by using a `expect.poll`.
+			 *
+			 */
+			getSectionDOMAddedAt: (sectionTestId: string) => Promise<DOMHighResTimeStamp | null>;
+			/*
+			 * Usage:
+			 *
+			 * Best way to found out when a Section div was "painted".
+			 *
+			 * When a DOM Element with `data-testid` is painted for the first time,
+			 *
+			 * This function will wait until the given Element testId is added into an internal map.
+			 * It does that by using a `expect.poll`.
+			 */
+			getSectionVisibleAt: (sectionTestId: string) => Promise<DOMHighResTimeStamp | null>;
+			/*
+			 * Usage:
+			 *
+			 * Best way to found out when a Section div has attribute mutation.
+			 *
+			 * This function will wait until the given Element testId is added into an internal map.
+			 * It does that by using a `expect.poll`.
+			 */
+			getSectionAttributeNthChange: (
+				sectionTestId: string,
+				nthChange: number,
+			) => Promise<DOMHighResTimeStamp | null>;
+		},
+	PlaywrightWorkerArgs & PlaywrightWorkerOptions
+> = base.extend<{
 	viewport: {
 		width: number;
 		height: number;
@@ -564,7 +633,10 @@ const customMatchers = {
 		this: ReturnType<Expect['getState']>,
 		timestampReceived: DOMHighResTimeStamp | undefined | null,
 		timestampExpected: DOMHighResTimeStamp | null,
-	) {
+	): {
+		pass: boolean;
+		message: () => string;
+	} {
 		const receivedInSeconds = Math.round(timestampReceived!) / 1000;
 		const expectedInSeconds = Math.round(timestampExpected!) / 1000;
 
@@ -578,7 +650,7 @@ const customMatchers = {
 
 		return {
 			pass,
-			message: () => {
+			message: (): string => {
 				if (pass) {
 					return `Expected timestamp ${timestampReceived} (${receivedInSeconds}s) not to match ${timestampExpected} (${expectedInSeconds}s)`;
 				} else {
@@ -589,7 +661,26 @@ const customMatchers = {
 	},
 };
 
-export const expect = baseExpect.extend(customMatchers);
+export const expect: Expect<
+	typeof baseExpect & {
+		/**
+		 * Matches timestamps converted to seconds.
+		 *
+		 * It checks only up to 1 decimal value precision.
+		 *
+		 *
+		 * @param selection
+		 */
+		toMatchTimestamp(
+			this: ReturnType<Expect['getState']>,
+			timestampReceived: DOMHighResTimeStamp | undefined | null,
+			timestampExpected: DOMHighResTimeStamp | null,
+		): {
+			pass: boolean;
+			message: () => string;
+		};
+	}
+> = baseExpect.extend(customMatchers);
 
 /*
  *
@@ -601,7 +692,10 @@ export const expect = baseExpect.extend(customMatchers);
  * - 1280x720
  * - 1728x1117
  */
-export const viewports = [
+export const viewports: {
+	width: number;
+	height: number;
+}[] = [
 	{
 		width: 1920,
 		height: 1080,

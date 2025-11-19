@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.24.2
+
+### Patch Changes
+
+- [`453ffbfcd89a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/453ffbfcd89a0) -
+  Typography lint rules `use-tokens-typography`, `use-primitives-text` and `use-heading` added to
+  recommended rules.
+
 ## 13.24.1
 
 ### Patch Changes

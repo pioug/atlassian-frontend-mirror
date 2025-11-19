@@ -13,15 +13,23 @@ import {
 	round,
 } from './utils';
 export class CHRSummary {
-	bundles = { [MEMORY_KEY]: 0, [DISK_KEY]: 0, [NETWORK_KEY]: 0 };
+	bundles: {
+		mem: number;
+		disk: number;
+		net: number;
+	} = { [MEMORY_KEY]: 0, [DISK_KEY]: 0, [NETWORK_KEY]: 0 };
 
 	bundlesCount = 0;
 
-	size = { [MEMORY_KEY]: 0, [DISK_KEY]: 0, [NETWORK_KEY]: 0 };
+	size: {
+		mem: number;
+		disk: number;
+		net: number;
+	} = { [MEMORY_KEY]: 0, [DISK_KEY]: 0, [NETWORK_KEY]: 0 };
 
 	sizeTotal = 0;
 
-	add(asset: ResourceEntry) {
+	add(asset: ResourceEntry): void {
 		const encodedSize = asset.encodedSize || 0;
 		const type = calculateTransferType(
 			asset.name,
@@ -51,10 +59,10 @@ export class CHRSummary {
 }
 
 export class CHRReporter {
-	all = new CHRSummary();
-	allAtlassian = new CHRSummary();
-	preloaded = new CHRSummary();
-	defaultAllowedTypes = ['js'];
+	all: CHRSummary = new CHRSummary();
+	allAtlassian: CHRSummary = new CHRSummary();
+	preloaded: CHRSummary = new CHRSummary();
+	defaultAllowedTypes: string[] = ['js'];
 
 	get(
 		resourceTimings: ResourceEntry[] | null,

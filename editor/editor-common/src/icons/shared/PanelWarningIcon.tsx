@@ -1,7 +1,21 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
 
 import Icon from '@atlaskit/icon';
 import type { CustomGlyphProps, GlyphProps } from '@atlaskit/icon/types';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+const iconStyles = css({
+	display: 'inline-block',
+	flexShrink: 0,
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors
+	'> svg': {
+		pointerEvents: 'none',
+	},
+});
 
 const PanelWarningGlyph = (props: CustomGlyphProps) => {
 	return (
@@ -26,7 +40,18 @@ const PanelWarningGlyph = (props: CustomGlyphProps) => {
 };
 
 export const PanelWarningIcon = (props: GlyphProps) => {
-	// Ignored via go/ees005
-	// eslint-disable-next-line react/jsx-props-no-spreading
-	return <Icon glyph={PanelWarningGlyph} {...props} />;
+	return fg('platform-custom-icon-migration') ? (
+		<span
+			role={props.label ? 'img' : undefined}
+			aria-label={props.label ? props.label : undefined}
+			aria-hidden={props.label ? undefined : true}
+			css={iconStyles}
+		>
+			<PanelWarningGlyph aria-label={props.label} />
+		</span>
+	) : (
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<Icon glyph={PanelWarningGlyph} {...props} />
+	);
 };

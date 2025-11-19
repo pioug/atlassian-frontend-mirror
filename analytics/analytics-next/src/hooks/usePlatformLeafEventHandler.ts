@@ -31,7 +31,7 @@ export function usePlatformLeafEventHandler<T>({
 	packageName,
 	packageVersion,
 	analyticsData,
-}: UsePlatformLeafEventHandlerHookArgs<T>) {
+}: UsePlatformLeafEventHandlerHookArgs<T>): (value: T) => void {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	// We put analyticsData and fn in a ref so that we don't need to break

@@ -4,7 +4,7 @@ import { md } from '@atlaskit/docs';
 import Link from '@atlaskit/link';
 import SectionMessage from '@atlaskit/section-message';
 
-export default md`
+const _default_1: any = md`
 
 ${(
 	<SectionMessage
@@ -39,3 +39,4 @@ This package aims to help assist consumers track the way their React components 
 - [Advanced usage](./analytics-next/docs/advanced-usage)
 - [Ugprade guide](./analytics-next/docs/upgrade-guide)
 `;
+export default _default_1;

@@ -12,7 +12,7 @@ type ReportedTimings = {
 
 let config: BundleEvalTimingsConfig | null = null;
 
-export function configure(bundleEvalTimingConfiguration: BundleEvalTimingsConfig) {
+export function configure(bundleEvalTimingConfiguration: BundleEvalTimingsConfig): void {
 	config = bundleEvalTimingConfiguration;
 }
 

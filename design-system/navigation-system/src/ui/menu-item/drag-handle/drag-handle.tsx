@@ -20,8 +20,8 @@ const styles = cssMap({
 		flexDirection: 'column',
 		justifyContent: 'center',
 		position: 'absolute',
-		top: 0,
-		bottom: 0,
+		insetBlockStart: 0,
+		insetBlockEnd: 0,
 		insetInlineStart: 0,
 		// pull backwards outside of the bounds of the element
 		marginInlineStart: token('space.negative.150'),

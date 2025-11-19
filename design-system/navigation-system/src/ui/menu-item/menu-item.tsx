@@ -3,7 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { lazy, Suspense, useCallback, useRef } from 'react';
+import React, { Suspense, useCallback, useRef } from 'react';
 
 import { cssMap, cx, jsx, keyframes } from '@compiled/react';
 
@@ -16,6 +16,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { expandableMenuItemIndentation } from './constants';
+import { LazyDragHandle } from './drag-handle/lazy-drag-handle';
 import { useLevel } from './expandable-menu-item/expandable-menu-item-context';
 import {
 	useFlyoutMenuOpen,
@@ -23,16 +24,6 @@ import {
 } from './flyout-menu-item/flyout-menu-item-context';
 import { COLLAPSE_ELEM_BEFORE } from './menu-item-signals';
 import type { MenuItemLinkOrButtonCommonProps, MenuItemOnClick } from './types';
-
-// Using `lazy` so that only consumers who want drag and drop
-// need to include code for the drag handle.
-const LazyDragHandle = lazy(
-	() =>
-		import(
-			/* webpackChunkName: "@atlaskit-internal_nav4-menu-item-drag-handle" */
-			'./drag-handle'
-		),
-);
 
 function isTextClamped(element: HTMLElement): boolean {
 	// Checking for vertical height rather than horizontal height.

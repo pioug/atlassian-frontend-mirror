@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { type RefObject, useEffect, useRef } from 'react';
 
 import {
 	unstable_IdlePriority as idlePriority,
@@ -291,7 +291,9 @@ const typingPerformanceTracingMethods = {
 	mutationObserver: typingPerformanceTracingMutationObserver,
 };
 
-export default function useUFOTypingPerformanceTracing<T extends HTMLElement>(name: string) {
+export default function useUFOTypingPerformanceTracing<T extends HTMLElement>(
+	name: string,
+): RefObject<T> {
 	const ref = useRef<T>(null);
 
 	useEffect(() => {

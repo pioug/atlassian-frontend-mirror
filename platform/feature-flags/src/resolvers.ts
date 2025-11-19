@@ -43,7 +43,7 @@ const globalVar = (typeof window !== 'undefined'
 
 globalVar[PFF_GLOBAL_KEY] = globalVar[PFF_GLOBAL_KEY] || DEFAULT_PFF_GLOBAL;
 
-export function setBooleanResolver(resolver: FeatureFlagResolverBoolean) {
+export function setBooleanResolver(resolver: FeatureFlagResolverBoolean): void {
 	globalVar[PFF_GLOBAL_KEY].booleanResolver = resolver;
 }
 

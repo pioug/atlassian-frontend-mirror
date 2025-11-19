@@ -13,7 +13,7 @@ export type OnDefaultValueFallback = (
 
 // Reference: https://github.com/statsig-io/js-lite/blob/main/src/DynamicConfig.ts
 export class DynamicConfig {
-	static fromExperiment(experiment: Experiment) {
+	static fromExperiment(experiment: Experiment): DynamicConfig {
 		const config = new DynamicConfig(
 			experiment.name,
 			experiment.value,

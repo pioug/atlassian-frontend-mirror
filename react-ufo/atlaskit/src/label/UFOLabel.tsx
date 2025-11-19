@@ -10,7 +10,13 @@ import InteractionContext, { useInteractionContext } from '../interaction-contex
  * </UFOLabel>
  * ```
  */
-export default function UFOLabel({ name, children }: { name: string; children: ReactNode }) {
+export default function UFOLabel({
+	name,
+	children,
+}: {
+	name: string;
+	children: ReactNode;
+}): React.JSX.Element {
 	const context = useInteractionContext();
 
 	const newContext = useMemo(() => {

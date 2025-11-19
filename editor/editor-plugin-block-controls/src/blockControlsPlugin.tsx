@@ -2,7 +2,7 @@ import React from 'react';
 
 import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
-import type { PMPlugin, DIRECTION } from '@atlaskit/editor-common/types';
+import type { DIRECTION, PMPlugin } from '@atlaskit/editor-common/types';
 import {
 	TextSelection,
 	type EditorState,
@@ -29,6 +29,11 @@ import {
 	interactionTrackingPluginKey,
 } from './pm-plugins/interaction-tracking/pm-plugin';
 import { createPlugin, key } from './pm-plugins/main';
+import {
+	startPreservingSelection,
+	stopPreservingSelection,
+} from './pm-plugins/selection-preservation/editor-commands';
+import { createSelectionPreservationPlugin } from './pm-plugins/selection-preservation/pm-plugin';
 import { selectNode } from './pm-plugins/utils/getSelection';
 import BlockMenu from './ui/block-menu';
 import { DragHandleMenu } from './ui/drag-handle-menu';
@@ -50,6 +55,13 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 			pmPlugins.push({
 				name: 'blockControlsInteractionTrackingPlugin',
 				plugin: createInteractionTrackingPlugin,
+			});
+		}
+
+		if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+			pmPlugins.push({
+				name: 'blockControlsSelectionPreservationPlugin',
+				plugin: createSelectionPreservationPlugin,
 			});
 		}
 
@@ -118,6 +130,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 					if (currentUserIntent === 'blockMenuOpen') {
 						api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
 					}
+
 					return tr;
 				}
 
@@ -264,6 +277,8 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 		moveNodeWithBlockMenu: (direction: DIRECTION.UP | DIRECTION.DOWN) => {
 			return moveNodeWithBlockMenu(api, direction);
 		},
+		startPreservingSelection: () => startPreservingSelection,
+		stopPreservingSelection: () => stopPreservingSelection,
 	},
 
 	getSharedState(editorState: EditorState | undefined) {

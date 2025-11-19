@@ -10,6 +10,8 @@ import { overflowShadow, WidthConsumer } from '@atlaskit/editor-common/ui';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import { RendererCssClassName } from '../../consts';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { calcBreakoutWidthCss } from '../utils/breakout';
 
 interface Props {
 	extensionHandlers?: ExtensionHandlers;
@@ -98,6 +100,28 @@ export const renderExtension = (
 	 */
 	const viewportSize = getViewportSize(extensionId, extensionViewportSizes);
 	const extensionHeight = nodeHeight || viewportSize;
+
+	if (expValEquals('platform_editor_renderer_extension_width_fix', 'isEnabled', true)) {
+		return (
+			<div
+				ref={options.handleRef}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={`${RendererCssClassName.EXTENSION} ${options.shadowClassNames} ${centerAlignClass}`}
+				style={{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					width: isTopLevel ? calcBreakoutWidthCss(layout as ExtensionLayout) : '100%',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					minHeight: extensionHeight && `${extensionHeight}px`,
+				}}
+				data-layout={layout}
+				data-local-id={localId}
+				data-testid="extension--wrapper"
+			>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
+				<div className={overflowContainerClass}>{content}</div>
+			</div>
+		);
+	}
 
 	return (
 		<WidthConsumer>

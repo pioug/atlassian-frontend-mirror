@@ -82,7 +82,13 @@ export default function getNavigationMetrics(type: InteractionType): NavigationM
 }
 
 // Helper function to get navigation metrics in legacy format for backward compatibility
-export function getNavigationMetricsToLegacyFormat(type: InteractionType) {
+export function getNavigationMetricsToLegacyFormat(type: InteractionType):
+	| {
+			'metrics:navigation'?: undefined;
+	  }
+	| {
+			'metrics:navigation': NavigationMetrics;
+	  } {
 	const navigationMetrics = getNavigationMetrics(type);
 
 	if (!navigationMetrics) {

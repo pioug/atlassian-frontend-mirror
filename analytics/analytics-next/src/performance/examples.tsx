@@ -145,18 +145,19 @@ const createEventHandler = () => {
 
 const eventHandler = createEventHandler();
 
-const WithListener = (Component: React.JSXElementConstructor<{ onClick: OnClickType }>) => () => {
-	eventHandler.create();
+const WithListener =
+	(Component: React.JSXElementConstructor<{ onClick: OnClickType }>) => (): React.JSX.Element => {
+		eventHandler.create();
 
-	const onEvent = eventHandler.onEvent;
-	const onClick: OnClickType = () => {};
+		const onEvent = eventHandler.onEvent;
+		const onClick: OnClickType = () => {};
 
-	return (
-		<AnalyticsListener channel="atlaskit" onEvent={onEvent}>
-			<Component onClick={onClick} />
-		</AnalyticsListener>
-	);
-};
+		return (
+			<AnalyticsListener channel="atlaskit" onEvent={onEvent}>
+				<Component onClick={onClick} />
+			</AnalyticsListener>
+		);
+	};
 
 const interactionTasks: PublicInteractionTask[] = [
 	{
@@ -176,17 +177,19 @@ const interactionTasks: PublicInteractionTask[] = [
 	},
 ];
 
-export const UsePlatformLeafEventHandlerHookTest = WithListener(
+export const UsePlatformLeafEventHandlerHookTest: () => React.JSX.Element = WithListener(
 	ButtonWithUsePlatformLeafEventHandlerHook,
 );
 
-export const UseAnalyticsEventHookTest = WithListener(ButtonWithUseAnalyticsEventHook);
+export const UseAnalyticsEventHookTest: () => React.JSX.Element = WithListener(
+	ButtonWithUseAnalyticsEventHook,
+);
 
-export const UseCallbackWithAnalyticsHookTest = WithListener(
+export const UseCallbackWithAnalyticsHookTest: () => React.JSX.Element = WithListener(
 	ButtonWithUseCallbackWithAnalyticsHook,
 );
 
-export const HOCSTest = WithListener(ButtonWithHOCs);
+export const HOCSTest: () => React.JSX.Element = WithListener(ButtonWithHOCs);
 
 (UsePlatformLeafEventHandlerHookTest as any).story = {
 	name: 'usePlatformLeafEventHandler based component',

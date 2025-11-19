@@ -1,9 +1,17 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import coinflip from '../coinflip';
-import type { InteractionMetrics } from '../common';
+import type {
+	AbortReasonType,
+	CustomData,
+	HoldActive,
+	InteractionMetrics,
+	MarkType,
+} from '../common';
+import type { PageVisibility } from '../common/react-ufo-payload-schema';
 import type { RevisionPayload, VCResult } from '../common/vc/types';
 import { DEFAULT_TTVC_REVISION, getConfig, getExtraInteractionRate } from '../config';
+import type { OptimizedLabelStack } from '../create-payload/common/types';
 import {
 	buildSegmentTree,
 	getOldSegmentsLabelStack,
@@ -25,13 +33,131 @@ import { optimizeRequestInfo } from '../create-payload/utils/optimize-request-in
 import { optimizeSpans } from '../create-payload/utils/optimize-spans';
 import type { LabelStack } from '../interaction-context';
 import { interactionSpans as atlaskitInteractionSpans } from '../interaction-metrics';
+import type { UFOSegmentType } from '../segment/segment';
 
 async function createInteractionExtraLogPayload(
 	interactionId: string,
 	interaction: InteractionMetrics,
 	lastInteractionFinish: InteractionMetrics | null,
 	lastInteractionFinishVCResult?: VCResult,
-) {
+): Promise<{
+	actionSubject: string;
+	action: string;
+	eventType: string;
+	source: string;
+	tags: string[];
+	attributes: {
+		properties: {
+			// basic
+			'event:hostname': string;
+			'event:product': string;
+			'event:schema': string;
+			'event:sizeInKb': number;
+			'event:source': {
+				name: string;
+				version: string;
+			};
+			'event:region': string;
+			'experience:key': string;
+			'experience:name': string;
+			interactionMetrics: {
+				errors: {
+					labelStack:
+						| string
+						| {
+								t?: UFOSegmentType | undefined;
+								s?: string | undefined;
+								n: string;
+						  }[]
+						| null;
+					name: string;
+					errorType: string;
+					errorMessage: string;
+					errorStack?: string;
+					forcedError?: boolean;
+					errorHash?: string;
+					errorStatusCode?: number;
+				}[];
+				holdActive: HoldActive[];
+				holdInfo: any[];
+				spans: {
+					labelStack: OptimizedLabelStack;
+					startTime: number;
+					endTime: number;
+					type: string;
+				}[];
+				requestInfo: {
+					labelStack: OptimizedLabelStack;
+					startTime: number;
+					endTime: number;
+				}[];
+				customTimings: {
+					labelStack: OptimizedLabelStack;
+					startTime: number;
+					endTime: number;
+				}[];
+				segments: {};
+				marks: {
+					labelStack:
+						| string
+						| {
+								t?: UFOSegmentType | undefined;
+								s?: string | undefined;
+								n: string;
+						  }[]
+						| null;
+					time: number;
+					type: MarkType;
+					name: string;
+				}[];
+				apdex: {
+					labelStack?:
+						| string
+						| {
+								t?: UFOSegmentType | undefined;
+								s?: string | undefined;
+								n: string;
+						  }[]
+						| undefined;
+					stopTime: number;
+					key: string;
+					startTime?: number;
+				}[];
+				reactProfilerTimings: any[];
+				customData: {
+					labelStack: LabelStack;
+					data: CustomData;
+				}[];
+				'metric:vc90'?: number | null;
+				namePrefix: string;
+				segmentPrefix: string;
+				interactionId: string;
+				pageVisibilityAtTTAI: PageVisibility;
+				experimental__pageVisibilityAtTTAI: PageVisibility | null;
+				// raw interaction metrics
+				rate: number;
+				routeName: string | null;
+				type: 'page_load' | 'transition';
+				abortReason: AbortReasonType | undefined;
+				previousInteractionName: string | undefined;
+				isPreviousInteractionAborted: boolean;
+				abortedByInteractionName: string | undefined;
+				// performance
+				end: number;
+				start: number;
+				'metric:ttai:3p': number;
+			};
+			'vc:effective:revision': string;
+			lastInteractionFinish: {
+				start: number | undefined;
+				end: number | undefined;
+				ttai: number | undefined;
+				vc90: number | null;
+				vcClean: boolean;
+			};
+		};
+	};
+} | null> {
 	const config = getConfig();
 	if (!config) {
 		throw Error('UFO Configuration not provided');

@@ -135,7 +135,7 @@ export class VCObserver implements VCObserverInterface {
 		this.isPostInteraction = options.isPostInteraction || false;
 	}
 
-	start({ startTime }: { startTime: number }) {
+	start({ startTime }: { startTime: number }): void {
 		this.active = true;
 		if (this.observers.isBrowserSupported()) {
 			this.setViewportSize();
@@ -149,12 +149,12 @@ export class VCObserver implements VCObserverInterface {
 		}
 	}
 
-	stop() {
+	stop(): void {
 		this.observers.disconnect();
 		this.detachAbortListeners();
 	}
 
-	getAbortReasonInfo = () => {
+	getAbortReasonInfo = (): string | null => {
 		if (this.abortReason.reason === null) {
 			return null;
 		}
@@ -190,14 +190,17 @@ export class VCObserver implements VCObserverInterface {
 		};
 	};
 
-	getIgnoredElements(componentsLog: ComponentsLogType) {
+	getIgnoredElements(componentsLog: ComponentsLogType): {
+		targetName: string;
+		ignoreReason: VCIgnoreReason | undefined;
+	}[] {
 		return Object.values(componentsLog)
 			.flat()
 			.filter(({ ignoreReason }) => Boolean(ignoreReason))
 			.map(({ targetName, ignoreReason }) => ({ targetName, ignoreReason }));
 	}
 
-	static getSSRRatio(entries: VCEntryType[], ssr?: number) {
+	static getSSRRatio(entries: VCEntryType[], ssr?: number): number | undefined {
 		if (ssr === undefined || entries.length === 0) {
 			return undefined;
 		}
@@ -517,7 +520,20 @@ export class VCObserver implements VCObserverInterface {
 		componentsLog: ComponentsLogType;
 		viewport: { w: number; h: number };
 		fixSSRAttribution?: boolean;
-	}) {
+	}): {
+		VC: {
+			[key: string]: number | null;
+		};
+		VCBox: {
+			[key: string]: string[] | null;
+		};
+		VCEntries: {
+			abs: number[][];
+			rel: VCEntryType[];
+			speedIndex: number;
+		};
+		totalPainted: number;
+	} {
 		const lastUpdate: { [key: string]: number } = {};
 		let totalPainted = 0;
 
@@ -625,19 +641,19 @@ export class VCObserver implements VCObserverInterface {
 		return { VC, VCBox, VCEntries, totalPainted };
 	}
 
-	setSSRElement(element: HTMLElement) {
+	setSSRElement(element: HTMLElement): void {
 		this.observers.setReactRootElement(element);
 	}
 
-	setReactRootRenderStart(startTime = performance.now()) {
+	setReactRootRenderStart(startTime: number = performance.now()): void {
 		this.observers.setReactRootRenderStart(startTime);
 	}
 
-	setReactRootRenderStop(stopTime = performance.now()) {
+	setReactRootRenderStop(stopTime: number = performance.now()): void {
 		this.observers.setReactRootRenderStop(stopTime);
 	}
 
-	collectSSRPlaceholders() {
+	collectSSRPlaceholders(): void {
 		// This is handled by the shared SSRPlaceholderHandlers in VCObserverWrapper
 		// Individual observers don't need to implement this
 	}
@@ -796,7 +812,9 @@ export class VCObserver implements VCObserverInterface {
 		}
 	}
 
-	static makeVCReturnObj<T>() {
+	static makeVCReturnObj<T>(): {
+		[key: string]: T | null;
+	} {
 		const vc: { [key: string]: null | T } = {};
 		VCObserver.VCParts.forEach((v) => {
 			vc[v] = null;

@@ -96,6 +96,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform-custom-icon-migration": {
+			"type": "boolean"
+		},
 		"code_block_auto_insertion_bug_fix": {
 			"type": "boolean"
 		},

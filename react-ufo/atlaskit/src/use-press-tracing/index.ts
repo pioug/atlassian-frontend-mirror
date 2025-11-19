@@ -2,7 +2,7 @@ import { useCallback, useContext } from 'react';
 
 import InteractionContext from '@atlaskit/interaction-context';
 
-export default function usePressTracing(name: string) {
+export default function usePressTracing(name: string): (timeStamp?: number) => void {
 	const context = useContext(InteractionContext);
 
 	const handleClick = useCallback(

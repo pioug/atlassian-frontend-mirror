@@ -158,9 +158,9 @@ export interface LegionClient {
 
 	deleteTeam(teamId: string): Promise<void>;
 
-	archiveTeam(teamId: string): Promise<void>;
+	archiveTeam(teamId: string): Promise<TeamWithImageUrls>;
 
-	unArchiveTeam(teamId: string): Promise<void>;
+	unArchiveTeam(teamId: string): Promise<TeamWithImageUrls>;
 
 	isSingleFullMemberTeam(teamId: string): Promise<boolean>;
 
@@ -516,18 +516,16 @@ export class LegionClient extends RestClient implements LegionClient {
 		return this.deleteResource(`${v4UrlPath}/${this.trimTeamARI(teamId)}`);
 	}
 
-	async archiveTeam(teamId: string): Promise<void> {
+	async archiveTeam(teamId: string): Promise<TeamWithImageUrls> {
 		const siteId = this.getCloudId();
-		return this.postResourceRaw(
-			`${v4UrlPath}/archive?siteId=${siteId}`,
-			JSON.stringify([this.trimTeamARI(teamId)]),
+		return this.postResource(
+			`${v4UrlPath}/${this.trimTeamARI(teamId)}/archive?siteId=${siteId}`,
 		);
 	}
-	async unArchiveTeam(teamId: string): Promise<void> {
+	async unArchiveTeam(teamId: string): Promise<TeamWithImageUrls> {
 		const siteId = this.getCloudId();
-		return this.postResourceRaw(
-			`${v4UrlPath}/unarchive?siteId=${siteId}`,
-			JSON.stringify([this.trimTeamARI(teamId)]),
+		return this.postResource(
+			`${v4UrlPath}/${this.trimTeamARI(teamId)}/unarchive?siteId=${siteId}`,
 		);
 	}
 	async unlinkTeamFromGroup(

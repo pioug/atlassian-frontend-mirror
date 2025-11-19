@@ -1,5 +1,23 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.39.0
+
+### Minor Changes
+
+- [`d2da08dd6c682`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2da08dd6c682) -
+  use css driven width for extension styles in renderer
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.38.1
+
+### Patch Changes
+
+- [`7dc5ce11f312e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7dc5ce11f312e) -
+  Clean up platform_editor_ai_remove_trivial_prompts_cc fg
+
 ## 13.38.0
 
 ### Minor Changes

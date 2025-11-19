@@ -65,7 +65,7 @@ const updatedInvisibleStyle = css({
 
 // The only way to reproduce a similar behavior like Editor Lazy Node View
 // is by faking a native vanilla app.
-export default function Example() {
+export default function Example(): JSX.Element {
 	const contentRef = useRef<HTMLDivElement>(null);
 	const [isMainLoading, setIsMainLoading] = useState(true);
 	const [isInvisibleDivLoading, setIsInvisibleDivLoading] = useState(true);

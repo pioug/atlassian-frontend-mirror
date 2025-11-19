@@ -3,6 +3,7 @@ import React from 'react';
 
 import Icon from '@atlaskit/icon';
 import type { CustomGlyphProps, IconProps } from '@atlaskit/icon/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const IconCardGlyph = (props: CustomGlyphProps) => {
 	return (
@@ -27,7 +28,19 @@ const IconCardGlyph = (props: CustomGlyphProps) => {
 };
 
 export const IconCard = (props: IconProps) => {
-	// Ignored via go/ees005
-	// eslint-disable-next-line react/jsx-props-no-spreading
-	return <Icon glyph={IconCardGlyph} {...props} />;
+	return fg('platform-custom-icon-migration') ? (
+		<IconCardGlyph
+			aria-label={props.label}
+			style={{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				width: '24px',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				height: '24px',
+			}}
+		/>
+	) : (
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<Icon glyph={IconCardGlyph} {...props} />
+	);
 };

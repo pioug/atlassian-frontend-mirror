@@ -1,4 +1,4 @@
-function getViewportWidth(document = window.document) {
+function getViewportWidth(document: Document = window.document): number {
 	let documentWidth;
 	try {
 		documentWidth = document.documentElement.clientWidth || 0;

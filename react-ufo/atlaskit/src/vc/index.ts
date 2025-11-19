@@ -175,7 +175,7 @@ let isServer = Boolean((globalThis as any)?.__SERVER__);
 // Other products set this other variable to indicate it is running in SSR
 let isReactSSR = typeof process !== 'undefined' && Boolean(process?.env?.REACT_SSR || false);
 
-export function isEnvironmentSupported() {
+export function isEnvironmentSupported(): boolean {
 	// SSR environment aren't supported
 	if (isReactSSR || isServer) {
 		return false;

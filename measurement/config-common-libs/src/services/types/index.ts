@@ -26,7 +26,30 @@ export type ConfigResult<T> =
 	| { error: ConfigError.IncorrectType; received: unknown }
 	| { error: ConfigError };
 
-export const StandardConfigSchema = z.record(
+export const StandardConfigSchema: z.ZodRecord<
+	z.ZodString,
+	z.ZodObject<
+		{
+			value: z.ZodUnion<
+				[
+					z.ZodBoolean,
+					z.ZodString,
+					z.ZodNumber,
+					z.ZodArray<z.ZodString, 'many'>,
+					z.ZodArray<z.ZodNumber, 'many'>,
+				]
+			>;
+		},
+		'strip',
+		z.ZodTypeAny,
+		{
+			value: string | number | boolean | string[] | number[];
+		},
+		{
+			value: string | number | boolean | string[] | number[];
+		}
+	>
+> = z.record(
 	z.string(),
 	z.object({
 		value: z.union([z.boolean(), z.string(), z.number(), z.string().array(), z.number().array()]),
@@ -34,7 +57,28 @@ export const StandardConfigSchema = z.record(
 );
 export type ZStandardConfig = z.infer<typeof StandardConfigSchema>;
 
-export const MinimalConfigSchema = z.tuple([
+export const MinimalConfigSchema: z.ZodTuple<
+	[
+		z.ZodArray<z.ZodString, 'many'>,
+		z.ZodEffects<z.ZodArray<z.ZodString, 'many'>, string[], string[]>,
+		z.ZodEffects<
+			z.ZodArray<z.ZodUnion<[z.ZodString, z.ZodNumber]>, 'many'>,
+			(string | number)[],
+			(string | number)[]
+		>,
+		z.ZodEffects<
+			z.ZodArray<z.ZodUnion<[z.ZodString, z.ZodArray<z.ZodString, 'many'>]>, 'many'>,
+			(string | string[])[],
+			(string | string[])[]
+		>,
+		z.ZodEffects<
+			z.ZodArray<z.ZodUnion<[z.ZodString, z.ZodArray<z.ZodNumber, 'many'>]>, 'many'>,
+			(string | number[])[],
+			(string | number[])[]
+		>,
+	],
+	null
+> = z.tuple([
 	// list of boolean configs which are on
 	z.string().array(),
 	// list of string config tuples
@@ -94,10 +138,82 @@ export const MinimalConfigSchema = z.tuple([
 ]);
 export type ZMinimalConfig = z.infer<typeof MinimalConfigSchema>;
 
-export const AnyConfigSchema = z.union([StandardConfigSchema, MinimalConfigSchema]);
+export const AnyConfigSchema: z.ZodUnion<
+	[
+		z.ZodRecord<
+			z.ZodString,
+			z.ZodObject<
+				{
+					value: z.ZodUnion<
+						[
+							z.ZodBoolean,
+							z.ZodString,
+							z.ZodNumber,
+							z.ZodArray<z.ZodString, 'many'>,
+							z.ZodArray<z.ZodNumber, 'many'>,
+						]
+					>;
+				},
+				'strip',
+				z.ZodTypeAny,
+				{
+					value: string | number | boolean | string[] | number[];
+				},
+				{
+					value: string | number | boolean | string[] | number[];
+				}
+			>
+		>,
+		z.ZodTuple<
+			[
+				z.ZodArray<z.ZodString, 'many'>,
+				z.ZodEffects<z.ZodArray<z.ZodString, 'many'>, string[], string[]>,
+				z.ZodEffects<
+					z.ZodArray<z.ZodUnion<[z.ZodString, z.ZodNumber]>, 'many'>,
+					(string | number)[],
+					(string | number)[]
+				>,
+				z.ZodEffects<
+					z.ZodArray<z.ZodUnion<[z.ZodString, z.ZodArray<z.ZodString, 'many'>]>, 'many'>,
+					(string | string[])[],
+					(string | string[])[]
+				>,
+				z.ZodEffects<
+					z.ZodArray<z.ZodUnion<[z.ZodString, z.ZodArray<z.ZodNumber, 'many'>]>, 'many'>,
+					(string | number[])[],
+					(string | number[])[]
+				>,
+			],
+			null
+		>,
+	]
+> = z.union([StandardConfigSchema, MinimalConfigSchema]);
 export type ZAnyConfig = z.infer<typeof AnyConfigSchema>;
 
-export const ConfigMapSchema = z.map(
+export const ConfigMapSchema: z.ZodMap<
+	z.ZodString,
+	z.ZodObject<
+		{
+			value: z.ZodUnion<
+				[
+					z.ZodBoolean,
+					z.ZodString,
+					z.ZodNumber,
+					z.ZodArray<z.ZodString, 'many'>,
+					z.ZodArray<z.ZodNumber, 'many'>,
+				]
+			>;
+		},
+		'strip',
+		z.ZodTypeAny,
+		{
+			value: string | number | boolean | string[] | number[];
+		},
+		{
+			value: string | number | boolean | string[] | number[];
+		}
+	>
+> = z.map(
 	z.string(),
 	z.object({
 		value: z.union([z.boolean(), z.string(), z.number(), z.string().array(), z.number().array()]),

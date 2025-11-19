@@ -60,7 +60,7 @@ export default class UIAnalyticsEvent extends AnalyticsEvent {
 		return new UIAnalyticsEvent({ context, handlers, payload });
 	};
 
-	fire = (channel?: string) => {
+	fire = (channel?: string): void => {
 		if (this.hasFired) {
 			if (process.env.NODE_ENV !== 'production' && !process.env.CI) {
 				// eslint-disable-next-line no-console

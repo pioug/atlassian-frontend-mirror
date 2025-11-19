@@ -1,7 +1,14 @@
 import type { PerformanceEntryBuffer } from '../utils/buffer';
 
 const MAX_ACCEPTABLE_TASK_DURATION = 50;
-export function getTBT(start: number, stop: number, buffer: PerformanceEntryBuffer) {
+export function getTBT(
+	start: number,
+	stop: number,
+	buffer: PerformanceEntryBuffer,
+): {
+	total: number;
+	observed: number;
+} {
 	return buffer
 		.getAll()
 		.filter(

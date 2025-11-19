@@ -54,7 +54,9 @@ export function getVCRevisionsData({
 	calculatedVCNext: CalculatedVC;
 	experienceKey: string;
 	ratios: VCRatioType;
-}) {
+}): {
+	[x: string]: RevisionPayload;
+} {
 	const pageVisibilityUpToTTAI = getPageVisibilityState(interaction.start, interaction.end);
 	const isVisiblePageVisibleUpToTTAI = pageVisibilityUpToTTAI === 'visible';
 	const shouldHaveVCmetric = isVCClean && !isEventAborted && isVisiblePageVisibleUpToTTAI;

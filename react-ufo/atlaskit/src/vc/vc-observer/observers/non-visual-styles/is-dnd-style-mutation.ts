@@ -38,7 +38,7 @@ function isDnDStyleMutation({
 	attributeName?: string | null;
 	oldValue?: string | undefined | null;
 	newValue?: string | undefined | null;
-}) {
+}): boolean {
 	if (!fg('platform_editor_exclude_dnd_anchor_name_from_ttvc')) {
 		return false;
 	}

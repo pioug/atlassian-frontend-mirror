@@ -1131,7 +1131,7 @@ export class Client {
 	 * Call this if modifying the values being served by the Statsig library since it has its own
 	 * memoization cache which will not be updated if the values are changed outside of the library.
 	 */
-	protected statsigValuesUpdated = () => {
+	protected statsigValuesUpdated = (): void => {
 		if (this.user) {
 			// Trigger a reset of the memoize cache
 			this.statsigClient!.updateUserSync(this.user, { disableBackgroundCacheRefresh: true });
@@ -1142,7 +1142,7 @@ export class Client {
 	/**
 	 * @returns string version of the current package in semver style.
 	 */
-	getPackageVersion() {
+	getPackageVersion(): string {
 		return CLIENT_VERSION;
 	}
 

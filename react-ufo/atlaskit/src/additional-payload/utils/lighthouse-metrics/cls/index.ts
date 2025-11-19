@@ -17,7 +17,7 @@ function isSameRects(rect1: DOMRectReadOnly, rect2: DOMRectReadOnly) {
 	);
 }
 
-export function getCLS(start: number, stop: number, buffer: PerformanceEntryBuffer) {
+export function getCLS(start: number, stop: number, buffer: PerformanceEntryBuffer): number {
 	const layoutShifts = buffer.getAll().filter((_entry) => {
 		const entry = _entry as LayoutShiftPerformanceEntry;
 		const isWithinObservationWindow = entry.startTime >= start && entry.startTime <= stop;

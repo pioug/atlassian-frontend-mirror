@@ -1,4 +1,4 @@
-function mapToInteractionType(eventType: string) {
+function mapToInteractionType(eventType: string): 'press' | 'hover' | undefined {
 	if (eventType === 'click' || eventType === 'dblclick' || eventType === 'mousedown') {
 		return 'press';
 	}

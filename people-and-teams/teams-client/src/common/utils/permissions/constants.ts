@@ -97,12 +97,12 @@ const getDisbandedTeamPermissionMap = (
 	// UNARCHIVE_TEAM permission based on team settings
 	let canUnarchive = false;
 	if (isArchiveTeamEnabled) {
-		if (settings === 'EXTERNAL') {
-			// For EXTERNAL teams, only org admins can unarchive
+		if (settings === 'EXTERNAL' || settings === 'ORG_ADMIN_MANAGED') {
+			// For EXTERNAL and ORG_ADMIN_MANAGED teams, only org admins can unarchive
 			canUnarchive = isOrgAdmin;
 		} else if (settings === 'OPEN' || settings === 'MEMBER_INVITE') {
 			// For OPEN and MEMBER_INVITE teams, members with FULL_WRITE can unarchive
-			canUnarchive = isMember && permission === 'FULL_WRITE';
+			canUnarchive = (isMember || isOrgAdmin) && permission === 'FULL_WRITE';
 		}
 	}
 
@@ -134,14 +134,14 @@ const getActiveTeamPermissionMap = (
 		return {
 			...allPermissions(permission === 'FULL_WRITE', isMember, isOrgAdmin),
 			...openPermissions(permission),
-			ARCHIVE_TEAM: isArchiveTeamEnabled && permission === 'FULL_WRITE' && isMember,
+			ARCHIVE_TEAM: isArchiveTeamEnabled && permission === 'FULL_WRITE' && (isMember || isOrgAdmin),
 		};
 	}
 	if (settings === 'MEMBER_INVITE') {
 		return {
 			...allPermissions(permission === 'FULL_WRITE', isMember, isOrgAdmin),
 			...inviteOnlyPermissions(permission),
-			ARCHIVE_TEAM: isArchiveTeamEnabled && permission === 'FULL_WRITE' && isMember,
+			ARCHIVE_TEAM: isArchiveTeamEnabled && permission === 'FULL_WRITE' && (isMember || isOrgAdmin),
 		};
 	} else if (settings === 'EXTERNAL') {
 		return {
@@ -153,7 +153,19 @@ const getActiveTeamPermissionMap = (
 			EDIT_TEAM_TYPE: isOrgAdmin,
 			CAN_EDIT_HIERARCHY: permission === 'FULL_WRITE' && isOrgAdmin,
 		};
+	} else if (settings === 'ORG_ADMIN_MANAGED') {
+		// NOTE: Only org admins will received FULL_WRITE permission
+		return {
+			...allPermissions(permission === 'FULL_WRITE', isMember, isOrgAdmin),
+			EDIT_TEAM_LINK: isMember || permission === 'FULL_WRITE',
+			ADD_AGENT_TO_TEAM: newTeamProfileEnabled && (isMember || permission === 'FULL_WRITE'),
+			REMOVE_AGENT_FROM_TEAM: newTeamProfileEnabled && (isMember || permission === 'FULL_WRITE'),
+			ARCHIVE_TEAM: isArchiveTeamEnabled && permission === 'FULL_WRITE',
+			CAN_EDIT_HIERARCHY: permission === 'FULL_WRITE',
+			EDIT_TEAM_TYPE: permission === 'FULL_WRITE',
+		};
 	}
+
 	return allPermissions(false, false, false);
 };
 

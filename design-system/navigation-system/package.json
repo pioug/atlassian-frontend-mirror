@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "5.7.0",
+	"version": "5.8.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -43,6 +43,7 @@
 		"./side-nav-items/menu-section": "./src/entry-points/side-nav-items/menu-section.tsx",
 		"./side-nav-items/top-level-spacer": "./src/entry-points/side-nav-items/top-level-spacer.tsx",
 		"./side-nav-items/drag-and-drop/hitbox": "./src/entry-points/side-nav-items/drag-and-drop/hitbox.tsx",
+		"./side-nav-items/drag-and-drop/drag-handle": "./src/entry-points/side-nav-items/drag-and-drop/drag-handle.tsx",
 		"./side-nav-items/drag-and-drop/drag-preview": "./src/entry-points/side-nav-items/drag-and-drop/drag-preview.tsx",
 		"./side-nav-items/drag-and-drop/drop-indicator": "./src/entry-points/side-nav-items/drag-and-drop/drop-indicator.tsx",
 		"./side-nav-items/drag-and-drop/group-drop-indicator": "./src/entry-points/side-nav-items/drag-and-drop/group-drop-indicator.tsx",

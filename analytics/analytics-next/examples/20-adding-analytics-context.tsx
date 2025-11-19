@@ -19,7 +19,7 @@ const SaveButton = () => {
 	);
 };
 
-const App = () => {
+const App = (): React.JSX.Element => {
 	const onEvent = ({ context }: UIAnalyticsEvent) => console.log('Event context:', context);
 
 	return (

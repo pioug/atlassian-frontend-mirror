@@ -1,4 +1,5 @@
 import type { InteractionMetrics } from '../common';
+import type { VCResult } from '../common/vc/types';
 import { getPageVisibilityState } from '../hidden-timing';
 import type { VCObserverOptions } from '../vc/types';
 import { VCObserver } from '../vc/vc-observer';
@@ -25,7 +26,7 @@ function appendInteractionData(interactionId: string, data: InteractionMetrics) 
 	bufferInteractionData(interactionId, data);
 }
 
-export function installInteractionSink(handler: InteractionMetricsHandler) {
+export function installInteractionSink(handler: InteractionMetricsHandler): void {
 	for (const { interactionId, data } of interactionBuffer) {
 		handler(interactionId, data);
 	}
@@ -36,15 +37,15 @@ export function installInteractionSink(handler: InteractionMetricsHandler) {
 
 export function sinkExperimentalHandler(
 	sinkFn: (interactionId: string, interaction: InteractionMetrics) => void | Promise<void>,
-) {
+): void {
 	installInteractionSink(sinkFn);
 }
 
 export function onExperimentalInteractionComplete(
 	interactionId: string,
 	data: InteractionMetrics,
-	endTime = performance.now(),
-) {
+	endTime: number = performance.now(),
+): void {
 	if (data.ufoName) {
 		data.end = endTime;
 		appendInteractionData(interactionId, data);
@@ -55,21 +56,23 @@ export function onExperimentalInteractionComplete(
 export class ExperimentalVCMetrics {
 	vcObserver: VCObserver | null = null;
 
-	initialize(options: VCObserverOptions) {
+	initialize(options: VCObserverOptions): this {
 		if (this.vcObserver === null) {
 			this.vcObserver = new VCObserver({ ...options, isPostInteraction: true });
 		}
 		return this;
 	}
 
-	start({ startTime }: { startTime: number }) {
+	start({ startTime }: { startTime: number }): void {
 		this.vcObserver?.start({ startTime });
 	}
 }
 
-export const experimentalVC = new ExperimentalVCMetrics();
+export const experimentalVC: ExperimentalVCMetrics = new ExperimentalVCMetrics();
 
-export async function getExperimentalVCMetrics(interaction: InteractionMetrics) {
+export async function getExperimentalVCMetrics(
+	interaction: InteractionMetrics,
+): Promise<VCResult | null> {
 	// Use per-interaction VC observer if available, otherwise fall back to global experimentalVC
 	const vcObserver = interaction.experimentalVCObserver || experimentalVC.vcObserver;
 	const pageVisibilityUpToTTAI = getPageVisibilityState(interaction.start, interaction.end);

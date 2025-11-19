@@ -64,7 +64,7 @@ function setup() {
 	});
 }
 
-export function setupHiddenTimingCapture() {
+export function setupHiddenTimingCapture(): void {
 	if (!setupFlag) {
 		const isPageHiddenFlag = isPageHidden();
 		pushHidden(isPageHiddenFlag, 0);

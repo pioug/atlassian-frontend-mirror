@@ -540,6 +540,20 @@ describe('VCCalculator_FY25_03', () => {
 				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
 			});
 
+			it('should exclude mutation:media entries with data-cursor attribute', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:media',
+						elementName: 'img',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'data-cursor',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+			});
+
 			it('should exclude mutation:media entries with alt attribute', () => {
 				const entry: VCObserverEntry = {
 					time: 0,

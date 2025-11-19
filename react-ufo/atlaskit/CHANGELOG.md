@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.15.2
+
+### Patch Changes
+
+- [`e2f8161f78f47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2f8161f78f47) -
+  Fix the media data-cursor exclusion to correctly identify `data-cursor` attribute
+
 ## 4.15.1
 
 ### Patch Changes

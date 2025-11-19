@@ -160,7 +160,7 @@ function getViewportWidth(document = window.document) {
 }
 
 // Main App component
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const widthViewport = useMemo(() => getViewportWidth(), []);
 
 	const sectionNumbers = useMemo(() => {

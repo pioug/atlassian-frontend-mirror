@@ -1,5 +1,16 @@
 # @atlaskit/teams-public
 
+## 0.63.0
+
+### Minor Changes
+
+- [`0f5306d6607ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f5306d6607ab) -
+  Add ORG_ADMIN_MANAGED to membership settings
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.62.6
 
 ### Patch Changes

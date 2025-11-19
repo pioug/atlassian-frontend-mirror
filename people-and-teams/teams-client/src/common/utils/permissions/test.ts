@@ -942,3 +942,501 @@ describe('ARCHIVE_TEAM and UNARCHIVE_TEAM permissions', () => {
 		});
 	});
 });
+
+describe('In ORG_ADMIN_MANAGED teams', () => {
+	beforeEach(() => {
+		(fg as jest.Mock).mockImplementation((flagName) => flagName === 'legion-enable-archive-teams');
+		(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+			exp === 'new_team_profile' ? true : false,
+		);
+	});
+
+	describe('When the user is a member', () => {
+		beforeEach(() => {
+			(isMember as jest.Mock).mockReturnValue(true);
+		});
+
+		it.each(allActionsExceptJoinAndType.filter((a) => a !== 'UNARCHIVE_TEAM'))(
+			'members with write permission can perform %s',
+			(action) => {
+				expect(
+					hasPermission(
+						action,
+						'ORG_ADMIN_MANAGED',
+						'FULL_WRITE',
+						true,
+						currentMemberMembership,
+						undefined,
+						undefined,
+						'ACTIVE',
+					),
+				).toBe(true);
+			},
+		);
+
+		it('members with write permission cannot unarchive disbanded teams (only org admins can)', () => {
+			expect(
+				hasPermission(
+					'UNARCHIVE_TEAM',
+					'ORG_ADMIN_MANAGED',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'DISBANDED',
+				),
+			).toBe(false);
+		});
+
+		it.each(
+			AllTeamActions.filter(
+				(a) =>
+					!['REMOVE_AGENT_FROM_TEAM', 'ADD_AGENT_TO_TEAM', 'EDIT_TEAM_LINK'].some((s) =>
+						a.includes(s),
+					),
+			),
+		)('members without write permission cannot perform %s', (action) => {
+			for (const permission of nonPermissions) {
+				expect(
+					hasPermission(
+						action,
+						'ORG_ADMIN_MANAGED',
+						permission,
+						true,
+						currentMemberMembership,
+						undefined,
+						undefined,
+						'ACTIVE',
+					),
+				).toBe(false);
+			}
+		});
+
+		it('members without write permission can still edit team link', () => {
+			expect(
+				hasPermission(
+					'EDIT_TEAM_LINK',
+					'ORG_ADMIN_MANAGED',
+					'FULL_READ',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(true);
+		});
+
+		it('members without write permission can still add agents when feature enabled', () => {
+			expect(
+				hasPermission(
+					'ADD_AGENT_TO_TEAM',
+					'ORG_ADMIN_MANAGED',
+					'FULL_READ',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(true);
+		});
+
+		it('members without write permission can still remove agents when feature enabled', () => {
+			expect(
+				hasPermission(
+					'REMOVE_AGENT_FROM_TEAM',
+					'ORG_ADMIN_MANAGED',
+					'FULL_READ',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(true);
+		});
+	});
+
+	describe('When the user is not a member', () => {
+		beforeEach(() => {
+			(isMember as jest.Mock).mockReturnValue(false);
+		});
+
+		it.each(
+			AllTeamActions.filter((a) => !['LEAVE_TEAM', 'UNARCHIVE_TEAM'].some((s) => a.includes(s))),
+		)('non-members with FULL_WRITE (no org admin) can perform %s', (action) => {
+			expect(
+				hasPermission(
+					action,
+					'ORG_ADMIN_MANAGED',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(true);
+		});
+
+		it('non-members with FULL_WRITE cannot leave team (requires membership)', () => {
+			expect(
+				hasPermission(
+					'LEAVE_TEAM',
+					'ORG_ADMIN_MANAGED',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(false);
+		});
+
+		it('non-members with FULL_WRITE cannot unarchive disbanded teams (requires org admin)', () => {
+			expect(
+				hasPermission(
+					'UNARCHIVE_TEAM',
+					'ORG_ADMIN_MANAGED',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'DISBANDED',
+				),
+			).toBe(false);
+		});
+	});
+
+	describe('EDIT_TEAM_LINK permission special cases', () => {
+		it('allows members to edit team link even without FULL_WRITE', () => {
+			(isMember as jest.Mock).mockReturnValue(true);
+			expect(
+				hasPermission(
+					'EDIT_TEAM_LINK',
+					'ORG_ADMIN_MANAGED',
+					'FULL_READ',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(true);
+		});
+
+		it('allows non-members with FULL_WRITE to edit team link', () => {
+			(isMember as jest.Mock).mockReturnValue(false);
+			expect(
+				hasPermission(
+					'EDIT_TEAM_LINK',
+					'ORG_ADMIN_MANAGED',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(true);
+		});
+
+		it('does not allow non-members without FULL_WRITE to edit team link', () => {
+			(isMember as jest.Mock).mockReturnValue(false);
+			expect(
+				hasPermission(
+					'EDIT_TEAM_LINK',
+					'ORG_ADMIN_MANAGED',
+					'FULL_READ',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(false);
+		});
+
+		it('does not allow org admins without FULL_WRITE to edit team link', () => {
+			(isMember as jest.Mock).mockReturnValue(false);
+			expect(
+				hasPermission(
+					'EDIT_TEAM_LINK',
+					'ORG_ADMIN_MANAGED',
+					'FULL_READ',
+					true,
+					currentMemberMembership,
+					{
+						canCreateTeams: true,
+						canViewTeams: true,
+						canAdminTeams: true,
+					},
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(false);
+		});
+	});
+
+	describe('Agent management permissions', () => {
+		beforeEach(() => {
+			(fg as jest.Mock).mockImplementation(
+				(flagName) => flagName === 'legion-enable-archive-teams',
+			);
+			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+				exp === 'new_team_profile' ? true : false,
+			);
+		});
+
+		it('allows members with FULL_WRITE to add agents', () => {
+			(isMember as jest.Mock).mockReturnValue(true);
+			expect(
+				hasPermission(
+					'ADD_AGENT_TO_TEAM',
+					'ORG_ADMIN_MANAGED',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(true);
+		});
+
+		it('allows members with FULL_WRITE to remove agents', () => {
+			(isMember as jest.Mock).mockReturnValue(true);
+			expect(
+				hasPermission(
+					'REMOVE_AGENT_FROM_TEAM',
+					'ORG_ADMIN_MANAGED',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(true);
+		});
+
+		it('allows non-members with FULL_WRITE to add agents', () => {
+			(isMember as jest.Mock).mockReturnValue(false);
+			expect(
+				hasPermission(
+					'ADD_AGENT_TO_TEAM',
+					'ORG_ADMIN_MANAGED',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(true);
+		});
+
+		it('allows non-members with FULL_WRITE to remove agents', () => {
+			(isMember as jest.Mock).mockReturnValue(false);
+			expect(
+				hasPermission(
+					'REMOVE_AGENT_FROM_TEAM',
+					'ORG_ADMIN_MANAGED',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(true);
+		});
+
+		it('does not allow non-members without FULL_WRITE to add agents', () => {
+			(isMember as jest.Mock).mockReturnValue(false);
+			expect(
+				hasPermission(
+					'ADD_AGENT_TO_TEAM',
+					'ORG_ADMIN_MANAGED',
+					'FULL_READ',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(false);
+		});
+
+		it('does not allow non-members without FULL_WRITE to remove agents', () => {
+			(isMember as jest.Mock).mockReturnValue(false);
+			expect(
+				hasPermission(
+					'REMOVE_AGENT_FROM_TEAM',
+					'ORG_ADMIN_MANAGED',
+					'FULL_READ',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(false);
+		});
+	});
+
+	describe('ARCHIVE_TEAM permission', () => {
+		describe('When archive teams feature is enabled', () => {
+			beforeEach(() => {
+				(fg as jest.Mock).mockImplementation(
+					(flagName) => flagName === 'legion-enable-archive-teams',
+				);
+				(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+					exp === 'new_team_profile' ? true : false,
+				);
+			});
+
+			it('allows users with FULL_WRITE to archive teams', () => {
+				(isMember as jest.Mock).mockReturnValue(true);
+				expect(
+					hasPermission(
+						'ARCHIVE_TEAM',
+						'ORG_ADMIN_MANAGED',
+						'FULL_WRITE',
+						true,
+						currentMemberMembership,
+						undefined,
+						undefined,
+						'ACTIVE',
+					),
+				).toBe(true);
+			});
+
+			it('allows non-members with FULL_WRITE to archive teams', () => {
+				(isMember as jest.Mock).mockReturnValue(false);
+				expect(
+					hasPermission(
+						'ARCHIVE_TEAM',
+						'ORG_ADMIN_MANAGED',
+						'FULL_WRITE',
+						true,
+						currentMemberMembership,
+						undefined,
+						undefined,
+						'ACTIVE',
+					),
+				).toBe(true);
+			});
+
+			it('does not allow users without FULL_WRITE to archive teams', () => {
+				(isMember as jest.Mock).mockReturnValue(true);
+				expect(
+					hasPermission(
+						'ARCHIVE_TEAM',
+						'ORG_ADMIN_MANAGED',
+						'FULL_READ',
+						true,
+						currentMemberMembership,
+						undefined,
+						undefined,
+						'ACTIVE',
+					),
+				).toBe(false);
+			});
+		});
+
+		describe('When archive teams feature is disabled', () => {
+			beforeEach(() => {
+				(fg as jest.Mock).mockImplementation(() => false);
+				(FeatureGates.getExperimentValue as jest.Mock).mockImplementation(() => false);
+			});
+
+			it('does not allow anyone to archive teams', () => {
+				(isMember as jest.Mock).mockReturnValue(true);
+				expect(
+					hasPermission(
+						'ARCHIVE_TEAM',
+						'ORG_ADMIN_MANAGED',
+						'FULL_WRITE',
+						true,
+						currentMemberMembership,
+						undefined,
+						undefined,
+						'ACTIVE',
+					),
+				).toBe(false);
+			});
+		});
+	});
+
+	describe('UNARCHIVE_TEAM permission on disbanded teams', () => {
+		beforeEach(() => {
+			(fg as jest.Mock).mockImplementation(
+				(flagName) => flagName === 'legion-enable-archive-teams',
+			);
+			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
+				exp === 'new_team_profile' ? true : false,
+			);
+		});
+
+		it('allows org admins to unarchive disbanded teams', () => {
+			(isMember as jest.Mock).mockReturnValue(false);
+			expect(
+				hasPermission(
+					'UNARCHIVE_TEAM',
+					'ORG_ADMIN_MANAGED',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					{
+						canCreateTeams: true,
+						canViewTeams: true,
+						canAdminTeams: true,
+					},
+					undefined,
+					'DISBANDED',
+				),
+			).toBe(true);
+		});
+
+		it('does not allow members with FULL_WRITE to unarchive disbanded teams', () => {
+			(isMember as jest.Mock).mockReturnValue(true);
+			expect(
+				hasPermission(
+					'UNARCHIVE_TEAM',
+					'ORG_ADMIN_MANAGED',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'DISBANDED',
+				),
+			).toBe(false);
+		});
+
+		it('does not allow non-org-admins to unarchive disbanded teams', () => {
+			(isMember as jest.Mock).mockReturnValue(false);
+			expect(
+				hasPermission(
+					'UNARCHIVE_TEAM',
+					'ORG_ADMIN_MANAGED',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					{
+						canCreateTeams: false,
+						canViewTeams: false,
+						canAdminTeams: false,
+					},
+					undefined,
+					'DISBANDED',
+				),
+			).toBe(false);
+		});
+	});
+});

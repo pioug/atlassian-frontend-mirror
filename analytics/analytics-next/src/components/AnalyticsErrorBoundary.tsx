@@ -41,7 +41,7 @@ export default class AnalyticsErrorBoundary extends Component<
 		this.setState({ hasError: true });
 	}
 
-	render() {
+	render(): React.JSX.Element | null {
 		const { data, children, ErrorComponent } = this.props;
 		const { hasError } = this.state;
 

@@ -125,7 +125,7 @@ const CommentBox = ({ delay }: { delay: number }) => {
 	);
 };
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	const [appCreatedAt] = useState(performance.now());
 
 	return (

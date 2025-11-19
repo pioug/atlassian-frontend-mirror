@@ -29,7 +29,7 @@ export default function UFOCustomCohortData({ dataKey, value }: UFOCustomCohortD
 export function addUFOCustomCohortData(
 	key: string,
 	value: number | boolean | string | null | undefined,
-) {
+): void {
 	const interactionId = getInteractionId();
 	const currentInteractionId = interactionId.current;
 	if (!currentInteractionId) {

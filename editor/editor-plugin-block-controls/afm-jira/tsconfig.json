@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../helpers/browser-apis/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-accessibility-utils/afm-jira/tsconfig.json"
 		},
 		{

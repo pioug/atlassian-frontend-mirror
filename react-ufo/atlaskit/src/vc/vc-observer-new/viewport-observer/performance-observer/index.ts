@@ -1,5 +1,5 @@
 // The LayoutShiftAttribution API is returning the numbers on physical dimension
-export function convertPhysicalToLogicalResolution(rect: DOMRect) {
+export function convertPhysicalToLogicalResolution(rect: DOMRect): DOMRect {
 	if (typeof window.devicePixelRatio !== 'number') {
 		return rect;
 	}
@@ -31,7 +31,9 @@ export type CreatePerformanceObserverArgs = {
 	onLayoutShift: (args: { time: DOMHighResTimeStamp; changedRects: ChangedRect }) => void;
 };
 
-function createPerformanceObserver({ onLayoutShift }: CreatePerformanceObserverArgs) {
+function createPerformanceObserver({
+	onLayoutShift,
+}: CreatePerformanceObserverArgs): PerformanceObserver | null {
 	if (!window || typeof window.PerformanceObserver !== 'function') {
 		return null;
 	}

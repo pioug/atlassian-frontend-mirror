@@ -44,7 +44,10 @@ const DynamicFallback = ({ children, outsideSuspense }: DynamicFallbackProps) =>
 
 DynamicFallback.displayName = 'DynamicFallback';
 
-export const LazySuspense = ({ fallback, children, name }: LazySuspenseProps) => {
+export const LazySuspense: {
+	({ fallback, children, name }: LazySuspenseProps): React.JSX.Element;
+	displayName: string;
+} = ({ fallback, children, name }: LazySuspenseProps): React.JSX.Element => {
 	const [hydrationFallback, setHydrationFallback] = useState<Fallback>(null);
 
 	const mountedRef = useRef(false);

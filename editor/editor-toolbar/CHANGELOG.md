@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar
 
+## 0.17.7
+
+### Patch Changes
+
+- [`414266a7a2557`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/414266a7a2557) -
+  [ux] ED-29679 Update JSM breakpoints
+- Updated dependencies
+
 ## 0.17.6
 
 ### Patch Changes

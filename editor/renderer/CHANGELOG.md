@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 124.16.0
+
+### Minor Changes
+
+- [`d2da08dd6c682`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2da08dd6c682) -
+  use css driven width for extension styles in renderer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 124.15.1
 
 ### Patch Changes

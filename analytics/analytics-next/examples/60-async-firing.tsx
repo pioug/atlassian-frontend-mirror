@@ -50,7 +50,7 @@ const mockReduxEpicDispatch = (analyticsEvent?: UIAnalyticsEvent) => {
 	}, 1000);
 };
 
-const App = () => {
+const App = (): React.JSX.Element => {
 	const [hasUnmounted, setMounted] = useState(false);
 
 	const handleClick = useCallback(

@@ -84,7 +84,7 @@ const DummySAIN = () => {
 	);
 };
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	useLayoutEffect(() => {
 		updatePageloadName('search-page');
 

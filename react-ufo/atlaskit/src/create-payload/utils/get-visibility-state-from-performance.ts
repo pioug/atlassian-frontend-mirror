@@ -1,9 +1,10 @@
-export function getVisibilityStateFromPerformance(stop: number) {
+export function getVisibilityStateFromPerformance(stop: number): string | null {
 	try {
 		const results = performance.getEntriesByType('visibility-state');
 		if (!results || results.length === 0) {
 			return null;
 		}
+		// @ts-ignore
 		return results.reduce((acc: null | string = null, { name, startTime }) => {
 			if (startTime > stop) {
 				return acc;

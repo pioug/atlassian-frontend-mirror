@@ -404,7 +404,7 @@ export default class ViewportObserver {
 		});
 	}
 
-	start() {
+	start(): void {
 		if (this.isStarted) {
 			return;
 		}
@@ -428,7 +428,7 @@ export default class ViewportObserver {
 		this.isStarted = true;
 	}
 
-	stop() {
+	stop(): void {
 		if (!this.isStarted) {
 			return;
 		}

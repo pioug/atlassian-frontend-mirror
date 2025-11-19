@@ -118,6 +118,8 @@ const baseStyles = css({
 	lineHeight: '1.5rem',
 	color: token('color.text', N800),
 
+	'--ak-editor--full-width-layout-width': `${akEditorFullWidthLayoutWidth}px`,
+
 	[`.${RendererCssClassName.DOCUMENT}::after`]: {
 		// we add a clearfix after ak-renderer-document in order to
 		// contain internal floats (such as media images that are "wrap-left")

@@ -16,10 +16,10 @@ shared:
       type: number
       description: The number of members
     defaultTeamType:
-      type: ['OPEN', 'MEMBER_INVITE', 'EXTERNAL']
+      type: ['OPEN', 'MEMBER_INVITE', 'EXTERNAL', 'ORG_ADMIN_MANAGED']
       description: The default team type
     chosenTeamType:
-      type: ['OPEN', 'MEMBER_INVITE', 'EXTERNAL']
+      type: ['OPEN', 'MEMBER_INVITE', 'EXTERNAL', 'ORG_ADMIN_MANAGED']
       description: The chosen team type
     teamTypeChoiceEnabled:
       type: boolean
@@ -249,11 +249,11 @@ events:
           type: number
           description: The number of members
         defaultTeamType:
-          type: ['OPEN', 'MEMBER_INVITE', 'EXTERNAL']
+          type: ['OPEN', 'MEMBER_INVITE', 'EXTERNAL', 'ORG_ADMIN_MANAGED']
           required: false
           description: The default team type
         chosenTeamType:
-          type: ['OPEN', 'MEMBER_INVITE', 'EXTERNAL']
+          type: ['OPEN', 'MEMBER_INVITE', 'EXTERNAL', 'ORG_ADMIN_MANAGED']
           description: The chosen team type
         teamTypeChoiceEnabled:
           type: boolean
@@ -287,7 +287,7 @@ events:
       attributes:
         <<: *PackageMetaDataContext
         defaultType:
-          type: ['OPEN', 'MEMBER_INVITE', 'EXTERNAL']
+          type: ['OPEN', 'MEMBER_INVITE', 'EXTERNAL', 'ORG_ADMIN_MANAGED']
           required: false
           description: the default type
         chosenType:
@@ -973,11 +973,13 @@ events:
             - 'OPEN'
             - 'MEMBER_INVITE'
             - 'EXTERNAL'
+            - 'ORG_ADMIN_MANAGED'
         currentTeamType:
           type:
             - 'OPEN'
             - 'MEMBER_INVITE'
             - 'EXTERNAL'
+            - 'ORG_ADMIN_MANAGED'
         isTeamNameChanged:
           type: boolean
           description: whether team name is edited

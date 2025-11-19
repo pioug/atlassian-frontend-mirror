@@ -3,7 +3,7 @@ import React from 'react';
 import { code, md } from '@atlaskit/docs';
 import Link from '@atlaskit/link';
 
-export default md`
+const _default_1: any = md`
 This section will guide how to add analytics tracking to presentational and other
 components that don't fit into the "Container" category.
 
@@ -358,3 +358,4 @@ export MyButton;
 `}
 
 `;
+export default _default_1;

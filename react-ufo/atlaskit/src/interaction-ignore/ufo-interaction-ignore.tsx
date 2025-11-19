@@ -7,6 +7,6 @@ import UFOIgnoreHolds, { type UFOIgnoreHoldsProps } from '../ignore-holds';
  * Use `UFOIgnoreHolds` instead for new implementations.
  * This component is maintained for backward compatibility only.
  */
-export default function UFOInteractionIgnore(props: UFOIgnoreHoldsProps) {
+export default function UFOInteractionIgnore(props: UFOIgnoreHoldsProps): React.JSX.Element {
 	return <UFOIgnoreHolds {...props} />;
 }

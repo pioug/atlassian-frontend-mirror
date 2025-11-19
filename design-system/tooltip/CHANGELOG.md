@@ -1,5 +1,16 @@
 # @atlaskit/tooltip
 
+## 20.10.0
+
+### Minor Changes
+
+- [`e273fa0610764`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e273fa0610764) -
+  The keyboard shortcut `font` has been updated to use regular fonts instead of monospace fonts, for
+  improved readability and distinction between characters such as the letter O and number 0. It will
+  now use the `font.body.small` font token.
+
+  This change is behind the feature gate `platform-tooltip-shortcuts-regular-font`.
+
 ## 20.9.0
 
 ### Minor Changes

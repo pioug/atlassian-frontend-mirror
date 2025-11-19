@@ -21,7 +21,7 @@ import { setInteractionActiveTrace } from './utils/set-interaction-active-trace'
 function traceUFOTransition(
 	ufoName: string | null | undefined,
 	routeName: string | null | undefined = ufoName,
-) {
+): void {
 	const pressInteractionsList = getDoNotAbortActivePressInteractionOnTransition();
 	const interaction = getActiveInteraction();
 	if (pressInteractionsList && interaction) {
@@ -54,7 +54,7 @@ function traceUFOTransition(
 	}
 }
 
-export function useUFOTransitionCompleter() {
+export function useUFOTransitionCompleter(): void {
 	const interactionId = useContext(UFOInteractionIDContext);
 	const capturedInteractionId = interactionId.current;
 	useEffect(() => {

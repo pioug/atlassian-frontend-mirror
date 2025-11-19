@@ -181,7 +181,7 @@ const SectionThree = ({
 };
 
 // Main App component
-export default function Example() {
+export default function Example(): JSX.Element {
 	const appCreatedAt = useMemo(() => performance.now(), []);
 	const completedSections = useRef(new Set<string>());
 	const sectionTwoLoadingHoldStarted = useRef(false);

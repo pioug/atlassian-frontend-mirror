@@ -11,7 +11,7 @@ export class BufferWithMaxLength<T> {
 		this.maxLength = maxLength;
 	}
 
-	push(item: T) {
+	push(item: T): void {
 		if (this.full || this.maxLength === this.buffer.length) {
 			this.full = true;
 			this.buffer.shift();
@@ -19,7 +19,7 @@ export class BufferWithMaxLength<T> {
 		this.buffer.push(item);
 	}
 
-	getAll() {
+	getAll(): T[] {
 		return this.buffer;
 	}
 }

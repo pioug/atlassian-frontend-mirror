@@ -8,7 +8,7 @@ export type LogParameterFunction = (layer: Layer, parameterName: string) => void
 
 // Reference: https://github.com/statsig-io/js-lite/blob/main/src/Layer.ts
 export class Layer {
-	static fromLayer(layer: NewLayer) {
+	static fromLayer(layer: NewLayer): Layer {
 		const value = new Layer(
 			layer.name,
 			layer.__value,

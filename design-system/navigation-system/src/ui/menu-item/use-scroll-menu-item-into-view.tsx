@@ -16,8 +16,12 @@ function scrollMenuItemIntoView(element: HTMLDivElement): void {
 	 *
 	 * Otherwise, we are falling back to [scrollIntoView](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView).
 	 */
-	if (typeof element.scrollIntoViewIfNeeded === 'function') {
-		element.scrollIntoViewIfNeeded(true);
+	const elementWithScrollMethod = element as HTMLDivElement & {
+		scrollIntoViewIfNeeded?: (centerIfNeeded?: boolean) => void;
+	};
+
+	if (typeof elementWithScrollMethod.scrollIntoViewIfNeeded === 'function') {
+		elementWithScrollMethod.scrollIntoViewIfNeeded(true);
 		return;
 	}
 

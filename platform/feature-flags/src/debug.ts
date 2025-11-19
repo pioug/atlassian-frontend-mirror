@@ -17,7 +17,7 @@ const DEBUG_MODE =
 	!TESTS_MODE &&
 	(globalThis as unknown as Global | undefined)?.process?.env?.NODE_ENV !== 'production';
 
-export const debug = (...args: unknown[]) => {
+export const debug = (...args: unknown[]): void => {
 	if (!DEBUG_MODE) {
 		return;
 	}

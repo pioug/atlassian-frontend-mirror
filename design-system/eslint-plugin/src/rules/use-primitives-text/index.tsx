@@ -45,7 +45,7 @@ const rule = createLintRule({
 		],
 		docs: {
 			description: 'Encourage the usage of text components.',
-			recommended: false,
+			recommended: true,
 			severity: 'warn',
 		},
 		messages: {

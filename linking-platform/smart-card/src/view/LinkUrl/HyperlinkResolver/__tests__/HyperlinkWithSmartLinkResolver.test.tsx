@@ -111,6 +111,16 @@ describe('HyperlinkWithSmartLinkResolver - Connect Button Logic', () => {
 				});
 			});
 
+			it('should capture and report a11y violations', async () => {
+				getServices.mockReturnValue([{ key: 'service1' }]);
+				const { container } = render(
+					<SmartCardProvider client={new CardClient()}>
+						<HyperlinkWithSmartLinkResolver {...defaultProps} />
+					</SmartCardProvider>,
+				);
+				await expect(container).toBeAccessible();
+			});
+
 			it('should render HyperlinkUnauthorizedView when services are available', () => {
 				getServices.mockReturnValue([{ key: 'service1' }]);
 

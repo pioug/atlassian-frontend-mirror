@@ -10,6 +10,7 @@ import { css, jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 import { type IntlShape } from 'react-intl-next';
 
+import { getDocument } from '@atlaskit/browser-apis';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -28,16 +29,21 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
 import { deleteSelectedRange } from '@atlaskit/editor-common/selection';
-import { tableControlsSpacing, DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
+import { DRAG_HANDLE_WIDTH, tableControlsSpacing } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { NodeRange, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import {
+	NodeSelection,
+	type Selection,
+	TextSelection,
+	type Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
-	akEditorTableToolbarSize,
 	akEditorFullPageNarrowBreakout,
+	akEditorTableToolbarSize,
 	relativeSizeToBaseFontSize,
 } from '@atlaskit/editor-shared-styles/consts';
 import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
@@ -56,6 +62,7 @@ import Tooltip from '@atlaskit/tooltip';
 import type { BlockControlsPlugin, HandleOptions, TriggerByNode } from '../blockControlsPluginType';
 import { getNodeTypeWithLevel } from '../pm-plugins/decorations-common';
 import { key } from '../pm-plugins/main';
+import { selectionPreservationPluginKey } from '../pm-plugins/selection-preservation/plugin-key';
 import { getMultiSelectAnalyticsAttributes } from '../pm-plugins/utils/analytics';
 import { type AnchorRectCache } from '../pm-plugins/utils/anchor-utils';
 import {
@@ -400,6 +407,110 @@ type DragHandleProps = {
 	view: EditorView;
 };
 
+const isRangeSpanningMultipleNodes = (range: NodeRange) => {
+	if (range.endIndex - range.startIndex <= 1) {
+		return false; // At most one child
+	}
+
+	// Count block nodes in the range, return true if more than one
+	let blockCount = 0;
+	for (let i = range.startIndex; i < range.endIndex; i++) {
+		if (range.parent.child(i).isBlock) {
+			blockCount++;
+		}
+		if (blockCount > 1) {
+			return true;
+		}
+	}
+
+	return false;
+};
+
+const shouldExpandSelection = (range: NodeRange | null, startPos: number): boolean => {
+	return (
+		!!range &&
+		isRangeSpanningMultipleNodes(range) &&
+		range.start <= startPos &&
+		range.end >= startPos + 1
+	);
+};
+
+type CalculateBlockRangeOptions = {
+	doc: PMNode;
+	isShiftPressed: boolean;
+	resolvedStartPos: ResolvedPos;
+	selection: Selection;
+};
+
+const calculateBlockRange = ({
+	selection,
+	doc,
+	resolvedStartPos,
+	isShiftPressed,
+}: CalculateBlockRangeOptions): NodeRange | null => {
+	if (!isShiftPressed) {
+		// When not pressing shift, create range including all block nodes within the selection
+		return selection.$from.blockRange(selection.$to);
+	}
+
+	if (resolvedStartPos.pos < selection.from) {
+		// If shift+click selecting upwards, get range from start of node to end of selection
+		return resolvedStartPos.blockRange(selection.$to);
+	}
+
+	// Shift+click selecting downwards, get range from start of selection to pos within or after node
+	const resolvedPosWithinOrAfterNode = doc.resolve(resolvedStartPos.pos + 1);
+	return selection.$from.blockRange(resolvedPosWithinOrAfterNode);
+};
+
+const createExpandedSelection = (
+	doc: PMNode,
+	selection: Selection,
+	range: NodeRange,
+): TextSelection => {
+	return TextSelection.create(
+		doc,
+		Math.min(selection.from, range.start),
+		Math.max(selection.to, range.end),
+	);
+};
+
+type CreateSelectionFromRangeOptions = {
+	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
+	nodeType: string;
+	range: NodeRange | null;
+	selection: Selection;
+	startPos: number;
+	tr: Transaction;
+};
+
+const createSelectionFromRange = ({
+	tr,
+	selection,
+	startPos,
+	nodeType,
+	range,
+	api,
+}: CreateSelectionFromRangeOptions): Transaction => {
+	if (range && shouldExpandSelection(range, startPos)) {
+		const expandedSelection = createExpandedSelection(tr.doc, selection, range);
+
+		if (!expandedSelection.eq(tr.selection)) {
+			tr.setSelection(expandedSelection);
+		}
+		return tr;
+	}
+
+	const node = tr.doc.nodeAt(startPos);
+	const isEmptyNode = node?.content.size === 0;
+	if (isEmptyNode && node.type.name !== 'paragraph') {
+		tr.setSelection(new NodeSelection(tr.doc.resolve(startPos)));
+		return tr;
+	}
+
+	return selectNode(tr, startPos, nodeType, api);
+};
+
 export const DragHandle = ({
 	view,
 	api,
@@ -453,6 +564,68 @@ export const DragHandle = ({
 			}
 		}
 	}, [anchorName, nodeType, view.dom]);
+
+	const handleOnClickNew = useCallback(
+		(e: MouseEvent<HTMLButtonElement>) => {
+			api?.core?.actions.execute(({ tr }) => {
+				const startPos = getPos();
+				if (startPos === undefined) {
+					return tr;
+				}
+
+				const resolvedStartPos = tr.doc.resolve(startPos);
+
+				api?.analytics?.actions.attachAnalyticsEvent({
+					eventType: EVENT_TYPE.UI,
+					action: ACTION.CLICKED,
+					actionSubject: ACTION_SUBJECT.BUTTON,
+					actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
+					attributes: {
+						nodeDepth: resolvedStartPos.depth,
+						nodeType: resolvedStartPos.nodeAfter?.type.name || '',
+					},
+				})(tr);
+
+				const preservedSelection = selectionPreservationPluginKey.getState(
+					view.state,
+				)?.preservedSelection;
+				const selection = preservedSelection || tr.selection;
+
+				const range = calculateBlockRange({
+					doc: tr.doc,
+					selection,
+					resolvedStartPos,
+					isShiftPressed: e.shiftKey,
+				});
+
+				tr = createSelectionFromRange({
+					tr,
+					selection,
+					startPos,
+					nodeType,
+					range,
+					api,
+				});
+
+				api?.blockControls?.commands.startPreservingSelection()({ tr });
+
+				api?.blockControls?.commands.toggleBlockMenu({
+					anchorName,
+					openedViaKeyboard: false,
+					triggerByNode: expValEqualsNoExposure('platform_synced_block', 'isEnabled', true)
+						? { nodeType, pos: startPos, rootPos: tr.doc.resolve(startPos).before(1) }
+						: undefined,
+				})({ tr });
+
+				tr.setMeta('scrollIntoView', false);
+
+				return tr;
+			});
+
+			view.focus();
+		},
+		[api, view, getPos, nodeType, anchorName],
+	);
 
 	const handleOnClick = useCallback(
 		(e: MouseEvent<HTMLButtonElement>) => {
@@ -594,7 +767,7 @@ export const DragHandle = ({
 		(e: KeyboardEvent<HTMLButtonElement>) => {
 			// allow user to use spacebar to select the node
 			if (e.key === 'Enter' || (!e.repeat && e.key === ' ')) {
-				if (document.activeElement !== buttonRef.current) {
+				if (getDocument()?.activeElement !== buttonRef.current) {
 					return;
 				}
 
@@ -1311,7 +1484,11 @@ export const DragHandle = ({
 						: positionStylesOld
 					: {}
 			}
-			onClick={handleOnClick}
+			onClick={
+				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+					? handleOnClickNew
+					: handleOnClick
+			}
 			onKeyDown={
 				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
 				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)

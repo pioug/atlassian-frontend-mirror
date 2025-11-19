@@ -113,7 +113,7 @@ const ThirdPartyContent = () => {
 };
 
 // Main App component
-export default function Example() {
+export default function Example(): JSX.Element {
 	return (
 		<UFOSegment name="dangerous-html-example-root">
 			<div css={containerStyle}>

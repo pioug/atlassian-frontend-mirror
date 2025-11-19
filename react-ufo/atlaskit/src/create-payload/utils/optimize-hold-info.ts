@@ -7,7 +7,7 @@ export function optimizeHoldInfo(
 	holdInfo: InteractionMetrics['holdInfo'],
 	interactionStart: number,
 	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
-) {
+): any[] {
 	const holdInfoMap = holdInfo.reduce((result, hold) => {
 		const { labelStack, name, start, end, ignoreOnSubmit } = hold;
 

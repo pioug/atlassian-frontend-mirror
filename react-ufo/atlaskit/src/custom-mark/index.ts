@@ -26,7 +26,7 @@ export function UFOCustomMarks({ data }: { data: { [key: string]: number } | und
 	return null;
 }
 
-export function addUFOCustomMark(name: string, timestamp?: number) {
+export function addUFOCustomMark(name: string, timestamp?: number): void {
 	const interactionId = getInteractionId();
 	const currentInteractionId = interactionId.current;
 

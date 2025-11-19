@@ -28,14 +28,14 @@ function getObserver(): PerformanceObserver | null {
 	return pe;
 }
 
-export function startLSObserver() {
+export function startLSObserver(): void {
 	getObserver()?.observe({
 		type: PerformanceObserverEntryTypes.LayoutShift,
 		buffered: true,
 	});
 }
 
-export function startLTObserver() {
+export function startLTObserver(): void {
 	getObserver()?.observe({
 		type: PerformanceObserverEntryTypes.LongTask,
 		buffered: true,

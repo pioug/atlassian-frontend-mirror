@@ -102,7 +102,7 @@ const SectionA = ({ base }: { base: number }) => {
 };
 
 // Main App component
-export default function Example() {
+export default function Example(): JSX.Element {
 	return (
 		<UFOSegment name="app-root">
 			<div data-testid="main" css={appStyle}>

@@ -12,7 +12,7 @@ const listenerHandler = (event: UIAnalyticsEvent, channel?: string) => {
 
 const ElementsComponentWithAnalytics = createDummyComponentWithAnalytics(FabricChannel.navigation);
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<AnalyticsListener onEvent={listenerHandler} channel={FabricChannel.navigation}>
 			<div>

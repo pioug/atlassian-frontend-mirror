@@ -130,7 +130,7 @@ const InteractionIdDisplay = () => {
 	);
 };
 
-export default function LoadHoldInteractionIdTrackingExample() {
+export default function LoadHoldInteractionIdTrackingExample(): JSX.Element {
 	const [key, setKey] = useState(0);
 
 	const startNewInteraction = (event: React.MouseEvent) => {

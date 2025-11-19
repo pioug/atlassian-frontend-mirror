@@ -261,6 +261,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform-custom-icon-migration": {
+			"type": "boolean"
+		},
 		"linking_platform_datasource_assets_objects": {
 			"type": "boolean"
 		},

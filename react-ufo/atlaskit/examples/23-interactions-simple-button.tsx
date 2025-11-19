@@ -46,7 +46,7 @@ const SectionContentOne = () => {
 	);
 };
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	return (
 		<UFOSegment name="app-root">
 			<main id="app-main" css={mainStyles}>

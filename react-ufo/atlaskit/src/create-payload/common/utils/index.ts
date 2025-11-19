@@ -16,7 +16,7 @@ export type SegmentTree = {
 	r: SegmentItem;
 };
 
-export function sanitizeUfoName(name: string) {
+export function sanitizeUfoName(name: string): string {
 	return name.replace(/_/g, '-');
 }
 
@@ -113,14 +113,20 @@ function getLabelStackReference(labelStack: LabelStack): string {
 	return labelStack.map((l) => (isSegmentLabel(l) ? l.segmentId : l.name)).join('/');
 }
 
-export function labelStackStartWith(labelStack: LabelStack, startWith: LabelStack) {
+export function labelStackStartWith(labelStack: LabelStack, startWith: LabelStack): boolean {
 	return stringifyLabelStackFully(labelStack).startsWith(stringifyLabelStackFully(startWith));
 }
 
 export function optimizeLabelStack(
 	labelStack: LabelStack,
 	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
-) {
+):
+	| string
+	| {
+			t?: UFOSegmentType | undefined;
+			s?: string | undefined;
+			n: string;
+	  }[] {
 	return reactUFOVersion === '2.0.0'
 		? getLabelStackReference(labelStack)
 		: labelStack.map((ls) => ({
@@ -133,7 +139,19 @@ export function optimizeLabelStack(
 export function getOldSegmentsLabelStack(
 	segments: SegmentInfo[],
 	interactionType: InteractionType,
-) {
+):
+	| {
+			labelStack: any[];
+	  }[]
+	| {
+			labelStack:
+				| string
+				| {
+						t?: UFOSegmentType | undefined;
+						s?: string | undefined;
+						n: string;
+				  }[];
+	  }[] {
 	if (fg('platform_ufo_add_segments_count_threshold')) {
 		const config = getConfig();
 		const addSegmentsMap = new Map<string, number>();

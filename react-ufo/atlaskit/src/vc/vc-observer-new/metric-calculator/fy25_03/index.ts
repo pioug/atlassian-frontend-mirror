@@ -108,7 +108,8 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 
 			if (
 				attributeName &&
-				(/data-(test|file|context|cursor)-\S+/g.test(attributeName) ||
+				(/data-(test|file|context)-\S+/g.test(attributeName) ||
+					attributeName === 'data-cursor' ||
 					attributeName === 'alt' ||
 					((attributeName === 'localid' ||
 						attributeName === 'contenteditable' ||
@@ -179,7 +180,17 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 		return true;
 	}
 
-	protected getVCCleanStatus(filteredEntries: readonly VCObserverEntry[]) {
+	protected getVCCleanStatus(filteredEntries: readonly VCObserverEntry[]):
+		| {
+				isVCClean: boolean;
+				dirtyReason: never;
+				abortTimestamp: number;
+		  }
+		| {
+				isVCClean: boolean;
+				dirtyReason?: undefined;
+				abortTimestamp?: undefined;
+		  } {
 		let dirtyReason: VCAbortReason | '' = '';
 		let abortTimestamp = -1;
 		const hasAbortEvent = filteredEntries.some((entry) => {

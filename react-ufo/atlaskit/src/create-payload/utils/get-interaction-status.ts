@@ -1,6 +1,9 @@
 import type { InteractionMetrics } from '../../common';
 
-function getInteractionStatus(interaction: InteractionMetrics) {
+function getInteractionStatus(interaction: InteractionMetrics): {
+	readonly originalInteractionStatus: string;
+	readonly overrideStatus: string;
+} {
 	let originalInteractionStatus = interaction.abortReason ? 'ABORTED' : 'SUCCEEDED';
 	const hasErrors = interaction.errors.length > 0;
 

@@ -8,7 +8,10 @@ export type Props = React.PropsWithChildren<{
 const createNamespaceContext = <T extends Props>(
 	namespace: string,
 	displayName = 'NamespacedContext',
-) => {
+): {
+	(props: T): React.JSX.Element;
+	displayName: string;
+} => {
 	const Component = (props: T) => {
 		const newData = {
 			[namespace]: props.data,

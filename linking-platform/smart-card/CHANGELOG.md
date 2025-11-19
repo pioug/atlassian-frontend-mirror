@@ -1,5 +1,16 @@
 # @atlaskit/smart-card
 
+## 43.8.0
+
+### Minor Changes
+
+- [`a117d28802895`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a117d28802895) -
+  [ux] If icon prop is provided it will be used while the card is resolving and hideIcon is false
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 43.7.2
 
 ### Patch Changes

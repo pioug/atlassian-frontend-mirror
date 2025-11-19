@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-type-ahead",
-	"version": "6.5.17",
+	"version": "6.5.18",
 	"description": "Type-ahead plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -106,9 +106,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_refactor_view_more": {
-			"type": "boolean"
-		},
-		"platform_editor_typeahead_description_text_colour": {
 			"type": "boolean"
 		}
 	}

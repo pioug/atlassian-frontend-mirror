@@ -8,7 +8,17 @@ const MAX_OBSERVATIONS = 100;
 export default class RawDataHandler {
 	private readonly revisionNo: string = 'raw-handler';
 
-	protected getVCCleanStatus(filteredEntries: readonly VCObserverEntry[]) {
+	protected getVCCleanStatus(filteredEntries: readonly VCObserverEntry[]):
+		| {
+				isVCClean: boolean;
+				dirtyReason: never;
+				abortTimestamp: number;
+		  }
+		| {
+				isVCClean: boolean;
+				dirtyReason?: undefined;
+				abortTimestamp?: undefined;
+		  } {
 		let dirtyReason: VCAbortReason | '' = '';
 		let abortTimestamp = -1;
 		const hasAbortEvent = filteredEntries.some((entry) => {

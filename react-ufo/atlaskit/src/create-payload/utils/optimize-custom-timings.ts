@@ -4,7 +4,11 @@ import { type OptimizedLabelStack } from '../common/types';
 export function optimizeCustomTimings(
 	customTimings: InteractionMetrics['customTimings'],
 	interactionStart: number,
-) {
+): {
+	labelStack: OptimizedLabelStack;
+	startTime: number;
+	endTime: number;
+}[] {
 	return customTimings.reduce(
 		(result, item) => {
 			Object.keys(item.data).forEach((key) => {

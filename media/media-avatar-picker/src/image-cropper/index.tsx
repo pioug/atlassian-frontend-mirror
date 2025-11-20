@@ -168,7 +168,7 @@ export class ImageCropper extends Component<ImageCropperProp & WrappedComponentP
 		onImageError(formatMessage(ERROR.FORMAT));
 	};
 
-	render() {
+	render(): React.JSX.Element | null {
 		const {
 			isCircularMask,
 			containerSize,

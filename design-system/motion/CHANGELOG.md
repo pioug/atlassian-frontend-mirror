@@ -1,5 +1,11 @@
 # @atlaskit/motion
 
+## 5.3.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.8
 
 ### Patch Changes

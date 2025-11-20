@@ -8,7 +8,11 @@ import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
  * for Gemini
  * Copied from @atlassian/gemini as it is a privately scoped package
  */
-export function GeminiInteractionContext({ children }: { children: ReactNode | undefined }) {
+export function GeminiInteractionContext({
+	children,
+}: {
+	children: ReactNode | undefined;
+}): React.JSX.Element {
 	let interactionCount = useRef(0);
 
 	const interactionTracker = React.useMemo(

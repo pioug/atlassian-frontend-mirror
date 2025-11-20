@@ -31,7 +31,7 @@ export class DropdownList extends React.Component<DropDownListProps, State> {
 			: this.props.accessibleSites.slice(0, COLLAPSED_LIST_SITE_COUNT);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { accessibleSites } = this.props;
 		const { isExpanded } = this.state;
 		const visibleSites = this.getVisibleSites();

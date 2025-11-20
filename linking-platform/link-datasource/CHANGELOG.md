@@ -1,5 +1,21 @@
 # @atlaskit/link-datasource
 
+## 4.30.4
+
+### Patch Changes
+
+- [`06d5717d57f36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06d5717d57f36) -
+  Suppress i18n errors
+- [`4dd8034863d6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4dd8034863d6f) -
+  NAVX-2121 cleaning up navx-1845-sllv-autofocus-first-interactive-element
+- Updated dependencies
+
+## 4.30.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.30.2
 
 ### Patch Changes

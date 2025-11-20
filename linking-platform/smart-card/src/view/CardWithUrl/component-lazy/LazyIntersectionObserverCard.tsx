@@ -14,7 +14,7 @@ import { LoadingCardLink } from './LoadingCardLink';
 // up to check once a Smart Link is within `X` px from the bottom of the viewport.
 const ROOT_MARGIN_VERTICAL = '360px';
 
-export function LazyIntersectionObserverCard(props: CardWithUrlContentProps) {
+export function LazyIntersectionObserverCard(props: CardWithUrlContentProps): React.JSX.Element {
 	const ref = useRef<HTMLDivElement | null>(null);
 
 	const [isIntersecting, setIsIntersecting] = useState(false);

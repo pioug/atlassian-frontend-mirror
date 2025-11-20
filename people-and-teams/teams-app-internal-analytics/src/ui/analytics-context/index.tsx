@@ -21,7 +21,7 @@ export function TeamsAppAnalyticsContext({
 }: {
 	data?: TeamsAppAnalyticsContextData;
 	children: ReactNode;
-}) {
+}): React.JSX.Element {
 	const analyticsContextData = useMemo(() => {
 		if (typeof data === 'object') {
 			return {

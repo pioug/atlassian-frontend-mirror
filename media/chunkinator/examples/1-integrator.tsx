@@ -169,7 +169,7 @@ const chunkinate = async (
 	}
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [batchSizeInput, setBatchSizeInput] = useState('1000');
 	const cancelSubject = new Subject<void>();
 

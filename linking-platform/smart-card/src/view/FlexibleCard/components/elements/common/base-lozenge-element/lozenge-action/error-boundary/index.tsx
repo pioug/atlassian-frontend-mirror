@@ -8,7 +8,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import type { LozengeActionProps } from '../types';
 
 const withErrorBoundary =
-	(Component: ComponentType<LozengeActionProps>) => (props: LozengeActionProps) => {
+	(Component: ComponentType<LozengeActionProps>) =>
+	(props: LozengeActionProps): React.JSX.Element => {
 		const fallback = useMemo(
 			() => (
 				<Lozenge

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ErrorIcon = (props: any) => (
+const ErrorIcon = (props: any): React.JSX.Element => (
 	<svg
 		{...props}
 		width="inherit"

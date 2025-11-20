@@ -328,7 +328,7 @@ export type MediaRenderErrorEvent = UIAEP<
 	{ external?: boolean; reason: string }
 >;
 
-export type AnalyticsEventPayload<T = void> =
+export type AnalyticsEventPayload<_T = void> =
 	| RendererStartAEP
 	| RendererRenderedAEP
 	| ComponentCrashErrorAEP

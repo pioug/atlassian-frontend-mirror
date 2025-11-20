@@ -15,7 +15,7 @@ class CustomClient extends Client {
 	}
 }
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [initialState, setInitialState] = useState<CardStore>({});
 	const resetInitialStoreState = useCallback(() => {
 		setInitialState({});

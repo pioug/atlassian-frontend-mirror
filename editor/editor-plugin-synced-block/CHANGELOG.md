@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.2.15
+
+### Patch Changes
+
+- [`a9159bf9608a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9159bf9608a8) -
+  [ux] Fix edit link disabled on reference sync block by setting syncBlockStore in nodeview from
+  plugin state
+
+## 4.2.14
+
+### Patch Changes
+
+- [`964b980644f9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/964b980644f9d) -
+  EDITOR-3348 Refactor Synced Block Store Manager
+- Updated dependencies
+
+## 4.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.2.12
 
 ### Patch Changes

@@ -54,7 +54,7 @@ export const AssetsItemCount = ({
 	searchCount,
 	url,
 	testId,
-}: Pick<TableSearchCountProps, 'testId' | 'url' | 'searchCount'>) => {
+}: Pick<TableSearchCountProps, 'testId' | 'url' | 'searchCount'>): React.JSX.Element => {
 	let capCount = searchCount >= 1000;
 	let displayCount = capCount ? 1000 : searchCount;
 	let countModifier = capCount ? '+' : '';
@@ -73,7 +73,7 @@ const TableSearchCount = ({
 	styles: additionalStyles,
 	testId = 'datasource-table-total-results-count',
 	prefixTextType = 'issue',
-}: TableSearchCountProps) => {
+}: TableSearchCountProps): React.JSX.Element => {
 	const isIssue = prefixTextType === 'issue';
 	const messageKey: keyof typeof searchCountMessages =
 		isIssue && fg('confluence-issue-terminology-refresh')

@@ -62,7 +62,11 @@ const ViewportObserver = ({ onVisible, cardEl, children }: ViewportDetectorProps
 	return <UFOInteractionIgnore ignore={!isVisible}>{children}</UFOInteractionIgnore>;
 };
 
-export const ViewportDetector = ({ cardEl, onVisible, children }: ViewportDetectorProps) => {
+export const ViewportDetector = ({
+	cardEl,
+	onVisible,
+	children,
+}: ViewportDetectorProps): React.JSX.Element => {
 	if (typeof IntersectionObserver === 'undefined') {
 		return <>{children}</>;
 	}

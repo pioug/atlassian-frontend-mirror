@@ -119,7 +119,7 @@ const exampleCustomPlugin = {
 	form: <ExampleCustomPluginForm />,
 };
 
-export default function CreateBasic() {
+export default function CreateBasic(): React.JSX.Element {
 	const [link, setLink] = useState<string | null>();
 	const [ari, setAri] = useState<string | null>();
 	const [active, setActive] = useState(false);

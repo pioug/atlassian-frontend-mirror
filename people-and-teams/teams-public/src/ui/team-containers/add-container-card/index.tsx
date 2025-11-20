@@ -77,7 +77,7 @@ export const AddContainerCard = ({
 	onAddAContainerClick,
 	isLoading = false,
 	showNewDesign = false,
-}: AddContainerCardProps) => {
+}: AddContainerCardProps): React.JSX.Element => {
 	const { description, icon, title } = getContainerProperties({
 		containerType,
 		iconSize: fg('enable_medium_size_icons_for_team_link_cards') ? 'medium' : undefined,
@@ -142,7 +142,7 @@ export const getAddContainerCards = ({
 	onAddAContainerClick,
 	CustomAddContainerCard,
 	showNewDesign,
-}: GetAddContainerCardsProps) => {
+}: GetAddContainerCardsProps): React.JSX.Element => {
 	const AddContainerCardComponent = CustomAddContainerCard ?? AddContainerCard;
 	return (
 		<>

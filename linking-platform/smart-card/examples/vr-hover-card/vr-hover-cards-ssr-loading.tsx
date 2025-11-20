@@ -35,7 +35,7 @@ const storeOptions: CardProviderStoreOpts = {
 	},
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestWrapper>
 		<Provider storeOptions={storeOptions} client={new CustomLoadingClient('staging')}>
 			<Card url={url} appearance="inline" showHoverPreview={true} testId="ssr-hover-card-loading" />

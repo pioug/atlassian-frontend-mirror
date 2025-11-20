@@ -9,7 +9,7 @@ const ZoomInStar = (props: StarProps) => (
 	<ZoomIn>{(motion) => <Star {...motion} {...props} />}</ZoomIn>
 );
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [count, setCount] = useState(0);
 
 	return (

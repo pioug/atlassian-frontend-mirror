@@ -39,7 +39,10 @@ export type CustomMenuListProps = {
 	showMore?: boolean;
 };
 
-const CustomMenuList = ({ children, ...props }: MenuListComponentProps<SelectOption, true>) => {
+const CustomMenuList = ({
+	children,
+	...props
+}: MenuListComponentProps<SelectOption, true>): React.JSX.Element => {
 	const {
 		filterName,
 		isLoading,

@@ -23,7 +23,7 @@ const styles = cssMap({
 	},
 });
 
-export const PoweredByJSMAssets = (props: { text: string }) => {
+export const PoweredByJSMAssets = (props: { text: string }): React.JSX.Element => {
 	const ASSETS_LINK = '/jira/servicedesk/assets';
 	const ASSETS_APP_LINK = '/jira/assets';
 	const { fireEvent } = useDatasourceAnalyticsEvents();

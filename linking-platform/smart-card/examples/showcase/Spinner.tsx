@@ -2,7 +2,7 @@ import React from 'react';
 
 import Spinner from '@atlaskit/spinner';
 
-export const exampleSpinner = (
+export const exampleSpinner: React.JSX.Element = (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 	<div style={{ height: '100%', width: '100%', position: 'relative' }}>
 		<div

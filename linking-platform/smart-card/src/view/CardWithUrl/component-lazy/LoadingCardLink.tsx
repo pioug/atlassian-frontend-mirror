@@ -5,7 +5,11 @@ import { type CardWithUrlContentProps } from '../types';
 
 import { loadingPlaceholderClassName } from './LazyFallback';
 
-export const LoadingCardLink = ({ isSelected, url, placeholder }: CardWithUrlContentProps) => {
+export const LoadingCardLink = ({
+	isSelected,
+	url,
+	placeholder,
+}: CardWithUrlContentProps): React.JSX.Element => {
 	return (
 		<CardLinkView
 			key={'lazy-render-key'}

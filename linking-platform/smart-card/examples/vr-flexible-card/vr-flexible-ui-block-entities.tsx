@@ -25,7 +25,7 @@ const actions: ActionItem[] = [
 	},
 ];
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestWrapper>
 		<Provider client={new CustomClient('staging')}>
 			<Card appearance="inline" ui={{ clickableContainer: true }} url="https://link-url">

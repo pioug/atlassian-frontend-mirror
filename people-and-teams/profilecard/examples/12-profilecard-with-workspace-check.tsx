@@ -12,7 +12,7 @@ import ExampleWrapper from './helper/example-wrapper';
 import { MainStage } from './helper/main-stage';
 import { getMockProfileClient } from './helper/util';
 
-export const Wrap = ({ children }: { children: React.ReactNode }) => {
+export const Wrap = ({ children }: { children: React.ReactNode }): React.JSX.Element => {
 	return <Box xcss={styles.wrap}>{children}</Box>;
 };
 
@@ -22,7 +22,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [flags, setFlags] = useState<Array<FlagProps>>([]);
 
 	const addFlag = (flag: FlagProps) => {

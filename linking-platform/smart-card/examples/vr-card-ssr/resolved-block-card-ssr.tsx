@@ -16,7 +16,7 @@ const storeOptions: CardProviderStoreOpts = {
 	},
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Provider storeOptions={storeOptions} client={new Client('stg')}>
 		<CardSSR appearance="block" url={url}>
 			<TitleBlock

@@ -21,7 +21,7 @@ const containerStyles = xcss({
 	padding: 'space.600',
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [element, setElement] = React.useState<React.ReactNode | React.ReactElement>(null);
 
 	const openEmbedModal = () =>

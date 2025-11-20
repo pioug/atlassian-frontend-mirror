@@ -6,7 +6,7 @@ import VRCardView from '../utils/vr-card-view';
 
 // Content inside embed card should not extend out of it,
 // (it also gates the fix to the overflow styles)
-export default () => (
+export default (): React.JSX.Element => (
 	<VRCardView
 		appearance="embed"
 		client={new ForbiddenClient()}

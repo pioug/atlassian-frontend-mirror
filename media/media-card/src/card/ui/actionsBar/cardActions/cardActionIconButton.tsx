@@ -28,7 +28,7 @@ export const CardActionIconButton = ({
 	variant,
 	isDisabled,
 	tooltip,
-}: CardActionIconButtonProps) => {
+}: CardActionIconButtonProps): React.JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	// this is to prevent currently focused text to loose cursor on clicking card action

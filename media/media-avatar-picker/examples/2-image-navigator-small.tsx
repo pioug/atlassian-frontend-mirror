@@ -22,7 +22,7 @@ function handleImgRef(img: any) {
 	imageElement = img;
 }
 
-export default () => (
+export default (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<div>
 			<h1>Local small image</h1>

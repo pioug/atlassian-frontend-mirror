@@ -9,7 +9,7 @@ export type MediaPickerAnalyticsErrorBoundaryProps = PropsWithChildren<{
 export default class MediaPickerAnalyticsErrorBoundary extends React.Component<MediaPickerAnalyticsErrorBoundaryProps> {
 	static displayName = 'MediaPickerAnalyticsErrorBoundary';
 
-	render() {
+	render(): React.JSX.Element {
 		const { data = {}, children } = this.props;
 		return (
 			<AnalyticsErrorBoundary channel={ANALYTICS_MEDIA_CHANNEL} data={data}>

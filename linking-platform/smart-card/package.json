@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.8.0",
+	"version": "43.9.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -245,6 +245,9 @@
 			"type": "boolean"
 		},
 		"navx-2479-sl-fix-inilne-card-show-connect-button": {
+			"type": "boolean"
+		},
+		"hover-card-prop-should-render-to-parent": {
 			"type": "boolean"
 		},
 		"platform-linking-smart-card-layered-link-a11y": {

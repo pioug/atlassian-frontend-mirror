@@ -157,6 +157,6 @@ function createRule() {
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const markdownItMedia = (md: any) => {
+export const markdownItMedia = (md: any): void => {
 	md.core.ruler.before('inline', 'media', createRule());
 };

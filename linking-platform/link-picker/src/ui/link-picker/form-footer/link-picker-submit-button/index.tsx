@@ -45,7 +45,7 @@ export const LinkPickerSubmitButton = ({
 	submitMessageId,
 	testId,
 	url,
-}: LinkPickerButtonGroupProps) => {
+}: LinkPickerButtonGroupProps): React.JSX.Element => {
 	const intl = useIntl();
 	const insertButtonMsg = isEditing ? messages.saveButton : messages.insertButton;
 

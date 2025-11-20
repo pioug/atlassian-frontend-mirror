@@ -17,6 +17,7 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { TableOptions } from '../../../nodeviews/types';
@@ -26,6 +27,7 @@ import {
 	MAX_SCALING_PERCENT,
 	MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION,
 	TABLE_MAX_WIDTH,
+	TABLE_FULL_WIDTH,
 } from './consts';
 
 // Translates named layouts in number values.
@@ -155,8 +157,16 @@ export const getTableResizerContainerMaxWidthInCSS = (
 	isTableScalingEnabled?: boolean,
 ): string => {
 	const maxResizerWidthForNonCommentEditor = isTableScalingEnabled
-		? `min(calc(100cqw - calc(var(--ak-editor--large-gutter-padding) * 2)), ${TABLE_MAX_WIDTH}px)`
-		: `min(calc(100cqw - calc(var(--ak-editor--large-gutter-padding) * 2) - var(--ak-editor--resizer-handle-spacing)), ${TABLE_MAX_WIDTH}px)`;
+		? `min(calc(100cqw - calc(var(--ak-editor--large-gutter-padding) * 2)), ${
+				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+					? TABLE_MAX_WIDTH
+					: TABLE_FULL_WIDTH
+			}px)`
+		: `min(calc(100cqw - calc(var(--ak-editor--large-gutter-padding) * 2) - var(--ak-editor--resizer-handle-spacing)), ${
+				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+					? TABLE_MAX_WIDTH
+					: TABLE_FULL_WIDTH
+			}px)`;
 	return isCommentEditor || isChromelessEditor ? '100%' : maxResizerWidthForNonCommentEditor;
 };
 

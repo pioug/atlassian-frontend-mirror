@@ -57,7 +57,7 @@ export const InlineCard = ({
 	resolvingPlaceholder,
 	truncateInline,
 	hideIconLoadingSkeleton,
-}: InlineCardProps) => {
+}: InlineCardProps): React.JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	const { status, details } = cardState;

@@ -19,7 +19,7 @@ const ActionGroupItem = ({
 	item: ActionItem;
 	onActionItemClick?: () => void;
 	size: SmartLinkSize;
-}) => {
+}): React.JSX.Element | null => {
 	const { name, hideContent, hideIcon, onClick, isDisabled, ...props } = item;
 	const handleOnClick = useCallback(() => {
 		if (onActionItemClick) {

@@ -13,6 +13,6 @@ const styles = cssMap({
 	},
 });
 
-export const MainStage = ({ children }: { children: React.ReactNode }) => {
+export const MainStage = ({ children }: { children: React.ReactNode }): React.JSX.Element => {
 	return <Box xcss={styles.mainStage}>{children}</Box>;
 };

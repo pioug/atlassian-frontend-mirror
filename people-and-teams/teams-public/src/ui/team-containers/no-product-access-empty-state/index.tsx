@@ -22,7 +22,7 @@ const styles = cssMap({
 	},
 });
 
-export const NoProductAccessState = () => {
+export const NoProductAccessState = (): React.JSX.Element => {
 	return (
 		<Stack
 			space="space.100"

@@ -39,7 +39,7 @@ const TitleBlockErroredView = ({
 	hideIcon,
 	CompetitorPrompt,
 	...blockProps
-}: TitleBlockViewProps) => {
+}: TitleBlockViewProps): React.JSX.Element => {
 	const context = useFlexibleUiContext();
 	const showRetry = !hideRetry && Boolean(context?.actions?.[InternalActionName.UnresolvedAction]);
 

@@ -10,7 +10,7 @@ export const MotionWrapper = ({
 	minHeight = 0,
 	show,
 	showTransition = false,
-}: MotionWrapperProps) => {
+}: MotionWrapperProps): React.JSX.Element | null => {
 	const [height, setHeight] = useState(0);
 	const ref = useRef<HTMLDivElement>(null);
 	const transition = isFadeIn ? 'height, opacity' : 'height';

@@ -8,7 +8,7 @@ const LazyDatasourceTableView = lazy(() =>
 	).then((module) => ({ default: module.DatasourceTableView })),
 );
 
-const DatasourceTableViewWithWrappers = (props: DatasourceTableViewProps) => {
+const DatasourceTableViewWithWrappers = (props: DatasourceTableViewProps): React.JSX.Element => {
 	return (
 		<Suspense fallback={<div data-testid={'datasource-table-view-suspense'} />}>
 			<LazyDatasourceTableView {...props} />

@@ -4,7 +4,9 @@ type ContentLoadingErrorMessageProps = {
 	isHidden?: boolean;
 };
 
-export const ContentLoadingErrorMessage = ({ isHidden }: ContentLoadingErrorMessageProps) => (
+export const ContentLoadingErrorMessage = ({
+	isHidden,
+}: ContentLoadingErrorMessageProps): React.JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 	<p style={{ display: isHidden ? 'none' : 'block' }}>We couldn't load this content</p>
 );

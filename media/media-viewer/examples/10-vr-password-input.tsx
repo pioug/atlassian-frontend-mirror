@@ -14,7 +14,7 @@ const mediaViewerBackground = xcss({
 	padding: 'space.400',
 });
 
-const Example = () => (
+const Example = (): React.JSX.Element => (
 	<I18NWrapper>
 		<MainWrapper>
 			<Box xcss={mediaViewerBackground}>

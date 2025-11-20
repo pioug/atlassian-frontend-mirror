@@ -213,7 +213,7 @@ export class ClipboardBase extends LocalUploadComponentReact<ClipboardProps> {
 		this.clipboard.deactivate();
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<ErrorFlagGroup flagData={this.state.errorFlags} onFlagDismissed={this.dismissErrorFlag} />
 		);

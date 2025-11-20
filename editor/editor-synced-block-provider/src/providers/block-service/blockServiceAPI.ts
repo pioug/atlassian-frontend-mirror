@@ -2,14 +2,18 @@ import { useMemo } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
-import { SyncBlockError, type ResourceId, type SyncBlockData } from '../../common/types';
+import {
+	blockResourceIdFromSourceAndLocalId,
+	getLocalIdFromBlockResourceId,
+} from '../../clients/block-service/ari';
 import {
 	BlockError,
 	createSyncedBlock,
 	deleteSyncedBlock,
 	getSyncedBlockContent,
 	updateSyncedBlock,
-} from '../../utils/blockService';
+} from '../../clients/block-service/blockService';
+import { SyncBlockError, type ResourceId, type SyncBlockData } from '../../common/types';
 import { stringifyError } from '../../utils/errorHandling';
 import type {
 	ADFFetchProvider,
@@ -19,8 +23,6 @@ import type {
 	SyncBlockInstance,
 	WriteSyncBlockResult,
 } from '../types';
-
-import { blockResourceIdFromSourceAndLocalId, getLocalIdFromResourceId } from './ari';
 
 const mapBlockError = (error: BlockError): SyncBlockError => {
 	switch (error.status) {
@@ -39,7 +41,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 	// resourceId is the ARI of the block. E.G ari:cloud:blocks:site-123:synced-block/uuid-456
 	// in the content API provider, this was the concatenation of the source document's ARI and the local ID. E.G ari:cloud:confluence:site-123:page/pageId/uuid-456
 	async fetchData(resourceId: string): Promise<SyncBlockInstance> {
-		const localId = getLocalIdFromResourceId(resourceId);
+		const localId = getLocalIdFromBlockResourceId(resourceId);
 
 		try {
 			const blockContentResponse = await getSyncedBlockContent({ blockAri: resourceId });
@@ -71,7 +73,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 	retrieveSourceInfoFetchData(resourceId: ResourceId, pageARI: string): SourceInfoFetchData {
 		let sourceLocalId;
 		try {
-			sourceLocalId = getLocalIdFromResourceId(resourceId);
+			sourceLocalId = getLocalIdFromBlockResourceId(resourceId);
 		} catch (error) {
 			// EDITOR-1921: log analytic here, safe to continue
 		}

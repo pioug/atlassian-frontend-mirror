@@ -28,7 +28,7 @@ const initialState = Object.entries({
 	{},
 );
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestWrapper
 		style={{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

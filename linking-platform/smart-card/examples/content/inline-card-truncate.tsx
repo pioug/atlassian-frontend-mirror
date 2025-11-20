@@ -7,7 +7,7 @@ import Range from '@atlaskit/range';
 
 import { Card } from '../../src';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [value, setValue] = useState(50);
 
 	return (

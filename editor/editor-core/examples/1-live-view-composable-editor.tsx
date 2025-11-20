@@ -84,8 +84,6 @@ function ComposableEditorPage() {
 			'sourceId',
 			{
 				parentDataProviders: {
-					emojiProvider: undefined,
-					mediaProvider: undefined,
 					mentionProvider: undefined,
 					profilecardProvider: undefined,
 					taskDecisionProvider: undefined,

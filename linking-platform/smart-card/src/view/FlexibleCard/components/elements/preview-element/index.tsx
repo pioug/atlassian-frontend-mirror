@@ -19,7 +19,7 @@ export type PreviewElementProps = ElementProps & {
 	overrideUrl?: string;
 };
 
-const PreviewElement = (props: PreviewElementProps) => {
+const PreviewElement = (props: PreviewElementProps): React.JSX.Element | null => {
 	const { overrideUrl, ...rest } = props ?? {};
 	const context = useFlexibleUiContext();
 	const data: MediaData | undefined = overrideUrl

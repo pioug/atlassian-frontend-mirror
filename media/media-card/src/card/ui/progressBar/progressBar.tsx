@@ -20,7 +20,7 @@ export const ProgressBar = ({
 	positionBottom = false,
 	showOnTop = false,
 	ariaLabel = 'Loading progress',
-}: ProgressBarProps) => {
+}: ProgressBarProps): React.JSX.Element => {
 	return (
 		<StyledBar
 			progress={getNormalizedProgress(progress)}

@@ -31,7 +31,7 @@ function urlWithCard(url: string) {
 	);
 }
 
-export default () => (
+export default (): React.JSX.Element => (
 	<ExampleContainer title="Custom Resolver">
 		<Stack space="space.200">
 			<Provider client={new Client('staging')}>

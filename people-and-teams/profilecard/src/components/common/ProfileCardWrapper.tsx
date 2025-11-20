@@ -11,7 +11,7 @@ export const ProfileCardWrapper = ({
 }: {
 	children: React.ReactNode;
 	testId?: string;
-}) => {
+}): React.JSX.Element => {
 	return (
 		<Box xcss={styles.wrapper} testId={testId}>
 			{children}

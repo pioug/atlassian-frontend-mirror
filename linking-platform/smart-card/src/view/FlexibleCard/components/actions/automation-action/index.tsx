@@ -24,7 +24,7 @@ const AutomationModal = lazy(
 		),
 );
 
-const AutomationAction = (props: LinkActionProps) => {
+const AutomationAction = (props: LinkActionProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 	const modal = useSmartLinkModal();
 	const { onClick: onClickCallback } = props;

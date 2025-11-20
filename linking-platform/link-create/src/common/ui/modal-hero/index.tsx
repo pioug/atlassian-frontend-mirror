@@ -13,7 +13,7 @@ type ModalHeroProps = {
 	hero?: React.ReactNode;
 };
 
-export const ModalHero = ({ hero }: ModalHeroProps) => {
+export const ModalHero = ({ hero }: ModalHeroProps): React.JSX.Element | null => {
 	if (!hero) {
 		return null;
 	}

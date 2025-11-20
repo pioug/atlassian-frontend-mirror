@@ -131,7 +131,9 @@ export type MediaFeatureFlagsDropdownProps = {
 	onFlagChanged: () => void;
 };
 
-const MediaFeatureFlagsDropdown = ({ onFlagChanged }: MediaFeatureFlagsDropdownProps) => {
+const MediaFeatureFlagsDropdown = ({
+	onFlagChanged,
+}: MediaFeatureFlagsDropdownProps): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 	return (
 		<Container>

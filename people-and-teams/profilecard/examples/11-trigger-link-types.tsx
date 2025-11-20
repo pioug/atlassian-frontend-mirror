@@ -105,7 +105,7 @@ function Trigger(props: TriggerKind) {
 	);
 }
 
-const TriggerTypeTable = () => (
+const TriggerTypeTable = (): React.JSX.Element => (
 	<ExampleWrapper>
 		<div
 			style={{

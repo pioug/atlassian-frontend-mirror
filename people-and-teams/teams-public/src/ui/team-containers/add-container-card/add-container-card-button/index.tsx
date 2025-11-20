@@ -6,7 +6,7 @@ import { Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 
 import type { ContainerTypes } from '../../../../common/types';
 
-function AddContainerCardButton({ type }: { type: ContainerTypes }) {
+function AddContainerCardButton({ type }: { type: ContainerTypes }): React.JSX.Element {
 	const { title, description } = getContainerProperties(type);
 	return (
 		<Stack>

@@ -6,7 +6,13 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { LozengeActionItemProps } from './types';
 
-const LozengeActionItem = ({ appearance, id, onClick, testId, text }: LozengeActionItemProps) => {
+const LozengeActionItem = ({
+	appearance,
+	id,
+	onClick,
+	testId,
+	text,
+}: LozengeActionItemProps): React.JSX.Element => {
 	const handleClick = useCallback(
 		(e: any) => {
 			// Prevent dropdown to close on select item.

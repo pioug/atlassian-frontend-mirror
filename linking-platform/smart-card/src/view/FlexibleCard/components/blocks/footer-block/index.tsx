@@ -13,7 +13,11 @@ import { type FooterBlockProps } from './types';
  * @param {FooterBlockProps} FooterBlockProps
  * @see Block
  */
-const FooterBlock = ({ testId = 'smart-footer-block', alwaysShow, ...props }: FooterBlockProps) => {
+const FooterBlock = ({
+	testId = 'smart-footer-block',
+	alwaysShow,
+	...props
+}: FooterBlockProps): React.JSX.Element | null => {
 	const cardContext = useFlexibleCardContext();
 
 	if (cardContext?.status !== SmartLinkStatus.Resolved && !alwaysShow) {

@@ -152,7 +152,7 @@ const BackendProvider = ({ disableOverlay }: { disableOverlay: boolean }) => {
 	);
 };
 
-export default function () {
+export default function (): React.JSX.Element {
 	const [reloadKey, setReloadkey] = useState(0);
 	const [useMockedAPI, setUseMockedAPI] = useState(false);
 	const [disableOverlay, setDisableOverlay] = useState(true);

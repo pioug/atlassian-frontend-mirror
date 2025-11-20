@@ -15,7 +15,7 @@ export function Radios<T extends { toString(): string }>({
 	options: T[];
 	setter: (val: T) => void;
 	currentValue: T;
-}) {
+}): React.JSX.Element {
 	return (
 		<ul>
 			{options.map((value) => {
@@ -43,7 +43,7 @@ const descriptionKeys: DescKey[] = ['None', 'Short', 'Medium', 'Long', 'Overlong
 const memberCounts = [0, 1, 2, 3, 6, 7, 8, 9, 10, 11, 16, 22];
 const nameKeys: NameKey[] = ['Short', 'Medium', 'Long', 'Overlong'];
 
-export function TeamCustomizer({ setTeam }: { setTeam: (team: Team) => void }) {
+export function TeamCustomizer({ setTeam }: { setTeam: (team: Team) => void }): React.JSX.Element {
 	const [numMembers, setNumMembers] = useState(1);
 	const [descSize, setDescription] = useState<DescKey>('Long');
 	const [useHeader, setHeader] = useState(false);

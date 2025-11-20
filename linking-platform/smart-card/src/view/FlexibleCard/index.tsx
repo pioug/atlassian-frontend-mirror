@@ -40,7 +40,7 @@ const FlexibleCard = ({
 	testId,
 	ui,
 	url,
-}: FlexibleCardProps) => {
+}: FlexibleCardProps): React.JSX.Element => {
 	const aiSummaryConfig = useAISummaryConfig();
 	const resolve = useResolve();
 	const { isPreviewPanelAvailable, openPreviewPanel } = useSmartLinkContext();

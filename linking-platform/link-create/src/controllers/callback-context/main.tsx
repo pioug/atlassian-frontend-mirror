@@ -32,7 +32,7 @@ const LinkCreateCallbackProvider = ({
 	onCreate,
 	onFailure,
 	onCancel,
-}: PropsWithChildren<LinkCreateCallbackProviderProps>) => {
+}: PropsWithChildren<LinkCreateCallbackProviderProps>): React.JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const experience = useExperience();
 

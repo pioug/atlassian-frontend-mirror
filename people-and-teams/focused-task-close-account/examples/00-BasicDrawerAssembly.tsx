@@ -22,7 +22,7 @@ const preferenceSelection = () => {
 	// do nothing
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<React.Fragment>
 			<h1>See code</h1>

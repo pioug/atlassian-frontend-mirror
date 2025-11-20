@@ -43,6 +43,7 @@ import { getColgroupChildrenLength } from '../pm-plugins/table-resizing/utils/co
 import {
 	COLUMN_MIN_WIDTH,
 	TABLE_MAX_WIDTH,
+	TABLE_FULL_WIDTH,
 	TABLE_OFFSET_IN_COMMENT_EDITOR,
 } from '../pm-plugins/table-resizing/utils/consts';
 import { previewScaleTable, scaleTable } from '../pm-plugins/table-resizing/utils/scale-table';
@@ -527,12 +528,19 @@ export const TableResizer = ({
 				excludeGuidelineConfig,
 			).filter((guideline) => guideline.isFullWidth)[0];
 
-			const isFullWidthGuidelineActive =
-				closestSnap && closestSnap.keys.includes(fullWidthGuideline.key);
+			const isFullWidthGuidelineActive = expValEquals(
+				'editor_tinymce_full_width_mode',
+				'isEnabled',
+				true,
+			)
+				? closestSnap && fullWidthGuideline && closestSnap.keys.includes(fullWidthGuideline.key)
+				: closestSnap && closestSnap.keys.includes(fullWidthGuideline.key);
 
 			const tableMaxWidth = isCommentEditor
 				? Math.floor(containerWidth - TABLE_OFFSET_IN_COMMENT_EDITOR)
-				: TABLE_MAX_WIDTH;
+				: expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+					? TABLE_MAX_WIDTH
+					: TABLE_FULL_WIDTH;
 
 			const shouldUpdateWidthToWidest = isCommentEditor
 				? tableMaxWidth <= newWidth
@@ -600,7 +608,9 @@ export const TableResizer = ({
 
 			const tableMaxWidth = isCommentEditor
 				? undefined // Table's full-width in comment appearance inherit the width of the Editor/Renderer
-				: TABLE_MAX_WIDTH;
+				: expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+					? TABLE_MAX_WIDTH
+					: TABLE_FULL_WIDTH;
 
 			newWidth =
 				widthToWidest && currentTableNodeLocalId && widthToWidest[currentTableNodeLocalId]

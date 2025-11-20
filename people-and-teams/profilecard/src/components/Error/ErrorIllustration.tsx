@@ -3,7 +3,7 @@ import React from 'react';
 
 import { token } from '@atlaskit/tokens';
 
-export const ErrorIllustration = () => {
+export const ErrorIllustration = (): React.JSX.Element => {
 	return (
 		<svg
 			width="42"

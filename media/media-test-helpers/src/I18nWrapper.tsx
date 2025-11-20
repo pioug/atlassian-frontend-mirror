@@ -27,7 +27,7 @@ export interface I18NWrapperProps {
 
 const defaultLocale = defaultLocales[0];
 
-export const I18NWrapper = ({ children, initialLocale }: I18NWrapperProps) => {
+export const I18NWrapper = ({ children, initialLocale }: I18NWrapperProps): React.JSX.Element => {
 	const [locale, setLocale] = useState<Locale>(findLocale(initialLocale) || defaultLocale);
 
 	const lang = locale.value;

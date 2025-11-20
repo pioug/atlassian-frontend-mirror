@@ -77,7 +77,6 @@ const pageSvgStyles = css({
 	top: 0,
 	left: 0,
 	userSelect: 'text',
-	cursor: 'text',
 	fill: 'transparent',
 });
 

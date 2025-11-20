@@ -24,7 +24,7 @@ const mockVisibleColumnKeys = [
 	'Notes',
 ];
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [showModal, setShowModal] = useState(false);
 	const [parameters] = useState<AssetsDatasourceParameters>({
 		aql: 'dummy aql',

@@ -24,7 +24,7 @@ const parameters = {
 	cloudId: '67899',
 };
 
-export const ConfigSearchConfigModalNoInitialSearch = () => (
+export const ConfigSearchConfigModalNoInitialSearch = (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<SmartCardProvider client={new SmartLinkClient()}>
 			<ConfluenceSearchConfigModal

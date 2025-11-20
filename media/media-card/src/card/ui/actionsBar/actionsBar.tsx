@@ -5,7 +5,7 @@ import { ActionsBarWrapper } from './actionsBarWrapper';
 import { type ActionsBarProps } from './types';
 
 export class ActionsBar extends React.Component<ActionsBarProps> {
-	render() {
+	render(): React.JSX.Element | null {
 		const { isFixed, filename, actions } = this.props;
 
 		if (actions.length === 0) {

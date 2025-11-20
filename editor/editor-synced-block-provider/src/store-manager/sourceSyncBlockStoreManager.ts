@@ -24,6 +24,11 @@ type SyncBlockData = Data & {
 	pendingDeletion?: boolean;
 };
 
+// A store manager responsible for the lifecycle and state management of source sync blocks in an editor instance.
+// Designed to manage local in-memory state and synchronize with an external data provider.
+// Supports create, flush, and delete operations for source sync blocks.
+// Handles caching, debouncing updates, and publish/subscribe for local changes.
+// Ensures consistency between local and remote state, and can be used in both editor and renderer contexts.
 export class SourceSyncBlockStoreManager {
 	private dataProvider?: SyncBlockDataProvider;
 	private editorView?: EditorView;
@@ -41,11 +46,19 @@ export class SourceSyncBlockStoreManager {
 		this.syncBlockCache = new Map();
 	}
 
+	public isSourceBlock(node: PMNode): boolean {
+		return node.type.name === 'bodiedSyncBlock';
+	}
+
 	/**
 	 * Add/update a sync block node to/from the local cache
 	 * @param syncBlockNode - The sync block node to update
 	 */
 	public updateSyncBlockData(syncBlockNode: PMNode): boolean {
+		if (!this.isSourceBlock(syncBlockNode)) {
+			throw new Error('Invalid sync block node type provided for updateSyncBlockData');
+		}
+
 		const { localId, resourceId } = syncBlockNode.attrs;
 
 		if (!localId || !resourceId) {
@@ -62,7 +75,7 @@ export class SourceSyncBlockStoreManager {
 	 *
 	 * @returns true if saving all nodes successfully, false if fail to save some/all nodes
 	 */
-	public async flushBodiedSyncBlocks(): Promise<boolean> {
+	public async flush(): Promise<boolean> {
 		try {
 			if (!this.dataProvider) {
 				throw new Error('Data provider not set');
@@ -108,6 +121,9 @@ export class SourceSyncBlockStoreManager {
 		this.pendingResourceId = resourceId;
 	}
 
+	/**
+	 * Register callback function (which inserts node, handles focus etc) to be used later when creation to backend succeed
+	 */
 	public registerCreationCallback(callback: CreationCallback) {
 		this.creationCallback = callback;
 	}
@@ -124,6 +140,10 @@ export class SourceSyncBlockStoreManager {
 		this.creationCallback = undefined;
 	}
 
+	/**
+	 *
+	 * @returns true if waiting for the result of saving new bodiedSyncBlock to backend
+	 */
 	public hasPendingCreation() {
 		return !!this.pendingResourceId;
 	}
@@ -140,6 +160,9 @@ export class SourceSyncBlockStoreManager {
 		return !!this.confirmationCallback;
 	}
 
+	/**
+	 * @returns attributes for a new bodiedSyncBlock node
+	 */
 	public generateBodiedSyncBlockAttrs(): SyncBlockAttrs {
 		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const localId = uuid();
@@ -153,6 +176,10 @@ export class SourceSyncBlockStoreManager {
 		return { resourceId, localId };
 	}
 
+	/**
+	 * Create a bodiedSyncBlock node with empty content to backend
+	 * @param attrs attributes Ids of the node
+	 */
 	public createBodiedSyncBlockNode(attrs: SyncBlockAttrs): void {
 		try {
 			if (!this.dataProvider) {
@@ -259,5 +286,15 @@ export class SourceSyncBlockStoreManager {
 			incomingTr,
 			state,
 		);
+	}
+
+	public destroy(): void {
+		this.syncBlockCache.clear();
+		this.confirmationCallback = undefined;
+		this.confirmationTransaction = undefined;
+		this.pendingResourceId = undefined;
+		this.creationCallback = undefined;
+		this.dataProvider = undefined;
+		this.editorView = undefined;
 	}
 }

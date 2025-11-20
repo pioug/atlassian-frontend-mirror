@@ -8,7 +8,7 @@ type SRLiveTitleProps = {
 	mode: Mode;
 };
 
-export const SRLiveTitle = ({ mode }: SRLiveTitleProps) => {
+export const SRLiveTitle = ({ mode }: SRLiveTitleProps): React.JSX.Element => {
 	const intl = useIntl();
 
 	return (

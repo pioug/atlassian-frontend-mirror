@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 4.4.0
+
+### Minor Changes
+
+- [`9da3e7c74b44a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9da3e7c74b44a) -
+  [ux] Sort builds by number after retrieving solution plan from the backend. Update CTA copy to
+  "Start building" for all object types
+
 ## 4.3.0
 
 ### Minor Changes

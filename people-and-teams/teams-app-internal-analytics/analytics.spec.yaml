@@ -2563,6 +2563,9 @@ events:
         isSiteAdmin:
           type: boolean
           description: whether the user is a site admin
+        isArchived:
+          type: boolean
+          description: whether the team is archived (DISBANDED state)
         isOrgAdmin:
           type: boolean
           description: whether the user is an org admin
@@ -2585,6 +2588,90 @@ events:
         containersCurrentlyConnected:
           type: []
           description: the list of currently connected containers
+  - teamArchived succeeded:
+      type: operational
+      description: team archived successfully
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the archived team
+          required: false
+        isOrgAdmin:
+          type: boolean
+          description: whether the user is an org admin
+          required: false
+        isMember:
+          type: boolean
+          description: whether the user is a member of the team
+          required: false
+        isVerified:
+          type: boolean
+          description: whether the team is verified
+          required: false
+  - teamArchived failed:
+      type: operational
+      description: team archival failed
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the team that failed to archive
+          required: false
+        isOrgAdmin:
+          type: boolean
+          description: whether the user is an org admin
+          required: false
+        isMember:
+          type: boolean
+          description: whether the user is a member of the team
+          required: false
+        isVerified:
+          type: boolean
+          description: whether the team is verified
+          required: false
+        error:
+          type: string
+          description: error message
+          required: false
+  - teamUnarchived succeeded:
+      type: operational
+      description: team unarchived successfully
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the unarchived team
+          required: false
+        isOrgAdmin:
+          type: boolean
+          description: whether the user is an org admin
+          required: false
+        isMember:
+          type: boolean
+          description: whether the user is a member of the team
+          required: false
+  - teamUnarchived failed:
+      type: operational
+      description: team unarchival failed
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: id of the team that failed to unarchive
+          required: false
+        isOrgAdmin:
+          type: boolean
+          description: whether the user is an org admin
+          required: false
+        isMember:
+          type: boolean
+          description: whether the user is a member of the team
+          required: false
+        error:
+          type: string
+          description: error message
+          required: false
   - GetTeamProfile succeeded:
       type: operational
       description: fired when the get team profile request is succeeded

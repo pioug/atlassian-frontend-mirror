@@ -17,6 +17,6 @@ const controlsBoxStyles = xcss({
 	},
 });
 
-export const ControlsBox = ({ children }: { children: ReactNode }) => (
+export const ControlsBox = ({ children }: { children: ReactNode }): React.JSX.Element => (
 	<Box xcss={controlsBoxStyles}>{children}</Box>
 );

@@ -4,7 +4,7 @@ import { ElementName, MetadataBlock } from '../../src';
 
 import ExampleContainer from './example-container';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<ExampleContainer>
 		<MetadataBlock
 			primary={[

@@ -4,7 +4,7 @@ import { ForbiddenWithSitePendingRequestClient } from '@atlaskit/link-test-helpe
 
 import VRCardView from '../utils/vr-card-view';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRCardView
 		appearance="embed"
 		client={new ForbiddenWithSitePendingRequestClient()}

@@ -12,7 +12,10 @@ interface MediaClientProviderProp {
 }
 
 /** @deprecated Use MediaProvider instead */
-export const MediaClientProvider = ({ children, clientConfig }: MediaClientProviderProp) => {
+export const MediaClientProvider = ({
+	children,
+	clientConfig,
+}: MediaClientProviderProp): React.JSX.Element => {
 	const mediaClient = useMemo(() => getMediaClient(clientConfig), [clientConfig]);
 	return <MediaClientContext.Provider value={mediaClient}>{children}</MediaClientContext.Provider>;
 };

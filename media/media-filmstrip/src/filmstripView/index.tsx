@@ -240,7 +240,7 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 			// we're calculating `left` based on `width` because `rect.left` can be a negative value after resizing the window (considered scrolled??)
 			const children: Element[] = Array.prototype.slice.call(bufferElement.children, 0);
 			let left = 0;
-			childOffsets = children.map((child: Element, index: number) => {
+			childOffsets = children.map((child: Element, _index: number) => {
 				const width = child.getBoundingClientRect().width;
 
 				const offset = {
@@ -302,7 +302,7 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		this.initMutationObserver();
 	};
 
-	handleMutation = (mutationList: MutationRecord[]) => {
+	handleMutation = (_mutationList: MutationRecord[]) => {
 		// there are edge cases where the DOM may change outside of the normal React life-cycle
 		// https://product-fabric.atlassian.net/browse/MSW-425
 		this.handleSizeChange();
@@ -411,7 +411,7 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		}
 	};
 
-	renderLeftArrow() {
+	renderLeftArrow(): React.JSX.Element | null {
 		const { canGoLeft } = this;
 		if (!canGoLeft) {
 			return null;
@@ -419,7 +419,7 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		return <LeftArrow onClick={this.handleLeftClick} />;
 	}
 
-	renderRightArrow() {
+	renderRightArrow(): React.JSX.Element | null {
 		const { canGoRight } = this;
 		if (!canGoRight) {
 			return null;

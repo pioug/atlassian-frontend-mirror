@@ -27,7 +27,7 @@ const parameters = {
 	jql: 'order by created DESC',
 };
 
-export const JiraIssuesConfigModalUnauthorizedEditState = () => (
+export const JiraIssuesConfigModalUnauthorizedEditState = (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<SmartCardProvider client={new SmartLinkClient()}>
 			<JiraIssuesConfigModal

@@ -14,7 +14,7 @@ class MockNotificationLogClient extends NotificationLogClient {
 	}
 }
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const client = new MockNotificationLogClient();
 
 	return <NotificationIndicator notificationLogProvider={Promise.resolve(client)} />;

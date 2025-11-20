@@ -11,12 +11,12 @@ export const Truncate: typeof CompiledTruncate = (props) => <CompiledTruncate {.
 export const TruncateLeft = (
 	props: TruncateStyledProps &
 		React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
-) => <CompiledTruncateLeft {...props} />;
+): React.JSX.Element => <CompiledTruncateLeft {...props} />;
 
 export const TruncateRight = (
 	props: TruncateStyledProps &
 		React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
-) => <CompiledTruncateRight {...props} />;
+): React.JSX.Element => <CompiledTruncateRight {...props} />;
 
 export { calculateTruncation } from './truncateText-compiled';
 

@@ -6,7 +6,7 @@ import { type CardWithUrlContentProps } from '../types';
 import { LazyIntersectionObserverCard } from './LazyIntersectionObserverCard';
 import { LazyLazilyRenderCard } from './LazyLazilyRenderCard';
 
-export default function LazyCardWithUrlContent(props: CardWithUrlContentProps) {
+export default function LazyCardWithUrlContent(props: CardWithUrlContentProps): React.JSX.Element {
 	if (isIntersectionObserverSupported()) {
 		return <LazyIntersectionObserverCard {...props} />;
 	} else {

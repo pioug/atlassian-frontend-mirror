@@ -25,7 +25,7 @@ const parameters = {
 	searchString: 'Searched something',
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<IntlProvider locale="en">
 			<SmartCardProvider client={new SmartLinkClient()}>

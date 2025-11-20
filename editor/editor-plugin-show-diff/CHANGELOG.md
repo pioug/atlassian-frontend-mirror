@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 3.2.6
+
+### Patch Changes
+
+- [`05ee61c6ace09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05ee61c6ace09) -
+  Improve performance of show diff by increasing merge of steps
+- Updated dependencies
+
 ## 3.2.5
 
 ### Patch Changes

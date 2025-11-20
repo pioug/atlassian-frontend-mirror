@@ -12,7 +12,10 @@ import Action from '../action';
 
 import type { DownloadActionProps } from './types';
 
-const DownloadAction = ({ onClick: onClickCallback, ...props }: DownloadActionProps) => {
+const DownloadAction = ({
+	onClick: onClickCallback,
+	...props
+}: DownloadActionProps): React.JSX.Element | null => {
 	const context = useFlexibleUiContext();
 	const invoke = useInvokeClientAction({});
 

@@ -23,7 +23,7 @@ const CardViewSection = ({
 	fontSize?: React.CSSProperties['fontSize'];
 	title: string;
 } & Pick<ProviderProps, 'client'> &
-	CardProps) => (
+	CardProps): React.JSX.Element => (
 	<React.Fragment>
 		{title !== '' ? <h6>{title}</h6> : undefined}
 		{description !== undefined && description !== '' ? <p>Context: {description}</p> : undefined}

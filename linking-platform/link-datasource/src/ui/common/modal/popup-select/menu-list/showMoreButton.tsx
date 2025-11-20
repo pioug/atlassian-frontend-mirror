@@ -14,7 +14,11 @@ type ShowMoreButtonProps = {
 	onShowMore: () => void;
 };
 
-const ShowMoreButton = ({ onShowMore, filterName, filterLabel = '' }: ShowMoreButtonProps) => {
+const ShowMoreButton = ({
+	onShowMore,
+	filterName,
+	filterLabel = '',
+}: ShowMoreButtonProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 

@@ -9,7 +9,6 @@ import {
 	EVENT_TYPE,
 	type BlockMenuEventPayload,
 } from '@atlaskit/editor-common/analytics';
-import { messages } from '@atlaskit/editor-common/block-menu';
 import { copyHTMLToClipboard } from '@atlaskit/editor-common/clipboard';
 import { toDOM, copyDomNode } from '@atlaskit/editor-common/copy-button';
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
@@ -21,7 +20,6 @@ import type { CellSelection } from '@atlaskit/editor-tables';
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import CopyIcon from '@atlaskit/icon/core/copy';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
@@ -125,8 +123,7 @@ const CopyBlockMenuItem = ({ api }: CopyBlockMenuItemProps & WrappedComponentPro
 				// where we need to copy the content of the bodiedSyncBlock node
 				else if (
 					selection.node.type.name === 'bodiedSyncBlock' &&
-					expValEquals('platform_synced_block', 'isEnabled', true) &&
-					fg('platform_editor_block_menu_patch_1')
+					expValEquals('platform_synced_block', 'isEnabled', true)
 				) {
 					const bodiedSyncBlockNode = selection.node;
 					const domNode = toDOMFromFragment(bodiedSyncBlockNode.content, schema);
@@ -146,13 +143,9 @@ const CopyBlockMenuItem = ({ api }: CopyBlockMenuItemProps & WrappedComponentPro
 		}
 	};
 
-	const text = fg('platform_editor_block_menu_patch_1')
-		? formatMessage(blockMenuMessages.copyContent)
-		: formatMessage(messages.copyBlock);
-
 	return (
 		<ToolbarDropdownItem elemBefore={<CopyIcon label="" />} onClick={copyHandler}>
-			{text}
+			{formatMessage(blockMenuMessages.copyContent)}
 		</ToolbarDropdownItem>
 	);
 };

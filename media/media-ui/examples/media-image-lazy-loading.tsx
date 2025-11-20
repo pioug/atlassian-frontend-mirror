@@ -19,7 +19,7 @@ const imageBoxStyle: CSSProperties = {
 	border: `${token('border.width')} solid ${token('color.border', 'black')}`,
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<IntlProvider locale={'en'}>
 			<Page>

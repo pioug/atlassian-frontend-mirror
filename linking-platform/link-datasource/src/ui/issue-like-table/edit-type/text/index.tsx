@@ -15,7 +15,7 @@ interface TextEditTypeProps extends Omit<FieldProps<string>, 'value'> {
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
 }
 
-const TextEditType = (props: TextEditTypeProps) => {
+const TextEditType = (props: TextEditTypeProps): React.JSX.Element => {
 	const experienceId = useDatasourceExperienceId();
 
 	const { currentValue, labelId } = props;

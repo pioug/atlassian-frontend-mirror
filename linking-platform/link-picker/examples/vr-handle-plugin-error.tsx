@@ -23,7 +23,7 @@ const plugins = [
 	}),
 ];
 
-export default function VrHandlePluginError() {
+export default function VrHandlePluginError(): React.JSX.Element {
 	return (
 		<PageWrapper>
 			<LinkPicker plugins={plugins} onSubmit={() => {}} onCancel={() => {}} />

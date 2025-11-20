@@ -17,7 +17,10 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export type CardBaseProps = CardProps & Partial<WrappedComponentProps>;
 
-export const CardBase = ({ identifier, ...otherProps }: CardBaseProps & WrappedComponentProps) => {
+export const CardBase = ({
+	identifier,
+	...otherProps
+}: CardBaseProps & WrappedComponentProps): React.JSX.Element => {
 	const innerContent = isFileIdentifier(identifier) ? (
 		<UFOLabel name="media-card-file-card">
 			<FileCard {...otherProps} identifier={identifier} key={identifier.id} />
@@ -30,7 +33,9 @@ export const CardBase = ({ identifier, ...otherProps }: CardBaseProps & WrappedC
 	return otherProps.intl ? innerContent : <IntlProvider locale="en">{innerContent}</IntlProvider>;
 };
 
-export const CardWithPerformanceObserver = (props: CardBaseProps & WrappedComponentProps) => {
+export const CardWithPerformanceObserver = (
+	props: CardBaseProps & WrappedComponentProps,
+): React.JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	useEffect(() => {

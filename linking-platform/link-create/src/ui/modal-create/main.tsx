@@ -98,7 +98,7 @@ const LinkCreateWithModal = ({
 	);
 };
 
-const LinkCreateModal = (props: LinkCreateWithModalProps) => {
+const LinkCreateModal = (props: LinkCreateWithModalProps): React.JSX.Element => {
 	const shouldCallCloseComplete = useRef(!props.active);
 
 	// modal calls onCloseComplete in a useEffect(), so we can track whether

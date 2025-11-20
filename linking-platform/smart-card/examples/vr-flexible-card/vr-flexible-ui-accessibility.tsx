@@ -40,7 +40,7 @@ const actions: ActionItem[] = [
 	},
 ];
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestWrapper>
 		<IntlProvider locale="en">
 			<Provider client={new CustomClient('staging')}>

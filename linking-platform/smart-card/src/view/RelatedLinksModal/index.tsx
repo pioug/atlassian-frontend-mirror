@@ -31,7 +31,7 @@ const RelatedLinksModal = ({
 	showModal,
 	ari,
 	baseUriWithNoTrailingSlash,
-}: RelatedLinksModalProps) => {
+}: RelatedLinksModalProps): React.JSX.Element => {
 	const RELATED_LINKS_LENGTH = 5;
 	const { getIncomingOutgoingAris } = useIncomingOutgoingAri(baseUriWithNoTrailingSlash);
 	const { connections } = useSmartLinkContext();

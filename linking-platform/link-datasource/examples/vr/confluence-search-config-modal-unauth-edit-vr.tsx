@@ -25,7 +25,7 @@ const parameters = {
 	searchString: 'find me something',
 };
 
-export const ConfigSearchConfigModalUnauthorizedEditState = () => (
+export const ConfigSearchConfigModalUnauthorizedEditState = (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<SmartCardProvider client={new SmartLinkClient()}>
 			<ConfluenceSearchConfigModal

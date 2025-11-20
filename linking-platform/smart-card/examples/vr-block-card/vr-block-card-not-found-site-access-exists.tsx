@@ -4,7 +4,7 @@ import { NotFoundWithSiteAccessExistsClient } from '@atlaskit/link-test-helpers'
 
 import VRCardView from '../utils/vr-card-view';
 
-export const BlockCardNotFoundSiteAccessExists = () => (
+export const BlockCardNotFoundSiteAccessExists = (): React.JSX.Element => (
 	<VRCardView
 		appearance="block"
 		client={new NotFoundWithSiteAccessExistsClient()}

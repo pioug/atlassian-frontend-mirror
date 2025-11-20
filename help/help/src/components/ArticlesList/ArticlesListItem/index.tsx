@@ -107,6 +107,7 @@ export const ArticlesListItem: React.FC<Props & Partial<ArticleItem> & WrappedCo
 				<ArticlesListItemTitleSection>
 					<ArticlesListItemTitleText>{title}</ArticlesListItemTitleText>
 					{isLastPublishedVisible && (
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 						<ArticlesListItemLastModified>
 							Last modified: {lastPublished}
 						</ArticlesListItemLastModified>
@@ -129,6 +130,7 @@ export const ArticlesListItem: React.FC<Props & Partial<ArticleItem> & WrappedCo
 			{isTrustFactorVisible && (
 				<ArticlesListItemTrustFactor>
 					{isNumViewsVisible && (
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 						<ArticlesListItemViewCount>{trustFactors.numViews} views</ArticlesListItemViewCount>
 					)}
 					{isHelpfulCountVisible && (

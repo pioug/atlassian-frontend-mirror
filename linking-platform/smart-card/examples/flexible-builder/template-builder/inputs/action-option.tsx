@@ -41,7 +41,7 @@ const ActionOption = ({
 	onChange: (template: BlockTemplate) => void;
 	propName: keyof BlockTemplate;
 	template: BlockTemplate;
-}) => {
+}): React.JSX.Element => {
 	const [actionName, setActionName] = useState<ActionName>();
 	const [hideIcon, setHideIcon] = useState<boolean>(false);
 	const [hideContent, setHideContent] = useState<boolean>(false);

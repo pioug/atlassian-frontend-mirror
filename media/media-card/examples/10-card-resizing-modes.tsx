@@ -9,7 +9,7 @@ import {
 	stretchyFitCards,
 } from '../example-helpers/cards';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<MainWrapper>
 		<div>
 			<h3>Default</h3>

@@ -13,7 +13,7 @@ class MaximumResolvedCustomClient extends CardClient {
 	}
 }
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestWrapper>
 		<Provider client={new MaximumResolvedCustomClient()} isAdminHubAIEnabled={true} product="JSM">
 			<Card

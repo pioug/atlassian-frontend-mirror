@@ -31,7 +31,7 @@ class UnauthorizedClientNoServices extends CardClient {
 	}
 }
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestWrapper>
 		<SmartCardProvider client={new UnauthorizedClientNoServices()}>
 			<LinkUrl enableResolve={true} href="https://www.external-service.com/document">

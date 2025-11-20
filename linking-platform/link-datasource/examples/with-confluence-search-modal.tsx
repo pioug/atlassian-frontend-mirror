@@ -25,7 +25,7 @@ import {
 mockDatasourceFetchRequests({ type: 'confluence' });
 mockBasicFilterAGGFetchRequests();
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [generatedAdf, setGeneratedAdf] = useState<string>('');
 	const [showModal, setShowModal] = useState(true);
 	const [parameters, setParameters] = useState<ConfluenceSearchDatasourceParameters | undefined>(

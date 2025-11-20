@@ -161,7 +161,7 @@ export const ExtensionLabel = ({
 	showUpdatedLivePages1PBodiedExtensionUI,
 	showLivePagesBodiedMacrosRendererView,
 	showBodiedExtensionRendererView,
-	pluginInjectionApi,
+	pluginInjectionApi: _pluginInjectionApi,
 }: ExtensionLabelProps) => {
 	const isInlineExtension = extensionName === 'inlineExtension';
 	const showDefaultBodiedStyles = expValEquals(

@@ -5,7 +5,7 @@ import { generateAvatars } from '../example-helpers';
 
 const avatars: Array<Avatar> = generateAvatars(30);
 
-export default () => (
+export default (): React.JSX.Element => (
 	<AvatarPickerDialog
 		avatars={avatars}
 		defaultSelectedAvatar={avatars[5]}

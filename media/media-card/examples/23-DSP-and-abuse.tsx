@@ -19,7 +19,7 @@ const initialItems = [
 	generateItemWithBinaries.workingPdfWithRemotePreview.pdfAnatomy(),
 ];
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [reloadKey, setReloadkey] = useState(0);
 	const [enforceDataSecurityPolicy, setEnforceDataSecurityPolicy] = useState(false);
 

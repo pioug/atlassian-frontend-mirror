@@ -95,7 +95,7 @@ export const TeamLinkCard = ({
 	iconHasLoaded,
 	openInNewTab,
 	isReadOnly,
-}: TeamLinkCardProps) => {
+}: TeamLinkCardProps): React.JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { description, containerTypeText } = getContainerProperties({
 		containerType,

@@ -236,7 +236,7 @@ const UploadSection = createSection('Upload', [
 	FailedUploadWithoutLocalPreview,
 ]);
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<MainWrapper developmentOnly>
 			<FreshLoadSection />

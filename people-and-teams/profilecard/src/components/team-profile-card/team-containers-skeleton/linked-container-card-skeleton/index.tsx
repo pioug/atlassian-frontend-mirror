@@ -46,7 +46,7 @@ const styles = cssMap({
 	},
 });
 
-export const LinkedContainerCardSkeleton = () => {
+export const LinkedContainerCardSkeleton = (): React.JSX.Element => {
 	return (
 		<Inline space="space.100" xcss={styles.containerWrapperSkeleton}>
 			<Box xcss={styles.containerIconSkeleton} backgroundColor="color.background.neutral" />

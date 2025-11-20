@@ -6,6 +6,6 @@ export type MessagesIntlProviderProps = {
 	children?: React.ReactNode;
 };
 
-export const MessagesProvider = ({ children }: MessagesIntlProviderProps) => {
+export const MessagesProvider = ({ children }: MessagesIntlProviderProps): React.JSX.Element => {
 	return <LazyMessagesProvider>{children}</LazyMessagesProvider>;
 };

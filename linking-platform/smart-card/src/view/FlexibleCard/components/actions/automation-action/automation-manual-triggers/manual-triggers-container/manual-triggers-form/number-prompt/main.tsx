@@ -29,7 +29,7 @@ export const numberValidate = (isRequired: boolean, value?: string) => {
 	return undefined;
 };
 
-const NumberInputPrompt = ({ userInputPrompt }: NumberInputPromptProps) => {
+const NumberInputPrompt = ({ userInputPrompt }: NumberInputPromptProps): React.JSX.Element => {
 	di(ErrorMessage, Field, Textfield);
 
 	const { variableName, required, displayName, defaultValue } = userInputPrompt;

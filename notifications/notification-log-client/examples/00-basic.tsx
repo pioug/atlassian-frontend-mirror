@@ -14,7 +14,7 @@ class MockNotificationLogClient extends NotificationLogClient {
 	}
 }
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	/**
 	 * We are using a mock version here because we don't want to call out to the real service to get a working example.
 	 * Typically this would be:

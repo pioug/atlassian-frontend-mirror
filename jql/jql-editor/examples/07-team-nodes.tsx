@@ -62,7 +62,7 @@ const onHydrate = (jql: string): Promise<HydratedValues> =>
 		}, 300);
 	});
 
-export default () => {
+export default (): React.JSX.Element => {
 	const autocompleteProvider = useAutocompleteProvider(
 		'my-app',
 		getAutocompleteInitialData,

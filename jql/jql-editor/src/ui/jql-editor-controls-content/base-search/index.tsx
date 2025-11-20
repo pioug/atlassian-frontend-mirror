@@ -29,7 +29,12 @@ type Props = {
 	onSearch: () => void;
 };
 
-export const BaseSearch = ({ isDisabled, isSearching, label, onSearch }: Props) => {
+export const BaseSearch = ({
+	isDisabled,
+	isSearching,
+	label,
+	onSearch,
+}: Props): React.JSX.Element => {
 	// Prevent click events being repeatedly fired if the Enter key is held down.
 	const preventRepeatClick = useCallback((e: React.KeyboardEvent) => {
 		if (e.key === 'Enter' && e.repeat) {

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2f04e7481b428a509f6cec4d8a79e3d3>>
+ * @codegen <<SignedSource::7a816f57a6108e5fde6bb43aa89d984c>>
  * @codegenCommand yarn build tokens
  */
 export type ActiveTokens =
@@ -447,6 +447,7 @@ export type ActiveTokens =
 	| 'radius.medium'
 	| 'radius.large'
 	| 'radius.xlarge'
+	| 'radius.xxlarge'
 	| 'radius.full'
 	| 'radius.tile'
 	| 'border.width'

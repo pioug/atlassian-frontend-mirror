@@ -127,7 +127,7 @@ function CustomEndPoints() {
 	);
 }
 
-export default function ForgePluginsWrapper() {
+export default function ForgePluginsWrapper(): React.JSX.Element {
 	return (
 		<SmartCardProvider client={smartCardClient}>
 			<CustomEndPoints />

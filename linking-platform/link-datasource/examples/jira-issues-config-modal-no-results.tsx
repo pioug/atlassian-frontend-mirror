@@ -21,7 +21,7 @@ const parameters = {
 	jql: 'order by created DESC',
 };
 
-export const JiraIssuesConfigModalNoResultsState = () => (
+export const JiraIssuesConfigModalNoResultsState = (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<SmartCardProvider client={new SmartLinkClient()}>
 			<JiraIssuesConfigModal

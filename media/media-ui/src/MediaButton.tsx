@@ -90,7 +90,11 @@ type Props = WithMediaButtonAppearance<CustomThemeButtonProps> & {
 	buttonRef?: RefObject<HTMLButtonElement>;
 };
 
-export default function MediaButton({ appearance = 'default', buttonRef, ...rest }: Props) {
+export default function MediaButton({
+	appearance = 'default',
+	buttonRef,
+	...rest
+}: Props): React.JSX.Element {
 	return (
 		<Button
 			{...rest}

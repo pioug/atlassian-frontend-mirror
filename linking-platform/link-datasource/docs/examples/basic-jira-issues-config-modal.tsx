@@ -36,7 +36,7 @@ mockDatasourceFetchRequests({
 });
 mockBasicFilterAGGFetchRequests({ withJiraFilterHydration: false });
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [showModal, setShowModal] = useState(false);
 	const [visibleColumnKeys] = useState<string[] | undefined>(defaultInitialVisibleJiraColumnKeys);
 	const [columnCustomSizes] = useState<{ [key: string]: number } | undefined>();

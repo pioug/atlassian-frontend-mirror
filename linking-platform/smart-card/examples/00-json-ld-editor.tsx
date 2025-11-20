@@ -12,7 +12,7 @@ import LoadLinkForm from './jsonld-editor/load-link-form';
 import JsonLdGenerator from './jsonld-generator';
 
 const tabPanelStyles = xcss({ width: '100%' });
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	return (
 		<JsonldEditor>
 			{({

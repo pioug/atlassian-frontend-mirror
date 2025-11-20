@@ -55,7 +55,7 @@ export const createSyncedBlock = ({
 
 	// If the selection is empty, we want to insert the sync block on a new line
 	if (tr.selection.empty) {
-		const attrs = syncBlockStore.generateBodiedSyncBlockAttrs();
+		const attrs = syncBlockStore.sourceManager.generateBodiedSyncBlockAttrs();
 		const paragraphNode = paragraph.createAndFill({});
 		const newBodiedSyncBlockNode = bodiedSyncBlock.createAndFill(
 			attrs,
@@ -68,7 +68,7 @@ export const createSyncedBlock = ({
 
 		// Save the new node with empty content to backend
 		// This is so that the node can be copied and referenced without the source being saved/published
-		syncBlockStore.createBodiedSyncBlockNode(attrs);
+		syncBlockStore.sourceManager.createBodiedSyncBlockNode(attrs);
 
 		if (typeAheadInsert) {
 			tr = typeAheadInsert(newBodiedSyncBlockNode);
@@ -82,7 +82,7 @@ export const createSyncedBlock = ({
 			return false;
 		}
 
-		const attrs = syncBlockStore.generateBodiedSyncBlockAttrs();
+		const attrs = syncBlockStore.sourceManager.generateBodiedSyncBlockAttrs();
 		const newBodiedSyncBlockNode = bodiedSyncBlock.createAndFill(
 			attrs,
 			conversionInfo.contentToInclude,
@@ -94,7 +94,7 @@ export const createSyncedBlock = ({
 
 		// Save the new node with empty content to backend
 		// This is so that the node can be copied and referenced without the source being saved/published
-		syncBlockStore.createBodiedSyncBlockNode(attrs);
+		syncBlockStore.sourceManager.createBodiedSyncBlockNode(attrs);
 
 		tr.replaceWith(
 			conversionInfo.from > 0 ? conversionInfo.from - 1 : 0,
@@ -178,7 +178,7 @@ export const editSyncedBlockSource =
 			return false;
 		}
 
-		const syncBlockURL = syncBlockStore.getSyncBlockURL(resourceId);
+		const syncBlockURL = syncBlockStore.referenceManager.getSyncBlockURL(resourceId);
 
 		if (syncBlockURL) {
 			window.open(syncBlockURL, '_blank');

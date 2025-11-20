@@ -11,7 +11,7 @@ import {
 	type SelectableAutocompleteOption,
 } from '../types';
 
-const Autocomplete = ({ keymap, onClick }: AutocompleteProps) => {
+const Autocomplete = ({ keymap, onClick }: AutocompleteProps): React.JSX.Element => {
 	const [options] = useAutocompleteOptions();
 	const [loading] = useAutocompleteLoading();
 

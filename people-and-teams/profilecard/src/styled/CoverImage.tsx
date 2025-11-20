@@ -39,7 +39,7 @@ const styles = cssMap({
 /**
  * This is instead of using background-image in CSS as design-system doesn't support that
  */
-export const CoverImage = ({ src, alt = '', isDisabled }: CoverImageProps) => {
+export const CoverImage = ({ src, alt = '', isDisabled }: CoverImageProps): React.JSX.Element => {
 	const containerRef = useRef<HTMLDivElement | null>(null);
 	const imgRef = useRef<HTMLImageElement | null>(null);
 

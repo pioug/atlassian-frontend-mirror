@@ -158,4 +158,4 @@ class UploaderExample extends Component<UploaderExampleProps, UploaderExampleSta
 	}
 }
 
-export default () => <UploaderExample />;
+export default (): React.JSX.Element => <UploaderExample />;

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-type
 
+## 10.2.11
+
+### Patch Changes
+
+- [`3ff392895f5d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ff392895f5d3) -
+  [ux] A11y issue fix: The fallback colors used for menu items are not accessible and does not match
+  with tokens
+- Updated dependencies
+
+## 10.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.2.9
 
 ### Patch Changes

@@ -75,7 +75,7 @@ export class InactivityDetector extends Component<
 		this.clearTimeout();
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { controlsAreVisible } = this.state;
 		const { children } = this.props;
 

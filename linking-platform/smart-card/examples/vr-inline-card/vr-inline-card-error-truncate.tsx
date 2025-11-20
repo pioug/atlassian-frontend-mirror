@@ -10,7 +10,7 @@ const wrapperStyles = xcss({
 	width: '100px',
 });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box xcss={wrapperStyles}>
 		<VRCardView appearance="inline" truncateInline client={new ErroredClient()} />
 	</Box>

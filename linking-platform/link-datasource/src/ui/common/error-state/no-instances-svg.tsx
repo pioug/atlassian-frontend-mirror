@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const NoInstancesSvg = () => {
+export const NoInstancesSvg = (): React.JSX.Element => {
 	return (
 		<svg
 			width="147"

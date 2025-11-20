@@ -1,5 +1,7 @@
 export const COLUMN_MIN_WIDTH = 48;
-export const TABLE_MAX_WIDTH = 1800;
+// Remove TABLE_MAX_WIDTH_OLD when cleaning up editor_tinymce_full_width_mode experiment
+export const TABLE_FULL_WIDTH = 1800;
+export const TABLE_MAX_WIDTH = 4000;
 export const FULL_WIDTH_EDITOR_CONTENT_WIDTH = 1800;
 export const MAX_SCALING_PERCENT = 0.3;
 export const MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION = 0.4;

@@ -26,7 +26,7 @@ export const MediaProvider = ({
 	children,
 	mediaClientConfig,
 	mediaSettings,
-}: MediaProviderProps) => {
+}: MediaProviderProps): React.JSX.Element => {
 	const mediaClient = useMemo(() => getMediaClient(mediaClientConfig), [mediaClientConfig]);
 	const settings = useMediaParsedSettings(mediaSettings);
 

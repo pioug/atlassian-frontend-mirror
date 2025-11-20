@@ -10,7 +10,7 @@ const styles = cssMap({
 });
 
 const SEPARATOR = '•';
-export const Separator = () => (
+export const Separator = (): React.JSX.Element => (
 	<Inline xcss={styles.separator}>
 		<Text size="small" color="color.text.subtle">
 			{SEPARATOR}

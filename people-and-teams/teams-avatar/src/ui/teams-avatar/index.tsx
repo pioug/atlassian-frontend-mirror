@@ -27,7 +27,7 @@ export default function TeamAvatar({
 	teamId = '',
 	compact = false,
 	...props
-}: TeamAvatarProps) {
+}: TeamAvatarProps): React.JSX.Element {
 	// Strip ARI in case the teamId was given in that format
 	teamId = teamId.replace('ari:cloud:identity::team/', '');
 	return (

@@ -62,7 +62,7 @@ export const TeamContainers = ({
 	maxNumberOfContainersToShow = MAX_NUMBER_OF_CONTAINERS_TO_SHOW,
 	elemBeforeCards,
 	hideSubTextIcon,
-}: TeamContainerProps) => {
+}: TeamContainerProps): React.JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { unlinkError } = useTeamContainers(teamId);
 	const {

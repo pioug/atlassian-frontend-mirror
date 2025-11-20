@@ -55,7 +55,7 @@ const AgentProfileCard = ({
 	addFlag,
 	onDeleteAgent,
 	hideMoreActions,
-}: AgentProfileCardProps) => {
+}: AgentProfileCardProps): React.JSX.Element => {
 	const {
 		onEditAgent,
 		onCopyAgent,

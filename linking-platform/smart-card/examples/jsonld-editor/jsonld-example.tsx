@@ -108,7 +108,7 @@ const JsonldExample = ({
 }: {
 	defaultValue: JsonLd.Response;
 	onSelect: (response: JsonLd.Response) => void;
-}) => {
+}): React.JSX.Element => {
 	const handleOnClick = useCallback(
 		({ data, meta }: any) => {
 			const response = getJsonLdResponse(data.url, meta, data);

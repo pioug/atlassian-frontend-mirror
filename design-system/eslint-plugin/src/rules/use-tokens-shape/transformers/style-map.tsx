@@ -5,6 +5,7 @@ const radiusTokenMap: { [key: string]: string } = {
 	'6px': 'radius.medium',
 	'8px': 'radius.large',
 	'12px': 'radius.xlarge',
+	'16px': 'radius.xxlarge',
 	'50%': 'radius.full',
 	'100%': 'radius.full',
 	2: 'radius.xsmall',
@@ -13,11 +14,13 @@ const radiusTokenMap: { [key: string]: string } = {
 	6: 'radius.medium',
 	8: 'radius.large',
 	12: 'radius.xlarge',
+	16: 'radius.xxlarge',
 	'0.125rem': 'radius.xsmall',
 	'0.25rem': 'radius.small',
 	'0.375rem': 'radius.medium',
 	'0.5rem': 'radius.large',
 	'0.75rem': 'radius.xlarge',
+	'1rem': 'radius.xxlarge',
 };
 
 const borderWidthTokenMap: { [key: string]: string } = {

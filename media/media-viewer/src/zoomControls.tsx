@@ -46,7 +46,7 @@ export class ZoomControlsBase extends Component<ZoomControlsProps & WrappedCompo
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			zoomLevel,
 			intl: { formatMessage },

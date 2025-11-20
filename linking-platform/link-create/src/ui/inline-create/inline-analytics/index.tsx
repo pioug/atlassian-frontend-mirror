@@ -13,7 +13,10 @@ type InlineAnalyticsProps = {
 	};
 };
 
-export const InlineAnalytics = ({ screen, children }: PropsWithChildren<InlineAnalyticsProps>) => (
+export const InlineAnalytics = ({
+	screen,
+	children,
+}: PropsWithChildren<InlineAnalyticsProps>): React.JSX.Element => (
 	<AnalyticsContext data={{ source: screen, component: 'inline-create' }}>
 		<ScreenViewedEvent screen={screen} />
 

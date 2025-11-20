@@ -12,7 +12,7 @@ type Props<T> = {
 	template: T;
 	value?: T[keyof T];
 };
-const EnumOption = <TemplateType extends object>(props: Props<TemplateType>) => {
+const EnumOption = <TemplateType extends object>(props: Props<TemplateType>): React.JSX.Element => {
 	const { defaultValue, source } = props;
 	const options = useMemo(
 		() =>

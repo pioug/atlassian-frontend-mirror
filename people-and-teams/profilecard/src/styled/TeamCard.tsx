@@ -65,9 +65,9 @@ const styles = cssMap({
 export const TeamForbiddenErrorStateWrapper = (props: {
 	children: React.ReactNode;
 	testId?: string;
-}) => <Box xcss={cx(styles.teamforbiddenerrorstatewrapper)} {...props} />;
+}): React.JSX.Element => <Box xcss={cx(styles.teamforbiddenerrorstatewrapper)} {...props} />;
 
-export const TeamName = (props: { children: React.ReactNode }) =>
+export const TeamName = (props: { children: React.ReactNode }): React.JSX.Element =>
 	fg('enable_profilecard_h2tag_a11y_fix') ? (
 		<Box xcss={cx(styles.teamname)}>
 			<Heading size="medium" as="h2" children={props.children} />
@@ -76,37 +76,37 @@ export const TeamName = (props: { children: React.ReactNode }) =>
 		<Box xcss={cx(styles.teamname)} {...props} />
 	);
 
-export const MemberCount = (props: { children: React.ReactNode }) => (
+export const MemberCount = (props: { children: React.ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.membercount)} {...props} />
 );
 
-export const AvatarSection = (props: { children: React.ReactNode }) => (
+export const AvatarSection = (props: { children: React.ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.avatarsection)} {...props} />
 );
 
-export const DescriptionWrapper = (props: { children: React.ReactNode }) => (
+export const DescriptionWrapper = (props: { children: React.ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.descriptionwrapper)} {...props} />
 );
 
-export const Description = (props: { children: React.ReactNode }) => (
+export const Description = (props: { children: React.ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.description)}>
 		<Text maxLines={3} {...props} />
 	</Box>
 );
 
-export const ActionButtons = (props: { children: React.ReactNode }) => (
+export const ActionButtons = (props: { children: React.ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.actionbuttons)} backgroundColor="elevation.surface.overlay" {...props} />
 );
 
-export const WrappedButton = (props: { children: React.ReactNode }) => (
+export const WrappedButton = (props: { children: React.ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.wrappedbutton)} {...props} />
 );
 
-export const MoreButton = (props: { children: React.ReactNode }) => (
+export const MoreButton = (props: { children: React.ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.morebutton)} {...props} />
 );
 
-export const AccessLockSVGWrapper = (props: { children: React.ReactNode }) => (
+export const AccessLockSVGWrapper = (props: { children: React.ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.accesslocksvgwrapper)} {...props} />
 );
 

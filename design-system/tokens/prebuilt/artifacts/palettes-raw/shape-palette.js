@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0573206a0674f4e86073a4ec84cad3b9>>
+ * @codegen <<SignedSource::ef8d19ca8bc8266920cad68bf6df9a2a>>
  * @codegenCommand yarn build tokens
  */
 
@@ -100,21 +100,6 @@ var tokens = [{
   },
   "name": "radius.Radius16",
   "path": ["radius", "Radius16"]
-}, {
-  "value": "20px",
-  "attributes": {
-    "group": "shape"
-  },
-  "filePath": "schema/palettes/shape-palette.tsx",
-  "isSource": true,
-  "original": {
-    "value": 20,
-    "attributes": {
-      "group": "shape"
-    }
-  },
-  "name": "radius.Radius20",
-  "path": ["radius", "Radius20"]
 }, {
   "value": "9999px",
   "attributes": {

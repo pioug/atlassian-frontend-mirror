@@ -136,7 +136,7 @@ class Example extends Component<ComponentProps, ComponentState> {
 	}
 }
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<Example />
 	</div>

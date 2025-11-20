@@ -176,7 +176,7 @@ export const InlineEdit = ({
 	columnKey,
 	columnTitle,
 	datasourceTypeWithValues,
-}: InlineEditProps) => {
+}: InlineEditProps): React.JSX.Element => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editValues, setEditValues] =
 		useState<DatasourceTypeWithOnlyValues>(datasourceTypeWithValues);

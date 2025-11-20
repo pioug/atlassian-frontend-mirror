@@ -174,7 +174,7 @@ const hiddenCardWithoutCacheAvailable = [
 	},
 ];
 
-export default () => (
+export default (): React.JSX.Element => (
 	<MainWrapper developmentOnly>
 		<div>
 			<h1

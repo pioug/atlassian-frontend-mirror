@@ -13,6 +13,6 @@ const styles = cssMap({
 	},
 });
 
-export const Section = ({ children }: { children: React.ReactNode }) => {
+export const Section = ({ children }: { children: React.ReactNode }): React.JSX.Element => {
 	return <Box xcss={styles.section}>{children}</Box>;
 };

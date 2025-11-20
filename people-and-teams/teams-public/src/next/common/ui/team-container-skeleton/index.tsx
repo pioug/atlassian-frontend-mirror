@@ -29,7 +29,9 @@ const ContainerSkeleton = () => {
 	);
 };
 
-export const TeamContainerSkeleton = ({ numberOfContainers }: TeamContainersSkeletonProps) => {
+export const TeamContainerSkeleton = ({
+	numberOfContainers,
+}: TeamContainersSkeletonProps): React.JSX.Element => {
 	return (
 		<Stack space="space.200" testId="team-containers-skeleton">
 			<Grid gap="space.100" autoFlow="row">

@@ -11,6 +11,6 @@ class CustomClient extends Client {
 	}
 }
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRCardView appearance="embed" client={new CustomClient('staging')} frameStyle="show" />
 );

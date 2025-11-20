@@ -28,7 +28,7 @@ class CustomClient extends Client {
 	}
 }
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Provider client={new CustomClient('stg')}>
 		<Card appearance="block" url={response1.data.url}>
 			<TitleBlock

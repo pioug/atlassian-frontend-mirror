@@ -38,7 +38,7 @@ const mockActionFooter = injectable(ActionFooter, (props) => {
 
 const dependencies = [mockUseAiSummary, mockActionFooter];
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestWrapper>
 		<DiProvider use={dependencies}>
 			<Provider client={new MaximumResolvedCustomClient()} isAdminHubAIEnabled={true} product="JSM">

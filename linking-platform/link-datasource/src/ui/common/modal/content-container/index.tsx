@@ -46,7 +46,10 @@ export interface ContentContainerProps {
 	withTableBorder?: boolean;
 }
 
-export const ContentContainer = ({ children, withTableBorder }: ContentContainerProps) => {
+export const ContentContainer = ({
+	children,
+	withTableBorder,
+}: ContentContainerProps): React.JSX.Element => {
 	return (
 		<Box
 			xcss={cx(

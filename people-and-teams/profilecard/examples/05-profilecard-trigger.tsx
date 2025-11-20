@@ -25,7 +25,7 @@ const defaultProps = {
 	resourceClient: mockClient,
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [clickCount, setCount] = useState(0);
 	const [externalPropExampleIsVisible, setExternalPropExampleIsVisible] = useState(false);
 

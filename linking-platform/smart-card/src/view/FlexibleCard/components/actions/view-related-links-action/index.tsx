@@ -21,7 +21,7 @@ const RelatedLinksModal = lazy(
 const ViewRelatedLinksAction = ({
 	onClick: onClickCallback,
 	...props
-}: ViewRelatedLinksActionProps) => {
+}: ViewRelatedLinksActionProps): React.JSX.Element | null => {
 	const modal = useSmartLinkModal();
 	const context = useFlexibleUiContext();
 	const actionData = context?.actions?.ViewRelatedLinksAction;

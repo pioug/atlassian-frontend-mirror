@@ -7,7 +7,7 @@ import { CONTENT_URL_AI } from '../../../../../constants';
 const AILearnMoreAnchor = ({
 	children,
 	...props
-}: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+}: React.AnchorHTMLAttributes<HTMLAnchorElement>): React.JSX.Element => (
 	<Link href={CONTENT_URL_AI} target="_blank" rel="noopener noreferrer" {...props}>
 		{children}
 	</Link>

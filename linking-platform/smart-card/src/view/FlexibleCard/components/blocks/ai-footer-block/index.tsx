@@ -12,7 +12,10 @@ import type { AIFooterBlockProps } from './types';
  * @param {AIFooterBlockProps} AIFooterBlockProps
  * @see Block
  */
-const AIFooterBlock = ({ testId = 'smart-ai-footer-block', ...props }: AIFooterBlockProps) => {
+const AIFooterBlock = ({
+	testId = 'smart-ai-footer-block',
+	...props
+}: AIFooterBlockProps): React.JSX.Element | null => {
 	const cardContext = useFlexibleCardContext();
 
 	if (cardContext?.status !== SmartLinkStatus.Resolved) {

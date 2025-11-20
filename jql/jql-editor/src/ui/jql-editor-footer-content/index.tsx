@@ -14,7 +14,7 @@ import { ErrorMessages, InfoMessages, WarningMessages } from './jql-messages';
  * Message component decides on its own what exactly to render (GQL vs external messages).
  */
 
-export const JQLEditorFooterContent = () => {
+export const JQLEditorFooterContent = (): React.JSX.Element => {
 	di(
 		useEditorViewIsInvalid,
 		useEditorViewHasWarnings,

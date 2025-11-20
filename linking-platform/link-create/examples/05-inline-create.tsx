@@ -124,7 +124,7 @@ const exampleCustomPlugin = {
 	form: <ExampleCustomPluginForm />,
 };
 
-export default function CreateBasic() {
+export default function CreateBasic(): React.JSX.Element {
 	return (
 		<LinkCreateExitWarningProvider>
 			<Example />

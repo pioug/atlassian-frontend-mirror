@@ -53,7 +53,7 @@ const isErrorSLOFailure = (error: unknown) => {
  * Experience provider that simply keeps track of the state of the experience.
  * Fires an operational event when experience state changes to FAILED.
  */
-export const Experience = ({ children }: ExperienceProps) => {
+export const Experience = ({ children }: ExperienceProps): React.JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const experience = useRef<Status>('STARTED');
 

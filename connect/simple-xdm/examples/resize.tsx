@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import resizeListener from '../src/plugin/resize-listener';
 
-export default function ResizeContainer() {
+export default function ResizeContainer(): React.JSX.Element {
 	useEffect(() => {
 		resizeListener.add(() => {
 			const element = document.getElementById('content');

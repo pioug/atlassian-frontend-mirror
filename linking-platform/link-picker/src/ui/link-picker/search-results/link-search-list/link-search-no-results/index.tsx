@@ -25,7 +25,11 @@ export const testIds = {
 	emptyResultPage: 'link-search-no-results',
 };
 
-export const NoResults = ({ shouldRenderImage = true }: { shouldRenderImage?: boolean }) => {
+export const NoResults = ({
+	shouldRenderImage = true,
+}: {
+	shouldRenderImage?: boolean;
+}): React.JSX.Element => {
 	const intl = useIntl();
 
 	return (

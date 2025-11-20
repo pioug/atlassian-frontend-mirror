@@ -30,7 +30,7 @@ mockPermissions.allow();
 
 const FLAG = 'teams_containers_cypher_query_v2_migration';
 
-export default function RequestedContainers() {
+export default function RequestedContainers(): React.JSX.Element {
 	const locale = 'en';
 	const [flags, setFlags] = useState<FlagProps[]>([]);
 	const booleanFlagResolver = (flagToResolve: string): boolean => flagToResolve === FLAG;

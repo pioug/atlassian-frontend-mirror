@@ -9,7 +9,7 @@ const LazyAssetsConfigModal = lazy(() =>
 		(module) => ({ default: module.AssetsConfigModal }),
 	),
 );
-const AssetsConfigModalWithWrappers = (props: AssetsConfigModalProps) => {
+const AssetsConfigModalWithWrappers = (props: AssetsConfigModalProps): React.JSX.Element => {
 	return (
 		<Suspense fallback={<div data-testid={'assets-aql-datasource-table-suspense'} />}>
 			<LazyAssetsConfigModal {...props} />

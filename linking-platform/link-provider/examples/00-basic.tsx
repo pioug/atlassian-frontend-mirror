@@ -38,7 +38,7 @@ const MetadataRenderer = () => {
 	);
 };
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	return (
 		<SmartCardProvider client={client}>
 			<MetadataRenderer />

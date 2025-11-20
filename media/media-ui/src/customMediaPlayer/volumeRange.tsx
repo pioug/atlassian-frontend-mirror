@@ -20,7 +20,7 @@ export type VolumeRangeProps = {
 const increaseVolumeKeys = new Set(['ArrowRight', 'ArrowUp']);
 const decreaseVolumeKeys = new Set(['ArrowLeft', 'ArrowDown']);
 
-const VolumeRange = (props: VolumeRangeProps) => {
+const VolumeRange = (props: VolumeRangeProps): React.JSX.Element => {
 	const { onChange, currentVolume, onChanged, ariaLabel } = props;
 	const wrapperElement = useRef<HTMLDivElement>(null);
 

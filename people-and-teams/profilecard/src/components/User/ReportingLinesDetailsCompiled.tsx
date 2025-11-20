@@ -56,7 +56,7 @@ const styles = cssMap({
 
 const avatarGroupMaxCount = 5;
 
-const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
+const ReportingLinesDetails = (props: ReportingLinesDetailsProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const {
 		fireAnalyticsWithDuration,

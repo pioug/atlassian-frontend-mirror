@@ -32,7 +32,9 @@ export type AgentProfileCardResourcedProps = {
 	hideMoreActions?: boolean;
 } & AgentActionsType;
 
-export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps) => {
+export const AgentProfileCardResourced = (
+	props: AgentProfileCardResourcedProps,
+): React.JSX.Element => {
 	const [agentData, setAgentData] = useState<RovoAgentProfileCardInfo>();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [error, setError] = useState();

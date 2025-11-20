@@ -24,7 +24,7 @@ export const DatasourceModal = ({
 	onClose,
 	children,
 	shouldReturnFocus = false,
-}: DatasourceModalProps) => {
+}: DatasourceModalProps): React.JSX.Element => {
 	return (
 		<Modal
 			testId={testId}

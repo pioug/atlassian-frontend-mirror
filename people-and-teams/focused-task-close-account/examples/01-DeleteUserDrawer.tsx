@@ -42,7 +42,7 @@ export default class DeleteUserDrawerExample extends React.Component {
 
 	closeDrawer = () => this.setState({ isOpen: false });
 
-	handleDeactivateUser = () => <React.Fragment />;
+	handleDeactivateUser = (): React.JSX.Element => <React.Fragment />;
 
 	handlePreferenceSelection = (name: string) => {
 		// do nothing
@@ -53,7 +53,7 @@ export default class DeleteUserDrawerExample extends React.Component {
 	toggleIsUserDeactivated = (event: any) =>
 		this.setState({ isUserDeactivated: event.target.checked });
 
-	renderDeleteUserOverviewScreen = () => (
+	renderDeleteUserOverviewScreen = (): React.JSX.Element => (
 		<DeleteUserOverviewScreen
 			accessibleSites={accessibleSites}
 			isCurrentUser={this.state.isCurrentUser}
@@ -63,7 +63,7 @@ export default class DeleteUserDrawerExample extends React.Component {
 		/>
 	);
 
-	renderDeleteUserContentPreviewScreen = () => (
+	renderDeleteUserContentPreviewScreen = (): React.JSX.Element => (
 		<DeleteUserContentPreviewScreen
 			user={catherineHirons}
 			isCurrentUser={this.state.isCurrentUser}
@@ -71,7 +71,7 @@ export default class DeleteUserDrawerExample extends React.Component {
 		/>
 	);
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<IntlProvider locale="en">
 				<React.Fragment>

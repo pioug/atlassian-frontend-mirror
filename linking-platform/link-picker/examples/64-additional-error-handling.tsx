@@ -92,7 +92,7 @@ function AdditionalErrorHandling() {
 	);
 }
 
-export default function AdditionalErrorHandlingWrapper() {
+export default function AdditionalErrorHandlingWrapper(): React.JSX.Element {
 	return (
 		<PageWrapper>
 			<AdditionalErrorHandling />

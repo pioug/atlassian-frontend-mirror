@@ -1,7 +1,10 @@
 import React, { useMemo } from 'react';
 
 import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
-import { getPageIdAndTypeFromAri, SyncBlockError } from '@atlaskit/editor-synced-block-provider';
+import {
+	getPageIdAndTypeFromConfluencePageAri,
+	SyncBlockError,
+} from '@atlaskit/editor-synced-block-provider';
 
 import { SyncedBlockGenericError } from './SyncedBlockGenericError';
 import { SyncedBlockLoadError } from './SyncedBlockLoadError';
@@ -27,12 +30,13 @@ export const SyncedBlockErrorComponent = ({
 					return <SyncedBlockGenericError />;
 				}
 				if (documentAri) {
-					const { id: contentId } = getPageIdAndTypeFromAri(documentAri);
+					// TODO: EDITOR-3312 - make this product agnostic
+					const { id: contentId } = getPageIdAndTypeFromConfluencePageAri(documentAri);
 					if (contentId) {
 						return <SyncedBlockPermissionDenied contentId={contentId} />;
 					}
 				}
-				const { id: contentId } = getPageIdAndTypeFromAri(resourceId);
+				const { id: contentId } = getPageIdAndTypeFromConfluencePageAri(resourceId);
 				if (contentId) {
 					return <SyncedBlockPermissionDenied contentId={contentId} />;
 				}

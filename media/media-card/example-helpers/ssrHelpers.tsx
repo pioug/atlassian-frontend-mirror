@@ -12,7 +12,11 @@ export interface SimulateSsrParams
 const randomStr = () => Math.random().toString(36).substr(2, 9);
 const generateSsrPageId = () => `media-ssr-page-${randomStr()}-${randomStr()}`;
 
-export const SimulateSsr = ({ serverPage, hydratePage, ...divProps }: SimulateSsrParams) => {
+export const SimulateSsr = ({
+	serverPage,
+	hydratePage,
+	...divProps
+}: SimulateSsrParams): React.JSX.Element => {
 	const id = useMemo(generateSsrPageId, []);
 
 	useEffect(() => {

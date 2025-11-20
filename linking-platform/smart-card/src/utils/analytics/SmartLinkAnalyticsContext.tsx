@@ -129,7 +129,7 @@ export const SmartLinkAnalyticsContext = ({
 	id,
 	source,
 	url,
-}: SmartLinkAnalyticsContextProps) => {
+}: SmartLinkAnalyticsContextProps): React.JSX.Element => {
 	const { details, status, error } = useSmartLinkState(url);
 	const data = getSmartLinkAnalyticsContext({
 		display,

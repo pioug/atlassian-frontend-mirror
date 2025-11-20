@@ -107,7 +107,7 @@ export class CodeViewer extends BaseViewer<string, Props> {
 
 	protected release() {}
 
-	protected renderSuccessful(content: string) {
+	protected renderSuccessful(content: string): React.JSX.Element {
 		const { item, onClose, onSuccess, onError } = this.props;
 		const { CodeViewerComponent } = CodeViewer;
 

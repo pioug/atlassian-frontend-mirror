@@ -57,7 +57,7 @@ export const DatasourceContextProvider = <Parameters extends DatasourceParameter
 	initialColumnCustomSizes,
 	initialWrappedColumnKeys,
 	onInsert,
-}: DatasourceContextProviderProps<Parameters>) => {
+}: DatasourceContextProviderProps<Parameters>): React.JSX.Element => {
 	const [parameters, setParameters] = useState<DatasourceParameters | undefined>(initialParameters);
 
 	const [visibleColumnKeys, setVisibleColumnKeys] = useState(initialVisibleColumnKeys);

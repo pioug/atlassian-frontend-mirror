@@ -8,7 +8,12 @@ export interface BrowserPickerProps {
 	onFilesPicked?: (file: FileList) => void;
 }
 
-export const BrowserPicker = ({ isOpen, type, onFilesPicked, onClose }: BrowserPickerProps) => {
+export const BrowserPicker = ({
+	isOpen,
+	type,
+	onFilesPicked,
+	onClose,
+}: BrowserPickerProps): React.JSX.Element => {
 	const browserRef = useRef<HTMLInputElement>(null);
 
 	useEffect(() => {

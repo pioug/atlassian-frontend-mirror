@@ -7,7 +7,8 @@ import { type EmbedModalProps } from '../../types';
 const FallbackComponent = () => <span />;
 
 const withErrorBoundary =
-	(Component: React.ComponentType<EmbedModalProps>) => (props: EmbedModalProps) => {
+	(Component: React.ComponentType<EmbedModalProps>) =>
+	(props: EmbedModalProps): React.JSX.Element => {
 		const { onOpenFailed } = props;
 
 		const onError = useCallback(

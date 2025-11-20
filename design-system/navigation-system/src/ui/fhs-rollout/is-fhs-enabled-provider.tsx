@@ -8,7 +8,10 @@ import { IsFhsEnabledContext } from './is-fhs-enabled-context';
  *
  * Used to provide a custom value for is FHS enabled.
  */
-export const IsFhsEnabledProvider = ({ children, value }: IsFhsEnabledProviderProps) => {
+export const IsFhsEnabledProvider = ({
+	children,
+	value,
+}: IsFhsEnabledProviderProps): React.JSX.Element => {
 	const isCustomIsFhsEnabled = useContext(IsCustomIsFhsEnabledContext);
 
 	if (isCustomIsFhsEnabled) {

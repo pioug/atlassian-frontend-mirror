@@ -3,7 +3,12 @@ import { type ADFEntity, type ADFEntityMark } from '../types';
 
 // link mark on mediaSingle is deprecated, need to move link mark to child media node
 // https://product-fabric.atlassian.net/browse/ED-14043
-export const transformMediaLinkMarks = (adf: ADFEntity) => {
+export const transformMediaLinkMarks = (
+	adf: ADFEntity,
+): {
+	transformedAdf: false | ADFEntity;
+	isTransformed: boolean;
+} => {
 	let isTransformed: boolean = false;
 	const transformedAdf = traverse(adf, {
 		mediaSingle: (node) => {

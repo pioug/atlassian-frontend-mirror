@@ -49,7 +49,7 @@ const CustomTeamContainersSkeleton = () => {
 	);
 };
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	const locale = 'en';
 	const booleanFlagResolver = (flagToResolve: string): boolean => flagToResolve === FLAG;
 	setBooleanFeatureFlagResolver(booleanFlagResolver);

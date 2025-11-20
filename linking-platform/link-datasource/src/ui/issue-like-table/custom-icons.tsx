@@ -2,7 +2,7 @@ import React from 'react';
 
 import { type IconProps } from '@atlaskit/icon';
 
-export const GlyphPlaceholder = (props: IconProps) => (
+export const GlyphPlaceholder = (props: IconProps): React.JSX.Element => (
 	<svg
 		width="24"
 		height="24"
@@ -12,7 +12,7 @@ export const GlyphPlaceholder = (props: IconProps) => (
 	></svg>
 );
 
-export const WrapTextIcon = () => (
+export const WrapTextIcon = (): React.JSX.Element => (
 	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 		<path
 			fillRule="evenodd"
@@ -23,7 +23,7 @@ export const WrapTextIcon = () => (
 	</svg>
 );
 
-export const UnwrapTextIcon = () => (
+export const UnwrapTextIcon = (): React.JSX.Element => (
 	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 		<path
 			fillRule="evenodd"

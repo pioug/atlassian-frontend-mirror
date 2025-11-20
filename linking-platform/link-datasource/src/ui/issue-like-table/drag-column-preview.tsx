@@ -135,6 +135,7 @@ export const DragColumnPreview = ({
 					</tr>
 				))}
 				<tr>
+					{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 					<TablePreviewCell>...</TablePreviewCell>
 				</tr>
 			</tbody>

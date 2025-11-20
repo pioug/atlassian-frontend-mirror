@@ -8,13 +8,21 @@ import { MessageContainer as MessageContainerStyled, MessageList } from './style
 // Max number messages we want to show
 const MAX_MESSAGES = 10;
 
-export const MessageContainer = ({ children }: { children: React.ReactNode }) => {
+export const MessageContainer = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): React.JSX.Element => {
 	const { isSearch } = useEditorThemeContext();
 
 	return <MessageContainerStyled isSearch={isSearch}>{children}</MessageContainerStyled>;
 };
 
-export const FormatMessages = ({ messages }: { messages: ExternalMessage[] }) => {
+export const FormatMessages = ({
+	messages,
+}: {
+	messages: ExternalMessage[];
+}): React.JSX.Element | null => {
 	const messageNodes = extractMessageNodes(messages);
 
 	if (messageNodes.length === 0) {

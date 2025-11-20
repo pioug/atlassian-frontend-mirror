@@ -12,7 +12,7 @@ import CardViewExample from './card-view';
 import CardViewSection from './card-view/card-view-section';
 import ExampleContainer from './utils/example-container';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<ExampleContainer title="EmbedCard Views">
 		<Stack>
 			<CardViewExample

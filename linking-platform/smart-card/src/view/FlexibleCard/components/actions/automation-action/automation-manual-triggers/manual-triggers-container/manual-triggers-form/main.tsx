@@ -32,7 +32,7 @@ export interface UserInputProps {
 	selectedRule: SelectedRule;
 }
 
-const UserInputForm = (props: UserInputProps) => {
+const UserInputForm = (props: UserInputProps): React.JSX.Element => {
 	di(
 		BooleanInputPrompt,
 		Button,

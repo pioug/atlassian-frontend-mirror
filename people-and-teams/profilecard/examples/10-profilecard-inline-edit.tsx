@@ -178,7 +178,7 @@ function MiniEditor(props: {
 	);
 }
 
-export default function InlineEditExample() {
+export default function InlineEditExample(): React.JSX.Element {
 	const [numActions, setNumActions] = useState(0);
 
 	return (

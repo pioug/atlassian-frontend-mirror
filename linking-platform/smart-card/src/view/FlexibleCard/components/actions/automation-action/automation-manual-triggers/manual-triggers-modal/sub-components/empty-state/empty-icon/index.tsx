@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EmptyIcon = (props: any) => (
+const EmptyIcon = (props: any): React.JSX.Element => (
 	<svg
 		{...props}
 		width="inherit"

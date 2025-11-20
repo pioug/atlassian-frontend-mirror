@@ -14,7 +14,11 @@ export interface CancelButtonProps {
 	testId?: string;
 }
 
-export const CancelButton = ({ getAnalyticsPayload, onCancel, testId }: CancelButtonProps) => {
+export const CancelButton = ({
+	getAnalyticsPayload,
+	onCancel,
+	testId,
+}: CancelButtonProps): React.JSX.Element => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
 	const onCancelClick = useCallback(() => {

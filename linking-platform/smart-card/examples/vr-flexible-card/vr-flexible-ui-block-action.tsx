@@ -26,7 +26,7 @@ const renderBlock = (props?: Partial<ActionBlockProps>) => {
 	);
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestWrapper>
 		<SmartCardProvider>
 			<h5>Default</h5>

@@ -24,7 +24,7 @@ const TitleBlockResolvingView = ({
 	title,
 	hideIcon,
 	...blockProps
-}: TitleBlockViewProps) => {
+}: TitleBlockViewProps): React.JSX.Element => {
 	const { size = SmartLinkSize.Medium } = blockProps;
 
 	const iconWidth = getIconWidth(size);

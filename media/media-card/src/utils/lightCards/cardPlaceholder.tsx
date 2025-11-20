@@ -5,7 +5,7 @@ import { Wrapper } from './lightCardWrappers';
 import { type StaticCardProps } from './types';
 
 export class CardPlaceholder extends Component<StaticCardProps, {}> {
-	render() {
+	render(): React.JSX.Element {
 		const { dimensions: dimensionsProp, testId } = this.props;
 		const dimensions = getDimensionsWithDefault(dimensionsProp);
 

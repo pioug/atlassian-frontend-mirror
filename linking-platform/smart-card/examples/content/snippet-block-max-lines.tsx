@@ -4,7 +4,7 @@ import { SnippetBlock } from '../../src';
 
 import ExampleContainer from './example-container';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<ExampleContainer>
 		<SnippetBlock maxLines={1} />
 	</ExampleContainer>

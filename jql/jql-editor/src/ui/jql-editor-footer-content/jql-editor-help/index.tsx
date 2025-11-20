@@ -10,7 +10,7 @@ import { useEditorViewHasFocus, useIntl, useScopedId } from '../../../state';
 import { messages } from './messages';
 import { HelpContainer } from './styled';
 
-export const JQLEditorHelp = () => {
+export const JQLEditorHelp = (): React.JSX.Element => {
 	const [{ formatMessage }] = useIntl();
 	const [editorViewHasFocus] = useEditorViewHasFocus();
 	const { isSearch } = useEditorThemeContext();

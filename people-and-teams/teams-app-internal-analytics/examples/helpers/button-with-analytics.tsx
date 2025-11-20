@@ -9,7 +9,7 @@ type Props = {
 	eventType: EventType;
 };
 
-const BasicButton = (props: Props) => {
+const BasicButton = (props: Props): React.JSX.Element => {
 	const { fireEvent } = useAnalyticsEvents();
 	const onClick = () => {
 		switch (props.eventType) {

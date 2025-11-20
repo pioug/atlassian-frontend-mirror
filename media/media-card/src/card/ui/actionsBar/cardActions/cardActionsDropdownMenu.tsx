@@ -53,7 +53,7 @@ export const CardActionsDropdownMenu = ({
 	triggerColor,
 	onOpenChange,
 	triggerVariant,
-}: CardActionsDropdownMenuProps) => {
+}: CardActionsDropdownMenuProps): React.JSX.Element | null => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	if (actions.length > 0) {

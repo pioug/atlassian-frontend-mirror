@@ -74,7 +74,7 @@ const ExampleComponent = ({
 	);
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [recentEvents, setRecentEvents] = React.useState<any>({});
 	const [showHoverPreview, setShowHoverPreview] = React.useState(false);
 

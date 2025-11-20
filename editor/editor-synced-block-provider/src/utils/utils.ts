@@ -3,18 +3,12 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { SyncBlockData, BlockInstanceId, ResourceId, SyncBlockNode } from '../common/types';
 
-import type { PAGE_TYPE } from './ari';
-
 export const convertSyncBlockPMNodeToSyncBlockData = (node: PMNode): SyncBlockData => {
 	return {
 		blockInstanceId: node.attrs.localId,
 		content: node.content.toJSON(),
 		resourceId: node.attrs.resourceId,
 	};
-};
-
-export const isBlogPageType = (pageType: PAGE_TYPE): boolean => {
-	return pageType === 'blogpost';
 };
 
 export const createSyncBlockNode = (
@@ -69,4 +63,12 @@ export const convertPMNodeToSyncBlockNode = (node: PMNode): SyncBlockNode | unde
 	}
 
 	return createSyncBlockNode(node.attrs.localId, node.attrs.resourceId);
+};
+
+export const convertPMNodesToSyncBlockNodes = (nodes: PMNode[]): SyncBlockNode[] => {
+	return (
+		nodes
+			.map((node) => convertPMNodeToSyncBlockNode(node))
+			.filter((node: SyncBlockNode | undefined): node is SyncBlockNode => node !== undefined) || []
+	);
 };

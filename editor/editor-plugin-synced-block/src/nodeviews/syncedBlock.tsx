@@ -8,7 +8,6 @@ import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block'
 import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import {
 	useFetchSyncBlockData,
 	useFetchSyncBlockTitle,
@@ -25,13 +24,12 @@ export interface SyncBlockNodeViewProps extends ReactComponentProps {
 	node: PMNode;
 	options: SyncedBlockPluginOptions | undefined;
 	portalProviderAPI: PortalProviderAPI;
-	syncBlockStore: SyncBlockStoreManager;
 	view: EditorView;
 }
 
 class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 	private options: SyncedBlockPluginOptions | undefined;
-	private syncBlockStore: SyncBlockStoreManager;
+	private api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 
 	constructor(props: SyncBlockNodeViewProps) {
 		super(
@@ -43,7 +41,7 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 			props,
 		);
 		this.options = props.options;
-		this.syncBlockStore = props.syncBlockStore;
+		this.api = props.api;
 	}
 
 	unsubscribe: (() => void) | undefined;
@@ -65,15 +63,19 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 			return null;
 		}
 
+		const syncBlockStore = this.api?.syncedBlock?.sharedState.currentState()?.syncBlockStore;
+
+		if (!syncBlockStore) {
+			return null;
+		}
+
 		// get document node from data provider
 		return (
 			<SyncBlockRendererWrapper
 				localId={this.node.attrs.localId}
 				syncedBlockRenderer={this.options?.syncedBlockRenderer}
-				useFetchSyncBlockTitle={() => useFetchSyncBlockTitle(this.syncBlockStore, this.node)}
-				useFetchSyncBlockData={() =>
-					useFetchSyncBlockData(this.syncBlockStore, resourceId, localId)
-				}
+				useFetchSyncBlockTitle={() => useFetchSyncBlockTitle(syncBlockStore, this.node)}
+				useFetchSyncBlockData={() => useFetchSyncBlockData(syncBlockStore, resourceId, localId)}
 			/>
 		);
 	}
@@ -88,7 +90,6 @@ export interface SyncBlockNodeViewProperties {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 	options: SyncedBlockPluginOptions | undefined;
 	pmPluginFactoryParams: PMPluginFactoryParams;
-	syncBlockStore: SyncBlockStoreManager;
 }
 
 export const syncBlockNodeView: (
@@ -98,7 +99,7 @@ export const syncBlockNodeView: (
 	view: EditorView,
 	getPos: getPosHandler,
 ) => ReactNodeView<SyncBlockNodeViewProps> =
-	({ options, pmPluginFactoryParams, api, syncBlockStore }: SyncBlockNodeViewProperties) =>
+	({ options, pmPluginFactoryParams, api }: SyncBlockNodeViewProperties) =>
 	(
 		node: PMNode,
 		view: EditorView,
@@ -114,6 +115,5 @@ export const syncBlockNodeView: (
 			getPos,
 			portalProviderAPI,
 			eventDispatcher,
-			syncBlockStore,
 		}).init();
 	};

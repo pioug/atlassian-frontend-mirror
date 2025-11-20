@@ -118,7 +118,9 @@ const WithIssueModal = ({
 	);
 };
 
-export default () => <Component JiraIssueConfigModalComponent={JiraIssuesConfigModal} />;
+export default (): React.JSX.Element => (
+	<Component JiraIssueConfigModalComponent={JiraIssuesConfigModal} />
+);
 
 const Component = (props: Props) => (
 	<IntlProvider locale="en">
@@ -126,11 +128,11 @@ const Component = (props: Props) => (
 	</IntlProvider>
 );
 
-export const JiraModalNoSuspense = () => (
+export const JiraModalNoSuspense = (): React.JSX.Element => (
 	<Component JiraIssueConfigModalComponent={JiraIssuesConfigModalNoSuspense} />
 );
 
-export const WithIssueModalWithParameters = (props: Props) => (
+export const WithIssueModalWithParameters = (props: Props): React.JSX.Element => (
 	<WithIssueModal
 		parameters={{
 			cloudId: '67899',

@@ -116,7 +116,7 @@ function CustomMessagesExample() {
 	);
 }
 
-export default function CustomMessagesExampleWrapper() {
+export default function CustomMessagesExampleWrapper(): React.JSX.Element {
 	return (
 		<PageWrapper>
 			<CustomMessagesExample />

@@ -731,7 +731,7 @@ export class CustomMediaPlayerBase extends Component<
 	private startPlayByButtonClick = this.getMediaButtonClickHandler(this.play, 'playButton');
 	private pausePlayByButtonClick = this.getMediaButtonClickHandler(this.pause, 'pauseButton');
 
-	render() {
+	render(): React.JSX.Element {
 		const { type, src, isAutoPlay, onCanPlay, onError, poster, videoControlsWrapperRef } =
 			this.props;
 

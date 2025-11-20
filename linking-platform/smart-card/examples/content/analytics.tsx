@@ -65,7 +65,7 @@ const ExampleComponent = ({ setRecentEvents }: ExampleComponentProps): JSX.Eleme
 	);
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [recentEvents, setRecentEvents] = React.useState<UIAnalyticsEvent[]>([]);
 	const mostRecent10Events = React.useMemo(() => {
 		return Array.from({ length: 10 }, (_, i) => {

@@ -5,4 +5,4 @@ export interface BlanketProps {
 	isFixed?: boolean;
 }
 
-export const Blanket = (props: BlanketProps) => <CompiledBlanket {...props} />;
+export const Blanket = (props: BlanketProps): React.JSX.Element => <CompiledBlanket {...props} />;

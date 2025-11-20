@@ -53,7 +53,7 @@ export class DropzoneLoader extends React.PureComponent<DropzoneWithMediaClientC
 		}
 	}
 
-	render() {
+	render(): React.JSX.Element | null {
 		const { Dropzone, MediaPickerErrorBoundary } = this.state;
 		if (!Dropzone || !MediaPickerErrorBoundary) {
 			return null;

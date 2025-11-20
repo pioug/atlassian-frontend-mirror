@@ -81,7 +81,7 @@ type Options = {
 
 /**
  *
- * NOTE: Generally you want to use `usePluginStateWithSelector` over this which behaves similarly
+ * NOTE: Generally you want to use `useSharedPluginStateWithSelector` over this which behaves similarly
  * but selects a slice of the state which is more performant.
  *
  * ⚠️⚠️⚠️ This is a debounced hook ⚠️⚠️⚠️

@@ -163,7 +163,7 @@ const MockedClientProvider = () => {
 	);
 };
 
-export default function () {
+export default function (): React.JSX.Element {
 	const [reloadKey, setReloadkey] = useState(0);
 	const [canUpdateVideoCaptions, setCanUpdateVideoCaptions] = useState(true);
 	const [videoHasCaptions, setVideoHasCaptions] = useState(true);

@@ -804,7 +804,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 			}
 
 			const mutateTelepointer = (mutations: MutationRecord[]) => {
-				mutations.forEach((mutation: MutationRecord, index) => {
+				mutations.forEach((mutation: MutationRecord, _index) => {
 					if (initialUpdate.current) {
 						const oldTelepointer = renderer.querySelector(`#${TELEPOINTER_ID}`);
 						if (oldTelepointer) {

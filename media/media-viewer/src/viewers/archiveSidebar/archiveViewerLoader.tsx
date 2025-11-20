@@ -34,7 +34,7 @@ export default class ArchiveViewerLoader extends React.PureComponent<ArchiveView
 		}
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { ArchiveViewer, isErrored } = this.state;
 		const { item } = this.props;
 

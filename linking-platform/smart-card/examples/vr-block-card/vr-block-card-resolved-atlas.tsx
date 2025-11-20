@@ -18,7 +18,7 @@ class CustomClient extends Client {
 	}
 }
 
-export const BlockCardAtlas = () => (
+export const BlockCardAtlas = (): React.JSX.Element => (
 	<div>
 		<h4>Project</h4>
 		<VRCardView appearance="block" client={new CustomClient()} url={AtlasProject.data.url} />

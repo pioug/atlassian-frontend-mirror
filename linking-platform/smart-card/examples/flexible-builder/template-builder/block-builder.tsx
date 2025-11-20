@@ -74,7 +74,7 @@ const BlockBuilder = ({
 	blocks?: BlockTemplate[];
 	onChange: (blocks: BlockTemplate[]) => void;
 	size?: SmartLinkSize; // block inherit size from ui options
-}) => {
+}): React.JSX.Element => {
 	const handleOnBlockChange = useCallback(
 		(position: number, t: BlockTemplate) => {
 			const updatedBlocks = blocks.map((blockTemplate, idx) =>

@@ -30,7 +30,7 @@ export function AISummariseAction({
 	AISummaryActionData & {
 		status: AISummaryStatus;
 		summariseUrl: () => Promise<AISummaryState> | undefined;
-	}) {
+	}): React.JSX.Element {
 	const { fireEvent } = useAnalyticsEvents();
 
 	const onCompleted = useCallback(

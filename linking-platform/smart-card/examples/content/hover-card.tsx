@@ -8,7 +8,7 @@ import { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-help
 import { HoverCard } from '../../src/hoverCard';
 import HoverOverMe from '../utils/hover-card-box';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<SmartCardProvider client={new ResolvedClient('stg')}>
 			<HoverCard url={ResolvedClientEmbedUrl}>

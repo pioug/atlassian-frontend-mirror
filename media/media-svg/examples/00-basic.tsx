@@ -17,7 +17,7 @@ const onError = (error: Error) => {
 	console.log(error);
 };
 
-export default function () {
+export default function (): React.JSX.Element {
 	return (
 		<MediaClientProvider clientConfig={mediaClientConfig}>
 			<MediaSvg

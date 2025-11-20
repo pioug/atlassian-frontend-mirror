@@ -155,4 +155,4 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
 	}
 }
 
-export default () => <BrowserWrapper />;
+export default (): React.JSX.Element => <BrowserWrapper />;

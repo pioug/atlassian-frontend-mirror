@@ -6,7 +6,7 @@ import { CustomBlock } from '../../src';
 
 import ExampleContainer from './example-container';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<ExampleContainer>
 			<CustomBlock>

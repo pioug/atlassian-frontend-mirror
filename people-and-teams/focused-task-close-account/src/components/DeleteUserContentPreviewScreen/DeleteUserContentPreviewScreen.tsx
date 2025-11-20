@@ -35,7 +35,7 @@ export class DeleteUserContentPreviewScreen extends React.Component<
 		return this.props.isCurrentUser ? selfCopy : adminCopy;
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { user } = this.props;
 		return (
 			<MessagesIntlProvider>

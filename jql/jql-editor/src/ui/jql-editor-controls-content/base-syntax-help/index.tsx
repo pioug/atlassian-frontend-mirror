@@ -25,7 +25,12 @@ type Props = {
 	onClick: (e: MouseEvent<HTMLElement>) => void;
 };
 
-export const BaseSyntaxHelp = ({ describedby, isDisabled, label, onClick }: Props) => {
+export const BaseSyntaxHelp = ({
+	describedby,
+	isDisabled,
+	label,
+	onClick,
+}: Props): React.JSX.Element => {
 	return fg('platform-component-visual-refresh') ? (
 		<LinkIconButton
 			aria-describedby={describedby}

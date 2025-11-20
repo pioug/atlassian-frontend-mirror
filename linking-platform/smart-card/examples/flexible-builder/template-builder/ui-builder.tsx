@@ -14,7 +14,7 @@ const UiBuilder = ({
 }: {
 	onChange: (ui: FlexibleUiOptions) => void;
 	template?: FlexibleTemplate;
-}) => {
+}): React.JSX.Element => {
 	const { ui = {} } = template;
 	return (
 		<Fieldset legend="Flexible Smart Links: UI Options">

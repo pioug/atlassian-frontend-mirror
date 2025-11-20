@@ -208,27 +208,58 @@ export const isReplaceDocOperation = (
  *
  * @param doc1 PMNode
  * @param doc2 PMNode
+ * @param attributesToIgnore Specific array of attribute keys to ignore - defaults to ignoring all
  * @returns boolean
  */
-export function areNodesEqualIgnoreAttrs(node1: Node, node2: Node): boolean {
+export function areNodesEqualIgnoreAttrs(
+	node1: Node,
+	node2: Node,
+	attributesToIgnore?: string[],
+): boolean {
 	if (node1.isText) {
 		return node1.eq(node2);
 	}
+
+	// If no attributes to ignore, compare all attributes
+	if (!attributesToIgnore || attributesToIgnore.length === 0) {
+		return (
+			node1 === node2 ||
+			(node1.hasMarkup(node2.type, node1.attrs, node2.marks) &&
+				areFragmentsEqual(node1.content, node2.content))
+		);
+	}
+
+	// Build attrs to compare by excluding ignored attributes
+	const attrsToCompare: Record<string, unknown> = node2.attrs;
+	const ignoreSet = new Set(attributesToIgnore);
+	for (const key in node2.attrs) {
+		if (ignoreSet.has(key)) {
+			attrsToCompare[key] = node1.attrs[key];
+		}
+	}
+
 	return (
 		node1 === node2 ||
-		(node1.hasMarkup(node2.type, node1.attrs, node2.marks) &&
-			areFragmentsEqual(node1.content, node2.content))
+		(node1.hasMarkup(node2.type, attrsToCompare, node2.marks) &&
+			areFragmentsEqual(node1.content, node2.content, attributesToIgnore))
 	);
 }
 
-function areFragmentsEqual(frag1: Fragment, frag2: Fragment): boolean {
+function areFragmentsEqual(
+	frag1: Fragment,
+	frag2: Fragment,
+	attributesToIgnore?: string[],
+): boolean {
 	if (frag1.content.length !== frag2.content.length) {
 		return false;
 	}
 	let childrenEqual = true;
 	frag1.content.forEach((child, i) => {
 		const otherChild = frag2.child(i);
-		if (child === otherChild || (otherChild && areNodesEqualIgnoreAttrs(child, otherChild))) {
+		if (
+			child === otherChild ||
+			(otherChild && areNodesEqualIgnoreAttrs(child, otherChild, attributesToIgnore))
+		) {
 			return;
 		}
 		childrenEqual = false;

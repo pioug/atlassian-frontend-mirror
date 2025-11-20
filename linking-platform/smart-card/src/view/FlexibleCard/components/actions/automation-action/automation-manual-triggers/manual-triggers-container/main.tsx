@@ -114,7 +114,7 @@ export interface ManualRulesContainerProps {
  *
  * @param props - cloudId, projectId, children
  */
-export const ManualRulesContainer = (props: ManualRulesContainerProps) => {
+export const ManualRulesContainer = (props: ManualRulesContainerProps): React.JSX.Element => {
 	di(
 		ModalTransition,
 		UserInputForm,

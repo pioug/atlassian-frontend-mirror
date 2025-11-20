@@ -422,7 +422,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		return defaultProps;
 	};
 
-	private serializeTextWrapper(content: Node[], { index, parentInfo }: FragmentChildContext) {
+	private serializeTextWrapper(content: Node[], { parentInfo }: FragmentChildContext) {
 		const currentPath = (parentInfo && parentInfo.path) || [];
 		const nodePosition = (parentInfo && parentInfo.pos) || 1;
 
@@ -430,7 +430,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			this.standaloneBackgroundColorMarks.push(...getStandaloneBackgroundColorMarks(content));
 		}
 
-		return ReactSerializer.buildMarkStructure(content).map((mark, index) => {
+		return ReactSerializer.buildMarkStructure(content).map((mark, _index) => {
 			return this.serializeMark({
 				mark,
 				parentNode: {
@@ -450,7 +450,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		parentMark,
 	}: SerializeMarkProps): JSX.Element | string {
 		if (!isTextNode(mark)) {
-			const serializeContent = (childMark: Mark, index: number) =>
+			const serializeContent = (childMark: Mark, _index: number) =>
 				this.serializeMark({
 					mark: childMark,
 					parentNode,
@@ -793,7 +793,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		};
 	}
 
-	private getExpandProps(node: Node, path: Array<Node> = []) {
+	private getExpandProps(node: Node, _path: Array<Node> = []) {
 		if (!isNestedHeaderLinksEnabled(this.allowHeadingAnchorLinks)) {
 			return this.getProps(node);
 		}

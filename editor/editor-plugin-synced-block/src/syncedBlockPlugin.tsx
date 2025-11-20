@@ -124,8 +124,12 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 			if (!editorState) {
 				return;
 			}
-			const { showFlag } = syncedBlockPluginKey.getState(editorState);
-			return { showFlag };
+			const { showFlag, syncBlockStore: currentSyncBlockStore } =
+				syncedBlockPluginKey.getState(editorState);
+			return {
+				showFlag,
+				syncBlockStore: currentSyncBlockStore,
+			};
 		},
 	};
 };

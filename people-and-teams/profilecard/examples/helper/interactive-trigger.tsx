@@ -80,7 +80,7 @@ export default class InteractiveTrigger extends Component<Props, State> {
 		);
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<div>
 				<p>Hover over the circle to show the profilecard and click to change the cards position.</p>

@@ -84,7 +84,7 @@ function HideDisplayText() {
 	);
 }
 
-export default function HideDisplayTextWrapper() {
+export default function HideDisplayTextWrapper(): React.JSX.Element {
 	return (
 		<PageWrapper>
 			<HideDisplayText />

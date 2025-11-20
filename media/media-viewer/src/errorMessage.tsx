@@ -129,7 +129,7 @@ export class ErrorMessage extends React.Component<
 		}
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const errorInfo = this.getErrorInfo();
 
 		return (

@@ -67,7 +67,7 @@ function SubmitOnInputChangeExample() {
 	);
 }
 
-export default function SubmitOnInputChangeWrapper() {
+export default function SubmitOnInputChangeWrapper(): React.JSX.Element {
 	return (
 		<PageWrapper>
 			<SubmitOnInputChangeExample />

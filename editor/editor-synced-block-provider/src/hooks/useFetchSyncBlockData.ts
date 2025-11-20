@@ -22,8 +22,6 @@ export const useFetchSyncBlockData = (
 	const [syncBlockInstance, setSyncBlockInstance] = useState<SyncBlockInstance | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 
-	const referenceSyncBlockStoreManager = manager.getReferenceSyncBlockStoreManager();
-
 	const reloadData = useCallback(async () => {
 		if (isLoading) {
 			return;
@@ -38,7 +36,7 @@ export const useFetchSyncBlockData = (
 
 		try {
 			// Fetch sync block data, the `subscribeToSyncBlock` will update the state once data is fetched
-			await referenceSyncBlockStoreManager.fetchSyncBlocksData([syncBlockNode]);
+			await manager.referenceManager.fetchSyncBlocksData([syncBlockNode]);
 		} catch (error) {
 			// Set error state if fetching fails
 			setSyncBlockInstance({
@@ -47,10 +45,10 @@ export const useFetchSyncBlockData = (
 			});
 		}
 		setIsLoading(false);
-	}, [isLoading, localId, referenceSyncBlockStoreManager, resourceId]);
+	}, [isLoading, localId, manager.referenceManager, resourceId]);
 
 	useEffect(() => {
-		const unsubscribe = referenceSyncBlockStoreManager.subscribeToSyncBlock(
+		const unsubscribe = manager.referenceManager.subscribeToSyncBlock(
 			resourceId || '',
 			localId || '',
 			(data: SyncBlockInstance) => {
@@ -62,11 +60,11 @@ export const useFetchSyncBlockData = (
 		return () => {
 			unsubscribe();
 		};
-	}, [localId, referenceSyncBlockStoreManager, resourceId]);
+	}, [localId, manager.referenceManager, resourceId]);
 
 	return {
 		isLoading,
-		providerFactory: referenceSyncBlockStoreManager.getProviderFactory(resourceId || ''),
+		providerFactory: manager.referenceManager.getProviderFactory(resourceId || ''),
 		reloadData,
 		syncBlockInstance,
 	};

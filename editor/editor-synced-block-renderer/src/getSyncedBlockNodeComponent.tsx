@@ -43,7 +43,7 @@ export const getSyncedBlockNodeComponent = ({
 	);
 
 	// Pre-fetch sync block data
-	syncBlockStoreManager.getReferenceSyncBlockStoreManager().fetchSyncBlocksData(syncBlockNodes);
+	syncBlockStoreManager.referenceManager.fetchSyncBlocksData(syncBlockNodes);
 
 	return (props: SyncedBlockNodeProps) =>
 		SyncedBlockNodeComponentRenderer({

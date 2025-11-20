@@ -6,7 +6,7 @@ import { MockLinkPickerPlugin } from '../src/__tests__/__helpers/mock-plugins';
 
 const plugins = [new MockLinkPickerPlugin()];
 
-export default function VrHideDisplayTextSinglePlugin() {
+export default function VrHideDisplayTextSinglePlugin(): React.JSX.Element {
 	return (
 		<PageWrapper>
 			<LinkPicker

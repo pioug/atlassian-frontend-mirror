@@ -15,7 +15,7 @@ export class SelectableCard extends Component<SelectableCardProps, { selected: b
 		this.state = { selected: false };
 	}
 
-	render() {
+	render(): React.JSX.Element | null {
 		const { mediaClientConfig, identifier } = this.props;
 		const { selected } = this.state;
 

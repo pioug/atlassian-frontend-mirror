@@ -74,7 +74,7 @@ export const DisconnectDialog = ({
 	containerType,
 	onDisconnect,
 	onClose,
-}: DisconnectDialogProps) => {
+}: DisconnectDialogProps): React.JSX.Element => {
 	const [isDisconnecting, setIsDisconnecting] = React.useState<boolean>(false);
 	const handleDisconnect = async () => {
 		setIsDisconnecting(true);

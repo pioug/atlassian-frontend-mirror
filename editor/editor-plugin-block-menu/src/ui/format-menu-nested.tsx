@@ -8,7 +8,6 @@ import {
 	EVENT_TYPE,
 	type BlockMenuEventPayload,
 } from '@atlaskit/editor-common/analytics';
-import { messages } from '@atlaskit/editor-common/block-menu';
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
@@ -29,10 +28,6 @@ export const FormatMenuComponent = ({
 	children: React.ReactNode;
 }) => {
 	const { formatMessage } = useIntl();
-
-	const text = fg('platform_editor_block_menu_patch_1')
-		? formatMessage(blockMenuMessages.turnInto)
-		: formatMessage(messages.turnInto);
 
 	const isDisabled = fg('platform_editor_block_menu_for_disabled_nodes')
 		? checkIsFormatMenuHidden(api)
@@ -55,7 +50,7 @@ export const FormatMenuComponent = ({
 
 	return (
 		<ToolbarNestedDropdownMenu
-			text={text}
+			text={formatMessage(blockMenuMessages.turnInto)}
 			elemBefore={<ChangesIcon label="" />}
 			elemAfter={<ChevronRightIcon label="" />}
 			enableMaxHeight={true}

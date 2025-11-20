@@ -11,7 +11,7 @@ const context = getContext({
 	appliedToComponentsCount: 30,
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<FlexibleCardContext.Provider value={{ data: context }}>

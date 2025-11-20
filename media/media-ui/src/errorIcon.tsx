@@ -11,7 +11,7 @@ const style = `
 .cls-6{stroke:#5e6c84;}
 `;
 
-export const errorIcon = (
+export const errorIcon: React.JSX.Element = (
 	<svg viewBox="0 0 163.28 218">
 		<defs>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}

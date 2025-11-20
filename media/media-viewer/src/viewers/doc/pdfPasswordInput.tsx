@@ -8,6 +8,6 @@ interface PDFPasswordInputProps {
 	onRender?: () => void;
 }
 
-export const PDFPasswordInput = (props: PDFPasswordInputProps) => (
+export const PDFPasswordInput = (props: PDFPasswordInputProps): React.JSX.Element => (
 	<CompiledPDFPasswordInput {...props} />
 );

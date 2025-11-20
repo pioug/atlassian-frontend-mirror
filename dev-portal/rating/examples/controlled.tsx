@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { RatingGroup, Star } from '../src';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [value, setValue] = useState<string | undefined>('two');
 
 	return (

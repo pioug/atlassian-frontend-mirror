@@ -16,7 +16,7 @@ import { FormSpy } from '../../form-spy';
 // eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { messages } from '../messages';
 
-export const SubmitButton = () => {
+export const SubmitButton = (): React.JSX.Element => {
 	const intl = useIntl();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { submitting } = useFormState();

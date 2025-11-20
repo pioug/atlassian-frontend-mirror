@@ -85,7 +85,7 @@ const delayBinaryLoad = (mediaApi: MediaApi, delay: number) => {
 	};
 };
 
-export default function () {
+export default function (): React.JSX.Element {
 	const [{ MockedMediaClientProvider, mediaApi }, identifiers] = usePrepareMediaState(generators);
 
 	useEffect(() => {

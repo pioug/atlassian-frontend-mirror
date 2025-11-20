@@ -61,6 +61,18 @@
       },
       "value": 12
     },
+    "Shape/radius.xxlarge": {
+      "attributes": {
+        "group": "shape",
+        "state": "active",
+        "suggest": [
+          "12px"
+        ],
+        "introduced": "8.1.0",
+        "description": "Used for the largest containers."
+      },
+      "value": 16
+    },
     "Shape/radius.full": {
       "attributes": {
         "group": "shape",

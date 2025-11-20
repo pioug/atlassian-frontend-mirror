@@ -2,11 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+/* eslint-disable @typescript-eslint/consistent-type-imports */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+/* eslint-enable @typescript-eslint/consistent-type-imports */
 
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { Editor } from '@atlaskit/editor-core';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
@@ -21,8 +23,14 @@ const container = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'#output': {
 		border: `${token('border.width.selected')} solid`,
-		margin: token('space.100', '8px'),
-		padding: token('space.100', '8px'),
+		marginTop: token('space.100', '8px'),
+		marginRight: token('space.100', '8px'),
+		marginBottom: token('space.100', '8px'),
+		marginLeft: token('space.100', '8px'),
+		paddingTop: token('space.100', '8px'),
+		paddingRight: token('space.100', '8px'),
+		paddingBottom: token('space.100', '8px'),
+		paddingLeft: token('space.100', '8px'),
 		whiteSpace: 'pre-wrap',
 		fontSize: 'xx-small',
 		'&:focus': {
@@ -36,20 +44,20 @@ const container = css({
 	},
 });
 
-export const mediaProvider = storyMediaProviderFactory();
+export const mediaProvider: Promise<MediaProvider> = storyMediaProviderFactory();
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Example extends React.PureComponent<{}, { output: string }> {
 	state = { output: '' };
-	transformer = new JSONTransformer();
+	transformer: JSONTransformer = new JSONTransformer();
 
-	handleChangeInTheEditor = (editorView: EditorView) => {
+	handleChangeInTheEditor = (editorView: EditorView): void => {
 		const output = JSON.stringify(this.transformer.encode(editorView.state.doc), null, 2);
 		this.setState({ output });
 	};
 
-	render() {
+	render(): jsx.JSX.Element {
 		return (
 			<div css={container}>
 				<Editor

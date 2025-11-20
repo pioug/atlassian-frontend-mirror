@@ -14,7 +14,7 @@ export const ImageRenderer = ({
 	mediaType,
 	nativeLazyLoad,
 	forceSyncDisplay,
-}: ImageRendererProps) => {
+}: ImageRendererProps): React.JSX.Element => {
 	const onDisplayImageRef = useCurrentValueRef(onDisplayImage);
 	useEffect(() => {
 		// TODO: trigger accordingly with the succeeded event. This could be a breaking change

@@ -24,7 +24,7 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 		return this.props.isCurrentUser ? selfCopy : adminCopy;
 	};
 
-	displayFirstListElement = () => {
+	displayFirstListElement = (): React.JSX.Element | null => {
 		const { accessibleSites, user, isUserDeactivated } = this.props;
 
 		if (isUserDeactivated) {
@@ -66,7 +66,7 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 		);
 	};
 
-	displaySecondListElement = () => {
+	displaySecondListElement = (): React.JSX.Element => {
 		return (
 			<li>
 				<FormattedMessage
@@ -139,7 +139,7 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 		);
 	};
 
-	displayThirdListElement = () => {
+	displayThirdListElement = (): React.JSX.Element => {
 		return (
 			<li>
 				<FormattedMessage
@@ -174,7 +174,7 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 			</li>
 		);
 	};
-	displayFourthListElement = () => {
+	displayFourthListElement = (): React.JSX.Element => {
 		return (
 			<li>
 				<FormattedMessage
@@ -206,7 +206,7 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 		);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { user, deactivateUserHandler, isUserDeactivated } = this.props;
 
 		return (

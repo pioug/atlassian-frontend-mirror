@@ -38,7 +38,7 @@ export const BlockCard = ({
 	actionOptions,
 	CompetitorPrompt,
 	hideIconLoadingSkeleton,
-}: BlockCardProps) => {
+}: BlockCardProps): React.JSX.Element => {
 	const { status } = cardState;
 
 	const blockCardProps = {

@@ -2,7 +2,13 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { traverse } from '../traverse/traverse';
 import { type ADFEntity } from '../types';
 
-export const syncBlockFallbackTransform = (schema: Schema, adf: ADFEntity) => {
+export const syncBlockFallbackTransform = (
+	schema: Schema,
+	adf: ADFEntity,
+): {
+	transformedAdf: false | ADFEntity;
+	isTransformed: boolean;
+} => {
 	let isTransformed: boolean = false;
 
 	const { syncBlock, bodiedSyncBlock, unsupportedBlock } = schema.nodes;

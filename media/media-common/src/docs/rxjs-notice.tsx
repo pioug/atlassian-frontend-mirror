@@ -3,7 +3,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import React from 'react';
 import SectionMessage from '@atlaskit/section-message';
 
-export function createRxjsNotice(componentName: string) {
+export function createRxjsNotice(componentName: string): React.JSX.Element {
 	return (
 		<SectionMessage title="RxJS compatibility" appearance="warning">
 			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}

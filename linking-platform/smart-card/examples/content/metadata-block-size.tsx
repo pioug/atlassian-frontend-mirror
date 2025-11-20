@@ -18,7 +18,7 @@ const metadata: ElementItem[] = [
 	{ name: ElementName.ReactCount },
 ];
 
-export default () => (
+export default (): React.JSX.Element => (
 	<ExampleContainer>
 		<MetadataBlock size={SmartLinkSize.Small} primary={metadata} />
 		<br />

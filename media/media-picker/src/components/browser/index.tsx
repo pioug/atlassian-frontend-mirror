@@ -55,7 +55,7 @@ export class BrowserLoader extends React.PureComponent<BrowserWithMediaClientCon
 		}
 	}
 
-	render() {
+	render(): React.JSX.Element | null {
 		if (!this.state.Browser) {
 			return null;
 		}

@@ -12,10 +12,16 @@ import type {
 	SubscriptionCallback,
 	SyncBlockDataProvider,
 	TitleSubscriptionCallback,
+	SyncBlockRendererProviderCreator,
 } from '../providers/types';
 import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
 import { createSyncBlockNode } from '../utils/utils';
 
+// A store manager responsible for the lifecycle and state management of reference sync blocks in an editor instance.
+// Designed to manage local in-memory state and synchronize with an external data provider.
+// Supports fetch, cache, and subscription for sync block data.
+// Handles fetching source URL and title for sync blocks.
+// Can be used in both editor and renderer contexts.
 export class ReferenceSyncBlockStoreManager {
 	private dataProvider?: SyncBlockDataProvider;
 	private syncBlockCache: Map<ResourceId, SyncBlockInstance>;
@@ -73,6 +79,8 @@ export class ReferenceSyncBlockStoreManager {
 			return;
 		}
 
+		// TODO: EDITOR-3312 - retrieve the source info based on the source sync block product
+
 		// if the sync block is a reference block, we need to fetch the URL to the source
 		// we could optimise this further by checking if the sync block is on the same page as the source
 		if (!this.syncBlockURLRequests.get(resourceId)) {
@@ -100,7 +108,16 @@ export class ReferenceSyncBlockStoreManager {
 		}
 	}
 
+	/**
+	 * Fetch sync block data for a given array of sync block nodes.
+	 * @param syncBlockNodes - The array of sync block nodes to fetch data for
+	 * @returns The fetched sync block data results
+	 */
 	public async fetchSyncBlocksData(syncBlockNodes: SyncBlockNode[]): Promise<SyncBlockInstance[]> {
+		if (syncBlockNodes.length === 0) {
+			return Promise.resolve([]);
+		}
+
 		if (!this.dataProvider) {
 			throw new Error('Data provider not set');
 		}
@@ -288,31 +305,85 @@ export class ReferenceSyncBlockStoreManager {
 			return undefined;
 		}
 
-		const { parentDataProviders } = this.dataProvider.getSyncedBlockRendererProviderOptions();
+		const { parentDataProviders, providerCreator } =
+			this.dataProvider.getSyncedBlockRendererProviderOptions();
 
-		if (!this.providerFactories.has(resourceId)) {
-			// TODO: EDITOR-2771 - In follow up PR, create media & emoji providers per ref sync block
-			// The media & emoji providers will be set later, once we get ref sync block data with page ID
-			// So we need to keep the reference to the Provider Factory so we can then set media & emoji providers later
-			this.providerFactories.set(
-				resourceId,
-				ProviderFactory.create({
-					emojiProvider: parentDataProviders?.emojiProvider,
-					mediaProvider: parentDataProviders?.mediaProvider,
-					mentionProvider: parentDataProviders?.mentionProvider,
-					profilecardProvider: parentDataProviders?.profilecardProvider,
-					taskDecisionProvider: parentDataProviders?.taskDecisionProvider,
-				}),
-			);
+		let providerFactory: ProviderFactory | undefined = this.providerFactories.get(resourceId);
+		if (!providerFactory) {
+			providerFactory = ProviderFactory.create({
+				mentionProvider: parentDataProviders?.mentionProvider,
+				profilecardProvider: parentDataProviders?.profilecardProvider,
+				taskDecisionProvider: parentDataProviders?.taskDecisionProvider,
+			});
+			this.providerFactories.set(resourceId, providerFactory);
 		}
 
-		return this.providerFactories.get(resourceId);
+		if (providerCreator) {
+			this.retrieveDynamicProviders(resourceId, providerFactory, providerCreator);
+		}
+		return providerFactory;
 	}
 
-	destroy() {
+	private retrieveDynamicProviders(
+		resourceId: ResourceId,
+		providerFactory: ProviderFactory,
+		providerCreator: SyncBlockRendererProviderCreator,
+	) {
+		if (!this.dataProvider) {
+			return;
+		}
+
+		const hasMediaProvider = providerFactory.hasProvider('mediaProvider');
+		const hasEmojiProvider = providerFactory.hasProvider('emojiProvider');
+		if (hasMediaProvider && hasEmojiProvider) {
+			return;
+		}
+
+		const parentInfo = this.dataProvider.retrieveSyncBlockParentInfo(
+			this.syncBlockCache.get(resourceId),
+		);
+		if (!parentInfo) {
+			return;
+		}
+
+		const { contentId, contentProduct } = parentInfo;
+
+		if (!hasMediaProvider) {
+			if (providerCreator.createMediaProvider && contentId && contentProduct) {
+				const mediaProvider = providerCreator.createMediaProvider({
+					contentProduct,
+					contentId,
+				});
+				if (mediaProvider) {
+					providerFactory.setProvider('mediaProvider', mediaProvider);
+				}
+			}
+		}
+
+		if (!hasEmojiProvider) {
+			if (providerCreator.createEmojiProvider && contentId && contentProduct) {
+				const emojiProvider = providerCreator.createEmojiProvider({
+					contentProduct,
+					contentId,
+				});
+				if (emojiProvider) {
+					providerFactory.setProvider('emojiProvider', emojiProvider);
+				}
+			}
+		}
+	}
+
+	public destroy(): void {
+		this.dataProvider = undefined;
 		this.syncBlockCache.clear();
 		this.subscriptions.clear();
+		this.titleSubscriptions.clear();
 		this.syncBlockURLRequests.clear();
+		this.providerFactories.clear();
+		this.isRefreshingSubscriptions = false;
+		this.providerFactories.forEach((providerFactory) => {
+			providerFactory.destroy();
+		});
 		this.providerFactories.clear();
 	}
 }

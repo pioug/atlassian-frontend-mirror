@@ -16,7 +16,7 @@ const gridStyles = cssMap({
 	},
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [template, setTemplate] = useState<FlexibleTemplate>(getExampleFromLocalStorage());
 
 	const onChange = useCallback((updatedTemplate: FlexibleTemplate) => {

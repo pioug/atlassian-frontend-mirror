@@ -8,7 +8,7 @@ const mediaClientConfig = {
 	authProvider: mediaPickerAuthProvider(),
 };
 
-function App() {
+function App(): React.JSX.Element {
 	return (
 		<MediaClientProvider clientConfig={mediaClientConfig}>
 			<MyApp />

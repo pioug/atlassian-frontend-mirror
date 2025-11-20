@@ -60,7 +60,7 @@ export class DocViewer extends BaseViewer<string, Props, State> {
 		}
 	}
 
-	protected renderSuccessful() {
+	protected renderSuccessful(): React.JSX.Element {
 		return (
 			<DocViewerComponent
 				mediaClient={this.props.mediaClient}

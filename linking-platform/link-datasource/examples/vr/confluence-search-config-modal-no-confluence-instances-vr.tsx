@@ -21,7 +21,7 @@ mockDatasourceFetchRequests({
 });
 mockBasicFilterAGGFetchRequests();
 
-export default () => (
+export default (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<SmartCardProvider client={new SmartLinkClient()}>
 			<ConfluenceSearchConfigModal

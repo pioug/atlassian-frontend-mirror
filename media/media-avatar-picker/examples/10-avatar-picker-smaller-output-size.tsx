@@ -1,6 +1,6 @@
 import React from 'react';
 import StatefulAvatarPickerDialog from '../example-helpers/StatefulAvatarPickerDialog';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<StatefulAvatarPickerDialog placeholder={<div>Loading...</div>} outputSize={128} />
 );

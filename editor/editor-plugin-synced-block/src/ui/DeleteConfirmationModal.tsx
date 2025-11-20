@@ -61,7 +61,8 @@ export const DeleteConfirmationModal = ({
 	}, []);
 
 	useEffect(() => {
-		const unregister = syncBlockStoreManager.registerConfirmationCallback(confirmationCallback);
+		const unregister =
+			syncBlockStoreManager.sourceManager.registerConfirmationCallback(confirmationCallback);
 
 		return () => {
 			unregister();

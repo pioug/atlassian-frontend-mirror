@@ -25,7 +25,7 @@ export const LazyCardWithUrlContent = lazy(() =>
 	),
 );
 
-export function CardWithURLRenderer(props: CardProps) {
+export function CardWithURLRenderer(props: CardProps): React.JSX.Element {
 	di(LazyCardWithUrlContent);
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const [id] = useState(() => (props.id ? props.id : uuid()) satisfies string);

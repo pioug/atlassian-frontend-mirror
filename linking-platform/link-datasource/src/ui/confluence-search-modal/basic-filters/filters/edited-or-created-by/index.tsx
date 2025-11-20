@@ -28,7 +28,7 @@ const EditedOrCreatedByFilter = ({
 	onSelectionChange,
 	selection = [],
 	isHydrating = false,
-}: EditedOrCreatedByFilterProps) => {
+}: EditedOrCreatedByFilterProps): React.JSX.Element => {
 	const { user } = useCurrentUserInfo();
 	const { formatMessage } = useIntl();
 	const {

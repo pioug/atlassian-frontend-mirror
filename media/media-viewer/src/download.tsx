@@ -194,7 +194,7 @@ export const ErrorViewDownloadButton = ({
 	error,
 	traceContext,
 	collectionName,
-}: ErrorViewDownloadButtonProps) => {
+}: ErrorViewDownloadButtonProps): React.JSX.Element => {
 	const downloadEvent = createFailedPreviewDownloadButtonClickedEvent(fileState, error);
 	const testId = 'media-viewer-error-download-button';
 
@@ -227,7 +227,7 @@ export const ToolbarDownloadButton = ({
 	mediaClient,
 	identifier,
 	traceContext,
-}: ToolbarDownloadButtonProps) => {
+}: ToolbarDownloadButtonProps): React.JSX.Element | null => {
 	// TODO [MS-1731]: make it work for external files as well
 	if (isExternalImageIdentifier(identifier)) {
 		return null;
@@ -248,6 +248,6 @@ export const ToolbarDownloadButton = ({
 	);
 };
 
-export const DisabledToolbarDownloadButton = (
+export const DisabledToolbarDownloadButton: React.JSX.Element = (
 	<MediaButton isDisabled={true} iconBefore={downloadIcon} />
 );

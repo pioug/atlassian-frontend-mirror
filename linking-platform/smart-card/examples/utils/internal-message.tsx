@@ -2,7 +2,7 @@ import React from 'react';
 
 import SectionMessage from '@atlaskit/section-message';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<SectionMessage
 		title="Note: This component is designed for internal development."
 		appearance="warning"

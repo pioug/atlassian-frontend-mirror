@@ -1,5 +1,21 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 3.4.2
+
+### Patch Changes
+
+- [`964b980644f9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/964b980644f9d) -
+  EDITOR-3348 Refactor Synced Block Store Manager
+- [`caa54ec7bac4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/caa54ec7bac4c) -
+  EDITOR-3312 Refactor and restructure synced block provider
+- Updated dependencies
+
+## 3.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.4.0
 
 ### Minor Changes

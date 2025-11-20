@@ -8,7 +8,7 @@ import type { AIFooterBlockProps } from '../types';
 
 import { AIFooterMetadata } from './ai-footer-metadata';
 
-const AIFooterBlockResolvedView = (props: AIFooterBlockProps) => {
+const AIFooterBlockResolvedView = (props: AIFooterBlockProps): React.JSX.Element => {
 	const context = useFlexibleUiContext();
 
 	const actionData = context?.actions?.[InternalActionName.AISummaryAction];

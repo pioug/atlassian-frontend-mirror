@@ -78,7 +78,7 @@ function CustomPaddingExample() {
 	);
 }
 
-export default function CustomPaddingExampleWrapper() {
+export default function CustomPaddingExampleWrapper(): React.JSX.Element {
 	return (
 		<PageWrapper>
 			<CustomPaddingExample />

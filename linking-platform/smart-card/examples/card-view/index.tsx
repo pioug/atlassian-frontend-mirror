@@ -34,7 +34,7 @@ const CardViewExample = ({
 }: Omit<React.ComponentProps<typeof CardView>, 'client'> & {
 	CardComponent?: typeof Card | typeof CardSSR;
 	fontSize?: React.CSSProperties['fontSize'];
-}) => (
+}): React.JSX.Element => (
 	<React.Fragment>
 		<CardViewSection {...props} client={new ResolvingClient()} title="[Resolving]" />
 		<CardViewSection {...props} client={new ResolvedClient()} title="[Resolved]" url={url} />
@@ -113,7 +113,7 @@ export const FlexibleCardViewExample = ({
 }: Omit<React.ComponentProps<typeof CardView>, 'client'> & {
 	CardComponent?: typeof Card | typeof CardSSR;
 	fontSize?: React.CSSProperties['fontSize'];
-}) => (
+}): React.JSX.Element => (
 	<React.Fragment>
 		<p>
 			<em>

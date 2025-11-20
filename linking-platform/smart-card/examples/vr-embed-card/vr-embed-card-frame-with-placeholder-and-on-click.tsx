@@ -2,4 +2,4 @@ import React from 'react';
 
 import VREmbedFrame from './vr-embed-card-frame';
 
-export default () => <VREmbedFrame isPlaceholder={true} onClick={() => {}} />;
+export default (): React.JSX.Element => <VREmbedFrame isPlaceholder={true} onClick={() => {}} />;

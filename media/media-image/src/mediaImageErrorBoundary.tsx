@@ -7,7 +7,9 @@ export type MediaViewerAnalyticsErrorBoundaryProps = PropsWithChildren<{
 	data?: { [k: string]: any };
 }>;
 
-export const MediaImageWithErrorBoundary = (props: MediaImageWithMediaClientConfigProps) => (
+export const MediaImageWithErrorBoundary = (
+	props: MediaImageWithMediaClientConfigProps,
+): React.JSX.Element => (
 	<ErrorBoundary
 		fallback={
 			<>

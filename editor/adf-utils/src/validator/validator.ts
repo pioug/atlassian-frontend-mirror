@@ -372,7 +372,7 @@ export function validator(
 	nodes?: Array<string>,
 	marks?: Array<string>,
 	options?: ValidationOptions,
-) {
+): Validate {
 	const validatorSpecs = createSpec(nodes, marks);
 	const { mode = 'strict', allowPrivateAttributes = false } = options || {};
 	const validate: Validate = (entity, errorCallback, allowed, parentSpec) => {

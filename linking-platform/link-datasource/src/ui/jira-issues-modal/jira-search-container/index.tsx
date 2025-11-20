@@ -102,6 +102,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 		ModeSwitcherPropsOption<JiraSearchMethod>
 	> = useMemo(
 		() => ({
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 			jql: { label: 'JQL', value: 'jql' },
 			basic: {
 				label: formatMessage(modeSwitcherMessages.basicTextSearchLabel),

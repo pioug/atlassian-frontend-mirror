@@ -31,7 +31,7 @@ class CustomClient extends Client {
 	}
 }
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Provider client={new CustomClient('stg')}>
 		<Card
 			appearance="inline"

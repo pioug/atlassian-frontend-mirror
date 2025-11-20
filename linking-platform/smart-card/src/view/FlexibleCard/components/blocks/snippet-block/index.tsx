@@ -30,7 +30,7 @@ const SnippetBlock = ({
 	isHidden = false,
 	showFooter = true,
 	...blockProps
-}: SnippetBlockProps) => {
+}: SnippetBlockProps): React.JSX.Element | null => {
 	const context = useFlexibleUiContext();
 	const renderers = useSmartLinkRenderers();
 	const enableSnippetRenderer = useFlexibleUiOptionContext()?.enableSnippetRenderer;

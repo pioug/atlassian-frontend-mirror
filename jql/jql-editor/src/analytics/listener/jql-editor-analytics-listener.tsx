@@ -33,7 +33,7 @@ export default class JQLEditorAnalyticsListener extends React.Component<Listener
 		handleEvent(event, this.logger, this.props.client);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<AnalyticsListener onEvent={this.handleEventWrapper} channel={ANALYTICS_CHANNEL}>
 				{this.props.children}

@@ -7,7 +7,7 @@ import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 
 import { Card } from '../../src';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [platform, setPlatform] = useState<React.ComponentProps<typeof Card>['platform']>('web');
 
 	return (

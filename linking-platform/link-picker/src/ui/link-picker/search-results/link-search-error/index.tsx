@@ -41,7 +41,7 @@ type LinkSearchErrorProps = {
 	onRetry?: () => void;
 };
 
-export const LinkSearchError = ({ onRetry }: LinkSearchErrorProps) => {
+export const LinkSearchError = ({ onRetry }: LinkSearchErrorProps): React.JSX.Element => {
 	const intl = useIntl();
 
 	return (

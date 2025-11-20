@@ -37,7 +37,7 @@ export const TeamActions = ({
 	otherActions,
 	loading,
 	...props
-}: TeamActionsProps) => {
+}: TeamActionsProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 	const [isKudosOpen, setIsKudosOpen] = useState(false);
 

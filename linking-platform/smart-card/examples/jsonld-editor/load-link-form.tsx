@@ -49,7 +49,7 @@ const LoadLinkForm = ({
 	branchDeploy?: string;
 	error?: string;
 	onSubmit: (url: string, ari?: string, branchDeploy?: string, envKey?: EnvironmentsKeys) => void;
-}) => {
+}): React.JSX.Element => {
 	const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
 
 	const handleSubmit = useCallback(

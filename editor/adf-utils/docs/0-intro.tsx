@@ -1,7 +1,7 @@
 import React from 'react';
 import { md, code, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: React.ReactElement = md`
   ## Why?
 
   Working with ADF might be tricky at times, especially extracting data or manipulating existing documents.
@@ -561,3 +561,4 @@ export default md`
   * strong -> b
   * underline -> u
 `;
+export default _default_1;

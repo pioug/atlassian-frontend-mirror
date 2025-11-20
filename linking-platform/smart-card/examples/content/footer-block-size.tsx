@@ -8,7 +8,7 @@ const actions = [
 	{ name: ActionName.DeleteAction, onClick: () => {}, hideContent: true },
 ] as ActionItem[];
 
-export default () => (
+export default (): React.JSX.Element => (
 	<ExampleContainer>
 		<FooterBlock size={SmartLinkSize.Small} actions={actions} />
 		<br />

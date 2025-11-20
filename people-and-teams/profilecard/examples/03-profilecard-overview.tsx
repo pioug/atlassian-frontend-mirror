@@ -108,21 +108,23 @@ const clientFetchProfile = () => null;
 /**
  * We snapshot all these.
  */
-export const LoadingState = () => <ProfileCard isLoading />;
-export const ErrorState = () => <ProfileCard hasError clientFetchProfile={clientFetchProfile} />;
-export const ErrorStateNotFound = () => (
+export const LoadingState = (): React.JSX.Element => <ProfileCard isLoading />;
+export const ErrorState = (): React.JSX.Element => (
+	<ProfileCard hasError clientFetchProfile={clientFetchProfile} />
+);
+export const ErrorStateNotFound = (): React.JSX.Element => (
 	<ProfileCard
 		hasError
 		errorType={{ reason: 'NotFound' }}
 		clientFetchProfile={clientFetchProfile}
 	/>
 );
-export const BestCaseProfile = () => <ProfileCard {...bestCaseProfile} />;
-export const WorstCaseProfile = () => <ProfileCard {...worstCaseProfile} />;
-export const BotCaseProfile = () => <ProfileCard {...botCaseProfile} />;
-export const AlternateActions = () => <ProfileCard {...fakeData({ actions })} />;
+export const BestCaseProfile = (): React.JSX.Element => <ProfileCard {...bestCaseProfile} />;
+export const WorstCaseProfile = (): React.JSX.Element => <ProfileCard {...worstCaseProfile} />;
+export const BotCaseProfile = (): React.JSX.Element => <ProfileCard {...botCaseProfile} />;
+export const AlternateActions = (): React.JSX.Element => <ProfileCard {...fakeData({ actions })} />;
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<ExampleWrapper>
 			<MainStage>

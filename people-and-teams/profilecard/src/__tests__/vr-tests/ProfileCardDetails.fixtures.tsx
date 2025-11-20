@@ -29,7 +29,7 @@ const reportingLinesData: TeamCentralReportingLinesData = {
 	],
 };
 
-export const ProfileCardExampleWithReportingLines = () => (
+export const ProfileCardExampleWithReportingLines = (): React.JSX.Element => (
 	<ProfileCard
 		avatarUrl={avatarImage}
 		fullName="Rosalyn Franklin"
@@ -51,7 +51,7 @@ export const ProfileCardExampleWithReportingLines = () => (
 	/>
 );
 
-export const ProfileCardExampleWithoutReportingLines = () => (
+export const ProfileCardExampleWithoutReportingLines = (): React.JSX.Element => (
 	<ProfileCard
 		avatarUrl={avatarImage}
 		fullName="Rosalyn Franklin"

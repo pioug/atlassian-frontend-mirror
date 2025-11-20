@@ -12,7 +12,7 @@ const placementOptions = [
 	{ label: 'Right', value: MediaPlacement.Right },
 ];
 
-const PreviewBlockBuilder = ({ onChange, template }: BlockBuilderProps) => {
+const PreviewBlockBuilder = ({ onChange, template }: BlockBuilderProps): React.JSX.Element => {
 	return (
 		<>
 			<SelectOption

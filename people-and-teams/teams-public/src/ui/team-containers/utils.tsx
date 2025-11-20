@@ -7,7 +7,16 @@ import { Flex } from '@atlaskit/primitives/compiled';
 
 import { type FlagType } from './types';
 
-export const getCreateContainerContactSupportFlag = () => ({
+export const getCreateContainerContactSupportFlag = (): {
+	id: string;
+	type: FlagType;
+	title: React.JSX.Element;
+	description: React.JSX.Element;
+	actions: {
+		content: React.JSX.Element;
+		href: string;
+	}[];
+} => ({
 	id: 'teams-public.team-container.create-container.error.contact-support',
 	type: 'error' as FlagType,
 	title: <FormattedMessage {...messages.noConnectionTitle} />,
@@ -32,7 +41,16 @@ export const getCreateContainerTryAgainFlag = ({
 }: {
 	tryAgainAction?: () => void;
 	containerType: string;
-}) => ({
+}): {
+	id: string;
+	type: FlagType;
+	title: React.JSX.Element;
+	description: React.JSX.Element;
+	actions: {
+		content: React.JSX.Element;
+		onClick: () => void;
+	}[];
+} => ({
 	id: 'teams-public.team-container.create-container.error.try-again',
 	type: 'error' as FlagType,
 	title: <FormattedMessage {...messages.timeoutTitle} values={{ containerType }} />,

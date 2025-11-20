@@ -15,7 +15,7 @@ const PreviewBlock = ({
 	testId = 'smart-block-preview',
 	overrideUrl,
 	...blockProps
-}: PreviewBlockProps) => {
+}: PreviewBlockProps): React.JSX.Element => {
 	const ui = useFlexibleUiOptionContext();
 
 	return (

@@ -1,5 +1,11 @@
 # @atlaskit/avatar-group
 
+## 12.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.4.1
 
 ### Patch Changes

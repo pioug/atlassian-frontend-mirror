@@ -23,7 +23,7 @@ export const InsertButton = <Parameters extends DatasourceParameters>({
 	url,
 	getAnalyticsPayload,
 	children,
-}: InsertButtonProps<Parameters>) => {
+}: InsertButtonProps<Parameters>): React.JSX.Element => {
 	const {
 		datasourceId,
 		parameters,

@@ -15,7 +15,13 @@ export type LinkInfoButtonProps = {
 	testId?: string;
 };
 
-const LinkInfoButton = ({ content, icon, label, onClick, testId }: LinkInfoButtonProps) => {
+const LinkInfoButton = ({
+	content,
+	icon,
+	label,
+	onClick,
+	testId,
+}: LinkInfoButtonProps): React.JSX.Element => {
 	const onMouseDown = useMouseDownEvent();
 	const { formatMessage } = useIntl();
 

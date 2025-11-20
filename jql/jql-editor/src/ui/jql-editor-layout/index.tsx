@@ -78,7 +78,7 @@ type Props = {
 	onEditorViewTransitionEnd?: () => void;
 };
 
-const JQLEditorLayout = (props: Props) => {
+const JQLEditorLayout = (props: Props): React.JSX.Element => {
 	const { defaultMaxRows, expandedRows, isSearch, isCompact, defaultRows } =
 		useEditorThemeContext();
 	const {
@@ -164,6 +164,7 @@ const JQLEditorReadOnlyWithoutTheme = ({ query }: ReadOnlyProps) => {
 					// Therefore the autocomplete combobox is never shown to the users
 					aria-expanded={false}
 					aria-controls="dummy-jql-editor-auto-complete-id"
+					// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 					aria-label="JQL query"
 					defaultRows={defaultRows}
 				>
@@ -191,7 +192,7 @@ export const JQLEditorReadOnly = ({
 	defaultRows?: number;
 	isCompact?: boolean;
 	isSearch?: boolean;
-}) => {
+}): React.JSX.Element => {
 	const editorTheme = useEditorTheme({ isSearch, isCompact, defaultRows });
 
 	return (

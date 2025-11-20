@@ -13,7 +13,7 @@ export function validateVisitors(_visitors: VisitorCollection) {
  * @param adf Document to traverse.
  * @param visitors Collection of visitors.
  */
-export function traverse(adf: ADFEntity, visitors: VisitorCollection) {
+export function traverse(adf: ADFEntity, visitors: VisitorCollection): false | ADFEntity {
 	if (!validateVisitors(visitors)) {
 		throw new Error(`Visitors are not valid: "${Object.keys(visitors).join(', ')}"`);
 	}

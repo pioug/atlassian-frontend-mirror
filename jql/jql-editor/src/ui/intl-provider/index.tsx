@@ -15,7 +15,7 @@ export const withIntlProvider = <Props extends WithIntlProviderProps>(
 		| FunctionComponent<Omit<Props, 'locale'>>
 		| ComponentClass<Omit<Props, 'locale'>>,
 ) => {
-	return (props: Props) => {
+	return (props: Props): React.JSX.Element => {
 		const { locale, ...rest } = props;
 
 		if (locale) {

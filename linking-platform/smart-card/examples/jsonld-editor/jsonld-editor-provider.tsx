@@ -42,7 +42,7 @@ const JsonldEditorProvider = ({
 
 const withJsonldEditorProvider =
 	<P extends object>(Component: React.ComponentType<P>) =>
-	(props: P & Props) => {
+	(props: P & Props): React.JSX.Element => {
 		const { ari, branchDeploy, envKey, json, onError, onResolve, url } = props;
 		const onFetch = useCallback(() => json, [json]);
 

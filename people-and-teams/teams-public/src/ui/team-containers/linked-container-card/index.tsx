@@ -159,7 +159,7 @@ export const LinkedContainerCard = ({
 	containerId,
 	containerTypeProperties,
 	onDisconnectButtonClick,
-}: LinkedContainerCardProps) => {
+}: LinkedContainerCardProps): React.JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { description, icon, containerTypeText } = getContainerProperties({
 		containerType,

@@ -42,7 +42,7 @@ export const handleOnChange = <T extends object>(
 	onChange(updateObj(template, propName, defaultValue, value));
 };
 
-export const getCustomActionIcon = () => (
+export const getCustomActionIcon = (): React.JSX.Element => (
 	<PremiumIcon label="" color={token('color.icon', '#44546F')} />
 );
 

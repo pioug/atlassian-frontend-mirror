@@ -22,7 +22,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	const locale = 'en';
 	return (
 		<Router>

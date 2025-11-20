@@ -18,7 +18,7 @@ export const PopupTrigger = ({
 	labelPrefix,
 	selectedLabel,
 	onClick,
-}: PopupTriggerProps) => {
+}: PopupTriggerProps): React.JSX.Element => {
 	return (
 		<NewButton
 			{...triggerProps}

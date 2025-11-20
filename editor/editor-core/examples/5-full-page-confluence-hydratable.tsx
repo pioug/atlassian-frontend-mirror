@@ -3,9 +3,11 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import {
+	getAppearance,
 	getExamplesProviders,
 	useConfluenceFullPagePreset,
 } from '@af/editor-examples-helpers/example-presets';
+import { FullWidthDropdown } from '@af/editor-examples-helpers/utils';
 import Button from '@atlaskit/button/standard-button';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
@@ -24,9 +26,12 @@ const HydratableEditorExample = () => {
 			defaultDoc: JSON.stringify(hydrateAdf),
 		});
 	}, []);
+	const [appearance, setAppearance] = React.useState<'full-page' | 'full-width' | 'max'>(
+		getAppearance() || 'full-page',
+	);
 
 	const { preset } = useConfluenceFullPagePreset({
-		editorAppearance: 'full-page',
+		editorAppearance: appearance,
 		overridedFullPagePresetProps: {
 			providers,
 		},
@@ -36,9 +41,15 @@ const HydratableEditorExample = () => {
 	return (
 		<IntlProvider locale={'en'}>
 			<SmartCardProvider client={smartCardClient}>
+				<FullWidthDropdown
+					appearance={appearance}
+					onFullWidthChange={(value) => {
+						setAppearance(value);
+					}}
+				/>
 				<ComposableEditor
 					preset={preset}
-					appearance="full-page"
+					appearance={appearance}
 					collabEdit={{ provider: collabEditProvider }}
 					disabled={false}
 					defaultValue={hydrateAdf}

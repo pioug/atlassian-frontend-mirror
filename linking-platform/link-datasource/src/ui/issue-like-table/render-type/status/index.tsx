@@ -9,7 +9,11 @@ interface StatusProps extends Status {
 }
 export const STATUS_TYPE_TEST_ID = 'link-datasource-render-type--status';
 
-const StatusRenderType = ({ text, style, testId = STATUS_TYPE_TEST_ID }: StatusProps) => {
+const StatusRenderType = ({
+	text,
+	style,
+	testId = STATUS_TYPE_TEST_ID,
+}: StatusProps): React.JSX.Element => {
 	if (!(text && typeof text === 'string')) {
 		return <></>;
 	}

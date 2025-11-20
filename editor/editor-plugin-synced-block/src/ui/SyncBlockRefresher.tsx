@@ -26,7 +26,7 @@ export const SyncBlockRefresher = ({
 			interval = window.setInterval(() => {
 				// check if document is visible to avoid unnecessary refreshes
 				if (document?.visibilityState === 'visible') {
-					syncBlockStoreManager.refreshSubscriptions();
+					syncBlockStoreManager.referenceManager.refreshSubscriptions();
 				}
 			}, SYNC_BLOCK_FETCH_INTERVAL);
 		} else if (interval !== -1) {

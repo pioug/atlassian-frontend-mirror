@@ -18,7 +18,7 @@ class CustomClient extends Client {
 	}
 }
 
-export const BlockCardConfluence = () => (
+export const BlockCardConfluence = (): React.JSX.Element => (
 	<div>
 		<h4>Confluence Blog</h4>
 		<VRCardView appearance="block" client={new CustomClient()} url={ConfluenceBlogPost.data.url} />

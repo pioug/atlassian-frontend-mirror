@@ -35,7 +35,11 @@ import { messages } from '../messages';
 /**
  * This wraps ProseMirror's EditorView as a React component.
  */
-const JQLEditorView = ({ inputRef }: { inputRef?: React.Ref<{ focus: () => void }> }) => {
+const JQLEditorView = ({
+	inputRef,
+}: {
+	inputRef?: React.Ref<{ focus: () => void }>;
+}): React.JSX.Element => {
 	const [editorView, { initialiseEditorView, updateEditorView }] = useEditorView();
 
 	const editorViewNodeRef = useRef<HTMLElement | null>(null);

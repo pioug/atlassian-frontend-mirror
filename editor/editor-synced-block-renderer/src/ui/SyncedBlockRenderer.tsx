@@ -34,7 +34,7 @@ const SyncedBlockRendererComponent = ({
 				resourceId={syncBlockInstance.resourceId}
 				onRetry={reloadData}
 				isLoading={isLoading}
-				documentAri={syncBlockInstance.data?.sourceDocumentAri}
+				documentAri={syncBlockInstance.data?.sourceAri}
 			/>
 		);
 	}

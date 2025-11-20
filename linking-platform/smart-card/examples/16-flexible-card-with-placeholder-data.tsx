@@ -18,7 +18,7 @@ const styles = cssMap({
 });
 
 type FontOptions = { label: string; value: string | undefined };
-export default () => {
+export default (): React.JSX.Element => {
 	const [fontOption, setFontOption] = React.useState<FontOptions | undefined>();
 	const [truncateInline, setTruncateInline] = React.useState(false);
 

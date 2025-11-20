@@ -31,7 +31,7 @@ const AsyncPopupSelect = ({
 	isJQLHydrating,
 	onSelectionChange = () => {},
 	isDisabled = false,
-}: AsyncPopupSelectProps) => {
+}: AsyncPopupSelectProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const [searchTerm, setSearchTerm] = useState('');

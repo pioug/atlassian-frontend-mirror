@@ -23,7 +23,7 @@ export function SmartCardProvider({
 	shouldControlDataExport,
 	isPreviewPanelAvailable,
 	openPreviewPanel,
-}: CardProviderProps) {
+}: CardProviderProps): React.JSX.Element {
 	const parentContext = useContext(SmartCardContext);
 
 	const defaultInitialState = useMemo(() => {

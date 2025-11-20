@@ -24,7 +24,7 @@ export const LinkCreatePluginsProvider = ({
 	plugins,
 	entityKey: propEntityKey,
 	children,
-}: LinkCreatePluginsProviderProps) => {
+}: LinkCreatePluginsProviderProps): React.JSX.Element => {
 	const [entityKey] = useState(propEntityKey);
 
 	const value = useMemo(

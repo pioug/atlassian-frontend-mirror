@@ -39,7 +39,7 @@ const defaultProps = {
 	],
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [actions, setActions] = useState(defaultProps.actions);
 	const [resourceClient, setResourceClient] = useState(defaultProps.resourceClient);
 

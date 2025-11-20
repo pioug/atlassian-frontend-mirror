@@ -92,7 +92,7 @@ const CustomComponentDecoratedWithEditorTheme = (props: CustomErrorMessageProps)
 	return <Component editorTheme={editorThemeContext} {...rest} />;
 };
 
-export const ErrorMessages = () => {
+export const ErrorMessages = (): React.JSX.Element | null => {
 	di(useScopedId, useErrorMessages, useCustomErrorComponent);
 
 	const [editorId] = useScopedId(JQL_EDITOR_INPUT_ID);

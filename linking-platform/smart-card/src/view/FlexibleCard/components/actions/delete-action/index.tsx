@@ -9,7 +9,7 @@ import Action from '../action';
 
 import { type DeleteActionProps } from './types';
 
-const DeleteAction = (props: DeleteActionProps) => (
+const DeleteAction = (props: DeleteActionProps): React.JSX.Element => (
 	<Action
 		content={<FormattedMessage {...messages.delete} />}
 		icon={<CrossIcon color="currentColor" spacing="spacious" label="Delete" />}

@@ -89,7 +89,7 @@ const defaultProps = {
 	viewProfileOnClick: () => alert('Viewing profile.'),
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<ExampleWrapper>
 			<MainStage>

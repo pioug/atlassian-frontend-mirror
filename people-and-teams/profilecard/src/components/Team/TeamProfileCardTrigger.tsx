@@ -391,7 +391,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		return actions;
 	}
 
-	renderProfileCard = () => {
+	renderProfileCard = (): React.JSX.Element => {
 		const { generateUserLink, onUserClick, viewingUserId, viewProfileLink, viewProfileOnClick } =
 			this.props;
 		const { data, error, hasError, isLoading } = this.state;
@@ -454,7 +454,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		);
 	};
 
-	renderTrigger = (triggerProps: TriggerProps) => {
+	renderTrigger = (triggerProps: TriggerProps): React.JSX.Element => {
 		const { children, intl, triggerLinkType, viewProfileLink } = this.props;
 
 		if (triggerLinkType === 'none') {

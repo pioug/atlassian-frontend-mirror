@@ -19,7 +19,11 @@ interface AnalyticsProps {
 	profileType: ProfileType;
 }
 
-export const LoadingState = ({ fireAnalytics, fireAnalyticsNext, profileType }: AnalyticsProps) => {
+export const LoadingState = ({
+	fireAnalytics,
+	fireAnalyticsNext,
+	profileType,
+}: AnalyticsProps): React.JSX.Element => {
 	useEffect(() => {
 		if (fg('ptc-enable-profile-card-analytics-refactor')) {
 			if (fireAnalyticsNext) {

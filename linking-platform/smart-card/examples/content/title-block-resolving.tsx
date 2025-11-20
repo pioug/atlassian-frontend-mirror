@@ -6,7 +6,7 @@ import { FlexibleCardContext } from '../../src/state/flexible-ui-context';
 
 import ExampleContainer from './example-container';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<ExampleContainer>
 		<FlexibleCardContext.Provider value={{ status: SmartLinkStatus.Resolving }}>
 			<TitleBlock />

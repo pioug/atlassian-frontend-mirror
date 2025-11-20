@@ -31,7 +31,7 @@ const visibleColumnKeys = [
 	'Notes',
 ];
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<IntlProvider locale="en">
 			<SmartCardProvider client={new SmartLinkClient()}>

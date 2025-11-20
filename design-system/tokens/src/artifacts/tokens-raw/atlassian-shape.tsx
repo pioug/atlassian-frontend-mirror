@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::884d9496e85b87859f0c8ef41167280b>>
+ * @codegen <<SignedSource::c7c39a1cee14fa6f779e6243ae1460d5>>
  * @codegenCommand yarn build tokens
  */
 
@@ -194,6 +194,38 @@ const tokens: Token[] = [
       "xlarge"
     ],
     "cleanName": "radius.xlarge"
+  },
+  {
+    "attributes": {
+      "group": "shape",
+      "state": "active",
+      "suggest": [
+        "12px"
+      ],
+      "introduced": "8.1.0",
+      "description": "Used for the largest containers."
+    },
+    "value": "16px",
+    "filePath": "schema/themes/atlassian-shape/shape.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "shape",
+        "state": "active",
+        "suggest": [
+          "12px"
+        ],
+        "introduced": "8.1.0",
+        "description": "Used for the largest containers."
+      },
+      "value": "Radius16"
+    },
+    "name": "radius.xxlarge",
+    "path": [
+      "radius",
+      "xxlarge"
+    ],
+    "cleanName": "radius.xxlarge"
   },
   {
     "attributes": {

@@ -14,7 +14,7 @@ const WithUpdatedLabel = (formattedDate?: string) => {
 	return <FormattedMessage {...i18nMessage} values={{ date: formattedDate }} />;
 };
 
-export const SyncInfo = ({ lastSyncTime }: { lastSyncTime: Date }) => {
+export const SyncInfo = ({ lastSyncTime }: { lastSyncTime: Date }): React.JSX.Element => {
 	const calculateTimeDiff = useCallback(
 		() => Math.floor((Date.now() - lastSyncTime.getTime()) / 1000),
 		[lastSyncTime],

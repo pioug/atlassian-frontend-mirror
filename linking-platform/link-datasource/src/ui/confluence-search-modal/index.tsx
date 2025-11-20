@@ -10,7 +10,9 @@ const LazyConfluenceSearchConfigModal = lazy(() =>
 	).then((module) => ({ default: module.ConfluenceSearchConfigModal })),
 );
 
-const ConfluenceSearchConfigModalWithWrappers = (props: ConfluenceSearchConfigModalProps) => {
+const ConfluenceSearchConfigModalWithWrappers = (
+	props: ConfluenceSearchConfigModalProps,
+): React.JSX.Element => {
 	return (
 		<Suspense fallback={<div data-testid={'confluence-search-datasource-table-suspense'} />}>
 			<LazyConfluenceSearchConfigModal {...props} />

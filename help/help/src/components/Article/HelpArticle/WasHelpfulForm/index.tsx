@@ -326,6 +326,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 							verticalAlign: 'middle',
 						}}
 						role="img"
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 						aria-label="Success"
 					>
 						<CheckCircleIcon

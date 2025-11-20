@@ -77,7 +77,7 @@ export const ReadOnlyCell = ({
 	wrappedColumnKeys = [],
 	renderItem,
 	columnKey,
-}: TableCellContentProps) => {
+}: TableCellContentProps): React.JSX.Element | null => {
 	const rowData = useDatasourceItem({ id })?.data;
 	if (!rowData || !columnKey || !rowData[columnKey]) {
 		return null;

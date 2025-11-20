@@ -62,6 +62,9 @@
 		},
 		"platform_do_not_clear_input_for_multiselect": {
 			"type": "boolean"
+		},
+		"platform_fix_autocomplete_aria_for_select": {
+			"type": "boolean"
 		}
 	},
 	"techstack": {

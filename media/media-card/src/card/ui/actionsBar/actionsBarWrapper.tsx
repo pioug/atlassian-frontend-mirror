@@ -3,6 +3,6 @@ import { ActionsBarWrapper as CompiledActionsBarWrapper } from './actionsBarWrap
 
 import { type ActionBarWrapperProps } from './types';
 
-export const ActionsBarWrapper = (props: ActionBarWrapperProps) => (
+export const ActionsBarWrapper = (props: ActionBarWrapperProps): React.JSX.Element => (
 	<CompiledActionsBarWrapper {...props} />
 );

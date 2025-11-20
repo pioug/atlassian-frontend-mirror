@@ -133,7 +133,7 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { config, children } = this.props;
 		const { multiple, replaceFileId } = config;
 		const fileExtensions = config.fileExtensions && config.fileExtensions.join(',');

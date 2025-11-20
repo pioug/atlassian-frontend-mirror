@@ -95,7 +95,7 @@ export class ImagePlacerContainer extends React.Component<ImagePlacerContainerPr
 		this.props.onWheel(e.deltaY);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const isTouch = this.isTouch;
 		const { width, height, children, margin } = this.props;
 		const onMouseDown = isTouch ? undefined : this.onMouseDown;

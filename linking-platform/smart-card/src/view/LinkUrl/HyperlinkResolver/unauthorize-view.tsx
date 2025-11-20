@@ -19,7 +19,7 @@ const HyperlinkUnauthorizedView = ({
 	provider,
 	showConnectBtn,
 	...props
-}: HyperlinkUnauthorizedViewProps) => {
+}: HyperlinkUnauthorizedViewProps): React.JSX.Element => {
 	return (
 		<>
 			<Hyperlink {...props} />

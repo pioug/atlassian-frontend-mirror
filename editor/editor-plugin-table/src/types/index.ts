@@ -48,7 +48,9 @@ export type PluginInjectionAPIWithA11y = ExtractInjectionAPI<TablePlugin> & {
 export type TableSharedStateInternal = Pick<
 	TablePluginState,
 	| 'isFullWidthModeEnabled'
+	| 'isMaxWidthModeEnabled'
 	| 'wasFullWidthModeEnabled'
+	| 'wasMaxWidthModeEnabled'
 	| 'isHeaderRowEnabled'
 	| 'isHeaderColumnEnabled'
 	| 'ordering'
@@ -85,7 +87,10 @@ export type TableSharedStateInternal = Pick<
 
 export type TableSharedState = Pick<
 	TablePluginState,
-	'isFullWidthModeEnabled' | 'wasFullWidthModeEnabled'
+	| 'isFullWidthModeEnabled'
+	| 'wasFullWidthModeEnabled'
+	| 'isMaxWidthModeEnabled'
+	| 'wasMaxWidthModeEnabled'
 >;
 
 export type AlignmentOptions = 'center' | 'align-start';
@@ -175,6 +180,7 @@ export interface TablePluginState {
 	isHeaderRowEnabled: boolean;
 	isInDanger?: boolean;
 	isKeyboardResize?: boolean;
+	isMaxWidthModeEnabled?: boolean;
 	isNumberColumnEnabled?: boolean;
 	isResizeHandleWidgetAdded?: boolean;
 	// for table wrap/collapse
@@ -203,6 +209,7 @@ export interface TablePluginState {
 	targetCellPosition?: number;
 
 	wasFullWidthModeEnabled?: boolean;
+	wasMaxWidthModeEnabled?: boolean;
 	widthToWidest?: WidthToWidest; // is the current table set to the widest width regarding view port
 }
 

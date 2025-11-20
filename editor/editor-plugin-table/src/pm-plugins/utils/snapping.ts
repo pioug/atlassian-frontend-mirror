@@ -7,7 +7,9 @@ import {
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
+	akEditorMaxWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 const numberOfLanesInDefaultLayoutWidth = 12;
@@ -32,8 +34,8 @@ export type GuidelineExcludeConfig = {
 	innerGuidelines: boolean;
 };
 
-const getPadding = (editorContainerWith: number) => {
-	return editorContainerWith <= akEditorFullPageNarrowBreakout &&
+const getPadding = (editorContainerWidth: number) => {
+	return editorContainerWidth <= akEditorFullPageNarrowBreakout &&
 		editorExperiment('platform_editor_preview_panel_responsiveness', true, {
 			exposure: true,
 		})
@@ -44,19 +46,29 @@ const getPadding = (editorContainerWith: number) => {
 // FF TablePreserve for calculateDefaultSnappings
 export const calculateDefaultTablePreserveSnappings = (
 	lengthOffset = 0,
-	editorContainerWith = akEditorFullWidthLayoutWidth,
+	editorContainerWidth = akEditorFullWidthLayoutWidth,
 	exclude: GuidelineExcludeConfig = {
 		innerGuidelines: false,
 		breakoutPoints: false,
 	},
 ) => {
-	const padding = getPadding(editorContainerWith);
+	const padding = getPadding(editorContainerWidth);
+
 	const dynamicFullWidthLine =
-		editorContainerWith - padding * 2 >= akEditorFullWidthLayoutWidth
+		editorContainerWidth - padding * 2 >= akEditorFullWidthLayoutWidth
 			? akEditorFullWidthLayoutWidth
-			: editorContainerWith - padding * 2;
+			: editorContainerWidth - padding * 2;
+
+	const dynamicMaxWidthLine =
+		editorContainerWidth - padding * 2 >= akEditorMaxWidthLayoutWidth
+			? akEditorMaxWidthLayoutWidth
+			: editorContainerWidth - padding * 2;
 
 	const guides = [dynamicFullWidthLine - lengthOffset];
+
+	if (expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)) {
+		guides.push(dynamicMaxWidthLine - lengthOffset);
+	}
 
 	if (!exclude.breakoutPoints) {
 		guides.unshift(

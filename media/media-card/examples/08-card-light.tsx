@@ -3,7 +3,7 @@ import { StoryList } from '@atlaskit/media-test-helpers';
 import { MainWrapper } from '../example-helpers';
 import { lightDefaultCards, lightResizedCards } from '../example-helpers/cards';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<MainWrapper>
 		<div>
 			<h3>Default size</h3>

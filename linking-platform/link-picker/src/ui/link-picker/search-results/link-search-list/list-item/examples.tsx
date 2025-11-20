@@ -5,7 +5,7 @@ import { LinkSearchListItem, type LinkSearchListItemProps } from './index';
 const NOOP = () => {};
 
 const createExample = (props: Partial<LinkSearchListItemProps> = {}) => {
-	return function Example() {
+	return function Example(): React.JSX.Element {
 		return (
 			<div
 				style={{

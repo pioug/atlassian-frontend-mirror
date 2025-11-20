@@ -727,5 +727,47 @@ describe('standalone hover card', () => {
 				expect(fullscreenButton).toBeFalsy();
 			});
 		});
+
+		describe('shouldRenderToParent and popupComponent props', () => {
+			ffTest.on('hover-card-prop-should-render-to-parent', 'when flag enabled', () => {
+				it('should render popup not in portal when shouldRenderToParent is true', async () => {
+					await standaloneSetUp(undefined, {
+						shouldRenderToParent: true,
+						noFadeDelay: true,
+					});
+
+					const hoverCard = await screen.findByTestId('hover-card');
+					expect(hoverCard).toBeInTheDocument();
+					// When shouldRenderToParent is true, the popup should NOT be in a portal
+					expect(hoverCard.closest('.atlaskit-portal')).not.toBeInTheDocument();
+				});
+
+				it('should render popup in portal when shouldRenderToParent is false', async () => {
+					await standaloneSetUp(undefined, {
+						shouldRenderToParent: false,
+						noFadeDelay: true,
+					});
+
+					const hoverCard = await screen.findByTestId('hover-card');
+					expect(hoverCard).toBeInTheDocument();
+					// When shouldRenderToParent is false, the popup should be rendered in a portal
+					expect(hoverCard.closest('.atlaskit-portal')).toBeInTheDocument();
+				});
+			});
+
+			ffTest.off('hover-card-prop-should-render-to-parent', 'when flag disabled', () => {
+				it('should always render popup in portal when flag is disabled', async () => {
+					await standaloneSetUp(undefined, {
+						shouldRenderToParent: true,
+						noFadeDelay: true,
+					});
+
+					const hoverCard = await screen.findByTestId('hover-card');
+					expect(hoverCard).toBeInTheDocument();
+					// When flag is disabled, the popup should always be in a portal
+					expect(hoverCard.closest('.atlaskit-portal')).toBeInTheDocument();
+				});
+			});
+		});
 	});
 });

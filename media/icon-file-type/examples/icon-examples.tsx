@@ -35,7 +35,7 @@ const icons48 = Object.keys(metadata)
 	})
 	.filter(Boolean);
 
-export default function IconExamples() {
+export default function IconExamples(): React.JSX.Element {
 	return (
 		<div data-testid="root">
 			<div data-testid="light-root">

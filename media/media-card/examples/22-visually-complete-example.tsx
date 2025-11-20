@@ -39,7 +39,7 @@ if (!window.VCObserver) {
 	window.VCObserver.start({ startTime: 0 });
 }
 
-export default () => {
+export default (): React.JSX.Element | null => {
 	const [config, setConfig] = useState<{
 		identifier: FileIdentifier;
 		MockedMediaClientProvider: any;

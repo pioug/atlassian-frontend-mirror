@@ -4,6 +4,6 @@ import { ForbiddenWithObjectRequestAccessClient } from '@atlaskit/link-test-help
 
 import VRCardView from '../utils/vr-card-view';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRCardView appearance="inline" client={new ForbiddenWithObjectRequestAccessClient()} />
 );

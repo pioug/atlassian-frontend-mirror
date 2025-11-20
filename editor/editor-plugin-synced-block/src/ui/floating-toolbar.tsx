@@ -68,7 +68,9 @@ export const getToolbarConfig = (
 	};
 	items.push(copyButton);
 
-	const disabled = !syncBlockStore.getSyncBlockURL(syncBlockObject.node.attrs.resourceId);
+	const disabled = !syncBlockStore.referenceManager.getSyncBlockURL(
+		syncBlockObject.node.attrs.resourceId,
+	);
 
 	if (!isBodiedSyncBlock) {
 		const editSourceButton: FloatingToolbarItem<Command> = {

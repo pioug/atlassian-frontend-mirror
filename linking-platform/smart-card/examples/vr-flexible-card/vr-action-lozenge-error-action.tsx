@@ -7,7 +7,7 @@ import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const TEXT_ERROR_MESSAGE = 'Custom error message for VR test';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestWrapper>
 		<SmartCardProvider>
 			<div role="menu">

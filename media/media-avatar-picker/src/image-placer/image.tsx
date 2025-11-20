@@ -45,7 +45,7 @@ export class ImagePlacerImage extends React.Component<ImagePlacerImageProps, {}>
 		this.props.onError(IMAGE_ERRORS.LOAD_FAIL);
 	};
 
-	render() {
+	render(): React.JSX.Element | null {
 		const { src, x, y, width, height } = this.props;
 
 		if (src) {

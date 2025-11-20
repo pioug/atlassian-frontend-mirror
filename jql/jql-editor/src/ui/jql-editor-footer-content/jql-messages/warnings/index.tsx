@@ -138,7 +138,7 @@ export const useFormattedWarningMessage = (): ReactNode => {
 	}
 };
 
-export const WarningMessages = () => {
+export const WarningMessages = (): React.JSX.Element | null => {
 	di(useFormattedWarningMessage);
 
 	const warningMessage = useFormattedWarningMessage();

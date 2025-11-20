@@ -11,7 +11,9 @@ export type FormSpyProps<T> = {
  * FormSpy component so that we can control selectively
  * how much of the API we are commited to.
  */
-export const FormSpy = <T extends Record<string, unknown>>({ children }: FormSpyProps<T>) => {
+export const FormSpy = <T extends Record<string, unknown>>({
+	children,
+}: FormSpyProps<T>): React.JSX.Element => {
 	return (
 		<FinalFormSpy<T, T> subscription={{ values: true }}>
 			{(props) => children({ values: props.values })}

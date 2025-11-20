@@ -29,7 +29,7 @@ export const DimensionPicker = ({
 	targetName: string;
 	dimensionName: string;
 	onChange: OnValue;
-}) => {
+}): React.JSX.Element => {
 	const rangeId = `range-${targetName}-${dimensionName}`;
 
 	const [isPercent, setIsPercent] = useState(initialUnit === '%');
@@ -83,7 +83,7 @@ export const DimensionsPicker = ({
 	onContainerHeight: OnValue;
 	onImageWidth: OnValue;
 	onImageHeight: OnValue;
-}) => {
+}): React.JSX.Element => {
 	return (
 		<Flex alignItems="stretch" direction="row" xcss={wrapperStyles}>
 			<DimensionPicker

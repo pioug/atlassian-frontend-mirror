@@ -6,7 +6,7 @@ export interface CardLinkViewProps extends FrameViewProps {
 	placeholder?: string;
 }
 export class CardLinkView extends React.PureComponent<CardLinkViewProps> {
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<Frame withoutBackground={true} {...this.props}>
 				{this.props.placeholder || this.props.link}

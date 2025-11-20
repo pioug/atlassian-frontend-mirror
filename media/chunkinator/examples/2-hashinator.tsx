@@ -24,7 +24,7 @@ const onChange = (e: ChangeEvent<HTMLInputElement>) => {
 	});
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<input type="file" onChange={onChange} />
 		It should be:

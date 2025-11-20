@@ -7,7 +7,7 @@ import { HoverableContainer } from '../../examples-helpers/hoverableContainer';
 
 mockAssetsClientFetchRequests({ delayedResponse: false });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<HoverableContainer>
 		<ExampleAssetsIssuesTableView />
 	</HoverableContainer>

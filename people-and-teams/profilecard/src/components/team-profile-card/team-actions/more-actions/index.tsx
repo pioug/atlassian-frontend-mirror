@@ -20,7 +20,7 @@ type MoreActionsProps = {
 	loading?: boolean;
 };
 
-export const MoreActions = ({ actions, loading }: MoreActionsProps) => {
+export const MoreActions = ({ actions, loading }: MoreActionsProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const [isOpen, setOpen] = useState(false);
 

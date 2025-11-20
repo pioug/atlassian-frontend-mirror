@@ -60,6 +60,7 @@ The `themeState` object includes the following properties:
   by OS setting).
 - **spacing:** The spacing theme to be shown.
 - **typography:** The typography theme to be shown.
+- **shape:** The typography theme to be shown.
 - **UNSAFE_themeOptions:** Options for customizing the loaded themes, such as a custom brand color.
 
 <TokenPropsTable
@@ -73,6 +74,7 @@ The `themeState` object includes the following properties:
   dark?: ThemeIds,
   spacing?: ThemeIds,
   typography?: ThemeIds,
+  shape?: ThemeIds,
   UNSAFE_themeOptions?: CustomThemeSchema // { brandColor: HexColor }
 } | ((themeState: ThemeState) => ThemeState)`}
 	defaultValue={

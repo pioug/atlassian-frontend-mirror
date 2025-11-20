@@ -2038,7 +2038,9 @@ export default class Select<
 
 		// aria attributes makes the JSX "noisy", separated for clarity
 		const ariaAttributes = {
-			'aria-autocomplete': 'both' as const,
+			...(!this.props.isSearchable && fg('platform_fix_autocomplete_aria_for_select')
+				? {}
+				: { 'aria-autocomplete': 'both' as const }),
 			'aria-errormessage': this.props['aria-errormessage'],
 			'aria-expanded': menuIsOpen,
 			// TODO: aria-haspopup is implied as listbox with role="combobox" and was deprecated for aria 1.2, we still might need to keep it for back compat

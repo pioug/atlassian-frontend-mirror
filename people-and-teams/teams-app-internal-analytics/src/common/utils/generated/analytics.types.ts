@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::9e9bc5d40f9d5b5fed4a027237e3b005>>
+ * @codegen <<SignedSource::64bb0ed4577d5178ad18a2e1074d934c>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1188,6 +1188,7 @@ export type TeamProfileScreenViewedAttributesType = {
 	isViewerMember: boolean;
 	isVerified: boolean;
 	isSiteAdmin: boolean;
+	isArchived: boolean;
 	isOrgAdmin: boolean;
 	orgId: string | null;
 	hasContainersConnect: boolean;
@@ -1195,6 +1196,30 @@ export type TeamProfileScreenViewedAttributesType = {
 	numberOfWebLinksConnected: number;
 	webLinksCurrentlyConnected: unknown[];
 	containersCurrentlyConnected: unknown[];
+};
+export type TeamArchivedSucceededAttributesType = {
+	teamId: string | null;
+	isOrgAdmin: boolean | null;
+	isMember: boolean | null;
+	isVerified: boolean | null;
+};
+export type TeamArchivedFailedAttributesType = {
+	teamId: string | null;
+	isOrgAdmin: boolean | null;
+	isMember: boolean | null;
+	isVerified: boolean | null;
+	error: string | null;
+};
+export type TeamUnarchivedSucceededAttributesType = {
+	teamId: string | null;
+	isOrgAdmin: boolean | null;
+	isMember: boolean | null;
+};
+export type TeamUnarchivedFailedAttributesType = {
+	teamId: string | null;
+	isOrgAdmin: boolean | null;
+	isMember: boolean | null;
+	error: string | null;
 };
 export type GetTeamProfileSucceededAttributesType = {
 	status: number;
@@ -2204,6 +2229,18 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the team profile screen is viewed */
 	'screen.teamProfileScreen.viewed': TeamProfileScreenViewedAttributesType;
+	/**
+	 * team archived successfully */
+	'operational.teamArchived.succeeded': TeamArchivedSucceededAttributesType;
+	/**
+	 * team archival failed */
+	'operational.teamArchived.failed': TeamArchivedFailedAttributesType;
+	/**
+	 * team unarchived successfully */
+	'operational.teamUnarchived.succeeded': TeamUnarchivedSucceededAttributesType;
+	/**
+	 * team unarchival failed */
+	'operational.teamUnarchived.failed': TeamUnarchivedFailedAttributesType;
 	/**
 	 * fired when the get team profile request is succeeded */
 	'operational.GetTeamProfile.succeeded': GetTeamProfileSucceededAttributesType;

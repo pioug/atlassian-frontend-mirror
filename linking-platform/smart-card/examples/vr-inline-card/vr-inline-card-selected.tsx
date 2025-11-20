@@ -3,7 +3,7 @@ import React from 'react';
 import { InlineCardResolvedView as ResolvedView } from '../../src/view/InlineCard/ResolvedView';
 import { VRTestCase } from '../utils/common';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<VRTestCase title="Selected inline card with default icon">
 			{() => (

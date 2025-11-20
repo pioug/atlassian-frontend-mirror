@@ -34,7 +34,7 @@ const getIcon = (stackIconType: string) => {
 	return importIcon(importFn);
 };
 
-const FollowAction = (props: FollowActionProps) => {
+const FollowAction = (props: FollowActionProps): React.JSX.Element | null => {
 	const context = useFlexibleUiContext();
 
 	const actionData = context?.actions?.[ActionName.FollowAction];

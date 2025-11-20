@@ -21,7 +21,7 @@ const ExampleContainer = ({
 	children: React.ReactNode;
 	maxWidth?: string;
 	title: string;
-}) => (
+}): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<Box paddingBlock="space.400" style={{ maxWidth }} xcss={boxStyles.root}>
 			<Stack space="space.200">

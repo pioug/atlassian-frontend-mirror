@@ -32,7 +32,7 @@ export const CardWrapper = ({
 	role?: string;
 	testId?: string;
 	labelledBy?: string;
-}) => (
+}): React.JSX.Element => (
 	<Box
 		xcss={cx(styles.cardWrapper)}
 		backgroundColor={'elevation.surface.overlay'}
@@ -50,7 +50,7 @@ export const SpinnerContainer = ({
 }: {
 	children: ReactNode;
 	testId?: string;
-}) => (
+}): React.JSX.Element => (
 	<Box testId={testId} xcss={cx(styles.spinnerContainer)}>
 		{children}
 	</Box>

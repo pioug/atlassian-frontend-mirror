@@ -9,7 +9,7 @@ import { RatingGroup, Star } from '../src';
 
 const sizes = ['small' as const, 'medium' as const, 'large' as const, 'xlarge' as const];
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [index, setIndex] = useState(2);
 	const [color, setColor] = useState<string>();
 	const size = sizes[index];

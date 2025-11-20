@@ -30,7 +30,7 @@ mockDatasourceFetchRequests({
 });
 mockBasicFilterAGGFetchRequests();
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [showModal, setShowModal] = useState(false);
 	const [parameters] = useState<ConfluenceSearchDatasourceParameters>({
 		cloudId: '67899',

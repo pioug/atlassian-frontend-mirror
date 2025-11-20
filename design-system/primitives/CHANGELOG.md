@@ -1,5 +1,16 @@
 # @atlaskit/primitives
 
+## 16.2.0
+
+### Minor Changes
+
+- [`d50ecf8e02d28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d50ecf8e02d28) -
+  Added `radius.xxlarge` token available for borderRadius in `xcss`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.1.1
 
 ### Patch Changes

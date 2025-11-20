@@ -9,7 +9,7 @@ interface UserInteractions {
 
 const UserInteractionsContext = React.createContext<UserInteractions | undefined>(undefined);
 
-const UserInteractionsProvider = ({ children }: PropsWithChildren<{}>) => {
+const UserInteractionsProvider = ({ children }: PropsWithChildren<{}>): React.JSX.Element => {
 	const userInteractionActions = useRef<Set<DatasourceAction>>(new Set());
 
 	const providerValue = useMemo(() => {

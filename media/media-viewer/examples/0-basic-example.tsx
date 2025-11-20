@@ -11,7 +11,7 @@ import { MediaViewer } from '../src';
 const mediaClientConfig = createStorybookMediaClientConfig();
 const mediaClient = new MediaClient(mediaClientConfig);
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const [selectedIdentifier, setSelectedIdentifier] = useState<Identifier | undefined>();
 
 	return (

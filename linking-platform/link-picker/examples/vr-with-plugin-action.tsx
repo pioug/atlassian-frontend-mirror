@@ -15,7 +15,7 @@ const link = {
 	},
 };
 
-export default function VrWithPluginAction() {
+export default function VrWithPluginAction(): React.JSX.Element {
 	const plugins = useMemo(
 		() => [
 			new MockLinkPickerPromisePlugin({

@@ -5,7 +5,7 @@ import { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-help
 
 import { Card } from '../../src';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<SmartCardProvider client={new ResolvedClient('stg')}>
 		<Card appearance="embed" frameStyle="show" platform="web" url={ResolvedClientEmbedUrl} />
 	</SmartCardProvider>

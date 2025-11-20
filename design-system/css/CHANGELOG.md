@@ -1,5 +1,16 @@
 # @atlaskit/css
 
+## 0.16.0
+
+### Minor Changes
+
+- [`d50ecf8e02d28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d50ecf8e02d28) -
+  Added `radius.xxlarge` token available for borderRadius in `cssMap`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.15.2
 
 ### Patch Changes

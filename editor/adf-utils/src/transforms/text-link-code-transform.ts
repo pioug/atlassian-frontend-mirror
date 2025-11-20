@@ -19,7 +19,12 @@ const removeCodeMarks = (node: ADFEntity) => {
 // See: HOT-97965 https://product-fabric.atlassian.net/browse/ED-14400
 // We declared in code mark spec that links and marks should not co-exist on
 // text nodes. This util strips code marks from bad text nodes and preserves links.
-export const transformTextLinkCodeMarks = (adf: ADFEntity) => {
+export const transformTextLinkCodeMarks = (
+	adf: ADFEntity,
+): {
+	transformedAdf: false | ADFEntity;
+	isTransformed: boolean;
+} => {
 	let isTransformed: boolean = false;
 	const transformedAdf = traverse(adf, {
 		text: (node) => {

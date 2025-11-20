@@ -13,7 +13,7 @@ class CustomClient extends CardClient {
 	}
 }
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestWrapper>
 		<SmartCardProvider client={new CustomClient()} isAdminHubAIEnabled={true} product="JSM">
 			<Card

@@ -9,7 +9,7 @@ const ActionBlockBuilder = ({
 	onChange,
 	size = SmartLinkSize.Medium,
 	template,
-}: BlockBuilderProps) => {
+}: BlockBuilderProps): React.JSX.Element => {
 	return (
 		<>
 			<EnumOption

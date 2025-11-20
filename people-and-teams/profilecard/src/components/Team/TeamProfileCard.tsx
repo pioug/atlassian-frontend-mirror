@@ -415,18 +415,6 @@ const TeamProfilecardContent = ({
 	viewProfileOnClick,
 	isTriggeredByKeyboard,
 }: TeamProfilecardProps & { team: Team }) => {
-	const allActions = [
-		{
-			label: <FormattedMessage {...messages.teamViewProfile} />,
-			link: viewProfileLink,
-			callback: viewProfileOnClick,
-			id: 'view-profile',
-		},
-		...(actions || []),
-	];
-
-	const includingYou = team.members && team.members.some((member) => member.id === viewingUserId);
-
 	const newTeamProfileEnabled = FeatureGates.getExperimentValue(
 		'new_team_profile',
 		'isEnabled',
@@ -434,6 +422,17 @@ const TeamProfilecardContent = ({
 	);
 	const isTeamArchived =
 		team.state === 'DISBANDED' && fg('legion-enable-archive-teams') && newTeamProfileEnabled;
+	const allActions = [
+		{
+			label: <FormattedMessage {...messages.teamViewProfile} />,
+			link: viewProfileLink,
+			callback: viewProfileOnClick,
+			id: 'view-profile',
+		},
+		...(isTeamArchived ? [] : actions || []),
+	];
+
+	const includingYou = team.members && team.members.some((member) => member.id === viewingUserId);
 
 	useEffect(() => {
 		if (fg('ptc-enable-profile-card-analytics-refactor')) {
@@ -576,7 +575,7 @@ const ErrorMessage = ({
 	);
 };
 
-const TeamProfileCard = (props: TeamProfilecardProps) => {
+const TeamProfileCard = (props: TeamProfilecardProps): React.JSX.Element | null => {
 	const { analytics, analyticsNext, clientFetchProfile, hasError, isLoading, team, errorType } =
 		props;
 

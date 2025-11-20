@@ -11,7 +11,7 @@ import { JiraIssuesConfigModal } from '../../src/ui/jira-issues-modal/modal';
 
 mockDatasourceFetchRequests({ delayedResponse: false });
 
-export const JiraIssuesConfigModalNoJiraInstancesState = () => (
+export const JiraIssuesConfigModalNoJiraInstancesState = (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<SmartCardProvider client={new SmartLinkClient()}>
 			<JiraIssuesConfigModal

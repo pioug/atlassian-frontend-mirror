@@ -12,7 +12,11 @@ export const toAction = (
 	invokeClientAction: InvokeClientActionHandler,
 	message: MessageDescriptor,
 	id: string,
-) => {
+): {
+	id: string;
+	text: React.JSX.Element;
+	invoke: () => Promise<void>;
+} => {
 	return {
 		id,
 		text: <FormattedMessage {...message} />,

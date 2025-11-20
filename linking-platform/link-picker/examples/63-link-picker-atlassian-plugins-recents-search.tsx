@@ -89,7 +89,7 @@ function LinkPickerAtlassianPlugins() {
 	);
 }
 
-export default function LinkPickerAtlassianPluginsWrapper() {
+export default function LinkPickerAtlassianPluginsWrapper(): React.JSX.Element {
 	return (
 		<SmartCardProvider client={smartCardClient}>
 			<LinkPickerAtlassianPlugins />

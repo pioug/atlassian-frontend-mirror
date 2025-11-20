@@ -66,7 +66,7 @@ const InlineCreateContent = ({
 	);
 };
 
-const InlineCreate = (props: LinkCreateProps) => {
+const InlineCreate = (props: LinkCreateProps): React.JSX.Element => {
 	return (
 		<LinkCreatePluginsProvider plugins={props.plugins} entityKey={props.entityKey}>
 			{(pluginsProvider) => (

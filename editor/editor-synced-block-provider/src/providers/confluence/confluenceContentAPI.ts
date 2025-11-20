@@ -1,13 +1,13 @@
 import { useMemo } from 'react';
 
-import { SyncBlockError, type ResourceId, type SyncBlockData } from '../../common/types';
 import {
-	getLocalIdFromAri,
-	getPageARIFromResourceId,
-	getPageIdAndTypeFromAri,
-	resourceIdFromSourceAndLocalId,
+	getConfluencePageAri,
+	getPageARIFromContentPropertyResourceId,
+	getLocalIdFromConfluencePageAri,
+	getPageIdAndTypeFromConfluencePageAri,
+	resourceIdFromConfluencePageSourceIdAndLocalId,
 	type PAGE_TYPE,
-} from '../../utils/ari';
+} from '../../clients/confluence/ari';
 import {
 	getContentProperty,
 	createContentProperty,
@@ -21,9 +21,10 @@ import {
 	type GetBlogPostContentPropertyResult,
 	type DeleteBlogPostPropertyResult,
 	type DeletePageContentPropertyResult,
-} from '../../utils/contentProperty';
+} from '../../clients/confluence/contentProperty';
+import { isBlogPageType } from '../../clients/confluence/utils';
+import { SyncBlockError, type ResourceId, type SyncBlockData } from '../../common/types';
 import { stringifyError } from '../../utils/errorHandling';
-import { isBlogPageType } from '../../utils/utils';
 import type {
 	ADFFetchProvider,
 	ADFWriteProvider,
@@ -86,8 +87,8 @@ class ConfluenceADFFetchProvider implements ADFFetchProvider {
 	constructor(private config: ContentAPIConfig) {}
 
 	async fetchData(resourceId: string): Promise<SyncBlockInstance> {
-		const { id: pageId, type: pageType } = getPageIdAndTypeFromAri(resourceId);
-		const localId = getLocalIdFromAri(resourceId);
+		const { id: pageId, type: pageType } = getPageIdAndTypeFromConfluencePageAri(resourceId);
+		const localId = getLocalIdFromConfluencePageAri(resourceId);
 
 		try {
 			const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
@@ -131,11 +132,11 @@ class ConfluenceADFFetchProvider implements ADFFetchProvider {
 	}
 
 	retrieveSourceInfoFetchData(resourceId: ResourceId): SourceInfoFetchData {
-		const pageARI = getPageARIFromResourceId(resourceId);
+		const pageARI = getPageARIFromContentPropertyResourceId(resourceId);
 		let sourceLocalId;
 
 		try {
-			sourceLocalId = getLocalIdFromAri(resourceId);
+			sourceLocalId = getLocalIdFromConfluencePageAri(resourceId);
 		} catch (error) {
 			// EDITOR-1921: log analytic here, safe to continue
 		}
@@ -191,7 +192,7 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 		let match;
 		const { resourceId } = data;
 		try {
-			match = getPageIdAndTypeFromAri(data.resourceId);
+			match = getPageIdAndTypeFromConfluencePageAri(data.resourceId);
 		} catch (error) {
 			return { error: stringifyError(error) };
 		}
@@ -199,12 +200,18 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 		const { id: pageId, type: pageType } = match;
 		try {
 			// Update existing content property
-			const localId = getLocalIdFromAri(resourceId);
+			const localId = getLocalIdFromConfluencePageAri(resourceId);
 			const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
+			const sourceAri = getConfluencePageAri(pageId, this.config.cloudId, pageType);
+			const syncBlockDataWithSourceDocumentAri: SyncBlockData = {
+				...data,
+				product: 'confluence-page',
+				sourceAri,
+			};
 			const options = {
 				pageId,
 				key,
-				value: data,
+				value: syncBlockDataWithSourceDocumentAri,
 				cloudId: this.config.cloudId,
 				pageType,
 			};
@@ -238,14 +245,14 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 	async deleteData(resourceId: string): Promise<DeleteSyncBlockResult> {
 		let deletePayload, deleteResult, match;
 		try {
-			match = getPageIdAndTypeFromAri(resourceId);
+			match = getPageIdAndTypeFromConfluencePageAri(resourceId);
 		} catch (error) {
 			return { resourceId, success: false, error: stringifyError(error) };
 		}
 
 		const { id: pageId, type: pageType } = match;
 		try {
-			const localId = getLocalIdFromAri(resourceId);
+			const localId = getLocalIdFromConfluencePageAri(resourceId);
 			const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
 			const options = {
 				pageId,
@@ -269,7 +276,7 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 	}
 
 	generateResourceId(sourceId: string, localId: string): string {
-		return resourceIdFromSourceAndLocalId(sourceId, localId);
+		return resourceIdFromConfluencePageSourceIdAndLocalId(sourceId, localId);
 	}
 }
 

@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.15.3
+
+### Patch Changes
+
+- [`bf14a236a3255`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf14a236a3255) -
+  Platformise SSR edge timings within UFO
+
 ## 4.15.2
 
 ### Patch Changes

@@ -3,6 +3,7 @@ import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 
 export type BlockInstanceId = string;
 export type ResourceId = string;
+export type SyncBlockProduct = 'confluence-page' | 'jira-work-item';
 
 export type SyncBlockAttrs = {
 	localId: BlockInstanceId;
@@ -27,8 +28,9 @@ export interface SyncBlockData {
 	createdAt?: string;
 	createdBy?: string;
 	isSynced?: boolean;
+	product?: SyncBlockProduct;
 	resourceId: ResourceId;
-	sourceDocumentAri?: string;
+	sourceAri?: string;
 	sourceTitle?: string;
 	sourceURL?: string;
 	updatedAt?: string;

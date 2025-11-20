@@ -148,7 +148,7 @@ export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps
 		URL.revokeObjectURL(objectUrl);
 	}
 
-	protected renderSuccessful(content: ImageViewerContent) {
+	protected renderSuccessful(content: ImageViewerContent): React.JSX.Element | null {
 		const { item, onClose, contextId, collectionName } = this.props;
 		if (isErrorFileState(item)) {
 			return null;

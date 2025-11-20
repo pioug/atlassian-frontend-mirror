@@ -5,7 +5,7 @@ import {
 } from './media-type-icon-compiled';
 
 export class MediaTypeIcon extends React.Component<FileIconProps, {}> {
-	render() {
+	render(): React.JSX.Element {
 		return <CompiledMediaTypeIcon {...this.props} />;
 	}
 }

@@ -6,7 +6,7 @@ import Button from '@atlaskit/button/new';
 import ConfigurationOptions from '../src/plugin/configuration-options';
 import size from '../src/plugin/size';
 
-export default function Size() {
+export default function Size(): React.JSX.Element {
 	const clearResultsDiv = () => {
 		const results = document.getElementById('results');
 		results!.innerHTML = '';

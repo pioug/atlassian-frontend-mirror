@@ -6,7 +6,7 @@ import { tallImage } from '@atlaskit/media-test-helpers';
 
 const avatars: Array<Avatar> = generateAvatars(30);
 
-export default () => (
+export default (): React.JSX.Element => (
 	<AvatarPickerDialog
 		avatars={avatars}
 		imageSource={tallImage}

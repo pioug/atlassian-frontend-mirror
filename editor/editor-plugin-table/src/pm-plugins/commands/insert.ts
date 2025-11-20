@@ -47,6 +47,7 @@ type InsertTableWithNestingSupportCommand = (
 		isChromelessEditor?: boolean;
 		isCommentEditor?: boolean;
 		isFullWidthModeEnabled?: boolean;
+		isMaxWidthModeEnabled?: boolean;
 		isTableAlignmentEnabled?: boolean;
 		isTableResizingEnabled?: boolean;
 		isTableScalingEnabled?: boolean;
@@ -271,6 +272,7 @@ export const createTable =
 		isTableScalingEnabled?: boolean,
 		isTableAlignmentEnabled?: boolean,
 		isFullWidthModeEnabled?: boolean,
+		isMaxWidthModeEnabled?: boolean,
 		editorAnalyticsAPI?: EditorAnalyticsAPI | undefined | null,
 		isCommentEditor?: boolean,
 		isChromelessEditor?: boolean,
@@ -281,6 +283,7 @@ export const createTable =
 			isTableScalingEnabled,
 			isTableAlignmentEnabled,
 			isFullWidthModeEnabled,
+			isMaxWidthModeEnabled,
 			isCommentEditor,
 			isChromelessEditor,
 			isTableResizingEnabled,
@@ -311,6 +314,7 @@ export const createTable =
 export const insertTableWithSize =
 	(
 		isFullWidthModeEnabled?: boolean,
+		isMaxWidthModeEnabled?: boolean,
 		isTableScalingEnabled?: boolean,
 		isTableAlignmentEnabled?: boolean,
 		editorAnalyticsAPI?: EditorAnalyticsAPI,
@@ -322,6 +326,7 @@ export const insertTableWithSize =
 			const tableNode = createTableWithWidth({
 				isTableScalingEnabled,
 				isFullWidthModeEnabled,
+				isMaxWidthModeEnabled,
 				isTableAlignmentEnabled,
 				isCommentEditor,
 				isChromelessEditor,
@@ -371,6 +376,7 @@ export const insertTableWithNestingSupport: InsertTableWithNestingSupportCommand
 			isTableScalingEnabled = false,
 			isTableAlignmentEnabled = false,
 			isFullWidthModeEnabled = false,
+			isMaxWidthModeEnabled = false,
 			isCommentEditor = false,
 			isChromelessEditor = false,
 			isTableResizingEnabled = false,
@@ -412,6 +418,7 @@ export const insertTableWithNestingSupport: InsertTableWithNestingSupportCommand
 			isTableScalingEnabled,
 			isTableAlignmentEnabled,
 			isFullWidthModeEnabled,
+			isMaxWidthModeEnabled,
 			isCommentEditor,
 			isChromelessEditor,
 			isTableResizingEnabled,

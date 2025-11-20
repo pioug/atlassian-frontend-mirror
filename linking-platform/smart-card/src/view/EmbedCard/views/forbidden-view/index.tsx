@@ -17,7 +17,7 @@ const ForbiddenView = ({
 	accessContext,
 	testId = 'embed-card-forbidden-view',
 	...unresolvedViewProps
-}: ForbiddenViewProps) => {
+}: ForbiddenViewProps): React.JSX.Element => {
 	const { icon, image, text = '' } = context ?? {};
 	const {
 		accessType,

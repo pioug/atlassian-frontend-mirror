@@ -27,7 +27,9 @@ const styles = cssMap({
 	},
 });
 
-const CustomDropdownIndicator = (props: DropdownIndicatorProps<SelectOption, true>) => {
+const CustomDropdownIndicator = (
+	props: DropdownIndicatorProps<SelectOption, true>,
+): React.JSX.Element => {
 	const { selectProps } = props;
 
 	return (

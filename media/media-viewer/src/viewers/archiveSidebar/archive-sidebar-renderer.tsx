@@ -58,7 +58,7 @@ export default class ArchiveSidebarRenderer extends Component<
 		}
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { entries, status } = this.state;
 		const {
 			mediaClient,

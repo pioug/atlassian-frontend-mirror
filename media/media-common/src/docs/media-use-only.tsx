@@ -49,7 +49,7 @@ function AlternativePackagesMessage({
 export function createMediaUseOnlyNotice(
 	componentName: string,
 	alternatePackages?: { name: string; link: string }[],
-) {
+): React.JSX.Element {
 	return (
 		<SectionMessage title="Internal Media Use Only" appearance="error">
 			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}

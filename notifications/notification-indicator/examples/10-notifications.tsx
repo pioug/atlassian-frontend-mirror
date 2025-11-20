@@ -47,7 +47,7 @@ function renderNotificationIndicator(
 	return <NotificationIndicator notificationLogProvider={Promise.resolve(client)} {...props} />;
 }
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const refreshingClient = new MockNotificationLogClient();
 	let count = 1;
 	window.setInterval(() => {

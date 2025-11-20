@@ -139,7 +139,7 @@ export default class Example extends React.Component<{}, State> {
 		this.setState({ selected: undefined });
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { selected } = this.state;
 		return (
 			<I18NWrapper>

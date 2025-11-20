@@ -19,7 +19,7 @@ const Emoji = ({ children, isChecked }: { children: React.ReactNode; isChecked: 
 	</div>
 );
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<div
 			style={{

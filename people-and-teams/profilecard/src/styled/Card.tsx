@@ -216,21 +216,27 @@ const stylesCompiled = cssMapCompiled({
 	},
 });
 
-export const ProfileImage = ({ children }: { children: ReactNode }) => (
+export const ProfileImage = ({ children }: { children: ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.profileImage)}>{children}</Box>
 );
 
-export const ActionsFlexSpacer = () => <Box xcss={cx(styles.actionsFlexSpacer)} />;
+export const ActionsFlexSpacer = (): React.JSX.Element => (
+	<Box xcss={cx(styles.actionsFlexSpacer)} />
+);
 
-export const KudosBlobAnimationStyle = () => <Box xcss={cx(styles.kudosBlobAnimationStyle)} />;
+export const KudosBlobAnimationStyle = (): React.JSX.Element => (
+	<Box xcss={cx(styles.kudosBlobAnimationStyle)} />
+);
 
-export const KudosBlobAnimation = () => <Box xcss={cx(styles.kudosBlobAnimationStyle)} />;
+export const KudosBlobAnimation = (): React.JSX.Element => (
+	<Box xcss={cx(styles.kudosBlobAnimationStyle)} />
+);
 
-export const AnimationWrapper = ({ children }: { children: ReactNode }) => (
+export const AnimationWrapper = ({ children }: { children: ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.animationWrapper)}>{children}</Box>
 );
 
-export const AnimatedKudosButton = ({ children }: { children: ReactNode }) => (
+export const AnimatedKudosButton = ({ children }: { children: ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.animatedKudosButton)}>{children}</Box>
 );
 
@@ -240,7 +246,7 @@ export const ActionButtonGroup = ({
 }: {
 	children: ReactNode;
 	testId?: string;
-}) => (
+}): React.JSX.Element => (
 	<Box
 		testId={testId}
 		xcss={cx(
@@ -260,33 +266,35 @@ export const OverflowActionButtonsWrapper = ({
 }: {
 	children: ReactNode;
 	testId?: string;
-}) => (
+}): React.JSX.Element => (
 	<Box testId={testId} xcss={cx(styles.overflowActionButtonsWrapper)}>
 		{children}
 	</Box>
 );
 
-export const CardContent = ({ children }: { children: ReactNode }) => (
+export const CardContent = ({ children }: { children: ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.cardContent)}>{children}</Box>
 );
 
-export const DetailsGroup = ({ children }: { children: ReactNode }) => (
+export const DetailsGroup = ({ children }: { children: ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.detailsGroup)}>{children}</Box>
 );
 
-export const DisabledInfo = ({ children }: { children: ReactNode }) => (
+export const DisabledInfo = ({ children }: { children: ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.disabledInfo)}>{children}</Box>
 );
 
-export const LozengeWrapper = ({ children }: { children: ReactNode }) => (
+export const LozengeWrapper = ({ children }: { children: ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.lozengeWrapper)}>{children}</Box>
 );
 
-export const CustomLozengeContainer = ({ children }: { children: ReactNode }) => (
-	<Box xcss={cx(styles.customLozengeContainer)}>{children}</Box>
-);
+export const CustomLozengeContainer = ({
+	children,
+}: {
+	children: ReactNode;
+}): React.JSX.Element => <Box xcss={cx(styles.customLozengeContainer)}>{children}</Box>;
 
-export const JobTitleLabel = ({ children }: { children: ReactNode }) => (
+export const JobTitleLabel = ({ children }: { children: ReactNode }): React.JSX.Element => (
 	<Box
 		xcss={cx(
 			fg('enable_absolute_positioning_profile_card')
@@ -300,7 +308,7 @@ export const JobTitleLabel = ({ children }: { children: ReactNode }) => (
 	</Box>
 );
 
-export const AppTitleLabel = ({ children }: { children: ReactNode }) => (
+export const AppTitleLabel = ({ children }: { children: ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.appTitleLabel)} backgroundColor="color.background.neutral">
 		<Text color="color.text" size="UNSAFE_small" weight="bold">
 			{children}
@@ -318,7 +326,7 @@ export const CardContainer = ({
 	children,
 	isDisabledUser,
 	withoutElevation,
-}: CardContainerProps) => (
+}: CardContainerProps): React.JSX.Element => (
 	<Box
 		xcss={cx(
 			styles.cardContainer,
@@ -336,7 +344,7 @@ export const DetailsLabel = ({
 }: {
 	children: ReactNode;
 	extraTopSpace?: boolean;
-}) => (
+}): React.JSX.Element => (
 	<Box
 		as="dl"
 		xcss={cx(styles.detailsLabelNext, extraTopSpace && styles.detailsLabelExtraTopSpace)}
@@ -345,13 +353,13 @@ export const DetailsLabel = ({
 	</Box>
 );
 
-export const DetailsLabelIcon = ({ children }: { children: ReactNode }) => (
+export const DetailsLabelIcon = ({ children }: { children: ReactNode }): React.JSX.Element => (
 	<Box as="dt" xcss={cx(styles.detailsLabelIcon)}>
 		{children}
 	</Box>
 );
 
-export const DetailsLabelText = ({ children }: { children: ReactNode }) => (
+export const DetailsLabelText = ({ children }: { children: ReactNode }): React.JSX.Element => (
 	<Box as="dd" xcss={cx(styles.detailsLabelText)}>
 		{children}
 	</Box>

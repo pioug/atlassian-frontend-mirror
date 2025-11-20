@@ -11,7 +11,7 @@ export type AvatarPickerDialogErrorBoundaryProps = AvatarPickerDialogProps & {
 
 export default function AvatarPickerDialogErrorBoundary(
 	props: AvatarPickerDialogErrorBoundaryProps,
-) {
+): React.JSX.Element {
 	const ErrorBoundaryFallback = useCallback(
 		() => <>{props.placeholder || <CustomSpinner />}</>,
 		[props.placeholder],

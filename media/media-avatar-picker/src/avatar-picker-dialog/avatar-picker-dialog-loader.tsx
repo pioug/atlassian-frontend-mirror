@@ -11,7 +11,9 @@ const AvatarPickerDialogErrorBoundary = lazy(
 		),
 );
 
-export default function AsyncAvatarPickerDialog(props: AsyncAvatarPickerDialogProps) {
+export default function AsyncAvatarPickerDialog(
+	props: AsyncAvatarPickerDialogProps,
+): React.JSX.Element {
 	const SuspenseFallback = useCallback(
 		() => <>{props.placeholder || <CustomSpinner />}</>,
 		[props.placeholder],

@@ -30,7 +30,10 @@ const popupCustomControlStyles = cssMap({
 	},
 });
 
-export const CustomControl = ({ children, ...innerProps }: ControlProps<SelectOption, true>) => (
+export const CustomControl = ({
+	children,
+	...innerProps
+}: ControlProps<SelectOption, true>): React.JSX.Element => (
 	<Box xcss={popupCustomControlStyles.container}>
 		<components.Control
 			{...innerProps}

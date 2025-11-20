@@ -27,7 +27,7 @@ export const AgentDeleteConfirmationModal = ({
 	isOpen,
 	onSubmit,
 	agentId,
-}: Props) => {
+}: Props): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const handleDeleteAgent = useCallback(async () => {

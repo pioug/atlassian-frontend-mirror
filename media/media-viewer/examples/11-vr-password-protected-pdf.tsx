@@ -17,7 +17,7 @@ const prepareItem = async () => {
 };
 const mediaClientConfig = createStorybookMediaClientConfig();
 
-const Example = () => {
+const Example = (): React.JSX.Element | null => {
 	const [selectedIdentifier, setSelectedIdentifier] = React.useState<Identifier | undefined>();
 
 	const [itemWithBinaries, setItemWithBinaries] = React.useState<ItemWithBinaries | undefined>();

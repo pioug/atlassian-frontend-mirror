@@ -14,7 +14,7 @@ interface ErrorBoundaryProps {
 	children: ReactNode;
 }
 
-export function ErrorBoundary({ children }: ErrorBoundaryProps) {
+export function ErrorBoundary({ children }: ErrorBoundaryProps): React.JSX.Element {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const linkPickerSessionId = useLinkPickerSessionId();
 

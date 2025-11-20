@@ -14,7 +14,7 @@ import {
 	standardCards,
 } from '../example-helpers/cards';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<MainWrapper>
 			<div>

@@ -99,7 +99,7 @@ export const HelpContent: React.FC<HelpContentInterface & WrappedComponentProps>
 	const HelpLayoutWithAi = (
 		<HelpLayout onCloseButtonClick={onClose} isAiEnabled={isAiEnabled}>
 			<Tabs activeTab={activeTab} onTabClick={handleTabClick} tabs={tabs} />
-
+			{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 			{activeTab === 0 && <div>ai agent here</div>}
 			{activeTab === 1 && (
 				<>

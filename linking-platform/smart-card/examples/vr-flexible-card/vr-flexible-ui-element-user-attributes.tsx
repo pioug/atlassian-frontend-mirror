@@ -27,7 +27,7 @@ const longTextUserAttributes = {
 	pronouns: 'she/her/hers',
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<FlexibleCardContext.Provider value={{ data: getContext() }}>

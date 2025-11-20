@@ -48,7 +48,7 @@ export class ClipboardLoader extends React.PureComponent<
 		}
 	}
 
-	render() {
+	render(): React.JSX.Element | null {
 		if (!this.state.Clipboard) {
 			return null;
 		}

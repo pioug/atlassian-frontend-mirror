@@ -12,7 +12,10 @@ import Action from '../action';
 
 import { type CopyLinkActionProps } from './types';
 
-const CopyLinkAction = ({ onClick: onClickCallback, ...props }: CopyLinkActionProps) => {
+const CopyLinkAction = ({
+	onClick: onClickCallback,
+	...props
+}: CopyLinkActionProps): React.JSX.Element | null => {
 	const context = useFlexibleUiContext();
 	const invoke = useInvokeClientAction({});
 

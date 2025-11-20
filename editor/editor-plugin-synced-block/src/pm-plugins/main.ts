@@ -8,7 +8,10 @@ import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/edito
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet, Decoration, type EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import {
+	convertPMNodesToSyncBlockNodes,
+	type SyncBlockStoreManager,
+} from '@atlaskit/editor-synced-block-provider';
 
 import { lazyBodiedSyncBlockView } from '../nodeviews/bodiedLazySyncedBlock';
 import { lazySyncBlockView } from '../nodeviews/lazySyncedBlock';
@@ -24,6 +27,7 @@ export const syncedBlockPluginKey = new PluginKey('syncedBlockPlugin');
 type SyncedBlockPluginState = {
 	selectionDecorationSet: DecorationSet;
 	showFlag: FLAG_ID | false;
+	syncBlockStore: SyncBlockStoreManager;
 };
 
 export const createPlugin = (
@@ -41,7 +45,9 @@ export const createPlugin = (
 				const syncBlockNodes = instance.doc.children.filter(
 					(node) => node.type.name === 'syncBlock',
 				);
-				syncBlockStore.fetchSyncBlocksData(syncBlockNodes);
+				syncBlockStore.referenceManager.fetchSyncBlocksData(
+					convertPMNodesToSyncBlockNodes(syncBlockNodes),
+				);
 				return {
 					selectionDecorationSet: calculateDecorations(
 						instance.doc,
@@ -49,6 +55,7 @@ export const createPlugin = (
 						instance.schema,
 					),
 					showFlag: false,
+					syncBlockStore: syncBlockStore,
 				};
 			},
 			apply: (tr, currentPluginState, oldEditorState) => {
@@ -63,6 +70,7 @@ export const createPlugin = (
 				return {
 					showFlag: meta?.showFlag ?? showFlag,
 					selectionDecorationSet: newDecorationSet,
+					syncBlockStore: syncBlockStore,
 				};
 			},
 		},
@@ -72,13 +80,11 @@ export const createPlugin = (
 					options,
 					pmPluginFactoryParams,
 					api,
-					syncBlockStore,
 				}),
 				bodiedSyncBlock: lazyBodiedSyncBlockView({
 					pluginOptions: options,
 					pmPluginFactoryParams,
 					api,
-					syncBlockStore,
 				}),
 			},
 			decorations: (state) => {
@@ -130,11 +136,11 @@ export const createPlugin = (
 			},
 		},
 		view: (editorView: EditorView) => {
-			syncBlockStore.setEditorView(editorView);
+			syncBlockStore.sourceManager.setEditorView(editorView);
 
 			return {
 				destroy() {
-					syncBlockStore.setEditorView(undefined);
+					syncBlockStore.sourceManager.setEditorView(undefined);
 				},
 			};
 		},
@@ -147,8 +153,8 @@ export const createPlugin = (
 			// and are not yet confirmed for sync block deletion
 			if (
 				!tr.docChanged ||
-				(!syncBlockStore?.requireConfirmationBeforeDelete() &&
-					!syncBlockStore.hasPendingCreation()) ||
+				(!syncBlockStore?.sourceManager.requireConfirmationBeforeDelete() &&
+					!syncBlockStore.sourceManager.hasPendingCreation()) ||
 				Boolean(tr.getMeta('isRemote')) ||
 				Boolean(tr.getMeta('isCommitSyncBlockCreation')) ||
 				(!isOffline && isConfirmedSyncBlockDeletion)
@@ -157,7 +163,7 @@ export const createPlugin = (
 			}
 
 			const { removed: bodiedSyncBlockRemoved, added: bodiedSyncBlockAdded } = trackSyncBlocks(
-				syncBlockStore.isSourceBlock,
+				syncBlockStore.sourceManager.isSourceBlock,
 				tr,
 				state,
 			);
@@ -168,7 +174,7 @@ export const createPlugin = (
 					// we block the transaction here, and wait for user confirmation to proceed with deletion.
 					// See editor-common/src/sync-block/sync-block-store-manager.ts for how we handle user confirmation and
 					// proceed with deletion.
-					syncBlockStore.deleteSyncBlocksWithConfirmation(tr, bodiedSyncBlockRemoved);
+					syncBlockStore.sourceManager.deleteSyncBlocksWithConfirmation(tr, bodiedSyncBlockRemoved);
 
 					return false;
 				}
@@ -177,7 +183,7 @@ export const createPlugin = (
 					// If there is bodiedSyncBlock node addition and it's waiting for the result of saving the node to backend (syncBlockStore.hasPendingCreation()),
 					// we need to intercept the transaction and save it in insert callback so that we only insert it to the document when backend call if backend call is successful
 					// The callback will be evoked by in SourceSyncBlockStoreManager.commitPendingCreation
-					syncBlockStore.registerCreationCallback(() => {
+					syncBlockStore.sourceManager.registerCreationCallback(() => {
 						api?.core?.actions.execute(() => {
 							return tr.setMeta('isCommitSyncBlockCreation', true);
 						});
@@ -225,7 +231,7 @@ export const createPlugin = (
 			trs
 				.filter((tr) => tr.docChanged)
 				.forEach((tr) => {
-					syncBlockStore?.rebaseTransaction(tr, newState);
+					syncBlockStore?.sourceManager.rebaseTransaction(tr, newState);
 				});
 
 			return null;

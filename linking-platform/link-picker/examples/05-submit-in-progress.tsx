@@ -93,7 +93,7 @@ function SubmitInProgressExample() {
 	);
 }
 
-export default function BasicWrapper() {
+export default function BasicWrapper(): React.JSX.Element {
 	return (
 		<PageWrapper>
 			<SubmitInProgressExample />

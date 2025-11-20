@@ -202,7 +202,7 @@ export default class RendererActions
 		return false;
 	}
 
-	annotate(range: Range, annotationId: string, annotationType: 'inlineComment') {
+	annotate(range: Range, annotationId: string, _annotationType: 'inlineComment') {
 		if (!this.doc || !this.schema || !this.schema.marks.annotation) {
 			return false;
 		}

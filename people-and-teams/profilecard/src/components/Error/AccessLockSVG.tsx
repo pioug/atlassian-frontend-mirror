@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
-const AccessLockSVG = () => {
+const AccessLockSVG = (): React.JSX.Element => {
 	return (
 		<svg
 			width="191"

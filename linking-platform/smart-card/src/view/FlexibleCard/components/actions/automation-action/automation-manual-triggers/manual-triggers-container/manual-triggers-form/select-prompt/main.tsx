@@ -16,7 +16,7 @@ enum Errors {
 	EMPTY = 'EMPTY',
 }
 
-const SelectInputPrompt = ({ userInputPrompt }: SelectInputPromptProps) => {
+const SelectInputPrompt = ({ userInputPrompt }: SelectInputPromptProps): React.JSX.Element => {
 	di(ErrorMessage, Field, Select);
 
 	const { variableName, required, displayName, defaultValue } = userInputPrompt;

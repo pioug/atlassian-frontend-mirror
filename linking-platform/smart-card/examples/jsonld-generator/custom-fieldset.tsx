@@ -20,7 +20,7 @@ const CustomFieldset = ({
 	children: React.ReactNode;
 	legend: string;
 	templateColumns?: string;
-}) => (
+}): React.JSX.Element => (
 	<Bleed all="space.100" xcss={boxStyles}>
 		<Text weight="semibold">{legend}</Text>
 		<Grid gap="space.100" templateColumns={templateColumns}>

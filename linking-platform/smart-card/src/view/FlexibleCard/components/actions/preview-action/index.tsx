@@ -14,7 +14,10 @@ import Action from '../action';
 
 import type { PreviewActionProps } from './types';
 
-const PreviewAction = ({ onClick: onClickCallback, ...props }: PreviewActionProps) => {
+const PreviewAction = ({
+	onClick: onClickCallback,
+	...props
+}: PreviewActionProps): React.JSX.Element | null => {
 	const context = useFlexibleUiContext();
 	const invoke = useInvokeClientAction({});
 

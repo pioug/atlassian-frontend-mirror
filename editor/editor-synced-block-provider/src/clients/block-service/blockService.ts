@@ -1,4 +1,4 @@
-export type BlockProduct = 'confluence-page' | 'jira-work-item';
+import type { SyncBlockProduct } from '../../common/types';
 
 export type BlockContentResponse = {
 	blockAri: string;
@@ -8,7 +8,7 @@ export type BlockContentResponse = {
 	createdAt: number;
 	createdBy: string;
 	isSynced: boolean;
-	product: BlockProduct;
+	product: SyncBlockProduct;
 	sourceAri: string;
 	status: 'active' | 'deleted';
 	version: number;
@@ -31,7 +31,7 @@ export type CreateSyncedBlockRequest = {
 	blockAri: string; // the ARI of the block. E.G ari:cloud:blocks:site-123:synced-block/uuid-456
 	blockInstanceId: string; // the instance ID of the block (the localId of the synced block node)
 	content: string;
-	product: string;
+	product: SyncBlockProduct;
 	sourceAri: string; // the ARI of the source document (the ARI of the page or blog post)
 };
 

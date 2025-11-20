@@ -68,7 +68,7 @@ export const AgentActions = ({
 	agent,
 	resourceClient,
 	hideMoreActions,
-}: AgentActionsProps) => {
+}: AgentActionsProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { fireEvent: fireEventNext } = useAnalyticsEventsNext();

@@ -55,7 +55,7 @@ const DateTimeRenderType = ({
 	value,
 	testId = DATETIME_TYPE_TEST_ID,
 	display = 'datetime',
-}: DateProps) => {
+}: DateProps): React.JSX.Element => {
 	const intl = useIntl();
 	const formattedString = getFormattedDate(value, display, intl.formatDate);
 	if (formattedString === '') {

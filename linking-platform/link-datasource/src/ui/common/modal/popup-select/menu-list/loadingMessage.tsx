@@ -5,7 +5,11 @@ import Spinner from '@atlaskit/spinner';
 import { asyncPopupSelectMessages } from './messages';
 import CustomSelectMessage from './selectMessage';
 
-const CustomDropdownLoadingMessage = ({ filterName }: { filterName: string }) => {
+const CustomDropdownLoadingMessage = ({
+	filterName,
+}: {
+	filterName: string;
+}): React.JSX.Element => {
 	return (
 		<CustomSelectMessage
 			icon={<Spinner size="large" />}

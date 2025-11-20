@@ -28,7 +28,7 @@ const styles = cssMap({
 	},
 });
 
-export const EmptyAvatar = () => {
+export const EmptyAvatar = (): React.JSX.Element => {
 	const intl = useIntl();
 	return (
 		<Tooltip content={intl.formatMessage(userTypeMessages.userDefaultdisplayNameValue)}>

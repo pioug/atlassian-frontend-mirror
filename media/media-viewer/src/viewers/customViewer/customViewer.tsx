@@ -21,7 +21,7 @@ export const CustomViewer = ({
 	collectionName,
 	onSuccess,
 	onError,
-}: Props) => {
+}: Props): React.JSX.Element => {
 	const [getBinaryContent, setGetBinaryContent] = useState<() => Promise<Blob>>();
 	useEffect(() => {
 		setGetBinaryContent(undefined);

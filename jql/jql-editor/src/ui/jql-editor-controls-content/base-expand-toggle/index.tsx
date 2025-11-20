@@ -39,7 +39,13 @@ type Props = {
 	onClick: () => void;
 };
 
-export const BaseExpandToggle = ({ expanded, editorId, isDisabled, label, onClick }: Props) => {
+export const BaseExpandToggle = ({
+	expanded,
+	editorId,
+	isDisabled,
+	label,
+	onClick,
+}: Props): React.JSX.Element => {
 	let Icon;
 
 	if (expanded) {

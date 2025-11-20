@@ -58,7 +58,7 @@ export const Header = ({
 	identifier,
 	onSetArchiveSideBarVisible,
 	traceContext,
-}: Props & WrappedComponentProps) => {
+}: Props & WrappedComponentProps): React.JSX.Element => {
 	// States
 	const [item, setItem] = useState<Outcome<FileState, MediaViewerError>>(Outcome.pending());
 

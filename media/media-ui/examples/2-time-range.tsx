@@ -74,4 +74,4 @@ class Example extends Component<any, ExampleState> {
 	}
 }
 
-export default () => <Example />;
+export default (): React.JSX.Element => <Example />;

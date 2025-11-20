@@ -34,7 +34,10 @@ const getArtifactUrl = (
 		.then((blob) => blob.slice(0, blob.size, getMimeTypeFromArtifact(artifact)))
 		.then((blob) => URL.createObjectURL(blob));
 
-export const NativeMediaViewer = ({ id, mediaClient }: NativeMediaViewerProps) => {
+export const NativeMediaViewer = ({
+	id,
+	mediaClient,
+}: NativeMediaViewerProps): React.JSX.Element => {
 	const [url, setUrl] = useState('');
 	const [mediaType, setMediaType] = useState<MediaType | null>(null);
 

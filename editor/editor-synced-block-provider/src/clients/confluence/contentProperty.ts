@@ -1,4 +1,4 @@
-import type { SyncBlockData } from '../common/types';
+import type { SyncBlockData } from '../../common/types';
 
 import { getConfluencePageAri, type PAGE_TYPE } from './ari';
 import { isBlogPageType } from './utils';

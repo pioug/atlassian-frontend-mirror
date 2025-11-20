@@ -22,7 +22,7 @@ const mediaClient = new MediaClient(mediaClientConfig);
 export default class Example extends React.Component<{}, State> {
 	state: State = { selectedIdentifier: undefined };
 
-	createItem = (identifier: Identifier, title: string) => {
+	createItem = (identifier: Identifier, title: string): React.JSX.Element => {
 		return (
 			<div>
 				<h4>{title}</h4>
@@ -35,7 +35,7 @@ export default class Example extends React.Component<{}, State> {
 		);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const selectedIdentifier = this.state.selectedIdentifier;
 		return (
 			<I18NWrapper>

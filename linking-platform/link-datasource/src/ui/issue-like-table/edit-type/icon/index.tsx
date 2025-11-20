@@ -23,7 +23,7 @@ interface IconEditTypeProps extends Omit<FieldProps<string>, 'value'> {
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
 }
 
-const IconEditType = (props: IconEditTypeProps) => {
+const IconEditType = (props: IconEditTypeProps): React.JSX.Element => {
 	const { currentValue, labelId, executeFetch } = props;
 	const { options, isLoading, hasFailed } = useLoadOptions<Icon>({ executeFetch });
 	const experienceId = useDatasourceExperienceId();

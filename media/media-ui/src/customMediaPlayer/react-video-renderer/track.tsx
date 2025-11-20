@@ -102,7 +102,12 @@ type TextTracksProps = {
 };
 
 export const TextTracks = memo(
-	({ videoTextTracks, textTracksPosition, onLoad, onError }: TextTracksProps) => {
+	({
+		videoTextTracks,
+		textTracksPosition,
+		onLoad,
+		onError,
+	}: TextTracksProps): React.JSX.Element[] => {
 		return Object.entries(videoTextTracks).map(([kind, { tracks, selectedTrackIndex }], index) => (
 			<Tracks
 				key={index}

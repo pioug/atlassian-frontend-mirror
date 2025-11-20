@@ -14,4 +14,6 @@ type ImageContainerProps = {
 	source?: string;
 };
 
-export const ImageContainer = (props: ImageContainerProps) => <CompiledImageContainer {...props} />;
+export const ImageContainer = (props: ImageContainerProps): React.JSX.Element => (
+	<CompiledImageContainer {...props} />
+);

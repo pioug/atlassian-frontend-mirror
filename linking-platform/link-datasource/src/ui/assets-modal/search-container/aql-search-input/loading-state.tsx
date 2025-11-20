@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Skeleton } from '@atlaskit/linking-common';
 
-export const AssetsAqlSearchInputSkeleton = () => (
+export const AssetsAqlSearchInputSkeleton = (): React.JSX.Element => (
 	<Skeleton
 		width="100%"
 		height="40px"

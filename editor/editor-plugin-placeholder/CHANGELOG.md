@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 6.5.0
+
+### Minor Changes
+
+- [`025002b2a71fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/025002b2a71fc) -
+  [ux] [EDITOR-3320] fix bug on panel and table placeholders/ added code mark on keyboard shorcuts
+  on panel and table placeholders
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.4.0
 
 ### Minor Changes

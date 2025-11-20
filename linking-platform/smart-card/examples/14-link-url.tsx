@@ -6,7 +6,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import LinkUrlExample from './content/link-url';
 import ExampleContainer from './utils/example-container';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<ExampleContainer title="LinkUrl">
 		<p>
 			{fg('dst-a11y__replace-anchor-with-link__linking-platfo') ? (

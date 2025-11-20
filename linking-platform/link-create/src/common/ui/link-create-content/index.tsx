@@ -7,7 +7,10 @@ type LinkCreateContentProps = {
 	entityKey: string;
 };
 
-export const LinkCreateContent = ({ plugins, entityKey }: LinkCreateContentProps) => {
+export const LinkCreateContent = ({
+	plugins,
+	entityKey,
+}: LinkCreateContentProps): React.JSX.Element => {
 	const chosenOne = plugins.find((plugin) => plugin.key === entityKey);
 
 	if (!chosenOne) {

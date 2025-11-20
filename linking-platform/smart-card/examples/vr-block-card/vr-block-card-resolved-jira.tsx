@@ -18,7 +18,7 @@ class CustomClient extends Client {
 	}
 }
 
-export const BlockCardJira = () => (
+export const BlockCardJira = (): React.JSX.Element => (
 	<div>
 		<h4>Jira Unassigned Issue</h4>
 		<VRCardView appearance="block" client={new CustomClient()} url={JiraIssue.data.url} />

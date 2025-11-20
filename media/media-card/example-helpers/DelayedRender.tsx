@@ -21,7 +21,7 @@ export class DelayedRender extends Component<Props, State> {
 		}, this.props.timeout);
 	}
 
-	render() {
+	render(): React.JSX.Element | null {
 		if (this.state.hidden) {
 			return null;
 		}

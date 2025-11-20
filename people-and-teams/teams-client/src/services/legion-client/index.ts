@@ -518,15 +518,11 @@ export class LegionClient extends RestClient implements LegionClient {
 
 	async archiveTeam(teamId: string): Promise<TeamWithImageUrls> {
 		const siteId = this.getCloudId();
-		return this.postResource(
-			`${v4UrlPath}/${this.trimTeamARI(teamId)}/archive?siteId=${siteId}`,
-		);
+		return this.postResource(`${v4UrlPath}/${this.trimTeamARI(teamId)}/archive?siteId=${siteId}`);
 	}
 	async unArchiveTeam(teamId: string): Promise<TeamWithImageUrls> {
 		const siteId = this.getCloudId();
-		return this.postResource(
-			`${v4UrlPath}/${this.trimTeamARI(teamId)}/unarchive?siteId=${siteId}`,
-		);
+		return this.postResource(`${v4UrlPath}/${this.trimTeamARI(teamId)}/unarchive?siteId=${siteId}`);
 	}
 	async unlinkTeamFromGroup(
 		teamId: string,

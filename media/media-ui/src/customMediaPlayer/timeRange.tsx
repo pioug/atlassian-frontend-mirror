@@ -207,7 +207,7 @@ export class TimeRangeBase extends Component<
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { isDragging, timeLineThumbIsHover, timeLineThumbIsFocus } = this.state;
 		const { currentTime, duration, bufferedTime, disableThumbTooltip, intl } = this.props;
 		const currentPosition = (currentTime * 100) / duration;

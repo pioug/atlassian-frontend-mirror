@@ -107,7 +107,7 @@ export class NavigationBase extends Component<NavigationProps, {}> {
 		return getSelectedIndex(items, selectedItem);
 	}
 
-	render() {
+	render(): React.JSX.Element | null {
 		const { items, isArchiveSideBarVisible } = this.props;
 		const { selectedIndex } = this;
 

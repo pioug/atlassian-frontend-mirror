@@ -10,7 +10,7 @@ interface TagProps {
 
 export const TAG_TYPE_TEST_ID = 'link-datasource-render-type--tag';
 
-const TagRenderType = ({ tag, testId = TAG_TYPE_TEST_ID }: TagProps) => {
+const TagRenderType = ({ tag, testId = TAG_TYPE_TEST_ID }: TagProps): React.JSX.Element => {
 	const text = tag?.text;
 
 	if (!(text && typeof text === 'string')) {

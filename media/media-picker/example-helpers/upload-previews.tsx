@@ -57,7 +57,7 @@ export class UploadPreviews extends React.Component<PreviewsDataProps, PreviewsD
 		console.log('upload error:', data);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { previewsData } = this.state;
 
 		return (

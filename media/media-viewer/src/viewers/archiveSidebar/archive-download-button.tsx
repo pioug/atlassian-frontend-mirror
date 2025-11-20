@@ -20,7 +20,7 @@ export const ArchiveDownloadButton = ({
 	shouldRenderAbuseModal,
 	isDisabled,
 	tooltip,
-}: ArchiveDownloadButtonProps) => {
+}: ArchiveDownloadButtonProps): React.JSX.Element => {
 	const [isAbuseModalOpen, setIsAbuseModalOpen] = useState(false);
 
 	const downloadOrWarn = () => {

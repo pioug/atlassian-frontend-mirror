@@ -9,7 +9,7 @@ import Action from '../action';
 
 import { type EditActionProps } from './types';
 
-const EditAction = (props: EditActionProps) => (
+const EditAction = (props: EditActionProps): React.JSX.Element => (
 	<Action
 		content={<FormattedMessage {...messages.edit} />}
 		icon={<EditIcon color="currentColor" spacing="spacious" label="Edit" />}

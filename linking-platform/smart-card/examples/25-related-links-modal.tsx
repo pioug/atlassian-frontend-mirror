@@ -48,7 +48,7 @@ const ExampleModal = () => {
 	);
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<ExampleContainer title="RelatedLinksModal">
 		<Provider client={client}>
 			<SmartLinkModalProvider>

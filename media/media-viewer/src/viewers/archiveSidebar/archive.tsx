@@ -188,7 +188,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 		this.props.onSuccess();
 	};
 
-	protected renderSuccessful(content: Content) {
+	protected renderSuccessful(content: Content): React.JSX.Element {
 		const { item, mediaClient, collectionName } = this.props;
 		const { selectedArchiveEntry, hasLoadedEntries } = content;
 		const hasSelectedArchiveEntry = selectedArchiveEntry !== undefined;

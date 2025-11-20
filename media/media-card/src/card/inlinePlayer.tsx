@@ -72,7 +72,7 @@ export const InlinePlayerBase = ({
 	cardPreview,
 	onFullscreenChange,
 	videoControlsWrapperRef,
-}: InlinePlayerProps) => {
+}: InlinePlayerProps): React.JSX.Element => {
 	// === States ===
 	const [fileSrc, setFileSrc] = useState<string>();
 	const [isUploading, setIsUploading] = useState<boolean>();

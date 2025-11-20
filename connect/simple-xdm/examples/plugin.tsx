@@ -18,7 +18,7 @@ const SampleApp = () => {
 	return <h1 data-testid="app-title">Sample App</h1>;
 };
 
-export default function SimpleXDMExample() {
+export default function SimpleXDMExample(): React.JSX.Element {
 	const [containerRef, setContainerRef] = useState(null);
 
 	const extension = {

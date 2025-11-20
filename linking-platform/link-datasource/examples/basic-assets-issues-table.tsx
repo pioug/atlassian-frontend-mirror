@@ -24,7 +24,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Box xcss={styles.tableWrapper}>
 			<ExampleAssetsIssuesTableView DatasourceTable={DatasourceTableView} />

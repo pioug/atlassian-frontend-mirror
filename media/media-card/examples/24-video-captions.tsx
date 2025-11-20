@@ -106,7 +106,7 @@ const BackendProvider = ({ canUpdateVideoCaptions }: { canUpdateVideoCaptions: b
 	);
 };
 
-export default function () {
+export default function (): React.JSX.Element {
 	const [reloadKey, setReloadkey] = useState(0);
 	const [useMockedAPI, setUseMockedAPI] = useState(false);
 	const [canUpdateVideoCaptions, setCanUpdateVideoCaptions] = useState(true);

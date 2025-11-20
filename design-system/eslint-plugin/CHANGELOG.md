@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.25.0
+
+### Minor Changes
+
+- [`d50ecf8e02d28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d50ecf8e02d28) -
+  Updated `use-tokens-shape` rule to suggest the `radius.xxlarge` token replacement for 16px/1rem
+  values.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.24.2
 
 ### Patch Changes

@@ -8,7 +8,7 @@ import { MainStage } from './helper/main-stage';
 
 const avatarImage = profiles[4].User.avatarUrl;
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<ExampleWrapper>
 			<>

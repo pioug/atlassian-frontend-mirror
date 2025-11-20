@@ -23,7 +23,7 @@ import { type ExampleUIConfig, type ExampleUrl, type ExampleUrls } from './types
 const START_PROD_URL = 'https://start.atlassian.com/gateway/api';
 const START_STG_URL = 'https://start.stg.atlassian.com/gateway/api';
 
-export const SmartLinksShowcase = () => {
+export const SmartLinksShowcase = (): React.JSX.Element => {
 	const EnvOverrides: Record<EnvironmentsKeys, string> = useMemo(() => {
 		return {
 			custom: '',

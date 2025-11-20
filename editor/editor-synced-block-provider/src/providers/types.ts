@@ -1,11 +1,16 @@
-import type {
-	SyncedBlockRendererDataProviders,
-	MediaProvider,
-} from '@atlaskit/editor-common/provider-factory';
+import type { MediaProvider, ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { EmojiProvider } from '@atlaskit/emoji';
+import type { MentionProvider } from '@atlaskit/mention/types';
 import { NodeDataProvider } from '@atlaskit/node-data-provider';
+import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
-import type { SyncBlockData, ResourceId, SyncBlockError, SyncBlockNode } from '../common/types';
+import type {
+	SyncBlockData,
+	ResourceId,
+	SyncBlockError,
+	SyncBlockNode,
+	SyncBlockProduct,
+} from '../common/types';
 
 /**
  * The instance of a sync block, containing its data and metadata.
@@ -35,6 +40,11 @@ export type SyncBlockSourceInfo = {
 	url?: string;
 };
 
+export type SyncBlockParentInfo = {
+	contentId: string;
+	contentProduct: SyncBlockProduct;
+};
+
 export type WriteSyncBlockResult = {
 	error?: string;
 	resourceId?: string;
@@ -57,22 +67,23 @@ export interface ADFWriteProvider {
 
 export type MediaEmojiProviderOptions = {
 	contentId: string;
-	contentType: string;
-	spaceKey?: string | null;
+	contentProduct: SyncBlockProduct;
+};
+
+export type SyncedBlockRendererDataProviders = {
+	mentionProvider?: Promise<MentionProvider>;
+	profilecardProvider?: Promise<ProfilecardProvider>;
+	taskDecisionProvider?: Promise<TaskDecisionProvider>;
+};
+
+export type SyncBlockRendererProviderCreator = {
+	createEmojiProvider: ((options: MediaEmojiProviderOptions) => Promise<EmojiProvider>) | undefined;
+	createMediaProvider: ((options: MediaEmojiProviderOptions) => Promise<MediaProvider>) | undefined;
 };
 
 export type SyncedBlockRendererProviderOptions = {
 	parentDataProviders?: SyncedBlockRendererDataProviders;
-	providerCreator?: {
-		// TODO: EDITOR-2771 - In follow up PR, create emoji & media providers per ref sync block
-		// For now the below are not used, but I want to plug in the interface through
-		createEmojiProvider:
-			| ((options: MediaEmojiProviderOptions) => Promise<EmojiProvider>)
-			| undefined;
-		createMediaProvider:
-			| ((options: MediaEmojiProviderOptions) => Promise<MediaProvider>)
-			| undefined;
-	};
+	providerCreator?: SyncBlockRendererProviderCreator;
 };
 
 export abstract class SyncBlockDataProvider extends NodeDataProvider<
@@ -89,6 +100,9 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 		node: SyncBlockNode,
 	): Promise<SyncBlockSourceInfo | undefined>;
 	abstract getSyncedBlockRendererProviderOptions(): SyncedBlockRendererProviderOptions;
+	abstract retrieveSyncBlockParentInfo(
+		syncBlockInstance: SyncBlockInstance | undefined,
+	): SyncBlockParentInfo | undefined;
 	/**
 	 * Generates a resource ID from a source ID and local ID.
 	 * @param sourceId - The source document ID (e.g., page ARI)

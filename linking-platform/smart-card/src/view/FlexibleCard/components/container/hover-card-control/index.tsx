@@ -16,7 +16,7 @@ const HoverCardControl = ({
 	url,
 	delay = FLEXIBLE_HOVER_CARD_CAN_OPEN_DELAY,
 	hoverPreviewOptions,
-}: HoverCardDelayProps) => {
+}: HoverCardDelayProps): React.JSX.Element => {
 	const [canOpen, setCanOpen] = useState(true);
 	const mouseStopTimer = useRef<ReturnType<typeof setTimeout>>();
 

@@ -35,7 +35,7 @@ const storeOptions: CardProviderStoreOpts = {
  * and hover card send a second request to get metadata and that request fails, thus error state.
  * HoverCard still renders 'resolved' status with minimum data from the initial state.
  */
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestWrapper>
 		<Provider storeOptions={storeOptions} client={new CustomFailureClient('staging')}>
 			<Card url={url} appearance="inline" showHoverPreview={true} testId="ssr-hover-card-errored" />

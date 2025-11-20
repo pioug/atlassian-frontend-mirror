@@ -13,14 +13,20 @@ import {
 	type TitleBoxWrapperProps,
 } from './types';
 
-export const TitleBoxWrapper = (props: TitleBoxWrapperProps) => (
+export const TitleBoxWrapper = (props: TitleBoxWrapperProps): React.JSX.Element => (
 	<CompiledTitleBoxWrapper {...props} />
 );
 
-export const TitleBoxHeader = (props: TitleBoxHeaderProps) => <CompiledTitleBoxHeader {...props} />;
+export const TitleBoxHeader = (props: TitleBoxHeaderProps): React.JSX.Element => (
+	<CompiledTitleBoxHeader {...props} />
+);
 
-export const TitleBoxFooter = (props: TitleBoxFooterProps) => <CompiledTitleBoxFooter {...props} />;
+export const TitleBoxFooter = (props: TitleBoxFooterProps): React.JSX.Element => (
+	<CompiledTitleBoxFooter {...props} />
+);
 
-export const TitleBoxIcon = (props: any) => <CompiledTitleBoxIcon {...props} />;
+export const TitleBoxIcon = (props: any): React.JSX.Element => <CompiledTitleBoxIcon {...props} />;
 
-export const ErrorMessageWrapper = (props: any) => <CompiledErrorMessageWrapper {...props} />;
+export const ErrorMessageWrapper = (props: any): React.JSX.Element => (
+	<CompiledErrorMessageWrapper {...props} />
+);

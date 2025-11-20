@@ -39,7 +39,7 @@ function CustomWidth() {
 	);
 }
 
-export default function CustomWidthWrapper() {
+export default function CustomWidthWrapper(): React.JSX.Element {
 	return (
 		<PageWrapper>
 			<CustomWidth />

@@ -22,7 +22,7 @@ export const LinkAnalyticsContext = ({
 	id,
 	children,
 	source,
-}: LinkAnalyticsContextProps) => {
+}: LinkAnalyticsContextProps): React.JSX.Element => {
 	const displayCategory = display === 'url' ? 'link' : undefined;
 
 	return (

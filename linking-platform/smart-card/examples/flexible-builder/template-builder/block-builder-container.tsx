@@ -36,7 +36,7 @@ const BlockBuilderContainer = ({
 	onRemove: (position: number) => void;
 	position: number;
 	removable: boolean;
-}>) => {
+}>): React.JSX.Element => {
 	const [open, setOpen] = useState<boolean>(false);
 	const handleExpand = useCallback(() => setOpen(!open), [open]);
 	const handleOnRemove = useCallback(() => onRemove(position), [onRemove, position]);

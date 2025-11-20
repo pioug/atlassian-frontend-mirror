@@ -1,5 +1,24 @@
 # @atlaskit/smart-card
 
+## 43.9.0
+
+### Minor Changes
+
+- [`f2ab75f2947ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2ab75f2947ab) -
+  [ux] Add shouldRenderToParent prop to HoverCard which is propagated to the internal Popup
+  component
+
+### Patch Changes
+
+- [`06d5717d57f36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06d5717d57f36) -
+  Suppress i18n errors
+
+## 43.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 43.8.0
 
 ### Minor Changes

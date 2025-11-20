@@ -39,7 +39,7 @@ const disabledBlanket = css({
  */
 const ExampleEditorComponent = () => {
 	const [disabled, setDisabled] = useState(true);
-	const [appearance, setAppearance] = useState<EditorAppearance>('full-page');
+	const [appearance, setAppearance] = useState<EditorAppearance>(getAppearance() || 'full-page');
 
 	const collabSessionId = 'quokka';
 

@@ -1,5 +1,22 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.10.3
+
+### Patch Changes
+
+- [`964b980644f9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/964b980644f9d) -
+  EDITOR-3348 Refactor Synced Block Store Manager
+- [`caa54ec7bac4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/caa54ec7bac4c) -
+  EDITOR-3312 Refactor and restructure synced block provider
+
+## 2.10.2
+
+### Patch Changes
+
+- [`27e34de207285`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27e34de207285) -
+  EDITOR-2771 Create media & emoji provider per each reference sync block
+- Updated dependencies
+
 ## 2.10.1
 
 ### Patch Changes

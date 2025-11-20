@@ -129,7 +129,7 @@ export default function ProfilecardTriggerNext({
 	ssrPlaceholderId,
 	showDelay: customShowDelay,
 	hideDelay: customHideDelay,
-}: ProfileCardTriggerProps) {
+}: ProfileCardTriggerProps): React.JSX.Element {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { formatMessage } = useIntl();
 

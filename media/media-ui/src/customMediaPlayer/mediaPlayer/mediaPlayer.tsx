@@ -9,7 +9,10 @@ import { type MediaPlayerProps } from './types';
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
-export const MediaPlayerWihtoutContext = ({ onPlay, ...props }: MediaPlayerProps) => {
+export const MediaPlayerWihtoutContext = ({
+	onPlay,
+	...props
+}: MediaPlayerProps): React.JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const mediaSettings = useMediaSettings();
 	const { id, collectionName } = props.identifier;

@@ -71,7 +71,7 @@ export default class MediaInlineCardLoader extends React.PureComponent<
 		this.mounted = false;
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { MediaInlineCard, ErrorBoundary } = this.state;
 		const analyticsContext = {
 			packageVersion: process.env._PACKAGE_NAME_ as string,

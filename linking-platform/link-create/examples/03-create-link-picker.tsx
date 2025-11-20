@@ -13,7 +13,7 @@ import { type CreatePayload } from '../src/common/types';
 
 const ENTITY_KEY = 'object-name';
 
-const LinkPickerCreate = () => {
+const LinkPickerCreate = (): React.JSX.Element => {
 	const [link, setLink] = useState<string | null>(null);
 	const [showPicker, setShowPicker] = useState(false);
 	const [showCreateModal, setShowCreateModal] = useState(false);

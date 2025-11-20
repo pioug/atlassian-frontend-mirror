@@ -11,10 +11,35 @@ export const placeholderTextMessages = defineMessages({
 		defaultMessage: '/ to insert',
 		description: 'Short placeholder text for empty nodes',
 	},
+	shortEmptyNodePlaceholderADFSlashShortcut: {
+		id: 'fabric.editor.shortEmptyNodePlaceholderSlash',
+		defaultMessage: '/',
+		description: 'Slash character in short empty node placeholder',
+	},
+	shortEmptyNodePlaceholderADFSuffix: {
+		id: 'fabric.editor.shortEmptyNodePlaceholderSuffix',
+		defaultMessage: ' to insert',
+		description: 'Text after slash in short empty node placeholder',
+	},
 	longEmptyNodePlaceholderText: {
 		id: 'fabric.editor.longEmptyNodePlaceholderText',
 		defaultMessage: 'Type / to insert elements',
 		description: 'Long placeholder text for empty nodes',
+	},
+	longEmptyNodePlaceholderADFPrefix: {
+		id: 'fabric.editor.longEmptyNodePlaceholderPrefix',
+		defaultMessage: 'Type ',
+		description: 'Text before slash in long empty node placeholder',
+	},
+	longEmptyNodePlaceholderADFSlashShortcut: {
+		id: 'fabric.editor.longEmptyNodePlaceholderSlash',
+		defaultMessage: '/',
+		description: 'Slash character in long empty node placeholder',
+	},
+	longEmptyNodePlaceholderADFSuffix: {
+		id: 'fabric.editor.longEmptyNodePlaceholderSuffix',
+		defaultMessage: ' to insert elements',
+		description: 'Text after slash in long empty node placeholder',
 	},
 	syncBlockPlaceholderText: {
 		id: 'fabric.editor.syncBlockPlaceholderText',

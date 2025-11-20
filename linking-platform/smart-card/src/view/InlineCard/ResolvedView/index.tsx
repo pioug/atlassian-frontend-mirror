@@ -51,7 +51,7 @@ export interface InlineCardResolvedViewProps {
 }
 
 export class InlineCardResolvedView extends React.Component<InlineCardResolvedViewProps> {
-	renderLozenge() {
+	renderLozenge(): React.JSX.Element | null {
 		const { lozenge } = this.props;
 		if (!lozenge) {
 			return null;
@@ -69,7 +69,7 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 		);
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			id,
 			title = '',

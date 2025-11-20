@@ -5,7 +5,7 @@ import { MainStage } from './helper/main-stage';
 import ProfilecardInteractive from './helper/profile-interactive';
 import { Section } from './helper/section';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<ExampleWrapper>
 			<MainStage>

@@ -6,7 +6,7 @@ import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import { AISummaryActionComponent } from './ai-summary-action-component';
 import type { AISummaryActionProps } from './types';
 
-const AISummaryAction = (props: AISummaryActionProps) => {
+const AISummaryAction = (props: AISummaryActionProps): React.JSX.Element | null => {
 	const context = useFlexibleUiContext();
 
 	const actionData = context?.actions?.[InternalActionName.AISummaryAction];

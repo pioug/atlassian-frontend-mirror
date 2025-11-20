@@ -29,7 +29,7 @@ interface UserEditTypeProps extends Omit<FieldProps<string>, 'value'> {
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
 }
 
-const UserEditType = (props: UserEditTypeProps) => {
+const UserEditType = (props: UserEditTypeProps): React.JSX.Element => {
 	const { currentValue, labelId, executeFetch } = props;
 	const [fetchInputs, setFetchInputs] = useState({ query: '' });
 

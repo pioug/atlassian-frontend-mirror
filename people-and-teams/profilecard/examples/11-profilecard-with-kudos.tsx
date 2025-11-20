@@ -23,7 +23,7 @@ const Wrap = ({ children }: { children: React.ReactNode }) => {
 	return <Box xcss={styles.wrap}>{children}</Box>;
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [flags, setFlags] = useState<Array<FlagProps>>([]);
 
 	const addFlag = (flag: FlagProps) => {

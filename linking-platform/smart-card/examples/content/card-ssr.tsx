@@ -14,7 +14,7 @@ import { CardSSR } from '../../src/ssr';
 
 const gapStyles = xcss({ height: '3000px' });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<SmartCardProvider client={new ResolvedClient('stg')}>
 		<Stack grow="fill" space="space.600">
 			<Box>

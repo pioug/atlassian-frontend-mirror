@@ -28,9 +28,6 @@ import { getAllIconsTool, listGetAllIconsTool } from './tools/get-all-icons';
 import { getAllTokensTool, listGetAllTokensTool } from './tools/get-all-tokens';
 import { getComponentsTool, listGetComponentsTool } from './tools/get-components';
 import { listPlanTool, planInputSchema, planTool } from './tools/plan';
-import { searchComponentsInputSchema, searchComponentsTool } from './tools/search-components';
-import { searchIconsInputSchema, searchIconsTool } from './tools/search-icons';
-import { searchTokensInputSchema, searchTokensTool } from './tools/search-tokens';
 import {
 	listSuggestA11yFixesTool,
 	suggestA11yFixesInputSchema,
@@ -73,22 +70,85 @@ const generateLogger =
 		}
 	};
 
+export const callTools: Record<
+	string,
+	{
+		tool: (params: any) => Promise<any>;
+		inputSchema: z.ZodSchema | null;
+		listTool: {
+			name: string;
+			description: string;
+			annotations: {
+				title: string;
+				readOnlyHint: boolean;
+				destructiveHint: boolean;
+				idempotentHint: boolean;
+				openWorldHint: boolean;
+			};
+		};
+	}
+> = {
+	ads_analyze_a11y: {
+		tool: analyzeA11yTool,
+		inputSchema: analyzeA11yInputSchema,
+		listTool: listAnalyzeA11yTool,
+	},
+	ads_analyze_localhost_a11y: {
+		tool: analyzeLocalhostA11yTool,
+		inputSchema: analyzeA11yLocalhostInputSchema,
+		listTool: listAnalyzeLocalhostA11yTool,
+	},
+	ads_get_a11y_guidelines: {
+		tool: getA11yGuidelinesTool,
+		inputSchema: getA11yGuidelinesInputSchema,
+		listTool: listGetA11yGuidelinesTool,
+	},
+	ads_get_all_icons: {
+		tool: getAllIconsTool,
+		inputSchema: null,
+		listTool: listGetAllIconsTool,
+	},
+	ads_get_all_tokens: {
+		tool: getAllTokensTool,
+		inputSchema: null,
+		listTool: listGetAllTokensTool,
+	},
+	ads_get_components: {
+		tool: getComponentsTool,
+		inputSchema: null,
+		listTool: listGetComponentsTool,
+	},
+	ads_plan: {
+		tool: planTool,
+		inputSchema: planInputSchema,
+		listTool: listPlanTool,
+	},
+	// NOTE: These should not actually be called as they're not in the `list_tools` endpoint.
+	// But there might be a reason to keep them around for backwards-compatibility.
+	// ads_search_components: {
+	//   tool: searchComponentsTool,
+	//   inputSchema: searchComponentsInputSchema,
+	//   listTool: listSearchComponentsTool,
+	// },
+	// ads_search_icons: {
+	//   tool: searchIconsTool,
+	//   inputSchema: searchIconsInputSchema,
+	//   listTool: listSearchIconsTool,
+	// },
+	// ads_search_tokens: {
+	//   tool: searchTokensTool,
+	//   inputSchema: searchTokensInputSchema,
+	//   listTool: listSearchTokensTool,
+	// },
+	ads_suggest_a11y_fixes: {
+		tool: suggestA11yFixesTool,
+		inputSchema: suggestA11yFixesInputSchema,
+		listTool: listSuggestA11yFixesTool,
+	},
+};
+
 server.setRequestHandler(ListToolsRequestSchema, async (request, extra) => {
-	const tools = [
-		listAnalyzeA11yTool,
-		listAnalyzeLocalhostA11yTool,
-		listGetA11yGuidelinesTool,
-		listGetAllIconsTool,
-		listGetAllTokensTool,
-		listGetComponentsTool,
-		listPlanTool,
-		// NOTE: These are disabled as `ads_plan` should cover everything more performantly.
-		// When these are enabled, they result in token usage to describe them, even if never used.
-		// listSearchComponentsTool,
-		// listSearchIconsTool,
-		// listSearchTokensTool,
-		listSuggestA11yFixesTool,
-	];
+	const tools = Object.values(callTools).map((toolConfig) => toolConfig.listTool);
 
 	// Track list tools request
 	sendOperationalEvent({
@@ -106,26 +166,10 @@ server.setRequestHandler(ListToolsRequestSchema, async (request, extra) => {
 	};
 });
 
-const callTools: Record<string, [(params: any) => Promise<any>, z.ZodSchema | null]> = {
-	ads_analyze_a11y: [analyzeA11yTool, analyzeA11yInputSchema],
-	ads_analyze_localhost_a11y: [analyzeLocalhostA11yTool, analyzeA11yLocalhostInputSchema],
-	ads_get_a11y_guidelines: [getA11yGuidelinesTool, getA11yGuidelinesInputSchema],
-	ads_get_all_icons: [getAllIconsTool, null],
-	ads_get_all_tokens: [getAllTokensTool, null],
-	ads_get_components: [getComponentsTool, null],
-	ads_plan: [planTool, planInputSchema],
-	// NOTE: These should not actually be called as they're not in the `list_tools` endpoint.
-	// But there might be a reason to keep them around for backwards-compatibility.
-	ads_search_components: [searchComponentsTool, searchComponentsInputSchema],
-	ads_search_icons: [searchIconsTool, searchIconsInputSchema],
-	ads_search_tokens: [searchTokensTool, searchTokensInputSchema],
-	ads_suggest_a11y_fixes: [suggestA11yFixesTool, suggestA11yFixesInputSchema],
-};
-
 // Handle tool execution
 server.setRequestHandler(CallToolRequestSchema, async (request, extra) => {
 	const toolName = request.params.name;
-	const [tool, inputSchema] = callTools[toolName];
+	const toolConfig = callTools[toolName];
 	const actionSubject = `ads.mcp.callTool`;
 
 	// Track call tool request
@@ -140,12 +184,15 @@ server.setRequestHandler(CallToolRequestSchema, async (request, extra) => {
 		},
 	});
 
-	if (tool) {
+	if (toolConfig) {
 		try {
 			let toolArguments;
 
-			if (inputSchema) {
-				const inputValidation = validateToolArguments(inputSchema, request.params.arguments);
+			if (toolConfig.inputSchema) {
+				const inputValidation = validateToolArguments(
+					toolConfig.inputSchema,
+					request.params.arguments,
+				);
 
 				if (!inputValidation.success) {
 					sendOperationalEvent({
@@ -167,7 +214,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request, extra) => {
 				toolArguments = inputValidation.data;
 			}
 
-			const result = await tool(toolArguments);
+			const result = await toolConfig.tool(toolArguments);
 			// Track successful tool execution
 			sendOperationalEvent({
 				action: 'succeeded',

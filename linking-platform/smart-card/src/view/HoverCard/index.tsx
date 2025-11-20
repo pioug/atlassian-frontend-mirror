@@ -62,11 +62,13 @@ const HoverCardWithoutAnalyticsContext = withAnalyticsEvents()(HoverCardWithErro
  * This component contains additional props that smart-card internal components
  * use to configure hover preview behaviour.
  */
-export const HoverCard = (props: HoverCardProps & HoverCardInternalProps) => {
+export const HoverCard = (props: HoverCardProps & HoverCardInternalProps): React.JSX.Element => {
 	return <HoverCardWithoutAnalyticsContext {...props} />;
 };
 
 /**
  * A standalone hover preview component
  */
-export const StandaloneHoverCard = (props: HoverCardProps) => <HoverCard {...props} />;
+export const StandaloneHoverCard = (props: HoverCardProps): React.JSX.Element => (
+	<HoverCard {...props} />
+);

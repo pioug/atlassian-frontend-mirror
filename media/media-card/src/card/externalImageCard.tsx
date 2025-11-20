@@ -76,7 +76,7 @@ export const ExternalImageCard = ({
 	mediaViewerItems,
 	onClick,
 	onMouseEnter,
-}: ExternalImageCardProps) => {
+}: ExternalImageCardProps): React.JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	const cardDimensions = dimensions || getDefaultCardDimensions(appearance);

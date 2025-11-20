@@ -50,7 +50,13 @@
 			"path": "../../elements/emoji/tsconfig.app.json"
 		},
 		{
+			"path": "../../elements/mention/tsconfig.app.json"
+		},
+		{
 			"path": "../node-data-provider/tsconfig.app.json"
+		},
+		{
+			"path": "../../elements/task-decision/tsconfig.app.json"
 		}
 	],
 	"files": []

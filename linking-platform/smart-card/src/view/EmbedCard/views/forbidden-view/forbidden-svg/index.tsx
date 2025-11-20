@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const ForbiddenSVG = () => (
+export const ForbiddenSVG = (): React.JSX.Element => (
 	<svg
 		viewBox="0 0 168.8372 221.4874"
 		xmlns="http://www.w3.org/2000/svg"

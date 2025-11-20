@@ -5,7 +5,7 @@ const onLoad = (...args: any[]) => {
 	console.log('onLoad', ...args);
 };
 
-const BasicUsage = () => {
+const BasicUsage = (): React.JSX.Element => {
 	// Fake the notifications iframe url as it is unreachable from examples
 	useEffect(() => {
 		const iframe = document.querySelector('iframe[title="Notifications"]') as HTMLIFrameElement;

@@ -79,7 +79,7 @@ export class PlaybackSpeedControls extends Component<
 		window.dispatchEvent(new CustomEvent('scroll'));
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { playbackSpeed, intl, onClick } = this.props;
 		const { popupHeight } = this.state;
 		const value = this.speedOptions()[0].options.find((option) => option.value === playbackSpeed);

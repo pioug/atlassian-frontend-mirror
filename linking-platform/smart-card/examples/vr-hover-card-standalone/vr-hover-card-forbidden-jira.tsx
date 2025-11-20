@@ -40,7 +40,7 @@ const ForbiddenHoverCard = ({
 	);
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestWrapper>
 		<ForbiddenHoverCard accessType="DIRECT_ACCESS" />
 		<ForbiddenHoverCard accessType="REQUEST_ACCESS" />

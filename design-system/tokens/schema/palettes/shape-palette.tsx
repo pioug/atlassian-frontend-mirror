@@ -59,12 +59,6 @@ const baseRadiusTokens = {
 			group: 'shape',
 		},
 	},
-	Radius20: {
-		value: 20,
-		attributes: {
-			group: 'shape',
-		},
-	},
 	Radius99: {
 		value: 9999,
 		attributes: {

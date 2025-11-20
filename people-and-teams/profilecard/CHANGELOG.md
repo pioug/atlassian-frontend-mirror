@@ -1,5 +1,25 @@
 # @atlaskit/profilecard
 
+## 24.21.6
+
+### Patch Changes
+
+- [`792dcaffb2b4e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/792dcaffb2b4e) -
+  Suppress i18n eslint errors
+
+## 24.21.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.21.4
+
+### Patch Changes
+
+- [`33e177c779f4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33e177c779f4a) -
+  [ux] Added fixes for archive team, hide actions, alignment fix on kebab menu in Team header
+
 ## 24.21.3
 
 ### Patch Changes

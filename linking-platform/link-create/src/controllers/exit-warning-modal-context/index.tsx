@@ -16,7 +16,11 @@ const ExitWarningModalContext = createContext<ExitWarningModalContextValue>({
 	withExitWarning: () => () => false,
 });
 
-export const ExitWarningModalProvider = ({ children }: { children: React.ReactNode }) => {
+export const ExitWarningModalProvider = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): React.JSX.Element => {
 	const [showExitWarning, setShowExitWarning] = useState(false);
 
 	const shouldShowWarning = useRef(false);

@@ -29,7 +29,7 @@ class CustomClient extends Client {
 	}
 }
 
-export const BlockCardBitbucket = () => (
+export const BlockCardBitbucket = (): React.JSX.Element => (
 	<div>
 		<h4>Branch</h4>
 		<VRCardView appearance="block" client={new CustomClient()} url={BitbucketBranch.data.url} />

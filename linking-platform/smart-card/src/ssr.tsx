@@ -22,7 +22,7 @@ export type CardSSRProps = CardProps & {
 // SSR friendly version of smart-card
 // simplifies the logic around rendering and loading placeholders and
 // only contains whats necessary to render the card on SSR mode
-export const CardSSR = (props: CardSSRProps) => {
+export const CardSSR = (props: CardSSRProps): React.JSX.Element => {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const [id] = useState(() => props.id ?? uuid());
 	const cardProps = {

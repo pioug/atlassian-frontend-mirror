@@ -28,7 +28,7 @@ const SelectOption = <T extends object>({
 	propName,
 	options,
 	template,
-}: Props<T>) => {
+}: Props<T>): React.JSX.Element => {
 	const handleOnSelectChange = useCallback(
 		<T extends object>(...params: ChangeParams<T>) =>
 			(option: { label: string; value: T[keyof T] } | null) => {

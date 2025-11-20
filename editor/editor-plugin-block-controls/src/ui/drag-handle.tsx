@@ -33,12 +33,7 @@ import { DRAG_HANDLE_WIDTH, tableControlsSpacing } from '@atlaskit/editor-common
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { NodeRange, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import {
-	NodeSelection,
-	type Selection,
-	TextSelection,
-	type Transaction,
-} from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, type Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -407,7 +402,7 @@ type DragHandleProps = {
 	view: EditorView;
 };
 
-const isRangeSpanningMultipleNodes = (range: NodeRange) => {
+const isMultiNodeRange = (range: NodeRange) => {
 	if (range.endIndex - range.startIndex <= 1) {
 		return false; // At most one child
 	}
@@ -426,89 +421,35 @@ const isRangeSpanningMultipleNodes = (range: NodeRange) => {
 	return false;
 };
 
-const shouldExpandSelection = (range: NodeRange | null, startPos: number): boolean => {
-	return (
-		!!range &&
-		isRangeSpanningMultipleNodes(range) &&
-		range.start <= startPos &&
-		range.end >= startPos + 1
-	);
+const isPosWithinRange = (pos: number, range: NodeRange): boolean => {
+	return range.start <= pos && range.end >= pos + 1;
 };
 
-type CalculateBlockRangeOptions = {
+type CalculateSelectionBlockRangeOptions = {
 	doc: PMNode;
 	isShiftPressed: boolean;
 	resolvedStartPos: ResolvedPos;
 	selection: Selection;
 };
 
-const calculateBlockRange = ({
+/**
+ * From the current selection and the position of the drag handle being clicked,
+ * calculate the expanded block range up to the common ancestor.
+ */
+const getExpandedSelectionRange = ({
 	selection,
 	doc,
 	resolvedStartPos,
 	isShiftPressed,
-}: CalculateBlockRangeOptions): NodeRange | null => {
-	if (!isShiftPressed) {
-		// When not pressing shift, create range including all block nodes within the selection
-		return selection.$from.blockRange(selection.$to);
-	}
+}: CalculateSelectionBlockRangeOptions): NodeRange | null => {
+	// When not pressing shift, expand the current selection
+	// When shift selecting upwards, expand from start of node to selection end
+	// When shift selecting downwards, expand from selection start to end of node
+	const selectUp = resolvedStartPos.pos < selection.from;
+	const $from = isShiftPressed && selectUp ? resolvedStartPos : selection.$from;
+	const $to = isShiftPressed && !selectUp ? doc.resolve(resolvedStartPos.pos + 1) : selection.$to;
 
-	if (resolvedStartPos.pos < selection.from) {
-		// If shift+click selecting upwards, get range from start of node to end of selection
-		return resolvedStartPos.blockRange(selection.$to);
-	}
-
-	// Shift+click selecting downwards, get range from start of selection to pos within or after node
-	const resolvedPosWithinOrAfterNode = doc.resolve(resolvedStartPos.pos + 1);
-	return selection.$from.blockRange(resolvedPosWithinOrAfterNode);
-};
-
-const createExpandedSelection = (
-	doc: PMNode,
-	selection: Selection,
-	range: NodeRange,
-): TextSelection => {
-	return TextSelection.create(
-		doc,
-		Math.min(selection.from, range.start),
-		Math.max(selection.to, range.end),
-	);
-};
-
-type CreateSelectionFromRangeOptions = {
-	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
-	nodeType: string;
-	range: NodeRange | null;
-	selection: Selection;
-	startPos: number;
-	tr: Transaction;
-};
-
-const createSelectionFromRange = ({
-	tr,
-	selection,
-	startPos,
-	nodeType,
-	range,
-	api,
-}: CreateSelectionFromRangeOptions): Transaction => {
-	if (range && shouldExpandSelection(range, startPos)) {
-		const expandedSelection = createExpandedSelection(tr.doc, selection, range);
-
-		if (!expandedSelection.eq(tr.selection)) {
-			tr.setSelection(expandedSelection);
-		}
-		return tr;
-	}
-
-	const node = tr.doc.nodeAt(startPos);
-	const isEmptyNode = node?.content.size === 0;
-	if (isEmptyNode && node.type.name !== 'paragraph') {
-		tr.setSelection(new NodeSelection(tr.doc.resolve(startPos)));
-		return tr;
-	}
-
-	return selectNode(tr, startPos, nodeType, api);
+	return $from.blockRange($to);
 };
 
 export const DragHandle = ({
@@ -586,26 +527,29 @@ export const DragHandle = ({
 					},
 				})(tr);
 
-				const preservedSelection = selectionPreservationPluginKey.getState(
-					view.state,
-				)?.preservedSelection;
-				const selection = preservedSelection || tr.selection;
+				const selection =
+					selectionPreservationPluginKey.getState(view.state)?.preservedSelection || tr.selection;
 
-				const range = calculateBlockRange({
+				const range = getExpandedSelectionRange({
 					doc: tr.doc,
 					selection,
 					resolvedStartPos,
 					isShiftPressed: e.shiftKey,
 				});
 
-				tr = createSelectionFromRange({
-					tr,
-					selection,
-					startPos,
-					nodeType,
-					range,
-					api,
-				});
+				// Set selection to expanded selection range if it encompases the clicked drag handle
+				if (range && isPosWithinRange(startPos, range) && isMultiNodeRange(range)) {
+					tr.setSelection(
+						TextSelection.create(
+							tr.doc,
+							Math.min(selection.from, range.start),
+							Math.max(selection.to, range.end),
+						),
+					);
+				} else {
+					// Select the clicked drag handle's node only
+					tr = selectNode(tr, startPos, nodeType, api);
+				}
 
 				api?.blockControls?.commands.startPreservingSelection()({ tr });
 
@@ -1315,18 +1259,18 @@ export const DragHandle = ({
 		}
 	}, [api?.blockControls.sharedState, isMultiSelect, isShiftDown, isTopLevelNode, view]);
 
-	const dragHandleMessage =
-		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-		fg('platform_editor_block_menu_patch_1')
-			? formatMessage(blockControlsMessages.dragToMoveClickToOpen, { br: <br /> })
-			: formatMessage(blockControlsMessages.dragToMove);
+	const dragHandleMessage = expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+		? formatMessage(blockControlsMessages.dragToMoveClickToOpen, { br: <br /> })
+		: formatMessage(blockControlsMessages.dragToMove);
 
 	// Create a string version for aria-label
-	const dragHandleAriaLabel =
-		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-		fg('platform_editor_block_menu_patch_1')
-			? formatMessage(blockControlsMessages.dragToMoveClickToOpen, { br: ' ' })
-			: formatMessage(blockControlsMessages.dragToMove);
+	const dragHandleAriaLabel = expValEqualsNoExposure(
+		'platform_editor_block_menu',
+		'isEnabled',
+		true,
+	)
+		? formatMessage(blockControlsMessages.dragToMoveClickToOpen, { br: ' ' })
+		: formatMessage(blockControlsMessages.dragToMove);
 
 	let helpDescriptors = isTopLevelNode
 		? [

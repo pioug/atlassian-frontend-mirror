@@ -6,7 +6,7 @@ import { Card } from '@atlaskit/smart-card';
 import { BlockCardLazyIcons, BlockCardLazyIconsFileType } from './utils/block-card-lazy-icons';
 import ExampleContainer from './utils/example-container';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		<ExampleContainer title="Block Lazy Icons">
 			<Stack>

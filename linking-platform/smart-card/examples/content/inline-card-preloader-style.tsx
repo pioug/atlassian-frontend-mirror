@@ -6,7 +6,7 @@ import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 
 import { Card } from '../../src';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<SmartCardProvider client={new ResolvingClient('stg')}>
 		<Stack space="space.100">
 			<Inline alignBlock="center" space="space.100">

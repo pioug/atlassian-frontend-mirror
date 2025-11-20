@@ -12,7 +12,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box xcss={styles.container}>
 		<VRCardView appearance="embed" client={new ResolvedClient()} frameStyle="show" />
 	</Box>

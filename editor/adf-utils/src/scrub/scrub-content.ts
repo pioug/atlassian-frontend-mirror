@@ -51,7 +51,7 @@ const scrubNum = (val: number, start = 0) => {
 	);
 };
 
-export const scrubStr = (val: string, offset = 0) => {
+export const scrubStr = (val: string, offset = 0): string => {
 	const base = DUMMY_TEXT.repeat(Math.ceil((offset + val.length) / DUMMY_TEXT.length));
 
 	// using [...val] splits emoji character pairs correctly, compared to
@@ -104,7 +104,10 @@ export const scrubLink = (
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	marks: Array<{ [key: string]: any }>,
 	{ valueReplacements }: ScrubLinkOptions,
-) => {
+): {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	[key: string]: any;
+}[] => {
 	return marks.map((mark) => {
 		if (mark.type === 'link' && mark.attrs.href) {
 			return {

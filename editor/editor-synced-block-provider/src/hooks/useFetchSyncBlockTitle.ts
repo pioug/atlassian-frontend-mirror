@@ -11,9 +11,12 @@ export const useFetchSyncBlockTitle = (
 	const [sourceTitle, setSourceTitle] = useState<string | undefined>(undefined);
 
 	useEffect(() => {
-		const unsubscribe = manager.subscribeToSyncBlockSourceTitle(syncBlockNode, (title: string) => {
-			setSourceTitle(title);
-		});
+		const unsubscribe = manager.referenceManager.subscribeToSourceTitle(
+			syncBlockNode,
+			(title: string) => {
+				setSourceTitle(title);
+			},
+		);
 
 		return () => {
 			unsubscribe();

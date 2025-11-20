@@ -17,7 +17,7 @@ export class DeactivateUserOverviewScreen extends React.Component<DeactivateUser
 		return this.props.isCurrentUser ? selfCopy : adminCopy;
 	};
 
-	renderLoseAccessListElement = () => {
+	renderLoseAccessListElement = (): React.JSX.Element => {
 		const { accessibleSites, user } = this.props;
 		const hasAccessibleSites = accessibleSites && accessibleSites.length > 0;
 		return (
@@ -56,7 +56,7 @@ export class DeactivateUserOverviewScreen extends React.Component<DeactivateUser
 		);
 	};
 
-	renderPersonalDataListElement = () => {
+	renderPersonalDataListElement = (): React.JSX.Element => {
 		return (
 			<li>
 				<FormattedMessage
@@ -69,7 +69,7 @@ export class DeactivateUserOverviewScreen extends React.Component<DeactivateUser
 		);
 	};
 
-	renderBillingListElement = () => {
+	renderBillingListElement = (): React.JSX.Element => {
 		return (
 			<li>
 				<FormattedMessage
@@ -82,7 +82,7 @@ export class DeactivateUserOverviewScreen extends React.Component<DeactivateUser
 		);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { user } = this.props;
 
 		return (

@@ -192,7 +192,7 @@ class NotificationIndicator extends Component<Props, State> {
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element | null {
 		const { count } = this.state;
 		const { appearance, max } = this.props;
 

@@ -19,7 +19,7 @@ const UnauthorizedView = ({
 	onAuthorize,
 	testId = 'embed-card-unauthorized-view',
 	...unresolvedViewProps
-}: UnauthorizedViewProps) => {
+}: UnauthorizedViewProps): React.JSX.Element => {
 	const { fireEvent } = useAnalyticsEvents();
 
 	const handleOnAuthorizeClick = useCallback(() => {

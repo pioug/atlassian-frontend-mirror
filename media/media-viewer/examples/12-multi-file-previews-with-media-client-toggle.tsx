@@ -36,7 +36,7 @@ const items = [
 	unsupportedIdentifier,
 ];
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const [configVer, setConfigVer] = useState(0);
 	const [mediaViewerOpened, setMediaViewerOpened] = useState(false);
 	const [mediaClientConfig, setMediaClientConfig] = useState({

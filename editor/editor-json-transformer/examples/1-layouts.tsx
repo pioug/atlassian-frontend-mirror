@@ -2,10 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+/* eslint-disable @typescript-eslint/consistent-type-imports */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+/* eslint-enable @typescript-eslint/consistent-type-imports */
 
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
@@ -27,8 +28,14 @@ const container = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'#output': {
 		border: `${token('border.width.selected')} solid`,
-		margin: token('space.100', '8px'),
-		padding: token('space.100', '8px'),
+		marginTop: token('space.100', '8px'),
+		marginRight: token('space.100', '8px'),
+		marginBottom: token('space.100', '8px'),
+		marginLeft: token('space.100', '8px'),
+		paddingTop: token('space.100', '8px'),
+		paddingRight: token('space.100', '8px'),
+		paddingBottom: token('space.100', '8px'),
+		paddingLeft: token('space.100', '8px'),
 		whiteSpace: 'pre-wrap',
 		fontSize: 'xx-small',
 		'&:focus': {
@@ -87,7 +94,7 @@ const createPreset = () =>
 
 const schema = getSchemaBasedOnStage('stage0');
 
-const Layouts = () => {
+const Layouts = (): jsx.JSX.Element => {
 	const [{ output }, setOutput] = React.useState<{ output: string }>({ output: '' });
 	const { current: transformer } = React.useRef(new JSONTransformer(schema));
 	const { preset } = usePreset(createPreset);

@@ -13,7 +13,7 @@ import { Stack } from '@atlaskit/primitives/compiled';
 import CardViewSection from '../card-view/card-view-section';
 import { VRTestCase } from '../utils/common';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const props: {
 		appearance: React.ComponentProps<typeof CardViewSection>['appearance'];
 		fontSize: React.ComponentProps<typeof CardViewSection>['fontSize'];

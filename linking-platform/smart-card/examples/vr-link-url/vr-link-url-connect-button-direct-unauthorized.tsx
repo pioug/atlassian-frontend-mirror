@@ -5,7 +5,7 @@ import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const mockProvider = { text: 'SharePoint', key: 'sharepoint-object-provider' };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestWrapper>
 		<HyperlinkUnauthorizedView
 			href="https://www.sharepoint.com/document.docx"

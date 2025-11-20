@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AutomationManualTriggersGlyph = ({ label }: { label: string }) => (
+const AutomationManualTriggersGlyph = ({ label }: { label: string }): React.JSX.Element => (
 	<svg
 		aria-label={label}
 		width="24"

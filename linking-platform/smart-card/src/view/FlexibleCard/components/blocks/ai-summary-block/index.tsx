@@ -16,7 +16,10 @@ import { type AISummaryBlockProps } from './types';
  * @param {AISummaryBlockProps} AISummaryBlock
  * @see Block
  */
-const AISummaryBlock = ({ testId = 'smart-ai-summary-block', ...props }: AISummaryBlockProps) => {
+const AISummaryBlock = ({
+	testId = 'smart-ai-summary-block',
+	...props
+}: AISummaryBlockProps): React.JSX.Element | null => {
 	const cardContext = useFlexibleCardContext();
 
 	const context = useFlexibleUiContext();

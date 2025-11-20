@@ -2,7 +2,7 @@ import React from 'react';
 
 import { RatingGroup, Star } from '../src';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<>
 			{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}

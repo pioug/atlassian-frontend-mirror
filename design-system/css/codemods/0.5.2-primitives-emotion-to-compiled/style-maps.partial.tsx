@@ -1256,11 +1256,11 @@ export type Layer = keyof typeof layerMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a9118f8ed93d943746fd7e932ce5a639>>
+ * @codegen <<SignedSource::042e960cffbaf7b7d1022ee02c3c6cbb>>
  * @codegenId border
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["width", "radius"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::45e4ecb92a72445f508219ea6a5f056a>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::a98e95106b856526c36bec8851e84348>>
  */
 export const borderWidthMap: {
 	'border.width': 'var(--ds-border-width)';
@@ -1280,6 +1280,7 @@ export const borderRadiusMap: {
 	'radius.medium': 'var(--ds-radius-medium)';
 	'radius.large': 'var(--ds-radius-large)';
 	'radius.xlarge': 'var(--ds-radius-xlarge)';
+	'radius.xxlarge': 'var(--ds-radius-xxlarge)';
 	'radius.full': 'var(--ds-radius-full)';
 	'radius.tile': 'var(--ds-radius-tile)';
 } = {
@@ -1288,6 +1289,7 @@ export const borderRadiusMap: {
 	'radius.medium': token('radius.medium', '6px'),
 	'radius.large': token('radius.large', '8px'),
 	'radius.xlarge': token('radius.xlarge', '12px'),
+	'radius.xxlarge': token('radius.xxlarge', '16px'),
 	'radius.full': token('radius.full', '9999px'),
 	'radius.tile': token('radius.tile', '25%'),
 };

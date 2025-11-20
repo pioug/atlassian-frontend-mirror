@@ -10,7 +10,7 @@ const mediaClient = new MediaClient({
 	authProvider: mediaPickerAuthProvider(),
 });
 
-const ClipBoardExample = () => {
+const ClipBoardExample = (): React.JSX.Element | null => {
 	const [uploadEnd, setUploadEnd] = useState<boolean>(false);
 	const [identifier, setIdentifier] = useState<FileIdentifier>({
 		mediaItemType: 'file',

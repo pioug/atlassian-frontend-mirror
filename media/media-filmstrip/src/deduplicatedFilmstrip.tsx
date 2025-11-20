@@ -118,7 +118,7 @@ const DeduplicatedFilmStripInternal = ({
 const EmptyFilmstripView = ({ items, testId }: FilmstripProps) => {
 	return (
 		<FilmstripView animate={false} offset={0} onSize={() => {}} onScroll={() => {}} testId={testId}>
-			{items.map((item, i) => (
+			{items.map((item, _i) => (
 				<CardLoading
 					key={generateIdentifierKey(item.identifier)}
 					dimensions={defaultImageCardDimensions}
@@ -129,7 +129,7 @@ const EmptyFilmstripView = ({ items, testId }: FilmstripProps) => {
 	);
 };
 
-export const DeduplicatedFilmStrip = (props: FilmstripProps) => (
+export const DeduplicatedFilmStrip = (props: FilmstripProps): React.JSX.Element => (
 	<MediaClientContext.Consumer>
 		{(value) =>
 			value ? (

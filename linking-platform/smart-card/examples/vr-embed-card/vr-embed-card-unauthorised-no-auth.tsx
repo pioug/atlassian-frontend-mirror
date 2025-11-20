@@ -4,4 +4,6 @@ import { UnAuthClientWithNoAuthFlow } from '@atlaskit/link-test-helpers';
 
 import VRCardView from '../utils/vr-card-view';
 
-export default () => <VRCardView appearance="embed" client={new UnAuthClientWithNoAuthFlow()} />;
+export default (): React.JSX.Element => (
+	<VRCardView appearance="embed" client={new UnAuthClientWithNoAuthFlow()} />
+);

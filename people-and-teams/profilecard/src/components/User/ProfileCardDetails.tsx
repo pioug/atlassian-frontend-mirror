@@ -173,6 +173,7 @@ const ServiceAccountProfileCardDetails = (props: ProfilecardProps) => {
 	return (
 		<DetailsGroup>
 			{renderName(nickname, fullName)}
+			{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 			<AppTitleLabel>SERVICE ACCOUNT</AppTitleLabel>
 		</DetailsGroup>
 	);
@@ -184,6 +185,7 @@ const BotProfileCardDetails = (props: ProfilecardProps) => {
 	return (
 		<DetailsGroup>
 			{renderName(nickname, fullName)}
+			{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 			<AppTitleLabel>APP</AppTitleLabel>
 		</DetailsGroup>
 	);
@@ -239,7 +241,9 @@ const DisabledProfileCardDetails = (
 	);
 };
 
-export const ProfileCardDetails = (props: ProfilecardProps & AnalyticsWithDurationProps) => {
+export const ProfileCardDetails = (
+	props: ProfilecardProps & AnalyticsWithDurationProps,
+): React.JSX.Element => {
 	const { meta, status } = props;
 
 	if (props.isServiceAccount) {

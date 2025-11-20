@@ -14,4 +14,22 @@ const CustomPopupContainer = React.forwardRef<HTMLDivElement, PopupComponentProp
 		</div>
 	),
 );
+
+/**
+ * Factory function to create a CustomPopupContainer with a specific z-index
+ */
+export const createCustomPopupContainer = (zIndex?: number) => {
+	return React.forwardRef<HTMLDivElement, PopupComponentProps>(
+		({ children, shouldFitContainer: _, shouldRenderToParent: __, ...props }, ref) => (
+			<div
+				{...props}
+				ref={ref}
+				{...(zIndex !== undefined && { style: { ...props.style, zIndex } })}
+			>
+				{children}
+			</div>
+		),
+	);
+};
+
 export default CustomPopupContainer;

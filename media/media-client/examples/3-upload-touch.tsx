@@ -96,4 +96,4 @@ class Example extends React.Component<{}, State> {
 	}
 }
 
-export default () => <Example />;
+export default (): React.JSX.Element => <Example />;

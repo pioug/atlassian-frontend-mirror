@@ -32,7 +32,7 @@ export default class Example extends React.Component<{}, State> {
 		this.setState({ isModalOpen: !this.state.isModalOpen });
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { isModalOpen } = this.state;
 
 		return (

@@ -87,7 +87,12 @@ const getNextOptionId = (
 	return undefined;
 };
 
-const AutocompleteDropdown = ({ options, loading, keymap, onClick }: Props) => {
+const AutocompleteDropdown = ({
+	options,
+	loading,
+	keymap,
+	onClick,
+}: Props): React.JSX.Element | null => {
 	const containerRef = useRef<HTMLElement | null>(null);
 	const scrollContainerRef = useRef<HTMLElement | null>(null);
 	const selectedItemRef = useRef<HTMLLIElement | null>(null);

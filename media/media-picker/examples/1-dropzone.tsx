@@ -161,4 +161,4 @@ class DropzoneWrapper extends Component<{}, DropzoneWrapperState> {
 	}
 }
 
-export default () => <DropzoneWrapper />;
+export default (): React.JSX.Element => <DropzoneWrapper />;

@@ -8,7 +8,7 @@ import {
 
 import { Card } from '../../src';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<SmartCardProvider client={new ForbiddenWithObjectRequestAccessClient('stg')}>
 		<Card appearance="inline" showHoverPreview={true} url={ResolvedClientUrl} />
 	</SmartCardProvider>

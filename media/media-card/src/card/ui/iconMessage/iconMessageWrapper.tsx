@@ -2,6 +2,6 @@ import React from 'react';
 import { type IconMessageWrapperProps } from './types';
 import { IconMessageWrapper as CompiledIconMessageWrapper } from './iconMessageWrapper-compiled';
 
-export const IconMessageWrapper = (props: IconMessageWrapperProps) => (
+export const IconMessageWrapper = (props: IconMessageWrapperProps): React.JSX.Element => (
 	<CompiledIconMessageWrapper {...props} />
 );

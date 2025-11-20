@@ -19,7 +19,7 @@ const parameters = {
 	filter: '',
 };
 
-export const JiraIssuesConfigModalNoInitialJQL = () => (
+export const JiraIssuesConfigModalNoInitialJQL = (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<SmartCardProvider client={new SmartLinkClient()}>
 			<JiraIssuesConfigModal

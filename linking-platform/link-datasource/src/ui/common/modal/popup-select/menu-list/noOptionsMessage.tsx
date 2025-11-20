@@ -10,7 +10,7 @@ import { SEARCH_DEBOUNCE_MS } from '../constants';
 import { asyncPopupSelectMessages } from './messages';
 import CustomSelectMessage from './selectMessage';
 
-const CustomNoOptionsMessage = ({ filterName }: { filterName: string }) => {
+const CustomNoOptionsMessage = ({ filterName }: { filterName: string }): React.JSX.Element => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
 	/**

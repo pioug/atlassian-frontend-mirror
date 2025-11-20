@@ -1,5 +1,6 @@
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import {
 	type EditorState,
 	type ReadonlyTransaction,
@@ -57,18 +58,17 @@ export const createSelectionPreservationPlugin = () => {
 				}
 
 				if (newState.preservedSelection && tr.docChanged) {
-					const mapped = new TextSelection(
-						newState.preservedSelection.$from,
-						newState.preservedSelection.$to,
-					);
+					const from = tr.mapping.map(newState.preservedSelection.from);
+					const to = tr.mapping.map(newState.preservedSelection.to);
 
-					mapped.map(tr.doc, tr.mapping);
-
-					if (mapped.from >= 0 && mapped.to <= tr.doc.content.size && mapped.from !== mapped.to) {
-						newState.preservedSelection = mapped;
-					} else if (mapped.from === mapped.to) {
-						// If selection has collapsed to a cursor, e.g. after deleting the selection, stop preserving
+					if (from < 0 || to > tr.doc.content.size || from >= to) {
+						// stop preserving if preserved selection becomes invalid or collapsed to a cursor
+						// e.g. after deleting the selection
 						newState.preservedSelection = undefined;
+					} else {
+						const { $from, $to } = expandToBlockRange(tr.doc.resolve(from), tr.doc.resolve(to));
+
+						newState.preservedSelection = new TextSelection($from, $to);
 					}
 				}
 
@@ -115,4 +115,17 @@ export const createSelectionPreservationPlugin = () => {
 			return null;
 		},
 	});
+};
+
+const expandToBlockRange = ($from: ResolvedPos, $to: ResolvedPos) => {
+	const range = $from.blockRange($to);
+
+	if (!range) {
+		return { $from, $to };
+	}
+
+	return {
+		$from: $from.doc.resolve(range.start),
+		$to: $to.doc.resolve(range.end),
+	};
 };

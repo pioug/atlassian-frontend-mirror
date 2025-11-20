@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 124.16.1
+
+### Patch Changes
+
+- [`516909774accc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/516909774accc) -
+  Fixing type issues
+- Updated dependencies
+
 ## 124.16.0
 
 ### Minor Changes

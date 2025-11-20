@@ -15,7 +15,7 @@ interface FooterProps {
 }
 
 export default class Footer extends React.Component<FooterProps> {
-	render() {
+	render(): React.JSX.Element {
 		const {
 			currentScreenIdx,
 			numScreens,
@@ -31,12 +31,15 @@ export default class Footer extends React.Component<FooterProps> {
 
 				<ButtonGroup>
 					{currentScreenIdx < 1 ? (
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 						<Button onClick={onCancel}>Cancel</Button>
 					) : (
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 						<Button onClick={onPrevious}>Previous</Button>
 					)}
 
 					{currentScreenIdx < numScreens - 1 ? (
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 						<Button appearance="primary" onClick={onNext}>
 							Next
 						</Button>

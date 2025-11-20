@@ -7,7 +7,7 @@ const LazyDatasourceRenderFailedAnalyticsWrapper = React.lazy(
 		),
 );
 
-export const LazyLoadedDatasourceRenderFailedAnalyticsWrapper = (props: any) => (
+export const LazyLoadedDatasourceRenderFailedAnalyticsWrapper = (props: any): React.JSX.Element => (
 	<Suspense fallback={null}>
 		<LazyDatasourceRenderFailedAnalyticsWrapper {...props} />
 	</Suspense>

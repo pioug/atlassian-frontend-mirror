@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e7897709d50bd1f9582875a2a591b896>>
+ * @codegen <<SignedSource::2ced0280eb32f0b8ff5dca7b8912fe30>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -457,6 +457,7 @@ const tokens = {
 	'radius.medium': '--ds-radius-medium',
 	'radius.large': '--ds-radius-large',
 	'radius.xlarge': '--ds-radius-xlarge',
+	'radius.xxlarge': '--ds-radius-xxlarge',
 	'radius.full': '--ds-radius-full',
 	'radius.tile': '--ds-radius-tile',
 	'border.width': '--ds-border-width',
@@ -908,6 +909,7 @@ export type CSSTokenMap = {
 	'radius.medium': 'var(--ds-radius-medium)';
 	'radius.large': 'var(--ds-radius-large)';
 	'radius.xlarge': 'var(--ds-radius-xlarge)';
+	'radius.xxlarge': 'var(--ds-radius-xxlarge)';
 	'radius.full': 'var(--ds-radius-full)';
 	'radius.tile': 'var(--ds-radius-tile)';
 	'border.width': 'var(--ds-border-width)';

@@ -13,7 +13,10 @@ interface AnalyticsProps {
 	fireAnalyticsNext: FireEventType;
 }
 
-const UserLoadingState = ({ fireAnalytics, fireAnalyticsNext }: AnalyticsProps) => {
+const UserLoadingState = ({
+	fireAnalytics,
+	fireAnalyticsNext,
+}: AnalyticsProps): React.JSX.Element => {
 	useEffect(() => {
 		if (fg('ptc-enable-profile-card-analytics-refactor')) {
 			fireAnalyticsNext('ui.profilecard.rendered.spinner', {

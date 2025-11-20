@@ -30,7 +30,7 @@ export const ColumnPicker = ({
 	selectedColumnKeys,
 	onSelectedColumnKeysChange,
 	onOpen,
-}: ColumnPickerProps) => {
+}: ColumnPickerProps): React.JSX.Element => {
 	const intl = useIntl();
 	const experienceId = useDatasourceExperienceId();
 	const [allOptions, setAllOptions] = useState<OptionType[]>([]);

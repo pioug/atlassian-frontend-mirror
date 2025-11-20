@@ -9,7 +9,7 @@ import { Card } from '@atlaskit/smart-card';
 const StagingCardExample = ({
 	url = 'about:blank',
 	...props
-}: Partial<React.ComponentProps<typeof Card>>) => {
+}: Partial<React.ComponentProps<typeof Card>>): React.JSX.Element => {
 	const [hasError, setHasError] = useState(false);
 
 	return (

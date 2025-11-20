@@ -27,7 +27,7 @@ export default class Example extends React.Component<{}, State> {
 		this.setState({ selectedIdentifier });
 	};
 
-	createItem = (identifier: Identifier, title: string) => {
+	createItem = (identifier: Identifier, title: string): React.JSX.Element => {
 		const onClick = this.setItem(identifier);
 
 		return (
@@ -38,7 +38,7 @@ export default class Example extends React.Component<{}, State> {
 		);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { selectedIdentifier } = this.state;
 
 		return (

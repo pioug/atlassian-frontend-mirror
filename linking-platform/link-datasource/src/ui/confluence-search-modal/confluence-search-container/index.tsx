@@ -42,7 +42,7 @@ const ConfluenceSearchContainer = ({
 	},
 	isSearching,
 	onSearch,
-}: Props) => {
+}: Props): React.JSX.Element => {
 	const {
 		hydrateUsersFromAccountIds,
 		users,

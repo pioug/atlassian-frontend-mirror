@@ -27,7 +27,7 @@ const CheckboxOption = <T extends object>({
 	onChange,
 	propName,
 	template,
-}: Props<T>) => {
+}: Props<T>): React.JSX.Element => {
 	const handleOnCheckboxChange = useCallback(
 		<T extends object>(...params: ChangeParams<T>) =>
 			(e: React.SyntheticEvent<HTMLInputElement>) => {

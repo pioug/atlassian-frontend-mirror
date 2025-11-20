@@ -7,7 +7,7 @@ import AudioIcon16 from '../glyph/audio/16';
 import AudioIcon24 from '../glyph/audio/24';
 import AudioIcon48 from '../glyph/audio/48';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<AudioIcon48 label="audioicon 48" />
 		<AudioIcon24 label="audioicon 24" />

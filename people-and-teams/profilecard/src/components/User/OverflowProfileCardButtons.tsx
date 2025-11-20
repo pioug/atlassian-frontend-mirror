@@ -26,7 +26,7 @@ type OverflowButtonsProps = {
 
 export const ACTION_OVERFLOW_THRESHOLD = 2;
 
-export const OverflowProfileCardButtons = (props: OverflowButtonsProps) => {
+export const OverflowProfileCardButtons = (props: OverflowButtonsProps): React.JSX.Element => {
 	const intl = useIntl();
 
 	const [, setOpen] = useState(false);

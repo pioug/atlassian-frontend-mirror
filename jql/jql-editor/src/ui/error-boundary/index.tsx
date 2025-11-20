@@ -79,7 +79,7 @@ type WithErrorBoundaryProps = {
 export const withErrorBoundary = <Props extends WithErrorBoundaryProps>(
 	WrappedComponent: FunctionComponent<Props> | ComponentClass<Props>,
 ) => {
-	return (props: Props) => {
+	return (props: Props): React.JSX.Element => {
 		const { query, onRenderError, onSearch, isCompact } = props;
 
 		return (

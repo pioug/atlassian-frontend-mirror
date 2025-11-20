@@ -28,7 +28,12 @@ interface CustomSelectMessageProps {
 	testId: string;
 }
 
-const CustomSelectMessage = ({ icon, message, description, testId }: CustomSelectMessageProps) => {
+const CustomSelectMessage = ({
+	icon,
+	message,
+	description,
+	testId,
+}: CustomSelectMessageProps): React.JSX.Element => {
 	return (
 		<Stack xcss={styles.stackStyles} testId={testId} alignInline="center">
 			<Flex xcss={styles.boxStyles} alignItems="center" justifyContent="center">

@@ -27,7 +27,7 @@ export const TeamConnections = ({
 	title,
 	containerIcon,
 	link,
-}: LinkedContainerCardProps) => {
+}: LinkedContainerCardProps): React.JSX.Element => {
 	const { description, icon, containerTypeText } = getContainerProperties({
 		containerType,
 		iconSize: 'medium',

@@ -8,7 +8,7 @@ import { getMockProfileClient } from './helper/util';
 
 const mockClient = getMockProfileClient(10, 0);
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<ExampleWrapper>
 			<MainStage>

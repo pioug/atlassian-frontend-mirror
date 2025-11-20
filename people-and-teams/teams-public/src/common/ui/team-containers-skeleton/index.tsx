@@ -21,7 +21,9 @@ export interface TeamContainersSkeletonProps {
 	numberOfContainers: number;
 }
 
-export const TeamContainersSkeleton = ({ numberOfContainers }: TeamContainersSkeletonProps) => {
+export const TeamContainersSkeleton = ({
+	numberOfContainers,
+}: TeamContainersSkeletonProps): React.JSX.Element => {
 	return (
 		<Stack space="space.200" testId="team-containers-skeleton">
 			<Grid xcss={styles.containers} gap="space.100" autoFlow="row">

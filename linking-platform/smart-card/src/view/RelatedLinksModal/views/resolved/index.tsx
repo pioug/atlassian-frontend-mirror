@@ -11,7 +11,7 @@ import { type RelatedLinksProps } from './types';
 const RelatedLinksResolvedView = ({
 	incomingLinks = [],
 	outgoingLinks = [],
-}: RelatedLinksProps) => {
+}: RelatedLinksProps): React.JSX.Element => {
 	const [selected, setSelected] = React.useState('');
 
 	const handleSelectedUpdate = (selectedKey: string) => {

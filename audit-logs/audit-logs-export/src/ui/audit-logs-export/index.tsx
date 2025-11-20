@@ -174,6 +174,7 @@ export const AuditLogExportButton = ({
 										isDisabled={isLoading}
 										isChecked={isTermsChecked}
 										isInvalid={hasTermsError}
+										// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 										aria-label="checkbox"
 										aria-describedby={hasTermsError ? 'audit-log-export-terms-error' : undefined}
 										name="audit-log-export-terms-checkbox"

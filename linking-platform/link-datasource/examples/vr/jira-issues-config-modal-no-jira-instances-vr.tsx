@@ -15,7 +15,7 @@ mockDatasourceFetchRequests({
 	accessibleProductsOverride: [],
 });
 
-export const JiraIssuesConfigModalNoJiraInstancesState = () => (
+export const JiraIssuesConfigModalNoJiraInstancesState = (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<SmartCardProvider client={new SmartLinkClient()}>
 			<JiraIssuesConfigModal

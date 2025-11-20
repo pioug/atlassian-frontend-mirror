@@ -29,7 +29,7 @@ const PreviewButton = ({ url }: { url: string }) => {
 	return <Button onClick={handleClick}>{previewAction.text}</Button>;
 };
 
-const UseSmartLinkActionsExample = () => (
+const UseSmartLinkActionsExample = (): React.JSX.Element => (
 	<ExampleContainer>
 		<SmartCardProvider client={new ResolvedClient()}>
 			<Card

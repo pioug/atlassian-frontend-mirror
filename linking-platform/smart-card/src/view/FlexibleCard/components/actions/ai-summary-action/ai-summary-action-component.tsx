@@ -9,7 +9,9 @@ import { AISummariseAction } from './ai-summarise-action';
 import { CopySummaryAction } from './copy-summary-action';
 import type { AISummaryActionProps } from './types';
 
-export const AISummaryActionComponent = (props: AISummaryActionProps & AISummaryActionData) => {
+export const AISummaryActionComponent = (
+	props: AISummaryActionProps & AISummaryActionData,
+): React.JSX.Element => {
 	di(useAISummaryAction);
 
 	const { url, onLoadingChange, testId = 'smart-action-ai-summary-action' } = props;

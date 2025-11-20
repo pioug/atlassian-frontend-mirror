@@ -11,7 +11,7 @@ export const ConversationStarters = ({
 	isAgentDefault,
 	onConversationStarterClick,
 	userDefinedConversationStarters,
-}: AgentConversationStartersProps) => {
+}: AgentConversationStartersProps): React.JSX.Element => {
 	const handleConversationStarterClick = (conversationStarter: ConversationStarter) => {
 		onConversationStarterClick(conversationStarter);
 	};

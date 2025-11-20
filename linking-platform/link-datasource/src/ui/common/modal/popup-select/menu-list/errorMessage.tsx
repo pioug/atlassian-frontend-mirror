@@ -27,7 +27,13 @@ const getErrorReasonType = (
 	return 'unknown';
 };
 
-const CustomErrorMessage = ({ filterName, errors }: { errors?: unknown[]; filterName: string }) => {
+const CustomErrorMessage = ({
+	filterName,
+	errors,
+}: {
+	errors?: unknown[];
+	filterName: string;
+}): React.JSX.Element => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
 	/**

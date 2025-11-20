@@ -247,4 +247,4 @@ class ClipboardWrapper extends Component<{}, ClipboardWrapperState> {
 	}
 }
 
-export default () => <ClipboardWrapper />;
+export default (): React.JSX.Element => <ClipboardWrapper />;

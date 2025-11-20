@@ -5,7 +5,7 @@ import { withWaitForItem } from '@atlaskit/link-test-helpers';
 import { ExampleJiraIssuesTableView } from '../../examples-helpers/buildJiraIssuesTable';
 import { HoverableContainer } from '../../examples-helpers/hoverableContainer';
 
-export default function JiraIssuesTable() {
+export default function JiraIssuesTable(): React.JSX.Element {
 	return (
 		<HoverableContainer>
 			<ExampleJiraIssuesTableView />

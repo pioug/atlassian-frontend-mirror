@@ -12,7 +12,7 @@ const isLocalStorageSupported = () => {
 	return false;
 };
 
-const FeatureFlagsWrapper = ({ children }: { children: React.ReactNode }) => {
+const FeatureFlagsWrapper = ({ children }: { children: React.ReactNode }): React.JSX.Element => {
 	const [childrenKey, setChildrenKey] = useState(0);
 	// This is a trick to force a re-render on the component's children to see the new FF values taking effect
 	const onFlagChanged = () => {

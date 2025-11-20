@@ -7,6 +7,7 @@ import { css, type SerializedStyles } from '@emotion/react';
 
 import { headingsSharedStyles, blockquoteSharedStyles } from '@atlaskit/editor-common/styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -21,7 +22,7 @@ export const blockTypeMenuItemStyle = (
 ) => {
 	// TEMP FIX: See https://product-fabric.atlassian.net/browse/ED-13878
 	const selectedStyle = selected
-		? `${tagName} { color: ${token('color.text', 'white')} !important; }`
+		? `${tagName} { color: ${token('color.text', fg('platform_editor_updated_block_type_colors_a11y') ? '#292A2E' : 'white')} !important; }`
 		: '';
 
 	return () =>

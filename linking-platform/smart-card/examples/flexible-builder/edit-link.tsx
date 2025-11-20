@@ -35,7 +35,7 @@ const EditLink = ({
 	template: FlexibleTemplate;
 	text: string;
 	urlError?: string;
-}) => {
+}): React.JSX.Element => {
 	const [showCode, setShowCode] = useState<boolean>(true);
 	const [showEditLink, setShowEditLink] = useState<boolean>(false);
 	const [showJsonld, setShowJsonld] = useState<boolean>(false);

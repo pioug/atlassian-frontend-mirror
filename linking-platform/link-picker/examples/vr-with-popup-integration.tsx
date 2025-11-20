@@ -9,7 +9,7 @@ import { MockLinkPickerPlugin } from '../src/__tests__/__helpers/mock-plugins';
 
 const plugins = [new MockLinkPickerPlugin()];
 
-export default function VrSinglePlugin() {
+export default function VrSinglePlugin(): React.JSX.Element {
 	return (
 		<PageWrapper>
 			<Popup

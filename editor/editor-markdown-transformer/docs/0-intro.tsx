@@ -1,7 +1,7 @@
 import React from 'react';
 import { md, Example, code, AtlassianInternalWarning } from '@atlaskit/docs';
 
-export default md`
+const _default_1: React.ReactElement = md`
 ${(<AtlassianInternalWarning />)}
 
 A Markdown to ProseMirror Node parser.
@@ -27,3 +27,4 @@ Use the component in your React app as follows:
 		/>
 	)}
 `;
+export default _default_1;

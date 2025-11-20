@@ -729,6 +729,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	//Added 2025-11-19
+	platform_editor_pasting_text_in_panel: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_pasting_text_in_panel',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-31
 	platform_editor_fix_a11y_aria_posinset_0: createBooleanExperiment({
 		productKeys: {

@@ -18,7 +18,11 @@ interface ProviderCategoryProps {
 	examples: ExampleUrl[];
 }
 
-export const ProviderCategory = ({ category, examples, config }: ProviderCategoryProps) => {
+export const ProviderCategory = ({
+	category,
+	examples,
+	config,
+}: ProviderCategoryProps): React.JSX.Element => {
 	const [expanded, setExpanded] = useState<Record<string, boolean>>(getExpanded(examples));
 
 	const handleExpand = useCallback(

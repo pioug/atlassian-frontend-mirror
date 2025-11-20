@@ -7,7 +7,7 @@ import { IntlProvider, type WrappedComponentProps } from 'react-intl-next';
  */
 const withIntlProvider =
 	<P,>(Component: ComponentType<P>) =>
-	(props: P & WrappedComponentProps) => {
+	(props: P & WrappedComponentProps): React.JSX.Element => {
 		const content = <Component {...props} />;
 		return props?.intl ? content : <IntlProvider locale="en">{content}</IntlProvider>;
 	};

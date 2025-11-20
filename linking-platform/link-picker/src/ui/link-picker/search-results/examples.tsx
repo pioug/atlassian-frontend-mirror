@@ -100,7 +100,7 @@ export const ErrorExample = createExample({
 	error: new Error('Some error!'),
 });
 
-export const ShowingResultsWhileLoadingResults = () => {
+export const ShowingResultsWhileLoadingResults = (): React.JSX.Element => {
 	const exampleComponents = [1, 2, 3, 4, 5].reduce<React.ComponentType[]>((acc, cur) => {
 		const items = new Array(cur)
 			.fill({

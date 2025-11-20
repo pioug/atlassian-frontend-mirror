@@ -8,7 +8,7 @@ const mockDropdownMenu = injectable(DropdownMenu, (props) => (
 	<DropdownMenu {...props} isOpen={true} />
 ));
 
-const VrExpandDropdownMenuWrapper = ({ children }: PropsWithChildren<{}>) => {
+const VrExpandDropdownMenuWrapper = ({ children }: PropsWithChildren<{}>): React.JSX.Element => {
 	return <DiProvider use={[mockDropdownMenu]}>{children}</DiProvider>;
 };
 

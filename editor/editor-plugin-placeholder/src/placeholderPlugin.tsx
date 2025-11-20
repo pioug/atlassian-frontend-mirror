@@ -1,6 +1,7 @@
 import type { IntlShape } from 'react-intl-next';
 
 import type { DocNode } from '@atlaskit/adf-schema';
+import { code, text } from '@atlaskit/adf-utils/builders';
 import { placeholderTextMessages as messages } from '@atlaskit/editor-common/messages';
 import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -38,6 +39,7 @@ const placeholderTestId = 'placeholder-test-id';
 interface PlaceHolderState {
 	// if true, showOnEmptyParagraph will be true after setTimeout
 	canShowOnEmptyParagraph?: boolean;
+	contextPlaceholderADF?: DocNode;
 	hasPlaceholder: boolean;
 	isPlaceholderHidden?: boolean;
 	placeholderPrompts?: string[];
@@ -55,6 +57,40 @@ function getPlaceholderState(editorState: EditorState): PlaceHolderState {
 const nodeTypesWithLongPlaceholderText = ['expand', 'panel'];
 const nodeTypesWithShortPlaceholderText = ['tableCell', 'tableHeader'];
 const nodeTypesWithSyncBlockPlaceholderText = ['bodiedSyncBlock'];
+
+const createShortEmptyNodePlaceholderADF = ({ formatMessage }: IntlShape): DocNode =>
+	({
+		version: 1,
+		type: 'doc',
+		content: [
+			{
+				type: 'paragraph',
+				content: [
+					code(formatMessage(messages.shortEmptyNodePlaceholderADFSlashShortcut)),
+					text(' '),
+					text(formatMessage(messages.shortEmptyNodePlaceholderADFSuffix)),
+				],
+			},
+		],
+	}) as DocNode;
+
+const createLongEmptyNodePlaceholderADF = ({ formatMessage }: IntlShape): DocNode =>
+	({
+		version: 1,
+		type: 'doc',
+		content: [
+			{
+				type: 'paragraph',
+				content: [
+					text(formatMessage(messages.longEmptyNodePlaceholderADFPrefix)),
+					text(' '),
+					code(formatMessage(messages.longEmptyNodePlaceholderADFSlashShortcut)),
+					text(' '),
+					text(formatMessage(messages.longEmptyNodePlaceholderADFSuffix)),
+				],
+			},
+		],
+	}) as DocNode;
 
 const cycleThroughPlaceholderPrompts = (
 	placeholderPrompts: string[],
@@ -132,6 +168,7 @@ export function createPlaceholderDecoration(
 
 	placeholderDecoration.setAttribute('data-testid', placeholderTestId);
 	placeholderDecoration.className = 'placeholder-decoration';
+	placeholderDecoration.setAttribute('aria-hidden', 'true');
 
 	// PM sets contenteditable to false on Decorations so Firefox doesn't display the flashing cursor
 	// So adding an extra span which will contain the placeholder text
@@ -141,7 +178,9 @@ export function createPlaceholderDecoration(
 		placeholderDecoration.appendChild(placeholderNode);
 		placeholderNodeWithText = placeholderNode;
 	}
-	if (placeholderADF) {
+	if (placeholderText) {
+		placeholderNodeWithText.textContent = placeholderText || ' ';
+	} else if (placeholderADF) {
 		const serializer = DOMSerializer.fromSchema(editorState.schema);
 		// Get a PMNode from docnode
 		const docNode = processRawValue(editorState.schema, placeholderADF);
@@ -179,8 +218,6 @@ export function createPlaceholderDecoration(
 				}
 			});
 		}
-	} else if (placeholderText) {
-		placeholderNodeWithText.textContent = placeholderText || ' ';
 	} else if (placeholderPrompts) {
 		cycleThroughPlaceholderPrompts(
 			placeholderPrompts,
@@ -225,8 +262,10 @@ function setPlaceHolderState({
 	userHadTyped,
 	canShowOnEmptyParagraph,
 	showOnEmptyParagraph,
+	contextPlaceholderADF,
 }: {
 	canShowOnEmptyParagraph?: boolean;
+	contextPlaceholderADF?: DocNode;
 	placeholderPrompts?: string[];
 	placeholderText?: string;
 	pos?: number;
@@ -238,6 +277,7 @@ function setPlaceHolderState({
 		hasPlaceholder: true,
 		placeholderText,
 		placeholderPrompts,
+		contextPlaceholderADF,
 		pos: pos ? pos : 1,
 		typedAndDeleted,
 		userHadTyped,
@@ -281,6 +321,7 @@ type CreatePlaceholderStateProps = {
 	isInitial?: boolean;
 	isPlaceholderHidden?: boolean;
 	isTypeAheadOpen: ((editorState: EditorState) => boolean) | undefined;
+	placeholderADF?: DocNode;
 	placeholderPrompts?: string[];
 	showOnEmptyParagraph?: boolean;
 	typedAndDeleted?: boolean;
@@ -297,6 +338,7 @@ function createPlaceHolderStateFrom({
 	intl,
 	bracketPlaceholderText,
 	emptyLinePlaceholder,
+	placeholderADF,
 	placeholderPrompts,
 	typedAndDeleted,
 	userHadTyped,
@@ -323,7 +365,10 @@ function createPlaceHolderStateFrom({
 		});
 	}
 
-	if ((defaultPlaceholderText || placeholderPrompts) && isEmptyDocument(editorState.doc)) {
+	if (
+		(defaultPlaceholderText || placeholderPrompts || placeholderADF) &&
+		isEmptyDocument(editorState.doc)
+	) {
 		return setPlaceHolderState({
 			placeholderText: defaultPlaceholderText,
 			pos: 1,
@@ -333,10 +378,10 @@ function createPlaceHolderStateFrom({
 		});
 	}
 
-	if (fg('platform_editor_ai_aifc_patch_beta_2')) {
+	if (fg('platform_editor_ai_aifc_patch_beta_2') || fg('platform_editor_ai_aifc_patch_ga')) {
 		const { from, to, $to } = editorState.selection;
 		if (
-			defaultPlaceholderText &&
+			(defaultPlaceholderText || placeholderADF) &&
 			withEmptyParagraph &&
 			isEditorFocused &&
 			!isInitial &&
@@ -414,7 +459,12 @@ function createPlaceHolderStateFrom({
 			const isFirstCell = table?.node.firstChild?.content.firstChild === parentNode;
 			if (isFirstCell) {
 				return setPlaceHolderState({
-					placeholderText: intl.formatMessage(messages.shortEmptyNodePlaceholderText),
+					placeholderText: !fg('platform_editor_ai_aifc_patch_ga')
+						? intl.formatMessage(messages.shortEmptyNodePlaceholderText)
+						: undefined,
+					contextPlaceholderADF: fg('platform_editor_ai_aifc_patch_ga')
+						? createShortEmptyNodePlaceholderADF(intl)
+						: undefined,
 					pos: $from.pos,
 					placeholderPrompts,
 					typedAndDeleted,
@@ -425,7 +475,12 @@ function createPlaceHolderStateFrom({
 
 		if (nodeTypesWithLongPlaceholderText.includes(parentType) && isEmptyNode) {
 			return setPlaceHolderState({
-				placeholderText: intl.formatMessage(messages.longEmptyNodePlaceholderText),
+				placeholderText: !fg('platform_editor_ai_aifc_patch_ga')
+					? intl.formatMessage(messages.longEmptyNodePlaceholderText)
+					: undefined,
+				contextPlaceholderADF: fg('platform_editor_ai_aifc_patch_ga')
+					? createLongEmptyNodePlaceholderADF(intl)
+					: undefined,
 				pos: $from.pos,
 				placeholderPrompts,
 				typedAndDeleted,
@@ -541,6 +596,7 @@ export function createPlugin(
 					defaultPlaceholderText,
 					bracketPlaceholderText,
 					emptyLinePlaceholder,
+					placeholderADF,
 					placeholderPrompts,
 					typedAndDeleted: false,
 					userHadTyped: false,
@@ -561,21 +617,29 @@ export function createPlugin(
 					isPlaceholderHidden = meta.isPlaceholderHidden;
 				}
 
-				if (meta?.placeholderText !== undefined && fg('platform_editor_ai_aifc_patch_beta_2')) {
-					defaultPlaceholderText = meta.placeholderText;
+				if (
+					meta?.placeholderText !== undefined &&
+					(fg('platform_editor_ai_aifc_patch_beta_2') || fg('platform_editor_ai_aifc_patch_ga'))
+				) {
+					// Only update defaultPlaceholderText from meta if we're not using ADF placeholder
+					if (!(fg('platform_editor_ai_aifc_patch_ga') && placeholderADF)) {
+						defaultPlaceholderText = meta.placeholderText;
+					}
 				}
 
 				const newPlaceholderState = createPlaceHolderStateFrom({
 					isEditorFocused,
 					editorState: newEditorState,
 					isTypeAheadOpen: api?.typeAhead?.actions.isOpen,
-					defaultPlaceholderText: fg('platform_editor_ai_aifc_patch_beta_2')
-						? defaultPlaceholderText
-						: (meta?.placeholderText ??
-							placeholderState?.placeholderText ??
-							defaultPlaceholderText),
+					defaultPlaceholderText:
+						fg('platform_editor_ai_aifc_patch_beta_2') || fg('platform_editor_ai_aifc_patch_ga')
+							? defaultPlaceholderText
+							: (meta?.placeholderText ??
+								placeholderState?.placeholderText ??
+								defaultPlaceholderText),
 					bracketPlaceholderText,
 					emptyLinePlaceholder,
+					placeholderADF,
 					placeholderPrompts:
 						meta?.placeholderPrompts ?? placeholderState?.placeholderPrompts ?? placeholderPrompts,
 					typedAndDeleted,
@@ -597,7 +661,7 @@ export function createPlugin(
 		},
 		props: {
 			decorations(editorState): DecorationSet | undefined {
-				const { hasPlaceholder, placeholderText, pos, typedAndDeleted } =
+				const { hasPlaceholder, placeholderText, pos, typedAndDeleted, contextPlaceholderADF } =
 					getPlaceholderState(editorState);
 
 				// Decorations is still called after plugin is destroyed
@@ -613,7 +677,10 @@ export function createPlugin(
 
 				if (
 					hasPlaceholder &&
-					((placeholderText ?? '') || placeholderPrompts || placeholderADF) &&
+					((placeholderText ?? '') ||
+						placeholderPrompts ||
+						placeholderADF ||
+						contextPlaceholderADF) &&
 					pos !== undefined &&
 					!compositionPluginState?.isComposing &&
 					!isShowingDiff
@@ -621,6 +688,8 @@ export function createPlugin(
 					const initialDelayWhenUserTypedAndDeleted = typedAndDeleted
 						? TYPEWRITER_TYPED_AND_DELETED_DELAY
 						: 0;
+					// contextPlaceholderADF takes precedence over the global placeholderADF
+					const placeholderAdfToUse = contextPlaceholderADF || placeholderADF;
 					return createPlaceholderDecoration(
 						editorState,
 						placeholderText ?? '',
@@ -628,7 +697,7 @@ export function createPlugin(
 						activeTypewriterTimeouts,
 						pos,
 						initialDelayWhenUserTypedAndDeleted,
-						placeholderADF,
+						placeholderAdfToUse,
 					);
 				}
 				return;
@@ -660,7 +729,10 @@ export function createPlugin(
 
 			return {
 				update(editorView, prevState) {
-					if (fg('platform_editor_ai_aifc_patch_beta_2')) {
+					if (
+						fg('platform_editor_ai_aifc_patch_beta_2') ||
+						fg('platform_editor_ai_aifc_patch_ga')
+					) {
 						const prevPluginState = getPlaceholderState(prevState);
 						const newPluginState = getPlaceholderState(editorView.state);
 

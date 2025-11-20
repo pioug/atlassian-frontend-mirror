@@ -37,7 +37,7 @@ const getAutocompleteSuggestions: GetAutocompleteSuggestions = () =>
 		);
 	});
 
-export default () => {
+export default (): React.JSX.Element => {
 	const autocompleteProvider = useAutocompleteProvider(
 		'my-app',
 		getAutocompleteInitialData,

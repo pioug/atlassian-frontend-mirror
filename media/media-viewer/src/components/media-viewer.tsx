@@ -52,7 +52,7 @@ export const MediaViewerBase = ({
 	extensions,
 	contextId,
 	viewerOptions,
-}: MediaViewerProps) => {
+}: MediaViewerProps): React.JSX.Element => {
 	const { items: normalisedItems, selectedItem: normalisedSelectedItem } = useMemo(
 		() => normaliseItems(items, selectedItem, collectionName),
 		[items, selectedItem, collectionName],
@@ -95,7 +95,9 @@ export const MediaViewerBase = ({
 
 // Can't export in a single line. Typescript struggles to recognize the component signature in the error boundary test file ./media-viewer-error-boundary.test.tsx
 // export const MediaViewerWithMediaClient = withMediaClient(MediaViewerBase)
-export const MediaViewerWithMediaClient = (props: MediaViewerWithMediaClientConfigProps) => {
+export const MediaViewerWithMediaClient = (
+	props: MediaViewerWithMediaClientConfigProps,
+): React.JSX.Element => {
 	const ViewerComponent = React.useMemo(() => {
 		if (fg('platform_media_video_captions')) {
 			return withMediaClientAndSettings(MediaViewerBase);

@@ -22,7 +22,7 @@ export class InteractiveImg extends React.Component<Props, {}> {
 		}
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		return <div>so empty</div>;
 	}
 }

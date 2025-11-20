@@ -3230,3 +3230,37 @@ describe('fg platform_do_not_clear_input_for_multiselect', () => {
 		});
 	});
 });
+
+describe('accessibility > aria-autocomplete with platform_fix_autocomplete_aria_for_select feature flag', () => {
+	ffTest.on('platform_fix_autocomplete_aria_for_select', 'with flag enabled', () => {
+		it('does not render aria-autocomplete when isSearchable is false (single select)', () => {
+			render(<Select {...BASIC_PROPS} isSearchable={false} />);
+
+			const input = screen.getByTestId(`${testId}-select--input`);
+			expect(input).not.toHaveAttribute('aria-autocomplete');
+		});
+
+		it('sets aria-autocomplete to "both" when isSearchable is true (single select)', () => {
+			render(<Select {...BASIC_PROPS} isSearchable={true} />);
+
+			const input = screen.getByTestId(`${testId}-select--input`);
+			expect(input).toHaveAttribute('aria-autocomplete', 'both');
+		});
+	});
+
+	ffTest.off('platform_fix_autocomplete_aria_for_select', 'with flag disabled', () => {
+		it('always sets aria-autocomplete to "both" when isSearchable is false (single select)', () => {
+			render(<Select {...BASIC_PROPS} isSearchable={false} />);
+
+			const input = screen.getByTestId(`${testId}-select--input`);
+			expect(input).toHaveAttribute('aria-autocomplete', 'both');
+		});
+
+		it('sets aria-autocomplete to "both" when isSearchable is true (single select)', () => {
+			render(<Select {...BASIC_PROPS} isSearchable={true} />);
+
+			const input = screen.getByTestId(`${testId}-select--input`);
+			expect(input).toHaveAttribute('aria-autocomplete', 'both');
+		});
+	});
+});

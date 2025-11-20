@@ -3,7 +3,7 @@ import React from 'react';
 import { ExampleJiraIssuesTableView } from '../../examples-helpers/buildJiraIssuesTable';
 import { HoverableContainer } from '../../examples-helpers/hoverableContainer';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<HoverableContainer>
 		<ExampleJiraIssuesTableView
 			parameters={{

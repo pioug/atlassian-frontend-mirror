@@ -12,32 +12,32 @@ import {
 
 export const IconWrapper = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
-) => <CompiledIconWrapper {...props} />;
+): React.JSX.Element => <CompiledIconWrapper {...props} />;
 
 export const EmojiWrapper = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
-) => <CompiledEmojiWrapper {...props} />;
+): React.JSX.Element => <CompiledEmojiWrapper {...props} />;
 
 export const IconTitleWrapper = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
-) => <CompiledIconTitleWrapper {...props} />;
+): React.JSX.Element => <CompiledIconTitleWrapper {...props} />;
 
 export const LozengeWrapper = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
-) => <CompiledLozengeWrapper {...props} />;
+): React.JSX.Element => <CompiledLozengeWrapper {...props} />;
 
 export const LozengeBlockWrapper = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
-) => <CompiledLozengeBlockWrapper {...props} />;
+): React.JSX.Element => <CompiledLozengeBlockWrapper {...props} />;
 
 export const RightIconPositionWrapper = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
-) => <CompiledRightIconPositionWrapper {...props} />;
+): React.JSX.Element => <CompiledRightIconPositionWrapper {...props} />;
 
 export const IconPositionWrapper = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
-) => <CompiledIconPositionWrapper {...props} />;
+): React.JSX.Element => <CompiledIconPositionWrapper {...props} />;
 
 export const IconEmptyWrapper = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
-) => <CompiledIconEmptyWrapper {...props} />;
+): React.JSX.Element => <CompiledIconEmptyWrapper {...props} />;

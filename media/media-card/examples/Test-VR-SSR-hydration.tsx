@@ -98,7 +98,7 @@ const rowStyle = {
 	marginBottom: token('space.250', '20px'),
 } as const;
 
-export default () => {
+export default (): React.JSX.Element => {
 	const serverOnlySingleId = 'container-ssr-single';
 	const serverOnlyVideoId = 'container-ssr-video';
 	const serverOnlyGroupId = 'container-ssr-group';

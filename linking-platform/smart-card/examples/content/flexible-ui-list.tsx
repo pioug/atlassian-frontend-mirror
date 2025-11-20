@@ -27,7 +27,7 @@ class CustomClient extends Client {
 	}
 }
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Provider client={new CustomClient('stg')}>
 		<Stack space="space.100">
 			{Object.keys(examples).map((url: string, idx: number) => (

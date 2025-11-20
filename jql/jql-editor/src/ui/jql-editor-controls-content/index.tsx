@@ -6,7 +6,7 @@ import { ExpandToggle } from './expand-toggle';
 import { Search } from './search';
 import { SyntaxHelp } from './syntax-help';
 
-export const JQLEditorControlsContent = () => {
+export const JQLEditorControlsContent = (): React.JSX.Element => {
 	const { isSearch } = useEditorThemeContext();
 	return (
 		<>

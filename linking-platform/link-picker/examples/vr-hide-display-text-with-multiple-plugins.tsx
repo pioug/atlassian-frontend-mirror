@@ -19,7 +19,7 @@ const defaultPlugins = [
 	}),
 ];
 
-export default function VrHideDisplayTextMultiplePlugins() {
+export default function VrHideDisplayTextMultiplePlugins(): React.JSX.Element {
 	const [plugins] = useState(defaultPlugins);
 	return (
 		<PageWrapper>

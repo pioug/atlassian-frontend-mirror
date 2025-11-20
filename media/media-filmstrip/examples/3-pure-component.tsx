@@ -21,7 +21,7 @@ export class Story extends React.PureComponent<StoryProps, StoryState> {
 	handleSizeChange = ({ offset }: Pick<FilmstripState, 'offset'>) => this.setState({ offset });
 	handleScrollChange = ({ offset, animate }: FilmstripState) => this.setState({ offset, animate });
 
-	render() {
+	render(): React.JSX.Element {
 		const { animate, offset } = this.state;
 		return (
 			<div>
@@ -57,4 +57,4 @@ export class Story extends React.PureComponent<StoryProps, StoryState> {
 	}
 }
 
-export default () => <Story />;
+export default (): React.JSX.Element => <Story />;

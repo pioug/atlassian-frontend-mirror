@@ -1,6 +1,6 @@
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isDuplicateMark(node: { marks?: Array<any> }, type: string) {
+export function isDuplicateMark(node: { marks?: Array<any> }, type: string): boolean {
 	if (node.marks && node.marks.some((mark) => mark.type === type)) {
 		return true;
 	}

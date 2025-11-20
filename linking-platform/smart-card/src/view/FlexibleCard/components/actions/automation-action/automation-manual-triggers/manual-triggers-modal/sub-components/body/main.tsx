@@ -14,7 +14,7 @@ type AutomationModalBodyProps = {
 export const AutomationModalBody = ({
 	selectedRule,
 	setSelectedRule,
-}: AutomationModalBodyProps) => {
+}: AutomationModalBodyProps): React.JSX.Element => {
 	const { triggerFetch, initialised, rules, fetchError } = useAutomationMenu();
 
 	useEffect(() => {

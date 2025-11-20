@@ -18,7 +18,7 @@ const Fieldset = ({
 }: PropsWithChildren<{
 	defaultOpen?: boolean;
 	legend?: string;
-}>) => {
+}>): React.JSX.Element => {
 	const [open, setOpen] = useState<boolean>(defaultOpen);
 	const handleOnClick = useCallback(() => setOpen(!open), [open]);
 

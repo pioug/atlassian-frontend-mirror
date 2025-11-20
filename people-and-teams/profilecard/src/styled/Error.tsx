@@ -22,16 +22,17 @@ const styles = cssMap({
 	},
 });
 
-export const ErrorWrapper = (props: { children: React.ReactNode; testId?: string }) => (
-	<Box xcss={cx(styles.errorWrapper)} {...props} />
-);
+export const ErrorWrapper = (props: {
+	children: React.ReactNode;
+	testId?: string;
+}): React.JSX.Element => <Box xcss={cx(styles.errorWrapper)} {...props} />;
 
-export const ErrorTitle = (props: { children: React.ReactNode }) => (
+export const ErrorTitle = (props: { children: React.ReactNode }): React.JSX.Element => (
 	<Box xcss={styles.errorTitle}>
 		<Text color="color.text">{props.children}</Text>
 	</Box>
 );
 
-export const TeamErrorText = (props: { children: React.ReactNode }) => (
+export const TeamErrorText = (props: { children: React.ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.teamErrorText)}>{props.children}</Box>
 );

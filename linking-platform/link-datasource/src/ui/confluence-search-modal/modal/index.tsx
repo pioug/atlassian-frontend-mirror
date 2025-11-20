@@ -83,7 +83,7 @@ const isValidParameters = (parameters: DatasourceParameters | undefined): boolea
 
 export const PlainConfluenceSearchConfigModal = (
 	props: ConnectedConfluenceSearchConfigModalProps,
-) => {
+): React.JSX.Element => {
 	const { onCancel, url: urlBeingEdited, overrideParameters, disableSiteSelector } = props;
 
 	const { currentViewMode } = useViewModeContext();
@@ -499,7 +499,9 @@ const ConnectedConfluenceSearchConfigModal =
 		component: PlainConfluenceSearchConfigModal,
 	});
 
-export const ConfluenceSearchConfigModal = (props: ConfluenceSearchConfigModalProps) => {
+export const ConfluenceSearchConfigModal = (
+	props: ConfluenceSearchConfigModalProps,
+): React.JSX.Element => {
 	return (
 		<StoreContainer>
 			<ConnectedConfluenceSearchConfigModal

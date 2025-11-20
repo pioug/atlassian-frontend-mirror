@@ -11,7 +11,7 @@ class CustomClient extends Client {
 	}
 }
 
-export const BlockCardEntities = () => (
+export const BlockCardEntities = (): React.JSX.Element => (
 	<div>
 		<VRCardView
 			appearance="block"

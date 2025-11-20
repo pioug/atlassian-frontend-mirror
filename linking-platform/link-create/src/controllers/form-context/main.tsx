@@ -29,7 +29,7 @@ const FormContextProvider = ({
 	children,
 }: PropsWithChildren<{
 	enableEditView?: (editButtonClicked: boolean) => void;
-}>) => {
+}>): React.JSX.Element => {
 	const [error, setError] = useState<string | undefined>();
 
 	// Sets the form footer error message
@@ -60,7 +60,7 @@ export { FormContextProvider, useFormContext };
 export const withLinkCreateFormContext = <P extends LinkCreateProps>(
 	WrappedComponent: React.ComponentType<P>,
 ) => {
-	return (props: P) => (
+	return (props: P): React.JSX.Element => (
 		<FormContextProvider>
 			<WrappedComponent {...props} />
 		</FormContextProvider>

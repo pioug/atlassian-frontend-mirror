@@ -1,5 +1,11 @@
 # @atlaskit/media-svg
 
+## 2.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.10
 
 ### Patch Changes

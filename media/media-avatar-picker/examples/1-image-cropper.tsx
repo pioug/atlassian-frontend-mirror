@@ -11,7 +11,7 @@ const onImageLoaded = (img: HTMLImageElement) =>
 const onRemoveImage = () => console.log('onRemoveImage');
 const onImageError = (errorMessage: string) => console.log('onImageError', errorMessage);
 
-export default () => (
+export default (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<div>
 			<div>

@@ -97,7 +97,7 @@ const defaultPlugins = [
 	}),
 ];
 
-export default function VrMultiplePlugins() {
+export default function VrMultiplePlugins(): React.JSX.Element {
 	const [plugins, setPlugins] = useState(defaultPlugins);
 	return (
 		<PageWrapper>

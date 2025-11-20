@@ -55,6 +55,7 @@ export default () => {
 					<RadiusBox radius={token('radius.medium')} />
 					<RadiusBox radius={token('radius.large')} />
 					<RadiusBox radius={token('radius.xlarge')} />
+					<RadiusBox radius={token('radius.xxlarge')} />
 					<RadiusBox radius={token('radius.full')} />
 					<RadiusBox radius={token('radius.tile')} />
 				</Inline>

@@ -1,5 +1,25 @@
 # @atlassian/navigation-system
 
+## 5.9.0
+
+### Minor Changes
+
+- [`3665e60cbf959`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3665e60cbf959) -
+  Fixes a bug that could cause side nav animations to apply on initial load
+
+## 5.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.1
+
+### Patch Changes
+
+- [`c60dda81827ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c60dda81827ec) -
+  Type fixes for scrollIntoViewIfNeeded
+
 ## 5.8.0
 
 ### Minor Changes

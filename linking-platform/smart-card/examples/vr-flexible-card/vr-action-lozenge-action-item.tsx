@@ -5,7 +5,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import LozengeActionItem from '../../src/view/FlexibleCard/components/elements/common/base-lozenge-element/lozenge-action/lozenge-action-item';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestWrapper>
 		<SmartCardProvider>
 			<div role="menu">

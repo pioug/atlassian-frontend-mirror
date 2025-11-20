@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 
+import { getPageIdAndTypeFromConfluencePageAri } from '../clients/confluence/ari';
+import { fetchConfluenceSourceInfo } from '../clients/confluence/sourceInfo';
 import { SyncBlockError, type SyncBlockData, type SyncBlockNode } from '../common/types';
 import {
 	SyncBlockDataProvider,
@@ -9,11 +11,11 @@ import {
 	type ADFWriteProvider,
 	type DeleteSyncBlockResult,
 	type SyncBlockInstance,
+	type SyncBlockParentInfo,
 	type SyncBlockSourceInfo,
 	type SyncedBlockRendererProviderOptions,
 	type WriteSyncBlockResult,
 } from '../providers/types';
-import { fetchSourceInfo } from '../utils/sourceInfo';
 
 export class SyncBlockProvider extends SyncBlockDataProvider {
 	name = 'syncBlockProvider';
@@ -183,7 +185,9 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 			}
 		}
 
-		return pageARI ? fetchSourceInfo(pageARI, sourceLocalId) : Promise.resolve(undefined);
+		// TODO: EDITOR-3312 - based on the source sync block product,
+		// execute fetchConfluenceSourceInfo or fetchJiraItemSourceInfo or similar...
+		return pageARI ? fetchConfluenceSourceInfo(pageARI, sourceLocalId) : Promise.resolve(undefined);
 	}
 
 	generateResourceId(sourceId: string, localId: string): string {
@@ -197,6 +201,37 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	 */
 	getSyncedBlockRendererProviderOptions(): SyncedBlockRendererProviderOptions {
 		return this.providerOptions;
+	}
+
+	/**
+	 * Retrieve the parent info for the sync block
+	 *
+	 * @param resourceId
+	 * @param syncBlockInstance
+	 *
+	 * @returns The parent info for the sync block
+	 */
+	retrieveSyncBlockParentInfo(
+		syncBlockInstance: SyncBlockInstance | undefined,
+	): SyncBlockParentInfo | undefined {
+		if (!syncBlockInstance || !syncBlockInstance.data) {
+			return undefined;
+		}
+
+		const { sourceAri, product } = syncBlockInstance.data;
+
+		if (!sourceAri || !product) {
+			return undefined;
+		}
+
+		// TODO: EDITOR-3312 - based on the source sync block product,
+		// execute getPageIdAndTypeFromConfluencePageAri or getJiraItemIdAndTypeFromJiraItemAri or similar...
+		const { id: contentId } = getPageIdAndTypeFromConfluencePageAri(sourceAri);
+
+		return {
+			contentId,
+			contentProduct: product,
+		};
 	}
 }
 

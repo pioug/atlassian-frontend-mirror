@@ -128,7 +128,7 @@ export class ArchiveSidebar extends React.Component<ArchiveSidebarProps, Archive
 		onHeaderClicked();
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { currentArchiveSidebarFolder } = this.state;
 		const { onError } = this.props;
 

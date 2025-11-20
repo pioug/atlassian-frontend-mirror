@@ -29,7 +29,7 @@ const BasicFilterContainer = ({
 	onChange,
 	selections = {},
 	isHydrating,
-}: BasicFilterContainerProps) => {
+}: BasicFilterContainerProps): React.JSX.Element => {
 	const { lastModified, editedOrCreatedBy } = selections;
 
 	const [lastModifiedValue] = lastModified || [];

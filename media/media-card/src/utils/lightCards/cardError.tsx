@@ -14,12 +14,12 @@ export class CardError extends Component<ErrorCardProps, {}> {
 		size: 'medium',
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const dimensions = getDimensionsWithDefault(this.props.dimensions);
 		return <Wrapper dimensions={dimensions}>{this.icon}</Wrapper>;
 	}
 
-	get icon() {
+	get icon(): React.JSX.Element {
 		const { size } = this.props;
 
 		return <ErrorIcon size={size} />;

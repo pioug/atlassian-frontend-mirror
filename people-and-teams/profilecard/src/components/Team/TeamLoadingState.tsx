@@ -8,7 +8,10 @@ import { type AnalyticsFunction, type AnalyticsFunctionNext } from '../../types'
 import { PACKAGE_META_DATA, profileCardRendered } from '../../util/analytics';
 import { getPageTime } from '../../util/performance';
 
-export default (props: { analytics: AnalyticsFunction; analyticsNext: AnalyticsFunctionNext }) => {
+export default (props: {
+	analytics: AnalyticsFunction;
+	analyticsNext: AnalyticsFunctionNext;
+}): React.JSX.Element => {
 	const { analytics, analyticsNext } = props;
 
 	useEffect(() => {

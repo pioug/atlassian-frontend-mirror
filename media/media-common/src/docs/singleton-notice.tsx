@@ -3,7 +3,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import React from 'react';
 import SectionMessage from '@atlaskit/section-message';
 
-export function createSingletonNotice(componentName: string) {
+export function createSingletonNotice(componentName: string): React.JSX.Element {
 	const title = `${componentName} is a singleton package`;
 	return (
 		<SectionMessage title={title} appearance="error">

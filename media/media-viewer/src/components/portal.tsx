@@ -1,7 +1,11 @@
 import React from 'react';
 import Portal from '@atlaskit/portal';
 
-export const MediaViewerPortal = ({ children }: { children: React.ReactNode }) => (
+export const MediaViewerPortal = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): React.JSX.Element => (
 	// This zIndex matches with zIndex used by DS Modal and Jira Issue View Modal.
 	// This value makes layers stack work correctly:
 	//  -> Issue View -> Media Viewer -> DS Modal

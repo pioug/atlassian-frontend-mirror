@@ -6,7 +6,7 @@ import { UnAuthClient } from '@atlaskit/link-test-helpers';
 
 import LinkUrl from '../../src/view/LinkUrl';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<h2>Link safety warning</h2>
 		<ul>

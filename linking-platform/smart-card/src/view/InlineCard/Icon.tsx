@@ -23,7 +23,7 @@ export const Icon = styled.img({
 	transform: 'translate(-50%, -50%)',
 });
 
-export const Shimmer = ({ testId }: { testId: string }) => {
+export const Shimmer = ({ testId }: { testId: string }): React.JSX.Element => {
 	const skeletonCustomStyles: React.CSSProperties = {
 		position: 'absolute',
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview

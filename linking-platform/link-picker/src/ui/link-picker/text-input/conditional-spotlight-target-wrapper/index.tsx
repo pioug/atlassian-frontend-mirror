@@ -10,7 +10,7 @@ export interface ConditionalSpotlightTargetWrapperProps {
 export const ConditionalSpotlightTargetWrapper = ({
 	spotlightTargetName,
 	children,
-}: ConditionalSpotlightTargetWrapperProps) => {
+}: ConditionalSpotlightTargetWrapperProps): React.JSX.Element => {
 	return spotlightTargetName ? (
 		<SpotlightTarget name={spotlightTargetName}>{children}</SpotlightTarget>
 	) : (

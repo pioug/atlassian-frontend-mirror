@@ -18,7 +18,7 @@ const JsonldEditorInput = ({
 	error?: string;
 	onChange: (str: string) => void;
 	value?: string;
-}) => {
+}): React.JSX.Element => {
 	const { colorMode } = useThemeObserver();
 	const editorTheme = colorMode === 'dark' ? 'twilight' : 'tomorrow';
 

@@ -15,7 +15,10 @@ interface BooleanProps {
 
 export const BOOLEAN_TYPE_TEST_ID = 'link-datasource-render-type--boolean';
 
-const BooleanRenderType = ({ value, testId = BOOLEAN_TYPE_TEST_ID }: BooleanProps) => {
+const BooleanRenderType = ({
+	value,
+	testId = BOOLEAN_TYPE_TEST_ID,
+}: BooleanProps): React.JSX.Element => {
 	const intl = useIntl();
 
 	if (typeof value !== 'boolean') {

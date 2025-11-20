@@ -102,7 +102,7 @@ export const DateRangePicker = ({
 	onSelectionChange,
 	selection,
 	filterName = 'datasource-date-range-picker',
-}: DateRangeProps) => {
+}: DateRangeProps): React.JSX.Element => {
 	const { value: selectedValue, from: fromDate, to: toDate } = selection || {};
 	const todayDate = new Date().toISOString();
 

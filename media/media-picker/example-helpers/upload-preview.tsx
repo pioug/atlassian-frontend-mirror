@@ -19,7 +19,7 @@ export class UploadPreview extends React.Component<PreviewData> {
 		}
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { fileId } = this.props;
 
 		const identifier: FileIdentifier = {

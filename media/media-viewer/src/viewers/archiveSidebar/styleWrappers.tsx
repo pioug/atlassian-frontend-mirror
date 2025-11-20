@@ -23,46 +23,54 @@ type OnClick = {
 	onClick: (event: MouseEvent<HTMLDivElement>) => void;
 };
 
-export const ArchiveItemViewerWrapper = (props: Children) => (
+export const ArchiveItemViewerWrapper = (props: Children): React.JSX.Element => (
 	<CompiledArchiveItemViewerWrapper {...props} />
 );
 
-export const ArchiveSideBar = (props: Children) => (
+export const ArchiveSideBar = (props: Children): React.JSX.Element => (
 	<TouchScrollable>
 		<CompiledArchiveSideBar {...props} />
 	</TouchScrollable>
 );
 
-export const ArchiveSidebarFolderWrapper = (props: Children) => (
+export const ArchiveSidebarFolderWrapper = (props: Children): React.JSX.Element => (
 	<CompiledArchiveSidebarFolderWrapper {...props} />
 );
 
-export const ArchiveDownloadButtonWrapper = (props: Children & OnClick) => (
+export const ArchiveDownloadButtonWrapper = (props: Children & OnClick): React.JSX.Element => (
 	<CompiledArchiveDownloadButtonWrapper {...props} />
 );
 
-export const DisabledArchiveDownloadButtonWrapper = (props: Children) => (
+export const DisabledArchiveDownloadButtonWrapper = (props: Children): React.JSX.Element => (
 	<CompiledDisabledArchiveDownloadButtonWrapper {...props} />
 );
 
-export const SidebarItemWrapper = (props: Children) => <CompiledSidebarItemWrapper {...props} />;
-
-export const ArchiveSidebarFileEntryWrapper = (props: { index: Key } & Children) => (
-	<CompiledArchiveSidebarFileEntryWrapper {...props} />
+export const SidebarItemWrapper = (props: Children): React.JSX.Element => (
+	<CompiledSidebarItemWrapper {...props} />
 );
 
-export const ArchiveLayout = (props: Children) => <CompiledArchiveLayout {...props} />;
+export const ArchiveSidebarFileEntryWrapper = (
+	props: { index: Key } & Children,
+): React.JSX.Element => <CompiledArchiveSidebarFileEntryWrapper {...props} />;
 
-export const ArchiveViewerWrapper = (props: Children) => (
+export const ArchiveLayout = (props: Children): React.JSX.Element => (
+	<CompiledArchiveLayout {...props} />
+);
+
+export const ArchiveViewerWrapper = (props: Children): React.JSX.Element => (
 	<CompiledArchiveViewerWrapper {...props} />
 );
 
-export const Separator = () => <CompiledSeparator />;
+export const Separator = (): React.JSX.Element => <CompiledSeparator />;
 
-export const SidebarHeaderWrapper = (props: Children) => (
+export const SidebarHeaderWrapper = (props: Children): React.JSX.Element => (
 	<CompiledSidebarHeaderWrapper {...props} />
 );
 
-export const SidebarHeaderIcon = (props: Children) => <CompiledSidebarHeaderIcon {...props} />;
+export const SidebarHeaderIcon = (props: Children): React.JSX.Element => (
+	<CompiledSidebarHeaderIcon {...props} />
+);
 
-export const SidebarHeaderEntry = (props: Children) => <CompiledSidebarHeaderEntry {...props} />;
+export const SidebarHeaderEntry = (props: Children): React.JSX.Element => (
+	<CompiledSidebarHeaderEntry {...props} />
+);

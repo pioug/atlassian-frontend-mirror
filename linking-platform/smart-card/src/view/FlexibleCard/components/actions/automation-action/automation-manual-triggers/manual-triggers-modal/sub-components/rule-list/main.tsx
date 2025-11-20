@@ -16,7 +16,7 @@ type AutomationModalRuleListProps = {
 export const AutomationModalRuleList = ({
 	selectedRule,
 	setSelectedRule,
-}: AutomationModalRuleListProps) => {
+}: AutomationModalRuleListProps): React.JSX.Element => {
 	const { rules } = useAutomationMenu();
 
 	if (rules.length === 0) {

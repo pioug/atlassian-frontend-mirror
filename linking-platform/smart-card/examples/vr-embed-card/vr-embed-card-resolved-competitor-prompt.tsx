@@ -13,7 +13,7 @@ const MockCompetitorPrompt = () => (
 	</Box>
 );
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRCardView
 		appearance="embed"
 		client={new ResolvedClient()}

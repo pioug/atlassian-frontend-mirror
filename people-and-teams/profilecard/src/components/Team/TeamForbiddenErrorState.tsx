@@ -12,7 +12,10 @@ import { PACKAGE_META_DATA, profileCardRendered } from '../../util/analytics';
 import { getPageTime } from '../../util/performance';
 import AccessLockSVG from '../Error/AccessLockSVG';
 
-export default (props: { analytics: AnalyticsFunction; analyticsNext: AnalyticsFunctionNext }) => {
+export default (props: {
+	analytics: AnalyticsFunction;
+	analyticsNext: AnalyticsFunctionNext;
+}): React.JSX.Element => {
 	const { analytics, analyticsNext } = props;
 	const intl = useIntl();
 

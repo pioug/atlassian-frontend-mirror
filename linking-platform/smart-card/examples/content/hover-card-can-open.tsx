@@ -10,7 +10,7 @@ import { Stack } from '@atlaskit/primitives/compiled';
 import { HoverCard } from '../../src/hoverCard';
 import HoverOverMe from '../utils/hover-card-box';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [canOpen, setCanOpen] = useState(true);
 
 	return (

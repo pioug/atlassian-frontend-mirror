@@ -26,7 +26,7 @@ const styles = cssMap({
 
 const FLAG = 'teams_containers_cypher_query_v2_migration';
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	const locale = 'en';
 	const booleanFlagResolver = (flagToResolve: string): boolean => flagToResolve === FLAG;
 	setBooleanFeatureFlagResolver(booleanFlagResolver);

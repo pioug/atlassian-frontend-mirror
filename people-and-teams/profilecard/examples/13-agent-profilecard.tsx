@@ -62,7 +62,7 @@ const agent: RovoAgentProfileCardInfo = {
 	actor_type: 'AGENT',
 	favourite_count: 0,
 };
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<ExampleWrapper>
 			<div>
@@ -101,6 +101,6 @@ export default function Example() {
 	);
 }
 
-export const AgentProfileCardExample = () => (
+export const AgentProfileCardExample = (): React.JSX.Element => (
 	<AgentProfileCard agent={agent} resourceClient={mockClient} />
 );

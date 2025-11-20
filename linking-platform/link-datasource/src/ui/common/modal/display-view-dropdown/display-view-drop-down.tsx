@@ -48,7 +48,10 @@ export type DisplayViewDropDownProps = {
 	viewMode: DisplayViewModes;
 };
 
-export const DisplayViewDropDown = ({ onViewModeChange, viewMode }: DisplayViewDropDownProps) => {
+export const DisplayViewDropDown = ({
+	onViewModeChange,
+	viewMode,
+}: DisplayViewDropDownProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const isTable = viewMode === 'table';
 	const triggerText = isTable

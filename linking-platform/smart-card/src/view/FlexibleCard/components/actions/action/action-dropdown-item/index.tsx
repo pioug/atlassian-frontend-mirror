@@ -13,7 +13,7 @@ const ActionDropdownItem = ({
 	isLoading,
 	onClick,
 	testId,
-}: ActionDropdownItemProps) => (
+}: ActionDropdownItemProps): React.JSX.Element => (
 	<DropdownItem
 		elemAfter={iconAfter}
 		elemBefore={iconBefore}

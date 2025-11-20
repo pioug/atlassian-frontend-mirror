@@ -225,7 +225,7 @@ export class DropzoneBase extends LocalUploadComponentReact<DropzoneProps> {
 		}
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<ErrorFlagGroup flagData={this.state.errorFlags} onFlagDismissed={this.dismissErrorFlag} />
 		);

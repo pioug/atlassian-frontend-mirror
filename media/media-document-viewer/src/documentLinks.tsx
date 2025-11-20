@@ -33,7 +33,7 @@ const DocumentLink = ({ link, dataTestId }: { link: Link; dataTestId?: string })
 	);
 };
 
-export const DocumentLinks = ({ links }: { links: readonly Link[] }) => {
+export const DocumentLinks = ({ links }: { links: readonly Link[] }): React.JSX.Element => {
 	return (
 		<>
 			{links.map((link, i) => (

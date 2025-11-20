@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
@@ -9,7 +9,9 @@ import { useSmartCardActions } from '../../../state/actions';
 import { useSmartLinkRenderers } from '../../../state/renderers';
 import { useSmartCardState as useLinkState } from '../../../state/store';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
-import CustomPopupContainer from '../components/CustomPopupContainer';
+import CustomPopupContainer, {
+	createCustomPopupContainer,
+} from '../components/CustomPopupContainer';
 import HoverCardContent from '../components/HoverCardContent';
 import { CARD_GAP_PX, HOVER_CARD_Z_INDEX } from '../styled';
 import { type HoverCardComponentProps, type HoverCardContentProps } from '../types';
@@ -33,10 +35,11 @@ export const HoverCardComponent = ({
 	noFadeDelay = false,
 	hoverPreviewOptions,
 	role,
+	shouldRenderToParent = false,
 	label,
 	titleId,
 	onVisibilityChange,
-}: HoverCardComponentProps) => {
+}: HoverCardComponentProps): React.JSX.Element => {
 	const fadeInDelay = hoverPreviewOptions?.fadeInDelay ?? FADE_IN_DELAY;
 	const [isOpen, setIsOpen] = React.useState(false);
 	const fadeOutTimeoutId = useRef<ReturnType<typeof setTimeout>>();
@@ -281,6 +284,15 @@ export const HoverCardComponent = ({
 		[children, initHideCard, initShowCard, onChildClick, onContextMenuClick, setMousePosition],
 	);
 
+	const popupComponent = fg('hover-card-prop-should-render-to-parent')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useMemo(() => {
+				// Within the Popup component, if shouldRenderToParent, the zIndex prop is ignored
+				// as it is assumed that the custom popup container has the desired styles
+				return createCustomPopupContainer(shouldRenderToParent ? zIndex : undefined);
+			}, [zIndex, shouldRenderToParent])
+		: CustomPopupContainer;
+
 	return (
 		<Popup
 			testId="hover-card"
@@ -295,8 +307,9 @@ export const HoverCardComponent = ({
 			role={role}
 			titleId={titleId}
 			label={label}
+			{...(fg('hover-card-prop-should-render-to-parent') ? { shouldRenderToParent } : {})}
 			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
-			popupComponent={CustomPopupContainer}
+			popupComponent={popupComponent}
 		/>
 	);
 };

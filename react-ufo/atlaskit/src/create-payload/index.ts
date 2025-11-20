@@ -603,9 +603,21 @@ async function createInteractionMetricsPayload(
 		if (!isPageLoad || !isDetailedPayload) {
 			return {};
 		}
+
+		const initialPageLoadExtraTimings = objectToArray(initialPageLoadExtraTiming.getTimings());
 		const config = getConfig();
+
+		if (fg('platform_ufo_default_ssr_edge_timings')) {
+			return {
+				initialPageLoadExtraTimings,
+				SSRTimings: config?.ssr?.getSSRTimings
+					? [...config.ssr.getSSRTimings(), ...objectToArray(ssr.getSSRTimings())]
+					: objectToArray(ssr.getSSRTimings()),
+			};
+		}
+
 		return {
-			initialPageLoadExtraTimings: objectToArray(initialPageLoadExtraTiming.getTimings()),
+			initialPageLoadExtraTimings,
 			SSRTimings: config?.ssr?.getSSRTimings
 				? config.ssr.getSSRTimings()
 				: objectToArray(ssr.getSSRTimings()),

@@ -4,7 +4,7 @@ import { ResolvedClient, ResolvedClientProfileUrl } from '@atlaskit/link-test-he
 
 import VRCardView from '../utils/vr-card-view';
 
-export const VREmbedProfileObject = () => (
+export const VREmbedProfileObject = (): React.JSX.Element => (
 	<VRCardView
 		appearance="embed"
 		frameStyle="show"

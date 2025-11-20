@@ -40,7 +40,7 @@ const ModalOpenCloseEvents = () => {
 /**
  * AkModal component with built-in analytics for screen event + open + close events + source context
  */
-export const Modal = ({ screen, children, ...props }: ModalProps) => {
+export const Modal = ({ screen, children, ...props }: ModalProps): React.JSX.Element => {
 	return (
 		<ModalDialog {...props}>
 			<AnalyticsContext data={{ source: screen, component: 'modal' }}>

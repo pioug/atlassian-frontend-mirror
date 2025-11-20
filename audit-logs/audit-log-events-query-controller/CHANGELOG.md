@@ -1,1 +1,9 @@
 # @atlaskit/audit-log-events-query-controller
+
+## 0.0.2
+
+### Patch Changes
+
+- [`711dd6589a035`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/711dd6589a035) -
+  Suppress i18n eslint errors
+- Updated dependencies

@@ -24,7 +24,7 @@ const TitleBlockBuilder = ({
 	onChange,
 	size = SmartLinkSize.Medium,
 	template,
-}: BlockBuilderProps) => (
+}: BlockBuilderProps): React.JSX.Element => (
 	<>
 		<MaxLinesOption
 			defaultValue={DEFAULT_MAX_LINES}

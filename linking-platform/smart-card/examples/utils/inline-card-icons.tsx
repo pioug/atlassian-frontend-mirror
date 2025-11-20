@@ -65,7 +65,9 @@ const iconGroups = [
 	['Inline Icons', inlineIcons],
 ] as const;
 
-export const InlineCardIcons = (props: { CardComponent?: typeof Card | typeof CardSSR }) => (
+export const InlineCardIcons = (props: {
+	CardComponent?: typeof Card | typeof CardSSR;
+}): React.JSX.Element => (
 	<>
 		{iconGroups.map(([title, icons], index) => (
 			<Box key={index} xcss={style}>

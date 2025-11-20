@@ -56,7 +56,11 @@ const reducer = (state: PortalState, action: PortalAction) => {
 /**
  * Provides actions to manage portals via context and renders portalled components into the React tree.
  */
-export const JQLEditorPortalRenderer = ({ children }: { children: ReactNode }) => {
+export const JQLEditorPortalRenderer = ({
+	children,
+}: {
+	children: ReactNode;
+}): React.JSX.Element => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
 	const actionsContext = useMemo<PortalActions>(() => {

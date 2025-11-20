@@ -16,7 +16,7 @@ const gridStyles = cssMap({
 	},
 });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<SmartCardProvider client={new ResolvedClient('stg')}>
 			<Grid gap="space.100" xcss={gridStyles.root}>

@@ -27,18 +27,20 @@ const styles = cssMap({
 	},
 });
 
-export const ReportingLinesSection = ({ children }: { children: React.ReactNode }) => (
-	<Box xcss={cx(styles.reportingLinesSection)}>{children}</Box>
-);
+export const ReportingLinesSection = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): React.JSX.Element => <Box xcss={cx(styles.reportingLinesSection)}>{children}</Box>;
 
-export const ManagerSection = ({ children }: { children: React.ReactNode }) => (
+export const ManagerSection = ({ children }: { children: React.ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.managerSection)}>{children}</Box>
 );
 
-export const ManagerName = ({ children }: { children: React.ReactNode }) => (
+export const ManagerName = ({ children }: { children: React.ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.managerName)}>{children}</Box>
 );
 
-export const OffsetWrapper = ({ children }: { children: React.ReactNode }) => (
+export const OffsetWrapper = ({ children }: { children: React.ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.offsetWrapper)}>{children}</Box>
 );

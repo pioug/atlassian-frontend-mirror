@@ -265,7 +265,7 @@ function LifecycleAnalytics() {
 	);
 }
 
-export default function LifecycleAnalyticsWithProvider() {
+export default function LifecycleAnalyticsWithProvider(): React.JSX.Element {
 	return (
 		<SmartCardProvider>
 			<LifecycleAnalytics />

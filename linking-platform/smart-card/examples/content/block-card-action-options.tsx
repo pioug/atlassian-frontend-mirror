@@ -5,7 +5,7 @@ import { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';
 
 import { Card } from '../../src';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<SmartCardProvider client={new ResolvedClient('stg')}>
 		<Card actionOptions={{ hide: true }} appearance="block" url={ResolvedClientUrl} />
 	</SmartCardProvider>

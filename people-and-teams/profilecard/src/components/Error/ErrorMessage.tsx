@@ -22,7 +22,7 @@ interface Props {
 	) => void;
 }
 
-const ErrorMessage = (props: Props) => {
+const ErrorMessage = (props: Props): React.JSX.Element => {
 	const errorType = props.errorType || { reason: 'default' };
 	const errorReason = errorType.reason;
 
@@ -50,14 +50,17 @@ const ErrorMessage = (props: Props) => {
 
 	const errorContent = () => {
 		if (errorReason === 'NotFound') {
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 			return <ErrorTitle>The user is no longer available for the site</ErrorTitle>;
 		}
 
 		return (
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 			<ErrorTitle>
 				Oops, looks like we’re having issues
 				<br />
 				{reload && (
+					// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 					<Text color="color.text.subtlest">Try again and we’ll give it another shot</Text>
 				)}
 			</ErrorTitle>
@@ -68,6 +71,7 @@ const ErrorMessage = (props: Props) => {
 		<ErrorWrapper testId="profilecard-error">
 			<CrossCircleIcon label="icon error" LEGACY_fallbackIcon={IconError} LEGACY_size="xlarge" />
 			{errorContent()}
+			{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 			{reload && <Button onClick={reload}>Try again</Button>}
 		</ErrorWrapper>
 	);

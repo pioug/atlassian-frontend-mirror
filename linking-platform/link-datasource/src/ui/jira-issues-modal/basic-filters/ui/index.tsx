@@ -39,7 +39,7 @@ const BasicFilterContainer = ({
 	onChange,
 	selections,
 	isJQLHydrating,
-}: BasicFilterContainerProps) => {
+}: BasicFilterContainerProps): React.JSX.Element => {
 	const extractedFilterValues = useMemo(
 		() => (isJQLHydrating ? extractValuesFromNonComplexJQL(jql) : {}),
 		[isJQLHydrating, jql],

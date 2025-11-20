@@ -587,7 +587,7 @@ const ConnectedJiraIssueConfigModal = createDatasourceModal({
 	component: PlainJiraIssuesConfigModal,
 });
 
-export const JiraIssuesConfigModal = (props: JiraConfigModalProps) => {
+export const JiraIssuesConfigModal = (props: JiraConfigModalProps): React.JSX.Element => {
 	const onInsert = props.onInsert;
 	const onInsertWithMacroAnalytics = useCallback<typeof onInsert>(
 		(adf, analyticsEvent) => {

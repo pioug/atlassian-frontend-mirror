@@ -66,7 +66,12 @@ const deduplicateMediaSingleChildren = (
 	};
 };
 
-export const transformInvalidMediaContent = (adf: ADFEntity) => {
+export const transformInvalidMediaContent = (
+	adf: ADFEntity,
+): {
+	transformedAdf: ADFEntity;
+	isTransformed: boolean;
+} => {
 	let isTransformed: boolean = false;
 	const transformedAdf = traverse(adf, {
 		mediaSingle: (node) => {

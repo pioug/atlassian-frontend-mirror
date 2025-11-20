@@ -21,7 +21,7 @@ export const JiraJQLEditor = ({
 	onChange,
 	onSearch,
 	query,
-}: JiraJQLEditorProps) => {
+}: JiraJQLEditorProps): React.JSX.Element => {
 	const autocompleteProvider = useAutocompleteProvider(
 		'link-datasource',
 		makeGetJqlAutocompleteData(cloudId),
@@ -51,6 +51,7 @@ export const JiraJQLEditor = ({
 			isSearching={isSearching}
 			inputRef={inputRef}
 			query={query}
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 			aria-label="JQL Query Editor"
 		/>
 	);

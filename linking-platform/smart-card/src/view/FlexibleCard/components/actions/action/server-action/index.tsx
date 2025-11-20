@@ -14,7 +14,7 @@ const ServerAction = ({
 	onClick,
 	onError: onErrorCallback,
 	...props
-}: ServerActionProps) => {
+}: ServerActionProps): React.JSX.Element => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const invoke = useInvoke();
 	const reload = useResolve();

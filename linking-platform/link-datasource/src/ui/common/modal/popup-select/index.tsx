@@ -57,7 +57,7 @@ export const FilterPopupSelect = ({
 	onInputChange,
 	onMenuClose,
 	onMenuOpen,
-}: FilterPopupSelectProps) => {
+}: FilterPopupSelectProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 	const [searchTerm, setSearchTerm] = useState('');

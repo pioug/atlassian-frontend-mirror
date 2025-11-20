@@ -16,7 +16,7 @@ import JSMAssetsConfigModal from '../src/ui/assets-modal';
 
 mockAssetsClientFetchRequests();
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [generatedAdf, setGeneratedAdf] = useState<string | null>(null);
 	const [showModal, setShowModal] = useState(true);
 	const [parameters, setParameters] = useState<AssetsDatasourceParameters>({

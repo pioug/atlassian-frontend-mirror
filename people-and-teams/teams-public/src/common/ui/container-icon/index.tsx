@@ -91,7 +91,7 @@ export const ContainerIcon = ({
 	size = 'medium',
 	iconsLoading = false,
 	iconHasLoaded = true,
-}: ContainerIconProps) => {
+}: ContainerIconProps): React.JSX.Element => {
 	const isMedium = size === 'medium';
 	const isTeamLensInHomeEnabled = getIsExperimentEnabled('team_lens_in_atlassian_home');
 	const isNewTeamProfilePageEnabled = FeatureGates.getExperimentValue(

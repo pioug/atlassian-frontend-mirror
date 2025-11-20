@@ -26,7 +26,7 @@ const MetadataOption = ({
 	onChange: (template: BlockTemplate) => void;
 	propName: keyof BlockTemplate;
 	template: BlockTemplate;
-}) => {
+}): React.JSX.Element => {
 	const handleOnMetadataChange = useCallback(
 		(...params: ChangeParams<BlockTemplate>) =>
 			(values: OptionsType<{ label: string; value: ElementName }>) => {

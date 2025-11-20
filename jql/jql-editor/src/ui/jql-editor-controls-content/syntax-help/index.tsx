@@ -14,7 +14,7 @@ import { BaseSyntaxHelp } from '../base-syntax-help';
 
 import { messages } from './messages';
 
-export const SyntaxHelp = () => {
+export const SyntaxHelp = (): React.JSX.Element => {
 	const [intl] = useIntl();
 	const label = intl.formatMessage(messages.syntaxHelpTooltip);
 	const [descriptionId] = useScopedId(SYNTAX_HELP_DESCRIPTION_ID);

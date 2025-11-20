@@ -7,7 +7,7 @@ import EmbedModal from '../../src/view/EmbedModal';
 import { overrideEmbedContent } from '../utils/common';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-export default () => (
+export default (): React.JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 	<VRTestWrapper style={{ height: '700px' }}>
 		<EmbedModal

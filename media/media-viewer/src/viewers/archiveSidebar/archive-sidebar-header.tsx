@@ -20,7 +20,7 @@ export class ArchiveSidebarHeader extends React.Component<HeaderProps> {
 			<HomeIcon color="currentColor" spacing="spacious" label="Home" />
 		);
 
-	render() {
+	render(): React.JSX.Element {
 		const { folderName, onHeaderClick } = this.props;
 		return (
 			<CustomButtonItem onClick={onHeaderClick}>

@@ -38,7 +38,10 @@ const i18n = defineMessages({
 	},
 });
 
-export const AutomationModalFooter = ({ selectedRule, onClose }: AutomationModalFooterProps) => {
+export const AutomationModalFooter = ({
+	selectedRule,
+	onClose,
+}: AutomationModalFooterProps): React.JSX.Element | null => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	const {

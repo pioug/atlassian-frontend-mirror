@@ -6,7 +6,7 @@ import { messages } from '../../../../messages';
 import { EmptyState } from '../../components/EmptyState';
 import { SpotSearchNoResult } from '../errored/error-svg/search-no-result';
 
-const RelatedLinksUnavailableView = () => {
+const RelatedLinksUnavailableView = (): React.JSX.Element => {
 	const intl = useIntl();
 
 	return (

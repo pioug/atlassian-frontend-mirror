@@ -6,7 +6,7 @@ import { DeleteAction, EditAction } from '../../src/view/FlexibleCard/components
 
 import ExampleContainer from './example-container';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<ExampleContainer>
 		<Inline space="space.100">
 			<EditAction onClick={() => {}} />

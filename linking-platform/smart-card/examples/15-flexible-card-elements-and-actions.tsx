@@ -66,7 +66,7 @@ import {
 
 import ExampleContainer from './utils/example-container';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [cols, setCols] = React.useState<number>(1);
 	const [templateColumns, setTemplateColumns] = React.useState<string>('1fr');
 

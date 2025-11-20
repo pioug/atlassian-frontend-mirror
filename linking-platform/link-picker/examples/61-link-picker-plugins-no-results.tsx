@@ -86,7 +86,7 @@ function LinkPickerPlugins() {
 	);
 }
 
-export default function LinkPickerPluginsWrapper() {
+export default function LinkPickerPluginsWrapper(): React.JSX.Element {
 	return (
 		<SmartCardProvider client={smartCardClient}>
 			<LinkPickerPlugins />

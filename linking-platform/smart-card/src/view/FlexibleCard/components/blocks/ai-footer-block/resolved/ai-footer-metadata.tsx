@@ -15,7 +15,10 @@ import useAISummaryAction from '../../../../../../state/hooks/use-ai-summary-act
 import LegacyAIIcon from '../../../../../common/ai-icon';
 import { InfoIcon } from '../icons/info';
 
-export const AIFooterMetadata = ({ testId, url }: AISummaryActionData & { testId?: string }) => {
+export const AIFooterMetadata = ({
+	testId,
+	url,
+}: AISummaryActionData & { testId?: string }): React.JSX.Element | null => {
 	di(useAISummaryAction);
 
 	const {

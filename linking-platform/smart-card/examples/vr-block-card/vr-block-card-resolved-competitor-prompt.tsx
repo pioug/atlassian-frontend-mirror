@@ -20,7 +20,7 @@ class CustomClient extends Client {
 	}
 }
 
-export const BlockCardCompetitorPrompt = () => (
+export const BlockCardCompetitorPrompt = (): React.JSX.Element => (
 	<div>
 		<VRCardView
 			appearance="block"

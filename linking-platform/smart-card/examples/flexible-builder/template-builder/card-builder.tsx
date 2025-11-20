@@ -48,7 +48,7 @@ const CardBuilder = ({
 	display?: TemplateDisplay;
 	onChange: (template: Partial<CardProps>) => void;
 	template?: Partial<CardProps>;
-}) => {
+}): React.JSX.Element => {
 	const isInline = useMemo(() => display === 'inline', [display]);
 	const isEmbed = useMemo(() => display === 'embed', [display]);
 	const isFlexible = useMemo(() => display === 'flexible', [display]);

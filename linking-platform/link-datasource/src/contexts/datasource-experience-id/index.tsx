@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const DatasourceExperienceIdContext = React.createContext<string | undefined>(undefined);
 
-const DatasourceExperienceIdProvider = ({ children }: PropsWithChildren<{}>) => {
+const DatasourceExperienceIdProvider = ({ children }: PropsWithChildren<{}>): React.JSX.Element => {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const value = useMemo<string>(() => uuidv4(), []);
 	return (

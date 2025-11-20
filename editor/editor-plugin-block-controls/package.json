@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "7.7.3",
+	"version": "7.7.4",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -144,9 +144,6 @@
 			"type": "boolean"
 		},
 		"dst-a11y__replace-anchor-with-link__editor-jenga": {
-			"type": "boolean"
-		},
-		"platform_editor_block_menu_patch_1": {
 			"type": "boolean"
 		},
 		"editor_native_anchor_remove_decoration_in_apply": {

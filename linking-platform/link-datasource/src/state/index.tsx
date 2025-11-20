@@ -113,6 +113,6 @@ export const useDatasourceActions = createActionsHook(Store);
 
 const Container = createContainer(Store);
 
-export const StoreContainer = ({ children }: { children: JSX.Element }) => {
+export const StoreContainer = ({ children }: { children: JSX.Element }): React.JSX.Element => {
 	return <Container scope="datasource">{children}</Container>;
 };

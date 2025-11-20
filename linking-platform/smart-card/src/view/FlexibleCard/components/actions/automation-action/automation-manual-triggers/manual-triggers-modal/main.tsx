@@ -37,7 +37,7 @@ export const AutomationModal = ({
 	emptyStateDescription,
 	emptyStateAdminDescription,
 	analyticsSource,
-}: AutomationModalProps) => {
+}: AutomationModalProps): React.JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	const [selectedRule, setSelectedRule] = useState<ManualRule | undefined>();

@@ -15,7 +15,7 @@ export const CONTACT_SUPPORT_LINK = 'https://support.atlassian.com/contact/';
 export const CONTACT_SUPPORT_LINK_FEDRAMP =
 	'https://gcs.atlassian-us-gov-mod.net/servicedesk/customer/portals';
 
-export const ErrorBoundaryUI = () => {
+export const ErrorBoundaryUI = (): React.JSX.Element => {
 	const intl = useIntl();
 
 	return (

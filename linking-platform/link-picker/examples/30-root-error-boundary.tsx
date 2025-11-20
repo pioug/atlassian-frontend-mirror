@@ -6,7 +6,7 @@ import Popup from '@atlaskit/popup';
 import { PageHeader, PageWrapper } from '../example-helpers/common';
 import { LinkPicker } from '../src';
 
-export default function RootErrorBoundary() {
+export default function RootErrorBoundary(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(true);
 
 	const handleToggle = () => setIsOpen(!isOpen);

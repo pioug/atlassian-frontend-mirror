@@ -9,6 +9,6 @@ const styles = cssMap({
 	},
 });
 
-export const BlankSpace = ({ children }: { children: React.ReactNode }) => {
+export const BlankSpace = ({ children }: { children: React.ReactNode }): React.JSX.Element => {
 	return <Box xcss={styles.blankSpace}>{children}</Box>;
 };

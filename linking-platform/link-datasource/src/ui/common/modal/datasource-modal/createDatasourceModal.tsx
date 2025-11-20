@@ -31,7 +31,7 @@ export const createDatasourceModal = <Parameters extends DatasourceParameters>({
 			DatasourceAdf<Parameters> | InlineCardAdf,
 			DatasourceParameters | Parameters
 		>,
-	) => {
+	): React.JSX.Element => {
 		const {
 			datasourceId,
 			visibleColumnKeys,

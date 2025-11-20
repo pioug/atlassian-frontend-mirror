@@ -99,7 +99,7 @@ const SimulateSsrPage = ({
 	);
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [areModulesReady, setAreModulesReady] = useState(false);
 	const [isMediaStateReady, setIsMediaStateReady] = useState(false);
 	useEffect(() => {

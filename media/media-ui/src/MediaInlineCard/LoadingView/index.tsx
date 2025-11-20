@@ -21,7 +21,7 @@ export interface MediaInlineCardLoadingViewProps {
 }
 
 export class MediaInlineCardLoadingView extends React.Component<MediaInlineCardLoadingViewProps> {
-	render() {
+	render(): React.JSX.Element {
 		const {
 			message,
 			onClick,

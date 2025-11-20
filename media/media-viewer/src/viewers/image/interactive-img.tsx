@@ -111,7 +111,7 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
 		);
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { src, originalBinaryImageSrc, orientation, onError } = this.props;
 		const { zoomLevel, isHDAvailable, isHDActive, camera, isDragging } = this.state;
 

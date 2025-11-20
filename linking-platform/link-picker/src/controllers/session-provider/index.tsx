@@ -28,7 +28,9 @@ const useConstructor = (callback: () => void) => {
 	return null;
 };
 
-export const LinkPickerSessionProvider = ({ children }: SessionProviderProps) => {
+export const LinkPickerSessionProvider = ({
+	children,
+}: SessionProviderProps): React.JSX.Element => {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const { current: sessionId } = useRef(uuidv4());
 

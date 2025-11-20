@@ -267,7 +267,6 @@ function Expand({
 	fireAnalyticsEvent,
 	localId,
 	nestedHeaderIds,
-	rendererAppearance,
 	rendererContentMode,
 }: ExpandProps & WrappedComponentProps) {
 	const [expanded, setExpanded] = React.useState(false);

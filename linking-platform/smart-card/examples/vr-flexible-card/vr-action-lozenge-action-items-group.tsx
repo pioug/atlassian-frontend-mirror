@@ -14,7 +14,7 @@ const items: LozengeItem[] = [
 	{ id: '5', text: 'In Review', appearance: 'inprogress' },
 ];
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestWrapper>
 		<SmartCardProvider>
 			<div role="menu">

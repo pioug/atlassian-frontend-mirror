@@ -5,7 +5,7 @@ import AtlaskitIcon from '../../src/view/FlexibleCard/components/common/atlaskit
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 function generateExample(iconType: IconType) {
-	return () => (
+	return (): React.JSX.Element => (
 		<VRTestWrapper>
 			<AtlaskitIcon icon={iconType} size={SmartLinkSize.Large} />
 		</VRTestWrapper>

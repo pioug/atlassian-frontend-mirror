@@ -80,6 +80,15 @@ const shape: AttributeSchema<ShapeTokenSchema<ShapePaletteToken>> = {
 				description: 'Used for modals and large containers.',
 			},
 		},
+		xxlarge: {
+			attributes: {
+				group: 'shape',
+				state: 'active',
+				suggest: ['12px'],
+				introduced: '8.1.0',
+				description: 'Used for the largest containers.',
+			},
+		},
 		full: {
 			attributes: {
 				group: 'shape',

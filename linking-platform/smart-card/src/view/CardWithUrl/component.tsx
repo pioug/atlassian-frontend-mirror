@@ -402,7 +402,7 @@ function Component({
 	}
 }
 
-export const CardWithUrlContent = (props: CardWithUrlContentProps) => {
+export const CardWithUrlContent = (props: CardWithUrlContentProps): React.JSX.Element => {
 	const display = isFlexibleUiCard(props.children, props?.ui)
 		? CardDisplay.Flexible
 		: props.appearance;

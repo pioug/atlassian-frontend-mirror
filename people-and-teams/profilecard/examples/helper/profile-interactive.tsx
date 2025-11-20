@@ -153,7 +153,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 		},
 	];
 
-	createCheckboxBooleanAttribute(attribute: keyof State) {
+	createCheckboxBooleanAttribute(attribute: keyof State): React.JSX.Element {
 		const id = `label-${uid()}`;
 		return (
 			<Label htmlFor={id}>
@@ -172,7 +172,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 		);
 	}
 
-	createRadioStatusAttribute(attribute: StatusType) {
+	createRadioStatusAttribute(attribute: StatusType): React.JSX.Element {
 		const id = `label-${uid()}`;
 
 		return (
@@ -189,7 +189,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 		);
 	}
 
-	createRadioStatusModifiedDate(attribute: StatusModifiedDateType) {
+	createRadioStatusModifiedDate(attribute: StatusModifiedDateType): React.JSX.Element {
 		const id = `label-${uid()}`;
 
 		return (
@@ -266,7 +266,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 		return customLozenges;
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const customActions = [
 			{ label: 'Foo 1', id: 'foo', callback: handleActionClick('Foo') },
 			{ label: 'Bar 2', id: 'bar', callback: handleActionClick('Bar') },

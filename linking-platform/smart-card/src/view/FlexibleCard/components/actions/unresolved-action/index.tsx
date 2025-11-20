@@ -28,7 +28,7 @@ const UnresolvedAction = ({
 }: {
 	hasPadding?: boolean;
 	testId?: string;
-}) => {
+}): React.JSX.Element | null => {
 	const context = useFlexibleUiContext();
 	const data = context?.actions?.[InternalActionName.UnresolvedAction];
 	if (!data) {

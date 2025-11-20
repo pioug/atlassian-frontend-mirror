@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const UnauthorizedSVG = () => (
+export const UnauthorizedSVG = (): React.JSX.Element => (
 	<svg
 		viewBox="0 0 565 267"
 		fill="none"

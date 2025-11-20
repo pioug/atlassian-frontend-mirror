@@ -23,7 +23,7 @@ const StyledContainer = styled.div({
 	alignItems: 'center',
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<StyledContainer>
 			<p>Hello world</p>

@@ -18,7 +18,7 @@ export const sizeToButtonSpacing: Record<SmartLinkSize, Spacing> = {
 	[SmartLinkSize.XLarge]: 'default',
 };
 
-export const getFormattedMessage = (message?: MessageProps) => {
+export const getFormattedMessage = (message?: MessageProps): React.JSX.Element | undefined => {
 	if (message) {
 		const { descriptor, values } = message;
 		return <FormattedMessage {...descriptor} values={values} />;

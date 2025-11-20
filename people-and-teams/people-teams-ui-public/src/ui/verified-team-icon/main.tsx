@@ -43,7 +43,7 @@ export const VerifiedTeamIcon = ({
 	customTooltipContent,
 	size = 'medium',
 	spacing = 'spacious',
-}: VerifiedTeamIconProps) => {
+}: VerifiedTeamIconProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const tooltipContent = showTooltip
 		? customTooltipContent || formatMessage(messages.verifiedIconDefaultTooltip)

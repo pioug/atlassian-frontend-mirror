@@ -20,7 +20,7 @@ const FlexibleToggle = ({
 }: {
 	display?: TemplateDisplay;
 	onChange: (e: React.SyntheticEvent<HTMLInputElement>) => void;
-}) => {
+}): React.JSX.Element => {
 	return (
 		<Inline alignBlock="center" space="space.050" xcss={containerStyles}>
 			<Toggle

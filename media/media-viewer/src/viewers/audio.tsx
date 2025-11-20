@@ -100,7 +100,7 @@ export class AudioViewer extends BaseViewer<string, Props, State> {
 		onError && onError(new MediaViewerError('audioviewer-playback'));
 	};
 
-	protected renderSuccessful(src: string) {
+	protected renderSuccessful(src: string): React.JSX.Element {
 		const { item, showControls, previewCount, onCanPlay } = this.props;
 
 		const useCustomAudioPlayer = !isIE();

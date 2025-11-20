@@ -18,7 +18,9 @@ const FALLBACK_API = { open: () => {}, close: () => {} };
 
 export const SmartLinkModalContext = React.createContext<SmartLinkModalAPI>(FALLBACK_API);
 
-export const SmartLinkModalProvider = ({ children }: SmartLinkModalProviderProps) => {
+export const SmartLinkModalProvider = ({
+	children,
+}: SmartLinkModalProviderProps): React.JSX.Element => {
 	const [element, setElement] = useState<ReactNode | ReactElement>(null);
 
 	const api: SmartLinkModalAPI = useMemo(

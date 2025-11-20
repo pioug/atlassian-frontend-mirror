@@ -80,11 +80,14 @@ export default class Example extends React.Component<{}, State> {
 		this.setState({ selected: undefined });
 	};
 
-	sidebarRenderer = (selectedIdentifier: Identifier, actions: MediaViewerExtensionsActions) => {
+	sidebarRenderer = (
+		selectedIdentifier: Identifier,
+		actions: MediaViewerExtensionsActions,
+	): React.JSX.Element => {
 		return <Sidebar identifier={selectedIdentifier} actions={actions} />;
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { selected } = this.state;
 		return (
 			<MainWrapper>

@@ -95,7 +95,7 @@ const usePrepeMediaState = () => {
 	return { allItems, MockedMediaClientProvider };
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const { allItems, MockedMediaClientProvider } = usePrepeMediaState();
 
 	return (

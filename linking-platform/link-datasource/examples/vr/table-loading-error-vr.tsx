@@ -14,25 +14,25 @@ const styles = cssMap({
 	},
 });
 
-export const GenericLoadingErrorVR = () => (
+export const GenericLoadingErrorVR = (): React.JSX.Element => (
 	<Wrapper>
 		<LoadingError onRefresh={() => false} />
 	</Wrapper>
 );
 
-export const GenericLoadingErrorWithoutRefreshVR = () => (
+export const GenericLoadingErrorWithoutRefreshVR = (): React.JSX.Element => (
 	<Wrapper>
 		<LoadingError />
 	</Wrapper>
 );
 
-export const ConfluenceLoadingErrorVR = () => (
+export const ConfluenceLoadingErrorVR = (): React.JSX.Element => (
 	<Wrapper>
 		<LoadingError onRefresh={() => false} url={'https://atlassian.com/wiki/search'} />
 	</Wrapper>
 );
 
-export const JiraLoadingErrorVR = () => (
+export const JiraLoadingErrorVR = (): React.JSX.Element => (
 	<Wrapper>
 		<LoadingError onRefresh={() => false} url={'https://atlassian.com/issues?jql=project%3DTEST'} />
 	</Wrapper>

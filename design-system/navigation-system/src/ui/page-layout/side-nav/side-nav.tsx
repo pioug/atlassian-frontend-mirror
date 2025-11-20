@@ -1105,25 +1105,41 @@ function SideNavInternal({
 
 	const isFlyoutClosed = sideNavState?.flyout === 'closed' || sideNavState?.flyout === undefined;
 
-	// Used to prevent sidebar expand animations from running on the initial render.
-	// Otherwise, the `@starting-style` rule will cause the sidebar to slide in initially.
-	const isFirstRenderRef = useRef(true);
+	const isExpandedStateDifferentFromInitial =
+		isExpandedOnMobile || isExpandedOnDesktop !== initialIsExpandedOnDesktop;
+
+	/**
+	 * Used to track (between renders) if the expanded state of the side nav has ever changed since mount.
+	 *
+	 * Cannot rely solely on `isExpandedStateDifferentFromInitial` because the expanded state can go back to the initial state.
+	 */
+	const hasExpandedStateChangedRef = useRef(false);
 
 	useEffect(() => {
-		if (!isFhsEnabled) {
+		if (hasExpandedStateChangedRef.current) {
 			return;
 		}
 
-		if (isFirstRenderRef.current) {
-			isFirstRenderRef.current = false;
+		if (isExpandedStateDifferentFromInitial) {
+			hasExpandedStateChangedRef.current = true;
 		}
-	}, [isFhsEnabled]);
+	}, [isExpandedStateDifferentFromInitial]);
+
+	/**
+	 * If the expanded state of the side nav has ever changed since mount.
+	 *
+	 * Used to prevent sidebar expand animations from running on the initial load.
+	 * Otherwise, the `@starting-style` rule will cause the sidebar to slide in initially.
+	 */
+	const hasExpandedStateChanged =
+		isExpandedStateDifferentFromInitial || hasExpandedStateChangedRef.current;
 
 	// This is only used for the regular expand and collapse animations, not the flyout animations.
 	const shouldShowSidebarToggleAnimation =
+		isFhsEnabled &&
 		// We do not apply the animation styles on the initial render, as the `@starting-style` rule will cause the sidebar to
 		// slide in initially.
-		!isFirstRenderRef.current &&
+		hasExpandedStateChanged &&
 		// We also do not apply the animation styles if the side nav is in flyout mode to make sure we don't override flyout styles.
 		// If we instead try to unset the `transform` property in the flyout styles using `transform: initial`, it results in the entire
 		// flyout animation being disabled.
@@ -1171,25 +1187,13 @@ function SideNavInternal({
 
 				isFhsEnabled && styles.animationRTLSupport,
 				// Expand/collapse animation styles
-				shouldShowSidebarToggleAnimation && isFhsEnabled && styles.animationBaseStyles,
+				shouldShowSidebarToggleAnimation && styles.animationBaseStyles,
 				// We need to separately apply the styles for the expand or collapse animations for both mobile and desktop
 				// based on their relevant expansion state.
-				isExpandedOnMobile &&
-					shouldShowSidebarToggleAnimation &&
-					isFhsEnabled &&
-					styles.expandAnimationMobile,
-				!isExpandedOnMobile &&
-					shouldShowSidebarToggleAnimation &&
-					isFhsEnabled &&
-					styles.collapseAnimationMobile,
-				isExpandedOnDesktop &&
-					shouldShowSidebarToggleAnimation &&
-					isFhsEnabled &&
-					styles.expandAnimationDesktop,
-				!isExpandedOnDesktop &&
-					shouldShowSidebarToggleAnimation &&
-					isFhsEnabled &&
-					styles.collapseAnimationDesktop,
+				isExpandedOnMobile && shouldShowSidebarToggleAnimation && styles.expandAnimationMobile,
+				!isExpandedOnMobile && shouldShowSidebarToggleAnimation && styles.collapseAnimationMobile,
+				isExpandedOnDesktop && shouldShowSidebarToggleAnimation && styles.expandAnimationDesktop,
+				!isExpandedOnDesktop && shouldShowSidebarToggleAnimation && styles.collapseAnimationDesktop,
 
 				// Flyout styles
 				sideNavState?.flyout === 'open' && !isFhsEnabled && styles.flyoutOpen,

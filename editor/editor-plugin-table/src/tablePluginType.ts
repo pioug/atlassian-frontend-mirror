@@ -34,8 +34,10 @@ export interface TablePluginOptions {
 	isCommentEditor?: boolean;
 	// this option will eventually be removed, and enabled by default
 	isTableScalingEnabled?: boolean;
+	maxWidthEnabled?: boolean;
 	tableOptions: PluginConfig;
 	wasFullWidthEnabled?: boolean;
+	wasMaxWidthEnabled?: boolean;
 }
 
 type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;

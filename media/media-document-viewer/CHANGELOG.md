@@ -1,5 +1,18 @@
 # @atlaskit/media-document-viewer
 
+## 0.6.0
+
+### Minor Changes
+
+- [`48549f737bfcf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48549f737bfcf) -
+  Added support for touch scrolling in PDF viewer
+
+## 0.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.5.2
 
 ### Patch Changes

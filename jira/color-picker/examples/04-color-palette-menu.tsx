@@ -31,7 +31,7 @@ class ColorPaletteMenuExample extends React.Component<{}, { color: string }> {
 	}
 }
 
-const Story = () => (
+const Story = (): React.JSX.Element => (
 	<DiProvider use={[platformFgInjectable]}>
 		<ColorPaletteMenuExample />
 	</DiProvider>

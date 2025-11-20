@@ -1,10 +1,13 @@
+/* eslint-disable jsdoc/check-tag-names */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
+/* eslint-enable jsdoc/check-tag-names */
 import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { jsx, css } from '@compiled/react';
+// eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports -- Example file, requires core
 import { Editor, EditorContext, WithEditorActions } from '@atlaskit/editor-core';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { token } from '@atlaskit/tokens';
@@ -17,8 +20,14 @@ const container = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'#source': {
 		border: `${token('border.width.selected')} solid`,
-		margin: token('space.100', '8px'),
-		padding: token('space.100', '8px'),
+		marginTop: token('space.100', '8px'),
+		marginRight: token('space.100', '8px'),
+		marginBottom: token('space.100', '8px'),
+		marginLeft: token('space.100', '8px'),
+		paddingTop: token('space.100', '8px'),
+		paddingRight: token('space.100', '8px'),
+		paddingBottom: token('space.100', '8px'),
+		paddingLeft: token('space.100', '8px'),
 		whiteSpace: 'pre-wrap',
 		fontSize: 'xx-small',
 		'&:focus': {
@@ -32,6 +41,7 @@ const container = css({
 	},
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Props = { actions: any };
 type State = { source: string };
 
@@ -77,7 +87,7 @@ class Example extends React.PureComponent<Props, State> {
 	}
 }
 
-export default () => (
+export default (): JSX.Element => (
 	<EditorContext>
 		<WithEditorActions render={(actions) => <Example actions={actions} />} />
 	</EditorContext>

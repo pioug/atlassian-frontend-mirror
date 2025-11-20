@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.7.4
+
+### Patch Changes
+
+- [`1117e966eee41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1117e966eee41) -
+  [ux] EDITOR-3384 Multiselect expand on doc changes
+
 ## 7.7.3
 
 ### Patch Changes

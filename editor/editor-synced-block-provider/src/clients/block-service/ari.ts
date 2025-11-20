@@ -19,7 +19,7 @@ export const blockResourceIdFromSourceAndLocalId = (sourceId: string, localId: s
  * @param ari - the block ARI. E.G ari:cloud:blocks:cloudId:synced-block/localId
  * @returns the localId of the block node. A randomly generated UUID
  */
-export const getLocalIdFromResourceId = (ari: string) => {
+export const getLocalIdFromBlockResourceId = (ari: string) => {
 	const match = ari.match(/ari:cloud:blocks:[^:]+:synced-block\/([a-zA-Z0-9-]+)/);
 	if (match?.[1]) {
 		return match[1];

@@ -18,7 +18,7 @@ const Container = styled.div({
 	paddingLeft: token('space.100', '8px'),
 });
 
-export default function Component() {
+export default function Component(): React.JSX.Element {
 	return (
 		<Container>
 			<HoverableContainer>

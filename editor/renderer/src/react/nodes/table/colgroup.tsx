@@ -312,6 +312,8 @@ export const Colgroup = (props: SharedTableProps) => {
 		isTableScalingEnabled:
 			props.rendererAppearance === 'full-page' ||
 			props.rendererAppearance === 'full-width' ||
+			(props.rendererAppearance === 'max' &&
+				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)) ||
 			(props.rendererAppearance === 'comment' &&
 				editorExperiment('support_table_in_comment', true, { exposure: true })) ||
 			(props.rendererAppearance === 'comment' &&
@@ -322,7 +324,10 @@ export const Colgroup = (props: SharedTableProps) => {
 				'tableWithFixedColumnWidthsOption' in flags &&
 				flags.tableWithFixedColumnWidthsOption
 			) &&
-			(props.rendererAppearance === 'full-page' || props.rendererAppearance === 'full-width'),
+			(props.rendererAppearance === 'full-page' ||
+				props.rendererAppearance === 'full-width' ||
+				(props.rendererAppearance === 'max' &&
+					expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true))),
 	});
 
 	if (!colStyles) {

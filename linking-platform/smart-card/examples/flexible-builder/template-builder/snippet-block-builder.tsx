@@ -7,7 +7,7 @@ import TextOption from './inputs/text-option';
 
 const DEFAULT_MAX_LINES = 3;
 
-const SnippetBlockBuilder = ({ onChange, template }: BlockBuilderProps) => {
+const SnippetBlockBuilder = ({ onChange, template }: BlockBuilderProps): React.JSX.Element => {
 	return (
 		<>
 			<MaxLinesOption

@@ -38,7 +38,9 @@ const styles = cssMap({
 	},
 });
 
-export const CardTriggerWrapper = () => <Box xcss={cx(styles.cardtriggerwrapper)} />;
+export const CardTriggerWrapper = (): React.JSX.Element => (
+	<Box xcss={cx(styles.cardtriggerwrapper)} />
+);
 
 export const CardWrapper = ({
 	testId,
@@ -46,7 +48,7 @@ export const CardWrapper = ({
 }: {
 	testId?: string;
 	children: React.ReactNode;
-}) => (
+}): React.JSX.Element => (
 	<Box xcss={cx(styles.cardwrapper)} backgroundColor="elevation.surface.overlay" testId={testId}>
 		{children}
 	</Box>
@@ -62,7 +64,7 @@ export const CardHeader = ({
 	isLoading?: boolean;
 	label?: string;
 	isDisabled?: boolean;
-}) =>
+}): React.JSX.Element =>
 	isLoading || !image ? (
 		<Box
 			xcss={cx(styles.cardheader, isDisabled && styles.grayoutImage)}
@@ -72,10 +74,11 @@ export const CardHeader = ({
 		<CoverImage alt={label || ''} src={image} isDisabled={isDisabled} />
 	);
 
-export const CardContent = (props: { children: React.ReactNode }) => (
+export const CardContent = (props: { children: React.ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.cardcontent)} {...props} />
 );
 
-export const LoadingWrapper = (props: { testId?: string; children: React.ReactNode }) => (
-	<Box xcss={cx(styles.loadingwrapper)} {...props} />
-);
+export const LoadingWrapper = (props: {
+	testId?: string;
+	children: React.ReactNode;
+}): React.JSX.Element => <Box xcss={cx(styles.loadingwrapper)} {...props} />;

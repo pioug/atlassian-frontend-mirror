@@ -23,7 +23,11 @@ const styles = cssMap({
 	},
 });
 
-export const ProviderLink = ({ datasourceId }: { datasourceId: string }) => {
+export const ProviderLink = ({
+	datasourceId,
+}: {
+	datasourceId: string;
+}): React.JSX.Element | null => {
 	const intl = useIntl();
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 

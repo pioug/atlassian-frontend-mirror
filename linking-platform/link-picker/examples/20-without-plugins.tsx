@@ -90,7 +90,7 @@ function WithoutPlugins() {
 	);
 }
 
-export default function WithoutPluginsWrapper() {
+export default function WithoutPluginsWrapper(): React.JSX.Element {
 	return (
 		<PageWrapper>
 			<WithoutPlugins />

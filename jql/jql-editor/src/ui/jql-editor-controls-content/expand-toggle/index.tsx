@@ -14,7 +14,7 @@ import { BaseExpandToggle } from '../base-expand-toggle';
 
 import { messages } from './messages';
 
-export const ExpandToggle = () => {
+export const ExpandToggle = (): React.JSX.Element => {
 	const { expanded, toggleExpanded } = useEditorThemeContext();
 	const [, { createAndFireAnalyticsEvent }] = useStoreActions();
 	const [editorId] = useScopedId(JQL_EDITOR_INPUT_ID);

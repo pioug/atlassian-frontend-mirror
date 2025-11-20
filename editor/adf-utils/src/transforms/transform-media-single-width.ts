@@ -3,7 +3,12 @@ import { type ADFEntity } from '../types';
 
 // when media single has a invalid width, we fallback to default width
 // this the last resort when revert the pixel width, we couldnt determine the correct width value
-export const transformMediaSingleWidth = (adf: ADFEntity) => {
+export const transformMediaSingleWidth = (
+	adf: ADFEntity,
+): {
+	transformedAdf: false | ADFEntity;
+	isTransformed: boolean;
+} => {
 	let isTransformed: boolean = false;
 	const transformedAdf = traverse(adf, {
 		mediaSingle: (node) => {

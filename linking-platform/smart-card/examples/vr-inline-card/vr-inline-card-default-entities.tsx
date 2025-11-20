@@ -12,7 +12,7 @@ class CustomClient extends Client {
 	}
 }
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestWrapper>
 		<Provider client={new CustomClient('staging')}>
 			<Card url={'https://www.mockurl.com'} appearance="inline" showHoverPreview={true} />

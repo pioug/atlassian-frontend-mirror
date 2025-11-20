@@ -145,7 +145,7 @@ export const CardViewBase = ({
 	overriddenCreationDate,
 	onSvgError,
 	onSvgLoad,
-}: CardViewBaseProps) => {
+}: CardViewBaseProps): React.JSX.Element => {
 	const [didSvgRender, setDidSvgRender] = useState<boolean>(false);
 	const [didImageRender, setDidImageRender] = useState<boolean>(false);
 	const divRef = useRef<HTMLDivElement>(null);

@@ -4,7 +4,7 @@ import { ActionName, ElementName, SmartLinkDirection, TitleBlock } from '../../s
 
 import ExampleContainer from './example-container';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<ExampleContainer>
 		<TitleBlock
 			direction={SmartLinkDirection.Vertical}

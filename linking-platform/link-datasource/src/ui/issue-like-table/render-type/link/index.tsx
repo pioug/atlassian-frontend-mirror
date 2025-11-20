@@ -22,7 +22,12 @@ const linkStyles = {
 
 export const LINK_TYPE_TEST_ID = 'link-datasource-render-type--link';
 
-const LinkRenderType = ({ style, url, text, testId = LINK_TYPE_TEST_ID }: LinkProps) => {
+const LinkRenderType = ({
+	style,
+	url,
+	text,
+	testId = LINK_TYPE_TEST_ID,
+}: LinkProps): React.JSX.Element | null => {
 	const linkStyle: React.CSSProperties = useMemo(() => {
 		return (style?.appearance && linkStyles[style.appearance]) || {};
 	}, [style]);

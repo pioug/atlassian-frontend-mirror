@@ -5,7 +5,7 @@ import { ResolvingClient, ResolvingClientUrl } from '@atlaskit/link-test-helpers
 
 import { Card } from '../../src';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<SmartCardProvider client={new ResolvingClient('stg')}>
 		<Card
 			appearance="inline"

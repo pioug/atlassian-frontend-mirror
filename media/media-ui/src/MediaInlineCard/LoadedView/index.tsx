@@ -19,7 +19,7 @@ export interface MediaInlineCardLoadedViewProps {
 }
 
 export class MediaInlineCardLoadedView extends React.Component<MediaInlineCardLoadedViewProps> {
-	render() {
+	render(): React.JSX.Element {
 		const {
 			title = '',
 			isSelected,

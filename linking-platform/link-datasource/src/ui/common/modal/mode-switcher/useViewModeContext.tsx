@@ -18,7 +18,7 @@ export const DatasourceViewModeProvider = ({
 	children: React.ReactNode;
 	disableDisplayDropdown: boolean;
 	viewMode: DisplayViewModes;
-}) => {
+}): React.JSX.Element => {
 	const [currentViewMode, setCurrentViewMode] = useState<DisplayViewModes>(initialViewMode);
 
 	const value = useMemo(

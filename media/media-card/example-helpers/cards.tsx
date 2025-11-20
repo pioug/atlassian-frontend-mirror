@@ -20,7 +20,10 @@ import { CardLoading, CardError, Card } from '../src';
 const mediaClientConfig = createStorybookMediaClientConfig();
 // standard
 const successIdentifier: FileIdentifier = imageFileId;
-export const standardCards = [
+export const standardCards: {
+	title: string;
+	content: React.JSX.Element;
+}[] = [
 	{
 		title: 'Image',
 		content: (
@@ -33,7 +36,10 @@ export const standardCards = [
 	},
 ];
 
-export const cardWithContextId = [
+export const cardWithContextId: {
+	title: string;
+	content: React.JSX.Element;
+}[] = [
 	{
 		title: 'Image with parameter',
 		content: (
@@ -48,7 +54,10 @@ export const cardWithContextId = [
 ];
 
 //error cards
-export const errorCardsDark = [
+export const errorCardsDark: {
+	title: string;
+	content: React.JSX.Element;
+}[] = [
 	{
 		title: 'Image',
 		content: (
@@ -57,7 +66,10 @@ export const errorCardsDark = [
 	},
 ];
 
-export const errorCards = [
+export const errorCards: {
+	title: string;
+	content: React.JSX.Element;
+}[] = [
 	{
 		title: 'Image',
 		content: (
@@ -77,7 +89,10 @@ export const errorCards = [
 	},
 ];
 
-export const menuCards = [
+export const menuCards: {
+	title: string;
+	content: React.JSX.Element;
+}[] = [
 	{
 		title: 'Image',
 		content: (
@@ -92,10 +107,16 @@ export const menuCards = [
 ];
 
 // api cards
-export const apiCards = createApiCards('image', successIdentifier);
+export const apiCards: {
+	title: string;
+	content: React.JSX.Element;
+}[] = createApiCards('image', successIdentifier);
 
 // no thumbnail
-export const noThumbnailCards = [
+export const noThumbnailCards: {
+	title: string;
+	content: React.JSX.Element;
+}[] = [
 	{
 		title: 'Image',
 		content: (
@@ -105,7 +126,10 @@ export const noThumbnailCards = [
 ];
 
 // lazy load
-export const lazyLoadCards = [
+export const lazyLoadCards: {
+	title: string;
+	content: React.JSX.Element;
+}[] = [
 	{
 		title: 'Lazy',
 		content: (
@@ -131,7 +155,10 @@ export const lazyLoadCards = [
 ];
 
 // no hover state cards
-export const noHoverStateCards = [
+export const noHoverStateCards: {
+	title: string;
+	content: React.JSX.Element;
+}[] = [
 	{
 		title: 'Overlay disabled',
 		content: (
@@ -164,7 +191,10 @@ export const fileWithNoCollection: FileIdentifier = {
 	id: 'e84c54a4-38b2-463f-ae27-5ba043c3e4c2',
 };
 
-export const collectionConfigCards = [
+export const collectionConfigCards: {
+	title: string;
+	content: React.JSX.Element;
+}[] = [
 	{
 		title: 'Standalone file (NO collection)',
 		content: <Card identifier={fileWithNoCollection} mediaClientConfig={mediaClientConfig} />,
@@ -181,7 +211,10 @@ const divStyle = {
 };
 const dimensions = { height: 50, width: 50 };
 
-export const lightDefaultCards = [
+export const lightDefaultCards: {
+	title: string;
+	content: React.JSX.Element;
+}[] = [
 	{
 		title: 'Medium Loading',
 		content: (
@@ -202,7 +235,10 @@ export const lightDefaultCards = [
 	},
 ];
 
-export const lightResizedCards = [
+export const lightResizedCards: {
+	title: string;
+	content: React.JSX.Element;
+}[] = [
 	{
 		title: 'Medium Loading',
 		content: <CardLoading dimensions={dimensions} />,
@@ -214,25 +250,30 @@ export const lightResizedCards = [
 ];
 
 // file cards
-export const videoFileCard = (
+export const videoFileCard: React.JSX.Element = (
 	<Card mediaClientConfig={mediaClientConfig} identifier={videoFileId} />
 );
 
-export const imageFileCard = (
+export const imageFileCard: React.JSX.Element = (
 	<Card mediaClientConfig={mediaClientConfig} identifier={imageFileId} />
 );
 
-export const audioFileCard = (
+export const audioFileCard: React.JSX.Element = (
 	<Card mediaClientConfig={mediaClientConfig} identifier={audioFileId} />
 );
 
-export const docFileCard = <Card mediaClientConfig={mediaClientConfig} identifier={docFileId} />;
+export const docFileCard: React.JSX.Element = (
+	<Card mediaClientConfig={mediaClientConfig} identifier={docFileId} />
+);
 
-export const unknownFileCard = (
+export const unknownFileCard: React.JSX.Element = (
 	<Card mediaClientConfig={mediaClientConfig} identifier={unknownFileId} />
 );
 
-export const resizingDefaultCards = [
+export const resizingDefaultCards: {
+	title: string;
+	content: React.JSX.Element;
+}[] = [
 	{
 		title: 'Small',
 		content: <Card identifier={smallImageFileId} mediaClientConfig={mediaClientConfig} />,
@@ -247,7 +288,10 @@ export const resizingDefaultCards = [
 	},
 ];
 
-export const croppedCards = [
+export const croppedCards: {
+	title: string;
+	content: React.JSX.Element;
+}[] = [
 	{
 		title: 'Small',
 		content: (
@@ -268,7 +312,10 @@ export const croppedCards = [
 	},
 ];
 
-export const fitCards = [
+export const fitCards: {
+	title: string;
+	content: React.JSX.Element;
+}[] = [
 	{
 		title: 'Small',
 		content: (
@@ -289,7 +336,10 @@ export const fitCards = [
 	},
 ];
 
-export const fullFitCards = [
+export const fullFitCards: {
+	title: string;
+	content: React.JSX.Element;
+}[] = [
 	{
 		title: 'Small',
 		content: (
@@ -322,7 +372,10 @@ export const fullFitCards = [
 	},
 ];
 
-export const stretchyFitCards = [
+export const stretchyFitCards: {
+	title: string;
+	content: React.JSX.Element;
+}[] = [
 	{
 		title: 'Small',
 		content: (

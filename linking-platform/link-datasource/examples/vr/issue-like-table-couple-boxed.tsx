@@ -16,7 +16,7 @@ const Container = styled.div({
 	width: '600px',
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<div>
 			<Container>

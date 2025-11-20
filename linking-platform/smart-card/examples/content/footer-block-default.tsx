@@ -4,7 +4,7 @@ import { FooterBlock } from '../../src';
 
 import ExampleContainer from './example-container';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<ExampleContainer>
 		<FooterBlock />
 	</ExampleContainer>

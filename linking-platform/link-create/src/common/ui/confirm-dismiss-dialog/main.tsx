@@ -26,7 +26,11 @@ const screen = 'linkCreateExitWarningScreen';
 
 const context = { component: screen, source: screen };
 
-export const ConfirmDismissDialog = ({ active, onClose, onCancel }: ConfirmDismissDialogProps) => {
+export const ConfirmDismissDialog = ({
+	active,
+	onClose,
+	onCancel,
+}: ConfirmDismissDialogProps): React.JSX.Element => {
 	const intl = useIntl();
 
 	const onCancelDismiss = () => onClose();

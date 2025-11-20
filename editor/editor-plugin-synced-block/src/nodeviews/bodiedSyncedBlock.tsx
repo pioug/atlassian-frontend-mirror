@@ -12,7 +12,6 @@ import {
 	type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { BodiedSyncBlockWrapper } from '../ui/BodiedSyncBlockWrapper';
@@ -24,7 +23,6 @@ export interface BodiedSyncBlockNodeViewProps extends ReactComponentProps {
 	node: PMNode;
 	pluginOptions: SyncedBlockPluginOptions | undefined;
 	portalProviderAPI: PortalProviderAPI;
-	syncBlockStore: SyncBlockStoreManager;
 	view: EditorView;
 }
 
@@ -38,7 +36,6 @@ const toDOM = (): DOMOutputSpec => [
 ];
 
 class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
-	private syncBlockStore: SyncBlockStoreManager;
 	private cleanupConnectivityModeListener?: () => void;
 	private cleanupViewModeListener?: () => void;
 	private api?: ExtractInjectionAPI<SyncedBlockPlugin>;
@@ -52,7 +49,6 @@ class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 			props.eventDispatcher,
 			props,
 		);
-		this.syncBlockStore = props.syncBlockStore;
 		this.api = props.api;
 		this.handleConnectivityModeChange();
 		this.handleViewModeChange();
@@ -112,12 +108,14 @@ class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 	}
 
 	render(_props: never, forwardRef: ForwardRef) {
+		const syncBlockStore = this.api?.syncedBlock.sharedState?.currentState()?.syncBlockStore;
+
+		if (!syncBlockStore) {
+			return null;
+		}
+
 		return (
-			<BodiedSyncBlockWrapper
-				ref={forwardRef}
-				syncBlockStore={this.syncBlockStore}
-				node={this.node}
-			/>
+			<BodiedSyncBlockWrapper ref={forwardRef} syncBlockStore={syncBlockStore} node={this.node} />
 		);
 	}
 
@@ -145,7 +143,6 @@ export interface BodiedSyncBlockNodeViewProperties {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 	pluginOptions: SyncedBlockPluginOptions | undefined;
 	pmPluginFactoryParams: PMPluginFactoryParams;
-	syncBlockStore: SyncBlockStoreManager;
 }
 
 export const bodiedSyncBlockNodeView: (
@@ -155,12 +152,7 @@ export const bodiedSyncBlockNodeView: (
 	view: EditorView,
 	getPos: getPosHandler,
 ) => ReactNodeView<BodiedSyncBlockNodeViewProps> =
-	({
-		pluginOptions,
-		pmPluginFactoryParams,
-		api,
-		syncBlockStore,
-	}: BodiedSyncBlockNodeViewProperties) =>
+	({ pluginOptions, pmPluginFactoryParams, api }: BodiedSyncBlockNodeViewProperties) =>
 	(
 		node: PMNode,
 		view: EditorView,
@@ -176,6 +168,5 @@ export const bodiedSyncBlockNodeView: (
 			getPos,
 			portalProviderAPI,
 			eventDispatcher,
-			syncBlockStore,
 		}).init();
 	};

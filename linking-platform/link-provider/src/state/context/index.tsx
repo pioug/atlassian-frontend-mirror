@@ -15,7 +15,9 @@ export function useSmartLinkContext() {
 
 export const useSmartCardContext = () => useContextMemoized(SmartCardContext);
 
-export const EditorSmartCardProviderValueGuard = ({ children }: React.PropsWithChildren<{}>) => {
+export const EditorSmartCardProviderValueGuard = ({
+	children,
+}: React.PropsWithChildren<{}>): React.JSX.Element | null => {
 	const cardContext = useSmartCardContext();
 
 	if (!cardContext?.value) {
@@ -37,7 +39,9 @@ function useContextMemoized<T>(reactContext: React.Context<T>) {
 	return context;
 }
 
-export const EditorSmartCardProvider = ({ children }: React.PropsWithChildren<{}>) => {
+export const EditorSmartCardProvider = ({
+	children,
+}: React.PropsWithChildren<{}>): React.JSX.Element => {
 	const cardContext = useSmartCardContext();
 	const Provider = cardContext.Provider;
 

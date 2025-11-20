@@ -13,7 +13,7 @@ const styles = cssMap({
 	},
 });
 
-export function NoProductAccessIcon() {
+export function NoProductAccessIcon(): React.JSX.Element {
 	return (
 		<Box xcss={styles.icon}>
 			<Image src={NoProductAccessSVG} alt="" />

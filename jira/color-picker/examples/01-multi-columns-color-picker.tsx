@@ -31,7 +31,7 @@ class ColorPickerExample extends React.Component<{}, { color: string }> {
 	}
 }
 
-const Story = () => (
+const Story = (): React.JSX.Element => (
 	<DiProvider use={[platformFgInjectable]}>
 		<ColorPickerExample />
 	</DiProvider>

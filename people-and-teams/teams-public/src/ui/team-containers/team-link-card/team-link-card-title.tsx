@@ -28,7 +28,7 @@ export const TeamLinkCardTitle = ({
 	link = '#',
 	handleLinkClick,
 	title,
-}: TeamLinkCardTitleProps) => {
+}: TeamLinkCardTitleProps): React.JSX.Element => {
 	return isTeamLensInHomeEnabled ? (
 		<Anchor
 			xcss={styles.anchorWithUnderline}

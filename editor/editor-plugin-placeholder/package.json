@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-placeholder",
-	"version": "6.4.0",
+	"version": "6.5.0",
 	"description": "Placeholder plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -30,6 +30,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
+		"@atlaskit/adf-utils": "workspace:^",
 		"@atlaskit/editor-plugin-composition": "workspace:^",
 		"@atlaskit/editor-plugin-focus": "workspace:^",
 		"@atlaskit/editor-plugin-show-diff": "workspace:^",

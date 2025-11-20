@@ -1,5 +1,18 @@
 # @atlaskit/editor-toolbar
 
+## 0.17.9
+
+### Patch Changes
+
+- [`f30ba6b61f505`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f30ba6b61f505) -
+  [ux] ED-29682 Update Jira issue breakpoints
+
+## 0.17.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.17.7
 
 ### Patch Changes

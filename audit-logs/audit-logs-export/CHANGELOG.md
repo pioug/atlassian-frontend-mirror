@@ -1,5 +1,13 @@
 # @atlaskit/audit-logs-export
 
+## 1.2.5
+
+### Patch Changes
+
+- [`711dd6589a035`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/711dd6589a035) -
+  Suppress i18n eslint errors
+- Updated dependencies
+
 ## 1.2.4
 
 ### Patch Changes

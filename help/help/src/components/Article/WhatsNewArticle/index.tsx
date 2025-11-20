@@ -62,6 +62,7 @@ export const WhatsNewArticle: React.FC<Props & WrappedComponentProps> = ({
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							style={{ marginTop: 0, marginBottom: token('space.200', '16px') }}
 						/>
+						{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 						<WhatsNewTitleText>RELATED LINKS</WhatsNewTitleText>
 						<AnalyticsContext
 							data={{

@@ -18,7 +18,7 @@ const styles = cssMap({
 
 const sizes = ['xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge'];
 
-export default function TeamAvatarExample() {
+export default function TeamAvatarExample(): React.JSX.Element {
 	return (
 		<Stack space="space.200" xcss={styles.stack} alignInline="start">
 			<Inline alignBlock="center">

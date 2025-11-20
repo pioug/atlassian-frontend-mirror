@@ -35,7 +35,7 @@ const Action = ({
 	href,
 	ariaLabel,
 	wrapper: Wrapper,
-}: ActionProps) => {
+}: ActionProps): React.JSX.Element | null => {
 	if (!onClick) {
 		return null;
 	}

@@ -10,7 +10,9 @@ type LazyMessagesProviderProps = {
 	children?: React.ReactNode;
 };
 
-export const LazyMessagesProvider = ({ children }: LazyMessagesProviderProps) => {
+export const LazyMessagesProvider = ({
+	children,
+}: LazyMessagesProviderProps): React.JSX.Element => {
 	return (
 		<IntlMessagesProvider defaultMessages={en} loaderFn={fetchMessagesForLocale}>
 			{children}

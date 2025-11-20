@@ -67,10 +67,10 @@ const useMultiBodiedExtensionActions = ({ updateActiveChild, children }: Actions
 			getChildrenCount(): number {
 				return children ? children?.length : 0;
 			},
-			removeChild(index: number) {
+			removeChild(_index: number) {
 				return false;
 			},
-			updateParameters(parameters): boolean {
+			updateParameters(_parameters): boolean {
 				return false;
 			},
 			// Ignored via go/ees005

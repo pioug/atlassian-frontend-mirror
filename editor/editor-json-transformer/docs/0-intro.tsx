@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, code, Example, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: React.ReactElement = md`
 ${(<AtlassianInternalWarning />)}
 
 This transformer allows encoding ProseMirror Node in JSON format.
@@ -28,3 +28,4 @@ This transformer allows encoding ProseMirror Node in JSON format.
 		/>
 	)}
 `;
+export default _default_1;

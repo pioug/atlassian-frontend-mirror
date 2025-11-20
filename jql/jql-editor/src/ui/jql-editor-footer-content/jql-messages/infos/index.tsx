@@ -26,7 +26,7 @@ export const useFormattedInfoMessage = (): ReactNode => {
 	return <FormatMessages messages={externalInfos} />;
 };
 
-export const InfoMessages = () => {
+export const InfoMessages = (): React.JSX.Element | null => {
 	di(useFormattedInfoMessage);
 
 	const infoMessage = useFormattedInfoMessage();

@@ -6,7 +6,10 @@ import { extractSmartLinkPreviewImage } from '../../../extractors/flexible/extra
 import { PreviewBlock } from '../../FlexibleCard/components/blocks';
 import { type ImagePreviewProps } from '../types';
 
-const ImagePreview = ({ fallbackElementHeight, response }: ImagePreviewProps) => {
+const ImagePreview = ({
+	fallbackElementHeight,
+	response,
+}: ImagePreviewProps): React.JSX.Element | null => {
 	const transitionStarted = useRef<boolean>(false);
 	const previewBlockRef = useRef<HTMLDivElement>(null);
 	const [showPreview, setShowPreview] = useState<boolean>(true);

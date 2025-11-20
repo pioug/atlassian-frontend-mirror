@@ -93,7 +93,7 @@ function MockPluginForm() {
 	);
 }
 
-export default function CreateBasic() {
+export default function CreateBasic(): React.JSX.Element {
 	const [link, setLink] = useState<string | null>();
 	const [active, setActive] = useState(false);
 

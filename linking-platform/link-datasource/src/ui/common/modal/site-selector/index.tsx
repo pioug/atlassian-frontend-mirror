@@ -10,7 +10,6 @@ import { type MessageDescriptor, useIntl } from 'react-intl-next';
 import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { type OptionType, PopupSelect, type ValueType } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
@@ -90,7 +89,7 @@ export const SiteSelector = (props: SiteSelectorProps) => {
 								isSelected={isOpen}
 								iconAfter={() => <ChevronDownIcon label="" color="currentColor" size="small" />}
 								testId={`${testId}__control`}
-								autoFocus={fg('navx-1845-sllv-autofocus-first-interactive-element')}
+								autoFocus={true}
 							>
 								{selectedSiteOption?.label || formatMessage(siteSelectorMessages.chooseSite)}
 							</Button>

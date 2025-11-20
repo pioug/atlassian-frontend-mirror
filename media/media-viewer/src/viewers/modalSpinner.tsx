@@ -9,7 +9,7 @@ import { useThemeObserver } from '@atlaskit/tokens';
 
 export const headerAndSidebarBackgroundColor = '#101214';
 
-const ModalSpinner = () => {
+const ModalSpinner = (): React.JSX.Element => {
 	const { colorMode } = useThemeObserver();
 
 	return (

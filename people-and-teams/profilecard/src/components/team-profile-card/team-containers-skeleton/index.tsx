@@ -19,7 +19,9 @@ const styles = cssMap({
 	},
 });
 
-export const TeamContainersSkeleton = ({ numberOfContainers }: TeamContainersSkeletonProps) => {
+export const TeamContainersSkeleton = ({
+	numberOfContainers,
+}: TeamContainersSkeletonProps): React.JSX.Element => {
 	return (
 		<Box xcss={styles.containerSkeletonWrapper}>
 			<Stack space="space.200" testId="profile-card-team-containers-skeleton">

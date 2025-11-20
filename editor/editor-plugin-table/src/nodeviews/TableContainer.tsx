@@ -25,12 +25,14 @@ import {
 	akEditorMobileBreakoutPoint,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import {
 	TABLE_MAX_WIDTH,
+	TABLE_FULL_WIDTH,
 	TABLE_OFFSET_IN_COMMENT_EDITOR,
 } from '../pm-plugins/table-resizing/utils/consts';
 import {
@@ -385,7 +387,12 @@ export const ResizableTableContainer = React.memo(
 
 			const maxResizerWidth = isCommentEditor
 				? responsiveContainerWidth
-				: Math.min(responsiveContainerWidth, TABLE_MAX_WIDTH);
+				: Math.min(
+						responsiveContainerWidth,
+						expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+							? TABLE_MAX_WIDTH
+							: TABLE_FULL_WIDTH,
+					);
 			return { width, maxResizerWidth };
 		}, [
 			containerWidth,

@@ -25,7 +25,11 @@ interface FormLinkData {
 	url: string;
 }
 
-const JsonLdGenerator = ({ onSubmit }: { onSubmit: (response: JsonLd.Response) => void }) => {
+const JsonLdGenerator = ({
+	onSubmit,
+}: {
+	onSubmit: (response: JsonLd.Response) => void;
+}): React.JSX.Element => {
 	const handleSubmit = useCallback(
 		(formState: FormLinkData) => {
 			const jsonLd = transform(formState);

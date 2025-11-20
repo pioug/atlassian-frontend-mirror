@@ -19,7 +19,7 @@ export const EditModal = ({
 	onCloseComplete,
 	editViewPayload,
 	activePlugin,
-}: EditModalProps) => (
+}: EditModalProps): React.JSX.Element => (
 	<ModalTransition>
 		{!!editViewPayload && (
 			<>

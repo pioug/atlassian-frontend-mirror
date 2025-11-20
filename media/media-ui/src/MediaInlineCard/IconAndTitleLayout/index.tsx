@@ -77,7 +77,7 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 		);
 	}
 
-	renderIcon(testId: string) {
+	renderIcon(testId: string): React.JSX.Element {
 		// We render two kinds of icons here:
 		// - Image: acquired from either DAC or Teamwork Platform Apps;
 		// - Atlaskit Icon: an Atlaskit SVG;
@@ -93,7 +93,7 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 		return image || placeholder;
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { children, title, titleColor, testId = 'media-inline-card-icon-and-title' } = this.props;
 
 		return (

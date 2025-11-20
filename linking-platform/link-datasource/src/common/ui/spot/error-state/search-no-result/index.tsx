@@ -5,6 +5,6 @@ import { RenderSVG, type RenderSVGProps } from '../../../common/render-svg';
 import Dark from './assets/dark.svg';
 import Light from './assets/light.svg';
 
-export const SpotSearchNoResult = (props: RenderSVGProps) => {
+export const SpotSearchNoResult = (props: RenderSVGProps): React.JSX.Element => {
 	return <RenderSVG src={Light} srcDark={Dark} {...props} />;
 };

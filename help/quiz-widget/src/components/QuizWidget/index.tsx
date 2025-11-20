@@ -132,8 +132,9 @@ const QuizWidget = (props: Props) => {
 					<Spinner />
 				) : (
 					<Score>
+						{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 						<span>{`${props.score} / ${questionsNumber} Correct`}</span>
-						{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
+						{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text, @atlassian/i18n/no-literal-string-in-jsx */}
 						{props.score >= questionsNumber / 2 ? <span>Great job!</span> : <span>Not bad!</span>}
 					</Score>
 				)}
@@ -158,12 +159,14 @@ const QuizWidget = (props: Props) => {
 					</Flex>
 				</NavQuiz>
 				{isLastQuestion && !props.score ? (
+					// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 					<Button appearance="primary" onClick={onSubmitButtonClick} isDisabled={isDisabledSubmit}>
 						Submit
 					</Button>
 				) : isLastSlide ? (
 					<NavQuiz>
 						<Flex alignItems="center">
+							{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 							<NavAction>Learn More</NavAction>
 							<Flex xcss={boxWrapperStyles} alignItems="center" justifyContent="center">
 								<ChevronRightLargeIcon
@@ -178,6 +181,7 @@ const QuizWidget = (props: Props) => {
 				) : (
 					<NavQuiz onClick={handleNextClick}>
 						<Flex alignItems="center">
+							{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 							<NavAction>Next</NavAction>
 							<Flex xcss={boxWrapperStyles} alignItems="center" justifyContent="center">
 								<ChevronRightLargeIcon

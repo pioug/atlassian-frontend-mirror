@@ -6,8 +6,12 @@ const excludeStyles = xcss({
 	color: 'color.text.disabled',
 });
 
-const Label = ({ content, exclude }: { content?: string; exclude?: boolean }) => (
-	<Box xcss={exclude && excludeStyles}>{content}</Box>
-);
+const Label = ({
+	content,
+	exclude,
+}: {
+	content?: string;
+	exclude?: boolean;
+}): React.JSX.Element => <Box xcss={exclude && excludeStyles}>{content}</Box>;
 
 export default Label;

@@ -35,7 +35,7 @@ export const MockedMediaProvider = ({
 	mockedMediaApi,
 	mediaClientConfig,
 	mediaSettings,
-}: MockedMediaProviderProps) => {
+}: MockedMediaProviderProps): React.JSX.Element => {
 	// WARNING: when mediaStore is updated externally, it gets out of sync with FileStreamCache. This resutls in unexpected behaviour.
 	const currentStore = useMemo(() => mediaStore || createMediaStore(), [mediaStore]);
 	const resolvedMediaClientConfig = useMemo(

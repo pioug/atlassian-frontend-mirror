@@ -48,6 +48,7 @@ import { replaceSelectedTable } from '@atlaskit/editor-tables/utils';
 import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { closeHistory } from '@atlaskit/prosemirror-history';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 // TODO: ED-20519 - Needs Macro extraction
 
@@ -167,12 +168,23 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
 			state.selection,
 		);
 		const selectionIsCodeBlock = hasParentNodeOfType([codeBlock])(state.selection);
+		const selectionIsListItem = hasParentNodeOfType([listItem])(state.selection);
 		const panelNode = isSelectionInsidePanel(selection);
 		const selectionIsPanel = Boolean(panelNode);
+		const isSliceWholePanel =
+			slice.content.firstChild?.type === panel && slice.openStart === 0 && slice.openEnd === 0;
 
 		// we avoid handling codeBlock-in-panel use case in this function
 		// returning false will allow code to flow into `handleCodeBlock` function
-		if (selectionIsPanel && selectionIsCodeBlock) {
+		// Partial content copied from panels will have panel in the slice
+		// Return false to avoid handling this situation when pasted into list in panel and let `handlePastePanelOrDecisionContentIntoList` handle it
+		if (
+			selectionIsPanel &&
+			(selectionIsCodeBlock ||
+				(selectionIsListItem &&
+					!isSliceWholePanel &&
+					expValEquals('platform_editor_pasting_text_in_panel', 'isEnabled', true)))
+		) {
 			return false;
 		}
 

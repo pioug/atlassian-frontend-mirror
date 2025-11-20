@@ -18,7 +18,7 @@ const IconWrapper = styled.div({
 	justifyContent: 'left',
 });
 
-const EmptyStateIcon = ({ type }: { type: IssueType }) => {
+const EmptyStateIcon = ({ type }: { type: IssueType }): React.JSX.Element => {
 	const TypeIcon = () => {
 		switch (type) {
 			case 'issue':

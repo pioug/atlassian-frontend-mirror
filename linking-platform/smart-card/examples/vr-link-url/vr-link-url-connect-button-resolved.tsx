@@ -31,7 +31,7 @@ class ResolvedClient extends CardClient {
 	}
 }
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestWrapper>
 		<SmartCardProvider client={new ResolvedClient()}>
 			<LinkUrl enableResolve={true} href="https://www.google.com/">

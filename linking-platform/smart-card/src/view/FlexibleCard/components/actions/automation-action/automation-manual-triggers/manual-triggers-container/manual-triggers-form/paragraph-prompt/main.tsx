@@ -19,7 +19,9 @@ enum Errors {
 
 const MAX_PARAGRAPH_CHARACTER_LIMIT = 5000;
 
-const ParagraphInputPrompt = ({ userInputPrompt }: ParagraphInputPromptProps) => {
+const ParagraphInputPrompt = ({
+	userInputPrompt,
+}: ParagraphInputPromptProps): React.JSX.Element => {
 	di(ErrorMessage, Field, TextArea);
 
 	const { variableName, required, displayName, defaultValue } = userInputPrompt;

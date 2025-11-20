@@ -41,7 +41,7 @@ type EditPostCreateModalProviderProps = {
 export const EditPostCreateModalProvider = ({
 	active,
 	children,
-}: EditPostCreateModalProviderProps) => {
+}: EditPostCreateModalProviderProps): React.JSX.Element => {
 	const shouldActivateEditView = useRef<boolean>(false);
 
 	const [editViewPayload, setEditViewPayload] = useState<CreatePayload | undefined>(undefined);

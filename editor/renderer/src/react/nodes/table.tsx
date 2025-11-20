@@ -20,6 +20,7 @@ import { SortOrder } from '@atlaskit/editor-common/types';
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
+	akEditorMaxWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -39,12 +40,14 @@ import {
 	isFullPageAppearance,
 	isFullWidthAppearance,
 	isFullWidthOrFullPageAppearance,
+	isMaxWidthAppearance,
 } from '../utils/appearance';
 import { token } from '@atlaskit/tokens';
 
 import { TableStickyScrollbar } from './TableStickyScrollbar';
 
 import { TableProcessorWithContainerStyles } from './tableNew';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export type TableArrayMapped = {
 	rowNodes: Array<PMNode | null>;
@@ -530,6 +533,13 @@ export class TableContainer extends React.Component<
 						: akEditorFullWidthLayoutWidth,
 					`min(${akEditorFullWidthLayoutWidth}px, ${renderWidthCSS})`,
 				];
+			} else if (rendererAppearance === 'max' && !tableNode?.attrs.width) {
+				return [
+					isRenderWidthValid
+						? Math.min(akEditorMaxWidthLayoutWidth, renderWidth)
+						: akEditorMaxWidthLayoutWidth,
+					`min(${akEditorMaxWidthLayoutWidth}px, ${renderWidthCSS})`,
+				];
 			} else if (
 				rendererAppearance === 'comment' &&
 				allowTableResizing &&
@@ -563,20 +573,30 @@ export class TableContainer extends React.Component<
 			? Math.min(akEditorFullWidthLayoutWidth, renderWidth)
 			: akEditorFullWidthLayoutWidth;
 		const fullWidthLineLengthCSS = `min(${akEditorFullWidthLayoutWidth}px, ${renderWidthCSS})`;
+		const maxWidthLineLength = isRenderWidthValid
+			? Math.min(akEditorMaxWidthLayoutWidth, renderWidth)
+			: akEditorMaxWidthLayoutWidth;
+		const maxWidthLineLengthCSS = `min(${akEditorMaxWidthLayoutWidth}px, ${renderWidthCSS})`;
 
 		const commentLineLength = isRenderWidthValid ? renderWidth : lineLengthFixedWidth;
 		const isCommentAppearanceAndTableAlignmentEnabled =
 			isCommentAppearance(rendererAppearance) && allowTableAlignment;
 		const lineLength = isFullWidthAppearance(rendererAppearance)
 			? fullWidthLineLength
-			: isCommentAppearanceAndTableAlignmentEnabled
-				? commentLineLength
-				: lineLengthFixedWidth;
+			: isMaxWidthAppearance(rendererAppearance) &&
+				  expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+				? maxWidthLineLength
+				: isCommentAppearanceAndTableAlignmentEnabled
+					? commentLineLength
+					: lineLengthFixedWidth;
 		const lineLengthCSS = isFullWidthAppearance(rendererAppearance)
 			? fullWidthLineLengthCSS
-			: isCommentAppearanceAndTableAlignmentEnabled
-				? renderWidthCSS
-				: `${lineLengthFixedWidth}px`;
+			: isMaxWidthAppearance(rendererAppearance) &&
+				  expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+				? maxWidthLineLengthCSS
+				: isCommentAppearanceAndTableAlignmentEnabled
+					? renderWidthCSS
+					: `${lineLengthFixedWidth}px`;
 
 		// Setting fixTableSSRResizing to false while FG logic is true in tableNew
 		const fixTableSSRResizing = false;
@@ -587,6 +607,8 @@ export class TableContainer extends React.Component<
 			isTableAlignStart &&
 			((isFullPageAppearance(rendererAppearance) && tableWidthNew <= lineLengthFixedWidth) ||
 				isFullWidthAppearance(rendererAppearance) ||
+				(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) &&
+					isMaxWidthAppearance(rendererAppearance)) ||
 				isCommentAppearanceAndTableAlignmentEnabled);
 
 		let leftCSS: string | undefined;
@@ -634,7 +656,9 @@ export class TableContainer extends React.Component<
 		// When appearance is full-page, full-width or comment we use CSS based width calculation.
 		// Otherwise it's fixed table width (customized width) or inherit.
 		if (
-			(rendererAppearance === 'full-page' || rendererAppearance === 'full-width') &&
+			(rendererAppearance === 'full-page' ||
+				rendererAppearance === 'full-width' ||
+				rendererAppearance === 'max') &&
 			fixTableSSRResizing
 		) {
 			finalTableContainerWidth = allowTableResizing ? `calc(${tableWidthCSS})` : 'inherit';

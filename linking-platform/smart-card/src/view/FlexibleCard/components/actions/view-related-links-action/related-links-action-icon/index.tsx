@@ -2,7 +2,7 @@ import React from 'react';
 
 import ClockIcon from '@atlaskit/icon/core/clock';
 
-const RelatedLinksActionIcon = () => (
+const RelatedLinksActionIcon = (): React.JSX.Element => (
 	<ClockIcon color="currentColor" spacing="spacious" label="View related links..." />
 );
 

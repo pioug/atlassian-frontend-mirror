@@ -5,6 +5,6 @@ const Hook = (props: { callback: Function }) => {
 	return null;
 };
 
-export const renderHook = (callback: Function) => {
+export const renderHook = (callback: Function): React.JSX.Element => {
 	return <Hook callback={callback} />;
 };

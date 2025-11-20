@@ -35,7 +35,7 @@ export const _CaptionsAdminControls = ({
 	textTracks = {},
 	onUpload,
 	onDelete,
-}: CaptionsAdminControlsProps & WrappedComponentProps) => {
+}: CaptionsAdminControlsProps & WrappedComponentProps): React.JSX.Element => {
 	const manageCaptions = intl.formatMessage(messages.manage_captions);
 	const addCaptions = intl.formatMessage(messages.add_captions);
 

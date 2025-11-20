@@ -10,7 +10,7 @@ import {
 	generateColgroupFromNode,
 	getResizerMinWidth,
 } from '../pm-plugins/table-resizing/utils/colgroup';
-import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils/consts';
+import { TABLE_MAX_WIDTH, TABLE_FULL_WIDTH } from '../pm-plugins/table-resizing/utils/consts';
 import {
 	getTableResizerContainerMaxWidthInCSS,
 	getTableResizerContainerForFullPageWidthInCSS,
@@ -225,7 +225,7 @@ export const tableNodeSpecWithFixedToDOM = (
 								position: 'relative',
 								userSelect: 'auto',
 								boxSizing: 'border-box',
-								'--ak-editor-table-max-width': `${TABLE_MAX_WIDTH}px`,
+								'--ak-editor-table-max-width': `${expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ? TABLE_MAX_WIDTH : TABLE_FULL_WIDTH}px`,
 								'--ak-editor-table-min-width': `${tableMinWidth}px`,
 								minWidth: 'var(--ak-editor-table-min-width)',
 								maxWidth: getTableResizerContainerMaxWidthInCSS(

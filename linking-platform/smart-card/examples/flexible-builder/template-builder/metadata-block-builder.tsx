@@ -13,7 +13,7 @@ const MetadataBlockBuilder = ({
 	onChange,
 	size = SmartLinkSize.Medium,
 	template,
-}: BlockBuilderProps) => {
+}: BlockBuilderProps): React.JSX.Element => {
 	return (
 		<>
 			<MaxLinesOption

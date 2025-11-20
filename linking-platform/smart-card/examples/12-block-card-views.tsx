@@ -5,7 +5,7 @@ import { Card } from '@atlaskit/smart-card';
 import CardViewExample from './card-view';
 import ExampleContainer from './utils/example-container';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<ExampleContainer title="BlockCard Views">
 		<CardViewExample appearance="block" CardComponent={Card} />
 	</ExampleContainer>

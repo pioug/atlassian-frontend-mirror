@@ -79,7 +79,7 @@ export const TeamLinkCardActions = ({
 	onDisconnectButtonClick,
 	onEditLinkClick,
 	onDropdownOpenChange,
-}: TeamLinkCardActionsProps) => {
+}: TeamLinkCardActionsProps): React.JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { formatMessage } = useIntl();
 	const { fireUIEvent } = usePeopleAndTeamAnalytics();

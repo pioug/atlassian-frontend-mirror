@@ -46,7 +46,7 @@ export const List = ({
 	onNavigationChange,
 	items,
 	viewerOptions,
-}: Props) => {
+}: Props): React.JSX.Element => {
 	const [selectedItem, setSelectedItem] = useState(defaultSelectedItem);
 	const [previewCount, setPreviewCount] = useState(0);
 	const [isArchiveSideBarVisible, setIsArchiveSideBarVisible] = useState(false);

@@ -85,7 +85,10 @@ export default class Example extends React.Component<{}, State> {
 		this.setState({ isMediaViewerActive: false });
 	};
 
-	sidebarRenderer = (selectedIdentifier: Identifier, actions: MediaViewerExtensionsActions) => {
+	sidebarRenderer = (
+		selectedIdentifier: Identifier,
+		actions: MediaViewerExtensionsActions,
+	): React.JSX.Element => {
 		let id = '';
 		if (selectedIdentifier.mediaItemType === 'file') {
 			id = selectedIdentifier.id;
@@ -100,7 +103,7 @@ export default class Example extends React.Component<{}, State> {
 		);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { isMediaViewerActive } = this.state;
 
 		return (

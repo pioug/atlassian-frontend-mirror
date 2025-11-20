@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::2df7129dadaefaa82ff5761d8db12e31>>
+ * @codegen <<SignedSource::b641ae01a1e0cba6256542b047415d41>>
  * @codegenCommand yarn build tokens
  */
 
@@ -2228,6 +2228,11 @@ var tokens = exports.tokens = [{
   path: ['radius', 'xlarge'],
   description: 'Used for modals and large containers.',
   exampleValue: '0.75rem'
+}, {
+  name: 'radius.xxlarge',
+  path: ['radius', 'xxlarge'],
+  description: 'Used for the largest containers.',
+  exampleValue: '1rem'
 }, {
   name: 'radius.full',
   path: ['radius', 'full'],

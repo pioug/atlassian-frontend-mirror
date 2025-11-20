@@ -20,6 +20,7 @@ import { SortOrder } from '@atlaskit/editor-common/types';
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
+	akEditorMaxWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -36,11 +37,13 @@ import {
 	isCommentAppearance,
 	isFullWidthOrFullPageAppearance,
 	isFullWidthAppearance,
+	isMaxWidthAppearance,
 	isFullPageAppearance,
 } from '../utils/appearance';
 import { token } from '@atlaskit/tokens';
 
 import { TableStickyScrollbar } from './TableStickyScrollbar';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export type TableArrayMapped = {
 	rowNodes: Array<PMNode | null>;
@@ -491,7 +494,13 @@ export class TableContainer extends React.Component<
 			rendererAppearance: RendererAppearance,
 			tableNode?: PMNode,
 		): string => {
-			if (rendererAppearance === 'full-width' && !tableNode?.attrs.width) {
+			if (
+				rendererAppearance === 'max' &&
+				!tableNode?.attrs.width &&
+				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+			) {
+				return `min(${akEditorMaxWidthLayoutWidth}px, ${renderWidthCSS})`;
+			} else if (rendererAppearance === 'full-width' && !tableNode?.attrs.width) {
 				return `min(${akEditorFullWidthLayoutWidth}px, ${renderWidthCSS})`;
 			} else if (
 				rendererAppearance === 'comment' &&
@@ -516,13 +525,17 @@ export class TableContainer extends React.Component<
 			allowTableAlignment;
 
 		const fullWidthLineLengthCSS = `min(${akEditorFullWidthLayoutWidth}px, ${renderWidthCSS})`;
+		const maxWidthLineLengthCSS = `min(${akEditorMaxWidthLayoutWidth}px, ${renderWidthCSS})`;
 		const isCommentAppearanceAndTableAlignmentEnabled =
 			isCommentAppearance(rendererAppearance) && allowTableAlignment;
 		const lineLengthCSS = isFullWidthAppearance(rendererAppearance)
 			? fullWidthLineLengthCSS
-			: isCommentAppearanceAndTableAlignmentEnabled
-				? renderWidthCSS
-				: `${lineLengthFixedWidth}px`;
+			: isMaxWidthAppearance(rendererAppearance) &&
+				  expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+				? maxWidthLineLengthCSS
+				: isCommentAppearanceAndTableAlignmentEnabled
+					? renderWidthCSS
+					: `${lineLengthFixedWidth}px`;
 
 		const tableWidthNew = getTableContainerWidth(tableNode);
 		const shouldCalculateLeftForAlignment =
@@ -531,6 +544,8 @@ export class TableContainer extends React.Component<
 			isTableAlignStart &&
 			((isFullPageAppearance(rendererAppearance) && tableWidthNew <= lineLengthFixedWidth) ||
 				isFullWidthAppearance(rendererAppearance) ||
+				(isMaxWidthAppearance(rendererAppearance) &&
+					expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)) ||
 				isCommentAppearanceAndTableAlignmentEnabled);
 
 		let leftCSS: string | undefined;
@@ -566,7 +581,12 @@ export class TableContainer extends React.Component<
 		// We can only use CSS to determine the width when we have a known width in container.
 		// When appearance is full-page, full-width or comment we use CSS based width calculation.
 		// Otherwise it's fixed table width (customized width) or inherit.
-		if (rendererAppearance === 'full-page' || rendererAppearance === 'full-width') {
+		if (
+			rendererAppearance === 'full-page' ||
+			rendererAppearance === 'full-width' ||
+			(rendererAppearance === 'max' &&
+				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true))
+		) {
 			finalTableContainerWidth = allowTableResizing ? `calc(${tableWidthCSS})` : 'inherit';
 		}
 

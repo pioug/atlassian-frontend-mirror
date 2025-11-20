@@ -108,7 +108,7 @@ function TestContentResize() {
 	);
 }
 
-export default function TestContentResizeWrapper() {
+export default function TestContentResizeWrapper(): React.JSX.Element {
 	return (
 		<PageWrapper>
 			<TestContentResize />

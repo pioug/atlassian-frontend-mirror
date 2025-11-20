@@ -9,7 +9,9 @@ export const getConfluencePageAri = (
 ) => `ari:cloud:confluence:${cloudId}:${pageType}/${pageId}`;
 
 // For extracting from Page ARI and also the content property's version of resourceId
-export const getPageIdAndTypeFromAri = (ari: string): { id: string; type: PAGE_TYPE } => {
+export const getPageIdAndTypeFromConfluencePageAri = (
+	ari: string,
+): { id: string; type: PAGE_TYPE } => {
 	const match = ari.match(/ari:cloud:confluence:[^:]+:(page|blogpost)\/(\d+)/);
 	if (match?.[2]) {
 		return {
@@ -20,7 +22,7 @@ export const getPageIdAndTypeFromAri = (ari: string): { id: string; type: PAGE_T
 	throw new Error(`Invalid page ARI: ${ari}`);
 };
 
-export const getLocalIdFromAri = (ari: string) => {
+export const getLocalIdFromConfluencePageAri = (ari: string) => {
 	const match = ari.match(/ari:cloud:confluence:[^:]+:(page|blogpost)\/\d+\/([a-zA-Z0-9-]+)/);
 	if (match?.[2]) {
 		return match[2];
@@ -28,7 +30,7 @@ export const getLocalIdFromAri = (ari: string) => {
 	throw new Error(`Invalid page ARI: ${ari}`);
 };
 
-export const getPageARIFromResourceId = (resourceId: string) => {
+export const getPageARIFromContentPropertyResourceId = (resourceId: string) => {
 	const match = resourceId.match(
 		/(ari:cloud:confluence:[^:]+:(page|blogpost)\/\d+)\/([a-zA-Z0-9-]+)$/,
 	);
@@ -38,6 +40,9 @@ export const getPageARIFromResourceId = (resourceId: string) => {
 	throw new Error(`Invalid resourceId: ${resourceId}`);
 };
 
-export const resourceIdFromSourceAndLocalId = (sourceId: string, localId: string): string => {
+export const resourceIdFromConfluencePageSourceIdAndLocalId = (
+	sourceId: string,
+	localId: string,
+): string => {
 	return sourceId + '/' + localId;
 };

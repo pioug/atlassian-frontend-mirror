@@ -1,8 +1,8 @@
 /* eslint-disable require-unicode-regexp  */
 
-import type { SyncBlockSourceInfo } from '../providers/types';
+import type { SyncBlockSourceInfo } from '../../providers/types';
 
-import { getPageIdAndTypeFromAri } from './ari';
+import { getPageIdAndTypeFromConfluencePageAri } from './ari';
 import { isBlogPageType } from './utils';
 
 const COMMON_HEADERS = {
@@ -57,7 +57,7 @@ const GET_SOURCE_INFO_QUERY = `query ${GET_SOURCE_INFO_OPERATION_NAME} ($id: ID!
 	}
 }`;
 
-const getSourceInfo = async (ari: string): Promise<GetSourceInfoResult> => {
+const getConfluenceSourceInfo = async (ari: string): Promise<GetSourceInfoResult> => {
 	const bodyData = {
 		query: GET_SOURCE_INFO_QUERY,
 		operationName: GET_SOURCE_INFO_OPERATION_NAME,
@@ -79,13 +79,13 @@ const getSourceInfo = async (ari: string): Promise<GetSourceInfoResult> => {
 	return (await response.json()) as GetSourceInfoResult;
 };
 
-export const fetchSourceInfo = async (
+export const fetchConfluenceSourceInfo = async (
 	pageAri: string,
 	localId?: string,
 ): Promise<SyncBlockSourceInfo | undefined> => {
 	try {
-		const { type: pageType } = getPageIdAndTypeFromAri(pageAri);
-		const response = await getSourceInfo(pageAri);
+		const { type: pageType } = getPageIdAndTypeFromConfluencePageAri(pageAri);
+		const response = await getConfluenceSourceInfo(pageAri);
 
 		const contentData = response.data?.content?.nodes?.[0];
 		if (!contentData) {

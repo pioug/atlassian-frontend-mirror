@@ -17,7 +17,7 @@ export function PeopleTeamsAnalyticsProvider({
 }: {
 	analyticsContextData?: object;
 	children: ReactNode;
-}) {
+}): React.JSX.Element {
 	const data = useMemo(() => {
 		if (typeof analyticsContextData === 'object') {
 			return {

@@ -57,7 +57,7 @@ const UnauthorisedViewContent = ({
 	isProductIntegrationSupported,
 	testId = 'unauthorised-view-content',
 	appearance,
-}: UnauthorisedViewContentProps) => {
+}: UnauthorisedViewContentProps): React.JSX.Element => {
 	const { fireEvent } = useAnalyticsEvents();
 
 	const handleLearnMoreClick = useCallback(() => {

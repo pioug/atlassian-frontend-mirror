@@ -16,7 +16,7 @@ export class Content extends Component<ContentProps> {
 	 * Here we get called by InactivityDetector and given a function we
 	 * pass down as "showControls" to out children.
 	 */
-	render() {
+	render(): React.JSX.Element {
 		const { onClose, isSidebarVisible } = this.props;
 
 		return (

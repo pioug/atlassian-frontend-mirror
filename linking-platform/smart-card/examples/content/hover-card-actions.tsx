@@ -10,7 +10,7 @@ import { CardAction } from '../../src';
 import { HoverCard } from '../../src/hoverCard';
 import HoverOverMe from '../utils/hover-card-box';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<SmartCardProvider client={new ResolvedClient('stg')}>
 			<Stack space="space.100">

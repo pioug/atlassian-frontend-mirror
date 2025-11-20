@@ -27,7 +27,7 @@ export const SmartCardPlaceholder = ({
 	placeholderText,
 }: {
 	placeholderText: MessageDescriptor;
-}) => (
+}): React.JSX.Element => (
 	<Box xcss={styles.smartLinkContainerStyles}>
 		<Box
 			as="span"
@@ -41,7 +41,7 @@ export const SmartCardPlaceholder = ({
 	</Box>
 );
 
-export const SmartLink = ({ url }: { url: string }) => (
+export const SmartLink = ({ url }: { url: string }): React.JSX.Element => (
 	<Box xcss={styles.smartLinkContainerStyles}>
 		<LinkRenderType url={url} />
 	</Box>

@@ -11,7 +11,7 @@ import { BaseSearch } from '../base-search';
 
 import { messages } from './messages';
 
-export const Search = () => {
+export const Search = (): React.JSX.Element => {
 	const [intl] = useIntl();
 	const [, { onSearch }] = useStoreActions();
 	const label = intl.formatMessage(messages.searchLabel);

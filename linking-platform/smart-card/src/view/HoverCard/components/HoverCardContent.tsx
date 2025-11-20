@@ -38,7 +38,7 @@ const HoverCardContent = ({
 	onMouseLeave,
 	actionOptions,
 	hoverPreviewOptions,
-}: HoverCardContentProps) => {
+}: HoverCardContentProps): React.JSX.Element | null => {
 	const { createAnalyticsEvent } = useAnalyticsEventsNext();
 	const { fireEvent } = useAnalyticsEvents();
 	const extensionKey = useMemo(() => getExtensionKey(cardState.details), [cardState.details]);

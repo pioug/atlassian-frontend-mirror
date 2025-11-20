@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 0.8.5
+
+### Patch Changes
+
+- [`a783933912bea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a783933912bea) -
+  Refactor ads-mcp and export tools to be reusable for remote MCP
+
 ## 0.8.4
 
 ### Patch Changes

@@ -11,7 +11,7 @@ export type DatasourcesTableProps = Pick<
 	'testId' | 'renderItem' | 'scrollableContainerHeight'
 >;
 
-const Table = (props: DatasourcesTableProps) => {
+const Table = (props: DatasourcesTableProps): React.JSX.Element => {
 	const {
 		columnCustomSizes,
 		onColumnResize,

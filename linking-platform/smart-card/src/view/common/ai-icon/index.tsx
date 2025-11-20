@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
  * @deprecated Use @atlaskit/icon/core/atlassian-intelligence instead.
  * TODO: Remove on navx-1959-remove-custom-ai-icon cleanup
  */
-const AiIcon = (props: SVGProps) => (
+const AiIcon = (props: SVGProps): React.JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/no-custom-icons
 	<SVG {...props}>
 		{/* Safari has a nasty habit of occasionally not applying these gradients if they are defined after the path

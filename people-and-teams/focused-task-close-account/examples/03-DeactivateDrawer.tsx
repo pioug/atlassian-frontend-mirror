@@ -29,7 +29,7 @@ export default class DeactivateDrawerExample extends React.Component {
 
 	closeDrawer = () => this.setState({ isOpen: false });
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<IntlProvider locale="en">
 				<React.Fragment>

@@ -12,6 +12,7 @@ import { css, jsx } from '@emotion/react';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import type { CustomItemComponentProps } from '@atlaskit/menu';
 import { CustomItem, MenuGroup, Section } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -63,8 +64,14 @@ const buttonStyles = (isActive?: boolean, submenuActive?: boolean) => {
 				> span,
 				> span:hover,
 				> span:active {
-					background: ${token('color.background.selected', '#6c798f')};
-					color: ${token('color.text.selected', '#0C66E4')};
+					background: ${token(
+						'color.background.selected',
+						fg('platform_editor_updated_dropdown_colors') ? '#E9F2FE' : '#6c798f',
+					)};
+					color: ${token(
+						'color.text.selected',
+						fg('platform_editor_updated_dropdown_colors') ? '#1868DB' : '#0C66E4',
+					)};
 				}
 				:focus > span[aria-disabled='false'] {
 					${focusedMenuItemStyle};
@@ -84,8 +91,14 @@ const buttonStyles = (isActive?: boolean, submenuActive?: boolean) => {
 			> span,
 			> span:hover,
 			> span:active {
-				background: ${token('color.background.selected', '#6c798f')};
-				color: ${token('color.text.selected', '#0C66E4')};
+				background: ${token(
+					'color.background.selected',
+					fg('platform_editor_updated_dropdown_colors') ? '#E9F2FE' : '#6c798f',
+				)};
+				color: ${token(
+					'color.text.selected',
+					fg('platform_editor_updated_dropdown_colors') ? '#1868DB' : '#0C66E4',
+				)};
 			}
 			:focus > span[aria-disabled='false'] {
 				${focusedMenuItemStyle};

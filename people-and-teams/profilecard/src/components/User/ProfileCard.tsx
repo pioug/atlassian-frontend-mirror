@@ -95,7 +95,9 @@ const Wrapper = (props: { children: React.ReactNode }) => (
 	</CardWrapper>
 );
 
-export const ProfilecardInternal = (props: ProfilecardProps & AnalyticsProps) => {
+export const ProfilecardInternal = (
+	props: ProfilecardProps & AnalyticsProps,
+): React.JSX.Element | null => {
 	const [openTime] = useState<number>(getPageTime());
 
 	const { createAnalyticsEvent } = props;
@@ -362,7 +364,7 @@ const Actions = ({
 export const LoadingView = ({
 	fireAnalyticsWithDuration,
 	fireAnalyticsWithDurationNext,
-}: AnalyticsWithDurationProps) => {
+}: AnalyticsWithDurationProps): React.JSX.Element => {
 	useEffect(() => {
 		if (fg('ptc-enable-profile-card-analytics-refactor')) {
 			fireAnalyticsWithDurationNext('ui.profilecard.rendered.spinner', (duration) => ({

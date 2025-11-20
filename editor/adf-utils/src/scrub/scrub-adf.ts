@@ -9,7 +9,7 @@ export interface ScrubAdfOptions {
 	valueReplacements?: ValueReplacements;
 }
 
-export default (adf: ADFEntity, options: ScrubAdfOptions = {}) => {
+export default (adf: ADFEntity, options: ScrubAdfOptions = {}): false | ADFEntity => {
 	const nodeReplacements = {
 		...defaultNodeReplacements,
 		...options.nodeReplacements,

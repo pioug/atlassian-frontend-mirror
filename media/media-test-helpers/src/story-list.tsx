@@ -70,7 +70,7 @@ export interface StoryListProps {
 }
 
 export class StoryList extends Component<StoryListProps, {}> {
-	render() {
+	render(): React.JSX.Element {
 		const { display = 'row', children = [] }: StoryListProps = this.props;
 		const listStyles = display === 'column' ? styles.column : styles.row;
 		const listContent = children.map((child, index) => {

@@ -26,7 +26,7 @@ export default class IconLabel extends React.PureComponent<Props> {
 		icon: '',
 	};
 
-	render() {
+	render(): React.JSX.Element | null {
 		if (!this.props.children) {
 			return null;
 		}

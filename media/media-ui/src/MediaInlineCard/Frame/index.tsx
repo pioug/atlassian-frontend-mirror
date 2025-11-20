@@ -36,7 +36,7 @@ export class Frame extends React.Component<FrameViewProps> {
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { isSelected, children, onClick, innerRef, testId, isError } = this.props;
 		const isInteractive = Boolean(onClick);
 

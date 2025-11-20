@@ -171,7 +171,7 @@ export const FileCard = ({
 	viewerOptions,
 	includeHashForDuplicateFiles,
 	onError,
-}: FileCardProps) => {
+}: FileCardProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const [isAbuseModalOpen, setIsAbuseModalOpen] = useState(false);
 	const { createAnalyticsEvent } = useAnalyticsEvents();

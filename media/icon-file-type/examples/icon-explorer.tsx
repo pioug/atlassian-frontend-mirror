@@ -79,7 +79,7 @@ class IconAllExample extends Component<{}, State> {
 
 	toggleShowIcons = () => this.setState({ showIcons: !this.state.showIcons });
 
-	renderIcons = () => {
+	renderIcons = (): React.JSX.Element => {
 		if (!this.state.allIcons) {
 			return <div>Loading Icons...</div>;
 		}
@@ -96,7 +96,7 @@ class IconAllExample extends Component<{}, State> {
 		);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<div>
 				<TextField

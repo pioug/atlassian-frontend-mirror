@@ -58,26 +58,26 @@ import {
 } from './components/elements';
 
 // ---- EXPORTED METADATA COMPONENTS ---- //
-export const AssignedToElement = () => <AssignedTo />;
-export const AssignedToGroupElement = () => <AssignedToGroup />;
-export const AttachmentCountElement = () => <AttachmentCount />;
-export const AuthorGroupElement = () => <AuthorGroup />;
-export const ChecklistProgressElement = () => <ChecklistProgress />;
-export const CollaboratorGroupElement = () => <CollaboratorGroup />;
+export const AssignedToElement = (): React.JSX.Element => <AssignedTo />;
+export const AssignedToGroupElement = (): React.JSX.Element => <AssignedToGroup />;
+export const AttachmentCountElement = (): React.JSX.Element => <AttachmentCount />;
+export const AuthorGroupElement = (): React.JSX.Element => <AuthorGroup />;
+export const ChecklistProgressElement = (): React.JSX.Element => <ChecklistProgress />;
+export const CollaboratorGroupElement = (): React.JSX.Element => <CollaboratorGroup />;
 
 type CommentCountElementProps = Pick<
 	React.ComponentProps<typeof CommentCount>,
 	'color' | 'onRender'
 >;
 
-export const CommentCountElement = (props?: CommentCountElementProps) => {
+export const CommentCountElement = (props?: CommentCountElementProps): React.JSX.Element => {
 	return <CommentCount color={props?.color} onRender={props?.onRender} />;
 };
 
-export const CreatedOnElement = () => <CreatedOn />;
-export const CreatedByElement = () => <CreatedBy />;
-export const DueOnElement = () => <DueOn />;
-export const LatestCommitElement = () => <LatestCommit />;
+export const CreatedOnElement = (): React.JSX.Element => <CreatedOn />;
+export const CreatedByElement = (): React.JSX.Element => <CreatedBy />;
+export const DueOnElement = (): React.JSX.Element => <DueOn />;
+export const LatestCommitElement = (): React.JSX.Element => <LatestCommit />;
 
 type LinkIconElementProps = Prettify<
 	Pick<React.ComponentProps<typeof LinkIcon>, 'render'> & {
@@ -85,7 +85,7 @@ type LinkIconElementProps = Prettify<
 	}
 >;
 
-export const LinkIconElement = (props?: LinkIconElementProps) => {
+export const LinkIconElement = (props?: LinkIconElementProps): React.JSX.Element => {
 	return (
 		<LinkIcon
 			size={props?.iconTileSize === 24 ? SmartLinkSize.Large : SmartLinkSize.Medium}
@@ -94,15 +94,15 @@ export const LinkIconElement = (props?: LinkIconElementProps) => {
 	);
 };
 
-export const LocationElement = () => <Location />;
-export const ModifiedByElement = () => <ModifiedBy />;
+export const LocationElement = (): React.JSX.Element => <Location />;
+export const ModifiedByElement = (): React.JSX.Element => <ModifiedBy />;
 
 export type ModifiedOnElementProps = Pick<
 	React.ComponentProps<typeof ModifiedOn>,
 	'hideDatePrefix' | 'color' | 'onRender' | 'fontSize'
 >;
 
-export const ModifiedOnElement = (props?: ModifiedOnElementProps) => {
+export const ModifiedOnElement = (props?: ModifiedOnElementProps): React.JSX.Element => {
 	return (
 		<ModifiedOn
 			hideDatePrefix={props?.hideDatePrefix}
@@ -118,7 +118,7 @@ export type OwnedByElementProps = Pick<
 	'hideFormat' | 'color' | 'onRender' | 'textPrefix' | 'fontSize'
 >;
 
-export const OwnedByElement = (props?: OwnedByElementProps) => {
+export const OwnedByElement = (props?: OwnedByElementProps): React.JSX.Element => {
 	return (
 		<OwnedBy
 			hideFormat={props?.hideFormat}
@@ -131,7 +131,7 @@ export const OwnedByElement = (props?: OwnedByElementProps) => {
 };
 
 type OwnedByGroupElementProps = Pick<React.ComponentProps<typeof OwnedByGroup>, 'onRender'>;
-export const OwnedByGroupElement = (props?: OwnedByGroupElementProps) => {
+export const OwnedByGroupElement = (props?: OwnedByGroupElementProps): React.JSX.Element => {
 	return <OwnedByGroup onRender={props?.onRender} />;
 };
 
@@ -139,21 +139,21 @@ type PreviewElementProps = {
 	url?: React.ComponentProps<typeof Preview>['overrideUrl'];
 };
 
-export const PreviewElement = (props?: PreviewElementProps) => {
+export const PreviewElement = (props?: PreviewElementProps): React.JSX.Element => {
 	return <Preview overrideUrl={props?.url} />;
 };
 
-export const PriorityElement = () => <Priority />;
-export const ProgrammingLanguageElement = () => <ProgrammingLanguage />;
-export const ProviderElement = () => <Provider />;
+export const PriorityElement = (): React.JSX.Element => <Priority />;
+export const ProgrammingLanguageElement = (): React.JSX.Element => <ProgrammingLanguage />;
+export const ProviderElement = (): React.JSX.Element => <Provider />;
 
 type ReactCountElementProps = Pick<React.ComponentProps<typeof ReactCount>, 'color' | 'onRender'>;
-export const ReactCountElement = (props?: ReactCountElementProps) => {
+export const ReactCountElement = (props?: ReactCountElementProps): React.JSX.Element => {
 	return <ReactCount color={props?.color} onRender={props?.onRender} />;
 };
 
-export const ReadTimeElement = () => <ReadTime />;
-export const SentOnElement = () => <SentOn />;
+export const ReadTimeElement = (): React.JSX.Element => <ReadTime />;
+export const SentOnElement = (): React.JSX.Element => <SentOn />;
 
 export type SnippetElementProps = Prettify<
 	Pick<React.ComponentProps<typeof Snippet>, 'maxLines'> & {
@@ -161,23 +161,23 @@ export type SnippetElementProps = Prettify<
 	}
 >;
 
-export const SnippetElement = (props?: SnippetElementProps) => (
+export const SnippetElement = (props?: SnippetElementProps): React.JSX.Element => (
 	<Snippet maxLines={props?.maxLines} content={props?.text} />
 );
 
-export const SourceBranchElement = () => <SourceBranch />;
-export const StateElement = () => <State />;
-export const StoryPointsElement = () => <StoryPoints />;
-export const SubscriberCountElement = () => <SubscriberCount />;
-export const SubTasksProgressElement = () => <SubTasksProgress />;
-export const TargetBranchElement = () => <TargetBranch />;
+export const SourceBranchElement = (): React.JSX.Element => <SourceBranch />;
+export const StateElement = (): React.JSX.Element => <State />;
+export const StoryPointsElement = (): React.JSX.Element => <StoryPoints />;
+export const SubscriberCountElement = (): React.JSX.Element => <SubscriberCount />;
+export const SubTasksProgressElement = (): React.JSX.Element => <SubTasksProgress />;
+export const TargetBranchElement = (): React.JSX.Element => <TargetBranch />;
 
 export type TitleElementProps = Pick<
 	React.ComponentProps<typeof Title>,
 	'hideTooltip' | 'maxLines' | 'target' | 'text' | 'theme' | 'size' | 'testId'
 >;
 
-export const TitleElement = (props?: TitleElementProps) => (
+export const TitleElement = (props?: TitleElementProps): React.JSX.Element => (
 	<Title
 		hideTooltip={props?.hideTooltip}
 		maxLines={props?.maxLines}
@@ -189,8 +189,8 @@ export const TitleElement = (props?: TitleElementProps) => (
 	/>
 );
 
-export const ViewCountElement = () => <ViewCount />;
-export const VoteCountElement = () => <VoteCount />;
+export const ViewCountElement = (): React.JSX.Element => <ViewCount />;
+export const VoteCountElement = (): React.JSX.Element => <VoteCount />;
 
 // ---- EXPORTED ACTION COMPONENTS ---- //
 type BaseActionProps = { appearance?: 'default' | 'subtle' };
@@ -200,7 +200,7 @@ export const toActionProps = (props?: BaseActionProps) => ({
 });
 
 export type CopyLinkActionProps = BaseActionProps;
-export const CopyLinkAction = (props: CopyLinkActionProps) => (
+export const CopyLinkAction = (props: CopyLinkActionProps): React.JSX.Element => (
 	<CopyLinkActionComponent {...toActionProps(props)} />
 );
 
@@ -210,7 +210,7 @@ export type CustomActionProps = Prettify<
 		onClick: () => void;
 	}
 >;
-export const CustomAction = (props: CustomActionProps) => (
+export const CustomAction = (props: CustomActionProps): React.JSX.Element => (
 	<CustomActionComponent
 		{...toActionProps(props)}
 		content={props.children}
@@ -219,21 +219,21 @@ export const CustomAction = (props: CustomActionProps) => (
 );
 
 export type DownloadActionProps = BaseActionProps;
-export const DownloadAction = (props: DownloadActionProps) => (
+export const DownloadAction = (props: DownloadActionProps): React.JSX.Element => (
 	<DownloadActionComponent {...toActionProps(props)} />
 );
 
 export type FollowActionProps = BaseActionProps;
-export const FollowAction = (props: FollowActionProps) => (
+export const FollowAction = (props: FollowActionProps): React.JSX.Element => (
 	<FollowActionComponent {...toActionProps(props)} />
 );
 
 export type PreviewActionProps = BaseActionProps;
-export const PreviewAction = (props: PreviewActionProps) => (
+export const PreviewAction = (props: PreviewActionProps): React.JSX.Element => (
 	<PreviewActionComponent {...toActionProps(props)} />
 );
 
-export const UnresolvedAction = (props: { hasPadding?: boolean }) => (
+export const UnresolvedAction = (props: { hasPadding?: boolean }): React.JSX.Element => (
 	<UnresolvedActionComponent {...props} />
 );
 

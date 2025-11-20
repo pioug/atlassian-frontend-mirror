@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { token } from '@atlaskit/tokens';
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const [msg, setMsg] = useState<string>();
 	useEffect(() => {
 		const handleMsgEvent = (event: MessageEvent<any>) => {

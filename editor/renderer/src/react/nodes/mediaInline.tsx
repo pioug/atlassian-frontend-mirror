@@ -51,7 +51,7 @@ type MediaInlineProps = {
 };
 
 const RenderMediaInline = ({
-	rendererAppearance,
+	rendererAppearance: _rendererAppearance,
 	clipboardAttrs,
 	collection: collectionName,
 	eventHandlers,

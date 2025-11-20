@@ -9,20 +9,21 @@ import { token } from '@atlaskit/tokens';
  * TODO: When Firefox begins supporting the :has()pseudo-selector (e.g "frame:has(button:hover){...}"),
  * it should be used instead and the code should be cleaned up.
  */
-export default (Button: any, frameRef: React.RefObject<HTMLSpanElement>) => (props: any) => {
-	const setBorderStyle = () => {
-		const frameNode = frameRef.current;
-		if (frameNode) {
-			frameNode.style.borderColor = `${token('color.border', N40)}`;
-		}
-	};
+export default (Button: any, frameRef: React.RefObject<HTMLSpanElement>) =>
+	(props: any): React.JSX.Element => {
+		const setBorderStyle = () => {
+			const frameNode = frameRef.current;
+			if (frameNode) {
+				frameNode.style.borderColor = `${token('color.border', N40)}`;
+			}
+		};
 
-	const removeBorderStyle = () => {
-		const frameNode = frameRef.current;
-		if (frameNode) {
-			frameNode.removeAttribute('style');
-		}
-	};
+		const removeBorderStyle = () => {
+			const frameNode = frameRef.current;
+			if (frameNode) {
+				frameNode.removeAttribute('style');
+			}
+		};
 
-	return <Button {...props} onMouseEnter={setBorderStyle} onMouseLeave={removeBorderStyle} />;
-};
+		return <Button {...props} onMouseEnter={setBorderStyle} onMouseLeave={removeBorderStyle} />;
+	};

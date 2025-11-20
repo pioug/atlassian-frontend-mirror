@@ -191,38 +191,38 @@ type Props = {
 	CardComponent?: typeof Card | typeof CardSSR;
 };
 
-export const BlockCardLazyIconsExample1 = (props: Props) => (
+export const BlockCardLazyIconsExample1 = (props: Props): React.JSX.Element => (
 	<LazyExample {...props} options={possibleIcons[0]} />
 );
-export const BlockCardLazyIconsExample2 = (props: Props) => (
+export const BlockCardLazyIconsExample2 = (props: Props): React.JSX.Element => (
 	<LazyExample {...props} options={possibleIcons[1]} />
 );
-export const BlockCardLazyIconsExample3 = (props: Props) => (
+export const BlockCardLazyIconsExample3 = (props: Props): React.JSX.Element => (
 	<LazyExample {...props} options={possibleIcons[2]} />
 );
-export const BlockCardLazyIconsExample4 = (props: Props) => (
+export const BlockCardLazyIconsExample4 = (props: Props): React.JSX.Element => (
 	<LazyExample {...props} options={possibleIcons[3]} />
 );
-export const BlockCardLazyIconsExample5 = (props: Props) => (
+export const BlockCardLazyIconsExample5 = (props: Props): React.JSX.Element => (
 	<LazyExample {...props} options={possibleIcons[4]} />
 );
-export const BlockCardLazyIconsExample6 = (props: Props) => (
+export const BlockCardLazyIconsExample6 = (props: Props): React.JSX.Element => (
 	<LazyExample {...props} options={possibleIcons[5]} />
 );
-export const BlockCardLazyIconsFileTypeExample1 = (props: Props) => (
+export const BlockCardLazyIconsFileTypeExample1 = (props: Props): React.JSX.Element => (
 	<LazyExample {...props} options={possibleIconsPerType[0]} />
 );
-export const BlockCardLazyIconsFileTypeExample2 = (props: Props) => (
+export const BlockCardLazyIconsFileTypeExample2 = (props: Props): React.JSX.Element => (
 	<LazyExample {...props} options={possibleIconsPerType[1]} />
 );
-export const BlockCardLazyIconsFileTypeExample3 = (props: Props) => (
+export const BlockCardLazyIconsFileTypeExample3 = (props: Props): React.JSX.Element => (
 	<LazyExample {...props} options={possibleIconsPerType[2]} />
 );
-export const BlockCardLazyIconsFileTypeExample4 = (props: Props) => (
+export const BlockCardLazyIconsFileTypeExample4 = (props: Props): React.JSX.Element => (
 	<LazyExample {...props} options={possibleIconsPerType[3]} />
 );
 
-export const BlockCardLazyIcons = (props: Props) => {
+export const BlockCardLazyIcons = (props: Props): React.JSX.Element => {
 	return (
 		<>
 			<BlockCardLazyIconsExample1 {...props} />
@@ -235,7 +235,7 @@ export const BlockCardLazyIcons = (props: Props) => {
 	);
 };
 
-export const BlockCardLazyIconsFileType = (props: Props) => {
+export const BlockCardLazyIconsFileType = (props: Props): React.JSX.Element => {
 	return (
 		<>
 			<BlockCardLazyIconsFileTypeExample1 {...props} />

@@ -27,7 +27,7 @@ export class ProviderCardExampleWithErrorBoundary extends React.Component<
 		this.setState({ error, errorInfo });
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		if (this.state.error) {
 			console.error(this.props.url, this.state.error);
 			return (

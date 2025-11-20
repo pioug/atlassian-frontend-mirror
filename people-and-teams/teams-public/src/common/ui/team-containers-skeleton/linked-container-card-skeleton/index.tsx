@@ -42,7 +42,7 @@ export const LinkedContainerCardSkeleton = ({
 	containerType,
 }: {
 	containerType?: ContainerTypes;
-}) => {
+}): React.JSX.Element => {
 	return (
 		<Box xcss={styles.container}>
 			<Inline space="space.100" alignBlock="center">

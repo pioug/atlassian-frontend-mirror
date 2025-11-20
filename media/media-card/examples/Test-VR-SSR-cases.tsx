@@ -203,7 +203,7 @@ const ScenariosComponent: React.FC<{ scenarios: Scenarios }> = ({ scenarios }) =
 	</>
 );
 
-export default () => {
+export default (): React.JSX.Element => {
 	const scenarios = useMemo(() => createScenarios(), []);
 	useEffect(() => {
 		runScenarios(scenarios);

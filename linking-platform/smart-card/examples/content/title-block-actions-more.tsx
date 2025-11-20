@@ -6,7 +6,7 @@ import { ActionName, TitleBlock } from '../../src';
 
 import ExampleContainer from './example-container';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<ExampleContainer>
 		<TitleBlock
 			actions={[

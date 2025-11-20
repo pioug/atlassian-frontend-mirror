@@ -25,7 +25,7 @@ export const useUserSelectionRange = (
 	const isAnnotationManagerEnabled = !!annotationManager;
 
 	const onSelectionChange = useCallback(
-		(event: Event) => {
+		(_event: Event) => {
 			if (selectionTimeoutRef.current) {
 				clearTimeout(selectionTimeoutRef.current);
 			}

@@ -32,7 +32,7 @@ export class StatefulInlineDialog extends React.Component<Props, State> {
 		this.closeDialog();
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { children, content, placement } = this.props;
 		return (
 			<InlineDialog content={content} placement={placement} isOpen={this.state.isOpen}>

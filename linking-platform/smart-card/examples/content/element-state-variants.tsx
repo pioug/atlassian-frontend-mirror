@@ -12,7 +12,7 @@ const primary = appearances.map((appearance) => ({
 	text: appearance.toUpperCase(),
 })) as ElementItem[];
 
-export default () => (
+export default (): React.JSX.Element => (
 	<ExampleContainer>
 		<MetadataBlock primary={primary} />
 	</ExampleContainer>

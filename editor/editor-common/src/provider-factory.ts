@@ -52,5 +52,3 @@ export type {
 export type { ContextIdentifierProvider } from './provider-factory/context-identifier-provider';
 
 export type { ProfilecardProvider } from './provider-factory/profile-card-provider';
-
-export type { SyncedBlockRendererDataProviders } from './provider-factory/synced-block-renderer-provider';

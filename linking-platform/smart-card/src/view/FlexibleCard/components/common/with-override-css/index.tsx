@@ -5,7 +5,7 @@ type WithClassNameProps = {
 };
 
 export function withOverrideCss<T>(Component: React.ComponentType<T>) {
-	return (props: T & WithClassNameProps) => {
+	return (props: T & WithClassNameProps): React.JSX.Element => {
 		const ref = useRef<HTMLElement>(null);
 
 		useEffect(() => {

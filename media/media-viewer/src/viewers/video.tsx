@@ -87,7 +87,7 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
 		onError && onError(new MediaViewerError('videoviewer-playback'));
 	};
 
-	protected renderSuccessful(content: string) {
+	protected renderSuccessful(content: string): React.JSX.Element {
 		const { isHDActive } = this.state;
 		const { item, showControls, previewCount, identifier } = this.props;
 		const useCustomVideoPlayer = !isIE();

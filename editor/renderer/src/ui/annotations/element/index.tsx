@@ -83,7 +83,7 @@ const MarkElement = ({
 							// TODO: EDITOR-595 - If the preemptive gate returns false, should we track the analytics event?
 						}
 					})
-					.catch((error) => {
+					.catch((_error) => {
 						// TODO: EDITOR-595 - An error occurred while checking the preemptive gate. We should report this error.
 					});
 			} else {

@@ -101,7 +101,7 @@ const MarkdownStreamRenderer = () => {
 	);
 };
 
-const AISummaryExample = () => (
+const AISummaryExample = (): React.JSX.Element => (
 	<ExampleContainer title="AISummary markdown">
 		<InternalMessage />
 		<MarkdownTextRenderer />

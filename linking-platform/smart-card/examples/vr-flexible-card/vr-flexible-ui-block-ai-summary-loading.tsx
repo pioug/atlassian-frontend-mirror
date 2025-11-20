@@ -31,7 +31,7 @@ const mockUseAiSummary = injectable(useAISummaryAction, () => ({
 
 const dependencies = [mockUseAiSummary, mockAIPrism];
 
-export default () => (
+export default (): React.JSX.Element => (
 	<DiProvider use={dependencies}>
 		<VRTestWrapper>
 			<Provider client={new MaximumResolvedCustomClient()} isAdminHubAIEnabled={true} product="JSM">

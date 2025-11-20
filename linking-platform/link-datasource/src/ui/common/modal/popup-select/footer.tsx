@@ -31,7 +31,11 @@ const styles = cssMap({
 	},
 });
 
-const PopupFooter = ({ currentDisplayCount, totalCount, filterName }: PopupFooterProps) => {
+const PopupFooter = ({
+	currentDisplayCount,
+	totalCount,
+	filterName,
+}: PopupFooterProps): React.JSX.Element => {
 	return (
 		<Flex
 			testId={`${filterName}--footer`}

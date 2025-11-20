@@ -130,6 +130,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
 								appearance="subtle"
 								onClick={handleOnClearButtonClick}
 								spacing="none"
+								// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 								aria-label="Clear"
 							>
 								<EditorCloseIcon color="currentColor" spacing="spacious" label="" />

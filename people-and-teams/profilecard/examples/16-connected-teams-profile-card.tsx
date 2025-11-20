@@ -9,7 +9,7 @@ import {
 import ExampleWrapper from './helper/example-wrapper';
 
 mockTeamContainersQueries();
-export default function TeamProfileCardExample() {
+export default function TeamProfileCardExample(): React.JSX.Element {
 	return (
 		<>
 			<ExampleWrapper>

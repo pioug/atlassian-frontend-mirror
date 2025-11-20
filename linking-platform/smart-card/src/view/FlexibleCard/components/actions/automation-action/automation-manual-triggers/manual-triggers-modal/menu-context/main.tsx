@@ -63,7 +63,7 @@ export const AutomationMenuContextContainer = ({
 	onRuleInvocationSuccess,
 	onRuleInvocationFailure,
 	onRuleInvocationLifecycleDone,
-}: AutomationMenuContextContainerProps) => {
+}: AutomationMenuContextContainerProps): React.JSX.Element => {
 	const [ruleExecutionState, setRuleExecutionState] = useState<RuleExecutionState>('NONE');
 	return (
 		<ManualRulesContainer

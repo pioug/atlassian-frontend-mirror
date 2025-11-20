@@ -4,6 +4,6 @@ import { ForbiddenWithSiteRequestAccessClient } from '@atlaskit/link-test-helper
 
 import VRCardView from '../utils/vr-card-view';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRCardView appearance="inline" client={new ForbiddenWithSiteRequestAccessClient()} />
 );

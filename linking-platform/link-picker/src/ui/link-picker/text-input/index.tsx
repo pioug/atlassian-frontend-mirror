@@ -69,6 +69,7 @@ const newFieldStyles = css({
 
 const RequiredAsterisk = () => {
 	return (
+		// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 		<Box as="span" aria-hidden="true" xcss={styles.requiredIndicatorStyles}>
 			*
 		</Box>

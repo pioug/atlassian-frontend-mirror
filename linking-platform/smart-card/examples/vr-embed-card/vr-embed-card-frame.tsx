@@ -8,7 +8,7 @@ import {
 } from '../../src/view/EmbedCard/components/ExpandedFrame';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-const VREmbedFrame = (props: Partial<ExpandedFrameProps>) => (
+const VREmbedFrame = (props: Partial<ExpandedFrameProps>): React.JSX.Element => (
 	<VRTestWrapper
 		style={{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

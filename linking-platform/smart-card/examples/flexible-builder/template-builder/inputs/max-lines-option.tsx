@@ -12,7 +12,7 @@ const MaxLinesOption = (props: {
 	onChange: (template: BlockTemplate) => void;
 	propName: string;
 	template: BlockTemplate;
-}) => {
+}): React.JSX.Element => {
 	const { defaultValue, max } = props;
 	const options = useMemo(
 		() =>

@@ -17,7 +17,7 @@ import { FormSpy } from '../../form-spy';
 
 import { messages } from './messages';
 
-export const EditButton = () => {
+export const EditButton = (): React.JSX.Element | null => {
 	const intl = useIntl();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { submitting } = useFormState();

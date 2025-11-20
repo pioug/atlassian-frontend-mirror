@@ -14,7 +14,7 @@ const NotFoundView = ({
 	accessContext,
 	testId = 'embed-card-not-found-view',
 	...unresolvedViewProps
-}: NotFoundViewProps) => {
+}: NotFoundViewProps): React.JSX.Element => {
 	const { icon, image, text = '' } = context ?? {};
 	const { titleMessageKey, descriptiveMessageKey } = accessContext ?? {};
 	const values = useMemo(() => ({ product: text }), [text]);

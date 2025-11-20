@@ -10,7 +10,7 @@ const blockOptions = Object.values(BlockName).map((value) => ({
 	value,
 }));
 
-const BlockOption = ({ onClick }: { onClick: (name: BlockName) => void }) => {
+const BlockOption = ({ onClick }: { onClick: (name: BlockName) => void }): React.JSX.Element => {
 	const handleOnChange = useCallback(
 		(option: any) => {
 			onClick(option.value);

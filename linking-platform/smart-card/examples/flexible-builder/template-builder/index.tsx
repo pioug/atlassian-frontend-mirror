@@ -19,7 +19,7 @@ const TemplateBuilder = ({
 }: {
 	onChange: (template: FlexibleTemplate) => void;
 	template: FlexibleTemplate;
-}) => {
+}): React.JSX.Element => {
 	const display = useMemo(
 		() =>
 			template?.blocks?.some((block) => block.name === BlockName.TitleBlock)

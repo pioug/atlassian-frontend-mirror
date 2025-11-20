@@ -33,7 +33,13 @@ export const mouseEnterHandler = (result: CardEvent) => {
 	console.log('mouseEnter', result.mediaItemDetails);
 };
 
-export const createApiCards = (appearance: CardAppearance, identifier: Identifier) => {
+export const createApiCards = (
+	appearance: CardAppearance,
+	identifier: Identifier,
+): {
+	title: string;
+	content: React.JSX.Element;
+}[] => {
 	// API methods
 	const apiCards = [
 		{
@@ -74,7 +80,11 @@ export const closeAction = {
 		console.log('close');
 	},
 };
-export const deleteAction = {
+export const deleteAction: {
+	label: string;
+	handler: () => void;
+	icon: React.JSX.Element;
+} = {
 	label: 'Delete',
 	handler: () => {
 		console.log('delete');
@@ -121,7 +131,7 @@ export const MainWrapper = ({
 	children,
 	developmentOnly,
 	disableFeatureFlagWrapper = false,
-}: MainWrapperProps) => {
+}: MainWrapperProps): React.JSX.Element => {
 	enableMediaUfoLogger(payloadPublisher);
 	return (
 		<>
@@ -148,7 +158,7 @@ export const mediaCardErrorState = (error?: string): MediaCardError | undefined 
 	}
 };
 
-export const SSRAnalyticsWrapper = ({ children }: PropsWithChildren<{}>) => {
+export const SSRAnalyticsWrapper = ({ children }: PropsWithChildren<{}>): React.JSX.Element => {
 	const mockClient: AnalyticsWebClient = {
 		sendUIEvent: (e) => console.debug('UI event', e),
 		sendOperationalEvent: (e) => console.debug('Operational event', e),

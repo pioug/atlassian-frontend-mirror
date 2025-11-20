@@ -12,4 +12,6 @@ class CustomClient extends Client {
 	}
 }
 
-export const BlockCardTrello = () => <VRCardView appearance="block" client={new CustomClient()} />;
+export const BlockCardTrello = (): React.JSX.Element => (
+	<VRCardView appearance="block" client={new CustomClient()} />
+);

@@ -6,7 +6,7 @@ import { type StaticCardProps } from './types';
 import SpinnerIcon from '@atlaskit/spinner';
 
 export class CardLoading extends Component<StaticCardProps, {}> {
-	render() {
+	render(): React.JSX.Element {
 		const { dimensions: dimensionsProp, testId, interactionName } = this.props;
 		const dimensions = getDimensionsWithDefault(dimensionsProp);
 

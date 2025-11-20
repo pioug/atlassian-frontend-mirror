@@ -19,7 +19,7 @@ const uiOptions: CardProps['ui'] = {
 	removeBlockRestriction: true,
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestWrapper>
 		<Provider client={new ResolvingClient()}>
 			<Card

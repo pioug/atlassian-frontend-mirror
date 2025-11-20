@@ -65,6 +65,12 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 	role?: string;
 
 	/**
+	 * Whether the hover card should render to the parent element, to the
+	 * atlaskit-portal-container at the root of the document. Defaults to false.
+	 */
+	shouldRenderToParent?: boolean;
+
+	/**
 	 * Id referenced by the hover card `aria-labelledby` attribute.
 	 * Usage of either this, or the `label` attribute is strongly recommended.
 	 */
@@ -104,6 +110,7 @@ export interface HoverCardComponentProps extends HoverCardProps, HoverCardIntern
 export type HoverCardContentProps = {
 	actionOptions?: CardActionOptions;
 	cardState: CardState;
+	hoverPreviewOptions?: HoverPreviewOptions;
 	id?: string;
 	onActionClick: (actionId: string | ActionName) => void;
 	onMouseEnter?: MouseEventHandler;
@@ -111,7 +118,6 @@ export type HoverCardContentProps = {
 	onResolve: () => void;
 	renderers?: CardProviderRenderers;
 	url: string;
-	hoverPreviewOptions?: HoverPreviewOptions;
 };
 
 export type ContentContainerProps = React.HTMLAttributes<HTMLDivElement> & {

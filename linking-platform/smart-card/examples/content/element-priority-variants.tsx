@@ -24,7 +24,7 @@ const primary = priorities.map((icon) => ({
 	icon,
 })) as ElementItem[];
 
-export default () => (
+export default (): React.JSX.Element => (
 	<ExampleContainer>
 		<MetadataBlock primary={primary} />
 	</ExampleContainer>

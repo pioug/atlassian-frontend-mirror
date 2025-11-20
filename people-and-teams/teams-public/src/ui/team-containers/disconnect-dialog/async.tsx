@@ -10,7 +10,7 @@ const DisconnectDialogLazyInner = lazyForPaint(() =>
 	).then(({ DisconnectDialog }) => DisconnectDialog),
 );
 
-export const DisconnectDialogLazy = (props: DisconnectDialogProps) => (
+export const DisconnectDialogLazy = (props: DisconnectDialogProps): React.JSX.Element => (
 	<LazySuspense fallback={null}>
 		<DisconnectDialogLazyInner {...props} />
 	</LazySuspense>

@@ -63,7 +63,7 @@ export abstract class BaseViewer<
 		}
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		return this.state.content.match({
 			pending: () => <Spinner />,
 			successful: (content) => <Fragment>{this.renderSuccessful(content)}</Fragment>,

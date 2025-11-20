@@ -13,7 +13,10 @@ type ErrorBoundaryProps = PropsWithChildren<{
 	errorComponent?: JSX.Element;
 }>;
 
-export const ErrorBoundary = ({ children, errorComponent }: ErrorBoundaryProps) => {
+export const ErrorBoundary = ({
+	children,
+	errorComponent,
+}: ErrorBoundaryProps): React.JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const experience = useExperience();
 

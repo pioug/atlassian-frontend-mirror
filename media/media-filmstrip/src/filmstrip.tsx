@@ -59,7 +59,7 @@ export class Filmstrip extends Component<FilmstripProps, FilmstripState> {
 		});
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { testId = 'media-filmstrip', includeHashForDuplicateFiles } = this.props;
 		if (includeHashForDuplicateFiles) {
 			return <DeduplicatedFilmStrip {...this.props} />;

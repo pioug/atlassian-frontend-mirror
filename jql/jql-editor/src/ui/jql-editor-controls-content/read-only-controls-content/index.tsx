@@ -10,7 +10,7 @@ import { BaseSearch } from '../base-search';
 // eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { BaseSyntaxHelp } from '../base-syntax-help';
 
-export const ReadOnlyControlsContent = () => {
+export const ReadOnlyControlsContent = (): React.JSX.Element => {
 	const { isSearch } = useEditorThemeContext();
 	return (
 		<>

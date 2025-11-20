@@ -1,5 +1,12 @@
 # @atlaskit/media-filmstrip
 
+## 51.1.4
+
+### Patch Changes
+
+- [`516909774accc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/516909774accc) -
+  Fixing type issues
+
 ## 51.1.3
 
 ### Patch Changes

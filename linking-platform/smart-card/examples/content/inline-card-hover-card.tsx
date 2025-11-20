@@ -10,7 +10,7 @@ import { Stack, Text } from '@atlaskit/primitives/compiled';
 
 import { Card } from '../../src';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<SmartCardProvider client={new ResolvedClient('stg')}>
 		<Stack space="space.100">
 			<Text>Hover over Smart Links</Text>

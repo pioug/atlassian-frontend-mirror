@@ -97,7 +97,7 @@ export default function ExtensionRenderer(props: Props) {
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const handleProvider = React.useCallback((name: keyof State, providerPromise?: Promise<any>) => {
+	const handleProvider = React.useCallback((_name: keyof State, providerPromise?: Promise<any>) => {
 		providerPromise &&
 			providerPromise.then((provider) => {
 				if (isMounted.current) {
@@ -122,7 +122,7 @@ export default function ExtensionRenderer(props: Props) {
 
 			const isPlainTextMacro = Boolean(node?.parameters?.macroParams?.__bodyContent);
 
-			let result = null;
+			let result: JSX.Element | null = null;
 
 			try {
 				if (extensionHandlers && extensionHandlers[extensionType]) {

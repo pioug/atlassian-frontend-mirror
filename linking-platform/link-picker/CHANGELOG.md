@@ -1,5 +1,19 @@
 # @atlaskit/link-picker
 
+## 3.16.9
+
+### Patch Changes
+
+- [`06d5717d57f36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06d5717d57f36) -
+  Suppress i18n errors
+- Updated dependencies
+
+## 3.16.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.16.7
 
 ### Patch Changes

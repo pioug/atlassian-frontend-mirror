@@ -24,7 +24,7 @@ interface StatusEditTypeProps extends Omit<FieldProps<string>, 'value'> {
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
 }
 
-const StatusEditType = (props: StatusEditTypeProps) => {
+const StatusEditType = (props: StatusEditTypeProps): React.JSX.Element => {
 	const { currentValue, labelId, executeFetch } = props;
 	const { options, isLoading, hasFailed } = useLoadOptions<Status>({ executeFetch });
 	const experienceId = useDatasourceExperienceId();

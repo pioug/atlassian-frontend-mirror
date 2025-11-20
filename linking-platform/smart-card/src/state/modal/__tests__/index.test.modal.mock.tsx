@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Modal = ({ onClose }: { onClose: () => void }) => {
+export const Modal = ({ onClose }: { onClose: () => void }): React.JSX.Element => {
 	return (
 		<div data-testid="modal">
 			<button data-testid="btn-close" onClick={onClose} type="button">

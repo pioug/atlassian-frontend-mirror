@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 15.4.0
+
+### Minor Changes
+
+- [`8f759171c089b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f759171c089b) -
+  [EDITOR-3322] Make sure that tables are able to handle the new max-width
+
 ## 15.3.23
 
 ### Patch Changes

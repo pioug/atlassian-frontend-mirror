@@ -58,7 +58,7 @@ export const AddContainerCard = ({
 	onAddAContainerClick,
 	isLoading = false,
 	isDisabled = false,
-}: AddContainerCardProps) => {
+}: AddContainerCardProps): React.JSX.Element => {
 	const { icon, title } = getContainerProperties({
 		containerType,
 		isEmptyContainer: true,

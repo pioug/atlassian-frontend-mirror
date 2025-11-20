@@ -10,7 +10,7 @@ export const useHandleContentChanges = (
 ): void => {
 	useEffect(() => {
 		try {
-			manager.updateSyncBlockData(syncBlockNode);
+			manager.sourceManager.updateSyncBlockData(syncBlockNode);
 		} catch {
 			//TODO: EDITOR-1921 - add error analytics
 		}

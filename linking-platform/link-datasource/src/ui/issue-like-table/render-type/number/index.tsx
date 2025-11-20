@@ -11,7 +11,10 @@ interface NumberProps {
 
 export const NUMBER_TYPE_TEST_ID = 'link-datasource-render-type--number';
 
-const NumberRenderType = ({ number, testId = NUMBER_TYPE_TEST_ID }: NumberProps) => {
+const NumberRenderType = ({
+	number,
+	testId = NUMBER_TYPE_TEST_ID,
+}: NumberProps): React.JSX.Element => {
 	if (typeof number !== 'number') {
 		return <></>;
 	}

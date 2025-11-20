@@ -10,7 +10,7 @@ const LazyJiraIssuesConfigModal = lazy(() =>
 	).then((module) => ({ default: module.JiraIssuesConfigModal })),
 );
 
-const JiraIssuesConfigModalWithWrappers = (props: JiraConfigModalProps) => {
+const JiraIssuesConfigModalWithWrappers = (props: JiraConfigModalProps): React.JSX.Element => {
 	return (
 		<Suspense fallback={<div data-testid={'jira-datasource-table-suspense'} />}>
 			<LazyJiraIssuesConfigModal {...props} />

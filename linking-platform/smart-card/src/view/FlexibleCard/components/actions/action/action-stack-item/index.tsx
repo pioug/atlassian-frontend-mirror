@@ -12,7 +12,7 @@ const ActionStackItem = ({
 	hideTooltipOnMouseDown,
 	hideTooltip,
 	...props
-}: ActionStackItemProps) =>
+}: ActionStackItemProps): React.JSX.Element =>
 	hideTooltip ? (
 		<ActionButton {...props} content={content} />
 	) : (

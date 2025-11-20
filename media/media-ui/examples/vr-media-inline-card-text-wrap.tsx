@@ -4,7 +4,7 @@ import { smallImage } from '@atlaskit/media-common/test-helpers';
 import { MediaInlineCardLoadedView } from '../src/MediaInlineCard/LoadedView';
 import { VRTestCase } from './utils/common';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<VRTestCase title="Media inline card with default icon">
 		{() => (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

@@ -14,7 +14,8 @@ const getResizeFrom = (size?: EmbedModalSize): EmbedModalSize =>
 	size === EmbedModalSize.Small ? EmbedModalSize.Large : EmbedModalSize.Small;
 
 const withAnalytics =
-	(Component: React.ComponentType<EmbedModalProps>) => (props: EmbedModalProps & WithAnalytics) => {
+	(Component: React.ComponentType<EmbedModalProps>) =>
+	(props: EmbedModalProps & WithAnalytics): React.JSX.Element => {
 		const { fireEvent, extensionKey, id, onClose, onOpen, onOpenFailed, onResize, origin } = props;
 
 		const handleOnOpen = useCallback(

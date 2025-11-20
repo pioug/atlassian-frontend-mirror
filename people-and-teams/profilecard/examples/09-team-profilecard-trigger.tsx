@@ -138,7 +138,7 @@ function CustomizationPanel() {
 	);
 }
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [includingYou, setIncludingYou] = useState(false);
 	const [numActions, setNumActions] = useState(0);
 	const [isRealClient, setRealClient] = useState(false);

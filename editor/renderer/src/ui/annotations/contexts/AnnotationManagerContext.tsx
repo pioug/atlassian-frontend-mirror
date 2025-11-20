@@ -130,7 +130,7 @@ function reducer(
 			const currentIds = Object.keys(state.annotations);
 			const uids = Array.from(new Set(currentIds.concat(action.data.map((a) => a.id))));
 
-			const updates = [];
+			const updates: Array<{ id: AnnotationId; markState: AnnotationMarkStates }> = [];
 			for (const id of uids) {
 				const loadedAnnotation = action.data.find((a) => a.id === id);
 
@@ -177,7 +177,7 @@ function reducer(
 			const current = state.annotations[action.data.id];
 			const { id, selected, hovered, markState = current?.markState } = action.data;
 
-			const updates = [];
+			const updates: Array<{ id: AnnotationId; markState: AnnotationMarkStates }> = [];
 
 			// If the annotation is not currently in the state, we need to add it to the state.
 			if (!current) {
@@ -616,8 +616,8 @@ export const AnnotationManagerProvider = ({
 		const onAnnotationClick = ({
 			annotationIds,
 			eventTarget,
-			eventTargetType,
-			viewMethod,
+			eventTargetType: _eventTargetType,
+			viewMethod: _viewMethod,
 		}: OnAnnotationClickPayload) => {
 			dispatch({
 				type: 'updateAnnotation',

@@ -162,7 +162,7 @@ export const TeamLinkCard = ({
 	openInNewTab,
 	isReadOnly,
 	hideSubTextIcon,
-}: TeamLinkCardProps) => {
+}: TeamLinkCardProps): React.JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { description, icon, containerTypeText } = getContainerProperties({
 		containerType,

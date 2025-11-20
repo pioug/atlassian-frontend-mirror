@@ -62,7 +62,7 @@ export const getCurrentOptionLabel = (
 	return getDropdownLabel(selectedOption, formatMessage);
 };
 
-export const useInvalidDateRange = (from?: string, to?: string) => {
+export const useInvalidDateRange = (from?: string, to?: string): React.JSX.Element | null => {
 	return useMemo(() => {
 		if (!from && !to) {
 			return null;

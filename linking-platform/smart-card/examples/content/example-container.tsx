@@ -74,7 +74,7 @@ const renderChildren = (children: React.ReactNode): React.ReactNode =>
 		return child;
 	});
 
-const ExampleContainer = ({ children }: PropsWithChildren<{}>) => (
+const ExampleContainer = ({ children }: PropsWithChildren<{}>): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<FlexibleCardContext.Provider value={flexibleCardContext}>
 			{renderChildren(children)}

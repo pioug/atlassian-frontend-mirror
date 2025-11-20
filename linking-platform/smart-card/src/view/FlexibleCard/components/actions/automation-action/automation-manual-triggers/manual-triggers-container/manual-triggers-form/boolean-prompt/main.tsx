@@ -11,7 +11,7 @@ interface BooleanInputPromptProps {
 	userInputPrompt: UserInputBooleanPrompt;
 }
 
-const BooleanInputPrompt = ({ userInputPrompt }: BooleanInputPromptProps) => {
+const BooleanInputPrompt = ({ userInputPrompt }: BooleanInputPromptProps): React.JSX.Element => {
 	di(Checkbox, CheckboxField);
 
 	const { variableName, displayName, defaultValue } = userInputPrompt;

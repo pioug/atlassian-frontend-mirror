@@ -12,7 +12,7 @@ interface Props {
 }
 
 export class UserInfo extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		const { user } = this.props;
 		return (
 			<Styled.UserInfoOuter>

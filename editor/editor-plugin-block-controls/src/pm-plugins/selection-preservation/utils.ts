@@ -10,16 +10,7 @@ import type { SelectionPreservationMeta } from './types';
  * @returns True if any transaction includes a user-driven selection change, otherwise false.
  */
 export const hasUserSelectionChange = (transactions: readonly Transaction[]) => {
-	return transactions.some(
-		(tr) =>
-			tr.getMeta('pointer') ||
-			tr.getMeta('uiEvent') ||
-			tr.getMeta('paste') ||
-			tr.getMeta('cut') ||
-			tr.getMeta('composition') || // IME input
-			// Keyboard events that change selection
-			(tr.getMeta('addToHistory') && tr.selectionSet),
-	);
+	return transactions.some((tr) => tr.getMeta('pointer') && tr.selectionSet);
 };
 
 export const getSelectionPreservationMeta = (tr: Transaction | ReadonlyTransaction) => {

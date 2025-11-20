@@ -6,7 +6,7 @@ import { GenericErrorIcon } from '../../../../common/ui/icons/generic-error-icon
 import { messages } from '../../../../messages';
 import { EmptyState } from '../../components/EmptyState';
 
-const RelatedLinksErroredView = () => {
+const RelatedLinksErroredView = (): React.JSX.Element => {
 	const intl = useIntl();
 
 	return (

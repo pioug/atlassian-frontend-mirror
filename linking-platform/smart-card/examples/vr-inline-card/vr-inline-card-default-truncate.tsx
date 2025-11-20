@@ -8,7 +8,7 @@ import { VRTestCase } from '../utils/common';
 
 const wrapperStyles = xcss({ width: '100px' });
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<VRTestCase title="Inline card with default icon and truncation">
 			{() => (

@@ -56,7 +56,7 @@ function analyticsNext<K extends keyof AnalyticsEventAttributes>(
 
 const actionCounts = [0, 1, 2, 3, 4];
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [numActions, setNumActions] = useState(1);
 
 	useEffect(() => {

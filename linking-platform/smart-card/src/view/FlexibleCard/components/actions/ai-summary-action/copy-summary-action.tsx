@@ -17,7 +17,7 @@ export function CopySummaryAction({
 	testId,
 	content,
 	...props
-}: AISummaryActionProps & AISummaryActionData & { content: string }) {
+}: AISummaryActionProps & AISummaryActionData & { content: string }): React.JSX.Element {
 	const { fireEvent } = useAnalyticsEvents();
 
 	const [tooltipMessage, setTooltipMessage] = useState(messages.copy_summary_action_description);

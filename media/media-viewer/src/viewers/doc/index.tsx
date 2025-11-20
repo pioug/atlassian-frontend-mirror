@@ -109,7 +109,7 @@ export class DocViewer extends BaseViewer<string, Props, State> {
 		}
 	}
 
-	protected renderSuccessful(content: string) {
+	protected renderSuccessful(content: string): React.JSX.Element {
 		const { item, onClose, onSuccess, onError } = this.props;
 
 		return (

@@ -19,7 +19,7 @@ export const IFrame = ({
 	className,
 	extensionKey,
 	...props
-}: React.ComponentProps<'iframe'> & IFrameProps) => {
+}: React.ComponentProps<'iframe'> & IFrameProps): React.JSX.Element => {
 	const confluencePageData = fg('platform_deprecate_lp_cc_embed')
 		? // eslint-disable-next-line react-hooks/rules-of-hooks
 			useConfluencePageData(props.src || '', extensionKey || '')

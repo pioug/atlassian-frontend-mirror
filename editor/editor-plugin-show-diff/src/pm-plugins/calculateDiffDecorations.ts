@@ -4,7 +4,6 @@ import memoizeOne from 'memoize-one';
 import { ChangeSet, simplifyChanges, type Change } from 'prosemirror-changeset';
 import type { IntlShape } from 'react-intl-next';
 
-import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
@@ -19,6 +18,7 @@ import {
 import type { ShowDiffPluginState } from './main';
 import { getMarkChangeRanges } from './markDecorations';
 import type { NodeViewSerializer } from './NodeViewSerializer';
+import { simplifySteps } from './simplifyChanges';
 
 const calculateNodesForBlockDecoration = (
 	doc: EditorState['doc'],
@@ -79,26 +79,6 @@ function optimizeChanges(changes: Change[]): Change[] {
 	return optimized;
 }
 
-// Simplifies the steps to improve performance and reduce fragmentation in diffs
-function simplifySteps(steps: ProseMirrorStep[]): ProseMirrorStep[] {
-	return (
-		steps
-			// Remove steps that don't affect document structure or content
-			.filter((step) => !(step instanceof AnalyticsStep))
-			// Merge consecutive steps where possible
-			.reduce<ProseMirrorStep[]>((acc, step) => {
-				const lastStep = acc[acc.length - 1];
-				const merged = lastStep?.merge?.(step);
-				if (merged) {
-					acc[acc.length - 1] = merged;
-				} else {
-					acc.push(step);
-				}
-				return acc;
-			}, [])
-	);
-}
-
 const calculateDiffDecorationsInner = ({
 	state,
 	pluginState,
@@ -112,8 +92,7 @@ const calculateDiffDecorationsInner = ({
 	pluginState: Omit<ShowDiffPluginState, 'decorations'>;
 	state: EditorState;
 }): DecorationSet => {
-	const { originalDoc, steps: rawSteps } = pluginState;
-	const steps = simplifySteps(rawSteps);
+	const { originalDoc, steps } = pluginState;
 	if (!originalDoc || !pluginState.isDisplayingChanges) {
 		return DecorationSet.empty;
 	}
@@ -123,7 +102,10 @@ const calculateDiffDecorationsInner = ({
 
 	const attrSteps: ProseMirrorStep[] = [];
 	let changeset = ChangeSet.create(originalDoc);
-	for (const step of steps) {
+
+	const simplifiedSteps = simplifySteps(steps, originalDoc);
+
+	for (const step of simplifiedSteps) {
 		const result = step.apply(steppedDoc);
 		if (result.failed === null && result.doc) {
 			if (stepIsValidAttrChange(step, steppedDoc, result.doc)) {

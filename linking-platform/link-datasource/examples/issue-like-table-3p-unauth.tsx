@@ -33,7 +33,7 @@ mockDatasourceFetchRequests({
 	delayedResponse: false,
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<ExampleJiraIssuesTableView
 			parameters={{

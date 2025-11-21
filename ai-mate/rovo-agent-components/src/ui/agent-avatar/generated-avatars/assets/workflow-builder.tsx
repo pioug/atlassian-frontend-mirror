@@ -7,7 +7,7 @@ export default ({
 	size,
 	primaryColor: _primaryColor,
 	secondaryColor: _secondaryColor,
-}: AvatarIconProps) => (
+}: AvatarIconProps): React.JSX.Element => (
 	<svg
 		width={size}
 		height={size}

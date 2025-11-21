@@ -11,7 +11,7 @@ import Modal, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 
-export default function DefaultModal() {
+export default function DefaultModal(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const open = useCallback(() => setIsOpen(true), []);
 	const close = useCallback(() => setIsOpen(false), []);

@@ -17,7 +17,7 @@ export const RepositionOnUpdate = ({
 	children,
 	update,
 	settings,
-}: React.PropsWithChildren<RepositionOnUpdateProps>) => {
+}: React.PropsWithChildren<RepositionOnUpdateProps>): React.JSX.Element => {
 	// Ref used here to skip update on first render (when refs haven't been set)
 	const isFirstRenderRef = useRef<boolean>(true);
 

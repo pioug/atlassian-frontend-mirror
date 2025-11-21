@@ -3,7 +3,7 @@ import React from 'react';
 import Button from '@atlaskit/button/new';
 import EmptyState from '@atlaskit/empty-state';
 
-const EmptyStateSecondaryActionExample = () => {
+const EmptyStateSecondaryActionExample = (): React.JSX.Element => {
 	return (
 		<EmptyState
 			header="You don't have access to this work item"

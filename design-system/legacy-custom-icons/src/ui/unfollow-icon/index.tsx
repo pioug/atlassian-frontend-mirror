@@ -34,7 +34,13 @@ const UnfollowIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __UnfollowIcon__
  */
-const UnfollowIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const UnfollowIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

@@ -3,7 +3,7 @@ import React from 'react';
 import { TimePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 
-const TimePickerLocaleExample = () => (
+const TimePickerLocaleExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="timepicker-locale-en">English locale</Label>
 		<TimePicker clearControlLabel="Clear English locale" locale="en-US" id="timepicker-locale-en" />

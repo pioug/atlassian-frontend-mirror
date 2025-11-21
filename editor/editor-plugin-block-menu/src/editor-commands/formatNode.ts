@@ -169,10 +169,12 @@ export const formatNode =
 				} else {
 					const newTr = formatNodeWhenSelectionEmpty(tr, targetType, nodePos, schema);
 
-					const allowedNodes = [nodes.blockquote, nodes.panel, nodes.codeBlock];
-					if (expValEquals('platform_editor_block_menu_layout_format', 'isEnabled', true)) {
-						allowedNodes.push(nodes.layoutSection);
-					}
+					const allowedNodes = [
+						nodes.blockquote,
+						nodes.panel,
+						nodes.codeBlock,
+						nodes.layoutSection,
+					];
 
 					if (expValEquals('platform_editor_block_menu_expand_format', 'isEnabled', true)) {
 						allowedNodes.push(nodes.expand);

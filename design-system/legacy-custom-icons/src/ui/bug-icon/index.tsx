@@ -39,7 +39,13 @@ const BugIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __BugIcon__
  */
-const BugIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const BugIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

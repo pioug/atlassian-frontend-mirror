@@ -18,7 +18,7 @@ interface RankableTableCellProps extends WithDimensionsProps {
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class RankableTableCell extends React.Component<RankableTableCellProps, {}> {
-	render() {
+	render(): React.JSX.Element {
 		const { cell, head, isFixedSize, isRanking, refWidth, innerRef, testId } = this.props;
 		const { content, testId: cellTestId, ...restCellProps } = cell;
 		const { shouldTruncate, width }: HeadCellType = head || ({} as HeadCellType);

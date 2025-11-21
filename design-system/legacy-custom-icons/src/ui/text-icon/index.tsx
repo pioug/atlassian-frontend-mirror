@@ -22,7 +22,13 @@ const TextIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __TextIcon__
  */
-const TextIcon = ({ label, primaryColor, secondaryColor, size = 'small', testId }: IconProps) => (
+const TextIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size = 'small',
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

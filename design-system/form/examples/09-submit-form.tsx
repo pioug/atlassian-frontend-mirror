@@ -6,7 +6,7 @@ import { Flex } from '@atlaskit/primitives/compiled';
 import TextArea from '@atlaskit/textarea';
 import TextField from '@atlaskit/textfield';
 
-const FormWithoutField = () => {
+const FormWithoutField = (): React.JSX.Element => {
 	const [hasSubmitted, setHasSubmitted] = useState(false);
 
 	const handleSubmit = () => {

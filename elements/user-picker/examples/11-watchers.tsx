@@ -38,7 +38,7 @@ const UserValue: FC<UserValueProps> = ({ onRemove, user }) => {
 	);
 };
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const [value, setValue] = useState<Array<Value>>([]);
 
 	const handleOnChange = useCallback(

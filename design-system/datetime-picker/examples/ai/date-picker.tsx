@@ -2,7 +2,7 @@ import React from 'react';
 
 import { DatePicker } from '@atlaskit/datetime-picker';
 
-export default [
+const _default_1: React.JSX.Element[] = [
 	<DatePicker
 		clearControlLabel="Clear select date"
 		onChange={() => {}}
@@ -10,3 +10,4 @@ export default [
 		openCalendarLabel="open calendar"
 	/>,
 ];
+export default _default_1;

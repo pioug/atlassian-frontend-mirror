@@ -12,7 +12,7 @@ import { Text } from '@atlaskit/primitives/compiled';
 
 import avatarImg from './images/avatar_400x400.jpg';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div data-testid="comment">
 		<Comment
 			avatar={<Avatar src={avatarImg} name="John Smith" size="medium" />}

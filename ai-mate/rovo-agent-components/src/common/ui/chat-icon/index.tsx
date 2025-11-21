@@ -4,6 +4,8 @@ import { type NewCoreIconProps } from '@atlaskit/icon';
 import AiChatIcon from '@atlaskit/icon/core/ai-chat';
 import { ChatIcon } from '@atlaskit/legacy-custom-icons';
 
-export const ChatPillIcon = (props: Omit<NewCoreIconProps, 'label' | 'glyph'>) => (
+export const ChatPillIcon = (
+	props: Omit<NewCoreIconProps, 'label' | 'glyph'>,
+): React.JSX.Element => (
 	<AiChatIcon {...props} label="" LEGACY_size="small" LEGACY_fallbackIcon={ChatIcon} />
 );

@@ -93,7 +93,7 @@ const SettingsSection = () => {
 	);
 };
 
-const LoadingSkeleton = () => {
+const LoadingSkeleton = (): React.JSX.Element => {
 	return (
 		<AppFrame shouldHideAppBar>
 			<SideNavigation label="project" testId="side-navigation">

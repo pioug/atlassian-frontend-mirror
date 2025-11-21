@@ -136,7 +136,7 @@ export class MentionEditor extends React.Component<Props, State> {
 
 	onFocus = () => this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<EditorContext>
 				<ComposableEditorWrapper
@@ -173,6 +173,6 @@ const ComposableEditorWrapper = (props: EditorProps) => {
 	);
 };
 
-export default function MentionEditorExample(props?: Props) {
+export default function MentionEditorExample(props?: Props): React.JSX.Element {
 	return <MentionEditor {...props} />;
 }

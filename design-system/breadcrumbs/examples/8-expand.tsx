@@ -3,7 +3,7 @@ import React from 'react';
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import { token } from '@atlaskit/tokens';
 
-export default () => (
+export default (): React.JSX.Element => (
 	// with many items, and a maximum to display set
 	<div>
 		<p>Should automatically collapse if there are more than 5 items</p>

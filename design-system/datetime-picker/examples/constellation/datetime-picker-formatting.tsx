@@ -5,7 +5,7 @@ import { parseISO } from 'date-fns';
 import { DateTimePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 
-const DateTimePickerFormattingExample = () => (
+const DateTimePickerFormattingExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="datetime">Appointment date and time</Label>
 		<DateTimePicker

@@ -9,7 +9,7 @@ const CustomComponent: React.ForwardRefExoticComponent<
 	<button {...props} type="button" role="menuitem" ref={ref} />
 ));
 
-export default () => (
+export default (): React.JSX.Element => (
 	<DropdownMenu
 		trigger="Page actions"
 		onOpenChange={(e) => console.log('dropdown opened', e)}

@@ -4,7 +4,7 @@ import { DatePicker, DateTimePicker, TimePicker } from '@atlaskit/datetime-picke
 import { Field } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives/compiled';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Box>
 			<Field name="date" label="Date" isRequired>

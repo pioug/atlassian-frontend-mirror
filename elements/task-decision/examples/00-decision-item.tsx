@@ -6,7 +6,7 @@ import { document } from '@atlaskit/util-data-test/task-decision-story-data';
 import { DecisionItem } from '../src';
 import { dumpRef } from '../example-helpers/story-utils';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<h3>Simple DecisionItem</h3>
 		<DecisionItem contentRef={dumpRef}>

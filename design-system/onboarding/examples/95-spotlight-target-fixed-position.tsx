@@ -22,7 +22,7 @@ export default class SpotlightTargetFixedPositionExample extends Component<{}, S
 
 	finish = () => this.setState({ active: false });
 
-	render() {
+	render(): React.JSX.Element {
 		const { active } = this.state;
 
 		return (

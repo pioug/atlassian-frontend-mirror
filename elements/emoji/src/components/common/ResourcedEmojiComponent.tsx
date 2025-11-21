@@ -107,7 +107,7 @@ export const ResourcedEmojiComponent = ({
 	placeholderXcss,
 	onEmojiLoadSuccess,
 	onEmojiLoadFail,
-}: Props) => {
+}: Props): React.JSX.Element => {
 	const { shortName, id, fallback } = emojiId;
 	const [emoji, setEmoji] = useState<OptionalEmojiDescription>();
 	const [loaded, setLoaded] = useState(false);

@@ -16,7 +16,7 @@ const CustomHome = () => (
 	/>
 );
 
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		<AtlassianNavigation label="site" renderProductHome={CustomHome} primaryItems={[]} />
 		<p>You can override the max width of a logo with the `logoMaxWidth` prop.</p>

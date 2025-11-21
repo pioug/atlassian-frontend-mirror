@@ -31,7 +31,7 @@ export default function ScrollManager({
 	onBottomLeave,
 	onTopArrive,
 	onTopLeave,
-}: ScrollManagerProps) {
+}: ScrollManagerProps): React.JSX.Element {
 	const setScrollCaptureTarget = useScrollCapture({
 		isEnabled: captureEnabled,
 		onBottomArrive,

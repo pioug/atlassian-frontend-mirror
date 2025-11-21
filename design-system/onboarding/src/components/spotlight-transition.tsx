@@ -60,7 +60,7 @@ class SpotlightTransition extends React.Component<SpotlightTransitionProps, Stat
 		});
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<SpotlightTransitionContext.Provider
 				value={{

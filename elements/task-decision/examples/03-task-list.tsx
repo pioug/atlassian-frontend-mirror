@@ -6,7 +6,7 @@ import { TaskList } from '../src';
 import { TaskItem } from '../src';
 import { dumpRef, TaskStateManager } from '../example-helpers/story-utils';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<h3>Simple TaskList</h3>
 		<TaskStateManager

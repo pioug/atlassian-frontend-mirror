@@ -30,7 +30,7 @@ const DropdownItemCheckboxGroup = ({
 	title,
 	// DSP-13312 TODO: remove spread props in future major release
 	...rest
-}: DropdownItemCheckboxGroupProps) => {
+}: DropdownItemCheckboxGroupProps): React.JSX.Element => {
 	const uid = useId();
 	const titleId = `dropdown-menu-item-checkbox-group-title-${uid}`;
 

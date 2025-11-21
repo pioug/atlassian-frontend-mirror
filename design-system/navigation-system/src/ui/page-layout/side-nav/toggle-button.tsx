@@ -171,11 +171,11 @@ export const SideNavToggleButton = ({
 
 			toggleVisibility();
 
-			if (fg('navx-full-height-sidebar')) {
+			if (isFhsEnabled) {
 				openLayerObserver?.closeLayers();
 			}
 		},
-		[onClick, isSideNavExpanded, toggleVisibility, openLayerObserver],
+		[isFhsEnabled, isSideNavExpanded, onClick, openLayerObserver, toggleVisibility],
 	);
 
 	const handlePointerEnter = useCallback(() => {

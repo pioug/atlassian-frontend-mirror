@@ -12,7 +12,7 @@ interface FormData {
 	'success-city': string;
 }
 
-const ValidationExample = () => (
+const ValidationExample = (): React.JSX.Element => (
 	<Form onSubmit={(data: FormData) => console.log(data)}>
 		<Field label="City" name="fail-city" validate={validate}>
 			{({ fieldProps: { id, isInvalid, ...props }, error }: any) => (

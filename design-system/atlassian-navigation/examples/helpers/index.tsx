@@ -22,7 +22,7 @@ const AnalyticsLogger = ({ children }: { children: React.ReactNode }) => {
 
 export const withAnalyticsLogger =
 	<Props extends Object>(WrappedComponent: React.ComponentType<Props>) =>
-	(props: Props) => (
+	(props: Props): React.JSX.Element => (
 		<AnalyticsLogger>
 			<WrappedComponent {...props} />
 		</AnalyticsLogger>
@@ -30,7 +30,7 @@ export const withAnalyticsLogger =
 
 export const withIntlProvider =
 	<Props extends Object>(WrappedComponent: React.ComponentType<Props>) =>
-	(props: Props) => (
+	(props: Props): React.JSX.Element => (
 		<IntlProvider locale="en">
 			<WrappedComponent {...props} />
 		</IntlProvider>

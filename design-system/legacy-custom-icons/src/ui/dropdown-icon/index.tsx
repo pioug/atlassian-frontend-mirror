@@ -28,7 +28,13 @@ const DropdownIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __DropdownIcon__
  */
-const DropdownIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const DropdownIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

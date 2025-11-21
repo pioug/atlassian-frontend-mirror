@@ -4,7 +4,7 @@ import Avatar, { AvatarContext } from '@atlaskit/avatar';
 import Heading from '@atlaskit/heading';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 
-const CustomSVG = () => (
+const CustomSVG = (): React.JSX.Element => (
 	<Stack space="space.400">
 		<Box>
 			<Heading size="large">With context setting size</Heading>

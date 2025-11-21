@@ -2,7 +2,7 @@ import React from 'react';
 
 import TableTree, { Header, Headers, Rows } from '@atlaskit/table-tree';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<TableTree>
 		<Headers>
 			<Header width={200}>Title</Header>

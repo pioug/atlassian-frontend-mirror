@@ -18,11 +18,14 @@ import {
 	type FileSizeLimitExceededData,
 	type FileEmptyData,
 } from '../../../types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type UploadService } from '../../../service/types';
 import { SCALE_FACTOR_DEFAULT } from '../../../util/getPreviewFromImage';
 import * as ufoWrapper from '../../../util/ufoExperiences';
 import { type UploadComponent } from '../../component';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+
+jest.mock('@atlaskit/platform-feature-flags');
 
 const imageFile: MediaFile = {
 	id: 'some-id',
@@ -184,6 +187,7 @@ describe.skip('LocalUploadReact', () => {
 	});
 
 	it('should cal onError and UFO failed experience event with proper arguments', () => {
+		(fg as jest.Mock).mockImplementation((fgName) => fgName === 'add_media_picker_error_detail');
 		let uploadComponent: UploadComponent<UploadEventPayloadMap>;
 		class DummyLocalUploadComponent extends LocalUploadComponentReact<LocalUploadComponentBaseProps> {
 			constructor(props: LocalUploadComponentBaseProps) {
@@ -231,6 +235,7 @@ describe.skip('LocalUploadReact', () => {
 				fileId: imageFile.id,
 			},
 			uploadDurationMsec: -1,
+			errorDetail: error.message,
 		});
 	});
 

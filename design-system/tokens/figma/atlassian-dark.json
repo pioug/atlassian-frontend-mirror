@@ -755,7 +755,7 @@
         "introduced": "1.6.0",
         "description": "Use for for backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "#37471F"
+      "value": "#28311B"
     },
     "Dark/color.background.accent.lime.subtlest.hovered": {
       "attributes": {
@@ -971,7 +971,7 @@
         "introduced": "0.7.0",
         "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "#693200"
+      "value": "#3A2C1F"
     },
     "Dark/color.background.accent.orange.subtlest.hovered": {
       "attributes": {
@@ -1079,7 +1079,7 @@
         "introduced": "0.7.0",
         "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "#533F04"
+      "value": "#332E1B"
     },
     "Dark/color.background.accent.yellow.subtlest.hovered": {
       "attributes": {
@@ -1187,7 +1187,7 @@
         "introduced": "0.7.0",
         "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "#164B35"
+      "value": "#1C3329"
     },
     "Dark/color.background.accent.green.subtlest.hovered": {
       "attributes": {
@@ -1295,7 +1295,7 @@
         "introduced": "0.7.0",
         "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "#164555"
+      "value": "#1E3137"
     },
     "Dark/color.background.accent.teal.subtlest.hovered": {
       "attributes": {
@@ -1511,7 +1511,7 @@
         "introduced": "0.7.0",
         "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "#48245D"
+      "value": "#35243F"
     },
     "Dark/color.background.accent.purple.subtlest.hovered": {
       "attributes": {
@@ -1619,7 +1619,7 @@
         "introduced": "0.7.0",
         "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "#50253F"
+      "value": "#3D2232"
     },
     "Dark/color.background.accent.magenta.subtlest.hovered": {
       "attributes": {

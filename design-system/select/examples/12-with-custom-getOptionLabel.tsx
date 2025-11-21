@@ -64,4 +64,4 @@ class WithCustomGetOptionLabel extends Component<{}, State> {
 	}
 }
 
-export default () => <WithCustomGetOptionLabel />;
+export default (): React.JSX.Element => <WithCustomGetOptionLabel />;

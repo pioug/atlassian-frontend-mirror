@@ -6,7 +6,7 @@ import Heading from '@atlaskit/heading';
 import Popup from '@atlaskit/popup';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 	return (
 		<Inline alignBlock="center" space="space.100">

@@ -3,7 +3,7 @@ import React from 'react';
 import __noop from '@atlaskit/ds-lib/noop';
 import { SpotlightCard } from '@atlaskit/onboarding';
 
-const SpotlightCardActionsBeforeExample = () => {
+const SpotlightCardActionsBeforeExample = (): React.JSX.Element => {
 	return (
 		<SpotlightCard
 			actionsBeforeElement="1/3"

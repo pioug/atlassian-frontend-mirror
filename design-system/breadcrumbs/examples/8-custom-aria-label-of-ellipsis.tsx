@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [label, setLabel] = useState<string>('');
 
 	return (

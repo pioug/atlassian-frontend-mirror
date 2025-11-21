@@ -6,7 +6,7 @@ import DepartmentIconLegacy from '@atlaskit/icon/glyph/department';
 import StarIconLegacy from '@atlaskit/icon/glyph/star';
 import { ButtonItem, HeadingItem, MenuGroup } from '@atlaskit/menu';
 
-const IconSizing = () => {
+const IconSizing = (): React.JSX.Element => {
 	return (
 		<MenuGroup>
 			<HeadingItem testId="heading-item">Legacy icons</HeadingItem>

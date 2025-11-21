@@ -11,7 +11,7 @@ import { loggedUser } from '@atlaskit/util-data-test/logged-user';
 import type { EmojiProvider } from '../src/resource';
 import { IntlProvider } from 'react-intl-next';
 
-export default function EmojiUploaderDisableFocusLock() {
+export default function EmojiUploaderDisableFocusLock(): React.JSX.Element {
 	const [disableFocusLock, setDisableFocusLock] = useState(false);
 
 	const emojiProvider: Promise<EmojiProvider> = getEmojiResource({

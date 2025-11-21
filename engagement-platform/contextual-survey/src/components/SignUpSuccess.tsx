@@ -7,7 +7,7 @@ import SuccessContainer from './SuccessContainer';
 
 interface Props {}
 
-export default ({}: Props) => (
+export default ({}: Props): React.JSX.Element => (
 	<SuccessContainer>
 		<Stack space="space.150">
 			<Heading size="xsmall">Thanks for signing up</Heading>

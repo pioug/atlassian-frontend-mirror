@@ -1,5 +1,12 @@
 # @atlaskit/comment
 
+## 13.1.4
+
+### Patch Changes
+
+- [`ba8b75f4ad07d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba8b75f4ad07d) -
+  Feature flag removal platform_editor_assistive_label_rerender_fix
+
 ## 13.1.3
 
 ### Patch Changes

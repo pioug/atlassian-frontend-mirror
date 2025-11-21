@@ -27,7 +27,7 @@ const wrapperStyles = cssMap({
 		flexDirection: 'column',
 	},
 });
-const OpenAuiFromModalExample = () => {
+const OpenAuiFromModalExample = (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const open = useCallback(() => setIsOpen(true), []);

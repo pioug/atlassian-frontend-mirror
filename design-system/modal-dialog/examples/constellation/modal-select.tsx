@@ -12,7 +12,7 @@ import ModalDialog, {
 } from '@atlaskit/modal-dialog';
 import Select, { type OptionType as Option, type ValueType as Value } from '@atlaskit/select';
 
-export default function ModalDialogSelect() {
+export default function ModalDialogSelect(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const [country, setCountry] = useState<Option>();
 

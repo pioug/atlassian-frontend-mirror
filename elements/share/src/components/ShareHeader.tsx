@@ -29,7 +29,7 @@ const headerWrapperExtraSpaceStyles = xcss({
 	color: 'color.text',
 });
 
-export const ShareHeader = ({ isExtendedShareDialogEnabled, title }: Props) => {
+export const ShareHeader = ({ isExtendedShareDialogEnabled, title }: Props): React.JSX.Element => {
 	return (
 		<Box
 			xcss={[headerWrapperStyles, isExtendedShareDialogEnabled && headerWrapperExtraSpaceStyles]}

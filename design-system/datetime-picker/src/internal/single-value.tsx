@@ -26,7 +26,7 @@ export const makeSingleValue =
 			selectProps,
 			setValue,
 			...rest
-		}: SingleValueProps<OptionType, false>) => {
+		}: SingleValueProps<OptionType, false>): React.JSX.Element => {
 			return (
 				<components.SingleValue
 					// We have to have this because `getClassNames` is missing. Can't define

@@ -3,7 +3,7 @@ import React from 'react';
 import Avatar from '@atlaskit/avatar';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 
-const DropdownItemElemBeforeExample = () => {
+const DropdownItemElemBeforeExample = (): React.JSX.Element => {
 	return (
 		<DropdownMenu trigger="Open" shouldRenderToParent>
 			<DropdownItemGroup>

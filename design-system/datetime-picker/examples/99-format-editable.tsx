@@ -6,7 +6,7 @@ import { DateTimePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives/compiled';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [value, setValue] = useState('2020-06-02T09:30+1000');
 	const [invalid, setInvalid] = useState(false);
 

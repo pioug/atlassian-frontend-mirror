@@ -27,7 +27,13 @@ const MegaphoneIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __MegaphoneIcon__
  */
-const MegaphoneIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const MegaphoneIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

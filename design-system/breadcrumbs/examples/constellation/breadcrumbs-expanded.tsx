@@ -2,7 +2,7 @@ import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 
-const BreadcrumbsExpandedExample = () => {
+const BreadcrumbsExpandedExample = (): React.JSX.Element => {
 	return (
 		<div
 			style={{

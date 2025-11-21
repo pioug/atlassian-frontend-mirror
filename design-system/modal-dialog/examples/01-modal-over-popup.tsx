@@ -69,7 +69,7 @@ const PopupContent: FC = () => {
 	);
 };
 
-const PopupPlacementExample = () => {
+const PopupPlacementExample = (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

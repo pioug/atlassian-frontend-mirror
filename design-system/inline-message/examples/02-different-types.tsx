@@ -2,7 +2,7 @@ import React from 'react';
 
 import InlineMessage from '@atlaskit/inline-message';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<InlineMessage title="Default Type">
 			<p>Default type dialog</p>

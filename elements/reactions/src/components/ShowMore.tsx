@@ -20,7 +20,7 @@ export interface ShowMoreProps {
 /**
  * Show more custom emojis button
  */
-export const ShowMore = ({ onClick }: ShowMoreProps) => {
+export const ShowMore = ({ onClick }: ShowMoreProps): React.JSX.Element => {
 	return (
 		<FormattedMessage {...messages.moreEmoji}>
 			{(message) => (

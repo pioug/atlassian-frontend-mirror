@@ -1,5 +1,7 @@
+import type { Tool } from '@modelcontextprotocol/sdk/types';
 import { z } from 'zod';
-import { zodToJsonSchema } from 'zod-to-json-schema';
+
+import { zodToJsonSchema } from '../../helpers';
 
 import { accessibilityGuidelines } from './guidelines';
 
@@ -12,7 +14,7 @@ export const getA11yGuidelinesInputSchema = z.object({
 		.describe('Select the topic to get the accessibility guidelines for: ' + topics.join(', ')),
 });
 
-export const listGetA11yGuidelinesTool = {
+export const listGetA11yGuidelinesTool: Tool = {
 	name: 'ads_get_a11y_guidelines',
 	description: 'Get accessibility guidelines and best practices from the Atlassian Design System.',
 	annotations: {

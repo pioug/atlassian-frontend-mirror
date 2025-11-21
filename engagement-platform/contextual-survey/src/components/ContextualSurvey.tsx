@@ -67,7 +67,7 @@ export default ({
 	getUserHasAnsweredMailingList,
 	textLabel = 'Why did you give that rating',
 	textPlaceholder = 'Tell us why',
-}: Props) => {
+}: Props): React.JSX.Element => {
 	const autoDisappearTimeoutRef = useRef<Optional<number>>(null);
 
 	// only allow a single dismiss for a component
@@ -127,7 +127,7 @@ export default ({
 	}, [tryClearTimeout, tryDismiss]);
 
 	const onSurveySubmit = useCallback<OnSubmitHandler<FormValues>>(
-		async (formValues: FormValues, form: FormApi<FormValues>, callback = () => {}) => {
+		async (formValues: FormValues, _form: FormApi<FormValues>, callback = () => {}) => {
 			// Submitting form: Phase 1 complete
 			await onSubmit(formValues);
 

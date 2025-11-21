@@ -5,7 +5,7 @@ import IdeaObject from '@atlaskit/object/idea';
 import PullRequestObject from '@atlaskit/object/pull-request';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 
-export default function ObjectLabelling() {
+export default function ObjectLabelling(): React.JSX.Element {
 	return (
 		<Stack space="space.200">
 			<Heading size="medium">Non-decorative object with a label</Heading>

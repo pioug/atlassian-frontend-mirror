@@ -42,7 +42,7 @@ export const InlineDialogFormWrapper = ({
 	integrationMode?: IntegrationMode;
 	isExtendedShareDialogEnabled?: boolean;
 	isMenuItemSelected?: boolean;
-}>) => {
+}>): React.JSX.Element => {
 	if (!isMenuItemSelected && integrationMode === 'menu') {
 		return <Box xcss={cx(styles.menuNotSelectedAndMenuIntegration)}>{children}</Box>;
 	}
@@ -66,7 +66,7 @@ export const InlineDialogContentWrapper = ({
 	children: React.ReactNode;
 	isExtendedShareDialogEnabled?: boolean;
 	label?: string;
-}) => (
+}): React.JSX.Element => (
 	<Box
 		aria-label={label}
 		xcss={

@@ -4,7 +4,7 @@ import Grid, { GridItem } from '@atlaskit/grid';
 
 import { SkeletonBox } from './shared/skeleton-box';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [visible, setVisible] = useState(false);
 
 	return (

@@ -13,7 +13,7 @@ function randomEmojis(): EmojiDescription[] {
 		.slice(0, 50);
 }
 
-export default function RefreshableEmojiList() {
+export default function RefreshableEmojiList(): React.JSX.Element {
 	const [emojis, setEmojis] = useState<EmojiDescription[]>(randomEmojis());
 	const emojiListRef = useRef<EmojiTypeAheadList | null>(null);
 

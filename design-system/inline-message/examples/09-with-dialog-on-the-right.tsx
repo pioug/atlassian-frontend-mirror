@@ -16,7 +16,7 @@ const messageContent = (
 	</Stack>
 );
 
-export default () => (
+export default (): React.JSX.Element => (
 	<InlineMessage
 		appearance="connectivity"
 		title="JIRA Service Desk"

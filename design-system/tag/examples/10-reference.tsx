@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { RemovableTag as Tag } from '@atlaskit/tag';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const ref = React.createRef();
 	const [count, setCount] = useState(0);
 

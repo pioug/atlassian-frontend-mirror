@@ -15,7 +15,7 @@ export interface EmojiPickerListContextProviderProps {
 
 export const EmojiPickerListContextProvider = (
 	props: React.PropsWithChildren<EmojiPickerListContextProviderProps>,
-) => {
+): React.JSX.Element => {
 	const [currentEmojisFocus, setEmojisFocus] = useState(props.initialEmojisFocus);
 	return (
 		<EmojiPickerListContext.Provider value={{ currentEmojisFocus, setEmojisFocus }}>

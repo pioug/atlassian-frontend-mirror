@@ -80,6 +80,6 @@ class MobileHeaderDemo extends Component<{}, State> {
 	}
 }
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return <MobileHeaderDemo />;
 }

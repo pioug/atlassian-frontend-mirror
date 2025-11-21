@@ -8,13 +8,13 @@ import type { EmojiDescription } from '../src';
 
 const emojiService = getEmojiRepository();
 
-export const RenderSpriteEmojis = () => {
+export const RenderSpriteEmojis = (): React.JSX.Element => {
 	const handshakeEmoji = emojiService.findByShortName(':handshake:') as EmojiDescription;
 
 	return <Emoji emoji={handshakeEmoji} showTooltip fitToHeight={24} />;
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<IntlProvider locale="en">
 			<RenderSpriteEmojis />

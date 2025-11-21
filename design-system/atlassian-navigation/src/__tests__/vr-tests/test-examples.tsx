@@ -43,7 +43,7 @@ const NotificationsBadge = () => (
 const DefaultAppSwitcher = () => <AppSwitcher tooltip="Switch to..." />;
 const DefaultSettings = () => <Settings tooltip="Product settings" />;
 
-const NavExample = () => (
+const NavExample = (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		renderAppSwitcher={DefaultAppSwitcher}
@@ -58,7 +58,7 @@ const NavExample = () => (
 	/>
 );
 
-const NavExampleAppHome = () => (
+const NavExampleAppHome = (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		renderAppSwitcher={DefaultAppSwitcher}
@@ -73,7 +73,7 @@ const NavExampleAppHome = () => (
 	/>
 );
 
-const ThemingAppHomeExample = () => (
+const ThemingAppHomeExample = (): React.JSX.Element => (
 	<>
 		{themes.map((theme) => (
 			<Stack space="space.200">
@@ -98,7 +98,7 @@ const ThemingAppHomeExample = () => (
 	</>
 );
 
-const ThemingExample = () => (
+const ThemingExample = (): React.JSX.Element => (
 	<>
 		{themes.map((theme) => (
 			<Stack space="space.200">
@@ -126,7 +126,7 @@ const ThemingExample = () => (
 // using Home, Create and Search - these components should adapt to small screens
 // using an empty primaryItems array until the feature flag is removed or PFF support
 // is in gemini
-const ResponsiveCreateHomeAndSearchExample = () => (
+const ResponsiveCreateHomeAndSearchExample = (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		primaryItems={[]}
@@ -138,7 +138,7 @@ const ResponsiveCreateHomeAndSearchExample = () => (
 	/>
 );
 
-const CustomProductHomeExample = () => (
+const CustomProductHomeExample = (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		renderProductHome={DefaultCustomProductHome}
@@ -156,7 +156,7 @@ const skeletonPrimaryItems = [
 	<SkeletonPrimaryButton isDropdownButton text="Apps" testId="apps-skeleton" />,
 ];
 
-const SkeletonButtonsExample = () => (
+const SkeletonButtonsExample = (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		renderProductHome={DefaultCustomProductHome}
@@ -170,7 +170,7 @@ const SkeletonButtonsExample = () => (
 	/>
 );
 
-const ThemedSkeletonButtonsExample = () => (
+const ThemedSkeletonButtonsExample = (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		renderProductHome={DefaultCustomProductHome}
@@ -186,11 +186,11 @@ const ThemedSkeletonButtonsExample = () => (
 	/>
 );
 
-const NavigationSkeletonExample = () => (
+const NavigationSkeletonExample = (): React.JSX.Element => (
 	<NavigationSkeleton primaryItemsCount={4} secondaryItemsCount={3} shouldShowSearch={true} />
 );
 
-const ThemingNavigationSkeletonExample = () => (
+const ThemingNavigationSkeletonExample = (): React.JSX.Element => (
 	<>
 		{themes.map((theme) => (
 			<Stack space="space.200">

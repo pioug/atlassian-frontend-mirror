@@ -7,7 +7,7 @@ export default class UserMentionDescriptionByline extends React.PureComponent<
 	DescriptionBylineProps,
 	{}
 > {
-	render() {
+	render(): React.JSX.Element | null {
 		const { highlight, name, nickname } = this.props.mention;
 		const nicknameHighlights = highlight && highlight.nickname;
 

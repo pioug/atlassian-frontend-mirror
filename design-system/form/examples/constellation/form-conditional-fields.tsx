@@ -56,7 +56,7 @@ const SignUpForm = () => (
 	</>
 );
 
-export default function ConditionalFieldsExample() {
+export default function ConditionalFieldsExample(): React.JSX.Element {
 	const formState = useFormState({ values: true });
 
 	return (

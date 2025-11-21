@@ -26,7 +26,7 @@ export interface ConnectedReactionPickerProps extends Omit<ReactionPickerProps, 
  */
 export const ConnectedReactionPicker = (
 	props: React.PropsWithChildren<ConnectedReactionPickerProps>,
-) => {
+): React.JSX.Element => {
 	const { store, containerAri, ari } = props;
 	/**
 	 * callback event when an emoji item is selected

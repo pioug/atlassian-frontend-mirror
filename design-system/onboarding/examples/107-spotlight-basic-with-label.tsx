@@ -32,7 +32,7 @@ const wrapperStyles = cssMap({
 	},
 });
 
-const SpotlightWithLabelExample = () => {
+const SpotlightWithLabelExample = (): React.JSX.Element => {
 	const [isSpotlightVisibleWithAriaLabelledBy, setIsSpotlightVisibleWithAriaLabelledBy] =
 		useState(false);
 

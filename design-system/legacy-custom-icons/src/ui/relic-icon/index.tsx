@@ -45,7 +45,13 @@ const RelicIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __RelicIcon__
  */
-const RelicIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const RelicIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

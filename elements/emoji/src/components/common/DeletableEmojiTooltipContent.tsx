@@ -6,7 +6,7 @@ import { backspace } from '../../util/keymaps';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 import type { EmojiDescription } from '../../types';
 
-export const DeletableEmojiTooltipContent = () => {
+export const DeletableEmojiTooltipContent = (): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	return (
 		<ToolTipContentWithKeymap
@@ -20,7 +20,7 @@ export const DeletableEmojiTooltipContentForScreenReader = ({
 	emoji,
 }: {
 	emoji: EmojiDescription;
-}) => {
+}): React.JSX.Element => {
 	return (
 		<VisuallyHidden id={`screenreader-emoji-${emoji.id!}`}>
 			<FormattedMessage

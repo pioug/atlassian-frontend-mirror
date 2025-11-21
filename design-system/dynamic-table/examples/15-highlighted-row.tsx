@@ -10,7 +10,7 @@ import { head, rows } from './content/sample-data';
 const paddingStyle = { padding: `${token('space.100', '8px')} 0` };
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default function HighlightedRowsExample() {
+export default function HighlightedRowsExample(): React.JSX.Element {
 	const [highlightedRows, setHighlightedRows] = useState<number[]>([3]);
 
 	const toggleHighlightedRow = (rowNumber: number) => {

@@ -14,7 +14,7 @@ const Wrapper = ({ children, isInverted }: { children: React.ReactNode; isInvert
 	);
 };
 
-const AppearancesExample = () => {
+const AppearancesExample = (): React.JSX.Element => {
 	return (
 		<Box>
 			<Wrapper>

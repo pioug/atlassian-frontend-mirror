@@ -70,7 +70,7 @@ const SampleEmojis = (props: SampleEmojiProps) => (
 	</IntlProvider>
 );
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<div>
 			<h1>

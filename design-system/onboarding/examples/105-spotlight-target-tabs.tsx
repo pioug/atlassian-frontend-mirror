@@ -15,7 +15,7 @@ const wrapperStyles = cssMap({
 		paddingBlockEnd: token('space.400'),
 	},
 });
-function SpotlightTargetTabs() {
+function SpotlightTargetTabs(): React.JSX.Element {
 	const [active, setActive] = useState(true);
 
 	return (

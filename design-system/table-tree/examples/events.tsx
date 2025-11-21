@@ -16,7 +16,7 @@ export default class extends PureComponent {
 		});
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { lastEvent } = this.state;
 		return (
 			<div>

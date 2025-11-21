@@ -31,7 +31,7 @@ const formatOptionLabel = (option: OptionType, { context }: FormatOptionLabelMet
 	}
 	return option.label;
 };
-const ElementBeforeExample = () => (
+const ElementBeforeExample = (): React.JSX.Element => (
 	<Select
 		formatOptionLabel={formatOptionLabel}
 		options={[

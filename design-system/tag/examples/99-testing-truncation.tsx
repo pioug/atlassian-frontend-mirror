@@ -12,7 +12,7 @@ const truncateStyles = xcss({
 	borderColor: 'color.border.accent.red',
 });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box xcss={truncateStyles} role="group" aria-label="Truncation examples">
 		<TagGroup label="Tag types">
 			<SimpleTag text="Base Tag" testId="standard" />

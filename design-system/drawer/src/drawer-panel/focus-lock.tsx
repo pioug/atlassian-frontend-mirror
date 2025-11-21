@@ -14,7 +14,7 @@ const FocusLock = ({
 	autoFocusFirstElem = true,
 	shouldReturnFocus = true,
 	children,
-}: FocusLockProps) => {
+}: FocusLockProps): React.JSX.Element => {
 	const getFocusTarget = () => {
 		if (typeof shouldReturnFocus === 'boolean') {
 			return shouldReturnFocus;

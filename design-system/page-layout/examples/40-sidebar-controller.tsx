@@ -17,7 +17,7 @@ const SidebarControls = () => {
 	return <ButtonItem onClick={collapseLeftSidebar}>Collapse</ButtonItem>;
 };
 
-const SidebarControllerExample = () => {
+const SidebarControllerExample = (): React.JSX.Element => {
 	return (
 		<PageLayout>
 			<Content>

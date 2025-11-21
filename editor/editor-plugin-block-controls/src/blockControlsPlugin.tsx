@@ -33,6 +33,7 @@ import {
 	startPreservingSelection,
 	stopPreservingSelection,
 } from './pm-plugins/selection-preservation/editor-commands';
+import { selectionPreservationPluginKey } from './pm-plugins/selection-preservation/plugin-key';
 import { createSelectionPreservationPlugin } from './pm-plugins/selection-preservation/pm-plugin';
 import { selectNode } from './pm-plugins/utils/getSelection';
 import BlockMenu from './ui/block-menu';
@@ -305,6 +306,11 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 		if (editorExperiment('platform_editor_controls', 'variant1')) {
 			sharedState.isMouseOut =
 				interactionTrackingPluginKey.getState(editorState)?.isMouseOut ?? false;
+		}
+
+		if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+			sharedState.preservedSelection =
+				selectionPreservationPluginKey.getState(editorState)?.preservedSelection;
 		}
 
 		return sharedState;

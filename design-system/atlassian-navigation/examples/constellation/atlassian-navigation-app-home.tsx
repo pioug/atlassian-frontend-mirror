@@ -13,7 +13,7 @@ const ExampleHome = () => (
 	/>
 );
 
-const ProductHomeExample = () => (
+const ProductHomeExample = (): React.JSX.Element => (
 	<AtlassianNavigation label="site" renderProductHome={ExampleHome} primaryItems={[]} />
 );
 

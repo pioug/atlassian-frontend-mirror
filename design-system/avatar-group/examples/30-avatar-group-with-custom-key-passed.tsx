@@ -20,7 +20,7 @@ const styles = cssMap({
 
 const INITIAL_NUMBER_VISIBLE_AVATARS = 8;
 
-export default () => {
+export default (): React.JSX.Element => {
 	const lastAvatarItemRef = useRef<HTMLElement>(null);
 	const [range, setRange] = useState(INITIAL_NUMBER_VISIBLE_AVATARS);
 	const data = RANDOM_USERS.slice(0, range).map((d, i) => ({

@@ -18,7 +18,7 @@ const DefaultProfile = () => (
 	/>
 );
 
-const ProfileExample = () => (
+const ProfileExample = (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		renderProductHome={() => null}

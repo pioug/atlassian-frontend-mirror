@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.3.0
+
+### Minor Changes
+
+- [`1f699b87203c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f699b87203c4) -
+  EDITOR-2881 improve track sync blocks function
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.2.15
 
 ### Patch Changes

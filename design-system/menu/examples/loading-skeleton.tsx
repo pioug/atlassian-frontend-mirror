@@ -41,7 +41,7 @@ const Heading = ({ isLoading, ...props }: any) => {
 	return <HeadingItem {...props} />;
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [retryLoading, setRetryLoading] = useState(true);
 

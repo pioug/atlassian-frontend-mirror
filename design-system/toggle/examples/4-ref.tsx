@@ -4,7 +4,7 @@ import { Label } from '@atlaskit/form';
 import { Stack } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const ref = React.createRef<HTMLInputElement>();
 
 	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {

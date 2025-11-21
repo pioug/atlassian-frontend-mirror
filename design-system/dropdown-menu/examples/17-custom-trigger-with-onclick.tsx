@@ -7,7 +7,7 @@ import DropdownMenu, {
 	type OnOpenChangeArgs,
 } from '@atlaskit/dropdown-menu';
 
-const DropdownMenuCustomTriggerWithOnClick = () => {
+const DropdownMenuCustomTriggerWithOnClick = (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const onClick = () => {

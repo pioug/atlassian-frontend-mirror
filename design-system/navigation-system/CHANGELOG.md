@@ -1,5 +1,20 @@
 # @atlassian/navigation-system
 
+## 5.9.1
+
+### Patch Changes
+
+- [`8ced6a00eae26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ced6a00eae26) -
+  Improving internal types of menu item component.
+
+  Enhanced ref handling in MenuItemBase to work better with the updated mergeRefs utility, providing
+  improved TypeScript compatibility.
+
+- [`ab9386b25161d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab9386b25161d) -
+  Fixed bug where toggle button click was still using the old full height sidebar feature gate to
+  close layers
+- Updated dependencies
+
 ## 5.9.0
 
 ### Minor Changes

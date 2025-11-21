@@ -108,7 +108,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 	interactionName,
 	strategy,
 	menuLabel,
-}: DropdownMenuProps<T>) => {
+}: DropdownMenuProps<T>): React.JSX.Element => {
 	const [isLocalOpen, setLocalIsOpen] = useControlledState(isOpen, () => defaultOpen);
 	const triggerRef = useRef<HTMLElement | null>(null);
 	const [isTriggeredUsingKeyboard, setTriggeredUsingKeyboard] = useState(false);

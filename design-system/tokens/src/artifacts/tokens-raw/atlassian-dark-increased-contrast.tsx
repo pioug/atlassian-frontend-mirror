@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1f9bb1e2b5ec2edbfe1a6eb0d52859b6>>
+ * @codegen <<SignedSource::381e64b370aa942527cc7b58f67e18b8>>
  * @codegenCommand yarn build tokens
  */
 
@@ -2366,7 +2366,7 @@ const tokens: Token[] = [
     "cleanName": "color.border.bold"
   },
   {
-    "value": "#37471F",
+    "value": "#28311B",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2376,7 +2376,7 @@ const tokens: Token[] = [
       "description": "Use for for backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "original": {
-      "value": "Lime900",
+      "value": "Lime1000",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3086,7 +3086,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.red.bolder.pressed"
   },
   {
-    "value": "#693200",
+    "value": "#3A2C1F",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3096,7 +3096,7 @@ const tokens: Token[] = [
       "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "original": {
-      "value": "Orange900",
+      "value": "Orange1000",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3446,7 +3446,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.orange.bolder.pressed"
   },
   {
-    "value": "#533F04",
+    "value": "#332E1B",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3456,7 +3456,7 @@ const tokens: Token[] = [
       "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "original": {
-      "value": "Yellow900",
+      "value": "Yellow1000",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3806,7 +3806,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.yellow.bolder.pressed"
   },
   {
-    "value": "#164B35",
+    "value": "#1C3329",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3816,7 +3816,7 @@ const tokens: Token[] = [
       "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "original": {
-      "value": "Green900",
+      "value": "Green1000",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4166,7 +4166,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.green.bolder.pressed"
   },
   {
-    "value": "#164555",
+    "value": "#1E3137",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4176,7 +4176,7 @@ const tokens: Token[] = [
       "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "original": {
-      "value": "Teal900",
+      "value": "Teal1000",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4886,7 +4886,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.blue.bolder.pressed"
   },
   {
-    "value": "#48245D",
+    "value": "#35243F",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4896,7 +4896,7 @@ const tokens: Token[] = [
       "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "original": {
-      "value": "Purple900",
+      "value": "Purple1000",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -5246,7 +5246,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.purple.bolder.pressed"
   },
   {
-    "value": "#50253F",
+    "value": "#3D2232",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5256,7 +5256,7 @@ const tokens: Token[] = [
       "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "original": {
-      "value": "Magenta900",
+      "value": "Magenta1000",
       "attributes": {
         "group": "paint",
         "state": "active",

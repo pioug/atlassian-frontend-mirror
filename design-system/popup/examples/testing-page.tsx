@@ -181,7 +181,7 @@ const expectedModalInsidePopupMessage = (shouldRenderToParent?: boolean) => {
 	return `Clicking or pressing Space/Enter on trigger should open Popup.  Pressing Tab should move focus to the next interactive element inside Popup.  Clicking or pressing Space/Enter on the last element inside active Popup should open ModalDialog and lock focus inside ModalDialog.  Clicking outside or pressing Escape should close ModalDialog.  A second click outside or pressing Escape should close Popup.  If you click on a non-interactive item outside, the focus moves to the trigger.`;
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<div>
 			<ComponentInfo

@@ -9,7 +9,7 @@ type EmojiContextProviderType = {
 export const EmojiContextProvider = ({
 	children,
 	emojiContextValue,
-}: React.PropsWithChildren<EmojiContextProviderType>) => {
+}: React.PropsWithChildren<EmojiContextProviderType>): React.JSX.Element => {
 	const memoizedEmojiContextValue = useMemo(() => emojiContextValue, [emojiContextValue]);
 
 	useEffect(() => {

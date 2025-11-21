@@ -23,7 +23,7 @@ export default class InlineDialogDatepickerExample extends Component<{}, State> 
 		this.setState((prevState) => ({ isDialogOpen: !prevState.isDialogOpen }));
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const options = [
 			{
 				label: 'value 1',

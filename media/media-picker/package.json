@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-picker",
-	"version": "70.0.9",
+	"version": "70.1.0",
 	"description": "Library for handling file uploads",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -92,6 +92,9 @@
 	},
 	"platform-feature-flags": {
 		"should-render-to-parent-should-be-true-media-exif": {
+			"type": "boolean"
+		},
+		"add_media_picker_error_detail": {
 			"type": "boolean"
 		}
 	}

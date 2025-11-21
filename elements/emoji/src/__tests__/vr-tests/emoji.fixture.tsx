@@ -42,7 +42,7 @@ const renderEmoji = (fitToHeight: number = 24) => {
 	);
 };
 
-export function EmojiSimple() {
+export function EmojiSimple(): React.JSX.Element {
 	return (
 		<IntlProvider locale="en">
 			<div>{renderEmoji(12)}</div>

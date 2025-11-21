@@ -11,7 +11,11 @@ interface SlotDimensionsProps {
 /**
  * Hoists slot dimension styles to the root element.
  */
-const SlotDimensions = ({ variableName, value, mobileValue }: SlotDimensionsProps) => {
+const SlotDimensions = ({
+	variableName,
+	value,
+	mobileValue,
+}: SlotDimensionsProps): React.JSX.Element => {
 	/**
 	 * Note don't put multiple variables in multiple lines. eg
 	 * <style>

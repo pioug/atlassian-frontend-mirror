@@ -15,7 +15,7 @@ import {
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';
 
-const BasicExample = () => {
+const BasicExample = (): React.JSX.Element => {
 	return (
 		<AppFrame shouldHideAppBar>
 			<SideNavigation label="project" testId="side-navigation">

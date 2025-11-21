@@ -5,7 +5,7 @@ import Select from '@atlaskit/select';
 
 import { cities } from './common/data';
 
-const DisabledSelects = () => (
+const DisabledSelects = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="disabled-single">Disabled Single Select</Label>
 		<Select

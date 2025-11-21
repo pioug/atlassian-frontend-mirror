@@ -120,7 +120,7 @@ class SpotlightDialogComponent extends Component<SpotlightDialogProps, State> {
 		window.clearTimeout(this.focusLockTimeoutId);
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			actions,
 			actionsBeforeElement,

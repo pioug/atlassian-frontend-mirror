@@ -13,7 +13,7 @@ const skeletonStyles = xcss({
 	height: 'size.400',
 });
 
-export const SkeletonBox = ({ children }: { children: ReactNode }) => (
+export const SkeletonBox = ({ children }: { children: ReactNode }): React.JSX.Element => (
 	<Box backgroundColor="color.background.discovery" xcss={skeletonStyles}>
 		{children}
 	</Box>

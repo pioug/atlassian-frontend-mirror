@@ -38,7 +38,7 @@ function Table<ItemType extends object = object>({
 	isSelectable,
 	sortKey = 'unset',
 	testId,
-}: TableProps<ItemType>) {
+}: TableProps<ItemType>): React.JSX.Element {
 	const { sortKey: localSortKey, sortDirection, setSortState, sortFn } = useSorting(sortKey);
 
 	const tableProviderState = useMemo(

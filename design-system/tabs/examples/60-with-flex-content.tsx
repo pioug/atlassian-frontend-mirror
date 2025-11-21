@@ -5,7 +5,7 @@ import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { N100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-export default function withFlexContent() {
+export default function withFlexContent(): React.JSX.Element {
 	return (
 		<div
 			style={{

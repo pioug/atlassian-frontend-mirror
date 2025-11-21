@@ -4,7 +4,7 @@ import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import Button from '@atlaskit/button/new';
 import { AtlassianIcon } from '@atlaskit/logo';
 
-const StatelessExample = () => {
+const StatelessExample = (): React.JSX.Element => {
 	const [isExpanded, setIsExpanded] = useState(false);
 
 	return (

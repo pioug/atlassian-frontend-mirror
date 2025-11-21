@@ -12,7 +12,7 @@ import Modal, {
 } from '@atlaskit/modal-dialog';
 import { Box } from '@atlaskit/primitives/compiled';
 
-export default function DefaultModal() {
+export default function DefaultModal(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const open = useCallback(() => setIsOpen(true), []);
 	const close = useCallback(() => setIsOpen(false), []);

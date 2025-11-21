@@ -30,7 +30,7 @@ const styles = cssMap({
 
 const units = [420, '42em', '100%'];
 
-export default function ModalDemo() {
+export default function ModalDemo(): React.JSX.Element {
 	const [height, setHeight] = useState<number | string | null>(null);
 	const close = useCallback(() => setHeight(null), []);
 

@@ -4,7 +4,7 @@ import { AppSwitcher, AtlassianNavigation } from '@atlaskit/atlassian-navigation
 
 const DefaultAppSwitcher = () => <AppSwitcher tooltip="Switch to..." />;
 
-const AppSwitcherExample = () => (
+const AppSwitcherExample = (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		renderProductHome={() => null}

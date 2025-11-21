@@ -5,7 +5,7 @@ import { RemovableTag as Tag } from '@atlaskit/tag';
 
 const sendAnalytics = (analytic: UIAnalyticsEvent) => console.log('analytic: ', analytic);
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<AnalyticsListener onEvent={sendAnalytics}>
 			<Tag

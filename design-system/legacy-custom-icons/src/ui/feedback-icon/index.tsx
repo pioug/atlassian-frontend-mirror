@@ -25,7 +25,13 @@ const FeedbackIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __FeedbackIcon__
  */
-const FeedbackIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const FeedbackIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

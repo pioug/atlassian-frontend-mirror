@@ -4,7 +4,7 @@ import TableTree, { Cell, Row, Rows } from '@atlaskit/table-tree';
 
 import staticData from './data-cleancode-toc.json';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<TableTree>
 		<Rows
 			items={staticData.children}

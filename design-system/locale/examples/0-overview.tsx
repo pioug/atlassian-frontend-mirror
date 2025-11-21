@@ -28,7 +28,7 @@ export default class Example extends Component<any, State> {
 		});
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { l10n } = this.state;
 
 		return (

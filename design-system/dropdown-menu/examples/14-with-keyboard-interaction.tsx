@@ -13,7 +13,7 @@ import ModalDialog, {
 import { Box } from '@atlaskit/primitives';
 import Stack from '@atlaskit/primitives/stack';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [isModalOpen, setModalOpen] = useState(false);
 
 	return (

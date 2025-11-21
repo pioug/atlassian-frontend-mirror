@@ -3,7 +3,7 @@ import React from 'react';
 import InlineMessage from '@atlaskit/inline-message';
 import Link from '@atlaskit/link';
 
-const InlineMessageConnectivityExample = () => {
+const InlineMessageConnectivityExample = (): React.JSX.Element => {
 	return (
 		<InlineMessage appearance="connectivity" iconLabel="Log in to see more information">
 			<p>

@@ -40,7 +40,7 @@ const Spotlight = ({
 	testId = 'spotlight',
 	titleId,
 	...rest
-}: SpotlightProps) => (
+}: SpotlightProps): React.JSX.Element => (
 	<SpotlightConsumer>
 		{({ opened, closed, targets }) => {
 			// use the targetNode prop or try get the target from context targets using name

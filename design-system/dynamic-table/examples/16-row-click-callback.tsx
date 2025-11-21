@@ -42,7 +42,7 @@ function RegularStatelessExample() {
 	);
 }
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<>
 			{/* eslint-disable-next-line @atlaskit/design-system/no-html-heading */}

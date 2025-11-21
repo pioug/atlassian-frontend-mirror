@@ -38,7 +38,7 @@ const barContent = (
 	</div>
 );
 
-const PageHeaderComplexTruncationExample = () => {
+const PageHeaderComplexTruncationExample = (): React.JSX.Element => {
 	return (
 		<React.Fragment>
 			<Text as="p">

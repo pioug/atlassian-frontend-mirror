@@ -25,7 +25,7 @@ const readViewContainerStyles = cssMap({
 	},
 });
 
-const InlineEditStatelessExample = () => {
+const InlineEditStatelessExample = (): React.JSX.Element => {
 	const initialValue = 'Initial description value';
 	const [editValue, setEditValue] = useState('Default description value');
 	const [isEditing, setEditing] = useState(true);

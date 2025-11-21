@@ -46,7 +46,7 @@ const { version } = require('../package.json');
 setupPublisher({ product: 'reactions-demo', version });
 // UFO.setLogger(true);
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<ExampleWrapper>
 			{(store: StorePropInput) => (

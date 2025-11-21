@@ -23,7 +23,13 @@ const PersonIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __PersonIcon__
  */
-const PersonIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const PersonIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

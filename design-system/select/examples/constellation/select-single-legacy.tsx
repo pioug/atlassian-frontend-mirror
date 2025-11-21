@@ -3,7 +3,7 @@ import React from 'react';
 import { Label } from '@atlaskit/form';
 import Select from '@atlaskit/select';
 
-const SelectSingleExample = () => (
+const SelectSingleExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="single-select-example-legacy">What city do you live in?</Label>
 		<Select

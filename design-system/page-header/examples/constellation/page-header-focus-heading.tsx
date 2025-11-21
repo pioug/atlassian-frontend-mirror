@@ -13,7 +13,7 @@ const breadcrumbs = (
 	</Breadcrumbs>
 );
 
-const PageHeaderFocusHeadingExample = () => {
+const PageHeaderFocusHeadingExample = (): React.JSX.Element => {
 	const [ref, setRef] = useState<HTMLElement>();
 
 	const onClick = () => {

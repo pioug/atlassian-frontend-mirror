@@ -64,7 +64,7 @@ const LoadingDialog: React.FC<LoadingDialog> = ({
 	);
 };
 
-export default (props: LazyShareFormProps) => (
+export default (props: LazyShareFormProps): React.JSX.Element => (
 	<Suspense
 		fallback={
 			<LoadingDialog

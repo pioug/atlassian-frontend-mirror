@@ -23,7 +23,13 @@ const ApiIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __ApiIcon__
  */
-const ApiIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const ApiIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

@@ -11,7 +11,7 @@ const description = {
 	colors: 'This icon has a color override, different from the default',
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Stack space="space.100">
 		<Flag title="Default icon" description="A default icon" id="1" testId="flag-1" />
 

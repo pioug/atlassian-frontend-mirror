@@ -4,7 +4,7 @@ import DynamicTable from '@atlaskit/dynamic-table';
 
 import { head, rows } from './content/sample-data';
 
-export default function TableUncontrolled() {
+export default function TableUncontrolled(): React.JSX.Element {
 	return (
 		<DynamicTable
 			head={head}

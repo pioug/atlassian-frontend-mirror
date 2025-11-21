@@ -11,7 +11,7 @@ export default class FabricElementsListener extends React.Component<ListenerProp
 		handleEvent(event, ELEMENTS_TAG, this.props.logger, this.props.client);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<AnalyticsListener onEvent={this.handleEventWrapper} channel={FabricChannel.elements}>
 				{this.props.children}

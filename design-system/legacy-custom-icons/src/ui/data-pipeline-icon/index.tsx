@@ -45,7 +45,13 @@ const DataPipelineIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __DataPipelineIcon__
  */
-const DataPipelineIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const DataPipelineIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

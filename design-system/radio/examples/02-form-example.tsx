@@ -35,7 +35,7 @@ const weatherItems: OptionsPropType = [
 	{ name: 'weather', value: 'windy', label: 'Windy', testId: 'weather-windy' },
 ];
 
-export default function FormExample() {
+export default function FormExample(): React.JSX.Element {
 	return (
 		<div>
 			<Form onSubmit={(data: object) => console.log('form data', data)}>

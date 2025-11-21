@@ -385,7 +385,7 @@ export class ShareDialogContainerInternal extends React.Component<
 		return rawLink;
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			cloudId,
 			orgId,

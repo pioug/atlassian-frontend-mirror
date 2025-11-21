@@ -3,7 +3,7 @@ import React from 'react';
 import { Label } from '@atlaskit/form';
 import Select from '@atlaskit/select';
 
-const SelectGroupedOptionsExample = () => (
+const SelectGroupedOptionsExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="grouped-options-example">What city do you live in?</Label>
 		<Select

@@ -25,7 +25,10 @@ type Props = {
 	text: React.ReactNode;
 } & Pick<ButtonProps, 'onClick'>;
 
-const IntegrationButton = (props: Props) => {
+const IntegrationButton: {
+	(props: Props): React.JSX.Element;
+	displayName: string;
+} = (props: Props): React.JSX.Element => {
 	const { text, IntegrationIcon } = props;
 	return (
 		<Button appearance="subtle" shouldFitContainer onClick={props.onClick}>

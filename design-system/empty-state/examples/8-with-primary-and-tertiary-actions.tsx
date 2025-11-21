@@ -28,4 +28,4 @@ const props = {
 	tertiaryAction,
 };
 
-export default () => <EmptyState {...props} />;
+export default (): React.JSX.Element => <EmptyState {...props} />;

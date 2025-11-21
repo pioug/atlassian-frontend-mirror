@@ -10,7 +10,7 @@ import Modal, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const [width, setWidth] = useState('medium');
 

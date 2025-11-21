@@ -3,7 +3,7 @@ import React from 'react';
 import InlineMessage from '@atlaskit/inline-message';
 import Link from '@atlaskit/link';
 
-const InlineMessageConfirmation = () => {
+const InlineMessageConfirmation = (): React.JSX.Element => {
 	return (
 		<InlineMessage appearance="confirmation" secondaryText="Files have been added">
 			<p>You have successfully uploaded 3 files.</p>

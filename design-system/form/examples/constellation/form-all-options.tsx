@@ -24,7 +24,7 @@ import TextArea from '@atlaskit/textarea';
 import TextField from '@atlaskit/textfield';
 import Toggle from '@atlaskit/toggle';
 
-const FormAllOptionsExample = () => (
+const FormAllOptionsExample = (): React.JSX.Element => (
 	<Flex direction="column">
 		<Form onSubmit={noop}>
 			{({ formProps, submitting }) => (

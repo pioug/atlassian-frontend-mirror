@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5be81818cd5004bcdfaa1d2ab995fd75>>
+ * @codegen <<SignedSource::8cc0044638ee9407e88e704d6b1d277b>>
  * @codegenCommand yarn build tokens
  */
 
@@ -2372,7 +2372,7 @@ const tokens: Token[] = [
       "introduced": "1.6.0",
       "description": "Use for for backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "#37471F",
+    "value": "#28311B",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -2382,7 +2382,7 @@ const tokens: Token[] = [
         "introduced": "1.6.0",
         "description": "Use for for backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "Lime900"
+      "value": "Lime1000"
     },
     "name": "color.background.accent.lime.subtlest.[default]",
     "path": [
@@ -3092,7 +3092,7 @@ const tokens: Token[] = [
       "introduced": "0.7.0",
       "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "#693200",
+    "value": "#3A2C1F",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -3102,7 +3102,7 @@ const tokens: Token[] = [
         "introduced": "0.7.0",
         "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "Orange900"
+      "value": "Orange1000"
     },
     "name": "color.background.accent.orange.subtlest.[default]",
     "path": [
@@ -3452,7 +3452,7 @@ const tokens: Token[] = [
       "introduced": "0.7.0",
       "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "#533F04",
+    "value": "#332E1B",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -3462,7 +3462,7 @@ const tokens: Token[] = [
         "introduced": "0.7.0",
         "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "Yellow900"
+      "value": "Yellow1000"
     },
     "name": "color.background.accent.yellow.subtlest.[default]",
     "path": [
@@ -3812,7 +3812,7 @@ const tokens: Token[] = [
       "introduced": "0.7.0",
       "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "#164B35",
+    "value": "#1C3329",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -3822,7 +3822,7 @@ const tokens: Token[] = [
         "introduced": "0.7.0",
         "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "Green900"
+      "value": "Green1000"
     },
     "name": "color.background.accent.green.subtlest.[default]",
     "path": [
@@ -4172,7 +4172,7 @@ const tokens: Token[] = [
       "introduced": "0.7.0",
       "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "#164555",
+    "value": "#1E3137",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -4182,7 +4182,7 @@ const tokens: Token[] = [
         "introduced": "0.7.0",
         "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "Teal900"
+      "value": "Teal1000"
     },
     "name": "color.background.accent.teal.subtlest.[default]",
     "path": [
@@ -4892,7 +4892,7 @@ const tokens: Token[] = [
       "introduced": "0.7.0",
       "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "#48245D",
+    "value": "#35243F",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -4902,7 +4902,7 @@ const tokens: Token[] = [
         "introduced": "0.7.0",
         "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "Purple900"
+      "value": "Purple1000"
     },
     "name": "color.background.accent.purple.subtlest.[default]",
     "path": [
@@ -5252,7 +5252,7 @@ const tokens: Token[] = [
       "introduced": "0.7.0",
       "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "#50253F",
+    "value": "#3D2232",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -5262,7 +5262,7 @@ const tokens: Token[] = [
         "introduced": "0.7.0",
         "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "Magenta900"
+      "value": "Magenta1000"
     },
     "name": "color.background.accent.magenta.subtlest.[default]",
     "path": [

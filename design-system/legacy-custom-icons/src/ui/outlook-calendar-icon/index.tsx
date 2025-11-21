@@ -108,7 +108,13 @@ const OutlookCalendarIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __OutlookCalendarIcon__
  */
-const OutlookCalendarIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const OutlookCalendarIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

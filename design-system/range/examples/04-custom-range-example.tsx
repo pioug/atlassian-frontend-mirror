@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import { Label } from '@atlaskit/form';
 import Range from '@atlaskit/range';
 
-const CustomValues = () => (
+const CustomValues = (): React.JSX.Element => (
 	<Fragment>
 		<p id="range-aria-description">
 			This range has a minimum of 40, a maximum of 500, a default value of 480 , and a step of 20.

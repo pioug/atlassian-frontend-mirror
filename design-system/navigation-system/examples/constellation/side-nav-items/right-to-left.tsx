@@ -51,7 +51,7 @@ function MoreAction() {
 
 const exampleHref = '#example-href';
 
-export function RightToLeftExample() {
+export function RightToLeftExample(): React.JSX.Element {
 	return (
 		<div dir="rtl">
 			<MockSideNav>

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 
-export default () => (
+export default (): React.JSX.Element => (
 	// with onClick handler and no href
 	<div>
 		<Breadcrumbs>

@@ -12,11 +12,14 @@ import {
 	fromObservable,
 } from '@atlaskit/media-client';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { Browser } from '../../browser/browser';
 import { type BrowserConfig } from '../../../../src/types';
 import { type LocalUploadConfig } from '../../../../src/components/types';
 import * as ufoWrapper from '../../../util/ufoExperiences';
+
+jest.mock('@atlaskit/platform-feature-flags');
 
 describe('Browser analytics instrumentation', () => {
 	const browseConfig: BrowserConfig & LocalUploadConfig = {
@@ -222,6 +225,7 @@ describe('Browser analytics instrumentation', () => {
 	});
 
 	it('should fire an uploaded fail event on end', async () => {
+		(fg as jest.Mock).mockImplementation((fgName) => fgName === 'add_media_picker_error_detail');
 		mediaClient.file.touchFiles = jest.fn(
 			(descriptors: TouchFileDescriptor[], collection?: string) =>
 				Promise.resolve({
@@ -324,6 +328,7 @@ describe('Browser analytics instrumentation', () => {
 						},
 						uploadDurationMsec: expect.any(Number),
 						traceContext: { traceId: expect.any(String) },
+						errorDetail: expect.any(String),
 					},
 				},
 			}),
@@ -342,6 +347,7 @@ describe('Browser analytics instrumentation', () => {
 				fileId: expect.any(String),
 			},
 			uploadDurationMsec: expect.any(Number),
+			errorDetail: expect.any(String),
 		});
 	});
 

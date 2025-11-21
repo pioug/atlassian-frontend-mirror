@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/new';
 import Form, { Field, FormFooter } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 
-export default function TextFieldFormNativeValidationExample() {
+export default function TextFieldFormNativeValidationExample(): React.JSX.Element {
 	return (
 		<Form
 			onSubmit={(formData) => console.log('form data', formData)}

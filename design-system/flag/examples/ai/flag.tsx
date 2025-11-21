@@ -3,7 +3,7 @@ import React from 'react';
 import Flag, { FlagGroup } from '@atlaskit/flag';
 import InfoIcon from '@atlaskit/icon/core/status-information';
 
-export default [
+const _default_1: React.JSX.Element[] = [
 	<FlagGroup>
 		<Flag
 			id="flag-1"
@@ -44,3 +44,4 @@ export default [
 		/>
 	</FlagGroup>,
 ];
+export default _default_1;

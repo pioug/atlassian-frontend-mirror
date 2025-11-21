@@ -6,7 +6,7 @@ import Form, { CheckboxField, Field, Fieldset, FormFooter } from '@atlaskit/form
 import { Flex } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
 
-const FormCheckboxExample = () => {
+const FormCheckboxExample = (): React.JSX.Element => {
 	return (
 		<Flex direction="column">
 			<Form onSubmit={(data) => console.log(data)}>

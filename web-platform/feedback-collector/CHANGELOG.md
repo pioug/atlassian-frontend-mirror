@@ -1,5 +1,12 @@
 # @atlaskit/feedback-collector
 
+## 14.6.7
+
+### Patch Changes
+
+- [`402214c8af293`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/402214c8af293) -
+  Suppress i18n errors
+
 ## 14.6.6
 
 ### Patch Changes

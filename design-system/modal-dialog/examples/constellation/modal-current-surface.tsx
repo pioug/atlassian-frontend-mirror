@@ -29,7 +29,7 @@ function SurfaceAwareBox() {
 	);
 }
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const closeModal = useCallback(() => setIsOpen(false), [setIsOpen]);
 

@@ -33,7 +33,7 @@ const styles: React.CSSProperties = {
 	width: '100%',
 };
 
-const InlineDialogPlacementExample = () => {
+const InlineDialogPlacementExample = (): React.JSX.Element => {
 	return (
 		<StackLayout size="LARGEST" direction="VERTICAL" testId={'popper-stack-layout'}>
 			{PLACEMENT_POSITIONS.map((position) => {

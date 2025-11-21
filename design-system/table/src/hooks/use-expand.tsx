@@ -25,7 +25,7 @@ export const ExpandContextProvider = ({
 	children: React.ReactNode;
 	isExpanded?: boolean;
 	isDefaultExpanded?: boolean;
-}) => {
+}): React.JSX.Element => {
 	const [isExpanded, setIsExpanded] = useState(isDefaultExpanded);
 
 	const toggleExpanded = useCallback(() => {

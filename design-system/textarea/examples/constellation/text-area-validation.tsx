@@ -11,7 +11,7 @@ function validate(value: unknown) {
 	return undefined;
 }
 
-export default function TextAreaFormValidationExample() {
+export default function TextAreaFormValidationExample(): React.JSX.Element {
 	const handleSubmit = (formState: { command: string }) => {
 		console.log('form state', formState);
 	};

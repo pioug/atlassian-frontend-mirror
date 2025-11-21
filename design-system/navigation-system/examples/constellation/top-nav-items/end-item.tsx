@@ -6,7 +6,7 @@ import { TopNavEnd } from '@atlaskit/navigation-system/layout/top-nav';
 
 import { MockTopBar } from '../common/mock-top-bar';
 
-export function EndItemExample() {
+export function EndItemExample(): React.JSX.Element {
 	return (
 		<MockTopBar>
 			<TopNavEnd>

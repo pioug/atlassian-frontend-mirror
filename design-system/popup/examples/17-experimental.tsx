@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Popup, PopupContent, PopupTrigger } from '@atlaskit/popup/experimental';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

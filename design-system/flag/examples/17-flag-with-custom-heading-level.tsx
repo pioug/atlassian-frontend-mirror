@@ -4,7 +4,7 @@ import Flag from '@atlaskit/flag';
 import InfoIcon from '@atlaskit/icon/glyph/info';
 import { token } from '@atlaskit/tokens';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		<h2>Flag with custom heading level</h2>
 		<Flag

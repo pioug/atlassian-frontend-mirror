@@ -35,7 +35,9 @@ const loremContent = (
 	</div>
 );
 
-export const EmojiTextInput = (props: React.PropsWithChildren<TypeaheadProps>) => {
+export const EmojiTextInput = (
+	props: React.PropsWithChildren<TypeaheadProps>,
+): React.JSX.Element => {
 	const emojiTypeAheadRef = useRef<EmojiTypeAhead | null>();
 	const { onSelection, label, emojiProvider, position } = props;
 	const target = position ? '#demo-input' : undefined;
@@ -147,7 +149,7 @@ class UsageShowingEmojiTypeAheadTextInput extends UsageShowAndClearComponent {
 	}
 }
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<IntlProvider locale="en">
 			<UsageShowingEmojiTypeAheadTextInput emojiResource={getEmojiResourceUsageClear()} />

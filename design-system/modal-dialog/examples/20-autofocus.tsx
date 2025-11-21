@@ -23,7 +23,7 @@ const containerStyles = cssMap({
 	},
 });
 
-export default function ModalDemo() {
+export default function ModalDemo(): React.JSX.Element {
 	const focusRef = useRef<HTMLInputElement>(null);
 	const [isOpen, setIsOpen] = useState('');
 

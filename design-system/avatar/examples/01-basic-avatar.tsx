@@ -6,7 +6,7 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { Block } from '../examples-util/helpers';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Stack space="space.200">
 		<Block heading="Circle">
 			<Tooltip content="xxlarge">

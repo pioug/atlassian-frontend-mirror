@@ -21,7 +21,7 @@ type NavigatorProps = {
 	component?: React.ElementType<any>;
 };
 
-export default function Navigator(props: NavigatorProps) {
+export default function Navigator(props: NavigatorProps): React.JSX.Element {
 	return (
 		<Button
 			aria-label={props['aria-label']}

@@ -32,7 +32,7 @@ const formatOptionLabel = (option: OptionType, { context }: FormatOptionLabelMet
 	}
 	return option.label;
 };
-const ElementBeforeExample = () => (
+const ElementBeforeExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="element-before-example">Which city do you live in?</Label>
 		<Select

@@ -58,7 +58,7 @@ const FlagGroupExample = () => {
 	);
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<FlagsProvider>
 		<FlagGroupExample />
 	</FlagsProvider>

@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 
-const BreadcrumbsExpandable = ({ defaultIsExpanded = false }: { defaultIsExpanded?: boolean }) => {
+const BreadcrumbsExpandable = ({
+	defaultIsExpanded = false,
+}: {
+	defaultIsExpanded?: boolean;
+}): React.JSX.Element => {
 	const [isExpanded, setExpanse] = useState(defaultIsExpanded);
 
 	function expand(e: React.MouseEvent) {
@@ -24,7 +28,7 @@ const BreadcrumbsExpandable = ({ defaultIsExpanded = false }: { defaultIsExpande
 	);
 };
 
-export const BreadcrumbsExpandableDefaultIsExpanded = () => (
+export const BreadcrumbsExpandableDefaultIsExpanded = (): React.JSX.Element => (
 	<BreadcrumbsExpandable defaultIsExpanded />
 );
 

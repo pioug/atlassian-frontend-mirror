@@ -2,7 +2,7 @@ import React, { createContext, type ReactNode, useContext, useRef } from 'react'
 
 const SideNavRefContext = createContext<React.RefObject<HTMLDivElement>>({ current: null });
 
-export function SideNavElementProvider({ children }: { children: ReactNode }) {
+export function SideNavElementProvider({ children }: { children: ReactNode }): React.JSX.Element {
 	const sideNavRef = useRef<HTMLDivElement>(null);
 
 	return <SideNavRefContext.Provider value={sideNavRef}>{children}</SideNavRefContext.Provider>;

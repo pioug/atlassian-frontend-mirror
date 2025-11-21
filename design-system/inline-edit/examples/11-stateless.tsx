@@ -25,7 +25,7 @@ const ReadViewContainer: FC<{ children: string }> = ({ children }) => (
 	</Box>
 );
 
-const InlineEditExample = () => {
+const InlineEditExample = (): React.JSX.Element => {
 	const initialValue = 'Initial Field value';
 	const [editValue, setEditValue] = useState('Field value');
 	const [isEditing, setEditing] = useState(true);

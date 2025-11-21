@@ -6,7 +6,7 @@ import { Header, NavigationHeader } from '@atlaskit/side-navigation';
 
 import RocketIcon from './common/sample-logo';
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	return (
 		// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<Box onClick={(e: MouseEvent) => e.preventDefault()}>

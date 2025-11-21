@@ -29,7 +29,13 @@ const BarChartIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __BarChartIcon__
  */
-const BarChartIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const BarChartIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

@@ -11,7 +11,7 @@ const containerStyle = {
 	borderRadius: 3,
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 	<div style={containerStyle}>
 		<TransparentProgressBar value={progress} ariaLabel="Done: 4 of 10 work items" />

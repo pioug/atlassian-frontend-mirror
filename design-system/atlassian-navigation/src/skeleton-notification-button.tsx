@@ -24,7 +24,9 @@ export type SkeletonNotificationButtonProps = {
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#skeleton-button)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const SkeletonNotificationButton = ({ label = '' }: SkeletonNotificationButtonProps) => (
+export const SkeletonNotificationButton = ({
+	label = '',
+}: SkeletonNotificationButtonProps): React.JSX.Element => (
 	<SkeletonIconButton>
 		<NotificationIcon color="currentColor" spacing="spacious" label={label} />
 	</SkeletonIconButton>
@@ -36,7 +38,9 @@ export const SkeletonNotificationButton = ({ label = '' }: SkeletonNotificationB
  * A nav 4 skeleton notification button.
  *
  */
-export const Nav4SkeletonNotificationButton = ({ label = '' }: SkeletonNotificationButtonProps) => (
+export const Nav4SkeletonNotificationButton = ({
+	label = '',
+}: SkeletonNotificationButtonProps): React.JSX.Element => (
 	<SkeletonIconButton>
 		<Nav4NotificationsIcon label={label} color={token('color.icon')} />
 	</SkeletonIconButton>

@@ -363,7 +363,7 @@ function Parent() {
 	);
 }
 
-export default function App() {
+export default function App(): React.JSX.Element {
 	const isInIframe = typeof window !== undefined && window.top !== window.self;
 	return isInIframe ? <InIframe /> : <Parent />;
 }

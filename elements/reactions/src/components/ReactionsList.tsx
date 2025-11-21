@@ -27,7 +27,7 @@ export const ReactionsList = ({
 	reactions,
 	selectedEmojiId,
 	ProfileCardWrapper,
-}: ReactionsListProps) => {
+}: ReactionsListProps): React.JSX.Element => {
 	return (
 		<Box>
 			{reactions.map((reaction) => {

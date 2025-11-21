@@ -6,7 +6,7 @@ import EmojiAtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
 import { Box } from '@atlaskit/primitives';
 import { LinkItem } from '@atlaskit/side-navigation';
 
-const Example = () => (
+const Example = (): React.JSX.Element => (
 	// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 	<Box onClick={(e: MouseEvent) => e.preventDefault()}>
 		{/* eslint-disable @atlassian/a11y/anchor-is-valid */}

@@ -52,4 +52,4 @@ const items: Stages = [
 	},
 ];
 
-export default () => <ProgressTracker items={items} />;
+export default (): React.JSX.Element => <ProgressTracker items={items} />;

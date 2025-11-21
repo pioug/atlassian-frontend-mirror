@@ -7,7 +7,7 @@ interface MyTagGroupProps {
 	alignment: 'start' | 'end';
 }
 
-export function MyTagGroup({ alignment }: MyTagGroupProps) {
+export function MyTagGroup({ alignment }: MyTagGroupProps): React.JSX.Element {
 	const [tags, setTags] = useState(['Candy canes', 'Tiramisu', 'Gummi bears', 'Wagon Wheels']);
 
 	const handleRemoveRequest = () => true;
@@ -31,7 +31,7 @@ export function MyTagGroup({ alignment }: MyTagGroupProps) {
 	);
 }
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<MyTagGroup alignment="start" />
 		<MyTagGroup alignment="end" />

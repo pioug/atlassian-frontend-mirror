@@ -59,7 +59,7 @@ const FlagsInDrawerExample = () => {
 	);
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box>
 		<h2>Accessible Flag group in drawer</h2>
 		<FlagsInDrawerExample />

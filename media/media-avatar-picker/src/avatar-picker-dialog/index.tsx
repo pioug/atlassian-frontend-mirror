@@ -262,6 +262,7 @@ export class AvatarPickerDialog extends PureComponent<
 
 				{this.state.isSubmitted && <SubmitErrorDialog />}
 
+				{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 				<form aria-label="form" onSubmit={this.onSave} css={formStyles}>
 					<ModalBody>
 						<div css={avatarPickerViewWrapperStyles}>{this.renderBody()}</div>

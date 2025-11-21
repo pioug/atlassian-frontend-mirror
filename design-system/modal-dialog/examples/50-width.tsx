@@ -34,7 +34,7 @@ const styles = cssMap({
 	},
 });
 
-export default function ModalDemo() {
+export default function ModalDemo(): React.JSX.Element {
 	const [width, setWidth] = useState<string | number | null>(null);
 	const close = useCallback(() => setWidth(null), []);
 

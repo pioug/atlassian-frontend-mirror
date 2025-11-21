@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
 
-const CheckboxDisabledExample = () => (
+const CheckboxDisabledExample = (): React.JSX.Element => (
 	<Checkbox
 		isDisabled
 		label="Disabled checkbox"

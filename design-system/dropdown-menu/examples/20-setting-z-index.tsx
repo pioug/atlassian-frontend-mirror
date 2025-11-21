@@ -19,7 +19,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(true);
 
 	return (

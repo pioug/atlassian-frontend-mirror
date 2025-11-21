@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar, { AvatarItem } from '@atlaskit/avatar';
 
-const AvatarItemTextExample = () => {
+const AvatarItemTextExample = (): React.JSX.Element => {
 	return (
 		<AvatarItem
 			avatar={<Avatar name="Rovo" appearance="hexagon" presence="online" />}

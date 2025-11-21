@@ -5,7 +5,7 @@ import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 
 import { Panel } from './shared';
 
-export default function defaultTabs() {
+export default function defaultTabs(): React.JSX.Element {
 	return (
 		<Box>
 			<Tabs

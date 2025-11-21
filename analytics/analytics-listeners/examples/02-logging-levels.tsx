@@ -37,7 +37,7 @@ class Example extends React.Component {
 		});
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const logLevel = logLevels[this.state.loggingLevelIdx];
 		return (
 			<FabricAnalyticsListeners client={createAnalyticsWebClientMock()} logLevel={logLevel.level}>

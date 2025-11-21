@@ -150,7 +150,7 @@ export default class ResourcedTaskItem extends PureComponent<Props, State> {
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { isDone } = this.state;
 		const {
 			appearance,

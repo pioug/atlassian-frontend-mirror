@@ -12,7 +12,7 @@ const skeletonPrimaryItems = [
 	<SkeletonPrimaryButton isDropdownButton text="Apps" />,
 ];
 
-const AtlassianNavigationExample = () => (
+const AtlassianNavigationExample = (): React.JSX.Element => (
 	<AtlassianNavigation
 		renderProductHome={() => null}
 		label="site"

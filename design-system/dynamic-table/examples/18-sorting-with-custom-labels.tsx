@@ -31,7 +31,7 @@ const head = {
 
 type HeadCell = (typeof head)['cells'][number];
 
-const SortingWithCustomLabelsExample = () => {
+const SortingWithCustomLabelsExample = (): React.JSX.Element => {
 	const [sortOrder, setSortOrder] = useState<SortOrderType>('ASC');
 	const [sortKey, setSortKey] = useState<HeadCell['key']>('name');
 

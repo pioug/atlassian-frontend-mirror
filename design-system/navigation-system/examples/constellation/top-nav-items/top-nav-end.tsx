@@ -7,7 +7,7 @@ import { Notifications, Settings } from '@atlaskit/navigation-system/top-nav-ite
 
 import { MockTopBar } from '../common/mock-top-bar';
 
-export function TopNavEndLayoutExample() {
+export function TopNavEndLayoutExample(): React.JSX.Element {
 	return (
 		<MockTopBar>
 			<TopNavEnd>

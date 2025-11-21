@@ -31,7 +31,7 @@ interface ChangedDate {
 	year: number;
 }
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [state, setState] = useReducer(reducer, {
 		disabled: ['2017-08-04'],
 		previouslySelected: ['2017-08-06'],

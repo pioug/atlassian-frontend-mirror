@@ -4,7 +4,7 @@ import { AtlassianNavigation, Settings } from '@atlaskit/atlassian-navigation';
 
 const DefaultSettings = () => <Settings tooltip="Product settings" />;
 
-export default () => (
+export default (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		renderProductHome={() => null}

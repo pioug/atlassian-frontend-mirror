@@ -26,7 +26,7 @@ const SpreadInlineLayout = ({ children }: { children: ReactNode }) => {
 	);
 };
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const values = ['first', 'second', 'third'];
 

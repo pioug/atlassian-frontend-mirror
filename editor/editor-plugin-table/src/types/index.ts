@@ -513,6 +513,7 @@ export const TableCssClassName = {
 	WITH_LAST_ROW_INSERT_LINE_INACTIVE: `${tablePrefixSelector}-last-row-insert-line__inactive`,
 
 	NATIVE_STICKY: `${tablePrefixSelector}-row-native-sticky`,
+	NATIVE_STICKY_ACTIVE: `${tablePrefixSelector}-row-native-sticky-active`,
 	NO_OVERFLOW: `${tablePrefixSelector}-no-overflow`,
 };
 

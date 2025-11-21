@@ -11,7 +11,7 @@ export function renderHighlight(
 	value?: string,
 	highlights?: HighlightDetail[],
 	prefix?: string,
-) {
+): React.JSX.Element | null {
 	if (!value) {
 		return null;
 	}

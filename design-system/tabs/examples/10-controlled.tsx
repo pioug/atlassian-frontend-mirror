@@ -6,7 +6,7 @@ import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { Panel } from './shared';
 
-export default function TabsControlledExample() {
+export default function TabsControlledExample(): React.JSX.Element {
 	const [selected, setSelected] = useState(0);
 	const [statusMessage, setStatusMessage] = useState(false);
 

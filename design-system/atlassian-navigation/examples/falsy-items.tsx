@@ -12,7 +12,7 @@ import { DefaultSearch } from './shared/search';
 import { DefaultSettings } from './shared/settings';
 import { SwitcherPopup } from './shared/switcher-popup';
 
-const AuthenticatedExample = () => (
+const AuthenticatedExample = (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		primaryItems={[

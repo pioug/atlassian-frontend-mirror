@@ -4,7 +4,7 @@ import { ErrorMessage, HelperMessage, MessageWrapper, ValidMessage } from '@atla
 import Link from '@atlaskit/link';
 import Lozenge from '@atlaskit/lozenge';
 
-export default function MessagesExample() {
+export default function MessagesExample(): React.JSX.Element {
 	return (
 		<div>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}

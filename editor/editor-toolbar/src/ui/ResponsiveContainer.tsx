@@ -142,12 +142,12 @@ const styles = cssMap({
 			},
 		},
 	},
-	// Preset: jsm-comment (340, 475, 605, 1024)
+	// Preset: jsm-comment (365, 500, 630, 1024)
 	// Used for JSM comment editor with canned responses button
 	jsmComment: {
 		// @ts-expect-error - container queries are not typed in cssMap
 		'&&': {
-			'@container toolbar-container (max-width: 340px)': {
+			'@container toolbar-container (max-width: 365px)': {
 				'.show-above-sm': {
 					display: 'none',
 				},
@@ -155,7 +155,7 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
-			'@container toolbar-container (max-width: 475px)': {
+			'@container toolbar-container (max-width: 500px)': {
 				'.show-above-md': {
 					display: 'none',
 				},
@@ -163,7 +163,7 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
-			'@container toolbar-container (max-width: 605px)': {
+			'@container toolbar-container (max-width: 630px)': {
 				'.show-above-lg': {
 					display: 'none',
 				},
@@ -402,7 +402,7 @@ export type ResponsiveContainerProps = {
 	 * - 'fullpage': (410, 476, 768, 1024) - Editor full-page experiences
 	 * - 'reduced': (210, 408, 575, 1024) - Default compact toolbars, constrained layouts
 	 * - 'jira-issue': (280, 420, 650, 1024) - Jira issue view and similar contexts
-	 * - 'jsm-comment': (340, 475, 605, 1024) - JSM comment editor with canned responses button
+	 * - 'jsm-comment': (365, 500, 630, 1024) - JSM comment editor with canned responses button
 	 * - 'confluence-comment': (210, 408, 648, 1024) - Confluence comment editor and inline contexts
 	 *
 	 * @default 'fullpage'

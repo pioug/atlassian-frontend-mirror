@@ -43,7 +43,7 @@ const ComponentNameRenderer = ({ children, name }: { children: ReactNode; name: 
 	);
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [size, setSize] = useState(AVATAR_SIZES.xxlarge);
 	const [color, setColor] = useState(greenColor);
 	return (

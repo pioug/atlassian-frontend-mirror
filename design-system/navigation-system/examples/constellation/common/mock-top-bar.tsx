@@ -15,6 +15,6 @@ const mockTopBarStyles = xcss({
 	gap: 'space.200',
 });
 
-export function MockTopBar({ children }: { children: ReactNode }) {
+export function MockTopBar({ children }: { children: ReactNode }): React.JSX.Element {
 	return <Box xcss={mockTopBarStyles}>{children}</Box>;
 }

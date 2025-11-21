@@ -82,7 +82,7 @@ function TableTree<Item extends { id: string }>({
 	mainColumnForExpandCollapseLabel,
 	label,
 	referencedLabel,
-}: TableTreeProps<Item>) {
+}: TableTreeProps<Item>): React.JSX.Element {
 	const [columnWidths, setColumnWidths] = useState<ColumnWidth[]>(defaultColumnWidths);
 
 	const setColumnWidth = useCallback(

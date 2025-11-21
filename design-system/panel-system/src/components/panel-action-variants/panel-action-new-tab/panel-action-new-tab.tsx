@@ -16,7 +16,11 @@ export interface PanelActionNewTabProps extends Pick<PanelActionProps, 'onClick'
  * The PanelActionNewTab component provides a new tab action button
  * for opening panel content in a new browser tab.
  */
-export function PanelActionNewTab({ href, onClick, testId }: PanelActionNewTabProps) {
+export function PanelActionNewTab({
+	href,
+	onClick,
+	testId,
+}: PanelActionNewTabProps): React.JSX.Element {
 	return (
 		<PanelAction
 			onClick={onClick}

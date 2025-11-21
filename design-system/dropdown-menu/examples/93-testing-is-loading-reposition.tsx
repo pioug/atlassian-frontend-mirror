@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import Inline from '@atlaskit/primitives/inline';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [isLoading, setLoading] = useState(true);
 
 	return (

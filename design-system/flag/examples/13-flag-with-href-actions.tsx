@@ -62,7 +62,7 @@ const flagVariants: Array<FlagVariant> = [
 	},
 ];
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Stack space="space.100">
 		{flagVariants.map((flag: FlagVariant) => (
 			<Flag

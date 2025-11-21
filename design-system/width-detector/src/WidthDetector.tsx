@@ -130,7 +130,7 @@ export default class WidthDetector extends React.Component<WidthDetectorProps, S
 		this.handleResize();
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		// @TODO: Add alternative method using IntersectionObserver or ResizeObserver
 
 		const sizerEl = (

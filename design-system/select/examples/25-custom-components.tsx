@@ -64,7 +64,7 @@ const CustomValueOption = ({ children, ...props }: SingleValueProps<ColorOption,
 	</components.SingleValue>
 );
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [value, setValue] = useState<ValueType<Option>>();
 	return (
 		<div

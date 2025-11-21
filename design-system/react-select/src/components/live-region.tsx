@@ -25,7 +25,7 @@ interface LiveRegionProps<Option, IsMulti extends boolean, Group extends GroupBa
 
 const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: LiveRegionProps<Option, IsMulti, Group>,
-) => {
+): React.JSX.Element => {
 	const { ariaSelection, focusableOptions, isFocused, selectValue, selectProps, id } = props;
 
 	const {

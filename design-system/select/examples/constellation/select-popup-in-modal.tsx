@@ -23,7 +23,7 @@ const options = [
 	{ label: 'Sydney', value: 'sydney' },
 ];
 
-const SelectPopupModalExample = () => {
+const SelectPopupModalExample = (): React.JSX.Element => {
 	const [type, setType] = useState<'modal' | 'drawer'>();
 
 	const popupSelectElement = (

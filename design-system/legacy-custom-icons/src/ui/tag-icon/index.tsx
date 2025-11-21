@@ -23,7 +23,13 @@ const TagIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __TagIcon__
  */
-const TagIcon = ({ label, primaryColor, secondaryColor, size = 'small', testId }: IconProps) => (
+const TagIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size = 'small',
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

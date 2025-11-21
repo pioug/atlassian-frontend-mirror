@@ -48,7 +48,7 @@ const EmptyState = ({
 	width,
 	tertiaryAction,
 	testId,
-}: EmptyStateProps) => {
+}: EmptyStateProps): React.JSX.Element => {
 	const actionsContainer =
 		primaryAction || secondaryAction || isLoading ? (
 			<ActionsContainer>

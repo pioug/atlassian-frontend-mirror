@@ -11,7 +11,7 @@ import {
 
 import AppFrame from '../common/app-frame';
 
-const ContentExample = () => {
+const ContentExample = (): React.JSX.Element => {
 	return (
 		<AppFrame shouldHideAppBar>
 			<SideNavigation label="project">

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useRovoPostMessageToPubsub } from '../src';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [ackTimeoutHappened, setAckTimeoutHappened] = React.useState(false);
 
 	const { publishWithPostMessage, isWaitingForAck } = useRovoPostMessageToPubsub();

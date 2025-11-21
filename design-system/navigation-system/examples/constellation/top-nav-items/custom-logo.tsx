@@ -10,7 +10,7 @@ import { MockTopBar } from '../common/mock-top-bar';
 const CustomLogoImage = () => <img src={customLogoSrc} alt="" />;
 const CustomIconImage = () => <img src={customIconSrc} alt="" />;
 
-export const CustomLogoExample = () => {
+export const CustomLogoExample = (): React.JSX.Element => {
 	return (
 		<MockTopBar>
 			<TopNavStart sideNavToggleButton={null}>

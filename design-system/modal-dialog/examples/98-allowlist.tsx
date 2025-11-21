@@ -22,7 +22,7 @@ const allowlistElement = (element: HTMLElement) => {
 	return true;
 };
 
-export default function Allowlist() {
+export default function Allowlist(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isOpenInner, setIsOpenInner] = useState(false);
 	const open = useCallback(() => setIsOpen(true), []);

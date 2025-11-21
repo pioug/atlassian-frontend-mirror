@@ -22,7 +22,7 @@ const ExampleComment = ({ children, shouldRenderNestedCommentsInline }: ExampleC
 	</Comment>
 );
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [isRestricted, setIsRestricted] = useState(true);
 	return (
 		<div data-testid="comment">

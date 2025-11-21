@@ -13,7 +13,7 @@ const data = RANDOM_USERS.slice(0, 8).map((d, i) => ({
 	appearance: appearances[i % appearances.length],
 }));
 
-const AvatarGroupSizeExample = () => (
+const AvatarGroupSizeExample = (): React.JSX.Element => (
 	<Stack space="space.100">
 		<AvatarGroup data={data} size="small" />
 		<AvatarGroup data={data} size="medium" />

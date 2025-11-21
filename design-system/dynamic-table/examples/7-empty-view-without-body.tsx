@@ -4,6 +4,6 @@ import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 
 import { head } from './content/sample-data';
 
-const EmptyViewWithoutBodyExample = () => <DynamicTableStateless head={head} />;
+const EmptyViewWithoutBodyExample = (): React.JSX.Element => <DynamicTableStateless head={head} />;
 
 export default EmptyViewWithoutBodyExample;

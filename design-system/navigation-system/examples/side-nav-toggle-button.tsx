@@ -18,8 +18,8 @@ const SideNavToggleButtonExample = ({
 	</Root>
 );
 
-export const SideNavToggleButtonVR = () => <SideNavToggleButtonExample />;
-export const SideNavToggleButtonWithShortcutVR = () => (
+export const SideNavToggleButtonVR = (): React.JSX.Element => <SideNavToggleButtonExample />;
+export const SideNavToggleButtonWithShortcutVR = (): React.JSX.Element => (
 	<SideNavToggleButtonExample isSideNavShortcutEnabled />
 );
 

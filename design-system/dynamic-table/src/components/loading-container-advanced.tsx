@@ -178,7 +178,7 @@ export default class LoadingContainerAdvanced extends React.Component<
 		}
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { children, isLoading, spinnerSize, testId, loadingLabel } = this.props;
 
 		return (

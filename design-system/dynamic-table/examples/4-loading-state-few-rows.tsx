@@ -5,7 +5,7 @@ import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 
 import { head, rows } from './content/sample-data';
 
-const LoadingPartialPageExample = () => {
+const LoadingPartialPageExample = (): React.JSX.Element => {
 	const [isLoading, setIsLoading] = useState(false);
 	return (
 		<div>

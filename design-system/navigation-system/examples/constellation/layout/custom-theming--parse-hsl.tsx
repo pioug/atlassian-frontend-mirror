@@ -6,7 +6,7 @@ import { TopNav } from '@atlaskit/navigation-system/layout/top-nav';
 import { MockRoot } from '../../utils/mock-root';
 import { MockContent } from '../common/mock-content';
 
-export const CustomThemingParseHslExample = () => (
+export const CustomThemingParseHslExample = (): React.JSX.Element => (
 	<MockRoot>
 		<TopNav
 			UNSAFE_theme={{

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import PopupPlacementExample from './10-popup';
 
-const KeydownTriggeredPopup = () => {
+const KeydownTriggeredPopup = (): React.JSX.Element => {
 	useEffect(() => {
 		const triggerElement = document.querySelector('#popup-trigger');
 		if (triggerElement instanceof HTMLElement) {

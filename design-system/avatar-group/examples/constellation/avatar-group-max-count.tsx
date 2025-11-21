@@ -18,7 +18,7 @@ const data = RANDOM_USERS.map((d, i) => ({
 	appearance: appearances[i % appearances.length],
 }));
 
-const AvatarGroupMaxCountExample = () => (
+const AvatarGroupMaxCountExample = (): React.JSX.Element => (
 	<Box xcss={styles.container}>
 		<AvatarGroup appearance="grid" maxCount={14} data={data} />
 	</Box>

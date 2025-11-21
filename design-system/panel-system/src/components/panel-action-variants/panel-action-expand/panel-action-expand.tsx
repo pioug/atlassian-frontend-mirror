@@ -11,7 +11,7 @@ export interface PanelActionExpandProps extends Pick<PanelActionProps, 'onClick'
  * The PanelActionExpand component provides an expand action button
  * for opening panels in full-screen modal experiences.
  */
-export function PanelActionExpand({ onClick, testId }: PanelActionExpandProps) {
+export function PanelActionExpand({ onClick, testId }: PanelActionExpandProps): React.JSX.Element {
 	return (
 		<PanelAction onClick={onClick} testId={testId} icon={SidebarExpandIcon} label="Expand panel" />
 	);

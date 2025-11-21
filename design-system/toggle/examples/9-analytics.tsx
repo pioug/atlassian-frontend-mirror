@@ -7,7 +7,7 @@ import Toggle from '@atlaskit/toggle';
 
 const sendAnalytics = (analytic: UIAnalyticsEvent) => console.log('analytic: ', analytic.payload);
 
-export default () => {
+export default (): React.JSX.Element => {
 	const onBlur = (event: React.FocusEvent<HTMLInputElement>) => console.log(event);
 	const onFocus = (event: React.FocusEvent<HTMLInputElement>) => console.log(event);
 	const onChange = (event: React.ChangeEvent) => console.log(event);

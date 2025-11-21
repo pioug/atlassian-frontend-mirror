@@ -1,7 +1,7 @@
-import { type CallToolResult } from '@modelcontextprotocol/sdk/types';
+import type { CallToolResult, Tool } from '@modelcontextprotocol/sdk/types';
 import { z } from 'zod';
-import { zodToJsonSchema } from 'zod-to-json-schema';
 
+import { zodToJsonSchema } from '../../helpers';
 import { searchComponentsTool } from '../search-components';
 import { searchIconsTool } from '../search-icons';
 import { searchTokensTool } from '../search-tokens';
@@ -36,7 +36,7 @@ export const planInputSchema = z.object({
 		.optional(),
 });
 
-export const listPlanTool = {
+export const listPlanTool: Tool = {
 	name: 'ads_plan',
 	description: `Search how to use the Atlassian Design System offerings and get guidance on \`tokens\`, \`icons\`, and \`components\`.
 

@@ -6,7 +6,7 @@ import SuccessIcon from '@atlaskit/icon/core/status-success';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-const AutoDismissFlagSuccessExample = () => {
+const AutoDismissFlagSuccessExample = (): React.JSX.Element => {
 	const [flags, setFlags] = React.useState<Array<number>>([]);
 
 	const addFlag = () => {

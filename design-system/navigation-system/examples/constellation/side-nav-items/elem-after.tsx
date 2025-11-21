@@ -13,7 +13,7 @@ import { MockSideNav } from './common/mock-side-nav';
 
 const exampleHref = '#example-href';
 
-export function ElemAfterExample() {
+export function ElemAfterExample(): React.JSX.Element {
 	return (
 		<MockSideNav>
 			<SideNavContent>

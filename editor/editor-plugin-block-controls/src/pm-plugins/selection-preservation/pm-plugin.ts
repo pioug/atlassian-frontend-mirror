@@ -4,6 +4,7 @@ import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import {
 	type EditorState,
 	type ReadonlyTransaction,
+	type Selection,
 	TextSelection,
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
@@ -14,13 +15,18 @@ import type { SelectionPreservationPluginState } from './types';
 import { getSelectionPreservationMeta, hasUserSelectionChange } from './utils';
 
 /**
- * Selection Preservation Plugin for ProseMirror Editor
+ * Selection Preservation Plugin
  *
- * Solves a ProseMirror limitation where TextSelection cannot include positions at node boundaries
- * (like media/images). When a selection spans text + media nodes, subsequent transactions cause
- * ProseMirror to collapse the selection to the nearest inline position, excluding the media node.
- * This is problematic for features like block menus and drag-and-drop that need stable multi-node
- * selections while performing operations.
+ * Used to ensure the selection remains stable across selected nodes during specific UI operations,
+ * such as when block menus are open or during drag-and-drop actions.
+ *
+ * We use a TextSelection to span multi-node selections, however there is a ProseMirror limitation
+ * where TextSelection cannot include non inline positions at node boundaries (like media/images).
+ *
+ * When a selection spans text + media nodes, subsequent transactions cause ProseMirror to collapse
+ * the selection to the nearest inline position, excluding the media node. This is problematic for
+ * features like block menus and drag-and-drop that need stable multi-node selections while performing
+ * operations.
  *
  * The plugin works in three phases:
  * (1) Explicitly save a selection via startPreservingSelection() when opening block menus or starting drag operations.
@@ -52,24 +58,13 @@ export const createSelectionPreservationPlugin = () => {
 				const newState = { ...pluginState };
 
 				if (meta?.type === 'startPreserving') {
-					newState.preservedSelection = new TextSelection(tr.selection.$from, tr.selection.$to);
+					newState.preservedSelection = tr.selection;
 				} else if (meta?.type === 'stopPreserving') {
 					newState.preservedSelection = undefined;
 				}
 
 				if (newState.preservedSelection && tr.docChanged) {
-					const from = tr.mapping.map(newState.preservedSelection.from);
-					const to = tr.mapping.map(newState.preservedSelection.to);
-
-					if (from < 0 || to > tr.doc.content.size || from >= to) {
-						// stop preserving if preserved selection becomes invalid or collapsed to a cursor
-						// e.g. after deleting the selection
-						newState.preservedSelection = undefined;
-					} else {
-						const { $from, $to } = expandToBlockRange(tr.doc.resolve(from), tr.doc.resolve(to));
-
-						newState.preservedSelection = new TextSelection($from, $to);
-					}
+					newState.preservedSelection = mapSelection(newState.preservedSelection, tr);
 				}
 
 				return newState;
@@ -98,14 +93,13 @@ export const createSelectionPreservationPlugin = () => {
 			const wasEmptySelection = savedSel.from === savedSel.to;
 			const selectionUnchanged = currSel.from === savedSel.from && currSel.to === savedSel.to;
 			const selectionInvalid = savedSel.from < 0 || savedSel.to > newState.doc.content.size;
+
 			if (wasEmptySelection || selectionUnchanged || selectionInvalid) {
 				return null;
 			}
 
 			try {
-				return newState.tr.setSelection(
-					TextSelection.create(newState.doc, savedSel.from, savedSel.to),
-				);
+				return newState.tr.setSelection(savedSel);
 			} catch (error) {
 				logException(error as Error, {
 					location: 'editor-plugin-block-controls/SelectionPreservationPlugin',
@@ -115,6 +109,31 @@ export const createSelectionPreservationPlugin = () => {
 			return null;
 		},
 	});
+};
+
+const mapSelection = (selection: Selection, tr: ReadonlyTransaction): Selection | undefined => {
+	if (selection instanceof TextSelection) {
+		const from = tr.mapping.map(selection.from);
+		const to = tr.mapping.map(selection.to);
+
+		// expand the text selection range to block boundaries, so as document changes occur the
+		// selection always includes whole nodes
+		const { $from, $to } = expandToBlockRange(tr.doc.resolve(from), tr.doc.resolve(to));
+
+		// stop preserving if preserved selection becomes invalid or collapsed to a cursor
+		// e.g. after deleting the selection
+		if ($from.pos < 0 || $to.pos > tr.doc.content.size || $from.pos >= $to.pos) {
+			return undefined;
+		}
+
+		return new TextSelection($from, $to);
+	}
+
+	try {
+		return selection.map(tr.doc, tr.mapping);
+	} catch {
+		return undefined;
+	}
 };
 
 const expandToBlockRange = ($from: ResolvedPos, $to: ResolvedPos) => {

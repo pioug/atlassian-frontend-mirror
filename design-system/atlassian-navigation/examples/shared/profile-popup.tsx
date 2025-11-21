@@ -9,7 +9,7 @@ const onClick = (...args: any[]) => {
 	console.log('profile click', ...args);
 };
 
-export const DefaultProfile = () => (
+export const DefaultProfile = (): React.JSX.Element => (
 	<Profile
 		icon={<img src={avatarUrl} alt="Your profile and settings" />}
 		onClick={onClick}
@@ -43,7 +43,7 @@ const imgCSS = {
 	height: 24,
 	width: 24,
 };
-export const ProfilePopup = () => {
+export const ProfilePopup = (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const onClick = () => {

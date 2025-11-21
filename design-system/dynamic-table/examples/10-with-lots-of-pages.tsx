@@ -4,7 +4,7 @@ import DynamicTable from '@atlaskit/dynamic-table';
 
 import { head, rows } from './content/sample-data';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<DynamicTable
 			caption="List of US Presidents"

@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl-next';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import { PopupUserPicker } from '../src';
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	return (
 		<IntlProvider locale="en">
 			<ExampleWrapper>

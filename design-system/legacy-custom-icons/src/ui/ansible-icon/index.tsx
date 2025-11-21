@@ -29,7 +29,13 @@ const AnsibleIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __AnsibleIcon__
  */
-const AnsibleIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const AnsibleIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

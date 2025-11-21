@@ -24,7 +24,13 @@ const GoogleDriveIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __GoogleDriveIcon__
  */
-const GoogleDriveIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const GoogleDriveIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

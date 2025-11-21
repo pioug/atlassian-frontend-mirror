@@ -29,7 +29,7 @@ const DataNumberIcon = ({
 	secondaryColor,
 	size = 'small',
 	testId,
-}: IconProps) => (
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

@@ -41,7 +41,13 @@ const CmdbObjectIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __CmdbObjectIcon__
  */
-const CmdbObjectIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const CmdbObjectIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

@@ -6,4 +6,4 @@ const props = {
 	header: 'I am the header',
 };
 
-export default () => <EmptyState {...props} />;
+export default (): React.JSX.Element => <EmptyState {...props} />;

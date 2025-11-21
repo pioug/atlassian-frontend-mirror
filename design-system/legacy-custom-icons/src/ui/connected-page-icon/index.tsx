@@ -48,7 +48,13 @@ const ConnectedPageIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __ConnectedPageIcon__
  */
-const ConnectedPageIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const ConnectedPageIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

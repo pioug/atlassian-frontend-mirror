@@ -21,7 +21,7 @@ export default class ManagedPagination extends React.Component<ManagedPagination
 		this.props.onChange(newValue, analyticsEvent);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { total, value = 1, i18n, testId, isDisabled } = this.props;
 		const pages = [...Array(total)].map((_, index) => index + 1);
 		// Pagination accepts array now thus selectedIndex starts with 0

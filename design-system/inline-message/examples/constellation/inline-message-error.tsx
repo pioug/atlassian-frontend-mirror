@@ -2,7 +2,7 @@ import React from 'react';
 
 import InlineMessage from '@atlaskit/inline-message';
 
-const InlineMessageErrorExample = () => {
+const InlineMessageErrorExample = (): React.JSX.Element => {
 	return (
 		<InlineMessage
 			appearance="error"

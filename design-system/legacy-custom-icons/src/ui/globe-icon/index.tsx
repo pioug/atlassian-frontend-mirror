@@ -30,7 +30,13 @@ const GlobeIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __GlobeIcon__
  */
-const GlobeIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const GlobeIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

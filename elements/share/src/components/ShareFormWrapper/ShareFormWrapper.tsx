@@ -36,7 +36,7 @@ const ShareFormWrapper = ({
 	integrationMode = 'off',
 	isMenuItemSelected = false,
 	isExtendedShareDialogEnabled = false,
-}: ShareFormWrapperProps) => {
+}: ShareFormWrapperProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const ContentWrapper = fg('share-compiled-migration')

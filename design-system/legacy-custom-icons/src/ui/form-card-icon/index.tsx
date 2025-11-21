@@ -28,7 +28,13 @@ const FormCardIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __FormCardIcon__
  */
-const FormCardIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const FormCardIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

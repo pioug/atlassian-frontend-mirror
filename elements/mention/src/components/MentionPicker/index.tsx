@@ -220,7 +220,7 @@ export class MentionPicker extends React.PureComponent<
 		this.mentionListRef = ref;
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			resourceProvider,
 			presenceProvider,

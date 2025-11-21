@@ -7,7 +7,7 @@ import { Box, Grid, Inline } from '@atlaskit/primitives';
 
 import { AgentAvatar } from '../src/ui/agent-avatar';
 
-export default function () {
+export default function (): React.JSX.Element {
 	return (
 		<IntlProvider locale="en">
 			<Box padding="space.300" backgroundColor="color.background.accent.gray.subtlest.pressed">

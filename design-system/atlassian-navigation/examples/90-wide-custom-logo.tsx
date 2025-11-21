@@ -15,7 +15,7 @@ const CustomHome = () => (
 	/>
 );
 
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		<AtlassianNavigation label="site" renderProductHome={CustomHome} primaryItems={[]} />
 		<p>Custom logos will get a default max width of 260px applied.</p>

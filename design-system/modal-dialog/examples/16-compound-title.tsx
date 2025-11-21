@@ -36,7 +36,7 @@ const styles = cssMap({
 	},
 });
 
-export default function CompoundTitleModal() {
+export default function CompoundTitleModal(): React.JSX.Element {
 	const [isOpen, setOpen] = useState(false);
 
 	const open = useCallback(() => setOpen(true), []);

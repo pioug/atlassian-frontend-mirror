@@ -44,7 +44,7 @@ const checkUserName = (value: string | undefined) => {
 	return value && userNameData.includes(value);
 };
 
-export default function FieldLevelValidationExample() {
+export default function FieldLevelValidationExample(): React.JSX.Element {
 	const handleSubmit = (formState: { command: string }) => {
 		console.log('form state', formState);
 	};

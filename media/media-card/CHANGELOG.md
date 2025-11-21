@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 79.8.1
+
+### Patch Changes
+
+- [`7cfa4a9ffdf8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7cfa4a9ffdf8d) -
+  Suppress i18n eslint errors
+- Updated dependencies
+
 ## 79.8.0
 
 ### Minor Changes

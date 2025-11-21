@@ -23,9 +23,12 @@ export const moveNodeWithBlockMenu = (
 			return tr;
 		}
 
+		const preservedSelection = api?.blockControls.sharedState.currentState()?.preservedSelection;
+		const selection = preservedSelection ?? tr.selection;
+
 		// Nodes like lists nest within themselves, we need to find the top most position
 		const currentNodePos = getCurrentNodePosFromDragHandleSelection({
-			selection: tr.selection,
+			selection,
 			schema: tr.doc.type.schema,
 			resolve: tr.doc.resolve.bind(tr.doc),
 		});

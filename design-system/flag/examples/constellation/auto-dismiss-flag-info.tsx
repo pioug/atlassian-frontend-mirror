@@ -6,7 +6,7 @@ import InformationIcon from '@atlaskit/icon/core/status-information';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-const AutoDismissFlagInfoExample = () => {
+const AutoDismissFlagInfoExample = (): React.JSX.Element => {
 	const [flags, setFlags] = React.useState<Array<number>>([]);
 
 	const addFlag = () => {

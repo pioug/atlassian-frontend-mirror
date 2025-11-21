@@ -5,7 +5,7 @@ import Comment, { CommentAuthor, CommentTime } from '@atlaskit/comment';
 
 import sampleAvatar from '../images/avatar_400x400.jpg';
 
-const CommentHighlightedExample = () => {
+const CommentHighlightedExample = (): React.JSX.Element => {
 	return (
 		<Comment
 			highlighted

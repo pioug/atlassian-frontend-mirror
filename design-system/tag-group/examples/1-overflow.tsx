@@ -53,7 +53,7 @@ const tagNames = [
 	'wafer',
 ];
 
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		<h2 id="group-label">Atlassian sweets</h2>
 		<TagGroup titleId="group-label">

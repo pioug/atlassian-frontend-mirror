@@ -21,7 +21,7 @@ export default function ObjectBase({
 	testId,
 	color,
 	icon: Icon,
-}: ObjectBaseProps) {
+}: ObjectBaseProps): React.JSX.Element {
 	return (
 		<Icon
 			label={label}

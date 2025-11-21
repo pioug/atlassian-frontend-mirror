@@ -14,7 +14,7 @@ const promiseOptions = (inputValue: string) =>
 			resolve(filterCities(inputValue));
 		}, 1000);
 	});
-const WithPromises = () => (
+const WithPromises = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="async-example">Which country do you live in?</Label>
 		<Select inputId="async-example" cacheOptions defaultOptions loadOptions={promiseOptions} />

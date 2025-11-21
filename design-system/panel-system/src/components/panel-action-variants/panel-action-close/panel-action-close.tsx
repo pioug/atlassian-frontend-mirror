@@ -11,6 +11,6 @@ export interface PanelActionCloseProps extends Pick<PanelActionProps, 'onClick' 
  * The PanelActionClose component provides a close action button
  * for closing panels and returning to the main content.
  */
-export function PanelActionClose({ onClick, testId }: PanelActionCloseProps) {
+export function PanelActionClose({ onClick, testId }: PanelActionCloseProps): React.JSX.Element {
 	return <PanelAction onClick={onClick} testId={testId} icon={CrossIcon} label="Close panel" />;
 }

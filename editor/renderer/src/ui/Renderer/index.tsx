@@ -1024,6 +1024,14 @@ const RendererWithAnnotationSelection = (props: RendererProps) => {
 	const localRef = React.useRef<HTMLDivElement>(null);
 	const innerRef = props.innerRef || localRef;
 
+	// @see https://hello.jira.atlassian.cloud/browse/EDITOR-3389
+	if (
+		props.appearance === 'max' &&
+		expValEquals('editor_tinymce_full_width_mode', 'isEnabled', false)
+	) {
+		props.appearance = 'full-width';
+	}
+
 	if (!allowAnnotations) {
 		// Ignored via go/ees005
 		// eslint-disable-next-line react/jsx-props-no-spreading

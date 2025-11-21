@@ -20,7 +20,7 @@ const readViewContainerStyles = cssMap({
 	},
 });
 
-const InlineEditDefaultExample = () => {
+const InlineEditDefaultExample = (): React.JSX.Element => {
 	const initialValue = 'Default team name value';
 	const [editValue, setEditValue] = useState('Pyxis');
 

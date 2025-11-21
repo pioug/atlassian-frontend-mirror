@@ -4,7 +4,7 @@ import InternalModalWrapper, { type ModalDialogProps } from './internal/componen
 
 export type { ModalDialogProps };
 
-export default function ModalWrapper(props: ModalDialogProps) {
+export default function ModalWrapper(props: ModalDialogProps): React.JSX.Element {
 	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 	return <InternalModalWrapper {...props} isFullScreen={false} />;
 }

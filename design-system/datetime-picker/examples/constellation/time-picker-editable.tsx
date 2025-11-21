@@ -3,7 +3,7 @@ import React from 'react';
 import { TimePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 
-export default function App() {
+export default function App(): React.JSX.Element {
 	return (
 		<>
 			<Label htmlFor="timepicker-editable-time">Editable time example</Label>

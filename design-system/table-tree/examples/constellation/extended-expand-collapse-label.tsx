@@ -170,7 +170,7 @@ const Title = (props: Content) => <Box as="span">{props.title}</Box>;
 const Numbering = (props: Content) => <Box as="span">{props.numbering}</Box>;
 const Page = (props: Content) => <Box as="span">{props.page}</Box>;
 
-export default () => (
+export default (): React.JSX.Element => (
 	<TableTree
 		columns={[Title, Numbering, Page]}
 		headers={['Chapter Title', 'Numbering', 'Page']}

@@ -6,7 +6,7 @@ import { Stack } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
 
-const StatelessExample = () => {
+const StatelessExample = (): React.JSX.Element => {
 	const [isChecked, toggle] = useState(false);
 
 	return (

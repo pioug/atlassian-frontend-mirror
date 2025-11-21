@@ -15,7 +15,11 @@ import { SideNavToggleButtonAttachRef, SideNavToggleButtonElement } from './togg
  * State is required as opposed to just a ref so that the effects in the side nav can react the element actually being mounted,
  * as ref values cannot be added as effect dependencies.
  */
-export const SideNavToggleButtonProvider = ({ children }: { children: React.ReactNode }) => {
+export const SideNavToggleButtonProvider = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): React.JSX.Element => {
 	const [element, setElement] = useState<HTMLButtonElement | null>(null);
 
 	return (

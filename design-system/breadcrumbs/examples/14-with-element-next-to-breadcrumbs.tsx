@@ -4,7 +4,7 @@ import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import { AtlassianIcon } from '@atlaskit/logo';
 import { token } from '@atlaskit/tokens';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 		<div style={{ display: 'flex', alignItems: 'center' }}>

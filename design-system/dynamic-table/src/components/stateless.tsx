@@ -66,7 +66,7 @@ const DynamicTable = ({
 		label: 'Pagination',
 		pageLabel: 'Page',
 	},
-}: Props) => {
+}: Props): React.JSX.Element => {
 	const [isRanking, setIsRanking] = useState(false);
 	const tableBodyRef = useRef<HTMLTableSectionElement>(null);
 

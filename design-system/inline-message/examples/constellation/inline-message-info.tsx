@@ -3,7 +3,7 @@ import React from 'react';
 import InlineMessage from '@atlaskit/inline-message';
 import Link from '@atlaskit/link';
 
-const InlineMessageInfoExample = () => {
+const InlineMessageInfoExample = (): React.JSX.Element => {
 	return (
 		<InlineMessage appearance="info">
 			<p>

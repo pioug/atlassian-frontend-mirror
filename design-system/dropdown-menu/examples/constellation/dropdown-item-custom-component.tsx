@@ -21,7 +21,7 @@ const CustomComponentButton: React.ForwardRefExoticComponent<
 	</button>
 ));
 
-const DropdownItemDescriptionExample = () => {
+const DropdownItemDescriptionExample = (): React.JSX.Element => {
 	return (
 		<DropdownMenu trigger="Page actions" shouldRenderToParent>
 			<DropdownItemGroup>

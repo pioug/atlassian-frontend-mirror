@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import UserPicker from '../src';
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const [isMulti, setIsMulti] = useState(false);
 	const [openMenuOnClick, setOpenMenuOnClick] = useState(false);
 	return (

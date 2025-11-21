@@ -65,7 +65,7 @@ const ColorButtons = ({ colors, changeHandler, setSelectedColor }: ColorButtonsP
 	</React.Fragment>
 );
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [selectedColor, setSelectedColor] = useState('none');
 	const [isSubmit, setIsSubmit] = useState(false);
 	const resetFormValue = () => {

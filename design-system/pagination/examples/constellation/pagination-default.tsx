@@ -2,7 +2,7 @@ import React from 'react';
 
 import Pagination from '@atlaskit/pagination';
 
-export default function PaginationDefaultExample() {
+export default function PaginationDefaultExample(): React.JSX.Element {
 	return (
 		<Pagination
 			nextLabel="Next"

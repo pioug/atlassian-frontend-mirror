@@ -416,6 +416,7 @@ export default function Field<
 		isDisabled,
 		isInvalid: Boolean(state.error),
 		isRequired: Boolean(props.isRequired),
+		'aria-required': String(Boolean(props.isRequired)),
 		'aria-invalid': (state.error ? 'true' : 'false') as 'true' | 'false',
 		'aria-describedby': getDescribedBy(),
 		'aria-labelledby': `${fieldId}-label`,

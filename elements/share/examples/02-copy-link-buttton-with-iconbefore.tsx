@@ -4,7 +4,7 @@ import FeedbackIcon from '@atlaskit/icon/core/migration/feedback';
 
 import { CopyLinkButton } from '../src/components/CopyLinkButton';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<CopyLinkButton
 		link={'http://atlassian.com'}
 		copyLinkButtonText={'Feedback Link Copy'}

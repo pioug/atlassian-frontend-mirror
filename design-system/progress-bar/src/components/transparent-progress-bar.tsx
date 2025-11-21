@@ -17,7 +17,7 @@ const TransparentProgressBar = ({
 	isIndeterminate = false,
 	testId,
 	value = 0,
-}: CustomProgressBarProps) => {
+}: CustomProgressBarProps): React.JSX.Element => {
 	return (
 		<ProgressBar
 			appearance="inverse"

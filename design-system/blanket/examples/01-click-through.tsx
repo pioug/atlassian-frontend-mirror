@@ -5,7 +5,7 @@ import Button from '@atlaskit/button/new';
 import { useCloseOnEscapePress } from '@atlaskit/layering';
 import { Stack, Text } from '@atlaskit/primitives/compiled';
 
-const BasicExample = () => {
+const BasicExample = (): React.JSX.Element => {
 	const [isBlanketVisible, setIsBlanketVisible] = useState(false);
 	const showBlanketClick = useCallback(() => {
 		setIsBlanketVisible((isBlanketVisible) => !isBlanketVisible);

@@ -19,7 +19,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<div
 			style={{

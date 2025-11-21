@@ -2,4 +2,4 @@ import React from 'react';
 
 import Tag from '@atlaskit/tag';
 
-export default () => <Tag text="Removable tag" removeButtonLabel="Remove" />;
+export default (): React.JSX.Element => <Tag text="Removable tag" removeButtonLabel="Remove" />;

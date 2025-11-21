@@ -5,7 +5,7 @@ import { SpotlightCard } from '@atlaskit/onboarding';
 
 import spotlightImage from '../assets/this-is-new-jira.png';
 
-const SpotlightCardHeadingExample = () => {
+const SpotlightCardHeadingExample = (): React.JSX.Element => {
 	return (
 		<SpotlightCard
 			image={<img src={spotlightImage} alt="" width="400" />}

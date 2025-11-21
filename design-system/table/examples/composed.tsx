@@ -7,7 +7,7 @@ import { presidents } from './content/presidents';
 /**
  * Primary UI component for user interaction
  */
-const CompositionExample = () => {
+const CompositionExample = (): React.JSX.Element => {
 	return (
 		<Table>
 			<THead>

@@ -50,4 +50,4 @@ const tableData = [
 	},
 ];
 
-export default () => <WithStaticData tableData={tableData} />;
+export default (): React.JSX.Element => <WithStaticData tableData={tableData} />;

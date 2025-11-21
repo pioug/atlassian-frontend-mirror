@@ -5,7 +5,7 @@ import Comment, { CommentAuthor, CommentEdited, CommentTime } from '@atlaskit/co
 
 import sampleAvatar from '../images/avatar_400x400.jpg';
 
-const CommentDefaultExample = () => {
+const CommentDefaultExample = (): React.JSX.Element => {
 	return (
 		<Comment
 			avatar={<Avatar name="Scott Farquhar" src={sampleAvatar} />}

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Calendar from '@atlaskit/calendar';
 
-export default [
+const _default_1: React.JSX.Element[] = [
 	<Calendar
 		selected={['2024-03-15']}
 		onChange={(dates) => console.log('Selected dates:', dates)}
@@ -21,3 +21,4 @@ export default [
 		onChange={(dates) => console.log('Constrained dates:', dates)}
 	/>,
 ];
+export default _default_1;

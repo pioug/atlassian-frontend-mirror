@@ -12,7 +12,7 @@ const disabledDates = [
 	'2020-12-18',
 ];
 
-const DatePickerDisabledExample = () => (
+const DatePickerDisabledExample = (): React.JSX.Element => (
 	<>
 		<Label id="disabled" htmlFor="datepicker-disabled">
 			Disabled Dates

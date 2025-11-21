@@ -563,12 +563,12 @@ describe('history', () => {
 				expect(redoDepth(state)).toBe(0);
 			});
 
-			it('should ignore addToHistory=false transactions during history slice', () => {
+			it('should ignore isRemote=true transactions during history slice', () => {
 				let state = mkState(undefined, { newGroupDelay: 1000 });
 				state = state.apply(state.tr.setMeta('startHistorySlice', true));
 				state = state.apply(state.tr.insertText('a').setTime(1000));
 				// Non-tracked transaction should be ignored during slice
-				state = state.apply(state.tr.insertText('ignored').setMeta('addToHistory', false));
+				state = state.apply(state.tr.insertText('ignored').setMeta('isRemote', true));
 				state = state.apply(state.tr.insertText('b').setTime(1600));
 				state = state.apply(state.tr.setMeta('endHistorySlice', true));
 				expect(undoDepth(state)).toBe(1);
@@ -678,14 +678,14 @@ describe('history', () => {
 				});
 			});
 
-			it('should handle addToHistory=false with null prevRanges during slice', () => {
+			it('should handle isRemote=true with null prevRanges during slice', () => {
 				let state = mkState(undefined, { newGroupDelay: 1000 });
 				// Start with a state that might have null prevRanges
 				state = state.apply(state.tr.setMeta('startHistorySlice', true));
 				expect(undoDepth(state)).toBe(0);
 
-				// Apply a transaction with addToHistory=false - this should not crash
-				state = state.apply(state.tr.insertText('test').setMeta('addToHistory', false));
+				// Apply a transaction with isRemote=false - this should not crash
+				state = state.apply(state.tr.insertText('test').setMeta('isRemote', true));
 				expect(undoDepth(state)).toBe(0);
 
 				// Add a tracked transaction
@@ -708,7 +708,7 @@ describe('history', () => {
 				});
 			});
 
-			it('should handle addToHistory=false during slice with existing history', () => {
+			it('should handle isRemote=true during slice with existing history', () => {
 				let state = mkState(undefined, { newGroupDelay: 1000 });
 				// First establish some history to ensure prevRanges is not null
 				state = state.apply(state.tr.insertText('initial').setTime(1000));
@@ -718,9 +718,9 @@ describe('history', () => {
 				state = state.apply(state.tr.setMeta('startHistorySlice', true));
 				state = state.apply(state.tr.insertText('a').setTime(2000));
 
-				// Apply multiple addToHistory=false transactions during the slice
-				state = state.apply(state.tr.insertText('x').setMeta('addToHistory', false));
-				state = state.apply(state.tr.insertText('y').setMeta('addToHistory', false));
+				// Apply multiple isRemote=false transactions during the slice
+				state = state.apply(state.tr.insertText('x').setMeta('isRemote', true));
+				state = state.apply(state.tr.insertText('y').setMeta('isRemote', true));
 
 				// Add more tracked content
 				state = state.apply(state.tr.insertText('b').setTime(2100));
@@ -844,8 +844,8 @@ describe('history', () => {
 				state = state.apply(state.tr.insertText('a').setTime(1000));
 
 				// Add multiple non-tracked transactions
-				state = state.apply(state.tr.insertText('x').setMeta('addToHistory', false));
-				state = state.apply(state.tr.insertText('y').setMeta('addToHistory', false));
+				state = state.apply(state.tr.insertText('x').setMeta('isRemote', true));
+				state = state.apply(state.tr.insertText('y').setMeta('isRemote', true));
 
 				state = state.apply(state.tr.insertText('b').setTime(1600));
 				state = state.apply(state.tr.setMeta('endHistorySlice', true));
@@ -867,7 +867,7 @@ describe('history', () => {
 
 				// Apply a non-tracked transaction that changes the document structure
 				// This could make the tracked steps invalid
-				state = state.apply(state.tr.delete(1, 5).setMeta('addToHistory', false)); // Remove 'hell'
+				state = state.apply(state.tr.delete(1, 5).setMeta('isRemote', true)); // Remove 'hell'
 				expect(state.doc).toEqualDocument(doc(p('o awesome world')));
 
 				// Add another tracked step that might conflict with the previous ones

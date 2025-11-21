@@ -10,7 +10,7 @@ import Comment, {
 
 import sampleAvatar from '../images/avatar_400x400.jpg';
 
-const CommentFullExample = () => {
+const CommentFullExample = (): React.JSX.Element => {
 	return (
 		<Comment
 			avatar={<Avatar name="Scott Farquhar" src={sampleAvatar} />}

@@ -6,7 +6,7 @@ import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-const AutoDismissFlagErrorExample = () => {
+const AutoDismissFlagErrorExample = (): React.JSX.Element => {
 	const [flags, setFlags] = React.useState<Array<number>>([]);
 
 	const addFlag = () => {

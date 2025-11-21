@@ -1,5 +1,7 @@
+import type { Tool } from '@modelcontextprotocol/sdk/types';
 import { z } from 'zod';
-import { zodToJsonSchema } from 'zod-to-json-schema';
+
+import { zodToJsonSchema } from '../../helpers';
 
 import { accessibilityFixes } from './fixes';
 import { violationKeywords } from './keywords';
@@ -11,7 +13,7 @@ export const suggestA11yFixesInputSchema = z.object({
 	context: z.string().optional().describe('Additional context about the usage'),
 });
 
-export const listSuggestA11yFixesTool = {
+export const listSuggestA11yFixesTool: Tool = {
 	name: 'ads_suggest_a11y_fixes',
 	description: `Suggests specific accessibility fixes using Atlassian Design System components and patterns.`,
 	annotations: {

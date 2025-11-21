@@ -4,7 +4,7 @@ import { Label } from '@atlaskit/form';
 import { Stack } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 
-const LoadingExample = () => {
+const LoadingExample = (): React.JSX.Element => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isChecked, toggle] = useState(false);
 	const timeoutRef = useRef<NodeJS.Timeout | null>(null);

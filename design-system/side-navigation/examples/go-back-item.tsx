@@ -3,7 +3,7 @@ import React from 'react';
 import BitbucketPipelinesIcon from '@atlaskit/icon/glyph/bitbucket/pipelines';
 import { GoBackItem } from '@atlaskit/side-navigation';
 
-const Example = () => (
+const Example = (): React.JSX.Element => (
 	<>
 		<GoBackItem>Back to project</GoBackItem>
 		<GoBackItem isSelected>Back to project</GoBackItem>

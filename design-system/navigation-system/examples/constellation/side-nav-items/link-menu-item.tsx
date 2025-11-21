@@ -43,7 +43,7 @@ function MoreAction() {
 
 const linkMenuItemHref = '#example-href';
 
-export function LinkMenuItemExample() {
+export function LinkMenuItemExample(): React.JSX.Element {
 	const [showSelectedStateExample, setShowSelectedStateExample] = useState(false);
 	return (
 		<>

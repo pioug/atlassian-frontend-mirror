@@ -112,7 +112,7 @@ export default class ResourcedMention extends React.PureComponent<Props, State> 
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { props, state } = this;
 
 		return (

@@ -31,7 +31,13 @@ const InfoIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __InfoIcon__
  */
-const InfoIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const InfoIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

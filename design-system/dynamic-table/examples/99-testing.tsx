@@ -5,7 +5,7 @@ import DynamicTable from '@atlaskit/dynamic-table';
 
 import { caption, head, rows } from './content/sample-data';
 
-export default function DynamicTableBasicExample() {
+export default function DynamicTableBasicExample(): React.JSX.Element {
 	const [isLoading, setIsLoading] = useState(false);
 	const [selectedRows, setSelectedRows] = useState<number[]>([]);
 

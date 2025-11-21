@@ -77,7 +77,7 @@ const CustomMenu = (props: MenuProps<Option>) => {
 	);
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [value, setValue] = useState<ValueType<Option>>();
 	return (
 		<Stack space="space.400">

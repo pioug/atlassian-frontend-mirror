@@ -7,7 +7,7 @@ import { themes } from './shared/themes';
 const primary = 4;
 const secondary = 4;
 
-const ThemedSkeletonExample = () => (
+const ThemedSkeletonExample = (): React.JSX.Element => (
 	<div>
 		{themes.map((theme, i) => (
 			<Fragment key={i}>

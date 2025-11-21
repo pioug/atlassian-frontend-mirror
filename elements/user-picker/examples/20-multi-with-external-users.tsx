@@ -41,7 +41,7 @@ const InputWrapper = styled.div({
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const [hasAsyncSources, setHasAsyncSources] = React.useState(true);
 	const [selectedSources, setSelectedSources] = React.useState<Option[]>(sources);
 	const loadUserSource = useCallback(

@@ -9,7 +9,7 @@ const onClick = (...args: any[]) => {
 	console.log('profile click', ...args);
 };
 
-export const DefaultProfile = () => (
+export const DefaultProfile = (): React.JSX.Element => (
 	<Profile
 		icon={
 			<img

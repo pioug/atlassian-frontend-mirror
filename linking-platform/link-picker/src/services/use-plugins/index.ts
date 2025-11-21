@@ -1,4 +1,3 @@
-/* TODO(ASIMO-2105): cherrera2@ to remove persistent plugin banners once the experiment is over regardless of outcome */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
@@ -10,7 +9,6 @@ import { ANALYTICS_CHANNEL, RECENT_SEARCH_LIST_SIZE } from '../../common/constan
 import {
 	type LinkPickerPlugin,
 	type LinkPickerPluginAction,
-	type LinkPickerPluginBanner,
 	type LinkPickerPluginErrorFallback,
 	type LinkPickerState,
 	type LinkSearchListItemData,
@@ -30,14 +28,12 @@ export interface LinkPickerPluginsService {
 	retry: () => void;
 	errorFallback?: LinkPickerPluginErrorFallback;
 	pluginAction?: LinkPickerPluginAction;
-	pluginBanner?: LinkPickerPluginBanner;
 }
 
 export function usePlugins(
 	state: LinkPickerState | null,
 	activeTab: number,
 	plugins?: LinkPickerPlugin[],
-	thirdPartyTabExperimentEnabled: boolean = false,
 	recentSearchListSize?: number,
 ): LinkPickerPluginsService {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -125,13 +121,6 @@ export function usePlugins(
 
 	const { items, isLoading, error } = pluginState;
 
-	// This is needed for the 3P tab experiments to show a persistent banner across tabs. Will be removed once the experiment is over regardless of outcome.
-	const pluginBanner = useMemo(() => {
-		return thirdPartyTabExperimentEnabled
-			? plugins?.find((plugin) => plugin.banner)?.banner
-			: undefined;
-	}, [plugins, thirdPartyTabExperimentEnabled]);
-
 	return {
 		tabs,
 		items,
@@ -142,7 +131,6 @@ export function usePlugins(
 		retry: handleRetry,
 		errorFallback: activePlugin?.errorFallback,
 		pluginAction: activePlugin?.action,
-		pluginBanner,
 	};
 }
 

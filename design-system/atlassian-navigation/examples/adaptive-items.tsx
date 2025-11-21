@@ -23,7 +23,7 @@ const ResponsivePrimaryButton = (props: PrimaryButtonProps) => {
 
 const sizes = ['100%', '75%', '50%', '25%'];
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [size, setSize] = useState(0);
 	const [items, setItems] = useState<JSX.Element[]>([]);
 	const sizeIndex = size % sizes.length;

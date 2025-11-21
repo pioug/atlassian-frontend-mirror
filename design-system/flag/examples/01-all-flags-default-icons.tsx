@@ -32,7 +32,7 @@ const appearances: { [key: string]: { description: string; title: string } } = {
 	},
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Stack space="space.100">
 		{Object.keys(appearances).map((type, idx) => (
 			<Flag

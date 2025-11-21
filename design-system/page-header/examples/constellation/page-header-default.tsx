@@ -11,7 +11,7 @@ const breadcrumbs = (
 	</Breadcrumbs>
 );
 
-const PageHeaderDefaultExample = () => {
+const PageHeaderDefaultExample = (): React.JSX.Element => {
 	return <PageHeader breadcrumbs={breadcrumbs}>How to use the page header component</PageHeader>;
 };
 

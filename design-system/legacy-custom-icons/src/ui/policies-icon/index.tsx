@@ -25,7 +25,13 @@ const PoliciesIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __PoliciesIcon__
  */
-const PoliciesIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const PoliciesIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

@@ -113,7 +113,7 @@ export default class DynamicTable extends React.Component<StatefulProps, State> 
 		this.onRankEndIfExistsHandler(params);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { page, sortKey, sortOrder, rows } = this.state;
 		const {
 			caption,

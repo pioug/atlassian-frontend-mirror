@@ -23,7 +23,7 @@ const requiredValidator = (data: FormData, key: string) => {
 	}
 };
 
-const CheckboxInvalidExample = () => {
+const CheckboxInvalidExample = (): React.JSX.Element => {
 	return (
 		<Form<FormData>
 			onSubmit={(data) => {

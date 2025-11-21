@@ -38,7 +38,10 @@ export interface OnTableSizeSelection {
 
 const selectedButtonStyles = css({
 	backgroundColor: token('color.background.accent.blue.subtlest', '#579DFF'),
-	border: `${token('border.width')} solid ${token('color.background.accent.blue.subtle', '#579DFF')}`,
+	border: `${token('border.width')} solid ${token(
+		'color.background.accent.blue.subtle',
+		'#579DFF',
+	)}`,
 });
 
 const buttonStyles = css({
@@ -188,6 +191,7 @@ const TableSelectorPopup = ({
 				})}
 			</div>
 			<span css={selectionSizeTextStyles} aria-hidden={true}>
+				{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 				{`${selectedCol} x ${selectedRow}`}
 			</span>
 		</Stack>

@@ -14,7 +14,7 @@ const iconWrapperStyles = xcss({
 	marginLeft: 'space.050',
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [isMouseHovered, setHoverState] = useState(false);
 	const onMouseEnter = useCallback(() => setHoverState(true), [setHoverState]);
 	const onMouseLeave = useCallback(() => setHoverState(false), [setHoverState]);

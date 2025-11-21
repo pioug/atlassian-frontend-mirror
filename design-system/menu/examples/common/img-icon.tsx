@@ -5,7 +5,7 @@ type ImgIconProps = {
 	alt: string;
 };
 
-const ImgIcon = ({ src, alt }: ImgIconProps) => {
+const ImgIcon = ({ src, alt }: ImgIconProps): React.JSX.Element => {
 	return (
 		<img
 			alt={alt}

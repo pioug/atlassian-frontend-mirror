@@ -23,7 +23,7 @@ export default class ModalBasicExample extends Component<{}, State> {
 			primaryButtonOnRight: !state.primaryButtonOnRight,
 		}));
 
-	render() {
+	render(): React.JSX.Element {
 		const { active } = this.state;
 
 		return (

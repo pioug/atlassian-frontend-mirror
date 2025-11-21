@@ -6,7 +6,7 @@ import DynamicTable from '@atlaskit/dynamic-table'; // defaults to using the STA
 import { caption, head, rows } from './content/sample-data';
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default function ReduceRowsPaginationGoesToLastPageExample() {
+export default function ReduceRowsPaginationGoesToLastPageExample(): React.JSX.Element {
 	const [showMoreData, setShowMoreData] = useState(true);
 	const [numRowsPerPage, setNumRowsPerPage] = useState(10);
 

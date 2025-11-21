@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.13.9",
+	"version": "215.13.10",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -214,10 +214,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_media_block_default": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"editor_a11y_refactor_find_replace_style": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

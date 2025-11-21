@@ -4,7 +4,7 @@ import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 
 import { Panel } from './shared';
 
-export default function testing() {
+export default function testing(): React.JSX.Element {
 	return (
 		<Tabs
 			onChange={(index) => {

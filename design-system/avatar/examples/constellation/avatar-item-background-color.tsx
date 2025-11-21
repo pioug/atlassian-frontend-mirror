@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar, { AvatarItem } from '@atlaskit/avatar';
 
-const AvatarItemBackgroundColorExample = () => (
+const AvatarItemBackgroundColorExample = (): React.JSX.Element => (
 	<AvatarItem
 		backgroundColor="pink"
 		avatar={

@@ -1,5 +1,12 @@
 # @atlaskit/flag
 
+## 17.5.7
+
+### Patch Changes
+
+- [`b74a80c366de2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b74a80c366de2) -
+  Allow setting custom auto-dismiss duration for AutoDismiss flag
+
 ## 17.5.6
 
 ### Patch Changes

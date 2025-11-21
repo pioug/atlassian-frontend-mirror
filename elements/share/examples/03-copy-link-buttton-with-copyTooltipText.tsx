@@ -2,7 +2,7 @@ import React from 'react';
 
 import { CopyLinkButton } from '../src/components/CopyLinkButton';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<CopyLinkButton
 		link={'http://atlassian.com'}
 		copyLinkButtonText={'Copy link with Tooltip'}

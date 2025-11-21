@@ -4,7 +4,7 @@ import Toggle from '@atlaskit/toggle';
 
 import { Label } from './label';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [isChecked, setIsChecked] = useState(false);
 
 	return (

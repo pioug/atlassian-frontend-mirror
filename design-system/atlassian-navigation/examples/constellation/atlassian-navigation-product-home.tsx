@@ -7,7 +7,7 @@ const ExampleHome = () => (
 	<ProductHome href="#" siteTitle="Hello" icon={AtlassianIcon} logo={AtlassianLogo} />
 );
 
-const ProductHomeExample = () => (
+const ProductHomeExample = (): React.JSX.Element => (
 	<AtlassianNavigation label="site" renderProductHome={ExampleHome} primaryItems={[]} />
 );
 

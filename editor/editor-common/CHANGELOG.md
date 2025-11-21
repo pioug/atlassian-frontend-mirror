@@ -1,5 +1,19 @@
 # @atlaskit/editor-common
 
+## 110.33.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.33.1
+
+### Patch Changes
+
+- [`d3461a5b84b81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3461a5b84b81) -
+  Suppress i18n errors
+- Updated dependencies
+
 ## 110.33.0
 
 ### Minor Changes

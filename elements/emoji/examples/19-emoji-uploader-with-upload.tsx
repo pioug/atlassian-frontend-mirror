@@ -11,7 +11,7 @@ import { lorem } from '../example-helpers';
 import type { EmojiProvider } from '../src/resource';
 import { IntlProvider } from 'react-intl-next';
 
-export default function EmojiUploaderWithUpload() {
+export default function EmojiUploaderWithUpload(): React.JSX.Element {
 	const emojiProvider: Promise<EmojiProvider> = getEmojiResource({
 		uploadSupported: true,
 		currentUser: { id: loggedUser },

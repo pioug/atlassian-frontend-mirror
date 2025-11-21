@@ -9,4 +9,4 @@ const props = {
 	imageUrl: exampleImage,
 };
 
-export default () => <EmptyState {...props} />;
+export default (): React.JSX.Element => <EmptyState {...props} />;

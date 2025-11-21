@@ -7,7 +7,7 @@ import { IntlProvider } from 'react-intl-next';
 
 const emojiService = getEmojiRepository();
 
-export const renderEmoji = (fitToHeight: number = 24) => {
+export const renderEmoji = (fitToHeight: number = 24): React.JSX.Element => {
 	const blueStar = emojiService.findById('atlassian-blue_star');
 	const blueStarEmoji = blueStar ? (
 		<Emoji emoji={blueStar} showTooltip={true} fitToHeight={fitToHeight} />
@@ -36,7 +36,7 @@ export const renderEmoji = (fitToHeight: number = 24) => {
 	);
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<IntlProvider locale="en">
 			<div>{renderEmoji(12)}</div>

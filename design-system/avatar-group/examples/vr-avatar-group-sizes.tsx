@@ -11,7 +11,7 @@ const data = RANDOM_USERS.map((d, i) => ({
 	appearance: appearances[i % appearances.length],
 }));
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<>
 			{(['small', 'medium', 'large', 'xlarge'] as const).map((size) => (

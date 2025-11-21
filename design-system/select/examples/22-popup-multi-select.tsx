@@ -93,4 +93,4 @@ class MultiPopupSelectExample extends Component<{}, State> {
 	}
 }
 
-export default () => <MultiPopupSelectExample />;
+export default (): React.JSX.Element => <MultiPopupSelectExample />;

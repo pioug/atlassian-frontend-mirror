@@ -7,7 +7,7 @@ import { TopNav } from '@atlaskit/navigation-system/layout/top-nav';
 
 import { MockRoot } from '../../utils/mock-root';
 
-export const CustomThemingLogoExample = () => (
+export const CustomThemingLogoExample = (): React.JSX.Element => (
 	<MockRoot>
 		<TopNav
 			UNSAFE_theme={{ backgroundColor: parseHex('#964AC0'), highlightColor: parseHex('#F8EEFE') }}

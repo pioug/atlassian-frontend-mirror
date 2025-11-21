@@ -4,7 +4,7 @@ import { DateTimePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives/compiled';
 
-const DateTimePickerWeekStartDayExample = () => (
+const DateTimePickerWeekStartDayExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="datetime-1">Sunday example</Label>
 		<DateTimePicker

@@ -12,6 +12,8 @@ const data = RANDOM_USERS.map((d, i) => ({
 	appearance: appearances[i % appearances.length],
 }));
 
-const AvatarGroupStackExample = () => <AvatarGroup appearance="stack" data={data} />;
+const AvatarGroupStackExample = (): React.JSX.Element => (
+	<AvatarGroup appearance="stack" data={data} />
+);
 
 export default AvatarGroupStackExample;

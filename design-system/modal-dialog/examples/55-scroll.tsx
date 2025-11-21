@@ -21,7 +21,7 @@ const containerStyles = cssMap({
 	},
 });
 
-export default function ExampleScroll() {
+export default function ExampleScroll(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const [titleShown, setTitleShown] = useState(true);
 	const [shouldScrollInViewport, setShouldScrollInViewPort] = useState(false);

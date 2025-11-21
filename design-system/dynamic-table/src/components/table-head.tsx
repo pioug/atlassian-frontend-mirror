@@ -37,7 +37,7 @@ class TableHead extends React.Component<TableHeadProps, { activeSortButtonId: st
 		}
 	}
 
-	render() {
+	render(): React.JSX.Element | null {
 		const { head, sortKey, sortOrder, isFixedSize, onSort, isRanking, isRankable, testId } =
 			this.props;
 		const { activeSortButtonId } = this.state;

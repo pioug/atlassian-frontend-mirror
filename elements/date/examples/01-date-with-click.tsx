@@ -1,7 +1,7 @@
 import React from 'react';
 import { Date } from '../src';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<h3>with no onClick</h3>
 		<p>

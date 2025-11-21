@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ButtonItem, HeadingItem, Section } from '@atlaskit/side-navigation';
 
-const SectionExample = () => {
+const SectionExample = (): React.JSX.Element => {
 	return (
 		<div>
 			<Section title="Planning">

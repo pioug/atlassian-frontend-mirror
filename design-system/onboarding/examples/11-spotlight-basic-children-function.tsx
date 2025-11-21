@@ -43,7 +43,7 @@ export default function SpotlightBasicChildrenFunctionExample({
 	defaultIsActive = false,
 }: {
 	defaultIsActive?: boolean;
-}) {
+}): React.JSX.Element {
 	const [isActive, setIsActive] = useState(defaultIsActive);
 
 	const showSpotlight = useCallback(() => {
@@ -98,6 +98,6 @@ export default function SpotlightBasicChildrenFunctionExample({
 	);
 }
 
-export function SpotlightBasicChildrenFunctionDefaultOpenExample() {
+export function SpotlightBasicChildrenFunctionDefaultOpenExample(): React.JSX.Element {
 	return <SpotlightBasicChildrenFunctionExample defaultIsActive />;
 }

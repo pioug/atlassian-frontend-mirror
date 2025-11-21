@@ -5,7 +5,7 @@ import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags'
 
 const fgs = ['select-avoid-duplicated-registered-ref'];
 
-export default () => {
+export default (): React.JSX.Element => {
 	setBooleanFeatureFlagResolver((key) => fgs.includes(key));
 	return (
 		<DropdownMenu trigger="New behavior" testId="dropdown" shouldRenderToParent>

@@ -5,7 +5,7 @@ import Flag, { FlagGroup } from '@atlaskit/flag';
 import InfoIcon from '@atlaskit/icon/glyph/info';
 import { Box } from '@atlaskit/primitives/compiled';
 
-const ProgrammaticFlagDismissExample = () => {
+const ProgrammaticFlagDismissExample = (): React.JSX.Element => {
 	const [flags, setFlags] = useState<Array<ReactElement>>([
 		<Flag
 			id="flag1"

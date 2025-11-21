@@ -27,7 +27,13 @@ const ProjectIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __ProjectIcon__
  */
-const ProjectIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const ProjectIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

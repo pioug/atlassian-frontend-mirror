@@ -19,7 +19,10 @@ type BodyProps<Item extends object> =
 /**
  * __Table body__
  */
-function TBody<ObjectType extends object>({ rows, children }: BodyProps<ObjectType>) {
+function TBody<ObjectType extends object>({
+	rows,
+	children,
+}: BodyProps<ObjectType>): React.JSX.Element {
 	const { sortFn } = useTable<ObjectType>();
 	const [_state, { removeAll, setMax }] = useSelection();
 	// TODO: this seems like something the user should control or opt into.

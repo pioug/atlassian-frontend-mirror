@@ -20,6 +20,7 @@ import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 export type ActiveNode = {
@@ -78,6 +79,7 @@ export interface PluginState {
 	menuTriggerBy?: string;
 	menuTriggerByNode?: TriggerByNode;
 	multiSelectDnD?: MultiSelectDnD;
+	preservedSelection?: Selection;
 }
 
 export type ReleaseHiddenDecoration = () => boolean | undefined;
@@ -102,6 +104,7 @@ export type BlockControlsSharedState =
 			menuTriggerBy?: string;
 			menuTriggerByNode?: TriggerByNode;
 			multiSelectDnD?: MultiSelectDnD;
+			preservedSelection?: Selection;
 	  }
 	| undefined;
 

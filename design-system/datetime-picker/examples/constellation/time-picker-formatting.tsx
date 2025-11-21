@@ -3,7 +3,7 @@ import React from 'react';
 import { TimePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 
-const TimePickerFormattingExample = () => (
+const TimePickerFormattingExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="timepicker-custom-format">Custom Time Format</Label>
 		<TimePicker

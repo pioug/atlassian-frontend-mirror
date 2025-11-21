@@ -92,7 +92,7 @@ const PopupComponent = () => {
 	);
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Stack alignInline="start" space="space.200">
 		<Heading size="xsmall">
 			This example was created due to an issue that appeared that caused hot-111305. The structure

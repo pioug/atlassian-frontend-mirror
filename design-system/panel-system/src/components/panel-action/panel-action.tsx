@@ -21,7 +21,7 @@ export function PanelAction({
 	'aria-haspopup': ariaHaspopup,
 	icon,
 	label,
-}: PanelActionProps) {
+}: PanelActionProps): React.JSX.Element {
 	if (icon) {
 		return (
 			<IconButton

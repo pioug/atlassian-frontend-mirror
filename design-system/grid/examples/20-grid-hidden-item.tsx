@@ -2,7 +2,7 @@ import React from 'react';
 
 import Grid, { GridItem } from '@atlaskit/grid';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Grid testId="grid">
 		<GridItem>visible</GridItem>
 		<GridItem span="none">hidden: all breakpoints</GridItem>

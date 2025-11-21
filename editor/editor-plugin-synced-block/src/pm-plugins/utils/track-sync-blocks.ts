@@ -17,56 +17,91 @@ export const trackSyncBlocks = (
 	const removed: syncBlockMap = {};
 	const added: syncBlockMap = {};
 
+	if (!tr.docChanged) {
+		return {
+			removed: [],
+			added: [],
+		};
+	}
+
 	// and cast to specific step types
 	const replaceSteps = tr.steps.filter(
 		(step) => step instanceof ReplaceStep || step instanceof ReplaceAroundStep,
 	) as (ReplaceStep | ReplaceAroundStep)[];
 
-	replaceSteps.forEach((step) => {
+	// this is a quick check to see if any insertion/deletion of bodiedSyncBlock happened
+	const hasBodiedSyncBlockChanges = replaceSteps.some((step) => {
 		const { from, to } = step;
-		// replaced a range, check for deleted syncBlock
 
+		let hasChange = false;
 		if (from !== to) {
 			step.getMap().forEach((oldStart, oldEnd) => {
-				if (oldStart !== oldEnd) {
-					const deletedSlice = state.doc.slice(oldStart, oldEnd);
+				if (oldStart !== oldEnd && !hasChange) {
+					const deletedSlice = state.doc.slice(
+						Math.max(0, oldStart),
+						Math.min(state.doc.content.size, oldEnd),
+					);
 
-					deletedSlice.content.nodesBetween(0, deletedSlice.content.size, (node) => {
-						if (predicate(node)) {
-							if (added[node.attrs.localId]) {
-								// If a source block added and then removed in the same transaction,
-								// we treat it as no-op.
-								delete added[node.attrs.localId];
-							} else {
-								removed[node.attrs.localId] = node.attrs as SyncBlockAttrs;
-							}
+					deletedSlice.content.forEach((node, _, index) => {
+						if (hasChange) {
+							return;
 						}
-
-						// we don't need to go deeper
-						return false;
+						// for top level nodes
+						if (predicate(node)) {
+							hasChange = true;
+						}
 					});
 				}
 			});
 		}
 
-		// replaced content, check for inserted syncBlock
-		// if only one replace step, we have already checked the entire replaced range above
-		if (step.slice.content.size > 0) {
-			step.slice.content.nodesBetween(0, step.slice.content.size, (node) => {
-				if (predicate(node)) {
-					if (removed[node.attrs.localId]) {
-						// If a source block is removed and added back in the same transaction,
-						// we treat it as no-op.
-						delete removed[node.attrs.localId];
-					} else {
-						added[node.attrs.localId] = node.attrs as SyncBlockAttrs;
-					}
+		// no need to check insertions if we already found deletions
+		if (step.slice.content.size > 0 && !hasChange) {
+			step.slice.content.forEach((node) => {
+				if (predicate(node) && !hasChange) {
+					hasChange = true;
 				}
-				// we don't need to go deeper
-				return false;
 			});
 		}
+
+		return hasChange;
 	});
+
+	if (hasBodiedSyncBlockChanges) {
+		const oldDoc = state.doc;
+		const newDoc = tr.doc;
+
+		const syncBlockMapOld: syncBlockMap = {};
+		const syncBlockMapNew: syncBlockMap = {};
+
+		oldDoc.content.forEach((node) => {
+			if (predicate(node)) {
+				const syncBlockAttr = node.attrs as SyncBlockAttrs;
+				syncBlockMapOld[syncBlockAttr.localId] = syncBlockAttr;
+			}
+		});
+
+		newDoc.content.forEach((node) => {
+			if (predicate(node)) {
+				const syncBlockAttr = node.attrs as SyncBlockAttrs;
+				syncBlockMapNew[syncBlockAttr.localId] = syncBlockAttr;
+			}
+		});
+
+		// Find removed sync blocks
+		for (const localId in syncBlockMapOld) {
+			if (!syncBlockMapNew[localId]) {
+				removed[localId] = syncBlockMapOld[localId];
+			}
+		}
+
+		// Find added sync blocks
+		for (const localId in syncBlockMapNew) {
+			if (!syncBlockMapOld[localId]) {
+				added[localId] = syncBlockMapNew[localId];
+			}
+		}
+	}
 
 	return {
 		removed: Object.values(removed),

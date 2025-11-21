@@ -3,6 +3,6 @@ import React from 'react';
 
 import { Radio } from '@atlaskit/radio';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Radio value="option1" label="Option 1" name="choices" onChange={() => console.log('Changed!')} />
 );

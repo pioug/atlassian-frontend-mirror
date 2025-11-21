@@ -9,7 +9,7 @@ import { caption, visuallyRefreshedHead, visuallyRefreshedRows } from './content
 
 type HeadCell = (typeof visuallyRefreshedHead)['cells'][number];
 
-const ControlledSorting = () => {
+const ControlledSorting = (): React.JSX.Element => {
 	const [pageNumber, setPageNumber] = useState<number>(2);
 	const [sortOrder, setSortOrder] = useState<SortOrderType>('ASC');
 	const [sortKey, setSortKey] = useState<HeadCell['key']>('name');

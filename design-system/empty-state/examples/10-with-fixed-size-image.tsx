@@ -11,4 +11,4 @@ const props = {
 	imageHeight: 200,
 };
 
-export default () => <EmptyState {...props} />;
+export default (): React.JSX.Element => <EmptyState {...props} />;

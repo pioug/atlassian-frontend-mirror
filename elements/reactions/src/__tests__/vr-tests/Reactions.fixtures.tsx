@@ -49,7 +49,7 @@ const loadedReactions: ReactionSummary[] = [
 	},
 ];
 
-export const DisabledReactions = () => {
+export const DisabledReactions = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -67,7 +67,7 @@ export const DisabledReactions = () => {
 	);
 };
 
-export const NotLoadedReactions = () => {
+export const NotLoadedReactions = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -85,7 +85,7 @@ export const NotLoadedReactions = () => {
 	);
 };
 
-export const LoadingReactions = () => {
+export const LoadingReactions = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -103,7 +103,7 @@ export const LoadingReactions = () => {
 	);
 };
 
-export const ErrorReactions = () => {
+export const ErrorReactions = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -122,7 +122,7 @@ export const ErrorReactions = () => {
 	);
 };
 
-export const LoadedReactions = () => {
+export const LoadedReactions = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -140,7 +140,7 @@ export const LoadedReactions = () => {
 	);
 };
 
-export const ReactionsWithShowAddReactionText = () => {
+export const ReactionsWithShowAddReactionText = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -159,7 +159,7 @@ export const ReactionsWithShowAddReactionText = () => {
 	);
 };
 
-export const LoadedReactionSingleReactionReacted = () => {
+export const LoadedReactionSingleReactionReacted = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -177,7 +177,7 @@ export const LoadedReactionSingleReactionReacted = () => {
 	);
 };
 
-export const LoadedReactionSingleReaction = () => {
+export const LoadedReactionSingleReaction = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -195,7 +195,7 @@ export const LoadedReactionSingleReaction = () => {
 	);
 };
 
-export const LoadedReactionsMiniMode = () => {
+export const LoadedReactionsMiniMode = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -214,7 +214,7 @@ export const LoadedReactionsMiniMode = () => {
 	);
 };
 
-export const LoadedReactionsWithOpaqueBackground = () => {
+export const LoadedReactionsWithOpaqueBackground = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -233,7 +233,7 @@ export const LoadedReactionsWithOpaqueBackground = () => {
 	);
 };
 
-export const LoadedReactionsWithOnlyRenderPicker = () => {
+export const LoadedReactionsWithOnlyRenderPicker = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -252,7 +252,7 @@ export const LoadedReactionsWithOnlyRenderPicker = () => {
 	);
 };
 
-export const StaticReactions = () => {
+export const StaticReactions = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -271,7 +271,7 @@ export const StaticReactions = () => {
 	);
 };
 
-export const StaticReactionsSingleReaction = () => {
+export const StaticReactionsSingleReaction = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -290,7 +290,7 @@ export const StaticReactionsSingleReaction = () => {
 	);
 };
 
-export const QuickReactions = () => {
+export const QuickReactions = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (

@@ -342,7 +342,7 @@ export const updateContentProperty = async <
 	let input = {
 		...(isBlog ? { blogPostId: documentARI } : { pageId: documentARI }),
 		key,
-		value: JSON.stringify({ content: value.content }),
+		value: JSON.stringify(value),
 	};
 
 	// Blog content properties don't support the useSameVersion flag at the moment
@@ -389,7 +389,7 @@ export const createContentProperty = async <
 			input: {
 				...(isBlog ? { blogPostId: documentARI } : { pageId: documentARI }),
 				key,
-				value: JSON.stringify({ content: value.content }),
+				value: JSON.stringify(value),
 			},
 		},
 	};

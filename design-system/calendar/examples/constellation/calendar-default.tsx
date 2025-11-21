@@ -5,7 +5,7 @@ import Calendar from '@atlaskit/calendar';
 const defaultPreviouslySelected = ['2020-12-06'];
 const defaultSelected = ['2020-12-08'];
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Calendar
 		maxDate={'2020-12-25'}
 		defaultPreviouslySelected={defaultPreviouslySelected}

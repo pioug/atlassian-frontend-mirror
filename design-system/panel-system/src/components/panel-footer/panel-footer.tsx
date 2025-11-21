@@ -29,7 +29,7 @@ const styles = cssMap({
  * The PanelFooter component provides a footer area for panels
  * with consistent styling and spacing.
  */
-export function PanelFooter({ children, testId }: PanelFooterProps) {
+export function PanelFooter({ children, testId }: PanelFooterProps): React.JSX.Element {
 	return (
 		<Box as="footer" testId={testId} xcss={styles.footer}>
 			{children}

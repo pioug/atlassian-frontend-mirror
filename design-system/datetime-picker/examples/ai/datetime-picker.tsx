@@ -2,7 +2,7 @@ import React from 'react';
 
 import { DateTimePicker } from '@atlaskit/datetime-picker';
 
-export default [
+const _default_1: React.JSX.Element[] = [
 	<DateTimePicker
 		clearControlLabel="Clear date / time picker (editable times)"
 		defaultValue="2018-01-02T14:30+10:00"
@@ -18,3 +18,4 @@ export default [
 		}}
 	/>,
 ];
+export default _default_1;

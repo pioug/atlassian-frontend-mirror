@@ -6,7 +6,7 @@ import Form, { CheckboxField, Field, Fieldset, FormFooter } from '@atlaskit/form
 import { Flex } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Flex direction="column">
 		<Form onSubmit={(data) => console.log(data)}>
 			<Fieldset legend="Apps">

@@ -78,4 +78,4 @@ class CreatableAdvanced extends Component<{}, State> {
 	}
 }
 
-export default () => <CreatableAdvanced />;
+export default (): React.JSX.Element => <CreatableAdvanced />;

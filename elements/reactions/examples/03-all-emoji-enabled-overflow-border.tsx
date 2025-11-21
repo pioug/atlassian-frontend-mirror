@@ -5,7 +5,7 @@ import { token } from '@atlaskit/tokens';
 import { ConnectedReactionsView, type StorePropInput } from '../src';
 import { ExampleWrapper, Constants } from './utils';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<ExampleWrapper>
 			{(store: StorePropInput) => (

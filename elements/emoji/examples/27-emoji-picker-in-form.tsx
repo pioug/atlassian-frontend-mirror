@@ -12,7 +12,7 @@ import Form, { Field, FormFooter } from '@atlaskit/form';
 import TextField from '@atlaskit/textfield';
 import Button from '@atlaskit/button/new';
 
-const EmojiPickerWithUpload = () => {
+const EmojiPickerWithUpload = (): React.JSX.Element => {
 	const [formSubmitted, setFormSubmitted] = useState(false);
 	const [selectedEmoji, setSelectedEmoji] = useState<EmojiId>();
 	const [enablePopup, setEnablePopup] = useState(false);

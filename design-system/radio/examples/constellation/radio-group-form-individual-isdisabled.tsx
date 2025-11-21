@@ -14,7 +14,7 @@ const options: OptionsPropType = [
 	{ name: 'color', value: 'black', label: 'Black', isDisabled: true },
 ];
 
-export default function FormExampleSingleDisabled() {
+export default function FormExampleSingleDisabled(): React.JSX.Element {
 	return (
 		<Box>
 			<Form onSubmit={(data: object) => console.log('form data', data)}>

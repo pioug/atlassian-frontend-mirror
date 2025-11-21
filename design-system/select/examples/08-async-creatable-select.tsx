@@ -77,4 +77,4 @@ class AsyncCreatableExample extends Component<{}, State> {
 	}
 }
 
-export default () => <AsyncCreatableExample />;
+export default (): React.JSX.Element => <AsyncCreatableExample />;

@@ -37,7 +37,13 @@ const CloudResourceIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __CloudResourceIcon__
  */
-const CloudResourceIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const CloudResourceIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

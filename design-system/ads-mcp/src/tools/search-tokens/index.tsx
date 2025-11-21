@@ -1,11 +1,10 @@
-import type { CallToolResult } from '@modelcontextprotocol/sdk/types';
+import type { CallToolResult, Tool } from '@modelcontextprotocol/sdk/types';
 import Fuse from 'fuse.js';
 import { z } from 'zod';
-import { zodToJsonSchema } from 'zod-to-json-schema';
 
 import { type Token, tokens } from '@atlaskit/tokens/token-metadata';
 
-import { cleanQuery } from '../../helpers';
+import { cleanQuery, zodToJsonSchema } from '../../helpers';
 
 export const searchTokensInputSchema = z.object({
 	terms: z
@@ -27,7 +26,7 @@ export const searchTokensInputSchema = z.object({
 		.optional(),
 });
 
-export const listSearchTokensTool = {
+export const listSearchTokensTool: Tool = {
 	name: 'ads_search_tokens',
 	description: `Search for Atlassian Design System tokens.
 

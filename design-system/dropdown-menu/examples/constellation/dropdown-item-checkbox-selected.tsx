@@ -5,7 +5,7 @@ import DropdownMenu, {
 	DropdownItemCheckboxGroup,
 } from '@atlaskit/dropdown-menu';
 
-const DropdownItemCheckboxExample = () => {
+const DropdownItemCheckboxExample = (): React.JSX.Element => {
 	const [checked, setChecked] = useState<Record<string, boolean>>({
 		todo: true,
 	});

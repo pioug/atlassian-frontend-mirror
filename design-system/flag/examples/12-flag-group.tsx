@@ -56,7 +56,7 @@ const getFlagData = (index: number): flagData => {
 	};
 };
 
-const FlagGroupExample = () => {
+const FlagGroupExample = (): React.JSX.Element => {
 	const [flags, setFlags] = useState<Array<flagData>>([]);
 
 	const addFlag = () => {

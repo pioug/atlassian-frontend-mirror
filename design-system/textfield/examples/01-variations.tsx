@@ -15,7 +15,7 @@ const eventResultStyle = {
 	margin: '0.5em 0',
 };
 
-export default function VariationsExample() {
+export default function VariationsExample(): React.JSX.Element {
 	const [eventResult, setEventResult] = useState(
 		'Click into & out of the input above to trigger onBlur & onFocus.',
 	);

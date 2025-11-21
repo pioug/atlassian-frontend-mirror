@@ -4,7 +4,7 @@ import { IconButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import ShowMoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 
-const DropdownMenuCustomTriggerButtonExample = () => {
+const DropdownMenuCustomTriggerButtonExample = (): React.JSX.Element => {
 	return (
 		<DropdownMenu<HTMLButtonElement>
 			trigger={({ triggerRef, ...props }) => (

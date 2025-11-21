@@ -40,115 +40,115 @@ const CustomButton = ({
 );
 
 export class DummyElementsComponent extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.elements} onClick={this.props.onClick} />;
 	}
 }
 
 export class DummyAtlaskitComponent extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.atlaskit} onClick={this.props.onClick} />;
 	}
 }
 
 export class DummyNavigationComponent extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.navigation} onClick={this.props.onClick} />;
 	}
 }
 
 export class DummyEditorComponent extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.editor} onClick={this.props.onClick} />;
 	}
 }
 
 export class DummyMediaComponent extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.media} onClick={this.props.onClick} />;
 	}
 }
 
 export class DummyPeopleTeamsComponent extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.peopleTeams} onClick={this.props.onClick} />;
 	}
 }
 
 export class DummyNotificationsComponent extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.notifications} onClick={this.props.onClick} />;
 	}
 }
 
 export class DummyRecentWorkComponent extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.recentWork} onClick={this.props.onClick} />;
 	}
 }
 
 export class DummyAtlasComponent extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.atlas} onClick={this.props.onClick} />;
 	}
 }
 export class DummyLinkingPlatformComponent extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.linkingPlatform} onClick={this.props.onClick} />;
 	}
 }
 
 export class DummyCrossFlowComponent extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.crossFlow} onClick={this.props.onClick} />;
 	}
 }
 
 export class DummyPostOfficeComponent extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.postOffice} onClick={this.props.onClick} />;
 	}
 }
 
 export class DummyAIMateComponent extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.aiMate} onClick={this.props.onClick} />;
 	}
 }
 
 export class DummyAVPComponent extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.avp} onClick={this.props.onClick} />;
 	}
 }
 
 export class DummyGrowthComponent extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.growth} onClick={this.props.onClick} />;
 	}
 }
 
 export class DummyOmniChannelComponent extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.omniChannel} onClick={this.props.onClick} />;
 	}
 }
 
 export class DummyTownsquareHomeComponent extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.townsquareHome} onClick={this.props.onClick} />;
 	}
 }
 
 export class DummyRovoExtensionComponent extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return <CustomButton text={FabricChannel.rovoExtension} onClick={this.props.onClick} />;
 	}
 }
 
 class MyButton extends React.Component<Props> {
 	static displayName = 'MyButton';
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<button id="dummy" onClick={this.props.onClick}>
 				Test [click on me]

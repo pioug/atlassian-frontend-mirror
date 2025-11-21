@@ -7,7 +7,7 @@ const ProductHomeExample = () => <ProductHome icon={AtlassianIcon} logo={Atlassi
 
 const AppSwitcherExample = () => <AppSwitcher tooltip="Switch to..." />;
 
-const GlobalNav = () => (
+const GlobalNav = (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="Atlassian Navigation"
 		primaryItems={[]}

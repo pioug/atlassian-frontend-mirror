@@ -25,7 +25,7 @@ export const MockSearch = ({
 	 * Optional boolean to determine if an enlarged search input should be rendered.
 	 */
 	isEnlarged?: boolean;
-}) => {
+}): React.JSX.Element => {
 	const [isExpanded, setIsExpanded] = useState(false);
 
 	const expand = useCallback(() => {

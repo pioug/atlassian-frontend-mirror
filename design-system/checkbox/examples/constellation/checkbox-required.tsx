@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, { CheckboxField, FormFooter } from '@atlaskit/form';
 
-const CheckboxRequiredExample = () => {
+const CheckboxRequiredExample = (): React.JSX.Element => {
 	const [isChecked, setIsChecked] = useState(false);
 
 	return (

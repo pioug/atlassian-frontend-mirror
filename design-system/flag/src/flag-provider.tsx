@@ -56,7 +56,7 @@ export function FlagsProvider({
 }: {
 	children: React.ReactNode;
 	shouldRenderToParent?: boolean;
-}) {
+}): React.JSX.Element {
 	const [flags, setFlags] = useState<FlagArgs[]>([]);
 
 	const removeFlag = useCallback((id: FlagId) => {
@@ -109,6 +109,6 @@ export function FlagsProvider({
 	);
 }
 
-export const withFlagsProvider = (fn: () => React.ReactNode) => (
+export const withFlagsProvider = (fn: () => React.ReactNode): React.JSX.Element => (
 	<FlagsProvider>{fn()}</FlagsProvider>
 );

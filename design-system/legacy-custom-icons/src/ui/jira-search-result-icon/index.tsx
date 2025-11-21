@@ -38,7 +38,13 @@ const JiraSearchResultIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __JiraSearchResultIcon__
  */
-const JiraSearchResultIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const JiraSearchResultIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

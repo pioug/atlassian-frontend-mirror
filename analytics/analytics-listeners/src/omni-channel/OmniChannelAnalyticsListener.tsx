@@ -4,7 +4,7 @@ import { type ListenerProps, FabricChannel } from '../types';
 import processEvent from './process-event';
 import GenericAnalyticsListener from '../GenericAnalyticsListener';
 
-const OmniChannelAnalyticsListener = (props: ListenerProps) => {
+const OmniChannelAnalyticsListener = (props: ListenerProps): React.JSX.Element => {
 	return (
 		<GenericAnalyticsListener
 			{...props}

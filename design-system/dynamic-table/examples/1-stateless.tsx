@@ -8,7 +8,7 @@ import WarningIcon from '@atlaskit/icon/glyph/warning';
 
 import { head, rows } from './content/sample-data';
 
-export default function TableControlled() {
+export default function TableControlled(): React.JSX.Element {
 	const [pageNumber, setPageNumber] = useState(3);
 	const navigateTo = (pageNumber: number) => {
 		setPageNumber(pageNumber);

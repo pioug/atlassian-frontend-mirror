@@ -10,7 +10,7 @@ import Form, {
 } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 
-export default function FormValidationExample() {
+export default function FormValidationExample(): React.JSX.Element {
 	const [fieldValue, setFieldValue] = useState<string | undefined>('');
 	const [fieldHasError, setFieldHasError] = useState(false);
 

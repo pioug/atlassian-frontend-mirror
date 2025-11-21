@@ -30,7 +30,13 @@ const CapabilityIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __CapabilityIcon__
  */
-const CapabilityIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const CapabilityIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

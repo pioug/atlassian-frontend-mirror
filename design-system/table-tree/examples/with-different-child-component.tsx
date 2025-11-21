@@ -97,7 +97,7 @@ export default class WithDifferentChildComponent extends Component {
 		});
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { items } = this.state;
 		return (
 			<TableTree>

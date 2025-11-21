@@ -4,7 +4,7 @@ import Flag from '@atlaskit/flag';
 import InformationIcon from '@atlaskit/icon/core/status-information';
 import { token } from '@atlaskit/tokens';
 
-const FlagDefaultExample = () => {
+const FlagDefaultExample = (): React.JSX.Element => {
 	return (
 		<Flag
 			title="New version published"

@@ -12,7 +12,7 @@ import { token } from '@atlaskit/tokens';
  *
  * @internal
  */
-const CheckboxIcon = ({ checked }: { checked: boolean }) => {
+const CheckboxIcon = ({ checked }: { checked: boolean }): React.JSX.Element => {
 	return (
 		<SVGIcon
 			label=""

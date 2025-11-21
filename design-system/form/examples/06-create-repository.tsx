@@ -16,7 +16,7 @@ import { RadioGroup } from '@atlaskit/radio';
 import Select, { type OptionType, type ValueType } from '@atlaskit/select';
 import Textfield from '@atlaskit/textfield';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Flex direction="column" alignItems="center">
 			<Form

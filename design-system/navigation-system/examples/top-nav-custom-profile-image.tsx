@@ -29,7 +29,7 @@ import { WithResponsiveViewport } from './utils/example-utils';
 
 const Badge = () => <AKBadge appearance="important">{5}</AKBadge>;
 
-export const TopNavCustomProfileImage = () => (
+export const TopNavCustomProfileImage = (): React.JSX.Element => (
 	<WithResponsiveViewport>
 		<Root>
 			<TopNav>

@@ -13,7 +13,7 @@ const boxStyles = xcss({
 	height: 'size.100',
 });
 
-const SecondaryCard = () => {
+const SecondaryCard = (): React.JSX.Element => {
 	return (
 		<Card>
 			<Inline space="space.200">

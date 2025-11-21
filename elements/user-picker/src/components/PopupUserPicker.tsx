@@ -42,7 +42,7 @@ export class PopupUserPickerWithoutAnalytics extends React.Component<PopupUserPi
 		return data;
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			target,
 			popupTitle,

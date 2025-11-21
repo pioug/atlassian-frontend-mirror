@@ -23,7 +23,7 @@ export default class SlowLoad extends Component {
 		clearTimeout(this.dataTimeoutId);
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<TableTree>
 				<Headers>

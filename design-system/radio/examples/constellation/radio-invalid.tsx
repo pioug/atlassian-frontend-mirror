@@ -29,7 +29,7 @@ const options: OptionsPropType = [
 	{ name: 'radio-group-invalid', value: 'invalid', label: 'Invalid' },
 ];
 
-export default function RadioInvalid() {
+export default function RadioInvalid(): React.JSX.Element {
 	return (
 		<Form<FormData>
 			onSubmit={(data) => {

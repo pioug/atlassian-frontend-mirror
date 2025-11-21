@@ -7,7 +7,7 @@ const clickPreventDefaultHandler = (e: React.MouseEvent) => {
 	console.log('Click with prevent default');
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	// item with href and onClick handler
 	<div>
 		<Breadcrumbs>

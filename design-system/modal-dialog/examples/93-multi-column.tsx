@@ -37,7 +37,7 @@ const styles = cssMap({
 	},
 });
 
-export function MultiColumnExample() {
+export function MultiColumnExample(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const [contentLength, setContentLength] = useState(10);
 	const openModal = useCallback(() => setIsOpen(true), []);

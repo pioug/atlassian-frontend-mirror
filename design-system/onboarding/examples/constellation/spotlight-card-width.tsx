@@ -4,7 +4,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 import { SpotlightCard } from '@atlaskit/onboarding';
 import { token } from '@atlaskit/tokens';
 
-const SpotlightCardWidth = () => {
+const SpotlightCardWidth = (): React.JSX.Element => {
 	return (
 		<div
 			style={{

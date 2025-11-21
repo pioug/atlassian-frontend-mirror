@@ -76,7 +76,7 @@ export default class EmojiTypeahead extends LoadingEmojiComponent<Props, Loading
 	renderLoaded(
 		loadedEmojiProvider: EmojiProvider,
 		TypeAheadComponent: ComponentClass<ComponentProps>,
-	) {
+	): React.JSX.Element | null {
 		const { emojiProvider, target, position, zIndex, offsetX, offsetY, ...otherProps } = this.props;
 
 		const typeAhead = (

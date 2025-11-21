@@ -13,7 +13,7 @@ const rowsWithTabIndex: Array<RowType> = rows.map((row) => ({
 	tabIndex: 0,
 }));
 
-const FocusRowExample = () => {
+const FocusRowExample = (): React.JSX.Element => {
 	const [autoFocusDone, setAutoFocusDone] = useState(false);
 	const firstRowRef = useRef<HTMLTableRowElement>(null);
 

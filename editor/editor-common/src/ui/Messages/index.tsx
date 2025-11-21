@@ -54,6 +54,7 @@ export const ErrorMessage = ({ children }: Props) => (
 		}}
 	>
 		<span css={iconWrapperStyle}>
+			{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 			<ErrorIcon LEGACY_size="small" label="error" aria-label="error" />
 		</span>
 		{children}

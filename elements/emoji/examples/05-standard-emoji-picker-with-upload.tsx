@@ -11,7 +11,7 @@ import { onSelection } from '../example-helpers';
 import type { EmojiProvider } from '../src/resource';
 import { IntlProvider } from 'react-intl-next';
 
-const EmojiPickerWithUpload = () => {
+const EmojiPickerWithUpload = (): React.JSX.Element => {
 	const [siteEmojiEnabled, setSiteEmojiEnabled] = useState(true);
 
 	const emojiProvider = useMemo<Promise<EmojiProvider>>(() => {

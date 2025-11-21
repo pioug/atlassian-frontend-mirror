@@ -9,7 +9,7 @@ export interface FullScreenModalDialogProps
 		'width' | 'height' | 'shouldScrollInViewport' | 'shouldCloseOnOverlayClick' | 'isBlanketHidden'
 	> {}
 
-export function FullScreenModalDialog(props: FullScreenModalDialogProps) {
+export function FullScreenModalDialog(props: FullScreenModalDialogProps): React.JSX.Element {
 	return (
 		<InternalModalWrapper
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

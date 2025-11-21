@@ -20,7 +20,7 @@ type SelectableCellProps = {
  *
  * A selectable cell primitive designed to be used for light weight composition.
  */
-export const SelectableCell = ({ children, as }: SelectableCellProps) => {
+export const SelectableCell = ({ children, as }: SelectableCellProps): React.JSX.Element => {
 	return (
 		<BaseCell as={as} xcss={spacingStyles}>
 			{children}

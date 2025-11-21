@@ -17,7 +17,7 @@ const myOnClickHandler = () => {
 	console.log('Button clicked ! Yay!');
 };
 
-function Example() {
+function Example(): React.JSX.Element {
 	return (
 		<FabricAnalyticsListeners
 			client={createAnalyticsWebClientMock()}

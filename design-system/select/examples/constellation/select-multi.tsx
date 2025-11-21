@@ -5,7 +5,7 @@ import Select from '@atlaskit/select';
 
 import { cities } from '../common/data';
 
-const SelectMultiExample = () => (
+const SelectMultiExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="multi-select-example">What cities have you lived in?</Label>
 		<Select

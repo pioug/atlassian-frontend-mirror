@@ -26,7 +26,7 @@ function Row(props: RowProps) {
 	);
 }
 
-export default function Table() {
+export default function Table(): React.JSX.Element {
 	return (
 		<table id="maxLengthTag">
 			<tbody>

@@ -5,7 +5,7 @@ import DatabaseObjectTile from '@atlaskit/object/tile/database';
 import EpicObjectTile from '@atlaskit/object/tile/epic';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 
-export default function ObjectTileLabelling() {
+export default function ObjectTileLabelling(): React.JSX.Element {
 	return (
 		<Stack space="space.200">
 			<Heading size="medium">Non-decorative tile with a label</Heading>

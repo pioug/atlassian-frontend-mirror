@@ -44,7 +44,7 @@ const dynamicSizedVerticalPaddingStyles = xcss({
 	},
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [maxWidth, setWidth] = useState<GridProps['maxWidth']>(undefined);
 	return (
 		<PageLayout>

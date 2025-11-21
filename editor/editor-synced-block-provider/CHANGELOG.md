@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.10.4
+
+### Patch Changes
+
+- [`e48b21e64bb2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e48b21e64bb2e) -
+  EDITOR-3312 Populate the sync block data on creation and fetch properly
+- Updated dependencies
+
 ## 2.10.3
 
 ### Patch Changes

@@ -7,7 +7,7 @@ import { type OptionType, type SelectComponentsConfig, type SelectProps } from '
 const CheckboxSelectInternal = <OptionT extends OptionType>({
 	components,
 	...props
-}: SelectProps<OptionT, true>) => {
+}: SelectProps<OptionT, true>): React.JSX.Element => {
 	const mergedComponents: SelectComponentsConfig<OptionT, true> = useMemo(
 		() => ({
 			...components,

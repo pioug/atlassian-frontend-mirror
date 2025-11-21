@@ -21,7 +21,6 @@ import uuid from 'uuid';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { cssMap } from '@atlaskit/css';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { HelperMessage } from '@atlaskit/form';
 import { CardClient } from '@atlaskit/link-provider';
 import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
@@ -181,28 +180,6 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 			const intl = useIntl();
 			const queryState = useSearchQuery(state);
 
-			// Experiment with new 3P tabs in link picker. For more info, please see: go/link-picker-3p-drive-one-pager.
-			const linkPicker3pDriveExperimentCohort = FeatureGates.initializeCalled()
-				? FeatureGates.getExperimentValue<'control' | 'show_google_drive_tab'>(
-						'link_picker_3p_drive_experiment',
-						'cohort',
-						'control',
-					)
-				: 'control';
-			const googleDriveTabExperimentEnabled =
-				linkPicker3pDriveExperimentCohort === 'show_google_drive_tab';
-			const linkPicker3pOneDriveExperimentCohort = FeatureGates.initializeCalled()
-				? FeatureGates.getExperimentValue<'control' | 'show_onedrive_tab'>(
-						'link_picker_3p_onedrive_experiment',
-						'cohort',
-						'control',
-					)
-				: 'control';
-			const oneDriveTabExperimentEnabled =
-				linkPicker3pOneDriveExperimentCohort === 'show_onedrive_tab';
-			const thirdPartyTabExperimentEnabled =
-				googleDriveTabExperimentEnabled || oneDriveTabExperimentEnabled;
-
 			const {
 				items,
 				isLoading: isLoadingResults,
@@ -212,14 +189,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 				error,
 				retry,
 				pluginAction,
-				pluginBanner,
-			} = usePlugins(
-				queryState,
-				activeTab,
-				plugins,
-				thirdPartyTabExperimentEnabled,
-				recentSearchListSize,
-			);
+			} = usePlugins(queryState, activeTab, plugins, recentSearchListSize);
 
 			const isEditing = !!initUrl;
 			const selectedItem: LinkSearchListItemData | undefined = items?.[selectedIndex];
@@ -653,7 +623,6 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 							/>
 						</Box>
 					)}
-					{thirdPartyTabExperimentEnabled && pluginBanner && pluginBanner()}
 					{!!queryState && (isLoadingPlugins || isActivePlugin) && (
 						<SearchResults
 							activeTab={activeTab}

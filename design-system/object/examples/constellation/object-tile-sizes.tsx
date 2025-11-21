@@ -3,7 +3,7 @@ import React from 'react';
 import TaskObjectTile from '@atlaskit/object/tile/task';
 import { Inline } from '@atlaskit/primitives/compiled';
 
-export default function ObjectTileSizes() {
+export default function ObjectTileSizes(): React.JSX.Element {
 	return (
 		<Inline space="space.100" alignBlock="end">
 			<TaskObjectTile size="xsmall" label="Extra small task tile (20px)" />

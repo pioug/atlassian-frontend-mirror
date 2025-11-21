@@ -42,7 +42,7 @@ class MockNotificationLogClient extends NotificationLogClient {
 const client = new MockNotificationLogClient(5);
 const emptyClient = new MockNotificationLogClient(0);
 
-export const HelpPopup = () => {
+export const HelpPopup = (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [interacted, setInteracted] = useState(false);
 

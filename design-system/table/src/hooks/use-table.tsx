@@ -37,7 +37,7 @@ export function TableProvider<T extends object>({
 }: {
 	children: React.ReactNode;
 	state: TableContext<T>;
-}) {
+}): React.JSX.Element {
 	return (
 		// @ts-expect-error
 		<TableContext.Provider value={state}>{children}</TableContext.Provider>

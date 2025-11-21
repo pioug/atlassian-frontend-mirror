@@ -4,7 +4,7 @@ import DynamicTable from '@atlaskit/dynamic-table';
 
 import { caption, head, rows } from './content/sample-data-numerical';
 
-const NumericSortingExample = () => (
+const NumericSortingExample = (): React.JSX.Element => (
 	<DynamicTable
 		caption={caption}
 		head={head}

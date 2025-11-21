@@ -25,7 +25,13 @@ const LobbyBellIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __LobbyBellIcon__
  */
-const LobbyBellIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const LobbyBellIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

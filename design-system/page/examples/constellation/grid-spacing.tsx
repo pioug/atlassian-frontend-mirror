@@ -5,7 +5,7 @@ import Page, { Grid, GridColumn } from '@atlaskit/page';
 import { Dummy } from '../common/dummy';
 import VerticalSpace from '../common/vertical-space';
 
-const GridSpacingExample = () => {
+const GridSpacingExample = (): React.JSX.Element => {
 	return (
 		<Page>
 			<Grid>

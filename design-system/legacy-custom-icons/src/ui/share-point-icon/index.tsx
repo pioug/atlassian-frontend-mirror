@@ -73,7 +73,13 @@ const SharePointIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __SharePointIcon__
  */
-const SharePointIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const SharePointIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

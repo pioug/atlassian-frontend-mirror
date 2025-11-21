@@ -9,7 +9,7 @@ const options = [
 	{ name: 'color', value: 'blue', label: 'Blue' },
 ];
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [value, setValue] = React.useState('red');
 	return (
 		<RadioGroup options={options} value={value} onChange={(e) => setValue(e.currentTarget.value)} />

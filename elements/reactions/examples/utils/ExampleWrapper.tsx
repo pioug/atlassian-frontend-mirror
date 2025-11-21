@@ -23,7 +23,7 @@ export interface ExampleWrapperProps {
 export const ExampleWrapper = ({
 	children,
 	client = new MockReactionsClient(500),
-}: ExampleWrapperProps) => {
+}: ExampleWrapperProps): React.JSX.Element => {
 	const store = new MemoryReactionsStore(client, undefined, {
 		subproduct: 'atlaskit',
 	}); // default props is handling it

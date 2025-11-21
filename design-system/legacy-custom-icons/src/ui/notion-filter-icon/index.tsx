@@ -31,7 +31,13 @@ const NotionFilterIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __NotionFilterIcon__
  */
-const NotionFilterIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const NotionFilterIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

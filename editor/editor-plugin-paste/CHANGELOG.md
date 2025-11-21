@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 7.4.8
+
+### Patch Changes
+
+- [`c94c7bb357496`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c94c7bb357496) -
+  [ux] EDITOR-3317 Fix beahavior when pasting paragraph from panel into list inside panel
+- Updated dependencies
+
 ## 7.4.7
 
 ### Patch Changes

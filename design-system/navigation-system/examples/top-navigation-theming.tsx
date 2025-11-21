@@ -128,7 +128,7 @@ const TopNavigationThemingInstance = ({
 	);
 };
 
-export const TopNavigationThemingExample = () => (
+export const TopNavigationThemingExample = (): React.JSX.Element => (
 	<WithResponsiveViewport>
 		<Stack space="space.200">
 			<TopNavigationThemingInstance
@@ -158,7 +158,7 @@ export const TopNavigationThemingExample = () => (
 	</WithResponsiveViewport>
 );
 
-export const TopNavigationThemingSingleExample = () => (
+export const TopNavigationThemingSingleExample = (): React.JSX.Element => (
 	<WithResponsiveViewport>
 		<TopNavigationThemingInstance
 			customTheme={{ backgroundColor: parseHex('#000448'), highlightColor: parseHex('#6FF2B4') }}
@@ -166,7 +166,7 @@ export const TopNavigationThemingSingleExample = () => (
 	</WithResponsiveViewport>
 );
 
-export const TopNavigationThemingSingleExampleCustomLogo = () => (
+export const TopNavigationThemingSingleExampleCustomLogo = (): React.JSX.Element => (
 	<WithResponsiveViewport>
 		<TopNavigationThemingInstance
 			customTheme={{ backgroundColor: parseHex('#000448'), highlightColor: parseHex('#6FF2B4') }}
@@ -175,7 +175,7 @@ export const TopNavigationThemingSingleExampleCustomLogo = () => (
 	</WithResponsiveViewport>
 );
 
-export const TopNavigationThemingRGBExample = () => (
+export const TopNavigationThemingRGBExample = (): React.JSX.Element => (
 	<WithResponsiveViewport>
 		<TopNavigationThemingInstance
 			customTheme={{
@@ -186,7 +186,7 @@ export const TopNavigationThemingRGBExample = () => (
 	</WithResponsiveViewport>
 );
 
-export const TopNavigationThemingHSLExample = () => (
+export const TopNavigationThemingHSLExample = (): React.JSX.Element => (
 	<WithResponsiveViewport>
 		<TopNavigationThemingInstance
 			customTheme={{

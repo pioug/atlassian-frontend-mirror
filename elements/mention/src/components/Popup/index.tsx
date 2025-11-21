@@ -84,7 +84,7 @@ export default class Popup extends React.PureComponent<Props, {}> {
 		}
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		// https://atlassian.design/components/eslint-plugin-ui-styling-standard/migration-guide#dynamic-styles
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 		const content = <div style={this.portalStyles}>{this.props.children}</div>;

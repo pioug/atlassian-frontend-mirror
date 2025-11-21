@@ -44,7 +44,7 @@ function DropdownWithReturnFocusRef({ shouldRenderToParent }: { shouldRenderToPa
 	);
 }
 
-export default function ExampleComponent() {
+export default function ExampleComponent(): React.JSX.Element {
 	return (
 		<>
 			<Heading size="small">

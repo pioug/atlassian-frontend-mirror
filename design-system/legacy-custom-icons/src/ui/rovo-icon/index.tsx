@@ -32,7 +32,13 @@ const RovoIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __RovoIcon__
  */
-const RovoIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const RovoIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

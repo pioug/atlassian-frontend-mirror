@@ -2,7 +2,7 @@ import React from 'react';
 
 import AvatarGroup from '@atlaskit/avatar-group';
 
-export default [
+const _default_1: React.JSX.Element[] = [
 	<AvatarGroup
 		appearance="stack"
 		size="large"
@@ -16,3 +16,4 @@ export default [
 		maxCount={3}
 	/>,
 ];
+export default _default_1;

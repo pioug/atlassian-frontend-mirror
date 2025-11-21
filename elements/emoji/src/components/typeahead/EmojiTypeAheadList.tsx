@@ -216,7 +216,7 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
 		return selectedKey ? selectedKey === emoji.id : index === 0;
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { emojis, loading } = this.props;
 		const hasEmoji = emojis && emojis.length > 0;
 		const listBody = loading ? <EmojiTypeAheadSpinner /> : this.renderItems(emojis);

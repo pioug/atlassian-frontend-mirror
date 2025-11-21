@@ -34,4 +34,4 @@ const props = {
 	testId: 'empty-state--basic',
 };
 
-export default () => <EmptyState {...props} />;
+export default (): React.JSX.Element => <EmptyState {...props} />;

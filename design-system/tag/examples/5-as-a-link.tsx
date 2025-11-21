@@ -31,7 +31,7 @@ const SpreadExample = ({ children, className, href }: SpreadExampleProps) => {
 	);
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Fragment>
 			<Tag href="https://www.atlassian.com/search?query=Carrot%20cake" text="Carrot cake" />

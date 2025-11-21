@@ -7,7 +7,7 @@ import { Grid, Item } from '../example-helpers/story-utils';
 const mockTaskDecisionProvider = Promise.resolve(getMockTaskDecisionResource({ lag: 1000 }));
 const mockTaskDecisionProviderError = Promise.resolve(getMockTaskDecisionResource({ error: true }));
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Grid>
 		<Item>
 			<h3>Normal</h3>

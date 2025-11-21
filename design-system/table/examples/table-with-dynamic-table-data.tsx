@@ -10,7 +10,7 @@ import { head, rows } from './content/dynamic-table-data';
  * FIXME: sorting seems to be broken on this example, but works fine in `examples/basic-with-actions.tsx`
  * Every column seems to sort by 'term'
  */
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	return (
 		<Table testId="table">
 			<THead>

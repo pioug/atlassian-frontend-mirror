@@ -38,11 +38,8 @@ const getIsFormatMenuHidden = (selection: Selection, schema: Schema, menuTrigger
 		nodes.bulletList,
 		nodes.orderedList,
 		nodes.taskList,
+		nodes.layoutSection,
 	];
-
-	if (expValEquals('platform_editor_block_menu_layout_format', 'isEnabled', true)) {
-		allowedNodes.push(nodes.layoutSection);
-	}
 
 	if (expValEquals('platform_editor_block_menu_expand_format', 'isEnabled', true)) {
 		allowedNodes.push(nodes.expand);
@@ -106,11 +103,8 @@ const getIsFormatMenuHiddenEmptyLine = (
 			nodes.bulletList,
 			nodes.orderedList,
 			nodes.taskList,
+			nodes.layoutSection,
 		];
-
-		if (expValEquals('platform_editor_block_menu_layout_format', 'isEnabled', true)) {
-			allowedNodes.push(nodes.layoutSection);
-		}
 
 		if (expValEquals('platform_editor_block_menu_expand_format', 'isEnabled', true)) {
 			allowedNodes.push(nodes.expand);

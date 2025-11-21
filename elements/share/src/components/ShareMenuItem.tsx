@@ -23,13 +23,13 @@ export const ShareMenuItem = ({
 	iconName: React.ReactNode;
 	labelId: MessageDescriptor;
 	onClickHandler: () => void;
-}) => (
+}): React.JSX.Element => (
 	<ButtonItem iconBefore={<IconContainer icon={iconName} />} onClick={onClickHandler}>
 		<FormattedMessage {...labelId} />
 	</ButtonItem>
 );
 
-export const IconContainer = ({ icon }: { icon: React.ReactNode }) => (
+export const IconContainer = ({ icon }: { icon: React.ReactNode }): React.JSX.Element => (
 	<Box xcss={iconContainerStyles}>{icon}</Box>
 );
 

@@ -47,4 +47,4 @@ const items: Stages = [
 	},
 ];
 
-export default () => <ProgressTracker items={items} spacing="comfortable" />;
+export default (): React.JSX.Element => <ProgressTracker items={items} spacing="comfortable" />;

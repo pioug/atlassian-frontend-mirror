@@ -7,7 +7,7 @@ import { Box } from '@atlaskit/primitives/compiled';
 
 import sampleAvatar from '../images/avatar_400x400.jpg';
 
-const CommentDefaultExample = () => {
+const CommentDefaultExample = (): React.JSX.Element => {
 	const [saving, setSaving] = useState(true);
 
 	return (

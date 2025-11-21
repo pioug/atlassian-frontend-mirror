@@ -5,7 +5,7 @@ import Comment, { CommentAuthor, CommentTime } from '@atlaskit/comment';
 
 import sampleAvatar from '../images/avatar_400x400.jpg';
 
-const CommentCustomHeadingLevelExample = () => {
+const CommentCustomHeadingLevelExample = (): React.JSX.Element => {
 	return (
 		<Comment
 			headingLevel="5"

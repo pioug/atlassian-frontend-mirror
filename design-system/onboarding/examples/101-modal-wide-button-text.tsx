@@ -17,7 +17,7 @@ export default class ModalWideButtonTextExample extends Component<{}, State> {
 
 	finish = () => this.setState({ active: false });
 
-	render() {
+	render(): React.JSX.Element {
 		const { active } = this.state;
 
 		return (

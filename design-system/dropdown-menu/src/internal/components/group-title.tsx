@@ -20,7 +20,7 @@ const styles = cssMap({
  *
  * @internal
  */
-const GroupTitle = ({ id, title }: { id: string; title: string }) => (
+const GroupTitle = ({ id, title }: { id: string; title: string }): React.JSX.Element => (
 	<Box data-ds--menu--heading-item role="menuitem" id={id} aria-hidden="true" xcss={styles.heading}>
 		{title}
 	</Box>

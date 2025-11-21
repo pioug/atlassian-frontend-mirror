@@ -14,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 
 import AppFrame from './common/app-frame';
 
-const BasicExample = () => {
+const BasicExample = (): React.JSX.Element => {
 	const [stack, setStack] = useState<string[]>(['1-0']);
 
 	return (

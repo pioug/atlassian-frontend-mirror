@@ -50,7 +50,7 @@ export default class SpotlightNodeExample extends Component<Object, State> {
 		this.setState({ spotlightIsVisible: false });
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { drawerIsVisible, spotlightIsVisible } = this.state;
 		const duration = 300;
 		return (

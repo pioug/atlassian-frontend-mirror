@@ -13,7 +13,7 @@ import Modal, {
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-function FlagsInModalDialogExample() {
+function FlagsInModalDialogExample(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [flags, setFlags] = useState<Array<number>>([]);
 

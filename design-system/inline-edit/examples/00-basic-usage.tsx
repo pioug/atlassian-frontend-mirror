@@ -15,7 +15,7 @@ const readViewContainerStyles = cssMap({
 	},
 });
 
-const InlineEditExample = () => {
+const InlineEditExample = (): React.JSX.Element => {
 	const initialValue = 'Basic Field value';
 	const [editValue, setEditValue] = useState('Field value');
 

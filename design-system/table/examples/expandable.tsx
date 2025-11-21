@@ -14,7 +14,7 @@ import Table, {
 } from '@atlaskit/table';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
-export default function Expandable() {
+export default function Expandable(): React.JSX.Element {
 	return (
 		<Table testId="expandable-table">
 			<THead>

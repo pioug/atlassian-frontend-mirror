@@ -95,7 +95,7 @@ const getSelectItems = <Option,>(options: Option[]) =>
 		value: option,
 	}));
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	let [state, setState] = useState<PopupState>({
 		containerRef: undefined,
 		shouldFlip: true,

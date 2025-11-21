@@ -28,7 +28,13 @@ const RadioIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __RadioIcon__
  */
-const RadioIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const RadioIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

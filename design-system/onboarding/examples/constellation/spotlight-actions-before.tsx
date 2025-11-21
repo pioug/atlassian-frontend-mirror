@@ -14,7 +14,7 @@ import {
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-const SpotlightActionsBefore = () => {
+const SpotlightActionsBefore = (): React.JSX.Element => {
 	const [activeSpotlight, setActiveSpotlight] = useState<null | number>(null);
 	const start = () => setActiveSpotlight(0);
 	const next = () => setActiveSpotlight((activeSpotlight || 0) + 1);

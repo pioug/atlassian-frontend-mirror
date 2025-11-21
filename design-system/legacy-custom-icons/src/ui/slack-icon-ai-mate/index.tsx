@@ -52,7 +52,13 @@ const SlackIconAiMateGlyph = (props: CustomGlyphProps) => (
 /**
  * __SlackIconAiMate__
  */
-const SlackIconAiMate = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const SlackIconAiMate = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

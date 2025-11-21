@@ -13,6 +13,6 @@ const disabledDates = [
 	'2020-12-18',
 ];
 
-export default () => {
+export default (): React.JSX.Element => {
 	return <Calendar defaultMonth={12} defaultYear={2020} defaultDay={15} disabled={disabledDates} />;
 };

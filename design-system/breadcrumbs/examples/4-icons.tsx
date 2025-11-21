@@ -7,7 +7,7 @@ import { Stack } from '@atlaskit/primitives/compiled';
 
 const TestIcon = <AtlassianIcon label="" size="small" />;
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Stack space="space.100">
 		<p>@atlaskit/logo</p>
 		<Breadcrumbs label="@atlaskit/logo">

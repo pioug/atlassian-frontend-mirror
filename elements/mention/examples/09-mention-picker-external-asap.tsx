@@ -25,7 +25,7 @@ try {
 
 const asapConfig = config.asap;
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<ConfigurableMentionPicker config={asapConfig}>
 			<MentionTextInput label="User search" onSelection={onSelection} />

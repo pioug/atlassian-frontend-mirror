@@ -5,7 +5,7 @@ import Avatar from '@atlaskit/avatar';
 import { Box } from '@atlaskit/primitives';
 import Tag, { SimpleTag } from '@atlaskit/tag';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box role="group" aria-label="Overview examples">
 		<SimpleTag text="Text only" />
 		<SimpleTag href="https://some.link" text="Linked text" />

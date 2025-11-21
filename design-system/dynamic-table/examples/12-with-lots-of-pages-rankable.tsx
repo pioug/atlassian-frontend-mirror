@@ -5,7 +5,7 @@ import Toggle from '@atlaskit/toggle';
 
 import { createHead, rows } from './content/sample-data';
 
-export default function DynamicTableRankableExample() {
+export default function DynamicTableRankableExample(): React.JSX.Element {
 	const [isFixedSize, setIsFixedSize] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 

@@ -50,7 +50,7 @@ const data = RANDOM_USERS.map((d, i) => ({
 	appearance: appearances[i % appearances.length],
 }));
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<div style={{ maxWidth: 270 }}>

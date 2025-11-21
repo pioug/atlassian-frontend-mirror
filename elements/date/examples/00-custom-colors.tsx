@@ -7,7 +7,7 @@ const DateInParagraph = ({ color }: { color?: Color }) => (
 	</p>
 );
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<DateInParagraph />
 		<DateInParagraph color="red" />

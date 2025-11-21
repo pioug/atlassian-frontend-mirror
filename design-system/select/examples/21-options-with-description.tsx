@@ -55,7 +55,7 @@ const formatOptionLabel = (option: OptionType, { context }: FormatOptionLabelMet
 	}
 	return option.label;
 };
-const Example = () => (
+const Example = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="option-w-desc-example">Which city do you live in?</Label>
 		<Select

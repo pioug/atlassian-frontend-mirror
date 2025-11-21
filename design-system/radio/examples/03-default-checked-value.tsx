@@ -8,7 +8,7 @@ const radioValues = [
 	{ name: 'color-with-default', value: 'purple', label: 'Purple' },
 ];
 
-export default function ControlledRadioGroup() {
+export default function ControlledRadioGroup(): React.JSX.Element {
 	return (
 		<RadioGroup
 			onChange={(event: SyntheticEvent<any>) => {

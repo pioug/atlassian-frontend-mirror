@@ -52,7 +52,7 @@ const loadedReactions: ReactionSummary[] = [
 	},
 ];
 
-export const EmptySummaryReactions = () => {
+export const EmptySummaryReactions = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -71,7 +71,7 @@ export const EmptySummaryReactions = () => {
 	);
 };
 
-export const LoadedSummaryReactions = () => {
+export const LoadedSummaryReactions = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -90,7 +90,7 @@ export const LoadedSummaryReactions = () => {
 	);
 };
 
-export const LoadedSummaryReactionsWithSubtleStyle = () => {
+export const LoadedSummaryReactionsWithSubtleStyle = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -110,7 +110,7 @@ export const LoadedSummaryReactionsWithSubtleStyle = () => {
 	);
 };
 
-export const LoadedSummaryReactionsViewOnly = () => {
+export const LoadedSummaryReactionsViewOnly = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -131,7 +131,7 @@ export const LoadedSummaryReactionsViewOnly = () => {
 	);
 };
 
-export const LoadedSummaryReactionsAllowSelectionFromEmojiPicker = () => {
+export const LoadedSummaryReactionsAllowSelectionFromEmojiPicker = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -151,7 +151,7 @@ export const LoadedSummaryReactionsAllowSelectionFromEmojiPicker = () => {
 	);
 };
 
-export const LoadedSummaryReactionsWithIconAfter = () => {
+export const LoadedSummaryReactionsWithIconAfter = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 	const summaryButtonIconAfter = (
 		<AddIcon testId="add-icon" color={token('color.icon.subtle')} label={'Add'} />
@@ -175,31 +175,32 @@ export const LoadedSummaryReactionsWithIconAfter = () => {
 	);
 };
 
-export const LoadedSummaryReactionsAllowSelectionFromSummaryViewWithIconAfter = () => {
-	const emojiProvider = useEmojiProvider();
-	const summaryButtonIconAfter = (
-		<EmojiAddIcon
-			testId="emoji-add-icon"
-			color={token('color.icon.subtle')}
-			label={'Add Reaction'}
-		/>
-	);
-
-	return (
-		<IntlProvider locale="en">
-			<Reactions
-				emojiProvider={emojiProvider}
-				reactions={loadedReactions}
-				status={ReactionStatus.ready}
-				loadReaction={loadReaction}
-				onSelection={onSelection}
-				onReactionClick={onReactionClick}
-				allowAllEmojis
-				summaryViewEnabled
-				subtleReactionsSummaryAndPicker
-				allowSelectFromSummaryView
-				summaryButtonIconAfter={summaryButtonIconAfter}
+export const LoadedSummaryReactionsAllowSelectionFromSummaryViewWithIconAfter =
+	(): React.JSX.Element => {
+		const emojiProvider = useEmojiProvider();
+		const summaryButtonIconAfter = (
+			<EmojiAddIcon
+				testId="emoji-add-icon"
+				color={token('color.icon.subtle')}
+				label={'Add Reaction'}
 			/>
-		</IntlProvider>
-	);
-};
+		);
+
+		return (
+			<IntlProvider locale="en">
+				<Reactions
+					emojiProvider={emojiProvider}
+					reactions={loadedReactions}
+					status={ReactionStatus.ready}
+					loadReaction={loadReaction}
+					onSelection={onSelection}
+					onReactionClick={onReactionClick}
+					allowAllEmojis
+					summaryViewEnabled
+					subtleReactionsSummaryAndPicker
+					allowSelectFromSummaryView
+					summaryButtonIconAfter={summaryButtonIconAfter}
+				/>
+			</IntlProvider>
+		);
+	};

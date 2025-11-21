@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.7.6
+
+### Patch Changes
+
+- [`253460bc61db3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/253460bc61db3) -
+  [ux] EDITOR-3380 use preserved selection for block menu move action
+- [`1b3603981c776`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b3603981c776) -
+  EDITOR-3380 ensure we preserve the same selection type
+- Updated dependencies
+
+## 7.7.5
+
+### Patch Changes
+
+- [`6f765533c791b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f765533c791b) -
+  FG platform_editor_block_menu_patch_1 clean up.
+- Updated dependencies
+
 ## 7.7.4
 
 ### Patch Changes

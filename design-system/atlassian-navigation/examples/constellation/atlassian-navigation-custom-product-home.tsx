@@ -16,7 +16,7 @@ const CustomHome = () => (
 	/>
 );
 
-const CustomHomeExample = () => (
+const CustomHomeExample = (): React.JSX.Element => (
 	<AtlassianNavigation label="site" renderProductHome={CustomHome} primaryItems={[]} />
 );
 

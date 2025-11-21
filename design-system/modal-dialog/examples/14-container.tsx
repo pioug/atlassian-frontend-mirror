@@ -22,7 +22,7 @@ const customContainerStyles = cssMap({
 	},
 });
 
-export default function DefaultModal() {
+export default function DefaultModal(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const open = useCallback(() => setIsOpen(true), []);
 	const close = useCallback(() => setIsOpen(false), []);

@@ -22,7 +22,7 @@ const rowStyle: React.CSSProperties = {
 	marginBottom: 20,
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const serverOnlyResourceId = 'container-ssr-resource';
 	const hydrationResourceId = 'container-hydration-resource';
 	const serverOnlySingleId = 'container-ssr-simple';

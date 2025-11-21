@@ -94,7 +94,7 @@ const loadedReactions: ReactionSummary[] = [
 	},
 ];
 
-export const EmptySummaryReactions = () => {
+export const EmptySummaryReactions = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (
@@ -113,23 +113,23 @@ export const EmptySummaryReactions = () => {
 	);
 };
 
-export const LoadedSummaryReactions = () => {
+export const LoadedSummaryReactions = (): React.JSX.Element => {
 	return <LoadedReactionsCreater summaryViewEnabled />;
 };
 
-export const LoadedSummaryReactionsSubtleStyle = () => {
+export const LoadedSummaryReactionsSubtleStyle = (): React.JSX.Element => {
 	return <LoadedReactionsCreater summaryViewEnabled subtleReactionsSummaryAndPicker />;
 };
 
-export const LoadedSummaryReactionsShowOpaqueBackground = () => {
+export const LoadedSummaryReactionsShowOpaqueBackground = (): React.JSX.Element => {
 	return <LoadedReactionsCreater summaryViewEnabled showOpaqueBackground />;
 };
 
-export const LoadedSummaryReactionsViewOnly = () => {
+export const LoadedSummaryReactionsViewOnly = (): React.JSX.Element => {
 	return <LoadedReactionsCreater summaryViewEnabled isViewOnly />;
 };
 
-export const LoadedReactionsWithSummaryAllowSelectFromEmojiPicker = () => {
+export const LoadedReactionsWithSummaryAllowSelectFromEmojiPicker = (): React.JSX.Element => {
 	return <LoadedReactionsCreater summaryViewEnabled allowSelectFromSummaryView />;
 };
 

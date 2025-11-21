@@ -310,7 +310,7 @@ export default class EmojiTypeAheadComponent extends PureComponent<Props, State>
 		this.emojiListRef = ref;
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { emojiProvider, onSelection } = this.props;
 		const recordUsageOnSelection = createRecordSelectionDefault(
 			emojiProvider,

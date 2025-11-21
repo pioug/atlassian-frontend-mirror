@@ -3,7 +3,7 @@ import React from 'react';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import { ButtonItem, Section } from '@atlaskit/side-navigation';
 
-const ButtonItemExample = () => {
+const ButtonItemExample = (): React.JSX.Element => {
 	return (
 		<div>
 			<Section>

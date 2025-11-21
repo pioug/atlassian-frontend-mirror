@@ -5,7 +5,7 @@ import { Stack, Text } from '@atlaskit/primitives/compiled';
 /**
  * Long placeholder content for showcasing how the layout areas behave when overflowing.
  */
-export function LongPlaceholderContent() {
+export function LongPlaceholderContent(): React.JSX.Element {
 	return (
 		<Stack space="space.150">
 			<Text as="p">

@@ -3,7 +3,7 @@ import React from 'react';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 
-const DatePickerDefaultExample = () => (
+const DatePickerDefaultExample = (): React.JSX.Element => (
 	<>
 		<Label id="date" htmlFor="default-date-picker-example">
 			Choose date

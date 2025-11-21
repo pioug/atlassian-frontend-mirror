@@ -18,7 +18,7 @@ const PageBanner = () => {
 	);
 };
 
-const BasicExample = () => (
+const BasicExample = (): React.JSX.Element => (
 	<Page testId="page" banner={<PageBanner />} isBannerOpen>
 		<Grid testId="grid">
 			<GridColumn medium={8}>

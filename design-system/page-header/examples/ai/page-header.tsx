@@ -4,7 +4,7 @@ import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import Button from '@atlaskit/button/new';
 import PageHeader from '@atlaskit/page-header';
 
-export default [
+const _default_1: React.JSX.Element[] = [
 	<PageHeader>Page Title</PageHeader>,
 	<PageHeader
 		breadcrumbs={
@@ -29,3 +29,4 @@ export default [
 		Edit Profile
 	</PageHeader>,
 ];
+export default _default_1;

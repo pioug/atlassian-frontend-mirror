@@ -22,7 +22,7 @@ const options = [
 	{ label: 'Sydney', value: 'sydney' },
 ];
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = React.useState(false);
 	const [type, setType] = React.useState('modal');
 

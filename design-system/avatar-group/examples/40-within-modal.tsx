@@ -14,7 +14,7 @@ const data = RANDOM_USERS.slice(0, 8).map((d, i) => ({
 	appearance: appearances[i % appearances.length],
 }));
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<div>
 			<Modal>

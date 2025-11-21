@@ -28,7 +28,7 @@ const options = [
 	'left bottom',
 ] as const;
 
-const SpotlightDialogPlacement = () => {
+const SpotlightDialogPlacement = (): React.JSX.Element => {
 	const [isSpotlightActive, setIsSpotlightActive] = useState(false);
 	const [dialogPlacement, setDialogPlacement] = useState(0);
 	const start = () => setIsSpotlightActive(true);

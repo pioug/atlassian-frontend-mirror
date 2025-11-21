@@ -3,7 +3,7 @@ import React from 'react';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 
-const DatePickerDisableRangeExample = () => (
+const DatePickerDisableRangeExample = (): React.JSX.Element => (
 	<>
 		<Label id="disabled" htmlFor="datepicker-disabled-range">
 			Disabled Date Range

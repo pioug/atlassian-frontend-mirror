@@ -2,7 +2,7 @@ import React from 'react';
 import MentionTextInput from '../example-helpers/demo-mention-text-input';
 import { onSelection, resourceProvider, MockPresenceResource } from '../example-helpers';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<MentionTextInput
 			label="User search"

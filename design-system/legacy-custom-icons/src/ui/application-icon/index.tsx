@@ -27,7 +27,13 @@ const ApplicationIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __ApplicationIcon__
  */
-const ApplicationIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const ApplicationIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

@@ -24,7 +24,13 @@ const SecurityIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __SecurityIcon__
  */
-const SecurityIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const SecurityIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

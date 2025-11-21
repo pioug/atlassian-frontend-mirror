@@ -6,7 +6,7 @@ import { Label } from '@atlaskit/form';
 import { Flex, Stack } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 
-const DropdownMenuDefaultExample = () => {
+const DropdownMenuDefaultExample = (): React.JSX.Element => {
 	return (
 		<Stack space="space.200">
 			<Flex gap="space.200" alignItems="center">

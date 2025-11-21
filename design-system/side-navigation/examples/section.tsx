@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ButtonItem, NavigationContent, Section } from '@atlaskit/side-navigation';
 
-const Example = () => (
+const Example = (): React.JSX.Element => (
 	<NavigationContent testId="navigation-content-for-sections">
 		<Section title="Primary actions">
 			<ButtonItem>Create work item</ButtonItem>

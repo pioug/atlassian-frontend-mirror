@@ -1,11 +1,10 @@
-import type { CallToolResult } from '@modelcontextprotocol/sdk/types';
+import type { CallToolResult, Tool } from '@modelcontextprotocol/sdk/types';
 import Fuse from 'fuse.js';
 import { z } from 'zod';
-import { zodToJsonSchema } from 'zod-to-json-schema';
 
 import { coreIconMetadata } from '@atlaskit/icon/metadata';
 
-import { cleanQuery } from '../../helpers';
+import { cleanQuery, zodToJsonSchema } from '../../helpers';
 
 export const searchIconsInputSchema = z.object({
 	terms: z
@@ -41,7 +40,7 @@ const icons = Object.entries(coreIconMetadata)
 
 type Icon = (typeof icons)[number];
 
-export const listSearchIconsTool = {
+export const listSearchIconsTool: Tool = {
 	name: 'ads_search_icons',
 	description: `Search for Atlassian Design System icons.
 

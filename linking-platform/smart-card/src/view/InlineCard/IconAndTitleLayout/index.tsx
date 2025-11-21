@@ -241,7 +241,7 @@ export const IconAndTitleLayout = ({
 				{children || (
 					<>
 						<Box as="span" xcss={styles.iconEmptyStyle} testId="icon-empty-wrapper" />
-						<span css={[iconWrapperStyle]} data-testId="icon-wrapper">
+						<span css={[iconWrapperStyle]} data-testid="icon-wrapper">
 							{renderIcon(testId)}
 						</span>
 					</>

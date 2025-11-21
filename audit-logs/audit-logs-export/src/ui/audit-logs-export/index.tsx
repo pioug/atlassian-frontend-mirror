@@ -50,7 +50,7 @@ export const AuditLogExportButton = ({
 	orgId,
 	search = '',
 	testId = 'audit-log-export-button',
-}: AuditLogExportButtonProps) => {
+}: AuditLogExportButtonProps): React.JSX.Element => {
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isTermsChecked, setIsTermsChecked] = useState<boolean>(false);

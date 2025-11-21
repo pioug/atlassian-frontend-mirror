@@ -17,7 +17,7 @@ const ExusUserSourceContext = createContext<Partial<UserSourceContext>>({});
 export const ExusUserSourceProvider = ({
 	fetchUserSource,
 	children,
-}: PropsWithChildren<UserSourceContext>) => (
+}: PropsWithChildren<UserSourceContext>): React.JSX.Element => (
 	<ExusUserSourceContext.Provider value={{ fetchUserSource }}>
 		{children}
 	</ExusUserSourceContext.Provider>

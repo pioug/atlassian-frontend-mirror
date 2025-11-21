@@ -2,43 +2,43 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import ManagedStatusPicker from '../example-helpers/ManagedStatusPicker';
 
-export const NeutralStatus = () => (
+export const NeutralStatus = (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<ManagedStatusPicker initialSelectedColor={'neutral'} initialText={'In progress'} />
 	</IntlProvider>
 );
 
-export const PurpleStatus = () => (
+export const PurpleStatus = (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<ManagedStatusPicker initialSelectedColor={'purple'} initialText={'In progress'} />
 	</IntlProvider>
 );
 
-export const BlueStatus = () => (
+export const BlueStatus = (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<ManagedStatusPicker initialSelectedColor={'blue'} initialText={'In progress'} />
 	</IntlProvider>
 );
 
-export const RedStatus = () => (
+export const RedStatus = (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<ManagedStatusPicker initialSelectedColor={'red'} initialText={'In progress'} />
 	</IntlProvider>
 );
 
-export const YellowStatus = () => (
+export const YellowStatus = (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<ManagedStatusPicker initialSelectedColor={'yellow'} initialText={'In progress'} />
 	</IntlProvider>
 );
 
-export const GreenStatus = () => (
+export const GreenStatus = (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<ManagedStatusPicker initialSelectedColor={'green'} initialText={'In progress'} />
 	</IntlProvider>
 );
 
-export default () => (
+export default (): React.JSX.Element => (
 	<IntlProvider locale="en">
 		<ManagedStatusPicker initialSelectedColor={'green'} initialText={'In progress'} />
 	</IntlProvider>

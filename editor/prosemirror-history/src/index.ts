@@ -401,7 +401,10 @@ function applyTransaction(
 			(tr.getMeta('startHistorySlice') === true || history?.historySliceActive) &&
 			tr.getMeta('endHistorySlice') !== true
 		) {
-			if (tr.getMeta('addToHistory') === false) {
+			const shouldIgnoreChange = fg('platform_editor_ai_aifc_patch_ga')
+				? tr.getMeta('isRemote')
+				: tr.getMeta('addToHistory') === false;
+			if (shouldIgnoreChange) {
 				// For addToHistory=false transactions during a slice, we need to:
 				// 1. Update the mapping for done/undone branches
 				// 2. Map the existing steps

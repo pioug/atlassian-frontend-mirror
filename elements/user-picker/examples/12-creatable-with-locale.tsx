@@ -17,7 +17,7 @@ const ExampleContainer = styled.div({
 	height: '120px',
 });
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const [locale, setLocale] = useState('en');
 
 	return (

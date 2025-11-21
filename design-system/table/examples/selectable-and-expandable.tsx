@@ -14,7 +14,7 @@ import Table, {
 } from '@atlaskit/table';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
-export default function SelectableAndExpandable() {
+export default function SelectableAndExpandable(): React.JSX.Element {
 	return (
 		<Table isSelectable>
 			<THead>

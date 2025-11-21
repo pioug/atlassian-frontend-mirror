@@ -24,7 +24,7 @@ export default class LoadingContainer extends React.Component<LoadingContainerPr
 		loadingLabel: 'Loading table',
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { children, isLoading, spinnerSize, contentsOpacity, testId, loadingLabel } = this.props;
 
 		return (

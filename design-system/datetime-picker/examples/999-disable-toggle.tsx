@@ -5,7 +5,7 @@ import { Label } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [isDisabled, setIsDisabled] = useState(true);
 
 	const toggleDisabled = useCallback(() => {

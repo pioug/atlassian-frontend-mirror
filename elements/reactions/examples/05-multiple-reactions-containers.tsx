@@ -4,7 +4,7 @@ import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { ConnectedReactionsView, type StorePropInput } from '../src';
 import { ExampleWrapper, Constants } from './utils';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<ExampleWrapper>
 			{(store: StorePropInput) => (

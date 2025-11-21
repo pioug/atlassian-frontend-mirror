@@ -361,6 +361,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 								</Field>
 								{(!anonymousFeedback && (
 									<Fieldset>
+										{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 										<legend aria-hidden={false} hidden>
 											Atlassian opt-in options
 										</legend>
@@ -582,6 +583,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 										</Field>
 										{(!anonymousFeedback && (
 											<Fieldset>
+												{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 												<legend aria-hidden={false} hidden>
 													Atlassian opt-in options
 												</legend>

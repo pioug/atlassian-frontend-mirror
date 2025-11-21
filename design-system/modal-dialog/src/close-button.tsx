@@ -36,7 +36,12 @@ type CloseButtonProps = {
  * using a `Flex` primitive as the custom header's container with a flex
  * direction of `row-reverse`.
  */
-export const CloseButton = ({ label, onBlur, onClick, testId }: CloseButtonProps) => (
+export const CloseButton = ({
+	label,
+	onBlur,
+	onClick,
+	testId,
+}: CloseButtonProps): React.JSX.Element => (
 	<IconButton
 		testId={testId && `${testId}--close-button`}
 		appearance="subtle"

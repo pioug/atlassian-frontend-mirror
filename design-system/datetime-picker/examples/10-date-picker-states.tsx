@@ -10,7 +10,7 @@ function now(day: number) {
 	return date.toISOString();
 }
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Box>
 			<Label id="stock" htmlFor="react-select-datepicker-1-input">

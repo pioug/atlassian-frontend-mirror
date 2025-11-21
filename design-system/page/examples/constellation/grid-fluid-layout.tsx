@@ -6,7 +6,7 @@ import { Dummy } from '../common/dummy';
 import VerticalSpace from '../common/vertical-space';
 
 const columns = 6;
-const GridFluidLayoutExample = () => {
+const GridFluidLayoutExample = (): React.JSX.Element => {
 	return (
 		<Page>
 			<Grid layout="fluid" spacing="comfortable" columns={columns}>

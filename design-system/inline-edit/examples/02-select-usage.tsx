@@ -32,7 +32,7 @@ const selectOptions = [
 	{ label: 'Watermelon', value: 'Watermelon' },
 ];
 
-const InlineEditExample = () => {
+const InlineEditExample = (): React.JSX.Element => {
 	const [editValue, setEditValue] = useState<ValueType<OptionType, true>>([]);
 	const selectLabel = 'Select fruit';
 	const inlineEditLabel = 'Inline Edit select';

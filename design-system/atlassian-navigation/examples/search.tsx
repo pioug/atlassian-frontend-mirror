@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { AtlassianNavigation, Search } from '@atlaskit/atlassian-navigation';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const DefaultSearch = () => {
 		const [value, setValue] = useState('');
 		const onChange = (event: any) => {

@@ -4,7 +4,7 @@ import { Checkbox } from '@atlaskit/checkbox';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import { Inline } from '@atlaskit/primitives/compiled';
 
-export default function TestExample() {
+export default function TestExample(): React.JSX.Element {
 	const ref = useRef<HTMLInputElement>(null);
 
 	return (

@@ -1,6 +1,7 @@
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types';
 import type { z } from 'zod';
-import { zodToJsonSchema } from 'zod-to-json-schema';
+
+import { zodToJsonSchema } from './index';
 
 export interface ValidationErrorResult extends CallToolResult {
 	content: [

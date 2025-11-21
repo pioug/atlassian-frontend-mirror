@@ -26,7 +26,13 @@ const GoalGlyph = (props: CustomGlyphProps) => (
 /**
  * __GoalIcon icon__
  */
-const GoalIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const GoalIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

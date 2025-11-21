@@ -6,7 +6,7 @@ import WarningIcon from '@atlaskit/icon/glyph/warning';
 
 const Icon = <WarningIcon label="Warning" secondaryColor="inherit" />;
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

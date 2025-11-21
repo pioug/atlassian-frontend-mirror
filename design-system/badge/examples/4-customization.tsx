@@ -3,7 +3,7 @@ import React from 'react';
 import Badge from '@atlaskit/badge';
 import { N0, P500, P75, R400 } from '@atlaskit/theme/colors';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<React.StrictMode>
 			<div>

@@ -27,7 +27,13 @@ const WebDomainIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __WebDomainIcon__
  */
-const WebDomainIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const WebDomainIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

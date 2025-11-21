@@ -7,7 +7,7 @@ const customStyles: StylesConfig = {
 	container: (styles) => ({ ...styles, width: '50%' }),
 };
 
-const SingleExample = () => (
+const SingleExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="custom-example">Which city do you live in?</Label>
 		<Select<OptionType>

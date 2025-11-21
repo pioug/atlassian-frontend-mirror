@@ -38,7 +38,7 @@ export default class DemoMentionList extends React.Component<any, State> {
 		});
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const mentionList = <MentionList mentions={[]} resourceError={this.state.error} />;
 
 		return (

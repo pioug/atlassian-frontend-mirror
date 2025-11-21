@@ -2,7 +2,7 @@ import React from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import Flag from '@atlaskit/flag';
-const FlagWarningExample = () => {
+const FlagWarningExample = (): React.JSX.Element => {
 	return (
 		<Flag
 			appearance="warning"

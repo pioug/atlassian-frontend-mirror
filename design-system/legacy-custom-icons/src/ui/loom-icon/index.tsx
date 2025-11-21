@@ -32,7 +32,13 @@ const LoomIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __LoomIcon__
  */
-const LoomIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const LoomIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

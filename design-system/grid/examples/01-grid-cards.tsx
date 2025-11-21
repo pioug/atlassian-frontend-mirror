@@ -21,7 +21,7 @@ export default ({
 }: {
 	maxWidth?: GridProps['maxWidth'];
 	hasInlinePadding?: GridProps['hasInlinePadding'];
-}) => {
+}): React.JSX.Element => {
 	return (
 		<Grid maxWidth={maxWidth} hasInlinePadding={hasInlinePadding} testId="grid">
 			<GridItem>

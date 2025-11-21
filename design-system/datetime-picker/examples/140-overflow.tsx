@@ -10,7 +10,7 @@ const styles = cssMap({
 	containerStyles: { maxWidth: '175px' },
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Box xcss={styles.containerStyles}>
 			<Heading size="medium">Overflow</Heading>

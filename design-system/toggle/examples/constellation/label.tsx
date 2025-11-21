@@ -17,7 +17,7 @@ const LabelElement = styled.label({
 
 export function Label(
 	props: React.DetailedHTMLProps<React.LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>,
-) {
+): React.JSX.Element {
 	return (
 		<Box>
 			<LabelElement {...(props as any)} />

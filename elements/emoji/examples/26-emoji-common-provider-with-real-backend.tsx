@@ -24,7 +24,7 @@ export const EmojiPickerPopup = ({
 }: {
 	emojiProvider: Promise<EmojiProvider>;
 	onSelected?: OnEmojiEvent;
-}) => {
+}): React.JSX.Element => {
 	const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
 	const [selectedEmoji, setSelectedEmoji] = useState<EmojiId>();
 
@@ -66,7 +66,7 @@ export const EmojiPickerPopup = ({
 	);
 };
 
-export const RealEmojiResourceProviderExample = () => {
+export const RealEmojiResourceProviderExample = (): React.JSX.Element | null => {
 	const emojiTest = {
 		id: '64ca858e-6ee7-40e2-832a-432a7422f144',
 		fallback: ':emoji-test:',
@@ -139,7 +139,7 @@ export const RealEmojiResourceProviderExample = () => {
 	);
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const emojiProvider = getRealEmojiResource();
 	return (
 		<IntlProvider locale="en">

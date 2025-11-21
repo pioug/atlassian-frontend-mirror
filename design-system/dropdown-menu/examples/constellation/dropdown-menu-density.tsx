@@ -7,7 +7,7 @@ import DropdownMenu, {
 } from '@atlaskit/dropdown-menu';
 import { Inline } from '@atlaskit/primitives/compiled';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Inline space="space.600">
 		<DropdownMenu
 			trigger="Compact density"

@@ -48,7 +48,13 @@ const FigmaIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __FigmaIcon__
  */
-const FigmaIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const FigmaIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

@@ -29,7 +29,10 @@ const stackColumnStyles: CSSProperties = {
 	color: token('color.text'),
 };
 
-const withDesignTokens = (StoryFn: StoryFunction<Renderer>, context: StoryContext<Renderer>) => {
+const withDesignTokens = (
+	StoryFn: StoryFunction<Renderer>,
+	context: StoryContext<Renderer>,
+): React.JSX.Element => {
 	const theme = (context.globals.adsTheme as Themes) || 'auto';
 
 	// eslint-disable-next-line react-hooks/rules-of-hooks

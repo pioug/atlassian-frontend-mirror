@@ -4,7 +4,7 @@ import { Label } from '@atlaskit/form';
 import { Stack } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Stack>
 		<Label htmlFor="regular">Regular (Checked by default)</Label>
 		<Toggle id="regular" isChecked={true} testId={'toggle-button'} />

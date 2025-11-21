@@ -214,7 +214,7 @@ const AvatarGroup = ({
 	moreIndicatorLabel,
 	tooltipPosition = 'bottom',
 	shouldPopupRenderToParent = false,
-}: AvatarGroupProps) => {
+}: AvatarGroupProps): React.JSX.Element => {
 	const [isTriggeredUsingKeyboard, setTriggeredUsingKeyboard] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const onClose = useCallback(() => setIsOpen(false), []);

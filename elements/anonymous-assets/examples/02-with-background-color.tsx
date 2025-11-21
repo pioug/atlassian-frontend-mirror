@@ -4,7 +4,7 @@ import { Box } from '@atlaskit/primitives/compiled';
 
 import example from './example-bg-image.png';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Box>
 			<h2>Why apply styling to the svg?</h2>

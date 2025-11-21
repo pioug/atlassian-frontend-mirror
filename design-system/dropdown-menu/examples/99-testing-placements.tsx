@@ -35,7 +35,7 @@ const ExampleDropdown = ({
 	);
 };
 
-const DropdownMenuDefaultExample = () => {
+const DropdownMenuDefaultExample = (): React.JSX.Element => {
 	return (
 		<Grid xcss={styles.grid}>
 			<ExampleDropdown

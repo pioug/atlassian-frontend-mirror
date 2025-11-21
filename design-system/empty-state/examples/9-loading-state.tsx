@@ -29,4 +29,4 @@ const props = {
 	isLoading: true,
 };
 
-export default () => <EmptyState {...props} />;
+export default (): React.JSX.Element => <EmptyState {...props} />;

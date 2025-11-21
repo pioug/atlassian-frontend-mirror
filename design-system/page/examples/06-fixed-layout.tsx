@@ -9,7 +9,7 @@ import { Dummy } from './common/dummy';
 import VerticalSpace from './common/vertical-space';
 
 const columns = 6;
-const FixedLayoutExample = () => (
+const FixedLayoutExample = (): React.JSX.Element => (
 	<Page testId="page">
 		<Banner appearance="warning" icon={<WarningIcon label="Warning" secondaryColor="inherit" />}>
 			We are planning on deprecating Page component. We recommend using the Page layout component

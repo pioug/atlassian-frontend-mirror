@@ -2,9 +2,7 @@ import React, { Fragment } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
 import Form, {
-	CheckboxField,
 	ErrorMessage,
 	Field,
 	FormFooter,
@@ -16,76 +14,104 @@ import Form, {
 	ValidMessage,
 } from '@atlaskit/form';
 import { Flex } from '@atlaskit/primitives/compiled';
+import { RadioGroup } from '@atlaskit/radio';
 import TextField from '@atlaskit/textfield';
 
-const FormDefaultExample = () => (
+const FormDefaultExample = (): React.JSX.Element => (
 	<Flex direction="column">
-		<Form<{ username: string; password: string; remember: boolean }>
+		<Form<{ schema: string; key: string; type: string }>
+			noValidate
 			onSubmit={(data) => {
 				console.log('form data', data);
 				return new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>
-					data.username === 'error'
-						? { username: 'This username is already in use, try another one' }
-						: undefined,
+					!data.schema ? { schema: 'A schema name is required' } : undefined,
 				);
 			}}
 		>
 			{({ formProps, submitting }) => (
-				<form {...formProps} name="sign-in">
-					<FormHeader title="Sign in">
+				<form {...formProps} name="create">
+					<FormHeader title="Create schema">
 						<p aria-hidden="true">
 							Required fields are marked with an asterisk <RequiredAsterisk />
 						</p>
 					</FormHeader>
 					<FormSection>
 						<Field
-							name="username"
-							label="Username"
+							name="schema"
+							label="Schema name"
 							isRequired
-							defaultValue="dst12"
-							helperMessage="You can use letters, numbers, and periods."
-							component={({ fieldProps }) => <TextField autoComplete="off" {...fieldProps} />}
-						/>
+							defaultValue=""
+							validate={(value) => (!value ? 'A schema name is required' : undefined)}
+						>
+							{({ fieldProps, error }) => {
+								return (
+									<Fragment>
+										<TextField autoComplete="off" {...fieldProps} />
+										<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
+									</Fragment>
+								);
+							}}
+						</Field>
 						<Field
-							name="password"
-							label="Password"
+							name="key"
+							label="Key"
 							defaultValue=""
 							isRequired
-							validate={(value) =>
-								value && value.length < 8
-									? 'Password needs to be more than 8 characters.'
-									: undefined
-							}
+							validate={(value) => {
+								if (!value) {
+									return 'A key is required';
+								}
+								if (value.length < 8) {
+									return 'Key needs to be at least 8 characters.';
+								}
+							}}
 						>
 							{({ fieldProps, error, valid, meta }) => {
 								return (
 									<Fragment>
-										<TextField type="password" {...fieldProps} />
+										<TextField type="key" {...fieldProps} />
 										<MessageWrapper>
-											{error && !valid && (
-												<HelperMessage>
-													Use 8 or more characters with a mix of letters, numbers, and symbols
-												</HelperMessage>
-											)}
+											<HelperMessage>
+												Create a unique key, minimum of 8 characters. Example key: IT-infrastructure
+											</HelperMessage>
 											{error && <ErrorMessage>{error}</ErrorMessage>}
-											{valid && meta.dirty ? <ValidMessage>Awesome password!</ValidMessage> : null}
+											{valid && meta.dirty ? <ValidMessage>Key is unique</ValidMessage> : null}
 										</MessageWrapper>
 									</Fragment>
 								);
 							}}
 						</Field>
-						<CheckboxField name="remember" defaultIsChecked>
-							{({ fieldProps }) => (
-								<Checkbox {...fieldProps} label="Always sign in on this device" />
+						<Field
+							name="type"
+							defaultValue=""
+							label="Schema type"
+							component={({ fieldProps }) => (
+								<RadioGroup
+									options={[
+										{
+											name: 'type',
+											value: 'project-admin',
+											label: 'Public',
+										},
+										{
+											name: 'type',
+											value: 'admin',
+											label: 'Private',
+										},
+									]}
+									{...fieldProps}
+								/>
 							)}
-						</CheckboxField>
+						/>
 					</FormSection>
 
-					<FormFooter>
+					<FormFooter align="start">
 						<ButtonGroup label="Form submit options">
-							<Button appearance="subtle">Cancel</Button>
-							<Button type="submit" appearance="primary" isLoading={submitting}>
-								Sign up
+							<Button type="submit" appearance="primary">
+								Create
+							</Button>
+							<Button appearance="subtle" isLoading={submitting}>
+								Cancel
 							</Button>
 						</ButtonGroup>
 					</FormFooter>

@@ -14,7 +14,7 @@ export type { SkeletonItemProps } from '@atlaskit/menu';
  * - [Examples](https://atlassian.design/components/side-navigation/examples#loading)
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
-const SkeletonItem = (props: SkeletonItemProps) => {
+const SkeletonItem = (props: SkeletonItemProps): React.JSX.Element | null => {
 	const { shouldRender } = useShouldNestedElementRender();
 	if (!shouldRender) {
 		return null;

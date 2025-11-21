@@ -3,7 +3,7 @@ import React from 'react';
 import { SimpleTag as Tag } from '@atlaskit/tag';
 import TagGroup from '@atlaskit/tag-group';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<TagGroup label="Colored tags">
 		<Tag text="standard Tag" color="standard" />
 		<Tag text="blue Tag" color="blue" />

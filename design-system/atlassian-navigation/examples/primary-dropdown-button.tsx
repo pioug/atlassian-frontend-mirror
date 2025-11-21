@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianNavigation, PrimaryDropdownButton } from '@atlaskit/atlassian-navigation';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		renderProductHome={() => null}

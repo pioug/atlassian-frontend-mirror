@@ -1,7 +1,12 @@
 import { Component } from 'react';
 import { start, end } from 'perf-marks';
-import { type MediaClient, getMediaClientErrorReason } from '@atlaskit/media-client';
+import {
+	type MediaClient,
+	getMediaClientErrorReason,
+	isCommonMediaClientError,
+} from '@atlaskit/media-client';
 import { ANALYTICS_MEDIA_CHANNEL, type MediaFeatureFlags } from '@atlaskit/media-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type UploadService } from '../service/types';
 import {
 	type UploadEndEventPayload,
@@ -177,6 +182,16 @@ export class LocalUploadComponentReact<
 
 		const { duration: uploadDurationMsec = -1 } = end(`MediaPicker.fireUpload.${fileId}`);
 
+		let errorDetail = 'unknown';
+		if (fg('add_media_picker_error_detail')) {
+			errorDetail =
+				rawError && isCommonMediaClientError(rawError) && rawError.innerError?.message
+					? rawError.innerError?.message
+					: rawError instanceof Error
+						? rawError.message
+						: 'unknown';
+		}
+
 		this.createAndFireAnalyticsEvent({
 			eventType: 'operational',
 			action: 'failed',
@@ -194,12 +209,14 @@ export class LocalUploadComponentReact<
 				},
 				uploadDurationMsec,
 				traceContext,
+				errorDetail,
 			},
 		});
 
 		failMediaUploadUfoExperience(fileId, {
 			failReason: errorName,
 			error: !!rawError ? getMediaClientErrorReason(rawError) : 'unknown',
+			errorDetail,
 			request: !!rawError ? getRequestMetadata(rawError) : undefined,
 			fileAttributes: {
 				fileId,

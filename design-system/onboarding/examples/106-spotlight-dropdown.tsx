@@ -10,7 +10,7 @@ import {
 	SpotlightTransition,
 } from '@atlaskit/onboarding';
 
-const PopupWithSpotlight = () => {
+const PopupWithSpotlight = (): React.JSX.Element => {
 	const [isSpotlightActive, setIsSpotlightActive] = useState(false);
 	const handleSpotlightOpen = () => setIsSpotlightActive(true);
 	const handleSpotlightClose = () => setIsSpotlightActive(false);

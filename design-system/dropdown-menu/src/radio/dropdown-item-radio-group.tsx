@@ -43,7 +43,7 @@ const DropdownItemRadioGroup = ({
 	title,
 	// DSP-13312 TODO: remove spread props in future major release
 	...rest
-}: DropdownItemRadioGroupProps) => {
+}: DropdownItemRadioGroupProps): React.JSX.Element => {
 	const { setGroupState, getGroupState } = useContext(SelectionStoreContext);
 	const uid = useId();
 	const titleId = `dropdown-menu-item-radio-group-title-${uid}`;

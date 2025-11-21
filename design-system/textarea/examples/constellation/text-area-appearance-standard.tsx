@@ -3,7 +3,7 @@ import React from 'react';
 import { Label } from '@atlaskit/form';
 import TextArea from '@atlaskit/textarea';
 
-export default function TextAreaAppearanceStandard() {
+export default function TextAreaAppearanceStandard(): React.JSX.Element {
 	return (
 		<>
 			<Label htmlFor="standard-appearance">Standard appearance</Label>

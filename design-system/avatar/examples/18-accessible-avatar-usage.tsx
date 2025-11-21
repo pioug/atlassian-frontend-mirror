@@ -8,7 +8,7 @@ const containerStyle = {
 	padding: token('space.250', '20px'),
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		{/* These should be replaced by just using a Stack primitive, but can't
     because of a styling issue. See DSP-16480. */}

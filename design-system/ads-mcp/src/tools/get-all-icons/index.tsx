@@ -1,7 +1,9 @@
+import type { Tool } from '@modelcontextprotocol/sdk/types';
 import { z } from 'zod';
-import { zodToJsonSchema } from 'zod-to-json-schema';
 
 import { coreIconMetadata } from '@atlaskit/icon/metadata';
+
+import { zodToJsonSchema } from '../../helpers';
 
 const icons = Object.entries(coreIconMetadata).map(([_key, icon]) => ({
 	componentName: icon.componentName,
@@ -13,7 +15,7 @@ const icons = Object.entries(coreIconMetadata).map(([_key, icon]) => ({
 	shouldRecommendSmallIcon: icon.shouldRecommendSmallIcon,
 }));
 
-export const listGetAllIconsTool = {
+export const listGetAllIconsTool: Tool = {
 	name: 'ads_get_all_icons',
 	description:
 		"Fetch all Atlassian Design System icons. Only use when `ads_search_icons` does not return what you're looking for.",

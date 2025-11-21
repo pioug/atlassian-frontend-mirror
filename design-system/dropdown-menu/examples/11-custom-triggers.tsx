@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 
-const DropdownMenuCustomTrigger = () => {
+const DropdownMenuCustomTrigger = (): React.JSX.Element => {
 	return (
 		<DropdownMenu<HTMLButtonElement>
 			placement="bottom-end"

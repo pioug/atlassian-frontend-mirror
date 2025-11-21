@@ -126,4 +126,4 @@ const ProgressExample: FC = () => {
 	);
 };
 
-export default () => <ProgressExample />;
+export default (): React.JSX.Element => <ProgressExample />;

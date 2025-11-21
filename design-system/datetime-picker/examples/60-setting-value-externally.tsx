@@ -10,7 +10,7 @@ const dateId = 'datepicker-input';
 const timeId = 'timepicker-input';
 const datetimeId = 'datetimepicker-input';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [datePickerValue, setDatePickerValue] = useState<string>('2018-01-02');
 	const [datePickerInput, setDatePickerInput] = useState<string>('2018-01-02');
 	const [timePickerValue, setTimePickerValue] = useState<string>('14:30');

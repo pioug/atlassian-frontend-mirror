@@ -31,7 +31,13 @@ const NotionIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __NotionIcon__
  */
-const NotionIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const NotionIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar, { AvatarItem } from '@atlaskit/avatar';
 
-export default [
+const _default_1: React.JSX.Element[] = [
 	<AvatarItem
 		avatar={<Avatar name="Bob Wilson" status="approved" />}
 		primaryText="Bob Wilson"
@@ -10,3 +10,4 @@ export default [
 		href="/user/bob-wilson"
 	/>,
 ];
+export default _default_1;

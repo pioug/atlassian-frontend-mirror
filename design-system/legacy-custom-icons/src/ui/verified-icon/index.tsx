@@ -27,7 +27,13 @@ const VerifiedIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __VerifiedIcon__
  */
-const VerifiedIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const VerifiedIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

@@ -7,6 +7,6 @@ const Home = () => (
 	<ProductHome href="#" siteTitle="Hello" icon={AtlassianIcon} logo={AtlassianLogo} />
 );
 
-export default () => (
+export default (): React.JSX.Element => (
 	<AtlassianNavigation label="site" renderProductHome={Home} primaryItems={[]} />
 );

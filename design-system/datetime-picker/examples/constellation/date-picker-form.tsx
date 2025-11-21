@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/new';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import Form, { Field, FormFooter, HelperMessage } from '@atlaskit/form';
 
-const DatePickerFormExample = () => (
+const DatePickerFormExample = (): React.JSX.Element => (
 	<Form onSubmit={(formState: unknown) => console.log('form submitted', formState)}>
 		<Field name="datepicker-form" label="Start date" isRequired={false} defaultValue="">
 			{({ fieldProps }) => (

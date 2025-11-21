@@ -10,7 +10,7 @@ const getOptionValue = (option: OptionType) => {
 	return option.value;
 };
 
-const ElementBeforeExample = () => (
+const ElementBeforeExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="filter-example">Which city do you live in?</Label>
 		<Select

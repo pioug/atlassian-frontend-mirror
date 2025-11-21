@@ -34,7 +34,7 @@ export default class GenericAnalyticsListener extends React.Component<Props> {
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<AnalyticsListener onEvent={this.listenerHandler} channel={this.props.channel}>
 				{this.props.children}

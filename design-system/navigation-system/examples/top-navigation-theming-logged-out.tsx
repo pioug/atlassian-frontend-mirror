@@ -67,7 +67,7 @@ const TopNavigationThemingInstance = ({ customTheme }: { customTheme?: CustomThe
 	);
 };
 
-export const TopNavigationThemingLoggedOutExample = () => (
+export const TopNavigationThemingLoggedOutExample = (): React.JSX.Element => (
 	<WithResponsiveViewport>
 		<TopNavigationThemingInstance
 			customTheme={{ backgroundColor: '#e8cbd2', highlightColor: '#333' }}

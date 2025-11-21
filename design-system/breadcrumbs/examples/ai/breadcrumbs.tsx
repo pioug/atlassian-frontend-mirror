@@ -2,7 +2,7 @@ import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 
-export default [
+const _default_1: React.JSX.Element[] = [
 	<Breadcrumbs maxItems={3}>
 		<BreadcrumbsItem href="/" text="Home" />
 		<BreadcrumbsItem href="/category" text="Category" />
@@ -10,3 +10,4 @@ export default [
 		<BreadcrumbsItem text="Current Page" />
 	</Breadcrumbs>,
 ];
+export default _default_1;

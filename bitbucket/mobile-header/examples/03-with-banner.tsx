@@ -43,7 +43,7 @@ export default class BannerMobileHeaderDemo extends Component<{}, State> {
 		this.setState({ drawerState: 'none' });
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<div>
 				<Banner

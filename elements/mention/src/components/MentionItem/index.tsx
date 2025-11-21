@@ -82,7 +82,7 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { mention, selected, forwardedRef } = this.props;
 		const {
 			id,

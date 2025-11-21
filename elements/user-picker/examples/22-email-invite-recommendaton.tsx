@@ -4,7 +4,7 @@ import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import UserPicker from '../src';
 import { isExternalUser } from '../src/components/utils';
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	return (
 		<ExampleWrapper>
 			{({ onInputChange }) => (

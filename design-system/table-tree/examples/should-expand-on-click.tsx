@@ -12,7 +12,7 @@ export default class extends PureComponent<any, any> {
 		},
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { expansionMap } = this.state;
 
 		return (

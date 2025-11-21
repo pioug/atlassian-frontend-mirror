@@ -22,9 +22,9 @@ describe('Auto dismiss flag', () => {
 		});
 
 		describe('timer tests', () => {
-			const runTimer = () =>
+			const runTimer = (seconds: number = AUTO_DISMISS_SECONDS) =>
 				act(() => {
-					jest.advanceTimersByTime(AUTO_DISMISS_SECONDS * 1000);
+					jest.advanceTimersByTime(seconds * 1000);
 				});
 
 			beforeEach(() => {
@@ -210,6 +210,20 @@ describe('Auto dismiss flag', () => {
 						</Box>
 					</FlagGroup>,
 				);
+			});
+
+			it('should allow for custom auto-dismiss duration', () => {
+				const onDismissedSpy = jest.fn();
+				render(
+					<FlagGroup onDismissed={onDismissedSpy}>
+						{generateAutoDismissFlag({
+							autoDismissSeconds: 16,
+						})}
+					</FlagGroup>,
+				);
+				expect(onDismissedSpy).not.toBeCalled();
+				runTimer(16);
+				expect(onDismissedSpy).toBeCalled();
 			});
 		});
 	});

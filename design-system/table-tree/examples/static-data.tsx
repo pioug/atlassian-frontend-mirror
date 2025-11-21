@@ -10,7 +10,7 @@ export default class extends Component {
 		roots: null,
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<TableTree>
 				<Headers>

@@ -12,7 +12,7 @@ interface RowProps {
 	testId?: string;
 }
 
-const Row = ({ row, head, testId, isFixedSize, isHighlighted }: RowProps) => {
+const Row = ({ row, head, testId, isFixedSize, isHighlighted }: RowProps): React.JSX.Element => {
 	const { cells, ...restRowProps } = row;
 
 	return (

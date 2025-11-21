@@ -27,7 +27,13 @@ const GithubIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __GithubIcon__
  */
-const GithubIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const GithubIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

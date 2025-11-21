@@ -6,7 +6,7 @@ import CloseIcon from '@atlaskit/icon/core/cross';
 import { SpotlightCard } from '@atlaskit/onboarding';
 import { token } from '@atlaskit/tokens';
 
-const SpotlightCardHeadingAfterExample = () => {
+const SpotlightCardHeadingAfterExample = (): React.JSX.Element => {
 	return (
 		<SpotlightCard
 			headingAfterElement={

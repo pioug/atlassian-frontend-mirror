@@ -52,7 +52,7 @@ const getIcon = (key: string) => {
 	return iconMap(key) as ReactElement;
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Stack space="space.100">
 		{Object.keys(appearances).map((type, idx) => (
 			<Flag

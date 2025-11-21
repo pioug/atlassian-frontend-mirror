@@ -131,7 +131,7 @@ function FlyoutWithShortcut({
 	);
 }
 
-export default function MultipleFlyoutMenuExample() {
+export default function MultipleFlyoutMenuExample(): React.JSX.Element {
 	const [manager] = useState(() => getManager());
 
 	return (

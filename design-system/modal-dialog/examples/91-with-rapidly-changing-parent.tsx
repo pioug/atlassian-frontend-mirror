@@ -25,7 +25,7 @@ const containerStyles = cssMap({
 	},
 });
 
-export default function Parent() {
+export default function Parent(): React.JSX.Element {
 	const [, setCount] = useState(0);
 
 	useEffect(() => {

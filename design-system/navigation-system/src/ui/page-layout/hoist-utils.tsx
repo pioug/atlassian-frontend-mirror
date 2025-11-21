@@ -20,7 +20,7 @@ export const HoistCssVarToLocalGrid = ({
 	value: number;
 	// Using a global style is required for SSR, as we can't use React hooks
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
-}) => <style>{`#${gridRootId} { ${variableName}: ${value}px }`}</style>;
+}): React.JSX.Element => <style>{`#${gridRootId} { ${variableName}: ${value}px }`}</style>;
 
 const getCssStringValue = (value: string | number): string =>
 	typeof value === 'number' ? `${value}px` : value;
@@ -39,7 +39,7 @@ export const DangerouslyHoistCssVarToDocumentRoot = ({
 	value: string | number;
 	mediaQuery?: MediaQuery;
 	responsiveValue?: string | number;
-}) => {
+}): React.JSX.Element => {
 	/**
 	 * Note don't put multiple variables in multiple lines. eg
 	 * <style>

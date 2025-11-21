@@ -5,7 +5,7 @@ import Form, { FormFooter, RangeField } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range';
 
-const FormRangeFieldExample = () => {
+const FormRangeFieldExample = (): React.JSX.Element => {
 	return (
 		<Box>
 			<Form onSubmit={(data) => console.log(data)}>

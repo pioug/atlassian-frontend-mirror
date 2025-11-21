@@ -18,7 +18,7 @@ import Form, {
 import { Flex, Text } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Flex direction="column">
 		<Text>
 			If your form component only requires spreading <Code>formProps</Code> on the HTML{' '}

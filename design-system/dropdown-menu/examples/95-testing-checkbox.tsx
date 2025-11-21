@@ -6,7 +6,7 @@ import DropdownMenu, {
 } from '@atlaskit/dropdown-menu';
 import __noop from '@atlaskit/ds-lib/noop';
 
-const DropdownMenuCheckbox = () => (
+const DropdownMenuCheckbox = (): React.JSX.Element => (
 	<DropdownMenu trigger="Choices" onOpenChange={__noop} testId="lite-mode-ddm" shouldRenderToParent>
 		<DropdownItemCheckboxGroup id="cities" title="Some cities">
 			<DropdownItemCheckbox id="sydney">Sydney</DropdownItemCheckbox>

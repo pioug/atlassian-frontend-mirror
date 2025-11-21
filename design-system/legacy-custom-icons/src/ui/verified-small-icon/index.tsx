@@ -27,7 +27,13 @@ const VerifiedSmallIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __VerifiedSmallIcon__
  */
-const VerifiedSmallIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const VerifiedSmallIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

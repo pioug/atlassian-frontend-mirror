@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 43.9.1
+
+### Patch Changes
+
+- [`b19c48cd86a0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b19c48cd86a0f) -
+  [ux] Open auth window experiment, behind platform_sl_3p_auth_window_experiment
+- Updated dependencies
+
 ## 43.9.0
 
 ### Minor Changes

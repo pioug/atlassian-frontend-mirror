@@ -31,7 +31,13 @@ const SkipTenBackwardIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __SkipTenBackwardIcon__
  */
-const SkipTenBackwardIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const SkipTenBackwardIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

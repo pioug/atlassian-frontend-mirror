@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/new';
 import Form, { FormFooter, HelperMessage, RangeField } from '@atlaskit/form';
 import Range from '@atlaskit/range';
 
-export default function TextFieldFormExample() {
+export default function TextFieldFormExample(): React.JSX.Element {
 	return (
 		<Form onSubmit={(formState: unknown) => console.log('form submitted', formState)}>
 			<RangeField label="Adjust brightness" name="example-text" defaultValue={50}>

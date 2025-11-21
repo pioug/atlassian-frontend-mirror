@@ -29,4 +29,4 @@ const WithPromises = () => {
 	);
 };
 
-export default () => <WithPromises />;
+export default (): React.JSX.Element => <WithPromises />;

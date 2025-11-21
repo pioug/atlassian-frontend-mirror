@@ -26,4 +26,4 @@ const props = {
 	secondaryAction,
 };
 
-export default () => <EmptyState {...props} />;
+export default (): React.JSX.Element => <EmptyState {...props} />;

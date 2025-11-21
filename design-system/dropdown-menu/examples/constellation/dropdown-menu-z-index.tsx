@@ -19,7 +19,7 @@ const styles = cssMap({
 	},
 });
 
-const DropdownMenuZIndex = () => {
+const DropdownMenuZIndex = (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

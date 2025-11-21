@@ -2,7 +2,7 @@ import React from 'react';
 
 import InlineMessage from '@atlaskit/inline-message';
 
-const InlineMessageWarningExample = () => {
+const InlineMessageWarningExample = (): React.JSX.Element => {
 	return (
 		<InlineMessage appearance="warning" secondaryText="Your bill may increase">
 			<p>

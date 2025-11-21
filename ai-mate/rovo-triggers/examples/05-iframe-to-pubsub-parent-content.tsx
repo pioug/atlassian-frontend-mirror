@@ -7,7 +7,7 @@ const siblingExampleUrl =
 const embedOneFrameId = 'embed-one';
 const embedTwoFrameId = 'embed-two';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [eventLog, setEventLog] = React.useState<string[]>([]);
 
 	return (

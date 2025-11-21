@@ -2,7 +2,7 @@ import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 
-const BreadcrumbsMaxItemsExample = () => {
+const BreadcrumbsMaxItemsExample = (): React.JSX.Element => {
 	return (
 		<Breadcrumbs maxItems={3}>
 			<BreadcrumbsItem href="/item" text="Item 1" />

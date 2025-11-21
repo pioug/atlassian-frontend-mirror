@@ -20,7 +20,7 @@ const GridWrapper = ({
 	testId,
 	children,
 	theme,
-}: GridProps) => {
+}: GridProps): React.JSX.Element => {
 	/**
 	 * isRoot is `true` only in the default context (i.e. no ancestor Grid).
 	 */

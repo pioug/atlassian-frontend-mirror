@@ -11,7 +11,7 @@ export default class MentionDescriptionByline extends React.PureComponent<
 	DescriptionBylineProps,
 	{}
 > {
-	render() {
+	render(): React.JSX.Element {
 		const { userType, isXProductUser } = this.props.mention;
 
 		if (isXProductUser) {

@@ -154,7 +154,7 @@ const styles = cssMap({
 	},
 });
 
-const CustomDropdownMenu = () => (
+const CustomDropdownMenu = (): React.JSX.Element => (
 	<Box xcss={styles.container}>
 		<PrimaryDropdown content={OptionsContent} text="Mixed item" />
 	</Box>

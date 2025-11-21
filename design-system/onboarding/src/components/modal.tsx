@@ -107,7 +107,7 @@ export default class BenefitsModal extends Component<ModalProps> {
 		return FooterElement || ActionsElement;
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			actions,
 			children,

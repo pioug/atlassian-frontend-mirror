@@ -7,7 +7,7 @@ import { simpleMockData } from '../src/MockReactionsClient';
 import { Example, Constants as ExampleConstants } from './utils';
 import { ReactionStatus } from '../src/types';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const containerAri = `${ExampleConstants.ContainerAriPrefix}1`;
 	const ari = `${ExampleConstants.AriPrefix}1`;
 	const emojiProvider = getEmojiResource() as Promise<EmojiProvider>;

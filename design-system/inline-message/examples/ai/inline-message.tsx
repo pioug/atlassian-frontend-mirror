@@ -2,7 +2,7 @@ import React from 'react';
 
 import InlineMessage from '@atlaskit/inline-message';
 
-export default [
+const _default_1: React.JSX.Element[] = [
 	<InlineMessage
 		title="Success"
 		secondaryText="Your changes have been saved successfully."
@@ -19,3 +19,4 @@ export default [
 		appearance="error"
 	/>,
 ];
+export default _default_1;

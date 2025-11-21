@@ -34,7 +34,7 @@ const EmojiWrapper = ({ children }: React.PropsWithChildren<unknown>) => {
 	);
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [emojiCollection, setEmojiCollection] = useState<EmojiId[]>([]);
 
 	const handlePickOfEmojis = useCallback((emojiCollection: any[], sampleSize: number) => {

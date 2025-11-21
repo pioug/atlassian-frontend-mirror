@@ -19,7 +19,7 @@ export interface Props {
 	zIndex?: string | number;
 }
 
-const Popup = (props: React.PropsWithChildren<Props>) => {
+const Popup = (props: React.PropsWithChildren<Props>): React.JSX.Element => {
 	const {
 		relativePosition = 'auto',
 		offsetX = 0,

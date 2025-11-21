@@ -13,7 +13,7 @@ import ModalDialog, {
 import { RadioGroup } from '@atlaskit/radio';
 import Textfield from '@atlaskit/textfield';
 
-export default function FormAsContainer() {
+export default function FormAsContainer(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const open = useCallback(() => setIsOpen(true), []);
 	const close = useCallback(() => setIsOpen(false), []);

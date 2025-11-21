@@ -2,7 +2,7 @@ import React from 'react';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<DropdownMenu
 		trigger="Page actions"
 		onOpenChange={(e) => console.log('dropdown opened', e)}

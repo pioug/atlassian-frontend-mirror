@@ -58,7 +58,7 @@ const LocaleSelect = ({
 	locale,
 	defaultLocale = defaultLocales[0],
 	onLocaleChange = () => {},
-}: LocaleSelectProps) => (
+}: LocaleSelectProps): React.JSX.Element => (
 	<Select<Locale>
 		inputId={id}
 		options={locales}

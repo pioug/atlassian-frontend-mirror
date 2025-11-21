@@ -9,7 +9,7 @@ type MentionAvatarProps = {
 	mention: MentionDescription;
 	selected?: boolean;
 };
-export const MentionAvatar = ({ mention, selected }: MentionAvatarProps) => {
+export const MentionAvatar = ({ mention, selected }: MentionAvatarProps): React.JSX.Element => {
 	const { avatarUrl, presence } = mention;
 	const borderColor = selected ? token('color.border') : undefined;
 	const { status } = presence || ({} as Presence);

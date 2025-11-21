@@ -28,7 +28,7 @@ const NestedDropdown = () => {
 		</DropdownMenu>
 	);
 };
-const NestedDropdownMenuExample = () => {
+const NestedDropdownMenuExample = (): React.JSX.Element => {
 	return (
 		<DropdownMenu trigger="Nested" shouldRenderToParent>
 			<DropdownItemGroup>

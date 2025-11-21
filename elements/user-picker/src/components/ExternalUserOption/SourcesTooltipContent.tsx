@@ -98,7 +98,10 @@ const imageContainerStyles = xcss({
 	justifyContent: 'center',
 });
 
-export const SourcesTooltipContent = ({ sources, sourcesLoading }: ExternalUserSourcesData) => {
+export const SourcesTooltipContent = ({
+	sources,
+	sourcesLoading,
+}: ExternalUserSourcesData): React.JSX.Element => {
 	const sourcesToRender = React.useMemo(
 		() =>
 			fg('product-terminology-refresh')

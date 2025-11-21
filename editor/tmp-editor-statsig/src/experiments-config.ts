@@ -900,14 +900,6 @@ export const editorExperimentsConfig = {
 		defaultValue: false,
 	}),
 	// Added 2025-09-11
-	platform_editor_block_menu_layout_format: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_block_menu_layout_format',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-09-11
 	platform_editor_block_menu_expand_format: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_block_menu_expand_format',
@@ -1126,6 +1118,14 @@ export const editorExperimentsConfig = {
 	cc_editor_limited_mode_table_align_bttn: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_editor_limited_mode_table_align_bttn',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-11-19
+	platform_editor_lovability_navigation_fixes: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_lovability_navigation_fixes',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -9,7 +9,7 @@ import Page, { Grid, GridColumn } from '@atlaskit/page';
 import { Dummy } from './common/dummy';
 
 const columns = 12;
-const ColumnsStory = () => (
+const ColumnsStory = (): React.JSX.Element => (
 	<Page testId="page">
 		<Banner appearance="warning" icon={<WarningIcon label="Warning" secondaryColor="inherit" />}>
 			We are planning on deprecating Page component. We recommend using the Page layout component

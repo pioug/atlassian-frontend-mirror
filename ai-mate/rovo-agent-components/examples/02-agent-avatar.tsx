@@ -10,7 +10,7 @@ import { AgentAvatar } from '../src/ui/agent-avatar';
 
 import { imageAgentAvatar } from './helpers';
 
-export default function () {
+export default function (): React.JSX.Element {
 	return (
 		<IntlProvider locale="en">
 			<Box padding="space.300" backgroundColor="color.background.accent.purple.subtler.pressed">

@@ -3,7 +3,7 @@ import React from 'react';
 import Banner from '@atlaskit/banner';
 import Link from '@atlaskit/link';
 
-const BannerAnnouncementExample = () => {
+const BannerAnnouncementExample = (): React.JSX.Element => {
 	return (
 		<Banner appearance="announcement">
 			We’re making changes to our server and Data Center apps, including the end of sale for new

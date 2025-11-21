@@ -10,7 +10,7 @@ const NotificationsBadge = () => (
 	/>
 );
 
-const NotificationsExample = () => (
+const NotificationsExample = (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		renderProductHome={() => null}

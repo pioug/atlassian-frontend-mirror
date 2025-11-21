@@ -4,7 +4,7 @@ import Flag from '@atlaskit/flag';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
 import { token } from '@atlaskit/tokens';
 
-const FlagActionsExample = () => {
+const FlagActionsExample = (): React.JSX.Element => {
 	return (
 		<Flag
 			icon={<SuccessIcon color={token('color.icon.success')} label="" />}

@@ -163,7 +163,7 @@ export default class SpotlightManager extends PureComponent<
 		targets,
 	}));
 
-	render() {
+	render(): React.JSX.Element {
 		const { blanketIsTinted, children, component: Tag, onBlanketClicked } = this.props;
 
 		const isActive = this.state.spotlightCount > 0;

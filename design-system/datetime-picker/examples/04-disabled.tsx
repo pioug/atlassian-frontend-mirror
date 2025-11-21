@@ -5,7 +5,7 @@ import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
 import { Stack } from '@atlaskit/primitives/compiled';
 
-export default function DisabledExample() {
+export default function DisabledExample(): React.JSX.Element {
 	return (
 		<Stack space="space.150">
 			<div>

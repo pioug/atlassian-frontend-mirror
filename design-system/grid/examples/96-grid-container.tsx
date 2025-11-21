@@ -16,7 +16,7 @@ const itemStyles = xcss({
 	padding: 'space.200',
 });
 
-const NestedGrid = () => {
+const NestedGrid = (): React.JSX.Element => {
 	return (
 		/* set maxWidth and hasInlinePadding on GridContainer instead of Grid */
 		<GridContainer maxWidth={undefined} hasInlinePadding={true}>

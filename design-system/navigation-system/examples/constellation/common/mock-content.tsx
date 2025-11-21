@@ -13,7 +13,7 @@ import {
 
 import { MockSearch } from '../../utils/mock-search';
 
-export const MockContent = () => {
+export const MockContent = (): React.JSX.Element => {
 	return (
 		<>
 			<TopNavStart sideNavToggleButton={null}>

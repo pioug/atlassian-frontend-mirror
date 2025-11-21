@@ -285,7 +285,7 @@ export class UserPickerFieldComponent extends React.Component<WrappedComponentPr
 		return baseProps;
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			defaultValue,
 			enableSmartUserPicker,

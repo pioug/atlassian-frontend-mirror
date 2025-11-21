@@ -2,7 +2,7 @@ import React from 'react';
 
 import Badge from '@atlaskit/badge';
 
-const BadgeMaxValueDisabledExample = () => {
+const BadgeMaxValueDisabledExample = (): React.JSX.Element => {
 	return (
 		<Badge appearance="added" max={false}>
 			{1000}

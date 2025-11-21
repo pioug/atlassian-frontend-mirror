@@ -83,4 +83,4 @@ class SelectInModal extends Component<{}, State> {
 	}
 }
 
-export default () => <SelectInModal />;
+export default (): React.JSX.Element => <SelectInModal />;

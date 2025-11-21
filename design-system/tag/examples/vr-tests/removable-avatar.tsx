@@ -4,7 +4,7 @@ import Avatar from '@atlaskit/avatar';
 import { Box } from '@atlaskit/primitives/compiled';
 import { RemovableTag } from '@atlaskit/tag';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box role="group" aria-label="Removable avatar tag examples">
 		<RemovableTag
 			appearance="rounded"

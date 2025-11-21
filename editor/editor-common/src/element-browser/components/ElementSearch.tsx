@@ -131,6 +131,7 @@ function ElementSearch({
 					</div>
 				}
 				placeholder={formatMessage(commonMessages.placeHolderMessage)}
+				// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 				aria-label="search"
 				aria-labelledby="search-assistive"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -174,10 +175,10 @@ const wrapper = css({
 		'& > [data-ds--text-field--input]': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			fontSize: relativeFontSizeToBase16(14),
-			padding: `${token('space.100', '8px')} ${token(
-				'space.075',
-				'6px',
-			)} ${token('space.100', '8px')} 0`,
+			padding: `${token('space.100', '8px')} ${token('space.075', '6px')} ${token(
+				'space.100',
+				'8px',
+			)} 0`,
 		},
 	},
 });
@@ -193,7 +194,10 @@ const wrapperInline = css({
 });
 
 const elementBeforeInput = css({
-	margin: `${token('space.025', '2px')} ${token('space.075', '6px')} 0 ${token('space.100', '8px')}`,
+	margin: `${token('space.025', '2px')} ${token('space.075', '6px')} 0 ${token(
+		'space.100',
+		'8px',
+	)}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'span, svg': {
 		height: '20px',

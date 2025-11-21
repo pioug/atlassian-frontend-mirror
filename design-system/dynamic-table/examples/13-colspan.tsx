@@ -44,7 +44,7 @@ const rows = [
 	},
 ];
 
-const CustomColSpanExample = () => (
+const CustomColSpanExample = (): React.JSX.Element => (
 	<DynamicTable
 		caption="Class timetable"
 		head={head}

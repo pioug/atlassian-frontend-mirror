@@ -8,7 +8,7 @@ const ModalTitle = lazy(() => import('@atlaskit/modal-dialog/modal-title'));
 const ModalBody = lazy(() => import('@atlaskit/modal-dialog/modal-body'));
 const LazyButton = lazy(() => import('@atlaskit/button'));
 
-export default function ModalDeepSuspense(props: any) {
+export default function ModalDeepSuspense(props: any): React.JSX.Element {
 	const [innerLoaded, setInnerLoaded] = useState(false);
 
 	return (

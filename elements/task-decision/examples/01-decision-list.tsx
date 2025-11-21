@@ -7,7 +7,7 @@ import { DecisionList } from '../src';
 import { DecisionItem } from '../src';
 import { dumpRef } from '../example-helpers/story-utils';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<h3>Simple DecisionList</h3>
 		<DecisionList>

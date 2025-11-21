@@ -43,7 +43,7 @@ export function SkipLinksProvider({
 	children: ReactNode;
 	label: string;
 	testId?: string;
-}) {
+}): React.JSX.Element {
 	const [links, setLinks] = useState<Array<SkipLinkData>>([]);
 	const registerSkipLink = useCallback((skipLinkData: SkipLinkData) => {
 		// Don't add duplicate skip links

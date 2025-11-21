@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 6.1.0
+
+### Minor Changes
+
+- [`a21ace8d15c80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a21ace8d15c80) -
+  [ux] Removing a feature gate that was introduced to improve the find and replace experience
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.9
 
 ### Patch Changes

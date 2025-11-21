@@ -6,7 +6,7 @@ import Heading from '@atlaskit/heading';
 import Pagination from '@atlaskit/pagination';
 import { Stack } from '@atlaskit/primitives/compiled';
 
-export default function AnalyticsExample() {
+export default function AnalyticsExample(): React.JSX.Element {
 	const [analyticEventContext, setAnalyticEventContext] = useState({});
 	const [analyticEventPayload, setAnalyticEventPayload] = useState({});
 

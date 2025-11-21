@@ -2,7 +2,7 @@ import React from 'react';
 
 import { SuccessProgressBar } from '@atlaskit/progress-bar';
 
-const SuccessProgressBarIndeterminateExample = () => {
+const SuccessProgressBarIndeterminateExample = (): React.JSX.Element => {
 	return <SuccessProgressBar ariaLabel="Loading work items" isIndeterminate />;
 };
 

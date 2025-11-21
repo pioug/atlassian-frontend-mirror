@@ -23,7 +23,7 @@ const createUser = async (data: { username: string; email: string }) => {
 	return errors;
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const handleSubmit = (data: { username: string; email: string }) => {
 		return createUser(data);
 	};

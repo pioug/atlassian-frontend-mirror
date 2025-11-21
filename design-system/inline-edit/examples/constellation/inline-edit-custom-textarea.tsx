@@ -29,7 +29,7 @@ const readViewContainerStyles = cssMap({
 	},
 });
 
-const InlineEditCustomTextareaExample = () => {
+const InlineEditCustomTextareaExample = (): React.JSX.Element => {
 	const initialValue = 'Tell us about your experience';
 	const [editValue, setEditValue] = useState('');
 	return (

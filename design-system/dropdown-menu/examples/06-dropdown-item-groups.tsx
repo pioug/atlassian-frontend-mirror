@@ -5,7 +5,7 @@ import DropdownMenu, {
 	DropdownItemCheckboxGroup,
 } from '@atlaskit/dropdown-menu';
 
-const DropdownMenuMultipleCheckboxGroup = () => (
+const DropdownMenuMultipleCheckboxGroup = (): React.JSX.Element => (
 	<DropdownMenu trigger="Choices" testId="lite-mode-ddm" shouldRenderToParent>
 		<DropdownItemCheckboxGroup id="cities" title="Some cities">
 			<DropdownItemCheckbox id="sydney">Sydney</DropdownItemCheckbox>

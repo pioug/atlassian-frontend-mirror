@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianNavigation, PrimaryButton } from '@atlaskit/atlassian-navigation';
 
-const PrimaryButtonExample = () => (
+const PrimaryButtonExample = (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		renderProductHome={() => null}

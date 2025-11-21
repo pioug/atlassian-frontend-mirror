@@ -1,4 +1,4 @@
-import type { Layer as NewLayer } from '@statsig/js-client';
+import type { StatsigClient } from '@statsig/js-client';
 
 import { migrateEvaluationDetails, migrateSecondaryExposures } from '../utils';
 
@@ -8,7 +8,7 @@ export type LogParameterFunction = (layer: Layer, parameterName: string) => void
 
 // Reference: https://github.com/statsig-io/js-lite/blob/main/src/Layer.ts
 export class Layer {
-	static fromLayer(layer: NewLayer): Layer {
+	static fromLayer(layer: ReturnType<StatsigClient['getLayer']>) {
 		const value = new Layer(
 			layer.name,
 			layer.__value,

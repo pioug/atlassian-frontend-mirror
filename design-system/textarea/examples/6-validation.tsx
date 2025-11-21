@@ -23,7 +23,7 @@ const requiredValidator = (data: FormData, key: string) => {
 	}
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Form
 			onSubmit={(formData: { 'textarea-validation': string }) => {

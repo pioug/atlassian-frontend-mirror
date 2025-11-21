@@ -9,7 +9,7 @@ import ModalDialog, {
 } from '@atlaskit/modal-dialog';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 
-export default function ReturnFocusToElement() {
+export default function ReturnFocusToElement(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const returnFocusRef = useRef<HTMLButtonElement>(null);
 

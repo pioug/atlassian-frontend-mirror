@@ -21,7 +21,7 @@ const useProvider = (uploadSupported: boolean) => {
 	}, [uploadSupported]);
 };
 
-export const EmojiPickerWithUpload = () => {
+export const EmojiPickerWithUpload = (): React.JSX.Element => {
 	const emojiProvider = useProvider(true);
 
 	return (

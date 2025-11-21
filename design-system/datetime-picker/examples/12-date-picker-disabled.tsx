@@ -23,7 +23,7 @@ const weekendFilter = (date: string) => {
 // either by defining it outside of the render function's scope or using useState
 const disabledDates = [now(10), now(11), now(12)];
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Box>
 			<Label id="date" htmlFor="datepicker">

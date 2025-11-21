@@ -5,7 +5,7 @@ import Heading from '@atlaskit/heading';
 import InlineDialog from '@atlaskit/inline-dialog';
 import { Text } from '@atlaskit/primitives/compiled';
 
-export default [
+const _default_1: React.JSX.Element[] = [
 	<InlineDialog content={<div>This is an inline dialog</div>} isOpen={true}>
 		<Button>Trigger</Button>
 	</InlineDialog>,
@@ -21,3 +21,4 @@ export default [
 		<Button>Open Dialog</Button>
 	</InlineDialog>,
 ];
+export default _default_1;

@@ -1,5 +1,24 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.41.0
+
+### Minor Changes
+
+- [`15164638b4d1a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15164638b4d1a) -
+  [ux] [EDITOR-2461] handle ArrowUp navigation out of the Expand title
+
+### Patch Changes
+
+- [`b5dc6946c55d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5dc6946c55d9) -
+  Clean up platform_editor_block_menu_layout_format
+
+## 13.40.0
+
+### Minor Changes
+
+- [`c94c7bb357496`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c94c7bb357496) -
+  [ux] EDITOR-3317 Fix beahavior when pasting paragraph from panel into list inside panel
+
 ## 13.39.0
 
 ### Minor Changes

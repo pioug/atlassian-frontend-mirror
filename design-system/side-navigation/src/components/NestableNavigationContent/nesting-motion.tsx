@@ -20,7 +20,7 @@ interface NestingMotionProps {
 /**
  * @internal
  */
-export const NestingMotion = (props: NestingMotionProps) => {
+export const NestingMotion = (props: NestingMotionProps): React.JSX.Element => {
 	const { children, enterFrom, exitTo, testId } = props;
 	return (
 		<SlideIn exitTo={exitTo} enterFrom={enterFrom} animationTimingFunction="ease-out">

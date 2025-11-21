@@ -25,7 +25,7 @@ const options = [
 	},
 ];
 
-const PopupSelectExample = () => {
+const PopupSelectExample = (): React.JSX.Element => {
 	return (
 		<PopupSelect
 			searchThreshold={10}

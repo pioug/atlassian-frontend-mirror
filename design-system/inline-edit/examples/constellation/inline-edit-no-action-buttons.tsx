@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { InlineEditableTextfield } from '@atlaskit/inline-edit';
 import { Box } from '@atlaskit/primitives/compiled';
 
-const InlineEditNoActionsExample = () => {
+const InlineEditNoActionsExample = (): React.JSX.Element => {
 	const placeholderLabel = 'Initial postcode value';
 	const [editValue, setEditValue] = useState('94538');
 

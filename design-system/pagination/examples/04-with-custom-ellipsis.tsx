@@ -16,7 +16,7 @@ const styles = cssMap({
 	},
 });
 
-export default function CustomEllipsisExample() {
+export default function CustomEllipsisExample(): React.JSX.Element {
 	const [maxPageSize, setMaxPageSize] = useState(7);
 
 	const handleEllipsisCLick = () => setMaxPageSize(10);

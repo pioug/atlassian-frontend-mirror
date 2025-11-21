@@ -98,6 +98,12 @@ type AutoDismissFlagPropsWithoutId = {
 	 * Milliseconds to delay the screen reader announcement due to announcement conflict.
 	 */
 	delayAnnouncement?: number;
+	/**
+	 * Duration in seconds before flag gets auto dismissed.
+	 * Default is 8 seconds. For a11y reasons 8s is also a strongly-suggested minimum.
+	 * Only applies to auto-dismissable flags.
+	 */
+	autoDismissSeconds?: number;
 };
 
 // Normal AutoDismissFlagProps should include the id

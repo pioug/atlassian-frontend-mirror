@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ButtonItem, LinkItem, MenuGroup, Section } from '@atlaskit/menu';
 
-export default [
+const _default_1: React.JSX.Element[] = [
 	<MenuGroup spacing="cozy">
 		<Section title="Navigation">
 			<LinkItem href="/dashboard">Dashboard</LinkItem>
@@ -22,3 +22,4 @@ export default [
 		</Section>
 	</MenuGroup>,
 ];
+export default _default_1;

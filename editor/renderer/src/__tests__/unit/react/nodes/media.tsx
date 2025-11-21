@@ -14,6 +14,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { Card, CardSync } from '@atlaskit/media-card';
 import { sleep, nextTick, getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { createPlaceholderImageDataUrl } from '@atlaskit/editor-test-helpers/placeholder-images';
 import * as mocks from './media.mock';
 import Media from '../../../../react/nodes/media';
 import type { MediaCardProps } from '../../../../ui/MediaCard';
@@ -1013,10 +1014,9 @@ describe('Media', () => {
 			name: 'https://wac-cdn.atlassian.com/assets/img/favicons/atlassian/apple-touch-icon-152x152.png',
 		};
 		const external1 = {
-			dataURI:
-				'https://images.unsplash.com/photo-1553526665-dbfe3e8a6fcc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80',
+			dataURI: createPlaceholderImageDataUrl(2850, 80),
 			mediaItemType: 'external-image',
-			name: 'https://images.unsplash.com/photo-1553526665-dbfe3e8a6fcc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80',
+			name: createPlaceholderImageDataUrl(2850, 80),
 		};
 		const file0 = {
 			id: '2aa22582-ca0e-4bd4-b1bc-9369d10a0719',
@@ -1087,7 +1087,7 @@ describe('Media', () => {
 									type: 'media',
 									attrs: {
 										type: 'external',
-										url: 'https://images.unsplash.com/photo-1553526665-dbfe3e8a6fcc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80',
+										url: createPlaceholderImageDataUrl(2850, 80),
 									},
 								},
 							],
@@ -1155,7 +1155,7 @@ describe('Media', () => {
 									type: 'media',
 									attrs: {
 										type: 'external',
-										url: 'https://images.unsplash.com/photo-1553526665-dbfe3e8a6fcc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80',
+										url: createPlaceholderImageDataUrl(2850, 80),
 									},
 								},
 							],

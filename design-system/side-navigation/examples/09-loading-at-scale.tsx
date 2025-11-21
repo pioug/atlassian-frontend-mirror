@@ -67,7 +67,7 @@ const SettingsItem = () => {
 	);
 };
 
-const LoadingSkeleton = () => {
+const LoadingSkeleton = (): React.JSX.Element => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [key, setKey] = useState(0);
 

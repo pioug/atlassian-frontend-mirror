@@ -19,7 +19,7 @@ const createBoolean = (state: boolean, label: string, onChange: (state: boolean)
 	);
 };
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const [isOpened, setIsOpened] = useState(false);
 	const [isMenuPositionFixed, setIsMenuPositionFixed] = useState(true);
 	const [isCloseMenuOnScroll, setIsCloseMenuOnScroll] = useState(true);

@@ -23,7 +23,13 @@ const ClockIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __ClockIcon__
  */
-const ClockIcon = ({ label, primaryColor, secondaryColor, size = 'small', testId }: IconProps) => (
+const ClockIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size = 'small',
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

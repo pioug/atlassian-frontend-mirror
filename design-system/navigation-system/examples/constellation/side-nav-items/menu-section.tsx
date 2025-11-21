@@ -53,7 +53,7 @@ function MoreAction() {
 	);
 }
 
-export function MenuSectionExample() {
+export function MenuSectionExample(): React.JSX.Element {
 	return (
 		<Inline space="space.600">
 			<MockSideNav>

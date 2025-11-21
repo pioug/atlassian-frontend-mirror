@@ -38,7 +38,7 @@ export default class SpotlightAutoscrollExample extends Component<{}, State> {
 
 	close = () => this.setState({ spotlight: 'off' });
 
-	render() {
+	render(): React.JSX.Element {
 		const { spotlight } = this.state;
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

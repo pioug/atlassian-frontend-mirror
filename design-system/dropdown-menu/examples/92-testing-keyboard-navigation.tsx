@@ -7,7 +7,7 @@ import Toggle from '@atlaskit/toggle';
 
 import NestedDropdownMenuExample from './12-nested-dropdown';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<DropdownMenu trigger="New behavior" testId="dropdown" shouldRenderToParent>
 			<DropdownItemGroup>

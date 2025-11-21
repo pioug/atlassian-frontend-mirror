@@ -92,7 +92,13 @@ const TeamsIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __TeamsIcon__
  */
-const TeamsIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const TeamsIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

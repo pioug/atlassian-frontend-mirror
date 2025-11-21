@@ -7,7 +7,7 @@ export interface CellWithColumnWidthProps {
 	columnIndex?: number;
 }
 export default function withColumnWidth<T extends object>(Cell: React.ComponentType<T>) {
-	return (props: T & CellWithColumnWidthProps) => {
+	return (props: T & CellWithColumnWidthProps): React.JSX.Element => {
 		const { setColumnWidth, getColumnWidth } = useContext(TableTreeContext);
 		const { width, columnIndex, ...other } = props;
 

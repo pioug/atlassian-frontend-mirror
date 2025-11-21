@@ -4,7 +4,7 @@ import Page, { Grid, GridColumn } from '@atlaskit/page';
 
 import { Dummy } from '../common/dummy';
 
-const PageBasicExample = () => {
+const PageBasicExample = (): React.JSX.Element => {
 	return (
 		<Page>
 			<Grid testId="grid">

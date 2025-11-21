@@ -17,7 +17,7 @@ const options = [
 	{ label: 'wont-do', value: 'wont-do' },
 ];
 
-const PopupSelectExample = () => {
+const PopupSelectExample = (): React.JSX.Element => {
 	return (
 		<PopupSelect
 			placeholder="Search labels..."

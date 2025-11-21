@@ -61,7 +61,7 @@ class MobileHeader extends PureComponent<MobileHeaderProps, MobileHeaderState> {
 		side: string,
 		renderFn?: (isOpen: boolean) => ReactNode,
 		topOffset?: number,
-	) => (
+	): React.JSX.Element => (
 		<styles.MobileNavSlider
 			isOpen={isOpen}
 			onTransitionEnd={onTransitionEnd}
@@ -72,7 +72,7 @@ class MobileHeader extends PureComponent<MobileHeaderProps, MobileHeaderState> {
 		</styles.MobileNavSlider>
 	);
 
-	render() {
+	render(): React.JSX.Element {
 		const { isAnimatingNavigation, isAnimatingSidebar } = this.state;
 		const { drawerState, menuIconLabel, customMenu, topOffset } = this.props;
 		const isNavigationOpen = drawerState === 'navigation';

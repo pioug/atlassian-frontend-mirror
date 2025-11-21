@@ -4,7 +4,7 @@ import Banner from '@atlaskit/banner';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Text } from '@atlaskit/primitives';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		<Banner appearance="announcement">
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut id volutpat sem, nec iaculis

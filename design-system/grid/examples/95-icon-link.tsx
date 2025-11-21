@@ -10,7 +10,7 @@ const iconStyles = xcss({
 	height: 'size.200',
 });
 
-const IconLink = ({ children }: { children: ReactNode }) => {
+const IconLink = ({ children }: { children: ReactNode }): React.JSX.Element => {
 	return (
 		<Inline space="space.100" alignBlock="center">
 			<Box backgroundColor="color.background.neutral" xcss={iconStyles} />

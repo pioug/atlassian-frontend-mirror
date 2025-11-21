@@ -72,7 +72,7 @@ const PageHeader = ({
 	disableTitleStyles = false,
 	truncateTitle = false,
 	testId,
-}: PageHeaderProps) => {
+}: PageHeaderProps): React.JSX.Element => {
 	return (
 		<OuterWrapper>
 			{breadcrumbs}

@@ -25,7 +25,13 @@ const BookIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __BookIcon__
  */
-const BookIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const BookIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

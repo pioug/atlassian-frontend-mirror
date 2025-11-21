@@ -86,7 +86,7 @@ const CustomFooter = () => {
 	);
 };
 
-export default function ModalDemo() {
+export default function ModalDemo(): React.JSX.Element {
 	const [variant, setVariant] = useState<string | null>(null);
 	const open = useCallback((name: string) => setVariant(name), []);
 	const close = useCallback(() => setVariant(null), []);

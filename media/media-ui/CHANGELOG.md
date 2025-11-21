@@ -1,5 +1,12 @@
 # @atlaskit/media-ui
 
+## 28.7.16
+
+### Patch Changes
+
+- [`7cfa4a9ffdf8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7cfa4a9ffdf8d) -
+  Suppress i18n eslint errors
+
 ## 28.7.15
 
 ### Patch Changes

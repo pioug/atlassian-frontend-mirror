@@ -2,12 +2,16 @@ import React from 'react';
 
 import { Counter as CompiledCounter } from '../../components/Counter';
 
-export const CounterCompiled = () => <CompiledCounter value={16} />;
+export const CounterCompiled = (): React.JSX.Element => <CompiledCounter value={16} />;
 
-export const CounterUseHighlightCompiled = () => <CompiledCounter value={16} highlight />;
+export const CounterUseHighlightCompiled = (): React.JSX.Element => (
+	<CompiledCounter value={16} highlight />
+);
 
-export const CounterUseDarkerFontCompiled = () => <CompiledCounter value={16} useDarkerFont />;
+export const CounterUseDarkerFontCompiled = (): React.JSX.Element => (
+	<CompiledCounter value={16} useDarkerFont />
+);
 
-export const CounterUseUpdatedStylesCompiled = () => (
+export const CounterUseUpdatedStylesCompiled = (): React.JSX.Element => (
 	<CompiledCounter value={16} useUpdatedStyles />
 );

@@ -12,7 +12,7 @@ import ui from './icons/ui.png';
 import wallet from './icons/wallet.png';
 import Yeti from './icons/yeti.png';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<MenuGroupContainer>
 			<MenuGroup>

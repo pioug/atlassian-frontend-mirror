@@ -75,7 +75,9 @@ export type ShareDialogWithTriggerInternalProps = ShareDialogWithTriggerProps &
 	WrappedComponentProps &
 	WithAnalyticsEventsProps;
 
-export const IconShare = () => <ShareIcon spacing="spacious" label="" color="currentColor" />;
+export const IconShare = (): React.JSX.Element => (
+	<ShareIcon spacing="spacious" label="" color="currentColor" />
+);
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class ShareDialogWithTriggerInternal extends React.PureComponent<
@@ -593,7 +595,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 		onUserSelectionChange?.(value);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			isDialogOpen,
 			isSharing,

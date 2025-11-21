@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
 
-const AvatarStatusDeclinedExample = () => {
+const AvatarStatusDeclinedExample = (): React.JSX.Element => {
 	return <Avatar name="John Smith" status="declined" />;
 };
 

@@ -15,7 +15,7 @@ const initialState = {
 	rtl: false,
 };
 
-function Playground() {
+function Playground(): React.JSX.Element {
 	const [min, setMin] = useState(initialState.min);
 	const [max, setMax] = useState(initialState.max);
 	const [step, setStep] = useState(initialState.step);

@@ -38,7 +38,7 @@ const CustomHeader = () => {
 	);
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const openModal = useCallback(() => setIsOpen(true), []);
 	const closeModal = useCallback(() => setIsOpen(false), []);

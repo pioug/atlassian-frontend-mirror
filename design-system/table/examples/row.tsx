@@ -10,7 +10,7 @@ import { userData } from './content/users';
 
 const user = userData.results[0];
 
-export default function RowExample() {
+export default function RowExample(): React.JSX.Element {
 	const name = `${user.name.first} ${user.name.last}`;
 	return (
 		<Table isSelectable testId="table">

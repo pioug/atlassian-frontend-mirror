@@ -3,7 +3,7 @@ import React from 'react';
 import { Skeleton } from '@atlaskit/avatar';
 import { Y500 } from '@atlaskit/theme/colors';
 
-const AvatarSkeletonWeightStrongExample = () => {
+const AvatarSkeletonWeightStrongExample = (): React.JSX.Element => {
 	return <Skeleton color={Y500} weight="strong" />;
 };
 

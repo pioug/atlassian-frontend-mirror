@@ -4,7 +4,7 @@
 
 import React from 'react';
 
-const SlackIcon = () => {
+const SlackIcon = (): React.JSX.Element => {
 	return (
 		<svg
 			width="100"

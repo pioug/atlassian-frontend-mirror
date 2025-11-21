@@ -2,7 +2,7 @@ import React from 'react';
 
 import { TaskList, TaskItem } from '../../';
 
-export const TaskListEditor = () => (
+export const TaskListEditor = (): React.JSX.Element => (
 	<TaskList listId="list-1">
 		<TaskItem taskId="task-1" isDone={false}>
 			Hello <b>world</b>
@@ -13,7 +13,7 @@ export const TaskListEditor = () => (
 	</TaskList>
 );
 
-export const TaskListSingleTaskEditor = () => (
+export const TaskListSingleTaskEditor = (): React.JSX.Element => (
 	<TaskList listId="list-1">
 		<TaskItem taskId="task-1" isDone={false}>
 			Hello <b>world</b>
@@ -21,4 +21,4 @@ export const TaskListSingleTaskEditor = () => (
 	</TaskList>
 );
 
-export const TaskListEmptyEditor = () => <TaskList listId="list-1" />;
+export const TaskListEmptyEditor = (): React.JSX.Element => <TaskList listId="list-1" />;

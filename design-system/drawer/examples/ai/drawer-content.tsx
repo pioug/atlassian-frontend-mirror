@@ -4,7 +4,7 @@ import { DrawerContent } from '@atlaskit/drawer';
 import Heading from '@atlaskit/heading';
 import { Text } from '@atlaskit/primitives/compiled';
 
-export default [
+const _default_1: React.JSX.Element[] = [
 	<DrawerContent>
 		<Heading size="large">Content Title</Heading>
 		<Text>This is the main content area of the drawer.</Text>
@@ -14,3 +14,4 @@ export default [
 		<Text>Configure your preferences here.</Text>
 	</DrawerContent>,
 ];
+export default _default_1;

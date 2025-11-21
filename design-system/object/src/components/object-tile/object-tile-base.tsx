@@ -26,7 +26,7 @@ export default function ObjectTileBase({
 	color,
 	backgroundColor,
 	icon: Icon,
-}: ObjectTileBaseProps) {
+}: ObjectTileBaseProps): React.JSX.Element {
 	// Validate that size is a valid `ObjectTileSize` (and won't allow Tile's `xxsmall` size to be passed)
 	const validSizes: ObjectTileSize[] = ['xsmall', 'small', 'medium', 'large', 'xlarge'];
 	invariant(

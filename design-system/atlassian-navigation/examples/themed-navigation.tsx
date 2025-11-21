@@ -12,7 +12,7 @@ import { JiraIcon } from '@atlaskit/logo';
 import { DefaultCreate } from './shared/create';
 import { defaultPrimaryItems } from './shared/primary-items';
 
-export const JiraAppHome = () => (
+export const JiraAppHome = (): React.JSX.Element => (
 	<AppHome testId="jira-home" onClick={console.log} icon={JiraIcon} name="Jira" />
 );
 
@@ -22,7 +22,7 @@ const theme = generateTheme({
 	highlightColor: '#E94E34',
 });
 
-const ThemingExample = () => (
+const ThemingExample = (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		testId="themed"

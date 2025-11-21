@@ -19,7 +19,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box xcss={styles.container}>
 		<DropdownMenu testId="dropdown" isOpen trigger="Filter cities" shouldRenderToParent>
 			<DropdownItemGroup>

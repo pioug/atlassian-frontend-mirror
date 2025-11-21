@@ -45,7 +45,7 @@ const ResponsivePrimaryDropdownButton = (props: PrimaryDropdownButtonProps) => {
 
 const sizes = ['100%', '75%', '50%', '25%'];
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [size, setSize] = useState(0);
 	const sizeIndex = size % sizes.length;
 

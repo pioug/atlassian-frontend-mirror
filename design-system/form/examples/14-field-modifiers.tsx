@@ -8,7 +8,7 @@ import TextField from '@atlaskit/textfield';
 
 const BASE_SLUG = 'slug';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Flex direction="column">
 		<Form<{ username: string; slug: string }>
 			onSubmit={(data) => {

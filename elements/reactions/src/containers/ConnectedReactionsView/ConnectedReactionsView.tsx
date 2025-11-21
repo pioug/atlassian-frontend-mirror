@@ -144,7 +144,7 @@ export const mapDispatchToPropsHelper = (
 
 export const ConnectedReactionsView = (
 	props: React.PropsWithChildren<ConnectedReactionsViewProps>,
-) => {
+): React.JSX.Element => {
 	const { ari, containerAri, store, particleEffectByEmojiEnabled, onReactionSuccess, ...rest } =
 		props;
 	/**

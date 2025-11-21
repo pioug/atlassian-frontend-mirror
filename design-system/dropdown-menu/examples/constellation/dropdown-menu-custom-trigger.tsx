@@ -2,7 +2,7 @@ import React from 'react';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 
-const DropdownMenuCustomTriggerExample = () => {
+const DropdownMenuCustomTriggerExample = (): React.JSX.Element => {
 	return (
 		<DropdownMenu<HTMLButtonElement>
 			trigger={({ triggerRef, isSelected, testId, ...providedProps }) => (

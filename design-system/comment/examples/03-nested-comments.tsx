@@ -21,7 +21,7 @@ const ExampleComment: FC<{ isHighlighted?: boolean; children?: ReactNode }> = ({
 	</Comment>
 );
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box padding="space.200" testId="nested">
 		<ExampleComment isHighlighted>
 			<ExampleComment>

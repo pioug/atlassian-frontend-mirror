@@ -12,6 +12,8 @@ const data = RANDOM_USERS.map((d, i) => ({
 	src: getFreeToUseAvatarImage(i),
 }));
 
-const AvatarGroupBorderColorExample = () => <AvatarGroup data={data} borderColor="#FF6347" />;
+const AvatarGroupBorderColorExample = (): React.JSX.Element => (
+	<AvatarGroup data={data} borderColor="#FF6347" />
+);
 
 export default AvatarGroupBorderColorExample;

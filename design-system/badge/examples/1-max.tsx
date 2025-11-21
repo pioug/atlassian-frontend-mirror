@@ -2,7 +2,7 @@ import React from 'react';
 
 import Badge from '@atlaskit/badge';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<React.StrictMode>
 			<div>

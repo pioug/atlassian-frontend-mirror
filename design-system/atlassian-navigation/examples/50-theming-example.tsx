@@ -13,7 +13,7 @@ import { DefaultSettings } from './shared/settings';
 import { SwitcherPopup } from './shared/switcher-popup';
 import { themes } from './shared/themes';
 
-const ThemingExample = () => (
+const ThemingExample = (): React.JSX.Element => (
 	<div>
 		{themes.map((theme, i) => (
 			<Fragment key={i}>

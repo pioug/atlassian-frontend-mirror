@@ -10,7 +10,7 @@ import Form, {
 } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 
-export default function FormExample() {
+export default function FormExample(): React.JSX.Element {
 	const validate = (value: string = '') => {
 		if (value.toLowerCase().includes('error')) {
 			return 'CONTAINS_ERROR';

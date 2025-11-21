@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/new';
 import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(true);
 	return (
 		<div>

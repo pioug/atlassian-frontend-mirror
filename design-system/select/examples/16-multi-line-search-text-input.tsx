@@ -81,4 +81,4 @@ class MultiLineSearchInput extends Component<{}, State> {
 	}
 }
 
-export default () => <MultiLineSearchInput />;
+export default (): React.JSX.Element => <MultiLineSearchInput />;

@@ -5,7 +5,7 @@ import { parseISO } from 'date-fns';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 
-const DatePickerFormattingExample = () => (
+const DatePickerFormattingExample = (): React.JSX.Element => (
 	<>
 		<Label id="custom" htmlFor="datepicker-format">
 			Custom Date Format

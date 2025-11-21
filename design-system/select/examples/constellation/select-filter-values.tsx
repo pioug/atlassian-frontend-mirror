@@ -9,7 +9,7 @@ const getOptionValue = (option: OptionType) => {
 	return option.value;
 };
 
-const ElementBeforeExample = () => (
+const ElementBeforeExample = (): React.JSX.Element => (
 	<Select
 		getOptionValue={getOptionValue}
 		options={[

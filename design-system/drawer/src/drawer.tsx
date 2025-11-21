@@ -52,7 +52,7 @@ export const Drawer = ({
 	label,
 	titleId,
 	enterFrom,
-}: DrawerProps) => {
+}: DrawerProps): React.JSX.Element | null => {
 	const handleClose = usePlatformLeafEventHandler({
 		fn: (evt: SyntheticEvent<HTMLElement>, analyticsEvent) => onClose?.(evt, analyticsEvent),
 		action: 'dismissed',

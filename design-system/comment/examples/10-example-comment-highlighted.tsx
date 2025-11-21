@@ -11,7 +11,7 @@ import Link from '@atlaskit/link';
 
 import avatarImg from './images/avatar_400x400.jpg';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Comment
 		avatar={<Avatar src={avatarImg} size="medium" />}
 		author={<CommentAuthor>John Smith</CommentAuthor>}

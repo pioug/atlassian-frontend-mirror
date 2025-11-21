@@ -13,7 +13,7 @@ const onChange = () => log('Change');
 const onFocus = () => log('Focus');
 const onSelect = () => log('Select');
 
-export default () => (
+export default (): React.JSX.Element => (
 	// Necessary to pass the SSR hydration test
 	<Box>
 		<Calendar

@@ -1,5 +1,12 @@
 # @atlaskit/react-select
 
+## 3.9.1
+
+### Patch Changes
+
+- [`062b55b337dd8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/062b55b337dd8) -
+  aria-autocomplete is omitted when isSearchable is false.
+
 ## 3.9.0
 
 ### Minor Changes

@@ -13,7 +13,7 @@ import ExitingPersistence, {
  * - [Code](https://atlassian.design/components/modal-dialog/code)
  * - [Usage](https://atlassian.design/components/modal-dialog/usage)
  */
-const ModalTransition = (props: Pick<ExitingPersistenceProps, 'children'>) => {
+const ModalTransition = (props: Pick<ExitingPersistenceProps, 'children'>): React.JSX.Element => {
 	return (
 		<ExitingPersistence appear>
 			{

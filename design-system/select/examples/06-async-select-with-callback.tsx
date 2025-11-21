@@ -16,7 +16,7 @@ const loadOptions = (inputValue: string, callback: (options: OptionsType) => voi
 	}, 1000);
 };
 
-const AsyncExample = () => (
+const AsyncExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="async-select-with-callback-example">Which country do you live in?</Label>
 		<Select

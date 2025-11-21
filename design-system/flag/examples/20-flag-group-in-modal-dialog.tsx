@@ -120,7 +120,7 @@ function ModalWithFlagProviderExample() {
 	);
 }
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<>
 			<Heading size="medium">Accessible Flag group in modal</Heading>

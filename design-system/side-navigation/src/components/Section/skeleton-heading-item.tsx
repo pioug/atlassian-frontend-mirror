@@ -24,7 +24,7 @@ const styles = cssMap({
  *
  * - [Examples](https://atlassian.design/components/side-navigation/examples#loading)
  */
-const SkeletonHeadingItem = (props: SkeletonHeadingItemProps) => {
+const SkeletonHeadingItem = (props: SkeletonHeadingItemProps): React.JSX.Element | null => {
 	const { shouldRender } = useShouldNestedElementRender();
 	if (!shouldRender) {
 		return null;

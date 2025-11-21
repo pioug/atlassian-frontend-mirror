@@ -17,7 +17,7 @@ const cities = [
 	{ label: 'Sydney', value: 'sydney' },
 ];
 
-const SelectPopupSearchExample = () => {
+const SelectPopupSearchExample = (): React.JSX.Element => {
 	const [isSearchable, setIsSearchable] = useState(false);
 	const [searchThreshold, setSearchThreshold] = useState('1');
 

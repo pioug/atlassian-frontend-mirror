@@ -31,7 +31,13 @@ const ChatIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __ChatIcon__
  */
-const ChatIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const ChatIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

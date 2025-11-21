@@ -24,7 +24,7 @@ const IconTile = ({ component, name }: { name: string; component: ComponentType<
 	);
 };
 
-const LegacyIconAllExample = () => {
+const LegacyIconAllExample = (): React.JSX.Element => {
 	return (
 		<Box padding="space.200">
 			<Stack space="space.300">

@@ -2,7 +2,7 @@ import React from 'react';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 
-const DropdownMenuShouldFlipExample = () => {
+const DropdownMenuShouldFlipExample = (): React.JSX.Element => {
 	return (
 		<DropdownMenu trigger="Page actions" shouldFlip shouldRenderToParent>
 			<DropdownItemGroup>

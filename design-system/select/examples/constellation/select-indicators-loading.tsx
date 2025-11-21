@@ -15,7 +15,7 @@ const promiseOptions = (inputValue: string) =>
 		}, 1000);
 	});
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<>
 			<Label htmlFor="indicators-loading">What city do you live in?</Label>

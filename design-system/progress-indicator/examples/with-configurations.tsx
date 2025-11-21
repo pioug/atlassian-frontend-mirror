@@ -57,7 +57,7 @@ const SpreadInlineLayout = ({ children }: { children: ReactNode }) => {
 	);
 };
 
-const ProgressIndicatorDots = () => {
+const ProgressIndicatorDots = (): React.JSX.Element => {
 	const [isInteractive, setIsInteractive] = useState(true);
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const [selectedAppearance, setSelectedAppearance] = useState<Appearances>('primary');

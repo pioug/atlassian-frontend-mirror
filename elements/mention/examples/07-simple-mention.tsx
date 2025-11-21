@@ -23,7 +23,7 @@ const handler = (_mentionId: string, text: string, event?: any, analytics?: any)
 	debug('Old Analytics handler: ', text, ' ', event, ' - analytics: ', analytics);
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<IntlProvider locale="en">
 			<div data-testid="vr-tested">

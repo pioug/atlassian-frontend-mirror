@@ -118,7 +118,7 @@ const CustomValueOption = ({ children, ...props }: SingleValueProps<Option, fals
 	</components.SingleValue>
 );
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Flex direction="column">
 		<Form<Category>
 			onSubmit={(data) => {

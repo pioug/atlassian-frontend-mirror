@@ -20,7 +20,7 @@ const useLinkItemComputedProps = (initialSelectedHref?: string) => {
 	return getComputedProps;
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const getComputedProps = useLinkItemComputedProps('#link-item2');
 
 	return (

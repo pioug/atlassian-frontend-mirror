@@ -6,7 +6,7 @@ import { Flex } from '@atlaskit/primitives/compiled';
 import TextArea from '@atlaskit/textarea';
 import TextField from '@atlaskit/textfield';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Flex direction="column">
 		<Form onSubmit={(data) => console.log(data)} name="text-fields">
 			<FormHeader title="Leave feedback">

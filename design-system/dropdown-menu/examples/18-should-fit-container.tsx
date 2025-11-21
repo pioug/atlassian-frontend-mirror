@@ -49,11 +49,11 @@ const ShouldFitContainerExample = ({ isOpenInitial }: ExampleProps) => {
 	);
 };
 
-const ShouldFitContainerExampleWithInitialClosed = () => (
+const ShouldFitContainerExampleWithInitialClosed = (): React.JSX.Element => (
 	<ShouldFitContainerExample isOpenInitial={false} />
 );
 
-export const ShouldFitContainerExampleWithInitialOpen = () => (
+export const ShouldFitContainerExampleWithInitialOpen = (): React.JSX.Element => (
 	<ShouldFitContainerExample isOpenInitial />
 );
 

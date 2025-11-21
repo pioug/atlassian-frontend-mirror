@@ -31,7 +31,13 @@ const AvatarRequestIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __AvatarRequestIcon__
  */
-const AvatarRequestIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const AvatarRequestIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

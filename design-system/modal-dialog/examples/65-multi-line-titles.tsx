@@ -35,7 +35,7 @@ const titles = [
 	{ name: 'title', value: shortTitle, label: 'short title' },
 ];
 
-export default function MultiLineTitles() {
+export default function MultiLineTitles(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const open = useCallback(() => setIsOpen(true), []);
 	const close = useCallback(() => setIsOpen(false), []);

@@ -19,7 +19,11 @@ type ExpandableRowProps = {
  *
  * A context provider for `<Row>` to support expandable content.
  */
-const ExpandableRow = ({ children, isExpanded, isDefaultExpanded }: ExpandableRowProps) => {
+const ExpandableRow = ({
+	children,
+	isExpanded,
+	isDefaultExpanded,
+}: ExpandableRowProps): React.JSX.Element => {
 	return (
 		<ExpandContextProvider isExpanded={isExpanded} isDefaultExpanded={isDefaultExpanded}>
 			{children}

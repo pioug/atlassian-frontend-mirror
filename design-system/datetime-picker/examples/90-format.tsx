@@ -5,7 +5,7 @@ import { Label } from '@atlaskit/form';
 import Link from '@atlaskit/link';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Box>
 			<Text as="p">

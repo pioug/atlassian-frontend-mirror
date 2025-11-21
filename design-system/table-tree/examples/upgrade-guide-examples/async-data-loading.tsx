@@ -86,4 +86,4 @@ const getChildren = (parentItem?: Item) => {
 	]);
 };
 
-export default () => <WithStaticData />;
+export default (): React.JSX.Element => <WithStaticData />;

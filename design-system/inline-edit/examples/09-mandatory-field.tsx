@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { InlineEditableTextfield } from '@atlaskit/inline-edit';
 import { Box } from '@atlaskit/primitives/compiled';
 
-const InlineEditExample = () => {
+const InlineEditExample = (): React.JSX.Element => {
 	const initialValue = 'Enter text';
 	const [editValue, setEditValue] = useState('Field value');
 

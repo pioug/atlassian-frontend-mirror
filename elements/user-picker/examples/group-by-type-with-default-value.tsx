@@ -16,7 +16,7 @@ const groupOptionsByType = <T extends { type?: string }>(options: T[]): Record<s
 	);
 };
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	return (
 		<ExampleWrapper>
 			{({ options, onInputChange }) => {

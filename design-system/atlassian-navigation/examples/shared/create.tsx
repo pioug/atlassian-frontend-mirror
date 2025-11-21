@@ -20,7 +20,7 @@ const StyledTooltip = () => (
 	</span>
 );
 
-export const DefaultCreate = () => (
+export const DefaultCreate = (): React.JSX.Element => (
 	<Create
 		buttonTooltip={<StyledTooltip />}
 		iconButtonTooltip="Create button"
@@ -30,7 +30,7 @@ export const DefaultCreate = () => (
 	/>
 );
 
-export const GermanCreate = () => (
+export const GermanCreate = (): React.JSX.Element => (
 	<Create
 		buttonTooltip={<StyledTooltip />}
 		iconButtonTooltip="Create button"
@@ -40,7 +40,7 @@ export const GermanCreate = () => (
 	/>
 );
 
-export const SpanishCreate = () => (
+export const SpanishCreate = (): React.JSX.Element => (
 	<Create
 		buttonTooltip={<StyledTooltip />}
 		iconButtonTooltip="Create button"
@@ -50,7 +50,7 @@ export const SpanishCreate = () => (
 	/>
 );
 
-export const TurkishCreate = () => (
+export const TurkishCreate = (): React.JSX.Element => (
 	<Create
 		buttonTooltip={<StyledTooltip />}
 		iconButtonTooltip="Create button"
@@ -60,7 +60,7 @@ export const TurkishCreate = () => (
 	/>
 );
 
-export const JapaneseCreate = () => (
+export const JapaneseCreate = (): React.JSX.Element => (
 	<Create
 		buttonTooltip={<StyledTooltip />}
 		iconButtonTooltip="Create button"

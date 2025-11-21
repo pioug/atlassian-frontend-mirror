@@ -10,7 +10,7 @@ const content = (
 );
 
 // In this example, the first inline dialog should close when the second inline dialog is opened
-const InlineDialogDefaultExample = () => {
+const InlineDialogDefaultExample = (): React.JSX.Element => {
 	const [dialogOneOpen, setDialogOne] = useState<boolean>(false);
 	const [dialogTwoOpen, setDialogTwo] = useState<boolean>(false);
 

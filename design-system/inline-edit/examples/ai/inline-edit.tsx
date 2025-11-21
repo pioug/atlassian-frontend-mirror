@@ -2,7 +2,7 @@ import React from 'react';
 
 import InlineEdit from '@atlaskit/inline-edit';
 
-export default [
+const _default_1: React.JSX.Element[] = [
 	<InlineEdit
 		onConfirm={() => {}}
 		onCancel={() => {}}
@@ -11,3 +11,4 @@ export default [
 		readView={() => <div>Read view</div>}
 	/>,
 ];
+export default _default_1;

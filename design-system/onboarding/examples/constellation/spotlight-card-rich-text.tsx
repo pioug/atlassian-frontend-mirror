@@ -2,7 +2,7 @@ import React from 'react';
 
 import { SpotlightCard } from '@atlaskit/onboarding';
 
-const SpotlightCardRichTextExample = () => {
+const SpotlightCardRichTextExample = (): React.JSX.Element => {
 	return (
 		<SpotlightCard>
 			<div>

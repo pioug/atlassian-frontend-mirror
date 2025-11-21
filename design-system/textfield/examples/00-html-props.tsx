@@ -3,7 +3,7 @@ import React from 'react';
 import { Label } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 
-export default function HtmlPropsExample() {
+export default function HtmlPropsExample(): React.JSX.Element {
 	return (
 		<div>
 			<Label htmlFor="password">Password text field</Label>

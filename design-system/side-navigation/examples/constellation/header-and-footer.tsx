@@ -15,7 +15,7 @@ import AppFrame from '../common/app-frame';
 import SampleIcon from '../common/next-gen-project-icon';
 import RocketIcon from '../common/sample-logo';
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	return (
 		<AppFrame shouldHideAppBar>
 			<SideNavigation label="project" testId="side-navigation">

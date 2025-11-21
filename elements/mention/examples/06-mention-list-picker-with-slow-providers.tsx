@@ -12,7 +12,7 @@ const downPage: React.CSSProperties = {
 	top: '400px',
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<div style={tallPageStyle}>

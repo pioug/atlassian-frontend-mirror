@@ -15,7 +15,7 @@ export interface ExampleProps {
  * A custom Example wrapper component to render different examples in the same page and minimize the amount of code needed to render these.
  * @returns JSX.Element
  */
-export const Example = ({ title, body }: ExampleProps) => {
+export const Example = ({ title, body }: ExampleProps): React.JSX.Element => {
 	return (
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

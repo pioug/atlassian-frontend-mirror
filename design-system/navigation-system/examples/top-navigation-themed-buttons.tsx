@@ -14,7 +14,7 @@ import { AppLogo, AppSwitcher } from '@atlaskit/navigation-system/top-nav-items'
 
 import { MockRoot } from './utils/mock-root';
 
-export default function TopNavigationThemedButtonsExample() {
+export default function TopNavigationThemedButtonsExample(): React.JSX.Element {
 	return (
 		/**
 		 * Wrapping in `Root to ensure the TopNav height is set correctly, as it would in a proper composed usage.

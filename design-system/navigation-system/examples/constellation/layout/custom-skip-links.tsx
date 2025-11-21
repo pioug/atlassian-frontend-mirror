@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useSkipLink, useSkipLinkId } from '@atlaskit/navigation-system/layout/skip-links';
 
-export function CustomSkipLinkExample() {
+export function CustomSkipLinkExample(): React.JSX.Element {
 	const id = useSkipLinkId();
 	useSkipLink(id, 'Landmark name');
 

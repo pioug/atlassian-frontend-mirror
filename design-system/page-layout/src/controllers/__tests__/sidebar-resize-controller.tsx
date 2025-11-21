@@ -17,7 +17,7 @@ const completeAnimations = () => {
 	});
 };
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const ResizeControlledConsumer = () => {
+export const ResizeControlledConsumer = (): React.JSX.Element => {
 	const {
 		isLeftSidebarCollapsed,
 		expandLeftSidebar,

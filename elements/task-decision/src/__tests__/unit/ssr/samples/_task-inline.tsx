@@ -3,7 +3,7 @@ import TaskItem from '../../../../components/TaskItem';
 import TaskList from '../../../../components/TaskList';
 import { dumpRef, action, TaskStateManager } from '../../../../../example-helpers/story-utils';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<h3>Simple Completed TaskItem </h3>
 		<TaskItem taskId="task-2" isDone={true} contentRef={dumpRef} onChange={action('onChange')}>

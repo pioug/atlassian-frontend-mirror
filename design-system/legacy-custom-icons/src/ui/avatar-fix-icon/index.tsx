@@ -31,7 +31,13 @@ const AvatarFixIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __AvatarFixIcon__
  */
-const AvatarFixIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const AvatarFixIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

@@ -15,7 +15,7 @@ import Modal, {
 
 const appearances: Appearance[] = ['warning', 'danger'];
 
-export default function ExampleAppearance() {
+export default function ExampleAppearance(): React.JSX.Element {
 	const [appearance, setAppearance] = useState<Appearance | null>(null);
 	const open = useCallback((name: Appearance) => setAppearance(name), []);
 	const close = useCallback(() => setAppearance(null), []);

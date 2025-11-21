@@ -100,7 +100,7 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
 		}
 	}
 
-	renderUnknownUserError(id: string) {
+	renderUnknownUserError(id: string): React.JSX.Element {
 		return (
 			<UnknownUserError values={{ userId: id.slice(-5) }}>
 				{(message) => <>{`@${message}`}</>}
@@ -108,7 +108,7 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
 		);
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { handleOnClick, handleOnMouseEnter, handleOnMouseLeave, props } = this;
 		const { text, id, accessLevel, localId } = props;
 		const mentionType: MentionType = this.getMentionType();

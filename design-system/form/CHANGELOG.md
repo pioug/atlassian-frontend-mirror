@@ -1,5 +1,16 @@
 # @atlaskit/form
 
+## 14.3.0
+
+### Minor Changes
+
+- [`cdecdf6402143`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdecdf6402143) -
+  Adds `aria-required` to input fields when `isRequired` is used on field.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.2.7
 
 ### Patch Changes

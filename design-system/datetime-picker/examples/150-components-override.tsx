@@ -19,7 +19,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	setBooleanFeatureFlagResolver(() => true);
 
 	const [activePopup, setActivePopup] = useState<string | null>(null);

@@ -35,7 +35,13 @@ const AvatarMonitorIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __AvatarMonitorIcon__
  */
-const AvatarMonitorIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const AvatarMonitorIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

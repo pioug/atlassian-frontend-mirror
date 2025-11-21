@@ -25,7 +25,13 @@ const AlertIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __AlertIcon__
  */
-const AlertIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const AlertIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

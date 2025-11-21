@@ -99,7 +99,7 @@ class ResourcedFilteredEmojiList extends PureComponent<FilteredProps, FilteredSt
 	}
 }
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const emojiProvider = getRealEmojiProvider();
 	const emojiList = <ResourcedFilteredEmojiList emojiProvider={emojiProvider} fitToHeight={72} />;
 	return (

@@ -48,7 +48,7 @@ const getFlagData = (index: number, timeOffset: number = 0): flagData => {
 	};
 };
 
-const FlagGroupExample = () => {
+const FlagGroupExample = (): React.JSX.Element => {
 	const [flags, setFlags] = useState<Array<flagData>>([]);
 	let flagCount = useRef(0);
 

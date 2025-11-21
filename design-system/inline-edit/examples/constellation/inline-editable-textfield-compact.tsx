@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { InlineEditableTextfield } from '@atlaskit/inline-edit';
 import { Box } from '@atlaskit/primitives/compiled';
 
-const InlineEditableTextfieldCompactExample = () => {
+const InlineEditableTextfieldCompactExample = (): React.JSX.Element => {
 	const placeholderLabel = 'Initial Team name value';
 	const [editValue, setEditValue] = useState('Pyxis');
 

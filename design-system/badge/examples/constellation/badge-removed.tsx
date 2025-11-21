@@ -2,7 +2,7 @@ import React from 'react';
 
 import Badge from '@atlaskit/badge';
 
-const BadgeRemovedExample = () => {
+const BadgeRemovedExample = (): React.JSX.Element => {
 	return <Badge appearance="removed">-100</Badge>;
 };
 

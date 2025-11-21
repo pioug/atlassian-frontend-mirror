@@ -25,7 +25,7 @@ const listenerHandler = (e: UIAnalyticsEvent) => {
 	debug('Analytics Next handler - payload:', e.payload, ' context: ', e.context);
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const mentionProvider = Promise.resolve(mentionResourceProviderWithResolver);
 
 	return (

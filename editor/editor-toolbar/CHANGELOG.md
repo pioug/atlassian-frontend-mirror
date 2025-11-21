@@ -1,5 +1,12 @@
 # @atlaskit/editor-toolbar
 
+## 0.17.10
+
+### Patch Changes
+
+- [`d2560fe5d6150`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2560fe5d6150) -
+  [ux] ED-29684 Tweak JSM responsiveness breakpoint
+
 ## 0.17.9
 
 ### Patch Changes

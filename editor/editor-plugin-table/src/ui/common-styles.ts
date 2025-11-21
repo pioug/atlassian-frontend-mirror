@@ -44,6 +44,7 @@ import {
 	rowControlsZIndex,
 	stickyHeaderBorderBottomWidth,
 	stickyRowOffsetTop,
+	stickyRowZIndex,
 	tableBorderColor,
 	tableBorderDeleteColor,
 	tableBorderRadiusSize,
@@ -553,11 +554,18 @@ export const baseTableStyles = (props: {
 
 	tr.${ClassName.NATIVE_STICKY} {
 		position: sticky;
-		top: ${stickyRowOffsetTop}px;
+		top: ${tableMarginTop}px;
 		z-index: calc(${akEditorTableCellOnStickyHeaderZIndex} - 5);
 		box-shadow:
 			inset -1px 1px ${tableBorderColor},
 			inset 1px -1px ${tableBorderColor};
+
+		&.${ClassName.NATIVE_STICKY_ACTIVE} {
+			box-shadow:
+				inset -1px 1px ${tableBorderColor},
+				inset 1px -1px ${tableBorderColor},
+				0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter')};
+		}
 	}
 
 	/** Adds mask above sticky header to prevent table content from bleeding through on scroll */
@@ -568,10 +576,10 @@ export const baseTableStyles = (props: {
 		box-sizing: border-box;
 		width: 100%;
 		height: 0;
-		margin-bottom: -${stickyRowOffsetTop}px;
+		margin-bottom: -${tableMarginTop}px;
 		position: sticky;
-		border-top: ${stickyRowOffsetTop}px solid ${token('elevation.surface')};
-		z-index: ${akEditorUnitZIndex};
+		border-top: ${tableMarginTop}px solid ${token('elevation.surface')};
+		z-index: ${stickyRowZIndex};
 	}
 
 	/** Corrects position of drag row controls when sticky header top mask is present */

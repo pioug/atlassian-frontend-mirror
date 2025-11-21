@@ -1,5 +1,13 @@
 # @atlaskit/ads-mcp
 
+## 0.8.6
+
+### Patch Changes
+
+- [`2c08b5e3d86b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c08b5e3d86b3) -
+  fixing types for tool definitions and add toolRegistry
+- Updated dependencies
+
 ## 0.8.5
 
 ### Patch Changes

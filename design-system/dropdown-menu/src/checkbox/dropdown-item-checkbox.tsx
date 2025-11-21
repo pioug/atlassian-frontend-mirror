@@ -32,7 +32,7 @@ const DropdownItemCheckbox = ({
 	interactionName,
 	// DSP-13312 TODO: remove spread props in future major release
 	...rest
-}: DropdownItemCheckboxProps) => {
+}: DropdownItemCheckboxProps): React.JSX.Element => {
 	if (
 		typeof process !== 'undefined' &&
 		process.env.NODE_ENV !== 'production' &&

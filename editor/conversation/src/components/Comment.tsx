@@ -40,7 +40,7 @@ export interface State {
 }
 
 export const DeletedMessage = ({ isAuthor }: { isAuthor?: boolean }) => {
-	// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
+	// eslint-disable-next-line @atlaskit/design-system/use-primitives-text, @atlassian/i18n/no-literal-string-in-jsx
 	return isAuthor ? <em>Comment deleted by the author</em> : <em>Comment deleted by admin</em>;
 };
 
@@ -513,16 +513,19 @@ export default class Comment extends React.Component<Props, State> {
 
 		const { createdBy, commentAri } = comment;
 		let actions = [
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 			<CommentAction key="reply" onClick={this.onReply}>
 				Reply
 			</CommentAction>,
 		];
 		const editAction = (
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 			<CommentAction key="edit" onClick={this.onEdit}>
 				Edit
 			</CommentAction>
 		);
 		const deleteAction = (
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 			<CommentAction key="delete" onClick={this.onDelete}>
 				Delete
 			</CommentAction>
@@ -610,6 +613,7 @@ export default class Comment extends React.Component<Props, State> {
 
 			if ((error as HttpError).canRetry) {
 				errorProps.actions = [
+					// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 					<CommentAction key="retry" onClick={this.onRequestRetry}>
 						Retry
 					</CommentAction>,
@@ -618,6 +622,7 @@ export default class Comment extends React.Component<Props, State> {
 
 			errorProps.actions = [
 				...errorProps.actions,
+				// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 				<CommentAction key="cancel" onClick={this.onRequestCancel}>
 					Cancel
 				</CommentAction>,

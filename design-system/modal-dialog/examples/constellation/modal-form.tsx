@@ -11,7 +11,7 @@ import Modal, {
 } from '@atlaskit/modal-dialog';
 import Textfield from '@atlaskit/textfield';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const [name, setName] = useState('');
 

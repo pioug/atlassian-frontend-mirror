@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ButtonItem, HeadingItem, Section } from '@atlaskit/menu';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		<Section title="Actions">
 			<ButtonItem>Create article</ButtonItem>

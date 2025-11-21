@@ -24,7 +24,7 @@ const editContainerStyles = cssMap({
 	},
 });
 
-const InlineEditExample = () => {
+const InlineEditExample = (): React.JSX.Element => {
 	const initialValue = 'Default field value';
 	const [editValue, setEditValue] = useState('Field value');
 

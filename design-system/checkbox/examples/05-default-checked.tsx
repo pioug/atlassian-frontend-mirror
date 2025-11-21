@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
 
-export default function ControlledExample() {
+export default function ControlledExample(): React.JSX.Element {
 	return (
 		<div>
 			Default Checked Checkbox

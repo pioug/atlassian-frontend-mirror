@@ -36,7 +36,13 @@ const OneDriveIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __OneDriveIcon__
  */
-const OneDriveIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const OneDriveIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

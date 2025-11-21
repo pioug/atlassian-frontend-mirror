@@ -13,7 +13,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<DropdownMenu defaultOpen trigger="To do" shouldRenderToParent>
 		<DropdownItemGroup>
 			<DropdownItem

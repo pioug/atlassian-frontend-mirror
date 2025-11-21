@@ -242,7 +242,7 @@ class PubSubEventComponent extends Component<{}, State> {
 	}
 }
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<PubSubEventComponent />
 	</div>

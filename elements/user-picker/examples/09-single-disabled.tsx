@@ -3,7 +3,7 @@ import { IntlProvider } from 'react-intl-next';
 import { exampleOptions } from '../example-helpers';
 import UserPicker from '../src';
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	return (
 		<IntlProvider locale="en">
 			<UserPicker

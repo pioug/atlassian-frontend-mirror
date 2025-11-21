@@ -13,7 +13,7 @@ import {
 } from '@atlaskit/panel-system';
 import { Text } from '@atlaskit/primitives/compiled';
 
-export default function BasicPanel() {
+export default function BasicPanel(): React.JSX.Element {
 	const handleExpand = () => {
 		console.log('Panel expanded to full screen');
 	};

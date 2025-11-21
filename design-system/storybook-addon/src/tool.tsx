@@ -34,7 +34,7 @@ const themeOptions: ThemeOption[] = [
  *
  * ADS Toolbar UI, visible in the topbar of the storybook UI.
  */
-const Tool = () => {
+const Tool = (): React.JSX.Element => {
 	const [isVisible, setIsVisible] = useState(false);
 	const [{ adsTheme: originalAdsTheme }, updateGlobals] = useGlobals();
 	const adsTheme = useParameter('adsTheme', originalAdsTheme || 'auto');

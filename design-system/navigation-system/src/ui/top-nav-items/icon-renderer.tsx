@@ -28,7 +28,7 @@ function isIconRenderProp(
  * mitigate the same issue for IconButtons in navigation-system, especially for ThemedIconButton.
  *
  */
-const IconRenderer = ({ icon: Icon }: { icon: IconProp }) => {
+const IconRenderer = ({ icon: Icon }: { icon: IconProp }): React.JSX.Element => {
 	const isRenderProp = isIconRenderProp(Icon);
 	let iconProps: IconProps | NewIconProps = {
 		label: '',

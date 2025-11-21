@@ -4,7 +4,7 @@ import { DateTimePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives/compiled';
 
-const DateTimePickerLocaleExample = () => (
+const DateTimePickerLocaleExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="locale-1">Date and time in US</Label>
 		<DateTimePicker

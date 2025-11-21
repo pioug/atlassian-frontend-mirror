@@ -5,7 +5,7 @@ import { Modal, ModalTransition } from '@atlaskit/onboarding';
 
 import welcomeImage from '../assets/this-is-new-jira.png';
 
-const BenefitModalBasicExample = () => {
+const BenefitModalBasicExample = (): React.JSX.Element => {
 	const [isActive, setIsActive] = useState(false);
 
 	return (

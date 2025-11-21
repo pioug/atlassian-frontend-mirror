@@ -10,7 +10,7 @@ const validateField = (value?: string) => {
 	}
 };
 
-const TimePickerValidationExample = () => (
+const TimePickerValidationExample = (): React.JSX.Element => (
 	<Form onSubmit={(formState) => console.log('form submitted', formState)}>
 		<Field name="datetime-picker" label="Scheduled run time" validate={validateField} isRequired>
 			{({ fieldProps, error, meta: { valid } }) => (

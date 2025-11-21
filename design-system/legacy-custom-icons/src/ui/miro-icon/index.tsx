@@ -31,7 +31,13 @@ const MiroIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __MiroIcon__
  */
-const MiroIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const MiroIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

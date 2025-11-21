@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/new';
 import Form, { Field, FormFooter, HelperMessage } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 
-export default function TextFieldMaxValueExample() {
+export default function TextFieldMaxValueExample(): React.JSX.Element {
 	return (
 		<Form onSubmit={(formData) => console.log('form data', formData)} name="max-length-example">
 			<Field label="Example for using maxLength" name="max-length" defaultValue="">

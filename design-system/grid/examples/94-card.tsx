@@ -10,7 +10,7 @@ const cardStyles = xcss({
 	borderStyle: 'solid',
 });
 
-const Card = ({ children }: { children: ReactNode }) => {
+const Card = ({ children }: { children: ReactNode }): React.JSX.Element => {
 	return (
 		<Box xcss={cardStyles} padding="space.300">
 			{children}

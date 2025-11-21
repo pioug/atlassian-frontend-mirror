@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const emojiProvider = getEmojiResource() as Promise<EmojiProvider>;
 	return (
 		<IntlProvider locale="en">

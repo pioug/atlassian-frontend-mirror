@@ -17,7 +17,7 @@ const wrapperStyles = cssMap({
 	},
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	let textareaElement: HTMLTextAreaElement | undefined;
 
 	const focus = () => {

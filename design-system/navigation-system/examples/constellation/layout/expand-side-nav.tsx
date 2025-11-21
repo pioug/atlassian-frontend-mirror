@@ -3,7 +3,11 @@ import React, { useCallback } from 'react';
 import Button from '@atlaskit/button/new';
 import { useExpandSideNav } from '@atlaskit/navigation-system/layout/side-nav';
 
-export function ExpandSideNavButtonExample({ onClick }: { onClick: () => void }) {
+export function ExpandSideNavButtonExample({
+	onClick,
+}: {
+	onClick: () => void;
+}): React.JSX.Element {
 	const expandSideNav = useExpandSideNav();
 
 	const handleLaunchSpotlight = useCallback(() => {

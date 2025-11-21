@@ -28,7 +28,7 @@ import { WithResponsiveViewport } from './utils/example-utils';
 
 const Badge = () => <AKBadge appearance="important">{5}</AKBadge>;
 
-const TopNavSideNavCollapsed = () => (
+const TopNavSideNavCollapsed = (): React.JSX.Element => (
 	<WithResponsiveViewport>
 		<Root>
 			<TopNav>

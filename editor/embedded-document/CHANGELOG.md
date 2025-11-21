@@ -1,5 +1,13 @@
 # @atlaskit/embedded-document
 
+## 4.0.4
+
+### Patch Changes
+
+- [`d3461a5b84b81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3461a5b84b81) -
+  Suppress i18n errors
+- Updated dependencies
+
 ## 4.0.3
 
 ### Patch Changes

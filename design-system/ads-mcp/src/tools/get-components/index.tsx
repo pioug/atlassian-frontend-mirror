@@ -1,9 +1,11 @@
+import type { Tool } from '@modelcontextprotocol/sdk/types';
 import { z } from 'zod';
-import { zodToJsonSchema } from 'zod-to-json-schema';
+
+import { zodToJsonSchema } from '../../helpers';
 
 import { components } from './components';
 
-export const listGetComponentsTool = {
+export const listGetComponentsTool: Tool = {
 	name: 'ads_get_components',
 	description: `Fetch all Atlassian Design System components. Only use when \`ads_search_components\` does not return what you're looking for.`,
 	annotations: {

@@ -6,7 +6,7 @@ import { Box, Text } from '@atlaskit/primitives/compiled';
 
 import avatarImg from './images/avatar_400x400.jpg';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box testId="comment">
 		<Comment
 			avatar={<Avatar src={avatarImg} name="John Smith" size="medium" />}

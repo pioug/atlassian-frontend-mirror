@@ -23,7 +23,7 @@ const containerStyles = cssMap({
 	},
 });
 
-export function ScrollHorizontalExample() {
+export function ScrollHorizontalExample(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const [shouldScrollInViewport, setShouldScrollInViewPort] = useState(false);
 

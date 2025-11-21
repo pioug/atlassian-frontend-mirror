@@ -39,7 +39,7 @@ export default class MentionListError extends React.PureComponent<Props, {}> {
 		return advisedActionMessages.default;
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { error } = this.props;
 		const ErrorMessage = MentionListError.getAdvisedActionMessage(error);
 		return (

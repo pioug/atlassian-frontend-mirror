@@ -235,7 +235,7 @@ export default class MentionList extends React.PureComponent<Props, State> {
 		this.scrollable = ref;
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { mentions, resourceError } = this.props;
 		const hasMentions = mentions && mentions.length;
 

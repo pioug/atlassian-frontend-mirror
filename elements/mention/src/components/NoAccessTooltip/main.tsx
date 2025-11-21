@@ -7,7 +7,7 @@ type Props = {
 	name: string;
 };
 
-export const NoAccessTooltip = ({ name, children }: Props) => (
+export const NoAccessTooltip = ({ name, children }: Props): React.JSX.Element => (
 	<NoAccessWarning values={{ name: name }}>
 		{(text: string) => (
 			<Tooltip content={text} position="right">

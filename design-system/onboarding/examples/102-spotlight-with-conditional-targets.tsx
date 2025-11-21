@@ -130,7 +130,7 @@ function SpotlightWithConditionalTargets() {
 	);
 }
 
-export default function SpotlightWithConditionalTargetsExample() {
+export default function SpotlightWithConditionalTargetsExample(): React.JSX.Element {
 	return (
 		<SpotlightManager>
 			<SpotlightWithConditionalTargets />

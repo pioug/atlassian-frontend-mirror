@@ -10,7 +10,7 @@ import koala from '../icons/koala.png';
 import ui from '../icons/ui.png';
 import wallet from '../icons/wallet.png';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<MenuGroupContainer>
 			<MenuGroup maxHeight={300}>

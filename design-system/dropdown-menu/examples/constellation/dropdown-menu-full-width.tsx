@@ -3,7 +3,7 @@ import React from 'react';
 import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 
-const DropdownMenuFullWidth = () => {
+const DropdownMenuFullWidth = (): React.JSX.Element => {
 	return (
 		<DropdownMenu<HTMLButtonElement>
 			shouldFitContainer

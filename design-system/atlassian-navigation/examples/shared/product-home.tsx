@@ -17,7 +17,7 @@ import {
 import atlassianIconUrl from './assets/atlassian-icon.png';
 import atlassianLogoUrl from './assets/atlassian-logo.png';
 
-export const BitbucketAppHome = () => (
+export const BitbucketAppHome = (): React.JSX.Element => (
 	<AppHome
 		onClick={console.log}
 		siteTitle="Extranet"
@@ -27,7 +27,7 @@ export const BitbucketAppHome = () => (
 	/>
 );
 
-export const BitbucketProductHome = () => (
+export const BitbucketProductHome = (): React.JSX.Element => (
 	<ProductHome
 		onClick={console.log}
 		siteTitle="Extranet"
@@ -37,7 +37,7 @@ export const BitbucketProductHome = () => (
 	/>
 );
 
-export const ConfluenceAppHome = () => (
+export const ConfluenceAppHome = (): React.JSX.Element => (
 	<AppHome
 		siteTitle="Extranet"
 		icon={ConfluenceIcon}
@@ -47,7 +47,7 @@ export const ConfluenceAppHome = () => (
 	/>
 );
 
-export const ConfluenceProductHome = () => (
+export const ConfluenceProductHome = (): React.JSX.Element => (
 	<ProductHome
 		siteTitle="Extranet"
 		icon={ConfluenceIcon}
@@ -57,12 +57,12 @@ export const ConfluenceProductHome = () => (
 	/>
 );
 
-export const JiraAppHome = () => (
+export const JiraAppHome = (): React.JSX.Element => (
 	<AppHome name="Jira" icon={JiraIcon} siteTitle="Extranet" testId="jira-app-home" />
 );
 
 // Using new logos inside ProductHome, as this is also supported
-export const JiraProductHome = () => (
+export const JiraProductHome = (): React.JSX.Element => (
 	<ProductHome
 		onClick={console.log}
 		siteTitle="Extranet"
@@ -73,7 +73,7 @@ export const JiraProductHome = () => (
 	/>
 );
 
-export const JiraServiceManagementProductHome = () => (
+export const JiraServiceManagementProductHome = (): React.JSX.Element => (
 	<ProductHome
 		siteTitle="Extranet"
 		icon={JiraServiceManagementIcon}
@@ -83,7 +83,7 @@ export const JiraServiceManagementProductHome = () => (
 	/>
 );
 
-export const JiraServiceManagementAppHome = () => (
+export const JiraServiceManagementAppHome = (): React.JSX.Element => (
 	<AppHome
 		name="Jira Service Management"
 		icon={JiraServiceManagementIcon}
@@ -93,11 +93,11 @@ export const JiraServiceManagementAppHome = () => (
 	/>
 );
 
-export const CompassAppHome = () => (
+export const CompassAppHome = (): React.JSX.Element => (
 	<AppHome name="Compass" icon={CompassIcon} siteTitle="Extranet" testId="compass-app-home" />
 );
 
-export const CompassProductHome = () => (
+export const CompassProductHome = (): React.JSX.Element => (
 	<ProductHome
 		siteTitle="Extranet"
 		icon={CompassIcon}
@@ -109,7 +109,7 @@ export const CompassProductHome = () => (
 export const DefaultProductHome = JiraProductHome;
 export const DefaultAppHome = JiraAppHome;
 
-export const DefaultCustomProductHome = () => (
+export const DefaultCustomProductHome = (): React.JSX.Element => (
 	<CustomProductHome
 		href="#"
 		siteTitle="Extranet"

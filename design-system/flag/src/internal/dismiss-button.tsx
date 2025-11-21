@@ -22,7 +22,7 @@ const DismissButtonComponent = ({
 	isBold,
 	isExpanded,
 	testId,
-}: DismissButtonProps) => {
+}: DismissButtonProps): React.JSX.Element => {
 	let ButtonIcon = CrossIcon;
 	let buttonLabel = 'Dismiss';
 

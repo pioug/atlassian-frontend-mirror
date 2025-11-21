@@ -41,9 +41,11 @@ export default (props: { editorActions?: any; mode: Mode }) => {
 												: actions.updateDocument(value));
 										} catch (err) {}
 									}}
+									// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 								>
 									Publish
 								</Button>
+								{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 								<Button appearance="subtle" onClick={() => actions.cancelEdit()}>
 									Close
 								</Button>
@@ -54,6 +56,7 @@ export default (props: { editorActions?: any; mode: Mode }) => {
 						return (
 							<Toolbar>
 								<ButtonGroup>
+									{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 									<Button appearance="primary" onClick={() => actions.editDocument()}>
 										Edit
 									</Button>

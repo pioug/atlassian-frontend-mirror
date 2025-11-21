@@ -9,7 +9,7 @@ const PAGES = [...Array(10)].map((_, i) => ({
 	href: `page-${i + 1}`,
 }));
 
-export default function ComplexDataExample() {
+export default function ComplexDataExample(): React.JSX.Element {
 	const [onChangeEvent, setOnChangeEvent] = useState({
 		label: 1,
 		href: 'page-1',

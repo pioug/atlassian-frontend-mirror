@@ -16,7 +16,7 @@ const emojiProvider = getEmojiProvider(
 	getMockEmojis,
 );
 
-export function StandardEmojiTypeAhead() {
+export function StandardEmojiTypeAhead(): React.JSX.Element {
 	const position = 'below';
 	const id = 'demo-input';
 

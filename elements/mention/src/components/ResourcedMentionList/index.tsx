@@ -230,7 +230,7 @@ export class ResourcedMentionListWithoutAnalytics extends React.PureComponent<
 		this.mentionListRef = ref;
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { mentions, resourceError } = this.state;
 
 		return (

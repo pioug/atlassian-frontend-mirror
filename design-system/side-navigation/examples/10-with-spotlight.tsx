@@ -56,7 +56,7 @@ const LanguageSettings = () => {
 	);
 };
 
-const BasicExample = () => {
+const BasicExample = (): React.JSX.Element => {
 	return (
 		<SpotlightManager>
 			<Inline alignBlock="stretch" space="space.100">

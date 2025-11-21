@@ -43,7 +43,13 @@ const BidirectionalIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __BidirectionalIcon__
  */
-const BidirectionalIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const BidirectionalIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

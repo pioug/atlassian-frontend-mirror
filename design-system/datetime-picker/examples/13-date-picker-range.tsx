@@ -23,7 +23,7 @@ const weekendFilter = (date: string) => {
 	return dayOfWeek === 0 || dayOfWeek === 6;
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [startDate, setStartDate] = React.useState<string>(getRelativeDate(-14));
 	const [endDate, setEndDate] = React.useState<string>(getRelativeDate(0));
 

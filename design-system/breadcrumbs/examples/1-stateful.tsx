@@ -5,7 +5,7 @@ import { AtlassianIcon } from '@atlaskit/logo';
 
 const TestIcon = <AtlassianIcon label="" size="small" />;
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<Breadcrumbs testId="BreadcrumbsTestId" maxItems={2}>
 			<BreadcrumbsItem href="/item" text="No icon" />

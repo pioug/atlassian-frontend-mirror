@@ -30,7 +30,7 @@ const AutomationNewIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __AutomationNewIcon__
  */
-const AutomationNewIcon = ({ label, primaryColor, size, testId }: IconProps) => (
+const AutomationNewIcon = ({ label, primaryColor, size, testId }: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

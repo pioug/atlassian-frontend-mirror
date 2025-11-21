@@ -41,7 +41,7 @@ function MoreAction() {
 	);
 }
 
-export function ButtonMenuItemExample() {
+export function ButtonMenuItemExample(): React.JSX.Element {
 	return (
 		<Inline space="space.600">
 			<MockSideNav>

@@ -17,7 +17,7 @@ export default class extends PureComponent {
 		});
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { isExpanded } = this.state;
 
 		return (

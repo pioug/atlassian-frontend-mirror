@@ -44,7 +44,7 @@ const DelayedComponent: FC<{ id: number }> = ({ id }) => {
 	);
 };
 
-const BasicExample = () => {
+const BasicExample = (): React.JSX.Element => {
 	const [key, setKey] = useState(0);
 	const reset = () => {
 		isLoaded = {};

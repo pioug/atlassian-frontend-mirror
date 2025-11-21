@@ -7,7 +7,7 @@ import Page, { Grid, GridColumn } from '@atlaskit/page';
 
 import { Dummy, DummyNested } from './common/dummy';
 
-const NestedGridExample = () => (
+const NestedGridExample = (): React.JSX.Element => (
 	<Page testId="page">
 		<Banner appearance="warning" icon={<WarningIcon label="Warning" secondaryColor="inherit" />}>
 			We are planning on deprecating Page component. We recommend using the Page layout component

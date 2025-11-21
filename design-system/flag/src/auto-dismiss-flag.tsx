@@ -21,8 +21,13 @@ export const AUTO_DISMISS_SECONDS = 8;
  * - [Examples](https://atlassian.design/components/flag/auto-dismiss-flag/examples)
  * - [Code](https://atlassian.design/components/flag/auto-dismiss-flag/code)
  */
-const AutoDismissFlag = (props: AutoDismissFlagProps) => {
-	const { id, analyticsContext, onDismissed: onDismissedProp = noop } = props;
+const AutoDismissFlag = (props: AutoDismissFlagProps): React.JSX.Element => {
+	const {
+		id,
+		analyticsContext,
+		onDismissed: onDismissedProp = noop,
+		autoDismissSeconds = AUTO_DISMISS_SECONDS,
+	} = props;
 	const autoDismissTimer = useRef<number | null>(null);
 
 	const { onDismissed: onDismissedFromFlagGroup, isDismissAllowed } = useFlagGroup();
@@ -66,8 +71,8 @@ const AutoDismissFlag = (props: AutoDismissFlagProps) => {
 
 		stopAutoDismissTimer();
 
-		autoDismissTimer.current = window.setTimeout(dismissFlag, AUTO_DISMISS_SECONDS * 1000);
-	}, [dismissFlag, stopAutoDismissTimer, isAutoDismissAllowed]);
+		autoDismissTimer.current = window.setTimeout(dismissFlag, autoDismissSeconds * 1000);
+	}, [dismissFlag, stopAutoDismissTimer, isAutoDismissAllowed, autoDismissSeconds]);
 
 	useEffect(() => {
 		startAutoDismissTimer();

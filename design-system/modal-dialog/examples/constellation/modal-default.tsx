@@ -10,7 +10,7 @@ import Modal, {
 } from '@atlaskit/modal-dialog';
 import { Text } from '@atlaskit/primitives/compiled';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const openModal = useCallback(() => setIsOpen(true), []);
 	const closeModal = useCallback(() => setIsOpen(false), []);

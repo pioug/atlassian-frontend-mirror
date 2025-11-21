@@ -4,6 +4,7 @@ import throttle from 'lodash/throttle';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
 import { nodeVisibilityManager } from '@atlaskit/editor-common/node-visibility';
+import { tableMarginTop } from '@atlaskit/editor-common/styles';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
@@ -167,6 +168,7 @@ export default class TableRowNativeStickyWithFallback
 
 	/** Native sticky header variables */
 	private overflowObserver?: IntersectionObserver;
+	private stickyStateObserver?: IntersectionObserver;
 	private isNativeSticky: boolean = false;
 
 	/**
@@ -209,6 +211,7 @@ export default class TableRowNativeStickyWithFallback
 		if (this.isStickyHeaderEnabled) {
 			this.unsubscribe();
 			this.overflowObserver && this.overflowObserver.disconnect();
+			this.stickyStateObserver && this.stickyStateObserver.disconnect();
 			this.nodeVisibilityObserverCleanupFn && this.nodeVisibilityObserverCleanupFn();
 
 			const tree = getTree(this.dom);
@@ -366,6 +369,34 @@ export default class TableRowNativeStickyWithFallback
 			});
 		}, options);
 	}
+
+	/**
+	 * This observer is used to track the 'stuck' state of the header row.
+	 * This roughly mimics `(at)container scroll-state(stuck: top)` in CSS,
+	 * but with full browser support.
+	 */
+	private initStickyStateObserver() {
+		if (!this.editorScrollableElement || !(this.editorScrollableElement instanceof Element)) {
+			return;
+		}
+
+		const options = {
+			root: this.editorScrollableElement,
+			rootMargin: `-${tableMarginTop + 16}px 0px 0px 0px`,
+			threshold: 1,
+		};
+
+		this.stickyStateObserver = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				if (entry.intersectionRect.top === entry.rootBounds?.top) {
+					this.dom.classList.add(ClassName.NATIVE_STICKY_ACTIVE);
+				} else {
+					this.dom.classList.remove(ClassName.NATIVE_STICKY_ACTIVE);
+				}
+			});
+		}, options);
+	}
+
 	// initialize intersection observer to track if table is within scroll area
 	private initObservers() {
 		if (!this.dom || this.dom.dataset.isObserved) {
@@ -385,6 +416,8 @@ export default class TableRowNativeStickyWithFallback
 			if (closestTable) {
 				this.overflowObserver?.observe(closestTable);
 			}
+			this.initStickyStateObserver();
+			this.stickyStateObserver?.observe(this.dom);
 		}
 
 		this.resizeObserver.observe(this.dom);

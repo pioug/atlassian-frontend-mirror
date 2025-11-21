@@ -18,7 +18,7 @@ function Items<Item extends { id: string }>({
 	items,
 	loadingLabel,
 	render,
-}: ItemsProps<Item>) {
+}: ItemsProps<Item>): React.JSX.Element {
 	const [isLoaderShown, setIsLoaderShown] = useState(false);
 
 	const handleLoaderComplete = () => setIsLoaderShown(false);

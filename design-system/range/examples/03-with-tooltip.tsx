@@ -5,7 +5,7 @@ import Range from '@atlaskit/range';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-function WithTooltip() {
+function WithTooltip(): React.JSX.Element {
 	const [value, setValue] = useState(50);
 
 	return (

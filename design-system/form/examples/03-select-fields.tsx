@@ -75,7 +75,7 @@ const flavorValidation = (data: Category, errors?: Record<string, string>) => {
 	return errors;
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Flex direction="column">
 		<Form<Category>
 			onSubmit={(data) => {

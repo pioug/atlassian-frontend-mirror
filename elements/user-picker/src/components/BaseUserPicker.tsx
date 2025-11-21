@@ -73,7 +73,9 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		noBorder: false,
 		textFieldBackgroundColor: false,
 		isClearable: true,
-		loadOptionsErrorMessage: () => <FormattedMessage {...messages.errorMessage} />,
+		loadOptionsErrorMessage: (): React.JSX.Element => (
+			<FormattedMessage {...messages.errorMessage} />
+		),
 		openMenuOnClick: false,
 	};
 
@@ -533,7 +535,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			isMulti,
 			isLoading,

@@ -23,7 +23,7 @@ export default class InlineDialogParentClippingExample extends Component<{}, Sta
 
 	toggleDialog = () => this.setState({ dialogOpen: !this.state.dialogOpen });
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<div>
 				<p>

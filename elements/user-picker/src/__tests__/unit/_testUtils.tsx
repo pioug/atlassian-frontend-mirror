@@ -32,7 +32,7 @@ export const flushPromises = () => {
 
 export const createMockedSourceProvider =
 	(mockFetch: LoadUserSource) =>
-	({ children }: PropsWithChildren<{}>) => (
+	({ children }: PropsWithChildren<{}>): React.JSX.Element => (
 		<ExusUserSourceProvider fetchUserSource={mockFetch}>{children}</ExusUserSourceProvider>
 	);
 

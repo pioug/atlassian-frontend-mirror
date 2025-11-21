@@ -14,4 +14,4 @@ const props = {
 	width: 'narrow' as Width,
 };
 
-export default () => <EmptyState {...props} />;
+export default (): React.JSX.Element => <EmptyState {...props} />;

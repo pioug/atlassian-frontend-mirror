@@ -1,5 +1,16 @@
 # @atlaskit/link-picker
 
+## 4.0.0
+
+### Major Changes
+
+- [`28f1fb81658e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28f1fb81658e4) -
+  [ux] Remove 3P tab experiment code from linking-platform packages
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.16.9
 
 ### Patch Changes

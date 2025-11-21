@@ -4,4 +4,4 @@ import { SimpleTag as Tag } from '@atlaskit/tag';
 
 const cupcakeipsum = 'Croissant tiramisu gummi bears.';
 
-export default () => <Tag text={cupcakeipsum} />;
+export default (): React.JSX.Element => <Tag text={cupcakeipsum} />;

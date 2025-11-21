@@ -6,7 +6,7 @@ import { AppLogo } from '@atlaskit/navigation-system/top-nav-items';
 
 import { MockTopBar } from '../common/mock-top-bar';
 
-export const AppLogoExample = () => {
+export const AppLogoExample = (): React.JSX.Element => {
 	return (
 		<MockTopBar>
 			<TopNavStart sideNavToggleButton={null}>

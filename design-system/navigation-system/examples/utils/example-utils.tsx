@@ -6,7 +6,11 @@ import React from 'react';
  *
  * This can be cleaned up once the Gemini platform is updated to support responsive scaling - https://hello.jira.atlassian.cloud/browse/UTEST-1686
  */
-export const WithResponsiveViewport = ({ children }: { children: React.ReactNode }) => (
+export const WithResponsiveViewport = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): React.JSX.Element => (
 	<>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		{children}

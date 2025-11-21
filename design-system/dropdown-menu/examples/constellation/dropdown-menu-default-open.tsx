@@ -2,7 +2,7 @@ import React from 'react';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 
-const DropdownMenuDefaultOpenExample = () => {
+const DropdownMenuDefaultOpenExample = (): React.JSX.Element => {
 	return (
 		<DropdownMenu defaultOpen trigger="Page actions" shouldRenderToParent>
 			<DropdownItemGroup>

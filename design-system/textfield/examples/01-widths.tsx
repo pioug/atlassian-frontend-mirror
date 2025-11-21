@@ -2,7 +2,7 @@ import React from 'react';
 
 import Textfield from '@atlaskit/textfield';
 
-export default function WidthsExample() {
+export default function WidthsExample(): React.JSX.Element {
 	return (
 		<div>
 			<label htmlFor="xsmall">xsmall</label>

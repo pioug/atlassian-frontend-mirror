@@ -20,7 +20,7 @@ const ariaLiveMessages: AriaLiveMessages<Option, boolean, GroupBase<Option>> = {
 	},
 };
 
-const SingleExample = () => (
+const SingleExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="is-searchable-false-example">Which city do you live in?</Label>
 		<Select

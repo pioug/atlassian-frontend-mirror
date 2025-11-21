@@ -3,7 +3,7 @@ import React from 'react';
 import BookWithBookmarkIcon from '@atlaskit/icon/core/book-with-bookmark';
 import { LinkItem, Section } from '@atlaskit/side-navigation';
 
-const ButtonItemExample = () => {
+const ButtonItemExample = (): React.JSX.Element => {
 	return (
 		<div>
 			<Section>

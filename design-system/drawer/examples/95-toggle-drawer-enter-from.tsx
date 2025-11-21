@@ -8,7 +8,7 @@ import { type Direction } from '@atlaskit/motion';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline } from '@atlaskit/primitives';
 
-const DrawersExample = () => {
+const DrawersExample = (): React.JSX.Element => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [enterFrom, setEnterFrom] = useState<Direction>('left');
 

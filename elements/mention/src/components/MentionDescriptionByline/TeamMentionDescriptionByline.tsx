@@ -39,7 +39,7 @@ export default class TeamMentionDescriptionByline extends React.PureComponent<De
 		<DescriptionBylineStyle>{message}</DescriptionBylineStyle>
 	);
 
-	render() {
+	render(): React.JSX.Element | null {
 		const { context } = this.props.mention;
 
 		if (!context) {

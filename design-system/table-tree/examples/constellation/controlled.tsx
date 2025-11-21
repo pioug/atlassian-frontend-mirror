@@ -14,7 +14,7 @@ type Item = {
 
 const defaultExpansionMap: Record<string, boolean> = { '2': true };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [expansionMap, setExpansionMap] = useState(defaultExpansionMap);
 	return (
 		<TableTree label="Manually controlled row expansion">

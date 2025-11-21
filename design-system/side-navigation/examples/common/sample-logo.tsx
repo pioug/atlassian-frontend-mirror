@@ -2,7 +2,7 @@ import React from 'react';
 
 import { type CustomGlyphProps } from '@atlaskit/icon/types';
 
-const RocketIcon = (props: CustomGlyphProps) => {
+const RocketIcon = (props: CustomGlyphProps): React.JSX.Element => {
 	return (
 		<svg
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

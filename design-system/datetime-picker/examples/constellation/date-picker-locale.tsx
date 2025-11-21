@@ -3,7 +3,7 @@ import React from 'react';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 
-const DatePickerLocaleExample = () => (
+const DatePickerLocaleExample = (): React.JSX.Element => (
 	<>
 		<Label id="english" htmlFor="datepicker-locale-en">
 			English Language Example

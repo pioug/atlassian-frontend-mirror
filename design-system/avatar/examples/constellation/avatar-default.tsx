@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
 
-const AvatarDefaultExample = () => {
+const AvatarDefaultExample = (): React.JSX.Element => {
 	return <Avatar />;
 };
 

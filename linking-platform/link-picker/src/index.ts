@@ -4,7 +4,6 @@ export type { LinkPickerProps } from './common/types';
 export type {
 	LinkInputType,
 	LinkPickerPluginAction,
-	LinkPickerPluginBanner,
 	LinkPickerPlugin,
 	LinkPickerState,
 	LinkSearchListItemData,

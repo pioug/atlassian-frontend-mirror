@@ -16,7 +16,12 @@ interface LoaderItemProps {
 	loadingLabel?: string;
 }
 
-const LoaderItem = ({ depth = 1, loadingLabel, isCompleting, onComplete }: LoaderItemProps) => {
+const LoaderItem = ({
+	depth = 1,
+	loadingLabel,
+	isCompleting,
+	onComplete,
+}: LoaderItemProps): React.JSX.Element | null => {
 	const [phase, setPhase] = useState<'loading' | 'complete'>('loading');
 
 	useEffect(() => {

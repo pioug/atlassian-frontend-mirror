@@ -5,7 +5,7 @@ import { Code } from '@atlaskit/code';
 import Drawer, { DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import InlineMessage from '@atlaskit/inline-message';
 
-const DrawersExample = () => {
+const DrawersExample = (): React.JSX.Element => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const openDrawer = () => setIsDrawerOpen(true);
 	const onClose = (...args: [SyntheticEvent<HTMLElement>, any]) => {

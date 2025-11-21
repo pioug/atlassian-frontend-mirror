@@ -7,7 +7,7 @@ import avatarImg from './images/avatar_400x400.jpg';
 const getNonSpacedSampleText = () =>
 	'Cookiemacaroonliquorice.Marshmallowdonutlemondropscandycanesmarshmallowtoppingchocolatecake.Croissantpastrysouffléwafflecakefruitcake.Brownieoatcakesugarplum.';
 
-export default () => (
+export default (): React.JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 	<div style={{ width: 500 }}>
 		<Comment

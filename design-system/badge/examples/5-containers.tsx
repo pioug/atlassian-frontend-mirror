@@ -19,7 +19,7 @@ const smallContainerStyles = xcss({
 	height: '50px',
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<React.StrictMode>
 			<Stack space="space.200">

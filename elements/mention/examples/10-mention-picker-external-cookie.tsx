@@ -26,7 +26,7 @@ try {
 const cookieConfig = config.sessionservice;
 delete cookieConfig.securityProvider;
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<ConfigurableMentionPicker config={cookieConfig}>
 			<MentionTextInput label="User search" onSelection={onSelection} />

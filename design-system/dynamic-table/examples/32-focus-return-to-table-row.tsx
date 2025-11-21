@@ -9,7 +9,7 @@ import { head, rows } from './content/sample-data-numerical';
 
 const paddingStyle = { padding: `${token('space.100', '8px')} 0` };
 
-const FocusReturnToTableRowExample = () => {
+const FocusReturnToTableRowExample = (): React.JSX.Element => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
 	const rowsWithTabIndexAndOnClickCallback: Array<RowType> = rows.map((row) => ({

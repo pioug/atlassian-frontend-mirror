@@ -1,5 +1,13 @@
 # @atlaskit/media-avatar-picker
 
+## 26.3.9
+
+### Patch Changes
+
+- [`7cfa4a9ffdf8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7cfa4a9ffdf8d) -
+  Suppress i18n eslint errors
+- Updated dependencies
+
 ## 26.3.8
 
 ### Patch Changes

@@ -120,7 +120,7 @@ const AnalyticsExample = () => {
 	);
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<AnalyticsListener
 		channel="app-navigation"
 		onEvent={(event) => console.log('Event fired:', event)}

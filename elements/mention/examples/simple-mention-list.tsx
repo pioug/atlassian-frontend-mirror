@@ -3,7 +3,7 @@ import { IntlProvider } from 'react-intl-next';
 import { mentionsWithLocalResource, onSelection } from '../example-helpers';
 import MentionList from '../src/components/MentionList';
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	return (
 		<IntlProvider locale="en">
 			<div data-testid="vr-tested">

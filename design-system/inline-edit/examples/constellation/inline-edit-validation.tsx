@@ -38,7 +38,7 @@ const readViewContainerStyles = cssMap({
 	},
 });
 
-const InlineEditValidationExample = () => {
+const InlineEditValidationExample = (): React.JSX.Element => {
 	const initialValue = 'Initial description value';
 	const [editValue, setEditValue] = useState('Default description value');
 

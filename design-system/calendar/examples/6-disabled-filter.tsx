@@ -11,7 +11,7 @@ const weekendFilter = (date: string) => {
 	return dayOfWeek === 0 || dayOfWeek === 6;
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Calendar
 			defaultMonth={12}

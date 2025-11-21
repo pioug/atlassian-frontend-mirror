@@ -61,7 +61,7 @@ function MoreAction() {
 
 // Examples of the default (button) variant of the expandable menu item.
 // This means there is no href provided.
-export function ExpandableMenuItemDefaultVariantExample() {
+export function ExpandableMenuItemDefaultVariantExample(): React.JSX.Element {
 	return (
 		<Inline space="space.600">
 			<MockSideNav>

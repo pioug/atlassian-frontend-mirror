@@ -10,7 +10,7 @@ const NotificationsBadge = () => (
 	/>
 );
 
-export default () => (
+export default (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		renderProductHome={() => null}

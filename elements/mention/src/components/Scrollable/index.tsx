@@ -26,7 +26,7 @@ export default class Scrollable extends React.PureComponent<Props, {}> {
 		this.scrollableDiv = ref;
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return <ScrollableStyle ref={this.handleRef}>{this.props.children}</ScrollableStyle>;
 	}
 }

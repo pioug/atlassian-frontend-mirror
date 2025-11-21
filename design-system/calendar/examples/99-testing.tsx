@@ -6,7 +6,7 @@ const disabled = ['2020-12-04'];
 const defaultPreviouslySelected = ['2020-12-06'];
 const defaultSelected = ['2020-12-08'];
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Calendar
 		disabled={disabled}
 		defaultPreviouslySelected={defaultPreviouslySelected}

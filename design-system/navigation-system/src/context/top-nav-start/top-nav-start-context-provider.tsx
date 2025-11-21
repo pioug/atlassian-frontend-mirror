@@ -15,7 +15,11 @@ import { TopNavStartAttachRef, TopNavStartElement } from './top-nav-start-contex
  * State is required as opposed to just a ref so that the effects in the side nav can react to the element actually being mounted,
  * as ref values cannot be added as effect dependencies.
  */
-export const TopNavStartProvider = ({ children }: { children: React.ReactNode }) => {
+export const TopNavStartProvider = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): React.JSX.Element => {
 	const [element, setElement] = useState<HTMLDivElement | null>(null);
 
 	return (

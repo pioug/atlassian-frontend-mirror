@@ -25,7 +25,13 @@ const ZendeskIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __ZendeskIcon__
  */
-const ZendeskIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const ZendeskIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

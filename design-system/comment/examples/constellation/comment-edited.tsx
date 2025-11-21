@@ -5,7 +5,7 @@ import Comment, { CommentAuthor, CommentEdited, CommentTime } from '@atlaskit/co
 
 import sampleAvatar from '../images/avatar_400x400.jpg';
 
-const CommentEditedExample = () => {
+const CommentEditedExample = (): React.JSX.Element => {
 	return (
 		<Comment
 			edited={<CommentEdited>Edited</CommentEdited>}

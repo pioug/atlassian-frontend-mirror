@@ -92,7 +92,7 @@ export class RankableBody extends React.Component<RankableBodyProps, {}> {
 		onRankEnd(rankEndProps);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			highlightedRowIndex,
 			pageRows,

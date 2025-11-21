@@ -2,7 +2,7 @@ import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 
-const BreadcrumbsItemTruncationExample = () => {
+const BreadcrumbsItemTruncationExample = (): React.JSX.Element => {
 	return (
 		<Breadcrumbs>
 			<BreadcrumbsItem text="Confluence" />

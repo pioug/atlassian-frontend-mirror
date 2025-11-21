@@ -27,7 +27,7 @@ export default class SpotlightBasicExample extends Component<Object, State> {
 
 	finish = () => this.setState({ active: null });
 
-	renderActiveSpotlight = () => {
+	renderActiveSpotlight = (): React.JSX.Element | null => {
 		const variants = [
 			<Spotlight
 				actions={[
@@ -74,7 +74,7 @@ export default class SpotlightBasicExample extends Component<Object, State> {
 		return variants[this.state.active];
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<SpotlightManager>
 				<HighlightGroup>

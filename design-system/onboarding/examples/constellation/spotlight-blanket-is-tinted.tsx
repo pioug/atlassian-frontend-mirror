@@ -11,7 +11,7 @@ import {
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-const SpotlightBlanketIsTintedExample = () => {
+const SpotlightBlanketIsTintedExample = (): React.JSX.Element => {
 	const [isSpotlightActive, setIsSpotlightActive] = useState(false);
 	const start = () => setIsSpotlightActive(true);
 	const end = () => setIsSpotlightActive(false);

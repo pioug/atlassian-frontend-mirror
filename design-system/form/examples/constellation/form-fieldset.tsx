@@ -4,7 +4,7 @@ import { Checkbox } from '@atlaskit/checkbox';
 import Form, { CheckboxField, Fieldset } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives/compiled';
 
-const FormFieldsetExample = () => (
+const FormFieldsetExample = (): React.JSX.Element => (
 	<Box>
 		<Form onSubmit={(data) => console.log(data)}>
 			<Fieldset legend="Apps">

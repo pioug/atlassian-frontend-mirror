@@ -104,6 +104,7 @@ function ExtensionLoading(props: LoadingComponentProps) {
 	if (props.error || props.timedOut) {
 		// eslint-disable-next-line no-console
 		console.error('Error rendering extension', props.error);
+		// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 		return <div>Error loading the extension!</div>;
 	} else {
 		return null;

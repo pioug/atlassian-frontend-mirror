@@ -12,7 +12,7 @@ import Portfolio from './icons/portfolio';
 import Slack from './icons/slack';
 import Tempo from './icons/tempo';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<MenuGroupContainer>
 			<MenuGroup>

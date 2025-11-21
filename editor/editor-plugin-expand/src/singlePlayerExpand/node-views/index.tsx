@@ -271,7 +271,11 @@ export class ExpandNodeView implements NodeView {
 				this.handleArrowLeftFromTitle(event);
 				break;
 			case 'ArrowUp':
-				this.setLeftGapCursor(event);
+				if (expValEquals('platform_editor_lovability_navigation_fixes', 'isEnabled', true)) {
+					this.moveToPreviousLine(event);
+				} else {
+					this.setLeftGapCursor(event);
+				}
 				break;
 			case 'Backspace':
 				this.deleteEmptyExpand();
@@ -408,6 +412,37 @@ export class ExpandNodeView implements NodeView {
 					new GapCursorSelection(state.doc.resolve(this.node.nodeSize + pos), Side.RIGHT),
 				),
 			);
+		}
+	};
+
+	private moveToPreviousLine = (event: KeyboardEvent) => {
+		if (!this.input) {
+			return;
+		}
+		const pos = this.getPos();
+		if (typeof pos !== 'number') {
+			return;
+		}
+		const { selectionStart, selectionEnd } = this.input;
+		if (selectionStart === selectionEnd && selectionStart === 0) {
+			event.preventDefault();
+			const { state, dispatch } = this.view;
+
+			const resolvedPos = state.doc.resolve(pos);
+			if (!resolvedPos) {
+				return;
+			}
+
+			if (resolvedPos.pos === 0) {
+				this.setLeftGapCursor(event);
+				return;
+			}
+
+			const sel = Selection.findFrom(resolvedPos, -1);
+			if (sel) {
+				this.view.focus();
+				dispatch(state.tr.setSelection(sel));
+			}
 		}
 	};
 

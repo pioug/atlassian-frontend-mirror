@@ -6,7 +6,7 @@ import DropdownMenuStateless, {
 	type OnOpenChangeArgs,
 } from '@atlaskit/dropdown-menu';
 
-const DropdownMenuStatelessExample = () => {
+const DropdownMenuStatelessExample = (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

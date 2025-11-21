@@ -30,7 +30,7 @@ const CustomHome = () => (
 	/>
 );
 
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		<AtlassianNavigation
 			label="example of product home with a non-default value for logoMaxWidth"

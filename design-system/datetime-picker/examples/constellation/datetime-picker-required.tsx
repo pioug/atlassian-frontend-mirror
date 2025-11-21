@@ -3,7 +3,7 @@ import React from 'react';
 import { DateTimePicker } from '@atlaskit/datetime-picker';
 import { Field } from '@atlaskit/form';
 
-const DateTimePickerRequiredExample = () => (
+const DateTimePickerRequiredExample = (): React.JSX.Element => (
 	<Field name="datetime" label="Log Entry" isRequired>
 		{({ fieldProps: { ...rest } }) => (
 			<DateTimePicker

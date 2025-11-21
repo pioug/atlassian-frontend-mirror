@@ -11,7 +11,7 @@ type Item = {
 	children?: Item[];
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<TableTree label="Nested loading state">
 		<Headers>
 			<Header width={200}>Chapter title</Header>

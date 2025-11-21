@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import InlineDialog from '@atlaskit/inline-dialog';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 
 	return (

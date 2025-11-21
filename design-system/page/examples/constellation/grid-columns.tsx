@@ -7,7 +7,7 @@ import { Dummy } from '../common/dummy';
 
 const columns = 12;
 
-const GridColumnsExample = () => {
+const GridColumnsExample = (): React.JSX.Element => {
 	return (
 		<Page>
 			<Grid columns={columns}>

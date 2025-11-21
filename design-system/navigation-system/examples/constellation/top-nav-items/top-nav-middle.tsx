@@ -5,7 +5,7 @@ import { CreateButton, Search } from '@atlaskit/navigation-system/top-nav-items'
 
 import { MockTopBar } from '../common/mock-top-bar';
 
-export function TopNavMiddleLayoutExample() {
+export function TopNavMiddleLayoutExample(): React.JSX.Element {
 	return (
 		<MockTopBar>
 			<TopNavMiddle>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ExampleImageComponent = () => {
+const ExampleImageComponent = (): React.JSX.Element => {
 	return (
 		<svg
 			width="191"

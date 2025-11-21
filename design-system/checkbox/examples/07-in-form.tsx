@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, { CheckboxField, FormFooter } from '@atlaskit/form';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Form<{ remember: boolean }> onSubmit={() => {}}>
 		<CheckboxField name="remember" isRequired>
 			{({ fieldProps }) => <Checkbox {...fieldProps} label="Remember me" />}

@@ -71,8 +71,6 @@ export interface LinkPickerPlugin {
 	errorFallback?: LinkPickerPluginErrorFallback;
 	/** Render function to customise the UI that is displayed when there are no results, but an empty form (no search term) */
 	emptyStateNoResults?: LinkPickerPluginEmptyStateNoResults;
-	/** Render function to display a banner above the search results. This is exclusively used for the Google Drive tab experiment. */
-	banner?: LinkPickerPluginBanner;
 	/** Metadata about the plugin */
 	meta?: {
 		/** The data source that provides all results provided by the plugin */
@@ -94,9 +92,6 @@ export interface LinkPickerPluginAction {
 export type LinkPickerPluginErrorFallback = (error: unknown, retry: () => void) => ReactNode;
 
 export type LinkPickerPluginEmptyStateNoResults = () => ReactNode;
-
-export type LinkPickerPluginBanner = () => ReactNode;
-
 export interface PickerState {
 	selectedIndex: number;
 	activeIndex: number;

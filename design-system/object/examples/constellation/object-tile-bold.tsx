@@ -6,7 +6,7 @@ import IncidentObjectTile from '@atlaskit/object/tile/incident';
 import PageLiveDocObjectTile from '@atlaskit/object/tile/page-live-doc';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 
-export default function ObjectTileBold() {
+export default function ObjectTileBold(): React.JSX.Element {
 	return (
 		<Stack space="space.200">
 			<Heading size="medium">Default appearance</Heading>

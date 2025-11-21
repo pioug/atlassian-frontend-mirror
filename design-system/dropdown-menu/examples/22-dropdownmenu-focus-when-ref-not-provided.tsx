@@ -16,7 +16,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<>
 			<Heading size="small">

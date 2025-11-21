@@ -5,7 +5,7 @@ import Button from '@atlaskit/button/new';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives';
 
-const BreadcrumbsControlledExample = () => {
+const BreadcrumbsControlledExample = (): React.JSX.Element => {
 	const [isExpanded, setExpanse] = useState(false);
 	return (
 		<Box>

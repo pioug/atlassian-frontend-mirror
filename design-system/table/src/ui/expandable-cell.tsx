@@ -20,7 +20,7 @@ type ExpandableCellProps = {
  *
  * An expandable cell primitive designed to be used for light weight composition.
  */
-export const ExpandableCell = ({ children, as }: ExpandableCellProps) => {
+export const ExpandableCell = ({ children, as }: ExpandableCellProps): React.JSX.Element => {
 	return (
 		<BaseCell as={as} xcss={spacingStyles}>
 			{children}

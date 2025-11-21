@@ -12,7 +12,7 @@ import Yeti from './icons/yeti.png';
 const fullText =
 	'A spacecraft is a vehicle or machine designed to fly in outer space. A type of artificial satellite, spacecraft are used for a variety of purposes.';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [textIndex, setTextIndex] = useState(-1);
 
 	useEffect(() => {

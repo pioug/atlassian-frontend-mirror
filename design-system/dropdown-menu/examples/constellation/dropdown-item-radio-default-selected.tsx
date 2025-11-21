@@ -2,7 +2,7 @@ import React from 'react';
 
 import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '@atlaskit/dropdown-menu';
 
-const DropdownItemRadioExample = () => {
+const DropdownItemRadioExample = (): React.JSX.Element => {
 	return (
 		<DropdownMenu trigger="Views" shouldRenderToParent>
 			<DropdownItemRadioGroup title="Views" id="actions">

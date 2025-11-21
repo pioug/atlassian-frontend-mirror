@@ -135,7 +135,7 @@ const MainComponent = ({ isLoading }: { isLoading: boolean }) => {
 	);
 };
 
-export const SkeletonItemLoaded = () => {
+export const SkeletonItemLoaded = (): React.JSX.Element => {
 	const [isLoading, setIsLoading] = useState(false);
 
 	return (
@@ -149,7 +149,7 @@ export const SkeletonItemLoaded = () => {
 		</div>
 	);
 };
-export default () => {
+export default (): React.JSX.Element => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	return (

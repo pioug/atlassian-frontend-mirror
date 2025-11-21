@@ -9,7 +9,7 @@ import { SAMPLING_RATE_EMOJI_RENDERED_EXP } from '../../util/constants';
 
 export interface Props extends ResourcedEmojiProps {}
 
-const ResourcedEmoji = (props: React.PropsWithChildren<Props>) => {
+const ResourcedEmoji = (props: React.PropsWithChildren<Props>): React.JSX.Element => {
 	const { emojiId, optimisticImageURL } = props;
 
 	useEffect(() => {

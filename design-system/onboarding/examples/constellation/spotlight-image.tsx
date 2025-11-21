@@ -12,7 +12,7 @@ import { token } from '@atlaskit/tokens';
 
 import spotlightImage from '../assets/this-is-new-jira.png';
 
-const SpotlightImageExample = () => {
+const SpotlightImageExample = (): React.JSX.Element => {
 	const [isSpotlightActive, setIsSpotlightActive] = useState(false);
 	const start = () => setIsSpotlightActive(true);
 	const end = () => setIsSpotlightActive(false);

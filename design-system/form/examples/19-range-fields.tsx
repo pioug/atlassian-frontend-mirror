@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/new';
 import Form, { FormFooter, RangeField } from '@atlaskit/form';
 import Range from '@atlaskit/range';
 
-export default function RangeFieldExample() {
+export default function RangeFieldExample(): React.JSX.Element {
 	return (
 		<div>
 			<Form onSubmit={(data) => console.log(data)}>

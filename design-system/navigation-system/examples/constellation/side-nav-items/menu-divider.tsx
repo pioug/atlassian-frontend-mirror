@@ -30,7 +30,7 @@ import { MockSideNav } from './common/mock-side-nav';
 
 const exampleHref = '#example-href';
 
-export const MenuDividerExample = () => (
+export const MenuDividerExample = (): React.JSX.Element => (
 	<MockSideNav>
 		<SideNavContent>
 			<MenuList>

@@ -40,7 +40,7 @@ function MoreAction() {
 
 const exampleHref = '#example-href';
 
-export function ActionsAndActionsOnHoverExample() {
+export function ActionsAndActionsOnHoverExample(): React.JSX.Element {
 	return (
 		<Inline space="space.600">
 			<MockSideNav>

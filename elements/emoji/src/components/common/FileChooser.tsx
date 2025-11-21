@@ -14,7 +14,7 @@ export interface Props {
 export const chooseFileButtonTestId = 'choose-file-button';
 export const fileUploadInputTestId = 'file-upload';
 
-const FileChooser = (props: Props) => {
+const FileChooser = (props: Props): React.JSX.Element => {
 	const { accept, ariaDescribedBy, isDisabled, label, onChange, onClick } = props;
 	const filePickerRef = useRef<HTMLInputElement>(null);
 	const fileButtonRef = useRef<HTMLButtonElement>(null);

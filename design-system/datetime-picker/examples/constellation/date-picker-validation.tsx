@@ -10,7 +10,7 @@ const validateField = (value?: string) => {
 	}
 };
 
-const DatePickerValidationExample = () => (
+const DatePickerValidationExample = (): React.JSX.Element => (
 	<Form onSubmit={(formState) => console.log('form submitted', formState)}>
 		<Field
 			name="datepicker-validation"

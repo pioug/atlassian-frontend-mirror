@@ -105,6 +105,7 @@ export class PlaybackSpeedControls extends Component<
 								onKeyDown={popupKeydown}
 								aria-expanded={isOpen}
 							>
+								{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 								{playbackSpeed}x
 							</MediaButton>
 						</Tooltip>

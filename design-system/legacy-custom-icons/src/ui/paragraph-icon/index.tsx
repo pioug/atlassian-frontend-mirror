@@ -24,7 +24,13 @@ const ParagraphIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __ParagraphIcon__
  */
-const ParagraphIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const ParagraphIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '@atlaskit/dropdown-menu';
 import { type OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 
-const DropdownOpenExample = () => {
+const DropdownOpenExample = (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

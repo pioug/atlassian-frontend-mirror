@@ -21,7 +21,7 @@ const colors = [
 	{ label: 'teal', value: 'teal' },
 ];
 
-export default function OnBlurValidationExample() {
+export default function OnBlurValidationExample(): React.JSX.Element {
 	const [selectHasError, setSelectHasError] = useState(false);
 	const [selectValue, setSelectValue] = useState<ValueType<Option>>();
 

@@ -28,7 +28,7 @@ class UsageShowingEmojiPickerTextInput extends UsageShowAndClearComponent {
 	}
 }
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<IntlProvider locale="en">
 			<UsageShowingEmojiPickerTextInput emojiResource={new EmojiResource(config)} />

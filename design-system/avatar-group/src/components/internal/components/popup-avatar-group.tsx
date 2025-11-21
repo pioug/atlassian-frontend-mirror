@@ -22,7 +22,7 @@ const PopupAvatarGroup = ({
 	spacing,
 	testId,
 	...rest
-}: PopupAvatarGroupProps) => {
+}: PopupAvatarGroupProps): React.JSX.Element => {
 	const { menuItemRefs } = useContext(FocusManagerContext);
 
 	useEffect(() => {

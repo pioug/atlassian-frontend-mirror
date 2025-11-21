@@ -29,7 +29,7 @@ const items = [
 	},
 ];
 
-export default () => (
+export default (): React.JSX.Element => (
 	<TableTree label="Advanced usage">
 		<Headers>
 			<Header width={120}>Title</Header>

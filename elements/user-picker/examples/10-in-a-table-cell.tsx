@@ -51,7 +51,7 @@ const renderRows = (count: number) => {
 	return rows;
 };
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	return (
 		<Table>
 			<Row>

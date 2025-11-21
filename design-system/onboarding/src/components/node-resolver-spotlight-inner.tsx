@@ -22,7 +22,7 @@ const NodeResolverSpotlightInner = ({
 	hasNodeResolver,
 	children,
 	innerRef,
-}: NodeResolverSpotlightInnerProps) => {
+}: NodeResolverSpotlightInnerProps): React.JSX.Element => {
 	const divRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {

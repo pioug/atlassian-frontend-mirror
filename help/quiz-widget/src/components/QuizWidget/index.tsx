@@ -50,7 +50,7 @@ export interface State {
 	currentQuestionNumber: number;
 }
 
-const QuizWidget = (props: Props) => {
+const QuizWidget = (props: Props): React.JSX.Element => {
 	const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1);
 	const [checkedAnswers, setCheckedAnswers] = useState(new Map());
 

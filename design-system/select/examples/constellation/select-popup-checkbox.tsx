@@ -21,7 +21,7 @@ const options = [
 	},
 ];
 
-const PopupSelectExample = () => {
+const PopupSelectExample = (): React.JSX.Element => {
 	return (
 		<PopupSelect
 			components={{ Option: CheckboxOption }}

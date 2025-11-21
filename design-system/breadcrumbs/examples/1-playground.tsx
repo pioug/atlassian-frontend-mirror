@@ -36,7 +36,7 @@ interface Option {
 	value: number;
 }
 
-export default function BreadcrumbsPlaygroundExample() {
+export default function BreadcrumbsPlaygroundExample(): React.JSX.Element {
 	const [isExpanded, setIsExpanded] = useState(false);
 	const [itemsToShow, setItemsToShow] = useState(3);
 	const [maxItems, setMaxItems] = useState<number | undefined>(undefined);

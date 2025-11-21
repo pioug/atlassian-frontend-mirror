@@ -3,7 +3,7 @@ import React from 'react';
 import { Label } from '@atlaskit/form';
 import Select from '@atlaskit/select';
 
-export default function SelectAppearanceNone() {
+export default function SelectAppearanceNone(): React.JSX.Element {
 	return (
 		<>
 			<Label htmlFor="none-appearance-example">Favorite fruit</Label>

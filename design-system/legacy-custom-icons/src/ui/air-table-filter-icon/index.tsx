@@ -38,7 +38,13 @@ const AirTableFilterIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __AirTableFilterIcon__
  */
-const AirTableFilterIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const AirTableFilterIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

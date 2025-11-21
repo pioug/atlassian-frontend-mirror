@@ -3,7 +3,7 @@ import DecisionItem from '../../../../components/DecisionItem';
 import DecisionList from '../../../../components/DecisionList';
 import { dumpRef } from '../../../../../example-helpers/story-utils';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<h3>Simple DecisionItem</h3>
 		<DecisionItem contentRef={dumpRef}>

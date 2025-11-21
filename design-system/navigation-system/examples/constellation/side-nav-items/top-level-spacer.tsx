@@ -16,7 +16,7 @@ import { MockSideNav } from './common/mock-side-nav';
 
 const exampleHref = '#example-href';
 
-export function TopLevelSpacerExample() {
+export function TopLevelSpacerExample(): React.JSX.Element {
 	return (
 		<MockSideNav>
 			<SideNavContent>

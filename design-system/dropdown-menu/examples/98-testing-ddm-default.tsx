@@ -2,7 +2,7 @@ import React from 'react';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 
-const DropdownMenuDefault = () => {
+const DropdownMenuDefault = (): React.JSX.Element => {
 	return (
 		<DropdownMenu
 			placement="bottom-start"

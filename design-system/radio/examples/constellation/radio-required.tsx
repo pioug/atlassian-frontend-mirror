@@ -12,7 +12,7 @@ const colorItems: OptionsPropType = [
 	{ name: 'color', value: 'green', label: 'Green' },
 ];
 
-export default function RadioRequired() {
+export default function RadioRequired(): React.JSX.Element {
 	return (
 		<Form<FormData> onSubmit={(formData) => console.log('form data', formData)}>
 			<Field label="Required radio group" name="color" defaultValue="" isRequired>

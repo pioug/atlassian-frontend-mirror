@@ -2,7 +2,7 @@ import React from 'react';
 
 import Flag from '@atlaskit/flag';
 
-const FlagDefaultExample = () => {
+const FlagDefaultExample = (): React.JSX.Element => {
 	return (
 		<Flag
 			title="New version published"

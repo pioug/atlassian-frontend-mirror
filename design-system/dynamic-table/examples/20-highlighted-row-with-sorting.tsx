@@ -7,7 +7,7 @@ import { head, rows } from './content/sample-data';
 const rowsWithHighlightedRow = [...rows];
 rowsWithHighlightedRow[6].isHighlighted = true;
 
-export default () => (
+export default (): React.JSX.Element => (
 	<DynamicTable
 		head={head}
 		rows={rowsWithHighlightedRow}

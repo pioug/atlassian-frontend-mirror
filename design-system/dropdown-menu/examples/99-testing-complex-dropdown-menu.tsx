@@ -2,7 +2,7 @@ import React from 'react';
 
 import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '@atlaskit/dropdown-menu';
 
-const DropdownMenuRadio = () => (
+const DropdownMenuRadio = (): React.JSX.Element => (
 	<DropdownMenu trigger="Filter cities" testId="lite-mode-ddm" shouldRenderToParent isOpen>
 		<DropdownItemRadioGroup id="cities" title="Some cities">
 			<DropdownItemRadio id="sydney">Sydney</DropdownItemRadio>

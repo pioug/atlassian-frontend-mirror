@@ -31,7 +31,11 @@ export interface RowsProps<Item> {
 	loadingLabel?: string;
 }
 
-function Rows<T extends { id: string }>({ items, render, loadingLabel = 'Loading' }: RowsProps<T>) {
+function Rows<T extends { id: string }>({
+	items,
+	render,
+	loadingLabel = 'Loading',
+}: RowsProps<T>): React.JSX.Element {
 	return (
 		<div role="rowgroup">
 			<Items items={items} loadingLabel={loadingLabel} render={render} />

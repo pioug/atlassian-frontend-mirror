@@ -58,7 +58,13 @@ const GlobalChartIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __GlobalChartIcon__
  */
-const GlobalChartIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const GlobalChartIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

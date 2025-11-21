@@ -64,7 +64,13 @@ const UiElementIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __UiElementIcon__
  */
-const UiElementIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const UiElementIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

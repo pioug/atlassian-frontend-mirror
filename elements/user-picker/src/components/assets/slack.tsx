@@ -1,7 +1,7 @@
 import React from 'react';
 import { token } from '@atlaskit/tokens';
 
-export function SlackIcon(props: React.SVGProps<SVGSVGElement>) {
+export function SlackIcon(props: React.SVGProps<SVGSVGElement>): React.JSX.Element {
 	return (
 		<svg
 			width="12"

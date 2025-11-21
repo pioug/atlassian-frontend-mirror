@@ -3,7 +3,7 @@ import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import type { Email } from '../src';
 import UserPicker from '../src';
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const options: Email[] = ['spiderman', 'hulk', 'thor']
 		.map((hero) => `${hero}@avengers.com`)
 		.map((email, index) => ({

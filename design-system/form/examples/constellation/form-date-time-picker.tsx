@@ -39,7 +39,7 @@ const preferenceValidator = (data: FormData, errors: Record<string, string>) => 
 	return errors;
 };
 
-const FormDateTimePickerExample = () => {
+const FormDateTimePickerExample = (): React.JSX.Element => {
 	return (
 		<Flex direction="column">
 			<Form<FormData>

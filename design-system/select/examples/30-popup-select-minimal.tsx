@@ -14,7 +14,7 @@ const options = [
 	{ label: 'Sydney', value: 'sydney' },
 ];
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<PopupSelect
 			isSearchable={false}

@@ -116,7 +116,7 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 		};
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			pulse,
 			shouldWatchTarget,

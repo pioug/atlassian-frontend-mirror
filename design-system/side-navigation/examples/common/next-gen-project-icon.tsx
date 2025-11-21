@@ -2,7 +2,7 @@ import React from 'react';
 
 import { type CustomGlyphProps } from '@atlaskit/icon/types';
 
-function NextGenProjectIcon(props: CustomGlyphProps) {
+function NextGenProjectIcon(props: CustomGlyphProps): React.JSX.Element {
 	return (
 		<svg
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

@@ -37,7 +37,7 @@ export const AgentMenuItemSkeleton = ({
 	skeletonTextWidth = 170,
 	skeletonAvatarSize = 'small',
 	paddingHorizontal = token('space.075'),
-}: AgentMenuItemSkeletonProps) => {
+}: AgentMenuItemSkeletonProps): React.JSX.Element => {
 	return (
 		<Box
 			key={`skeleton-container-${index}`}

@@ -10,7 +10,7 @@ import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
 
 const AtlassianProductHome = () => <ProductHome icon={AtlassianIcon} logo={AtlassianLogo} />;
 
-const DefaultExample = () => (
+const DefaultExample = (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		primaryItems={[

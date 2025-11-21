@@ -15,6 +15,6 @@ const ProductHome = () => (
 	/>
 );
 
-export default () => (
+export default (): React.JSX.Element => (
 	<AtlassianNavigation label="site" renderProductHome={ProductHome} primaryItems={[]} />
 );

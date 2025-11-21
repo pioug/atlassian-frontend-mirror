@@ -2,7 +2,7 @@ import React from 'react';
 
 import EmptyState from '@atlaskit/empty-state';
 
-export default [
+const _default_1: React.JSX.Element[] = [
 	<EmptyState header="No items" description="Add items to get started" />,
 	<EmptyState
 		header="No search results"
@@ -13,3 +13,4 @@ export default [
 		description="Create your first project to get started with the platform."
 	/>,
 ];
+export default _default_1;

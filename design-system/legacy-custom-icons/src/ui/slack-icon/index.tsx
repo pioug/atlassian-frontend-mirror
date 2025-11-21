@@ -51,7 +51,13 @@ const SlackIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __SlackIcon__
  */
-const SlackIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const SlackIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

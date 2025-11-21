@@ -21,7 +21,7 @@ const useProvider = (uploadSupported: boolean, useFallback: boolean = false) => 
 	}, [uploadSupported, useFallback]);
 };
 
-export const EmojiPickerWithUpload = () => {
+export const EmojiPickerWithUpload = (): React.JSX.Element => {
 	const emojiProvider = useProvider(true);
 
 	return (
@@ -31,7 +31,7 @@ export const EmojiPickerWithUpload = () => {
 	);
 };
 
-export const EmojiPickerWithoutUpload = () => {
+export const EmojiPickerWithoutUpload = (): React.JSX.Element => {
 	const emojiProvider = useProvider(false);
 
 	return (
@@ -41,7 +41,7 @@ export const EmojiPickerWithoutUpload = () => {
 	);
 };
 
-export const EmojiPickerWithFallbackWithUpload = () => {
+export const EmojiPickerWithFallbackWithUpload = (): React.JSX.Element => {
 	const emojiProvider = useProvider(true, true);
 
 	return (
@@ -51,7 +51,7 @@ export const EmojiPickerWithFallbackWithUpload = () => {
 	);
 };
 
-export const EmojiPickerWithFallbackWithoutUpload = () => {
+export const EmojiPickerWithFallbackWithoutUpload = (): React.JSX.Element => {
 	const emojiProvider = useProvider(false, true);
 
 	return (

@@ -19,7 +19,7 @@ const CustomLink: React.ForwardRefExoticComponent<
 	);
 });
 
-const Example = () => (
+const Example = (): React.JSX.Element => (
 	// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 	<Box onClick={(e: MouseEvent) => e.preventDefault()}>
 		<CustomItem href="/create-article-1" component={CustomLink}>

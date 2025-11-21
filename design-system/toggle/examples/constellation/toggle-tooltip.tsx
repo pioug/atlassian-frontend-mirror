@@ -5,7 +5,7 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { Label } from './label';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [isAllowed, setIsAllowed] = useState(false);
 
 	return (

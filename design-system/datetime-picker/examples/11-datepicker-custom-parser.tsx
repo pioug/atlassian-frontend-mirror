@@ -10,7 +10,7 @@ const parseInputValue = (date: string, dateFormat: string) => {
 	return moment(date, dateFormat).toDate();
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Box>
 			<Label id="custom" htmlFor="react-select-custom-parser--input">

@@ -19,7 +19,7 @@ const SettingsContent = () => (
 	</MenuGroup>
 );
 
-export const DefaultSettings = () => {
+export const DefaultSettings = (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const onClick = () => {

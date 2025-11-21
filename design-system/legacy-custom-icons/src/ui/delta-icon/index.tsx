@@ -22,7 +22,13 @@ const DeltaIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __DeltaIcon__
  */
-const DeltaIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const DeltaIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

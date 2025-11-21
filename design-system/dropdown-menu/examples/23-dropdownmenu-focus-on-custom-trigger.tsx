@@ -11,7 +11,7 @@ const CustomComponent: React.ForwardRefExoticComponent<
 	</button>
 ));
 
-export default () => {
+export default (): React.JSX.Element => {
 	const triggerRef = useRef<HTMLButtonElement>(null);
 
 	const handleDropdownItemClick = useCallback(

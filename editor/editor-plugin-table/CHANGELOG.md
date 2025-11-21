@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 15.4.2
+
+### Patch Changes
+
+- [`0e07e981de8c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e07e981de8c7) -
+  Fix mask for above sticky positioned table header to cover nested table controls
+- Updated dependencies
+
+## 15.4.1
+
+### Patch Changes
+
+- [`3e9ac3a2226fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e9ac3a2226fd) -
+  Detect 'stuck' state for sticky positioned table header and toggle drop shadow
+
 ## 15.4.0
 
 ### Minor Changes

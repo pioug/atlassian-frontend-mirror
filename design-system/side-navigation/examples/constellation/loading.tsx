@@ -13,7 +13,7 @@ import {
 
 import AppFrame from '../common/app-frame';
 
-const LoadingExample = () => {
+const LoadingExample = (): React.JSX.Element => {
 	return (
 		<AppFrame shouldHideAppBar>
 			<SideNavigation label="settings">

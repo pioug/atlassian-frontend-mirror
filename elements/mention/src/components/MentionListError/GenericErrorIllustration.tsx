@@ -7,7 +7,7 @@ export interface Props {
 }
 
 export class GenericErrorIllustration extends React.PureComponent<Props, {}> {
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<GenericErrorVisualStyle>
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163.3 212" aria-labelledby="title">

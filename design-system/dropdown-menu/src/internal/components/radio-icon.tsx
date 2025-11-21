@@ -12,7 +12,7 @@ import { token } from '@atlaskit/tokens';
  *
  * @internal
  */
-const RadioIcon = ({ checked }: { checked: boolean }) => {
+const RadioIcon = ({ checked }: { checked: boolean }): React.JSX.Element => {
 	return (
 		<SVGIcon
 			label=""

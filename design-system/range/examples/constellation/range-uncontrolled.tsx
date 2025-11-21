@@ -2,7 +2,7 @@ import React from 'react';
 
 import Range from '@atlaskit/range';
 
-const RangeUncontrolledExample = () => {
+const RangeUncontrolledExample = (): React.JSX.Element => {
 	return (
 		<Range
 			aria-label="uncontrolled range"

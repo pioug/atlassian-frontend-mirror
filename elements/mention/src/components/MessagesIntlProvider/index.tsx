@@ -29,7 +29,7 @@ const useI18n = (locale: string): Record<string, string> => {
 	return messages;
 };
 
-const MessagesIntlProvider = (props: PropsWithChildren<{}>) => {
+const MessagesIntlProvider = (props: PropsWithChildren<{}>): React.JSX.Element => {
 	const { children } = props;
 	const intl = useIntl();
 	const messages = useI18n(intl.locale);

@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import { AtlassianIcon } from '@atlaskit/logo';
 
-export default function BreadcrumbsExpand() {
+export default function BreadcrumbsExpand(): React.JSX.Element {
 	const [isExpanded, setIsExpanded] = useState(false);
 
 	const onExpand = useCallback((e: React.MouseEvent) => {

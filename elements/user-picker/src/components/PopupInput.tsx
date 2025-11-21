@@ -18,7 +18,7 @@ export class PopupInput extends React.Component<Props> {
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return <Input {...this.props} innerRef={this.handleInnerRef} />;
 	}
 }

@@ -6,7 +6,7 @@ const onClick = (...args: any[]) => {
 	console.log('search click', ...args);
 };
 
-export const DefaultSearch = () => (
+export const DefaultSearch = (): React.JSX.Element => (
 	<Search onClick={onClick} placeholder="Search..." tooltip="Search" label="Search" />
 );
 

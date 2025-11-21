@@ -32,7 +32,13 @@ const LineChartIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __LineChartIcon__
  */
-const LineChartIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const LineChartIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

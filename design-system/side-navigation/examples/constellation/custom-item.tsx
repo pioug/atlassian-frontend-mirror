@@ -19,7 +19,7 @@ const CustomLink: React.ForwardRefExoticComponent<
 	);
 });
 
-const ButtonItemExample = () => {
+const ButtonItemExample = (): React.JSX.Element => {
 	return (
 		<div>
 			<Section>

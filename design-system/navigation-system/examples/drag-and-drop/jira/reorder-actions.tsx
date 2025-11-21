@@ -39,7 +39,7 @@ export function ReorderActionMenu({
 	onMoveToBottom: () => void;
 	label: ReactNode;
 	TriggerComponent?: typeof DropdownItem | typeof ButtonMenuItem;
-}) {
+}): React.JSX.Element {
 	const type = getType({ index, listSize });
 
 	return (

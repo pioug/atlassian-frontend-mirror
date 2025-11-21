@@ -6,7 +6,7 @@ import Link from '@atlaskit/link';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		<Text>This is a flag with a description containing a link.</Text>
 		<FlagGroup>

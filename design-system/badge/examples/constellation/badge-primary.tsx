@@ -2,7 +2,7 @@ import React from 'react';
 
 import Badge from '@atlaskit/badge';
 
-const BadgePrimaryExample = () => {
+const BadgePrimaryExample = (): React.JSX.Element => {
 	return <Badge appearance="primary">{5}</Badge>;
 };
 

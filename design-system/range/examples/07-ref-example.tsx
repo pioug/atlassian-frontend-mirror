@@ -3,7 +3,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { Label } from '@atlaskit/form';
 import Range from '@atlaskit/range';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [value, setValue] = useState(50);
 	const ref = React.createRef<HTMLInputElement>();
 

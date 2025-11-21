@@ -13,7 +13,7 @@ const formatDisplayLabel = (value: string, dateFormat: string) => {
 	return moment(value).format(dateFormat);
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box>
 		<Label htmlFor="datepicker">Date picker</Label>
 		<DatePicker

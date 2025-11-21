@@ -5,7 +5,7 @@ import { EmojiContext } from '../../../../context/EmojiContext';
 import { EmojiResource } from '../../../../api/EmojiResource';
 import { EmojiCommonProvider } from '../../../../context/EmojiCommonProvider';
 
-export const RenderContextStub = () => {
+export const RenderContextStub = (): React.JSX.Element => {
 	const stubbedContext = useContext(EmojiContext);
 	const [contextState, setContextState] = useState('');
 

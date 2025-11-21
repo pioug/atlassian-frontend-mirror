@@ -11,7 +11,7 @@ import { SwitcherPopup } from './shared/switcher-popup';
 
 const SignInExample = () => <SignIn tooltip="Sign in" />;
 
-const AnonymousExample = () => (
+const AnonymousExample = (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		primaryItems={defaultPrimaryItems}

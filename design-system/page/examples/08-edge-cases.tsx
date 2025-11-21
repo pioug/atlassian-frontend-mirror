@@ -9,7 +9,7 @@ import Page, { Grid, GridColumn } from '@atlaskit/page';
 import { Dummy, DummyNested } from './common/dummy';
 import VerticalSpace from './common/vertical-space';
 
-const BasicExample = () => {
+const BasicExample = (): React.JSX.Element => {
 	return (
 		<Page>
 			<Banner appearance="warning" icon={<WarningIcon label="Warning" secondaryColor="inherit" />}>

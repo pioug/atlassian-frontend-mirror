@@ -8,7 +8,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 import Heading from '@atlaskit/heading';
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const [items, setItems] = useState(getItems(3));
 
 	function onDragEnd(result: any) {

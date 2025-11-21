@@ -17,7 +17,7 @@ const SkeletonProfileButton = () => (
 	</SkeletonIconButton>
 );
 
-const AtlassianNavigationExample = () => (
+const AtlassianNavigationExample = (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		moreLabel="More"

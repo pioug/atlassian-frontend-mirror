@@ -7,7 +7,7 @@ import type { EmojiProvider } from '../src/resource';
 import { ResourcedEmoji } from '../src/element';
 import { IntlProvider } from 'react-intl-next';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<IntlProvider locale="en">
 			<ResourcedEmoji

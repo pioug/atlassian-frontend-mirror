@@ -4,7 +4,7 @@ import { MentionItem } from '../src/item';
 import { generateMentionItem, onSelection } from '../example-helpers';
 import { IntlProvider } from 'react-intl-next';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const mention = {
 		id: '666',
 		name: 'Craig Petchell',

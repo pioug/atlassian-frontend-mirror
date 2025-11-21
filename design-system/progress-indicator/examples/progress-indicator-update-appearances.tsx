@@ -18,7 +18,9 @@ interface ExampleProps {
 	values: ProgressDotsProps['appearance'][];
 }
 
-const Example = ({ values = ['default', 'inverted', 'primary', 'help'] }: ExampleProps) => {
+const Example = ({
+	values = ['default', 'inverted', 'primary', 'help'],
+}: ExampleProps): React.JSX.Element => {
 	const [selectedIndex, setSelectedIndex] = useState(0);
 
 	const handlePrev = () => {

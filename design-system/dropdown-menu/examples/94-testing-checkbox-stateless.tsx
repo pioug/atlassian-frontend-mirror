@@ -5,7 +5,7 @@ import DropdownMenu, {
 	DropdownItemCheckboxGroup,
 } from '@atlaskit/dropdown-menu';
 
-const DropdownMenuCheckboxStateless = () => {
+const DropdownMenuCheckboxStateless = (): React.JSX.Element => {
 	const [selected, setSelected] = useState<string[]>([]);
 
 	const selectOption = (option: string) => {

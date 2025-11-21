@@ -14,7 +14,7 @@ type WeekStartDayOption = {
 	label: string;
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [locale, setLocale] = useState('en-AU');
 	const [weekStartDay, setWeekStartDay] = useState<WeekDay>(0);
 

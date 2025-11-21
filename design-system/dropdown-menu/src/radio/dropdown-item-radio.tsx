@@ -34,7 +34,7 @@ const DropdownItemRadio = ({
 	interactionName,
 	// DSP-13312 TODO: remove spread props in future major release
 	...rest
-}: DropdownItemRadioProps) => {
+}: DropdownItemRadioProps): React.JSX.Element => {
 	if (
 		typeof process !== 'undefined' &&
 		process.env.NODE_ENV !== 'production' &&

@@ -1,5 +1,41 @@
 # @atlaskit/ds-lib
 
+## 5.3.0
+
+### Minor Changes
+
+- [`8ced6a00eae26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ced6a00eae26) -
+  Improving typing and ergonomics of `mergeRefs`.
+  - `mergeRefs` will now correctly return the type of the refs passed in
+  - `mergeRefs` will now return a `React.RefCallback<T>` (`T` being the value of the refs passed in)
+  - `mergeRefs` now accepts `null`, `undefined` and `false` values, making it easier to work with
+    when you have refs that may not exist
+
+  _Examples_
+
+  **Better type inference:**
+
+  ```tsx
+  const buttonRef = createRef<HTMLButtonElement | null>();
+  const mergedRef = mergeRefs([buttonRef, null, undefined, false]);
+  // mergedRef is now typed as RefCallback<HTMLButtonElement | null>
+  ```
+
+  **Explicit generic typing:**
+
+  ```tsx
+  const callback = mergeRefs<HTMLButtonElement | null>([buttonRef, null, undefined, false]);
+  // Explicitly specify the element type for better type safety
+  ```
+
+  **Flexible ref handling:**
+
+  ```tsx
+  // Now supports falsy values without TypeScript errors
+  const optionalRef = condition ? someRef : false;
+  const mergedRef = mergeRefs([requiredRef, optionalRef]); // ✅ Works!
+  ```
+
 ## 5.2.0
 
 ### Minor Changes

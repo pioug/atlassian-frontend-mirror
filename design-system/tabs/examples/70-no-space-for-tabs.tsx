@@ -5,7 +5,7 @@ import { token } from '@atlaskit/tokens';
 
 import { Panel } from './shared';
 
-export default function noSpaceForTabs() {
+export default function noSpaceForTabs(): React.JSX.Element {
 	return (
 		<div
 			style={{

@@ -25,7 +25,7 @@ export type SkeletonHelpButtonProps = {
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#skeleton-button)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const SkeletonHelpButton = ({ label = '' }: SkeletonHelpButtonProps) => {
+export const SkeletonHelpButton = ({ label = '' }: SkeletonHelpButtonProps): React.JSX.Element => {
 	const {
 		mode: { navigation },
 	} = useTheme();
@@ -46,7 +46,9 @@ export const SkeletonHelpButton = ({ label = '' }: SkeletonHelpButtonProps) => {
  *
  * A nav 4 skeleton help button {description}.
  */
-export const Nav4SkeletonHelpButton = ({ label = '' }: SkeletonHelpButtonProps) => (
+export const Nav4SkeletonHelpButton = ({
+	label = '',
+}: SkeletonHelpButtonProps): React.JSX.Element => (
 	<SkeletonIconButton>
 		<Nav4QuestionCircleIcon label={label} spacing="spacious" color={token('color.icon')} />
 	</SkeletonIconButton>

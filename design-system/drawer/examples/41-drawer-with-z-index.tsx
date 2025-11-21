@@ -31,7 +31,7 @@ export default class DrawersExample extends Component<{}, State> {
 
 	onOpenComplete = (args: any) => console.log('onOpenComplete', args);
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			<div style={{ padding: '2rem' }}>

@@ -142,7 +142,13 @@ const AtlasIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __AtlasIcon__
  */
-const AtlasIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const AtlasIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

@@ -4,7 +4,7 @@ import Banner from '@atlaskit/banner';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 import Link from '@atlaskit/link';
 
-const BannerWarningExample = () => {
+const BannerWarningExample = (): React.JSX.Element => {
 	return (
 		<Banner appearance="warning" icon={<WarningIcon label="Warning" />}>
 			Payment details needed. To stay on your current plan, add payment details by June 30, 2020.{' '}

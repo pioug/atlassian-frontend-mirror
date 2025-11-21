@@ -19,7 +19,9 @@ const loremContent = (
 	</div>
 );
 
-export const EmojiTypeAheadTextInput = (props: React.PropsWithChildren<TypeaheadProps>) => {
+export const EmojiTypeAheadTextInput = (
+	props: React.PropsWithChildren<TypeaheadProps>,
+): React.JSX.Element => {
 	const emojiTypeAheadRef = useRef<EmojiTypeAhead | null>();
 	const [active, setActive] = useState<boolean>(false);
 	const [query, setQuery] = useState<string>('');
@@ -113,7 +115,7 @@ export const EmojiTypeAheadTextInput = (props: React.PropsWithChildren<Typeahead
 	);
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<IntlProvider locale="en">
 			<EmojiTypeAheadTextInput

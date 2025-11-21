@@ -28,7 +28,7 @@ const getInitialItems = () => {
 	return tableTreeHelper.updateItems(getDefaultItems());
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [items, setItems] = useState<Item[]>(getInitialItems);
 	const [isLoading, setIsLoading] = useState(false);
 

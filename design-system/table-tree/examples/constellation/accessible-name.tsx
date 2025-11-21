@@ -46,7 +46,7 @@ const items: Item[] = [
 const Title = (props: Content) => <Box as="span">{props.title}</Box>;
 const Description = (props: Content) => <Box as="span">{props.description}</Box>;
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<h3>Using an explicit label</h3>
 		<TableTree

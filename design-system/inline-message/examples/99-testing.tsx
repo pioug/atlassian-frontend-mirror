@@ -20,7 +20,7 @@ const messageContent = (
 	</Stack>
 );
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<InlineMessage
 			appearance="error"

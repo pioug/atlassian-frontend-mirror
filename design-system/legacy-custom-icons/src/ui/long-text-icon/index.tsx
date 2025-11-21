@@ -21,7 +21,13 @@ const LongTextIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __LongTextIcon__
  */
-const LongTextIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const LongTextIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

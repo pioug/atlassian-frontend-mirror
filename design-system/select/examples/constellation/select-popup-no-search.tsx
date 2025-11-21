@@ -13,7 +13,7 @@ const options = [
 	{ label: 'Cancelled', value: 'cancelled' },
 ];
 
-const PopupSelectExample = () => {
+const PopupSelectExample = (): React.JSX.Element => {
 	return (
 		<PopupSelect
 			searchThreshold={10}

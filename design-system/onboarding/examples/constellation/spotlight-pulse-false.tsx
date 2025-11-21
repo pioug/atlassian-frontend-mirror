@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/onboarding';
 import { N0 } from '@atlaskit/theme/colors';
 
-const SpotlightPulseExample = () => {
+const SpotlightPulseExample = (): React.JSX.Element => {
 	const [isSpotlightActive, setIsSpotlightActive] = useState(false);
 	const start = () => setIsSpotlightActive(true);
 	const end = () => setIsSpotlightActive(false);

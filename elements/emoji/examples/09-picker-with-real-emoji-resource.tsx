@@ -9,7 +9,7 @@ import { onSelection } from '../example-helpers';
 import { emojiPickerHeight } from '../src/util/constants';
 import { IntlProvider } from 'react-intl-next';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const emojiConfig = getEmojiConfig();
 	const emojiProvider = getRealEmojiProvider();
 	return (

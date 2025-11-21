@@ -12,7 +12,7 @@ type Item = {
 	id: string;
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<TableTree label="Expand on row click">
 		<Headers>
 			<Header width={200}>Chapter title</Header>

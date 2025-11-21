@@ -39,7 +39,7 @@ type Entity = {
  * It handles the uncontrolled story for dropdown menu when the menu
  * items can be mounted/unmounted depending if the menu is open or closed.
  */
-const SelectionStore = (props: SelectionStoreProps) => {
+const SelectionStore = (props: SelectionStoreProps): React.JSX.Element => {
 	const { children } = props;
 	const store = useRef<Entity>({});
 	const context: SelectionStoreContextProps = useMemo(

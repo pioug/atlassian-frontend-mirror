@@ -5,7 +5,7 @@ import { ConnectedReactionsView, type StorePropInput } from '../src';
 import { MockReactionsClient } from '../src/MockReactionsClient';
 import { ExampleWrapper, Example, Constants as ExampleConstants } from './utils';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const client = new MockReactionsClient(500, true);
 	return (
 		<ExampleWrapper client={client}>

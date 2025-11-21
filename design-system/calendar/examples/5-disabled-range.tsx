@@ -2,7 +2,7 @@ import React from 'react';
 
 import Calendar from '@atlaskit/calendar';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Calendar
 			defaultMonth={12}

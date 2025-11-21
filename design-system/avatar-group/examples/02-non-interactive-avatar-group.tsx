@@ -10,7 +10,7 @@ const data = RANDOM_USERS.slice(0, 8).map((d, i) => ({
 	appearance: appearances[i % appearances.length],
 }));
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	return (
 		<AvatarGroup
 			testId="overrides"

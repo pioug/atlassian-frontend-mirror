@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '@atlaskit/dropdown-menu';
 
-const DropdownItemRadioExample = () => {
+const DropdownItemRadioExample = (): React.JSX.Element => {
 	const [selected, setSelected] = useState<string>('detail');
 
 	return (

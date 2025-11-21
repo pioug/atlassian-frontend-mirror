@@ -6,7 +6,7 @@ import { CheckboxSelect } from '@atlaskit/select';
 import { cities } from './common/data';
 
 // data imported for brevity; equal to the options from Single Select example
-const CheckboxExample = () => (
+const CheckboxExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="checkbox-select-example">Which cities have you lived in?</Label>
 		<CheckboxSelect

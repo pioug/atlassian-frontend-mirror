@@ -4,7 +4,7 @@ import { RemovableTag as Tag } from '@atlaskit/tag';
 
 const cupcakeipsum = 'Croissant topping tiramisu gummi bears. Bonbon chocolate bar danish soufflé';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Tag
 		text={cupcakeipsum}
 		removeButtonLabel="No sweets for you!"

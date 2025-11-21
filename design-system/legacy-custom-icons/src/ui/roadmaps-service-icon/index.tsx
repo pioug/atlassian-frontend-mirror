@@ -27,7 +27,13 @@ const RoadmapsServiceIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __RoadmapsServiceIcon__
  */
-const RoadmapsServiceIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const RoadmapsServiceIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

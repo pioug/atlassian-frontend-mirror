@@ -5,6 +5,7 @@ import {
 	CallToolRequestSchema,
 	ListToolsRequestSchema,
 	McpError,
+	type Tool,
 } from '@modelcontextprotocol/sdk/types.js';
 import type { z } from 'zod';
 
@@ -70,85 +71,75 @@ const generateLogger =
 		}
 	};
 
-export const callTools: Record<
+export const toolRegistry: Record<
 	string,
 	{
-		tool: (params: any) => Promise<any>;
+		handler: (params: any) => Promise<any>;
 		inputSchema: z.ZodSchema | null;
-		listTool: {
-			name: string;
-			description: string;
-			annotations: {
-				title: string;
-				readOnlyHint: boolean;
-				destructiveHint: boolean;
-				idempotentHint: boolean;
-				openWorldHint: boolean;
-			};
-		};
+		tool: Tool;
 	}
 > = {
-	ads_analyze_a11y: {
-		tool: analyzeA11yTool,
+	[listAnalyzeA11yTool.name]: {
+		handler: analyzeA11yTool,
 		inputSchema: analyzeA11yInputSchema,
-		listTool: listAnalyzeA11yTool,
+		tool: listAnalyzeA11yTool,
 	},
-	ads_analyze_localhost_a11y: {
-		tool: analyzeLocalhostA11yTool,
+	[listAnalyzeLocalhostA11yTool.name]: {
+		handler: analyzeLocalhostA11yTool,
 		inputSchema: analyzeA11yLocalhostInputSchema,
-		listTool: listAnalyzeLocalhostA11yTool,
+		tool: listAnalyzeLocalhostA11yTool,
 	},
-	ads_get_a11y_guidelines: {
-		tool: getA11yGuidelinesTool,
+	[listGetA11yGuidelinesTool.name]: {
+		handler: getA11yGuidelinesTool,
 		inputSchema: getA11yGuidelinesInputSchema,
-		listTool: listGetA11yGuidelinesTool,
+		tool: listGetA11yGuidelinesTool,
 	},
-	ads_get_all_icons: {
-		tool: getAllIconsTool,
+	[listGetAllIconsTool.name]: {
+		handler: getAllIconsTool,
 		inputSchema: null,
-		listTool: listGetAllIconsTool,
+		tool: listGetAllIconsTool,
 	},
-	ads_get_all_tokens: {
-		tool: getAllTokensTool,
+	[listGetAllTokensTool.name]: {
+		handler: getAllTokensTool,
 		inputSchema: null,
-		listTool: listGetAllTokensTool,
+		tool: listGetAllTokensTool,
 	},
-	ads_get_components: {
-		tool: getComponentsTool,
+	[listGetComponentsTool.name]: {
+		handler: getComponentsTool,
 		inputSchema: null,
-		listTool: listGetComponentsTool,
+		tool: listGetComponentsTool,
 	},
-	ads_plan: {
-		tool: planTool,
+	[listPlanTool.name]: {
+		handler: planTool,
 		inputSchema: planInputSchema,
-		listTool: listPlanTool,
+		tool: listPlanTool,
 	},
 	// NOTE: These should not actually be called as they're not in the `list_tools` endpoint.
 	// But there might be a reason to keep them around for backwards-compatibility.
-	// ads_search_components: {
-	//   tool: searchComponentsTool,
+	// [listSearchComponentsTool.name]: {
+	//   handler: searchComponentsTool,
 	//   inputSchema: searchComponentsInputSchema,
-	//   listTool: listSearchComponentsTool,
+	//   tool: listSearchComponentsTool,
 	// },
-	// ads_search_icons: {
-	//   tool: searchIconsTool,
+	// [listSearchIconsTool.name]: {
+	//   handler: searchIconsTool,
 	//   inputSchema: searchIconsInputSchema,
-	//   listTool: listSearchIconsTool,
+	//   tool: listSearchIconsTool,
 	// },
-	// ads_search_tokens: {
-	//   tool: searchTokensTool,
+	// [listSearchTokensTool.name]: {
+	//   handler: searchTokensTool,
 	//   inputSchema: searchTokensInputSchema,
-	//   listTool: listSearchTokensTool,
+	//   tool: listSearchTokensTool,
 	// },
-	ads_suggest_a11y_fixes: {
-		tool: suggestA11yFixesTool,
+	[listSuggestA11yFixesTool.name]: {
+		handler: suggestA11yFixesTool,
 		inputSchema: suggestA11yFixesInputSchema,
-		listTool: listSuggestA11yFixesTool,
+		tool: listSuggestA11yFixesTool,
 	},
 };
 
 server.setRequestHandler(ListToolsRequestSchema, async (request, extra) => {
-	const tools = Object.values(callTools).map((toolConfig) => toolConfig.listTool);
+	const tools = Object.values(toolRegistry).map((toolConfig) => toolConfig.tool);
 
 	// Track list tools request
 	sendOperationalEvent({
@@ -169,7 +160,7 @@ server.setRequestHandler(ListToolsRequestSchema, async (request, extra) => {
 // Handle tool execution
 server.setRequestHandler(CallToolRequestSchema, async (request, extra) => {
 	const toolName = request.params.name;
-	const toolConfig = callTools[toolName];
+	const toolConfig = toolRegistry[toolName];
 	const actionSubject = `ads.mcp.callTool`;
 
 	// Track call tool request
@@ -214,7 +205,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request, extra) => {
 				toolArguments = inputValidation.data;
 			}
 
-			const result = await toolConfig.tool(toolArguments);
+			const result = await toolConfig.handler(toolArguments);
 			// Track successful tool execution
 			sendOperationalEvent({
 				action: 'succeeded',
@@ -266,7 +257,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request, extra) => {
 	});
 
 	console.error(
-		`Tool '${request.params.name}' not found, only the following tools are available: ${Object.keys(callTools).join(', ')}`,
+		`Tool '${request.params.name}' not found, only the following tools are available: ${Object.keys(toolRegistry).join(', ')}`,
 	);
 	return;
 });

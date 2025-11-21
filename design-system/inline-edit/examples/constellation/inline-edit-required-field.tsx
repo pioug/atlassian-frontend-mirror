@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { InlineEditableTextfield } from '@atlaskit/inline-edit';
 import { Box } from '@atlaskit/primitives/compiled';
 
-const InlineEditRequiredFieldExample = () => {
+const InlineEditRequiredFieldExample = (): React.JSX.Element => {
 	const placeholderLabel = 'Initial description value';
 	const [editValue, setEditValue] = useState('Default description value');
 

@@ -12,7 +12,7 @@ type ExpandableRowContentProps = {
  * Contains expandable content. Uses a context provider to allow children
  * to identify if they are expandable content.
  */
-const ExpandableRowContent = ({ children }: ExpandableRowContentProps) => {
+const ExpandableRowContent = ({ children }: ExpandableRowContentProps): React.JSX.Element => {
 	return <ExpandContentContextProvider>{children}</ExpandContentContextProvider>;
 };
 

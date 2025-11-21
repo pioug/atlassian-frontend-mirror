@@ -65,10 +65,12 @@ export default class Document extends Component<Props> {
 		const { doc, isLoading, hasError, mode, editorProps, rendererProps } = this.props;
 
 		if (hasError) {
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 			return <div>Something went wrong 😔</div>;
 		}
 
 		if (isLoading) {
+			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 			return <div>Loading document... 🐨</div>;
 		}
 

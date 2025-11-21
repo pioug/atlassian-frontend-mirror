@@ -17,7 +17,7 @@ export function IsSideNavShortcutEnabledProvider({
 }: {
 	children: React.ReactNode;
 	isSideNavShortcutEnabled: boolean;
-}) {
+}): React.JSX.Element {
 	return (
 		<IsSideNavShortcutEnabledContext.Provider value={isSideNavShortcutEnabled}>
 			{children}

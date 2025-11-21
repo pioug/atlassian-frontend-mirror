@@ -5,7 +5,7 @@ import Comment, { CommentAuthor } from '@atlaskit/comment';
 
 import sampleAvatar from '../images/avatar_400x400.jpg';
 
-const CommentDefaultExample = () => {
+const CommentDefaultExample = (): React.JSX.Element => {
 	return (
 		<Comment
 			restrictedTo="Restricted to Admins"

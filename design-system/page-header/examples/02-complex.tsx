@@ -38,7 +38,7 @@ const barContent = (
 	</div>
 );
 
-const PageHeaderComplexExample = () => {
+const PageHeaderComplexExample = (): React.JSX.Element => {
 	return (
 		<React.Fragment>
 			<Text as="p">

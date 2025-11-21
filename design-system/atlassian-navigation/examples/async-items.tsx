@@ -21,7 +21,7 @@ const ResponsivePrimaryButton = (props: PrimaryButtonProps) => {
 	);
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [items, setItems] = useState<JSX.Element[]>([]);
 
 	const insertItems = () =>

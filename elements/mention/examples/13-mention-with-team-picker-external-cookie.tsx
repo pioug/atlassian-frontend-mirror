@@ -26,7 +26,7 @@ try {
 const userConfig = config.sessionServiceWithTeam.user;
 const teamMentionConfig = config.sessionServiceWithTeam.team;
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<ConfigurableTeamMentionPicker
 			userMentionConfig={userConfig}

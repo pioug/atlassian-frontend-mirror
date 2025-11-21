@@ -27,7 +27,13 @@ const DeleteIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __DeleteIcon__
  */
-const DeleteIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const DeleteIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

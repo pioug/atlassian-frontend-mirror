@@ -12,7 +12,7 @@ import { TopNav, TopNavEnd } from '@atlaskit/navigation-system/layout/top-nav';
 
 import { MockRoot } from '../../utils/mock-root';
 
-export const TopNavButtonExample = () => (
+export const TopNavButtonExample = (): React.JSX.Element => (
 	<MockRoot>
 		<TopNav>
 			<TopNavEnd>

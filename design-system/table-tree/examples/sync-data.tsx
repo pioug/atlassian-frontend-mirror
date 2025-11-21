@@ -4,7 +4,7 @@ import TableTree, { Cell, Header, Headers, Row, Rows } from '@atlaskit/table-tre
 
 import staticData from './data-cleancode-toc.json';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<TableTree>
 		<Headers>
 			<Header width={300}>Chapter title</Header>

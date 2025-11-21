@@ -2,7 +2,7 @@ import React from 'react';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 
-const DropdownMenuPositionExample = () => {
+const DropdownMenuPositionExample = (): React.JSX.Element => {
 	return (
 		<DropdownMenu trigger="Page actions" placement="bottom-end" shouldRenderToParent>
 			<DropdownItemGroup>

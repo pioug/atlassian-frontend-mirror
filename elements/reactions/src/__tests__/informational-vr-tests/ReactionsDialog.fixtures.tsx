@@ -123,10 +123,10 @@ const ReactionsComponent = ({ reactions }: { reactions: ReactionSummary[] }) => 
 	);
 };
 
-export const LoadedReactionsWithModal = () => {
+export const LoadedReactionsWithModal = (): React.JSX.Element => {
 	return <ReactionsComponent reactions={loadedReactions} />;
 };
 
-export const MoreLoadedReactionsWithModal = () => {
+export const MoreLoadedReactionsWithModal = (): React.JSX.Element => {
 	return <ReactionsComponent reactions={moreLoadedReactions} />;
 };

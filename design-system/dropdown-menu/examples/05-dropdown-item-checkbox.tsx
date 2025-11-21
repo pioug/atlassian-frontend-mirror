@@ -5,7 +5,7 @@ import DropdownMenu, {
 	DropdownItemCheckboxGroup,
 } from '@atlaskit/dropdown-menu';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<DropdownMenu trigger="Filter cities" shouldRenderToParent>
 		<DropdownItemCheckboxGroup id="cities">
 			<DropdownItemCheckbox id="adelaide">Adelaide</DropdownItemCheckbox>

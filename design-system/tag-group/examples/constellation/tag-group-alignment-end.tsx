@@ -3,7 +3,7 @@ import React from 'react';
 import Tag from '@atlaskit/tag';
 import TagGroup from '@atlaskit/tag-group';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<TagGroup label="Atlassian apps" alignment="end">
 		<Tag text="Bitbucket" />
 		<Tag text="Compass" />

@@ -3,7 +3,7 @@ import { IntlProvider } from 'react-intl-next';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import UserPicker, { type OptionData, type Value } from '../src';
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const [selectedUser, setSelectedUser] = useState<Value>();
 	const [selectedUsers, setSelectedUsers] = useState<Value[]>([]);
 

@@ -23,7 +23,13 @@ const TaskIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __TaskIcon__
  */
-const TaskIcon = ({ label, primaryColor, secondaryColor, size = 'small', testId }: IconProps) => (
+const TaskIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size = 'small',
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

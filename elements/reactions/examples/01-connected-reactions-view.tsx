@@ -5,7 +5,7 @@ import { ConnectedReactionsView, type StorePropInput } from '../src';
 import { ExampleWrapper, Example, Constants as ExampleConstants } from './utils';
 import { DefaultReactions } from '../src/shared/constants';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<ExampleWrapper>
 			{(store: StorePropInput) => (

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
 
-const CheckboxUncontrolledExample = () => (
+const CheckboxUncontrolledExample = (): React.JSX.Element => (
 	<Checkbox
 		defaultChecked
 		label="Uncontrolled checkbox"

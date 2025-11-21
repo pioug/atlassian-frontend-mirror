@@ -10,7 +10,7 @@ import {
 } from '@atlaskit/drawer';
 import { widths } from '@atlaskit/drawer/constants';
 
-const DrawerWidths = () => {
+const DrawerWidths = (): React.JSX.Element => {
 	const [open, setOpen] = useState<boolean>(false);
 	const [drawerWidth, setDrawerWidth] = useState<DrawerWidth>('wide');
 

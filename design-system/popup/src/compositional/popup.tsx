@@ -65,7 +65,11 @@ export type PopupProps = {
  * </Popup>
  * ```
  */
-export const Popup = ({ children, id: providedId, isOpen = false }: PopupProps) => {
+export const Popup = ({
+	children,
+	id: providedId,
+	isOpen = false,
+}: PopupProps): React.JSX.Element => {
 	const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
 
 	const generatedId = useId();
@@ -97,7 +101,7 @@ export type PopupTriggerProps = {
  *
  * It must be a child of the Popup component.
  */
-export const PopupTrigger = ({ children }: PopupTriggerProps) => {
+export const PopupTrigger = ({ children }: PopupTriggerProps): React.JSX.Element => {
 	useEnsureIsInsidePopup();
 	const isOpen = useContext(IsOpenContext);
 	const id = useContext(IdContext);
@@ -218,7 +222,7 @@ export const PopupContent = ({
 	shouldFitContainer,
 	shouldFitViewport,
 	shouldDisableGpuAcceleration = false,
-}: PopupContentProps) => {
+}: PopupContentProps): React.JSX.Element | null => {
 	useEnsureIsInsidePopup();
 	const isOpen = useContext(IsOpenContext);
 	const id = useContext(IdContext);

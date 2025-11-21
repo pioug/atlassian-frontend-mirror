@@ -10,7 +10,7 @@ const weekendFilter = (date: string) => {
 	return dayOfWeek === 0 || dayOfWeek === 6;
 };
 
-const DatePickerDisableComplexExample = () => (
+const DatePickerDisableComplexExample = (): React.JSX.Element => (
 	<>
 		<Label id="disabled" htmlFor="datepicker-disable-complex">
 			Disabled Dates (Complex)

@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 124.16.3
+
+### Patch Changes
+
+- [`be08843fca604`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be08843fca604) -
+  [EDITOR-3389] Make sure that renderer falls back to 'full-width' if the appearance is 'max' and
+  the experiment is off
+- Updated dependencies
+
+## 124.16.2
+
+### Patch Changes
+
+- [`d3461a5b84b81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3461a5b84b81) -
+  Suppress i18n errors
+- Updated dependencies
+
 ## 124.16.1
 
 ### Patch Changes

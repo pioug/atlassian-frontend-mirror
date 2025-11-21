@@ -4,7 +4,7 @@ import { TimePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives/compiled';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Box>
 			<Label htmlFor="timepicker-1--input">Stock</Label>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SlackIcon = () => {
+const SlackIcon = (): React.JSX.Element => {
 	return (
 		<svg width="24" height="24" viewBox="0 0 125 125">
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}

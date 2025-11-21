@@ -4,7 +4,7 @@ import { ButtonItem, HeadingItem, MenuGroup, Section } from '@atlaskit/menu';
 
 import MenuGroupContainer from '../common/menu-group-container';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<MenuGroupContainer>
 		<MenuGroup>
 			<Section aria-labelledby="actions">

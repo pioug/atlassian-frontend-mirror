@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "0.17.9",
+	"version": "0.17.10",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
 		"team": "Editor: Jenga",

@@ -32,7 +32,7 @@ if (typeof window !== 'undefined') {
 
 const provider = getRealEmojiProvider();
 
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		<IntlProvider locale="en">
 			<ResourcedEmojiControl

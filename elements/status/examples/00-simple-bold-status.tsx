@@ -15,7 +15,7 @@ const StatusInParagraph = ({ text, color }: { color: Color; text: string }) => (
 	</p>
 );
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box xcss={styles.containerStyles} id="container">
 		<StatusInParagraph text="Unavailable" color="neutral" />
 		<StatusInParagraph text="New" color="purple" />

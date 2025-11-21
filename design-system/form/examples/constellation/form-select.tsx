@@ -72,7 +72,7 @@ const flavorValidation = (data: Category, errors?: Record<string, string>) => {
 	return errors;
 };
 
-const FormSelectExample = () => {
+const FormSelectExample = (): React.JSX.Element => {
 	return (
 		<Flex direction="column">
 			<Form<Category>

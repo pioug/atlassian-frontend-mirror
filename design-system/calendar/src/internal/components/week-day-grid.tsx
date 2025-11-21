@@ -21,7 +21,7 @@ const styles = cssMap({
  * A week day grid aligns elements in a 7 wide grid layout.
  *
  */
-const WeekDayGrid = ({ testId, children, isHidden }: WeekDayGridProps) => {
+const WeekDayGrid = ({ testId, children, isHidden }: WeekDayGridProps): React.JSX.Element => {
 	const row = (
 		<Grid testId={testId} xcss={styles.templateColumns} role="row">
 			{children}

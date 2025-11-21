@@ -75,7 +75,13 @@ const AzureIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __AzureIcon__
  */
-const AzureIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const AzureIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

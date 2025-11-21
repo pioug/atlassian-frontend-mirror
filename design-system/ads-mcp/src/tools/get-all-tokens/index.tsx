@@ -1,11 +1,13 @@
+import type { Tool } from '@modelcontextprotocol/sdk/types';
 import { z } from 'zod';
-import { zodToJsonSchema } from 'zod-to-json-schema';
 
 import { tokens } from '@atlaskit/tokens/token-metadata';
 
+import { zodToJsonSchema } from '../../helpers';
+
 const inputSchema = z.object({});
 
-export const listGetAllTokensTool = {
+export const listGetAllTokensTool: Tool = {
 	name: 'ads_get_all_tokens',
 	description:
 		"Fetch all Atlassian Design System tokens. Only use when `ads_search_tokens` does not return what you're looking for.",

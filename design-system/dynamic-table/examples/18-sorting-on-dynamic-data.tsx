@@ -37,7 +37,7 @@ const createRow = (rowId: number, suffix: string) => ({
 	],
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [suffix, setSuffix] = useState(Date.now());
 
 	useEffect(() => {

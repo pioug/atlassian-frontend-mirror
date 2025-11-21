@@ -75,7 +75,7 @@ const onChange = (value: unknown) => {
 	console.log(value);
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [value, setValue] = React.useState('');
 	return (
 		<Box>

@@ -29,7 +29,7 @@ const staticData = {
 const Title = (props: any) => <span>{props.title}</span>;
 const Description = (props: any) => <span>{props.description}</span>;
 
-export default () => (
+export default (): React.JSX.Element => (
 	<TableTree
 		columns={[Title, Description]}
 		headers={['Title', 'Description']}

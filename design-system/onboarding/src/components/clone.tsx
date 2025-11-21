@@ -86,7 +86,7 @@ function cloneAndOverrideStyles(node: HTMLElement): HTMLElement {
  *
  * @internal
  */
-const Clone = (props: CloneProps) => {
+const Clone = (props: CloneProps): React.JSX.Element => {
 	const {
 		pulse,
 		style,

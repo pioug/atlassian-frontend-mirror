@@ -9,7 +9,7 @@ import staticData from './data-structured-nodes.json';
 const Title = (props: any) => <span>{props.title}</span>;
 const Numbering = (props: any) => <span>{props.numbering}</span>;
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const [data, setData] = useState<any[]>(staticData.children);
 	const [liveMessage, setLiveMessage] = useState<string>('');
 

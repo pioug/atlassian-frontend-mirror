@@ -14,7 +14,7 @@ import { type SignInProps } from './types';
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#sign-in)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const SignIn = (props: SignInProps) => {
+export const SignIn = (props: SignInProps): React.JSX.Element => {
 	const {
 		component,
 		href,

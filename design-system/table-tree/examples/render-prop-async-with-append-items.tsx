@@ -110,7 +110,7 @@ export default class extends Component {
 		});
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { items } = this.state;
 		return (
 			<div>

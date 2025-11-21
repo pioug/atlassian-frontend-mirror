@@ -11,7 +11,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		<SkeletonItem />
 		<div data-testid="is-shimmering">

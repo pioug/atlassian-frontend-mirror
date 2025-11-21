@@ -42,7 +42,7 @@ export default class DemoMentionList extends React.Component<any, State> {
 		this.mentionListRef = ref;
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const mentionList = (
 			<MentionList
 				mentions={this.state.mentions}

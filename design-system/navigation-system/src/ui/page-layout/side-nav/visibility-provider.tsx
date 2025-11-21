@@ -14,7 +14,7 @@ export const SideNavVisibilityProvider = ({
 }: {
 	children: React.ReactNode;
 	defaultCollapsed?: boolean;
-}) => {
+}): React.JSX.Element => {
 	const initialState: SideNavState | null =
 		typeof defaultCollapsed === 'boolean' && fg('platform_dst_nav4_side_nav_default_collapsed_api')
 			? {

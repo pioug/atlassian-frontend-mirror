@@ -10,7 +10,7 @@ import avatarImg from './images/avatar_400x400.jpg';
 // hard coded for example to show how it looks with time
 const getCommentEditTime = () => 'just now';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Comment
 		avatar={<Avatar src={avatarImg} size="medium" />}
 		author={<CommentAuthor>John Smith</CommentAuthor>}

@@ -105,7 +105,7 @@ function MyFlyoutMenuItemContent() {
 	);
 }
 
-export const FlyoutMenuItemExample = () => (
+export const FlyoutMenuItemExample = (): React.JSX.Element => (
 	<MockSideNav>
 		<SideNavContent>
 			<MenuList>

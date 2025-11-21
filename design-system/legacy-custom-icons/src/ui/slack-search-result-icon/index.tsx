@@ -51,7 +51,7 @@ const SlackSearchResultIcon = ({
 	secondaryColor,
 	size,
 	testId,
-}: IconProps) => (
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

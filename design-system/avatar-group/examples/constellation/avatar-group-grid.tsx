@@ -18,7 +18,7 @@ const data = RANDOM_USERS.map((d, i) => ({
 	appearance: appearances[i % appearances.length],
 }));
 
-const AvatarGroupGridExample = () => (
+const AvatarGroupGridExample = (): React.JSX.Element => (
 	<Box xcss={styles.container}>
 		<AvatarGroup appearance="grid" data={data} />
 	</Box>

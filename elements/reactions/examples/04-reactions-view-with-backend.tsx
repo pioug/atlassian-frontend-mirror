@@ -19,7 +19,7 @@ const emojiProvider = getEmojiResource({
 	uploadSupported: true,
 }) as Promise<EmojiProvider>;
 
-export default () => (
+export default (): React.JSX.Element => (
 	<ExampleWrapper client={client}>
 		{(store: StorePropInput) => (
 			<React.Fragment>

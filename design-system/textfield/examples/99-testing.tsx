@@ -2,7 +2,7 @@ import React from 'react';
 
 import Textfield from '@atlaskit/textfield';
 
-export default function TestingExample() {
+export default function TestingExample(): React.JSX.Element {
 	return (
 		<div>
 			<label htmlFor="event-handlers">Basic textfield</label>

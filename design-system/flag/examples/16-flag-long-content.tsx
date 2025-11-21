@@ -6,7 +6,7 @@ import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		<Text>Flag with long content that should scroll</Text>
 		<FlagGroup>

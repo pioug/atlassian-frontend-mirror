@@ -25,7 +25,13 @@ const EnergyIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __EnergyIcon__
  */
-const EnergyIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const EnergyIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

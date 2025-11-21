@@ -4,7 +4,7 @@ import Page, { Grid, GridColumn } from '@atlaskit/page';
 
 import { Dummy, DummyNested } from '../common/dummy';
 
-const NestedGridExample = () => {
+const NestedGridExample = (): React.JSX.Element => {
 	return (
 		<Page testId="page">
 			<Grid spacing="cosy" testId="outer-grid">

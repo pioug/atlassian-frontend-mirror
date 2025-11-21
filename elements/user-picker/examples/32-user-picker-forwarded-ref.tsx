@@ -44,7 +44,7 @@ const ExampleForwardedRef = (props: ExampleForwardedRefProps) => {
 	);
 };
 
-const Example = (props: ExampleProps) => {
+const Example = (props: ExampleProps): React.JSX.Element => {
 	const [selectedEntities, setSelectedEntities] = useState<Value>([] as Value);
 
 	const handleSelectEntities = (selectedEntities: Value) => {

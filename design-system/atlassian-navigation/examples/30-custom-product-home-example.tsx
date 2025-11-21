@@ -23,7 +23,7 @@ import { DefaultSearch } from './shared/search';
 import { DefaultSettings } from './shared/settings';
 import { SwitcherPopup } from './shared/switcher-popup';
 
-const CustomProductHomeExample = () => (
+const CustomProductHomeExample = (): React.JSX.Element => (
 	<div>
 		<AtlassianNavigation
 			label="site"

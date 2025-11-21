@@ -373,6 +373,7 @@ function Expand({
 						<div css={clearNextSiblingMarginTopStyle} />
 						{fg('hot-121622_lazy_load_expand_content') ? (
 							hasLoadedChildren ? (
+								// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 								<Suspense fallback={<div>Loading...</div>}>
 									<LazyChildren>{children}</LazyChildren>
 								</Suspense>

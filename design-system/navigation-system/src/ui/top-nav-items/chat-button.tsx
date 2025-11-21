@@ -34,7 +34,7 @@ export const ChatButton = ({
 	 * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
 	 */
 	interactionName?: string;
-}) => (
+}): React.JSX.Element => (
 	<ListItem>
 		<Button
 			appearance="default"

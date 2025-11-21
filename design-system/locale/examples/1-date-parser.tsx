@@ -53,7 +53,7 @@ export default class Example extends Component<Props, State> {
 		});
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const l10n = this.props.l10n || this.state.l10n;
 
 		const { dateInput, now } = this.state;

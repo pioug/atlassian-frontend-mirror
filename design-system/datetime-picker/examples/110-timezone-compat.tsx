@@ -21,7 +21,7 @@ const parseValue = (value: string, date: string, time: string, timezone: string)
 	return returnObject;
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box>
 		<Label htmlFor="timezone-compat">Timezone Compatible Datetime</Label>
 		<DateTimePicker

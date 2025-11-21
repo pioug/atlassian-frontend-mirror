@@ -26,7 +26,7 @@ export const PanelSplitterProvider = ({
 	isEnabled = true,
 	shortcut,
 	children,
-}: PanelSplitterProviderProps) => {
+}: PanelSplitterProviderProps): React.JSX.Element => {
 	const portalRef = useRef<HTMLDivElement | null>(null);
 
 	const context: PanelSplitterContextType = useMemo(

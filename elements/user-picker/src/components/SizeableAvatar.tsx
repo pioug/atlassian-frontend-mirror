@@ -12,7 +12,7 @@ export type Props = {
 };
 
 export class SizeableAvatar extends React.PureComponent<Props> {
-	render() {
+	render(): React.JSX.Element {
 		const { src, presence, appearance, type = 'person', avatarAppearanceShape } = this.props;
 
 		const props: AvatarPropTypes = {

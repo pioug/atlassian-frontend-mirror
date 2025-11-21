@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Toggle from '@atlaskit/toggle';
 import Tooltip from '@atlaskit/tooltip';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [isAllowed, setIsAllowed] = useState(false);
 
 	return (

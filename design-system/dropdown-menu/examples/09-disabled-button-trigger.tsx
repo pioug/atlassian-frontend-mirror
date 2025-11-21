@@ -3,7 +3,7 @@ import React from 'react';
 import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<DropdownMenu
 		shouldRenderToParent
 		trigger={(providedProps) => (

@@ -94,12 +94,12 @@ const loadedReactions: ReactionSummary[] = [
 	},
 ];
 
-export const LoadedReactions = () => <LoadedReactionsCreater />;
-export const LoadedReactionsMiniMode = () => <LoadedReactionsCreater miniMode />;
-export const LoadedReactionsDisallowAllEmojis = () => (
+export const LoadedReactions = (): React.JSX.Element => <LoadedReactionsCreater />;
+export const LoadedReactionsMiniMode = (): React.JSX.Element => <LoadedReactionsCreater miniMode />;
+export const LoadedReactionsDisallowAllEmojis = (): React.JSX.Element => (
 	<LoadedReactionsCreater allowAllEmojis={false} />
 );
-export const LoadedReactionsWithPickerQuickReactionEmojiIds = () => {
+export const LoadedReactionsWithPickerQuickReactionEmojiIds = (): React.JSX.Element => {
 	const emojiProvider = useEmojiProvider();
 
 	return (

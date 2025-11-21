@@ -11,7 +11,7 @@ export interface PanelActionMoreProps extends Pick<PanelActionProps, 'onClick' |
  * The PanelActionMore component provides a more actions dropdown button
  * for overflow actions in panel headers.
  */
-export function PanelActionMore({ onClick, testId }: PanelActionMoreProps) {
+export function PanelActionMore({ onClick, testId }: PanelActionMoreProps): React.JSX.Element {
 	return (
 		<PanelAction
 			onClick={onClick}

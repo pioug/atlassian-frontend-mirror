@@ -20,7 +20,7 @@ import {
 } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<div
 			style={{

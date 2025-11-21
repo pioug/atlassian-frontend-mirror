@@ -27,4 +27,4 @@ const props = {
 	buttonGroupLabel: 'Actions container',
 };
 
-export default () => <EmptyState {...props} />;
+export default (): React.JSX.Element => <EmptyState {...props} />;

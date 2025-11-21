@@ -60,7 +60,7 @@ const CheckboxField = ({
 	label,
 	name,
 	value,
-}: CheckboxProps) => {
+}: CheckboxProps): React.JSX.Element => {
 	// Maintains a memoised list of the default values
 	const defaultValue = useCallback(
 		(currentValue: string[] = []) =>

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.0.14
+
+### Patch Changes
+
+- [`b5dc6946c55d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5dc6946c55d9) -
+  Clean up platform_editor_block_menu_layout_format
+- Updated dependencies
+
+## 5.0.13
+
+### Patch Changes
+
+- [`6f765533c791b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f765533c791b) -
+  FG platform_editor_block_menu_patch_1 clean up.
+- Updated dependencies
+
 ## 5.0.12
 
 ### Patch Changes

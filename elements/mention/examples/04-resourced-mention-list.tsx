@@ -40,7 +40,7 @@ export default class DemoResourcedMentionList extends React.Component<{}, State>
 		this.resourcedMentionListRef && this.resourcedMentionListRef.chooseCurrentSelection();
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const mentionList = (
 			<ResourcedMentionList
 				onSelection={onSelection}

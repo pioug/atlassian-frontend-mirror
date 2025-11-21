@@ -4,7 +4,7 @@ import { DateTimePicker, TimePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives/compiled';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const times: Array<string> = ['10:00', '10:15', '10:30', '10:45', '11:00'];
 
 	return (

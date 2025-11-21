@@ -10,7 +10,7 @@ const weekendFilter = (date: string) => {
 	return dayOfWeek === 0 || dayOfWeek === 6;
 };
 
-const DateTimePickerDisableComplexExample = () => (
+const DateTimePickerDisableComplexExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="datetime">Appointment date and time</Label>
 		<DateTimePicker

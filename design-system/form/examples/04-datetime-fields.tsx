@@ -11,7 +11,7 @@ interface FormData {
 	preference: string;
 }
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [DOBfieldError, setDOBfieldError] = useState(false);
 	const [preferenceFieldError, setPreferenceFieldError] = useState(false);
 

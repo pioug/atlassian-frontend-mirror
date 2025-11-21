@@ -1,8 +1,10 @@
 import { AxePuppeteer } from '@axe-core/puppeteer';
+import type { Tool } from '@modelcontextprotocol/sdk/types';
 import axe from 'axe-core';
 import puppeteer from 'puppeteer';
 import { z } from 'zod';
-import { zodToJsonSchema } from 'zod-to-json-schema';
+
+import { zodToJsonSchema } from '../../helpers';
 
 export const analyzeA11yInputSchema = z.object({
 	code: z.string().describe('React component code to analyze for accessibility'),
@@ -15,7 +17,7 @@ export const analyzeA11yInputSchema = z.object({
 		.optional(),
 });
 
-export const listAnalyzeA11yTool = {
+export const listAnalyzeA11yTool: Tool = {
 	name: 'ads_analyze_a11y',
 	description:
 		'Analyze React component code for accessibility violations using axe-core and generate ADS-specific suggestions.',
@@ -41,7 +43,7 @@ export const analyzeA11yLocalhostInputSchema = z.object({
 		),
 });
 
-export const listAnalyzeLocalhostA11yTool = {
+export const listAnalyzeLocalhostA11yTool: Tool = {
 	name: 'ads_analyze_localhost_a11y',
 	description: `Analyze a live web page for accessibility violations using axe-core and generate ADS-specific suggestions.`,
 	annotations: {

@@ -35,7 +35,7 @@ const createUser = async (data: FormData) => {
 	return errors;
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const handleSubmit = (data: FormData) => {
 		return createUser(data);
 	};

@@ -19,7 +19,7 @@ import TextField from '@atlaskit/textfield';
 
 const TOO_SHORT = `Please enter a username that's longer than 4 characters.`;
 
-export default () => {
+export default (): React.JSX.Element => {
 	const simpleMemoize = <T, U>(fn: (arg: T) => U): ((arg: T) => U) => {
 		let lastArg: T;
 		let lastResult: U;

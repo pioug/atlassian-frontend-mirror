@@ -3,7 +3,7 @@ import React from 'react';
 import Avatar from '@atlaskit/avatar';
 import Tooltip from '@atlaskit/tooltip';
 
-const AvatarTooltipExample = () => {
+const AvatarTooltipExample = (): React.JSX.Element => {
 	const presence = 'online';
 	const name = 'Mike Cannon-Brookes';
 	const label = `${name} (${presence})`;

@@ -48,7 +48,7 @@ const compactStyles = cssMap({
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-const InlineEditableTextfield = (props: InlineEditableTextfieldProps) => {
+const InlineEditableTextfield = (props: InlineEditableTextfieldProps): React.JSX.Element => {
 	const {
 		isCompact = false,
 		defaultValue,

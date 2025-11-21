@@ -18,7 +18,7 @@ type PageProps = Diff<
 	}
 > & { page?: any };
 
-export default function Page(props: PageProps) {
+export default function Page(props: PageProps): React.JSX.Element {
 	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 	return <Button {...props} appearance="subtle" />;
 }

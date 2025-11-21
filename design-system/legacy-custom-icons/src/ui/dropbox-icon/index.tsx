@@ -25,7 +25,13 @@ const DropboxIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __DropboxIcon__
  */
-const DropboxIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const DropboxIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

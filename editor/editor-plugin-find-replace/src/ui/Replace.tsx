@@ -1,12 +1,5 @@
-/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import React, { Fragment } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
@@ -19,61 +12,45 @@ import {
 	TRIGGER_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages';
-import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
-import { Label, ValidMessage } from '@atlaskit/form';
+import { ValidMessage } from '@atlaskit/form';
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down--hipchat-chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/core/migration/chevron-up--hipchat-chevron-up';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Inline, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { token } from '@atlaskit/tokens';
 
 import { FindReplaceTooltipButton } from './FindReplaceTooltipButton';
-import { nextPreviousItemStyles, orderZeroStyles, textFieldWrapper } from './ui-styles';
 
-const sectionWrapperStyles = css({
-	display: 'flex',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'& > *': {
-		display: 'inline-flex',
-		height: '32px',
-		flex: '0 0 auto',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'& > [data-ds--text-field--container]': {
-		display: 'flex',
-		flex: '1 1 auto',
-	},
+const replaceContainerStyles = xcss({
+	padding: 'space.100',
 });
 
-const sectionWrapperStylesAlternate = css({
-	display: 'flex',
-	padding: token('space.100', '8px'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'& > *': {
-		height: 'unset',
-	},
+const replaceWithLabelStyle = xcss({
+	paddingBottom: 'space.050',
 });
 
-const sectionWrapperJustified = css({
+const actionButtonContainerStyles = xcss({
+	paddingTop: 'space.200',
+});
+
+const actionButtonParentInlineStyles = xcss({
 	justifyContent: 'space-between',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	fontSize: relativeFontSizeToBase16(14),
+	flexDirection: 'row-reverse',
 });
 
-const sectionWrapperFlexWrap = css({
-	flexWrap: 'wrap-reverse',
-	gap: token('space.075', '6px'),
+const actionButtonParentInlineStylesNew = xcss({
+	justifyContent: 'space-between',
+	flexDirection: 'row-reverse',
+	flexWrap: 'wrap',
 });
 
-const orderOneStyles = css({
-	order: '1',
+const actionButtonInlineStyles = xcss({
+	gap: 'space.075',
 });
 
-const orderOneStylesNew = css({
-	order: '1',
-	marginLeft: 'auto',
+const closeButtonInlineStyles = xcss({
+	marginRight: 'auto',
 });
 
 export type ReplaceProps = {
@@ -115,111 +92,79 @@ export type ReplaceProps = {
 	setFindTyped: (value: boolean) => void;
 };
 
-export type ReplaceState = {
-	fakeSuccessReplacementMessageUpdate: boolean;
-	isComposing: boolean;
-	isHelperMessageVisible: boolean;
-	replaceCount: number;
-	replaceText: string;
-};
+const Replace = ({
+	canReplace,
+	replaceText: initialReplaceText,
+	onReplace,
+	onReplaceAll,
+	onReplaceTextfieldRefSet,
+	onArrowUp,
+	onCancel,
+	count,
+	onFindNext,
+	onFindPrev,
+	dispatchAnalyticsEvent,
+	setFindTyped,
+	findTyped,
+	focusToolbarButton,
+	intl: { formatMessage },
+}: ReplaceProps & WrappedComponentProps) => {
+	const [replaceText, setReplaceText] = useState(initialReplaceText || '');
+	const [isComposing, setIsComposing] = useState(false);
+	const [isHelperMessageVisible, setIsHelperMessageVisible] = useState(false);
+	const [fakeSuccessReplacementMessageUpdate, setFakeSuccessReplacementMessageUpdate] =
+		useState(false);
+	const [replaceCount, setReplaceCount] = useState(0);
 
-// eslint-disable-next-line @repo/internal/react/no-class-components
-class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, ReplaceState> {
-	state: ReplaceState;
+	const replaceTextfieldRef = useRef<HTMLInputElement>(null);
+	const successReplacementMessageRef = useRef<HTMLDivElement>(null);
 
-	private replaceTextfieldRef = React.createRef<HTMLInputElement>();
-	private successReplacementMessageRef = React.createRef<HTMLInputElement>();
-	private isComposing = false;
-	private closeFindReplaceDialog: string;
-	private replace: string;
-	private replaceWith: string;
-	private replaceAll: string;
-	private findNext: string;
-	private findPrevious: string;
+	const replaceWith = formatMessage(messages.replaceWith);
+	const replaceAll = formatMessage(messages.replaceAll);
+	const findPrevious = formatMessage(messages.findPrevious);
+	const closeFindReplaceDialog = formatMessage(messages.closeFindReplaceDialog);
 
-	constructor(props: ReplaceProps & WrappedComponentProps) {
-		super(props);
+	useEffect(() => {
+		onReplaceTextfieldRefSet(replaceTextfieldRef);
+	}, [onReplaceTextfieldRefSet]);
 
-		const {
-			replaceText,
-			intl: { formatMessage },
-		} = props;
+	useEffect(() => {
+		setReplaceText(initialReplaceText || '');
+	}, [initialReplaceText]);
 
-		this.state = {
-			replaceText: replaceText || '',
-			isComposing: false,
-			isHelperMessageVisible: false,
-			fakeSuccessReplacementMessageUpdate: false,
-			replaceCount: 0,
-		};
-
-		this.replace = formatMessage(messages.replace);
-		this.replaceWith = formatMessage(messages.replaceWith);
-		this.replaceAll = formatMessage(messages.replaceAll);
-		this.findNext = formatMessage(messages.findNext);
-		this.findPrevious = formatMessage(messages.findPrevious);
-		this.closeFindReplaceDialog = formatMessage(messages.closeFindReplaceDialog);
-	}
-
-	componentDidMount() {
-		this.props.onReplaceTextfieldRefSet(this.replaceTextfieldRef);
-	}
-
-	componentDidUpdate({ replaceText: prevReplaceText }: ReplaceProps & WrappedComponentProps) {
-		const { replaceText } = this.props;
-		if (replaceText && replaceText !== prevReplaceText) {
-			this.setState({ replaceText, isComposing: false });
+	const skipWhileComposing = (fn: () => void) => {
+		if (!isComposing) {
+			fn();
 		}
-		const findTextField = document.getElementById('find-text-field');
-		const replaceButton = document.getElementById('replace-button');
-		const replaceAllButton = document.getElementById('replaceAll-button');
-
-		if ((replaceButton?.tabIndex === -1 || replaceAllButton?.tabIndex === -1) && findTextField) {
-			findTextField.focus();
-		}
-	}
-
-	skipWhileComposing = (fn: Function) => {
-		if (this.state.isComposing) {
-			return;
-		}
-		fn();
 	};
 
-	triggerSuccessReplacementMessageUpdate(currentReplaceCount: number) {
-		if (this.state?.replaceCount === currentReplaceCount) {
-			this.setState({
-				fakeSuccessReplacementMessageUpdate: !this.state.fakeSuccessReplacementMessageUpdate,
-			});
+	const triggerSuccessReplacementMessageUpdate = (currentReplaceCount: number) => {
+		if (replaceCount === currentReplaceCount) {
+			setFakeSuccessReplacementMessageUpdate(!fakeSuccessReplacementMessageUpdate);
 		}
-		if (this.successReplacementMessageRef && this.successReplacementMessageRef.current) {
+		if (successReplacementMessageRef.current) {
 			const ariaLiveRegion =
-				this.successReplacementMessageRef.current.querySelector('[aria-live="polite"]');
+				successReplacementMessageRef.current.querySelector('[aria-live="polite"]');
 			ariaLiveRegion?.removeAttribute('aria-live');
 			ariaLiveRegion?.setAttribute('aria-live', 'polite');
 		}
-	}
+	};
 
-	handleReplaceClick = () =>
-		this.skipWhileComposing(() => {
-			this.props.onReplace({
-				triggerMethod: TRIGGER_METHOD.BUTTON,
-				replaceText: this.state.replaceText,
-			});
-			// for replace button replaceCount always 1;
-			const replaceCount = 1;
-			this.triggerSuccessReplacementMessageUpdate(replaceCount);
-			this.setState({ isHelperMessageVisible: true, replaceCount });
-			this.props.setFindTyped(false);
+	const handleReplaceClick = () =>
+		skipWhileComposing(() => {
+			onReplace({ triggerMethod: TRIGGER_METHOD.BUTTON, replaceText });
+			triggerSuccessReplacementMessageUpdate(1);
+			setIsHelperMessageVisible(true);
+			setReplaceCount(1);
+			setFindTyped(false);
 		});
 
-	handleReplaceChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-		this.skipWhileComposing(() => {
-			this.updateReplaceValue(event.target.value);
+	const handleReplaceChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+		skipWhileComposing(() => {
+			updateReplaceValue(event.target.value);
 		});
 
-	updateReplaceValue = (replaceText: string) => {
-		const { dispatchAnalyticsEvent } = this.props;
+	const updateReplaceValue = (text: string) => {
 		if (dispatchAnalyticsEvent) {
 			dispatchAnalyticsEvent({
 				eventType: EVENT_TYPE.TRACK,
@@ -227,209 +172,158 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 				actionSubject: ACTION_SUBJECT.FIND_REPLACE_DIALOG,
 			});
 		}
-		this.setState({ replaceText });
+		setReplaceText(text);
 	};
 
-	handleReplaceKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) =>
-		this.skipWhileComposing(() => {
+	const handleReplaceKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) =>
+		skipWhileComposing(() => {
 			if (event.key === 'Enter') {
-				this.props.onReplace({
-					triggerMethod: TRIGGER_METHOD.KEYBOARD,
-					replaceText: this.state.replaceText,
-				});
+				onReplace({ triggerMethod: TRIGGER_METHOD.KEYBOARD, replaceText });
 			} else if (event.key === 'ArrowUp') {
-				// we want to move focus between find & replace texfields when user hits up/down arrows
-				this.props.onArrowUp();
+				onArrowUp();
 			}
 		});
 
-	handleReplaceAllClick = () =>
-		this.skipWhileComposing(() => {
-			this.props.onReplaceAll({ replaceText: this.state.replaceText });
-			this.setState({ isHelperMessageVisible: true });
+	const handleReplaceAllClick = () =>
+		skipWhileComposing(() => {
+			onReplaceAll({ replaceText });
+			setIsHelperMessageVisible(true);
 			if (
-				this.props.count.totalReplaceable &&
+				count.totalReplaceable &&
 				expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 			) {
-				this.triggerSuccessReplacementMessageUpdate(this.props.count.totalReplaceable);
-				this.setState({ replaceCount: this.props.count.totalReplaceable });
+				triggerSuccessReplacementMessageUpdate(count.totalReplaceable);
+				setReplaceCount(count.totalReplaceable);
 			} else {
-				this.triggerSuccessReplacementMessageUpdate(this.props.count.total);
-				this.setState({ replaceCount: this.props.count.total });
+				triggerSuccessReplacementMessageUpdate(count.total);
+				setReplaceCount(count.total);
 			}
-			this.props.setFindTyped(false);
+			setFindTyped(false);
 		});
 
-	handleCompositionStart = () => {
-		this.setState({ isComposing: true });
+	const handleCompositionStart = () => {
+		setIsComposing(true);
 	};
 
-	handleCompositionEnd = (event: React.CompositionEvent<HTMLInputElement>) => {
-		this.setState({ isComposing: false });
+	const handleCompositionEnd = (event: React.CompositionEvent<HTMLInputElement>) => {
+		setIsComposing(false);
 		// type for React.CompositionEvent doesn't set type for target correctly
-		this.updateReplaceValue((event.target as HTMLInputElement).value);
+		updateReplaceValue((event.target as HTMLInputElement).value);
 	};
 
-	clearSearch = () => {
-		this.props.onCancel({ triggerMethod: TRIGGER_METHOD.BUTTON });
-		this.props.focusToolbarButton && this.props.focusToolbarButton();
+	const clearSearch = () => {
+		onCancel({ triggerMethod: TRIGGER_METHOD.BUTTON });
+		focusToolbarButton();
 	};
 
-	handleFindNextClick = () => {
-		if (this.isComposing) {
-			return;
+	const handleFindNextClick = () => {
+		if (!isComposing) {
+			onFindNext({ triggerMethod: TRIGGER_METHOD.BUTTON });
 		}
-		this.props.onFindNext({ triggerMethod: TRIGGER_METHOD.BUTTON });
 	};
 
-	handleFindPrevClick = () => {
-		if (this.isComposing) {
-			return;
+	const handleFindPrevClick = () => {
+		if (!isComposing) {
+			onFindPrev({ triggerMethod: TRIGGER_METHOD.BUTTON });
 		}
-		this.props.onFindPrev({ triggerMethod: TRIGGER_METHOD.BUTTON });
 	};
 
-	render() {
-		const { replaceText, isHelperMessageVisible, replaceCount } = this.state;
-		const {
-			canReplace,
-			count,
-			intl: { formatMessage },
-		} = this.props;
+	const resultsReplace = formatMessage(messages.replaceSuccess, {
+		numberOfMatches: replaceCount,
+	});
 
-		const resultsReplace = formatMessage(messages.replaceSuccess, {
-			numberOfMatches: replaceCount,
-		});
-
-		return (
-			<Fragment>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-				<div css={[sectionWrapperStyles, sectionWrapperStylesAlternate]}>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-					<div css={textFieldWrapper}>
-						<Label htmlFor="replace-text-field">{this.replaceWith}</Label>
-						<Textfield
-							name="replace"
-							id="replace-text-field"
-							testId="replace-field"
-							appearance="standard"
-							defaultValue={replaceText}
-							ref={this.replaceTextfieldRef}
-							autoComplete="off"
-							onChange={this.handleReplaceChange}
-							onKeyDown={this.handleReplaceKeyDown}
-							onCompositionStart={this.handleCompositionStart}
-							onCompositionEnd={this.handleCompositionEnd}
-						/>
-
-						{isHelperMessageVisible && this.props.findTyped === false && (
-							<div ref={this.successReplacementMessageRef}>
-								<ValidMessage testId="message-success-replacement">
-									{
-										/*
-										Replacement needed to trigger the SR announcement if message hasn't changed. e.g Replace button clicked twice.
-										'\u00a0' is value for &nbsp
-									*/
-										this.state.fakeSuccessReplacementMessageUpdate
-											? // Ignored via go/ees005
-												// eslint-disable-next-line require-unicode-regexp
-												resultsReplace.replace(/ /, '\u00a0')
-											: resultsReplace
-									}
-								</ValidMessage>
-							</div>
-						)}
-					</div>
+	return (
+		<Box xcss={replaceContainerStyles}>
+			<Box xcss={replaceWithLabelStyle}>
+				<Text id="replace-text-field-label" size="medium" weight="bold" color="color.text.subtle">
+					{replaceWith}
+				</Text>
+			</Box>
+			<Textfield
+				name="replace"
+				aria-labelledby="replace-text-field-label"
+				testId="replace-field"
+				appearance="standard"
+				defaultValue={replaceText}
+				ref={replaceTextfieldRef}
+				autoComplete="off"
+				onChange={handleReplaceChange}
+				onKeyDown={handleReplaceKeyDown}
+				onCompositionStart={handleCompositionStart}
+				onCompositionEnd={handleCompositionEnd}
+			/>
+			{isHelperMessageVisible && !findTyped && (
+				<div ref={successReplacementMessageRef}>
+					<ValidMessage testId="message-success-replacement">
+						{fakeSuccessReplacementMessageUpdate
+							? // @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
+								resultsReplace.replace(/ /u, '\u00a0')
+							: resultsReplace}
+					</ValidMessage>
 				</div>
-				<div
-					css={
+			)}
+			<Box xcss={actionButtonContainerStyles}>
+				<Inline
+					xcss={
 						expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-							? [
-									sectionWrapperStyles,
-									sectionWrapperStylesAlternate,
-									sectionWrapperJustified,
-									sectionWrapperFlexWrap,
-								]
-							: [sectionWrapperStyles, sectionWrapperStylesAlternate, sectionWrapperJustified]
+							? [actionButtonInlineStyles, actionButtonParentInlineStylesNew]
+							: [actionButtonInlineStyles, actionButtonParentInlineStyles]
 					}
 				>
-					<div
-						css={
-							expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-								? orderOneStylesNew
-								: orderOneStyles
-						}
-					>
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-						<div css={nextPreviousItemStyles}>
-							<FindReplaceTooltipButton
-								title={this.findNext}
-								icon={(iconProps) => <ChevronDownIcon label={iconProps.label} size="small" />}
-								iconLabel={this.findNext}
-								keymapDescription={'Enter'}
-								onClick={this.handleFindNextClick}
-								disabled={count.total <= 1}
-							/>
-						</div>
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-						<div css={nextPreviousItemStyles}>
-							<FindReplaceTooltipButton
-								title={this.findPrevious}
-								icon={(iconProps) => <ChevronUpIcon label={iconProps.label} size="small" />}
-								iconLabel={this.findPrevious}
-								keymapDescription={'Shift Enter'}
-								onClick={this.handleFindPrevClick}
-								disabled={count.total <= 1}
-							/>
-						</div>
-
-						<Inline
-							space="space.075"
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-							xcss={xcss({
-								// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-								paddingInlineStart: 'space.050',
-								// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-								paddingInlineEnd: 'space.025',
-							})}
+					<Inline xcss={actionButtonInlineStyles}>
+						<FindReplaceTooltipButton
+							title={formatMessage(messages.findNext)}
+							icon={(iconProps) => <ChevronDownIcon label={iconProps.label} size="small" />}
+							iconLabel={formatMessage(messages.findNext)}
+							keymapDescription={'Enter'}
+							onClick={handleFindNextClick}
+							disabled={count.total <= 1}
+						/>
+						<FindReplaceTooltipButton
+							title={findPrevious}
+							icon={(iconProps) => <ChevronUpIcon label={iconProps.label} size="small" />}
+							iconLabel={findPrevious}
+							keymapDescription={'Shift Enter'}
+							onClick={handleFindPrevClick}
+							disabled={count.total <= 1}
+						/>
+						<Button
+							testId={'Replace'}
+							id="replace-button"
+							onClick={handleReplaceClick}
+							isDisabled={!canReplace}
 						>
-							<Button
-								testId={this.replace}
-								id="replace-button"
-								onClick={this.handleReplaceClick}
-								isDisabled={!canReplace}
-							>
-								{this.replace}
-							</Button>
-							<Button
-								appearance="primary"
-								testId={this.replaceAll}
-								id="replaceAll-button"
-								onClick={this.handleReplaceAllClick}
-								isDisabled={
-									expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-										? count.totalReplaceable === 0
-										: !canReplace
-								}
-							>
-								{this.replaceAll}
+							{formatMessage(messages.replace)}
+						</Button>
+						<Button
+							appearance="primary"
+							testId={replaceAll}
+							id="replaceAll-button"
+							onClick={handleReplaceAllClick}
+							isDisabled={
+								expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
+									? count.totalReplaceable === 0
+									: !canReplace
+							}
+						>
+							{replaceAll}
+						</Button>
+					</Inline>
+					{expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) ? (
+						<Inline xcss={closeButtonInlineStyles}>
+							<Button appearance="subtle" testId={closeFindReplaceDialog} onClick={clearSearch}>
+								{closeFindReplaceDialog}
 							</Button>
 						</Inline>
-					</div>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-					<div css={orderZeroStyles}>
-						<Button
-							appearance="subtle"
-							testId={this.closeFindReplaceDialog}
-							onClick={this.clearSearch}
-						>
-							{this.closeFindReplaceDialog}
+					) : (
+						<Button appearance="subtle" testId={closeFindReplaceDialog} onClick={clearSearch}>
+							{closeFindReplaceDialog}
 						</Button>
-					</div>
-				</div>
-			</Fragment>
-		);
-	}
-}
+					)}
+				</Inline>
+			</Box>
+		</Box>
+	);
+};
 
 export default injectIntl(Replace);

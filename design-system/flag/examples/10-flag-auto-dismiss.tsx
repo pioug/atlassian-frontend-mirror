@@ -16,7 +16,7 @@ const color = {
 	warning: token('color.icon.warning'),
 };
 
-const AutoDismissExample = () => {
+const AutoDismissExample = (): React.JSX.Element => {
 	const [flags, setFlags] = useState<Array<number>>([]);
 
 	const addFlag = () => {

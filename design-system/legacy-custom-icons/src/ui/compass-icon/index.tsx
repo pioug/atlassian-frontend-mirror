@@ -26,7 +26,13 @@ const CompassIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __CompassIcon__
  */
-const CompassIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const CompassIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

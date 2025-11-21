@@ -11,7 +11,7 @@ const ReadView = ({ data, placeholder }: { data: string; placeholder: string }) 
 	</Box>
 );
 
-export default function InlineEditWithDatepicker() {
+export default function InlineEditWithDatepicker(): React.JSX.Element {
 	const [isEditingDp, setIsEditingDp] = useState(false);
 	const [isEditingTp, setIsEditingTp] = useState(false);
 	const [isEditingDtp, setIsEditingDtp] = useState(false);

@@ -4,7 +4,7 @@ import Avatar from '@atlaskit/avatar';
 
 import ExampleImg from '../../examples-util/nucleus.png';
 
-const AvatarXSmallExample = () => {
+const AvatarXSmallExample = (): React.JSX.Element => {
 	return (
 		<div>
 			<Avatar

@@ -27,7 +27,13 @@ const ThumbUpIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __ThumbUpIcon__
  */
-const ThumbUpIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const ThumbUpIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

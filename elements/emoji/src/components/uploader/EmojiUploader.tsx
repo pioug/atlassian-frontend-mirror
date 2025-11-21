@@ -42,7 +42,7 @@ export class EmojiUploaderInternal extends LoadingEmojiComponent<Props, LoadingS
 	renderLoaded(
 		loadedEmojiProvider: EmojiProvider,
 		EmojiUploadComponent: React.ComponentType<React.PropsWithChildren<ComponentProps>>,
-	) {
+	): React.JSX.Element {
 		const { emojiProvider, ...otherProps } = this.props;
 		return <EmojiUploadComponent emojiProvider={loadedEmojiProvider} {...otherProps} />;
 	}

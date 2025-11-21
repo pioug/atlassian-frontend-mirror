@@ -49,7 +49,7 @@ export default function NavigationShellExample({
 	sideNavToggleButton?: React.ReactNode;
 	appLogo?: React.ReactNode;
 	defaultSideNavWidth?: number;
-}) {
+}): React.JSX.Element {
 	return (
 		<WithResponsiveViewport>
 			<Root>
@@ -75,11 +75,11 @@ export default function NavigationShellExample({
 	);
 }
 
-export function NavigationShellWithWideSideNav() {
+export function NavigationShellWithWideSideNav(): React.JSX.Element {
 	return <NavigationShellExample defaultSideNavWidth={800} />;
 }
 
-export function NavigationShellWithToggleButtonSpotlight() {
+export function NavigationShellWithToggleButtonSpotlight(): React.JSX.Element {
 	return (
 		<SpotlightManager>
 			<NavigationShellExample

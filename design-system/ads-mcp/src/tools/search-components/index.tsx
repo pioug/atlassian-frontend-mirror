@@ -1,9 +1,8 @@
-import type { CallToolResult } from '@modelcontextprotocol/sdk/types';
+import type { CallToolResult, Tool } from '@modelcontextprotocol/sdk/types';
 import Fuse from 'fuse.js';
 import { z } from 'zod';
-import { zodToJsonSchema } from 'zod-to-json-schema';
 
-import { cleanQuery } from '../../helpers';
+import { cleanQuery, zodToJsonSchema } from '../../helpers';
 import { components } from '../get-components/components';
 import { type Component } from '../get-components/types';
 
@@ -27,7 +26,7 @@ export const searchComponentsInputSchema = z.object({
 		.optional(),
 });
 
-export const listSearchComponentsTool = {
+export const listSearchComponentsTool: Tool = {
 	name: 'ads_search_components',
 	description: 'Search for Atlassian Design System components.',
 	annotations: {

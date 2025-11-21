@@ -29,7 +29,7 @@ export default class SpotlightTargetRadiusExample extends Component<{}, State> {
 
 	finish = () => this.setState({ active: null });
 
-	renderActiveSpotlight() {
+	renderActiveSpotlight(): React.JSX.Element | null {
 		const variants = [
 			<Spotlight
 				actions={[
@@ -74,7 +74,7 @@ export default class SpotlightTargetRadiusExample extends Component<{}, State> {
 		return this.state.active == null ? null : variants[this.state.active];
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<SpotlightManager>
 				<HighlightGroup>

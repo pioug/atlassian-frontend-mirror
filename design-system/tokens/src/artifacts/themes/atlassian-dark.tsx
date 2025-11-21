@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::30e9acab7c72f6adea6c562bb2cefbe9>>
+ * @codegen <<SignedSource::7d389a2b01c97ee0935f94b151c2bab0>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -90,7 +90,7 @@ html[data-color-mode="dark"][data-theme~="dark:dark"] {
   --ds-border-discovery: #BF63F3;
   --ds-border-information: #4688EC;
   --ds-border-bold: #7E8188;
-  --ds-background-accent-lime-subtlest: #37471F;
+  --ds-background-accent-lime-subtlest: #28311B;
   --ds-background-accent-lime-subtlest-hovered: #3F5224;
   --ds-background-accent-lime-subtlest-pressed: #3F5224;
   --ds-background-accent-lime-subtler: #37471F;
@@ -114,7 +114,7 @@ html[data-color-mode="dark"][data-theme~="dark:dark"] {
   --ds-background-accent-red-bolder: #F87168;
   --ds-background-accent-red-bolder-hovered: #FD9891;
   --ds-background-accent-red-bolder-pressed: #FFB8B2;
-  --ds-background-accent-orange-subtlest: #693200;
+  --ds-background-accent-orange-subtlest: #3A2C1F;
   --ds-background-accent-orange-subtlest-hovered: #7A3B00;
   --ds-background-accent-orange-subtlest-pressed: #7A3B00;
   --ds-background-accent-orange-subtler: #693200;
@@ -126,7 +126,7 @@ html[data-color-mode="dark"][data-theme~="dark:dark"] {
   --ds-background-accent-orange-bolder: #FCA700;
   --ds-background-accent-orange-bolder-hovered: #FBC828;
   --ds-background-accent-orange-bolder-pressed: #FBD779;
-  --ds-background-accent-yellow-subtlest: #533F04;
+  --ds-background-accent-yellow-subtlest: #332E1B;
   --ds-background-accent-yellow-subtlest-hovered: #614A05;
   --ds-background-accent-yellow-subtlest-pressed: #614A05;
   --ds-background-accent-yellow-subtler: #533F04;
@@ -138,7 +138,7 @@ html[data-color-mode="dark"][data-theme~="dark:dark"] {
   --ds-background-accent-yellow-bolder: #DDB30E;
   --ds-background-accent-yellow-bolder-hovered: #EED12B;
   --ds-background-accent-yellow-bolder-pressed: #EFDD4E;
-  --ds-background-accent-green-subtlest: #164B35;
+  --ds-background-accent-green-subtlest: #1C3329;
   --ds-background-accent-green-subtlest-hovered: #19573D;
   --ds-background-accent-green-subtlest-pressed: #19573D;
   --ds-background-accent-green-subtler: #164B35;
@@ -150,7 +150,7 @@ html[data-color-mode="dark"][data-theme~="dark:dark"] {
   --ds-background-accent-green-bolder: #4BCE97;
   --ds-background-accent-green-bolder-hovered: #7EE2B8;
   --ds-background-accent-green-bolder-pressed: #97EDC9;
-  --ds-background-accent-teal-subtlest: #164555;
+  --ds-background-accent-teal-subtlest: #1E3137;
   --ds-background-accent-teal-subtlest-hovered: #1A5265;
   --ds-background-accent-teal-subtlest-pressed: #1A5265;
   --ds-background-accent-teal-subtler: #164555;
@@ -174,7 +174,7 @@ html[data-color-mode="dark"][data-theme~="dark:dark"] {
   --ds-background-accent-blue-bolder: #669DF1;
   --ds-background-accent-blue-bolder-hovered: #8FB8F6;
   --ds-background-accent-blue-bolder-pressed: #ADCBFB;
-  --ds-background-accent-purple-subtlest: #48245D;
+  --ds-background-accent-purple-subtlest: #35243F;
   --ds-background-accent-purple-subtlest-hovered: #673286;
   --ds-background-accent-purple-subtlest-pressed: #673286;
   --ds-background-accent-purple-subtler: #48245D;
@@ -186,7 +186,7 @@ html[data-color-mode="dark"][data-theme~="dark:dark"] {
   --ds-background-accent-purple-bolder: #C97CF4;
   --ds-background-accent-purple-bolder-hovered: #D8A0F7;
   --ds-background-accent-purple-bolder-pressed: #E3BDFA;
-  --ds-background-accent-magenta-subtlest: #50253F;
+  --ds-background-accent-magenta-subtlest: #3D2232;
   --ds-background-accent-magenta-subtlest-hovered: #77325B;
   --ds-background-accent-magenta-subtlest-pressed: #77325B;
   --ds-background-accent-magenta-subtler: #50253F;

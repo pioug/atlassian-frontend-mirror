@@ -22,7 +22,7 @@ const tabs = [
 	{ label: 'Tab 10', panel: <Panel>Tab 10 panel</Panel> },
 ];
 
-export default function manyTabs() {
+export default function manyTabs(): React.JSX.Element {
 	return (
 		<Tabs onChange={handleTabSelect} id="with-many">
 			<TabList>

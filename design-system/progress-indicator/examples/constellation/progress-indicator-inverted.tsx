@@ -16,7 +16,7 @@ const styles = cssMap({
 	},
 });
 
-const InvertedExample = () => {
+const InvertedExample = (): React.JSX.Element => {
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const [values] = useState(['first', 'second', 'third']);
 

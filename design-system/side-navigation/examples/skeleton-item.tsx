@@ -2,7 +2,7 @@ import React from 'react';
 
 import { SkeletonItem } from '@atlaskit/side-navigation';
 
-const Example = () => (
+const Example = (): React.JSX.Element => (
 	<>
 		<SkeletonItem />
 		<SkeletonItem hasAvatar />

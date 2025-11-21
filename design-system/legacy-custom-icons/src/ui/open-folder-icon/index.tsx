@@ -32,7 +32,7 @@ const OpenFolderIcon = ({
 	size,
 	testId,
 	...props
-}: IconProps) => (
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

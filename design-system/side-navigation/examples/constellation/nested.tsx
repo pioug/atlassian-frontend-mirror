@@ -12,7 +12,7 @@ import {
 
 import AppFrame from '../common/app-frame';
 
-const NestedExample = () => {
+const NestedExample = (): React.JSX.Element => {
 	return (
 		<AppFrame shouldHideAppBar>
 			<SideNavigation label="project">

@@ -122,7 +122,7 @@ export class CopyLinkButton extends React.Component<Props, State> {
 		this.setState({ shouldShowCopiedMessage: false });
 	};
 
-	renderTriggerButton = (triggerProps: TriggerProps) => {
+	renderTriggerButton = (triggerProps: TriggerProps): React.JSX.Element => {
 		const { isDisabled, copyLinkButtonText, children, iconBefore, isExtendedShareDialogEnabled } =
 			this.props;
 		return (
@@ -170,7 +170,7 @@ export class CopyLinkButton extends React.Component<Props, State> {
 		);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { shouldShowCopiedMessage } = this.state;
 		const { copyTooltipText, copiedToClipboardText } = this.props;
 		const shouldUpdateTooltipCssConfluence = fg('jfind-copy-link-modal-invite-tooltip');

@@ -29,7 +29,13 @@ const StopTypingIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __StopTypingIcon__
  */
-const StopTypingIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const StopTypingIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

@@ -1,5 +1,12 @@
 # @atlaskit/prosemirror-history
 
+## 0.2.5
+
+### Patch Changes
+
+- [`df991f927a9e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df991f927a9e8) -
+  Fix undo for majority of non-collab cases for history slices
+
 ## 0.2.4
 
 ### Patch Changes

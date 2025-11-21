@@ -32,7 +32,7 @@ const SingleExample = () => (
 	/>
 );
 
-export function WithFooterAndSelectOptionExample() {
+export function WithFooterAndSelectOptionExample(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState<Boolean>(false);
 
 	const open = useCallback(() => setIsOpen(true), []);

@@ -705,7 +705,10 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 							...tooltipProps,
 							'aria-controls': ariaControls,
 							'aria-haspopup': ariaHasPopup,
-							ref: mergeRefs([forwardedRef, tooltipProps.ref]),
+							ref: mergeRefs<HTMLAnchorElement | HTMLButtonElement>([
+								forwardedRef,
+								tooltipProps.ref,
+							]),
 							id,
 							testId,
 							interactionName,

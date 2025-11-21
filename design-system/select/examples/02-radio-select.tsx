@@ -6,7 +6,7 @@ import { RadioSelect } from '@atlaskit/select';
 import { cities } from './common/data';
 
 // data imported for brevity; equal to the options from Single Select example
-const RadioExample = () => (
+const RadioExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="radio-select-example">What city do you live in?</Label>
 		<RadioSelect

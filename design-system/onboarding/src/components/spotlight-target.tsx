@@ -50,7 +50,10 @@ interface SpotlightTargetProps {
  *
  * @deprecated Use `@atlaskit/spotlight` instead.
  */
-const SpotlightTarget = ({ children, name }: SpotlightTargetProps) => (
+const SpotlightTarget: {
+	({ children, name }: SpotlightTargetProps): React.JSX.Element;
+	displayName: string;
+} = ({ children, name }: SpotlightTargetProps): React.JSX.Element => (
 	<TargetConsumer>
 		{(getTargetRef: GetTargetRef | undefined) => {
 			if (typeof children === 'function') {

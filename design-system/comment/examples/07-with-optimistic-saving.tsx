@@ -5,7 +5,7 @@ import Comment, { CommentAction, CommentAuthor, CommentTime } from '@atlaskit/co
 
 import avatarImg from './images/avatar_400x400.jpg';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Comment
 		author={<CommentAuthor>John Smith</CommentAuthor>}
 		avatar={<Avatar src={avatarImg} />}

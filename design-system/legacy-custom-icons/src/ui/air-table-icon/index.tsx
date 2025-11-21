@@ -38,7 +38,13 @@ const AirTableIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __AirTableIcon__
  */
-const AirTableIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const AirTableIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

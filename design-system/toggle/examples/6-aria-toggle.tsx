@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Toggle from '@atlaskit/toggle';
 import Tooltip from '@atlaskit/tooltip';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [isChecked, handleOnchange] = useState(false);
 	const checkedText = 'Allow pull requests';
 	const uncheckedText = 'Disable pull requests';

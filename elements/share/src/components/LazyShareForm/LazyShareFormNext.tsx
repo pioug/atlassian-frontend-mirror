@@ -96,7 +96,7 @@ const styles = cssMap({
  * A Share form content which is lazy-loaded.
  * Make sure this component is not exported inside main entry points `src/index.ts`
  */
-function LazyShareForm(props: LazyShareFormProps) {
+function LazyShareForm(props: LazyShareFormProps): React.JSX.Element {
 	const {
 		copyLink,
 		config,

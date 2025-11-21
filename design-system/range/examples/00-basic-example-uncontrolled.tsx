@@ -3,7 +3,7 @@ import React from 'react';
 import { Label } from '@atlaskit/form';
 import Range from '@atlaskit/range';
 
-const SimpleRange = () => (
+const SimpleRange = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="range-uncontrolled">Uncontrolled</Label>
 		<Range

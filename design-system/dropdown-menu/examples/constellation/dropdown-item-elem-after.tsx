@@ -3,7 +3,7 @@ import React from 'react';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import CheckCircleIcon from '@atlaskit/icon/core/check-circle';
 
-const DropdownItemElemAfterExample = () => {
+const DropdownItemElemAfterExample = (): React.JSX.Element => {
 	return (
 		<DropdownMenu trigger="Open" shouldRenderToParent>
 			<DropdownItemGroup>

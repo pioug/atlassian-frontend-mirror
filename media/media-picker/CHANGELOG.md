@@ -1,5 +1,16 @@
 # @atlaskit/media-picker
 
+## 70.1.0
+
+### Minor Changes
+
+- [`96051ddbcd485`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96051ddbcd485) -
+  Error detail added in failure event to better track errors.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 70.0.9
 
 ### Patch Changes

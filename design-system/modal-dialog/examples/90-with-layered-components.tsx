@@ -29,7 +29,7 @@ import Tooltip from '@atlaskit/tooltip';
 
 const Break = () => <br />;
 
-export function WithLayeredComponentsExample() {
+export function WithLayeredComponentsExample(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [shouldScrollInViewport, setShouldScrollInViewPort] = useState(false);

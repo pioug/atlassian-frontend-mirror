@@ -17,7 +17,7 @@ import { MockSideNav } from './common/mock-side-nav';
 
 const exampleHref = '#example-href';
 
-export function TruncationExample() {
+export function TruncationExample(): React.JSX.Element {
 	return (
 		<MockSideNav>
 			<SideNavContent>

@@ -3,7 +3,7 @@ import React from 'react';
 import Button, { Theme as ButtonTheme } from '@atlaskit/button';
 import { modalButtonTheme, spotlightButtonTheme } from '@atlaskit/onboarding';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<div>
 			<ButtonTheme.Provider value={modalButtonTheme}>

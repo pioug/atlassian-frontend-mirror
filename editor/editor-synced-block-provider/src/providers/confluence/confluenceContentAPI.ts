@@ -121,8 +121,18 @@ class ConfluenceADFFetchProvider implements ADFFetchProvider {
 			return {
 				data: {
 					content: syncedBlockData.content,
-					resourceId,
-					blockInstanceId: localId,
+					// If the block instance ID is not set, use the local ID from the fetch data request
+					// This is a fallback for the case where the block instance ID is not set in the synced block data (old data)
+					blockInstanceId: syncedBlockData.blockInstanceId || localId,
+					// If the resource ID is not set, use the resource ID from the fetch data request
+					// This is a fallback for the case where the resource ID is not set in the synced block data (old data)
+					resourceId: syncedBlockData.resourceId || resourceId,
+					// If the product is not set, use the default product 'confluence-page'
+					// This is a fallback for the case where the product is not set in the synced block data (old data)
+					product: syncedBlockData.product || 'confluence-page',
+					// If the source Ari is not set, use the resource ID as the source Ari
+					// This is a fallback for the case where the source Ari is not set in the synced block data (old data)
+					sourceAri: syncedBlockData.sourceAri || resourceId,
 				},
 				resourceId,
 			};
@@ -188,11 +198,11 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 		}
 	};
 
-	async writeData(data: SyncBlockData): Promise<WriteSyncBlockResult> {
+	async writeData(syncBlockData: SyncBlockData): Promise<WriteSyncBlockResult> {
 		let match;
-		const { resourceId } = data;
+		const { resourceId } = syncBlockData;
 		try {
-			match = getPageIdAndTypeFromConfluencePageAri(data.resourceId);
+			match = getPageIdAndTypeFromConfluencePageAri(resourceId);
 		} catch (error) {
 			return { error: stringifyError(error) };
 		}
@@ -204,7 +214,7 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 			const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
 			const sourceAri = getConfluencePageAri(pageId, this.config.cloudId, pageType);
 			const syncBlockDataWithSourceDocumentAri: SyncBlockData = {
-				...data,
+				...syncBlockData,
 				product: 'confluence-page',
 				sourceAri,
 			};
@@ -226,7 +236,12 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 			if (updateResult?.key === key) {
 				return { resourceId };
 			} else if (!updateResult) {
-				return this.createNewContentProperty(pageId, key, data, pageType).then(
+				return this.createNewContentProperty(
+					pageId,
+					key,
+					syncBlockDataWithSourceDocumentAri,
+					pageType,
+				).then(
 					() => {
 						return { resourceId };
 					},

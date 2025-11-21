@@ -28,7 +28,13 @@ const TrelloIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __TrelloIcon__
  */
-const TrelloIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const TrelloIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

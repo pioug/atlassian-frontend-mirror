@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-expand
 
+## 7.4.5
+
+### Patch Changes
+
+- [`15164638b4d1a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15164638b4d1a) -
+  [ux] [EDITOR-2461] handle ArrowUp navigation out of the Expand title
+- Updated dependencies
+
 ## 7.4.4
 
 ### Patch Changes

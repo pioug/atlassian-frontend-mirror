@@ -26,7 +26,13 @@ const NumberIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __NumberIcon__
  */
-const NumberIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const NumberIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

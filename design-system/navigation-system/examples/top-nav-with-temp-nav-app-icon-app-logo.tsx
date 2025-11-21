@@ -26,7 +26,7 @@ import { WithResponsiveViewport } from './utils/example-utils';
 
 const Badge = () => <AKBadge appearance="important">{5}</AKBadge>;
 
-export function TopNavWithTempNavAppIconAppLogo() {
+export function TopNavWithTempNavAppIconAppLogo(): React.JSX.Element {
 	return (
 		<WithResponsiveViewport>
 			{/**

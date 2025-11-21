@@ -15,7 +15,7 @@ interface RenderRealEmojisProps {
 	hideWrongEmojis?: boolean;
 }
 
-export const RenderRealResourcedEmojis = memo((props: RenderRealEmojisProps) => {
+export const RenderRealResourcedEmojis = memo((props: RenderRealEmojisProps): React.JSX.Element => {
 	const emojiTest = {
 		id: '64ca858e-6ee7-40e2-832a-432a7422f144',
 		fallback: ':emoji-test:',
@@ -121,7 +121,7 @@ const Parent = ({
 	);
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const provider = getRealEmojiProvider();
 	const [count, setCount] = useState(1);
 	const [enableKey, setEnableKey] = useState(false);

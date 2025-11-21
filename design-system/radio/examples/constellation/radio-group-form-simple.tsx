@@ -13,7 +13,7 @@ const options: OptionsPropType = [
 	{ name: 'color', value: 'black', label: 'Black' },
 ];
 
-export default function FormExampleSimple() {
+export default function FormExampleSimple(): React.JSX.Element {
 	return (
 		<Form onSubmit={(data: object) => console.log('form data', data)}>
 			{({ formProps }: { formProps: object }) => {

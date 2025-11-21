@@ -103,7 +103,7 @@ const PrimaryDropdown = (props: PrimaryDropdownProps) => {
 	);
 };
 
-export const bitbucketPrimaryItems = [
+export const bitbucketPrimaryItems: React.JSX.Element[] = [
 	<NavigationButton
 		onClick={(...args: any[]) => {
 			console.log('Your work click', ...args);
@@ -148,7 +148,7 @@ export const bitbucketPrimaryItems = [
 	</NavigationButton>,
 ];
 
-export const confluencePrimaryItems = [
+export const confluencePrimaryItems: React.JSX.Element[] = [
 	<NavigationButton
 		onClick={(...args: any[]) => {
 			console.log('Activity click', ...args);
@@ -186,7 +186,7 @@ export const confluencePrimaryItems = [
 	</NavigationButton>,
 ];
 
-export const jiraPrimaryItems = [
+export const jiraPrimaryItems: React.JSX.Element[] = [
 	<NavigationButton
 		onClick={(...args: any[]) => {
 			console.log('Your work click', ...args);
@@ -240,7 +240,7 @@ export const jiraPrimaryItems = [
 	</NavigationButton>,
 ];
 
-export const jiraPrimaryItemsGerman = [
+export const jiraPrimaryItemsGerman: React.JSX.Element[] = [
 	<NavigationButton
 		onClick={(...args: any[]) => {
 			console.log('Your work click', ...args);
@@ -294,7 +294,7 @@ export const jiraPrimaryItemsGerman = [
 	</NavigationButton>,
 ];
 
-export const jiraPrimaryItemsSpanish = [
+export const jiraPrimaryItemsSpanish: React.JSX.Element[] = [
 	<NavigationButton
 		onClick={(...args: any[]) => {
 			console.log('Your work click', ...args);
@@ -348,7 +348,7 @@ export const jiraPrimaryItemsSpanish = [
 	</NavigationButton>,
 ];
 
-export const jiraPrimaryItemsTurkish = [
+export const jiraPrimaryItemsTurkish: React.JSX.Element[] = [
 	<NavigationButton
 		onClick={(...args: any[]) => {
 			console.log('Your work click', ...args);
@@ -402,7 +402,7 @@ export const jiraPrimaryItemsTurkish = [
 	</NavigationButton>,
 ];
 
-export const jiraPrimaryItemsJapanese = [
+export const jiraPrimaryItemsJapanese: React.JSX.Element[] = [
 	<NavigationButton
 		onClick={(...args: any[]) => {
 			console.log('Your work click', ...args);
@@ -456,4 +456,4 @@ export const jiraPrimaryItemsJapanese = [
 	</NavigationButton>,
 ];
 
-export const defaultPrimaryItems = jiraPrimaryItems;
+export const defaultPrimaryItems: React.JSX.Element[] = jiraPrimaryItems;

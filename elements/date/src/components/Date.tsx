@@ -48,7 +48,7 @@ export class Date extends React.Component<Props> {
 		return format(this.props.value, this.props.format || '');
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<DateLozenge
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

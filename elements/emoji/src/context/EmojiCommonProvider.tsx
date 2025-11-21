@@ -19,7 +19,9 @@ export interface EmojiCommonProviderProps {
  * const emojiResource = new EmojiResource(resourceConfig)
  * <EmojiCommonProvider emojiProvider={emojiResource} />
  */
-export const EmojiCommonProvider = (props: React.PropsWithChildren<EmojiCommonProviderProps>) => {
+export const EmojiCommonProvider = (
+	props: React.PropsWithChildren<EmojiCommonProviderProps>,
+): React.JSX.Element => {
 	const emojiContextValue = useMemo(
 		() =>
 			props.emojiProvider

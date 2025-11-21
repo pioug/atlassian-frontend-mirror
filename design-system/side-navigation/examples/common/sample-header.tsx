@@ -17,7 +17,7 @@ const Container = ({ children, ...props }: CustomItemComponentProps) => {
 	);
 };
 
-const ExampleHeader = () => {
+const ExampleHeader = (): React.JSX.Element => {
 	return (
 		<Header
 			component={Container}

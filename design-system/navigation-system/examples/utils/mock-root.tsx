@@ -14,6 +14,6 @@ const mockRootStyles = xcss({
  *
  * It also avoids examples occupying the full screen height.
  */
-export function MockRoot({ children }: { children: ReactNode }) {
+export function MockRoot({ children }: { children: ReactNode }): React.JSX.Element {
 	return <Box xcss={mockRootStyles}>{children}</Box>;
 }

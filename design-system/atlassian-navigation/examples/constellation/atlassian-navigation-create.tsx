@@ -14,7 +14,7 @@ const CreateButton = () => (
 
 const Home = () => <ProductHome icon={JiraIcon} logo={JiraLogo} />;
 
-const CreateButtonExample = () => (
+const CreateButtonExample = (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		renderProductHome={Home}

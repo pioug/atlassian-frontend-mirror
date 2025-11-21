@@ -4,7 +4,7 @@ import Heading from '@atlaskit/heading';
 
 import SuccessContainer from './SuccessContainer';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<SuccessContainer>
 		<Heading size="xsmall">Thanks for your feedback</Heading>
 	</SuccessContainer>

@@ -54,7 +54,7 @@ const tagNames = [
 	'wafer',
 ];
 
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		<h2 id="group-label">Tags with rounded appearance</h2>
 		<TagGroup titleId="group-label">

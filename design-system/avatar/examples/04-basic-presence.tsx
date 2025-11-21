@@ -5,7 +5,7 @@ import { Stack } from '@atlaskit/primitives/compiled';
 
 import { Block, ShrinkWrap } from '../examples-util/helpers';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Stack space="space.200">
 		<Block heading="Presence">
 			<ShrinkWrap>

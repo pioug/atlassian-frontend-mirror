@@ -47,7 +47,13 @@ const AwsIconGlyph = (props: CustomGlyphProps) => {
 /**
  * __AwsIcon__
  */
-const AwsIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const AwsIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

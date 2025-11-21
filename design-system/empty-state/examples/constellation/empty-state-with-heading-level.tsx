@@ -5,7 +5,7 @@ import EmptyState from '@atlaskit/empty-state';
 
 import LockClosedImage from '../images/LockClosed.png';
 
-const EmptyStateWithHeadingProps = () => {
+const EmptyStateWithHeadingProps = (): React.JSX.Element => {
 	return (
 		<EmptyState
 			header="You don't have access to this work item"

@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { AuditLogExportButton } from '../src';
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	const handleExport = async (params: {
 		action?: string;
 		actor?: string;

@@ -14,7 +14,7 @@ import { presidents } from './content/presidents';
  * 2. Type data
  * 3. Selection / Multi-selection
  */
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	return (
 		<Table isSelectable testId="table">
 			<THead

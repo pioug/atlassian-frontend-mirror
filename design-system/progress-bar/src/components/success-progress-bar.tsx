@@ -17,7 +17,7 @@ const SuccessProgressBar = ({
 	isIndeterminate = false,
 	testId,
 	value = 0,
-}: CustomProgressBarProps) => {
+}: CustomProgressBarProps): React.JSX.Element => {
 	return (
 		<ProgressBar
 			appearance={value < 1 || isIndeterminate ? 'default' : 'success'}

@@ -35,7 +35,7 @@ const actionsContent = (
 	</ButtonGroup>
 );
 
-const PageHeaderWrappingExample = () => {
+const PageHeaderWrappingExample = (): React.JSX.Element => {
 	return (
 		<Stack space="space.025">
 			<Box>

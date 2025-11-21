@@ -15,7 +15,7 @@ import { type TabPanelAttributesType, type TabPanelProps } from '../types';
  * - [Code](https://atlassian.design/components/tabs/code)
  * - [Usage](https://atlassian.design/components/tabs/usage)
  */
-const TabPanel = ({ children, testId }: TabPanelProps) => {
+const TabPanel = ({ children, testId }: TabPanelProps): React.JSX.Element => {
 	const {
 		role,
 		id,

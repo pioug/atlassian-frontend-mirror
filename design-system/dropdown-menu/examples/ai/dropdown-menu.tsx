@@ -4,7 +4,7 @@ import { IconButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 
-export default [
+const _default_1: React.JSX.Element[] = [
 	<DropdownMenu
 		shouldRenderToParent
 		trigger={({ triggerRef, ...props }) => (
@@ -24,3 +24,4 @@ export default [
 		</DropdownItemGroup>
 	</DropdownMenu>,
 ];
+export default _default_1;

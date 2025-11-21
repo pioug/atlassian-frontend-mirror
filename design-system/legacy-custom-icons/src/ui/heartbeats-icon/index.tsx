@@ -25,7 +25,13 @@ const HeartbeatsIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __HeartbeatsIcon__
  */
-const HeartbeatsIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const HeartbeatsIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

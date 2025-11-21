@@ -76,7 +76,7 @@ export interface RadioGroupProps {
 
 const noOptions: OptionsPropType = [];
 
-export default function RadioGroup(props: RadioGroupProps) {
+export default function RadioGroup(props: RadioGroupProps): React.JSX.Element {
 	const {
 		onChange,
 		options = noOptions,

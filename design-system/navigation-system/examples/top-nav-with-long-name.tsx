@@ -26,7 +26,7 @@ import { WithResponsiveViewport } from './utils/example-utils';
 
 const Badge = () => <AKBadge appearance="important">{5}</AKBadge>;
 
-export default function TopNavWithLongProductName() {
+export default function TopNavWithLongProductName(): React.JSX.Element {
 	return (
 		<WithResponsiveViewport>
 			{/**

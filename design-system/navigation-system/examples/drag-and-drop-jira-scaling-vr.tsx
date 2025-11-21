@@ -14,7 +14,7 @@ const FontScaleContainer = ({ children }: { children: ReactNode }) => {
 	return children;
 };
 
-const AppScaled = () => {
+const AppScaled = (): React.JSX.Element => {
 	return (
 		<FontScaleContainer>
 			<App />

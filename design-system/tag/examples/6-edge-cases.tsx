@@ -2,7 +2,7 @@ import React from 'react';
 
 import { RemovableTag as Tag } from '@atlaskit/tag';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<p>edge case: a simple tag (should warn that no text was given in dev)</p>
 		<Tag text="example" isRemovable={false} />

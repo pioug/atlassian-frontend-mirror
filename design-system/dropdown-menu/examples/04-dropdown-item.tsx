@@ -13,7 +13,7 @@ const CustomComponent: React.ForwardRefExoticComponent<
 	</a>
 ));
 
-export default () => (
+export default (): React.JSX.Element => (
 	<DropdownMenu trigger="Filter cities" shouldRenderToParent>
 		<DropdownItemGroup>
 			<DropdownItem>Not visible</DropdownItem>

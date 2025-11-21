@@ -2,7 +2,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { EmojiPlaceholder } from '../src';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const shortName = ':cool:';
 
 	return (

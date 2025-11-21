@@ -15,7 +15,7 @@ export const DrawerCloseButton = ({
 	icon: Icon,
 	label = 'Close drawer',
 	testId = 'DrawerCloseButton',
-}: DrawerCloseButtonProps) => {
+}: DrawerCloseButtonProps): React.JSX.Element => {
 	useEnsureIsInsideDrawer();
 	const onClose = useOnClose();
 

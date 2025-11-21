@@ -13,7 +13,7 @@ import ModalDialog, {
 import { RadioGroup } from '@atlaskit/radio';
 import Textfield from '@atlaskit/textfield';
 
-const FormModalDialogExample = () => {
+const FormModalDialogExample = (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const open = () => setIsOpen(true);

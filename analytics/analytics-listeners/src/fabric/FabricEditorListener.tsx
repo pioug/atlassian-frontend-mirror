@@ -26,7 +26,7 @@ export default class FabricEditorListener extends React.Component<ListenerProps>
 		handleEvent(event, [EDITOR_TAG, LEGACY_EDITOR_TAG], this.props.logger, this.props.client);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<AnalyticsListener onEvent={this.handleEventWrapper} channel={FabricChannel.editor}>
 				{this.props.children}

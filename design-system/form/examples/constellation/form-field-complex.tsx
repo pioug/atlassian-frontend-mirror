@@ -13,7 +13,7 @@ import Form, {
 import { Flex } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
 
-const FormFieldExample = () => (
+const FormFieldExample = (): React.JSX.Element => (
 	<Flex direction="column">
 		<Form onSubmit={(data) => console.log('form data', data)}>
 			{({ formProps, submitting }) => (

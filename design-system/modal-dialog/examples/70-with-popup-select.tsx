@@ -20,7 +20,7 @@ const options = [
 	{ label: 'Sydney', value: 'sydney' },
 ];
 
-export default function ModalWithPopupSelect() {
+export default function ModalWithPopupSelect(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const open = useCallback(() => setIsOpen(true), []);
 	const close = useCallback(() => setIsOpen(false), []);

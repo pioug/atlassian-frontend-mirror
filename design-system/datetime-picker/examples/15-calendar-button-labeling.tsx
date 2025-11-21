@@ -5,7 +5,7 @@ import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
 import { Box } from '@atlaskit/primitives/compiled';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Box>
 			<Heading size="large">Date picker</Heading>

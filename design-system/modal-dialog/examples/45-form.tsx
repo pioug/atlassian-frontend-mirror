@@ -14,7 +14,7 @@ import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
 import Textfield from '@atlaskit/textfield';
 
-export default function ModalDialogForm() {
+export default function ModalDialogForm(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const open = () => setIsOpen(true);
 	const close = () => setIsOpen(false);

@@ -6,7 +6,7 @@ import { document } from '@atlaskit/util-data-test/task-decision-story-data';
 import { TaskItem } from '../src';
 import { dumpRef, action } from '../example-helpers/story-utils';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<h3>Simple TaskItem</h3>
 		<TaskItem taskId="task-1" contentRef={dumpRef} onChange={action('onChange')}>

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Comment from '@atlaskit/comment';
 
-export default [
+const _default_1: React.JSX.Element[] = [
 	<Comment
 		author="Bob Johnson"
 		time="30 minutes ago"
@@ -10,3 +10,4 @@ export default [
 		avatar="https://picsum.photos/32/32"
 	/>,
 ];
+export default _default_1;

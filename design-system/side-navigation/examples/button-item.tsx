@@ -4,7 +4,7 @@ import AddItemIcon from '@atlaskit/icon/glyph/add-item';
 import OpenIcon from '@atlaskit/icon/glyph/open';
 import { ButtonItem } from '@atlaskit/side-navigation';
 
-const Example = () => (
+const Example = (): React.JSX.Element => (
 	<>
 		<ButtonItem>Create article</ButtonItem>
 		<ButtonItem isSelected>Create article</ButtonItem>

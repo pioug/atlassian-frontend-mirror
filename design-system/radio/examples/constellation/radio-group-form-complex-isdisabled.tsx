@@ -14,7 +14,7 @@ const options: OptionsPropType = [
 	{ name: 'color', value: 'green', label: 'Green', isDisabled: true },
 ];
 
-export default function FormExample() {
+export default function FormExample(): React.JSX.Element {
 	const [isDisabledChecked, setIsDisabled] = useState<boolean>(false);
 	const toggleCheckbox = useCallback((event: SyntheticEvent<HTMLInputElement>) => {
 		setIsDisabled(event.currentTarget.checked);

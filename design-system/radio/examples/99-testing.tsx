@@ -16,7 +16,7 @@ const options: OptionsPropType = [
 	},
 ];
 
-export default function BasicExample() {
+export default function BasicExample(): React.JSX.Element {
 	return (
 		<Fragment>
 			<h4 id="radiogroup-testing-label">Choose a color:</h4>

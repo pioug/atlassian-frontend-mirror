@@ -3,7 +3,7 @@ import React from 'react';
 import Tag, { SimpleTag } from '@atlaskit/tag';
 import TagGroup from '@atlaskit/tag-group';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<h2 id="group-label">Tags with labels for remove button</h2>
 		<TagGroup titleId="group-label" alignment="start">

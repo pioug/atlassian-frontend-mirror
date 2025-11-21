@@ -87,7 +87,7 @@ export default class extends Component {
 		});
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<TableTree>
 				<Headers>

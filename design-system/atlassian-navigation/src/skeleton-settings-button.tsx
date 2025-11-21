@@ -24,7 +24,9 @@ export type SkeletonSettingsButtonProps = {
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#skeleton-button)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const SkeletonSettingsButton = ({ label = '' }: SkeletonSettingsButtonProps) => (
+export const SkeletonSettingsButton = ({
+	label = '',
+}: SkeletonSettingsButtonProps): React.JSX.Element => (
 	<SkeletonIconButton>
 		<SettingsIcon color="currentColor" spacing="spacious" label={label} />
 	</SkeletonIconButton>
@@ -35,7 +37,9 @@ export const SkeletonSettingsButton = ({ label = '' }: SkeletonSettingsButtonPro
  *
  * A nav 4 skeleton settings button
  */
-export const Nav4SkeletonSettingsButton = ({ label = '' }: SkeletonSettingsButtonProps) => (
+export const Nav4SkeletonSettingsButton = ({
+	label = '',
+}: SkeletonSettingsButtonProps): React.JSX.Element => (
 	<SkeletonIconButton>
 		<Nav4SettingsIcon label={label} color={token('color.icon')} />
 	</SkeletonIconButton>

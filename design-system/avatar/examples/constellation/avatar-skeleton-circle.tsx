@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Skeleton } from '@atlaskit/avatar';
 
-const AvatarSkeletonCircleExample = () => {
+const AvatarSkeletonCircleExample = (): React.JSX.Element => {
 	return <Skeleton appearance="circle" />;
 };
 

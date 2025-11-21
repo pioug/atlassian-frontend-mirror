@@ -9,7 +9,7 @@ import Modal, { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '@atl
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [dateTimePickerValue, setDateTimePickerValue] = useState<string>('2018-01-02T14:30+11:00');
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 	const [textAbove, setTextAbove] = useState<number>(1);

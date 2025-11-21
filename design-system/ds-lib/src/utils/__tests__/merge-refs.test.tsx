@@ -1,4 +1,4 @@
-import { createRef } from 'react';
+import { createRef, type RefCallback } from 'react';
 
 import mergeRefs from '../merge-refs';
 
@@ -36,7 +36,52 @@ describe('#mergeRefs', () => {
 
 		expect(refFn).toHaveBeenCalledTimes(1);
 		expect(refFn).toHaveBeenCalledWith(node);
-
 		expect(refObject.current).toEqual(node);
+	});
+
+	it('should allow you to pass in null, undefined or false', () => {
+		const refObject = createRef<HTMLElement | null>();
+		const refFn = jest.fn() as (node: HTMLElement | null) => void;
+
+		mergeRefs([refObject, null, undefined, false, refFn])(node);
+
+		expect(refFn).toHaveBeenCalledTimes(1);
+		expect(refFn).toHaveBeenCalledWith(node);
+		expect(refObject.current).toEqual(node);
+	});
+
+	it('should maintain the types of the passed in ref', () => {
+		const button = document.createElement('button');
+		const refObject = createRef<HTMLButtonElement | null>();
+
+		// no errors
+		mergeRefs([refObject, null, undefined, false])(button);
+		mergeRefs<HTMLButtonElement | null>([refObject, null, undefined, false])(button);
+		const callback = mergeRefs([
+			refObject,
+			null,
+			undefined,
+			false,
+		]) satisfies RefCallback<HTMLButtonElement | null>;
+
+		expect(typeof callback).toBe('function');
+	});
+
+	it('should maintain the types of the passed in ref (lower ref type)', () => {
+		const button = document.createElement('button');
+		button.type = 'button'; // appeasing a11y tooling
+		const refObject = createRef<HTMLElement | null>();
+
+		// no errors
+		mergeRefs([refObject, null, undefined, false])(button);
+		mergeRefs<HTMLElement | null>([refObject, null, undefined, false])(button);
+		const callback = mergeRefs([
+			refObject,
+			null,
+			undefined,
+			false,
+		]) satisfies RefCallback<HTMLElement | null>;
+
+		expect(typeof callback).toBe('function');
 	});
 });

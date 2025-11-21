@@ -3,7 +3,7 @@ import React from 'react';
 import { Box } from '@atlaskit/primitives/compiled';
 import { RemovableTag as Tag } from '@atlaskit/tag';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box role="group" aria-label="Removable tag state examples">
 		<Tag text="Removable button" removeButtonLabel="Remove" testId="removableTag" />
 		<Tag

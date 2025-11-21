@@ -2,7 +2,7 @@ import React from 'react';
 
 import { GoBackItem, Section } from '@atlaskit/side-navigation';
 
-const ButtonItemExample = () => {
+const ButtonItemExample = (): React.JSX.Element => {
 	return (
 		<div>
 			<Section>

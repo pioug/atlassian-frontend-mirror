@@ -158,7 +158,7 @@ const listenerHandler = (event: UIAnalyticsEvent, channel?: string) => {
 
 const Globe = () => <WorldIcon color="currentColor" spacing="spacious" label="" />;
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const defaultProps: State = {
 		isAutoOpenDialog: false,
 		customButton: false,

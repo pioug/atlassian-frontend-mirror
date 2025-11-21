@@ -34,7 +34,13 @@ const ManualTriggerGlyph = (props: CustomGlyphProps) => (
 /**
  * __ManualTriggerIcon__
  */
-const ManualTriggerIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const ManualTriggerIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size,
+	testId,
+}: IconProps): React.JSX.Element => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

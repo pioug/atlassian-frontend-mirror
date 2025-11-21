@@ -10,7 +10,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		<SkeletonHeadingItem />
 		<SkeletonHeadingItem isShimmering testId="is-shimmering" />

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Pagination from '@atlaskit/pagination';
 
-export default function PaginationDefaultSelectedIndexExample() {
+export default function PaginationDefaultSelectedIndexExample(): React.JSX.Element {
 	return (
 		<Pagination
 			defaultSelectedIndex={5}

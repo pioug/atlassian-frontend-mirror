@@ -34,7 +34,9 @@ export interface CachingEmojiProps extends EmojiProps {
 /**
  * Renders an emoji from a cached image, if required.
  */
-export const CachingEmoji = (props: React.PropsWithChildren<CachingEmojiProps>) => {
+export const CachingEmoji = (
+	props: React.PropsWithChildren<CachingEmojiProps>,
+): React.JSX.Element => {
 	// Optimisation to only render CachingMediaEmoji if necessary
 	// slight performance hit, which accumulates for a large number of emoji.
 	const { emoji, placeholderSize, ...restProps } = props;
@@ -89,7 +91,9 @@ const StandardEmoji = (props: React.PropsWithChildren<EmojiProps>) => {
  * Rendering a media emoji image from a cache for media emoji, with different
  * rendering paths depending on caching strategy.
  */
-export const CachingMediaEmoji = (props: React.PropsWithChildren<CachingEmojiProps>) => {
+export const CachingMediaEmoji = (
+	props: React.PropsWithChildren<CachingEmojiProps>,
+): React.JSX.Element => {
 	const { emoji, placeholderSize, showTooltip, fitToHeight, children, ...restProps } = props;
 	const { shortName, representation } = emoji;
 	const [cachedEmoji, setCachedEmoji] = useState<EmojiDescription>();

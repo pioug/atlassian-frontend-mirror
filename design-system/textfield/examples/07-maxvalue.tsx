@@ -3,7 +3,7 @@ import React from 'react';
 import { Label } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 
-export default function MaxValueExample() {
+export default function MaxValueExample(): React.JSX.Element {
 	return (
 		<div>
 			<Label htmlFor="max">Max length of 5</Label>

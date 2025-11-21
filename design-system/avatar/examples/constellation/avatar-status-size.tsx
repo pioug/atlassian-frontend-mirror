@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Status } from '@atlaskit/avatar';
 import { token } from '@atlaskit/tokens';
 
-const AvatarStatusWidthExample = () => {
+const AvatarStatusWidthExample = (): React.JSX.Element => {
 	const [width, setWidth] = useState(60);
 
 	return (

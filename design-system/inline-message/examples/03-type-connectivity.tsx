@@ -16,7 +16,7 @@ const messageContent = (
 	</Stack>
 );
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Stack space="space.200">
 		<InlineMessage
 			appearance="connectivity"

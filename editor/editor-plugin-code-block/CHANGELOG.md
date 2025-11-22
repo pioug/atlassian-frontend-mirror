@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block
 
+## 8.1.11
+
+### Patch Changes
+
+- [`8854ad2383b33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8854ad2383b33) -
+  Suppress no-literal-string-in-jsx
+- Updated dependencies
+
 ## 8.1.10
 
 ### Patch Changes

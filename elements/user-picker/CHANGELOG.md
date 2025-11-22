@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 11.16.1
+
+### Patch Changes
+
+- [`20c95ab442102`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20c95ab442102) -
+  Suppres no-literal-string-in-jsx
+
 ## 11.16.0
 
 ### Minor Changes

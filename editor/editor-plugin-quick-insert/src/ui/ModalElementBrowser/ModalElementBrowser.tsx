@@ -180,11 +180,13 @@ const Footer = ({
 						appearance="primary"
 						onClick={onInsert}
 						testId="ModalElementBrowser__insert-button"
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 					>
 						Insert
 					</Button>
 				</div>
 				<div css={actionItemStyles}>
+					{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 					<Button appearance="subtle" onClick={onClose} testId="ModalElementBrowser__close-button">
 						Close
 					</Button>

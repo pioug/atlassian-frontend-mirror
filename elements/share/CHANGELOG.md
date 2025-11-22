@@ -1,5 +1,13 @@
 # @atlaskit/share
 
+## 6.16.19
+
+### Patch Changes
+
+- [`20c95ab442102`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20c95ab442102) -
+  Suppres no-literal-string-in-jsx
+- Updated dependencies
+
 ## 6.16.18
 
 ### Patch Changes

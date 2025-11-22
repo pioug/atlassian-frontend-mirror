@@ -59,6 +59,7 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 					<span
 						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={fg('platform_user_picker_firefox_tab_fix') ? styles(color) : textWrapper(color)}
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 					>
 						(
 						<HighlightText highlights={highlight && highlight.publicName}>

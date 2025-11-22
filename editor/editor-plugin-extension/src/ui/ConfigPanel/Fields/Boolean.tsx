@@ -126,6 +126,7 @@ function Toggle({
 							<label css={toggleLabelStyles} htmlFor={id}>
 								{label}
 								{isRequired ? (
+									// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 									<Text color="color.text.danger" aria-hidden="true">
 										*
 									</Text>

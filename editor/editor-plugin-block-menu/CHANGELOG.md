@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.0.15
+
+### Patch Changes
+
+- [`8854ad2383b33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8854ad2383b33) -
+  Suppress no-literal-string-in-jsx
+- Updated dependencies
+
 ## 5.0.14
 
 ### Patch Changes

@@ -110,8 +110,7 @@ export default function CheckboxGroup({
 			{labelBase}
 			{isRequired ? (
 				<span css={requiredIndicatorStyles} aria-hidden="true">
-					{' '}
-					*
+					{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */} *
 				</span>
 			) : null}
 		</Fragment>

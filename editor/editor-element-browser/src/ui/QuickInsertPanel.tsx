@@ -1,3 +1,4 @@
+/* eslint-disable @atlassian/i18n/no-literal-string-in-jsx */
 import React, { memo, useCallback } from 'react';
 
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';

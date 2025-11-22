@@ -226,15 +226,18 @@ const BlockMenuContent = ({
 					nestedMenu: () => (
 						<ToolbarNestedDropdownMenu elemBefore={undefined} elemAfter={undefined}>
 							<ToolbarDropdownItemSection>
+								{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 								<ToolbarDropdownItem>Block Menu Item</ToolbarDropdownItem>
 							</ToolbarDropdownItemSection>
 						</ToolbarNestedDropdownMenu>
 					),
 					section: () => (
 						<ToolbarDropdownItemSection>
+							{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 							<ToolbarDropdownItem>Block Menu Item</ToolbarDropdownItem>
 						</ToolbarDropdownItemSection>
 					),
+					// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 					item: () => <ToolbarDropdownItem>Block Menu Item</ToolbarDropdownItem>,
 				}}
 			/>

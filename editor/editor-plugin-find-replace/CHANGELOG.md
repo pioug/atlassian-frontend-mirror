@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 6.1.1
+
+### Patch Changes
+
+- [`8854ad2383b33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8854ad2383b33) -
+  Suppress no-literal-string-in-jsx
+
 ## 6.1.0
 
 ### Minor Changes

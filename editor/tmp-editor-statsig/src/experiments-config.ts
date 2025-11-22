@@ -170,6 +170,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-11-20
+	'company-hub-config-panel-keyboard-nav': createBooleanExperiment({
+		productKeys: {
+			confluence: 'company-hub-config-panel-keyboard-nav',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-10-10
 	platform_editor_experience_tracking: createBooleanExperiment({
 		productKeys: {

@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.42.0
+
+### Minor Changes
+
+- [`73b70015b0789`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73b70015b0789) -
+  Adding exp gate: company-hub-config-panel-keyboard-nav
+
 ## 13.41.0
 
 ### Minor Changes

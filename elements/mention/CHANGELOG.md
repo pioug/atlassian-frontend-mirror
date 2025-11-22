@@ -1,5 +1,12 @@
 # @atlaskit/mention
 
+## 24.4.3
+
+### Patch Changes
+
+- [`20c95ab442102`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20c95ab442102) -
+  Suppres no-literal-string-in-jsx
+
 ## 24.4.2
 
 ### Patch Changes

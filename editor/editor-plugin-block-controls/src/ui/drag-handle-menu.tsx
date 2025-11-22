@@ -13,5 +13,6 @@ export const DragHandleMenu = ({
 	const { isMenuOpen } = useSharedPluginStateWithSelector(api, ['blockControls'], (states) => ({
 		isMenuOpen: states.blockControlsState?.isMenuOpen,
 	}));
+	// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 	return isMenuOpen ? <div>menu</div> : null;
 };

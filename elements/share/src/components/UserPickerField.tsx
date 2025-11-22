@@ -404,6 +404,7 @@ export class UserPickerFieldComponent extends React.Component<WrappedComponentPr
 									{shareError.message}
 									&nbsp;
 									{shareError.helpUrl && (
+										// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 										<Link target="_blank" href={shareError.helpUrl} rel="help">
 											Learn why
 										</Link>

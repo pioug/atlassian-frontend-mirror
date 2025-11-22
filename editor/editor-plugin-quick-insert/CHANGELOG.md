@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 6.0.11
+
+### Patch Changes
+
+- [`8854ad2383b33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8854ad2383b33) -
+  Suppress no-literal-string-in-jsx
+
 ## 6.0.10
 
 ### Patch Changes

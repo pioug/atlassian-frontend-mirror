@@ -1,5 +1,19 @@
 # @atlaskit/editor-element-browser
 
+## 4.0.8
+
+### Patch Changes
+
+- [`eb0414711d970`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb0414711d970) -
+  Clean up and suppress i18n errors
+
+## 4.0.7
+
+### Patch Changes
+
+- [`8854ad2383b33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8854ad2383b33) -
+  Suppress no-literal-string-in-jsx
+
 ## 4.0.6
 
 ### Patch Changes

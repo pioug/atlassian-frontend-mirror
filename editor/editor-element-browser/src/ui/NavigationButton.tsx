@@ -151,6 +151,7 @@ const ButtonBase = memo(
 								</Box>
 								{attributes?.new && (
 									<Box>
+										{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 										<Lozenge appearance="new">New</Lozenge>
 									</Box>
 								)}

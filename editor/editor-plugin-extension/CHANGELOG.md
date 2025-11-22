@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-extension
 
+## 9.2.5
+
+### Patch Changes
+
+- [`8854ad2383b33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8854ad2383b33) -
+  Suppress no-literal-string-in-jsx
+
 ## 9.2.4
 
 ### Patch Changes

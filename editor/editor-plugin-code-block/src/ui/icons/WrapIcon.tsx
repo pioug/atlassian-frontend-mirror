@@ -17,6 +17,7 @@ const CustomGlyph = () => (
 
 export const WrapIcon = () => {
 	return fg('platform-custom-icon-migration') ? (
+		// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 		<CustomGlyph aria-label="wrapIcon" />
 	) : (
 		<Icon glyph={CustomGlyph} label="wrapIcon" />

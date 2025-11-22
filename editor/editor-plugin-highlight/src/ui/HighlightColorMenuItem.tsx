@@ -125,6 +125,7 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 						appearance="subtle"
 						onClick={() => handleHighlightColorChange(REMOVE_HIGHLIGHT_COLOR)}
 					>
+						{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 						<Text weight="medium">Remove highlight</Text>
 					</Button>
 				</div>

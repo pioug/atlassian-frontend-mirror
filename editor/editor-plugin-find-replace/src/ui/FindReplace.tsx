@@ -114,6 +114,7 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 		return (
 			<div
 				role={'dialog'}
+				// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 				aria-label={'Find and Replace'}
 				aria-modal={false}
 				ref={this.modalRef}

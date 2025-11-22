@@ -121,6 +121,7 @@ export const ListButtonItem = memo((props: ButtonItemProps) => {
 		return (
 			<Inline space="space.100" alignBlock={'center'}>
 				<Text>{title}</Text>
+				{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 				{attributes?.new && <Lozenge appearance="new">New</Lozenge>}
 			</Inline>
 		);

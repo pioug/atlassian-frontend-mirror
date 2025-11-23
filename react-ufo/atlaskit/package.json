@@ -200,6 +200,9 @@
 		"platform_editor_exclude_dnd_anchor_name_from_ttvc": {
 			"type": "boolean"
 		},
+		"platform_ufo_ssr_render_profiler": {
+			"type": "boolean"
+		},
 		"platform_ufo_enable_finish_interaction_transition": {
 			"type": "boolean"
 		},

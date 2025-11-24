@@ -8,6 +8,7 @@ export type VCObserverEntryType =
 	| 'mutation:element'
 	| 'mutation:element-replacement'
 	| 'mutation:display-contents-children-element'
+	| 'mutation:display-contents-children-attribute'
 	| 'mutation:attribute:no-layout-shift'
 	| 'mutation:attribute:non-visual-style'
 	| 'mutation:attribute'

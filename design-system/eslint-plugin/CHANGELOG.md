@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.26.0
+
+### Minor Changes
+
+- [`35453fb5a0310`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/35453fb5a0310) -
+  Updates the `lozenge-appearance-and-isBold-migration` to be
+  `lozenge-isBold-and-lozenge-badge-appearance-migration` to help migrate deprecated Badge usages to
+  the new API as part of the Labelling System Phase 1 migration as well as lozenge.
+
 ## 13.25.0
 
 ### Minor Changes

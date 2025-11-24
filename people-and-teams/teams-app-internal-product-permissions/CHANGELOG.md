@@ -1,5 +1,11 @@
 # @atlaskit/teams-app-internal-product-permissions
 
+## 1.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.8
 
 ### Patch Changes

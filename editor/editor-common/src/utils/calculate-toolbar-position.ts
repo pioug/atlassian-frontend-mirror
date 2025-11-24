@@ -119,7 +119,7 @@ export const calculateToolbarPositionTrackHead =
 			!!moreRovoOptionsButton.offsetParent;
 
 		let range: Range | null = null;
-		if (isMoreRovoOptionsButtonVisible && fg('aifc_create_enabled')) {
+		if (isMoreRovoOptionsButtonVisible && fg('platform_editor_ai_generic_prep_for_aifc')) {
 			if (selection && selection.getRangeAt && selection.rangeCount > 0) {
 				const maybeRange = selection.getRangeAt(0);
 				if (maybeRange instanceof Range) {

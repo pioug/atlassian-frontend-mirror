@@ -232,7 +232,7 @@ export class PluginState {
 				this.onError(err as Error);
 			}
 
-			if (!fg('aifc_create_enabled')) {
+			if (!fg('platform_editor_ai_generic_prep_for_aifc')) {
 				// Remove any selection decoration within the change range,
 				// takes care of the issue when after pasting we end up with a dead selection
 				tr.steps.filter(isReplaceStep).forEach((s: Step) => {

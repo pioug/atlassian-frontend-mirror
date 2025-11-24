@@ -156,30 +156,45 @@ exports[`@atlaskit/primitives background styles are generated correctly 1`] = `
 	'color.background.danger': 'var(--ds-background-danger)';
 	'color.background.danger.hovered': 'var(--ds-background-danger-hovered)';
 	'color.background.danger.pressed': 'var(--ds-background-danger-pressed)';
+	'color.background.danger.subtler': 'var(--ds-background-danger-subtler)';
+	'color.background.danger.subtler.hovered': 'var(--ds-background-danger-subtler-hovered)';
+	'color.background.danger.subtler.pressed': 'var(--ds-background-danger-subtler-pressed)';
 	'color.background.danger.bold': 'var(--ds-background-danger-bold)';
 	'color.background.danger.bold.hovered': 'var(--ds-background-danger-bold-hovered)';
 	'color.background.danger.bold.pressed': 'var(--ds-background-danger-bold-pressed)';
 	'color.background.warning': 'var(--ds-background-warning)';
 	'color.background.warning.hovered': 'var(--ds-background-warning-hovered)';
 	'color.background.warning.pressed': 'var(--ds-background-warning-pressed)';
+	'color.background.warning.subtler': 'var(--ds-background-warning-subtler)';
+	'color.background.warning.subtler.hovered': 'var(--ds-background-warning-subtler-hovered)';
+	'color.background.warning.subtler.pressed': 'var(--ds-background-warning-subtler-pressed)';
 	'color.background.warning.bold': 'var(--ds-background-warning-bold)';
 	'color.background.warning.bold.hovered': 'var(--ds-background-warning-bold-hovered)';
 	'color.background.warning.bold.pressed': 'var(--ds-background-warning-bold-pressed)';
 	'color.background.success': 'var(--ds-background-success)';
 	'color.background.success.hovered': 'var(--ds-background-success-hovered)';
 	'color.background.success.pressed': 'var(--ds-background-success-pressed)';
+	'color.background.success.subtler': 'var(--ds-background-success-subtler)';
+	'color.background.success.subtler.hovered': 'var(--ds-background-success-subtler-hovered)';
+	'color.background.success.subtler.pressed': 'var(--ds-background-success-subtler-pressed)';
 	'color.background.success.bold': 'var(--ds-background-success-bold)';
 	'color.background.success.bold.hovered': 'var(--ds-background-success-bold-hovered)';
 	'color.background.success.bold.pressed': 'var(--ds-background-success-bold-pressed)';
 	'color.background.discovery': 'var(--ds-background-discovery)';
 	'color.background.discovery.hovered': 'var(--ds-background-discovery-hovered)';
 	'color.background.discovery.pressed': 'var(--ds-background-discovery-pressed)';
+	'color.background.discovery.subtler': 'var(--ds-background-discovery-subtler)';
+	'color.background.discovery.subtler.hovered': 'var(--ds-background-discovery-subtler-hovered)';
+	'color.background.discovery.subtler.pressed': 'var(--ds-background-discovery-subtler-pressed)';
 	'color.background.discovery.bold': 'var(--ds-background-discovery-bold)';
 	'color.background.discovery.bold.hovered': 'var(--ds-background-discovery-bold-hovered)';
 	'color.background.discovery.bold.pressed': 'var(--ds-background-discovery-bold-pressed)';
 	'color.background.information': 'var(--ds-background-information)';
 	'color.background.information.hovered': 'var(--ds-background-information-hovered)';
 	'color.background.information.pressed': 'var(--ds-background-information-pressed)';
+	'color.background.information.subtler': 'var(--ds-background-information-subtler)';
+	'color.background.information.subtler.hovered': 'var(--ds-background-information-subtler-hovered)';
+	'color.background.information.subtler.pressed': 'var(--ds-background-information-subtler-pressed)';
 	'color.background.information.bold': 'var(--ds-background-information-bold)';
 	'color.background.information.bold.hovered': 'var(--ds-background-information-bold-hovered)';
 	'color.background.information.bold.pressed': 'var(--ds-background-information-bold-pressed)';
@@ -696,12 +711,30 @@ exports[`@atlaskit/primitives background styles are generated correctly 1`] = `
 	'color.background.danger': token('color.background.danger', '#FFEBE6'),
 	'color.background.danger.hovered': token('color.background.danger.hovered', '#FFBDAD'),
 	'color.background.danger.pressed': token('color.background.danger.pressed', '#FF8F73'),
+	'color.background.danger.subtler': token('color.background.danger.subtler', '#FFBDAD'),
+	'color.background.danger.subtler.hovered': token(
+		'color.background.danger.subtler.hovered',
+		'#FF8F73',
+	),
+	'color.background.danger.subtler.pressed': token(
+		'color.background.danger.subtler.pressed',
+		'#FF7452',
+	),
 	'color.background.danger.bold': token('color.background.danger.bold', '#DE350B'),
 	'color.background.danger.bold.hovered': token('color.background.danger.bold.hovered', '#FF5630'),
 	'color.background.danger.bold.pressed': token('color.background.danger.bold.pressed', '#BF2600'),
 	'color.background.warning': token('color.background.warning', '#FFFAE6'),
 	'color.background.warning.hovered': token('color.background.warning.hovered', '#FFF0B3'),
 	'color.background.warning.pressed': token('color.background.warning.pressed', '#FFE380'),
+	'color.background.warning.subtler': token('color.background.warning.subtler', '#FFF0B3'),
+	'color.background.warning.subtler.hovered': token(
+		'color.background.warning.subtler.hovered',
+		'#FFE380',
+	),
+	'color.background.warning.subtler.pressed': token(
+		'color.background.warning.subtler.pressed',
+		'#FFC400',
+	),
 	'color.background.warning.bold': token('color.background.warning.bold', '#FFAB00'),
 	'color.background.warning.bold.hovered': token(
 		'color.background.warning.bold.hovered',
@@ -714,6 +747,15 @@ exports[`@atlaskit/primitives background styles are generated correctly 1`] = `
 	'color.background.success': token('color.background.success', '#E3FCEF'),
 	'color.background.success.hovered': token('color.background.success.hovered', '#ABF5D1'),
 	'color.background.success.pressed': token('color.background.success.pressed', '#79F2C0'),
+	'color.background.success.subtler': token('color.background.success.subtler', '#ABF5D1'),
+	'color.background.success.subtler.hovered': token(
+		'color.background.success.subtler.hovered',
+		'#79F2C0',
+	),
+	'color.background.success.subtler.pressed': token(
+		'color.background.success.subtler.pressed',
+		'#57D9A3',
+	),
 	'color.background.success.bold': token('color.background.success.bold', '#00875A'),
 	'color.background.success.bold.hovered': token(
 		'color.background.success.bold.hovered',
@@ -726,6 +768,15 @@ exports[`@atlaskit/primitives background styles are generated correctly 1`] = `
 	'color.background.discovery': token('color.background.discovery', '#EAE6FF'),
 	'color.background.discovery.hovered': token('color.background.discovery.hovered', '#C0B6F2'),
 	'color.background.discovery.pressed': token('color.background.discovery.pressed', '#998DD9'),
+	'color.background.discovery.subtler': token('color.background.discovery.subtler', '#C0B6F2'),
+	'color.background.discovery.subtler.hovered': token(
+		'color.background.discovery.subtler.hovered',
+		'#998DD9',
+	),
+	'color.background.discovery.subtler.pressed': token(
+		'color.background.discovery.subtler.pressed',
+		'#8777D9',
+	),
 	'color.background.discovery.bold': token('color.background.discovery.bold', '#5243AA'),
 	'color.background.discovery.bold.hovered': token(
 		'color.background.discovery.bold.hovered',
@@ -738,6 +789,15 @@ exports[`@atlaskit/primitives background styles are generated correctly 1`] = `
 	'color.background.information': token('color.background.information', '#DEEBFF'),
 	'color.background.information.hovered': token('color.background.information.hovered', '#B3D4FF'),
 	'color.background.information.pressed': token('color.background.information.pressed', '#4C9AFF'),
+	'color.background.information.subtler': token('color.background.information.subtler', '#B3D4FF'),
+	'color.background.information.subtler.hovered': token(
+		'color.background.information.subtler.hovered',
+		'#4C9AFF',
+	),
+	'color.background.information.subtler.pressed': token(
+		'color.background.information.subtler.pressed',
+		'#2684FF',
+	),
 	'color.background.information.bold': token('color.background.information.bold', '#0052CC'),
 	'color.background.information.bold.hovered': token(
 		'color.background.information.bold.hovered',
@@ -1009,11 +1069,16 @@ exports[`@atlaskit/primitives text styles are generated correctly 1`] = `
 	'color.text.selected': 'var(--ds-text-selected)';
 	'color.text.brand': 'var(--ds-text-brand)';
 	'color.text.danger': 'var(--ds-text-danger)';
+	'color.text.danger.bolder': 'var(--ds-text-danger-bolder)';
 	'color.text.warning': 'var(--ds-text-warning)';
 	'color.text.warning.inverse': 'var(--ds-text-warning-inverse)';
+	'color.text.warning.bolder': 'var(--ds-text-warning-bolder)';
 	'color.text.success': 'var(--ds-text-success)';
+	'color.text.success.bolder': 'var(--ds-text-success-bolder)';
 	'color.text.discovery': 'var(--ds-text-discovery)';
+	'color.text.discovery.bolder': 'var(--ds-text-discovery-bolder)';
 	'color.text.information': 'var(--ds-text-information)';
+	'color.text.information.bolder': 'var(--ds-text-information-bolder)';
 	'color.text.subtlest': 'var(--ds-text-subtlest)';
 	'color.text.subtle': 'var(--ds-text-subtle)';
 	'color.link': 'var(--ds-link)';
@@ -1047,11 +1112,16 @@ exports[`@atlaskit/primitives text styles are generated correctly 1`] = `
 	'color.text.selected': token('color.text.selected', '#0052CC'),
 	'color.text.brand': token('color.text.brand', '#0065FF'),
 	'color.text.danger': token('color.text.danger', '#DE350B'),
+	'color.text.danger.bolder': token('color.text.danger.bolder', '#BF2600'),
 	'color.text.warning': token('color.text.warning', '#974F0C'),
 	'color.text.warning.inverse': token('color.text.warning.inverse', '#172B4D'),
+	'color.text.warning.bolder': token('color.text.warning.bolder', '#974F0C'),
 	'color.text.success': token('color.text.success', '#006644'),
+	'color.text.success.bolder': token('color.text.success.bolder', '#006644'),
 	'color.text.discovery': token('color.text.discovery', '#403294'),
+	'color.text.discovery.bolder': token('color.text.discovery.bolder', '#403294'),
 	'color.text.information': token('color.text.information', '#0052CC'),
+	'color.text.information.bolder': token('color.text.information.bolder', '#0747A6'),
 	'color.text.subtlest': token('color.text.subtlest', '#7A869A'),
 	'color.text.subtle': token('color.text.subtle', '#42526E'),
 	'color.link': token('color.link', '#0052CC'),

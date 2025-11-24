@@ -7,7 +7,7 @@ import {
 	getExamplesProviders,
 	useConfluenceFullPagePreset,
 } from '@af/editor-examples-helpers/example-presets';
-import { FullWidthDropdown } from '@af/editor-examples-helpers/utils';
+import { AppearanceDropdown } from '@af/editor-examples-helpers/utils';
 import Button from '@atlaskit/button/standard-button';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
@@ -41,7 +41,7 @@ const HydratableEditorExample = () => {
 	return (
 		<IntlProvider locale={'en'}>
 			<SmartCardProvider client={smartCardClient}>
-				<FullWidthDropdown
+				<AppearanceDropdown
 					appearance={appearance}
 					onFullWidthChange={(value) => {
 						setAppearance(value);

@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.15.5
+
+### Patch Changes
+
+- [`80ea06acdd0ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80ea06acdd0ac) -
+  Add entrypoints framework detection for TTVC observer
+- [`c4c9659ad7ccd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4c9659ad7ccd) -
+  refactor display:contents element detection
+
+## 4.15.4
+
+### Patch Changes
+
+- [`81a0f341fac4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81a0f341fac4f) -
+  Platformise Jira's SSR Render Profiler timings
+
 ## 4.15.3
 
 ### Patch Changes

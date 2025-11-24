@@ -372,6 +372,33 @@ const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
 						},
 					},
 				},
+				subtler: {
+					'[default]': {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '8.1.0',
+							description:
+								'Use for backgrounds of danger lozenges and badges to ensure accessibility and desired visual appearance.',
+						},
+					},
+					hovered: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '8.1.0',
+							description: 'Hovered state of color.background.danger.subtler',
+						},
+					},
+					pressed: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '8.1.0',
+							description: 'Pressed state of color.background.danger.subtler',
+						},
+					},
+				},
 			},
 			warning: {
 				'[default]': {
@@ -425,6 +452,33 @@ const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
 							state: 'active',
 							introduced: '0.6.0',
 							description: 'Pressed state of color.background.warning.bold',
+						},
+					},
+				},
+				subtler: {
+					'[default]': {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '8.1.0',
+							description:
+								'Use for backgrounds of warning lozenges and badges to ensure accessibility and desired visual appearance.',
+						},
+					},
+					hovered: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '8.1.0',
+							description: 'Hovered state of color.background.warning.subtler',
+						},
+					},
+					pressed: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '8.1.0',
+							description: 'Pressed state of color.background.warning.subtler',
 						},
 					},
 				},
@@ -484,6 +538,33 @@ const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
 						},
 					},
 				},
+				subtler: {
+					'[default]': {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '8.1.0',
+							description:
+								'Use for backgrounds of success lozenges and badges to ensure accessibility and desired visual appearance.',
+						},
+					},
+					hovered: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '8.1.0',
+							description: 'Hovered state of color.background.success.subtler',
+						},
+					},
+					pressed: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '8.1.0',
+							description: 'Pressed state of color.background.success.subtler',
+						},
+					},
+				},
 			},
 			discovery: {
 				'[default]': {
@@ -540,6 +621,33 @@ const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
 						},
 					},
 				},
+				subtler: {
+					'[default]': {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '8.1.0',
+							description:
+								'Use for backgrounds of discovery lozenges and badges to ensure accessibility and desired visual appearance.',
+						},
+					},
+					hovered: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '8.1.0',
+							description: 'Hovered state of color.background.discovery.subtler',
+						},
+					},
+					pressed: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '8.1.0',
+							description: 'Pressed state of color.background.discovery.subtler',
+						},
+					},
+				},
 			},
 			information: {
 				'[default]': {
@@ -593,6 +701,33 @@ const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
 							state: 'active',
 							introduced: '0.6.0',
 							description: 'Pressed state of color.background.information.bold',
+						},
+					},
+				},
+				subtler: {
+					'[default]': {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '8.1.0',
+							description:
+								'Use for backgrounds of information lozenges and badges to ensure accessibility and desired visual appearance.',
+						},
+					},
+					hovered: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '8.1.0',
+							description: 'Hovered state of color.background.information.subtler',
+						},
+					},
+					pressed: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '8.1.0',
+							description: 'Pressed state of color.background.information.subtler',
 						},
 					},
 				},

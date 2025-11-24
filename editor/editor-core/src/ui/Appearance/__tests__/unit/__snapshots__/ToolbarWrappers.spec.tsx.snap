@@ -22,7 +22,7 @@ exports[`Toolbar wrapper components BeforePrimaryToolbarWrapper should match sna
 
 <div>
   <div
-    class="emotion-0"
+    class="REDACTED"
     data-testid="before-primary-toolbar-components-plugin"
   >
     <div>
@@ -54,7 +54,7 @@ exports[`Toolbar wrapper components BeforePrimaryToolbarWrapper should match sna
 
 <div>
   <div
-    class="emotion-0"
+    class="REDACTED"
     data-testid="before-primary-toolbar-components-plugin"
   />
 </div>
@@ -74,7 +74,7 @@ exports[`Toolbar wrapper components MainToolbar child wrappers FirstChildWrapper
 
 <div>
   <div
-    class="emotion-0"
+    class="REDACTED"
   >
     <div>
       child
@@ -113,7 +113,7 @@ exports[`Toolbar wrapper components MainToolbar child wrappers FirstChildWrapper
 
 <div>
   <div
-    class="emotion-0"
+    class="REDACTED"
   >
     <div>
       child
@@ -131,7 +131,7 @@ exports[`Toolbar wrapper components MainToolbar child wrappers SecondChildWrappe
 
 <div>
   <div
-    class="emotion-0"
+    class="REDACTED"
   >
     <div>
       child
@@ -168,7 +168,7 @@ exports[`Toolbar wrapper components MainToolbar child wrappers SecondChildWrappe
 
 <div>
   <div
-    class="emotion-0"
+    class="REDACTED"
   >
     <div>
       child
@@ -206,7 +206,7 @@ exports[`Toolbar wrapper components MainToolbarWrapper should match snapshot wit
 
 <div>
   <div
-    class="emotion-0"
+    class="REDACTED"
   >
     <div>
       child
@@ -245,7 +245,7 @@ exports[`Toolbar wrapper components MainToolbarWrapper should match snapshot –
 
 <div>
   <div
-    class="emotion-0"
+    class="REDACTED"
   >
     <div>
       child
@@ -293,7 +293,7 @@ exports[`Toolbar wrapper components MainToolbarWrapper should match snapshot –
 
 <div>
   <div
-    class="emotion-0"
+    class="REDACTED"
   >
     <div>
       child

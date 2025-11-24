@@ -235,6 +235,15 @@
       },
       "value": "#FD9891"
     },
+    "Dark/color.text.danger.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of danger semantic labels to ensure accessibility and desired visual appearance."
+      },
+      "value": "#FFD5D2"
+    },
     "Dark/color.text.warning": {
       "attributes": {
         "group": "paint",
@@ -253,6 +262,15 @@
       },
       "value": "#1F1F21"
     },
+    "Dark/color.text.warning.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of warning semantic labels to ensure accessibility and desired visual appearance."
+      },
+      "value": "#FCE4A6"
+    },
     "Dark/color.text.success": {
       "attributes": {
         "group": "paint",
@@ -261,6 +279,15 @@
         "description": "Use for text to communicate a favorable outcome, such as input field success messaging."
       },
       "value": "#B3DF72"
+    },
+    "Dark/color.text.success.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of success semantic labels to ensure accessibility and desired visual appearance."
+      },
+      "value": "#D3F1A7"
     },
     "Dark/color.text.discovery": {
       "attributes": {
@@ -271,6 +298,15 @@
       },
       "value": "#D8A0F7"
     },
+    "Dark/color.text.discovery.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of discovery semantic labels to ensure accessibility and desired visual appearance."
+      },
+      "value": "#EED7FC"
+    },
     "Dark/color.text.information": {
       "attributes": {
         "group": "paint",
@@ -279,6 +315,15 @@
         "description": "Use for informative text or to communicate something is in progress, such as in-progress lozenges."
       },
       "value": "#8FB8F6"
+    },
+    "Dark/color.text.information.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of information semantic labels to ensure accessibility and desired visual appearance."
+      },
+      "value": "#CFE1FD"
     },
     "Dark/color.text.subtlest": {
       "attributes": {
@@ -2134,6 +2179,33 @@
       },
       "value": "#872821"
     },
+    "Dark/color.background.danger.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for backgrounds of danger lozenges and badges to ensure accessibility and desired visual appearance."
+      },
+      "value": "#5D1F1A"
+    },
+    "Dark/color.background.danger.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Hovered state of color.background.danger.subtler"
+      },
+      "value": "#872821"
+    },
+    "Dark/color.background.danger.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Pressed state of color.background.danger.subtler"
+      },
+      "value": "#AE2E24"
+    },
     "Dark/color.background.danger.bold": {
       "attributes": {
         "group": "paint",
@@ -2187,6 +2259,33 @@
         "description": "Pressed state for color.background.warning"
       },
       "value": "#7A3B00"
+    },
+    "Dark/color.background.warning.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for backgrounds of warning lozenges and badges to ensure accessibility and desired visual appearance."
+      },
+      "value": "#693200"
+    },
+    "Dark/color.background.warning.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Hovered state of color.background.warning.subtler"
+      },
+      "value": "#7A3B00"
+    },
+    "Dark/color.background.warning.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Pressed state of color.background.warning.subtler"
+      },
+      "value": "#9E4C00"
     },
     "Dark/color.background.warning.bold": {
       "attributes": {
@@ -2242,6 +2341,33 @@
       },
       "value": "#3F5224"
     },
+    "Dark/color.background.success.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for backgrounds of success lozenges and badges to ensure accessibility and desired visual appearance."
+      },
+      "value": "#37471F"
+    },
+    "Dark/color.background.success.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Hovered state of color.background.success.subtler"
+      },
+      "value": "#3F5224"
+    },
+    "Dark/color.background.success.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Pressed state of color.background.success.subtler"
+      },
+      "value": "#4C6B1F"
+    },
     "Dark/color.background.success.bold": {
       "attributes": {
         "group": "paint",
@@ -2296,6 +2422,33 @@
       },
       "value": "#673286"
     },
+    "Dark/color.background.discovery.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for backgrounds of discovery lozenges and badges to ensure accessibility and desired visual appearance."
+      },
+      "value": "#48245D"
+    },
+    "Dark/color.background.discovery.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Hovered state of color.background.discovery.subtler"
+      },
+      "value": "#673286"
+    },
+    "Dark/color.background.discovery.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Pressed state of color.background.discovery.subtler"
+      },
+      "value": "#803FA5"
+    },
     "Dark/color.background.discovery.bold": {
       "attributes": {
         "group": "paint",
@@ -2349,6 +2502,33 @@
         "description": "Pressed state of color.background.information"
       },
       "value": "#144794"
+    },
+    "Dark/color.background.information.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for backgrounds of information lozenges and badges to ensure accessibility and desired visual appearance."
+      },
+      "value": "#123263"
+    },
+    "Dark/color.background.information.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Hovered state of color.background.information.subtler"
+      },
+      "value": "#144794"
+    },
+    "Dark/color.background.information.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Pressed state of color.background.information.subtler"
+      },
+      "value": "#1558BC"
     },
     "Dark/color.background.information.bold": {
       "attributes": {

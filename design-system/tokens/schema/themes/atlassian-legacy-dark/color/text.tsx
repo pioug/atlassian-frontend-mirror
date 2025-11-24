@@ -26,7 +26,12 @@ const color: ValueSchema<TextColorTokenSchema<BaseToken>> = {
 				value: 'B400',
 			},
 			danger: {
-				value: 'R300',
+				'[default]': {
+					value: 'R300',
+				},
+				bolder: {
+					value: 'R200',
+				},
 			},
 			warning: {
 				'[default]': {
@@ -35,15 +40,33 @@ const color: ValueSchema<TextColorTokenSchema<BaseToken>> = {
 				inverse: {
 					value: 'DN0',
 				},
+				bolder: {
+					value: 'N700',
+				},
 			},
 			success: {
-				value: 'G300',
+				'[default]': {
+					value: 'G300',
+				},
+				bolder: {
+					value: 'G200',
+				},
 			},
 			information: {
-				value: 'B300',
+				'[default]': {
+					value: 'B300',
+				},
+				bolder: {
+					value: 'B200',
+				},
 			},
 			discovery: {
-				value: 'P300',
+				'[default]': {
+					value: 'P300',
+				},
+				bolder: {
+					value: 'P200',
+				},
 			},
 		},
 		link: {

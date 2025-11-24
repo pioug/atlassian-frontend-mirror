@@ -68,6 +68,26 @@ export const lightViolations = [
 		background: 'color.background.accent.gray.subtler',
 	},
 	{
+		foreground: 'color.link',
+		background: 'color.background.danger.subtler',
+	},
+	{
+		foreground: 'color.link',
+		background: 'color.background.warning.subtler',
+	},
+	{
+		foreground: 'color.link',
+		background: 'color.background.success.subtler',
+	},
+	{
+		foreground: 'color.link',
+		background: 'color.background.discovery.subtler',
+	},
+	{
+		foreground: 'color.link',
+		background: 'color.background.information.subtler',
+	},
+	{
 		foreground: 'color.icon.accent.lime',
 		background: 'color.background.accent.lime.subtler',
 	},
@@ -102,6 +122,18 @@ export const lightViolations = [
 	{
 		foreground: 'color.icon.accent.gray',
 		background: 'color.background.accent.gray.subtler',
+	},
+	{
+		foreground: 'color.icon.warning',
+		background: 'color.background.warning.subtler',
+	},
+	{
+		foreground: 'color.icon.success',
+		background: 'color.background.success.subtler',
+	},
+	{
+		foreground: 'color.icon.discovery',
+		background: 'color.background.discovery.subtler',
 	},
 	{
 		foreground: 'color.border.accent.lime',
@@ -140,6 +172,18 @@ export const lightViolations = [
 		background: 'color.background.accent.gray.subtler',
 	},
 	{
+		foreground: 'color.border.warning',
+		background: 'color.background.warning.subtler',
+	},
+	{
+		foreground: 'color.border.success',
+		background: 'color.background.success.subtler',
+	},
+	{
+		foreground: 'color.border.discovery',
+		background: 'color.background.discovery.subtler',
+	},
+	{
 		foreground: 'color.border.bold',
 		background: 'color.background.accent.red.subtler',
 	},
@@ -160,8 +204,24 @@ export const lightViolations = [
 		background: 'color.background.accent.gray.subtler',
 	},
 	{
+		foreground: 'color.border.bold',
+		background: 'color.background.danger.subtler',
+	},
+	{
+		foreground: 'color.border.bold',
+		background: 'color.background.discovery.subtler',
+	},
+	{
+		foreground: 'color.border.bold',
+		background: 'color.background.information.subtler',
+	},
+	{
 		foreground: 'color.background.warning.bold',
 		background: 'color.background.warning',
+	},
+	{
+		foreground: 'color.background.warning.bold',
+		background: 'color.background.warning.subtler',
 	},
 	{
 		foreground: 'color.background.warning.bold',
@@ -231,6 +291,26 @@ export const lightViolationsVisualRefresh = [
 		background: 'color.background.accent.gray.subtler',
 	},
 	{
+		foreground: 'color.link',
+		background: 'color.background.danger.subtler',
+	},
+	{
+		foreground: 'color.link',
+		background: 'color.background.warning.subtler',
+	},
+	{
+		foreground: 'color.link',
+		background: 'color.background.success.subtler',
+	},
+	{
+		foreground: 'color.link',
+		background: 'color.background.discovery.subtler',
+	},
+	{
+		foreground: 'color.link',
+		background: 'color.background.information.subtler',
+	},
+	{
 		foreground: 'color.icon.accent.lime',
 		background: 'color.background.accent.lime.subtler',
 	},
@@ -261,6 +341,18 @@ export const lightViolationsVisualRefresh = [
 	{
 		foreground: 'color.icon.accent.gray',
 		background: 'color.background.accent.gray.subtler',
+	},
+	{
+		foreground: 'color.icon.warning',
+		background: 'color.background.warning.subtler',
+	},
+	{
+		foreground: 'color.icon.success',
+		background: 'color.background.success.subtler',
+	},
+	{
+		foreground: 'color.icon.discovery',
+		background: 'color.background.discovery.subtler',
 	},
 	{
 		foreground: 'color.border.accent.lime',
@@ -295,6 +387,18 @@ export const lightViolationsVisualRefresh = [
 		background: 'color.background.accent.gray.subtler',
 	},
 	{
+		foreground: 'color.border.warning',
+		background: 'color.background.warning.subtler',
+	},
+	{
+		foreground: 'color.border.success',
+		background: 'color.background.success.subtler',
+	},
+	{
+		foreground: 'color.border.discovery',
+		background: 'color.background.discovery.subtler',
+	},
+	{
 		foreground: 'color.border.bold',
 		background: 'color.background.accent.red.subtler',
 	},
@@ -315,8 +419,24 @@ export const lightViolationsVisualRefresh = [
 		background: 'color.background.accent.gray.subtler',
 	},
 	{
+		foreground: 'color.border.bold',
+		background: 'color.background.danger.subtler',
+	},
+	{
+		foreground: 'color.border.bold',
+		background: 'color.background.discovery.subtler',
+	},
+	{
+		foreground: 'color.border.bold',
+		background: 'color.background.information.subtler',
+	},
+	{
 		foreground: 'color.background.warning.bold',
 		background: 'color.background.warning',
+	},
+	{
+		foreground: 'color.background.warning.bold',
+		background: 'color.background.warning.subtler',
 	},
 	{
 		foreground: 'color.background.warning.bold',
@@ -385,6 +505,14 @@ export const darkViolations = [
 		background: 'color.background.accent.gray.subtler',
 	},
 	{
+		foreground: 'color.link',
+		background: 'color.background.warning.subtler',
+	},
+	{
+		foreground: 'color.link',
+		background: 'color.background.success.subtler',
+	},
+	{
 		foreground: 'color.link.visited',
 		background: 'color.background.accent.gray.subtler',
 	},
@@ -399,6 +527,18 @@ export const darkViolations = [
 	{
 		foreground: 'color.border.accent.gray',
 		background: 'color.background.accent.gray.subtler',
+	},
+	{
+		foreground: 'color.border.warning',
+		background: 'color.background.warning.subtler',
+	},
+	{
+		foreground: 'color.border.success',
+		background: 'color.background.success.subtler',
+	},
+	{
+		foreground: 'color.border.discovery',
+		background: 'color.background.discovery.subtler',
 	},
 	{
 		foreground: 'color.border.bold',
@@ -423,6 +563,14 @@ export const darkViolations = [
 	{
 		foreground: 'color.border.bold',
 		background: 'color.background.accent.gray.subtler',
+	},
+	{
+		foreground: 'color.border.bold',
+		background: 'color.background.warning.subtler',
+	},
+	{
+		foreground: 'color.border.bold',
+		background: 'color.background.success.subtler',
 	},
 	{
 		foreground: 'color.background.accent.gray.bolder',
@@ -460,6 +608,14 @@ export const darkViolationsVisualRefresh = [
 		background: 'color.background.accent.gray.subtler',
 	},
 	{
+		foreground: 'color.text.subtle',
+		background: 'color.background.warning.subtler',
+	},
+	{
+		foreground: 'color.text.subtle',
+		background: 'color.background.success.subtler',
+	},
+	{
 		foreground: 'color.link',
 		background: 'color.background.accent.lime.subtler',
 	},
@@ -482,6 +638,14 @@ export const darkViolationsVisualRefresh = [
 	{
 		foreground: 'color.link',
 		background: 'color.background.accent.gray.subtler',
+	},
+	{
+		foreground: 'color.link',
+		background: 'color.background.warning.subtler',
+	},
+	{
+		foreground: 'color.link',
+		background: 'color.background.success.subtler',
 	},
 	{
 		foreground: 'color.link.visited',
@@ -518,6 +682,14 @@ export const darkViolationsVisualRefresh = [
 	{
 		foreground: 'color.border.bold',
 		background: 'color.background.accent.gray.subtler',
+	},
+	{
+		foreground: 'color.border.bold',
+		background: 'color.background.warning.subtler',
+	},
+	{
+		foreground: 'color.border.bold',
+		background: 'color.background.success.subtler',
 	},
 	{
 		foreground: 'color.background.accent.gray.bolder',

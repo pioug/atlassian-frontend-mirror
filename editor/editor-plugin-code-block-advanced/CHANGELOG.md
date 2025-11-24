@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 6.2.11
+
+### Patch Changes
+
+- [`459eb2064ff46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/459eb2064ff46) -
+  Remove block menu dependency from code block advanced.
+- Updated dependencies
+
 ## 6.2.10
 
 ### Patch Changes

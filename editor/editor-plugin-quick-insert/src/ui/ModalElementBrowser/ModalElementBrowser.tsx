@@ -74,7 +74,6 @@ const modalCloseButtonStyles = css({
 const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 	const [selectedItem, setSelectedItem] = useState<QuickInsertItem>();
 	const { helpUrl, intl, onInsertItem: onInsertItemFn } = props;
-	const isUpdateModalCloseButtonEnabled = fg('platform_editor_update_modal_close_button');
 
 	const onSelectItem = useCallback(
 		(item: QuickInsertItem) => {
@@ -114,18 +113,11 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 					onSelectItem={onSelectItem}
 					onInsertItem={onInsertItem}
 					emptyStateHandler={props.emptyStateHandler}
-					autoFocusSearch={!isUpdateModalCloseButtonEnabled}
+					autoFocusSearch={false}
 				/>
 			</div>
 		),
-		[
-			props.intl,
-			props.getItems,
-			onSelectItem,
-			onInsertItem,
-			props.emptyStateHandler,
-			isUpdateModalCloseButtonEnabled,
-		],
+		[props.intl, props.getItems, onSelectItem, onInsertItem, props.emptyStateHandler],
 	);
 
 	const label = fg('platform_editor_fix_browse_modal_header')
@@ -147,11 +139,9 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 						width="x-large"
 						shouldReturnFocus={props.shouldReturnFocus}
 					>
-						{isUpdateModalCloseButtonEnabled && (
-							<div css={modalCloseButtonStyles}>
-								<CloseButton onClick={props.onClose} />
-							</div>
-						)}
+						<div css={modalCloseButtonStyles}>
+							<CloseButton onClick={props.onClose} />
+						</div>
 						<RenderBody />
 						<RenderFooter />
 					</Modal>

@@ -42,9 +42,13 @@ const PanelBlockMenuItem = ({ api }: Props) => {
 				: INPUT_METHOD.MOUSE;
 		const inputMethod = INPUT_METHOD.BLOCK_MENU;
 
-		api?.core.actions.execute(
-			api?.blockMenu?.commands.formatNode(nodeName, { inputMethod, triggeredFrom }),
-		);
+		selection &&
+			api?.core.actions.execute(
+				api?.blockMenu?.commands.transformNode(selection.$from.doc.type.schema.nodes.panel, {
+					inputMethod,
+					triggeredFrom,
+				}),
+			);
 	};
 
 	return (

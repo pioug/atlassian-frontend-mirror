@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-editor-viewmode-effects
 
+## 6.0.3
+
+### Patch Changes
+
+- [`0d237a5696b06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d237a5696b06) -
+  Uncoupled several block of changes from the aifc FG and moved them behind their own FG so they can
+  be rolled out quicker
+- Updated dependencies
+
 ## 6.0.2
 
 ### Patch Changes
@@ -59,7 +68,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.

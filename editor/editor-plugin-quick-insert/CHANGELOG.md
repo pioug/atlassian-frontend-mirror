@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 6.0.12
+
+### Patch Changes
+
+- [`24092f8832d34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24092f8832d34) -
+  [EDITOR-3321] Clean up platform_editor_update_modal_close_button
+- Updated dependencies
+
 ## 6.0.11
 
 ### Patch Changes

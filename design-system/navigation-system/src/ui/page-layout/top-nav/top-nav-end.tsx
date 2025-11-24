@@ -121,11 +121,7 @@ export function TopNavEnd({
 	 */
 	showMoreButtonLabel?: string;
 }) {
-	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useIsFhsEnabled()
-		: fg('navx-full-height-sidebar');
-
+	const isFhsEnabled = useIsFhsEnabled();
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	// Always setting to `false` for the initial render (will flip in an effect for mobile)
 	const [isMobile, setIsMobile] = useState<boolean>(false);

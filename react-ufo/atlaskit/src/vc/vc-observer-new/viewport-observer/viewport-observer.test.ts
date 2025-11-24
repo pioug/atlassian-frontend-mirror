@@ -213,8 +213,16 @@ describe('ViewportObserver', () => {
 
 				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
 					newNode,
-					'mutation:remount',
+					expect.any(Function),
 				);
+
+				const tagFn = mockIntersectionObserver.watchAndTag.mock.calls[0][1];
+
+				if (typeof tagFn !== 'function') {
+					throw new Error('unexpected error');
+				}
+				const taggedMutationType = tagFn({ target: newNode, rect: new DOMRect(0, 0, 10, 10) });
+				expect(taggedMutationType).toEqual('mutation:remount');
 			});
 
 			it('should handle element replacement', () => {
@@ -271,11 +279,20 @@ describe('ViewportObserver', () => {
 					removedNodes: [],
 					timestamp: 100,
 				});
-				expect(isContainedWithinMediaWrapper).toHaveBeenCalledWith(mediaNode);
+
 				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
 					mediaNode,
-					'mutation:media',
+					expect.any(Function),
 				);
+
+				const tagFn = mockIntersectionObserver.watchAndTag.mock.calls[0][1];
+
+				if (typeof tagFn !== 'function') {
+					throw new Error('unexpected error');
+				}
+				const taggedMutationType = tagFn({ target: mediaNode, rect: new DOMRect(0, 0, 10, 10) });
+				expect(isContainedWithinMediaWrapper).toHaveBeenCalledWith(mediaNode);
+				expect(taggedMutationType).toEqual('mutation:media');
 			});
 		});
 		describe('onAttributeMutation', () => {

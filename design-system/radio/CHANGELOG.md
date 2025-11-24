@@ -1,5 +1,11 @@
 # @atlaskit/radio
 
+## 8.3.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.3.12
 
 ### Patch Changes

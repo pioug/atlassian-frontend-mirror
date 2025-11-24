@@ -2,153 +2,15 @@
 
 exports[`ArticleContent Match snapshot 1`] = `
 <DocumentFragment>
-  .emotion-1 {
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
-  border-width: 0;
-  border-radius: var(--ds-radius-small, 3px);
-  box-sizing: border-box;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-size: inherit;
-  font-style: normal;
-  font-family: inherit;
-  font-weight: var(--ds-font-weight-medium, 500);
-  max-width: 100%;
-  position: relative;
-  text-align: center;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
-  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
-  white-space: nowrap;
-  cursor: pointer;
-  height: 2.2857142857142856em;
-  line-height: 2.2857142857142856em;
-  padding: 0 10px;
-  vertical-align: middle;
-  width: auto;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  background: var(--ds-background-neutral-subtle, #00000000);
-  color: var(--ds-text, #292A2E);
-}
-
-.emotion-1::after {
-  border-radius: inherit;
-  inset: var(--ds-space-0, 0px);
-  border-style: solid;
-  border-width: var(--ds-border-width, 1px);
-  pointer-events: none;
-  position: absolute;
-  content: "";
-  border-color: var(--ds-border, #0B120E24);
-}
-
-.emotion-1:hover {
-  background: var(--ds-background-neutral-hovered, #0B120E24);
-}
-
-.emotion-1:active {
-  background: var(--ds-background-neutral-pressed, #080F214A);
-}
-
-.emotion-1[data-has-overlay="true"]:not([disabled]):hover {
-  background: var(--ds-background-neutral-subtle, #00000000);
-}
-
-.emotion-1:disabled[disabled] {
-  background: var(--ds-background-neutral-subtle, #00000000);
-}
-
-.emotion-1:disabled[disabled]:hover {
-  background: var(--ds-background-neutral-subtle, #00000000);
-}
-
-.emotion-1:disabled[disabled]:active {
-  background: var(--ds-background-neutral-subtle, #00000000);
-}
-
-.emotion-1[disabled] {
-  color: var(--ds-text-disabled, #080F214A);
-  background-color: var(--ds-background-disabled, #17171708);
-  cursor: not-allowed;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.emotion-1[disabled]:hovered {
-  background-color: var(--ds-background-disabled, #17171708);
-}
-
-.emotion-1[disabled]:active {
-  background-color: var(--ds-background-disabled, #17171708);
-}
-
-.emotion-1[data-has-overlay="true"] {
-  cursor: default;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.emotion-1::-moz-focus-inner {
-  border: 0;
-  margin: 0;
-  padding: 0;
-}
-
-.emotion-1:focus {
-  outline: var(--ds-border-width-focused, 2px) solid var(--ds-border-focused, #2684FF);
-  outline-offset: 2px;
-}
-
-.emotion-1:focus-visible {
-  outline: var(--ds-border-width-focused, 2px) solid var(--ds-border-focused, #2684FF);
-  outline-offset: 2px;
-}
-
-.emotion-1:focus:not(:focus-visible) {
-  outline: none;
-}
-
-@media screen and (forced-colors: active),screen and (-ms-high-contrast: active) {
-  .emotion-1:focus-visible {
-    outline: var(--ds-border-width, 1px) solid;
-  }
-}
-
-.emotion-0 {
-  opacity: 1;
-  -webkit-transition: opacity 0.3s;
-  transition: opacity 0.3s;
-  margin: 0 2px;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  -webkit-flex-shrink: 1;
-  -ms-flex-negative: 1;
-  flex-shrink: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-<button
+  <button
     aria-checked="false"
-    class="emotion-1"
+    class="REDACTED"
     role="radio"
     tabindex="0"
     type="button"
   >
     <span
-      class="emotion-0"
+      class="REDACTED"
     >
       No
     </span>

@@ -1,7 +1,8 @@
 # lozenge-appearance-and-isbold-migration
 
-This rule helps migrate deprecated `<Lozenge>` usages to the new API or `<Tag>` component as part of
-the Labelling System Phase 1 migration.
+This rule helps migrate deprecated `<Lozenge>` usages to the new API or `<Tag>` component, and
+migrate `<Badge>` component appearance prop to new semantic values as part of the Labelling System
+Phase 1 migration.
 
 ## Examples
 
@@ -15,6 +16,18 @@ the Labelling System Phase 1 migration.
 // Dynamic isBold expressions require manual review
 <Lozenge isBold={someVariable} />
 <Lozenge isBold={condition ? true : false} />
+
+// Badge: Old appearance values that need migration
+<Badge appearance="added">{5}</Badge>
+<Badge appearance="removed">{10}</Badge>
+<Badge appearance="default">{3}</Badge>
+<Badge appearance="primary">{7}</Badge>
+<Badge appearance="primaryInverted">{2}</Badge>
+<Badge appearance="important">{99}</Badge>
+
+// Badge: Dynamic appearance expressions require manual review
+<Badge appearance={getStatus()}>{count}</Badge>
+<Badge appearance={condition ? 'added' : 'removed'}>{num}</Badge>
 ```
 
 ### Correct
@@ -28,11 +41,22 @@ the Labelling System Phase 1 migration.
 <Lozenge isBold />
 <Lozenge isBold={true} />
 <Lozenge appearance="success" isBold />
+
+// Badge: New semantic appearance values
+<Badge appearance="success">{5}</Badge>
+<Badge appearance="danger">{10}</Badge>
+<Badge appearance="neutral">{3}</Badge>
+<Badge appearance="information">{7}</Badge>
+<Badge appearance="inverse">{2}</Badge>
+<Badge appearance="danger">{99}</Badge>
+
+// Badge: Already using semantic values
+<Badge appearance="success">{42}</Badge>
 ```
 
 ## Rule Details
 
-This rule enforces two migration patterns:
+This rule enforces multiple migration patterns:
 
 1. **Migrate `isBold={false}` or missing `isBold` → `<Tag />`**: Detects non-bold Lozenge variants
    and suggests migrating to the Tag component, preserving other props including the `appearance`
@@ -41,7 +65,15 @@ This rule enforces two migration patterns:
 2. **Warn on dynamic `isBold` expressions**: Detects dynamic `isBold` props that cannot be safely
    auto-fixed and require manual review.
 
+3. **Migrate Badge appearance values**: Detects Badge components using old appearance values and
+   migrates them to new semantic values.
+
+4. **Warn on dynamic Badge appearance expressions**: Detects dynamic `appearance` props on Badge
+   components that cannot be safely auto-fixed and require manual review.
+
 ## Appearance Prop Handling
+
+### Lozenge and Tag
 
 Both `<Lozenge>` and `<Tag>` now use the `appearance` prop with new semantic values. The rule will
 automatically map old appearance values to the new semantic values when they differ.
@@ -63,7 +95,22 @@ The rule includes a mapping function that will update old appearance values to n
 **Note**: The current implementation preserves existing values. The mapping will be updated once the
 new semantic values are finalized.
 
+### Badge Appearance Value Mapping
+
+Badge components use the following appearance value mapping:
+
+| Old Appearance    | New Appearance |
+| ----------------- | -------------- |
+| `added`           | `success`      |
+| `removed`         | `danger`       |
+| `default`         | `neutral`      |
+| `primary`         | `information`  |
+| `primaryInverted` | `inverse`      |
+| `important`       | `danger`       |
+
 ## Auto-fixes
 
 - ✅ `isBold={false}` and missing `isBold` migration to `<Tag>` with preserved `appearance` prop
+- ✅ Static Badge appearance prop values (e.g., `appearance="added"` → `appearance="success"`)
 - ❌ Dynamic `isBold` expressions (warning only)
+- ❌ Dynamic Badge appearance expressions (warning only - requires manual review)

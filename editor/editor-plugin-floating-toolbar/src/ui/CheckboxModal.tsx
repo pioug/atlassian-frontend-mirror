@@ -7,7 +7,6 @@ import { Checkbox } from '@atlaskit/checkbox';
 import { messages } from '@atlaskit/editor-common/floating-toolbar';
 import type { ConfirmationDialogProps } from '@atlaskit/editor-common/types';
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 
 type ListComponentProps = {
@@ -60,7 +59,7 @@ export const CheckboxModal = (props: ConfirmationDialogProps & WrappedComponentP
 
 	return (
 		<Modal onClose={onClose} testId={testId}>
-			<ModalHeader hasCloseButton={fg('platform_editor_update_modal_close_button')}>
+			<ModalHeader hasCloseButton>
 				<ModalTitle appearance="warning">{heading}</ModalTitle>
 			</ModalHeader>
 

@@ -6,7 +6,6 @@ import Button from '@atlaskit/button/new';
 import { messages } from '@atlaskit/editor-common/floating-toolbar';
 import type { ConfirmationDialogProps } from '@atlaskit/editor-common/types';
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 export const SimpleModal = (props: ConfirmationDialogProps & WrappedComponentProps) => {
 	const {
@@ -24,7 +23,7 @@ export const SimpleModal = (props: ConfirmationDialogProps & WrappedComponentPro
 
 	return (
 		<Modal onClose={onClose} testId={testId}>
-			<ModalHeader hasCloseButton={fg('platform_editor_update_modal_close_button')}>
+			<ModalHeader hasCloseButton>
 				<ModalTitle appearance="warning">{heading}</ModalTitle>
 			</ModalHeader>
 

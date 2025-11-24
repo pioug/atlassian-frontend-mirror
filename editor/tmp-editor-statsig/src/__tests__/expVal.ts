@@ -66,7 +66,7 @@ describe('expVal', () => {
 		// @ts-expect-error
 		expVal('test-boolean', 'isEnabled', false);
 
-		expect(mockGetExperimentValue).toHaveBeenLastCalledWith('test-boolean', 'isEnabled', false, {
+		expect(mockGetExperimentValue).toHaveBeenNthCalledWith(1, 'test-boolean', 'isEnabled', false, {
 			fireExperimentExposure: true,
 		});
 	});
@@ -147,7 +147,7 @@ describe('expValNoExposure', () => {
 		// @ts-expect-error
 		expValNoExposure('test-boolean', 'isEnabled', false);
 
-		expect(mockGetExperimentValue).toHaveBeenLastCalledWith('test-boolean', 'isEnabled', false, {
+		expect(mockGetExperimentValue).toHaveBeenNthCalledWith(1, 'test-boolean', 'isEnabled', false, {
 			fireExperimentExposure: false,
 		});
 	});

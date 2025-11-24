@@ -65,11 +65,22 @@ const color: AttributeSchema<TextColorTokenSchema<BaseToken>> = {
 				},
 			},
 			danger: {
-				attributes: {
-					group: 'paint',
-					state: 'active',
-					introduced: '0.0.15',
-					description: 'Use for critical text, such as input field error messaging.',
+				'[default]': {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '0.0.15',
+						description: 'Use for critical text, such as input field error messaging.',
+					},
+				},
+				bolder: {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '8.1.0',
+						description:
+							'Use for text on top of danger semantic labels to ensure accessibility and desired visual appearance.',
+					},
 				},
 			},
 			warning: {
@@ -89,32 +100,74 @@ const color: AttributeSchema<TextColorTokenSchema<BaseToken>> = {
 						description: 'Use for text when on bold warning backgrounds.',
 					},
 				},
+				bolder: {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '8.1.0',
+						description:
+							'Use for text on top of warning semantic labels to ensure accessibility and desired visual appearance.',
+					},
+				},
 			},
 			success: {
-				attributes: {
-					group: 'paint',
-					state: 'active',
-					introduced: '0.0.15',
-					description:
-						'Use for text to communicate a favorable outcome, such as input field success messaging.',
+				'[default]': {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '0.0.15',
+						description:
+							'Use for text to communicate a favorable outcome, such as input field success messaging.',
+					},
+				},
+				bolder: {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '8.1.0',
+						description:
+							'Use for text on top of success semantic labels to ensure accessibility and desired visual appearance.',
+					},
 				},
 			},
 			discovery: {
-				attributes: {
-					group: 'paint',
-					state: 'active',
-					introduced: '0.0.15',
-					description:
-						'Use for text to emphasize change or something new, such as in new lozenges.',
+				'[default]': {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '0.0.15',
+						description:
+							'Use for text to emphasize change or something new, such as in new lozenges.',
+					},
+				},
+				bolder: {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '8.1.0',
+						description:
+							'Use for text on top of discovery semantic labels to ensure accessibility and desired visual appearance.',
+					},
 				},
 			},
 			information: {
-				attributes: {
-					group: 'paint',
-					state: 'active',
-					introduced: '0.6.0',
-					description:
-						'Use for informative text or to communicate something is in progress, such as in-progress lozenges.',
+				'[default]': {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '0.6.0',
+						description:
+							'Use for informative text or to communicate something is in progress, such as in-progress lozenges.',
+					},
+				},
+				bolder: {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '8.1.0',
+						description:
+							'Use for text on top of information semantic labels to ensure accessibility and desired visual appearance.',
+					},
 				},
 			},
 		},

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7d389a2b01c97ee0935f94b151c2bab0>>
+ * @codegen <<SignedSource::9591765275ffd6069d6cb759b58549bc>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -33,11 +33,16 @@ html[data-color-mode="dark"][data-theme~="dark:dark"] {
   --ds-text-selected: #669DF1;
   --ds-text-brand: #669DF1;
   --ds-text-danger: #FD9891;
+  --ds-text-danger-bolder: #FFD5D2;
   --ds-text-warning: #FBC828;
   --ds-text-warning-inverse: #1F1F21;
+  --ds-text-warning-bolder: #FCE4A6;
   --ds-text-success: #B3DF72;
+  --ds-text-success-bolder: #D3F1A7;
   --ds-text-discovery: #D8A0F7;
+  --ds-text-discovery-bolder: #EED7FC;
   --ds-text-information: #8FB8F6;
+  --ds-text-information-bolder: #CFE1FD;
   --ds-text-subtlest: #96999E;
   --ds-text-subtle: #A9ABAF;
   --ds-link: #669DF1;
@@ -244,30 +249,45 @@ html[data-color-mode="dark"][data-theme~="dark:dark"] {
   --ds-background-danger: #42221F;
   --ds-background-danger-hovered: #5D1F1A;
   --ds-background-danger-pressed: #872821;
+  --ds-background-danger-subtler: #5D1F1A;
+  --ds-background-danger-subtler-hovered: #872821;
+  --ds-background-danger-subtler-pressed: #AE2E24;
   --ds-background-danger-bold: #F87168;
   --ds-background-danger-bold-hovered: #FD9891;
   --ds-background-danger-bold-pressed: #FFB8B2;
   --ds-background-warning: #3A2C1F;
   --ds-background-warning-hovered: #693200;
   --ds-background-warning-pressed: #7A3B00;
+  --ds-background-warning-subtler: #693200;
+  --ds-background-warning-subtler-hovered: #7A3B00;
+  --ds-background-warning-subtler-pressed: #9E4C00;
   --ds-background-warning-bold: #FBC828;
   --ds-background-warning-bold-hovered: #FCA700;
   --ds-background-warning-bold-pressed: #F68909;
   --ds-background-success: #28311B;
   --ds-background-success-hovered: #37471F;
   --ds-background-success-pressed: #3F5224;
+  --ds-background-success-subtler: #37471F;
+  --ds-background-success-subtler-hovered: #3F5224;
+  --ds-background-success-subtler-pressed: #4C6B1F;
   --ds-background-success-bold: #94C748;
   --ds-background-success-bold-hovered: #B3DF72;
   --ds-background-success-bold-pressed: #BDE97C;
   --ds-background-discovery: #35243F;
   --ds-background-discovery-hovered: #48245D;
   --ds-background-discovery-pressed: #673286;
+  --ds-background-discovery-subtler: #48245D;
+  --ds-background-discovery-subtler-hovered: #673286;
+  --ds-background-discovery-subtler-pressed: #803FA5;
   --ds-background-discovery-bold: #C97CF4;
   --ds-background-discovery-bold-hovered: #D8A0F7;
   --ds-background-discovery-bold-pressed: #E3BDFA;
   --ds-background-information: #1C2B42;
   --ds-background-information-hovered: #123263;
   --ds-background-information-pressed: #144794;
+  --ds-background-information-subtler: #123263;
+  --ds-background-information-subtler-hovered: #144794;
+  --ds-background-information-subtler-pressed: #1558BC;
   --ds-background-information-bold: #669DF1;
   --ds-background-information-bold-hovered: #8FB8F6;
   --ds-background-information-bold-pressed: #ADCBFB;

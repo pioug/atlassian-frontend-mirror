@@ -7,7 +7,6 @@ import React, { forwardRef, type ReactNode, type Ref, useMemo, useRef } from 're
 import { cssMap, jsx, keyframes } from '@compiled/react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
@@ -72,11 +71,7 @@ function _SideNavContent(
 	{ children, testId }: SideNavContentProps,
 	forwardedRef: Ref<HTMLDivElement>,
 ) {
-	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useIsFhsEnabled()
-		: fg('navx-full-height-sidebar');
-
+	const isFhsEnabled = useIsFhsEnabled();
 	const internalRef = useRef<HTMLDivElement>(null);
 	const mergedRef = useMemo(() => mergeRefs([internalRef, forwardedRef]), [forwardedRef]);
 

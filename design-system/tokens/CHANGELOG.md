@@ -1,5 +1,30 @@
 # @atlaskit/tokens
 
+## 8.3.0
+
+### Minor Changes
+
+- [`644c0f593ae62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/644c0f593ae62) -
+  Adds new semantic background and text tokens.
+
+  **Background Tokens (`background.[semantics].subtler.*`):**
+
+  Added `subtler` variants for semantic background colors with default, hovered, and pressed states:
+  - `background.success.subtler.[default|hovered|pressed]`
+  - `background.warning.subtler.[default|hovered|pressed]`
+  - `background.danger.subtler.[default|hovered|pressed]`
+  - `background.information.subtler.[default|hovered|pressed]`
+  - `background.discovery.subtler.[default|hovered|pressed]`
+
+  **Text Tokens (`text.[semantics].bolder`):**
+
+  Added `bolder` variants for semantic text colors to ensure proper contrast on colored backgrounds:
+  - `text.success.bolder`
+  - `text.warning.bolder`
+  - `text.danger.bolder`
+  - `text.information.bolder`
+  - `text.discovery.bolder`
+
 ## 8.2.0
 
 ### Minor Changes

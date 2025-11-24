@@ -81,7 +81,7 @@ export const handleMouseOver = (
 	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
 	// We shouldn't be firing mouse over transactions when the editor is disabled
-	if (editorDisabled && fg('aifc_create_enabled')) {
+	if (editorDisabled && fg('platform_editor_ai_generic_prep_for_aifc')) {
 		return false;
 	}
 

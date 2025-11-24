@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "11.5.4",
+	"version": "11.5.5",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -127,7 +127,7 @@
 		"platform_editor_adf_with_localid": {
 			"type": "boolean"
 		},
-		"aifc_create_enabled": {
+		"platform_editor_ai_generic_prep_for_aifc": {
 			"type": "boolean"
 		},
 		"platform_editor_ai_aifc_patch_beta_2": {

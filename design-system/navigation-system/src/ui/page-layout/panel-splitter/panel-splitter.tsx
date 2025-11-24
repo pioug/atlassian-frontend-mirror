@@ -20,7 +20,6 @@ import invariant from 'tiny-invariant';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { useOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { blockDraggingToIFrames } from '@atlaskit/pragmatic-drag-and-drop/element/block-dragging-to-iframes';
@@ -186,10 +185,7 @@ type MaybeTooltipProps = Pick<PanelSplitterProps, 'tooltipContent'> & {
  * A wrapper component that renders a tooltip if the tooltipContent or shortcut is provided.
  */
 const MaybeTooltip = ({ tooltipContent, shortcut, children }: MaybeTooltipProps) => {
-	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useIsFhsEnabled()
-		: fg('navx-full-height-sidebar');
+	const isFhsEnabled = useIsFhsEnabled();
 
 	if (tooltipContent && isFhsEnabled) {
 		return (
@@ -244,11 +240,7 @@ const PortaledPanelSplitter = ({
 		| 'position'
 		| 'shortcut'
 	>): ReactNode => {
-	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useIsFhsEnabled()
-		: fg('navx-full-height-sidebar');
-
+	const isFhsEnabled = useIsFhsEnabled();
 	const splitterRef = useRef<HTMLDivElement | null>(null);
 	const labelId = useId();
 	// Separate state used for the input range width to remove the UI's dependency on the "persisted" layout state value being updated

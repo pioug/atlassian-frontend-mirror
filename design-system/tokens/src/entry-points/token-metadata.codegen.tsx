@@ -3,7 +3,7 @@
  *
  * Metadata for generation of of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::b641ae01a1e0cba6256542b047415d41>>
+ * @codegen <<SignedSource::d2c7d478f4be0c1217d656e8c1c6ce83>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -184,9 +184,16 @@ export const tokens: Token[] = [
 	},
 	{
 		name: 'color.text.danger',
-		path: ['color', 'text', 'danger'],
+		path: ['color', 'text', 'danger', '[default]'],
 		description: 'Use for critical text, such as input field error messaging.',
 		exampleValue: '#AE2E24',
+	},
+	{
+		name: 'color.text.danger.bolder',
+		path: ['color', 'text', 'danger', 'bolder'],
+		description:
+			'Use for text on top of danger semantic labels to ensure accessibility and desired visual appearance.',
+		exampleValue: '#5D1F1A',
 	},
 	{
 		name: 'color.text.warning',
@@ -201,24 +208,52 @@ export const tokens: Token[] = [
 		exampleValue: '#292A2E',
 	},
 	{
+		name: 'color.text.warning.bolder',
+		path: ['color', 'text', 'warning', 'bolder'],
+		description:
+			'Use for text on top of warning semantic labels to ensure accessibility and desired visual appearance.',
+		exampleValue: '#693200',
+	},
+	{
 		name: 'color.text.success',
-		path: ['color', 'text', 'success'],
+		path: ['color', 'text', 'success', '[default]'],
 		description:
 			'Use for text to communicate a favorable outcome, such as input field success messaging.',
 		exampleValue: '#4C6B1F',
 	},
 	{
+		name: 'color.text.success.bolder',
+		path: ['color', 'text', 'success', 'bolder'],
+		description:
+			'Use for text on top of success semantic labels to ensure accessibility and desired visual appearance.',
+		exampleValue: '#37471F',
+	},
+	{
 		name: 'color.text.discovery',
-		path: ['color', 'text', 'discovery'],
+		path: ['color', 'text', 'discovery', '[default]'],
 		description: 'Use for text to emphasize change or something new, such as in new lozenges.',
 		exampleValue: '#803FA5',
 	},
 	{
+		name: 'color.text.discovery.bolder',
+		path: ['color', 'text', 'discovery', 'bolder'],
+		description:
+			'Use for text on top of discovery semantic labels to ensure accessibility and desired visual appearance.',
+		exampleValue: '#48245D',
+	},
+	{
 		name: 'color.text.information',
-		path: ['color', 'text', 'information'],
+		path: ['color', 'text', 'information', '[default]'],
 		description:
 			'Use for informative text or to communicate something is in progress, such as in-progress lozenges.',
 		exampleValue: '#1558BC',
+	},
+	{
+		name: 'color.text.information.bolder',
+		path: ['color', 'text', 'information', 'bolder'],
+		description:
+			'Use for text on top of information semantic labels to ensure accessibility and desired visual appearance.',
+		exampleValue: '#123263',
 	},
 	{
 		name: 'color.text.subtlest',
@@ -1541,6 +1576,25 @@ export const tokens: Token[] = [
 		exampleValue: '#FFB8B2',
 	},
 	{
+		name: 'color.background.danger.subtler',
+		path: ['color', 'background', 'danger', 'subtler', '[default]'],
+		description:
+			'Use for backgrounds of danger lozenges and badges to ensure accessibility and desired visual appearance.',
+		exampleValue: '#FFD5D2',
+	},
+	{
+		name: 'color.background.danger.subtler.hovered',
+		path: ['color', 'background', 'danger', 'subtler', 'hovered'],
+		description: 'Hovered state of color.background.danger.subtler',
+		exampleValue: '#FFB8B2',
+	},
+	{
+		name: 'color.background.danger.subtler.pressed',
+		path: ['color', 'background', 'danger', 'subtler', 'pressed'],
+		description: 'Pressed state of color.background.danger.subtler',
+		exampleValue: '#FD9891',
+	},
+	{
 		name: 'color.background.danger.bold',
 		path: ['color', 'background', 'danger', 'bold', '[default]'],
 		description:
@@ -1576,6 +1630,25 @@ export const tokens: Token[] = [
 		path: ['color', 'background', 'warning', '[default]', 'pressed'],
 		description: 'Pressed state for color.background.warning',
 		exampleValue: '#FBD779',
+	},
+	{
+		name: 'color.background.warning.subtler',
+		path: ['color', 'background', 'warning', 'subtler', '[default]'],
+		description:
+			'Use for backgrounds of warning lozenges and badges to ensure accessibility and desired visual appearance.',
+		exampleValue: '#FCE4A6',
+	},
+	{
+		name: 'color.background.warning.subtler.hovered',
+		path: ['color', 'background', 'warning', 'subtler', 'hovered'],
+		description: 'Hovered state of color.background.warning.subtler',
+		exampleValue: '#FBD779',
+	},
+	{
+		name: 'color.background.warning.subtler.pressed',
+		path: ['color', 'background', 'warning', 'subtler', 'pressed'],
+		description: 'Pressed state of color.background.warning.subtler',
+		exampleValue: '#FBC828',
 	},
 	{
 		name: 'color.background.warning.bold',
@@ -1616,6 +1689,25 @@ export const tokens: Token[] = [
 		exampleValue: '#BDE97C',
 	},
 	{
+		name: 'color.background.success.subtler',
+		path: ['color', 'background', 'success', 'subtler', '[default]'],
+		description:
+			'Use for backgrounds of success lozenges and badges to ensure accessibility and desired visual appearance.',
+		exampleValue: '#D3F1A7',
+	},
+	{
+		name: 'color.background.success.subtler.hovered',
+		path: ['color', 'background', 'success', 'subtler', 'hovered'],
+		description: 'Hovered state of color.background.success.subtler',
+		exampleValue: '#BDE97C',
+	},
+	{
+		name: 'color.background.success.subtler.pressed',
+		path: ['color', 'background', 'success', 'subtler', 'pressed'],
+		description: 'Pressed state of color.background.success.subtler',
+		exampleValue: '#B3DF72',
+	},
+	{
 		name: 'color.background.success.bold',
 		path: ['color', 'background', 'success', 'bold', '[default]'],
 		description:
@@ -1654,6 +1746,25 @@ export const tokens: Token[] = [
 		exampleValue: '#E3BDFA',
 	},
 	{
+		name: 'color.background.discovery.subtler',
+		path: ['color', 'background', 'discovery', 'subtler', '[default]'],
+		description:
+			'Use for backgrounds of discovery lozenges and badges to ensure accessibility and desired visual appearance.',
+		exampleValue: '#EED7FC',
+	},
+	{
+		name: 'color.background.discovery.subtler.hovered',
+		path: ['color', 'background', 'discovery', 'subtler', 'hovered'],
+		description: 'Hovered state of color.background.discovery.subtler',
+		exampleValue: '#E3BDFA',
+	},
+	{
+		name: 'color.background.discovery.subtler.pressed',
+		path: ['color', 'background', 'discovery', 'subtler', 'pressed'],
+		description: 'Pressed state of color.background.discovery.subtler',
+		exampleValue: '#D8A0F7',
+	},
+	{
 		name: 'color.background.discovery.bold',
 		path: ['color', 'background', 'discovery', 'bold', '[default]'],
 		description:
@@ -1690,6 +1801,25 @@ export const tokens: Token[] = [
 		path: ['color', 'background', 'information', '[default]', 'pressed'],
 		description: 'Pressed state of color.background.information',
 		exampleValue: '#ADCBFB',
+	},
+	{
+		name: 'color.background.information.subtler',
+		path: ['color', 'background', 'information', 'subtler', '[default]'],
+		description:
+			'Use for backgrounds of information lozenges and badges to ensure accessibility and desired visual appearance.',
+		exampleValue: '#CFE1FD',
+	},
+	{
+		name: 'color.background.information.subtler.hovered',
+		path: ['color', 'background', 'information', 'subtler', 'hovered'],
+		description: 'Hovered state of color.background.information.subtler',
+		exampleValue: '#ADCBFB',
+	},
+	{
+		name: 'color.background.information.subtler.pressed',
+		path: ['color', 'background', 'information', 'subtler', 'pressed'],
+		description: 'Pressed state of color.background.information.subtler',
+		exampleValue: '#8FB8F6',
 	},
 	{
 		name: 'color.background.information.bold',

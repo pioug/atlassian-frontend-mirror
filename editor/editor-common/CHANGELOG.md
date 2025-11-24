@@ -1,5 +1,40 @@
 # @atlaskit/editor-common
 
+## 110.34.3
+
+### Patch Changes
+
+- [`7c690600403b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c690600403b0) -
+  EDITOR-2419 fire UnifiedAnalytics Actioned analytics event upon AI content being kept
+- Updated dependencies
+
+## 110.34.2
+
+### Patch Changes
+
+- [`0d237a5696b06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d237a5696b06) -
+  Uncoupled several block of changes from the aifc FG and moved them behind their own FG so they can
+  be rolled out quicker
+
+## 110.34.1
+
+### Patch Changes
+
+- [`24092f8832d34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24092f8832d34) -
+  [EDITOR-3321] Clean up platform_editor_update_modal_close_button
+- Updated dependencies
+
+## 110.34.0
+
+### Minor Changes
+
+- [`feec415e77ed4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/feec415e77ed4) -
+  EDITOR-3198 Added polish action in AI section of floating toolbar for selection in editor.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 110.33.2
 
 ### Patch Changes

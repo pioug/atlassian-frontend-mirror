@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "3.11.3",
+	"version": "3.12.1",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.9.1",
+	"version": "43.10.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -248,6 +248,9 @@
 			"type": "boolean"
 		},
 		"hover-card-prop-should-render-to-parent": {
+			"type": "boolean"
+		},
+		"lozenge-dropdown-prop-should-render-to-parent": {
 			"type": "boolean"
 		},
 		"platform-linking-smart-card-layered-link-a11y": {

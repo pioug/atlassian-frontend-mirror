@@ -15,7 +15,11 @@ const getConsideredEntryTypes = () => {
 		consideredEntryTypes.push('mutation:ssr-placeholder');
 	}
 
-	return ['mutation:display-contents-children-element'];
+	if (fg('platform_ufo_detect_zero_dimension_rectangles')) {
+		consideredEntryTypes.push('mutation:display-contents-children-attribute');
+	}
+
+	return consideredEntryTypes;
 };
 
 const getExcludedEntryTypes = () => {

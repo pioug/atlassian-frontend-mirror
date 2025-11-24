@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 7.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.6
+
+### Patch Changes
+
+- [`0d237a5696b06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d237a5696b06) -
+  Uncoupled several block of changes from the aifc FG and moved them behind their own FG so they can
+  be rolled out quicker
+- Updated dependencies
+
 ## 7.1.5
 
 ### Patch Changes

@@ -11,14 +11,27 @@ const color: ValueSchema<TextColorTokenSchema<BaseToken>> = {
 			disabled: { value: 'N70' },
 			brand: { value: 'B300' },
 			selected: { value: 'B400' },
-			danger: { value: 'R400' },
+			danger: {
+				'[default]': { value: 'R400' },
+				bolder: { value: 'R500' },
+			},
 			warning: {
 				'[default]': { value: 'O800' },
 				inverse: { value: 'N800' },
+				bolder: { value: 'O800' },
 			},
-			success: { value: 'G500' },
-			information: { value: 'B400' },
-			discovery: { value: 'P500' },
+			success: {
+				'[default]': { value: 'G500' },
+				bolder: { value: 'G500' },
+			},
+			information: {
+				'[default]': { value: 'B400' },
+				bolder: { value: 'B500' },
+			},
+			discovery: {
+				'[default]': { value: 'P500' },
+				bolder: { value: 'P500' },
+			},
 		},
 		link: {
 			'[default]': { value: 'B400' },

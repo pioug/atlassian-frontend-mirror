@@ -215,6 +215,7 @@ export {
 	AI_SECTION_PRIMARY_TOOLBAR,
 	AI_SECTION_FULL_PAGE_PRIMARY_TOOLBAR,
 	AI_SECTION_COMMENT_PRIMARY_TOOLBAR,
+	ADD_POLISH_MENU_ITEM,
 } from './keys';
 
 export { useEditorToolbar, EditorToolbarProvider, type EditorToolbarContextType } from './context';

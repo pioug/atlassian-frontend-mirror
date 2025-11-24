@@ -7,7 +7,6 @@ import React, { Fragment } from 'react';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import type { NewIconProps } from '@atlaskit/icon';
 import SearchIcon from '@atlaskit/icon/core/search';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable, Show, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -94,10 +93,7 @@ export const Search = ({
 	interactionName?: string;
 	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
 }) => {
-	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useIsFhsEnabled()
-		: fg('navx-full-height-sidebar');
+	const isFhsEnabled = useIsFhsEnabled();
 
 	return (
 		<Fragment>

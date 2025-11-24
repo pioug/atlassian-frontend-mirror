@@ -7,7 +7,6 @@ import React, { useCallback, useRef } from 'react';
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import type { LogoProps } from '@atlaskit/logo';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -149,11 +148,7 @@ export const AppLogo = ({
 	 */
 	onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }) => {
-	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useIsFhsEnabled()
-		: fg('navx-full-height-sidebar');
-
+	const isFhsEnabled = useIsFhsEnabled();
 	const ref = useRef<HTMLAnchorElement>(null);
 	const nameRef = useRef<HTMLSpanElement | null>(null);
 

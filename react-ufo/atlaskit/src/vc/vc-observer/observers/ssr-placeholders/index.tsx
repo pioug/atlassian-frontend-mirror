@@ -212,6 +212,12 @@ export class SSRPlaceholderHandlers {
 		});
 	}
 
+	validateReactComponentMatchToPlaceholderV4(el: HTMLElement): boolean {
+		el = this.findNearestPlaceholderContainerIfIgnored(el);
+		const id = this.getPlaceholderReplacementId(el);
+		return this.staticPlaceholders.has(id);
+	}
+
 	hasSameSizePosition(rect: Rect | undefined, boundingClientRect: DOMRectReadOnly): boolean {
 		if (!rect) {
 			return false;

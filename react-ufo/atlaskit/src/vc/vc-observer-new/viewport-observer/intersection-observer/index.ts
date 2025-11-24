@@ -1,5 +1,8 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { VCObserverEntryType } from '../../types';
 import type { MutationData } from '../types';
+import { isZeroDimensionRectangle } from '../utils/is-zero-dimension-rectangle';
 
 type TagCallback = (props: { target: HTMLElement; rect: DOMRectReadOnly }) =>
 	| VCObserverEntryType
@@ -53,13 +56,57 @@ export function createIntersectionObserver({
 		const startTime = performance.now();
 
 		entries.forEach((entry) => {
-			if (!(entry.target instanceof HTMLElement) || !isValidEntry(entry)) {
+			if (!(entry.target instanceof HTMLElement)) {
+				return;
+			}
+
+			const tagOrCallback = callbacksPerElement.get(entry.target);
+
+			if (fg('platform_ufo_detect_zero_dimension_rectangles')) {
+				if (isZeroDimensionRectangle(entry.intersectionRect)) {
+					const zeroDimensionRectangleTagCallback: TagCallback = (props: {
+						target: HTMLElement;
+						rect: DOMRectReadOnly;
+					}) => {
+						const tagOrCallbackResult =
+							typeof tagOrCallback === 'function' ? tagOrCallback(props) : tagOrCallback;
+
+						// override as display-contents mutation
+						if (tagOrCallbackResult === 'mutation:element') {
+							return 'mutation:display-contents-children-element';
+						}
+
+						// override as display-contents mutation
+						if (
+							tagOrCallbackResult &&
+							typeof tagOrCallbackResult !== 'string' &&
+							tagOrCallbackResult.type === 'mutation:attribute'
+						) {
+							return {
+								type: 'mutation:display-contents-children-attribute',
+								mutationData: tagOrCallbackResult.mutationData,
+							};
+						}
+
+						return tagOrCallbackResult;
+					};
+
+					for (const child of entry.target.children) {
+						observer.observe(child);
+						callbacksPerElement.set(child, zeroDimensionRectangleTagCallback);
+					}
+
+					return;
+				}
+			}
+
+			if (!isValidEntry(entry)) {
 				return;
 			}
 
 			let mutationTag: VCObserverEntryType | undefined | null = null;
 			let mutationData: MutationData | undefined | null = null;
-			const tagOrCallback = callbacksPerElement.get(entry.target);
+
 			if (typeof tagOrCallback === 'function') {
 				const tagOrCallbackResult = tagOrCallback({
 					target: entry.target,

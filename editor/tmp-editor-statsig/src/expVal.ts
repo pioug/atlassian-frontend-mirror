@@ -1,4 +1,5 @@
 import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { addFeatureFlagAccessed } from '@atlaskit/react-ufo/feature-flags-accessed';
 
 import { type EditorExperimentsConfig, editorExperimentsConfig } from './experiments-config';
 import { _overrides, _paramOverrides, _product } from './setup';
@@ -70,6 +71,19 @@ function expValInternal<
 			fireExperimentExposure: fireExperimentExposure,
 		},
 	);
+
+	if (
+		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+		FeatureGates.getExperimentValue(
+			'cc_editor_experiments_ufo_gate_reporting_expval',
+			'isEnabled',
+			false,
+		)
+	) {
+		// Duplicated from /confluence/next/packages/feature-experiments/src/index.ts
+		addFeatureFlagAccessed(`${experimentName}:${experimentParam}`, experimentValue as never);
+	}
+
 	return experimentValue;
 }
 

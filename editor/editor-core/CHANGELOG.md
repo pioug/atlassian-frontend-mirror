@@ -1,5 +1,20 @@
 # @atlaskit/editor-core
 
+## 215.13.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 215.13.11
+
+### Patch Changes
+
+- [`0d237a5696b06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d237a5696b06) -
+  Uncoupled several block of changes from the aifc FG and moved them behind their own FG so they can
+  be rolled out quicker
+- Updated dependencies
+
 ## 215.13.10
 
 ### Patch Changes

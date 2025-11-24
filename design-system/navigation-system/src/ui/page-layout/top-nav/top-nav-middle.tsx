@@ -6,7 +6,6 @@ import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
@@ -93,10 +92,7 @@ export function TopNavMiddle({
 	 */
 	children: React.ReactNode;
 }) {
-	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useIsFhsEnabled()
-		: fg('navx-full-height-sidebar');
+	const isFhsEnabled = useIsFhsEnabled();
 
 	return <div css={[styles.root, isFhsEnabled && styles.fullHeightSidebar]}>{children}</div>;
 }

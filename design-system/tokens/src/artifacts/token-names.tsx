@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2ced0280eb32f0b8ff5dca7b8912fe30>>
+ * @codegen <<SignedSource::c89a29e7cce7f49704b4559e5f42c4ea>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -30,11 +30,16 @@ const tokens = {
 	'color.text.selected': '--ds-text-selected',
 	'color.text.brand': '--ds-text-brand',
 	'color.text.danger': '--ds-text-danger',
+	'color.text.danger.bolder': '--ds-text-danger-bolder',
 	'color.text.warning': '--ds-text-warning',
 	'color.text.warning.inverse': '--ds-text-warning-inverse',
+	'color.text.warning.bolder': '--ds-text-warning-bolder',
 	'color.text.success': '--ds-text-success',
+	'color.text.success.bolder': '--ds-text-success-bolder',
 	'color.text.discovery': '--ds-text-discovery',
+	'color.text.discovery.bolder': '--ds-text-discovery-bolder',
 	'color.text.information': '--ds-text-information',
+	'color.text.information.bolder': '--ds-text-information-bolder',
 	'color.text.subtlest': '--ds-text-subtlest',
 	'color.text.subtle': '--ds-text-subtle',
 	'color.link': '--ds-link',
@@ -251,30 +256,45 @@ const tokens = {
 	'color.background.danger': '--ds-background-danger',
 	'color.background.danger.hovered': '--ds-background-danger-hovered',
 	'color.background.danger.pressed': '--ds-background-danger-pressed',
+	'color.background.danger.subtler': '--ds-background-danger-subtler',
+	'color.background.danger.subtler.hovered': '--ds-background-danger-subtler-hovered',
+	'color.background.danger.subtler.pressed': '--ds-background-danger-subtler-pressed',
 	'color.background.danger.bold': '--ds-background-danger-bold',
 	'color.background.danger.bold.hovered': '--ds-background-danger-bold-hovered',
 	'color.background.danger.bold.pressed': '--ds-background-danger-bold-pressed',
 	'color.background.warning': '--ds-background-warning',
 	'color.background.warning.hovered': '--ds-background-warning-hovered',
 	'color.background.warning.pressed': '--ds-background-warning-pressed',
+	'color.background.warning.subtler': '--ds-background-warning-subtler',
+	'color.background.warning.subtler.hovered': '--ds-background-warning-subtler-hovered',
+	'color.background.warning.subtler.pressed': '--ds-background-warning-subtler-pressed',
 	'color.background.warning.bold': '--ds-background-warning-bold',
 	'color.background.warning.bold.hovered': '--ds-background-warning-bold-hovered',
 	'color.background.warning.bold.pressed': '--ds-background-warning-bold-pressed',
 	'color.background.success': '--ds-background-success',
 	'color.background.success.hovered': '--ds-background-success-hovered',
 	'color.background.success.pressed': '--ds-background-success-pressed',
+	'color.background.success.subtler': '--ds-background-success-subtler',
+	'color.background.success.subtler.hovered': '--ds-background-success-subtler-hovered',
+	'color.background.success.subtler.pressed': '--ds-background-success-subtler-pressed',
 	'color.background.success.bold': '--ds-background-success-bold',
 	'color.background.success.bold.hovered': '--ds-background-success-bold-hovered',
 	'color.background.success.bold.pressed': '--ds-background-success-bold-pressed',
 	'color.background.discovery': '--ds-background-discovery',
 	'color.background.discovery.hovered': '--ds-background-discovery-hovered',
 	'color.background.discovery.pressed': '--ds-background-discovery-pressed',
+	'color.background.discovery.subtler': '--ds-background-discovery-subtler',
+	'color.background.discovery.subtler.hovered': '--ds-background-discovery-subtler-hovered',
+	'color.background.discovery.subtler.pressed': '--ds-background-discovery-subtler-pressed',
 	'color.background.discovery.bold': '--ds-background-discovery-bold',
 	'color.background.discovery.bold.hovered': '--ds-background-discovery-bold-hovered',
 	'color.background.discovery.bold.pressed': '--ds-background-discovery-bold-pressed',
 	'color.background.information': '--ds-background-information',
 	'color.background.information.hovered': '--ds-background-information-hovered',
 	'color.background.information.pressed': '--ds-background-information-pressed',
+	'color.background.information.subtler': '--ds-background-information-subtler',
+	'color.background.information.subtler.hovered': '--ds-background-information-subtler-hovered',
+	'color.background.information.subtler.pressed': '--ds-background-information-subtler-pressed',
 	'color.background.information.bold': '--ds-background-information-bold',
 	'color.background.information.bold.hovered': '--ds-background-information-bold-hovered',
 	'color.background.information.bold.pressed': '--ds-background-information-bold-pressed',
@@ -492,11 +512,16 @@ export type CSSTokenMap = {
 	'color.text.selected': 'var(--ds-text-selected)';
 	'color.text.brand': 'var(--ds-text-brand)';
 	'color.text.danger': 'var(--ds-text-danger)';
+	'color.text.danger.bolder': 'var(--ds-text-danger-bolder)';
 	'color.text.warning': 'var(--ds-text-warning)';
 	'color.text.warning.inverse': 'var(--ds-text-warning-inverse)';
+	'color.text.warning.bolder': 'var(--ds-text-warning-bolder)';
 	'color.text.success': 'var(--ds-text-success)';
+	'color.text.success.bolder': 'var(--ds-text-success-bolder)';
 	'color.text.discovery': 'var(--ds-text-discovery)';
+	'color.text.discovery.bolder': 'var(--ds-text-discovery-bolder)';
 	'color.text.information': 'var(--ds-text-information)';
+	'color.text.information.bolder': 'var(--ds-text-information-bolder)';
 	'color.text.subtlest': 'var(--ds-text-subtlest)';
 	'color.text.subtle': 'var(--ds-text-subtle)';
 	'color.link': 'var(--ds-link)';
@@ -703,30 +728,45 @@ export type CSSTokenMap = {
 	'color.background.danger': 'var(--ds-background-danger)';
 	'color.background.danger.hovered': 'var(--ds-background-danger-hovered)';
 	'color.background.danger.pressed': 'var(--ds-background-danger-pressed)';
+	'color.background.danger.subtler': 'var(--ds-background-danger-subtler)';
+	'color.background.danger.subtler.hovered': 'var(--ds-background-danger-subtler-hovered)';
+	'color.background.danger.subtler.pressed': 'var(--ds-background-danger-subtler-pressed)';
 	'color.background.danger.bold': 'var(--ds-background-danger-bold)';
 	'color.background.danger.bold.hovered': 'var(--ds-background-danger-bold-hovered)';
 	'color.background.danger.bold.pressed': 'var(--ds-background-danger-bold-pressed)';
 	'color.background.warning': 'var(--ds-background-warning)';
 	'color.background.warning.hovered': 'var(--ds-background-warning-hovered)';
 	'color.background.warning.pressed': 'var(--ds-background-warning-pressed)';
+	'color.background.warning.subtler': 'var(--ds-background-warning-subtler)';
+	'color.background.warning.subtler.hovered': 'var(--ds-background-warning-subtler-hovered)';
+	'color.background.warning.subtler.pressed': 'var(--ds-background-warning-subtler-pressed)';
 	'color.background.warning.bold': 'var(--ds-background-warning-bold)';
 	'color.background.warning.bold.hovered': 'var(--ds-background-warning-bold-hovered)';
 	'color.background.warning.bold.pressed': 'var(--ds-background-warning-bold-pressed)';
 	'color.background.success': 'var(--ds-background-success)';
 	'color.background.success.hovered': 'var(--ds-background-success-hovered)';
 	'color.background.success.pressed': 'var(--ds-background-success-pressed)';
+	'color.background.success.subtler': 'var(--ds-background-success-subtler)';
+	'color.background.success.subtler.hovered': 'var(--ds-background-success-subtler-hovered)';
+	'color.background.success.subtler.pressed': 'var(--ds-background-success-subtler-pressed)';
 	'color.background.success.bold': 'var(--ds-background-success-bold)';
 	'color.background.success.bold.hovered': 'var(--ds-background-success-bold-hovered)';
 	'color.background.success.bold.pressed': 'var(--ds-background-success-bold-pressed)';
 	'color.background.discovery': 'var(--ds-background-discovery)';
 	'color.background.discovery.hovered': 'var(--ds-background-discovery-hovered)';
 	'color.background.discovery.pressed': 'var(--ds-background-discovery-pressed)';
+	'color.background.discovery.subtler': 'var(--ds-background-discovery-subtler)';
+	'color.background.discovery.subtler.hovered': 'var(--ds-background-discovery-subtler-hovered)';
+	'color.background.discovery.subtler.pressed': 'var(--ds-background-discovery-subtler-pressed)';
 	'color.background.discovery.bold': 'var(--ds-background-discovery-bold)';
 	'color.background.discovery.bold.hovered': 'var(--ds-background-discovery-bold-hovered)';
 	'color.background.discovery.bold.pressed': 'var(--ds-background-discovery-bold-pressed)';
 	'color.background.information': 'var(--ds-background-information)';
 	'color.background.information.hovered': 'var(--ds-background-information-hovered)';
 	'color.background.information.pressed': 'var(--ds-background-information-pressed)';
+	'color.background.information.subtler': 'var(--ds-background-information-subtler)';
+	'color.background.information.subtler.hovered': 'var(--ds-background-information-subtler-hovered)';
+	'color.background.information.subtler.pressed': 'var(--ds-background-information-subtler-pressed)';
 	'color.background.information.bold': 'var(--ds-background-information-bold)';
 	'color.background.information.bold.hovered': 'var(--ds-background-information-bold-hovered)';
 	'color.background.information.bold.pressed': 'var(--ds-background-information-bold-pressed)';

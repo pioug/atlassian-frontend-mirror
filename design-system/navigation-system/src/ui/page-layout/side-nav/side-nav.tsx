@@ -445,11 +445,7 @@ function SideNavInternal({
 	id: providedId,
 	canToggleWithShortcut,
 }: SideNavProps) {
-	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useIsFhsEnabled()
-		: fg('navx-full-height-sidebar');
-
+	const isFhsEnabled = useIsFhsEnabled();
 	const id = useLayoutId({ providedId });
 	const expandSideNav = useExpandSideNav({ trigger: 'skip-link' });
 	/**

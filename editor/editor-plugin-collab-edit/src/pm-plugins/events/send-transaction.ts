@@ -73,7 +73,7 @@ export const sendTransaction =
 		const participantsChanged =
 			prevActiveParticipants && !prevActiveParticipants.eq(activeParticipants);
 
-		if (fg('aifc_create_enabled')) {
+		if (fg('platform_editor_ai_generic_prep_for_aifc')) {
 			if (!sessionId || viewMode !== 'edit') {
 				return;
 			}

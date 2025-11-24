@@ -4,7 +4,7 @@ exports[`<CategorySelector /> active category highlighted 1`] = `
 <button
   aria-label="Activity"
   aria-selected="true"
-  class="_ymio1r31 _ypr0glyw _zcxs1o36 _mizu194a _1ah3dkaa _ra3xnqa1 _128mdkaa _1cvmnqa1 _4davt94y _19itglyw _vchhusvi _r06hglyw _80omtlke _2rko12b0 _v564h5h4 _189eidpf _bfhksm61 _ca0qze3t _n3tdze3t _19bvze3t _u5f3ze3t _syaz6x5g _30l36x5g"
+  class="REDACTED"
   data-focus-index="3"
   data-testid="category-selector-ACTIVITY"
   id="category-selector-ACTIVITY"
@@ -14,7 +14,7 @@ exports[`<CategorySelector /> active category highlighted 1`] = `
 >
   <span
     aria-label="Activity"
-    class="_1e0c1o8l _1o9zidpf _vyfuvuon _vwz4kb7n _1szv15vq _1tly15vq _rzyw1osq _17jb1osq _1ksvoz0e _3se1x1jp _re2rglyw _1veoyfq0 _1kg81r31 _jcxd1r8n _gq0g1onz _1trkwc43"
+    class="REDACTED"
     data-vc="icon-undefined"
     role="img"
     style="--icon-primary-color: currentColor;"

@@ -176,6 +176,11 @@ export const DEFINE_BUTTON = {
 	type: 'button',
 } as const;
 
+export const ADD_POLISH_MENU_ITEM = {
+	key: 'add-polish-menu-item',
+	type: 'menu-item',
+} as const;
+
 /**
  * Text section
  */

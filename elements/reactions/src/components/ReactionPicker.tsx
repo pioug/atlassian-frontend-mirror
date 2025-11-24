@@ -353,11 +353,9 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 					: 'quickSelector',
 			);
 			close(item.id);
-			if (fg('platform_emoji_picker_focus_on_button')) {
-				// After selecting an emoji, we would like focus to be returned to the trigger button
-				// This is for the purposes of navigation for keyboard users
-				requestAnimationFrame(() => triggerRef?.focus());
-			}
+			// After selecting an emoji, we would like focus to be returned to the trigger button
+			// This is for the purposes of navigation for keyboard users
+			requestAnimationFrame(() => triggerRef?.focus());
 		},
 		[
 			close,

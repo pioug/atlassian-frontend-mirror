@@ -85,6 +85,11 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 					hovered: { value: 'Red800' },
 					pressed: { value: 'Red850' },
 				},
+				subtler: {
+					'[default]': { value: 'Red200' },
+					hovered: { value: 'Red250' },
+					pressed: { value: 'Red300' },
+				},
 			},
 			warning: {
 				'[default]': {
@@ -96,6 +101,11 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 					'[default]': { value: 'Orange300' },
 					hovered: { value: 'Orange400' },
 					pressed: { value: 'Orange500' },
+				},
+				subtler: {
+					'[default]': { value: 'Orange200' },
+					hovered: { value: 'Orange250' },
+					pressed: { value: 'Orange300' },
 				},
 			},
 			success: {
@@ -109,6 +119,11 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 					hovered: { value: 'Lime800' },
 					pressed: { value: 'Lime850' },
 				},
+				subtler: {
+					'[default]': { value: 'Lime200' },
+					hovered: { value: 'Lime250' },
+					pressed: { value: 'Lime300' },
+				},
 			},
 			discovery: {
 				'[default]': {
@@ -121,6 +136,11 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 					hovered: { value: 'Purple800' },
 					pressed: { value: 'Purple850' },
 				},
+				subtler: {
+					'[default]': { value: 'Purple200' },
+					hovered: { value: 'Purple250' },
+					pressed: { value: 'Purple300' },
+				},
 			},
 			information: {
 				'[default]': {
@@ -132,6 +152,11 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 					'[default]': { value: 'Blue700' },
 					hovered: { value: 'Blue800' },
 					pressed: { value: 'Blue850' },
+				},
+				subtler: {
+					'[default]': { value: 'Blue200' },
+					hovered: { value: 'Blue250' },
+					pressed: { value: 'Blue300' },
 				},
 			},
 		},

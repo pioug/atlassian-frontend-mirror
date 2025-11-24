@@ -54,6 +54,100 @@ const createElementMutationsWatcher =
 		return 'mutation:element';
 	};
 
+const createElementMutationsWatcherV4 =
+	(
+		removedNodeRects: (DOMRect | undefined)[],
+		isWithinThirdPartySegment: boolean,
+		hasSameDeletedNode: boolean,
+		timestamp: number,
+		isTargetReactRoot: boolean,
+		getSSRState?: () => any,
+		getSSRPlaceholderHandler?: () => any,
+	) =>
+	({ target, rect }: { rect: DOMRectReadOnly; target: HTMLElement }) => {
+		if (getSSRState) {
+			const ssrState = getSSRState();
+			const SSRStateEnum = { normal: 1, waitingForFirstRender: 2, ignoring: 3 };
+
+			if (
+				ssrState.state === SSRStateEnum.waitingForFirstRender &&
+				timestamp > ssrState.renderStart &&
+				isTargetReactRoot
+			) {
+				ssrState.state = SSRStateEnum.ignoring;
+				if (ssrState.renderStop === -1) {
+					// arbitrary 500ms DOM update window
+					ssrState.renderStop = timestamp + 500;
+				}
+				return 'ssr-hydration';
+			}
+
+			if (
+				ssrState.state === SSRStateEnum.ignoring &&
+				timestamp > ssrState.renderStart &&
+				isTargetReactRoot
+			) {
+				if (timestamp <= ssrState.renderStop) {
+					return 'ssr-hydration';
+				} else {
+					ssrState.state = SSRStateEnum.normal;
+				}
+			}
+		}
+
+		if (getSSRPlaceholderHandler) {
+			const ssrPlaceholderHandler = getSSRPlaceholderHandler();
+			if (ssrPlaceholderHandler) {
+				if (
+					(ssrPlaceholderHandler.isPlaceholder(target) ||
+						ssrPlaceholderHandler.isPlaceholderIgnored(target)) &&
+					ssrPlaceholderHandler.checkIfExistedAndSizeMatchingV3(target)
+				) {
+					return 'mutation:ssr-placeholder';
+				}
+
+				if (
+					(ssrPlaceholderHandler.isPlaceholderReplacement(target) ||
+						ssrPlaceholderHandler.isPlaceholderIgnored(target)) &&
+					ssrPlaceholderHandler.validateReactComponentMatchToPlaceholderV4(target)
+				) {
+					return 'mutation:ssr-placeholder';
+				}
+			}
+		}
+
+		if (hasSameDeletedNode && isInVCIgnoreIfNoLayoutShiftMarker(target)) {
+			return 'mutation:remount';
+		}
+
+		if (isContainedWithinMediaWrapper(target)) {
+			return 'mutation:media';
+		}
+
+		if (isWithinThirdPartySegment) {
+			return 'mutation:third-party-element';
+		}
+
+		const isInIgnoreLsMarker = isInVCIgnoreIfNoLayoutShiftMarker(target);
+
+		if (!isInIgnoreLsMarker) {
+			return 'mutation:element';
+		}
+
+		const isRLLPlaceholder = RLLPlaceholderHandlers.getInstance().isRLLPlaceholderHydration(rect);
+		if (isRLLPlaceholder && isInIgnoreLsMarker) {
+			return 'mutation:rll-placeholder';
+		}
+
+		const wasDeleted = removedNodeRects.some((nr) => isSameRectDimensions(nr, rect));
+
+		if (wasDeleted && isInIgnoreLsMarker) {
+			return 'mutation:element-replacement';
+		}
+
+		return 'mutation:element';
+	};
+
 export default class ViewportObserver {
 	private intersectionObserver: VCIntersectionObserver | null;
 	private mutationObserver: MutationObserver | null;
@@ -146,111 +240,142 @@ export default class ViewportObserver {
 				continue;
 			}
 
-			for (const { isDisplayContentsElementChildren, element } of getMutatedElements(addedNode)) {
-				// SSR hydration logic
-				if (this.getSSRState) {
-					const ssrState = this.getSSRState();
-					const SSRStateEnum = { normal: 1, waitingForFirstRender: 2, ignoring: 3 };
+			if (fg('platform_ufo_detect_zero_dimension_rectangles')) {
+				const hasSameDeletedNode = removedNodes.find((ref) => {
+					const n = ref.deref();
+					if (!n || !addedNode) {
+						return false;
+					}
+					return n.isEqualNode(addedNode);
+				});
 
-					if (
-						ssrState.state === SSRStateEnum.waitingForFirstRender &&
-						timestamp > ssrState.renderStart &&
-						targetNode === ssrState.reactRootElement
-					) {
-						ssrState.state = SSRStateEnum.ignoring;
-						if (ssrState.renderStop === -1) {
-							// arbitrary 500ms DOM update window
-							ssrState.renderStop = timestamp + 500;
+				const { isWithin: isWithinThirdPartySegment } = checkWithinComponent(
+					addedNode,
+					'UFOThirdPartySegment',
+					this.mapIs3pResult,
+				);
+
+				const isTargetReactRoot = targetNode === this.getSSRState?.()?.reactRootElement;
+
+				this.intersectionObserver?.watchAndTag(
+					addedNode,
+					createElementMutationsWatcherV4(
+						removedNodeRects,
+						isWithinThirdPartySegment,
+						!!hasSameDeletedNode,
+						timestamp,
+						isTargetReactRoot,
+						this.getSSRState,
+						this.getSSRPlaceholderHandler,
+					),
+				);
+			} else {
+				for (const { isDisplayContentsElementChildren, element } of getMutatedElements(addedNode)) {
+					// SSR hydration logic
+					if (this.getSSRState) {
+						const ssrState = this.getSSRState();
+						const SSRStateEnum = { normal: 1, waitingForFirstRender: 2, ignoring: 3 };
+
+						if (
+							ssrState.state === SSRStateEnum.waitingForFirstRender &&
+							timestamp > ssrState.renderStart &&
+							targetNode === ssrState.reactRootElement
+						) {
+							ssrState.state = SSRStateEnum.ignoring;
+							if (ssrState.renderStop === -1) {
+								// arbitrary 500ms DOM update window
+								ssrState.renderStop = timestamp + 500;
+							}
+							this.intersectionObserver?.watchAndTag(element, 'ssr-hydration');
+							continue;
 						}
-						this.intersectionObserver?.watchAndTag(element, 'ssr-hydration');
+
+						if (
+							ssrState.state === SSRStateEnum.ignoring &&
+							timestamp > ssrState.renderStart &&
+							targetNode === ssrState.reactRootElement
+						) {
+							if (timestamp <= ssrState.renderStop) {
+								this.intersectionObserver?.watchAndTag(element, 'ssr-hydration');
+								continue;
+							} else {
+								ssrState.state = SSRStateEnum.normal;
+							}
+						}
+					}
+
+					// SSR placeholder logic - check and handle with await
+					if (this.getSSRPlaceholderHandler) {
+						const ssrPlaceholderHandler = this.getSSRPlaceholderHandler();
+						if (ssrPlaceholderHandler) {
+							if (
+								ssrPlaceholderHandler.isPlaceholder(element) ||
+								ssrPlaceholderHandler.isPlaceholderIgnored(element)
+							) {
+								if (ssrPlaceholderHandler.checkIfExistedAndSizeMatchingV3(element)) {
+									this.intersectionObserver?.watchAndTag(element, 'mutation:ssr-placeholder');
+									continue;
+								}
+								// If result is false, continue to normal mutation logic below
+							}
+
+							if (
+								ssrPlaceholderHandler.isPlaceholderReplacement(element) ||
+								ssrPlaceholderHandler.isPlaceholderIgnored(element)
+							) {
+								const result =
+									await ssrPlaceholderHandler.validateReactComponentMatchToPlaceholder(element);
+								if (result !== false) {
+									this.intersectionObserver?.watchAndTag(element, 'mutation:ssr-placeholder');
+									continue;
+								}
+								// If result is false, continue to normal mutation logic below
+							}
+						}
+					}
+
+					const sameDeletedNode = removedNodes.find((ref) => {
+						const n = ref.deref();
+						if (!n || !element) {
+							return false;
+						}
+						return n.isEqualNode(element);
+					});
+
+					const isInIgnoreLsMarker =
+						element instanceof HTMLElement ? isInVCIgnoreIfNoLayoutShiftMarker(element) : false;
+
+					if (sameDeletedNode && isInIgnoreLsMarker) {
+						this.intersectionObserver?.watchAndTag(element, 'mutation:remount');
 						continue;
 					}
 
-					if (
-						ssrState.state === SSRStateEnum.ignoring &&
-						timestamp > ssrState.renderStart &&
-						targetNode === ssrState.reactRootElement
-					) {
-						if (timestamp <= ssrState.renderStop) {
-							this.intersectionObserver?.watchAndTag(element, 'ssr-hydration');
-							continue;
-						} else {
-							ssrState.state = SSRStateEnum.normal;
-						}
+					if (isContainedWithinMediaWrapper(element)) {
+						this.intersectionObserver?.watchAndTag(element, 'mutation:media');
+						continue;
 					}
-				}
 
-				// SSR placeholder logic - check and handle with await
-				if (this.getSSRPlaceholderHandler) {
-					const ssrPlaceholderHandler = this.getSSRPlaceholderHandler();
-					if (ssrPlaceholderHandler) {
-						if (
-							ssrPlaceholderHandler.isPlaceholder(element) ||
-							ssrPlaceholderHandler.isPlaceholderIgnored(element)
-						) {
-							if (ssrPlaceholderHandler.checkIfExistedAndSizeMatchingV3(element)) {
-								this.intersectionObserver?.watchAndTag(element, 'mutation:ssr-placeholder');
-								continue;
-							}
-							// If result is false, continue to normal mutation logic below
-						}
+					const { isWithin: isWithinThirdPartySegment } =
+						element instanceof HTMLElement
+							? checkWithinComponent(element, 'UFOThirdPartySegment', this.mapIs3pResult)
+							: { isWithin: false };
 
-						if (
-							ssrPlaceholderHandler.isPlaceholderReplacement(element) ||
-							ssrPlaceholderHandler.isPlaceholderIgnored(element)
-						) {
-							const result =
-								await ssrPlaceholderHandler.validateReactComponentMatchToPlaceholder(element);
-							if (result !== false) {
-								this.intersectionObserver?.watchAndTag(element, 'mutation:ssr-placeholder');
-								continue;
-							}
-							// If result is false, continue to normal mutation logic below
-						}
+					if (isWithinThirdPartySegment) {
+						this.intersectionObserver?.watchAndTag(element, 'mutation:third-party-element');
+						continue;
 					}
-				}
 
-				const sameDeletedNode = removedNodes.find((ref) => {
-					const n = ref.deref();
-					if (!n || !element) {
-						return false;
+					if (isDisplayContentsElementChildren) {
+						this.intersectionObserver?.watchAndTag(
+							element,
+							'mutation:display-contents-children-element',
+						);
+					} else {
+						this.intersectionObserver?.watchAndTag(
+							element,
+							createElementMutationsWatcher(removedNodeRects),
+						);
 					}
-					return n.isEqualNode(element);
-				});
-
-				const isInIgnoreLsMarker =
-					element instanceof HTMLElement ? isInVCIgnoreIfNoLayoutShiftMarker(element) : false;
-
-				if (sameDeletedNode && isInIgnoreLsMarker) {
-					this.intersectionObserver?.watchAndTag(element, 'mutation:remount');
-					continue;
-				}
-
-				if (isContainedWithinMediaWrapper(element)) {
-					this.intersectionObserver?.watchAndTag(element, 'mutation:media');
-					continue;
-				}
-
-				const { isWithin: isWithinThirdPartySegment } =
-					element instanceof HTMLElement
-						? checkWithinComponent(element, 'UFOThirdPartySegment', this.mapIs3pResult)
-						: { isWithin: false };
-
-				if (isWithinThirdPartySegment) {
-					this.intersectionObserver?.watchAndTag(element, 'mutation:third-party-element');
-					continue;
-				}
-
-				if (isDisplayContentsElementChildren) {
-					this.intersectionObserver?.watchAndTag(
-						element,
-						'mutation:display-contents-children-element',
-					);
-				} else {
-					this.intersectionObserver?.watchAndTag(
-						element,
-						createElementMutationsWatcher(removedNodeRects),
-					);
 				}
 			}
 		}

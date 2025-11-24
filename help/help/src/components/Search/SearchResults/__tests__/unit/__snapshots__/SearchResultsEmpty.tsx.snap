@@ -4,11 +4,9 @@ exports[`SearchResultsEmpty Should match snapshot 1`] = `
 <DocumentFragment>
   <style
     data-cmpld="true"
-  >
-    ._ca0q1ejb{padding-top:var(--ds-space-300,24px)}._u5f31ejb{padding-right:var(--ds-space-300,24px)}._n3tdidpf{padding-bottom:0}._19bv1ejb{padding-left:var(--ds-space-300,24px)}._y3gn1h6o{text-align:center}
-  </style>
+  >REDACTED</style>
   <div
-    class="_ca0q1ejb _u5f31ejb _n3tdidpf _19bv1ejb _y3gn1h6o"
+    class="REDACTED"
   >
     <span>
       <!--?xml version="1.0" encoding="UTF-8"?-->
@@ -191,209 +189,53 @@ exports[`SearchResultsEmpty Should match snapshot 1`] = `
   </div>
   <style
     data-cmpld="true"
-  >
-    ._ca0q1ejb{padding-top:var(--ds-space-300,24px)}._u5f31ejb{padding-right:var(--ds-space-300,24px)}._n3tdidpf{padding-bottom:0}._19bv1ejb{padding-left:var(--ds-space-300,24px)}._y3gn1h6o{text-align:center}._125x1wmz p{color:var(--ds-text-subtlest,#6b778c)}
-  </style>
+  >REDACTED</style>
   <div
-    class="_ca0q1ejb _u5f31ejb _n3tdidpf _19bv1ejb _y3gn1h6o _125x1wmz"
+    class="REDACTED"
   >
     <style
       data-cmpld="true"
-    >
-      ._11c82smr{font:var(--ds-font-body,normal 400 14px/20px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)}._syaz10s3{color:var(--ds-text,#42526e)}._k48pmoej{font-weight:var(--ds-font-weight-bold,700)}
-    </style>
+    >REDACTED</style>
     <h2
-      class="_11c82smr _syaz10s3 _k48pmoej"
+      class="REDACTED"
     >
       We can't find anything matching your search
     </h2>
   </div>
   <style
     data-cmpld="true"
-  >
-    ._ca0q1ejb{padding-top:var(--ds-space-300,24px)}._u5f31ejb{padding-right:var(--ds-space-300,24px)}._n3tdidpf{padding-bottom:0}._19bv1ejb{padding-left:var(--ds-space-300,24px)}._y3gn1h6o{text-align:center}._125x1wmz p{color:var(--ds-text-subtlest,#6b778c)}
-  </style>
-  .emotion-2 {
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
-  border-width: 0;
-  border-radius: var(--ds-radius-small, 3px);
-  box-sizing: border-box;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-size: inherit;
-  font-style: normal;
-  font-family: inherit;
-  font-weight: var(--ds-font-weight-medium, 500);
-  max-width: 100%;
-  position: relative;
-  text-align: center;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
-  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
-  white-space: nowrap;
-  cursor: pointer;
-  height: 1.7142857142857142em;
-  line-height: 1.7142857142857142em;
-  padding: 0 10px;
-  vertical-align: middle;
-  width: auto;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  background: transparent;
-  color: var(--ds-link, #1868DB);
-}
-
-.emotion-2:hover {
-  color: var(--ds-link, #1868DB);
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.emotion-2:active {
-  color: var(--ds-link-pressed, #1558BC);
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.emotion-2[disabled] {
-  color: var(--ds-text-disabled, #080F214A);
-  background-color: transparent;
-  cursor: not-allowed;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.emotion-2[disabled]:hovered {
-  background-color: transparent;
-}
-
-.emotion-2[disabled]:active {
-  background-color: transparent;
-}
-
-.emotion-2[data-has-overlay="true"] {
-  cursor: default;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.emotion-2::-moz-focus-inner {
-  border: 0;
-  margin: 0;
-  padding: 0;
-}
-
-.emotion-2:focus {
-  outline: var(--ds-border-width-focused, 2px) solid var(--ds-border-focused, #2684FF);
-  outline-offset: 2px;
-}
-
-.emotion-2:focus-visible {
-  outline: var(--ds-border-width-focused, 2px) solid var(--ds-border-focused, #2684FF);
-  outline-offset: 2px;
-}
-
-.emotion-2:focus:not(:focus-visible) {
-  outline: none;
-}
-
-@media screen and (forced-colors: active),screen and (-ms-high-contrast: active) {
-  .emotion-2:focus-visible {
-    outline: var(--ds-border-width, 1px) solid;
-  }
-}
-
-.emotion-0 {
-  opacity: 1;
-  -webkit-transition: opacity 0.3s;
-  transition: opacity 0.3s;
-  margin: 0 2px;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  -webkit-flex-shrink: 1;
-  -ms-flex-negative: 1;
-  flex-shrink: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.emotion-1 {
-  opacity: 1;
-  -webkit-transition: opacity 0.3s;
-  transition: opacity 0.3s;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin: 0 2px;
-  -webkit-box-flex: 0;
-  -webkit-flex-grow: 0;
-  -ms-flex-positive: 0;
-  flex-grow: 0;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  font-size: 0;
-  line-height: 0;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  --ds--button--new-icon-padding-end: var(--ds-space-050, 4px);
-  --ds--button--new-icon-padding-start: var(--ds-space-025, 2px);
-  -webkit-margin-end: var(--ds-space-negative-025, -2px);
-  margin-inline-end: var(--ds-space-negative-025, -2px);
-}
-
-<div
-    class="_ca0q1ejb _u5f31ejb _n3tdidpf _19bv1ejb _y3gn1h6o _125x1wmz"
+  >REDACTED</style>
+  <div
+    class="REDACTED"
   >
     <style
       data-cmpld="true"
-    >
-      ._11c82smr{font:var(--ds-font-body,normal 400 14px/20px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)}._11c8dcr7{font:var(--ds-font-body-UNSAFE_small,normal 400 9pt/1pc ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)}._11c81ixg{font:var(--ds-font-body-large,normal 400 1pc/24px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)}._11c81o8v{font:var(--ds-font-body-small,normal 400 11px/1pc ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)}._19pkidpf{margin-top:0}._2hwxidpf{margin-right:0}._otyridpf{margin-bottom:0}._18u0idpf{margin-left:0}._1i4qfg65{overflow-wrap:anywhere}._k48pmoej{font-weight:var(--ds-font-weight-bold,700)}._zg8l1m30{font-style:italic}._y3gnh9n0{text-align:end}._y3gnv2br{text-align:start}._1reo15vq{overflow-x:hidden}._18m915vq{overflow-y:hidden}._1e0ccj1k{display:-webkit-box}._sudp1e54{-webkit-box-orient:vertical}._1nmz9jpi{word-break:break-all}._syazi7uo{color:var(--ds-text,#292a2e)}._syaz1tco{color:var(--ds-text-accent-lime,#4c6b1f)}._syaz1ik3{color:var(--ds-text-accent-lime-bolder,#37471f)}._syaz9lu1{color:var(--ds-text-accent-red,#ae2e24)}._syazhwvp{color:var(--ds-text-accent-red-bolder,#5d1f1a)}._syazp1lv{color:var(--ds-text-accent-orange,#9e4c00)}._syaz7i1p{color:var(--ds-text-accent-orange-bolder,#693200)}._syazfb2s{color:var(--ds-text-accent-yellow,#7f5f01)}._syazekll{color:var(--ds-text-accent-yellow-bolder,#533f04)}._syazh55r{color:var(--ds-text-accent-green,#216e4e)}._syaz1y78{color:var(--ds-text-accent-green-bolder,#164b35)}._syaz17qg{color:var(--ds-text-accent-teal,#206a83)}._syaz12v7{color:var(--ds-text-accent-teal-bolder,#164555)}._syaz16jw{color:var(--ds-text-accent-blue,#1558bc)}._syaz1kyx{color:var(--ds-text-accent-blue-bolder,#123263)}._syazqmo9{color:var(--ds-text-accent-purple,#803fa5)}._syaz1mn1{color:var(--ds-text-accent-purple-bolder,#48245d)}._syaz1s8m{color:var(--ds-text-accent-magenta,#943d73)}._syaz1qur{color:var(--ds-text-accent-magenta-bolder,#50253f)}._syaz1sqi{color:var(--ds-text-accent-gray,#505258)}._syaz1tmo{color:var(--ds-text-accent-gray-bolder,#1e1f21)}._syaz1gmx{color:var(--ds-text-disabled,#080f214a)}._syaz15cr{color:var(--ds-text-inverse,#fff)}._syaz6x5g{color:var(--ds-text-selected,#1868db)}._syaz1oa5{color:var(--ds-text-brand,#1868db)}._syaz1tmw{color:var(--ds-text-danger,#ae2e24)}._syaz1xn9{color:var(--ds-text-warning,#9e4c00)}._syaz1yd3{color:var(--ds-text-warning-inverse,#292a2e)}._syazgsak{color:var(--ds-text-success,#4c6b1f)}._syazdv2p{color:var(--ds-text-discovery,#803fa5)}._syazu3tg{color:var(--ds-text-information,#1558bc)}._syaz1rpy{color:var(--ds-text-subtlest,#6b6e76)}._syazazsu{color:var(--ds-text-subtle,#505258)}._syaz13af{color:var(--ds-link,#1868db)}._syaz12zz{color:var(--ds-link-pressed,#1558bc)}._syaz1ra0{color:var(--ds-link-visited,#803fa5)}._syaz17z1{color:var(--ds-link-visited-pressed,#48245d)}._k48p1wq8{font-weight:var(--ds-font-weight-medium,500)}._k48pi7a9{font-weight:var(--ds-font-weight-regular,400)}._k48p1pd9{font-weight:var(--ds-font-weight-semibold,600)}
-    </style>
+    >REDACTED</style>
     <p
-      class="_19pkidpf _2hwxidpf _otyridpf _18u0idpf _1i4qfg65 _11c82smr _syazi7uo"
+      class="REDACTED"
     >
       Try again with a different term or 
       <br />
       <a
-        class="emotion-2"
+        class="REDACTED"
         href="https://www.atlassian.com/"
         tabindex="0"
         target="_blank"
       >
         <span
-          class="emotion-0"
+          class="REDACTED"
         >
           search all online help articles.
         </span>
         <span
-          class="emotion-1"
+          class="REDACTED"
         >
           <style
             data-cmpld="true"
-          >
-            ._1e0c1o8l{display:inline-block}._1o9zidpf{flex-shrink:0}._vyfuvuon{--icon-secondary-color:var(--ds-surface,#fff)}._vwz4kb7n{line-height:1}._1szv15vq &gt;svg{overflow-x:hidden}._1tly15vq &gt;svg{overflow-y:hidden}._rzyw1osq &gt;svg{max-width:100%}._17jb1osq &gt;svg{max-height:100%}._1ksvoz0e &gt;svg{color:var(--icon-primary-color)}._3se1x1jp &gt;svg{fill:var(--icon-secondary-color)}._re2rglyw &gt;svg{pointer-events:none}._1veoyfq0 &gt;svg{vertical-align:bottom}._1kg81r31 &gt;svg stop{stop-color:currentColor}._1bsb7vkz{width:1pc}._4t3i7vkz{height:1pc}._5fdi7vkz &gt;svg{width:1pc}._zbji7vkz &gt;svg{height:1pc}._1bsb1tcg{width:24px}._4t3i1tcg{height:24px}._5fdi1tcg &gt;svg{width:24px}._zbji1tcg &gt;svg{height:24px}._1bsbzwfg{width:2pc}._4t3izwfg{height:2pc}._5fdizwfg &gt;svg{width:2pc}._zbjizwfg &gt;svg{height:2pc}._1bsbckbl{width:3pc}._4t3ickbl{height:3pc}._5fdickbl &gt;svg{width:3pc}._zbjickbl &gt;svg{height:3pc}@media screen and (forced-colors:active){._jcxd1r8n{filter:grayscale(1)}._gq0g1onz{--icon-primary-color:CanvasText}._1trkwc43{--icon-secondary-color:Canvas}}@media screen and (forced-colors:active){._18hbwc43 &gt;svg{--icon-primary-color:Canvas}}@media screen and (forced-colors:active){._4fyi1j28 &gt;svg{--icon-secondary-color:transparent}}
-          </style>
+          >REDACTED</style>
           <span
             aria-hidden="true"
-            class="_1e0c1o8l _1o9zidpf _vyfuvuon _vwz4kb7n _1szv15vq _1tly15vq _rzyw1osq _17jb1osq _1ksvoz0e _3se1x1jp _re2rglyw _1veoyfq0 _1kg81r31 _jcxd1r8n _gq0g1onz _1trkwc43 _18hbwc43 _1bsb7vkz _4t3i7vkz _5fdi7vkz _zbji7vkz"
+            class="REDACTED"
             data-vc="icon-undefined"
             style="--icon-primary-color: var(--ds-icon-subtle, #8993A4); --icon-secondary-color: var(--ds-icon-subtle, #8993A4);"
           >

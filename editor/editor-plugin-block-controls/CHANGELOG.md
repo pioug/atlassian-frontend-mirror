@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.7.8
+
+### Patch Changes
+
+- [`0d237a5696b06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d237a5696b06) -
+  Uncoupled several block of changes from the aifc FG and moved them behind their own FG so they can
+  be rolled out quicker
+- Updated dependencies
+
 ## 7.7.7
 
 ### Patch Changes

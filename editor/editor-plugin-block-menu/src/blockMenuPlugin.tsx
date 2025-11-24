@@ -1,8 +1,11 @@
 import React from 'react';
 
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
+
 import type { BlockMenuPlugin, RegisterBlockMenuComponent } from './blockMenuPluginType';
 import { createBlockMenuRegistry } from './editor-actions';
 import { formatNode } from './editor-commands/formatNode';
+import { transformNode } from './editor-commands/transformNode';
 import type {
 	FormatNodeTargetType,
 	FormatNodeAnalyticsAttrs,
@@ -38,6 +41,9 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 		commands: {
 			formatNode: (targetType: FormatNodeTargetType, analyticsAttrs?: FormatNodeAnalyticsAttrs) => {
 				return formatNode(api)(targetType, analyticsAttrs);
+			},
+			transformNode: (targetType: NodeType, analyticsAttrs?: FormatNodeAnalyticsAttrs) => {
+				return transformNode(api)(targetType, analyticsAttrs);
 			},
 		},
 		getSharedState(editorState) {

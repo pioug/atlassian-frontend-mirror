@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-panel
 
+## 8.1.9
+
+### Patch Changes
+
+- [`459eb2064ff46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/459eb2064ff46) -
+  [ux] Implements base for the new transform logic for the block menu.
+- Updated dependencies
+
 ## 8.1.8
 
 ### Patch Changes

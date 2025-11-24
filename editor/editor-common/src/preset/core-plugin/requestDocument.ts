@@ -32,7 +32,7 @@ export function createThrottleSchedule<
 		const lastArgsBefore = lastArgs;
 		lastArgs = args;
 		if (frameId) {
-			if (fg('aifc_create_enabled')) {
+			if (fg('platform_editor_ai_generic_prep_for_aifc')) {
 				if (lastArgsBefore) {
 					const [_v, _c, _t, _f, alwaysFire] = lastArgsBefore;
 					if (alwaysFire) {
@@ -50,7 +50,7 @@ export function createThrottleSchedule<
 			() => {
 				frameId = undefined;
 				if (lastArgs) {
-					if (fg('aifc_create_enabled')) {
+					if (fg('platform_editor_ai_generic_prep_for_aifc')) {
 						delayedCallbacks.forEach((savedArgs) => {
 							callback(...savedArgs);
 						});

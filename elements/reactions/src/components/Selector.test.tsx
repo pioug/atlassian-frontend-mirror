@@ -1,7 +1,6 @@
 import React from 'react';
 import { screen, fireEvent } from '@testing-library/react';
 import { type EmojiProvider, type OnEmojiEvent } from '@atlaskit/emoji';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import {
 	mockReactDomWarningGlobal,
@@ -12,10 +11,6 @@ import { RENDER_SHOWMORE_TESTID } from './ShowMore';
 import { DefaultReactions } from '../shared/constants';
 import { messages } from '../shared/i18n';
 import { Selector } from './Selector';
-
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn(),
-}));
 
 const renderSelector = (
 	onSelection: OnEmojiEvent = () => {},
@@ -39,9 +34,6 @@ describe('@atlaskit/reactions/components/selector', () => {
 	useFakeTimers();
 
 	it('should have no accessibility violations', async () => {
-		(fg as jest.Mock).mockImplementation(
-			(gate) => gate === 'platform-reactions-selector-list-semantics',
-		);
 		const { container } = renderWithIntl(renderSelector());
 		await expect(container).toBeAccessible();
 	});

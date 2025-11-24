@@ -70,11 +70,11 @@ export default InteractionSurface;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b617768b23d7eed85bbd7563acdd2bcb>>
+ * @codegen <<SignedSource::c096f2538ebfdcb14824c88311f0c686>>
  * @codegenId interactions
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["background"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::b763fb6c355b33e6fbf23afb996f817f>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::6ba535fc3d46f6c8a7b6384ed59ec8d6>>
  */
 type InteractionBackgroundColor =
 	| 'accent.lime.subtlest'
@@ -128,14 +128,19 @@ type InteractionBackgroundColor =
 	| 'brand.bold'
 	| 'brand.boldest'
 	| 'danger'
+	| 'danger.subtler'
 	| 'danger.bold'
 	| 'warning'
+	| 'warning.subtler'
 	| 'warning.bold'
 	| 'success'
+	| 'success.subtler'
 	| 'success.bold'
 	| 'discovery'
+	| 'discovery.subtler'
 	| 'discovery.bold'
 	| 'information'
+	| 'information.subtler'
 	| 'information.bold'
 	| 'elevation.surface'
 	| 'elevation.surface.overlay'
@@ -295,11 +300,17 @@ const backgroundActiveColorMap: Record<InteractionBackgroundColor, SerializedSty
 	danger: css({
 		'&:active': { backgroundColor: token('color.background.danger.pressed') },
 	}),
+	'danger.subtler': css({
+		'&:active': { backgroundColor: token('color.background.danger.subtler.pressed') },
+	}),
 	'danger.bold': css({
 		'&:active': { backgroundColor: token('color.background.danger.bold.pressed') },
 	}),
 	warning: css({
 		'&:active': { backgroundColor: token('color.background.warning.pressed') },
+	}),
+	'warning.subtler': css({
+		'&:active': { backgroundColor: token('color.background.warning.subtler.pressed') },
 	}),
 	'warning.bold': css({
 		'&:active': { backgroundColor: token('color.background.warning.bold.pressed') },
@@ -307,17 +318,26 @@ const backgroundActiveColorMap: Record<InteractionBackgroundColor, SerializedSty
 	success: css({
 		'&:active': { backgroundColor: token('color.background.success.pressed') },
 	}),
+	'success.subtler': css({
+		'&:active': { backgroundColor: token('color.background.success.subtler.pressed') },
+	}),
 	'success.bold': css({
 		'&:active': { backgroundColor: token('color.background.success.bold.pressed') },
 	}),
 	discovery: css({
 		'&:active': { backgroundColor: token('color.background.discovery.pressed') },
 	}),
+	'discovery.subtler': css({
+		'&:active': { backgroundColor: token('color.background.discovery.subtler.pressed') },
+	}),
 	'discovery.bold': css({
 		'&:active': { backgroundColor: token('color.background.discovery.bold.pressed') },
 	}),
 	information: css({
 		'&:active': { backgroundColor: token('color.background.information.pressed') },
+	}),
+	'information.subtler': css({
+		'&:active': { backgroundColor: token('color.background.information.subtler.pressed') },
 	}),
 	'information.bold': css({
 		'&:active': { backgroundColor: token('color.background.information.bold.pressed') },
@@ -487,11 +507,17 @@ const backgroundHoverColorMap: Record<InteractionBackgroundColor, SerializedStyl
 	danger: css({
 		'&:hover': { backgroundColor: token('color.background.danger.hovered') },
 	}),
+	'danger.subtler': css({
+		'&:hover': { backgroundColor: token('color.background.danger.subtler.hovered') },
+	}),
 	'danger.bold': css({
 		'&:hover': { backgroundColor: token('color.background.danger.bold.hovered') },
 	}),
 	warning: css({
 		'&:hover': { backgroundColor: token('color.background.warning.hovered') },
+	}),
+	'warning.subtler': css({
+		'&:hover': { backgroundColor: token('color.background.warning.subtler.hovered') },
 	}),
 	'warning.bold': css({
 		'&:hover': { backgroundColor: token('color.background.warning.bold.hovered') },
@@ -499,17 +525,26 @@ const backgroundHoverColorMap: Record<InteractionBackgroundColor, SerializedStyl
 	success: css({
 		'&:hover': { backgroundColor: token('color.background.success.hovered') },
 	}),
+	'success.subtler': css({
+		'&:hover': { backgroundColor: token('color.background.success.subtler.hovered') },
+	}),
 	'success.bold': css({
 		'&:hover': { backgroundColor: token('color.background.success.bold.hovered') },
 	}),
 	discovery: css({
 		'&:hover': { backgroundColor: token('color.background.discovery.hovered') },
 	}),
+	'discovery.subtler': css({
+		'&:hover': { backgroundColor: token('color.background.discovery.subtler.hovered') },
+	}),
 	'discovery.bold': css({
 		'&:hover': { backgroundColor: token('color.background.discovery.bold.hovered') },
 	}),
 	information: css({
 		'&:hover': { backgroundColor: token('color.background.information.hovered') },
+	}),
+	'information.subtler': css({
+		'&:hover': { backgroundColor: token('color.background.information.subtler.hovered') },
 	}),
 	'information.bold': css({
 		'&:hover': { backgroundColor: token('color.background.information.bold.hovered') },

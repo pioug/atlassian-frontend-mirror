@@ -42,7 +42,7 @@ const createFilterStepsPlugin =
 				if (viewModeSteps.length === 0 || !api) {
 					// Editor should not allow local edits in view mode (except for comments) which are handled
 					// via ViewModeSteps. If we have no ViewModeSteps, we should block the transaction.
-					if (fg('aifc_create_enabled')) {
+					if (fg('platform_editor_ai_generic_prep_for_aifc')) {
 						if (
 							tr.docChanged &&
 							// Check if the transaction contains any steps that modify the document (view mode steps do not)

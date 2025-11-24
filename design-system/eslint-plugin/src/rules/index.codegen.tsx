@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::75f94fc6b6fa998eed54b610e41bb9b1>>
+ * @codegen <<SignedSource::c74b833590d4eb693616a3fcbf2e335a>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -12,7 +12,7 @@ import ensureDesignTokenUsagePreview from './ensure-design-token-usage-preview';
 import ensureIconColor from './ensure-icon-color';
 import ensureProperXcssUsage from './ensure-proper-xcss-usage';
 import iconLabel from './icon-label';
-import lozengeAppearanceAndIsboldMigration from './lozenge-appearance-and-isbold-migration';
+import lozengeIsBoldAndLozengeBadgeAppearanceMigration from './lozenge-isBold-and-lozenge-badge-appearance-migration';
 import noBannedImports from './no-banned-imports';
 import noBooleanAutofocusOnModalDialog from './no-boolean-autofocus-on-modal-dialog';
 import noCssTaggedTemplateExpression from './no-css-tagged-template-expression';
@@ -83,7 +83,8 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'ensure-icon-color': ensureIconColor,
 	'ensure-proper-xcss-usage': ensureProperXcssUsage,
 	'icon-label': iconLabel,
-	'lozenge-appearance-and-isbold-migration': lozengeAppearanceAndIsboldMigration,
+	'lozenge-isBold-and-lozenge-badge-appearance-migration':
+		lozengeIsBoldAndLozengeBadgeAppearanceMigration,
 	'no-banned-imports': noBannedImports,
 	'no-boolean-autofocus-on-modal-dialog': noBooleanAutofocusOnModalDialog,
 	'no-css-tagged-template-expression': noCssTaggedTemplateExpression,

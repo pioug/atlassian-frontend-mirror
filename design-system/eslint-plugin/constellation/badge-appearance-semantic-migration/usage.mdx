@@ -1,0 +1,64 @@
+# badge-appearance-semantic-migration
+
+This rule enforces migration of Badge component `appearance` prop values to new semantic values.
+
+## Examples
+
+### Incorrect
+
+```tsx
+// Old appearance values that need migration
+<Badge appearance="added">{5}</Badge>
+<Badge appearance="removed">{10}</Badge>
+<Badge appearance="default">{3}</Badge>
+<Badge appearance="primary">{7}</Badge>
+<Badge appearance="primaryInverted">{2}</Badge>
+<Badge appearance="important">{99}</Badge>
+
+// Dynamic appearance expressions require manual review
+<Badge appearance={getStatus()}>{count}</Badge>
+<Badge appearance={condition ? 'added' : 'removed'}>{num}</Badge>
+```
+
+### Correct
+
+```tsx
+// New semantic appearance values
+<Badge appearance="success">{5}</Badge>
+<Badge appearance="danger">{10}</Badge>
+<Badge appearance="neutral">{3}</Badge>
+<Badge appearance="information">{7}</Badge>
+<Badge appearance="inverse">{2}</Badge>
+<Badge appearance="danger">{99}</Badge>
+
+// Already using semantic values
+<Badge appearance="success">{42}</Badge>
+```
+
+## Rule Details
+
+This rule enforces the migration of Badge component appearance prop values from old non-semantic
+values to new semantic values:
+
+| Old Appearance    | New Appearance |
+| ----------------- | -------------- |
+| `added`           | `success`      |
+| `removed`         | `danger`       |
+| `default`         | `neutral`      |
+| `primary`         | `information`  |
+| `primaryInverted` | `inverse`      |
+| `important`       | `danger`       |
+
+## When to use
+
+Use this rule when migrating Badge components to use the new semantic appearance values. This
+ensures consistency across your codebase and helps with the transition to the new Badge API.
+
+## Auto-fixes
+
+- ✅ Static appearance prop values (e.g., `appearance="added"` → `appearance="success"`)
+- ❌ Dynamic appearance expressions (warning only - requires manual review)
+
+## Options
+
+This rule does not accept any options.

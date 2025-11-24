@@ -1,5 +1,20 @@
 # @atlaskit/reactions
 
+## 33.6.8
+
+### Patch Changes
+
+- [`8cad313b16d63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cad313b16d63) -
+  Clean up platform-reactions-selector-list-semantics FG
+
+## 33.6.7
+
+### Patch Changes
+
+- [`bdec29dd5a417`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bdec29dd5a417) -
+  Clean up platform_emoji_picker_focus_on_button FG
+- Updated dependencies
+
 ## 33.6.6
 
 ### Patch Changes

@@ -134,7 +134,7 @@ export const corePlugin: CorePlugin = ({ config }) => {
 					if (options?.scrollIntoView ?? true) {
 						editorView.dispatch(tr.scrollIntoView());
 					} else {
-						if (fg('aifc_create_enabled')) {
+						if (fg('platform_editor_ai_generic_prep_for_aifc')) {
 							editorView.dispatch(tr.setMeta('scrollIntoView', false));
 						}
 					}

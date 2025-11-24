@@ -328,9 +328,7 @@ function useSelectAndFocusOnArrowNavigation(
 ): useSelectAndFocusReturnType {
 	const [state, dispatch] = useReducer(
 		reducer,
-		autoFocusSearch && fg('platform_editor_update_modal_close_button')
-			? initialState
-			: initialStateWithFocusOnSearchDisabled,
+		autoFocusSearch ? initialState : initialStateWithFocusOnSearchDisabled,
 		getInitialState(listSize, canFocusViewMore),
 	);
 
@@ -353,10 +351,7 @@ function useSelectAndFocusOnArrowNavigation(
 	// calls if items size changed
 	const reset = useCallback(
 		(listSize: number) => {
-			const defaultState =
-				autoFocusSearch && fg('platform_editor_update_modal_close_button')
-					? initialState
-					: initialStateWithFocusOnSearchDisabled;
+			const defaultState = autoFocusSearch ? initialState : initialStateWithFocusOnSearchDisabled;
 
 			let payload = {
 				...defaultState,

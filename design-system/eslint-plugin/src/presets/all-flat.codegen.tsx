@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7fae089db9d7d7153fea58c673bd56af>>
+ * @codegen <<SignedSource::df988d512376c1317e5f7a350ad19fb9>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Linter } from 'eslint';
@@ -16,7 +16,7 @@ const rules: Linter.FlatConfig = {
 		'@atlaskit/design-system/ensure-icon-color': 'error',
 		'@atlaskit/design-system/ensure-proper-xcss-usage': 'error',
 		'@atlaskit/design-system/icon-label': 'warn',
-		'@atlaskit/design-system/lozenge-appearance-and-isbold-migration': 'warn',
+		'@atlaskit/design-system/lozenge-isBold-and-lozenge-badge-appearance-migration': 'warn',
 		'@atlaskit/design-system/no-banned-imports': 'error',
 		'@atlaskit/design-system/no-boolean-autofocus-on-modal-dialog': 'warn',
 		'@atlaskit/design-system/no-css-tagged-template-expression': 'error',

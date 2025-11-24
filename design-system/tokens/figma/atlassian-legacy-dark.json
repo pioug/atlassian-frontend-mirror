@@ -235,6 +235,15 @@
       },
       "value": "#FF5630"
     },
+    "Legacy dark/color.text.danger.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of danger semantic labels to ensure accessibility and desired visual appearance."
+      },
+      "value": "#FF7452"
+    },
     "Legacy dark/color.text.warning": {
       "attributes": {
         "group": "paint",
@@ -253,6 +262,15 @@
       },
       "value": "#0D1424"
     },
+    "Legacy dark/color.text.warning.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of warning semantic labels to ensure accessibility and desired visual appearance."
+      },
+      "value": "#253858"
+    },
     "Legacy dark/color.text.success": {
       "attributes": {
         "group": "paint",
@@ -261,6 +279,15 @@
         "description": "Use for text to communicate a favorable outcome, such as input field success messaging."
       },
       "value": "#36B37E"
+    },
+    "Legacy dark/color.text.success.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of success semantic labels to ensure accessibility and desired visual appearance."
+      },
+      "value": "#57D9A3"
     },
     "Legacy dark/color.text.discovery": {
       "attributes": {
@@ -271,6 +298,15 @@
       },
       "value": "#6554C0"
     },
+    "Legacy dark/color.text.discovery.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of discovery semantic labels to ensure accessibility and desired visual appearance."
+      },
+      "value": "#8777D9"
+    },
     "Legacy dark/color.text.information": {
       "attributes": {
         "group": "paint",
@@ -279,6 +315,15 @@
         "description": "Use for informative text or to communicate something is in progress, such as in-progress lozenges."
       },
       "value": "#0065FF"
+    },
+    "Legacy dark/color.text.information.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of information semantic labels to ensure accessibility and desired visual appearance."
+      },
+      "value": "#2684FF"
     },
     "Legacy dark/color.text.subtlest": {
       "attributes": {
@@ -2134,6 +2179,33 @@
       },
       "value": "#FF8F73"
     },
+    "Legacy dark/color.background.danger.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for backgrounds of danger lozenges and badges to ensure accessibility and desired visual appearance."
+      },
+      "value": "#FFBDAD"
+    },
+    "Legacy dark/color.background.danger.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Hovered state of color.background.danger.subtler"
+      },
+      "value": "#FF8F73"
+    },
+    "Legacy dark/color.background.danger.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Pressed state of color.background.danger.subtler"
+      },
+      "value": "#FF7452"
+    },
     "Legacy dark/color.background.danger.bold": {
       "attributes": {
         "group": "paint",
@@ -2187,6 +2259,33 @@
         "description": "Pressed state for color.background.warning"
       },
       "value": "#FFE380"
+    },
+    "Legacy dark/color.background.warning.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for backgrounds of warning lozenges and badges to ensure accessibility and desired visual appearance."
+      },
+      "value": "#FFF0B3"
+    },
+    "Legacy dark/color.background.warning.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Hovered state of color.background.warning.subtler"
+      },
+      "value": "#FFE380"
+    },
+    "Legacy dark/color.background.warning.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Pressed state of color.background.warning.subtler"
+      },
+      "value": "#FFC400"
     },
     "Legacy dark/color.background.warning.bold": {
       "attributes": {
@@ -2242,6 +2341,33 @@
       },
       "value": "#79F2C0"
     },
+    "Legacy dark/color.background.success.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for backgrounds of success lozenges and badges to ensure accessibility and desired visual appearance."
+      },
+      "value": "#ABF5D1"
+    },
+    "Legacy dark/color.background.success.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Hovered state of color.background.success.subtler"
+      },
+      "value": "#79F2C0"
+    },
+    "Legacy dark/color.background.success.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Pressed state of color.background.success.subtler"
+      },
+      "value": "#57D9A3"
+    },
     "Legacy dark/color.background.success.bold": {
       "attributes": {
         "group": "paint",
@@ -2296,6 +2422,33 @@
       },
       "value": "#998DD9"
     },
+    "Legacy dark/color.background.discovery.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for backgrounds of discovery lozenges and badges to ensure accessibility and desired visual appearance."
+      },
+      "value": "#C0B6F2"
+    },
+    "Legacy dark/color.background.discovery.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Hovered state of color.background.discovery.subtler"
+      },
+      "value": "#998DD9"
+    },
+    "Legacy dark/color.background.discovery.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Pressed state of color.background.discovery.subtler"
+      },
+      "value": "#8777D9"
+    },
     "Legacy dark/color.background.discovery.bold": {
       "attributes": {
         "group": "paint",
@@ -2349,6 +2502,33 @@
         "description": "Pressed state of color.background.information"
       },
       "value": "#4C9AFF"
+    },
+    "Legacy dark/color.background.information.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for backgrounds of information lozenges and badges to ensure accessibility and desired visual appearance."
+      },
+      "value": "#B3D4FF"
+    },
+    "Legacy dark/color.background.information.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Hovered state of color.background.information.subtler"
+      },
+      "value": "#4C9AFF"
+    },
+    "Legacy dark/color.background.information.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Pressed state of color.background.information.subtler"
+      },
+      "value": "#2684FF"
     },
     "Legacy dark/color.background.information.bold": {
       "attributes": {

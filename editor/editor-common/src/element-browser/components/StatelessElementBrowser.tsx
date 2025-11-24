@@ -201,15 +201,9 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 			categoryBeenChosen.current = false;
 		}
 
-		if (fg('platform_editor_update_modal_close_button')) {
-			// A11Y: if categories exists and search can be focused, on the initial render it should receive focus.
-			// After user pick some category the category should stay focused.
-			isFocusSearch = canFocusSearch && (!categoryBeenChosen.current || !isEmptySearchTerm);
-		} else {
-			// A11Y: if categories exists, on the initial render search element should receive focus.
-			// After user pick some category the category should stay focused.
-			isFocusSearch = !categoryBeenChosen.current || !isEmptySearchTerm;
-		}
+		// A11Y: if categories exists and search can be focused, on the initial render it should receive focus.
+		// After user pick some category the category should stay focused.
+		isFocusSearch = canFocusSearch && (!categoryBeenChosen.current || !isEmptySearchTerm);
 	}
 
 	const itemIsDisabled = useCallback(

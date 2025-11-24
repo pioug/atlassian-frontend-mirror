@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.0.16
+
+### Patch Changes
+
+- [`459eb2064ff46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/459eb2064ff46) -
+  [ux] Implements base for the new transform logic for the block menu.
+- Updated dependencies
+
 ## 5.0.15
 
 ### Patch Changes

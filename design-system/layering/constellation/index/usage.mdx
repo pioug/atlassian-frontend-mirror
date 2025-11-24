@@ -9,11 +9,9 @@ the layering structure by wrapping in Layering. It doesn't have to have correct 
 for it to work. For example:
 
 ```ts
-	<MinimizableModal>
-		<ModalBody>
-			{children}
-		</ModalBody>
-	</MinimizableModal>
+<MinimizableModal>
+	<ModalBody>{children}</ModalBody>
+</MinimizableModal>
 ```
 
 The default layering behavior is to assume a parent component is the true parent of children. If
@@ -41,32 +39,31 @@ See the usage below.
 
 ```ts
 <Layering>
-// global context must be the parent of all component based context
-// unless we want to have another independent new layering system on the page.
-// any direct children under global context will have level 1
-// each Layering wrapper under global context would increase the level by 1
-...
-// inside the global context, we can have as many inner layerings as we want
-// Modal, Popup, Dropdown are already wrapped under Layering internally
-  <Modal> // level 1
-    <Popup />
-    <Dropdown />
-    <NestedDropdown />
-    <NestedPopup />
-    <Calendar />
-  </Modal>
-  <Dropdown /> // level 1
-// if the parent is not the true parent of children,we can add Layering around
-// children to mock it make sure chidlren have one level higher than its parent.
-  <InPortal node={portalNode}>
-    <Layering>
-      {children} // level will be 2
-    </Layering>
-  </InPortal>
-  <Parent> // level will be 1
-    <OutPortal node={portalNode} />
-  </Parent>
-</Layering>
+	// global context must be the parent of all component based context // unless we want to have
+	another independent new layering system on the page. // any direct children under global context
+	will have level 1 // each Layering wrapper under global context would increase the level by 1 ...
+	// inside the global context, we can have as many inner layerings as we want // Modal, Popup,
+	Dropdown are already wrapped under Layering internally
+	<Modal>
+		{' '}
+		// level 1
+		<Popup />
+		<Dropdown />
+		<NestedDropdown />
+		<NestedPopup />
+		<Calendar />
+	</Modal>
+	<Dropdown /> // level 1 // if the parent is not the true parent of children,we can add Layering
+	around // children to mock it make sure chidlren have one level higher than its parent.
+	<InPortal node={portalNode}>
+		<Layering>{children} // level will be 2</Layering>
+	</InPortal>
+	<Parent>
+		{' '}
+		// level will be 1
+		<OutPortal node={portalNode} />
+	</Parent>
+</Layering>;
 // Layering established the system, to use and get the layering info, we can use useLayering in components.
 const { currentLevel, topLevelRef, isLayerDisabled } = useLayering();
 ```
@@ -103,7 +100,7 @@ Layering will be only an empty wrapper of children.
 
 ```ts
 if (isDisabled) {
-  return <>{children}</>;
+	return <>{children}</>;
 }
 ```
 

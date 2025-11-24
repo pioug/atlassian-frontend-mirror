@@ -5,12 +5,12 @@ import { createLintRule } from '../utils/create-rule';
 
 const rule = createLintRule({
 	meta: {
-		name: 'lozenge-appearance-and-isbold-migration',
+		name: 'lozenge-isBold-and-lozenge-badge-appearance-migration',
 		fixable: 'code',
 		type: 'suggestion',
 		docs: {
 			description:
-				'Helps migrate deprecated Lozenge usages to the new API or Tag component as part of the Labelling System Phase 1 migration.',
+				'Helps migrate Lozenge isBold prop and appearance values (for both Lozenge and Badge components) as part of the Labelling System Phase 1 migration.',
 			recommended: true,
 			severity: 'warn',
 		},
@@ -18,6 +18,10 @@ const rule = createLintRule({
 			updateAppearance: 'Update appearance value to new semantic value.',
 			migrateTag: 'Non-bold <Lozenge> variants should migrate to <Tag> component.',
 			manualReview: "Dynamic 'isBold' props require manual review before migration.",
+			updateBadgeAppearance:
+				'Update Badge appearance value "{{oldValue}}" to new semantic value "{{newValue}}".',
+			dynamicBadgeAppearance:
+				'Dynamic appearance prop values require manual review to ensure they use the new semantic values: neutral, information, inverse, danger, success.',
 		},
 	},
 
@@ -26,6 +30,11 @@ const rule = createLintRule({
 		 * Contains a map of imported Lozenge components.
 		 */
 		const lozengeImports: Record<string, string> = {}; // local name -> import source
+
+		/**
+		 * Contains a map of imported Badge components.
+		 */
+		const badgeImports: Record<string, string> = {}; // local name -> import source
 
 		/**
 		 * Check if a JSX attribute value is a literal false
@@ -41,14 +50,26 @@ const rule = createLintRule({
 		}
 
 		/**
-		 * Check if a JSX attribute value is dynamic (not a literal boolean)
+		 * Check if a JSX attribute value is dynamic (not a static literal value)
+		 * Can be used for any prop type (boolean, string, etc.)
 		 */
 		function isDynamicExpression(node: any): boolean {
-			if (!node || node.type !== 'JSXExpressionContainer') {
+			if (!node) {
 				return false;
 			}
-			const expr = node.expression;
-			return expr && !(expr.type === 'Literal' && typeof expr.value === 'boolean');
+
+			// If it's a plain literal (e.g., appearance="value"), it's not dynamic
+			if (node.type === 'Literal') {
+				return false;
+			}
+
+			// If it's an expression container with a non-literal expression, it's dynamic
+			if (node.type === 'JSXExpressionContainer') {
+				const expr = node.expression;
+				return expr && expr.type !== 'Literal';
+			}
+
+			return false;
 		}
 
 		/**
@@ -82,6 +103,21 @@ const rule = createLintRule({
 		}
 
 		/**
+		 * Map Badge old appearance values to new semantic appearance values
+		 */
+		function mapBadgeToNewAppearanceValue(oldValue: string): string {
+			const mapping: Record<string, string> = {
+				added: 'success',
+				removed: 'danger',
+				default: 'neutral',
+				primary: 'information',
+				primaryInverted: 'inverse',
+				important: 'danger',
+			};
+			return mapping[oldValue] || oldValue;
+		}
+
+		/**
 		 * Extract the string value from a JSX attribute value
 		 */
 		function extractStringValue(attrValue: any): string | null {
@@ -102,6 +138,33 @@ const rule = createLintRule({
 			}
 
 			return null;
+		}
+
+		/**
+		 * Create a fixer function to replace an appearance prop value
+		 * Handles both Literal and JSXExpressionContainer with Literal
+		 */
+		function createAppearanceFixer(attrValue: any, newValue: string) {
+			return (fixer: any) => {
+				if (!attrValue) {
+					return null;
+				}
+
+				if (attrValue.type === 'Literal') {
+					return fixer.replaceText(attrValue, `"${newValue}"`);
+				}
+
+				if (
+					attrValue.type === 'JSXExpressionContainer' &&
+					'expression' in attrValue &&
+					attrValue.expression &&
+					attrValue.expression.type === 'Literal'
+				) {
+					return fixer.replaceText(attrValue.expression, `"${newValue}"`);
+				}
+
+				return null;
+			};
 		}
 
 		/**
@@ -182,6 +245,18 @@ const rule = createLintRule({
 							}
 						});
 					}
+					// Track Badge imports
+					if (moduleSource === '@atlaskit/badge' || moduleSource.startsWith('@atlaskit/badge')) {
+						node.specifiers.forEach((spec) => {
+							if (spec.type === 'ImportDefaultSpecifier') {
+								badgeImports[spec.local.name] = moduleSource;
+							} else if (spec.type === 'ImportSpecifier' && spec.imported.type === 'Identifier') {
+								if (spec.imported.name === 'Badge' || spec.imported.name === 'default') {
+									badgeImports[spec.local.name] = moduleSource;
+								}
+							}
+						});
+					}
 				}
 			},
 
@@ -194,6 +269,49 @@ const rule = createLintRule({
 				}
 
 				const elementName = node.openingElement.name.name;
+
+				// Handle Badge components
+				if (badgeImports[elementName]) {
+					// Find the appearance prop
+					const appearanceProp = node.openingElement.attributes.find(
+						(attr: any) =>
+							attr.type === 'JSXAttribute' &&
+							attr.name.type === 'JSXIdentifier' &&
+							attr.name.name === 'appearance',
+					);
+
+					if (!appearanceProp || appearanceProp.type !== 'JSXAttribute') {
+						// No appearance prop or it's a spread attribute, nothing to migrate
+						return;
+					}
+
+					// Check if it's a dynamic expression
+					if (isDynamicExpression(appearanceProp.value)) {
+						context.report({
+							node: appearanceProp,
+							messageId: 'dynamicBadgeAppearance',
+						});
+						return;
+					}
+
+					// Extract the string value
+					const stringValue = extractStringValue(appearanceProp.value);
+					if (stringValue && typeof stringValue === 'string') {
+						const mappedValue = mapBadgeToNewAppearanceValue(stringValue);
+						if (mappedValue !== stringValue) {
+							context.report({
+								node: appearanceProp,
+								messageId: 'updateBadgeAppearance',
+								data: {
+									oldValue: stringValue,
+									newValue: mappedValue,
+								},
+								fix: createAppearanceFixer(appearanceProp.value, mappedValue),
+							});
+						}
+					}
+					return;
+				}
 
 				// Only process if this is a Lozenge component we've imported
 				if (!lozengeImports[elementName]) {
@@ -216,18 +334,7 @@ const rule = createLintRule({
 								context.report({
 									node: appearanceProp,
 									messageId: 'updateAppearance',
-									fix: (fixer) => {
-										if (appearanceProp.value.type === 'Literal') {
-											return fixer.replaceText(appearanceProp.value, `"${mappedValue}"`);
-										} else if (
-											appearanceProp.value.type === 'JSXExpressionContainer' &&
-											appearanceProp.value.expression &&
-											appearanceProp.value.expression.type === 'Literal'
-										) {
-											return fixer.replaceText(appearanceProp.value.expression, `"${mappedValue}"`);
-										}
-										return null;
-									},
+									fix: createAppearanceFixer(appearanceProp.value, mappedValue),
 								});
 							}
 						}

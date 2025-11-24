@@ -6,10 +6,7 @@
 		"rootDir": "../",
 		"composite": true
 	},
-	"include": [
-		"../src/**/*.ts",
-		"../src/**/*.tsx"
-	],
+	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
 	"exclude": [
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
@@ -22,9 +19,6 @@
 		"../src/**/stories/**/*"
 	],
 	"references": [
-		{
-			"path": "../../editor-plugin-block-menu/afm-products/tsconfig.json"
-		},
 		{
 			"path": "../../editor-plugin-code-block/afm-products/tsconfig.json"
 		},

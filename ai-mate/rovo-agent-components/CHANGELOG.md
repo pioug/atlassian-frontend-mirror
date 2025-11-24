@@ -1,5 +1,19 @@
 # @atlaskit/rovo-agent-components
 
+## 3.12.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.12.0
+
+### Minor Changes
+
+- [`264063170c1c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/264063170c1c3) -
+  [ux] Don't force shouldRenderToParent prop in AgentDropdownMenu, to address z-index battle between
+  agent tools ui on agenct card and tools ui dropdown
+
 ## 3.11.3
 
 ### Patch Changes

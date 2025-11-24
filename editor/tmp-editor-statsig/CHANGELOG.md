@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.42.1
+
+### Patch Changes
+
+- [`c36719b325b2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c36719b325b2d) -
+  ED-29674 Enabling UFO tooling for expVal
+
 ## 13.42.0
 
 ### Minor Changes

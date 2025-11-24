@@ -269,7 +269,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 										const editorViewModePlugin = api?.editorViewMode?.sharedState.currentState();
 										const isViewModeEnabled = editorViewModePlugin?.mode === 'view';
 
-										if (fg('aifc_create_enabled')) {
+										if (fg('platform_editor_ai_generic_prep_for_aifc')) {
 											const target = event.target as Element;
 											const isRovoChangeToneButton =
 												(target?.tagName === 'BUTTON' &&

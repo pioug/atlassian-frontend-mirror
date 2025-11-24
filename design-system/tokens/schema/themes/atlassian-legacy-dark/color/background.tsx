@@ -85,6 +85,11 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 					hovered: { value: 'R200' },
 					pressed: { value: 'R400' },
 				},
+				subtler: {
+					'[default]': { value: 'R75' },
+					hovered: { value: 'R100' },
+					pressed: { value: 'R200' },
+				},
 			},
 			warning: {
 				'[default]': {
@@ -96,6 +101,11 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 					'[default]': { value: 'Y300' },
 					hovered: { value: 'Y200' },
 					pressed: { value: 'Y400' },
+				},
+				subtler: {
+					'[default]': { value: 'Y75' },
+					hovered: { value: 'Y100' },
+					pressed: { value: 'Y200' },
 				},
 			},
 			success: {
@@ -109,6 +119,11 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 					hovered: { value: 'G300' },
 					pressed: { value: 'G500' },
 				},
+				subtler: {
+					'[default]': { value: 'G75' },
+					hovered: { value: 'G100' },
+					pressed: { value: 'G200' },
+				},
 			},
 			discovery: {
 				'[default]': {
@@ -121,6 +136,11 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 					hovered: { value: 'P300' },
 					pressed: { value: 'P500' },
 				},
+				subtler: {
+					'[default]': { value: 'P75' },
+					hovered: { value: 'P100' },
+					pressed: { value: 'P200' },
+				},
 			},
 			information: {
 				'[default]': {
@@ -132,6 +152,11 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 					'[default]': { value: 'B400' },
 					hovered: { value: 'B300' },
 					pressed: { value: 'B500' },
+				},
+				subtler: {
+					'[default]': { value: 'B75' },
+					hovered: { value: 'B100' },
+					pressed: { value: 'B200' },
 				},
 			},
 		},

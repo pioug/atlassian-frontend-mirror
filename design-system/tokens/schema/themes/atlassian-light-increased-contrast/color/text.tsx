@@ -20,7 +20,12 @@ const color: ExtendedValueSchema<TextColorTokenSchema<BaseToken>> = {
 				value: 'Blue900',
 			},
 			danger: {
-				value: 'Red900',
+				'[default]': {
+					value: 'Red900',
+				},
+				bolder: {
+					value: 'Red1000',
+				},
 			},
 			warning: {
 				'[default]': {
@@ -29,15 +34,33 @@ const color: ExtendedValueSchema<TextColorTokenSchema<BaseToken>> = {
 				inverse: {
 					value: 'Neutral0',
 				},
+				bolder: {
+					value: 'Orange1000',
+				},
 			},
 			success: {
-				value: 'Green900',
+				'[default]': {
+					value: 'Green900',
+				},
+				bolder: {
+					value: 'Green1000',
+				},
 			},
 			information: {
-				value: 'Blue900',
+				'[default]': {
+					value: 'Blue900',
+				},
+				bolder: {
+					value: 'Blue1000',
+				},
 			},
 			discovery: {
-				value: 'Purple900',
+				'[default]': {
+					value: 'Purple900',
+				},
+				bolder: {
+					value: 'Purple1000',
+				},
 			},
 		},
 		link: {

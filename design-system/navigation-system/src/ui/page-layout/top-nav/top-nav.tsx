@@ -7,7 +7,6 @@ import { useContext, useMemo } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useSkipLink } from '../../../context/skip-links/skip-links-context';
@@ -168,11 +167,7 @@ export function TopNav({
 	 */
 	UNSAFE_theme?: CustomTheme;
 }) {
-	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useIsFhsEnabled()
-		: fg('navx-full-height-sidebar');
-
+	const isFhsEnabled = useIsFhsEnabled();
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	const id = useLayoutId({ providedId });
 	useSkipLink(id, skipLinkLabel);

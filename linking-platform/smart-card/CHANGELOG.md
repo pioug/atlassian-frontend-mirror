@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 43.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.10.0
+
+### Minor Changes
+
+- [`707f6aee514e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/707f6aee514e3) -
+  [ux] Add shouldRenderToParent prop to DropdownMenu in LozengeAction
+
 ## 43.9.1
 
 ### Patch Changes

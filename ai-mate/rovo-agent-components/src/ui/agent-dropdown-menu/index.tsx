@@ -223,7 +223,6 @@ export const AgentDropdownMenu = ({
 					setHasBeenCopied(false);
 				}
 			}}
-			shouldRenderToParent={fg('should-render-to-parent-should-be-true-ai-mate')}
 		>
 			<DropdownItemGroup>
 				{showViewAgentOption && (

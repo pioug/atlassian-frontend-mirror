@@ -299,6 +299,11 @@ export interface BackgroundColorTokenSchema<BaseToken> {
 					hovered: PaintToken<BaseToken>;
 					pressed: PaintToken<BaseToken>;
 				};
+				subtler: {
+					'[default]': PaintToken<BaseToken>;
+					hovered: PaintToken<BaseToken>;
+					pressed: PaintToken<BaseToken>;
+				};
 			};
 			warning: {
 				'[default]': {
@@ -307,6 +312,11 @@ export interface BackgroundColorTokenSchema<BaseToken> {
 					pressed: PaintToken<BaseToken>;
 				};
 				bold: {
+					'[default]': PaintToken<BaseToken>;
+					hovered: PaintToken<BaseToken>;
+					pressed: PaintToken<BaseToken>;
+				};
+				subtler: {
 					'[default]': PaintToken<BaseToken>;
 					hovered: PaintToken<BaseToken>;
 					pressed: PaintToken<BaseToken>;
@@ -323,6 +333,11 @@ export interface BackgroundColorTokenSchema<BaseToken> {
 					hovered: PaintToken<BaseToken>;
 					pressed: PaintToken<BaseToken>;
 				};
+				subtler: {
+					'[default]': PaintToken<BaseToken>;
+					hovered: PaintToken<BaseToken>;
+					pressed: PaintToken<BaseToken>;
+				};
 			};
 			discovery: {
 				'[default]': {
@@ -335,6 +350,11 @@ export interface BackgroundColorTokenSchema<BaseToken> {
 					hovered: PaintToken<BaseToken>;
 					pressed: PaintToken<BaseToken>;
 				};
+				subtler: {
+					'[default]': PaintToken<BaseToken>;
+					hovered: PaintToken<BaseToken>;
+					pressed: PaintToken<BaseToken>;
+				};
 			};
 			information: {
 				'[default]': {
@@ -343,6 +363,11 @@ export interface BackgroundColorTokenSchema<BaseToken> {
 					pressed: PaintToken<BaseToken>;
 				};
 				bold: {
+					'[default]': PaintToken<BaseToken>;
+					hovered: PaintToken<BaseToken>;
+					pressed: PaintToken<BaseToken>;
+				};
+				subtler: {
 					'[default]': PaintToken<BaseToken>;
 					hovered: PaintToken<BaseToken>;
 					pressed: PaintToken<BaseToken>;
@@ -403,14 +428,27 @@ export interface TextColorTokenSchema<BaseToken> {
 			inverse: PaintToken<BaseToken>;
 			brand: PaintToken<BaseToken>;
 			selected: PaintToken<BaseToken>;
-			danger: PaintToken<BaseToken>;
+			danger: {
+				'[default]': PaintToken<BaseToken>;
+				bolder: PaintToken<BaseToken>;
+			};
 			warning: {
 				'[default]': PaintToken<BaseToken>;
 				inverse: PaintToken<BaseToken>;
+				bolder: PaintToken<BaseToken>;
 			};
-			success: PaintToken<BaseToken>;
-			information: PaintToken<BaseToken>;
-			discovery: PaintToken<BaseToken>;
+			success: {
+				'[default]': PaintToken<BaseToken>;
+				bolder: PaintToken<BaseToken>;
+			};
+			information: {
+				'[default]': PaintToken<BaseToken>;
+				bolder: PaintToken<BaseToken>;
+			};
+			discovery: {
+				'[default]': PaintToken<BaseToken>;
+				bolder: PaintToken<BaseToken>;
+			};
 			disabled: PaintToken<BaseToken>;
 		};
 		link: {

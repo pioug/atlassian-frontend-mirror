@@ -390,7 +390,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					listsStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					fg('aifc_create_enabled') && diffListStyles,
+					fg('platform_editor_ai_generic_prep_for_aifc') && diffListStyles,
 					// Condense vertical spacing between list items when content mode dense is active
 					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 						fg('platform_editor_content_mode_button_mvp') &&
@@ -403,7 +403,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					ruleStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					fg('aifc_create_enabled') && smartCardDiffStyles,
+					fg('platform_editor_ai_generic_prep_for_aifc') && smartCardDiffStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('platform_editor_ai_aifc_patch_beta_2') && showDiffDeletedNodeStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -448,7 +448,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					getExtensionStyles(contentMode),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					fg('aifc_create_enabled') && extensionDiffStyles,
+					fg('platform_editor_ai_generic_prep_for_aifc') && extensionDiffStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					expandStyles,
 					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&

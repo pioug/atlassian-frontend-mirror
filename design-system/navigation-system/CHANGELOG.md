@@ -1,5 +1,19 @@
 # @atlassian/navigation-system
 
+## 5.9.3
+
+### Patch Changes
+
+- [`c17bb4f3e9cb0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c17bb4f3e9cb0) -
+  A feature gate has been removed. The FHS rollout has fully transitioned from a feature gate to a
+  context value instead.
+
+## 5.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.9.1
 
 ### Patch Changes

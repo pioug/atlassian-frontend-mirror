@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::381e64b370aa942527cc7b58f67e18b8>>
+ * @codegen <<SignedSource::02e75896b2dbcd5d7d6e41b240a7207f>>
  * @codegenCommand yarn build tokens
  */
 
@@ -792,13 +792,42 @@ const tokens: Token[] = [
         "description": "Use for critical text, such as input field error messaging."
       }
     },
-    "name": "color.text.danger",
+    "name": "color.text.danger.[default]",
     "path": [
       "color",
       "text",
-      "danger"
+      "danger",
+      "[default]"
     ],
     "cleanName": "color.text.danger"
+  },
+  {
+    "value": "#FFECEB",
+    "filePath": "schema/themes/atlassian-dark-increased-contrast/color/text.tsx",
+    "isSource": true,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Use for text on top of danger semantic labels to ensure accessibility and desired visual appearance."
+    },
+    "original": {
+      "value": "Red100",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of danger semantic labels to ensure accessibility and desired visual appearance."
+      }
+    },
+    "name": "color.text.danger.bolder",
+    "path": [
+      "color",
+      "text",
+      "danger",
+      "bolder"
+    ],
+    "cleanName": "color.text.danger.bolder"
   },
   {
     "value": "#FCE4A6",
@@ -857,6 +886,34 @@ const tokens: Token[] = [
     "cleanName": "color.text.warning.inverse"
   },
   {
+    "value": "#FFF5DB",
+    "filePath": "schema/themes/atlassian-dark-increased-contrast/color/text.tsx",
+    "isSource": true,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Use for text on top of warning semantic labels to ensure accessibility and desired visual appearance."
+    },
+    "original": {
+      "value": "Orange100",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of warning semantic labels to ensure accessibility and desired visual appearance."
+      }
+    },
+    "name": "color.text.warning.bolder",
+    "path": [
+      "color",
+      "text",
+      "warning",
+      "bolder"
+    ],
+    "cleanName": "color.text.warning.bolder"
+  },
+  {
     "value": "#BAF3DB",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/text.tsx",
     "isSource": true,
@@ -875,13 +932,42 @@ const tokens: Token[] = [
         "description": "Use for text to communicate a favorable outcome, such as input field success messaging."
       }
     },
-    "name": "color.text.success",
+    "name": "color.text.success.[default]",
     "path": [
       "color",
       "text",
-      "success"
+      "success",
+      "[default]"
     ],
     "cleanName": "color.text.success"
+  },
+  {
+    "value": "#DCFFF1",
+    "filePath": "schema/themes/atlassian-dark-increased-contrast/color/text.tsx",
+    "isSource": true,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Use for text on top of success semantic labels to ensure accessibility and desired visual appearance."
+    },
+    "original": {
+      "value": "Green100",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of success semantic labels to ensure accessibility and desired visual appearance."
+      }
+    },
+    "name": "color.text.success.bolder",
+    "path": [
+      "color",
+      "text",
+      "success",
+      "bolder"
+    ],
+    "cleanName": "color.text.success.bolder"
   },
   {
     "value": "#EED7FC",
@@ -902,13 +988,42 @@ const tokens: Token[] = [
         "description": "Use for text to emphasize change or something new, such as in new lozenges."
       }
     },
-    "name": "color.text.discovery",
+    "name": "color.text.discovery.[default]",
     "path": [
       "color",
       "text",
-      "discovery"
+      "discovery",
+      "[default]"
     ],
     "cleanName": "color.text.discovery"
+  },
+  {
+    "value": "#F8EEFE",
+    "filePath": "schema/themes/atlassian-dark-increased-contrast/color/text.tsx",
+    "isSource": true,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Use for text on top of discovery semantic labels to ensure accessibility and desired visual appearance."
+    },
+    "original": {
+      "value": "Purple100",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of discovery semantic labels to ensure accessibility and desired visual appearance."
+      }
+    },
+    "name": "color.text.discovery.bolder",
+    "path": [
+      "color",
+      "text",
+      "discovery",
+      "bolder"
+    ],
+    "cleanName": "color.text.discovery.bolder"
   },
   {
     "value": "#CFE1FD",
@@ -929,13 +1044,42 @@ const tokens: Token[] = [
         "description": "Use for informative text or to communicate something is in progress, such as in-progress lozenges."
       }
     },
-    "name": "color.text.information",
+    "name": "color.text.information.[default]",
     "path": [
       "color",
       "text",
-      "information"
+      "information",
+      "[default]"
     ],
     "cleanName": "color.text.information"
+  },
+  {
+    "value": "#E9F2FE",
+    "filePath": "schema/themes/atlassian-dark-increased-contrast/color/text.tsx",
+    "isSource": true,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Use for text on top of information semantic labels to ensure accessibility and desired visual appearance."
+    },
+    "original": {
+      "value": "Blue100",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of information semantic labels to ensure accessibility and desired visual appearance."
+      }
+    },
+    "name": "color.text.information.bolder",
+    "path": [
+      "color",
+      "text",
+      "information",
+      "bolder"
+    ],
+    "cleanName": "color.text.information.bolder"
   },
   {
     "value": "#BFC1C4",
@@ -6947,6 +7091,93 @@ const tokens: Token[] = [
     "cleanName": "color.background.danger.pressed"
   },
   {
+    "value": "#5D1F1A",
+    "filePath": "schema/themes/atlassian-dark/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Use for backgrounds of danger lozenges and badges to ensure accessibility and desired visual appearance."
+    },
+    "original": {
+      "value": "Red900",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for backgrounds of danger lozenges and badges to ensure accessibility and desired visual appearance."
+      }
+    },
+    "name": "color.background.danger.subtler.[default]",
+    "path": [
+      "color",
+      "background",
+      "danger",
+      "subtler",
+      "[default]"
+    ],
+    "cleanName": "color.background.danger.subtler"
+  },
+  {
+    "value": "#872821",
+    "filePath": "schema/themes/atlassian-dark/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Hovered state of color.background.danger.subtler"
+    },
+    "original": {
+      "value": "Red850",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Hovered state of color.background.danger.subtler"
+      }
+    },
+    "name": "color.background.danger.subtler.hovered",
+    "path": [
+      "color",
+      "background",
+      "danger",
+      "subtler",
+      "hovered"
+    ],
+    "cleanName": "color.background.danger.subtler.hovered"
+  },
+  {
+    "value": "#AE2E24",
+    "filePath": "schema/themes/atlassian-dark/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Pressed state of color.background.danger.subtler"
+    },
+    "original": {
+      "value": "Red800",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Pressed state of color.background.danger.subtler"
+      }
+    },
+    "name": "color.background.danger.subtler.pressed",
+    "path": [
+      "color",
+      "background",
+      "danger",
+      "subtler",
+      "pressed"
+    ],
+    "cleanName": "color.background.danger.subtler.pressed"
+  },
+  {
     "value": "#FFD5D2",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
@@ -7119,6 +7350,93 @@ const tokens: Token[] = [
       "pressed"
     ],
     "cleanName": "color.background.warning.pressed"
+  },
+  {
+    "value": "#693200",
+    "filePath": "schema/themes/atlassian-dark/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Use for backgrounds of warning lozenges and badges to ensure accessibility and desired visual appearance."
+    },
+    "original": {
+      "value": "Orange900",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for backgrounds of warning lozenges and badges to ensure accessibility and desired visual appearance."
+      }
+    },
+    "name": "color.background.warning.subtler.[default]",
+    "path": [
+      "color",
+      "background",
+      "warning",
+      "subtler",
+      "[default]"
+    ],
+    "cleanName": "color.background.warning.subtler"
+  },
+  {
+    "value": "#7A3B00",
+    "filePath": "schema/themes/atlassian-dark/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Hovered state of color.background.warning.subtler"
+    },
+    "original": {
+      "value": "Orange850",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Hovered state of color.background.warning.subtler"
+      }
+    },
+    "name": "color.background.warning.subtler.hovered",
+    "path": [
+      "color",
+      "background",
+      "warning",
+      "subtler",
+      "hovered"
+    ],
+    "cleanName": "color.background.warning.subtler.hovered"
+  },
+  {
+    "value": "#9E4C00",
+    "filePath": "schema/themes/atlassian-dark/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Pressed state of color.background.warning.subtler"
+    },
+    "original": {
+      "value": "Orange800",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Pressed state of color.background.warning.subtler"
+      }
+    },
+    "name": "color.background.warning.subtler.pressed",
+    "path": [
+      "color",
+      "background",
+      "warning",
+      "subtler",
+      "pressed"
+    ],
+    "cleanName": "color.background.warning.subtler.pressed"
   },
   {
     "value": "#F5E989",
@@ -7295,6 +7613,93 @@ const tokens: Token[] = [
     "cleanName": "color.background.success.pressed"
   },
   {
+    "value": "#37471F",
+    "filePath": "schema/themes/atlassian-dark/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Use for backgrounds of success lozenges and badges to ensure accessibility and desired visual appearance."
+    },
+    "original": {
+      "value": "Lime900",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for backgrounds of success lozenges and badges to ensure accessibility and desired visual appearance."
+      }
+    },
+    "name": "color.background.success.subtler.[default]",
+    "path": [
+      "color",
+      "background",
+      "success",
+      "subtler",
+      "[default]"
+    ],
+    "cleanName": "color.background.success.subtler"
+  },
+  {
+    "value": "#3F5224",
+    "filePath": "schema/themes/atlassian-dark/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Hovered state of color.background.success.subtler"
+    },
+    "original": {
+      "value": "Lime850",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Hovered state of color.background.success.subtler"
+      }
+    },
+    "name": "color.background.success.subtler.hovered",
+    "path": [
+      "color",
+      "background",
+      "success",
+      "subtler",
+      "hovered"
+    ],
+    "cleanName": "color.background.success.subtler.hovered"
+  },
+  {
+    "value": "#4C6B1F",
+    "filePath": "schema/themes/atlassian-dark/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Pressed state of color.background.success.subtler"
+    },
+    "original": {
+      "value": "Lime800",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Pressed state of color.background.success.subtler"
+      }
+    },
+    "name": "color.background.success.subtler.pressed",
+    "path": [
+      "color",
+      "background",
+      "success",
+      "subtler",
+      "pressed"
+    ],
+    "cleanName": "color.background.success.subtler.pressed"
+  },
+  {
     "value": "#BAF3DB",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
@@ -7469,6 +7874,93 @@ const tokens: Token[] = [
     "cleanName": "color.background.discovery.pressed"
   },
   {
+    "value": "#48245D",
+    "filePath": "schema/themes/atlassian-dark/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Use for backgrounds of discovery lozenges and badges to ensure accessibility and desired visual appearance."
+    },
+    "original": {
+      "value": "Purple900",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for backgrounds of discovery lozenges and badges to ensure accessibility and desired visual appearance."
+      }
+    },
+    "name": "color.background.discovery.subtler.[default]",
+    "path": [
+      "color",
+      "background",
+      "discovery",
+      "subtler",
+      "[default]"
+    ],
+    "cleanName": "color.background.discovery.subtler"
+  },
+  {
+    "value": "#673286",
+    "filePath": "schema/themes/atlassian-dark/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Hovered state of color.background.discovery.subtler"
+    },
+    "original": {
+      "value": "Purple850",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Hovered state of color.background.discovery.subtler"
+      }
+    },
+    "name": "color.background.discovery.subtler.hovered",
+    "path": [
+      "color",
+      "background",
+      "discovery",
+      "subtler",
+      "hovered"
+    ],
+    "cleanName": "color.background.discovery.subtler.hovered"
+  },
+  {
+    "value": "#803FA5",
+    "filePath": "schema/themes/atlassian-dark/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Pressed state of color.background.discovery.subtler"
+    },
+    "original": {
+      "value": "Purple800",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Pressed state of color.background.discovery.subtler"
+      }
+    },
+    "name": "color.background.discovery.subtler.pressed",
+    "path": [
+      "color",
+      "background",
+      "discovery",
+      "subtler",
+      "pressed"
+    ],
+    "cleanName": "color.background.discovery.subtler.pressed"
+  },
+  {
     "value": "#EED7FC",
     "filePath": "schema/themes/atlassian-dark-increased-contrast/color/background.tsx",
     "isSource": true,
@@ -7641,6 +8133,93 @@ const tokens: Token[] = [
       "pressed"
     ],
     "cleanName": "color.background.information.pressed"
+  },
+  {
+    "value": "#123263",
+    "filePath": "schema/themes/atlassian-dark/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Use for backgrounds of information lozenges and badges to ensure accessibility and desired visual appearance."
+    },
+    "original": {
+      "value": "Blue900",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for backgrounds of information lozenges and badges to ensure accessibility and desired visual appearance."
+      }
+    },
+    "name": "color.background.information.subtler.[default]",
+    "path": [
+      "color",
+      "background",
+      "information",
+      "subtler",
+      "[default]"
+    ],
+    "cleanName": "color.background.information.subtler"
+  },
+  {
+    "value": "#144794",
+    "filePath": "schema/themes/atlassian-dark/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Hovered state of color.background.information.subtler"
+    },
+    "original": {
+      "value": "Blue850",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Hovered state of color.background.information.subtler"
+      }
+    },
+    "name": "color.background.information.subtler.hovered",
+    "path": [
+      "color",
+      "background",
+      "information",
+      "subtler",
+      "hovered"
+    ],
+    "cleanName": "color.background.information.subtler.hovered"
+  },
+  {
+    "value": "#1558BC",
+    "filePath": "schema/themes/atlassian-dark/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "8.1.0",
+      "description": "Pressed state of color.background.information.subtler"
+    },
+    "original": {
+      "value": "Blue800",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Pressed state of color.background.information.subtler"
+      }
+    },
+    "name": "color.background.information.subtler.pressed",
+    "path": [
+      "color",
+      "background",
+      "information",
+      "subtler",
+      "pressed"
+    ],
+    "cleanName": "color.background.information.subtler.pressed"
   },
   {
     "value": "#CFE1FD",

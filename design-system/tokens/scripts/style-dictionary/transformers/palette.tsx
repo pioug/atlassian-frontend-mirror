@@ -37,6 +37,10 @@ const transform = (palette: Record<string, any>): Transform => {
 				return token.value;
 			}
 
+			if (!originalToken.attributes) {
+				return token.value;
+			}
+
 			if (
 				originalToken.attributes.group === 'paint' &&
 				!palette.color.palette[originalToken.value]

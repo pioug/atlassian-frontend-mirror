@@ -184,6 +184,9 @@ const LozengeAction = ({
 			testId={testId}
 			trigger={trigger}
 			zIndex={zIndex}
+			{...(fg('lozenge-dropdown-prop-should-render-to-parent')
+				? { shouldRenderToParent: true }
+				: {})}
 		>
 			{dropdownItemGroup}
 		</DropdownMenu>

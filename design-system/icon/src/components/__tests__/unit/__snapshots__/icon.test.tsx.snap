@@ -3,7 +3,7 @@
 exports[`@atlaskit/icon Glyph should match snapshot 1`] = `
 <span
   aria-label="test-label"
-  class="_1e0c1o8l _1o9zidpf _vyfuvuon _vwz4kb7n _1szv15vq _1tly15vq _rzyw1osq _17jb1osq _1ksvoz0e _3se1x1jp _re2rglyw _1veoyfq0 _1kg81r31 _jcxd1r8n _gq0g1onz _1trkwc43"
+  class="REDACTED"
   data-vc="icon-undefined"
   role="img"
   style="--icon-primary-color: currentColor;"
@@ -26,7 +26,7 @@ exports[`@atlaskit/icon Glyph should match snapshot 1`] = `
 exports[`@atlaskit/icon Icon should match the DOM Snapshot 1`] = `
 <span
   aria-label="My icon"
-  class="_1e0c1o8l _1o9zidpf _vyfuvuon _vwz4kb7n _1szv15vq _1tly15vq _rzyw1osq _17jb1osq _1ksvoz0e _3se1x1jp _re2rglyw _1veoyfq0 _1kg81r31 _jcxd1r8n _gq0g1onz _1trkwc43"
+  class="REDACTED"
   data-vc="icon-undefined"
   role="img"
   style="--icon-primary-color: currentColor;"
@@ -42,17 +42,15 @@ exports[`@atlaskit/icon Icon should match the DOM Snapshot 1`] = `
 exports[`Glyph should match snapshot 1`] = `
 <span
   aria-label="test-label"
-  class="_1e0c1o8l _vchhusvi _1o9zidpf _vwz4kb7n _y4ti1igz _bozg1mb9 _12va1onz _jcxd1r8n"
+  class="REDACTED"
   role="img"
   style="color: currentColor;"
 >
   <style
     data-cmpld="true"
-  >
-    ._1reo15vq{overflow-x:hidden}._18m915vq{overflow-y:hidden}._syaz1r31{color:currentColor}._lcxvglyw{pointer-events:none}._s7n4yfq0{vertical-align:bottom}._vc881r31 stop{stop-color:currentColor}._1bsbutpp{width:var(--ds-space-150,9pt)}._4t3iutpp{height:var(--ds-space-150,9pt)}._1bsbpxbi{width:var(--ds-space-200,1pc)}._4t3ipxbi{height:var(--ds-space-200,1pc)}._1bsb1ejb{width:var(--ds-space-300,24px)}._4t3i1ejb{height:var(--ds-space-300,24px)}
-  </style>
+  >REDACTED</style>
   <svg
-    class="_1reo15vq _18m915vq _syaz1r31 _lcxvglyw _s7n4yfq0 _vc881r31 _1bsbpxbi _4t3ipxbi"
+    class="REDACTED"
     fill="none"
     role="presentation"
     viewBox="0 0 16 16"

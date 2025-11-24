@@ -26,7 +26,12 @@ const color: ValueSchema<TextColorTokenSchema<BaseToken>> = {
 				value: 'Blue400',
 			},
 			danger: {
-				value: 'Red300',
+				'[default]': {
+					value: 'Red300',
+				},
+				bolder: {
+					value: 'Red200',
+				},
 			},
 			warning: {
 				'[default]': {
@@ -35,15 +40,33 @@ const color: ValueSchema<TextColorTokenSchema<BaseToken>> = {
 				inverse: {
 					value: 'DarkNeutral100',
 				},
+				bolder: {
+					value: 'Orange200',
+				},
 			},
 			success: {
-				value: 'Lime300',
+				'[default]': {
+					value: 'Lime300',
+				},
+				bolder: {
+					value: 'Lime200',
+				},
 			},
 			information: {
-				value: 'Blue300',
+				'[default]': {
+					value: 'Blue300',
+				},
+				bolder: {
+					value: 'Blue200',
+				},
 			},
 			discovery: {
-				value: 'Purple300',
+				'[default]': {
+					value: 'Purple300',
+				},
+				bolder: {
+					value: 'Purple200',
+				},
 			},
 		},
 		link: {

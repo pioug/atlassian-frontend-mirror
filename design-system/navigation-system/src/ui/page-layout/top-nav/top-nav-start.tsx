@@ -303,11 +303,7 @@ const TopNavStartInnerFHS = forwardRef(function TopNavStartInnerFHS(
  * Wrapper for the top navigation actions on the inline-start (left) side of the top navigation.
  */
 export function TopNavStart({ children, testId, sideNavToggleButton }: TopNavStartProps) {
-	const isFhsEnabled = fg('navx-2566-implement-fhs-rollout')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useIsFhsEnabled()
-		: fg('navx-full-height-sidebar');
-
+	const isFhsEnabled = useIsFhsEnabled();
 	const ref = useContext(TopNavStartAttachRef);
 	const elementRef = useRef(null);
 

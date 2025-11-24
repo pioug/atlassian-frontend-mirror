@@ -141,13 +141,13 @@ exports[`ArticleContent Match snapshot 1`] = `
 
 <button
   aria-checked="false"
-  class="emotion-1"
+  class="REDACTED"
   role="radio"
   tabindex="0"
   type="button"
 >
   <span
-    class="emotion-0"
+    class="REDACTED"
   >
     Yes
   </span>

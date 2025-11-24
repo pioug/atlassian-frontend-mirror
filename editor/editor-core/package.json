@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.13.10",
+	"version": "215.13.12",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -206,7 +206,7 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"aifc_create_enabled": {
+		"platform_editor_ai_generic_prep_for_aifc": {
 			"type": "boolean"
 		},
 		"platform_editor_use_preferences_plugin": {

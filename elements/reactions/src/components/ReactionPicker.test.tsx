@@ -6,7 +6,6 @@ import userEvent from '@testing-library/user-event';
 import { type EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { Popper } from '@atlaskit/popper';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import { DefaultReactions } from '../shared/constants';
@@ -22,10 +21,6 @@ import { RENDER_SHOWMORE_TESTID } from './ShowMore';
 
 jest.mock('../hooks/useDelayedState', () => ({
 	useDelayedState: (defaultState: any) => useState(defaultState),
-}));
-
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn(),
 }));
 
 // override requestAnimationFrame letting us execute it when we need
@@ -74,9 +69,6 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 	);
 
 	it('should not have accessibility violations', async () => {
-		(fg as jest.Mock).mockImplementation(
-			(gate) => gate === 'platform_emoji_picker_focus_on_button',
-		);
 		const { container } = renderWithIntl(renderPicker());
 		await expect(container).toBeAccessible();
 	});
@@ -147,9 +139,6 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 	});
 
 	it('should call "onSelection" when an emoji is selected and also focus the trigger button', async () => {
-		(fg as jest.Mock).mockImplementation(
-			(gate) => gate === 'platform_emoji_picker_focus_on_button',
-		);
 		const mockOnCancel = jest.fn();
 		renderWithIntl(renderPicker(onSelectionSpy, false, mockOnCancel));
 		const triggerPickerButton = await screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID);

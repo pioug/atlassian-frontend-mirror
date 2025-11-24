@@ -8,7 +8,6 @@ import { keyframes } from '@compiled/react';
 import { css, jsx, cssMap } from '@atlaskit/css';
 import { type EmojiId, type OnEmojiEvent } from '@atlaskit/emoji/types';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -110,14 +109,6 @@ type RevealProps = {
 	testId?: string;
 };
 
-const RevealOld = ({ children, testId }: RevealProps) => {
-	return (
-		<div data-testid={testId} css={revealStyle}>
-			{children}
-		</div>
-	);
-};
-
 const Reveal = ({ children, testId }: RevealProps) => {
 	return (
 		<Box as="li" xcss={styles.emojiContainer}>
@@ -156,14 +147,12 @@ export const Selector = ({
 			</Tooltip>
 		);
 
-		const RevealComponent = fg('platform-reactions-selector-list-semantics') ? Reveal : RevealOld;
-
 		return hoverableReactionPickerSelector ? (
 			emojiButtonAndTooltip
 		) : (
-			<RevealComponent key={emoji.id ?? emoji.shortName} testId={RENDER_SELECTOR_TESTID}>
+			<Reveal key={emoji.id ?? emoji.shortName} testId={RENDER_SELECTOR_TESTID}>
 				{emojiButtonAndTooltip}
-			</RevealComponent>
+			</Reveal>
 		);
 	};
 
@@ -192,11 +181,7 @@ export const Selector = ({
 	}
 
 	return (
-		<Inline
-			alignBlock="center"
-			xcss={styles.container}
-			as={fg('platform-reactions-selector-list-semantics') ? 'ul' : undefined}
-		>
+		<Inline alignBlock="center" xcss={styles.container} as="ul">
 			{pickerQuickReactionEmojiIds ? pickerQuickReactionEmojiIds.map(renderEmoji) : null}
 			{showMore ? (
 				<Fragment>

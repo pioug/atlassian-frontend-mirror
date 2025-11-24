@@ -62,6 +62,7 @@ type AIResultActionedAEP = TrackAEP<
 	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
 	AIUnifiedCommonAttributes &
 		AIUnifiedAgentAttributes & {
+			aiActionedType?: string;
 			aiResultAction: string;
 			promptType?: string;
 			refinementCount?: number;

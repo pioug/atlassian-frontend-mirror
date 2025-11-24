@@ -1,35 +1,8 @@
-import {
-	FORMAT_MENU_ITEM,
-	FORMAT_CODE_BLOCK_MENU_ITEM,
-	FORMAT_NESTED_MENU_RANK,
-	FORMAT_NESTED_MENU_RANK_REVISED,
-} from '@atlaskit/editor-common/block-menu';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-
 import type { CodeBlockAdvancedPlugin } from './codeBlockAdvancedPluginType';
 import { codeBlockNodeWithFixedToDOM } from './nodeviews/codeBlockNodeWithToDOMFixed';
 import { createPlugin } from './pm-plugins/main';
-import { createCodeBlockMenuItem } from './ui/createCodeBlockMenuItem';
 
 export const codeBlockAdvancedPlugin: CodeBlockAdvancedPlugin = ({ api, config }) => {
-	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
-		api?.blockMenu?.actions.registerBlockMenuComponents([
-			{
-				type: 'block-menu-item',
-				key: FORMAT_CODE_BLOCK_MENU_ITEM.key,
-				parent: {
-					type: 'block-menu-section' as const,
-					key: FORMAT_MENU_ITEM.key,
-					rank: fg('platform_editor_block_menu_format_rank_revised')
-						? FORMAT_NESTED_MENU_RANK_REVISED[FORMAT_CODE_BLOCK_MENU_ITEM.key]
-						: FORMAT_NESTED_MENU_RANK[FORMAT_CODE_BLOCK_MENU_ITEM.key],
-				},
-				component: createCodeBlockMenuItem(api),
-			},
-		]);
-	}
-
 	return {
 		name: 'codeBlockAdvanced',
 

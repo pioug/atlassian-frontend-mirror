@@ -45,7 +45,11 @@ const mapTransactionToState = (
 	} else if (state.type === InsertStatus.INSERT_LINK_TOOLBAR) {
 		return {
 			...state,
+			// @ts-ignore - Workaround for help-center local consumption
+
 			from: tr.mapping.map(state.from),
+			// @ts-ignore - Workaround for help-center local consumption
+
 			to: tr.mapping.map(state.to),
 		};
 	}
@@ -155,6 +159,8 @@ export const plugin = (
 ) =>
 	new SafePlugin({
 		state: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			init(_, state: EditorState): HyperlinkState {
 				const canInsertLink = canLinkBeCreatedInRange(
 					state.selection.from,
@@ -168,6 +174,8 @@ export const plugin = (
 					editorAppearance,
 				};
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply(tr, pluginState: HyperlinkState, oldState, newState): HyperlinkState {
 				let state = pluginState;
 				const action = tr.getMeta(stateKey) && (tr.getMeta(stateKey).type as LinkAction);
@@ -243,8 +251,11 @@ export const plugin = (
 			decorations: () => {
 				return DecorationSet.empty;
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleDOMEvents: {
 				// Ignored via go/ees005
+				// @ts-ignore - Workaround for help-center local consumption
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				mouseup: (_, event: any) => {
 					// this prevents redundant selection transaction when clicking on link
@@ -256,6 +267,7 @@ export const plugin = (
 					return false;
 				},
 				// Ignored via go/ees005
+				// @ts-ignore - Workaround for help-center local consumption
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				mousedown: (view, event: any) => {
 					// since link clicks are disallowed by browsers inside contenteditable

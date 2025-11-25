@@ -333,7 +333,6 @@ export function MediaFromURL({
 				<Box xcss={FormStyles}>
 					<Stack space="space.150" grow="fill">
 						<Field
-							aria-required={true}
 							isRequired={true}
 							name="inputUrl"
 							validate={(value) =>

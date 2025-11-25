@@ -80,6 +80,8 @@ export const getRelevantConfig = (
 ): ConfigWithNodeInfo | undefined => {
 	// node selections always take precedence, see if
 	let configPair: ConfigWithNodeInfo | undefined;
+	// @ts-ignore - Workaround for help-center local consumption
+
 	configs.find((config) => {
 		const node = findSelectedNodeOfType(config.nodeType)(selection);
 		if (node) {
@@ -99,8 +101,12 @@ export const getRelevantConfig = (
 
 	// create mapping of node type name to configs
 	const configByNodeType: Record<string, FloatingToolbarConfig> = {};
+	// @ts-ignore - Workaround for help-center local consumption
+
 	configs.forEach((config) => {
 		if (Array.isArray(config.nodeType)) {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			config.nodeType.forEach((nodeType) => {
 				configByNodeType[nodeType.name] = config;
 			});
@@ -407,6 +413,8 @@ export function ContentComponent({
 	if (isInViewMode) {
 		// Typescript note: Not all toolbar item types have the `supportsViewMode` prop.
 		const toolbarItemViewModeProp: keyof FloatingToolbarButton<Command> = 'supportsViewMode';
+		// @ts-ignore - Workaround for help-center local consumption
+
 		items = iterableItems.filter(
 			(item) => toolbarItemViewModeProp in item && !!item[toolbarItemViewModeProp],
 		);
@@ -415,12 +423,16 @@ export function ContentComponent({
 	if (areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar))) {
 		// Consolidate floating toolbar items
 		const toolbarItemsArray = Array.isArray(items) ? items : items?.(node);
+		// @ts-ignore - Workaround for help-center local consumption
+
 		const overflowDropdownItems = toolbarItemsArray.filter(
 			(item) => item.type === 'overflow-dropdown',
 		) as FloatingToolbarOverflowDropdown<Command>[];
 
 		if (overflowDropdownItems.length > 1) {
 			const consolidatedOverflowDropdown = consolidateOverflowDropdownItems(overflowDropdownItems);
+			// @ts-ignore - Workaround for help-center local consumption
+
 			const otherItems = toolbarItemsArray.filter((item) => item.type !== 'overflow-dropdown');
 
 			if (otherItems.length > 0) {
@@ -440,6 +452,8 @@ export function ContentComponent({
 		// Apply analytics to dropdown
 		if (overflowDropdownItems.length > 0 && dispatchAnalyticsEvent) {
 			const currentItems = Array.isArray(items) ? items : items?.(node);
+			// @ts-ignore - Workaround for help-center local consumption
+
 			const updatedItems = currentItems.map((item) => {
 				if (item.type !== 'overflow-dropdown') {
 					return item;
@@ -629,6 +643,8 @@ function sanitizeFloatingToolbarConfig(config: FloatingToolbarConfig): FloatingT
 	if (Array.isArray(config.nodeType)) {
 		return {
 			...config,
+			// @ts-ignore - Workaround for help-center local consumption
+
 			nodeType: config.nodeType.filter(filterUndefined),
 		};
 	}
@@ -732,7 +748,9 @@ export function floatingToolbarPluginFactory(options: {
 				return { getConfigWithNodeInfo };
 			},
 			apply: expValEquals('platform_editor_lovability_suppress_toolbar_event', 'isEnabled', true)
-				? (_tr, _pluginState, __oldEditorState, newEditorState) => {
+				? // @ts-ignore - Workaround for help-center local consumption
+
+					(_tr, _pluginState, __oldEditorState, newEditorState) => {
 						const suppressedToolbar = getIsToolbarSuppressed(newEditorState);
 
 						const newPluginState: FloatingToolbarPluginState = {
@@ -747,6 +765,8 @@ export function floatingToolbarPluginFactory(options: {
 		view: expValEquals('platform_editor_lovability_suppress_toolbar_event', 'isEnabled', true)
 			? () => {
 					return {
+						// @ts-ignore - Workaround for help-center local consumption
+
 						update: (view, prevState) => {
 							const pluginState = pluginKey.getState(view.state);
 							const prevPluginState = pluginKey.getState(prevState);

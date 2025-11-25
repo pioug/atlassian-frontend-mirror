@@ -39,6 +39,7 @@ export function createInputRulePlugin(
 			init() {
 				return null;
 			},
+			// @ts-ignore - Workaround for help-center local consumption
 			apply(tr, prev) {
 				const stored = tr.getMeta(pluginKey);
 				if (stored) {
@@ -49,7 +50,9 @@ export function createInputRulePlugin(
 			},
 		},
 
+		// @ts-ignore - Workaround for help-center local consumption
 		appendTransaction: (transactions, oldState, newState) => {
+			// @ts-ignore - Workaround for help-center local consumption
 			const transactionWithInputRuleMeta = transactions.find((tr) => tr.getMeta(pluginKey));
 
 			const pluginState: InputRulePluginState | undefined | null =
@@ -90,6 +93,7 @@ export function createInputRulePlugin(
 		},
 
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
 			handleTextInput(view, from, to, text) {
 				return inputEvent({
 					view,
@@ -99,6 +103,7 @@ export function createInputRulePlugin(
 				});
 			},
 			handleDOMEvents: {
+				// @ts-ignore - Workaround for help-center local consumption
 				blur: (view) => {
 					if (!options?.checkOnBlur) {
 						return false;
@@ -119,6 +124,7 @@ export function createInputRulePlugin(
 					}
 					return false;
 				},
+				// @ts-ignore - Workaround for help-center local consumption
 				compositionend: (view) => {
 					setTimeout(() => {
 						const selection = view.state.selection;

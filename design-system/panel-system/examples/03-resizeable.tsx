@@ -7,8 +7,16 @@ import React, { type CSSProperties, useCallback, useState } from 'react';
 import { cssMap as unboundedCssMap } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
+import Button from '@atlaskit/button/new';
+import { Checkbox } from '@atlaskit/checkbox';
 import { cssMap, jsx } from '@atlaskit/css';
-import { PanelBody, PanelContainer, PanelHeader, PanelTitle } from '@atlaskit/panel-system';
+import {
+	PanelBody,
+	PanelContainer,
+	PanelFooter,
+	PanelHeader,
+	PanelTitle,
+} from '@atlaskit/panel-system';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -44,7 +52,6 @@ export function SimpleResizeExample() {
 	const handleResize = useCallback(
 		(event: React.MouseEvent<HTMLDivElement>) => {
 			event.preventDefault();
-			console.log('Resize started', event.clientX);
 			const startX = event.clientX;
 			const startWidth = panelWidth;
 
@@ -52,12 +59,10 @@ export function SimpleResizeExample() {
 				e.preventDefault();
 				const deltaX = e.clientX - startX;
 				const newWidth = Math.max(150, Math.min(600, startWidth - deltaX));
-				console.log('Resizing to:', newWidth);
 				setPanelWidth(newWidth);
 			};
 
 			const handleMouseUp = () => {
-				console.log('Resize ended');
 				unbind();
 			};
 
@@ -99,6 +104,12 @@ export function SimpleResizeExample() {
 					<PanelBody>
 						<Text>This is a simple example showing the resize functionality.</Text>
 					</PanelBody>
+					<PanelFooter>
+						<Checkbox label="Create another" isChecked={false} onChange={() => {}} />
+						<Button appearance="primary" onClick={() => {}}>
+							Create
+						</Button>
+					</PanelFooter>
 				</PanelContainer>
 			</div>
 		</Flex>

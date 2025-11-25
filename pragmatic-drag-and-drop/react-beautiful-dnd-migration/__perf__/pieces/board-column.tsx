@@ -21,7 +21,7 @@ const columnStyles = css({
 	width: 250,
 	flexDirection: 'column',
 	background: token('elevation.surface.sunken', '#F7F8F9'),
-	borderRadius: 16,
+	borderRadius: token('radius.xxlarge'),
 	position: 'relative',
 	overflow: 'hidden',
 	marginRight: token('space.200', '16px'),

@@ -45,6 +45,8 @@ const overflowHighlight = (highlights: Highlights, side: Side, start: number, si
 		return false;
 	}
 
+	// @ts-ignore - Workaround for help-center local consumption
+
 	const numericHighlights = highlights.filter(
 		(highlight): highlight is number => typeof highlight === 'number',
 	);
@@ -78,6 +80,8 @@ const gutterGridLines = (
 	}
 
 	const wideSpacing = (editorMaxWidth * breakoutWideScaleRatio - editorMaxWidth) / 2;
+	// @ts-ignore - Workaround for help-center local consumption
+
 	sides.forEach((side) => {
 		gridLines.push(
 			<div
@@ -233,9 +237,13 @@ const EMPTY_STATE: GridPluginState = {
 const gridPMPlugin = new SafePlugin<GridPluginState>({
 	key,
 	state: {
+		// @ts-ignore - Workaround for help-center local consumption
+
 		init() {
 			return EMPTY_STATE;
 		},
+		// @ts-ignore - Workaround for help-center local consumption
+
 		apply(tr, currentPluginState) {
 			const nextPluginState = tr.getMeta(key);
 			if (nextPluginState) {

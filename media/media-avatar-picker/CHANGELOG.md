@@ -1,5 +1,12 @@
 # @atlaskit/media-avatar-picker
 
+## 26.3.11
+
+### Patch Changes
+
+- [`d9471960330dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9471960330dd) -
+  Remove duplicated inert `aria-required` attribute from Field components.
+
 ## 26.3.10
 
 ### Patch Changes

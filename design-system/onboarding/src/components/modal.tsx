@@ -146,6 +146,7 @@ export default class BenefitsModal extends Component<ModalProps> {
 				image={image}
 				{...rest}
 			>
+				{/* @ts-ignore - Workaround for help-center local consumption */}
 				<Header />
 				<ModalBody>
 					<Body>
@@ -153,6 +154,7 @@ export default class BenefitsModal extends Component<ModalProps> {
 						{children}
 					</Body>
 				</ModalBody>
+				{/* @ts-ignore - Workaround for help-center local consumption */}
 				<Footer />
 			</Modal>
 		);

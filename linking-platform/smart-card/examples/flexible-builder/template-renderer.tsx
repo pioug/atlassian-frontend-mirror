@@ -25,7 +25,7 @@ const backgroundStyles = xcss({
 	backgroundImage: `repeating-linear-gradient( 45deg, ${frontColor} 25%, transparent 25%, transparent 75%, ${frontColor} 75%, ${frontColor} ), repeating-linear-gradient( 45deg, ${frontColor} 25%, ${backColor} 25%, ${backColor} 75%, ${frontColor} 75%, ${frontColor} )`,
 	backgroundPosition: '0 0, 6px 6px',
 	backgroundSize: '12px 12px',
-	borderRadius: '0.125rem',
+	borderRadius: 'radius.xsmall',
 	padding: 'space.100',
 	marginBottom: 'space.100',
 	position: 'relative',

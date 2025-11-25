@@ -176,6 +176,7 @@ const getDisplayName = (WrappedComponent: React.ElementType<any> | string): stri
 	if (typeof WrappedComponent === 'string') {
 		return WrappedComponent;
 	}
+	// @ts-ignore - Workaround for help-center local consumption
 	return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 };
 

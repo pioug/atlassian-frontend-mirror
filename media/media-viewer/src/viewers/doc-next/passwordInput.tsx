@@ -100,7 +100,7 @@ export const PasswordInput = ({ onSubmit, hasPasswordError, onRender }: PDFPassw
 							</Heading>
 						</div>
 					</Box>
-					<Field aria-required={true} name="password" defaultValue="" isRequired>
+					<Field name="password" defaultValue="" isRequired>
 						{({ fieldProps }) => (
 							<Box xcss={inputStyle}>
 								<TextField

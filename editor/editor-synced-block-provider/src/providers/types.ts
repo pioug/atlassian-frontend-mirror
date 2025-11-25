@@ -10,6 +10,7 @@ import type {
 	SyncBlockError,
 	SyncBlockNode,
 	SyncBlockProduct,
+	BlockInstanceId,
 } from '../common/types';
 
 /**
@@ -26,12 +27,12 @@ export type SyncBlockInstance = {
 	 * Current state/error of the sync block, if any
 	 */
 	error?: SyncBlockError;
-	resourceId: string;
+	resourceId: ResourceId;
 };
 
 export type DeleteSyncBlockResult = {
 	error?: string;
-	resourceId: string;
+	resourceId: ResourceId;
 	success: boolean;
 };
 
@@ -47,7 +48,7 @@ export type SyncBlockParentInfo = {
 
 export type WriteSyncBlockResult = {
 	error?: string;
-	resourceId?: string;
+	resourceId?: ResourceId;
 };
 
 export type SourceInfoFetchData = {
@@ -57,10 +58,9 @@ export type SourceInfoFetchData = {
 
 export interface ADFFetchProvider {
 	fetchData: (resourceId: ResourceId) => Promise<SyncBlockInstance>;
-	retrieveSourceInfoFetchData: (resourceId: ResourceId, pageAri: string) => SourceInfoFetchData;
 }
 export interface ADFWriteProvider {
-	deleteData: (resourceId: string) => Promise<DeleteSyncBlockResult>;
+	deleteData: (resourceId: ResourceId) => Promise<DeleteSyncBlockResult>;
 	generateResourceId: (sourceId: string, localId: string) => ResourceId;
 	writeData: (data: SyncBlockData) => Promise<WriteSyncBlockResult>;
 }
@@ -96,12 +96,15 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 	): Promise<Array<WriteSyncBlockResult>>;
 	abstract deleteNodesData(resourceIds: string[]): Promise<Array<DeleteSyncBlockResult>>;
 	abstract getSourceId(): ResourceId;
-	abstract retrieveSyncBlockSourceInfo(
-		node: SyncBlockNode,
+	abstract fetchSyncBlockSourceInfo(
+		localId: BlockInstanceId,
+		sourceAri: string,
+		sourceProduct: SyncBlockProduct,
 	): Promise<SyncBlockSourceInfo | undefined>;
 	abstract getSyncedBlockRendererProviderOptions(): SyncedBlockRendererProviderOptions;
 	abstract retrieveSyncBlockParentInfo(
-		syncBlockInstance: SyncBlockInstance | undefined,
+		sourceAri: string,
+		sourceProduct: SyncBlockProduct,
 	): SyncBlockParentInfo | undefined;
 	/**
 	 * Generates a resource ID from a source ID and local ID.
@@ -109,7 +112,7 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 	 * @param localId - The local block ID (usually a UUID)
 	 * @returns The generated resource ID
 	 */
-	abstract generateResourceId(sourceId: ResourceId, localId: string): ResourceId;
+	abstract generateResourceId(sourceId: ResourceId, localId: BlockInstanceId): ResourceId;
 }
 
 export type SubscriptionCallback = (data: SyncBlockInstance) => void;

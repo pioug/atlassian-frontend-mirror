@@ -1,5 +1,16 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.43.0
+
+### Minor Changes
+
+- [`df2de2a8c87f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df2de2a8c87f1) -
+  Remove ncsStepMetricsPlugin from confluence fullpage editor preset
+
+  When the experiment `platform_editor_remove_ncsStepMetrics_plugin` is set to `isEnabled`,
+  `enabledOptionalPlugins.ncsStepMetrics` will no longer add the `ncsStepMetricsPlugin` to the
+  Confluence `fullPagePreset`
+
 ## 13.42.1
 
 ### Patch Changes

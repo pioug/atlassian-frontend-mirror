@@ -8,9 +8,38 @@ import type { OperationalAEP } from './utils';
  */
 export type ExperienceEventAttributes = CustomExperienceMetadata & {
 	/**
+	 * Optional action that triggered the experience, if applicable.
+	 */
+	experienceAction?: string;
+
+	/**
+	 * Duration from experience start to current status transition.
+	 *
+	 * Measured in milliseconds.
+	 */
+	experienceDuration: number;
+
+	/**
+	 * Optional reason for experience end, e.g., abort or failure reason.
+	 */
+	experienceEndReason?: string;
+
+	/**
 	 * The unique key identifying the experience being tracked.
 	 */
 	experienceKey: string;
+
+	/**
+	 * Optional method for experience start, e.g., how the experience was initiated.
+	 */
+	experienceStartMethod?: string;
+
+	/**
+	 * Timestamp when the experience started.
+	 *
+	 * Milliseconds since epoch.
+	 */
+	experienceStartTime: number;
 
 	/**
 	 * The state the experience transitioned to.
@@ -22,35 +51,6 @@ export type ExperienceEventAttributes = CustomExperienceMetadata & {
 	 * in the current editor session.
 	 */
 	experienceStatusFirstSeen: boolean;
-
-	/**
-	 * Timestamp when the experience started.
-	 *
-	 * Milliseconds since epoch.
-	 */
-	experienceStartTime: number;
-
-	/**
-	 * Duration from experience start to current status transition.
-	 *
-	 * Measured in milliseconds.
-	 */
-	experienceDuration: number;
-
-	/**
-	 * Optional method for experience start, e.g., how the experience was initiated.
-	 */
-	experienceStartMethod?: string;
-
-	/**
-	 * Optional reason for experience end, e.g., abort or failure reason.
-	 */
-	experienceEndReason?: string;
-
-	/**
-	 * Optional action that triggered the experience, if applicable.
-	 */
-	experienceAction?: string;
 };
 
 /**
@@ -60,7 +60,7 @@ export type ExperienceEventAttributes = CustomExperienceMetadata & {
 type ExperienceMeasuredAEP = OperationalAEP<
 	ACTION.EXPERIENCE_MEASURED,
 	ACTION_SUBJECT.EDITOR,
-	undefined,
+	string,
 	ExperienceEventAttributes
 >;
 
@@ -71,7 +71,7 @@ type ExperienceMeasuredAEP = OperationalAEP<
 type ExperienceSampledAEP = OperationalAEP<
 	ACTION.EXPERIENCE_SAMPLED,
 	ACTION_SUBJECT.EDITOR,
-	undefined,
+	string,
 	ExperienceEventAttributes
 >;
 

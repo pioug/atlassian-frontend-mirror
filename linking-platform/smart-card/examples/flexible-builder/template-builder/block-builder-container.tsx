@@ -13,7 +13,7 @@ import { type BlockName } from '../constants';
 import ChevronIcon from './chevron-icon';
 
 const containerStyles = xcss({
-	borderRadius: '0.25rem',
+	borderRadius: token('radius.small'),
 	boxShadow: 'elevation.shadow.raised',
 });
 

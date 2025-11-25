@@ -79,7 +79,7 @@ const getConfluenceSourceInfo = async (ari: string): Promise<GetSourceInfoResult
 	return (await response.json()) as GetSourceInfoResult;
 };
 
-export const fetchConfluenceSourceInfo = async (
+export const fetchConfluencePageInfo = async (
 	pageAri: string,
 	localId?: string,
 ): Promise<SyncBlockSourceInfo | undefined> => {

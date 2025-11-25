@@ -215,9 +215,9 @@ export default () => {
 					backgroundColor: color,
 					color: getContrastRatio('#ffffff', color) >= 4.5 ? 'white' : 'black',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					borderRadius: '24px',
+					borderRadius: token('radius.full'),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					padding: '0 4px',
+					padding: `0 ${token('space.050')}`,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					whiteSpace: 'nowrap',
 				}}

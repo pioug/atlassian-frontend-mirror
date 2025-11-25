@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 124.16.5
+
+### Patch Changes
+
+- [`0eb9453d515b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0eb9453d515b3) -
+  Added the ability to override the codeBlock and windowedCodeBlock nodes.
+- Updated dependencies
+
+## 124.16.4
+
+### Patch Changes
+
+- [`4d676bbdb3ce6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d676bbdb3ce6) -
+  ts-ignore added temporarily to unblock local consumption for help-center, will be removed once
+  project refs are setup
+- Updated dependencies
+
 ## 124.16.3
 
 ### Patch Changes

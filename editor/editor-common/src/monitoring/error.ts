@@ -1,7 +1,19 @@
-import type { BrowserOptions, EventHint, Scope, Event as SentryEvent } from '@sentry/browser';
+import {
+	Integrations,
+	type BrowserOptions,
+	type EventHint,
+	type Scope,
+	type Event as SentryEvent,
+} from '@sentry/browser';
 import type { Integration, Primitive } from '@sentry/types';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { isFedRamp } from './environment';
+import {
+	normaliseSentryBreadcrumbs,
+	SERIALIZABLE_ATTRIBUTES,
+} from './normalise-sentry-breadcrumbs';
 
 const SENTRY_DSN =
 	'https://0b10c8e02fb44d8796c047b102c9bee8@o55978.ingest.sentry.io/4505129224110080';
@@ -38,10 +50,28 @@ export const logException = async (error: Error, tags?: { [key: string]: Primiti
 			/* webpackChunkName: "@atlaskit-internal_editor-sentryintegrations" */ '@sentry/integrations'
 		);
 
+		const breadcrumbsIntegration = fg('platform_editor_sentry_breadcrumbs')
+			? new Integrations.Breadcrumbs({
+					// only enable breadcrumbs for dom (UI clicks and inputs)
+					// include 'data-test-id', 'data-testid' in the breadcrumbs if they are found
+					dom: {
+						serializeAttribute: SERIALIZABLE_ATTRIBUTES,
+					},
+					fetch: false,
+					xhr: false,
+					console: false,
+					history: false,
+					sentry: false,
+				})
+			: undefined;
+
 		const sentryOptions: BrowserOptions = {
 			dsn: isFedRamp() ? undefined : SENTRY_DSN,
 			release: `${packageName}@${packageVersion}`,
 			environment: process.env.CLOUD_ENV ?? 'unknown',
+			beforeBreadcrumb: fg('platform_editor_sentry_breadcrumbs')
+				? normaliseSentryBreadcrumbs
+				: undefined,
 			ignoreErrors: [
 				// Network issues
 				// Ignored via go/ees005
@@ -62,6 +92,7 @@ export const logException = async (error: Error, tags?: { [key: string]: Primiti
 				// Remove the Breadcrumbs integration from the default as it's too likely to log UGC/PII
 				// https://docs.sentry.io/platforms/javascript/configuration/integrations/default/
 				...defaultIntegrations.filter(({ name }) => name !== 'Breadcrumbs'),
+				...(breadcrumbsIntegration ? [breadcrumbsIntegration] : []),
 				// Extracts all non-native attributes from the error object and attaches them to the event as the extra data
 				// https://docs.sentry.io/platforms/javascript/configuration/integrations/plugin/?original_referrer=https%3A%2F%2Fduckduckgo.com%2F#extraerrordata
 				new ExtraErrorData(),

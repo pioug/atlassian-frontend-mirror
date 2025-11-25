@@ -27,11 +27,15 @@ export const createEditorStateNotificationPlugin = (
 	return new SafePlugin<EditorStateNotificationPluginState>({
 		key: key,
 		state: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			init() {
 				return {
 					latestTransaction: undefined,
 				};
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply(tr) {
 				transactions.push(tr);
 				return {
@@ -41,6 +45,8 @@ export const createEditorStateNotificationPlugin = (
 		},
 		view: () => {
 			return {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				update: (view, oldEditorState) => {
 					onEditorStateUpdated({ oldEditorState, newEditorState: view.state });
 				},

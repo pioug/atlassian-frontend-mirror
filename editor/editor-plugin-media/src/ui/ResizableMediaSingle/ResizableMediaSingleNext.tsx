@@ -475,6 +475,8 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 				return;
 			}
 			const { gap, keys: activeGuidelineKeys } = findClosestSnap(
+				// @ts-ignore - Workaround for help-center local consumption
+
 				width,
 				guidelineSnapsReference.snaps.x,
 				guidelineSnapsReference.guidelineReference,

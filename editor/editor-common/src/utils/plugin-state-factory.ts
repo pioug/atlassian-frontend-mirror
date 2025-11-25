@@ -98,7 +98,11 @@ export function pluginFactory<PluginState, Action, InitialState extends PluginSt
 	return {
 		createPluginState(dispatch, initialState) {
 			return {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				init: (_, state) => (isFunction(initialState) ? initialState(state) : initialState),
+
+				// @ts-ignore - Workaround for help-center local consumption
 
 				apply: (tr, _pluginState, _oldEditorState, newEditorState) => {
 					const oldPluginState = mapping ? mapping(tr, _pluginState, newEditorState) : _pluginState;

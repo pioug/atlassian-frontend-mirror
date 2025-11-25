@@ -1,6 +1,6 @@
 jest.autoMockOff();
 
-import transformer from '../not-yet-migrate-to-simplified-form';
+import transformer from '../migrate-to-simplified-form';
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 

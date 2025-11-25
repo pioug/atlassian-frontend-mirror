@@ -3,7 +3,7 @@ import { defineMessages } from 'react-intl-next';
 export const defaultMessages = defineMessages({
 	exportButton: {
 		id: 'organization.audit.log.export.button',
-		defaultMessage: 'Export',
+		defaultMessage: 'Export log',
 		description: 'Button text for exporting audit logs',
 	},
 	modalTitle: {

@@ -43,6 +43,8 @@ function createPlugin(options: AnalyticsPluginOptions, featureFlags: FeatureFlag
 					fireAnalytics: fireAnalyticsEvent(options.createAnalyticsEvent),
 				};
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply: (tr, pluginState, _, state) => {
 				const { createAnalyticsEvent } = tr.getMeta(analyticsPluginKey) ?? {};
 
@@ -181,6 +183,8 @@ const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 				dispatch(tr);
 
 				// Attach all analytics events to the transaction
+				// @ts-ignore - Workaround for help-center local consumption
+
 				analyticsEventPropQueue.forEach(({ payload, channel }) => {
 					createAnalyticsEvent(payload)?.fire(channel ?? editorAnalyticsChannel);
 				});
@@ -213,9 +217,14 @@ const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const payloads: AnalyticsWithChannel<any>[] = tr.steps
 					// Ignored via go/ees005
+					// @ts-ignore - Workaround for help-center local consumption
 					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					.filter((step): step is AnalyticsStep<any> => step instanceof AnalyticsStep)
+					// @ts-ignore - Workaround for help-center local consumption
+
 					.map((x) => x.analyticsEvents)
+					// @ts-ignore - Workaround for help-center local consumption
+
 					.reduce((acc, val) => acc.concat(val), []);
 
 				acc.push(...payloads);
@@ -229,6 +238,8 @@ const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 
 			const { createAnalyticsEvent } = pluginState;
 			const undoAnaltyicsEventTransformer = generateUndoRedoInputSoucePayload(originalTransaction);
+
+			// @ts-ignore - Workaround for help-center local consumption
 
 			steps.forEach(({ payload, channel }) => {
 				const nextPayload = undoAnaltyicsEventTransformer(payload);

@@ -9,7 +9,7 @@ import { LinkedContainerCardSkeleton } from './linked-container-card-skeleton';
 
 const styles = cssMap({
 	showMoreButtonSkeleton: {
-		borderRadius: '1rem',
+		borderRadius: token('radius.xxlarge'),
 		width: '64px',
 		paddingBlock: token('space.050'),
 	},

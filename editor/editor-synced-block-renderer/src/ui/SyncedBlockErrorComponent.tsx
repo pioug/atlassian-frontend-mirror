@@ -1,10 +1,8 @@
 import React, { useMemo } from 'react';
 
 import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
-import {
-	getPageIdAndTypeFromConfluencePageAri,
-	SyncBlockError,
-} from '@atlaskit/editor-synced-block-provider';
+import { SyncBlockError } from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockProduct } from '@atlaskit/editor-synced-block-provider';
 
 import { SyncedBlockGenericError } from './SyncedBlockGenericError';
 import { SyncedBlockLoadError } from './SyncedBlockLoadError';
@@ -14,40 +12,29 @@ export const SyncedBlockErrorComponent = ({
 	error,
 	isLoading,
 	onRetry,
-	resourceId,
-	documentAri,
+	sourceAri,
+	sourceProduct,
 }: {
-	documentAri?: string;
 	error: SyncBlockError;
 	isLoading?: boolean;
 	onRetry?: () => void;
-	resourceId?: string;
+	sourceAri?: string;
+	sourceProduct?: SyncBlockProduct;
 }) => {
 	const getErrorContent = useMemo(() => {
 		switch (error) {
 			case SyncBlockError.Forbidden:
-				if (!resourceId) {
+				if (!sourceAri || !sourceProduct) {
 					return <SyncedBlockGenericError />;
 				}
-				if (documentAri) {
-					// TODO: EDITOR-3312 - make this product agnostic
-					const { id: contentId } = getPageIdAndTypeFromConfluencePageAri(documentAri);
-					if (contentId) {
-						return <SyncedBlockPermissionDenied contentId={contentId} />;
-					}
-				}
-				const { id: contentId } = getPageIdAndTypeFromConfluencePageAri(resourceId);
-				if (contentId) {
-					return <SyncedBlockPermissionDenied contentId={contentId} />;
-				}
-				return <SyncedBlockGenericError />;
+				return <SyncedBlockPermissionDenied sourceAri={sourceAri} sourceProduct={sourceProduct} />;
 			case SyncBlockError.NotFound:
 			case SyncBlockError.Errored:
 				return <SyncedBlockLoadError onRetry={onRetry} isLoading={isLoading} />;
 			default:
 				return <SyncedBlockGenericError />;
 		}
-	}, [documentAri, error, isLoading, onRetry, resourceId]);
+	}, [error, isLoading, onRetry, sourceAri, sourceProduct]);
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

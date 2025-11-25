@@ -3,14 +3,14 @@
  *
  * Extract component prop types from UIKit 2 components - BoxProps
  *
- * @codegen <<SignedSource::2aa8902478f587c656a335fdbf945043>>
+ * @codegen <<SignedSource::2576658a875b738553fdb3ccfa41acd1>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/__generated__/index.partial.tsx <<SignedSource::8e5857e8580db0dac17ebc42ab6115c9>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/index.tsx <<SignedSource::6b375bb57ecf19919f9e1b65e899fd96>>
  */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 
 import React from 'react';
-import { Box as PlatformBox } from '@atlaskit/primitives';
+import type { Box as PlatformBox } from '@atlaskit/primitives';
 
 import type * as CSS from 'csstype';
 import type { MediaQuery } from '@atlaskit/primitives';
@@ -208,6 +208,22 @@ type PlatformBoxProps = React.ComponentProps<typeof PlatformBox>;
 
 export type BoxProps = Pick<PlatformBoxProps, 'children' | 'ref' | 'testId'> & {
 	/**
+	 * A token alias for background color. See: [Design tokens](https://atlassian.design/components/tokens/all-tokens)
+	 * for a list of available colors.
+	 *
+	 * When the background color is set to a surface token, the current surface CSS variable
+	 * will also be set to this value in the `Box` styles.
+	 *
+	 * @type [Background color tokens](https://atlassian.design/components/tokens/all-tokens#color-background)
+	 */
+	backgroundColor?: PlatformBoxProps['backgroundColor'];
+
+	/**
+	 * @type ForgeComponent
+	 */
+	children?: PlatformBoxProps['children'];
+
+	/**
 	 * A shorthand for `paddingBlock` and `paddingInline` together.
 	 *
 	 * @type [Space tokens](https://atlassian.design/components/tokens/all-tokens#space)
@@ -222,18 +238,18 @@ export type BoxProps = Pick<PlatformBoxProps, 'children' | 'ref' | 'testId'> & {
 	paddingBlock?: PlatformBoxProps['paddingBlock'];
 
 	/**
-	 * The logical block start padding of an element.
-	 *
-	 * @type [Space tokens](https://atlassian.design/components/tokens/all-tokens#space)
-	 */
-	paddingBlockStart?: PlatformBoxProps['paddingBlockStart'];
-
-	/**
 	 * The logical block end padding of an element.
 	 *
 	 * @type [Space tokens](https://atlassian.design/components/tokens/all-tokens#space)
 	 */
 	paddingBlockEnd?: PlatformBoxProps['paddingBlockEnd'];
+
+	/**
+	 * The logical block start padding of an element.
+	 *
+	 * @type [Space tokens](https://atlassian.design/components/tokens/all-tokens#space)
+	 */
+	paddingBlockStart?: PlatformBoxProps['paddingBlockStart'];
 
 	/**
 	 * The logical inline start and end padding of an element.
@@ -257,15 +273,11 @@ export type BoxProps = Pick<PlatformBoxProps, 'children' | 'ref' | 'testId'> & {
 	paddingInlineStart?: PlatformBoxProps['paddingInlineStart'];
 
 	/**
-	 * A token alias for background color. See: [Design tokens](https://atlassian.design/components/tokens/all-tokens)
-	 * for a list of available colors.
+	 * Accessible role.
 	 *
-	 * When the background color is set to a surface token, the current surface CSS variable
-	 * will also be set to this value in the `Box` styles.
-	 *
-	 * @type [Background color tokens](https://atlassian.design/components/tokens/all-tokens#color-background)
+	 * @type string
 	 */
-	backgroundColor?: PlatformBoxProps['backgroundColor'];
+	role?: PlatformBoxProps['role'];
 
 	/**
 	 * Apply a subset of permitted styles, powered by Atlassian Design System tokens.
@@ -274,16 +286,6 @@ export type BoxProps = Pick<PlatformBoxProps, 'children' | 'ref' | 'testId'> & {
 	 * @type XCSSProp
 	 */
 	xcss?: XCSSProp;
-
-	/**
-	 * @type string
-	 */
-	role?: PlatformBoxProps['role'];
-
-	/**
-	 * @type ForgeComponent
-	 */
-	children?: PlatformBoxProps['children'];
 };
 
 /**

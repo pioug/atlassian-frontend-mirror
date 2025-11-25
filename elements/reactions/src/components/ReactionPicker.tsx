@@ -67,12 +67,6 @@ const popupStyle = css({
 		marginBottom: token('space.050', '4px'),
 	},
 });
-const popupStyleWithMarginTop = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'&> div': {
-		marginTop: token('space.050', '4px'),
-	},
-});
 
 const additionalStyles = cssMap({
 	selectorContainer: {
@@ -247,7 +241,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 			name: 'offset',
 			enabled: true,
 			options: {
-				offset: [0, fg('platform-reactions-offset-based-popper') ? 4 : 0],
+				offset: [0, 4],
 			},
 		},
 		{
@@ -636,14 +630,7 @@ export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
 						tabIndex={0}
 					>
 						<RepositionOnUpdate update={update} settings={settings}>
-							<div
-								css={[
-									popupStyle,
-									!fg('platform-reactions-offset-based-popper') && popupStyleWithMarginTop,
-								]}
-							>
-								{children}
-							</div>
+							<div css={[popupStyle]}>{children}</div>
 						</RepositionOnUpdate>
 					</div>
 				);

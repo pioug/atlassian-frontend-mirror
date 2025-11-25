@@ -2,12 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import Button from '@atlaskit/button/new';
+import { Checkbox } from '@atlaskit/checkbox';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import ProjectIcon from '@atlaskit/icon/core/project';
+import { IconTile } from '@atlaskit/icon';
+import { ConfluenceIcon } from '@atlaskit/logo';
 import {
+	PanelActionBack,
 	PanelActionClose,
-	PanelActionExpand,
 	PanelActionGroup,
 	PanelActionMore,
 	PanelActionNewTab,
@@ -40,22 +43,6 @@ const styles = cssMap({
 });
 
 export function BasicPanelExample() {
-	const handleExpand = () => {
-		console.log('Panel expanded');
-	};
-
-	const handleNewTab = () => {
-		console.log('Opening in new tab');
-	};
-
-	const handleMore = () => {
-		console.log('More actions clicked');
-	};
-
-	const handleClose = () => {
-		console.log('Panel closed');
-	};
-
 	return (
 		<Flex xcss={styles.layout}>
 			<Box xcss={styles.mainContent}>
@@ -75,19 +62,30 @@ export function BasicPanelExample() {
 			<Box xcss={styles.panelWrapper}>
 				<PanelContainer testId="preview-panel">
 					<PanelHeader>
-						<PanelTitle icon={<ProjectIcon label="Project" />}>Project: Panel System</PanelTitle>
+						<PanelActionBack onClick={() => {}} testId="back-action" />
+						<PanelTitle
+							icon={
+								<IconTile
+									icon={() => <ConfluenceIcon shouldUseNewLogoDesign label="" size="xxsmall" />}
+									label="Confluence"
+									appearance="blueBold"
+									size="xsmall"
+								/>
+							}
+						>
+							Confluence Page
+						</PanelTitle>
 						<PanelActionGroup>
-							<PanelActionExpand onClick={handleExpand} testId="expand-action" />
 							<PanelActionNewTab
 								href="/projects/blueshift"
-								onClick={handleNewTab}
+								onClick={() => {}}
 								testId="new-tab-action"
 							/>
-							<PanelActionMore onClick={handleMore} testId="more-action" />
-							<PanelActionClose onClick={handleClose} testId="close-action" />
+							<PanelActionMore onClick={() => {}} testId="more-action" />
+							<PanelActionClose onClick={() => {}} testId="close-action" />
 						</PanelActionGroup>
 					</PanelHeader>
-					<PanelSubheader>Subheading Content</PanelSubheader>
+					<PanelSubheader title="Subheading title" />
 					<PanelBody>
 						<Stack space="space.200">
 							<Heading size="small" as="h3">
@@ -113,14 +111,10 @@ export function BasicPanelExample() {
 						</Stack>
 					</PanelBody>
 					<PanelFooter>
-						<Stack space="space.100">
-							<Text size="small" color="color.text.subtle">
-								Status: Active
-							</Text>
-							<Text size="small" color="color.text.subtle">
-								Last modified: {new Date().toLocaleDateString()}
-							</Text>
-						</Stack>
+						<Checkbox label="Create another" isChecked={false} onChange={() => {}} />
+						<Button appearance="primary" onClick={() => {}}>
+							Save
+						</Button>
 					</PanelFooter>
 				</PanelContainer>
 			</Box>

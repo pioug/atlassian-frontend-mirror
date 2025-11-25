@@ -1,5 +1,27 @@
 # @atlaskit/smart-card
 
+## 43.11.0
+
+### Minor Changes
+
+- [`c155b0b4aa96c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c155b0b4aa96c) -
+  [ux] Added a default anchor target for the Hover Card title link for Platform Apps (Home,
+  Projects, Goals, and Teams).
+
+### Patch Changes
+
+- [`d9471960330dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9471960330dd) -
+  Remove duplicated inert `aria-required` attribute from Field components.
+- Updated dependencies
+
+## 43.10.2
+
+### Patch Changes
+
+- [`4d676bbdb3ce6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d676bbdb3ce6) -
+  ts-ignore added temporarily to unblock local consumption for help-center, will be removed once
+  project refs are setup
+
 ## 43.10.1
 
 ### Patch Changes

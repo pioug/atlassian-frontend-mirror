@@ -24,7 +24,7 @@ const containerStyles = css({
 });
 const overrideCss = css({
 	backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
-	borderRadius: '0.5rem',
+	borderRadius: token('radius.large'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> img': {
 		objectFit: 'contain',

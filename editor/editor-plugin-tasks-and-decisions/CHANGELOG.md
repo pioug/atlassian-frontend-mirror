@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 9.1.13
+
+### Patch Changes
+
+- [`43d1dfc88c1de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43d1dfc88c1de) -
+  Clean up platform_editor_block_menu_format_rank_revised
+- Updated dependencies
+
+## 9.1.12
+
+### Patch Changes
+
+- [`4d676bbdb3ce6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d676bbdb3ce6) -
+  ts-ignore added temporarily to unblock local consumption for help-center, will be removed once
+  project refs are setup
+- Updated dependencies
+
 ## 9.1.11
 
 ### Patch Changes

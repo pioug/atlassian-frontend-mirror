@@ -24,6 +24,8 @@ export function createPlugin(dispatch: Dispatch<WidthPluginState>): SafePlugin |
 					};
 				}
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply(tr, pluginState: WidthPluginState) {
 				const meta: WidthPluginState | undefined = tr.getMeta(pluginKey);
 

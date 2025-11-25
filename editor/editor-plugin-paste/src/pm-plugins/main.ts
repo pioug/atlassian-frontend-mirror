@@ -200,8 +200,12 @@ export function createPlugin(
 			clipboardTextSerializer: fg('platform_editor_date_to_text')
 				? createClipboardTextSerializer(getIntl())
 				: clipboardTextSerializer,
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleDOMEvents: {
 				// note
+				// @ts-ignore - Workaround for help-center local consumption
+
 				paste: (view, event) => {
 					mostRecentPasteEvent = event as ClipboardEvent;
 					if (
@@ -214,6 +218,8 @@ export function createPlugin(
 				},
 			},
 			// note
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handlePaste(view, rawEvent, slice) {
 				const event = rawEvent as ClipboardEvent;
 				if (!event.clipboardData) {
@@ -334,9 +340,13 @@ export function createPlugin(
 					// appendedTransactions to repair them (if they're partial or incomplete) and we don't want
 					// to split those repairing transactions in prosemirror-history when they're being added to the
 					// "done" stack
+					// @ts-ignore - Workaround for help-center local consumption
+
 					const isPastingTable = tr.steps.some((step) => {
 						const slice = extractSliceFromStep(step);
 						let tableExists = false;
+
+						// @ts-ignore - Workaround for help-center local consumption
 
 						slice?.content?.forEach((node) => {
 							if (node.type === state.schema.nodes.table) {
@@ -742,6 +752,8 @@ export function createPlugin(
 					if (selectionParentType !== state.schema.nodes.doc) {
 						const sliceCopy = Slice.fromJSON(state.schema, slice.toJSON() || {});
 
+						// @ts-ignore - Workaround for help-center local consumption
+
 						sliceCopy.content.descendants((node) => {
 							// @ts-ignore - [unblock prosemirror bump] assigning to readonly prop
 							node.marks = node.marks.filter((mark) => mark.type.name !== 'breakout');
@@ -807,6 +819,8 @@ export function createPlugin(
 				}
 				return false;
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			transformPasted(slice) {
 				if (sanitizePrivateContent) {
 					slice = handleMention(slice, schema);
@@ -844,6 +858,8 @@ export function createPlugin(
 
 				return slice;
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			transformPastedHTML(html) {
 				// Fix for issue ED-4438
 				// text from google docs should not be pasted as inline code

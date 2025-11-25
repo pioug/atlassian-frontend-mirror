@@ -52,12 +52,15 @@ export const getQuickInsertOpenExperiencePlugin = ({
 		return targetEl;
 	};
 
-	const experience = new Experience('quick-insert-open', {
+	const experience = new Experience('menu-open', {
+		actionSubjectId: 'quick-insert-menu',
 		dispatchAnalyticsEvent,
 		checks: [
 			new ExperienceCheckTimeout({ durationMs: 500 }),
 			new ExperienceCheckDomMutation({
 				onDomMutation: ({ mutations }) => {
+					// @ts-ignore - Workaround for help-center local consumption
+
 					if (mutations.some(isQuickInsertMenuAddedInMutation)) {
 						return { status: 'success' };
 					}
@@ -75,17 +78,25 @@ export const getQuickInsertOpenExperiencePlugin = ({
 	return new SafePlugin({
 		key: pluginKey,
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleDOMEvents: {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				click: (_view, event) => {
 					if (isTargetQuickInsertButton(event.target)) {
 						experience.start({ method: START_METHOD.QUICK_INSERT_BUTTON });
 					}
 				},
+				// @ts-ignore - Workaround for help-center local consumption
+
 				beforeinput: (view, event) => {
 					if (isQuickInsertTrigger(event) && isSelectionWhichSupportsTypeahead(view)) {
 						experience.start({ method: START_METHOD.TYPEAHEAD });
 					}
 				},
+				// @ts-ignore - Workaround for help-center local consumption
+
 				keydown: (_view, event) => {
 					if (isCancelKey(event.key) && !isQuickInsertMenuWithinNode(getTarget())) {
 						experience.abort({ reason: ABORT_REASON.USER_CANCELED });
@@ -114,6 +125,8 @@ const isSelectionWhichSupportsTypeahead = ({ state }: EditorView) => {
 	if ($from.parent.type.name === 'codeBlock') {
 		return false;
 	}
+
+	// @ts-ignore - Workaround for help-center local consumption
 
 	if ($from.marks().some((mark) => mark.type.name === 'code')) {
 		return false;
@@ -145,6 +158,8 @@ const isTargetQuickInsertButton = (target?: EventTarget | null) => {
 };
 
 const isQuickInsertMenuAddedInMutation = ({ type, addedNodes }: MutationRecord) => {
+	// @ts-ignore - Workaround for help-center local consumption
+
 	return type === 'childList' && [...addedNodes].some(isQuickInsertMenuWithinNode);
 };
 

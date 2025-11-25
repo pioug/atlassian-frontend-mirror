@@ -3,8 +3,15 @@ import { useMemo } from 'react';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 
 import { getPageIdAndTypeFromConfluencePageAri } from '../clients/confluence/ari';
-import { fetchConfluenceSourceInfo } from '../clients/confluence/sourceInfo';
-import { SyncBlockError, type SyncBlockData, type SyncBlockNode } from '../common/types';
+import { fetchConfluencePageInfo } from '../clients/confluence/sourceInfo';
+import {
+	SyncBlockError,
+	type BlockInstanceId,
+	type ResourceId,
+	type SyncBlockData,
+	type SyncBlockNode,
+	type SyncBlockProduct,
+} from '../common/types';
 import {
 	SyncBlockDataProvider,
 	type ADFFetchProvider,
@@ -139,7 +146,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	 *
 	 * @returns Array of {resourceId?: string, error?: string}.
 	 */
-	async deleteNodesData(resourceIds: string[]): Promise<Array<DeleteSyncBlockResult>> {
+	async deleteNodesData(resourceIds: ResourceId[]): Promise<Array<DeleteSyncBlockResult>> {
 		const results = await Promise.allSettled(
 			resourceIds.map((resourceId) => this.writeProvider.deleteData(resourceId)),
 		);
@@ -162,35 +169,33 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	}
 
 	/**
-	 * Retrieve the source info from the source id
+	 * Fetch the source info from the source id
 	 *
-	 * @param node
+	 * @param params
+	 * @param params.sourceAri - The source ARI
+	 * @param params.sourceProduct - The source product. e.g. 'confluence-page', 'jira-work-item'
 	 *
 	 * @returns The source info
 	 */
-	retrieveSyncBlockSourceInfo(node: SyncBlockNode): Promise<SyncBlockSourceInfo | undefined> {
-		// with content API, this is the concatenation of the page ARI and the block's localId.
-		// with block service, this is the ARI of the block.
-		// this can be cleaned up from the specific providers and placed here after platform_synced_blocks_block_service_provider
-		const { resourceId } = node.attrs;
-		let pageARI;
-		let sourceLocalId;
-		if (resourceId && typeof resourceId === 'string') {
-			try {
-				const fetchData = this.fetchProvider.retrieveSourceInfoFetchData(resourceId, this.sourceId);
-				pageARI = fetchData.pageARI;
-				sourceLocalId = fetchData.sourceLocalId;
-			} catch (error) {
-				return Promise.reject(error);
-			}
+	fetchSyncBlockSourceInfo(
+		localId: BlockInstanceId,
+		sourceAri: string,
+		sourceProduct: SyncBlockProduct,
+	): Promise<SyncBlockSourceInfo | undefined> {
+		if (!sourceAri || !sourceProduct) {
+			return Promise.resolve(undefined);
 		}
-
-		// TODO: EDITOR-3312 - based on the source sync block product,
-		// execute fetchConfluenceSourceInfo or fetchJiraItemSourceInfo or similar...
-		return pageARI ? fetchConfluenceSourceInfo(pageARI, sourceLocalId) : Promise.resolve(undefined);
+		switch (sourceProduct) {
+			case 'confluence-page':
+				return fetchConfluencePageInfo(sourceAri, localId);
+			case 'jira-work-item':
+				return Promise.reject(new Error('Jira work item source product not supported'));
+			default:
+				return Promise.reject(new Error(`${sourceProduct} source product not supported`));
+		}
 	}
 
-	generateResourceId(sourceId: string, localId: string): string {
+	generateResourceId(sourceId: string, localId: BlockInstanceId): string {
 		return this.writeProvider.generateResourceId(sourceId, localId);
 	}
 
@@ -206,32 +211,30 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	/**
 	 * Retrieve the parent info for the sync block
 	 *
-	 * @param resourceId
-	 * @param syncBlockInstance
+	 * @param sourceAri - The source ARI
+	 * @param sourceProduct - The source product. e.g. 'confluence-page', 'jira-work-item'
 	 *
 	 * @returns The parent info for the sync block
 	 */
 	retrieveSyncBlockParentInfo(
-		syncBlockInstance: SyncBlockInstance | undefined,
+		sourceAri: string,
+		sourceProduct: SyncBlockProduct,
 	): SyncBlockParentInfo | undefined {
-		if (!syncBlockInstance || !syncBlockInstance.data) {
+		if (!sourceAri || !sourceProduct) {
 			return undefined;
 		}
 
-		const { sourceAri, product } = syncBlockInstance.data;
-
-		if (!sourceAri || !product) {
-			return undefined;
+		switch (sourceProduct) {
+			case 'confluence-page':
+				return {
+					contentId: getPageIdAndTypeFromConfluencePageAri(sourceAri).id,
+					contentProduct: sourceProduct,
+				};
+			case 'jira-work-item':
+				throw new Error('Jira work item source product not supported');
+			default:
+				throw new Error(`${sourceProduct} source product not supported`);
 		}
-
-		// TODO: EDITOR-3312 - based on the source sync block product,
-		// execute getPageIdAndTypeFromConfluencePageAri or getJiraItemIdAndTypeFromJiraItemAri or similar...
-		const { id: contentId } = getPageIdAndTypeFromConfluencePageAri(sourceAri);
-
-		return {
-			contentId,
-			contentProduct: product,
-		};
 	}
 }
 

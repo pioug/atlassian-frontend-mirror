@@ -8,7 +8,6 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	FORMAT_TASK_LIST_MENU_ITEM,
 	FORMAT_NESTED_MENU_RANK,
-	FORMAT_NESTED_MENU_RANK_REVISED,
 	NESTED_FORMAT_MENU_SECTION,
 } from '@atlaskit/editor-common/block-menu';
 import { MAX_INDENTATION_LEVEL } from '@atlaskit/editor-common/indentation';
@@ -20,7 +19,6 @@ import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model'
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
@@ -173,9 +171,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 				parent: {
 					type: 'block-menu-section' as const,
 					key: NESTED_FORMAT_MENU_SECTION.key,
-					rank: fg('platform_editor_block_menu_format_rank_revised')
-						? FORMAT_NESTED_MENU_RANK_REVISED[FORMAT_TASK_LIST_MENU_ITEM.key]
-						: FORMAT_NESTED_MENU_RANK[FORMAT_TASK_LIST_MENU_ITEM.key],
+					rank: FORMAT_NESTED_MENU_RANK[FORMAT_TASK_LIST_MENU_ITEM.key],
 				},
 				component: () => <TaskListBlockMenuItem api={api} />,
 			},

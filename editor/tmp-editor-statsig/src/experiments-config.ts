@@ -1138,4 +1138,12 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-11-25
+	platform_editor_remove_ncsStepMetrics_plugin: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_remove_ncsStepMetrics_plugin',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

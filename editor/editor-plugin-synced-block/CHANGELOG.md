@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.3.3
+
+### Patch Changes
+
+- [`3a76fffa63310`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a76fffa63310) -
+  Revert EDITOR-2913
+
+## 4.3.2
+
+### Patch Changes
+
+- [`4d676bbdb3ce6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d676bbdb3ce6) -
+  ts-ignore added temporarily to unblock local consumption for help-center, will be removed once
+  project refs are setup
+- Updated dependencies
+
 ## 4.3.1
 
 ### Patch Changes

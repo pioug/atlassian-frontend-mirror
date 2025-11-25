@@ -5,6 +5,7 @@ import AKLink from '@atlaskit/link';
 import { withLinkClickedEvent } from '../../../utils/analytics/click';
 import { type LinkUrlProps } from '../types';
 
+// @ts-ignore - Workaround for help-center local consumption
 const Anchor = withLinkClickedEvent('a');
 export const LinkComponent = withLinkClickedEvent(AKLink);
 

@@ -27,6 +27,8 @@ function getSelectedNode(editorState: EditorState): EditorToolbarPluginState['se
 			node: selection.node,
 			pos: selection.from,
 			nodeType: selection.node.type.name,
+			// @ts-ignore - Workaround for help-center local consumption
+
 			marks: selection.node.marks.map((mark) => `${mark.type.name}:${JSON.stringify(mark.attrs)}`),
 		};
 	}
@@ -45,6 +47,8 @@ function getSelectedNode(editorState: EditorState): EditorToolbarPluginState['se
 			node: selectedNode.node,
 			pos: selectedNode.pos,
 			nodeType: selectedNode.node.type.name,
+			// @ts-ignore - Workaround for help-center local consumption
+
 			marks: selectedNode.node.marks.map(
 				(mark) => `${mark.type.name}:${JSON.stringify(mark.attrs)}`,
 			),
@@ -65,6 +69,8 @@ function getSelectedNode(editorState: EditorState): EditorToolbarPluginState['se
 			node: parentNode.node,
 			pos: parentNode.pos,
 			nodeType: parentNode.node.type.name,
+			// @ts-ignore - Workaround for help-center local consumption
+
 			marks: parentNode.node.marks.map((mark) => `${mark.type.name}:${JSON.stringify(mark.attrs)}`),
 		};
 	}
@@ -74,6 +80,8 @@ function getSelectedNode(editorState: EditorState): EditorToolbarPluginState['se
 		node: $pos.parent,
 		pos: $pos.pos,
 		nodeType: $pos.parent.type.name,
+		// @ts-ignore - Workaround for help-center local consumption
+
 		marks: $pos.marks().map((mark) => `${mark.type.name}:${JSON.stringify(mark.attrs)}`),
 	};
 }
@@ -143,12 +151,16 @@ export const toolbarPlugin: ToolbarPlugin = ({
 						return new SafePlugin({
 							key: editorToolbarPluginKey,
 							state: {
+								// @ts-ignore - Workaround for help-center local consumption
+
 								init(_, editorState): EditorToolbarPluginState {
 									return {
 										shouldShowToolbar: false,
 										selectedNode: getSelectedNode(editorState),
 									};
 								},
+								// @ts-ignore - Workaround for help-center local consumption
+
 								apply(tr, pluginState: EditorToolbarPluginState, _, newState) {
 									const meta = tr.getMeta(editorToolbarPluginKey);
 									let newPluginState = { ...pluginState };
@@ -183,6 +195,8 @@ export const toolbarPlugin: ToolbarPlugin = ({
 									return newPluginState;
 								},
 							},
+							// @ts-ignore - Workaround for help-center local consumption
+
 							view(view) {
 								const unbind = bind(view.root, {
 									type: 'mouseup',
@@ -219,6 +233,8 @@ export const toolbarPlugin: ToolbarPlugin = ({
 								});
 
 								return {
+									// @ts-ignore - Workaround for help-center local consumption
+
 									destroy() {
 										unbind();
 										unbindEditorViewFocus();
@@ -226,7 +242,11 @@ export const toolbarPlugin: ToolbarPlugin = ({
 								};
 							},
 							props: {
+								// @ts-ignore - Workaround for help-center local consumption
+
 								handleDOMEvents: {
+									// @ts-ignore - Workaround for help-center local consumption
+
 									mousedown: (view) => {
 										view.dispatch(
 											view.state.tr.setMeta(editorToolbarPluginKey, {

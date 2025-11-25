@@ -42,6 +42,7 @@ export const withTooltip = (WrapperComponent: React.ElementType) => {
 			return (
 				// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 				<Tooltip content={label} position="top" tag={ExpandLayoutWrapperWithRef}>
+					{/* @ts-ignore - Workaround for help-center local consumption */}
 					<WrapperComponent
 						// Ignored via go/ees005
 						// eslint-disable-next-line react/jsx-props-no-spreading

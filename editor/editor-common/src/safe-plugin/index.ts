@@ -8,11 +8,17 @@ import type {
 	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { NodeAnchorProvider } from '../node-anchor/node-anchor-provider';
 import { getNodeIdProvider } from '../node-anchor/node-anchor-provider';
 import { createProseMirrorMetadata } from '../prosemirror-dom-metadata';
+import {
+	ANCHOR_VARIABLE_NAME,
+	isCSSAnchorSupported,
+	isCSSAttrAnchorSupported,
+} from '../styles/shared/native-anchor';
 
 type NodeViewConstructor = (
 	node: Node,
@@ -53,6 +59,19 @@ export const attachGenericProseMirrorMetadata = ({
 			name === 'data-node-anchor' &&
 			expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
 		) {
+			if (fg('platform_native_anchor_use_css_style')) {
+				// if browser doesn't support CSS anchor, won't need the style
+				// Or if it supports CSS attr() function as the value of anchor-name,
+				// We won't need set the style
+				if (!isCSSAnchorSupported() || isCSSAttrAnchorSupported()) {
+					return;
+				}
+
+				// otherwise, we set the CSS variable for anchor-name
+				dom.style.setProperty(ANCHOR_VARIABLE_NAME, `${value}`);
+				return;
+			}
+
 			dom.style.setProperty('anchor-name', value);
 		}
 	});

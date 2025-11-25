@@ -1,7 +1,9 @@
+/* eslint-disable @atlaskit/design-system/no-html-text-input */
 import React, { useCallback, useRef, useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { Code } from '@atlaskit/code';
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import ModalDialog, {
@@ -16,10 +18,10 @@ import { token } from '@atlaskit/tokens';
 
 const containerStyles = cssMap({
 	root: {
-		paddingTop: token('space.200'),
-		paddingRight: token('space.200'),
-		paddingBottom: token('space.200'),
-		paddingLeft: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
 	},
 });
 
@@ -42,10 +44,13 @@ export default function ModalDemo(): React.JSX.Element {
 			<Heading as="h2" size="large">
 				Variants
 			</Heading>
-			<p>Using ModalDialog autoFocus prop, not to be confused with the HTML autofocus attribute.</p>
+			<p>
+				Using ModalDialog <Code>autoFocus</Code> prop, not to be confused with the HTML{' '}
+				<Code>autofocus</Code> attribute.
+			</p>
 			<ButtonGroup label="Auto focus options">
 				<Button aria-haspopup="dialog" testId="boolean-trigger" onClick={openRoot}>
-					Boolean `true` on dialog
+					Default
 				</Button>
 
 				<Button aria-haspopup="dialog" testId="autofocus-trigger" onClick={openAutoFocus}>
@@ -53,10 +58,6 @@ export default function ModalDemo(): React.JSX.Element {
 				</Button>
 			</ButtonGroup>
 
-			<p>
-				It is recommended to use a ref for <code>autoFocus</code> and to avoid using boolean values.
-				This is because the default is `true` and `false` will result in accessibility regressions.
-			</p>
 			<p>This example is here for testing purposes only.</p>
 
 			<ModalTransition>
@@ -88,9 +89,9 @@ export default function ModalDemo(): React.JSX.Element {
 						</ModalHeader>
 						<ModalBody>
 							<p>
-								Note: Usually the the first focusable element, preferably a Close button at the top
-								of the dialog, should be focused initially. This test deviates only to properly test
-								the autofocus prop.
+								Note: Usually the first focusable element, preferably a Close button at the top of
+								the dialog, should be focused initially. This test deviates only to properly test
+								the <Code>autoFocus</Code> prop.
 							</p>
 							<Box>
 								<label htmlFor="not">

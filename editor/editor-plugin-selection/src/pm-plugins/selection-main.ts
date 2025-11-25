@@ -37,6 +37,8 @@ export const createPlugin = (
 	return new SafePlugin({
 		key: selectionPluginKey,
 		state: createPluginState(dispatch, getInitialState),
+		// @ts-ignore - Workaround for help-center local consumption
+
 		appendTransaction(transactions, oldEditorState, newEditorState) {
 			const { tr } = newEditorState;
 
@@ -87,6 +89,8 @@ export const createPlugin = (
 			return tr;
 		},
 
+		// @ts-ignore - Workaround for help-center local consumption
+
 		filterTransaction(tr, state) {
 			// Prevent single click selecting atom nodes on mobile (we want to select with long press gesture instead)
 			if (
@@ -114,7 +118,11 @@ export const createPlugin = (
 		},
 
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			createSelectionBetween: onCreateSelectionBetween,
+			// @ts-ignore - Workaround for help-center local consumption
+
 			decorations(state) {
 				const interactionState = api?.interaction?.sharedState.currentState()?.interactionState;
 
@@ -132,7 +140,11 @@ export const createPlugin = (
 				return getPluginState(state).decorationSet;
 			},
 
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleDOMEvents: {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				keydown: createOnKeydown({ __livePage: options.__livePage }),
 				// Without this event, it is not possible to click and drag to select the first node in the
 				// document if the node is a block with content (e.g. a panel with a paragraph inside).

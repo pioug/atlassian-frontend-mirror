@@ -213,6 +213,8 @@ export default function keymapPlugin(
 
 	return new SafePlugin({
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleKeyDown(view, event) {
 				const keyboardEvent = isCapsLockOnAndModifyKeyboardEvent(event);
 

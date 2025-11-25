@@ -5,6 +5,10 @@ import { useMutation, graphql } from 'react-relay';
 
 import Button from '@atlaskit/button/new';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import {
+	getPageIdAndTypeFromConfluencePageAri,
+	type SyncBlockProduct,
+} from '@atlaskit/editor-synced-block-provider';
 import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
 import { Text, Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -12,6 +16,7 @@ import { token } from '@atlaskit/tokens';
 import type { SyncedBlockPermissionDeniedRequestAccessMutation } from './__generated__/SyncedBlockPermissionDeniedRequestAccessMutation.graphql';
 import PermissionDenied from './assets/PermissionDenied.svg';
 import { SyncedBlockErrorStateCard } from './SyncedBlockErrorStateCard';
+import { SyncedBlockGenericError } from './SyncedBlockGenericError';
 
 enum RequestAccessState {
 	default = 'default',
@@ -20,11 +25,14 @@ enum RequestAccessState {
 	pending = 'pending',
 }
 
-interface SyncedBlockPermissionDeniedProps {
-	contentId: string;
+export interface SyncedBlockPermissionDeniedProps {
+	sourceAri: string;
+	sourceProduct: SyncBlockProduct;
 }
 
-export const SyncedBlockPermissionDenied = ({ contentId }: SyncedBlockPermissionDeniedProps) => {
+const SyncedBlockPermissionDeniedConfluencePage = ({ sourceAri }: { sourceAri: string }) => {
+	const contentId = getPageIdAndTypeFromConfluencePageAri(sourceAri).id;
+
 	const { formatMessage } = useIntl();
 	const [requestAccessState, setRequestAccessState] = useState<RequestAccessState>(
 		RequestAccessState.default,
@@ -34,7 +42,7 @@ export const SyncedBlockPermissionDenied = ({ contentId }: SyncedBlockPermission
 		setRequestAccessState(RequestAccessState.pending);
 	};
 
-	const handleRequestError = (error: Error) => {
+	const handleRequestError = () => {
 		setRequestAccessState(RequestAccessState.errored);
 	};
 
@@ -99,4 +107,16 @@ export const SyncedBlockPermissionDenied = ({ contentId }: SyncedBlockPermission
 			)}
 		</SyncedBlockErrorStateCard>
 	);
+};
+
+export const SyncedBlockPermissionDenied = ({
+	sourceAri,
+	sourceProduct,
+}: SyncedBlockPermissionDeniedProps) => {
+	switch (sourceProduct) {
+		case 'confluence-page':
+			return <SyncedBlockPermissionDeniedConfluencePage sourceAri={sourceAri} />;
+		default:
+			return <SyncedBlockGenericError />;
+	}
 };

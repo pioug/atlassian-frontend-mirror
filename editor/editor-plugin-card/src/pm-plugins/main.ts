@@ -87,6 +87,8 @@ export const createPlugin =
 
 		return new SafePlugin({
 			state: {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				init(): CardPluginState {
 					return {
 						requests: [],
@@ -102,6 +104,8 @@ export const createPlugin =
 						layout: undefined,
 					};
 				},
+
+				// @ts-ignore - Workaround for help-center local consumption
 
 				apply(tr, pluginState: CardPluginState, prevEditorState: EditorState) {
 					// Update all the positions of outstanding requests and
@@ -168,6 +172,8 @@ export const createPlugin =
 				},
 			},
 
+			// @ts-ignore - Workaround for help-center local consumption
+
 			filterTransaction(tr: Transaction) {
 				const isOutsideClicked = tr.getMeta('outsideProsemirrorEditorClicked');
 
@@ -180,6 +186,8 @@ export const createPlugin =
 				return true;
 			},
 
+			// @ts-ignore - Workaround for help-center local consumption
+
 			view(view: EditorView) {
 				const domAtPos = view.domAtPos.bind(view);
 				const rafCancellationCallbacks: Function[] = [];
@@ -189,6 +197,8 @@ export const createPlugin =
 				}
 
 				return {
+					// @ts-ignore - Workaround for help-center local consumption
+
 					update(view: EditorView, prevState: EditorState) {
 						const currentState = getPluginState(view.state);
 						const oldState = getPluginState(prevState);
@@ -245,6 +255,8 @@ export const createPlugin =
 							const newRequests = getNewRequests(oldState, currentState);
 							// Ask the CardProvider to resolve all new requests.
 							const { provider } = currentState;
+							// @ts-ignore - Workaround for help-center local consumption
+
 							newRequests.forEach((request) => {
 								/**
 								 * Queue each asynchronous resolve request on separate frames.
@@ -279,14 +291,20 @@ export const createPlugin =
 						cardPluginEvents?.flush();
 					},
 
+					// @ts-ignore - Workaround for help-center local consumption
+
 					destroy() {
 						// Cancel any outstanding raf callbacks.
+						// @ts-ignore - Workaround for help-center local consumption
+
 						rafCancellationCallbacks.forEach((cancellationCallback) => cancellationCallback());
 					},
 				};
 			},
 
 			props: {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				nodeViews: {
 					inlineCard: lazyInlineCardView({
 						inlineCardViewProducer,
@@ -317,10 +335,14 @@ export const createPlugin =
 					}),
 				},
 				...(enableInlineUpgradeFeatures && {
+					// @ts-ignore - Workaround for help-center local consumption
+
 					handleKeyDown: (view: EditorView): boolean => {
 						handleAwarenessOverlay(view);
 						return false;
 					},
+					// @ts-ignore - Workaround for help-center local consumption
+
 					handleClick: (view: EditorView): boolean => {
 						handleAwarenessOverlay(view);
 						return false;

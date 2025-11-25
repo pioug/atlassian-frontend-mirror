@@ -26,6 +26,8 @@ export const createPlugin = () => {
 				renderSpan: false,
 				decorations: DecorationSet.empty,
 			}),
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply: (tr, value): SafariDeleteCompositionTextIssueWorkaroundPluginState => {
 				const renderSpan: boolean = tr.getMeta(tableSafariDeleteCompositionTextIssueWorkaroundKey);
 				if (typeof renderSpan === 'undefined') {
@@ -53,9 +55,15 @@ export const createPlugin = () => {
 			},
 		},
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			decorations: (state) =>
 				tableSafariDeleteCompositionTextIssueWorkaroundKey.getState(state)?.decorations,
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleDOMEvents: {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				beforeinput: (view: EditorView, event: Event): boolean => {
 					if ((event as InputEvent)?.inputType !== 'deleteCompositionText') {
 						return false;

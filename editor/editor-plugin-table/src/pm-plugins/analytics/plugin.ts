@@ -19,7 +19,11 @@ export const createPlugin = (dispatch: Dispatch, dispatchAnalyticsEvent: Dispatc
 	new SafePlugin({
 		key: pluginKey,
 		state: createPluginState(dispatch, defaultState),
+		// @ts-ignore - Workaround for help-center local consumption
+
 		appendTransaction: (transactions, oldState, newState) => {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			const tr = transactions.find((tr) =>
 				tr.getMeta(pluginKey)?.data?.currentActions?.includes('pasted'),
 			);
@@ -41,6 +45,8 @@ export const createPlugin = (dispatch: Dispatch, dispatchAnalyticsEvent: Dispatc
 			return undefined;
 		},
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handlePaste: ({ state, dispatch }, event, slice) => {
 				const { schema } = state;
 				const type = getTableElementMoveTypeBySlice(slice, state);
@@ -60,6 +66,8 @@ export const createPlugin = (dispatch: Dispatch, dispatchAnalyticsEvent: Dispatc
 					'pasted',
 				)(state, dispatch);
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			transformCopied: (slice, { state, dispatch }) => {
 				const { schema } = state;
 

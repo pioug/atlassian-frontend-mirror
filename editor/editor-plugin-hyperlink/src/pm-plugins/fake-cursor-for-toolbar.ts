@@ -29,18 +29,28 @@ const getInsertLinkToolbarState = (editorState: EditorState) => {
 const fakeCursorToolbarPlugin: SafePlugin = new SafePlugin({
 	key: fakeCursorForToolbarPluginKey,
 	state: {
+		// @ts-ignore - Workaround for help-center local consumption
+
 		init() {
 			return DecorationSet.empty;
 		},
+		// @ts-ignore - Workaround for help-center local consumption
+
 		apply(tr, pluginState: DecorationSet, oldState, newState) {
 			const oldInsertToolbarState = getInsertLinkToolbarState(oldState);
 			const insertToolbarState = getInsertLinkToolbarState(newState);
 			// Map DecorationSet if it still refers to the same position in the document
 			if (oldInsertToolbarState && insertToolbarState) {
 				const { from, to } = insertToolbarState;
+				// @ts-ignore - Workaround for help-center local consumption
+
 				const oldFrom = tr.mapping.map(oldInsertToolbarState.from);
+				// @ts-ignore - Workaround for help-center local consumption
+
 				const oldTo = tr.mapping.map(oldInsertToolbarState.to);
 				if (oldFrom === from && oldTo === to) {
+					// @ts-ignore - Workaround for help-center local consumption
+
 					return pluginState.map(tr.mapping, tr.doc);
 				}
 			}
@@ -55,6 +65,8 @@ const fakeCursorToolbarPlugin: SafePlugin = new SafePlugin({
 		},
 	},
 	props: {
+		// @ts-ignore - Workaround for help-center local consumption
+
 		decorations(state) {
 			return fakeCursorForToolbarPluginKey.getState(state);
 		},

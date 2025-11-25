@@ -18,6 +18,8 @@ export function createPlugin(dispatch: Dispatch, maxContentSize?: number): SafeP
 		state: {
 			init: () => ({ maxContentSizeReached: false }),
 
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply(tr, state) {
 				const result = tr.doc && tr.doc.nodeSize > maxContentSize - 1;
 
@@ -27,6 +29,8 @@ export function createPlugin(dispatch: Dispatch, maxContentSize?: number): SafeP
 			},
 		},
 		key: pluginKey,
+		// @ts-ignore - Workaround for help-center local consumption
+
 		filterTransaction(tr: Transaction): boolean {
 			const result = tr.doc && tr.doc.nodeSize > maxContentSize;
 

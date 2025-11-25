@@ -8,9 +8,9 @@ export const Quiz = styled.div({
 	flexDirection: 'column',
 	font: token('font.body.large'),
 	width: '100%',
-	padding: `${token('space.250', '20px')} 30px ${token('space.250', '20px')} 0`,
+	padding: `${token('space.250', '20px')} ${token('space.400')} ${token('space.250', '20px')} 0`,
 	border: `${token('border.width')} solid grey`,
-	borderRadius: '28px',
+	borderRadius: token('radius.xxlarge'),
 	minWidth: '300px',
 	maxWidth: '380px',
 });
@@ -31,10 +31,8 @@ export const Header = styled.div({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const QuizBlock = styled.ul({
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space -- needs manual remediation
-	paddingLeft: '15px',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space -- needs manual remediation
-	marginBottom: '15px',
+	paddingLeft: token('space.200'),
+	marginBottom: token('space.200'),
 	marginTop: 0,
 	minHeight: '105px',
 });
@@ -51,8 +49,7 @@ export const Footer = styled.div({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Question = styled.div({
 	paddingLeft: token('space.075', '6px'),
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space  -- needs manual remediation
-	marginBottom: '10px',
+	marginBottom: token('space.150'),
 	font: token('font.body'),
 	color: '#707070',
 	textAlign: 'left',
@@ -63,7 +60,7 @@ export const NavQuiz = styled.div({
 	display: 'flex',
 	alignContent: 'center',
 	justifyContent: 'center',
-	padding: '0 0 0 3px',
+	padding: `0 0 0 ${token('space.050')}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover': {
 		color: 'grey',
@@ -80,15 +77,13 @@ export const NavAction = styled.span({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Score = styled.div({
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space -- needs manual remediation
-	marginTop: '10px',
+	marginTop: token('space.150'),
 	paddingLeft: token('space.075', '6px'),
 	display: 'flex',
 	flexDirection: 'column',
 	textAlign: 'start',
 	fontWeight: token('font.weight.regular'),
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space -- needs manual remediation
-	gap: '5px',
+	gap: token('space.075'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

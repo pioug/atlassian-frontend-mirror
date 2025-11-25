@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 
 import {
 	getConfluencePageAri,
-	getPageARIFromContentPropertyResourceId,
 	getLocalIdFromConfluencePageAri,
 	getPageIdAndTypeFromConfluencePageAri,
 	resourceIdFromConfluencePageSourceIdAndLocalId,
@@ -23,13 +22,12 @@ import {
 	type DeletePageContentPropertyResult,
 } from '../../clients/confluence/contentProperty';
 import { isBlogPageType } from '../../clients/confluence/utils';
-import { SyncBlockError, type ResourceId, type SyncBlockData } from '../../common/types';
+import { SyncBlockError, type SyncBlockData } from '../../common/types';
 import { stringifyError } from '../../utils/errorHandling';
 import type {
 	ADFFetchProvider,
 	ADFWriteProvider,
 	DeleteSyncBlockResult,
-	SourceInfoFetchData,
 	SyncBlockInstance,
 	WriteSyncBlockResult,
 } from '../types';
@@ -139,22 +137,6 @@ class ConfluenceADFFetchProvider implements ADFFetchProvider {
 		} catch {
 			return { error: SyncBlockError.Errored, resourceId };
 		}
-	}
-
-	retrieveSourceInfoFetchData(resourceId: ResourceId): SourceInfoFetchData {
-		const pageARI = getPageARIFromContentPropertyResourceId(resourceId);
-		let sourceLocalId;
-
-		try {
-			sourceLocalId = getLocalIdFromConfluencePageAri(resourceId);
-		} catch (error) {
-			// EDITOR-1921: log analytic here, safe to continue
-		}
-
-		return {
-			pageARI,
-			sourceLocalId,
-		};
 	}
 }
 

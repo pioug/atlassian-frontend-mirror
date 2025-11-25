@@ -39,6 +39,8 @@ const requestIdleCallbackWithFallback = (callback: () => void) => {
 export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined) => {
 	return new SafePlugin({
 		key: localIdPluginKey,
+		// @ts-ignore - Workaround for help-center local consumption
+
 		view: (editorView) => {
 			/**
 			 * This performs a one-time scan of the document to add local IDs
@@ -56,6 +58,8 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 				const ignoredNodeTypes = mediaGroup
 					? [text.name, hardBreak.name, mediaGroup.name]
 					: [text.name, hardBreak.name];
+
+				// @ts-ignore - Workaround for help-center local consumption
 
 				editorView.state.doc.descendants((node: PMNode, pos) => {
 					if (
@@ -92,6 +96,8 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 		 * Handles adding local IDs to new nodes that are created and have the localId attribute
 		 * This ensures uniqueness of localIds on nodes being created or edited
 		 */
+		// @ts-ignore - Workaround for help-center local consumption
+
 		appendTransaction: (transactions, _oldState, newState) => {
 			let modified = false;
 			const tr = newState.tr;
@@ -105,6 +111,8 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 			const nodesToUpdate = new Map<number, string>(); // position -> localId
 
 			// Process only the nodes added in the transactions
+			// @ts-ignore - Workaround for help-center local consumption
+
 			transactions.forEach((transaction) => {
 				if (!transaction.docChanged) {
 					return;
@@ -125,12 +133,18 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 					return;
 				}
 
+				// @ts-ignore - Workaround for help-center local consumption
+
 				transaction.steps.forEach((step) => {
 					if (!stepHasSlice(step)) {
 						return;
 					}
+					// @ts-ignore - Workaround for help-center local consumption
+
 					step.getMap().forEach((oldStart, oldEnd, newStart, newEnd) => {
 						// Scan the changed range to find all nodes
+						// @ts-ignore - Workaround for help-center local consumption
+
 						tr.doc.nodesBetween(newStart, Math.min(newEnd, tr.doc.content.size), (node, pos) => {
 							if (ignoredNodeTypes.includes(node.type.name) || !node.type.spec.attrs?.localId) {
 								return true;
@@ -160,6 +174,8 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 			});
 
 			if (addedNodes.size > 0 && fg('platform_editor_use_localid_dedupe')) {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				newState.doc.descendants((node, pos) => {
 					if (addedNodes.has(node)) {
 						return true;
@@ -232,6 +248,8 @@ export const addLocalIdToNode = (
  * @param tr
  */
 export const batchAddLocalIdToNodes = (nodesToUpdate: Map<number, string>, tr: Transaction) => {
+	// @ts-ignore - Workaround for help-center local consumption
+
 	const batchData = Array.from(nodesToUpdate.entries()).map(([pos, localId]) => {
 		const node = tr.doc.nodeAt(pos);
 		if (!node) {

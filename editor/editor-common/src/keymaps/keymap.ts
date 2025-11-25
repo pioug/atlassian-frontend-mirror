@@ -16,6 +16,7 @@ import { SafePlugin } from '../safe-plugin';
 export function keymap(bindings: { [key: string]: any }) {
 	return new SafePlugin({
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
 			handleKeyDown(view, event) {
 				const name = keyName(event);
 				let keyboardEvent = event;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.13.12",
+	"version": "215.14.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -347,6 +347,9 @@
 		"platform_editor_use_localid_dedupe": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_sentry_breadcrumbs": {
+			"type": "boolean"
 		},
 		"platform_editor_blocktaskitem_patch_2": {
 			"type": "boolean",

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-clipboard",
-	"version": "6.0.0",
+	"version": "6.0.1",
 	"description": "Clipboard plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

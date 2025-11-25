@@ -1,5 +1,12 @@
 # @atlaskit/select
 
+## 21.4.1
+
+### Patch Changes
+
+- [`14886457b3a3a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14886457b3a3a) -
+  Suppress i18n violations
+
 ## 21.4.0
 
 ### Minor Changes

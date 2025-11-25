@@ -166,6 +166,8 @@ const useResponse = () => {
 			 * https://react-redux.js.org/api/batch
 			 */
 			unstable_batchedUpdates(() => {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				handleResolvedLinkSuccess(resourceUrl, response, isReloading, isMetadataRequest);
 			});
 		},

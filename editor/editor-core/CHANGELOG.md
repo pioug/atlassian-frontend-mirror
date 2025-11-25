@@ -1,5 +1,35 @@
 # @atlaskit/editor-core
 
+## 215.14.1
+
+### Patch Changes
+
+- [`fd7ef4c47aee1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd7ef4c47aee1) -
+  Add EditorSessionID to Sentry Error payload for EditorCore ErrorBoundary
+- Updated dependencies
+
+## 215.14.0
+
+### Minor Changes
+
+- [`54f21810515c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54f21810515c4) -
+  ED-29642 use native anchor global css style instead of inline style
+
+### Patch Changes
+
+- [`4e5e5848cbbee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e5e5848cbbee) -
+  Remove code bidi warning plugin from presets
+- Updated dependencies
+
+## 215.13.13
+
+### Patch Changes
+
+- [`4d676bbdb3ce6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d676bbdb3ce6) -
+  ts-ignore added temporarily to unblock local consumption for help-center, will be removed once
+  project refs are setup
+- Updated dependencies
+
 ## 215.13.12
 
 ### Patch Changes

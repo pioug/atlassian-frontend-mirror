@@ -21,3 +21,5 @@ export type AppHandoffPayload = BaseHandoffPayload & {
 export type SolutionArchitectHandoffPayload = PayloadCore<'solution-architect-handoff'> & {
 	data: NonAppHandoffPayload | AppHandoffPayload;
 };
+
+export type SolutionPlanStateUpdatePayload = PayloadCore<'solution-plan-state-updated'>;

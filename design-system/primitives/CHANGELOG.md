@@ -1,5 +1,12 @@
 # @atlaskit/primitives
 
+## 16.4.0
+
+### Minor Changes
+
+- [`e45f66913297e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e45f66913297e) -
+  Import emotion box into Forge UI Kit library
+
 ## 16.3.0
 
 ### Minor Changes

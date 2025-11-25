@@ -82,6 +82,8 @@ export const createPlugin = () => {
 		state: {
 			init: () => DecorationSet.empty,
 
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply: (tr, decorationSet, oldState, newState) => {
 				let pluginState = decorationSet;
 				// main table plugin --->
@@ -92,6 +94,8 @@ export const createPlugin = () => {
 				}
 
 				if (tr.docChanged || tr.selectionSet || tr.getMeta(tableWidthPluginKey)) {
+					// @ts-ignore - Workaround for help-center local consumption
+
 					pluginState = pluginState.map(tr.mapping, tr.doc);
 					return handleDocOrSelectionChanged(tr, pluginState, oldState, newState);
 				}
@@ -101,6 +105,8 @@ export const createPlugin = () => {
 		},
 		key: pluginKey,
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			decorations: (state) => getDecorations(state),
 		},
 	});

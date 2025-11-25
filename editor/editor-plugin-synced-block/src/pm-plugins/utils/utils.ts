@@ -115,13 +115,8 @@ const removeBreakoutMarks = (content: Fragment): Fragment => {
 	// we only need to recurse at the top level, because breakout has to be on a top level
 	content.forEach((node) => {
 		const filteredMarks = node.marks.filter((mark) => mark.type.name !== 'breakout');
-
-		if (node.isText) {
-			nodes.push(node);
-		} else {
-			const newNode = node.type.create(node.attrs, node.content, filteredMarks);
-			nodes.push(newNode);
-		}
+		const newNode = node.type.create(node.attrs, node.content, filteredMarks);
+		nodes.push(newNode);
 	});
 
 	return Fragment.from(nodes);

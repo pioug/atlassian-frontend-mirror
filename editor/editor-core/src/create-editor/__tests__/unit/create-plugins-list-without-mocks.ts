@@ -38,7 +38,6 @@ describe('create-plugins-list without mock tests', () => {
 			'scrollIntoView',
 			'toolbarListsIndentation',
 			'insertBlock',
-			'codeBidiWarning',
 		];
 		expect(plugins).toEqual(
 			expect.arrayContaining(defaultPluginNames.map((name) => expect.objectContaining({ name }))),

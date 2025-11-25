@@ -31,6 +31,7 @@ export function addLinkMetadata(
 }
 
 export function getLinkMetadataFromTransaction(tr: Transaction | ReadonlyTransaction) {
+	// @ts-ignore - Workaround for help-center local consumption
 	return tr.steps.reduce<LinkStepMetadata>((metadata, step) => {
 		if (!(step instanceof LinkMetaStep)) {
 			return metadata;

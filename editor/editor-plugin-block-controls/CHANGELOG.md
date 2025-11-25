@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.8.0
+
+### Minor Changes
+
+- [`54f21810515c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54f21810515c4) -
+  ED-29642 use native anchor global css style instead of inline style
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.7.9
+
+### Patch Changes
+
+- [`ae4f9cd8ff5f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae4f9cd8ff5f7) -
+  [ux] [EDITOR-2757] Remove breakout mark when drag and drop node in bodiedSyncBlock
+- Updated dependencies
+
 ## 7.7.8
 
 ### Patch Changes

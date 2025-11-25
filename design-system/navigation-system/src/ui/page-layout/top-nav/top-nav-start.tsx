@@ -126,6 +126,7 @@ const childrenWrapperStyles = cssMap({
 		// Follow the same flex styles as parent (top nav start element)
 		display: 'inherit',
 		gap: 'inherit',
+		alignItems: 'center',
 		// Allow the flex item to shrink. Otherwise it will stay at min-content size, causing overflow out of the TopNavStart flex container.
 		minWidth: 0,
 		// Used to support animations for right-to-left (RTL) languages/text direction. We need to flip the animation direction for RTL.

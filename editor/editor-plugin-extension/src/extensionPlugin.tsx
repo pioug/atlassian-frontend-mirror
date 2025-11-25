@@ -122,6 +122,8 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 					name: 'extensionEditorViewRef',
 					plugin: () => {
 						return new SafePlugin({
+							// @ts-ignore - Workaround for help-center local consumption
+
 							view: (editorView) => {
 								// Do not cleanup the editorViewRef on destroy
 								// because some functions may point to a stale

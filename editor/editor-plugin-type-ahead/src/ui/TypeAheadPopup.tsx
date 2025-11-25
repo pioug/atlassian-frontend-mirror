@@ -26,6 +26,7 @@ import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -171,6 +172,9 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		}
 		const stopTime = performance.now();
 		const time = stopTime - startTime;
+
+		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+		FeatureGates.getExperimentValue('cc_fd_db_quick_insert_options_aa', 'isEnabled', false);
 
 		api?.analytics?.actions?.fireAnalyticsEvent({
 			action: ACTION.RENDERED,

@@ -206,6 +206,8 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 						return new SafePlugin({
 							key: selectionToolbarPluginKey,
 							state: {
+								// @ts-ignore - Workaround for help-center local consumption
+
 								init(): SelectionToolbarPluginState {
 									return {
 										selectionStable: false,
@@ -213,6 +215,8 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 										toolbarDocking: initialToolbarDocking,
 									};
 								},
+								// @ts-ignore - Workaround for help-center local consumption
+
 								apply(tr, pluginState: SelectionToolbarPluginState) {
 									const meta = tr.getMeta(selectionToolbarPluginKey);
 									let newPluginState = pluginState;
@@ -258,6 +262,8 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 									return newPluginState;
 								},
 							},
+							// @ts-ignore - Workaround for help-center local consumption
+
 							view(view) {
 								const unbind = bind(view.root, {
 									type: 'mouseup',
@@ -270,6 +276,8 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 										const isViewModeEnabled = editorViewModePlugin?.mode === 'view';
 
 										if (fg('platform_editor_ai_generic_prep_for_aifc')) {
+											// @ts-ignore - Workaround for help-center local consumption
+
 											const target = event.target as Element;
 											const isRovoChangeToneButton =
 												(target?.tagName === 'BUTTON' &&
@@ -306,12 +314,16 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 								});
 
 								return {
+									// @ts-ignore - Workaround for help-center local consumption
+
 									destroy() {
 										unbind();
 										unbindEditorViewFocus();
 									},
 								};
 							},
+							// @ts-ignore - Workaround for help-center local consumption
+
 							appendTransaction(_transactions, _oldState, newState) {
 								if (fg('platform_editor_use_preferences_plugin')) {
 									return null;
@@ -350,7 +362,11 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 								return null;
 							},
 							props: {
+								// @ts-ignore - Workaround for help-center local consumption
+
 								handleDOMEvents: {
+									// @ts-ignore - Workaround for help-center local consumption
+
 									mousedown: (view) => {
 										view.dispatch(
 											view.state.tr.setMeta(selectionToolbarPluginKey, {
@@ -413,9 +429,13 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 						// Resolve the selectionToolbarHandlers to a list of SelectionToolbarGroups
 						// and filter out any handlers which returned undefined
 						const resolved = __selectionToolbarHandlers
+							// @ts-ignore - Workaround for help-center local consumption
+
 							.map((selectionToolbarHandler) =>
 								selectionToolbarHandler(state, intl, providerFactory),
 							)
+							// @ts-ignore - Workaround for help-center local consumption
+
 							.filter((resolved) => resolved !== undefined) as SelectionToolbarGroup[];
 						// Sort the groups by rank
 						// This is intended to allow different plugins to control the order of the groups
@@ -507,6 +527,8 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 
 function getSelectionNodeTypes(state: EditorState) {
 	const selectionNodeTypes: NodeType[] = [];
+	// @ts-ignore - Workaround for help-center local consumption
+
 	state.doc.nodesBetween(state.selection.from, state.selection.to, (node, _pos, parent) => {
 		if (selectionNodeTypes.indexOf(node.type) !== 0) {
 			selectionNodeTypes.push(node.type);

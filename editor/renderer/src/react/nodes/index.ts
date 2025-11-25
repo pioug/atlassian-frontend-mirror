@@ -314,11 +314,13 @@ export const toReact = (
 		return DocWithSelectAllTrap;
 	}
 
-	if (node.type.name === 'codeBlock') {
-		if (flags?.allowWindowedCodeBlock === true) {
-			return WindowedCodeBlock;
+	if (!fg('jfp-magma-ssr-iv-editor-codeblock')) {
+		if (node.type.name === 'codeBlock') {
+			if (flags?.allowWindowedCodeBlock === true) {
+				return WindowedCodeBlock;
+			}
+			return CodeBlock;
 		}
-		return CodeBlock;
 	}
 
 	// Allowing custom components to override those provided in nodeToReact
@@ -326,6 +328,15 @@ export const toReact = (
 		...nodeToReact,
 		...nodeComponents,
 	};
+
+	if (fg('jfp-magma-ssr-iv-editor-codeblock')) {
+		if (node.type.name === 'codeBlock') {
+			if (flags?.allowWindowedCodeBlock === true) {
+				return nodes.windowedCodeBlock ?? WindowedCodeBlock;
+			}
+			return nodes.codeBlock ?? CodeBlock;
+		}
+	}
 
 	nodes['multiBodiedExtension'] = fg('platform_editor_multi_body_extension_extensibility')
 		? MultiBodiedExtension

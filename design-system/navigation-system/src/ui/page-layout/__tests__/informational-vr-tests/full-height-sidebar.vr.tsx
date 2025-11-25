@@ -282,6 +282,8 @@ snapshotInformational(NavigationShellExample, {
 /**
  * Checks that the search is still pushed by the side nav on large screens,
  * and doesn't overlap.
+ *
+ * Checks custom title vertical alignment.
  */
 snapshotInformational(NavigationShellWithWideSideNav, {
 	description: 'extra large desktop with wide sidebar',

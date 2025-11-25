@@ -29,7 +29,7 @@ const blockStyles = css({
 	alignItems: 'center',
 	justifyContent: 'center',
 	backgroundColor: token('elevation.surface'),
-	borderRadius: '1rem',
+	borderRadius: token('radius.xxlarge'),
 	boxShadow: token('elevation.shadow.overlay'),
 	cursor: 'default',
 	marginBlockEnd: token('space.200', '16px'),

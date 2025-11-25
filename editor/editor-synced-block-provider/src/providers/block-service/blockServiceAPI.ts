@@ -13,13 +13,12 @@ import {
 	getSyncedBlockContent,
 	updateSyncedBlock,
 } from '../../clients/block-service/blockService';
-import { SyncBlockError, type ResourceId, type SyncBlockData } from '../../common/types';
+import { SyncBlockError, type SyncBlockData } from '../../common/types';
 import { stringifyError } from '../../utils/errorHandling';
 import type {
 	ADFFetchProvider,
 	ADFWriteProvider,
 	DeleteSyncBlockResult,
-	SourceInfoFetchData,
 	SyncBlockInstance,
 	WriteSyncBlockResult,
 } from '../types';
@@ -68,19 +67,6 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 			}
 			return { error: SyncBlockError.Errored, resourceId };
 		}
-	}
-
-	retrieveSourceInfoFetchData(resourceId: ResourceId, pageARI: string): SourceInfoFetchData {
-		let sourceLocalId;
-		try {
-			sourceLocalId = getLocalIdFromBlockResourceId(resourceId);
-		} catch (error) {
-			// EDITOR-1921: log analytic here, safe to continue
-		}
-		return {
-			pageARI,
-			sourceLocalId,
-		};
 	}
 }
 

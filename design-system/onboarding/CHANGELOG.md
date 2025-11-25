@@ -1,5 +1,13 @@
 # @atlaskit/onboarding
 
+## 14.4.13
+
+### Patch Changes
+
+- [`4d676bbdb3ce6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d676bbdb3ce6) -
+  ts-ignore added temporarily to unblock local consumption for help-center, will be removed once
+  project refs are setup
+
 ## 14.4.12
 
 ### Patch Changes

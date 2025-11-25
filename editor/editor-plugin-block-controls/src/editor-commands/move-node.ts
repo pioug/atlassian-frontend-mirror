@@ -14,11 +14,12 @@ import { transformSliceNestedExpandToExpand } from '@atlaskit/editor-common/tran
 import type { Command, EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { DIRECTION } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	Fragment,
+	Slice,
 	type NodeType,
 	type ResolvedPos,
-	type Slice,
 } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, Selection, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { type ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
@@ -29,6 +30,7 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import { findTable, isInTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -413,7 +415,8 @@ export const moveNode =
 		const $handlePos = tr.doc.resolve(start);
 
 		const nodeCopy = tr.doc.slice(sliceFrom, sliceTo, false); // cut the content
-		const destType = $to.node().type;
+		const destNode = $to.node();
+		const destType = destNode.type;
 		const destParent = $to.node($to.depth);
 
 		const sourceNode = $handlePos.nodeAfter;
@@ -453,8 +456,8 @@ export const moveNode =
 			return tr;
 		}
 
-		const convertedNodeSlice = transformSourceSlice(nodeCopy, destType);
-		const convertedNode = convertedNodeSlice?.content;
+		let convertedNodeSlice = transformSourceSlice(nodeCopy, destType);
+		let convertedNode = convertedNodeSlice?.content;
 		if (!convertedNode) {
 			return tr;
 		}
@@ -464,6 +467,22 @@ export const moveNode =
 			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 		) {
 			sliceFrom = sliceFrom - 1;
+		}
+
+		// Currently we don't support breakout mark for children nodes of bodiedSyncBlock node
+		// Hence strip out the mark for now
+		if (
+			destNode.type.name === 'bodiedSyncBlock' &&
+			expValEquals('platform_synced_block', 'isEnabled', true)
+		) {
+			const nodes: PMNode[] = [];
+
+			convertedNodeSlice?.content.forEach((node) => {
+				nodes.push(node.mark(node.marks.filter((mark) => mark.type.name !== 'breakout')));
+			});
+
+			convertedNodeSlice = new Slice(Fragment.from(nodes), 0, 0);
+			convertedNode = convertedNodeSlice.content;
 		}
 
 		// delete the content from the original position

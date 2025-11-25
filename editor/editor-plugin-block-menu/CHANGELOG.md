@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.0.18
+
+### Patch Changes
+
+- [`4d676bbdb3ce6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d676bbdb3ce6) -
+  ts-ignore added temporarily to unblock local consumption for help-center, will be removed once
+  project refs are setup
+- Updated dependencies
+
 ## 5.0.17
 
 ### Patch Changes

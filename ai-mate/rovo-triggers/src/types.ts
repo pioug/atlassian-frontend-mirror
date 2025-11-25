@@ -1,6 +1,9 @@
 import type { DocNode } from '@atlaskit/adf-schema';
 
-import type { SolutionArchitectHandoffPayload } from './common/types/solution-architect';
+import type {
+	SolutionArchitectHandoffPayload,
+	SolutionPlanStateUpdatePayload,
+} from './common/types/solution-architect';
 import type { ChatContextPayload } from './common/utils/chat-context';
 
 export const Topics = {
@@ -346,7 +349,8 @@ export type Payload =
 	| SetChatContextPayload
 	| InsertUrlsPayload
 	| GenericExternalActionErrorPayload
-	| SolutionArchitectHandoffPayload;
+	| SolutionArchitectHandoffPayload
+	| SolutionPlanStateUpdatePayload;
 
 export type Callback = (payload: Payload) => void;
 

@@ -1,7 +1,11 @@
-import React, { type ReactNode } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import type { ReactNode } from 'react';
 
-import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 export interface PanelFooterProps {
@@ -18,21 +22,36 @@ export interface PanelFooterProps {
 
 const styles = cssMap({
 	footer: {
-		paddingBlock: token('space.150'),
-		paddingInline: token('space.300'),
-		borderBlockStart: `${token('border.width')} solid ${token('color.border')}`,
+		paddingInlineStart: token('space.300'),
+		paddingInlineEnd: token('space.300'),
+		paddingBlockStart: token('space.150'),
+		paddingBlockEnd: token('space.150'),
+		borderBlockStartStyle: 'solid',
+		borderBlockStartWidth: token('border.width'),
+		borderColor: token('color.border'),
 		backgroundColor: token('color.background.neutral.subtle'),
+		height: '56px',
+		display: 'flex',
+		alignItems: 'center',
+	},
+	footerContent: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		width: '100%',
 	},
 });
 
 /**
  * The PanelFooter component provides a footer area for panels
- * with consistent styling and spacing.
+ * with consistent styling and spacing matching the header specifications.
+ * It automatically organizes content with space-between layout, typically placing
+ * a checkbox or other controls on the left and action buttons on the right.
  */
 export function PanelFooter({ children, testId }: PanelFooterProps): React.JSX.Element {
 	return (
 		<Box as="footer" testId={testId} xcss={styles.footer}>
-			{children}
+			<Flex xcss={styles.footerContent}>{children}</Flex>
 		</Box>
 	);
 }

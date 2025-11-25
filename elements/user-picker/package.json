@@ -130,9 +130,6 @@
 		},
 		"jira_ai_agent_avatar_user_picker_user_option": {
 			"type": "boolean"
-		},
-		"confluence_frontend_perms_exp_teams_as_principals": {
-			"type": "boolean"
 		}
 	}
 }

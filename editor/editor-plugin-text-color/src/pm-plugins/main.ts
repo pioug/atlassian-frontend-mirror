@@ -66,9 +66,13 @@ export function createPlugin(dispatch: Dispatch, pluginConfig?: TextColorPluginC
 	return new SafePlugin({
 		key: pluginKey,
 		state: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			init(_config, editorState) {
 				return createInitialPluginState(editorState, pluginConfig);
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply(tr, pluginState, _, newState) {
 				const meta = tr.getMeta(pluginKey) || {};
 

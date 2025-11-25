@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-type",
-	"version": "10.2.12",
+	"version": "10.2.14",
 	"description": "BlockType plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -129,9 +129,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_heading_from_numpad": {
-			"type": "boolean"
-		},
-		"platform_editor_block_menu_format_rank_revised": {
 			"type": "boolean"
 		}
 	}

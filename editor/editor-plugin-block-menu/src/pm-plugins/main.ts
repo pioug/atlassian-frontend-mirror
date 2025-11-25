@@ -10,9 +10,13 @@ export const createPlugin = () => {
 	return new SafePlugin<BlockMenuPluginState>({
 		key: blockMenuPluginKey,
 		state: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			init() {
 				return {};
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply: (tr, currentPluginState) => {
 				const meta = tr.getMeta(blockMenuPluginKey);
 				if (meta) {

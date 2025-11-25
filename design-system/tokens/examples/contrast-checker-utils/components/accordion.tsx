@@ -15,8 +15,8 @@ import { token } from '@atlaskit/tokens';
 const styles = cssMap({
 	root: {
 		alignItems: 'center',
-		border: `1px solid ${token('color.border')}`,
-		borderRadius: '4px',
+		border: `${token('border.width')} solid ${token('color.border')}`,
+		borderRadius: token('radius.small'),
 		overflow: 'hidden',
 		paddingBlock: '0',
 		paddingInline: '0.5em',

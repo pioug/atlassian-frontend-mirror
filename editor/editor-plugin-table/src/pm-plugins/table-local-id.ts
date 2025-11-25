@@ -36,15 +36,21 @@ const createPlugin = (dispatch: Dispatch) =>
 	new SafePlugin<TableLocalIdPluginState>({
 		key: pluginKey,
 		state: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			init() {
 				return {
 					parsedForLocalIds: false,
 				};
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply(tr, pluginState) {
 				const meta = tr.getMeta(pluginKey);
 				if (meta) {
 					const keys = Object.keys(meta) as Array<keyof TableLocalIdPluginState>;
+					// @ts-ignore - Workaround for help-center local consumption
+
 					const changed = keys.some((key) => {
 						return pluginState[key] !== meta[key];
 					});
@@ -79,6 +85,8 @@ const createPlugin = (dispatch: Dispatch) =>
 				 * add/dedupe the necessary IDs. But general usage of the editor
 				 * without collab should still solve for IDs.
 				 */
+				// @ts-ignore - Workaround for help-center local consumption
+
 				update(editorView) {
 					const { state } = editorView;
 					const pluginState = getPluginState(state);
@@ -94,6 +102,8 @@ const createPlugin = (dispatch: Dispatch) =>
 					rafSchedule(() => {
 						const tr = editorView.state.tr;
 						let tableIdWasAdded = false;
+						// @ts-ignore - Workaround for help-center local consumption
+
 						editorView.state.doc.descendants((node, pos) => {
 							const isTable = node.type === table;
 							const localId = node.attrs.localId;
@@ -125,6 +135,8 @@ const createPlugin = (dispatch: Dispatch) =>
 				},
 			};
 		},
+		// @ts-ignore - Workaround for help-center local consumption
+
 		appendTransaction: (transactions, _oldState, newState) => {
 			let modified = false;
 			const tr = newState.tr;
@@ -133,6 +145,8 @@ const createPlugin = (dispatch: Dispatch) =>
 			const addedTableNodes: Set<ProsemirrorNode> = new Set();
 			const addedTableNodePos: Map<ProsemirrorNode, number> = new Map();
 			const localIds: Set<string> = new Set();
+
+			// @ts-ignore - Workaround for help-center local consumption
 
 			transactions.forEach((transaction) => {
 				if (!transaction.docChanged) {
@@ -152,6 +166,8 @@ const createPlugin = (dispatch: Dispatch) =>
 						continue;
 					}
 
+					// @ts-ignore - Workaround for help-center local consumption
+
 					step.slice.content.descendants((node) => {
 						if (node.type === table) {
 							addedTableNodes.add(node);
@@ -167,6 +183,8 @@ const createPlugin = (dispatch: Dispatch) =>
 			}
 
 			// Get the existing localIds on the page
+			// @ts-ignore - Workaround for help-center local consumption
+
 			newState.doc.descendants((node, pos) => {
 				// Skip if this is position of added table
 				if (addedTableNodes.has(node)) {

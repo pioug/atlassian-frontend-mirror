@@ -24,7 +24,11 @@ const nextTableSorting = (
 	tr: Transaction | ReadonlyTransaction,
 	table?: ContentNodeWithPos,
 ): TableColumnOrdering | undefined => {
+	// @ts-ignore - Workaround for help-center local consumption
+
 	const tableSortStep: TableSortStep = tr.steps.find(
+		// @ts-ignore - Workaround for help-center local consumption
+
 		(step) => step instanceof TableSortStep,
 	) as TableSortStep;
 
@@ -145,6 +149,8 @@ const buildPluginState =
 				? { ...pluginState, targetCellPosition: undefined }
 				: pluginState;
 		}
+		// @ts-ignore - Workaround for help-center local consumption
+
 		return builders.reduce(
 			(_pluginState, transform) => transform(props)(_pluginState),
 			pluginState,

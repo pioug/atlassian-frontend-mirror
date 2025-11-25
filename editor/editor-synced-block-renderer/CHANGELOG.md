@@ -1,5 +1,24 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 4.0.0
+
+### Major Changes
+
+- [`b11a28ae7a18e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b11a28ae7a18e) -
+  anging relay-runtime dependency to root:\*
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.4
+
+### Patch Changes
+
+- [`23c24c4b7faff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23c24c4b7faff) -
+  EDITOR-3312 Make data handling product agnostic
+- Updated dependencies
+
 ## 3.4.3
 
 ### Patch Changes

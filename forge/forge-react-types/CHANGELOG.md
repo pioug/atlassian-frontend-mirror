@@ -1,5 +1,16 @@
 # @atlaskit/forge-react-types
 
+## 0.49.0
+
+### Minor Changes
+
+- [`e45f66913297e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e45f66913297e) -
+  Import emotion box into Forge UI Kit library
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.48.0
 
 ### Minor Changes

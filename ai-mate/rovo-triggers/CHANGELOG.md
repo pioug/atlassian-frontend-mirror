@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 4.5.0
+
+### Minor Changes
+
+- [`53c2e8326ad53`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53c2e8326ad53) -
+  Add ability to update the state of the solution plan when an agent associated with a solution plan
+  is published and refresh the information displayed in the solution plan in the chat.
+
 ## 4.4.0
 
 ### Minor Changes

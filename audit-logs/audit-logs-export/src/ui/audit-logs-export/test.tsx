@@ -58,7 +58,7 @@ describe('AuditLogExportButton', () => {
 		renderWithIntl(<AuditLogExportButton {...defaultProps} />);
 
 		expect(screen.getByTestId('audit-log-export-button')).toBeInTheDocument();
-		expect(screen.getByText('Export')).toBeInTheDocument();
+		expect(screen.getByText('Export log')).toBeInTheDocument();
 	});
 
 	it('should open modal when export button is clicked', () => {

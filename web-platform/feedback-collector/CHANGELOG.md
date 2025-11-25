@@ -1,5 +1,12 @@
 # @atlaskit/feedback-collector
 
+## 14.6.8
+
+### Patch Changes
+
+- [`8f64685a7b727`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f64685a7b727) -
+  Remove duplicated inert `aria-required` attribute from Field components.
+
 ## 14.6.7
 
 ### Patch Changes

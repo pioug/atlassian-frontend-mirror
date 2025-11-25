@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.10.6
+
+### Patch Changes
+
+- [`23c24c4b7faff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23c24c4b7faff) -
+  EDITOR-3312 Make data handling product agnostic
+- Updated dependencies
+
 ## 2.10.5
 
 ### Patch Changes

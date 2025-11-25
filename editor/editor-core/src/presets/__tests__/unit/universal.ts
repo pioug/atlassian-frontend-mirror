@@ -57,7 +57,6 @@ describe('createUniversalPreset', () => {
 			'scrollIntoView',
 			'toolbarListsIndentation',
 			'insertBlock',
-			'codeBidiWarning',
 			// 'table',
 			// 'breakout',
 			// 'alignment',

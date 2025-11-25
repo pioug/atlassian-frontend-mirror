@@ -5,7 +5,13 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, Global, jsx } from '@emotion/react';
 
-import { tableControlsSpacing, DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
+import {
+	ANCHOR_VARIABLE_NAME,
+	DRAG_HANDLE_WIDTH,
+	isCSSAnchorSupported,
+	nativeAnchorStyles,
+	tableControlsSpacing,
+} from '@atlaskit/editor-common/styles';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
@@ -14,10 +20,11 @@ import {
 	akEditorBreakoutPadding,
 	akEditorCalculatedWideLayoutWidth,
 	akEditorCalculatedWideLayoutWidthSmallViewport,
+	akEditorFullPageNarrowBreakout,
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPaddingReduced,
-	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { layers } from '@atlaskit/theme/constants';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -566,6 +573,35 @@ const blockCardWithoutLayout = css({
 		},
 });
 
+const dragHandlerAnchorStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-testid="block-ctrl-decorator-widget"] + * [data-node-anchor]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			anchorName: `var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)))`,
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-testid="block-ctrl-quick-insert-button"] + * [data-node-anchor]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			anchorName: `var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)))`,
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-testid="block-ctrl-decorator-widget"] + [data-node-anchor]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			anchorName: `var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)))`,
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-testid="block-ctrl-quick-insert-button"] + [data-node-anchor]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			anchorName: `var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)))`,
+		},
+	},
+});
+
 export const GlobalStylesWrapper = ({
 	api,
 }: {
@@ -574,6 +610,12 @@ export const GlobalStylesWrapper = ({
 	const isDragging = useSharedPluginStateSelector(api, 'blockControls.isDragging', {
 		disabled: !expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true),
 	});
+
+	const shouldRenderAnchors =
+		isCSSAnchorSupported() &&
+		expValEquals('platform_editor_native_anchor_support', 'isEnabled', true) &&
+		fg('platform_native_anchor_use_css_style');
+
 	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
 	return (
@@ -618,6 +660,7 @@ export const GlobalStylesWrapper = ({
 				expValEquals('advanced_layouts', 'isEnabled', true)
 					? layoutColumnExtendedHoverZone
 					: layoutColumnWithoutHoverZone,
+				shouldRenderAnchors && (isDragging ? nativeAnchorStyles : dragHandlerAnchorStyles),
 			]}
 		/>
 	);

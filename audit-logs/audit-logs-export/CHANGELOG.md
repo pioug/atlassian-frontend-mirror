@@ -1,5 +1,14 @@
 # @atlaskit/audit-logs-export
 
+## 1.3.0
+
+### Minor Changes
+
+- [`d91953d395317`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d91953d395317) -
+  [ux] Added optional onClose prop - Audit log side panel, Added support of dark mode colors, as
+  well as hover coloring effects for selected row - Audit logs table, Edited export based on Figma
+  updates - Audit log Export
+
 ## 1.2.6
 
 ### Patch Changes

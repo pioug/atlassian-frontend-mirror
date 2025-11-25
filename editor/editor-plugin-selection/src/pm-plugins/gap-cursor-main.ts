@@ -31,6 +31,8 @@ const plugin = new SafePlugin({
 			displayGapCursor: true,
 			hideCursor: false,
 		}),
+		// @ts-ignore - Workaround for help-center local consumption
+
 		apply: (tr, pluginState, _oldState, newState) => {
 			const meta = tr.getMeta(gapCursorPluginKey);
 			const selectionMeta = tr.getMeta(selectionPluginKey);
@@ -47,6 +49,8 @@ const plugin = new SafePlugin({
 			};
 		},
 	},
+	// @ts-ignore - Workaround for help-center local consumption
+
 	view: (view) => {
 		/**
 		 * If the selection is at the beginning of a document and is a NodeSelection,
@@ -64,6 +68,8 @@ const plugin = new SafePlugin({
 			});
 		}
 		return {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			update(view) {
 				const { selectionIsGapCursor } = gapCursorPluginKey.getState(view.state);
 				/**
@@ -115,6 +121,8 @@ const plugin = new SafePlugin({
 		},
 
 		// render gap cursor only when its valid
+		// @ts-ignore - Workaround for help-center local consumption
+
 		createSelectionBetween(view: EditorView, $anchor: ResolvedPos, $head: ResolvedPos) {
 			if (view && view.state && view.state.selection instanceof CellSelection) {
 				// Do not show GapCursor when there is a CellSection happening
@@ -126,6 +134,8 @@ const plugin = new SafePlugin({
 			}
 			return null;
 		},
+		// @ts-ignore - Workaround for help-center local consumption
+
 		handleClick(view: EditorView, nodePos: number, event: MouseEvent) {
 			const posAtCoords = view.posAtCoords({
 				left: event.clientX,
@@ -170,6 +180,8 @@ const plugin = new SafePlugin({
 
 			return setGapCursorAtPos(nodePos, side)(view.state, view.dispatch);
 		},
+		// @ts-ignore - Workaround for help-center local consumption
+
 		handleDOMEvents: {
 			/**
 			 * Android composition events aren't handled well by Prosemirror
@@ -178,6 +190,7 @@ const plugin = new SafePlugin({
 			 * @see https://github.com/ProseMirror/prosemirror/issues/543
 			 */
 			// Ignored via go/ees005
+			// @ts-ignore - Workaround for help-center local consumption
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			beforeinput: (view, event: any) => {
 				if (

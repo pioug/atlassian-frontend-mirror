@@ -45,10 +45,10 @@ export const SyncedBlockNodeComponentRenderer = ({
 		return (
 			<SyncedBlockErrorComponent
 				error={syncBlockInstance?.error ?? SyncBlockError.Errored}
-				resourceId={resourceId}
+				sourceAri={syncBlockInstance?.data?.sourceAri}
+				sourceProduct={syncBlockInstance?.data?.product}
 				onRetry={reloadData}
 				isLoading={isLoading}
-				documentAri={syncBlockInstance?.data?.sourceAri}
 			/>
 		);
 	}

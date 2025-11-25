@@ -29,13 +29,23 @@ const useResolve = () => {
 			const hasData = !!((details && details.data) || isEntityPresent(details));
 
 			if (isReloading || !hasData || isMetadataRequest) {
-				return connections.client
-					.fetchData(url, isReloading)
-					.then((response) =>
-						handleResolvedLinkResponse(url, response, isReloading, isMetadataRequest),
-					)
-					.catch((error) => handleResolvedLinkError(url, error, undefined, isMetadataRequest));
+				return (
+					connections.client
+						// @ts-ignore - Workaround for help-center local consumption
+
+						.fetchData(url, isReloading)
+						.then((response) =>
+							// @ts-ignore - Workaround for help-center local consumption
+
+							handleResolvedLinkResponse(url, response, isReloading, isMetadataRequest),
+						)
+						// @ts-ignore - Workaround for help-center local consumption
+
+						.catch((error) => handleResolvedLinkError(url, error, undefined, isMetadataRequest))
+				);
 			} else {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				addMetadataToExperience('smart-link-rendered', id, { cached: true });
 			}
 		},

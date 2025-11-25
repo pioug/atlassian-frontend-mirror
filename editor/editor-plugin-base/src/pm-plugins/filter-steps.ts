@@ -10,10 +10,14 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 
 const hasInvalidSteps = (tr: Transaction) =>
+	// @ts-ignore - Workaround for help-center local consumption
+
 	((tr.steps || []) as (Step & { from: number; to: number })[]).some((step) => step.from > step.to);
 
 export default (dispatchAnalyticsEvent: DispatchAnalyticsEvent) => {
 	return new SafePlugin({
+		// @ts-ignore - Workaround for help-center local consumption
+
 		filterTransaction(transaction) {
 			if (hasInvalidSteps(transaction)) {
 				// eslint-disable-next-line no-console

@@ -41,6 +41,8 @@ const createPlugin = (
 	return new SafePlugin({
 		key: pluginKey,
 		state: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			init() {
 				return {
 					resizing: false,
@@ -48,10 +50,14 @@ const createPlugin = (
 					tableRef: null,
 				};
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply(tr, pluginState) {
 				const meta = tr.getMeta(pluginKey);
 				if (meta) {
 					const keys = Object.keys(meta) as Array<keyof TableWidthPluginState>;
+					// @ts-ignore - Workaround for help-center local consumption
+
 					const changed = keys.some((key) => {
 						return pluginState[key] !== meta[key];
 					});
@@ -67,12 +73,16 @@ const createPlugin = (
 				return pluginState;
 			},
 		},
+		// @ts-ignore - Workaround for help-center local consumption
+
 		appendTransaction: (transactions, oldState, newState) => {
 			// When document first load in Confluence, initially it is an empty document
 			// and Collab service triggers a transaction to replace the empty document with the real document that should be rendered.
 			// what we need to do is to add width attr to all tables in the real document
 			// isReplaceDocumentOperation is checking if the transaction is the one that replace the empty document with the real document
 			const isReplaceDocumentOperation = isReplaceDocOperation(transactions, oldState);
+
+			// @ts-ignore - Workaround for help-center local consumption
 
 			const referentialityTr = transactions.find((tr) => tr.getMeta('referentialityTableInserted'));
 
@@ -90,6 +100,8 @@ const createPlugin = (
 			const tr = newState.tr;
 
 			if (isReplaceDocumentOperation && !isCommentEditor) {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				newState.doc.forEach((node, offset) => {
 					if (node.type === table) {
 						const width = node.attrs.width;
@@ -133,8 +145,14 @@ const createPlugin = (
 			}
 
 			if (referentialityTr) {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				referentialityTr.steps.forEach((step) => {
+					// @ts-ignore - Workaround for help-center local consumption
+
 					step.getMap().forEach((_, __, newStart, newEnd) => {
+						// @ts-ignore - Workaround for help-center local consumption
+
 						newState.doc.nodesBetween(newStart, newEnd, (node, pos) => {
 							if (node.type === table) {
 								if (

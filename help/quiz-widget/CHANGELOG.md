@@ -1,5 +1,13 @@
 # @atlaskit/quiz-widget
 
+## 3.0.19
+
+### Patch Changes
+
+- [`83e73ca06c1c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83e73ca06c1c7) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
 ## 3.0.18
 
 ### Patch Changes

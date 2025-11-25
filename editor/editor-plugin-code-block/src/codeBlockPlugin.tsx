@@ -12,7 +12,6 @@ import {
 	FORMAT_MENU_ITEM,
 	FORMAT_CODE_BLOCK_MENU_ITEM,
 	FORMAT_NESTED_MENU_RANK,
-	FORMAT_NESTED_MENU_RANK_REVISED,
 } from '@atlaskit/editor-common/block-menu';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import { IconCode } from '@atlaskit/editor-common/quick-insert';
@@ -44,9 +43,7 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 				parent: {
 					type: 'block-menu-section' as const,
 					key: FORMAT_MENU_ITEM.key,
-					rank: fg('platform_editor_block_menu_format_rank_revised')
-						? FORMAT_NESTED_MENU_RANK_REVISED[FORMAT_CODE_BLOCK_MENU_ITEM.key]
-						: FORMAT_NESTED_MENU_RANK[FORMAT_CODE_BLOCK_MENU_ITEM.key],
+					rank: FORMAT_NESTED_MENU_RANK[FORMAT_CODE_BLOCK_MENU_ITEM.key],
 				},
 				component: createCodeBlockMenuItem(api),
 			},

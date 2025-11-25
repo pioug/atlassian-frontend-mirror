@@ -14,9 +14,13 @@ export const pluginKey = new PluginKey<ClearFormattingState>('clearFormattingPlu
 export const plugin = (dispatch: Dispatch) =>
 	new SafePlugin({
 		state: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			init(_config, state: EditorState) {
 				return { formattingIsPresent: checkFormattingIsPresent(state) };
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply(_tr, pluginState: ClearFormattingState, _oldState, newState) {
 				const formattingIsPresent = checkFormattingIsPresent(newState);
 				if (formattingIsPresent !== pluginState.formattingIsPresent) {

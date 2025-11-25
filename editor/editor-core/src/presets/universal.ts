@@ -545,12 +545,15 @@ export default function createUniversalPresetInternal({
 		.maybeAdd(borderPlugin, Boolean(props.allowBorderMark))
 		.maybeAdd(fragmentPlugin, Boolean(props.allowFragmentMark))
 		.add(pasteOptionsToolbarPlugin)
-		.add([
-			codeBidiWarningPlugin,
-			{
-				appearance,
-			},
-		]);
+		.maybeAdd(
+			[
+				codeBidiWarningPlugin,
+				{
+					appearance,
+				},
+			],
+			!expValEquals('platform_editor_remove_bidi_char_warning', 'isEnabled', true),
+		);
 
 	return finalPreset;
 }

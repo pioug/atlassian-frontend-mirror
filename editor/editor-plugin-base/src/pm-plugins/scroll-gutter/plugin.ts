@@ -65,6 +65,8 @@ export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
 		key: scrollGutterPluginKey,
 		state: {
 			init: () => ({}),
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply: (tr, pluginState) => {
 				if (tr.getMeta(scrollGutterPluginKey)) {
 					return tr.getMeta(scrollGutterPluginKey);
@@ -81,6 +83,8 @@ export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
 			// Defaults to 5: https://prosemirror.net/docs/ref/#view.EditorProps.scrollMargin
 			scrollMargin: gutterSize,
 		},
+		// @ts-ignore - Workaround for help-center local consumption
+
 		view(view: EditorView) {
 			// Store references to avoid lookups on successive checks.
 			const scrollElement = getScrollElement(view);
@@ -93,6 +97,8 @@ export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
 			}
 
 			return {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				destroy() {
 					cleanup();
 					editorParentElement = editorElement = null;

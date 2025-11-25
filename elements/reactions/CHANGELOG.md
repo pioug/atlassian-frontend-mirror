@@ -1,5 +1,20 @@
 # @atlaskit/reactions
 
+## 33.7.1
+
+### Patch Changes
+
+- [`83e73ca06c1c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83e73ca06c1c7) -
+  Internal changes to how border radius is applied.
+- Updated dependencies
+
+## 33.7.0
+
+### Minor Changes
+
+- [`f97f92f96f95b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f97f92f96f95b) -
+  clean up platform-reactions-offset-based-popper
+
 ## 33.6.8
 
 ### Patch Changes

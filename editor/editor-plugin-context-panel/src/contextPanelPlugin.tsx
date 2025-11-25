@@ -24,22 +24,34 @@ function contextPanelPluginFactory(
 	return new SafePlugin<ContextPanelPluginState>({
 		key: pluginKey,
 		state: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			init(_config, state) {
 				return {
 					handlers: contextPanels,
+					// @ts-ignore - Workaround for help-center local consumption
+
 					contents: contextPanels.map((panelContent) => panelContent(state)),
 				};
 			},
+
+			// @ts-ignore - Workaround for help-center local consumption
 
 			apply(tr, pluginState, _oldState, newState) {
 				let newPluginState = pluginState;
 				const meta = tr.getMeta(pluginKey);
 
 				if (tr.docChanged || tr.selectionSet || (meta && meta.changed)) {
+					// @ts-ignore - Workaround for help-center local consumption
+
 					const newContents = pluginState.handlers.map((panelContent) => panelContent(newState));
 
 					const contentsLengthChanged = newContents.length !== newPluginState.contents.length;
+					// @ts-ignore - Workaround for help-center local consumption
+
 					const contentChanged = newContents.some(
+						// @ts-ignore - Workaround for help-center local consumption
+
 						(node, index) => newPluginState.contents[index] !== node,
 					);
 					if (contentsLengthChanged || contentChanged) {
@@ -99,6 +111,8 @@ export const contextPanelPlugin: ContextPanelPlugin = ({ config }) => ({
 			{
 				name: 'contextPanel',
 				plugin: ({ dispatch }) =>
+					// @ts-ignore - Workaround for help-center local consumption
+
 					contextPanelPluginFactory(contextPanels.filter(Boolean), dispatch),
 			},
 		];

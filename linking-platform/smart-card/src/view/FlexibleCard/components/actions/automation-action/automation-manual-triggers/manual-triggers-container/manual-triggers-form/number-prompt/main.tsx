@@ -48,7 +48,6 @@ const NumberInputPrompt = ({ userInputPrompt }: NumberInputPromptProps): React.J
 	return (
 		<Field
 			key={variableName}
-			aria-required={required}
 			name={variableName}
 			label={displayName}
 			defaultValue={defaultValue}

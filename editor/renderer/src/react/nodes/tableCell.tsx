@@ -187,6 +187,8 @@ const getWithCellProps = (WrapperComponent: React.ElementType) => {
 		const colorName = background ? tableBackgroundColorPalette.get(background) : '';
 
 		return (
+			// @ts-ignore - Workaround for help-center local consumption
+
 			<WrapperComponent
 				rowSpan={rowspan}
 				colSpan={colspan}
@@ -221,11 +223,14 @@ export const withSortableColumn = (WrapperComponent: React.ElementType) => {
 
 		if (!allowColumnSorting || !isHeaderRow) {
 			// Ignored via go/ees005
+			// @ts-ignore - Workaround for help-center local consumption
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			return <WrapperComponent {...props} />;
 		}
 
 		return (
+			// @ts-ignore - Workaround for help-center local consumption
+
 			<WrapperComponent
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading

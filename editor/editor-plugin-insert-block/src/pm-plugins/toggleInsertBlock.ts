@@ -13,11 +13,15 @@ export const toggleInsertBlockPmPlugin = () =>
 	new SafePlugin<ToggleInsertBlockPmPluginState>({
 		key: toggleInsertBlockPmKey,
 		state: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			init() {
 				return {
 					showElementBrowser: false,
 				};
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply(tr, pluginState) {
 				const meta = tr.getMeta(toggleInsertBlockPmKey);
 

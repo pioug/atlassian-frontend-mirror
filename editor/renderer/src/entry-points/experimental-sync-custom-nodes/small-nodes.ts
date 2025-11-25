@@ -22,6 +22,7 @@ import Expand from '../../ui/Expand';
  */
 const nodeToReact: typeof import('../../react/nodes').nodeToReact = {
 	codeBlock: CodeBlock,
+	windowedCodeBlock: CodeBlock, // CodeBlock is similar to windowedCodeBlock, just with sync loading and without the isInViewport check.
 	date: Date,
 	decisionList: DecisionList,
 	decisionItem: DecisionItem,

@@ -62,7 +62,6 @@ const DynamicTable = ({
 	paginationi18n = {
 		prev: 'Previous Page',
 		next: 'Next Page',
-		// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
 		label: 'Pagination',
 		pageLabel: 'Page',
 	},

@@ -41,11 +41,15 @@ export const createPlugin = (
 				sort: {},
 				allTables: [],
 			}),
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply(tr, pluginState: ViewModeSortPluginState, oldState) {
 				// TODO: ED-26961 - move this mode check to plugin creation if possible. Right now it's here because the initial state
 				// does not appear correct when the plugin is created.
 				const { mode } = api.editorViewMode?.sharedState.currentState() || {};
 				if (mode !== 'view') {
+					// @ts-ignore - Workaround for help-center local consumption
+
 					const sortingDecorations = pluginState?.decorations?.find(
 						undefined,
 						undefined,
@@ -67,6 +71,8 @@ export const createPlugin = (
 
 				// Remove the table from the state
 				if (removeTableMeta) {
+					// @ts-ignore - Workaround for help-center local consumption
+
 					allTables = allTables.filter(([id]) => id !== removeTableMeta);
 				} else {
 					tableId = hoverTableMeta?.[0];
@@ -74,10 +80,14 @@ export const createPlugin = (
 
 				sort = { ...sort, ...sortMeta };
 
+				// @ts-ignore - Workaround for help-center local consumption
+
 				const isTableInState = allTables.some(([id]) => id === tableId);
 
 				// Update the table in the state
 				if (hoverTableMeta) {
+					// @ts-ignore - Workaround for help-center local consumption
+
 					allTables = allTables.filter(([id]) => id !== hoverTableMeta[0]);
 					allTables.push(hoverTableMeta);
 				}
@@ -86,6 +96,8 @@ export const createPlugin = (
 				 * Create decorations for the sorting icons
 				 */
 				const decs: Decoration[] = [];
+
+				// @ts-ignore - Workaround for help-center local consumption
 
 				const sortingDecorations = pluginState.decorations.find(
 					undefined,
@@ -99,14 +111,20 @@ export const createPlugin = (
 					sortMeta ||
 					(isTableInState && !sortingDecorations.length)
 				) {
+					// @ts-ignore - Workaround for help-center local consumption
+
 					allTables.forEach((table) => {
 						const [tableId, _node, pos] = table;
+						// @ts-ignore - Workaround for help-center local consumption
+
 						const tableNode = tr.doc.nodeAt(tr.mapping.map(pos));
 						if (!tableNode || tableNode.type.name !== 'table') {
 							return pluginState;
 						}
 						const map = TableMap.get(tableNode);
 						const hasMergedCells = new Set(map.map).size !== map.map.length;
+						// @ts-ignore - Workaround for help-center local consumption
+
 						map.mapByRow[0].forEach((cell, index) => {
 							// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 							const decorationRenderKey = uuid();
@@ -167,8 +185,14 @@ export const createPlugin = (
 				 * Map the decorations to the new document if there are changes
 				 */
 				if (tr.docChanged) {
+					// @ts-ignore - Workaround for help-center local consumption
+
 					decorations = decorations.map(tr.mapping, tr.doc);
+					// @ts-ignore - Workaround for help-center local consumption
+
 					allTables = allTables.map((table) => {
+						// @ts-ignore - Workaround for help-center local consumption
+
 						return [table[0], table[1], tr.mapping.map(table[2])];
 					});
 				}
@@ -181,6 +205,8 @@ export const createPlugin = (
 			},
 		},
 		key,
+		// @ts-ignore - Workaround for help-center local consumption
+
 		appendTransaction: (trs, oldState, newState) => {
 			// return newState.tr;
 			const { mode } = api?.editorViewMode?.sharedState.currentState() || {};
@@ -197,6 +223,8 @@ export const createPlugin = (
 			for (const tr of trs) {
 				const hoverTableMeta = tr.getMeta('mouseEnterTable');
 				if (hoverTableMeta) {
+					// @ts-ignore - Workaround for help-center local consumption
+
 					allTables = allTables.filter(([id]) => id !== hoverTableMeta[0]);
 					allTables.push(hoverTableMeta);
 				}
@@ -234,6 +262,8 @@ export const createPlugin = (
 									return newtr;
 								}
 								const sortedOrder = [...oldOrder].sort((a, b) => a.value - b.value);
+								// @ts-ignore - Workaround for help-center local consumption
+
 								sortedOrder.forEach((index, i) => {
 									tbody.appendChild(rows[index.index + 1]);
 								});
@@ -256,6 +286,8 @@ export const createPlugin = (
 						if (!isRemote && newDirection !== SortOrder.NO_ORDER) {
 							const { rows, tbody } = getTableElements(tableId);
 							if (rows && newOrder) {
+								// @ts-ignore - Workaround for help-center local consumption
+
 								newOrder.forEach((index, i) => {
 									tbody?.appendChild(rows[index.value + 1]);
 								});
@@ -267,7 +299,11 @@ export const createPlugin = (
 			return newState.tr;
 		},
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleDOMEvents: {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				keydown: (view, event) => {
 					// TODO: ED-26961 - fix the focus issue here, where toggling sort with a keypress loses focus
 					if (event.key === 'Enter' || event.key === ' ') {
@@ -276,11 +312,15 @@ export const createPlugin = (
 					}
 				},
 
+				// @ts-ignore - Workaround for help-center local consumption
+
 				click: (view, event) => {
 					const pluginState = key.getState(view.state)?.sort || {};
 					toggleSort(view, event, pluginState);
 				},
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			decorations(state) {
 				const decs = key.getState(state)?.decorations || DecorationSet.empty;
 				return decs;

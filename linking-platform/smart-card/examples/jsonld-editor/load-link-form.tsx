@@ -147,14 +147,7 @@ const LoadLinkForm = ({
 	return (
 		<Form onSubmit={handleSubmit} name="load-link">
 			<Stack>
-				<Field
-					aria-required={true}
-					defaultValue=""
-					label="URL"
-					isRequired
-					name="url"
-					validate={validateUrl}
-				>
+				<Field defaultValue="" label="URL" isRequired name="url" validate={validateUrl}>
 					{({ fieldProps, error, meta: { dirtySinceLastSubmit } }: any) => (
 						<React.Fragment>
 							<Textfield {...fieldProps} />

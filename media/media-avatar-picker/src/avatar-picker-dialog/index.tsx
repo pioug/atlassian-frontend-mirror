@@ -360,12 +360,7 @@ export class AvatarPickerDialog extends PureComponent<
 
 		return (
 			<Box xcss={altTextFieldStyles.root}>
-				<Field
-					aria-required={true}
-					name="altText"
-					isRequired
-					label={<FormattedMessage {...messages.alt_text} />}
-				>
+				<Field name="altText" isRequired label={<FormattedMessage {...messages.alt_text} />}>
 					{({ fieldProps }) => (
 						<Fragment>
 							<Textfield

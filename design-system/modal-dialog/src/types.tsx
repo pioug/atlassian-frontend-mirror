@@ -24,12 +24,15 @@ export type { ModalFooterProps } from './modal-footer';
 export type { ModalAttributes } from './internal/context';
 
 export interface ModalDialogProps {
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 	/**
 	 * Focus is moved to the first interactive element inside the modal dialog
 	 * when `true`. It is not recommended to set to `false` as this creates
 	 * accessibility regressions. Pass an element `ref` to focus on a specific element.
 	 *
 	 * Default value is `true`.
+	 *
+	 * @deprecated {@link https://hello.jira.atlassian.cloud/browse/ENGHEALTH-28588 Learn more about why `false` should not be used and will be removed.}
 	 */
 	autoFocus?: boolean | RefObject<HTMLElement | null | undefined>;
 

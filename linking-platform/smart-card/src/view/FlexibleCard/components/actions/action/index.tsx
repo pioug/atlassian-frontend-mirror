@@ -107,6 +107,7 @@ const Action = ({
 			ariaLabel={ariaLabel}
 		/>
 	);
+	// @ts-ignore - Workaround for help-center local consumption
 	return Wrapper !== undefined ? <Wrapper>{button}</Wrapper> : button;
 };
 

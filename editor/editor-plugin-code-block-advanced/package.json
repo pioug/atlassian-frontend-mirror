@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-block-advanced",
-	"version": "6.2.11",
+	"version": "6.2.12",
 	"description": "CodeBlockAdvanced plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -104,9 +104,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_adf_with_localid": {
-			"type": "boolean"
-		},
-		"platform_editor_block_menu_format_rank_revised": {
 			"type": "boolean"
 		},
 		"platform_editor_content_mode_button_mvp": {

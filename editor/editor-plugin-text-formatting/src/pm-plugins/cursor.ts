@@ -7,6 +7,7 @@ type PosAtDOM = (node: Node) => number | null;
 // eslint-disable-next-line import/no-anonymous-default-export
 export default new SafePlugin({
 	props: {
+		// @ts-ignore - Workaround for help-center local consumption
 		handleClick(view: EditorView, clickPos, event) {
 			// Don't apply in Edge as per ED-4546
 			// Ignored via go/ees005

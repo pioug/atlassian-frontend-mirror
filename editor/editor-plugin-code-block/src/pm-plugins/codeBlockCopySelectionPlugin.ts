@@ -44,13 +44,21 @@ export function codeBlockCopySelectionPlugin() {
 	return new SafePlugin({
 		key: copySelectionPluginKey,
 		state: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			init(): CodeBlockCopySelectionPluginState {
 				return { decorationStartAndEnd: undefined };
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
+			// @ts-ignore - Workaround for help-center local consumption
 			apply(
+				// @ts-ignore - Workaround for help-center local consumption
 				transaction,
 				currentCodeBlockCopySelectionPluginState: CodeBlockCopySelectionPluginState,
+				// @ts-ignore - Workaround for help-center local consumption
 				_oldState,
+				// @ts-ignore - Workaround for help-center local consumption
 				newState,
 			): CodeBlockCopySelectionPluginState {
 				switch (transaction.getMeta(copySelectionPluginKey)) {
@@ -78,6 +86,8 @@ export function codeBlockCopySelectionPlugin() {
 			},
 		},
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			decorations(state) {
 				if (copySelectionPluginKey.getState(state).decorationStartAndEnd) {
 					const [start, end] = copySelectionPluginKey.getState(state).decorationStartAndEnd;

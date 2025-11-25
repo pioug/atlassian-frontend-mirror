@@ -14,6 +14,7 @@ import {
 	AppLogo,
 	AppSwitcher,
 	CreateButton,
+	CustomTitle,
 	Help,
 	Profile,
 	Settings,
@@ -45,10 +46,12 @@ export default function NavigationShellExample({
 	sideNavToggleButton = defaultSideNavToggleButton,
 	appLogo = defaultAppLogo,
 	defaultSideNavWidth,
+	siteTitle,
 }: {
 	sideNavToggleButton?: React.ReactNode;
 	appLogo?: React.ReactNode;
 	defaultSideNavWidth?: number;
+	siteTitle?: string;
 }): React.JSX.Element {
 	return (
 		<WithResponsiveViewport>
@@ -57,6 +60,7 @@ export default function NavigationShellExample({
 					<TopNavStart sideNavToggleButton={sideNavToggleButton}>
 						<AppSwitcher label="Switch apps" />
 						{appLogo}
+						{siteTitle && <CustomTitle>{siteTitle}</CustomTitle>}
 					</TopNavStart>
 					<TopNavMiddle>
 						<MockSearch />
@@ -76,7 +80,7 @@ export default function NavigationShellExample({
 }
 
 export function NavigationShellWithWideSideNav(): React.JSX.Element {
-	return <NavigationShellExample defaultSideNavWidth={800} />;
+	return <NavigationShellExample defaultSideNavWidth={800} siteTitle="Custom title" />;
 }
 
 export function NavigationShellWithToggleButtonSpotlight(): React.JSX.Element {

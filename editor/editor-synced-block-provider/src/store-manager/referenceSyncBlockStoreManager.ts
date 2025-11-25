@@ -13,6 +13,7 @@ import type {
 	SyncBlockDataProvider,
 	TitleSubscriptionCallback,
 	SyncBlockRendererProviderCreator,
+	SyncBlockSourceInfo,
 } from '../providers/types';
 import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
 import { createSyncBlockNode } from '../utils/utils';
@@ -74,38 +75,46 @@ export class ReferenceSyncBlockStoreManager {
 		}
 	}
 
-	private retrieveSyncBlockSourceInfo(resourceId: ResourceId) {
+	private fetchSyncBlockSourceInfo(resourceId: ResourceId): void {
 		if (!resourceId || !this.dataProvider) {
 			return;
 		}
 
-		// TODO: EDITOR-3312 - retrieve the source info based on the source sync block product
-
-		// if the sync block is a reference block, we need to fetch the URL to the source
-		// we could optimise this further by checking if the sync block is on the same page as the source
-		if (!this.syncBlockURLRequests.get(resourceId)) {
-			this.syncBlockURLRequests.set(resourceId, true);
-			this.dataProvider
-				.retrieveSyncBlockSourceInfo(createSyncBlockNode('', resourceId))
-				.then((sourceInfo) => {
-					const existingSyncBlock = this.getFromCache(resourceId);
-					if (existingSyncBlock && existingSyncBlock.data) {
-						existingSyncBlock.data = {
-							...existingSyncBlock.data,
-							sourceURL: sourceInfo?.url,
-							sourceTitle: sourceInfo?.title,
-						};
-						this.updateCache(existingSyncBlock);
-
-						if (sourceInfo?.title) {
-							this.updateSourceTitleSubscriptions(existingSyncBlock.resourceId, sourceInfo.title);
-						}
-					}
-				})
-				.finally(() => {
-					this.syncBlockURLRequests.set(resourceId, false);
-				});
+		if (this.syncBlockURLRequests.get(resourceId)) {
+			return;
 		}
+
+		this.syncBlockURLRequests.set(resourceId, true);
+
+		const existingSyncBlock = this.getFromCache(resourceId);
+		if (!existingSyncBlock) {
+			return;
+		}
+
+		// skip if source URL and title are already present
+		if (existingSyncBlock.data?.sourceURL && existingSyncBlock.data?.sourceTitle) {
+			return;
+		}
+
+		const { sourceAri, product, blockInstanceId } = existingSyncBlock.data || {};
+		if (!sourceAri || !product || !blockInstanceId) {
+			return;
+		}
+
+		this.dataProvider
+			.fetchSyncBlockSourceInfo(blockInstanceId, sourceAri, product)
+			.then((sourceInfo) => {
+				if (!sourceInfo) {
+					return;
+				}
+				this.updateCacheWithSourceInfo(resourceId, sourceInfo);
+				if (sourceInfo.title) {
+					this.updateSourceTitleSubscriptions(resourceId, sourceInfo.title);
+				}
+			})
+			.finally(() => {
+				this.syncBlockURLRequests.delete(resourceId);
+			});
 	}
 
 	/**
@@ -162,17 +171,23 @@ export class ReferenceSyncBlockStoreManager {
 			this.updateCache(resolvedSyncBlockInstance);
 			resolvedData.push(resolvedSyncBlockInstance);
 
-			// fetch source URL and title if not already present
-			if (
-				(!resolvedSyncBlockInstance.data?.sourceURL ||
-					!resolvedSyncBlockInstance.data?.sourceTitle) &&
-				resolvedSyncBlockInstance.resourceId
-			) {
-				this.retrieveSyncBlockSourceInfo(resolvedSyncBlockInstance.resourceId);
-			}
+			this.fetchSyncBlockSourceInfo(resolvedSyncBlockInstance.resourceId);
 		});
 
 		return [...resolvedData, ...blocksWithNotFoundError];
+	}
+
+	private updateCacheWithSourceInfo(resourceId: ResourceId, sourceInfo: SyncBlockSourceInfo) {
+		const existingSyncBlock = this.getFromCache(resourceId);
+		if (existingSyncBlock && existingSyncBlock.data) {
+			existingSyncBlock.data.sourceURL = sourceInfo?.url;
+			existingSyncBlock.data = {
+				...existingSyncBlock.data,
+				sourceURL: sourceInfo?.url,
+				sourceTitle: sourceInfo?.title,
+			};
+			this.updateCache(existingSyncBlock);
+		}
 	}
 
 	private updateCache(syncBlock: SyncBlockInstance) {
@@ -339,9 +354,16 @@ export class ReferenceSyncBlockStoreManager {
 			return;
 		}
 
+		const syncBlock = this.getFromCache(resourceId);
+		if (!syncBlock || !syncBlock.data?.sourceAri || !syncBlock.data?.product) {
+			return;
+		}
+
 		const parentInfo = this.dataProvider.retrieveSyncBlockParentInfo(
-			this.syncBlockCache.get(resourceId),
+			syncBlock.data?.sourceAri,
+			syncBlock.data?.product,
 		);
+
 		if (!parentInfo) {
 			return;
 		}

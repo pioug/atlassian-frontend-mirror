@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 6.2.12
+
+### Patch Changes
+
+- [`43d1dfc88c1de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43d1dfc88c1de) -
+  Clean up platform_editor_block_menu_format_rank_revised
+- Updated dependencies
+
 ## 6.2.11
 
 ### Patch Changes

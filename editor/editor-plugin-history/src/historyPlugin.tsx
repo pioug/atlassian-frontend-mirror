@@ -19,9 +19,15 @@ const createPlugin = (dispatch: Dispatch) =>
 	new SafePlugin({
 		state: createPluginState(dispatch, getInitialState),
 		key: historyPluginKey,
+		// @ts-ignore - Workaround for help-center local consumption
+
 		appendTransaction: (transactions, oldState, newState) => {
 			if (
+				// @ts-ignore - Workaround for help-center local consumption
+
 				transactions.find(
+					// @ts-ignore - Workaround for help-center local consumption
+
 					(tr) =>
 						(tr.docChanged && tr.getMeta('addToHistory') !== false) ||
 						tr.getMeta('endHistorySlice'),

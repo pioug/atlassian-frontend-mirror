@@ -221,7 +221,7 @@ const generateComponentPropTypes = (componentNames?: string) => {
 			})
 			.sort((a, b) => a.getName().localeCompare(b.getName()));
 
-		// generate share types file first
+		// generate shared files first
 		generateSharedTypesFile(componentOutputDir);
 
 		generateComponentPropTypeSourceFiles(componentOutputDir, componentPropTypeSymbols);

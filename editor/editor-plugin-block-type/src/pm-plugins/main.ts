@@ -90,7 +90,11 @@ const detectBlockType = (availableBlockTypes: BlockType[], state: EditorState): 
 	}
 	let blockType: BlockType | undefined;
 	const { $from, $to } = state.selection;
+	// @ts-ignore - Workaround for help-center local consumption
+
 	state.doc.nodesBetween($from.pos, $to.pos, (node) => {
+		// @ts-ignore - Workaround for help-center local consumption
+
 		const nodeBlockType = availableBlockTypes.filter(
 			(blockType) => blockType === blockTypeForNode(node, state.schema),
 		);
@@ -132,6 +136,8 @@ export const createPlugin = (
 	let altKeyLocation = 0;
 
 	return new SafePlugin({
+		// @ts-ignore - Workaround for help-center local consumption
+
 		appendTransaction(
 			_transactions: readonly Transaction[],
 			_oldState: EditorState,
@@ -150,14 +156,22 @@ export const createPlugin = (
 		},
 
 		state: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			init(_config, state: EditorState) {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				const availableBlockTypes = TEXT_BLOCK_TYPES.filter((blockType) =>
 					isBlockTypeSchemaSupported(blockType, state),
 				);
+				// @ts-ignore - Workaround for help-center local consumption
+
 				const availableWrapperBlockTypes = WRAPPER_BLOCK_TYPES.filter((blockType) =>
 					isBlockTypeSchemaSupported(blockType, state),
 				);
 				const BLOCK_TYPES_IN_DROPDOWN = getBlockTypesInDropdown(includeBlockQuoteAsTextstyleOption);
+				// @ts-ignore - Workaround for help-center local consumption
+
 				const availableBlockTypesInDropdown = BLOCK_TYPES_IN_DROPDOWN.filter((blockType) =>
 					isBlockTypeSchemaSupported(blockType, state),
 				);
@@ -175,6 +189,8 @@ export const createPlugin = (
 					formattingIsPresent,
 				};
 			},
+
+			// @ts-ignore - Workaround for help-center local consumption
 
 			apply(_tr, oldPluginState: BlockTypeState, _oldState: EditorState, newState: EditorState) {
 				const newPluginState = {
@@ -207,6 +223,8 @@ export const createPlugin = (
 			 * Shortcut on Mac: Cmd-Opt-{heading level}
 			 * Shortcut on Windows: Ctrl-LeftAlt-{heading level}
 			 */
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleKeyDown: (view: EditorView, event: KeyboardEvent): boolean => {
 				let headingLevel = HEADING_KEYS.indexOf(event.keyCode);
 				if (headingLevel === -1 && fg('platform_editor_heading_from_numpad')) {

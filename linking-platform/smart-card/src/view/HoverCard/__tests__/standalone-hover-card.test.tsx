@@ -57,6 +57,14 @@ const TestCanOpenComponent = ({
 	);
 };
 
+const TestProductComponent = ({ testId = 'hover-trigger-test-id' }: { testId?: string }) => {
+	return (
+		<HoverCard url={mockUrl} id="some-id">
+			<div data-testid={testId}>Hover</div>
+		</HoverCard>
+	);
+};
+
 describe('standalone hover card', () => {
 	beforeEach(() => {
 		jest.useFakeTimers({ legacyFakeTimers: true });
@@ -769,5 +777,46 @@ describe('standalone hover card', () => {
 				});
 			});
 		});
+	});
+});
+
+ffTest.on('townsquare-same-tab-alignment-gcko-849', 'hover card', () => {
+	beforeEach(() => {
+		jest.useFakeTimers({ legacyFakeTimers: true });
+	});
+
+	afterEach(() => {
+		act(() => jest.runAllTimers());
+		jest.useRealTimers();
+		jest.restoreAllMocks();
+	});
+
+	it('should open the title link in same tab when product is Atlas', async () => {
+		const testId = 'hover-trigger-test-id';
+		await setup({
+			testId,
+			component: <TestProductComponent testId={testId} />,
+			product: 'ATLAS',
+		});
+		// Need to advance timers to show the hover card
+		act(() => {
+			jest.advanceTimersByTime(500); // Default hover delay
+		});
+		const titleBlockLinkElement = await screen.findByTestId('smart-element-link');
+		// When target is '_self', the target attribute is not set (defaults to _self)
+		expect(titleBlockLinkElement).not.toHaveAttribute('target');
+	});
+	it('should still render title even when product is not set', async () => {
+		const testId = 'hover-trigger-test-id';
+		await setup({
+			testId,
+			component: <TestProductComponent testId={testId} />,
+		});
+		// Need to advance timers to show the hover card
+		act(() => {
+			jest.advanceTimersByTime(500); // Default hover delay
+		});
+		const titleBlockLinkElement = await screen.findByTestId('smart-element-link');
+		expect(titleBlockLinkElement).toBeVisible();
 	});
 });

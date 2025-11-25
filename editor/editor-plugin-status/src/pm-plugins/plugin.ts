@@ -21,6 +21,8 @@ const createPlugin = (
 				showStatusPickerAt: null,
 				focusStatusInput: false,
 			}),
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply(tr, state: StatusState, oldEditorState) {
 				const meta = tr.getMeta(pluginKey);
 
@@ -74,6 +76,8 @@ const createPlugin = (
 				return state;
 			},
 		},
+		// @ts-ignore - Workaround for help-center local consumption
+
 		filterTransaction: (tr, state) => {
 			// if it is a selection change transaction, and selection changes from node to text
 			if (
@@ -112,12 +116,16 @@ const createPlugin = (
 			 * But when transaction to add empty status happens from undo/redo
 			 *  we don't want to remove it.
 			 */
+			// @ts-ignore - Workaround for help-center local consumption
+
 			if (transactions.find((tr) => tr.selectionSet && !tr.getMeta(pmHistoryPluginKey))) {
 				const oldStatus = mayGetStatusAtSelection(oldEditorState.selection);
 				const newStatus = mayGetStatusAtSelection(newEditorState.selection);
 				if (oldStatus && ((newStatus && oldStatus.localId !== newStatus.localId) || !newStatus)) {
 					if (isEmptyStatus(oldStatus)) {
 						const pos = oldEditorState.selection.from;
+						// @ts-ignore - Workaround for help-center local consumption
+
 						tr.delete(tr.mapping.map(pos), tr.mapping.map(pos + 1));
 						changed = true;
 					}
@@ -127,7 +135,11 @@ const createPlugin = (
 		},
 		key: pluginKey,
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			nodeViews: {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				status: (node) => {
 					return new StatusNodeView(node, pmPluginFactoryParams.getIntl());
 				},

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-editor-viewmode
 
+## 8.0.2
+
+### Patch Changes
+
+- [`4d676bbdb3ce6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d676bbdb3ce6) -
+  ts-ignore added temporarily to unblock local consumption for help-center, will be removed once
+  project refs are setup
+- Updated dependencies
+
 ## 8.0.1
 
 ### Patch Changes
@@ -66,7 +75,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.
@@ -135,7 +143,6 @@
 
   This experiment was only enabled for Confluence and should not have been enabled in other places.
   If for some reason any of the following props/state/methdos were used please remove them:
-
   - isConsumption
   - contentMode
   - initialContentMode
@@ -391,7 +398,6 @@
   Split out side-effects from viewmode plugin to seperate plugin to reduce cyclical dependency risk
 
   # WHAT
-
   - Remove `createFilterStepsPlugin` from the editorViewMode Plugin and is implemented in
     editorViewModeEffects instead.
   - Remove `appendTransaction` from the editorViewMode plugin and add as a new PMPlugin in
@@ -411,7 +417,6 @@
 
   All incompatibilities should be addressed within this changeset, however for the sake of
   completeness:
-
   - `editor-plugin-editor-viewmode-effects` must be added to any preset that relies on the viewmode
     filter steps plugin for viewmode annotations. Currently this seems to only be the confluence
     editor itself.

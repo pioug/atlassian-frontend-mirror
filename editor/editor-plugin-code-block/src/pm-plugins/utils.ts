@@ -12,6 +12,8 @@ export function getCursor(selection: Selection): ResolvedPos | undefined {
 }
 export function getAllCodeBlockNodesInDoc(state: EditorState): NodeWithPos[] {
 	const codeBlockNodes: NodeWithPos[] = [];
+	// @ts-ignore - Workaround for help-center local consumption
+
 	state.doc.descendants((node, pos) => {
 		if (node.type === state.schema.nodes.codeBlock) {
 			codeBlockNodes.push({ node, pos });
@@ -28,10 +30,16 @@ export function getAllChangedCodeBlocksInTransaction(
 ): NodeWithPos[] | null {
 	const changedCodeBlocks: NodeWithPos[] = [];
 	const nodePositions = new Set();
+	// @ts-ignore - Workaround for help-center local consumption
+
 	tr.steps.forEach((step) => {
 		const mapResult = step.getMap();
 
+		// @ts-ignore - Workaround for help-center local consumption
+
 		mapResult.forEach((oldStart, oldEnd, newStart, newEnd) => {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			tr.doc.nodesBetween(newStart, Math.min(newEnd, tr.doc.content.size), (node, pos) => {
 				if (node.type.name === 'codeBlock') {
 					if (!nodePositions.has(pos)) {

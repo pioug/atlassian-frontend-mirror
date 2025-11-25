@@ -77,6 +77,8 @@ export function createPlugin(
 					return newState;
 				} else if (state.showInsertPanelAt) {
 					const newState = {
+						// @ts-ignore - Workaround for help-center local consumption
+
 						showInsertPanelAt: tr.mapping.map(state.showInsertPanelAt),
 						allowInserting,
 					};
@@ -86,7 +88,11 @@ export function createPlugin(
 				return state;
 			},
 		},
+		// @ts-ignore - Workaround for help-center local consumption
+
 		appendTransaction(transactions, oldState, newState) {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			if (transactions.some((txn) => txn.docChanged)) {
 				const didPlaceholderExistBeforeTxn =
 					oldState.selection.$head.nodeAfter === newState.selection.$head.nodeAfter;
@@ -133,7 +139,11 @@ export function createPlugin(
 		},
 		props: {
 			decorations: drawFakeTextCursor,
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleDOMEvents: {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				beforeinput: (view, event) => {
 					const { state } = view;
 					if (
@@ -165,6 +175,8 @@ export function createPlugin(
 					return false;
 				},
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			nodeViews: {
 				placeholder: (node: PmNode, view: EditorView, getPos: getPosHandler) =>
 					new PlaceholderTextNodeView(node, view, getPos),

@@ -12,12 +12,10 @@ import {
 	FORMAT_MENU_ITEM,
 	FORMAT_EXPAND_MENU_ITEM,
 	FORMAT_NESTED_MENU_RANK,
-	FORMAT_NESTED_MENU_RANK_REVISED,
 } from '@atlaskit/editor-common/block-menu';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconExpand } from '@atlaskit/editor-common/quick-insert';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { toggleExpandRange } from '../editor-commands/toggleExpandRange';
@@ -45,9 +43,7 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 				parent: {
 					type: 'block-menu-section' as const,
 					key: FORMAT_MENU_ITEM.key,
-					rank: fg('platform_editor_block_menu_format_rank_revised')
-						? FORMAT_NESTED_MENU_RANK_REVISED[FORMAT_EXPAND_MENU_ITEM.key]
-						: FORMAT_NESTED_MENU_RANK[FORMAT_EXPAND_MENU_ITEM.key],
+					rank: FORMAT_NESTED_MENU_RANK[FORMAT_EXPAND_MENU_ITEM.key],
 				},
 				component: createExpandBlockMenuItem(api),
 			},

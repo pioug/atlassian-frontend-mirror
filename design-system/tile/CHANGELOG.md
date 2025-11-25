@@ -1,5 +1,12 @@
 # @atlaskit/tile
 
+## 1.0.2
+
+### Patch Changes
+
+- [`14886457b3a3a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14886457b3a3a) -
+  Suppress i18n violations
+
 ## 1.0.1
 
 ### Patch Changes

@@ -28,13 +28,19 @@ export const createPlugin = (
 	const { useLongPressSelection = false } = pluginOptions;
 	return new SafePlugin({
 		key: pluginKey,
+		// @ts-ignore - Workaround for help-center local consumption
+
 		appendTransaction: (transactions, oldState, newState) => {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			const tr = transactions.find((tr) => tr.getMeta('uiEvent') === 'cut');
 			if (tr) {
 				return handleCut(newState, oldState);
 			}
 		},
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			nodeViews: {
 				panel: getPanelNodeView(pluginOptions, api, nodeViewPortalProviderAPI, providerFactory),
 			},

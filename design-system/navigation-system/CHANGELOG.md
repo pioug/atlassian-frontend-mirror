@@ -1,5 +1,12 @@
 # @atlassian/navigation-system
 
+## 5.9.4
+
+### Patch Changes
+
+- [`71832bba1ded1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71832bba1ded1) -
+  Fixes a vertical alignment bug in top nav start items when the full height sidebar is enabled.
+
 ## 5.9.3
 
 ### Patch Changes

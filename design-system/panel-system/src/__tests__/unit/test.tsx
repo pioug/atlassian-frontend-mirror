@@ -35,7 +35,7 @@ describe('Panel System', () => {
 					<PanelActionMore onClick={handleMoreActions} />
 				</PanelActionGroup>
 			</PanelHeader>
-			<PanelSubheader>Subheader content</PanelSubheader>
+			<PanelSubheader title="Subheader content" />
 			<PanelBody>
 				<div>This is test content for the panel system.</div>
 			</PanelBody>

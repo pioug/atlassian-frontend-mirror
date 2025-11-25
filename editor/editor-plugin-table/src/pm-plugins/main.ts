@@ -162,9 +162,13 @@ export const createPlugin = (
 			oldState: EditorState,
 			newState: EditorState,
 		) => {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			const tr = transactions.find((tr) => tr.getMeta('uiEvent') === 'cut');
 
 			function reportInvalidTableCellSpanAttrs(invalidNodeAttr: InvalidNodeAttr) {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				if (invalidTableIds.find((id) => id === invalidNodeAttr.tableLocalId)) {
 					return;
 				}
@@ -200,6 +204,8 @@ export const createPlugin = (
 				);
 				return fixTables(updatedTr) || updatedTr;
 			}
+			// @ts-ignore - Workaround for help-center local consumption
+
 			if (transactions.find((tr) => tr.docChanged)) {
 				return fixTables(newState.tr, reportInvalidTableCellSpanAttrs);
 			}
@@ -275,6 +281,8 @@ export const createPlugin = (
 			};
 		},
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			transformPasted(slice) {
 				const editorState = getCurrentEditorState();
 				if (!editorState) {
@@ -344,6 +352,8 @@ export const createPlugin = (
 
 				return slice;
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleClick: ({ state, dispatch }, _pos, event: MouseEvent) => {
 				const decorationSet = decorationsPluginKey.getState(state);
 				const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
@@ -385,6 +395,8 @@ export const createPlugin = (
 				const maybeTr = closestElement(domRef as HTMLElement | undefined, 'tr');
 				return maybeTr ? maybeTr.classList.contains('sticky') : false;
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleTextInput: (view, _from, _to, text) => {
 				const { state, dispatch } = view;
 				const { isKeyboardResize } = getPluginState(state);
@@ -403,14 +415,26 @@ export const createPlugin = (
 				return false;
 			},
 			nodeViews,
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleDOMEvents: {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				focus: handleFocus,
+				// @ts-ignore - Workaround for help-center local consumption
+
 				blur: handleBlur,
+				// @ts-ignore - Workaround for help-center local consumption
+
 				mousedown: withCellTracking(handleMouseDown),
 				mouseleave: handleMouseLeave,
 				mousemove: whenTableInFocus(handleMouseMove(nodeViewPortalProviderAPI), pluginInjectionApi),
 				mouseenter: handleMouseEnter,
+				// @ts-ignore - Workaround for help-center local consumption
+
 				mouseup: whenTableInFocus(handleMouseUp),
+				// @ts-ignore - Workaround for help-center local consumption
+
 				click: withCellTracking(whenTableInFocus(handleClick)),
 			},
 

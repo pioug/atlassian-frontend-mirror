@@ -3,7 +3,12 @@
 // common
 export { rebaseTransaction } from './common/rebase-transaction';
 export { SyncBlockError } from './common/types';
-export type { SyncBlockData, SyncBlockNode } from './common/types';
+export type {
+	SyncBlockData,
+	SyncBlockNode,
+	SyncBlockProduct,
+	BlockInstanceId,
+} from './common/types';
 
 // hooks
 export {
@@ -32,7 +37,7 @@ export {
 	createContentAPIProvidersWithDefaultKey,
 	useMemoizedContentAPIProviders,
 } from './providers/confluence/confluenceContentAPI';
-export { fetchConfluenceSourceInfo } from './clients/confluence/sourceInfo';
+export { fetchConfluencePageInfo } from './clients/confluence/sourceInfo';
 
 export {
 	SyncBlockProvider as SyncedBlockProvider,

@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 52.4.36
+
+### Patch Changes
+
+- [`d9471960330dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9471960330dd) -
+  Remove duplicated inert `aria-required` attribute from Field components.
+
 ## 52.4.35
 
 ### Patch Changes

@@ -95,6 +95,8 @@ export default () => {
 		key: decorationStateKey,
 		state: {
 			init: (): DecorationState => ({ decoration: undefined }),
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply(tr, pluginState: DecorationState): DecorationState {
 				if (pluginState.decoration && pluginState.decoration instanceof Decoration) {
 					const mapResult = tr.mapping.mapResult(pluginState.decoration.from);
@@ -108,6 +110,8 @@ export default () => {
 					pluginState.decoration instanceof DecorationSet &&
 					expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 				) {
+					// @ts-ignore - Workaround for help-center local consumption
+
 					pluginState.decoration = pluginState.decoration.map(tr.mapping, tr.doc);
 				}
 
@@ -139,6 +143,8 @@ export default () => {
 		},
 
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			decorations(state: EditorState) {
 				const { doc } = state;
 				const { decoration } = decorationStateKey.getState(state) as DecorationState;

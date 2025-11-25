@@ -290,7 +290,6 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 								name="topic"
 								label={selectLabel || formatMessage(messages.selectionOptionDefaultLabel)}
 								isRequired
-								aria-required={true} // JCA11Y-1619
 							>
 								{({ fieldProps: { id, ...restProps } }) => (
 									<>
@@ -508,7 +507,6 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 										name="topic"
 										label={selectLabel || formatMessage(messages.selectionOptionDefaultLabel)}
 										isRequired
-										aria-required={true} // JCA11Y-1619
 									>
 										{({ fieldProps: { id, ...restProps } }) => (
 											<>

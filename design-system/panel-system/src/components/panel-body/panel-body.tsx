@@ -24,8 +24,8 @@ const styles = cssMap({
 		flexGrow: 1,
 		paddingInlineStart: token('space.300'),
 		paddingInlineEnd: token('space.300'),
-		paddingBlockStart: token('space.150'),
-		paddingBlockEnd: token('space.150'),
+		paddingBlockStart: token('space.250'),
+		paddingBlockEnd: token('space.0'),
 		overflow: 'auto',
 	},
 });

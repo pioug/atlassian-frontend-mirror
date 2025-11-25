@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 14.0.3
+
+### Patch Changes
+
+- [`aa6ee6b4723db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa6ee6b4723db) -
+  Remove duplicated inert `aria-required` attribute from Field components.
+- Updated dependencies
+
 ## 14.0.2
 
 ### Patch Changes

@@ -2,17 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { ReactNode } from 'react';
-
 import { cssMap, jsx } from '@atlaskit/css';
+import Heading from '@atlaskit/heading';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 export interface PanelSubheaderProps {
 	/**
-	 * The content of the panel subheader.
+	 * The title text to display in the subheader.
 	 */
-	children: ReactNode;
+	title: string;
 	/**
 	 * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
 	 */
@@ -25,19 +24,16 @@ const styles = cssMap({
 		paddingInlineEnd: token('space.300'),
 		paddingBlockStart: token('space.150'),
 		paddingBlockEnd: token('space.150'),
-		borderBlockEndStyle: 'solid',
-		borderBlockEndWidth: token('border.width'),
-		borderColor: token('color.border'),
 	},
 });
 
 /**
- * The PanelSubheader component provides a slot for subheaders.
+ * The PanelSubheader component provides a slot for subheaders with a title.
  */
-export function PanelSubheader({ children, testId }: PanelSubheaderProps) {
+export function PanelSubheader({ title, testId }: PanelSubheaderProps) {
 	return (
 		<Box testId={testId} xcss={styles.subheader}>
-			{children}
+			<Heading size="medium">{title}</Heading>
 		</Box>
 	);
 }

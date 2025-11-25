@@ -40,11 +40,17 @@ export const createPlugin = (
 		key: pluginKey,
 		state: createPluginState(dispatch, defaultState),
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleDOMEvents: {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				cut: () => {
 					isCutEvent = true;
 				},
 			},
+
+			// @ts-ignore - Workaround for help-center local consumption
 
 			handlePaste: ({ state, dispatch }, event, slice) => {
 				// The state was cleaned after previous paste. We don't need to update plugin state
@@ -84,6 +90,8 @@ export const createPlugin = (
 
 				dispatch(updatedTr);
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			transformCopied: (slice, { state, dispatch }) => {
 				// We want to listen only to 'cut' events
 				if (!isCutEvent) {

@@ -32,11 +32,17 @@ export const createPlugin = ({ dispatchAnalyticsEvent, schema }: PMPluginFactory
 			};
 		},
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleDOMEvents: {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				cut: (view) => {
 					setLastEventType(ClipboardEventType.CUT);
 					return sendClipboardAnalytics(view, dispatchAnalyticsEvent, ACTION.CUT);
 				},
+				// @ts-ignore - Workaround for help-center local consumption
+
 				copy: (view) => {
 					setLastEventType(ClipboardEventType.COPY);
 					return sendClipboardAnalytics(view, dispatchAnalyticsEvent, ACTION.COPIED);
@@ -116,6 +122,8 @@ export const createClipboardSerializer = (
 			const strippedMediaNode = schema.nodes.media.createChecked(
 				mediaNode.attrs,
 				mediaNode.content,
+				// @ts-ignore - Workaround for help-center local consumption
+
 				mediaNode.marks?.filter((mark) => mark.type.name !== 'annotation'),
 			);
 
@@ -123,6 +131,8 @@ export const createClipboardSerializer = (
 				// Content for media parents can include multiple content nodes (media and captions). We now take that
 				// into consideration when we are stripping annotations
 				let contentArray = [strippedMediaNode];
+				// @ts-ignore - Workaround for help-center local consumption
+
 				content.forEach((node) => {
 					if (node.type.name !== 'media') {
 						contentArray = [...contentArray, node];

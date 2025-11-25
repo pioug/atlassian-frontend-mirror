@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 11.5.6
+
+### Patch Changes
+
+- [`4d676bbdb3ce6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d676bbdb3ce6) -
+  ts-ignore added temporarily to unblock local consumption for help-center, will be removed once
+  project refs are setup
+- Updated dependencies
+
 ## 11.5.5
 
 ### Patch Changes

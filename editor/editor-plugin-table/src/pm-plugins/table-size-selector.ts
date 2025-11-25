@@ -16,11 +16,15 @@ export const createPlugin = (dispatch: Dispatch) => {
 			init: () => ({
 				isSelectorOpen: false,
 			}),
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply: (tr, currentPluginState) => {
 				const meta = tr.getMeta(pluginKey);
 
 				if (meta) {
 					const keys = Object.keys(meta) as Array<keyof SizeSelectorPluginState>;
+					// @ts-ignore - Workaround for help-center local consumption
+
 					const changed = keys.some((key) => {
 						return currentPluginState[key] !== meta[key];
 					});

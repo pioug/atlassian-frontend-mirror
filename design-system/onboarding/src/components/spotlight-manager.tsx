@@ -78,6 +78,7 @@ const Container = ({
 }: {
 	component: ElementType;
 	children: ReactNode;
+	// @ts-ignore - Workaround for help-center local consumption
 }) => <Wrapper>{children}</Wrapper>;
 
 /**

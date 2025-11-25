@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Button from '@atlaskit/button/new';
+import { Checkbox } from '@atlaskit/checkbox';
 import {
 	PanelActionExpand,
 	PanelActionGroup,
@@ -14,22 +16,14 @@ import {
 import { Text } from '@atlaskit/primitives/compiled';
 
 export default function BasicPanel(): React.JSX.Element {
-	const handleExpand = () => {
-		console.log('Panel expanded to full screen');
-	};
-
-	const handleMoreActions = () => {
-		console.log('More actions clicked');
-	};
-
 	return (
 		<PanelContainer testId="basic-panel">
 			<PanelHeader>
 				<PanelTitle>Basic Panel Example</PanelTitle>
 				<PanelActionGroup>
-					<PanelActionExpand onClick={handleExpand} />
+					<PanelActionExpand onClick={() => {}} />
 					<PanelActionNewTab href="https://atlassian.design/components" />
-					<PanelActionMore onClick={handleMoreActions} />
+					<PanelActionMore onClick={() => {}} />
 				</PanelActionGroup>
 			</PanelHeader>
 			<PanelBody>
@@ -39,9 +33,10 @@ export default function BasicPanel(): React.JSX.Element {
 				</Text>
 			</PanelBody>
 			<PanelFooter>
-				<Text as="p" size="small" color="color.text.subtle">
-					Last updated: {new Date().toLocaleDateString()}
-				</Text>
+				<Checkbox label="Create another" isChecked={false} onChange={() => {}} />
+				<Button appearance="primary" onClick={() => {}}>
+					Create
+				</Button>
 			</PanelFooter>
 		</PanelContainer>
 	);

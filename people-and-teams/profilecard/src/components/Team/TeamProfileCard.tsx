@@ -213,6 +213,7 @@ const TeamMembers = ({
 										index === 0 ? (
 											<Avatar ref={ref} {...props} testId="first-member" />
 										) : (
+											// @ts-ignore - Workaround for help-center local consumption
 											<Component {...props} />
 										),
 								},

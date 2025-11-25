@@ -41,13 +41,7 @@ const JsonLdGenerator = ({
 	return (
 		<Form onSubmit={handleSubmit} name="load-link">
 			<Stack>
-				<Field
-					aria-required={true}
-					defaultValue="https://example-url"
-					label="URL"
-					isRequired
-					name="url"
-				>
+				<Field defaultValue="https://example-url" label="URL" isRequired name="url">
 					{({ fieldProps }) => <Textfield {...fieldProps} />}
 				</Field>
 				<Field defaultValue="Example link title" label="Link title" name="title">

@@ -109,6 +109,8 @@ const handleDeleteLayoutColumn: Command = (state, dispatch) => {
 		});
 
 		if (parent) {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			const layoutSectionPos = tr.mapping.map(parent.pos);
 			const layoutSectionNodeSize = parent.node.nodeSize;
 
@@ -131,7 +133,11 @@ export default (options: LayoutPluginOptions) =>
 	new SafePlugin<LayoutState>({
 		key: pluginKey,
 		state: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			init: (_, state): LayoutState => getInitialPluginState(options, state),
+
+			// @ts-ignore - Workaround for help-center local consumption
 
 			apply: (tr, pluginState, oldState, newState) => {
 				const isResizing = editorExperiment('single_column_layouts', true)
@@ -160,6 +166,8 @@ export default (options: LayoutPluginOptions) =>
 			},
 		},
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			decorations(state) {
 				const layoutState = pluginKey.getState(state) as LayoutState;
 				if (layoutState.pos !== null) {
@@ -170,6 +178,8 @@ export default (options: LayoutPluginOptions) =>
 				}
 				return undefined;
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleKeyDown: keydownHandler({
 				Tab: filter(isWholeSelectionInsideLayoutColumn, moveCursorToNextColumn),
 				'Mod-Backspace': handleDeleteLayoutColumn,
@@ -187,14 +197,24 @@ export default (options: LayoutPluginOptions) =>
 				},
 			),
 		},
+		// @ts-ignore - Workaround for help-center local consumption
+
 		appendTransaction: (transactions, _oldState, newState) => {
 			const changes: Change[] = [];
 
+			// @ts-ignore - Workaround for help-center local consumption
+
 			transactions.forEach((prevTr) => {
 				// remap change segments across the transaction set
+				// @ts-ignore - Workaround for help-center local consumption
+
 				changes.forEach((change) => {
 					return {
+						// @ts-ignore - Workaround for help-center local consumption
+
 						from: prevTr.mapping.map(change.from),
+						// @ts-ignore - Workaround for help-center local consumption
+
 						to: prevTr.mapping.map(change.to),
 						slice: change.slice,
 					};
@@ -232,6 +252,8 @@ export default (options: LayoutPluginOptions) =>
 			if (changes.length) {
 				let tr = newState.tr;
 				const selection = newState.selection.toJSON();
+				// @ts-ignore - Workaround for help-center local consumption
+
 				changes.forEach((change) => {
 					tr.replaceRange(change.from, change.to, change.slice);
 				});

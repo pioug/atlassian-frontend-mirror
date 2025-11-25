@@ -9,12 +9,18 @@ export const createAutoExpandSelectionRangeOnInlineNodePlugin = () => {
 	return new SafePlugin({
 		key: autoExpandSelectionRangeOnInlineNodePluginKey,
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleDOMEvents: {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				mousedown: (_view, event) => {
 					// Ignored via go/ees005
 					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					mouseDownElement = event.target as HTMLElement;
 				},
+				// @ts-ignore - Workaround for help-center local consumption
+
 				mouseup: (view, event) => {
 					// Ignored via go/ees005
 					// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -66,6 +72,8 @@ export const createAutoExpandSelectionRangeOnInlineNodePlugin = () => {
 const isMouseUpOnSupportedNode = (mouseUpElement: HTMLElement) => {
 	const supportedNodes = ['emoji', 'status', 'date', 'mention', 'inlineCard'];
 	const supportedNodeViewContentClassNamesList = supportedNodes
+		// @ts-ignore - Workaround for help-center local consumption
+
 		.map((nodeType) => `.${nodeType}View-content-wrap`)
 		.join(', ');
 	return !!mouseUpElement.closest(supportedNodeViewContentClassNamesList);

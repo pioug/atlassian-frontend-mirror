@@ -113,6 +113,8 @@ export const findChanged = (tr: Transaction | ReadonlyTransaction, state: Editor
 			}
 		}
 
+		// @ts-ignore - Workaround for help-center local consumption
+
 		stepMap.forEach((oldStart, oldEnd, newStart, newEnd) => {
 			const before = tr.docs[i];
 			const after = tr.docs[i + 1] ?? tr.doc;
@@ -140,6 +142,8 @@ export const findChanged = (tr: Transaction | ReadonlyTransaction, state: Editor
 			 * Skip/filter out links that have been queued, they will be tracked later
 			 */
 			const queuedPositions = getQueuedPositions(tr);
+			// @ts-ignore - Workaround for help-center local consumption
+
 			return links.filter((link) => !queuedPositions.includes(link.pos));
 		};
 
@@ -194,6 +198,8 @@ export const findChanged = (tr: Transaction | ReadonlyTransaction, state: Editor
 			const newLink = inserted[i];
 
 			// what is the 2nd argument 'assoc = -1' doing here exactly?
+			// @ts-ignore - Workaround for help-center local consumption
+
 			const mappedPos = tr.mapping.map(newLink.pos, -1);
 			const previousDisplay = getResolveLinkPrevDisplay(state, mappedPos);
 
@@ -243,6 +249,8 @@ const UPDATE_ACTIONS: string[] = [ACTION.CHANGED_TYPE, ACTION.UPDATED];
  * intended to be perceived as an update to links, rather than insertion+deletion
  */
 const isUpdateTr = (tr: Transaction | ReadonlyTransaction, isUndoOrRedo: boolean) => {
+	// @ts-ignore - Workaround for help-center local consumption
+
 	return !!tr.steps.find((step) => {
 		if (!(step instanceof LinkMetaStep)) {
 			return false;
@@ -301,6 +309,8 @@ const getQueuedPositions = (tr: Transaction | ReadonlyTransaction) => {
 		return [];
 	}
 
+	// @ts-ignore - Workaround for help-center local consumption
+
 	return pluginMeta.requests.map(({ pos }) => pos);
 };
 
@@ -316,9 +326,15 @@ const getResolvePositions = (tr: Transaction | ReadonlyTransaction, state: Edito
 		return [];
 	}
 
-	return cardState.requests
-		.filter((request) => request.url === pluginMeta.url)
-		.map((request) => request.pos);
+	return (
+		cardState.requests
+			// @ts-ignore - Workaround for help-center local consumption
+
+			.filter((request) => request.url === pluginMeta.url)
+			// @ts-ignore - Workaround for help-center local consumption
+
+			.map((request) => request.pos)
+	);
 };
 
 const getResolveLinkPrevDisplay = (state: EditorState, pos: number) => {
@@ -326,6 +342,8 @@ const getResolveLinkPrevDisplay = (state: EditorState, pos: number) => {
 	if (!cardState) {
 		return undefined;
 	}
+
+	// @ts-ignore - Workaround for help-center local consumption
 
 	return cardState.requests.find((request) => request.pos === pos)?.previousAppearance;
 };
@@ -353,6 +371,8 @@ export function eventsFromTransaction(
 		 */
 		const isRemote: unknown = tr.getMeta('isRemote');
 		const isReplaceDocument: unknown = tr.getMeta('replaceDocument');
+		// @ts-ignore - Workaround for help-center local consumption
+
 		const isTableSort = tr.steps.find((step) => step instanceof TableSortStep);
 
 		if (isRemote || isReplaceDocument || isTableSort) {
@@ -371,6 +391,8 @@ export function eventsFromTransaction(
 		const { removed, inserted, updated } = findChanged(tr, state);
 
 		const MAX_LINK_EVENTS = 50;
+		// @ts-ignore - Workaround for help-center local consumption
+
 		if ([removed, inserted, updated].some((arr) => arr.length > MAX_LINK_EVENTS)) {
 			return [];
 		}

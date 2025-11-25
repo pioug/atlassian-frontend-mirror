@@ -46,7 +46,7 @@ const HoverCardContent = ({
 	const linkStatus = linkState.status ?? 'pending';
 	const definitionId = useMemo(() => getDefinitionId(cardState.details), [cardState.details]);
 
-	const { isAdminHubAIEnabled } = useSmartLinkContext();
+	const { isAdminHubAIEnabled, product } = useSmartLinkContext();
 	const isAISummaryEnabled = getIsAISummaryEnabled(isAdminHubAIEnabled, cardState.details);
 
 	const services = getServices(linkState.details);
@@ -113,11 +113,16 @@ const HoverCardContent = ({
 
 	const titleMaxLines = subtitle && subtitle.length > 0 ? 1 : 2;
 
+	// Platform apps (Home, Goals, Projects, and Teams) should by default open in the same tab when the FF is enabled.
+	const isSameTabAlignmentEnabled = fg('townsquare-same-tab-alignment-gcko-849');
+	const anchorTarget = product === 'ATLAS' && isSameTabAlignmentEnabled ? '_self' : undefined;
+
 	const titleBlockProps: TitleBlockProps = {
 		maxLines: titleMaxLines,
 		size: SmartLinkSize.Large,
 		position: SmartLinkPosition.Center,
 		subtitle: subtitle,
+		...(isSameTabAlignmentEnabled ? { anchorTarget } : undefined),
 	};
 
 	const uiOptions = flexibleUiOptions;

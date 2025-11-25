@@ -54,6 +54,8 @@ function nodesBetweenChanged(
 		return;
 	}
 
+	// @ts-ignore - Workaround for help-center local consumption
+
 	tr.doc.nodesBetween(stepRange.from, stepRange.to, f, startPos);
 }
 
@@ -72,6 +74,8 @@ export function createPlugin(
 ) {
 	return new SafePlugin<TaskDecisionPluginState>({
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			nodeViews: {
 				taskItem: taskView(api, getIntl(), taskPlaceholder),
 				decisionItem: ((node) => {
@@ -81,6 +85,8 @@ export function createPlugin(
 					? { blockTaskItem: taskView(api, getIntl(), taskPlaceholder) }
 					: {}),
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			decorations(state) {
 				const pluginState = stateKey.getState(state);
 				if (pluginState?.decorations) {
@@ -88,6 +94,8 @@ export function createPlugin(
 				}
 				return DecorationSet.empty;
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleTextInput(view: EditorView, from: number, to: number, text: string) {
 				// When a decision item is selected and the user starts typing, the entire node
 				// should be replaced with what was just typed. This custom text input handler
@@ -115,11 +123,15 @@ export function createPlugin(
 					target.getAttribute('aria-label') === 'Decision',
 				{ useLongPressSelection },
 			),
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleDOMEvents: {
 				// When the page is lazy loaded and task item is not yet available this allows
 				// our toDOM implementation to toggle the node state
 				change: taskItemOnChange,
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			handleKeyDown: (view: EditorView, event: KeyboardEvent) => {
 				const { state } = view;
 				const { selection, schema } = state;
@@ -230,6 +242,8 @@ export function createPlugin(
 					}
 				}
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			transformPasted: (slice: Slice, view: EditorView) => {
 				if (Boolean(view?.state?.schema?.nodes?.blockTaskItem)) {
 					slice = tempTransformSliceToRemoveBlockTaskItem(slice, view);
@@ -239,6 +253,8 @@ export function createPlugin(
 			},
 		},
 		state: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			init() {
 				return {
 					insideTaskDecisionItem: false,
@@ -250,6 +266,8 @@ export function createPlugin(
 					decorations: DecorationSet.empty,
 				};
 			},
+			// @ts-ignore - Workaround for help-center local consumption
+
 			apply(tr, pluginState) {
 				const metaData: (TaskDecisionPluginAction & TaskDecisionPluginCommand) | undefined =
 					tr.getMeta(stateKey);
@@ -313,6 +331,8 @@ export function createPlugin(
 						),
 					]);
 				} else {
+					// @ts-ignore - Workaround for help-center local consumption
+
 					decorations = newPluginState.decorations?.map(tr.mapping, tr.doc);
 				}
 
@@ -334,9 +354,13 @@ export function createPlugin(
 		 *
 		 * Note: we currently do not handle the edge case where two nodes may have the same localId
 		 */
+		// @ts-ignore - Workaround for help-center local consumption
+
 		appendTransaction: (transactions, _oldState, newState) => {
 			const tr = newState.tr;
 			let modified = false;
+			// @ts-ignore - Workaround for help-center local consumption
+
 			transactions.forEach((transaction) => {
 				if (!transaction.docChanged) {
 					return;

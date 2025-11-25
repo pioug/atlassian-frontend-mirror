@@ -8,6 +8,7 @@ import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/ana
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
+import type { ProductType } from '@atlaskit/linking-common';
 import { Box } from '@atlaskit/primitives/compiled';
 import { Card, type CardProps } from '@atlaskit/smart-card';
 import { setGlobalTheme } from '@atlaskit/tokens';
@@ -23,6 +24,7 @@ export type SetUpParams = {
 	extraCardProps?: Partial<CardProps>;
 	mock?: any;
 	mockFetch?: () => unknown;
+	product?: ProductType;
 	testId?: string;
 	userEventOptions?: {
 		advanceTimers?: typeof jest.advanceTimersByTime;
@@ -43,6 +45,7 @@ export const setup = async ({
 	extraCardProps,
 	mockFetch = jest.fn(() => Promise.resolve(mock)),
 	userEventOptions = { delay: null },
+	product,
 }: SetUpParams = {}) => {
 	const mockClient = new (fakeFactory(mockFetch))();
 	const analyticsSpy = jest.fn();
@@ -60,7 +63,7 @@ export const setup = async ({
 			<FabricAnalyticsListeners client={mockAnalyticsClient}>
 				<AnalyticsListener channel={analytics.ANALYTICS_CHANNEL} onEvent={analyticsSpy}>
 					<IntlProvider locale="en">
-						<Provider client={mockClient}>
+						<Provider client={mockClient} product={product}>
 							{component ? (
 								component
 							) : (

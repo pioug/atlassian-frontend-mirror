@@ -27,7 +27,11 @@ const createPlugin = (pmPluginFactoryParams: PMPluginFactoryParams) => {
 		state: createPluginState(dispatch, newPluginState),
 		key: pluginKey,
 		props: {
+			// @ts-ignore - Workaround for help-center local consumption
+
 			nodeViews: {
+				// @ts-ignore - Workaround for help-center local consumption
+
 				date: (node, view, getPos, decorations) => {
 					return new DateNodeView(node, view, getPos, pmPluginFactoryParams.getIntl(), decorations);
 				},

@@ -13,6 +13,20 @@ import type { CustomExperienceMetadata, ExperienceState } from './types';
 
 type ExperienceOptions = {
 	/**
+	 * An optional sub identifier to further classify the specific experience action taken
+	 *
+	 * e.g. 'bold' 'bullet' 'insert-table'
+	 */
+	action?: string;
+
+	/**
+	 * An optional sub identifier to further classify the specific experience action subject
+	 *
+	 * e.g. 'selection-toolbar' 'quick-insert'
+	 */
+	actionSubjectId?: string;
+
+	/**
 	 * Checks used to control experience transition to various states.
 	 * Once the experience is in progress, these checks can automatically trigger
 	 * state transitions (e.g., timeout check to trigger failure).
@@ -26,6 +40,13 @@ type ExperienceOptions = {
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 
 	/**
+	 * Optional global metadata to attach to all analytics events for this experience.
+	 *
+	 * Can be overridden by metadata provided in individual start/abort/fail/success calls.
+	 */
+	metadata?: CustomExperienceMetadata;
+
+	/**
 	 * Sample rate for experienceSampled events.
 	 * Determines how frequently we should track events for the experience based on
 	 * expected volume. Value should be between 0 and 1.
@@ -37,35 +58,22 @@ type ExperienceOptions = {
 	 * instrumentation, then the sample rate can be tuned up to a safe threshold.
 	 */
 	sampleRate?: number;
-
-	/**
-	 * Optional global metadata to attach to all analytics events for this experience.
-	 *
-	 * Can be overridden by metadata provided in individual start/abort/fail/success calls.
-	 */
-	metadata?: CustomExperienceMetadata;
-
-	/**
-	 * An optional sub identifier to further classify the specific experience action taken
-	 *
-	 * e.g. 'bold' 'bullet' 'insert-table'
-	 */
-	action?: string;
 };
 
 type ExperienceStartOptions = {
+	forceRestart?: boolean;
 	metadata?: CustomExperienceMetadata;
 	method?: string;
-	forceRestart?: boolean;
 };
 
 type ExperienceEndOptions = {
-	reason?: string;
 	metadata?: CustomExperienceMetadata;
+	reason?: string;
 };
 
 export class Experience {
 	private readonly id: string;
+	private readonly actionSubjectId: string | undefined;
 	private readonly dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 	private readonly sampleRate: number;
 	private readonly globalMetadata: CustomExperienceMetadata | undefined;
@@ -106,16 +114,18 @@ export class Experience {
 	/**
 	 * Creates a new Experience instance for tracking user experiences.
 	 *
-	 * @param id - Unique identifier for the experience
+	 * @param id - Unique identifier for the experience e.g. 'toolbar-open' 'menu-action'
 	 * @param options - Configuration options for the experience
 	 * @param options.checks - Experience checks to monitor for completion
 	 * @param options.dispatchAnalyticsEvent - Function to dispatch analytics events
 	 * @param options.sampleRate - Sample rate for experienceSampled events
 	 * @param options.metadata - Global metadata to attach to all events
-	 * @param options.action - Optional sub identifier for the specific experience action
+	 * @param options.action - Optional sub identifier for the specific experience action e.g. 'bold' 'insert-table'
+	 * @param options.actionSubjectId - Optional sub identifier for the experience action subject e.g. 'selection-toolbar' 'quick-insert'
 	 */
 	constructor(id: string, options: ExperienceOptions) {
 		this.id = id;
+		this.actionSubjectId = options.actionSubjectId;
 		this.dispatchAnalyticsEvent = options.dispatchAnalyticsEvent;
 		this.sampleRate = options.sampleRate ?? DEFAULT_EXPERIENCE_SAMPLE_RATE;
 		this.globalMetadata = {
@@ -217,7 +227,7 @@ export class Experience {
 		const experienceMeasuredEvent: ExperienceEventPayload = {
 			action: ACTION.EXPERIENCE_MEASURED,
 			actionSubject: ACTION_SUBJECT.EDITOR,
-			actionSubjectId: undefined,
+			actionSubjectId: this.actionSubjectId,
 			eventType: EVENT_TYPE.OPERATIONAL,
 			attributes,
 		};
@@ -228,7 +238,7 @@ export class Experience {
 			const experienceSampledEvent: ExperienceEventPayload = {
 				action: ACTION.EXPERIENCE_SAMPLED,
 				actionSubject: ACTION_SUBJECT.EDITOR,
-				actionSubjectId: undefined,
+				actionSubjectId: this.actionSubjectId,
 				eventType: EVENT_TYPE.OPERATIONAL,
 				attributes,
 			};

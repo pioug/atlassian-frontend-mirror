@@ -1,8 +1,10 @@
 import React, { type ErrorInfo } from 'react';
 
+import type { Primitive } from '@sentry/types';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
+import { default as AnalyticsReactContext } from '@atlaskit/analytics-next-stable-react-context';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { ErrorEventAttributes, ErrorEventPayload } from '@atlaskit/editor-common/analytics';
 import {
@@ -18,6 +20,8 @@ import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 
 import { isOutdatedBrowser } from '../utils/outdatedBrowsers';
 
@@ -103,8 +107,7 @@ export class ErrorBoundaryWithEditorView extends React.Component<
 				errorId: sharedId,
 			},
 		});
-
-		logException(error, {
+		this.logException(error, {
 			location: 'editor-core/create-editor',
 			product,
 		});
@@ -123,6 +126,10 @@ export class ErrorBoundaryWithEditorView extends React.Component<
 
 	private fireAnalyticsEvent = (event: ErrorEventPayload) => {
 		this.props.createAnalyticsEvent?.(event).fire(editorAnalyticsChannel);
+	};
+
+	protected logException = (error: Error, tags?: { [key: string]: Primitive }) => {
+		logException(error, tags);
 	};
 
 	componentDidCatch(error: Error, errorInfo: ErrorInfo) {
@@ -174,4 +181,24 @@ export class ErrorBoundaryWithEditorView extends React.Component<
 	}
 }
 
-export default WithEditorView(ErrorBoundaryWithEditorView);
+export class ErrorBoundaryWithEditorViewWithAnalyticsReactContext extends ErrorBoundaryWithEditorView {
+	static contextType = AnalyticsReactContext;
+	context!: React.ContextType<typeof AnalyticsReactContext>;
+
+	constructor(props: ErrorBoundaryProps) {
+		super(props);
+	}
+
+	protected logException = (error: Error, tags?: { [key: string]: Primitive }) => {
+		const extraTags: Record<string, string> = {};
+		extraTags.editorSessionId =
+			this.context?.getAtlaskitAnalyticsContext()?.[0]?.fabricEditorCtx?.editorSessionId;
+		logException(error, { ...tags, ...extraTags });
+	};
+}
+
+export default componentWithCondition(
+	() => fg('platform_editor_sentry_breadcrumbs'),
+	WithEditorView(ErrorBoundaryWithEditorViewWithAnalyticsReactContext),
+	WithEditorView(ErrorBoundaryWithEditorView),
+);

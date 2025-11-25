@@ -5,6 +5,8 @@ import { isInsertionTransaction } from './isInsertionTransaction';
 
 export function createPlugin(): SafePlugin {
 	return new SafePlugin({
+		// @ts-ignore - Workaround for help-center local consumption
+
 		appendTransaction(transactions, _oldState, newState) {
 			const insertItemCallback = isInsertionTransaction(transactions, ACTIONS.INSERT_ITEM);
 			if (insertItemCallback) {

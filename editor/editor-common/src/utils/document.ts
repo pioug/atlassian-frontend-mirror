@@ -20,7 +20,9 @@ export const getStepRange = (
 	let from = -1;
 	let to = -1;
 
+	// @ts-ignore - Workaround for help-center local consumption
 	transaction.mapping.maps.forEach((stepMap, index) => {
+		// @ts-ignore - Workaround for help-center local consumption
 		stepMap.forEach((oldStart, oldEnd) => {
 			const newStart = transaction.mapping.slice(index).map(oldStart, -1);
 			const newEnd = transaction.mapping.slice(index).map(oldEnd);

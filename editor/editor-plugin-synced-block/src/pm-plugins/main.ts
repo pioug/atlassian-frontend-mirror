@@ -41,6 +41,7 @@ export const createPlugin = (
 	return new SafePlugin<SyncedBlockPluginState>({
 		key: syncedBlockPluginKey,
 		state: {
+			// @ts-ignore - Workaround for help-center local consumption
 			init(_, instance: EditorState): SyncedBlockPluginState {
 				const syncBlockNodes = instance.doc.children.filter(
 					(node) => node.type.name === 'syncBlock',
@@ -58,6 +59,7 @@ export const createPlugin = (
 					syncBlockStore: syncBlockStore,
 				};
 			},
+			// @ts-ignore - Workaround for help-center local consumption
 			apply: (tr, currentPluginState, oldEditorState) => {
 				const meta = tr.getMeta(syncedBlockPluginKey);
 
@@ -87,6 +89,7 @@ export const createPlugin = (
 					api,
 				}),
 			},
+			// @ts-ignore - Workaround for help-center local consumption
 			decorations: (state) => {
 				const selectionDecorationSet: DecorationSet =
 					syncedBlockPluginKey.getState(state)?.selectionDecorationSet ?? DecorationSet.empty;
@@ -98,6 +101,7 @@ export const createPlugin = (
 				const offlineDecorations: Decoration[] = [];
 				const viewModeDecorations: Decoration[] = [];
 
+				// @ts-ignore - Workaround for help-center local consumption
 				state.doc.descendants((node, pos) => {
 					if (node.type.name === 'bodiedSyncBlock' && isOffline) {
 						offlineDecorations.push(
@@ -127,9 +131,11 @@ export const createPlugin = (
 				{ useLongPressSelection },
 			),
 			handleDOMEvents: {
+				// @ts-ignore - Workaround for help-center local consumption
 				mouseover(view, event) {
 					return shouldIgnoreDomEvent(view, event, api);
 				},
+				// @ts-ignore - Workaround for help-center local consumption
 				mousedown(view, event) {
 					return shouldIgnoreDomEvent(view, event, api);
 				},
@@ -144,6 +150,7 @@ export const createPlugin = (
 				},
 			};
 		},
+		// @ts-ignore - Workaround for help-center local consumption
 		filterTransaction: (tr, state) => {
 			const isOffline = api?.connectivity?.sharedState.currentState()?.mode === 'offline';
 			const isConfirmedSyncBlockDeletion = Boolean(tr.getMeta('isConfirmedSyncBlockDeletion'));
@@ -227,9 +234,12 @@ export const createPlugin = (
 
 			return true;
 		},
+		// @ts-ignore - Workaround for help-center local consumption
 		appendTransaction: (trs, _oldState, newState) => {
 			trs
+				// @ts-ignore - Workaround for help-center local consumption
 				.filter((tr) => tr.docChanged)
+				// @ts-ignore - Workaround for help-center local consumption
 				.forEach((tr) => {
 					syncBlockStore?.sourceManager.rebaseTransaction(tr, newState);
 				});

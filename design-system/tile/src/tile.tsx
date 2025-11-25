@@ -311,7 +311,6 @@ export default function Tile(props: TileProps) {
 				backgroundColorMap[backgroundColor || 'color.background.neutral'],
 				hasBorder && styles.border,
 			]}
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 			aria-label={label !== '' ? label : undefined}
 			role={label !== '' ? 'img' : undefined}
 		>

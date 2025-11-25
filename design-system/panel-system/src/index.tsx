@@ -45,3 +45,8 @@ export {
 	PanelActionClose,
 	type PanelActionCloseProps,
 } from './components/panel-action-variants/panel-action-close/panel-action-close';
+
+export {
+	PanelActionBack,
+	type PanelActionBackProps,
+} from './components/panel-action-variants/panel-action-back/panel-action-back';

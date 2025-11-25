@@ -195,6 +195,7 @@ class ImportDeclarationProxy implements IImportDeclaration {
 			.map((text) => text.trim());
 
 		if (isSharedUIKit2TypesImport(this.base)) {
+			// Map shared UIKit type imports to types.codegen
 			packageName = './types.codegen';
 		}
 
@@ -245,12 +246,11 @@ class SimpleImportDeclaration implements IImportDeclaration {
 
 // handles type imports from platform/packages/forge/forge-ui/src/components/UIKit/types.ts
 const isSharedUIKit2TypesImport = (importDeclaration: ImportDeclaration) => {
+	const fileName = importDeclaration.getModuleSpecifierValue().split('/').pop();
 	return (
 		importDeclaration.isTypeOnly() &&
-		// file is a relative import
 		importDeclaration.getModuleSpecifierValue().charAt(0) === '.' &&
-		// file is named types
-		importDeclaration.getModuleSpecifierValue().split('/').pop() === 'types'
+		fileName === 'types'
 	);
 };
 

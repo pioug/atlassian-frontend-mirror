@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 3.2.7
+
+### Patch Changes
+
+- [`bc52c059565f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc52c059565f2) -
+  Fix issue with simplify changes being too aggressive and dropping steps causing diffs to fail.
+
 ## 3.2.6
 
 ### Patch Changes

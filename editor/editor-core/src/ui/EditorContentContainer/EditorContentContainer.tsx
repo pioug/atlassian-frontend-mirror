@@ -696,6 +696,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					fg('confluence_floating_toolbar_animation') && selectionToolbarAnimationStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('platform_editor_vanilla_codebidi_warning') && codeBidiWarningStyles,
+					// @ts-expect-error - true is not allowed as a default value
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					expValNoExposure('platform_editor_block_menu', 'isEnabled', true) && [
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

@@ -4990,24 +4990,29 @@ td>.emotion-0 .ak-editor-expand {
   background-color: transparent;
 }
 
-.emotion-0 .ProseMirror h1 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image) {
+.emotion-0 .ProseMirror h1 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-placeholder) {
   height: 28px;
   width: 28px;
 }
 
-.emotion-0 .ProseMirror h2 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image) {
+.emotion-0 .ProseMirror h2 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-placeholder) {
   height: 26px;
   width: 26px;
 }
 
-.emotion-0 .ProseMirror h3 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image) {
+.emotion-0 .ProseMirror h3 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-placeholder) {
   height: 24px;
   width: 24px;
 }
 
-.emotion-0 .ProseMirror h4 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image) {
+.emotion-0 .ProseMirror h4 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-placeholder) {
   height: 22px;
   width: 22px;
+}
+
+.emotion-0 .ProseMirror :is(h5, h6, p) .emoji-common-placeholder {
+  height: 20px;
+  width: 20px;
 }
 
 .emotion-0 .panelView-content-wrap {
@@ -10095,24 +10100,29 @@ td>.emotion-0 .ak-editor-expand {
   background-color: transparent;
 }
 
-.emotion-0 .ProseMirror h1 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image) {
+.emotion-0 .ProseMirror h1 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-placeholder) {
   height: 28px;
   width: 28px;
 }
 
-.emotion-0 .ProseMirror h2 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image) {
+.emotion-0 .ProseMirror h2 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-placeholder) {
   height: 26px;
   width: 26px;
 }
 
-.emotion-0 .ProseMirror h3 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image) {
+.emotion-0 .ProseMirror h3 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-placeholder) {
   height: 24px;
   width: 24px;
 }
 
-.emotion-0 .ProseMirror h4 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image) {
+.emotion-0 .ProseMirror h4 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-placeholder) {
   height: 22px;
   width: 22px;
+}
+
+.emotion-0 .ProseMirror :is(h5, h6, p) .emoji-common-placeholder {
+  height: 20px;
+  width: 20px;
 }
 
 .emotion-0 .panelView-content-wrap {

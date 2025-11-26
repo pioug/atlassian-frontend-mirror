@@ -6,13 +6,11 @@ import { Fragment } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import Icon from '@atlaskit/icon';
+import PremiumIcon from '@atlaskit/icon/core/premium';
 import { type CustomItemComponentProps } from '@atlaskit/menu';
 import { Anchor } from '@atlaskit/primitives/compiled';
 import { Footer } from '@atlaskit/side-navigation';
 import { token } from '@atlaskit/tokens';
-
-import SampleIcon from './next-gen-project-icon';
 
 const styles = cssMap({
 	descriptionLink: {
@@ -54,7 +52,7 @@ const ExampleFooter = () => (
 				</Anchor>
 			</Fragment>
 		}
-		iconBefore={<Icon label="" glyph={SampleIcon} />}
+		iconBefore={<PremiumIcon label="" />}
 	>
 		You're in a next-gen project
 	</Footer>

@@ -7,6 +7,26 @@ import type { ExperimentConfigValue } from './types';
 export type EditorExperimentsConfig = typeof editorExperimentsConfig;
 
 /**
+ * Extract valid expected values.
+ * - For multivariate experiments: returns union of valid string values (inferred from defaultValue type)
+ * - For boolean experiments: returns only 'true' literal (cannot use 'false' as expected value)
+ */
+export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimentsConfig> =
+	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
+		? true // Boolean: only 'true' is allowed as expected value
+		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+
+/**
+ * Extract valid default values.
+ * - For boolean experiments: returns only 'false' literal (cannot use 'true' as default value)
+ * - For multivariate experiments: returns the default value type (one of the string values)
+ */
+export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperimentsConfig> =
+	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
+		? false // Boolean: only 'false' is allowed as default value
+		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+
+/**
  * When adding a new experiment, you need to add it here.
  * Please follow the pattern established in the examples and any
  * existing experiments.
@@ -398,14 +418,6 @@ export const editorExperimentsConfig = {
 	platform_editor_debounce_portal_provider: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_debounce_portal_provider',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-10-15
-	platform_editor_no_ssr: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_no_ssr',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

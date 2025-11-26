@@ -40,7 +40,7 @@ var enableGlobalTheme = function enableGlobalTheme() {
     _ref$light = _ref.light,
     light = _ref$light === void 0 ? _themeConfig.themeStateDefaults['light'] : _ref$light,
     _ref$shape = _ref.shape,
-    shape = _ref$shape === void 0 ? _themeConfig.themeStateDefaults['shape'] : _ref$shape,
+    shape = _ref$shape === void 0 ? _themeConfig.themeStateDefaults['shape']() : _ref$shape,
     _ref$spacing = _ref.spacing,
     spacing = _ref$spacing === void 0 ? _themeConfig.themeStateDefaults['spacing'] : _ref$spacing,
     _ref$typography = _ref.typography,

@@ -19,7 +19,6 @@ import {
 	fireAnalyticsEvent,
 	PLATFORMS,
 } from '@atlaskit/editor-common/analytics';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { createDispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useConstructor, usePreviousState } from '@atlaskit/editor-common/hooks';
 import { nodeVisibilityManager } from '@atlaskit/editor-common/node-visibility';
@@ -60,7 +59,6 @@ import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { useProviders } from '../composable-editor/hooks/useProviders';
 import type { EditorConfig, EditorProps } from '../types';
@@ -724,10 +722,6 @@ export function ReactEditorView(props: EditorViewProps) {
 
 	const handleEditorViewRef = useCallback(
 		(node: HTMLDivElement) => {
-			if (expVal('platform_editor_no_ssr', 'isEnabled', false) && isSSR()) {
-				return;
-			}
-
 			if (node) {
 				// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 				scrollElement.current = document.querySelector('[data-editor-scroll-container]');

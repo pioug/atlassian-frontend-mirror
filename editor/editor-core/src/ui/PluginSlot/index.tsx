@@ -81,6 +81,7 @@ const PluginSlot = ({
 			<div
 				css={pluginsComponentsWrapper}
 				data-testid={
+					// @ts-expect-error - true is not allowed as a default value
 					expVal('platform_editor_experience_tracking', 'isEnabled', true)
 						? 'plugins-components-wrapper'
 						: undefined

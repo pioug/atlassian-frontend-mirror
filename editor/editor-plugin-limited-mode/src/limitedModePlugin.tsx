@@ -50,6 +50,7 @@ export const limitedModePlugin: LimitedModePlugin = ({ config: options = {}, api
 
 			const checkAndShowFlag = useCallback(
 				(isLimitedModeEnabled: boolean) => {
+					// @ts-expect-error - true is not allowed as a default value
 					if (!(expVal('cc_editor_limited_mode', 'flagEnabled', true) === true)) {
 						// Disable the flag behavior entirely if the flag is off
 						return;

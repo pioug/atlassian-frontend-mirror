@@ -1,4 +1,11 @@
-import { TEAM_ARI_PREFIX, type TeamARI, USER_ARI_PREFIX, type UserARI } from '../types';
+import {
+	TEAM_ARI_PREFIX,
+	TEAM_TYPE_ARI_PREFIX,
+	type TeamARI,
+	type TeamTypeAri,
+	USER_ARI_PREFIX,
+	type UserARI,
+} from '../types';
 
 export const isUserARI = (ari: string): ari is UserARI => ari.startsWith(USER_ARI_PREFIX);
 
@@ -24,4 +31,17 @@ export const toTeamId = (ari: TeamARI | string): string => {
 
 export const toTeamARI = (teamId: string): TeamARI => {
 	return isTeamARI(teamId) ? teamId : (`${TEAM_ARI_PREFIX}${teamId}` as TeamARI);
+};
+
+/**
+ * TODO: Replace these team type ari utils with @atlassian/ari when it is published
+ */
+export const isTeamTypeAri = (ari: string): ari is TeamTypeAri =>
+	ari.startsWith(TEAM_TYPE_ARI_PREFIX);
+
+export const toTeamTypeId = (teamTypeAriOrId: TeamTypeAri | string): string => {
+	if (isTeamTypeAri(teamTypeAriOrId)) {
+		return teamTypeAriOrId.replace(TEAM_TYPE_ARI_PREFIX, '');
+	}
+	return teamTypeAriOrId;
 };

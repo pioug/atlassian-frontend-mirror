@@ -66,6 +66,11 @@ describe('TeamLinkCardActions', () => {
 			await user.click(disconnectButton);
 			expect(defaultProps.onDisconnectButtonClick).toHaveBeenCalledTimes(1);
 		});
+
+		it('should capture and report a11y violations', async () => {
+			const { container } = renderWithIntl(<TeamLinkCardActions {...defaultProps} />);
+			await expect(container).toBeAccessible();
+		});
 	});
 
 	describe('WebLink containers', () => {
@@ -133,6 +138,11 @@ describe('TeamLinkCardActions', () => {
 			const button = screen.getByRole('button', { name: /more options for Test Container/i });
 			const boxWrapper = button.parentElement;
 			expect(boxWrapper).toHaveStyle({ display: 'flex' });
+		});
+
+		it('should capture and report a11y violations', async () => {
+			const { container } = renderWithIntl(<TeamLinkCardActions {...webLinkProps} />);
+			await expect(container).toBeAccessible();
 		});
 	});
 

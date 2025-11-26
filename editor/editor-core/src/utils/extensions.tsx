@@ -105,7 +105,8 @@ export async function extensionProviderToQuickInsertProvider(
 						icon: () => <Icon label="" />,
 						keywords: item.keywords,
 						featured: item.featured,
-						...(fg('cc_fd_wb_create_priority_in_slash_menu_enabled') && {
+						...((fg('cc_fd_wb_create_priority_in_slash_menu_enabled') ||
+							fg('rovo_chat_enable_skills_ui_m1')) && {
 							priority: item.priority,
 						}),
 						categories: item.categories,

@@ -40,7 +40,7 @@ const setGlobalTheme = async (
 		contrastMode = themeStateDefaults['contrastMode'],
 		dark = themeStateDefaults['dark'],
 		light = themeStateDefaults['light'],
-		shape = themeStateDefaults['shape'],
+		shape = themeStateDefaults['shape'](),
 		spacing = themeStateDefaults['spacing'],
 		typography = themeStateDefaults['typography'](),
 		UNSAFE_themeOptions = themeStateDefaults['UNSAFE_themeOptions'],
@@ -48,6 +48,7 @@ const setGlobalTheme = async (
 		? nextThemeState({
 				...themeStateDefaults,
 				typography: themeStateDefaults['typography'](),
+				shape: themeStateDefaults['shape'](),
 				...getGlobalTheme(),
 			})
 		: nextThemeState;

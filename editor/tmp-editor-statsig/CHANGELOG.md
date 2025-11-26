@@ -1,5 +1,17 @@
 # @atlaskit/editor-statsig-tmp
 
+## 13.44.0
+
+### Minor Changes
+
+- [`60c2daf68b2a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60c2daf68b2a9) -
+  add type guard for expected value and default value in expVal, expValNoExposure, expValEquals and
+  expValEqualsNoExposure
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.43.0
 
 ### Minor Changes

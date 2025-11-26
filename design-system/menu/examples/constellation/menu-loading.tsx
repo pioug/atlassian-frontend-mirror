@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Icon from '@atlaskit/icon';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import {
@@ -82,7 +81,7 @@ export default (): React.JSX.Element => {
 							isLoading={isLoading}
 							iconBefore={
 								<Box xcss={iconContainerStyles}>
-									<Icon glyph={Portfolio} primaryColor={token('color.icon.brand')} label="" />
+									<Portfolio color={token('color.icon.brand')} aria-label="" />
 								</Box>
 							}
 							iconAfter={<StarStarredIcon color={token('color.icon.accent.orange')} label="" />}
@@ -91,19 +90,19 @@ export default (): React.JSX.Element => {
 						</Item>
 						<Item
 							isLoading={isLoading}
-							iconBefore={<Icon glyph={Tempo} label="" />}
+							iconBefore={<Tempo aria-label="" />}
 							iconAfter={<StarStarredIcon color={token('color.icon.accent.orange')} label="" />}
 						>
 							Tempo timesheets
 						</Item>
 						<Item
 							isLoading={isLoading}
-							iconBefore={<Icon glyph={Invision} label="" />}
+							iconBefore={<Invision aria-label="" />}
 							iconAfter={<StarUnstarredIcon label="" />}
 						>
 							Invision
 						</Item>
-						<Item isLoading={isLoading} iconBefore={<Icon glyph={Slack} label="" />}>
+						<Item isLoading={isLoading} iconBefore={<Slack aria-label="" />}>
 							Slack
 						</Item>
 					</Section>

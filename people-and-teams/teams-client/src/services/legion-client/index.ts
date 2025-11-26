@@ -1,3 +1,4 @@
+import { toTeamTypeId } from '../../common/utils/ari';
 import {
 	type InvitedUser,
 	type LinkOrder,
@@ -571,7 +572,7 @@ export class LegionClient extends RestClient implements LegionClient {
 			siteId: this.getCloudId(),
 			organizationId: organizationId,
 			members: [...new Set(members)],
-			typeId,
+			typeId: typeId ? toTeamTypeId(typeId) : undefined,
 		});
 
 		return this.mapTeamCreateResponseV4ToTeam(legionTeam);

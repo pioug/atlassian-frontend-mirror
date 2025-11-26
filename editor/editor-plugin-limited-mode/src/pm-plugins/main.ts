@@ -18,6 +18,7 @@ export const createPlugin = () => {
 			// @ts-ignore - Workaround for help-center local consumption
 
 			init(config, editorState) {
+				// @ts-expect-error - true is not allowed as a default value
 				if (expVal('cc_editor_limited_mode_include_lcm', 'isEnabled', true)) {
 					// calculates the size of the doc, where when there are legacy content macros, the content
 					// is stored in the attrs.
@@ -51,6 +52,7 @@ export const createPlugin = () => {
 					return currentPluginState;
 				}
 
+				// @ts-expect-error - true is not allowed as a default value
 				if (expVal('cc_editor_limited_mode_include_lcm', 'isEnabled', true)) {
 					// calculates the size of the doc, where when there are legacy content macros, the content
 					// is stored in the attrs.

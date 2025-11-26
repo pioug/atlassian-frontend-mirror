@@ -42,7 +42,7 @@ var getThemeHtmlAttrs = function getThemeHtmlAttrs() {
     _ref$contrastMode = _ref.contrastMode,
     contrastMode = _ref$contrastMode === void 0 ? _themeConfig.themeStateDefaults['contrastMode'] : _ref$contrastMode,
     _ref$shape = _ref.shape,
-    shape = _ref$shape === void 0 ? _themeConfig.themeStateDefaults['shape'] : _ref$shape,
+    shape = _ref$shape === void 0 ? _themeConfig.themeStateDefaults['shape']() : _ref$shape,
     _ref$spacing = _ref.spacing,
     spacing = _ref$spacing === void 0 ? _themeConfig.themeStateDefaults['spacing'] : _ref$spacing,
     _ref$typography = _ref.typography,

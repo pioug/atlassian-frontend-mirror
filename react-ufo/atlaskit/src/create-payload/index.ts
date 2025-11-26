@@ -77,7 +77,7 @@ import { optimizeReactProfilerTimings } from './utils/optimize-react-profiler-ti
 import { optimizeRequestInfo } from './utils/optimize-request-info';
 import { optimizeSpans } from './utils/optimize-spans';
 
-const MAX_PAYLOAD_SIZE = 250;
+const MAX_PAYLOAD_SIZE = 230;
 
 function getUfoNameOverride(interaction: InteractionMetrics): string {
 	const { ufoName, apdex } = interaction;
@@ -777,6 +777,40 @@ async function createInteractionMetricsPayload(
 		payload.attributes.properties['event:sizeInKb'] = getPayloadSize(payload.attributes.properties);
 	} else {
 		payload.attributes.properties['event:sizeInKb'] = getPayloadSize(payload.attributes.properties);
+	}
+
+	if (fg('platform_ufo_enable_trimmed_payload')) {
+		// in order of importance, first one being least important
+		// we can add more fields as necessary
+		const interactionMetricsFieldsToTrim = ['requestInfo', 'featureFlags', 'resourceTimings'];
+		type TrimmableProperties = typeof payload.attributes.properties & {
+			interactionMetrics?: typeof payload.attributes.properties.interactionMetrics &
+				Record<string, unknown>;
+			'event:isTrimmed'?: boolean;
+			'event:trimmedFields'?: string[];
+		};
+		const properties = payload.attributes.properties as TrimmableProperties;
+		const interactionMetrics = properties.interactionMetrics as
+			| (typeof properties.interactionMetrics & Record<string, unknown>)
+			| undefined;
+
+		if (interactionMetrics) {
+			for (const field of interactionMetricsFieldsToTrim) {
+				if (getPayloadSize(properties) <= MAX_PAYLOAD_SIZE) {
+					continue;
+				}
+
+				interactionMetrics[field] = undefined;
+				properties['event:isTrimmed'] = true;
+
+				let trimmedFields = properties['event:trimmedFields'];
+				if (!Array.isArray(trimmedFields)) {
+					trimmedFields = [];
+				}
+				trimmedFields.push(`interactionMetrics.${field}`);
+				properties['event:trimmedFields'] = trimmedFields;
+			}
+		}
 	}
 
 	return payload;

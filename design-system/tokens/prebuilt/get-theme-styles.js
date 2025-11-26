@@ -53,7 +53,7 @@ var getThemeStyles = /*#__PURE__*/function () {
               contrastMode: (preferences === null || preferences === void 0 ? void 0 : preferences.contrastMode) || _themeConfig.themeStateDefaults['contrastMode'],
               dark: (preferences === null || preferences === void 0 ? void 0 : preferences.dark) || _themeConfig.themeStateDefaults['dark'],
               light: (preferences === null || preferences === void 0 ? void 0 : preferences.light) || _themeConfig.themeStateDefaults['light'],
-              shape: (preferences === null || preferences === void 0 ? void 0 : preferences.shape) || _themeConfig.themeStateDefaults['shape'],
+              shape: (preferences === null || preferences === void 0 ? void 0 : preferences.shape) || _themeConfig.themeStateDefaults['shape'](),
               spacing: (preferences === null || preferences === void 0 ? void 0 : preferences.spacing) || _themeConfig.themeStateDefaults['spacing'],
               typography: (preferences === null || preferences === void 0 ? void 0 : preferences.typography) || _themeConfig.themeStateDefaults['typography']()
             };

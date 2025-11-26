@@ -938,12 +938,13 @@ it('should load only necessary color modes on repeat calls', async () => {
 							spacing: 'spacing',
 							typography: 'typography',
 							colorMode: 'light',
+							shape: 'shape',
 						},
 						themeLoaderMock,
 					);
 
-					// Should be called for each theme it injects (light, increased contrast, spacing, typography)
-					expect(themeLoaderMock).toBeCalledTimes(4);
+					// Should be called for each theme it injects (light, increased contrast, spacing, typography, shape)
+					expect(themeLoaderMock).toBeCalledTimes(5);
 
 					await waitFor(() => {
 						// There should be no style elements since the default theme loader should not be called
@@ -961,12 +962,13 @@ it('should load only necessary color modes on repeat calls', async () => {
 							spacing: 'spacing',
 							typography: 'typography',
 							colorMode: 'light',
+							shape: 'shape',
 						},
 						themeLoaderMock,
 					);
 
-					// Should be called for each theme it injects (light, spacing, typography)
-					expect(themeLoaderMock).toBeCalledTimes(3);
+					// Should be called for each theme it injects (light, spacing, typography, shape)
+					expect(themeLoaderMock).toBeCalledTimes(4);
 
 					await waitFor(() => {
 						// There should be no style elements since the default theme loader should not be called

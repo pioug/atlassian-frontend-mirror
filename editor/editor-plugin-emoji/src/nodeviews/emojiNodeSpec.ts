@@ -2,6 +2,7 @@ import { emoji, emojiWithLocalId } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const isSSR = Boolean(process.env.REACT_SSR);
@@ -27,6 +28,8 @@ export const emojiNodeSpec = () => {
 export function emojiToDom(node: PMNode): DOMOutputSpec {
 	// From packages/elements/emoji/src/components/common/EmojiPlaceholder.tsx
 	const { shortName, id, text } = node.attrs;
+	const isEmojiScalingEnabled = expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true);
+	
 	const attrs: Record<string, string> = {
 		'data-emoji-short-name': shortName,
 		'data-emoji-id': id,
@@ -35,9 +38,17 @@ export function emojiToDom(node: PMNode): DOMOutputSpec {
 		style: convertToInlineCss({
 			content: "''",
 			fill: token('color.background.neutral'),
-			minWidth: `20px`,
-			width: `20px`,
-			height: `20px`,
+			...(isEmojiScalingEnabled 
+				? {
+					minWidth: '16.25px',
+					minHeight: '16.25px',
+				}
+				: {
+					minWidth: `20px`,
+					width: `20px`,
+					height: `20px`,
+				}
+			),
 			position: 'relative',
 			margin: '-1px 0',
 			display: 'inline-block',

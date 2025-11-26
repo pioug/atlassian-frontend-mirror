@@ -9,7 +9,6 @@ import {
 	ANCHOR_VARIABLE_NAME,
 	DRAG_HANDLE_WIDTH,
 	isCSSAnchorSupported,
-	nativeAnchorStyles,
 	tableControlsSpacing,
 } from '@atlaskit/editor-common/styles';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
@@ -602,6 +601,39 @@ const dragHandlerAnchorStyles = css({
 	},
 });
 
+// Styles applied to nodes with anchors when dragging
+const dragAnchorStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-node-anchor]:not([data-node-anchor] [data-node-anchor])': {
+			// all top level nodes with anchor
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			anchorName: `var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)))`,
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-node-anchor]:has([data-blocks-drop-target-container]) [data-node-anchor]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			anchorName: `var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)))`,
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-prosemirror-node-name="media"][data-node-anchor]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			anchorName: `var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)))`,
+		},
+
+		// first table row to avoid multiple anchors in table
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-prosemirror-node-name="table"] [data-prosemirror-node-name="tableRow"][data-node-anchor]:first-of-type':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				anchorName: `var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)))`,
+			},
+	},
+});
+
 export const GlobalStylesWrapper = ({
 	api,
 }: {
@@ -660,7 +692,7 @@ export const GlobalStylesWrapper = ({
 				expValEquals('advanced_layouts', 'isEnabled', true)
 					? layoutColumnExtendedHoverZone
 					: layoutColumnWithoutHoverZone,
-				shouldRenderAnchors && (isDragging ? nativeAnchorStyles : dragHandlerAnchorStyles),
+				shouldRenderAnchors && (isDragging ? dragAnchorStyles : dragHandlerAnchorStyles),
 			]}
 		/>
 	);

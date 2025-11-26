@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.14.1",
+	"version": "215.14.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -388,6 +388,9 @@
 			"referenceOnly": true
 		},
 		"platform_editor_toolbar_aifc_responsive_improve": {
+			"type": "boolean"
+		},
+		"rovo_chat_enable_skills_ui_m1": {
 			"type": "boolean"
 		}
 	},

@@ -94,11 +94,11 @@ function expValInternal<
  * - is not being served to the client (ie. pre start)
  * - or is not configured in experiments-config
  *
- * If you need to check a param value without an exposure check see {@link expParamEqualsNoExposure}
+ * If you need to check a param value without an exposure check see {@link expValNoExposure}
  *
  * @example
  * ```ts
- * const delay = expParamEquals('experiment-name', 'param-name', defaultValue)
+ * const delay = expVal('experiment-name', 'param-name', defaultValue)
  * await new Promise(res => setTimeout(res, delay)
  * ```
  */
@@ -108,17 +108,15 @@ export function expVal<
 >(
 	experimentName: ExperimentName,
 	experimentParam: string,
-	defaultValue: DefaultValue,
+	defaultValue: DefaultValue extends boolean ? false : DefaultValue,
 ): DefaultValue {
 	return expValInternal({
 		experimentName,
 		experimentParam,
-		defaultValue,
+		defaultValue: defaultValue as DefaultValue,
 		fireExperimentExposure: true,
 	});
-}
-
-/**
+} /**
  * Use to check a any param value for an experiment without firing an exposure event
  *
  * **Note**: this will return the default value when the experiment;
@@ -137,12 +135,12 @@ export function expValNoExposure<
 >(
 	experimentName: ExperimentName,
 	experimentParam: string,
-	defaultValue: DefaultValue,
+	defaultValue: DefaultValue extends boolean ? false : DefaultValue,
 ): DefaultValue {
 	return expValInternal({
 		experimentName,
 		experimentParam,
-		defaultValue,
+		defaultValue: defaultValue as DefaultValue,
 		fireExperimentExposure: false,
 	});
 }

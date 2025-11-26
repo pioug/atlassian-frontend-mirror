@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Icon from '@atlaskit/icon';
+import PremiumIcon from '@atlaskit/icon/core/premium';
+import ProjectIcon from '@atlaskit/icon/core/project';
 import Link from '@atlaskit/link';
 import {
 	Footer,
@@ -12,8 +13,6 @@ import {
 } from '@atlaskit/side-navigation';
 
 import AppFrame from '../common/app-frame';
-import SampleIcon from '../common/next-gen-project-icon';
-import RocketIcon from '../common/sample-logo';
 
 const Example = (): React.JSX.Element => {
 	return (
@@ -29,7 +28,7 @@ const Example = (): React.JSX.Element => {
 								</a>
 							</>
 						)}
-						iconBefore={<RocketIcon />}
+						iconBefore={<ProjectIcon label="" />}
 						description="Next-gen software"
 					>
 						Concise Systems
@@ -39,7 +38,7 @@ const Example = (): React.JSX.Element => {
 				<NavigationFooter>
 					<Footer
 						useDeprecatedApi={false}
-						iconBefore={<Icon label="" glyph={SampleIcon} />}
+						iconBefore={<PremiumIcon label="" />}
 						description={
 							<div>
 								<Link href="https://www.atlassian.design">Give feedback</Link> {' ∙ '}

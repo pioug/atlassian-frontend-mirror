@@ -1,10 +1,8 @@
 import React from 'react';
 
-import Icon from '@atlaskit/icon';
+import ProjectIcon from '@atlaskit/icon/core/project';
 import { type CustomItemComponentProps } from '@atlaskit/menu';
 import { Header } from '@atlaskit/side-navigation';
-
-import SampleIcon from './sample-logo';
 
 const Container = ({ children, ...props }: CustomItemComponentProps) => {
 	return (
@@ -22,7 +20,7 @@ const ExampleHeader = (): React.JSX.Element => {
 		<Header
 			component={Container}
 			description="Next-gen service desk"
-			iconBefore={<Icon label="" glyph={SampleIcon} size="medium" />}
+			iconBefore={<ProjectIcon label="" size="medium" />}
 		>
 			NXTGen Industries
 		</Header>

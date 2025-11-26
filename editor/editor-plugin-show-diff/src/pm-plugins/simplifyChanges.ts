@@ -17,7 +17,17 @@ function mergeReplaceSteps(step1: ProseMirrorStep, step2: ProseMirrorStep): Pros
 	if (!(step1 instanceof ReplaceStep) || !(step2 instanceof ReplaceStep)) {
 		return null;
 	}
-	if (step1.from === step2.from && step2.to >= step1.to && step2.slice.size >= step1.slice.size) {
+	// Confirm the step overlaps exactly with the previous
+	const step2Length = step2.to - step2.from;
+	if (
+		step1.from === step2.from &&
+		step2.to >= step1.to &&
+		step2.slice.size >= step2Length &&
+		step2Length === step1.slice.size &&
+		step2.slice.size >= step1.slice.size &&
+		step1.slice.openEnd === step2.slice.openEnd &&
+		step1.slice.openStart === step2.slice.openStart
+	) {
 		return new ReplaceStep(step1.from, step1.to, step2.slice);
 	}
 	return null;

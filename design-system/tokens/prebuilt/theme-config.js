@@ -220,7 +220,12 @@ var themeStateDefaults = exports.themeStateDefaults = {
   contrastMode: 'auto',
   dark: 'dark',
   light: 'light',
-  shape: undefined,
+  shape: function shape() {
+    if ((0, _platformFeatureFlags.fg)('platform-dst-shape-theme-default')) {
+      return 'shape';
+    }
+    return undefined;
+  },
   spacing: 'spacing',
   typography: function typography() {
     if ((0, _platformFeatureFlags.fg)('platform-disable-default-typography')) {

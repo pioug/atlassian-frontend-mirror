@@ -151,6 +151,7 @@ const FloatingContextualMenu = ({
 					isCommentEditor={isCommentEditor}
 					api={api}
 					isDragMenuOpen={
+						// @ts-expect-error - true is not allowed as a default value
 						expValNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)
 							? isDragMenuOpen
 							: undefined

@@ -3,7 +3,7 @@
 set -uxo pipefail
 
 # Build package, check for unstaged changes, fail if uncommitted changes exist
-yarn build @atlaskit/tokens
+yarn build @atlaskit/tokens --skip-cache
 
 # Check for changes
 git diff --name-only --exit-code packages/design-system/tokens/prebuilt/*

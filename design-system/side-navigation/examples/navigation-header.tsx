@@ -1,10 +1,9 @@
 import React, { type MouseEvent } from 'react';
 
+import ProjectIcon from '@atlaskit/icon/core/project';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives';
 import { Header, NavigationHeader } from '@atlaskit/side-navigation';
-
-import RocketIcon from './common/sample-logo';
 
 const Example = (): React.JSX.Element => {
 	return (
@@ -15,7 +14,7 @@ const Example = (): React.JSX.Element => {
 			</NavigationHeader>
 
 			<NavigationHeader>
-				<Header iconBefore={<RocketIcon />} description="Next-gen software">
+				<Header iconBefore={<ProjectIcon label="" />} description="Next-gen software">
 					Concise Systems
 				</Header>
 			</NavigationHeader>

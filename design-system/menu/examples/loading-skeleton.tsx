@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Icon from '@atlaskit/icon';
-import StarIcon from '@atlaskit/icon/glyph/star';
-import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
+import StarStarredIcon from '@atlaskit/icon/core/star-starred';
+import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import {
 	ButtonItem,
 	type ButtonItemProps,
@@ -81,28 +80,28 @@ export default (): React.JSX.Element => {
 										borderRadius: 3,
 									}}
 								>
-									<Icon glyph={Portfolio} primaryColor={token('color.icon.brand')} label="" />
+									<Portfolio color={token('color.icon.brand')} aria-label="" />
 								</div>
 							}
-							iconAfter={<StarFilledIcon primaryColor={token('color.icon.warning')} label="" />}
+							iconAfter={<StarStarredIcon color={token('color.icon.warning')} label="" />}
 						>
 							Portfolio
 						</Item>
 						<Item
 							isLoading={isLoading}
-							iconBefore={<Icon glyph={Tempo} label="" />}
-							iconAfter={<StarFilledIcon primaryColor={token('color.icon.warning')} label="" />}
+							iconBefore={<Tempo aria-label="" />}
+							iconAfter={<StarStarredIcon color={token('color.icon.warning')} label="" />}
 						>
 							Tempo timesheets
 						</Item>
 						<Item
 							isLoading={isLoading}
-							iconBefore={<Icon glyph={Invision} label="" />}
-							iconAfter={<StarIcon label="" />}
+							iconBefore={<Invision aria-label="" />}
+							iconAfter={<StarUnstarredIcon label="" />}
 						>
 							Invision
 						</Item>
-						<Item isLoading={isLoading} iconBefore={<Icon glyph={Slack} label="" />}>
+						<Item isLoading={isLoading} iconBefore={<Slack aria-label="" />}>
 							Slack
 						</Item>
 					</Section>

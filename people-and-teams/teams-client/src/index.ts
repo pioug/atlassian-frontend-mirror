@@ -32,7 +32,7 @@ export {
 	isRequestingJoin,
 } from './common/utils';
 
-export { toUserARI, toUserId, toTeamARI, toTeamId } from './common/utils/ari';
+export { toUserARI, toUserId, toTeamARI, toTeamId, toTeamTypeId } from './common/utils/ari';
 
 export {
 	useLazyQueryLight,

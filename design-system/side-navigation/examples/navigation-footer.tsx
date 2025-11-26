@@ -6,12 +6,11 @@ import { Fragment, type MouseEvent } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import Icon from '@atlaskit/icon';
+import PremiumIcon from '@atlaskit/icon/core/premium';
 import { Anchor, Box } from '@atlaskit/primitives/compiled';
 import { Footer, NavigationFooter } from '@atlaskit/side-navigation';
 import { token } from '@atlaskit/tokens';
 
-import SampleIcon from './common/next-gen-project-icon';
 
 const styles = cssMap({
 	descriptionLink: {
@@ -51,7 +50,7 @@ const Example = () => {
 			<NavigationFooter>
 				<Footer
 					useDeprecatedApi={false}
-					iconBefore={<Icon label="" glyph={SampleIcon} />}
+					iconBefore={<PremiumIcon label="" />}
 					description={
 						<Fragment>
 							<Anchor href="/feedback" xcss={styles.descriptionLink}>

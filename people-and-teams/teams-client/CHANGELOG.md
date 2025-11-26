@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.24.1
+
+### Patch Changes
+
+- [`16637112d793a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16637112d793a) -
+  Team creation accepts both team type ID and team type ARI
+
 ## 4.24.0
 
 ### Minor Changes

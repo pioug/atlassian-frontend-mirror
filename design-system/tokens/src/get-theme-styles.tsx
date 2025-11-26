@@ -53,7 +53,7 @@ const getThemeStyles = async (
 			contrastMode: preferences?.contrastMode || themeStateDefaults['contrastMode'],
 			dark: preferences?.dark || themeStateDefaults['dark'],
 			light: preferences?.light || themeStateDefaults['light'],
-			shape: preferences?.shape || themeStateDefaults['shape'],
+			shape: preferences?.shape || themeStateDefaults['shape'](),
 			spacing: preferences?.spacing || themeStateDefaults['spacing'],
 			typography: preferences?.typography || themeStateDefaults['typography'](),
 		};

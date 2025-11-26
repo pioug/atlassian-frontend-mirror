@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 110.35.1
+
+### Patch Changes
+
+- [`a7126919f479c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7126919f479c) -
+  enable priority in editor typeahead for rovo chat skills enabled apps
+
 ## 110.35.0
 
 ### Minor Changes

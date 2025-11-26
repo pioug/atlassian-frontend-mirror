@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.9.0
+
+### Minor Changes
+
+- [`b168fe8504b3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b168fe8504b3d) -
+  ED-29688 update dragging native anchor styles
+
 ## 7.8.0
 
 ### Minor Changes

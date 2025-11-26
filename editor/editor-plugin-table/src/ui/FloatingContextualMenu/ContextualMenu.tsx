@@ -166,6 +166,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			isDragAndDropEnabled &&
 			this.props.isDragMenuOpen &&
 			isContextualMenuOpen &&
+			// @ts-expect-error - true is not allowed as a default value
 			expValNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)
 		) {
 			toggleContextualMenu()(this.props.editorView.state, this.props.editorView.dispatch);

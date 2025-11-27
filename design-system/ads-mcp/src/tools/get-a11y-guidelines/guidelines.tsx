@@ -257,7 +257,7 @@ useEffect(() => {
 		title: 'Screen Reader Support',
 		description: 'Guidelines for screen reader accessibility',
 		guidelines: [
-			'Use Announcer component for dynamic content',
+			'Use aria-live regions for dynamic content announcements',
 			'Provide skip links for keyboard users',
 			'Use proper heading hierarchy',
 			'Use semantic HTML elements',
@@ -267,13 +267,9 @@ useEffect(() => {
 		codeExamples: [
 			{
 				title: 'Screen Reader Announcements',
-				code: `import { Announcer } from '@atlaskit/announcer';
-
-<Announcer
-  message={\`\${count} items selected\`}
-  liveMode="polite"
-  shouldAnnounce={true}
-/>`,
+				code: `<div aria-live="polite" role="status">
+  {count} items selected
+</div>`,
 			},
 			{
 				title: 'Skip Links',

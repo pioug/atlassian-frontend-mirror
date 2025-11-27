@@ -23,6 +23,7 @@ import {
 	TEXT_COLLAPSED_MENU,
 	TOOLBAR_RANK,
 	TOOLBARS,
+	TRACK_CHANGES_SECTION,
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
@@ -328,6 +329,20 @@ export const getToolbarComponents = (
 					rank: TOOLBAR_RANK[PIN_SECTION.key],
 				},
 			],
+			component: fg('platform_editor_toolbar_aifc_undo_redo_confluence')
+				? ({ children, parents }) => {
+						return (
+							<Section
+								testId="pin-section"
+								parents={parents}
+								api={api}
+								showSeparatorInFullPagePrimaryToolbar
+							>
+								{children}
+							</Section>
+						);
+					}
+				: undefined,
 		},
 	];
 
@@ -391,6 +406,32 @@ export const getToolbarComponents = (
 	} else {
 		components.unshift(...getInlineTextToolbarComponents());
 		components.unshift(...getPrimaryToolbarComponents(breakpointPreset));
+	}
+
+	if (fg('platform_editor_toolbar_aifc_undo_redo_confluence')) {
+		components.push({
+			type: TRACK_CHANGES_SECTION.type,
+			key: TRACK_CHANGES_SECTION.key,
+			parents: [
+				{
+					type: 'toolbar',
+					key: TOOLBARS.PRIMARY_TOOLBAR,
+					rank: TOOLBAR_RANK[TRACK_CHANGES_SECTION.key],
+				},
+			],
+			component: ({ children, parents }) => {
+				return (
+					<Section
+						testId="track-changes-section"
+						parents={parents}
+						api={api}
+						showSeparatorInFullPagePrimaryToolbar
+					>
+						{children}
+					</Section>
+				);
+			},
+		});
 	}
 
 	return components;

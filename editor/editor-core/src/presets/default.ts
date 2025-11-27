@@ -145,8 +145,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 		.maybeAdd(historyPlugin, Boolean(options.allowUndoRedoButtons))
 		.maybeAdd(
 			userIntentPlugin,
-			// @ts-expect-error - true is not allowed as a default value
-			expValNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true),
+			expValNoExposure('platform_editor_lovability_user_intent', 'isEnabled', false),
 		)
 		.maybeAdd(
 			[toolbarPlugin, options.toolbar || {}],

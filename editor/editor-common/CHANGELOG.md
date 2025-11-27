@@ -1,5 +1,20 @@
 # @atlaskit/editor-common
 
+## 110.35.3
+
+### Patch Changes
+
+- [`0a823a87bc38f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a823a87bc38f) -
+  [ux] ENGHEALTH-43906
+
+## 110.35.2
+
+### Patch Changes
+
+- [`7f5dff6248e8c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f5dff6248e8c) -
+  Add keys and ranks for the new block menu information architecture.
+- Updated dependencies
+
 ## 110.35.1
 
 ### Patch Changes

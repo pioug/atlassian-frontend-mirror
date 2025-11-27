@@ -26,6 +26,11 @@ describe('ADS MCP Server E2E', () => {
 			env: {
 				...getDefaultEnvironment(),
 				ADSMCP_ANALYTICS_OPT_OUT: 'true',
+				ENABLE_PLATFORM_FF: expect
+					.getState()
+					.currentTestName?.includes('with feature flags enabled')
+					? 'true'
+					: 'false',
 			},
 		});
 
@@ -51,6 +56,20 @@ describe('ADS MCP Server E2E', () => {
 		const listedTools = (await client.listTools()).tools;
 		expect(listedTools).toEqual(
 			expect.arrayContaining([expect.objectContaining({ name: toolName })]),
+		);
+	});
+
+	it('Lists the ads_get_tokens tool with feature flags enabled', async () => {
+		const listedTools = (await client.listTools()).tools;
+		expect(listedTools).toEqual(
+			expect.arrayContaining([expect.objectContaining({ name: 'ads_get_tokens' })]),
+		);
+	});
+
+	it('Does not list the ads_get_all_tokens tool with feature flags enabled', async () => {
+		const listedTools = (await client.listTools()).tools;
+		expect(listedTools).not.toEqual(
+			expect.arrayContaining([expect.objectContaining({ name: 'ads_get_all_tokens' })]),
 		);
 	});
 
@@ -101,6 +120,30 @@ describe('ADS MCP Server E2E', () => {
 			expect(JSON.parse(result[0].text)).toEqual(expectedFirstResult);
 		},
 	);
+
+	it('Returns markdown content for ads_get_tokens tool with feature flags enabled', async () => {
+		const result = (
+			await client.callTool({
+				name: 'ads_get_tokens',
+				arguments: {
+					terms: ['color.text'],
+					limit: 1,
+					exactName: true,
+				},
+			})
+		).content as { text: string }[];
+
+		expect(result).toHaveLength(1);
+		const markdown = result[0].text;
+
+		// Validate markdown structure - should contain heading, description, and example value
+		expect(markdown).toContain('# color.text');
+		expect(markdown).toContain('Example Value:');
+		expect(markdown).toMatch(/Example Value: `[^`]+`/);
+
+		// Should not be valid JSON (since it's markdown)
+		expect(() => JSON.parse(markdown)).toThrow();
+	});
 
 	it('Returns a useful error if a tool is called with the wrong arguments', async () => {
 		const result = (

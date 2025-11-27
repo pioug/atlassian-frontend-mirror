@@ -64,6 +64,9 @@
 		},
 		"platform_editor_toolbar_aifc_responsive_improve": {
 			"type": "boolean"
+		},
+		"platform_editor_toolbar_aifc_undo_redo_confluence": {
+			"type": "boolean"
 		}
 	},
 	"techstack": {

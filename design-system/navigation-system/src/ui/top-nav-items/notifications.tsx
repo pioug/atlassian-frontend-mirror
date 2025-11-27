@@ -36,6 +36,7 @@ export const Notifications: React.ForwardRefExoticComponent<
 		'aria-haspopup': ariaHasPopup,
 		isListItem,
 		badge,
+		shortcut,
 	},
 	ref,
 ) {
@@ -61,6 +62,7 @@ export const Notifications: React.ForwardRefExoticComponent<
 				// We explicitly set the EndItem to not be a list item,
 				// because the BadgeContainer already has a list item role (if `isListItem` is true)
 				isListItem={false}
+				shortcut={shortcut}
 			/>
 		</BadgeContainer>
 	);

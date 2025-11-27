@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 79.8.2
+
+### Patch Changes
+
+- [`dee27fdf979fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dee27fdf979fb) -
+  Added statusCode at the top level of analytics failure events, for SignalFX compatibility.
+- Updated dependencies
+
 ## 79.8.1
 
 ### Patch Changes

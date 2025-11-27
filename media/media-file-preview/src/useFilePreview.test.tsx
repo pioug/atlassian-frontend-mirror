@@ -1830,6 +1830,285 @@ describe('useFilePreview', () => {
 			);
 		});
 
+		describe('SSR preview refetch on resize', () => {
+			ffTest.on('media-perf-uplift-mutation-fix', 'SSR preview resize optimization', () => {
+				it.each`
+					width  | height | previewType
+					${100} | ${100} | ${'ssr-client'}
+					${50}  | ${100} | ${'ssr-client'}
+					${100} | ${50}  | ${'ssr-client'}
+					${100} | ${100} | ${'ssr-data'}
+					${50}  | ${100} | ${'ssr-data'}
+					${100} | ${50}  | ${'ssr-data'}
+				`(
+					'should not refetch SSR preview ($previewType) if dimensions are equal or smaller (width: $width, height: $height)',
+					async ({ width, height, previewType }) => {
+						const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+						const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+							initialItems: fileItem,
+						});
+
+						const getImageSpy = jest.spyOn(mediaApi, 'getImage');
+
+						let initialProps: UseFilePreviewParams;
+
+						if (previewType === 'ssr-data') {
+							// Setup global scope preview for ssr-data type
+							const globalScopePreview = {
+								dataURI: 'global-scope-datauri',
+								source: 'ssr-data',
+								dimensions: { width: 100, height: 100 },
+							};
+
+							const { id, collectionName } = identifier;
+							setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopePreview);
+
+							initialProps = {
+								identifier,
+								ssr: 'client',
+								dimensions: { width: 100, height: 100 },
+							};
+						} else {
+							// ssr-client will be created directly
+							initialProps = {
+								identifier,
+								ssr: 'client',
+								dimensions: { width: 100, height: 100 },
+							};
+						}
+
+						const { result, rerender } = renderHook(useFilePreview, {
+							wrapper: ({ children }) => (
+								<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
+							),
+							initialProps,
+						});
+
+						await waitFor(() => expect(result?.current.status).toBe('complete'));
+						expect(result?.current.preview?.source).toMatch(/^ssr-/);
+						expect(getImageSpy).not.toHaveBeenCalled();
+
+						// Resize to equal or smaller dimensions
+						rerender({ ...initialProps, dimensions: { width, height } });
+
+						// Should not refetch when dimensions are equal or smaller
+						expect(getImageSpy).not.toHaveBeenCalled();
+						expect(result?.current.status).toBe('complete');
+					},
+				);
+
+				it.each`
+					width  | height | previewType
+					${200} | ${200} | ${'ssr-client'}
+					${150} | ${200} | ${'ssr-client'}
+					${200} | ${150} | ${'ssr-client'}
+					${200} | ${200} | ${'ssr-data'}
+					${150} | ${200} | ${'ssr-data'}
+					${200} | ${150} | ${'ssr-data'}
+				`(
+					'should refetch SSR preview ($previewType) if dimensions are bigger (width: $width, height: $height)',
+					async ({ width, height, previewType }) => {
+						const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+						const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+							initialItems: fileItem,
+						});
+
+						const getImageSpy = jest.spyOn(mediaApi, 'getImage');
+
+						let initialProps: UseFilePreviewParams;
+
+						if (previewType === 'ssr-data') {
+							// Setup global scope preview for ssr-data type
+							const globalScopePreview = {
+								dataURI: 'global-scope-datauri',
+								source: 'ssr-data',
+								dimensions: { width: 100, height: 100 },
+							};
+
+							const { id, collectionName } = identifier;
+							setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopePreview);
+
+							initialProps = {
+								identifier,
+								ssr: 'client',
+								dimensions: { width: 100, height: 100 },
+							};
+						} else {
+							// ssr-client will be created directly
+							initialProps = {
+								identifier,
+								ssr: 'client',
+								dimensions: { width: 100, height: 100 },
+							};
+						}
+
+						const { result, rerender } = renderHook(useFilePreview, {
+							wrapper: ({ children }) => (
+								<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
+							),
+							initialProps,
+						});
+
+						await waitFor(() => expect(result?.current.status).toBe('complete'));
+						expect(result?.current.preview?.source).toMatch(/^ssr-/);
+						expect(getImageSpy).not.toHaveBeenCalled();
+
+						// Resize to bigger dimensions
+						rerender({ ...initialProps, dimensions: { width, height } });
+
+						// Should refetch when dimensions are bigger
+						await waitFor(() => expect(getImageSpy).toHaveBeenCalledTimes(1));
+						await waitFor(() =>
+							expect(result?.current.preview).toMatchObject({
+								dataURI: expect.stringContaining('mock result of URL.createObjectURL()'),
+								source: 'remote',
+							}),
+						);
+					},
+				);
+
+				it('should refetch SSR preview when current preview has no dimensions but new dimensions are provided', async () => {
+					const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+					const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+						initialItems: fileItem,
+					});
+
+					const getImageSpy = jest.spyOn(mediaApi, 'getImage');
+
+					const initialProps: UseFilePreviewParams = {
+						identifier,
+						ssr: 'client',
+						// No dimensions provided initially
+					};
+
+					const { result, rerender } = renderHook(useFilePreview, {
+						wrapper: ({ children }) => (
+							<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
+						),
+						initialProps,
+					});
+
+					await waitFor(() => expect(result?.current.status).toBe('complete'));
+					expect(result?.current.preview?.source).toBe('ssr-client');
+					expect(result?.current.preview?.dimensions).toBeUndefined();
+					expect(getImageSpy).not.toHaveBeenCalled();
+
+					// Add dimensions - should refetch because isWider(undefined, { width: 100, height: 100 }) returns true
+					rerender({ ...initialProps, dimensions: { width: 100, height: 100 } });
+
+					// Should refetch when current preview has no dimensions but new dimensions are provided
+					await waitFor(() => expect(getImageSpy).toHaveBeenCalledTimes(1));
+					await waitFor(() =>
+						expect(result?.current.preview).toMatchObject({
+							dataURI: expect.stringContaining('mock result of URL.createObjectURL()'),
+							source: 'remote',
+						}),
+					);
+				});
+
+				it('should refetch SSR data preview when preview dimensions are undefined but new dimensions are provided', async () => {
+					const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+					const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+						initialItems: fileItem,
+					});
+
+					const getImageSpy = jest.spyOn(mediaApi, 'getImage');
+
+					// Setup global scope preview with no dimensions
+					const globalScopePreview = {
+						dataURI: 'global-scope-datauri',
+						source: 'ssr-data',
+						// dimensions is undefined
+					};
+
+					const { id, collectionName } = identifier;
+					setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopePreview);
+
+					const initialProps: UseFilePreviewParams = {
+						identifier,
+						ssr: 'client',
+					};
+
+					const { result, rerender } = renderHook(useFilePreview, {
+						wrapper: ({ children }) => (
+							<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
+						),
+						initialProps,
+					});
+
+					await waitFor(() => expect(result?.current.status).toBe('complete'));
+					expect(result?.current.preview).toMatchObject({
+						dataURI: 'global-scope-datauri',
+						source: 'ssr-data',
+					});
+					expect(result?.current.preview?.dimensions).toBeUndefined();
+					expect(getImageSpy).not.toHaveBeenCalled();
+
+					// Add dimensions - should refetch because isWider(undefined, { width: 100, height: 100 }) returns true
+					rerender({ ...initialProps, dimensions: { width: 100, height: 100 } });
+
+					// Should refetch when preview dimensions are undefined but new dimensions are provided
+					await waitFor(() => expect(getImageSpy).toHaveBeenCalledTimes(1));
+					await waitFor(() =>
+						expect(result?.current.preview).toMatchObject({
+							dataURI: expect.stringContaining('mock result of URL.createObjectURL()'),
+							source: 'remote',
+							dimensions: { width: 100, height: 100 },
+						}),
+					);
+				});
+			});
+
+			ffTest.off('media-perf-uplift-mutation-fix', 'without feature flag', () => {
+				it('should refetch SSR preview even when dimensions are equal or smaller', async () => {
+					const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+					const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+						initialItems: fileItem,
+					});
+
+					const getImageSpy = jest.spyOn(mediaApi, 'getImage');
+
+					const globalScopePreview = {
+						dataURI: 'global-scope-datauri',
+						source: 'ssr-data',
+						dimensions: { width: 100, height: 100 },
+					};
+
+					const { id, collectionName } = identifier;
+					setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopePreview);
+
+					const initialProps: UseFilePreviewParams = {
+						identifier,
+						ssr: 'client',
+						dimensions: { width: 100, height: 100 },
+					};
+
+					const { result, rerender } = renderHook(useFilePreview, {
+						wrapper: ({ children }) => (
+							<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
+						),
+						initialProps,
+					});
+
+					await waitFor(() => expect(result?.current.status).toBe('complete'));
+					expect(result?.current.preview).toMatchObject(globalScopePreview);
+					expect(getImageSpy).not.toHaveBeenCalled();
+
+					// Resize to smaller dimensions
+					rerender({ ...initialProps, dimensions: { width: 50, height: 50 } });
+
+					// Without feature flag, should still refetch SSR preview
+					await waitFor(() => expect(getImageSpy).toHaveBeenCalledTimes(1));
+					await waitFor(() =>
+						expect(result?.current.preview).toMatchObject({
+							dataURI: expect.stringContaining('mock result of URL.createObjectURL()'),
+							source: 'remote',
+						}),
+					);
+				});
+			});
+		});
+
 		describe('SSR preview error handling', () => {
 			it('should reset preview and not remain in loading state when SSR data preview fails', async () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();

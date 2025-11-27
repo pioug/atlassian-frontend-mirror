@@ -1,6 +1,7 @@
 import { type AllHTMLAttributes, type ComponentType, type ElementType } from 'react';
 
 import { type CustomThemeButtonProps } from '@atlaskit/button/types';
+import type { TooltipProps } from '@atlaskit/tooltip';
 
 export type PrimaryButtonProps = Omit<CustomThemeButtonProps, 'appearance' | 'onClick'> & {
 	/**
@@ -36,6 +37,15 @@ export type PrimaryButtonProps = Omit<CustomThemeButtonProps, 'appearance' | 'on
 	 * Optional text to show when the button is focused or hovered.
 	 */
 	tooltip?: React.ReactNode;
+
+	/**
+	 * Display a keyboard shortcut in the tooltip.
+	 *
+	 * Keys will be displayed as individual keyboard key segments after the tooltip content.
+	 *
+	 * Note: it will only be used if the `tooltip` prop is also provided.
+	 */
+	shortcut?: TooltipProps['shortcut'];
 
 	/**
 	 * On click handler.

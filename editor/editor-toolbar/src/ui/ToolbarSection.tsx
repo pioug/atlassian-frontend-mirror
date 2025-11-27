@@ -7,6 +7,7 @@ import { type ReactNode } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { cssMap, cx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -30,6 +31,13 @@ const separator = css({
 	backgroundColor: token('color.border'),
 });
 
+const marginInlineOverridden = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries
+	'@container toolbar-container (max-width: 422px)': {
+		marginInline: token('space.025'),
+	},
+});
+
 type ToolbarSectionProps = {
 	children?: ReactNode;
 	/**
@@ -42,7 +50,10 @@ type ToolbarSectionProps = {
 const ToolbarSeparator = () => {
 	return (
 		<div
-			css={separator}
+			css={[
+				separator,
+				fg('platform_editor_toolbar_aifc_undo_redo_confluence') && marginInlineOverridden,
+			]}
 			data-toolbar-component="separator"
 			role="separator"
 			aria-orientation="vertical"

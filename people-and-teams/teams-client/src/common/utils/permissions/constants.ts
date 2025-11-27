@@ -150,7 +150,6 @@ const getActiveTeamPermissionMap = (
 			ADD_AGENT_TO_TEAM: newTeamProfileEnabled && (isMember || isOrgAdmin),
 			REMOVE_AGENT_FROM_TEAM: newTeamProfileEnabled && (isMember || isOrgAdmin),
 			ARCHIVE_TEAM: isArchiveTeamEnabled && isOrgAdmin,
-			EDIT_TEAM_TYPE: isOrgAdmin,
 			CAN_EDIT_HIERARCHY: permission === 'FULL_WRITE' && isOrgAdmin,
 		};
 	} else if (settings === 'ORG_ADMIN_MANAGED') {
@@ -163,6 +162,8 @@ const getActiveTeamPermissionMap = (
 			ARCHIVE_TEAM: isArchiveTeamEnabled && permission === 'FULL_WRITE',
 			CAN_EDIT_HIERARCHY: permission === 'FULL_WRITE',
 			EDIT_TEAM_TYPE: permission === 'FULL_WRITE',
+			// ORG_ADMIN_MANAGED teams should not provide options to edit membership settings
+			EDIT_TEAM_MEMBERSHIP: false,
 		};
 	}
 

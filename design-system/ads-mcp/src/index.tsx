@@ -9,6 +9,8 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 import type { z } from 'zod';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { sendOperationalEvent } from './helpers/analytics';
 import { validateToolArguments } from './helpers/validation';
 import { instructions } from './instructions';
@@ -28,6 +30,7 @@ import {
 import { getAllIconsTool, listGetAllIconsTool } from './tools/get-all-icons';
 import { getAllTokensTool, listGetAllTokensTool } from './tools/get-all-tokens';
 import { getComponentsTool, listGetComponentsTool } from './tools/get-components';
+import { getTokensInputSchema, getTokensTool, listGetTokensTool } from './tools/get-tokens';
 import { listPlanTool, planInputSchema, planTool } from './tools/plan';
 import {
 	listSuggestA11yFixesTool,
@@ -71,74 +74,96 @@ const generateLogger =
 		}
 	};
 
-export const toolRegistry: Record<
+export const getToolRegistry = (): Record<
 	string,
 	{
 		handler: (params: any) => Promise<any>;
 		inputSchema: z.ZodSchema | null;
 		tool: Tool;
 	}
-> = {
-	[listAnalyzeA11yTool.name]: {
-		handler: analyzeA11yTool,
-		inputSchema: analyzeA11yInputSchema,
-		tool: listAnalyzeA11yTool,
-	},
-	[listAnalyzeLocalhostA11yTool.name]: {
-		handler: analyzeLocalhostA11yTool,
-		inputSchema: analyzeA11yLocalhostInputSchema,
-		tool: listAnalyzeLocalhostA11yTool,
-	},
-	[listGetA11yGuidelinesTool.name]: {
-		handler: getA11yGuidelinesTool,
-		inputSchema: getA11yGuidelinesInputSchema,
-		tool: listGetA11yGuidelinesTool,
-	},
-	[listGetAllIconsTool.name]: {
-		handler: getAllIconsTool,
-		inputSchema: null,
-		tool: listGetAllIconsTool,
-	},
-	[listGetAllTokensTool.name]: {
-		handler: getAllTokensTool,
-		inputSchema: null,
-		tool: listGetAllTokensTool,
-	},
-	[listGetComponentsTool.name]: {
-		handler: getComponentsTool,
-		inputSchema: null,
-		tool: listGetComponentsTool,
-	},
-	[listPlanTool.name]: {
-		handler: planTool,
-		inputSchema: planInputSchema,
-		tool: listPlanTool,
-	},
-	// NOTE: These should not actually be called as they're not in the `list_tools` endpoint.
-	// But there might be a reason to keep them around for backwards-compatibility.
-	// [listSearchComponentsTool.name]: {
-	//   handler: searchComponentsTool,
-	//   inputSchema: searchComponentsInputSchema,
-	//   tool: listSearchComponentsTool,
-	// },
-	// [listSearchIconsTool.name]: {
-	//   handler: searchIconsTool,
-	//   inputSchema: searchIconsInputSchema,
-	//   tool: listSearchIconsTool,
-	// },
-	// [listSearchTokensTool.name]: {
-	//   handler: searchTokensTool,
-	//   inputSchema: searchTokensInputSchema,
-	//   tool: listSearchTokensTool,
-	// },
-	[listSuggestA11yFixesTool.name]: {
-		handler: suggestA11yFixesTool,
-		inputSchema: suggestA11yFixesInputSchema,
-		tool: listSuggestA11yFixesTool,
-	},
+> => {
+	const baseTools: Record<
+		string,
+		{
+			handler: (params: any) => Promise<any>;
+			inputSchema: z.ZodSchema | null;
+			tool: Tool;
+		}
+	> = {
+		[listAnalyzeA11yTool.name]: {
+			handler: analyzeA11yTool,
+			inputSchema: analyzeA11yInputSchema,
+			tool: listAnalyzeA11yTool,
+		},
+		[listAnalyzeLocalhostA11yTool.name]: {
+			handler: analyzeLocalhostA11yTool,
+			inputSchema: analyzeA11yLocalhostInputSchema,
+			tool: listAnalyzeLocalhostA11yTool,
+		},
+		[listGetA11yGuidelinesTool.name]: {
+			handler: getA11yGuidelinesTool,
+			inputSchema: getA11yGuidelinesInputSchema,
+			tool: listGetA11yGuidelinesTool,
+		},
+		[listGetAllIconsTool.name]: {
+			handler: getAllIconsTool,
+			inputSchema: null,
+			tool: listGetAllIconsTool,
+		},
+		[listGetComponentsTool.name]: {
+			handler: getComponentsTool,
+			inputSchema: null,
+			tool: listGetComponentsTool,
+		},
+		[listPlanTool.name]: {
+			handler: planTool,
+			inputSchema: planInputSchema,
+			tool: listPlanTool,
+		},
+		// NOTE: These should not actually be called as they're not in the `list_tools` endpoint.
+		// But there might be a reason to keep them around for backwards-compatibility.
+		// [listSearchComponentsTool.name]: {
+		//   handler: searchComponentsTool,
+		//   inputSchema: searchComponentsInputSchema,
+		//   tool: listSearchComponentsTool,
+		// },
+		// [listSearchIconsTool.name]: {
+		//   handler: searchIconsTool,
+		//   inputSchema: searchIconsInputSchema,
+		//   tool: listSearchIconsTool,
+		// },
+		// [listSearchTokensTool.name]: {
+		//   handler: searchTokensTool,
+		//   inputSchema: searchTokensInputSchema,
+		//   tool: listSearchTokensTool,
+		// },
+		[listSuggestA11yFixesTool.name]: {
+			handler: suggestA11yFixesTool,
+			inputSchema: suggestA11yFixesInputSchema,
+			tool: listSuggestA11yFixesTool,
+		},
+	};
+
+	// Conditionally add token tools based on feature flag
+	if (fg('design_system_mcp_structured_content')) {
+		baseTools[listGetTokensTool.name] = {
+			handler: getTokensTool,
+			inputSchema: getTokensInputSchema,
+			tool: listGetTokensTool,
+		} as (typeof baseTools)[string];
+	} else {
+		baseTools[listGetAllTokensTool.name] = {
+			handler: getAllTokensTool,
+			inputSchema: null,
+			tool: listGetAllTokensTool,
+		} as (typeof baseTools)[string];
+	}
+
+	return baseTools;
 };
 
 server.setRequestHandler(ListToolsRequestSchema, async (request, extra) => {
+	const toolRegistry = getToolRegistry();
 	const tools = Object.values(toolRegistry).map((toolConfig) => toolConfig.tool);
 
 	// Track list tools request
@@ -159,6 +184,7 @@ server.setRequestHandler(ListToolsRequestSchema, async (request, extra) => {
 
 // Handle tool execution
 server.setRequestHandler(CallToolRequestSchema, async (request, extra) => {
+	const toolRegistry = getToolRegistry();
 	const toolName = request.params.name;
 	const toolConfig = toolRegistry[toolName];
 	const actionSubject = `ads.mcp.callTool`;
@@ -256,8 +282,9 @@ server.setRequestHandler(CallToolRequestSchema, async (request, extra) => {
 		},
 	});
 
+	const toolRegistryForError = getToolRegistry();
 	console.error(
-		`Tool '${request.params.name}' not found, only the following tools are available: ${Object.keys(toolRegistry).join(', ')}`,
+		`Tool '${request.params.name}' not found, only the following tools are available: ${Object.keys(toolRegistryForError).join(', ')}`,
 	);
 	return;
 });
@@ -284,3 +311,6 @@ runServer().catch((error: unknown) => {
 	const errorMessage = error instanceof Error ? error.message : 'Unknown error';
 	console.error(`Invalid input to ads-mcp: ${errorMessage}`);
 });
+
+// Export types for use by other packages
+export type { TokenSchema, ContentSchema } from './structured-content/types';

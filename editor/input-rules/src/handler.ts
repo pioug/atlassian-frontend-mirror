@@ -149,13 +149,26 @@ function findMatchOnRules({
 			? (textToMatch.at(-1) ?? '')
 			: textToMatch;
 
-		// EDITOR-2460
 		// if the user is formatting text to inline code from R to L i.e. backwards
 		if (
 			rule.allowsBackwardMatch &&
 			isBackwardMatch &&
 			expValEquals('platform_editor_lovability_inline_code', 'isEnabled', true)
 		) {
+			// if the match has a parenthesis before it, but no whitespace or empty space before that, exit
+			const charBefore = state.doc.textBetween(from - 1, from);
+			if (charBefore === '(') {
+				const charBeforeParenthesis = state.doc.textBetween(from - 2, from - 1);
+				if (charBeforeParenthesis !== ' ' && charBeforeParenthesis !== '') {
+					continue;
+				}
+			}
+
+			// else if the match has no whitespace or empty space before it, exit
+			else if (charBefore !== ' ' && charBefore !== '') {
+				continue;
+			}
+
 			const match = rule.match.exec(matchString);
 			if (!match) {
 				continue;

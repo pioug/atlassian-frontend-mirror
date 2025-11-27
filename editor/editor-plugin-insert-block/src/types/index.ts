@@ -26,6 +26,7 @@ import type { TablePlugin } from '@atlaskit/editor-plugin-table';
 import type { TasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+import type { Breakpoint } from '@atlaskit/editor-toolbar';
 
 export type InsertBlockPluginDependencies = [
 	TypeAheadPlugin,
@@ -59,6 +60,7 @@ export type InsertBlockPluginDependencies = [
 
 export interface ToolbarGroupConfig {
 	enabled?: boolean;
+	showAt?: Breakpoint;
 }
 
 export interface ToolbarInsertBlockButtonsConfig {

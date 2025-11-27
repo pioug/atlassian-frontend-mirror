@@ -1,5 +1,18 @@
 # @atlassian/navigation-system
 
+## 5.10.0
+
+### Minor Changes
+
+- [`f089cdf7f6a28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f089cdf7f6a28) -
+  The following top nav items now support displaying a shortcut in their tooltips, through the new
+  `shortcut` prop:
+  - EndItem
+  - Notifications
+  - Help
+  - Profile
+  - Settings
+
 ## 5.9.4
 
 ### Patch Changes

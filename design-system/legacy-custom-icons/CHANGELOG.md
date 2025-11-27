@@ -1,5 +1,12 @@
 # @atlaskit/legacy-custom-icons
 
+## 0.22.17
+
+### Patch Changes
+
+- [`f62d1cc2185de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f62d1cc2185de) -
+  Decoupling icon base component from @atlaskit/icon behind a feature flag.
+
 ## 0.22.16
 
 ### Patch Changes

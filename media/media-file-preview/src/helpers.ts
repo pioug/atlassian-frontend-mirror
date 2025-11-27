@@ -22,6 +22,20 @@ export const isBigger = (
 	}
 };
 
+export const isWider = (
+	current?: MediaFilePreviewDimensions,
+	next?: MediaFilePreviewDimensions,
+) => {
+	if (current === undefined && next !== undefined) {
+		return true;
+	}
+
+	const currentWidth = current?.width || 0;
+	const nextWidth = next?.width || 0;
+
+	return currentWidth < nextWidth;
+};
+
 /** Verifies if the current screen is retina display */
 function isRetina(): boolean {
 	const mediaQuery =

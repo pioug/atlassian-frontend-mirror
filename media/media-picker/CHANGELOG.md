@@ -1,5 +1,12 @@
 # @atlaskit/media-picker
 
+## 70.1.1
+
+### Patch Changes
+
+- [`dee27fdf979fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dee27fdf979fb) -
+  Added statusCode at the top level of analytics failure events, for SignalFX compatibility.
+
 ## 70.1.0
 
 ### Minor Changes

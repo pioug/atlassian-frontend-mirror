@@ -1,5 +1,13 @@
 # @atlaskit/menu
 
+## 8.4.11
+
+### Patch Changes
+
+- [`265c7c2662121`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265c7c2662121) -
+  Migrating custom icons.
+- Updated dependencies
+
 ## 8.4.10
 
 ### Patch Changes

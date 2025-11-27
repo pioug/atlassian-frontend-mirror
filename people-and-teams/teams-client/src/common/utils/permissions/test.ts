@@ -450,7 +450,6 @@ describe('In SCIM-synced teams', () => {
 					'REMOVE_AGENT_FROM_TEAM',
 					'ADD_AGENT_TO_TEAM',
 					'ARCHIVE_TEAM',
-					'EDIT_TEAM_TYPE',
 				].some((s) => a.includes(s)),
 			),
 		)('members can perform %s', (action) => {
@@ -483,7 +482,6 @@ describe('In SCIM-synced teams', () => {
 						'REMOVE_AGENT_FROM_TEAM',
 						'ADD_AGENT_TO_TEAM',
 						'ARCHIVE_TEAM',
-						'EDIT_TEAM_TYPE',
 					].some((s) => a.includes(s)),
 			),
 		)('members cannot perform %s', (action) => {
@@ -956,23 +954,24 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 			(isMember as jest.Mock).mockReturnValue(true);
 		});
 
-		it.each(allActionsExceptJoinAndType.filter((a) => a !== 'UNARCHIVE_TEAM'))(
-			'members with write permission can perform %s',
-			(action) => {
-				expect(
-					hasPermission(
-						action,
-						'ORG_ADMIN_MANAGED',
-						'FULL_WRITE',
-						true,
-						currentMemberMembership,
-						undefined,
-						undefined,
-						'ACTIVE',
-					),
-				).toBe(true);
-			},
-		);
+		it.each(
+			allActionsExceptJoinAndType.filter(
+				(a) => a !== 'UNARCHIVE_TEAM' && a !== 'EDIT_TEAM_MEMBERSHIP',
+			),
+		)('members with write permission can perform %s', (action) => {
+			expect(
+				hasPermission(
+					action,
+					'ORG_ADMIN_MANAGED',
+					'FULL_WRITE',
+					true,
+					currentMemberMembership,
+					undefined,
+					undefined,
+					'ACTIVE',
+				),
+			).toBe(true);
+		});
 
 		it('members with write permission cannot unarchive disbanded teams (only org admins can)', () => {
 			expect(
@@ -1065,7 +1064,9 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 		});
 
 		it.each(
-			AllTeamActions.filter((a) => !['LEAVE_TEAM', 'UNARCHIVE_TEAM'].some((s) => a.includes(s))),
+			AllTeamActions.filter(
+				(a) => !['LEAVE_TEAM', 'UNARCHIVE_TEAM', 'EDIT_TEAM_MEMBERSHIP'].some((s) => a.includes(s)),
+			),
 		)('non-members with FULL_WRITE (no org admin) can perform %s', (action) => {
 			expect(
 				hasPermission(

@@ -1,5 +1,17 @@
 # @atlaskit/teams-client
 
+## 4.25.0
+
+### Minor Changes
+
+- [`58a9f3b29f99d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58a9f3b29f99d) -
+  Remove temporary implementation of type ARI, use the official one
+
+### Patch Changes
+
+- [`da4bb4ac09df1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da4bb4ac09df1) -
+  Update some type related permissions
+
 ## 4.24.1
 
 ### Patch Changes

@@ -28,8 +28,12 @@ export const emojiNodeSpec = () => {
 export function emojiToDom(node: PMNode): DOMOutputSpec {
 	// From packages/elements/emoji/src/components/common/EmojiPlaceholder.tsx
 	const { shortName, id, text } = node.attrs;
-	const isEmojiScalingEnabled = expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true);
-	
+	const isEmojiScalingEnabled = expValEquals(
+		'platform_editor_lovability_emoji_scaling',
+		'isEnabled',
+		true,
+	);
+
 	const attrs: Record<string, string> = {
 		'data-emoji-short-name': shortName,
 		'data-emoji-id': id,
@@ -38,17 +42,16 @@ export function emojiToDom(node: PMNode): DOMOutputSpec {
 		style: convertToInlineCss({
 			content: "''",
 			fill: token('color.background.neutral'),
-			...(isEmojiScalingEnabled 
+			...(isEmojiScalingEnabled
 				? {
-					minWidth: '16.25px',
-					minHeight: '16.25px',
-				}
+						minWidth: '16.25px',
+						minHeight: '16.25px',
+					}
 				: {
-					minWidth: `20px`,
-					width: `20px`,
-					height: `20px`,
-				}
-			),
+						minWidth: `20px`,
+						width: `20px`,
+						height: `20px`,
+					}),
 			position: 'relative',
 			margin: '-1px 0',
 			display: 'inline-block',

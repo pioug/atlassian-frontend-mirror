@@ -3,6 +3,7 @@ import React, { forwardRef, Fragment } from 'react';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type IconButtonProps } from '@atlaskit/button/new';
 import type { TriggerProps } from '@atlaskit/popup/types';
+import type { TooltipProps } from '@atlaskit/tooltip';
 
 import { ListItem } from '../../components/list-item';
 
@@ -70,6 +71,13 @@ export interface EndItemProps
 	 * ```
 	 */
 	isListItem?: boolean;
+
+	/**
+	 * Display a keyboard shortcut in the tooltip.
+	 *
+	 * Keys will be displayed as individual keyboard key segments after the tooltip content.
+	 */
+	shortcut?: TooltipProps['shortcut'];
 }
 
 /**
@@ -95,6 +103,7 @@ export const EndItem: React.ForwardRefExoticComponent<
 			'aria-expanded': ariaExpanded,
 			'aria-haspopup': ariaHasPopup,
 			isListItem = true,
+			shortcut,
 		}: EndItemProps,
 		forwardedRef,
 	) => {
@@ -115,6 +124,8 @@ export const EndItem: React.ForwardRefExoticComponent<
 					aria-controls={ariaControls}
 					aria-expanded={ariaExpanded}
 					aria-haspopup={ariaHasPopup}
+					// Only creating object when shortcut is provided
+					tooltip={shortcut ? { shortcut } : undefined}
 				/>
 			</Wrapper>
 		);

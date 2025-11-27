@@ -3,7 +3,6 @@ import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import AiIcon from '@atlaskit/icon/core/atlassian-intelligence';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../../messages';
@@ -12,14 +11,12 @@ import type {
 	AISummaryState,
 	AISummaryStatus,
 } from '../../../../../state/hooks/use-ai-summary/ai-summary-service/types';
-import LegacyAiIcon from '../../../../common/ai-icon';
 import Action from '../action';
 
 import type { AISummaryActionProps } from './types';
 import { getErrorMessage } from './utils';
 
 export function AISummariseAction({
-	url,
 	onClick: onClickCallback,
 	onError: onErrorCallback,
 	testId,
@@ -59,16 +56,7 @@ export function AISummariseAction({
 	return (
 		<Action
 			content={<FormattedMessage {...messages.ai_summary_action} />}
-			icon={
-				<AiIcon
-					spacing="spacious"
-					color="currentColor"
-					label="Summarise with AI"
-					{...(fg('navx-1959-remove-custom-ai-icon')
-						? undefined
-						: { LEGACY_fallbackIcon: LegacyAiIcon })}
-				/>
-			}
+			icon={<AiIcon spacing="spacious" color="currentColor" label="Summarise with AI" />}
 			onClick={handleActionClick}
 			testId={`${testId}-summarise-action`}
 			isLoading={status === 'loading'}

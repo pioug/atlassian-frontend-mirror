@@ -1,0 +1,38 @@
+# no-to-match-snapshot
+
+This rule disallows the use of `toMatchSnapshot()` in favor of `toMatchInlineSnapshot()`.
+
+## Examples
+
+### Incorrect
+
+```tsx
+expect(container).toMatchSnapshot();
+expect(container).toMatchSnapshot('snapshot-name');
+expect(screen.getByTestId('test')).toMatchSnapshot();
+```
+
+### Correct
+
+```tsx
+expect(container).toMatchInlineSnapshot(`<div>test</div>`);
+expect(container).toMatchInlineSnapshot(`
+  <div>
+    <span>test</span>
+  </div>
+`);
+```
+
+## Rationale
+
+The use of `toMatchSnapshot()` is being deprecated in favor of `toMatchInlineSnapshot()` as part of
+[GO/DSTRFC-038](https://go.atlassian.com/DSTRFC-038). Inline snapshots provide several benefits:
+
+- They keep the snapshot value close to the test code, making it easier to review changes
+- They make it clearer what the expected output is when reading the test
+- They reduce the number of separate snapshot files that need to be maintained
+
+## When not to use it
+
+This rule should be enabled for all test files to ensure consistent snapshot testing practices
+across the codebase.

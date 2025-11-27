@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.13.0
+
+### Minor Changes
+
+- [`302808899d1ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/302808899d1ae) -
+  LUNA-607: Added agent icon for Jira Trial Guide
+
 ## 3.12.1
 
 ### Patch Changes

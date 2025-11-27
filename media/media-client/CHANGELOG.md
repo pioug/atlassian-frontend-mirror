@@ -1,5 +1,12 @@
 # @atlaskit/media-client
 
+## 35.6.1
+
+### Patch Changes
+
+- [`371b214b9bcc5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/371b214b9bcc5) -
+  Fixed the artifact URL generation when the basePath contains `/media-api`
+
 ## 35.6.0
 
 ### Minor Changes

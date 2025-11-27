@@ -56,6 +56,7 @@ export const createDownloadFailedEventPayload = (
 	traceContext?: MediaTraceContext,
 ): DownloadFailedEventPayload => {
 	const { fileMediatype, fileMimetype, fileSize } = getFileAttributes(fileState);
+	const requestMetadata = getRequestMetadata(error);
 	return {
 		eventType: 'operational',
 		actionSubject: 'mediaFile',
@@ -65,7 +66,8 @@ export const createDownloadFailedEventPayload = (
 			failReason: getPrimaryErrorReason(error),
 			error: getSecondaryErrorReason(error),
 			errorDetail: getErrorDetail(error),
-			request: getRequestMetadata(error),
+			statusCode: requestMetadata?.statusCode,
+			request: requestMetadata,
 			fileMimetype,
 			fileMediatype,
 			fileAttributes: {

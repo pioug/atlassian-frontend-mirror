@@ -40,6 +40,7 @@
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/editor-toolbar-model": "workspace:^",
 		"@atlaskit/icon-lab": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
 		"react-intl-next": "root:*"
@@ -47,6 +48,14 @@
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0"
+	},
+	"featureGates": [
+		"platform_editor_toolbar_aifc_undo_redo_confluence"
+	],
+	"platform-feature-flags": {
+		"platform_editor_toolbar_aifc_undo_redo_confluence": {
+			"type": "boolean"
+		}
 	},
 	"techstack": {
 		"@atlassian/frontend": {

@@ -1,5 +1,29 @@
 # @atlaskit/editor-core
 
+## 215.14.5
+
+### Patch Changes
+
+- [`1861b4b83c67f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1861b4b83c67f) -
+  fix unsafe experiment usage for platform_editor_experience_tracking
+- Updated dependencies
+
+## 215.14.4
+
+### Patch Changes
+
+- [`d4b8a7cf9ea37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4b8a7cf9ea37) -
+  fix unsafe experiment usage for platform_editor_lovability_user_intent
+- Updated dependencies
+
+## 215.14.3
+
+### Patch Changes
+
+- [`8281874c30443`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8281874c30443) -
+  [ux] [EDITOR-2917] scale emoji placeholders in the editor
+- Updated dependencies
+
 ## 215.14.2
 
 ### Patch Changes

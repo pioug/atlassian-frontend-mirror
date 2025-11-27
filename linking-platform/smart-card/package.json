@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.11.0",
+	"version": "43.11.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -239,9 +239,6 @@
 			"type": "boolean"
 		},
 		"expose-product-details-from-smart-card": {
-			"type": "boolean"
-		},
-		"navx-1959-remove-custom-ai-icon": {
 			"type": "boolean"
 		},
 		"navx-2479-sl-fix-inilne-card-show-connect-button": {

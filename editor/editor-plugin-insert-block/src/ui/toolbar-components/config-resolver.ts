@@ -39,11 +39,12 @@ export const resolveToolbarConfig = (
 		};
 	}
 
-	const defaults = { enabled: false };
+	const defaults: ToolbarGroupConfig = { enabled: false, showAt: 'lg' };
 
 	const resolveGroupConfig = (groupConfig?: ToolbarGroupConfig): ToolbarGroupConfig => {
 		return {
 			enabled: groupConfig?.enabled ?? defaults.enabled,
+			showAt: groupConfig?.showAt ?? defaults.showAt,
 		};
 	};
 

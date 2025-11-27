@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-emoji
 
+## 7.7.0
+
+### Minor Changes
+
+- [`3e2dbad92ccea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e2dbad92ccea) -
+  [https://product-fabric.atlassian.net/browse/ED-29691](ED-29691) - fix
+  EmojiNodeDataProvider.nodeDataKey when node.attrs.id is empty string
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.6.8
+
+### Patch Changes
+
+- [`8281874c30443`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8281874c30443) -
+  [ux] [EDITOR-2917] scale emoji placeholders in the editor
+- Updated dependencies
+
 ## 7.6.7
 
 ### Patch Changes

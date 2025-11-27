@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 43.11.1
+
+### Patch Changes
+
+- [`acac48d4ec892`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acac48d4ec892) -
+  Feature gate cleanup of AI icon
+
 ## 43.11.0
 
 ### Minor Changes

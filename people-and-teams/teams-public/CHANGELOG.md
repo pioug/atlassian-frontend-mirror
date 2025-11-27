@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.63.4
+
+### Patch Changes
+
+- [`95c538bcbf08f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95c538bcbf08f) -
+  Add test for accessibility violations
+- Updated dependencies
+
 ## 0.63.3
 
 ### Patch Changes

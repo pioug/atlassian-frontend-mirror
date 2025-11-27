@@ -2231,16 +2231,16 @@ export type AnalyticsEventAttributes = {
 	'screen.teamProfileScreen.viewed': TeamProfileScreenViewedAttributesType;
 	/**
 	 * team archived successfully */
-	'operational.teamArchived.succeeded': TeamArchivedSucceededAttributesType;
+	'track.teamArchived.succeeded': TeamArchivedSucceededAttributesType;
 	/**
 	 * team archival failed */
-	'operational.teamArchived.failed': TeamArchivedFailedAttributesType;
+	'track.teamArchived.failed': TeamArchivedFailedAttributesType;
 	/**
 	 * team unarchived successfully */
-	'operational.teamUnarchived.succeeded': TeamUnarchivedSucceededAttributesType;
+	'track.teamUnarchived.succeeded': TeamUnarchivedSucceededAttributesType;
 	/**
 	 * team unarchival failed */
-	'operational.teamUnarchived.failed': TeamUnarchivedFailedAttributesType;
+	'track.teamUnarchived.failed': TeamUnarchivedFailedAttributesType;
 	/**
 	 * fired when the get team profile request is succeeded */
 	'operational.GetTeamProfile.succeeded': GetTeamProfileSucceededAttributesType;

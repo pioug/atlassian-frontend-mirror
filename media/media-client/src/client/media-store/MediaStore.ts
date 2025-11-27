@@ -384,7 +384,7 @@ export class MediaStore implements MediaApi {
 			auth,
 		};
 
-		const url = createUrl(mapToMediaCdnUrl(artifactUrl, auth.token), options);
+		const url = mapToMediaCdnUrl(createUrl(`${auth.baseUrl}${artifactUrl}`, options), auth.token);
 		if (isPathBasedEnabled()) {
 			return mapToPathBasedUrl(url);
 		}

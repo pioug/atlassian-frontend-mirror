@@ -31,7 +31,7 @@ import {
 	mediaFilePreviewCache,
 } from './getPreview';
 import { generateScriptProps, getSSRData } from './globalScope';
-import { createRequestDimensions, isBigger, useCurrentValueRef } from './helpers';
+import { createRequestDimensions, isBigger, isWider, useCurrentValueRef } from './helpers';
 import {
 	type MediaFilePreview,
 	type MediaFilePreviewDimensions,
@@ -339,7 +339,13 @@ export const useFilePreview = ({
 			isBackendPreviewReady
 		) {
 			// If the preview is SSR, we can skip the refetch as it will be handled by the global scope promise
-			if (preview && isSSRPreview(preview) && fg('media-perf-uplift-mutation-fix')) {
+			// If the preview is not wider than the requested dimensions, we can skip the refetch
+			if (
+				preview &&
+				isSSRPreview(preview) &&
+				!isWider(preview.dimensions, dimensions) &&
+				fg('media-perf-uplift-mutation-fix')
+			) {
 				return;
 			}
 			setIsLoading(true);
@@ -376,6 +382,7 @@ export const useFilePreview = ({
 		mediaType,
 		mimeType,
 		upfrontPreviewStatus,
+		dimensions,
 	]);
 
 	//----------------------------------------------------------------

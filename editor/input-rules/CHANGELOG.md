@@ -1,5 +1,13 @@
 # @atlaskit/prosemirror-input-rules
 
+## 3.6.3
+
+### Patch Changes
+
+- [`4f8a0e29aeb69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f8a0e29aeb69) -
+  [ux] [EDITOR-2762] fix whitespace issue with backwards matching for inline code behind
+  platform_editor_lovability_inline_code
+
 ## 3.6.2
 
 ### Patch Changes

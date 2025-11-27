@@ -194,8 +194,7 @@ const ContentComponentInternal = ({
 					api={api}
 					isDragMenuOpen={
 						isDragAndDropEnabled &&
-						// @ts-expect-error - true is not allowed as a default value
-						expValNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)
+						expValNoExposure('platform_editor_lovability_user_intent', 'isEnabled', false)
 							? isDragMenuOpen
 							: undefined
 					}

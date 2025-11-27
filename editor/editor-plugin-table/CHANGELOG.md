@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 15.4.5
+
+### Patch Changes
+
+- [`d4b8a7cf9ea37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4b8a7cf9ea37) -
+  fix unsafe experiment usage for platform_editor_lovability_user_intent
+
 ## 15.4.4
 
 ### Patch Changes

@@ -609,6 +609,7 @@ describe('<ItemViewer />', () => {
 							},
 						},
 						status: 'fail',
+						statusCode: 429,
 						traceContext: undefined,
 					},
 				},
@@ -670,6 +671,7 @@ describe('<ItemViewer />', () => {
 							},
 						},
 						status: 'fail',
+						statusCode: 403,
 						traceContext: {
 							traceId: 'some-trace-id',
 						},
@@ -847,6 +849,7 @@ describe('<ItemViewer />', () => {
 							},
 						},
 						status: 'fail',
+						statusCode: 403,
 						traceContext: undefined,
 					},
 					eventType: 'operational',

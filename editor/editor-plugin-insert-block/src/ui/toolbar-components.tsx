@@ -30,8 +30,9 @@ import {
 	CODE_BLOCK_GROUP_RANK,
 } from '@atlaskit/editor-common/toolbar';
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Show, ToolbarButtonGroup } from '@atlaskit/editor-toolbar';
+import { Show, ToolbarButtonGroup, type Breakpoint } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { InsertBlockPlugin } from '../insertBlockPluginType';
@@ -68,10 +69,12 @@ export const getToolbarComponents = ({
 	const components: RegisterComponent[] = [];
 
 	// Helper function to create responsive wrapper component
-	const createResponsiveComponent = () => {
+	const createResponsiveComponent = (showAt?: Breakpoint) => {
 		return expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
 			? ({ children }: { children: React.ReactNode }) => (
-					<Show above="lg">
+					<Show
+						above={fg('platform_editor_toolbar_aifc_undo_redo_confluence') ? showAt || 'lg' : 'lg'}
+					>
 						<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
 					</Show>
 				)
@@ -90,7 +93,7 @@ export const getToolbarComponents = ({
 					rank: INSERT_BLOCK_SECTION_RANK[TASK_LIST_GROUP.key],
 				},
 			],
-			component: createResponsiveComponent(),
+			component: createResponsiveComponent(config.taskList?.showAt),
 		});
 
 		components.push({
@@ -119,7 +122,7 @@ export const getToolbarComponents = ({
 					rank: INSERT_BLOCK_SECTION_RANK[MEDIA_GROUP.key],
 				},
 			],
-			component: createResponsiveComponent(),
+			component: createResponsiveComponent(config.media?.showAt),
 		});
 
 		components.push({
@@ -148,7 +151,7 @@ export const getToolbarComponents = ({
 					rank: INSERT_BLOCK_SECTION_RANK[CODE_BLOCK_GROUP.key],
 				},
 			],
-			component: createResponsiveComponent(),
+			component: createResponsiveComponent(config.codeBlock?.showAt),
 		});
 
 		components.push({
@@ -177,7 +180,7 @@ export const getToolbarComponents = ({
 					rank: INSERT_BLOCK_SECTION_RANK[MENTION_GROUP.key],
 				},
 			],
-			component: createResponsiveComponent(),
+			component: createResponsiveComponent(config.mention.showAt),
 		});
 
 		components.push({
@@ -206,7 +209,7 @@ export const getToolbarComponents = ({
 					rank: INSERT_BLOCK_SECTION_RANK[EMOJI_GROUP.key],
 				},
 			],
-			component: createResponsiveComponent(),
+			component: createResponsiveComponent(config.emoji.showAt),
 		});
 
 		components.push({
@@ -235,7 +238,7 @@ export const getToolbarComponents = ({
 					rank: INSERT_BLOCK_SECTION_RANK[LAYOUT_GROUP.key],
 				},
 			],
-			component: createResponsiveComponent(),
+			component: createResponsiveComponent(config.layout.showAt),
 		});
 
 		components.push({
@@ -264,7 +267,7 @@ export const getToolbarComponents = ({
 					rank: INSERT_BLOCK_SECTION_RANK[TABLE_GROUP.key],
 				},
 			],
-			component: createResponsiveComponent(),
+			component: createResponsiveComponent(config.table.showAt),
 		});
 
 		components.push({

@@ -9,15 +9,14 @@ import { css, jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { useConfluenceFullPagePreset } from '@af/editor-examples-helpers/example-presets';
+import { createMockCollabEditProvider } from '@af/editor-examples-helpers/utils';
 import Button from '@atlaskit/button/new';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { mentionResourceProviderWithResolver } from '@atlaskit/util-data-test/mention-story-data';
 
-import { createProvider } from '../example-helpers/mockWebSocketsCollabProvider';
-
 const BaseEditor = ({ name }: { name: string }) => {
 	const provider = useMemo(() => {
-		return Promise.resolve(createProvider());
+		return Promise.resolve(createMockCollabEditProvider());
 	}, []);
 
 	const { preset, editorApi } = useConfluenceFullPagePreset({

@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 52.4.37
+
+### Patch Changes
+
+- [`dee27fdf979fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dee27fdf979fb) -
+  Added statusCode at the top level of analytics failure events, for SignalFX compatibility.
+
 ## 52.4.36
 
 ### Patch Changes

@@ -8,6 +8,8 @@ import {
 } from '@atlaskit/media-common';
 import * as analyticsModule from '../../../utils/analytics/analytics';
 import type { SSRStatus } from '../../../utils/analytics/analytics';
+import { createRateLimitedError } from '@atlaskit/media-client/test-helpers';
+import { MediaCardError } from '../../../errors';
 
 const getRenderErrorEventPayload = jest.spyOn(analyticsModule, 'getRenderErrorEventPayload');
 
@@ -77,7 +79,74 @@ describe('fireOperationalEvent', () => {
 					traceId: 'some-trace-Id',
 				},
 				performanceAttributes: { some: 'performance attributes' },
+				statusCode: undefined,
 				request: undefined,
+				ssrReliability: {
+					client: { status: 'success' },
+					server: { status: 'success' },
+				},
+				status: 'fail',
+				traceContext: { spanId: 'some-span-Id', traceId: 'some-trace-Id' },
+			},
+			eventType: 'operational',
+		});
+		expect(event.fire).toBeCalledTimes(1);
+		expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
+	});
+
+	it('should fire failed event with request metadata and statusCode when error has RequestError as secondaryError', () => {
+		const requestError = createRateLimitedError({
+			method: 'GET',
+			endpoint: '/file/{fileId}',
+			mediaRegion: 'ap-southeast-2',
+			mediaEnv: 'adev',
+		});
+		const error = new MediaCardError('metadata-fetch', requestError);
+
+		fireOperationalEvent(
+			createAnalyticsEvent,
+			'error',
+			fileAttributes,
+			performanceAttributes,
+			ssrReliability,
+			error,
+			traceContext,
+			metadataTraceContext,
+		);
+
+		expect(getRenderErrorEventPayload).toBeCalledWith(
+			fileAttributes,
+			performanceAttributes,
+			error,
+			ssrReliability,
+			traceContext,
+			metadataTraceContext,
+		);
+		expect(createAnalyticsEventMock).toBeCalledWith({
+			action: 'failed',
+			actionSubject: 'mediaCardRender',
+			attributes: {
+				error: 'serverRateLimited',
+				errorDetail: 'serverRateLimited',
+				failReason: 'metadata-fetch',
+				fileAttributes: {
+					fileId: '264d2928-44b6-4565-ab73-9d90c96b763d',
+					some: 'file attributes',
+				},
+				fileMimetype: undefined,
+				metadataTraceContext: {
+					spanId: 'some-span-Id',
+					traceId: 'some-trace-Id',
+				},
+				performanceAttributes: { some: 'performance attributes' },
+				statusCode: 429,
+				request: {
+					method: 'GET',
+					endpoint: '/file/{fileId}',
+					mediaRegion: 'ap-southeast-2',
+					mediaEnv: 'adev',
+					statusCode: 429,
+				},
 				ssrReliability: {
 					client: { status: 'success' },
 					server: { status: 'success' },

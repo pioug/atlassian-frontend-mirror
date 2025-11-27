@@ -1,8 +1,9 @@
 import React from 'react';
 
-import Icon from '@atlaskit/icon';
 import type { CustomGlyphProps, IconProps } from '@atlaskit/icon/types';
 import { token } from '@atlaskit/tokens';
+
+import Icon from '../../icon';
 
 const LargeErrorIconGlyph = (props: CustomGlyphProps) => (
 	<svg

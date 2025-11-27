@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-classname-prop */
 import React, { type ReactNode } from 'react';
 
-type Breakpoint = 'sm' | 'md' | 'lg' | 'xl';
+export type Breakpoint = 'sm' | 'md' | 'lg' | 'xl';
 
 type AboveProp = {
 	above: Breakpoint;

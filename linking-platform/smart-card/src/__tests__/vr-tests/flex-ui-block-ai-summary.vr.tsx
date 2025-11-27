@@ -19,7 +19,6 @@ snapshot(FlexUiBlockAiSummaryReady, {
 	description: 'FlexUiBlockAiSummaryReady',
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'navx-1959-remove-custom-ai-icon': [true, false],
 	},
 	waitForReactLazy: true,
 });
@@ -38,7 +37,6 @@ snapshot(FlexUiBlockAiSummaryLoading, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
-		'navx-1959-remove-custom-ai-icon': [true, false],
 	},
 	waitForReactLazy: true,
 });
@@ -57,7 +55,6 @@ snapshot(FlexUiBlockAiSummaryDone, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
-		'navx-1959-remove-custom-ai-icon': [true, false],
 	},
 	waitForReactLazy: true,
 });
@@ -76,7 +73,6 @@ snapshot(FlexUiBlockAiSummaryDoneOnMount, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
-		'navx-1959-remove-custom-ai-icon': [true, false],
 	},
 	waitForReactLazy: true,
 });
@@ -95,7 +91,6 @@ snapshot(FlexUiBlockAiSummaryError, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': [true, false],
-		'navx-1959-remove-custom-ai-icon': [true, false],
 	},
 	waitForReactLazy: true,
 });

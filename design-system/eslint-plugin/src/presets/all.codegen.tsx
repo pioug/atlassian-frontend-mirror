@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2dee8518d733b0b364809d0f5641afda>>
+ * @codegen <<SignedSource::e632a96e9bae920c23e25114f40e3c0d>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -50,7 +50,9 @@ const rules: ESLint.ConfigData = {
 		'@atlaskit/design-system/no-physical-properties': 'error',
 		'@atlaskit/design-system/no-separator-with-list-elements': 'warn',
 		'@atlaskit/design-system/no-styled-tagged-template-expression': 'error',
+		'@atlaskit/design-system/no-to-match-snapshot': 'error',
 		'@atlaskit/design-system/no-unsafe-design-token-usage': 'error',
+		'@atlaskit/design-system/no-unsafe-inline-snapshot': 'error',
 		'@atlaskit/design-system/no-unsafe-style-overrides': 'warn',
 		'@atlaskit/design-system/no-unsupported-drag-and-drop-libraries': 'error',
 		'@atlaskit/design-system/no-unused-css-map': 'warn',

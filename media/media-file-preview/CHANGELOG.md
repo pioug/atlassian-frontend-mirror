@@ -1,5 +1,13 @@
 # @atlaskit/media-file-preview
 
+## 0.14.1
+
+### Patch Changes
+
+- [`a0a262f68a1ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0a262f68a1ec) -
+  Fixed the issue with SSR previews not refeching higher resolution images when the SSR preview is
+  less wide then the hydration dimensions
+
 ## 0.14.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 import { code, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: React.ReactElement = md`
 
 Temp plugin to ease use of statsig experiment until a platform solution is available.
 
@@ -121,3 +121,4 @@ setupEditorExperiments('test', { 'example-boolean': true });
 `}
 
 `;
+export default _default_1;

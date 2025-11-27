@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c74b833590d4eb693616a3fcbf2e335a>>
+ * @codegen <<SignedSource::62347cf64e4ac99b927fce9d1a2bd894>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -45,7 +45,9 @@ import noNestedStyles from './no-nested-styles';
 import noPhysicalProperties from './no-physical-properties';
 import noSeparatorWithListElements from './no-separator-with-list-elements';
 import noStyledTaggedTemplateExpression from './no-styled-tagged-template-expression';
+import noToMatchSnapshot from './no-to-match-snapshot';
 import noUnsafeDesignTokenUsage from './no-unsafe-design-token-usage';
+import noUnsafeInlineSnapshot from './no-unsafe-inline-snapshot';
 import noUnsafeStyleOverrides from './no-unsafe-style-overrides';
 import noUnsupportedDragAndDropLibraries from './no-unsupported-drag-and-drop-libraries';
 import noUnusedCssMap from './no-unused-css-map';
@@ -117,7 +119,9 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'no-physical-properties': noPhysicalProperties,
 	'no-separator-with-list-elements': noSeparatorWithListElements,
 	'no-styled-tagged-template-expression': noStyledTaggedTemplateExpression,
+	'no-to-match-snapshot': noToMatchSnapshot,
 	'no-unsafe-design-token-usage': noUnsafeDesignTokenUsage,
+	'no-unsafe-inline-snapshot': noUnsafeInlineSnapshot,
 	'no-unsafe-style-overrides': noUnsafeStyleOverrides,
 	'no-unsupported-drag-and-drop-libraries': noUnsupportedDragAndDropLibraries,
 	'no-unused-css-map': noUnusedCssMap,

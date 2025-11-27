@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Icon from '@atlaskit/icon';
 import type { CustomGlyphProps, IconProps } from '@atlaskit/icon/types';
+
+import Icon from '../../icon';
 
 const GlobeIconGlyph = (props: CustomGlyphProps) => (
 	<svg

@@ -1,9 +1,5 @@
 jest.mock('../../utils/checkWebpSupport');
 jest.mock('../../client/media-store/resolveAuth');
-jest.mock('../../utils/pathBasedUrl', () => ({
-	...jest.requireActual('../../utils/pathBasedUrl'),
-	mapToPathBasedUrl: jest.fn(),
-}));
 import {
 	type CreatedTouchedFile,
 	MediaStore,
@@ -30,10 +26,8 @@ import { type Auth } from '@atlaskit/media-core';
 import * as requestModule from '../../utils/request';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { nextTick } from '@atlaskit/media-common/test-helpers';
-import { mapToPathBasedUrl } from '../../utils/pathBasedUrl';
 
 const requestModuleMock = jest.spyOn(requestModule, 'request');
-const mapToPathBasedUrlMock = mapToPathBasedUrl as jest.MockedFunction<typeof mapToPathBasedUrl>;
 
 export const ZipkinHeaderKeys = {
 	traceId: 'x-b3-traceid',
@@ -89,13 +83,23 @@ describe('MediaStore', () => {
 
 			// @ts-expect-error - TS2790 - The operand of a 'delete' operator must be optional.
 			delete global.MICROS_PERIMETER;
+			// Set both window.location and document.location for path-based URL tests
 			Object.defineProperty(window.location, 'hostname', {
 				writable: true,
 				value: 'hello.atlassian.net',
 			});
-
-			// Reset path-based URL mock to return input unchanged by default
-			mapToPathBasedUrlMock.mockImplementation((url: string) => url);
+			Object.defineProperty(window.location, 'host', {
+				writable: true,
+				value: 'hello.atlassian.net',
+			});
+			Object.defineProperty(window.document.location, 'hostname', {
+				writable: true,
+				value: 'hello.atlassian.net',
+			});
+			Object.defineProperty(window.document.location, 'host', {
+				writable: true,
+				value: 'hello.atlassian.net',
+			});
 		});
 
 		describe('fetch media region & environment', () => {
@@ -148,10 +152,7 @@ describe('MediaStore', () => {
 				async () => {
 					const collectionName = 'some-collection-name';
 					const data: ItemsPayload[] = [];
-					const transformedUrl = 'https://current.atlassian.net/items';
-
-					// Mock the transformation
-					mapToPathBasedUrlMock.mockReturnValue(transformedUrl);
+					const expectedTransformedUrl = `http://hello.atlassian.net/media-api/items`;
 
 					fetchMock.once(JSON.stringify({ data }), {
 						status: 200,
@@ -160,13 +161,9 @@ describe('MediaStore', () => {
 
 					await mediaStore.getItems(['some-id'], collectionName);
 
-					// Verify mapToPathBasedUrl was called with the original URL
-					expect(mapToPathBasedUrlMock).toHaveBeenCalledWith(`${baseUrl}/items`);
-					expect(mapToPathBasedUrlMock).toHaveBeenCalledTimes(1);
-
 					// Verify the transformed URL was used in the request
 					expect(requestModuleMock).toHaveBeenCalledWith(
-						transformedUrl,
+						expectedTransformedUrl,
 						expect.objectContaining({
 							auth: expect.objectContaining({
 								baseUrl,
@@ -189,9 +186,6 @@ describe('MediaStore', () => {
 					});
 
 					await mediaStore.getItems(['some-id'], collectionName);
-
-					// Verify mapToPathBasedUrl was NOT called
-					expect(mapToPathBasedUrlMock).not.toHaveBeenCalled();
 
 					// Verify the original URL was used
 					expect(requestModuleMock).toHaveBeenCalledWith(
@@ -1064,17 +1058,13 @@ describe('MediaStore', () => {
 		describe('path-based URL functionality', () => {
 			const collection = 'some-collection';
 			const fileId = '1234';
-			const pathBasedUrl =
-				'https://current.atlassian.net/media-api/file/1234/image?allowAnimated=true&client=some-client-id&collection=some-collection&max-age=2592000&mode=crop&token=some-token';
+			const expectedPathBasedUrl = `http://hello.atlassian.net/media-api/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
 			const originalUrl = `${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
 
 			describe('getFileImageURL', () => {
 				ffTest(
 					'platform_media_path_based_route',
 					async () => {
-						// Mock mapToPathBasedUrl to return a transformed URL
-						mapToPathBasedUrlMock.mockReturnValue(pathBasedUrl);
-
 						const url = await mediaStore.getFileImageURL(fileId, { collection });
 
 						expect(resolveAuth).toHaveBeenCalledWith(
@@ -1085,12 +1075,8 @@ describe('MediaStore', () => {
 							undefined,
 						);
 
-						// Verify mapToPathBasedUrl was called with the original URL
-						expect(mapToPathBasedUrlMock).toHaveBeenCalledWith(originalUrl);
-						expect(mapToPathBasedUrlMock).toHaveBeenCalledTimes(1);
-
 						// Should return the path-based URL
-						expect(url).toEqual(pathBasedUrl);
+						expect(url).toEqual(expectedPathBasedUrl);
 					},
 					async () => {
 						const url = await mediaStore.getFileImageURL(fileId, { collection });
@@ -1102,9 +1088,6 @@ describe('MediaStore', () => {
 							},
 							undefined,
 						);
-
-						// mapToPathBasedUrl should NOT be called when feature flag is off
-						expect(mapToPathBasedUrlMock).not.toHaveBeenCalled();
 
 						// Should return the original CDN URL (existing behavior)
 						expect(url).toEqual(originalUrl);
@@ -1125,27 +1108,17 @@ describe('MediaStore', () => {
 				ffTest(
 					'platform_media_path_based_route',
 					() => {
-						// Mock mapToPathBasedUrl to return a transformed URL
-						mapToPathBasedUrlMock.mockReturnValue(pathBasedUrl);
-
 						const url = mediaStoreSync.getFileImageURLSync(fileId, { collection });
 
 						expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
 
-						// Verify mapToPathBasedUrl was called with the original URL
-						expect(mapToPathBasedUrlMock).toHaveBeenCalledWith(originalUrl);
-						expect(mapToPathBasedUrlMock).toHaveBeenCalledTimes(1);
-
 						// Should return the path-based URL
-						expect(url).toEqual(pathBasedUrl);
+						expect(url).toEqual(expectedPathBasedUrl);
 					},
 					() => {
 						const url = mediaStoreSync.getFileImageURLSync(fileId, { collection });
 
 						expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
-
-						// mapToPathBasedUrl should NOT be called when feature flag is off
-						expect(mapToPathBasedUrlMock).not.toHaveBeenCalled();
 
 						// Should return the original CDN URL (existing behavior)
 						expect(url).toEqual(originalUrl);
@@ -1166,27 +1139,17 @@ describe('MediaStore', () => {
 							upscale: true,
 						};
 
-						const expectedOriginalUrl = `${baseUrl}/file/${fileId}/image?allowAnimated=true&client=some-client-id&collection=${collection}&height=300&max-age=${FILE_CACHE_MAX_AGE}&mode=full-fit&token=${token}&upscale=true&width=500`;
-						const expectedPathBasedUrl =
-							'https://current.atlassian.net/media-api/file/1234/image?allowAnimated=true&client=some-client-id&collection=some-collection&height=300&max-age=2592000&mode=full-fit&token=some-token&upscale=true&width=500';
-
-						mapToPathBasedUrlMock.mockReturnValue(expectedPathBasedUrl);
+						const expectedPathBasedUrl = `http://hello.atlassian.net/media-api/file/${fileId}/image?allowAnimated=true&client=some-client-id&collection=${collection}&height=300&max-age=${FILE_CACHE_MAX_AGE}&mode=full-fit&token=${token}&upscale=true&width=500`;
 
 						const url = await mediaStore.getFileImageURL(fileId, customParams);
 
-						expect(mapToPathBasedUrlMock).toHaveBeenCalledWith(expectedOriginalUrl);
 						expect(url).toEqual(expectedPathBasedUrl);
 
 						// Test without collection parameter
-						const expectedOriginalUrlNoCollection = `${baseUrl}/file/${fileId}/image?allowAnimated=true&client=some-client-id&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
-						const expectedPathBasedUrlNoCollection =
-							'https://current.atlassian.net/media-api/file/1234/image?allowAnimated=true&client=some-client-id&max-age=2592000&mode=crop&token=some-token';
-
-						mapToPathBasedUrlMock.mockReturnValue(expectedPathBasedUrlNoCollection);
+						const expectedPathBasedUrlNoCollection = `http://hello.atlassian.net/media-api/file/${fileId}/image?allowAnimated=true&client=some-client-id&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
 
 						const urlNoCollection = await mediaStore.getFileImageURL(fileId);
 
-						expect(mapToPathBasedUrlMock).toHaveBeenCalledWith(expectedOriginalUrlNoCollection);
 						expect(urlNoCollection).toEqual(expectedPathBasedUrlNoCollection);
 					},
 					async () => {
@@ -1202,9 +1165,6 @@ describe('MediaStore', () => {
 						const expectedOriginalUrl = `${baseUrl}/file/${fileId}/image?allowAnimated=true&client=some-client-id&collection=${collection}&height=300&max-age=${FILE_CACHE_MAX_AGE}&mode=full-fit&token=${token}&upscale=true&width=500`;
 
 						const url = await mediaStore.getFileImageURL(fileId, customParams);
-
-						// mapToPathBasedUrl should NOT be called when feature flag is off
-						expect(mapToPathBasedUrlMock).not.toHaveBeenCalled();
 
 						// Should return the original CDN URL
 						expect(url).toEqual(expectedOriginalUrl);
@@ -1856,16 +1816,12 @@ describe('MediaStore', () => {
 			describe('path-based URL transformation', () => {
 				const collection = 'some-collection-name';
 				const fileId = '1234';
-				const pathBasedUrl =
-					'https://current.atlassian.net/media-api/file/1234/binary?client=some-client-id&collection=some-collection-name&dl=true&max-age=2592000&token=some-token';
+				const expectedPathBasedUrl = `http://hello.atlassian.net/media-api/file/1234/binary?client=some-client-id&collection=${collection}&dl=true&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
 				const originalUrl = `${baseUrl}/file/1234/binary?client=some-client-id&collection=${collection}&dl=true&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
 
 				ffTest(
 					'platform_media_path_based_route',
 					async () => {
-						// Mock mapToPathBasedUrl to return a transformed URL
-						mapToPathBasedUrlMock.mockReturnValue(pathBasedUrl);
-
 						const url = await mediaStore.getFileBinaryURL(fileId, collection);
 
 						expect(resolveAuth).toHaveBeenCalledWith(
@@ -1876,12 +1832,8 @@ describe('MediaStore', () => {
 							undefined,
 						);
 
-						// Verify mapToPathBasedUrl was called with the original URL
-						expect(mapToPathBasedUrlMock).toHaveBeenCalledWith(originalUrl);
-						expect(mapToPathBasedUrlMock).toHaveBeenCalledTimes(1);
-
 						// Should return the path-based URL
-						expect(url).toEqual(pathBasedUrl);
+						expect(url).toEqual(expectedPathBasedUrl);
 					},
 					async () => {
 						const url = await mediaStore.getFileBinaryURL(fileId, collection);
@@ -1893,9 +1845,6 @@ describe('MediaStore', () => {
 							},
 							undefined,
 						);
-
-						// mapToPathBasedUrl should NOT be called when feature flag is off
-						expect(mapToPathBasedUrlMock).not.toHaveBeenCalled();
 
 						// Should return the original URL (existing behavior)
 						expect(url).toEqual(originalUrl);
@@ -2060,6 +2009,216 @@ describe('MediaStore', () => {
 				await expect(mediaStore.getArtifactURL(artifacts, 'audio.mp3')).rejects.toThrow(
 					'artifact audio.mp3 not found',
 				);
+			});
+
+			describe('path-based URL transformation', () => {
+				const artifacts: MediaFileArtifacts = {
+					'video_640.mp4': {
+						processingStatus: 'succeeded',
+						url: '/sd-video',
+					},
+				};
+				const artifactName = 'video_640.mp4';
+				const collection = 'some-collection';
+				const expectedPathBasedUrl = `http://hello.atlassian.net/media-api/sd-video?client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
+				const originalUrl = `${baseUrl}/sd-video?client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
+
+				ffTest(
+					'platform_media_path_based_route',
+					async () => {
+						const url = await mediaStore.getArtifactURL(artifacts, artifactName, collection);
+
+						expect(resolveAuth).toHaveBeenCalledWith(
+							authProvider,
+							{
+								collectionName: collection,
+							},
+							undefined,
+						);
+
+						// Should return the path-based URL
+						expect(url).toEqual(expectedPathBasedUrl);
+					},
+					async () => {
+						const url = await mediaStore.getArtifactURL(artifacts, artifactName, collection);
+
+						expect(resolveAuth).toHaveBeenCalledWith(
+							authProvider,
+							{
+								collectionName: collection,
+							},
+							undefined,
+						);
+
+						// Should return the original URL (existing behavior)
+						expect(url).toEqual(originalUrl);
+					},
+				);
+			});
+
+			describe('when baseUrl already contains /media-api', () => {
+				let mediaStoreWithMediaApiBase: MediaStore;
+				const baseUrlWithMediaApi = 'http://some-host/media-api';
+				const authWithMediaApiBase = {
+					baseUrl: baseUrlWithMediaApi,
+					clientId,
+					token,
+				};
+
+				const artifacts: MediaFileArtifacts = {
+					'video_640.mp4': {
+						processingStatus: 'succeeded',
+						url: '/sd-video',
+					},
+				};
+				const artifactName = 'video_640.mp4';
+				const collection = 'some-collection';
+
+				beforeEach(() => {
+					(resolveAuth as jest.Mock).mockResolvedValue(authWithMediaApiBase);
+					mediaStoreWithMediaApiBase = new MediaStore({ authProvider });
+				});
+
+				afterEach(() => {
+					// Reset to original auth
+					(resolveAuth as jest.Mock).mockResolvedValue(auth);
+				});
+
+				it('should work correctly without CDN', async () => {
+					const expectedUrl = `${baseUrlWithMediaApi}/sd-video?client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
+
+					const url = await mediaStoreWithMediaApiBase.getArtifactURL(
+						artifacts,
+						artifactName,
+						collection,
+					);
+
+					expect(resolveAuth).toHaveBeenCalledWith(
+						authProvider,
+						{
+							collectionName: collection,
+						},
+						undefined,
+					);
+
+					// Should return the URL with /media-api in baseUrl, without duplicating it
+					expect(url).toEqual(expectedUrl);
+					expect(url).not.toContain('/media-api/media-api');
+				});
+
+				describe('with CDN enabled', () => {
+					ffTest(
+						'platform_media_cdn_delivery',
+						async () => {
+							// Set up commercial environment for CDN
+							global.MICROS_PERIMETER = 'commercial';
+							Object.defineProperty(window.location, 'hostname', {
+								writable: true,
+								value: 'hello.atlassian.net',
+							});
+							Object.defineProperty(window.document.location, 'hostname', {
+								writable: true,
+								value: 'hello.atlassian.net',
+							});
+
+							const expectedUrl = `${baseUrlWithMediaApi}/sd-video/cdn?client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
+
+							const url = await mediaStoreWithMediaApiBase.getArtifactURL(
+								artifacts,
+								artifactName,
+								collection,
+							);
+
+							expect(resolveAuth).toHaveBeenCalledWith(
+								authProvider,
+								{
+									collectionName: collection,
+								},
+								undefined,
+							);
+
+							// Should return CDN URL with /media-api in baseUrl, with /cdn suffix
+							expect(url).toEqual(expectedUrl);
+							expect(url).not.toContain('/media-api/media-api');
+						},
+						async () => {
+							const expectedUrl = `${baseUrlWithMediaApi}/sd-video?client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
+
+							const url = await mediaStoreWithMediaApiBase.getArtifactURL(
+								artifacts,
+								artifactName,
+								collection,
+							);
+
+							expect(resolveAuth).toHaveBeenCalledWith(
+								authProvider,
+								{
+									collectionName: collection,
+								},
+								undefined,
+							);
+
+							// Should return non-CDN URL with /media-api in baseUrl
+							expect(url).toEqual(expectedUrl);
+						},
+					);
+				});
+
+				describe('with path-based URL transformation enabled', () => {
+					ffTest(
+						'platform_media_path_based_route',
+						async () => {
+							// When path-based routing is enabled AND baseUrl contains /media-api,
+							// it should not duplicate the /media-api prefix
+							const url = await mediaStoreWithMediaApiBase.getArtifactURL(
+								artifacts,
+								artifactName,
+								collection,
+							);
+
+							expect(resolveAuth).toHaveBeenCalledWith(
+								authProvider,
+								{
+									collectionName: collection,
+								},
+								undefined,
+							);
+
+							// Should not duplicate /media-api in the path
+							expect(url).not.toContain('/media-api/media-api');
+
+							// Should maintain the /media-api path from baseUrl
+							expect(url).toContain('/media-api/');
+
+							// Should use the current hostname
+							expect(url).toContain('hello.atlassian.net');
+
+							// Verify the complete expected structure
+							const expectedUrl = `http://hello.atlassian.net/media-api/sd-video?client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
+							expect(url).toEqual(expectedUrl);
+						},
+						async () => {
+							// When path-based routing is disabled, should return URL with baseUrl as-is
+							const expectedUrl = `${baseUrlWithMediaApi}/sd-video?client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
+
+							const url = await mediaStoreWithMediaApiBase.getArtifactURL(
+								artifacts,
+								artifactName,
+								collection,
+							);
+
+							expect(resolveAuth).toHaveBeenCalledWith(
+								authProvider,
+								{
+									collectionName: collection,
+								},
+								undefined,
+							);
+
+							expect(url).toEqual(expectedUrl);
+						},
+					);
+				});
 			});
 		});
 

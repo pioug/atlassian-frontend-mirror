@@ -11,7 +11,6 @@ import { Anchor, Box } from '@atlaskit/primitives/compiled';
 import { Footer, NavigationFooter } from '@atlaskit/side-navigation';
 import { token } from '@atlaskit/tokens';
 
-
 const styles = cssMap({
 	descriptionLink: {
 		fontWeight: token('font.weight.medium'),

@@ -12,6 +12,7 @@ export type UFOFailedEventPayload = {
 	error?: string;
 	errorDetail?: string | undefined;
 	uploadDurationMsec: number;
+	statusCode?: number;
 	request?: RequestMetadata;
 } & WithFileAttributes;
 

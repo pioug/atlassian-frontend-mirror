@@ -10,6 +10,7 @@ import { getFileAttributes } from '../../../../analytics';
 import { MediaViewerError } from '../../../../errors';
 import { createLoadFailedEvent } from '../../../../analytics/events/operational/loadFailed';
 import { createZipEntryLoadFailedEvent } from '../../../../analytics/events/operational/zipEntryLoadFailed';
+import { createDownloadFailedEventPayload } from '../../../../analytics/events/operational/download';
 
 export const processedFile: ProcessedFileState = {
 	status: 'processed',
@@ -138,6 +139,7 @@ describe('getFileAttributes()', () => {
 				error: 'serverInvalidBody',
 				errorDetail: 'unknown',
 				failReason: 'imageviewer-fetch-url',
+				statusCode: undefined,
 				request: {
 					method: 'GET',
 					endpoint: '/some-endpoint',
@@ -188,6 +190,186 @@ describe('getFileAttributes()', () => {
 				status: 'fail',
 			},
 			eventType: 'operational',
+		});
+	});
+
+	it('should include statusCode at top level when RequestError has statusCode 403', () => {
+		expect(
+			createLoadFailedEvent(
+				processedFile.id,
+				new MediaViewerError(
+					'imageviewer-fetch-url',
+					new RequestError('serverForbidden', {
+						method: 'GET',
+						endpoint: '/some-endpoint',
+						mediaRegion: 'some-region',
+						mediaEnv: 'some-env',
+						statusCode: 403,
+					}),
+				),
+				processedFile,
+			),
+		).toEqual({
+			action: 'loadFailed',
+			actionSubject: 'mediaFile',
+			attributes: {
+				error: 'serverForbidden',
+				errorDetail: 'unknown',
+				failReason: 'imageviewer-fetch-url',
+				statusCode: 403,
+				request: {
+					method: 'GET',
+					endpoint: '/some-endpoint',
+					mediaRegion: 'some-region',
+					mediaEnv: 'some-env',
+					statusCode: 403,
+				},
+				fileMimetype: processedFile.mimeType,
+				fileAttributes: {
+					fileId: processedFile.id,
+					fileMediatype: processedFile.mediaType,
+					fileMimetype: processedFile.mimeType,
+					fileSize: processedFile.size,
+				},
+				status: 'fail',
+			},
+			eventType: 'operational',
+		});
+	});
+
+	it('should include statusCode at top level when RequestError has statusCode 401', () => {
+		expect(
+			createLoadFailedEvent(
+				processedFile.id,
+				new MediaViewerError(
+					'imageviewer-fetch-url',
+					new RequestError('serverUnauthorized', {
+						method: 'GET',
+						endpoint: '/some-endpoint',
+						mediaRegion: 'some-region',
+						mediaEnv: 'some-env',
+						statusCode: 401,
+					}),
+				),
+				processedFile,
+			),
+		).toEqual({
+			action: 'loadFailed',
+			actionSubject: 'mediaFile',
+			attributes: {
+				error: 'serverUnauthorized',
+				errorDetail: 'unknown',
+				failReason: 'imageviewer-fetch-url',
+				statusCode: 401,
+				request: {
+					method: 'GET',
+					endpoint: '/some-endpoint',
+					mediaRegion: 'some-region',
+					mediaEnv: 'some-env',
+					statusCode: 401,
+				},
+				fileMimetype: processedFile.mimeType,
+				fileAttributes: {
+					fileId: processedFile.id,
+					fileMediatype: processedFile.mediaType,
+					fileMimetype: processedFile.mimeType,
+					fileSize: processedFile.size,
+				},
+				status: 'fail',
+			},
+			eventType: 'operational',
+		});
+	});
+
+	it('should include statusCode at top level when RequestError has statusCode 500', () => {
+		expect(
+			createLoadFailedEvent(
+				processedFile.id,
+				new MediaViewerError(
+					'imageviewer-fetch-url',
+					new RequestError('serverInternalError', {
+						method: 'GET',
+						endpoint: '/some-endpoint',
+						mediaRegion: 'some-region',
+						mediaEnv: 'some-env',
+						statusCode: 500,
+					}),
+				),
+				processedFile,
+			),
+		).toEqual({
+			action: 'loadFailed',
+			actionSubject: 'mediaFile',
+			attributes: {
+				error: 'serverInternalError',
+				errorDetail: 'unknown',
+				failReason: 'imageviewer-fetch-url',
+				statusCode: 500,
+				request: {
+					method: 'GET',
+					endpoint: '/some-endpoint',
+					mediaRegion: 'some-region',
+					mediaEnv: 'some-env',
+					statusCode: 500,
+				},
+				fileMimetype: processedFile.mimeType,
+				fileAttributes: {
+					fileId: processedFile.id,
+					fileMediatype: processedFile.mediaType,
+					fileMimetype: processedFile.mimeType,
+					fileSize: processedFile.size,
+				},
+				status: 'fail',
+			},
+			eventType: 'operational',
+		});
+	});
+
+	describe('createDownloadFailedEventPayload()', () => {
+		it('should include statusCode at top level when RequestError has statusCode 403', () => {
+			expect(
+				createDownloadFailedEventPayload(
+					processedFile.id,
+					new MediaViewerError(
+						'imageviewer-fetch-url',
+						new RequestError('serverForbidden', {
+							method: 'GET',
+							endpoint: '/some-endpoint',
+							mediaRegion: 'some-region',
+							mediaEnv: 'some-env',
+							statusCode: 403,
+						}),
+					),
+					processedFile,
+				),
+			).toEqual({
+				action: 'downloadFailed',
+				actionSubject: 'mediaFile',
+				attributes: {
+					error: 'serverForbidden',
+					errorDetail: 'unknown',
+					failReason: 'imageviewer-fetch-url',
+					statusCode: 403,
+					request: {
+						method: 'GET',
+						endpoint: '/some-endpoint',
+						mediaRegion: 'some-region',
+						mediaEnv: 'some-env',
+						statusCode: 403,
+					},
+					fileMimetype: processedFile.mimeType,
+					fileMediatype: processedFile.mediaType,
+					fileAttributes: {
+						fileId: processedFile.id,
+						fileMediatype: processedFile.mediaType,
+						fileMimetype: processedFile.mimeType,
+						fileSize: processedFile.size,
+					},
+					status: 'fail',
+					traceContext: undefined,
+				},
+				eventType: 'operational',
+			});
 		});
 	});
 });

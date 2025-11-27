@@ -2,7 +2,11 @@
 // Entry file in package.json
 
 import { createBooleanExperiment, createMultivariateExperiment } from './experiment-builders';
-import type { ExperimentConfigValue } from './types';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports -- Need value import for typeof
+import { isBoolean } from './type-guards';
+import type { ExperimentConfigValue, ProductKeys } from './types';
+
+type IsBooleanType = typeof isBoolean;
 
 export type EditorExperimentsConfig = typeof editorExperimentsConfig;
 
@@ -31,7 +35,984 @@ export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperiment
  * Please follow the pattern established in the examples and any
  * existing experiments.
  */
-export const editorExperimentsConfig = {
+export const editorExperimentsConfig: {
+	// Added 2024-10-14
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_advanced_layouts/setup
+	advanced_layouts: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-17
+	cc_complexit_fe_emoji_stability: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-01
+	cc_editor_ai_content_mode: {
+		defaultValue: 'control' | 'test';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'test';
+		values: ('control' | 'test')[];
+	};
+	cc_editor_insm_doc_size_stats: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-30
+	cc_editor_insm_outlier_events: {
+		defaultValue: 'control' | 'test';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'test';
+		values: ('control' | 'test')[];
+	};
+	// Added 03-09-2025
+	cc_editor_interactivity_monitoring: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-08-06
+	cc_editor_limited_mode: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// new format to avoid collisions with other users when updating the file
+	// Editor Platform experiments
+	// lwoollard experiments
+	// Added 03-09-2025
+	cc_editor_limited_mode_include_lcm: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-11-07
+	cc_editor_limited_mode_table_align_bttn: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-23
+	cc_editor_ttvc_release_bundle_one: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-16
+	cc_improve_writing_on_paste_v2: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2024-10-01
+	comment_on_bodied_extensions: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-11-20
+	'company-hub-config-panel-keyboard-nav': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-10-17
+	confluence_content_mode_replace_dense_with_compact: {
+		defaultValue: 'control' | 'test';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'test';
+		values: ('control' | 'test')[];
+	}; // Added 2025-06-24
+	confluence_whiteboards_quick_insert: {
+		defaultValue: 'control' | 'test_blank' | 'test_diagram';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'test_blank' | 'test_diagram';
+		values: ('control' | 'test_blank' | 'test_diagram')[];
+	};
+	// Added 2025-06-20
+	confluence_whiteboards_quick_insert_aa: {
+		defaultValue: 'control' | 'test_blank' | 'test_diagram';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'test_blank' | 'test_diagram';
+		values: ('control' | 'test_blank' | 'test_diagram')[];
+	};
+	// Added 2025-10-20
+	confluence_whiteboards_quick_insert_localised: {
+		defaultValue: 'control' | 'test_blank' | 'test_diagram';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'test_blank' | 'test_diagram';
+		values: ('control' | 'test_blank' | 'test_diagram')[];
+	};
+	// Added 2025-10-28
+	confluence_whiteboards_quick_insert_localised_aa: {
+		defaultValue: 'control' | 'test_diagram';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'test_diagram';
+		values: ('control' | 'test_diagram')[];
+	};
+	// Added 2025-04-14
+	editor_ai_inline_suggestion_date_v2: {
+		defaultValue: 'control' | 'test';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'test';
+		values: ('control' | 'test')[];
+	};
+	// Added 2025-08-28
+	editor_enable_image_alignment_in_expand: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-07-24
+	editor_enghealth_hyperlink_toolbar_aria_values: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-07-24
+	editor_prevent_numbered_column_too_big_jira_1: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-04
+	editor_refactor_backspace_task_and_decisions: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-11-03
+	editor_tinymce_full_width_mode: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2024-08-08
+	'example-boolean': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	}; // Added 2024-08-08
+	'example-multivariate': {
+		defaultValue: 'one' | 'two' | 'three';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'one' | 'two' | 'three';
+		values: ('one' | 'two' | 'three')[];
+	};
+	// Added 2025-07-08 - Jira work sync description comment summary
+	'jira-work-sync-desc-comment-summary': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// added 2024-11-06
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_nested_tables/setup
+	'nested-tables-in-tables': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-11
+	platform_editor_add_aria_checked_to_inline_img_btn: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-07-14
+	platform_editor_add_orange_highlight_color: {
+		defaultValue: 'control' | 'test';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'test';
+		values: ('control' | 'test')[];
+	};
+	// Added 2025-01-19
+	platform_editor_ai_edit_response_in_preview: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-06-18
+	platform_editor_ai_iw_adf_streaming: {
+		defaultValue: 'control' | 'adf_gemini25flash' | 'adf_gpt41mini';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'adf_gemini25flash' | 'adf_gpt41mini';
+		values: ('control' | 'adf_gemini25flash' | 'adf_gpt41mini')[];
+	};
+	// Added 2025-08-20
+	platform_editor_ai_non_iw_adf_streaming: {
+		defaultValue: 'control' | 'adf_gemini25flash' | 'adf_gpt41mini';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'adf_gemini25flash' | 'adf_gpt41mini';
+		values: ('control' | 'adf_gemini25flash' | 'adf_gpt41mini')[];
+	};
+	// Added 2025-03-28
+	platform_editor_ai_proactive_ai_nudge_parameters: {
+		defaultValue: 'control' | 'variant1';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'variant1';
+		values: ('control' | 'variant1')[];
+	};
+	// Added 2025-05-07
+	platform_editor_ai_quickstart_command: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2024-11-26
+	platform_editor_ai_unsplash_page_header: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	'platform_editor_ai-prompts-placeholder': {
+		defaultValue: 'control' | 'test';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'test';
+		values: ('control' | 'test')[];
+	};
+	// Added 2025-08-05
+	platform_editor_august_a11y: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-06-02
+	platform_editor_block_control_optimise_render: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-06-05
+	platform_editor_block_controls_perf_optimization: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025--8-05
+	platform_editor_block_menu: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025--9-17
+	platform_editor_block_menu_empty_line: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-11
+	platform_editor_block_menu_expand_format: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-17
+	platform_editor_block_menu_keyboard_navigation: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2024-12-05
+	platform_editor_blockquote_in_text_formatting_menu: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-07-30
+	platform_editor_blocktaskitem_node_tenantid: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-08
+	platform_editor_blocktaskitem_patch_1: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-07-31
+	platform_editor_breakout_interaction_rerender: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-05-15
+	platform_editor_breakout_resizing: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-08-19
+	platform_editor_breakout_resizing_vc90_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-07-02
+	platform_editor_code_block_fold_gutter: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-02-10
+	platform_editor_controls: {
+		defaultValue: 'control' | 'variant1';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'variant1';
+		values: ('control' | 'variant1')[];
+	};
+	// Added 2025-08-01
+	platform_editor_controls_block_controls_state_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-07-14
+	platform_editor_debounce_portal_provider: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-11-04
+	platform_editor_disable_lazy_load_media: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-30
+	// variant 1: remove table overflow shadows completely, no table border shown when scrolling.
+	// variant 2: remove table overflow shadows, show table border when scrolling.
+	// variant 3: replace table overflow shadows with CSS-only solution.
+	platform_editor_disable_table_overflow_shadows: {
+		defaultValue: 'control' | 'variant1' | 'variant2' | 'variant3';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'variant1' | 'variant2' | 'variant3';
+		values: ('control' | 'variant1' | 'variant2' | 'variant3')[];
+	};
+	// Added 2025-07-30
+	platform_editor_drag_handle_aria_label: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-08
+	platform_editor_editor_width_analytics: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-01-13
+	platform_editor_element_drag_and_drop_multiselect: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-16
+	platform_editor_emoji_otp: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-06-16
+	platform_editor_enable_single_player_step_merging: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-07-24
+	platform_editor_enghealth_table_plugin_lable_rule: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2024-09-07
+	platform_editor_exp_lazy_node_views: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	}; // Added 2025-10-10
+	platform_editor_experience_tracking: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	//Added 2025-07-25
+	platform_editor_extension_styles: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-06-26
+	platform_editor_feedback_mandatory_rating: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-06-24
+	platform_editor_find_and_replace_improvements: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-07-31
+	platform_editor_fix_a11y_aria_posinset_0: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-10
+	platform_editor_fix_button_name_violation_in_table: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-10-24
+	platform_editor_fix_clone_nesting_exp: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 20205-07-28
+	platform_editor_fix_quick_insert_consistency_exp: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-08-04
+	platform_editor_floating_toolbar_button_aria_label: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-10-10
+	platform_editor_hoverlink_ui_fixes_exp: {
+		defaultValue: 'control' | 'css_changes_only' | 'css_js_changes';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'css_changes_only' | 'css_js_changes';
+		values: ('control' | 'css_changes_only' | 'css_js_changes')[];
+	};
+	// Added 2025-09-03
+	platform_editor_hydratable_ui: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-08-14
+	platform_editor_jira_advanced_code_blocks: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-08-18
+	platform_editor_locale_datepicker: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-11-05
+	platform_editor_lovability_emoji_scaling: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-10-29
+	platform_editor_lovability_inline_code: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-11-19
+	platform_editor_lovability_navigation_fixes: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-10-31
+	platform_editor_lovability_suppress_toolbar_event: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-10-24
+	platform_editor_lovability_user_intent: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-10-13
+	platform_editor_media_error_analytics: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-11-12
+	platform_editor_media_vc_fixes: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-08-05
+	platform_editor_native_anchor_support: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	platform_editor_native_expand_button: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-11-05
+	platform_editor_nested_table_detection: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-16
+	platform_editor_nested_table_refresh_width_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-10-10
+	platform_editor_new_list_decorations_logic: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-10-15
+	platform_editor_new_mentions_detection_logic: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-06-10
+	platform_editor_no_cursor_on_edit_page_init: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-10-15
+	platform_editor_no_ssr: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-04-14
+	// https://switcheroo.atlassian.com/ui/gates/b159b45a-86d9-4f4b-b482-f9aca5b615d6/key/platform_editor_offline_editing_web
+	platform_editor_offline_editing_web: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	}; // Added 2025-07-30
+	platform_editor_pasting_nested_table_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	//Added 2025-11-19
+	platform_editor_pasting_text_in_panel: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-10-07
+	platform_editor_plain_text_support: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-16
+	platform_editor_prevent_taskitem_remount: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-05-26
+	platform_editor_prevent_toolbar_layout_shifts: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-08-18
+	platform_editor_preview_panel_linking_exp: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-07-15
+	platform_editor_preview_panel_responsiveness: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-11
+	platform_editor_quick_insert_image_wrap_right_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-05-27
+	platform_editor_reduce_noisy_steps_ncs: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-10-22
+	platform_editor_remove_bidi_char_warning: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-11-25
+	platform_editor_remove_ncsStepMetrics_plugin: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-07-23
+	platform_editor_renderer_breakout_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-11-17
+	platform_editor_renderer_extension_width_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-10-14
+	platform_editor_resizer_cls_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	platform_editor_smart_card_otp: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-05-26
+	platform_editor_stop_width_reflows: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	platform_editor_table_drag_handle_hover: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-10-27
+	platform_editor_table_sticky_header_improvements: {
+		defaultValue: 'control' | 'test_with_overflow' | 'test_without_overflow';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (
+			value: unknown,
+		) => value is 'control' | 'test_with_overflow' | 'test_without_overflow';
+		values: ('control' | 'test_with_overflow' | 'test_without_overflow')[];
+	};
+	// Added 2025-04-17
+	platform_editor_tables_drag_and_drop: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-04-17
+	platform_editor_tables_table_selector: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-15
+	platform_editor_text_highlight_padding: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-07-07
+	platform_editor_toggle_expand_on_match_found: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	//Added 2025-07-16
+	platform_editor_toolbar_aifc: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	//Added 2025-07-16
+	platform_editor_toolbar_aifc_patch_3: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	//Added 2025-09-09
+	platform_editor_toolbar_aifc_patch_4: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-15
+	platform_editor_toolbar_aifc_patch_5: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-26
+	platform_editor_toolbar_aifc_patch_6: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-08-27
+	platform_editor_toolbar_aifc_responsive: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-09-29
+	platform_editor_toolbar_aifc_selection_extension: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-08-25
+	platform_editor_toolbar_aifc_template_editor: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-08-26
+	platform_editor_toolbar_migrate_loom: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-08-27
+	platform_editor_toolbar_support_custom_components: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-04-23
+	platform_editor_usesharedpluginstateselector: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-08-17
+	platform_hover_card_preview_panel: {
+		defaultValue: 'control' | 'test';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'test';
+		values: ('control' | 'test')[];
+	};
+	// Added 2025-09-17
+	platform_hover_card_preview_panel_modal: {
+		defaultValue: 'control' | 'test';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'test';
+		values: ('control' | 'test')[];
+	};
+	// Added 2025-10-01
+	platform_inline_smartcard_connect_button_exp: {
+		defaultValue: 'control' | 'test1' | 'test2';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'test1' | 'test2';
+		values: ('control' | 'test1' | 'test2')[];
+	};
+	// Added 2025-04-23
+	platform_renderer_fix_analytics_memo_callback: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2024-09-18
+	platform_renderer_table_sticky_scrollbar: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-08-10
+	platform_synced_block: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-10-10
+	platform_use_llm_space_recommendations: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-3-15
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_single_column_layout/setup
+	single_column_layouts: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2024-09-05
+	support_table_in_comment: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2024-10-08
+	support_table_in_comment_jira: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2024-08-08
+	'test-new-experiments-package': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+} = {
 	// new format to avoid collisions with other users when updating the file
 
 	// Editor Platform experiments
@@ -344,6 +1325,14 @@ export const editorExperimentsConfig = {
 	platform_editor_offline_editing_web: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_offline_editing_web',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-10-15
+	platform_editor_no_ssr: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_no_ssr',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

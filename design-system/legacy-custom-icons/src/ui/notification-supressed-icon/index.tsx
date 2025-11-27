@@ -1,9 +1,10 @@
 import React from 'react';
 
-import Icon from '@atlaskit/icon';
 import type { CustomGlyphProps, IconProps } from '@atlaskit/icon/types';
 import { N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+
+import Icon from '../../icon';
 
 const NotificationSupressedIconGlyph = (props: CustomGlyphProps) => (
 	<svg

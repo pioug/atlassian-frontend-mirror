@@ -31,7 +31,7 @@ export class EmojiNodeDataProvider extends NodeDataProvider<
 	}
 
 	nodeDataKey(node: EmojiDefinition): string {
-		return node.attrs.id ?? node.attrs.shortName;
+		return node.attrs.id || node.attrs.shortName;
 	}
 
 	/**

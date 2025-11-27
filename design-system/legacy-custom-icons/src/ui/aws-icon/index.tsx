@@ -1,8 +1,9 @@
 import React from 'react';
 
-import Icon from '@atlaskit/icon';
 import type { CustomGlyphProps, IconProps } from '@atlaskit/icon/types';
 import { useThemeObserver } from '@atlaskit/tokens';
+
+import Icon from '../../icon';
 
 const AwsIconGlyph = (props: CustomGlyphProps) => {
 	const { colorMode } = useThemeObserver();

@@ -698,6 +698,7 @@ describe('<MediaViewer />', () => {
 								},
 							},
 							status: 'fail',
+							statusCode: 403,
 							traceContext: {
 								traceId: expect.any(String),
 							},
@@ -1469,6 +1470,7 @@ describe('<MediaViewer />', () => {
 							errorDetail: 'inner error message',
 							failReason: 'download',
 							status: 'fail',
+							statusCode: 403,
 							fileMediatype: fileItem.details.mediaType,
 							fileMimetype: fileItem.details.mimeType,
 							fileAttributes,
@@ -1565,6 +1567,7 @@ describe('<MediaViewer />', () => {
 							errorDetail: 'inner error message',
 							failReason: 'download',
 							status: 'fail',
+							statusCode: 403,
 							fileMediatype: fileItem.details.mediaType,
 							fileMimetype: fileItem.details.mimeType,
 							fileAttributes,

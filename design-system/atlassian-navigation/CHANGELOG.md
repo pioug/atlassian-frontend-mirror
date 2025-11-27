@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 5.5.0
+
+### Minor Changes
+
+- [`f089cdf7f6a28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f089cdf7f6a28) -
+  PrimaryButton now supports displaying a shortcut in the tooltip, through the new `shortcut` prop.
+  It is passed through to the Tooltip's `shortcut` prop.
+
 ## 5.4.2
 
 ### Patch Changes

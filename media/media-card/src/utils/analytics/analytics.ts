@@ -3,6 +3,7 @@ import {
 	type FileDetails,
 	type FileStatus,
 	type MediaClientErrorReason,
+	type RequestErrorMetadata,
 	type RequestMetadata,
 	isCommonMediaClientError,
 } from '@atlaskit/media-client';
@@ -98,6 +99,7 @@ export type RenderFailedEventPayload = OperationalEventPayload<
 		FailureAttributes & {
 			failReason: FailedErrorFailReason | 'failed-processing';
 			error?: MediaClientErrorReason | 'nativeError';
+			statusCode?: number;
 			request?: RequestMetadata;
 		},
 	'failed',
@@ -110,6 +112,7 @@ export type DownloadFailedEventPayload = OperationalEventPayload<
 		FailureAttributes & {
 			failReason: FailedErrorFailReason;
 			error?: MediaClientErrorReason | 'nativeError';
+			statusCode?: number;
 			request?: RequestMetadata;
 		},
 	'failed',
@@ -125,6 +128,7 @@ export type ErrorEventPayload = OperationalEventPayload<
 			cardStatus: CardStatus;
 			failReason: FailedErrorFailReason | 'failed-processing';
 			error?: MediaClientErrorReason | 'nativeError';
+			statusCode?: number;
 			request?: RequestMetadata;
 		},
 	'nonCriticalFail',
@@ -345,7 +349,7 @@ export const getErrorTraceContext = (error: MediaCardError): MediaTraceContext |
 
 export const getRenderErrorRequestMetadata = (
 	error: MediaCardError,
-): RequestMetadata | undefined => {
+): RequestErrorMetadata | undefined => {
 	const { secondaryError } = error;
 	if (isCommonMediaClientError(secondaryError)) {
 		return secondaryError.metadata;
@@ -371,40 +375,48 @@ export const getRenderErrorEventPayload = (
 	ssrReliability: SSRStatus,
 	traceContext: MediaTraceContext,
 	metadataTraceContext?: MediaTraceContext,
-): RenderFailedEventPayload => ({
-	eventType: 'operational',
-	action: 'failed',
-	actionSubject: 'mediaCardRender',
-	attributes: {
-		fileMimetype: fileAttributes.fileMimetype,
-		fileAttributes,
-		performanceAttributes,
-		status: 'fail',
-		...extractErrorInfo(error, metadataTraceContext),
-		request: getRenderErrorRequestMetadata(error),
-		ssrReliability,
-		traceContext,
-	},
-});
+): RenderFailedEventPayload => {
+	const requestMetadata = getRenderErrorRequestMetadata(error);
+	return {
+		eventType: 'operational',
+		action: 'failed',
+		actionSubject: 'mediaCardRender',
+		attributes: {
+			fileMimetype: fileAttributes.fileMimetype,
+			fileAttributes,
+			performanceAttributes,
+			status: 'fail',
+			...extractErrorInfo(error, metadataTraceContext),
+			statusCode: requestMetadata?.statusCode,
+			request: requestMetadata,
+			ssrReliability,
+			traceContext,
+		},
+	};
+};
 
 export const getDownloadFailedEventPayload = (
 	fileAttributes: FileAttributes,
 	error: MediaCardError,
 	traceContext: MediaTraceContext,
 	metadataTraceContext?: MediaTraceContext,
-): DownloadFailedEventPayload => ({
-	eventType: 'operational',
-	action: 'failed',
-	actionSubject: 'mediaCardDownload',
-	attributes: {
-		fileMimetype: fileAttributes.fileMimetype,
-		fileAttributes,
-		status: 'fail',
-		...extractErrorInfo(error, metadataTraceContext),
-		request: getRenderErrorRequestMetadata(error),
-		traceContext,
-	},
-});
+): DownloadFailedEventPayload => {
+	const requestMetadata = getRenderErrorRequestMetadata(error);
+	return {
+		eventType: 'operational',
+		action: 'failed',
+		actionSubject: 'mediaCardDownload',
+		attributes: {
+			fileMimetype: fileAttributes.fileMimetype,
+			fileAttributes,
+			status: 'fail',
+			...extractErrorInfo(error, metadataTraceContext),
+			statusCode: requestMetadata?.statusCode,
+			request: requestMetadata,
+			traceContext,
+		},
+	};
+};
 
 export const getErrorEventPayload = (
 	cardStatus: CardStatus,
@@ -413,20 +425,24 @@ export const getErrorEventPayload = (
 	ssrReliability: SSRStatus,
 	traceContext: MediaTraceContext,
 	metadataTraceContext?: MediaTraceContext,
-): ErrorEventPayload => ({
-	eventType: 'operational',
-	action: 'nonCriticalFail',
-	actionSubject: 'mediaCardRender',
-	attributes: {
-		fileAttributes,
-		status: 'fail',
-		...extractErrorInfo(error, metadataTraceContext),
-		request: getRenderErrorRequestMetadata(error),
-		ssrReliability,
-		traceContext,
-		cardStatus,
-	},
-});
+): ErrorEventPayload => {
+	const requestMetadata = getRenderErrorRequestMetadata(error);
+	return {
+		eventType: 'operational',
+		action: 'nonCriticalFail',
+		actionSubject: 'mediaCardRender',
+		attributes: {
+			fileAttributes,
+			status: 'fail',
+			...extractErrorInfo(error, metadataTraceContext),
+			statusCode: requestMetadata?.statusCode,
+			request: requestMetadata,
+			ssrReliability,
+			traceContext,
+			cardStatus,
+		},
+	};
+};
 
 export const getRenderFailedFileStatusPayload = (
 	fileAttributes: FileAttributes,

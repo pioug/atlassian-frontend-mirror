@@ -75,6 +75,7 @@ export const PrimaryButton: React.ForwardRefExoticComponent<
 			testId,
 			theme,
 			tooltip,
+			shortcut,
 			...rest
 		} = props;
 		const themeFromContext = useTheme();
@@ -113,7 +114,7 @@ export const PrimaryButton: React.ForwardRefExoticComponent<
 
 		if (tooltip) {
 			return (
-				<Tooltip content={tooltip} hideTooltipOnClick>
+				<Tooltip content={tooltip} hideTooltipOnClick shortcut={shortcut}>
 					{button}
 				</Tooltip>
 			);

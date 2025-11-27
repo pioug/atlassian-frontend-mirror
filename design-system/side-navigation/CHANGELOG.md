@@ -1,5 +1,13 @@
 # @atlaskit/side-navigation
 
+## 11.0.28
+
+### Patch Changes
+
+- [`265c7c2662121`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265c7c2662121) -
+  Migrating custom icons.
+- Updated dependencies
+
 ## 11.0.27
 
 ### Patch Changes

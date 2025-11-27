@@ -1,5 +1,17 @@
 # @atlaskit/ads-mcp
 
+## 0.9.0
+
+### Minor Changes
+
+- [`55344b6c664f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55344b6c664f0) -
+  Combine "Get All Tokens" and "Search Tokens" tools and convert their output format to Markdown.
+
+### Patch Changes
+
+- [`ec7caf4e1130d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec7caf4e1130d) -
+  Remove mentions of `@atlaskit/announcer` in accessibility guidance.
+
 ## 0.8.6
 
 ### Patch Changes

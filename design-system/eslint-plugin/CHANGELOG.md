@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.27.0
+
+### Minor Changes
+
+- [`32751f9d05b33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32751f9d05b33) -
+  Introduces two new rules which guard against improper usage of `.toMatchSnapshot` and
+  `.toMatchInlineSnapshot`
+
 ## 13.26.0
 
 ### Minor Changes

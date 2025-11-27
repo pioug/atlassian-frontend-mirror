@@ -1,6 +1,6 @@
 import {
 	type MediaClientErrorReason,
-	type RequestMetadata,
+	type RequestErrorMetadata,
 	isCommonMediaClientError,
 } from '@atlaskit/media-client';
 import { type ZipEntry } from 'unzipit';
@@ -119,7 +119,7 @@ export function getErrorDetail(error?: MediaViewerError): string {
 	return 'unknown';
 }
 
-export function getRequestMetadata(error?: MediaViewerError): RequestMetadata | undefined {
+export function getRequestMetadata(error?: MediaViewerError): RequestErrorMetadata | undefined {
 	const { secondaryError } = error || {};
 	if (isCommonMediaClientError(secondaryError)) {
 		return secondaryError.metadata;

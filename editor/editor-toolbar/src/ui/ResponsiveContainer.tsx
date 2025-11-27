@@ -31,7 +31,7 @@ const styles = cssMap({
 	// Used for editor full-page experiences
 	fullpage: {
 		// @ts-expect-error - container queries are not typed in cssMap
-		'@container toolbar-container (max-width: 410px)': {
+		'@container toolbar-container (max-width: 422px)': {
 			'.show-above-sm': {
 				display: 'none',
 			},
@@ -39,7 +39,7 @@ const styles = cssMap({
 				display: 'block',
 			},
 		},
-		'@container toolbar-container (max-width: 476px)': {
+		'@container toolbar-container (max-width: 722px)': {
 			'.show-above-md': {
 				display: 'none',
 			},
@@ -47,7 +47,7 @@ const styles = cssMap({
 				display: 'block',
 			},
 		},
-		'@container toolbar-container (max-width: 768px)': {
+		'@container toolbar-container (max-width: 858px)': {
 			'.show-above-lg': {
 				display: 'none',
 			},
@@ -69,7 +69,7 @@ const styles = cssMap({
 	reduced: {
 		// @ts-expect-error - container queries are not typed in cssMap
 		'&&': {
-			'@container toolbar-container (max-width: 210px)': {
+			'@container toolbar-container (max-width: 296px)': {
 				'.show-above-sm': {
 					display: 'none',
 				},
@@ -77,7 +77,7 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
-			'@container toolbar-container (max-width: 408px)': {
+			'@container toolbar-container (max-width: 432px)': {
 				'.show-above-md': {
 					display: 'none',
 				},
@@ -85,7 +85,7 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
-			'@container toolbar-container (max-width: 575px)': {
+			'@container toolbar-container (max-width: 662px)': {
 				'.show-above-lg': {
 					display: 'none',
 				},

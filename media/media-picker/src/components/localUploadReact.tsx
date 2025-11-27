@@ -192,6 +192,8 @@ export class LocalUploadComponentReact<
 						: 'unknown';
 		}
 
+		const requestMetadata = !!rawError ? getRequestMetadata(rawError) : undefined;
+
 		this.createAndFireAnalyticsEvent({
 			eventType: 'operational',
 			action: 'failed',
@@ -203,7 +205,8 @@ export class LocalUploadComponentReact<
 				status: 'fail',
 				failReason: errorName,
 				error: !!rawError ? getMediaClientErrorReason(rawError) : 'unknown',
-				request: !!rawError ? getRequestMetadata(rawError) : undefined,
+				statusCode: requestMetadata?.statusCode,
+				request: requestMetadata,
 				fileAttributes: {
 					fileId,
 				},
@@ -217,7 +220,8 @@ export class LocalUploadComponentReact<
 			failReason: errorName,
 			error: !!rawError ? getMediaClientErrorReason(rawError) : 'unknown',
 			errorDetail,
-			request: !!rawError ? getRequestMetadata(rawError) : undefined,
+			statusCode: requestMetadata?.statusCode,
+			request: requestMetadata,
 			fileAttributes: {
 				fileId,
 			},

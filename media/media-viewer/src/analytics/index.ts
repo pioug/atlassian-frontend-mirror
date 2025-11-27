@@ -48,6 +48,7 @@ export function getFileAttributes(fileState?: FileState): FileAttributes {
 /** This type takes FailureAttributes and redefines `failReason` to be the strong media-viewer type */
 export type MediaViewerFailureAttributes = Omit<FailureAttributes, 'failReason'> & {
 	failReason: PrimaryErrorReason;
+	statusCode?: number;
 	request?: RequestMetadata;
 } & WithFileAttributes &
 	WithTraceContext;

@@ -52,7 +52,7 @@ function eeTest<ExperimentName extends keyof EditorExperimentsConfig>(
 		? Record<EditorExperimentsConfig[ExperimentName]['defaultValue'], DescribeBody>
 		: { false: DescribeBody; true: DescribeBody },
 	otherExperiments?: EditorExperimentOverrides,
-) {
+): void {
 	setupEditorExperiments('test', {});
 
 	describe(`eeTest: ${experimentName}`, () => {
@@ -92,6 +92,38 @@ function eeTest<ExperimentName extends keyof EditorExperimentsConfig>(
 	});
 }
 
+interface EeTestDescribeReturn<ExperimentName extends keyof EditorExperimentsConfig> {
+	each: (describeBody: DescribeBody) => void;
+	variant: (
+		value: EditorExperimentsConfig[ExperimentName]['defaultValue'],
+		describeBody: DescribeBody,
+	) => void;
+}
+
+// Namespace declaration to add describe property to eeTest function type
+// TypeScript automatically merges function and namespace declarations with the same name
+// eslint-disable-next-line @typescript-eslint/no-namespace
+declare namespace eeTest {
+	function describe<ExperimentName extends keyof EditorExperimentsConfig>(
+		experimentName: ExperimentName,
+		describeName: string,
+	): EeTestDescribeReturn<ExperimentName>;
+}
+
+interface EeTestFunction {
+	<ExperimentName extends keyof EditorExperimentsConfig>(
+		experimentName: ExperimentName,
+		cases: EditorExperimentsConfig[ExperimentName]['defaultValue'] extends string
+			? Record<EditorExperimentsConfig[ExperimentName]['defaultValue'], DescribeBody>
+			: { false: DescribeBody; true: DescribeBody },
+		otherExperiments?: EditorExperimentOverrides,
+	): void;
+	describe: <ExperimentName extends keyof EditorExperimentsConfig>(
+		experimentName: ExperimentName,
+		describeName: string,
+	) => EeTestDescribeReturn<ExperimentName>;
+}
+
 /**
  * eeTest.describe() Wrapper utility for describe() that runs a test with a editor experiment overides.
  *
@@ -116,16 +148,9 @@ function eeTest<ExperimentName extends keyof EditorExperimentsConfig>(
  * API based on next gen ffTest API
  * - https://hello.atlassian.net/wiki/spaces/AF/pages/2569505829/Task+Testing+your+feature+flag+in+platform+and+product#Next-Generation-API-%E2%9C%A8
  */
-eeTest.describe = function eeTestDescribe<ExperimentName extends keyof EditorExperimentsConfig>(
-	experimentName: ExperimentName,
-	describeName: string,
-): {
-	each: (describeBody: DescribeBody) => void;
-	variant: (
-		value: EditorExperimentsConfig[ExperimentName]['defaultValue'],
-		describeBody: DescribeBody,
-	) => void;
-} {
+(eeTest as EeTestFunction).describe = function eeTestDescribe<
+	ExperimentName extends keyof EditorExperimentsConfig,
+>(experimentName: ExperimentName, describeName: string): EeTestDescribeReturn<ExperimentName> {
 	function eeTest(
 		value: EditorExperimentsConfig[ExperimentName]['defaultValue'],
 		describeBody: Parameters<typeof describe>[1] = () => {},
@@ -172,3 +197,4 @@ eeTest.describe = function eeTestDescribe<ExperimentName extends keyof EditorExp
 };
 
 export { eeTest };
+export type { EeTestFunction };

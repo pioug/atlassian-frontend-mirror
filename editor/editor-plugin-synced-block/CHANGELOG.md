@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.3.5
+
+### Patch Changes
+
+- [`a4c7ffb45fe77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4c7ffb45fe77) -
+  Revert PR 258977
+
+## 4.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.3.3
 
 ### Patch Changes

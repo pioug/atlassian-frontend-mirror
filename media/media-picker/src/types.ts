@@ -203,6 +203,7 @@ export type MediaUploadFailurePayload = OperationalEventPayload<
 			sourceType: MediaUploadSource;
 			serviceName: string;
 			uploadDurationMsec: number;
+			statusCode?: number;
 			request?: RequestMetadata;
 		},
 	'failed',

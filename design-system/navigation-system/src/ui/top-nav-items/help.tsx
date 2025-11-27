@@ -35,7 +35,17 @@ interface HelpProps
 export const Help: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<HelpProps> & React.RefAttributes<HTMLButtonElement>
 > = forwardRef<HTMLButtonElement, HelpProps>(function Help(
-	{ label, onClick, onMouseEnter, isSelected, testId, interactionName, isListItem, badge },
+	{
+		label,
+		onClick,
+		onMouseEnter,
+		isSelected,
+		testId,
+		interactionName,
+		isListItem,
+		badge,
+		shortcut,
+	},
 	ref,
 ) {
 	const sharedProps = {
@@ -47,6 +57,7 @@ export const Help: React.ForwardRefExoticComponent<
 		testId,
 		interactionName,
 		ref,
+		shortcut,
 	};
 
 	if (!badge) {

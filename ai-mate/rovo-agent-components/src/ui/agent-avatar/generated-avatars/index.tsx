@@ -153,6 +153,10 @@ const WorkflowBuilderAvatar = lazy(
 			/* webpackChunkName: "@atlaskit-rovo-avatar-WorkflowBuilderAvatar"*/ './assets/workflow-builder'
 		),
 );
+const TrialGuideAvatar = lazy(
+	() =>
+		import(/* webpackChunkName: "@atlaskit-rovo-avatar-TrialGuideAvatar"*/ './assets/trial-guide'),
+);
 
 type Color = {
 	primary: string;
@@ -352,6 +356,16 @@ const outOfTheBoxAgentAvatar: {
 			/>
 		),
 		color: yellowColor,
+	},
+	jira_trial_guide_agent: {
+		getRender: (size: SizeType) => (
+			<TrialGuideAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={blueColor.primary}
+				secondaryColor={blueColor.secondary}
+			/>
+		),
+		color: blueColor,
 	},
 };
 

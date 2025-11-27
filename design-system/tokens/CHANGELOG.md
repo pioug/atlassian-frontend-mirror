@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 8.4.0
+
+### Minor Changes
+
+- [`02aeea2e65ec2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02aeea2e65ec2) -
+  Enabled shape theme by default behind a feature gate. The shape theme remains undefined when the
+  gate is off.
+
 ## 8.3.0
 
 ### Minor Changes

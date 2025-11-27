@@ -11,6 +11,7 @@ import {
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { TrackChangesPlugin } from '../trackChangesPluginType';
 
@@ -20,17 +21,21 @@ export const getToolbarComponents = (
 	api?: ExtractInjectionAPI<TrackChangesPlugin>,
 ): RegisterComponent[] => {
 	return [
-		{
-			type: TRACK_CHANGES_SECTION.type,
-			key: TRACK_CHANGES_SECTION.key,
-			parents: [
-				{
-					type: 'toolbar',
-					key: TOOLBARS.PRIMARY_TOOLBAR,
-					rank: TOOLBAR_RANK[TRACK_CHANGES_SECTION.key],
-				},
-			],
-		},
+		...(fg('platform_editor_toolbar_aifc_undo_redo_confluence')
+			? []
+			: [
+					{
+						type: TRACK_CHANGES_SECTION.type,
+						key: TRACK_CHANGES_SECTION.key,
+						parents: [
+							{
+								type: 'toolbar' as const,
+								key: TOOLBARS.PRIMARY_TOOLBAR,
+								rank: TOOLBAR_RANK[TRACK_CHANGES_SECTION.key],
+							},
+						],
+					},
+				]),
 		{
 			type: TRACK_CHANGES_GROUP.type,
 			key: TRACK_CHANGES_GROUP.key,

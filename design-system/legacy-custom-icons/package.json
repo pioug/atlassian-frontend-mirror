@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/legacy-custom-icons",
-	"version": "0.22.16",
+	"version": "0.22.17",
 	"description": "A centralised place to store legacy custom icons.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -174,9 +174,11 @@
 	},
 	"dependencies": {
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "root:*"
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -231,5 +233,15 @@
 	"scripts": {
 		"generate-icon": "yarn ts-node ./scripts/generate-icon.tsx && yarn generate-artifacts",
 		"generate-artifacts": "yarn ts-node ./scripts/generate-artifacts.tsx"
+	},
+	"platform-feature-flags": {
+		"platform-custom-icon-migration": {
+			"type": "boolean"
+		}
+	},
+	"techstackIgnore": {
+		"stricter": [
+			"@atlassian/tangerine/project-structure"
+		]
 	}
 }

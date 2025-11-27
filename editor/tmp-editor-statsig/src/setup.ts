@@ -52,7 +52,7 @@ export function setupEditorExperiments(
 		 */
 		disableTestOverrides?: boolean;
 	},
-) {
+): void {
 	if (groupOverrides) {
 		// When setting up overrides, we want to ensure that experiments don't end up with invalid
 		// values.

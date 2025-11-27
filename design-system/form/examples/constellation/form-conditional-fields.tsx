@@ -56,11 +56,11 @@ const SignUpForm = () => (
 	</>
 );
 
-export default function ConditionalFieldsExample(): React.JSX.Element {
+function ConditionalFieldsExample(): React.JSX.Element {
 	const formState = useFormState({ values: true });
 
 	return (
-		<Form onSubmit={(data) => console.log('form data', data)}>
+		<>
 			<Field
 				label="Do you have an existing account?"
 				name="existingAccount"
@@ -77,6 +77,14 @@ export default function ConditionalFieldsExample(): React.JSX.Element {
 				)}
 			/>
 			{formState?.values.existingAccount === 'yes' ? <LoginForm /> : <SignUpForm />}
-		</Form>
+		</>
 	);
 }
+
+export default () => {
+	return (
+		<Form onSubmit={(data) => console.log('form data', data)}>
+			<ConditionalFieldsExample />
+		</Form>
+	);
+};

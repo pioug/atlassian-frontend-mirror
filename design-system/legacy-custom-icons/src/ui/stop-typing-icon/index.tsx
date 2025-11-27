@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Icon from '@atlaskit/icon';
 import type { CustomGlyphProps, IconProps } from '@atlaskit/icon/types';
+
+import Icon from '../../icon';
 
 const StopTypingIconGlyph = (props: CustomGlyphProps) => (
 	<svg width="24" height="24" viewBox="0 0 24 24">

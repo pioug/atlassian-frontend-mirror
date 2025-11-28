@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 124.16.6
+
+### Patch Changes
+
+- [`e1fb8551a5f6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1fb8551a5f6a) -
+  ED-29571: Update renderer with support for hash link to block
+- [`f910a750d2d52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f910a750d2d52) -
+  Moving all references to aifc_create_enabled FG over to a new seperately controlled
+  platform_editor_ai_aifc_streaming gate
+- Updated dependencies
+
 ## 124.16.5
 
 ### Patch Changes

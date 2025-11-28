@@ -26,6 +26,7 @@ import Form, {
 import ExpandIcon from '@atlaskit/icon/core/grow-diagonal';
 import { default as EditorFilePreviewIconLegacy } from '@atlaskit/icon/glyph/editor/file-preview';
 import { getMediaClient } from '@atlaskit/media-client-react';
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Flex, Inline, Stack, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
@@ -349,6 +350,9 @@ export function MediaFromURL({
 											// eslint-disable-next-line react/jsx-props-no-spreading
 											{...rest}
 											value={value}
+											aria-label={
+												fg('platform_editor_nov_a11y_fixes') ? strings.pasteLinkToUpload : undefined
+											}
 											placeholder={strings.pasteLinkToUpload}
 											maxLength={MAX_URL_LENGTH}
 											onKeyPress={onInputKeyPress}

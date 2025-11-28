@@ -23,9 +23,6 @@
 	],
 	"references": [
 		{
-			"path": "../../adf-utils/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../editor-json-transformer/afm-cc/tsconfig.json"
 		},
 		{

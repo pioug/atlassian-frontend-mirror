@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-mentions",
-	"version": "8.2.15",
+	"version": "8.2.16",
 	"description": "Mentions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -64,8 +64,6 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"@af/visual-regression": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
 		"@testing-library/react": "root:*",
 		"wait-for-expect": "root:*"
 	},

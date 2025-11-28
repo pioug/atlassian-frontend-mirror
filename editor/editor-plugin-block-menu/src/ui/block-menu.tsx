@@ -31,6 +31,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
 import { Box } from '@atlaskit/primitives/compiled';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
@@ -216,8 +217,7 @@ const BlockMenuContent = ({
 			ref={ref}
 			xcss={cx(
 				styles.base,
-				expValEqualsNoExposure('platform_synced_block', 'isEnabled', true) &&
-					styles.emptyMenuSectionStyles,
+				editorExperiment('platform_synced_block', true) && styles.emptyMenuSectionStyles,
 			)}
 		>
 			<BlockMenuRenderer
@@ -270,18 +270,13 @@ const BlockMenu = ({
 	const prevIsMenuOpenRef = useRef(false);
 	const popupRef = useRef<HTMLElement | undefined>(undefined);
 
-	const hasFocus = expValEqualsNoExposure(
-		'platform_editor_block_menu_keyboard_navigation',
-		'isEnabled',
-		true,
-	)
-		? ((editorView?.hasFocus() ||
-				document.activeElement === targetHandleRef ||
-				(popupRef.current &&
-					(popupRef.current.contains(document.activeElement) ||
-						popupRef.current === document.activeElement))) ??
-			false)
-		: (editorView?.hasFocus() ?? false);
+	const hasFocus =
+		(editorView?.hasFocus() ||
+			document.activeElement === targetHandleRef ||
+			(popupRef.current &&
+				(popupRef.current.contains(document.activeElement) ||
+					popupRef.current === document.activeElement))) ??
+		false;
 
 	const hasSelection = !!editorView && !editorView.state.selection.empty;
 	// hasSelection true, always show block menu
@@ -291,10 +286,7 @@ const BlockMenu = ({
 		(!hasSelection &&
 			expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true));
 
-	const selectedByShortcutOrDragHandle =
-		!!isSelectedViaDragHandle ||
-		(!!openedViaKeyboard &&
-			expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true));
+	const selectedByShortcutOrDragHandle = !!isSelectedViaDragHandle || !!openedViaKeyboard;
 
 	// Use conditional hook based on feature flag
 	useConditionalBlockMenuEffect({
@@ -364,15 +356,7 @@ const BlockMenu = ({
 					alignY={'start'} // respected when forcePlacement is true
 					handleClickOutside={closeMenu}
 					handleEscapeKeydown={closeMenu}
-					handleBackspaceDeleteKeydown={
-						expValEqualsNoExposure(
-							'platform_editor_block_menu_keyboard_navigation',
-							'isEnabled',
-							true,
-						)
-							? handleBackspaceDeleteKeydown
-							: undefined
-					}
+					handleBackspaceDeleteKeydown={handleBackspaceDeleteKeydown}
 					mountTo={mountTo}
 					boundariesElement={boundariesElement}
 					scrollableElement={scrollableElement}
@@ -383,29 +367,14 @@ const BlockMenu = ({
 					preventOverflow={true} // disables forced horizontal placement when forcePlacement is on, so fitWidth controls flipping
 					stick={true}
 					focusTrap={
-						expValEqualsNoExposure(
-							'platform_editor_block_menu_keyboard_navigation',
-							'isEnabled',
-							true,
-						) && openedViaKeyboard
+						openedViaKeyboard
 							? // Only enable focus trap when opened via keyboard to make sure the focus is on the first focusable menu item
 								{ initialFocus: undefined }
 							: undefined
 					}
 					offset={[DRAG_HANDLE_WIDTH + DRAG_HANDLE_OFFSET_PADDING, 0]}
 				>
-					<BlockMenuContent
-						api={api}
-						setRef={
-							expValEqualsNoExposure(
-								'platform_editor_block_menu_keyboard_navigation',
-								'isEnabled',
-								true,
-							)
-								? setRef
-								: undefined
-						}
-					/>
+					<BlockMenuContent api={api} setRef={setRef} />
 				</PopupWithListeners>
 			</ErrorBoundary>
 		);

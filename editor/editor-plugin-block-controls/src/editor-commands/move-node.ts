@@ -30,7 +30,6 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import { findTable, isInTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -473,7 +472,7 @@ export const moveNode =
 		// Hence strip out the mark for now
 		if (
 			destNode.type.name === 'bodiedSyncBlock' &&
-			expValEquals('platform_synced_block', 'isEnabled', true)
+			editorExperiment('platform_synced_block', true)
 		) {
 			const nodes: PMNode[] = [];
 

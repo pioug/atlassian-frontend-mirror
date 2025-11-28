@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-find-replace",
-	"version": "6.1.2",
+	"version": "6.1.3",
 	"description": "find replace plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -58,9 +58,6 @@
 		"raf-schd": "root:*"
 	},
 	"devDependencies": {
-		"@af/visual-regression": "workspace:^",
-		"@atlaskit/editor-plugin-block-type": "workspace:^",
-		"@atlaskit/editor-plugin-text-formatting": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"mockdate": "root:*",

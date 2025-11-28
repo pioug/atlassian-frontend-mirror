@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-floating-toolbar",
-	"version": "8.2.20",
+	"version": "8.2.21",
 	"description": "Floating toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,7 +37,6 @@
 		"@atlaskit/editor-plugin-emoji": "workspace:^",
 		"@atlaskit/editor-plugin-extension": "workspace:^",
 		"@atlaskit/editor-plugin-interaction": "workspace:^",
-		"@atlaskit/editor-plugin-table": "workspace:^",
 		"@atlaskit/editor-plugin-user-intent": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/emoji": "workspace:^",

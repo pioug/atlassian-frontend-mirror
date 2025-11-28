@@ -1,6 +1,5 @@
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type ActiveNode } from '../../blockControlsPluginType';
@@ -33,7 +32,7 @@ export const shouldAllowInlineDropTarget = (
 	if (
 		(syncedBlockTypes.includes(activeNode?.nodeType || '') ||
 			syncedBlockTypes.includes(node?.type.name || '')) &&
-		expValEquals('platform_synced_block', 'isEnabled', true)
+		editorExperiment('platform_synced_block', true)
 	) {
 		return false;
 	}

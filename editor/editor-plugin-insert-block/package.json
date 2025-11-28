@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-insert-block",
-	"version": "7.0.22",
+	"version": "7.0.23",
 	"description": "Insert block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,7 +32,6 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/button": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-block-type": "workspace:^",
 		"@atlaskit/editor-plugin-code-block": "workspace:^",
@@ -64,15 +63,12 @@
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/editor-toolbar-model": "workspace:^",
 		"@atlaskit/emoji": "workspace:^",
-		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@emotion/react": "root:*",
 		"bind-event-listener": "root:*",
@@ -87,9 +83,6 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"@af/integration-testing": "workspace:^",
-		"@af/visual-regression": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/react-virtualized": "root:*"
 	},

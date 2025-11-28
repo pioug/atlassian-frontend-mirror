@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-editor-viewmode-effects",
-	"version": "6.0.3",
+	"version": "6.1.0",
 	"description": "Editor-Viewmode effects plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,6 @@
 		"@atlaskit/editor-plugin-editor-viewmode": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
@@ -86,6 +85,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_ai_generic_prep_for_aifc": {
+			"type": "boolean"
+		},
+		"platform_editor_allow_viewmode_transaction": {
 			"type": "boolean"
 		}
 	}

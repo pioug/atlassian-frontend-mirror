@@ -1,5 +1,14 @@
 # @atlaskit/editor-shared-styles
 
+## 3.10.2
+
+### Patch Changes
+
+- [`f910a750d2d52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f910a750d2d52) -
+  Moving all references to aifc_create_enabled FG over to a new seperately controlled
+  platform_editor_ai_aifc_streaming gate
+- Updated dependencies
+
 ## 3.10.1
 
 ### Patch Changes

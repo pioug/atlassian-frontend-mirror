@@ -23,9 +23,6 @@
 	],
 	"references": [
 		{
-			"path": "../../../design-system/button/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-analytics/afm-products/tsconfig.json"
 		},
 		{
@@ -116,9 +113,6 @@
 			"path": "../../../elements/emoji/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/heading/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
 		},
 		{
@@ -128,9 +122,6 @@
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/theme/afm-products/tsconfig.json"
 		},
 		{
@@ -138,9 +129,6 @@
 		},
 		{
 			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/tooltip/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-products/tsconfig.json"

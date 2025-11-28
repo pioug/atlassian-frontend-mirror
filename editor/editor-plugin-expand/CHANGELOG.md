@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-expand
 
+## 7.4.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.4.8
+
+### Patch Changes
+
+- [`56c0427b2ab20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56c0427b2ab20) -
+  [ux] Use new IA for block menu items.
+- Updated dependencies
+
 ## 7.4.7
 
 ### Patch Changes

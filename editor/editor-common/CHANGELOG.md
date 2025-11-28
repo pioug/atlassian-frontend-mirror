@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 110.36.2
+
+### Patch Changes
+
+- [`7583860e8637f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7583860e8637f) -
+  EDITOR-3621 Clean up platform_editor_block_menu_keyboard_navigation feature gate
+- Updated dependencies
+
+## 110.36.1
+
+### Patch Changes
+
+- [`5e935a27d0d78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e935a27d0d78) -
+  Cleanup platform_editor_resizer_cls_fix experiment
+- Updated dependencies
+
+## 110.36.0
+
+### Minor Changes
+
+- [`d84e4018e7a77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d84e4018e7a77) -
+  ED-29689 create new exp
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 110.35.3
 
 ### Patch Changes

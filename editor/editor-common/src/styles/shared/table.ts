@@ -230,7 +230,7 @@ const tableSharedStyle = () => {
 
 					/* only apply this styling to codeblocks in default background headercells */
 					/* TODO this needs to be overhauled as it relies on unsafe selectors */
-					${expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+					${expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 						? '&:not(.danger)'
 						: '&:not([style]):not(.danger)'} {
 						.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}:not(.danger) {

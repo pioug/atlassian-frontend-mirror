@@ -205,13 +205,9 @@ export const resizerStyles: SerializedStyles = css`
 		}
 	}
 
-	&.resizer-hover-zone-cls-fix .${resizerHoverZoneClassName} {
-		display: 'flow-root';
-	}
-
 	.${resizerHoverZoneClassName} {
 		position: relative;
-		display: inline-block;
+		display: flow-root;
 		width: 100%;
 
 		&.${resizerExtendedZone} {

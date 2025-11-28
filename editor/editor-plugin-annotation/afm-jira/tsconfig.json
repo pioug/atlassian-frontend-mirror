@@ -23,9 +23,6 @@
 	],
 	"references": [
 		{
-			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
 		},
 		{
@@ -51,9 +48,6 @@
 		},
 		{
 			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/onboarding/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"

@@ -50,3 +50,12 @@ export {
 	PanelActionBack,
 	type PanelActionBackProps,
 } from './components/panel-action-variants/panel-action-back/panel-action-back';
+
+export { PanelProvider, type PanelProviderProps } from './panel-manager/panel-provider';
+
+export { usePanelManager, usePanelActions, usePanelState } from './panel-manager/panel-manager';
+export type {
+	Panel,
+	PanelSystemState,
+	PanelAction as PanelSystemAction,
+} from './panel-manager/types';

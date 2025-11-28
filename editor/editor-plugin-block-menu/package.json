@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-menu",
-	"version": "5.0.18",
+	"version": "5.0.21",
 	"description": "BlockMenu plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -43,7 +43,6 @@
 		"@atlaskit/editor-tables": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
-		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
@@ -97,12 +96,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_block_menu_transform_nested_node": {
-			"type": "boolean"
-		},
-		"platform_editor_block_menu_for_disabled_nodes": {
-			"type": "boolean"
-		},
-		"platform_editor_block_menu_shouldfitcontainer": {
 			"type": "boolean"
 		},
 		"platform_editor_toolbar_aifc_user_intent_fix": {

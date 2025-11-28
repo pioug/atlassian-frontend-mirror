@@ -23,9 +23,6 @@
 	],
 	"references": [
 		{
-			"path": "../../../design-system/button/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
 		},
 		{
@@ -116,9 +113,6 @@
 			"path": "../../../elements/emoji/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/heading/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
 		},
 		{
@@ -128,9 +122,6 @@
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/theme/afm-jira/tsconfig.json"
 		},
 		{
@@ -138,9 +129,6 @@
 		},
 		{
 			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-jira/tsconfig.json"

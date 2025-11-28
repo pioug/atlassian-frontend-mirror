@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 15.4.7
+
+### Patch Changes
+
+- [`ccac90cc6d089`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ccac90cc6d089) -
+  [ux] Only show row control on table sticky header when header not in stuck state
+- Updated dependencies
+
+## 15.4.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.4.5
 
 ### Patch Changes

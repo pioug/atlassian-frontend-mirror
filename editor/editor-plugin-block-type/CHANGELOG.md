@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-type
 
+## 10.2.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.2.15
+
+### Patch Changes
+
+- [`56c0427b2ab20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56c0427b2ab20) -
+  [ux] Use new IA for block menu items.
+- Updated dependencies
+
 ## 10.2.14
 
 ### Patch Changes

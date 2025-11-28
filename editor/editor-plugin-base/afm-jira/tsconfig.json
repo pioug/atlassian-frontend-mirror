@@ -29,9 +29,6 @@
 			"path": "../../editor-plugin-feature-flags/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../prosemirror-history/afm-jira/tsconfig.json"
 		},
 		{

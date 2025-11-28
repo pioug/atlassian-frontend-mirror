@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.14.0
+
+### Minor Changes
+
+- [`4e43c6db295d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e43c6db295d3) -
+  [ux] Refresh agent profile card UI
+
 ## 3.13.0
 
 ### Minor Changes

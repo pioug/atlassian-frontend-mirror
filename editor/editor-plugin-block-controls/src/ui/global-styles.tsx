@@ -23,7 +23,6 @@ import {
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPaddingReduced,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { layers } from '@atlaskit/theme/constants';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -645,8 +644,7 @@ export const GlobalStylesWrapper = ({
 
 	const shouldRenderAnchors =
 		isCSSAnchorSupported() &&
-		expValEquals('platform_editor_native_anchor_support', 'isEnabled', true) &&
-		fg('platform_native_anchor_use_css_style');
+		expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true);
 
 	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
@@ -655,17 +653,17 @@ export const GlobalStylesWrapper = ({
 			styles={[
 				globalStyles(),
 				globalDnDStyle,
-				expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 					? extendedHoverZoneNext()
 					: extendedHoverZone(),
 				isDragging &&
-					(expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+					(expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 						? extendedDragZoneNext
 						: extendedDragZone),
 				editorExperiment('platform_editor_preview_panel_responsiveness', true, {
 					exposure: true,
 				})
-					? expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+					? expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 						? extendHoverZoneReducedNext
 						: extendHoverZoneReduced
 					: undefined,
@@ -681,14 +679,14 @@ export const GlobalStylesWrapper = ({
 				editorExperiment('advanced_layouts', true) ? blockCardWithoutLayout : undefined,
 				withDividerInPanelStyleFix,
 				withFormatInLayoutStyleFix,
-				expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 					? withRelativePosStyleNext
 					: withRelativePosStyle,
 				topLevelNodeMarginStyles,
-				expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 					? withAnchorNameZindexStyleNext
 					: withAnchorNameZindexStyle,
-				expValEquals('platform_editor_native_anchor_support', 'isEnabled', true) &&
+				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
 				expValEquals('advanced_layouts', 'isEnabled', true)
 					? layoutColumnExtendedHoverZone
 					: layoutColumnWithoutHoverZone,

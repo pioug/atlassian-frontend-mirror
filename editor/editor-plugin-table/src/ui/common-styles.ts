@@ -38,6 +38,7 @@ import { TableCssClassName as ClassName } from '../types';
 import {
 	columnControlsDecorationHeight,
 	dragRowControlsWidth,
+	nativeStickyHeaderZIndex,
 	resizeHandlerAreaWidth,
 	resizeHandlerZIndex,
 	resizeLineWidth,
@@ -588,6 +589,14 @@ export const baseTableStyles = (props: {
 		> div
 		> .${ClassName.DRAG_ROW_CONTROLS} {
 		top: ${tableColumnControlsHeight}px;
+		z-index: ${nativeStickyHeaderZIndex + 1};
+	}
+
+	.${ClassName.TABLE_CONTAINER}[data-table-header-is-stuck='true']:has(.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW})
+		> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
+		> div
+		> .${ClassName.DRAG_ROW_CONTROLS} {
+		z-index: ${nativeStickyHeaderZIndex - 1};
 	}
 
 	/** Corrects position of numbered column when sticky header top mask is present */
@@ -602,6 +611,21 @@ export const baseTableStyles = (props: {
 	.pm-table-wrapper:has([data-number-column='true'] tr.${ClassName.NATIVE_STICKY})::before {
 		margin-left: -${akEditorTableNumberColumnWidth}px;
 		width: calc(100% + ${akEditorTableNumberColumnWidth}px);
+	}
+
+	/** Hides the header row drag handle when the position:sticky table header is 'stuck'
+	 *
+	 * 1. We check that the header is 'stuck'.
+	 * - The table container has attribute data-table-header-is-stuck='true' when sticky positioned header is 'stuck'
+	 *
+	 * 2. We check that the header row drag handle is in the first row or the first row is selected
+	 * - The header row drag handle has the data-row-index='0' attribute (i.e. hovered), OR
+	 * - The header row drag handle has the data-selected-row-index='0' attribute
+	 * 		AND does not have the data-handle-appearance='default' attribute (i.e. selected)
+	*/
+	.${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS}[data-table-header-is-stuck='true'] 
+	.${ClassName.DRAG_ROW_FLOATING_DRAG_HANDLE}:is([data-row-index='0'], [data-selected-row-index='0']:not([data-handle-appearance='default'])) {
+		visibility: hidden;
 	}
 
 	.${ClassName.WITH_CONTROLS} tr.${ClassName.NATIVE_STICKY} {
@@ -1274,8 +1298,7 @@ export const baseTableStyles = (props: {
 		position: fixed;
 		position-area: top center;
 		position-visibility: anchors-visible;
-		/* higher zIndex than sticky header which is akEditorTableCellOnStickyHeaderZIndex - 5 */
-		z-index: ${akEditorTableCellOnStickyHeaderZIndex - 4};
+		z-index: ${nativeStickyHeaderZIndex + 1};
 	}
 
 	/** Mask for content to the left of the column controls */
@@ -1287,8 +1310,7 @@ export const baseTableStyles = (props: {
 		width: ${akEditorTableNumberColumnWidth + dragRowControlsWidth}px;
 		height: ${tableMarginTop}px;
 		background: ${token('elevation.surface')};
-		/* higher zIndex than sticky header which is akEditorTableCellOnStickyHeaderZIndex - 5 */
-		z-index: ${akEditorTableCellOnStickyHeaderZIndex - 4};
+		z-index: ${nativeStickyHeaderZIndex - 1};
 	}
 
 	/** Mask for numbered column content to the left of the header row */
@@ -1305,6 +1327,10 @@ export const baseTableStyles = (props: {
 		outline: 1px solid ${tableBorderColor};
 		border-left: 1px solid ${tableBorderColor};
 		background: ${token('color.background.accent.gray.subtlest')};
+	}
+
+	.${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} .${ClassName.NATIVE_STICKY_ACTIVE} th:first-of-type::before {
+		box-shadow: 0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter')};
 	}
 
 	.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW}

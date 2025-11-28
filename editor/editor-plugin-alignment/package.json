@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-alignment",
-	"version": "7.1.9",
+	"version": "7.1.10",
 	"description": "Alignment plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -53,10 +53,6 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"@af/integration-testing": "workspace:^",
-		"@af/visual-regression": "workspace:^",
-		"@atlaskit/editor-plugin-list": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"wait-for-expect": "root:*"

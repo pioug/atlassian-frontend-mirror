@@ -86,15 +86,13 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 							isOpen: states.typeAheadState?.isOpen,
 							editorDisabled: states.editorDisabledState?.editorDisabled,
 							showToolbar: states.toolbarState?.shouldShowToolbar,
-							hasDangerDecorations:
-								expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-								expValEqualsNoExposure(
-									'platform_editor_block_menu_keyboard_navigation',
-									'isEnabled',
-									true,
-								)
-									? states.decorationsState?.hasDangerDecorations
-									: undefined,
+							hasDangerDecorations: expValEqualsNoExposure(
+								'platform_editor_block_menu',
+								'isEnabled',
+								true,
+							)
+								? states.decorationsState?.hasDangerDecorations
+								: undefined,
 						};
 					},
 				);
@@ -125,12 +123,7 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 					(editorDisabled ?? false) ||
 					(showToolbar ?? false) ||
 					(!!hasDangerDecorations &&
-						expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-						expValEqualsNoExposure(
-							'platform_editor_block_menu_keyboard_navigation',
-							'isEnabled',
-							true,
-						));
+						expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true));
 
 				requestAnimationFrame(() => dispatchShouldHideDecorations(editorView, shouldHide));
 			}, [

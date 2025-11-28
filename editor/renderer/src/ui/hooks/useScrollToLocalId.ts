@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import { getDocument } from '@atlaskit/browser-apis';
+import { DEFAULT_BLOCK_LINK_HASH_PREFIX } from '@atlaskit/editor-common/block-menu';
 
 // Find editor node dom with localId - similar to confluence useScrollOnUrlChange.ts
 const getLocalIdSelector = (localId: string, container: HTMLElement) => {
 	// Check if the element with data-local-id exists
-	let element = container.querySelector(`[data-local-id="${localId}"]`);
+	let element = container.querySelector(`[data-local-id="${localId}"]`) as HTMLElement | null;
+
 	if (element) {
 		return element;
 	}
@@ -45,9 +47,12 @@ export const useScrollToLocalId = (
 			return;
 		}
 
-		// Parse URL parameters for block ID
-		const urlParams = new URLSearchParams(window.location.search);
-		const blockId = urlParams.get('block');
+		// Parse hash fragment for block ID (format: #block-{localId})
+		const hash = window.location.hash;
+		const defaultPrefixWithHash = `#${DEFAULT_BLOCK_LINK_HASH_PREFIX}`;
+		const blockId = hash.startsWith(defaultPrefixWithHash)
+			? hash.slice(defaultPrefixWithHash.length)
+			: null;
 
 		if (!blockId) {
 			return;

@@ -1,5 +1,34 @@
 # @atlaskit/editor-core
 
+## 215.15.1
+
+### Patch Changes
+
+- [`9b498e7d943c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b498e7d943c0) -
+  NOISSUE: hydration example quality of life improvements
+- [`5e935a27d0d78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e935a27d0d78) -
+  Cleanup platform_editor_resizer_cls_fix experiment
+- Updated dependencies
+
+## 215.15.0
+
+### Minor Changes
+
+- [`d84e4018e7a77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d84e4018e7a77) -
+  ED-29689 create new exp
+
+### Patch Changes
+
+- Updated dependencies
+
+## 215.14.6
+
+### Patch Changes
+
+- [`4eee48613bfa3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4eee48613bfa3) -
+  NOISSUE: allows experiment overrides to be set via url
+- Updated dependencies
+
 ## 215.14.5
 
 ### Patch Changes
@@ -447,7 +476,7 @@
 
 - [`5a56aa8073a44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a56aa8073a44) -
   [ux] ED-29340 fix block controls for layouts with platform_editor_breakout_resizing on and
-  platform_editor_native_anchor_support on
+  platform_editor_native_anchor_with_dnd on
 - Updated dependencies
 
 ## 215.6.1
@@ -541,7 +570,7 @@
 - [`0b0ef25b2f529`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b0ef25b2f529) -
   Cleanup various feature gates and align them to aifc_create_enabled
 - [`3feef799ad0a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3feef799ad0a5) -
-  [ED-29333] Fix 2 issues when platform_editor_native_anchor_support is enabled
+  [ED-29333] Fix 2 issues when platform_editor_native_anchor_with_dnd is enabled
   1. Drag handle is rendered for media node
   2. When advanced_layouts experiment is off, quick insert button is rendered based on child node
      inside layout column (as opposed to layout section node )

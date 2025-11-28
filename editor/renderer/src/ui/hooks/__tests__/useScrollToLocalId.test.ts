@@ -5,10 +5,10 @@ import { useScrollToLocalId } from '../useScrollToLocalId';
 const mockScrollIntoView = jest.fn();
 Element.prototype.scrollIntoView = mockScrollIntoView;
 
-// Mock URLSearchParams
+// Mock hash for block ID
 Object.defineProperty(window, 'location', {
 	value: {
-		search: '?block=test-local-id',
+		hash: '#block-test-local-id',
 	},
 	writable: true,
 });
@@ -63,7 +63,7 @@ describe('useScrollToLocalId', () => {
 	it('should not scroll when no block parameter is present', () => {
 		// Setup window without block parameter
 		Object.defineProperty(window, 'location', {
-			value: { search: '' },
+			value: { hash: '' },
 			writable: true,
 		});
 

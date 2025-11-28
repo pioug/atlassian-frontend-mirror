@@ -125,7 +125,7 @@ export const InlineDropTarget = ({
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
 
 	const anchorName = useMemo(() => {
-		if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+		if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 			return nextNode ? api?.core.actions.getAnchorIdForNode(nextNode, getPos() ?? -1) || '' : '';
 		}
 
@@ -170,7 +170,7 @@ export const InlineDropTarget = ({
 			}
 		} else if (nextNode.type.name === 'table' && nextNode.firstChild) {
 			const tableWidthAnchor = expValEquals(
-				'platform_editor_native_anchor_support',
+				'platform_editor_native_anchor_with_dnd',
 				'isEnabled',
 				true,
 			)
@@ -193,7 +193,7 @@ export const InlineDropTarget = ({
 				innerContainerWidth = `min(${nextNode.attrs.width}px, ${innerContainerWidth})`;
 			}
 		} else if (nextNode.type.name === 'mediaSingle' && nextNode.firstChild) {
-			if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+			if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 				// check pos is a number
 				if (typeof nextNodePos === 'number' && nextNode.firstChild?.type.name === 'media') {
 					targetAnchorName =
@@ -208,7 +208,7 @@ export const InlineDropTarget = ({
 		let heightTargetAnchorName = targetAnchorName;
 		if (nextNode.type.name === 'layoutSection' && nextNode.firstChild && nextNode.lastChild) {
 			if (isLeftPosition) {
-				if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+				if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 					if (typeof nextNodePos === 'number') {
 						heightTargetAnchorName =
 							api?.core.actions.getAnchorIdForNode(nextNode.firstChild, nextNodePos + 1) || '';
@@ -219,7 +219,7 @@ export const InlineDropTarget = ({
 					heightTargetAnchorName = getNodeAnchor(nextNode.firstChild);
 				}
 			} else {
-				if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+				if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 					if (typeof nextNodePos === 'number') {
 						const lastNodeStartPos = nextNode.content.size - nextNode.lastChild.nodeSize;
 						heightTargetAnchorName =

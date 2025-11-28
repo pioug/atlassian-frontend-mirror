@@ -8,7 +8,6 @@ import type {
 	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { NodeAnchorProvider } from '../node-anchor/node-anchor-provider';
@@ -57,22 +56,18 @@ export const attachGenericProseMirrorMetadata = ({
 
 		if (
 			name === 'data-node-anchor' &&
-			expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+			expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 		) {
-			if (fg('platform_native_anchor_use_css_style')) {
-				// if browser doesn't support CSS anchor, won't need the style
-				// Or if it supports CSS attr() function as the value of anchor-name,
-				// We won't need set the style
-				if (!isCSSAnchorSupported() || isCSSAttrAnchorSupported()) {
-					return;
-				}
-
-				// otherwise, we set the CSS variable for anchor-name
-				dom.style.setProperty(ANCHOR_VARIABLE_NAME, `${value}`);
+			// if browser doesn't support CSS anchor, won't need the style
+			// Or if it supports CSS attr() function as the value of anchor-name,
+			// We won't need set the style
+			if (!isCSSAnchorSupported() || isCSSAttrAnchorSupported()) {
 				return;
 			}
 
-			dom.style.setProperty('anchor-name', value);
+			// otherwise, we set the CSS variable for anchor-name
+			dom.style.setProperty(ANCHOR_VARIABLE_NAME, `${value}`);
+			return;
 		}
 	});
 };
@@ -97,7 +92,7 @@ const wrapGetPosExceptions = <T extends SafePluginSpec>(spec: T): T => {
 
 					if (
 						!nodeIdProvider &&
-						expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+						expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 					) {
 						nodeIdProvider = getNodeIdProvider(view);
 					}
@@ -119,7 +114,7 @@ const wrapGetPosExceptions = <T extends SafePluginSpec>(spec: T): T => {
 						const pos = safeGetPos();
 						const options =
 							pos !== undefined &&
-							expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+							expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 								? {
 										anchrorId: nodeIdProvider?.getOrGenerateId(node, pos) as string,
 									}

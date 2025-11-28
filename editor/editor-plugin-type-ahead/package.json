@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-type-ahead",
-	"version": "6.5.19",
+	"version": "6.5.20",
 	"description": "Type-ahead plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -42,7 +42,6 @@
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
-		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/insm": "workspace:^",
 		"@atlaskit/menu": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
@@ -68,8 +67,6 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"@af/visual-regression": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/react-virtualized": "root:*",
 		"wait-for-expect": "root:*"

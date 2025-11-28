@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 7.1.0
+
+### Minor Changes
+
+- [`909d5392c27c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/909d5392c27c2) -
+  Allow replaceWithAdf from selection extension to update doc in view mode
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.4
 
 ### Patch Changes

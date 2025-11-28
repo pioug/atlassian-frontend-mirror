@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
@@ -19,22 +19,9 @@ export const CopySection = ({
 		return checkIsFormatMenuHidden(api);
 	}, [api]);
 
-	const selection = api?.selection?.sharedState?.currentState()?.selection;
-	const isEmptyLineSelected =
-		!!selection?.empty &&
-		expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true);
-
-	if (isEmptyLineSelected) {
-		return null;
-	}
-
 	return (
 		<ToolbarDropdownItemSection
-			hasSeparator={
-				expValEqualsNoExposure('platform_synced_block', 'isEnabled', true)
-					? true
-					: !isFormatMenuHidden()
-			}
+			hasSeparator={editorExperiment('platform_synced_block', true) ? true : !isFormatMenuHidden()}
 		>
 			{children}
 		</ToolbarDropdownItemSection>

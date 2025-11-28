@@ -7,6 +7,7 @@ export type EditorViewModeEffectsPlugin = NextEditorPlugin<
 	'editorViewModeEffects',
 	{
 		actions: {
+			allowViewModeTransaction: (tr: Transaction) => Transaction;
 			applyViewModeStepAt: (tr: Transaction) => boolean;
 		};
 		dependencies: [CollabEditPlugin, EditorViewModePlugin];

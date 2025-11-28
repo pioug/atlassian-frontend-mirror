@@ -23,9 +23,6 @@
 	],
 	"references": [
 		{
-			"path": "../../../analytics/analytics-next/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-analytics/afm-products/tsconfig.json"
 		},
 		{
@@ -51,9 +48,6 @@
 		},
 		{
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/onboarding/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"

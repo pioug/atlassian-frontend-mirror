@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.3.7
+
+### Patch Changes
+
+- [`5d1e8c97b1f19`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d1e8c97b1f19) -
+  [ux] EDITOR-3505 remove create synced block from live doc view mode toolbar
+- Updated dependencies
+
+## 4.3.6
+
+### Patch Changes
+
+- [`56c0427b2ab20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56c0427b2ab20) -
+  [ux] Use new IA for block menu items.
+- Updated dependencies
+
 ## 4.3.5
 
 ### Patch Changes

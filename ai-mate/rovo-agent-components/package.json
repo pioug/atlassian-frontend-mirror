@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "3.13.0",
+	"version": "3.14.0",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -66,6 +66,7 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/react-hooks": "root:*",
 		"@testing-library/user-event": "root:*",
@@ -126,6 +127,9 @@
 			"type": "boolean"
 		},
 		"jira_ai_force_rovo_dev_avatar": {
+			"type": "boolean"
+		},
+		"rovo_agent_empty_state_refresh": {
 			"type": "boolean"
 		}
 	}

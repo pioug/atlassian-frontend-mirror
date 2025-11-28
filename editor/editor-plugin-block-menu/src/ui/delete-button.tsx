@@ -12,13 +12,10 @@ import {
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import { deleteSelectedRange } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import { Box } from '@atlaskit/primitives/box';
 import Text from '@atlaskit/primitives/text';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
@@ -32,7 +29,7 @@ type Props = {
 const DeleteDropdownItemContent = ({ api }: Props) => {
 	const { formatMessage } = useIntl();
 	const nodeTypes = Object.values(api?.core.sharedState.currentState()?.schema?.nodes || {});
-	const onClick = (e: React.MouseEvent | React.KeyboardEvent) => {
+	const onClick = () => {
 		api?.core.actions.execute(({ tr }) => {
 			const payload: BlockMenuEventPayload = {
 				action: ACTION.CLICKED,
@@ -44,27 +41,7 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 			};
 			api?.analytics?.actions?.attachAnalyticsEvent(payload)(tr);
 
-			if (
-				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
-			) {
-				deleteSelectedRange(tr);
-			} else {
-				const selection = tr.selection;
-				let from = selection.$from.pos;
-				let to = selection.$to.pos;
-
-				if (selection instanceof TextSelection) {
-					from = from - 1;
-					to = to + 1;
-				} else if (isTableSelected(selection)) {
-					const table = findTable(selection);
-					if (table) {
-						from = table.pos;
-						to = table.pos + table.node.nodeSize;
-					}
-				}
-				tr.deleteRange(from, to);
-			}
+			deleteSelectedRange(tr);
 			api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true })({ tr });
 			return tr;
 		});
@@ -90,18 +67,7 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 	}, [api]);
 
 	useEffect(() => {
-		if (
-			!expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
-		) {
-			return;
-		}
-
 		return () => {
-			if (
-				!expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
-			) {
-				return;
-			}
 			// clean up hover decoration when unmounting
 			onRemoveHoverDecoration();
 		};
@@ -111,16 +77,8 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 		<Box
 			onMouseEnter={onShowHoverDecoration}
 			onMouseLeave={onRemoveHoverDecoration}
-			onFocus={
-				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
-					? onShowHoverDecoration
-					: undefined
-			}
-			onBlur={
-				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
-					? onRemoveHoverDecoration
-					: undefined
-			}
+			onFocus={onShowHoverDecoration}
+			onBlur={onRemoveHoverDecoration}
 		>
 			<ToolbarDropdownItem
 				elemBefore={<DeleteIcon color={token('color.icon.danger')} label="" />}

@@ -18,6 +18,7 @@ import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 
 import { CreateSyncedBlockButton } from './CreateSyncedBlockButton';
 import { CreateSyncedBlockItem } from './CreateSyncedBlockItem';
+import { OverflowMenuSection } from './OverflowMenuSection';
 
 const SYNCED_BLOCK_OVERFLOW_MENU_SECTION = {
 	type: SYNCED_BLOCK_SECTION.type,
@@ -29,6 +30,9 @@ const SYNCED_BLOCK_OVERFLOW_MENU_SECTION = {
 			rank: OVERFLOW_MENU_RANK[SYNCED_BLOCK_SECTION.key],
 		},
 	],
+	component: ({ children }: { children: React.ReactNode }) => {
+		return <OverflowMenuSection>{children}</OverflowMenuSection>;
+	},
 };
 
 const SYNCED_BLOCK_PRIMARY_TOOLBAR_GROUP = {

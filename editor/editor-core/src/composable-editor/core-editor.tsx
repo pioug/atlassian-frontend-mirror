@@ -19,7 +19,7 @@ import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-m
 import type { Transformer } from '@atlaskit/editor-common/types';
 import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils/analytics';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import EditorActions from '../actions';
 import type { EditorNextProps, EditorProps } from '../types/editor-props';
@@ -139,7 +139,7 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 			[
 				'full-page',
 				'full-width',
-				...(expValEqualsNoExposure('platform_synced_block', 'isEnabled', true) ? ['max'] : []),
+				...(editorExperiment('platform_synced_block', true) ? ['max'] : []),
 			].includes(props.appearance),
 	);
 

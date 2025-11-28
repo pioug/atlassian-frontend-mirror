@@ -10,6 +10,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { clearHoverSelection } from '../../../pm-plugins/commands';
@@ -185,7 +186,6 @@ export const DragControls = ({
 		indexes: number[],
 	) => {
 		const isHover = type === 'hover';
-
 		const previewHeight = rowHeights.reduce(
 			(sum, v, i) => sum + v * (indexes.includes(i) ? 1 : 0),
 			0,
@@ -212,7 +212,20 @@ export const DragControls = ({
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					pointerEvents: 'none',
 				}}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				className={
+					expValEquals(
+						'platform_editor_table_sticky_header_improvements',
+						'cohort',
+						'test_with_overflow',
+					)
+						? ClassName.DRAG_ROW_FLOATING_DRAG_HANDLE
+						: undefined
+				}
 				data-testid={`table-floating-row-${isHover ? rowIndex : selectedRowIndexes[0]}-drag-handle`}
+				data-row-index={rowIndex}
+				data-selected-row-index={selectedRowIndexes[0]}
+				data-handle-appearance={appearance}
 			>
 				<DragHandle
 					isDragMenuTarget={!isHover}

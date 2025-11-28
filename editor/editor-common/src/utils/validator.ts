@@ -3,7 +3,7 @@ import { inlineNodes, isSafeUrl, PanelType, generateUuid as uuid } from '@atlask
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { Mark as PMMark, Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export const ADFStages = {
 	FINAL: 'final',
@@ -872,7 +872,7 @@ export const getValidNode = (
 				return { type, attrs, content, marks };
 			}
 			case 'syncBlock': {
-				if (adfStage === 'stage0' && expValEquals('platform_synced_block', 'isEnabled', true)) {
+				if (adfStage === 'stage0' && editorExperiment('platform_synced_block', true)) {
 					return {
 						type,
 						attrs,
@@ -888,7 +888,7 @@ export const getValidNode = (
 					attrs &&
 					Array.isArray(content) &&
 					content.length > 0 &&
-					expValEquals('platform_synced_block', 'isEnabled', true)
+					editorExperiment('platform_synced_block', true)
 				) {
 					return {
 						type,

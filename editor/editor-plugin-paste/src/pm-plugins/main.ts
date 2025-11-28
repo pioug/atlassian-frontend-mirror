@@ -436,7 +436,7 @@ export function createPlugin(
 
 				slice = handleVSCodeBlock({ state, slice, event, text });
 
-				if (expValEquals('platform_synced_block', 'isEnabled', true)) {
+				if (editorExperiment('platform_synced_block', true)) {
 					slice = transformSyncBlock(slice, schema, getPasteSource(event));
 				}
 

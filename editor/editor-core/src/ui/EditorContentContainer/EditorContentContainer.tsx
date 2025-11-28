@@ -20,7 +20,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { expVal, expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
+import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { getBaseFontSize } from '../../composable-editor/utils/getBaseFontSize';
@@ -297,16 +297,10 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 			? getBrowserInfo()
 			: browserLegacy;
 
-		const allClassNames = [className];
-
-		if (expVal('platform_editor_resizer_cls_fix', 'isEnabled', false)) {
-			allClassNames.push('resizer-hover-zone-cls-fix');
-		}
-
 		return (
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className={allClassNames.join(' ')}
+				className={className}
 				ref={ref}
 				css={[
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -539,7 +533,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					layoutBaseStyles,
 					// merge alignMultipleWrappedImageInLayoutStyles with layoutBaseStyles when clean up platform_editor_fix_media_in_renderer
 					fg('platform_editor_fix_media_in_renderer') && alignMultipleWrappedImageInLayoutStyles,
-					expValEqualsNoExposure('platform_synced_block', 'isEnabled', true) &&
+					editorExperiment('platform_synced_block', true) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						syncBlockStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -696,9 +690,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					fg('confluence_floating_toolbar_animation') && selectionToolbarAnimationStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('platform_editor_vanilla_codebidi_warning') && codeBidiWarningStyles,
-					// @ts-expect-error - true is not allowed as a default value
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					expValNoExposure('platform_editor_block_menu', 'isEnabled', true) && [
+					expValNoExposure('platform_editor_block_menu', 'isEnabled', false) && [
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						dangerDateStyles,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

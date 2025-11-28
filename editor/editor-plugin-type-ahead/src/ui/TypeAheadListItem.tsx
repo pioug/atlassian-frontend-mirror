@@ -21,6 +21,7 @@ import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
 import { B400, N30, N800 } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -360,12 +361,12 @@ export const TypeAheadListItem = React.memo(
 										moreElementsInQuickInsertViewEnabled && itemTitleOverride,
 										itemIsDisabled && disabledStyle,
 										item.lozenge &&
-											expValEquals('platform_synced_block', 'isEnabled', true) &&
+											editorExperiment('platform_synced_block', true) &&
 											titleWithLozengeStyle,
 									]}
 								>
 									{item.title}
-									{expValEquals('platform_synced_block', 'isEnabled', true) && item.lozenge}
+									{editorExperiment('platform_synced_block', true) && item.lozenge}
 								</div>
 								<div css={itemAfter}>
 									{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}

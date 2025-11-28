@@ -31,6 +31,9 @@ import { messages } from './messages';
 
 const styles = cssMap({
 	detailWrapper: { paddingBlockStart: token('space.400'), paddingInline: token('space.200') },
+	detailWrapperRefresh: {
+		paddingBlockStart: token('space.300'),
+	},
 	avatarStyles: {
 		position: 'absolute',
 		top: token('space.300'),
@@ -40,6 +43,12 @@ const styles = cssMap({
 		borderRadius: token('radius.large'),
 		boxShadow: token('elevation.shadow.overlay'),
 		position: 'relative',
+	},
+	agentProfileInfoWrapper: {
+		paddingInline: token('space.200'),
+	},
+	conversationStartersWrapper: {
+		paddingInline: token('space.150'),
 	},
 });
 
@@ -196,7 +205,7 @@ const AgentProfileCard = ({
 				<AgentBanner
 					agentId={agent.id}
 					agentNamedId={agent.external_config_reference ?? agent.named_id}
-					height={96}
+					height={fg('rovo_agent_empty_state_refresh') ? 48 : 96}
 					agentIdentityAccountId={agent.identity_account_id}
 				/>
 				<Box xcss={styles.avatarStyles}>
@@ -204,44 +213,63 @@ const AgentProfileCard = ({
 						agentId={agent.id}
 						agentNamedId={agent.external_config_reference ?? agent.named_id}
 						agentIdentityAccountId={agent.identity_account_id}
-						size="xlarge"
+						size={fg('rovo_agent_empty_state_refresh') ? 'large' : 'xlarge'}
 						isForgeAgent={agent.creator_type === 'FORGE' || agent.creator_type === 'THIRD_PARTY'}
 						forgeAgentIconUrl={agent.icon}
 					/>
 				</Box>
 
-				<Stack space="space.100" xcss={styles.detailWrapper}>
-					<AgentProfileInfo
-						agentName={agent.name}
-						isStarred={isStarred}
-						onStarToggle={handleSetFavourite}
-						isHidden={agent.visibility === 'PRIVATE'}
-						creatorRender={
-							agent.creatorInfo?.type && (
-								<AgentProfileCreator
-									creator={{
-										type: agent.creatorInfo?.type,
-										name: agent.creatorInfo?.name || '',
-										profileLink: agent.creatorInfo?.profileLink || '',
-									}}
-									isLoading={false}
-									onCreatorLinkClick={() => {}}
-								/>
-							)
-						}
-						starCountRender={<AgentStarCount starCount={starCount} isLoading={false} />}
-						agentDescription={agent.description}
-					/>
-
-					<ConversationStarters
-						isAgentDefault={agent.is_default}
-						userDefinedConversationStarters={userDefinedConversationStarters}
-						onConversationStarterClick={(conversationStarter: ConversationStarter) => {
-							onConversationStartersClick
-								? onConversationStartersClick(conversationStarter)
-								: onConversationStarter({ agentId: agent.id, prompt: conversationStarter.message });
-						}}
-					/>
+				<Stack
+					space="space.100"
+					xcss={
+						fg('rovo_agent_empty_state_refresh')
+							? styles.detailWrapperRefresh
+							: styles.detailWrapper
+					}
+				>
+					<Box xcss={fg('rovo_agent_empty_state_refresh') ? styles.agentProfileInfoWrapper : null}>
+						<AgentProfileInfo
+							agentName={agent.name}
+							isStarred={isStarred}
+							onStarToggle={handleSetFavourite}
+							isHidden={agent.visibility === 'PRIVATE'}
+							creatorRender={
+								agent.creatorInfo?.type && (
+									<AgentProfileCreator
+										creator={{
+											type: agent.creatorInfo?.type,
+											name: agent.creatorInfo?.name || '',
+											profileLink: agent.creatorInfo?.profileLink || '',
+										}}
+										isLoading={false}
+										onCreatorLinkClick={() => {}}
+									/>
+								)
+							}
+							starCountRender={
+								fg('rovo_agent_empty_state_refresh') ? null : (
+									<AgentStarCount starCount={starCount} isLoading={false} />
+								)
+							}
+							agentDescription={agent.description}
+						/>
+					</Box>
+					<Box
+						xcss={fg('rovo_agent_empty_state_refresh') ? styles.conversationStartersWrapper : null}
+					>
+						<ConversationStarters
+							isAgentDefault={agent.is_default}
+							userDefinedConversationStarters={userDefinedConversationStarters}
+							onConversationStarterClick={(conversationStarter: ConversationStarter) => {
+								onConversationStartersClick
+									? onConversationStartersClick(conversationStarter)
+									: onConversationStarter({
+											agentId: agent.id,
+											prompt: conversationStarter.message,
+										});
+							}}
+						/>
+					</Box>
 				</Stack>
 				<AgentActions
 					agent={agent}

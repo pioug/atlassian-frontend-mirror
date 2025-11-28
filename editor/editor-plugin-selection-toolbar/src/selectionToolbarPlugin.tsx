@@ -278,21 +278,24 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 										if (fg('platform_editor_ai_generic_prep_for_aifc')) {
 											// @ts-ignore - Workaround for help-center local consumption
 
-											const target = event.target as Element;
-											const isRovoChangeToneButton =
-												(target?.tagName === 'BUTTON' &&
-													hasNestedSpanWithText(target, 'Change tone')) ||
-												target.getAttribute('aria-label') === 'Change tone' ||
-												target.innerHTML === 'Change tone';
+											const target = event.target;
 
-											const isRovoTranslateButton =
-												(target?.tagName === 'BUTTON' &&
-													hasNestedSpanWithText(target, 'Translate options')) ||
-												target.getAttribute('aria-label') === 'Translate options' ||
-												target.innerHTML === 'Translate options';
+											if (target && target instanceof Element) {
+												const isRovoChangeToneButton =
+													(target.tagName === 'BUTTON' &&
+														hasNestedSpanWithText(target, 'Change tone')) ||
+													target.getAttribute('aria-label') === 'Change tone' ||
+													target.innerHTML === 'Change tone';
 
-											if (isRovoChangeToneButton || isRovoTranslateButton) {
-												return null;
+												const isRovoTranslateButton =
+													(target.tagName === 'BUTTON' &&
+														hasNestedSpanWithText(target, 'Translate options')) ||
+													target.getAttribute('aria-label') === 'Translate options' ||
+													target.innerHTML === 'Translate options';
+
+												if (isRovoChangeToneButton || isRovoTranslateButton) {
+													return null;
+												}
 											}
 										}
 
@@ -529,7 +532,7 @@ function getSelectionNodeTypes(state: EditorState) {
 	const selectionNodeTypes: NodeType[] = [];
 	// @ts-ignore - Workaround for help-center local consumption
 
-	state.doc.nodesBetween(state.selection.from, state.selection.to, (node, _pos, parent) => {
+	state.doc.nodesBetween(state.selection.from, state.selection.to, (node) => {
 		if (selectionNodeTypes.indexOf(node.type) !== 0) {
 			selectionNodeTypes.push(node.type);
 		}

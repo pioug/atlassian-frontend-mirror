@@ -38,6 +38,9 @@
 			"path": "../../editor-plugin-editor-viewmode/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-editor-viewmode-effects/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-primary-toolbar/afm-cc/tsconfig.json"
 		},
 		{
@@ -66,9 +69,6 @@
 		},
 		{
 			"path": "../../../platform/feature-flags-react/afm-cc/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/primitives/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"

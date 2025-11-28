@@ -40,12 +40,7 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/visual-regression": "workspace:^",
 		"@atlaskit/adf-schema": "root:*",
-		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
-		"@atlaskit/editor-plugin-history": "workspace:^",
-		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
 		"@testing-library/react": "root:*",
 		"wait-for-expect": "root:*"
 	},

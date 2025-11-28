@@ -29,9 +29,6 @@
 			"path": "../../editor-plugin-feature-flags/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../prosemirror-history/afm-products/tsconfig.json"
 		},
 		{

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 7.1.10
+
+### Patch Changes
+
+- [`3170133bb745f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3170133bb745f) -
+  [EDITOR-3440] fixed breaking test related to the integration of platform toolbar ai menu and hero
+  button into the legacy toolbar'
+- Updated dependencies
+
+## 7.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.8
 
 ### Patch Changes

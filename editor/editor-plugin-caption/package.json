@@ -36,18 +36,6 @@
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@babel/runtime": "root:*"
 	},
-	"devDependencies": {
-		"@atlaskit/editor-plugin-copy-button": "workspace:^",
-		"@atlaskit/editor-plugin-decorations": "workspace:^",
-		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
-		"@atlaskit/editor-plugin-floating-toolbar": "workspace:^",
-		"@atlaskit/editor-plugin-focus": "workspace:^",
-		"@atlaskit/editor-plugin-grid": "workspace:^",
-		"@atlaskit/editor-plugin-guideline": "workspace:^",
-		"@atlaskit/editor-plugin-selection": "workspace:^",
-		"@atlaskit/editor-plugin-width": "workspace:^",
-		"@atlaskit/renderer": "workspace:^"
-	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0"

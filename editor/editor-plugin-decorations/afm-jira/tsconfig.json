@@ -26,9 +26,6 @@
 			"path": "../../editor-tables/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../tmp-editor-statsig/afm-jira/tsconfig.json"
 		},
 		{

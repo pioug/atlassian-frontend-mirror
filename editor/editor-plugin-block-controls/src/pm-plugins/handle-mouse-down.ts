@@ -23,7 +23,7 @@ export const handleMouseDown =
 				return false;
 			}
 
-			if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+			if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 				const anchorName = api?.core.actions.getAnchorIdForNode(rootNode, rootPos);
 
 				// don't show the handles if we can't find an anchor

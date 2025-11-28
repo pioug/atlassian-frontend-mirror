@@ -1,5 +1,16 @@
 # @atlaskit/collab-provider
 
+## 14.1.0
+
+### Minor Changes
+
+- [`5bcd467838123`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bcd467838123) -
+  Clean up platform_collab_do_not_client_error_log FG
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.9
 
 ### Patch Changes

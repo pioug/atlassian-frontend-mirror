@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 0.9.1
+
+### Patch Changes
+
+- [`286a209277502`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/286a209277502) -
+  update inputSchema type in getToolRegistry
+
 ## 0.9.0
 
 ### Minor Changes

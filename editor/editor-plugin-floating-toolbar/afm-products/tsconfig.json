@@ -62,9 +62,6 @@
 			"path": "../../editor-plugin-interaction/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../editor-plugin-table/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-user-intent/afm-products/tsconfig.json"
 		},
 		{

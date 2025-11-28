@@ -157,7 +157,7 @@ export const findNodeDecs = (
 export const nodeDecorations = (newState: EditorState, from?: number, to?: number) => {
 	const decs: Decoration[] = [];
 
-	if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+	if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 		return [];
 	}
 

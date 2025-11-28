@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-decorations",
-	"version": "6.1.5",
+	"version": "6.1.7",
 	"description": "Decorations plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -24,7 +24,6 @@
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/editor-tables": "workspace:^",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*"
@@ -35,7 +34,6 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-plugin-mentions": "workspace:^",
 		"@testing-library/react": "root:*",
 		"wait-for-expect": "root:*"
 	},

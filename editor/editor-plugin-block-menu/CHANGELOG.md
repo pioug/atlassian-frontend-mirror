@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.0.21
+
+### Patch Changes
+
+- [`7583860e8637f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7583860e8637f) -
+  EDITOR-3621 Clean up platform_editor_block_menu_keyboard_navigation feature gate
+- [`e3fe76664f63b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3fe76664f63b) -
+  Clean up platform_editor_block_menu_shouldfitcontainer
+- Updated dependencies
+
+## 5.0.20
+
+### Patch Changes
+
+- [`a26ad89b7926c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a26ad89b7926c) -
+  [ux] FG cleanup platform_editor_block_menu_for_disabled_nodes
+- Updated dependencies
+
+## 5.0.19
+
+### Patch Changes
+
+- [`56c0427b2ab20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56c0427b2ab20) -
+  [ux] Use new IA for block menu items.
+
 ## 5.0.18
 
 ### Patch Changes

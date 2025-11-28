@@ -23,9 +23,6 @@
 	],
 	"references": [
 		{
-			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/visually-hidden/afm-products/tsconfig.json"
 		},
 		{

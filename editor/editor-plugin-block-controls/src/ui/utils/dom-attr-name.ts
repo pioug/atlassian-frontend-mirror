@@ -4,7 +4,7 @@ export const NODE_ANCHOR_ATTR_NAME = 'data-node-anchor';
 export const NODE_NODE_TYPE_ATTR_NAME = 'data-prosemirror-node-name';
 
 export const getAnchorAttrName = () => {
-	if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+	if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 		return NODE_ANCHOR_ATTR_NAME;
 	}
 
@@ -12,7 +12,7 @@ export const getAnchorAttrName = () => {
 };
 
 export const getTypeNameAttrName = () => {
-	if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+	if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 		return NODE_NODE_TYPE_ATTR_NAME;
 	}
 

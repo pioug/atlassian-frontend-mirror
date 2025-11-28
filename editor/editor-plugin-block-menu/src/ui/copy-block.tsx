@@ -20,7 +20,7 @@ import type { CellSelection } from '@atlaskit/editor-tables';
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import CopyIcon from '@atlaskit/icon/core/copy';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
@@ -123,7 +123,7 @@ const CopyBlockMenuItem = ({ api }: CopyBlockMenuItemProps & WrappedComponentPro
 				// where we need to copy the content of the bodiedSyncBlock node
 				else if (
 					selection.node.type.name === 'bodiedSyncBlock' &&
-					expValEquals('platform_synced_block', 'isEnabled', true)
+					editorExperiment('platform_synced_block', true)
 				) {
 					const bodiedSyncBlockNode = selection.node;
 					const domNode = toDOMFromFragment(bodiedSyncBlockNode.content, schema);

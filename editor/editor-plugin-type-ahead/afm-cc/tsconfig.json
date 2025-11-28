@@ -47,9 +47,6 @@
 			"path": "../../../design-system/heading/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/icon/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../insm/afm-cc/tsconfig.json"
 		},
 		{

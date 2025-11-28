@@ -320,4 +320,51 @@ describe('media', () => {
 		};
 		expect(run).toThrowError(`unknownTypeInline: invalid content.`);
 	});
+
+	it('should have valid media with content', () => {
+		const run = () => {
+			return validate(
+				{
+					type: 'mediaSingle',
+					content: [
+						{
+							type: 'media',
+							attrs: {
+								type: 'file',
+								id: '1234',
+								collection: 'SampleCollection',
+							},
+						},
+					],
+				},
+				() => undefined,
+			);
+		};
+		const value = run();
+		expect(value.valid).toBe(true);
+	});
+
+	it('should use allowed if passed and fail', () => {
+		const run = () => {
+			return validate(
+				{
+					type: 'mediaSingle',
+					content: [
+						{
+							type: 'media',
+							attrs: {
+								type: 'file',
+								id: '1234',
+								collection: 'SampleCollection',
+							},
+						},
+					],
+				},
+				() => undefined,
+				['mediaSingle'],
+			);
+		};
+		const value = run();
+		expect(value.valid).toBe(false);
+	});
 });

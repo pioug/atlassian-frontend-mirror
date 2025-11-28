@@ -26,9 +26,6 @@
 			"path": "../../../analytics/analytics-namespaced-context/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../analytics/analytics-next/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/css/afm-products/tsconfig.json"
 		},
 		{
@@ -69,9 +66,6 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/popup/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"

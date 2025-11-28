@@ -6,7 +6,10 @@
 		"rootDir": "../",
 		"composite": true
 	},
-	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
 	"exclude": [
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
@@ -33,12 +36,6 @@
 		},
 		{
 			"path": "../../editor-plugin-selection-marker/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../editor-toolbar/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/icon/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"

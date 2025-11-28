@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-hyperlink",
-	"version": "8.1.9",
+	"version": "8.1.10",
 	"description": "Hyperlink plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -60,11 +60,6 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"@atlaskit/activity-provider": "workspace:^",
-		"@atlaskit/link-test-helpers": "workspace:^",
-		"@atlaskit/media-test-helpers": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
-		"@atlaskit/util-data-test": "workspace:^",
 		"@testing-library/react": "root:*",
 		"raf-stub": "root:*",
 		"wait-for-expect": "root:*"

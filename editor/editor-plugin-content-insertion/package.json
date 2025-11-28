@@ -41,7 +41,6 @@
 	},
 	"devDependencies": {
 		"@atlaskit/adf-schema": "root:*",
-		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
 		"@testing-library/react": "root:*",
 		"wait-for-expect": "root:*"
 	},

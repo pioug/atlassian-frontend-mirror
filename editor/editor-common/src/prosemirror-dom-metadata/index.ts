@@ -55,7 +55,7 @@ export const createProseMirrorMetadata = (
 
 	if (
 		options?.anchrorId !== undefined &&
-		expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+		expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 	) {
 		commonAttributes['data-node-anchor'] = options.anchrorId;
 	}

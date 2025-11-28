@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste",
-	"version": "7.4.9",
+	"version": "7.4.10",
 	"description": "Paste plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -59,12 +59,7 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/visual-regression": "workspace:^",
-		"@atlaskit/editor-plugin-block-type": "workspace:^",
-		"@atlaskit/editor-plugin-history": "workspace:^",
-		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
 		"@atlaskit/prosemirror-history": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
 		"@testing-library/react": "root:*",
 		"wait-for-expect": "root:*"
 	},

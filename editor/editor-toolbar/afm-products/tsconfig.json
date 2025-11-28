@@ -24,9 +24,6 @@
 			"path": "../../../helpers/browser-apis/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/button/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/css/afm-products/tsconfig.json"
 		},
 		{
@@ -39,13 +36,7 @@
 			"path": "../../../design-system/icon-lab/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/logo/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../platform/feature-flags-react/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/popup/afm-products/tsconfig.json"

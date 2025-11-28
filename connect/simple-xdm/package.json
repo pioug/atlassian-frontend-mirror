@@ -48,8 +48,6 @@
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
-		"@af/visual-regression": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
 		"typescript": "root:*"
 	},
 	"atlaskit:src": "src/index.ts",

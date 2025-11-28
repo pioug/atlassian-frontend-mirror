@@ -23,7 +23,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "root:*",
-		"@atlaskit/adf-utils": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:^",
 		"@babel/runtime": "root:*"

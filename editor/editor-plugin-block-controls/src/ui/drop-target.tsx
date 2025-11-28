@@ -138,7 +138,7 @@ const HoverZone = ({
 	const isRemainingheight = dropTargetStyle === 'remainingHeight';
 
 	const anchorName = useMemo(() => {
-		if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+		if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 			if (node && typeof pos === 'number') {
 				const posOffset = position === 'upper' ? -node.nodeSize : 0;
 
@@ -204,7 +204,7 @@ const HoverZone = ({
 		if (isRemainingheight && position === 'upper') {
 			// previous node
 			const anchorName = node
-				? expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+				? expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 					? api?.core.actions.getAnchorIdForNode(node, pos || -1) || ''
 					: getNodeAnchor(node)
 				: '';

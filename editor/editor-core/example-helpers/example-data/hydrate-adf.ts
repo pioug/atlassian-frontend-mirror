@@ -3,6 +3,19 @@ export const hydrateAdf = {
 	type: 'doc',
 	content: [
 		{
+			type: 'heading',
+			attrs: {
+				level: 1,
+				localId: 'b4f3e2e3-5f4a-4f6d-8f4e-1c2e5d6a7b8c',
+			},
+			content: [
+				{
+					type: 'text',
+					text: 'Hydrate ADF Example',
+				},
+			],
+		},
+		{
 			type: 'taskList',
 			attrs: {
 				localId: '71f8c24d-4b69-48c4-9fa9-be30a8050158',

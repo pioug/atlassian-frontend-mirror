@@ -283,8 +283,7 @@ export default class Popup extends React.Component<Props, State> {
 
 		this.focusTrap = createFocusTrap(
 			popup,
-			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
+			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 				? trapConfig
 				: defaultTrapConfig,
 		);

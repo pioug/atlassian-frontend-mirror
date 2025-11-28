@@ -1,7 +1,8 @@
 import {
-	FORMAT_BULLETED_LIST_MENU_ITEM,
-	FORMAT_NESTED_MENU_RANK,
-	FORMAT_NUMBERED_LIST_MENU_ITEM,
+	TRANSFORM_STRUCTURE_MENU_SECTION,
+	TRANSFORM_STRUCTURE_BULLETED_LIST_MENU_ITEM,
+	TRANSFORM_STRUCTURE_NUMBERED_LIST_MENU_ITEM,
+	TRANSFORM_STRUCTURE_MENU_SECTION_RANK,
 } from '@atlaskit/editor-common/block-menu';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterBlockMenuComponent } from '@atlaskit/editor-plugin-block-menu';
@@ -17,21 +18,25 @@ export const getListComponents = (
 	return [
 		{
 			type: 'block-menu-item',
-			key: FORMAT_BULLETED_LIST_MENU_ITEM.key,
+			key: TRANSFORM_STRUCTURE_BULLETED_LIST_MENU_ITEM.key,
 			parent: {
 				type: 'block-menu-section' as const,
-				key: 'nested-menu-format-section-primary',
-				rank: FORMAT_NESTED_MENU_RANK[FORMAT_BULLETED_LIST_MENU_ITEM.key],
+				key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
+				rank: TRANSFORM_STRUCTURE_MENU_SECTION_RANK[
+					TRANSFORM_STRUCTURE_BULLETED_LIST_MENU_ITEM.key
+				],
 			},
 			component: createBulletedListBlockMenuItem({ api }),
 		},
 		{
 			type: 'block-menu-item',
-			key: FORMAT_NUMBERED_LIST_MENU_ITEM.key,
+			key: TRANSFORM_STRUCTURE_NUMBERED_LIST_MENU_ITEM.key,
 			parent: {
 				type: 'block-menu-section' as const,
-				key: 'nested-menu-format-section-primary',
-				rank: FORMAT_NESTED_MENU_RANK[FORMAT_NUMBERED_LIST_MENU_ITEM.key],
+				key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
+				rank: TRANSFORM_STRUCTURE_MENU_SECTION_RANK[
+					TRANSFORM_STRUCTURE_NUMBERED_LIST_MENU_ITEM.key
+				],
 			},
 			component: createNumberedListBlockMenuItem({ api }),
 		},

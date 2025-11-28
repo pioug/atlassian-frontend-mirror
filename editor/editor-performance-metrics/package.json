@@ -41,9 +41,7 @@
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
-		"@af/visual-regression": "workspace:^",
 		"@atlaskit/checkbox": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/textarea": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react-dom": "root:*",

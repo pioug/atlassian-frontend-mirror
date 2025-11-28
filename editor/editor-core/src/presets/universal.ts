@@ -477,7 +477,7 @@ export default function createUniversalPresetInternal({
 		)
 		.maybeAdd(
 			[syncedBlockPlugin, props.syncBlock],
-			Boolean(props.syncBlock) && expValEquals('platform_synced_block', 'isEnabled', true),
+			Boolean(props.syncBlock) && editorExperiment('platform_synced_block', true),
 		)
 		.maybeAdd(indentationPlugin, Boolean(props.allowIndentation))
 		.maybeAdd(scrollIntoViewPlugin, Boolean(props.autoScrollIntoView !== false))

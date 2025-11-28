@@ -54,9 +54,6 @@
 			"path": "../../editor-shared-styles/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../editor-tables/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../elements/emoji/afm-jira/tsconfig.json"
 		},
 		{

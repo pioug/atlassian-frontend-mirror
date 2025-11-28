@@ -29,9 +29,6 @@
 			"path": "../../../design-system/css/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../elements/date/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-analytics/afm-products/tsconfig.json"
 		},
 		{

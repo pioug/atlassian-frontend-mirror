@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.10.1
+
+### Patch Changes
+
+- [`7583860e8637f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7583860e8637f) -
+  EDITOR-3621 Clean up platform_editor_block_menu_keyboard_navigation feature gate
+- Updated dependencies
+
+## 7.10.0
+
+### Minor Changes
+
+- [`d84e4018e7a77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d84e4018e7a77) -
+  ED-29689 create new exp
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.9.0
 
 ### Minor Changes
@@ -214,7 +233,7 @@
 ### Patch Changes
 
 - [`9ca86d5ced1c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ca86d5ced1c4) -
-  ED-294112 fix extended hover zone for platform_editor_native_anchor_support to match existing
+  ED-294112 fix extended hover zone for platform_editor_native_anchor_with_dnd to match existing
   behaviour; no hover zones for inline elements, headerCells or (when advanced_layouts is off)
   layout columns
 - Updated dependencies
@@ -247,7 +266,7 @@
 - [`0b0ef25b2f529`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b0ef25b2f529) -
   Cleanup various feature gates and align them to aifc_create_enabled
 - [`3feef799ad0a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3feef799ad0a5) -
-  [ED-29333] Fix 2 issues when platform_editor_native_anchor_support is enabled
+  [ED-29333] Fix 2 issues when platform_editor_native_anchor_with_dnd is enabled
   1. Drag handle is rendered for media node
   2. When advanced_layouts experiment is off, quick insert button is rendered based on child node
      inside layout column (as opposed to layout section node )
@@ -270,7 +289,7 @@
 
 - [`606c3303a0d61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/606c3303a0d61) -
   [ux] ED-29331 fix block controls misalignment on first line of empty document with
-  platform_editor_native_anchor_support on
+  platform_editor_native_anchor_with_dnd on
 - Updated dependencies
 
 ## 7.2.10
@@ -279,7 +298,7 @@
 
 - [`2470543de66c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2470543de66c4) -
   [ux] ED-29341 fix block quote drag handle is hard to trigger behind with
-  platform_editor_native_anchor_support on
+  platform_editor_native_anchor_with_dnd on
 - Updated dependencies
 
 ## 7.2.9
@@ -294,7 +313,7 @@
 ### Patch Changes
 
 - [`435745247f7ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/435745247f7ef) -
-  [ED-29337] Fix drag handle cannot be focus via shorcut when platform_editor_native_anchor_support
+  [ED-29337] Fix drag handle cannot be focus via shorcut when platform_editor_native_anchor_with_dnd
   is enabled
 
 ## 7.2.7

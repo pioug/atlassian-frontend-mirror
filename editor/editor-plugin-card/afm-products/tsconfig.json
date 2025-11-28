@@ -26,13 +26,7 @@
 			"path": "../../../analytics/analytics-next/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/button/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../custom-steps/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../editor-card-provider/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-analytics/afm-products/tsconfig.json"

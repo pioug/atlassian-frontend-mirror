@@ -37,7 +37,7 @@ const getNodeSelector = (ignoreNodes: string[], ignoreNodeDescendants: string[])
 	);
 
 	const ignoreNodeDescendantsSelectorList = ignoreNodeDescendants.map((node) => {
-		if (node === 'table' && fg('platform_editor_native_anchor_table_nested_fix')) {
+		if (node === 'table') {
 			// Special case for table to exclude its direct descendants
 			return [
 				`[data-prosemirror-node-name="tableCell"] > [data-node-anchor]`,
@@ -95,7 +95,7 @@ export const handleMouseOver = (
 	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const target = event.target as HTMLElement;
 	const isNativeAnchorSupported = expValEquals(
-		'platform_editor_native_anchor_support',
+		'platform_editor_native_anchor_with_dnd',
 		'isEnabled',
 		true,
 	);
@@ -157,7 +157,7 @@ export const handleMouseOver = (
 		}
 
 		let anchorName;
-		if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+		if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 			anchorName = rootElement.getAttribute(getAnchorAttrName());
 
 			// don't show handles if we can't find an anchor

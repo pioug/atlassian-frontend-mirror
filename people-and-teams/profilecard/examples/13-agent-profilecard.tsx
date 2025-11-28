@@ -50,7 +50,11 @@ const agent: RovoAgentProfileCardInfo = {
 	system_prompt_template: '',
 	visibility: 'PUBLIC',
 
-	user_defined_conversation_starters: ['Help me make my first User Manual.', 'Help with my goals'],
+	user_defined_conversation_starters: [
+		'Help me make my first User Manual.',
+		'Help with my goals',
+		'This is a very long conversation starter to test the overflow',
+	],
 	named_id: '965df475-d134-43ac-8ec4-f4aafd0025c6',
 	creator: 'ari:cloud:identity::user/62321fb55b6d710070a1ce85',
 	creator_type: 'CUSTOMER',
@@ -58,7 +62,11 @@ const agent: RovoAgentProfileCardInfo = {
 	is_default: false,
 	deactivated: false,
 	identity_account_id: 'ari:cloud:identity::user/712020:b719aaa1-2485-4dad-93d3-abc3c93862c6',
-	creatorInfo: undefined,
+	creatorInfo: {
+		type: 'CUSTOMER',
+		name: 'John Doe',
+		profileLink: 'https://example.com/profile',
+	},
 	actor_type: 'AGENT',
 	favourite_count: 0,
 };

@@ -39,6 +39,11 @@ const styles = cssMap({
 		overflowWrap: 'anywhere',
 		wordBreak: 'break-word',
 	},
+	descriptionRefresh: {
+		marginBlock: token('space.0'),
+		overflowWrap: 'anywhere',
+		wordBreak: 'break-word',
+	},
 
 	wrapper: {
 		marginBottom: token('space.100'),
@@ -222,10 +227,10 @@ export const AgentProfileInfo = ({
 }) => {
 	const { formatMessage } = useIntl();
 	return (
-		<Stack space="space.100" xcss={styles.wrapper}>
+		<Stack space="space.100" xcss={fg('rovo_agent_empty_state_refresh') ? null : styles.wrapper}>
 			<Inline xcss={styles.name} space="space.100" alignBlock="center">
 				<Inline xcss={styles.headingWrapper} alignBlock="end">
-					<Heading as="h2" size="xlarge">
+					<Heading as="h2" size={fg('rovo_agent_empty_state_refresh') ? 'medium' : 'xlarge'}>
 						{agentName}
 					</Heading>
 					{isHidden && (
@@ -240,7 +245,12 @@ export const AgentProfileInfo = ({
 			</Inline>
 			{creatorRender}
 			{!!agentDescription && (
-				<Box xcss={styles.description} as="p">
+				<Box
+					xcss={
+						fg('rovo_agent_empty_state_refresh') ? styles.descriptionRefresh : styles.description
+					}
+					as="p"
+				>
 					{agentDescription}
 				</Box>
 			)}

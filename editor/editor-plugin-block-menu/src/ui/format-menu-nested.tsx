@@ -13,12 +13,10 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
 import ChangesIcon from '@atlaskit/icon/core/changes';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
 import { BLOCK_MENU_ITEM_NAME } from './consts';
-import { checkIsFormatMenuHidden } from './utils/checkIsFormatMenuHidden';
 
 export const FormatMenuComponent = ({
 	api,
@@ -28,10 +26,6 @@ export const FormatMenuComponent = ({
 	children: React.ReactNode;
 }) => {
 	const { formatMessage } = useIntl();
-
-	const isDisabled = fg('platform_editor_block_menu_for_disabled_nodes')
-		? checkIsFormatMenuHidden(api)
-		: false;
 
 	const handleClick = useCallback(() => {
 		api?.core.actions.execute(({ tr }) => {
@@ -54,10 +48,9 @@ export const FormatMenuComponent = ({
 			elemBefore={<ChangesIcon label="" />}
 			elemAfter={<ChevronRightIcon label="" />}
 			enableMaxHeight={true}
-			isDisabled={isDisabled}
 			onClick={handleClick}
 			dropdownTestId="editor-nested-turn-into-menu"
-			shouldFitContainer={fg('platform_editor_block_menu_shouldfitcontainer') ? true : undefined}
+			shouldFitContainer
 		>
 			{children}
 		</ToolbarNestedDropdownMenu>

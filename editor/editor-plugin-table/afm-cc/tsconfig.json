@@ -105,9 +105,6 @@
 			"path": "../../../design-system/primitives/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../../react-ufo/atlaskit/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/theme/afm-cc/tsconfig.json"
 		},
 		{

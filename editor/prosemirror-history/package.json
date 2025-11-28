@@ -29,9 +29,6 @@
 		"rope-sequence": "1.3.4"
 	},
 	"devDependencies": {
-		"@af/integration-testing": "workspace:^",
-		"@af/visual-regression": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react-dom": "root:*"
 	},

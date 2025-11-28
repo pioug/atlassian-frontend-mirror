@@ -1,17 +1,15 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import { type MessageDescriptor, useIntl } from 'react-intl-next';
 
 import { IconButton } from '@atlaskit/button/new';
-import { cssMap, jsx } from '@atlaskit/css';
+import { cssMap, cx } from '@atlaskit/css';
 import RetryIcon from '@atlaskit/icon/core/retry';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
+import { AgentChatIcon } from '../../common/ui/agent-chat-icon';
 import { BrowseAgentsPill, ChatPill } from '../../common/ui/chat-pill';
 
 import { messages } from './messages';
@@ -20,6 +18,42 @@ const styles = cssMap({
 	conversationStartersList: {
 		listStyle: 'none',
 		padding: 0,
+	},
+	// TODO: merge with conversationStartersList when rovo_agent_empty_state_refresh is cleaned up
+	conversationStartersListRefresh: {
+		width: '100%',
+	},
+	conversationStarterIcon: {
+		flexShrink: 0,
+	},
+	conversationStarterText: {
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+		flexShrink: 1,
+		minWidth: '0px',
+	},
+	button: {
+		color: token('color.text.subtle'),
+		paddingTop: token('space.075'),
+		paddingRight: token('space.075'),
+		paddingBottom: token('space.075'),
+		paddingLeft: token('space.075'),
+		font: token('font.body'),
+		fontWeight: token('font.weight.medium', '500'),
+		borderRadius: token('radius.small'),
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+		flexShrink: 1,
+		width: '100%',
+		backgroundColor: token('color.background.neutral.subtle'),
+
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.neutral.subtle.pressed'),
+		},
 	},
 });
 
@@ -127,19 +161,37 @@ export const ConversationStarters = ({
 	onBrowseAgentsClick,
 }: ConversationStartersProps) => {
 	return (
-		<Stack as="ul" space="space.050" xcss={styles.conversationStartersList}>
+		<Stack
+			as="ul"
+			space="space.050"
+			xcss={cx(
+				styles.conversationStartersList,
+				fg('rovo_agent_empty_state_refresh') && styles.conversationStartersListRefresh,
+			)}
+		>
 			{starters.map((starter, index) => {
 				const isLastStarter = index === starters.length - 1;
 
 				const chatPill = (
 					<Box as="li" key={starter.message}>
-						<ChatPill
-							testId="conversation-starter"
-							key={starter.message}
-							onClick={() => onConversationStarterClick(starter)}
-						>
-							{starter.message}
-						</ChatPill>
+						{fg('rovo_agent_empty_state_refresh') ? (
+							<Pressable xcss={styles.button} onClick={() => onConversationStarterClick(starter)}>
+								<Inline space="space.150" alignBlock="center">
+									<Box xcss={styles.conversationStarterIcon}>
+										<AgentChatIcon />
+									</Box>
+									<Box xcss={styles.conversationStarterText}>{starter.message}</Box>
+								</Inline>
+							</Pressable>
+						) : (
+							<ChatPill
+								testId="conversation-starter"
+								key={starter.message}
+								onClick={() => onConversationStarterClick(starter)}
+							>
+								{starter.message}
+							</ChatPill>
+						)}
 					</Box>
 				);
 

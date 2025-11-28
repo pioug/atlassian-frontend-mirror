@@ -51,7 +51,7 @@ const NODE_WITH_NO_PARENT_POS = ['tableCell', 'tableHeader', 'layoutColumn'];
 const UNSUPPORTED_LAYOUT_CONTENT = ['syncBlock', 'bodiedSyncBlock'];
 
 const isContainerNode = (node: PMNode) => {
-	if (expValEquals('platform_synced_block', 'isEnabled', true)) {
+	if (editorExperiment('platform_synced_block', true)) {
 		return PARENT_WITH_END_DROP_TARGET_SYNC_BLOCK.includes(node.type.name);
 	}
 
@@ -344,7 +344,7 @@ export const getActiveDropTargetDecorations = (
 
 		const hasUnsupportedContent =
 			UNSUPPORTED_LAYOUT_CONTENT.includes(activeNode?.nodeType || '') &&
-			expValEquals('platform_synced_block', 'isEnabled', true);
+			editorExperiment('platform_synced_block', true);
 
 		if (rootNodeWithPos.node.type.name === 'layoutSection' && !hasUnsupportedContent) {
 			const layoutSectionNode = rootNodeWithPos.node;
@@ -384,7 +384,7 @@ export const getActiveDropTargetDecorations = (
 	}
 
 	defaultActiveAnchorTracker.emit(
-		expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+		expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 			? api.core.actions.getAnchorIdForNode(rootNodeWithPos.node, rootNodeWithPos.pos) || ''
 			: getNodeAnchor(rootNodeWithPos.node),
 	);

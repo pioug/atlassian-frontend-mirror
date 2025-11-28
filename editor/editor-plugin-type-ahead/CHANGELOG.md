@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 6.5.20
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.5.19
 
 ### Patch Changes

@@ -130,7 +130,7 @@ export function createPMPlugins(config: PMPluginCreateConfig): SafePlugin[] {
 		)
 		.filter((plugin): plugin is SafePlugin => typeof plugin !== 'undefined');
 
-	if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+	if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 		pmPlugins.push(createEditorNativeAnchorSupportPlugin(config.schema));
 	}
 

@@ -16,7 +16,7 @@ type RefreshAnchorNameParams = {
  */
 export const refreshAnchorName = ({ getPos, view, anchorName }: RefreshAnchorNameParams) => {
 	let newAnchorName = anchorName || '';
-	if (expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+	if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 		return newAnchorName;
 	}
 	const pos = getPos();

@@ -19,6 +19,7 @@ import { ButtonItem } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -609,7 +610,7 @@ const ItemContent = memo(
 					<div css={itemText}>
 						<Stack space="space.025">
 							<div css={itemTitleWrapper}>
-								{expValEquals('platform_synced_block', 'isEnabled', true) ? (
+								{editorExperiment('platform_synced_block', true) ? (
 									<Flex alignItems="center" gap="space.050">
 										<Text color={isDisabled ? 'color.text.disabled' : undefined} maxLines={1}>
 											{title}

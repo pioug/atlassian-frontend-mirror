@@ -30,6 +30,7 @@ type Props = {
 const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentProps) => {
 	const { formatMessage } = useIntl();
 	const { onDropdownOpenChanged } = useBlockMenu();
+	const selection = api?.selection?.sharedState?.currentState()?.selection;
 
 	const handleClick = useCallback(() => {
 		api?.core.actions.execute(({ tr }) => {
@@ -59,8 +60,8 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 		return isNestedNode(selection, menuTriggerBy);
 	}, [api]);
 
-	// Hide copy link when `platform_editor_adf_with_localid` feature flag is off or when the node is nested
-	if (!fg('platform_editor_adf_with_localid') || checkIsNestedNode()) {
+	// Hide copy link when `platform_editor_adf_with_localid` feature flag is off or when the node is nested or on empty line
+	if (!fg('platform_editor_adf_with_localid') || checkIsNestedNode() || !!selection?.empty) {
 		return null;
 	}
 

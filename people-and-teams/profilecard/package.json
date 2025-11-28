@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "24.21.9",
+	"version": "24.22.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -179,6 +179,9 @@
 			"type": "boolean"
 		},
 		"legion-enable-archive-teams": {
+			"type": "boolean"
+		},
+		"rovo_agent_empty_state_refresh": {
 			"type": "boolean"
 		}
 	},

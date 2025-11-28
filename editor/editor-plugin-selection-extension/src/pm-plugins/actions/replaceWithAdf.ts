@@ -1,13 +1,14 @@
 import { type ADFEntity } from '@atlaskit/adf-utils/types';
-import type { CommandDispatch } from '@atlaskit/editor-common/types';
+import type { CommandDispatch, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
+import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 import { SelectionExtensionActionTypes, type ReplaceWithAdfResult } from '../../types';
 import { selectionExtensionPluginKey } from '../main';
 
 export const replaceWithAdf =
-	(nodeAdf: ADFEntity) =>
+	(nodeAdf: ADFEntity, api: ExtractInjectionAPI<SelectionExtensionPlugin> | undefined) =>
 	(state: EditorState, dispatch: CommandDispatch): ReplaceWithAdfResult => {
 		const { tr, schema } = state;
 
@@ -37,8 +38,11 @@ export const replaceWithAdf =
 
 			const modifiedNode = Node.fromJSON(schema, nodeAdf);
 			modifiedNode.check();
-			tr.replaceWith(nodePos, endPos, modifiedNode).scrollIntoView();
-			dispatch(tr);
+			const updatedTr = tr.replaceWith(nodePos, endPos, modifiedNode).scrollIntoView();
+			// Allow this transaction in view mode and apply changes
+			dispatch(
+				api?.editorViewModeEffects?.actions.allowViewModeTransaction(updatedTr) || updatedTr,
+			);
 			return { status: 'success' };
 		} catch (error) {
 			dispatch(tr);

@@ -54,9 +54,6 @@
 			"path": "../../editor-shared-styles/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../editor-tables/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../elements/emoji/afm-products/tsconfig.json"
 		},
 		{

@@ -155,3 +155,8 @@ export type Validate = (
 	allowed?: Content,
 	parentSpec?: ValidatorSpec,
 ) => Output;
+
+export type CreateSpecReturn = Record<
+	string,
+	ValidatorSpec | Record<string, ValidatorSpec | string>
+>;

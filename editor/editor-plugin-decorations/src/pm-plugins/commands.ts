@@ -117,11 +117,9 @@ export const hoverDecorationCommand: HoverDecorationCommand =
 		tr.setMeta(decorationStateKey, {
 			action: add ? ACTIONS.DECORATION_ADD : ACTIONS.DECORATION_REMOVE,
 			data: decoration,
-			hasDangerDecorations:
-				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
-					? className === 'danger'
-					: undefined,
+			hasDangerDecorations: expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+				? className === 'danger'
+				: undefined,
 		}).setMeta('addToHistory', false);
 
 		return tr;

@@ -182,30 +182,5 @@ describe('catchupv2 trigged in document service', () => {
 			expect(service.processQueue).toBeCalled();
 			expect(service.sendStepsFromCurrentState).toBeCalled();
 		});
-
-		it('Always sends analytics event when feature flag is disabled (existing behavior)', async () => {
-			const { service, analyticsHelperMock, stepQueue } = createMockService();
-			(fg as jest.Mock).mockReturnValue(false); // Feature flag disabled
-
-			const fetchError = new Error('TypeError; Failed to fetch');
-			(catchupv2 as jest.Mock).mockRejectedValueOnce(fetchError);
-
-			// @ts-expect-error
-			jest.spyOn(service, 'processQueue');
-			jest.spyOn(service, 'sendStepsFromCurrentState');
-
-			await service.throttledCatchupv2();
-
-			// Analytics event SHOULD be called even for fetch errors when feature flag is disabled
-			expect(analyticsHelperMock.sendActionEvent).toBeCalledWith('catchup', 'FAILURE', {
-				latency: 0,
-			});
-
-			// The service must continue processing even if catchup throws an exception
-			expect(stepQueue.isPaused()).toEqual(false);
-			// @ts-expect-error
-			expect(service.processQueue).toBeCalled();
-			expect(service.sendStepsFromCurrentState).toBeCalled();
-		});
 	});
 });

@@ -2418,8 +2418,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				appearance === 'max' &&
 					expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) &&
 					rendererMaxWidthStyles,
-				!fg('aifc_create_enabled') && telepointerStyles,
-				fg('aifc_create_enabled') && rovoTelepointerStyles,
+				!fg('platform_editor_ai_aifc_streaming') && telepointerStyles,
+				fg('platform_editor_ai_aifc_streaming') && rovoTelepointerStyles,
 				whitespaceSharedStyles,
 				blockquoteSharedStyles,
 				fg('platform_editor_typography_ugc')

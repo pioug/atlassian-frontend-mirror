@@ -31,7 +31,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "root:*",
-		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
@@ -41,9 +40,6 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/integration-testing": "workspace:^",
-		"@af/visual-regression": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
 		"@testing-library/react": "root:*",
 		"wait-for-expect": "root:*"
 	},

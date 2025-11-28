@@ -5,6 +5,7 @@ import { DropdownItem } from '@atlaskit/dropdown-menu';
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { useToolbarDropdownMenu } from './ToolbarDropdownMenuContext';
@@ -97,7 +98,7 @@ const CustomDropdownMenuItemButton = forwardRef<
 			aria-disabled={ariaDisabled}
 			aria-keyshortcuts={ariaKeyshortcuts}
 			data-toolbar-component={
-				expValEquals('platform_synced_block', 'isEnabled', true) ? 'menu-item' : undefined
+				editorExperiment('platform_synced_block', true) ? 'menu-item' : undefined
 			}
 			ref={ref}
 		>

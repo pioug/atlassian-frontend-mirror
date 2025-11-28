@@ -62,9 +62,6 @@
 			"path": "../../editor-plugin-interaction/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../editor-plugin-table/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-user-intent/afm-jira/tsconfig.json"
 		},
 		{

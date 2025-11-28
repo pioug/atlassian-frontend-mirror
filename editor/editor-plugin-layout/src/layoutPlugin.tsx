@@ -18,9 +18,9 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import {
-	FORMAT_MENU_ITEM,
-	FORMAT_LAYOUT_MENU_ITEM,
-	FORMAT_NESTED_MENU_RANK,
+	TRANSFORM_STRUCTURE_LAYOUT_MENU_ITEM,
+	TRANSFORM_STRUCTURE_MENU_SECTION,
+	TRANSFORM_STRUCTURE_MENU_SECTION_RANK,
 } from '@atlaskit/editor-common/block-menu';
 import { type EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
@@ -97,11 +97,11 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 		api?.blockMenu?.actions.registerBlockMenuComponents([
 			{
 				type: 'block-menu-item',
-				key: FORMAT_LAYOUT_MENU_ITEM.key,
+				key: TRANSFORM_STRUCTURE_LAYOUT_MENU_ITEM.key,
 				parent: {
 					type: 'block-menu-section' as const,
-					key: FORMAT_MENU_ITEM.key,
-					rank: FORMAT_NESTED_MENU_RANK[FORMAT_LAYOUT_MENU_ITEM.key],
+					key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
+					rank: TRANSFORM_STRUCTURE_MENU_SECTION_RANK[TRANSFORM_STRUCTURE_LAYOUT_MENU_ITEM.key],
 				},
 				component: createLayoutBlockMenuItem(api),
 			},
@@ -207,7 +207,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 								keywords: ['layout', 'column', 'section', 'single column'],
 								priority: 1100,
 								icon: () => <IconOneColumnLayout />,
-								action(insert, state, _source) {
+								action(insert, state) {
 									const tr = insert(createMultiColumnLayoutSection(state, 1));
 									if (fg('platform_editor_column_count_analytics')) {
 										withInsertLayoutAnalytics(tr, 1);

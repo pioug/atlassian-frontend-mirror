@@ -56,6 +56,13 @@ const styles = cssMap({
 		marginBlockStart: token('space.200'),
 		color: token('color.text'),
 	},
+	actionsWrapperStylesRefresh: {
+		paddingTop: token('space.150'),
+		paddingRight: token('space.150'),
+		paddingBottom: token('space.150'),
+		paddingLeft: token('space.150'),
+		color: token('color.text'),
+	},
 });
 
 export const AgentActions = ({
@@ -111,7 +118,14 @@ export const AgentActions = ({
 
 	return (
 		<>
-			<Inline space="space.100" xcss={styles.actionsWrapperStyles}>
+			<Inline
+				space="space.100"
+				xcss={
+					fg('rovo_agent_empty_state_refresh')
+						? styles.actionsWrapperStylesRefresh
+						: styles.actionsWrapperStyles
+				}
+			>
 				<Box xcss={styles.chatToAgentButtonContainer}>
 					<Button
 						shouldFitContainer
@@ -123,12 +137,16 @@ export const AgentActions = ({
 						<Box xcss={styles.chatToAgentButtonWrapper}>
 							<Inline
 								space="space.050"
-								xcss={styles.chatPillButtonInlineStyles}
+								xcss={
+									fg('rovo_agent_empty_state_refresh') ? null : styles.chatPillButtonInlineStyles
+								}
 								alignBlock="center"
 							>
-								<Box xcss={styles.chatPillIconWrapper}>
-									<ChatPillIcon />
-								</Box>
+								{!fg('rovo_agent_empty_state_refresh') && (
+									<Box xcss={styles.chatPillIconWrapper}>
+										<ChatPillIcon />
+									</Box>
+								)}
 								<Box xcss={styles.chatPillTextStyles}>
 									{formatMessage(messages.actionChatToAgent)}
 								</Box>

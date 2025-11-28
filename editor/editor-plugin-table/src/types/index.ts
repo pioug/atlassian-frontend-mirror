@@ -423,6 +423,7 @@ export const TableCssClassName = {
 	DRAG_ROW_CONTROLS: `${tablePrefixSelector}-drag-row-controls`,
 	DRAG_ROW_FLOATING_INSERT_DOT_WRAPPER: `${tablePrefixSelector}-drag-row-floating-insert-dot-wrapper`,
 	DRAG_ROW_FLOATING_INSERT_DOT: `${tablePrefixSelector}-drag-row-floating-insert-dot`,
+	DRAG_ROW_FLOATING_DRAG_HANDLE: `${tablePrefixSelector}-drag-row-floating-drag-handle`,
 
 	DRAG_COLUMN_CONTROLS: `${tablePrefixSelector}-drag-column-controls`,
 	DRAG_COLUMN_FLOATING_INSERT_DOT_WRAPPER: `${tablePrefixSelector}-drag-columns-floating-insert-dot-wrapper`,

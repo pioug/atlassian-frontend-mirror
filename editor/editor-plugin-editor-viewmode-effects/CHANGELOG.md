@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-editor-viewmode-effects
 
+## 6.1.0
+
+### Minor Changes
+
+- [`909d5392c27c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/909d5392c27c2) -
+  Allow replaceWithAdf from selection extension to update doc in view mode
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.3
 
 ### Patch Changes

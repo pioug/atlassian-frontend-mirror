@@ -161,13 +161,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 						...toggleMenuMeta,
 						moveUp,
 						moveDown,
-						openedViaKeyboard: expValEqualsNoExposure(
-							'platform_editor_block_menu_keyboard_navigation',
-							'isEnabled',
-							true,
-						)
-							? options?.openedViaKeyboard
-							: undefined,
+						openedViaKeyboard: options?.openedViaKeyboard,
 					};
 				}
 				tr.setMeta(key, {

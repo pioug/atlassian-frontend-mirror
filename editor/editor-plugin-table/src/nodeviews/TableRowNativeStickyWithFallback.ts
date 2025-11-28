@@ -388,10 +388,17 @@ export default class TableRowNativeStickyWithFallback
 
 		this.stickyStateObserver = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {
+				const tableContainer = this.dom.closest(`.${ClassName.TABLE_CONTAINER}`);
 				if (entry.intersectionRect.top === entry.rootBounds?.top) {
 					this.dom.classList.add(ClassName.NATIVE_STICKY_ACTIVE);
+					if (tableContainer && tableContainer instanceof HTMLElement) {
+						tableContainer.dataset.tableHeaderIsStuck = 'true';
+					}
 				} else {
 					this.dom.classList.remove(ClassName.NATIVE_STICKY_ACTIVE);
+					if (tableContainer && tableContainer instanceof HTMLElement) {
+						tableContainer.dataset.tableHeaderIsStuck = 'false';
+					}
 				}
 			});
 		}, options);

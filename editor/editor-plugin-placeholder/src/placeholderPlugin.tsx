@@ -19,7 +19,6 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -501,7 +500,7 @@ function createPlaceHolderStateFrom({
 		if (
 			nodeTypesWithSyncBlockPlaceholderText.includes(parentType) &&
 			isEmptyNode &&
-			expValEquals('platform_synced_block', 'isEnabled', true)
+			editorExperiment('platform_synced_block', true)
 		) {
 			return setPlaceHolderState({
 				placeholderText: intl.formatMessage(messages.syncBlockPlaceholderText),

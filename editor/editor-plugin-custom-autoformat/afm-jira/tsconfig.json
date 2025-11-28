@@ -23,9 +23,6 @@
 	],
 	"references": [
 		{
-			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../prosemirror-history/afm-jira/tsconfig.json"
 		},
 		{

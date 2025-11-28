@@ -556,7 +556,7 @@ export const DragHandle = ({
 				api?.blockControls?.commands.toggleBlockMenu({
 					anchorName,
 					openedViaKeyboard: false,
-					triggerByNode: expValEqualsNoExposure('platform_synced_block', 'isEnabled', true)
+					triggerByNode: editorExperiment('platform_synced_block', true)
 						? { nodeType, pos: startPos, rootPos: tr.doc.resolve(startPos).before(1) }
 						: undefined,
 				})({ tr });
@@ -600,7 +600,7 @@ export const DragHandle = ({
 						tr = selectNode(tr, startPos, nodeType, api);
 					}
 
-					const rootPos = expValEqualsNoExposure('platform_synced_block', 'isEnabled', true)
+					const rootPos = editorExperiment('platform_synced_block', true)
 						? tr.doc.resolve(startPos).before(1)
 						: undefined;
 					const triggerByNode: TriggerByNode | undefined = expValEqualsNoExposure(
@@ -615,13 +615,7 @@ export const DragHandle = ({
 						api?.blockControls?.commands.toggleBlockMenu({
 							anchorName,
 							triggerByNode,
-							openedViaKeyboard: expValEqualsNoExposure(
-								'platform_editor_block_menu_keyboard_navigation',
-								'isEnabled',
-								true,
-							)
-								? false
-								: undefined,
+							openedViaKeyboard: false,
 						})({
 							tr,
 						});
@@ -630,13 +624,7 @@ export const DragHandle = ({
 						api?.blockControls?.commands.toggleBlockMenu({
 							anchorName,
 							triggerByNode,
-							openedViaKeyboard: expValEqualsNoExposure(
-								'platform_editor_block_menu_keyboard_navigation',
-								'isEnabled',
-								true,
-							)
-								? false
-								: undefined,
+							openedViaKeyboard: false,
 						})({
 							tr,
 						});
@@ -727,7 +715,7 @@ export const DragHandle = ({
 					tr = selectNode(tr, startPos, nodeType, api);
 					!isMultiSelect && tr.setMeta(key, { pos: startPos });
 
-					const rootPos = expValEqualsNoExposure('platform_synced_block', 'isEnabled', true)
+					const rootPos = editorExperiment('platform_synced_block', true)
 						? tr.doc.resolve(startPos).before(1)
 						: undefined;
 					const triggerByNode: TriggerByNode | undefined = expValEqualsNoExposure(
@@ -882,7 +870,7 @@ export const DragHandle = ({
 						} else {
 							const domAtPos = view.domAtPos.bind(view);
 							const previewContent: DragPreviewContent[] = [];
-							expandedSlice.content.descendants((node, pos, _parent, _index) => {
+							expandedSlice.content.descendants((node, pos) => {
 								// Get the dom element of the node
 								//eslint-disable-next-line @atlaskit/editor/no-as-casting
 								const nodeDomElement = findDomRefAtPos(sliceFrom + pos, domAtPos) as HTMLElement;
@@ -954,7 +942,7 @@ export const DragHandle = ({
 		}
 
 		const pos = getPos();
-		const $pos = expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+		const $pos = expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 			? typeof pos === 'number' && view.state.doc.resolve(pos)
 			: pos && view.state.doc.resolve(pos);
 		const parentPos = $pos && $pos.depth ? $pos.before() : undefined;
@@ -1017,7 +1005,7 @@ export const DragHandle = ({
 					editorExperiment('advanced_layouts', true) && isLayoutColumn
 						? `calc(anchor(${safeAnchorName} top) - ${DRAG_HANDLE_WIDTH}px)`
 						: `calc(anchor(${safeAnchorName} start)+ ${topPositionAdjustment(
-								expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+								expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 									? ($pos && $pos.nodeAfter && getNodeTypeWithLevel($pos.nodeAfter)) || nodeType
 									: nodeType,
 							)}px)`,
@@ -1056,7 +1044,7 @@ export const DragHandle = ({
 
 	const calculatePositionOld = useCallback(() => {
 		const pos = getPos();
-		const $pos = expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+		const $pos = expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 			? typeof pos === 'number' && view.state.doc.resolve(pos)
 			: pos && view.state.doc.resolve(pos);
 		const parentPos = $pos && $pos.depth ? $pos.before() : undefined;
@@ -1118,7 +1106,7 @@ export const DragHandle = ({
 					editorExperiment('advanced_layouts', true) && isLayoutColumn
 						? `calc(anchor(${safeAnchorName} top) - ${DRAG_HANDLE_WIDTH}px)`
 						: `calc(anchor(${safeAnchorName} start) + ${topPositionAdjustment(
-								expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+								expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 									? ($pos && $pos.nodeAfter && getNodeTypeWithLevel($pos.nodeAfter)) || nodeType
 									: nodeType,
 							)}px)`,
@@ -1404,15 +1392,9 @@ export const DragHandle = ({
 					editorExperiment('platform_editor_controls', 'control') &&
 					dragHandleButtonSmallScreenStyles,
 				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-					expValEqualsNoExposure(
-						'platform_editor_block_menu_keyboard_navigation',
-						'isEnabled',
-						true,
-					) &&
 					isFocused &&
 					keyboardFocusedDragHandleStyles,
-				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
+				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 					? focusedStyles
 					: focusedStylesOld,
 				expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
@@ -1434,8 +1416,7 @@ export const DragHandle = ({
 					: handleOnClick
 			}
 			onKeyDown={
-				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
+				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 					? handleKeyDownNew
 					: handleKeyDown
 			}
@@ -1450,8 +1431,7 @@ export const DragHandle = ({
 					: ''
 			}
 			onBlur={
-				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-				expValEqualsNoExposure('platform_editor_block_menu_keyboard_navigation', 'isEnabled', true)
+				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 					? () => setIsFocused(false)
 					: undefined
 			}

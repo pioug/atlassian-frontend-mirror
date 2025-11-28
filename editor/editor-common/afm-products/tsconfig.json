@@ -45,9 +45,6 @@
 			"path": "../../../design-system/button/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/code/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../monorepo-tooling/codemod-utils/afm-products/tsconfig.json"
 		},
 		{
@@ -181,9 +178,6 @@
 		},
 		{
 			"path": "../../../design-system/tooltip/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../data/ufo-external/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/width-detector/afm-products/tsconfig.json"

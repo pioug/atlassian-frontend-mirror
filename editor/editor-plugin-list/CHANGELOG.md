@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-list
 
+## 8.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.12
+
+### Patch Changes
+
+- [`56c0427b2ab20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56c0427b2ab20) -
+  [ux] Use new IA for block menu items.
+- Updated dependencies
+
 ## 8.2.11
 
 ### Patch Changes

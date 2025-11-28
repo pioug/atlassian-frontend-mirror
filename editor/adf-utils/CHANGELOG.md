@@ -1,5 +1,13 @@
 # @atlaskit/adf-utils
 
+## 19.26.3
+
+### Patch Changes
+
+- [`ca40c603642c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca40c603642c7) -
+  If validating individual nodes, by default test validation with all available specs as the default
+  spec may not support the configuration
+
 ## 19.26.2
 
 ### Patch Changes

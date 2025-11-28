@@ -27,7 +27,6 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/adf-utils": "workspace:^",
-		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",

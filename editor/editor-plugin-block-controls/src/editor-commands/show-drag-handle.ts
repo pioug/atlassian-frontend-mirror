@@ -43,7 +43,7 @@ const findParentPosForHandle = (state: EditorState) => {
 	}
 
 	// else find closest parent node
-	return expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)
+	return expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 		? // With native anchor enabled, all nodes have anchor name attribute despite no drag handle support, e.g. listItem, caption,
 			// as opposed to old approach, node decoration is only added to the node that have drag handle,
 			// hence, we need to return the exact position of the node that can have drag handle
@@ -133,7 +133,7 @@ const findNextAnchorNode = (view: EditorView) => {
 export const showDragHandleAtSelection =
 	(api?: ExtractInjectionAPI<BlockControlsPlugin>): Command =>
 	(state, _, view) => {
-		if (view && expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+		if (view && expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 			const anchorNode = findNextAnchorNode(view);
 
 			if (api && anchorNode) {

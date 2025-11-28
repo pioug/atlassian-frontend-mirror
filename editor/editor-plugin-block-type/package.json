@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-type",
-	"version": "10.2.14",
+	"version": "10.2.16",
 	"description": "BlockType plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -67,11 +67,6 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"@af/visual-regression": "workspace:^",
-		"@atlaskit/analytics-next": "workspace:^",
-		"@atlaskit/editor-plugin-quick-insert": "workspace:^",
-		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"wait-for-expect": "root:*"

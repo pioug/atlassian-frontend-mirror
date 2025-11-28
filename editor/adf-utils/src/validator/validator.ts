@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
 import * as specs from './specs';
@@ -29,8 +31,10 @@ import type {
 	Err,
 	Validate,
 	ValidatorSpecAttrs,
+	CreateSpecReturn,
 } from '../types/validatorTypes';
 import { validatorFnMap } from './rules';
+import { extractAllowedContent } from './extractAllowedContent';
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -77,10 +81,10 @@ const partitionObject = <T extends { [key: string]: any }>(
  * Normalizes the structure of files imported from './specs'.
  * We denormalised the spec to save bundle size.
  */
-function createSpec(nodes?: Array<string>, marks?: Array<string>) {
+export function createSpec(nodes?: Array<string>, marks?: Array<string>): CreateSpecReturn {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	return Object.keys(specs).reduce<Record<string, any>>((newSpecs, k) => {
+	return Object.keys(specs).reduce<CreateSpecReturn>((newSpecs, k) => {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const spec = { ...(specs as any)[k] };
@@ -376,6 +380,15 @@ export function validator(
 	const validatorSpecs = createSpec(nodes, marks);
 	const { mode = 'strict', allowPrivateAttributes = false } = options || {};
 	const validate: Validate = (entity, errorCallback, allowed, parentSpec) => {
+		if (!allowed && fg('platform_editor_ai_aifc_patch_ga')) {
+			for (const allowed of extractAllowedContent(validatorSpecs, entity)) {
+				const validationResult = validateNode(entity, errorCallback, allowed, parentSpec);
+				if (validationResult.valid) {
+					return { entity: validationResult.entity, valid: validationResult.valid };
+				}
+			}
+		}
+		// If `allowed` was provided or we haven't passed yet, return the initial result
 		const validationResult = validateNode(entity, errorCallback, allowed, parentSpec);
 		return { entity: validationResult.entity, valid: validationResult.valid };
 	};

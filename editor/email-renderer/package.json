@@ -50,7 +50,6 @@
 		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/adf-utils": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
-		"@atlaskit/theme": "workspace:^",
 		"@babel/runtime": "root:*",
 		"date-fns": "root:*",
 		"juice": "root:*",

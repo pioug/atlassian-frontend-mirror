@@ -1,5 +1,31 @@
 # @atlaskit/editor-statsig-tmp
 
+## 14.1.0
+
+### Minor Changes
+
+- [`7583860e8637f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7583860e8637f) -
+  EDITOR-3621 Clean up platform_editor_block_menu_keyboard_navigation feature gate
+
+## 14.0.1
+
+### Patch Changes
+
+- [`5e935a27d0d78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e935a27d0d78) -
+  Cleanup platform_editor_resizer_cls_fix experiment
+
+## 14.0.0
+
+### Major Changes
+
+- [`66121121982b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66121121982b2) -
+  [EXP-CLEANUP] editor_ai_inline_suggestion_date_v2
+
+### Minor Changes
+
+- [`d84e4018e7a77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d84e4018e7a77) -
+  ED-29689 create new exp
+
 ## 13.44.0
 
 ### Minor Changes

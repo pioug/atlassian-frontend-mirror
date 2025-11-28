@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 6.2.9
+
+### Patch Changes
+
+- [`7583860e8637f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7583860e8637f) -
+  EDITOR-3621 Clean up platform_editor_block_menu_keyboard_navigation feature gate
+- Updated dependencies
+
+## 6.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.7
 
 ### Patch Changes

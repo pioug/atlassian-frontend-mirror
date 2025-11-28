@@ -144,7 +144,7 @@ export const DropTargetLayout = (
 				<DropIndicator edge="right" gap={`-${DROP_TARGET_LAYOUT_DROP_ZONE_WIDTH}px`} />
 			) : (
 				(isActiveAnchor ||
-					expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) && (
+					expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) && (
 					<div data-testid="block-ctrl-drop-hint" css={dropTargetLayoutHintStyle}></div>
 				)
 			)}
@@ -258,7 +258,7 @@ export const DropTargetLayoutNativeAnchorSupport = (
 				<DropIndicator edge="right" gap={`-${DROP_TARGET_LAYOUT_DROP_ZONE_WIDTH}px`} />
 			) : (
 				(isActiveAnchor ||
-					expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) && (
+					expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) && (
 					<div data-testid="block-ctrl-drop-hint" css={dropTargetLayoutHintStyle}></div>
 				)
 			)}

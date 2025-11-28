@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "110.35.3",
+	"version": "110.36.2",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -140,7 +140,6 @@
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/atlassian-context": "workspace:^",
 		"@atlaskit/button": "workspace:^",
-		"@atlaskit/code": "workspace:^",
 		"@atlaskit/codemod-utils": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/custom-steps": "workspace:^",
@@ -187,7 +186,6 @@
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
-		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/width-detector": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
@@ -223,10 +221,7 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"@af/visual-regression": "workspace:^",
 		"@atlaskit/media-core": "workspace:^",
-		"@atlaskit/media-test-helpers": "workspace:^",
-		"@atlaskit/util-data-test": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",
@@ -340,9 +335,6 @@
 			"type": "boolean"
 		},
 		"p2m-drop-down-motion": {
-			"type": "boolean"
-		},
-		"platform_native_anchor_use_css_style": {
 			"type": "boolean"
 		},
 		"platform_editor_link_picker_width_fix": {

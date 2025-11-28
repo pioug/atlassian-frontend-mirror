@@ -78,18 +78,11 @@ export const getToolRegistry = (): Record<
 	string,
 	{
 		handler: (params: any) => Promise<any>;
-		inputSchema: z.ZodSchema | null;
+		inputSchema: z.AnyZodObject | null;
 		tool: Tool;
 	}
 > => {
-	const baseTools: Record<
-		string,
-		{
-			handler: (params: any) => Promise<any>;
-			inputSchema: z.ZodSchema | null;
-			tool: Tool;
-		}
-	> = {
+	const baseTools: ReturnType<typeof getToolRegistry> = {
 		[listAnalyzeA11yTool.name]: {
 			handler: analyzeA11yTool,
 			inputSchema: analyzeA11yInputSchema,

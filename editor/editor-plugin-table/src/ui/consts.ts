@@ -7,6 +7,7 @@ import {
 	akEditorTableBorderSelected,
 	akEditorTableCellBlanketDeleted,
 	akEditorTableCellBlanketSelected,
+	akEditorTableCellOnStickyHeaderZIndex,
 	akEditorTableHeaderCellBackground,
 	akEditorTableToolbar,
 	akEditorTableToolbarSize,
@@ -85,6 +86,7 @@ export const tableOverflowShadowWidth = 8;
 export const tableOverflowShadowWidthWide = 32;
 export const tablePopupMenuFitHeight = 188;
 export const tableColumnControlsHeight = 24;
+export const nativeStickyHeaderZIndex = akEditorTableCellOnStickyHeaderZIndex - 5;
 
 export const dropTargetsZIndex = 14;
 

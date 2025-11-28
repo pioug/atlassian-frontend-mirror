@@ -452,7 +452,7 @@ export const apply = (
 		(isNodeDecsMissing || meta?.isDragging) &&
 		// Skip expensive anchor node decoration recalculations when native anchor support is enabled
 		!(
-			expValEquals('platform_editor_native_anchor_support', 'isEnabled', true) &&
+			expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
 			fg('editor_native_anchor_remove_decoration_in_apply')
 		);
 
@@ -690,7 +690,7 @@ export const apply = (
 	}
 
 	const isEmptyDoc = isEmptyDocument(newState.doc);
-	if (isEmptyDoc && !expValEquals('platform_editor_native_anchor_support', 'isEnabled', true)) {
+	if (isEmptyDoc && !expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 		const hasNodeDecoration = !!findNodeDecs(newState, decorations).length;
 		if (!hasNodeDecoration) {
 			decorations = decorations.add(newState.doc, [emptyParagraphNodeDecorations()]);
@@ -760,7 +760,7 @@ export const apply = (
 			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 				? meta?.toggleMenu?.anchorName || menuTriggerBy
 				: undefined,
-		menuTriggerByNode: expValEqualsNoExposure('platform_synced_block', 'isEnabled', true)
+		menuTriggerByNode: editorExperiment('platform_synced_block', true)
 			? meta?.toggleMenu?.triggerByNode || menuTriggerByNode
 			: undefined,
 		blockMenuOptions: expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
@@ -773,15 +773,10 @@ export const apply = (
 						meta?.toggleMenu?.moveDown !== undefined
 							? meta?.toggleMenu?.moveDown
 							: blockMenuOptions?.canMoveDown,
-					openedViaKeyboard: expValEqualsNoExposure(
-						'platform_editor_block_menu_keyboard_navigation',
-						'isEnabled',
-						true,
-					)
-						? meta?.toggleMenu?.openedViaKeyboard !== undefined
+					openedViaKeyboard:
+						meta?.toggleMenu?.openedViaKeyboard !== undefined
 							? meta?.toggleMenu?.openedViaKeyboard
-							: blockMenuOptions?.openedViaKeyboard
-						: undefined,
+							: blockMenuOptions?.openedViaKeyboard,
 				}
 			: undefined,
 		editorHeight: meta?.editorHeight ?? editorHeight,
@@ -1063,12 +1058,7 @@ export const createPlugin = (
 						) {
 							const isBlockMenuOpen =
 								api?.blockControls.sharedState.currentState()?.isMenuOpen &&
-								expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-								expValEqualsNoExposure(
-									'platform_editor_block_menu_keyboard_navigation',
-									'isEnabled',
-									true,
-								);
+								expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true);
 							// when block menu is just open, and we press arrow keys, we want to use the arrow keys to navigate the block menu
 							// in this scenario, isSelectedViaDragHandle should not be set to false
 							if (
@@ -1126,12 +1116,7 @@ export const createPlugin = (
 						) {
 							const isBlockMenuOpen =
 								api?.blockControls.sharedState.currentState()?.isMenuOpen &&
-								expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-								expValEqualsNoExposure(
-									'platform_editor_block_menu_keyboard_navigation',
-									'isEnabled',
-									true,
-								);
+								expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true);
 							// when block menu is just open, and we press arrow keys, we want to use the arrow keys to navigate the block menu
 							// in this scenario, isSelectedViaDragHandle should not be set to false
 							if (

@@ -31,8 +31,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "root:*",
-		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {

@@ -26,9 +26,6 @@
 			"path": "../../../analytics/analytics-namespaced-context/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/css/afm-jira/tsconfig.json"
 		},
 		{
@@ -69,9 +66,6 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/popup/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"

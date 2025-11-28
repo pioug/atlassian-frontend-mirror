@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-layout
 
+## 6.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.8
+
+### Patch Changes
+
+- [`56c0427b2ab20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56c0427b2ab20) -
+  [ux] Use new IA for block menu items.
+- Updated dependencies
+
 ## 6.2.7
 
 ### Patch Changes

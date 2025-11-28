@@ -1,5 +1,16 @@
 # @atlaskit/profilecard
 
+## 24.22.0
+
+### Minor Changes
+
+- [`4e43c6db295d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e43c6db295d3) -
+  [ux] Refresh agent profile card UI
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.21.9
 
 ### Patch Changes

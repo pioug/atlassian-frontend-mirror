@@ -4,7 +4,6 @@ import {
 	ArrowKeyNavigationProvider,
 	ArrowKeyNavigationType,
 } from '@atlaskit/editor-common/ui-menu';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type {
 	RegisterBlockMenuComponent,
@@ -31,9 +30,7 @@ type BlockMenuProps = {
 	};
 };
 
-const NoOp = <T extends Record<string, unknown> = Record<string, unknown>>(
-	props: T,
-): React.ReactNode => null;
+const NoOp = (): React.ReactNode => null;
 
 const isNonNestedMenuSection = (
 	component: RegisterBlockMenuComponent,
@@ -149,15 +146,9 @@ export const BlockMenuRenderer = ({ components, fallbacks }: BlockMenuProps) => 
 		);
 	};
 
-	return expValEqualsNoExposure(
-		'platform_editor_block_menu_keyboard_navigation',
-		'isEnabled',
-		true,
-	) ? (
+	return (
 		<ArrowKeyNavigationProvider type={ArrowKeyNavigationType.MENU}>
 			{renderMenu()}
 		</ArrowKeyNavigationProvider>
-	) : (
-		renderMenu()
 	);
 };

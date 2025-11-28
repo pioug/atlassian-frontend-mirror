@@ -28,7 +28,11 @@ const createFilterStepsPlugin =
 					return true;
 				}
 
-				if (tr.getMeta('isRemote')) {
+				if (
+					tr.getMeta('isRemote') ||
+					(tr.getMeta('allowViewModeTransaction') &&
+						fg('platform_editor_allow_viewmode_transaction'))
+				) {
 					return true;
 				}
 
@@ -131,6 +135,10 @@ export const editorViewModeEffectsPlugin: EditorViewModeEffectsPlugin = ({ api }
 	name: 'editorViewModeEffects',
 
 	actions: {
+		allowViewModeTransaction: (tr: Transaction) => {
+			tr.setMeta('allowViewModeTransaction', true);
+			return tr;
+		},
 		applyViewModeStepAt: (tr: Transaction) => {
 			const marksSteps: (AddMarkStep | AddNodeMarkStep)[] = tr.steps.reduce<
 				(AddMarkStep | AddNodeMarkStep)[]

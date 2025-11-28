@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-copy-button",
-	"version": "6.0.5",
+	"version": "6.0.6",
 	"description": "editor-plugin-copy-button for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,7 +35,6 @@
 		"@atlaskit/editor-plugin-decorations": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/icon": "workspace:^",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
@@ -45,7 +44,6 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/analytics-next": "workspace:^",
 		"@testing-library/react": "root:*"
 	},
 	"techstack": {

@@ -89,7 +89,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 					return { status: 'failed-to-replace' };
 				}
 				const { state, dispatch } = editorViewRef.current;
-				return replaceWithAdf(nodeAdf)(state, dispatch);
+				return replaceWithAdf(nodeAdf, api)(state, dispatch);
 			},
 			insertAdfAtEndOfDoc: (nodeAdf) => {
 				if (!editorViewRef.current) {

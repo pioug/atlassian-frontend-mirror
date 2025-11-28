@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-expand",
-	"version": "7.4.7",
+	"version": "7.4.9",
 	"description": "Expand plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -66,13 +66,6 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"@atlaskit/analytics-next": "workspace:^",
-		"@atlaskit/editor-plugin-content-insertion": "workspace:^",
-		"@atlaskit/editor-plugin-guideline": "workspace:^",
-		"@atlaskit/editor-plugin-quick-insert": "workspace:^",
-		"@atlaskit/editor-plugin-table": "workspace:^",
-		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
-		"@atlaskit/editor-plugin-width": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react-test-renderer": "root:*"
 	},

@@ -6,9 +6,9 @@ import { decisionList, taskList } from '@atlaskit/adf-schema';
 import { css, jsx } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
-	FORMAT_TASK_LIST_MENU_ITEM,
-	FORMAT_NESTED_MENU_RANK,
-	NESTED_FORMAT_MENU_SECTION,
+	TRANSFORM_STRUCTURE_MENU_SECTION,
+	TRANSFORM_STRUCTURE_TASK_LIST_MENU_ITEM,
+	TRANSFORM_STRUCTURE_MENU_SECTION_RANK,
 } from '@atlaskit/editor-common/block-menu';
 import { MAX_INDENTATION_LEVEL } from '@atlaskit/editor-common/indentation';
 import { toolbarInsertBlockMessages as insertBlockMessages } from '@atlaskit/editor-common/messages';
@@ -167,11 +167,11 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 		api?.blockMenu?.actions.registerBlockMenuComponents([
 			{
 				type: 'block-menu-item',
-				key: FORMAT_TASK_LIST_MENU_ITEM.key,
+				key: TRANSFORM_STRUCTURE_TASK_LIST_MENU_ITEM.key,
 				parent: {
 					type: 'block-menu-section' as const,
-					key: NESTED_FORMAT_MENU_SECTION.key,
-					rank: FORMAT_NESTED_MENU_RANK[FORMAT_TASK_LIST_MENU_ITEM.key],
+					key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
+					rank: TRANSFORM_STRUCTURE_MENU_SECTION_RANK[TRANSFORM_STRUCTURE_TASK_LIST_MENU_ITEM.key],
 				},
 				component: () => <TaskListBlockMenuItem api={api} />,
 			},

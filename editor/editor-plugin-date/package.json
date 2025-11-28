@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-date",
-	"version": "8.1.9",
+	"version": "8.1.10",
 	"description": "Date plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,7 +35,6 @@
 		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/calendar": "workspace:^",
 		"@atlaskit/css": "workspace:^",
-		"@atlaskit/date": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-annotation": "workspace:^",
 		"@atlaskit/editor-plugin-editor-disabled": "workspace:^",
@@ -58,17 +57,6 @@
 		"react-loadable": "root:*"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-plugin-composition": "workspace:^",
-		"@atlaskit/editor-plugin-content-insertion": "workspace:^",
-		"@atlaskit/editor-plugin-decorations": "workspace:^",
-		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
-		"@atlaskit/editor-plugin-guideline": "workspace:^",
-		"@atlaskit/editor-plugin-quick-insert": "workspace:^",
-		"@atlaskit/editor-plugin-selection": "workspace:^",
-		"@atlaskit/editor-plugin-table": "workspace:^",
-		"@atlaskit/editor-plugin-tasks-and-decisions": "workspace:^",
-		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
-		"@atlaskit/editor-plugin-width": "workspace:^",
 		"@testing-library/react": "root:*"
 	},
 	"peerDependencies": {

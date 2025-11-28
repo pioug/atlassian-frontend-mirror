@@ -25,6 +25,7 @@ import { akEditorTableCellOnStickyHeaderZIndex } from '@atlaskit/editor-shared-s
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	insertColumnWithAnalytics,
@@ -187,7 +188,13 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 		// Only when inserting a column, otherwise set to undefined
 		// Need to set z-index in the Popup, set z-index in the <InsertButton /> will not work
 		const zIndex: number | undefined =
-			type === 'column' ? akEditorTableCellOnStickyHeaderZIndex : undefined;
+			expValEquals(
+				'platform_editor_table_sticky_header_improvements',
+				'cohort',
+				'test_with_overflow',
+			) || type === 'column'
+				? akEditorTableCellOnStickyHeaderZIndex
+				: undefined;
 
 		return (
 			<Popup

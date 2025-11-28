@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "124.16.5",
+	"version": "124.16.6",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,7 +36,6 @@
 		"@atlaskit/editor-palette": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/editor-shared-styles": "workspace:^",
-		"@atlaskit/editor-tables": "workspace:^",
 		"@atlaskit/emoji": "workspace:^",
 		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
@@ -83,7 +82,6 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/analytics-gas-types": "workspace:^",
 		"@atlaskit/checkbox": "workspace:^",
-		"@atlaskit/css-reset": "workspace:^",
 		"@atlaskit/link-provider": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
 		"@atlaskit/media-core": "workspace:^",
@@ -134,7 +132,7 @@
 		"platform-ssr-table-resize": {
 			"type": "boolean"
 		},
-		"aifc_create_enabled": {
+		"platform_editor_ai_aifc_streaming": {
 			"type": "boolean"
 		},
 		"platform_fix_nested_num_column_scaling": {

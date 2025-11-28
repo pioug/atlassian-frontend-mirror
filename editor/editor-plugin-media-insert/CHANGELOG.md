@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 14.0.4
+
+### Patch Changes
+
+- [`ec9d20245c4b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec9d20245c4b6) -
+  Fix label-title-only accessibility violation by adding visible label to URL input field
+
 ## 14.0.3
 
 ### Patch Changes

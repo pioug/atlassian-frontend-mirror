@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 14.1.1
+
+### Patch Changes
+
+- [`41a91a916c125`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41a91a916c125) -
+  EDITOR-2846 Change platform_synced_block to use editorExperiment and add Jira experiment
+
 ## 14.1.0
 
 ### Minor Changes

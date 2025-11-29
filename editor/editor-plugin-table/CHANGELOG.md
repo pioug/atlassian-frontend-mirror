@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 15.4.8
+
+### Patch Changes
+
+- [`7bcc5b67de741`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7bcc5b67de741) -
+  [ux] Add drop shadow to table col control mask when sticky positioned header
+- Updated dependencies
+
 ## 15.4.7
 
 ### Patch Changes

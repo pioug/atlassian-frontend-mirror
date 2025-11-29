@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 6.5.21
+
+### Patch Changes
+
+- [`41a91a916c125`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41a91a916c125) -
+  EDITOR-2846 Change platform_synced_block to use editorExperiment and add Jira experiment
+- Updated dependencies
+
 ## 6.5.20
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @atlaskit/editor-core
 
+## 215.15.2
+
+### Patch Changes
+
+- [`41a91a916c125`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41a91a916c125) -
+  EDITOR-2846 Change platform_synced_block to use editorExperiment and add Jira experiment
+- [`3964517d6aa61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3964517d6aa61) -
+  fix unsafe experiment usage for platform_editor_block_menu
+- Updated dependencies
+
 ## 215.15.1
 
 ### Patch Changes

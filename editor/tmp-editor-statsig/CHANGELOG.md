@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 14.1.2
+
+### Patch Changes
+
+- [`01a138be1a16d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01a138be1a16d) -
+  Clean up platform_editor_block_menu_expand_format
+
 ## 14.1.1
 
 ### Patch Changes

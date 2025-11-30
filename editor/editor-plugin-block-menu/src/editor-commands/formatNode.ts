@@ -14,7 +14,6 @@ import {
 	findSelectedNodeOfType,
 	safeInsert as pmSafeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
@@ -174,11 +173,8 @@ export const formatNode =
 						nodes.panel,
 						nodes.codeBlock,
 						nodes.layoutSection,
+						nodes.expand,
 					];
-
-					if (expValEquals('platform_editor_block_menu_expand_format', 'isEnabled', true)) {
-						allowedNodes.push(nodes.expand);
-					}
 
 					let sourceTypeName = 'paragraph';
 					let conversionSource;

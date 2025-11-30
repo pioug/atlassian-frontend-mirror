@@ -337,13 +337,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-09-11
-	platform_editor_block_menu_expand_format: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2024-12-05
 	platform_editor_blockquote_in_text_formatting_menu: {
 		defaultValue: boolean;
@@ -1866,14 +1859,6 @@ export const editorExperimentsConfig: {
 	platform_editor_quick_insert_image_wrap_right_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_quick_insert_image_wrap_right_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-09-11
-	platform_editor_block_menu_expand_format: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_block_menu_expand_format',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

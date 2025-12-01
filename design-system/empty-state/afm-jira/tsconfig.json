@@ -36,9 +36,6 @@
 			"path": "../../spinner/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../theme/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../tokens/afm-jira/tsconfig.json"
 		}
 	]

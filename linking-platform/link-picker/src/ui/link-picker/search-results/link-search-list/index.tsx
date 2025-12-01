@@ -63,16 +63,6 @@ const listStyles = css({
 	listStyle: 'none',
 });
 
-const baseListTitleStyles = css({
-	font: token('font.body.small'),
-	fontWeight: token('font.weight.bold'),
-	marginBottom: token('space.050', '4px'),
-});
-
-const newListTitleStyles = css({
-	color: token('color.text.subtle'),
-});
-
 const listTitleStyles: CSSProperties = {
 	font: token('font.body.small'),
 	fontWeight: token('font.weight.bold'),
@@ -146,8 +136,6 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 			activeIndex,
 			selectedIndex,
 			isLoading,
-			ariaControls,
-			ariaLabelledBy,
 			ariaReadOnly,
 			role,
 			id,
@@ -241,27 +229,17 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 		if (items && items.length > 0) {
 			itemsContent = (
 				<Fragment>
-					{fg('navx-2134-fix-a11y-link-picker-headings') ? (
-						<Box
-							as="h2" // Must remain <h2> for a11y title hierarchy as per https://hello.jira.atlassian.cloud/browse/A11Y-27579
-							// `.wiki-content h2` css styles in confluence override ADS/native styles here, so inline styles are needed.
-							// Should use css or xcss prop when that CSS is removed/fixed by confluence
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-							style={listTitleStyles}
-							id={testIds.resultListTitle}
-							testId={testIds.resultListTitle}
-						>
-							<FormattedMessage {...linkListTitle} />
-						</Box>
-					) : (
-						<div
-							css={[baseListTitleStyles, newListTitleStyles]}
-							id={testIds.resultListTitle}
-							data-testid={testIds.resultListTitle}
-						>
-							<FormattedMessage {...linkListTitle} />
-						</div>
-					)}
+					<Box
+						as="h2" // Must remain <h2> for a11y title hierarchy as per https://hello.jira.atlassian.cloud/browse/A11Y-27579
+						// `.wiki-content h2` css styles in confluence override ADS/native styles here, so inline styles are needed.
+						// Should use css or xcss prop when that CSS is removed/fixed by confluence
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+						style={listTitleStyles}
+						id={testIds.resultListTitle}
+						testId={testIds.resultListTitle}
+					>
+						<FormattedMessage {...linkListTitle} />
+					</Box>
 					<VisuallyHidden id="fabric.smartcard.linkpicker.suggested.results">
 						{hasSearchTerm && (
 							<FormattedMessage

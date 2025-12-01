@@ -1,5 +1,13 @@
 # @atlaskit/media-picker
 
+## 70.1.2
+
+### Patch Changes
+
+- [`33c6d6aaeef68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33c6d6aaeef68) -
+  Use payload.error.description as fallback for errorDetail when rawError does not provide a message
+  in upload failure handling
+
 ## 70.1.1
 
 ### Patch Changes

@@ -28,10 +28,12 @@ export type VCRatioType = {
 };
 
 export type VCLabelStacks = {
-	[elementName: string]: {
-		segment: string;
-		labelStack: string;
-	};
+	[elementName: string]:
+		| {
+				segment: string;
+				labelStack: string;
+		  }
+		| string;
 };
 
 export type VCRawDataType = {

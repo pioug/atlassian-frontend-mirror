@@ -24,13 +24,7 @@
 	],
 	"references": [
 		{
-			"path": "../../css/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../ds-lib/afm-cc/tsconfig.json"
-		},
-		{
-			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
 		}
 	]
 }

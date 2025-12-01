@@ -1,19 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { Site } from '../common/types';
 
-import { getAccessibleProducts, getAvailableSites } from './getAvailableSites';
+import { getAccessibleProducts } from './getAvailableSites';
 
 export const useAvailableSites = (product: 'confluence' | 'jira', cloudId?: string) => {
 	const [availableSites, setAvailableSites] = useState<Site[] | undefined>(undefined);
 
 	useEffect(() => {
 		const fetchSiteDisplayNames = async () => {
-			const sites = await (fg('navx-1819-link-create-confluence-site-migration')
-				? getAccessibleProducts(product)
-				: getAvailableSites(product));
+			const sites = await getAccessibleProducts(product);
 			const sortedAvailableSites = [...sites].sort((a, b) =>
 				a.displayName.localeCompare(b.displayName),
 			);

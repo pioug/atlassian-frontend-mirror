@@ -47,7 +47,6 @@ import {
 	isSelectionType,
 } from '@atlaskit/editor-tables/utils';
 import PaintBucketIcon from '@atlaskit/icon/core/migration/paint-bucket--editor-background-color';
-import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -334,21 +333,12 @@ const DragMenu = React.memo(
 		const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
 		const handleSubMenuRef = (ref: HTMLDivElement | null) => {
-			let parent = closestElement(
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				editorView.dom as HTMLElement,
-				'.fabric-editor-popup-scroll-parent',
-			);
-
-			if (!parent && fg('platform_editor_fix_table_menus_jira')) {
-				parent = closestElement(
-					// Ignored via go/ees005
-					// eslint-disable-next-line @atlaskit/editor/no-as-casting
-					editorView.dom as HTMLElement,
-					'.ak-editor-content-area',
-				);
-			}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
+			const dom = editorView.dom as HTMLElement;
+			const parent =
+				closestElement(dom, '.fabric-editor-popup-scroll-parent') ||
+				closestElement(dom, '.ak-editor-content-area');
 
 			if (!(parent && ref)) {
 				return;
@@ -356,35 +346,29 @@ const DragMenu = React.memo(
 			const boundariesRect = parent.getBoundingClientRect();
 			const rect = ref.getBoundingClientRect();
 
-			if (fg('platform_editor_fix_table_menus_jira')) {
-				if (!!mountPoint) {
-					return;
-				}
+			if (!!mountPoint) {
+				return;
+			}
 
-				const offsetParent = ref?.offsetParent;
-				if (!offsetParent) {
-					return;
-				}
-				const offsetParentRect = offsetParent.getBoundingClientRect();
+			const offsetParent = ref?.offsetParent;
+			if (!offsetParent) {
+				return;
+			}
+			const offsetParentRect = offsetParent.getBoundingClientRect();
 
-				const rightOverflow = offsetParentRect.right + rect.width - boundariesRect.right;
-				const leftOverflow = boundariesRect.left - (offsetParentRect.left - rect.width);
+			const rightOverflow = offsetParentRect.right + rect.width - boundariesRect.right;
+			const leftOverflow = boundariesRect.left - (offsetParentRect.left - rect.width);
 
-				if (rightOverflow > leftOverflow) {
-					ref.style.left = `-${rect.width}px`;
-				}
+			if (rightOverflow > leftOverflow) {
+				ref.style.left = `-${rect.width}px`;
+			}
 
-				// if it overflows regardless of side, let it overlap with the parent menu
-				if (leftOverflow > 0 && rightOverflow > 0) {
-					if (rightOverflow < leftOverflow) {
-						ref.style.left = `${offsetParentRect.width - rightOverflow}px`;
-					} else {
-						ref.style.left = `-${rect.width - leftOverflow}px`;
-					}
-				}
-			} else {
-				if (rect.left + rect.width > boundariesRect.width) {
-					ref.style.left = `-${rect.width}px`;
+			// if it overflows regardless of side, let it overlap with the parent menu
+			if (leftOverflow > 0 && rightOverflow > 0) {
+				if (rightOverflow < leftOverflow) {
+					ref.style.left = `${offsetParentRect.width - rightOverflow}px`;
+				} else {
+					ref.style.left = `-${rect.width - leftOverflow}px`;
 				}
 			}
 		};

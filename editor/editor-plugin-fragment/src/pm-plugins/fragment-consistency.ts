@@ -28,8 +28,6 @@ const getNodesSupportingFragmentMark = (schema: Schema): NodeType[] => {
 export const createPlugin = (dispatch: Dispatch) =>
 	new SafePlugin({
 		key: pluginKey,
-		// @ts-ignore - Workaround for help-center local consumption
-
 		appendTransaction: (transactions, _oldState, newState) => {
 			let modified = false;
 			const tr = newState.tr;
@@ -40,8 +38,6 @@ export const createPlugin = (dispatch: Dispatch) =>
 			const addedSupportedNodes: Set<ProsemirrorNode> = new Set();
 			const addedSupportedNodesPos: Map<ProsemirrorNode, number> = new Map();
 			const localIds: Set<string> = new Set();
-
-			// @ts-ignore - Workaround for help-center local consumption
 
 			transactions.forEach((transaction) => {
 				if (!transaction.docChanged) {
@@ -70,8 +66,6 @@ export const createPlugin = (dispatch: Dispatch) =>
 			}
 
 			// Get existing fragment marks localIds on the page
-			// @ts-ignore - Workaround for help-center local consumption
-
 			newState.doc.descendants((node, pos) => {
 				if (addedSupportedNodes.has(node)) {
 					addedSupportedNodesPos.set(node, pos);
@@ -81,8 +75,6 @@ export const createPlugin = (dispatch: Dispatch) =>
 				if (!supportedNodeTypes.includes(node.type)) {
 					return true;
 				}
-
-				// @ts-ignore - Workaround for help-center local consumption
 
 				const existingFragmentMark = node.marks.find((mark) => mark.type === fragment);
 				if (!existingFragmentMark) {
@@ -103,8 +95,6 @@ export const createPlugin = (dispatch: Dispatch) =>
 					continue;
 				}
 
-				// @ts-ignore - Workaround for help-center local consumption
-
 				const existingFragmentMark = node.marks.find((mark) => mark.type === fragment);
 				if (!existingFragmentMark) {
 					continue;
@@ -115,8 +105,6 @@ export const createPlugin = (dispatch: Dispatch) =>
 						pos,
 						undefined,
 						node.attrs,
-						// @ts-ignore - Workaround for help-center local consumption
-
 						node.marks.map((mark) => {
 							if (mark.type !== fragment) {
 								return mark;

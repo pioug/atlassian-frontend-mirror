@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.1.0
+
+### Minor Changes
+
+- [`bd911d5eca1cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd911d5eca1cb) -
+  Use new transfromNode command in existing block menu items. Update transformNode analytics type.
+
+## 5.0.24
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.23
 
 ### Patch Changes

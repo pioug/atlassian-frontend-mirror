@@ -22,8 +22,6 @@ const getEnterKeyboardActionStep = (trs: readonly Transaction[]): Step | null =>
 		return null;
 	}
 	const { selection, steps } = firstTr;
-	// @ts-ignore - Workaround for help-center local consumption
-
 	const replaceSteps = steps.filter(
 		(step) => step instanceof ReplaceStep || step instanceof ReplaceAroundStep,
 	);
@@ -57,11 +55,7 @@ export default () => {
 	return new SafePlugin({
 		key: pluginKey,
 
-		// @ts-ignore - Workaround for help-center local consumption
-
 		appendTransaction: (transactions, oldState, newState) => {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			const hasHandlePasteMeta = transactions.find((tran) => tran.getMeta(pluginKey));
 			if (hasHandlePasteMeta) {
 				return closeHistory(newState.tr);

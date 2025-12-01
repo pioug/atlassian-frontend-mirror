@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 
 import { getPageIdAndTypeFromConfluencePageAri } from '../clients/confluence/ari';
@@ -94,7 +95,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 					},
 					() => {
 						return {
-							status: SyncBlockError.Errored,
+							error: SyncBlockError.Errored,
 							resourceId,
 						};
 					},
@@ -181,13 +182,15 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		localId: BlockInstanceId,
 		sourceAri: string,
 		sourceProduct: SyncBlockProduct,
+		fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
 	): Promise<SyncBlockSourceInfo | undefined> {
 		if (!sourceAri || !sourceProduct) {
-			return Promise.resolve(undefined);
+			return Promise.reject(new Error('Source ari or source product is undefined'));
 		}
+
 		switch (sourceProduct) {
 			case 'confluence-page':
-				return fetchConfluencePageInfo(sourceAri, localId);
+				return fetchConfluencePageInfo(sourceAri, localId, fireAnalyticsEvent);
 			case 'jira-work-item':
 				return Promise.reject(new Error('Jira work item source product not supported'));
 			default:

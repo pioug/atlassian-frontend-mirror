@@ -24,9 +24,6 @@
 	],
 	"references": [
 		{
-			"path": "../../../monorepo-tooling/codemod-utils/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../css/afm-cc/tsconfig.json"
 		},
 		{
@@ -34,9 +31,6 @@
 		},
 		{
 			"path": "../../primitives/afm-cc/tsconfig.json"
-		},
-		{
-			"path": "../../theme/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../tokens/afm-cc/tsconfig.json"

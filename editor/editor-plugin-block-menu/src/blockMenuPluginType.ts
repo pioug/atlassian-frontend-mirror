@@ -11,9 +11,14 @@ import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 
 import type {
-	FormatNodeTargetType,
 	FormatNodeAnalyticsAttrs,
+	FormatNodeTargetType,
+	TransformNodeAnalyticsAttrs,
 } from './editor-commands/transforms/types';
+
+export enum FLAG_ID {
+	LINK_COPIED_TO_CLIPBOARD = 'link-copied-to-clipboard',
+}
 
 type FormatNodeCommand = (
 	targetType: FormatNodeTargetType,
@@ -22,7 +27,7 @@ type FormatNodeCommand = (
 
 type TransformNodeCommand = (
 	targetType: NodeType,
-	analyticsAttrs?: FormatNodeAnalyticsAttrs,
+	analyticsAttrs?: TransformNodeAnalyticsAttrs,
 ) => EditorCommand;
 
 export type BlockMenuPlugin = NextEditorPlugin<
@@ -69,6 +74,10 @@ export type BlockMenuSharedState =
 			 * This exposes the menuTriggerBy value from blockControls plugin
 			 */
 			currentSelectedNodeName: string | undefined;
+			/**
+			 * Whether to show a flag (e.g. for copy confirmation)
+			 */
+			showFlag: FLAG_ID | false;
 	  }
 	| undefined;
 

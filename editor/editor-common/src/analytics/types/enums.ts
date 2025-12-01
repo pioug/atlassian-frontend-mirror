@@ -517,6 +517,12 @@ export enum ACTION_SUBJECT_ID {
 	EDITOR_PLUGIN_SELECTION_EXTENSION_COMPONENT = 'editorPluginSelectionExtensionComponent',
 	TRANSFORM = 'transform',
 	SYNCED_BLOCK_SOURCE_URL = 'syncedBlockSourceUrl',
+	SYNCED_BLOCK_UPDATE_CACHE = 'syncedBlockUpdateCache',
+	SYNCED_BLOCK_UPDATE = 'syncedBlockUpdate',
+	SYNCED_BLOCK_CREATE = 'syncedBlockCreate',
+	SYNCED_BLOCK_DELETE = 'syncedBlockDelete',
+	SYNCED_BLOCK_GET_SOURCE_INFO = 'syncedBlockGetSourceInfo',
+	SYNCED_BLOCK_FETCH = 'syncedBlockFetch',
 }
 
 export enum FLOATING_CONTROLS_TITLE {

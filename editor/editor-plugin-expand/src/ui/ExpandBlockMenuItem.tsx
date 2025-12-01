@@ -41,9 +41,14 @@ const ExpandBlockMenuItem = ({ api }: Props) => {
 				: INPUT_METHOD.MOUSE;
 		const inputMethod = INPUT_METHOD.BLOCK_MENU;
 
-		api?.core.actions.execute(
-			api?.blockMenu?.commands.formatNode(nodeName, { inputMethod, triggeredFrom }),
-		);
+		api?.core.actions.execute(({ tr }) => {
+			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.expand, {
+				inputMethod,
+				triggeredFrom,
+				targetTypeName: nodeName,
+			});
+			return command ? command({ tr }) : null;
+		});
 	};
 
 	return (

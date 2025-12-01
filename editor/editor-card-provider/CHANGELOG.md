@@ -1,5 +1,16 @@
 # @atlaskit/editor-card-provider
 
+## 6.2.0
+
+### Minor Changes
+
+- [`ee7dfc1442426`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee7dfc1442426) -
+  [ux] Make 3P Unauthenticated links pasted on a new line to convert to block card
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.1
 
 ### Patch Changes

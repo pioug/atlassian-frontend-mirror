@@ -73,8 +73,6 @@ const createReferenceEventFromEvent = (event: Event): ImageUploadPluginReference
 	const filesArray = Array.from(files);
 
 	// Creating a new DataTransfer object should remove any mutation that could be possible from the original event
-	// @ts-ignore - Workaround for help-center local consumption
-
 	const dataTransfer = filesArray.reduce((acc, value) => {
 		acc.items.add(value);
 		return acc;
@@ -135,8 +133,6 @@ export const createPlugin =
 	({ dispatch, providerFactory }: PMPluginFactoryParams) => {
 		return new SafePlugin({
 			state: {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				init(_config, state: EditorState): ImageUploadPluginState {
 					return {
 						active: false,
@@ -144,8 +140,6 @@ export const createPlugin =
 						hidden: !state.schema.nodes.media || !state.schema.nodes.mediaSingle,
 					};
 				},
-				// @ts-ignore - Workaround for help-center local consumption
-
 				apply(tr, pluginState: ImageUploadPluginState, _oldState, newState) {
 					const newActive = isMediaSelected(newState);
 					const newEnabled = canInsertMedia(newState);
@@ -191,8 +185,6 @@ export const createPlugin =
 				providerFactory.subscribe('imageUploadProvider', handleProvider);
 
 				return {
-					// @ts-ignore - Workaround for help-center local consumption
-
 					destroy() {
 						uploadHandlerReference.current = null;
 						providerFactory.unsubscribe('imageUploadProvider', handleProvider);
@@ -200,16 +192,12 @@ export const createPlugin =
 				};
 			},
 			props: {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				handleDOMEvents: {
 					drop: createDOMHandler(
 						isDroppedFile,
 						'atlassian.editor.image.drop',
 						uploadHandlerReference,
 					),
-					// @ts-ignore - Workaround for help-center local consumption
-
 					paste: createDOMHandler(
 						(event) => isPastedFile(event as ClipboardEvent),
 						'atlassian.editor.image.paste',

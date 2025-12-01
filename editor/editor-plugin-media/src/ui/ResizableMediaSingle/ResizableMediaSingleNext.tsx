@@ -37,7 +37,11 @@ import {
 } from '@atlaskit/editor-common/media-single';
 import type { Dimensions, HandleResize, Position, Snap } from '@atlaskit/editor-common/resizer';
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
-import { resizerStyles, richMediaClassName } from '@atlaskit/editor-common/styles';
+import {
+	resizerItemClassName,
+	resizerStyles,
+	richMediaClassName,
+} from '@atlaskit/editor-common/styles';
 import type { Command } from '@atlaskit/editor-common/types';
 import {
 	calcPctFromPx,
@@ -57,6 +61,7 @@ import {
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -354,6 +359,21 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 	const minViewWidth = isResizing ? minWidth : `min(${minWidth}px, 100%)`;
 
 	const resizerNextClassName = useMemo(() => {
+		if (expValEquals('platform_editor_resizer_styles_cleanup', 'isEnabled', true)) {
+			const classNameNext = classnames(
+				richMediaClassName,
+				`image-${layout}`,
+				isResizing ? 'is-resizing' : 'not-resizing',
+				className,
+				resizerItemClassName,
+				{
+					'display-handle': selected,
+					'richMedia-selected': selected,
+					'rich-media-wrapped': layout === 'wrap-left' || layout === 'wrap-right',
+				},
+			);
+			return classNameNext;
+		}
 		// TODO: ED-26962 - Clean up where this lives and how it gets generated
 		const classNameNext = classnames(
 			richMediaClassName,
@@ -475,8 +495,6 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 				return;
 			}
 			const { gap, keys: activeGuidelineKeys } = findClosestSnap(
-				// @ts-ignore - Workaround for help-center local consumption
-
 				width,
 				guidelineSnapsReference.snaps.x,
 				guidelineSnapsReference.guidelineReference,

@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 0.49.1
+
+### Patch Changes
+
+- [`088c1edf2e05e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/088c1edf2e05e) -
+  Fix icon type definition to re-sync exported icon types
+
 ## 0.49.0
 
 ### Minor Changes

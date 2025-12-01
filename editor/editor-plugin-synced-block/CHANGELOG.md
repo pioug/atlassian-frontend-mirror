@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.3.10
+
+### Patch Changes
+
+- [`99387f7d6303b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99387f7d6303b) -
+  [ux] [EDITOR-2767] Implement bodiedSyncBlock creation/deletion undo/redo
+- Updated dependencies
+
+## 4.3.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.3.8
+
+### Patch Changes
+
+- [`0cc1855e9071d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cc1855e9071d) -
+  EDITOR-1921 add analytics for sync block provider failures
+- Updated dependencies
+
 ## 4.3.7
 
 ### Patch Changes

@@ -21,6 +21,7 @@ export function PanelAction({
 	'aria-haspopup': ariaHaspopup,
 	icon,
 	label,
+	appearance = 'subtle',
 }: PanelActionProps): React.JSX.Element {
 	if (icon) {
 		return (
@@ -29,7 +30,7 @@ export function PanelAction({
 				testId={testId}
 				icon={icon}
 				label={label || ariaLabel}
-				appearance="subtle"
+				appearance={appearance}
 				aria-haspopup={ariaHaspopup}
 			/>
 		);
@@ -57,7 +58,7 @@ export function PanelAction({
 			testId={testId}
 			aria-label={ariaLabel}
 			aria-haspopup={ariaHaspopup}
-			appearance="subtle"
+			appearance={appearance}
 		>
 			{children}
 		</Button>

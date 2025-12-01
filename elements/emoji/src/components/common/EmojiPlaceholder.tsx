@@ -4,8 +4,9 @@
  */
 import { css, jsx } from '@compiled/react';
 import type { StrictXCSSProp } from '@atlaskit/css';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
-import { defaultEmojiHeight } from '../../util/constants';
+import { defaultEmojiHeight, defaultDenseEmojiHeight } from '../../util/constants';
 import type { EmojiImageRepresentation } from '../../types';
 import { placeholder } from './styles';
 
@@ -54,12 +55,18 @@ const EmojiPlaceholder = (props: Props) => {
 	}
 	const width: number = scaledWidth || size;
 	const height: number = scaledHeight || size;
-	const style = {
-		fill: 'f7f7f7',
-		minWidth: `${width}px`,
-		width: `${width}px`,
-		height: `${height}px`,
-	};
+	const style = expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true) ?
+		{
+			fill: 'f7f7f7',
+			minWidth: `${defaultDenseEmojiHeight}px`,
+			minHeight: `${defaultDenseEmojiHeight}px`,
+		} :
+		{
+			fill: 'f7f7f7',
+			minWidth: `${width}px`,
+			width: `${width}px`,
+			height: `${height}px`,
+		};
 
 	return (
 		<span

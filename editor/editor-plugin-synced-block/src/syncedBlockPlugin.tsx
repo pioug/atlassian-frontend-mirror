@@ -25,7 +25,7 @@ import { SyncBlockRefresher } from './ui/SyncBlockRefresher';
 import { getToolbarComponents } from './ui/toolbar-components';
 
 export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
-	const syncBlockStore = new SyncBlockStoreManager(config?.syncBlockDataProvider);
+	const syncBlockStore = new SyncBlockStoreManager(config?.syncBlockDataProvider, api?.analytics?.actions?.fireAnalyticsEvent);
 
 	api?.blockMenu?.actions.registerBlockMenuComponents(getBlockMenuComponents(api));
 	api?.toolbar?.actions.registerComponents(getToolbarComponents(api));

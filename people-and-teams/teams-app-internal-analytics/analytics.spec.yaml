@@ -3093,3 +3093,32 @@ events:
         activeAgentsCount:
           type: number
           description: how many active agents
+  - teamAssignedType updated:
+      type: ui
+      description: fired when team assigned type is updated
+      attributes:
+        teamId:
+          type: string
+          description: The id of the team
+        teamProfileTabIndex:
+          type: number
+          description: The index of the team profile tab
+        consumer:
+          type: string
+          description: The consumer of the team
+        typeId:
+          type: string
+          description: The id of the team type
+  - teamAssignedTypePicker clicked:
+      type: ui
+      description: fired when team assigned type picker is clicked
+      attributes:
+        teamId:
+          type: string
+          description: The id of the team
+        teamProfileTabIndex:
+          type: number
+          description: The index of the team profile tab
+        consumer:
+          type: string
+          description: The consumer of the team

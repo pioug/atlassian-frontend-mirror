@@ -184,9 +184,7 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
 		"@testing-library/react": "root:*",
 		"enquirer": "root:*",

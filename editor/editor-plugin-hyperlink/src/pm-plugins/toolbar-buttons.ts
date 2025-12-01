@@ -18,13 +18,9 @@ export const toolbarButtonsPlugin = (initialState?: { skipAnalytics: boolean }) 
 	return new SafePlugin<HyperlinkToolbarItemsState | undefined>({
 		key: toolbarKey,
 		state: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			init: (_, __) => {
 				return initialState;
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply: (tr, pluginState) => {
 				const metaState = tr.getMeta(toolbarKey);
 				if (metaState) {

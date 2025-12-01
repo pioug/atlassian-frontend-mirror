@@ -9,15 +9,11 @@ export const createPlugin = () =>
 	new SafePlugin<FocusState>({
 		key,
 		state: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			init() {
 				return {
 					hasFocus: false,
 				};
 			},
-
-			// @ts-ignore - Workaround for help-center local consumption
 
 			apply(tr, oldPluginState) {
 				const meta = tr.getMeta(key) as boolean;
@@ -33,11 +29,7 @@ export const createPlugin = () =>
 		},
 
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleDOMEvents: {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				focus: (view) => {
 					const focusState = key.getState(view.state);
 					if (!focusState?.hasFocus) {
@@ -45,8 +37,6 @@ export const createPlugin = () =>
 					}
 					return false;
 				},
-				// @ts-ignore - Workaround for help-center local consumption
-
 				blur: (view) => {
 					const focusState = key.getState(view.state);
 					if (focusState?.hasFocus) {

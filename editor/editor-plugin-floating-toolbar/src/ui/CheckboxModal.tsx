@@ -71,8 +71,6 @@ export const CheckboxModal = (props: ConfirmationDialogProps & WrappedComponentP
 						isChecked={isChecked}
 						onChange={() => setCheckbox(!isChecked)}
 						label={checkboxlabel}
-						// @ts-ignore - Workaround for help-center local consumption
-
 						testId={testId ? `${testId}-checkbox` : undefined}
 					/>
 				</Text>

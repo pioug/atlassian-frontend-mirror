@@ -73,10 +73,7 @@ const getTextFormattingState = (
 				[subsup?.create({ type: 'sub' }), 'subscript'],
 				[subsup?.create({ type: 'sup' }), 'superscript'],
 			] as const
-		)
-			// @ts-ignore - Workaround for help-center local consumption
-
-			.filter(([mark]) => mark);
+		).filter(([mark]) => mark);
 
 		const marksToName = new Map<Mark | MarkType, (typeof marks)[0][1]>(marks);
 
@@ -138,13 +135,9 @@ const getTextFormattingState = (
 export const plugin = (dispatch: Dispatch, editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	new SafePlugin({
 		state: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			init(_config, state: EditorState): TextFormattingState {
 				return getTextFormattingState(state, editorAnalyticsAPI);
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply(_tr, pluginState: TextFormattingState, _oldState, newState): TextFormattingState {
 				const state = getTextFormattingState(newState, editorAnalyticsAPI);
 				if (!shallowEqual(pluginState, state)) {
@@ -156,8 +149,6 @@ export const plugin = (dispatch: Dispatch, editorAnalyticsAPI: EditorAnalyticsAP
 		},
 		key: pluginKey,
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleKeyDown(view: EditorView, event: KeyboardEvent) {
 				const { state, dispatch } = view;
 				if (event.key === keymapMoveRight.common && !event.metaKey) {
@@ -175,8 +166,6 @@ export const plugin = (dispatch: Dispatch, editorAnalyticsAPI: EditorAnalyticsAP
 				}
 				return false;
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleTextInput(view: EditorView, from: number, to: number, text: string) {
 				const { state, dispatch } = view;
 				const {

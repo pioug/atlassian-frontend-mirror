@@ -135,9 +135,12 @@ export const useFilePreview = ({
 		if (ssr) {
 			const ssrData = getSSRData(identifier, resizeMode);
 			if (ssrData?.error) {
-				ssrReliabilityRef.current.server = {
-					status: 'fail',
-					...ssrData.error,
+				ssrReliabilityRef.current = {
+					...ssrReliabilityRef.current,
+					server: {
+						status: 'fail',
+						...ssrData.error,
+					},
 				};
 			}
 
@@ -145,14 +148,17 @@ export const useFilePreview = ({
 				try {
 					return getSSRPreview(ssr, mediaClient, identifier.id, imageURLParams, mediaBlobUrlAttrs);
 				} catch (e: any) {
-					ssrReliabilityRef.current[ssr] = {
-						status: 'fail',
-						...extractErrorInfo(e, traceContext),
+					ssrReliabilityRef.current = {
+						...ssrReliabilityRef.current,
+						[ssr]: {
+							status: 'fail',
+							...extractErrorInfo(e, traceContext),
+						},
 					};
 				}
 			} else {
-				const { dimensions, dataURI, srcSet } = ssrData;
-				return { dataURI, dimensions, source: 'ssr-data', srcSet };
+				const { dimensions, dataURI, srcSet, loading } = ssrData;
+				return { dataURI, dimensions, source: 'ssr-data', srcSet, lazy: loading === 'lazy' };
 			}
 		}
 	};
@@ -395,7 +401,10 @@ export const useFilePreview = ({
 				return;
 			}
 			if (isSSRClientPreview(failedPreview)) {
-				ssrReliabilityRef.current.client = createFailedSSRObject(failedPreview, traceContext);
+				ssrReliabilityRef.current = {
+					...ssrReliabilityRef.current,
+					client: createFailedSSRObject(failedPreview, traceContext),
+				};
 			}
 
 			const isSSR =
@@ -404,8 +413,10 @@ export const useFilePreview = ({
 
 			// If the preview failed and it comes from server (global scope / ssrData), it means that we have reused it in client and the error counts for both: server & client.
 			if (isSSR) {
-				ssrReliabilityRef.current.server = createFailedSSRObject(failedPreview, traceContext);
-				ssrReliabilityRef.current.client = createFailedSSRObject(failedPreview, traceContext);
+				ssrReliabilityRef.current = {
+					server: createFailedSSRObject(failedPreview, traceContext),
+					client: createFailedSSRObject(failedPreview, traceContext),
+				};
 			}
 
 			// If the dataURI has been replaced, we can dismiss this error
@@ -439,7 +450,10 @@ export const useFilePreview = ({
 					isSSRClientPreview(newPreview) &&
 					ssrReliabilityRef.current.client.status === 'unknown'
 				) {
-					ssrReliabilityRef.current.client = { status: 'success' };
+					ssrReliabilityRef.current = {
+						...ssrReliabilityRef.current,
+						client: { status: 'success' },
+					};
 				}
 
 				/*
@@ -447,8 +461,10 @@ export const useFilePreview = ({
       */
 
 				if (isSSRDataPreview(newPreview) && ssrReliabilityRef.current.server.status === 'unknown') {
-					ssrReliabilityRef.current.server = { status: 'success' };
-					ssrReliabilityRef.current.client = { status: 'success' };
+					ssrReliabilityRef.current = {
+						server: { status: 'success' },
+						client: { status: 'success' },
+					};
 				}
 			}
 
@@ -475,6 +491,7 @@ export const useFilePreview = ({
 							: undefined,
 						{
 							'media-perf-uplift-mutation-fix': fg('media-perf-uplift-mutation-fix'),
+							'media-perf-lazy-loading-optimisation': fg('media-perf-lazy-loading-optimisation'),
 						},
 					)
 			: undefined;

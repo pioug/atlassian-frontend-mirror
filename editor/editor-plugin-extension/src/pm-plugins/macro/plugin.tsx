@@ -12,8 +12,6 @@ export const createPlugin = (dispatch: Dispatch, providerFactory: ProviderFactor
 		state: {
 			init: () => ({ macroProvider: null }),
 
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply(tr, state: MacroState) {
 				const meta = tr.getMeta(pluginKey);
 				if (meta) {

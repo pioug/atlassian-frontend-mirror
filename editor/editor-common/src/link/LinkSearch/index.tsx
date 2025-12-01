@@ -227,6 +227,5 @@ class RecentLink extends React.Component<
 }
 
 export default withActivityProvider<RecentSearchProps & WithActivityProviderProps>(
-	// @ts-ignore - Workaround for help-center local consumption (prop type incompatibility)
 	injectIntl(RecentLink),
 );

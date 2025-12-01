@@ -68,8 +68,6 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 			}),
 			new ExperienceCheckDomMutation({
 				onDomMutation: ({ mutations }) => {
-					// @ts-ignore - Workaround for help-center local consumption
-
 					if (mutations.some(isSelectionToolbarAddedInMutation)) {
 						return { status: 'success' };
 					}
@@ -88,8 +86,6 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 		key: pluginKey,
 		state: {
 			init: () => ({}),
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply: (_tr, pluginState, oldState, newState) => {
 				if (!oldState.selection.empty && isSelectionWithoutTextContent(newState.selection)) {
 					experience.abort({ reason: ABORT_REASON.SELECTION_CLEARED });
@@ -108,8 +104,6 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 			},
 		},
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleDOMEvents: {
 				mousedown: (_view: EditorView, e: MouseEvent) => {
 					mouseDownPos = { x: e.clientX, y: e.clientY };
@@ -161,8 +155,6 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 };
 
 const isSelectionToolbarAddedInMutation = ({ type, addedNodes }: MutationRecord) => {
-	// @ts-ignore - Workaround for help-center local consumption
-
 	return type === 'childList' && [...addedNodes].some(isSelectionToolbarWithinNode);
 };
 

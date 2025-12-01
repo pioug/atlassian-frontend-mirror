@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 export type FeatureFlagValue = boolean | string | number | Record<any, any>;
 export type ReportedTiming = { startTime: number; duration: number; size?: number };
 
@@ -178,11 +176,7 @@ export function getEdgeTimingsIncludingCloudfront(): ReportedTimings | null {
 }
 
 export function getSSRTimings(): ReportedTimings {
-	let defaultSSRTimings: ReportedTimings | null = {};
-
-	if (fg('platform_ufo_default_ssr_edge_timings')) {
-		defaultSSRTimings = getEdgeTimingsIncludingCloudfront();
-	}
+	const defaultSSRTimings = getEdgeTimingsIncludingCloudfront() || {};
 
 	let configTimings: ReportedTimings | null = {};
 
@@ -225,6 +219,6 @@ export function getSSRFeatureFlags(): SSRFeatureFlags | undefined {
 	try {
 		return config.getFeatureFlags() ?? undefined;
 		// eslint-disable-next-line no-empty
-	} catch (e) {}
+	} catch {}
 	return undefined;
 }

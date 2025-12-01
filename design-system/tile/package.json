@@ -39,7 +39,6 @@
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
-		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",

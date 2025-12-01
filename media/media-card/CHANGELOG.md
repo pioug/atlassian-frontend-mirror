@@ -1,5 +1,18 @@
 # @atlaskit/media-card
 
+## 79.9.0
+
+### Minor Changes
+
+- [`2060fe01f7695`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2060fe01f7695) -
+  Optimised lazy loading by integrating the removal of lazy loading during SSR
+
+### Patch Changes
+
+- [`2060fe01f7695`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2060fe01f7695) -
+  Add media-perf-lazy-loading-optimisation to perfObserver metrics to track impact
+- Updated dependencies
+
 ## 79.8.2
 
 ### Patch Changes

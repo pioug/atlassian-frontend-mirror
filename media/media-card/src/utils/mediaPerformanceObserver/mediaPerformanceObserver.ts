@@ -49,7 +49,7 @@ const createAndGetResourceObserver = (): PerformanceObserver => {
 						fileId: fileId,
 						mediaClientId: clientId,
 						featureFlags: {
-							'media-cdn-single-host': fg('platform_media_cdn_single_host'),
+							'media-perf-lazy-loading-optimisation': fg('media-perf-lazy-loading-optimisation'),
 						},
 						...mediaDurationMetrics,
 					},

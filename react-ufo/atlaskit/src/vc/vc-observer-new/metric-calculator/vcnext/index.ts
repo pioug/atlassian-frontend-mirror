@@ -25,6 +25,10 @@ const getConsideredEntryTypes = () => {
 const getExcludedEntryTypes = () => {
 	const excludedEntryTypes: VCObserverEntryType[] = ['layout-shift:same-rect'];
 
+	if (fg('platform_ufo_ttvc_v4_exclude_input_name_mutation')) {
+		excludedEntryTypes.push('mutation:attribute:non-visual-input-name');
+	}
+
 	return excludedEntryTypes;
 };
 

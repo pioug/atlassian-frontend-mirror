@@ -10,6 +10,7 @@ import {
 	type HeadingProps,
 	type LozengeProps,
 	type RangeProps,
+	type IconProps,
 } from '@atlassian/forge-ui/src/components/UIKit';
 import { type BadgeProps as GeneratedBadgeProps } from '../src/components/__generated__/BadgeProps.codegen';
 import { type CalendarProps as GeneratedCalendarProps } from '../src/components/__generated__/CalendarProps.codegen';
@@ -21,8 +22,9 @@ import { type ErrorMessageProps as GeneratedErrorMessageProps } from '../src/com
 import { type HeadingProps as GeneratedHeadingProps } from '../src/components/__generated__/HeadingProps.codegen';
 import { type LozengeProps as GeneratedLozengeProps } from '../src/components/__generated__/LozengeProps.codegen';
 import { type RangeProps as GeneratedRangeProps } from '../src/components/__generated__/RangeProps.codegen';
+import { type IconProps as GeneratedIconProps } from '../src/components/__generated__/IconProps.codegen';
 
-const assertAssignable = <A, B extends A>() => {};
+const assertAssignable = <A, B extends A>() => { };
 
 assertAssignable<GeneratedBadgeProps, BadgeProps>();
 assertAssignable<BadgeProps, GeneratedBadgeProps>();
@@ -53,3 +55,6 @@ assertAssignable<ErrorMessageProps, GeneratedErrorMessageProps>();
 
 assertAssignable<GeneratedLozengeProps, LozengeProps>();
 assertAssignable<LozengeProps, GeneratedLozengeProps>();
+
+assertAssignable<GeneratedIconProps, IconProps>();
+assertAssignable<IconProps, GeneratedIconProps>();

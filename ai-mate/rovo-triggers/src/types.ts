@@ -1,6 +1,7 @@
 import type { DocNode } from '@atlaskit/adf-schema';
 
 import type {
+	SolutionArchitectAgentActivationPayload,
 	SolutionArchitectHandoffPayload,
 	SolutionPlanStateUpdatePayload,
 } from './common/types/solution-architect';
@@ -350,7 +351,8 @@ export type Payload =
 	| InsertUrlsPayload
 	| GenericExternalActionErrorPayload
 	| SolutionArchitectHandoffPayload
-	| SolutionPlanStateUpdatePayload;
+	| SolutionPlanStateUpdatePayload
+	| SolutionArchitectAgentActivationPayload;
 
 export type Callback = (payload: Payload) => void;
 

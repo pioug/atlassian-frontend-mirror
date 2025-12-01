@@ -19,11 +19,7 @@ export default (
 	new SafePlugin<undefined>({
 		key: pluginKey,
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			nodeViews: {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				layoutSection: (node, view, getPos) => {
 					return new LayoutSectionView({
 						node,

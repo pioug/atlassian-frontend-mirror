@@ -47,8 +47,6 @@ function createPlugin(
 					disabledByPlugin: false,
 				};
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply: (tr, pluginState) => {
 				const meta = tr.getMeta(pluginKey);
 				if (meta) {
@@ -67,7 +65,7 @@ function createPlugin(
 		props: {
 			// If we set to undefined it respects the previous value.
 			// Prosemirror doesn't have this typed correctly for this type of behaviour
-			// @ts-ignore - Workaround for help-center local consumption
+			// @ts-expect-error
 			editable: fg('platform_editor_ai_aifc_patch_beta')
 				? (state: EditorState) => {
 						const { disabledByPlugin } = pluginKey.getState(state) ?? { disabledByPlugin: false };
@@ -75,19 +73,13 @@ function createPlugin(
 					}
 				: undefined,
 		},
-		// @ts-ignore - Workaround for help-center local consumption
-
 		view: (view) => {
 			// schedule on mount
 			scheduleEditorDisabledUpdate(view);
 			return {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				update(view) {
 					scheduleEditorDisabledUpdate(view);
 				},
-				// @ts-ignore - Workaround for help-center local consumption
-
 				destroy() {
 					scheduleEditorDisabledUpdate.cancel();
 				},

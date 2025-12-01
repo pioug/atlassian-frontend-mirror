@@ -35,21 +35,15 @@ const createPlugin = (dispatch: Dispatch, isTableAlignmentEnabled: boolean) => {
 	return new SafePlugin({
 		key: pluginKey,
 		state: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			init() {
 				return {
 					documentHasLoadedOnce: false,
 				};
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply(tr, pluginState) {
 				const meta = tr.getMeta(pluginKey);
 				if (meta) {
 					const keys = Object.keys(meta) as Array<keyof TableWidthInCommentFixPluginState>;
-					// @ts-ignore - Workaround for help-center local consumption
-
 					const changed = keys.some((key) => {
 						return pluginState[key] !== meta[key];
 					});
@@ -67,8 +61,6 @@ const createPlugin = (dispatch: Dispatch, isTableAlignmentEnabled: boolean) => {
 		},
 		view: () => {
 			return {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				update(editorView) {
 					const { state } = editorView;
 					const pluginState = getPluginState(state);
@@ -85,8 +77,6 @@ const createPlugin = (dispatch: Dispatch, isTableAlignmentEnabled: boolean) => {
 					rafSchedule(() => {
 						const tr = editorView.state.tr;
 						let tableWidthAndLayoutUpdated = false;
-						// @ts-ignore - Workaround for help-center local consumption
-
 						editorView.state.doc.descendants((node, pos) => {
 							const isTable = node.type === table;
 							const width = node.attrs.width;

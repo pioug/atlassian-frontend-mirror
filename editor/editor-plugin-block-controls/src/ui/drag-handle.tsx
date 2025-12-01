@@ -33,7 +33,7 @@ import { DRAG_HANDLE_WIDTH, tableControlsSpacing } from '@atlaskit/editor-common
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { NodeRange, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import { NodeSelection, type Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { type Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -69,18 +69,13 @@ import {
 	shouldBeSticky,
 	shouldMaskNodeControls,
 } from '../pm-plugins/utils/drag-handle-positions';
-import {
-	isHandleCorrelatedToSelection,
-	isNodeWithCodeBlock,
-	selectNode,
-} from '../pm-plugins/utils/getSelection';
+import { isHandleCorrelatedToSelection, selectNode } from '../pm-plugins/utils/getSelection';
 import {
 	alignAnchorHeadInDirectionOfPos,
 	expandSelectionHeadToNodeAtPos,
 } from '../pm-plugins/utils/selection';
 
 import {
-	BLOCK_MENU_ENABLED,
 	DRAG_HANDLE_BORDER_RADIUS,
 	DRAG_HANDLE_HEIGHT,
 	DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH,
@@ -585,51 +580,7 @@ export const DragHandle = ({
 				const $anchor =
 					mSelect?.anchor !== undefined ? tr.doc.resolve(mSelect?.anchor) : tr.selection.$anchor;
 				if (!isMultiSelect || tr.selection.empty || !e.shiftKey) {
-					if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
-						const node = tr.doc.nodeAt(startPos);
-						const nodeSize = node ? node.nodeSize : 1;
-						// It this will be required in other places, where selectNode is used, we should
-						// move it inside of the newGetSelection in the selectNode
-						if (nodeType === 'blockquote' && isNodeWithCodeBlock(tr, startPos, nodeSize)) {
-							const selection = new NodeSelection(tr.doc.resolve(startPos));
-							tr.setSelection(selection);
-						} else {
-							tr = selectNode(tr, startPos, nodeType, api);
-						}
-					} else {
-						tr = selectNode(tr, startPos, nodeType, api);
-					}
-
-					const rootPos = editorExperiment('platform_synced_block', true)
-						? tr.doc.resolve(startPos).before(1)
-						: undefined;
-					const triggerByNode: TriggerByNode | undefined = expValEqualsNoExposure(
-						'platform_synced_block',
-						'isEnabled',
-						true,
-					)
-						? { nodeType, pos: startPos, rootPos }
-						: undefined;
-
-					if (BLOCK_MENU_ENABLED && editorExperiment('platform_editor_controls', 'variant1')) {
-						api?.blockControls?.commands.toggleBlockMenu({
-							anchorName,
-							triggerByNode,
-							openedViaKeyboard: false,
-						})({
-							tr,
-						});
-						e.stopPropagation();
-					} else if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
-						api?.blockControls?.commands.toggleBlockMenu({
-							anchorName,
-							triggerByNode,
-							openedViaKeyboard: false,
-						})({
-							tr,
-						});
-						e.stopPropagation();
-					}
+					tr = selectNode(tr, startPos, nodeType, api);
 				} else if (
 					isTopLevelNode &&
 					$anchor.depth <= DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH &&
@@ -663,7 +614,7 @@ export const DragHandle = ({
 
 			view.focus();
 		},
-		[isMultiSelect, api, view, dragHandleSelected, getPos, isTopLevelNode, nodeType, anchorName],
+		[isMultiSelect, api, view, dragHandleSelected, getPos, isTopLevelNode, nodeType],
 	);
 
 	const handleKeyDown = useCallback(

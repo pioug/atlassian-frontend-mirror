@@ -1,3 +1,5 @@
+import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
+
 import type { SyncBlockDataProvider } from '../providers/types';
 
 import { ReferenceSyncBlockStoreManager } from './referenceSyncBlockStoreManager';
@@ -12,11 +14,11 @@ export class SyncBlockStoreManager {
 	private referenceSyncBlockStoreManager: ReferenceSyncBlockStoreManager;
 	private sourceSyncBlockStoreManager: SourceSyncBlockStoreManager;
 
-	constructor(dataProvider?: SyncBlockDataProvider) {
+	constructor(dataProvider?: SyncBlockDataProvider, fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void) {
 		// In future, if reference manager needs to reach to source manager and read it's current in memorey cache
 		// we can pass the source manager as a parameter to the reference manager constructor
-		this.sourceSyncBlockStoreManager = new SourceSyncBlockStoreManager(dataProvider);
-		this.referenceSyncBlockStoreManager = new ReferenceSyncBlockStoreManager(dataProvider);
+		this.sourceSyncBlockStoreManager = new SourceSyncBlockStoreManager(dataProvider, fireAnalyticsEvent);
+		this.referenceSyncBlockStoreManager = new ReferenceSyncBlockStoreManager(dataProvider, fireAnalyticsEvent);
 	}
 
 	public get referenceManager(): ReferenceSyncBlockStoreManager {

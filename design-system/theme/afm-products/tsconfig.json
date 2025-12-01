@@ -24,9 +24,6 @@
 	],
 	"references": [
 		{
-			"path": "../../../monorepo-tooling/codemod-utils/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../ds-lib/afm-products/tsconfig.json"
 		},
 		{

@@ -9,10 +9,6 @@ export const useHandleContentChanges = (
 	syncBlockNode: PMNode,
 ): void => {
 	useEffect(() => {
-		try {
-			manager.sourceManager.updateSyncBlockData(syncBlockNode);
-		} catch {
-			//TODO: EDITOR-1921 - add error analytics
-		}
+		manager.sourceManager.updateSyncBlockData(syncBlockNode);
 	}, [manager, syncBlockNode]);
 };

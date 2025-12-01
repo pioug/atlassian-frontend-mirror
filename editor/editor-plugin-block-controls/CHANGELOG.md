@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.11.0
+
+### Minor Changes
+
+- [`1d4a6d5ffb239`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d4a6d5ffb239) -
+  Remove old block menu implementation in block controls
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.10.2
 
 ### Patch Changes

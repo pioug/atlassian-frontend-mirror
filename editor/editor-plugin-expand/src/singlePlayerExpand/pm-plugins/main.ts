@@ -40,8 +40,6 @@ export const createPlugin = (
 	return new SafePlugin({
 		key: pluginKey,
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			nodeViews: {
 				expand: ExpandNodeView({
 					getIntl,
@@ -60,13 +58,9 @@ export const createPlugin = (
 					__livePage,
 				}),
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleKeyDown(_view, event) {
 				return containsClass(event.target as Element, expandClassNames.titleContainer);
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleKeyPress(_view, event) {
 				return containsClass(event.target as Element, expandClassNames.titleContainer);
 			},
@@ -78,15 +72,11 @@ export const createPlugin = (
 				(target) => target.classList.contains(expandClassNames.prefix),
 				{ useLongPressSelection },
 			),
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleDrop(view, event, slice, moved) {
 				return handleExpandDrag(view, event, slice);
 			},
 		},
 		// @see ED-8027 to follow up on this work-around
-		// @ts-ignore - Workaround for help-center local consumption
-
 		filterTransaction(tr) {
 			if (
 				containsClass(document.activeElement, expandClassNames.titleInput) &&
@@ -110,8 +100,6 @@ export function handleExpandDrag(view: EditorView, event: DragEvent, slice: Slic
 	const { from, to } = selection;
 	let sliceContainsExpand = false;
 	let sliceContainsNestedExpand = false;
-
-	// @ts-ignore - Workaround for help-center local consumption
 
 	slice.content.forEach((node) => {
 		if (node.type === state.schema.nodes.expand) {

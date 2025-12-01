@@ -24,7 +24,6 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/codemod-utils": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*"

@@ -1,6 +1,7 @@
 import type React from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
+import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import {
 	convertSyncBlockJSONNodeToSyncBlockNode,
@@ -18,6 +19,7 @@ import {
 
 type GetSyncedBlockNodeComponentProps = {
 	doc: DocNode;
+	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void;
 	syncBlockProvider: SyncedBlockProvider;
 	syncBlockRendererOptions: SyncedBlockRendererOptions | undefined;
 };
@@ -33,6 +35,7 @@ export const getSyncedBlockNodeComponent = ({
 	doc,
 	syncBlockProvider,
 	syncBlockRendererOptions,
+	fireAnalyticsEvent,
 }: GetSyncedBlockNodeComponentProps): ((props: SyncedBlockNodeProps) => React.JSX.Element) => {
 	const { content } = doc;
 	const isEmpty = !content || !Array.isArray(content) || content.length === 0;
@@ -40,6 +43,7 @@ export const getSyncedBlockNodeComponent = ({
 
 	const syncBlockStoreManager = new SyncBlockStoreManager(
 		syncBlockProvider as SyncBlockDataProvider,
+		fireAnalyticsEvent
 	);
 
 	// Pre-fetch sync block data

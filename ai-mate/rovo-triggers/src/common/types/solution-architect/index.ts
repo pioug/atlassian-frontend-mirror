@@ -23,3 +23,10 @@ export type SolutionArchitectHandoffPayload = PayloadCore<'solution-architect-ha
 };
 
 export type SolutionPlanStateUpdatePayload = PayloadCore<'solution-plan-state-updated'>;
+
+export type SolutionArchitectAgentActivationPayload = PayloadCore<
+	'solution-architect-agent-activation',
+	{
+		draftBuildId: string;
+	}
+>;

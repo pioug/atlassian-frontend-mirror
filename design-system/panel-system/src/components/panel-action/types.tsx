@@ -42,4 +42,8 @@ export interface PanelActionProps {
 	 * Label for icon buttons (used for accessibility).
 	 */
 	label?: string;
+	/**
+	 * Appearance style for buttons.
+	 */
+	appearance?: 'default' | 'primary' | 'subtle' | 'discovery';
 }

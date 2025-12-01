@@ -26,8 +26,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/ds-lib": "workspace:^",
-		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@babel/runtime": "root:*",
 		"bind-event-listener": "root:*",
 		"tiny-invariant": "root:*"
@@ -38,7 +36,6 @@
 	"devDependencies": {
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
-		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/react-hooks": "root:*",
 		"@testing-library/user-event": "root:*"

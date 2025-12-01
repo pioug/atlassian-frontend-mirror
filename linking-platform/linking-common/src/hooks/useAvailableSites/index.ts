@@ -14,7 +14,6 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { useIsMounted } from '../useIsMounted';
 
 import { getOperationFailedAttributes } from './utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const defaultProducts = [
 	AvailableSitesProductType.WHITEBOARD,
@@ -121,32 +120,17 @@ export const useAvailableSitesV2 = ({ gatewayBaseUrl }: { gatewayBaseUrl?: strin
 	useEffect(() => {
 		const fetchSites = async () => {
 			try {
-				if (fg('navx-1819-link-create-confluence-site-migration')) {
-					const response = await getAccessibleProducts({
-						products: defaultProducts,
-						gatewayBaseUrl,
-					});
+				const response = await getAccessibleProducts({
+					products: defaultProducts,
+					gatewayBaseUrl,
+				});
 
-					if (isMounted()) {
-						setState({
-							data: mapAccessibleProductsToAvailableSites(response.data),
-							loading: false,
-							error: undefined,
-						});
-					}
-				} else {
-					const { sites } = await getAvailableSites({
-						products: defaultProducts,
-						gatewayBaseUrl,
+				if (isMounted()) {
+					setState({
+						data: mapAccessibleProductsToAvailableSites(response.data),
+						loading: false,
+						error: undefined,
 					});
-
-					if (isMounted()) {
-						setState({
-							data: sites,
-							loading: false,
-							error: undefined,
-						});
-					}
 				}
 			} catch (error: unknown) {
 				if (isMounted()) {

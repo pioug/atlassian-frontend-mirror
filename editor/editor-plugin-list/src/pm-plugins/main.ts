@@ -45,8 +45,6 @@ export const computeListDecorations = (doc: Node, from = 0, to = doc.content.siz
 	// this stack keeps track of each (nested) list to calculate the indentation level
 	const processedListsStack: { node: Node; startPos: number }[] = [];
 
-	// @ts-ignore - Workaround for help-center local consumption
-
 	doc.nodesBetween(from, to, (node, currentNodeStartPos) => {
 		if (processedListsStack.length > 0) {
 			let isOutsideLastList = true;
@@ -97,26 +95,14 @@ export const computeListDecorations = (doc: Node, from = 0, to = doc.content.siz
 };
 
 export const updateListDecorations = (decorationSet: DecorationSet, tr: ReadonlyTransaction) => {
-	// @ts-ignore - Workaround for help-center local consumption
-
 	let nextDecorationSet = decorationSet.map(tr.mapping, tr.doc);
 
-	// @ts-ignore - Workaround for help-center local consumption
-
 	tr.mapping.maps.forEach((stepMap, index) => {
-		// @ts-ignore - Workaround for help-center local consumption
-
 		stepMap.forEach((oldStart, oldEnd) => {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			const start = tr.mapping.slice(index).map(oldStart, -1);
-			// @ts-ignore - Workaround for help-center local consumption
-
 			const end = tr.mapping.slice(index).map(oldEnd);
 
 			// Remove decorations in this range
-			// @ts-ignore - Workaround for help-center local consumption
-
 			const decorationsToRemove = nextDecorationSet.find(start, end);
 			nextDecorationSet = nextDecorationSet.remove(decorationsToRemove);
 
@@ -142,8 +128,6 @@ export const getDecorations = (
 
 	// this stack keeps track of each (nested) list to calculate the indentation level
 	const processedListsStack: { node: Node; startPos: number }[] = [];
-
-	// @ts-ignore - Workaround for help-center local consumption
 
 	doc.nodesBetween(0, doc.content.size, (node, currentNodeStartPos) => {
 		if (processedListsStack.length > 0) {
@@ -337,8 +321,6 @@ export const createPlugin = (
 		},
 		key: listPluginKey,
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			decorations(state) {
 				const { decorationSet } = expValEquals(
 					'platform_editor_new_list_decorations_logic',
@@ -349,8 +331,6 @@ export const createPlugin = (
 					: getPluginState(state);
 				return decorationSet;
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleClick: (view: EditorView, pos, event: MouseEvent) => {
 				const { state } = view;
 				// Ignored via go/ees005

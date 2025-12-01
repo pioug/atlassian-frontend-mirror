@@ -14,6 +14,7 @@ import checkWithinComponent, { cleanupCaches } from './utils/check-within-compon
 import { getMutatedElements } from './utils/get-mutated-elements';
 import { isElementVisible } from './utils/is-element-visible';
 import isInVCIgnoreIfNoLayoutShiftMarker from './utils/is-in-vc-ignore-if-no-layout-shift-marker';
+import { isInputNameMutation } from './utils/is-input-name-mutation';
 import { isSameRectDimensions } from './utils/is-same-rect-dimensions';
 import { isSameRectSize } from './utils/is-same-rect-size';
 
@@ -99,7 +100,7 @@ const createElementMutationsWatcherV4 =
 			const ssrPlaceholderHandler = getSSRPlaceholderHandler();
 			if (ssrPlaceholderHandler) {
 				if (
-					(ssrPlaceholderHandler.isPlaceholder(target) ||
+					(ssrPlaceholderHandler.isPlaceholderV4(target) ||
 						ssrPlaceholderHandler.isPlaceholderIgnored(target)) &&
 					ssrPlaceholderHandler.checkIfExistedAndSizeMatchingV3(target)
 				) {
@@ -107,7 +108,7 @@ const createElementMutationsWatcherV4 =
 				}
 
 				if (
-					(ssrPlaceholderHandler.isPlaceholderReplacement(target) ||
+					(ssrPlaceholderHandler.isPlaceholderReplacementV4(target) ||
 						ssrPlaceholderHandler.isPlaceholderIgnored(target)) &&
 					ssrPlaceholderHandler.validateReactComponentMatchToPlaceholderV4(target)
 				) {
@@ -436,6 +437,17 @@ export default class ViewportObserver {
 			if (isNonVisualStyleMutation({ target, attributeName, type: 'attributes' })) {
 				return {
 					type: 'mutation:attribute:non-visual-style',
+					mutationData: {
+						attributeName,
+						oldValue,
+						newValue,
+					},
+				};
+			}
+
+			if (isInputNameMutation({ target, attributeName, oldValue, newValue })) {
+				return {
+					type: 'mutation:attribute:non-visual-input-name',
 					mutationData: {
 						attributeName,
 						oldValue,

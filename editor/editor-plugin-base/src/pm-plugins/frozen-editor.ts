@@ -174,8 +174,6 @@ export default (
 			key: frozenEditorPluginKey,
 			props: isPerformanceAPIAvailable()
 				? {
-						// @ts-ignore - Workaround for help-center local consumption
-
 						handleTextInput(view) {
 							if (browserFreezeTracking?.trackInteractionType) {
 								interactionType = BROWSER_FREEZE_INTERACTION_TYPE.TYPING;
@@ -193,14 +191,10 @@ export default (
 						},
 						handleDOMEvents: browserFreezeTracking?.trackInteractionType
 							? {
-									// @ts-ignore - Workaround for help-center local consumption
-
 									click: () => {
 										interactionType = setInteractionType(BROWSER_FREEZE_INTERACTION_TYPE.CLICKING);
 										return false;
 									},
-									// @ts-ignore - Workaround for help-center local consumption
-
 									paste: () => {
 										interactionType = setInteractionType(BROWSER_FREEZE_INTERACTION_TYPE.PASTING);
 										return false;
@@ -209,8 +203,6 @@ export default (
 							: undefined,
 					}
 				: undefined,
-			// @ts-ignore - Workaround for help-center local consumption
-
 			view(view) {
 				if (!isPerformanceObserverAvailable()) {
 					return {};

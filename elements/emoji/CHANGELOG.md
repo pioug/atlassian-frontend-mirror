@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 69.8.5
+
+### Patch Changes
+
+- [`89f064b9cae39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/89f064b9cae39) -
+  [ux] [EDITOR-2917] scale emoji placeholders in the renderer
+- Updated dependencies
+
 ## 69.8.4
 
 ### Patch Changes

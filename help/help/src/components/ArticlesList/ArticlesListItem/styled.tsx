@@ -94,7 +94,12 @@ export const ArticlesListItemLinkIcon = ({
 	children,
 }: {
 	children: React.ReactNode;
-}): JSX.Element => <span css={articlesListItemLinkIconStyles}>{children}</span>;
+}): JSX.Element => (
+	// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
+	<span css={articlesListItemLinkIconStyles} aria-label="Opens in a new window">
+		{children}
+	</span>
+);
 
 const articlesListItemTitleTextStyles = css({
 	textDecoration: 'none',

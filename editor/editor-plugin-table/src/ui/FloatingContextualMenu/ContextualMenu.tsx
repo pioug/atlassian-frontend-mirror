@@ -54,7 +54,6 @@ import TableRowAddBelowIcon from '@atlaskit/icon/core/table-row-add-below';
 import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
-import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
@@ -175,7 +174,6 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 	render() {
 		const {
 			isOpen,
-			mountPoint,
 			offset,
 			boundariesElement,
 			editorView,
@@ -197,7 +195,6 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 				ref={this.dropdownMenuRef}
 			>
 				<DropdownMenu
-					mountTo={fg('platform_editor_fix_table_menus_jira') ? undefined : mountPoint}
 					//This needs be removed when the a11y is completely handled
 					//Disabling key navigation now as it works only partially
 					arrowKeyNavigationProviderOptions={{
@@ -235,21 +232,12 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 	}
 
 	private handleSubMenuRef = (ref: HTMLDivElement | null) => {
-		let parent = closestElement(
-			// Ignored via go/ees005
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting
-			this.props.editorView.dom as HTMLElement,
-			'.fabric-editor-popup-scroll-parent',
-		);
-
-		if (!parent && fg('platform_editor_fix_table_menus_jira')) {
-			parent = closestElement(
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				this.props.editorView.dom as HTMLElement,
-				'.ak-editor-content-area',
-			);
-		}
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
+		const dom = this.props.editorView.dom as HTMLElement;
+		const parent =
+			closestElement(dom, '.fabric-editor-popup-scroll-parent') ||
+			closestElement(dom, '.ak-editor-content-area');
 
 		if (!(parent && ref)) {
 			return;
@@ -258,35 +246,29 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		const boundariesRect = parent.getBoundingClientRect();
 		const rect = ref.getBoundingClientRect();
 
-		if (fg('platform_editor_fix_table_menus_jira')) {
-			if (!!this.props.mountPoint) {
-				return;
-			}
+		if (!!this.props.mountPoint) {
+			return;
+		}
 
-			const offsetParent = ref?.offsetParent;
-			if (!offsetParent) {
-				return;
-			}
-			const offsetParentRect = offsetParent.getBoundingClientRect();
+		const offsetParent = ref?.offsetParent;
+		if (!offsetParent) {
+			return;
+		}
+		const offsetParentRect = offsetParent.getBoundingClientRect();
 
-			const rightOverflow = offsetParentRect.right + rect.width - boundariesRect.right;
-			const leftOverflow = boundariesRect.left - (offsetParentRect.left - rect.width);
+		const rightOverflow = offsetParentRect.right + rect.width - boundariesRect.right;
+		const leftOverflow = boundariesRect.left - (offsetParentRect.left - rect.width);
 
-			if (rightOverflow > leftOverflow) {
-				ref.style.left = `-${rect.width}px`;
-			}
+		if (rightOverflow > leftOverflow) {
+			ref.style.left = `-${rect.width}px`;
+		}
 
-			// if it overflows regardless of side, let it overlap with the parent menu
-			if (leftOverflow > 0 && rightOverflow > 0) {
-				if (rightOverflow < leftOverflow) {
-					ref.style.left = `${offsetParentRect.width - rightOverflow}px`;
-				} else {
-					ref.style.left = `-${rect.width - leftOverflow}px`;
-				}
-			}
-		} else {
-			if (rect.left + rect.width > boundariesRect.width) {
-				ref.style.left = `-${rect.width}px`;
+		// if it overflows regardless of side, let it overlap with the parent menu
+		if (leftOverflow > 0 && rightOverflow > 0) {
+			if (rightOverflow < leftOverflow) {
+				ref.style.left = `${offsetParentRect.width - rightOverflow}px`;
+			} else {
+				ref.style.left = `-${rect.width - leftOverflow}px`;
 			}
 		}
 	};

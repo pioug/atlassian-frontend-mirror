@@ -51,8 +51,6 @@ export const useSmartCardActions = (id: string, url: string) => {
 
 	const resolve = useCallback(
 		async (resourceUrl = url, isReloading = false, isMetadataRequest = false) =>
-			// @ts-ignore - Workaround for help-center local consumption
-
 			resolveUrl(resourceUrl, isReloading, isMetadataRequest, id),
 		[id, resolveUrl, url],
 	);

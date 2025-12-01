@@ -83,8 +83,8 @@ export type Product = {
 
 export type Workspace = {
 	cloudId: string;
+	cloudUrl: string;
 	workspaceDisplayName: string;
-	workspaceUrl: string;
 };
 
 export interface FetchMockRequestDetails {
@@ -118,6 +118,7 @@ type MockOptions = {
 
 export const mockDatasourceFetchRequests = ({
 	type = 'jira',
+	// eslint-disable-next-line no-unused-vars
 	datasourceId: string,
 	shouldMockORSBatch = false,
 	delayedResponse = true,
@@ -129,6 +130,7 @@ export const mockDatasourceFetchRequests = ({
 	const datasourceMatcher = '[^/]+';
 
 	// Playwright VR tests do not like setTimeout
+	// eslint-disable-next-line no-unused-vars
 	const setTimeoutConfigured = delayedResponse ? setTimeout : (cb: Function, _: number) => cb();
 
 	let initialVisibleColumnKeys = (() => {

@@ -102,8 +102,6 @@ const cycleThroughPlaceholderPrompts = (
 	let animationTimeouts: (number | NodeJS.Timeout)[] = [];
 
 	const clearAllTimeouts = () => {
-		// @ts-ignore - Workaround for help-center local consumption
-
 		animationTimeouts.forEach((timeoutId) => clearTimeout(timeoutId));
 		animationTimeouts = [];
 	};
@@ -188,14 +186,10 @@ export function createPlaceholderDecoration(
 		if (docNode) {
 			// Extract only the inline content from paragraphs, avoiding block-level elements
 			// that can interfere with cursor rendering
-			// @ts-ignore - Workaround for help-center local consumption
-
 			docNode.children.forEach((node) => {
 				// For paragraph nodes, serialize their content (inline elements) directly
 				// without the wrapping <p> tag
 				if (node.type.name === 'paragraph') {
-					// @ts-ignore - Workaround for help-center local consumption
-
 					node.content.forEach((inlineNode) => {
 						const inlineDOM = serializer.serializeNode(inlineNode);
 						placeholderNodeWithText.append(inlineDOM);
@@ -209,8 +203,6 @@ export function createPlaceholderDecoration(
 			const markElements = placeholderNodeWithText.querySelectorAll(
 				'[data-prosemirror-content-type="mark"]',
 			);
-			// @ts-ignore - Workaround for help-center local consumption
-
 			markElements.forEach((markEl) => {
 				if (markEl instanceof HTMLElement) {
 					markEl.style.setProperty('color', token('color.text.subtlest'));
@@ -218,8 +210,6 @@ export function createPlaceholderDecoration(
 			});
 			// Ensure all child elements don't block pointer events or cursor
 			const allElements = placeholderNodeWithText.querySelectorAll('*');
-			// @ts-ignore - Workaround for help-center local consumption
-
 			allElements.forEach((el) => {
 				if (el instanceof HTMLElement) {
 					el.style.pointerEvents = 'none';
@@ -589,8 +579,6 @@ export function createPlugin(
 	let isDestroyed = false;
 	let activeTypewriterTimeouts: (() => void)[] = [];
 	const clearAllTypewriterTimeouts = () => {
-		// @ts-ignore - Workaround for help-center local consumption
-
 		activeTypewriterTimeouts.forEach((clearFn) => clearFn());
 		activeTypewriterTimeouts = [];
 	};
@@ -598,8 +586,6 @@ export function createPlugin(
 	return new SafePlugin<PlaceHolderState>({
 		key: pluginKey,
 		state: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			init: (_, state) =>
 				createPlaceHolderStateFrom({
 					isInitial: true,
@@ -615,8 +601,6 @@ export function createPlugin(
 					userHadTyped: false,
 					intl,
 				}),
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply: (tr, placeholderState, _oldEditorState, newEditorState) => {
 				const meta = tr.getMeta(pluginKey);
 				const isEditorFocused = Boolean(api?.focus?.sharedState.currentState()?.hasFocus);
@@ -675,8 +659,6 @@ export function createPlugin(
 			},
 		},
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			decorations(editorState): DecorationSet | undefined {
 				const { hasPlaceholder, placeholderText, pos, typedAndDeleted, contextPlaceholderADF } =
 					getPlaceholderState(editorState);
@@ -720,8 +702,6 @@ export function createPlugin(
 				return;
 			},
 		},
-		// @ts-ignore - Workaround for help-center local consumption
-
 		view() {
 			let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
@@ -747,8 +727,6 @@ export function createPlugin(
 			}
 
 			return {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				update(editorView, prevState) {
 					if (
 						fg('platform_editor_ai_aifc_patch_beta_2') ||
@@ -786,8 +764,6 @@ export function createPlugin(
 						}
 					}
 				},
-				// @ts-ignore - Workaround for help-center local consumption
-
 				destroy() {
 					clearAllTypewriterTimeouts();
 

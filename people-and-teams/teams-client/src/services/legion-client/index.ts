@@ -253,8 +253,8 @@ export class LegionClient extends RestClient implements LegionClient {
 		this.setServiceUrl(url);
 	}
 
-	async getTeamById(teamId: string): Promise<TeamWithImageUrls> {
-		const siteId = this.getCloudId();
+	async getTeamById(teamId: string, cloudId?: string): Promise<TeamWithImageUrls> {
+		const siteId = this.getCloudId(cloudId);
 		const teamResponse = await this.getResource<LegionTeamGetResponseV4>(
 			`${v4UrlPath}/${this.trimTeamARI(teamId)}?siteId=${siteId}`,
 		);

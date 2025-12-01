@@ -52,13 +52,9 @@ export const EMPTY_STATE: GuidelinePluginState = {
 const guidelinePMPlugin = new SafePlugin<GuidelinePluginState>({
 	key,
 	state: {
-		// @ts-ignore - Workaround for help-center local consumption
-
 		init() {
 			return EMPTY_STATE;
 		},
-		// @ts-ignore - Workaround for help-center local consumption
-
 		apply(tr, currentPluginState) {
 			const nextPluginState = tr.getMeta(key);
 			if (nextPluginState) {

@@ -762,6 +762,8 @@ export const FileCard = ({
 
 		const isLazyWithOverride = izLazyOverride === undefined ? isLazy : izLazyOverride;
 
+		let isLazyPreview = fg('media-perf-lazy-loading-optimisation') ? preview?.lazy : true;
+
 		// We should natively lazy load an SSR preview when card is not visible,
 		// otherwise we'll fire the metadata fetch from outside the viewport
 		// Side note: We should not lazy load if the cardPreview is available from local cache,
@@ -771,7 +773,8 @@ export const FileCard = ({
 			isLazyWithOverride &&
 			(fg('media-perf-uplift-mutation-fix') || !isCardVisible) &&
 			preview &&
-			isSSRPreview(preview);
+			isSSRPreview(preview) &&
+			isLazyPreview;
 		// Force Media Image to always display img for SSR
 		const forceSyncDisplay = !!ssr;
 

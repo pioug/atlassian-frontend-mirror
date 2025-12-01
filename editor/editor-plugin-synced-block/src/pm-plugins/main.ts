@@ -5,6 +5,7 @@ import {
 	SyncBlockStateCssClassName,
 } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet, Decoration, type EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -41,7 +42,6 @@ export const createPlugin = (
 	return new SafePlugin<SyncedBlockPluginState>({
 		key: syncedBlockPluginKey,
 		state: {
-			// @ts-ignore - Workaround for help-center local consumption
 			init(_, instance: EditorState): SyncedBlockPluginState {
 				const syncBlockNodes = instance.doc.children.filter(
 					(node) => node.type.name === 'syncBlock',
@@ -59,7 +59,6 @@ export const createPlugin = (
 					syncBlockStore: syncBlockStore,
 				};
 			},
-			// @ts-ignore - Workaround for help-center local consumption
 			apply: (tr, currentPluginState, oldEditorState) => {
 				const meta = tr.getMeta(syncedBlockPluginKey);
 
@@ -89,7 +88,6 @@ export const createPlugin = (
 					api,
 				}),
 			},
-			// @ts-ignore - Workaround for help-center local consumption
 			decorations: (state) => {
 				const selectionDecorationSet: DecorationSet =
 					syncedBlockPluginKey.getState(state)?.selectionDecorationSet ?? DecorationSet.empty;
@@ -101,7 +99,6 @@ export const createPlugin = (
 				const offlineDecorations: Decoration[] = [];
 				const viewModeDecorations: Decoration[] = [];
 
-				// @ts-ignore - Workaround for help-center local consumption
 				state.doc.descendants((node, pos) => {
 					if (node.type.name === 'bodiedSyncBlock' && isOffline) {
 						offlineDecorations.push(
@@ -131,11 +128,9 @@ export const createPlugin = (
 				{ useLongPressSelection },
 			),
 			handleDOMEvents: {
-				// @ts-ignore - Workaround for help-center local consumption
 				mouseover(view, event) {
 					return shouldIgnoreDomEvent(view, event, api);
 				},
-				// @ts-ignore - Workaround for help-center local consumption
 				mousedown(view, event) {
 					return shouldIgnoreDomEvent(view, event, api);
 				},
@@ -150,7 +145,6 @@ export const createPlugin = (
 				},
 			};
 		},
-		// @ts-ignore - Workaround for help-center local consumption
 		filterTransaction: (tr, state) => {
 			const isOffline = api?.connectivity?.sharedState.currentState()?.mode === 'offline';
 			const isConfirmedSyncBlockDeletion = Boolean(tr.getMeta('isConfirmedSyncBlockDeletion'));
@@ -181,12 +175,22 @@ export const createPlugin = (
 					// we block the transaction here, and wait for user confirmation to proceed with deletion.
 					// See editor-common/src/sync-block/sync-block-store-manager.ts for how we handle user confirmation and
 					// proceed with deletion.
-					syncBlockStore.sourceManager.deleteSyncBlocksWithConfirmation(tr, bodiedSyncBlockRemoved);
+					syncBlockStore.sourceManager.deleteSyncBlocksWithConfirmation(
+						tr,
+						bodiedSyncBlockRemoved.map((node) => node.attrs),
+					);
 
 					return false;
 				}
 
 				if (bodiedSyncBlockAdded.length > 0) {
+					if (Boolean(tr.getMeta(pmHistoryPluginKey))) {
+						// We don't allow bodiedSyncBlock creation via redo, however, we need to return true here to let transaction through so history can be updated properly.
+						// If we simply returns false, creation from redo is blocked as desired, but this results in editor showing redo as possible even though it's not.
+						// After true is returned here and the node is created, we delete the node in the filterTransaction immediately, which cancels out the creation
+						return true;
+					}
+
 					// If there is bodiedSyncBlock node addition and it's waiting for the result of saving the node to backend (syncBlockStore.hasPendingCreation()),
 					// we need to intercept the transaction and save it in insert callback so that we only insert it to the document when backend call if backend call is successful
 					// The callback will be evoked by in SourceSyncBlockStoreManager.commitPendingCreation
@@ -200,13 +204,14 @@ export const createPlugin = (
 					return false;
 				}
 			} else {
-				// Disable (bodied)syncBlock node deletion/creation/edition in offline mode and trigger an error flag instead
 				const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(
 					(node) => node.type.name === 'syncBlock',
 					tr,
 					state,
 				);
 				let errorFlag: FLAG_ID | false = false;
+
+				// Disable (bodied)syncBlock node deletion/creation/edition in offline mode and trigger an error flag instead
 				if (
 					isConfirmedSyncBlockDeletion ||
 					bodiedSyncBlockRemoved.length > 0 ||
@@ -234,15 +239,32 @@ export const createPlugin = (
 
 			return true;
 		},
-		// @ts-ignore - Workaround for help-center local consumption
-		appendTransaction: (trs, _oldState, newState) => {
+		appendTransaction: (trs, oldState, newState) => {
 			trs
-				// @ts-ignore - Workaround for help-center local consumption
 				.filter((tr) => tr.docChanged)
-				// @ts-ignore - Workaround for help-center local consumption
 				.forEach((tr) => {
 					syncBlockStore?.sourceManager.rebaseTransaction(tr, newState);
 				});
+
+			for (const tr of trs) {
+				if (!tr.getMeta(pmHistoryPluginKey)) {
+					continue;
+				}
+				const { added } = trackSyncBlocks(syncBlockStore.sourceManager.isSourceBlock, tr, oldState);
+
+				if (added.length > 0) {
+					// Delete bodiedSyncBlock if it's originated from history, i.e. redo creation
+					// See filterTransaction above for more details
+					const tr = newState.tr;
+					added.forEach((node) => {
+						if (node.from !== undefined && node.to !== undefined) {
+							tr.delete(node.from, node.to);
+						}
+					});
+
+					return tr;
+				}
+			}
 
 			return null;
 		},

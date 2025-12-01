@@ -35,15 +35,11 @@ const createPlugin = (
 	new SafePlugin({
 		key: pluginKey,
 		state: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			init() {
 				return {
 					lastTrigger: undefined,
 				};
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply(tr, pluginState) {
 				const meta = tr.getMeta(META_KEYS.OVERFLOW_TRIGGER);
 				const newState = { ...pluginState };
@@ -56,8 +52,6 @@ const createPlugin = (
 				return pluginState;
 			},
 		},
-		// @ts-ignore - Workaround for help-center local consumption
-
 		appendTransaction: (transactions, oldState, newState) => {
 			const newPluginState = pluginKey.getState(newState);
 			let hasAnalyticsBeenDispatched = false;
@@ -69,8 +63,6 @@ const createPlugin = (
 				// However, since there is still a chance that there are other triggers we didn't think of,
 				// all these unknown triggers and viwport width change trigger are captured as EXTERNAL.
 				TABLE_OVERFLOW_CHANGE_TRIGGER.EXTERNAL;
-
-			// @ts-ignore - Workaround for help-center local consumption
 
 			transactions.forEach((tr) => {
 				const payload = tr.getMeta(META_KEYS.OVERFLOW_STATE_CHANGED);

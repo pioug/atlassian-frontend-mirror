@@ -68,9 +68,14 @@ const HeadingBlockMenuItem = ({ level, api }: HeadingBlockMenuItemProps) => {
 					: INPUT_METHOD.MOUSE;
 			const inputMethod = INPUT_METHOD.BLOCK_MENU;
 
-			api?.core.actions.execute(
-				api?.blockMenu?.commands.formatNode(`heading${level}`, { inputMethod, triggeredFrom }),
-			);
+			api?.core.actions.execute(({ tr }) => {
+				const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.heading, {
+					inputMethod,
+					triggeredFrom,
+					targetTypeName: `heading${level}`,
+				});
+				return command ? command({ tr }) : null;
+			});
 		}
 	};
 

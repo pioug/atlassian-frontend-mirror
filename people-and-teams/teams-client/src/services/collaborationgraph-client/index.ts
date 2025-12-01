@@ -9,6 +9,13 @@ export type UserContainerArgs = {
 	maxNumberOfResults: number;
 };
 
+export type RecommendedUsersArgs = {
+	accountId: string;
+	cloudId: string;
+	maxNumberOfResults?: number;
+	filter?: string;
+};
+
 enum CONTAINER_TYPE {
 	JIRA_PROJECT = 'jiraProject',
 	CONFLUENCE_SPACE = 'confluenceSpace',
@@ -38,6 +45,26 @@ type UserContainerResponse = {
 	collaborationGraphEntities: CollaborationGraphEntities[];
 };
 
+type CollaborationGraphUser = {
+	id: string;
+	expand: {
+		name: string;
+		picture: string;
+		nickname: string;
+		account_status: string;
+		extended_profile?: {
+			job_title?: string;
+			organization?: string;
+			department?: string;
+			location?: string;
+		};
+	};
+};
+
+export type RecommendedUsersResponse = {
+	recommendedEntities: CollaborationGraphUser[];
+};
+
 export class CollaborationGraphClient extends RestClient {
 	getUserContainers({
 		userId,
@@ -57,6 +84,28 @@ export class CollaborationGraphClient extends RestClient {
 			maxNumberOfResults,
 			userId,
 			expanded: true,
+		});
+	}
+
+	getRecommendedUsers({
+		accountId,
+		cloudId,
+		maxNumberOfResults = 12,
+		filter = 'account_status:"active" AND (NOT email_domain:"connect.atlassian.com") AND (NOT account_type:"app")',
+	}: RecommendedUsersArgs): Promise<RecommendedUsersResponse> {
+		return this.postResource('/v2/recommend/user', {
+			context: {
+				userId: accountId,
+				tenantId: cloudId,
+			},
+			modelRequestParams: {
+				experience: 'CgUserNearbyUser',
+				caller: 'atlas',
+			},
+			requestingUserId: accountId,
+			expand: 'existing',
+			maxNumberOfResults,
+			filter,
 		});
 	}
 }

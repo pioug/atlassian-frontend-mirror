@@ -3,11 +3,11 @@ import { renderHook } from '@testing-library/react-hooks';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import type { Site } from '../../common/types';
-import { getAvailableSites } from '../getAvailableSites';
+import { getAccessibleProducts } from '../getAvailableSites';
 import { useAvailableSites } from '../useAvailableSites';
 
 jest.mock('../getAvailableSites', () => ({
-	getAvailableSites: jest.fn((_: string) => Promise.resolve<Site[]>([])),
+	getAccessibleProducts: jest.fn((_: string) => Promise.resolve<Site[]>([])),
 }));
 
 describe('useAvailableSites', () => {
@@ -23,7 +23,7 @@ describe('useAvailableSites', () => {
 	};
 
 	beforeEach(() => {
-		asMock(getAvailableSites).mockResolvedValue([siteA, siteB]);
+		asMock(getAccessibleProducts).mockResolvedValue([siteA, siteB]);
 	});
 
 	afterEach(() => {
@@ -34,7 +34,7 @@ describe('useAvailableSites', () => {
 		const { waitForNextUpdate } = renderHook(() => useAvailableSites(product));
 		await waitForNextUpdate();
 
-		expect(getAvailableSites).toHaveBeenCalledWith(product);
+		expect(getAccessibleProducts).toHaveBeenCalledWith(product);
 	});
 
 	it('should sort found sites by displayName', async () => {
@@ -53,7 +53,7 @@ describe('useAvailableSites', () => {
 				url: window.location.origin,
 			};
 
-			asMock(getAvailableSites).mockResolvedValue([siteB, siteA, siteC]);
+			asMock(getAccessibleProducts).mockResolvedValue([siteB, siteA, siteC]);
 
 			const { result, waitForNextUpdate } = renderHook(() => useAvailableSites('confluence'));
 

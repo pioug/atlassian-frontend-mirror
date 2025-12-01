@@ -49,6 +49,7 @@ const TeamsClientExperienceKeyList = [
 	'getLinkedTeamsBulk',
 	'getTeamProfileDetails',
 	'getUserContainers',
+	'getRecommendedUsers',
 	'getPermissions',
 	'getUserManageConfig',
 	'getMyAvatarUploadedStatus',

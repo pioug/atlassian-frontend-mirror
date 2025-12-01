@@ -73,6 +73,20 @@ describe('ADS MCP Server E2E', () => {
 		);
 	});
 
+	it('Lists the ads_get_icons tool with feature flags enabled', async () => {
+		const listedTools = (await client.listTools()).tools;
+		expect(listedTools).toEqual(
+			expect.arrayContaining([expect.objectContaining({ name: 'ads_get_icons' })]),
+		);
+	});
+
+	it('Does not list the ads_get_all_icons tool with feature flags enabled', async () => {
+		const listedTools = (await client.listTools()).tools;
+		expect(listedTools).not.toEqual(
+			expect.arrayContaining([expect.objectContaining({ name: 'ads_get_all_icons' })]),
+		);
+	});
+
 	it('Gets all the tokens', async () => {
 		const expectedTokenNames = allTokens.map(({ name }) => expect.objectContaining({ name }));
 		const listedTokens = (
@@ -140,6 +154,54 @@ describe('ADS MCP Server E2E', () => {
 		expect(markdown).toContain('# color.text');
 		expect(markdown).toContain('Example Value:');
 		expect(markdown).toMatch(/Example Value: `[^`]+`/);
+
+		// Should not be valid JSON (since it's markdown)
+		expect(() => JSON.parse(markdown)).toThrow();
+	});
+
+	it('Returns markdown content for ads_get_icons tool with feature flags enabled', async () => {
+		const result = (
+			await client.callTool({
+				name: 'ads_get_icons',
+				arguments: {
+					terms: ['AddIcon'],
+					limit: 1,
+					exactName: true,
+				},
+			})
+		).content as { text: string }[];
+
+		expect(result).toHaveLength(1);
+		const markdown = result[0].text;
+
+		// Validate markdown structure - should contain heading and key fields
+		expect(markdown).toContain('# Add Icon');
+		expect(markdown).toContain('Keywords');
+		expect(markdown).toContain('Import statement:');
+		expect(markdown).toMatch(/import AddIcon from '[^']+'/);
+		expect(markdown).toContain('Sizes:');
+
+		// Should not be valid JSON (since it's markdown)
+		expect(() => JSON.parse(markdown)).toThrow();
+	});
+
+	it('Returns all icons as markdown when no search terms provided for ads_get_icons tool with feature flags enabled', async () => {
+		const result = (
+			await client.callTool({
+				name: 'ads_get_icons',
+				arguments: {},
+			})
+		).content as { text: string }[];
+
+		expect(result).toHaveLength(1);
+		const markdown = result[0].text;
+
+		// Should contain multiple icons (at least one)
+		expect(markdown).toContain('#');
+		expect(markdown).toContain('Keywords');
+		expect(markdown).toContain('Import statement:');
+		expect(markdown).toContain('Sizes:');
+		expect(markdown.length).toBeGreaterThan(100); // Should have substantial content
 
 		// Should not be valid JSON (since it's markdown)
 		expect(() => JSON.parse(markdown)).toThrow();

@@ -1,5 +1,35 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.15.10
+
+### Patch Changes
+
+- [`3929544facf86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3929544facf86) -
+  FG cleanup - platform_ufo_default_ssr_edge_timings
+
+## 4.15.9
+
+### Patch Changes
+
+- [`1aacb45a2b77f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1aacb45a2b77f) -
+  exclude input name mutations for TTVC v4 due to React/Chromium bug
+
+## 4.15.8
+
+### Patch Changes
+
+- [`7d0c880400e92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d0c880400e92) -
+  Add segment and labelstack information to TTVC DOM offenders
+- [`533c8404f5973`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/533c8404f5973) -
+  Fix offset for vc raw data
+
+## 4.15.7
+
+### Patch Changes
+
+- [`eb8e5acf00c10`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb8e5acf00c10) -
+  fix placeholder matching for TTVC v4 display contents elements
+
 ## 4.15.6
 
 ### Patch Changes

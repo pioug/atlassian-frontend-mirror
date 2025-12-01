@@ -1,5 +1,17 @@
 # @atlaskit/editor-toolbar
 
+## 0.18.0
+
+### Minor Changes
+
+- [`6d7eaf7a84ff3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d7eaf7a84ff3) -
+  ToolbarTooltip now supports displaying shortcuts in the tooltip, through the new shortcut prop. It
+  is passed through to the Tooltip's shortcut prop.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.17.13
 
 ### Patch Changes

@@ -9,6 +9,7 @@ export type MediaCardSsrData = {
 	mode?: string;
 	srcSet?: string;
 	loadPromise?: Promise<void>;
+	loading?: 'lazy' | '';
 };
 
 export type MediaCardSsr = Record<string, MediaCardSsrData>;

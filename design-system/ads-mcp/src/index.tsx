@@ -30,6 +30,7 @@ import {
 import { getAllIconsTool, listGetAllIconsTool } from './tools/get-all-icons';
 import { getAllTokensTool, listGetAllTokensTool } from './tools/get-all-tokens';
 import { getComponentsTool, listGetComponentsTool } from './tools/get-components';
+import { getIconsInputSchema, getIconsTool, listGetIconsTool } from './tools/get-icons';
 import { getTokensInputSchema, getTokensTool, listGetTokensTool } from './tools/get-tokens';
 import { listPlanTool, planInputSchema, planTool } from './tools/plan';
 import {
@@ -98,11 +99,6 @@ export const getToolRegistry = (): Record<
 			inputSchema: getA11yGuidelinesInputSchema,
 			tool: listGetA11yGuidelinesTool,
 		},
-		[listGetAllIconsTool.name]: {
-			handler: getAllIconsTool,
-			inputSchema: null,
-			tool: listGetAllIconsTool,
-		},
 		[listGetComponentsTool.name]: {
 			handler: getComponentsTool,
 			inputSchema: null,
@@ -137,18 +133,28 @@ export const getToolRegistry = (): Record<
 		},
 	};
 
-	// Conditionally add token tools based on feature flag
+	// Conditionally add token and icon tools based on feature flag
 	if (fg('design_system_mcp_structured_content')) {
 		baseTools[listGetTokensTool.name] = {
 			handler: getTokensTool,
 			inputSchema: getTokensInputSchema,
 			tool: listGetTokensTool,
 		} as (typeof baseTools)[string];
+		baseTools[listGetIconsTool.name] = {
+			handler: getIconsTool,
+			inputSchema: getIconsInputSchema,
+			tool: listGetIconsTool,
+		} as (typeof baseTools)[string];
 	} else {
 		baseTools[listGetAllTokensTool.name] = {
 			handler: getAllTokensTool,
 			inputSchema: null,
 			tool: listGetAllTokensTool,
+		} as (typeof baseTools)[string];
+		baseTools[listGetAllIconsTool.name] = {
+			handler: getAllIconsTool,
+			inputSchema: null,
+			tool: listGetAllIconsTool,
 		} as (typeof baseTools)[string];
 	}
 
@@ -304,6 +310,3 @@ runServer().catch((error: unknown) => {
 	const errorMessage = error instanceof Error ? error.message : 'Unknown error';
 	console.error(`Invalid input to ads-mcp: ${errorMessage}`);
 });
-
-// Export types for use by other packages
-export type { TokenSchema, ContentSchema } from './structured-content/types';

@@ -41,7 +41,6 @@ import type {
 	BlockControlsPlugin,
 	PluginState,
 } from '../blockControlsPluginType';
-import { BLOCK_MENU_ENABLED } from '../ui/consts';
 import { getAnchorAttrName } from '../ui/utils/dom-attr-name';
 
 import { findNodeDecs, nodeDecorations } from './decorations-anchor';
@@ -716,10 +715,7 @@ export const apply = (
 	}
 
 	let isMenuOpenNew = isMenuOpen;
-	if (
-		(BLOCK_MENU_ENABLED && flags.toolbarFlagsEnabled) ||
-		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
-	) {
+	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
 		if (meta?.closeMenu) {
 			isMenuOpenNew = false;
 		} else if (meta?.toggleMenu) {

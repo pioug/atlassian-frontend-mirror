@@ -147,6 +147,32 @@ export class SSRPlaceholderHandlers {
 		return 'ssrPlaceholderIgnored' in element.dataset;
 	}
 
+	isPlaceholderV4(element: HTMLElement): boolean {
+		let currentElement: HTMLElement | null = element;
+		let i = 0;
+		while (currentElement && i < ANCESTOR_LOOKUP_LIMIT) {
+			if (Boolean(this.getPlaceholderId(currentElement))) {
+				return true;
+			}
+			currentElement = currentElement.parentElement;
+			i++;
+		}
+		return false;
+	}
+
+	isPlaceholderReplacementV4(element: HTMLElement): boolean {
+		let currentElement: HTMLElement | null = element;
+		let i = 0;
+		while (currentElement && i < ANCESTOR_LOOKUP_LIMIT) {
+			if (Boolean(this.getPlaceholderReplacementId(currentElement))) {
+				return true;
+			}
+			currentElement = currentElement.parentElement;
+			i++;
+		}
+		return false;
+	}
+
 	findNearestPlaceholderContainerIfIgnored(element: HTMLElement): HTMLElement {
 		if (!this.isPlaceholderIgnored(element)) {
 			return element;

@@ -19,13 +19,13 @@ import {
 	type DatasourceTableState,
 	useDatasourceTableState,
 } from '../../hooks/useDatasourceTableState';
-import { getAvailableSites } from '../../services/getAvailableSites';
+import { getAccessibleProducts } from '../../services/getAvailableSites';
 import { type ConfluenceSearchConfigModalProps } from '../../ui/confluence-search-modal/types';
 import { IssueLikeDataTableView } from '../../ui/issue-like-table';
 import { type IssueLikeDataTableViewProps } from '../../ui/issue-like-table/types';
 
 jest.mock('../../services/getAvailableSites', () => ({
-	getAvailableSites: jest.fn(),
+	getAccessibleProducts: jest.fn(),
 }));
 
 jest.mock('../../hooks/useDatasourceTableState');
@@ -236,7 +236,7 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 			wrappedColumnKeys?: ConfigModalProps<ADF, Parameters>['wrappedColumnKeys'];
 		} = {},
 	) => {
-		asMock(getAvailableSites).mockResolvedValue(args.mockSiteDataOverride || mockSiteData);
+		asMock(getAccessibleProducts).mockResolvedValue(args.mockSiteDataOverride || mockSiteData);
 		asMock(useDatasourceTableState).mockReturnValue(args.hookState || getDefaultHookState());
 
 		const onCancel = jest.fn();
@@ -473,7 +473,7 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 	return {
 		useDatasourceTableState,
 		IssueLikeDataTableView,
-		getAvailableSites,
+		getAvailableSites: getAccessibleProducts,
 		getDefaultHookState,
 		getSingleResponseItemHookState,
 		getUnauthorisedHookState,

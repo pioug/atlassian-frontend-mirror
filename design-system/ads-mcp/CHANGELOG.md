@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 0.10.0
+
+### Minor Changes
+
+- [`b01712bc0727d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b01712bc0727d) -
+  Update the structured docs package to generate icon content and update the ADS MCP to consume it.
+
 ## 0.9.1
 
 ### Patch Changes

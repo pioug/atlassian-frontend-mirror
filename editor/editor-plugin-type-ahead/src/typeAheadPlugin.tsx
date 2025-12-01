@@ -219,14 +219,10 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ api }) => {
 					name: 'typeAheadEditorViewRef',
 					plugin: () => {
 						return new SafePlugin({
-							// @ts-ignore - Workaround for help-center local consumption
-
 							view(view) {
 								editorViewRef.current = view;
 
 								return {
-									// @ts-ignore - Workaround for help-center local consumption
-
 									destroy() {
 										editorViewRef.current = null;
 									},

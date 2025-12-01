@@ -11,6 +11,7 @@ export type VCObserverEntryType =
 	| 'mutation:display-contents-children-attribute'
 	| 'mutation:attribute:no-layout-shift'
 	| 'mutation:attribute:non-visual-style'
+	| 'mutation:attribute:non-visual-input-name'
 	| 'mutation:attribute'
 	| 'mutation:media'
 	| 'mutation:rll-placeholder'

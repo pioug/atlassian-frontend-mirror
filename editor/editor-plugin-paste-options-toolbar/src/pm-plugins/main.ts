@@ -26,32 +26,20 @@ export function createPlugin(dispatch: Dispatch) {
 			selectedOption: ToolbarDropdownOption.None,
 		}),
 
-		// @ts-ignore - Workaround for help-center local consumption
-
 		view(editorView: EditorView) {
 			return {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				update(view: EditorView, prevState: EditorState) {
 					return prevState;
 				},
 			};
 		},
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleDOMEvents: {
 				// Hide toolbar when clicked outside the editor
-				// @ts-ignore - Workaround for help-center local consumption
-
 				blur: checkAndHideToolbar,
 				// Hide toolbar when clicked anywhere within the editor, tr.getMeta('pointer') does not work if clicked on the same line after pasting so relying on mousedown event
-				// @ts-ignore - Workaround for help-center local consumption
-
 				mousedown: checkAndHideToolbar,
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleKeyDown: (view) => {
 				checkAndHideToolbar(view);
 				return false;

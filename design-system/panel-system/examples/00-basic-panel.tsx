@@ -1,7 +1,7 @@
 import React from 'react';
 
+import { ButtonGroup } from '@atlaskit/button';
 import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
 import {
 	PanelActionExpand,
 	PanelActionGroup,
@@ -13,7 +13,7 @@ import {
 	PanelHeader,
 	PanelTitle,
 } from '@atlaskit/panel-system';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 
 export default function BasicPanel(): React.JSX.Element {
 	return (
@@ -33,10 +33,15 @@ export default function BasicPanel(): React.JSX.Element {
 				</Text>
 			</PanelBody>
 			<PanelFooter>
-				<Checkbox label="Create another" isChecked={false} onChange={() => {}} />
-				<Button appearance="primary" onClick={() => {}}>
-					Create
-				</Button>
+				<Box />
+				<ButtonGroup label="Panel actions">
+					<Button appearance="subtle" onClick={() => {}}>
+						Cancel
+					</Button>
+					<Button appearance="default" onClick={() => {}}>
+						Save
+					</Button>
+				</ButtonGroup>
 			</PanelFooter>
 		</PanelContainer>
 	);

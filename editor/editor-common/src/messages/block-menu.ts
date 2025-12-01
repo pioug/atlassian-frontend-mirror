@@ -31,6 +31,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Copy link to block',
 		description: 'Copy link to the selected block',
 	},
+	linkCopiedToClipboard: {
+		id: 'fabric.editor.block.menu.link.copied.to.clipboard',
+		defaultMessage: 'Link copied to clipboard',
+		description: 'Confirmation message shown when link is copied to clipboard',
+	},
 	paragraph: {
 		id: 'fabric.editor.block.menu.paragraph',
 		defaultMessage: 'Paragraph',

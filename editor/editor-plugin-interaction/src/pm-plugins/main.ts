@@ -18,15 +18,11 @@ export const createPlugin = () =>
 	new SafePlugin<InteractionState>({
 		key,
 		state: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			init() {
 				return {
 					hasHadInteraction: false,
 				};
 			},
-
-			// @ts-ignore - Workaround for help-center local consumption
 
 			apply(tr, oldPluginState) {
 				const meta = tr.getMeta(key) as InteractionState;
@@ -42,20 +38,14 @@ export const createPlugin = () =>
 		},
 
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleDOMEvents: {
 				// Handle all pointer click events (includes drag inside editor)
-				// @ts-ignore - Workaround for help-center local consumption
-
 				mousedown: handleInteraction,
 				// Handle keyboard events. Must be keyup to handle tabbing into editor (keyup occurs
 				// on the "next focused" element)
 				keyup: handleInteraction,
 				// Handle drag and drop _into_ the editor from outside. Eg image DnD
 				drop: handleInteraction,
-				// @ts-ignore - Workaround for help-center local consumption
-
 				focus: handleInteraction,
 			},
 		},

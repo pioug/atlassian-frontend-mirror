@@ -24,13 +24,9 @@ export const createPlugin = () => {
 	return new SafePlugin<UserIntentPluginState>({
 		key: userIntentPluginKey,
 		state: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			init() {
 				return initialState;
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply: (tr, currentPluginState) => {
 				const meta = tr.getMeta(userIntentPluginKey) as SetCurrentUserIntentMeta | undefined;
 

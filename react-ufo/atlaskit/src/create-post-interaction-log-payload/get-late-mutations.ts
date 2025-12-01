@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { LastInteractionFinishInfo } from '../common';
 import type { LateMutation } from '../common/react-ufo-payload-schema';
 import type { RevisionPayloadVCDetails, VCLabelStacks } from '../common/vc/types';
@@ -38,9 +36,9 @@ function getLateMutations(
 				viewportHeatmapPercentage: postInteractionFinishVCRatios?.[element] || 0,
 			};
 
-			if (labelStacks && fg('platform_ufo_enable_late_mutation_label_stacks')) {
+			if (labelStacks) {
 				const labels = labelStacks[element];
-				if (labels) {
+				if (labels && typeof labels !== 'string') {
 					lateMutation.segment = labels.segment;
 					lateMutation.labelStack = labels.labelStack;
 				}

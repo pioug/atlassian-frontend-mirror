@@ -147,8 +147,6 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 						if (!emojiResult || !emojiResult.emojis) {
 							resolve([]);
 						} else {
-							// @ts-ignore - Workaround for help-center local consumption
-
 							const emojiItems = emojiResult.emojis.map((emoji) =>
 								memoizedToItem.call(emoji, emojiProvider),
 							);
@@ -159,8 +157,6 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 				};
 
 				emojiProvider.subscribe(emojiProviderChangeHandler);
-
-				// @ts-ignore - Workaround for help-center local consumption
 
 				emojiProvider.filter(TRIGGER.concat(query), {
 					limit: defaultListLimit,
@@ -189,9 +185,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 			}
 
 			const matchedItem = isFullShortName(normalizedQuery)
-				? // @ts-ignore - Workaround for help-center local consumption
-
-					items.find((item) => item.title.toLowerCase() === normalizedQuery)
+				? items.find((item) => item.title.toLowerCase() === normalizedQuery)
 				: undefined;
 			return matchedItem;
 		},
@@ -240,8 +234,6 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 
 		if (node.type === emojiNodeType) {
 			const newText = node.attrs.text;
-			// @ts-ignore - Workaround for help-center local consumption
-
 			const currentPos = tr.mapping.map(pos);
 			tr.replaceWith(currentPos, currentPos + node.nodeSize, schema.text(newText, node.marks));
 		}
@@ -408,8 +400,6 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 					onPositionCalculated: calculateToolbarPositionAboveSelection('Emoji floating toolbar'),
 					items: (node: ProseMirrorNode): Array<FloatingToolbarItem<Command>> => {
 						const annotationState = api?.annotation?.sharedState.currentState();
-						// @ts-ignore - Workaround for help-center local consumption
-
 						const activeCommentMark = node.marks.find(
 							(mark) =>
 								mark.type.name === 'annotation' &&
@@ -548,8 +538,6 @@ function createEmojiPlugin(
 	return new SafePlugin<EmojiPluginState>({
 		key: emojiPluginKey,
 		state: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			init() {
 				if (
 					options?.emojiProvider &&
@@ -561,8 +549,6 @@ function createEmojiPlugin(
 				}
 				return {};
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply(tr, pluginState) {
 				const { action, params } = tr.getMeta(emojiPluginKey) || {
 					action: null,
@@ -605,11 +591,7 @@ function createEmojiPlugin(
 			},
 		} as SafeStateField<EmojiPluginState>,
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			nodeViews: {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				emoji: (node) => {
 					return new EmojiNodeView(node, {
 						intl: pmPluginFactoryParams.getIntl(),
@@ -619,8 +601,6 @@ function createEmojiPlugin(
 				},
 			},
 		},
-		// @ts-ignore - Workaround for help-center local consumption
-
 		view(editorView) {
 			const providerHandler = (name: string, providerPromise?: Promise<EmojiProvider>) => {
 				switch (name) {
@@ -647,8 +627,6 @@ function createEmojiPlugin(
 			}
 
 			return {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				destroy() {
 					if (pmPluginFactoryParams.providerFactory) {
 						pmPluginFactoryParams.providerFactory.unsubscribe('emojiProvider', providerHandler);

@@ -1,24 +1,13 @@
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types';
 import Fuse from 'fuse.js';
 import { z } from 'zod';
-import { zodToJsonSchema } from 'zod-to-json-schema';
 
-import { tokens } from '@atlaskit/tokens/token-metadata';
+import { cleanQuery, zodToJsonSchema } from '../../helpers';
 
-import { cleanQuery } from '../../helpers';
-import { tokenToMarkdown } from '../../structured-content/formatters/token';
-import type { TokenSchema } from '../../structured-content/types';
-
-// Transform Token[] from token-metadata to TokenSchema[] format
-function transformTokensToSchemas(): TokenSchema[] {
-	return tokens.map((token) => ({
-		contentType: 'token',
-		name: token.name,
-		path: token.path,
-		description: token.description,
-		exampleValue: String(token.exampleValue ?? ''),
-	}));
-}
+import {
+	tokenStructuredContent,
+	type TokenStructuredContent,
+} from './token-structured-content.codegen';
 
 export const getTokensInputSchema = z.object({
 	terms: z
@@ -69,11 +58,13 @@ export const getTokensTool = async (
 ): Promise<CallToolResult> => {
 	const { terms = [], limit = 1, exactName = false } = params;
 	const searchTerms = terms.filter(Boolean).map(cleanQuery);
-	const tokenDocs = transformTokensToSchemas();
+	const tokenDocs = tokenStructuredContent;
 
 	// If no search terms provided, return all tokens formatted as Markdown
 	if (searchTerms.length === 0) {
-		const allTokensMarkdown = tokenDocs.map(tokenToMarkdown).join('\n\n');
+		const allTokensMarkdown = tokenDocs
+			.map((token: TokenStructuredContent) => token.content)
+			.join('\n\n');
 		return {
 			content: [
 				{
@@ -89,12 +80,16 @@ export const getTokensTool = async (
 		// for each search term, search for the exact match
 		const exactNameMatches = searchTerms
 			.map((term) => {
-				return tokenDocs.find((token) => token.name.toLowerCase() === term.toLowerCase());
+				return tokenDocs.find(
+					(token: TokenStructuredContent) => token.name.toLowerCase() === term.toLowerCase(),
+				);
 			})
-			.filter(Boolean) as TokenSchema[];
+			.filter((token): token is TokenStructuredContent => token !== undefined);
 
 		if (exactNameMatches.length > 0) {
-			const formattedTokens = exactNameMatches.map(tokenToMarkdown).join('\n\n');
+			const formattedTokens = exactNameMatches
+				.map((token: TokenStructuredContent) => token.content)
+				.join('\n\n');
 			return {
 				content: [
 					{
@@ -133,11 +128,18 @@ export const getTokensTool = async (
 
 	// Remove duplicates based on token name
 	const uniqueResults = results.filter((result, index, arr) => {
-		return arr.findIndex((r) => r.item.name === result.item.name) === index;
+		return (
+			arr.findIndex(
+				(r) =>
+					(r.item as TokenStructuredContent).name === (result.item as TokenStructuredContent).name,
+			) === index
+		);
 	});
 
-	const matchedTokens = uniqueResults.map((result) => result.item);
-	const formattedTokens = matchedTokens.map(tokenToMarkdown).join('\n\n');
+	const matchedTokens = uniqueResults.map((result) => result.item as TokenStructuredContent);
+	const formattedTokens = matchedTokens
+		.map((token: TokenStructuredContent) => token.content)
+		.join('\n\n');
 
 	return {
 		content: [

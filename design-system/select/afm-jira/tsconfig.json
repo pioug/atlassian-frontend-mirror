@@ -42,9 +42,6 @@
 			"path": "../../react-select/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../spinner/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../theme/afm-jira/tsconfig.json"
 		},
 		{

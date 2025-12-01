@@ -15,8 +15,6 @@ export default () =>
 			init: () => ({
 				selector: null,
 			}),
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply: (tr, prevState) => {
 				const meta = tr.getMeta(forceFocusStateKey);
 				if (meta && 'selector' in meta) {

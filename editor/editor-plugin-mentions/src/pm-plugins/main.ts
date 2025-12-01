@@ -103,8 +103,6 @@ export function createMentionPlugin({
 	return new SafePlugin({
 		key: mentionPluginKey,
 		state: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			init(_, state: EditorState): MentionPluginState {
 				const canInsertMention = canMentionBeCreatedInRange(
 					state.selection.from,
@@ -114,8 +112,6 @@ export function createMentionPlugin({
 					canInsertMention,
 				};
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply(tr, pluginState: MentionPluginState, oldState, newState): MentionPluginState {
 				const { action, params } = tr.getMeta(mentionPluginKey) || {
 					action: null,
@@ -168,23 +164,11 @@ export function createMentionPlugin({
 					const mentionSchema = newState.schema.nodes.mention;
 					const mentionsRemoved = new Map<string, MentionMapItem>();
 
-					// @ts-ignore - Workaround for help-center local consumption
-
 					tr.steps.forEach((step, index) => {
-						// @ts-ignore - Workaround for help-center local consumption
-
 						step.getMap().forEach((from, to) => {
-							// @ts-ignore - Workaround for help-center local consumption
-
 							const newStart = tr.mapping.slice(index).map(from, -1);
-							// @ts-ignore - Workaround for help-center local consumption
-
 							const newEnd = tr.mapping.slice(index).map(to);
-							// @ts-ignore - Workaround for help-center local consumption
-
 							const oldStart = tr.mapping.invert().map(newStart, -1);
-							// @ts-ignore - Workaround for help-center local consumption
-
 							const oldEnd = tr.mapping.invert().map(newEnd);
 
 							const oldSlice = oldState.doc.slice(oldStart, oldEnd);
@@ -193,7 +177,6 @@ export function createMentionPlugin({
 							const mentionsBefore = new Map<string, MentionMapItem>();
 							const mentionsAfter = new Map<string, MentionMapItem>();
 
-							// @ts-ignore - Workaround for help-center local consumption
 							oldSlice.content.descendants((node) => {
 								if (node.type.name === mentionSchema.name && node.attrs.localId) {
 									mentionsBefore.set(node.attrs.localId, {
@@ -202,8 +185,6 @@ export function createMentionPlugin({
 									});
 								}
 							});
-
-							// @ts-ignore - Workaround for help-center local consumption
 
 							newSlice.content.descendants((node) => {
 								if (node.type.name === mentionSchema.name && node.attrs.localId) {
@@ -215,8 +196,6 @@ export function createMentionPlugin({
 							});
 
 							// Determine which mentions were removed in this step
-							// @ts-ignore - Workaround for help-center local consumption
-
 							mentionsBefore.forEach((mention, localId) => {
 								if (!mentionsAfter.has(localId)) {
 									mentionsRemoved.set(localId, mention);
@@ -224,8 +203,6 @@ export function createMentionPlugin({
 							});
 
 							// Adjust mentionsRemoved by removing any that reappear
-							// @ts-ignore - Workaround for help-center local consumption
-
 							mentionsAfter.forEach((_, localId) => {
 								if (mentionsRemoved.has(localId)) {
 									mentionsRemoved.delete(localId);
@@ -235,8 +212,6 @@ export function createMentionPlugin({
 					});
 
 					if (mentionsRemoved.size > 0) {
-						// @ts-ignore - Workaround for help-center local consumption
-
 						const changes = Array.from(mentionsRemoved.values()).map((mention) => ({
 							id: mention.id,
 							localId: mention.localId,
@@ -252,10 +227,7 @@ export function createMentionPlugin({
 			},
 		} as SafeStateField<MentionPluginState>,
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			nodeViews: {
-				// @ts-ignore - Workaround for help-center local consumption
 				mention: (node, view, getPos, decorations, innerDecorations) => {
 					return new MentionNodeView(node, {
 						options,
@@ -265,8 +237,6 @@ export function createMentionPlugin({
 				},
 			},
 		},
-		// @ts-ignore - Workaround for help-center local consumption
-
 		view(editorView) {
 			const providerHandler = (
 				name: string,
@@ -330,8 +300,6 @@ export function createMentionPlugin({
 			}
 
 			return {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				destroy() {
 					if (pmPluginFactoryParams.providerFactory) {
 						pmPluginFactoryParams.providerFactory.unsubscribe('mentionProvider', providerHandler);
@@ -340,8 +308,6 @@ export function createMentionPlugin({
 						mentionProvider.unsubscribe('mentionPlugin');
 					}
 				},
-				// @ts-ignore - Workaround for help-center local consumption
-
 				update(view: EditorView, prevState: EditorState) {
 					const newState = view.state;
 					if (
@@ -351,19 +317,13 @@ export function createMentionPlugin({
 						const mentionSchema = newState.schema.nodes.mention;
 						const mentionNodesBefore = findChildrenByType(prevState.doc, mentionSchema);
 						const mentionLocalIdsAfter = new Set(
-							// @ts-ignore - Workaround for help-center local consumption
-
 							findChildrenByType(newState.doc, mentionSchema).map(({ node }) => node.attrs.localId),
 						);
 
 						if (mentionNodesBefore.length > mentionLocalIdsAfter.size) {
 							const deletedMentions: { id: string; localId: string; type: 'deleted' }[] =
 								mentionNodesBefore
-									// @ts-ignore - Workaround for help-center local consumption
-
 									.filter(({ node }) => !mentionLocalIdsAfter.has(node.attrs.localId))
-									// @ts-ignore - Workaround for help-center local consumption
-
 									.map(({ node }) => ({
 										type: 'deleted',
 										id: node.attrs.id,

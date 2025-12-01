@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 15.4.10
+
+### Patch Changes
+
+- [`5a25eff5f9f2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a25eff5f9f2d) -
+  [ux] Correctly disable legacy sticky table header when no overflow
+- Updated dependencies
+
+## 15.4.9
+
+### Patch Changes
+
+- [`9fa355db69f2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9fa355db69f2c) -
+  [ux] Cleans up FG platform_editor_fix_table_menus_jira
+- Updated dependencies
+
 ## 15.4.8
 
 ### Patch Changes

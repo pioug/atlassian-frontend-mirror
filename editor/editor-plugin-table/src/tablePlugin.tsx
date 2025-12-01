@@ -556,8 +556,6 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 					name: 'tableGetEditorViewReferencePlugin',
 					plugin: ({ dispatchAnalyticsEvent }) => {
 						return new SafePlugin({
-							// @ts-ignore - Workaround for help-center local consumption
-
 							view: (editorView) => {
 								editorViewRef.current = editorView;
 

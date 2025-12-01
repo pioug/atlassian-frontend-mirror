@@ -39,9 +39,17 @@ const BulletedListBlockMenuItem = ({ api }: BulletedListBlockMenuItemProps) => {
 					: INPUT_METHOD.MOUSE;
 			const inputMethod = INPUT_METHOD.BLOCK_MENU;
 
-			api?.core.actions.execute(
-				api?.blockMenu?.commands.formatNode(`bulletList`, { inputMethod, triggeredFrom }),
-			);
+			api?.core.actions.execute(({ tr }) => {
+				const command = api?.blockMenu?.commands.transformNode(
+					tr.doc.type.schema.nodes.bulletList,
+					{
+						inputMethod,
+						triggeredFrom,
+						targetTypeName: 'bulletList',
+					},
+				);
+				return command ? command({ tr }) : null;
+			});
 		}
 	};
 

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/linking-common",
-	"version": "9.8.4",
+	"version": "9.9.0",
 	"description": "Contains utils and interfaces shared across different LP components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -78,11 +78,6 @@
 			"styling": [
 				"compiled"
 			]
-		}
-	},
-	"platform-feature-flags": {
-		"navx-1819-link-create-confluence-site-migration": {
-			"type": "boolean"
 		}
 	},
 	"compassUnitTestMetricSourceId": "ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:metric-source/c5751cc6-3513-4070-9deb-af31e86aed34/bb313f46-0a0e-4e79-b6f0-d524f5b510ba"

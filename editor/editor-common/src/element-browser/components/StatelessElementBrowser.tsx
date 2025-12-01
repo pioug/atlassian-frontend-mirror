@@ -322,7 +322,6 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 			onKeyUp={canFocusSearch ? undefined : handleKeyPress}
 			onClick={canFocusSearch ? undefined : handleClick}
 		>
-			{/* @ts-ignore - Workaround for help-center local consumption */}
 			<ContainerWidthMonitor />
 			{containerWidth < DEVICE_BREAKPOINT_NUMBERS.medium ? (
 				<MobileBrowser

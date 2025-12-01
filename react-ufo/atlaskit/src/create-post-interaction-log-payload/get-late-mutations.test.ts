@@ -240,7 +240,7 @@ describe('getLateMutations', () => {
 		expect(result).toEqual(expected);
 	});
 
-	it('should include segment and labelStack only when feature flag is on', () => {
+	it('should include segment and labelStack', () => {
 		const vcDetails: RevisionPayloadVCDetails = {
 			'50': {
 				e: ['div[testid=section1]'],
@@ -273,6 +273,8 @@ describe('getLateMutations', () => {
 			{
 				time: 150,
 				element: 'div[testid=section1]',
+				labelStack: 'app-root/test-segment/test-label',
+				segment: 'app-root/test-segment',
 				viewportHeatmapPercentage: 0.5,
 			},
 		]);

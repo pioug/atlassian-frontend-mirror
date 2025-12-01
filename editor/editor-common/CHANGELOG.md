@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 110.36.5
+
+### Patch Changes
+
+- [`5d8ba7e59f96f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d8ba7e59f96f) -
+  simplify the media single resizer classnames
+- Updated dependencies
+
+## 110.36.4
+
+### Patch Changes
+
+- [`0cc1855e9071d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cc1855e9071d) -
+  EDITOR-1921 add analytics for sync block provider failures
+- Updated dependencies
+
 ## 110.36.3
 
 ### Patch Changes

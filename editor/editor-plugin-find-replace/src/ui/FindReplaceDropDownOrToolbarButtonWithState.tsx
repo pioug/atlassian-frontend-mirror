@@ -190,8 +190,6 @@ const FindReplaceToolbarButtonWithState = ({
 			}
 			replaceText={replaceText}
 			shouldFocus={shouldFocus}
-			// @ts-ignore - Workaround for help-center local consumption
-
 			popupsBoundariesElement={popupsBoundariesElement}
 			popupsMountPoint={popupsMountPoint}
 			popupsScrollableElement={popupsScrollableElement}

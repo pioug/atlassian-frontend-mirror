@@ -16,6 +16,8 @@ import LinkIcon from '@atlaskit/icon/core/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin, BlockMenuPluginOptions } from '../blockMenuPluginType';
+import { FLAG_ID } from '../blockMenuPluginType';
+import { blockMenuPluginKey } from '../pm-plugins/main';
 
 import { useBlockMenu } from './block-menu-provider';
 import { BLOCK_MENU_ITEM_NAME } from './consts';
@@ -48,7 +50,17 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 			return tr;
 		});
 		onDropdownOpenChanged(false);
-		return copyLink(config?.getLinkPath, config?.blockLinkHashPrefix, api);
+
+		copyLink(config?.getLinkPath, config?.blockLinkHashPrefix, api).then((success) => {
+			if (success) {
+				api?.core.actions.execute(({ tr }) => {
+					tr.setMeta(blockMenuPluginKey, {
+						showFlag: FLAG_ID.LINK_COPIED_TO_CLIPBOARD,
+					});
+					return tr;
+				});
+			}
+		});
 	}, [config?.getLinkPath, config?.blockLinkHashPrefix, api, onDropdownOpenChanged]);
 
 	const checkIsNestedNode = useCallback(() => {

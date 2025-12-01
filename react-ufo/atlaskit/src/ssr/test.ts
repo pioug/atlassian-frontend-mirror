@@ -57,11 +57,7 @@ describe('ssr module', () => {
 		});
 	});
 
-	it('merges edge timings when FG on and server timings present, includes client-network, filters negative parts', () => {
-		(fg as jest.Mock).mockImplementation(
-			(name: string) => name === 'platform_ufo_default_ssr_edge_timings',
-		);
-
+	it('merges edge timings and server timings present, includes client-network, filters negative parts', () => {
 		// CloudFront + Atl edge timings
 		mockNavigationTimings({
 			responseStart: 150, // client TTFB

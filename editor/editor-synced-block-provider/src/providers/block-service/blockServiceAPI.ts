@@ -13,7 +13,7 @@ import {
 	getSyncedBlockContent,
 	updateSyncedBlock,
 } from '../../clients/block-service/blockService';
-import { SyncBlockError, type SyncBlockData } from '../../common/types';
+import { SyncBlockError, type SyncBlockData, type SyncBlockProduct } from '../../common/types';
 import { stringifyError } from '../../utils/errorHandling';
 import type {
 	ADFFetchProvider,
@@ -74,6 +74,14 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
  * ADFWriteProvider implementation that writes synced block data to Block Service API
  */
 class BlockServiceADFWriteProvider implements ADFWriteProvider {
+	private sourceAri: string;
+	private product: SyncBlockProduct;
+
+	constructor(sourceAri: string, product: SyncBlockProduct) {
+		this.sourceAri = sourceAri;
+		this.product = product;
+	}
+
 	// it will first try to update and if it can't (404) then it will try to create
 	async writeData(data: SyncBlockData): Promise<WriteSyncBlockResult> {
 		const { resourceId } = data;
@@ -89,8 +97,8 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 					await createSyncedBlock({
 						blockAri: resourceId,
 						blockInstanceId: data.blockInstanceId,
-						sourceAri: resourceId,
-						product: 'confluence-page',
+						sourceAri: this.sourceAri,
+						product: this.product,
 						content: JSON.stringify(data.content),
 					});
 				} else {
@@ -114,17 +122,17 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 		}
 	}
 
-	generateResourceId(sourceId: string, localId: string): string {
-		return blockResourceIdFromSourceAndLocalId(sourceId, localId);
+	generateResourceId(sourceAri: string, localId: string): string {
+		return blockResourceIdFromSourceAndLocalId(sourceAri, localId);
 	}
 }
 
 /**
  * Factory function to create both providers with shared configuration
  */
-const createBlockServiceAPIProviders = () => {
+const createBlockServiceAPIProviders = (sourceAri: string, product: SyncBlockProduct) => {
 	const fetchProvider = new BlockServiceADFFetchProvider();
-	const writeProvider = new BlockServiceADFWriteProvider();
+	const writeProvider = new BlockServiceADFWriteProvider(sourceAri, product);
 
 	return {
 		fetchProvider,
@@ -132,6 +140,6 @@ const createBlockServiceAPIProviders = () => {
 	};
 };
 
-export const useMemoizedBlockServiceAPIProviders = () => {
-	return useMemo(createBlockServiceAPIProviders, []);
+export const useMemoizedBlockServiceAPIProviders = (sourceAri: string, product: SyncBlockProduct) => {
+	return useMemo(() => createBlockServiceAPIProviders(sourceAri, product), [sourceAri, product]);
 };

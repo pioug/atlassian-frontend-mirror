@@ -29,12 +29,15 @@ export const SyncedBlockNodeComponentRenderer = ({
 	syncBlockStoreManager,
 	rendererOptions,
 }: SyncedBlockNodeComponentRendererProps): React.JSX.Element => {
-	const { resourceId, localId } = nodeProps;
+	const { resourceId, localId, fireAnalyticsEvent } = nodeProps;
+
+	syncBlockStoreManager.referenceManager.updateFireAnalyticsEvent(fireAnalyticsEvent);
 
 	const { syncBlockInstance, isLoading, reloadData, providerFactory } = useFetchSyncBlockData(
 		syncBlockStoreManager,
 		resourceId,
 		localId,
+		fireAnalyticsEvent
 	);
 
 	if (isLoading && !syncBlockInstance) {

@@ -30,8 +30,6 @@ export const featureFlagsPlugin: FeatureFlagsPlugin = ({ config: featureFlags = 
 						key: pluginKey,
 						state: {
 							init: (): FeatureFlags => ({ ...featureFlags }),
-							// @ts-ignore - Workaround for help-center local consumption
-
 							apply: (_, pluginState) => pluginState,
 						},
 					}),

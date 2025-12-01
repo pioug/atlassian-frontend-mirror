@@ -8,16 +8,18 @@ type ToolbarTooltipProps = {
 	content: React.ReactNode;
 	delay?: number;
 	position?: PositionType;
+	shortcut?: string[];
 };
 
 export const ToolbarTooltip = ({
 	content,
+	shortcut,
 	children,
 	position = 'top',
 	delay,
 }: ToolbarTooltipProps) => {
 	return (
-		<Tooltip content={content} position={position} delay={delay}>
+		<Tooltip content={content} position={position} delay={delay} shortcut={shortcut}>
 			{children}
 		</Tooltip>
 	);

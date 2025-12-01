@@ -21,9 +21,6 @@
 			"path": "../../../analytics/analytics-next/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../focus-ring/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../primitives/afm-products/tsconfig.json"
 		},
 		{

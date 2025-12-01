@@ -45,9 +45,14 @@ const ParagraphBlockMenuItem = ({ api }: ParagraphBlockMenuItemProps) => {
 					: INPUT_METHOD.MOUSE;
 			const inputMethod = INPUT_METHOD.BLOCK_MENU;
 
-			api?.core.actions.execute(
-				api?.blockMenu?.commands.formatNode(`paragraph`, { inputMethod, triggeredFrom }),
-			);
+			api?.core.actions.execute(({ tr }) => {
+				const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.paragraph, {
+					inputMethod,
+					triggeredFrom,
+					targetTypeName: `paragraph`,
+				});
+				return command ? command({ tr }) : null;
+			});
 		}
 	};
 

@@ -33,9 +33,6 @@
 			"path": "../../ds-lib/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../focus-ring/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../icon/afm-cc/tsconfig.json"
 		},
 		{

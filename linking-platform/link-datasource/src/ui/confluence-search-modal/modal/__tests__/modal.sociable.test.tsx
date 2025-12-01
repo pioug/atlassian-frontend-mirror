@@ -126,29 +126,35 @@ describe('ConfluenceSearchConfigModal', () => {
 		}, mockFetchDataResponse(pages));
 	};
 
-	const mockAvailableSites = () => {
+	const mockAccessibleProducts = () => {
 		fetchMock.post({
-			url: '/gateway/api/available-sites',
+			url: '/gateway/api/v2/accessible-products',
 			response: {
-				sites: [
-					{
-						cloudId: '1',
-						url: 'https://hello.atlassian.net',
-						displayName: 'Hello Site',
-					},
-					{
-						cloudId: '2',
-						url: 'https://world.atlassian.net',
-						displayName: 'World Site',
-					},
-				],
+				data: {
+					products: [
+						{
+							workspaces: [
+								{
+									cloudId: '1',
+									cloudUrl: 'https://hello.atlassian.net',
+									workspaceDisplayName: 'Hello Site',
+								},
+								{
+									cloudId: '2',
+									cloudUrl: 'https://world.atlassian.net',
+									workspaceDisplayName: 'World Site',
+								},
+							],
+						},
+					],
+				},
 			},
 		});
 	};
 
 	beforeEach(() => {
 		fetchMock.reset();
-		mockAvailableSites();
+		mockAccessibleProducts();
 		asMock(useCurrentUserInfo).mockReturnValue({
 			user: {
 				accountId: '123',

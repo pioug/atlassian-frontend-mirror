@@ -39,9 +39,17 @@ const LayoutBlockMenuItem = ({ api }: Props) => {
 				: INPUT_METHOD.MOUSE;
 		const inputMethod = INPUT_METHOD.BLOCK_MENU;
 
-		api?.core.actions.execute(
-			api?.blockMenu?.commands.formatNode('layoutSection', { inputMethod, triggeredFrom }),
-		);
+		api?.core.actions.execute(({ tr }) => {
+			const command = api?.blockMenu?.commands.transformNode(
+				tr.doc.type.schema.nodes.layoutSection,
+				{
+					inputMethod,
+					triggeredFrom,
+					targetTypeName: 'layoutSection',
+				},
+			);
+			return command ? command({ tr }) : null;
+		});
 	};
 
 	return (

@@ -222,8 +222,11 @@ export class TeamsClient {
 	 */
 	async getTeamById(
 		teamId: string,
+		cloudId?: string,
 	): Promise<AwaitedReturn<typeof defaultLegionClient.getTeamById>> {
-		return this.measurePerformance('getTeamById', () => this._legionClient.getTeamById(teamId));
+		return this.measurePerformance('getTeamById', () =>
+			this._legionClient.getTeamById(teamId, cloudId),
+		);
 	}
 
 	/**
@@ -822,6 +825,17 @@ export class TeamsClient {
 	): Promise<AwaitedReturn<typeof collaborationGraphClient.getUserContainers>> {
 		return this.measurePerformance('getUserContainers', () =>
 			this._collaborationGraphClient.getUserContainers(...args),
+		);
+	}
+
+	/**
+	 * Fetch recommended users from collaboration graph
+	 */
+	async getRecommendedUsers(
+		...args: Parameters<typeof collaborationGraphClient.getRecommendedUsers>
+	): Promise<AwaitedReturn<typeof collaborationGraphClient.getRecommendedUsers>> {
+		return this.measurePerformance('getRecommendedUsers', () =>
+			this._collaborationGraphClient.getRecommendedUsers(...args),
 		);
 	}
 

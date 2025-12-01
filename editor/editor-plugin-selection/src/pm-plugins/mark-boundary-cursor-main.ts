@@ -13,8 +13,6 @@ export const createMarkBoundaryCursorPlugin = () => {
 			init: () => ({
 				decorations: DecorationSet.empty,
 			}),
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply(tr, currentState) {
 				const { selection, storedMarks, doc, selectionSet, storedMarksSet, docChanged } = tr;
 

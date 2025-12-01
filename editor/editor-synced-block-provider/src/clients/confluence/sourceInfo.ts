@@ -1,6 +1,9 @@
 /* eslint-disable require-unicode-regexp  */
+import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
+import { logException } from '@atlaskit/editor-common/monitoring';
 
 import type { SyncBlockSourceInfo } from '../../providers/types';
+import { getSourceInfoErrorPayload } from '../../utils/errorHandling';
 
 import { getPageIdAndTypeFromConfluencePageAri } from './ari';
 import { isBlogPageType } from './utils';
@@ -82,21 +85,18 @@ const getConfluenceSourceInfo = async (ari: string): Promise<GetSourceInfoResult
 export const fetchConfluencePageInfo = async (
 	pageAri: string,
 	localId?: string,
+	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
 ): Promise<SyncBlockSourceInfo | undefined> => {
 	try {
 		const { type: pageType } = getPageIdAndTypeFromConfluencePageAri(pageAri);
 		const response = await getConfluenceSourceInfo(pageAri);
 
 		const contentData = response.data?.content?.nodes?.[0];
-		if (!contentData) {
-			throw new Error(`Failed to get content data`);
-		}
-
-		const title = contentData.title;
+		const title = contentData?.title;
 
 		let url;
-		const { base } = contentData.links || {};
-		if (base && contentData.space?.key && contentData.id) {
+		const { base } = contentData?.links || {};
+		if (base && contentData?.space?.key && contentData?.id) {
 			if (isBlogPageType(pageType)) {
 				url = `${base}/spaces/${contentData.space.key}/blog/edit-v2/${contentData.id}`;
 			} else if (contentData.subType === 'live') {
@@ -108,9 +108,16 @@ export const fetchConfluencePageInfo = async (
 
 		url = url && localId ? `${url}#block-${localId}` : url;
 
+		if (!title || !url) {
+			fireAnalyticsEvent?.(getSourceInfoErrorPayload( ('Failed to get confluence page source info')));
+		}
+
 		return Promise.resolve({ title, url });
 	} catch (error) {
-		// TODO: EDITOR-1921 - add error analytics
+		logException(error as Error, {
+			location: 'editor-synced-block-provider/sourceInfo',
+		});
+		fireAnalyticsEvent?.(getSourceInfoErrorPayload( (error as Error).message));
 		return Promise.resolve(undefined);
 	}
 };

@@ -189,7 +189,7 @@ export class LocalUploadComponentReact<
 					? rawError.innerError?.message
 					: rawError instanceof Error
 						? rawError.message
-						: 'unknown';
+						: payload.error.description;
 		}
 
 		const requestMetadata = !!rawError ? getRequestMetadata(rawError) : undefined;

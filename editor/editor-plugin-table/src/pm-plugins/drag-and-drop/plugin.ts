@@ -312,14 +312,10 @@ export const createPlugin = (
 			isKeyboardModeActive: false,
 		})),
 		key: pluginKey,
-		// @ts-ignore - Workaround for help-center local consumption
-
 		appendTransaction: (transactions, oldState, newState) => {
 			const { targetCellPosition: oldTargetCellPosition } = getTablePluginState(oldState);
 			const { targetCellPosition: newTargetCellPosition } = getTablePluginState(newState);
 			const { isDragMenuOpen = false, dragMenuIndex } = getPluginState(newState);
-
-			// @ts-ignore - Workaround for help-center local consumption
 
 			transactions.forEach((transaction) => {
 				if (transaction.getMeta('selectedRowViaKeyboard')) {
@@ -384,14 +380,10 @@ export const createPlugin = (
 			};
 		},
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			decorations: (state) => {
 				const { decorationSet } = getPluginState(state);
 				return decorationSet;
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleKeyDown: (view, event) => {
 				const {
 					state: { tr },

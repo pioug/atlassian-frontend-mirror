@@ -3,6 +3,7 @@ import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
 import { NodeDataProvider } from '@atlaskit/node-data-provider';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import {
 	type BlockCardAdf,
 	type EmbedCardAdf,
@@ -217,18 +218,12 @@ export class EditorCardProvider
 
 	private async checkLinkResolved(resourceUrl: string): Promise<boolean | undefined> {
 		try {
-			const response = expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)
-				? // It's ok to cast any resourceUrl to inlineCard here, because only URL is important for the request.
-					await this.getDataAsPromise_DO_NOT_USE_OUTSIDE_MIGRATIONS({
-						type: 'inlineCard',
-						attrs: { url: resourceUrl },
-					})
-				: await this.cardClient.fetchData(resourceUrl);
+			const response = await this.fetchData(resourceUrl);
 
 			if (getStatus(response) !== 'not_found') {
 				return true;
 			}
-		} catch (e) {
+		} catch {
 			return false;
 		}
 	}
@@ -237,18 +232,12 @@ export class EditorCardProvider
 		resourceUrl: string,
 	): Promise<JsonLd.Response<JsonLd.Data.BaseData> | undefined> {
 		try {
-			const response = expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)
-				? // It's ok to cast any resourceUrl to inlineCard here, because only URL is important for the request.
-					await this.getDataAsPromise_DO_NOT_USE_OUTSIDE_MIGRATIONS({
-						type: 'inlineCard',
-						attrs: { url: resourceUrl },
-					})
-				: await this.cardClient.fetchData(resourceUrl);
+			const response = await this.fetchData(resourceUrl);
 
 			if (getStatus(response) !== 'not_found') {
 				return response;
 			}
-		} catch (e) {
+		} catch {
 			return undefined;
 		}
 	}
@@ -395,18 +384,23 @@ export class EditorCardProvider
 		}
 	}
 
-	/**
-	 * Make a /resolve call and find out if result has embed capability
-	 */
-	private async canBeResolvedAsEmbed(url: string) {
-		try {
-			const details = expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)
+	private async fetchData(url: string) {
+		// it uses fetchNodesData internally and caches the result
+		return expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)
 				? // It's ok to cast any resourceUrl to inlineCard here, because only URL is important for the request.
 					await this.getDataAsPromise_DO_NOT_USE_OUTSIDE_MIGRATIONS({
 						type: 'inlineCard',
 						attrs: { url },
 					})
 				: await this.cardClient.fetchData(url);
+	}
+
+	/**
+	 * Make a /resolve call and find out if result has embed capability
+	 */
+	private async canBeResolvedAsEmbed(url: string) {
+		try {
+			const details = await this.fetchData(url);
 
 			if (!details) {
 				return false;
@@ -422,8 +416,20 @@ export class EditorCardProvider
 
 			const embed = extractSmartLinkEmbed(details);
 			return !!embed;
-		} catch (e) {
+		} catch {
 			return false;
+		}
+	}
+
+	private async getAuthStatusFromResolveResponse(url: string): Promise<Pick<JsonLd.Meta.BaseMeta, 'access' | 'visibility'> | undefined> {
+		try {
+			const {meta: {access, visibility}}: JsonLdDatasourceResponse = await this.fetchData(url);
+			return {
+				access,
+				visibility,
+			};
+		} catch {
+			return undefined;
 		}
 	}
 
@@ -432,13 +438,7 @@ export class EditorCardProvider
 	 */
 	private async getDatasourceFromResolveResponse(url: string) {
 		try {
-			const response = expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)
-				? // It's ok to cast any resourceUrl to inlineCard here, because only URL is important for the request.
-					await this.getDataAsPromise_DO_NOT_USE_OUTSIDE_MIGRATIONS({
-						type: 'inlineCard',
-						attrs: { url },
-					})
-				: await this.cardClient.fetchData(url);
+			const response = await this.fetchData(url);
 
 			const datasources = (response && (response as JsonLdDatasourceResponse).datasources) || [];
 			if (datasources.length > 0) {
@@ -446,7 +446,7 @@ export class EditorCardProvider
 				// When we have resources returning more than one we will have revisit this part.
 				return datasources[0];
 			}
-		} catch (e) {
+		} catch {
 			return undefined;
 		}
 	}
@@ -498,6 +498,8 @@ export class EditorCardProvider
 			if (isSupported) {
 				const providerDefaultAppearance = matchedProviderPattern?.defaultView;
 
+				const isEmbedFriendlyLocationEvaluated = (isEmbedFriendlyLocation || isEmbedFriendlyLocation === undefined);
+
 				let preferredAppearance =
 					shouldForceAppearance === undefined
 						? // Ignore both User and provider's appearances if older editor that doesn't send shouldForceAppearance
@@ -507,8 +509,7 @@ export class EditorCardProvider
 							(userPreference as CardAppearance) ||
 							// If user's default choice is "inline" or user hasn't specified preferences at all,
 							// we check whatever one of the hardcoded providers match url (jira /timeline, polaris, etc)
-							((isEmbedFriendlyLocation || isEmbedFriendlyLocation === undefined) &&
-								hardCodedAppearance) ||
+							(isEmbedFriendlyLocationEvaluated && hardCodedAppearance) ||
 							// If non match, we see if this provider has default appearance for this particular regexp
 							providerDefaultAppearance ||
 							// If not, we pick what editor (or any other client) requested
@@ -535,6 +536,21 @@ export class EditorCardProvider
 						url,
 					);
 				}
+				
+				const isUnauthPasteAsBlockCardEnabledNoExposure = !expValEqualsNoExposure('platform_sl_3p_unauth_paste_as_block_card', 'cohort', 'control', 'control');
+				if (isUnauthPasteAsBlockCardEnabledNoExposure && isEmbedFriendlyLocationEvaluated && !userPreference) {
+					const authStatus = await this.getAuthStatusFromResolveResponse(url);
+					if (authStatus) {
+						const { access } = authStatus;
+						if ( access === 'unauthorized') {
+							const isUnauthPasteAsBlockCardEnabled =  !expValEquals('platform_sl_3p_unauth_paste_as_block_card', 'cohort', 'control', 'control');
+							if ( isUnauthPasteAsBlockCardEnabled ) {
+								return this.transformer.toSmartlinkAdf(url, 'block');
+							}
+						}
+					}
+				}
+				
 
 				return this.transformer.toSmartlinkAdf(url, preferredAppearance);
 			}

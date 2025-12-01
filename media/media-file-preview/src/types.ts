@@ -16,6 +16,7 @@ export type MediaFilePreviewDimensions = {
 export interface MediaFilePreview {
 	dataURI: string;
 	srcSet?: string;
+	lazy?: boolean; // Whether the preview is lazy loaded
 	orientation?: number;
 	dimensions?: MediaFilePreviewDimensions;
 	source: MediaFilePreviewSource;

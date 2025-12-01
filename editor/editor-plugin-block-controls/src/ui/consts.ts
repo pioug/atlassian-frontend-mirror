@@ -242,9 +242,3 @@ export const DEFAULT_COLUMN_DISTRIBUTIONS: { [key: number]: number } = {
 	4: 25,
 	5: 20,
 };
-
-export const BLOCK_MENU_WIDTH = 220;
-
-// 	Temporarily disable BLOCK MENU feature until Q4 FY25.
-//  For more details, refer to ticket ED-26972 https://product-fabric.atlassian.net/browse/ED-26972
-export const BLOCK_MENU_ENABLED = false;

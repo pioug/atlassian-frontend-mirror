@@ -1,3 +1,5 @@
+import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
+import { logException } from '@atlaskit/editor-common/monitoring';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
@@ -15,6 +17,7 @@ import type {
 	SyncBlockRendererProviderCreator,
 	SyncBlockSourceInfo,
 } from '../providers/types';
+import { fetchErrorPayload, getSourceInfoErrorPayload } from '../utils/errorHandling';
 import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
 import { createSyncBlockNode } from '../utils/utils';
 
@@ -32,17 +35,23 @@ export class ReferenceSyncBlockStoreManager {
 		{ [localId: BlockInstanceId]: TitleSubscriptionCallback }
 	>;
 	private providerFactories: Map<ResourceId, ProviderFactory>;
+	private fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void;
 
 	private syncBlockURLRequests: Map<ResourceId, boolean>;
 	private isRefreshingSubscriptions: boolean = false;
 
-	constructor(dataProvider?: SyncBlockDataProvider) {
+	constructor(dataProvider?: SyncBlockDataProvider, fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void) {
 		this.syncBlockCache = new Map();
 		this.subscriptions = new Map();
 		this.titleSubscriptions = new Map();
 		this.dataProvider = dataProvider;
 		this.syncBlockURLRequests = new Map();
 		this.providerFactories = new Map();
+		this.fireAnalyticsEvent = fireAnalyticsEvent;
+	}
+
+	public updateFireAnalyticsEvent(fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void) {
+		this.fireAnalyticsEvent = fireAnalyticsEvent;
 	}
 
 	/**
@@ -69,52 +78,65 @@ export class ReferenceSyncBlockStoreManager {
 			// this function will update the cache and call the subscriptions
 			await this.fetchSyncBlocksData(syncBlocks);
 		} catch (error) {
-			// TODO: EDITOR-1921 - add error analytics
+			logException(error as Error, {
+				location: 'editor-synced-block-provider/referenceSyncBlockStoreManager'
+			});
+			this.fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message));
 		} finally {
 			this.isRefreshingSubscriptions = false;
 		}
 	}
 
-	private fetchSyncBlockSourceInfo(resourceId: ResourceId): void {
-		if (!resourceId || !this.dataProvider) {
-			return;
+	private fetchSyncBlockSourceInfo(
+		resourceId: ResourceId,
+	): void {
+		try {
+			if (!resourceId || !this.dataProvider) {
+				throw new Error('Data provider or resourceId not set');
+			}
+
+			if (this.syncBlockURLRequests.get(resourceId)) {
+				return;
+			}
+
+			this.syncBlockURLRequests.set(resourceId, true);
+
+			const existingSyncBlock = this.getFromCache(resourceId);
+			if (!existingSyncBlock) {
+				throw new Error('No existing sync block to fetch source info for');
+			}
+
+			// skip if source URL and title are already present
+			if (existingSyncBlock.data?.sourceURL && existingSyncBlock.data?.sourceTitle) {
+				return;
+			}
+
+			const { sourceAri, product, blockInstanceId } = existingSyncBlock.data || {};
+			if (!sourceAri || !product || !blockInstanceId) {
+				throw new Error('SourceAri, product or blockInstanceId missing');
+			}
+
+			this.dataProvider
+				.fetchSyncBlockSourceInfo(blockInstanceId, sourceAri, product, this.fireAnalyticsEvent)
+				.then((sourceInfo) => {
+					if (!sourceInfo) {
+						return;
+					}
+					this.updateCacheWithSourceInfo(resourceId, sourceInfo);
+					if (sourceInfo.title) {
+						this.updateSourceTitleSubscriptions(resourceId, sourceInfo.title);
+					}
+				})
+				.catch((error) => {
+					this.fireAnalyticsEvent?.(getSourceInfoErrorPayload(error.message));
+				})
+				.finally(() => {
+					this.syncBlockURLRequests.delete(resourceId);
+				});
+		} catch (error) {
+			logException((error as Error), { location: 'editor-synced-block-provider/referenceSyncBlockStoreManager' });
+			this.fireAnalyticsEvent?.(getSourceInfoErrorPayload((error as Error).message));
 		}
-
-		if (this.syncBlockURLRequests.get(resourceId)) {
-			return;
-		}
-
-		this.syncBlockURLRequests.set(resourceId, true);
-
-		const existingSyncBlock = this.getFromCache(resourceId);
-		if (!existingSyncBlock) {
-			return;
-		}
-
-		// skip if source URL and title are already present
-		if (existingSyncBlock.data?.sourceURL && existingSyncBlock.data?.sourceTitle) {
-			return;
-		}
-
-		const { sourceAri, product, blockInstanceId } = existingSyncBlock.data || {};
-		if (!sourceAri || !product || !blockInstanceId) {
-			return;
-		}
-
-		this.dataProvider
-			.fetchSyncBlockSourceInfo(blockInstanceId, sourceAri, product)
-			.then((sourceInfo) => {
-				if (!sourceInfo) {
-					return;
-				}
-				this.updateCacheWithSourceInfo(resourceId, sourceInfo);
-				if (sourceInfo.title) {
-					this.updateSourceTitleSubscriptions(resourceId, sourceInfo.title);
-				}
-			})
-			.finally(() => {
-				this.syncBlockURLRequests.delete(resourceId);
-			});
 	}
 
 	/**
@@ -122,7 +144,9 @@ export class ReferenceSyncBlockStoreManager {
 	 * @param syncBlockNodes - The array of sync block nodes to fetch data for
 	 * @returns The fetched sync block data results
 	 */
-	public async fetchSyncBlocksData(syncBlockNodes: SyncBlockNode[]): Promise<SyncBlockInstance[]> {
+	public async fetchSyncBlocksData(
+		syncBlockNodes: SyncBlockNode[],
+	): Promise<SyncBlockInstance[]> {
 		if (syncBlockNodes.length === 0) {
 			return Promise.resolve([]);
 		}
@@ -145,18 +169,16 @@ export class ReferenceSyncBlockStoreManager {
 		});
 
 		const data = await this.dataProvider.fetchNodesData(nodesToFetch);
-		if (!data) {
-			throw new Error('Failed to fetch sync block node data');
-		}
-
 		const resolvedData: SyncBlockInstance[] = [];
 
 		data.forEach((syncBlockInstance) => {
 			if (!syncBlockInstance.resourceId) {
+				this.fireAnalyticsEvent?.(fetchErrorPayload(syncBlockInstance.error || 'Returned sync block instance does not have resource id'));
 				return;
 			}
 
 			if (syncBlockInstance.error) {
+				this.fireAnalyticsEvent?.(fetchErrorPayload(syncBlockInstance.error));
 				this.updateCache(syncBlockInstance);
 				resolvedData.push(syncBlockInstance);
 				return;
@@ -236,7 +258,11 @@ export class ReferenceSyncBlockStoreManager {
 		if (cachedData) {
 			callback(cachedData);
 		} else {
-			this.fetchSyncBlocksData([createSyncBlockNode(localId, resourceId)]).catch(() => {});
+			this.fetchSyncBlocksData([createSyncBlockNode(localId, resourceId)])
+				.catch((error) => {
+					logException(error, { location: 'editor-synced-block-provider/referenceSyncBlockStoreManager' })
+					this.fireAnalyticsEvent?.(fetchErrorPayload(error.message))
+				});
 		}
 
 		return () => {
@@ -287,17 +313,25 @@ export class ReferenceSyncBlockStoreManager {
 	}
 
 	public subscribe(node: PMNode, callback: SubscriptionCallback): () => void {
-		// check node is a sync block, as we only support sync block subscriptions
-		if (node.type.name !== 'syncBlock') {
+		try {
+			// check node is a sync block, as we only support sync block subscriptions
+			if (node.type.name !== 'syncBlock') {
+				throw new Error('Only sync block node subscriptions are supported')
+			}
+
+			const { resourceId, localId } = node.attrs;
+
+			if (!localId || !resourceId) {
+				throw new Error('Missing local id or resource id')
+			}
+
+			return this.subscribeToSyncBlock(resourceId, localId, callback);
+
+		} catch (error) {
+			logException(error as Error, { location: 'editor-synced-block-provider/referenceSyncBlockStoreManager' });
+			this.fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message));
 			return () => {};
 		}
-		const { resourceId, localId } = node.attrs;
-
-		if (!localId || !resourceId) {
-			return () => {};
-		}
-
-		return this.subscribeToSyncBlock(resourceId, localId, callback);
 	}
 
 	/**
@@ -317,6 +351,9 @@ export class ReferenceSyncBlockStoreManager {
 
 	public getProviderFactory(resourceId: ResourceId): ProviderFactory | undefined {
 		if (!this.dataProvider) {
+			const error = new Error('Data provider not set')
+			logException(error, { location: 'editor-synced-block-provider/referenceSyncBlockStoreManager' });
+			this.fireAnalyticsEvent?.(fetchErrorPayload(error.message));
 			return undefined;
 		}
 
@@ -334,7 +371,12 @@ export class ReferenceSyncBlockStoreManager {
 		}
 
 		if (providerCreator) {
-			this.retrieveDynamicProviders(resourceId, providerFactory, providerCreator);
+			try {
+				this.retrieveDynamicProviders(resourceId, providerFactory, providerCreator);
+			} catch (error) {
+				logException(error as Error, { location: 'editor-synced-block-provider/referenceSyncBlockStoreManager' });
+				this.fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message));
+			}
 		}
 		return providerFactory;
 	}
@@ -345,7 +387,7 @@ export class ReferenceSyncBlockStoreManager {
 		providerCreator: SyncBlockRendererProviderCreator,
 	) {
 		if (!this.dataProvider) {
-			return;
+			throw new Error('Data provider not set')
 		}
 
 		const hasMediaProvider = providerFactory.hasProvider('mediaProvider');
@@ -356,6 +398,7 @@ export class ReferenceSyncBlockStoreManager {
 
 		const syncBlock = this.getFromCache(resourceId);
 		if (!syncBlock || !syncBlock.data?.sourceAri || !syncBlock.data?.product) {
+			this.fireAnalyticsEvent?.(fetchErrorPayload('Sync block or source ari or product not found'));
 			return;
 		}
 
@@ -365,7 +408,7 @@ export class ReferenceSyncBlockStoreManager {
 		);
 
 		if (!parentInfo) {
-			return;
+			throw new Error('Unable to retrive sync block parent info')
 		}
 
 		const { contentId, contentProduct } = parentInfo;
@@ -407,5 +450,6 @@ export class ReferenceSyncBlockStoreManager {
 			providerFactory.destroy();
 		});
 		this.providerFactories.clear();
+		this.fireAnalyticsEvent = undefined;
 	}
 }

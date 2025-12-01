@@ -72,7 +72,7 @@ export const DeleteConfirmationModal = ({
 	return (
 		<ModalTransition>
 			{isOpen && (
-				<ModalDialog onClose={handleClose(false)}>
+				<ModalDialog onClose={handleClose(false)} testId="sync-block-delete-confirmation">
 					<ModalHeader hasCloseButton>
 						<ModalTitle appearance="warning">
 							{formatMessage(messages.deleteConfirmationModalTitle)}

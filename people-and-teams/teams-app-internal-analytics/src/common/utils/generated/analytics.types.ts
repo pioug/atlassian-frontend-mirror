@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::64bb0ed4577d5178ad18a2e1074d934c>>
+ * @codegen <<SignedSource::776a0bf4864fffc548e91deb28866b6b>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1379,6 +1379,17 @@ export type UserProfileAboutTeamsViewedAttributesType = {
 export type TeamAgentsPanelViewedAttributesType = {
 	activeAgentsCount: number;
 };
+export type TeamAssignedTypeUpdatedAttributesType = {
+	teamId: string;
+	teamProfileTabIndex: number;
+	consumer: string;
+	typeId: string;
+};
+export type TeamAssignedTypePickerClickedAttributesType = {
+	teamId: string;
+	teamProfileTabIndex: number;
+	consumer: string;
+};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -2358,6 +2369,12 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when team agents panel is viewed */
 	'screen.teamAgentsPanel.viewed': TeamAgentsPanelViewedAttributesType;
+	/**
+	 * fired when team assigned type is updated */
+	'ui.teamAssignedType.updated': TeamAssignedTypeUpdatedAttributesType;
+	/**
+	 * fired when team assigned type picker is clicked */
+	'ui.teamAssignedTypePicker.clicked': TeamAssignedTypePickerClickedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

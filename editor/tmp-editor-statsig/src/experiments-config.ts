@@ -768,6 +768,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2025-11-26
+	platform_editor_resizer_styles_cleanup: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	platform_editor_smart_card_otp: {
 		defaultValue: boolean;
 		param: string;
@@ -976,6 +983,15 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2025-11-27
+    // https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_sl_3p_unauth_paste_as_block_card/setup
+    platform_sl_3p_unauth_paste_as_block_card: {
+        defaultValue: 'control' | 'card_by_default_only' | 'card_by_default_and_new_design';
+        param: string;
+        productKeys?: ProductKeys;
+        typeGuard: (value: unknown) => value is 'control' | 'card_by_default_only' | 'card_by_default_and_new_design';
+        values: ('control' | 'card_by_default_only' | 'card_by_default_and_new_design')[];
+    };
 	// Added 2024-08-08
 	'test-new-experiments-package': {
 		defaultValue: boolean;
@@ -1049,6 +1065,15 @@ export const editorExperimentsConfig: {
 		param: 'cohort',
 		values: ['control', 'variant1', 'variant2', 'variant3'],
 		defaultValue: 'control',
+	}),
+
+	// Added 2025-11-26
+	platform_editor_resizer_styles_cleanup: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_resizer_styles_cleanup',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
 	}),
 
 	// Added 2025-11-12
@@ -2078,6 +2103,16 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-11-27
+    platform_sl_3p_unauth_paste_as_block_card: createMultivariateExperiment({
+        productKeys: {
+            confluence: 'platform_sl_3p_unauth_paste_as_block_card',
+            jira: 'platform_sl_3p_unauth_paste_as_block_card'
+        },
+        values: ['control', 'card_by_default_only', 'card_by_default_and_new_design'],
+        param: 'cohort',
+        defaultValue: 'control',
+    }),
 	// Added 2025-11-25
 	platform_editor_remove_ncsStepMetrics_plugin: createBooleanExperiment({
 		productKeys: {

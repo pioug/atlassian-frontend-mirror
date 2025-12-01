@@ -90,7 +90,7 @@ function getUfoNameOverride(interaction: InteractionMetrics): string {
 			}
 		}
 		return ufoName;
-	} catch (e: unknown) {
+	} catch {
 		return ufoName;
 	}
 }
@@ -240,7 +240,7 @@ function getAssetsMetrics(interaction: InteractionMetrics, SSRDoneTime: number |
 			return { 'event:assets': assets };
 		}
 		return {};
-	} catch (error) {
+	} catch {
 		// Skip CHR in case of error
 		return {};
 	}
@@ -417,7 +417,7 @@ function getStylesheetMetrics() {
 			// Other domain stylesheets throw a SecurityError
 			try {
 				return acc + item.cssRules.length;
-			} catch (e) {
+			} catch {
 				return acc;
 			}
 		}, 0);
@@ -431,7 +431,7 @@ function getStylesheetMetrics() {
 				} else {
 					return acc;
 				}
-			} catch (e) {
+			} catch {
 				return acc;
 			}
 		}, 0);
@@ -443,7 +443,7 @@ function getStylesheetMetrics() {
 			'ufo:styleDeclarations': styleDeclarations,
 			'ufo:cssrules': cssrules,
 		};
-	} catch (e) {
+	} catch {
 		return {};
 	}
 }
@@ -554,7 +554,7 @@ async function createInteractionMetricsPayload(
 						},
 					},
 				});
-			} catch (e) {}
+			} catch {}
 		}
 
 		return {
@@ -607,20 +607,14 @@ async function createInteractionMetricsPayload(
 		const initialPageLoadExtraTimings = objectToArray(initialPageLoadExtraTiming.getTimings());
 		const config = getConfig();
 
-		if (fg('platform_ufo_default_ssr_edge_timings')) {
-			return {
-				initialPageLoadExtraTimings,
-				SSRTimings: config?.ssr?.getSSRTimings
-					? [...config.ssr.getSSRTimings(), ...objectToArray(ssr.getSSRTimings())]
-					: objectToArray(ssr.getSSRTimings()),
-			};
-		}
+		const defaultSSRTimings = objectToArray(ssr.getSSRTimings());
+		const ssrTimingsFromConfig = config?.ssr?.getSSRTimings?.();
 
 		return {
 			initialPageLoadExtraTimings,
-			SSRTimings: config?.ssr?.getSSRTimings
-				? config.ssr.getSSRTimings()
-				: objectToArray(ssr.getSSRTimings()),
+			SSRTimings: ssrTimingsFromConfig
+				? [...ssrTimingsFromConfig, ...defaultSSRTimings]
+				: defaultSSRTimings,
 		};
 	};
 

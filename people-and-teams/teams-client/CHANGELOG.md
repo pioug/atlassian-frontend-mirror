@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.26.0
+
+### Minor Changes
+
+- [`8b220c96bc0d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b220c96bc0d3) -
+  Added optional cloudId param to getTeamById in legion client
+
 ## 4.25.0
 
 ### Minor Changes

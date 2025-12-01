@@ -698,41 +698,92 @@ export const mockSiteData = [
 		cloudId: '67899',
 		url: 'https://hello.atlassian.net',
 		displayName: 'hello',
+		products: [
+			"jira-software.ondemand",
+			"jira-servicedesk.ondemand",
+			"confluence.ondemand",
+		],
+		avatarUrl: undefined,
+		isVertigo: false
 	},
 	{
 		cloudId: '12345',
 		url: 'https://test1.atlassian.net',
 		displayName: 'test1',
+		products: [
+			"jira-software.ondemand",
+		],
+		avatarUrl: undefined,
+		isVertigo: false
 	},
 	{
 		cloudId: '45678',
 		url: 'https://test2.atlassian.net',
 		displayName: 'test2',
+		products: [
+			"jira-software.ondemand",
+			"jira-product-discovery",
+		],
+		avatarUrl: undefined,
+		isVertigo: false
 	},
 	{
 		cloudId: '78911',
 		url: 'https://test4.atlassian.net',
 		displayName: 'test4',
+		products: [
+			"jira-product-discovery",
+		],
+		avatarUrl: undefined,
+		isVertigo: false
 	},
 	{
 		cloudId: '33333',
 		url: 'https://test7.atlassian.net',
 		displayName: 'testNetworkError',
+		products: [
+			"jira-product-discovery",
+			"jira-servicedesk.ondemand",
+			"confluence.ondemand",
+		],
+		avatarUrl: undefined,
+		isVertigo: false
 	},
 	{
 		cloudId: '44444',
 		url: 'https://test7.atlassian.net',
 		displayName: 'testNoAccess',
+		products: [
+			"jira-product-discovery",
+			"jira-servicedesk.ondemand",
+			"confluence.ondemand",
+		],
+		avatarUrl: undefined,
+		isVertigo: false
 	},
 	{
 		cloudId: '22222',
 		url: 'https://test6.atlassian.net',
 		displayName: 'testNoResults',
+		products: [
+			"jira-product-discovery",
+			"jira-servicedesk.ondemand",
+			"confluence.ondemand",
+		],
+		avatarUrl: undefined,
+		isVertigo: false
 	},
 	{
 		cloudId: '11111',
 		url: 'https://test5.atlassian.net',
 		displayName: 'testSingleIssue',
+		products: [
+			"jira-product-discovery",
+			"jira-servicedesk.ondemand",
+			"confluence.ondemand",
+		],
+		avatarUrl: undefined,
+		isVertigo: false
 	},
 ];
 
@@ -743,17 +794,17 @@ export const mockProductsData = [
 		workspaces: [
 			{
 				cloudId: '67899',
-				workspaceUrl: 'https://hello.atlassian.net',
+				cloudUrl: 'https://hello.atlassian.net',
 				workspaceDisplayName: 'hello',
 			},
 			{
 				cloudId: '12345',
-				workspaceUrl: 'https://test1.atlassian.net',
+				cloudUrl: 'https://test1.atlassian.net',
 				workspaceDisplayName: 'test1',
 			},
 			{
 				cloudId: '45678',
-				workspaceUrl: 'https://test2.atlassian.net',
+				cloudUrl: 'https://test2.atlassian.net',
 				workspaceDisplayName: 'test2',
 			},
 		],
@@ -764,32 +815,32 @@ export const mockProductsData = [
 		workspaces: [
 			{
 				cloudId: '45678',
-				workspaceUrl: 'https://test2.atlassian.net',
+				cloudUrl: 'https://test2.atlassian.net',
 				workspaceDisplayName: 'test2',
 			},
 			{
 				cloudId: '78911',
-				workspaceUrl: 'https://test4.atlassian.net',
+				cloudUrl: 'https://test4.atlassian.net',
 				workspaceDisplayName: 'test4',
 			},
 			{
 				cloudId: '33333',
-				workspaceUrl: 'https://test7.atlassian.net',
+				cloudUrl: 'https://test7.atlassian.net',
 				workspaceDisplayName: 'testNetworkError',
 			},
 			{
 				cloudId: '44444',
-				workspaceUrl: 'https://test7.atlassian.net',
+				cloudUrl: 'https://test7.atlassian.net',
 				workspaceDisplayName: 'testNoAccess',
 			},
 			{
 				cloudId: '22222',
-				workspaceUrl: 'https://test6.atlassian.net',
+				cloudUrl: 'https://test6.atlassian.net',
 				workspaceDisplayName: 'testNoResults',
 			},
 			{
 				cloudId: '11111',
-				workspaceUrl: 'https://test5.atlassian.net',
+				cloudUrl: 'https://test5.atlassian.net',
 				workspaceDisplayName: 'testSingleIssue',
 			},
 		],
@@ -800,27 +851,27 @@ export const mockProductsData = [
 		workspaces: [
 			{
 				cloudId: '67899',
-				workspaceUrl: 'https://hello.atlassian.net',
+				cloudUrl: 'https://hello.atlassian.net',
 				workspaceDisplayName: 'hello',
 			},
 			{
 				cloudId: '44444',
-				workspaceUrl: 'https://test7.atlassian.net',
+				cloudUrl: 'https://test7.atlassian.net',
 				workspaceDisplayName: 'testNoAccess',
 			},
 			{
 				cloudId: '22222',
-				workspaceUrl: 'https://test6.atlassian.net',
+				cloudUrl: 'https://test6.atlassian.net',
 				workspaceDisplayName: 'testNoResults',
 			},
 			{
 				cloudId: '11111',
-				workspaceUrl: 'https://test5.atlassian.net',
+				cloudUrl: 'https://test5.atlassian.net',
 				workspaceDisplayName: 'testSingleIssue',
 			},
 			{
 				cloudId: '33333',
-				workspaceUrl: 'https://test7.atlassian.net',
+				cloudUrl: 'https://test7.atlassian.net',
 				workspaceDisplayName: 'testNetworkError',
 			},
 		],
@@ -831,27 +882,27 @@ export const mockProductsData = [
 		workspaces: [
 			{
 				cloudId: '67899',
-				workspaceUrl: 'https://hello.atlassian.net',
+				cloudUrl: 'https://hello.atlassian.net',
 				workspaceDisplayName: 'hello',
 			},
 			{
 				cloudId: '44444',
-				workspaceUrl: 'https://test7.atlassian.net',
+				cloudUrl: 'https://test7.atlassian.net',
 				workspaceDisplayName: 'testNoAccess',
 			},
 			{
 				cloudId: '22222',
-				workspaceUrl: 'https://test6.atlassian.net',
+				cloudUrl: 'https://test6.atlassian.net',
 				workspaceDisplayName: 'testNoResults',
 			},
 			{
 				cloudId: '11111',
-				workspaceUrl: 'https://test5.atlassian.net',
+				cloudUrl: 'https://test5.atlassian.net',
 				workspaceDisplayName: 'testSingleIssue',
 			},
 			{
 				cloudId: '33333',
-				workspaceUrl: 'https://test7.atlassian.net',
+				cloudUrl: 'https://test7.atlassian.net',
 				workspaceDisplayName: 'testNetworkError',
 			},
 		],

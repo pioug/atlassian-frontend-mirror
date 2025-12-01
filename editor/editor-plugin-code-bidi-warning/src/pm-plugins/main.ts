@@ -71,8 +71,6 @@ export const createPlugin = (
 			};
 		}),
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			decorations: (state) => {
 				if (expValEquals('platform_editor_remove_bidi_char_warning', 'isEnabled', true)) {
 					return DecorationSet.empty;

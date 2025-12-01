@@ -1,0 +1,43 @@
+{
+	"name": "@atlaskit/editor-ssr-renderer",
+	"version": "1.1.0",
+	"description": "SSR Renderer based on Editor",
+	"author": "Atlassian Pty Ltd",
+	"atlassian": {
+		"team": "Editor: Lego",
+		"releaseModel": "continuous",
+		"singleton": true
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/editor-prosemirror": "root:*",
+		"@babel/runtime": "root:*"
+	},
+	"devDependencies": {
+		"@atlaskit/adf-schema": "root:*",
+		"@emotion/react": "root:*"
+	},
+	"peerDependencies": {
+		"react": "^18.2.0"
+	}
+}

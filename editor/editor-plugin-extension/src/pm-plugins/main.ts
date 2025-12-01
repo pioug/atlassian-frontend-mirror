@@ -202,8 +202,6 @@ export const createPlugin = (
 
 	return new SafePlugin({
 		state,
-		// @ts-ignore - Workaround for help-center local consumption
-
 		view: (editorView) => {
 			const domAtPos = editorView.domAtPos.bind(editorView);
 			const extensionProviderHandler = createExtensionProviderHandler(editorView);
@@ -211,8 +209,6 @@ export const createPlugin = (
 			providerFactory.subscribe('extensionProvider', extensionProviderHandler);
 
 			return {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				update: (view, prevState) => {
 					handleUpdate({
 						view,
@@ -229,16 +225,12 @@ export const createPlugin = (
 		},
 		key: pluginKey,
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleDOMEvents: {
 				/**
 				 * ED-18072 - Cannot shift + arrow past bodied extension if it is not empty.
 				 * This code is to handle the case where the selection starts inside or on the node and the user is trying to shift + arrow.
 				 * For other part of the solution see code in: packages/editor/editor-core/src/plugins/selection/pm-plugins/events/keydown.ts
 				 */
-				// @ts-ignore - Workaround for help-center local consumption
-
 				keydown: (view, event) => {
 					if (
 						event instanceof KeyboardEvent &&
@@ -342,8 +334,6 @@ export const createPlugin = (
 					return false;
 				},
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			nodeViews: {
 				// WARNING: referentiality-plugin also creates these nodeviews
 				extension: lazyExtensionNodeView(
@@ -392,8 +382,6 @@ export const createPlugin = (
 					macroInteractionDesignFeatureFlags,
 				),
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			createSelectionBetween: function (view, anchor, head) {
 				const { schema, doc } = view.state;
 				const { multiBodiedExtension } = schema.nodes;

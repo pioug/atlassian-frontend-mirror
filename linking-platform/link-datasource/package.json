@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.30.5",
+	"version": "4.30.6",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -185,9 +185,6 @@
 			"type": "boolean"
 		},
 		"navx-1334-datasource-deep-compare-params": {
-			"type": "boolean"
-		},
-		"navx-1819-link-create-confluence-site-migration": {
 			"type": "boolean"
 		},
 		"navx-1895-new-logo-design": {

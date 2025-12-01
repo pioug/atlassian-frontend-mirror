@@ -7,7 +7,7 @@ import { useAtlassianPlugins } from '@atlassian/link-picker-atlassian-plugin';
 import { mockEndpoints } from '@atlassian/recent-work-client/mocks';
 
 import { PageHeader, PageWrapper } from '../example-helpers/common';
-import { mockAvailableSites } from '../example-helpers/mock-available-sites';
+import { mockAccessibleProducts } from '../example-helpers/mock-available-sites';
 import { MOCK_NO_RESULTS as mockRecentData } from '../example-helpers/mock-recents-data';
 import { LinkPicker, type LinkPickerProps } from '../src';
 
@@ -15,7 +15,7 @@ type OnSubmitPayload = Parameters<LinkPickerProps['onSubmit']>[0];
 
 const smartCardClient = new CardClient('staging');
 
-mockAvailableSites();
+mockAccessibleProducts();
 mockEndpoints(undefined, undefined, mockRecentData);
 
 function LinkPickerAtlassianPlugins() {

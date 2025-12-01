@@ -33,9 +33,6 @@
 			"path": "../../layering/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../popper/afm-products/tsconfig.json"
 		},
 		{

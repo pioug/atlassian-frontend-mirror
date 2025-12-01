@@ -127,7 +127,7 @@ export default class RawDataHandler {
 				}
 			}
 			const observation: RawObservation = {
-				t: Math.round(entry.time),
+				t: Math.round(entry.time - startTime),
 				r: [
 					Math.round(rect.left * 10) / 10,
 					Math.round(rect.top * 10) / 10,

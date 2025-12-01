@@ -27,12 +27,6 @@
 			"path": "../../../analytics/analytics-next/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../theme/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../tokens/afm-products/tsconfig.json"
 		}
 	]

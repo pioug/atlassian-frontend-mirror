@@ -34,15 +34,11 @@ export const createPlugin = (
 	return new SafePlugin<UserPreferencesPluginState>({
 		key: userPreferencesPluginKey,
 		state: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			init() {
 				return {
 					preferences: userPreferencesProvider?.getPreferences() || getInitialUserPreferences(),
 				};
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply: (tr, currentPluginState) => {
 				const meta = tr.getMeta(userPreferencesPluginKey);
 				if (meta?.preferences) {

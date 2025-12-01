@@ -21,8 +21,6 @@ import { pluginKey } from './key';
 import { createReducer } from './reducer';
 
 const hasValidTypeAheadStep = (tr: ReadonlyTransaction): InsertTypeAheadStep | null => {
-	// @ts-ignore - Workaround for help-center local consumption
-
 	const steps = tr.steps.filter((step) => step instanceof InsertTypeAheadStep);
 
 	// There are some cases, like collab rebase, where the steps are re-applied
@@ -67,8 +65,6 @@ export function createPlugin({
 		key: pluginKey,
 
 		state: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			init() {
 				return {
 					typeAheadHandlers,
@@ -84,8 +80,6 @@ export function createPlugin({
 				};
 			},
 
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply(tr, currentPluginState, oldEditorState, state) {
 				const customStep = hasValidTypeAheadStep(tr);
 
@@ -98,8 +92,6 @@ export function createPlugin({
 				return nextPluginState;
 			},
 		},
-
-		// @ts-ignore - Workaround for help-center local consumption
 
 		appendTransaction(transactions, _oldState, newState) {
 			const insertItemCallback = isInsertionTransaction(transactions, ACTIONS.INSERT_RAW_QUERY);
@@ -114,12 +106,8 @@ export function createPlugin({
 			}
 		},
 
-		// @ts-ignore - Workaround for help-center local consumption
-
 		view() {
 			return {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				update(editorView) {},
 			};
 		},
@@ -129,16 +117,10 @@ export function createPlugin({
 				return pluginKey.getState(state)?.decorationSet;
 			},
 
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleDOMEvents: {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				compositionend: (view, event) => {
 					return false;
 				},
-
-				// @ts-ignore - Workaround for help-center local consumption
 
 				click: (view, event) => {
 					const { target } = event;

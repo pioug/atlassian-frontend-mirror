@@ -101,8 +101,7 @@ export default class VCObserverNew {
 
 				if (
 					element &&
-					this.isPostInteraction &&
-					fg('platform_ufo_enable_late_mutation_label_stacks')
+					(this.isPostInteraction || fg('platform_ufo_add_segment_names_to_dom_offenders'))
 				) {
 					const labelStacks = getLabelStacks(element);
 					if (labelStacks) {

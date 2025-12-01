@@ -6,7 +6,7 @@ import { type NumericalCardDimensions } from '@atlaskit/media-common';
 import { type MediaFilePreviewErrorInfo } from '../analytics';
 
 import { printFunctionCall, printScript } from './printScript';
-import { type MediaCardSsr } from './types';
+import { type MediaCardSsr, type MediaCardSsrData } from './types';
 
 // ----- WARNING -----
 // This is a very sensitive fraction of code.
@@ -15,14 +15,19 @@ import { type MediaCardSsr } from './types';
 // due to minimification, for example.
 
 export const GLOBAL_MEDIA_CARD_SSR = 'mediaCardSsr';
+export const GLOBAL_MEDIA_COUNT_SSR = 'mediaCountSsr';
 export const GLOBAL_MEDIA_NAMESPACE = '__MEDIA_INTERNAL';
+
+const MAX_EAGER_LOAD_COUNT = 6;
 
 export type MediaGlobalScope = {
 	[GLOBAL_MEDIA_CARD_SSR]?: MediaCardSsr;
+	[GLOBAL_MEDIA_COUNT_SSR]?: number;
 };
 
 type MediaFeatureFlags = {
 	'media-perf-uplift-mutation-fix'?: boolean;
+	'media-perf-lazy-loading-optimisation'?: boolean;
 };
 
 export function getMediaGlobalScope(globalScope: any = window): MediaGlobalScope {
@@ -44,6 +49,26 @@ export function getMediaCardSSR(globalScope: any = window): MediaCardSsr {
 	return globalMedia[key] as MediaCardSsr;
 }
 
+export function getMediaCountSSR(globalScope: any = window): number {
+	const globalMedia = getMediaGlobalScope(globalScope);
+	// Must match GLOBAL_MEDIA_COUNT_SSR. Can't reference the constant from here.
+	const key = 'mediaCountSsr';
+	if (!globalMedia[key]) {
+		globalMedia[key] = 0;
+	}
+	return globalMedia[key];
+}
+
+export function incrementMediaCountSSR(globalScope: any = window): void {
+	const globalMedia = getMediaGlobalScope(globalScope);
+	// Must match GLOBAL_MEDIA_COUNT_SSR. Can't reference the constant from here.
+	const key = 'mediaCountSsr';
+	if (!globalMedia[key]) {
+		globalMedia[key] = 0;
+	}
+	globalMedia[key]++;
+}
+
 const dashed = (param?: string) => (param ? `-${param}` : '');
 
 export const getKey = (
@@ -63,6 +88,7 @@ export const storeDataURI = (
 	globalScope: any = window,
 ) => {
 	const mediaCardSsr = getMediaCardSSR(globalScope);
+	const mediaCountSsr = getMediaCountSSR(globalScope);
 
 	if (featureFlags['media-perf-uplift-mutation-fix']) {
 		const prevData = mediaCardSsr[key];
@@ -76,7 +102,18 @@ export const storeDataURI = (
 		const srcSet = isPreviousImageLarger ? prevData?.srcSet : paramSrcSet;
 		const dataURI = isPreviousImageLarger ? prevData?.dataURI : paramDataURI;
 
+		const currData: MediaCardSsrData = { dataURI, dimensions, error, srcSet, loading: 'lazy' };
+
 		const img = script?.parentElement?.querySelector('img');
+
+		if (img && featureFlags['media-perf-lazy-loading-optimisation'] && mediaCountSsr < MAX_EAGER_LOAD_COUNT) {
+			incrementMediaCountSSR(globalScope);
+			if (img.getAttribute('loading') === 'lazy') {
+				img.removeAttribute('loading');
+			}
+			currData.loading = '';
+		}
+
 		if (img && dataURI) {
 			img.src = dataURI;
 		}
@@ -84,7 +121,8 @@ export const storeDataURI = (
 			img.srcset = srcSet;
 		}
 
-		const loadPromise = new Promise<void>((resolve, reject) => {
+
+		currData.loadPromise = new Promise<void>((resolve, reject) => {
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			img?.addEventListener('load', () => {
 				resolve(void 0);
@@ -98,7 +136,7 @@ export const storeDataURI = (
 
 		mediaCardSsr[key] = isPreviousImageLarger
 			? prevData
-			: { dataURI, dimensions, error, srcSet, loadPromise };
+			: currData;
 	} else {
 		mediaCardSsr[key] = { dataURI: paramDataURI, dimensions, error };
 	}

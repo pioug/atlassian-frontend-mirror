@@ -67,7 +67,7 @@ function handleError(e: ErrorEvent) {
 				e.error.UFOhasCaught = true;
 			}
 			// eslint-disable-next-line no-empty
-		} catch (e) {}
+		} catch {}
 	}
 }
 
@@ -80,7 +80,7 @@ function handlePromiseRejection(e: PromiseRejectionEvent) {
 			const hint = JSON.stringify(e.reason).slice(0, 50);
 			push('GlobalErrorHandler', null, '', `Non error object thrown: ${hint}`, undefined);
 			// eslint-disable-next-line no-empty
-		} catch (e) {}
+		} catch {}
 	}
 }
 

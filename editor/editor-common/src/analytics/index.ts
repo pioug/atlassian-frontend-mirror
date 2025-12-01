@@ -232,3 +232,4 @@ export {
 
 export type { BlockMenuEventPayload } from './types/block-menu-events';
 export type { BreakoutEventPayload, BreakoutSupportedNodes } from './types/breakout-events';
+export type { RendererSyncBlockEventPayload, SyncBlockEventPayload } from './types/sync-block-events';

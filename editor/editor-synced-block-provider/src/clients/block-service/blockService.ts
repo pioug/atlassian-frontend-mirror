@@ -4,10 +4,8 @@ export type BlockContentResponse = {
 	blockAri: string;
 	blockInstanceId: string;
 	content: string;
-	contentUpdatedAt: number;
 	createdAt: number;
 	createdBy: string;
-	isSynced: boolean;
 	product: SyncBlockProduct;
 	sourceAri: string;
 	status: 'active' | 'deleted';
@@ -51,7 +49,7 @@ export class BlockError extends Error {
 export const getSyncedBlockContent = async ({
 	blockAri,
 }: GetSyncedBlockContentRequest): Promise<BlockContentResponse> => {
-	const response = await fetch(`${BLOCK_SERVICE_API_URL}/block/${blockAri}`, {
+	const response = await fetch(`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`, {
 		method: 'GET',
 		headers: COMMON_HEADERS,
 	});
@@ -64,7 +62,7 @@ export const getSyncedBlockContent = async ({
 };
 
 export const deleteSyncedBlock = async ({ blockAri }: DeleteSyncedBlockRequest): Promise<void> => {
-	const response = await fetch(`${BLOCK_SERVICE_API_URL}/block/${blockAri}`, {
+	const response = await fetch(`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`, {
 		method: 'DELETE',
 		headers: COMMON_HEADERS,
 	});
@@ -78,7 +76,7 @@ export const updateSyncedBlock = async ({
 	blockAri,
 	content,
 }: UpdateSyncedBlockRequest): Promise<void> => {
-	const response = await fetch(`${BLOCK_SERVICE_API_URL}/block/${blockAri}`, {
+	const response = await fetch(`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`, {
 		method: 'PUT',
 		headers: COMMON_HEADERS,
 		body: JSON.stringify({ content }),
@@ -96,10 +94,10 @@ export const createSyncedBlock = async ({
 	product,
 	content,
 }: CreateSyncedBlockRequest): Promise<BlockContentResponse> => {
-	const response = await fetch(`${BLOCK_SERVICE_API_URL}/block/${blockAri}`, {
+	const response = await fetch(`${BLOCK_SERVICE_API_URL}/block`, {
 		method: 'POST',
 		headers: COMMON_HEADERS,
-		body: JSON.stringify({ blockInstanceId, sourceAri, product, content }),
+		body: JSON.stringify({ blockAri, blockInstanceId, sourceAri, product, content }),
 	});
 
 	if (!response.ok) {

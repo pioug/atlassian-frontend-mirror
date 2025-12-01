@@ -1,5 +1,13 @@
 # @atlaskit/link-test-helpers
 
+## 8.5.1
+
+### Patch Changes
+
+- [`37aa215f58706`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37aa215f58706) -
+  NAVX-1904 cleaning up navx-1819-link-create-confluence-site-migration
+- Updated dependencies
+
 ## 8.5.0
 
 ### Minor Changes

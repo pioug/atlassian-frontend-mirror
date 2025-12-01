@@ -91,7 +91,6 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
 		"@af/formatting": "workspace:^",
-		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",

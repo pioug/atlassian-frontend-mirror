@@ -39,9 +39,6 @@
 			"path": "../../logo/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../popup/afm-cc/tsconfig.json"
 		},
 		{

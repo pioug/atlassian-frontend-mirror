@@ -15,8 +15,6 @@ export default () =>
 				isComposing: false,
 				zeroWidthSpacePos: undefined,
 			}),
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply: (tr, value): CompositionPluginState => {
 				const isComposing: boolean = tr.getMeta(pluginKey);
 				const zeroWidthSpacePos: number = tr.getMeta('zeroWidthSpacePos');
@@ -31,8 +29,6 @@ export default () =>
 			},
 		},
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleDOMEvents: {
 				compositionstart: (view: EditorView, event: Event): boolean => {
 					const { tr } = view.state;
@@ -49,8 +45,6 @@ export default () =>
 					view.dispatch(tr);
 					return false;
 				},
-				// @ts-ignore - Workaround for help-center local consumption
-
 				compositionend: (view: EditorView, event: Event): boolean => {
 					const { tr } = view.state;
 					tr.setMeta(pluginKey, false);

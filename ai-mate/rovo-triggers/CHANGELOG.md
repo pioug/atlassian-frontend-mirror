@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 4.6.0
+
+### Minor Changes
+
+- [`997e4c23170b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/997e4c23170b2) -
+  [ux] Support activating agent from chat plan card
+
 ## 4.5.0
 
 ### Minor Changes

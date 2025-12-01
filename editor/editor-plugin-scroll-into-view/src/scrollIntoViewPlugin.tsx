@@ -32,8 +32,6 @@ const hasRelevantChanges = (tr: TransactionWithScroll) => {
 	}
 
 	// Look for specific types of steps that should trigger scrolling
-	// @ts-ignore - Workaround for help-center local consumption
-
 	const hasRelevantStep = tr.steps.some(
 		(step) => step instanceof ReplaceStep || step instanceof ReplaceAroundStep,
 	);
@@ -44,8 +42,6 @@ const hasRelevantChanges = (tr: TransactionWithScroll) => {
 const createPlugin = () =>
 	new SafePlugin({
 		key: scrollIntoViewPluginKey,
-		// @ts-ignore - Workaround for help-center local consumption
-
 		appendTransaction: (transactions, _oldState, newState) => {
 			if (!transactions.length) {
 				return;

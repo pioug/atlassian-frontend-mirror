@@ -1,5 +1,12 @@
 # @atlaskit/breadcrumbs
 
+## 15.3.14
+
+### Patch Changes
+
+- [`1b02fdb966337`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b02fdb966337) -
+  Clean up 'jfp-magma-stability-platform-3' FG
+
 ## 15.3.13
 
 ### Patch Changes

@@ -14,7 +14,6 @@ import {
 import { mapAccessibleProductsToAvailableSites, useAvailableSites, useAvailableSitesV2 } from '.';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { getOperationFailedAttributes } from './utils';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { AvailableSitesProductType, type AccessibleProduct, type AvailableSite } from './types';
 import { icon } from '../../common/mocks/icons';
 
@@ -28,11 +27,11 @@ describe('useAvailableSites', () => {
 		const { result, waitForNextUpdate } = renderHook(() => useAvailableSites());
 
 		expect(result.current).toMatchInlineSnapshot(`
-      {
-        "data": [],
-        "loading": true,
-      }
-    `);
+		      {
+		        "data": [],
+		        "loading": true,
+		      }
+	    `);
 
 		await waitForNextUpdate();
 
@@ -52,11 +51,11 @@ describe('useAvailableSites', () => {
 		});
 
 		expect(result.current).toMatchInlineSnapshot(`
-      {
-        "data": [],
-        "loading": true,
-      }
-    `);
+		      {
+		        "data": [],
+		        "loading": true,
+		      }
+	    `);
 
 		await waitForNextUpdate();
 
@@ -76,12 +75,12 @@ describe('useAvailableSites', () => {
 			},
 		});
 		expect(result.current).toMatchInlineSnapshot(`
-      {
-        "data": [],
-        "error": [Error: unknown error],
-        "loading": false,
-      }
-    `);
+		      {
+		        "data": [],
+		        "error": [Error: unknown error],
+		        "loading": false,
+		      }
+	    `);
 	});
 });
 
@@ -201,167 +200,102 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 });
 
 describe('useAvailableSitesV2', () => {
-	ffTest.on('navx-1819-link-create-confluence-site-migration', '', () => {
-		beforeEach(() => {
-			fetchMock.restore();
-		});
-
-		it('should return loading status and the result', async () => {
-			mockAccessibleProducts();
-			const { result, waitForNextUpdate } = renderHook(() => useAvailableSitesV2({}));
-
-			expect(result.current).toMatchInlineSnapshot(`
-      {
-        "data": [],
-        "loading": true,
-      }
-    `);
-
-			await waitForNextUpdate();
-
-			expect(result.current.loading).toBe(false);
-			expect(result.current.data.length).toBeGreaterThan(0);
-		});
-
-		it('should return loading state then load data', async () => {
-			mockAccessibleProducts();
-			const { result, waitForNextUpdate } = renderHook(() => useAvailableSitesV2({}));
-
-			expect(result.current).toMatchInlineSnapshot(`
-      {
-        "data": [],
-        "loading": true,
-      }
-    `);
-
-			await waitForNextUpdate();
-
-			expect(result.current).toEqual(
-				expect.objectContaining({
-					loading: false,
-					error: undefined,
-					data: expect.arrayContaining([
-						{
-							cloudId: '49d8b9d6-ee7d-4931-a0ca-7fcae7d1c3b5',
-							url: 'https://jdog.jira-dev.com',
-							displayName: 'jdog',
-							avatarUrl: icon.triangle.base64,
-							isVertigo: true,
-							products: [
-								'confluence.ondemand',
-								'jira-software.ondemand',
-								'jira-servicedesk.ondemand',
-								'jira-product-discovery',
-								'compass',
-							],
-						},
-					]),
-				}),
-			);
-		});
-
-		it('should return loading status and the result', async () => {
-			mockAccessibleProductsWithError();
-			const spy = jest.fn();
-			const { result, waitForNextUpdate } = renderHook(() => useAvailableSitesV2({}), {
-				wrapper: ({ children }) => (
-					<AnalyticsListener channel={'*'} onEvent={spy}>
-						{children}
-					</AnalyticsListener>
-				),
-			});
-
-			expect(result.current).toMatchInlineSnapshot(`
-      {
-        "data": [],
-        "loading": true,
-      }
-    `);
-
-			await waitForNextUpdate();
-
-			expect(result.current).toMatchInlineSnapshot(`
-      {
-        "data": [],
-        "error": Response {
-          "_bodyInit": undefined,
-          "_bodyText": "",
-          "headers": Headers {
-            "map": {},
-          },
-          "ok": false,
-          "status": 503,
-          "statusText": "Service Unavailable",
-          "type": "default",
-          "url": "/gateway/api/v2/accessible-products",
-        },
-        "loading": false,
-      }
-    `);
-		});
+	beforeEach(() => {
+		fetchMock.restore();
 	});
 
-	ffTest.off('navx-1819-link-create-confluence-site-migration', '', () => {
-		beforeEach(() => {
-			fetchMock.restore();
+	it('should return loading status and the result', async () => {
+		mockAccessibleProducts();
+		const { result, waitForNextUpdate } = renderHook(() => useAvailableSitesV2({}));
+
+		expect(result.current).toMatchInlineSnapshot(`
+		{
+		  "data": [],
+		  "loading": true,
+		}
+	`);
+
+		await waitForNextUpdate();
+
+		expect(result.current.loading).toBe(false);
+		expect(result.current.data.length).toBeGreaterThan(0);
+	});
+
+	it('should return loading state then load data', async () => {
+		mockAccessibleProducts();
+		const { result, waitForNextUpdate } = renderHook(() => useAvailableSitesV2({}));
+
+		expect(result.current).toMatchInlineSnapshot(`
+		{
+		  "data": [],
+		  "loading": true,
+		}
+	`);
+
+		await waitForNextUpdate();
+
+		expect(result.current).toEqual(
+			expect.objectContaining({
+				loading: false,
+				error: undefined,
+				data: expect.arrayContaining([
+					{
+						cloudId: '49d8b9d6-ee7d-4931-a0ca-7fcae7d1c3b5',
+						url: 'https://jdog.jira-dev.com',
+						displayName: 'jdog',
+						avatarUrl: icon.triangle.base64,
+						isVertigo: true,
+						products: [
+							'confluence.ondemand',
+							'jira-software.ondemand',
+							'jira-servicedesk.ondemand',
+							'jira-product-discovery',
+							'compass',
+						],
+					},
+				]),
+			}),
+		);
+	});
+
+	it('should return loading status and the result', async () => {
+		mockAccessibleProductsWithError();
+		const spy = jest.fn();
+		const { result, waitForNextUpdate } = renderHook(() => useAvailableSitesV2({}), {
+			wrapper: ({ children }) => (
+				<AnalyticsListener channel={'*'} onEvent={spy}>
+					{children}
+				</AnalyticsListener>
+			),
 		});
 
-		it('should return loading status and the result', async () => {
-			mockAvailableSites();
-			const { result, waitForNextUpdate } = renderHook(() => useAvailableSitesV2({}));
+		expect(result.current).toMatchInlineSnapshot(`
+		{
+		  "data": [],
+		  "loading": true,
+		}
+	`);
 
-			expect(result.current).toMatchInlineSnapshot(`
-      {
-        "data": [],
-        "loading": true,
-      }
-    `);
+		await waitForNextUpdate();
 
-			await waitForNextUpdate();
-
-			expect(result.current.loading).toBe(false);
-			expect(result.current.data.length).toBeGreaterThan(0);
-		});
-
-		it('should return loading status and the result', async () => {
-			mockAvailableSitesWithError();
-			const spy = jest.fn();
-			const { result, waitForNextUpdate } = renderHook(() => useAvailableSitesV2({}), {
-				wrapper: ({ children }) => (
-					<AnalyticsListener channel={'*'} onEvent={spy}>
-						{children}
-					</AnalyticsListener>
-				),
-			});
-
-			expect(result.current).toMatchInlineSnapshot(`
-      {
-        "data": [],
-        "loading": true,
-      }
-    `);
-
-			await waitForNextUpdate();
-
-			expect(result.current).toMatchInlineSnapshot(`
-      {
-        "data": [],
-        "error": Response {
-          "_bodyInit": undefined,
-          "_bodyText": "",
-          "headers": Headers {
-            "map": {},
-          },
-          "ok": false,
-          "status": 503,
-          "statusText": "Service Unavailable",
-          "type": "default",
-          "url": "/gateway/api/available-sites",
-        },
-        "loading": false,
-      }
-    `);
-		});
+		expect(result.current).toMatchInlineSnapshot(`
+		{
+		  "data": [],
+		  "error": Response {
+		    "_bodyInit": undefined,
+		    "_bodyText": "",
+		    "headers": Headers {
+		      "map": {},
+		    },
+		    "ok": false,
+		    "status": 503,
+		    "statusText": "Service Unavailable",
+		    "type": "default",
+		    "url": "/gateway/api/v2/accessible-products",
+		  },
+		  "loading": false,
+		}
+	`);
 	});
 });
 

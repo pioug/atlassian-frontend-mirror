@@ -75,7 +75,7 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 				localId={this.node.attrs.localId}
 				syncedBlockRenderer={this.options?.syncedBlockRenderer}
 				useFetchSyncBlockTitle={() => useFetchSyncBlockTitle(syncBlockStore, this.node)}
-				useFetchSyncBlockData={() => useFetchSyncBlockData(syncBlockStore, resourceId, localId)}
+				useFetchSyncBlockData={() => useFetchSyncBlockData(syncBlockStore, resourceId, localId, this.api?.analytics?.actions?.fireAnalyticsEvent)}
 			/>
 		);
 	}

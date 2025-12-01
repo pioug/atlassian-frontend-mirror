@@ -28,8 +28,6 @@ const ideUX = (pluginInjectionApi: ExtractInjectionAPI<CodeBlockPlugin> | undefi
 	const editorAnalyticsAPI = pluginInjectionApi?.analytics?.actions;
 	return new SafePlugin({
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleTextInput(view, from, to, text) {
 				const { state, dispatch } = view;
 				const compositionPluginState = pluginInjectionApi?.composition?.sharedState.currentState();
@@ -74,8 +72,6 @@ const ideUX = (pluginInjectionApi: ExtractInjectionAPI<CodeBlockPlugin> | undefi
 				}
 				return false;
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleKeyDown: keydownHandler({
 				Backspace: (state: EditorState, dispatch?: CommandDispatch) => {
 					if (isCursorInsideCodeBlock(state)) {

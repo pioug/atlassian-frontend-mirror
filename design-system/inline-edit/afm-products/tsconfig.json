@@ -30,9 +30,6 @@
 			"path": "../../button/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../monorepo-tooling/codemod-utils/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../css/afm-products/tsconfig.json"
 		},
 		{

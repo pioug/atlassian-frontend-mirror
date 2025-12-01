@@ -1,6 +1,9 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
+import { type SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
+import { logException } from '@atlaskit/editor-common/monitoring';
+import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -13,6 +16,12 @@ import type {
 	SyncBlockNode,
 } from '../common/types';
 import type { SyncBlockDataProvider } from '../providers/types';
+import {
+	updateErrorPayload,
+	createErrorPayload,
+	deleteErrorPayload,
+	updateCacheErrorPayload,
+} from '../utils/errorHandling';
 import { convertSyncBlockPMNodeToSyncBlockData, createBodiedSyncBlockNode } from '../utils/utils';
 
 export type ConfirmationCallback = (syncBlockCount: number) => Promise<boolean>;
@@ -32,6 +41,7 @@ type SyncBlockData = Data & {
 export class SourceSyncBlockStoreManager {
 	private dataProvider?: SyncBlockDataProvider;
 	private editorView?: EditorView;
+	private fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void;
 
 	private syncBlockCache: Map<ResourceId, SyncBlockData>;
 
@@ -41,9 +51,13 @@ export class SourceSyncBlockStoreManager {
 	private pendingResourceId?: ResourceId;
 	private creationCallback?: CreationCallback;
 
-	constructor(dataProvider?: SyncBlockDataProvider) {
+	constructor(
+		dataProvider?: SyncBlockDataProvider,
+		fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
+	) {
 		this.dataProvider = dataProvider;
 		this.syncBlockCache = new Map();
+		this.fireAnalyticsEvent = fireAnalyticsEvent;
 	}
 
 	public isSourceBlock(node: PMNode): boolean {
@@ -55,19 +69,27 @@ export class SourceSyncBlockStoreManager {
 	 * @param syncBlockNode - The sync block node to update
 	 */
 	public updateSyncBlockData(syncBlockNode: PMNode): boolean {
-		if (!this.isSourceBlock(syncBlockNode)) {
-			throw new Error('Invalid sync block node type provided for updateSyncBlockData');
+		try {
+			if (!this.isSourceBlock(syncBlockNode)) {
+				throw new Error('Invalid sync block node type provided for updateSyncBlockData');
+			}
+
+			const { localId, resourceId } = syncBlockNode.attrs;
+
+			if (!localId || !resourceId) {
+				throw new Error('Local ID or resource ID is not set');
+			}
+
+			const syncBlockData = convertSyncBlockPMNodeToSyncBlockData(syncBlockNode);
+			this.syncBlockCache.set(resourceId, syncBlockData);
+			return true;
+		} catch (error) {
+			logException(error as Error, {
+				location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
+			});
+			this.fireAnalyticsEvent?.(updateCacheErrorPayload((error as Error).message));
+			return false;
 		}
-
-		const { localId, resourceId } = syncBlockNode.attrs;
-
-		if (!localId || !resourceId) {
-			throw new Error('Local ID or resource ID is not set');
-		}
-
-		const syncBlockData = convertSyncBlockPMNodeToSyncBlockData(syncBlockNode);
-		this.syncBlockCache.set(resourceId, syncBlockData);
-		return true;
 	}
 
 	/**
@@ -106,9 +128,23 @@ export class SourceSyncBlockStoreManager {
 				bodiedSyncBlockNodes,
 				bodiedSyncBlockData,
 			);
-			return writeResults.every((result) => result.resourceId !== undefined);
-		} catch {
-			//TODO: EDITOR-1921 - add error analytics
+
+			if (writeResults.every((result) => result.resourceId !== undefined)) {
+				return true;
+			} else {
+				writeResults
+					.filter((result) => result.resourceId === undefined)
+					.forEach((result) => {
+						this.fireAnalyticsEvent?.(updateErrorPayload(result.error || 'Failed to write data'));
+					});
+
+				return false;
+			}
+		} catch (error) {
+			logException(error as Error, {
+				location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
+			});
+			this.fireAnalyticsEvent?.(updateErrorPayload((error as Error).message));
 			return false;
 		}
 	}
@@ -169,7 +205,7 @@ export class SourceSyncBlockStoreManager {
 		const sourceId = this.dataProvider?.getSourceId();
 
 		if (!this.dataProvider || !sourceId) {
-			throw new Error('Provider of sync block plugin is not set');
+			throw new Error('Data provider not set or source id not set');
 		}
 
 		const resourceId = this.dataProvider.generateResourceId(sourceId, localId);
@@ -206,13 +242,18 @@ export class SourceSyncBlockStoreManager {
 							this.commitPendingCreation(true);
 						} else {
 							this.commitPendingCreation(false);
-							// TODO: EDITOR-1921 - add error analytics
+							this.fireAnalyticsEvent?.(
+								createErrorPayload(result.error || 'Failed to create bodied sync block'),
+							);
 						}
 					});
 				})
-				.catch((_reason) => {
+				.catch((error) => {
 					this.commitPendingCreation(false);
-					// TODO: EDITOR-1921 - add error analytics
+					logException(error as Error, {
+						location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
+					});
+					this.fireAnalyticsEvent?.(createErrorPayload((error as Error).message));
 				});
 
 			this.registerPendingCreation(resourceId);
@@ -220,7 +261,10 @@ export class SourceSyncBlockStoreManager {
 			if (this.hasPendingCreation()) {
 				this.commitPendingCreation(false);
 			}
-			// TODO: EDITOR-1921 - add error analytics
+			logException(error as Error, {
+				location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
+			});
+			this.fireAnalyticsEvent?.(createErrorPayload((error as Error).message));
 		}
 	}
 
@@ -239,9 +283,16 @@ export class SourceSyncBlockStoreManager {
 			this.confirmationTransaction = tr;
 			const confirmed = await this.confirmationCallback(syncBlockIds.length);
 			if (confirmed) {
-				this.editorView?.dispatch(
-					this.confirmationTransaction.setMeta('isConfirmedSyncBlockDeletion', true),
+				const trToDispatch = this.confirmationTransaction.setMeta(
+					'isConfirmedSyncBlockDeletion',
+					true,
 				);
+				if (!trToDispatch.getMeta(pmHistoryPluginKey)) {
+					// bodiedSyncBlock deletion is expected to be permanent (cannot be undo)
+					// For a normal delete (not triggered by undo), remove it from history so that it cannot be undone
+					trToDispatch.setMeta('addToHistory', false);
+				}
+				this.editorView?.dispatch(trToDispatch);
 
 				try {
 					if (!this.dataProvider) {
@@ -262,14 +313,24 @@ export class SourceSyncBlockStoreManager {
 						callback = (Ids: SyncBlockAttrs) => {
 							this.setPendingDeletion(Ids, false);
 						};
-						// TODO: EDITOR-1921 - add error analytics
+
+						results
+							.filter((result) => result.resourceId === undefined)
+							.forEach((result) => {
+								this.fireAnalyticsEvent?.(
+									deleteErrorPayload(result.error || 'Failed to delete synced block'),
+								);
+							});
 					}
 					syncBlockIds.forEach(callback);
-				} catch (_error) {
+				} catch (error) {
 					syncBlockIds.forEach((Ids) => {
 						this.setPendingDeletion(Ids, false);
 					});
-					// TODO: EDITOR-1921 - add error analytics
+					logException(error as Error, {
+						location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
+					});
+					this.fireAnalyticsEvent?.(deleteErrorPayload((error as Error).message));
 				}
 			}
 			this.confirmationTransaction = undefined;
@@ -296,5 +357,6 @@ export class SourceSyncBlockStoreManager {
 		this.creationCallback = undefined;
 		this.dataProvider = undefined;
 		this.editorView = undefined;
+		this.fireAnalyticsEvent = undefined;
 	}
 }

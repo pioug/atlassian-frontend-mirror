@@ -87,8 +87,6 @@ function Checkbox({
 							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...restFieldProps}
 							label={label}
-							// @ts-ignore - Workaround for help-center local consumption
-
 							onChange={(event) => handleOnChange(fieldProps.onChange, onFieldChange, event)}
 							isChecked={parseBoolean(isChecked)}
 						/>

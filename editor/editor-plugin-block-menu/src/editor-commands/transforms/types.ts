@@ -19,9 +19,15 @@ export type FormatNodeTargetType =
 	| 'orderedList'
 	| 'taskList';
 
+export type TransfromNodeTargetType = FormatNodeTargetType;
+
 export type FormatNodeAnalyticsAttrs = {
 	inputMethod: INPUT_METHOD.BLOCK_MENU;
 	triggeredFrom: INPUT_METHOD.MOUSE | INPUT_METHOD.KEYBOARD;
+};
+
+export type TransformNodeAnalyticsAttrs = FormatNodeAnalyticsAttrs & {
+	targetTypeName: TransfromNodeTargetType;
 };
 
 export type TransformFunction = (context: TransformContext) => Transaction | null;

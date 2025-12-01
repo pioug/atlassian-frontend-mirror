@@ -1,8 +1,8 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
-import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
+import { mockProductsData, mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 
-import { getAvailableSites } from '../getAvailableSites';
+import { getAccessibleProducts } from '../getAvailableSites';
 
 describe('getAvailableSites', () => {
 	beforeEach(() => {
@@ -11,13 +11,13 @@ describe('getAvailableSites', () => {
 
 	it('should return an array of jira sites', async () => {
 		const mock = fetchMock.post({
-			url: '/gateway/api/available-sites',
+			url: '/gateway/api/v2/accessible-products',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
 			body: {
-				products: [
+				productIds: [
 					'jira-software.ondemand',
 					'jira-core.ondemand',
 					'jira-incident-manager.ondemand',
@@ -26,16 +26,16 @@ describe('getAvailableSites', () => {
 				],
 			},
 			response: {
-				sites: mockSiteData,
+				data: { products: mockProductsData },
 			},
 		});
 
-		const jiraSites = await getAvailableSites('jira');
+		const jiraSites = await getAccessibleProducts('jira');
 
 		expect(mock.calls()).toHaveLength(1);
 
 		expect(mock.calls()[0][1].body).toEqual(
-			'{"products":["jira-software.ondemand","jira-core.ondemand","jira-incident-manager.ondemand","jira-product-discovery","jira-servicedesk.ondemand"]}',
+			'{"productIds":["jira-software.ondemand","jira-core.ondemand","jira-incident-manager.ondemand","jira-product-discovery","jira-servicedesk.ondemand"]}',
 		);
 		expect(mock.done()).toBe(true);
 
@@ -43,25 +43,25 @@ describe('getAvailableSites', () => {
 	});
 
 	it('should return an array of confluence sites', async () => {
-		const mockConfluenceSiteData = mockSiteData.slice(1, 3);
+		const mockConfluenceSiteData = mockProductsData.slice(4, 5);
 		const mock = fetchMock.post({
-			url: '/gateway/api/available-sites',
+			url: '/gateway/api/v2/accessible-products',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
 			body: {
-				products: ['confluence.ondemand'],
+				productIds: ['confluence.ondemand'],
 			},
 			response: {
-				sites: mockConfluenceSiteData,
+				data: { products: mockConfluenceSiteData },
 			},
 		});
 
-		const confluenceSites = await getAvailableSites('confluence');
+		const confluenceSites = await getAccessibleProducts('confluence');
 
 		expect(mock.calls()).toHaveLength(1);
-		expect(mock.calls()[0][1].body).toEqual('{"products":["confluence.ondemand"]}');
+		expect(mock.calls()[0][1].body).toEqual('{"productIds":["confluence.ondemand"]}');
 		expect(mock.done()).toBe(true);
 
 		expect(confluenceSites).toEqual(mockConfluenceSiteData);
@@ -72,13 +72,13 @@ describe('getAvailableSites', () => {
 	describe.each(scenarios)('when calling the function with %s argument', (arg) => {
 		it('should throw if response is 500', async () => {
 			expect.assertions(3);
-			const mock = fetchMock.post('/gateway/api/available-sites', {
+			const mock = fetchMock.post('/gateway/api/v2/accessible-products', {
 				body: 'penguins jumping high',
 				status: 500,
 			});
 
 			try {
-				await getAvailableSites(arg);
+				await getAccessibleProducts(arg);
 			} catch (e) {
 				expect(e).toEqual(new Error('penguins jumping high'));
 			}
@@ -88,12 +88,12 @@ describe('getAvailableSites', () => {
 
 		it('should throw if response is 401', async () => {
 			expect.assertions(3);
-			const mock = fetchMock.post('/gateway/api/available-sites', {
+			const mock = fetchMock.post('/gateway/api/v2/accessible-products', {
 				status: 401,
 			});
 
 			try {
-				await getAvailableSites(arg);
+				await getAccessibleProducts(arg);
 			} catch (e) {
 				expect(e).toEqual(new Error('Something went wrong'));
 			}

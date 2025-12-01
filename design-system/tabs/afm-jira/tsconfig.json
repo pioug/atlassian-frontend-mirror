@@ -21,9 +21,6 @@
 			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../focus-ring/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../primitives/afm-jira/tsconfig.json"
 		},
 		{

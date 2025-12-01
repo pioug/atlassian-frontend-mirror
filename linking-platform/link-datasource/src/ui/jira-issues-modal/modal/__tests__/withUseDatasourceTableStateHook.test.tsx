@@ -15,11 +15,11 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import SmartLinkClient from '../../../../../examples-helpers/smartLinkCustomClient';
 import { EVENT_CHANNEL } from '../../../../analytics';
-import { getAvailableSites } from '../../../../services/getAvailableSites';
+import { getAccessibleProducts } from '../../../../services/getAvailableSites';
 import JiraIssuesConfigModal from '../../index';
 
 jest.mock('../../../../services/getAvailableSites', () => ({
-	getAvailableSites: jest.fn(),
+	getAccessibleProducts: jest.fn(),
 }));
 
 jest.mock('@atlaskit/link-client-extension', () => {
@@ -46,7 +46,7 @@ describe('integration test', () => {
 		const onInsert = jest.fn();
 		const onAnalyticFireEvent = jest.fn();
 
-		asMock(getAvailableSites).mockResolvedValue(mockSiteData);
+		asMock(getAccessibleProducts).mockResolvedValue(mockSiteData);
 		asMock(useDatasourceClientExtension).mockReturnValue({
 			getDatasourceDetails,
 			getDatasourceData,

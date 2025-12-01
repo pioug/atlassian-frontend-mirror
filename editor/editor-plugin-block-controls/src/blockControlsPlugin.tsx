@@ -36,8 +36,6 @@ import {
 import { selectionPreservationPluginKey } from './pm-plugins/selection-preservation/plugin-key';
 import { createSelectionPreservationPlugin } from './pm-plugins/selection-preservation/pm-plugin';
 import { selectNode } from './pm-plugins/utils/getSelection';
-import BlockMenu from './ui/block-menu';
-import { DragHandleMenu } from './ui/drag-handle-menu';
 import { GlobalStylesWrapper } from './ui/global-styles';
 
 export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
@@ -104,11 +102,6 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 						rootAnchorName,
 						rootNodeType,
 					},
-					closeMenu:
-						editorExperiment('platform_editor_controls', 'variant1') &&
-						!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
-							? true
-							: undefined,
 				});
 				return tr;
 			},
@@ -310,35 +303,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 		return sharedState;
 	},
 
-	contentComponent({
-		editorView,
-		popupsMountPoint,
-		popupsBoundariesElement,
-		popupsScrollableElement,
-	}) {
-		if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
-			return (
-				<>
-					<GlobalStylesWrapper api={api} />
-				</>
-			);
-		} else {
-			return (
-				<>
-					{editorExperiment('platform_editor_controls', 'variant1') ? (
-						<BlockMenu
-							editorView={editorView}
-							mountPoint={popupsMountPoint}
-							boundariesElement={popupsBoundariesElement}
-							scrollableElement={popupsScrollableElement}
-							api={api}
-						/>
-					) : (
-						<DragHandleMenu api={api} />
-					)}
-					<GlobalStylesWrapper api={api} />
-				</>
-			);
-		}
+	contentComponent() {
+		return <GlobalStylesWrapper api={api} />;
 	},
 });

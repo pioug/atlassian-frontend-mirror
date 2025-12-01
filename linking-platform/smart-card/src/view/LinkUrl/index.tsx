@@ -20,7 +20,6 @@ const PACKAGE_DATA: PackageDataType = {
 	componentName: 'linkUrl',
 };
 
-// @ts-ignore - Workaround for help-center local consumption
 const Anchor = withLinkClickedEvent('a');
 export const LinkComponent = withLinkClickedEvent(AKLink);
 

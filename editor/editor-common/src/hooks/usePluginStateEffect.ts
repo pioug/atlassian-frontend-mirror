@@ -146,7 +146,6 @@ export function usePluginStateEffect<
 		[injectionApi, pluginNames],
 	);
 
-	// @ts-ignore - Workaround for help-center local consumption
 	usePluginStateEffectInternal(namedExternalPlugins, effect, options);
 }
 

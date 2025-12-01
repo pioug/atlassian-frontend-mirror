@@ -37,8 +37,6 @@ export function createPlugin(
 		}),
 
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			attributes(state) {
 				const pluginState = getPluginState(state);
 
@@ -50,11 +48,7 @@ export function createPlugin(
 				};
 			},
 
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleDOMEvents: {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				mousedown(view, event) {
 					const { state } = view;
 					const resizeHandlePos =

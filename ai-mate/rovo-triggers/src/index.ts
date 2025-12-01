@@ -27,6 +27,7 @@ export type {
 	SolutionArchitectHandoffPayload,
 	NonAppHandoffPayload,
 	AppHandoffPayload,
+	SolutionArchitectAgentActivationPayload,
 } from './common/types/solution-architect';
 export {
 	getRovoParams,

@@ -370,8 +370,6 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 					const mediaSelectionHandlerPlugin = new SafePlugin({
 						key: new PluginKey('mediaSelectionHandlerPlugin'),
 						props: {
-							// @ts-ignore - Workaround for help-center local consumption
-
 							handleScrollToSelection: (view) => {
 								const {
 									state: { selection },

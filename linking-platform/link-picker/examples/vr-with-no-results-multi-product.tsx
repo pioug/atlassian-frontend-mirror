@@ -5,7 +5,7 @@ import { AtlassianLinkPickerPlugin, Scope } from '@atlassian/link-picker-atlassi
 import { mockEndpoints } from '@atlassian/recent-work-client/mocks';
 
 import { PageWrapper } from '../example-helpers/common';
-import { mockAvailableSites } from '../example-helpers/mock-available-sites';
+import { mockAccessibleProducts } from '../example-helpers/mock-available-sites';
 import { mockPluginEndpointsNoData } from '../example-helpers/mock-plugin-endpoints';
 import { MOCK_NO_RESULTS } from '../example-helpers/mock-recents-data';
 import { LinkPicker, type LinkPickerProps } from '../src';
@@ -14,7 +14,7 @@ type OnSubmitPayload = Parameters<LinkPickerProps['onSubmit']>[0];
 
 mockPluginEndpointsNoData();
 mockEndpoints(undefined, undefined, MOCK_NO_RESULTS);
-mockAvailableSites();
+mockAccessibleProducts();
 
 function Basic() {
 	const [link] = useState<OnSubmitPayload>({

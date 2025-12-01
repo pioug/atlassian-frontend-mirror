@@ -6,7 +6,7 @@ import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/u
 import type { SyncBlockAttrs } from '../../syncedBlockPluginType';
 
 type syncBlockMap = {
-	[key: string]: SyncBlockAttrs;
+	[key: string]: { attrs: SyncBlockAttrs; from?: number; to?: number };
 };
 
 export const trackSyncBlocks = (
@@ -42,7 +42,7 @@ export const trackSyncBlocks = (
 						Math.min(state.doc.content.size, oldEnd),
 					);
 
-					deletedSlice.content.forEach((node, _, index) => {
+					deletedSlice.content.forEach((node) => {
 						if (hasChange) {
 							return;
 						}
@@ -77,14 +77,18 @@ export const trackSyncBlocks = (
 		oldDoc.content.forEach((node) => {
 			if (predicate(node)) {
 				const syncBlockAttr = node.attrs as SyncBlockAttrs;
-				syncBlockMapOld[syncBlockAttr.localId] = syncBlockAttr;
+				syncBlockMapOld[syncBlockAttr.localId] = { attrs: syncBlockAttr };
 			}
 		});
 
-		newDoc.content.forEach((node) => {
+		newDoc.content.forEach((node, offset) => {
 			if (predicate(node)) {
 				const syncBlockAttr = node.attrs as SyncBlockAttrs;
-				syncBlockMapNew[syncBlockAttr.localId] = syncBlockAttr;
+				syncBlockMapNew[syncBlockAttr.localId] = {
+					attrs: syncBlockAttr,
+					from: offset,
+					to: offset + node.nodeSize,
+				};
 			}
 		});
 

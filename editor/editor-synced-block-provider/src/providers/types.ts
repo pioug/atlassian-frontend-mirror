@@ -1,3 +1,4 @@
+import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { MediaProvider, ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { EmojiProvider } from '@atlaskit/emoji';
 import type { MentionProvider } from '@atlaskit/mention/types';
@@ -100,6 +101,7 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 		localId: BlockInstanceId,
 		sourceAri: string,
 		sourceProduct: SyncBlockProduct,
+		fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
 	): Promise<SyncBlockSourceInfo | undefined>;
 	abstract getSyncedBlockRendererProviderOptions(): SyncedBlockRendererProviderOptions;
 	abstract retrieveSyncBlockParentInfo(

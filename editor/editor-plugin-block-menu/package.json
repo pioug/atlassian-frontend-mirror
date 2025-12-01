@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-menu",
-	"version": "5.0.23",
+	"version": "5.1.0",
 	"description": "BlockMenu plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -42,6 +42,7 @@
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-tables": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
+		"@atlaskit/flag": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
@@ -93,9 +94,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_adf_with_localid": {
-			"type": "boolean"
-		},
-		"platform_editor_block_menu_transform_nested_node": {
 			"type": "boolean"
 		},
 		"platform_editor_toolbar_aifc_user_intent_fix": {

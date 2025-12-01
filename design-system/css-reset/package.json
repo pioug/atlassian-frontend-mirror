@@ -37,7 +37,6 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/link": "workspace:^",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",
 		"mkdirp": "root:*"

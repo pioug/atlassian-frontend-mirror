@@ -14,8 +14,6 @@ const createPlugin = ({ initialMode }: { initialMode: ViewMode | undefined }) =>
 		key: viewModePluginKey,
 		state: {
 			init: () => ({ mode: initialMode ?? 'edit' }),
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply: (tr, pluginState) => {
 				const meta = tr.getMeta(viewModePluginKey);
 				if (meta) {

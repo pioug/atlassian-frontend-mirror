@@ -1,5 +1,20 @@
 # @atlaskit/editor-statsig-tmp
 
+## 14.2.0
+
+### Minor Changes
+
+- [`ee7dfc1442426`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee7dfc1442426) -
+  [ux] Make 3P Unauthenticated links pasted on a new line to convert to block card
+
+## 14.1.3
+
+### Patch Changes
+
+- [`5d8ba7e59f96f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d8ba7e59f96f) -
+  simplify the media single resizer classnames
+- Updated dependencies
+
 ## 14.1.2
 
 ### Patch Changes

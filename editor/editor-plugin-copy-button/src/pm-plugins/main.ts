@@ -83,16 +83,12 @@ export function copyButtonPlugin() {
 	return new SafePlugin({
 		key: copyButtonPluginKey,
 		state: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			init(): CopyButtonPluginState {
 				return {
 					copied: false,
 					markSelection: undefined,
 				};
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply(tr, currentPluginState: CopyButtonPluginState): CopyButtonPluginState {
 				const meta = tr.getMeta(copyButtonPluginKey);
 				if (meta?.copied !== undefined) {
@@ -131,8 +127,6 @@ export function copyButtonPlugin() {
 			},
 		},
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			decorations(_state) {
 				// Showing visual hints for the hyperlink copy button has been disabled
 				// due to an issue where invalid hyperlink marks cause the floating toolbar

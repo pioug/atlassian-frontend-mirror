@@ -262,8 +262,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	}
 
 	unsubscribeFromUploadInProgressState(fn: (isUploading: boolean) => void) {
-		// @ts-ignore - Workaround for help-center local consumption
-
 		this.uploadInProgressSubscriptions = this.uploadInProgressSubscriptions.filter(
 			(subscribedFn) => subscribedFn !== fn,
 		);
@@ -475,8 +473,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 			this.uploadInProgressSubscriptions.length > 0 &&
 			!this.uploadInProgressSubscriptionsNotified
 		) {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			this.uploadInProgressSubscriptions.forEach((fn) => fn(true));
 			this.uploadInProgressSubscriptionsNotified = true;
 		}
@@ -558,8 +554,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 				this.uploadInProgressSubscriptions.length > 0 &&
 				this.uploadInProgressSubscriptionsNotified
 			) {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				this.uploadInProgressSubscriptions.forEach((fn) => fn(false));
 				this.uploadInProgressSubscriptionsNotified = false;
 			}
@@ -584,8 +578,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 				const lastTrackedAddedNode = this.lastAddedMediaSingleFileIds[0];
 				// execute selection only if selection did not change after the node has been inserted
 				if (lastTrackedAddedNode?.selectionPosition === this.view.state.selection.from) {
-					// @ts-ignore - Workaround for help-center local consumption
-
 					const lastAddedNode = this.mediaNodes.find((node) => {
 						return node.node.attrs.id === lastTrackedAddedNode.id;
 					});
@@ -724,41 +716,25 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	handleMediaNodeUnmount = (oldNode: PMNode) => {
 		this.trackMediaNodeRemoval(oldNode);
 
-		// @ts-ignore - Workaround for help-center local consumption
-
 		this.mediaNodes = this.mediaNodes.filter(({ node }) => oldNode !== node);
 	};
 
 	handleMediaGroupUpdate = (oldNodes: PMNode[], newNodes: PMNode[]) => {
-		// @ts-ignore - Workaround for help-center local consumption
-
 		const addedNodes = newNodes.filter((node) =>
-			// @ts-ignore - Workaround for help-center local consumption
-
 			oldNodes.every((oldNode) => oldNode.attrs.id !== node.attrs.id),
 		);
-		// @ts-ignore - Workaround for help-center local consumption
-
 		const removedNodes = oldNodes.filter((node) =>
-			// @ts-ignore - Workaround for help-center local consumption
-
 			newNodes.every((newNode) => newNode.attrs.id !== node.attrs.id),
 		);
-
-		// @ts-ignore - Workaround for help-center local consumption
 
 		addedNodes.forEach((node) => {
 			this.trackMediaNodeAddition(node);
 		});
 
-		// @ts-ignore - Workaround for help-center local consumption
-
 		removedNodes.forEach((oldNode) => {
 			this.trackMediaNodeRemoval(oldNode);
 		});
 	};
-
-	// @ts-ignore - Workaround for help-center local consumption
 
 	destroy() {
 		if (this.destroyed) {
@@ -779,8 +755,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	};
 
 	private destroyAllPickers = (pickers: Array<PickerFacade>) => {
-		// @ts-ignore - Workaround for help-center local consumption
-
 		pickers.forEach((picker) => picker.destroy());
 		this.pickers.splice(0, this.pickers.length);
 	};
@@ -825,16 +799,12 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 				pickers.push((this.customPicker = await customPicker));
 			}
 
-			// @ts-ignore - Workaround for help-center local consumption
-
 			pickers.forEach((picker) => {
 				picker.onNewMedia(this.insertFile);
 			});
 		}
 
 		// set new upload params for the pickers
-		// @ts-ignore - Workaround for help-center local consumption
-
 		pickers.forEach((picker) => picker.setUploadParams(uploadParams));
 	}
 
@@ -938,8 +908,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		props: Partial<Pick<this, 'allowsUploads' | 'allUploadsFinished' | 'isFullscreen'>>,
 	) {
 		// update plugin state
-		// @ts-ignore - Workaround for help-center local consumption
-
 		Object.keys(props).forEach((_key) => {
 			const key = _key as keyof typeof props;
 			const value = props[key];
@@ -970,7 +938,6 @@ export const createPlugin = (
 
 	return new SafePlugin({
 		state: {
-			// @ts-ignore - Workaround for help-center local consumption
 			init(_config, state) {
 				return new MediaPluginStateImplementation(
 					state,
@@ -980,7 +947,6 @@ export const createPlugin = (
 					pluginInjectionApi,
 				);
 			},
-			// @ts-ignore - Workaround for help-center local consumption
 			apply(tr, pluginState: MediaPluginState) {
 				const isResizing = tr.getMeta(MEDIA_PLUGIN_IS_RESIZING_KEY);
 				const resizingWidth = tr.getMeta(MEDIA_PLUGIN_RESIZING_WIDTH_KEY);
@@ -1007,8 +973,6 @@ export const createPlugin = (
 
 				// remap editing media single position if we're in collab
 				if (typeof pluginState.editingMediaSinglePos === 'number') {
-					// @ts-ignore - Workaround for help-center local consumption
-
 					pluginState.editingMediaSinglePos = tr.mapping.map(pluginState.editingMediaSinglePos);
 					nextPluginState = nextPluginState.clone();
 				}
@@ -1051,7 +1015,6 @@ export const createPlugin = (
 				return nextPluginState;
 			},
 		},
-		// @ts-ignore - Workaround for help-center local consumption
 		appendTransaction(transactions, _oldState: EditorState, newState: EditorState) {
 			for (const transaction of transactions) {
 				const isSelectionOnMediaInsideMediaSingle =
@@ -1075,7 +1038,6 @@ export const createPlugin = (
 			return;
 		},
 		key: stateKey,
-		// @ts-ignore - Workaround for help-center local consumption
 		view: (view) => {
 			const pluginState = getMediaPluginState(view.state);
 			pluginState.setView(view);
@@ -1088,7 +1050,6 @@ export const createPlugin = (
 			};
 		},
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
 			decorations: (state) => {
 				// Use this to indicate that the media node is selected
 				const mediaNodes: Decoration[] = [];
@@ -1105,7 +1066,6 @@ export const createPlugin = (
 					state.selection instanceof NodeSelection ||
 					state.selection instanceof CellSelection
 				) {
-					// @ts-ignore - Workaround for help-center local consumption
 					doc.nodesBetween(state.selection.from, state.selection.to, (node, pos) => {
 						if (node.type === schema.nodes.media) {
 							mediaNodes.push(
@@ -1142,8 +1102,6 @@ export const createPlugin = (
 					$anchor.parent.type !== schema.nodes.paragraph &&
 					$anchor.parent.type !== schema.nodes.codeBlock
 				) {
-					// @ts-ignore - Workaround for help-center local consumption
-
 					pos = insertPoint(state.doc, pos, schema.nodes.mediaGroup);
 				}
 
@@ -1177,7 +1135,6 @@ export const createPlugin = (
 				return DecorationSet.create(state.doc, dropPlaceholders);
 			},
 			nodeViews: options.nodeViews,
-			// @ts-ignore - Workaround for help-center local consumption
 			handleTextInput(view: EditorView, from, to, text): boolean {
 				const { selection } = view.state;
 				if (
@@ -1190,8 +1147,6 @@ export const createPlugin = (
 						'button, [tabindex]:not([tabindex="-1"])',
 					);
 					if (videoControls) {
-						// @ts-ignore - Workaround for help-center local consumption
-
 						const isVideoControl = Array.from(videoControls).some(
 							(videoControl: HTMLButtonElement) => {
 								// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
@@ -1207,7 +1162,6 @@ export const createPlugin = (
 				getMediaPluginState(view.state).splitMediaGroup();
 				return false;
 			},
-			// @ts-ignore - Workaround for help-center local consumption
 			handleClick: (_editorView, _pos, event: MouseEvent) => {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -1234,7 +1188,6 @@ export const createPlugin = (
 
 				return false;
 			},
-			// @ts-ignore - Workaround for help-center local consumption
 			handleDoubleClickOn: (view) => {
 				// Check if media viewer is enabled
 				const pluginState = getMediaPluginState(view.state);
@@ -1276,11 +1229,7 @@ export const createPlugin = (
 
 				return false;
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleDOMEvents: {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				keydown: (view, event: KeyboardEvent) => {
 					const { selection } = view.state;
 					if (selection instanceof NodeSelection && selection.node.type.name === 'mediaSingle') {

@@ -36,6 +36,13 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__rovo-agent-analytics/app"
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../../analytics/analytics-listeners/tsconfig.app.json"
+		},
+		{
+			"path": "../../analytics/analytics-next/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

@@ -3,9 +3,12 @@
 import fetchMock from 'fetch-mock/cjs/client';
 import {
 	mockedAvailableSitesResult,
-	mockedAvailableSitesResultWithGatewayBaseUrl,
+	mockedAvailableSitesResultWithGatewayBaseUrl
 } from './available-sites-result';
-import { mockedAccessibleProductsResult } from './accessible-products-result';
+import {
+	mockedAccessibleProductsResult,
+	mockedAccessibleResultWithGatewayBaseUrl,
+} from './accessible-products-result';
 
 const fetchAvailableSiteEndpoint = /\/gateway\/api\/available-sites/;
 const fetchAccessibleProductsEndpoint = /\/gateway\/api\/v2\/accessible-products/;
@@ -32,6 +35,21 @@ export const mockAvailableSitesForGatewayUrl = (gatewayBaseUrl: string) => {
 	fetchMock.post(
 		`${gatewayBaseUrl}/gateway/api/available-sites`,
 		mockedAvailableSitesResultWithGatewayBaseUrl,
+		{
+			delay: 10,
+			overwriteRoutes: true,
+		},
+	);
+};
+
+/**
+ * Mock accessibleProducts for a specific gatewayBaseUrl. Only matches requests with the gatewayBaseUrl in the url.
+ * @param gatewayBaseUrl Base url without trailing slash
+ */
+export const mockAccessibleProductsForGatewayUrl = (gatewayBaseUrl: string) => {
+	fetchMock.post(
+		`${gatewayBaseUrl}/gateway/api/v2/accessible-products`,
+		mockedAccessibleResultWithGatewayBaseUrl,
 		{
 			delay: 10,
 			overwriteRoutes: true,

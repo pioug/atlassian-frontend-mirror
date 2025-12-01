@@ -62,7 +62,7 @@ export default class TableRowNativeStickyWithFallback
 
 			const tree = getTree(this.dom);
 			if (tree) {
-				this.makeRowHeaderNotSticky(tree.table, true);
+				this.makeRowHeaderNotLegacySticky(tree.table, true);
 			}
 
 			this.emitOff(false);
@@ -83,7 +83,7 @@ export default class TableRowNativeStickyWithFallback
 		super(node, view, getPos, eventDispatcher);
 
 		this.isHeaderRow = supportedHeaderRow(node);
-		this.isSticky = false;
+		this.isLegacySticky = false;
 
 		const { pluginConfig } = getPluginState(view.state);
 
@@ -138,7 +138,7 @@ export default class TableRowNativeStickyWithFallback
 	private colControlsOffset = 0;
 	private focused = false;
 	private topPosEditorElement = 0;
-	private isSticky: boolean;
+	private isLegacySticky: boolean;
 	private intersectionObserver?: IntersectionObserver;
 	private resizeObserver?: ResizeObserver;
 	private tableContainerObserver?: MutationObserver;
@@ -216,7 +216,7 @@ export default class TableRowNativeStickyWithFallback
 
 			const tree = getTree(this.dom);
 			if (tree) {
-				this.makeRowHeaderNotSticky(tree.table, true);
+				this.makeRowHeaderNotLegacySticky(tree.table, true);
 			}
 
 			this.emitOff(true);
@@ -271,7 +271,7 @@ export default class TableRowNativeStickyWithFallback
 	// This prevents mouse wheel scrolling on the scroll-parent div when user's mouse is hovering the header row.
 	// This fix sets pointer-events: none on the header row briefly to avoid this behaviour
 	private headerRowMouseScroll = throttle(() => {
-		if (this.isSticky) {
+		if (this.isLegacySticky) {
 			this.dom.classList.add('no-pointer-events');
 			this.headerRowMouseScrollEnd();
 		}
@@ -364,8 +364,8 @@ export default class TableRowNativeStickyWithFallback
 					observer.root.classList.remove(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
 					this.dom.classList.remove(ClassName.NATIVE_STICKY);
 					this.isNativeSticky = false;
-					this.refreshStickyState();
 				}
+				this.refreshLegacyStickyState();
 			});
 		}, options);
 	}
@@ -580,26 +580,32 @@ export default class TableRowNativeStickyWithFallback
 					this.sentinelData[targetKey === 'top' ? 'bottom' : targetKey].rootBounds =
 						rootBounds ?? entry.rootBounds;
 				});
-				this.refreshStickyState();
+				this.refreshLegacyStickyState();
 			},
 			{ threshold: 0, root: this.editorScrollableElement as Element },
 		);
 	}
 
-	private refreshStickyState() {
+	private refreshLegacyStickyState() {
 		const tree = getTree(this.dom);
 		if (!tree) {
 			return;
 		}
 		const { table } = tree;
+
+		if (this.isNativeSticky) {
+			this.makeRowHeaderNotLegacySticky(table);
+			return;
+		}
+
 		const shouldStick = this.shouldSticky();
-		if (this.isSticky !== shouldStick) {
-			if (shouldStick && !this.isNativeSticky) {
+		if (this.isLegacySticky !== shouldStick) {
+			if (shouldStick) {
 				// The rootRect is kept in sync across sentinels so it doesn't matter which one we use.
 				const rootRect = this.sentinelData.top.rootBounds ?? this.sentinelData.bottom.rootBounds;
-				this.makeHeaderRowSticky(tree, rootRect?.top);
+				this.makeHeaderRowLegacySticky(tree, rootRect?.top);
 			} else {
-				this.makeRowHeaderNotSticky(table);
+				this.makeRowHeaderNotLegacySticky(table);
 			}
 		}
 	}
@@ -715,7 +721,7 @@ export default class TableRowNativeStickyWithFallback
 
 		// If current table selected and header row is toggled off, turn off sticky header
 		if (isCurrentTableSelected && !state.isHeaderRowEnabled && tree) {
-			this.makeRowHeaderNotSticky(tree.table);
+			this.makeRowHeaderNotLegacySticky(tree.table);
 		}
 		this.focused = isCurrentTableSelected;
 
@@ -767,7 +773,7 @@ export default class TableRowNativeStickyWithFallback
 	 * Useful when the header may have detached from the table.
 	 */
 	private refireIntersectionObservers() {
-		if (this.isSticky) {
+		if (this.isLegacySticky) {
 			[this.sentinels.top, this.sentinels.bottom].forEach((el) => {
 				if (el && this.intersectionObserver) {
 					this.intersectionObserver.unobserve(el);
@@ -777,10 +783,10 @@ export default class TableRowNativeStickyWithFallback
 		}
 	}
 
-	private makeHeaderRowSticky(tree: TableDOMElements, scrollTop?: number) {
+	private makeHeaderRowLegacySticky(tree: TableDOMElements, scrollTop?: number) {
 		// If header row height is more than 50% of viewport height don't do this
 		if (
-			this.isSticky ||
+			this.isLegacySticky ||
 			(this.stickyRowHeight && this.stickyRowHeight > window.innerHeight / 2) ||
 			this.isInNestedTable
 		) {
@@ -804,12 +810,12 @@ export default class TableRowNativeStickyWithFallback
 
 		const domTop = currentTableTop > 0 ? scrollTop : scrollTop + currentTableTop;
 
-		if (!this.isSticky) {
+		if (!this.isLegacySticky) {
 			syncStickyRowToTable(table);
 			this.dom.classList.add('sticky');
 			table.classList.add(ClassName.TABLE_STICKY);
 
-			this.isSticky = true;
+			this.isLegacySticky = true;
 
 			/**
 			 * The logic below is not desirable, but acts as a fail safe for scenarios where the sticky header
@@ -836,8 +842,8 @@ export default class TableRowNativeStickyWithFallback
 		this.emitOn(domTop, this.colControlsOffset);
 	}
 
-	private makeRowHeaderNotSticky(table: HTMLElement, isEditorDestroyed: boolean = false) {
-		if (!this.isSticky || !table || !this.dom) {
+	private makeRowHeaderNotLegacySticky(table: HTMLElement, isEditorDestroyed: boolean = false) {
+		if (!this.isLegacySticky || !table || !this.dom) {
 			return;
 		}
 
@@ -845,7 +851,7 @@ export default class TableRowNativeStickyWithFallback
 		this.dom.classList.remove('sticky');
 		table.classList.remove(ClassName.TABLE_STICKY);
 
-		this.isSticky = false;
+		this.isLegacySticky = false;
 		this.dom.style.top = '';
 		table.style.removeProperty('margin-top');
 

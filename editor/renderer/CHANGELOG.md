@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 124.16.8
+
+### Patch Changes
+
+- [`89f064b9cae39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/89f064b9cae39) -
+  [ux] [EDITOR-2917] scale emoji placeholders in the renderer
+- Updated dependencies
+
+## 124.16.7
+
+### Patch Changes
+
+- [`0cc1855e9071d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cc1855e9071d) -
+  EDITOR-1921 add analytics for sync block provider failures
+- Updated dependencies
+
 ## 124.16.6
 
 ### Patch Changes

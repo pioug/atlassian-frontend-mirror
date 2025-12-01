@@ -149,7 +149,6 @@ function ElementList({
 
 	return (
 		<Fragment>
-			{/* @ts-ignore - Workaround for help-center local consumption */}
 			<ContainerWidthMonitor />
 			<div
 				css={elementItemsWrapper}

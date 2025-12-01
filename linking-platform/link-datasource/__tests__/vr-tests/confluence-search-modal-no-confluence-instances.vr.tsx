@@ -5,7 +5,4 @@ import ConfluenceSearchConfigModalNoInstances from '../../examples/vr/confluence
 snapshot(ConfluenceSearchConfigModalNoInstances, {
 	description: 'Confluence search config modal no instances view',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'navx-1819-link-create-confluence-site-migration': true,
-	},
 });

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 8.4.14
+
+### Patch Changes
+
+- [`5d8ba7e59f96f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d8ba7e59f96f) -
+  simplify the media single resizer classnames
+- Updated dependencies
+
 ## 8.4.13
 
 ### Patch Changes

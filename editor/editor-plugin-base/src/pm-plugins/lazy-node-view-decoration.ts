@@ -32,8 +32,6 @@ export function createLazyNodeViewDecorationPlugin() {
 			init: () => {
 				return { decorations: DecorationSet.empty, nodeTypes: [] };
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply(tr, _oldState, newState) {
 				const actionPayload = tr.getMeta(
 					lazyNodeViewDecorationPluginKey,
@@ -45,8 +43,6 @@ export function createLazyNodeViewDecorationPlugin() {
 
 				if (actionPayload?.type === 'add' && actionPayload.nodeTypes.size) {
 					const decorations: Array<Decoration> = [];
-
-					// @ts-ignore - Workaround for help-center local consumption
 
 					tr.doc.nodesBetween(0, tr.doc.nodeSize - 2, (node, pos) => {
 						if (actionPayload.nodeTypes.has(node.type.name)) {
@@ -71,8 +67,6 @@ export function createLazyNodeViewDecorationPlugin() {
 
 				if (tr.docChanged) {
 					return {
-						// @ts-ignore - Workaround for help-center local consumption
-
 						decorations: pluginState?.decorations.map(tr.mapping, tr.doc),
 					};
 				}
@@ -87,12 +81,8 @@ export function createLazyNodeViewDecorationPlugin() {
 			},
 		},
 
-		// @ts-ignore - Workaround for help-center local consumption
-
 		view(editorView) {
 			return {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				update() {
 					/**
 					 * After view update can clean up decorations...

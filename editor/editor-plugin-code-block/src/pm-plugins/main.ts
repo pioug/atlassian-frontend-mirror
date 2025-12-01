@@ -48,8 +48,6 @@ export const createPlugin = ({
 	useLongPressSelection?: boolean;
 }) => {
 	const handleDOMEvents: PMEditorProps['handleDOMEvents'] = {
-		// @ts-ignore - Workaround for help-center local consumption
-
 		click: () => {
 			// Set hasHadInteraction to true on any click of code blocks, as clicks
 			// on code blocks to not propagate to editor-level click handlers
@@ -121,8 +119,6 @@ export const createPlugin = ({
 
 	return new SafePlugin({
 		state: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			init(_, state): CodeBlockState {
 				const node = findCodeBlock(state, state.selection);
 				const initialDecorations: Decoration[] =
@@ -143,8 +139,6 @@ export const createPlugin = ({
 					decorations: DecorationSet.create(state.doc, initialDecorations),
 				};
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply(tr, pluginState: CodeBlockState, _oldState, newState): CodeBlockState {
 				const meta = tr.getMeta(pluginKey);
 
@@ -165,8 +159,6 @@ export const createPlugin = ({
 
 					// Updates mapping position of all existing decorations to new positions
 					// specifically used for updating word wrap node decorators (does not cover drag & drop, validateWordWrappedDecorators does).
-					// @ts-ignore - Workaround for help-center local consumption
-
 					let updatedDecorationSet = pluginState.decorations.map(tr.mapping, tr.doc);
 
 					const codeBlockNodes = getAllChangedCodeBlocksInTransaction(tr);
@@ -219,13 +211,9 @@ export const createPlugin = ({
 		},
 		key: pluginKey,
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			decorations(state) {
 				return pluginKey.getState(state).decorations || DecorationSet.empty;
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			nodeViews: {
 				codeBlock: (node: PMNode, view: EditorView, getPos: getPosHandler) => {
 					const { formatMessage } = getIntl();

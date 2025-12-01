@@ -2,28 +2,24 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockMenuPlugin } from '../../blockMenuPluginType';
 
-import { isNestedNode } from './isNestedNode';
-
 const TRANSFORM_MENU_ENABLED_FOR_ALL_TOP_LEVEL_NODES = true;
 
-const getIsFormatMenuHidden = (selection: Selection, schema: Schema, menuTriggerBy: string) => {
+const getIsFormatMenuHidden = (selection: Selection, schema: Schema) => {
 	const nodes = schema.nodes;
 
 	if (!nodes) {
 		return false;
 	}
 
-	const isNested = isNestedNode(selection, menuTriggerBy);
 	if (TRANSFORM_MENU_ENABLED_FOR_ALL_TOP_LEVEL_NODES) {
 		const disabledOnNodes = [nodes.syncBlock, nodes.bodiedSyncBlock, nodes.rule];
 		const disabledNode = findSelectedNodeOfType(disabledOnNodes)(selection);
 
-		return !!disabledNode || (isNested && !fg('platform_editor_block_menu_transform_nested_node'));
+		return !!disabledNode;
 	}
 
 	let content: PMNode | undefined;
@@ -59,34 +55,26 @@ const getIsFormatMenuHidden = (selection: Selection, schema: Schema, menuTrigger
 		}
 	}
 
-	return !content || (isNested && !fg('platform_editor_block_menu_transform_nested_node'));
+	return !content;
 };
 
-const getIsFormatMenuHiddenEmptyLine = (
-	selection: Selection,
-	schema: Schema,
-	menuTriggerBy: string,
-) => {
+const getIsFormatMenuHiddenEmptyLine = (selection: Selection, schema: Schema) => {
 	const nodes = schema.nodes;
 
 	if (!nodes) {
 		return false;
 	}
 
-	const isNested = isNestedNode(selection, menuTriggerBy);
 	if (TRANSFORM_MENU_ENABLED_FOR_ALL_TOP_LEVEL_NODES) {
 		const disabledOnNodes = [nodes.syncBlock, nodes.bodiedSyncBlock, nodes.rule];
 		const disabledNode = findSelectedNodeOfType(disabledOnNodes)(selection);
 
-		return !!disabledNode || (isNested && !fg('platform_editor_block_menu_transform_nested_node'));
+		return !!disabledNode;
 	}
 
 	if (selection.empty || selection.content().size === 0) {
 		// if empty selection, show format menu
 		return false;
-	} else if (isNested && !fg('platform_editor_block_menu_transform_nested_node')) {
-		// if nested,  always hide format menu unless feature gate is enabled
-		return true;
 	} else {
 		let content: PMNode | undefined;
 
@@ -134,6 +122,6 @@ export const checkIsFormatMenuHidden = (api: ExtractInjectionAPI<BlockMenuPlugin
 	}
 
 	return expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true)
-		? getIsFormatMenuHiddenEmptyLine(selection, schema, menuTriggerBy)
-		: getIsFormatMenuHidden(selection, schema, menuTriggerBy);
+		? getIsFormatMenuHiddenEmptyLine(selection, schema)
+		: getIsFormatMenuHidden(selection, schema);
 };

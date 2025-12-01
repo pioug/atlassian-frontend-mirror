@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 4.0.1
+
+### Patch Changes
+
+- [`0cc1855e9071d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cc1855e9071d) -
+  EDITOR-1921 add analytics for sync block provider failures
+- Updated dependencies
+
 ## 4.0.0
 
 ### Major Changes

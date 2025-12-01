@@ -256,7 +256,7 @@ export class VCObserver implements VCObserverInterface {
 				if (devToolsEnabled && !this.isPostInteraction) {
 					window.__vcNotAvailableReason = abortReasonInfo;
 				}
-			} catch (e) {}
+			} catch {}
 
 			const vcAbortedResultWithRevisions = {
 				[`${fullPrefix}vc:rev`]: [
@@ -433,7 +433,7 @@ export class VCObserver implements VCObserverInterface {
 					}
 				}
 			}
-		} catch (e) {
+		} catch {
 			/*  do nothing */
 		}
 
@@ -801,7 +801,7 @@ export class VCObserver implements VCObserverInterface {
 				if (localHeatmap[row] === undefined) {
 					try {
 						this.setAbortReason(abortReason.error, time, `index - ${row}`);
-					} catch (e) {
+					} catch {
 						this.setAbortReason(abortReason.error, time, 'row error');
 					}
 					return;

@@ -8,8 +8,6 @@ const pluginKey = new PluginKey('extensionUniqueIdPlugin');
 
 const createPlugin = () =>
 	new SafePlugin({
-		// @ts-ignore - Workaround for help-center local consumption
-
 		appendTransaction: (transactions, _oldState, newState) => {
 			const tr = newState.tr;
 			const selectionBookmark = tr.selection.getBookmark();
@@ -25,18 +23,12 @@ const createPlugin = () =>
 			]);
 			const idsObserved = new Set<string>();
 
-			// @ts-ignore - Workaround for help-center local consumption
-
 			transactions.forEach((transaction) => {
 				if (!transaction.docChanged) {
 					return;
 				}
 
-				// @ts-ignore - Workaround for help-center local consumption
-
 				const isAddingExtension = transaction.steps.some(
-					// @ts-ignore - Workaround for help-center local consumption
-
 					(step) =>
 						stepAddsOneOf(step, extensionTypes) ||
 						// There are instances where the localId will be reset to null on publish due to extension
@@ -48,8 +40,6 @@ const createPlugin = () =>
 				);
 				if (isAddingExtension) {
 					// Can't simply look at changed nodes, as we could be adding an extension
-					// @ts-ignore - Workaround for help-center local consumption
-
 					newState.doc.descendants((node, pos) => {
 						const localId = node.attrs.localId;
 

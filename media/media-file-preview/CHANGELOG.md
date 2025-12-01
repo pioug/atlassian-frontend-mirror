@@ -1,5 +1,24 @@
 # @atlaskit/media-file-preview
 
+## 0.15.1
+
+### Patch Changes
+
+- [`99bce197cbf4e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99bce197cbf4e) -
+  Fixing the script to correctly reference mediaCountSSR string
+- Updated dependencies
+
+## 0.15.0
+
+### Minor Changes
+
+- [`2060fe01f7695`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2060fe01f7695) -
+  Optimise the lazy loading of images by removing native lazy attribute from first 6 media
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.14.1
 
 ### Patch Changes

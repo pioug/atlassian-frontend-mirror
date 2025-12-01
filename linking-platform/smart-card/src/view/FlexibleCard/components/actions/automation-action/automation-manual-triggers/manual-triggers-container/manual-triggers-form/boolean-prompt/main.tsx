@@ -17,9 +17,7 @@ const BooleanInputPrompt = ({ userInputPrompt }: BooleanInputPromptProps): React
 	const { variableName, displayName, defaultValue } = userInputPrompt;
 
 	return (
-		// @ts-ignore - Workaround for help-center local consumption
 		<CheckboxField name={variableName} defaultIsChecked={defaultValue || false}>
-			{/* @ts-ignore - Workaround for help-center local consumption */}
 			{({ fieldProps }) => <Checkbox {...fieldProps} label={displayName} />}
 		</CheckboxField>
 	);

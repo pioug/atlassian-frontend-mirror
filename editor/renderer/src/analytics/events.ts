@@ -328,6 +328,20 @@ export type MediaRenderErrorEvent = UIAEP<
 	{ external?: boolean; reason: string }
 >;
 
+type SyncedBlockFetchErrorAEP = OperationalAEP<
+	ACTION.ERROR,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH,
+	{ error: string }
+>
+
+type SyncedBlockGetSourceInfoErrorAEP = OperationalAEP<
+	ACTION.ERROR,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.SYNCED_BLOCK_GET_SOURCE_INFO,
+	{ error: string }
+>
+
 export type AnalyticsEventPayload<_T = void> =
 	| RendererStartAEP
 	| RendererRenderedAEP
@@ -355,7 +369,9 @@ export type AnalyticsEventPayload<_T = void> =
 	| MediaLnkTransformedAEP
 	| InvalidProsemirrorDocumentErrorAEP
 	| NestedTableTransformedAEP
-	| MediaRenderErrorEvent;
+	| MediaRenderErrorEvent
+	| SyncedBlockFetchErrorAEP
+	| SyncedBlockGetSourceInfoErrorAEP;
 
 export type FireAnalyticsCallback = <T = void>(
 	payload: AnalyticsEventPayload<T>,

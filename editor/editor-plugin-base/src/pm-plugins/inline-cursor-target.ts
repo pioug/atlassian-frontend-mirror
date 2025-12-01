@@ -32,8 +32,6 @@ export default () => {
 
 		state: {
 			init: () => ({ cursorTarget: undefined }),
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply(tr) {
 				const { selection, doc } = tr;
 				const { $from, $to } = selection;
@@ -95,8 +93,6 @@ export default () => {
 			},
 		},
 		props: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			decorations(state: EditorState) {
 				const { doc } = state;
 				const { cursorTarget } = inlineCursorTargetStateKey.getState(
@@ -108,8 +104,6 @@ export default () => {
 				}
 				return null;
 			},
-			// @ts-ignore - Workaround for help-center local consumption
-
 			handleDOMEvents: {
 				// Workaround to prevent the decorations created by the plugin from
 				// blocking shift + arrow left/right selections in safari. When
@@ -117,8 +111,6 @@ export default () => {
 				// plugin to prevent it from creating decorations.
 				// TODO: ED-26959 - We may be able to remove this when playing the following ticket:
 				// https://product-fabric.atlassian.net/browse/ED-14938
-				// @ts-ignore - Workaround for help-center local consumption
-
 				keydown: (view: EditorView, event: Event) => {
 					const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
 						? getBrowserInfo()
@@ -141,8 +133,6 @@ export default () => {
 				// after a composition event ends. If so, manually insert the
 				// event data in order to prevent contents ending up inside
 				// of the cursor target decorations.
-				// @ts-ignore - Workaround for help-center local consumption
-
 				compositionend: (view, incorrectlyTypedEvent) => {
 					// This is typed by the prosemirror definitions as Event,
 					// this type is incorrect, and it is actually an InputEvent
@@ -166,8 +156,6 @@ export default () => {
 				// before any input event. If so, manually insert the
 				// event data in order to prevent contents ending up inside
 				// of the cursor target decorations.
-				// @ts-ignore - Workaround for help-center local consumption
-
 				beforeinput: (view, incorrectlyTypedEvent) => {
 					// This is typed by the prosemirror definitions as Event,
 					// this type is incorrect, and it is actually an InputEvent

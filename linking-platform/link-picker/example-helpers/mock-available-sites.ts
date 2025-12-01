@@ -1,10 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import fetchMock from 'fetch-mock/cjs/client';
 
-import { mockedAvailableSitesResult } from '@atlaskit/linking-common/mocks';
+import { mockedAccessibleProductsResult } from '@atlaskit/linking-common/mocks';
 
-export const mockAvailableSites = () => {
-	fetchMock.post(/\/gateway\/api\/available-sites/, mockedAvailableSitesResult, {
+export const mockAccessibleProducts = () => {
+	fetchMock.post(/\/gateway\/api\/v2\/accessible-products/, mockedAccessibleProductsResult, {
 		delay: 10,
 		overwriteRoutes: true,
 	});

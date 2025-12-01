@@ -1,36 +1,34 @@
 import { getTokensTool } from '../../src/tools/get-tokens';
 
-jest.mock('@atlaskit/tokens/token-metadata', () => ({
-	tokens: [
+jest.mock('../../src/tools/get-tokens/token-structured-content.codegen', () => ({
+	tokenStructuredContent: [
 		{
 			name: 'test.token',
 			description: 'A test token description',
 			exampleValue: '#FFFFFF',
 			path: ['test', 'token'],
+			content: '# test.token\n\nA test token description\n\nExample Value: `#FFFFFF`\n',
 		},
 		{
 			name: 'ExactMatchToken',
 			description: 'example token description',
 			exampleValue: '#FFFFFF',
 			path: ['exact', 'match'],
+			content: '# ExactMatchToken\n\nexample token description\n\nExample Value: `#FFFFFF`\n',
 		},
 		{
 			name: 'FuzzyMatchToken',
 			description: 'fuzzy example token description',
 			exampleValue: '#000000',
 			path: ['fuzzy', 'match'],
+			content: '# FuzzyMatchToken\n\nfuzzy example token description\n\nExample Value: `#000000`\n',
 		},
 		{
 			name: 'DuplicateToken',
 			description: 'example token description',
 			exampleValue: '#FF0000',
 			path: ['duplicate'],
-		},
-		{
-			name: 'DuplicateToken',
-			description: 'example token description',
-			exampleValue: '#FF0000',
-			path: ['duplicate'],
+			content: '# DuplicateToken\n\nexample token description\n\nExample Value: `#FF0000`\n',
 		},
 	],
 }));

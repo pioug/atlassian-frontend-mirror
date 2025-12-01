@@ -9,11 +9,13 @@ import { transformNode } from './editor-commands/transformNode';
 import type {
 	FormatNodeTargetType,
 	FormatNodeAnalyticsAttrs,
+	TransformNodeAnalyticsAttrs,
 } from './editor-commands/transforms/types';
-import { createPlugin } from './pm-plugins/main';
+import { blockMenuPluginKey, createPlugin } from './pm-plugins/main';
 import BlockMenu from './ui/block-menu';
 import { getBlockMenuComponents } from './ui/block-menu-components';
 import { BlockMenuProvider } from './ui/block-menu-provider';
+import { Flag } from './ui/flag';
 
 export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 	const registry = createBlockMenuRegistry();
@@ -42,7 +44,7 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 			formatNode: (targetType: FormatNodeTargetType, analyticsAttrs?: FormatNodeAnalyticsAttrs) => {
 				return formatNode(api)(targetType, analyticsAttrs);
 			},
-			transformNode: (targetType: NodeType, analyticsAttrs?: FormatNodeAnalyticsAttrs) => {
+			transformNode: (targetType: NodeType, analyticsAttrs?: TransformNodeAnalyticsAttrs) => {
 				return transformNode(api)(targetType, analyticsAttrs);
 			},
 		},
@@ -50,14 +52,20 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 			if (!editorState) {
 				return {
 					currentSelectedNodeName: undefined,
+					showFlag: false,
 				};
 			}
 
 			// Get the menuTriggerBy from blockControls plugin if available
 			const currentSelectedNodeName = api?.blockControls?.sharedState.currentState()?.menuTriggerBy;
 
+			// Get the showFlag from plugin state
+			const pluginState = blockMenuPluginKey.getState(editorState);
+			const showFlag = pluginState?.showFlag ?? false;
+
 			return {
 				currentSelectedNodeName,
+				showFlag,
 			};
 		},
 		contentComponent({
@@ -75,6 +83,7 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 						boundariesElement={popupsBoundariesElement}
 						scrollableElement={popupsScrollableElement}
 					/>
+					<Flag api={api} />
 				</BlockMenuProvider>
 			);
 		},

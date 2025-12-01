@@ -231,8 +231,6 @@ function quickInsertPluginFactory(
 	return new SafePlugin({
 		key: pluginKey,
 		state: {
-			// @ts-ignore - Workaround for help-center local consumption
-
 			init(): QuickInsertPluginState {
 				return {
 					isElementBrowserModalOpen: false,
@@ -244,14 +242,10 @@ function quickInsertPluginFactory(
 				};
 			},
 
-			// @ts-ignore - Workaround for help-center local consumption
-
 			apply(tr, pluginState) {
 				const meta = tr.getMeta(pluginKey);
 				if (meta) {
 					const keys = Object.keys(meta) as Array<QuickInsertPluginStateKeys>;
-					// @ts-ignore - Workaround for help-center local consumption
-
 					const changed = keys.some((key) => {
 						return pluginState[key] !== meta[key];
 					});
@@ -267,8 +261,6 @@ function quickInsertPluginFactory(
 				return pluginState;
 			},
 		},
-
-		// @ts-ignore - Workaround for help-center local consumption
 
 		view(editorView) {
 			const providerHandler = async (
@@ -291,8 +283,6 @@ function quickInsertPluginFactory(
 			providerFactory.subscribe('quickInsertProvider', providerHandler);
 
 			return {
-				// @ts-ignore - Workaround for help-center local consumption
-
 				destroy() {
 					providerFactory.unsubscribe('quickInsertProvider', providerHandler);
 				},

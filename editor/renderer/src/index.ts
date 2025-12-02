@@ -28,4 +28,4 @@ export type { RenderOutputStat } from './render-document';
 
 export type { MediaSSR } from './types/mediaOptions';
 
-export type { AnalyticsEventPayload } from './analytics/events'
+export type { AnalyticsEventPayload } from './analytics/events';

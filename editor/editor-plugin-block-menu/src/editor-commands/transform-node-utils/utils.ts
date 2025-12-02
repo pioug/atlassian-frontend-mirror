@@ -11,12 +11,16 @@ export const getSelectedNode = (selection: Selection): ContentNodeWithPos | unde
 			start: 0, // ?
 			depth: selection.$from.depth,
 		};
-	} else if (selection instanceof CellSelection) {
+	}
+
+	if (selection instanceof CellSelection) {
 		const tableSelected = findParentNodeOfType(selection.$from.doc.type.schema.nodes.table)(
 			selection,
 		);
 		return tableSelected;
-	} else if (selection instanceof TextSelection) {
+	}
+
+	if (selection instanceof TextSelection) {
 		const { blockquote, bulletList, orderedList, taskList, codeBlock, paragraph, heading } =
 			selection.$from.doc.type.schema.nodes;
 

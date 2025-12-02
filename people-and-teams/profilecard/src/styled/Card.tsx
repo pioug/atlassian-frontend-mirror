@@ -1,5 +1,5 @@
 /* eslint-disable @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation */
-import React, { type ReactNode } from 'react';
+import React, { type ReactNode, useRef } from 'react';
 
 import { cssMap as cssMapCompiled, keyframes as keyframescompiled } from '@compiled/react';
 
@@ -7,6 +7,7 @@ import { cssMap, cx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 const kudosButtonAnimationTransformationCompiled = keyframescompiled({
 	'0%': {
@@ -20,7 +21,7 @@ const kudosButtonAnimationTransformationCompiled = keyframescompiled({
 const styles = cssMap({
 	profileImage: {
 		position: 'absolute',
-		top: token('space.300'),
+		top: token('space.500'),
 		left: token('space.300'),
 	},
 	actionsFlexSpacer: {
@@ -172,7 +173,7 @@ const styles = cssMap({
 	jobTitleLabel: {
 		marginTop: token('space.0'),
 		marginBottom: token('space.0'),
-		marginLeft: token('space.150'),
+		marginLeft: token('space.0'),
 		marginRight: token('space.0'),
 	},
 	appTitleLabel: {
@@ -192,7 +193,7 @@ const stylesCompiled = cssMapCompiled({
 	jobTitleLabel: {
 		marginTop: token('space.0'),
 		marginBottom: token('space.0'),
-		marginLeft: token('space.150'),
+		marginLeft: token('space.0'),
 		marginRight: token('space.0'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'> #profile-card-job-title-label-text': {
@@ -294,19 +295,51 @@ export const CustomLozengeContainer = ({
 	children: ReactNode;
 }): React.JSX.Element => <Box xcss={cx(styles.customLozengeContainer)}>{children}</Box>;
 
-export const JobTitleLabel = ({ children }: { children: ReactNode }): React.JSX.Element => (
-	<Box
-		xcss={cx(
-			fg('enable_absolute_positioning_profile_card')
-				? stylesCompiled.jobTitleLabel
-				: styles.jobTitleLabel,
-		)}
-	>
-		<Text maxLines={1} color="color.text.inverse" id="profile-card-job-title-label-text">
-			{children}
-		</Text>
-	</Box>
-);
+export const JobTitleLabel = ({ children }: { children: ReactNode }): React.JSX.Element => {
+	const textRef = useRef<HTMLElement>(null);
+
+	return (
+		<Box
+			xcss={cx(
+				fg('enable_absolute_positioning_profile_card')
+					? stylesCompiled.jobTitleLabel
+					: styles.jobTitleLabel,
+			)}
+		>
+			{fg('enable_profilecard_text_truncation_tooltip') ? (
+				<Tooltip
+					content={children}
+					position="bottom"
+					isScreenReaderAnnouncementDisabled
+					canAppear={() => {
+						if (!textRef.current) {
+							return false;
+						}
+						// Only showing the tooltip when the element has been truncated (ellipsis)
+						return textRef.current.scrollHeight > textRef.current.clientHeight;
+					}}
+				>
+					<Text
+						ref={textRef}
+						maxLines={1}
+						color="color.text.inverse"
+						id="profile-card-job-title-label-text"
+					>
+						{children}
+					</Text>
+				</Tooltip>
+			) : (
+				<Text
+					maxLines={1}
+					color="color.text.inverse"
+					id="profile-card-job-title-label-text"
+				>
+					{children}
+				</Text>
+			)}
+		</Box>
+	);
+};
 
 export const AppTitleLabel = ({ children }: { children: ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.appTitleLabel)} backgroundColor="color.background.neutral">

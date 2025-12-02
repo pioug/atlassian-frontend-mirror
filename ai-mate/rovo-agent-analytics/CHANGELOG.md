@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-analytics
 
+## 0.4.0
+
+### Minor Changes
+
+- [`b0dd47d633912`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0dd47d633912) -
+  Add studio overview page actions analytics
+
 ## 0.3.0
 
 ### Minor Changes

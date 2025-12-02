@@ -1,5 +1,12 @@
 # @atlaskit/codemod-cli
 
+## 0.32.1
+
+### Patch Changes
+
+- [`b866a7f72dab4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b866a7f72dab4) -
+  Updated lozenge-to-tag-migration codemod to handle variable lozenge children
+
 ## 0.32.0
 
 ### Minor Changes

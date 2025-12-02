@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 52.5.0
+
+### Minor Changes
+
+- [`8e92f6c3d7e03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e92f6c3d7e03) -
+  Removed PDF.js completely and switched the archive viewer to rely on <object>
+
 ## 52.4.37
 
 ### Patch Changes

@@ -28,7 +28,6 @@
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/code": "workspace:^",
 		"@atlaskit/css": "workspace:^",
-		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/flag": "workspace:^",
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/icon": "workspace:^",

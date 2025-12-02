@@ -189,6 +189,14 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 						>
 							<div
 								data-testid="context-panel-content"
+								// Adding tabIndex=0 here to make content focusable as it is a scrollable region
+								tabIndex={fg('platform_editor_nov_a11y_fixes') ? 0 : undefined}
+								role={fg('platform_editor_nov_a11y_fixes') ? 'region' : undefined}
+								aria-label={
+									fg('platform_editor_nov_a11y_fixes')
+										? this.props.intl?.formatMessage(contextPanelMessages.panelContentLabel)
+										: undefined
+								}
 								css={[
 									content,
 									hasPadding && paddingStyles,

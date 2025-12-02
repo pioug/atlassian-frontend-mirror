@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.11.2",
+	"version": "43.12.2",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,7 +43,6 @@
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/icon-file-type": "workspace:^",
-		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/icon-object": "workspace:^",
 		"@atlaskit/icon-priority": "root:*",
 		"@atlaskit/image": "workspace:^",
@@ -62,6 +61,7 @@
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/outbound-auth-flow-client": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
@@ -105,6 +105,7 @@
 		"@atlassian/analytics-tooling": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/gemini": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",
@@ -217,6 +218,9 @@
 		"platform_editor_inline_card_selected_state_fix": {
 			"type": "boolean"
 		},
+		"rovo_chat_embed_card_dwell_and_hover_metrics": {
+			"type": "boolean"
+		},
 		"platform_smartlink_3pclick_analytics": {
 			"type": "boolean"
 		},
@@ -257,6 +261,9 @@
 			"type": "boolean"
 		},
 		"smart-link-custom-hover-card-content": {
+			"type": "boolean"
+		},
+		"navx-2825-eslint-translation-fix-linking-platform": {
 			"type": "boolean"
 		}
 	},

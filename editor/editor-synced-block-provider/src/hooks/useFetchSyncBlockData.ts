@@ -34,7 +34,7 @@ export const useFetchSyncBlockData = (
 		try {
 			const syncBlockNode = resourceId && localId ? createSyncBlockNode(localId, resourceId) : null;
 			if (!syncBlockNode) {
-				throw new Error('Failed to create sync block node from resourceid and localid')
+				throw new Error('Failed to create sync block node from resourceid and localid');
 			}
 
 			setIsLoading(true);
@@ -42,8 +42,8 @@ export const useFetchSyncBlockData = (
 			// Fetch sync block data, the `subscribeToSyncBlock` will update the state once data is fetched
 			await manager.referenceManager.fetchSyncBlocksData([syncBlockNode]);
 		} catch (error) {
-			logException(error as Error, { location:
-				'editor-synced-block-provider/useFetchSyncBlockData'
+			logException(error as Error, {
+				location: 'editor-synced-block-provider/useFetchSyncBlockData',
 			});
 			fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message));
 

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-grid
 
+## 6.0.5
+
+### Patch Changes
+
+- [`55920a92e882a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55920a92e882a) -
+  tsignores added for help-center local consumpton removed
+- Updated dependencies
+
 ## 6.0.4
 
 ### Patch Changes

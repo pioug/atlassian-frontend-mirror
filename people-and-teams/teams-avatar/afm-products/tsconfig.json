@@ -29,9 +29,6 @@
 			"path": "../../../design-system/css/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/icon/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
 		},
 		{

@@ -48,13 +48,7 @@
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags-react/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../../react-ufo/atlaskit/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/spinner/afm-jira/tsconfig.json"

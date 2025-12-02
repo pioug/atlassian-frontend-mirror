@@ -1,7 +1,10 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
+
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ProfileCardDetails } from '../../components/User/ProfileCardDetails';
 import { type LozengeProps } from '../../types';
@@ -16,6 +19,11 @@ jest.mock('react-intl-next', () => {
 		}),
 	};
 });
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	...jest.requireActual<any>('@atlaskit/platform-feature-flags'),
+	fg: jest.fn(),
+}));
 
 type Props = Parameters<typeof ProfileCardDetails>[0];
 
@@ -138,6 +146,67 @@ describe('ProfileCardDetails', () => {
 				const component = getByTestId('profilecard-name');
 				expect(component.textContent).toMatchInlineSnapshot(`"Service account name (sa) "`);
 				expect(getByText('SERVICE ACCOUNT')).toBeDefined();
+			});
+		});
+
+		describe('for long name', () => {
+			ffTest.on('enable_profilecard_text_truncation_tooltip', 'enabled', () => {
+				it('should show tooltip if name is long and truncated', async () => {
+					const longName =
+						'This is a very long name that will definitely be truncated in the profile card';
+					const { getByTestId } = renderComponent({
+						fullName: longName,
+					});
+					const nameElement = getByTestId('profilecard-name');
+
+					// Mock the element to be truncated (scrollWidth > clientWidth)
+					Object.defineProperty(nameElement, 'scrollWidth', {
+						writable: true,
+						configurable: true,
+						value: 200,
+					});
+					Object.defineProperty(nameElement, 'clientWidth', {
+						writable: true,
+						configurable: true,
+						value: 100,
+					});
+
+					await act(async () => {
+						await userEvent.hover(nameElement);
+					});
+
+					const tooltip = await screen.findByRole('tooltip');
+					expect(tooltip).toBeInTheDocument();
+					expect(tooltip).toHaveTextContent(longName);
+				});
+			});
+			ffTest.off('enable_profilecard_text_truncation_tooltip', 'disabled', () => {
+				it('should not show tooltip even if name is long and truncated', async () => {
+					const longName =
+						'This is a very long name that will definitely be truncated in the profile card';
+					const { getByTestId } = renderComponent({
+						fullName: longName,
+					});
+					const nameElement = getByTestId('profilecard-name');
+
+					// Mock the element to be truncated (scrollWidth > clientWidth)
+					Object.defineProperty(nameElement, 'scrollWidth', {
+						writable: true,
+						configurable: true,
+						value: 200,
+					});
+					Object.defineProperty(nameElement, 'clientWidth', {
+						writable: true,
+						configurable: true,
+						value: 100,
+					});
+
+					await act(async () => {
+						await userEvent.hover(nameElement);
+					});
+
+					expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+				});
 			});
 		});
 	});

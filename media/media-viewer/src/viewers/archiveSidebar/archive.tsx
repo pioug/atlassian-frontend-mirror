@@ -20,7 +20,6 @@ import AudioIcon from '@atlaskit/icon/core/migration/audio--media-services-audio
 import ErrorMessage from '../../errorMessage';
 import { BaseViewer } from '../base-viewer';
 import { InteractiveImg } from '../image/interactive-img';
-import { PDFRenderer } from '../doc/pdfRenderer';
 import { ArchiveItemViewerWrapper, ArchiveLayout, ArchiveViewerWrapper } from './styleWrappers';
 import ArchiveSidebarRenderer from './archive-sidebar-renderer';
 import { getMediaTypeFromFilename, getMimeTypeFromFilename, rejectAfter } from '../../utils';
@@ -40,6 +39,7 @@ import { CodeViewRenderer } from '../codeViewer/codeViewerRenderer';
 import { DEFAULT_LANGUAGE } from '../codeViewer/util';
 import { MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER } from '../../item-viewer';
 import { type CustomRendererConfig } from '../../viewerOptions';
+import { NativePdfViewer } from './nativePdfViewer';
 
 export type Props = ArchiveViewerProps & WithAnalyticsEventsProps;
 
@@ -113,15 +113,18 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 		let src = '';
 		let codeViewerSrc = '';
 
+		const mimeType = getMimeTypeFromFilename(selectedArchiveEntry.name);
+
 		const isCodeMimeType = isCodeViewerItem(
 			selectedArchiveEntry.name,
-			getMimeTypeFromFilename(selectedArchiveEntry.name),
+			mimeType,
 		);
 
 		if (!selectedArchiveEntry.isDirectory) {
 			try {
 				const blob = await rejectAfter(() => selectedArchiveEntry.blob(), 10000);
-				src = URL.createObjectURL(blob);
+				const blobWithMimeType = new Blob([blob], { type: mimeType });
+				src = URL.createObjectURL(blobWithMimeType);
 				if (isCodeMimeType) {
 					codeViewerSrc = await rejectAfter(() => blob.text());
 				}
@@ -341,16 +344,10 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 					);
 				case 'doc':
 					return (
-						<ArchiveItemViewerWrapper>
-							<PDFRenderer
-								item={item}
-								src={src}
-								onSuccess={this.onViewerLoad(selectedArchiveEntry)}
-								onError={this.onViewerError(
-									'archiveviewer-docviewer-onerror',
-									selectedArchiveEntry,
-								)}
-							/>
+						<ArchiveItemViewerWrapper fullHeight={true}>
+							<NativePdfViewer src={src} onSuccess={this.onViewerLoad(selectedArchiveEntry)} onError={this.onViewerError('archiveviewer-docviewer-onerror', selectedArchiveEntry)}>
+								{this.renderPreviewError(new ArchiveViewerError('archiveviewer-docviewer-onerror'), selectedArchiveEntry, false)}
+							</NativePdfViewer>
 						</ArchiveItemViewerWrapper>
 					);
 				case 'archive':
@@ -365,10 +362,12 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 		}
 	}
 
-	private renderPreviewError(error: ArchiveViewerError, entry?: ZipEntry) {
+	private renderPreviewError(error: ArchiveViewerError, entry?: ZipEntry, shouldFireAnalytics = true) {
 		const { item, createAnalyticsEvent } = this.props;
 
-		fireAnalytics(createZipEntryLoadFailedEvent(item, error, entry), createAnalyticsEvent);
+		if (shouldFireAnalytics) {
+			fireAnalytics(createZipEntryLoadFailedEvent(item, error, entry), createAnalyticsEvent);
+		}
 
 		return (
 			<ListWrapper>

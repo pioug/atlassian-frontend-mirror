@@ -698,92 +698,65 @@ export const mockSiteData = [
 		cloudId: '67899',
 		url: 'https://hello.atlassian.net',
 		displayName: 'hello',
-		products: [
-			"jira-software.ondemand",
-			"jira-servicedesk.ondemand",
-			"confluence.ondemand",
-		],
+		products: ['jira-software.ondemand', 'jira-servicedesk.ondemand', 'confluence.ondemand'],
 		avatarUrl: undefined,
-		isVertigo: false
+		isVertigo: false,
 	},
 	{
 		cloudId: '12345',
 		url: 'https://test1.atlassian.net',
 		displayName: 'test1',
-		products: [
-			"jira-software.ondemand",
-		],
+		products: ['jira-software.ondemand'],
 		avatarUrl: undefined,
-		isVertigo: false
+		isVertigo: false,
 	},
 	{
 		cloudId: '45678',
 		url: 'https://test2.atlassian.net',
 		displayName: 'test2',
-		products: [
-			"jira-software.ondemand",
-			"jira-product-discovery",
-		],
+		products: ['jira-software.ondemand', 'jira-product-discovery'],
 		avatarUrl: undefined,
-		isVertigo: false
+		isVertigo: false,
 	},
 	{
 		cloudId: '78911',
 		url: 'https://test4.atlassian.net',
 		displayName: 'test4',
-		products: [
-			"jira-product-discovery",
-		],
+		products: ['jira-product-discovery'],
 		avatarUrl: undefined,
-		isVertigo: false
+		isVertigo: false,
 	},
 	{
 		cloudId: '33333',
 		url: 'https://test7.atlassian.net',
 		displayName: 'testNetworkError',
-		products: [
-			"jira-product-discovery",
-			"jira-servicedesk.ondemand",
-			"confluence.ondemand",
-		],
+		products: ['jira-product-discovery', 'jira-servicedesk.ondemand', 'confluence.ondemand'],
 		avatarUrl: undefined,
-		isVertigo: false
+		isVertigo: false,
 	},
 	{
 		cloudId: '44444',
 		url: 'https://test7.atlassian.net',
 		displayName: 'testNoAccess',
-		products: [
-			"jira-product-discovery",
-			"jira-servicedesk.ondemand",
-			"confluence.ondemand",
-		],
+		products: ['jira-product-discovery', 'jira-servicedesk.ondemand', 'confluence.ondemand'],
 		avatarUrl: undefined,
-		isVertigo: false
+		isVertigo: false,
 	},
 	{
 		cloudId: '22222',
 		url: 'https://test6.atlassian.net',
 		displayName: 'testNoResults',
-		products: [
-			"jira-product-discovery",
-			"jira-servicedesk.ondemand",
-			"confluence.ondemand",
-		],
+		products: ['jira-product-discovery', 'jira-servicedesk.ondemand', 'confluence.ondemand'],
 		avatarUrl: undefined,
-		isVertigo: false
+		isVertigo: false,
 	},
 	{
 		cloudId: '11111',
 		url: 'https://test5.atlassian.net',
 		displayName: 'testSingleIssue',
-		products: [
-			"jira-product-discovery",
-			"jira-servicedesk.ondemand",
-			"confluence.ondemand",
-		],
+		products: ['jira-product-discovery', 'jira-servicedesk.ondemand', 'confluence.ondemand'],
 		avatarUrl: undefined,
-		isVertigo: false
+		isVertigo: false,
 	},
 ];
 

@@ -13,6 +13,11 @@ export type AIUnifiedCommonAttributes = {
 	invokedFrom?: string;
 	isAIFeature: 1;
 	/**
+	 * Remove below flag when AIFC is fully rolled out in Jira, only required for old experience in Jira.
+	 * Because in AFIC, if dismissed event is fired, it means the streaming has not ended.
+	 */
+	isStreamingEnded?: boolean;
+	/**
 	 * Nudge metrics will be used passed in analytics events.
 	 * It is currently only set when "Improve writing" is triggered from the
 	 * "Improve writing" nudge.

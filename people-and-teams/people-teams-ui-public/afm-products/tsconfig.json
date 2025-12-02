@@ -29,13 +29,7 @@
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/legacy-custom-icons/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../platform/feature-flags-react/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../teams-app-internal-analytics/afm-products/tsconfig.json"

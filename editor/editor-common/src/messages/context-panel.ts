@@ -5,4 +5,9 @@ export const contextPanelMessages = defineMessages({
 		defaultMessage: 'Context panel',
 		description: 'Label for the context panel',
 	},
+	panelContentLabel: {
+		id: 'fabric.editor.contextPanel.panelContentLabel',
+		defaultMessage: 'Scrollable context panel content',
+		description: 'Label for the context panel content',
+	},
 });

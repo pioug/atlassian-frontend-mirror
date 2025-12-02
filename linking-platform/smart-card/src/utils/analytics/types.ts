@@ -32,4 +32,9 @@ export type UiLinkClickedEventProps = {
 	 * The keys held by the user at the time of clicking the link (which influence `clickOutcome`)
 	 */
 	keysHeld: ('alt' | 'ctrl' | 'meta' | 'shift')[];
+	/**
+	 * Whether the clicked URL is a Confluence shortLink (contains "/l/cp")
+	 * Only included when the experiment is enabled
+	 */
+	isConfluenceShortLink?: boolean;
 };

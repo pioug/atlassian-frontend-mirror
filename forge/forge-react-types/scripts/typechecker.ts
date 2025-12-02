@@ -24,7 +24,7 @@ import { type LozengeProps as GeneratedLozengeProps } from '../src/components/__
 import { type RangeProps as GeneratedRangeProps } from '../src/components/__generated__/RangeProps.codegen';
 import { type IconProps as GeneratedIconProps } from '../src/components/__generated__/IconProps.codegen';
 
-const assertAssignable = <A, B extends A>() => { };
+const assertAssignable = <A, B extends A>() => {};
 
 assertAssignable<GeneratedBadgeProps, BadgeProps>();
 assertAssignable<BadgeProps, GeneratedBadgeProps>();

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.15.3",
+	"version": "215.15.5",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -104,7 +104,6 @@
 		"@atlaskit/media-integration-test-helpers": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
-		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/renderer": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/synchrony-test-helpers": "workspace:^",
@@ -377,6 +376,9 @@
 			"type": "boolean"
 		},
 		"cc_fd_wb_create_priority_in_slash_menu_enabled": {
+			"type": "boolean"
+		},
+		"platform_editor_nov_a11y_fixes": {
 			"type": "boolean"
 		},
 		"platform_editor_ai_aifc_patch_beta_2": {

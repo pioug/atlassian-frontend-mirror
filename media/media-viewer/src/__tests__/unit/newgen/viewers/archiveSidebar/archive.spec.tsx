@@ -30,7 +30,6 @@ import {
 import { ArchiveLayout } from '../../../../../viewers/archiveSidebar/styleWrappers';
 import { InteractiveImg } from '../../../../../viewers/image/interactive-img';
 import { AudioPlayer, CustomVideoPlayerWrapper } from '../../../../../styleWrappers';
-import { PDFRenderer } from '../../../../../viewers/doc/pdfRenderer';
 import { CodeViewRenderer } from '../../../../../viewers/codeViewer/codeViewerRenderer';
 import ArchiveSidebarRenderer from '../../../../../viewers/archiveSidebar/archive-sidebar-renderer';
 import ErrorMessage from '../../../../../errorMessage';
@@ -40,6 +39,7 @@ import { ENCRYPTED_ENTRY_ERROR_MESSAGE } from '../../../../../viewers/archiveSid
 import { createZipEntryLoadSucceededEvent } from '../../../../../analytics/events/operational/zipEntryLoadSucceeded';
 import { createZipEntryLoadFailedEvent } from '../../../../../analytics/events/operational/zipEntryLoadFailed';
 import { MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER } from '../../../../../item-viewer';
+import { NativePdfViewer } from '../../../../../viewers/archiveSidebar/nativePdfViewer';
 
 describe('Archive', () => {
 	const fileState: ProcessedFileState = {
@@ -155,7 +155,7 @@ describe('Archive', () => {
 			blob: jest.fn(),
 		} as any);
 		await sleep(0);
-		expect(el.find(PDFRenderer)).toHaveLength(1);
+		expect(el.find(NativePdfViewer)).toHaveLength(1);
 	});
 	it('ArchiveSidebarRenderer should change selected entry and render CodeViewRenderer', async () => {
 		const el = mountComponent({});

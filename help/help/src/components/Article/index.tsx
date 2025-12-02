@@ -36,6 +36,9 @@ const articleContainerStyles = css({
 	overflowX: 'hidden',
 	overflowY: 'auto',
 	zIndex: 2,
+	'&:focus': {
+		outline: 'none',
+	},
 });
 
 const articleContainerAiStyles = css({
@@ -54,6 +57,9 @@ const articleContainerAiStyles = css({
 	overflowX: 'hidden',
 	overflowY: 'auto',
 	zIndex: 2,
+	'&:focus': {
+		outline: 'none',
+	},
 });
 
 // Animation
@@ -101,6 +107,8 @@ export const Article: React.FC<ArticleProps> = ({ isAiEnabled }) => {
 			if (skipArticleSlideInAnimation) {
 				setSkipArticleSlideInAnimation(false);
 			}
+			// Move focus to the article container for accessibility
+			articleContainerRef.current?.focus();
 		}, SLIDEIN_OVERLAY_TRANSITION_DURATION_MS);
 	};
 
@@ -169,6 +177,7 @@ export const Article: React.FC<ArticleProps> = ({ isAiEnabled }) => {
 					<div
 						css={articleContainerAiStyles}
 						ref={articleContainerRef}
+						tabIndex={-1}
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							...transitionStyles[state],
@@ -204,6 +213,7 @@ export const Article: React.FC<ArticleProps> = ({ isAiEnabled }) => {
 					<div
 						css={articleContainerStyles}
 						ref={articleContainerRef}
+						tabIndex={-1}
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							...transitionStyles[state],

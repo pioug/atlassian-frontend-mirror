@@ -104,6 +104,9 @@ If isBold is typically false, consider migrating to <Tag /> from '@atlaskit/tag'
 		let unknownAppearanceValue = '';
 
 		// Process children to extract text
+		let hasVariableChild = false;
+		let variableChildExpression: any = null;
+
 		if (element.children && element.children.length > 0) {
 			if (element.children.length === 1) {
 				const child = element.children[0];
@@ -118,7 +121,21 @@ If isBold is typically false, consider migrating to <Tag /> from '@atlaskit/tag'
 					j.StringLiteral.check(child.expression)
 				) {
 					textContent = child.expression.value;
+				} else if (j.JSXExpressionContainer.check(child)) {
+					// Check if it's a simple identifier (variable) or member expression
+					if (j.Identifier.check(child.expression)) {
+						hasVariableChild = true;
+						variableChildExpression = child.expression;
+					} else if (j.MemberExpression.check(child.expression)) {
+						// Handle member expressions like obj.prop
+						hasVariableChild = true;
+						variableChildExpression = child.expression;
+					} else {
+						// Complex expression or JSX element
+						hasComplexChildren = true;
+					}
 				} else {
+					// JSX elements or other complex children
 					hasComplexChildren = true;
 				}
 			} else {
@@ -180,8 +197,16 @@ If isBold is typically false, consider migrating to <Tag /> from '@atlaskit/tag'
 		});
 
 		// Assemble attributes in correct order: text, other props, color
-		if (textContent && !hasComplexChildren) {
+		if (textContent && !hasComplexChildren && !hasVariableChild) {
 			newAttributes.push(j.jsxAttribute(j.jsxIdentifier('text'), j.stringLiteral(textContent)));
+		} else if (hasVariableChild && variableChildExpression) {
+			// Use the variable expression as the text prop
+			newAttributes.push(
+				j.jsxAttribute(
+					j.jsxIdentifier('text'),
+					j.jsxExpressionContainer(variableChildExpression)
+				)
+			);
 		}
 
 		// Add other attributes
@@ -208,6 +233,12 @@ If isBold is typically false, consider migrating to <Tag /> from '@atlaskit/tag'
 		if (hasComplexChildren) {
 			warnings.push(
 				"FIXME: This Tag component has complex children that couldn't be automatically migrated to the text prop.\nTag component only supports simple text via the text prop. Please manually convert the children content.",
+			);
+		}
+
+		if (hasVariableChild) {
+			warnings.push(
+				'FIXME: This Tag component uses a variable as the text prop. Please verify that the variable contains a string value.',
 			);
 		}
 

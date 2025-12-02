@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-date
 
+## 8.1.11
+
+### Patch Changes
+
+- [`55920a92e882a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55920a92e882a) -
+  tsignores added for help-center local consumpton removed
+- Updated dependencies
+
 ## 8.1.10
 
 ### Patch Changes

@@ -26,9 +26,6 @@
 			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/css/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../json-ld-types/afm-jira/tsconfig.json"
 		},
 		{

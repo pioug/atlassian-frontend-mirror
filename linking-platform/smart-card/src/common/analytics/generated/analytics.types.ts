@@ -158,6 +158,7 @@ export type SmartLinkIframeFocusedAttributesType = {
 	id: string;
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
 	definitionId: string | null;
+	interactionType?: 'mouseenter' | 'mouseleave' | 'focus';
 };
 export type ApplicationAccountConnectedAttributesType = {
 	definitionId: string | null;

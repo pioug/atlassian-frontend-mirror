@@ -109,7 +109,7 @@ export const fetchConfluencePageInfo = async (
 		url = url && localId ? `${url}#block-${localId}` : url;
 
 		if (!title || !url) {
-			fireAnalyticsEvent?.(getSourceInfoErrorPayload( ('Failed to get confluence page source info')));
+			fireAnalyticsEvent?.(getSourceInfoErrorPayload('Failed to get confluence page source info'));
 		}
 
 		return Promise.resolve({ title, url });
@@ -117,7 +117,7 @@ export const fetchConfluencePageInfo = async (
 		logException(error as Error, {
 			location: 'editor-synced-block-provider/sourceInfo',
 		});
-		fireAnalyticsEvent?.(getSourceInfoErrorPayload( (error as Error).message));
+		fireAnalyticsEvent?.(getSourceInfoErrorPayload((error as Error).message));
 		return Promise.resolve(undefined);
 	}
 };

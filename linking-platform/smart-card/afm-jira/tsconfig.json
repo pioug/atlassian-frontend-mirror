@@ -72,9 +72,6 @@
 			"path": "../../../media/icon-file-type/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/icon-lab/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/icon-object/afm-jira/tsconfig.json"
 		},
 		{
@@ -124,6 +121,9 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags-react/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/popup/afm-jira/tsconfig.json"

@@ -43,6 +43,7 @@ import {
 import { groupOptionsByType } from '../util/group-options-by-type';
 import { userPickerOptionsShownUfoExperience } from '../util/ufoExperiences';
 import type { AriaAttributes } from 'react';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export type BaseUserPickerProps = UserPickerProps & {
 	components: any;
@@ -305,6 +306,10 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		this.optionsShownUfoExperienceInstance.start();
 	};
 
+	private get isCreateTeamA11yEnabled() {
+		return fg('a11y-create-team-is-not-focusable-and-has-no-btn');
+	}
+
 	private executeLoadOptions = (search?: string) => {
 		const { loadOptions } = this.props;
 		if (loadOptions) {
@@ -340,11 +345,22 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		callCallback(this.props.onInputChange, '', this.getSessionId());
 	};
 
+	private handleOpen = () => {
+		callCallback(this.props.onOpen, this.getSessionId());
+		this.setState({
+			menuIsOpen: true,
+		});
+	};
+
 	private handleBlur = () => {
+		if (this.isCreateTeamA11yEnabled && this.props.isFooterFocused) {
+			return;
+		}
 		callCallback(this.props.onBlur, this.getSessionId());
 		if (isPopupUserPickerByComponent(this.props.SelectComponent)) {
 			return;
 		}
+
 		this.resetInputState();
 		this.abortOptionsShownUfoExperience();
 		this.setState({
@@ -354,14 +370,11 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		});
 	};
 
-	private handleOpen = () => {
-		callCallback(this.props.onOpen, this.getSessionId());
-		this.setState({
-			menuIsOpen: true,
-		});
-	};
-
 	private handleClose = () => {
+		if (this.isCreateTeamA11yEnabled && this.props.isFooterFocused) {
+			return;
+		}
+
 		this.resetInputState();
 		callCallback(this.props.onClose, this.getSessionId());
 		this.setState({
@@ -405,8 +418,24 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		}
 	}
 
-	componentDidUpdate(_: UserPickerProps, prevState: UserPickerState) {
+	componentDidUpdate(prevProps: UserPickerProps, prevState: UserPickerState) {
 		const { menuIsOpen, options, resolving, count, inputValue } = this.state;
+
+		// Close menu when isFooterFocused changes from true to false
+		if (
+			this.isCreateTeamA11yEnabled &&
+			menuIsOpen &&
+			prevProps.isFooterFocused === true &&
+			this.props.isFooterFocused === false &&
+			!this.shouldKeepMenuOpen()
+		) {
+			this.resetInputState();
+			callCallback(this.props.onClose, this.getSessionId());
+			this.setState({
+				menuIsOpen: false,
+				options: [],
+			});
+		}
 
 		// Create a new session when the menu is opened and there is no session
 		if (menuIsOpen && !prevState.menuIsOpen && !this.session) {
@@ -438,7 +467,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 
 		if (
 			menuIsOpen &&
-			(!_.loadOptions || prevState.menuIsOpen) &&
+			(!prevProps.loadOptions || prevState.menuIsOpen) &&
 			count === 0 &&
 			!resolving &&
 			[UFOExperienceState.STARTED.id, UFOExperienceState.IN_PROGRESS.id].includes(
@@ -476,6 +505,20 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 			}
 		}
 		this.props.onKeyDown && this.props.onKeyDown(event);
+
+		if (this.isCreateTeamA11yEnabled) {
+			if (event.key === 'Escape') {
+				this.setState({
+					menuIsOpen: false,
+					options: [],
+				});
+				this.props.setIsFooterFocused && this.props.setIsFooterFocused(false);
+			}
+
+			if (event.key === 'Tab' && this.props.setIsFooterFocused && this.props.footer) {
+				this.props.setIsFooterFocused(true);
+			}
+		}
 	};
 
 	handleClearIndicatorHover = (hoveringClearIndicator: boolean) => {
@@ -534,6 +577,9 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 			this.setState(() => ({ initialFocusHandled: true }));
 		}
 	};
+
+	private shouldKeepMenuOpen = () =>
+		Boolean(!!this.props.footer) && Boolean(this.props.isFooterFocused);
 
 	render(): React.JSX.Element {
 		const {

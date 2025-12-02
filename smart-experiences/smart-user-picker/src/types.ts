@@ -253,6 +253,10 @@ export interface SmartProps {
 	 * Whether to include teams UI updates in the resultset. @default false
 	 */
 	includeTeamsUpdates?: boolean;
+	/** Checks if the footer is focused or not. This is needed to keep the menu open when the footer is focused */
+	isFooterFocused?: boolean;
+	/** Sets if the footer is focused or not. This is needed to keep the menu open when the footer is focused */
+	setIsFooterFocused?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // Override UserPickerProps below with replacement documentation

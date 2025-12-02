@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.15.0
+
+### Minor Changes
+
+- [`81f7a388b27a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81f7a388b27a2) -
+  clean up expandable_subsection_styling_fix fg and a11y_agents_fixes
+
 ## 3.14.0
 
 ### Minor Changes

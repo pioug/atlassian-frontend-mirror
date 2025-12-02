@@ -190,6 +190,26 @@ export class SSRPlaceholderHandlers {
 		return element;
 	}
 
+	findNearestPlaceholderOrContainer(element: HTMLElement): HTMLElement {
+		let ancestor = element;
+		if (this.isPlaceholderIgnored(element) && element.parentElement) {
+			ancestor = element.parentElement;
+		}
+		let i = 0;
+		while (ancestor && i < ANCESTOR_LOOKUP_LIMIT) {
+			if (this.isPlaceholder(ancestor) || this.isPlaceholderReplacement(ancestor)) {
+				return ancestor;
+			}
+			if (ancestor.parentElement) {
+				ancestor = ancestor.parentElement;
+				i++;
+			} else {
+				break;
+			}
+		}
+		return element;
+	}
+
 	// Validates placeholder match using asynchronous observation and resolves with the result
 	checkIfExistedAndSizeMatching(el: HTMLElement): Promise<boolean> {
 		el = this.findNearestPlaceholderContainerIfIgnored(el);
@@ -239,7 +259,9 @@ export class SSRPlaceholderHandlers {
 	}
 
 	validateReactComponentMatchToPlaceholderV4(el: HTMLElement): boolean {
-		el = this.findNearestPlaceholderContainerIfIgnored(el);
+		el = fg('platform_ufo_v4_fix_nested_ssr_placeholder')
+			? this.findNearestPlaceholderOrContainer(el)
+			: this.findNearestPlaceholderContainerIfIgnored(el);
 		const id = this.getPlaceholderReplacementId(el);
 		return this.staticPlaceholders.has(id);
 	}

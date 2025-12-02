@@ -4,6 +4,8 @@
  */
 import { useEffect, useRef, useState } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 export interface IframeDwellTrackerProps {
 	iframePercentVisible: number;
 	isIframeLoaded: boolean;
@@ -51,11 +53,31 @@ export const IframeDwellTracker = ({
 			});
 		};
 
+		// Require: iframe loaded, mouse over, and >75% visible
+		const isDwellAndHoverMetricsEnabled = fg('rovo_chat_embed_card_dwell_and_hover_metrics');
+		if (isDwellAndHoverMetricsEnabled) {
+			// Note: Removed isWindowFocused requirement as it's unreliable and prevents tracking
+			// The mouse over check is sufficient to indicate user engagement
+			const shouldTrack = isIframeLoaded && isMouseOver && iframePercentVisible > 0.75;
+
+			if (shouldTrack) {
+				if (dwellTimeoutId.current) {
+					clearInterval(dwellTimeoutId.current);
+				}
+				dwellTimeoutId.current = setInterval(incrementDwellTime, 1000);
+			} else {
+				if (dwellTimeoutId.current) {
+					clearInterval(dwellTimeoutId.current);
+					dwellTimeoutId.current = undefined;
+				}
+			}
+		} else {
 		if (isIframeLoaded && isMouseOver && isWindowFocused && iframePercentVisible > 0.75) {
 			if (dwellTimeoutId.current) {
 				clearInterval(dwellTimeoutId.current);
 			}
 			dwellTimeoutId.current = setInterval(incrementDwellTime, 1000);
+			}
 		}
 		return () => {
 			if (dwellTimeoutId.current) {

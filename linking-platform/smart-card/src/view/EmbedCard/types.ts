@@ -35,6 +35,11 @@ export type EmbedCardProps = {
 	testId?: string;
 	url: string;
 };
+
+export type EmbedCardUpdatedProps = EmbedCardProps & {
+	onIframeMouseEnter?: () => void;
+	onIframeMouseLeave?: () => void;
+};
 export interface WithShowControlMethodProp {
 	showControls?: () => void;
 }

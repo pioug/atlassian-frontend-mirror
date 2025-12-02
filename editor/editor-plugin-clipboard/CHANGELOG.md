@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-clipboard
 
+## 6.0.2
+
+### Patch Changes
+
+- [`55920a92e882a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55920a92e882a) -
+  tsignores added for help-center local consumpton removed
+- Updated dependencies
+
 ## 6.0.1
 
 ### Patch Changes

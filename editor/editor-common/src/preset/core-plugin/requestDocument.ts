@@ -73,6 +73,7 @@ export function returnDocumentRequest<GenericTransformer extends Transformer<any
 		: InferTransformerResultCallback<GenericTransformer>,
 	transformer?: GenericTransformer,
 	fireAnalyticsEvent?: FireAnalyticsCallback,
+	// eslint-disable-next-line no-unused-vars
 	_alwaysFire?: boolean,
 ) {
 	const { doc, schema } = editorView?.state ?? {};
@@ -101,5 +102,31 @@ export function returnDocumentRequest<GenericTransformer extends Transformer<any
 			},
 		});
 		throw e;
+	}
+}
+
+export function returnDocumentRequestNoThrowError<
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	GenericTransformer extends Transformer<any> | undefined,
+>(
+	editorView: EditorView | null,
+	callback: GenericTransformer extends undefined
+		? DefaultTransformerResultCallback
+		: InferTransformerResultCallback<GenericTransformer>,
+	transformer?: GenericTransformer,
+	fireAnalyticsEvent?: FireAnalyticsCallback,
+	_alwaysFire?: boolean,
+) {
+	try {
+		return returnDocumentRequest(
+			editorView,
+			callback,
+			transformer,
+			fireAnalyticsEvent,
+			_alwaysFire,
+		);
+		// eslint-disable-next-line no-unused-vars
+	} catch (_) {
+		callback(undefined);
 	}
 }

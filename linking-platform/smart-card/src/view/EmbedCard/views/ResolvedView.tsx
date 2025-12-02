@@ -1,14 +1,21 @@
 import React from 'react';
 
 import LinkGlyph from '@atlaskit/icon/core/migration/link';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { getPreviewUrlWithTheme, isProfileType } from '../../../utils';
 import { ExpandedFrame } from '../components/ExpandedFrame';
-import { Frame } from '../components/Frame';
+import { Frame, FrameUpdated } from '../components/Frame';
 import { ImageIcon } from '../components/ImageIcon';
 import { type ContextViewModel, type FrameStyle } from '../types';
 import { useEmbedResolvePostMessageListener } from '../useEmbedResolvePostMessageListener';
+
+const FrameComponent = componentWithFG(
+	'rovo_chat_embed_card_dwell_and_hover_metrics',
+	FrameUpdated,
+	Frame,
+);
 
 export interface EmbedCardResolvedViewProps {
 	/** Component to prompt for competitor link */
@@ -36,6 +43,10 @@ export interface EmbedCardResolvedViewProps {
 	onIframeDwell?: (dwellTime: number, dwellPercentVisible: number) => void;
 	/** Optional callback for when user navigates into an iframe - for analytics **/
 	onIframeFocus?: () => void;
+	/** Optional callback for when user hovers over an iframe - for analytics **/
+	onIframeMouseEnter?: () => void;
+	/** Optional callback for when user stops hovering over an iframe - for analytics **/
+	onIframeMouseLeave?: () => void;
 	/** The src to be used for the `iframe` */
 	preview?: { aspectRatio?: number; src?: string };
 	/** For testing purposes only. */
@@ -46,10 +57,7 @@ export interface EmbedCardResolvedViewProps {
 	type?: string[];
 }
 
-export const EmbedCardResolvedView = React.forwardRef<
-	HTMLIFrameElement,
-	EmbedCardResolvedViewProps
->(
+const EmbedCardResolvedViewOld = React.forwardRef<HTMLIFrameElement, EmbedCardResolvedViewProps>(
 	(
 		{
 			link,
@@ -140,3 +148,121 @@ export const EmbedCardResolvedView = React.forwardRef<
 		);
 	},
 );
+
+const EmbedCardResolvedViewUpdated = React.forwardRef<
+	HTMLIFrameElement,
+	EmbedCardResolvedViewProps
+>(
+	(
+		{
+			link,
+			context,
+			onClick,
+			isSelected,
+			frameStyle,
+			preview,
+			title,
+			isTrusted,
+			testId = 'embed-card-resolved-view',
+			inheritDimensions,
+			onIframeDwell,
+			onIframeFocus,
+			onIframeMouseEnter,
+			onIframeMouseLeave,
+			isSupportTheming,
+			type,
+			CompetitorPrompt,
+			hideIconLoadingSkeleton,
+			extensionKey,
+		},
+		embedIframeRef,
+	) => {
+		const iconFromContext = context?.icon;
+		const src = typeof iconFromContext === 'string' ? iconFromContext : undefined;
+		const text = title || context?.text;
+		const linkGlyph = React.useMemo(
+			() => (
+				<LinkGlyph
+					label="icon"
+					LEGACY_size="small"
+					testId="embed-card-fallback-icon"
+					color="currentColor"
+				/>
+			),
+			[],
+		);
+
+		let icon = React.useMemo(() => {
+			if (React.isValidElement(iconFromContext)) {
+				return iconFromContext;
+			}
+			return (
+				<ImageIcon
+					src={src}
+					default={linkGlyph}
+					appearance={isProfileType(type) ? 'round' : 'square'}
+					hideLoadingSkeleton={hideIconLoadingSkeleton}
+				/>
+			);
+		}, [iconFromContext, src, linkGlyph, type, hideIconLoadingSkeleton]);
+
+		useEmbedResolvePostMessageListener({
+			url: link,
+			embedIframeRef,
+		});
+
+		const themeState = useThemeObserver();
+		let previewUrl = preview?.src;
+
+		if (previewUrl && isSupportTheming) {
+			previewUrl = getPreviewUrlWithTheme(previewUrl, themeState);
+		}
+
+		const [isMouseOver, setMouseOver] = React.useState(false);
+
+		return (
+			<ExpandedFrame
+				isSelected={isSelected}
+				frameStyle={frameStyle}
+				href={link}
+				testId={testId}
+				icon={icon}
+				text={text}
+				onClick={onClick}
+				inheritDimensions={inheritDimensions}
+				setOverflow={false}
+				CompetitorPrompt={CompetitorPrompt}
+				onContentMouseEnter={() => {
+					setMouseOver(true);
+					onIframeMouseEnter?.();
+				}}
+				onContentMouseLeave={() => {
+					setMouseOver(false);
+					onIframeMouseLeave?.();
+				}}
+			>
+				<FrameComponent
+					url={previewUrl}
+					isTrusted={isTrusted}
+					testId={testId}
+					ref={embedIframeRef}
+					onIframeDwell={onIframeDwell}
+					onIframeFocus={onIframeFocus}
+					onIframeMouseEnter={onIframeMouseEnter}
+					onIframeMouseLeave={onIframeMouseLeave}
+					isMouseOver={isMouseOver}
+					title={text}
+					extensionKey={extensionKey}
+				/>
+			</ExpandedFrame>
+		);
+	},
+);
+
+const EmbedCardResolvedViewWithFG = componentWithFG(
+	'rovo_chat_embed_card_dwell_and_hover_metrics',
+	EmbedCardResolvedViewUpdated,
+	EmbedCardResolvedViewOld,
+);
+
+export { EmbedCardResolvedViewWithFG as EmbedCardResolvedView };

@@ -31,9 +31,6 @@
 	"dependencies": {
 		"@atlaskit/analytics-listeners": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
-		"@atlaskit/css": "workspace:^",
-		"@atlaskit/primitives": "workspace:^",
-		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"
 	},
@@ -91,7 +88,7 @@
 		]
 	},
 	"name": "@atlaskit/rovo-agent-analytics",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"description": "Rovo Agents analytics",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -1,5 +1,21 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.11.3
+
+### Patch Changes
+
+- [`48a3dd84c602b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48a3dd84c602b) -
+  [EDITOR-3394] Decouple editorView from source manager
+- Updated dependencies
+
+## 2.11.2
+
+### Patch Changes
+
+- [`1511d9ee0c2e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1511d9ee0c2e3) -
+  [ux] EDITOR-3643 populate source url and title for sync block with block service by returning
+  source ari and product from fetchData
+
 ## 2.11.1
 
 ### Patch Changes

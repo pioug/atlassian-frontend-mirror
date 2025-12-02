@@ -27,9 +27,6 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/css": "workspace:^",
-		"@atlaskit/primitives": "workspace:^",
-		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"react-sweet-state": "root:*"

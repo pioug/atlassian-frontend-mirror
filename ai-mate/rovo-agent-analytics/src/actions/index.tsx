@@ -8,20 +8,22 @@ import { getDefaultTrackEventConfig } from '../common/utils';
 export enum AgentActions {
 	VIEW = 'view',
 	EDIT = 'edit',
+	CREATE = 'create',
 	UPDATED = 'updated',
-	COPY = 'copy',
+	COPY_LINK = 'copyLink',
 	DELETE = 'delete',
 	DUPLICATE = 'duplicate',
 	STAR = 'star',
+	CHAT = 'chat',
 }
 
 type CommonAnalyticsAttributes = {
-	touchPoint: string;
-	agentId: string;
+	touchPoint?: string;
+	agentId?: string;
 	scenarioId?: string;
 	canEdit?: boolean;
 	canDelete?: boolean;
-};
+} & Record<string, any>;
 
 export const ANALYTICS_CHANNEL = FabricChannel.aiMate;
 
@@ -44,7 +46,7 @@ export const useRovoAgentActionAnalytics = (commonAttributes: CommonAnalyticsAtt
 	);
 
 	const trackAgentAction = useCallback(
-		(action: AgentActions, attributes: CommonAnalyticsAttributes & Record<string, any>) => {
+		(action: AgentActions, attributes?: CommonAnalyticsAttributes) => {
 			fireAnalyticsEvent({
 				actionSubject: 'rovoAgent',
 				action,
@@ -55,11 +57,7 @@ export const useRovoAgentActionAnalytics = (commonAttributes: CommonAnalyticsAtt
 	);
 
 	const trackAgentActionError = useCallback(
-		(
-			action: AgentActions,
-			error: Error,
-			attributes: CommonAnalyticsAttributes & Record<string, any>,
-		) => {
+		(action: AgentActions, error: Error, attributes?: CommonAnalyticsAttributes) => {
 			fireAnalyticsEvent({
 				actionSubject: 'rovoAgentError',
 				action,

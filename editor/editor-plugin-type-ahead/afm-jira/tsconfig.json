@@ -23,9 +23,6 @@
 	],
 	"references": [
 		{
-			"path": "../../editor-element-browser/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
 		},
 		{

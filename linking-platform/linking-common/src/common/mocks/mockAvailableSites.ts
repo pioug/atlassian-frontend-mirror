@@ -3,7 +3,7 @@
 import fetchMock from 'fetch-mock/cjs/client';
 import {
 	mockedAvailableSitesResult,
-	mockedAvailableSitesResultWithGatewayBaseUrl
+	mockedAvailableSitesResultWithGatewayBaseUrl,
 } from './available-sites-result';
 import {
 	mockedAccessibleProductsResult,

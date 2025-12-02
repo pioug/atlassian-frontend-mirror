@@ -93,13 +93,10 @@ const InnerBreadcrumbs: React.ForwardRefExoticComponent<
 		setExpansionTrigger(false);
 	}, [setExpansionTrigger, itemsBeforeCollapse, wrapperRef]);
 
-	useOnRevealed(
-		focusFirstRevealedMemoized,
-		{
-			isExpanded: shouldExpand!,
-			isDisabled: !isClickedBySpace,
-		},
-	);
+	useOnRevealed(focusFirstRevealedMemoized, {
+		isExpanded: shouldExpand!,
+		isDisabled: !isClickedBySpace,
+	});
 
 	const handleExpansion = usePlatformLeafEventHandler({
 		fn: (event: React.MouseEvent<Element>, analyticsEvent: UIAnalyticsEvent) => {

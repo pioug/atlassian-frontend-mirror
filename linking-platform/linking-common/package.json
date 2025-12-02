@@ -35,7 +35,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
-		"@atlaskit/css": "workspace:^",
 		"@atlaskit/json-ld-types": "workspace:^",
 		"@atlaskit/linking-types": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",

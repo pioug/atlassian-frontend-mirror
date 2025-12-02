@@ -518,9 +518,9 @@ const blockquoteSharedStyles = css({
 		// Workaround for overriding the inline-block display on last child of a blockquote set in CSS reset.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'> .code-block:last-child, >.mediaSingleView-content-wrap:last-child, >.mediaGroupView-content-wrap:last-child':
-		{
-			display: 'block',
-		},
+			{
+				display: 'block',
+			},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'> .extensionView-content-wrap:last-child': {
@@ -716,12 +716,12 @@ const headingWithAlignmentStyles = css({
 	// Set marginTop: 0 if alignment block is next to a gap cursor or widget that is first child
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.ProseMirror-gapcursor:first-child + .fabric-editor-block-mark.fabric-editor-alignment, .ProseMirror-widget:first-child + .fabric-editor-block-mark.fabric-editor-alignment, .ProseMirror-widget:first-child + .ProseMirror-widget:nth-child(2) + .fabric-editor-block-mark.fabric-editor-alignment':
-	{
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'> :is(h1, h2, h3, h4, h5, h6):first-child': {
-			marginTop: '0',
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'> :is(h1, h2, h3, h4, h5, h6):first-child': {
+				marginTop: '0',
+			},
 		},
-	},
 });
 
 const ruleSharedStyles = css({
@@ -978,25 +978,25 @@ const extensionStyle = css({
 	//	 extensions inside extension documents (like ones with their own renderer) will need the font size to be applied again (e.g. TOC inside Excerpt, or TOC inside Page Properties inside LCM inside table)
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.ak-renderer-extension :not(.ak-renderer-extension .ak-renderer-document *, .aui-lozenge, .status-lozenge-span *), .ak-renderer-extension .ak-renderer-document .ak-renderer-extension:not(:has(.ak-renderer-document)) :not(.aui-lozenge, .status-lozenge-span *)':
-	{
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		fontSize: 'var(--ak-renderer-base-font-size)',
-	},
+		{
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: 'var(--ak-renderer-base-font-size)',
+		},
 });
 
 const shadowSharedStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`& .${shadowClassNames.RIGHT_SHADOW}::before, .${shadowClassNames.RIGHT_SHADOW}::after, .${shadowClassNames.LEFT_SHADOW}::before, .${shadowClassNames.LEFT_SHADOW}::after`]:
-	{
-		display: 'none',
-		position: 'absolute',
-		pointerEvents: 'none',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		zIndex: akEditorShadowZIndex,
-		width: '8px',
-		content: "''",
-		height: 'calc(100%)',
-	},
+		{
+			display: 'none',
+			position: 'absolute',
+			pointerEvents: 'none',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			zIndex: akEditorShadowZIndex,
+			width: '8px',
+			content: "''",
+			height: 'calc(100%)',
+		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`& .${shadowClassNames.RIGHT_SHADOW}, .${shadowClassNames.LEFT_SHADOW}`]: {
 		position: 'relative',
@@ -1161,31 +1161,31 @@ const smartCardStyles = css({
 
 const smartCardStylesAvatarFix = css({
 	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}:not(.${SmartCardSharedCssClassName.DATASOURCE_CONTAINER})`]:
-	{
-		/* EDM-11991: Fix list plugin adding padding to ADS AvatarGroup start */
-		'ul, ol': {
-			paddingLeft: 'inherit',
+		{
+			/* EDM-11991: Fix list plugin adding padding to ADS AvatarGroup start */
+			'ul, ol': {
+				paddingLeft: 'inherit',
+			},
+			/* EDM-11991: Fix list plugin add padding to ADS AvatarGroup end */
 		},
-		/* EDM-11991: Fix list plugin add padding to ADS AvatarGroup end */
-	},
 });
 
 const smartCardStylesAvatarMarginFix = css({
 	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}:not(.${SmartCardSharedCssClassName.DATASOURCE_CONTAINER})`]:
-	{
-		'ul, ol': {
-			marginRight: 'inherit',
+		{
+			'ul, ol': {
+				marginRight: 'inherit',
+			},
 		},
-	},
 });
 
 const smartCardStylesAvatarListZeroMarginTop = css({
 	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}:not(.${SmartCardSharedCssClassName.DATASOURCE_CONTAINER})`]:
-	{
-		'ul, ol': {
-			marginTop: 0,
+		{
+			'ul, ol': {
+				marginTop: 0,
+			},
 		},
-	},
 });
 
 // In Renderer in Jira there is no SmartCardSharedCssClassName.INLINE_CARD_CONTAINER, so using data-inline-cart="true"
@@ -1293,9 +1293,9 @@ const baseOtherStyles = css({
 		},
 
 		[`.${shadowObserverClassNames.SHADOW_CONTAINER} .${TableSharedCssClassName.TABLE_NODE_WRAPPER}`]:
-		{
-			display: 'flex',
-		},
+			{
+				display: 'flex',
+			},
 	},
 });
 
@@ -1329,10 +1329,10 @@ const alignedHeadingAnchorStyle = css({
 const firstWrappedMediaStyles = css({
 	// Remove gap between first wrapped mediaSingle and its fellow wrapped mediaSingle
 	[`.${richMediaClassName}[class*="image-wrap-"]:has(+ .${richMediaClassName}[class*="image-wrap-"])`]:
-	{
-		marginRight: 0,
-		marginLeft: 0,
-	},
+		{
+			marginRight: 0,
+			marginLeft: 0,
+		},
 });
 // Temporarily ignoring the below the owning team can add the ticket number for the TODO.  Context: https://atlassian.slack.com/archives/CPUEVD9MY/p1741565387326829
 // eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
@@ -1384,19 +1384,19 @@ const mediaSingleSharedStyle = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[`.${richMediaClassName}.image-wrap-left + .${richMediaClassName}.image-wrap-right, .${richMediaClassName}.image-wrap-right + .${richMediaClassName}.image-wrap-left, .${richMediaClassName}.image-wrap-left + .${richMediaClassName}.image-wrap-left, .${richMediaClassName}.image-wrap-right + .${richMediaClassName}.image-wrap-right`]:
-	{
-		marginRight: 0,
-		marginLeft: 0,
-	},
+		{
+			marginRight: 0,
+			marginLeft: 0,
+		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[`@media all and (max-width: ${wrappedMediaBreakoutPoint}px)`]: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		"div.mediaSingleView-content-wrap[layout='wrap-left'], div.mediaSingleView-content-wrap[data-layout='wrap-left'], div.mediaSingleView-content-wrap[layout='wrap-right'], div.mediaSingleView-content-wrap[data-layout='wrap-right']":
-		{
-			float: 'none',
-			overflow: 'auto',
-			margin: `${token('space.150', '12px')} 0`,
-		},
+			{
+				float: 'none',
+				overflow: 'auto',
+				margin: `${token('space.150', '12px')} 0`,
+			},
 	},
 });
 
@@ -1721,14 +1721,14 @@ const firstNodeWithNotMarginTop = css({
 			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'> .ProseMirror-gapcursor:first-child + *, > style:first-child + .ProseMirror-gapcursor + *':
-			{
-				marginTop: 0,
-			},
+				{
+					marginTop: 0,
+				},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'> .ProseMirror-gapcursor:first-child + span + *, > style:first-child + .ProseMirror-gapcursor + span + *':
-			{
-				marginTop: 0,
-			},
+				{
+					marginTop: 0,
+				},
 		},
 	},
 });
@@ -1818,83 +1818,83 @@ const stickyScrollbarStyles = css({
 const rendererTableHeaderEqualHeightStylesForTableCellOnly = css({
 	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
 		[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table, .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
-		{
-			height: '1px' /* will be ignored */,
-			marginLeft: 0,
-			marginRight: 0,
-		},
+			{
+				height: '1px' /* will be ignored */,
+				marginLeft: 0,
+				marginRight: 0,
+			},
 	},
 	[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table > tbody > tr:first-of-type, .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table > tbody > tr:first-of-type`]:
-	{
-		height: '100%',
-		'td, th': {
-			position: 'relative',
+		{
+			height: '100%',
+			'td, th': {
+				position: 'relative',
+			},
 		},
-	},
 });
 
 const rendererTableSortableColumnStyles = css({
 	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
 		[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table, .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
-		{
-			// allow nested heading links
-			[`.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER}`]: {
-				padding: 0,
+			{
+				// allow nested heading links
+				[`.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER}`]: {
+					padding: 0,
 
-				[`.${RendererCssClassName.SORTABLE_COLUMN}`]: {
-					width: '100%',
-					height: '100%',
-					padding: `${tableCellPadding}px`,
-					borderWidth: '1.5px',
-					borderStyle: 'solid',
-					borderColor: `transparent`,
+					[`.${RendererCssClassName.SORTABLE_COLUMN}`]: {
+						width: '100%',
+						height: '100%',
+						padding: `${tableCellPadding}px`,
+						borderWidth: '1.5px',
+						borderStyle: 'solid',
+						borderColor: `transparent`,
 
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-					'> *:first-child': {
-						marginTop: 0,
-					},
-
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-					'> .ProseMirror-gapcursor:first-child + *, > style:first-child + .ProseMirror-gapcursor + *':
-					{
-						marginTop: 0,
-					},
-
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-					'> .ProseMirror-gapcursor:first-child + span + *, > style:first-child + .ProseMirror-gapcursor + span + *':
-					{
-						marginTop: 0,
-					},
-
-					'@supports selector(:focus-visible)': {
-						'&:focus': {
-							outline: 'unset',
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+						'> *:first-child': {
+							marginTop: 0,
 						},
-						'&:focus-visible': {
-							borderColor: `${token('color.border.focused', B300)}`,
+
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+						'> .ProseMirror-gapcursor:first-child + *, > style:first-child + .ProseMirror-gapcursor + *':
+							{
+								marginTop: 0,
+							},
+
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+						'> .ProseMirror-gapcursor:first-child + span + *, > style:first-child + .ProseMirror-gapcursor + span + *':
+							{
+								marginTop: 0,
+							},
+
+						'@supports selector(:focus-visible)': {
+							'&:focus': {
+								outline: 'unset',
+							},
+							'&:focus-visible': {
+								borderColor: `${token('color.border.focused', B300)}`,
+							},
 						},
 					},
-				},
-				[`> .${RendererCssClassName.SORTABLE_COLUMN} > .${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER}`]:
-				{
-					margin: 0,
-					[`.${SORTABLE_COLUMN_ICON_CLASSNAME}`]: {
-						opacity: 1,
-						transition: `opacity 0.2s ease-in-out`,
-					},
-				},
+					[`> .${RendererCssClassName.SORTABLE_COLUMN} > .${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER}`]:
+						{
+							margin: 0,
+							[`.${SORTABLE_COLUMN_ICON_CLASSNAME}`]: {
+								opacity: 1,
+								transition: `opacity 0.2s ease-in-out`,
+							},
+						},
 
-				[`> .${RendererCssClassName.SORTABLE_COLUMN}
+					[`> .${RendererCssClassName.SORTABLE_COLUMN}
 						> .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER}`]: {
-					[`.${SORTABLE_COLUMN_ICON_CLASSNAME}`]: {
-						opacity: 0,
-						'&:focus': {
-							opacity: 1,
+						[`.${SORTABLE_COLUMN_ICON_CLASSNAME}`]: {
+							opacity: 0,
+							'&:focus': {
+								opacity: 1,
+							},
 						},
 					},
-				},
 
-				[`&:hover:not(
+					[`&:hover:not(
 							:has(
 									.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER}
 										.${RendererCssClassName.SORTABLE_COLUMN}:hover
@@ -1902,12 +1902,12 @@ const rendererTableSortableColumnStyles = css({
 						)
 						> .${RendererCssClassName.SORTABLE_COLUMN}
 						> .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER}`]: {
-					[`.${SORTABLE_COLUMN_ICON_CLASSNAME}`]: {
-						opacity: 1,
+						[`.${SORTABLE_COLUMN_ICON_CLASSNAME}`]: {
+							opacity: 1,
+						},
 					},
 				},
 			},
-		},
 	},
 });
 
@@ -1935,21 +1935,21 @@ const rendererTableColumnStyles = css({
 const rendererTableHeaderEqualHeightStylesAllowNestedHeaderLinks = css({
 	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
 		[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table, .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
-		{
-			[`.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER}`]: {
-				[`.${RendererCssClassName.SORTABLE_COLUMN}`]: {
-					[`.${HeadingAnchorWrapperClassName}`]: {
-						position: 'unset',
-					},
-					'>': {
-						'h1, h2, h3, h4, h5, h6': {
-							// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-							marginRight: '30px',
+			{
+				[`.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER}`]: {
+					[`.${RendererCssClassName.SORTABLE_COLUMN}`]: {
+						[`.${HeadingAnchorWrapperClassName}`]: {
+							position: 'unset',
+						},
+						'>': {
+							'h1, h2, h3, h4, h5, h6': {
+								// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+								marginRight: '30px',
+							},
 						},
 					},
 				},
 			},
-		},
 	},
 });
 
@@ -2173,13 +2173,13 @@ const columnLayoutResponsiveRendererStyles = css({
 
 const rendererAnnotationStyles = css({
 	"& [data-mark-type='annotation'][data-mark-annotation-state='active'] [data-annotation-mark], & [data-annotation-draft-mark][data-annotation-inline-node]":
-	{
-		background: token('color.background.accent.yellow.subtler', Y75),
-		borderBottom: `${token('border.width.selected')} solid ${token('color.border.accent.yellow', Y300)}`,
-		boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
-		cursor: 'pointer',
-		padding: `${token('space.050', '4px')} ${token('space.025', '2px')}`,
-	},
+		{
+			background: token('color.background.accent.yellow.subtler', Y75),
+			borderBottom: `${token('border.width.selected')} solid ${token('color.border.accent.yellow', Y300)}`,
+			boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
+			cursor: 'pointer',
+			padding: `${token('space.050', '4px')} ${token('space.025', '2px')}`,
+		},
 });
 
 const rendererAnnotationStylesCommentHeightFix = css({
@@ -2219,26 +2219,31 @@ const scaledDenseEmojiStyles = css({
 			objectFit: 'contain',
 		},
 	},
-	[`h1 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]: {
-		height: `${denseEmojiHeightH1}px`,
-		width: `${denseEmojiHeightH1}px`,
-	},
-	[`h2 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]: {
-		height: `${denseEmojiHeightH2}px`,
-		width: `${denseEmojiHeightH2}px`,
-	},
-	[`h3 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]: {
-		height: `${denseEmojiHeightH3}px`,
-		width: `${denseEmojiHeightH3}px`,
-	},
-	[`h4 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]: {
-		height: `${denseEmojiHeightH4}px`,
-		width: `${denseEmojiHeightH4}px`,
-	},
-	[`:is(h5, h6, p) :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]: {
-		height: `${defaultDenseEmojiHeight}px`,
-		width: `${defaultDenseEmojiHeight}px`,
-	},
+	[`h1 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${denseEmojiHeightH1}px`,
+			width: `${denseEmojiHeightH1}px`,
+		},
+	[`h2 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${denseEmojiHeightH2}px`,
+			width: `${denseEmojiHeightH2}px`,
+		},
+	[`h3 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${denseEmojiHeightH3}px`,
+			width: `${denseEmojiHeightH3}px`,
+		},
+	[`h4 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${denseEmojiHeightH4}px`,
+			width: `${denseEmojiHeightH4}px`,
+		},
+	[`:is(h5, h6, p) :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${defaultDenseEmojiHeight}px`,
+			width: `${defaultDenseEmojiHeight}px`,
+		},
 });
 
 const scaledEmojiStyles = css({
@@ -2255,26 +2260,31 @@ const scaledEmojiStyles = css({
 			objectFit: 'contain',
 		},
 	},
-	[`h1 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]: {
-		height: `${scaledEmojiHeightH1}px`,
-		width: `${scaledEmojiHeightH1}px`,
-	},
-	[`h2 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]: {
-		height: `${scaledEmojiHeightH2}px`,
-		width: `${scaledEmojiHeightH2}px`,
-	},
-	[`h3 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]: {
-		height: `${scaledEmojiHeightH3}px`,
-		width: `${scaledEmojiHeightH3}px`,
-	},
-	[`h4 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]: {
-		height: `${scaledEmojiHeightH4}px`,
-		width: `${scaledEmojiHeightH4}px`,
-	}, 
-	[`:is(h5, h6, p) :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]: {
-		height: `${defaultEmojiHeight}px`,
-		width: `${defaultEmojiHeight}px`,
-	},
+	[`h1 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${scaledEmojiHeightH1}px`,
+			width: `${scaledEmojiHeightH1}px`,
+		},
+	[`h2 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${scaledEmojiHeightH2}px`,
+			width: `${scaledEmojiHeightH2}px`,
+		},
+	[`h3 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${scaledEmojiHeightH3}px`,
+			width: `${scaledEmojiHeightH3}px`,
+		},
+	[`h4 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${scaledEmojiHeightH4}px`,
+			width: `${scaledEmojiHeightH4}px`,
+		},
+	[`:is(h5, h6, p) :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
+		{
+			height: `${defaultEmojiHeight}px`,
+			width: `${defaultEmojiHeight}px`,
+		},
 });
 
 const denseStyles = css({
@@ -2331,10 +2341,10 @@ const denseStyles = css({
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'[data-task-list-local-id] [data-task-list-local-id], [data-task-local-id] [data-task-local-id]':
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			marginTop: RENDERER_LIST_DENSE_GAP,
-		},
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				marginTop: RENDERER_LIST_DENSE_GAP,
+			},
 	},
 });
 
@@ -2414,15 +2424,15 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				baseStyles,
 				hideHeadingCopyLinkWrapperStyles,
 				appearance === 'full-page' &&
-				isPreviewPanelResponsivenessOn &&
-				rendererFullPageStylesWithReducedPadding,
+					isPreviewPanelResponsivenessOn &&
+					rendererFullPageStylesWithReducedPadding,
 				appearance === 'full-page' && !isPreviewPanelResponsivenessOn && rendererFullPageStyles,
 				appearance === 'full-width' && rendererFullWidthStyles,
 				(appearance === 'full-width' ||
 					(appearance === 'max' &&
 						expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true))) &&
-				!isTableResizingEnabled(appearance) &&
-				rendererFullWidthStylesForTableResizing,
+					!isTableResizingEnabled(appearance) &&
+					rendererFullWidthStylesForTableResizing,
 				appearance === 'max' &&
 					expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) &&
 					rendererMaxWidthStyles,
@@ -2436,8 +2446,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				headingWithAlignmentStyles,
 				ruleSharedStyles,
 				(contentMode === 'compact' || contentMode === 'dense') &&
-				isCompactModeSupported &&
-				extensionStyle,
+					isCompactModeSupported &&
+					extensionStyle,
 				fg('platform_editor_typography_ugc')
 					? isCompactModeSupported
 						? paragraphStylesUGCScaledMargin
@@ -2449,7 +2459,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				browser.gecko && listsSharedStylesForGekko,
 				indentationSharedStyles,
 				fg('platform_editor__renderer_indentation_text_margin') &&
-				indentationSharedStylesWithMarginFix,
+					indentationSharedStylesWithMarginFix,
 				blockMarksSharedStyles,
 				codeMarkSharedStyles,
 				shadowSharedStyle,
@@ -2457,20 +2467,20 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				textColorStyles,
 				backgroundColorStyles,
 				expValEquals('platform_editor_text_highlight_padding', 'isEnabled', true) &&
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-				textHighlightPaddingStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					textHighlightPaddingStyles,
 				tasksAndDecisionsStyles,
 				smartCardStyles,
 				smartCardStylesAvatarFix,
 				editorExperiment('platform_editor_preview_panel_linking_exp', true) &&
-				headerSmartCardStyles,
+					headerSmartCardStyles,
 				smartCardStylesAvatarMarginFix,
 				smartCardStylesAvatarListZeroMarginTop,
 				fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStyles,
 				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 				fg('editor_inline_comments_on_inline_nodes') &&
-				fg('annotations_align_editor_and_renderer_styles') &&
-				rendererAnnotationStylesCommentHeightFix,
+					fg('annotations_align_editor_and_renderer_styles') &&
+					rendererAnnotationStylesCommentHeightFix,
 				baseOtherStyles,
 				allowNestedHeaderLinks && alignedHeadingAnchorStyle,
 				mediaSingleSharedStyle,
@@ -2488,8 +2498,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				rendererTableHeaderEqualHeightStylesForTableCellOnly,
 				allowColumnSorting && rendererTableSortableColumnStyles,
 				allowColumnSorting &&
-				allowNestedHeaderLinks &&
-				rendererTableHeaderEqualHeightStylesAllowNestedHeaderLinks,
+					allowNestedHeaderLinks &&
+					rendererTableHeaderEqualHeightStylesAllowNestedHeaderLinks,
 				rendererTableColumnStyles,
 				stickyHeaderStyles,
 				codeBlockAndLayoutStyles,
@@ -2501,12 +2511,12 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				browser.safari && codeBlockInListSafariFixStyles,
 				appearance === 'full-page' && !isPreviewPanelResponsivenessOn && responsiveBreakoutWidth,
 				appearance === 'full-page' &&
-				isPreviewPanelResponsivenessOn &&
-				responsiveBreakoutWidthWithReducedPadding,
+					isPreviewPanelResponsivenessOn &&
+					responsiveBreakoutWidthWithReducedPadding,
 				(appearance === 'full-width' ||
 					(appearance === 'max' &&
 						expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true))) &&
-				responsiveBreakoutWidthFullWidth,
+					responsiveBreakoutWidthFullWidth,
 				expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
 					? isCompactModeEnabled
 						? scaledDenseEmojiStyles

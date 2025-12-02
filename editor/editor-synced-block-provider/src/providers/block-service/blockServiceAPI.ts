@@ -58,6 +58,8 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 					content: syncedBlockData,
 					resourceId,
 					blockInstanceId: localId,
+					sourceAri: blockContentResponse.sourceAri,
+					product: blockContentResponse.product,
 				},
 				resourceId,
 			};
@@ -140,6 +142,9 @@ const createBlockServiceAPIProviders = (sourceAri: string, product: SyncBlockPro
 	};
 };
 
-export const useMemoizedBlockServiceAPIProviders = (sourceAri: string, product: SyncBlockProduct) => {
+export const useMemoizedBlockServiceAPIProviders = (
+	sourceAri: string,
+	product: SyncBlockProduct,
+) => {
 	return useMemo(() => createBlockServiceAPIProviders(sourceAri, product), [sourceAri, product]);
 };

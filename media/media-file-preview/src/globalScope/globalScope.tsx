@@ -5,8 +5,7 @@ import { type NumericalCardDimensions } from '@atlaskit/media-common';
 
 import { type MediaFilePreviewErrorInfo } from '../analytics';
 
-import { printFunctionCall, printScript } from './printScript';
-import { type MediaCardSsr, type MediaCardSsrData } from './types';
+import { type MediaCardSsr } from './types';
 
 // ----- WARNING -----
 // This is a very sensitive fraction of code.
@@ -49,98 +48,12 @@ export function getMediaCardSSR(globalScope: any = window): MediaCardSsr {
 	return globalMedia[key] as MediaCardSsr;
 }
 
-export function getMediaCountSSR(globalScope: any = window): number {
-	const globalMedia = getMediaGlobalScope(globalScope);
-	// Must match GLOBAL_MEDIA_COUNT_SSR. Can't reference the constant from here.
-	const key = 'mediaCountSsr';
-	if (!globalMedia[key]) {
-		globalMedia[key] = 0;
-	}
-	return globalMedia[key];
-}
-
-export function incrementMediaCountSSR(globalScope: any = window): void {
-	const globalMedia = getMediaGlobalScope(globalScope);
-	// Must match GLOBAL_MEDIA_COUNT_SSR. Can't reference the constant from here.
-	const key = 'mediaCountSsr';
-	if (!globalMedia[key]) {
-		globalMedia[key] = 0;
-	}
-	globalMedia[key]++;
-}
-
 const dashed = (param?: string) => (param ? `-${param}` : '');
 
 export const getKey = (
 	{ id, collectionName, occurrenceKey }: FileIdentifier,
 	resizeMode?: string,
 ) => `${id}${dashed(collectionName)}${dashed(occurrenceKey)}${dashed(resizeMode)}`;
-
-declare const script: HTMLScriptElement;
-export const storeDataURI = (
-	key: string,
-	paramDataURI?: string,
-	paramMode?: string,
-	paramSrcSet?: string,
-	dimensions?: Partial<NumericalCardDimensions>,
-	error?: MediaFilePreviewErrorInfo,
-	featureFlags: MediaFeatureFlags = {},
-	globalScope: any = window,
-) => {
-	const mediaCardSsr = getMediaCardSSR(globalScope);
-	const mediaCountSsr = getMediaCountSSR(globalScope);
-
-	if (featureFlags['media-perf-uplift-mutation-fix']) {
-		const prevData = mediaCardSsr[key];
-		const isPreviousImageLarger =
-			prevData?.mode === paramMode &&
-			prevData &&
-			prevData.dimensions?.width &&
-			dimensions?.width &&
-			prevData.dimensions.width > dimensions.width;
-
-		const srcSet = isPreviousImageLarger ? prevData?.srcSet : paramSrcSet;
-		const dataURI = isPreviousImageLarger ? prevData?.dataURI : paramDataURI;
-
-		const currData: MediaCardSsrData = { dataURI, dimensions, error, srcSet, loading: 'lazy' };
-
-		const img = script?.parentElement?.querySelector('img');
-
-		if (img && featureFlags['media-perf-lazy-loading-optimisation'] && mediaCountSsr < MAX_EAGER_LOAD_COUNT) {
-			incrementMediaCountSSR(globalScope);
-			if (img.getAttribute('loading') === 'lazy') {
-				img.removeAttribute('loading');
-			}
-			currData.loading = '';
-		}
-
-		if (img && dataURI) {
-			img.src = dataURI;
-		}
-		if (img && srcSet) {
-			img.srcset = srcSet;
-		}
-
-
-		currData.loadPromise = new Promise<void>((resolve, reject) => {
-			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-			img?.addEventListener('load', () => {
-				resolve(void 0);
-			});
-
-			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-			img?.addEventListener('error', () => {
-				reject(new Error('Failed to load image'));
-			});
-		});
-
-		mediaCardSsr[key] = isPreviousImageLarger
-			? prevData
-			: currData;
-	} else {
-		mediaCardSsr[key] = { dataURI: paramDataURI, dimensions, error };
-	}
-};
 
 const generateScript = (
 	identifier: FileIdentifier,
@@ -151,18 +64,23 @@ const generateScript = (
 	error?: MediaFilePreviewErrorInfo,
 	featureFlags: MediaFeatureFlags = {},
 ) => {
-	const functionCall = printFunctionCall(
-		storeDataURI,
-		getKey(identifier, mode),
+	const key = getKey(identifier, mode);
+
+	// Serialize the parameters for injection into the script
+	const params = {
+		key,
 		dataURI,
 		mode,
 		srcSet,
 		dimensions,
 		error,
 		featureFlags,
-	);
+		maxEagerLoadCount: MAX_EAGER_LOAD_COUNT,
+	};
 
-	return printScript([getMediaCardSSR.toString(), getMediaGlobalScope.toString(), functionCall]);
+	// Read originalScriptCode.ts before making changes
+	return `!function(){function e(){const e="__MEDIA_INTERNAL";return window[e]||(window[e]={}),window[e]}!function(n){var t;const i=document.currentScript,o=function(){const n=e(),t="mediaCardSsr";return n[t]||(n[t]={}),n[t]}(),r=function(){const n=e(),t="mediaCountSsr";return n[t]||(n[t]=0),n[t]}(),{key:d}=n,a=n.dataURI,s=n.mode,c=n.srcSet,{dimensions:m}=n,{error:u}=n,{featureFlags:l}=n;if(l["media-perf-uplift-mutation-fix"]){const t=o[d],f=t&&t.mode===s&&t.dimensions&&t.dimensions.width&&m&&m.width&&t.dimensions.width>m.width,w=f?t.srcSet:c,g=f?t.dataURI:a,p={dataURI:g,dimensions:m,error:u,srcSet:w,loading:"lazy",loadPromise:void 0,mode:s},S=i&&i.parentElement&&i.parentElement.querySelector("img");S&&l["media-perf-lazy-loading-optimisation"]&&r<n.maxEagerLoadCount&&(!function(){const n=e(),t="mediaCountSsr";n[t]||(n[t]=0),n[t]++}(),"lazy"===S.getAttribute("loading")&&S.removeAttribute("loading"),p.loading=""),S&&g&&(S.src=g),S&&w&&(S.srcset=w),p.loadPromise=new Promise((function(e,n){S&&(S.addEventListener("load",(function(){e(void 0)})),S.addEventListener("error",(function(){n(new Error("Failed to load image"))})))})),o[d]=f?t:p}else o[d]={dataURI:a,dimensions:m,error:u};null===(t=document.currentScript)||void 0===t||t.remove()}({replace:""})}();`
+		.replace('{replace:""}', JSON.stringify(params));
 };
 
 export const generateScriptProps = (

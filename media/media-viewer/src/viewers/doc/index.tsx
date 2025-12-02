@@ -1,11 +1,11 @@
 import React from 'react';
-import { type MediaClient, type FileState, isPreviewableFileState } from '@atlaskit/media-client';
+import { type MediaClient, type FileState } from '@atlaskit/media-client';
 import { Outcome } from '../../domain';
-import { MediaViewerError } from '../../errors';
-import { PDFRenderer } from './pdfRenderer';
+import { type MediaViewerError } from '../../errors';
 import { BaseViewer } from '../base-viewer';
-import { getObjectUrlFromFileState } from '../../utils/getObjectUrlFromFileState';
 import { type MediaTraceContext } from '@atlaskit/media-common';
+import { ZoomLevel } from '../../domain/zoomLevel';
+import { DocViewer as DocViewerComponent } from './doc-viewer';
 
 export type Props = {
 	mediaClient: MediaClient;
@@ -19,13 +19,19 @@ export type Props = {
 
 export type State = {
 	content: Outcome<string, MediaViewerError>;
+	zoomLevel: ZoomLevel;
+	isPasswordProtected: boolean;
+	password?: string;
+	hasPasswordError: boolean;
 };
-
 export class DocViewer extends BaseViewer<string, Props, State> {
 	private isObjectUrl = false;
 	protected get initialState() {
 		return {
 			content: Outcome.pending<string, MediaViewerError>(),
+			zoomLevel: new ZoomLevel(1.75),
+			isPasswordProtected: false,
+			hasPasswordError: false,
 		};
 	}
 
@@ -38,65 +44,10 @@ export class DocViewer extends BaseViewer<string, Props, State> {
 	}
 
 	protected async init() {
-		const { item, mediaClient, collectionName, onError } = this.props;
-
-		if (isPreviewableFileState(item) && item.mimeType.toLowerCase() === 'application/pdf') {
-			const src = await getObjectUrlFromFileState(item);
-			if (src) {
-				this.isObjectUrl = true;
-				this.setState({
-					content: Outcome.successful(src),
-				});
-				return;
-			}
-		}
-		if (item.status === 'processed') {
-			try {
-				const src = await mediaClient.file.getArtifactURL(
-					item.artifacts,
-					'document.pdf',
-					collectionName,
-				);
-				this.onMediaDisplayed();
-				this.setState({
-					content: Outcome.successful(src),
-				});
-			} catch (error) {
-				const docError = new MediaViewerError(
-					'docviewer-fetch-url',
-					error instanceof Error ? error : undefined,
-				);
-				this.setState({
-					content: Outcome.failed(docError),
-				});
-				if (onError) {
-					onError(docError);
-				}
-			}
-		} else if (item.status === 'failed-processing') {
-			try {
-				const src = await mediaClient.file.getFileBinaryURL(
-					item.id,
-					collectionName,
-					2940, // 2940 seconds ~= 50 mins
-				);
-				this.onMediaDisplayed();
-				this.setState({
-					content: Outcome.successful(src),
-				});
-			} catch (error) {
-				const docError = new MediaViewerError(
-					'docviewer-fetch-url',
-					error instanceof Error ? error : undefined,
-				);
-				this.setState({
-					content: Outcome.failed(docError),
-				});
-				if (onError) {
-					onError(docError);
-				}
-			}
-		}
+		const { item } = this.props;
+		this.setState({
+			content: Outcome.successful(item.id),
+		});
 	}
 
 	protected release() {
@@ -109,16 +60,15 @@ export class DocViewer extends BaseViewer<string, Props, State> {
 		}
 	}
 
-	protected renderSuccessful(content: string): React.JSX.Element {
-		const { item, onClose, onSuccess, onError } = this.props;
-
+	protected renderSuccessful(): React.JSX.Element {
 		return (
-			<PDFRenderer
-				item={item}
-				src={content}
-				onSuccess={onSuccess}
-				onError={onError}
-				onClose={onClose}
+			<DocViewerComponent
+				mediaClient={this.props.mediaClient}
+				fileState={this.props.item}
+				collectionName={this.props.collectionName}
+				onError={this.props.onError}
+				onSuccess={this.props.onSuccess}
+				traceContext={this.props.traceContext}
 			/>
 		);
 	}

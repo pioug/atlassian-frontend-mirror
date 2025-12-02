@@ -29,13 +29,7 @@
 			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/legacy-custom-icons/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../platform/feature-flags-react/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../teams-app-internal-analytics/afm-jira/tsconfig.json"

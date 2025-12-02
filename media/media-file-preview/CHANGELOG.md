@@ -1,5 +1,12 @@
 # @atlaskit/media-file-preview
 
+## 0.15.2
+
+### Patch Changes
+
+- [`5e282b606cfbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e282b606cfbf) -
+  Fixing the inline script to be injected correctly without susception to minification
+
 ## 0.15.1
 
 ### Patch Changes

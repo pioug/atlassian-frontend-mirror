@@ -22,6 +22,10 @@ jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	checkGate: jest.fn(),
 }));
 
+jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
+	expValEquals: jest.fn().mockReturnValue(false),
+}));
+
 const spyOnAtlaskitLink = jest.mocked(AKLink);
 const checkGateMock = jest.spyOn(FeatureGates, 'checkGate');
 

@@ -195,6 +195,10 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	value?: Value;
 	/** Width of the user picker field. It can be the amount of pixels as numbers or a string with the percentage. */
 	width?: number | string;
+	/** Checks if the footer is focused or not. This is needed to keep the menu open when the footer is focused */
+	isFooterFocused?: boolean;
+	/** Sets if the footer is focused or not. This is needed to keep the menu open when the footer is focused */
+	setIsFooterFocused?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type UserPickerRef = { blur: () => void; focus: () => void };

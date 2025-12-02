@@ -6,14 +6,13 @@ import { _overrides } from '@atlaskit/tmp-editor-statsig/setup';
 
 import { getMockProvidersResponse, expectedInlineAdf, expectedEmbedAdf } from './test-utils';
 
-
 const mockGetExperimentValue = jest.fn();
 FeatureGates.getExperimentValue = mockGetExperimentValue;
 
 describe('hardcoded appearences', () => {
-    let mockFetch: jest.Mock;
+	let mockFetch: jest.Mock;
 
-    beforeEach(() => {
+	beforeEach(() => {
 		// Since we use module level caching,
 		// we need to clear it up for clean test run
 		jest.resetModules();
@@ -32,7 +31,7 @@ describe('hardcoded appearences', () => {
 		delete (global as any).fetch;
 	});
 
-    it.each<[string, string]>([
+	it.each<[string, string]>([
 		['Slack message', 'https://atlassian.slack.com/archives/C014W1DTRHS/p1614244582005100'],
 		[
 			'Slack message in thread',
@@ -340,4 +339,4 @@ describe('hardcoded appearences', () => {
 			expect(adf).toEqual(expectedInlineAdf(url));
 		},
 	);
-})
+});

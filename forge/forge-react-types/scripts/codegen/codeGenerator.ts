@@ -958,17 +958,17 @@ const handleXCSSProp: CodeConsolidator = ({
 			.filter((code) => !!code)
 			.join('\n');
 
-		return [
-			'/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */',
-			importCode,
-			xcssValidatorVariableDeclarationCode,
-			externalTypesCode,
-			dependentTypeCode,
-			componentPropCode,
-			componentTypeCode,
-		]
-			.filter((code) => !!code)
-			.join('\n\n');
+	return [
+		'/* eslint @repo/internal/codegen/signed-source-integrity: "warn" */\n/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */',
+		importCode,
+		xcssValidatorVariableDeclarationCode,
+		externalTypesCode,
+		dependentTypeCode,
+		componentPropCode,
+		componentTypeCode,
+	]
+		.filter((code) => !!code)
+		.join('\n\n');
 	} finally {
 		sourceFile.getProject().removeSourceFile(utilsFile);
 	}

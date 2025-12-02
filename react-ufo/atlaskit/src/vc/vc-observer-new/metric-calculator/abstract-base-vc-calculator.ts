@@ -91,7 +91,10 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		return ratios;
 	}
 
-	private getLabelStacks(filteredEntries: ReadonlyArray<VCObserverEntry>, isPostInteraction?: boolean): VCLabelStacks {
+	private getLabelStacks(
+		filteredEntries: ReadonlyArray<VCObserverEntry>,
+		isPostInteraction?: boolean,
+	): VCLabelStacks {
 		const labelStacks: VCLabelStacks = {};
 		for (const entry of filteredEntries) {
 			if ('elementName' in entry.data && entry.data.labelStacks) {
@@ -101,7 +104,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 						labelStack: entry.data.labelStacks.labelStack,
 					};
 				} else if (fg('platform_ufo_add_segment_names_to_dom_offenders')) {
-					labelStacks[entry.data.elementName] = entry.data.labelStacks.labelStack
+					labelStacks[entry.data.elementName] = entry.data.labelStacks.labelStack;
 				}
 			}
 		}

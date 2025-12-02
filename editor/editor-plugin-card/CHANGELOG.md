@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 11.5.8
+
+### Patch Changes
+
+- [`55920a92e882a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55920a92e882a) -
+  tsignores added for help-center local consumpton removed
+- Updated dependencies
+
 ## 11.5.7
 
 ### Patch Changes

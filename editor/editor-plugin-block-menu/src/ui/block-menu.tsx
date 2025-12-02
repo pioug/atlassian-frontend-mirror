@@ -30,7 +30,6 @@ import {
 import { fg } from '@atlaskit/platform-feature-flags';
 import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
 import { Box } from '@atlaskit/primitives/compiled';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -79,7 +78,6 @@ type BlockMenuEffectParams = {
 	openedViaKeyboard: boolean | undefined;
 	prevIsMenuOpenRef: React.MutableRefObject<boolean>;
 	selectedByShortcutOrDragHandle: boolean;
-	shouldShowBlockMenuForEmptyLine: boolean;
 };
 
 const useConditionalBlockMenuEffect = conditionalHooksFactory(
@@ -90,7 +88,6 @@ const useConditionalBlockMenuEffect = conditionalHooksFactory(
 		menuTriggerBy,
 		selectedByShortcutOrDragHandle,
 		hasFocus,
-		shouldShowBlockMenuForEmptyLine,
 		openedViaKeyboard,
 		prevIsMenuOpenRef,
 	}: BlockMenuEffectParams) => {
@@ -98,13 +95,7 @@ const useConditionalBlockMenuEffect = conditionalHooksFactory(
 		 * NOTE: do not add `currentUserIntent` to dependency array as it causes unnecessary re-renders and messes with the user intent state
 		 */
 		useEffect(() => {
-			if (
-				!isMenuOpen ||
-				!menuTriggerBy ||
-				!selectedByShortcutOrDragHandle ||
-				!hasFocus ||
-				!shouldShowBlockMenuForEmptyLine
-			) {
+			if (!isMenuOpen || !menuTriggerBy || !selectedByShortcutOrDragHandle || !hasFocus) {
 				return;
 			}
 
@@ -130,7 +121,6 @@ const useConditionalBlockMenuEffect = conditionalHooksFactory(
 			menuTriggerBy,
 			selectedByShortcutOrDragHandle,
 			hasFocus,
-			shouldShowBlockMenuForEmptyLine,
 			openedViaKeyboard,
 			prevIsMenuOpenRef,
 		]);
@@ -142,7 +132,6 @@ const useConditionalBlockMenuEffect = conditionalHooksFactory(
 		menuTriggerBy,
 		selectedByShortcutOrDragHandle,
 		hasFocus,
-		shouldShowBlockMenuForEmptyLine,
 		currentUserIntent,
 		openedViaKeyboard,
 		prevIsMenuOpenRef,
@@ -153,7 +142,6 @@ const useConditionalBlockMenuEffect = conditionalHooksFactory(
 				!menuTriggerBy ||
 				!selectedByShortcutOrDragHandle ||
 				!hasFocus ||
-				!shouldShowBlockMenuForEmptyLine ||
 				['resizing', 'dragging'].includes(currentUserIntent || '')
 			) {
 				return;
@@ -181,7 +169,6 @@ const useConditionalBlockMenuEffect = conditionalHooksFactory(
 			menuTriggerBy,
 			selectedByShortcutOrDragHandle,
 			hasFocus,
-			shouldShowBlockMenuForEmptyLine,
 			currentUserIntent,
 			openedViaKeyboard,
 			prevIsMenuOpenRef,
@@ -278,14 +265,6 @@ const BlockMenu = ({
 					popupRef.current === document.activeElement))) ??
 		false;
 
-	const hasSelection = !!editorView && !editorView.state.selection.empty;
-	// hasSelection true, always show block menu
-	// hasSelection false, only show block menu when empty line experiment is enabled
-	const shouldShowBlockMenuForEmptyLine =
-		hasSelection ||
-		(!hasSelection &&
-			expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true));
-
 	const selectedByShortcutOrDragHandle = !!isSelectedViaDragHandle || !!openedViaKeyboard;
 
 	// Use conditional hook based on feature flag
@@ -295,7 +274,6 @@ const BlockMenu = ({
 		menuTriggerBy,
 		selectedByShortcutOrDragHandle,
 		hasFocus,
-		shouldShowBlockMenuForEmptyLine,
 		currentUserIntent: fg('platform_editor_toolbar_aifc_user_intent_fix')
 			? undefined
 			: currentUserIntent,
@@ -331,7 +309,6 @@ const BlockMenu = ({
 		!menuTriggerBy ||
 		!selectedByShortcutOrDragHandle ||
 		!hasFocus ||
-		!shouldShowBlockMenuForEmptyLine ||
 		['resizing', 'dragging'].includes(currentUserIntent || '')
 	) {
 		closeMenu();

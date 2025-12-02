@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 24.22.1
+
+### Patch Changes
+
+- [`55920a92e882a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55920a92e882a) -
+  tsignores added for help-center local consumpton removed
+
 ## 24.22.0
 
 ### Minor Changes

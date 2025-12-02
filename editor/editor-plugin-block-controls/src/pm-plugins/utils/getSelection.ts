@@ -1,13 +1,13 @@
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode, type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import {
 	type EditorState,
 	NodeSelection,
+	type Selection,
 	TextSelection,
 	type Transaction,
-	type Selection,
 } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
@@ -16,18 +16,18 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 
 export const getInlineNodePos = (
-	tr: Transaction,
+	doc: PMNode,
 	start: number,
 	nodeSize: number,
 ): { inlineNodeEndPos: number; inlineNodePos: number } => {
-	const $startPos = tr.doc.resolve(start);
+	const $startPos = doc.resolve(start);
 	// To trigger the annotation floating toolbar for non-selectable node, we need to select inline nodes
 	// Find the first inline node in the node
 	let inlineNodePos: number = start;
 	let foundInlineNode = false;
 	let inlineNodeEndPos = 0;
 
-	tr.doc.nodesBetween($startPos.pos, $startPos.pos + nodeSize, (n, pos) => {
+	doc.nodesBetween($startPos.pos, $startPos.pos + nodeSize, (n, pos) => {
 		if (n.isInline) {
 			inlineNodeEndPos = pos + n.nodeSize;
 		}
@@ -39,6 +39,7 @@ export const getInlineNodePos = (
 
 		return true;
 	});
+
 	return { inlineNodePos, inlineNodeEndPos };
 };
 
@@ -53,10 +54,10 @@ export const isNodeWithCodeBlock = (tr: Transaction, start: number, nodeSize: nu
 	return hasCodeBlock;
 };
 
-const isNodeWithMediaOrExtension = (tr: Transaction, start: number, nodeSize: number) => {
-	const $startPos = tr.doc.resolve(start);
+const isNodeWithMediaOrExtension = (doc: PMNode, start: number, nodeSize: number) => {
+	const $startPos = doc.resolve(start);
 	let hasMediaOrExtension = false;
-	tr.doc.nodesBetween($startPos.pos, $startPos.pos + nodeSize, (n) => {
+	doc.nodesBetween($startPos.pos, $startPos.pos + nodeSize, (n) => {
 		if (['media', 'extension'].includes(n.type.name)) {
 			hasMediaOrExtension = true;
 		}
@@ -71,10 +72,10 @@ const oldGetSelection = (tr: Transaction, start: number) => {
 	const $startPos = tr.doc.resolve(start);
 	const nodeName = node?.type.name;
 	const isBlockQuoteWithMediaOrExtension =
-		nodeName === 'blockquote' && isNodeWithMediaOrExtension(tr, start, nodeSize);
+		nodeName === 'blockquote' && isNodeWithMediaOrExtension(tr.doc, start, nodeSize);
 	const isListWithMediaOrExtension =
-		(nodeName === 'bulletList' && isNodeWithMediaOrExtension(tr, start, nodeSize)) ||
-		(nodeName === 'orderedList' && isNodeWithMediaOrExtension(tr, start, nodeSize));
+		(nodeName === 'bulletList' && isNodeWithMediaOrExtension(tr.doc, start, nodeSize)) ||
+		(nodeName === 'orderedList' && isNodeWithMediaOrExtension(tr.doc, start, nodeSize));
 
 	if (
 		(isNodeSelection && nodeName !== 'blockquote') ||
@@ -96,13 +97,13 @@ const oldGetSelection = (tr: Transaction, start: number) => {
 	} else if (nodeName === 'taskList') {
 		return TextSelection.create(tr.doc, start, start + nodeSize);
 	} else {
-		const { inlineNodePos, inlineNodeEndPos } = getInlineNodePos(tr, start, nodeSize);
+		const { inlineNodePos, inlineNodeEndPos } = getInlineNodePos(tr.doc, start, nodeSize);
 		return new TextSelection(tr.doc.resolve(inlineNodePos), tr.doc.resolve(inlineNodeEndPos));
 	}
 };
 
-const newGetSelection = (tr: Transaction, start: number) => {
-	const node = tr.doc.nodeAt(start);
+const newGetSelection = (doc: PMNode, selectionEmpty: boolean, start: number) => {
+	const node = doc.nodeAt(start);
 	const isNodeSelection = node && NodeSelection.isSelectable(node);
 	const nodeSize = node ? node.nodeSize : 1;
 	const nodeName = node?.type.name;
@@ -110,7 +111,7 @@ const newGetSelection = (tr: Transaction, start: number) => {
 	// this is a fix for empty paragraph selection - put first to avoid any extra work
 	if (
 		nodeName === 'paragraph' &&
-		tr.selection.empty &&
+		selectionEmpty &&
 		node?.childCount === 0 &&
 		!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 	) {
@@ -118,31 +119,28 @@ const newGetSelection = (tr: Transaction, start: number) => {
 	}
 
 	const isParagraphHeadingEmpty =
-		['paragraph', 'heading'].includes(nodeName || '') &&
-		tr.selection.empty &&
-		node?.childCount === 0;
+		['paragraph', 'heading'].includes(nodeName || '') && selectionEmpty && node?.childCount === 0;
 	const isBlockQuoteEmpty = nodeName === 'blockquote' && node?.textContent === '';
 	const isListEmpty =
 		['orderedList', 'bulletList', 'taskList'].includes(nodeName || '') &&
-		tr.selection.empty &&
+		selectionEmpty &&
 		node?.textContent === '';
 
 	// if block menu and empty line format menu are enabled,
 	// we want to set the selection to avoid the selection goes to the top of the document
 	if (
 		(isParagraphHeadingEmpty || isBlockQuoteEmpty || isListEmpty) &&
-		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-		expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true)
+		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 	) {
-		return TextSelection.create(tr.doc, start + 1, start + 1);
+		return TextSelection.create(doc, start + 1, start + 1);
 	}
 
 	const isBlockQuoteWithMediaOrExtension =
-		nodeName === 'blockquote' && isNodeWithMediaOrExtension(tr, start, nodeSize);
+		nodeName === 'blockquote' && isNodeWithMediaOrExtension(doc, start, nodeSize);
 
 	const isListWithMediaOrExtension =
-		(nodeName === 'bulletList' && isNodeWithMediaOrExtension(tr, start, nodeSize)) ||
-		(nodeName === 'orderedList' && isNodeWithMediaOrExtension(tr, start, nodeSize));
+		(nodeName === 'bulletList' && isNodeWithMediaOrExtension(doc, start, nodeSize)) ||
+		(nodeName === 'orderedList' && isNodeWithMediaOrExtension(doc, start, nodeSize));
 
 	if (
 		(isNodeSelection && nodeName !== 'blockquote') ||
@@ -152,12 +150,12 @@ const newGetSelection = (tr: Transaction, start: number) => {
 		['decisionList', 'layoutColumn'].includes(nodeName || '') ||
 		(nodeName === 'mediaGroup' && typeof node?.childCount === 'number' && node?.childCount > 1)
 	) {
-		return new NodeSelection(tr.doc.resolve(start));
+		return new NodeSelection(doc.resolve(start));
 	}
 
 	// if mediaGroup only has a single child, we want to select the child
 	if (nodeName === 'mediaGroup') {
-		const $mediaStartPos = tr.doc.resolve(start + 1);
+		const $mediaStartPos = doc.resolve(start + 1);
 		return new NodeSelection($mediaStartPos);
 	}
 
@@ -165,11 +163,11 @@ const newGetSelection = (tr: Transaction, start: number) => {
 		nodeName === 'taskList' &&
 		!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 	) {
-		return TextSelection.create(tr.doc, start, start + nodeSize);
+		return TextSelection.create(doc, start, start + nodeSize);
 	}
 
-	const { inlineNodePos, inlineNodeEndPos } = getInlineNodePos(tr, start, nodeSize);
-	return new TextSelection(tr.doc.resolve(inlineNodePos), tr.doc.resolve(inlineNodeEndPos));
+	const { inlineNodePos, inlineNodeEndPos } = getInlineNodePos(doc, start, nodeSize);
+	return new TextSelection(doc.resolve(inlineNodePos), doc.resolve(inlineNodeEndPos));
 };
 
 export const getSelection = (
@@ -178,7 +176,7 @@ export const getSelection = (
 	api?: ExtractInjectionAPI<BlockControlsPlugin>,
 ) => {
 	if (areToolbarFlagsEnabled(Boolean(api?.toolbar))) {
-		return newGetSelection(tr, start);
+		return newGetSelection(tr.doc, tr.selection.empty, start);
 	}
 
 	return oldGetSelection(tr, start);
@@ -234,7 +232,7 @@ export const setCursorPositionAtMovedNode = (
 		return tr;
 	}
 
-	const { inlineNodeEndPos } = getInlineNodePos(tr, start, nodeSize);
+	const { inlineNodeEndPos } = getInlineNodePos(tr.doc, start, nodeSize);
 	selection = new TextSelection(tr.doc.resolve(inlineNodeEndPos));
 
 	tr.setSelection(selection);
@@ -306,4 +304,51 @@ export const rootTaskListDepth = (taskListPos: ResolvedPos) => {
 		}
 	}
 	return depth;
+};
+
+/**
+ * This expands the given $from and $to resolved positions to the block boundaries
+ * spanning all nodes in the range up to the nearest common ancestor.
+ *
+ * @param $from The resolved start position
+ * @param $to The resolved end position
+ * @returns An object containing the expanded $from and $to resolved positions
+ */
+export const expandToBlockRange = ($from: ResolvedPos, $to: ResolvedPos) => {
+	const range = $from.blockRange($to);
+
+	if (!range) {
+		return { $from, $to };
+	}
+
+	return {
+		$from: $from.doc.resolve(range.start),
+		$to: $to.doc.resolve(range.end),
+	};
+};
+
+/**
+ * Collapses the given $from and $to resolved positions to the nearest valid selection range.
+ *
+ * Will retract the from and to positions to nearest inline positions at node boundaries only if needed.
+ *
+ * @param $from the resolved start position
+ * @param $to the resolved end position
+ * @returns An object containing the collapsed $from and $to resolved positions
+ */
+export const collapseToSelectionRange = ($from: ResolvedPos, $to: ResolvedPos) => {
+	const resolvedRangeEnd = $from.doc.resolve($to.pos);
+
+	// Get the selections that would be made for the first and last node in the range
+	// We re-use the getSelection logic as it already handles various node types and edge cases
+	const firstNodeSelection = newGetSelection($from.doc, $from.pos === $to.pos, $from.pos);
+	const lastNodeSize = resolvedRangeEnd.nodeBefore ? resolvedRangeEnd.nodeBefore.nodeSize : 0;
+	const lastNodeStartPos = resolvedRangeEnd.pos - lastNodeSize;
+	const lastNodeSelection = newGetSelection($from.doc, $from.pos === $to.pos, lastNodeStartPos);
+
+	// Return a selection spanning from the start of the first node selection to the end of the last node selection
+	return {
+		$from: $from.doc.resolve(firstNodeSelection ? firstNodeSelection.from : $from.pos),
+		$to: $to.doc.resolve(lastNodeSelection ? lastNodeSelection.to : $to.pos),
+	};
 };

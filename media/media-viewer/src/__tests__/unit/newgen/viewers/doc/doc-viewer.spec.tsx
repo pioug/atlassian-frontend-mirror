@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/media-client/test-helpers';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 import { RequestError } from '@atlaskit/media-client';
-import { DocViewer } from '../../../../../viewers/doc-next/doc-viewer';
+import { DocViewer } from '../../../../../viewers/doc/doc-viewer';
 
 const traceContext = { traceId: 'some-trace-id' };
 
@@ -25,7 +25,7 @@ const createPasswordRequiredError = () =>
 // but make sure it calls the content callback to trigger password flow
 jest.mock('@atlaskit/media-document-viewer', () => ({
 	__esModule: true,
-	DocumentViewer: ({ getContent, getPageImageUrl, zoom, onSuccess }: any) => {
+	DocumentViewer: ({ getContent, zoom, onSuccess }: any) => {
 		// Call getContent to test error handling paths and trigger password flow
 		React.useEffect(() => {
 			getContent(0, 1)

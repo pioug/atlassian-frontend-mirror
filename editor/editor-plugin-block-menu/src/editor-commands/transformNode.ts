@@ -1,35 +1,51 @@
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { NodeType } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, type NodeType } from '@atlaskit/editor-prosemirror/model';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
-import { getSelectedNode } from '../editor-commands/transform-node-utils/utils';
 
 import { getOutputNodes } from './transform-node-utils/transform';
 import type { TransformNodeAnalyticsAttrs } from './transforms/types';
+import { isListNode } from './transforms/utils';
 
 export const transformNode =
-	// eslint-disable-next-line no-unused-vars
 	(api?: ExtractInjectionAPI<BlockMenuPlugin>) =>
-		// eslint-disable-next-line no-unused-vars
-		(targetType: NodeType, analyticsAttrs?: TransformNodeAnalyticsAttrs): EditorCommand => {
-			return ({ tr }) => {
-				const { selection } = tr;
-				const source = getSelectedNode(selection);
-				if (!source) {
-					return tr;
-				}
+	// eslint-disable-next-line no-unused-vars
+	(targetType: NodeType, analyticsAttrs?: TransformNodeAnalyticsAttrs): EditorCommand => {
+		return ({ tr }) => {
+			const preservedSelection = api?.blockControls?.sharedState.currentState()?.preservedSelection;
 
-				const outputNodes = getOutputNodes({
-					sourceNode: source.node,
-					targetNodeType: targetType,
-					schema: selection.$from.doc.type.schema,
-				});
-				if (!outputNodes) {
-					return tr;
-				}
-
-				tr.replaceWith(source.pos, source.pos + source.node.nodeSize, outputNodes);
-
+			if (!preservedSelection) {
 				return tr;
-			};
+			}
+
+			const { from, to, $from } = preservedSelection;
+
+			const selectedParent = $from.parent;
+
+			let fragment = Fragment.empty;
+
+			const isList = isListNode(selectedParent);
+
+			const slice = tr.doc.slice(isList ? from - 1 : from, isList ? to + 1 : to);
+
+			slice.content.forEach((node) => {
+				const outputNode = getOutputNodes({
+					sourceNode: node,
+					targetNodeType: targetType,
+					schema: tr.doc.type.schema,
+				});
+
+				if (outputNode) {
+					fragment = fragment.append(Fragment.fromArray(outputNode));
+				}
+			});
+
+			tr.replaceWith(
+				isList ? preservedSelection.from - 1 : preservedSelection.from,
+				preservedSelection.to,
+				fragment,
+			);
+
+			return tr;
 		};
+	};

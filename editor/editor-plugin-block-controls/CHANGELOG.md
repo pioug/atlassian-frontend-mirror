@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.11.2
+
+### Patch Changes
+
+- [`d555d4bd26286`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d555d4bd26286) -
+  EDITOR-3565 fix block menu multi-select move actions
+- Updated dependencies
+
+## 7.11.1
+
+### Patch Changes
+
+- [`00c08e3995cb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00c08e3995cb2) -
+  Clean up platform_editor_block_menu_empty_line
+- Updated dependencies
+
 ## 7.11.0
 
 ### Minor Changes

@@ -54,7 +54,8 @@ export type SyncedBlockFetchErrorAEP = OperationalAEP<
 	SyncedBlockErrorAttributes
 >;
 
-export type SyncBlockEventPayload = SyncedBlockSourceURLErrorAEP
+export type SyncBlockEventPayload =
+	| SyncedBlockSourceURLErrorAEP
 	| SyncedBlockUpdateCacheErrorAEP
 	| SyncedBlockUpdateErrorAEP
 	| SyncedBlockCreateErrorAEP
@@ -62,5 +63,6 @@ export type SyncBlockEventPayload = SyncedBlockSourceURLErrorAEP
 	| SyncedBlockGetSourceInfoErrorAEP
 	| SyncedBlockFetchErrorAEP;
 
-export type RendererSyncBlockEventPayload = SyncedBlockGetSourceInfoErrorAEP
+export type RendererSyncBlockEventPayload =
+	| SyncedBlockGetSourceInfoErrorAEP
 	| SyncedBlockFetchErrorAEP;

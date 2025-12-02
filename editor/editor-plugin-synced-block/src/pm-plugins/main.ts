@@ -6,11 +6,12 @@ import {
 } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { DecorationSet, Decoration, type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { DecorationSet, Decoration } from '@atlaskit/editor-prosemirror/view';
 import {
 	convertPMNodesToSyncBlockNodes,
+	rebaseTransaction,
 	type SyncBlockStoreManager,
 } from '@atlaskit/editor-synced-block-provider';
 
@@ -38,6 +39,7 @@ export const createPlugin = (
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>,
 ) => {
 	const { useLongPressSelection = false } = options || {};
+	let confirmationTransaction: Transaction | undefined;
 
 	return new SafePlugin<SyncedBlockPluginState>({
 		key: syncedBlockPluginKey,
@@ -136,15 +138,6 @@ export const createPlugin = (
 				},
 			},
 		},
-		view: (editorView: EditorView) => {
-			syncBlockStore.sourceManager.setEditorView(editorView);
-
-			return {
-				destroy() {
-					syncBlockStore.sourceManager.setEditorView(undefined);
-				},
-			};
-		},
 		filterTransaction: (tr, state) => {
 			const isOffline = api?.connectivity?.sharedState.currentState()?.mode === 'offline';
 			const isConfirmedSyncBlockDeletion = Boolean(tr.getMeta('isConfirmedSyncBlockDeletion'));
@@ -175,10 +168,25 @@ export const createPlugin = (
 					// we block the transaction here, and wait for user confirmation to proceed with deletion.
 					// See editor-common/src/sync-block/sync-block-store-manager.ts for how we handle user confirmation and
 					// proceed with deletion.
-					syncBlockStore.sourceManager.deleteSyncBlocksWithConfirmation(
-						tr,
-						bodiedSyncBlockRemoved.map((node) => node.attrs),
-					);
+					confirmationTransaction = tr;
+					syncBlockStore.sourceManager
+						.deleteSyncBlocksWithConfirmation(
+							bodiedSyncBlockRemoved.map((node) => node.attrs),
+							() => {
+								api?.core?.actions.execute(() => {
+									const trToDispatch = tr.setMeta('isConfirmedSyncBlockDeletion', true);
+									if (!trToDispatch.getMeta(pmHistoryPluginKey)) {
+										// bodiedSyncBlock deletion is expected to be permanent (cannot undo)
+										// For a normal deletion (not triggered by undo), remove it from history so that it cannot be undone
+										trToDispatch.setMeta('addToHistory', false);
+									}
+									return trToDispatch;
+								});
+							},
+						)
+						.finally(() => {
+							confirmationTransaction = undefined;
+						});
 
 					return false;
 				}
@@ -243,7 +251,9 @@ export const createPlugin = (
 			trs
 				.filter((tr) => tr.docChanged)
 				.forEach((tr) => {
-					syncBlockStore?.sourceManager.rebaseTransaction(tr, newState);
+					if (confirmationTransaction) {
+						confirmationTransaction = rebaseTransaction(confirmationTransaction, tr, newState);
+					}
 				});
 
 			for (const tr of trs) {

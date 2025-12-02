@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 215.15.5
+
+### Patch Changes
+
+- [`32da92aaf953d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32da92aaf953d) -
+  Fix scrollable-region-focusable accessibility violation by adding tabIndex to context panel
+  content
+- Updated dependencies
+
+## 215.15.4
+
+### Patch Changes
+
+- [`55920a92e882a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55920a92e882a) -
+  tsignores added for help-center local consumpton removed
+- Updated dependencies
+
 ## 215.15.3
 
 ### Patch Changes

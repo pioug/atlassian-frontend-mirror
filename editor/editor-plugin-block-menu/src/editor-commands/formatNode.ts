@@ -14,7 +14,6 @@ import {
 	findSelectedNodeOfType,
 	safeInsert as pmSafeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
@@ -130,10 +129,7 @@ export const formatNode =
 			let nodePos: number = selection.from;
 
 			// when selection is empty, we insert a empty target node
-			if (
-				selection.empty &&
-				expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true)
-			) {
+			if (selection.empty) {
 				const listNodes: { node: PMNode; pos: number }[] = [];
 				// need to find if there is any list node in the current selection
 				// As when select a empty list, selection is empty, but we want to convert the list instead of inserting a target node

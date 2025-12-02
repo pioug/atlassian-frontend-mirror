@@ -21,7 +21,7 @@ import {
 	type NodeType,
 	type ResolvedPos,
 } from '@atlaskit/editor-prosemirror/model';
-import { type EditorState, Selection, NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, Selection, type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { type ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import {
 	findChildrenByType,
@@ -47,8 +47,8 @@ import { getInsertLayoutStep, updateSelection } from '../pm-plugins/utils/update
 import {
 	canMoveNodeToIndex,
 	isInsideTable,
-	transformSliceExpandToNestedExpand,
 	transformFragmentExpandToNestedExpand,
+	transformSliceExpandToNestedExpand,
 } from '../pm-plugins/utils/validation';
 
 import { getPosWhenMoveNodeDown, getPosWhenMoveNodeUp } from './utils/move-node-utils';
@@ -395,9 +395,27 @@ export const moveNode =
 			api?.metrics?.commands.setContentMoved()({ tr });
 		}
 
-		const slicePosition = getSelectedSlicePosition(start, tr, api);
+		const preservedSelection = expValEqualsNoExposure(
+			'platform_editor_block_menu',
+			'isEnabled',
+			true,
+		)
+			? api?.blockControls.sharedState.currentState()?.preservedSelection
+			: undefined;
 
-		if (isMultiSelect) {
+		if (preservedSelection) {
+			const $from = tr.doc.resolve(Math.min(start, preservedSelection.from));
+			const expandedRange = $from.blockRange(preservedSelection.$to);
+
+			sliceFrom = expandedRange ? expandedRange.start : preservedSelection.from;
+			sliceTo = expandedRange ? expandedRange.end : preservedSelection.to;
+
+			const attributes = getMultiSelectAnalyticsAttributes(tr, sliceFrom, sliceTo);
+			hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
+			sourceNodeTypes = attributes.nodeTypes;
+		} else if (isMultiSelect) {
+			const slicePosition = getSelectedSlicePosition(start, tr, api);
+
 			sliceFrom = slicePosition.from;
 			sliceTo = slicePosition.to;
 
@@ -502,17 +520,22 @@ export const moveNode =
 		}
 
 		const sliceSize = sliceTo - sliceFrom;
-		tr =
-			inputMethod === INPUT_METHOD.DRAG_AND_DROP
-				? setCursorPositionAtMovedNode(tr, mappedTo, api)
-				: isMultiSelect
-					? (api?.blockControls.commands.setMultiSelectPositions(
-							mappedTo,
-							mappedTo + sliceSize,
-						)({ tr }) ?? tr)
-					: selectNode(tr, mappedTo, handleNode.type.name, api);
+		if (inputMethod === INPUT_METHOD.DRAG_AND_DROP) {
+			tr = setCursorPositionAtMovedNode(tr, mappedTo, api);
+		} else if (preservedSelection) {
+			// do nothing here to allow the selection preservation plugin to handle mapping the selection
+		} else if (isMultiSelect) {
+			tr =
+				api?.blockControls.commands.setMultiSelectPositions(
+					mappedTo,
+					mappedTo + sliceSize,
+				)({ tr }) ?? tr;
+		} else {
+			tr = selectNode(tr, mappedTo, handleNode.type.name, api);
+		}
+
 		const currMeta = tr.getMeta(key);
-		tr.setMeta(key, { ...currMeta, nodeMoved: true });
+		tr.setMeta(key, { ...currMeta, nodeMoved: true, nodeMovedOffset: mappedTo - sliceFrom });
 		api?.core.actions.focus();
 		const $mappedTo = tr.doc.resolve(mappedTo);
 

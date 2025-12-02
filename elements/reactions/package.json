@@ -45,7 +45,6 @@
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/motion": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/popper": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/portal": "workspace:^",

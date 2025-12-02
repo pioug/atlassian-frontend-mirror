@@ -387,12 +387,12 @@ export class EditorCardProvider
 	private async fetchData(url: string) {
 		// it uses fetchNodesData internally and caches the result
 		return expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)
-				? // It's ok to cast any resourceUrl to inlineCard here, because only URL is important for the request.
-					await this.getDataAsPromise_DO_NOT_USE_OUTSIDE_MIGRATIONS({
-						type: 'inlineCard',
-						attrs: { url },
-					})
-				: await this.cardClient.fetchData(url);
+			? // It's ok to cast any resourceUrl to inlineCard here, because only URL is important for the request.
+				await this.getDataAsPromise_DO_NOT_USE_OUTSIDE_MIGRATIONS({
+					type: 'inlineCard',
+					attrs: { url },
+				})
+			: await this.cardClient.fetchData(url);
 	}
 
 	/**
@@ -421,9 +421,13 @@ export class EditorCardProvider
 		}
 	}
 
-	private async getAuthStatusFromResolveResponse(url: string): Promise<Pick<JsonLd.Meta.BaseMeta, 'access' | 'visibility'> | undefined> {
+	private async getAuthStatusFromResolveResponse(
+		url: string,
+	): Promise<Pick<JsonLd.Meta.BaseMeta, 'access' | 'visibility'> | undefined> {
 		try {
-			const {meta: {access, visibility}}: JsonLdDatasourceResponse = await this.fetchData(url);
+			const {
+				meta: { access, visibility },
+			}: JsonLdDatasourceResponse = await this.fetchData(url);
 			return {
 				access,
 				visibility,
@@ -498,7 +502,8 @@ export class EditorCardProvider
 			if (isSupported) {
 				const providerDefaultAppearance = matchedProviderPattern?.defaultView;
 
-				const isEmbedFriendlyLocationEvaluated = (isEmbedFriendlyLocation || isEmbedFriendlyLocation === undefined);
+				const isEmbedFriendlyLocationEvaluated =
+					isEmbedFriendlyLocation || isEmbedFriendlyLocation === undefined;
 
 				let preferredAppearance =
 					shouldForceAppearance === undefined
@@ -536,21 +541,34 @@ export class EditorCardProvider
 						url,
 					);
 				}
-				
-				const isUnauthPasteAsBlockCardEnabledNoExposure = !expValEqualsNoExposure('platform_sl_3p_unauth_paste_as_block_card', 'cohort', 'control', 'control');
-				if (isUnauthPasteAsBlockCardEnabledNoExposure && isEmbedFriendlyLocationEvaluated && !userPreference) {
+
+				const isUnauthPasteAsBlockCardEnabledNoExposure = !expValEqualsNoExposure(
+					'platform_sl_3p_unauth_paste_as_block_card',
+					'cohort',
+					'control',
+					'control',
+				);
+				if (
+					isUnauthPasteAsBlockCardEnabledNoExposure &&
+					isEmbedFriendlyLocationEvaluated &&
+					!userPreference
+				) {
 					const authStatus = await this.getAuthStatusFromResolveResponse(url);
 					if (authStatus) {
 						const { access } = authStatus;
-						if ( access === 'unauthorized') {
-							const isUnauthPasteAsBlockCardEnabled =  !expValEquals('platform_sl_3p_unauth_paste_as_block_card', 'cohort', 'control', 'control');
-							if ( isUnauthPasteAsBlockCardEnabled ) {
+						if (access === 'unauthorized') {
+							const isUnauthPasteAsBlockCardEnabled = !expValEquals(
+								'platform_sl_3p_unauth_paste_as_block_card',
+								'cohort',
+								'control',
+								'control',
+							);
+							if (isUnauthPasteAsBlockCardEnabled) {
 								return this.transformer.toSmartlinkAdf(url, 'block');
 							}
 						}
 					}
 				}
-				
 
 				return this.transformer.toSmartlinkAdf(url, preferredAppearance);
 			}

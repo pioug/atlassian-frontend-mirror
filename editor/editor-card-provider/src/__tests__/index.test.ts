@@ -6,8 +6,13 @@ import { type LinkAppearance, type UserPreferences } from '../types';
 import { mocks } from './__fixtures__/mocks';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { EditorCardProvider, isJiraWorkItem } from '../provider';
-import { getMockProvidersResponse, expectedInlineAdf, expectedEmbedAdf, expectedBlockAdf, expectedDatasourceAdf } from './test-utils';
-
+import {
+	getMockProvidersResponse,
+	expectedInlineAdf,
+	expectedEmbedAdf,
+	expectedBlockAdf,
+	expectedDatasourceAdf,
+} from './test-utils';
 
 const getUniqueURL = (url: string) => {
 	return url + (url.includes('?') ? '&' : '?') + Math.random().toString(36).substring(2, 15);
@@ -198,8 +203,6 @@ describe('providers > editor', () => {
 		const adf = await provider.resolve(url, 'block', false);
 		expect(adf).toEqual(expectedBlockAdf(url));
 	});
-
-	
 
 	it('returns datasource when jql link inserted, calling /resolve endpoint', async () => {
 		const url =
@@ -1150,7 +1153,7 @@ describe('providers > editor', () => {
 		});
 
 		describe('should return inline card if unauthenticated and restricted 3P link is inserted inside ', () => {
-			let url: string
+			let url: string;
 
 			const setup = async () => {
 				url = getUniqueURL('https://drive.google.com/file/d/123/view?usp=sharing');
@@ -1166,29 +1169,28 @@ describe('providers > editor', () => {
 					ok: true,
 				});
 
-				const adf = await provider.resolve(url, 'inline', false, false);	
+				const adf = await provider.resolve(url, 'inline', false, false);
 
 				return adf;
 			};
 
 			eeTest('platform_sl_3p_unauth_paste_as_block_card', {
-					'card_by_default_only': async () => {
+				card_by_default_only: async () => {
 					const adf = await setup();
 					expect(adf).toEqual(expectedInlineAdf(url));
 				},
-				'card_by_default_and_new_design': async () => {
+				card_by_default_and_new_design: async () => {
 					const adf = await setup();
 					expect(adf).toEqual(expectedInlineAdf(url));
 				},
-				'control': async () => {
+				control: async () => {
 					const adf = await setup();
 					expect(adf).toEqual(expectedInlineAdf(url));
 				},
 			});
-			
 		});
 	});
-	
+
 	describe('when consumer calls function with isEmbedFriendlyLocation as true', () => {
 		it('should use hardcoded appearance if it matches regexp', async () => {
 			const provider = new EditorCardProvider();
@@ -1299,7 +1301,7 @@ describe('providers > editor', () => {
 		});
 
 		describe('should return block card if unauthenticated and restricted 3P link is inserted', () => {
-			let url: string
+			let url: string;
 
 			const setup = async () => {
 				url = getUniqueURL('https://drive.google.com/file/d/123/view?usp=sharing');
@@ -1316,30 +1318,28 @@ describe('providers > editor', () => {
 					ok: true,
 				});
 
-				const adf = await provider.resolve(url, 'inline', false, true);	
+				const adf = await provider.resolve(url, 'inline', false, true);
 				return adf;
 			};
 
 			eeTest('platform_sl_3p_unauth_paste_as_block_card', {
-				'card_by_default_only': async () => {
+				card_by_default_only: async () => {
 					const adf = await setup();
 					expect(adf).toEqual(expectedBlockAdf(url));
 				},
-				'card_by_default_and_new_design': async () => {
+				card_by_default_and_new_design: async () => {
 					const adf = await setup();
 					expect(adf).toEqual(expectedBlockAdf(url));
 				},
-				'control': async () => {
+				control: async () => {
 					const adf = await setup();
 					expect(adf).toEqual(expectedInlineAdf(url));
-				},	
-				
+				},
 			});
 		});
-		
 
 		describe('should not do block card if unauthenticated and forbidden when 3P link is inserted inside', () => {
-			let url: string
+			let url: string;
 
 			const setup = async () => {
 				url = getUniqueURL('https://drive.google.com/file/d/123/view?usp=sharing');
@@ -1355,28 +1355,28 @@ describe('providers > editor', () => {
 					ok: true,
 				});
 
-				const adf = await provider.resolve(url, 'inline', false, true);	
+				const adf = await provider.resolve(url, 'inline', false, true);
 				return adf;
 			};
 
 			eeTest('platform_sl_3p_unauth_paste_as_block_card', {
-				'card_by_default_only': async () => {
+				card_by_default_only: async () => {
 					const adf = await setup();
 					expect(adf).toEqual(expectedInlineAdf(url));
 				},
-				'card_by_default_and_new_design': async () => {
+				card_by_default_and_new_design: async () => {
 					const adf = await setup();
 					expect(adf).toEqual(expectedInlineAdf(url));
 				},
-				'control': async () => {
+				control: async () => {
 					const adf = await setup();
 					expect(adf).toEqual(expectedInlineAdf(url));
 				},
 			});
 		});
-		
+
 		describe('should prefer user preference even if unauthenticated and restricted 3P link is inserted inside', () => {
-			let url: string
+			let url: string;
 
 			const setup = async () => {
 				url = getUniqueURL('https://app.box.com/foo');
@@ -1405,25 +1405,25 @@ describe('providers > editor', () => {
 					ok: true,
 				});
 
-				const adf = await provider.resolve(url, 'inline', false, true);	
+				const adf = await provider.resolve(url, 'inline', false, true);
 				return adf;
 			};
 
 			eeTest('platform_sl_3p_unauth_paste_as_block_card', {
-				'card_by_default_only': async () => {
+				card_by_default_only: async () => {
 					const adf = await setup();
 					expect(adf).toEqual(expectedInlineAdf(url));
 				},
-				'card_by_default_and_new_design': async () => {
+				card_by_default_and_new_design: async () => {
 					const adf = await setup();
 					expect(adf).toEqual(expectedInlineAdf(url));
 				},
-				'control': async () => {
+				control: async () => {
 					const adf = await setup();
 					expect(adf).toEqual(expectedInlineAdf(url));
 				},
 			});
-		})
+		});
 	});
 
 	describe('prompt linked issues experiment', () => {

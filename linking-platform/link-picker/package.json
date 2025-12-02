@@ -59,7 +59,6 @@
 		"@atlaskit/atlassian-context": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
-		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/frontend-utilities": "workspace:^",
 		"@atlaskit/heading": "workspace:^",

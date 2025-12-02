@@ -4,6 +4,8 @@ import { type GasPayload } from '@atlaskit/analytics-gas-types';
 import { type AnalyticsEventPayload, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type LinkProps } from '@atlaskit/link';
 import { browser } from '@atlaskit/linking-common/user-agent';
+import { functionWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { useLinkClicked, useMouseDownEvent } from '../../state/analytics/useLinkClicked';
 import { type AnalyticsPayload } from '../types';
@@ -87,7 +89,7 @@ export function getLinkClickOutcome(e: React.MouseEvent, clickType: ClickType): 
 	return 'unknown';
 }
 
-const linkClickedEvent = ({
+const linkClickedEventOld = ({
 	clickType,
 	clickOutcome,
 	keysHeld,
@@ -104,7 +106,26 @@ const linkClickedEvent = ({
 	},
 });
 
-export const createLinkClickedPayload = (event: React.MouseEvent) => {
+const linkClickedEventWithShortLink = ({
+	clickType,
+	clickOutcome,
+	keysHeld,
+	defaultPrevented,
+	isConfluenceShortLink,
+}: UiLinkClickedEventProps): AnalyticsPayload => ({
+	action: 'clicked',
+	actionSubject: 'link',
+	eventType: 'ui',
+	attributes: {
+		clickType,
+		clickOutcome,
+		keysHeld,
+		defaultPrevented,
+		isConfluenceShortLink,
+	},
+});
+
+export const createLinkClickedPayloadOld = (event: React.MouseEvent) => {
 	// Through the `detail` property, we're able to determine if the event is (most likely) triggered via keyboard
 	// https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail
 	const isKeyboard = event.nativeEvent.detail === 0;
@@ -117,7 +138,7 @@ export const createLinkClickedPayload = (event: React.MouseEvent) => {
 	const keysHeld = getKeys(event);
 	const defaultPrevented = event.defaultPrevented;
 
-	const linkClickedEventResult = linkClickedEvent({
+	const linkClickedEventResult = linkClickedEventOld({
 		clickType,
 		clickOutcome,
 		keysHeld,
@@ -138,6 +159,55 @@ export const createLinkClickedPayload = (event: React.MouseEvent) => {
 		return linkClickedEventResult;
 	}
 };
+
+export const createLinkClickedPayloadNew = (event: React.MouseEvent) => {
+	// Through the `detail` property, we're able to determine if the event is (most likely) triggered via keyboard
+	// https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail
+	const isKeyboard = event.nativeEvent.detail === 0;
+	const clickType = isKeyboard ? 'keyboard' : buttonMap.get(event.button);
+
+	if (!clickType) {
+		return;
+	}
+	const clickOutcome = getLinkClickOutcome(event, clickType);
+	const keysHeld = getKeys(event);
+	const defaultPrevented = event.defaultPrevented;
+
+	// Check if the URL is a Confluence shortLink (contains "/l/cp/")
+	let isConfluenceShortLink = false;
+	if (event.currentTarget instanceof HTMLAnchorElement) {
+		const url = event.currentTarget.href;
+		isConfluenceShortLink = url.includes('/l/cp/');
+	}
+
+	const linkClickedEventResult = linkClickedEventWithShortLink({
+		clickType,
+		clickOutcome,
+		keysHeld,
+		defaultPrevented,
+		isConfluenceShortLink,
+	});
+
+	// if the current target is an anchor tag, we can get the href from it and use that as the url being navigated too.
+	if (event.currentTarget instanceof HTMLAnchorElement) {
+		const url = event.currentTarget.href;
+		return {
+			...linkClickedEventResult,
+			nonPrivacySafeAttributes: {
+				url,
+			},
+		};
+	} else {
+		// We can't get the href from the event target, so dont include the url or any non privacy safe attributes
+		return linkClickedEventResult;
+	}
+};
+
+export const createLinkClickedPayload = functionWithCondition(
+	() => expValEquals('smart_link_confluence_short_link_analytics', 'cohort', 'test'), // 12/17/2025: Clean up this feature gate once it's out in prod for 2 weeks - https://product-fabric.atlassian.net/browse/CCPERMS-5030
+	createLinkClickedPayloadNew,
+	createLinkClickedPayloadOld,
+);
 
 type DeepPartial<T> = T extends object
 	? {

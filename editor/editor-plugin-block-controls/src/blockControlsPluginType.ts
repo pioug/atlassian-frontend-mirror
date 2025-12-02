@@ -197,6 +197,7 @@ export type BlockControlsMeta = {
 	editorBlurred: boolean;
 	editorHeight: number;
 	nodeMoved: boolean;
+	nodeMovedOffset: number;
 	type: string;
 };
 

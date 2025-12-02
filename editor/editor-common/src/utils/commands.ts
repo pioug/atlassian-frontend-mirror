@@ -239,10 +239,7 @@ function canMoveUp(state: EditorState): boolean {
 
 	if (
 		selection instanceof TextSelection &&
-		!(
-			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-			expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true)
-		)
+		!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 	) {
 		if (!selection.empty) {
 			return true;
@@ -264,10 +261,7 @@ function canMoveDown(state: EditorState): boolean {
 
 	if (
 		selection instanceof TextSelection &&
-		!(
-			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-			expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true)
-		)
+		!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 	) {
 		if (!selection.empty) {
 			return true;

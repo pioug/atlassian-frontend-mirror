@@ -7,8 +7,8 @@ import { useRovoAgentCSID } from '../common/hooks';
 import { getDefaultTrackEventConfig } from '../common/utils';
 
 type CommonAnalyticsAttributes = {
-	touchPoint: string;
-};
+	touchPoint?: string;
+} & Record<string, any>;
 
 export enum AgentCreateActions {
 	START = 'createSessionStart',
@@ -38,7 +38,7 @@ export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAtt
 	);
 
 	const trackCreateSession = useCallback(
-		(action: AgentCreateActions, attributes: CommonAnalyticsAttributes) => {
+		(action: AgentCreateActions, attributes?: CommonAnalyticsAttributes) => {
 			fireAnalyticsEvent({
 				actionSubject: 'rovoAgent',
 				action,
@@ -49,7 +49,7 @@ export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAtt
 	);
 
 	const trackCreateSessionError = useCallback(
-		(error: Error, attributes: CommonAnalyticsAttributes) => {
+		(error: Error, attributes?: CommonAnalyticsAttributes) => {
 			fireAnalyticsEvent({
 				actionSubject: 'rovoAgent',
 				action: AgentCreateActions.ERROR,

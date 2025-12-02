@@ -37,7 +37,7 @@ export const SyncedBlockNodeComponentRenderer = ({
 		syncBlockStoreManager,
 		resourceId,
 		localId,
-		fireAnalyticsEvent
+		fireAnalyticsEvent,
 	);
 
 	if (isLoading && !syncBlockInstance) {

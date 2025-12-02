@@ -1,20 +1,158 @@
-import React, { type ReactNode, type MouseEvent, type Key } from 'react';
-import {
-	ArchiveItemViewerWrapper as CompiledArchiveItemViewerWrapper,
-	ArchiveSideBar as CompiledArchiveSideBar,
-	ArchiveSidebarFolderWrapper as CompiledArchiveSidebarFolderWrapper,
-	ArchiveDownloadButtonWrapper as CompiledArchiveDownloadButtonWrapper,
-	DisabledArchiveDownloadButtonWrapper as CompiledDisabledArchiveDownloadButtonWrapper,
-	SidebarItemWrapper as CompiledSidebarItemWrapper,
-	ArchiveSidebarFileEntryWrapper as CompiledArchiveSidebarFileEntryWrapper,
-	ArchiveLayout as CompiledArchiveLayout,
-	ArchiveViewerWrapper as CompiledArchiveViewerWrapper,
-	Separator as CompiledSeparator,
-	SidebarHeaderWrapper as CompiledSidebarHeaderWrapper,
-	SidebarHeaderIcon as CompiledSidebarHeaderIcon,
-	SidebarHeaderEntry as CompiledSidebarHeaderEntry,
-} from './styleWrappers-compiled';
-import { TouchScrollable } from 'react-scrolllock';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type ReactNode, type MouseEvent, type Key, forwardRef } from 'react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx, css, keyframes } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+import { DN500 } from '@atlaskit/theme/colors';
+
+export const ARCHIVE_SIDE_BAR_WIDTH = 300;
+
+const archiveItemViewerWrapperStyles = css({
+	width: '100%',
+	display: 'flex',
+	justifyContent: 'center',
+});
+
+const archiveSideBarStyles = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	paddingTop: '22px',
+	paddingRight: `${token('space.250', '20px')}`,
+	paddingLeft: `${token('space.250', '20px')}`,
+	paddingBottom: `${token('space.250', '20px')}`,
+	backgroundColor: token('elevation.surface', '#101214'),
+	position: 'absolute',
+	left: 0,
+	top: 0,
+	width: `${ARCHIVE_SIDE_BAR_WIDTH}px`,
+	bottom: 0,
+	boxSizing: 'border-box',
+	overflowY: 'scroll',
+});
+
+const slideDown = keyframes({
+	'0%': {
+		opacity: 0,
+		transform: 'translateY(-100%)',
+	},
+	'100%': {
+		transform: 'translateY(0)',
+		opacity: 1,
+	},
+});
+
+const archiveDownloadButtonWrapperStyles = css({
+	paddingTop: `${token('space.100', '8px')}`,
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	paddingRight: '7px',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	paddingBottom: '5px',
+	paddingLeft: `${token('space.100', '8px')}`,
+	border: 'none',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('radius.small', '3px'),
+	backgroundColor: 'transparent',
+	color: token('color.icon', '#9FADBC'),
+	'&:hover': {
+		cursor: 'pointer',
+		backgroundColor: token('color.background.neutral.subtle.hovered', '#A1BDD914'),
+	},
+	'&:active': {
+		cursor: 'pointer',
+		backgroundColor: token('color.background.neutral.subtle.pressed', '#A6C5E229'),
+	},
+});
+
+const disabledArchiveDownloadButtonWrapperStyles = css({
+	paddingTop: `${token('space.100', '8px')}`,
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	paddingRight: '7px',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	paddingBottom: '5px',
+	paddingLeft: `${token('space.100', '8px')}`,
+
+	border: 'none',
+	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+	borderRadius: token('radius.small', '3px'),
+	backgroundColor: 'transparent',
+	color: token('color.icon', '#9FADBC'),
+	cursor: 'not-allowed',
+});
+
+const archiveSidebarFolderWrapperStyles = css({
+	transform: 'translateY(-100%)',
+	transition: 'all 1s',
+	opacity: 0,
+	animationName: slideDown,
+	animationDuration: '0.3s',
+	animationFillMode: 'forwards',
+});
+
+const sidebarItemWrapperStyles = css({
+	width: '85%',
+});
+
+const archiveSidebarFileEntryWrapperStyles = css({
+	paddingBottom: token('space.075', '5px'),
+	display: 'flex',
+	alignItems: 'center',
+	cursor: 'pointer',
+	transition: 'background-color 0.3s',
+});
+
+const archiveLayoutStyles = css({
+	display: 'flex',
+	width: '100%',
+	height: '100%',
+});
+
+const archiveViewerWrapperStyles = css({
+	position: 'absolute',
+	top: 0,
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+	left: `${ARCHIVE_SIDE_BAR_WIDTH}px`,
+	right: 0,
+	bottom: 0,
+	alignItems: 'center',
+	display: 'flex',
+});
+
+const separatorStyles = css({
+	borderRadius: token('radius.full'),
+	height: '2px',
+	marginTop: `${token('space.200', '19px')}`,
+	marginRight: '0',
+	marginBottom: `${token('space.200', '19px')}`,
+	marginLeft: '0',
+	backgroundColor: token('color.border', '#A6C5E229'),
+
+	flexShrink: 0,
+});
+
+const sidebarHeaderWrapperStyles = css({
+	display: 'flex',
+	alignItems: 'center',
+	flexShrink: 0,
+});
+
+const sidebarHeaderIconStyles = css({
+	display: 'flex',
+	alignItems: 'center',
+	marginRight: token('space.100', '10px'),
+	flexShrink: 0,
+});
+
+const sidebarHeaderEntryStyles = css({
+	flex: '1 1 auto',
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
+	whiteSpace: 'nowrap',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+	lineHeight: 1.14286,
+	color: token('color.text', DN500),
+});
 
 type Children = {
 	children?: ReactNode;
@@ -23,54 +161,93 @@ type OnClick = {
 	onClick: (event: MouseEvent<HTMLDivElement>) => void;
 };
 
-export const ArchiveItemViewerWrapper = (props: Children): React.JSX.Element => (
-	<CompiledArchiveItemViewerWrapper {...props} />
+const fullHeightStyles = css({
+	height: '100%',
+});
+
+export const ArchiveItemViewerWrapper = ({ children, fullHeight }: Children & { fullHeight?: boolean }) => {
+	return <div css={[archiveItemViewerWrapperStyles, fullHeight && fullHeightStyles]}>{children}</div>;
+};
+
+export const ArchiveSideBar = forwardRef(
+	({ children }: Children, ref: React.Ref<HTMLDivElement>) => {
+		return (
+			<div css={archiveSideBarStyles} ref={ref}>
+				{children}
+			</div>
+		);
+	},
 );
 
-export const ArchiveSideBar = (props: Children): React.JSX.Element => (
-	<TouchScrollable>
-		<CompiledArchiveSideBar {...props} />
-	</TouchScrollable>
-);
+export const ArchiveSidebarFolderWrapper = ({ children }: Children) => {
+	return (
+		<div css={archiveSidebarFolderWrapperStyles} data-testid="archive-sidebar-folder-wrapper">
+			{children}
+		</div>
+	);
+};
 
-export const ArchiveSidebarFolderWrapper = (props: Children): React.JSX.Element => (
-	<CompiledArchiveSidebarFolderWrapper {...props} />
-);
+export const ArchiveDownloadButtonWrapper = ({ children, onClick }: Children & OnClick) => {
+	return (
+		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
+		<div
+			css={archiveDownloadButtonWrapperStyles}
+			onClick={onClick}
+			data-testid="media-archiveDownloadButton"
+		>
+			{children}
+		</div>
+	);
+};
 
-export const ArchiveDownloadButtonWrapper = (props: Children & OnClick): React.JSX.Element => (
-	<CompiledArchiveDownloadButtonWrapper {...props} />
-);
+export const DisabledArchiveDownloadButtonWrapper = ({ children }: Children) => {
+	return (
+		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/no-static-element-interactions
+		<div
+			css={disabledArchiveDownloadButtonWrapperStyles}
+			data-testid="media-disabledArchiveDownloadButton"
+		>
+			{children}
+		</div>
+	);
+};
 
-export const DisabledArchiveDownloadButtonWrapper = (props: Children): React.JSX.Element => (
-	<CompiledDisabledArchiveDownloadButtonWrapper {...props} />
-);
+export const SidebarItemWrapper = ({ children }: Children) => {
+	return <div css={sidebarItemWrapperStyles}>{children}</div>;
+};
 
-export const SidebarItemWrapper = (props: Children): React.JSX.Element => (
-	<CompiledSidebarItemWrapper {...props} />
-);
+export const ArchiveSidebarFileEntryWrapper = ({ children, index }: { index: Key } & Children) => {
+	return (
+		<div css={archiveSidebarFileEntryWrapperStyles} key={index}>
+			{children}
+		</div>
+	);
+};
 
-export const ArchiveSidebarFileEntryWrapper = (
-	props: { index: Key } & Children,
-): React.JSX.Element => <CompiledArchiveSidebarFileEntryWrapper {...props} />;
+export const ArchiveLayout = ({ children }: Children) => {
+	return (
+		<div css={archiveLayoutStyles} data-testid="archive-layout">
+			{children}
+		</div>
+	);
+};
 
-export const ArchiveLayout = (props: Children): React.JSX.Element => (
-	<CompiledArchiveLayout {...props} />
-);
+export const ArchiveViewerWrapper = ({ children }: Children) => {
+	return <div css={archiveViewerWrapperStyles}>{children}</div>;
+};
 
-export const ArchiveViewerWrapper = (props: Children): React.JSX.Element => (
-	<CompiledArchiveViewerWrapper {...props} />
-);
+export const Separator = () => {
+	return <div css={separatorStyles} />;
+};
 
-export const Separator = (): React.JSX.Element => <CompiledSeparator />;
+export const SidebarHeaderWrapper = ({ children }: Children) => {
+	return <span css={sidebarHeaderWrapperStyles}>{children}</span>;
+};
 
-export const SidebarHeaderWrapper = (props: Children): React.JSX.Element => (
-	<CompiledSidebarHeaderWrapper {...props} />
-);
+export const SidebarHeaderIcon = ({ children }: Children) => {
+	return <div css={sidebarHeaderIconStyles}>{children}</div>;
+};
 
-export const SidebarHeaderIcon = (props: Children): React.JSX.Element => (
-	<CompiledSidebarHeaderIcon {...props} />
-);
-
-export const SidebarHeaderEntry = (props: Children): React.JSX.Element => (
-	<CompiledSidebarHeaderEntry {...props} />
-);
+export const SidebarHeaderEntry = ({ children }: Children) => {
+	return <div css={sidebarHeaderEntryStyles}>{children}</div>;
+};

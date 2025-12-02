@@ -43,7 +43,7 @@ export const getSyncedBlockNodeComponent = ({
 
 	const syncBlockStoreManager = new SyncBlockStoreManager(
 		syncBlockProvider as SyncBlockDataProvider,
-		fireAnalyticsEvent
+		fireAnalyticsEvent,
 	);
 
 	// Pre-fetch sync block data

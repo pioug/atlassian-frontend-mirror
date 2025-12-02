@@ -23,9 +23,6 @@
 	],
 	"references": [
 		{
-			"path": "../../editor-element-browser/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
 		},
 		{

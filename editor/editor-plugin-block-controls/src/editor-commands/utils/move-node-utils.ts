@@ -18,11 +18,7 @@ export const getCurrentNodePosFromDragHandleSelection = ({
 }): number => {
 	let currentNodePos = -1;
 
-	if (
-		selection.empty &&
-		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-		expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true)
-	) {
+	if (selection.empty && expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
 		currentNodePos = selection.$from.pos;
 	}
 
@@ -86,10 +82,7 @@ export const getPosWhenMoveNodeDown = ({
 	}
 
 	const nodeAfter = tr.doc.nodeAt(nodeAfterPos);
-	if (
-		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-		expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true)
-	) {
+	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
 		const nodeAtCurrentPos = tr.doc.nodeAt($currentNodePos.pos);
 		// if move empty line down to another empty line, move to the position of the next empty line
 		if (

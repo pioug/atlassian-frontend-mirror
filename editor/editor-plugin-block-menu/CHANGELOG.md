@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.1.3
+
+### Patch Changes
+
+- [`8ae5288a74a40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ae5288a74a40) -
+  Update traversal logic in selection
+- Updated dependencies
+
+## 5.1.2
+
+### Patch Changes
+
+- [`00c08e3995cb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00c08e3995cb2) -
+  Clean up platform_editor_block_menu_empty_line
+- Updated dependencies
+
+## 5.1.1
+
+### Patch Changes
+
+- [`55bf82f6468ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55bf82f6468ac) -
+  Update transformNode command to work with preservedSelection
+- Updated dependencies
+
 ## 5.1.0
 
 ### Minor Changes

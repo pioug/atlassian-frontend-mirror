@@ -55,18 +55,18 @@ const EmojiPlaceholder = (props: Props) => {
 	}
 	const width: number = scaledWidth || size;
 	const height: number = scaledHeight || size;
-	const style = expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true) ?
-		{
-			fill: 'f7f7f7',
-			minWidth: `${defaultDenseEmojiHeight}px`,
-			minHeight: `${defaultDenseEmojiHeight}px`,
-		} :
-		{
-			fill: 'f7f7f7',
-			minWidth: `${width}px`,
-			width: `${width}px`,
-			height: `${height}px`,
-		};
+	const style = expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
+		? {
+				fill: 'f7f7f7',
+				minWidth: `${defaultDenseEmojiHeight}px`,
+				minHeight: `${defaultDenseEmojiHeight}px`,
+			}
+		: {
+				fill: 'f7f7f7',
+				minWidth: `${width}px`,
+				width: `${width}px`,
+				height: `${height}px`,
+			};
 
 	return (
 		<span

@@ -36,7 +36,6 @@
 		"./test-helpers": "./src/test-helpers/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/css": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/media-client": "workspace:^",
 		"@atlaskit/media-client-react": "workspace:^",

@@ -1,5 +1,29 @@
 # @atlaskit/editor-statsig-tmp
 
+## 14.4.0
+
+### Minor Changes
+
+- [`00c08e3995cb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00c08e3995cb2) -
+  Clean up platform_editor_block_menu_empty_line
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.0
+
+### Minor Changes
+
+- [`ada8445a9624f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ada8445a9624f) -
+  Add experiment to fix ascii emoji replacement behaviour
+
+### Patch Changes
+
+- [`62db1dbb5e93b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62db1dbb5e93b) -
+  Add shortlinks to link clicked events. Only for updating metrics. Experiment here -
+  smart_link_confluence_short_link_analytics.
+
 ## 14.2.0
 
 ### Minor Changes

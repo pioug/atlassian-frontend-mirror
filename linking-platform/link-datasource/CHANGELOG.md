@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.30.7
+
+### Patch Changes
+
+- [`7ae944d7f3cd6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ae944d7f3cd6) -
+  NAVX-2825 Fixing no-literal-string-in-jsx violations in linking platform
+- Updated dependencies
+
 ## 4.30.6
 
 ### Patch Changes

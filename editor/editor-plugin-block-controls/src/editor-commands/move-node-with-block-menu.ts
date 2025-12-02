@@ -1,18 +1,26 @@
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { DIRECTION } from '@atlaskit/editor-common/types';
-import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
 import { moveNode } from './move-node';
-import {
-	getCurrentNodePosFromDragHandleSelection,
-	getPosWhenMoveNodeDown,
-	getPosWhenMoveNodeUp,
-	getShouldMoveNode,
-} from './utils/move-node-utils';
+import { getCurrentNodePosFromDragHandleSelection } from './utils/move-node-utils';
+
+const getSelectionToIndex = (fromIndex: number, $to: ResolvedPos, depth: number) => {
+	const toIndex = $to.index(depth);
+	const toIndexAfter = $to.indexAfter(depth);
+
+	// If $to is at the start of a node (indexAfter === index), don't include that node
+	// This occurs when the preserved selection is outside of inline positions at node boundaries
+	if (toIndexAfter === toIndex && toIndex > fromIndex) {
+		return toIndex - 1;
+	}
+
+	return toIndex;
+};
 
 export const moveNodeWithBlockMenu = (
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
@@ -33,47 +41,30 @@ export const moveNodeWithBlockMenu = (
 			resolve: tr.doc.resolve.bind(tr.doc),
 		});
 
-		if (currentNodePos > -1) {
-			const $currentNodePos = tr.doc.resolve(currentNodePos);
-			const nodeAfterPos = $currentNodePos.posAtIndex($currentNodePos.index() + 1);
+		const { $from, $to } = selection;
 
-			const moveToPos =
-				direction === DIRECTION.UP
-					? getPosWhenMoveNodeUp($currentNodePos, currentNodePos)
-					: getPosWhenMoveNodeDown({
-							$currentNodePos,
-							nodeAfterPos,
-							tr,
-						});
+		const depth = tr.doc.resolve(currentNodePos).depth;
+		const fromIndex = $from.index(depth);
 
-			// only move the node if the destination is at the same depth, not support moving a nested node to a parent node
-			const shouldMoveNode = getShouldMoveNode({
-				currentNodePos,
-				moveToPos,
-				tr,
-			});
+		if (direction === DIRECTION.UP) {
+			if (fromIndex > 0) {
+				const moveToPos = $from.posAtIndex(fromIndex - 1, depth);
 
-			if (shouldMoveNode) {
-				moveNode(api)(currentNodePos, moveToPos, INPUT_METHOD.BLOCK_MENU)({ tr });
-				if (
-					tr.selection.empty &&
-					expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-					expValEqualsNoExposure('platform_editor_block_menu_empty_line', 'isEnabled', true)
-				) {
-					const nodeAtCurrentPos = tr.doc.nodeAt(currentNodePos);
-					const nodeAfter = tr.doc.nodeAt(moveToPos);
-					const isConsecutiveEmptyLineMove =
-						nodeAtCurrentPos?.content.size === 0 && nodeAfter?.content.size === 0;
-					const cursorPos =
-						direction === DIRECTION.UP ||
-						(direction === DIRECTION.DOWN && isConsecutiveEmptyLineMove)
-							? moveToPos
-							: moveToPos - 1;
-					tr.setSelection(TextSelection.create(tr.doc, cursorPos));
-				}
-				tr.scrollIntoView();
+				return moveNode(api)(currentNodePos, moveToPos, INPUT_METHOD.BLOCK_MENU)({ tr });
+			}
+		} else {
+			// selectionToIndex is the index of the last node in the selection
+			const selectionToIndex = getSelectionToIndex(fromIndex, $to, depth);
+			// Adding 2 so we jump over the next node to the position after it
+			const moveToIndex = selectionToIndex + 2;
+
+			if (moveToIndex <= $to.node(depth).childCount) {
+				const moveToPos = $to.posAtIndex(moveToIndex, depth);
+
+				return moveNode(api)(currentNodePos, moveToPos, INPUT_METHOD.BLOCK_MENU)({ tr });
 			}
 		}
+
 		return tr;
 	};
 };

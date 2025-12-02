@@ -11,7 +11,6 @@ import Button, { type ButtonProps, IconButton } from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -195,7 +194,7 @@ export const AgentDropdownMenu = ({
 					{...props}
 					icon={MoreIcon}
 					label={
-						agentName && fg('a11y_agents_fixes')
+						agentName
 							? formatMessage(messages.moreActionsForLabel, { agentName: agentName })
 							: formatMessage(messages.moreActionsLabel)
 					}

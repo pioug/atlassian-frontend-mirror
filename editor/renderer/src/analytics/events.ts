@@ -333,14 +333,14 @@ type SyncedBlockFetchErrorAEP = OperationalAEP<
 	ACTION_SUBJECT.SYNCED_BLOCK,
 	ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH,
 	{ error: string }
->
+>;
 
 type SyncedBlockGetSourceInfoErrorAEP = OperationalAEP<
 	ACTION.ERROR,
 	ACTION_SUBJECT.SYNCED_BLOCK,
 	ACTION_SUBJECT_ID.SYNCED_BLOCK_GET_SOURCE_INFO,
 	{ error: string }
->
+>;
 
 export type AnalyticsEventPayload<_T = void> =
 	| RendererStartAEP

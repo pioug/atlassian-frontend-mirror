@@ -172,14 +172,8 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 	}
 
 	render() {
-		const {
-			isOpen,
-			offset,
-			boundariesElement,
-			editorView,
-			isCellMenuOpenByKeyboard,
-			api,
-		} = this.props;
+		const { isOpen, offset, boundariesElement, editorView, isCellMenuOpenByKeyboard, api } =
+			this.props;
 		const { isDragAndDropEnabled } = getPluginState(editorView.state);
 		const items = isDragAndDropEnabled
 			? this.createNewContextMenuItems()

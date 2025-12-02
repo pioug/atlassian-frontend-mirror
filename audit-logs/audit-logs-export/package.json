@@ -29,7 +29,6 @@
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/checkbox": "workspace:^",
-		"@atlaskit/css": "workspace:^",
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",

@@ -35,9 +35,6 @@
 			"path": "../../../design-system/css/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../measurement/feature-gate-js-client/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/form/afm-products/tsconfig.json"
 		},
 		{

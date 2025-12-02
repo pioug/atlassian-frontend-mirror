@@ -330,13 +330,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025--9-17
-	platform_editor_block_menu_empty_line: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2024-12-05
 	platform_editor_blockquote_in_text_formatting_menu: {
 		defaultValue: boolean;
@@ -909,6 +902,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2025-11-18
+	platform_editor_wait_for_space_after_ascii_emoji: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	}
 	// Added 2025-08-17
 	platform_hover_card_preview_panel: {
 		defaultValue: 'control' | 'test';
@@ -969,6 +969,14 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2025-11-25
+	smart_link_confluence_short_link_analytics: {
+		defaultValue: 'control' | 'test';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'test';
+		values: ('control' | 'test')[];
+	};
 	// Added 2024-09-05
 	support_table_in_comment: {
 		defaultValue: boolean;
@@ -984,14 +992,16 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	// Added 2025-11-27
-    // https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_sl_3p_unauth_paste_as_block_card/setup
-    platform_sl_3p_unauth_paste_as_block_card: {
-        defaultValue: 'control' | 'card_by_default_only' | 'card_by_default_and_new_design';
-        param: string;
-        productKeys?: ProductKeys;
-        typeGuard: (value: unknown) => value is 'control' | 'card_by_default_only' | 'card_by_default_and_new_design';
-        values: ('control' | 'card_by_default_only' | 'card_by_default_and_new_design')[];
-    };
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_sl_3p_unauth_paste_as_block_card/setup
+	platform_sl_3p_unauth_paste_as_block_card: {
+		defaultValue: 'control' | 'card_by_default_only' | 'card_by_default_and_new_design';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (
+			value: unknown,
+		) => value is 'control' | 'card_by_default_only' | 'card_by_default_and_new_design';
+		values: ('control' | 'card_by_default_only' | 'card_by_default_and_new_design')[];
+	};
 	// Added 2024-08-08
 	'test-new-experiments-package': {
 		defaultValue: boolean;
@@ -1575,18 +1585,20 @@ export const editorExperimentsConfig: {
 		values: ['control', 'test'],
 		defaultValue: 'control',
 	}),
+	// Added 2025-11-25
+	smart_link_confluence_short_link_analytics: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'smart-link-confluence-short-link-analytics',
+			jira: 'smart-link-confluence-short-link-analytics',
+		},
+		param: 'cohort',
+		values: ['control', 'test'],
+		defaultValue: 'control',
+	}),
 	// Added 2025--8-05
 	platform_editor_block_menu: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_block_menu',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025--9-17
-	platform_editor_block_menu_empty_line: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_block_menu_empty_line',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2104,19 +2116,27 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2025-11-27
-    platform_sl_3p_unauth_paste_as_block_card: createMultivariateExperiment({
-        productKeys: {
-            confluence: 'platform_sl_3p_unauth_paste_as_block_card',
-            jira: 'platform_sl_3p_unauth_paste_as_block_card'
-        },
-        values: ['control', 'card_by_default_only', 'card_by_default_and_new_design'],
-        param: 'cohort',
-        defaultValue: 'control',
-    }),
+	platform_sl_3p_unauth_paste_as_block_card: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'platform_sl_3p_unauth_paste_as_block_card',
+			jira: 'platform_sl_3p_unauth_paste_as_block_card',
+		},
+		values: ['control', 'card_by_default_only', 'card_by_default_and_new_design'],
+		param: 'cohort',
+		defaultValue: 'control',
+	}),
 	// Added 2025-11-25
 	platform_editor_remove_ncsStepMetrics_plugin: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_remove_ncsStepMetrics_plugin',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-11-18
+	platform_editor_wait_for_space_after_ascii_emoji: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_wait_for_space_after_ascii_emoji',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

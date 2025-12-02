@@ -1,8 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 
+import { FormattedMessage } from 'react-intl-next';
+
 import { type Jast } from '@atlaskit/jql-ast';
 import { JQLEditor } from '@atlaskit/jql-editor';
 import { useAutocompleteProvider } from '@atlaskit/jql-editor-autocomplete-rest';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { makeGetJqlAutocompleteData } from '../../../services/makeGetJqlAutocompleteData';
 import { makeGetJqlSuggestionsData } from '../../../services/makeGetJqlSuggestionsData';
@@ -51,8 +54,7 @@ export const JiraJQLEditor = ({
 			isSearching={isSearching}
 			inputRef={inputRef}
 			query={query}
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
-			aria-label="JQL Query Editor"
+			aria-label={fg('navx-2825-eslint-translation-fix-linking-platform') ? <FormattedMessage defaultMessage="JQL Query Editor" /> : "JQL Query Editor"}
 		/>
 	);
 };

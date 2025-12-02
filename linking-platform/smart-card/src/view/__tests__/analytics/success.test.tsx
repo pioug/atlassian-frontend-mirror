@@ -13,6 +13,7 @@ import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/ana
 import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { asMock, type JestFunction } from '@atlaskit/media-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { CardAction, TitleBlock } from '../../../index';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
@@ -146,6 +147,97 @@ describe('smart-card: success analytics', () => {
 					{ timeout: 6000 }, // EDM-10399 Simulate the dwell time
 				);
 			});
+
+			ffTest.on(
+				'rovo_chat_embed_card_dwell_and_hover_metrics',
+				'should fire the focused analytics event with mouseenter interactionType when the user hovers over the embed content wrapper',
+				() => {
+					it('should fire the focused analytics event with mouseenter interactionType when the user hovers over the embed content wrapper', async () => {
+						const mockUrl = 'https://this.is.the.sixth.url';
+						render(
+							<FabricAnalyticsListeners client={mockAnalyticsClient}>
+								<IntlProvider locale="en">
+									<Provider client={mockClient}>
+										<Card appearance="embed" url={mockUrl} />
+									</Provider>
+								</IntlProvider>
+							</FabricAnalyticsListeners>,
+						);
+						const resolvedView = await screen.findByTestId('embed-card-resolved-view');
+						expect(resolvedView).toBeTruthy();
+
+						const contentWrapper = await screen.findByTestId('embed-content-wrapper');
+						expect(contentWrapper).toBeTruthy();
+
+						// Clear previous analytics calls
+						mockAnalyticsClient.sendUIEvent.mockClear();
+
+						// Trigger mouse enter event using fireEvent
+						fireEvent.mouseEnter(contentWrapper);
+
+						await waitFor(() => {
+							expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+								expect.objectContaining({
+									action: 'focused',
+									actionSubject: 'smartLinkIframe',
+									attributes: expect.objectContaining({
+										id: 'some-uuid-1',
+										definitionId: 'd1',
+										display: 'embed',
+										interactionType: 'mouseenter',
+									}),
+								}),
+							);
+						});
+					});
+				},
+			);
+
+			ffTest.on(
+				'rovo_chat_embed_card_dwell_and_hover_metrics',
+				'should fire the focused analytics event with mouseleave interactionType when the user stops hovering over the embed content wrapper',
+				() => {
+					it('should fire the focused analytics event with mouseleave interactionType when the user stops hovering over the embed content wrapper', async () => {
+						const mockUrl = 'https://this.is.the.sixth.url';
+						render(
+							<FabricAnalyticsListeners client={mockAnalyticsClient}>
+								<IntlProvider locale="en">
+									<Provider client={mockClient}>
+										<Card appearance="embed" url={mockUrl} />
+									</Provider>
+								</IntlProvider>
+							</FabricAnalyticsListeners>,
+						);
+						const resolvedView = await screen.findByTestId('embed-card-resolved-view');
+						expect(resolvedView).toBeTruthy();
+
+						const contentWrapper = await screen.findByTestId('embed-content-wrapper');
+						expect(contentWrapper).toBeTruthy();
+
+						// Clear previous analytics calls
+						mockAnalyticsClient.sendUIEvent.mockClear();
+
+						// First trigger mouse enter, then mouse leave
+						fireEvent.mouseEnter(contentWrapper);
+						fireEvent.mouseLeave(contentWrapper);
+
+						await waitFor(() => {
+							expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+								expect.objectContaining({
+									action: 'focused',
+									actionSubject: 'smartLinkIframe',
+									attributes: expect.objectContaining({
+										id: 'some-uuid-1',
+										definitionId: 'd1',
+										display: 'embed',
+										interactionType: 'mouseleave',
+									}),
+								}),
+							);
+						});
+					});
+				},
+			);
 		});
 
 		it('should fire the resolved analytics event when the url was resolved', async () => {

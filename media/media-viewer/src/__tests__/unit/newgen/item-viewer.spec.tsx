@@ -33,34 +33,6 @@ jest.mock('@atlaskit/media-client', () => {
 	};
 });
 
-jest.mock('pdfjs-dist/legacy/build/pdf', () => ({
-	__esModule: true,
-	getDocument: jest.fn().mockImplementation(() => {
-		return jest.fn();
-	}),
-	GlobalWorkerOptions: {
-		workerSrc: '',
-	},
-	version: '',
-}));
-
-jest.mock('pdfjs-dist/legacy/web/pdf_viewer', () => ({
-	__esModule: true,
-	PDFViewer: jest.fn().mockImplementation(() => {
-		return {
-			setDocument: jest.fn(),
-			firstPagePromise: new Promise(() => {}),
-		};
-	}),
-	EventBus: jest.fn(),
-	PDFLinkService: jest.fn().mockImplementation(() => {
-		return {
-			setDocument: jest.fn(),
-			setViewer: jest.fn(),
-		};
-	}),
-}));
-
 /* Jest Spies */
 
 jest.spyOn(analytics, 'fireAnalytics').mockImplementation(() => {});
@@ -194,7 +166,7 @@ describe('<ItemViewer />', () => {
 				}),
 			).toBeInTheDocument();
 
-			const pdfContent = await screen.findByTestId('media-viewer-pdf-content');
+			const pdfContent = await screen.findByTestId('document-viewer');
 			expect(pdfContent).toBeInTheDocument();
 		});
 
@@ -799,65 +771,6 @@ describe('<ItemViewer />', () => {
 			);
 		});
 
-		it('should load error when Document Viewer has fetch failure', async () => {
-			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
-			const { mediaApi } = createMockedMediaApi(fileItem);
-
-			jest.spyOn(mediaApi, 'getArtifactURL').mockRejectedValueOnce(createServerUnauthorizedError());
-
-			render(
-				<IntlProvider locale="en">
-					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
-					</MockedMediaClientProvider>
-				</IntlProvider>,
-			);
-
-			// assess error experience
-			const errorIcon = await screen.findByRole('img', {
-				name: /error loading file/i,
-			});
-			expect(errorIcon).toBeInTheDocument();
-
-			expect(screen.getByText(/something went wrong\./i)).toBeInTheDocument();
-
-			// check the error attributes
-			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
-				{
-					action: 'loadFailed',
-					actionSubject: 'mediaFile',
-					attributes: {
-						error: 'serverUnauthorized',
-						errorDetail: 'inner error message',
-						failReason: 'docviewer-fetch-url',
-						fileAttributes: {
-							fileId: identifier.id,
-							fileMediatype: fileItem.details.mediaType,
-							fileMimetype: fileItem.details.mimeType,
-							fileSize: fileItem.details.size,
-						},
-						fileMimetype: 'application/pdf',
-						request: {
-							attempts: 5,
-							clientExhaustedRetries: true,
-							mediaEnv: 'test-media-env',
-							mediaRegion: 'test-media-region',
-							statusCode: 403,
-							traceContext: {
-								spanId: 'some-span',
-								traceId: 'some-trace',
-							},
-						},
-						status: 'fail',
-						statusCode: 403,
-						traceContext: undefined,
-					},
-					eventType: 'operational',
-				},
-				expect.anything(),
-			);
-		});
-
 		it('should load error when Video Viewer has playback failure', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
 			const { mediaApi } = createMockedMediaApi(fileItem);
@@ -958,7 +871,7 @@ describe('<ItemViewer />', () => {
 				</MockedMediaClientProvider>
 			</IntlProvider>,
 		);
-		const pdfContent = await screen.findByTestId('media-viewer-pdf-content');
+		const pdfContent = await screen.findByTestId('document-viewer');
 		expect(pdfContent).toBeDefined();
 	});
 });

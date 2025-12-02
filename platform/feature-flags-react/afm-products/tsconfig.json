@@ -23,16 +23,7 @@
 	],
 	"references": [
 		{
-			"path": "../../../design-system/css/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../feature-flags/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
 		}
 	]
 }

@@ -16,7 +16,7 @@ import { getIsDataExportEnabled } from '../../utils/should-data-export';
 import BlockCardResolvedView from '../BlockCard/views/ResolvedView';
 import { InlineCardResolvedView } from '../InlineCard/ResolvedView';
 
-import { type EmbedCardProps } from './types';
+import { type EmbedCardProps, type EmbedCardUpdatedProps } from './types';
 import { EmbedCardErroredView } from './views/ErroredView';
 import ForbiddenView from './views/forbidden-view';
 import NotFoundView from './views/not-found-view';
@@ -122,6 +122,237 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 							ref={iframeRef}
 							onIframeDwell={onIframeDwell}
 							onIframeFocus={onIframeFocus}
+							testId={testId}
+							CompetitorPrompt={CompetitorPrompt}
+							hideIconLoadingSkeleton={hideIconLoadingSkeleton}
+							extensionKey={extensionKey}
+						/>
+					);
+				} else {
+					if (platform === 'mobile') {
+						const resolvedInlineViewProps = extractInlineProps(details);
+						return (
+							<InlineCardResolvedView
+								{...resolvedInlineViewProps}
+								isSelected={isSelected}
+								testId={testId}
+								onClick={handleFrameClick}
+							/>
+						);
+					}
+
+					return (
+						<BlockCardResolvedView
+							url={url}
+							cardState={cardState}
+							onClick={handleFrameClick}
+							onError={onError}
+							onResolve={onResolve}
+							renderers={renderers}
+							actionOptions={actionOptions}
+							testId={testId}
+						/>
+					);
+				}
+			case 'unauthorized':
+				if (onError) {
+					onError({ url, status });
+				}
+				const unauthorisedViewProps = extractEmbedProps(details, platform);
+				return (
+					<UnauthorizedView
+						context={unauthorisedViewProps.context}
+						extensionKey={extensionKey}
+						frameStyle={frameStyle}
+						isProductIntegrationSupported={isProductIntegrationSupported}
+						inheritDimensions={inheritDimensions}
+						isSelected={isSelected}
+						onAuthorize={handleAuthorize}
+						onClick={handleFrameClick}
+						testId={testId}
+						url={unauthorisedViewProps.link}
+					/>
+				);
+			case 'forbidden':
+				if (onError) {
+					onError({ url, status });
+				}
+				const forbiddenViewProps = extractEmbedProps(details, platform);
+				const cardMetadata = details?.meta ?? getForbiddenJsonLd().meta;
+
+				if (forbiddenViewProps.preview) {
+					return (
+						<EmbedCardResolvedView
+							{...forbiddenViewProps}
+							title={forbiddenViewProps.link}
+							frameStyle={frameStyle}
+							isSelected={isSelected}
+							inheritDimensions={inheritDimensions}
+							onClick={handleFrameClick}
+							ref={iframeRef}
+							extensionKey={extensionKey}
+						/>
+					);
+				}
+
+				const forbiddenAccessContext = extractRequestAccessContextImproved({
+					jsonLd: cardMetadata,
+					url,
+					product: forbiddenViewProps.context?.text ?? '',
+					createAnalyticsEvent,
+				});
+
+				return (
+					<ForbiddenView
+						context={forbiddenViewProps.context}
+						frameStyle={frameStyle}
+						inheritDimensions={inheritDimensions}
+						isSelected={isSelected}
+						onAuthorize={handleAuthorize}
+						onClick={handleFrameClick}
+						accessContext={forbiddenAccessContext}
+						url={forbiddenViewProps.link}
+					/>
+				);
+			case 'not_found':
+				if (onError) {
+					onError({ url, status });
+				}
+				const notFoundViewProps = extractEmbedProps(details, platform);
+
+				const notFoundAccessContext = details?.meta
+					? extractRequestAccessContextImproved({
+							jsonLd: details?.meta,
+							url,
+							product: notFoundViewProps.context?.text ?? '',
+							createAnalyticsEvent,
+						})
+					: undefined;
+
+				return (
+					<NotFoundView
+						context={notFoundViewProps.context}
+						frameStyle={frameStyle}
+						inheritDimensions={inheritDimensions}
+						isSelected={isSelected}
+						onClick={handleFrameClick}
+						accessContext={notFoundAccessContext}
+						url={notFoundViewProps.link}
+					/>
+				);
+			case 'fallback':
+			case 'errored':
+			default:
+				if (onError) {
+					onError({ url, status });
+				}
+				return (
+					<EmbedCardErroredView
+						onRetry={handleErrorRetry}
+						inheritDimensions={inheritDimensions}
+						isSelected={isSelected}
+					/>
+				);
+		}
+	},
+);
+
+export const EmbedCardUpdated = React.forwardRef<HTMLIFrameElement, EmbedCardUpdatedProps>(
+	(
+		{
+			url,
+			cardState,
+			handleAuthorize,
+			handleErrorRetry,
+			handleFrameClick,
+			isSelected,
+			frameStyle,
+			platform,
+			onResolve,
+			onError,
+			testId,
+			inheritDimensions,
+			onIframeDwell,
+			onIframeFocus,
+			onIframeMouseEnter,
+			onIframeMouseLeave,
+			iframeUrlType,
+			actionOptions,
+			renderers,
+			CompetitorPrompt,
+			hideIconLoadingSkeleton,
+		},
+		iframeRef,
+	) => {
+		const { createAnalyticsEvent } = useAnalyticsEvents();
+
+		const { status, details } = cardState;
+
+		const extensionKey = getExtensionKey(details);
+		const isProductIntegrationSupported = hasAuthScopeOverrides(details);
+		const { shouldControlDataExport = false } = useControlDataExportConfig();
+
+		switch (status) {
+			case 'pending':
+			case 'resolving':
+				return (
+					<UFOLoadHoldWrapper>
+						<BlockCardResolvedView
+							url={url}
+							cardState={cardState}
+							onClick={handleFrameClick}
+							onError={onError}
+							onResolve={onResolve}
+							renderers={renderers}
+							actionOptions={actionOptions}
+							testId={testId ? `${testId}-resolving-view` : 'embed-card-resolving-view'}
+						/>
+					</UFOLoadHoldWrapper>
+				);
+			case 'resolved':
+				const resolvedViewProps = extractEmbedProps(details, platform, iframeUrlType);
+				if (onResolve) {
+					onResolve({
+						title: resolvedViewProps.title,
+						url,
+						aspectRatio: resolvedViewProps.preview?.aspectRatio,
+						...(fg('expose-product-details-from-smart-card') && {
+							extensionKey: details?.meta?.key,
+						}),
+					});
+				}
+
+				if (getIsDataExportEnabled(shouldControlDataExport, cardState.details)) {
+					const unauthViewProps = extractEmbedProps(details, platform);
+					return (
+						<UnauthorizedView
+							context={unauthViewProps.context}
+							extensionKey={extensionKey}
+							frameStyle={frameStyle}
+							isProductIntegrationSupported={isProductIntegrationSupported}
+							inheritDimensions={inheritDimensions}
+							isSelected={isSelected}
+							onAuthorize={handleAuthorize}
+							onClick={handleFrameClick}
+							testId={testId}
+							url={unauthViewProps.link}
+						/>
+					);
+				}
+
+				if (resolvedViewProps.preview) {
+					return (
+						<EmbedCardResolvedView
+							{...resolvedViewProps}
+							isSelected={isSelected}
+							frameStyle={frameStyle}
+							inheritDimensions={inheritDimensions}
+							onClick={handleFrameClick}
+							ref={iframeRef}
+							onIframeDwell={onIframeDwell}
+							onIframeFocus={onIframeFocus}
+							onIframeMouseEnter={onIframeMouseEnter}
+							onIframeMouseLeave={onIframeMouseLeave}
 							testId={testId}
 							CompetitorPrompt={CompetitorPrompt}
 							hideIconLoadingSkeleton={hideIconLoadingSkeleton}

@@ -28,6 +28,11 @@ jest.mock('../../../../state/hooks/use-resolve-hyperlink/useResolveHyperlinkVali
 	isSharePointDomain: jest.fn(),
 }));
 
+// Mock the expValEquals function
+jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
+	expValEquals: jest.fn().mockReturnValue(false),
+}));
+
 // Mock the FeatureGates
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	getExperimentValue: jest.fn(() => false),

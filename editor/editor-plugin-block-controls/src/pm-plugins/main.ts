@@ -38,6 +38,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
 	ActiveDropTargetNode,
+	BlockControlsMeta,
 	BlockControlsPlugin,
 	PluginState,
 } from '../blockControlsPluginType';
@@ -1219,4 +1220,8 @@ export const createPlugin = (
 			};
 		},
 	});
+};
+
+export const getBlockControlsMeta = (tr: ReadonlyTransaction) => {
+	return tr.getMeta(key) as BlockControlsMeta | undefined;
 };

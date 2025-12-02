@@ -9,6 +9,7 @@ import type {
 	DefaultTransformerResultCallback,
 	InferTransformerResultCallback,
 	Transformer,
+	TransformerResult,
 } from '../../types';
 import {
 	processRawFragmentValue,
@@ -17,7 +18,11 @@ import {
 } from '../../utils/processRawValue';
 import { editorCommandToPMCommand } from '../editor-commands';
 
-import { createThrottleSchedule, returnDocumentRequest } from './requestDocument';
+import {
+	createThrottleSchedule,
+	returnDocumentRequest,
+	returnDocumentRequestNoThrowError,
+} from './requestDocument';
 
 /**
  * Core plugin that is always included in the preset.
@@ -26,6 +31,10 @@ import { createThrottleSchedule, returnDocumentRequest } from './requestDocument
 export const corePlugin: CorePlugin = ({ config }) => {
 	// Create the document request throttler per editor (rather than at a module level)
 	const scheduleDocumentRequest = createThrottleSchedule(returnDocumentRequest);
+	const scheduleDocumentRequestNoThrowError = createThrottleSchedule(
+		returnDocumentRequestNoThrowError,
+	);
+
 	return {
 		name: 'core',
 		getSharedState(state) {
@@ -159,6 +168,26 @@ export const corePlugin: CorePlugin = ({ config }) => {
 					config?.fireAnalyticsEvent,
 					options?.alwaysFire,
 				);
+			},
+
+			requestDocumentAsync: <
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				GenericTransformer extends Transformer<any> = Transformer<JSONDocNode>,
+			>(options?: {
+				transformer?: GenericTransformer;
+			}) => {
+				return new Promise((resolve) => {
+					const view = config?.getEditorView() ?? null;
+					scheduleDocumentRequestNoThrowError<GenericTransformer>(
+						view,
+						(doc) => {
+							resolve(doc as TransformerResult<GenericTransformer>);
+						},
+						options?.transformer,
+						config?.fireAnalyticsEvent,
+						true,
+					);
+				});
 			},
 
 			createTransformer<Format>(

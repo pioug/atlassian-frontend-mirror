@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 4.7.0
+
+### Minor Changes
+
+- [`99f954d642b19`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99f954d642b19) -
+  [ux] Update Rovo chat pubsub `chat-new` event to also accept prompt placeholders. Consuming this
+  in Skills Directory to always open a new Solutions Architect chat with a prefilled prompt
+
 ## 4.6.0
 
 ### Minor Changes

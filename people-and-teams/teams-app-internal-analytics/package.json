@@ -33,9 +33,6 @@
 		"@atlaskit/analytics-listeners": "workspace:^",
 		"@atlaskit/analytics-namespaced-context": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
-		"@atlaskit/css": "workspace:^",
-		"@atlaskit/primitives": "workspace:^",
-		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"
 	},

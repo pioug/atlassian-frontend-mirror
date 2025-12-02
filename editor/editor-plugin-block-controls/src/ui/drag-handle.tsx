@@ -69,7 +69,11 @@ import {
 	shouldBeSticky,
 	shouldMaskNodeControls,
 } from '../pm-plugins/utils/drag-handle-positions';
-import { isHandleCorrelatedToSelection, selectNode } from '../pm-plugins/utils/getSelection';
+import {
+	collapseToSelectionRange,
+	isHandleCorrelatedToSelection,
+	selectNode,
+} from '../pm-plugins/utils/getSelection';
 import {
 	alignAnchorHeadInDirectionOfPos,
 	expandSelectionHeadToNodeAtPos,
@@ -534,11 +538,17 @@ export const DragHandle = ({
 
 				// Set selection to expanded selection range if it encompases the clicked drag handle
 				if (range && isPosWithinRange(startPos, range) && isMultiNodeRange(range)) {
+					const collapsed = collapseToSelectionRange(
+						tr.doc.resolve(range.start),
+						tr.doc.resolve(range.end),
+					);
+
+					// Then create a selection from the start of the first node to the end of the last node
 					tr.setSelection(
 						TextSelection.create(
 							tr.doc,
-							Math.min(selection.from, range.start),
-							Math.max(selection.to, range.end),
+							Math.min(selection.from, collapsed ? collapsed.$from.pos : range.start),
+							Math.max(selection.to, collapsed ? collapsed.$to.pos : range.end),
 						),
 					);
 				} else {

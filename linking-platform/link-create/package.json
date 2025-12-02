@@ -50,7 +50,6 @@
 		"@atlaskit/icon-file-type": "workspace:^",
 		"@atlaskit/icon-object": "workspace:^",
 		"@atlaskit/intl-messages-provider": "workspace:^",
-		"@atlaskit/layering": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/linking-common": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",

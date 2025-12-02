@@ -403,6 +403,75 @@ export default function App() {
 }
 `,
 		});
+
+		check({
+			it: 'should migrate variable children with verification warning',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	const label = 'Dynamic Label';
+	return <Lozenge appearance="success">{label}</Lozenge>;
+}
+`,
+			expected: `
+import Tag from '@atlaskit/tag';
+
+export default function App() {
+	const label = 'Dynamic Label';
+	return (
+		/* TODO: (from codemod) FIXME: This Tag component uses a variable as the text prop. Please verify that the variable contains a string value. */
+		<Tag text={label} color="lime" />
+	);
+}
+`,
+		});
+
+		check({
+			it: 'should migrate member expression children with verification warning',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	const data = { title: 'Member Title' };
+	return <Lozenge appearance="success">{data.title}</Lozenge>;
+}
+`,
+			expected: `
+import Tag from '@atlaskit/tag';
+
+export default function App() {
+	const data = { title: 'Member Title' };
+	return (
+		/* TODO: (from codemod) FIXME: This Tag component uses a variable as the text prop. Please verify that the variable contains a string value. */
+		<Tag text={data.title} color="lime" />
+	);
+}
+`,
+		});
+
+		check({
+			it: 'should migrate deeply nested member expression',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	const config = { ui: { label: 'Nested Label' } };
+	return <Lozenge appearance="success">{config.ui.label}</Lozenge>;
+}
+`,
+			expected: `
+import Tag from '@atlaskit/tag';
+
+export default function App() {
+	const config = { ui: { label: 'Nested Label' } };
+	return (
+		/* TODO: (from codemod) FIXME: This Tag component uses a variable as the text prop. Please verify that the variable contains a string value. */
+		<Tag text={config.ui.label} color="lime" />
+	);
+}
+`,
+		});
 	});
 
 	describe('edge cases', () => {

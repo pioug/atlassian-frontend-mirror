@@ -1,5 +1,36 @@
 # @atlaskit/smart-card
 
+## 43.12.2
+
+### Patch Changes
+
+- [`62db1dbb5e93b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62db1dbb5e93b) -
+  Add shortlinks to link clicked events. Only for updating metrics. Experiment here -
+  smart_link_confluence_short_link_analytics.
+- Updated dependencies
+
+## 43.12.1
+
+### Patch Changes
+
+- [`7ae944d7f3cd6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ae944d7f3cd6) -
+  NAVX-2825 Fixing no-literal-string-in-jsx violations in linking platform
+
+## 43.12.0
+
+### Minor Changes
+
+- [`ad5cf8dbae112`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad5cf8dbae112) -
+  [ux] Added analytics for mouse enter and leave using existing analytics and fixing issue with
+  sending embedCard dwell analytics
+
+## 43.11.3
+
+### Patch Changes
+
+- [`55920a92e882a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55920a92e882a) -
+  tsignores added for help-center local consumpton removed
+
 ## 43.11.2
 
 ### Patch Changes

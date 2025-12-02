@@ -343,6 +343,11 @@ events:
           required: false
           type: string
           description: The definitionId of the Smart Link resolver invoked.
+        interactionType:
+          required: false
+          type: ['mouseenter', 'mouseleave', 'focus']
+          description:
+            The type of interaction that triggered this event - mouse enter, mouse leave, or focus.
   - applicationAccount connected:
       type: track
       description: user connecting their account to view a Smart Link.
@@ -616,7 +621,8 @@ events:
           description: Whether a modifier key was pressed when clicking the Smart Link.
   - smartLink clicked (previewHoverCard):
       type: ui
-      description: fires an event that represents when a user clicks on a Smart Link to open a preview panel.
+      description:
+        fires an event that represents when a user clicks on a Smart Link to open a preview panel.
       attributes:
         <<: [*PackageMetaDataContext, *CommonContext, *ResolvedContext]
         id:

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { cssMap, cx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
@@ -7,6 +7,7 @@ import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 import relativeDate from '../../internal/relative-date';
 import messages from '../../messages';
@@ -92,7 +93,12 @@ const styles = cssMap({
 	},
 });
 
-const renderName = (nickname?: string, fullName?: string, meta?: string) => {
+const renderName = (
+	nickname?: string,
+	fullName?: string,
+	meta?: string,
+	nameRef?: React.RefObject<HTMLHeadingElement>,
+) => {
 	if (!fullName && !nickname) {
 		return null;
 	}
@@ -102,7 +108,40 @@ const renderName = (nickname?: string, fullName?: string, meta?: string) => {
 
 	const displayName = isNicknameRedundant ? fullName : `${fullName}${shownNickname}`;
 
-	return (
+	return fg('enable_profilecard_text_truncation_tooltip') ? (
+		<Tooltip
+			content={displayName}
+			position="top"
+			isScreenReaderAnnouncementDisabled
+			canAppear={() => {
+				if (!nameRef?.current) {
+					return false;
+				}
+				// Only showing the tooltip when the element has been truncated (ellipsis)
+				return nameRef.current.scrollWidth > nameRef.current.clientWidth;
+			}}
+		>
+			<Box
+				ref={nameRef}
+				as="h2"
+				xcss={cx(
+					styles.fullNameLabel,
+					styles.activeAccount,
+					meta
+						? fg('enable_absolute_positioning_profile_card')
+							? styles.metaLabelWithHighSpecificity
+							: styles.metaLabel
+						: fg('enable_absolute_positioning_profile_card')
+							? styles.noMetaLabelWithHighSpecificity
+							: styles.noMetaLabel,
+				)}
+				testId="profilecard-name"
+				id="profilecard-name-label"
+			>
+				{displayName}
+			</Box>
+		</Tooltip>
+	) : (
 		<Box
 			as="h2"
 			xcss={cx(
@@ -245,6 +284,7 @@ export const ProfileCardDetails = (
 	props: ProfilecardProps & AnalyticsWithDurationProps,
 ): React.JSX.Element => {
 	const { meta, status } = props;
+	const nameRef = useRef<HTMLHeadingElement>(null);
 
 	if (props.isServiceAccount) {
 		return <ServiceAccountProfileCardDetails {...props} />;
@@ -260,7 +300,7 @@ export const ProfileCardDetails = (
 
 	return (
 		<DetailsGroup>
-			{renderName(props.nickname, props.fullName, meta)}
+			{renderName(props.nickname, props.fullName, meta, nameRef)}
 			{meta && <JobTitleLabel>{meta}</JobTitleLabel>}
 			<CustomLozenges lozenges={props.customLozenges} />
 			<Box xcss={styles.detailedListWrapperNext}>

@@ -10,7 +10,7 @@ jest.mock('../../src/tools/get-icons/icon-structured-content.codegen', () => ({
 			status: 'published',
 			usage: 'Test usage',
 			content:
-				'# Test Icon\n\nTest usage\n\nKeywords\n\n- test\n- keyword\n\nImport statement:\n\n```tsx\nimport TestIcon from \'@atlaskit/icon/core/test\';\n```\n\nSizes:\n\n- Small\n- Medium\n',
+				"# Test Icon\n\nTest usage\n\nKeywords\n\n- test\n- keyword\n\nImport statement:\n\n```tsx\nimport TestIcon from '@atlaskit/icon/core/test';\n```\n\nSizes:\n\n- Small\n- Medium\n",
 		},
 		{
 			componentName: 'ExactMatchIcon',
@@ -20,7 +20,7 @@ jest.mock('../../src/tools/get-icons/icon-structured-content.codegen', () => ({
 			status: 'published',
 			usage: 'Example usage',
 			content:
-				'# Exact Match Icon\n\nExample usage\n\nKeywords\n\n- exact\n- match\n\nImport statement:\n\n```tsx\nimport ExactMatchIcon from \'@atlaskit/icon/core/exact-match\';\n```\n\nSizes:\n\n- Small\n- Medium\n',
+				"# Exact Match Icon\n\nExample usage\n\nKeywords\n\n- exact\n- match\n\nImport statement:\n\n```tsx\nimport ExactMatchIcon from '@atlaskit/icon/core/exact-match';\n```\n\nSizes:\n\n- Small\n- Medium\n",
 		},
 		{
 			componentName: 'FuzzyMatchIcon',
@@ -30,7 +30,7 @@ jest.mock('../../src/tools/get-icons/icon-structured-content.codegen', () => ({
 			status: 'published',
 			usage: 'Fuzzy example usage',
 			content:
-				'# Fuzzy Match Icon\n\nFuzzy example usage\n\nKeywords\n\n- fuzzy\n- example\n\nImport statement:\n\n```tsx\nimport FuzzyMatchIcon from \'@atlaskit/icon/core/fuzzy-match\';\n```\n\nSizes:\n\n- Small\n- Medium\n',
+				"# Fuzzy Match Icon\n\nFuzzy example usage\n\nKeywords\n\n- fuzzy\n- example\n\nImport statement:\n\n```tsx\nimport FuzzyMatchIcon from '@atlaskit/icon/core/fuzzy-match';\n```\n\nSizes:\n\n- Small\n- Medium\n",
 		},
 		{
 			componentName: 'DuplicateIcon',
@@ -40,7 +40,7 @@ jest.mock('../../src/tools/get-icons/icon-structured-content.codegen', () => ({
 			status: 'published',
 			usage: 'Example usage',
 			content:
-				'# Duplicate Icon\n\nExample usage\n\nKeywords\n\n- duplicate\n\nImport statement:\n\n```tsx\nimport DuplicateIcon from \'@atlaskit/icon/core/duplicate\';\n```\n\nSizes:\n\n- Small\n- Medium\n',
+				"# Duplicate Icon\n\nExample usage\n\nKeywords\n\n- duplicate\n\nImport statement:\n\n```tsx\nimport DuplicateIcon from '@atlaskit/icon/core/duplicate';\n```\n\nSizes:\n\n- Small\n- Medium\n",
 		},
 		{
 			componentName: 'SmallRecommendedIcon',
@@ -51,7 +51,7 @@ jest.mock('../../src/tools/get-icons/icon-structured-content.codegen', () => ({
 			usage: 'Small recommended usage',
 			shouldRecommendSmallIcon: true,
 			content:
-				'# Small Recommended Icon\n\nSmall recommended usage\n\nKeywords\n\n- small\n- recommended\n\nImport statement:\n\n```tsx\nimport SmallRecommendedIcon from \'@atlaskit/icon/core/small-recommended\';\n```\n\nSizes:\n\n- Small: recommended\n- Medium\n',
+				"# Small Recommended Icon\n\nSmall recommended usage\n\nKeywords\n\n- small\n- recommended\n\nImport statement:\n\n```tsx\nimport SmallRecommendedIcon from '@atlaskit/icon/core/small-recommended';\n```\n\nSizes:\n\n- Small: recommended\n- Medium\n",
 		},
 		{
 			componentName: 'DraftIcon',
@@ -61,7 +61,7 @@ jest.mock('../../src/tools/get-icons/icon-structured-content.codegen', () => ({
 			status: 'draft',
 			usage: 'Draft usage',
 			content:
-				'# Draft Icon\n\nDraft usage\n\nKeywords\n\n- draft\n\nImport statement:\n\n```tsx\nimport DraftIcon from \'@atlaskit/icon/core/draft\';\n```\n\nSizes:\n\n- Small\n- Medium\n',
+				"# Draft Icon\n\nDraft usage\n\nKeywords\n\n- draft\n\nImport statement:\n\n```tsx\nimport DraftIcon from '@atlaskit/icon/core/draft';\n```\n\nSizes:\n\n- Small\n- Medium\n",
 		},
 	],
 }));
@@ -132,7 +132,7 @@ describe('ads_get_icons tool', () => {
 	it('Formats icons correctly in Markdown format', async () => {
 		const result = await getIconsTool({ terms: ['TestIcon'], exactName: true });
 		expect(result.content[0].text).toEqual(
-			'# Test Icon\n\nTest usage\n\nKeywords\n\n- test\n- keyword\n\nImport statement:\n\n```tsx\nimport TestIcon from \'@atlaskit/icon/core/test\';\n```\n\nSizes:\n\n- Small\n- Medium\n',
+			"# Test Icon\n\nTest usage\n\nKeywords\n\n- test\n- keyword\n\nImport statement:\n\n```tsx\nimport TestIcon from '@atlaskit/icon/core/test';\n```\n\nSizes:\n\n- Small\n- Medium\n",
 		);
 	});
 

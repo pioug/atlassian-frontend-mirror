@@ -1,6 +1,5 @@
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import {
 	type EditorState,
 	type ReadonlyTransaction,
@@ -8,6 +7,10 @@ import {
 	TextSelection,
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import { Mapping, StepMap } from '@atlaskit/editor-prosemirror/transform';
+
+import { getBlockControlsMeta } from '../main';
+import { collapseToSelectionRange, expandToBlockRange } from '../utils/getSelection';
 
 import { stopPreservingSelection } from './editor-commands';
 import { selectionPreservationPluginKey } from './plugin-key';
@@ -112,13 +115,23 @@ export const createSelectionPreservationPlugin = () => {
 };
 
 const mapSelection = (selection: Selection, tr: ReadonlyTransaction): Selection | undefined => {
+	const { nodeMoved, nodeMovedOffset } = getBlockControlsMeta(tr) || {};
+
+	const mapping =
+		nodeMoved && typeof nodeMovedOffset === 'number'
+			? new Mapping([new StepMap([0, 0, nodeMovedOffset])])
+			: tr.mapping;
+
 	if (selection instanceof TextSelection) {
-		const from = tr.mapping.map(selection.from);
-		const to = tr.mapping.map(selection.to);
+		const from = mapping.map(selection.from);
+		const to = mapping.map(selection.to);
 
 		// expand the text selection range to block boundaries, so as document changes occur the
 		// selection always includes whole nodes
-		const { $from, $to } = expandToBlockRange(tr.doc.resolve(from), tr.doc.resolve(to));
+		const expanded = expandToBlockRange(tr.doc.resolve(from), tr.doc.resolve(to));
+
+		// collapse the expanded range to a valid selection range
+		const { $from, $to } = collapseToSelectionRange(expanded.$from, expanded.$to);
 
 		// stop preserving if preserved selection becomes invalid or collapsed to a cursor
 		// e.g. after deleting the selection
@@ -130,21 +143,8 @@ const mapSelection = (selection: Selection, tr: ReadonlyTransaction): Selection 
 	}
 
 	try {
-		return selection.map(tr.doc, tr.mapping);
+		return selection.map(tr.doc, mapping);
 	} catch {
 		return undefined;
 	}
-};
-
-const expandToBlockRange = ($from: ResolvedPos, $to: ResolvedPos) => {
-	const range = $from.blockRange($to);
-
-	if (!range) {
-		return { $from, $to };
-	}
-
-	return {
-		$from: $from.doc.resolve(range.start),
-		$to: $to.doc.resolve(range.end),
-	};
 };

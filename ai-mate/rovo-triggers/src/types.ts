@@ -1,5 +1,6 @@
 import type { DocNode } from '@atlaskit/adf-schema';
 
+import type { SolutionDraftAgentUpdatePayload } from './common/types/agent';
 import type {
 	SolutionArchitectAgentActivationPayload,
 	SolutionArchitectHandoffPayload,
@@ -41,6 +42,11 @@ type TargetAgentParam =
 			agentExternalConfigReference: string;
 	  };
 
+type PlaceholderParam = {
+	// Overrides the default placeholder type
+	placeholderType?: 'person' | 'link' | 'generic';
+};
+
 export type ChatNewPayload = PayloadCore<
 	'chat-new',
 	{
@@ -58,11 +64,14 @@ export type ChatNewPayload = PayloadCore<
 		}>;
 		// Used for follow-up prompt once chat is created
 		prompt?: string | DocNode;
+		// Used to indicate if the prompt is a placeholder, only works if `prompt` is a string
+		isPromptPlaceholder?: boolean;
 		files?: UploadedFile[];
 		contentContext?: 'staging-area' | 'global';
 		sourceId?: string;
 		minionAlias?: string;
-	} & Partial<TargetAgentParam>
+	} & Partial<TargetAgentParam> &
+		PlaceholderParam
 >;
 
 export type EditorContextPayloadData =
@@ -190,11 +199,7 @@ export type InsertPromptPayload = PayloadCore<
 	'insert-prompt',
 	{
 		prompt: string;
-		/**
-		 * Overrides the default placeholder type
-		 */
-		placeholderType?: 'person' | 'link' | 'generic';
-	}
+	} & PlaceholderParam
 >;
 
 /** Inserts URLs as inline nodes into the chat input
@@ -352,6 +357,7 @@ export type Payload =
 	| GenericExternalActionErrorPayload
 	| SolutionArchitectHandoffPayload
 	| SolutionPlanStateUpdatePayload
+	| SolutionDraftAgentUpdatePayload
 	| SolutionArchitectAgentActivationPayload;
 
 export type Callback = (payload: Payload) => void;

@@ -3,12 +3,8 @@ import uuid from 'uuid';
 
 import { type SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { rebaseTransaction } from '../common/rebase-transaction';
 import type {
 	ResourceId,
 	SyncBlockAttrs,
@@ -40,13 +36,11 @@ type SyncBlockData = Data & {
 // Ensures consistency between local and remote state, and can be used in both editor and renderer contexts.
 export class SourceSyncBlockStoreManager {
 	private dataProvider?: SyncBlockDataProvider;
-	private editorView?: EditorView;
 	private fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void;
 
 	private syncBlockCache: Map<ResourceId, SyncBlockData>;
 
 	private confirmationCallback?: ConfirmationCallback;
-	private confirmationTransaction?: Transaction;
 
 	private pendingResourceId?: ResourceId;
 	private creationCallback?: CreationCallback;
@@ -147,10 +141,6 @@ export class SourceSyncBlockStoreManager {
 			this.fireAnalyticsEvent?.(updateErrorPayload((error as Error).message));
 			return false;
 		}
-	}
-
-	public setEditorView(editorView: EditorView | undefined) {
-		this.editorView = editorView;
 	}
 
 	public registerPendingCreation(resourceId: ResourceId) {
@@ -276,23 +266,13 @@ export class SourceSyncBlockStoreManager {
 	};
 
 	public async deleteSyncBlocksWithConfirmation(
-		tr: Transaction,
 		syncBlockIds: SyncBlockAttrs[],
+		deleteCallback: () => void,
 	): Promise<void> {
 		if (this.confirmationCallback) {
-			this.confirmationTransaction = tr;
 			const confirmed = await this.confirmationCallback(syncBlockIds.length);
 			if (confirmed) {
-				const trToDispatch = this.confirmationTransaction.setMeta(
-					'isConfirmedSyncBlockDeletion',
-					true,
-				);
-				if (!trToDispatch.getMeta(pmHistoryPluginKey)) {
-					// bodiedSyncBlock deletion is expected to be permanent (cannot be undo)
-					// For a normal delete (not triggered by undo), remove it from history so that it cannot be undone
-					trToDispatch.setMeta('addToHistory', false);
-				}
-				this.editorView?.dispatch(trToDispatch);
+				deleteCallback();
 
 				try {
 					if (!this.dataProvider) {
@@ -333,30 +313,14 @@ export class SourceSyncBlockStoreManager {
 					this.fireAnalyticsEvent?.(deleteErrorPayload((error as Error).message));
 				}
 			}
-			this.confirmationTransaction = undefined;
 		}
-	}
-
-	public rebaseTransaction(incomingTr: Transaction, state: EditorState): void {
-		if (!this.confirmationTransaction) {
-			return;
-		}
-
-		this.confirmationTransaction = rebaseTransaction(
-			this.confirmationTransaction,
-			incomingTr,
-			state,
-		);
 	}
 
 	public destroy(): void {
 		this.syncBlockCache.clear();
 		this.confirmationCallback = undefined;
-		this.confirmationTransaction = undefined;
 		this.pendingResourceId = undefined;
 		this.creationCallback = undefined;
 		this.dataProvider = undefined;
-		this.editorView = undefined;
-		this.fireAnalyticsEvent = undefined;
 	}
 }

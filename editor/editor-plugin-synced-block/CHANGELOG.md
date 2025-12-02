@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.3.12
+
+### Patch Changes
+
+- [`48a3dd84c602b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48a3dd84c602b) -
+  [EDITOR-3394] Decouple editorView from source manager
+- Updated dependencies
+
+## 4.3.11
+
+### Patch Changes
+
+- [`55920a92e882a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55920a92e882a) -
+  tsignores added for help-center local consumpton removed
+- Updated dependencies
+
 ## 4.3.10
 
 ### Patch Changes

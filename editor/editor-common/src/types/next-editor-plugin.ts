@@ -110,6 +110,23 @@ export type CorePlugin = NextEditorPlugin<
 			): void;
 
 			/**
+			 * Request the editor document asynchronously.
+			 *
+			 * A transformer can be created using `createTransformer`.
+			 *
+			 * @param options Options for document request
+			 * @param options.transformer Pass a transformer for the document to be transformed into a different format.
+			 *
+			 * @returns (Promise) Promise that resolves to the document. Document type based on the transformer.
+			 */
+			requestDocumentAsync: <
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				GenericTransformer extends Transformer<any> = Transformer<JSONDocNode>,
+			>(options?: {
+				transformer?: GenericTransformer;
+			}) => Promise<TransformerResult<GenericTransformer> | undefined>;
+
+			/**
 			 * Scroll to a specific position in the editor using native Element.scrollIntoView
 			 *
 			 * @param pos - Position number scroll to

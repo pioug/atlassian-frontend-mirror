@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 9.1.18
+
+### Patch Changes
+
+- [`55920a92e882a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55920a92e882a) -
+  tsignores added for help-center local consumpton removed
+- Updated dependencies
+
 ## 9.1.17
 
 ### Patch Changes

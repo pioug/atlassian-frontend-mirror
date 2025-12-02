@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.30.6",
+	"version": "4.30.7",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -194,6 +194,9 @@
 			"type": "boolean"
 		},
 		"jpd_confluence_date_fields_improvements": {
+			"type": "boolean"
+		},
+		"navx-2825-eslint-translation-fix-linking-platform": {
 			"type": "boolean"
 		}
 	},

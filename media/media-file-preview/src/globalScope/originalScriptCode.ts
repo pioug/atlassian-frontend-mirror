@@ -1,0 +1,138 @@
+/* eslint-disable @atlaskit/platform/no-direct-document-usage */
+
+/** IMPORTANT: This is the original code for the script.
+ * Do not change the code without testing it in product first.
+ * Steps:
+ * 1. Make changes in this code
+ * 2. Manually minify the code via https://repl.parceljs.org/ (using typescript preset with minify option)
+ * 	  - eg: https://repl.parceljs.org/#JTdCJTIyZmlsZXMlMjIlM0ElNUIlNUIlMjIlMkZzcmMlMkZpbmRleC50cyUyMiUyQyU3QiUyMnZhbHVlJTIyJTNBJTIyJTJGKiUyMGVzbGludC1kaXNhYmxlJTIwJTQwYXRsYXNraXQlMkZwbGF0Zm9ybSUyRm5vLWRpcmVjdC1kb2N1bWVudC11c2FnZSUyMColMkYlNUNuJTVDbiUyRioqJTIwSU1QT1JUQU5UJTNBJTIwVGhpcyUyMGlzJTIwdGhlJTIwb3JpZ2luYWwlMjBjb2RlJTIwZm9yJTIwdGhlJTIwc2NyaXB0LiU1Q24lMjAqJTIwRG8lMjBub3QlMjBjaGFuZ2UlMjB0aGUlMjBjb2RlJTIwd2l0aG91dCUyMHRlc3RpbmclMjBpdCUyMGluJTIwcHJvZHVjdCUyMGZpcnN0LiU1Q24lMjAqJTIwU3RlcHMlM0ElNUNuJTIwKiUyMDEuJTIwTWFrZSUyMGNoYW5nZXMlMjBpbiUyMHRoaXMlMjBjb2RlJTVDbiUyMColMjAyLiUyME1hbnVhbGx5JTIwbWluaWZ5JTIwdGhlJTIwY29kZSUyMHZpYSUyMGh0dHBzJTNBJTJGJTJGcmVwbC5wYXJjZWxqcy5vcmclMkYlNUNuJTIwKiUyMDMuJTIwQ29weSUyMHRoZSUyMG1pbmlmaWVkJTIwY29kZSUyMGludG8lMjBnbG9iYWxTY29wZS50c3glMjByZXBsYWNpbmclMjB0aGUlMjBleGlzdGluZyUyMHN0cmluZyUyMHdoZXJlJTIwaXQlMjBzYXlzJTIwUEFTVEUlMjBIRVJFJTVDbiUyMColMjA0LiUyMFJ1biUyMHRoZSUyMHRlc3RzJTIwYW5kJTIwbWFrZSUyMHN1cmUlMjB0aGV5JTIwcGFzcyU1Q24lMjAqJTIwNS4lMjBURVNUJTIwSU4lMjBQUk9EVUNUUyUyMEJFRk9SRSUyME1FUkdJTkclNUNuJTIwKiU1Q24lMjAqJTJGJTVDbiU1Q25mdW5jdGlvbiUyMGdldE1lZGlhR2xvYmFsU2NvcGUoKSUyMCU3QiU1Q24lMjAlMjBjb25zdCUyMG5hbWVzcGFjZSUyMCUzRCUyMCU1QyUyMl9fTUVESUFfSU5URVJOQUwlNUMlMjIlM0IlNUNuJTIwJTIwaWYlMjAoISh3aW5kb3clMjBhcyUyMGFueSklNUJuYW1lc3BhY2UlNUQpJTIwJTdCJTVDbiUyMCUyMCUyMCUyMCh3aW5kb3clMjBhcyUyMGFueSklNUJuYW1lc3BhY2UlNUQlMjAlM0QlMjAlN0IlN0QlM0IlNUNuJTIwJTIwJTdEJTVDbiUyMCUyMHJldHVybiUyMCh3aW5kb3clMjBhcyUyMGFueSklNUJuYW1lc3BhY2UlNUQlM0IlNUNuJTdEJTVDbiU1Q25mdW5jdGlvbiUyMGdldE1lZGlhQ2FyZFNTUigpJTIwJTdCJTVDbiUyMCUyMGNvbnN0JTIwZ2xvYmFsTWVkaWElMjAlM0QlMjBnZXRNZWRpYUdsb2JhbFNjb3BlKCklM0IlNUNuJTIwJTIwY29uc3QlMjBrZXklMjAlM0QlMjAlNUMlMjJtZWRpYUNhcmRTc3IlNUMlMjIlM0IlNUNuJTIwJTIwaWYlMjAoIWdsb2JhbE1lZGlhJTVCa2V5JTVEKSUyMCU3QiU1Q24lMjAlMjAlMjAlMjBnbG9iYWxNZWRpYSU1QmtleSU1RCUyMCUzRCUyMCU3QiU3RCUzQiU1Q24lMjAlMjAlN0QlNUNuJTIwJTIwcmV0dXJuJTIwZ2xvYmFsTWVkaWElNUJrZXklNUQlM0IlNUNuJTdEJTVDbiU1Q25mdW5jdGlvbiUyMGdldE1lZGlhQ291bnRTU1IoKSUyMCU3QiU1Q24lMjAlMjBjb25zdCUyMGdsb2JhbE1lZGlhJTIwJTNEJTIwZ2V0TWVkaWFHbG9iYWxTY29wZSgpJTNCJTVDbiUyMCUyMGNvbnN0JTIwa2V5JTIwJTNEJTIwJTVDJTIybWVkaWFDb3VudFNzciU1QyUyMiUzQiU1Q24lMjAlMjBpZiUyMCghZ2xvYmFsTWVkaWElNUJrZXklNUQpJTIwJTdCJTVDbiUyMCUyMCUyMCUyMGdsb2JhbE1lZGlhJTVCa2V5JTVEJTIwJTNEJTIwMCUzQiU1Q24lMjAlMjAlN0QlNUNuJTIwJTIwcmV0dXJuJTIwZ2xvYmFsTWVkaWElNUJrZXklNUQlM0IlNUNuJTdEJTVDbiU1Q25mdW5jdGlvbiUyMGluY3JlbWVudE1lZGlhQ291bnRTU1IoKSUyMCU3QiU1Q24lMjAlMjBjb25zdCUyMGdsb2JhbE1lZGlhJTIwJTNEJTIwZ2V0TWVkaWFHbG9iYWxTY29wZSgpJTNCJTVDbiUyMCUyMGNvbnN0JTIwa2V5JTIwJTNEJTIwJTVDJTIybWVkaWFDb3VudFNzciU1QyUyMiUzQiU1Q24lMjAlMjBpZiUyMCghZ2xvYmFsTWVkaWElNUJrZXklNUQpJTIwJTdCJTVDbiUyMCUyMCUyMCUyMGdsb2JhbE1lZGlhJTVCa2V5JTVEJTIwJTNEJTIwMCUzQiU1Q24lMjAlMjAlN0QlNUNuJTIwJTIwZ2xvYmFsTWVkaWElNUJrZXklNUQlMkIlMkIlM0IlNUNuJTdEJTVDbiU1Q24oZnVuY3Rpb24lMjAocGFyYW1zJTNBJTIwYW55KSUyMCU3QiU1Q24lMjAlMjBjb25zdCUyMHNjcmlwdCUyMCUzRCUyMGRvY3VtZW50LmN1cnJlbnRTY3JpcHQlM0IlNUNuJTVDbiUyMCUyMCUyRiUyRiUyMFN0b3JlJTIwdGhlJTIwZGF0YSU1Q24lMjAlMjBjb25zdCUyMG1lZGlhQ2FyZFNzciUyMCUzRCUyMGdldE1lZGlhQ2FyZFNTUigpJTNCJTVDbiUyMCUyMGNvbnN0JTIwbWVkaWFDb3VudFNzciUyMCUzRCUyMGdldE1lZGlhQ291bnRTU1IoKSUzQiU1Q24lMjAlMjBjb25zdCUyMCU3QiUyMGtleSUyMCU3RCUyMCUzRCUyMHBhcmFtcyUzQiU1Q24lMjAlMjBjb25zdCUyMHBhcmFtRGF0YVVSSSUyMCUzRCUyMHBhcmFtcy5kYXRhVVJJJTNCJTVDbiUyMCUyMGNvbnN0JTIwcGFyYW1Nb2RlJTIwJTNEJTIwcGFyYW1zLm1vZGUlM0IlNUNuJTIwJTIwY29uc3QlMjBwYXJhbVNyY1NldCUyMCUzRCUyMHBhcmFtcy5zcmNTZXQlM0IlNUNuJTIwJTIwY29uc3QlMjAlN0IlMjBkaW1lbnNpb25zJTIwJTdEJTIwJTNEJTIwcGFyYW1zJTNCJTVDbiUyMCUyMGNvbnN0JTIwJTdCJTIwZXJyb3IlMjAlN0QlMjAlM0QlMjBwYXJhbXMlM0IlNUNuJTIwJTIwY29uc3QlMjAlN0IlMjBmZWF0dXJlRmxhZ3MlMjAlN0QlMjAlM0QlMjBwYXJhbXMlM0IlNUNuJTVDbiUyMCUyMGlmJTIwKGZlYXR1cmVGbGFncyU1QiU1QyUyMm1lZGlhLXBlcmYtdXBsaWZ0LW11dGF0aW9uLWZpeCU1QyUyMiU1RCklMjAlN0IlNUNuJTIwJTIwJTIwJTIwY29uc3QlMjBwcmV2RGF0YSUyMCUzRCUyMG1lZGlhQ2FyZFNzciU1QmtleSU1RCUzQiU1Q24lMjAlMjAlMjAlMjBjb25zdCUyMGlzUHJldmlvdXNJbWFnZUxhcmdlciUyMCUzRCU1Q24lMjAlMjAlMjAlMjAlMjAlMjBwcmV2RGF0YSUyMCUyNiUyNiU1Q24lMjAlMjAlMjAlMjAlMjAlMjBwcmV2RGF0YS5tb2RlJTIwJTNEJTNEJTNEJTIwcGFyYW1Nb2RlJTIwJTI2JTI2JTVDbiUyMCUyMCUyMCUyMCUyMCUyMHByZXZEYXRhLmRpbWVuc2lvbnMlMjAlMjYlMjYlNUNuJTIwJTIwJTIwJTIwJTIwJTIwcHJldkRhdGEuZGltZW5zaW9ucy53aWR0aCUyMCUyNiUyNiU1Q24lMjAlMjAlMjAlMjAlMjAlMjBkaW1lbnNpb25zJTIwJTI2JTI2JTVDbiUyMCUyMCUyMCUyMCUyMCUyMGRpbWVuc2lvbnMud2lkdGglMjAlMjYlMjYlNUNuJTIwJTIwJTIwJTIwJTIwJTIwcHJldkRhdGEuZGltZW5zaW9ucy53aWR0aCUyMCUzRSUyMGRpbWVuc2lvbnMud2lkdGglM0IlNUNuJTVDbiUyMCUyMCUyMCUyMGNvbnN0JTIwc3JjU2V0JTIwJTNEJTIwaXNQcmV2aW91c0ltYWdlTGFyZ2VyJTIwJTNGJTIwcHJldkRhdGEuc3JjU2V0JTIwJTNBJTIwcGFyYW1TcmNTZXQlM0IlNUNuJTIwJTIwJTIwJTIwY29uc3QlMjBkYXRhVVJJJTIwJTNEJTIwaXNQcmV2aW91c0ltYWdlTGFyZ2VyJTIwJTNGJTIwcHJldkRhdGEuZGF0YVVSSSUyMCUzQSUyMHBhcmFtRGF0YVVSSSUzQiU1Q24lNUNuJTIwJTIwJTIwJTIwY29uc3QlMjBjdXJyRGF0YSUzQSUyMGFueSUyMCUzRCUyMCU3QiU1Q24lMjAlMjAlMjAlMjAlMjAlMjBkYXRhVVJJJTJDJTVDbiUyMCUyMCUyMCUyMCUyMCUyMGRpbWVuc2lvbnMlMkMlNUNuJTIwJTIwJTIwJTIwJTIwJTIwZXJyb3IlMkMlNUNuJTIwJTIwJTIwJTIwJTIwJTIwc3JjU2V0JTJDJTVDbiUyMCUyMCUyMCUyMCUyMCUyMGxvYWRpbmclM0ElMjAlNUMlMjJsYXp5JTVDJTIyJTJDJTVDbiUyMCUyMCUyMCUyMCUyMCUyMGxvYWRQcm9taXNlJTNBJTIwdW5kZWZpbmVkJTJDJTVDbiU1Q3QlNUN0JTVDdG1vZGUlM0ElMjBwYXJhbU1vZGUlMkMlNUNuJTIwJTIwJTIwJTIwJTdEJTNCJTVDbiU1Q24lMjAlMjAlMjAlMjBjb25zdCUyMGltZyUyMCUzRCU1Q24lMjAlMjAlMjAlMjAlMjAlMjBzY3JpcHQlMjAlMjYlMjYlNUNuJTIwJTIwJTIwJTIwJTIwJTIwc2NyaXB0LnBhcmVudEVsZW1lbnQlMjAlMjYlMjYlNUNuJTIwJTIwJTIwJTIwJTIwJTIwc2NyaXB0LnBhcmVudEVsZW1lbnQucXVlcnlTZWxlY3RvciglNUMlMjJpbWclNUMlMjIpJTNCJTVDbiU1Q24lMjAlMjAlMjAlMjBpZiUyMCglNUNuJTIwJTIwJTIwJTIwJTIwJTIwaW1nJTIwJTI2JTI2JTVDbiUyMCUyMCUyMCUyMCUyMCUyMGZlYXR1cmVGbGFncyU1QiU1QyUyMm1lZGlhLXBlcmYtbGF6eS1sb2FkaW5nLW9wdGltaXNhdGlvbiU1QyUyMiU1RCUyMCUyNiUyNiU1Q24lMjAlMjAlMjAlMjAlMjAlMjBtZWRpYUNvdW50U3NyJTIwJTNDJTIwcGFyYW1zLm1heEVhZ2VyTG9hZENvdW50JTVDbiUyMCUyMCUyMCUyMCklMjAlN0IlNUNuJTIwJTIwJTIwJTIwJTIwJTIwaW5jcmVtZW50TWVkaWFDb3VudFNTUigpJTNCJTVDbiUyMCUyMCUyMCUyMCUyMCUyMGlmJTIwKGltZy5nZXRBdHRyaWJ1dGUoJTVDJTIybG9hZGluZyU1QyUyMiklMjAlM0QlM0QlM0QlMjAlNUMlMjJsYXp5JTVDJTIyKSUyMCU3QiU1Q24lMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjBpbWcucmVtb3ZlQXR0cmlidXRlKCU1QyUyMmxvYWRpbmclNUMlMjIpJTNCJTVDbiUyMCUyMCUyMCUyMCUyMCUyMCU3RCU1Q24lMjAlMjAlMjAlMjAlMjAlMjBjdXJyRGF0YS5sb2FkaW5nJTIwJTNEJTIwJTVDJTIyJTVDJTIyJTNCJTVDbiUyMCUyMCUyMCUyMCU3RCU1Q24lNUNuJTIwJTIwJTIwJTIwaWYlMjAoaW1nJTIwJTI2JTI2JTIwZGF0YVVSSSklMjAlN0IlNUNuJTIwJTIwJTIwJTIwJTIwJTIwaW1nLnNyYyUyMCUzRCUyMGRhdGFVUkklM0IlNUNuJTIwJTIwJTIwJTIwJTdEJTVDbiUyMCUyMCUyMCUyMGlmJTIwKGltZyUyMCUyNiUyNiUyMHNyY1NldCklMjAlN0IlNUNuJTIwJTIwJTIwJTIwJTIwJTIwaW1nLnNyY3NldCUyMCUzRCUyMHNyY1NldCUzQiU1Q24lMjAlMjAlMjAlMjAlN0QlNUNuJTVDbiUyMCUyMCUyMCUyMGN1cnJEYXRhLmxvYWRQcm9taXNlJTIwJTNEJTIwbmV3JTIwUHJvbWlzZSUzQ3ZvaWQlM0UoZnVuY3Rpb24lMjAocmVzb2x2ZSUyQyUyMHJlamVjdCklMjAlN0IlNUNuJTIwJTIwJTIwJTIwJTIwJTIwaWYlMjAoaW1nKSUyMCU3QiU1Q24lMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjAlMkYlMkYlMjBlc2xpbnQtZGlzYWJsZS1uZXh0LWxpbmUlMjAlNDByZXBvJTJGaW50ZXJuYWwlMkZkb20tZXZlbnRzJTJGbm8tdW5zYWZlLWV2ZW50LWxpc3RlbmVycyU1Q24lMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjBpbWcuYWRkRXZlbnRMaXN0ZW5lciglNUMlMjJsb2FkJTVDJTIyJTJDJTIwZnVuY3Rpb24lMjAoKSUyMCU3QiU1Q24lMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjByZXNvbHZlKHVuZGVmaW5lZCklM0IlNUNuJTIwJTIwJTIwJTIwJTIwJTIwJTIwJTIwJTdEKSUzQiU1Q24lMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjAlMkYlMkYlMjBlc2xpbnQtZGlzYWJsZS1uZXh0LWxpbmUlMjAlNDByZXBvJTJGaW50ZXJuYWwlMkZkb20tZXZlbnRzJTJGbm8tdW5zYWZlLWV2ZW50LWxpc3RlbmVycyU1Q24lMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjBpbWcuYWRkRXZlbnRMaXN0ZW5lciglNUMlMjJlcnJvciU1QyUyMiUyQyUyMGZ1bmN0aW9uJTIwKCklMjAlN0IlNUNuJTIwJTIwJTIwJTIwJTIwJTIwJTIwJTIwJTIwJTIwcmVqZWN0KG5ldyUyMEVycm9yKCU1QyUyMkZhaWxlZCUyMHRvJTIwbG9hZCUyMGltYWdlJTVDJTIyKSklM0IlNUNuJTIwJTIwJTIwJTIwJTIwJTIwJTIwJTIwJTdEKSUzQiU1Q24lMjAlMjAlMjAlMjAlMjAlMjAlN0QlNUNuJTIwJTIwJTIwJTIwJTdEKSUzQiU1Q24lNUNuJTIwJTIwJTIwJTIwbWVkaWFDYXJkU3NyJTVCa2V5JTVEJTIwJTNEJTIwaXNQcmV2aW91c0ltYWdlTGFyZ2VyJTIwJTNGJTIwcHJldkRhdGElMjAlM0ElMjBjdXJyRGF0YSUzQiU1Q24lMjAlMjAlN0QlMjBlbHNlJTIwJTdCJTVDbiUyMCUyMCUyMCUyMG1lZGlhQ2FyZFNzciU1QmtleSU1RCUyMCUzRCUyMCU3QiU1Q24lMjAlMjAlMjAlMjAlMjAlMjBkYXRhVVJJJTNBJTIwcGFyYW1EYXRhVVJJJTJDJTVDbiUyMCUyMCUyMCUyMCUyMCUyMGRpbWVuc2lvbnMlMkMlNUNuJTIwJTIwJTIwJTIwJTIwJTIwZXJyb3IlMkMlNUNuJTIwJTIwJTIwJTIwJTdEJTNCJTVDbiUyMCUyMCU3RCU1Q24lNUNuJTIwJTIwJTJGJTJGJTIwUmVtb3ZlJTIwc2NyaXB0JTIwdG8lMjBwcmV2ZW50JTIwaHlkcmF0aW9uJTIwbWlzbWF0Y2glNUNuJTIwJTIwZG9jdW1lbnQuY3VycmVudFNjcmlwdCUzRi5yZW1vdmUoKSUzQiU1Q24lNUNuJTVDdCUyRiUyRiUyMHRoaXMlMjByZXBsYWNlJTIwd2lsbCUyMGJlJTIwdXNlZCUyMGFzJTIwYSUyMHBsYWNlaG9sZGVyJTIwZm9yJTIwdGhlJTIwc3RyaW5naWZpZWQlMjBwYXJhbXMlMjB0byUyMGJlJTIwaW5qZWN0ZWQlMjBpbnRvJTIwdGhlJTIwc2NyaXB0JTVDbiU3RCkoJTdCJTIwcmVwbGFjZSUzQSUyMCU1QyUyMiU1QyUyMiUyMCU3RCklM0IlNUNuJTIyJTJDJTIyaXNFbnRyeSUyMiUzQXRydWUlN0QlNUQlNUQlMkMlMjJvcHRpb25zJTIyJTNBJTdCJTIyZW50cmllcyUyMiUzQSU1QiU1RCUyQyUyMm1pbmlmeSUyMiUzQXRydWUlMkMlMjJzY29wZUhvaXN0JTIyJTNBdHJ1ZSUyQyUyMnNvdXJjZU1hcHMlMjIlM0FmYWxzZSUyQyUyMnB1YmxpY1VybCUyMiUzQSUyMiUyRl9fcmVwbF9kaXN0JTIyJTJDJTIydGFyZ2V0VHlwZSUyMiUzQSUyMmJyb3dzZXJzJTIyJTJDJTIydGFyZ2V0RW52JTIyJTNBbnVsbCUyQyUyMm91dHB1dEZvcm1hdCUyMiUzQW51bGwlMkMlMjJobXIlMjIlM0FmYWxzZSUyQyUyMm1vZGUlMjIlM0ElMjJwcm9kdWN0aW9uJTIyJTJDJTIycmVuZGVyR3JhcGhzJTIyJTNBZmFsc2UlMkMlMjJ2aWV3U291cmNlbWFwcyUyMiUzQWZhbHNlJTJDJTIyZGVwZW5kZW5jaWVzJTIyJTNBJTVCJTVEJTJDJTIybnVtV29ya2VycyUyMiUzQTAlN0QlMkMlMjJ1c2VUYWJzJTIyJTNBdHJ1ZSUyQyUyMmJyb3dzZXJDb2xsYXBzZWQlMjIlM0ElNUIlNUQlMkMlMjJ2aWV3cyUyMiUzQSU1QiUyMiUyRnNyYyUyRmluZGV4LnRzJTIyJTVEJTJDJTIyY3VycmVudFZpZXclMjIlM0EwJTdE
+ * 3. Copy the minified code into globalScope.tsx replacing the existing string where it says PASTE HERE
+ * 4. Run the tests and make sure they pass
+ * 5. TEST IN PRODUCTS BEFORE MERGING
+ *
+ */
+
+function getMediaGlobalScope() {
+  const namespace = "__MEDIA_INTERNAL";
+  if (!(window as any)[namespace]) {
+    (window as any)[namespace] = {};
+  }
+  return (window as any)[namespace];
+}
+
+function getMediaCardSSR() {
+  const globalMedia = getMediaGlobalScope();
+  const key = "mediaCardSsr";
+  if (!globalMedia[key]) {
+    globalMedia[key] = {};
+  }
+  return globalMedia[key];
+}
+
+function getMediaCountSSR() {
+  const globalMedia = getMediaGlobalScope();
+  const key = "mediaCountSsr";
+  if (!globalMedia[key]) {
+    globalMedia[key] = 0;
+  }
+  return globalMedia[key];
+}
+
+function incrementMediaCountSSR() {
+  const globalMedia = getMediaGlobalScope();
+  const key = "mediaCountSsr";
+  if (!globalMedia[key]) {
+    globalMedia[key] = 0;
+  }
+  globalMedia[key]++;
+}
+
+(function (params: any) {
+  const script = document.currentScript;
+
+  // Store the data
+  const mediaCardSsr = getMediaCardSSR();
+  const mediaCountSsr = getMediaCountSSR();
+  const { key } = params;
+  const paramDataURI = params.dataURI;
+  const paramMode = params.mode;
+  const paramSrcSet = params.srcSet;
+  const { dimensions } = params;
+  const { error } = params;
+  const { featureFlags } = params;
+
+  if (featureFlags["media-perf-uplift-mutation-fix"]) {
+    const prevData = mediaCardSsr[key];
+    const isPreviousImageLarger =
+      prevData &&
+      prevData.mode === paramMode &&
+      prevData.dimensions &&
+      prevData.dimensions.width &&
+      dimensions &&
+      dimensions.width &&
+      prevData.dimensions.width > dimensions.width;
+
+    const srcSet = isPreviousImageLarger ? prevData.srcSet : paramSrcSet;
+    const dataURI = isPreviousImageLarger ? prevData.dataURI : paramDataURI;
+
+    const currData: any = {
+      dataURI,
+      dimensions,
+      error,
+      srcSet,
+      loading: "lazy",
+      loadPromise: undefined,
+			mode: paramMode,
+    };
+
+    const img =
+      script &&
+      script.parentElement &&
+      script.parentElement.querySelector("img");
+
+    if (
+      img &&
+      featureFlags["media-perf-lazy-loading-optimisation"] &&
+      mediaCountSsr < params.maxEagerLoadCount
+    ) {
+      incrementMediaCountSSR();
+      if (img.getAttribute("loading") === "lazy") {
+        img.removeAttribute("loading");
+      }
+      currData.loading = "";
+    }
+
+    if (img && dataURI) {
+      img.src = dataURI;
+    }
+    if (img && srcSet) {
+      img.srcset = srcSet;
+    }
+
+    currData.loadPromise = new Promise<void>(function (resolve, reject) {
+      if (img) {
+        // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+        img.addEventListener("load", function () {
+          resolve(undefined);
+        });
+        // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+        img.addEventListener("error", function () {
+          reject(new Error("Failed to load image"));
+        });
+      }
+    });
+
+    mediaCardSsr[key] = isPreviousImageLarger ? prevData : currData;
+  } else {
+    mediaCardSsr[key] = {
+      dataURI: paramDataURI,
+      dimensions,
+      error,
+    };
+  }
+
+  // Remove script to prevent hydration mismatch
+  document.currentScript?.remove();
+
+	// this replace will be used as a placeholder for the stringified params to be injected into the script
+})({ replace: "" });

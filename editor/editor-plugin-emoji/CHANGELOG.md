@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-emoji
 
+## 7.7.3
+
+### Patch Changes
+
+- [`ada8445a9624f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ada8445a9624f) -
+  Add experiment to fix ascii emoji replacement behaviour
+- Updated dependencies
+
+## 7.7.2
+
+### Patch Changes
+
+- [`55920a92e882a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55920a92e882a) -
+  tsignores added for help-center local consumpton removed
+- Updated dependencies
+
 ## 7.7.1
 
 ### Patch Changes

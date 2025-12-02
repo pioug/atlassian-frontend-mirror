@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-expand
 
+## 7.4.12
+
+### Patch Changes
+
+- [`55920a92e882a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55920a92e882a) -
+  tsignores added for help-center local consumpton removed
+- Updated dependencies
+
 ## 7.4.11
 
 ### Patch Changes

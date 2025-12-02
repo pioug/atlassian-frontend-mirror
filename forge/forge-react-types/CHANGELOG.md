@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 0.49.2
+
+### Patch Changes
+
+- [`891214b90e1f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/891214b90e1f9) -
+  Add eslint-warn rule to codegen components with XCSS
+
 ## 0.49.1
 
 ### Patch Changes

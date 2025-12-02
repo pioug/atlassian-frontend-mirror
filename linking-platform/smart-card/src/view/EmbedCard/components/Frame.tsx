@@ -11,6 +11,7 @@ import React, {
 	useState,
 } from 'react';
 
+// eslint-disable-next-line no-unused-vars
 import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
@@ -29,6 +30,12 @@ export interface FrameProps {
 	testId?: string;
 	title?: string;
 	url?: string;
+}
+
+export interface FrameUpdatedProps extends FrameProps {
+	isMouseOver?: boolean;
+	onIframeMouseEnter?: () => void;
+	onIframeMouseLeave?: () => void;
 }
 
 type Refs =
@@ -141,8 +148,139 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
 					data-testid={`${testId}-frame`}
 					data-iframe-loaded={isIframeLoaded}
 					css={iframeStyles}
-					onMouseEnter={() => setMouseOver(true)}
-					onMouseLeave={() => setMouseOver(false)}
+					onMouseEnter={() => {
+						setMouseOver(true);
+					}}
+					onMouseLeave={() => {
+						setMouseOver(false);
+					}}
+					allowFullScreen
+					scrolling="yes"
+					allow="autoplay; encrypted-media; clipboard-write"
+					onLoad={() => {
+						setIframeLoaded(true);
+					}}
+					sandbox={getIframeSandboxAttribute(isTrusted)}
+					title={title}
+					extensionKey={extensionKey}
+				/>
+			</React.Fragment>
+		);
+	},
+);
+
+export const FrameUpdated = React.forwardRef<HTMLIFrameElement, FrameUpdatedProps>(
+	(
+		{
+			url,
+			isTrusted = false,
+			testId,
+			onIframeDwell,
+			onIframeFocus,
+			onIframeMouseEnter,
+			onIframeMouseLeave,
+			isMouseOver: isMouseOverProp,
+			title,
+			extensionKey,
+		},
+		iframeRef,
+	) => {
+		di(IFrame);
+		const [isIframeLoaded, setIframeLoaded] = useState(false);
+		const [isMouseOver, setMouseOver] = useState(false);
+		const [isWindowFocused, setWindowFocused] = useState(document.hasFocus());
+
+		// Use prop if provided (from wrapper), otherwise use local state (for backward compatibility)
+		const effectiveMouseOver = isMouseOverProp !== undefined ? isMouseOverProp : isMouseOver;
+
+		const ref = useRef<HTMLIFrameElement>();
+		const mergedRef = mergeRefs([iframeRef, ref as RefObject<HTMLIFrameElement>]);
+
+		const [percentVisible, setPercentVisible] = useState(0);
+
+		/**
+		 * These are the 'percent visible' thresholds at which the intersectionObserver will
+		 * trigger a state change. Eg. when the user scrolls and moves from 74% to 76%, or
+		 * vice versa. It's in a state object so that its static for the useEffect
+		 */
+		const [threshold] = useState([0.75, 0.8, 0.85, 0.9, 0.95, 1]);
+		useEffect(() => {
+			if (!ref || !ref.current) {
+				return;
+			}
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						setPercentVisible(entry?.intersectionRatio);
+					});
+				},
+				{ threshold },
+			);
+
+			observer.observe(ref.current);
+
+			return () => {
+				observer.disconnect();
+			};
+		}, [threshold, mergedRef]);
+
+		useEffect(() => {
+			// Initialize with current focus state
+			setWindowFocused(document.hasFocus());
+
+			const onBlur = () => {
+				setWindowFocused(false);
+				if (document.activeElement === ref.current) {
+					onIframeFocus && onIframeFocus();
+				}
+			};
+
+			const onFocus = () => {
+				setWindowFocused(true);
+			};
+
+			window.addEventListener('blur', onBlur);
+			window.addEventListener('focus', onFocus);
+			return () => {
+				window.removeEventListener('blur', onBlur);
+				window.removeEventListener('focus', onFocus);
+			};
+		}, [ref, onIframeFocus]);
+
+		if (!url) {
+			return null;
+		}
+
+		return (
+			<React.Fragment>
+				<IframeDwellTracker
+					isIframeLoaded={isIframeLoaded}
+					isMouseOver={effectiveMouseOver}
+					isWindowFocused={isWindowFocused}
+					iframePercentVisible={percentVisible}
+					onIframeDwell={onIframeDwell}
+				/>
+				<IFrame
+					childRef={mergedRef}
+					src={url}
+					data-testid={`${testId}-frame`}
+					data-iframe-loaded={isIframeLoaded}
+					css={iframeStyles}
+					onMouseEnter={() => {
+						onIframeMouseEnter?.();
+						// Use local state if prop not provided, otherwise prop takes precedence
+						if (isMouseOverProp === undefined) {
+							setMouseOver(true);
+						}
+					}}
+					onMouseLeave={() => {
+						onIframeMouseLeave?.();
+						// Use local state if prop not provided, otherwise prop takes precedence
+						if (isMouseOverProp === undefined) {
+							setMouseOver(false);
+						}
+					}}
 					allowFullScreen
 					scrolling="yes"
 					allow="autoplay; encrypted-media; clipboard-write"

@@ -27,10 +27,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/css": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@atlaskit/primitives": "workspace:^",
-		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"react-magnetic-di": "root:*"

@@ -7,6 +7,7 @@ export interface Options {
 	// Re-used the same kind of config as for Apollo Client Query components:
 	// https://www.apollographql.com/docs/react/features/error-handling
 	errorPolicy?: 'none' | 'all' | 'ignore';
+	headers?: Record<string, string>;
 }
 
 export type InnerResponse<T> = {

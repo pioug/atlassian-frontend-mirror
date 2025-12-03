@@ -165,8 +165,13 @@ const fullHeightStyles = css({
 	height: '100%',
 });
 
-export const ArchiveItemViewerWrapper = ({ children, fullHeight }: Children & { fullHeight?: boolean }) => {
-	return <div css={[archiveItemViewerWrapperStyles, fullHeight && fullHeightStyles]}>{children}</div>;
+export const ArchiveItemViewerWrapper = ({
+	children,
+	fullHeight,
+}: Children & { fullHeight?: boolean }) => {
+	return (
+		<div css={[archiveItemViewerWrapperStyles, fullHeight && fullHeightStyles]}>{children}</div>
+	);
 };
 
 export const ArchiveSideBar = forwardRef(

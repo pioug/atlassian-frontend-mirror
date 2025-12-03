@@ -449,8 +449,8 @@ describe('withLinkClickedEvent', () => {
 				const payload1 = createLinkClickedPayload(event1);
 				const payload2 = createLinkClickedPayload(event2);
 
-			expect(payload1?.attributes?.isConfluenceShortLink).toBe(true);
-			expect(payload2?.attributes?.isConfluenceShortLink).toBe(false);
+				expect(payload1?.attributes?.isConfluenceShortLink).toBe(true);
+				expect(payload2?.attributes?.isConfluenceShortLink).toBe(false);
 			});
 		});
 

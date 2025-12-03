@@ -115,6 +115,7 @@ export interface LozengeProps {
 
 export interface MentionDescription {
 	accessLevel?: string;
+	appType?: string | null;
 	avatarUrl?: string;
 	// Team mention can use context to store members data
 	context?: MentionDescContext;

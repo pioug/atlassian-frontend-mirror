@@ -20,6 +20,7 @@ export enum SyncBlockError {
 	Errored = 'errored',
 	NotFound = 'not_found',
 	Forbidden = 'forbidden',
+	InvalidContent = 'invalid_content', // content is not a valid JSON
 }
 
 export interface SyncBlockData {

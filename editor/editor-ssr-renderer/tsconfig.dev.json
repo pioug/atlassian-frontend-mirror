@@ -42,7 +42,16 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../editor-examples-helpers/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-core/tsconfig.app.json"
+		},
+		{
+			"path": "../../linking-platform/link-provider/tsconfig.app.json"
 		}
 	]
 }

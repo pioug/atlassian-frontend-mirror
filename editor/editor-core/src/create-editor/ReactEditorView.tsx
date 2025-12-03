@@ -59,6 +59,7 @@ import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { useProviders } from '../composable-editor/hooks/useProviders';
 import type { EditorConfig, EditorProps } from '../types';
@@ -243,7 +244,9 @@ export function ReactEditorView(props: EditorViewProps) {
 				);
 
 				schema = createSchema(config.current);
-				setEditorAPI(pluginInjectionAPI.current.api());
+				if (!expVal('platform_editor_no_state_plugin_injection_api', 'isEnabled', false)) {
+					setEditorAPI(pluginInjectionAPI.current.api());
+				}
 			}
 
 			const { contentTransformerProvider } = options.props.editorProps;
@@ -535,7 +538,9 @@ export function ReactEditorView(props: EditorViewProps) {
 
 	// Temporary to replace provider factory while migration to `ComposableEditor` occurs
 	useProviders({
-		editorApi: editorAPI,
+		editorApi: expVal('platform_editor_no_state_plugin_injection_api', 'isEnabled', false)
+			? pluginInjectionAPI.current.api()
+			: editorAPI,
 		contextIdentifierProvider: props.editorProps.contextIdentifierProvider,
 		mediaProvider: (props.editorProps as EditorProps).media?.provider,
 		mentionProvider: props.editorProps.mentionProvider,
@@ -1004,7 +1009,9 @@ export function ReactEditorView(props: EditorViewProps) {
 						transformer: contentTransformer.current,
 						dispatchAnalyticsEvent: dispatchAnalyticsEvent,
 						editorRef: editorRef,
-						editorAPI: editorAPI,
+						editorAPI: expVal('platform_editor_no_state_plugin_injection_api', 'isEnabled', false)
+							? pluginInjectionAPI.current.api()
+							: editorAPI,
 					}) ?? editor)
 				: editor}
 		</ReactEditorViewContext.Provider>

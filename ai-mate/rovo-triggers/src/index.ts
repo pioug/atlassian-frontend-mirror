@@ -29,6 +29,10 @@ export type {
 	AppHandoffPayload,
 	SolutionArchitectAgentActivationPayload,
 } from './common/types/solution-architect';
+export type {
+	JsmJourneyBuilderActionsPayload,
+	JsmJourneyBuilderAgentAction,
+} from './common/types/jsm-journey-builder';
 export {
 	getRovoParams,
 	updatePageRovoParams,

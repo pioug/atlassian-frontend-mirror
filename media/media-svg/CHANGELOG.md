@@ -1,5 +1,12 @@
 # @atlaskit/media-svg
 
+## 2.1.13
+
+### Patch Changes
+
+- [`30c49c2b2ec44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30c49c2b2ec44) -
+  Add Playwright accessibility test coverage to media-svg package
+
 ## 2.1.12
 
 ### Patch Changes

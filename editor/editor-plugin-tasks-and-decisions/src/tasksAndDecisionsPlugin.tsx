@@ -9,6 +9,7 @@ import {
 	TRANSFORM_STRUCTURE_MENU_SECTION,
 	TRANSFORM_STRUCTURE_TASK_LIST_MENU_ITEM,
 	TRANSFORM_STRUCTURE_MENU_SECTION_RANK,
+	TRANSFORM_STRUCTURE_DECISION_MENU_ITEM,
 } from '@atlaskit/editor-common/block-menu';
 import { MAX_INDENTATION_LEVEL } from '@atlaskit/editor-common/indentation';
 import { toolbarInsertBlockMessages as insertBlockMessages } from '@atlaskit/editor-common/messages';
@@ -46,6 +47,7 @@ import { stateKey as taskPluginKey } from './pm-plugins/plugin-key';
 import { toggleTaskList } from './pm-plugins/toggle-tasklist-commands';
 import type { TasksAndDecisionsPlugin } from './tasksAndDecisionsPluginType';
 import type { TaskDecisionListType } from './types';
+import { DecisionListBlockMenuItem } from './ui/DecisionListBlockMenuItem/DecisionListBlockMenuItem';
 import { RequestToEditPopup } from './ui/Task/RequestToEditPopup';
 import { TaskListBlockMenuItem } from './ui/TaskListBlockMenuItem/TaskListBlockMenuItem';
 import { getTasksAndDecisionsToolbarComponents } from './ui/toolbar-components';
@@ -174,6 +176,16 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 					rank: TRANSFORM_STRUCTURE_MENU_SECTION_RANK[TRANSFORM_STRUCTURE_TASK_LIST_MENU_ITEM.key],
 				},
 				component: () => <TaskListBlockMenuItem api={api} />,
+			},
+			{
+				type: 'block-menu-item',
+				key: TRANSFORM_STRUCTURE_DECISION_MENU_ITEM.key,
+				parent: {
+					type: 'block-menu-section' as const,
+					key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
+					rank: TRANSFORM_STRUCTURE_MENU_SECTION_RANK[TRANSFORM_STRUCTURE_DECISION_MENU_ITEM.key],
+				},
+				component: () => <DecisionListBlockMenuItem api={api} />,
 			},
 		]);
 	}

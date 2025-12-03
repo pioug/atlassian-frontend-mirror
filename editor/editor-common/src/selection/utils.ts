@@ -162,3 +162,24 @@ export const deleteSelectedRange = (tr: Transaction): Transaction => {
 	tr.deleteRange(from, to);
 	return tr;
 };
+
+/**
+ * This expands the given $from and $to resolved positions to the block boundaries
+ * spanning all nodes in the range up to the nearest common ancestor.
+ *
+ * @param $from The resolved start position
+ * @param $to The resolved end position
+ * @returns An object containing the expanded $from and $to resolved positions
+ */
+export const expandToBlockRange = ($from: ResolvedPos, $to: ResolvedPos) => {
+	const range = $from.blockRange($to);
+
+	if (!range) {
+		return { $from, $to };
+	}
+
+	return {
+		$from: $from.doc.resolve(range.start),
+		$to: $to.doc.resolve(range.end),
+	};
+};

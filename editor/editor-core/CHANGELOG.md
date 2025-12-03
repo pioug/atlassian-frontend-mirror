@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 215.16.0
+
+### Minor Changes
+
+- [`92ad90cd1d2e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92ad90cd1d2e8) -
+  [https://hello.jira.atlassian.cloud/browse/EDITOR-3332] - created EditorSSRRenderer component
+- [`bc11393275e1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc11393275e1c) -
+  Do not use React State for storing pluginInjectionAPI reference
+
+### Patch Changes
+
+- [`e3779b75fdeca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3779b75fdeca) -
+  EDITOR-1643 Promote syncBlock and bodiedSyncBlock to full schema
+- [`e1ae4cbd9d3f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1ae4cbd9d3f6) -
+  Fix hydration error with the AIFC toolbar by not rendering in SSR
+- Updated dependencies
+
 ## 215.15.5
 
 ### Patch Changes

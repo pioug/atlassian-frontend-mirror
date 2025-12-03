@@ -154,6 +154,7 @@ interface DemoRendererProps {
 	maxHeight?: number;
 	mediaOptions?: MediaOptions;
 	onDocumentChange?: () => void;
+	onSetLinkTarget?: (url: string) => '_blank' | undefined;
 	schema?: Schema;
 	serializer: 'react' | 'text' | 'email';
 	showHowManyCopies?: boolean;
@@ -361,6 +362,7 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 			props.allowSelectAllTrap = this.props.allowSelectAllTrap;
 			props.unsupportedContentLevelsTracking = this.props.unsupportedContentLevelsTracking;
 			props.media = this.props.mediaOptions;
+			props.onSetLinkTarget = this.props.onSetLinkTarget;
 			props.UNSTABLE_allowTableAlignment = this.props.UNSTABLE_allowTableAlignment;
 			props.UNSTABLE_allowTableResizing = this.props.UNSTABLE_allowTableResizing;
 

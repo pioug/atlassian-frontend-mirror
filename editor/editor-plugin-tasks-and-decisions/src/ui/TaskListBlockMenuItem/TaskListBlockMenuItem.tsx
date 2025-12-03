@@ -3,9 +3,9 @@ import React, { useMemo } from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import TaskIcon from '@atlaskit/icon/core/task';
 
@@ -17,7 +17,11 @@ export const TaskListBlockMenuItem = ({
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
 }) => {
 	const { formatMessage } = useIntl();
-	const selection = useSharedPluginStateSelector(api, 'selection.selection');
+	const selection = useSharedPluginStateWithSelector(
+		api,
+		['selection'],
+		(states) => states.selectionState?.selection,
+	);
 	const isSelected = useMemo(() => {
 		return selection && selection.$from.parent.type.name === 'taskItem';
 	}, [selection]);

@@ -9,6 +9,7 @@ import { useIntl } from 'react-intl-next';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/context-panel';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { TOOLBARS } from '@atlaskit/editor-common/toolbar';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
@@ -203,7 +204,9 @@ export const FullPageToolbarNext = ({
 											components &&
 											isToolbar(toolbar) &&
 											(!expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true) ||
-												editorView) && (
+												(editorView &&
+													(!expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) ||
+														!isSSR()))) && (
 												<ToolbarNext
 													toolbar={toolbar}
 													components={components}
@@ -238,7 +241,9 @@ export const FullPageToolbarNext = ({
 								components &&
 								isToolbar(toolbar) &&
 								(!expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true) ||
-									editorView) && (
+									(editorView &&
+										(!expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) ||
+											!isSSR()))) && (
 									<ToolbarNext
 										toolbar={toolbar}
 										components={components}

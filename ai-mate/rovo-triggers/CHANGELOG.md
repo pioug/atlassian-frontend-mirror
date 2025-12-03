@@ -1,5 +1,30 @@
 # @atlaskit/rovo-triggers
 
+## 4.9.0
+
+### Minor Changes
+
+- [`ba35a55c8437c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba35a55c8437c) -
+  [ux] Added new event type (jsm-journey-builder-actions) in rovo-triggers
+
+## 4.8.1
+
+### Patch Changes
+
+- [`e3779b75fdeca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3779b75fdeca) -
+  EDITOR-1643 Promote syncBlock and bodiedSyncBlock to full schema
+
+## 4.8.0
+
+### Minor Changes
+
+- [`4c2c97e4d5162`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c2c97e4d5162) - -
+  Add a message action component for updating a solution draft agent
+  - Add a new type of pubsub event that refreshes the agent overview based on updated agent
+    information
+  - Use a specific minion alias for the agent builder when talking to Rovo Chat within the agent
+    routes in Studio V2.
+
 ## 4.7.0
 
 ### Minor Changes

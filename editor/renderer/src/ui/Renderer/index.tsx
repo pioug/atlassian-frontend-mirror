@@ -319,6 +319,7 @@ export const RendererFunctionalComponent = (
 				} as RendererContext,
 				appearance: props.appearance,
 				contentMode: props.contentMode,
+				onSetLinkTarget: props.onSetLinkTarget,
 				disableHeadingIDs: props.disableHeadingIDs,
 				disableActions: props.disableActions,
 				allowHeadingAnchorLinks: props.allowHeadingAnchorLinks,

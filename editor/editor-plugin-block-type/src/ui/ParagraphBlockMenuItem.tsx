@@ -3,9 +3,9 @@ import React from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import TextParagraphIcon from '@atlaskit/icon-lab/core/text-paragraph';
@@ -21,10 +21,14 @@ type ParagraphBlockMenuItemProps = {
 const ParagraphBlockMenuItem = ({ api }: ParagraphBlockMenuItemProps) => {
 	const { formatMessage } = useIntl();
 
-	const currentBlockType = useSharedPluginStateSelector(api, 'blockType.currentBlockType');
-	const bulletListActive = useSharedPluginStateSelector(api, 'list.bulletListActive');
-	const orderedListActive = useSharedPluginStateSelector(api, 'list.orderedListActive');
-	const selection = useSharedPluginStateSelector(api, 'selection.selection');
+	const { currentBlockType, bulletListActive, orderedListActive, selection } =
+		useSharedPluginStateWithSelector(api, ['blockType', 'list', 'selection'], (states) => ({
+			currentBlockType: states.blockTypeState?.currentBlockType,
+			bulletListActive: states.listState?.bulletListActive,
+			orderedListActive: states.listState?.orderedListActive,
+			selection: states.selectionState?.selection,
+		}));
+
 	const isTextSelection = selection instanceof TextSelection;
 	const isParagraph =
 		isTextSelection &&

@@ -190,13 +190,16 @@ export class SSRPlaceholderHandlers {
 		return element;
 	}
 
-	findNearestPlaceholderOrContainer(element: HTMLElement): HTMLElement {
+	findNearestPlaceholderOrContainer(
+		element: HTMLElement,
+		limit = ANCESTOR_LOOKUP_LIMIT,
+	): HTMLElement {
 		let ancestor = element;
 		if (this.isPlaceholderIgnored(element) && element.parentElement) {
 			ancestor = element.parentElement;
 		}
 		let i = 0;
-		while (ancestor && i < ANCESTOR_LOOKUP_LIMIT) {
+		while (ancestor && i < limit) {
 			if (this.isPlaceholder(ancestor) || this.isPlaceholderReplacement(ancestor)) {
 				return ancestor;
 			}
@@ -260,7 +263,7 @@ export class SSRPlaceholderHandlers {
 
 	validateReactComponentMatchToPlaceholderV4(el: HTMLElement): boolean {
 		el = fg('platform_ufo_v4_fix_nested_ssr_placeholder')
-			? this.findNearestPlaceholderOrContainer(el)
+			? this.findNearestPlaceholderOrContainer(el, 2) // We are using 2 due to over-eagerness of the default, only check itself and 1 ancestor
 			: this.findNearestPlaceholderContainerIfIgnored(el);
 		const id = this.getPlaceholderReplacementId(el);
 		return this.staticPlaceholders.has(id);

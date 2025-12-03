@@ -31,5 +31,9 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__editor-ssr-renderer/app"
 	},
-	"references": []
+	"references": [
+		{
+			"path": "../editor-common/tsconfig.app.json"
+		}
+	]
 }

@@ -1,5 +1,12 @@
 # @atlaskit/custom-steps
 
+## 0.16.5
+
+### Patch Changes
+
+- [`e3779b75fdeca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3779b75fdeca) -
+  EDITOR-1643 Promote syncBlock and bodiedSyncBlock to full schema
+
 ## 0.16.4
 
 ### Patch Changes

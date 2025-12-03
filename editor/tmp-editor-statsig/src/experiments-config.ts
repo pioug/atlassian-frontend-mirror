@@ -1,3 +1,4 @@
+/* eslint-disable perfectionist/sort-object-types */
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
@@ -90,6 +91,13 @@ export const editorExperimentsConfig: {
 	// new format to avoid collisions with other users when updating the file
 	// Editor Platform experiments
 	// lwoollard experiments
+	// Added 02-12-2025
+	cc_fix_hydration_ttvc: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 03-09-2025
 	cc_editor_limited_mode_include_lcm: {
 		defaultValue: boolean;
@@ -663,6 +671,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2025-12-01
+	platform_editor_no_state_plugin_injection_api: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-04-14
 	// https://switcheroo.atlassian.com/ui/gates/b159b45a-86d9-4f4b-b482-f9aca5b615d6/key/platform_editor_offline_editing_web
 	platform_editor_offline_editing_web: {
@@ -908,7 +923,7 @@ export const editorExperimentsConfig: {
 		param: string;
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
-	}
+	};
 	// Added 2025-08-17
 	platform_hover_card_preview_panel: {
 		defaultValue: 'control' | 'test';
@@ -1014,6 +1029,14 @@ export const editorExperimentsConfig: {
 
 	// Editor Platform experiments
 	// lwoollard experiments
+	// Added 02-12-2025
+	cc_fix_hydration_ttvc: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_fix_hydration_ttvc',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 03-09-2025
 	cc_editor_limited_mode_include_lcm: createBooleanExperiment({
 		productKeys: {
@@ -1380,6 +1403,14 @@ export const editorExperimentsConfig: {
 	platform_editor_stop_width_reflows: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_stop_width_reflows',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-12-01
+	platform_editor_no_state_plugin_injection_api: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_no_state_plugin_injection_api',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

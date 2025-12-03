@@ -77,4 +77,9 @@ export const messages = defineMessages({
 		defaultMessage: 'New',
 		description: 'Text in lozenge which appears next to newly added menu items',
 	},
+	decisionList: {
+		id: 'fabric.editor.block.menu.decision',
+		defaultMessage: 'Decision',
+		description: 'Label for the decision option in the block menu transformation menu',
+	},
 });

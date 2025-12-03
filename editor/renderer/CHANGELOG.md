@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 124.17.1
+
+### Patch Changes
+
+- [`e3779b75fdeca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3779b75fdeca) -
+  EDITOR-1643 Promote syncBlock and bodiedSyncBlock to full schema
+- Updated dependencies
+
+## 124.17.0
+
+### Minor Changes
+
+- [`9679f0410e434`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9679f0410e434) -
+  [ux] Add support for onSetLinkTarget prop for Renderer, allowing consumers of Renderer like Rovo
+  chat to instruct which links should render as external links.
+
 ## 124.16.9
 
 ### Patch Changes

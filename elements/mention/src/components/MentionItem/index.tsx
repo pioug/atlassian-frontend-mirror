@@ -1,4 +1,4 @@
-import Avatar from '@atlaskit/avatar';
+import Avatar, { getAppearanceForAppType } from '@atlaskit/avatar';
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N30 } from '@atlaskit/theme/colors';
@@ -124,7 +124,17 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 							{fg('team-avatar-in-mention-picker') ? (
 								<MentionAvatar selected={selected} mention={mention} />
 							) : (
-								<Avatar src={avatarUrl} size="medium" presence={status} borderColor={borderColor} />
+								<Avatar
+									src={avatarUrl}
+									size="medium"
+									presence={status}
+									borderColor={borderColor}
+									appearance={
+										fg('jira_ai_agent_avatar_issue_view_comment_mentions')
+											? getAppearanceForAppType(mention.appType)
+											: undefined
+									}
+								/>
 							)}
 						</AvatarStyle>
 						<NameSectionStyle restricted={restricted}>

@@ -13,126 +13,123 @@
  */
 
 function getMediaGlobalScope() {
-  const namespace = "__MEDIA_INTERNAL";
-  if (!(window as any)[namespace]) {
-    (window as any)[namespace] = {};
-  }
-  return (window as any)[namespace];
+	const namespace = '__MEDIA_INTERNAL';
+	if (!(window as any)[namespace]) {
+		(window as any)[namespace] = {};
+	}
+	return (window as any)[namespace];
 }
 
 function getMediaCardSSR() {
-  const globalMedia = getMediaGlobalScope();
-  const key = "mediaCardSsr";
-  if (!globalMedia[key]) {
-    globalMedia[key] = {};
-  }
-  return globalMedia[key];
+	const globalMedia = getMediaGlobalScope();
+	const key = 'mediaCardSsr';
+	if (!globalMedia[key]) {
+		globalMedia[key] = {};
+	}
+	return globalMedia[key];
 }
 
 function getMediaCountSSR() {
-  const globalMedia = getMediaGlobalScope();
-  const key = "mediaCountSsr";
-  if (!globalMedia[key]) {
-    globalMedia[key] = 0;
-  }
-  return globalMedia[key];
+	const globalMedia = getMediaGlobalScope();
+	const key = 'mediaCountSsr';
+	if (!globalMedia[key]) {
+		globalMedia[key] = 0;
+	}
+	return globalMedia[key];
 }
 
 function incrementMediaCountSSR() {
-  const globalMedia = getMediaGlobalScope();
-  const key = "mediaCountSsr";
-  if (!globalMedia[key]) {
-    globalMedia[key] = 0;
-  }
-  globalMedia[key]++;
+	const globalMedia = getMediaGlobalScope();
+	const key = 'mediaCountSsr';
+	if (!globalMedia[key]) {
+		globalMedia[key] = 0;
+	}
+	globalMedia[key]++;
 }
 
 (function (params: any) {
-  const script = document.currentScript;
+	const script = document.currentScript;
 
-  // Store the data
-  const mediaCardSsr = getMediaCardSSR();
-  const mediaCountSsr = getMediaCountSSR();
-  const { key } = params;
-  const paramDataURI = params.dataURI;
-  const paramMode = params.mode;
-  const paramSrcSet = params.srcSet;
-  const { dimensions } = params;
-  const { error } = params;
-  const { featureFlags } = params;
+	// Store the data
+	const mediaCardSsr = getMediaCardSSR();
+	const mediaCountSsr = getMediaCountSSR();
+	const { key } = params;
+	const paramDataURI = params.dataURI;
+	const paramMode = params.mode;
+	const paramSrcSet = params.srcSet;
+	const { dimensions } = params;
+	const { error } = params;
+	const { featureFlags } = params;
 
-  if (featureFlags["media-perf-uplift-mutation-fix"]) {
-    const prevData = mediaCardSsr[key];
-    const isPreviousImageLarger =
-      prevData &&
-      prevData.mode === paramMode &&
-      prevData.dimensions &&
-      prevData.dimensions.width &&
-      dimensions &&
-      dimensions.width &&
-      prevData.dimensions.width > dimensions.width;
+	if (featureFlags['media-perf-uplift-mutation-fix']) {
+		const prevData = mediaCardSsr[key];
+		const isPreviousImageLarger =
+			prevData &&
+			prevData.mode === paramMode &&
+			prevData.dimensions &&
+			prevData.dimensions.width &&
+			dimensions &&
+			dimensions.width &&
+			prevData.dimensions.width > dimensions.width;
 
-    const srcSet = isPreviousImageLarger ? prevData.srcSet : paramSrcSet;
-    const dataURI = isPreviousImageLarger ? prevData.dataURI : paramDataURI;
+		const srcSet = isPreviousImageLarger ? prevData.srcSet : paramSrcSet;
+		const dataURI = isPreviousImageLarger ? prevData.dataURI : paramDataURI;
 
-    const currData: any = {
-      dataURI,
-      dimensions,
-      error,
-      srcSet,
-      loading: "lazy",
-      loadPromise: undefined,
+		const currData: any = {
+			dataURI,
+			dimensions,
+			error,
+			srcSet,
+			loading: 'lazy',
+			loadPromise: undefined,
 			mode: paramMode,
-    };
+		};
 
-    const img =
-      script &&
-      script.parentElement &&
-      script.parentElement.querySelector("img");
+		const img = script && script.parentElement && script.parentElement.querySelector('img');
 
-    if (
-      img &&
-      featureFlags["media-perf-lazy-loading-optimisation"] &&
-      mediaCountSsr < params.maxEagerLoadCount
-    ) {
-      incrementMediaCountSSR();
-      if (img.getAttribute("loading") === "lazy") {
-        img.removeAttribute("loading");
-      }
-      currData.loading = "";
-    }
+		if (
+			img &&
+			featureFlags['media-perf-lazy-loading-optimisation'] &&
+			mediaCountSsr < params.maxEagerLoadCount
+		) {
+			incrementMediaCountSSR();
+			if (img.getAttribute('loading') === 'lazy') {
+				img.removeAttribute('loading');
+			}
+			currData.loading = '';
+		}
 
-    if (img && dataURI) {
-      img.src = dataURI;
-    }
-    if (img && srcSet) {
-      img.srcset = srcSet;
-    }
+		if (img && dataURI) {
+			img.src = dataURI;
+		}
+		if (img && srcSet) {
+			img.srcset = srcSet;
+		}
 
-    currData.loadPromise = new Promise<void>(function (resolve, reject) {
-      if (img) {
-        // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-        img.addEventListener("load", function () {
-          resolve(undefined);
-        });
-        // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-        img.addEventListener("error", function () {
-          reject(new Error("Failed to load image"));
-        });
-      }
-    });
+		currData.loadPromise = new Promise<void>(function (resolve, reject) {
+			if (img) {
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+				img.addEventListener('load', function () {
+					resolve(undefined);
+				});
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+				img.addEventListener('error', function () {
+					reject(new Error('Failed to load image'));
+				});
+			}
+		});
 
-    mediaCardSsr[key] = isPreviousImageLarger ? prevData : currData;
-  } else {
-    mediaCardSsr[key] = {
-      dataURI: paramDataURI,
-      dimensions,
-      error,
-    };
-  }
+		mediaCardSsr[key] = isPreviousImageLarger ? prevData : currData;
+	} else {
+		mediaCardSsr[key] = {
+			dataURI: paramDataURI,
+			dimensions,
+			error,
+		};
+	}
 
-  // Remove script to prevent hydration mismatch
-  document.currentScript?.remove();
+	// Remove script to prevent hydration mismatch
+	document.currentScript?.remove();
 
 	// this replace will be used as a placeholder for the stringified params to be injected into the script
-})({ replace: "" });
+})({ replace: '' });

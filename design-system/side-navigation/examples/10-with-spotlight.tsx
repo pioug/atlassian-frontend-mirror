@@ -7,12 +7,6 @@ import CustomerIcon from '@atlaskit/icon/glyph/person';
 import QueueIcon from '@atlaskit/icon/glyph/queues';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
 import LanguageIcon from '@atlaskit/icon/glyph/world';
-import {
-	Spotlight,
-	SpotlightManager,
-	SpotlightTarget,
-	SpotlightTransition,
-} from '@atlaskit/onboarding';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Text } from '@atlaskit/primitives';
 import {
@@ -25,7 +19,22 @@ import {
 	Section,
 	SideNavigation,
 } from '@atlaskit/side-navigation';
-import { token } from '@atlaskit/tokens';
+import {
+	PopoverContent,
+	PopoverProvider,
+	PopoverTarget,
+	SpotlightActions,
+	SpotlightBody,
+	SpotlightCard,
+	SpotlightControls,
+	SpotlightDismissControl,
+	SpotlightFooter,
+	SpotlightHeader,
+	SpotlightHeadline,
+	SpotlightPrimaryAction,
+	SpotlightSecondaryAction,
+	SpotlightStepCount,
+} from '@atlaskit/spotlight';
 
 import AppFrame from './common/app-frame';
 import SampleFooter from './common/sample-footer';
@@ -57,28 +66,94 @@ const LanguageSettings = () => {
 };
 
 const BasicExample = (): React.JSX.Element => {
+	const [currentStep, setCurrentStep] = useState<number | undefined>();
+	const dismiss = () => setCurrentStep(undefined);
+
 	return (
-		<SpotlightManager>
-			<Inline alignBlock="stretch" space="space.100">
-				<AppFrame shouldHideAppBar>
-					<SideNavigation label="project" testId="side-navigation">
-						<NavigationHeader>
-							<SampleHeader />
-						</NavigationHeader>
-						<NestableNavigationContent initialStack={[]}>
-							<Section>
-								<SpotlightTarget name="buttonItem">
+		<Inline alignBlock="stretch" space="space.100">
+			<AppFrame shouldHideAppBar>
+				<SideNavigation label="project" testId="side-navigation">
+					<NavigationHeader>
+						<SampleHeader />
+					</NavigationHeader>
+					<NestableNavigationContent initialStack={[]}>
+						<Section>
+							<PopoverProvider>
+								<PopoverTarget>
 									<ButtonItem iconBefore={<WorkIcon label="" />}>Your work</ButtonItem>
-								</SpotlightTarget>
-								<SpotlightTarget name="linkItem">
+								</PopoverTarget>
+								<PopoverContent
+									dismiss={dismiss}
+									placement="right-end"
+									isVisible={currentStep === 0}
+								>
+									<SpotlightCard>
+										<SpotlightHeader>
+											<SpotlightHeadline>Button Item</SpotlightHeadline>
+											<SpotlightControls>
+												<SpotlightDismissControl onClick={dismiss} />
+											</SpotlightControls>
+										</SpotlightHeader>
+										<SpotlightBody>
+											<Text as="p" testId="buttonItemSpotlightMessage">
+												Check out this cool thing
+											</Text>
+										</SpotlightBody>
+										<SpotlightFooter>
+											<SpotlightStepCount>1 of 5</SpotlightStepCount>
+											<SpotlightActions>
+												<SpotlightPrimaryAction onClick={() => setCurrentStep(1)}>
+													Next
+												</SpotlightPrimaryAction>
+											</SpotlightActions>
+										</SpotlightFooter>
+									</SpotlightCard>
+								</PopoverContent>
+							</PopoverProvider>
+
+							<PopoverProvider>
+								<PopoverTarget>
 									<LinkItem
 										href="https://www.atlassian.design"
 										iconBefore={<CustomerIcon label="" />}
 									>
 										Your customers
 									</LinkItem>
-								</SpotlightTarget>
-								<SpotlightTarget name="disabledItem">
+								</PopoverTarget>
+								<PopoverContent
+									dismiss={dismiss}
+									placement="right-end"
+									isVisible={currentStep === 1}
+								>
+									<SpotlightCard>
+										<SpotlightHeader>
+											<SpotlightHeadline>Link Item</SpotlightHeadline>
+											<SpotlightControls>
+												<SpotlightDismissControl onClick={dismiss} />
+											</SpotlightControls>
+										</SpotlightHeader>
+										<SpotlightBody>
+											<Text as="p" testId="linkItemSpotlightMessage">
+												Check out this cool thing
+											</Text>
+										</SpotlightBody>
+										<SpotlightFooter>
+											<SpotlightStepCount>2 of 5</SpotlightStepCount>
+											<SpotlightActions>
+												<SpotlightSecondaryAction onClick={() => setCurrentStep(0)}>
+													Back
+												</SpotlightSecondaryAction>
+												<SpotlightPrimaryAction onClick={() => setCurrentStep(2)}>
+													Next
+												</SpotlightPrimaryAction>
+											</SpotlightActions>
+										</SpotlightFooter>
+									</SpotlightCard>
+								</PopoverContent>
+							</PopoverProvider>
+
+							<PopoverProvider>
+								<PopoverTarget>
 									<NestingItem
 										id="dropbox"
 										iconBefore={<DropboxIcon label="" />}
@@ -87,15 +162,81 @@ const BasicExample = (): React.JSX.Element => {
 									>
 										<Fragment />
 									</NestingItem>
-								</SpotlightTarget>
-								<SpotlightTarget name="nestingItem">
+								</PopoverTarget>
+								<PopoverContent
+									dismiss={dismiss}
+									placement="right-end"
+									isVisible={currentStep === 2}
+								>
+									<SpotlightCard>
+										<SpotlightHeader>
+											<SpotlightHeadline>Disabled Item</SpotlightHeadline>
+											<SpotlightControls>
+												<SpotlightDismissControl onClick={dismiss} />
+											</SpotlightControls>
+										</SpotlightHeader>
+										<SpotlightBody>
+											<Text as="p" testId="disabledItemSpotlightMessage">
+												Check out this cool thing
+											</Text>
+										</SpotlightBody>
+										<SpotlightFooter>
+											<SpotlightStepCount>3 of 5</SpotlightStepCount>
+											<SpotlightActions>
+												<SpotlightSecondaryAction onClick={() => setCurrentStep(1)}>
+													Back
+												</SpotlightSecondaryAction>
+												<SpotlightPrimaryAction onClick={() => setCurrentStep(3)}>
+													Next
+												</SpotlightPrimaryAction>
+											</SpotlightActions>
+										</SpotlightFooter>
+									</SpotlightCard>
+								</PopoverContent>
+							</PopoverProvider>
+
+							<PopoverProvider>
+								<PopoverTarget>
 									<NestingItem id="3" iconBefore={<SettingsIcon label="" />} title="Settings">
 										<Section>
 											<LanguageSettings />
 										</Section>
 									</NestingItem>
-								</SpotlightTarget>
-								<SpotlightTarget name="selectedNestingItem">
+								</PopoverTarget>
+								<PopoverContent
+									dismiss={dismiss}
+									placement="right-end"
+									isVisible={currentStep === 3}
+								>
+									<SpotlightCard>
+										<SpotlightHeader>
+											<SpotlightHeadline>Nesting Item</SpotlightHeadline>
+											<SpotlightControls>
+												<SpotlightDismissControl onClick={dismiss} />
+											</SpotlightControls>
+										</SpotlightHeader>
+										<SpotlightBody>
+											<Text as="p" testId="nestingItemSpotlightMessage">
+												Check out this cool thing
+											</Text>
+										</SpotlightBody>
+										<SpotlightFooter>
+											<SpotlightStepCount>4 of 5</SpotlightStepCount>
+											<SpotlightActions>
+												<SpotlightSecondaryAction onClick={() => setCurrentStep(2)}>
+													Back
+												</SpotlightSecondaryAction>
+												<SpotlightPrimaryAction onClick={() => setCurrentStep(4)}>
+													Next
+												</SpotlightPrimaryAction>
+											</SpotlightActions>
+										</SpotlightFooter>
+									</SpotlightCard>
+								</PopoverContent>
+							</PopoverProvider>
+
+							<PopoverProvider>
+								<PopoverTarget>
 									<NestingItem
 										id="queues"
 										isSelected
@@ -113,142 +254,49 @@ const BasicExample = (): React.JSX.Element => {
 											<ButtonItem>New queue</ButtonItem>
 										</Section>
 									</NestingItem>
-								</SpotlightTarget>
-							</Section>
-						</NestableNavigationContent>
-						<NavigationFooter>
-							<SampleFooter />
-						</NavigationFooter>
-					</SideNavigation>
-				</AppFrame>
-				<SpotlightTransition>
-					<SpotlightRenderer />
-				</SpotlightTransition>
-			</Inline>
-		</SpotlightManager>
-	);
-};
-
-const SpotlightRenderer = () => {
-	const [variant, setVariant] = useState<number | undefined>();
-	const variants = [
-		<Spotlight
-			targetBgColor={token('elevation.surface')}
-			actions={[
-				{
-					onClick: () => setVariant(Number(variant) + 1),
-					text: 'Next',
-				},
-			]}
-			dialogPlacement="bottom left"
-			heading="Button Item"
-			target="buttonItem"
-			key="buttonItem"
-		>
-			<Text as="p" testId="buttonItemSpotlightMessage">
-				Check out this cool thing
-			</Text>
-		</Spotlight>,
-
-		<Spotlight
-			targetBgColor={token('elevation.surface')}
-			actions={[
-				{
-					onClick: () => setVariant(Number(variant) + 1),
-					text: 'Next',
-				},
-				{
-					onClick: () => setVariant(Number(variant) - 1),
-					text: 'Previous',
-				},
-			]}
-			dialogPlacement="bottom left"
-			heading="Link Item"
-			target="linkItem"
-			key="linkItem"
-		>
-			<Text as="p" testId="linkItemSpotlightMessage">
-				Check out this cool thing
-			</Text>
-		</Spotlight>,
-
-		<Spotlight
-			targetBgColor={token('elevation.surface')}
-			actions={[
-				{
-					onClick: () => setVariant(Number(variant) + 1),
-					text: 'Next',
-				},
-				{
-					onClick: () => setVariant(Number(variant) - 1),
-					text: 'Previous',
-				},
-			]}
-			dialogPlacement="bottom left"
-			heading="Disabled Item"
-			target="disabledItem"
-			key="disabledItem"
-		>
-			<Text as="p" testId="disabledItemSpotlightMessage">
-				Check out this cool thing
-			</Text>
-		</Spotlight>,
-
-		<Spotlight
-			targetBgColor={token('elevation.surface')}
-			actions={[
-				{
-					onClick: () => setVariant(Number(variant) + 1),
-					text: 'Next',
-				},
-				{
-					onClick: () => setVariant(Number(variant) - 1),
-					text: 'Previous',
-				},
-			]}
-			dialogPlacement="bottom left"
-			heading="Nesting Item"
-			target="nestingItem"
-			key="nestingItem"
-		>
-			<Text as="p" testId="nestingItemSpotlightMessage">
-				Check out this cool thing
-			</Text>
-		</Spotlight>,
-
-		<Spotlight
-			targetBgColor={token('elevation.surface')}
-			actions={[
-				{
-					onClick: () => setVariant(undefined),
-					text: 'Finish',
-				},
-				{
-					onClick: () => setVariant(Number(variant) - 1),
-					text: 'Previous',
-				},
-			]}
-			dialogPlacement="bottom left"
-			heading="Selected Nesting Item"
-			target="selectedNestingItem"
-			key="selectedNestingItem"
-		>
-			<Text as="p" testId="selectedNestingItemSpotlightMessage">
-				Check out this cool thing
-			</Text>
-		</Spotlight>,
-	];
-
-	if (variant !== undefined) {
-		return variants[variant];
-	}
-
-	return (
-		<Box padding="space.200">
-			<Button id="show-spotlight" onClick={() => setVariant(0)} appearance="default">
-				Show spotlight
-			</Button>
-		</Box>
+								</PopoverTarget>
+								<PopoverContent
+									dismiss={dismiss}
+									placement="right-end"
+									isVisible={currentStep === 4}
+								>
+									<SpotlightCard>
+										<SpotlightHeader>
+											<SpotlightHeadline>Selected Nesting Item</SpotlightHeadline>
+											<SpotlightControls>
+												<SpotlightDismissControl onClick={dismiss} />
+											</SpotlightControls>
+										</SpotlightHeader>
+										<SpotlightBody>
+											<Text as="p" testId="selectedNestingItemSpotlightMessage">
+												Check out this cool thing
+											</Text>
+										</SpotlightBody>
+										<SpotlightFooter>
+											<SpotlightStepCount>5 of 5</SpotlightStepCount>
+											<SpotlightActions>
+												<SpotlightSecondaryAction onClick={() => setCurrentStep(3)}>
+													Back
+												</SpotlightSecondaryAction>
+												<SpotlightPrimaryAction onClick={dismiss}>Finish</SpotlightPrimaryAction>
+											</SpotlightActions>
+										</SpotlightFooter>
+									</SpotlightCard>
+								</PopoverContent>
+							</PopoverProvider>
+						</Section>
+					</NestableNavigationContent>
+					<NavigationFooter>
+						<SampleFooter />
+					</NavigationFooter>
+				</SideNavigation>
+			</AppFrame>
+			<Box padding="space.200">
+				<Button id="show-spotlight" onClick={() => setCurrentStep(0)} appearance="default">
+					Show spotlight
+				</Button>
+			</Box>
+		</Inline>
 	);
 };
 export default BasicExample;

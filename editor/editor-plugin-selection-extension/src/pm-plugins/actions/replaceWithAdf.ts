@@ -2,6 +2,7 @@ import { type ADFEntity } from '@atlaskit/adf-utils/types';
 import type { CommandDispatch, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 import { SelectionExtensionActionTypes, type ReplaceWithAdfResult } from '../../types';
@@ -34,7 +35,10 @@ export const replaceWithAdf =
 				throw new Error('No selected node or node position found');
 			}
 
-			const endPos = selectedNode.nodeSize + nodePos;
+			const endPos =
+				selectedNode.type.name === 'doc' && fg('platform_editor_selection_extension_improvement')
+					? nodePos + selectedNode.content.size
+					: nodePos + selectedNode.nodeSize;
 
 			const modifiedNode = Node.fromJSON(schema, nodeAdf);
 			modifiedNode.check();
@@ -44,7 +48,7 @@ export const replaceWithAdf =
 				api?.editorViewModeEffects?.actions.allowViewModeTransaction(updatedTr) || updatedTr,
 			);
 			return { status: 'success' };
-		} catch (error) {
+		} catch {
 			dispatch(tr);
 			return { status: 'failed-to-replace' };
 		}

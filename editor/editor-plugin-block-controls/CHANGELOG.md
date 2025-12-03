@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.11.3
+
+### Patch Changes
+
+- [`59c74907ab1c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59c74907ab1c6) -
+  [ux] EDITOR-3727 fix selection preservation on empty lines
+- [`7e5df3d5beaf3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e5df3d5beaf3) -
+  Add new flattenListStep and unwrapListStep and use for list -> paragraph step. Also moved
+  expandToBlockRange util function to editor-common to re-use
+- [`e3779b75fdeca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3779b75fdeca) -
+  EDITOR-1643 Promote syncBlock and bodiedSyncBlock to full schema
+- Updated dependencies
+
 ## 7.11.2
 
 ### Patch Changes

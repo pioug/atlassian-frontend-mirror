@@ -5,6 +5,7 @@ import MentionItem from '../../../examples/01-mention-item';
 import ErrorMentionList from '../../../examples/03-error-mention-list';
 import SimpleMention from '../../../examples/07-simple-mention';
 import SimpleMentionList from '../../../examples/simple-mention-list';
+import MentionItemWithAgent from '../../../examples/11-mention-item-with-agent';
 
 // Simple mention item
 snapshot(SimpleMentionItem, {
@@ -28,3 +29,10 @@ snapshot(ErrorMentionList);
 
 // // Simple mention
 snapshot(SimpleMention);
+
+// Mention item with agent appType (hexagon avatar when feature gate enabled)
+snapshot(MentionItemWithAgent, {
+	featureFlags: {
+		jira_ai_agent_avatar_issue_view_comment_mentions: [true],
+	},
+});

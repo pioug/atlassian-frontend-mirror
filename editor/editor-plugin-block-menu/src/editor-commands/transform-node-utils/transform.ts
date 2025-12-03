@@ -1,8 +1,14 @@
-import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import {
+	type Node as PMNode,
+	type NodeType,
+	type Schema,
+} from '@atlaskit/editor-prosemirror/model';
 
+import { flattenListStep } from './flattenListStep';
 import { stubStep } from './stubStep';
 import type { NodeCategory, NodeTypeName, TransformStepContext, TransformStep } from './types';
 import { NODE_CATEGORY_BY_TYPE, toNodeTypeValue } from './types';
+import { unwrapListStep } from './unwrapListStep';
 
 // Exampled step for overrides:
 // - open Block menu on a paragraph, click 'Panel' in the Turn into'
@@ -30,7 +36,7 @@ const TRANSFORM_STEPS: Record<NodeCategory, Record<NodeCategory, TransformStep[]
 		atomic: undefined,
 		container: [stubStep],
 		list: [stubStep],
-		text: [stubStep],
+		text: [flattenListStep, unwrapListStep],
 	},
 	text: {
 		atomic: undefined,
@@ -77,6 +83,7 @@ export const getOutputNodes = ({
 	schema,
 }: GetOutputNodesArgs): PMNode[] | undefined => {
 	const nodesToReplace = [sourceNode];
+
 	const selectedNodeTypeName = toNodeTypeValue(sourceNode.type.name);
 	const targetNodeTypeName = toNodeTypeValue(targetNodeType.name);
 

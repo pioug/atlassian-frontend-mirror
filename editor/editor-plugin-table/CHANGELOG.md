@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 15.4.12
+
+### Patch Changes
+
+- [`e3779b75fdeca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3779b75fdeca) -
+  EDITOR-1643 Promote syncBlock and bodiedSyncBlock to full schema
+- [`a3a20e1d45d82`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3a20e1d45d82) -
+  Fix table col control positioning for new dnd anchor experiment
+- [`7eedf0747e9e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7eedf0747e9e2) -
+  Fix table sticky header detection
+- Updated dependencies
+
 ## 15.4.11
 
 ### Patch Changes

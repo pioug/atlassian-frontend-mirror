@@ -10,8 +10,11 @@ import {
 	BlockError,
 	createSyncedBlock,
 	deleteSyncedBlock,
+	getReferenceSyncedBlocks,
 	getSyncedBlockContent,
 	updateSyncedBlock,
+	type BlockContentErrorResponse,
+	type BlockContentResponse,
 } from '../../clients/block-service/blockService';
 import { SyncBlockError, type SyncBlockData, type SyncBlockProduct } from '../../common/types';
 import { stringifyError } from '../../utils/errorHandling';
@@ -31,6 +34,71 @@ const mapBlockError = (error: BlockError): SyncBlockError => {
 			return SyncBlockError.NotFound;
 	}
 	return SyncBlockError.Errored;
+};
+
+// convert BlockContentResponse to SyncBlockData
+// throws exception if JSON parsing fails
+// what's missing from BlockContentResponse to SyncBlockData:
+// - updatedAt
+// - sourceURL
+// - sourceTitle
+// - isSynced
+const convertToSyncBlockData = (data: BlockContentResponse): SyncBlockData => {
+	return {
+		blockInstanceId: data.blockInstanceId,
+		content: JSON.parse(data.content),
+		createdAt: new Date(data.createdAt).toISOString(),
+		createdBy: data.createdBy,
+		product: data.product,
+		resourceId: data.blockAri,
+		sourceAri: data.sourceAri,
+	};
+};
+
+export const fetchReferences = async (
+	documentAri: string,
+): Promise<SyncBlockInstance[] | SyncBlockError> => {
+	let response: {
+		blocks?: BlockContentResponse[] | undefined;
+		errors?: Array<BlockContentErrorResponse>;
+	};
+
+	try {
+		response = await getReferenceSyncedBlocks(documentAri);
+	} catch (error) {
+		if (error instanceof BlockError) {
+			return mapBlockError(error);
+		}
+
+		return SyncBlockError.Errored;
+	}
+
+	const { blocks, errors } = response || {};
+
+	const blocksInstances = (blocks || []).map((blockContentResponse) => {
+		try {
+			return {
+				data: convertToSyncBlockData(blockContentResponse),
+				resourceId: blockContentResponse.blockAri,
+			} as SyncBlockInstance;
+		} catch {
+			// JSON parsing error, return InvalidContent error
+			return {
+				error: SyncBlockError.InvalidContent,
+				resourceId: blockContentResponse.blockAri,
+			} as SyncBlockInstance;
+		}
+	});
+
+	const errorInstances = (errors || []).map(
+		(errorBlock) =>
+			({
+				error: SyncBlockError.Errored,
+				resourceId: errorBlock.blockAri,
+			}) as SyncBlockInstance,
+	);
+
+	return [...blocksInstances, ...errorInstances];
 };
 
 /**

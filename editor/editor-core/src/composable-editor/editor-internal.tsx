@@ -20,6 +20,7 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { Transformer } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type EditorActions from '../actions';
 import ErrorBoundary from '../create-editor/ErrorBoundary';
@@ -113,7 +114,18 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 					contextIdentifierProvider={props.contextIdentifierProvider}
 					featureFlags={featureFlags}
 				>
-					<div css={editorContainerStyles}>
+					<div
+						css={editorContainerStyles}
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...(expValEquals('cc_fix_hydration_ttvc', 'isEnabled', true)
+							? process.env.REACT_SSR
+								? { 'data-vc-ignore-if-no-layout-shift': true, 'data-ssr-placeholder': 'fallback' }
+								: {
+										'data-vc-ignore-if-no-layout-shift': true,
+										'data-ssr-placeholder-replace': 'fallback',
+									}
+							: {})}
+					>
 						<EditorContext editorActions={editorActions}>
 							<IntlProviderIfMissingWrapper>
 								<Fragment>

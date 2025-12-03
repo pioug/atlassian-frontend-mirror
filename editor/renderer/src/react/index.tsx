@@ -88,6 +88,7 @@ export interface ReactSerializerInit {
 	media?: MediaOptions;
 	nodeComponents?: NodeComponentsProps;
 	objectContext?: RendererContext;
+	onSetLinkTarget?: (url: string) => '_blank' | undefined;
 	portal?: HTMLElement;
 	providers?: ProviderFactory;
 	shouldOpenMediaViewer?: boolean;
@@ -209,6 +210,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private isPresentational?: boolean;
 	private disableTableOverflowShadow?: boolean;
 	private standaloneBackgroundColorMarks: Mark[] = [];
+	private onSetLinkTarget?: (url: string) => '_blank' | undefined;
 
 	constructor(init: ReactSerializerInit) {
 		if (editorExperiment('comment_on_bodied_extensions', true)) {
@@ -254,6 +256,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		this.allowTableResizing = init.allowTableResizing;
 		this.isPresentational = init.isPresentational;
 		this.disableTableOverflowShadow = init.disableTableOverflowShadow;
+		this.onSetLinkTarget = init.onSetLinkTarget;
 	}
 
 	private resetState() {
@@ -895,6 +898,14 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 				}
 			: {};
 
+		// Add deepLinkTarget for link marks
+		const linkSpecificProps =
+			mark.type.name === 'link'
+				? {
+						onSetLinkTarget: this.onSetLinkTarget,
+					}
+				: {};
+
 		const props: MarkMeta = {
 			eventHandlers: this.eventHandlers,
 			fireAnalyticsEvent: this.fireAnalyticsEvent,
@@ -902,6 +913,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			...otherAttrs,
 			...extraProps,
 			...markSpecificProps,
+			...linkSpecificProps,
 			dataAttributes: {
 				'data-renderer-mark': true,
 			},

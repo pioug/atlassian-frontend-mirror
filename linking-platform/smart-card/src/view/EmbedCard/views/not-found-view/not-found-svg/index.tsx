@@ -40,7 +40,13 @@ export const NotFoundSVG = (): React.JSX.Element => (
 				<stop offset="0.69" stopColor="#fff" stopOpacity="0.1" />
 			</linearGradient>
 		</defs>
-		<title>{fg('navx-2825-eslint-translation-fix-linking-platform') ? <FormattedMessage defaultMessage="Search error" /> : "Search error"}</title>
+		<title>
+			{fg('navx-2825-eslint-translation-fix-linking-platform') ? (
+				<FormattedMessage defaultMessage="Search error" />
+			) : (
+				'Search error'
+			)}
+		</title>
 		<g id="Layer_2" data-name="Layer 2">
 			<g id="Objects">
 				<path

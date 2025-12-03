@@ -41,6 +41,7 @@ export {
 	isSelectionAtEndOfNode,
 	isSelectionAtStartOfNode,
 	startPositionOfParent,
+	expandToBlockRange,
 } from './utils';
 
 export function getNodeSelectionAnalyticsPayload(

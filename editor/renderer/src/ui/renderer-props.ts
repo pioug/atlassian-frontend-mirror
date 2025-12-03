@@ -148,6 +148,15 @@ export interface RendererProps {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onError?: (error: any) => void;
+	/**
+	 * Optional callback to programatically determine the link target for rendered links. Controls whether a link should render as external or not.
+	 * Return _blank if the url should render as an external link.
+	 * Return undefined to use the links default behavior and target.
+	 *
+	 * @param url - The URL of the link being rendered
+	 * @returns '_blank' to render as an external link or undefined to not change the link
+	 */
+	onSetLinkTarget?: (url: string) => '_blank' | undefined;
 	portal?: HTMLElement;
 	rendererContext?: RendererContext;
 	schema?: Schema;

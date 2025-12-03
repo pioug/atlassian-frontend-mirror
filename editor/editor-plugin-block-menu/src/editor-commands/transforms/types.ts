@@ -17,7 +17,8 @@ export type FormatNodeTargetType =
 	| 'codeBlock'
 	| 'bulletList'
 	| 'orderedList'
-	| 'taskList';
+	| 'taskList'
+	| 'decisionList';
 
 export type TransfromNodeTargetType = FormatNodeTargetType;
 

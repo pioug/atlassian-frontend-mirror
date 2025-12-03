@@ -10,11 +10,11 @@ ${(<AtlassianInternalWarning />)}
 			packageName="@atlaskit/editor-ssr-renderer"
 			// Ignored via go/ees005
 			// eslint-disable-next-line import/no-commonjs
-			Component={require('../examples/0-all-notes').default}
+			Component={require('../examples/0-all-nodes').default}
 			title="SSR renderer based on the Editor"
 			// Ignored via go/ees005
 			// eslint-disable-next-line import/no-commonjs
-			source={require('!!raw-loader!../examples/0-all-notes')}
+			source={require('!!raw-loader!../examples/0-all-nodes')}
 		/>
 	)}
 `;

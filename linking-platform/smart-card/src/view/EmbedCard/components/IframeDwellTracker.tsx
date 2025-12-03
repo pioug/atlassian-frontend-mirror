@@ -72,11 +72,11 @@ export const IframeDwellTracker = ({
 				}
 			}
 		} else {
-		if (isIframeLoaded && isMouseOver && isWindowFocused && iframePercentVisible > 0.75) {
-			if (dwellTimeoutId.current) {
-				clearInterval(dwellTimeoutId.current);
-			}
-			dwellTimeoutId.current = setInterval(incrementDwellTime, 1000);
+			if (isIframeLoaded && isMouseOver && isWindowFocused && iframePercentVisible > 0.75) {
+				if (dwellTimeoutId.current) {
+					clearInterval(dwellTimeoutId.current);
+				}
+				dwellTimeoutId.current = setInterval(incrementDwellTime, 1000);
 			}
 		}
 		return () => {

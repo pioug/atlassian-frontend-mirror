@@ -1,5 +1,13 @@
 # @atlaskit/media-picker
 
+## 70.1.3
+
+### Patch Changes
+
+- [`143a6c6aea5cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/143a6c6aea5cf) -
+  Move media picker loader components to use componentDidMount instead of UNSAFE_componentWillMount
+  (under FF: jfp-magma-media-clipboard-init-after-mount)
+
 ## 70.1.2
 
 ### Patch Changes

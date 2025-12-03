@@ -307,27 +307,6 @@ export const rootTaskListDepth = (taskListPos: ResolvedPos) => {
 };
 
 /**
- * This expands the given $from and $to resolved positions to the block boundaries
- * spanning all nodes in the range up to the nearest common ancestor.
- *
- * @param $from The resolved start position
- * @param $to The resolved end position
- * @returns An object containing the expanded $from and $to resolved positions
- */
-export const expandToBlockRange = ($from: ResolvedPos, $to: ResolvedPos) => {
-	const range = $from.blockRange($to);
-
-	if (!range) {
-		return { $from, $to };
-	}
-
-	return {
-		$from: $from.doc.resolve(range.start),
-		$to: $to.doc.resolve(range.end),
-	};
-};
-
-/**
  * Collapses the given $from and $to resolved positions to the nearest valid selection range.
  *
  * Will retract the from and to positions to nearest inline positions at node boundaries only if needed.
@@ -337,14 +316,14 @@ export const expandToBlockRange = ($from: ResolvedPos, $to: ResolvedPos) => {
  * @returns An object containing the collapsed $from and $to resolved positions
  */
 export const collapseToSelectionRange = ($from: ResolvedPos, $to: ResolvedPos) => {
-	const resolvedRangeEnd = $from.doc.resolve($to.pos);
-
 	// Get the selections that would be made for the first and last node in the range
 	// We re-use the getSelection logic as it already handles various node types and edge cases
-	const firstNodeSelection = newGetSelection($from.doc, $from.pos === $to.pos, $from.pos);
-	const lastNodeSize = resolvedRangeEnd.nodeBefore ? resolvedRangeEnd.nodeBefore.nodeSize : 0;
-	const lastNodeStartPos = resolvedRangeEnd.pos - lastNodeSize;
-	const lastNodeSelection = newGetSelection($from.doc, $from.pos === $to.pos, lastNodeStartPos);
+	// always pass true for selectionEmpty to emulate a cursor selection within the node
+	const firstNodeSelection = newGetSelection($from.doc, true, $from.pos);
+
+	const lastNodeSize = $to.nodeBefore?.nodeSize ?? 0;
+	const lastNodeStartPos = $to.pos - lastNodeSize;
+	const lastNodeSelection = newGetSelection($from.doc, true, lastNodeStartPos);
 
 	// Return a selection spanning from the start of the first node selection to the end of the last node selection
 	return {

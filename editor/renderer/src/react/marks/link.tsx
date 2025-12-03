@@ -8,6 +8,8 @@ import { css, jsx } from '@emotion/react';
 import { B400, B300, B500 } from '@atlaskit/theme/colors';
 import type { LinkAttributes } from '@atlaskit/adf-schema';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { getEventHandler } from '../../utils';
 import { PLATFORM, MODE } from '../../analytics/events';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
@@ -30,19 +32,38 @@ const anchorStyles = css({
 
 interface LinkProps extends LinkAttributes {
 	isMediaLink?: boolean;
+	onSetLinkTarget?: (url: string) => '_blank' | undefined;
 	target?: string;
 }
 
 export default function Link(props: MarkProps<LinkProps>) {
-	const { href, target, eventHandlers, fireAnalyticsEvent, isMediaLink, dataAttributes } = props;
+	const {
+		href,
+		target,
+		onSetLinkTarget,
+		eventHandlers,
+		fireAnalyticsEvent,
+		isMediaLink,
+		dataAttributes,
+	} = props;
+
+	let actualTarget = target;
+
+	if (onSetLinkTarget && href && fg('rovo_chat_deep_linking_enabled')) {
+		try {
+			actualTarget = onSetLinkTarget(href) ?? actualTarget;
+		} catch (error) {
+			// If URL parsing fails, use the original target
+		}
+	}
 
 	const anchorProps: React.AnchorHTMLAttributes<HTMLAnchorElement> = {
 		href,
-		target,
+		target: actualTarget,
 		title: href,
 	};
 
-	if (target === '_blank') {
+	if (actualTarget === '_blank') {
 		anchorProps.rel = 'noreferrer noopener';
 	}
 

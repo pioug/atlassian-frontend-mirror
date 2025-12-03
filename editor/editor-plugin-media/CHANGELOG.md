@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-media
 
+## 8.4.16
+
+### Patch Changes
+
+- [`1344d6deac8a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1344d6deac8a3) -
+  provide better max dimensions to media to fix blurry image on load
+- [`e3779b75fdeca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3779b75fdeca) -
+  EDITOR-1643 Promote syncBlock and bodiedSyncBlock to full schema
+- Updated dependencies
+
 ## 8.4.15
 
 ### Patch Changes

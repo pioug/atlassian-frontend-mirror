@@ -1,3 +1,4 @@
+import { expandToBlockRange } from '@atlaskit/editor-common/selection';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Fragment, type NodeType } from '@atlaskit/editor-prosemirror/model';
 
@@ -18,7 +19,7 @@ export const transformNode =
 				return tr;
 			}
 
-			const { from, to, $from } = preservedSelection;
+			const { $from, $to } = expandToBlockRange(preservedSelection.$from, preservedSelection.$to);
 
 			const selectedParent = $from.parent;
 
@@ -26,7 +27,10 @@ export const transformNode =
 
 			const isList = isListNode(selectedParent);
 
-			const slice = tr.doc.slice(isList ? from - 1 : from, isList ? to + 1 : to);
+			const slice = tr.doc.slice(
+				isList ? $from.pos - 1 : $from.pos,
+				isList ? $to.pos + 1 : $to.pos,
+			);
 
 			slice.content.forEach((node) => {
 				const outputNode = getOutputNodes({
@@ -40,11 +44,8 @@ export const transformNode =
 				}
 			});
 
-			tr.replaceWith(
-				isList ? preservedSelection.from - 1 : preservedSelection.from,
-				preservedSelection.to,
-				fragment,
-			);
+			// TODO: ED-12345 - selection is broken post transaction, to fix.
+			tr.replaceWith(isList ? $from.pos - 1 : $from.pos, $to.pos, fragment);
 
 			return tr;
 		};

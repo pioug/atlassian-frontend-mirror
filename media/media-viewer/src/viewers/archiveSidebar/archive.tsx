@@ -115,10 +115,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 
 		const mimeType = getMimeTypeFromFilename(selectedArchiveEntry.name);
 
-		const isCodeMimeType = isCodeViewerItem(
-			selectedArchiveEntry.name,
-			mimeType,
-		);
+		const isCodeMimeType = isCodeViewerItem(selectedArchiveEntry.name, mimeType);
 
 		if (!selectedArchiveEntry.isDirectory) {
 			try {
@@ -345,8 +342,19 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 				case 'doc':
 					return (
 						<ArchiveItemViewerWrapper fullHeight={true}>
-							<NativePdfViewer src={src} onSuccess={this.onViewerLoad(selectedArchiveEntry)} onError={this.onViewerError('archiveviewer-docviewer-onerror', selectedArchiveEntry)}>
-								{this.renderPreviewError(new ArchiveViewerError('archiveviewer-docviewer-onerror'), selectedArchiveEntry, false)}
+							<NativePdfViewer
+								src={src}
+								onSuccess={this.onViewerLoad(selectedArchiveEntry)}
+								onError={this.onViewerError(
+									'archiveviewer-docviewer-onerror',
+									selectedArchiveEntry,
+								)}
+							>
+								{this.renderPreviewError(
+									new ArchiveViewerError('archiveviewer-docviewer-onerror'),
+									selectedArchiveEntry,
+									false,
+								)}
 							</NativePdfViewer>
 						</ArchiveItemViewerWrapper>
 					);
@@ -362,7 +370,11 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 		}
 	}
 
-	private renderPreviewError(error: ArchiveViewerError, entry?: ZipEntry, shouldFireAnalytics = true) {
+	private renderPreviewError(
+		error: ArchiveViewerError,
+		entry?: ZipEntry,
+		shouldFireAnalytics = true,
+	) {
 		const { item, createAnalyticsEvent } = this.props;
 
 		if (shouldFireAnalytics) {

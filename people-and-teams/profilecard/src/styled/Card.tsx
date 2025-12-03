@@ -329,11 +329,7 @@ export const JobTitleLabel = ({ children }: { children: ReactNode }): React.JSX.
 					</Text>
 				</Tooltip>
 			) : (
-				<Text
-					maxLines={1}
-					color="color.text.inverse"
-					id="profile-card-job-title-label-text"
-				>
+				<Text maxLines={1} color="color.text.inverse" id="profile-card-job-title-label-text">
 					{children}
 				</Text>
 			)}

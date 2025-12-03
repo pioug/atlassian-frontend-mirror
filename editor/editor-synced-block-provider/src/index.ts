@@ -65,3 +65,5 @@ export {
 	convertSyncBlockJSONNodeToSyncBlockNode,
 	convertPMNodesToSyncBlockNodes,
 } from './utils/utils';
+
+export { fetchReferences } from './providers/block-service/blockServiceAPI';

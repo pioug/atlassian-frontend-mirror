@@ -19,6 +19,8 @@ import type { SelectionExtensionSelectionInfo } from '../../types';
 import { type SelectionRange } from '../../types';
 import { getBoundingBoxFromSelection } from '../../ui/getBoundingBoxFromSelection';
 
+import { getSelectionInfo, getSelectionInfoFromSameNode } from './selection-helpers';
+
 const getSelectedRect = (selection: CellSelection): Rect => {
 	const { $anchorCell, $headCell } = selection;
 	const table = $anchorCell.node(-1);
@@ -33,26 +35,6 @@ type SelectionInfo = {
 	selectedNode: PMNode;
 	selectedNodeAdf: ADFEntity;
 	selectionRanges?: SelectionRange[];
-};
-
-const getSelectionInfoFromSameNode = (selection: TextSelection) => {
-	const { $from, $to } = selection;
-	return {
-		selectedNode: $from.node(),
-		selectionRanges: [
-			{
-				start: {
-					pointer: `/content/${$from.index()}/text`,
-					position: $from.parentOffset,
-				},
-				end: {
-					pointer: `/content/${$from.index()}/text`,
-					position: $to.parentOffset,
-				},
-			},
-		],
-		nodePos: $from.before(), // position before the selection
-	};
 };
 
 const getSelectionInfoFromCellSelection = (selection: CellSelection) => {
@@ -131,11 +113,14 @@ export function getSelectionAdfInfo(state: EditorState): SelectionInfo {
 	};
 
 	if (selection instanceof TextSelection) {
-		const { $from, $to } = selection;
-		if ($from.parent === $to.parent) {
-			selectionInfo = getSelectionInfoFromSameNode(selection);
+		if (fg('platform_editor_selection_extension_improvement')) {
+			// New implementation: unified handler for all text selections
+			selectionInfo = getSelectionInfo(selection, state.schema);
 		} else {
-			// TODO: ED-28405 - when selection spans multiple nodes including nested node, we need to iterate through the nodes
+			const { $from, $to } = selection;
+			if ($from.parent === $to.parent) {
+				selectionInfo = getSelectionInfoFromSameNode(selection);
+			}
 		}
 	} else if (selection instanceof CellSelection) {
 		selectionInfo = getSelectionInfoFromCellSelection(selection);
@@ -151,17 +136,20 @@ export function getSelectionAdfInfo(state: EditorState): SelectionInfo {
 }
 
 export function getSelectionAdfInfoNew(selection: Selection): SelectionInfo {
+	const schema = selection.$from.doc.type.schema;
 	let selectionInfo = {
 		selectedNode: selection.$from.node(),
 		nodePos: selection.$from.depth > 0 ? selection.$from.before() : selection.from,
 	};
 
 	if (selection instanceof TextSelection) {
-		const { $from, $to } = selection;
-		if ($from.parent === $to.parent) {
-			selectionInfo = getSelectionInfoFromSameNode(selection);
+		if (fg('platform_editor_selection_extension_improvement')) {
+			selectionInfo = getSelectionInfo(selection, schema);
 		} else {
-			// TODO: ED-28405 - when selection spans multiple nodes including nested node, we need to iterate through the nodes
+			const { $from, $to } = selection;
+			if ($from.parent === $to.parent) {
+				selectionInfo = getSelectionInfoFromSameNode(selection);
+			}
 		}
 	} else if (selection instanceof CellSelection) {
 		selectionInfo = getSelectionInfoFromCellSelection(selection);

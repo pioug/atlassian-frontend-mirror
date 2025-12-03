@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.15.12
+
+### Patch Changes
+
+- [`19af60b5294cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19af60b5294cd) -
+  Reduces eagerness of ssr placeholder checking
+
 ## 4.15.11
 
 ### Patch Changes

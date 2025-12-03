@@ -40,6 +40,7 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
+import { addLinksToTable, addLinksToTaskList } from '../example-helpers/add-links-mock';
 import { ExampleForgeApp } from '../example-helpers/ExampleForgeApp';
 import { useNoteSelectionExtension } from '../example-helpers/useNoteSelectionExtension';
 import enMessages from '../src/i18n/en';
@@ -370,51 +371,33 @@ function ComposableEditorPage() {
 							const modifiedNodeAdf = JSON.parse(JSON.stringify(selectedNodeAdfRef.current));
 
 							if (modifiedNodeAdf.type === 'table') {
-								for (const content of modifiedNodeAdf.content) {
-									if (content.type === 'tableRow' && content.content.length > 0) {
-										const firstCell = content.content[0];
-										if (firstCell.type === 'tableCell') {
-											if (firstCell.content.length > 0) {
-												const lastChild = firstCell.content[firstCell.content.length - 1];
-												if (lastChild.type === 'paragraph') {
-													lastChild.content.push({
-														type: 'inlineCard',
-														attrs: {
-															url: 'https://example.atlassian.net/browse/TEST-123',
-														},
-													});
-												} else {
-													firstCell.content.push({
-														type: 'paragraph',
-														content: [
-															{
-																type: 'inlineCard',
-																attrs: {
-																	url: 'https://example.atlassian.net/browse/TEST-123',
-																},
-															},
-														],
-													});
-												}
-											} else {
-												firstCell.content.push({
-													type: 'paragraph',
-													content: [
-														{
-															type: 'inlineCard',
-															attrs: {
-																url: 'https://example.atlassian.net/browse/TEST-123',
-															},
-														},
-													],
-												});
-											}
-										}
-									}
+								addLinksToTable(modifiedNodeAdf);
+							} else if (modifiedNodeAdf.type === 'taskList') {
+								addLinksToTaskList(modifiedNodeAdf);
+							} else if (modifiedNodeAdf.type === 'doc') {
+								if (!modifiedNodeAdf.content) {
+									modifiedNodeAdf.content = [];
 								}
+								modifiedNodeAdf.content.push({
+									type: 'panel',
+									attrs: {
+										panelType: 'warning',
+									},
+									content: [
+										{
+											type: 'paragraph',
+											content: [
+												{
+													type: 'text',
+													text: 'ADF is replaced',
+												},
+											],
+										},
+									],
+								});
 							}
-							const result = editorApi?.selectionExtension.actions.replaceWithAdf(modifiedNodeAdf);
 
+							const result = editorApi?.selectionExtension.actions.replaceWithAdf(modifiedNodeAdf);
 							if (result?.status === 'document-changed') {
 								const fallbackADF = {
 									type: 'panel',

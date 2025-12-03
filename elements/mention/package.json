@@ -94,6 +94,9 @@
 		"react-intl-next": "*"
 	},
 	"platform-feature-flags": {
+		"jira_ai_agent_avatar_issue_view_comment_mentions": {
+			"type": "boolean"
+		},
 		"team-avatar-in-mention-picker": {
 			"type": "boolean"
 		}

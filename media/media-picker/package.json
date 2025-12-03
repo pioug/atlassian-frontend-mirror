@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-picker",
-	"version": "70.1.2",
+	"version": "70.1.3",
 	"description": "Library for handling file uploads",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -95,6 +95,9 @@
 			"type": "boolean"
 		},
 		"add_media_picker_error_detail": {
+			"type": "boolean"
+		},
+		"jfp-magma-media-clipboard-init-after-mount": {
 			"type": "boolean"
 		}
 	}

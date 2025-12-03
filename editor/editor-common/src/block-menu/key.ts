@@ -84,6 +84,10 @@ export const TRANSFORM_STRUCTURE_DECISION_MENU_ITEM = {
 	key: 'transform-structure-decision-menu-item',
 };
 
+export const TRANSFORM_STRUCTURE_PARAGRAPH_MENU_ITEM = {
+	key: 'transform-structure-paragraph-menu-item',
+};
+
 export const TRANSFORM_CLEAR_MENU_SECTION = {
 	key: 'transform-clear-menu-section',
 };

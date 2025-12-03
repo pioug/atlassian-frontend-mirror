@@ -76,7 +76,13 @@ export function PanelContainer({ children, testId, onResize }: PanelContainerPro
 
 	return (
 		<Box as="section" role="complementary" testId={testId} xcss={styles.wrapper}>
-			<Pressable xcss={styles.resizeRail} onMouseDown={handleMouseDown} aria-label="Resize panel" />
+			{onResize && (
+				<Pressable
+					xcss={styles.resizeRail}
+					onMouseDown={handleMouseDown}
+					aria-label="Resize panel"
+				/>
+			)}
 			<Box xcss={styles.content}>{children}</Box>
 		</Box>
 	);

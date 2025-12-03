@@ -88,9 +88,6 @@
 			"path": "../motion/tsconfig.app.json"
 		},
 		{
-			"path": "../onboarding/tsconfig.app.json"
-		},
-		{
 			"path": "../../pragmatic-drag-and-drop/core/tsconfig.app.json"
 		},
 		{
@@ -110,6 +107,9 @@
 		},
 		{
 			"path": "../select/tsconfig.app.json"
+		},
+		{
+			"path": "../spotlight/tsconfig.app.json"
 		},
 		{
 			"path": "../theme/tsconfig.app.json"

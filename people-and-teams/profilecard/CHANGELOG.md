@@ -1,5 +1,22 @@
 # @atlaskit/profilecard
 
+## 24.23.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.23.0
+
+### Minor Changes
+
+- [`829b6192f8717`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/829b6192f8717) -
+  [ux] In profile card, add tooltip for truncated text
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.22.1
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-block-type
 
+## 10.2.20
+
+### Patch Changes
+
+- [`e3779b75fdeca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3779b75fdeca) -
+  EDITOR-1643 Promote syncBlock and bodiedSyncBlock to full schema
+- [`9f0fb29cbfc8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f0fb29cbfc8b) -
+  Add paragraph option to block menu
+- Updated dependencies
+
 ## 10.2.19
 
 ### Patch Changes

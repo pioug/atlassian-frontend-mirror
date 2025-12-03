@@ -202,10 +202,7 @@ If isBold is typically false, consider migrating to <Tag /> from '@atlaskit/tag'
 		} else if (hasVariableChild && variableChildExpression) {
 			// Use the variable expression as the text prop
 			newAttributes.push(
-				j.jsxAttribute(
-					j.jsxIdentifier('text'),
-					j.jsxExpressionContainer(variableChildExpression)
-				)
+				j.jsxAttribute(j.jsxIdentifier('text'), j.jsxExpressionContainer(variableChildExpression)),
 			);
 		}
 

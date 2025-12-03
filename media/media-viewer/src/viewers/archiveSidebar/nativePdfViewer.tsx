@@ -41,9 +41,7 @@ export const NativePdfViewer = ({ src, children, onSuccess, onError }: Props) =>
 		<div css={pdfWrapperStyles} data-testid="native-pdf-viewer">
 			<div css={headerStyles} />
 			<object data={src} type="application/pdf" css={pdfWrapperStyles}>
-				<div ref={ref}>
-					{children}
-				</div>
+				<div ref={ref}>{children}</div>
 			</object>
 		</div>
 	);

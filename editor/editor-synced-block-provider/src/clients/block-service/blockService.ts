@@ -12,6 +12,83 @@ export type BlockContentResponse = {
 	version: number;
 };
 
+export type BlockContentErrorResponse = {
+	blockAri: string;
+	code: string;
+	reason: string;
+};
+
+export const isBlockContentResponse = (
+	response: BlockContentResponse | BlockContentErrorResponse,
+): response is BlockContentResponse => {
+	const content = (response as BlockContentResponse).content;
+
+	return typeof content === 'string';
+};
+
+/**
+ * Retrieves all synced blocks referenced in a document.
+ *
+ * Calls the Block Service API endpoint: `/v1/block/document/reference/{documentAri}`
+ *
+ * @param documentAri - The ARI of the document to fetch synced blocks for
+ * @returns A promise containing arrays of successfully fetched blocks and any errors encountered
+ *
+ * @example
+ * ```typescript
+ * const { blocks, errors } = await getReferenceSyncedBlocks(
+ *   'ari:cloud:confluence:xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx:page/88888888'
+ * );
+ * ```
+ *
+ * Example response:
+ * ```json
+ * {
+ *   "blocks": [
+ *     {
+ *       "blockAri": "ari:cloud:blocks:xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx:synced-block/xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx",
+ *       "version": 1,
+ *       "sourceDocumentAri": "ari:cloud:confluence:xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx:page/88888888",
+ *       "blockInstanceId": "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx",
+ *       "content": "string",
+ *       "status": "active",
+ *       "createdAt": "2025-10-08T10:30:00.000Z",
+ *       "createdBy": "557058:xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx",
+ *       "updatedAt": "2025-10-08T10:30:00.000Z"
+ *     }
+ *   ],
+ *   "errors": [
+ *     {
+ *       "blockAri": "ari:cloud:blocks:xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx:synced-block/xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx",
+ *       "code": "error",
+ *       "reason": "some error reason"
+ *     }
+ *   ]
+ * }
+ * ```
+ * Check https://block-service.dev.atl-paas.net/ for latest API documentation.
+ */
+export const getReferenceSyncedBlocks = async (
+	documentAri: string,
+): Promise<{
+	blocks?: Array<BlockContentResponse>;
+	errors?: Array<BlockContentErrorResponse>;
+}> => {
+	const response = await fetch(
+		`${BLOCK_SERVICE_API_URL}/block/document/reference/${encodeURIComponent(documentAri)}`,
+		{
+			method: 'GET',
+			headers: COMMON_HEADERS,
+		},
+	);
+
+	if (!response.ok) {
+		throw new BlockError(response.status);
+	}
+
+	return await response.json();
+};
+
 export type GetSyncedBlockContentRequest = {
 	blockAri: string; // the ARI of the block. E.G ari:cloud:blocks:site-123:synced-block/uuid-456
 };

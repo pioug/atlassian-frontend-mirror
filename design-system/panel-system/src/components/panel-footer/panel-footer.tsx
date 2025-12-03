@@ -38,6 +38,7 @@ const styles = cssMap({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'space-between',
+		flexDirection: 'row-reverse',
 		width: '100%',
 	},
 });
@@ -45,8 +46,8 @@ const styles = cssMap({
 /**
  * The PanelFooter component provides a footer area for panels
  * with consistent styling and spacing matching the header specifications.
- * It automatically organizes content with space-between layout, typically placing
- * a checkbox or other controls on the left and action buttons on the right.
+ * It automatically organizes content with space-between row-reverse layout, with actions
+ * starting from the right-hand side.
  */
 export function PanelFooter({ children, testId }: PanelFooterProps): React.JSX.Element {
 	return (

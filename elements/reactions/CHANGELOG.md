@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 33.8.0
+
+### Minor Changes
+
+- [`ad2ff048af406`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad2ff048af406) -
+  Use the isListItem prop to render the reactions and reaction picker as list item
+
 ## 33.7.1
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.1.4
+
+### Patch Changes
+
+- [`7e5df3d5beaf3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e5df3d5beaf3) -
+  Add new flattenListStep and unwrapListStep and use for list -> paragraph step. Also moved
+  expandToBlockRange util function to editor-common to re-use
+- Updated dependencies
+
 ## 5.1.3
 
 ### Patch Changes

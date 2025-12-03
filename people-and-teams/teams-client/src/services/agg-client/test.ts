@@ -2,6 +2,11 @@ import { type MembershipState, type ResultWithPageInfo, type TeamMembership } fr
 import { DEFAULT_CONFIG } from '../constants';
 import { logException } from '../sentry/main';
 
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags'),
+	fg: jest.fn(),
+}));
+
 import { MOCK_TEAM, MOCK_USER } from './mocks';
 
 import { AGGClient } from './index';
@@ -140,6 +145,7 @@ describe('AGGClient', () => {
 				},
 				{
 					operationName: 'TeamHasAgentsQuery',
+					headers: undefined,
 				},
 			);
 		});

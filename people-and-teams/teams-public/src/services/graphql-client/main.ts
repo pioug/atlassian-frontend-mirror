@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { DefaultError, GraphQLError } from '../../common/utils/error';
 import { BaseClient, type ClientConfig } from '../base-client';
 
@@ -16,12 +18,38 @@ export class BaseGraphQlClient extends BaseClient {
 		this.serviceUrl = serviceUrl;
 	}
 
+	/**
+	 * Creates query context headers if cloudId is available and feature flag is enabled.
+	 */
+	private createQueryContextHeaders(cloudId?: string | null): Record<string, string> | undefined {
+		if (!cloudId || !fg('enable_x_query_context_header')) {
+			return undefined;
+		}
+
+		return {
+			'X-Query-Context': `ari:cloud:platform::site/${cloudId}`,
+		};
+	}
+
 	async makeGraphQLRequest<Key extends string, Data = unknown, Variables = unknown>(
 		body: Body<Variables>,
 		options: Options = {},
 	): Promise<ResultResponse<Key, Data>> {
 		try {
-			return handleGraphQLRequest<Key, Data, Variables>(this.serviceUrl, body, options);
+			// Automatically add X-Query-Context header if cloudId is available in context
+			const cloudId = this.getCloudId();
+			const queryContextHeaders = this.createQueryContextHeaders(cloudId);
+
+			// Merge headers: query context headers first, then provided headers (provided headers take precedence)
+			const mergedOptions: Options = {
+				...options,
+				headers: {
+					...queryContextHeaders,
+					...options.headers,
+				},
+			};
+
+			return handleGraphQLRequest<Key, Data, Variables>(this.serviceUrl, body, mergedOptions);
 		} catch (error) {
 			if (error instanceof GraphQLError) {
 				throw error;

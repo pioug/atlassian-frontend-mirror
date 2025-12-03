@@ -29,6 +29,7 @@ export async function makeGraphQLRequestWithoutRetries<Data, Variables>(
 		method: 'POST',
 		headers: new Headers({
 			'Content-Type': 'application/json',
+			...(options.headers || {}),
 		}),
 		credentials: 'include',
 		body: JSON.stringify(body),

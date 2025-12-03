@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-mentions
 
+## 8.2.18
+
+### Patch Changes
+
+- [`e3779b75fdeca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3779b75fdeca) -
+  EDITOR-1643 Promote syncBlock and bodiedSyncBlock to full schema
+- Updated dependencies
+
 ## 8.2.17
 
 ### Patch Changes

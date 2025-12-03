@@ -1,4 +1,5 @@
 import React from 'react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type BrowserProps } from './browser';
 import { type WithMediaClientConfigProps } from '@atlaskit/media-client-react';
 import { type BrowserConfig } from '../../types';
@@ -27,8 +28,26 @@ export class BrowserLoader extends React.PureComponent<BrowserWithMediaClientCon
 		Browser: BrowserLoader.Browser,
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.mounted = true;
+
+		if (!this.state.Browser && fg('jfp-magma-media-clipboard-init-after-mount')) {
+			Promise.all([
+				import(
+					/* webpackChunkName: "@atlaskit-internal_media-client-react" */ '@atlaskit/media-client-react'
+				),
+				import(/* webpackChunkName: "@atlaskit-internal_media-browser" */ './browser'),
+			]).then(([mediaClient, browserModule]) => {
+				// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
+				BrowserLoader.Browser = mediaClient.withMediaClient(browserModule.Browser);
+
+				if (this.mounted) {
+					this.setState({
+						Browser: BrowserLoader.Browser,
+					});
+				}
+			});
+		}
 	}
 
 	componentWillUnmount() {
@@ -36,7 +55,7 @@ export class BrowserLoader extends React.PureComponent<BrowserWithMediaClientCon
 	}
 
 	async UNSAFE_componentWillMount() {
-		if (!this.state.Browser) {
+		if (!this.state.Browser && !fg('jfp-magma-media-clipboard-init-after-mount')) {
 			const [mediaClient, browserModule] = await Promise.all([
 				import(
 					/* webpackChunkName: "@atlaskit-internal_media-client-react" */ '@atlaskit/media-client-react'

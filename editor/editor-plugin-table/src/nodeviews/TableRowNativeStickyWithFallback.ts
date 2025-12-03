@@ -9,6 +9,7 @@ import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as tablePluginKey } from '../pm-plugins/plugin-key';
@@ -382,7 +383,7 @@ export default class TableRowNativeStickyWithFallback
 
 		const options = {
 			root: this.editorScrollableElement,
-			rootMargin: `-${tableMarginTop + 16}px 0px 0px 0px`,
+			rootMargin: `-${tableMarginTop + 1}px 0px 0px 0px`,
 			threshold: 1,
 		};
 
@@ -418,6 +419,9 @@ export default class TableRowNativeStickyWithFallback
 		}
 
 		if (this.isHeaderRow && !this.isInNestedTable) {
+			if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
+				this.dom.style.setProperty('anchor-name', this.dom.getAttribute('data-node-anchor') ?? '');
+			}
 			this.initOverflowObserver();
 			const closestTable = this.dom.closest('table');
 			if (closestTable) {

@@ -15,6 +15,7 @@ export const MOCK_TEAM_CONTAINERS = {
 								type: 'confluence',
 								createdDate: '2021-01-01',
 								links: {
+									base: 'https://example.com',
 									webUi: 'web-link',
 								},
 								icon: {

@@ -1,0 +1,402 @@
+{
+	"version": 1,
+	"type": "doc",
+	"content": [
+		{
+			"type": "heading",
+			"attrs": {
+				"level": 1
+			},
+			"content": [
+				{
+					"type": "text",
+					"text": "Deep Link Target Test Cases"
+				}
+			]
+		},
+		{
+			"type": "paragraph",
+			"content": [
+				{
+					"type": "text",
+					"text": "This document contains various link scenarios for testing the "
+				},
+				{
+					"type": "text",
+					"text": "deepLinkTarget",
+					"marks": [
+						{
+							"type": "code"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"text": " functionality, with a target of Jira"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"attrs": {
+				"level": 2
+			},
+			"content": [
+				{
+					"type": "text",
+					"text": "Basic Link Types"
+				}
+			]
+		},
+		{
+			"type": "bulletList",
+			"content": [
+				{
+					"type": "listItem",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Normal link: "
+								},
+								{
+									"type": "text",
+									"text": "Atlassian Homepage",
+									"marks": [
+										{
+											"type": "link",
+											"attrs": {
+												"href": "https://www.atlassian.com"
+											}
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "listItem",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "External link: "
+								},
+								{
+									"type": "text",
+									"text": "GitHub",
+									"marks": [
+										{
+											"type": "link",
+											"attrs": {
+												"href": "https://github.com"
+											}
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "listItem",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Relative link: "
+								},
+								{
+									"type": "text",
+									"text": "Documentation",
+									"marks": [
+										{
+											"type": "link",
+											"attrs": {
+												"href": "/docs/getting-started"
+											}
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"attrs": {
+				"level": 2
+			},
+			"content": [
+				{
+					"type": "text",
+					"text": "Deep Link Target Tests"
+				}
+			]
+		},
+		{
+			"type": "bulletList",
+			"content": [
+				{
+					"type": "listItem",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Jira link: "
+								},
+								{
+									"type": "text",
+									"text": "Project Board",
+									"marks": [
+										{
+											"type": "link",
+											"attrs": {
+												"href": "https://atlassian.atlassian.net/jira/software/projects/DEMO/boards/123?deepLinkTarget=jira"
+											}
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "listItem",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Confluence link: "
+								},
+								{
+									"type": "text",
+									"text": "Team Space",
+									"marks": [
+										{
+											"type": "link",
+											"attrs": {
+												"href": "https://atlassian.atlassian.net/wiki/spaces/DEMO?deepLinkTarget=confluence"
+											}
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "listItem",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Admin link: "
+								},
+								{
+									"type": "text",
+									"text": "User Management",
+									"marks": [
+										{
+											"type": "link",
+											"attrs": {
+												"href": "https://admin.atlassian.com/s/12345678-1234-1234-1234-123456789abc/users?deepLinkTarget=admin"
+											}
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "listItem",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Empty target: "
+								},
+								{
+									"type": "text",
+									"text": "Empty Target Link",
+									"marks": [
+										{
+											"type": "link",
+											"attrs": {
+												"href": "https://www.atlassian.com/products?deepLinkTarget="
+											}
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "listItem",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Multiple params: "
+								},
+								{
+									"type": "text",
+									"text": "Search Results",
+									"marks": [
+										{
+											"type": "link",
+											"attrs": {
+												"href": "https://atlassian.atlassian.net/wiki/search?text=demo&where=confluence&deepLinkTarget=confluence&sort=modified"
+											}
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"attrs": {
+				"level": 2
+			},
+			"content": [
+				{
+					"type": "text",
+					"text": "Edge Cases"
+				}
+			]
+		},
+		{
+			"type": "bulletList",
+			"content": [
+				{
+					"type": "listItem",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Case mismatch: "
+								},
+								{
+									"type": "text",
+									"text": "Jira Upper Case",
+									"marks": [
+										{
+											"type": "link",
+											"attrs": {
+												"href": "https://example.com?deepLinkTarget=JIRA"
+											}
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "listItem",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Unknown product: "
+								},
+								{
+									"type": "text",
+									"text": "Unknown Product Link",
+									"marks": [
+										{
+											"type": "link",
+											"attrs": {
+												"href": "https://example.com?deepLinkTarget=unknown"
+											}
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "listItem",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Special characters: "
+								},
+								{
+									"type": "text",
+									"text": "Special Chars Link",
+									"marks": [
+										{
+											"type": "link",
+											"attrs": {
+												"href": "https://example.com?deepLinkTarget=jira-test&other=param%20with%20spaces"
+											}
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"type": "rule"
+		},
+		{
+			"type": "paragraph",
+			"content": [
+				{
+					"type": "text",
+					"text": "Use the controls above to test different "
+				},
+				{
+					"type": "text",
+					"text": "deepLinkTarget",
+					"marks": [
+						{
+							"type": "code"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"text": " values and observe how links behave differently."
+				}
+			]
+		}
+	]
+}

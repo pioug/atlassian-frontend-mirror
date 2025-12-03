@@ -114,7 +114,9 @@ export class ReferenceSyncBlockStoreManager {
 
 			const { sourceAri, product, blockInstanceId } = existingSyncBlock.data || {};
 			if (!sourceAri || !product || !blockInstanceId) {
-				this.fireAnalyticsEvent?.(getSourceInfoErrorPayload('SourceAri, product or blockInstanceId missing'));
+				this.fireAnalyticsEvent?.(
+					getSourceInfoErrorPayload('SourceAri, product or blockInstanceId missing'),
+				);
 				return;
 			}
 

@@ -24,7 +24,13 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import type { SharedInteractionState } from '@atlaskit/editor-plugin-interaction';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
+import {
+	akEditorFullWidthLayoutWidth,
+	akEditorDefaultLayoutWidth,
+	akEditorCalculatedWideLayoutWidth,
+} from '@atlaskit/editor-shared-styles';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { updateCurrentMediaNodeAttrs } from '../../pm-plugins/commands/helpers';
@@ -83,6 +89,45 @@ function isMediaDecorationSpec(decoration: Decoration): decoration is Decoration
 
 class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 	private isSelected = false;
+
+	getMediaSingleNode(getPos: getPosHandlerNode): PMNode | null {
+		const pos = getPos();
+		if (typeof pos !== 'number') {
+			return null;
+		}
+
+		const $pos = this.view.state.doc.resolve(pos);
+
+		// The parent of the media node should be mediaSingle
+		if ($pos.parent && $pos.parent.type.name === 'mediaSingle') {
+			return $pos.parent;
+		}
+
+		return null;
+	}
+
+	getMaxWidthFromMediaSingleNode(mediaSingleNode: PMNode, containerWidth?: number): number {
+		const {
+			width: widthAttr,
+			widthType: widthTypeAttr,
+			layout: layoutAttr,
+		} = mediaSingleNode.attrs;
+		if (widthAttr && widthTypeAttr === 'pixel') {
+			return widthAttr;
+		}
+		// on SSR mode, containerWidth from widthPluginState can be 0
+		if (!containerWidth) {
+			switch (layoutAttr) {
+				case 'full-width':
+					return akEditorFullWidthLayoutWidth;
+				case 'wide':
+					return akEditorCalculatedWideLayoutWidth;
+				default:
+					return akEditorDefaultLayoutWidth;
+			}
+		}
+		return containerWidth;
+	}
 
 	createDomRef(): HTMLElement {
 		const domRef = document.createElement('div');
@@ -157,6 +202,27 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 		}
 	};
 
+	getMaxCardDimensions = (editorWidth?: WidthPluginState) => {
+		if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
+			const mediaSingleNodeParent = this.getMediaSingleNode(this.getPos as getPosHandlerNode);
+			if (mediaSingleNodeParent) {
+				const maxWidth = this.getMaxWidthFromMediaSingleNode(
+					mediaSingleNodeParent,
+					editorWidth?.width,
+				);
+				return {
+					width: `${maxWidth}px`,
+					height: '100%',
+				};
+			}
+		}
+
+		return {
+			width: '100%',
+			height: '100%',
+		};
+	};
+
 	renderMediaNodeWithState = (contextIdentifierProvider?: Promise<ContextIdentifierProvider>) => {
 		return ({
 			width: editorWidth,
@@ -181,11 +247,10 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 			width = width || DEFAULT_IMAGE_WIDTH;
 			height = height || DEFAULT_IMAGE_HEIGHT;
 
+			const { pluginInjectionApi } = this.reactComponentProps;
+
 			// mediaSingle defines the max dimensions, so we don't need to constrain twice.
-			const maxDimensions = {
-				width: `100%`,
-				height: `100%`,
-			};
+			const maxDimensions = this.getMaxCardDimensions(editorWidth);
 
 			const originalDimensions = {
 				width,
@@ -194,8 +259,6 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 
 			const isSelectedAndInteracted =
 				this.nodeInsideSelection() && interactionState !== 'hasNotHadInteraction';
-
-			const { pluginInjectionApi } = this.reactComponentProps;
 
 			return (
 				<MediaNode

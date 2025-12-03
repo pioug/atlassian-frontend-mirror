@@ -1,5 +1,20 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.12.1
+
+### Patch Changes
+
+- [`e3779b75fdeca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3779b75fdeca) -
+  EDITOR-1643 Promote syncBlock and bodiedSyncBlock to full schema
+- Updated dependencies
+
+## 2.12.0
+
+### Minor Changes
+
+- [`b5512b047226d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5512b047226d) -
+  EDITOR-2256 add fetch reference integration
+
 ## 2.11.3
 
 ### Patch Changes

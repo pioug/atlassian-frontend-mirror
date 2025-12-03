@@ -1,5 +1,16 @@
 # @atlaskit/editor-statsig-tmp
 
+## 14.5.0
+
+### Minor Changes
+
+- [`bc11393275e1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc11393275e1c) -
+  Do not use React State for storing pluginInjectionAPI reference
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.4.0
 
 ### Minor Changes

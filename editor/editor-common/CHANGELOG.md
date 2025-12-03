@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 110.38.0
+
+### Minor Changes
+
+- [`7e5df3d5beaf3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e5df3d5beaf3) -
+  Add new flattenListStep and unwrapListStep and use for list -> paragraph step. Also moved
+  expandToBlockRange util function to editor-common to re-use
+- [`9f0fb29cbfc8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f0fb29cbfc8b) -
+  Add paragraph block menu item support
+
+### Patch Changes
+
+- [`e3779b75fdeca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3779b75fdeca) -
+  EDITOR-1643 Promote syncBlock and bodiedSyncBlock to full schema
+- Updated dependencies
+
 ## 110.37.0
 
 ### Minor Changes

@@ -66,6 +66,7 @@ const styles = cssMap({
 
 const DEFAULT_MENU_WIDTH = 230;
 const DRAG_HANDLE_OFFSET_PADDING = 5;
+const FALLBACK_MENU_HEIGHT = 300;
 
 const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
 
@@ -257,6 +258,17 @@ const BlockMenu = ({
 	const prevIsMenuOpenRef = useRef(false);
 	const popupRef = useRef<HTMLElement | undefined>(undefined);
 
+	const [menuHeight, setMenuHeight] = React.useState<number>(0);
+
+	const targetHandleHeightOffset = -(targetHandleRef?.clientHeight || 0);
+
+	React.useLayoutEffect(() => {
+		if (!isMenuOpen) {
+			return;
+		}
+		setMenuHeight(popupRef.current?.clientHeight || FALLBACK_MENU_HEIGHT);
+	}, [isMenuOpen]);
+
 	const hasFocus =
 		(editorView?.hasFocus() ||
 			document.activeElement === targetHandleRef ||
@@ -330,7 +342,7 @@ const BlockMenu = ({
 			>
 				<PopupWithListeners
 					alignX={'right'}
-					alignY={'start'} // respected when forcePlacement is true
+					alignY={'start'}
 					handleClickOutside={closeMenu}
 					handleEscapeKeydown={closeMenu}
 					handleBackspaceDeleteKeydown={handleBackspaceDeleteKeydown}
@@ -340,16 +352,16 @@ const BlockMenu = ({
 					target={targetHandleRef}
 					zIndex={akEditorFloatingOverlapPanelZIndex}
 					fitWidth={DEFAULT_MENU_WIDTH}
-					forcePlacement={true}
-					preventOverflow={true} // disables forced horizontal placement when forcePlacement is on, so fitWidth controls flipping
+					fitHeight={menuHeight}
+					preventOverflow={true}
 					stick={true}
+					offset={[DRAG_HANDLE_WIDTH + DRAG_HANDLE_OFFSET_PADDING, targetHandleHeightOffset]}
 					focusTrap={
 						openedViaKeyboard
 							? // Only enable focus trap when opened via keyboard to make sure the focus is on the first focusable menu item
 								{ initialFocus: undefined }
 							: undefined
 					}
-					offset={[DRAG_HANDLE_WIDTH + DRAG_HANDLE_OFFSET_PADDING, 0]}
 				>
 					<BlockMenuContent api={api} setRef={setRef} />
 				</PopupWithListeners>

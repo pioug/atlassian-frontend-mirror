@@ -1,5 +1,16 @@
 # @atlaskit/teams-public
 
+## 0.64.0
+
+### Minor Changes
+
+- [`0df25f7dfb6a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0df25f7dfb6a2) -
+  Add X-Query-Context to UGS requests
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.63.4
 
 ### Patch Changes

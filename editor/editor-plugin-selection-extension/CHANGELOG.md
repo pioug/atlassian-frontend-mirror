@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 7.1.3
+
+### Patch Changes
+
+- [`096e1ff839aa4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/096e1ff839aa4) -
+  Clean up `platform_editor_clear_active_extension_fix` feature gate
+- Updated dependencies
+
+## 7.1.2
+
+### Patch Changes
+
+- [`0b0f96c20a852`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b0f96c20a852) -
+  Improve getSelectionAdf api to return expanded selection
+
 ## 7.1.1
 
 ### Patch Changes

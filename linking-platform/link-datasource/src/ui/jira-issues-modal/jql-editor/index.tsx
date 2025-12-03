@@ -54,7 +54,13 @@ export const JiraJQLEditor = ({
 			isSearching={isSearching}
 			inputRef={inputRef}
 			query={query}
-			aria-label={fg('navx-2825-eslint-translation-fix-linking-platform') ? <FormattedMessage defaultMessage="JQL Query Editor" /> : "JQL Query Editor"}
+			aria-label={
+				fg('navx-2825-eslint-translation-fix-linking-platform') ? (
+					<FormattedMessage defaultMessage="JQL Query Editor" />
+				) : (
+					'JQL Query Editor'
+				)
+			}
 		/>
 	);
 };

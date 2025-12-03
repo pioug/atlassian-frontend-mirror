@@ -111,10 +111,10 @@ export function BasicPanelExample() {
 						</Stack>
 					</PanelBody>
 					<PanelFooter>
-						<Checkbox label="Create another" isChecked={false} onChange={() => {}} />
 						<Button appearance="primary" onClick={() => {}}>
 							Save
 						</Button>
+						<Checkbox label="Create another" isChecked={false} onChange={() => {}} />
 					</PanelFooter>
 				</PanelContainer>
 			</Box>

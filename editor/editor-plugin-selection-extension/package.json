@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-extension",
-	"version": "7.1.1",
+	"version": "7.1.3",
 	"description": "editor-plugin-selection-extension plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -106,10 +106,10 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_editor_clear_active_extension_fix": {
+		"platform_editor_use_preferences_plugin": {
 			"type": "boolean"
 		},
-		"platform_editor_use_preferences_plugin": {
+		"platform_editor_selection_extension_improvement": {
 			"type": "boolean"
 		}
 	}

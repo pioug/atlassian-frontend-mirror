@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.27.0
+
+### Minor Changes
+
+- [`0df25f7dfb6a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0df25f7dfb6a2) -
+  Add X-Query-Context to UGS requests
+
 ## 4.26.0
 
 ### Minor Changes

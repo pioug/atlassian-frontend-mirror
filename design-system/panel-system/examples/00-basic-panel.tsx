@@ -13,7 +13,7 @@ import {
 	PanelHeader,
 	PanelTitle,
 } from '@atlaskit/panel-system';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled';
 
 export default function BasicPanel(): React.JSX.Element {
 	return (
@@ -33,7 +33,6 @@ export default function BasicPanel(): React.JSX.Element {
 				</Text>
 			</PanelBody>
 			<PanelFooter>
-				<Box />
 				<ButtonGroup label="Panel actions">
 					<Button appearance="subtle" onClick={() => {}}>
 						Cancel

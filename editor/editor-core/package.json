@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.15.5",
+	"version": "215.16.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -422,6 +422,7 @@
 		"./appearance-editor-comment": "./src/editor-appearances/CommentEditor.tsx",
 		"./appearance-editor-chromeless": "./src/editor-appearances/ChromelessEditor.tsx",
 		"./version-wrapper": "./src/version-wrapper.ts",
+		"./editor-styles-container": "./src/ui/EditorContentContainer/EditorContentContainer.tsx",
 		"./package.json": {
 			"publish": null,
 			"default": "./package.json"

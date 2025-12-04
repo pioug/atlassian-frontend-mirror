@@ -191,6 +191,9 @@ function ComposableEditorPage() {
 			tasksAndDecisionsPlugin: {
 				hasEditPermission: false,
 			},
+			toolbarPlugin: {
+				enableNewToolbarExperience: true,
+			},
 		},
 	});
 	const noteSelectionExtension = useNoteSelectionExtension(editorApiRef.current);
@@ -217,6 +220,9 @@ function ComposableEditorPage() {
 		} else {
 			return {
 				label: 'Single Issue',
+				lozenge: {
+					label: 'TRY',
+				},
 				icon: AddIcon,
 				onClick: () => {
 					showCreateButton('single');

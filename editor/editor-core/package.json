@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.16.0",
+	"version": "215.17.4",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -158,6 +158,9 @@
 		"editor_a11y_announce_date_picker_open": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_ai_generic_prep_for_aifc_2": {
+			"type": "boolean"
 		},
 		"editor_inline_comments_on_inline_nodes": {
 			"type": "boolean",
@@ -381,9 +384,6 @@
 		"platform_editor_nov_a11y_fixes": {
 			"type": "boolean"
 		},
-		"platform_editor_ai_aifc_patch_beta_2": {
-			"type": "boolean"
-		},
 		"platform_editor_table_width_refactor": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -392,6 +392,9 @@
 			"type": "boolean"
 		},
 		"rovo_chat_enable_skills_ui_m1": {
+			"type": "boolean"
+		},
+		"platform-custom-icon-migration": {
 			"type": "boolean"
 		}
 	},

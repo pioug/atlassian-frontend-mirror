@@ -92,6 +92,7 @@ const checkIdentifier = (
 	// Even though `member` in `object.member` is syntactically an identifier,
 	// it should be ignored as `.member` is syntax sugar for `['member']` here.
 	// We should still lint `object[member]` (when `parent.computed` === true)
+	// @ts-ignore - parent possibly null
 	if (parent.type === 'MemberExpression' && identifier === parent.property && !parent.computed) {
 		return;
 	}

@@ -26,11 +26,12 @@ expect(container).toMatchInlineSnapshot(`
 ## Rationale
 
 The use of `toMatchSnapshot()` is being deprecated in favor of `toMatchInlineSnapshot()` as part of
-[GO/DSTRFC-038](https://go.atlassian.com/DSTRFC-038). Inline snapshots provide several benefits:
+[DSTRFC-038](https://hello.atlassian.net/wiki/spaces/DST/pages/6105892000/DSTRFC-038+-+Removal+of+.toMatchSnapshot).
+Inline snapshots provide several benefits:
 
 - They keep the snapshot value close to the test code, making it easier to review changes
-- They make it clearer what the expected output is when reading the test
 - They reduce the number of separate snapshot files that need to be maintained
+- They make it clearer what the expected output is when reading the test
 
 ## When not to use it
 

@@ -50,7 +50,7 @@ function createPlugin(
 			apply: (tr, pluginState) => {
 				const meta = tr.getMeta(pluginKey);
 				if (meta) {
-					if (fg('platform_editor_ai_aifc_patch_beta')) {
+					if (fg('platform_editor_ai_generic_prep_for_aifc_2')) {
 						if ('action' in meta) {
 							return reducer(pluginState, meta);
 						}
@@ -66,7 +66,7 @@ function createPlugin(
 			// If we set to undefined it respects the previous value.
 			// Prosemirror doesn't have this typed correctly for this type of behaviour
 			// @ts-expect-error
-			editable: fg('platform_editor_ai_aifc_patch_beta')
+			editable: fg('platform_editor_ai_generic_prep_for_aifc_2')
 				? (state: EditorState) => {
 						const { disabledByPlugin } = pluginKey.getState(state) ?? { disabledByPlugin: false };
 						return disabledByPlugin ? false : undefined;
@@ -122,7 +122,7 @@ export const editorDisabledPlugin: EditorDisabledPlugin = ({ config: options = {
 			};
 		}
 
-		if (fg('platform_editor_ai_aifc_patch_beta')) {
+		if (fg('platform_editor_ai_generic_prep_for_aifc_2')) {
 			return {
 				editorDisabled: pluginState.disabledByPlugin || pluginState.editorDisabled,
 			};
@@ -142,7 +142,7 @@ export const editorDisabledPlugin: EditorDisabledPlugin = ({ config: options = {
 		toggleDisabled:
 			(disabled: boolean) =>
 			({ tr }: { tr: Transaction }) => {
-				return fg('platform_editor_ai_aifc_patch_beta')
+				return fg('platform_editor_ai_generic_prep_for_aifc_2')
 					? tr.setMeta(pluginKey, {
 							action: ACTION.TOGGLE_DISABLED,
 							disabled,

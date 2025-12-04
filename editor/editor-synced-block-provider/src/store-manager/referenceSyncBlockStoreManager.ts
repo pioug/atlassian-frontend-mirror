@@ -187,13 +187,6 @@ export class ReferenceSyncBlockStoreManager {
 				return;
 			}
 
-			if (syncBlockInstance.error) {
-				this.fireAnalyticsEvent?.(fetchErrorPayload(syncBlockInstance.error));
-				this.updateCache(syncBlockInstance);
-				resolvedData.push(syncBlockInstance);
-				return;
-			}
-
 			const existingSyncBlock = this.getFromCache(syncBlockInstance.resourceId);
 
 			const resolvedSyncBlockInstance = existingSyncBlock
@@ -202,6 +195,11 @@ export class ReferenceSyncBlockStoreManager {
 
 			this.updateCache(resolvedSyncBlockInstance);
 			resolvedData.push(resolvedSyncBlockInstance);
+
+			if (syncBlockInstance.error) {
+				this.fireAnalyticsEvent?.(fetchErrorPayload(syncBlockInstance.error));
+				return;
+			}
 
 			this.fetchSyncBlockSourceInfo(resolvedSyncBlockInstance.resourceId);
 		});

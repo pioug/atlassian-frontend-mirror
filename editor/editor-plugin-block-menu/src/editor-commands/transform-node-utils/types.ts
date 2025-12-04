@@ -11,7 +11,7 @@ export type NodeTypeName =
 	| 'expand'
 	| 'extension'
 	| 'heading'
-	| 'layout'
+	| 'layoutSection'
 	| 'media'
 	| 'mediaGroup'
 	| 'mediaSingle'
@@ -36,7 +36,7 @@ export const NODE_CATEGORY_BY_TYPE: Record<NodeTypeName, NodeCategory> = {
 	expand: 'container',
 	extension: 'atomic',
 	heading: 'text',
-	layout: 'container',
+	layoutSection: 'container',
 	media: 'atomic',
 	mediaGroup: 'atomic',
 	mediaSingle: 'atomic',

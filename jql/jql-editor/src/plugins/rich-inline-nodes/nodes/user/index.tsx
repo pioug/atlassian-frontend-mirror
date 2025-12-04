@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar, { getAppearanceForAppType } from '@atlaskit/avatar';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useHydratedUser } from '../../../../state';
 import { type NodeViewProps } from '../../util/react-node-view';
@@ -23,7 +24,16 @@ const User = ({ id, name, fieldName, selected, error }: NodeViewProps<Props>) =>
 	return (
 		<UserContainer selected={selected} error={error}>
 			<AvatarWrapper>
-				<Avatar src={user?.avatarUrl} borderColor="transparent" size="xsmall" />
+				<Avatar
+					src={user?.avatarUrl}
+					borderColor="transparent"
+					size="xsmall"
+					appearance={
+						fg('jira_ai_agent_avatar_with_apptype_for_jql')
+							? getAppearanceForAppType(user?.appType ?? null)
+							: undefined
+					}
+				/>
 			</AvatarWrapper>
 			<NameContainer>{name}</NameContainer>
 		</UserContainer>

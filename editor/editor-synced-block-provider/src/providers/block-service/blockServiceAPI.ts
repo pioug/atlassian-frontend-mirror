@@ -162,18 +162,28 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			return { resourceId };
 		} catch (error) {
 			if (error instanceof BlockError) {
-				if (error.status === 404) {
-					// Create the block
-					await createSyncedBlock({
-						blockAri: resourceId,
-						blockInstanceId: data.blockInstanceId,
-						sourceAri: this.sourceAri,
-						product: this.product,
-						content: JSON.stringify(data.content),
-					});
-				} else {
-					return { error: mapBlockError(error), resourceId };
-				}
+				return { error: mapBlockError(error), resourceId };
+			}
+			return { error: stringifyError(error), resourceId };
+		}
+	}
+
+	async createData(data: SyncBlockData): Promise<WriteSyncBlockResult> {
+		const { resourceId } = data;
+
+		try {
+			await createSyncedBlock({
+				blockAri: resourceId,
+				blockInstanceId: data.blockInstanceId,
+				sourceAri: this.sourceAri,
+				product: this.product,
+				content: JSON.stringify(data.content),
+			});
+
+			return { resourceId }
+		} catch (error) {
+			if (error instanceof BlockError) {
+				return { error: mapBlockError(error), resourceId };
 			}
 			return { error: stringifyError(error), resourceId };
 		}

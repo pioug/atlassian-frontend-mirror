@@ -15,6 +15,7 @@ interface MetaData {
 export const StyledComponent = {
 	lint(node: Rule.Node, { context }: MetaData) {
 		if (
+			// @ts-ignore - Node type compatibility issue with EslintNode
 			!isNodeOfType(node, 'CallExpression') ||
 			!isNodeOfType(node.callee, 'MemberExpression') ||
 			!isNodeOfType(node.callee.object, 'Identifier') ||
@@ -38,6 +39,7 @@ export const StyledComponent = {
 			return;
 		}
 
+		// @ts-ignore - Node type compatibility issue with EslintNode
 		if (jsxElement && !isSupportedForLint(jsxElement, elementName)) {
 			return;
 		}

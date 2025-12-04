@@ -548,12 +548,17 @@ export const isInsideNewButton = (node: Rule.Node, newButtonImports: Set<string>
 	let insideNewButton = false;
 	if (
 		node.parent &&
+		// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 		isNodeOfType(node.parent, 'ArrowFunctionExpression') &&
 		node.parent?.parent?.parent &&
+		// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 		isNodeOfType(node.parent.parent.parent, 'JSXAttribute') &&
+		// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 		isNodeOfType(node.parent.parent.parent.name, 'JSXIdentifier') &&
 		node.parent?.parent?.parent?.parent &&
+		// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 		isNodeOfType(node.parent.parent.parent.parent, 'JSXOpeningElement') &&
+		// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 		isNodeOfType(node.parent.parent.parent.parent.name, 'JSXIdentifier') &&
 		newButtonImports.has(node.parent.parent.parent.parent.name.name)
 	) {
@@ -572,14 +577,19 @@ export const isInsideLegacyButton = (
 	node: Rule.Node,
 	legacyButtonImports: Set<string>,
 ): boolean => {
+	// @ts-ignore - boolean | null not assignable to boolean
 	return (
 		node.parent &&
+		// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 		isNodeOfType(node.parent, 'JSXExpressionContainer') &&
 		node.parent?.parent &&
+		// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 		isNodeOfType(node.parent.parent, 'JSXAttribute') &&
 		(node.parent.parent.name.name === 'iconBefore' ||
 			node.parent.parent.name.name === 'iconAfter') &&
+		// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 		isNodeOfType(node.parent?.parent?.parent, 'JSXOpeningElement') &&
+		// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 		isNodeOfType(node.parent?.parent?.parent.name, 'JSXIdentifier') &&
 		legacyButtonImports.has(node.parent?.parent?.parent.name.name)
 	);
@@ -600,15 +610,20 @@ export const isInsideIconOnlyLegacyButton = (
 	if (isInsideLegacyButton(node, legacyButtonImports)) {
 		const legacyButtonAttributes =
 			node.parent &&
+			// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 			isNodeOfType(node.parent, 'JSXExpressionContainer') &&
 			node.parent?.parent &&
+			// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 			isNodeOfType(node.parent.parent, 'JSXAttribute') &&
 			node.parent.parent.parent &&
+			// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 			isNodeOfType(node.parent?.parent?.parent, 'JSXOpeningElement')
 				? node.parent?.parent?.parent.attributes
 						.map(
 							(attribute) =>
+								// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 								isNodeOfType(attribute, 'JSXAttribute') &&
+								// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 								isNodeOfType(attribute.name, 'JSXIdentifier') &&
 								attribute?.name?.name,
 						)
@@ -619,6 +634,7 @@ export const isInsideIconOnlyLegacyButton = (
 		const hasIconAfter = legacyButtonAttributes.includes('iconAfter');
 		const hasChildren =
 			node.parent?.parent?.parent?.parent &&
+			// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 			isNodeOfType(node.parent?.parent?.parent?.parent, 'JSXElement') &&
 			node.parent?.parent?.parent?.parent.children.length > 0;
 
@@ -980,9 +996,12 @@ export const throwAutoErrors = ({
 			}
 		}
 		const importSource = error.data.importSource;
+		// @ts-ignore - Type 'unknown' cannot be used as index type
 		if (!result.hasOwnProperty(importSource)) {
+			// @ts-ignore - Type 'unknown' cannot be used as index type
 			result[importSource] = [];
 		}
+		// @ts-ignore - Type 'unknown' cannot be used as index type
 		result[importSource].push({
 			key,
 			...error,
@@ -998,7 +1017,9 @@ export const throwAutoErrors = ({
 		} & Rule.ReportDescriptor)[] = [];
 		// Loop over auto errors for a single import source
 		for (const [_, error] of errorList.entries()) {
+			// @ts-ignore - Type 'unknown' cannot be used as index type
 			const { key } = error;
+			// @ts-ignore - Type 'unknown' cannot be used as index type
 			const node = 'node' in error ? error.node : null;
 			// Check if there is a manual error for the same import source somewhere else in the same file
 			// If that is the case we'll need to provide a suggestion instead of auto-fixing as the suggestion will
@@ -1008,7 +1029,9 @@ export const throwAutoErrors = ({
 			// Check if the icon has size of small, if so it cannot be automatically migrated. Two suggestions will be provided
 			// 1. Use core icon with no spacing
 			// 2. Use utility icon with compact spacing
+			// @ts-ignore - Type 'unknown' cannot be used as index type
 			const isSizeSmall = iconSizesInfo[importSource]?.small.includes(key);
+			// @ts-ignore - Type 'unknown' cannot be used as index type
 			const isMixedSizeUsage =
 				iconSizesInfo[importSource]?.small.length > 0 &&
 				iconSizesInfo[importSource]?.small.length < iconSizesInfo[importSource].usageCount;
@@ -1022,6 +1045,7 @@ export const throwAutoErrors = ({
 			const newIconName = getNewIconNameForRenaming(
 				shouldRenameIcon,
 				importSource,
+				// @ts-ignore - Type 'unknown' cannot be used as index type
 				errorList[0].data
 					? legacyIconImports[errorList[0].data.iconName]?.importSpecifier
 					: undefined,
@@ -1036,6 +1060,7 @@ export const throwAutoErrors = ({
 			}
 			const shouldForceSmallIcon = error.data?.shouldForceSmallIcon === 'true';
 
+			// @ts-ignore - Type 'unknown' cannot be used as index type
 			const fixArguments = error.data
 				? {
 						metadata: {
@@ -1048,7 +1073,9 @@ export const throwAutoErrors = ({
 							size: string;
 							insideNewButton: string;
 						},
+						// @ts-ignore - Type 'unknown' cannot be used as index type
 						legacyImportNode: legacyIconImports[error.data.iconName]?.importNode,
+						// @ts-ignore - Type 'unknown' cannot be used as index type
 						migrationImportNode: migrationIconImports[error.data.iconName]?.importNode,
 						shouldUseMigrationPath,
 						newIconName: shouldRenameIcon ? newIconName : undefined,

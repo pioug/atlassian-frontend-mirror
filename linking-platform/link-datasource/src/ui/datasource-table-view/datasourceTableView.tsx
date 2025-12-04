@@ -8,6 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import { useSmartCardContext } from '@atlaskit/link-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../../analytics';
@@ -74,6 +75,14 @@ const DatasourceTableViewWithoutAnalytics = ({
 		fieldKeys: visibleColumnKeys,
 	});
 
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	const smartCardContext = fg('lp_disable_datasource_table_max_height_restriction')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useSmartCardContext()
+		: undefined;
+	const shouldNotRestrictHeight =
+		smartCardContext?.value?.shouldControlDataExport &&
+		fg('lp_disable_datasource_table_max_height_restriction');
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 	const experienceId = useDatasourceExperienceId();
 
@@ -92,7 +101,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 	if (fg('navx-1334-datasource-deep-compare-params')) {
 		// parameters is an object that we want to track, and when something inside it changes we want to
 		// call effect callback. Normal useEffect will not do deep comparison, but only reference one.
-		// This hook will do deep comparison making sure we don’t call reset() when only reference to an object
+		// This hook will do deep comparison making sure we don't call reset() when only reference to an object
 		// has changed but not the content.
 		// eslint-disable-next-line react-hooks/rules-of-hooks
 		useDeepEffect(() => {
@@ -223,9 +232,11 @@ const DatasourceTableViewWithoutAnalytics = ({
 						wrappedColumnKeys={wrappedColumnKeys}
 						onWrappedColumnChange={onWrappedColumnChange}
 						scrollableContainerHeight={
-							fg('lp_enable_datasource-table-view_height_override')
-								? scrollableContainerHeight
-								: DefaultScrollableContainerHeight
+							shouldNotRestrictHeight
+								? undefined
+								: fg('lp_enable_datasource-table-view_height_override')
+									? scrollableContainerHeight
+									: DefaultScrollableContainerHeight
 						}
 						extensionKey={extensionKey}
 					/>

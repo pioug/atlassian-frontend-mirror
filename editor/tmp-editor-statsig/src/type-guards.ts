@@ -27,4 +27,6 @@ type Global = globalThis.Window &
 		};
 	};
 
-const IS_TESTING_ENV = process.env.NODE_ENV === 'test' || process.env.JEST_WORKER_ID !== undefined;
+const IS_TESTING_ENV =
+	typeof process !== undefined &&
+	(process?.env?.NODE_ENV === 'test' || process?.env?.JEST_WORKER_ID !== undefined);

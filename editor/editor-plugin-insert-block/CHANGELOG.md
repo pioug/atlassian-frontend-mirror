@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 7.0.26
+
+### Patch Changes
+
+- [`d4e5a749a78f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4e5a749a78f4) -
+  Fix nested-interactive a11y violation by mounting mediaInsertPicker inside media button
+- Updated dependencies
+
 ## 7.0.25
 
 ### Patch Changes

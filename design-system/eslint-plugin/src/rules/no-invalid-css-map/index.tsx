@@ -39,12 +39,14 @@ const reportIfNotTopLevelScope = (node: CallExpression, context: Rule.RuleContex
 		'VariableDeclarator',
 	] as const;
 
+	// @ts-ignore - Node | null not assignable to Node
 	let parentNode = node.parent;
 	while (parentNode) {
 		if (!validTypes.includes(parentNode.type)) {
 			context.report({ node: node, messageId: 'mustBeTopLevelScope' });
 			return;
 		}
+		// @ts-ignore - Node | null not assignable to Node
 		parentNode = parentNode.parent;
 	}
 };

@@ -66,7 +66,7 @@ export const expandStyles: SerializedStyles = css({
 			},
 
 			// SelectionStyle.Border (common case)
-			border: `1px solid ${token('color.border.selected')}`,
+			border: `${token('border.width')} solid ${token('color.border.selected')}`,
 			// If fg('platform_editor_nested_dnd_styles_changes') is true,
 			// then we'll also need the rest of the selection styles for blanket
 
@@ -91,10 +91,8 @@ export const expandStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror > .ak-editor-expand__type-expand, .fabric-editor-breakout-mark-dom > .ak-editor-expand__type-expand':
 		{
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			marginLeft: '-12px',
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			marginRight: '-12px',
+			marginLeft: token('space.negative.150'),
+			marginRight: token('space.negative.150'),
 		},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -192,7 +190,7 @@ export const expandStyles: SerializedStyles = css({
 		},
 
 		'&:focus-visible': {
-			outline: `2px solid ${token('color.border.focused')}`,
+			outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 			outlineOffset: token('space.025', '2px'),
 		},
 
@@ -297,6 +295,7 @@ export const expandStylesMixin_fg_platform_visual_refresh_icons: SerializedStyle
 	'.ak-editor-expand__title-input': {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: 1,
+		fontFamily: token('font.family.body'),
 	},
 });
 
@@ -306,10 +305,8 @@ export const expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes: Ser
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.ak-editor-content-area.appearance-full-page .ProseMirror > .ak-editor-expand__type-expand, .fabric-editor-breakout-mark-dom > .ak-editor-expand__type-expand':
 			{
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-				marginLeft: '-20px',
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-				marginRight: '-20px',
+				marginLeft: token('space.negative.250'),
+				marginRight: token('space.negative.250'),
 			},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

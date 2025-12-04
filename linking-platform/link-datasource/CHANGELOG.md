@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 4.30.9
+
+### Patch Changes
+
+- [`76f021290097e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76f021290097e) -
+  Remove the max height restriction for exporting data source table to PDF in Confluence. FG:
+  lp_disable_datasource_table_max_height_restriction
+- Updated dependencies
+
 ## 4.30.8
 
 ### Patch Changes

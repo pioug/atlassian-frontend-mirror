@@ -18,7 +18,7 @@ import {
 	deleteErrorPayload,
 	updateCacheErrorPayload,
 } from '../utils/errorHandling';
-import { convertSyncBlockPMNodeToSyncBlockData, createBodiedSyncBlockNode } from '../utils/utils';
+import { convertSyncBlockPMNodeToSyncBlockData } from '../utils/utils';
 
 export type ConfirmationCallback = (syncBlockCount: number) => Promise<boolean>;
 export type CreationCallback = () => void;
@@ -215,28 +215,23 @@ export class SourceSyncBlockStoreManager {
 			const { resourceId, localId: blockInstanceId } = attrs;
 
 			this.dataProvider
-				.writeNodesData(
-					[createBodiedSyncBlockNode(blockInstanceId, resourceId)],
-					[
-						{
-							content: [],
-							blockInstanceId,
-							resourceId: resourceId,
-						},
-					],
+				.createNodeData(
+					{
+						content: [],
+						blockInstanceId,
+						resourceId: resourceId,
+					},
 				)
-				.then((results) => {
-					results.forEach((result) => {
-						const resourceId = result.resourceId;
-						if (resourceId) {
-							this.commitPendingCreation(true);
-						} else {
-							this.commitPendingCreation(false);
-							this.fireAnalyticsEvent?.(
-								createErrorPayload(result.error || 'Failed to create bodied sync block'),
-							);
-						}
-					});
+				.then((result) => {
+					const resourceId = result.resourceId;
+					if (resourceId) {
+						this.commitPendingCreation(true);
+					} else {
+						this.commitPendingCreation(false);
+						this.fireAnalyticsEvent?.(
+							createErrorPayload(result.error || 'Failed to create bodied sync block'),
+						);
+					}
 				})
 				.catch((error) => {
 					this.commitPendingCreation(false);

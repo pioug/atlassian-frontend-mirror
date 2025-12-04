@@ -15,6 +15,7 @@ function getJSXElementNameFromAttribute(
 		return null;
 	}
 
+	// @ts-ignore - Node type compatibility issue with EslintNode
 	if (!isNodeOfType(parent, 'JSXOpeningElement')) {
 		return null;
 	}

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-highlight
 
+## 6.3.14
+
+### Patch Changes
+
+- [`15d7f87e470d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15d7f87e470d5) -
+  [ux] EDITOR-3749 Fix keep selection after applying text color or highlight
+- Updated dependencies
+
 ## 6.3.13
 
 ### Patch Changes

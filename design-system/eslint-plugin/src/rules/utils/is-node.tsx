@@ -23,6 +23,7 @@ export const isDecendantOfGlobalToken = (node: EslintNode): boolean => {
 	}
 
 	if (node.parent) {
+		// @ts-ignore - Node type compatibility issue with EslintNode
 		return isDecendantOfGlobalToken(node.parent);
 	}
 
@@ -46,6 +47,7 @@ export const isDecendantOfType = (
 };
 
 export const isPropertyKey = (node: Rule.Node): boolean => {
+	// @ts-ignore - Node type compatibility issue with EslintNode
 	if (isNodeOfType(node, 'Identifier') && isDecendantOfType(node, 'Property')) {
 		const parent = node.parent as Property;
 		return node === parent.key || parent.shorthand;
@@ -54,6 +56,7 @@ export const isPropertyKey = (node: Rule.Node): boolean => {
 };
 
 export const isDecendantOfStyleJsxAttribute = (node: Rule.Node): boolean => {
+	// @ts-ignore - Node type compatibility issue with EslintNode
 	if (isNodeOfType(node, 'JSXAttribute')) {
 		return true;
 	}
@@ -66,6 +69,7 @@ export const isDecendantOfStyleJsxAttribute = (node: Rule.Node): boolean => {
 };
 
 export const isDecendantOfSvgElement = (node: Rule.Node): boolean => {
+	// @ts-ignore - Node type compatibility issue with EslintNode
 	if (isNodeOfType(node, 'JSXElement')) {
 		// @ts-ignore
 		if (node.openingElement.name.name === 'svg') {
@@ -83,6 +87,7 @@ export const isDecendantOfSvgElement = (node: Rule.Node): boolean => {
 export const isDecendantOfPrimitive = (node: Rule.Node, context: Rule.RuleContext): boolean => {
 	const primitivesToCheck = ['Box', 'Text', 'Tile'];
 
+	// @ts-ignore - Node type compatibility issue with EslintNode
 	if (isNodeOfType(node, 'JSXElement')) {
 		// @ts-ignore
 		if (primitivesToCheck.includes(node.openingElement.name.name)) {
@@ -196,4 +201,5 @@ export const isDecendantOfStyleBlock = (node: Rule.Node): boolean => {
 };
 
 export const isChildOfType = (node: Rule.Node, type: Rule.Node['type']) =>
+	// @ts-ignore - Node type compatibility issue with EslintNode
 	isNodeOfType(node.parent, type);

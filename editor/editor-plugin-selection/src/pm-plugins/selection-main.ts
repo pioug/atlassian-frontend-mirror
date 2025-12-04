@@ -43,7 +43,7 @@ export const createPlugin = (
 			let manualSelection: { anchor: number; head: number } | undefined;
 			let hideCursorChanged = false;
 
-			const needsHideCursor = fg('platform_editor_ai_aifc_patch_beta');
+			const needsHideCursor = fg('platform_editor_ai_generic_prep_for_aifc_2');
 			const needsManualSelection = editorExperiment(
 				'platform_editor_element_drag_and_drop_multiselect',
 				true,

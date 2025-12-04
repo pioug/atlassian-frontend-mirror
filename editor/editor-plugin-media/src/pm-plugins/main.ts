@@ -1063,7 +1063,8 @@ export const createPlugin = (
 				if (
 					state.selection instanceof TextSelection ||
 					state.selection instanceof AllSelection ||
-					state.selection instanceof NodeSelection ||
+					(!expValEquals('platform_editor_nested_media_selection_fix', 'isEnabled', true) &&
+						state.selection instanceof NodeSelection) ||
 					state.selection instanceof CellSelection
 				) {
 					doc.nodesBetween(state.selection.from, state.selection.to, (node, pos) => {
@@ -1075,6 +1076,28 @@ export const createPlugin = (
 						}
 						return true;
 					});
+				} else if (
+					expValEquals('platform_editor_nested_media_selection_fix', 'isEnabled', true) &&
+					state.selection instanceof NodeSelection
+				) {
+					const { node, $from } = state.selection;
+
+					if (node.type === schema.nodes.mediaSingle || node.type === schema.nodes.mediaGroup) {
+						doc.nodesBetween($from.pos, $from.pos + node.nodeSize, (mediaNode, mediaPos) => {
+							if (mediaNode.type === schema.nodes.media) {
+								mediaNodes.push(
+									Decoration.node(
+										mediaPos,
+										mediaPos + mediaNode.nodeSize,
+										{},
+										{ type: 'media', selected: true },
+									),
+								);
+								return false;
+							}
+							return true;
+						});
+					}
 				}
 
 				const pluginState = getMediaPluginState(state);

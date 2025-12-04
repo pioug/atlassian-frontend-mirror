@@ -1,5 +1,26 @@
 # @atlaskit/editor-statsig-tmp
 
+## 14.7.0
+
+### Minor Changes
+
+- [`2bab449c372a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bab449c372a5) -
+  sync annotations state when delete and undo
+
+## 14.6.1
+
+### Patch Changes
+
+- [`ecd66264f7cd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ecd66264f7cd2) -
+  NO-ISSUE: Update process.env checks
+
+## 14.6.0
+
+### Minor Changes
+
+- [`fdef841890edf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdef841890edf) -
+  Add gate for vc fixes
+
 ## 14.5.0
 
 ### Minor Changes

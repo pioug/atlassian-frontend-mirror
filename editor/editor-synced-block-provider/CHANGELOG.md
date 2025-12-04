@@ -1,5 +1,14 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.12.2
+
+### Patch Changes
+
+- [`fd932d0fad4a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd932d0fad4a5) -
+  [ux] EDITOR-3693 separate sync block creation and update into different provider calls
+- [`1f90e6ac4a228`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f90e6ac4a228) -
+  [ux] EDITOR-3662 fix sync block error merging logic to retain old information on error
+
 ## 2.12.1
 
 ### Patch Changes

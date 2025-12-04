@@ -29,6 +29,7 @@ jest.mock('@atlaskit/link-provider', () => ({
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	getExperimentValue: jest.fn(),
 	checkGate: jest.fn(),
+	initializeCompleted: jest.fn(() => true),
 }));
 
 jest.mock('../../../state/helpers', () => ({

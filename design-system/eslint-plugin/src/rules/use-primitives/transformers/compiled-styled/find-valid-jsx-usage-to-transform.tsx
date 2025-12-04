@@ -53,9 +53,11 @@ export const findValidJsxUsageToTransform = (
 		return;
 	}
 
+	// @ts-ignore - type compatibility with eslint-codemod-utils
 	const jsxOpeningElement = (jsxUsage as JSXIdentifier & Rule.NodeParentExtension).parent;
 	// we could relatively easily support some safe attributes like
 	// "id" or "testId" but support will be expanded as we go
+	// @ts-ignore - Node type compatibility issue with EslintNode
 	if (
 		!isNodeOfType(jsxOpeningElement, 'JSXOpeningElement') ||
 		jsxOpeningElement.attributes.length > 0

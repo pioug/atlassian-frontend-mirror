@@ -310,7 +310,7 @@ function Component({
 			<FlexibleCard
 				id={id}
 				cardState={cardState}
-				placeholderData={fg('platform_initial_data_for_smart_cards') ? placeholderData : undefined}
+				placeholderData={placeholderData}
 				onAuthorize={(services.length && handleAuthorize) || undefined}
 				onClick={handleClickWrapper}
 				origin="smartLinkCard"
@@ -690,7 +690,7 @@ function ComponentUpdated({
 			<FlexibleCard
 				id={id}
 				cardState={cardState}
-				placeholderData={fg('platform_initial_data_for_smart_cards') ? placeholderData : undefined}
+				placeholderData={placeholderData}
 				onAuthorize={(services.length && handleAuthorize) || undefined}
 				onClick={handleClickWrapper}
 				origin="smartLinkCard"

@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 7.0.6
+
+### Patch Changes
+
+- [`840338033507a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/840338033507a) -
+  Migrating custom icons behind feature flag.
+
 ## 7.0.5
 
 ### Patch Changes

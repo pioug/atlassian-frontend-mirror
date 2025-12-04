@@ -5,7 +5,7 @@ import React from 'react';
 import { type Props } from '../../../components/SingleValue';
 import { SingleValue } from '../../../components/SingleValue';
 import { SizeableAvatar } from '../../../components/SizeableAvatar';
-import { type Team } from '../../../types';
+import { type Team, type Group } from '../../../types';
 import { type Props as SizeableAvatarProps } from '../../../components/SizeableAvatar';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -148,6 +148,112 @@ describe('SingleValue', () => {
 				verified: false,
 			});
 			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
+		});
+	});
+
+	describe('GroupValue', () => {
+		const mockGroup: Group = {
+			name: 'group name',
+			type: 'group' as const,
+			id: 'group-id',
+		};
+
+		const renderGroupValue = (group: any, includeTeamsUpdates: boolean = false) =>
+			render(
+				<SingleValue
+					{...defaultSingleValueProps}
+					data={{
+						label: group.name,
+						value: group.id,
+						data: {
+							...group,
+							includeTeamsUpdates,
+						},
+					}}
+				/>,
+			);
+
+		it('should render verified icon for group when includeTeamsUpdates is true', async () => {
+			renderGroupValue(mockGroup, true);
+
+			expect(await screen.findByText('VerifiedTeamIcon')).toBeInTheDocument();
+		});
+
+		it('should not render verified icon for group when includeTeamsUpdates is false', () => {
+			renderGroupValue(mockGroup, false);
+
+			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
+		});
+	});
+
+	describe('shouldShowVerifiedIcon', () => {
+		const mockUser = {
+			name: 'John Doe',
+			type: 'user' as const,
+			id: 'user-id',
+		};
+
+		it('should use shouldShowVerifiedIcon prop when provided', async () => {
+			const shouldShowVerifiedIcon = jest.fn().mockReturnValue(true);
+
+			render(
+				<SingleValue
+					{...defaultSingleValueProps}
+					data={{
+						label: mockUser.name,
+						value: mockUser.id,
+						data: mockUser,
+					}}
+					shouldShowVerifiedIcon={shouldShowVerifiedIcon}
+				/>,
+			);
+
+			expect(shouldShowVerifiedIcon).toHaveBeenCalledWith(mockUser);
+			expect(await screen.findByText('VerifiedTeamIcon')).toBeInTheDocument();
+		});
+
+		it('should not render verified icon when shouldShowVerifiedIcon returns false', () => {
+			const shouldShowVerifiedIcon = jest.fn().mockReturnValue(false);
+
+			render(
+				<SingleValue
+					{...defaultSingleValueProps}
+					data={{
+						label: mockUser.name,
+						value: mockUser.id,
+						data: mockUser,
+					}}
+					shouldShowVerifiedIcon={shouldShowVerifiedIcon}
+				/>,
+			);
+
+			expect(shouldShowVerifiedIcon).toHaveBeenCalledWith(mockUser);
+			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
+		});
+
+		it('should prioritize shouldShowVerifiedIcon over default logic', async () => {
+			const shouldShowVerifiedIcon = jest.fn().mockReturnValue(true);
+			const mockTeam: Team = {
+				name: 'team name',
+				type: 'team',
+				id: 'team-id',
+				verified: false,
+			};
+
+			render(
+				<SingleValue
+					{...defaultSingleValueProps}
+					data={{
+						label: mockTeam.name,
+						value: mockTeam.id,
+						data: mockTeam,
+					}}
+					shouldShowVerifiedIcon={shouldShowVerifiedIcon}
+				/>,
+			);
+
+			expect(shouldShowVerifiedIcon).toHaveBeenCalledWith(mockTeam);
+			expect(await screen.findByText('VerifiedTeamIcon')).toBeInTheDocument();
 		});
 	});
 

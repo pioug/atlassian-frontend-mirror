@@ -21,6 +21,7 @@ import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import { type Mapping } from '@atlaskit/editor-prosemirror/transform';
 import { type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 export type ActiveNode = {
@@ -197,7 +198,7 @@ export type BlockControlsMeta = {
 	editorBlurred: boolean;
 	editorHeight: number;
 	nodeMoved: boolean;
-	nodeMovedOffset: number;
+	preservedSelectionMapping: Mapping;
 	type: string;
 };
 

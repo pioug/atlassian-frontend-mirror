@@ -6,6 +6,7 @@
 import { css, jsx } from '@emotion/react';
 
 import Icon, { type CustomGlyphProps, type IconProps } from '@atlaskit/icon';
+import LayoutThreeColumnsSidebarsLeftIcon from '@atlaskit/icon-lab/core/layout-three-columns-sidebars-left';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -58,13 +59,19 @@ const floatingToolbarPadding = css({
 	paddingLeft: token('space.050', '4px'),
 });
 
-export const LayoutThreeWithLeftSidebarsIcon = (props: Omit<IconProps, 'glyph'>) => (
-	<span css={floatingToolbarPadding}>
-		<Icon
-			glyph={LayoutThreeWithLeftSidebarsGlyph}
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
-			{...props}
-		/>
-	</span>
-);
+export const LayoutThreeWithLeftSidebarsIcon = (props: Omit<IconProps, 'glyph' | 'size'>) => {
+	if (fg('platform-custom-icon-migration')) {
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		return <LayoutThreeColumnsSidebarsLeftIcon {...props} />;
+	}
+	return (
+		<span css={floatingToolbarPadding}>
+			<Icon
+				glyph={LayoutThreeWithLeftSidebarsGlyph}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
+				{...props}
+			/>
+		</span>
+	);
+}

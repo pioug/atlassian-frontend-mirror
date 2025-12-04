@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 6.1.0
+
+### Minor Changes
+
+- [`7e99b96b72a08`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e99b96b72a08) -
+  [ux] Feature gate cleanup for dedup quick insert title and description check
+
 ## 6.0.16
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-annotation
 
+## 6.3.0
+
+### Minor Changes
+
+- [`2bab449c372a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bab449c372a5) -
+  sync annotations state when delete and undo
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.13
 
 ### Patch Changes

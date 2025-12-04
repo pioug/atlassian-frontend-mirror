@@ -6,23 +6,10 @@ import React, { Fragment } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { type ProviderProps, SmartCardProvider } from '@atlaskit/link-provider';
-import { Card, type CardProps } from '@atlaskit/smart-card';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import { Card } from '@atlaskit/smart-card';
 
-export type CardViewProps = CardProps & Pick<ProviderProps, 'client'>;
-// 	{
-// 	appearance: CardProps['appearance'];
-// 	client: ProviderProps['client'];
-// 	frameStyle?: CardProps['frameStyle'];
-// 	isSelected?: CardProps['isSelected'];
-// 	url?: CardProps['url'];
-// 	/**
-// 	 * If this isn't specified, the card will only inherit the width of the parent and the height will be determined by the content.
-// 	 * Enabling this is required to test card content overflow issues.
-// 	 */
-// 	inheritDimensions?: boolean;
-// 	truncateInline?: boolean;
-// };
+import type { MultiCardViewProps } from './card-view-props';
 
 const embedCardWrapperStyles = css({
 	width: '100%',
@@ -50,30 +37,34 @@ const EmbedCardWrapper = ({
 		<Fragment>{children}</Fragment>
 	);
 
+const defaultUrl = 'https://some.url';
 const CardView = ({
 	appearance,
 	client,
 	frameStyle,
 	isSelected,
-	url = 'https://some.url',
+	url,
+	urls,
 	inheritDimensions,
 	truncateInline,
 	showHoverPreview,
 	CompetitorPrompt,
-}: CardViewProps) => (
+}: MultiCardViewProps) => (
 	<SmartCardProvider client={client}>
 		<EmbedCardWrapper inheritDimensions={inheritDimensions}>
-			<Card
-				appearance={appearance}
-				url={url}
-				/* Embed-specific props */
-				frameStyle={frameStyle}
-				isSelected={isSelected}
-				inheritDimensions={inheritDimensions}
-				truncateInline={truncateInline}
-				showHoverPreview={showHoverPreview}
-				CompetitorPrompt={CompetitorPrompt}
-			/>
+			{ (urls || [url]).map((currentUrl = defaultUrl) => (
+				<Card
+					appearance={appearance}
+					url={currentUrl}
+					/* Embed-specific props */
+					frameStyle={frameStyle}
+					isSelected={isSelected}
+					inheritDimensions={inheritDimensions}
+					truncateInline={truncateInline}
+					showHoverPreview={showHoverPreview}
+					CompetitorPrompt={CompetitorPrompt}
+				/>
+			))}
 		</EmbedCardWrapper>
 	</SmartCardProvider>
 );

@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-selection
 
+## 6.1.8
+
+### Patch Changes
+
+- [`2e389ee54c1f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e389ee54c1f1) -
+  Update gates to roll out minor updates faster
+
 ## 6.1.7
 
 ### Patch Changes

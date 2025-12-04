@@ -129,6 +129,7 @@ const context: FlexibleUiDataContext = {
 	userAttributes: {
 		role: 'Frontend Developer (React/TypeScript)',
 	},
+	hostName: 'www.link-url.com',
 };
 
 export default context;

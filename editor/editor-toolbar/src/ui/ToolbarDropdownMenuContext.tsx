@@ -1,8 +1,16 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, {
+	createContext, useContext, useState,
+	type KeyboardEvent, type MouseEvent,
+} from 'react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { useToolbarUI } from '../hooks/ui-context';
+
 interface ToolbarDropdownMenuContextValue {
-	closeMenu: () => void;
+	closeMenu: (event: Event | MouseEvent | KeyboardEvent | null) => void;
 	isOpen: boolean;
-	openMenu: () => void;
+	openMenu: (event: Event | MouseEvent | KeyboardEvent | null) => void;
 }
 
 const ToolbarDropdownMenuContext = createContext<ToolbarDropdownMenuContextValue | undefined>(
@@ -25,19 +33,26 @@ export const ToolbarDropdownMenuProvider = ({
 	setIsOpen,
 }: ToolbarDropdownMenuProviderProps) => {
 	const [isOpenInternal, setIsOpenInternal] = useState(false);
+	const { onDropdownOpenChanged } = useToolbarUI();
 
-	const openMenu = () => {
+	const openMenu = (event: Event | MouseEvent | KeyboardEvent | null) => {
 		if (setIsOpen !== undefined) {
 			setIsOpen(true);
 		} else {
 			setIsOpenInternal(true);
 		}
+		if (fg('platform_editor_toolbar_highlight_bug_fix')) {
+			onDropdownOpenChanged({ isOpen: true, event: event });
+		}
 	};
-	const closeMenu = () => {
+	const closeMenu = (event: Event | MouseEvent | KeyboardEvent | null) => {
 		if (setIsOpen !== undefined) {
 			setIsOpen(false);
 		} else {
 			setIsOpenInternal(false);
+		}
+		if (fg('platform_editor_toolbar_highlight_bug_fix')) {
+			onDropdownOpenChanged({ isOpen: false, event: event });
 		}
 	};
 

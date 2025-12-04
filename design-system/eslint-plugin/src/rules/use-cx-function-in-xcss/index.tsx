@@ -49,6 +49,7 @@ const rule = createLintRule({
 			'JSXAttribute > JSXIdentifier[name=/[xX]css$/]'(node: Rule.Node) {
 				const xcssValue: JSXExpressionContainer | undefined =
 					node.parent &&
+					// @ts-ignore - Node type compatibility issue with EslintNode
 					isNodeOfType(node.parent, 'JSXAttribute') &&
 					node.parent.value &&
 					isNodeOfType(node.parent.value, 'JSXExpressionContainer')
@@ -59,9 +60,13 @@ const rule = createLintRule({
 					return;
 				}
 				const jsxElementName: string | undefined =
+					// @ts-ignore - node.parent possibly null
 					node.parent.parent &&
+					// @ts-ignore - Node type compatibility issue with EslintNode
 					isNodeOfType(node.parent.parent, 'JSXOpeningElement') &&
+					// @ts-ignore - node.parent possibly null
 					node.parent.parent.name &&
+					// @ts-ignore - node.parent possibly null
 					isNodeOfType(node.parent.parent.name, 'JSXIdentifier')
 						? node.parent.parent.name.name
 						: undefined;

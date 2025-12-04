@@ -18,6 +18,7 @@ import {
 
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	getExperimentValue: jest.fn(() => false),
+	initializeCompleted: jest.fn(() => true),
 }));
 
 describe('SL analytics context', () => {

@@ -24,20 +24,21 @@ import {
 import { type Card, ElementName, SmartLinkSize, TitleBlock } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 
-import type CardView from '../utils/card-view';
+import type { MultiCardViewProps } from '../utils/card-view-props';
 
 import CardViewSection from './card-view-section';
 
 const CardViewExample = ({
 	url,
+	urls,
 	...props
-}: Omit<React.ComponentProps<typeof CardView>, 'client'> & {
+}: MultiCardViewProps & {
 	CardComponent?: typeof Card | typeof CardSSR;
 	fontSize?: React.CSSProperties['fontSize'];
 }): React.JSX.Element => (
 	<React.Fragment>
 		<CardViewSection {...props} client={new ResolvingClient()} title="[Resolving]" />
-		<CardViewSection {...props} client={new ResolvedClient()} title="[Resolved]" url={url} />
+		<CardViewSection {...props} client={new ResolvedClient()} title="[Resolved]" urls={urls || (url && [url] || undefined)} />
 		<CardViewSection {...props} client={new ForbiddenClient()} title="[Forbidden] Default" />
 		<CardViewSection
 			{...props}
@@ -92,7 +93,18 @@ const CardViewExample = ({
 			client={new NotFoundWithNoIconClient()}
 			title="[Not Found] Default Icon"
 		/>
-		<CardViewSection {...props} client={new UnAuthClient()} title="[Unauthorized]" />
+		<CardViewSection 
+			{...props}
+			 client={new UnAuthClient()} 
+			 title="[Unauthorized]" 
+			 urls={[
+				'https://www.figma.com/slides/vW47To0dYPnT7jlrJdUd7h/Universal-Create-in-TwC?node-id=asdasdasd',
+				'https://docs.google.com/document/d/1Bm3FqWFYWIKDtm77nEfo4nYe23qbJl4wT2E0S0BVTwA/edit?usp=sharing',
+				'https://atlassian.enterprise.slack.com/archives/C07TNMDEVHC',
+				'https://onedrive.live.com/?cid=DB7D70440F201358&id=DB7D70440F201358%21103&parId=root&o=OneUp',
+				'https://www.dropbox.com/scl/fi/scebraopvx4bni0sechq9/Atlas23_D1_A_0014.jpg?rlkey=asdasdasd'
+			 ]}
+		/>
 		<CardViewSection
 			{...props}
 			client={new UnAuthClientWithNoAuthFlow()}
@@ -100,6 +112,7 @@ const CardViewExample = ({
 		/>
 		<CardViewSection
 			{...props}
+			url="https://www.some-other-domain.com/different/path/with/id/aslkjdhaskdjhlajsdakjshd?and=query#plus-a-hash"
 			client={new UnAuthClientWithNoIcon()}
 			title="[Unauthorized] Default Icon"
 		/>
@@ -108,9 +121,8 @@ const CardViewExample = ({
 );
 
 export const FlexibleCardViewExample = ({
-	url,
 	...props
-}: Omit<React.ComponentProps<typeof CardView>, 'client'> & {
+}: MultiCardViewProps & {
 	CardComponent?: typeof Card | typeof CardSSR;
 	fontSize?: React.CSSProperties['fontSize'];
 }): React.JSX.Element => (
@@ -120,8 +132,6 @@ export const FlexibleCardViewExample = ({
 				Examples below showcase the <code>`placeholderData`</code> prop - only available to smart
 				cards using flexible UI.
 			</em>
-			<br />
-			Requires the <code>`platform_initial_data_for_smart_cards`</code> feature flag to be enabled.
 		</p>
 		<CardViewSection
 			{...props}

@@ -57,6 +57,7 @@ export { default as TargetBranch } from './target-branch-element';
 export { default as TeamMemberCount } from './team-member-count-element';
 export { default as Title } from './title-element';
 export { default as UserAttributes } from './user-attributes-element';
+export { default as HostName } from './host-name-element';
 export { default as ViewCount } from './view-count-element';
 export { default as VoteCount } from './vote-count-element';
 export { default as AppliedToComponentsCount } from './applied-to-components-count-element';

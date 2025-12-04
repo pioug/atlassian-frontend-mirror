@@ -1028,8 +1028,7 @@ const RendererWithAnnotationSelection = (props: RendererProps) => {
 	// @see https://hello.jira.atlassian.cloud/browse/EDITOR-3389
 	if (
 		props.appearance === 'max' &&
-		// @ts-expect-error - false is not allowed as an expected value
-		expValEquals('editor_tinymce_full_width_mode', 'isEnabled', false)
+		!expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
 	) {
 		props.appearance = 'full-width';
 	}

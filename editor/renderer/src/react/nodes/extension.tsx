@@ -116,6 +116,7 @@ export const renderExtension = (
 				data-layout={layout}
 				data-local-id={localId}
 				data-testid="extension--wrapper"
+				data-node-type="extension"
 			>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
 				<div className={overflowContainerClass}>{content}</div>
@@ -186,6 +187,7 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 							localId,
 						);
 					}
+					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 				} catch (e) {
 					/** We don't want this error to block renderer */
 					/** We keep rendering the default content */

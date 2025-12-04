@@ -36,6 +36,7 @@ jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
 // Mock the FeatureGates
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	getExperimentValue: jest.fn(() => false),
+	initializeCompleted: jest.fn(() => true),
 }));
 
 describe('HyperlinkWithSmartLinkResolver - Connect Button Logic', () => {

@@ -163,7 +163,7 @@ export const ToolbarDropdownItem = ({
 		<DropdownItem
 			onClick={(e) => {
 				if (!hasNestedDropdownMenu) {
-					parentContext?.closeMenu();
+					parentContext?.closeMenu(e);
 				}
 				onClick?.(e);
 			}}

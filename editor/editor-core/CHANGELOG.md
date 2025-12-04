@@ -1,5 +1,51 @@
 # @atlaskit/editor-core
 
+## 215.17.4
+
+### Patch Changes
+
+- [`840338033507a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/840338033507a) -
+  Migrating custom icons behind feature flag.
+- Updated dependencies
+
+## 215.17.3
+
+### Patch Changes
+
+- [`ed556ceff1790`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed556ceff1790) -
+  Update selectionExtension config to accept lozenge in menu button
+- [`6c008fc45876a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c008fc45876a) -
+  Fix incorrect font family on expand input.
+- Updated dependencies
+
+## 215.17.2
+
+### Patch Changes
+
+- [`582b3b46480e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/582b3b46480e1) -
+  NO-ISSUE Flipped false evaluations of editor_tinymce_full_width_mode from false to !true to
+  prevent them from evaluating as a null value
+- Updated dependencies
+
+## 215.17.1
+
+### Patch Changes
+
+- [`2e389ee54c1f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e389ee54c1f1) -
+  Update gates to roll out minor updates faster
+- Updated dependencies
+
+## 215.17.0
+
+### Minor Changes
+
+- [`fdef841890edf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdef841890edf) -
+  Add gate for vc fixes
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 215.16.0
 
 ### Minor Changes

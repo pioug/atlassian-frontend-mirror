@@ -10,6 +10,7 @@ import useResolveHyperlinkValidator from '../useResolveHyperlinkValidator';
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	getExperimentValue: jest.fn(),
 	checkGate: jest.fn(),
+	initializeCompleted: jest.fn(() => true),
 }));
 
 const useExperimentGateMock = jest.spyOn(FeatureGates, 'getExperimentValue');

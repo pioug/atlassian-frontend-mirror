@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-text-color
 
+## 6.3.20
+
+### Patch Changes
+
+- [`840338033507a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/840338033507a) -
+  Migrating custom icons behind feature flag.
+
+## 6.3.19
+
+### Patch Changes
+
+- [`15d7f87e470d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15d7f87e470d5) -
+  [ux] EDITOR-3749 Fix keep selection after applying text color or highlight
+- Updated dependencies
+
 ## 6.3.18
 
 ### Patch Changes

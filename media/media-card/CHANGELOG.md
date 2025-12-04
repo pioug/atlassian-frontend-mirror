@@ -1,5 +1,15 @@
 # @atlaskit/media-card
 
+## 79.9.1
+
+### Patch Changes
+
+- [`2fe94e8511b55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fe94e8511b55) -
+  Improved same-aspect-ratio detection in image rendering by using threshold-based comparison
+  instead of rounding-based comparison. This fixes edge cases where images with negligible aspect
+  ratio differences (1-2 pixels) from their parent container were incorrectly treated as different
+  ratios, causing unnecessary style recalculations and sub-optimal rendering strategies.
+
 ## 79.9.0
 
 ### Minor Changes

@@ -384,9 +384,7 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 
 snapshot(FlexibleUiPlaceholderData, {
 	description: `flexible-ui: with placeholder data for SSR`,
-	featureFlags: {
-		platform_initial_data_for_smart_cards: [true, false],
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 // Error states

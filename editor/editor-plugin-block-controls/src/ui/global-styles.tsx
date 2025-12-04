@@ -571,31 +571,32 @@ const blockCardWithoutLayout = css({
 		},
 });
 
+const nextAnchorSelector = [
+	'&[data-node-anchor]', // adjacent sibling with anchor
+	'&:not([data-node-anchor]) [data-node-anchor]', // nested anchor inside adjacent sibling
+	'&.ProseMirror-widget + [data-node-anchor]', // adjacent sibling with anchor (when next to a widget like gap cursor)
+	'&.ProseMirror-widget + :not([data-node-anchor]) [data-node-anchor]', // nested anchor inside adjacent sibling (when next to a widget like gap cursor)
+].join(', ');
+
 const dragHandlerAnchorStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-testid="block-ctrl-decorator-widget"] + * [data-node-anchor]': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			anchorName: `var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)))`,
+		'[data-testid="block-ctrl-decorator-widget"] + *': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`${nextAnchorSelector}`]: {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				anchorName: `var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)))`,
+			},
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-testid="block-ctrl-quick-insert-button"] + * [data-node-anchor]': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			anchorName: `var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)))`,
-		},
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-testid="block-ctrl-decorator-widget"] + [data-node-anchor]': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			anchorName: `var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)))`,
-		},
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-testid="block-ctrl-quick-insert-button"] + [data-node-anchor]': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			anchorName: `var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)))`,
+		'[data-testid="block-ctrl-quick-insert-button"] + *': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`${nextAnchorSelector}`]: {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				anchorName: `var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)))`,
+			},
 		},
 	},
 });

@@ -4,7 +4,9 @@ import React from 'react';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import Icon from '@atlaskit/icon/base';
+import TextStyleIcon from '@atlaskit/icon/core/text-style';
 import type { CustomGlyphProps } from '@atlaskit/icon/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const textColorGlyph = (props: CustomGlyphProps) => (
 	// Ignored via go/ees005
@@ -19,5 +21,5 @@ const textColorGlyph = (props: CustomGlyphProps) => (
 );
 
 export const EditorTextColorIcon = () => {
-	return <Icon glyph={textColorGlyph} label="" />;
+	return fg('platform-custom-icon-migration') ? <TextStyleIcon label="" spacing='spacious' /> : <Icon glyph={textColorGlyph} label="" />;
 };

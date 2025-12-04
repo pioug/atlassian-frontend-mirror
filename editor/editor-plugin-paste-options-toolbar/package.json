@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste-options-toolbar",
-	"version": "7.0.5",
+	"version": "7.0.6",
 	"description": "Paste options toolbar for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,6 +38,7 @@
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@emotion/react": "root:*",
 		"react-intl-next": "root:*"
@@ -91,5 +92,10 @@
 		"stricter": [
 			"@atlassian/tangerine/project-structure"
 		]
+	},
+	"platform-feature-flags": {
+		"platform-custom-icon-migration": {
+			"type": "boolean"
+		}
 	}
 }

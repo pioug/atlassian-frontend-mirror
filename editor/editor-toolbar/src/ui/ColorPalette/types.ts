@@ -58,7 +58,7 @@ export interface ColorPaletteProps {
 	/** Number of columns in the palette grid */
 	cols?: number;
 	/** Callback when a color is clicked */
-	onClick: (value: string, label: string) => void;
+	onClick: (value: string, label: string, event: React.MouseEvent | React.KeyboardEvent) => void;
 	/** Optional callback for keyboard navigation */
 	onKeyDown?: (value: string, label: string, event: React.KeyboardEvent) => void;
 	/** Palette configuration options */
@@ -86,7 +86,7 @@ export interface ColorProps {
 	/** Display label for accessibility */
 	label: string;
 	/** Click handler */
-	onClick: (value: string, label: string) => void;
+	onClick: (value: string, label: string, event: React.MouseEvent) => void;
 	/** Keyboard event handler */
 	onKeyDown?: (value: string, label: string, event: React.KeyboardEvent) => void;
 	/** Tab index for keyboard navigation */

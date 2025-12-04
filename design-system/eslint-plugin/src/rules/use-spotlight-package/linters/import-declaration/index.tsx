@@ -32,6 +32,7 @@ export const ImportDeclaration = {
 		});
 	},
 
+	// @ts-ignore - Node type compatibility issue with EslintNode
 	_check(node: Rule.Node): Check {
 		if (!isNodeOfType(node, 'ImportDeclaration')) {
 			return { success: false, ref: undefined };

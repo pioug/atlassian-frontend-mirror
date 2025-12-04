@@ -17,6 +17,7 @@ import { styledObjectToXcssTokens } from '../css-to-xcss';
  * })
  * ```
  */
+// @ts-ignore - type compatibility with eslint-codemod-utils
 export const convertStyledComponentToXcss = (
 	styles: VariableDeclarator,
 	newStylesVariableName: string,

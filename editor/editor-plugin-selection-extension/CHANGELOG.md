@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 7.2.0
+
+### Minor Changes
+
+- [`ed556ceff1790`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed556ceff1790) -
+  Update selectionExtension config to accept lozenge in menu button
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.3
 
 ### Patch Changes

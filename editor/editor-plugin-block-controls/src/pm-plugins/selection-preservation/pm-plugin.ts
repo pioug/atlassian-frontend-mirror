@@ -1,17 +1,12 @@
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { expandToBlockRange } from '@atlaskit/editor-common/selection';
 import {
 	type EditorState,
 	type ReadonlyTransaction,
-	type Selection,
-	TextSelection,
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { Mapping, StepMap } from '@atlaskit/editor-prosemirror/transform';
 
-import { getBlockControlsMeta } from '../main';
-import { collapseToSelectionRange } from '../utils/getSelection';
+import { mapPreservedSelection } from '../utils/selection';
 
 import { stopPreservingSelection } from './editor-commands';
 import { selectionPreservationPluginKey } from './plugin-key';
@@ -68,7 +63,7 @@ export const createSelectionPreservationPlugin = () => {
 				}
 
 				if (newState.preservedSelection && tr.docChanged) {
-					newState.preservedSelection = mapSelection(newState.preservedSelection, tr);
+					newState.preservedSelection = mapPreservedSelection(newState.preservedSelection, tr);
 				}
 
 				return newState;
@@ -112,50 +107,4 @@ export const createSelectionPreservationPlugin = () => {
 			return null;
 		},
 	});
-};
-
-const mapSelection = (selection: Selection, tr: ReadonlyTransaction): Selection | undefined => {
-	const { nodeMoved, nodeMovedOffset } = getBlockControlsMeta(tr) || {};
-
-	const mapping =
-		nodeMoved && typeof nodeMovedOffset === 'number'
-			? new Mapping([new StepMap([0, 0, nodeMovedOffset])])
-			: tr.mapping;
-
-	if (selection instanceof TextSelection) {
-		const from = mapping.map(selection.from);
-		const to = mapping.map(selection.to);
-
-		const isSelectionEmpty = from === to;
-		const wasSelectionEmpty = selection.from === selection.to;
-
-		if (isSelectionEmpty) {
-			if (!wasSelectionEmpty) {
-				// If selection has become empty i.e. content has been deleted, stop preserving
-				return undefined;
-			}
-			// When preserving a cursor selection, just map the position without expanding
-			return new TextSelection(tr.doc.resolve(from));
-		}
-
-		// expand the text selection range to block boundaries, so as document changes occur the
-		// selection always includes whole nodes
-		const expanded = expandToBlockRange(tr.doc.resolve(from), tr.doc.resolve(to));
-
-		// collapse the expanded range to a valid selection range
-		const { $from, $to } = collapseToSelectionRange(expanded.$from, expanded.$to);
-
-		// stop preserving if preserved selection becomes invalid
-		if ($from.pos < 0 || $to.pos > tr.doc.content.size || $from.pos >= $to.pos) {
-			return undefined;
-		}
-
-		return new TextSelection($from, $to);
-	}
-
-	try {
-		return selection.map(tr.doc, mapping);
-	} catch {
-		return undefined;
-	}
 };

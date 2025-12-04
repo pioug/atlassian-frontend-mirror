@@ -399,7 +399,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('platform_editor_ai_generic_prep_for_aifc') && smartCardDiffStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					fg('platform_editor_ai_aifc_patch_beta_2') && showDiffDeletedNodeStyles,
+					fg('platform_editor_ai_generic_prep_for_aifc_2') && showDiffDeletedNodeStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					mediaStyles,
 					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&

@@ -1,5 +1,15 @@
 # @atlaskit/editor-common
 
+## 110.38.1
+
+### Patch Changes
+
+- [`0a28b7c7347de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a28b7c7347de) -
+  EDITOR-1643 Update ADF validator after synced blocks were moved to full schema
+- [`ec4d125798431`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec4d125798431) -
+  Update translations for view changes
+- Updated dependencies
+
 ## 110.38.0
 
 ### Minor Changes

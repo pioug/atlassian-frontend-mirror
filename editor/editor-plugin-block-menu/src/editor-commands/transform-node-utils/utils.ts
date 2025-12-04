@@ -3,6 +3,8 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 import { type ContentNodeWithPos, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables';
 
+import type { NodeTypeName } from './types';
+
 export const getSelectedNode = (selection: Selection): ContentNodeWithPos | undefined => {
 	if (selection instanceof NodeSelection) {
 		return {
@@ -43,4 +45,15 @@ export const getSelectedNode = (selection: Selection): ContentNodeWithPos | unde
 	}
 
 	return undefined;
+};
+
+export const getTargetNodeTypeNameInContext = (
+	nodeTypeName: NodeTypeName | null,
+	isNested?: boolean,
+): NodeTypeName | null => {
+	if (nodeTypeName === 'expand' && isNested) {
+		return 'nestedExpand';
+	}
+
+	return nodeTypeName;
 };

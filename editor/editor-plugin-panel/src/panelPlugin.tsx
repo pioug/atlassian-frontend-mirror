@@ -65,7 +65,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => {
 
 		nodes() {
 			if (fg('platform_editor_adf_with_localid')) {
-				if (fg('platform_editor_ai_aifc_patch_beta')) {
+				if (fg('platform_editor_ai_generic_prep_for_aifc_2')) {
 					return [
 						{
 							name: 'panel',

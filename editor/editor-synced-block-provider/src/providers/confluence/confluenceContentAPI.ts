@@ -217,25 +217,45 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 
 			if (updateResult?.key === key) {
 				return { resourceId };
-			} else if (!updateResult) {
-				return this.createNewContentProperty(
-					pageId,
-					key,
-					syncBlockDataWithSourceDocumentAri,
-					pageType,
-				).then(
-					() => {
-						return { resourceId };
-					},
-					(error) => {
-						return { error };
-					},
-				);
 			} else {
 				return { error: `Failed to update ${pageType} content property` };
 			}
 		} catch {
 			return { error: `Failed to write ${pageType}` };
+		}
+	}
+
+	async createData(syncBlockData: SyncBlockData): Promise<WriteSyncBlockResult> {
+		let match;
+		const { resourceId } = syncBlockData;
+		try {
+			match = getPageIdAndTypeFromConfluencePageAri(resourceId);
+		} catch (error) {
+			return { error: stringifyError(error) };
+		}
+
+		const { id: pageId, type: pageType } = match;
+
+		try {
+			const localId = getLocalIdFromConfluencePageAri(resourceId);
+			const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
+			const sourceAri = getConfluencePageAri(pageId, this.config.cloudId, pageType);
+			const syncBlockDataWithSourceDocumentAri: SyncBlockData = {
+				...syncBlockData,
+				product: 'confluence-page',
+				sourceAri,
+			};
+
+			await this.createNewContentProperty(
+				pageId,
+				key,
+				syncBlockDataWithSourceDocumentAri,
+				pageType,
+			)
+
+			return { resourceId }
+		} catch (error) {
+			return Promise.resolve({ error: stringifyError(error)})
 		}
 	}
 

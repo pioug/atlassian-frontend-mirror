@@ -22,7 +22,7 @@ type TokensMapPropKey = keyof TokensMap;
 type TokenizedProps = {
     [K in TokensMapPropKey]?: keyof TokensMap[K];
 };
-type RawCSSValue = string & {};
+type RawCSSValue = string & Record<string, never>;
 type RelaxedTokenizedProps = {
     [K in TokensMapPropKey]?: keyof TokensMap[K] | RawCSSValue;
 };
@@ -58,13 +58,13 @@ declare const makeXCSSValidator: <U extends XCSSValidatorParam>(supportedXCSSPro
     supportedValues: RestrictedPropsSpec[K_1][];
 } ? K_1 : never; }[Extract<keyof U, keyof CSSProperties>], Extract<keyof U, keyof CSSProperties>>]?: (U[K_2] extends {
     supportedValues: infer V;
-} ? Exclude<V[keyof V], number | Function> : never) | undefined; }>) => SafeCSSObject<Extract<keyof U, keyof CSSProperties>, Extract<{ [K in Extract<keyof U, keyof CSSProperties>]: U[K] extends {
+} ? Exclude<V[keyof V], number | ((...args: any[]) => any)> : never) | undefined; }>) => SafeCSSObject<Extract<keyof U, keyof CSSProperties>, Extract<{ [K in Extract<keyof U, keyof CSSProperties>]: U[K] extends {
     allowCSS: true;
 } ? K : never; }[Extract<keyof U, keyof CSSProperties>], Extract<keyof U, keyof CSSProperties>>, { [K_2 in Extract<{ [K_1 in Extract<keyof U, keyof CSSProperties>]: U[K_1] extends {
     supportedValues: RestrictedPropsSpec[K_1][];
 } ? K_1 : never; }[Extract<keyof U, keyof CSSProperties>], Extract<keyof U, keyof CSSProperties>>]?: (U[K_2] extends {
     supportedValues: infer V;
-} ? Exclude<V[keyof V], number | Function> : never) | undefined; }>;
+} ? Exclude<V[keyof V], number | ((...args: any[]) => any)> : never) | undefined; }>;
 export { makeXCSSValidator };
 export type { SafeCSSObject };
 
@@ -78,7 +78,7 @@ const borderRadiusTokens: BorderRadius[] = [
 	'radius.full',
 	'radius.tile',
 ];
-const borderRadiusSupportedValues = [...borderRadiusTokens, 'border.radius'];
+const borderRadiusSupportedValues = [...borderRadiusTokens, 'border.radius'] as unknown as Array<BorderRadius>;
 const xcssValidator = makeXCSSValidator({
 	// text related props
 	textAlign: {

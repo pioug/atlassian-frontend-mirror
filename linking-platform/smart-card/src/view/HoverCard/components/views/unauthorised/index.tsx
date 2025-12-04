@@ -7,7 +7,6 @@ import { useCallback, useMemo } from 'react';
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { token } from '@atlaskit/tokens';
 
@@ -65,55 +64,28 @@ const HoverCardUnauthorisedView = ({
 		}
 	}, [authorize, fireEvent]);
 
-	type HovercardExperimentCohort = 'control' | 'test1' | 'test2' | 'test3' | 'test4';
-	const hoverCardExperimentCohort =
-		providerName === 'Google'
-			? FeatureGates.getExperimentValue<HovercardExperimentCohort>(
-					'platform_editor_google_hovercard_experiment',
-					'cohort',
-					'control',
-				)
-			: 'control';
-
-	const connectActionMessage =
-		hoverCardExperimentCohort === 'test1' ||
-		hoverCardExperimentCohort === 'test2' ||
-		hoverCardExperimentCohort === 'test3'
-			? messages.experiment_connect_unauthorised_account_action
-			: messages.connect_unauthorised_account_action;
-
-	const hoverCardTitle =
-		hoverCardExperimentCohort === 'test1' || hoverCardExperimentCohort === 'test2'
-			? messages.experiment_connect_link_account_card_name_title
-			: messages.connect_link_account_card_name;
-
 	const actions = useMemo<ActionItem[]>(
 		() => [
 			{
 				name: ActionName.CustomAction,
-				content: <FormattedMessage {...connectActionMessage} values={{ context: providerName }} />,
+				content: <FormattedMessage {...messages.connect_unauthorised_account_action} values={{ context: providerName }} />,
 				onClick: handleAuthorize,
 			} as CustomActionItem,
 		],
-		[handleAuthorize, providerName, connectActionMessage],
+		[handleAuthorize, providerName],
 	);
-
-	if (hoverCardExperimentCohort === 'test4') {
-		return null;
-	}
 
 	return (
 		<FlexibleCard {...flexibleCardProps} testId={testId}>
 			<CustomBlock css={[titleBlockStyles]} testId={`${testId}-title`}>
 				<LinkIcon />
-				<FormattedMessage {...hoverCardTitle} values={{ context: providerName }} />
+				<FormattedMessage {...messages.connect_link_account_card_name} values={{ context: providerName }} />
 			</CustomBlock>
 			<CustomBlock css={[mainTextStyles]} testId={`${testId}-content`}>
 				<div>
 					<UnauthorisedViewContent
 						providerName={providerName}
 						isProductIntegrationSupported={isProductIntegrationSupported}
-						appearance={hoverCardExperimentCohort !== 'control' ? 'hoverCardPreview' : undefined}
 					/>
 				</div>
 			</CustomBlock>

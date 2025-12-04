@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-layout
 
+## 6.2.14
+
+### Patch Changes
+
+- [`840338033507a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/840338033507a) -
+  Migrating custom icons behind feature flag.
+
 ## 6.2.13
 
 ### Patch Changes

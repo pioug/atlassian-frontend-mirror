@@ -22,23 +22,28 @@ const create: Rule.RuleModule['create'] = (context: Rule.RuleContext) => {
 
 			// const styles = css({ fontWeight: 600, 'bold', ... })
 			'ObjectExpression > Property > Identifier[name=/^fontWeight$/]': (node: Rule.Node) =>
+				// @ts-ignore - Node | null not assignable to Node
 				FontWeight.lint(node.parent, { context, config }),
 
 			// const styles = css({ fontFamily: 'Arial, sans-serif', ... })
 			'ObjectExpression > Property > Identifier[name=/^fontFamily$/]': (node: Rule.Node) =>
+				// @ts-ignore - Node | null not assignable to Node
 				FontFamily.lint(node.parent, { context, config }),
 
 			// const styles = css({ font: 'bold 36px Helvetica, Arial', ... })
 			'ObjectExpression > Property > Identifier[name=/^font$/]': (node: Rule.Node) =>
+				// @ts-ignore - Node | null not assignable to Node
 				UntokenizedProperties.lint(node.parent, { context, config }),
 
 			// const styles = css({ lineHeight: 1.2, letterSpacing: 0.003, ... })
 			'ObjectExpression > Property > Identifier[name=/^(lineHeight|letterSpacing)$/]': (
 				node: Rule.Node,
+				// @ts-ignore - Node | null not assignable to Node
 			) => BannedProperties.lint(node.parent, { context, config }),
 
 			// const styles = css({ textTransform: 'uppercase', ... })
 			'ObjectExpression > Property > Identifier[name=/^textTransform$/]': (node: Rule.Node) =>
+				// @ts-ignore - Node | null not assignable to Node
 				RestrictedCapitalisation.lint(node.parent, { context, config }),
 		},
 		config,

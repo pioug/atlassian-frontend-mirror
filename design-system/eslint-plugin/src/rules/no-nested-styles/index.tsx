@@ -32,6 +32,7 @@ const isMediaObject = (node: Rule.Node, context: Rule.RuleContext) => {
 			if (
 				isNodeOfType(definition.node, 'ImportSpecifier') &&
 				definition.node.parent &&
+				// @ts-ignore - Node type compatibility issue with EslintNode
 				isNodeOfType(definition.node.parent, 'ImportDeclaration') &&
 				allowedResponsiveImports.includes(definition.node.parent.source.value as string)
 			) {

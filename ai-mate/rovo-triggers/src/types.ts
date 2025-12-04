@@ -18,6 +18,7 @@ export type PayloadCore<TKey extends string, TData = void> = {
 	type: TKey;
 	source: string;
 	openChat?: boolean;
+	openChatMode?: 'sidebar' | 'mini-modal';
 	product?: string;
 	interactionSource?: string;
 } & (TData extends void ? {} : { data: TData });

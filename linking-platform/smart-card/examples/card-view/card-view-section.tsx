@@ -1,11 +1,22 @@
 import React from 'react';
 
-import { type ProviderProps, SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { type Card } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 
-import type { CardProps } from '../../src/view/Card';
+import type { MultiCardViewProps } from '../utils/card-view-props';
 
+
+type CardViewActionPropsBase = {
+	CardComponent?: typeof Card | typeof CardSSR;
+	description?: string;
+	fontSize?: React.CSSProperties['fontSize'];
+	title: string;
+};
+
+type CardViewActionProps = CardViewActionPropsBase & MultiCardViewProps;
+
+const defaultUrl = 'https://some.url';
 const CardViewSection = ({
 	description,
 	title,
@@ -13,27 +24,25 @@ const CardViewSection = ({
 	client,
 	// CardProps
 	platform = 'web',
-	url = 'https://some.url',
+	url,
+	urls,
 	fontSize,
 	CardComponent = CardSSR,
 	...props
-}: {
-	CardComponent?: typeof Card | typeof CardSSR;
-	description?: string;
-	fontSize?: React.CSSProperties['fontSize'];
-	title: string;
-} & Pick<ProviderProps, 'client'> &
-	CardProps): React.JSX.Element => (
+}: CardViewActionProps): React.JSX.Element => (
 	<React.Fragment>
 		{title !== '' ? <h6>{title}</h6> : undefined}
 		{description !== undefined && description !== '' ? <p>Context: {description}</p> : undefined}
 		<SmartCardProvider client={client}>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop */}
-			<p style={{ fontSize }}>
-				<CardComponent {...props} platform={platform} url={url} />
-			</p>
+			{ (urls || [url]).map((currentUrl = defaultUrl) => (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				<p style={{ fontSize }}>
+					<CardComponent {...props} platform={platform} url={currentUrl} />
+				</p>
+			))}
 		</SmartCardProvider>
 	</React.Fragment>
 );
 
 export default CardViewSection;
+

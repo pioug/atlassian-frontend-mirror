@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-editor-disabled
 
+## 6.1.3
+
+### Patch Changes
+
+- [`2e389ee54c1f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e389ee54c1f1) -
+  Update gates to roll out minor updates faster
+
 ## 6.1.2
 
 ### Patch Changes

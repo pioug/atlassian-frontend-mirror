@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-panel
 
+## 8.1.17
+
+### Patch Changes
+
+- [`2e389ee54c1f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e389ee54c1f1) -
+  Update gates to roll out minor updates faster
+- Updated dependencies
+
 ## 8.1.16
 
 ### Patch Changes

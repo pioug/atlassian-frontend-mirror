@@ -36,13 +36,16 @@ const __isOnlyOneFlagCheckInExpression = (root: Node | Expression, ignoredNode: 
 };
 
 const isOnlyOneFlagCheckInExpression = (node: Rule.Node): boolean => {
+	// @ts-ignore - root possibly null
 	let root = node.parent;
 	// find the root node of the expression
 	// NOTE: This is not an exhaustive check for all ESTree.Expression types but is good enough
+	// @ts-ignore - root possibly null
 	while (root.type.endsWith('Expression')) {
 		root = root.parent;
 	}
 
+	// @ts-ignore - root type compatibility issue
 	return __isOnlyOneFlagCheckInExpression(root, node);
 };
 

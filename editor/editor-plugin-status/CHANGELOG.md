@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-status
 
+## 7.1.13
+
+### Patch Changes
+
+- [`5eea57aaf3729`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5eea57aaf3729) -
+  [ux] [ENGHEALTH-40475] increase opacity for status picker placeholder to comply with WCAG color
+  contrast ratio
+- Updated dependencies
+
 ## 7.1.12
 
 ### Patch Changes

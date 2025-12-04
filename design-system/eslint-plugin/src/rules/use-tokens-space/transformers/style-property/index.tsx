@@ -26,6 +26,7 @@ type Check =
 			ref: Ref;
 	  };
 
+// @ts-ignore - type compatibility with eslint-codemod-utils
 export const StyleProperty = {
 	lint(node: Rule.Node, { context }: { context: Rule.RuleContext }) {
 		// Check whether all criteria needed to make a transformation are met
@@ -42,6 +43,7 @@ export const StyleProperty = {
 		});
 	},
 
+	// @ts-ignore - Node type compatibility issue with EslintNode
 	_check(node: Rule.Node): Check {
 		if (!isNodeOfType(node, 'Property')) {
 			return { success: false, ref: undefined };
@@ -92,6 +94,7 @@ export const StyleProperty = {
 
 		const ref = {
 			node,
+			// @ts-ignore - type compatibility with eslint-codemod-utils
 			token: styleMap[property][value],
 			fallback: value,
 		};

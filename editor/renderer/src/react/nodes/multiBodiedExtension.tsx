@@ -227,6 +227,7 @@ const MultiBodiedExtension = (props: Props) => {
 				data-active-child-index={activeChildIndex}
 				data-layout={layout}
 				data-local-id={localId}
+				data-node-type="multiBodiedExtension"
 			>
 				<MultiBodiedExtensionWrapperNext layout={layout} path={path}>
 					{renderContent()}

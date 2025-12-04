@@ -49,6 +49,7 @@ export const ElementDisplaySchema: Record<ElementName, ElementDisplaySchemaType[
 	[ElementName.UserAttributes]: ['inline'],
 	[ElementName.ViewCount]: ['inline'],
 	[ElementName.VoteCount]: ['inline'],
+	[ElementName.HostName]: ['inline'],
 };
 
 /**

@@ -8,8 +8,10 @@ export const RestrictedProperty = {
 	lint(node: Rule.Node, { context, config }: MetaData) {
 		if (RestrictedProperty._check(node, { context, config })) {
 			let property = 'fontSize, lineHeight, fontWeight or letterSpacing';
+			// @ts-ignore - Node type compatibility issue with EslintNode
 			if (isNodeOfType(node, 'Identifier')) {
 				property = node.name;
+				// @ts-ignore - Node type compatibility issue with EslintNode
 			} else if (isNodeOfType(node, 'Literal')) {
 				property = String(node.value);
 			}
@@ -30,6 +32,7 @@ export const RestrictedProperty = {
 
 		// Prevent font weight being used in combination with heading tokens
 		if (isPropertyName(node, 'fontWeight')) {
+			// @ts-ignore - node.parent possibly null
 			if (isNodeOfType(node.parent.parent, 'ObjectExpression')) {
 				for (const property of node.parent.parent.properties) {
 					// Only looking for heading token on `font` property

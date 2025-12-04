@@ -98,6 +98,9 @@
 			"path": "../../link-client-extension/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../link-provider/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../linking-common/afm-jira/tsconfig.json"
 		},
 		{

@@ -3,6 +3,7 @@ import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common
 import { Fragment, type NodeType } from '@atlaskit/editor-prosemirror/model';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
+import { isNestedNode } from '../ui/utils/isNestedNode';
 
 import { getOutputNodes } from './transform-node-utils/transform';
 import type { TransformNodeAnalyticsAttrs } from './transforms/types';
@@ -20,6 +21,7 @@ export const transformNode =
 			}
 
 			const { $from, $to } = expandToBlockRange(preservedSelection.$from, preservedSelection.$to);
+			const isNested = isNestedNode(preservedSelection, '');
 
 			const selectedParent = $from.parent;
 
@@ -37,6 +39,7 @@ export const transformNode =
 					sourceNode: node,
 					targetNodeType: targetType,
 					schema: tr.doc.type.schema,
+					isNested,
 				});
 
 				if (outputNode) {

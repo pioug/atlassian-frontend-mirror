@@ -1,5 +1,15 @@
 # @atlaskit/link-test-helpers
 
+## 9.0.0
+
+### Major Changes
+
+- [`3370e460f360b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3370e460f360b) -
+  `mocks.unauthorized` is now a function (instead of just an object) that takes a URL and result now
+  depends on the url domain name.
+  - New test icons are exported: `iconFigma`, `iconDropbox`, `iconTrello`, `iconOneDrive`,
+    `iconSlack`
+
 ## 8.5.1
 
 ### Patch Changes

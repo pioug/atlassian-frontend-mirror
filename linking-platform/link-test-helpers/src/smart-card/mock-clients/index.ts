@@ -14,7 +14,7 @@ import {
 } from '../example-helpers';
 import { atlasProjectUrl } from '../example-helpers/_jsonLDExamples/provider.atlas';
 import { overrideEmbedContent } from '../example-helpers/_jsonLDExamples/utils';
-import { forbiddenJira, iconGoogleDrive, image1, image2, imageForbiddenJiraEmbed } from '../images';
+import { forbiddenJira, iconDropbox, iconFigma, iconGoogleDrive, iconOneDrive, iconSlack, image1, image2, imageForbiddenJiraEmbed } from '../images';
 
 import { MockCardClient } from './mock-card-client';
 
@@ -194,39 +194,60 @@ export const mocks = {
 				'@type': ['atlassian:Task', 'Object'],
 			},
 		}) as JsonLd.Response,
-	unauthorized: {
-		meta: {
-			access: 'unauthorized',
-			visibility: 'restricted',
-			auth: [
-				{
-					key: 'some-flow',
-					displayName: 'Flow',
-					url: 'https://outbound-auth/flow',
-				},
-			],
-			definitionId: 'd1',
-			key: 'google-object-provider',
-			resourceType: 'file',
-		},
-		data: {
-			'@context': {
-				'@vocab': 'https://www.w3.org/ns/activitystreams#',
-				atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-				schema: 'http://schema.org/',
+
+	unauthorized:(url: string) => {
+		let key = 'google-object-provider';
+		let name = 'Google';
+		let icon = iconGoogleDrive;
+
+		if(url.includes('figma.com')) {
+			key = 'figma-object-provider';
+			name = 'Figma';
+			icon = iconFigma;
+		} else if(url.includes('dropbox.com')) {
+			key = 'dropbox-object-provider';
+			name = 'Dropbox';
+			icon = iconDropbox;
+		} else if(url.includes('onedrive.live.com')) {
+			key = 'onedrive-object-provider';
+			name = 'OneDrive';
+			icon = iconOneDrive;
+		}else if(url.includes('.slack.com')) {
+			key = 'slack-object-provider';
+			name = 'Slack';
+			icon = iconSlack;
+		}
+		return {
+			meta: {
+				access: 'unauthorized',
+				visibility: 'restricted',
+				auth: [
+					{
+						key: 'some-flow',
+						displayName: 'Flow',
+						url: 'https://outbound-auth/flow',
+					},
+				],
+				definitionId: 'd1',
+				key,
+				resourceType: 'file',
 			},
-			'@type': 'Object',
-			generator: {
-				'@type': 'Application',
-				name: 'Google',
-				icon: {
-					'@type': 'Image',
-					url: iconGoogleDrive,
+			data: {
+				'@context': {
+					'@vocab': 'https://www.w3.org/ns/activitystreams#',
+					atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+					schema: 'http://schema.org/',
 				},
+				'@type': 'Object',
+				generator: {
+					'@type': 'Application',
+					name: name,
+					...(icon ? { icon: { '@type': 'Image', url: icon } } : {}),
+				},
+				url,
 			},
-			url: 'https://some.url',
-		},
-	} as JsonLd.Response,
+		};
+	},
 };
 
 const resolve = (
@@ -275,7 +296,7 @@ export class ResolvedClient extends MockCardClient {
 
 export const ResolvingClientUrl = 'https://resolving-link';
 export class ResolvingClient extends MockCardClient {
-	fetchData(url: string): Promise<JsonLd.Response> {
+	fetchData(): Promise<JsonLd.Response> {
 		return new Promise(() => {
 			// resolve() never get called to keep status as resolving forever
 		});
@@ -283,7 +304,7 @@ export class ResolvingClient extends MockCardClient {
 }
 
 export class ResolvedClientWithDelay extends MockCardClient {
-	fetchData(url: string): Promise<JsonLd.Response> {
+	fetchData(): Promise<JsonLd.Response> {
 		const response = { ...AtlasProject };
 		return new Promise((resolve) => setTimeout(() => resolve(response as JsonLd.Response), 2000));
 	}
@@ -395,54 +416,41 @@ export class NotFoundWithNoIconClient extends MockCardClient {
 }
 
 export class UnAuthClient extends MockCardClient {
-	fetchData(): Promise<JsonLd.Response> {
-		return Promise.resolve(mocks.unauthorized);
+	fetchData(url: string): Promise<JsonLd.Response> {
+		return Promise.resolve(mocks.unauthorized(url) as JsonLd.Response);
 	}
 }
 
 export class UnAuthClientWithProviderImage extends MockCardClient {
-	fetchData(): Promise<JsonLd.Response> {
-		const response = {
-			...mocks.unauthorized,
-			data: {
-				...mocks.unauthorized.data,
-				generator: {
-					...((mocks.unauthorized.data as JsonLd.Data.BaseData)
-						.generator as JsonLd.Primitives.Object),
-					image: {
-						'@type': 'Image',
-						url: iconGoogleDrive,
-					},
-				},
-			},
+	fetchData(url: string): Promise<JsonLd.Response> {
+		const unauthorizedResponse = mocks.unauthorized(url);
+		(unauthorizedResponse.data.generator as any).image = {
+			'@type': 'Image',
+			url: iconGoogleDrive,
 		};
-		return Promise.resolve(response as JsonLd.Response);
+		return Promise.resolve(unauthorizedResponse as JsonLd.Response);
 	}
 }
 
 export class UnAuthClientWithNoAuthFlow extends MockCardClient {
-	fetchData(): Promise<JsonLd.Response> {
-		return Promise.resolve({
-			...mocks.unauthorized,
-			meta: {
-				...mocks.unauthorized.meta,
-				auth: [],
-			},
-		} as JsonLd.Response);
+	fetchData(url: string): Promise<JsonLd.Response> {
+		const unauthorizedResponse = mocks.unauthorized(url);
+		unauthorizedResponse.meta.auth = [];
+		return Promise.resolve(unauthorizedResponse as JsonLd.Response);
 	}
 }
 
 export class UnAuthClientWithNoIcon extends MockCardClient {
-	fetchData(): Promise<JsonLd.Response> {
-		return Promise.resolve({
-			meta: { ...mocks.unauthorized.meta },
-			data: { ...mocks.unauthorized.data, generator: { name: 'Provider' } },
-		} as JsonLd.Response);
+	fetchData(url: string): Promise<JsonLd.Response> {
+		const unauthorizedResponse = mocks.unauthorized(url);
+		unauthorizedResponse.meta.key = 'some-unknown-provider';
+		unauthorizedResponse.data.generator = {name: 'Provider', '@type': 'Application', icon: undefined};
+		return Promise.resolve(unauthorizedResponse as JsonLd.Response);
 	}
 }
 
 export class UnicornResolvedClient extends CardClient {
-	fetchData(url: string): Promise<JsonLd.Response> {
+	fetchData(): Promise<JsonLd.Response> {
 		return Promise.resolve(unicornResponse as JsonLd.Response);
 	}
 }

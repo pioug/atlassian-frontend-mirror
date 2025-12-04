@@ -100,7 +100,7 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 				},
 				{
 					name: 'expandKeymap',
-					plugin: () => expandKeymap(api, { __livePage: options.__livePage }),
+					plugin: () => expandKeymap(api),
 				},
 			];
 		},

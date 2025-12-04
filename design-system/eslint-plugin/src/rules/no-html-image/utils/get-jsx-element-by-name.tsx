@@ -42,10 +42,12 @@ export const getJsxElementByName = (
 		return;
 	}
 
+	// @ts-ignore - Node type compatibility issue with EslintNode
 	if (!isNodeOfType(jsxUsage, 'JSXIdentifier')) {
 		return;
 	}
 
+	// @ts-ignore - Node type compatibility issue with EslintNode
 	const jsxOpeningElement = (jsxUsage as JSXIdentifier & Rule.NodeParentExtension).parent;
 	if (!isNodeOfType(jsxOpeningElement, 'JSXOpeningElement')) {
 		return;

@@ -5,6 +5,7 @@ import {
 	extractPersonCreatedBy,
 	extractPersonOwnedBy,
 	extractPersonUpdatedBy,
+	extractSmartLinkUrl,
 	isEntityPresent,
 	type LinkPerson,
 	type LinkTypeUpdatedBy,
@@ -250,3 +251,13 @@ export const extractMetaResourceType = (meta: JsonLd.Meta.BaseMeta): string | un
 	meta.resourceType;
 export const extractMetaTenantId = (meta: JsonLd.Meta.BaseMeta): string | undefined =>
 	meta.tenantId;
+
+export const extractHostName = (response?: SmartLinkResponse): string | undefined => {
+	try{
+		const url = extractSmartLinkUrl(response);
+		const hostName = url ? new URL(url).hostname : undefined;
+		return hostName;
+	} catch {
+		return undefined;
+	}
+};

@@ -197,4 +197,36 @@ describe('MultiValue', () => {
 			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
 		});
 	});
+
+	describe('Group', () => {
+		const mockGroup = {
+			name: 'group name',
+			type: 'group' as const,
+			id: 'group-id',
+		};
+
+		const renderGroupValue = (group: any, includeTeamsUpdates = false) =>
+			renderMultiValue({
+				data: {
+					label: group.name,
+					value: group.id,
+					data: {
+						...group,
+						includeTeamsUpdates,
+					},
+				},
+			});
+
+		it('should render verified icon for group when includeTeamsUpdates is true', async () => {
+			renderGroupValue(mockGroup, true);
+
+			expect(await screen.findByText('VerifiedTeamIcon')).toBeInTheDocument();
+		});
+
+		it('should not render verified icon for group when includeTeamsUpdates is false', () => {
+			renderGroupValue(mockGroup, false);
+
+			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
+		});
+	});
 });

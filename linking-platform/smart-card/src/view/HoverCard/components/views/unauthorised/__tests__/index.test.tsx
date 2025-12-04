@@ -3,7 +3,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
@@ -38,11 +37,6 @@ jest.mock('@atlaskit/link-provider', () => ({
 	}),
 }));
 
-const useExperimentGateMock = jest.spyOn(FeatureGates, 'getExperimentValue');
-jest.mock('@atlaskit/feature-gate-js-client', () => ({
-	getExperimentValue: jest.fn(),
-}));
-
 describe('Unauthorised Hover Card', () => {
 	let mockUrl: string = 'https://some-url.com';
 
@@ -73,10 +67,6 @@ describe('Unauthorised Hover Card', () => {
 			</IntlProvider>
 		);
 	};
-
-	beforeEach(() => {
-		useExperimentGateMock.mockReturnValue('control');
-	});
 
 	afterEach(() => {
 		jest.clearAllMocks();
@@ -163,85 +153,5 @@ describe('Unauthorised Hover Card', () => {
 			},
 		});
 		await expect(container).toBeAccessible();
-	});
-
-	it('does not show popup and returns null when experiment cohort is test4', () => {
-		useExperimentGateMock.mockReturnValue('test4');
-		const { container } = setUpHoverCard();
-
-		expect(container.firstChild).toBeNull();
-	});
-
-	it('does show popup for all other experiment cohorts', () => {
-		useExperimentGateMock.mockReturnValue('control');
-		const { container } = setUpHoverCard();
-		expect(container.firstChild).toBeTruthy();
-
-		useExperimentGateMock.mockReturnValue('test1');
-		expect(container.firstChild).toBeTruthy();
-
-		useExperimentGateMock.mockReturnValue('test2');
-		expect(container.firstChild).toBeTruthy();
-
-		useExperimentGateMock.mockReturnValue('test3');
-		expect(container.firstChild).toBeTruthy();
-	});
-
-	describe('Action button message based on experiment cohort', () => {
-		it('shows "Connect to {context}" button text for control cohort', () => {
-			useExperimentGateMock.mockReturnValue('control');
-			setUpHoverCard();
-
-			const buttonElement = screen.getByTestId('hover-card-unauthorised-view-button');
-			expect(buttonElement).toHaveTextContent('Connect to Google');
-		});
-
-		it('shows "Connect {context}" button text for test cohorts when provider is Google', () => {
-			useExperimentGateMock.mockReturnValue('test1');
-			setUpHoverCard();
-
-			const buttonElement = screen.getByTestId('hover-card-unauthorised-view-button');
-			expect(buttonElement).toHaveTextContent('Connect Google');
-
-			useExperimentGateMock.mockReturnValue('test2');
-			expect(buttonElement).toHaveTextContent('Connect Google');
-
-			useExperimentGateMock.mockReturnValue('test3');
-			expect(buttonElement).toHaveTextContent('Connect Google');
-		});
-	});
-
-	describe('Title message based on experiment cohort', () => {
-		it('shows "Connect your {context} account" title text for control cohort', () => {
-			useExperimentGateMock.mockReturnValue('control');
-			setUpHoverCard();
-
-			const titleElement = screen.getByTestId('hover-card-unauthorised-view-title');
-			expect(titleElement).toHaveTextContent('Connect your Google account');
-		});
-
-		it('shows "Get more out of {context}" title text for test1 cohort', () => {
-			useExperimentGateMock.mockReturnValue('test1');
-			setUpHoverCard();
-
-			const titleElement = screen.getByTestId('hover-card-unauthorised-view-title');
-			expect(titleElement).toHaveTextContent('Get more out of Google');
-		});
-
-		it('shows "Get more out of {context}" title text for test2 cohort', () => {
-			useExperimentGateMock.mockReturnValue('test2');
-			setUpHoverCard();
-
-			const titleElement = screen.getByTestId('hover-card-unauthorised-view-title');
-			expect(titleElement).toHaveTextContent('Get more out of Google');
-		});
-
-		it('shows "Connect your {context} account" title text for test3 cohort', () => {
-			useExperimentGateMock.mockReturnValue('test3');
-			setUpHoverCard();
-
-			const titleElement = screen.getByTestId('hover-card-unauthorised-view-title');
-			expect(titleElement).toHaveTextContent('Connect your Google account');
-		});
 	});
 });

@@ -2,7 +2,9 @@
 
 import React from 'react';
 
-import Icon, { type IconProps, type CustomGlyphProps } from '@atlaskit/icon';
+import Icon, { type IconProps, type CustomGlyphProps, type NewCoreIconProps } from '@atlaskit/icon';
+import ClipboardIcon from '@atlaskit/icon/core/clipboard';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const CustomGlyph = (props: CustomGlyphProps) => (
 	<svg
@@ -14,6 +16,7 @@ const CustomGlyph = (props: CustomGlyphProps) => (
 		// Ignored via go/ees005
 		// eslint-disable-next-line react/jsx-props-no-spreading
 		{...props}
+		color="orange"
 	>
 		<path
 			fillRule="evenodd"
@@ -28,7 +31,17 @@ const CustomGlyph = (props: CustomGlyphProps) => (
 
 // Ignored via go/ees005
 // eslint-disable-next-line react/jsx-props-no-spreading
-const EditorPasteIcon = (props: IconProps) => <Icon {...props} glyph={CustomGlyph} />;
+const EditorPasteIcon = (props: Omit<IconProps, 'size'> & Omit<NewCoreIconProps, 'size'>) => {
+	if (fg('platform-custom-icon-migration')) {
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		return <ClipboardIcon {...props} />
+	}
+
+	return <div>
+		{/* eslint-disable-next-line react/jsx-props-no-spreading */}
+		<Icon {...props} glyph={CustomGlyph} />
+	</div>;
+};
 
 EditorPasteIcon.displayName = 'EditorPasteIcon';
 

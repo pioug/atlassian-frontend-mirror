@@ -183,6 +183,12 @@ export type ExtensionMenuItemConfiguration = {
 	icon: React.ComponentType<React.PropsWithChildren<{ label: string; size?: 'small' | 'medium' }>>;
 	isDisabled?: boolean;
 	label: string;
+	/**
+	 * Optional lozenge to display next to the label in the menu
+	 */
+	lozenge?: {
+		label: string;
+	};
 	onClick?: () => void;
 	/**
 	 * Optional menu-section to declare grouping - only used for menu items

@@ -3,6 +3,9 @@ import React from 'react';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import { selectionExtensionPluginKey } from '../../pm-plugins/main';
 import { getSelectionAdfInfoNew, getSelectionTextInfo } from '../../pm-plugins/utils';
@@ -61,6 +64,11 @@ export const MenuItem = ({ extensionMenuItems, api }: MenuItemProps) => {
 						isDisabled={extension.isDisabled}
 					>
 						{extension.label}
+						{extension.lozenge && fg('platform_editor_selection_extension_lozenge') && (
+							<Box as="span" paddingInline="space.100">
+								<Lozenge appearance={'new'}>{extension.lozenge.label}</Lozenge>
+							</Box>
+						)}
 					</ToolbarDropdownItem>
 				);
 			})}

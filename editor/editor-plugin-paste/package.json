@@ -47,6 +47,7 @@
 		"@atlaskit/media-client": "workspace:^",
 		"@atlaskit/media-common": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/prosemirror-history": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
 		"lodash": "root:*",
@@ -59,7 +60,6 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/prosemirror-history": "workspace:^",
 		"@testing-library/react": "root:*",
 		"wait-for-expect": "root:*"
 	},

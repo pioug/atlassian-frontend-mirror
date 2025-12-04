@@ -209,7 +209,7 @@ const ColorPalette = ({
 				case 'Enter':
 				case ' ': {
 					event.preventDefault();
-					onClick(value, label);
+					onClick(value, label, event);
 					break;
 				}
 				default: {

@@ -74,6 +74,7 @@ export const hasImportOfName = (node: ImportDeclaration, name: string): boolean 
 	);
 };
 
+// @ts-ignore - The inferred type cannot be named without a reference to external types
 export const insertButtonItemDefaultImport = (fixer: Rule.RuleFixer, node: ImportDeclaration) =>
 	fixer.insertTextBefore(node, `import ButtonItem from '@atlaskit/menu/button-item';\n`);
 
@@ -106,6 +107,7 @@ export const getUniqueButtonItemName = (
 	}
 };
 
+// @ts-ignore - The inferred type cannot be named without a reference to external types
 export const insertButtonItemImport = (
 	fixer: Rule.RuleFixer,
 	node: ImportDeclaration,

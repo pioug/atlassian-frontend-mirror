@@ -256,6 +256,7 @@ export function convertPropertyNodeToStringableNode(node: Property) {
 	});
 }
 
+// @ts-ignore - The inferred type cannot be named without a reference to external types
 export function insertTokensImport(
 	root: (Directive | Statement | ModuleDeclaration)[],
 	fixer: Rule.RuleFixer,
@@ -270,6 +271,7 @@ export function insertTokensImport(
 	);
 }
 
+// @ts-ignore - The inferred type cannot be named without a reference to external types
 export function insertFallbackImportFull(
 	root: (Directive | Statement | ModuleDeclaration)[],
 	fixer: Rule.RuleFixer,
@@ -284,6 +286,7 @@ export function insertFallbackImportFull(
 	);
 }
 
+// @ts-ignore - The inferred type cannot be named without a reference to external types
 export function insertFallbackImportSpecifier(
 	fixer: Rule.RuleFixer,
 	themeImportNode: ImportDeclaration,

@@ -98,6 +98,9 @@
 			"path": "../../link-client-extension/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../link-provider/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../linking-common/afm-cc/tsconfig.json"
 		},
 		{

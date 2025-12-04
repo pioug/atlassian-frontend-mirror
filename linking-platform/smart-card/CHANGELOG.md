@@ -1,5 +1,26 @@
 # @atlaskit/smart-card
 
+## 43.13.0
+
+### Minor Changes
+
+- [`3370e460f360b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3370e460f360b) -
+  [ux]
+  - New design for Unauthenticated block card;
+  - HostName metadata Element is added; all behind platform_sl_3p_unauth_paste_as_block_card
+    experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.12.3
+
+### Patch Changes
+
+- [`9448bab5cc2c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9448bab5cc2c8) -
+  [ux] Clean up logic from the platform_editor_google_hovercard_experiment experiment
+
 ## 43.12.2
 
 ### Patch Changes

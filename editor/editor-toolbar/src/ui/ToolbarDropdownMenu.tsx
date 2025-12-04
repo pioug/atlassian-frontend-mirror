@@ -66,17 +66,17 @@ const ToolbarDropdownMenuContent = ({
 		(args: OnOpenChangeArgs) => {
 			onDropdownOpenChanged(args);
 			if (!args.isOpen) {
-				menuContext?.closeMenu();
+				menuContext?.closeMenu(args.event);
 			}
 		},
 		[menuContext, onDropdownOpenChanged],
 	);
 
-	const handleClick = useCallback(() => {
+	const handleClick = useCallback((e: React.MouseEvent) => {
 		if (!menuContext?.isOpen) {
-			menuContext?.openMenu();
+			menuContext?.openMenu(e);
 		} else {
-			menuContext?.closeMenu();
+			menuContext?.closeMenu(e);
 		}
 	}, [menuContext]);
 
@@ -92,7 +92,7 @@ const ToolbarDropdownMenuContent = ({
 					onBlur={triggerProps.onBlur}
 					onClick={(e) => {
 						onClick && onClick(e, !menuContext?.isOpen);
-						handleClick();
+						handleClick(e);
 						triggerProps.onClick && triggerProps.onClick(e);
 					}}
 					onFocus={triggerProps.onFocus}

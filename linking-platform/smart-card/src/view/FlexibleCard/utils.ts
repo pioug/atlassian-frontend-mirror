@@ -10,9 +10,11 @@ import extractLinkTitle from '../../extractors/flexible/extract-link-title';
 import { extractSmartLinkPreviewImage } from '../../extractors/flexible/extract-preview';
 import { extractErrorIcon } from '../../extractors/flexible/icon';
 import { extractSmartLinkProviderIcon } from '../../extractors/flexible/icon/extract-provider-icon';
+import { extractHostName } from '../../extractors/flexible/utils';
 import { type MessageKey, messages } from '../../messages';
 import { type FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import { handleOnClick } from '../../utils';
+import { isNewBlockcardUnauthorizedRefreshExperimentEnabled } from '../../utils/experiments';
 import { getForbiddenJsonLd } from '../../utils/jsonld';
 
 import { type ExtractFlexibleUiDataContextParams, type RetryOptions } from './types';
@@ -50,6 +52,9 @@ export const getContextByStatus = (
 				meta: {
 					accessType: response?.meta?.requestAccess?.accessType,
 				},
+				...(isNewBlockcardUnauthorizedRefreshExperimentEnabled() && {
+					hostName: extractHostName(response),
+				}),
 			};
 	}
 };

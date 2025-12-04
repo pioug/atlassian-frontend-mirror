@@ -1,4 +1,4 @@
-import { isExpandCollapsed } from '@atlaskit/editor-common/expand';
+import { getNextNodeExpandPos, isExpandCollapsed } from '@atlaskit/editor-common/expand';
 import {
 	backspace,
 	bindKeymapWithCommand,
@@ -18,6 +18,7 @@ import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { isInTable } from '@atlaskit/editor-tables/utils';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { ExpandPlugin } from '../../types';
 import { deleteExpand, focusIcon, focusTitle } from '../commands';
@@ -28,12 +29,7 @@ const isExpandNode = (node: PMNode) => {
 const isExpandSelected = (selection: Selection) =>
 	selection instanceof NodeSelection && isExpandNode(selection.node);
 
-export function expandKeymap(
-	api: ExtractInjectionAPI<ExpandPlugin> | undefined,
-	options: {
-		__livePage?: boolean;
-	},
-): SafePlugin {
+export function expandKeymap(api: ExtractInjectionAPI<ExpandPlugin> | undefined): SafePlugin {
 	const list = {};
 
 	bindKeymapWithCommand(
@@ -199,6 +195,15 @@ export function expandKeymap(
 			) {
 				const { $from } = selection;
 				return focusTitle($from.pos + 1)(state, dispatch, editorView);
+			}
+
+			if (
+				expValEqualsNoExposure('platform_editor_lovability_navigation_fixes', 'isEnabled', true)
+			) {
+				const nextExpandPos = getNextNodeExpandPos(editorView, selection);
+				if (nextExpandPos !== undefined) {
+					return focusTitle(nextExpandPos)(state, dispatch, editorView);
+				}
 			}
 
 			if (editorView.endOfTextblock('down')) {

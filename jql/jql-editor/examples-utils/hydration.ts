@@ -17,6 +17,7 @@ export const onHydrate = (query: string): Promise<HydratedValues> => {
 						id: user.value,
 						name: user.displayName,
 						avatarUrl: mockAvatarUrl,
+						appType: user.appType,
 					}),
 				);
 

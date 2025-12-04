@@ -25,10 +25,12 @@ const rule = createLintRule({
 			// Handle css() calls
 			'CallExpression[callee.name=css] > ObjectExpression Property,CallExpression[callee.name=xcss] > ObjectExpression Property':
 				(node: Rule.Node) => {
+					// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 					if (!isNodeOfType(node, 'Property')) {
 						return;
 					}
 
+					// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 					if (!isNodeOfType(node.key, 'Identifier')) {
 						return;
 					}
@@ -51,10 +53,12 @@ const rule = createLintRule({
 			// Handle cssMap() calls
 			'CallExpression[callee.name=cssMap] > ObjectExpression Property > ObjectExpression Property':
 				(node: Rule.Node) => {
+					// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 					if (!isNodeOfType(node, 'Property')) {
 						return;
 					}
 
+					// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 					if (!isNodeOfType(node.key, 'Identifier')) {
 						return;
 					}

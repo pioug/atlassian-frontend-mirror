@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.12.1
+
+### Patch Changes
+
+- [`79cafe9f09a05`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79cafe9f09a05) -
+  EDITOR-3756 More general approach to support custom preserved selection mapping
+
+## 7.12.0
+
+### Minor Changes
+
+- [`ed2e45b56a325`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed2e45b56a325) -
+  ED-29696 fix CSS anchor selector
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.11.4
+
+### Patch Changes
+
+- [`26f8da78a699c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26f8da78a699c) -
+  EDITOR-3756 Fix initial collapse of preserved selection
+- Updated dependencies
+
 ## 7.11.3
 
 ### Patch Changes

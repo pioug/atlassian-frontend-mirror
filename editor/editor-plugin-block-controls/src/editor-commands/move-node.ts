@@ -22,7 +22,7 @@ import {
 	type ResolvedPos,
 } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection, type EditorState } from '@atlaskit/editor-prosemirror/state';
-import { type ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { Mapping, StepMap, type ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import {
 	findChildrenByType,
 	findParentNodeOfType,
@@ -523,7 +523,12 @@ export const moveNode =
 		if (inputMethod === INPUT_METHOD.DRAG_AND_DROP) {
 			tr = setCursorPositionAtMovedNode(tr, mappedTo, api);
 		} else if (preservedSelection) {
-			// do nothing here to allow the selection preservation plugin to handle mapping the selection
+			const currMeta = tr.getMeta(key);
+			const nodeMovedOffset = mappedTo - sliceFrom;
+			tr.setMeta(key, {
+				...currMeta,
+				preservedSelectionMapping: new Mapping([new StepMap([0, 0, nodeMovedOffset])]),
+			});
 		} else if (isMultiSelect) {
 			tr =
 				api?.blockControls.commands.setMultiSelectPositions(
@@ -535,7 +540,7 @@ export const moveNode =
 		}
 
 		const currMeta = tr.getMeta(key);
-		tr.setMeta(key, { ...currMeta, nodeMoved: true, nodeMovedOffset: mappedTo - sliceFrom });
+		tr.setMeta(key, { ...currMeta, nodeMoved: true });
 		api?.core.actions.focus();
 		const $mappedTo = tr.doc.resolve(mappedTo);
 

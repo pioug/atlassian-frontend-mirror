@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 4.10.0
+
+### Minor Changes
+
+- [`7cecf9e263a5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7cecf9e263a5f) -
+  Adds the opening of mini-modal as a capability to pub-sub.
+
 ## 4.9.0
 
 ### Minor Changes

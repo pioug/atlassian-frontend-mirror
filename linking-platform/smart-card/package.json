@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.12.2",
+	"version": "43.13.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,7 +23,8 @@
 		}
 	},
 	"scripts": {
-		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card --output ./src/common/analytics/generated"
+		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card --output ./src/common/analytics/generated",
+		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.{svg,png}"
 	},
 	"dependencies": {
 		"@atlaskit/afm-i18n-platform-linking-platform-smart-card": "root:*",
@@ -70,6 +71,7 @@
 		"@atlaskit/textarea": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
+		"@atlaskit/tile": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
@@ -231,9 +233,6 @@
 			"type": "boolean"
 		},
 		"navx-1895-new-logo-design": {
-			"type": "boolean"
-		},
-		"platform_initial_data_for_smart_cards": {
 			"type": "boolean"
 		},
 		"platform_initial_icon_for_title_block": {

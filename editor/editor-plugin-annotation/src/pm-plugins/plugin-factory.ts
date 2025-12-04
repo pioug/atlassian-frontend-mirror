@@ -1,4 +1,5 @@
 import { pluginFactory } from '@atlaskit/editor-common/utils';
+import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	type EditorState,
 	NodeSelection,
@@ -7,9 +8,10 @@ import {
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import reducer from './reducer';
-import type { InlineCommentPluginState } from './types';
+import type { InlineCommentPluginState, InlineCommentMap } from './types';
 import {
 	decorationKey,
 	findAnnotationsInSelection,
@@ -27,6 +29,64 @@ const handleDocChanged = (
 	}
 
 	return { ...prevPluginState, dirtyAnnotations: true };
+};
+
+/**
+ * Creates a handleDocChanged function with its own deleted annotations cache.
+ * This ensures each editor instance has its own cache, avoiding cross-contamination.
+ */
+const createHandleDocChanged = () => {
+	// Cache for preserving deleted annotation resolved states through delete/undo cycles
+	// This lives in closure scope per editor instance to avoid serialization and reduce state size
+	const deletedAnnotationsCache: InlineCommentMap = {};
+
+	return (
+		tr: ReadonlyTransaction,
+		prevPluginState: InlineCommentPluginState,
+	): InlineCommentPluginState => {
+		if (tr.getMeta('replaceDocument')) {
+			return { ...prevPluginState, dirtyAnnotations: true };
+		}
+
+		const updatedState = getSelectionChangedHandler(false)(tr, prevPluginState);
+
+		// Collect annotation IDs currently in the document
+		const annotationIdsInDocument = new Set<string>();
+		tr.doc.descendants((node: PMNode) => {
+			node.marks.forEach((mark: Mark) => {
+				if (mark.type.name === 'annotation') {
+					annotationIdsInDocument.add(mark.attrs.id);
+				}
+			});
+		});
+
+		const annotationIdsInState = Object.keys(prevPluginState.annotations);
+
+		// Early return if annotations haven't changed
+		const annotationsHaveChanged =
+			annotationIdsInDocument.size !== annotationIdsInState.length ||
+			annotationIdsInState.some((id) => !annotationIdsInDocument.has(id));
+
+		if (!annotationsHaveChanged) {
+			return updatedState;
+		}
+
+		// Cache deleted annotations to be able to restore their resolved states on undo
+		const updatedAnnotations: InlineCommentMap = {};
+		annotationIdsInState.forEach((id) => {
+			if (!annotationIdsInDocument.has(id)) {
+				deletedAnnotationsCache[id] = prevPluginState.annotations[id];
+			}
+		});
+
+		// Update annotations to match document state, preserving resolved states through delete/undo
+		annotationIdsInDocument.forEach((id) => {
+			updatedAnnotations[id] =
+				prevPluginState.annotations[id] ?? deletedAnnotationsCache[id] ?? false;
+		});
+
+		return { ...updatedState, annotations: updatedAnnotations };
+	};
 };
 
 /**
@@ -102,7 +162,6 @@ const getSelectionChangeHandlerOld =
 				selectAnnotationMethod: undefined,
 			};
 		}
-
 		if (isSelectedAnnotationsChanged(selectedAnnotations, pluginState.selectedAnnotations)) {
 			return {
 				...pluginState,
@@ -180,9 +239,23 @@ const getSelectionChangedHandler =
 			: // else if platform_editor_comments_api_manager == false
 				getSelectionChangeHandlerOld(reopenCommentView)(tr, pluginState);
 
+// Create the handler with cache once at module level
+const handleDocChangedWithSync = createHandleDocChanged();
+
+const getDocChangedHandler = (
+	tr: ReadonlyTransaction,
+	prevPluginState: InlineCommentPluginState,
+): InlineCommentPluginState => {
+	// Check feature flag at runtime to support test variants
+	if (expValEquals('platform_editor_annotations_sync_on_docchange', 'isEnabled', true)) {
+		return handleDocChangedWithSync(tr, prevPluginState);
+	}
+	return handleDocChanged(tr, prevPluginState);
+};
+
 export const { createPluginState, createCommand } = pluginFactory(inlineCommentPluginKey, reducer, {
 	onSelectionChanged: getSelectionChangedHandler(true),
-	onDocChanged: handleDocChanged,
+	onDocChanged: getDocChangedHandler,
 
 	mapping: (tr, pluginState, editorState) => {
 		const { draftDecorationSet, bookmark } = pluginState;

@@ -56,12 +56,10 @@ const FlexibleCard = ({
 		() =>
 			PENDING_LINK_STATUSES.includes(status) &&
 			placeholderData &&
-			fg('platform_initial_data_for_smart_cards')
-				? extractPlaceHolderCardState(placeholderData)
-				: undefined,
+			extractPlaceHolderCardState(placeholderData),
 		[placeholderData, status],
 	);
-	const placeHolderStatus = placeholderCardState?.status as SmartLinkStatus | undefined;
+	const placeHolderStatus = placeholderCardState ? (placeholderCardState.status as SmartLinkStatus) : undefined;
 
 	const context = useMemo(
 		() =>
@@ -106,7 +104,7 @@ const FlexibleCard = ({
 	const flexibleCardContext = useMemo<FlexibleCardContextType>(
 		() => ({
 			data: context,
-			status: fg('platform_initial_data_for_smart_cards') ? (placeHolderStatus ?? status) : status,
+			status: placeHolderStatus ?? status,
 			ui,
 		}),
 		[context, placeHolderStatus, status, ui],

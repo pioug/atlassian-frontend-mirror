@@ -1,5 +1,12 @@
 # @atlaskit/editor-toolbar
 
+## 0.18.1
+
+### Patch Changes
+
+- [`15d7f87e470d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15d7f87e470d5) -
+  [ux] EDITOR-3749 Fix keep selection after applying text color or highlight
+
 ## 0.18.0
 
 ### Minor Changes

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-media
 
+## 8.4.18
+
+### Patch Changes
+
+- [`840338033507a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/840338033507a) -
+  Migrating custom icons behind feature flag.
+
+## 8.4.17
+
+### Patch Changes
+
+- [`1083b6f1f8eb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1083b6f1f8eb2) -
+  [ux] Fix issues where media is selected when a parent node is selected
+- Updated dependencies
+
 ## 8.4.16
 
 ### Patch Changes

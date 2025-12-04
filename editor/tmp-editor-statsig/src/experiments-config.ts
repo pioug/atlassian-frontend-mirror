@@ -310,6 +310,13 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'test';
 		values: ('control' | 'test')[];
 	};
+	// Added 2025-11-20
+	platform_editor_annotations_sync_on_docchange: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-08-05
 	platform_editor_august_a11y: {
 		defaultValue: boolean;
@@ -1024,6 +1031,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2025-03-12
+	platform_editor_nested_media_selection_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -1113,6 +1127,15 @@ export const editorExperimentsConfig: {
 	platform_editor_media_vc_fixes: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_media_vc_fixes',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+
+	// Added 2025-11-20
+	platform_editor_annotations_sync_on_docchange: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_annotations_sync_on_docchange',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2168,6 +2191,14 @@ export const editorExperimentsConfig: {
 	platform_editor_wait_for_space_after_ascii_emoji: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_wait_for_space_after_ascii_emoji',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-12-03
+	platform_editor_nested_media_selection_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_nested_media_selection_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

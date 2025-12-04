@@ -38,7 +38,7 @@ export const getDecorations = (
 	let selection = tr.selection;
 	const decorations: Decoration[] = [];
 
-	if (hideCursor && fg('platform_editor_ai_aifc_patch_beta')) {
+	if (hideCursor && fg('platform_editor_ai_generic_prep_for_aifc_2')) {
 		decorations.push(createHideCursorDecoration());
 	}
 

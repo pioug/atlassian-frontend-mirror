@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.1.5
+
+### Patch Changes
+
+- [`f6905b2543ef1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6905b2543ef1) -
+  [ux] Implements base steps for from container to other node categories transfroms.
+- Updated dependencies
+
 ## 5.1.4
 
 ### Patch Changes

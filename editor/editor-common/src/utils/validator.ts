@@ -872,10 +872,13 @@ export const getValidNode = (
 				return { type, attrs, content, marks };
 			}
 			case 'syncBlock': {
-				if (adfStage === 'stage0' && editorExperiment('platform_synced_block', true)) {
+				if (attrs && attrs.resourceId && editorExperiment('platform_synced_block', true)) {
 					return {
 						type,
-						attrs,
+						attrs: {
+							resourceId: attrs.resourceId,
+							localId: attrs.localId || uuid(),
+						},
 						marks,
 					};
 				} else {
@@ -884,15 +887,18 @@ export const getValidNode = (
 			}
 			case 'bodiedSyncBlock': {
 				if (
-					adfStage === 'stage0' &&
 					attrs &&
+					attrs.resourceId &&
 					Array.isArray(content) &&
 					content.length > 0 &&
 					editorExperiment('platform_synced_block', true)
 				) {
 					return {
 						type,
-						attrs,
+						attrs: {
+							resourceId: attrs.resourceId,
+							localId: attrs.localId || uuid(),
+						},
 						marks,
 						content,
 					};

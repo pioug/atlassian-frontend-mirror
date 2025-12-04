@@ -98,6 +98,7 @@ token('color.background.blanket');
 		return {
 			'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"]':
 				(node: Rule.Node) => {
+					// @ts-ignore - Node type compatibility issue with EslintNode
 					if (!isNodeOfType(node, 'TaggedTemplateExpression')) {
 						return;
 					}
@@ -145,6 +146,7 @@ token('color.background.blanket');
 			'CallExpression:matches([callee.name="token"], [callee.name="getTokenValue"])': (
 				node: Rule.Node,
 			) => {
+				// @ts-ignore - Node type compatibility issue with EslintNode
 				if (!isNodeOfType(node, 'CallExpression')) {
 					return;
 				}

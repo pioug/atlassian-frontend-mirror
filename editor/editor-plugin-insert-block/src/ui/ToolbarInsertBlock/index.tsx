@@ -708,13 +708,20 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 		const { onShowMediaPicker, dispatchAnalyticsEvent } = this.props;
 		if (onShowMediaPicker) {
 			const ref = this.mediaButtonRef?.deref();
+
 			const args = ref
 				? {
 						ref,
 						mountPoint: this.props.popupsMountPoint ?? ref,
 					}
 				: undefined;
-			onShowMediaPicker(args);
+			const argsWithUpdatedMountPoint = ref?.parentElement
+				? {
+						ref,
+						mountPoint: this.props.popupsMountPoint ?? ref.parentElement,
+					}
+				: undefined;
+			onShowMediaPicker(fg('platform_editor_nov_a11y_fixes') ? argsWithUpdatedMountPoint : args);
 			if (dispatchAnalyticsEvent) {
 				dispatchAnalyticsEvent({
 					action: ACTION.OPENED,

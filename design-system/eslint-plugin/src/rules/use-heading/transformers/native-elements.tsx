@@ -54,6 +54,7 @@ export const NativeElements = {
 			return { success: false };
 		}
 
+		// @ts-ignore - Node type compatibility issue with EslintNode
 		if (!isNodeOfType(node, 'JSXElement')) {
 			return { success: false };
 		}
@@ -62,6 +63,7 @@ export const NativeElements = {
 			return { success: false };
 		}
 
+		// @ts-ignore - Node type compatibility issue with EslintNode
 		const elementName = ast.JSXElement.getName(node);
 		if (!Object.keys(tagSizeMap).includes(elementName)) {
 			return { success: false };
@@ -72,9 +74,11 @@ export const NativeElements = {
 		}
 
 		// Element has to be first element of its siblings
+		// @ts-ignore - Node type compatibility issue with EslintNode
 		if (!(isNodeOfType(node.parent, 'JSXElement') || isNodeOfType(node.parent, 'JSXFragment'))) {
 			return { success: true, autoFixable: false };
 		}
+		// @ts-ignore - Node type compatibility issue with EslintNode
 		const siblings = ast.JSXElement.getChildren(node.parent);
 		if (siblings.length > 1) {
 			// Only report if element is first child element

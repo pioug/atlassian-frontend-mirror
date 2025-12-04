@@ -79,7 +79,7 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 	const closeMenu = context?.closeMenu;
 
 	const handleHighlightColorChange = useCallback(
-		(color: string) => {
+		(color: string, event: React.MouseEvent | React.KeyboardEvent) => {
 			if (api?.highlight?.commands?.changeColor) {
 				api.core.actions.execute(
 					api.highlight.commands.changeColor({
@@ -88,7 +88,7 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 					}),
 				);
 
-				closeMenu?.();
+				closeMenu?.(event);
 			}
 		},
 		[api, closeMenu, parents],
@@ -108,8 +108,8 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 		<Stack xcss={styles.container} testId="highlight-color-menu-item">
 			<Heading size="xxsmall">{formatMessage(messages.highlight)}</Heading>
 			<ColorPalette
-				onClick={(color) => {
-					handleHighlightColorChange(color);
+				onClick={(color, _, event) => {
+					handleHighlightColorChange(color, event);
 				}}
 				selectedColor={activeColor || null}
 				paletteOptions={{
@@ -123,7 +123,7 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 					<Button
 						shouldFitContainer
 						appearance="subtle"
-						onClick={() => handleHighlightColorChange(REMOVE_HIGHLIGHT_COLOR)}
+						onClick={(event: React.MouseEvent) => handleHighlightColorChange(REMOVE_HIGHLIGHT_COLOR, event)}
 					>
 						{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 						<Text weight="medium">Remove highlight</Text>

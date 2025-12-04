@@ -4,11 +4,19 @@ import {
 	type Schema,
 } from '@atlaskit/editor-prosemirror/model';
 
+import { getTargetNodeTypeNameInContext } from '../transform-node-utils/utils';
+
 import { flattenListStep } from './flattenListStep';
+import { flattenStep } from './flattenStep';
 import { stubStep } from './stubStep';
 import type { NodeCategory, NodeTypeName, TransformStepContext, TransformStep } from './types';
 import { NODE_CATEGORY_BY_TYPE, toNodeTypeValue } from './types';
+import { unwrapExpandStep } from './unwrapExpandStep';
 import { unwrapListStep } from './unwrapListStep';
+import { unwrapStep } from './unwrapStep';
+import { wrapInExpandStep } from './wrapInExpandStep';
+import { wrapIntoLayoutStep } from './wrapIntoLayoutStep';
+import { wrapStep } from './wrapStep';
 
 // Exampled step for overrides:
 // - open Block menu on a paragraph, click 'Panel' in the Turn into'
@@ -28,9 +36,9 @@ const TRANSFORM_STEPS: Record<NodeCategory, Record<NodeCategory, TransformStep[]
 	},
 	container: {
 		atomic: undefined,
-		container: [stubStep],
+		container: [unwrapStep, wrapStep],
 		list: undefined,
-		text: undefined,
+		text: [unwrapStep],
 	},
 	list: {
 		atomic: undefined,
@@ -54,6 +62,26 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 	paragraph: {
 		panel: [wrapIntoPanelStep],
 	},
+	panel: {
+		layoutSection: [unwrapStep, wrapIntoLayoutStep],
+		codeBlock: [unwrapStep, flattenStep, wrapStep],
+	},
+	expand: {
+		panel: [unwrapExpandStep, wrapStep],
+		blockquote: [unwrapExpandStep, wrapStep],
+		layoutSection: [unwrapExpandStep, wrapIntoLayoutStep],
+		paragraph: [unwrapExpandStep],
+		codeBlock: [unwrapExpandStep, flattenStep, wrapStep],
+	},
+	nestedExpand: {
+		panel: [unwrapExpandStep, wrapStep],
+		blockquote: [unwrapExpandStep, wrapStep],
+		paragraph: [unwrapExpandStep],
+		codeBlock: [unwrapExpandStep, flattenStep, wrapStep],
+	},
+	blockquote: {
+		expand: [wrapInExpandStep],
+	},
 };
 
 const getTransformStepsForNodeTypes = (
@@ -71,6 +99,7 @@ const getTransformStepsForNodeTypes = (
 };
 
 interface GetOutputNodesArgs {
+	isNested: boolean;
 	schema: Schema;
 	sourceNode: PMNode;
 	targetNodeType: NodeType;
@@ -81,11 +110,13 @@ export const getOutputNodes = ({
 	sourceNode,
 	targetNodeType,
 	schema,
+	isNested,
 }: GetOutputNodesArgs): PMNode[] | undefined => {
 	const nodesToReplace = [sourceNode];
 
 	const selectedNodeTypeName = toNodeTypeValue(sourceNode.type.name);
-	const targetNodeTypeName = toNodeTypeValue(targetNodeType.name);
+	let targetNodeTypeName = toNodeTypeValue(targetNodeType.name);
+	targetNodeTypeName = getTargetNodeTypeNameInContext(targetNodeTypeName, isNested);
 
 	if (!selectedNodeTypeName || !targetNodeTypeName) {
 		// We may decide to return an empty array or undefined here
@@ -105,6 +136,7 @@ export const getOutputNodes = ({
 	}
 
 	return steps.reduce((nodes, step) => {
-		return step(nodes, context);
+		const result = step(nodes, context);
+		return result;
 	}, nodesToReplace);
 };

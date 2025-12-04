@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 0.50.0
+
+### Minor Changes
+
+- [`79061bc1ac5a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79061bc1ac5a7) -
+  Migrate emotion Pressable into forge-ui library
+
 ## 0.49.2
 
 ### Patch Changes

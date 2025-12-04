@@ -1222,6 +1222,6 @@ export const createPlugin = (
 	});
 };
 
-export const getBlockControlsMeta = (tr: ReadonlyTransaction) => {
+export const getBlockControlsMeta = (tr: Transaction | ReadonlyTransaction) => {
 	return tr.getMeta(key) as BlockControlsMeta | undefined;
 };

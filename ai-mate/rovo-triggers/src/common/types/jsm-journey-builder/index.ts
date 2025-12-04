@@ -13,4 +13,3 @@ export type JsmJourneyBuilderActionsPayload = PayloadCore<
 		agentActions: JsmJourneyBuilderAgentAction[];
 	}
 >;
-

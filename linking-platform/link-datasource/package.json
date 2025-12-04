@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.30.8",
+	"version": "4.30.9",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -64,6 +64,7 @@
 		"@atlaskit/layering": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/link-client-extension": "workspace:^",
+		"@atlaskit/link-provider": "workspace:^",
 		"@atlaskit/linking-common": "workspace:^",
 		"@atlaskit/linking-types": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
@@ -110,7 +111,6 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/json-ld-types": "workspace:^",
-		"@atlaskit/link-provider": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
@@ -194,6 +194,9 @@
 			"type": "boolean"
 		},
 		"jpd_confluence_date_fields_improvements": {
+			"type": "boolean"
+		},
+		"lp_disable_datasource_table_max_height_restriction": {
 			"type": "boolean"
 		},
 		"navx-2825-eslint-translation-fix-linking-platform": {

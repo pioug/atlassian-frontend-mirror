@@ -2,14 +2,22 @@ export const users = [
 	{
 		displayName: 'Cristian Casais',
 		value: 'rjuedbergtlfrde',
+		appType: null,
 	},
 	{
 		displayName: 'Kyle Painter',
 		value: 'iikibvcbvfnfglv',
+		appType: null,
 	},
 	{
 		displayName: 'Soney Mathew',
 		value: 'gvcehdrrgtvvuen',
+		appType: null,
+	},
+	{
+		displayName: 'AI Agent',
+		value: 'ai-agent',
+		appType: 'agent',
 	},
 ];
 

@@ -2436,8 +2436,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				appearance === 'max' &&
 					expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) &&
 					rendererMaxWidthStyles,
-				!fg('platform_editor_ai_aifc_streaming') && telepointerStyles,
-				fg('platform_editor_ai_aifc_streaming') && rovoTelepointerStyles,
+				!fg('platform_editor_ai_generic_prep_for_aifc_2') && telepointerStyles,
+				fg('platform_editor_ai_generic_prep_for_aifc_2') && rovoTelepointerStyles,
 				whitespaceSharedStyles,
 				blockquoteSharedStyles,
 				fg('platform_editor_typography_ugc')

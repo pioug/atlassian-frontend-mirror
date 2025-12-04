@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "124.17.1",
+	"version": "124.17.5",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -132,7 +132,7 @@
 		"platform-ssr-table-resize": {
 			"type": "boolean"
 		},
-		"platform_editor_ai_aifc_streaming": {
+		"platform_editor_ai_generic_prep_for_aifc_2": {
 			"type": "boolean"
 		},
 		"platform_fix_nested_num_column_scaling": {
@@ -247,6 +247,9 @@
 			"type": "boolean"
 		},
 		"jfp-magma-ssr-iv-editor-codeblock": {
+			"type": "boolean"
+		},
+		"platform-custom-icon-migration": {
 			"type": "boolean"
 		}
 	},

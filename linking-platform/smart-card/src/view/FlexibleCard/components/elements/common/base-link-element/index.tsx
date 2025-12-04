@@ -17,6 +17,7 @@ import {
 	SmartLinkTheme,
 } from '../../../../../../constants';
 import { useMouseDownEvent } from '../../../../../../state/analytics/useLinkClicked';
+import { isNewBlockcardUnauthorizedRefreshExperimentEnabled } from '../../../../../../utils/experiments';
 import type { ElementProps } from '../../../../components/elements';
 import type { AnchorTarget } from '../../../../components/types';
 import { hasWhiteSpace } from '../../../utils';
@@ -272,7 +273,15 @@ const BaseLinkElement = ({
 
 	return (
 		<span css={containerStyles}>
-			{hideTooltip || text === undefined ? anchor : withTooltip(anchor, text, testId)}
+			{
+				hideTooltip || text === undefined 
+					? anchor 
+					: withTooltip(
+						anchor, 
+						(url?.includes(text) && isNewBlockcardUnauthorizedRefreshExperimentEnabled() ? url : text), 
+						testId
+					)
+			}
 		</span>
 	);
 };

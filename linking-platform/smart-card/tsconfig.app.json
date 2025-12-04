@@ -163,6 +163,9 @@
 			"path": "../../design-system/theme/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/tile/tsconfig.app.json"
+		},
+		{
 			"path": "../../editor/tmp-editor-statsig/tsconfig.app.json"
 		},
 		{

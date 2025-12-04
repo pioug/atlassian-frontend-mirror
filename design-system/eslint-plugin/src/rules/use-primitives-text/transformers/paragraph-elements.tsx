@@ -21,6 +21,7 @@ type CheckResult = {
 
 export const ParagraphElements = {
 	lint(node: Rule.Node, { context, config }: MetaData) {
+		// @ts-ignore - Node type compatibility issue with EslintNode
 		if (!isNodeOfType(node, 'JSXElement')) {
 			return;
 		}
@@ -82,6 +83,7 @@ export const ParagraphElements = {
 		}
 
 		// All siblings have to be paragraph elements with no unallowed props
+		// @ts-ignore - Node type compatibility issue with EslintNode
 		if (!isNodeOfType(node.parent, 'JSXElement')) {
 			return {
 				success: true,
@@ -164,6 +166,7 @@ export const ParagraphElements = {
 		{ context, config, refs }: MetaData & { refs: CheckResult['refs'] },
 	): Rule.ReportFixer {
 		return (fixer) => {
+			// @ts-ignore - Node type compatibility issue with EslintNode
 			if (!isNodeOfType(node.parent, 'JSXElement') || !node.parent.closingElement) {
 				return [];
 			}

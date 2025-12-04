@@ -92,6 +92,12 @@ test.describe('text formatting toolbar: styles', () => {
 
 			await expect(editor).toMatchDocument(doc(h1('Hello world'), p()));
 		});
+
+		test(`should capture and report a11y violations for ${appearance} editor`, async ({
+			editor,
+		}) => {
+			await expect(editor.page).toBeAccessible();
+		});
 	}
 });
 
@@ -123,8 +129,11 @@ test.describe('text formatting toolbar: advanced', () => {
 			});
 			await expect(editor).toHaveDocument(doc(p('hello'), p(`inside block quote`), p('world')));
 		});
+
+		test(`should capture and report a11y violations for ${appearance} editor`, async ({
+			editor,
+		}) => {
+			await expect(editor.page).toBeAccessible();
+		});
 	}
-});
-test('should capture and report a11y violations', async ({ page }) => {
-	await expect(page).toBeAccessible({ violationCount: 2 });
 });

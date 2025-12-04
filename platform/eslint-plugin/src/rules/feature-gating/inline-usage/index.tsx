@@ -22,7 +22,8 @@ const findDefinitionDeclaration = (
 ): (Node<'VariableDeclaration'> | Node<'FunctionDeclaration'>) & Rule.NodeParentExtension =>
 	node.type === 'VariableDeclaration' || node.type === 'FunctionDeclaration'
 		? node
-		: findDefinitionDeclaration(node.parent);
+		: // @ts-ignore - Node | null not assignable to Node
+			findDefinitionDeclaration(node.parent);
 
 const validateCallExpression = (
 	node: Node<'CallExpression'> & Rule.NodeParentExtension,

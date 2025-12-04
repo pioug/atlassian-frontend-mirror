@@ -27,6 +27,7 @@ const rule = createLintRule({
 	create(context) {
 		return {
 			JSXElement(node: Rule.Node) {
+				// @ts-ignore - Node type compatibility issue with EslintNode
 				if (!isNodeOfType(node, 'JSXElement')) {
 					return;
 				}

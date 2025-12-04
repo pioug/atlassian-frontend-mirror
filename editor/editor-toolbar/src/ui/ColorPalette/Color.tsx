@@ -72,7 +72,7 @@ export const Color = memo<ColorProps>(
 		const handleClick = useCallback(
 			(e: React.MouseEvent) => {
 				e.preventDefault();
-				onClick(value, label);
+				onClick(value, label, e);
 			},
 			[onClick, value, label],
 		);

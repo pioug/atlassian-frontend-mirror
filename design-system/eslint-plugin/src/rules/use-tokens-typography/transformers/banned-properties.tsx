@@ -25,6 +25,7 @@ export const BannedProperties = {
 		}
 	},
 
+	// @ts-ignore - Node type compatibility issue with EslintNode
 	_check(node: Rule.Node, { config }: MetaData): node is Property & Rule.NodeParentExtension {
 		if (!config.patterns.includes('banned-properties')) {
 			return false;
@@ -34,6 +35,7 @@ export const BannedProperties = {
 			return false;
 		}
 
+		// @ts-ignore - type compatibility with eslint-codemod-utils
 		if (!isDecendantOfStyleBlock(node) && !isDecendantOfType(node, 'JSXExpressionContainer')) {
 			return false;
 		}

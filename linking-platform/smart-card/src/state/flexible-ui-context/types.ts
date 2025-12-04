@@ -91,6 +91,12 @@ export type FlexibleUiDataContext = {
 	 */
 	dueOn?: string;
 	/**
+	 * Contains the hostname of the linked resource.
+	 * @type string
+	 * @see HostName
+	 */
+	hostName?: string;
+	/**
 	 * Contains the information about the latest commit in the repository
 	 */
 	latestCommit?: string;

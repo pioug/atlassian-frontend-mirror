@@ -19,9 +19,7 @@ export const getQuickInsertSuggestions: GetQuickInsertSuggestions = (
 	const { query, category, disableDefaultItems, featuredItems, prioritySortingFn } = searchOptions;
 	const defaultItems = disableDefaultItems ? [] : lazyDefaultItems();
 
-	const dedupeFn = fg('platform_editor_quick_insert_dedupe_title_desc')
-		? (item: QuickInsertItem) => `${item.title}-${item.description ?? ''}`
-		: (item: QuickInsertItem) => item.title;
+	const dedupeFn = (item: QuickInsertItem) => `${item.title}-${item.description ?? ''}`;
 
 	const items = providedItems
 		? dedupe([...defaultItems, ...providedItems], dedupeFn)

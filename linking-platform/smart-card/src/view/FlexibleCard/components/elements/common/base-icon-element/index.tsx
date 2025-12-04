@@ -11,11 +11,13 @@ import { cssMap, jsx } from '@compiled/react';
 
 import LinkIcon from '@atlaskit/icon/core/migration/link';
 import { Box } from '@atlaskit/primitives/compiled';
+import Tile from '@atlaskit/tile';
 import { token } from '@atlaskit/tokens';
 
 import { type IconType, SmartLinkPosition, SmartLinkSize } from '../../../../../../constants';
 import { type FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
 import { isProfileType } from '../../../../../../utils';
+import { isNewBlockcardUnauthorizedRefreshExperimentEnabled } from '../../../../../../utils/experiments';
 import AtlaskitIcon from '../../../common/atlaskit-icon';
 import ImageIcon from '../../../common/image-icon';
 import { type ImageIconProps } from '../../../common/image-icon/types';
@@ -36,6 +38,10 @@ export type BaseIconElementProps = ElementProps & {
 	 * will be used.
 	 */
 	icon?: IconType;
+	/**
+	 * Determines if the icon is a tiled icon.
+	 */
+	isTiledIcon?: boolean;
 	/**
 	 * The label provided to the Atlaskit Icon.
 	 */
@@ -230,6 +236,7 @@ const IconElement = ({
 	url,
 	appearance = 'square',
 	hideLoadingSkeleton,
+	isTiledIcon,
 }: BaseIconElementProps) => {
 	const element = useMemo(() => {
 		const defaultIcon = renderDefaultIcon(label, testId);
@@ -253,15 +260,19 @@ const IconElement = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
 		>
-			<Box
-				xcss={styles.iconWrapperStyle}
-				style={{
-					width,
-					height: width,
-				}}
-			>
-				{element}
-			</Box>
+			{isTiledIcon && isNewBlockcardUnauthorizedRefreshExperimentEnabled() ? (
+				<Tile size={size} label={label}>{element}</Tile>
+			) : (
+				<Box
+					xcss={styles.iconWrapperStyle}
+					style={{
+						width,
+						height: width,
+					}}
+				>
+					{element}
+				</Box>
+			)}
 		</div>
 	);
 };

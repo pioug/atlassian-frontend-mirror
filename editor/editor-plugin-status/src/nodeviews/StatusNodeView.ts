@@ -4,6 +4,7 @@ import { statusMessages as messages } from '@atlaskit/editor-common/messages';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { statusToDOM } from './statusNodeSpec';
 
@@ -44,7 +45,8 @@ export class StatusNodeView implements NodeView {
 	private setPlaceholder() {
 		if (this.textContainer && this.domElement) {
 			this.textContainer.textContent = this.intl.formatMessage(messages.placeholder);
-			this.domElement.style.setProperty('opacity', '0.5');
+			const opacity = fg('platform_editor_a11y_status_picker') ? '0.83' : '0.5';
+			this.domElement.style.setProperty('opacity', opacity);
 		}
 	}
 

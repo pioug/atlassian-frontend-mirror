@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor
 
+## 5.9.0
+
+### Minor Changes
+
+- [`ba2562ba99b34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba2562ba99b34) -
+  display avatar appearance based on appType (e.g. hexagon for appType 'agent')
+
 ## 5.8.5
 
 ### Patch Changes

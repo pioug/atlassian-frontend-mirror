@@ -29,8 +29,9 @@ export const calculateDimensions = (
 	const cardRatio = parentWidth / parentHeight;
 
 	if (fg('media-perf-uplift-mutation-fix')) {
-		const isSameRatio =
-			roundedRatio(imgWidth / parentWidth) === roundedRatio(imgHeight / parentHeight);
+		const isSameRatio = fg('media-perf-ratio-calc-fix')
+		  ? Math.abs(imgWidth / parentWidth - imgHeight / parentHeight) < 0.1
+		  : roundedRatio(imgWidth / parentWidth) === roundedRatio(imgHeight / parentHeight);
 		if (isSameRatio) {
 			if (resizeMode === 'stretchy-fit') {
 				return DEFAULT_STRETCHY_FIT_DIMENSIONS;

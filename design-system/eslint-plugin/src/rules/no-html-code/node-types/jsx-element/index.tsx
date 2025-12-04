@@ -16,6 +16,7 @@ function isImportDeclaration(node: any): node is ImportDeclaration {
 
 export const JSXElement = {
 	lint(node: Rule.Node, { context }: MetaData) {
+		// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 		if (!isSupportedForLint(node)) {
 			return;
 		}
@@ -37,7 +38,9 @@ export const JSXElement = {
 				declaration.specifiers
 					.filter(
 						(specifier) =>
+							// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 							isNodeOfType(specifier, 'ImportSpecifier') &&
+							// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 							isNodeOfType(specifier.parent!, 'ImportDeclaration'),
 					)
 					.forEach((specifier) => {

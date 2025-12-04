@@ -1,13 +1,17 @@
+import { expandToBlockRange } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
-	TextSelection,
-	type Transaction,
-	type Selection,
 	NodeSelection,
+	TextSelection,
+	type ReadonlyTransaction,
+	type Selection,
+	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
-import { key } from '../main';
+import { getBlockControlsMeta, key } from '../main';
+
+import { collapseToSelectionRange } from './getSelection';
 
 export const getMultiSelectionIfPosInside = (
 	api: ExtractInjectionAPI<BlockControlsPlugin>,
@@ -32,7 +36,12 @@ export const getMultiSelectionIfPosInside = (
 };
 
 /**
+ * Given a handle position, returns the from and to positions of the selected content.
+ * If the handle position is not in a multi-selection, it returns the node's from and to positions.
  *
+ * @param handlePos The position of the handle
+ * @param tr The transaction to use for position calculations
+ * @param api The BlockControlsPlugin API for accessing shared state
  * @returns from and to positions of the selected content (after expansion)
  */
 export const getSelectedSlicePosition = (
@@ -84,4 +93,57 @@ export const alignAnchorHeadInDirectionOfPos = (selection: Selection, pos: numbe
 	return selection instanceof NodeSelection && Math.max(pos, selection.anchor) === selection.anchor
 		? new TextSelection(selection.$head, selection.$anchor)
 		: selection;
+};
+
+/**
+ * This maps a preserved selection through a transaction, expanding text selections to block boundaries.
+ *
+ * @param selection The existing preserved selection to map
+ * @param tr The transaction to map through
+ * @returns The mapped selection or undefined if mapping is not possible
+ */
+export const mapPreservedSelection = (
+	selection: Selection,
+	tr: ReadonlyTransaction | Transaction,
+): Selection | undefined => {
+	const { preservedSelectionMapping } = getBlockControlsMeta(tr) || {};
+
+	const mapping = preservedSelectionMapping || tr.mapping;
+
+	if (selection instanceof TextSelection) {
+		const from = mapping.map(selection.from);
+		const to = mapping.map(selection.to);
+
+		const isSelectionEmpty = from === to;
+		const wasSelectionEmpty = selection.from === selection.to;
+
+		if (isSelectionEmpty) {
+			if (!wasSelectionEmpty) {
+				// If selection has become empty i.e. content has been deleted, stop preserving
+				return undefined;
+			}
+			// When preserving a cursor selection, just map the position without expanding
+			return new TextSelection(tr.doc.resolve(from));
+		}
+
+		// expand the text selection range to block boundaries, so as document changes occur the
+		// selection always includes whole nodes
+		const expanded = expandToBlockRange(tr.doc.resolve(from), tr.doc.resolve(to));
+
+		// collapse the expanded range to a valid selection range
+		const { $from, $to } = collapseToSelectionRange(expanded.$from, expanded.$to);
+
+		// stop preserving if preserved selection becomes invalid
+		if ($from.pos < 0 || $to.pos > tr.doc.content.size || $from.pos >= $to.pos) {
+			return undefined;
+		}
+
+		return new TextSelection($from, $to);
+	}
+
+	try {
+		return selection.map(tr.doc, mapping);
+	} catch {
+		return undefined;
+	}
 };

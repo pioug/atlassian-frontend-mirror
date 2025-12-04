@@ -22,6 +22,7 @@ export const WrappedTokenValue = {
 		}
 
 		if (
+			// @ts-ignore - Node type compatibility issue with EslintNode
 			isNodeOfType(node.parent, 'Property') &&
 			isNodeOfType(node.parent.value, 'CallExpression') &&
 			isNodeOfType(node.parent.value.callee, 'Identifier') &&
@@ -37,6 +38,7 @@ export const WrappedTokenValue = {
 		return (fixer) => {
 			let wrappedTokenFix: Rule.Fix | undefined;
 			if (
+				// @ts-ignore - Node type compatibility issue with EslintNode
 				isNodeOfType(node.parent, 'Property') &&
 				isNodeOfType(node.parent.value, 'CallExpression') &&
 				node.parent.value.arguments.length >= 1

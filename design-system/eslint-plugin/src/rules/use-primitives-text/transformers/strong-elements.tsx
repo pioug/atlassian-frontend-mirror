@@ -17,6 +17,7 @@ type CheckResult = { success: boolean; autoFixable?: boolean };
 
 export const StrongElements = {
 	lint(node: Rule.Node, { context, config }: MetaData) {
+		// @ts-ignore - Node type compatibility issue with EslintNode
 		if (!isNodeOfType(node, 'JSXElement')) {
 			return;
 		}

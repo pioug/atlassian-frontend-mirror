@@ -355,8 +355,7 @@ class ExampleEditorComponent extends React.Component<EditorProps & ExampleProps,
 	private setFullWidthMode = (appearance: 'full-page' | 'full-width' | 'max') => {
 		this.setState({
 			appearance:
-				// @ts-expect-error - false is not allowed as an expected value
-				appearance === 'max' && expValEquals('editor_tinymce_full_width_mode', 'isEnabled', false)
+				appearance === 'max' && !expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
 					? 'full-width'
 					: appearance,
 		});

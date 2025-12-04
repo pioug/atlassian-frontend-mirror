@@ -3,6 +3,8 @@ import { breakoutConsts, type BreakoutConstsType } from '@atlaskit/editor-common
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { FullPagePadding } from './style';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
 declare global {
 	interface Window {
 		__RENDERER_BYPASS_BREAKOUT_SSR__?: boolean;
@@ -52,6 +54,11 @@ export function createBreakoutInlineScript(id: number, shouldSkipScript: { table
 	const flags = {
 		platform_editor_fix_media_in_renderer: fg('platform_editor_fix_media_in_renderer'),
 		platform_editor_fix_wide_media_in_renderer: fg('platform_editor_fix_wide_media_in_renderer'),
+		platform_editor_renderer_extension_width_fix: expValEquals(
+			'platform_editor_renderer_extension_width_fix',
+			'isEnabled',
+			true,
+		),
 	};
 	return `(function(window){
 if(typeof window !== 'undefined' && window.__RENDERER_BYPASS_BREAKOUT_SSR__) { return; }
@@ -134,13 +141,14 @@ function applyBreakoutAfterSSR(
 					const nodeType = node.dataset.nodeType;
 					const widthType = node.dataset.widthType;
 					const isMediaSingleWithPixelWidth = nodeType === 'mediaSingle' && widthType === 'pixel';
+					const isExtension = nodeType === 'extension' || nodeType === 'bodiedExtension';
 
 					if (
 						!mode ||
 						!WIDE_LAYOUT_MODES.includes(mode) ||
 						// skip apply width styling to mediaSingle node with pixel width to avoid image size changing
-						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-						(isMediaSingleWithPixelWidth && flags['platform_editor_fix_media_in_renderer'])
+						(isMediaSingleWithPixelWidth && flags['platform_editor_fix_media_in_renderer']) ||
+						(isExtension && flags['platform_editor_renderer_extension_width_fix'])
 					) {
 						return;
 					}

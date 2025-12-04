@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 import { defaultRegistry } from 'react-sweet-state';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider, useSmartCardContext } from '@atlaskit/link-provider';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import {
 	type DatasourceDataResponseItem,
@@ -32,6 +32,10 @@ import { type DatasourceTableViewProps } from './types';
 
 jest.mock('../../hooks/useDatasourceTableState');
 jest.mock('../issue-like-table/useIsOnScreen');
+jest.mock('@atlaskit/link-provider', () => ({
+	...jest.requireActual('@atlaskit/link-provider'),
+	useSmartCardContext: jest.fn(),
+}));
 
 const mockTableRenderUfoStart = jest.fn();
 const mockTableRenderUfoSuccess = jest.fn();
@@ -248,6 +252,11 @@ describe('DatasourceTableView', () => {
 	beforeEach(() => {
 		store.storeState.resetState();
 		jest.clearAllMocks();
+		asMock(useSmartCardContext).mockReturnValue({
+			value: {
+				shouldControlDataExport: true,
+			},
+		} as any);
 	});
 
 	it('should call IssueLikeDataTableView with right props', () => {
@@ -425,6 +434,95 @@ describe('DatasourceTableView', () => {
 
 			expect(getComputedStyle(getByTestId('issue-like-table-container')).maxHeight).toEqual(
 				'590px',
+			);
+
+			expect(IssueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
+			const issueLikeDataTableViewProps = IssueLikeDataTableViewConstructorSpy.mock
+				.calls[0][0] as IssueLikeDataTableViewProps;
+
+			expect(issueLikeDataTableViewProps).toEqual(
+				expect.objectContaining({
+					scrollableContainerHeight: 590,
+				}),
+			);
+		});
+	});
+
+	ffTest.on('lp_disable_datasource_table_max_height_restriction', '', () => {
+		it('should render IssueLikeDataTableView with undefined height when shouldControlDataExport is true and feature gate is enabled', () => {
+			store.actions.onAddItems(defaultMockResponseItems, 'jira', 'work-item');
+			const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
+				issueLikeModule,
+				'IssueLikeDataTableView',
+			);
+			setup(
+				{
+					visibleColumnKeys: ['myColumn'],
+					responseItems: defaultMockResponseItems,
+				},
+				{
+					scrollableContainerHeight: 500,
+				},
+			);
+
+			expect(IssueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
+			const issueLikeDataTableViewProps = IssueLikeDataTableViewConstructorSpy.mock
+				.calls[0][0] as IssueLikeDataTableViewProps;
+
+			expect(issueLikeDataTableViewProps).toEqual(
+				expect.objectContaining({
+					scrollableContainerHeight: undefined,
+				}),
+			);
+		});
+
+		it('should render IssueLikeDataTableView with default height when shouldControlDataExport is false and feature gate is enabled', () => {
+			store.actions.onAddItems(defaultMockResponseItems, 'jira', 'work-item');
+			// Simulate shouldControlDataExport being false
+			jest.spyOn(require('@atlaskit/link-provider'), 'useSmartCardContext').mockReturnValue({
+				value: { shouldControlDataExport: false },
+			});
+			const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
+				issueLikeModule,
+				'IssueLikeDataTableView',
+			);
+			setup(
+				{
+					visibleColumnKeys: ['myColumn'],
+					responseItems: defaultMockResponseItems,
+				},
+				{
+					scrollableContainerHeight: 500,
+				},
+			);
+
+			expect(IssueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
+			const issueLikeDataTableViewProps = IssueLikeDataTableViewConstructorSpy.mock
+				.calls[0][0] as IssueLikeDataTableViewProps;
+
+			expect(issueLikeDataTableViewProps).toEqual(
+				expect.objectContaining({
+					scrollableContainerHeight: 590,
+				}),
+			);
+		});
+	});
+
+	ffTest.off('lp_disable_datasource_table_max_height_restriction', '', () => {
+		it('should render IssueLikeDataTableView with default height when feature gate is disabled even if shouldControlDataExport is true', () => {
+			store.actions.onAddItems(defaultMockResponseItems, 'jira', 'work-item');
+			const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
+				issueLikeModule,
+				'IssueLikeDataTableView',
+			);
+			setup(
+				{
+					visibleColumnKeys: ['myColumn'],
+					responseItems: defaultMockResponseItems,
+				},
+				{
+					scrollableContainerHeight: 500,
+				},
 			);
 
 			expect(IssueLikeDataTableViewConstructorSpy).toHaveBeenCalled();

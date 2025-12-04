@@ -10,6 +10,7 @@ export type HydratedUser = {
 	id: string;
 	name: string;
 	type: 'user';
+	appType?: string | null;
 };
 
 export type HydratedTeam = {

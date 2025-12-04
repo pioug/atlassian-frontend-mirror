@@ -7,6 +7,7 @@ import { jsx } from '@emotion/react';
 import type { Dispatch, SetStateAction } from 'react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
+import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
@@ -14,6 +15,7 @@ import Icon from '@atlaskit/icon';
 import Tooltip from '@atlaskit/tooltip';
 import AnalyticsContext from '../../../../analytics/analyticsContext';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../../../analytics/enums';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const WrapIcon = () => {
 	return (
@@ -54,7 +56,7 @@ const CodeBlockWrapButton = ({
 							aria-label={wrapMessage}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={`wrap-code ${wrapLongLines ? 'clicked' : ''}`}
-							iconBefore={<Icon glyph={WrapIcon} label="" />}
+							iconBefore={fg('platform-custom-icon-migration') ? <TextWrapIcon label="" /> : <Icon glyph={WrapIcon} label="" />}
 							isSelected={wrapLongLines}
 							onClick={(event) => {
 								fireAnalyticsEvent({

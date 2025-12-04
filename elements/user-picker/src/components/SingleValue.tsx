@@ -6,7 +6,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { type Option, type OptionData } from '../types';
 import { components, type SingleValueProps } from '@atlaskit/select';
 import { SizeableAvatar } from './SizeableAvatar';
-import { getAvatarUrl, isTeam } from './utils';
+import { getAvatarUrl, isTeam, isGroup } from './utils';
 import { getAppearanceForAppType } from '@atlaskit/avatar';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
@@ -47,10 +47,10 @@ const ElementAfter = (props: Props) => {
 
 	const showIcon = shouldShowVerifiedIcon
 		? shouldShowVerifiedIcon(data)
-		: isTeam(data) && data.verified;
+		: (isTeam(data) && data.verified || isGroup(data) && data.includeTeamsUpdates);
 
 	if (showIcon) {
-		return <VerifiedTeamIcon />;
+		return <VerifiedTeamIcon size={data.includeTeamsUpdates ? 'small' : 'medium'}/>;
 	}
 
 	return null;

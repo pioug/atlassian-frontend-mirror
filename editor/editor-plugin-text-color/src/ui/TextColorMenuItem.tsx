@@ -43,7 +43,7 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps) {
 	const closeMenu = context?.closeMenu;
 
 	const handleTextColorChange = useCallback(
-		(color: string) => {
+		(color: string, event: React.MouseEvent | React.KeyboardEvent) => {
 			if (!editorView?.state || !editorView?.dispatch) {
 				return;
 			}
@@ -53,7 +53,7 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps) {
 					editorView.dispatch,
 				);
 
-				closeMenu?.();
+				closeMenu?.(event);
 			}
 		},
 		[editorView?.state, editorView?.dispatch, api?.textColor.actions, parents, closeMenu],
@@ -65,8 +65,8 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps) {
 		<Stack xcss={styles.container} testId="text-color-menu-item">
 			<Heading size="xxsmall">{formatMessage(messages.textColorTooltip)}</Heading>
 			<ColorPalette
-				onClick={(color) => {
-					handleTextColorChange(color);
+				onClick={(color, _, event) => {
+					handleTextColorChange(color, event);
 				}}
 				selectedColor={color || defaultColor}
 				paletteOptions={{

@@ -100,6 +100,7 @@ const createWithConfig: (initialConfig: RuleConfig) => Rule.RuleModule['create']
 					const importSources = getImportSources(context);
 
 					// To force the correct node type
+					// @ts-ignore - Node type compatibility issue with EslintNode
 					if (!isNodeOfType(parentNode, 'ObjectExpression')) {
 						return;
 					}
@@ -188,6 +189,7 @@ const createWithConfig: (initialConfig: RuleConfig) => Rule.RuleModule['create']
 				'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"],TaggedTemplateExpression[tag.callee.name="styled"]':
 					(node: Rule.Node) => {
 						// To force the correct node type
+						// @ts-ignore - Node type compatibility issue with EslintNode
 						if (!isNodeOfType(node, 'TaggedTemplateExpression')) {
 							return;
 						}

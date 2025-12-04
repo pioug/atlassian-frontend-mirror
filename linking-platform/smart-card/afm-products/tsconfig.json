@@ -150,6 +150,9 @@
 			"path": "../../../design-system/theme/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/tile/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../editor/tmp-editor-statsig/afm-products/tsconfig.json"
 		},
 		{

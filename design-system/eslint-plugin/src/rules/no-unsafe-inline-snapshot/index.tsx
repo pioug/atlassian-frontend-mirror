@@ -113,6 +113,7 @@ const rule = createLintRule({
 				}
 
 				// Only report if this is being called (i.e., it's part of a CallExpression)
+				// @ts-ignore - Node type compatibility issue with EslintNode
 				if (!node.parent || !isNodeOfType(node.parent, 'CallExpression')) {
 					return;
 				}

@@ -71,12 +71,12 @@ const styles = cssMap({
 		},
 	},
 	fullHeightSidebar: {
-		// We don't want start padding, because `TopNavStart` has exactly the same width as the side nav
-		// If we had padding it would be misaligned
-		paddingInlineStart: token('space.0'),
-		// We can't have end padding if there is no start padding, otherwise the top nav middle items become lopsided
-		// We need to apply the end padding inside of `TopNavEnd`
-		paddingInlineEnd: token('space.0'),
+		// We don't want start padding, because `TopNavStart` has exactly the same width as the side nav. If we had padding it would be misaligned.
+		// We can't have end padding if there is no start padding, otherwise the top nav middle items become lopsided. We need to apply the end padding inside of `TopNavEnd` instead.
+		// Avoiding use of `paddingInlineStart` and `paddingInlineEnd` separately to workaround Compiled selector ordering bugs.
+		// We can safely use them though once we clean up the non-FHS `paddingInline` style (or don't apply it when FHS is enabled)
+		paddingInline: token('space.0'),
+
 		// The background and border are now on a sibling element for layering reasons
 		backgroundColor: 'none',
 		borderBlockEnd: 'none',

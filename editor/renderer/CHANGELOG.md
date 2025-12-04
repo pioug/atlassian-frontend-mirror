@@ -1,5 +1,37 @@
 # @atlaskit/renderer
 
+## 124.17.5
+
+### Patch Changes
+
+- [`92f05802f66e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92f05802f66e6) -
+  fix extension breakout ssr issue
+- Updated dependencies
+
+## 124.17.4
+
+### Patch Changes
+
+- [`840338033507a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/840338033507a) -
+  Migrating custom icons behind feature flag.
+
+## 124.17.3
+
+### Patch Changes
+
+- [`582b3b46480e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/582b3b46480e1) -
+  NO-ISSUE Flipped false evaluations of editor_tinymce_full_width_mode from false to !true to
+  prevent them from evaluating as a null value
+- Updated dependencies
+
+## 124.17.2
+
+### Patch Changes
+
+- [`2e389ee54c1f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e389ee54c1f1) -
+  Update gates to roll out minor updates faster
+- Updated dependencies
+
 ## 124.17.1
 
 ### Patch Changes

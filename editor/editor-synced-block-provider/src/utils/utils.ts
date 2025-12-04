@@ -24,16 +24,6 @@ export const createSyncBlockNode = (
 	};
 };
 
-export const createBodiedSyncBlockNode = (
-	localId: BlockInstanceId,
-	resourceId: ResourceId,
-): SyncBlockNode => {
-	return {
-		type: 'bodiedSyncBlock',
-		attrs: { localId, resourceId },
-	};
-};
-
 export const convertSyncBlockJSONNodeToSyncBlockNode = (
 	node: JSONNode,
 ): SyncBlockNode | undefined => {

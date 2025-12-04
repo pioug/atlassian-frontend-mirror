@@ -60,6 +60,10 @@ export {
 	iconAtlas,
 	iconBitbucket,
 	iconGoogleDrive,
+	iconFigma,
+	iconDropbox,
+	iconOneDrive,
+	iconSlack,
 	iconTrello,
 } from './images';
 

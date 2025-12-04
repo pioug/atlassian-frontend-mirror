@@ -38,7 +38,7 @@ export const RemoveColorMenuItem = ({ api, parents }: RemoveColorMenuItemButtonP
 	const context = useToolbarDropdownMenu();
 	const closeMenu = context?.closeMenu;
 
-	const onClick = () => {
+	const onClick = (event: React.MouseEvent) => {
 		if (!api) {
 			return;
 		}
@@ -62,7 +62,7 @@ export const RemoveColorMenuItem = ({ api, parents }: RemoveColorMenuItemButtonP
 			return tr;
 		});
 
-		closeMenu?.();
+		closeMenu?.(event);
 	};
 
 	return (

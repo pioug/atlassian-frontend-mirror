@@ -16,10 +16,12 @@ function isImportDeclaration(node: any): node is ImportDeclaration {
 
 export const JSXElement = {
 	lint(node: Rule.Node, { context }: MetaData) {
+		// @ts-ignore - Node type compatibility issue with EslintNode
 		if (!isSupportedForLint(node)) {
 			return;
 		}
 
+		// @ts-ignore - Node type compatibility issue with EslintNode
 		const nodeName = ast.JSXElement.getName(node);
 		const sourceCode = getSourceCode(context);
 		const importDeclarations = sourceCode.ast.body.filter(isImportDeclaration);

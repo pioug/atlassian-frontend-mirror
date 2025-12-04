@@ -140,6 +140,15 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		});
 	}
 
+	createNodeData(
+		data: SyncBlockData,
+	): Promise<WriteSyncBlockResult> {
+		return this.writeProvider.createData(data).then(
+			(result) => result,
+			(error) => ({ error })
+		)
+	}
+
 	/**
 	 * Delete the data from the write provider
 	 *

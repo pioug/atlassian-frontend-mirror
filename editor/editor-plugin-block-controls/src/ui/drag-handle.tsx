@@ -515,6 +515,9 @@ export const DragHandle = ({
 
 				const resolvedStartPos = tr.doc.resolve(startPos);
 
+				const selection =
+					selectionPreservationPluginKey.getState(view.state)?.preservedSelection || tr.selection;
+
 				api?.analytics?.actions.attachAnalyticsEvent({
 					eventType: EVENT_TYPE.UI,
 					action: ACTION.CLICKED,
@@ -525,9 +528,6 @@ export const DragHandle = ({
 						nodeType: resolvedStartPos.nodeAfter?.type.name || '',
 					},
 				})(tr);
-
-				const selection =
-					selectionPreservationPluginKey.getState(view.state)?.preservedSelection || tr.selection;
 
 				const range = getExpandedSelectionRange({
 					doc: tr.doc,

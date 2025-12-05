@@ -2,8 +2,6 @@ import React, { useMemo } from 'react';
 import type { EmojiProvider } from '../api/EmojiResource';
 import { EmojiContextProvider } from './EmojiContextProvider';
 
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 export interface EmojiCommonProviderProps {
 	/**
 	 * emojiProvider is an instance of a class that implements an EmojiProvider interface (e.g. instance of the EmojiResource)
@@ -34,21 +32,9 @@ export const EmojiCommonProvider = (
 		[props.emojiProvider],
 	);
 
-	if (!!emojiContextValue && expValEquals('cc_complexit_fe_emoji_stability', 'isEnabled', true)) {
+	if (!!emojiContextValue) {
 		return (
 			<EmojiContextProvider emojiContextValue={emojiContextValue}>
-				{props.children}
-			</EmojiContextProvider>
-		);
-	} else if (props.emojiProvider) {
-		return (
-			<EmojiContextProvider
-				emojiContextValue={{
-					emoji: {
-						emojiProvider: props.emojiProvider,
-					},
-				}}
-			>
 				{props.children}
 			</EmojiContextProvider>
 		);

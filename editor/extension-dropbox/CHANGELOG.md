@@ -1,5 +1,12 @@
 # @atlaskit/editor-extension-dropbox
 
+## 4.0.6
+
+### Patch Changes
+
+- [`e17d0ffc75cdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e17d0ffc75cdd) -
+  Migrating custom icons behind feature flag.
+
 ## 4.0.5
 
 ### Patch Changes

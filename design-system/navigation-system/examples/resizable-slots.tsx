@@ -129,6 +129,7 @@ function ControlledStatePopupSelect() {
 			target={({ isOpen, ...triggerProps }) => (
 				<Button
 					{...triggerProps}
+					isSelected={isOpen}
 					iconAfter={(iconProps) => <ChevronDownIcon {...iconProps} size="small" />}
 				>
 					Controlled popup select
@@ -201,7 +202,7 @@ export function ResizableSlots() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	return (
-		<Root>
+		<Root isSideNavShortcutEnabled>
 			<TopNav>
 				<TopNavStart
 					sideNavToggleButton={
@@ -331,6 +332,7 @@ export function ResizableSlots() {
 							target={({ isOpen, ...triggerProps }) => (
 								<Button
 									{...triggerProps}
+									isSelected={isOpen}
 									iconAfter={(iconProps) => <ChevronDownIcon {...iconProps} size="small" />}
 								>
 									Uncontrolled popup select

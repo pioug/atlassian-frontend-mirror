@@ -169,10 +169,15 @@ export const deleteSelectedRange = (tr: Transaction): Transaction => {
  *
  * @param $from The resolved start position
  * @param $to The resolved end position
+ * @param predicate A predicate to determine if parent node is acceptable (see prosemirror-model/blockRange)
  * @returns An object containing the expanded $from and $to resolved positions
  */
-export const expandToBlockRange = ($from: ResolvedPos, $to: ResolvedPos) => {
-	const range = $from.blockRange($to);
+export const expandToBlockRange = (
+	$from: ResolvedPos,
+	$to: ResolvedPos,
+	predicate?: (node: PMNode) => boolean,
+) => {
+	const range = $from.blockRange($to, predicate);
 
 	if (!range) {
 		return { $from, $to };

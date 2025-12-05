@@ -16,7 +16,6 @@ function isImportDeclaration(node: any): node is ImportDeclaration {
 
 export const JSXElement = {
 	lint(node: Rule.Node, { context }: MetaData) {
-		// @ts-ignore - Node type compatibility issue with EslintNode
 		if (!isSupportedForLint(node)) {
 			return;
 		}

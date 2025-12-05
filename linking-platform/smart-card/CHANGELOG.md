@@ -1,5 +1,16 @@
 # @atlaskit/smart-card
 
+## 43.14.0
+
+### Minor Changes
+
+- [`41ae66a1304ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41ae66a1304ba) -
+  Rename data-iframe-loaded to data-test-iframe-loaded to avoid it to be tagged by VC observer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 43.13.0
 
 ### Minor Changes

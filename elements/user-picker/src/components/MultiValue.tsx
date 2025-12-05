@@ -130,7 +130,7 @@ export class MultiValue extends React.Component<Props> {
 			data: { data },
 		} = this.props;
 		if ((isGroup(data) && data.includeTeamsUpdates) || (isTeam(data) && data.verified)) {
-			return <VerifiedTeamIcon size={data.includeTeamsUpdates ? 'small' : 'medium'}/>;
+			return <VerifiedTeamIcon size={data.includeTeamsUpdates ? 'small' : 'medium'} />;
 		}
 		return null;
 	};

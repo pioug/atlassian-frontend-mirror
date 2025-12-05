@@ -253,7 +253,7 @@ export const extractMetaTenantId = (meta: JsonLd.Meta.BaseMeta): string | undefi
 	meta.tenantId;
 
 export const extractHostName = (response?: SmartLinkResponse): string | undefined => {
-	try{
+	try {
 		const url = extractSmartLinkUrl(response);
 		const hostName = url ? new URL(url).hostname : undefined;
 		return hostName;

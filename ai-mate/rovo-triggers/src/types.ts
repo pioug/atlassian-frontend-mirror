@@ -336,6 +336,15 @@ export type DashboardInsightsActionsPayloadData =
 
 export type SetChatContextPayload = PayloadCore<'set-message-context', ChatContextPayload>;
 
+export type OpenChatDebugModalPayload = PayloadCore<'open-chat-debug-modal'>;
+
+export type OpenChatFeedbackModalPayload = PayloadCore<
+	'open-chat-feedback-modal',
+	{
+		answerQuality: 'good' | 'bad' | 'general';
+	}
+>;
+
 export type Payload =
 	| MessageSendPayload
 	| ChatClosePayload
@@ -357,6 +366,8 @@ export type Payload =
 	| SetChatContextPayload
 	| InsertUrlsPayload
 	| GenericExternalActionErrorPayload
+	| OpenChatDebugModalPayload
+	| OpenChatFeedbackModalPayload
 	| JsmJourneyBuilderActionsPayload
 	| SolutionArchitectHandoffPayload
 	| SolutionPlanStateUpdatePayload

@@ -46,9 +46,7 @@ describe('UnauthorisedViewContent', () => {
 	});
 
 	it('should capture and report a11y violations', async () => {
-		const { container } = render(
-			<TestComponent providerName="Google" />,
-		);
+		const { container } = render(<TestComponent providerName="Google" />);
 		await expect(container).toBeAccessible();
 	});
 
@@ -124,12 +122,7 @@ describe('UnauthorisedViewContent', () => {
 		describe('when isProductIntegrationSupported is true', () => {
 			it('shows standard learn more text when feature flag is OFF', () => {
 				mockFg.mockReturnValue(false);
-				render(
-					<TestComponent
-						providerName="Google"
-						isProductIntegrationSupported={true}
-					/>,
-				);
+				render(<TestComponent providerName="Google" isProductIntegrationSupported={true} />);
 
 				const learnMoreLink = screen.getByTestId('unauthorised-view-content-learn-more');
 				expect(learnMoreLink).toHaveTextContent(
@@ -139,12 +132,7 @@ describe('UnauthorisedViewContent', () => {
 
 			it('shows appify learn more text when feature flag is ON', () => {
 				mockFg.mockReturnValue(true);
-				render(
-					<TestComponent
-						providerName="Google"
-						isProductIntegrationSupported={true}
-					/>,
-				);
+				render(<TestComponent providerName="Google" isProductIntegrationSupported={true} />);
 
 				const learnMoreLink = screen.getByTestId('unauthorised-view-content-learn-more');
 				expect(learnMoreLink).toHaveTextContent(
@@ -156,12 +144,7 @@ describe('UnauthorisedViewContent', () => {
 		describe('when isProductIntegrationSupported is false', () => {
 			it('shows standard learn more text regardless of feature flag state', () => {
 				mockFg.mockReturnValue(false);
-				render(
-					<TestComponent
-						providerName="Google"
-						isProductIntegrationSupported={false}
-					/>,
-				);
+				render(<TestComponent providerName="Google" isProductIntegrationSupported={false} />);
 
 				const learnMoreLink = screen.getByTestId('unauthorised-view-content-learn-more');
 				expect(learnMoreLink).toHaveTextContent('Learn more about Smart Links.');

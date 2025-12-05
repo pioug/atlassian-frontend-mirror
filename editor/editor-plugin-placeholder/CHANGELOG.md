@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 6.6.0
+
+### Minor Changes
+
+- [`a3a576969a12c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3a576969a12c) -
+  [No-issue] placeholder plugin tidying
+
 ## 6.5.4
 
 ### Patch Changes

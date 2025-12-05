@@ -10,7 +10,6 @@ import { CONTENT_URL_3P_ACCOUNT_AUTH, CONTENT_URL_SECURITY_AND_PERMISSIONS } fro
 import { messages } from '../../messages';
 import { isNewBlockcardUnauthorizedRefreshExperimentEnabled } from '../../utils/experiments';
 
-
 type UnauthorisedViewContentProps = {
 	/**
 	 * If `true`, display an alternative message which prompts user to connect all
@@ -48,17 +47,16 @@ const UnauthorisedViewContent = ({
 	}, [fireEvent]);
 
 	const learnMoreMessage = isProductIntegrationSupported
-	? fg('product-terminology-refresh')
-		? messages.learn_more_about_connecting_account_appify
-		: messages.learn_more_about_connecting_account
-	: messages.learn_more_about_smart_links;
-
+		? fg('product-terminology-refresh')
+			? messages.learn_more_about_connecting_account_appify
+			: messages.learn_more_about_connecting_account
+		: messages.learn_more_about_smart_links;
 
 	const unauthorizedAccountDescriptionMessage = isNewBlockcardUnauthorizedRefreshExperimentEnabled()
-	? messages.learn_more_about_connecting_account_experiment_shorter : (
-		fg('product-terminology-refresh')
+		? messages.learn_more_about_connecting_account_experiment_shorter
+		: fg('product-terminology-refresh')
 			? messages.connect_unauthorised_account_description_appify
-			: messages.connect_unauthorised_account_description);
+			: messages.connect_unauthorised_account_description;
 
 	return (
 		<>
@@ -73,7 +71,8 @@ const UnauthorisedViewContent = ({
 						? messages.connect_unauthorised_account_description_no_provider_appify
 						: messages.connect_unauthorised_account_description_no_provider)}
 				/>
-			)}{isNewBlockcardUnauthorizedRefreshExperimentEnabled() ? <br/> : ' '}
+			)}
+			{isNewBlockcardUnauthorizedRefreshExperimentEnabled() ? <br /> : ' '}
 			<Anchor
 				href={
 					isProductIntegrationSupported

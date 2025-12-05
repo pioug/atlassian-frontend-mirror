@@ -8,7 +8,6 @@ interface MetaData {
 }
 
 export const JSXElement = {
-	// @ts-ignore - Node type compatibility issue with EslintNode
 	lint(node: Rule.Node, { context }: MetaData) {
 		if (!isSupportedForLint(node)) {
 			return;
@@ -18,7 +17,6 @@ export const JSXElement = {
 			node: node.openingElement,
 			messageId: 'noHtmlButton',
 			data: {
-				// @ts-ignore - Node type compatibility issue with EslintNode
 				name: ast.JSXElement.getName(node),
 			},
 		});

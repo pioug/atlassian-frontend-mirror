@@ -64,7 +64,7 @@ type TextPropsBase<T extends ElementType = 'span'> = {
 	/**
 	 * Bounded style overrides.
 	 */
-	xcss?: StrictXCSSProp<'overflowWrap' | 'textDecorationLine', never>;
+	xcss?: StrictXCSSProp<'overflowWrap' | 'textDecorationLine' | 'fontVariantNumeric', never>;
 	/**
 	 * Forwarded ref.
 	 */

@@ -1,5 +1,13 @@
 # @atlaskit/dropdown-menu
 
+## 16.3.22
+
+### Patch Changes
+
+- [`3ab827e6c6df2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ab827e6c6df2) -
+  Changing internal use of SVG icons behind a feature flag.
+- Updated dependencies
+
 ## 16.3.21
 
 ### Patch Changes

@@ -12,6 +12,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
+import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { useHasCustomTheme } from '../themed/has-custom-theme-context';
 
 import { LogoRenderer } from './logo-renderer';
@@ -80,6 +81,10 @@ const sharedIconOrLogoContainerStyles = cssMap({
 	},
 	appIconTilePaddingFlagged: {
 		paddingInline: token('space.050'),
+	},
+	withFullHeightSidebar: {
+		maxWidth: '100%',
+		minWidth: 24,
 	},
 });
 
@@ -206,6 +211,8 @@ export const CustomLogo = ({
 
 	const hasCustomTheme = useHasCustomTheme();
 
+	const isFhsEnabled = useIsFhsEnabled();
+
 	return (
 		<Anchor
 			ref={ref}
@@ -229,6 +236,7 @@ export const CustomLogo = ({
 					iconContainerStyles.root,
 					fg('platform-team25-app-icon-tiles') &&
 						sharedIconOrLogoContainerStyles.appIconTilePaddingFlagged,
+					isFhsEnabled && sharedIconOrLogoContainerStyles.withFullHeightSidebar,
 				]}
 			>
 				<LogoRenderer logoOrIcon={icon} />
@@ -239,6 +247,7 @@ export const CustomLogo = ({
 					logoContainerStyles.root,
 					fg('platform-team25-app-icon-tiles') &&
 						sharedIconOrLogoContainerStyles.appIconTilePaddingFlagged,
+					isFhsEnabled && sharedIconOrLogoContainerStyles.withFullHeightSidebar,
 				]}
 			>
 				<LogoRenderer logoOrIcon={logo} />

@@ -1,5 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { getActiveInteraction } from '../../interaction-metrics';
+
 import EntriesTimeline from './entries-timeline';
 import * as getElementNameModule from './get-element-name';
 import VCCalculator_FY25_03 from './metric-calculator/fy25_03';
@@ -18,6 +20,7 @@ jest.mock('./metric-calculator/fy25_03');
 jest.mock('./metric-calculator/vcnext');
 jest.mock('./get-element-name');
 jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('../../interaction-metrics');
 jest.mock('../vc-observer/observers/ssr-placeholders');
 
 describe('VCObserverNew', () => {
@@ -33,9 +36,12 @@ describe('VCObserverNew', () => {
 		jest.clearAllMocks();
 
 		// Default feature flag mock
-		(fg as jest.Mock).mockImplementation((flag: string) => {
+		(fg as jest.Mock).mockImplementation((_flag: string) => {
 			return false;
 		});
+
+		// Default getActiveInteraction mock
+		(getActiveInteraction as jest.Mock).mockReturnValue(undefined);
 
 		// Save and clear window.__SSR_ABORT_LISTENERS__ if it exists
 		originalSsrAbortListeners = window.__SSR_ABORT_LISTENERS__;
@@ -233,7 +239,179 @@ describe('VCObserverNew', () => {
 				},
 			});
 		});
+
+		describe('platform_ufo_keypress_interaction_abort feature flag', () => {
+			it('should not add keydown events to timeline when flag is enabled and active interaction is press', () => {
+				(fg as jest.Mock).mockImplementation((flag: string) => {
+					return flag === 'platform_ufo_keypress_interaction_abort';
+				});
+				(getActiveInteraction as jest.Mock).mockReturnValue({
+					type: 'press',
+					ufoName: 'test-press-interaction',
+				});
+
+				// Create a new observer instance to get fresh callback
+				new VCObserverNew({});
+				const onEventCallback = (WindowEventObserver as jest.Mock).mock.calls[
+					(WindowEventObserver as jest.Mock).mock.calls.length - 1
+				][0].onEvent;
+
+				// Clear previous calls
+				mockEntriesTimeline.push.mockClear();
+
+				onEventCallback({
+					time: 100,
+					type: 'keydown',
+				});
+
+				// Should not add keydown event to timeline when press interaction is active
+				expect(mockEntriesTimeline.push).not.toHaveBeenCalled();
+			});
+
+			it('should add keydown events to timeline when flag is enabled but active interaction is not press', () => {
+				(fg as jest.Mock).mockImplementation((flag: string) => {
+					return flag === 'platform_ufo_keypress_interaction_abort';
+				});
+				(getActiveInteraction as jest.Mock).mockReturnValue({
+					type: 'page_load',
+					ufoName: 'test-page-load',
+				});
+
+				// Create a new observer instance to get fresh callback
+				new VCObserverNew({});
+				const onEventCallback = (WindowEventObserver as jest.Mock).mock.calls[
+					(WindowEventObserver as jest.Mock).mock.calls.length - 1
+				][0].onEvent;
+
+				// Clear previous calls
+				mockEntriesTimeline.push.mockClear();
+
+				onEventCallback({
+					time: 100,
+					type: 'keydown',
+				});
+
+				// Should add keydown event to timeline when interaction is not press
+				expect(mockEntriesTimeline.push).toHaveBeenCalledWith({
+					time: 100,
+					data: {
+						type: 'window:event',
+						eventType: 'keydown',
+					},
+				});
+			});
+
+			it('should add keydown events to timeline when flag is disabled', () => {
+				(fg as jest.Mock).mockReturnValue(false);
+				(getActiveInteraction as jest.Mock).mockReturnValue({
+					type: 'press',
+					ufoName: 'test-press-interaction',
+				});
+
+				// Create a new observer instance to get fresh callback
+				new VCObserverNew({});
+				const onEventCallback = (WindowEventObserver as jest.Mock).mock.calls[
+					(WindowEventObserver as jest.Mock).mock.calls.length - 1
+				][0].onEvent;
+
+				// Clear previous calls
+				mockEntriesTimeline.push.mockClear();
+
+				onEventCallback({
+					time: 100,
+					type: 'keydown',
+				});
+
+				// Should add keydown event to timeline when flag is disabled
+				expect(mockEntriesTimeline.push).toHaveBeenCalledWith({
+					time: 100,
+					data: {
+						type: 'window:event',
+						eventType: 'keydown',
+					},
+				});
+			});
+
+			it('should add keydown events to timeline when flag is enabled but no active interaction exists', () => {
+				(fg as jest.Mock).mockImplementation((flag: string) => {
+					return flag === 'platform_ufo_keypress_interaction_abort';
+				});
+				(getActiveInteraction as jest.Mock).mockReturnValue(undefined);
+
+				// Create a new observer instance to get fresh callback
+				new VCObserverNew({});
+				const onEventCallback = (WindowEventObserver as jest.Mock).mock.calls[
+					(WindowEventObserver as jest.Mock).mock.calls.length - 1
+				][0].onEvent;
+
+				// Clear previous calls
+				mockEntriesTimeline.push.mockClear();
+
+				onEventCallback({
+					time: 100,
+					type: 'keydown',
+				});
+
+				// Should add keydown event to timeline when no active interaction exists
+				expect(mockEntriesTimeline.push).toHaveBeenCalledWith({
+					time: 100,
+					data: {
+						type: 'window:event',
+						eventType: 'keydown',
+					},
+				});
+			});
+
+			it('should add non-keydown events to timeline regardless of flag and interaction type', () => {
+				(fg as jest.Mock).mockImplementation((flag: string) => {
+					return flag === 'platform_ufo_keypress_interaction_abort';
+				});
+				(getActiveInteraction as jest.Mock).mockReturnValue({
+					type: 'press',
+					ufoName: 'test-press-interaction',
+				});
+
+				// Create a new observer instance to get fresh callback
+				new VCObserverNew({});
+				const onEventCallback = (WindowEventObserver as jest.Mock).mock.calls[
+					(WindowEventObserver as jest.Mock).mock.calls.length - 1
+				][0].onEvent;
+
+				// Clear previous calls
+				mockEntriesTimeline.push.mockClear();
+
+				// Test other event types (wheel, resize, scroll)
+				onEventCallback({
+					time: 100,
+					type: 'wheel',
+				});
+
+				expect(mockEntriesTimeline.push).toHaveBeenCalledWith({
+					time: 100,
+					data: {
+						type: 'window:event',
+						eventType: 'wheel',
+					},
+				});
+
+				mockEntriesTimeline.push.mockClear();
+
+				onEventCallback({
+					time: 200,
+					type: 'resize',
+				});
+
+				expect(mockEntriesTimeline.push).toHaveBeenCalledWith({
+					time: 200,
+					data: {
+						type: 'window:event',
+						eventType: 'resize',
+					},
+				});
+			});
+		});
 	});
+
 
 	describe('getVCResult', () => {
 		it('should calculate and return VC results', async () => {

@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
-import { useSmartCardContext } from '@atlaskit/link-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../../analytics';
@@ -23,6 +22,7 @@ import {
 } from '../../contexts/datasource-experience-id';
 import { useDatasourceTableState } from '../../hooks/useDatasourceTableState';
 import { useDeepEffect } from '../../hooks/useDeepEffect';
+import { useIsInPDFRender } from '../../hooks/useIsInPDFRender';
 import i18nEN from '../../i18n/en';
 import { StoreContainer } from '../../state';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
@@ -76,13 +76,10 @@ const DatasourceTableViewWithoutAnalytics = ({
 	});
 
 	// eslint-disable-next-line react-hooks/rules-of-hooks
-	const smartCardContext = fg('lp_disable_datasource_table_max_height_restriction')
+	const isInPDFRender = fg('lp_disable_datasource_table_max_height_restriction')
 		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useSmartCardContext()
-		: undefined;
-	const shouldNotRestrictHeight =
-		smartCardContext?.value?.shouldControlDataExport &&
-		fg('lp_disable_datasource_table_max_height_restriction');
+			useIsInPDFRender()
+		: false;
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 	const experienceId = useDatasourceExperienceId();
 
@@ -232,7 +229,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 						wrappedColumnKeys={wrappedColumnKeys}
 						onWrappedColumnChange={onWrappedColumnChange}
 						scrollableContainerHeight={
-							shouldNotRestrictHeight
+							isInPDFRender
 								? undefined
 								: fg('lp_enable_datasource-table-view_height_override')
 									? scrollableContainerHeight

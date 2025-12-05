@@ -573,9 +573,9 @@ const blockCardWithoutLayout = css({
 
 const nextAnchorSelector = [
 	'&[data-node-anchor]', // adjacent sibling with anchor
-	'&:not([data-node-anchor]) [data-node-anchor]', // nested anchor inside adjacent sibling
+	'&:not([data-node-anchor]) [data-node-anchor]:first-of-type', // first nested anchor inside adjacent sibling
 	'&.ProseMirror-widget + [data-node-anchor]', // adjacent sibling with anchor (when next to a widget like gap cursor)
-	'&.ProseMirror-widget + :not([data-node-anchor]) [data-node-anchor]', // nested anchor inside adjacent sibling (when next to a widget like gap cursor)
+	'&.ProseMirror-widget + :not([data-node-anchor]) [data-node-anchor]:first-of-type', // first nested anchor inside adjacent sibling (when next to a widget like gap cursor)
 ].join(', ');
 
 const dragHandlerAnchorStyles = css({

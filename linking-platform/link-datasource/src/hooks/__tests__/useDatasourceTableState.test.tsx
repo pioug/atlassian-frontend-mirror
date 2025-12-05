@@ -12,15 +12,17 @@ import {
 	mockDatasourceDetailsResponse,
 	useDatasourceClientExtension,
 } from '@atlaskit/link-client-extension';
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import { CardClient, SmartCardProvider, useSmartCardContext } from '@atlaskit/link-provider';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { captureException } from '@atlaskit/linking-common/sentry';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../analytics';
 import { Store } from '../../state';
 import {
 	type DatasourceTableStateProps,
+	INCREASED_DATASOURCE_DATA_PAGE_SIZE,
 	useDatasourceTableState,
 } from '../useDatasourceTableState';
 
@@ -40,6 +42,14 @@ jest.mock('@atlaskit/link-client-extension', () => {
 	return {
 		...originalModule,
 		useDatasourceClientExtension: jest.fn(),
+	};
+});
+
+jest.mock('@atlaskit/link-provider', () => {
+	const originalModule = jest.requireActual('@atlaskit/link-provider');
+	return {
+		...originalModule,
+		useSmartCardContext: jest.fn(),
 	};
 });
 
@@ -90,6 +100,11 @@ describe('useDatasourceTableState', () => {
 		getDatasourceDetails = jest.fn().mockResolvedValue(mockDatasourceDetailsResponse);
 		getDatasourceData = jest.fn().mockResolvedValue(mockDatasourceDataResponse);
 		getDatasourceActionsAndPermissions = jest.fn().mockResolvedValue(mockActionsDiscoveryResponse);
+		asMock(useSmartCardContext).mockReturnValue({
+			value: {
+				shouldControlDataExport: true,
+			},
+		} as any);
 	});
 
 	afterEach(() => {
@@ -397,6 +412,55 @@ describe('useDatasourceTableState', () => {
 			await waitForNextUpdate();
 
 			expect(onAnalyticFireEvent).not.toHaveBeenCalledWith();
+		});
+
+		ffTest.off('lp_disable_datasource_table_max_height_restriction', '', () => {
+			it('should use default page size when feature flag is off', async () => {
+				const { waitForNextUpdate } = setup();
+				await waitForNextUpdate();
+
+				expect(getDatasourceData).toHaveBeenCalledWith(
+					mockDatasourceId,
+					expect.objectContaining({
+						pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
+					}),
+					false,
+				);
+			});
+		});
+
+		ffTest.on('lp_disable_datasource_table_max_height_restriction', '', () => {
+			it('should use increased page size when feature flag is on and shouldControlDataExport is true', async () => {
+				const { waitForNextUpdate } = setup();
+				await waitForNextUpdate();
+
+				expect(getDatasourceData).toHaveBeenCalledWith(
+					mockDatasourceId,
+					expect.objectContaining({
+						pageSize: INCREASED_DATASOURCE_DATA_PAGE_SIZE,
+					}),
+					false,
+				);
+			});
+
+			it('should use default page size when feature flag is on but shouldControlDataExport is false', async () => {
+				asMock(useSmartCardContext).mockReturnValue({
+					value: {
+						shouldControlDataExport: false,
+					},
+				} as any);
+
+				const { waitForNextUpdate } = setup();
+				await waitForNextUpdate();
+
+				expect(getDatasourceData).toHaveBeenCalledWith(
+					mockDatasourceId,
+					expect.objectContaining({
+						pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
+					}),
+					false,
+				);
+			});
 		});
 	});
 

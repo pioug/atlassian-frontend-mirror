@@ -1,5 +1,15 @@
 # @atlassian/navigation-system
 
+## 5.10.1
+
+### Patch Changes
+
+- [`93424152b59ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93424152b59ea) -
+  Fixes custom logo resizing when full height sidebar is enabled.
+- [`4ee53513e11a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ee53513e11a1) -
+  Open layers (excluding modals) will now be closed when using the side nav toggle keyboard
+  shortcut. This change only affects when the full height sidebar is enabled.
+
 ## 5.10.0
 
 ### Minor Changes

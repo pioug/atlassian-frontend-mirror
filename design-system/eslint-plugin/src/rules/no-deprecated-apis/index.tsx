@@ -24,13 +24,11 @@ const isImportDeclaration = (
 };
 
 const findJSXElementName = (jsxAttributeNode: Rule.Node): string | undefined => {
-	// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 	if (!jsxAttributeNode.parent || !isNodeOfType(jsxAttributeNode?.parent, 'JSXOpeningElement')) {
 		return;
 	}
 
 	const openingElement = jsxAttributeNode.parent as JSXOpeningElement;
-	// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 	if (!isNodeOfType(openingElement.name, 'JSXIdentifier')) {
 		return;
 	}
@@ -92,7 +90,6 @@ const rule = createLintRule({
 		return {
 			// find JSX attribute - find name of attribute - get source and find relevant identifiers.
 			JSXAttribute(node: Rule.Node) {
-				// @ts-ignore - Node type compatibility issue with EslintNode
 				if (!isNodeOfType(node, 'JSXAttribute') || !isNodeOfType(node.name, 'JSXIdentifier')) {
 					return;
 				}

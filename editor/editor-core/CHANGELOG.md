@@ -1,5 +1,35 @@
 # @atlaskit/editor-core
 
+## 215.18.2
+
+### Patch Changes
+
+- [`86198f6d5ed77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/86198f6d5ed77) -
+  NOISSUE: upgrade libra examples to use React 18 apis
+- Updated dependencies
+
+## 215.18.1
+
+### Patch Changes
+
+- [`a24253b5a6d68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a24253b5a6d68) -
+  [ux] [A11Y-25850] update the outer box shadow color for find and replace matches to comply with
+  color contrast minimum ratio
+- Updated dependencies
+
+## 215.18.0
+
+### Minor Changes
+
+- [`a36ac8c9961b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a36ac8c9961b1) -
+  [ux] [EDITOR-2608] updated show diff deleted block nodes design
+
+### Patch Changes
+
+- [`f3bc89931d4a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3bc89931d4a2) -
+  Added a example page in editor-core with basic text formatting and media plugin only
+- Updated dependencies
+
 ## 215.17.4
 
 ### Patch Changes

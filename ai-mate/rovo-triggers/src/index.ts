@@ -22,6 +22,8 @@ export type {
 	JiraWorkflowWizardAction,
 	DashboardInsightsActionsPayload,
 	DashboardInsightsActionsPayloadData,
+	OpenChatDebugModalPayload,
+	OpenChatFeedbackModalPayload,
 } from './types';
 export type {
 	SolutionArchitectHandoffPayload,

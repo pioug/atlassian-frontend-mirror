@@ -2,10 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useEffect } from 'react';
+import React, { type CSSProperties, useEffect } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
@@ -21,16 +21,17 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSmallZIndex } from '@atlaskit/editor-shared-styles';
 import ExpandIcon from '@atlaskit/icon/core/migration/chevron-down';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { toggleContextualMenu } from '../../pm-plugins/commands';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
+import { isAnchorSupported } from '../../pm-plugins/utils/anchor';
 import { TableCssClassName as ClassName } from '../../types';
 
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import FixedButton from './FixedButton';
 import { tableFloatingCellButtonSelectedStyles, tableFloatingCellButtonStyles } from './styles';
-
 export interface Props {
 	boundariesElement?: HTMLElement;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
@@ -47,6 +48,17 @@ export interface Props {
 }
 
 const BUTTON_OFFSET = 3;
+const CONTEXTUAL_MENU_BUTTON_Z_INDEX = 2;
+
+const anchorStyles = css({
+	position: 'absolute',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+	top: `calc(anchor(top) + ${BUTTON_OFFSET}px)`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+	right: `calc(anchor(right) + ${BUTTON_OFFSET}px)`,
+	positionVisibility: 'anchors-visible',
+	zIndex: CONTEXTUAL_MENU_BUTTON_Z_INDEX,
+});
 
 const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponentProps) => {
 	const {
@@ -115,6 +127,31 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 
 	const parentSticky =
 		targetCellRef.parentElement && targetCellRef.parentElement.className.indexOf('sticky') > -1;
+
+	if (
+		expValEquals(
+			'platform_editor_table_sticky_header_improvements',
+			'cohort',
+			'test_with_overflow',
+		) &&
+		isAnchorSupported() &&
+		targetCellRef.nodeName === 'TH'
+	) {
+		const anchorName = targetCellRef.dataset.nodeAnchor ?? '';
+		return (
+			<div
+				css={anchorStyles}
+				style={
+					{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+						positionAnchor: anchorName,
+					} as CSSProperties
+				} // need to do this because CSSProperties doesn't have positionAnchor property even though it's a valid CSS property
+			>
+				{button}
+			</div>
+		);
+	}
 	if (stickyHeader && parentSticky && tableWrapper) {
 		return (
 			<FixedButton

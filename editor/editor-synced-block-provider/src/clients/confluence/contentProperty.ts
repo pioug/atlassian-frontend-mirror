@@ -1,4 +1,5 @@
 import type { SyncBlockData } from '../../common/types';
+import { fetchWithRetry } from '../../utils/retry';
 
 import { getConfluencePageAri, type PAGE_TYPE } from './ari';
 import { isBlogPageType } from './utils';
@@ -312,7 +313,7 @@ export const getContentProperty = async <
 		},
 	};
 
-	const response = await fetch(GRAPHQL_ENDPOINT, {
+	const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
 		method: 'POST',
 		headers: { ...COMMON_HEADERS, ...AGG_HEADERS },
 		body: JSON.stringify(bodyData),
@@ -394,7 +395,7 @@ export const createContentProperty = async <
 		},
 	};
 
-	const response = await fetch(GRAPHQL_ENDPOINT, {
+	const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
 		method: 'POST',
 		headers: { ...COMMON_HEADERS, ...AGG_HEADERS },
 		body: JSON.stringify(bodyData),
@@ -428,7 +429,7 @@ export const deleteContentProperty = async <
 		},
 	};
 
-	const response = await fetch(GRAPHQL_ENDPOINT, {
+	const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
 		method: 'POST',
 		headers: { ...COMMON_HEADERS, ...AGG_HEADERS },
 		body: JSON.stringify(bodyData),

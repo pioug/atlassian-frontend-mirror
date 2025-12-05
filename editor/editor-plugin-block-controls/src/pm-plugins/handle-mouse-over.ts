@@ -41,7 +41,9 @@ const getNodeSelector = (ignoreNodes: string[], ignoreNodeDescendants: string[])
 			// Special case for table to exclude its direct descendants
 			return [
 				`[data-prosemirror-node-name="tableCell"] > [data-node-anchor]`,
+				`[data-prosemirror-node-name="tableCell"] > *:not([data-node-anchor]) > [data-node-anchor]`,
 				`[data-prosemirror-node-name="tableHeader"] > [data-node-anchor]`,
+				`[data-prosemirror-node-name="tableHeader"] > *:not([data-node-anchor]) > [data-node-anchor]`,
 			];
 		}
 		return `[data-prosemirror-node-name="${node}"] [data-node-anchor]`;

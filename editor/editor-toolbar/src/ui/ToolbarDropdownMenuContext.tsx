@@ -1,6 +1,9 @@
 import React, {
-	createContext, useContext, useState,
-	type KeyboardEvent, type MouseEvent,
+	createContext,
+	useContext,
+	useState,
+	type KeyboardEvent,
+	type MouseEvent,
 } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';

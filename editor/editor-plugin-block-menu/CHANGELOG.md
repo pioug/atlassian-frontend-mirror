@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.1.7
+
+### Patch Changes
+
+- [`65ef204463ce4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65ef204463ce4) -
+  Add predicate param to expandBlockRange, add logic to cater for selection being broken in lists
+- Updated dependencies
+
+## 5.1.6
+
+### Patch Changes
+
+- [`a202e97c73f3a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a202e97c73f3a) -
+  Adds base transform cases for codeBlock, layout, blockquote.
+
 ## 5.1.5
 
 ### Patch Changes

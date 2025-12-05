@@ -113,6 +113,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	loadUserSource?: LoadUserSource;
 	/** The maximum number options to be displayed in the dropdown menu during any state of search. The value should be non-negative. */
 	maxOptions?: number;
+	/** Whether the menu is open or not. */
+	menuIsOpen?: boolean;
 	/** Sets max height of the user picker. If not set, the height will grow based on number of picked users. */
 	maxPickerHeight?: number;
 	/** Sets the minimum width for the menu. If not set, menu will always have the same width of the field. */

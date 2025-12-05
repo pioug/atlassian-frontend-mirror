@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-selection
 
+## 6.1.10
+
+### Patch Changes
+
+- [`b2d4f27035ac9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2d4f27035ac9) -
+  [ux] [EDITOR-3095] Follow up bug fix to cleanup platform_editor_fix_list_item_nav_bug_in_layout fg
+
+## 6.1.9
+
+### Patch Changes
+
+- [`f1f7fc05afab1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1f7fc05afab1) -
+  [ux] EDITOR-2461 Set selection in expand title when using arrow key to navigate into expand
+- Updated dependencies
+
 ## 6.1.8
 
 ### Patch Changes

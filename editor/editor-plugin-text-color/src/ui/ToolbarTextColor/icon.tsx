@@ -21,5 +21,9 @@ const textColorGlyph = (props: CustomGlyphProps) => (
 );
 
 export const EditorTextColorIcon = () => {
-	return fg('platform-custom-icon-migration') ? <TextStyleIcon label="" spacing='spacious' /> : <Icon glyph={textColorGlyph} label="" />;
+	return fg('platform-custom-icon-migration') ? (
+		<TextStyleIcon label="" spacing="spacious" />
+	) : (
+		<Icon glyph={textColorGlyph} label="" />
+	);
 };

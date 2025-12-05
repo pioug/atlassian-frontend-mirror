@@ -1,5 +1,12 @@
 # @atlaskit/checkbox
 
+## 17.1.23
+
+### Patch Changes
+
+- [`4a5c758f659f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a5c758f659f7) -
+  Changing internal use of SVG icons behind a feature flag.
+
 ## 17.1.22
 
 ### Patch Changes

@@ -168,7 +168,6 @@ const rule: Rule.RuleModule = createLintRule({
 
 			// Check JSX elements for xcss prop usage
 			JSXElement(node: Rule.Node) {
-				// @ts-ignore - Node type compatibility issue with EslintNode
 				if (!isNodeOfType(node, 'JSXElement')) {
 					return;
 				}

@@ -8,13 +8,13 @@ import { getTargetNodeTypeNameInContext } from '../transform-node-utils/utils';
 
 import { flattenListStep } from './flattenListStep';
 import { flattenStep } from './flattenStep';
+import { unwrapLayoutStep } from './steps/unwrapLayoutStep';
 import { stubStep } from './stubStep';
 import type { NodeCategory, NodeTypeName, TransformStepContext, TransformStep } from './types';
 import { NODE_CATEGORY_BY_TYPE, toNodeTypeValue } from './types';
 import { unwrapExpandStep } from './unwrapExpandStep';
 import { unwrapListStep } from './unwrapListStep';
 import { unwrapStep } from './unwrapStep';
-import { wrapInExpandStep } from './wrapInExpandStep';
 import { wrapIntoLayoutStep } from './wrapIntoLayoutStep';
 import { wrapStep } from './wrapStep';
 
@@ -80,7 +80,24 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		codeBlock: [unwrapExpandStep, flattenStep, wrapStep],
 	},
 	blockquote: {
-		expand: [wrapInExpandStep],
+		expand: [wrapStep],
+		nestedExpand: [wrapStep],
+		layoutSection: [wrapIntoLayoutStep],
+		codeBlock: [unwrapStep, flattenStep, wrapStep],
+	},
+	layoutSection: {
+		blockquote: [unwrapLayoutStep, wrapStep],
+		expand: [unwrapLayoutStep, wrapStep],
+		panel: [unwrapLayoutStep, wrapStep],
+		codeBlock: [unwrapLayoutStep, flattenStep, wrapStep],
+		paragraph: [unwrapLayoutStep],
+	},
+	codeBlock: {
+		blockquote: [wrapStep],
+		expand: [wrapStep],
+		nestedExpand: [wrapStep],
+		layoutSection: [wrapIntoLayoutStep],
+		panel: [wrapStep],
 	},
 };
 
@@ -115,8 +132,8 @@ export const getOutputNodes = ({
 	const nodesToReplace = [sourceNode];
 
 	const selectedNodeTypeName = toNodeTypeValue(sourceNode.type.name);
-	let targetNodeTypeName = toNodeTypeValue(targetNodeType.name);
-	targetNodeTypeName = getTargetNodeTypeNameInContext(targetNodeTypeName, isNested);
+	const initialTargetNodeTypeName = toNodeTypeValue(targetNodeType.name);
+	const targetNodeTypeName = getTargetNodeTypeNameInContext(initialTargetNodeTypeName, isNested);
 
 	if (!selectedNodeTypeName || !targetNodeTypeName) {
 		// We may decide to return an empty array or undefined here
@@ -136,7 +153,6 @@ export const getOutputNodes = ({
 	}
 
 	return steps.reduce((nodes, step) => {
-		const result = step(nodes, context);
-		return result;
+		return step(nodes, context);
 	}, nodesToReplace);
 };

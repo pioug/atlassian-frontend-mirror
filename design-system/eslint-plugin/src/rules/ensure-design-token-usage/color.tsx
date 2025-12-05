@@ -186,12 +186,10 @@ export const lintJSXLiteralForColor = (
 	}
 
 	// Changed this condition to properly handle both direct literals and expression containers
-	// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 	const parent = isNodeOfType(node.parent, 'JSXExpressionContainer')
 		? node.parent.parent
 		: node.parent;
 
-	// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 	if (!isNodeOfType(parent, 'JSXAttribute')) {
 		return;
 	}
@@ -207,7 +205,6 @@ export const lintJSXLiteralForColor = (
 
 	if (
 		['alt', 'src', 'label', 'key', 'appearance'].includes(
-			// @ts-ignore - Type mismatch between Rule.Node and EslintNode types
 			typeof parent.name.name === 'string' ? parent.name.name : parent.name.name.name,
 		)
 	) {
@@ -314,7 +311,6 @@ export const getTokenSuggestion = (
 			desc: `Convert to token`,
 			fix: (fixer: Rule.RuleFixer) =>
 				fixer.replaceText(
-					// @ts-ignore - Node type compatibility issue with EslintNode
 					isNodeOfType(node.parent, 'MemberExpression') ? node.parent : node,
 					`token('')`,
 				),
@@ -325,9 +321,7 @@ export const getTokenSuggestion = (
 			desc: `Convert to token with fallback`,
 			fix: (fixer: Rule.RuleFixer) =>
 				fixer.replaceText(
-					// @ts-ignore - Node type compatibility issue with EslintNode
 					isNodeOfType(node.parent, 'MemberExpression') ? node.parent : node,
-					// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 					isNodeOfType(node.parent, 'JSXAttribute')
 						? `{token('', ${reference})}`
 						: `token('', ${reference})`,

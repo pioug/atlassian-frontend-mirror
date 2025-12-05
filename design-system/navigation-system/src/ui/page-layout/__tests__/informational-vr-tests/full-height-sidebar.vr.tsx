@@ -17,6 +17,7 @@ import NavigationShellExample, {
 	NavigationShellWithToggleButtonSpotlight,
 	NavigationShellWithWideSideNav,
 } from '../../../../../examples/navigation-shell';
+import { TopNavigationCustomLogoImageWithSideNavExample } from '../../../../../examples/top-navigation-custom-logo';
 import TopNavigationThemingWithPickerExample from '../../../../../examples/top-navigation-theming-with-picker';
 
 const variants = {
@@ -306,6 +307,16 @@ snapshotInformational(NavigationShellExample, {
 	description: 'with increased min-width',
 	drawsOutsideBounds: true,
 	variants: [variants.desktop],
+	featureFlags: {
+		'navx-full-height-sidebar': true,
+		'team25-eu-jira-logo-updates-csm-jsm': true,
+	},
+});
+
+snapshotInformational(TopNavigationCustomLogoImageWithSideNavExample, {
+	description: 'custom logo sizing',
+	drawsOutsideBounds: true,
+	variants: [variants.desktop, variants.mobile],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
 		'team25-eu-jira-logo-updates-csm-jsm': true,

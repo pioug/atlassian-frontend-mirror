@@ -15,7 +15,6 @@ interface MetaData {
 	config: RuleConfig;
 }
 
-// @ts-ignore - type compatibility with eslint-codemod-utils
 export const FontWeight = {
 	lint(node: Rule.Node, { context, config }: MetaData) {
 		// Check whether all criteria needed to make a transformation are met
@@ -29,7 +28,6 @@ export const FontWeight = {
 		}
 	},
 
-	// @ts-ignore - Node type compatibility issue with EslintNode
 	_check(
 		node: Rule.Node,
 		{ context, config }: MetaData,
@@ -42,7 +40,6 @@ export const FontWeight = {
 			return false;
 		}
 
-		// @ts-ignore - type compatibility with eslint-codemod-utils
 		if (!isDecendantOfStyleBlock(node) && !isDecendantOfType(node, 'JSXExpressionContainer')) {
 			return false;
 		}

@@ -16,12 +16,10 @@ export const findValidStyledComponentCall = (
 		return;
 	}
 	// halts if the component is being exported directly
-	// @ts-ignore - type compatibility with eslint-codemod-utils
 	if (closestOfType(node, 'ExportNamedDeclaration')) {
 		return;
 	}
 
-	// @ts-ignore - type compatibility with eslint-codemod-utils
 	const styledComponentVariableRef = node.parent;
 	// halts if the styled component is not assigned to a variable immediately
 	if (!isNodeOfType(styledComponentVariableRef, 'VariableDeclarator')) {

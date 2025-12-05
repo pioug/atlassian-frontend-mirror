@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.15.13
+
+### Patch Changes
+
+- [`b7caf41846c8c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7caf41846c8c) -
+  Prevent keypresses from aborting press interactions in react ufo
+
 ## 4.15.12
 
 ### Patch Changes

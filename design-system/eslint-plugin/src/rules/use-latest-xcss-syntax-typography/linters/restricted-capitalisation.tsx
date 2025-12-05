@@ -21,7 +21,6 @@ export const RestrictedCapitalisation = {
 		// Prevent text transform being used to uppercase all characters
 		if (
 			isPropertyName(node, 'textTransform') &&
-			// @ts-ignore - Node type compatibility issue with EslintNode
 			isNodeOfType(node.parent, 'Property') &&
 			isNodeOfType(node.parent.value, 'Literal')
 		) {

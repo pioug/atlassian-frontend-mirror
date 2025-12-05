@@ -152,7 +152,9 @@ const extractFlexibleUiContext = ({
 			resourceType: extractMetaResourceType(meta),
 			tenantId: extractMetaTenantId(meta),
 		},
-		...(isNewBlockcardUnauthorizedRefreshExperimentEnabled() && {hostName: extractHostName(response)}),
+		...(isNewBlockcardUnauthorizedRefreshExperimentEnabled() && {
+			hostName: extractHostName(response),
+		}),
 	};
 };
 

@@ -1,5 +1,36 @@
 # @atlaskit/editor-common
 
+## 110.39.1
+
+### Patch Changes
+
+- [`ac6e5ca03207b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac6e5ca03207b) -
+  fix numbered table border issue
+- [`db12b5725d02e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db12b5725d02e) -
+  ED-29701 Fix issue where selection toolbar stops working after user intent stays stuck on
+  popupOpen
+- Updated dependencies
+
+## 110.39.0
+
+### Minor Changes
+
+- [`65ef204463ce4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65ef204463ce4) -
+  Add predicate param to expandBlockRange, add logic to cater for selection being broken in lists
+
+### Patch Changes
+
+- [`f931cd4add05d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f931cd4add05d) -
+  EDITOR-2929 Define list of suggested items per node top level and nested
+- Updated dependencies
+
+## 110.38.2
+
+### Patch Changes
+
+- [`f1f7fc05afab1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1f7fc05afab1) -
+  [ux] EDITOR-2461 Set selection in expand title when using arrow key to navigate into expand
+
 ## 110.38.1
 
 ### Patch Changes

@@ -20,6 +20,10 @@ export enum SyncBlockError {
 	Errored = 'errored',
 	NotFound = 'not_found',
 	Forbidden = 'forbidden',
+	InvalidRequest = 'invalid_request',
+	RateLimited = 'rate_limited',
+	Conflict = 'conflict', // attempt to create block that already exists
+	ServerError = 'server_error',
 	InvalidContent = 'invalid_content', // content is not a valid JSON
 }
 

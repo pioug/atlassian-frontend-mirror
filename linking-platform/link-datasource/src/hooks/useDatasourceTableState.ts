@@ -16,12 +16,16 @@ import {
 	type DatasourceResponseSchemaProperty,
 	type DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
 import { useDatasourceActions } from '../state';
 import { useDiscoverActions } from '../state/actions';
 
 import useErrorLogger from './useErrorLogger';
+import { useIsInPDFRender } from './useIsInPDFRender';
+
+export const INCREASED_DATASOURCE_DATA_PAGE_SIZE = 100;
 
 export interface onNextPageProps {
 	isSchemaFromData?: boolean;
@@ -87,7 +91,11 @@ export const useDatasourceTableState = ({
 	const { captureError } = useErrorLogger({ datasourceId });
 	const { onAddItems } = useDatasourceActions();
 	const { discoverActions } = useDiscoverActions({ captureError, fireEvent });
-
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	const isInPDFRender = fg('lp_disable_datasource_table_max_height_restriction')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useIsInPDFRender()
+		: false;
 	const idFieldCount = 1;
 	const keyFieldCount = 1;
 
@@ -227,7 +235,9 @@ export const useDatasourceTableState = ({
 			const isFullSchemaLoaded = fullSchema.properties.length > 0;
 			const datasourceDataRequest: DatasourceDataRequest = {
 				parameters,
-				pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
+				pageSize: isInPDFRender
+					? INCREASED_DATASOURCE_DATA_PAGE_SIZE
+					: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
 				pageCursor: shouldRequestFirstPage ? undefined : nextCursor,
 				fields: fieldKeys,
 				includeSchema: isFullSchemaLoaded ? false : isSchemaFromData,
@@ -375,6 +385,7 @@ export const useDatasourceTableState = ({
 			fullSchema,
 			initialEmptyArray,
 			discoverActions,
+			isInPDFRender,
 		],
 	);
 

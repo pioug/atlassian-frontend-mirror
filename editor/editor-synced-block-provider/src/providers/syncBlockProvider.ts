@@ -140,13 +140,11 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		});
 	}
 
-	createNodeData(
-		data: SyncBlockData,
-	): Promise<WriteSyncBlockResult> {
+	createNodeData(data: SyncBlockData): Promise<WriteSyncBlockResult> {
 		return this.writeProvider.createData(data).then(
 			(result) => result,
-			(error) => ({ error })
-		)
+			(error) => ({ error }),
+		);
 	}
 
 	/**

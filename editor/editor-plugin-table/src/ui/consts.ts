@@ -41,6 +41,7 @@ export const tableCellSelectedColor = token(
 	'color.blanket.selected',
 	akEditorTableCellBlanketSelected,
 );
+export const tableHeaderCellSelectedColor = token('color.background.selected.pressed', B200);
 export const tableToolbarSelectedColor = token('color.background.selected.pressed', B200);
 export const tableBorderSelectedColor = token('color.border.focused', akEditorTableBorderSelected);
 export const tableCellSelectedDeleteIconColor = token('color.icon.subtle', N300);
@@ -87,6 +88,8 @@ export const tableOverflowShadowWidthWide = 32;
 export const tablePopupMenuFitHeight = 188;
 export const tableColumnControlsHeight = 24;
 export const nativeStickyHeaderZIndex = akEditorTableCellOnStickyHeaderZIndex - 5;
+export const aboveNativeStickyHeaderZIndex = nativeStickyHeaderZIndex + 1;
+export const belowNativeStickyHeaderZIndex = nativeStickyHeaderZIndex - 1;
 
 export const dropTargetsZIndex = 14;
 

@@ -10,7 +10,6 @@ export type MetaData = {
 };
 
 // Rename data-testid prop to testId if present
-// @ts-ignore - The inferred type cannot be named without a reference to external types
 export function updateTestIdAttributeFix(node: JSXElement, fixer: Rule.RuleFixer) {
 	const testIdAttr = ast.JSXElement.getAttributeByName(node, 'data-testid');
 	if (testIdAttr) {

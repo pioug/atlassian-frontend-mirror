@@ -3,8 +3,23 @@ import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { TransformStep } from './types';
 
 /**
- * Given an array of nodes, returns an array with the flattened children of any list nodes.
+ * Given an array of nodes, processes each list removing all parent list nodes and
+ * just returning their child contents.
+ *
+ * @example
+ * Input:
+ * - bulletList
+ *   - listItem "1"
+ *     - paragraph "1"
+ *   - listItem "2"
+ *     - paragraph "2"
+ *
+ * Output:
+ * - paragraph "1"
+ * - paragraph "2"
+ *
  * @param nodes
+ * @param context
  * @returns
  */
 export const unwrapListStep: TransformStep = (nodes, context) => {

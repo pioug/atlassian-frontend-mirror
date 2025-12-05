@@ -187,6 +187,11 @@ export default class TableRowNativeStickyWithFallback
 		// changing away from one
 		const newNodeIsHeaderRow = supportedHeaderRow(node);
 		if (this.isHeaderRow !== newNodeIsHeaderRow) {
+			if (!newNodeIsHeaderRow && this.isHeaderRow) {
+				this.dom
+					.closest(`.${ClassName.TABLE_NODE_WRAPPER}`)
+					?.classList.remove(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
+			}
 			return false; // re-create nodeview
 		}
 
@@ -349,7 +354,6 @@ export default class TableRowNativeStickyWithFallback
 
 		const options = {
 			root: tableWrapper,
-			rootMargin: '0px',
 			threshold: 1,
 		};
 		this.overflowObserver = new IntersectionObserver((entries, observer) => {

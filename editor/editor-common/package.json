@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "110.38.1",
+	"version": "110.39.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -262,6 +262,9 @@
 		"platform_editor_updated_dropdown_colors": {
 			"type": "boolean"
 		},
+		"platform_editor_fix_popup_user_intent": {
+			"type": "boolean"
+		},
 		"linking_platform_datasource_assets_objects": {
 			"type": "boolean"
 		},
@@ -368,6 +371,9 @@
 			"type": "boolean"
 		},
 		"rovo_chat_enable_skills_ui_m1": {
+			"type": "boolean"
+		},
+		"platform_editor_table_numbered_table_border": {
 			"type": "boolean"
 		}
 	}

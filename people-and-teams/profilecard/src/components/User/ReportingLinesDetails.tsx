@@ -4,12 +4,9 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import Avatar from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
-import { cssMap } from '@atlaskit/css';
+import { cssMap, cx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, xcss } from '@atlaskit/primitives';
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import messages from '../../messages';
@@ -27,8 +24,6 @@ import {
 import { PACKAGE_META_DATA, reportingLinesClicked } from '../../util/analytics';
 import { getPageTime } from '../../util/performance';
 
-import { default as ReportingLinesDetailsCompiled } from './ReportingLinesDetailsCompiled';
-
 export type ReportingLinesDetailsProps = Pick<
 	ProfilecardProps,
 	'reportingLines' | 'reportingLinesProfileUrl' | 'onReportingLinesClick'
@@ -38,16 +33,6 @@ export type ReportingLinesDetailsProps = Pick<
 function getProfileHref(userId: string, profileUrl?: string) {
 	return profileUrl ? profileUrl + userId : undefined;
 }
-
-const reportingLinesHeadingDefaultStyles = xcss({
-	color: 'color.text',
-	font: 'font.heading.xxsmall',
-	fontWeight: 'font.weight.semibold',
-	marginBottom: 'space.100',
-});
-const reportingLinesHeadingStyles = xcss({
-	marginBottom: '0',
-});
 
 const styles = cssMap({
 	reportingLinesButton: {
@@ -60,11 +45,20 @@ const styles = cssMap({
 			backgroundColor: token('color.background.neutral.subtle.hovered'),
 		},
 	},
+	reportingLinesHeadingDefaultStyles: {
+		color: token('color.text'),
+		font: token('font.heading.xxsmall'),
+		fontWeight: token('font.weight.semibold'),
+		marginBottom: token('space.100'),
+	},
+	reportingLinesHeadingStyles: {
+		marginBottom: token('space.0'),
+	},
 });
 
 const avatarGroupMaxCount = 5;
 
-const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
+const ReportingLinesDetails = (props: ReportingLinesDetailsProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const {
 		fireAnalyticsWithDuration,
@@ -99,6 +93,7 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 							}),
 						);
 					}
+
 					onReportingLinesClick(user);
 				}
 			: undefined;
@@ -147,7 +142,9 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 		<>
 			{manager && (
 				<ReportingLinesSection>
-					<Box xcss={[reportingLinesHeadingDefaultStyles, reportingLinesHeadingStyles]}>
+					<Box
+						xcss={cx(styles.reportingLinesHeadingDefaultStyles, styles.reportingLinesHeadingStyles)}
+					>
 						<FormattedMessage {...messages.managerSectionHeading} />
 					</Box>
 					<OffsetWrapper>
@@ -172,7 +169,7 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 			)}
 			{hasReports && (
 				<ReportingLinesSection>
-					<Box xcss={reportingLinesHeadingDefaultStyles}>
+					<Box xcss={styles.reportingLinesHeadingDefaultStyles}>
 						<FormattedMessage {...messages.directReportsSectionHeading} />
 					</Box>
 					<AvatarGroup
@@ -197,9 +194,4 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 	);
 };
 
-const ReportingLinesDetailsExport = componentWithFG(
-	'profilecard_primitives_compiled',
-	ReportingLinesDetailsCompiled,
-	ReportingLinesDetails,
-);
-export default ReportingLinesDetailsExport;
+export default ReportingLinesDetails;

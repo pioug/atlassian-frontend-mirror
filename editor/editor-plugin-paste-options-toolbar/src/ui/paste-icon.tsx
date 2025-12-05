@@ -34,13 +34,15 @@ const CustomGlyph = (props: CustomGlyphProps) => (
 const EditorPasteIcon = (props: Omit<IconProps, 'size'> & Omit<NewCoreIconProps, 'size'>) => {
 	if (fg('platform-custom-icon-migration')) {
 		// eslint-disable-next-line react/jsx-props-no-spreading
-		return <ClipboardIcon {...props} />
+		return <ClipboardIcon {...props} />;
 	}
 
-	return <div>
-		{/* eslint-disable-next-line react/jsx-props-no-spreading */}
-		<Icon {...props} glyph={CustomGlyph} />
-	</div>;
+	return (
+		<div>
+			{/* eslint-disable-next-line react/jsx-props-no-spreading */}
+			<Icon {...props} glyph={CustomGlyph} />
+		</div>
+	);
 };
 
 EditorPasteIcon.displayName = 'EditorPasteIcon';

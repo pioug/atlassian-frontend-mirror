@@ -72,13 +72,16 @@ const ToolbarDropdownMenuContent = ({
 		[menuContext, onDropdownOpenChanged],
 	);
 
-	const handleClick = useCallback((e: React.MouseEvent) => {
-		if (!menuContext?.isOpen) {
-			menuContext?.openMenu(e);
-		} else {
-			menuContext?.closeMenu(e);
-		}
-	}, [menuContext]);
+	const handleClick = useCallback(
+		(e: React.MouseEvent) => {
+			if (!menuContext?.isOpen) {
+				menuContext?.openMenu(e);
+			} else {
+				menuContext?.closeMenu(e);
+			}
+		},
+		[menuContext],
+	);
 
 	return (
 		<DropdownMenu<HTMLButtonElement>

@@ -45,13 +45,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-09-17
-	cc_complexit_fe_emoji_stability: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-09-01
 	cc_editor_ai_content_mode: {
 		defaultValue: 'control' | 'test';
@@ -969,6 +962,17 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2025-11-27
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_sl_3p_unauth_paste_as_block_card/setup
+	platform_sl_3p_unauth_paste_as_block_card: {
+		defaultValue: 'control' | 'card_by_default_only' | 'card_by_default_and_new_design';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (
+			value: unknown,
+		) => value is 'control' | 'card_by_default_only' | 'card_by_default_and_new_design';
+		values: ('control' | 'card_by_default_only' | 'card_by_default_and_new_design')[];
+	};
 	// Added 2025-08-10
 	platform_synced_block: {
 		defaultValue: boolean;
@@ -1012,17 +1016,6 @@ export const editorExperimentsConfig: {
 		param: string;
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
-	};
-	// Added 2025-11-27
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_sl_3p_unauth_paste_as_block_card/setup
-	platform_sl_3p_unauth_paste_as_block_card: {
-		defaultValue: 'control' | 'card_by_default_only' | 'card_by_default_and_new_design';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (
-			value: unknown,
-		) => value is 'control' | 'card_by_default_only' | 'card_by_default_and_new_design';
-		values: ('control' | 'card_by_default_only' | 'card_by_default_and_new_design')[];
 	};
 	// Added 2024-08-08
 	'test-new-experiments-package': {
@@ -1998,14 +1991,6 @@ export const editorExperimentsConfig: {
 	platform_editor_lovability_user_intent: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_lovability_user_intent',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-09-17
-	cc_complexit_fe_emoji_stability: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_complexit_fe_emoji_stability',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -261,7 +261,9 @@ const IconElement = ({
 			className={className}
 		>
 			{isTiledIcon && isNewBlockcardUnauthorizedRefreshExperimentEnabled() ? (
-				<Tile size={size} label={label}>{element}</Tile>
+				<Tile size={size} label={label}>
+					{element}
+				</Tile>
 			) : (
 				<Box
 					xcss={styles.iconWrapperStyle}

@@ -1,5 +1,16 @@
 # @atlassian/smart-user-picker
 
+## 8.5.0
+
+### Minor Changes
+
+- [`bef521afc400f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bef521afc400f) -
+  Adds prop to set user picker & smart user picker as open/closed
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.4.1
 
 ### Patch Changes

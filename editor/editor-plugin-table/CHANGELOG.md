@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-table
 
+## 15.4.15
+
+### Patch Changes
+
+- [`0d2bf469b7c66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d2bf469b7c66) -
+  [ux] EDITOR-3742 Fix table sticker header styles when numbered column is enabled
+
+## 15.4.14
+
+### Patch Changes
+
+- [`ac6e5ca03207b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac6e5ca03207b) -
+  fix numbered table border issue
+- [`ac6e5ca03207b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac6e5ca03207b) -
+  fix numbered table border issue
+- Updated dependencies
+
+## 15.4.13
+
+### Patch Changes
+
+- [`6ce7f7d7b4940`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ce7f7d7b4940) -
+  [ux] Fix missing cell controls when native sticky
+- Updated dependencies
+
 ## 15.4.12
 
 ### Patch Changes

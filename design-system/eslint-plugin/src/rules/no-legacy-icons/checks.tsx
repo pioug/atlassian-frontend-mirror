@@ -179,7 +179,6 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 		node: VariableDeclaration & Rule.NodeParentExtension,
 	): void => {
 		if (isNodeOfType(node, 'VariableDeclaration')) {
-			// @ts-ignore - Node type compatibility issue with EslintNode
 			const isExported = node.parent && isNodeOfType(node.parent, 'ExportNamedDeclaration');
 			for (const decl of node.declarations) {
 				if (
@@ -373,11 +372,8 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 			return;
 		}
 		if (
-			// @ts-ignore - Node type compatibility issue with EslintNode
 			!isNodeOfType(node.parent, 'JSXExpressionContainer') ||
-			// @ts-ignore - Node type compatibility issue with EslintNode
 			!isNodeOfType(node.parent.parent, 'JSXAttribute') ||
-			// @ts-ignore - Node type compatibility issue with EslintNode
 			!isNodeOfType(node.parent.parent.parent, 'JSXOpeningElement')
 		) {
 			return;
@@ -448,9 +444,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 		//if this is an import statement then exit early
 		if (
 			node.parent &&
-			// @ts-ignore - Node type compatibility issue with EslintNode
 			(isNodeOfType(node.parent, 'ImportSpecifier') ||
-				// @ts-ignore - Node type compatibility issue with EslintNode
 				isNodeOfType(node.parent, 'ImportDefaultSpecifier'))
 		) {
 			return;
@@ -475,9 +469,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 		if (
 			node.parent &&
 			node.parent.parent &&
-			// @ts-ignore - Node type compatibility issue with EslintNode
 			isNodeOfType(node.parent.parent, 'JSXAttribute') &&
-			// @ts-ignore - Node type compatibility issue with EslintNode
 			isNodeOfType(node.parent.parent.name, 'JSXIdentifier') &&
 			node.parent.parent.name.name === 'LEGACY_fallbackIcon'
 		) {
@@ -497,7 +489,6 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 	 * @param node The JSX node found by ESLint
 	 */
 	const checkJSXElement = (node: Rule.Node): void => {
-		// @ts-ignore - Node type compatibility issue with EslintNode
 		if (!('openingElement' in node) || !isNodeOfType(node.openingElement.name, 'JSXIdentifier')) {
 			return;
 		}
@@ -505,10 +496,8 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 		// Determine if element is rendered inside LEGACY_fallbackIcon prop - if so, don't perform any checks
 		if (
 			node.parent &&
-			// @ts-ignore - Node type compatibility issue with EslintNode
 			isNodeOfType(node.parent, 'ArrowFunctionExpression') &&
 			node.parent?.parent?.parent &&
-			// @ts-ignore - Node type compatibility issue with EslintNode
 			isNodeOfType(node.parent.parent.parent, 'JSXAttribute') &&
 			node.parent.parent.parent.name?.name === 'LEGACY_fallbackIcon'
 		) {

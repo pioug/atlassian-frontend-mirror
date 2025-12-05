@@ -25,7 +25,6 @@ const rule = createLintRule({
 			// const styledObjectExpression = styled.div({margin: '8px'})
 			'CallExpression[callee.name=css] > ObjectExpression, CallExpression[callee.object.name=styled] > ObjectExpression':
 				(parentNode: Rule.Node) => {
-					// @ts-ignore - Node type compatibility issue with EslintNode
 					if (!isNodeOfType(parentNode, 'ObjectExpression')) {
 						return;
 					}

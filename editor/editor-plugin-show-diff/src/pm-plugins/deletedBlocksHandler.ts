@@ -3,6 +3,7 @@ import type { IntlShape } from 'react-intl-next';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { trackChangesMessages } from '@atlaskit/editor-common/messages';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { getDeletedContentStyle } from './decorations';
@@ -11,13 +12,41 @@ export const deletedStyleQuoteNode = convertToInlineCss({
 	borderLeft: `2px solid ${token('color.border.accent.gray')}`,
 });
 
+export const deletedStyleQuoteNodeWithLozenge = convertToInlineCss({
+	marginTop: token('space.150'),
+	paddingTop: token('space.025'),
+	paddingBottom: token('space.025'),
+	paddingLeft: token('space.025'),
+	boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
+	borderRadius: token('radius.small'),
+});
+
+export const deletedTraditionalStyleQuoteNode = convertToInlineCss({
+	marginTop: token('space.150'),
+	paddingTop: token('space.025'),
+	paddingBottom: token('space.025'),
+	paddingLeft: token('space.025'),
+	boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
+	borderRadius: token('radius.small'),
+});
+
 export const deletedBlockOutline = convertToInlineCss({
 	boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
 	borderRadius: token('radius.small'),
 });
 
+export const deletedTraditionalBlockOutline = convertToInlineCss({
+	boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
+	borderRadius: token('radius.small'),
+});
+
 export const deletedBlockOutlineRounded = convertToInlineCss({
 	boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
+	borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
+});
+
+export const deletedTraditionalBlockOutlineRounded = convertToInlineCss({
+	boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
 	borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
 });
 
@@ -38,16 +67,29 @@ const lozengeStyle = convertToInlineCss({
 	color: token('color.text.warning.inverse'),
 });
 
-export const getDeletedStyleNode = (nodeName: string) => {
+export const getDeletedStyleNode = (
+	nodeName: string,
+	colourScheme?: 'standard' | 'traditional',
+) => {
+	const isTraditional = colourScheme === 'traditional';
+
 	switch (nodeName) {
 		case 'blockquote':
-			return deletedStyleQuoteNode;
+			return fg('platform_editor_ai_aifc_patch_ga_blockers')
+				? isTraditional
+					? deletedTraditionalStyleQuoteNode
+					: deletedStyleQuoteNodeWithLozenge
+				: deletedStyleQuoteNode;
 		case 'expand':
 		case 'decisionList':
-			return deletedBlockOutline;
+			return isTraditional && fg('platform_editor_ai_aifc_patch_ga_blockers')
+				? deletedTraditionalBlockOutline
+				: deletedBlockOutline;
 		case 'panel':
 		case 'codeBlock':
-			return deletedBlockOutlineRounded;
+			return isTraditional && fg('platform_editor_ai_aifc_patch_ga_blockers')
+				? deletedTraditionalBlockOutlineRounded
+				: deletedBlockOutlineRounded;
 		default:
 			return undefined;
 	}
@@ -61,6 +103,9 @@ export const shouldShowRemovedLozenge = (nodeName: string) => {
 		case 'panel':
 		case 'decisionList':
 			return true;
+		case 'embedCard':
+		case 'blockquote':
+			return fg('platform_editor_ai_aifc_patch_ga_blockers');
 		default:
 			return false;
 	}
@@ -71,6 +116,8 @@ export const shouldAddShowDiffDeletedNodeClass = (nodeName: string) => {
 		case 'mediaSingle':
 		case 'embedCard':
 			return true;
+		case 'blockquote':
+			return fg('platform_editor_ai_aifc_patch_ga_blockers');
 		default:
 			return false;
 	}
@@ -81,7 +128,10 @@ export const shouldAddShowDiffDeletedNodeClass = (nodeName: string) => {
  * to preserve natural block-level margins
  */
 export const shouldApplyDeletedStylesDirectly = (nodeName: string): boolean => {
-	return nodeName === 'blockquote' || nodeName === 'heading';
+	return (
+		nodeName === 'heading' ||
+		(nodeName === 'blockquote' && !fg('platform_editor_ai_aifc_patch_ga_blockers'))
+	);
 };
 
 /**
@@ -99,13 +149,14 @@ export const createRemovedLozenge = (intl: IntlShape, nodeName?: string): HTMLEl
 
 	const containerStyle = convertToInlineCss({
 		position: 'absolute',
-		top: token('space.0'),
-		right: token('space.0'),
+		top: fg('platform_editor_ai_aifc_patch_ga_blockers') ? token('space.075') : token('space.0'),
+		right: fg('platform_editor_ai_aifc_patch_ga_blockers') ? token('space.075') : token('space.0'),
 		zIndex: 2,
 		pointerEvents: 'none',
 		display: 'flex',
-		overflow: 'hidden',
-		borderTopRightRadius,
+		...(!fg('platform_editor_ai_aifc_patch_ga_blockers')
+			? { overflow: 'hidden', borderTopRightRadius }
+			: {}),
 	});
 
 	container.setAttribute('style', containerStyle);
@@ -125,7 +176,7 @@ export const createRemovedLozenge = (intl: IntlShape, nodeName?: string): HTMLEl
 /**
  * Wraps a block node in a container with relative positioning to support absolute positioned lozenge
  */
-export const createBlockNodeWrapper = (nodeName: string) => {
+export const createBlockNodeWrapper = () => {
 	const wrapper = document.createElement('div');
 
 	const baseStyle = convertToInlineCss({
@@ -160,7 +211,7 @@ export const applyDeletedStylesToElement = (
 ): void => {
 	const currentStyle = element.getAttribute('style') || '';
 	const deletedContentStyle = getDeletedContentStyle(colourScheme);
-	const nodeSpecificStyle = getDeletedStyleNode(targetNode.type.name) || '';
+	const nodeSpecificStyle = getDeletedStyleNode(targetNode.type.name, colourScheme) || '';
 
 	element.setAttribute('style', `${currentStyle}${deletedContentStyle}${nodeSpecificStyle}`);
 };
@@ -174,10 +225,54 @@ export const createBlockNodeContentWrapper = (
 	colourScheme: 'standard' | 'traditional' | undefined,
 ): HTMLElement => {
 	const contentWrapper = document.createElement('div');
-	const nodeStyle = getDeletedStyleNode(targetNode.type.name);
+	const nodeStyle = getDeletedStyleNode(targetNode.type.name, colourScheme);
 	contentWrapper.setAttribute('style', `${getDeletedContentStyle(colourScheme)}${nodeStyle || ''}`);
 	contentWrapper.append(nodeView);
 	return contentWrapper;
+};
+
+/**
+ * Handles embedCard node rendering with lozenge attached to the rich-media-item container.
+ * Since embedCard content loads asynchronously, we use a MutationObserver
+ * to wait for the rich-media-item to appear before attaching the lozenge.
+ * @returns true if embedCard was handled
+ */
+export const handleEmbedCardWithLozenge = (
+	dom: HTMLElement,
+	nodeView: Node,
+	targetNode: PMNode,
+	lozenge: HTMLElement,
+	colourScheme: 'standard' | 'traditional' | undefined,
+): boolean => {
+	if (targetNode.type.name !== 'embedCard' || !(nodeView instanceof HTMLElement)) {
+		return false;
+	}
+
+	const richMediaItem = nodeView.querySelector('.rich-media-item');
+	if (richMediaItem instanceof HTMLElement) {
+		richMediaItem.appendChild(lozenge);
+	} else {
+		const observer = new MutationObserver((_, obs) => {
+			const loadedRichMedia = nodeView.querySelector('.rich-media-item');
+			if (loadedRichMedia instanceof HTMLElement) {
+				loadedRichMedia.appendChild(lozenge);
+				obs.disconnect();
+			}
+		});
+
+		observer.observe(nodeView, { childList: true, subtree: true });
+	}
+
+	if (shouldAddShowDiffDeletedNodeClass(targetNode.type.name)) {
+		const showDiffDeletedNodeClass =
+			colourScheme === 'traditional'
+				? 'show-diff-deleted-node-traditional'
+				: 'show-diff-deleted-node';
+		nodeView.classList.add(showDiffDeletedNodeClass);
+	}
+
+	dom.append(nodeView);
+	return true;
 };
 
 /**
@@ -189,12 +284,14 @@ export const handleMediaSingleWithLozenge = (
 	nodeView: Node,
 	targetNode: PMNode,
 	lozenge: HTMLElement,
+	colourScheme: 'standard' | 'traditional' | undefined,
 ): boolean => {
 	if (targetNode.type.name !== 'mediaSingle' || !(nodeView instanceof HTMLElement)) {
 		return false;
 	}
 
 	const mediaNode = nodeView.querySelector('[data-prosemirror-node-name="media"]');
+
 	if (!mediaNode || !(mediaNode instanceof HTMLElement)) {
 		return false;
 	}
@@ -207,7 +304,11 @@ export const handleMediaSingleWithLozenge = (
 
 	// Add deleted node class if needed
 	if (shouldAddShowDiffDeletedNodeClass(targetNode.type.name)) {
-		nodeView.classList.add('show-diff-deleted-node');
+		const showDiffDeletedNodeClass =
+			colourScheme === 'traditional' && fg('platform_editor_ai_aifc_patch_ga_blockers')
+				? 'show-diff-deleted-node-traditional'
+				: 'show-diff-deleted-node';
+		nodeView.classList.add(showDiffDeletedNodeClass);
 	}
 
 	dom.append(nodeView);
@@ -224,12 +325,19 @@ export const appendBlockNodeWithWrapper = (
 	colourScheme: 'standard' | 'traditional' | undefined,
 	intl: IntlShape,
 ) => {
-	const blockWrapper = createBlockNodeWrapper(targetNode.type.name);
+	const blockWrapper = createBlockNodeWrapper();
 
 	if (shouldShowRemovedLozenge(targetNode.type.name)) {
-		const lozenge = createRemovedLozenge(intl, targetNode.type.name);
+		const lozenge = createRemovedLozenge(intl);
 
-		if (handleMediaSingleWithLozenge(dom, nodeView, targetNode, lozenge)) {
+		if (
+			handleEmbedCardWithLozenge(dom, nodeView, targetNode, lozenge, colourScheme) &&
+			fg('platform_editor_ai_aifc_patch_ga_blockers')
+		) {
+			return;
+		}
+
+		if (handleMediaSingleWithLozenge(dom, nodeView, targetNode, lozenge, colourScheme)) {
 			return;
 		}
 
@@ -240,7 +348,11 @@ export const appendBlockNodeWithWrapper = (
 	blockWrapper.append(contentWrapper);
 
 	if (nodeView instanceof HTMLElement && shouldAddShowDiffDeletedNodeClass(targetNode.type.name)) {
-		nodeView.classList.add('show-diff-deleted-node');
+		const showDiffDeletedNodeClass =
+			colourScheme === 'traditional' && fg('platform_editor_ai_aifc_patch_ga_blockers')
+				? 'show-diff-deleted-node-traditional'
+				: 'show-diff-deleted-node';
+		nodeView.classList.add(showDiffDeletedNodeClass);
 	}
 
 	dom.append(blockWrapper);
@@ -248,7 +360,7 @@ export const appendBlockNodeWithWrapper = (
 
 /**
  * Handles all block node rendering with appropriate deleted styling.
- * For blockquote and heading nodes, applies styles directly to preserve natural margins.
+ * For heading nodes, applies styles directly to preserve natural margins.
  * For other block nodes, uses wrapper approach with optional lozenge.
  */
 export const handleBlockNodeView = (

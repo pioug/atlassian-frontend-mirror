@@ -146,7 +146,7 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
 					childRef={mergedRef}
 					src={url}
 					data-testid={`${testId}-frame`}
-					data-iframe-loaded={isIframeLoaded}
+					data-test-iframe-loaded={isIframeLoaded}
 					css={iframeStyles}
 					onMouseEnter={() => {
 						setMouseOver(true);
@@ -265,7 +265,7 @@ export const FrameUpdated = React.forwardRef<HTMLIFrameElement, FrameUpdatedProp
 					childRef={mergedRef}
 					src={url}
 					data-testid={`${testId}-frame`}
-					data-iframe-loaded={isIframeLoaded}
+					data-test-iframe-loaded={isIframeLoaded}
 					css={iframeStyles}
 					onMouseEnter={() => {
 						onIframeMouseEnter?.();

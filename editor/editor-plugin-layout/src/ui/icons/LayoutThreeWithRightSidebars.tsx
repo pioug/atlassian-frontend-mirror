@@ -75,4 +75,4 @@ export const LayoutThreeWithRightSidebarsIcon = (props: Omit<IconProps, 'glyph' 
 			/>
 		</span>
 	);
-}
+};

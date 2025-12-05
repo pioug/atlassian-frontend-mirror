@@ -11,7 +11,6 @@ export type ImportedJSXElement = JSXElement &
 
 export function isImportedJSXElement(node: Rule.Node): node is ImportedJSXElement {
 	return (
-		// @ts-ignore - Node type compatibility issue with EslintNode
 		isNodeOfType(node, 'JSXElement') && isNodeOfType(node.openingElement.name, 'JSXIdentifier')
 	);
 }

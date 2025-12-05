@@ -588,7 +588,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	}
 
 	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
 	componentDidUpdate(_: any, prevState: TableState) {
 		const {
 			view,
@@ -818,6 +818,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		let tablePos: number | undefined;
 		try {
 			tablePos = getPos ? getPos() : undefined;
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		} catch (e) {
 			tablePos = undefined;
 		}
@@ -961,6 +962,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 						contentEditable={false}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={ClassName.TABLE_LEFT_BORDER}
+						data-with-numbered-table={node.attrs.isNumberColumnEnabled}
 						data-testid="table-left-border"
 					/>
 				)}

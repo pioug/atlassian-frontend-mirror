@@ -54,6 +54,8 @@ export function useSideNavToggleKeyboardShortcut({
 						return;
 					}
 
+					openLayerObserver?.closeLayers();
+
 					toggleVisibilityByShortcut();
 				}
 			},

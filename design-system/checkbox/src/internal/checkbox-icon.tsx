@@ -4,9 +4,16 @@
  */
 import { memo, useMemo } from 'react';
 
-import { jsx } from '@atlaskit/css';
+import { css, jsx } from '@atlaskit/css';
 import PrimitiveSVGIcon from '@atlaskit/icon/svg';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
+
+const svgStyles = css({
+	fill: token('elevation.surface'),
+	overflow: 'hidden',
+	pointerEvents: 'none',
+});
 
 function getIcon(isIndeterminate: boolean, isChecked: boolean) {
 	if (isIndeterminate) {
@@ -61,6 +68,33 @@ const CheckboxIcon = memo<{
 	isChecked: boolean;
 }>(({ isIndeterminate, isChecked }) => {
 	const icon = useMemo(() => getIcon(isIndeterminate, isChecked), [isIndeterminate, isChecked]);
+
+	if (fg('platform-custom-icon-migration')) {
+		return (
+			<svg
+				width={24}
+				height={24}
+				viewBox="0 0 24 24"
+				style={{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					color: 'var(--checkbox-background-color)',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					fill: "var(--checkbox-tick-color)",
+				}}
+				css={svgStyles}
+				role='presentation'
+			>
+				<g fillRule="evenodd">
+					{fg('platform-visual-refresh-icons') ? (
+						<rect fill="currentColor" x="5.5" y="5.5" width="13" height="13" rx="1.5" />
+					) : (
+						<rect fill="currentColor" x="6" y="6" width="12" height="12" rx="2" />
+					)}
+					{icon}
+				</g>
+			</svg>
+		);
+	}
 
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/no-custom-icons

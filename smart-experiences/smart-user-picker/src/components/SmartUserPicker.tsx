@@ -529,6 +529,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 							(!this.props.bootstrapOptions || this.state.query !== ''))
 					}
 					options={this.filterUsers()}
+					menuIsOpen={this.props.menuIsOpen}
 				/>
 			</MessagesIntlProvider>
 		);

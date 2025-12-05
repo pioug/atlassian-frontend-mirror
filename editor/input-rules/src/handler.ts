@@ -33,88 +33,90 @@ export const createInputEventHandler =
 		onInputEvent,
 		onBeforeRegexMatch,
 	}: Options): HandleInputEvent =>
-	({ view, from, to, text }) => {
-		if (view.composing) {
-			return false;
-		}
-
-		const state = view.state;
-		const $from = state.doc.resolve(from);
-
-		if ($from.parent.type.spec.code) {
-			return false;
-		}
-		if (onInputEvent && !onInputEvent({ state, from, to })) {
-			return false;
-		}
-
-		const textBefore =
-			$from.parent.textBetween(
-				Math.max(0, $from.parentOffset - MAX_REGEX_MATCH),
-				$from.parentOffset,
-				undefined,
-				leafNodeReplacementCharacter,
-			) + text;
-
-		let result = findMatchOnRules({
-			rules,
-			textToMatch: textBefore,
-			from,
-			to,
-			state,
-		});
-
-		let isBackwardMatch;
-		if (!result && expValEquals('platform_editor_lovability_inline_code', 'isEnabled', true)) {
-			if (TYPEAHEAD_TRIGGERS.includes(text)) {
+		({ view, from, to, text }) => {
+			if (view.composing) {
 				return false;
 			}
 
-			const textAfter =
-				text +
+			const state = view.state;
+			const $from = state.doc.resolve(from);
+
+			if ($from.parent.type.spec.code) {
+				return false;
+			}
+			if (onInputEvent && !onInputEvent({ state, from, to })) {
+				return false;
+			}
+
+			const textBefore =
 				$from.parent.textBetween(
+					Math.max(0, $from.parentOffset - MAX_REGEX_MATCH),
 					$from.parentOffset,
-					Math.min($from.parent.content.size, $from.parentOffset + MAX_REGEX_MATCH),
 					undefined,
 					leafNodeReplacementCharacter,
-				);
+				) + text;
 
-			isBackwardMatch = true;
-			result = findMatchOnRules({
+			let result = findMatchOnRules({
 				rules,
-				textToMatch: textAfter,
+				textToMatch: textBefore,
 				from,
 				to,
 				state,
-				isBackwardMatch,
 			});
+
+			let isBackwardMatch;
+			if (!result && expValEquals('platform_editor_lovability_inline_code', 'isEnabled', true)) {
+				if (TYPEAHEAD_TRIGGERS.includes(text)) {
+					return false;
+				}
+
+				const textAfter =
+					text +
+					$from.parent.textBetween(
+						$from.parentOffset,
+						Math.min($from.parent.content.size, $from.parentOffset + MAX_REGEX_MATCH),
+						undefined,
+						leafNodeReplacementCharacter,
+					);
+
+				isBackwardMatch = true;
+
+				const backwardMatchRules = rules.filter((rule) => rule.allowsBackwardMatch);
+				result = findMatchOnRules({
+					rules: backwardMatchRules,
+					textToMatch: textAfter,
+					from,
+					to,
+					state,
+					isBackwardMatch,
+				});
+
+				if (!result) {
+					return false;
+				}
+			}
 
 			if (!result) {
 				return false;
 			}
-		}
 
-		if (!result) {
-			return false;
-		}
+			const tr = allowInsertTextOnDocument ? state.tr.insertText(text, from, to) : state.tr;
+			tr.setMeta(TEXT_INPUT_RULE_TRANSACTION_KEY, true);
+			tr.setMeta(pluginKey, {
+				textInserted: text,
+				from: result.from,
+				to: result.to,
+				matchedRule: result.matchedRule,
+				isBackwardMatch: isBackwardMatch,
+			} as InputRulePluginState);
 
-		const tr = allowInsertTextOnDocument ? state.tr.insertText(text, from, to) : state.tr;
-		tr.setMeta(TEXT_INPUT_RULE_TRANSACTION_KEY, true);
-		tr.setMeta(pluginKey, {
-			textInserted: text,
-			from: result.from,
-			to: result.to,
-			matchedRule: result.matchedRule,
-			isBackwardMatch: isBackwardMatch,
-		} as InputRulePluginState);
+			if (onBeforeRegexMatch) {
+				onBeforeRegexMatch(tr);
+			}
 
-		if (onBeforeRegexMatch) {
-			onBeforeRegexMatch(tr);
-		}
-
-		view.dispatch(tr);
-		return true;
-	};
+			view.dispatch(tr);
+			return true;
+		};
 
 type FindMatchOnRulesProps = {
 	from: number;

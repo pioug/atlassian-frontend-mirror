@@ -215,13 +215,11 @@ export class SourceSyncBlockStoreManager {
 			const { resourceId, localId: blockInstanceId } = attrs;
 
 			this.dataProvider
-				.createNodeData(
-					{
-						content: [],
-						blockInstanceId,
-						resourceId: resourceId,
-					},
-				)
+				.createNodeData({
+					content: [],
+					blockInstanceId,
+					resourceId: resourceId,
+				})
 				.then((result) => {
 					const resourceId = result.resourceId;
 					if (resourceId) {

@@ -30,8 +30,8 @@ export const calculateDimensions = (
 
 	if (fg('media-perf-uplift-mutation-fix')) {
 		const isSameRatio = fg('media-perf-ratio-calc-fix')
-		  ? Math.abs(imgWidth / parentWidth - imgHeight / parentHeight) < 0.1
-		  : roundedRatio(imgWidth / parentWidth) === roundedRatio(imgHeight / parentHeight);
+			? Math.abs(imgWidth / parentWidth - imgHeight / parentHeight) < 0.1
+			: roundedRatio(imgWidth / parentWidth) === roundedRatio(imgHeight / parentHeight);
 		if (isSameRatio) {
 			if (resizeMode === 'stretchy-fit') {
 				return DEFAULT_STRETCHY_FIT_DIMENSIONS;

@@ -6,7 +6,11 @@ import { jsx } from '@compiled/react';
 
 import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
 import { Root } from '@atlaskit/navigation-system/layout/root';
-import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
+import {
+	SideNav,
+	SideNavPanelSplitter,
+	SideNavToggleButton,
+} from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	TopNav,
 	TopNavEnd,
@@ -30,9 +34,14 @@ import { WithResponsiveViewport } from './utils/example-utils';
 const TopNavigationCustomLogoInstance = ({
 	logo,
 	icon,
+	/**
+	 * TODO: In the future we should probably make all these examples show a side nav.
+	 */
+	hasSideNav = false,
 }: {
 	logo: typeof AtlassianLogo | (() => JSX.Element);
 	icon: typeof AtlassianIcon | (() => JSX.Element);
+	hasSideNav?: boolean;
 }) => (
 	<WithResponsiveViewport>
 		{/**
@@ -62,6 +71,11 @@ const TopNavigationCustomLogoInstance = ({
 					<Profile label="Profile" />
 				</TopNavEnd>
 			</TopNav>
+			{hasSideNav && (
+				<SideNav defaultWidth={240}>
+					<SideNavPanelSplitter label={undefined} />
+				</SideNav>
+			)}
 		</Root>
 	</WithResponsiveViewport>
 );
@@ -106,6 +120,16 @@ export default function TopNavigationCustomLogoImageExample() {
 		<TopNavigationCustomLogoInstance
 			logo={generateImageComponent(placeholder200x20)}
 			icon={generateImageComponent(placeholder20x20)}
+		/>
+	);
+}
+
+export function TopNavigationCustomLogoImageWithSideNavExample() {
+	return (
+		<TopNavigationCustomLogoInstance
+			logo={generateImageComponent(placeholder200x20)}
+			icon={generateImageComponent(placeholder20x20)}
+			hasSideNav
 		/>
 	);
 }

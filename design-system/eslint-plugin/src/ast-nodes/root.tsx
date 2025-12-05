@@ -16,7 +16,6 @@ import { Import } from './import';
 
 type ImportData = Parameters<typeof insertImportDeclaration>[1]; // Little bit unreadable, but better than duplicating the type
 
-// @ts-ignore - The inferred type cannot be named without a reference to external types
 export const Root = {
 	/**
 	 * Note: This can return multiple ImportDeclarations for cases like:

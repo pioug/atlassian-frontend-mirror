@@ -432,6 +432,15 @@ export const isSelectionAtEndOfLayoutColumn = ($pos: ResolvedPos): boolean => {
 		return false;
 	}
 
+	const panelOrExpandParent = findParentNodeClosestToPos($pos, isPanelOrExpandNode);
+	if (
+		panelOrExpandParent &&
+		panelOrExpandParent.pos > layoutColumnParent.pos &&
+		fg('platform_editor_fix_list_item_nav_bug_in_layout')
+	) {
+		return false;
+	}
+
 	const grandParentDepth = $pos.depth - 1;
 	if (grandParentDepth < 0) {
 		return false;
@@ -456,4 +465,9 @@ export const isSelectionAtEndOfLayoutColumn = ($pos: ResolvedPos): boolean => {
 export const isLayoutColumnNode = (node: PmNode | null | undefined) => {
 	const { layoutColumn } = node?.type?.schema?.nodes || {};
 	return Boolean(node && node.type && node.type === layoutColumn);
+};
+
+export const isPanelOrExpandNode = (node: PmNode | null | undefined) => {
+	const { panel, expand } = node?.type?.schema?.nodes || {};
+	return Boolean(node && node.type && (node.type === panel || node.type === expand));
 };

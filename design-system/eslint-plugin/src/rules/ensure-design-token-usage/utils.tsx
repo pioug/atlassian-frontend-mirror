@@ -76,7 +76,6 @@ const spacingValueToToken = Object.fromEntries(
 	spacingScale.map((token) => [token.value, token.cleanName]),
 );
 
-// @ts-ignore - The inferred type cannot be named without a reference to external types
 export function insertTokensImport(fixer: Rule.RuleFixer) {
 	return insertAtStartOfFile(fixer, `${insertImportDeclaration('@atlaskit/tokens', ['token'])}\n`);
 }
@@ -265,7 +264,6 @@ const getValueFromIdentifier = (
 
 	if (
 		isNodeOfType(definition.node, 'ImportSpecifier') &&
-		// @ts-ignore - Node type compatibility issue with EslintNode
 		isNodeOfType(definition.node.parent!, 'ImportDeclaration') &&
 		definition.node.parent.source.value === '@atlassian/jira-common-styles/src/main.tsx'
 	) {

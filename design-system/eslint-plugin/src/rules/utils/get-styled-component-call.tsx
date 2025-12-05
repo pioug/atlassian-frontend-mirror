@@ -13,14 +13,12 @@ export const getStyledComponentCall = (
 		return;
 	}
 	// halts if the component is being exported directly
-	// @ts-ignore - Node type compatibility issue with EslintNode
 	if (closestOfType(node, 'ExportNamedDeclaration')) {
 		return;
 	}
 
 	const styledComponentVariableRef = node.parent;
 	// halts if the styled component is not assigned to a variable immediately
-	// @ts-ignore - Node type compatibility issue with EslintNode
 	if (!isNodeOfType(styledComponentVariableRef, 'VariableDeclarator')) {
 		return;
 	}
@@ -32,7 +30,6 @@ export const getStyledComponentCall = (
  * a call expression is of form `styled.<element>` or `styled2.<element>`
  */
 const isStyledCallExpression = (call: Rule.Node): boolean => {
-	// @ts-ignore - Node type compatibility issue with EslintNode
 	if (!isNodeOfType(call, 'CallExpression')) {
 		return false;
 	}

@@ -284,4 +284,6 @@ export interface Props extends SmartProps, UserPickerProps, WithAnalyticsEventsP
 	 * @Mentions. For specifically trained models, please contact #search-plex.
 	 */
 	fieldId: string;
+	/** Whether the menu is open or not. */
+	menuIsOpen?: boolean;
 }

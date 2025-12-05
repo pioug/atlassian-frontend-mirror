@@ -28,7 +28,6 @@ export const UntokenizedProperties = {
 		}
 	},
 
-	// @ts-ignore - Node type compatibility issue with EslintNode
 	_check(
 		node: Rule.Node,
 		{ config, context }: MetaData,
@@ -41,7 +40,6 @@ export const UntokenizedProperties = {
 			return false;
 		}
 
-		// @ts-ignore - type compatibility with eslint-codemod-utils
 		if (!isDecendantOfStyleBlock(node) && !isDecendantOfType(node, 'JSXExpressionContainer')) {
 			return false;
 		}

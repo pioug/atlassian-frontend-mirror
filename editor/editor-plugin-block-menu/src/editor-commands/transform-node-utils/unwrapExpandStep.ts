@@ -1,6 +1,7 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { TransformStep } from './types';
+import { unwrapStep } from './unwrapStep';
 
 /**
  * Unwraps an expand/nestedExpand node, converting its title attribute to a paragraph
@@ -11,9 +12,10 @@ import type { TransformStep } from './types';
 export const unwrapExpandStep: TransformStep = (nodes, context) => {
 	const { schema } = context;
 	const outputNodes: PMNode[] = [];
+	const { expand, nestedExpand } = schema.nodes;
 
 	nodes.forEach((node) => {
-		const isExpand = node.type.name === 'expand' || node.type.name === 'nestedExpand';
+		const isExpand = node.type.name === expand.name || node.type.name === nestedExpand.name;
 
 		if (isExpand) {
 			const title = node.attrs?.title;
@@ -29,12 +31,7 @@ export const unwrapExpandStep: TransformStep = (nodes, context) => {
 			// Add the children
 			outputNodes.push(...node.children);
 		} else {
-			// Fallback: behave like unwrapStep for non-expand nodes
-			if (node.children.length === 0) {
-				outputNodes.push(node);
-			} else {
-				outputNodes.push(...node.children);
-			}
+			unwrapStep([node], context);
 		}
 	});
 

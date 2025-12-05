@@ -122,9 +122,6 @@
 		"platform_editor_ssr_media": {
 			"type": "boolean"
 		},
-		"jfp-magma-media-cursor": {
-			"type": "boolean"
-		},
 		"platform_media_card_image_render": {
 			"type": "boolean"
 		},

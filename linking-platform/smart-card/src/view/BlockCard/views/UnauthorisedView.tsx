@@ -28,7 +28,6 @@ import { renderElementItems } from '../../FlexibleCard/components/blocks/utils';
 import { LinkIcon, Title } from '../../FlexibleCard/components/elements';
 import { AuthorizeAction } from '../actions/AuthorizeAction';
 
-
 import unauthIllustrationFigma from './assets/figma@2x.png';
 import unauthIllustrationGeneral from './assets/general@2x.png';
 import unauthIllustrationGdrive from './assets/google-drive@2x.png';
@@ -71,7 +70,7 @@ const intermediumGapStyles = css({
 const titleBlockStyles = css({
 	fontWeight: token('font.weight.semibold'),
 	color: token('color.link'),
-})
+});
 
 const previewBlockStyle = css({
 	width: 'min(320px, 55%)',
@@ -81,9 +80,9 @@ const previewBlockStyle = css({
 	'@container my-card (max-width: 370px)': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'&': {
-			display: 'none', 
-		}
-	}
+			display: 'none',
+		},
+	},
 });
 
 const previewBlockStyleWithOverlap = css({
@@ -95,14 +94,14 @@ const linkIconStyles = css({
 	'@container my-card (max-width: 150px)': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'&': {
-			display: 'none', 
-		}
-	}
+			display: 'none',
+		},
+	},
 });
 
 const containerStyles = css({
 	containerType: 'inline-size',
-  	containerName: 'my-card',
+	containerName: 'my-card',
 });
 
 const previewBlockImageStyle = css({
@@ -162,30 +161,34 @@ const getBetterTitle = (url: string) => {
 		}
 	}
 
-	try{
+	try {
 		const { pathname, search } = new URL(url);
-		if(pathname.length > 1){
+		if (pathname.length > 1) {
 			return pathname.substring(1);
-		}else{
+		} else {
 			return search;
 		}
-	}catch{
+	} catch {
 		return url;
 	}
 };
 
-const NewUnauthorisedBlock = ({ 
-	actions, children, url, CompetitorPrompt, testId, cardState,
-}: Pick<UnresolvedViewProps, 'actions' | 'children' | 'url' | 'CompetitorPrompt' | 'testId' | 'cardState'>) => {
+const NewUnauthorisedBlock = ({
+	actions,
+	children,
+	url,
+	CompetitorPrompt,
+	testId,
+	cardState,
+}: Pick<
+	UnresolvedViewProps,
+	'actions' | 'children' | 'url' | 'CompetitorPrompt' | 'testId' | 'cardState'
+>) => {
+	const { ui, data } = useFlexibleCardContext() ?? { ui: undefined, data: undefined };
 
-	const {ui, data} = useFlexibleCardContext() ?? {ui: undefined, data: undefined};
-	
 	const hasActions = actions && actions.length > 0;
 	const actionGroup = hasActions ? (
-		<ActionGroup
-			size={SmartLinkSize.Large}
-			items={actions}
-		/>
+		<ActionGroup size={SmartLinkSize.Large} items={actions} />
 	) : null;
 
 	const competitorPrompt =
@@ -203,16 +206,14 @@ const NewUnauthorisedBlock = ({
 		/>
 	);
 
-	const {
-		position,
-	} = titleBlockOptions;
+	const { position } = titleBlockOptions;
 
 	const extensionKey = getExtensionKey(cardState?.details) ?? '';
-	
-	let overrideUrl = data?.preview?.url; 
+
+	let overrideUrl = data?.preview?.url;
 	let isHardcodedImage = !overrideUrl;
 	if (isHardcodedImage) {
-		switch(extensionKey) {
+		switch (extensionKey) {
 			case 'figma-object-provider':
 				overrideUrl = unauthIllustrationFigma;
 				break;
@@ -231,44 +232,52 @@ const NewUnauthorisedBlock = ({
 		}
 	}
 
-	return <Block {...titleBlockOptions} testId={`${testId}-errored-view`} css={containerStyles}>
-	
-		<ElementGroup
-			direction={SmartLinkDirection.Vertical}
-			width={SmartLinkWidth.Flexible}
-			size={SmartLinkSize.Medium}
-			css={intermediumGapStyles}
-		>
-			<Block>
-				<LinkIcon position={position} size={SmartLinkSize.Medium} isTiledIcon={true} css={linkIconStyles} />
-				
-				<ElementGroup
-					direction={SmartLinkDirection.Vertical}
-					width={SmartLinkWidth.Flexible}
-					css={newTitleBlockStyles}
-					size={SmartLinkSize.Large}
-				>
-					{competitorPrompt ? (
-						<Box xcss={styles.titleBoxCard}>
-							{title}
-							{competitorPrompt}
-						</Box>
-					) : (
-						title
-					)}
-					<ElementGroup size={SmartLinkSize.Medium} direction={SmartLinkDirection.Horizontal}>{renderElementItems([{ name: ElementName.HostName }])}</ElementGroup>
-				</ElementGroup>
-			</Block>
-			{children}
-			{actionGroup}
-		</ElementGroup>
+	return (
+		<Block {...titleBlockOptions} testId={`${testId}-errored-view`} css={containerStyles}>
+			<ElementGroup
+				direction={SmartLinkDirection.Vertical}
+				width={SmartLinkWidth.Flexible}
+				size={SmartLinkSize.Medium}
+				css={intermediumGapStyles}
+			>
+				<Block>
+					<LinkIcon
+						position={position}
+						size={SmartLinkSize.Medium}
+						isTiledIcon={true}
+						css={linkIconStyles}
+					/>
 
-		{hasActions ? (
-			<div css={[previewBlockStyle, isHardcodedImage ? previewBlockStyleWithOverlap : undefined]}>
-				<div css={previewBlockImageStyle} style={{ backgroundImage: `url(${overrideUrl})` }} />
-			</div>)
-		: null}
-	</Block>
+					<ElementGroup
+						direction={SmartLinkDirection.Vertical}
+						width={SmartLinkWidth.Flexible}
+						css={newTitleBlockStyles}
+						size={SmartLinkSize.Large}
+					>
+						{competitorPrompt ? (
+							<Box xcss={styles.titleBoxCard}>
+								{title}
+								{competitorPrompt}
+							</Box>
+						) : (
+							title
+						)}
+						<ElementGroup size={SmartLinkSize.Medium} direction={SmartLinkDirection.Horizontal}>
+							{renderElementItems([{ name: ElementName.HostName }])}
+						</ElementGroup>
+					</ElementGroup>
+				</Block>
+				{children}
+				{actionGroup}
+			</ElementGroup>
+
+			{hasActions ? (
+				<div css={[previewBlockStyle, isHardcodedImage ? previewBlockStyleWithOverlap : undefined]}>
+					<div css={previewBlockImageStyle} style={{ backgroundImage: `url(${overrideUrl})` }} />
+				</div>
+			) : null}
+		</Block>
+	);
 };
 
 /**
@@ -322,29 +331,33 @@ const UnauthorisedView = ({
 	);
 
 	if (isNewBlockcardUnauthorizedRefreshExperimentEnabled(true)) {
-		return <FlexibleCard
-			appearance="block"
-			onAuthorize={onAuthorize}
-			origin="smartLinkCard"
-			testId={testId}
-			ui={FlexibleCardUiOptions}
-			{...props}
-		>
-			<NewUnauthorisedBlock {...props} actions={actions} testId={testId}>
-				<div css={[
-					newContentStyles,
-					actions.length > 0 ? contentAdditionalStyles : undefined
-				]} data-testid={`${testId}-content`}>
+		return (
+			<FlexibleCard
+				appearance="block"
+				onAuthorize={onAuthorize}
+				origin="smartLinkCard"
+				testId={testId}
+				ui={FlexibleCardUiOptions}
+				{...props}
+			>
+				<NewUnauthorisedBlock {...props} actions={actions} testId={testId}>
+					<div
+						css={[newContentStyles, actions.length > 0 ? contentAdditionalStyles : undefined]}
+						data-testid={`${testId}-content`}
+					>
+						{content}
+					</div>
+				</NewUnauthorisedBlock>
+			</FlexibleCard>
+		);
+	} else {
+		return (
+			<UnresolvedView {...props} actions={actions} testId={testId}>
+				<div css={[contentStyles]} data-testid={`${testId}-content`}>
 					{content}
 				</div>
-			</NewUnauthorisedBlock>
-		</FlexibleCard>
-	} else {
-		return <UnresolvedView {...props} actions={actions} testId={testId}>
-			<div css={[contentStyles]} data-testid={`${testId}-content`}>
-				{content}
-			</div>
-		</UnresolvedView>
+			</UnresolvedView>
+		);
 	}
 };
 

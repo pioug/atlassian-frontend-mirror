@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 4.0.2
+
+### Patch Changes
+
+- [`707c3960baedb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/707c3960baedb) -
+  EDITOR-1923 retry api requests on rate limited for sync block provider
+- Updated dependencies
+
 ## 4.0.1
 
 ### Patch Changes

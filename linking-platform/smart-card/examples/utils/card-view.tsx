@@ -52,7 +52,7 @@ const CardView = ({
 }: MultiCardViewProps) => (
 	<SmartCardProvider client={client}>
 		<EmbedCardWrapper inheritDimensions={inheritDimensions}>
-			{ (urls || [url]).map((currentUrl = defaultUrl) => (
+			{(urls || [url]).map((currentUrl = defaultUrl) => (
 				<Card
 					appearance={appearance}
 					url={currentUrl}

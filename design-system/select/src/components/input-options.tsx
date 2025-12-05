@@ -185,30 +185,69 @@ const ControlOption = <Option, IsMulti extends boolean = false>(
 	);
 };
 
-const NewCheckboxIcon = (props: IconProps) => (
-	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @atlaskit/design-system/no-custom-icons
-	<PrimitiveSVGIcon {...props}>
-		<g fillRule="evenodd">
-			<rect x="5.5" y="5.5" width="13" height="13" rx="1.5" fill="currentColor" />
-			<path
-				fillRule="evenodd"
-				clipRule="evenodd"
-				d="M16.3262 9.48011L15.1738 8.51984L10.75 13.8284L8.82616 11.5198L7.67383 12.4801L10.1738 15.4801C10.3163 15.6511 10.5274 15.75 10.75 15.75C10.9726 15.75 11.1837 15.6511 11.3262 15.4801L16.3262 9.48011Z"
-				fill="inherit"
-			/>
-		</g>
-	</PrimitiveSVGIcon>
+const svgStyles = css({
+	width: 24,
+	height: 24,
+	fill: token('elevation.surface'),
+	overflow: 'hidden',
+	pointerEvents: 'none'
+});
+
+const newCheckboxIconPath = (
+	<g fillRule="evenodd">
+		<rect x="5.5" y="5.5" width="13" height="13" rx="1.5" fill="currentColor" />
+		<path
+			fillRule="evenodd"
+			clipRule="evenodd"
+			d="M16.3262 9.48011L15.1738 8.51984L10.75 13.8284L8.82616 11.5198L7.67383 12.4801L10.1738 15.4801C10.3163 15.6511 10.5274 15.75 10.75 15.75C10.9726 15.75 11.1837 15.6511 11.3262 15.4801L16.3262 9.48011Z"
+			fill="inherit"
+		/>
+	</g>
 );
 
-const NewRadioIcon = (props: IconProps) => (
-	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @atlaskit/design-system/no-custom-icons
-	<PrimitiveSVGIcon {...props}>
-		<g fillRule="evenodd">
-			<circle cx="12" cy="12" r="6.75" fill="currentColor" strokeWidth="1.5" />
-			<circle cx="12" cy="12" r="3" fill="inherit" />
-		</g>
-	</PrimitiveSVGIcon>
+const NewCheckboxIcon = (props: IconProps) => {
+	if (fg('platform-custom-icon-migration')) {
+		const { primaryColor, secondaryColor, label } = props;
+
+		return (
+			<svg viewBox="0 0 24 24" style={{ color: primaryColor, fill: secondaryColor }} css={svgStyles} aria-label={label} role={label ? 'img' : 'presentation'}>
+				{newCheckboxIconPath}
+			</svg>
+		);
+	}
+
+	return (
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @atlaskit/design-system/no-custom-icons
+		<PrimitiveSVGIcon {...props}>
+			{newCheckboxIconPath}
+		</PrimitiveSVGIcon>
+	);
+}
+
+const newRadioIconPath = (
+	<g fillRule="evenodd">
+		<circle cx="12" cy="12" r="6.75" fill="currentColor" strokeWidth="1.5" />
+		<circle cx="12" cy="12" r="3" fill="inherit" />
+	</g>
 );
+
+const NewRadioIcon = (props: IconProps) => {
+	if (fg('platform-custom-icon-migration')) {
+		const { primaryColor, secondaryColor, label } = props;
+
+		return (
+			<svg viewBox="0 0 24 24" style={{ color: primaryColor, fill: secondaryColor }} css={svgStyles} aria-label={label} role={label ? 'img' : 'presentation'}>
+				{newRadioIconPath}
+			</svg>
+		);
+	}
+	return (
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @atlaskit/design-system/no-custom-icons
+		<PrimitiveSVGIcon {...props}>
+			{newRadioIconPath}
+		</PrimitiveSVGIcon>
+	)
+};
 
 /**
  * __Checkbox option__
@@ -221,7 +260,7 @@ export const CheckboxOption = <OptionT extends OptionType>(
 			fg('platform-visual-refresh-icons')
 				? NewCheckboxIcon
 				: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-					CheckboxIcon
+				CheckboxIcon
 		}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
@@ -238,7 +277,7 @@ export const RadioOption = <OptionT extends OptionType>(props: OptionProps<Optio
 			fg('platform-visual-refresh-icons')
 				? NewRadioIcon
 				: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-					RadioIcon
+				RadioIcon
 		}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}

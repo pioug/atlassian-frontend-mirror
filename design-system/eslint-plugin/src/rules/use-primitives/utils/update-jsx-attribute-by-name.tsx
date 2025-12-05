@@ -1,7 +1,6 @@
 import type { Rule } from 'eslint';
 import { jsxAttribute, type JSXElement, jsxIdentifier } from 'eslint-codemod-utils';
 
-// @ts-ignore - type compatibility with eslint-codemod-utils
 export const updateJSXAttributeByName = (
 	oldName: string,
 	newName: string,

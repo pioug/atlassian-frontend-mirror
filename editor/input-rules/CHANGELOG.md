@@ -1,5 +1,12 @@
 # @atlaskit/prosemirror-input-rules
 
+## 3.6.6
+
+### Patch Changes
+
+- [`289a5bde2611b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/289a5bde2611b) -
+  [ux] [EDITOR-3750] fix unwanted autoformatting by limiting checks to rules with backwards matches
+
 ## 3.6.5
 
 ### Patch Changes

@@ -36,7 +36,6 @@ export const StyleProperty = {
 	},
 
 	_check(node: Rule.Node, { context }: { context: Rule.RuleContext }): Check {
-		// @ts-ignore - Node type compatibility issue with EslintNode
 		if (!isNodeOfType(node, 'Property')) {
 			return { success: false, ref: undefined };
 		}

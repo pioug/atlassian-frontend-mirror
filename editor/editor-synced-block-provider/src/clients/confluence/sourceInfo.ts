@@ -4,6 +4,7 @@ import { logException } from '@atlaskit/editor-common/monitoring';
 
 import type { SyncBlockSourceInfo } from '../../providers/types';
 import { getSourceInfoErrorPayload } from '../../utils/errorHandling';
+import { fetchWithRetry } from '../../utils/retry';
 
 import { getPageIdAndTypeFromConfluencePageAri } from './ari';
 import { isBlogPageType } from './utils';
@@ -69,7 +70,7 @@ const getConfluenceSourceInfo = async (ari: string): Promise<GetSourceInfoResult
 		},
 	};
 
-	const response = await fetch(GRAPHQL_ENDPOINT, {
+	const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
 		method: 'POST',
 		headers: { ...COMMON_HEADERS, ...AGG_HEADERS },
 		body: JSON.stringify(bodyData),

@@ -47,10 +47,10 @@ const ElementAfter = (props: Props) => {
 
 	const showIcon = shouldShowVerifiedIcon
 		? shouldShowVerifiedIcon(data)
-		: (isTeam(data) && data.verified || isGroup(data) && data.includeTeamsUpdates);
+		: (isTeam(data) && data.verified) || (isGroup(data) && data.includeTeamsUpdates);
 
 	if (showIcon) {
-		return <VerifiedTeamIcon size={data.includeTeamsUpdates ? 'small' : 'medium'}/>;
+		return <VerifiedTeamIcon size={data.includeTeamsUpdates ? 'small' : 'medium'} />;
 	}
 
 	return null;

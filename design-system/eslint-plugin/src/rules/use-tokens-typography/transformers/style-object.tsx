@@ -69,9 +69,7 @@ interface FixerRefs {
 	fontStyleReplacement: StringableASTNode<Property> | undefined;
 }
 
-// @ts-ignore - type compatibility with eslint-codemod-utils
 export const StyleObject = {
-	// @ts-ignore - Node type compatibility issue with EslintNode
 	lint(node: Rule.Node, { context, config }: MetaData) {
 		// To force the correct node type
 		if (!isNodeOfType(node, 'ObjectExpression')) {
@@ -137,7 +135,6 @@ export const StyleObject = {
 		// Other tokens like `fontSize: token('space.100')` will not autofix, but still report
 		let matchingTokens: TokenValueMap[] = [];
 
-		// @ts-ignore - type compatibility with eslint-codemod-utils
 		const isFontSizeAToken = isDecendantOfGlobalToken(fontSizeNode.value);
 		if (isFontSizeAToken) {
 			// Specifically match for valid, non-deprecated font.heading|body|code tokens

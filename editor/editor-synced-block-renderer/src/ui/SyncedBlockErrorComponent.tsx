@@ -30,6 +30,8 @@ export const SyncedBlockErrorComponent = ({
 				return <SyncedBlockPermissionDenied sourceAri={sourceAri} sourceProduct={sourceProduct} />;
 			case SyncBlockError.NotFound:
 			case SyncBlockError.Errored:
+			case SyncBlockError.RateLimited:
+			case SyncBlockError.ServerError:
 				return <SyncedBlockLoadError onRetry={onRetry} isLoading={isLoading} />;
 			default:
 				return <SyncedBlockGenericError />;

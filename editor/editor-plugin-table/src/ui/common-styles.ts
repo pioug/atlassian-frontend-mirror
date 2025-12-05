@@ -7,7 +7,11 @@
 import { css } from '@emotion/react';
 
 import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { tableMarginTop, tableSharedStyle } from '@atlaskit/editor-common/styles';
+import {
+	ANCHOR_VARIABLE_NAME,
+	tableMarginTop,
+	tableSharedStyle,
+} from '@atlaskit/editor-common/styles';
 import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import {
@@ -36,6 +40,8 @@ import { SORTING_ICON_CLASS_NAME } from '../pm-plugins/view-mode-sort/consts';
 import { TableCssClassName as ClassName } from '../types';
 
 import {
+	aboveNativeStickyHeaderZIndex,
+	belowNativeStickyHeaderZIndex,
 	columnControlsDecorationHeight,
 	dragRowControlsWidth,
 	nativeStickyHeaderZIndex,
@@ -56,6 +62,7 @@ import {
 	tableColumnControlsHeight,
 	tableControlsSpacing,
 	tableHeaderCellBackgroundColor,
+	tableHeaderCellSelectedColor,
 	tableInsertColumnButtonSize,
 	tableOverflowShadowWidth,
 	tablePadding,
@@ -339,6 +346,11 @@ export const baseTableStyles = (props: {
 	${resizeHandle()};
 	${rangeSelectionStyles};
 	${viewModeSortStyles()};
+	${expValEquals(
+		'platform_editor_table_sticky_header_improvements',
+		'cohort',
+		'test_with_overflow',
+	) && tableAnchorStyles};
 
 	.${ClassName.LAST_ITEM_IN_CELL} {
 		margin-bottom: 0;
@@ -589,14 +601,14 @@ export const baseTableStyles = (props: {
 		> div
 		> .${ClassName.DRAG_ROW_CONTROLS} {
 		top: ${tableColumnControlsHeight}px;
-		z-index: ${nativeStickyHeaderZIndex + 1};
+		z-index: ${aboveNativeStickyHeaderZIndex};
 	}
 
 	.${ClassName.TABLE_CONTAINER}[data-table-header-is-stuck='true']:has(.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW})
 		> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
 		> div
 		> .${ClassName.DRAG_ROW_CONTROLS} {
-		z-index: ${nativeStickyHeaderZIndex - 1};
+		z-index: ${belowNativeStickyHeaderZIndex};
 	}
 
 	/** Corrects position of numbered column when sticky header top mask is present */
@@ -623,7 +635,7 @@ export const baseTableStyles = (props: {
 	 * - The header row drag handle has the data-selected-row-index='0' attribute
 	 * 		AND does not have the data-handle-appearance='default' attribute (i.e. selected)
 	*/
-	.${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS}[data-table-header-is-stuck='true'] 
+	.${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS}[data-table-header-is-stuck='true']
 	.${ClassName.DRAG_ROW_FLOATING_DRAG_HANDLE}:is([data-row-index='0'], [data-selected-row-index='0']:not([data-handle-appearance='default'])) {
 		visibility: hidden;
 	}
@@ -1302,6 +1314,7 @@ export const baseTableStyles = (props: {
 	}
 
 	/** Mask for content to the left of the column controls */
+
 	.${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} > .${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER}::before {
 		content: '';
 		position: relative;
@@ -1314,7 +1327,7 @@ export const baseTableStyles = (props: {
 	}
 
 	/** Mask for numbered column content to the left of the header row */
-	.${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} th:first-of-type::before {
+	.${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th:first-of-type::before {
 		content: '';
 		position: absolute;
 		display: inline-block;
@@ -1327,6 +1340,23 @@ export const baseTableStyles = (props: {
 		outline: 1px solid ${tableBorderColor};
 		border-left: 1px solid ${tableBorderColor};
 		background: ${token('color.background.accent.gray.subtlest')};
+	}
+
+	.${ClassName.TABLE_CONTAINER}[data-number-column="true"].${ClassName.TABLE_SELECTED} .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.HOVERED_CELL_IN_DANGER}):first-of-type::before, .${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.HOVERED_CELL_IN_DANGER}, .${ClassName.COLUMN_SELECTED}):first-of-type::before {
+		outline: none;
+		border-left-color: ${tableBorderSelectedColor};
+		background: ${tableHeaderCellSelectedColor};
+	}
+
+	.${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.HOVERED_CELL_IN_DANGER}:not(.${ClassName.COLUMN_SELECTED}):first-of-type::before {
+		outline: none;
+		background: ${tableCellDeleteColor};
+	}
+
+	.${ClassName.TABLE_CONTAINER}[data-number-column="true"].${ClassName.HOVERED_DELETE_BUTTON} .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.COLUMN_SELECTED}):first-of-type::before {
+		outline: none;
+		border-left-color: ${tableBorderDeleteColor};
+		background: ${tableCellDeleteColor};
 	}
 
 	.${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} .${ClassName.NATIVE_STICKY_ACTIVE} th:first-of-type::before {
@@ -1405,5 +1435,11 @@ export const tableCommentEditorStyles = css`
 		margin-left: 0;
 		margin-right: 0;
 		${scrollbarStyles};
+	}
+`;
+
+const tableAnchorStyles = css`
+	.pm-table-with-controls .pm-table-wrapper-no-overflow [data-prosemirror-node-name='tableHeader'] {
+		anchor-name: var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)));
 	}
 `;

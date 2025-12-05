@@ -66,7 +66,7 @@ function findSpreadProperties(node: ES.ObjectExpression): ES.SpreadElement[] {
 	return node.properties.filter(
 		(property): property is ES.SpreadElement =>
 			property.type === 'SpreadElement' ||
-			// @ts-ignore
+			// @ts-expect-error
 			property.type === 'ExperimentalSpreadProperty',
 	);
 }
@@ -92,7 +92,6 @@ const isDeclaredInsideComponent = (expression: NodeWithParent) => {
 			return true;
 		}
 
-		// @ts-ignore - Node parent type compatibility issue
 		expression = expression.parent;
 	}
 	return false;
@@ -216,7 +215,7 @@ class JSXExpressionLinter {
 			}
 
 			const valueExpression =
-				// @ts-ignore remove once eslint types are switched to @typescript-eslint
+				// @ts-expect-error remove once eslint types are switched to @typescript-eslint
 				value.type === 'TSAsExpression' ? value.expression : value;
 			if (['ObjectExpression', 'TemplateLiteral'].includes(valueExpression.type)) {
 				this.context.report({
@@ -362,11 +361,10 @@ class JSXExpressionLinter {
 
 		estraverse.traverse(node, {
 			fallback: 'iteration',
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			enter: function (node: EslintNode, _parent: EslintNode | null) {
 				if (
 					isNodeOfType(node, 'SpreadElement') ||
-					// @ts-ignore remove once we can be sure that no parser interprets
+					// @ts-expect-error remove once we can be sure that no parser interprets
 					// the spread operator as ExperimentalSpreadProperty anymore
 					isNodeOfType(node, 'ExperimentalSpreadProperty')
 				) {
@@ -473,9 +471,7 @@ class JSXExpressionLinter {
 
 		if (node.type === 'Identifier') {
 			const identifier = node as IdentifierWithParent;
-			// @ts-ignore - Node parent type compatibility issue
 			const declarator = identifier.parent.parent;
-			// @ts-ignore - Node | null not assignable to Node | Token
 			moduleString = sourceCode.getText(declarator);
 			fixes.push(fixer.remove(declarator));
 		} else {
@@ -581,14 +577,14 @@ class JSXExpressionLinter {
 				});
 				break;
 
-			// @ts-ignore - our ESLint-related types assume vanilla JS, when in fact
+			// @ts-expect-error - our ESLint-related types assume vanilla JS, when in fact
 			// it is running @typescript-eslint
 			//
 			// Switching to the more accurate @typescript-eslint types would break
 			// eslint-codemod-utils and all ESLint rules in packages/design-system,
 			// so we just leave this as-is.
 			case 'TSAsExpression':
-				// @ts-ignore
+				// @ts-expect-error
 				this.traverseExpression(expression.expression);
 				break;
 

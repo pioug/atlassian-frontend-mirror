@@ -26,7 +26,6 @@ type Check =
 			ref: Ref;
 	  };
 
-// @ts-ignore - type compatibility with eslint-codemod-utils
 export const StyleProperty = {
 	lint(node: Rule.Node, { context }: { context: Rule.RuleContext }) {
 		// Check whether all criteria needed to make a transformation are met
@@ -43,7 +42,6 @@ export const StyleProperty = {
 		});
 	},
 
-	// @ts-ignore - Node type compatibility issue with EslintNode
 	_check(node: Rule.Node): Check {
 		if (!isNodeOfType(node, 'Property')) {
 			return { success: false, ref: undefined };
@@ -88,7 +86,6 @@ export const StyleProperty = {
 
 		// Don't report on stuff like `borderRadius: '3px 8px'`.
 		// We may iterate to handle values like this in future.
-		// @ts-ignore - type compatibility with eslint-codemod-utils
 		if (value.toString().includes(' ')) {
 			return { success: false, ref: undefined };
 		}

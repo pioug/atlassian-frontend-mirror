@@ -59,7 +59,9 @@ const FlexibleCard = ({
 			extractPlaceHolderCardState(placeholderData),
 		[placeholderData, status],
 	);
-	const placeHolderStatus = placeholderCardState ? (placeholderCardState.status as SmartLinkStatus) : undefined;
+	const placeHolderStatus = placeholderCardState
+		? (placeholderCardState.status as SmartLinkStatus)
+		: undefined;
 
 	const context = useMemo(
 		() =>

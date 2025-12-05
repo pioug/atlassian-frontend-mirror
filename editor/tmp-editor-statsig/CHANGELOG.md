@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 14.8.0
+
+### Minor Changes
+
+- [`361f88d13201f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/361f88d13201f) -
+  Removes experiment gate cc_complexit_fe_emoji_stability
+
 ## 14.7.0
 
 ### Minor Changes

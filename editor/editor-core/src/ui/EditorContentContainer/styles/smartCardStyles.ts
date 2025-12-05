@@ -55,6 +55,17 @@ export const showDiffDeletedNodeStyles: SerializedStyles = css({
 			boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
 			borderColor: 'transparent',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors
+		[`&.show-diff-deleted-node-traditional .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div::after`]:
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
+				borderColor: 'transparent',
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors
+		[`&.show-diff-deleted-node .${SmartCardSharedCssClassName.LOADER_WRAPPER}`]: {
+			opacity: 0.6,
+		},
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.show-diff-deleted-node .media-card-wrapper': {
@@ -62,9 +73,32 @@ export const showDiffDeletedNodeStyles: SerializedStyles = css({
 		'& > div': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
 			boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
-			borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
+			borderRadius: token('radius.small'),
 			opacity: 0.6,
 		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.show-diff-deleted-node-traditional .media-card-wrapper': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& > div': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+			boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
+			borderRadius: token('radius.small'),
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="blockquote"].show-diff-deleted-node': {
+		textDecoration: 'line-through',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="blockquote"].show-diff-deleted-node-traditional': {
+		textDecoration: 'line-through',
+		textDecorationColor: token('color.border.accent.red'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="embedCard"].show-diff-deleted-node-traditional': {
+		textDecoration: 'line-through',
+		textDecorationColor: token('color.border.accent.red'),
 	},
 });
 

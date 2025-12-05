@@ -77,9 +77,7 @@ const rule = createLintRule({
 									fix: fixJsx(source, idNode),
 								});
 								// this is either a styled usage OR mixin usage in a styled usage
-								// @ts-ignore - idNode.parent possibly null
 							} else if (idNode.parent.type === 'CallExpression') {
-								// @ts-ignore - type compatibility with eslint-codemod-utils
 								if (isCssInJsObjectNode(idNode.parent) || isCssInJsTemplateNode(idNode.parent)) {
 									context.report({
 										node: idNode.parent,
@@ -92,9 +90,7 @@ const rule = createLintRule({
 									});
 								}
 
-								// @ts-ignore - idNode.parent possibly null, callee property access
 								if (idNode.parent.callee === idNode) {
-									// @ts-ignore - type compatibility with eslint-codemod-utils
 									context.report({
 										node: idNode.parent,
 										messageId: 'noDeprecatedUsage',
@@ -104,7 +100,6 @@ const rule = createLintRule({
 										},
 										fix: fixVanilla(
 											source,
-											// @ts-ignore - type compatibility with eslint-codemod-utils
 											closestOfType(idNode.parent, 'TaggedTemplateExpression') as Rule.Node,
 										),
 									});

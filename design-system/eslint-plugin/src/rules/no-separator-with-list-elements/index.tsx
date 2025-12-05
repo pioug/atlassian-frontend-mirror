@@ -44,7 +44,6 @@ const rule = createLintRule({
 
 			JSXElement(node: Rule.Node) {
 				if (
-					// @ts-ignore - Node type compatibility issue with EslintNode
 					!isNodeOfType(node, 'JSXElement') ||
 					!isNodeOfType(node.openingElement.name, 'JSXIdentifier')
 				) {

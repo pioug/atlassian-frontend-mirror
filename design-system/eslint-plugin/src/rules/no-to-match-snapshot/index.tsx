@@ -42,7 +42,6 @@ const rule = createLintRule({
 
 				// Only report if this is being called (i.e., it's part of a CallExpression)
 				// We want to catch expect(...).toMatchSnapshot() but not just the property access
-				// @ts-ignore - Node type compatibility issue with EslintNode
 				if (!node.parent || !isNodeOfType(node.parent, 'CallExpression')) {
 					return;
 				}

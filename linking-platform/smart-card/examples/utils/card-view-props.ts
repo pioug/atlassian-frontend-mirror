@@ -10,5 +10,6 @@ type XOR<T1, T2> =
 			[k in Exclude<keyof T1, keyof T2>]?: never;
 	  });
 
-
-export type MultiCardViewProps = Pick<ProviderProps, 'client'> & Omit<CardProps, 'url'> & XOR<{urls?: string[]}, { url?: string }>;
+export type MultiCardViewProps = Pick<ProviderProps, 'client'> &
+	Omit<CardProps, 'url'> &
+	XOR<{ urls?: string[] }, { url?: string }>;

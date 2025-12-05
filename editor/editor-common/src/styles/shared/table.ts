@@ -129,6 +129,13 @@ const tableSharedStyle = () => {
 			.${TableSharedCssClassName.TABLE_LEFT_BORDER} {
 				left: 0;
 			}
+			${
+				fg('platform_editor_table_numbered_table_border') &&
+				`
+				.${TableSharedCssClassName.TABLE_LEFT_BORDER}[data-with-numbered-table='true'] {
+					left: ${akEditorTableNumberColumnWidth - 1}px;
+				}`
+			}
 			`}
 		}
 		.${TableSharedCssClassName.TABLE_CONTAINER}[data-number-column='true'] {

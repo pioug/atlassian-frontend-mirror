@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 24.24.0
+
+### Minor Changes
+
+- [`38a52551cd51f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38a52551cd51f) -
+  Cleanup profilecard_primitives_compiled FG
+
 ## 24.23.1
 
 ### Patch Changes

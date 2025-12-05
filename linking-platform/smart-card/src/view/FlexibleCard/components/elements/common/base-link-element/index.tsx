@@ -273,15 +273,15 @@ const BaseLinkElement = ({
 
 	return (
 		<span css={containerStyles}>
-			{
-				hideTooltip || text === undefined 
-					? anchor 
-					: withTooltip(
-						anchor, 
-						(url?.includes(text) && isNewBlockcardUnauthorizedRefreshExperimentEnabled() ? url : text), 
-						testId
-					)
-			}
+			{hideTooltip || text === undefined
+				? anchor
+				: withTooltip(
+						anchor,
+						url?.includes(text) && isNewBlockcardUnauthorizedRefreshExperimentEnabled()
+							? url
+							: text,
+						testId,
+					)}
 		</span>
 	);
 };

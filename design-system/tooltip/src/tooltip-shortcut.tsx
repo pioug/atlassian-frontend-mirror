@@ -5,7 +5,6 @@
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -24,7 +23,7 @@ const styles = cssMap({
 		paddingBlockEnd: token('space.025'),
 		paddingInlineStart: token('space.075'),
 		paddingInlineEnd: token('space.075'),
-		font: token('font.code'),
+		font: token('font.body.small'),
 		borderStyle: 'solid',
 		borderWidth: token('border.width'),
 		borderColor: token('color.border.bold'),
@@ -47,9 +46,6 @@ const styles = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 		backgroundColor: 'unset !important',
 	},
-	regularFont: {
-		font: token('font.body.small'),
-	},
 });
 
 type TooltipShortcutProps = {
@@ -68,11 +64,7 @@ export const TooltipShortcut = ({ shortcut }: TooltipShortcutProps) => {
 			{shortcut.map((segment, index) => (
 				<kbd
 					key={`${segment}-${index}`}
-					css={[
-						styles.shortcutSegment,
-						// Replacing the monospace font with regular font when flag is enabled
-						fg('platform-tooltip-shortcuts-regular-font') && styles.regularFont,
-					]}
+					css={styles.shortcutSegment}
 				>
 					{segment}
 				</kbd>

@@ -6,7 +6,6 @@ import { CardSSR } from '@atlaskit/smart-card/ssr';
 
 import type { MultiCardViewProps } from '../utils/card-view-props';
 
-
 type CardViewActionPropsBase = {
 	CardComponent?: typeof Card | typeof CardSSR;
 	description?: string;
@@ -34,7 +33,7 @@ const CardViewSection = ({
 		{title !== '' ? <h6>{title}</h6> : undefined}
 		{description !== undefined && description !== '' ? <p>Context: {description}</p> : undefined}
 		<SmartCardProvider client={client}>
-			{ (urls || [url]).map((currentUrl = defaultUrl) => (
+			{(urls || [url]).map((currentUrl = defaultUrl) => (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				<p style={{ fontSize }}>
 					<CardComponent {...props} platform={platform} url={currentUrl} />
@@ -45,4 +44,3 @@ const CardViewSection = ({
 );
 
 export default CardViewSection;
-

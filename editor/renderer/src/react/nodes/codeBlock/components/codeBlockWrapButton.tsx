@@ -56,7 +56,13 @@ const CodeBlockWrapButton = ({
 							aria-label={wrapMessage}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={`wrap-code ${wrapLongLines ? 'clicked' : ''}`}
-							iconBefore={fg('platform-custom-icon-migration') ? <TextWrapIcon label="" /> : <Icon glyph={WrapIcon} label="" />}
+							iconBefore={
+								fg('platform-custom-icon-migration') ? (
+									<TextWrapIcon label="" />
+								) : (
+									<Icon glyph={WrapIcon} label="" />
+								)
+							}
 							isSelected={wrapLongLines}
 							onClick={(event) => {
 								fireAnalyticsEvent({

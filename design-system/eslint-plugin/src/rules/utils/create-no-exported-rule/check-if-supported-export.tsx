@@ -124,7 +124,6 @@ export const checkIfSupportedExport = (
 		};
 	}
 
-	// @ts-ignore - Node | null not assignable to Node
 	const { root, nodes } = getStack(context, node.parent);
 	// Exporting a component with a css reference should be allowed
 	if (isStyledComponent(nodes, context, importSources)) {
@@ -162,7 +161,6 @@ export const checkIfSupportedExport = (
 			continue;
 		}
 
-		// @ts-ignore - Node | null not assignable to Node
 		const { nodes: refs, scope: nextScope } = getStack(context, (identifier as Rule.Node).parent);
 
 		// Only validate the resolved reference if it accesses the definition node

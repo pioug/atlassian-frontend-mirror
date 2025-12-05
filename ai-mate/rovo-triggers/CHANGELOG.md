@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 4.11.0
+
+### Minor Changes
+
+- [`200e543bf9df4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/200e543bf9df4) -
+  [ux] Add the more menu for solution architect chat modal
+
 ## 4.10.0
 
 ### Minor Changes

@@ -3,10 +3,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { cssMap } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
 import {
 	AgentAvatar,
 	AgentBanner,
@@ -16,6 +15,7 @@ import {
 	type ConversationStarter,
 } from '@atlaskit/rovo-agent-components';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
+import { token } from '@atlaskit/tokens';
 
 import { type AgentProfileCardProps } from '../../types';
 import { fireEvent, PACKAGE_META_DATA, profileCardRendered } from '../../util/analytics';
@@ -24,24 +24,32 @@ import { LoadingState } from '../common/LoadingState';
 import { ErrorMessage } from '../Error';
 
 import { AgentActions } from './Actions';
-import { default as AgentProfileCardCompiled } from './AgentProfileCardCompiled';
 import { AgentProfileCardWrapper } from './AgentProfileCardWrapper';
 import { ConversationStarters } from './ConversationStarters';
 import { useAgentUrlActions } from './hooks/useAgentActions';
 import { messages } from './messages';
 
-const styles = xcss({ paddingBlockStart: 'space.400', paddingInline: 'space.200' });
-
-const avatarStyles = xcss({
-	position: 'absolute',
-	top: 'space.300',
-	left: 'space.200',
-});
-
-const cardContainerStyles = xcss({
-	borderRadius: 'radius.large',
-	boxShadow: 'elevation.shadow.overlay',
-	position: 'relative',
+const styles = cssMap({
+	detailWrapper: { paddingBlockStart: token('space.400'), paddingInline: token('space.200') },
+	detailWrapperRefresh: {
+		paddingBlockStart: token('space.300'),
+	},
+	avatarStyles: {
+		position: 'absolute',
+		top: token('space.300'),
+		left: token('space.200'),
+	},
+	cardContainerStyles: {
+		borderRadius: token('radius.large'),
+		boxShadow: token('elevation.shadow.overlay'),
+		position: 'relative',
+	},
+	agentProfileInfoWrapper: {
+		paddingInline: token('space.200'),
+	},
+	conversationStartersWrapper: {
+		paddingInline: token('space.150'),
+	},
 });
 
 const AgentProfileCard = ({
@@ -56,7 +64,7 @@ const AgentProfileCard = ({
 	addFlag,
 	onDeleteAgent,
 	hideMoreActions,
-}: AgentProfileCardProps) => {
+}: AgentProfileCardProps): React.JSX.Element => {
 	const {
 		onEditAgent,
 		onCopyAgent,
@@ -72,7 +80,7 @@ const AgentProfileCard = ({
 	const [isStarred, setIsStarred] = useState(false);
 	const [starCount, setStarCount] = useState<number | undefined>();
 	const { formatMessage } = useIntl();
-	const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
+	const { fireEvent: fireAnalyticsNext } = useAnalyticsEventsNext();
 
 	const userDefinedConversationStarters: ConversationStarter[] | undefined =
 		agent?.user_defined_conversation_starters?.map((starter) => {
@@ -100,16 +108,21 @@ const AgentProfileCard = ({
 	const handleSetFavourite = useCallback(async () => {
 		if (agent?.id) {
 			try {
-				await resourceClient.setFavouriteAgent(agent.id, !isStarred, fireAnalytics, fireEventNext);
+				await resourceClient.setFavouriteAgent(
+					agent.id,
+					!isStarred,
+					fireAnalytics,
+					fireAnalyticsNext,
+				);
 				if (isStarred) {
 					setStarCount(starCount ? starCount - 1 : 0);
 				} else {
 					setStarCount((starCount || 0) + 1);
 				}
 				setIsStarred(!isStarred);
-			} catch (error) {}
+			} catch {}
 		}
-	}, [agent?.id, fireAnalytics, fireEventNext, isStarred, resourceClient, starCount]);
+	}, [agent?.id, fireAnalytics, fireAnalyticsNext, isStarred, resourceClient, starCount]);
 
 	const handleOnDelete = useCallback(async () => {
 		if (agent && onDeleteAgent) {
@@ -117,7 +130,7 @@ const AgentProfileCard = ({
 			const { restore } = onDeleteAgent(agent.id);
 
 			try {
-				await resourceClient.deleteAgent(agent.id, fireAnalytics, fireEventNext);
+				await resourceClient.deleteAgent(agent.id, fireAnalytics, fireAnalyticsNext);
 
 				addFlag?.({
 					title: formatMessage(messages.agentDeletedSuccessFlagTitle),
@@ -127,7 +140,7 @@ const AgentProfileCard = ({
 					type: 'success',
 					id: 'ptc-directory.agent-profile.delete-agent-success',
 				});
-			} catch (error) {
+			} catch {
 				// Restore agent to cache on error
 				restore();
 
@@ -139,12 +152,20 @@ const AgentProfileCard = ({
 				});
 			}
 		}
-	}, [addFlag, agent, formatMessage, onDeleteAgent, resourceClient, fireAnalytics, fireEventNext]);
+	}, [
+		addFlag,
+		agent,
+		formatMessage,
+		onDeleteAgent,
+		resourceClient,
+		fireAnalytics,
+		fireAnalyticsNext,
+	]);
 
 	useEffect(() => {
 		if (!isLoading && agent) {
 			if (fg('ptc-enable-profile-card-analytics-refactor')) {
-				fireEventNext(`ui.rovoAgentProfilecard.rendered.content`, {
+				fireAnalyticsNext(`ui.rovoAgentProfilecard.rendered.content`, {
 					...PACKAGE_META_DATA,
 					firedAt: Math.round(getPageTime()),
 				});
@@ -152,7 +173,7 @@ const AgentProfileCard = ({
 				fireAnalytics(profileCardRendered('agent', 'content'));
 			}
 		}
-	}, [agent, fireAnalytics, fireEventNext, isLoading]);
+	}, [agent, fireAnalytics, isLoading, fireAnalyticsNext]);
 
 	if (isLoading) {
 		return (
@@ -160,7 +181,7 @@ const AgentProfileCard = ({
 				<LoadingState
 					profileType="agent"
 					fireAnalytics={fireAnalytics}
-					fireAnalyticsNext={fireEventNext}
+					fireAnalyticsNext={fireAnalyticsNext}
 				/>
 			</AgentProfileCardWrapper>
 		);
@@ -170,9 +191,9 @@ const AgentProfileCard = ({
 		return (
 			<AgentProfileCardWrapper>
 				<ErrorMessage
+					fireAnalyticsNext={fireAnalyticsNext}
 					errorType={errorType}
 					fireAnalytics={fireAnalytics}
-					fireAnalyticsNext={fireEventNext}
 				/>
 			</AgentProfileCardWrapper>
 		);
@@ -180,56 +201,75 @@ const AgentProfileCard = ({
 
 	return (
 		<AgentProfileCardWrapper>
-			<Box xcss={cardContainerStyles}>
+			<Box xcss={styles.cardContainerStyles}>
 				<AgentBanner
 					agentId={agent.id}
 					agentNamedId={agent.external_config_reference ?? agent.named_id}
-					height={96}
+					height={fg('rovo_agent_empty_state_refresh') ? 48 : 96}
 					agentIdentityAccountId={agent.identity_account_id}
 				/>
-				<Box xcss={avatarStyles}>
+				<Box xcss={styles.avatarStyles}>
 					<AgentAvatar
 						agentId={agent.id}
 						agentNamedId={agent.external_config_reference ?? agent.named_id}
 						agentIdentityAccountId={agent.identity_account_id}
-						size="xlarge"
+						size={fg('rovo_agent_empty_state_refresh') ? 'large' : 'xlarge'}
 						isForgeAgent={agent.creator_type === 'FORGE' || agent.creator_type === 'THIRD_PARTY'}
 						forgeAgentIconUrl={agent.icon}
 					/>
 				</Box>
 
-				<Stack space="space.100" xcss={styles}>
-					<AgentProfileInfo
-						agentName={agent.name}
-						isStarred={isStarred}
-						onStarToggle={handleSetFavourite}
-						isHidden={agent.visibility === 'PRIVATE'}
-						creatorRender={
-							agent.creatorInfo?.type && (
-								<AgentProfileCreator
-									creator={{
-										type: agent.creatorInfo?.type,
-										name: agent.creatorInfo?.name || '',
-										profileLink: agent.creatorInfo?.profileLink || '',
-									}}
-									isLoading={false}
-									onCreatorLinkClick={() => {}}
-								/>
-							)
-						}
-						starCountRender={<AgentStarCount starCount={starCount} isLoading={false} />}
-						agentDescription={agent.description}
-					/>
-
-					<ConversationStarters
-						isAgentDefault={agent.is_default}
-						userDefinedConversationStarters={userDefinedConversationStarters}
-						onConversationStarterClick={(conversationStarter: ConversationStarter) => {
-							onConversationStartersClick
-								? onConversationStartersClick(conversationStarter)
-								: onConversationStarter({ agentId: agent.id, prompt: conversationStarter.message });
-						}}
-					/>
+				<Stack
+					space="space.100"
+					xcss={
+						fg('rovo_agent_empty_state_refresh')
+							? styles.detailWrapperRefresh
+							: styles.detailWrapper
+					}
+				>
+					<Box xcss={fg('rovo_agent_empty_state_refresh') ? styles.agentProfileInfoWrapper : null}>
+						<AgentProfileInfo
+							agentName={agent.name}
+							isStarred={isStarred}
+							onStarToggle={handleSetFavourite}
+							isHidden={agent.visibility === 'PRIVATE'}
+							creatorRender={
+								agent.creatorInfo?.type && (
+									<AgentProfileCreator
+										creator={{
+											type: agent.creatorInfo?.type,
+											name: agent.creatorInfo?.name || '',
+											profileLink: agent.creatorInfo?.profileLink || '',
+										}}
+										isLoading={false}
+										onCreatorLinkClick={() => {}}
+									/>
+								)
+							}
+							starCountRender={
+								fg('rovo_agent_empty_state_refresh') ? null : (
+									<AgentStarCount starCount={starCount} isLoading={false} />
+								)
+							}
+							agentDescription={agent.description}
+						/>
+					</Box>
+					<Box
+						xcss={fg('rovo_agent_empty_state_refresh') ? styles.conversationStartersWrapper : null}
+					>
+						<ConversationStarters
+							isAgentDefault={agent.is_default}
+							userDefinedConversationStarters={userDefinedConversationStarters}
+							onConversationStarterClick={(conversationStarter: ConversationStarter) => {
+								onConversationStartersClick
+									? onConversationStartersClick(conversationStarter)
+									: onConversationStarter({
+											agentId: agent.id,
+											prompt: conversationStarter.message,
+										});
+							}}
+						/>
+					</Box>
 				</Stack>
 				<AgentActions
 					agent={agent}
@@ -251,9 +291,4 @@ const AgentProfileCard = ({
 	);
 };
 
-const AgentProfileCardExport = componentWithFG(
-	'profilecard_primitives_compiled',
-	AgentProfileCardCompiled,
-	AgentProfileCard,
-);
-export default AgentProfileCardExport;
+export default AgentProfileCard;

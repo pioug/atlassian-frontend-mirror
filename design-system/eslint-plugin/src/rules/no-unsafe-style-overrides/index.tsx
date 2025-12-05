@@ -56,7 +56,6 @@ const rule = createLintRule({
 			},
 			JSXAttribute(node: Node) {
 				if (
-					// @ts-ignore - Node type compatibility issue with EslintNode
 					!isNodeOfType(node, 'JSXAttribute') ||
 					!(node.parent && isNodeOfType(node.parent, 'JSXOpeningElement'))
 				) {

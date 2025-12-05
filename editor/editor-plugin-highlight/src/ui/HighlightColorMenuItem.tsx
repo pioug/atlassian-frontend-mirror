@@ -123,7 +123,9 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 					<Button
 						shouldFitContainer
 						appearance="subtle"
-						onClick={(event: React.MouseEvent) => handleHighlightColorChange(REMOVE_HIGHLIGHT_COLOR, event)}
+						onClick={(event: React.MouseEvent) =>
+							handleHighlightColorChange(REMOVE_HIGHLIGHT_COLOR, event)
+						}
 					>
 						{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 						<Text weight="medium">Remove highlight</Text>

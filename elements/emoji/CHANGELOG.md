@@ -1,5 +1,16 @@
 # @atlaskit/emoji
 
+## 69.9.0
+
+### Minor Changes
+
+- [`361f88d13201f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/361f88d13201f) -
+  Removes experiment gate cc_complexit_fe_emoji_stability
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 69.8.5
 
 ### Patch Changes

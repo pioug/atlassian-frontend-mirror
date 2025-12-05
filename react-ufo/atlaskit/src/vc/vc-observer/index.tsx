@@ -1,5 +1,7 @@
 import { type UnbindFn } from 'bind-event-listener';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type {
 	ComponentsLogType,
 	RevisionPayload,
@@ -828,6 +830,14 @@ export class VCObserver implements VCObserverInterface {
 				this.setAbortReason(abortReason.scroll, time);
 				break;
 			case 'keydown':
+				// Don't abort press interactions on keydown events, as keydown is expected
+				// when users press Enter/Space to activate buttons or other interactive elements
+				if (fg('platform_ufo_keypress_interaction_abort')) {
+					const interaction = getActiveInteraction();
+					if (interaction?.type === 'press') {
+						break;
+					}
+				}
 				this.setAbortReason(abortReason.keypress, time);
 				break;
 			case 'resize':

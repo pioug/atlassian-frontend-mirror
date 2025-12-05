@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Modal, { ModalBody, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
+import { Popup } from '@atlaskit/popup';
+import Tooltip from '@atlaskit/tooltip';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
-import { fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
+import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import { Main } from '../../main/main';
 import { Root } from '../../root';
@@ -291,6 +293,98 @@ describe('Side nav keyboard shortcut', () => {
 				repeat: true,
 			});
 
+			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
+		});
+
+		it('should close any open tooltips when the keyboard shortcut is pressed', async () => {
+			jest.useFakeTimers();
+			const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+			setMediaQuery('(min-width: 64rem)', { initial: true });
+
+			function TestComponent() {
+				return (
+					<Root isSideNavShortcutEnabled>
+						<SideNav testId="sidenav">sidenav</SideNav>
+						<Main>
+							<Tooltip content="This is a tooltip">
+								{(tooltipProps) => (
+									<button type="button" {...tooltipProps}>
+										Tooltip trigger
+									</button>
+								)}
+							</Tooltip>
+						</Main>
+					</Root>
+				);
+			}
+
+			render(<TestComponent />);
+
+			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
+
+			// Open tooltip by hovering over the trigger
+			await user.hover(screen.getByRole('button', { name: 'Tooltip trigger' }));
+			act(() => {
+				jest.runAllTimers();
+			});
+
+			// Tooltip is visible
+			expect(await screen.findByRole('tooltip', { name: 'This is a tooltip' })).toBeInTheDocument();
+
+			// Press keyboard shortcut
+			await user.keyboard('{Control>}[[');
+
+			// Tooltip should be closed
+			expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+
+			// Side nav should have toggled
+			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
+
+			jest.useRealTimers();
+		});
+
+		it('should close any open popups when the keyboard shortcut is pressed', async () => {
+			const user = userEvent.setup();
+			setMediaQuery('(min-width: 64rem)', { initial: true });
+
+			function TestComponent() {
+				const [isPopupOpen, setIsPopupOpen] = useState(true);
+
+				return (
+					<Root isSideNavShortcutEnabled>
+						<SideNav testId="sidenav">sidenav</SideNav>
+						<Main>
+							<Popup
+								shouldRenderToParent
+								isOpen={isPopupOpen}
+								onClose={() => setIsPopupOpen(false)}
+								placement="bottom-start"
+								content={() => <div>Popup content</div>}
+								trigger={({ ref }) => (
+									<button type="button" ref={ref}>
+										Popup trigger
+									</button>
+								)}
+							/>
+						</Main>
+					</Root>
+				);
+			}
+
+			render(<TestComponent />);
+
+			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
+
+			// Popup is open
+			expect(screen.getByText('Popup content')).toBeVisible();
+
+			// Press keyboard shortcut
+			await user.keyboard('{Control>}[[');
+
+			// Popup should be closed
+			expect(screen.queryByText('Popup content')).not.toBeInTheDocument();
+
+			// Side nav should have toggled
 			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
 		});
 

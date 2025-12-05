@@ -1,5 +1,12 @@
 # @atlaskit/select
 
+## 21.4.2
+
+### Patch Changes
+
+- [`16cdad6cd57d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16cdad6cd57d4) -
+  Changing internal use of SVG icons behind a feature flag.
+
 ## 21.4.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 16.4.1
+
+### Patch Changes
+
+- [`0d73beb2f9401`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d73beb2f9401) -
+  Added `fontVariantNumeric` as an allowed property to Text's `xcss` prop to allow for tabular
+  numbers and slashed zeros. This is only available to the Compiled version of the Text component.
+
 ## 16.4.0
 
 ### Minor Changes

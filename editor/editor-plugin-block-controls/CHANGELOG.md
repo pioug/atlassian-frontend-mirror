@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.13.0
+
+### Minor Changes
+
+- [`b3a509f727a0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3a509f727a0f) -
+  ED-29696 update CSS anchor selector to enable less anchors
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.12.1
 
 ### Patch Changes

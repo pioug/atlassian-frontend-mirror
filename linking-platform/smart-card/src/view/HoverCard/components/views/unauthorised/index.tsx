@@ -68,7 +68,12 @@ const HoverCardUnauthorisedView = ({
 		() => [
 			{
 				name: ActionName.CustomAction,
-				content: <FormattedMessage {...messages.connect_unauthorised_account_action} values={{ context: providerName }} />,
+				content: (
+					<FormattedMessage
+						{...messages.connect_unauthorised_account_action}
+						values={{ context: providerName }}
+					/>
+				),
 				onClick: handleAuthorize,
 			} as CustomActionItem,
 		],
@@ -79,7 +84,10 @@ const HoverCardUnauthorisedView = ({
 		<FlexibleCard {...flexibleCardProps} testId={testId}>
 			<CustomBlock css={[titleBlockStyles]} testId={`${testId}-title`}>
 				<LinkIcon />
-				<FormattedMessage {...messages.connect_link_account_card_name} values={{ context: providerName }} />
+				<FormattedMessage
+					{...messages.connect_link_account_card_name}
+					values={{ context: providerName }}
+				/>
 			</CustomBlock>
 			<CustomBlock css={[mainTextStyles]} testId={`${testId}-content`}>
 				<div>

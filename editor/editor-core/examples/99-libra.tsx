@@ -1,8 +1,6 @@
 import React, { Profiler } from 'react';
 
-//import ReactDOM from 'react-dom';
-// @ts-expect-error TS7016: Could not find a declaration file for module 'react-dom/profiling'
-import ReactDOM from 'react-dom/profiling';
+import { createRoot, type Root } from 'react-dom/client';
 
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -78,6 +76,7 @@ function createEditorExampleForTests() {
 	if (win.__mountEditor) {
 		return;
 	}
+	let root: Root | null = null;
 	const reactPeformanceData: Array<LibraReactPerformanceEntry> = [];
 	const onRender = (
 		id: string,
@@ -109,11 +108,11 @@ function createEditorExampleForTests() {
 			return;
 		}
 
-		ReactDOM.render(
+		root = createRoot(target);
+		root.render(
 			<Profiler id="EditorMainComponent" onRender={onRender}>
 				<RawEditor {...props} />
 			</Profiler>,
-			target,
 		);
 	};
 
@@ -124,7 +123,10 @@ function createEditorExampleForTests() {
 			return [];
 		}
 
-		ReactDOM.unmountComponentAtNode(target);
+		if (root) {
+			root.unmount();
+			root = null;
+		}
 
 		return reactPeformanceData;
 	};

@@ -174,7 +174,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		const time = stopTime - startTime;
 
 		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-		FeatureGates.getExperimentValue('cc_fd_db_quick_insert_options_aa', 'isEnabled', false);
+		FeatureGates.getExperimentValue('cc_fd_db_quick_insert_options', 'isEnabled', false);
 
 		api?.analytics?.actions?.fireAnalyticsEvent({
 			action: ACTION.RENDERED,

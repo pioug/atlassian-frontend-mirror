@@ -1,4 +1,5 @@
 import type { SyncBlockProduct } from '../../common/types';
+import { fetchWithRetry } from '../../utils/retry';
 
 export type BlockContentResponse = {
 	blockAri: string;
@@ -74,7 +75,7 @@ export const getReferenceSyncedBlocks = async (
 	blocks?: Array<BlockContentResponse>;
 	errors?: Array<BlockContentErrorResponse>;
 }> => {
-	const response = await fetch(
+	const response = await fetchWithRetry(
 		`${BLOCK_SERVICE_API_URL}/block/document/reference/${encodeURIComponent(documentAri)}`,
 		{
 			method: 'GET',
@@ -126,7 +127,7 @@ export class BlockError extends Error {
 export const getSyncedBlockContent = async ({
 	blockAri,
 }: GetSyncedBlockContentRequest): Promise<BlockContentResponse> => {
-	const response = await fetch(`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`, {
+	const response = await fetchWithRetry(`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`, {
 		method: 'GET',
 		headers: COMMON_HEADERS,
 	});
@@ -139,7 +140,7 @@ export const getSyncedBlockContent = async ({
 };
 
 export const deleteSyncedBlock = async ({ blockAri }: DeleteSyncedBlockRequest): Promise<void> => {
-	const response = await fetch(`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`, {
+	const response = await fetchWithRetry(`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`, {
 		method: 'DELETE',
 		headers: COMMON_HEADERS,
 	});
@@ -153,7 +154,7 @@ export const updateSyncedBlock = async ({
 	blockAri,
 	content,
 }: UpdateSyncedBlockRequest): Promise<void> => {
-	const response = await fetch(`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`, {
+	const response = await fetchWithRetry(`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`, {
 		method: 'PUT',
 		headers: COMMON_HEADERS,
 		body: JSON.stringify({ content }),
@@ -171,7 +172,7 @@ export const createSyncedBlock = async ({
 	product,
 	content,
 }: CreateSyncedBlockRequest): Promise<BlockContentResponse> => {
-	const response = await fetch(`${BLOCK_SERVICE_API_URL}/block`, {
+	const response = await fetchWithRetry(`${BLOCK_SERVICE_API_URL}/block`, {
 		method: 'POST',
 		headers: COMMON_HEADERS,
 		body: JSON.stringify({ blockAri, blockInstanceId, sourceAri, product, content }),

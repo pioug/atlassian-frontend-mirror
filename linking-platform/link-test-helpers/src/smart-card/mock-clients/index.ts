@@ -14,7 +14,17 @@ import {
 } from '../example-helpers';
 import { atlasProjectUrl } from '../example-helpers/_jsonLDExamples/provider.atlas';
 import { overrideEmbedContent } from '../example-helpers/_jsonLDExamples/utils';
-import { forbiddenJira, iconDropbox, iconFigma, iconGoogleDrive, iconOneDrive, iconSlack, image1, image2, imageForbiddenJiraEmbed } from '../images';
+import {
+	forbiddenJira,
+	iconDropbox,
+	iconFigma,
+	iconGoogleDrive,
+	iconOneDrive,
+	iconSlack,
+	image1,
+	image2,
+	imageForbiddenJiraEmbed,
+} from '../images';
 
 import { MockCardClient } from './mock-card-client';
 
@@ -195,24 +205,24 @@ export const mocks = {
 			},
 		}) as JsonLd.Response,
 
-	unauthorized:(url: string) => {
+	unauthorized: (url: string) => {
 		let key = 'google-object-provider';
 		let name = 'Google';
 		let icon = iconGoogleDrive;
 
-		if(url.includes('figma.com')) {
+		if (url.includes('figma.com')) {
 			key = 'figma-object-provider';
 			name = 'Figma';
 			icon = iconFigma;
-		} else if(url.includes('dropbox.com')) {
+		} else if (url.includes('dropbox.com')) {
 			key = 'dropbox-object-provider';
 			name = 'Dropbox';
 			icon = iconDropbox;
-		} else if(url.includes('onedrive.live.com')) {
+		} else if (url.includes('onedrive.live.com')) {
 			key = 'onedrive-object-provider';
 			name = 'OneDrive';
 			icon = iconOneDrive;
-		}else if(url.includes('.slack.com')) {
+		} else if (url.includes('.slack.com')) {
 			key = 'slack-object-provider';
 			name = 'Slack';
 			icon = iconSlack;
@@ -444,7 +454,11 @@ export class UnAuthClientWithNoIcon extends MockCardClient {
 	fetchData(url: string): Promise<JsonLd.Response> {
 		const unauthorizedResponse = mocks.unauthorized(url);
 		unauthorizedResponse.meta.key = 'some-unknown-provider';
-		unauthorizedResponse.data.generator = {name: 'Provider', '@type': 'Application', icon: undefined};
+		unauthorizedResponse.data.generator = {
+			name: 'Provider',
+			'@type': 'Application',
+			icon: undefined,
+		};
 		return Promise.resolve(unauthorizedResponse as JsonLd.Response);
 	}
 }

@@ -251,11 +251,11 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 				key,
 				syncBlockDataWithSourceDocumentAri,
 				pageType,
-			)
+			);
 
-			return { resourceId }
+			return { resourceId };
 		} catch (error) {
-			return Promise.resolve({ error: stringifyError(error)})
+			return Promise.resolve({ error: stringifyError(error) });
 		}
 	}
 

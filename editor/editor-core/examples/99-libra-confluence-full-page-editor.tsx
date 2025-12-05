@@ -1,7 +1,6 @@
 import React, { Profiler } from 'react';
 
-// @ts-expect-error TS7016: Could not find a declaration file for module 'react-dom/profiling'
-import ReactDOM from 'react-dom/profiling';
+import { createRoot, type Root } from 'react-dom/client';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -312,6 +311,7 @@ function createEditorExampleForTests() {
 	if (win.__mountEditor) {
 		return;
 	}
+	let root: Root | null = null;
 	const reactPerformanceData: Array<LibraReactPerformanceEntry> = [];
 	const editorOperationalEvents: Array<EditorOperationalEvent> = [];
 	const onRender = (
@@ -350,7 +350,8 @@ function createEditorExampleForTests() {
 			return;
 		}
 
-		ReactDOM.render(
+		root = createRoot(target);
+		root.render(
 			<Profiler id="EditorMainComponent" onRender={onRender}>
 				<AnalyticsListener onEvent={onAnalyticsEvent} channel={FabricChannel.editor}>
 					<SmartCardProvider client={cardClient}>
@@ -358,7 +359,6 @@ function createEditorExampleForTests() {
 					</SmartCardProvider>
 				</AnalyticsListener>
 			</Profiler>,
-			target,
 		);
 	};
 
@@ -372,7 +372,10 @@ function createEditorExampleForTests() {
 			};
 		}
 
-		ReactDOM.unmountComponentAtNode(target);
+		if (root) {
+			root.unmount();
+			root = null;
+		}
 		return {
 			reactPerformanceData,
 			editorOperationalEvents,

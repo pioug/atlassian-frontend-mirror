@@ -27,7 +27,6 @@ interface MetaData {
 }
 
 export const EmotionCSS = {
-	// @ts-ignore - Node type compatibility issue with EslintNode
 	lint(node: Rule.Node, { context, config }: MetaData) {
 		if (!isNodeOfType(node, 'JSXElement')) {
 			return;
@@ -50,7 +49,6 @@ export const EmotionCSS = {
 		});
 	},
 
-	// @ts-ignore - Node type compatibility issue with EslintNode
 	_check(node: Rule.Node, { context, config }: MetaData): boolean {
 		if (!config.patterns.includes('compiled-css-function')) {
 			return false;
@@ -96,27 +94,21 @@ export const EmotionCSS = {
 		}
 
 		// Find where `myStyles` is defined. We're looking for `const myStyles = css({...})`
-		// @ts-ignore - type compatibility with eslint-codemod-utils
 		const cssVariableDefinition = getIdentifierInParentScope(
-			// @ts-ignore - type compatibility with eslint-codemod-utils
 			getScope(context, node),
 			cssAttrValue.value,
 		);
 
-		// @ts-ignore - type compatibility with eslint-codemod-utils
 		const cssVariableValue = getVariableDefinitionValue(cssVariableDefinition);
 		// Check if `cssVariableValue` is a function called `css()`
-		// @ts-ignore - type compatibility with eslint-codemod-utils
 		if (ast.FunctionCall.getName(cssVariableValue?.node.init) !== 'css') {
 			return false;
 		}
 
 		if (
 			!(config.patterns.includes('string-style-property-fix')
-				? // @ts-ignore - type compatibility with eslint-codemod-utils
-					validateStyles(cssVariableValue?.node.init, config)
-				: // @ts-ignore - type compatibility with eslint-codemod-utils
-					isValidCssPropertiesToTransform(cssVariableValue?.node.init, config))
+				? validateStyles(cssVariableValue?.node.init, config)
+				: isValidCssPropertiesToTransform(cssVariableValue?.node.init, config))
 		) {
 			return false;
 		}

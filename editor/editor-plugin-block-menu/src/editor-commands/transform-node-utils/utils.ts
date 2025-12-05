@@ -1,6 +1,12 @@
+import { expandToBlockRange } from '@atlaskit/editor-common/selection';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { type ContentNodeWithPos, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import {
+	type ContentNodeWithPos,
+	findParentNodeOfType,
+	hasParentNode,
+} from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables';
 
 import type { NodeTypeName } from './types';
@@ -56,4 +62,31 @@ export const getTargetNodeTypeNameInContext = (
 	}
 
 	return nodeTypeName;
+};
+
+/**
+ * Use common expandToBlockRange function, but account for edge cases with lists.
+ *
+ * @param selection
+ * @param schema
+ * @returns
+ */
+export const expandSelectionToBlockRange = (selection: Selection, schema: Schema) => {
+	const isListInSelection = hasParentNode(
+		(node) => node.type === schema.nodes.bulletList || node.type === schema.nodes.orderedList,
+	)(selection);
+
+	const { $from, $to } = expandToBlockRange(selection.$from, selection.$to, (node) => {
+		if (!isListInSelection) {
+			return true;
+		}
+
+		if (node.type === schema.nodes.bulletList || node.type === schema.nodes.orderedList) {
+			return true;
+		}
+
+		return false;
+	});
+
+	return { $from, $to };
 };

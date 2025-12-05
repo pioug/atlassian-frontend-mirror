@@ -17,7 +17,6 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
-import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 import SidebarContainer from '../example-helpers/SidebarContainer';
@@ -25,7 +24,7 @@ import { PresetContextProvider } from '../src/presets/context';
 import type { EditorNextProps } from '../src/types/editor-props';
 import { version } from '../src/version-wrapper';
 
-import FullPageExample, { getAppearance, LOCALSTORAGE_defaultDocKey } from './5-full-page';
+import FullPageExample, { getAppearance } from './5-full-page';
 
 type ReactPerformanceEntry = {
 	actualDuration: number;
@@ -73,8 +72,6 @@ const RawEditor = (props: EditorNextProps) => {
 	const [disabled, setDisabled] = useState(true);
 	const [appearance, setAppearance] = useState<EditorAppearance>(getAppearance() || 'full-page');
 
-	const collabSessionId = 'quokka';
-
 	useEffect(() => {
 		// Simulate async nature of confluence fetching appearance
 		const timeout = Math.floor(Math.random() * (1500 - 750 + 1)) + 750;
@@ -88,9 +85,6 @@ const RawEditor = (props: EditorNextProps) => {
 			window.clearTimeout(appearanceTimeoutId);
 		};
 	}, []);
-
-	const defaultDoc =
-		(localStorage && localStorage.getItem(LOCALSTORAGE_defaultDocKey)) || undefined;
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -117,12 +111,6 @@ const RawEditor = (props: EditorNextProps) => {
 				<FullPageExample
 					editorProps={{
 						...props,
-						collabEdit: {
-							provider: createCollabEditProvider({
-								userId: collabSessionId,
-								defaultDoc,
-							}),
-						},
 						elementBrowser: {
 							showModal: true,
 							replacePlusMenu: true,

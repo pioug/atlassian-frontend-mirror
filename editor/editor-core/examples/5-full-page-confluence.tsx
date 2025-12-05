@@ -10,12 +10,11 @@ import { css, jsx } from '@emotion/react';
 
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import Spinner from '@atlaskit/spinner';
-import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 
 import SidebarContainer from '../example-helpers/SidebarContainer';
 import { PresetContextProvider } from '../src/presets/context';
 
-import FullPageExample, { getAppearance, LOCALSTORAGE_defaultDocKey } from './5-full-page';
+import FullPageExample, { getAppearance } from './5-full-page';
 
 const disabledBlanket = css({
 	position: 'absolute',
@@ -41,8 +40,6 @@ const ExampleEditorComponent = () => {
 	const [disabled, setDisabled] = useState(true);
 	const [appearance, setAppearance] = useState<EditorAppearance>(getAppearance() || 'full-page');
 
-	const collabSessionId = 'quokka';
-
 	useEffect(() => {
 		// Simulate async nature of confluence fetching appearance
 		const timeout = Math.floor(Math.random() * (1500 - 750 + 1)) + 750;
@@ -57,9 +54,6 @@ const ExampleEditorComponent = () => {
 		};
 	}, []);
 
-	const defaultDoc =
-		(localStorage && localStorage.getItem(LOCALSTORAGE_defaultDocKey)) || undefined;
-
 	return (
 		<SidebarContainer>
 			{disabled && (
@@ -70,12 +64,6 @@ const ExampleEditorComponent = () => {
 			<PresetContextProvider>
 				<FullPageExample
 					editorProps={{
-						collabEdit: {
-							provider: createCollabEditProvider({
-								userId: collabSessionId,
-								defaultDoc,
-							}),
-						},
 						elementBrowser: {
 							showModal: true,
 							replacePlusMenu: true,

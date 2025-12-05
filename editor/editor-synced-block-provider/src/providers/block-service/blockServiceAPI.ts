@@ -28,10 +28,21 @@ import type {
 
 const mapBlockError = (error: BlockError): SyncBlockError => {
 	switch (error.status) {
+		case 400:
+		case 401:
+			return SyncBlockError.InvalidRequest;
 		case 403:
 			return SyncBlockError.Forbidden;
 		case 404:
 			return SyncBlockError.NotFound;
+		case 409:
+			return SyncBlockError.Conflict;
+		case 429:
+			return SyncBlockError.RateLimited;
+		case 500:
+		case 503:
+		case 504:
+			return SyncBlockError.ServerError;
 	}
 	return SyncBlockError.Errored;
 };
@@ -180,7 +191,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 				content: JSON.stringify(data.content),
 			});
 
-			return { resourceId }
+			return { resourceId };
 		} catch (error) {
 			if (error instanceof BlockError) {
 				return { error: mapBlockError(error), resourceId };

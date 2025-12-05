@@ -141,7 +141,6 @@ const rule = createLintRule({
 					// ❌ <IconButton icon={() => <StarIcon />} label="Add to favorites" />
 					if (
 						node.parent &&
-						// @ts-ignore - Node type compatibility issue with EslintNode
 						isNodeOfType(node.parent, 'ArrowFunctionExpression') &&
 						node.parent.params[0] &&
 						node.parent.params[0].type === 'Identifier'

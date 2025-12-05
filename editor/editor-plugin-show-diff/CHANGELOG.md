@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 3.3.0
+
+### Minor Changes
+
+- [`a36ac8c9961b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a36ac8c9961b1) -
+  [ux] [EDITOR-2608] updated show diff deleted block nodes design
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.8
 
 ### Patch Changes

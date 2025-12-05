@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.30.10
+
+### Patch Changes
+
+- [`cd68ae62874a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd68ae62874a2) -
+  Change page size to 100 for pdf export
+- Updated dependencies
+
 ## 4.30.9
 
 ### Patch Changes

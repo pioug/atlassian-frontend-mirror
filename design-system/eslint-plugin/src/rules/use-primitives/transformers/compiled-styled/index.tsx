@@ -30,7 +30,6 @@ type Check = {
 };
 
 export const CompiledStyled = {
-	// @ts-ignore - Node type compatibility issue with EslintNode
 	lint(node: Rule.Node, { context, config }: MetaData) {
 		if (!isNodeOfType(node, 'CallExpression')) {
 			return;
@@ -54,7 +53,6 @@ export const CompiledStyled = {
 		});
 	},
 
-	// @ts-ignore - Node type compatibility issue with EslintNode
 	_check(node: Rule.Node, { context, config }: MetaData): Check {
 		if (!config.patterns.includes('compiled-styled-object')) {
 			return { success: false };
@@ -87,7 +85,6 @@ export const CompiledStyled = {
 			return { success: false };
 		}
 
-		// @ts-ignore - type compatibility with eslint-codemod-utils
 		if (!isNodeOfType(styledComponentJsxRef.parent, 'JSXElement')) {
 			return { success: false };
 		}
@@ -106,7 +103,6 @@ export const CompiledStyled = {
 			success: true,
 			refs: {
 				styles: styledComponentVariableRef,
-				// @ts-ignore - type compatibility with eslint-codemod-utils
 				jsxElement: styledComponentJsxRef.parent,
 			},
 		};

@@ -59,10 +59,44 @@ implementation details. This rule helps ensure that:
 3. **Tests focus on behavior**: By excluding internal details, tests focus on what the component
    renders, not how it's styled
 
-If you need to include className or style information in a snapshot for testing purposes, mark them
-as `"REDACTED"` to indicate that these are intentionally excluded implementation details.
+ClassName or style information is intentionally excluded from snapshots for testing purposes, they
+can be marked as `"REDACTED"` to indicate that these are intentionally excluded implementation
+details.
 
-## When not to use it
+We recommend the use of a snapshot serializer to redact sensitive information from snapshots. For
+example:
 
-This rule should be enabled for all test files to ensure consistent snapshot testing practices
-across the codebase.
+```tsx
+// redactStylesSnapshotSerializer.js
+const { format, plugins } = require('pretty-format');
+const { DOMElement, DOMCollection } = plugins;
+
+// class="..." or className="..."
+const CLASS_ATTR_REGEX = /(class(?:Name)?=)(["'])([^"']*)(["'])/g;
+// <style ...>anything</style>  ->  <style ...>REDACTED</style>
+const STYLE_TAG_REGEX = /(<style\b[^>]*>)([\s\S]*?)(<\/style>)/gi;
+
+module.exports = {
+	test: (val) => DOMElement.test(val) || DOMCollection.test(val),
+	print: (val) =>
+		format(val, { plugins: [DOMElement, DOMCollection] })
+			.replace(
+				CLASS_ATTR_REGEX,
+				(_, attrName, openQuote, _value, closeQuote) =>
+					`${attrName}${openQuote}REDACTED${closeQuote}`,
+			)
+			.replace(
+				STYLE_TAG_REGEX,
+				(_, openTag, _contents, closeTag) => `${openTag}REDACTED${closeTag}`,
+			),
+};
+```
+
+usage in jest:
+
+```tsx
+// jest-config.js
+module.exports = {
+	snapshotSerializers: ['<rootDir>/redactStylesSnapshotSerializer.js'],
+};
+```

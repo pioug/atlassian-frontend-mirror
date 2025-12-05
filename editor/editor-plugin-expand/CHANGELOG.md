@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-expand
 
+## 7.4.14
+
+### Patch Changes
+
+- [`f1f7fc05afab1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1f7fc05afab1) -
+  [ux] EDITOR-2461 Set selection in expand title when using arrow key to navigate into expand
+- Updated dependencies
+
 ## 7.4.13
 
 ### Patch Changes

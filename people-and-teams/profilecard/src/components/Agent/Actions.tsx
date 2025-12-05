@@ -4,17 +4,16 @@ import { defineMessages, useIntl } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { AgentDropdownMenu, ChatPillIcon } from '@atlaskit/rovo-agent-components';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
+import { token } from '@atlaskit/tokens';
 
 import { type ProfileClient, type RovoAgentProfileCardInfo } from '../../types';
 import { fireEvent } from '../../util/analytics';
 
-import { AgentActions as AgentActionsCompiled } from './ActionsCompiled';
 import { AgentDeleteConfirmationModal } from './AgentDeleteConfirmationModal';
 
 type AgentActionsProps = {
@@ -29,40 +28,44 @@ type AgentActionsProps = {
 	hideMoreActions?: boolean;
 };
 
-const chatToAgentButtonContainer = xcss({
-	width: '100%',
+const styles = cssMap({
+	chatToAgentButtonContainer: {
+		width: '100%',
+	},
+	chatToAgentButtonWrapper: {
+		display: 'flex',
+		justifyContent: 'center',
+		fontWeight: token('font.weight.medium'),
+		height: '20px',
+	},
+	chatPillButtonInlineStyles: { paddingInline: token('space.025') },
+	chatPillTextStyles: {
+		wordBreak: 'break-word',
+		textAlign: 'left',
+		whiteSpace: 'pre-wrap',
+	},
+	chatPillIconWrapper: { minWidth: '20px', height: '20px' },
+	actionsWrapperStyles: {
+		borderTopStyle: 'solid',
+		borderWidth: token('border.width'),
+		borderColor: token('color.border'),
+		paddingTop: token('space.200'),
+		paddingRight: token('space.200'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.200'),
+		marginBlockStart: token('space.200'),
+		color: token('color.text'),
+	},
+	actionsWrapperStylesRefresh: {
+		paddingTop: token('space.150'),
+		paddingRight: token('space.150'),
+		paddingBottom: token('space.150'),
+		paddingLeft: token('space.150'),
+		color: token('color.text'),
+	},
 });
 
-const chatToAgentButtonWrapper = xcss({
-	display: 'flex',
-	justifyContent: 'center',
-	lineHeight: '20px',
-	fontWeight: 'font.weight.medium',
-});
-
-const chatPillButtonInlineStyles = xcss({ paddingInline: 'space.025' });
-
-const chatPillTextStyles = xcss({
-	wordBreak: 'break-word',
-	textAlign: 'left',
-	whiteSpace: 'pre-wrap',
-});
-
-const chatPillIconWrapper = xcss({
-	minWidth: '20px',
-	height: '20px',
-});
-
-const actionsWrapperStyles = xcss({
-	borderTopWidth: 'border.width',
-	borderTopStyle: 'solid',
-	borderColor: 'color.border',
-	padding: 'space.200',
-	marginBlockStart: 'space.200',
-	color: 'color.text',
-});
-
-const _AgentActions = ({
+export const AgentActions = ({
 	onEditAgent,
 	onDeleteAgent,
 	onDuplicateAgent,
@@ -72,7 +75,7 @@ const _AgentActions = ({
 	agent,
 	resourceClient,
 	hideMoreActions,
-}: AgentActionsProps) => {
+}: AgentActionsProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
@@ -115,8 +118,15 @@ const _AgentActions = ({
 
 	return (
 		<>
-			<Inline space="space.100" xcss={actionsWrapperStyles}>
-				<Box xcss={chatToAgentButtonContainer}>
+			<Inline
+				space="space.100"
+				xcss={
+					fg('rovo_agent_empty_state_refresh')
+						? styles.actionsWrapperStylesRefresh
+						: styles.actionsWrapperStyles
+				}
+			>
+				<Box xcss={styles.chatToAgentButtonContainer}>
 					<Button
 						shouldFitContainer
 						onClick={(e: React.MouseEvent) => {
@@ -124,12 +134,22 @@ const _AgentActions = ({
 							onChatClick(e);
 						}}
 					>
-						<Box xcss={chatToAgentButtonWrapper}>
-							<Inline space="space.050" xcss={chatPillButtonInlineStyles}>
-								<Box xcss={chatPillIconWrapper}>
-									<ChatPillIcon />
+						<Box xcss={styles.chatToAgentButtonWrapper}>
+							<Inline
+								space="space.050"
+								xcss={
+									fg('rovo_agent_empty_state_refresh') ? null : styles.chatPillButtonInlineStyles
+								}
+								alignBlock="center"
+							>
+								{!fg('rovo_agent_empty_state_refresh') && (
+									<Box xcss={styles.chatPillIconWrapper}>
+										<ChatPillIcon />
+									</Box>
+								)}
+								<Box xcss={styles.chatPillTextStyles}>
+									{formatMessage(messages.actionChatToAgent)}
 								</Box>
-								<Box xcss={chatPillTextStyles}>{formatMessage(messages.actionChatToAgent)}</Box>
 							</Inline>
 						</Box>
 					</Button>
@@ -172,9 +192,3 @@ const messages = defineMessages({
 		description: 'Text for the "chat with agent" action to chat to the agent',
 	},
 });
-
-export const AgentActions = componentWithFG(
-	'profilecard_primitives_compiled',
-	AgentActionsCompiled,
-	_AgentActions,
-);

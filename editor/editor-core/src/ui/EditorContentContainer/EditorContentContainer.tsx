@@ -81,6 +81,7 @@ import {
 	findReplaceStylesWithCodeblockColorContrastFix,
 	findReplaceStylesNew,
 	findReplaceStylesNewWithCodeblockColorContrastFix,
+	findReplaceStylesNewWithA11Y,
 } from './styles/findReplaceStyles';
 import { firstBlockNodeStyles } from './styles/firstBlockNodeStyles';
 import { firstFloatingToolbarButtonStyles } from './styles/floatingToolbarStyles';
@@ -458,7 +459,11 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					fg('platform-visual-refresh-icons') && expandStylesMixin_fg_platform_visual_refresh_icons,
 					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							findReplaceStylesNew
+							fg('platform_editor_a11y_find_replace_focus_ring')
+								? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+									findReplaceStylesNewWithA11Y
+								: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+									findReplaceStylesNew
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							findReplaceStyles,
 					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&

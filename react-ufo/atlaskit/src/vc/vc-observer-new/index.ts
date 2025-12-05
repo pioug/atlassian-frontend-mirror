@@ -1,6 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type RevisionPayloadEntry } from '../../common/vc/types';
+import { getActiveInteraction } from '../../interaction-metrics';
 import { SSRPlaceholderHandlers } from '../vc-observer/observers/ssr-placeholders';
 
 import EntriesTimeline from './entries-timeline';
@@ -121,6 +122,17 @@ export default class VCObserverNew {
 
 		this.windowEventObserver = new WindowEventObserver({
 			onEvent: ({ time, type }) => {
+				// Don't abort press interactions on keydown events, as keydown is expected
+				// when users press Enter/Space to activate buttons or other interactive elements
+				if (
+					type === 'keydown' &&
+					fg('platform_ufo_keypress_interaction_abort')
+				) {
+					const interaction = getActiveInteraction();
+					if (interaction?.type === 'press') {
+						return;
+					}
+				}
 				this.entriesTimeline.push({
 					time,
 					data: {

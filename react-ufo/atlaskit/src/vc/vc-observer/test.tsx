@@ -1,6 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { isVCRevisionEnabled } from '../../config';
+import { getActiveInteraction } from '../../interaction-metrics';
 
 import { attachAbortListeners } from './attachAbortListeners';
 import { Observers } from './observers';
@@ -12,10 +13,12 @@ jest.mock('@atlaskit/platform-feature-flags');
 jest.mock('./observers');
 jest.mock('../../config');
 jest.mock('./attachAbortListeners');
+jest.mock('../../interaction-metrics');
 
 const mockIsVCRevisionEnabled = isVCRevisionEnabled as jest.Mock;
 const mockAttachAbortListeners = attachAbortListeners as jest.Mock;
 const mockFg = fg as jest.Mock;
+const mockGetActiveInteraction = getActiveInteraction as jest.Mock;
 
 const VIEWPORT_WIDTH = 1000;
 const VIEWPORT_HEIGHT = 500;
@@ -63,6 +66,7 @@ describe('vc-observer', () => {
 
 		mockAttachAbortListeners.mockClear();
 		mockFg.mockClear();
+		mockGetActiveInteraction.mockClear();
 
 		vc = new VCObserver({
 			heatmapSize: 100,
@@ -2950,6 +2954,190 @@ describe('vc-observer', () => {
 
 			expect(mockUnbindFn).toHaveBeenCalled();
 		});
+
+		describe('platform_ufo_keypress_interaction_abort feature flag', () => {
+			test('should not abort press interactions on keydown when flag is enabled', async () => {
+				mockFg.mockImplementation((flag: string) => {
+					return flag === 'platform_ufo_keypress_interaction_abort';
+				});
+				mockGetActiveInteraction.mockReturnValue({
+					type: 'press',
+					ufoName: 'test-press-interaction',
+				} as any);
+
+				const mockUnbindFn = jest.fn();
+				const abortReasonCallback = jest.fn();
+				mockAttachAbortListeners.mockImplementation((_, __, callback) => {
+					abortReasonCallback.mockImplementation(callback);
+					return [mockUnbindFn];
+				});
+				vc.start({ startTime: 0 });
+
+				abortReasonCallback('keydown', 0);
+
+				const result = await vc.getVCResult({
+					start: 0,
+					stop: 100,
+					tti: 3,
+					prefix: '',
+					isEventAborted: false,
+					experienceKey: 'test',
+					interactionType: 'press',
+					isPageVisible: true,
+				});
+
+				// When flag is enabled and interaction is press, abort should not occur
+				// Verify that the result does not have the abort-only structure
+				// (aborted results only contain vc:rev with abortReason, clean results have full VC structure)
+				expect(result).not.toEqual(
+					expect.objectContaining({
+						'vc:rev': expect.arrayContaining([
+							expect.objectContaining({
+								abortReason: expect.anything(),
+							}),
+						]),
+					}),
+				);
+				// Additionally verify that if vc:rev exists, none of its entries have abortReason
+				if (result['vc:rev'] && Array.isArray(result['vc:rev'])) {
+					result['vc:rev'].forEach((entry: any) => {
+						expect(entry).not.toHaveProperty('abortReason');
+					});
+				}
+			});
+
+			test('should abort non-press interactions on keydown when flag is enabled', async () => {
+				mockFg.mockImplementation((flag: string) => {
+					return flag === 'platform_ufo_keypress_interaction_abort';
+				});
+				mockGetActiveInteraction.mockReturnValue({
+					type: 'page_load',
+					ufoName: 'test-page-load',
+				} as any);
+
+				const mockUnbindFn = jest.fn();
+				const abortReasonCallback = jest.fn();
+				mockAttachAbortListeners.mockImplementation((_, __, callback) => {
+					abortReasonCallback.mockImplementation(callback);
+					return [mockUnbindFn];
+				});
+				vc.start({ startTime: 0 });
+
+				abortReasonCallback('keydown', 0);
+
+				const result = await vc.getVCResult({
+					start: 0,
+					stop: 100,
+					tti: 3,
+					prefix: '',
+					isEventAborted: false,
+					experienceKey: 'test',
+					interactionType: 'page_load',
+					isPageVisible: true,
+				});
+
+				expect(result).toEqual({
+					'vc:rev': [
+						{
+							abortReason: 'keypress',
+							abortTimestamp: 0,
+							clean: false,
+							'metric:vc90': null,
+							revision: 'fy25.02',
+						},
+					],
+				});
+
+				expect(mockUnbindFn).toHaveBeenCalled();
+			});
+
+			test('should abort on keydown when flag is disabled', async () => {
+				mockFg.mockReturnValue(false);
+				mockGetActiveInteraction.mockReturnValue({
+					type: 'press',
+					ufoName: 'test-press-interaction',
+				} as any);
+
+				const mockUnbindFn = jest.fn();
+				const abortReasonCallback = jest.fn();
+				mockAttachAbortListeners.mockImplementation((_, __, callback) => {
+					abortReasonCallback.mockImplementation(callback);
+					return [mockUnbindFn];
+				});
+				vc.start({ startTime: 0 });
+
+				abortReasonCallback('keydown', 0);
+
+				const result = await vc.getVCResult({
+					start: 0,
+					stop: 100,
+					tti: 3,
+					prefix: '',
+					isEventAborted: false,
+					experienceKey: 'test',
+					interactionType: 'press',
+					isPageVisible: true,
+				});
+
+				// Should abort even for press interactions when flag is disabled
+				expect(result).toEqual({
+					'vc:rev': [
+						{
+							abortReason: 'keypress',
+							abortTimestamp: 0,
+							clean: false,
+							'metric:vc90': null,
+							revision: 'fy25.02',
+						},
+					],
+				});
+
+				expect(mockUnbindFn).toHaveBeenCalled();
+			});
+
+			test('should abort on keydown when no active interaction exists and flag is enabled', async () => {
+				mockFg.mockImplementation((flag: string) => {
+					return flag === 'platform_ufo_keypress_interaction_abort';
+				});
+				mockGetActiveInteraction.mockReturnValue(undefined);
+
+				const mockUnbindFn = jest.fn();
+				const abortReasonCallback = jest.fn();
+				mockAttachAbortListeners.mockImplementation((_, __, callback) => {
+					abortReasonCallback.mockImplementation(callback);
+					return [mockUnbindFn];
+				});
+				vc.start({ startTime: 0 });
+
+				abortReasonCallback('keydown', 0);
+
+				const result = await vc.getVCResult({
+					start: 0,
+					stop: 100,
+					tti: 3,
+					prefix: '',
+					isEventAborted: false,
+					experienceKey: 'test',
+					interactionType: 'page_load',
+					isPageVisible: true,
+				});
+
+				expect(result).toEqual({
+					'vc:rev': [
+						{
+							abortReason: 'keypress',
+							abortTimestamp: 0,
+							clean: false,
+							'metric:vc90': null,
+							revision: 'fy25.02',
+						},
+					],
+				});
+
+				expect(mockUnbindFn).toHaveBeenCalled();
+			});
+		}
+	);
 
 		test('abort scenario - wheel', async () => {
 			const mockUnbindFn = jest.fn();

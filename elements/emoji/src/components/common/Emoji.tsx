@@ -400,21 +400,12 @@ export const ImageEmoji = (props: Props) => {
 		};
 	}
 
-	const onErrorV1 = useCallback(
-		(event: SyntheticEvent<HTMLImageElement>) => {
-			handleImageError(props, event);
-		},
-		[props],
-	);
-	const onErrorV2 = useCallback(
+	const onError = useCallback(
 		(event: SyntheticEvent<HTMLImageElement>) => {
 			handleImageError({ emoji: props.emoji, onLoadError: props.onLoadError }, event);
 		},
 		[props.emoji, props.onLoadError],
 	);
-	const onError = expValEquals('cc_complexit_fe_emoji_stability', 'isEnabled', true)
-		? onErrorV2
-		: onErrorV1;
 
 	const onLoad = useCallback(() => {
 		const mountedMark = ufoExp.metrics.marks.find(

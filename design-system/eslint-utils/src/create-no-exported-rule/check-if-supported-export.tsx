@@ -124,7 +124,6 @@ export const checkIfSupportedExport = (
 		};
 	}
 
-	// @ts-ignore - node.parent can be null, but getStack expects Node
 	const { root, nodes } = getStack(context, node.parent);
 	// Exporting a component with a css reference should be allowed
 	if (isStyledComponent(nodes, context, importSources)) {
@@ -160,7 +159,6 @@ export const checkIfSupportedExport = (
 		const i = identifier as Rule.Node;
 		// Basically in `const styles = …;`, `parent.id` points to itself, while `styles2` in `const styles1 = styles2` will point to `styles1`…
 		// Surely there's a better way to detect this, but this scenario is a bit nonsensical.
-		// @ts-ignore - i.parent can be null, and i.parent.id may not exist on all Node types
 		return i.parent.type === 'VariableDeclarator' && i === i.parent.id;
 	});
 
@@ -175,7 +173,6 @@ export const checkIfSupportedExport = (
 			continue;
 		}
 
-		// @ts-ignore - (identifier as Rule.Node).parent can be null, but getStack expects Node
 		const { nodes: refs, scope: nextScope } = getStack(context, (identifier as Rule.Node).parent);
 
 		// Only validate the resolved reference if it accesses the definition node

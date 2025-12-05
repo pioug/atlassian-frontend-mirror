@@ -79,13 +79,10 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 	const checkJSXElement = (node: Rule.Node): void => {
 		if (
 			!(
-				// @ts-ignore - Node type compatibility issue with EslintNode
-				(
-					isNodeOfType(node, 'JSXElement') &&
-					isNodeOfType(node.openingElement.name, 'JSXIdentifier') &&
-					importStatementsUtility.hasOwnProperty(node.openingElement.name.name) &&
-					typeof importStatementsUtility[node.openingElement.name.name].source.value === 'string'
-				)
+				isNodeOfType(node, 'JSXElement') &&
+				isNodeOfType(node.openingElement.name, 'JSXIdentifier') &&
+				importStatementsUtility.hasOwnProperty(node.openingElement.name.name) &&
+				typeof importStatementsUtility[node.openingElement.name.name].source.value === 'string'
 			)
 		) {
 			return;
@@ -109,9 +106,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 		//if this is an import statement then exit early
 		if (
 			node.parent &&
-			// @ts-ignore - Node type compatibility issue with EslintNode
 			(isNodeOfType(node.parent, 'ImportSpecifier') ||
-				// @ts-ignore - Node type compatibility issue with EslintNode
 				isNodeOfType(node.parent, 'ImportDefaultSpecifier'))
 		) {
 			return;
@@ -127,13 +122,10 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 			node.parent &&
 			node.parent.parent &&
 			node.parent.parent.parent &&
-			// @ts-ignore - Node type compatibility issue with EslintNode
 			isNodeOfType(node.parent, 'JSXExpressionContainer') &&
-			// @ts-ignore - Node type compatibility issue with EslintNode
 			isNodeOfType(node.parent.parent, 'JSXAttribute') &&
 			isNodeOfType(node.parent.parent.name, 'JSXIdentifier') &&
 			iconPropsinNewButton.includes(node.parent.parent.name.name) &&
-			// @ts-ignore - Node type compatibility issue with EslintNode
 			isNodeOfType(node.parent.parent.parent, 'JSXOpeningElement') &&
 			isNodeOfType(node.parent.parent.parent.name, 'JSXIdentifier') &&
 			newButtonImports.has(node.parent.parent.parent.name.name)
@@ -213,7 +205,6 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 								const wrappedIcon = `(iconProps) => <${replacementImportName} {...iconProps} size="small" />`;
 								fixes.push(fixer.replaceText(error.node, wrappedIcon));
 							} else if (
-								// @ts-ignore - Node type compatibility issue with EslintNode
 								isNodeOfType(error.node, 'JSXElement') &&
 								isNodeOfType(error.node.openingElement.name, 'JSXIdentifier')
 							) {

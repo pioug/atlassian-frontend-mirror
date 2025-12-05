@@ -14,15 +14,10 @@ interface MetaData {
 
 export const StyledComponent = {
 	lint(node: Rule.Node, { context }: MetaData) {
-		// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 		if (
-			// @ts-ignore - Node type compatibility issue with EslintNode
 			!isNodeOfType(node, 'CallExpression') ||
-			// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 			!isNodeOfType(node.callee, 'MemberExpression') ||
-			// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 			!isNodeOfType(node.callee.object, 'Identifier') ||
-			// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 			!isNodeOfType(node.callee.property, 'Identifier')
 		) {
 			return;
@@ -32,7 +27,6 @@ export const StyledComponent = {
 
 		const elementName = node.callee.property.name;
 
-		// @ts-ignore - Rule.Node can have parent: null, but EslintNode expects parent: Node | undefined
 		if (!styles || !isNodeOfType(styles.id, 'Identifier')) {
 			return;
 		}
@@ -44,7 +38,6 @@ export const StyledComponent = {
 			return;
 		}
 
-		// @ts-ignore - Node type compatibility issue with EslintNode
 		if (jsxElement && !isSupportedForLint(jsxElement, elementName)) {
 			return;
 		}

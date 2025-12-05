@@ -6,7 +6,6 @@ import { getImportedNodeBySource } from '../utils/get-import-node-by-source';
 import { IMPORT_NAME, VISUALLY_HIDDEN_IMPORT, VISUALLY_HIDDEN_SOURCE } from './constants';
 import { getFirstImport } from './utils';
 
-// @ts-ignore - type compatibility with eslint-codemod-utils
 const fixJsx = (source: SourceCode, node: Rule.Node) => (fixer: Rule.RuleFixer) => {
 	const fixes = [];
 	const importedNode = getFirstImport(source);
@@ -16,7 +15,6 @@ const fixJsx = (source: SourceCode, node: Rule.Node) => (fixer: Rule.RuleFixer) 
 		return [];
 	}
 
-	// @ts-ignore - type compatibility with eslint-codemod-utils
 	const jsxOpeningElement = closestOfType(node, 'JSXOpeningElement')!;
 
 	if (visuallyHiddenNode) {

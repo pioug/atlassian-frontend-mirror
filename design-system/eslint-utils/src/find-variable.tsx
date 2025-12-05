@@ -28,7 +28,6 @@ function getScope({
 
 	const scopeManager = sourceCode.scopeManager;
 
-	// @ts-ignore - (node as Rule.Node).parent can be null, but the loop condition handles it
 	for (let node = currentNode; node; node = (node as Rule.Node).parent) {
 		const scope = scopeManager.acquire(node, inner);
 

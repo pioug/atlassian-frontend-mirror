@@ -14,7 +14,7 @@ import TextSpacing from '../../examples/constellation/text/text-spacing';
 import TextTruncation from '../../examples/constellation/text/text-truncation';
 import TextCustomization from '../../examples/constellation/text/text-customization';
 
-## Basic
+## Size
 
 Use a Text component for main content. Text typically appears after headings or subheadings as
 detailed descriptions and messages, but also as standalone text in components.
@@ -93,5 +93,12 @@ If truncation cannot be avoided, for example when displaying user-generated cont
 
 A restricted set of styles can be customized using the `xcss` prop, using
 [cssMap](/components/css/overview#cssmap).
+
+The allowed customizations are:
+
+- font modifications via `fontVariantNumeric: 'tabular-nums'` and
+  `fontVariantNumeric: 'slashed-zero'`
+- strikethrough via `textDecorationLine`
+- line breaks via `overflowWrap`
 
 <Example Component={TextCustomization} packageName="@atlaskit/primitives" />

@@ -62,10 +62,7 @@ export const TooltipShortcut = ({ shortcut }: TooltipShortcutProps) => {
 	return (
 		<div css={styles.shortcutSegmentsContainer}>
 			{shortcut.map((segment, index) => (
-				<kbd
-					key={`${segment}-${index}`}
-					css={styles.shortcutSegment}
-				>
+				<kbd key={`${segment}-${index}`} css={styles.shortcutSegment}>
 					{segment}
 				</kbd>
 			))}

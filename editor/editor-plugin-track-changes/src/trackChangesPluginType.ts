@@ -8,6 +8,18 @@ import { type PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolb
 import type { ShowDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 
+export interface TrackChangesPluginOptions {
+	/**
+	 * Custom wrapper component for the track changes button.
+	 */
+	ButtonWrapper?: React.ComponentType<{ children: React.ReactNode }>;
+	/**
+	 * Whether the track changes button should be shown on the toolbar.
+	 * Defaults to false.
+	 */
+	showOnToolbar?: boolean;
+}
+
 export type TrackChangesPlugin = NextEditorPlugin<
 	'trackChanges',
 	{
@@ -39,13 +51,7 @@ export type TrackChangesPlugin = NextEditorPlugin<
 			 */
 			OptionalPlugin<ToolbarPlugin>,
 		];
-		pluginConfiguration?: {
-			/**
-			 * Whether the track changes button should be shown on the toolbar.
-			 * Defaults to false.
-			 */
-			showOnToolbar?: boolean;
-		};
+		pluginConfiguration?: TrackChangesPluginOptions | undefined;
 		sharedState: {
 			/**
 			 * Whether the track changes feature is currently displaying changes.

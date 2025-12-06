@@ -37,4 +37,3 @@ export const createLongEmptyNodePlaceholderADF = ({ formatMessage }: IntlShape):
 			},
 		],
 	}) as DocNode;
-

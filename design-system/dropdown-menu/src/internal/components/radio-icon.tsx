@@ -17,7 +17,6 @@ const svgStyles = css({
 	pointerEvents: 'none',
 });
 
-
 /**
  * __Radio icon__
  *
@@ -41,7 +40,7 @@ const RadioIcon = ({ checked }: { checked: boolean }): React.JSX.Element => {
 					fill: checked ? token('color.icon.inverse', N10) : 'transparent',
 				}}
 				css={svgStyles}
-				role='presentation'
+				role="presentation"
 			>
 				<g fillRule="evenodd">
 					{fg('platform-visual-refresh-icons') ? (
@@ -75,7 +74,7 @@ const RadioIcon = ({ checked }: { checked: boolean }): React.JSX.Element => {
 					)}
 				</g>
 			</svg>
-		)
+		);
 	}
 
 	return (

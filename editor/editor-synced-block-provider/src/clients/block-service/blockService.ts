@@ -127,10 +127,13 @@ export class BlockError extends Error {
 export const getSyncedBlockContent = async ({
 	blockAri,
 }: GetSyncedBlockContentRequest): Promise<BlockContentResponse> => {
-	const response = await fetchWithRetry(`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`, {
-		method: 'GET',
-		headers: COMMON_HEADERS,
-	});
+	const response = await fetchWithRetry(
+		`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`,
+		{
+			method: 'GET',
+			headers: COMMON_HEADERS,
+		},
+	);
 
 	if (!response.ok) {
 		throw new BlockError(response.status);
@@ -140,10 +143,13 @@ export const getSyncedBlockContent = async ({
 };
 
 export const deleteSyncedBlock = async ({ blockAri }: DeleteSyncedBlockRequest): Promise<void> => {
-	const response = await fetchWithRetry(`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`, {
-		method: 'DELETE',
-		headers: COMMON_HEADERS,
-	});
+	const response = await fetchWithRetry(
+		`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`,
+		{
+			method: 'DELETE',
+			headers: COMMON_HEADERS,
+		},
+	);
 
 	if (!response.ok) {
 		throw new BlockError(response.status);
@@ -154,11 +160,14 @@ export const updateSyncedBlock = async ({
 	blockAri,
 	content,
 }: UpdateSyncedBlockRequest): Promise<void> => {
-	const response = await fetchWithRetry(`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`, {
-		method: 'PUT',
-		headers: COMMON_HEADERS,
-		body: JSON.stringify({ content }),
-	});
+	const response = await fetchWithRetry(
+		`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`,
+		{
+			method: 'PUT',
+			headers: COMMON_HEADERS,
+			body: JSON.stringify({ content }),
+		},
+	);
 
 	if (!response.ok) {
 		throw new BlockError(response.status);

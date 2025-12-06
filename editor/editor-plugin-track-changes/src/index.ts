@@ -3,3 +3,4 @@
 
 export { trackChangesPlugin } from './trackChangesPlugin';
 export type { TrackChangesPlugin } from './trackChangesPluginType';
+export type { TrackChangesPluginOptions } from './trackChangesPluginType';

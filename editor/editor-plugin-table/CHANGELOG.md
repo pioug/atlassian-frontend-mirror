@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 15.4.16
+
+### Patch Changes
+
+- [`e8d3ca0f12af5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8d3ca0f12af5) -
+  [ux] EDITOR-3743 Add selected and danger styles to masked cell when numbered column and header row
+  is present
+
 ## 15.4.15
 
 ### Patch Changes

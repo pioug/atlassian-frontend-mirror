@@ -14,7 +14,7 @@ const parseRetryAfter = (retryAfter: string) => {
 	}
 
 	return newDelay;
-}
+};
 
 export const fetchWithRetry = async (
 	url: string,
@@ -30,11 +30,9 @@ export const fetchWithRetry = async (
 	}
 
 	const retryAfter = response.headers.get('Retry-After');
-	await new Promise((resolve) => setTimeout(
-		resolve,
-		retryAfter ? parseRetryAfter(retryAfter) : delay
-	));
+	await new Promise((resolve) =>
+		setTimeout(resolve, retryAfter ? parseRetryAfter(retryAfter) : delay),
+	);
 
 	return fetchWithRetry(url, options, retriesRemaining - 1, delay * 2);
 };
-

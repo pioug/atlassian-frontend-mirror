@@ -20,7 +20,10 @@ export const resolveSyncBlockInstance = (
 		return newResult;
 	} else if (!newResult.data) {
 		// return the old result if there was an error, e.g. network error, but not if not found or forbidden
-		if (newResult.error === SyncBlockError.NotFound || newResult.error === SyncBlockError.Forbidden) {
+		if (
+			newResult.error === SyncBlockError.NotFound ||
+			newResult.error === SyncBlockError.Forbidden
+		) {
 			return newResult;
 		} else {
 			return oldResult;

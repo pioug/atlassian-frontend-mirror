@@ -124,10 +124,7 @@ export default class VCObserverNew {
 			onEvent: ({ time, type }) => {
 				// Don't abort press interactions on keydown events, as keydown is expected
 				// when users press Enter/Space to activate buttons or other interactive elements
-				if (
-					type === 'keydown' &&
-					fg('platform_ufo_keypress_interaction_abort')
-				) {
+				if (type === 'keydown' && fg('platform_ufo_keypress_interaction_abort')) {
 					const interaction = getActiveInteraction();
 					if (interaction?.type === 'press') {
 						return;

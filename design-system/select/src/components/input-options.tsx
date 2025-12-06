@@ -190,7 +190,7 @@ const svgStyles = css({
 	height: 24,
 	fill: token('elevation.surface'),
 	overflow: 'hidden',
-	pointerEvents: 'none'
+	pointerEvents: 'none',
 });
 
 const newCheckboxIconPath = (
@@ -210,7 +210,13 @@ const NewCheckboxIcon = (props: IconProps) => {
 		const { primaryColor, secondaryColor, label } = props;
 
 		return (
-			<svg viewBox="0 0 24 24" style={{ color: primaryColor, fill: secondaryColor }} css={svgStyles} aria-label={label} role={label ? 'img' : 'presentation'}>
+			<svg
+				viewBox="0 0 24 24"
+				style={{ color: primaryColor, fill: secondaryColor }}
+				css={svgStyles}
+				aria-label={label}
+				role={label ? 'img' : 'presentation'}
+			>
 				{newCheckboxIconPath}
 			</svg>
 		);
@@ -218,11 +224,9 @@ const NewCheckboxIcon = (props: IconProps) => {
 
 	return (
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @atlaskit/design-system/no-custom-icons
-		<PrimitiveSVGIcon {...props}>
-			{newCheckboxIconPath}
-		</PrimitiveSVGIcon>
+		<PrimitiveSVGIcon {...props}>{newCheckboxIconPath}</PrimitiveSVGIcon>
 	);
-}
+};
 
 const newRadioIconPath = (
 	<g fillRule="evenodd">
@@ -236,17 +240,21 @@ const NewRadioIcon = (props: IconProps) => {
 		const { primaryColor, secondaryColor, label } = props;
 
 		return (
-			<svg viewBox="0 0 24 24" style={{ color: primaryColor, fill: secondaryColor }} css={svgStyles} aria-label={label} role={label ? 'img' : 'presentation'}>
+			<svg
+				viewBox="0 0 24 24"
+				style={{ color: primaryColor, fill: secondaryColor }}
+				css={svgStyles}
+				aria-label={label}
+				role={label ? 'img' : 'presentation'}
+			>
 				{newRadioIconPath}
 			</svg>
 		);
 	}
 	return (
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @atlaskit/design-system/no-custom-icons
-		<PrimitiveSVGIcon {...props}>
-			{newRadioIconPath}
-		</PrimitiveSVGIcon>
-	)
+		<PrimitiveSVGIcon {...props}>{newRadioIconPath}</PrimitiveSVGIcon>
+	);
 };
 
 /**
@@ -260,7 +268,7 @@ export const CheckboxOption = <OptionT extends OptionType>(
 			fg('platform-visual-refresh-icons')
 				? NewCheckboxIcon
 				: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-				CheckboxIcon
+					CheckboxIcon
 		}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
@@ -277,7 +285,7 @@ export const RadioOption = <OptionT extends OptionType>(props: OptionProps<Optio
 			fg('platform-visual-refresh-icons')
 				? NewRadioIcon
 				: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-				RadioIcon
+					RadioIcon
 		}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}

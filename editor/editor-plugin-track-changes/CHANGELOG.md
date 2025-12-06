@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-track-changes
 
+## 5.1.0
+
+### Minor Changes
+
+- [`3246746518cdf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3246746518cdf) -
+  [ux] Add the ability to supply a ButtonWrapper to track-changes plugin via options
+
 ## 5.0.34
 
 ### Patch Changes

@@ -460,10 +460,10 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							fg('platform_editor_a11y_find_replace_focus_ring')
-								? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-									findReplaceStylesNewWithA11Y
-								: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-									findReplaceStylesNew
+							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								findReplaceStylesNewWithA11Y
+							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								findReplaceStylesNew
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							findReplaceStyles,
 					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&

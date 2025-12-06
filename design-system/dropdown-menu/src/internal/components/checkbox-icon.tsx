@@ -40,7 +40,7 @@ const CheckboxIcon = ({ checked }: { checked: boolean }): React.JSX.Element => {
 					fill: checked ? token('color.icon.inverse', N10) : 'transparent',
 				}}
 				css={svgStyles}
-				role='presentation'
+				role="presentation"
 			>
 				<g fillRule="evenodd">
 					{fg('platform-visual-refresh-icons') ? (

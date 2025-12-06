@@ -412,7 +412,6 @@ describe('VCObserverNew', () => {
 		});
 	});
 
-
 	describe('getVCResult', () => {
 		it('should calculate and return VC results', async () => {
 			const mockEntries: VCObserverEntry[] = [

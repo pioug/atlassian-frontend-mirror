@@ -232,4 +232,3 @@ export const getSortedSuggestedItems = (nodeType: string): string[] => {
 		.sort(([, rankA], [, rankB]) => rankA - rankB)
 		.map(([key]) => key);
 };
-

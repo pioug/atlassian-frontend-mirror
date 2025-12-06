@@ -79,10 +79,10 @@ const CheckboxIcon = memo<{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					color: 'var(--checkbox-background-color)',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					fill: "var(--checkbox-tick-color)",
+					fill: 'var(--checkbox-tick-color)',
 				}}
 				css={svgStyles}
-				role='presentation'
+				role="presentation"
 			>
 				<g fillRule="evenodd">
 					{fg('platform-visual-refresh-icons') ? (

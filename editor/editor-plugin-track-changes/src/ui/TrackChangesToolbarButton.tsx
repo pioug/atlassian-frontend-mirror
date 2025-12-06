@@ -12,9 +12,13 @@ import { type TrackChangesPlugin } from '../trackChangesPluginType';
 
 type TrackChangesToolbarButtonProps = {
 	api: ExtractInjectionAPI<TrackChangesPlugin> | undefined;
+	wrapper?: React.ComponentType<{ children: React.ReactNode }>;
 };
 
-export const TrackChangesToolbarButton = ({ api }: TrackChangesToolbarButtonProps) => {
+export const TrackChangesToolbarButton = ({
+	api,
+	wrapper: Wrapper,
+}: TrackChangesToolbarButtonProps) => {
 	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
 	const { isDisplayingChanges, isShowDiffAvailable } = useSharedPluginStateWithSelector(
@@ -37,21 +41,9 @@ export const TrackChangesToolbarButton = ({ api }: TrackChangesToolbarButtonProp
 		}
 	}, [api, isDisplayingChanges]);
 
-	return (
-		<ToolbarTooltip content={formatMessage(trackChangesMessages.toolbarIconLabel)}>
-			{isToolbarAIFCEnabled ? (
-				<ToolbarButton
-					iconBefore={
-						<HistoryIcon
-							label={formatMessage(trackChangesMessages.toolbarIconLabel)}
-							size="small"
-						/>
-					}
-					onClick={handleClick}
-					isDisabled={!isShowDiffAvailable}
-					isSelected={isDisplayingChanges}
-				/>
-			) : (
+	if (!isToolbarAIFCEnabled) {
+		return (
+			<ToolbarTooltip content={formatMessage(trackChangesMessages.toolbarIconLabel)}>
 				<IconButton
 					icon={HistoryIcon}
 					label={formatMessage(trackChangesMessages.toolbarIconLabel)}
@@ -60,7 +52,22 @@ export const TrackChangesToolbarButton = ({ api }: TrackChangesToolbarButtonProp
 					isSelected={isDisplayingChanges}
 					onClick={handleClick}
 				/>
-			)}
+			</ToolbarTooltip>
+		);
+	}
+
+	const button = (
+		<ToolbarTooltip content={formatMessage(trackChangesMessages.toolbarIconLabel)}>
+			<ToolbarButton
+				iconBefore={
+					<HistoryIcon label={formatMessage(trackChangesMessages.toolbarIconLabel)} size="small" />
+				}
+				onClick={handleClick}
+				isDisabled={!isShowDiffAvailable}
+				isSelected={isDisplayingChanges}
+			/>
 		</ToolbarTooltip>
 	);
+
+	return Wrapper ? <Wrapper>{button}</Wrapper> : button;
 };

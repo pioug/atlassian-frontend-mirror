@@ -11,17 +11,20 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 const mediaProvider = storyMediaProviderFactory();
 
 const ImageEditor = () => {
-  const createPreset = () =>
-    createDefaultPreset({ featureFlags: {}, paste: {} })
-      .add(gridPlugin)
-      .add([mediaPlugin, { 
-        provider: mediaProvider,
-        allowMediaSingle: true,
-        allowResizing: true,
-      }])
-      .add(mediaInsertPlugin)
-  const { preset } = usePreset(createPreset);
-  return <ComposableEditor preset={preset} />;
+	const createPreset = () =>
+		createDefaultPreset({ featureFlags: {}, paste: {} })
+			.add(gridPlugin)
+			.add([
+				mediaPlugin,
+				{
+					provider: mediaProvider,
+					allowMediaSingle: true,
+					allowResizing: true,
+				},
+			])
+			.add(mediaInsertPlugin);
+	const { preset } = usePreset(createPreset);
+	return <ComposableEditor preset={preset} />;
 };
 
 export default ImageEditor;

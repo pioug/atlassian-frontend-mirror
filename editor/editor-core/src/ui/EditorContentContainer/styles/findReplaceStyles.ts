@@ -36,14 +36,14 @@ export const findReplaceStylesWithCodeblockColorContrastFix = css({
 export const findReplaceStylesNewWithCodeblockColorContrastFix = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} .search-match-text.selected-search-match`]:
-	{
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		span: {
-			// we need to use !important here as we need to override inline selection styles
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-			color: `${token('color.text')} !important`,
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			span: {
+				// we need to use !important here as we need to override inline selection styles
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				color: `${token('color.text')} !important`,
+			},
 		},
-	},
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
@@ -118,9 +118,9 @@ export const findReplaceStylesNew: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
-		{
-			boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
-		},
+			{
+				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
+			},
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.search-match-block.search-match-block-selected': {
@@ -134,9 +134,9 @@ export const findReplaceStylesNew: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
-		{
-			boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
-		},
+			{
+				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
+			},
 	},
 	/** With node selection */
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -151,9 +151,9 @@ export const findReplaceStylesNew: SerializedStyles = css({
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
-		{
-			boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
-		},
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
+			},
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.search-match-block.search-match-block-selected.ak-editor-selected-node': {
@@ -168,9 +168,9 @@ export const findReplaceStylesNew: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
-		{
-			boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
-		},
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
+			},
 	},
 
 	/** Dark mode */
@@ -187,9 +187,9 @@ export const findReplaceStylesNew: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
-		{
-			boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
-		},
+			{
+				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
+			},
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -204,9 +204,9 @@ export const findReplaceStylesNew: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
-		{
-			boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
-		},
+			{
+				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
+			},
 	},
 
 	/** With node selection */
@@ -223,9 +223,9 @@ export const findReplaceStylesNew: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
-		{
-			boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
-		},
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
+			},
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.search-match-block.search-match-block-selected.search-match-dark.ak-editor-selected-node': {
@@ -240,9 +240,9 @@ export const findReplaceStylesNew: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
-		{
-			boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
-		},
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
+			},
 	},
 
 	/** Expand title match styles */
@@ -251,54 +251,54 @@ export const findReplaceStylesNew: SerializedStyles = css({
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.search-match-expand-title > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
-	{
-		borderRadius: token('space.050'),
-		boxShadow: `
+		{
+			borderRadius: token('space.050'),
+			boxShadow: `
 		inset 0 0 0 1px ${token('color.background.accent.magenta.subtler.pressed')},
 		inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}
 		`,
-		backgroundColor: token('color.background.accent.magenta.subtler'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.ak-editor-expand__title-input': {
-			color: token('color.text'),
+			backgroundColor: token('color.background.accent.magenta.subtler'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.ak-editor-expand__title-input': {
+				color: token('color.text'),
+			},
 		},
-	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.search-match-expand-title.selected-search-match > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
-	{
-		boxShadow: `
+		{
+			boxShadow: `
 		inset 0 0 0 1px ${token('color.background.accent.magenta.subtler.pressed')},
 		inset 0 0 0 5px ${token('color.background.accent.magenta.subtlest.pressed')}
 		`,
-		backgroundColor: token('color.background.accent.magenta.subtlest.pressed'),
-	},
+			backgroundColor: token('color.background.accent.magenta.subtlest.pressed'),
+		},
 
 	/** Dark mode */
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.search-match-expand-title.search-match-dark > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
-	{
-		boxShadow: `
+		{
+			boxShadow: `
 		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
 		inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}
 		`,
-		backgroundColor: token('color.background.accent.magenta.bolder.pressed'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.ak-editor-expand__title-input': {
-			color: token('color.text.inverse'),
+			backgroundColor: token('color.background.accent.magenta.bolder.pressed'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.ak-editor-expand__title-input': {
+				color: token('color.text.inverse'),
+			},
 		},
-	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.search-match-expand-title.selected-search-match.search-match-dark > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
-	{
-		boxShadow: `
+		{
+			boxShadow: `
 		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
 		inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.hovered')}
 		`,
-		backgroundColor: token('color.background.accent.magenta.bolder.hovered'),
-	},
+			backgroundColor: token('color.background.accent.magenta.bolder.hovered'),
+		},
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
@@ -373,12 +373,12 @@ export const findReplaceStylesNewWithA11Y: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
-		{
-			boxShadow: `
+			{
+				boxShadow: `
 			0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')},
 			0px 0px 0px 5px ${token('color.border.accent.magenta')}
 			`,
-		},
+			},
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.search-match-block.search-match-block-selected': {
@@ -392,12 +392,12 @@ export const findReplaceStylesNewWithA11Y: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
-		{
-			boxShadow: `
+			{
+				boxShadow: `
 			0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')},
 			0px 0px 0px 5px ${token('color.border.accent.magenta')}
 			`,
-		},
+			},
 	},
 	/** With node selection */
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -412,9 +412,9 @@ export const findReplaceStylesNewWithA11Y: SerializedStyles = css({
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
-		{
-			boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
-		},
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
+			},
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.search-match-block.search-match-block-selected.ak-editor-selected-node': {
@@ -429,9 +429,9 @@ export const findReplaceStylesNewWithA11Y: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
-		{
-			boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
-		},
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.subtler.pressed')}`,
+			},
 	},
 
 	/** Dark mode */
@@ -448,9 +448,9 @@ export const findReplaceStylesNewWithA11Y: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
-		{
-			boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
-		},
+			{
+				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
+			},
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -465,9 +465,9 @@ export const findReplaceStylesNewWithA11Y: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
-		{
-			boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
-		},
+			{
+				boxShadow: `0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
+			},
 	},
 
 	/** With node selection */
@@ -484,9 +484,9 @@ export const findReplaceStylesNewWithA11Y: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
-		{
-			boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
-		},
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
+			},
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.search-match-block.search-match-block-selected.search-match-dark.ak-editor-selected-node': {
@@ -501,9 +501,9 @@ export const findReplaceStylesNewWithA11Y: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
-		{
-			boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
-		},
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}`,
+			},
 	},
 
 	/** Expand title match styles */
@@ -512,52 +512,52 @@ export const findReplaceStylesNewWithA11Y: SerializedStyles = css({
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.search-match-expand-title > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
-	{
-		borderRadius: token('space.050'),
-		boxShadow: `
+		{
+			borderRadius: token('space.050'),
+			boxShadow: `
 		inset 0 0 0 1px ${token('color.border.accent.magenta')},
 		inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}
 		`,
-		backgroundColor: token('color.background.accent.magenta.subtler'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.ak-editor-expand__title-input': {
-			color: token('color.text'),
+			backgroundColor: token('color.background.accent.magenta.subtler'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.ak-editor-expand__title-input': {
+				color: token('color.text'),
+			},
 		},
-	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.search-match-expand-title.selected-search-match > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
-	{
-		boxShadow: `
+		{
+			boxShadow: `
 		inset 0 0 0 1px ${token('color.border.accent.magenta')},
 		inset 0 0 0 5px ${token('color.background.accent.magenta.subtlest.pressed')}
 		`,
-		backgroundColor: token('color.background.accent.magenta.subtlest.pressed'),
-	},
+			backgroundColor: token('color.background.accent.magenta.subtlest.pressed'),
+		},
 
 	/** Dark mode */
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.search-match-expand-title.search-match-dark > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
-	{
-		boxShadow: `
+		{
+			boxShadow: `
 		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
 		inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}
 		`,
-		backgroundColor: token('color.background.accent.magenta.bolder.pressed'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.ak-editor-expand__title-input': {
-			color: token('color.text.inverse'),
+			backgroundColor: token('color.background.accent.magenta.bolder.pressed'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.ak-editor-expand__title-input': {
+				color: token('color.text.inverse'),
+			},
 		},
-	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.search-match-expand-title.selected-search-match.search-match-dark > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
-	{
-		boxShadow: `
+		{
+			boxShadow: `
 		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
 		inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.hovered')}
 		`,
-		backgroundColor: token('color.background.accent.magenta.bolder.hovered'),
-	},
+			backgroundColor: token('color.background.accent.magenta.bolder.hovered'),
+		},
 });

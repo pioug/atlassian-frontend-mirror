@@ -22,7 +22,7 @@ import {
 	nodeTypesWithShortPlaceholderText,
 	nodeTypesWithSyncBlockPlaceholderText,
 } from './constants';
-import type { PlaceHolderState , CreatePlaceholderStateProps, UserInteractionState } from './types';
+import type { PlaceHolderState, CreatePlaceholderStateProps, UserInteractionState } from './types';
 
 export function getPlaceholderState(editorState: EditorState): PlaceHolderState {
 	return pluginKey.getState(editorState);

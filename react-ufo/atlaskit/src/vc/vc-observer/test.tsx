@@ -3136,8 +3136,7 @@ describe('vc-observer', () => {
 
 				expect(mockUnbindFn).toHaveBeenCalled();
 			});
-		}
-	);
+		});
 
 		test('abort scenario - wheel', async () => {
 			const mockUnbindFn = jest.fn();

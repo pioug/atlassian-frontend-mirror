@@ -39,7 +39,7 @@ export interface State {
 	};
 }
 
-export const DeletedMessage = ({ isAuthor }: { isAuthor?: boolean }) => {
+export const DeletedMessage = ({ isAuthor }: { isAuthor?: boolean }): React.JSX.Element => {
 	// eslint-disable-next-line @atlaskit/design-system/use-primitives-text, @atlassian/i18n/no-literal-string-in-jsx
 	return isAuthor ? <em>Comment deleted by the author</em> : <em>Comment deleted by admin</em>;
 };
@@ -598,7 +598,7 @@ export default class Comment extends React.Component<Props, State> {
 		);
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { comment, isHighlighted, disableScrollTo, maxCommentNesting } = this.props;
 		const { createdBy, state: commentState, error } = comment;
 		const errorProps: {

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-base
 
+## 7.2.8
+
+### Patch Changes
+
+- [`8cf337169ee4b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cf337169ee4b) -
+  Remove the jira advanced code blocks experiment
+- Updated dependencies
+
 ## 7.2.7
 
 ### Patch Changes

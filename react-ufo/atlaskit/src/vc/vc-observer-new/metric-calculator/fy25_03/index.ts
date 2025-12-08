@@ -10,6 +10,11 @@ import type {
 	WindowEventEntryData,
 } from '../../types';
 import AbstractVCCalculatorBase from '../abstract-base-vc-calculator';
+import {
+	KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS,
+	NON_VISUAL_ARIA_ATTRIBUTES,
+	THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES
+} from '../utils/constants';
 import { isEntrySmartAnswersInSearch } from '../utils/is-entry-smart-answers-in-search';
 import isViewportEntryData from '../utils/is-viewport-entry-data';
 
@@ -46,49 +51,6 @@ const getConsideredEntryTypes = (include3p?: boolean): VCObserverEntryType[] => 
 	return entryTypes;
 };
 
-// TODO: AFO-3523
-// Those are the attributes we have found when testing the 'fy25.03' manually.
-// We still need to replace this hardcoded list with a proper automation
-export const KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS: string[] = [
-	'data-drop-target-for-element',
-	'data-drop-target-for-external',
-	'draggable',
-	'data-is-observed',
-];
-
-// Common aria attributes that don't cause visual layout shifts
-export const NON_VISUAL_ARIA_ATTRIBUTES: string[] = [
-	'aria-label',
-	'aria-labelledby',
-	'aria-describedby',
-	'aria-hidden',
-	'aria-expanded',
-	'aria-controls',
-	'aria-selected',
-	'aria-checked',
-	'aria-disabled',
-	'aria-required',
-	'aria-current',
-	'aria-haspopup',
-	'aria-pressed',
-	'aria-atomic',
-	'aria-live',
-];
-
-// Common third party browser extension attributes
-export const THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES: string[] = [
-	'bis_skin_checked',
-	'cz-shortcut-listen',
-	'monica-version',
-	'data-gr-ext-installed',
-	'data-dashlane-rid',
-	'sapling-installed',
-	'data-gptw',
-	// grammarly extensions
-	'data-new-gr-c-s-loaded',
-	'data-gr-aaa-notch-connection-id',
-	'data-gr-aaa-loaded',
-];
 
 export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 	constructor(revisionNo?: string) {
@@ -152,23 +114,6 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 
 			if (
 				attributeName.startsWith('data-test') ||
-				attributeName === 'data-aui-version' ||
-				attributeName === 'data-testid' ||
-				attributeName === 'data-vc' ||
-				attributeName === 'data-ssr-placeholder' ||
-				attributeName === 'data-ssr-placeholder-replace' ||
-				attributeName === 'data-vc-nvs' ||
-				attributeName === 'data-media-vc-wrapper' ||
-				attributeName === 'data-renderer-start-pos' ||
-				attributeName === 'data-table-local-id' ||
-				attributeName === 'spellcheck' ||
-				attributeName === 'data-auto-scrollable' ||
-				attributeName === 'id' ||
-				attributeName === 'tabindex' ||
-				attributeName === 'data-is-ttvc-ready' ||
-				attributeName === 'contenteditable' ||
-				attributeName === 'data-has-collab-initialised' ||
-				attributeName === 'translate' ||
 				NON_VISUAL_ARIA_ATTRIBUTES.includes(attributeName) ||
 				(THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES.includes(attributeName) &&
 					fg('platform_ufo_exclude_3p_extensions_from_ttvc'))

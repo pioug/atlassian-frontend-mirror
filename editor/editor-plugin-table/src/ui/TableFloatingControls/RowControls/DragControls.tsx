@@ -214,6 +214,7 @@ export const DragControls = ({
 				}}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 				className={
+					expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
 					expValEquals(
 						'platform_editor_table_sticky_header_improvements',
 						'cohort',

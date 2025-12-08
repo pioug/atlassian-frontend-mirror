@@ -15,7 +15,7 @@ import { textColorPlugin } from '@atlaskit/editor-plugin-text-color';
 import { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugin-toolbar-lists-indentation';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 
-export const EditorToolbarWithIconBefore = () => {
+export const EditorToolbarWithIconBefore = (): React.JSX.Element => {
 	const { preset } = usePreset(() =>
 		createDefaultPreset({})
 			.add(highlightPlugin)

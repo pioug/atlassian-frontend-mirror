@@ -22,7 +22,7 @@ const searchIconStyles = xcss({
 	paddingRight: 'space.0',
 });
 
-export const SearchPanel = memo(({ onChange }: { onChange: OnChangeType }) => {
+export const SearchPanel = memo(({ onChange }: { onChange: OnChangeType }): React.JSX.Element => {
 	return (
 		<Box xcss={[searchPanelStyles]}>
 			<Textfield

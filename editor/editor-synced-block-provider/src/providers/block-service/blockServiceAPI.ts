@@ -1,10 +1,11 @@
+/* eslint-disable require-unicode-regexp  */
 import { useMemo } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import {
-	blockResourceIdFromSourceAndLocalId,
-	getLocalIdFromBlockResourceId,
+	generateBlockAri,
+	generateBlockAriFromReference,
 } from '../../clients/block-service/ari';
 import {
 	BlockError,
@@ -16,7 +17,7 @@ import {
 	type BlockContentErrorResponse,
 	type BlockContentResponse,
 } from '../../clients/block-service/blockService';
-import { SyncBlockError, type SyncBlockData, type SyncBlockProduct } from '../../common/types';
+import { SyncBlockError, type ResourceId, type SyncBlockData, type SyncBlockProduct } from '../../common/types';
 import { stringifyError } from '../../utils/errorHandling';
 import type {
 	ADFFetchProvider,
@@ -116,13 +117,19 @@ export const fetchReferences = async (
  * ADFFetchProvider implementation that fetches synced block data from Block Service API
  */
 class BlockServiceADFFetchProvider implements ADFFetchProvider {
-	// resourceId is the ARI of the block. E.G ari:cloud:blocks:site-123:synced-block/uuid-456
-	// in the content API provider, this was the concatenation of the source document's ARI and the local ID. E.G ari:cloud:confluence:site-123:page/pageId/uuid-456
+	private sourceAri: string;
+
+	constructor(sourceAri: string) {
+		this.sourceAri = sourceAri;
+	}
+
+	// resourceId of the reference synced block.
+	// the ARI must be constructed to call the block service API
 	async fetchData(resourceId: string): Promise<SyncBlockInstance> {
-		const localId = getLocalIdFromBlockResourceId(resourceId);
+		const blockAri = generateBlockAriFromReference(this.sourceAri, resourceId);
 
 		try {
-			const blockContentResponse = await getSyncedBlockContent({ blockAri: resourceId });
+			const blockContentResponse = await getSyncedBlockContent({ blockAri });
 			const value = blockContentResponse.content;
 
 			if (!value) {
@@ -135,8 +142,8 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 			return {
 				data: {
 					content: syncedBlockData,
-					resourceId,
-					blockInstanceId: localId,
+					resourceId: blockAri,
+					blockInstanceId: blockContentResponse.blockInstanceId, // this was the node's localId, but has become the resourceId.
 					sourceAri: blockContentResponse.sourceAri,
 					product: blockContentResponse.product,
 				},
@@ -156,7 +163,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
  */
 class BlockServiceADFWriteProvider implements ADFWriteProvider {
 	private sourceAri: string;
-	private product: SyncBlockProduct;
+	product: SyncBlockProduct;
 
 	constructor(sourceAri: string, product: SyncBlockProduct) {
 		this.sourceAri = sourceAri;
@@ -166,10 +173,11 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 	// it will first try to update and if it can't (404) then it will try to create
 	async writeData(data: SyncBlockData): Promise<WriteSyncBlockResult> {
 		const { resourceId } = data;
+		const blockAri = generateBlockAri(this.sourceAri, resourceId, this.product);
 
 		try {
 			// Try update existing block's content
-			await updateSyncedBlock({ blockAri: resourceId, content: JSON.stringify(data.content) });
+			await updateSyncedBlock({ blockAri, content: JSON.stringify(data.content) });
 			return { resourceId };
 		} catch (error) {
 			if (error instanceof BlockError) {
@@ -181,10 +189,11 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 
 	async createData(data: SyncBlockData): Promise<WriteSyncBlockResult> {
 		const { resourceId } = data;
+		const blockAri = generateBlockAri(this.sourceAri, resourceId, this.product);
 
 		try {
 			await createSyncedBlock({
-				blockAri: resourceId,
+				blockAri,
 				blockInstanceId: data.blockInstanceId,
 				sourceAri: this.sourceAri,
 				product: this.product,
@@ -202,8 +211,9 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 
 	// soft deletes the source synced block
 	async deleteData(resourceId: string): Promise<DeleteSyncBlockResult> {
+		const blockAri = generateBlockAri(this.sourceAri, resourceId, this.product);
 		try {
-			await deleteSyncedBlock({ blockAri: resourceId });
+			await deleteSyncedBlock({ blockAri });
 			return { resourceId, success: true, error: undefined };
 		} catch (error) {
 			if (error instanceof BlockError) {
@@ -213,8 +223,18 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 		}
 	}
 
-	generateResourceId(sourceAri: string, localId: string): string {
-		return blockResourceIdFromSourceAndLocalId(sourceAri, localId);
+	// the sourceId is the resourceId of the source synced block.
+	generateResourceIdForReference(sourceId: ResourceId): ResourceId {
+		const match = this.sourceAri.match(/ari:cloud:confluence:([^:]+):(page|blogpost)\/(\d+)/);
+		if (!match?.[1]) {
+			throw new Error(`Invalid source ARI: ${this.sourceAri}`);
+		}
+		const pageId = match[3];
+		return `${this.product}/${pageId}/${sourceId}`;
+	}
+
+	generateResourceId(): ResourceId {
+		return crypto.randomUUID();
 	}
 }
 
@@ -222,7 +242,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
  * Factory function to create both providers with shared configuration
  */
 const createBlockServiceAPIProviders = (sourceAri: string, product: SyncBlockProduct) => {
-	const fetchProvider = new BlockServiceADFFetchProvider();
+	const fetchProvider = new BlockServiceADFFetchProvider(sourceAri);
 	const writeProvider = new BlockServiceADFWriteProvider(sourceAri, product);
 
 	return {

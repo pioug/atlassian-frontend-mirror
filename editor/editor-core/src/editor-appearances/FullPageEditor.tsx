@@ -47,7 +47,7 @@ export type FullPageEditorProps = Pick<
  * @param props FullPageEditorProps
  * @returns Editor component
  */
-export function FullPageEditor(props: FullPageEditorProps) {
+export function FullPageEditor(props: FullPageEditorProps): React.JSX.Element {
 	return (
 		<CoreEditor
 			// Ignored via go/ees005

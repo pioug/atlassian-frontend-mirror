@@ -1,5 +1,28 @@
 # @atlassian/navigation-system
 
+## 5.11.0
+
+### Minor Changes
+
+- [`f6629e6a4f5ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6629e6a4f5ef) -
+  The chevron icon in `FlyoutMenuItemTrigger` now uses `currentColor`, instead of the `color.icon`
+  color token. It will now inherit the same color that the menu item label uses.
+
+  This change was previously behind the feature gate `platform_dst_flyout_menu_item_chevron_color`,
+  which has now been cleaned up.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.10.2
+
+### Patch Changes
+
+- [`a60a82196851a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a60a82196851a) -
+  Internal refactors to remove unused variables. No functional or public changes.
+- Updated dependencies
+
 ## 5.10.1
 
 ### Patch Changes

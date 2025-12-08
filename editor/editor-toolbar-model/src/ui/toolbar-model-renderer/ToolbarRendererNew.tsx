@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { RegisterToolbar, RegisterComponent, ToolbarComponentTypes } from '../../types';
 
 import { getSortedChildren, isSection, NoOp } from './common';
@@ -42,6 +44,40 @@ const getFallbackComponent = (type: string, fallbacks: ToolbarProps['fallbacks']
 	}
 };
 
+const hasMenuItems = (
+	menuSections: RegisterComponent[],
+	allComponents: Exclude<RegisterComponent, RegisterToolbar>[],
+): boolean => {
+	return menuSections.some((menuSection) => {
+		return allComponents.some(
+			(component) =>
+				component.type === 'menu-item' &&
+				component.parents.some((parent) => parent.key === menuSection.key),
+		);
+	});
+};
+
+const shouldHideEmptyComponent = (
+	component: RegisterComponent,
+	children: RegisterComponent[],
+	allComponents: Exclude<RegisterComponent, RegisterToolbar>[],
+): boolean => {
+	if (component.type === 'menu') {
+		const menuSections = children.filter((child) => child.type === 'menu-section');
+		return menuSections.length === 0 || !hasMenuItems(menuSections, allComponents);
+	}
+
+	if (
+		component.type === 'group' ||
+		component.type === 'nested-menu' ||
+		component.type === 'menu-section'
+	) {
+		return children.length === 0;
+	}
+
+	return false;
+};
+
 type ComponentRendererProps = {
 	allComponents: Exclude<RegisterComponent, RegisterToolbar>[];
 	component: RegisterComponent;
@@ -62,14 +98,20 @@ const ComponentRenderer = ({
 		component.key,
 	);
 
-	if (
-		(component.type === 'menu' ||
-			component.type === 'group' ||
-			component.type === 'nested-menu' ||
-			component.type === 'menu-section') &&
-		children.length === 0
-	) {
-		return null;
+	if (fg('platform_editor_toolbar_aifc_overflow_menu_update')) {
+		if (shouldHideEmptyComponent(component, children, allComponents)) {
+			return null;
+		}
+	} else {
+		if (
+			(component.type === 'menu' ||
+				component.type === 'group' ||
+				component.type === 'nested-menu' ||
+				component.type === 'menu-section') &&
+			children.length === 0
+		) {
+			return null;
+		}
 	}
 
 	const Component = component.component || getFallbackComponent(component.type, fallbacks);

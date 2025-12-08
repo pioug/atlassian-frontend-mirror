@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.51.0
+
+### Minor Changes
+
+- [`dc680829838d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc680829838d5) -
+  Add new margin properties to ui-kit BarChart, HorizontalBarChart, HorizontalStackBarChart,
+  StackBarChart, LineChart
+
 ## 0.50.0
 
 ### Minor Changes

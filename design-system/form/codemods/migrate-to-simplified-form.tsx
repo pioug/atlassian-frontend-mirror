@@ -83,7 +83,7 @@ const generateFeatureFlag = (filePath: string): string => {
 					const flag = `platform-design_system_team-form--${suffix}`;
 					return flag.length > 50 ? flag.substring(0, 50) : flag;
 				}
-			} catch (e) {
+			} catch {
 				// Continue searching if JSON parsing fails
 			}
 		}

@@ -9,7 +9,7 @@ import { ArrowKeyNavigationType } from './types';
 
 export const ArrowKeyNavigationProvider = (
 	props: React.PropsWithChildren<ArrowKeyNavigationProviderProps>,
-) => {
+): React.JSX.Element => {
 	const { children, type, ...restProps } = props;
 
 	if (type === ArrowKeyNavigationType.COLOR) {

@@ -82,7 +82,7 @@ const navItems = [
 	},
 ];
 
-export default function CategoryNavButtonExample() {
+export default function CategoryNavButtonExample(): React.JSX.Element {
 	return (
 		<Box xcss={outerBoxContainerStyles}>
 			<Inline space="space.200">

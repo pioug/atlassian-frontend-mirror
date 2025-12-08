@@ -53,7 +53,7 @@ export default class Mention extends PureComponent<MentionProps, Object> {
 		);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<WithProviders
 				providers={['mentionProvider', 'profilecardProvider']}

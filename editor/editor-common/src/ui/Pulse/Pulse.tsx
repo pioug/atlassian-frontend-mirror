@@ -18,7 +18,7 @@ interface Props {
  * This custom component exists because the {@link SpotlightPulse} with `pulse={false}` renders extra `div` around `children`.
  * We want to keep `children` as it is if there is no `pulse`.
  */
-export function Pulse({ pulse, radius = 3, children }: Props) {
+export function Pulse({ pulse, radius = 3, children }: Props): React.JSX.Element {
 	if (pulse) {
 		return (
 			// SpotlightPulse shows pulse effect if `pulse` is `undefined`.

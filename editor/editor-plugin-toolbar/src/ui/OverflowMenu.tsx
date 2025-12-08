@@ -13,6 +13,7 @@ export const OverflowMenu = ({ children }: { children: React.ReactNode }) => {
 	const intl = useIntl();
 
 	const tooltipContent = intl.formatMessage(toolbarMessages.selectionToolbarOverflowMenuTooltip);
+
 	return (
 		<ToolbarTooltip content={tooltipContent} position="top">
 			<ToolbarDropdownMenu label={tooltipContent} iconBefore={<ShowMoreHorizontalIcon label="" />}>

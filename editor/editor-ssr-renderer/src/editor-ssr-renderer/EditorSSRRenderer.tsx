@@ -1,27 +1,34 @@
 import React, { useMemo, useRef, useLayoutEffect } from 'react';
-import { useIntl } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
+import type { EditorPluginInjectionAPI, EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorView, DecorationSet, type NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { Node as PMNode, DOMSerializer, type Mark } from '@atlaskit/editor-prosemirror/model';
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { DOMSerializer, type Mark, type Schema } from '@atlaskit/editor-prosemirror/model';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { EventDispatcher, createDispatch } from '@atlaskit/editor-common/event-dispatcher';
-import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 
 // The copy of type from prosemirror-view.
 // Probably, we need to fix this package exports and add `NodeViewConstructor` and `MarkViewConstructor` types here.
 type MarkViewConstructor = (mark: Mark, view: EditorView, inline: boolean) => NodeView;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-interface Props<Preset extends EditorPresetBuilder<any, any> = EditorPresetBuilder<any, any>> {
-	adf: DocNode;
-	preset: Preset;
+interface Props {
+	'aria-describedby'?: string;
+	'aria-label': string;
+	buildDoc: (schema: Schema) => PMNode | undefined;
+	className: string;
+	'data-editor-id': string;
+	id: string;
+	intl: IntlShape;
+	pluginInjectionAPI?: EditorPluginInjectionAPI;
+	portalProviderAPI: PortalProviderAPI;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	preset: EditorPresetBuilder<any, any>;
 }
 
 class SSREditorView extends EditorView {
@@ -29,9 +36,6 @@ class SSREditorView extends EditorView {
 		// Skip any updates in SSR
 	}
 	override setProps(): void {
-		// Skip any updates in SSR
-	}
-	override updateState(): void {
 		// Skip any updates in SSR
 	}
 	override dispatchEvent(): void {
@@ -48,19 +52,24 @@ class SSREventDispatcher extends EventDispatcher {
 	}
 }
 
-class SSRPortalProviderAPI implements PortalProviderAPI {
-	destroy() {}
-	remove() {}
-	render() {}
-}
+export function EditorSSRRenderer({
+	preset,
+	buildDoc,
+	portalProviderAPI,
+	intl,
+	pluginInjectionAPI,
+	...divProps
+}: Props) {
+	// PMPluginFactoryParams use `getIntl` function to get current intl instance,
+	// so we don't need to add `intl` as a dependency to `useMemo`.
+	// We will store intl in ref and access to it dynamically in `getIntl` function call.
+	const intlRef = useRef(intl);
+	intlRef.current = intl;
 
-export function EditorSSRRenderer({ adf, preset }: Props) {
-	const intl = useIntl();
-	const plugins = useMemo(() => preset.build(), [preset]);
+	const plugins = useMemo(() => preset.build({ pluginInjectionAPI }), [pluginInjectionAPI, preset]);
 
 	const pmPlugins = useMemo(() => {
 		const eventDispatcher = new SSREventDispatcher();
-		const portalProviderAPI = new SSRPortalProviderAPI();
 		const providerFactory = new ProviderFactory();
 
 		const pmPluginFactoryParams: PMPluginFactoryParams = {
@@ -68,7 +77,7 @@ export function EditorSSRRenderer({ adf, preset }: Props) {
 			dispatchAnalyticsEvent: () => {},
 			eventDispatcher,
 			featureFlags: {},
-			getIntl: () => intl,
+			getIntl: () => intlRef.current,
 			nodeViewPortalProviderAPI: portalProviderAPI,
 			portalProviderAPI: portalProviderAPI,
 			providerFactory,
@@ -87,7 +96,7 @@ export function EditorSSRRenderer({ adf, preset }: Props) {
 
 			return acc;
 		}, [] as SafePlugin[]);
-	}, [intl, plugins]);
+	}, [plugins, portalProviderAPI]);
 
 	const nodeViews = useMemo(() => {
 		return pmPlugins.reduce<Record<string, NodeViewConstructor>>((acc, plugin) => {
@@ -179,12 +188,16 @@ export function EditorSSRRenderer({ adf, preset }: Props) {
 
 	const editorHTML = useMemo(() => {
 		try {
-			const pmDoc = PMNode.fromJSON(defaultSchema, adf);
+			const pmDoc = buildDoc(editorView.state.schema);
+			if (!pmDoc) {
+				return undefined;
+			}
+
 			return serializer.serializeFragment(pmDoc.content);
 		} catch {
 			return undefined;
 		}
-	}, [adf, serializer]);
+	}, [editorView.state.schema, buildDoc, serializer]);
 
 	const containerRef = useRef<HTMLDivElement>(null);
 
@@ -198,29 +211,23 @@ export function EditorSSRRenderer({ adf, preset }: Props) {
 	return (
 		<div
 			ref={containerRef}
+			id={divProps.id}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={`ProseMirror ${getUAPrefix()}`}
+			className={divProps.className}
+			aria-label={divProps['aria-label']}
+			aria-describedby={divProps['aria-describedby']}
+			data-editor-id={divProps['data-editor-id']}
+			data-vc-ignore-if-no-layout-shift={true}
+			aria-multiline={true}
+			role="textbox"
+			// @ts-expect-error - contenteditable is not exist in div attributes
+			contenteditable="true"
+			data-gramm="false"
+			translate="no"
 		/>
 	);
 }
 
 function renderText(node: PMNode) {
 	return node.text || '';
-}
-
-// Copy from platform/packages/editor/editor-core/src/create-editor/ReactEditorView/getUAPrefix.ts
-export function getUAPrefix() {
-	const browser = getBrowserInfo();
-
-	if (browser.chrome) {
-		return 'ua-chrome';
-	} else if (browser.ie) {
-		return 'ua-ie';
-	} else if (browser.gecko) {
-		return 'ua-firefox';
-	} else if (browser.safari) {
-		return 'ua-safari';
-	}
-
-	return '';
 }

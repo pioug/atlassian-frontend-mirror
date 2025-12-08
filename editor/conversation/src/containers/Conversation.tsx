@@ -182,7 +182,7 @@ class ConversationContainer extends React.Component<ContainerProps, any> {
 		};
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			props,
 			state: { localId },

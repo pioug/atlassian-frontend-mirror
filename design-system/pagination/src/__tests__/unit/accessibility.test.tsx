@@ -1,16 +1,13 @@
 import React from 'react';
 
-import { fireEvent, render, type RenderResult, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 import Button from '@atlaskit/button/standard-button';
 
 import Pagination, { type PaginationPropTypes } from '../../index';
 
-function assertPageButtonRendering(
-	view: RenderResult,
-	{ page, isSelected }: { page: string; isSelected: boolean },
-) {
+function assertPageButtonRendering({ page, isSelected }: { page: string; isSelected: boolean }) {
 	try {
 		const pageElement = screen.getByRole('button', { name: `page ${page}` });
 
@@ -28,10 +25,13 @@ function assertPageButtonRendering(
 	}
 }
 
-function assertNavigationButtonRendering(
-	view: RenderResult,
-	{ label, isEnabled }: { label: string; isEnabled: boolean },
-) {
+function assertNavigationButtonRendering({
+	label,
+	isEnabled,
+}: {
+	label: string;
+	isEnabled: boolean;
+}) {
 	try {
 		const navigationButton = screen.getByLabelText(label);
 
@@ -85,8 +85,8 @@ describe('Pagination Accessibility', () => {
 	});
 
 	it('With previous button disabled, should pass basic aXe audit', async () => {
-		const { view } = setup();
-		assertNavigationButtonRendering(view, {
+		setup();
+		assertNavigationButtonRendering({
 			label: 'previous',
 			isEnabled: false,
 		});
@@ -106,7 +106,7 @@ describe('Pagination Accessibility', () => {
 
 	it('Basic ellipsis should pass basic aXe audit', async () => {
 		const onChange = jest.fn();
-		const { view } = setup({ onChange });
+		setup({ onChange });
 		fireEvent.click(screen.getByTestId('pagination--page-3'));
 
 		[
@@ -117,7 +117,7 @@ describe('Pagination Accessibility', () => {
 			{ page: '5', isSelected: false },
 			{ page: '10', isSelected: false },
 		].forEach(({ page, isSelected }) => {
-			assertPageButtonRendering(view, { page, isSelected });
+			assertPageButtonRendering({ page, isSelected });
 		});
 
 		const container = screen.getByTestId('pagination');

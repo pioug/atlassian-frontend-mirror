@@ -1,5 +1,13 @@
 # @atlaskit/checkbox
 
+## 17.1.24
+
+### Patch Changes
+
+- [`a60a82196851a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a60a82196851a) -
+  Internal refactors to remove unused variables. No functional or public changes.
+- Updated dependencies
+
 ## 17.1.23
 
 ### Patch Changes

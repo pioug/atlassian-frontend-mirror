@@ -21,6 +21,7 @@ const isDeprecatedToken = (node: valueParser.Node): boolean =>
 		.filter(({ state }) => state === 'deprecated')
 		.some((token) => getCSSCustomProperty(token.path) === node.value);
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ruleBase: RuleBase = (isEnabled, flags = {}, context) => {
 	return (root, result) => {
 		const validOptions = stylelint.utils.validateOptions(result, ruleName, {

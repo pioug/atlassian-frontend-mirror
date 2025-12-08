@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-loom
 
+## 8.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.17
+
+### Patch Changes
+
+- [`5baa955ebe237`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5baa955ebe237) -
+  Add new menu section for all extensions (inc. loom and 1p, 3p extensions), add logic to hide menu
+  button completely when there are no menu-sections with no menu-items associated with it
+- Updated dependencies
+
 ## 8.0.16
 
 ### Patch Changes

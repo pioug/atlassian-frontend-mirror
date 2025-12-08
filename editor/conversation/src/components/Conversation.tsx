@@ -320,7 +320,7 @@ export default class Conversation extends React.PureComponent<Props, State> {
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<>
 				{this.renderComments()}

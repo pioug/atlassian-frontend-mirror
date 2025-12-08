@@ -36,7 +36,7 @@ export type CommentEditorProps = Pick<
  * @param props CommentEditorProps
  * @returns Editor component
  */
-export function CommentEditor(props: CommentEditorProps) {
+export function CommentEditor(props: CommentEditorProps): React.JSX.Element {
 	// Ignored via go/ees005
 	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <CoreEditor {...props} appearance="comment" AppearanceComponent={Comment} />;

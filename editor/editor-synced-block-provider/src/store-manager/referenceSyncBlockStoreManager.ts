@@ -53,6 +53,13 @@ export class ReferenceSyncBlockStoreManager {
 		this.fireAnalyticsEvent = fireAnalyticsEvent;
 	}
 
+	public generateResourceIdForReference(sourceId: ResourceId): ResourceId {
+		if (!this.dataProvider) {
+			throw new Error('Data provider not set');
+		}
+		return this.dataProvider.generateResourceIdForReference(sourceId);
+	}
+
 	public updateFireAnalyticsEvent(
 		fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
 	) {

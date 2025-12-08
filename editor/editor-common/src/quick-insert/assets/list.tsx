@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useIconThemed } from '../use-icon-themed';
 
-export default function IconList() {
+export default function IconList(): React.JSX.Element {
 	const { iconThemed } = useIconThemed();
 	const dotColour = iconThemed({ light: '#6C798F', dark: '#5A6977' });
 	const lineColour = iconThemed({ light: '#C1C7D0', dark: '#454F59' });

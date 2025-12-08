@@ -102,7 +102,7 @@ export function createPlaceHolderStateFrom({
 	withEmptyParagraph,
 	showOnEmptyParagraph,
 }: CreatePlaceholderStateProps): PlaceHolderState {
-	if (isPlaceholderHidden && fg('platform_editor_ai_aifc_patch_beta')) {
+	if (isPlaceholderHidden && withEmptyParagraph) {
 		return {
 			...emptyPlaceholder({
 				placeholderText: defaultPlaceholderText,
@@ -134,7 +134,7 @@ export function createPlaceHolderStateFrom({
 		});
 	}
 
-	if (fg('platform_editor_ai_aifc_patch_beta_2') || fg('platform_editor_ai_aifc_patch_ga')) {
+	if (withEmptyParagraph) {
 		const { from, to, $to } = editorState.selection;
 		if (
 			(defaultPlaceholderText || placeholderADF) &&

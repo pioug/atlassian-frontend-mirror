@@ -7,6 +7,7 @@ import { Fragment, type KeyboardEvent } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner/spinner';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';
@@ -100,6 +101,13 @@ export const SearchResults = ({
 		</TabList>
 	);
 
+	const ErrorWrapper = ({ children }: { children: React.ReactNode }) =>
+		!!tabs.length && fg('fix_invalid_aria_attr_in_link_picker_search_error') ? (
+			<div id={`${testIds.tabList}-${activeTab}-tab`}>{children}</div>
+		) : (
+			children
+		);
+
 	return (
 		<SearchResultsContainer
 			hasTabs={!!tabs.length || isLoadingPlugins}
@@ -155,7 +163,11 @@ export const SearchResults = ({
 					)}
 
 					{error
-						? (activePlugin?.errorFallback?.(error, retry) ?? <LinkSearchError onRetry={retry} />)
+						? (activePlugin?.errorFallback?.(error, retry) ?? (
+								<ErrorWrapper>
+									<LinkSearchError onRetry={retry} />
+								</ErrorWrapper>
+							))
 						: null}
 				</Fragment>
 			)}

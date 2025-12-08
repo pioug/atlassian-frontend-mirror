@@ -41,7 +41,7 @@ const exampleDocument = {
 	],
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<IntlProvider locale="en">
 			<EditorContext>

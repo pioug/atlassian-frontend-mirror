@@ -61,7 +61,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 
 		commands: {
 			copySyncedBlockReferenceToClipboard: (): EditorCommand =>
-				copySyncedBlockReferenceToClipboardEditorCommand,
+				copySyncedBlockReferenceToClipboardEditorCommand(syncBlockStore),
 			insertSyncedBlock:
 				(): EditorCommand =>
 				({ tr }) =>

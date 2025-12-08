@@ -20,7 +20,7 @@ const extendRows = (
 function RegularStatelessExample() {
 	const [highlightedRowIndex, setHighlightedRowIndex] = useState<number[]>([]);
 
-	const onRowClick = (e: React.MouseEvent, rowIndex: number) => {
+	const onRowClick = (_e: React.MouseEvent, rowIndex: number) => {
 		setHighlightedRowIndex((prevHighlightedRowIndex) => {
 			const newHighlightedRowIndex = [...(prevHighlightedRowIndex || [])];
 			const existingIndex = newHighlightedRowIndex.indexOf(rowIndex);

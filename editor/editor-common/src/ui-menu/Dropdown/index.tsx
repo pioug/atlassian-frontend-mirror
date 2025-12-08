@@ -164,7 +164,7 @@ export class Dropdown extends PureComponent<Props, State> {
 		);
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { trigger, isOpen } = this.props;
 
 		return trigger ? (

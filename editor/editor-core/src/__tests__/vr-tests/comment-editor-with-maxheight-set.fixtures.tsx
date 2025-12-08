@@ -6,7 +6,7 @@ import { usePreset } from '@atlaskit/editor-core/use-preset';
 
 import { textsWithFiftyLines } from './comment-editor-with-maxheight-set.adf';
 
-export const CommentEditorWithMaxHeight = () => {
+export const CommentEditorWithMaxHeight = (): React.JSX.Element => {
 	const { preset } = usePreset(() => createDefaultPreset({}));
 	return (
 		<ComposableEditor

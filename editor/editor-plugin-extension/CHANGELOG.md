@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-extension
 
+## 9.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.2.10
+
+### Patch Changes
+
+- [`40be7d89b624f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40be7d89b624f) -
+  EDITOR-3744 Manual scroll to table when stickyheader improvements is enabled
+- Updated dependencies
+
 ## 9.2.9
 
 ### Patch Changes

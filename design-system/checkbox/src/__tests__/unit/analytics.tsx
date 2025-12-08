@@ -17,14 +17,14 @@ describe('Checkbox analytics', () => {
 		render(
 			<AnalyticsListener onEvent={onAtlaskitEvent}>
 				<AnalyticsListener onEvent={onPublicEvent}>
-					<Checkbox
-						onChange={(e: React.ChangeEvent, analyticsEvent: UIAnalyticsEvent) => {
-							analyticsEvent.fire();
-						}}
-						name="test"
-						value="test"
-						label="test"
-					/>
+				<Checkbox
+					onChange={(_e: React.ChangeEvent, analyticsEvent: UIAnalyticsEvent) => {
+						analyticsEvent.fire();
+					}}
+					name="test"
+					value="test"
+					label="test"
+				/>
 				</AnalyticsListener>
 			</AnalyticsListener>,
 		);

@@ -11,7 +11,7 @@ const editorProps = {
 	UNSAFE_useAnalyticsContext: true,
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<AnalyticsListener
 			channel={FabricChannel.atlaskit}

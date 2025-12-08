@@ -3,11 +3,7 @@ import React from 'react';
 // Allowing existing usage of non Pragmatic drag and drop solution
 import { Draggable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
 
-import withDimensions, {
-	// @ts-ignore -- This import is required for default export
-	type State,
-	type WithDimensionsProps,
-} from '../../hoc/with-dimensions';
+import withDimensions, { type WithDimensionsProps } from '../../hoc/with-dimensions';
 import { inlineStylesIfRanking } from '../../internal/helpers';
 import { RankableTableBodyRow } from '../../styled/rankable/table-row';
 import { type HeadType, type RowType } from '../../types';

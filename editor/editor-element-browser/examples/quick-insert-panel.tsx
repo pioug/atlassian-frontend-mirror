@@ -128,7 +128,7 @@ const items: QuickInsertPanelItem[] = [
 	},
 ];
 
-export default function ElementBrowserExample() {
+export default function ElementBrowserExample(): React.JSX.Element {
 	const [searchText, setSearchText] = useState<string>('');
 
 	return (

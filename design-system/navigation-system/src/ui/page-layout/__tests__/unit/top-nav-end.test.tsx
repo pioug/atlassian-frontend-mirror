@@ -13,7 +13,7 @@ jest.mock('@atlaskit/primitives/compiled', () => {
 	const actual = jest.requireActual('@atlaskit/primitives/compiled');
 	return {
 		...actual,
-		UNSAFE_useMediaQuery: jest.fn((query: string, listener?: (e: MediaQueryListEvent) => void) => ({
+		UNSAFE_useMediaQuery: jest.fn(() => ({
 			matches: false, // default value
 		})),
 	};

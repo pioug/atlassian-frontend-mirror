@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useIconThemed } from '../use-icon-themed';
 
-export default function IconDivider() {
+export default function IconDivider(): React.JSX.Element {
 	const { iconThemed } = useIconThemed();
 
 	return (

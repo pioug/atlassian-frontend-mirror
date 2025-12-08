@@ -50,7 +50,7 @@ if (!isAnalyticsOptedOut) {
 			subproduct: 'ads-mcp',
 			flushInterval: 5000,
 		});
-	} catch (error) {
+	} catch {
 		// Analytics client not available or failed to initialize
 		// Log the error but continue without analytics
 		console.error(
@@ -99,7 +99,7 @@ export function sendOperationalEvent({
 				},
 			},
 		});
-	} catch (error) {
+	} catch {
 		// Analytics errors should not prevent normal operation
 		// Silently fail to avoid disrupting the main functionality
 		console.error('Error sending operational event to analytics');

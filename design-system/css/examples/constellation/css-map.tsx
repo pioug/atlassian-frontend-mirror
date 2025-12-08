@@ -11,10 +11,10 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	root: {
-		paddingTop: token('space.200'),
-		paddingRight: token('space.200'),
-		paddingBottom: token('space.200'),
-		paddingLeft: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
 	},
 	primary: {
 		backgroundColor: token('color.background.brand.bold'),
@@ -29,18 +29,12 @@ const styles = cssMap({
 		color: token('color.text.inverse'),
 	},
 	disabled: { opacity: 0, cursor: 'not-allowed' },
-	button: { marginTop: token('space.200') },
+	button: { marginBlockStart: token('space.200') },
 });
 
 const appearances = ['primary', 'discovery', 'success'] as const;
 
-export default ({
-	appearance,
-	isDisabled,
-}: {
-	appearance: 'primary' | 'discovery' | 'success';
-	isDisabled?: boolean;
-}) => {
+export default function CssMapExample({ isDisabled }: { isDisabled?: boolean }) {
 	const [appearanceIndex, setAppearanceIndex] = useState(0);
 
 	const cycleAppearance = () => {
@@ -55,4 +49,4 @@ export default ({
 			</div>
 		</Stack>
 	);
-};
+}

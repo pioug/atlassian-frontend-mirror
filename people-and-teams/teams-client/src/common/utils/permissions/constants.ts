@@ -38,7 +38,7 @@ export const allPermissions = (
 	ADD_AGENT_TO_TEAM: defaultPermission,
 	ARCHIVE_TEAM: defaultPermission && isMember,
 	UNARCHIVE_TEAM: false,
-	CAN_EDIT_HIERARCHY: defaultPermission && isMember,
+	CAN_EDIT_HIERARCHY: defaultPermission,
 	CAN_CHANGE_MEMBERSHIP_SETTINGS: defaultPermission,
 });
 
@@ -72,6 +72,8 @@ export const SCIMSyncTeamPermissions = (
 	EDIT_TEAM_LINK: isMember || isOrgAdmin,
 	EDIT_TEAM_NAME:
 		isOrgAdmin && source === 'ATLASSIAN_GROUP' && fg('enable_edit_team_name_external_type_teams'),
+	//Org admins should not be able to edit hierarchies of HRIS synced teams
+	CAN_EDIT_HIERARCHY: source === 'ATLASSIAN_GROUP' && isOrgAdmin,
 });
 
 /**
@@ -150,7 +152,6 @@ const getActiveTeamPermissionMap = (
 			ADD_AGENT_TO_TEAM: newTeamProfileEnabled && (isMember || isOrgAdmin),
 			REMOVE_AGENT_FROM_TEAM: newTeamProfileEnabled && (isMember || isOrgAdmin),
 			ARCHIVE_TEAM: isArchiveTeamEnabled && isOrgAdmin,
-			CAN_EDIT_HIERARCHY: permission === 'FULL_WRITE' && isOrgAdmin,
 		};
 	} else if (settings === 'ORG_ADMIN_MANAGED') {
 		// NOTE: Only org admins will received FULL_WRITE permission

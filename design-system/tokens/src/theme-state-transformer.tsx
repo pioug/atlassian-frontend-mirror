@@ -47,7 +47,7 @@ export const themeStringToObject = (themeState: string): Partial<ThemeState> => 
 				if (kind === customThemeOptions) {
 					try {
 						themeObject[customThemeOptions] = JSON.parse(id);
-					} catch (e) {
+					} catch {
 						new Error('Invalid custom theme string');
 					}
 				}

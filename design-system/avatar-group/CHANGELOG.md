@@ -1,5 +1,13 @@
 # @atlaskit/avatar-group
 
+## 12.4.4
+
+### Patch Changes
+
+- [`a60a82196851a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a60a82196851a) -
+  Internal refactors to remove unused variables. No functional or public changes.
+- Updated dependencies
+
 ## 12.4.3
 
 ### Patch Changes

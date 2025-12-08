@@ -103,7 +103,7 @@ export const ToolbarNext = ({
 	popupsBoundariesElement,
 	popupsScrollableElement,
 	isDisabled,
-}: NewToolbarProps) => {
+}: NewToolbarProps): React.JSX.Element => {
 	const { connectivityStateMode, editorViewMode, editorToolbarDockingPreference } =
 		usePluginState(editorAPI);
 	// remove offline check when patch6Enabled is cleaned up

@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 
-import type { BlockMenuItemConfiguration } from 'packages/editor/editor-plugin-selection-extension/src/types';
 import { IntlProvider } from 'react-intl-next';
 
 import {
@@ -21,6 +20,7 @@ import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 // Commented out - see below
 import {
 	type ExtensionConfiguration,
+	type ExtensionMenuItemConfiguration,
 	selectionExtensionPlugin,
 } from '@atlaskit/editor-plugin-selection-extension';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
@@ -35,7 +35,7 @@ import AppIcon from '@atlaskit/icon/core/app';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled - go/akcss
-import { xcss, Pressable } from '@atlaskit/primitives';
+import { Pressable, xcss } from '@atlaskit/primitives';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
@@ -232,31 +232,41 @@ function ComposableEditorPage() {
 			};
 		}
 	};
-	const nestedBlockMenuExtension: ExtensionConfiguration = {
-		key: 'mock-extension-w-nested-menu',
+
+	const nestedMenuItemsGetMenuItem: () => Array<ExtensionMenuItemConfiguration> = () => [
+		{
+			label: 'Leaf extension item',
+			icon: AppIcon,
+			onClick: () => {
+				console.log('<<<click 1');
+			},
+		},
+		{
+			label: 'Dropdown extension item',
+			icon: AppIcon,
+			getMenuItems: () => [
+				{
+					label: 'Nested Leaf extension item',
+					icon: AppIcon,
+					onClick: () => {
+						console.log('<<<click 2');
+					},
+				},
+			],
+		},
+	];
+
+	const extensionWithNestedMenuItems: ExtensionConfiguration = {
+		key: 'mock-extension-with-nested-menu-items',
 		source: 'first-party',
 		blockMenu: {
-			getMenuItem: () => ({
-				label: 'Apps',
-				icon: AddIcon,
-			}),
-			getNestedMenuItems: () =>
-				[
-					{
-						label: 'App 1',
-						icon: AppIcon,
-						onClick: () => {
-							console.log('<<<click 1');
-						},
-					},
-					{
-						label: 'App 2',
-						icon: AppIcon,
-						onClick: () => {
-							console.log('<<<click 2');
-						},
-					},
-				] as BlockMenuItemConfiguration[],
+			getMenuItems: nestedMenuItemsGetMenuItem,
+		},
+		inlineToolbar: {
+			getMenuItems: nestedMenuItemsGetMenuItem,
+		},
+		primaryToolbar: {
+			getMenuItems: nestedMenuItemsGetMenuItem,
 		},
 	};
 
@@ -267,7 +277,7 @@ function ComposableEditorPage() {
 			getMenuItems: () => [getCreateJiraIssueMenuItem()],
 		},
 		blockMenu: {
-			getMenuItem: getCreateJiraIssueMenuItem,
+			getMenuItems: () => [getCreateJiraIssueMenuItem()],
 		},
 	};
 
@@ -321,7 +331,7 @@ function ComposableEditorPage() {
 					extensionList: [
 						...noteSelectionExtension.extensionList,
 						createJiraIssueExtension,
-						nestedBlockMenuExtension,
+						extensionWithNestedMenuItems,
 					],
 				},
 			]);
@@ -448,7 +458,7 @@ function ComposableEditorPage() {
 	);
 }
 
-export default function ComposableEditorPageWrapper() {
+export default function ComposableEditorPageWrapper(): React.JSX.Element {
 	return (
 		<>
 			<EditorContext>

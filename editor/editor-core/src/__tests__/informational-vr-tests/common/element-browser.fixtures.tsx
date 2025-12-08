@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Editor } from '../../../index';
 
-export function EditorWithElementBrowser() {
+export function EditorWithElementBrowser(): React.JSX.Element {
 	return (
 		<Editor
 			appearance="full-page"

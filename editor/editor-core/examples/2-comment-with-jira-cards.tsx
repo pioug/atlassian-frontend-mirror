@@ -87,7 +87,7 @@ export class JiraCardClient extends CardClient {
 const jiraClient = new JiraCardClient();
 const cardProvider = new JiraCardProvider();
 
-export default function CommentWithJiraCardsExample() {
+export default function CommentWithJiraCardsExample(): React.JSX.Element {
 	return (
 		<EditorContext>
 			<div>

@@ -1,8 +1,10 @@
 const fs = require('fs');
 const path = require('path');
+
 const { globSync } = require('glob');
-const SVGSpriter = require('svg-sprite');
 const mkdirp = require('mkdirp');
+const SVGSpriter = require('svg-sprite');
+
 const { getWorkspacesInfo } = require('@af/yarn-utils');
 
 getWorkspacesInfo({ only: '@atlaskit/icon' }).then(([pkg]) => {
@@ -14,7 +16,7 @@ getWorkspacesInfo({ only: '@atlaskit/icon' }).then(([pkg]) => {
 		// this generates the id attr for each svg in the sprite
 		shape: {
 			id: {
-				generator: (name, file) => {
+				generator: (_name, file) => {
 					const iconName = file.path
 						.replace(path.join(iconPackageDir, 'svgs/'), '')
 						.replace('.svg', '');

@@ -28,7 +28,7 @@ export interface IconButtonGroupProps extends GroupData {
 }
 
 export const IconButtonGroup = memo(
-	({ id, label, items, hasSeparator, onItemSelected }: IconButtonGroupProps) => {
+	({ id, label, items, hasSeparator, onItemSelected }: IconButtonGroupProps): React.JSX.Element => {
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 			<Section hasSeparator={hasSeparator}>

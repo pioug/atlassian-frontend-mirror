@@ -193,7 +193,7 @@ const runTransform = async (
 	let transformModule: any;
 	try {
 		transformModule = require(transformPath);
-	} catch (error) {
+	} catch {
 		// eslint-disable-next-line no-console
 		console.warn(`Error loading transform module: ${transformPath}. Skipping lifecycle hooks.`);
 	}

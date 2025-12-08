@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 33.8.1
+
+### Patch Changes
+
+- [`daf962303a5ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daf962303a5ce) -
+  tidyup fg platform_reactions_custom_popper_zindex
+- Updated dependencies
+
 ## 33.8.0
 
 ### Minor Changes

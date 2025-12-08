@@ -10,10 +10,8 @@ import cases from 'jest-in-case';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { type AriaLiveMessages } from '../../accessibility';
 import { type FilterOptionOption } from '../../filters';
 import Select, { type FormatOptionLabelMeta } from '../../select';
-import { type GroupBase } from '../../types';
 import { noop } from '../../utils';
 
 import {
@@ -903,7 +901,6 @@ cases(
 		let { container } = render(<Select {...props} />);
 
 		let indexOfSelectedOption = props.options.indexOf(selectedOption);
-		const user = userEvent.setup();
 
 		for (let i = -1; i < indexOfSelectedOption; i++) {
 			fireEvent.keyDown(screen.getByTestId(`${testId}-select--listbox-container`)!, {

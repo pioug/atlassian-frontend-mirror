@@ -320,7 +320,7 @@ const ExportAction = ({
 	</DropdownMenu>
 );
 
-export const LinkMenuItemWithDropdownActionOpen = ({ isSelected }: { isSelected?: boolean }) => (
+export const LinkMenuItemWithDropdownActionOpen = () => (
 	<div css={styles.root}>
 		<MenuList>
 			<Stack space="space.800">

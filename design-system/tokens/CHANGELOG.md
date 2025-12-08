@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 8.4.1
+
+### Patch Changes
+
+- [`a60a82196851a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a60a82196851a) -
+  Internal refactors to remove unused variables. No functional or public changes.
+
 ## 8.4.0
 
 ### Minor Changes

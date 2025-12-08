@@ -5,9 +5,14 @@ import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
+import { key } from '../pm-plugins/main';
+import { mapPreservedSelection } from '../pm-plugins/utils/selection';
 
 import { moveNode } from './move-node';
-import { getCurrentNodePosFromDragHandleSelection } from './utils/move-node-utils';
+import {
+	canMoveNodeUpOrDown,
+	getCurrentNodePosFromDragHandleSelection,
+} from './utils/move-node-utils';
 
 const getSelectionToIndex = (fromIndex: number, $to: ResolvedPos, depth: number) => {
 	const toIndex = $to.index(depth);
@@ -45,12 +50,14 @@ export const moveNodeWithBlockMenu = (
 
 		const depth = tr.doc.resolve(currentNodePos).depth;
 		const fromIndex = $from.index(depth);
+		let trAfterNodeMove = tr;
 
 		if (direction === DIRECTION.UP) {
 			if (fromIndex > 0) {
 				const moveToPos = $from.posAtIndex(fromIndex - 1, depth);
 
-				return moveNode(api)(currentNodePos, moveToPos, INPUT_METHOD.BLOCK_MENU)({ tr });
+				trAfterNodeMove =
+					moveNode(api)(currentNodePos, moveToPos, INPUT_METHOD.BLOCK_MENU)({ tr }) || tr;
 			}
 		} else {
 			// selectionToIndex is the index of the last node in the selection
@@ -61,10 +68,26 @@ export const moveNodeWithBlockMenu = (
 			if (moveToIndex <= $to.node(depth).childCount) {
 				const moveToPos = $to.posAtIndex(moveToIndex, depth);
 
-				return moveNode(api)(currentNodePos, moveToPos, INPUT_METHOD.BLOCK_MENU)({ tr });
+				trAfterNodeMove =
+					moveNode(api)(currentNodePos, moveToPos, INPUT_METHOD.BLOCK_MENU)({ tr }) || tr;
 			}
 		}
 
-		return tr;
+		// map selection
+		const mappedSelection = mapPreservedSelection(selection, trAfterNodeMove);
+		if (mappedSelection) {
+			trAfterNodeMove.setSelection(mappedSelection);
+		}
+
+		//recalculate canMoveUp and canMoveDown
+		const { moveUp, moveDown } = canMoveNodeUpOrDown(trAfterNodeMove);
+		const currentMeta = trAfterNodeMove.getMeta(key);
+		const newMeta = {
+			...currentMeta,
+			...{
+				toggleMenu: { moveUp, moveDown },
+			},
+		};
+		return trAfterNodeMove.setMeta(key, newMeta);
 	};
 };

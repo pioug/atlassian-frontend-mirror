@@ -19,7 +19,6 @@ import { RENDER_SELECTOR_TESTID } from './Selector';
 import { RENDER_SHOWMORE_TESTID } from './ShowMore';
 import { RENDER_REACTIONPICKERPANEL_TESTID } from './ReactionPicker';
 import { RENDER_SUMMARY_BUTTON_TESTID } from './ReactionSummaryButton';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
 	type ReactionsProps,
@@ -332,42 +331,21 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		expect(screen.queryByTestId(RENDER_VIEWALL_REACTED_USERS_DIALOG)).toBeNull();
 	});
 
-	ffTest.on('platform_reactions_custom_popper_zindex', 'enable custom popper zIndex', () => {
-		it('should render the portal with correct portal zIndex', async () => {
-			renderReactions({ reactions, reactionPickerPopperZIndex: 700 }, jest.fn());
+	it('should render the portal with correct portal zIndex', async () => {
+		renderReactions({ reactions, reactionPickerPopperZIndex: 700 }, jest.fn());
 
-			const picker = await screen.findByTestId(RENDER_REACTIONPICKER_TESTID);
-			expect(picker).toBeInTheDocument();
+		const picker = await screen.findByTestId(RENDER_REACTIONPICKER_TESTID);
+		expect(picker).toBeInTheDocument();
 
-			const pickerButton = within(picker).getByRole('button');
-			expect(pickerButton).toBeInTheDocument();
-			await userEvent.click(pickerButton);
+		const pickerButton = within(picker).getByRole('button');
+		expect(pickerButton).toBeInTheDocument();
+		await userEvent.click(pickerButton);
 
-			expect(screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID)).toBeInTheDocument();
-			const popper = screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID);
-			const popperPortal = screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID).parentElement;
-			expect(popperPortal).toHaveStyle({ zIndex: 700 });
-			expect(popper).toHaveStyle({ zIndex: 700 });
-		});
-	});
-
-	ffTest.off('platform_reactions_custom_popper_zindex', 'enable custom popper zIndex', () => {
-		it('should render the portal with correct portal zIndex', async () => {
-			renderReactions({ reactions, reactionPickerPopperZIndex: 700 }, jest.fn());
-
-			const picker = await screen.findByTestId(RENDER_REACTIONPICKER_TESTID);
-			expect(picker).toBeInTheDocument();
-
-			const pickerButton = within(picker).getByRole('button');
-			expect(pickerButton).toBeInTheDocument();
-			await userEvent.click(pickerButton);
-
-			expect(screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID)).toBeInTheDocument();
-			const popper = screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID);
-			const popperPortal = screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID).parentElement;
-			expect(popperPortal).toHaveStyle({ zIndex: 600 });
-			expect(popper).toHaveStyle({ zIndex: 400 });
-		});
+		expect(screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID)).toBeInTheDocument();
+		const popper = screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID);
+		const popperPortal = screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID).parentElement;
+		expect(popperPortal).toHaveStyle({ zIndex: 700 });
+		expect(popper).toHaveStyle({ zIndex: 700 });
 	});
 
 	describe('with analytics', () => {

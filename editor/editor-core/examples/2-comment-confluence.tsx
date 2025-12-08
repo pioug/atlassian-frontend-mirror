@@ -61,7 +61,7 @@ type Props = {
 	replacementDoc?: any;
 };
 
-const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props) => {
+const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props): React.JSX.Element => {
 	const [hasJquery, setHasJquery] = useState(false);
 	const [isExpanded, setIsExpanded] = useState(false);
 

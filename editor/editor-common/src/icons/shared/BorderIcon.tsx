@@ -30,7 +30,7 @@ const BorderIconGlyph = (props: CustomGlyphProps) => {
 	);
 };
 
-export const BorderIcon = (props: GlyphProps) => {
+export const BorderIcon = (props: GlyphProps): React.JSX.Element => {
 	return fg('platform-custom-icon-migration') ? (
 		<BorderIconGlyph aria-label={props.label} />
 	) : (

@@ -104,7 +104,7 @@ describe('setGlobalTheme style loading', () => {
 					'typography',
 				]);
 			},
-			(ff) => {
+			() => {
 				const testWithVisualRefreshVariation = async (
 					verify: (css: string, id: ThemeIdsWithOverrides) => void,
 				) => {

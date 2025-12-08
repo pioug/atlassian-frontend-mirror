@@ -59,7 +59,7 @@ export const MediaBadges = ({
 	mediaHeight,
 	extendedResizeOffset,
 	useMinimumZIndex = false,
-}: ExternalImageBadgeProps) => {
+}: ExternalImageBadgeProps): React.JSX.Element | null => {
 	const [visible, setVisible] = useState<boolean>(getBadgeVisible(mediaWidth, mediaHeight));
 
 	useEffect(() => {

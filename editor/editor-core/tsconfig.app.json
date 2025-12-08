@@ -277,6 +277,9 @@
 			"path": "../editor-shared-styles/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-ssr-renderer/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-synced-block-provider/tsconfig.app.json"
 		},
 		{

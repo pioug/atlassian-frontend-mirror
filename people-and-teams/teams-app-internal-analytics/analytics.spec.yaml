@@ -1135,6 +1135,10 @@ events:
           description: id of the selected team
         numberOfMembers:
           type: number
+        memberIds:
+          type: []
+          required: false
+          description: an array containing member ids that were invited
   - joinRequestAccept failed:
       type: operational
       description: joinRequestAccept failed
@@ -2589,7 +2593,7 @@ events:
           type: []
           description: the list of currently connected containers
   - teamArchived succeeded:
-      type: operational
+      type: track
       description: team archived successfully
       attributes:
         <<: *PackageMetaDataContext
@@ -2610,7 +2614,7 @@ events:
           description: whether the team is verified
           required: false
   - teamArchived failed:
-      type: operational
+      type: track
       description: team archival failed
       attributes:
         <<: *PackageMetaDataContext
@@ -2635,7 +2639,7 @@ events:
           description: error message
           required: false
   - teamUnarchived succeeded:
-      type: operational
+      type: track
       description: team unarchived successfully
       attributes:
         <<: *PackageMetaDataContext
@@ -2652,7 +2656,7 @@ events:
           description: whether the user is a member of the team
           required: false
   - teamUnarchived failed:
-      type: operational
+      type: track
       description: team unarchival failed
       attributes:
         <<: *PackageMetaDataContext

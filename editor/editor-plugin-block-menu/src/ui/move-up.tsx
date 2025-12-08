@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import type { WrappedComponentProps } from 'react-intl-next';
 import { useIntl, injectIntl } from 'react-intl-next';
@@ -18,6 +18,7 @@ import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
+import { useBlockMenu } from './block-menu-provider';
 import { BLOCK_MENU_ITEM_NAME } from './consts';
 
 type Props = {
@@ -26,6 +27,7 @@ type Props = {
 
 const MoveUpDropdownItemContent = ({ api }: Props & WrappedComponentProps) => {
 	const { formatMessage } = useIntl();
+	const { moveFocusTo, moveUpRef } = useBlockMenu();
 	const { canMoveUp } = useSharedPluginStateWithSelector(
 		api,
 		['blockControls'],
@@ -35,6 +37,17 @@ const MoveUpDropdownItemContent = ({ api }: Props & WrappedComponentProps) => {
 			};
 		},
 	);
+
+	useEffect(() => {
+		const moveUpElement = moveUpRef.current;
+		if (!moveUpElement) {
+			return;
+		}
+
+		if (!canMoveUp && moveUpElement === document.activeElement) {
+			moveFocusTo('moveDown');
+		}
+	}, [canMoveUp, moveFocusTo, moveUpRef]);
 
 	const handleClick = () => {
 		api?.core.actions.execute(({ tr }) => {
@@ -49,12 +62,12 @@ const MoveUpDropdownItemContent = ({ api }: Props & WrappedComponentProps) => {
 			api?.analytics?.actions?.attachAnalyticsEvent(payload)(tr);
 
 			api?.blockControls?.commands?.moveNodeWithBlockMenu(DIRECTION.UP)({ tr });
-			api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true })({ tr });
 			return tr;
 		});
 	};
 	return (
 		<ToolbarDropdownItem
+			triggerRef={moveUpRef}
 			onClick={handleClick}
 			elemBefore={<ArrowUpIcon label="" />}
 			isDisabled={!canMoveUp}

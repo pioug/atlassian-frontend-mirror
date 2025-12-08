@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-placeholder-text
 
+## 7.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.10
 
 ### Patch Changes

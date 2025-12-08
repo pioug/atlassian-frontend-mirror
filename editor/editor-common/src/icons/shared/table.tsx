@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useIconThemed } from '../../quick-insert/use-icon-themed';
 
-export default function IconTable() {
+export default function IconTable(): React.JSX.Element {
 	const { iconThemed } = useIconThemed();
 	const cellBackgroundColour = iconThemed({ light: '#FFF', dark: '#1D2125' });
 	const headerBackgroundColour = iconThemed({

@@ -17,7 +17,7 @@ interface EditorAPIProviderProps {
 	children: React.ReactNode;
 }
 
-export const PresetContextProvider = ({ children }: EditorAPIProviderProps) => {
+export const PresetContextProvider = ({ children }: EditorAPIProviderProps): React.JSX.Element => {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [editorApi, setEditorApi] = useState<PublicPluginAPI<any> | undefined>();
 

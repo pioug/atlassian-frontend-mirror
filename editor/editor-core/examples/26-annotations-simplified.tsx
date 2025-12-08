@@ -12,7 +12,7 @@ import { default as FullPageExample } from './5-full-page';
 
 const emitter = new AnnotationUpdateEmitter();
 
-export default function ExampleAnnotationExperiment() {
+export default function ExampleAnnotationExperiment(): React.JSX.Element {
 	return (
 		<FullPageExample
 			key={1}

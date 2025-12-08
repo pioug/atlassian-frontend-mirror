@@ -12,6 +12,6 @@ const editorProps = {
 	},
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return <FullPageExample editorProps={editorProps} />;
 }

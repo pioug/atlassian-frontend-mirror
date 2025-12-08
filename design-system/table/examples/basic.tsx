@@ -18,7 +18,7 @@ export default function Basic(): React.JSX.Element {
 	return (
 		<Table isSelectable testId="table">
 			<THead
-				actions={(selected) => (
+				actions={() => (
 					<Fragment>
 						<Button>Edit</Button>
 						<Button>Delete</Button>

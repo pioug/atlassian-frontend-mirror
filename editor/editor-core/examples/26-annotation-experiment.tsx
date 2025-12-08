@@ -153,7 +153,7 @@ export default class ExampleAnnotationExperiment extends React.Component<any, St
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { annotationStates, isInlineCommentsEnabled, isDisallowOnWhiteSpaceEnabled } = this.state;
 
 		return (

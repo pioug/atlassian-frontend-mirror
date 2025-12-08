@@ -72,7 +72,7 @@ export function HyperlinkAddToolbar({
 	searchSessionId,
 	timesViewed,
 	isOffline,
-}: HyperlinkAddToolbarProps) {
+}: HyperlinkAddToolbarProps): React.JSX.Element {
 	return (
 		<WithProviders
 			providers={['activityProvider', 'searchProvider']}

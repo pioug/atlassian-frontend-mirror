@@ -12,7 +12,7 @@ export const withFeatureFlaggedComponent = <P extends object>(
 	ComponentNext: React.ComponentType<P>,
 	featureFlagFn: () => boolean,
 ) => {
-	return (props: P) => {
+	return (props: P): React.JSX.Element => {
 		// Ignored via go/ees005
 		// eslint-disable-next-line react/jsx-props-no-spreading
 		// Ignored via go/ees005

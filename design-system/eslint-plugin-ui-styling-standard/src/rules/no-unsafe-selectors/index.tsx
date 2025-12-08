@@ -147,7 +147,7 @@ const rule = createLintRuleWithTypedConfig({
 						selectorList.nodes.forEach((selector) =>
 							lintSelector({ context, sourceNode: key, selector, config, isXcssCall }),
 						);
-					} catch (e) {
+					} catch {
 						context.report({
 							node: key,
 							messageId: 'no-unparsable-selectors',

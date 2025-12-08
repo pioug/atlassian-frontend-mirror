@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 215.19.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 215.19.0
+
+### Minor Changes
+
+- [`c7acfc11f076a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7acfc11f076a) -
+  [https://hello.jira.atlassian.cloud/browse/EDITOR-3745](EDITOR-3745) - adopt EditorSSRRenderer to
+  ReactEditorView
+
+### Patch Changes
+
+- [`d2e5db925723b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2e5db925723b) -
+  EDITOR-2772 Update selection extension types for block menu
+- Updated dependencies
+
 ## 215.18.2
 
 ### Patch Changes

@@ -41,6 +41,7 @@ type BaseProps = React.AllHTMLAttributes<HTMLElement> & {
 	contentElement: JSX.Element;
 	after?: JSX.Element;
 	testId?: string;
+	// Not used. To be removed with the labelling system work
 	appearance?: AppearanceType;
 	color?: TagColor;
 };
@@ -88,7 +89,6 @@ const BaseTag: React.ForwardRefExoticComponent<
 		contentElement,
 		after,
 		testId,
-		appearance = 'default',
 		style,
 		color = 'standard',
 		href,

@@ -13,7 +13,7 @@ type BaseThemeProps = {
 // Default value from: `import { fontSize } from '@atlaskit/theme/constants';`
 const defaultFontSize = 14;
 
-export function BaseThemeWrapper({ baseFontSize, children }: BaseThemeProps) {
+export function BaseThemeWrapper({ baseFontSize, children }: BaseThemeProps): React.JSX.Element {
 	const memoizedTheme = useMemo(
 		() => ({
 			baseFontSize: baseFontSize || defaultFontSize,

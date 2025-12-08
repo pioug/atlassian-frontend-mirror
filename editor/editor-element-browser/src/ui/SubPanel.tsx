@@ -20,7 +20,7 @@ interface SubPanelWithBackButtonProps {
 	onClick: () => void;
 }
 export const SubPanelWithBackButton = memo(
-	({ label, buttonLabel, onClick, children }: SubPanelWithBackButtonProps) => {
+	({ label, buttonLabel, onClick, children }: SubPanelWithBackButtonProps): React.JSX.Element => {
 		return (
 			<Stack space="space.0">
 				<Inline

@@ -40,7 +40,7 @@ const createPreset = () =>
 		.add(alignmentPlugin)
 		.add(layoutPlugin);
 
-export function BlockExtension() {
+export function BlockExtension(): React.JSX.Element {
 	const { preset } = usePreset(createPreset);
 	return (
 		<ComposableEditor
@@ -51,7 +51,7 @@ export function BlockExtension() {
 	);
 }
 
-export function BlockExtensionWithSmartLink() {
+export function BlockExtensionWithSmartLink(): React.JSX.Element {
 	const { preset } = usePreset(createPreset);
 	return (
 		<SmartCardProvider client={cardClient}>
@@ -64,7 +64,7 @@ export function BlockExtensionWithSmartLink() {
 	);
 }
 
-export function BodiedExtension() {
+export function BodiedExtension(): React.JSX.Element {
 	const { preset } = usePreset(createPreset);
 	return (
 		<ComposableEditor
@@ -75,7 +75,7 @@ export function BodiedExtension() {
 	);
 }
 
-export function BodiedExtensionWithSmartLink() {
+export function BodiedExtensionWithSmartLink(): React.JSX.Element {
 	const { preset } = usePreset(createPreset);
 	return (
 		<SmartCardProvider client={cardClient}>
@@ -88,7 +88,7 @@ export function BodiedExtensionWithSmartLink() {
 	);
 }
 
-export function InlineExtension() {
+export function InlineExtension(): React.JSX.Element {
 	const { preset } = usePreset(createPreset);
 	return (
 		<ComposableEditor
@@ -99,7 +99,7 @@ export function InlineExtension() {
 	);
 }
 
-export function InlineExtensionCenterAligned() {
+export function InlineExtensionCenterAligned(): React.JSX.Element {
 	const { preset } = usePreset(createPreset);
 	return (
 		<SmartCardProvider client={cardClient}>
@@ -112,7 +112,7 @@ export function InlineExtensionCenterAligned() {
 	);
 }
 
-export function InlineExtensionRightAligned() {
+export function InlineExtensionRightAligned(): React.JSX.Element {
 	const { preset } = usePreset(createPreset);
 	return (
 		<SmartCardProvider client={cardClient}>
@@ -125,7 +125,7 @@ export function InlineExtensionRightAligned() {
 	);
 }
 
-export function InlineExtensionWithSmartLink() {
+export function InlineExtensionWithSmartLink(): React.JSX.Element {
 	const { preset } = usePreset(createPreset);
 	return (
 		<SmartCardProvider client={cardClient}>
@@ -138,7 +138,7 @@ export function InlineExtensionWithSmartLink() {
 	);
 }
 
-export function HeadingWithInlineExtension() {
+export function HeadingWithInlineExtension(): React.JSX.Element {
 	const { preset } = usePreset(createPreset);
 	return (
 		<SmartCardProvider client={cardClient}>
@@ -151,7 +151,7 @@ export function HeadingWithInlineExtension() {
 	);
 }
 
-export function BodiedExtensionWithLayout() {
+export function BodiedExtensionWithLayout(): React.JSX.Element {
 	const { preset } = usePreset(createPreset);
 	return (
 		<ComposableEditor
@@ -162,7 +162,7 @@ export function BodiedExtensionWithLayout() {
 	);
 }
 
-export function BlockExtensionWithLayout() {
+export function BlockExtensionWithLayout(): React.JSX.Element {
 	const { preset } = usePreset(createPreset);
 	return (
 		<ComposableEditor

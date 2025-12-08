@@ -92,7 +92,7 @@ const items = [
 	},
 ];
 
-export default function IconButtonItemExample() {
+export default function IconButtonItemExample(): React.JSX.Element {
 	return (
 		<Box xcss={outerBoxContainerStyles}>
 			<Stack space="space.200">

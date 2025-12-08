@@ -35,7 +35,7 @@ export const CommentToolbar = ({
 	popupsBoundariesElement,
 	popupsMountPoint,
 	popupsScrollableElement,
-}: CommentToolbarProps) => {
+}: CommentToolbarProps): React.JSX.Element | null => {
 	const components = editorAPI?.toolbar?.actions.getComponents();
 	const toolbar = components?.find((component) => component.key === TOOLBARS.PRIMARY_TOOLBAR);
 

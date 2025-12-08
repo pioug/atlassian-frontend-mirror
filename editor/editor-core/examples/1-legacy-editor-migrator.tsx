@@ -222,7 +222,7 @@ function getValidProps(propsString: string): EditorProps | null {
 	return props;
 }
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [legacyEditorValue, setLegacyEditorValue] = useState(
 		'<Editor allowIndentation allowAnalyticsGASV3 />',
 	);

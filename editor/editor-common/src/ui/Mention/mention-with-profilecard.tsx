@@ -33,7 +33,7 @@ export default function MentionWithProfileCard({
 	onMouseLeave,
 	localId,
 	ssrPlaceholderId,
-}: Props) {
+}: Props): React.JSX.Element {
 	const { cloudId, resourceClient } = profilecardProvider;
 
 	const actions = useMemo(

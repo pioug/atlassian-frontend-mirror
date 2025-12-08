@@ -1,5 +1,12 @@
 # @atlassian/give-kudos
 
+## 4.4.9
+
+### Patch Changes
+
+- [`c662174f3c4e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c662174f3c4e4) -
+  Enforce meaningful descriptions for team central packages so translators have an easier time
+
 ## 4.4.8
 
 ### Patch Changes

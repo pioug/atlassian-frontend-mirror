@@ -96,7 +96,7 @@ export class Extension extends Component<Props, any> {
 		);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<WithProviders
 				providers={['extensionProvider']}

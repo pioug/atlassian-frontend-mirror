@@ -14,7 +14,7 @@ const mediaProvider = storyMediaProviderFactory();
 const smartCardClient = new ConfluenceCardClient('stg');
 const cardProvider = Promise.resolve(new ConfluenceCardProvider('stg'));
 
-export default function CommentWithResizingExample() {
+export default function CommentWithResizingExample(): React.JSX.Element {
 	return (
 		<SmartCardProvider client={smartCardClient}>
 			<CommentExample

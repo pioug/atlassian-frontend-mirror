@@ -148,7 +148,7 @@ export const IconButtonItem = memo(
 		isDisabled,
 		renderIcon,
 		onItemSelected,
-	}: ButtonItemProps) => {
+	}: ButtonItemProps): React.JSX.Element => {
 		const iconComponent = useMemo(() => {
 			if (!renderIcon) {
 				return null;

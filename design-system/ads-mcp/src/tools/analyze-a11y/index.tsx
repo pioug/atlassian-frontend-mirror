@@ -299,7 +299,7 @@ export const analyzeA11yTool = async (params: z.infer<typeof analyzeA11yInputSch
 				},
 			],
 		};
-	} catch (error) {
+	} catch {
 		// Fallback to pattern-based analysis if axe-core fails
 		// console.warn('Axe-core analysis failed, falling back to pattern analysis:', error);
 

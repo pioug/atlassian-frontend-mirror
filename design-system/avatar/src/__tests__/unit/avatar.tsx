@@ -25,26 +25,13 @@ describe('Avatar', () => {
 	});
 
 	it('should render a button when onClick is supplied', () => {
-		render(
-			<Avatar
-				name="Alexander Nevermind"
-				testId={testId}
-				onClick={(event, analyticsEvent) => null}
-			/>,
-		);
+		render(<Avatar name="Alexander Nevermind" testId={testId} onClick={() => null} />);
 
 		expect(screen.getByTestId(`${testId}--inner`).tagName).toEqual('BUTTON');
 	});
 
 	it('should render a disabled button when using onClick', () => {
-		render(
-			<Avatar
-				testId={testId}
-				isDisabled
-				name="Alexander Nevermind"
-				onClick={(event, analyticsEvent) => null}
-			/>,
-		);
+		render(<Avatar testId={testId} isDisabled name="Alexander Nevermind" onClick={() => null} />);
 		const element = screen.getByTestId(`${testId}--inner`);
 
 		expect(element.tagName).toEqual('BUTTON');

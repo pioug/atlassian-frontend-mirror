@@ -98,7 +98,7 @@ const migrateDataTestIdToTestIdProp = (j: JSCodeshift, collection: Collection<an
 		let dataTestIdAttr: any = null;
 		let dataTestIdValue: any = null;
 
-		htmlForm.openingElement.attributes?.forEach((attr, index) => {
+		htmlForm.openingElement.attributes?.forEach((attr) => {
 			// Find data-testid attribute
 			if (
 				attr.type === 'JSXAttribute' &&

@@ -22,11 +22,9 @@ const labelStyles = css({
 const ToggleVisuallyHidden = ({
 	children,
 	id,
-	testId,
 }: {
 	id: string;
 	children(isVisible: boolean): ReactNode;
-	testId?: string;
 }) => {
 	const [isVisible, setIsVisible] = useState(false);
 

@@ -15,7 +15,6 @@ const FUNCTION_NAMES = new Set([
 	'ff',
 	'fg',
 	'getFeatureFlagValue',
-	'getMultivariateFeatureFlag',
 	'componentWithFF',
 	'componentWithFG',
 	'passGate',

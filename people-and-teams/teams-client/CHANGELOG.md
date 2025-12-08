@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.28.0
+
+### Minor Changes
+
+- [`1834a38494182`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1834a38494182) -
+  Enable search teams by type id
+
 ## 4.27.0
 
 ### Minor Changes

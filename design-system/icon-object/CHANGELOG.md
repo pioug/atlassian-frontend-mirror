@@ -1,5 +1,21 @@
 # @atlaskit/icon-object
 
+## 7.3.4
+
+### Patch Changes
+
+- [`585f5315200e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/585f5315200e2) -
+  Remove legacy icon documentation, examples, and tests.
+- Updated dependencies
+
+## 7.3.3
+
+### Patch Changes
+
+- [`a60a82196851a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a60a82196851a) -
+  Internal refactors to remove unused variables. No functional or public changes.
+- Updated dependencies
+
 ## 7.3.2
 
 ### Patch Changes

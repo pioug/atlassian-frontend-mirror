@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useIconThemed } from '../use-icon-themed';
 
-export default function IconDate() {
+export default function IconDate(): React.JSX.Element {
 	const { iconThemed } = useIconThemed();
 
 	return (

@@ -27,7 +27,7 @@ const IconCardGlyph = (props: CustomGlyphProps) => {
 	);
 };
 
-export const IconCard = (props: IconProps) => {
+export const IconCard = (props: IconProps): React.JSX.Element => {
 	return fg('platform-custom-icon-migration') ? (
 		<IconCardGlyph
 			aria-label={props.label}

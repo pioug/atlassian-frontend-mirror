@@ -18,7 +18,7 @@ it('should fire an event on the public channel and the internal channel', () => 
 				<AnalyticsListener onEvent={onPublicEvent}>
 					<Button
 						testId="button"
-						onClick={(event: React.MouseEvent, analyticsEvent: UIAnalyticsEvent) => {
+						onClick={(_event: React.MouseEvent, analyticsEvent: UIAnalyticsEvent) => {
 							analyticsEvent.fire();
 						}}
 					>
@@ -76,7 +76,7 @@ it('should allow the addition of additional context', () => {
 				<Button
 					testId="button"
 					analyticsContext={analyticsContext}
-					onClick={(event: React.MouseEvent, analyticsEvent: UIAnalyticsEvent) => {
+					onClick={(_event: React.MouseEvent, analyticsEvent: UIAnalyticsEvent) => {
 						analyticsEvent.fire();
 					}}
 				>

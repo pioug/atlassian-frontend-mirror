@@ -58,6 +58,9 @@
 			"path": "../../editor-shared-styles/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-ssr-renderer/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-toolbar/afm-products/tsconfig.json"
 		},
 		{

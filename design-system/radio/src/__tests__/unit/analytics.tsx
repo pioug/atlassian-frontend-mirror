@@ -17,13 +17,13 @@ describe('Radio analytics', () => {
 		render(
 			<AnalyticsListener onEvent={onAtlaskitEvent}>
 				<AnalyticsListener onEvent={onPublicEvent}>
-					<Radio
-						onChange={(e: React.ChangeEvent, analyticsEvent: UIAnalyticsEvent) => {
-							analyticsEvent.fire();
-						}}
-						name="test"
-						value="test"
-						label="test"
+				<Radio
+					onChange={(_e: React.ChangeEvent, analyticsEvent: UIAnalyticsEvent) => {
+						analyticsEvent.fire();
+					}}
+					name="test"
+					value="test"
+					label="test"
 					/>
 				</AnalyticsListener>
 			</AnalyticsListener>,
@@ -69,11 +69,11 @@ describe('Radio analytics', () => {
 							{ name: 'color', value: 'red', label: 'Red' },
 							{ name: 'color', value: 'blue', label: 'Blue' },
 							{ name: 'color', value: 'yellow', label: 'Yellow' },
-						]}
-						onChange={(e: React.ChangeEvent, analyticsEvent: UIAnalyticsEvent) => {
-							analyticsEvent.fire();
-						}}
-					/>
+					]}
+					onChange={(_e: React.ChangeEvent, analyticsEvent: UIAnalyticsEvent) => {
+						analyticsEvent.fire();
+					}}
+				/>
 				</AnalyticsListener>
 			</AnalyticsListener>,
 		);

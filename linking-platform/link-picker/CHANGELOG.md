@@ -1,5 +1,17 @@
 # @atlaskit/link-picker
 
+## 4.1.0
+
+### Minor Changes
+
+- [`7117e5c06e992`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7117e5c06e992) -
+  [ux] ENGHEALTH-45703 fixing a11y violation aria-valid-attr-value for plugin search results error
+  screen
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.3
 
 ### Patch Changes

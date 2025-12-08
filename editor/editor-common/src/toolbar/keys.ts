@@ -783,8 +783,8 @@ export const PIN_BUTTON = {
 
 /**
  * Loom section
+ * - Only rendered in dropdown menu in primary toolbar
  */
-
 export const LOOM_MENU_SECTION = {
 	key: 'loom-menu-section',
 	type: 'menu-section',
@@ -795,10 +795,35 @@ export const LOOM_MENU_ITEM = {
 	type: 'menu-item',
 } as const;
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 /**
+ * @deprecated Replaced with OVERFLOW_EXTENSIONS_MENU_SECTION
  * Selection extensions
  */
 export const SELECTION_EXTENSION_MENU_SECTION = {
 	key: 'selection-extension-menu-section',
 	type: 'menu-section',
+} as const;
+
+/**
+ * Overflow extensions menu section
+ *
+ * - Only rendered in selection toolbar, used to group both 1p and 3p extensions
+ */
+export const OVERFLOW_EXTENSIONS_MENU_SECTION = {
+	key: 'overflow-extensions-menu-section',
+	type: 'menu-section',
+} as const;
+
+/**
+ * Extension menu items
+ */
+export const FIRST_PARTY_EXTENSIONS_MENU_ITEM = {
+	key: 'first-party-extensions-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const EXTERNAL_EXTENSIONS_MENU_ITEM = {
+	key: 'external-extensions-menu-item',
+	type: 'menu-item',
 } as const;

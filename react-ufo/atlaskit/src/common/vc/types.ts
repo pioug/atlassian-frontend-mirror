@@ -161,6 +161,11 @@ export type RawObservation = {
 	att?: number;
 };
 
+export type RawEventObservation = {
+	t: number;
+	evt: number;
+};
+
 export type RevisionPayloadEntry = {
 	'metric:vc90': number | null;
 	revision: string;
@@ -176,6 +181,8 @@ export type RevisionPayloadEntry = {
 		eid?: Record<number, string>;
 		chg?: Record<number, string>;
 		att?: Record<number, string>;
+		evts?: Array<RawEventObservation>;
+		evt?: Record<number, string>;
 	};
 	viewport?: { w: number; h: number };
 	feVCTime?: number;

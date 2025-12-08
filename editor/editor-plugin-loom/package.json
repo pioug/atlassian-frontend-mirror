@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-loom",
-	"version": "8.0.16",
+	"version": "8.0.18",
 	"description": "Loom plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -46,6 +46,7 @@
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -102,6 +103,9 @@
 	},
 	"platform-feature-flags": {
 		"should-render-to-parent-should-be-true-editor-lego": {
+			"type": "boolean"
+		},
+		"platform_editor_toolbar_aifc_overflow_menu_update": {
 			"type": "boolean"
 		}
 	}

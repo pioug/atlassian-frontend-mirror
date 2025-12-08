@@ -20,7 +20,7 @@ describe('Tabs analytics', () => {
 			<AnalyticsListener onEvent={onAtlaskitEvent}>
 				<AnalyticsListener onEvent={onPublicEvent}>
 					<Tabs
-						onChange={(index, analyticsEvent) => {
+						onChange={(_index, analyticsEvent) => {
 							analyticsEvent.fire();
 						}}
 						id="test"
@@ -77,7 +77,7 @@ describe('Tabs analytics', () => {
 		render(
 			<AnalyticsListener onEvent={onEvent} channel={'atlaskit'}>
 				<Tabs
-					onChange={(index, analyticsEvent) => {
+					onChange={(_index, analyticsEvent) => {
 						analyticsEvent.fire();
 					}}
 					analyticsContext={extraContext}

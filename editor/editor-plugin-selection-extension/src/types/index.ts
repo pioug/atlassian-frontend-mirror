@@ -1,3 +1,5 @@
+import type { ComponentType, PropsWithChildren } from 'react';
+
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
@@ -33,8 +35,8 @@ export type SelectionCoords = {
 };
 
 export type SelectionExtension = {
-	component?: React.ComponentType<SelectionExtensionComponentProps>;
-	icon?: React.ComponentType<React.PropsWithChildren<{ label: string }>>;
+	component?: ComponentType<SelectionExtensionComponentProps>;
+	icon?: ComponentType<PropsWithChildren<{ label: string }>>;
 	isDisabled?: (params: SelectionExtensionCallbackOptions) => boolean;
 	name: string;
 	onClick?: (params: SelectionExtensionCallbackOptions) => void;
@@ -116,7 +118,7 @@ export type SelectionExtensionPluginState = {
 		// extension?: SelectionExtension;
 		extension: SelectionExtension | ExtensionMenuItemConfiguration;
 		// NEXT PR: content component will be needed to render the new selected extension
-		// contentComponent?: React.ComponentType<SelectionExtensionComponentProps>;
+		// contentComponent?: ComponentType<SelectionExtensionComponentProps>;
 		selection: SelectionExtensionSelectionInfo;
 	};
 	docChangedAfterClick?: boolean;
@@ -147,18 +149,8 @@ export type ExtensionConfiguration = {
 
 export type GetToolbarItemFn = () => ExtensionToolbarItemConfiguration;
 
-export type GetMenuItemsFn = () => Array<
-	ExtensionMenuItemConfiguration | ExtensionMenuSectionConfiguration
->;
-
-export type GetMenuItemFn = () => Omit<ExtensionMenuItemConfiguration, 'section'>;
-
-export type BlockMenuItemConfiguration = Omit<ExtensionMenuItemConfiguration, 'contentComponent'>;
-export type GetBlockMenuItemFn = () => Omit<BlockMenuItemConfiguration, 'section'>;
-
-export type GetBlockMenuNestedItemsFn = () => Array<
-	BlockMenuItemConfiguration | ExtensionMenuSectionConfiguration
->;
+export type GetMenuItemsFn = () => Array<ExtensionMenuItemConfiguration>;
+export type GetNestedMenuItemsFn = () => Array<ExtensionMenuItemNestedConfiguration>;
 
 export type ToolbarExtensionConfiguration = {
 	getMenuItems?: GetMenuItemsFn;
@@ -166,23 +158,36 @@ export type ToolbarExtensionConfiguration = {
 };
 
 export type BlockMenuExtensionConfiguration = {
-	getMenuItem: GetBlockMenuItemFn;
-	getNestedMenuItems?: GetBlockMenuNestedItemsFn;
+	getMenuItems: GetMenuItemsFn;
 };
 
 export type ExtensionToolbarItemConfiguration = {
-	icon: React.ComponentType<React.PropsWithChildren<{ label: string }>>;
+	icon: ComponentType<PropsWithChildren<{ label: string }>>;
 	isDisabled?: boolean;
 	label?: string;
 	onClick?: () => void;
 	tooltip: string;
 };
 
-export type ExtensionMenuItemConfiguration = {
-	contentComponent?: React.ComponentType<SelectionExtensionComponentProps>;
-	icon: React.ComponentType<React.PropsWithChildren<{ label: string; size?: 'small' | 'medium' }>>;
-	isDisabled?: boolean;
+/**
+ * Common fields applicable to all extension menu items
+ */
+type ExtensionMenuItemBaseConfiguration = {
+	icon: ComponentType<PropsWithChildren<{ label: string; size?: 'small' | 'medium' }>>;
 	label: string;
+	isDisabled?: boolean;
+};
+
+/**
+ * Fields for a leaf menu item (i.e., an item that does not have nested menu items)
+ */
+type ExtensionMenuItemLeafConfiguration = {
+	/**
+	 * Optional content component to render when this menu item is selected
+	 *
+	 * Used for forge app extensions that need to render custom UI when selected from the block menu.
+	 */
+	contentComponent?: ComponentType<SelectionExtensionComponentProps>;
 	/**
 	 * Optional lozenge to display next to the label in the menu
 	 */
@@ -190,14 +195,34 @@ export type ExtensionMenuItemConfiguration = {
 		label: string;
 	};
 	onClick?: () => void;
-	/**
-	 * Optional menu-section to declare grouping - only used for menu items
-	 */
-	section?: { key: string; rank: number };
 };
 
-export type ExtensionMenuSectionConfiguration = {
-	key: string;
-	rank: number;
-	title?: string;
+/**
+ * Fields for a dropdown menu item (i.e., an item that has nested menu items)
+ */
+type ExtensionMenuItemDropdownMenuConfiguration = {
+	getMenuItems: GetNestedMenuItemsFn;
 };
+
+type AllNever<T> = {
+	[K in keyof T]?: never;
+};
+
+/**
+ * A type which marks all fields from ExtensionMenuItemDropdownMenuConfiguration and ExtensionMenuItemLeafConfiguration
+ * as never, ensuring that only one of the two can be present at a time to avoid misconfigurations
+ */
+type ExtensionMenuItemUnsupportedConfiguration = AllNever<
+	ExtensionMenuItemDropdownMenuConfiguration | ExtensionMenuItemLeafConfiguration
+>;
+
+export type ExtensionMenuItemConfiguration = ExtensionMenuItemBaseConfiguration &
+	ExtensionMenuItemUnsupportedConfiguration &
+	(ExtensionMenuItemLeafConfiguration | ExtensionMenuItemDropdownMenuConfiguration);
+
+/**
+ * We intentionally only support leaf menu items nested within dropdown menu items so that there will
+ * be at max two levels of nesting from extension menu items.
+ */
+type ExtensionMenuItemNestedConfiguration = ExtensionMenuItemBaseConfiguration &
+	ExtensionMenuItemLeafConfiguration;

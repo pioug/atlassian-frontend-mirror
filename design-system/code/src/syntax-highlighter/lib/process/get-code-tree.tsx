@@ -11,7 +11,7 @@ export default function getCodeTree(
 
 	try {
 		return astGenerator.highlight(code, language);
-	} catch (e) {
+	} catch {
 		return [{ type: 'text', value: code }];
 	}
 }

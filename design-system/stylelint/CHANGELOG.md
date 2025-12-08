@@ -1,5 +1,13 @@
 # @atlaskit/stylelint-design-system
 
+## 4.1.5
+
+### Patch Changes
+
+- [`a60a82196851a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a60a82196851a) -
+  Internal refactors to remove unused variables. No functional or public changes.
+- Updated dependencies
+
 ## 4.1.4
 
 ### Patch Changes

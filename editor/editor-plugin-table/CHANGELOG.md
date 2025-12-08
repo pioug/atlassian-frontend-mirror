@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-table
 
+## 15.4.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.4.19
+
+### Patch Changes
+
+- [`edbc1458b100c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edbc1458b100c) -
+  Add native anchor experiment as guard for native sticky headers
+- Updated dependencies
+
+## 15.4.18
+
+### Patch Changes
+
+- [`a2fa645318b72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2fa645318b72) -
+  EDITOR-3822 Update anchor styles to fix cell option manu alignment in safari
+- Updated dependencies
+
+## 15.4.17
+
+### Patch Changes
+
+- [`193738561b24f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/193738561b24f) -
+  [ux] Fix bug where contextual table cell button not rendered when overflowing
+
 ## 15.4.16
 
 ### Patch Changes

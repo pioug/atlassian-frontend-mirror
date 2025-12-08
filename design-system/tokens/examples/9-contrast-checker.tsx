@@ -136,15 +136,15 @@ const ImportPopup = ({ onImport }: { onImport: (theme: ThemeExportFormat) => voi
 					</p>
 					<TextArea onChange={(e) => setImportValue(e.target.value)} value={importValue} />
 					<Button
-						onClick={() => {
-							try {
-								const parsed = JSON.parse(importValue);
-								onImport(parsed);
-								setIsOpen(false);
-							} catch (e) {
-								alert('Invalid JSON');
-							}
-						}}
+					onClick={() => {
+						try {
+							const parsed = JSON.parse(importValue);
+							onImport(parsed);
+							setIsOpen(false);
+						} catch {
+							alert('Invalid JSON');
+						}
+					}}
 					>
 						Import
 					</Button>

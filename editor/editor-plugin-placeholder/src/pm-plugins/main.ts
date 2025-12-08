@@ -61,6 +61,7 @@ export default function createPlugin(
 					typedAndDeleted: false,
 					userHadTyped: false,
 					intl,
+					withEmptyParagraph,
 				}),
 
 			apply: (tr, placeholderState, _oldEditorState, newEditorState) => {
@@ -74,14 +75,11 @@ export default function createPlugin(
 				});
 
 				let isPlaceholderHidden = placeholderState?.isPlaceholderHidden ?? false;
-				if (meta?.isPlaceholderHidden !== undefined && fg('platform_editor_ai_aifc_patch_beta')) {
+				if (meta?.isPlaceholderHidden !== undefined && withEmptyParagraph) {
 					isPlaceholderHidden = meta.isPlaceholderHidden;
 				}
 
-				if (
-					meta?.placeholderText !== undefined &&
-					(fg('platform_editor_ai_aifc_patch_beta_2') || fg('platform_editor_ai_aifc_patch_ga'))
-				) {
+				if (meta?.placeholderText !== undefined && withEmptyParagraph) {
 					// Only update defaultPlaceholderText from meta if we're not using ADF placeholder
 					if (!(fg('platform_editor_ai_aifc_patch_ga') && placeholderADF)) {
 						defaultPlaceholderText = meta.placeholderText;
@@ -92,12 +90,11 @@ export default function createPlugin(
 					isEditorFocused,
 					editorState: newEditorState,
 					isTypeAheadOpen: api?.typeAhead?.actions.isOpen,
-					defaultPlaceholderText:
-						fg('platform_editor_ai_aifc_patch_beta_2') || fg('platform_editor_ai_aifc_patch_ga')
-							? defaultPlaceholderText
-							: (meta?.placeholderText ??
-								placeholderState?.placeholderText ??
-								defaultPlaceholderText),
+					defaultPlaceholderText: withEmptyParagraph
+						? defaultPlaceholderText
+						: (meta?.placeholderText ??
+							placeholderState?.placeholderText ??
+							defaultPlaceholderText),
 					bracketPlaceholderText,
 					emptyLinePlaceholder,
 					placeholderADF,
@@ -191,10 +188,7 @@ export default function createPlugin(
 
 			return {
 				update(editorView, prevState) {
-					if (
-						fg('platform_editor_ai_aifc_patch_beta_2') ||
-						fg('platform_editor_ai_aifc_patch_ga')
-					) {
+					if (withEmptyParagraph) {
 						const prevPluginState = getPlaceholderState(prevState);
 						const newPluginState = getPlaceholderState(editorView.state);
 

@@ -89,7 +89,7 @@ export default ({
 	pulse,
 	spotlightConfig,
 	areAnyNewToolbarFlagsEnabled,
-}: Props) => {
+}: Props): React.JSX.Element => {
 	// Check if there's only an icon and add additional styles
 	const iconOnly = (icon || iconAfter) && !children;
 	const customSpacing = iconOnly ? iconOnlySpacing : {};

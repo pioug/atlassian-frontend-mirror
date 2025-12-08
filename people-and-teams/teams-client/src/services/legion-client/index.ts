@@ -75,6 +75,7 @@ export interface SortField {
  * @property {string[]} memberAccountIds - List of member account IDs to filter teams
  * @property {boolean} useDefaultSort - Whether to use the default sort order
  * @property {boolean} showEmptyTeams - Whether to return empty teams in the search
+ * @property {string[]} teamTypeIdsFilter - List of team type IDs to filter teams
  */
 export interface AllTeamsQuery {
 	/**
@@ -89,6 +90,7 @@ export interface AllTeamsQuery {
 	useDefaultSort?: boolean;
 	showEmptyTeams?: boolean;
 	sortBy?: SortField[];
+	teamTypeIdsFilter?: string[];
 }
 
 /**
@@ -281,6 +283,7 @@ export class LegionClient extends RestClient implements LegionClient {
 						: [{ field: 'displayName', order: 'asc' }],
 				membership: { memberAccountIds: allTeamsQuery.memberAccountIds },
 				showEmptyTeams: allTeamsQuery.showEmptyTeams,
+				teamTypeIdsFilter: allTeamsQuery.teamTypeIdsFilter,
 			});
 
 			const teams = entities.map((t) => this.mapTeamSearchResponseV4ToTeamWithMembership(t));

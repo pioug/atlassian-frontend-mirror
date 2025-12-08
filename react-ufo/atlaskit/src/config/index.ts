@@ -77,6 +77,10 @@ export type ReactHydrationStats = {
 	 * The depth in the React component tree of the deepest warning.
 	 */
 	maxWarningComponentDepth?: number;
+	/**
+	 * The ratio of DOM nodes preserved during hydration (between 0 and 1).
+	 */
+	preservationRatio?: number;
 };
 
 // Defensively typed, since this is directly user-editable

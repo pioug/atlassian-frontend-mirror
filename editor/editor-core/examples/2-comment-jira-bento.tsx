@@ -73,7 +73,7 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
 		this.setState({ assistiveLabel });
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const savedDoc = localStorage.getItem(LOCALSTORAGE_DOC_KEY);
 		const document = savedDoc ? JSON.parse(savedDoc) : undefined;
 
@@ -288,7 +288,7 @@ const ComposableEditorWrapper = ({
 	);
 };
 
-export default function CommentExample(props?: Props) {
+export default function CommentExample(props?: Props): React.JSX.Element {
 	return (
 		<CommentEditorJiraBento
 			editorProps={props?.editorProps}

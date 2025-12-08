@@ -64,7 +64,7 @@ export default (): React.JSX.Element => {
 					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 					overrides={{
 						MoreIndicator: {
-							render: (Component, { buttonProps, borderColor, isActive, ...props }) => (
+							render: (_Component, { buttonProps, borderColor, isActive, ...props }) => (
 								<Pressable
 									type="submit"
 									{...buttonProps}
@@ -89,7 +89,7 @@ export default (): React.JSX.Element => {
 					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 					overrides={{
 						MoreIndicator: {
-							render: (Component, { buttonProps, borderColor, isActive, ...props }) => (
+							render: (_Component, { buttonProps, borderColor, isActive, ...props }) => (
 								<Pressable
 									type="submit"
 									{...buttonProps}

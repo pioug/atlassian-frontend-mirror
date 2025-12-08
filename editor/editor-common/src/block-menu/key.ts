@@ -48,6 +48,10 @@ export const TRANSFORM_STRUCTURE_MENU_SECTION = {
 	key: 'transform-structure-menu-section',
 };
 
+export const TRANSFORM_SUGGESTED_MENU_ITEM = {
+	key: 'transform-suggested-menu-item',
+};
+
 export const TRANSFORM_STRUCTURE_BULLETED_LIST_MENU_ITEM = {
 	key: 'transform-structure-bulleted-list-menu-item',
 };

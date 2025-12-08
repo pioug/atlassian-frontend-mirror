@@ -110,6 +110,7 @@ const TableFloatingColumnControls = ({
 	let anchorStyles = {};
 	if (
 		isAnchorSupported() &&
+		expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
 		expValEquals('platform_editor_table_sticky_header_improvements', 'cohort', 'test_with_overflow')
 	) {
 		// cast here is due to CSSProperties missing valid positionAnchor property

@@ -31,7 +31,7 @@ declare module '@emotion/react' {
 	}
 }
 
-export function BaseThemeWrapper({ baseFontSize, children }: BaseThemeWrapperProps) {
+export function BaseThemeWrapper({ baseFontSize, children }: BaseThemeWrapperProps): React.JSX.Element {
 	const memoizedTheme = useMemo(
 		() => ({
 			baseFontSize: baseFontSize || 14,
@@ -48,7 +48,7 @@ type BaseThemeProps = {
 	children: React.ReactNode;
 };
 
-export function BaseTheme({ children, baseFontSize }: BaseThemeProps) {
+export function BaseTheme({ children, baseFontSize }: BaseThemeProps): React.JSX.Element {
 	return (
 		<WidthConsumer>
 			{({ breakpoint }) => (

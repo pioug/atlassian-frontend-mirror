@@ -63,7 +63,7 @@ export default function ModalWithSpotlight() {
 	const [isModalAnimationComplete, setIsModalAnimationComplete] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(true);
 	const close = useCallback(() => setIsModalOpen(false), []);
-	const handleModalOpenComplete = useCallback((node: HTMLElement, isAppearing: boolean) => {
+	const handleModalOpenComplete = useCallback(() => {
 		setIsModalAnimationComplete(true);
 	}, []);
 

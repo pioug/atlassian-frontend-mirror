@@ -311,7 +311,7 @@ export default class Editor extends React.Component<Props, State> {
 		);
 	};
 
-	renderAvatar() {
+	renderAvatar(): React.JSX.Element | null {
 		const { isEditing } = this.state;
 		const { user } = this.props;
 
@@ -326,7 +326,7 @@ export default class Editor extends React.Component<Props, State> {
 		);
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<EditorContext>
 				<Container>

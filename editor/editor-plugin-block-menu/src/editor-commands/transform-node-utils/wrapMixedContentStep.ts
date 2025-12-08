@@ -1,0 +1,145 @@
+import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+
+import type { TransformStep, NodeTypeName, TransformStepContext } from './types';
+import { NODE_CATEGORY_BY_TYPE } from './types';
+import { unwrapStep } from './unwrapStep';
+
+/**
+ * Determines if a node can be flattened (unwrapped and its contents merged).
+ *
+ * According to the text transformations list, flattenable nodes are:
+ * - Bulleted list, Numbered list, Task list
+ * - Text nodes (heading, paragraph)
+ *
+ * Containers (panels, expands, layouts, blockquotes) and atomic nodes (tables, media, macros) break out.
+ */
+const canFlatten = (node: PMNode): boolean => {
+	const category = NODE_CATEGORY_BY_TYPE[node.type.name as NodeTypeName];
+	// Text and list nodes can be flattened (converted to simpler forms)
+	return category === 'text' || category === 'list';
+};
+
+/**
+ * Flattens a node by extracting its contents using the appropriate unwrap step.
+ * This is only called for text and list nodes that can be converted to simpler forms.
+ * Uses unwrapStep to extract children from list containers.
+ */
+const flattenNode = (node: PMNode, context: TransformStepContext): PMNode[] => {
+	return unwrapStep([node], context);
+};
+
+/**
+ * Determines if a node can be wrapped in the target container type.
+ * Uses the schema's validContent to check if the target container can hold this node.
+ *
+ * Note: What can be wrapped depends on the target container type - for example:
+ * - Tables and media CAN go inside expand nodes
+ * - Tables CANNOT go inside panels or blockquotes
+ */
+const canWrapInTarget = (
+	node: PMNode,
+	targetNodeType: NodeType,
+	targetNodeTypeName: NodeTypeName,
+): boolean => {
+	// Same-type containers should break out as separate containers
+	if (node.type.name === targetNodeTypeName) {
+		return false;
+	}
+
+	// Use the schema to determine if this node can be contained in the target
+	try {
+		return targetNodeType.validContent(Fragment.from(node));
+	} catch {
+		return false;
+	}
+};
+
+/**
+ * Converts a nestedExpand to a regular expand node.
+ * NestedExpands can only exist inside expands, so when breaking out they must be converted.
+ */
+const convertNestedExpandToExpand = (node: PMNode, schema: Schema): PMNode | null => {
+	const expandType = schema.nodes.expand;
+	if (!expandType) {
+		return null;
+	}
+
+	return expandType.createAndFill({ title: node.attrs?.title || '' }, node.content);
+};
+
+/**
+ * A wrap step that handles mixed content according to the Compatibility Matrix:
+ * - Wraps consecutive compatible nodes into the target container
+ * - Same-type containers break out as separate containers (preserved as-is)
+ * - NestedExpands break out as regular expands (converted since nestedExpand can't exist outside expand)
+ * - Container structures that can't be nested in target break out (not flattened)
+ * - Text/list nodes that can't be wrapped are flattened and merged into the container
+ * - Atomic nodes (tables, media, macros) break out
+ *
+ * What can be wrapped depends on the target container's schema:
+ * - expand → panel: tables break out, nestedExpands convert to expands and break out
+ * - expand → blockquote: tables/media break out, nestedExpands convert to expands and break out
+ * - expand → expand: tables/media stay inside (expands can contain them)
+ *
+ * Example: expand(p('a'), table(), p('b')) → panel: [panel(p('a')), table(), panel(p('b'))]
+ * Example: expand(p('a'), panel(p('x')), p('b')) → panel: [panel(p('a')), panel(p('x')), panel(p('b'))]
+ * Example: expand(p('a'), nestedExpand({title: 'inner'})(p('x')), p('b')) → panel: [panel(p('a')), expand({title: 'inner'})(p('x')), panel(p('b'))]
+ */
+export const wrapMixedContentStep: TransformStep = (nodes, context) => {
+	const { schema, targetNodeTypeName } = context;
+	const targetNodeType = schema.nodes[targetNodeTypeName];
+
+	if (!targetNodeType) {
+		return nodes;
+	}
+
+	const result: PMNode[] = [];
+	let currentContainerContent: PMNode[] = [];
+
+	const flushCurrentContainer = () => {
+		if (currentContainerContent.length > 0) {
+			const containerNode = targetNodeType.createAndFill(
+				{},
+				Fragment.fromArray(currentContainerContent),
+			);
+			if (containerNode) {
+				result.push(containerNode);
+			}
+			currentContainerContent = [];
+		}
+	};
+
+	nodes.forEach((node) => {
+		if (canWrapInTarget(node, targetNodeType, targetNodeTypeName)) {
+			// Node can be wrapped - add to current container content
+			currentContainerContent.push(node);
+		} else if (node.type.name === targetNodeTypeName) {
+			// Same-type container - breaks out as a separate container (preserved as-is)
+			// This handles: "If there's a panel in the expand, it breaks out into a separate panel"
+			flushCurrentContainer();
+			result.push(node);
+		} else if (node.type.name === 'nestedExpand') {
+			// NestedExpand can't be wrapped and can't exist outside an expand
+			// Convert to regular expand and break out
+			flushCurrentContainer();
+			const expandNode = convertNestedExpandToExpand(node, schema);
+			if (expandNode) {
+				result.push(expandNode);
+			}
+		} else if (canFlatten(node)) {
+			// Node cannot be wrapped but CAN be flattened - flatten and add to container
+			const flattenedNodes = flattenNode(node, context);
+			currentContainerContent.push(...flattenedNodes);
+		} else {
+			// Node cannot be wrapped AND cannot be flattened (containers, tables, media, macros) - break out
+			flushCurrentContainer();
+			result.push(node);
+		}
+	});
+
+	// Flush any remaining content into a container
+	flushCurrentContainer();
+
+	return result.length > 0 ? result : nodes;
+};

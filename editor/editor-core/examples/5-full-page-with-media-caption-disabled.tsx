@@ -9,7 +9,7 @@ import { default as FullPageExample } from './5-full-page';
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components, react/prefer-stateless-function
 export default class ExampleEditor extends React.Component {
-	render() {
+	render(): React.JSX.Element {
 		const mediaOptions: MediaOptions = {
 			allowMediaSingle: true,
 			allowCaptions: false,

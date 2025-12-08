@@ -117,7 +117,7 @@ const items = [
 	},
 ];
 
-export default function ListButtonItemExample() {
+export default function ListButtonItemExample(): React.JSX.Element {
 	return (
 		<Box xcss={outerBoxContainerStyles}>
 			<Stack space="space.200">

@@ -37,7 +37,7 @@ describe('Select', () => {
 			'with callback  > should resolve options with defaultOptions true': {
 				props: {
 					defaultOptions: true,
-					loadOptions: (inputValue: string, callBack: (options: readonly Option[]) => void) =>
+					loadOptions: (_inputValue: string, callBack: (options: readonly Option[]) => void) =>
 						callBack([OPTIONS[0]]),
 				},
 				expectOptionLength: 1,

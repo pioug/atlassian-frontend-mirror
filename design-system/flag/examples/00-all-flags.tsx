@@ -54,7 +54,7 @@ const getIcon = (key: string) => {
 
 export default (): React.JSX.Element => (
 	<Stack space="space.100">
-		{Object.keys(appearances).map((type, idx) => (
+		{Object.keys(appearances).map((type) => (
 			<Flag
 				actions={actions}
 				appearance={type as AppearanceTypes}

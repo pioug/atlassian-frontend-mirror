@@ -8,7 +8,6 @@ import { cssMap, jsx } from '@compiled/react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { PopupTrigger } from '@atlaskit/popup/experimental';
 import { token } from '@atlaskit/tokens';
 
@@ -102,11 +101,7 @@ export const FlyoutMenuItemTrigger: React.ForwardRefExoticComponent<
 						<div css={elemAfterStyles.root}>
 							<ChevronRightIcon
 								label=""
-								color={
-									fg('platform_dst_flyout_menu_item_chevron_color')
-										? 'currentColor'
-										: token('color.icon')
-								}
+								color="currentColor"
 								size="small"
 							/>
 						</div>

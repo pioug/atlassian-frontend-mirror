@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 43.14.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.14.1
+
+### Patch Changes
+
+- [`48aac488c8663`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48aac488c8663) -
+  Clean up feature gate for adding optional icon prop to TitleBlock
+
 ## 43.14.0
 
 ### Minor Changes

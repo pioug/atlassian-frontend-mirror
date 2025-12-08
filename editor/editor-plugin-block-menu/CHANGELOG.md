@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.1.9
+
+### Patch Changes
+
+- [`fdcaf17b021af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdcaf17b021af) -
+  Editor-2676: keep block menu open when move up down clicked
+- Updated dependencies
+
+## 5.1.8
+
+### Patch Changes
+
+- [`1ce87340b7e3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ce87340b7e3e) -
+  [ux] Implement wrapMixedContentStep function to handle complex container transformations
+- [`4e0c1ce981b5e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e0c1ce981b5e) -
+  EDITOR-2930: Add SuggestedItemsRenderer for suggested block menu section
+- Updated dependencies
+
 ## 5.1.7
 
 ### Patch Changes

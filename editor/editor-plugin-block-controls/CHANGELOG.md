@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.13.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.13.1
+
+### Patch Changes
+
+- [`fdcaf17b021af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdcaf17b021af) -
+  Editor-2676: keep block menu open when move up down clicked
+- Updated dependencies
+
 ## 7.13.0
 
 ### Minor Changes

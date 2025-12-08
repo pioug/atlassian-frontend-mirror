@@ -33,7 +33,7 @@ export const MentionWithProviders = React.memo(
 		profilecardProvider: profilecardProviderResolver,
 		text,
 		localId,
-	}: Props) => {
+	}: Props): React.JSX.Element => {
 		const [profilecardProvider, setProfilecardProvider] = useState<ProfilecardProvider | null>(
 			null,
 		);

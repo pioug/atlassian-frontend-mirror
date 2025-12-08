@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 6.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.6.1
+
+### Patch Changes
+
+- [`be40850b186a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be40850b186a8) -
+  Rolled up editor AIFC beta gates into the parent streaming gate. Also decoupled the placholder
+  from the main AIFC FG by utilising the withEmptyParagraph plugin option, since this prop is only
+  set when AIFC is enabled. This means we don't need refs to this gate in the plugin because it's
+  already controlled by a prop.
+- Updated dependencies
+
 ## 6.6.0
 
 ### Minor Changes

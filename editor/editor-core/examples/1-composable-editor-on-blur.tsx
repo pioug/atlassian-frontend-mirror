@@ -37,7 +37,7 @@ function Editor() {
 	);
 }
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<EditorContext>
 			<Editor />

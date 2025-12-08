@@ -1,5 +1,12 @@
 # @atlaskit/visually-hidden
 
+## 3.0.4
+
+### Patch Changes
+
+- [`a60a82196851a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a60a82196851a) -
+  Internal refactors to remove unused variables. No functional or public changes.
+
 ## 3.0.3
 
 ### Patch Changes

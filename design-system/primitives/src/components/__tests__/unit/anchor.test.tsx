@@ -460,7 +460,7 @@ describe('Anchor', () => {
 							<Anchor
 								href="https://atlassian.com"
 								testId={testId}
-								onClick={(event, analyticsEvent) => {
+								onClick={(_event, analyticsEvent) => {
 									analyticsEvent.fire();
 								}}
 							>
@@ -520,7 +520,7 @@ describe('Anchor', () => {
 							href="https://atlassian.com"
 							testId={testId}
 							analyticsContext={analyticsContext}
-							onClick={(event, analyticsEvent) => {
+							onClick={(_event, analyticsEvent) => {
 								analyticsEvent.fire();
 							}}
 						>
@@ -577,7 +577,7 @@ describe('Anchor', () => {
 							href="https://atlassian.com"
 							testId={testId}
 							analyticsContext={analyticsContext}
-							onClick={(event, analyticsEvent) => {
+							onClick={(_event, analyticsEvent) => {
 								analyticsEvent.fire();
 							}}
 							componentName="CustomComponent"

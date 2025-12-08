@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::776a0bf4864fffc548e91deb28866b6b>>
+ * @codegen <<SignedSource::342c7a0cbb4be6a44fd40226c94247f7>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -340,6 +340,7 @@ export type JoinRequestCancelFailedAttributesType = {
 export type TeamInvitationSentAttributesType = {
 	teamId: string;
 	numberOfMembers: number;
+	memberIds: unknown[] | null;
 };
 export type JoinRequestAcceptFailedAttributesType = {
 	status: number;

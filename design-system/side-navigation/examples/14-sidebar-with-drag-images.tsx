@@ -49,10 +49,10 @@ const styles = cssMap({
 	item: {
 		boxSizing: 'border-box',
 		width: '100%',
-		paddingTop: token('space.050'),
-		paddingRight: token('space.050'),
-		paddingBottom: token('space.050'),
-		paddingLeft: token('space.050'),
+		paddingBlockStart: token('space.050'),
+		paddingInlineEnd: token('space.050'),
+		paddingBlockEnd: token('space.050'),
+		paddingInlineStart: token('space.050'),
 		backgroundColor: token('elevation.surface.raised'),
 		borderRadius: token('radius.small'),
 		boxShadow: token('elevation.shadow.raised'),
@@ -321,7 +321,7 @@ const generateDraggableCats = () => {
 	return urls.map((url, index) => ({
 		key: url,
 		label: `Cat ${index + 1}`,
-		renderItem: ({ onDrop }: any) => <Image src={url} alt={`Cat ${index + 1}`} />,
+		renderItem: () => <Image src={url} alt={`Cat ${index + 1}`} />,
 	}));
 };
 

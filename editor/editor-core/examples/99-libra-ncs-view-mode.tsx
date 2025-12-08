@@ -177,7 +177,7 @@ const CollabEditor = ({ userId, collabProps, setIsReady }: CollabEditorProps) =>
 
 const style = { height: '100%', width: '100%' };
 const urlParams = new URLSearchParams(window.location.search);
-export default function EditorExampleForIntegrationTests() {
+export default function EditorExampleForIntegrationTests(): React.JSX.Element {
 	const featureFlags = getFeatureFlags(urlParams);
 	setBooleanFeatureFlagResolver((flagKey) => {
 		return featureFlags?.[flagKey] ?? false;

@@ -24,6 +24,8 @@ import {
 	TOOLBAR_RANK,
 	TOOLBARS,
 	TRACK_CHANGES_SECTION,
+	OVERFLOW_EXTENSIONS_MENU_SECTION,
+	OVERFLOW_MENU_RANK,
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
@@ -40,6 +42,7 @@ import type { ToolbarPlugin } from '../toolbarPluginType';
 
 import { SELECTION_TOOLBAR_LABEL } from './consts';
 import { OverflowMenu } from './OverflowMenu';
+import { OverflowMenuSection } from './OverflowMenuSection';
 import { OverflowSection } from './OverflowSection';
 import { PrimaryToolbar } from './PrimaryToolbar';
 import { Section } from './Section';
@@ -319,6 +322,22 @@ export const getToolbarComponents = (
 				return <OverflowMenu>{children}</OverflowMenu>;
 			},
 		},
+		...(fg('platform_editor_toolbar_aifc_overflow_menu_update')
+			? [
+					{
+						type: OVERFLOW_EXTENSIONS_MENU_SECTION.type,
+						key: OVERFLOW_EXTENSIONS_MENU_SECTION.key,
+						parents: [
+							{
+								type: OVERFLOW_MENU.type,
+								key: OVERFLOW_MENU.key,
+								rank: OVERFLOW_MENU_RANK[OVERFLOW_EXTENSIONS_MENU_SECTION.key],
+							},
+						],
+						component: OverflowMenuSection,
+					},
+				]
+			: []),
 		{
 			type: PIN_SECTION.type,
 			key: PIN_SECTION.key,

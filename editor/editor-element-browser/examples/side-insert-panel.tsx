@@ -85,7 +85,7 @@ const items: QuickInsertPanelItem[] = [
 	},
 ];
 
-export default function ElementBrowserExample() {
+export default function ElementBrowserExample(): React.JSX.Element {
 	return (
 		<Box xcss={outerBoxContainerStyles}>
 			<SideInsertPanel items={items} onItemInsert={() => {}} />

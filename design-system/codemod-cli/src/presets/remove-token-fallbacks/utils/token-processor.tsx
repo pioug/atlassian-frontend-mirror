@@ -546,7 +546,7 @@ export class TokenProcessor {
 			);
 
 			return resolvedPath;
-		} catch (error) {
+		} catch {
 			return null;
 		}
 	}

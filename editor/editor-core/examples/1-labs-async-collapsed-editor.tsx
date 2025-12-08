@@ -16,7 +16,7 @@ export default class Example extends React.Component<{}, State> {
 		this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<IntlProvider locale="en">
 				<CollapsedEditor

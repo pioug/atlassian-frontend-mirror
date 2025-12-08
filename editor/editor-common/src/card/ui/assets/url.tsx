@@ -22,7 +22,7 @@ const IconUrlGlyph = (props: CustomGlyphProps) => {
 	);
 };
 
-export const IconUrl = (props: IconProps) => {
+export const IconUrl = (props: IconProps): React.JSX.Element => {
 	return fg('platform-custom-icon-migration') ? (
 		<IconUrlGlyph
 			aria-label={props.label}

@@ -257,9 +257,6 @@ export const createDeletedContentDecoration = ({
 
 	// For non-table content, use the existing span wrapper approach
 	const dom = document.createElement('span');
-	if (!fg('platform_editor_ai_aifc_patch_beta_2')) {
-		dom.setAttribute('style', getDeletedContentStyle(colourScheme));
-	}
 
 	/*
 	 * The thinking is we separate out the fragment we got from doc.slice
@@ -300,13 +297,9 @@ export const createDeletedContentDecoration = ({
 						// Fallback to serializing the individual child node
 						const serializedChild = serializer.serializeNode(childNode);
 						if (serializedChild) {
-							if (fg('platform_editor_ai_aifc_patch_beta_2')) {
-								const wrapper = createWrapperWithStrikethrough();
-								wrapper.append(serializedChild);
-								dom.append(wrapper);
-							} else {
-								dom.append(serializedChild);
-							}
+							const wrapper = createWrapperWithStrikethrough();
+							wrapper.append(serializedChild);
+							dom.append(wrapper);
 						}
 					}
 				});
@@ -363,11 +356,9 @@ export const createDeletedContentDecoration = ({
 				const wrapper = createWrapperWithStrikethrough();
 				wrapper.append(nodeView);
 				dom.append(wrapper);
-			} else if (fg('platform_editor_ai_aifc_patch_beta_2')) {
+			} else {
 				// Handle all block nodes with unified function
 				handleBlockNodeView(dom, nodeView, targetNode, colourScheme, intl);
-			} else {
-				dom.append(nodeView);
 			}
 		} else if (
 			nodeViewSerializer
@@ -379,13 +370,9 @@ export const createDeletedContentDecoration = ({
 		} else {
 			const fallbackNode = fallbackSerialization();
 			if (fallbackNode) {
-				if (fg('platform_editor_ai_aifc_patch_beta_2')) {
-					const wrapper = createDeletedStyleWrapperWithoutOpacity(colourScheme);
-					wrapper.append(fallbackNode);
-					dom.append(wrapper);
-				} else {
-					dom.append(fallbackNode);
-				}
+				const wrapper = createDeletedStyleWrapperWithoutOpacity(colourScheme);
+				wrapper.append(fallbackNode);
+				dom.append(wrapper);
 			}
 		}
 	});

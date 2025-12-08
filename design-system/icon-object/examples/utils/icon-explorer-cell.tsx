@@ -21,10 +21,10 @@ import Tooltip from '@atlaskit/tooltip';
 const styles = cssMap({
 	iconExplorerButton: {
 		display: 'block',
-		paddingTop: token('space.150'),
-		paddingRight: token('space.150'),
-		paddingBottom: token('space.150'),
-		paddingLeft: token('space.150'),
+		paddingBlockStart: token('space.150'),
+		paddingInlineEnd: token('space.150'),
+		paddingBlockEnd: token('space.150'),
+		paddingInlineStart: token('space.150'),
 		borderRadius: token('radius.small', '4px'),
 		backgroundColor: token('elevation.surface'),
 		'&:hover': {
@@ -72,7 +72,7 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 			if (!wasCopied) {
 				throw new Error();
 			}
-		} catch (err) {
+		} catch {
 			console.error('Unable to copy text');
 		}
 	};

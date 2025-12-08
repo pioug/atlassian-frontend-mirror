@@ -20,21 +20,21 @@ test('render decorated select with props passed', () => {
 });
 
 test('to show the create option in menu', async () => {
-	let { rerender } = render(<AsyncCreatable testId={testId} />);
-	let input = screen.getByTestId(`${testId}-select--input`);
+	const { rerender } = render(<AsyncCreatable testId={testId} />);
+	const input = screen.getByTestId(`${testId}-select--input`);
 	rerender(<AsyncCreatable testId={testId} inputValue="a" />);
 	await userEvent.type(input!, 'a');
 	expect(screen.getByRole('option', { name: 'Create "a"' })).toBeInTheDocument();
 });
 
 test('to show loading and then create option in menu', async () => {
-	let loadOptionsSpy = jest.fn(
-		(inputValue: string, callback: (options: readonly Option[]) => void) => {
+	const loadOptionsSpy = jest.fn(
+		(_inputValue: string, callback: (options: readonly Option[]) => void) => {
 			setTimeout(() => callback(OPTIONS), 200);
 		},
 	);
 	render(<AsyncCreatable testId={testId} loadOptions={loadOptionsSpy} />);
-	let input = screen.getByTestId(`${testId}-select--input`);
+	const input = screen.getByTestId(`${testId}-select--input`);
 	await userEvent.type(input!, 'a');
 
 	// to show a loading message while loading options

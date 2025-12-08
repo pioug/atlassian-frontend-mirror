@@ -1,5 +1,24 @@
 # @atlaskit/editor-statsig-tmp
 
+## 15.0.0
+
+### Major Changes
+
+- [`8cf337169ee4b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cf337169ee4b) -
+  Remove the jira advanced code blocks experiment
+
+## 14.9.0
+
+### Minor Changes
+
+- [`c7acfc11f076a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7acfc11f076a) -
+  [https://hello.jira.atlassian.cloud/browse/EDITOR-3745](EDITOR-3745) - adopt EditorSSRRenderer to
+  ReactEditorView
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.8.0
 
 ### Minor Changes

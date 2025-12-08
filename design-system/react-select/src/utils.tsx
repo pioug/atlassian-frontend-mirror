@@ -297,7 +297,7 @@ export function isTouchCapable() {
 	try {
 		document.createEvent('TouchEvent');
 		return true;
-	} catch (e) {
+	} catch {
 		return false;
 	}
 }
@@ -311,7 +311,7 @@ export function isMobileDevice() {
 		return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
 			navigator.userAgent,
 		);
-	} catch (e) {
+	} catch {
 		return false;
 	}
 }

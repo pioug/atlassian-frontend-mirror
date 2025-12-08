@@ -110,7 +110,7 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 			showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean;
 		},
 		forwardRef: ForwardRef,
-	) {
+	): React.JSX.Element {
 		return (
 			<ExtensionNodeWrapper
 				nodeType={this.node.type.name}

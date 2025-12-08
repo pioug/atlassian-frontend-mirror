@@ -47,6 +47,7 @@ const styleMaps = {
 	...textWeightMap,
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function transformer(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) {
 	const base = j(fileInfo.source);
 
@@ -259,7 +260,7 @@ function replaceXcssWithCssMap(
 	// Process inline xcss usages - create separate cssMap for each
 	const cssMapDeclarations: core.VariableDeclaration[] = [];
 
-	inlineXcssUsages.forEach(({ path, keyName, jsxAttribute, componentName, variableName }) => {
+	inlineXcssUsages.forEach(({ path, keyName, jsxAttribute, variableName }) => {
 		const args = path.node.arguments;
 		if (args.length === 1 && args[0].type === 'ObjectExpression') {
 			// Create separate cssMap declaration for each inline xcss

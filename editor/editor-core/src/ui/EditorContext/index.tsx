@@ -21,7 +21,7 @@ export class LegacyEditorContext extends React.Component<EditorContextProps, Obj
 		super(props);
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		// Ignored via go/ees005
 		// eslint-disable-next-line react/jsx-props-no-spreading
 		return <LegacyEditorContextNew {...this.props}>{this.props.children}</LegacyEditorContextNew>;
@@ -56,7 +56,7 @@ export default class LegacyEditorContextOld extends React.Component<EditorContex
 		};
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<EditorContext.Provider value={this.getChildContext()}>
 				{this.props.children}

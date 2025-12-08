@@ -396,64 +396,64 @@ function applyTransaction(
 	 * FORK ADDITION START
 	 * If history slicing is active, we want to continue the current slice
 	 */
-	if (fg('platform_editor_ai_aifc_undo_redo')) {
-		if (
-			(tr.getMeta('startHistorySlice') === true || history?.historySliceActive) &&
-			tr.getMeta('endHistorySlice') !== true
-		) {
-			const shouldIgnoreChange = fg('platform_editor_ai_aifc_patch_ga')
-				? tr.getMeta('isRemote')
-				: tr.getMeta('addToHistory') === false;
-			if (shouldIgnoreChange) {
-				// For addToHistory=false transactions during a slice, we need to:
-				// 1. Update the mapping for done/undone branches
-				// 2. Map the existing steps
-				// 3. Update the document to rebaseline
-				const mappedRanges = history.prevRanges ? mapRanges(history.prevRanges, tr.mapping) : null;
-				return new HistoryState(
-					history.done.addMaps(tr.mapping.maps),
-					history.undone.addMaps(tr.mapping.maps),
-					mappedRanges,
-					history.prevTime,
-					history.prevComposition,
-					true,
-					mapInvertableSteps(history.trackedSteps, tr),
-					history.selectionBookmark,
-				);
-			}
-			const startHistorySlice = tr.getMeta('startHistorySlice') === true;
-			const newTrackedSteps = [
-				...(history.trackedSteps || []),
-				...tr.steps.map((s, idx) => new InvertableStep(s, s.invert(tr.docs[idx]))),
-			];
+
+	if (
+		(tr.getMeta('startHistorySlice') === true || history?.historySliceActive) &&
+		tr.getMeta('endHistorySlice') !== true
+	) {
+		const shouldIgnoreChange = fg('platform_editor_ai_aifc_patch_ga')
+			? tr.getMeta('isRemote')
+			: tr.getMeta('addToHistory') === false;
+		if (shouldIgnoreChange) {
+			// For addToHistory=false transactions during a slice, we need to:
+			// 1. Update the mapping for done/undone branches
+			// 2. Map the existing steps
+			// 3. Update the document to rebaseline
 			const mappedRanges = history.prevRanges ? mapRanges(history.prevRanges, tr.mapping) : null;
 			return new HistoryState(
-				history.done,
-				startHistorySlice ? Branch.empty : history.undone,
-				mappedRanges,
-				history.prevTime,
-				history.prevComposition,
-				true,
-				newTrackedSteps,
-				startHistorySlice ? state.selection.getBookmark() : history.selectionBookmark,
-			);
-		} else if (tr.getMeta('endHistorySlice') === true && history.historySliceActive) {
-			const trackedSteps = history.historySliceActive ? history.trackedSteps || [] : [];
-			// Create transform that represents the changes made during the slice
-			// Use the original slice document as the base
-			const transform = createTransformFromSteps(trackedSteps, tr.doc);
-			const mappedRanges = history.prevRanges ? mapRanges(history.prevRanges, tr.mapping) : null;
-			return new HistoryState(
-				history.done
-					.addMaps(tr.mapping.maps)
-					.addTransform(transform, history.selectionBookmark, options, mustPreserveItems(state)),
+				history.done.addMaps(tr.mapping.maps),
 				history.undone.addMaps(tr.mapping.maps),
 				mappedRanges,
 				history.prevTime,
 				history.prevComposition,
+				true,
+				mapInvertableSteps(history.trackedSteps, tr),
+				history.selectionBookmark,
 			);
 		}
+		const startHistorySlice = tr.getMeta('startHistorySlice') === true;
+		const newTrackedSteps = [
+			...(history.trackedSteps || []),
+			...tr.steps.map((s, idx) => new InvertableStep(s, s.invert(tr.docs[idx]))),
+		];
+		const mappedRanges = history.prevRanges ? mapRanges(history.prevRanges, tr.mapping) : null;
+		return new HistoryState(
+			history.done,
+			startHistorySlice ? Branch.empty : history.undone,
+			mappedRanges,
+			history.prevTime,
+			history.prevComposition,
+			true,
+			newTrackedSteps,
+			startHistorySlice ? state.selection.getBookmark() : history.selectionBookmark,
+		);
+	} else if (tr.getMeta('endHistorySlice') === true && history.historySliceActive) {
+		const trackedSteps = history.historySliceActive ? history.trackedSteps || [] : [];
+		// Create transform that represents the changes made during the slice
+		// Use the original slice document as the base
+		const transform = createTransformFromSteps(trackedSteps, tr.doc);
+		const mappedRanges = history.prevRanges ? mapRanges(history.prevRanges, tr.mapping) : null;
+		return new HistoryState(
+			history.done
+				.addMaps(tr.mapping.maps)
+				.addTransform(transform, history.selectionBookmark, options, mustPreserveItems(state)),
+			history.undone.addMaps(tr.mapping.maps),
+			mappedRanges,
+			history.prevTime,
+			history.prevComposition,
+		);
 	}
+
 	/**
 	 * FORK ADDITION END
 	 * ===
@@ -626,19 +626,18 @@ function histTransaction(
 	 * If history slicing is active when we undo/redo, when we perform an undo/redo we want to
 	 * map and keep the relevant steps in the new history state
 	 */
-	const newHist =
-		history.historySliceActive && fg('platform_editor_ai_aifc_undo_redo')
-			? new HistoryState(
-					redo ? added : pop.remaining,
-					redo ? pop.remaining : added,
-					null,
-					0,
-					-1,
-					history.historySliceActive,
-					mapInvertableSteps(history.trackedSteps, pop.transform),
-					history.selectionBookmark?.map(pop.transform.mapping),
-				)
-			: new HistoryState(redo ? added : pop.remaining, redo ? pop.remaining : added, null, 0, -1);
+	const newHist = history.historySliceActive
+		? new HistoryState(
+				redo ? added : pop.remaining,
+				redo ? pop.remaining : added,
+				null,
+				0,
+				-1,
+				history.historySliceActive,
+				mapInvertableSteps(history.trackedSteps, pop.transform),
+				history.selectionBookmark?.map(pop.transform.mapping),
+			)
+		: new HistoryState(redo ? added : pop.remaining, redo ? pop.remaining : added, null, 0, -1);
 	/**
 	 * FORK ADDITION END
 	 * ===

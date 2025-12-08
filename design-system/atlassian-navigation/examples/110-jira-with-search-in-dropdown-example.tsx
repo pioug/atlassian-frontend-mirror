@@ -43,7 +43,6 @@ const drawerLabelText = {
 
 interface SearchDropdownItemProps {
 	setFilteredOptions: React.Dispatch<React.SetStateAction<{ label: string; value: string }[]>>;
-	filteredOptions: { label: string; value: string }[];
 }
 
 const searchOptions = [
@@ -103,7 +102,7 @@ const SettingsDrawer = () => {
 	);
 };
 
-const SearchDropdownItem = ({ setFilteredOptions, filteredOptions }: SearchDropdownItemProps) => {
+const SearchDropdownItem = ({ setFilteredOptions }: SearchDropdownItemProps) => {
 	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const searchText = e.target.value.toLowerCase();
 		const filteredItems = searchOptions.filter((option) =>
@@ -131,10 +130,7 @@ const SearchableDropdown = () => {
 					<DropdownItem key={filteredOption.value}>{filteredOption.label}</DropdownItem>
 				))}
 			</Box>
-			<SearchDropdownItem
-				filteredOptions={filteredOptions}
-				setFilteredOptions={setFilteredOptions}
-			/>
+			<SearchDropdownItem setFilteredOptions={setFilteredOptions} />
 		</Box>
 	);
 };

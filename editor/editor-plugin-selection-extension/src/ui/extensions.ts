@@ -1,8 +1,6 @@
 import type {
 	ExtensionConfiguration,
 	ExtensionSource,
-	GetBlockMenuItemFn,
-	GetBlockMenuNestedItemsFn,
 	GetMenuItemsFn,
 	GetToolbarItemFn,
 	SelectionExtension,
@@ -69,29 +67,6 @@ export const getMenuItemExtensions = (
 						component: menuItem.contentComponent,
 					});
 				}
-			});
-		}
-		return acc;
-	}, []);
-};
-
-type BlockMenuItems = {
-	menuItem: ReturnType<GetBlockMenuItemFn>;
-	nestedMenuItems?: ReturnType<GetBlockMenuNestedItemsFn>;
-};
-
-export const getBlockMenuItemExtensions = (
-	extensionList: ExtensionConfiguration[],
-	targetSource: ExtensionSource,
-) => {
-	return extensionList.reduce<BlockMenuItems[]>((acc, extension) => {
-		const { source, blockMenu } = extension;
-		if (source === targetSource && blockMenu?.getMenuItem) {
-			const menuItem = blockMenu.getMenuItem();
-			const nestedMenuItems = blockMenu.getNestedMenuItems?.();
-			acc.push({
-				menuItem,
-				nestedMenuItems,
 			});
 		}
 		return acc;

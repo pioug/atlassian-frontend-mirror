@@ -28,6 +28,9 @@ export type SyncBlockInstance = {
 	 * Current state/error of the sync block, if any
 	 */
 	error?: SyncBlockError;
+	/**
+	 *  The resourceId in the attrs of the block
+	 */
 	resourceId: ResourceId;
 };
 
@@ -63,7 +66,10 @@ export interface ADFFetchProvider {
 export interface ADFWriteProvider {
 	createData: (data: SyncBlockData) => Promise<WriteSyncBlockResult>;
 	deleteData: (resourceId: ResourceId) => Promise<DeleteSyncBlockResult>;
+	// Note: this can be removed on cleanup of content API provider (it will just be UUID)
 	generateResourceId: (sourceId: string, localId: string) => ResourceId;
+	generateResourceIdForReference: (sourceId: ResourceId) => ResourceId;
+	product: SyncBlockProduct;
 	writeData: (data: SyncBlockData) => Promise<WriteSyncBlockResult>;
 }
 
@@ -99,6 +105,7 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 	abstract createNodeData(data: SyncBlockData): Promise<WriteSyncBlockResult>;
 	abstract deleteNodesData(resourceIds: string[]): Promise<Array<DeleteSyncBlockResult>>;
 	abstract getSourceId(): ResourceId;
+	abstract getProduct(): SyncBlockProduct | undefined;
 	abstract fetchSyncBlockSourceInfo(
 		localId: BlockInstanceId,
 		sourceAri: string,
@@ -117,6 +124,7 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 	 * @returns The generated resource ID
 	 */
 	abstract generateResourceId(sourceId: ResourceId, localId: BlockInstanceId): ResourceId;
+	abstract generateResourceIdForReference(sourceId: ResourceId): ResourceId;
 }
 
 export type SubscriptionCallback = (data: SyncBlockInstance) => void;

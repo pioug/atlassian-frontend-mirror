@@ -61,7 +61,7 @@ export class ContextPanelWidthProvider extends React.Component<any, ContextPanel
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { width, positionedOverEditor } = this.state;
 
 		return (

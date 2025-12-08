@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
-export default function IconDatasourceConfluenceSearch() {
+export default function IconDatasourceConfluenceSearch(): React.JSX.Element {
 	return (
 		<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path

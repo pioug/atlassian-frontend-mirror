@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-decorations
 
+## 6.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.8
 
 ### Patch Changes

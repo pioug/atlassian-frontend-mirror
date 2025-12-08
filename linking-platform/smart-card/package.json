@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.14.0",
+	"version": "43.14.2",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -233,9 +233,6 @@
 			"type": "boolean"
 		},
 		"navx-1895-new-logo-design": {
-			"type": "boolean"
-		},
-		"platform_initial_icon_for_title_block": {
 			"type": "boolean"
 		},
 		"jfp-magma-platform-lozenge-jump-fix": {

@@ -26,7 +26,7 @@ export type PortalRendererComponent = () => JSX.Element;
 export type UsePortalProviderReturnType = [PortalProviderAPI, PortalRendererComponent];
 
 export function createPortalRendererComponent(portalManager: PortalManager) {
-	return function PortalRenderer() {
+	return function PortalRenderer(): React.JSX.Element {
 		const [buckets, setBuckets] = useState(portalManager.getBuckets());
 		useLayoutEffect(() => {
 			portalManager.registerPortalRenderer(setBuckets);
@@ -54,7 +54,7 @@ export const PortalRenderWrapperInner = ({
 }: {
 	getChildren: () => React.ReactNode;
 	onBeforeRender: () => void;
-}) => {
+}): React.JSX.Element => {
 	useLayoutEffect(() => {
 		if (onBeforeRender) {
 			onBeforeRender();

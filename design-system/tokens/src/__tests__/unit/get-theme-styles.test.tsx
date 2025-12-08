@@ -394,7 +394,7 @@ describe('getThemeStyles', () => {
 					},
 				]);
 			},
-			(ff) => {
+			() => {
 				const assertThemeDataIsCorrect = (results: ThemeStyles[]) => {
 					expect(getThemeData(results)).toEqual([
 						{ id: 'light', attrs: { 'data-theme': 'light' } },

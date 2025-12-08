@@ -175,7 +175,7 @@ export default class Resizer extends React.Component<ResizerProps, ResizerState>
 		});
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const baseHandleStyles: Record<string, Object> = {};
 		const handles: Record<string, string> = {};
 		const handleComponent: HandleComponent = {};

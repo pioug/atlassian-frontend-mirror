@@ -34,6 +34,9 @@ export interface SyncBlockData {
 	createdBy?: string;
 	isSynced?: boolean;
 	product?: SyncBlockProduct;
+	/**
+	 * The ARI of the block. E.G ari:cloud:blocks:<cloudId>:synced-block/<product>/<pageId>/<resourceId>
+	 */
 	resourceId: ResourceId;
 	sourceAri?: string;
 	sourceTitle?: string;

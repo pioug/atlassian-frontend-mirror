@@ -19,8 +19,8 @@ export default function Example() {
 				<Toggle id="toggle-space" onChange={toggleSpace} />
 			</Inline>
 			<Inline space="space.200" rowSpace={rowSpace} shouldWrap>
-				{[...Array(24).keys()].map((i) => (
-					<ExampleBox />
+				{[...Array(24).keys()].map((index) => (
+					<ExampleBox key={index} />
 				))}
 			</Inline>
 		</Stack>

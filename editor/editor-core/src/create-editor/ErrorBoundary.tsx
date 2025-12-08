@@ -176,7 +176,7 @@ export class ErrorBoundaryWithEditorView extends React.Component<
 	// 	});
 	// }
 
-	render() {
+	render(): React.JSX.Element {
 		return <IntlErrorBoundary>{this.props.children}</IntlErrorBoundary>;
 	}
 }

@@ -193,7 +193,7 @@ export default class Layer extends Component<Props, State> {
 		}
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { transform, hasExtractedStyles, maxHeight } = this.state;
 		const opacity = hasExtractedStyles ? {} : { opacity: 0 };
 

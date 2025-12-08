@@ -18,7 +18,7 @@ import { widthPlugin } from '@atlaskit/editor-plugins/width';
 
 import { ChromelessEditor } from '../src/editor-appearances/ChromelessEditor';
 
-export default function Editor() {
+export default function Editor(): React.JSX.Element {
 	const { preset } = usePreset((builder) =>
 		builder
 			.add(basePlugin)

@@ -5,6 +5,12 @@ import type { VCObserverEntry, ViewportEntryData, WindowEventEntryData } from '.
 const ABORTING_WINDOW_EVENT = ['wheel', 'scroll', 'keydown', 'resize'] as const;
 const MAX_OBSERVATIONS = 100;
 
+function isWindowEventEntryData(
+	data: ViewportEntryData | WindowEventEntryData,
+): data is WindowEventEntryData {
+	return data.type === 'window:event' && 'eventType' in data;
+}
+
 export default class RawDataHandler {
 	private readonly revisionNo: string = 'raw-handler';
 
@@ -83,6 +89,15 @@ export default class RawDataHandler {
 			);
 		});
 
+		const windowEventEntries = entries.filter((entry) => {
+			return (
+				entry.time >= startTime &&
+				entry.time <= stopTime &&
+				entry.data &&
+				isWindowEventEntryData(entry.data)
+			);
+		});
+
 		const targetNameToIdMap = new Map<string, number>();
 		const elementMapEntriesMap: Record<number, string> = {};
 		let nextElementId = 1;
@@ -92,6 +107,9 @@ export default class RawDataHandler {
 		const attributeMap = new Map<string, number>();
 		const attributeEntriesMap: Record<number, string> = {};
 		let nextAttributeId = 1;
+		const eventTypeMap = new Map<string, number>();
+		const eventTypeMapEntriesMap: Record<number, string> = {};
+		let nextEventTypeId = 1;
 
 		let rawObservations = viewportEntries.map((entry) => {
 			const viewportEntry = entry.data as ViewportEntryData;
@@ -141,6 +159,27 @@ export default class RawDataHandler {
 
 			return observation;
 		});
+
+		let rawEventObservations = windowEventEntries.map((entry) => {
+			const windowEventEntry = entry.data as WindowEventEntryData;
+            const eventType = windowEventEntry.eventType;
+
+			let evtId = eventTypeMap.get(eventType) || 0;
+			if (evtId === 0) {
+				evtId = nextEventTypeId;
+				nextEventTypeId += 1;
+				eventTypeMap.set(eventType, evtId);
+				eventTypeMapEntriesMap[evtId] = eventType;
+			}
+
+			const eventObservation = {
+				t: Math.round(entry.time - startTime),
+				evt: evtId,
+			};
+
+			return eventObservation;
+		});
+
 		// If the number of observations is greater than the maximum allowed, we need to trim the observations to the maximum allowed.
 		// We do this by keeping the first observation and the last MAX_OBSERVATIONS observations.
 		// We then collect the referenced IDs from the remaining observations and remove the unreferenced entries from the maps
@@ -186,6 +225,31 @@ export default class RawDataHandler {
 			}
 		}
 
+		// If the number of event observations is greater than the maximum allowed, we need to trim the event observations to the maximum allowed.
+		// We do this by keeping the first observation and the last MAX_OBSERVATIONS observations.
+		// We then collect the referenced IDs from the remaining observations and remove the unreferenced entries from the maps
+		if (rawEventObservations.length > MAX_OBSERVATIONS) {
+			const firstEventObservation = rawEventObservations[0];
+			const lastEventObservations = rawEventObservations.slice(-MAX_OBSERVATIONS);
+			rawEventObservations = [firstEventObservation, ...lastEventObservations];
+
+			// Collect referenced IDs from remaining observations
+			const referencedEvts = new Set<number>();
+
+			for (const observation of rawEventObservations) {
+				if (observation.evt > 0) {
+					referencedEvts.add(observation.evt);
+				}
+			}
+
+			// Remove unreferenced entries from maps
+			for (const evt of Object.keys(eventTypeMapEntriesMap).map(Number)) {
+				if (!referencedEvts.has(evt)) {
+					delete eventTypeMapEntriesMap[evt];
+				}
+			}
+		}
+
 		const result: RevisionPayloadEntry = {
 			revision: this.revisionNo,
 			clean: isVCClean,
@@ -195,6 +259,8 @@ export default class RawDataHandler {
 				eid: elementMapEntriesMap ?? undefined,
 				chg: typeMapEntriesMap ?? undefined,
 				att: attributeEntriesMap ?? undefined,
+				evts: rawEventObservations.length > 0 ? rawEventObservations : undefined,
+				evt: Object.keys(eventTypeMapEntriesMap).length > 0 ? eventTypeMapEntriesMap : undefined,
 			},
 			abortReason: dirtyReason,
 			abortTimestamp: getVCCleanStatusResult.abortTimestamp,

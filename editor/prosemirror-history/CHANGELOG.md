@@ -1,5 +1,13 @@
 # @atlaskit/prosemirror-history
 
+## 0.2.6
+
+### Patch Changes
+
+- [`c7ffaaf8ea609`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7ffaaf8ea609) -
+  Cleaned up undo-redo FG since chnages should be only used when the history mark metadata is
+  applied to transactions and is only used in streaming
+
 ## 0.2.5
 
 ### Patch Changes

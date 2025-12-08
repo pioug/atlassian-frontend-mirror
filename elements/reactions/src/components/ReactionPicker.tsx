@@ -25,7 +25,6 @@ import {
 } from '@atlaskit/popper';
 import { layers } from '@atlaskit/theme/constants';
 import { Box } from '@atlaskit/primitives/compiled';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useCloseManagerV2 } from '../hooks/useCloseManager';
 import { useDelayedState } from '../hooks/useDelayedState';
@@ -509,24 +508,14 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 					)}
 				</Reference>
 				{isPopupTrayOpen && (
-					<Portal
-						zIndex={
-							fg('platform_reactions_custom_popper_zindex')
-								? reactionPickerPopperZIndex || layers.flag()
-								: layers.flag()
-						}
-					>
+					<Portal zIndex={reactionPickerPopperZIndex || layers.flag()}>
 						<PopperWrapper
 							settings={settings}
 							popperModifiers={popperModifiers}
 							isOpen={isPopupTrayOpen}
 							onClose={onClose}
 							triggerRef={triggerRef}
-							zIndex={
-								fg('platform_reactions_custom_popper_zindex')
-									? reactionPickerPopperZIndex || layers.flag()
-									: layers.layer()
-							}
+							zIndex={reactionPickerPopperZIndex || layers.flag()}
 						>
 							{settings.showFullPicker ||
 							(hoverableReactionPicker && isHoverableReactionPickerEmojiPickerOpen) ? (

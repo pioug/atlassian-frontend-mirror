@@ -5,20 +5,18 @@ order: 1
 import SectionMessage from '@atlaskit/section-message';
 import PremiumIcon from '@atlaskit/icon/core/premium';
 
-import IconDefaultNew from '../../examples/constellation/icon-default-new.tsx';
-import IconSmallNewExample from '../../examples/constellation/icon-small-new.tsx';
-import IconSmall from '../../examples/constellation/icon-small.tsx';
+import IconDefault from '../../examples/constellation/icon-default.tsx';
+import IconSmallExample from '../../examples/constellation/icon-small.tsx';
 import IconUtility from '../../examples/constellation/icon-utility.tsx';
 import IconColor from '../../examples/constellation/icon-color.tsx';
 import IconLabel from '../../examples/constellation/icon-label.tsx';
-import IconMigration from '../../examples/constellation/icon-migration.tsx';
 import IconSpacing from '../../examples/constellation/icon-spacing.tsx';
 
 ## Default (16px)
 
 Icons default to a `medium` `size` of 16px.
 
-<Example Component={IconDefaultNew} packageName="@atlaskit/icon" hiddenSections={['iconography']} />
+<Example Component={IconDefault} packageName="@atlaskit/icon" hiddenSections={['iconography']} />
 
 ## Small (12px)
 
@@ -31,7 +29,7 @@ Small icons are 12px, for use next to `small` size text, such as in bylines, and
 components such as lozenges.
 
 <Example
-	Component={IconSmallNewExample}
+	Component={IconSmallExample}
 	packageName="@atlaskit/icon"
 	hiddenSections={['iconography']}
 />
@@ -75,13 +73,3 @@ box to `24px`. Both small and utility icons support an additional option, `compa
 bounding box to `16px`.
 
 <Example Component={IconSpacing} packageName="@atlaskit/icon" hiddenSections={['iconography']} />
-
-## Migration
-
-Atlassian apps can switch between the old and new icon components using feature flags and the
-`migration` entrypoint for the new icons, or switch manually using the `LEGACY_fallbackIcon` prop.
-
-<Example Component={IconMigration} packageName="@atlaskit/icon" />
-
-To learn more about feature flagging and `LEGACY_` prefixed props, see the
-[icon migration guide](/components/icon/migration-guide#atlassian-developers).

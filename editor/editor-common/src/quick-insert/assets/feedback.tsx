@@ -2,7 +2,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
-export default function IconFeedback() {
+export default function IconFeedback(): React.JSX.Element {
 	return (
 		<svg focusable="false" aria-hidden width={40} height={40} viewBox="0 0 40 40">
 			<defs>

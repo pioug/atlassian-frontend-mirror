@@ -1,6 +1,7 @@
 const mockStopMeasureDuration = 1234;
 const mockStartTime = 1;
 const mockResponseTime = 200;
+jest.mock('uuid/v4', () => jest.fn().mockReturnValue('538fd05f-20cd-4f8a-ab02-1b257d43cadb'));
 jest.mock('@atlaskit/editor-common/performance-measures', () => ({
 	...jest.requireActual<Object>('@atlaskit/editor-common/performance-measures'),
 	startMeasure: jest.fn(),
@@ -68,7 +69,7 @@ jest.mock('@atlaskit/editor-common/analytics', () => ({
 
 import React from 'react';
 
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, screen, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createIntl } from 'react-intl-next';
 
@@ -76,8 +77,10 @@ import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { FireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
+import * as coreUtilsModule from '@atlaskit/editor-common/core-utils';
 import { type EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import * as ProcessRawValueModule from '@atlaskit/editor-common/process-raw-value';
+import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { measureRender, SEVERITY, toJSON } from '@atlaskit/editor-common/utils';
@@ -85,6 +88,8 @@ import { replaceDocument } from '@atlaskit/editor-plugin-collab-edit/src/pm-plug
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { EditorSSRRenderer } from '@atlaskit/editor-ssr-renderer';
+import * as editorSSRRendererModule from '@atlaskit/editor-ssr-renderer';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -99,8 +104,8 @@ import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import type { MentionProvider } from '@atlaskit/mention/resource';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
@@ -301,58 +306,61 @@ describe('@atlaskit/editor-core', () => {
 			expect(mockElement.scrollTo).not.toHaveBeenCalled();
 		});
 
-		setupEditorExperiments('test', {
-			platform_editor_no_cursor_on_edit_page_init: true,
-		});
+		eeTest
+			.describe(
+				'platform_editor_no_cursor_on_edit_page_init',
+				'platform_editor_no_cursor_on_edit_page_init is ON',
+			)
+			.variant(true, () => {
+				ffTest.on('platform_editor_react_18_autofocus_fix', '', () => {
+					ffTest.on('cc_editor_focus_before_editor_on_load', '', () => {
+						it('should focus on react-editor-view-inital-focus-element on initial load, then single tab should focus the main content area', async () => {
+							const document = doc(p('hello'))(defaultSchema);
+							const result = renderWithIntl(
+								// eslint-disable-next-line react/jsx-props-no-spreading
+								<ReactEditorView
+									{...{
+										...requiredProps(),
+										editorProps: {
+											appearance: 'full-page',
+											shouldFocus: true,
+											defaultValue: toJSON(document),
+										},
+									}}
+								/>,
+							);
+							expect(result.getByTestId('react-editor-view-inital-focus-element')).toHaveFocus();
 
-		ffTest.on('platform_editor_react_18_autofocus_fix', '', () => {
-			ffTest.on('cc_editor_focus_before_editor_on_load', '', () => {
-				it('should focus on react-editor-view-inital-focus-element on initial load, then single tab should focus the main content area', async () => {
-					const document = doc(p('hello'))(defaultSchema);
-					const result = renderWithIntl(
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						<ReactEditorView
-							{...{
-								...requiredProps(),
-								editorProps: {
-									appearance: 'full-page',
-									shouldFocus: true,
-									defaultValue: toJSON(document),
-								},
-							}}
-						/>,
-					);
-					expect(result.getByTestId('react-editor-view-inital-focus-element')).toHaveFocus();
+							await userEvent.tab();
+							expect(
+								result.getByLabelText('Main content area, start typing to enter text.'),
+							).toHaveFocus();
+						});
+					});
+				});
 
-					await userEvent.tab();
-					expect(
-						result.getByLabelText('Main content area, start typing to enter text.'),
-					).toHaveFocus();
+				ffTest.off('cc_editor_focus_before_editor_on_load', '', () => {
+					it('react-editor-view-inital-focus-element should not be in the document', () => {
+						const document = doc(p('hello'))(defaultSchema);
+						const result = renderWithIntl(
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							<ReactEditorView
+								{...{
+									...requiredProps(),
+									editorProps: {
+										appearance: 'full-page',
+										shouldFocus: true,
+										defaultValue: toJSON(document),
+									},
+								}}
+							/>,
+						);
+						expect(
+							result.queryByTestId('react-editor-view-inital-focus-element'),
+						).not.toBeInTheDocument();
+					});
 				});
 			});
-
-			ffTest.off('cc_editor_focus_before_editor_on_load', '', () => {
-				it('react-editor-view-inital-focus-element should not be in the document', () => {
-					const document = doc(p('hello'))(defaultSchema);
-					const result = renderWithIntl(
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						<ReactEditorView
-							{...{
-								...requiredProps(),
-								editorProps: {
-									appearance: 'full-page',
-									shouldFocus: true,
-									defaultValue: toJSON(document),
-								},
-							}}
-						/>,
-					);
-					expect(
-						result.queryByTestId('react-editor-view-inital-focus-element'),
-					).not.toBeInTheDocument();
-				});
-			});
-		});
 
 		describe('LCE scrollTop mitigation', () => {
 			const ExtensionWrappedEditorView = () => {
@@ -595,7 +603,7 @@ describe('@atlaskit/editor-core', () => {
 
 		describe('when transaction is local', () => {
 			it('should be called with source local', () => {
-				const onEditorCreated = ({ view, config }: Props) => {
+				const onEditorCreated = ({ view }: Props) => {
 					const { tr } = view!.state;
 					tr.insertText('a', 2);
 					view!.dispatch(tr);
@@ -617,7 +625,7 @@ describe('@atlaskit/editor-core', () => {
 		});
 		describe('when transaction is remote', () => {
 			it('should be called with source remote', () => {
-				const onEditorCreated = ({ view, config }: Props) => {
+				const onEditorCreated = ({ view }: Props) => {
 					const { tr } = view!.state;
 					tr.setMeta('isRemote', 'true');
 					tr.insertText('a', 2);
@@ -642,7 +650,7 @@ describe('@atlaskit/editor-core', () => {
 
 		describe('should add metadata for tinted transactions', () => {
 			it('should be called with source remote', () => {
-				const onEditorCreated = ({ view, config }: Props) => {
+				const onEditorCreated = ({ view }: Props) => {
 					const { tr } = view!.state;
 					tr.insertText('a', 2);
 					tintDirtyTransaction(tr);
@@ -667,7 +675,7 @@ describe('@atlaskit/editor-core', () => {
 
 		describe('when transaction does not change the document', () => {
 			it('should not be called', () => {
-				const onEditorCreated = ({ view, config }: Props) => {
+				const onEditorCreated = ({ view }: Props) => {
 					const { tr } = view!.state;
 					tr.setMeta('isRemote', 'true');
 					view!.dispatch(tr);
@@ -694,8 +702,8 @@ describe('@atlaskit/editor-core', () => {
 			${'when duration <= NORMAL_SEVERITY_THRESHOLD'}                                   | ${PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD}       | ${SEVERITY.NORMAL}
 			${'when duration > NORMAL_SEVERITY_THRESHOLD and <= DEGRADED_SEVERITY_THRESHOLD'} | ${PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD + 1}   | ${SEVERITY.DEGRADED}
 			${'when duration > DEGRADED_SEVERITY_THRESHOLD'}                                  | ${PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD + 1} | ${SEVERITY.BLOCKING}
-		`('should set $severity to severity when $condition', ({ condition, threshold, severity }) => {
-			(measureRender as any).mockImplementationOnce((name: any, callback: any) => {
+		`('should set $severity to severity when $condition', ({ _condition, threshold, severity }) => {
+			(measureRender as any).mockImplementationOnce((_name: any, callback: any) => {
 				callback && requestAnimationFrame(() => callback({ duration: threshold, startTime: 1 }));
 			});
 
@@ -1079,6 +1087,111 @@ describe('@atlaskit/editor-core', () => {
 
 			editorAPI?.core.actions.replaceDocument(mockDocument, { skipValidation: true });
 			expect(editorView.state.doc.toJSON()).toEqual(doc(p('hello world'))(defaultSchema).toJSON());
+		});
+	});
+
+	describe('EditorSSRRenderer', () => {
+		jest.spyOn(editorSSRRendererModule, 'EditorSSRRenderer');
+		jest.spyOn(ProcessRawValueModule, 'processRawValue');
+
+		const docNode = doc(p('hello'))(defaultSchema);
+		const props = {
+			...requiredProps(),
+			...analyticsProps(),
+			editorProps: {
+				assistiveDescribedBy: 'ProseMirror editor',
+				defaultValue: toJSON(docNode),
+			},
+		};
+
+		describe('SSR environment', () => {
+			beforeEach(() => {
+				jest.spyOn(coreUtilsModule, 'isSSR').mockReturnValue(true);
+			});
+
+			afterEach(() => {
+				jest.spyOn(coreUtilsModule, 'isSSR').mockReset();
+			});
+
+			eeTest
+				.describe('platform_editor_ssr_renderer', 'platform_editor_ssr_renderer is')
+				.each(() => {
+					it('ReactEditorView is rendered well', () => {
+						renderWithIntl(<ReactEditorView {...props} />);
+
+						const editor = screen.getByRole('textbox');
+						expect(editor).toBeInTheDocument();
+						expect(editor).not.toBeEmptyDOMElement();
+					});
+				});
+
+			eeTest
+				.describe('platform_editor_ssr_renderer', 'platform_editor_ssr_renderer is ON')
+				.variant(true, () => {
+					it('call EditorSSRRenderer only once during rendering', () => {
+						renderWithIntl(<ReactEditorView {...props} />);
+
+						expect(EditorSSRRenderer).toHaveBeenCalledTimes(1);
+					});
+
+					it('call processRawValue only once during rendering', () => {
+						renderWithIntl(<ReactEditorView {...props} />);
+
+						expect(processRawValue).toHaveBeenCalledTimes(1);
+					});
+
+					it('should render exactly the same HTML container that browser renders', () => {
+						function getAttributesMap(el: Element): Record<string, string> {
+							const map: Record<string, string> = {};
+
+							for (let i = 0; i < el.attributes.length; i++) {
+								const attr = el.attributes[i];
+								map[attr.name.toLowerCase()] = attr.value;
+							}
+
+							return map;
+						}
+
+						renderWithIntl(<ReactEditorView {...props} />);
+						const ssrEditor = screen.getByRole('textbox');
+						const ssrTagName = ssrEditor.tagName.toLowerCase();
+						const ssrAttributes = getAttributesMap(ssrEditor);
+
+						cleanup();
+
+						// Browser
+						jest.spyOn(coreUtilsModule, 'isSSR').mockReturnValue(false);
+						renderWithIntl(<ReactEditorView {...props} />);
+						const browserEditor = screen.getByRole('textbox');
+						const browserTagName = ssrEditor.tagName.toLowerCase();
+						const browserAttributes = getAttributesMap(browserEditor);
+
+						expect(ssrTagName).toBe(browserTagName);
+						expect(ssrAttributes).toStrictEqual(browserAttributes);
+					});
+				});
+		});
+
+		describe('browser environment', () => {
+			beforeEach(() => {
+				jest.spyOn(coreUtilsModule, 'isSSR').mockReturnValue(false);
+			});
+
+			afterEach(() => {
+				jest.spyOn(coreUtilsModule, 'isSSR').mockReset();
+			});
+
+			eeTest
+				.describe('platform_editor_ssr_renderer', 'platform_editor_ssr_renderer is')
+				.each(() => {
+					it('ReactEditorView is rendered well', () => {
+						renderWithIntl(<ReactEditorView {...props} />);
+
+						const editor = screen.getByRole('textbox');
+						expect(editor).toBeInTheDocument();
+						expect(editor).not.toBeEmptyDOMElement();
+					});
+				});
 		});
 	});
 });

@@ -27,6 +27,7 @@ import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosem
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { setEditingContextToContextPanel } from '../editor-commands/commands';
 import type { CreateExtensionAPI } from '../extensionPluginType';
@@ -222,7 +223,6 @@ export const createExtensionAPI: CreateExtensionAPI = (options: CreateExtensionA
 		},
 		scrollTo: (localId: string) => {
 			const nodePos = ensureNodePosByLocalId(localId, { opName: 'scrollTo' });
-
 			// Analytics - tracking the api call
 			const apiCallPayload: AnalyticsEventPayload = extensionAPICallPayload('scrollTo');
 
@@ -232,7 +232,28 @@ export const createExtensionAPI: CreateExtensionAPI = (options: CreateExtensionA
 			let { tr } = state;
 			editorAnalyticsAPI?.attachAnalyticsEvent(apiCallPayload)(tr);
 			tr = setTextSelection(nodePos.pos)(tr);
-			tr = tr.scrollIntoView();
+			let useScrollIntoView = true;
+
+			if (
+				nodePos.node.type.name === 'table' &&
+				expValEquals(
+					'platform_editor_table_sticky_header_improvements',
+					'cohort',
+					'test_with_overflow',
+				) &&
+				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
+			) {
+				const tableDOM = options.editorView.nodeDOM(nodePos.pos);
+				if (tableDOM instanceof HTMLElement) {
+					tableDOM.scrollIntoView({ block: 'start', behavior: 'smooth' });
+					useScrollIntoView = false;
+				}
+			}
+
+			if (useScrollIntoView) {
+				tr.scrollIntoView();
+			}
+
 			dispatch(tr);
 		},
 		update: (localId, mutationCallback, opts) => {

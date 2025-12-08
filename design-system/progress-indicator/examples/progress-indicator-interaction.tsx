@@ -39,10 +39,8 @@ const Example = (): React.JSX.Element => {
 	};
 
 	const handleSelect = ({
-		event,
 		index: selectedIndex,
 	}: {
-		event: React.MouseEvent<HTMLButtonElement>;
 		index: number;
 	}): void => {
 		setSelectedIndex(selectedIndex);

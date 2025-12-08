@@ -7,7 +7,7 @@ import Toggle from '@atlaskit/toggle';
 export default (): React.JSX.Element => {
 	const ref = React.createRef<HTMLInputElement>();
 
-	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const onChange = () => {
 		if (ref.current) {
 			console.log(ref.current.checked);
 		}

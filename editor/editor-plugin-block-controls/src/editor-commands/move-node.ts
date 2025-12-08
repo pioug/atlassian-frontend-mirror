@@ -541,7 +541,16 @@ export const moveNode =
 
 		const currMeta = tr.getMeta(key);
 		tr.setMeta(key, { ...currMeta, nodeMoved: true });
-		api?.core.actions.focus();
+		if (
+			// when move node via block menu, we need to keep the focus on block menu popup, so don't move focus to editor in this scenario
+			!(
+				inputMethod === INPUT_METHOD.BLOCK_MENU &&
+				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+			)
+		) {
+			api?.core.actions.focus();
+		}
+
 		const $mappedTo = tr.doc.resolve(mappedTo);
 
 		const expandAncestor = findParentNodeOfTypeClosestToPos($to, [expand, nestedExpand]);

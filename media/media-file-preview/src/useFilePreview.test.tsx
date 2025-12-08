@@ -1417,7 +1417,7 @@ describe('useFilePreview', () => {
 							status: 'fail',
 						},
 						server: {
-							status: 'unknown',
+							status: 'fail',
 						},
 					});
 
@@ -1475,7 +1475,7 @@ describe('useFilePreview', () => {
 							status: 'fail',
 						},
 						server: {
-							status: 'unknown',
+							status: 'fail',
 						},
 					});
 

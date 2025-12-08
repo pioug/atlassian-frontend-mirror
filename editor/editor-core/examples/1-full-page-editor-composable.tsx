@@ -20,7 +20,7 @@ import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import { FullPageEditor } from '../src/editor-appearances/FullPageEditor';
 import { FullWidthEditor } from '../src/editor-appearances/FullWidthEditor';
 
-export default function Editor() {
+export default function Editor(): React.JSX.Element {
 	const { preset } = usePreset((builder) =>
 		builder
 			.add(basePlugin)

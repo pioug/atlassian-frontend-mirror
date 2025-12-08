@@ -1,15 +1,21 @@
 import React from 'react';
 
-import LikeIcon from '@atlaskit/icon/glyph/like';
+import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
+import ChevronIcon from '@atlaskit/icon/core/chevron-down';
+import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
+import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box } from '@atlaskit/primitives';
+import { Inline } from '@atlaskit/primitives';
 
-const IconSmallExample = () => {
+const IconSmallNewExample = () => {
 	return (
-		<Box>
-			<LikeIcon size="small" label="" />
-		</Box>
+		<Inline space="space.100">
+			<ChevronIcon label="" size="small" />
+			<ArrowRightIcon label="" size="small" />
+			<StatusErrorIcon label="" size="small" />
+			<DragHandleVerticalIcon label="" size="small" />
+		</Inline>
 	);
 };
 
-export default IconSmallExample;
+export default IconSmallNewExample;

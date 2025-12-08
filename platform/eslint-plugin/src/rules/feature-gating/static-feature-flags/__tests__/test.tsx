@@ -40,7 +40,7 @@ tester.run('feature-flags/static-feature-flags', rule, {
 			name: 'When using ssOnly option, Launch Darkly functions can avoid static usage',
 			options,
 			code: outdent`
-            import { ff, getFeatureFlagValue, getMultivariateFeatureFlag } from '@atlassian/jira-feature-flagging';
+            import { ff, getFeatureFlagValue } from '@atlassian/jira-feature-flagging';
             import { fg } from '@atlassian/jira-feature-gating';
             import { componentWithFF } from '@atlassian/jira-feature-flagging-utils';
 
@@ -48,7 +48,6 @@ tester.run('feature-flags/static-feature-flags', rule, {
 
             const isEnabled = ff(FLAG_NAME);
             const FFValue = getFeatureFlagValue(FLAG_NAME, 10);
-            const FFMultiValue = multiFFValuegetMultivariateFeatureFlag(FLAG_NAME, 10, [10, 20])
             const Component = componentWithFF(FLAG_NAME, NewComponent, OldComponent);
         `,
 		},

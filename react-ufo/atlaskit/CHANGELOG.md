@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.15.15
+
+### Patch Changes
+
+- [`e50c3c4b27b3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e50c3c4b27b3d) -
+  Added even data to raw data handler
+
+## 4.15.14
+
+### Patch Changes
+
+- [`8671d72bf688c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8671d72bf688c) -
+  add attribute exclusion list for mutation:display-contents-children-attribute
+
 ## 4.15.13
 
 ### Patch Changes

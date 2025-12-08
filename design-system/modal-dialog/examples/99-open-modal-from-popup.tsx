@@ -117,11 +117,11 @@ const PopupDefaultExample = () => {
 const Card = (): React.JSX.Element => {
 	const [state, { setFocused }] = useIsFocused();
 
-	const handleOnBlur = (e: any) => {
+	const handleOnBlur = () => {
 		setFocused(false);
 	};
 
-	const handleOnFocus = (e: any) => {
+	const handleOnFocus = () => {
 		setFocused(true);
 	};
 

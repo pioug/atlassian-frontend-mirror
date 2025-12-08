@@ -27,7 +27,7 @@ const IconEmbedGlyph = (props: CustomGlyphProps) => {
 	);
 };
 
-export const IconEmbed = (props: IconProps) => {
+export const IconEmbed = (props: IconProps): React.JSX.Element => {
 	return fg('platform-custom-icon-migration') ? (
 		<IconEmbedGlyph
 			aria-label={props.label}

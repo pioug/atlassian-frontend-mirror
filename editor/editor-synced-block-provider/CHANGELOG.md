@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.13.0
+
+### Minor Changes
+
+- [`676d28a61e356`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/676d28a61e356) -
+  Add runtime blockAri generation for endpoint calls, update resourceId generation for create
+  reference from toolbar
+
 ## 2.12.3
 
 ### Patch Changes

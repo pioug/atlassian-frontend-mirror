@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 9.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.0
+
+### Major Changes
+
+- [`d2e5db925723b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2e5db925723b) -
+  EDITOR-2772 Update selection extension types for block menu
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.0
+
+### Major Changes
+
+- [`63fe1593adb21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63fe1593adb21) -
+  EDITOR-2772 Remove support for unused `section` config on selection extensions
+
+## 7.2.1
+
+### Patch Changes
+
+- [`5baa955ebe237`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5baa955ebe237) -
+  Add new menu section for all extensions (inc. loom and 1p, 3p extensions), add logic to hide menu
+  button completely when there are no menu-sections with no menu-items associated with it
+- Updated dependencies
+
 ## 7.2.0
 
 ### Minor Changes

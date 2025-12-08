@@ -33,7 +33,7 @@ function Editor() {
 	return <ComposableEditor preset={preset} />;
 }
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	return (
 		<div>
 			<p>{'A basic example of only allowing external image URLs for media insert.'}</p>

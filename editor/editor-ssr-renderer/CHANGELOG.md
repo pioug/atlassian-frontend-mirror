@@ -1,5 +1,13 @@
 # @atlaskit/editor-ssr-renderer
 
+## 1.3.0
+
+### Minor Changes
+
+- [`c7acfc11f076a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7acfc11f076a) -
+  [https://hello.jira.atlassian.cloud/browse/EDITOR-3745](EDITOR-3745) - adopt EditorSSRRenderer to
+  ReactEditorView
+
 ## 1.2.0
 
 ### Minor Changes

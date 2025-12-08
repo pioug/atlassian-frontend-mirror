@@ -4,7 +4,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useIconThemed } from '../use-icon-themed';
 
-export default function IconCustomPanel() {
+export default function IconCustomPanel(): React.JSX.Element {
 	const { iconThemed } = useIconThemed();
 
 	return (

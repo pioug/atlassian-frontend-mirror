@@ -41,7 +41,7 @@ export const ExpandablePanel = memo(
 		attributes,
 		onItemSelected,
 		onViewAllSelected,
-	}: ExpandablePanelProps) => {
+	}: ExpandablePanelProps): React.JSX.Element => {
 		const [isExpanded, setIsExpanded] = useState(true);
 
 		// Dirty fix for AI label

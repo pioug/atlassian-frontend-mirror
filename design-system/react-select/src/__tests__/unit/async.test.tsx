@@ -29,7 +29,7 @@ cases(
 		'with callback  > should resolve options': {
 			props: {
 				defaultOptions: true,
-				loadOptions: (inputValue: string, callBack: (options: readonly Option[]) => void) =>
+				loadOptions: (_inputValue: string, callBack: (options: readonly Option[]) => void) =>
 					callBack([OPTIONS[0]]),
 			},
 			expectOptionLength: 1,
@@ -70,7 +70,7 @@ cases(
 	{
 		'with callback > should resolve the options': {
 			props: {
-				loadOptions: (inputValue: string, callBack: (options: readonly Option[]) => void) =>
+				loadOptions: (_inputValue: string, callBack: (options: readonly Option[]) => void) =>
 					callBack(OPTIONS),
 				testId: testId,
 			},
@@ -132,7 +132,7 @@ test('to create new cache for each instance', async () => {
 
 test('in case of callbacks display the most recently-requested loaded options (if results are returned out of order)', () => {
 	let callbacks: ((options: readonly Option[]) => void)[] = [];
-	const loadOptions = (inputValue: string, callback: (options: readonly Option[]) => void) => {
+	const loadOptions = (_inputValue: string, callback: (options: readonly Option[]) => void) => {
 		callbacks.push(callback);
 	};
 	render(<Async loadOptions={loadOptions} testId={testId} />);
@@ -165,7 +165,7 @@ test('in case of callbacks display the most recently-requested loaded options (i
 
 // QUESTION: we currently do not do this, do we want to?
 test.skip('in case of callbacks should handle an error by setting options to an empty array', () => {
-	const loadOptions = (inputValue: string, callback: (options: readonly Option[]) => void) => {
+	const loadOptions = (_inputValue: string, callback: (options: readonly Option[]) => void) => {
 		// @ts-ignore
 		callback(new Error('error'));
 	};
@@ -182,7 +182,7 @@ test.skip('in case of callbacks should handle an error by setting options to an 
 });
 
 test('should announce NoOptionsMessage', async () => {
-	const loadOptions = (inputValue: string, callBack: (options: readonly Option[]) => void) => {
+	const loadOptions = (_inputValue: string, callBack: (options: readonly Option[]) => void) => {
 		setTimeout(() => {
 			callBack([]);
 		}, 50);

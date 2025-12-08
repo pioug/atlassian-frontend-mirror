@@ -18,7 +18,7 @@ describe('Avatar', () => {
 			<AvatarItem
 				avatar={<Avatar name="Alexander Nevermind" />}
 				testId={'avatar'}
-				onClick={(event) => null}
+				onClick={() => null}
 			/>,
 		);
 
@@ -31,7 +31,7 @@ describe('Avatar', () => {
 				avatar={<Avatar name="Alexander Nevermind" />}
 				testId={'avatar'}
 				isDisabled
-				onClick={(event) => null}
+				onClick={() => null}
 			/>,
 		);
 		const element = screen.getByTestId('avatar--itemInner');
@@ -45,7 +45,7 @@ describe('Avatar', () => {
 				avatar={<Avatar name="Alexander Nevermind" />}
 				testId={'avatar'}
 				isDisabled
-				onClick={(event) => null}
+				onClick={() => null}
 			/>,
 		);
 		const element = screen.getByTestId('avatar--itemInner');

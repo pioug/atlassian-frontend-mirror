@@ -3,11 +3,13 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { expVal } from '../../../expVal';
 import type { VCObserverEntry, ViewportEntryData, WindowEventEntryData } from '../../types';
-
-import VCCalculator_FY25_03, {
+import {
 	KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS,
 	NON_VISUAL_ARIA_ATTRIBUTES,
-} from './index';
+} from '../utils/constants';
+
+import VCCalculator_FY25_03 from './index';
+
 
 // Mock feature flags
 jest.mock('@atlaskit/platform-feature-flags', () => ({

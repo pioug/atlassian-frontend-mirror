@@ -460,15 +460,15 @@ describe('Anchor', () => {
 				return (
 					<AnalyticsListener onEvent={onAtlaskitEvent} channel="atlaskit">
 						<AnalyticsListener onEvent={onPublicEvent}>
-							<Anchor
-								href="https://atlassian.com"
-								testId={testId}
-								onClick={(event, analyticsEvent) => {
-									analyticsEvent.fire();
-								}}
-							>
-								Anchor
-							</Anchor>
+					<Anchor
+						href="https://atlassian.com"
+						testId={testId}
+						onClick={(_event, analyticsEvent) => {
+							analyticsEvent.fire();
+						}}
+					>
+						Anchor
+					</Anchor>
 						</AnalyticsListener>
 					</AnalyticsListener>
 				);
@@ -519,16 +519,16 @@ describe('Anchor', () => {
 			}) {
 				return (
 					<AnalyticsListener onEvent={onEvent} channel={channel}>
-						<Anchor
-							href="https://atlassian.com"
-							testId={testId}
-							analyticsContext={analyticsContext}
-							onClick={(event, analyticsEvent) => {
-								analyticsEvent.fire();
-							}}
-						>
-							Anchor
-						</Anchor>
+					<Anchor
+						href="https://atlassian.com"
+						testId={testId}
+						analyticsContext={analyticsContext}
+						onClick={(_event, analyticsEvent) => {
+							analyticsEvent.fire();
+						}}
+					>
+						Anchor
+					</Anchor>
 					</AnalyticsListener>
 				);
 			}
@@ -576,17 +576,17 @@ describe('Anchor', () => {
 			}) {
 				return (
 					<AnalyticsListener onEvent={onEvent} channel={channel}>
-						<Anchor
-							href="https://atlassian.com"
-							testId={testId}
-							analyticsContext={analyticsContext}
-							onClick={(event, analyticsEvent) => {
-								analyticsEvent.fire();
-							}}
-							componentName="CustomComponent"
-						>
-							Anchor
-						</Anchor>
+					<Anchor
+						href="https://atlassian.com"
+						testId={testId}
+						analyticsContext={analyticsContext}
+						onClick={(_event, analyticsEvent) => {
+							analyticsEvent.fire();
+						}}
+						componentName="CustomComponent"
+					>
+						Anchor
+					</Anchor>
 					</AnalyticsListener>
 				);
 			}

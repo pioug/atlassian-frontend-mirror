@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useIconThemed } from '../use-icon-themed';
 
-export default function IconListOrdered() {
+export default function IconListOrdered(): React.JSX.Element {
 	const { iconThemed } = useIconThemed();
 	const lineColour = iconThemed({ light: '#C1C7D0', dark: '#454F59' });
 	return (

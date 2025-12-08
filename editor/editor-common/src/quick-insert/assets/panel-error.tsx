@@ -4,7 +4,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useIconThemed } from '../use-icon-themed';
 
-export default function IconPanelError() {
+export default function IconPanelError(): React.JSX.Element {
 	const { iconThemed } = useIconThemed();
 	return (
 		<svg focusable="false" aria-hidden width={40} height={40} viewBox="0 0 40 40">

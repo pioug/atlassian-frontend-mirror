@@ -346,11 +346,13 @@ export const baseTableStyles = (props: {
 	${resizeHandle()};
 	${rangeSelectionStyles};
 	${viewModeSortStyles()};
-	${expValEquals(
+	${expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
+	expValEquals(
 		'platform_editor_table_sticky_header_improvements',
 		'cohort',
 		'test_with_overflow',
-	) && tableAnchorStyles};
+	) &&
+	tableAnchorStyles};
 
 	.${ClassName.LAST_ITEM_IN_CELL} {
 		margin-bottom: 0;

@@ -24,7 +24,7 @@ const MyRouterLinkComponent: React.ForwardRefExoticComponent<
 	) => {
 		if (typeof href === 'string') {
 			return (
-				<Link data-testid="react-resource-router-link" href={href} {...rest}>
+				<Link ref={ref} data-testid="react-resource-router-link" href={href} {...rest}>
 					{children}
 				</Link>
 			);
@@ -32,6 +32,7 @@ const MyRouterLinkComponent: React.ForwardRefExoticComponent<
 
 		return (
 			<Link
+				ref={ref}
 				data-testid="react-resource-router-link"
 				href={href.href}
 				to={href.to}

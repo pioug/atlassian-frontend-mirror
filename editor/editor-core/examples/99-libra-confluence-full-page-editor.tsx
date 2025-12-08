@@ -387,7 +387,7 @@ function createEditorExampleForTests() {
 	win.__buildInfo = { EDITOR_VERSION: version };
 }
 
-export default function EditorExampleForIntegrationTests() {
+export default function EditorExampleForIntegrationTests(): React.JSX.Element {
 	React.useLayoutEffect(() => {
 		createEditorExampleForTests();
 	}, []);

@@ -262,7 +262,7 @@ describe('Pressable', () => {
 						<AnalyticsListener onEvent={onPublicEvent}>
 							<Pressable
 								testId={testId}
-								onClick={(event, analyticsEvent) => {
+								onClick={(_event, analyticsEvent) => {
 									analyticsEvent.fire();
 								}}
 							>
@@ -321,7 +321,7 @@ describe('Pressable', () => {
 						<Pressable
 							testId={testId}
 							analyticsContext={analyticsContext}
-							onClick={(event, analyticsEvent) => {
+							onClick={(_event, analyticsEvent) => {
 								analyticsEvent.fire();
 							}}
 						>
@@ -377,7 +377,7 @@ describe('Pressable', () => {
 						<Pressable
 							testId={testId}
 							analyticsContext={analyticsContext}
-							onClick={(event, analyticsEvent) => {
+							onClick={(_event, analyticsEvent) => {
 								analyticsEvent.fire();
 							}}
 							componentName="CustomComponent"

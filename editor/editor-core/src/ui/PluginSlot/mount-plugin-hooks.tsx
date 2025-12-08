@@ -24,7 +24,7 @@ export function MountPluginHooks({
 	pluginHooks,
 	editorView,
 	containerElement,
-}: MountPluginHooksProps) {
+}: MountPluginHooksProps): React.JSX.Element | null {
 	if (!editorView) {
 		return null;
 	}

@@ -4,7 +4,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useIconThemed } from '../use-icon-themed';
 
-export default function OneColumnLayoutIcon() {
+export default function OneColumnLayoutIcon(): React.JSX.Element {
 	const { iconThemed } = useIconThemed();
 
 	return (

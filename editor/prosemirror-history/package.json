@@ -71,7 +71,7 @@
 		}
 	},
 	"name": "@atlaskit/prosemirror-history",
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"description": "Fork of the prosemirror-history plugin",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -79,9 +79,6 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"platform-feature-flags": {
-		"platform_editor_ai_aifc_undo_redo": {
-			"type": "boolean"
-		},
 		"platform_editor_ai_aifc_patch_ga": {
 			"type": "boolean"
 		}

@@ -13,7 +13,7 @@ addGlobalEventEmitterListeners();
 
 const getProperLanguageKey = (locale: string) => locale.replace('_', '-');
 
-export default function KitchenSinkExample() {
+export default function KitchenSinkExample(): React.JSX.Element {
 	const [locale, setLocale] = React.useState<string>('en');
 	const [messages, setMessages] = React.useState<any>(enMessages);
 	//console.log('KitchenSinkExample', locale);

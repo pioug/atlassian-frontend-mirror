@@ -125,7 +125,7 @@ const SearchView = ({
 	return <ListButtonGroup id={'search'} items={items} onItemSelected={onItemSelected} />;
 };
 
-export const SideInsertPanel = ({ items, onItemInsert }: SideInsertPanelProps) => {
+export const SideInsertPanel = ({ items, onItemInsert }: SideInsertPanelProps): React.JSX.Element => {
 	const onItemSelect = useCallback(
 		(index: number) => {
 			onItemInsert(SelectItemMode.SELECTED, index);

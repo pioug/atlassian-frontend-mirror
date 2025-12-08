@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 import variants from '../../../utils/variants';
 
 it('should have stable class names when re-rendering for all button variants', () => {
-	variants.forEach(({ name, Component }) => {
+	variants.forEach(({ Component }) => {
 		const { rerender, unmount } = render(<Component testId="button">Button</Component>);
 		const button = screen.getByTestId('button');
 		const original: string = button.className;

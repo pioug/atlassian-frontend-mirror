@@ -79,7 +79,7 @@ const getBodiedExtensionContent = (node: PMNode): ADFEntity[] | string | undefin
 	return !!bodiedExtensionContent.length ? bodiedExtensionContent : node.attrs.text;
 };
 
-export const ExtensionComponent = (props: Props) => {
+export const ExtensionComponent = (props: Props): React.JSX.Element => {
 	const {
 		extensionProvider: extensionProviderResolver,
 		showLivePagesBodiedMacrosRendererView,

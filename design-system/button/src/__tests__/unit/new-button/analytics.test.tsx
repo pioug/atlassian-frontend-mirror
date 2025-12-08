@@ -20,12 +20,12 @@ variants.forEach(({ name, Component, elementType }) => {
 			return (
 				<AnalyticsListener onEvent={onAtlaskitEvent} channel="atlaskit">
 					<AnalyticsListener onEvent={onPublicEvent}>
-						<Component
-							testId={buttonTestId}
-							onClick={(event, analyticsEvent) => {
-								analyticsEvent.fire();
-							}}
-						>
+				<Component
+					testId={buttonTestId}
+					onClick={(_event, analyticsEvent) => {
+						analyticsEvent.fire();
+					}}
+				>
 							Button
 						</Component>
 					</AnalyticsListener>
@@ -79,13 +79,13 @@ variants.forEach(({ name, Component, elementType }) => {
 		}) {
 			return (
 				<AnalyticsListener onEvent={onEvent} channel={channel}>
-					<Component
-						testId={buttonTestId}
-						analyticsContext={analyticsContext}
-						onClick={(event, analyticsEvent) => {
-							analyticsEvent.fire();
-						}}
-					>
+				<Component
+					testId={buttonTestId}
+					analyticsContext={analyticsContext}
+					onClick={(_event, analyticsEvent) => {
+						analyticsEvent.fire();
+					}}
+				>
 						Button
 					</Component>
 				</AnalyticsListener>

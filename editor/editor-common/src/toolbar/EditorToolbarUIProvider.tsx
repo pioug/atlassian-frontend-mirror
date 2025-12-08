@@ -29,7 +29,7 @@ export const EditorToolbarUIProvider = ({
 	popupsScrollableElement,
 	fireAnalyticsEvent,
 	keyboardNavigation,
-}: Props) => {
+}: Props): React.JSX.Element => {
 	const onDropdownOpenChanged = useCallback(
 		({ isOpen, event }: OnOpenChangeArgs) => {
 			if (!isOpen) {

@@ -27,7 +27,7 @@ const IconInlineGlyph = (props: CustomGlyphProps) => {
 	);
 };
 
-export const IconInline = (props: IconProps) => {
+export const IconInline = (props: IconProps): React.JSX.Element => {
 	return fg('platform-custom-icon-migration') ? (
 		<IconInlineGlyph
 			aria-label={props.label}

@@ -253,7 +253,7 @@ export default class Example extends React.Component {
 		};
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<EditorContext>
 				<div

@@ -14,7 +14,7 @@ export type ButtonSpotlightCardProps = PropsFromSpotlightCard & {
  * It is built on top of the SpotlightCard component from @atlaskit/onboarding.
  * It avoids the issue of the native atlaskit Spotlight component rendering outside the editor bounds and takes focus away from the editor.
  */
-export const ButtonSpotlightCard = (props: ButtonSpotlightCardProps) => {
+export const ButtonSpotlightCard = (props: ButtonSpotlightCardProps): React.JSX.Element => {
 	const { referenceElement, placement = 'top-start', ...spotlightCardProps } = props;
 
 	return (

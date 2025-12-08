@@ -188,11 +188,13 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 		// Only when inserting a column, otherwise set to undefined
 		// Need to set z-index in the Popup, set z-index in the <InsertButton /> will not work
 		const zIndex: number | undefined =
-			expValEquals(
-				'platform_editor_table_sticky_header_improvements',
-				'cohort',
-				'test_with_overflow',
-			) || type === 'column'
+			(expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
+				expValEquals(
+					'platform_editor_table_sticky_header_improvements',
+					'cohort',
+					'test_with_overflow',
+				)) ||
+			type === 'column'
 				? akEditorTableCellOnStickyHeaderZIndex
 				: undefined;
 

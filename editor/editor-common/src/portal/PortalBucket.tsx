@@ -17,7 +17,7 @@ type PortalBucketProps = {
  * @param {PortalManager} props.portalManager An instance of `PortalManager` which manages the registration and unregistration of portal buckets and their content.
  * @returns {React.ReactElement} The React element(s) that are currently registered to this portal bucket.
  */
-export function PortalBucket({ id, portalManager }: PortalBucketProps) {
+export function PortalBucket({ id, portalManager }: PortalBucketProps): React.JSX.Element {
 	// State to hold the current portals for this bucket
 	const [portals, setPortals] = useState({});
 	// Effect to register/unregister this bucket with the portal manager on mount/unmount

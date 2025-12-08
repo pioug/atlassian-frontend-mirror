@@ -407,9 +407,7 @@ export const useFilePreview = ({
 				};
 			}
 
-			const isSSR =
-				isSSRDataPreview(failedPreview) ||
-				(fg('jfp-magma-fix-failed-ssr-preview-load') ? isSSRClientPreview(failedPreview) : false);
+			const isSSR = isSSRDataPreview(failedPreview) || isSSRClientPreview(failedPreview);
 
 			// If the preview failed and it comes from server (global scope / ssrData), it means that we have reused it in client and the error counts for both: server & client.
 			if (isSSR) {

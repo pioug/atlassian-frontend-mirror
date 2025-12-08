@@ -35,7 +35,7 @@ export const getPackagesSinceRef = async (ref: string): Promise<ParsedPkg[]> => 
 	let commit: string;
 	try {
 		commit = await git.revparse(['--verify', ref]);
-	} catch (e) {
+	} catch {
 		throw new ValidationError(`Invalid git ref "${ref}"`);
 	}
 

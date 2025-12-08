@@ -22,7 +22,7 @@ import {
 	type DeletePageContentPropertyResult,
 } from '../../clients/confluence/contentProperty';
 import { isBlogPageType } from '../../clients/confluence/utils';
-import { SyncBlockError, type SyncBlockData } from '../../common/types';
+import { SyncBlockError, type ResourceId, type SyncBlockData, type SyncBlockProduct } from '../../common/types';
 import { stringifyError } from '../../utils/errorHandling';
 import type {
 	ADFFetchProvider,
@@ -144,6 +144,7 @@ class ConfluenceADFFetchProvider implements ADFFetchProvider {
  * ADFWriteProvider implementation that writes synced block data to Confluence Content API
  */
 class ConfluenceADFWriteProvider implements ADFWriteProvider {
+	product: SyncBlockProduct = 'confluence-page';
 	constructor(private config: ContentAPIConfig) {}
 
 	private createNewContentProperty = async (
@@ -294,6 +295,10 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 
 	generateResourceId(sourceId: string, localId: string): string {
 		return resourceIdFromConfluencePageSourceIdAndLocalId(sourceId, localId);
+	}
+
+	generateResourceIdForReference(sourceId: ResourceId): ResourceId {
+		return sourceId;
 	}
 }
 

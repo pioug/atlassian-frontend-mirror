@@ -811,7 +811,7 @@ describe('Field', () => {
 								testId="form-field"
 								{...addedProps}
 							>
-								{({ fieldProps, error, valid, meta }) => (
+								{({ fieldProps, error: _error, valid: _valid, meta: _meta }) => (
 									<TextField type="password" {...fieldProps} />
 								)}
 							</Field>

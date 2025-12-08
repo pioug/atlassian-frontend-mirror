@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-toolbar",
-	"version": "3.4.15",
+	"version": "3.4.17",
 	"description": "Toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -66,6 +66,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_toolbar_aifc_undo_redo_confluence": {
+			"type": "boolean"
+		},
+		"platform_editor_toolbar_aifc_overflow_menu_update": {
 			"type": "boolean"
 		}
 	},

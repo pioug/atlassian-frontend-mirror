@@ -76,6 +76,7 @@ export const tableRowView = (options: TableCellViewOptions) => {
 	return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
 		if (
 			isAnchorSupported() &&
+			expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
 			expValEquals(
 				'platform_editor_table_sticky_header_improvements',
 				'cohort',

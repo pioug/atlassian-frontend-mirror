@@ -245,7 +245,7 @@ function importHeading(level: HeadingLevels) {
 	}
 }
 
-export const IconHeading = ({ level, ...props }: HeadingProps) => {
+export const IconHeading = ({ level, ...props }: HeadingProps): React.JSX.Element => {
 	const Icon = Loadable({
 		loader: () =>
 			importHeading(level).then((module) => module.default) as Promise<

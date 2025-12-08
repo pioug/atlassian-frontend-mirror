@@ -18,7 +18,7 @@ import { widthPlugin } from '@atlaskit/editor-plugins/width';
 
 import { CommentEditor } from '../src/editor-appearances/CommentEditor';
 
-export default function Editor() {
+export default function Editor(): React.JSX.Element {
 	const { preset } = usePreset((builder) =>
 		builder
 			.add(basePlugin)

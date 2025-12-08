@@ -1,3 +1,7 @@
+import { type ActiveTokens } from "@atlaskit/tokens";
+
+type MarginValue = Extract<ActiveTokens, `space.${string}`>;
+
 export type BarChartProps = {
 	/**
 	 * The static width of the chart in pixels. If this is not specified, the width is responsive.
@@ -34,6 +38,26 @@ export type BarChartProps = {
 	 * A string value that represents the subtitle of the chart. This appears below the title.
 	 */
 	subtitle?: string;
+	/**
+	 * Margin applied to the plot area of the chart.
+	 */
+	margin?: MarginValue;
+	/**
+	 * Margin applied to the top of the plot area of the chart.
+	 */
+	marginTop?: MarginValue;
+	/**
+	 * Margin applied to the right of the plot area of the chart.
+	 */
+	marginRight?: MarginValue;
+	/**
+	 * Margin applied to the bottom of the plot area of the chart.
+	 */
+	marginBottom?: MarginValue;
+	/**
+	 * Margin applied to the left of the plot area of the chart.
+	 */
+	marginLeft?: MarginValue;
 };
 
 type StackChartProps = BarChartProps & {

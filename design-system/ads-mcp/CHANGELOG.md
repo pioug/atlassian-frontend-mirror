@@ -1,5 +1,13 @@
 # @atlaskit/ads-mcp
 
+## 0.10.1
+
+### Patch Changes
+
+- [`a60a82196851a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a60a82196851a) -
+  Internal refactors to remove unused variables. No functional or public changes.
+- Updated dependencies
+
 ## 0.10.0
 
 ### Minor Changes

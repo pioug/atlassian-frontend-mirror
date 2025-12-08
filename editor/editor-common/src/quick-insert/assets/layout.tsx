@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useIconThemed } from '../use-icon-themed';
 
-export default function IconLayout() {
+export default function IconLayout(): React.JSX.Element {
 	const { iconThemed } = useIconThemed();
 
 	return (

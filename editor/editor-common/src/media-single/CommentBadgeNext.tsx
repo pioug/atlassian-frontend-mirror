@@ -32,7 +32,7 @@ export const CommentBadgeNext = ({
 	onClick,
 	onMouseEnter,
 	onMouseLeave,
-}: CommentBadgeProps) => {
+}: CommentBadgeProps): React.JSX.Element => {
 	const intl = useIntl();
 	const title = intl.formatMessage(messages.viewCommentsOnMedia);
 

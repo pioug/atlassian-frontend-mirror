@@ -20,6 +20,8 @@ import {
 	TRANSFORM_STRUCTURE_MENU_SECTION,
 	TRANSFORM_HEADINGS_MENU_SECTION,
 	MAIN_BLOCK_MENU_SECTION_RANK,
+	TRANSFORM_SUGGESTED_MENU_SECTION_RANK,
+	TRANSFORM_SUGGESTED_MENU_ITEM,
 } from '@atlaskit/editor-common/block-menu';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
@@ -38,6 +40,7 @@ import { FormatMenuComponent } from './format-menu-nested';
 import { FormatMenuSection } from './format-menu-section';
 import { MoveDownDropdownItem } from './move-down';
 import { MoveUpDropdownItem } from './move-up';
+import { SuggestedItemsRenderer } from './suggested-items-renderer';
 
 const getMoveUpMoveDownMenuComponents = (
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined,
@@ -90,10 +93,15 @@ const getTurnIntoMenuComponents = (
 				key: TRANSFORM_MENU_ITEM.key,
 				rank: TRANSFORM_MENU_ITEM_RANK[TRANSFORM_SUGGESTED_MENU_SECTION.key],
 			},
-			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
-				return (
-					<ToolbarDropdownItemSection title="Suggested">{children}</ToolbarDropdownItemSection>
-				);
+			component: () => <SuggestedItemsRenderer api={api} />,
+		},
+		{
+			type: 'block-menu-item' as const,
+			key: TRANSFORM_SUGGESTED_MENU_ITEM.key,
+			parent: {
+				type: 'block-menu-section' as const,
+				key: TRANSFORM_SUGGESTED_MENU_SECTION.key,
+				rank: TRANSFORM_SUGGESTED_MENU_SECTION_RANK[TRANSFORM_SUGGESTED_MENU_ITEM.key],
 			},
 		},
 		{

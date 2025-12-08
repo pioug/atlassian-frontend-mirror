@@ -95,7 +95,7 @@ const ListButtonItemBase = memo(
 	},
 );
 
-export const ListButtonItem = memo((props: ButtonItemProps) => {
+export const ListButtonItem = memo((props: ButtonItemProps): React.JSX.Element => {
 	const { keyshortcut, isSelected, isDisabled, attributes, title, setSelectedItem, index } = props;
 	const shortcutComponent = useCallback(() => {
 		const shortcut = keyshortcut && formatShortcut(keyshortcut);
@@ -150,7 +150,7 @@ export interface ViewAllButtonItemProps {
 }
 
 export const ViewAllButtonItem = memo(
-	({ label, onClick, isViewAllInserts = false }: ViewAllButtonItemProps) => {
+	({ label, onClick, isViewAllInserts = false }: ViewAllButtonItemProps): React.JSX.Element => {
 		const contentComponent = useCallback(() => {
 			return (
 				<Inline space="space.100" alignBlock={'center'}>

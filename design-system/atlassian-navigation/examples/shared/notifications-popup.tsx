@@ -62,15 +62,7 @@ export const NotificationsPopup = () => {
 		/>
 	);
 
-	const updateButtonLabel = ({
-		newCount,
-		oldCount,
-		source,
-	}: {
-		newCount: number;
-		oldCount?: number;
-		source?: string;
-	}) => {
+	const updateButtonLabel = ({ newCount }: { newCount: number }) => {
 		setButtonLabel(newCount || 0);
 	};
 

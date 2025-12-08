@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useIconThemed } from '../use-icon-themed';
 
-export default function IconCode() {
+export default function IconCode(): React.JSX.Element {
 	const { iconThemed } = useIconThemed();
 
 	return (

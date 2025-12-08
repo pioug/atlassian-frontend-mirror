@@ -140,7 +140,7 @@ const BreakoutResizer = ({
 	onResizeStart,
 	dynamicFullWidthGuidelineOffset,
 	hidden = false,
-}: BreakoutResizerProps) => {
+}: BreakoutResizerProps): React.JSX.Element => {
 	const [{ minWidth, maxWidth, isResizing }, setResizingState] = useState<ResizingState>({
 		minWidth: undefined,
 		maxWidth: undefined,

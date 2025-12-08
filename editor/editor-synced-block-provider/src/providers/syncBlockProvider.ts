@@ -54,6 +54,10 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		this.providerOptions = providerOptions;
 	}
 
+	getProduct(): SyncBlockProduct | undefined {
+		return this.writeProvider.product;
+	}
+
 	/**
 	 * Check if the node is supported by the provider
 	 *
@@ -207,6 +211,10 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 
 	generateResourceId(sourceId: string, localId: BlockInstanceId): string {
 		return this.writeProvider.generateResourceId(sourceId, localId);
+	}
+
+	generateResourceIdForReference(sourceId: ResourceId): ResourceId {
+		return this.writeProvider.generateResourceIdForReference(sourceId);
 	}
 
 	/**

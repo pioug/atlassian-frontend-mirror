@@ -1,8 +1,10 @@
-import React, { useCallback, createContext, useContext } from 'react';
+import React, { useCallback, createContext, useContext, useRef } from 'react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
+
+export type Direction = 'moveUp' | 'moveDown';
 
 type BlockMenuProviderProps = {
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
@@ -10,6 +12,13 @@ type BlockMenuProviderProps = {
 };
 
 export type BlockMenuContextType = {
+	moveDownRef: React.MutableRefObject<HTMLButtonElement | null>;
+	/**
+	 * Function to move focus between move up and move down items.
+	 * Used when one item is disabled and focused.
+	 */
+	moveFocusTo: (direction: Direction) => void;
+	moveUpRef: React.MutableRefObject<HTMLButtonElement | null>;
 	/**
 	 * Callback for when the dropdown is open/closed. Receives an object with `isOpen` state.
 	 *
@@ -20,6 +29,9 @@ export type BlockMenuContextType = {
 
 const BlockMenuContext = createContext<BlockMenuContextType>({
 	onDropdownOpenChanged: () => {},
+	moveFocusTo: () => {},
+	moveDownRef: React.createRef<HTMLButtonElement>(),
+	moveUpRef: React.createRef<HTMLButtonElement>(),
 });
 
 export const useBlockMenu = () => {
@@ -33,6 +45,9 @@ export const useBlockMenu = () => {
 };
 
 export const BlockMenuProvider = ({ children, api }: BlockMenuProviderProps) => {
+	const moveUpRef = useRef<HTMLButtonElement | null>(null);
+	const moveDownRef = useRef<HTMLButtonElement | null>(null);
+
 	const onDropdownOpenChanged = useCallback(
 		(isOpen: boolean) => {
 			if (!isOpen) {
@@ -49,10 +64,21 @@ export const BlockMenuProvider = ({ children, api }: BlockMenuProviderProps) => 
 		[api],
 	);
 
+	const moveFocusTo = useCallback((direction: Direction) => {
+		if (direction === 'moveUp') {
+			moveUpRef.current?.focus();
+		} else if (direction === 'moveDown') {
+			moveDownRef.current?.focus();
+		}
+	}, []);
+
 	return (
 		<BlockMenuContext.Provider
 			value={{
 				onDropdownOpenChanged,
+				moveFocusTo,
+				moveDownRef,
+				moveUpRef,
 			}}
 		>
 			{children}

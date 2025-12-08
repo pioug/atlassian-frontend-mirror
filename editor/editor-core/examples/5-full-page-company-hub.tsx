@@ -36,7 +36,7 @@ const Comp = () => {
 	return <FullPageExample editorProps={editorProps} />;
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<EditorContext>
 			<Comp />

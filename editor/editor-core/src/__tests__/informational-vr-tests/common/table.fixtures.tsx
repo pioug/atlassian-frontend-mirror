@@ -5,7 +5,7 @@ import defaultTableAdf from '../../__fixtures__/default-table.adf.json';
 import nestedTableAdf from '../../__fixtures__/nested-table-inside-columns.adf.json';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
-export function EditorWithTable() {
+export function EditorWithTable(): React.JSX.Element {
 	return (
 		<Editor
 			appearance="full-page"
@@ -17,7 +17,7 @@ export function EditorWithTable() {
 }
 
 // eslint-disable-next-line jsdoc/require-jsdoc
-export function EditorWithNestedTable() {
+export function EditorWithNestedTable(): React.JSX.Element {
 	return (
 		<Editor
 			appearance="full-page"

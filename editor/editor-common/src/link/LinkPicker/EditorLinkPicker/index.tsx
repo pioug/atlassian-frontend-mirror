@@ -38,7 +38,7 @@ export const EditorLinkPicker = ({
 	onEscapeCallback,
 	onClickAwayCallback,
 	...restProps
-}: EditorLinkPickerProps) => {
+}: EditorLinkPickerProps): React.JSX.Element => {
 	/**
 	 * Track onClose handler in a
 	 * ref so that we void needing it in the dependency array

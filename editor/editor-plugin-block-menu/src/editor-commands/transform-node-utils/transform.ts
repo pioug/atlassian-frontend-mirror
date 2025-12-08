@@ -16,6 +16,7 @@ import { unwrapExpandStep } from './unwrapExpandStep';
 import { unwrapListStep } from './unwrapListStep';
 import { unwrapStep } from './unwrapStep';
 import { wrapIntoLayoutStep } from './wrapIntoLayoutStep';
+import { wrapMixedContentStep } from './wrapMixedContentStep';
 import { wrapStep } from './wrapStep';
 
 // Exampled step for overrides:
@@ -67,15 +68,15 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		codeBlock: [unwrapStep, flattenStep, wrapStep],
 	},
 	expand: {
-		panel: [unwrapExpandStep, wrapStep],
-		blockquote: [unwrapExpandStep, wrapStep],
+		panel: [unwrapExpandStep, wrapMixedContentStep],
+		blockquote: [unwrapExpandStep, wrapMixedContentStep],
 		layoutSection: [unwrapExpandStep, wrapIntoLayoutStep],
 		paragraph: [unwrapExpandStep],
 		codeBlock: [unwrapExpandStep, flattenStep, wrapStep],
 	},
 	nestedExpand: {
-		panel: [unwrapExpandStep, wrapStep],
-		blockquote: [unwrapExpandStep, wrapStep],
+		panel: [unwrapExpandStep, wrapMixedContentStep],
+		blockquote: [unwrapExpandStep, wrapMixedContentStep],
 		paragraph: [unwrapExpandStep],
 		codeBlock: [unwrapExpandStep, flattenStep, wrapStep],
 	},

@@ -16,7 +16,7 @@ const initialState = {
 	imageUrl: '',
 };
 
-const ExternalSrcAvatar: FC = (props) => {
+const ExternalSrcAvatar: FC = () => {
 	const [{ inputValue, imageUrl }, setState] = useState<State>(initialState);
 	const [avatarKey, setAvatarKey] = useState(0);
 

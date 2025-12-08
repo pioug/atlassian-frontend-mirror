@@ -87,7 +87,7 @@ const dataItems: ItemData[] = [
 	},
 ];
 
-export default function CategoryNavButtonExample() {
+export default function CategoryNavButtonExample(): React.JSX.Element {
 	return (
 		<Box xcss={outerBoxContainerStyles}>
 			<Stack space="space.200">

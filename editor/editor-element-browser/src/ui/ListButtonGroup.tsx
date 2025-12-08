@@ -85,7 +85,7 @@ export const ListButtonGroupWithHeading = memo(
 		onItemSelected,
 		setSelectedItem,
 		startingIndex,
-	}: ListButtonGroupProps) => {
+	}: ListButtonGroupProps): React.JSX.Element => {
 		return (
 			<ListButtonGroupBase
 				id={id}
@@ -108,7 +108,7 @@ export const ListButtonGroup = memo(
 		onItemSelected,
 		setSelectedItem,
 		startingIndex,
-	}: Omit<ListButtonGroupProps, 'label'>) => {
+	}: Omit<ListButtonGroupProps, 'label'>): React.JSX.Element => {
 		return (
 			<ListButtonGroupBase
 				id={id}

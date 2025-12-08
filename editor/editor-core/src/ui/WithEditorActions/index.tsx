@@ -16,7 +16,7 @@ export default class WithEditorActions extends React.Component<WithEditorActions
 		super(props);
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		// Ignored via go/ees005
 		// eslint-disable-next-line react/jsx-props-no-spreading
 		return <WithEditorActionsNew {...this.props} />;

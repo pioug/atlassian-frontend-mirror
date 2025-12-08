@@ -21,21 +21,21 @@ const DropdownItemCheckboxExample = (): React.JSX.Element => {
 			<DropdownItemCheckboxGroup title="Categories" id="actions">
 				<DropdownItemCheckbox
 					id="todo"
-					onClick={(e) => toggle('todo')}
+					onClick={() => toggle('todo')}
 					isSelected={checked['todo']}
 				>
 					To do
 				</DropdownItemCheckbox>
 				<DropdownItemCheckbox
 					id="inprogress"
-					onClick={(e) => toggle('inprogress')}
+					onClick={() => toggle('inprogress')}
 					isSelected={checked['inprogress']}
 				>
 					In progress
 				</DropdownItemCheckbox>
 				<DropdownItemCheckbox
 					id="done"
-					onClick={(e) => toggle('done')}
+					onClick={() => toggle('done')}
 					isSelected={checked['done']}
 				>
 					Done

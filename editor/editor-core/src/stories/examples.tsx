@@ -30,7 +30,7 @@ export default {
 };
 
 const groupId = 'GROUP-ID1';
-const Template = (args: EditorProps) => (
+const Template = (args: EditorProps): React.JSX.Element => (
 	<WrapperEditorComponent
 		allowUndoRedoButtons={boolean('Undo/Redo Buttons', false, groupId)}
 		allowPanel={boolean('Panel', false, groupId)}

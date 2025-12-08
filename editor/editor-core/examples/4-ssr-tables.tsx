@@ -721,7 +721,7 @@ const adfDocument = {
 	],
 };
 
-export default function SSRTableBasic() {
+export default function SSRTableBasic(): React.JSX.Element {
 	return (
 		<SSRSimulator
 			name="SSR: Basic Tables Example"

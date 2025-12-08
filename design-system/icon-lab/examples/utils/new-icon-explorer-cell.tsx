@@ -67,7 +67,7 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 			if (!wasCopied) {
 				throw new Error();
 			}
-		} catch (err) {
+		} catch {
 			console.error('Unable to copy text');
 		}
 	};

@@ -48,11 +48,11 @@ describe('Flag analytics', () => {
 				<WithBoth
 					onPublicEvent={onPublicEvent}
 					onAtlaskitEvent={onAtlaskitEvent}
-					flagProps={{
-						[action.method]: (e: React.FocusEvent, analyticsEvent: UIAnalyticsEvent) => {
-							analyticsEvent.fire();
-						},
-					}}
+			flagProps={{
+				[action.method]: (_e: React.FocusEvent, analyticsEvent: UIAnalyticsEvent) => {
+					analyticsEvent.fire();
+				},
+			}}
 				/>,
 			);
 			const flag: HTMLElement = screen.getByTestId('flag');
@@ -93,9 +93,9 @@ describe('Flag analytics', () => {
 			<WithBoth
 				onPublicEvent={onPublicEvent}
 				onAtlaskitEvent={onAtlaskitEvent}
-				onDismissed={(id: number | string, analyticsEvent: UIAnalyticsEvent) => {
-					analyticsEvent.fire();
-				}}
+			onDismissed={(_id: number | string, analyticsEvent: UIAnalyticsEvent) => {
+				analyticsEvent.fire();
+			}}
 			/>,
 		);
 		const flagDismiss: HTMLElement = screen.getByTestId('flag-dismiss');
@@ -139,11 +139,11 @@ describe('Flag analytics', () => {
 			<WithBoth
 				onPublicEvent={onPublicEvent}
 				onAtlaskitEvent={onAtlaskitEvent}
-				flagProps={{
-					onDismissed: (id: number | string, analyticsEvent: UIAnalyticsEvent) => {
-						analyticsEvent.fire();
-					},
-				}}
+			flagProps={{
+				onDismissed: (_id: number | string, analyticsEvent: UIAnalyticsEvent) => {
+					analyticsEvent.fire();
+				},
+			}}
 			/>,
 		);
 		const flagDismiss: HTMLElement = screen.getByTestId('flag-dismiss');

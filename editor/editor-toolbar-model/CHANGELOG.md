@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar-model
 
+## 0.2.9
+
+### Patch Changes
+
+- [`5baa955ebe237`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5baa955ebe237) -
+  Add new menu section for all extensions (inc. loom and 1p, 3p extensions), add logic to hide menu
+  button completely when there are no menu-sections with no menu-items associated with it
+
 ## 0.2.8
 
 ### Patch Changes

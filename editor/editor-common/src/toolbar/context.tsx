@@ -44,7 +44,7 @@ export const EditorToolbarProvider = ({
 	editorViewMode,
 	editorToolbarDockingPreference,
 	isOffline,
-}: EditorToolbarProviderProps) => {
+}: EditorToolbarProviderProps): React.JSX.Element => {
 	return (
 		<EditorToolbarContext.Provider
 			value={{

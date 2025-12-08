@@ -257,7 +257,7 @@ const LazyNodeViewComparison = memo(
 	},
 );
 
-export default function MediaSingleLazyNodeViewComparisonAlignment() {
+export default function MediaSingleLazyNodeViewComparisonAlignment(): React.JSX.Element {
 	return (
 		<LazyNodeViewComparison name="LazyNode: Example" appearance="full-page" direction="column" />
 	);

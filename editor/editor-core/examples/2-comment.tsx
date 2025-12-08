@@ -100,7 +100,7 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 
 	private getProperLanguageKey = (locale: string) => locale.replace('_', '-');
 
-	render() {
+	render(): React.JSX.Element {
 		if (!this.state.hasJquery) {
 			return <h3>Please wait, loading jQuery ...</h3>;
 		}

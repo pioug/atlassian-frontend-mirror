@@ -28,7 +28,7 @@ function hasSameOrigin(href1: string, href2: string): boolean {
 	try {
 		url1 = new URL(href1);
 		url2 = new URL(href2);
-	} catch (error) {
+	} catch {
 		// failed to parse a href
 		return false;
 	}

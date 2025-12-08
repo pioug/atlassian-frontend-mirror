@@ -64,7 +64,6 @@ const PopupContent: FC<PopupProps> = ({
 	setPosition,
 	position,
 	updateButtonWidth,
-	updateA11YMessage,
 	buttonWidth,
 	update,
 }) => {

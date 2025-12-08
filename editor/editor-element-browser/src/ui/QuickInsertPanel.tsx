@@ -174,7 +174,7 @@ const EmptySearchView = () => {
 };
 
 export const QuickInsertPanel = memo(
-	({ items, onItemInsert, onViewAllItemsClick, query, setSelectedItem }: QuickInsertPanelProps) => {
+	({ items, onItemInsert, onViewAllItemsClick, query, setSelectedItem }: QuickInsertPanelProps): React.JSX.Element => {
 		const onItemSelect = useCallback(
 			(index: number) => {
 				onItemInsert(SelectItemMode.SELECTED, index);

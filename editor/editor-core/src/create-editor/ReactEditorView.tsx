@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useMemo, useRef, useState, useEffect } from 'react';
 
 import { injectIntl } from 'react-intl-next';
 import type { WrappedComponentProps, WithIntlProps } from 'react-intl-next';
@@ -19,6 +19,7 @@ import {
 	fireAnalyticsEvent,
 	PLATFORMS,
 } from '@atlaskit/editor-common/analytics';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { createDispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useConstructor, usePreviousState } from '@atlaskit/editor-common/hooks';
 import { nodeVisibilityManager } from '@atlaskit/editor-common/node-visibility';
@@ -51,11 +52,12 @@ import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugins/context-i
 import { type CustomAutoformatPlugin } from '@atlaskit/editor-plugins/custom-autoformat';
 import { type EmojiPlugin } from '@atlaskit/editor-plugins/emoji';
 import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { EditorSSRRenderer } from '@atlaskit/editor-ssr-renderer';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -139,7 +141,7 @@ type ReactEditorViewPlugins = [
 	OptionalPlugin<CustomAutoformatPlugin>,
 ];
 
-export function ReactEditorView(props: EditorViewProps) {
+export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 	const {
 		preset,
 		editorProps: {
@@ -215,6 +217,37 @@ export function ReactEditorView(props: EditorViewProps) {
 		}),
 	);
 
+	const parseDoc = useCallback(
+		(
+			schema: Schema,
+			api: ReturnType<typeof pluginInjectionAPI.current.api> | undefined,
+			options: {
+				doc?: CreateEditorStateOptions['doc'];
+				props: Pick<CreateEditorStateOptions['props'], 'providerFactory' | 'editorProps'>;
+			},
+		): PMNode | undefined => {
+			if (!options.doc) {
+				return undefined;
+			}
+
+			// if the collabEdit API is set, skip this validation due to potential pm validation errors
+			// from docs that end up with invalid marks after processing (See #hot-111702 for more details)
+			if (api?.collabEdit !== undefined || options.props.editorProps.skipValidation) {
+				return processRawValueWithoutValidation(schema, options.doc, dispatchAnalyticsEvent);
+			} else {
+				return processRawValue(
+					schema,
+					options.doc,
+					options.props.providerFactory,
+					options.props.editorProps.sanitizePrivateContent,
+					contentTransformer.current,
+					dispatchAnalyticsEvent,
+				);
+			}
+		},
+		[dispatchAnalyticsEvent],
+	);
+
 	const createEditorState = useCallback(
 		(options: CreateEditorStateOptions): EditorState => {
 			let schema;
@@ -273,23 +306,7 @@ export function ReactEditorView(props: EditorViewProps) {
 			const api = pluginInjectionAPI.current.api();
 
 			// If we have a doc prop, we need to process it into a PMNode
-			let doc;
-			if (options.doc) {
-				// if the collabEdit API is set, skip this validation due to potential pm validation errors
-				// from docs that end up with invalid marks after processing (See #hot-111702 for more details)
-				if (api?.collabEdit !== undefined || options.props.editorProps.skipValidation) {
-					doc = processRawValueWithoutValidation(schema, options.doc, dispatchAnalyticsEvent);
-				} else {
-					doc = processRawValue(
-						schema,
-						options.doc,
-						options.props.providerFactory,
-						options.props.editorProps.sanitizePrivateContent,
-						contentTransformer.current,
-						dispatchAnalyticsEvent,
-					);
-				}
-			}
+			const doc = parseDoc(schema, api, options);
 
 			const isViewMode = api?.editorViewMode?.sharedState.currentState().mode === 'view';
 
@@ -324,6 +341,7 @@ export function ReactEditorView(props: EditorViewProps) {
 		[
 			errorReporter,
 			featureFlags,
+			parseDoc,
 			props.intl,
 			props.portalProviderAPI,
 			props.nodeViewPortalProviderAPI,
@@ -335,13 +353,20 @@ export function ReactEditorView(props: EditorViewProps) {
 	);
 
 	const initialEditorState = useMemo(
-		() =>
-			createEditorState({
+		() => {
+			if (isSSR() && expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+				// We don't need to create initial state in SSR, it would be done by EditorSSRRenderer,
+				// so we can save some CPU time here.
+				return undefined;
+			}
+
+			return createEditorState({
 				props,
 				doc: defaultValue,
 				// ED-4759: Don't set selection at end for full-page editor - should be at start.
 				selectionAtStart: isFullPage(nextAppearance),
-			}),
+			});
+		},
 		// This is only used for the initial state - afterwards we will have `viewRef` available for use
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[],
@@ -414,6 +439,10 @@ export function ReactEditorView(props: EditorViewProps) {
 	});
 
 	useLayoutEffect(() => {
+		if (isSSR() && expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+			return;
+		}
+
 		// Transaction dispatching is already enabled by default prior to
 		// mounting, but we reset it here, just in case the editor view
 		// instance is ever recycled (mounted again after unmounting) with
@@ -434,6 +463,11 @@ export function ReactEditorView(props: EditorViewProps) {
 
 	// Cleanup
 	useLayoutEffect(() => {
+		if (isSSR() && expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+			// No cleanup in SSR should happened because SSR doesn't render a real editor.
+			return;
+		}
+
 		return () => {
 			const focusTimeoutIdCurrent = focusTimeoutId.current;
 			if (focusTimeoutIdCurrent) {
@@ -555,8 +589,16 @@ export function ReactEditorView(props: EditorViewProps) {
 
 	const getDirectEditorProps = useCallback(
 		(state?: EditorState): DirectEditorProps => {
+			const stateToUse = state ?? getCurrentEditorState();
+			if (!stateToUse) {
+				// This should not be happened, because initialState is only inavailable in SSR,
+				// but in SSR this function should never be called.
+				// In SSR we should use EditorSSRRenderer instead usual ProseMirror editor.
+				throw new Error('No editor state found');
+			}
+
 			return {
-				state: state ?? getCurrentEditorState(),
+				state: stateToUse,
 				dispatchTransaction: (tr: Transaction) => {
 					// Block stale transactions:
 					// Prevent runtime exceptions from async transactions that would attempt to
@@ -683,6 +725,11 @@ export function ReactEditorView(props: EditorViewProps) {
 		originalScrollToRestore.current !== 0;
 
 	useLayoutEffect(() => {
+		if (isSSR() && expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+			// We don't need to focus anything in SSR.
+			return;
+		}
+
 		if (
 			shouldFocus &&
 			editorView?.props.editable?.(editorView.state) &&
@@ -712,7 +759,12 @@ export function ReactEditorView(props: EditorViewProps) {
 	const scrollElement = React.useRef<Element | null>();
 	const possibleListeners = React.useRef([] as [event: string, handler: () => void][]);
 
-	React.useEffect(() => {
+	useEffect(() => {
+		if (isSSR() && expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+			// No event listeners should be attached to scroll element in SSR.
+			return;
+		}
+
 		return () => {
 			if (scrollElement.current) {
 				// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -934,6 +986,11 @@ export function ReactEditorView(props: EditorViewProps) {
 	const previousPreset = usePreviousState(preset);
 
 	useLayoutEffect(() => {
+		if (isSSR() && expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+			// No state reconfiguration is supported in SSR.
+			return;
+		}
+
 		if (previousPreset && previousPreset !== preset) {
 			reconfigureState(props);
 		}
@@ -942,6 +999,11 @@ export function ReactEditorView(props: EditorViewProps) {
 	const previousDisabledState = usePreviousState(disabled);
 
 	useLayoutEffect(() => {
+		if (isSSR() && expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+			// We don't need to focus anything in SSR.
+			return;
+		}
+
 		if (viewRef.current && previousDisabledState !== disabled) {
 			// Disables the contentEditable attribute of the editor if the editor is disabled
 			viewRef.current.setProps({
@@ -969,12 +1031,73 @@ export function ReactEditorView(props: EditorViewProps) {
 
 	useFireFullWidthEvent(nextAppearance, dispatchAnalyticsEvent);
 
+	// This function uses as prop as `<EditorSSRRender>` so, thay should be memoized,
+	// to avoid extra rerenders.
+	const buildDoc = useCallback(
+		(schema: Schema) => {
+			return parseDoc(schema, undefined, {
+				// Don't pass all props here, use only what you need to keep hook dependencies more stable.
+				// Check what `parseDoc` consumes and pass only needed data.
+				props: {
+					providerFactory: props.providerFactory,
+					editorProps: {
+						sanitizePrivateContent: props.editorProps.sanitizePrivateContent,
+					},
+				},
+				doc: defaultValue,
+			});
+		},
+		[defaultValue, parseDoc, props.editorProps.sanitizePrivateContent, props.providerFactory],
+	);
+
+	const ssrEditor = useMemo(() => {
+		if (!isSSR() || !expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+			return null;
+		}
+
+		return (
+			<EditorSSRRenderer
+				intl={props.intl}
+				preset={preset}
+				portalProviderAPI={props.portalProviderAPI}
+				pluginInjectionAPI={pluginInjectionAPI.current}
+				buildDoc={buildDoc}
+				// IMPORTANT: Keep next props in sync with div that renders a real ProseMirror editor.
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={`ProseMirror ${getUAPrefix()}`}
+				key="ProseMirror"
+				aria-label={
+					props.editorProps.assistiveLabel ||
+					props.intl.formatMessage(editorMessages.editorAssistiveLabel)
+				}
+				id={EDIT_AREA_ID}
+				aria-describedby={props.editorProps.assistiveDescribedBy}
+				data-editor-id={editorId.current}
+			/>
+		);
+	}, [
+		props.intl,
+		props.portalProviderAPI,
+		props.editorProps.assistiveLabel,
+		props.editorProps.assistiveDescribedBy,
+		preset,
+		buildDoc,
+	]);
+
 	const editor = useMemo(
-		() => createEditor(props.editorProps.assistiveLabel, props.editorProps.assistiveDescribedBy),
+		() => {
+			// SSR editor will be available only in SSR environment,
+			// in a browser `ssrEditor` will be `null`, and we will render a normal one ProseMirror.
+			if (ssrEditor) {
+				return ssrEditor;
+			}
+
+			return createEditor(props.editorProps.assistiveLabel, props.editorProps.assistiveDescribedBy);
+		},
 		// `createEditor` changes a little too frequently - we don't want to recreate the editor view in this case
 		// We should follow-up
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[props.editorProps.assistiveLabel, props.editorProps.assistiveDescribedBy],
+		[props.editorProps.assistiveLabel, props.editorProps.assistiveDescribedBy, ssrEditor],
 	);
 
 	// Render tracking is firing too many events in Jira so we are disabling them for now. See - https://product-fabric.atlassian.net/browse/ED-25616

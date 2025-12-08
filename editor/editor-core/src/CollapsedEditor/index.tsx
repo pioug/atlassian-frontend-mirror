@@ -44,7 +44,7 @@ export default class CollapsedEditor extends React.Component<Props, State> {
 		});
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		if (!this.props.isExpanded) {
 			return <ChromeCollapsed onFocus={this.props.onClickToExpand} text={this.props.placeholder} />;
 		}

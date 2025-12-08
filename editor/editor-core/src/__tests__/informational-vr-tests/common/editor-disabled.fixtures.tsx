@@ -10,7 +10,7 @@ import { selectionMarkerPlugin } from '@atlaskit/editor-plugins/selection-marker
 
 import { editorDisabledAdf } from './editor-disabled.adf';
 
-export function Editor() {
+export function Editor(): React.JSX.Element {
 	const { preset } = usePreset(() => {
 		return new EditorPresetBuilder()
 			.add(basePlugin)

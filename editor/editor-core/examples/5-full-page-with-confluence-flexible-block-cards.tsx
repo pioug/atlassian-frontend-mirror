@@ -37,7 +37,7 @@ const exampleDocument = {
 // put into separate constant because prettier can't handle // in JSX
 const jdogURL = 'https://jdog.jira-dev.com/browse/BENTO-3922';
 
-export function Example() {
+export function Example(): React.JSX.Element {
 	return (
 		// We must wrap the <Editor> with a provider, passing cardClient via prop
 		<SmartCardProvider client={cardClient}>

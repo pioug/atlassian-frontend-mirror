@@ -165,17 +165,17 @@ const ButtonBase = memo(
 	},
 );
 
-export const LinkNavButton = memo((props: Omit<ButtonBaseProps, 'mode' | 'isExpanded'>) => (
+export const LinkNavButton = memo((props: Omit<ButtonBaseProps, 'mode' | 'isExpanded'>): React.JSX.Element => (
 	// eslint-disable-next-line react/jsx-props-no-spreading
 	<ButtonBase mode="navigation" {...props}></ButtonBase>
 ));
 
-export const ExpandableNavButton = memo((props: Omit<ButtonBaseProps, 'mode' | 'isSelected'>) => (
+export const ExpandableNavButton = memo((props: Omit<ButtonBaseProps, 'mode' | 'isSelected'>): React.JSX.Element => (
 	// eslint-disable-next-line react/jsx-props-no-spreading
 	<ButtonBase mode="expandable" {...props}></ButtonBase>
 ));
 
-export const BackNavButton = memo(({ label, onClick }: { label: string; onClick: () => void }) => {
+export const BackNavButton = memo(({ label, onClick }: { label: string; onClick: () => void }): React.JSX.Element => {
 	return (
 		<Tooltip content={label} position="top" ignoreTooltipPointerEvents={true}>
 			{(tooltipProps) => (

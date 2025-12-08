@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useIconThemed } from '../use-icon-themed';
 
-export default function IconHeading5() {
+export default function IconHeading5(): React.JSX.Element {
 	const { iconThemed } = useIconThemed();
 	return (
 		<svg focusable="false" aria-hidden width={40} height={40} viewBox="0 0 40 40">

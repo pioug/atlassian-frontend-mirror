@@ -1,5 +1,13 @@
 # @atlaskit/radio
 
+## 8.3.14
+
+### Patch Changes
+
+- [`a60a82196851a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a60a82196851a) -
+  Internal refactors to remove unused variables. No functional or public changes.
+- Updated dependencies
+
 ## 8.3.13
 
 ### Patch Changes

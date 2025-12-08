@@ -20,7 +20,8 @@ export { useHandleContentChanges } from './hooks/useHandleContentChanges';
 
 // clients
 export {
-	blockResourceIdFromSourceAndLocalId,
+	generateBlockAri,
+	generateBlockAriFromReference,
 	getLocalIdFromBlockResourceId,
 } from './clients/block-service/ari';
 export {

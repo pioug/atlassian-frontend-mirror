@@ -173,7 +173,7 @@ const mediaAsyncOperations = async (props: {
 			});
 			props.addPendingTask(copyNode);
 			await copyNode;
-		} catch (e) {}
+		} catch {}
 	}
 };
 
@@ -618,7 +618,7 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 						{mediaOptions.allowCommentsOnMedia && (
 							<CommentBadgeWrapper
 								view={view}
-								api={pluginInjectionApi as ExtractInjectionAPI<MediaNextEditorPluginType>}
+								api={pluginInjectionApi}
 								mediaNode={mediaNode?.firstChild}
 								getPos={getPos}
 								isDrafting={isCurrentNodeDrafting}

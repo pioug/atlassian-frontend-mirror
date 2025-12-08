@@ -16,9 +16,9 @@ it('Popper should pass axe audit', async () => {
 					</button>
 				)}
 			</Reference>
-			<Popper placement="right">
-				{({ ref, style }) => <div ref={ref}>This text is a popper placed to the right</div>}
-			</Popper>
+		<Popper placement="right">
+			{({ ref }) => <div ref={ref}>This text is a popper placed to the right</div>}
+		</Popper>
 		</Manager>,
 	);
 	await axe(container);

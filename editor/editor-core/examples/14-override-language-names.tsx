@@ -41,7 +41,7 @@ function Editor() {
 	return <ComposableEditor preset={preset} />;
 }
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<div>
 			<p>{'A basic example of overriding the label of a language options to a different name.'}</p>

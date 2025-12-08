@@ -28,7 +28,7 @@ const selector = (
 };
 
 type CommentBadgeWrapperProps = {
-	api: ExtractInjectionAPI<MediaNextEditorPluginType>;
+	api?: ExtractInjectionAPI<MediaNextEditorPluginType>;
 	getPos: getPosHandler;
 	isDrafting?: boolean;
 	marks?: AnnotationMarkDefinition[];
@@ -72,11 +72,11 @@ export const CommentBadgeWrapper = ({
 	}, [selectedAnnotations, isInlineCommentViewClosed, mediaNode]);
 
 	const onClick = useCallback(() => {
-		if (api.annotation && mediaNode) {
+		if (api?.annotation && mediaNode) {
 			const { showCommentForBlockNode } = api.annotation.actions;
 			showCommentForBlockNode(mediaNode, VIEW_METHOD.BADGE)(state, dispatch);
 		}
-	}, [api.annotation, dispatch, mediaNode, state]);
+	}, [api?.annotation, dispatch, mediaNode, state]);
 
 	const pos = getPos();
 

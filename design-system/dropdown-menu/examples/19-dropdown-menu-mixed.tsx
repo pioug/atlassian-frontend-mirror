@@ -17,7 +17,6 @@ import { token } from '@atlaskit/tokens';
 
 interface SearchDropdownItemProps {
 	setFilteredOptions: React.Dispatch<React.SetStateAction<{ label: string; value: string }[]>>;
-	filteredOptions: { label: string; value: string }[];
 }
 
 const searchOptions = [
@@ -26,7 +25,7 @@ const searchOptions = [
 	{ label: 'Option 3', value: 'option3' },
 ];
 
-const SearchDropdownItem = ({ setFilteredOptions, filteredOptions }: SearchDropdownItemProps) => {
+const SearchDropdownItem = ({ setFilteredOptions }: SearchDropdownItemProps) => {
 	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const searchText = e.target.value.toLowerCase();
 		const filteredItems = searchOptions.filter((option) =>
@@ -115,10 +114,7 @@ const SearchableDropdown = () => {
 					<DropdownItem key={filteredOption.value}>{filteredOption.label}</DropdownItem>
 				))}
 			</Box>
-			<SearchDropdownItem
-				filteredOptions={filteredOptions}
-				setFilteredOptions={setFilteredOptions}
-			/>
+			<SearchDropdownItem setFilteredOptions={setFilteredOptions} />
 		</Box>
 	);
 };
@@ -147,10 +143,10 @@ const styles = cssMap({
 	container: {
 		display: 'flex',
 		alignItems: 'flex-start',
-		paddingTop: token('space.200', '16px'),
-		paddingRight: token('space.200', '16px'),
-		paddingBottom: token('space.200', '16px'),
-		paddingLeft: token('space.200', '16px'),
+		paddingBlockStart: token('space.200', '16px'),
+		paddingInlineEnd: token('space.200', '16px'),
+		paddingBlockEnd: token('space.200', '16px'),
+		paddingInlineStart: token('space.200', '16px'),
 	},
 });
 

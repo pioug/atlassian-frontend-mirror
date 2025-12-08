@@ -52,10 +52,6 @@ const CONTEXTUAL_MENU_BUTTON_Z_INDEX = 2;
 
 const anchorStyles = css({
 	position: 'absolute',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-	top: `calc(anchor(top) + ${BUTTON_OFFSET}px)`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-	right: `calc(anchor(right) + ${BUTTON_OFFSET}px)`,
 	positionVisibility: 'anchors-visible',
 	zIndex: CONTEXTUAL_MENU_BUTTON_Z_INDEX,
 });
@@ -128,21 +124,32 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 	const parentSticky =
 		targetCellRef.parentElement && targetCellRef.parentElement.className.indexOf('sticky') > -1;
 
+	const parentStickyNative =
+		targetCellRef.parentElement &&
+		targetCellRef.parentElement.classList.contains(ClassName.NATIVE_STICKY);
+
 	if (
+		expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
 		expValEquals(
 			'platform_editor_table_sticky_header_improvements',
 			'cohort',
 			'test_with_overflow',
 		) &&
 		isAnchorSupported() &&
-		targetCellRef.nodeName === 'TH'
+		targetCellRef.nodeName === 'TH' &&
+		parentStickyNative
 	) {
 		const anchorName = targetCellRef.dataset.nodeAnchor ?? '';
+		const rowAnchorName = targetCellRef.parentElement?.dataset.nodeAnchor ?? '';
+
 		return (
 			<div
 				css={anchorStyles}
 				style={
 					{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+						top: `calc(${BUTTON_OFFSET}px + anchor(${rowAnchorName} top))`,
+						right: `calc(${BUTTON_OFFSET}px + anchor(${anchorName} right))`,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 						positionAnchor: anchorName,
 					} as CSSProperties

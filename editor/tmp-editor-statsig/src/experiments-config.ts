@@ -553,13 +553,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-08-14
-	platform_editor_jira_advanced_code_blocks: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-08-18
 	platform_editor_locale_datepicker: {
 		defaultValue: boolean;
@@ -784,6 +777,12 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	platform_editor_smart_card_otp: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	platform_editor_ssr_renderer: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1307,6 +1306,13 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	platform_editor_ssr_renderer: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ssr_renderer',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-01-13
 	platform_editor_element_drag_and_drop_multiselect: createBooleanExperiment({
 		productKeys: {
@@ -1443,14 +1449,6 @@ export const editorExperimentsConfig: {
 	platform_editor_debounce_portal_provider: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_debounce_portal_provider',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-08-14
-	platform_editor_jira_advanced_code_blocks: createBooleanExperiment({
-		productKeys: {
-			jira: 'platform_editor_jira_advanced_code_blocks',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

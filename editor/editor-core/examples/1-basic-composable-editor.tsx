@@ -16,7 +16,7 @@ function Editor() {
 	return <ComposableEditor preset={preset} />;
 }
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<div>
 			<p>

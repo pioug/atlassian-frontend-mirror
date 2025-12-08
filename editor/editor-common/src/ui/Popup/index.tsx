@@ -431,7 +431,7 @@ export default class Popup extends React.Component<Props, State> {
 		);
 	}
 
-	render() {
+	render(): React.JSX.Element | null {
 		const { target, mountTo } = this.props;
 		const { validPosition } = this.state;
 

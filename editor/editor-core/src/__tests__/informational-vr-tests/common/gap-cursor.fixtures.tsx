@@ -14,7 +14,7 @@ import gapcursor from '../../__fixtures__/gap-cursor-adf.json';
 import gapcursorLayout from '../../__fixtures__/gap-cursor-layout-adf.json';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
-export function EditorGapCursorDefault() {
+export function EditorGapCursorDefault(): React.JSX.Element {
 	return (
 		<Editor
 			defaultValue={gapcursor}
@@ -25,7 +25,7 @@ export function EditorGapCursorDefault() {
 	);
 }
 
-export function EditorGapCursorLayout() {
+export function EditorGapCursorLayout(): React.JSX.Element {
 	const preset = createDefaultPreset({
 		base: { allowScrollGutter: undefined },
 		paste: {},

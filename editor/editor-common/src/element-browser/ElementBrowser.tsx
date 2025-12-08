@@ -123,7 +123,7 @@ export default class ElementBrowser extends PureComponent<Props, State> {
 		});
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			onInsertItem,
 			onSelectItem,

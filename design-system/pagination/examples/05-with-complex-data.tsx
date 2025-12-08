@@ -15,7 +15,7 @@ export default function ComplexDataExample(): React.JSX.Element {
 		href: 'page-1',
 	});
 
-	const handleChange = (event: SyntheticEvent, newPage: any) => setOnChangeEvent(newPage);
+	const handleChange = (_event: SyntheticEvent, newPage: any) => setOnChangeEvent(newPage);
 
 	const getLabel = ({ label }: any) => label;
 

@@ -50,7 +50,7 @@ export const isUnbadgedUrl = (url: string | undefined) => {
 	);
 };
 
-export const ExternalImageBadge = ({ type, url }: ExternalImageBadgeProps) => {
+export const ExternalImageBadge = ({ type, url }: ExternalImageBadgeProps): React.JSX.Element | null => {
 	const intl = useIntl();
 	const message = intl.formatMessage(externalMediaMessages.externalMediaFile);
 

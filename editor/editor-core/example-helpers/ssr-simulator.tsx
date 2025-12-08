@@ -207,7 +207,7 @@ export const SSRSimulator = memo(
 		initialPluginConfiguration?: InitialPluginConfiguration;
 		name: string;
 		props?: UniversalPresetProps;
-	}) => {
+	}): React.JSX.Element => {
 		const [mockedReady, setMockedReady] = useState(false);
 		const [notMockedReady, setNotMockedReady] = useState(false);
 

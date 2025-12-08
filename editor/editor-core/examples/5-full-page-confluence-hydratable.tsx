@@ -15,7 +15,7 @@ import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 
 import { hydrateAdf } from '../example-helpers/example-data/hydrate-adf';
 
-const HydratableEditorExample = () => {
+const HydratableEditorExample = (): React.JSX.Element => {
 	const smartCardClient = React.useMemo(() => new CardClient('staging'), []);
 	const providers = React.useMemo(() => getExamplesProviders({ sanitizePrivateContent: true }), []);
 	const collabEditProvider = React.useMemo(() => {

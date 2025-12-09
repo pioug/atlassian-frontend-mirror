@@ -64,5 +64,5 @@ const PanelBlockMenuItem = ({ api }: Props) => {
 };
 
 export const createPanelBlockMenuItem = (api: ExtractInjectionAPI<PanelPlugin> | undefined) => {
-	return () => <PanelBlockMenuItem api={api} />;
+	return (): React.JSX.Element => <PanelBlockMenuItem api={api} />;
 };

@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import { ANALYTICS_CHANNEL } from '../common/constants';
-import { useRovoAgentCSID } from '../common/hooks';
+import { useRovoAgentCSID } from '../common/csid';
 import { getDefaultTrackEventConfig } from '../common/utils';
 
 type CommonAnalyticsAttributes = {
@@ -11,13 +11,15 @@ type CommonAnalyticsAttributes = {
 } & Record<string, any>;
 
 export enum AgentCreateActions {
-	START = 'createSessionStart',
-	COMPLETE = 'createSessionComplete',
-	ERROR = 'createSessionError',
+	START = 'createFlowStart',
+	SKIP_NL = 'createFlowSkipNL',
+	REVIEW_NL = 'createFlowReviewNL',
+	ACTIVATE = 'createFlowActivate',
+	ERROR = 'createFlowError',
 }
 
 export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAttributes) => {
-	const csid = useRovoAgentCSID();
+	const [csid, { refresh: refreshCSID }] = useRovoAgentCSID();
 
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const eventConfig = getDefaultTrackEventConfig();
@@ -48,6 +50,18 @@ export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAtt
 		[fireAnalyticsEvent],
 	);
 
+	const trackCreateSessionStart = useCallback(
+		(attributes?: CommonAnalyticsAttributes) => {
+			fireAnalyticsEvent({
+				actionSubject: 'rovoAgent',
+				action: AgentCreateActions.START,
+				attributes,
+			});
+			refreshCSID();
+		},
+		[fireAnalyticsEvent, refreshCSID],
+	);
+
 	const trackCreateSessionError = useCallback(
 		(error: Error, attributes?: CommonAnalyticsAttributes) => {
 			fireAnalyticsEvent({
@@ -64,8 +78,12 @@ export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAtt
 		[fireAnalyticsEvent],
 	);
 
-	return {
-		trackCreateSession,
-		trackCreateSessionError,
-	};
+	return [
+		csid,
+		{
+			trackCreateSession,
+			trackCreateSessionStart,
+			trackCreateSessionError,
+		},
+	] as const;
 };

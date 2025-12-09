@@ -6,7 +6,7 @@ import Portal from '@atlaskit/portal';
 import { Box, Inline } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-export default function BasicPortalExample() {
+export default function BasicPortalExample(): React.JSX.Element {
 	const [zIndexes, setzIndex] = useState({ zIndex1: 100, zIndex2: 200 });
 	const [child, setChild] = useState(1);
 	return (

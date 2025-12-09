@@ -99,11 +99,7 @@ export const FlyoutMenuItemTrigger: React.ForwardRefExoticComponent<
 					elemBefore={elemBefore}
 					elemAfter={
 						<div css={elemAfterStyles.root}>
-							<ChevronRightIcon
-								label=""
-								color="currentColor"
-								size="small"
-							/>
+							<ChevronRightIcon label="" color="currentColor" size="small" />
 						</div>
 					}
 					onClick={onClick}

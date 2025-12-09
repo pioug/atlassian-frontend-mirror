@@ -622,13 +622,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-11-05
-	platform_editor_nested_table_detection: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-09-16
 	platform_editor_nested_table_refresh_width_fix: {
 		defaultValue: boolean;
@@ -795,12 +788,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	platform_editor_table_drag_handle_hover: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-10-27
 	platform_editor_table_sticky_header_improvements: {
 		defaultValue: 'control' | 'test_with_overflow' | 'test_without_overflow';
@@ -923,6 +910,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2025-12-08
+	platform_editor_add_image_editing: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-08-17
 	platform_hover_card_preview_panel: {
 		defaultValue: 'control' | 'test';
@@ -1016,6 +1010,20 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2025-03-12
+	platform_editor_use_pmr_for_collab_presence_non_ic: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-03-12
+	platform_editor_use_pmr_for_collab_presence_in_ic: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2024-08-08
 	'test-new-experiments-package': {
 		defaultValue: boolean;
@@ -1025,6 +1033,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-03-12
 	platform_editor_nested_media_selection_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-12-04
+	platform_editor_scroll_gutter_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1179,14 +1194,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'confluence_editor_experiment_test_new_package',
 			jira: 'jira_editor_experiment_test_new_package',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	platform_editor_table_drag_handle_hover: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_table_drag_handle_hover',
-			jira: 'platform_editor_table_drag_handle_hover',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2087,14 +2094,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-11-05
-	platform_editor_nested_table_detection: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_nested_table_detection',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-10-24
 	platform_editor_fix_clone_nesting_exp: createBooleanExperiment({
 		productKeys: {
@@ -2179,9 +2178,43 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2025-12-03
+	platform_editor_use_pmr_for_collab_presence_non_ic: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_use_pmr_for_collab_presence_non_ic',
+			jira: 'platform_editor_use_pmr_for_collab_presence_non_ic',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-12-03
+	platform_editor_use_pmr_for_collab_presence_in_ic: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_use_pmr_for_collab_presence_in_ic',
+			jira: 'platform_editor_use_pmr_for_collab_presence_in_ic',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-12-03
 	platform_editor_nested_media_selection_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_nested_media_selection_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-12-04
+	platform_editor_scroll_gutter_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_scroll_gutter_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-12-08
+	platform_editor_add_image_editing: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_add_image_editing',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

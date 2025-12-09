@@ -21,7 +21,7 @@ export default function String({
 	name: string;
 	onFieldChange: OnFieldChange;
 	placeholder?: string;
-}) {
+}): React.JSX.Element {
 	const { label, description, defaultValue, isRequired, isDisabled } = field;
 
 	return (

@@ -1,49 +1,48 @@
 import React from 'react';
 
+import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import Form, { Field, FormFooter, FormHeader, RequiredAsterisk } from '@atlaskit/form';
 import { Flex } from '@atlaskit/primitives/compiled';
+import { RadioGroup } from '@atlaskit/radio';
 import TextField from '@atlaskit/textfield';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const createUser = async (data: { username: string; email: string }) => {
+const createUser = async (data: { name: string; email: string }) => {
 	await sleep(500);
 	const errors = {
-		username: ['jsmith', 'mchan'].includes(data.username)
-			? 'This username is already taken, try entering a different username'
-			: undefined,
+		name: !data.name ? 'Enter a name' : undefined,
 		email: !data.email.includes('@')
-			? 'Enter your email in a valid format, like: name@example.com'
+			? 'Enter a valid email address. For example: lpeters@atlassian.com'
 			: undefined,
 	};
-	if (!errors.username && !errors.email) {
+	if (!errors.name && !errors.email) {
 		console.log(data);
 	}
 	return errors;
 };
 
 const FormSubmissionValidationExample = (): React.JSX.Element => {
-	const handleSubmit = (data: { username: string; email: string }) => {
+	const handleSubmit = (data: { name: string; email: string }) => {
 		return createUser(data);
 	};
 
 	return (
 		<Flex direction="column">
 			<Form onSubmit={handleSubmit}>
-				{({ formProps, submitting }) => (
+				{({ formProps }) => (
 					<form noValidate {...formProps}>
-						<FormHeader title="Log In">
+						<FormHeader title="Add permissions">
 							<p aria-hidden="true">
 								Required fields are marked with an asterisk <RequiredAsterisk />
 							</p>
 						</FormHeader>
 						<Field
-							name="username"
-							label="Username"
+							name="name"
+							label="Name"
 							defaultValue=""
 							isRequired
-							helperMessage="Try 'jsmith' or 'mchan'."
 							component={({ fieldProps }) => <TextField {...fieldProps} />}
 						/>
 						<Field
@@ -51,13 +50,37 @@ const FormSubmissionValidationExample = (): React.JSX.Element => {
 							label="Email"
 							defaultValue=""
 							isRequired
-							helperMessage="Must contain @ symbol"
+							helperMessage="Must contain an @ symbol."
 							component={({ fieldProps }) => <TextField {...fieldProps} />}
 						/>
-						<FormFooter>
-							<Button appearance="primary" type="submit" isLoading={submitting}>
-								Create account
-							</Button>
+						<Field
+							name="permissions"
+							label="Permissions"
+							component={({ fieldProps: { value, ...others } }) => (
+								<RadioGroup
+									options={[
+										{ name: 'permissions', value: 'view', label: 'View only' },
+										{
+											name: 'permissions',
+											value: 'edit',
+											label: 'Edit',
+										},
+										{ name: 'permissions', value: 'admin', label: 'Admin' },
+									]}
+									value={value}
+									{...others}
+								/>
+							)}
+						/>
+						<FormFooter align="start">
+							<ButtonGroup label="Form submit options">
+								<Button appearance="primary" id="create-repo-button" type="submit">
+									Add
+								</Button>
+								<Button appearance="subtle" id="create-repo-cancel">
+									Cancel
+								</Button>
+							</ButtonGroup>
 						</FormFooter>
 					</form>
 				)}

@@ -105,7 +105,7 @@ export const getAgentCreator = ({
 	}
 
 	if (creatorType === 'CUSTOMER') {
-		if (authoringTeam && fg('agent_studio_permissions_settings_m3_profiles')) {
+		if (authoringTeam) {
 			return {
 				type: 'CUSTOMER' as const,
 				name: authoringTeam.displayName,

@@ -85,7 +85,7 @@ export const DropzoneWrapper = ({
 	featureFlags,
 	editorDomElement,
 	appearance,
-}: Props) => (
+}: Props): React.JSX.Element => (
 	<PickerFacadeProvider api={api} analyticsName="dropzone">
 		{({ mediaClientConfig, config, pickerFacadeInstance }) => (
 			<DropzoneWrapperInternal

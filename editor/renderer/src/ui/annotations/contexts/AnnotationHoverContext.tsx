@@ -21,7 +21,11 @@ const AnnotationHoverDispatchContext = createContext<AnnotationHoverDispatchCont
 	setIsWithinRange: () => {},
 });
 
-export const AnnotationHoverContext = ({ children }: { children?: ReactNode }) => {
+export const AnnotationHoverContext = ({
+	children,
+}: {
+	children?: ReactNode;
+}): React.JSX.Element => {
 	const [isWithinRange, setIsWithinRange] = useState(false);
 	const timeoutHandler = useRef<NodeJS.Timeout>();
 

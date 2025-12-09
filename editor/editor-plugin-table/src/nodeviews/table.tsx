@@ -263,7 +263,7 @@ export default class TableView extends ReactNodeView<Props> {
 		return this.node;
 	};
 
-	render(props: Props, forwardRef: ForwardRef) {
+	render(props: Props, forwardRef: ForwardRef): React.JSX.Element {
 		return (
 			<TableComponentWithSharedState
 				forwardRef={forwardRef}

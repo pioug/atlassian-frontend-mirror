@@ -6,7 +6,7 @@ interface Props {
 	resourceId: string;
 }
 
-export default function BodiedSyncBlock(props: Props) {
+export default function BodiedSyncBlock(props: Props): React.JSX.Element {
 	const { children, localId, resourceId } = props;
 	return (
 		<div data-bodied-sync-block data-local-id={localId} data-resource-id={resourceId}>

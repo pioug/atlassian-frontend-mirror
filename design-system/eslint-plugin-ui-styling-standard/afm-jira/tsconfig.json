@@ -7,7 +7,8 @@
 		],
 		"outDir": "../../../../../jira/tsDist/@atlaskit__eslint-plugin-ui-styling-standard/app",
 		"rootDir": "../",
-		"composite": true
+		"composite": true,
+		"noCheck": true
 	},
 	"include": [
 		"../src/**/*.ts",

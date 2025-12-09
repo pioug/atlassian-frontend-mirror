@@ -16,7 +16,7 @@ type TaskListButtonProps = {
 	api?: ExtractInjectionAPI<InsertBlockPlugin>;
 };
 
-export const TaskListButton = ({ api }: TaskListButtonProps) => {
+export const TaskListButton = ({ api }: TaskListButtonProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 
 	const { editorView } = useEditorToolbar();

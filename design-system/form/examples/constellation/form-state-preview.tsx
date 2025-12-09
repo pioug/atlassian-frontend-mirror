@@ -62,7 +62,7 @@ export default function StateSubscriptionExample() {
 
 				<Field<Value<Option>>
 					name="appearance"
-					label="Select banner appearance"
+					label="Banner appearance"
 					defaultValue={{ label: 'Announcement', value: 'announcement' }}
 					component={({ fieldProps: { id, ...rest } }) => (
 						<Select<Option>
@@ -70,8 +70,8 @@ export default function StateSubscriptionExample() {
 							{...rest}
 							options={[
 								{ label: 'Announcement', value: 'announcement' },
-								{ label: 'Warning', value: 'warning' },
 								{ label: 'Error', value: 'error' },
+								{ label: 'Warning', value: 'warning' },
 							]}
 							isClearable
 							clearControlLabel="Clear appearance"

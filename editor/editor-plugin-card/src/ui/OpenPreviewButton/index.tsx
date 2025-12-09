@@ -37,7 +37,7 @@ export const OpenPreviewPanelToolbarButton = ({
 	areAnyNewToolbarFlagsEnabled,
 	editorAnalyticsApi,
 	editorView,
-}: OpenPreviewPanelToolbarButtonProps) => {
+}: OpenPreviewPanelToolbarButtonProps): React.JSX.Element | null => {
 	const { store, isPreviewPanelAvailable, openPreviewPanel } = useSmartLinkContext();
 	const url = node.attrs.url;
 	const display = appearanceForLink(node);

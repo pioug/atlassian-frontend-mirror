@@ -19,14 +19,14 @@ const FormFieldsetExample = (): React.JSX.Element => (
 				</CheckboxField>
 			</Fieldset>
 			<Fieldset legend="Teams">
-				<CheckboxField name="teams" value="jwm">
-					{({ fieldProps }) => <Checkbox {...fieldProps} label="Jira" />}
+				<CheckboxField name="teams" value="dst">
+					{({ fieldProps }) => <Checkbox {...fieldProps} label="Design System Team" />}
 				</CheckboxField>
-				<CheckboxField name="teams" value="design-system">
-					{({ fieldProps }) => <Checkbox {...fieldProps} label="Design System" />}
+				<CheckboxField name="teams" value="design-ops">
+					{({ fieldProps }) => <Checkbox {...fieldProps} label="Design Ops" />}
 				</CheckboxField>
-				<CheckboxField name="teams" value="forge">
-					{({ fieldProps }) => <Checkbox {...fieldProps} label="Forge" />}
+				<CheckboxField name="teams" value="content">
+					{({ fieldProps }) => <Checkbox {...fieldProps} label="Content Ops" />}
 				</CheckboxField>
 			</Fieldset>
 		</Form>

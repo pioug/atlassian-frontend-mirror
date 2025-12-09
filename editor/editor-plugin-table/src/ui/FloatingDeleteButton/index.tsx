@@ -297,7 +297,7 @@ class FloatingDeleteButton extends Component<Props, State> {
 		clearHoverSelection()(state, dispatch);
 	};
 
-	render() {
+	render(): React.JSX.Element | null {
 		const { mountPoint, boundariesElement, tableRef } = this.props;
 		const { selectionType } = this.state;
 

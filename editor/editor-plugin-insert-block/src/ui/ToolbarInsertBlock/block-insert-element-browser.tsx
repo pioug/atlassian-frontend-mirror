@@ -40,7 +40,9 @@ export interface BlockInsertElementBrowserProps {
 // top if there is more than sufficient room.
 const FIT_HEIGHT_BUFFER = 100;
 
-export const BlockInsertElementBrowser = (props: BlockInsertElementBrowserProps) => {
+export const BlockInsertElementBrowser = (
+	props: BlockInsertElementBrowserProps,
+): React.JSX.Element => {
 	return (
 		<>
 			{props.open && (

@@ -49,7 +49,7 @@ const styles = cssMap({
 	},
 });
 
-const PortalStackingContextExample = () => {
+const PortalStackingContextExample = (): JSX.Element => {
 	return (
 		<Box xcss={styles.container}>
 			<Portal zIndex={100}>

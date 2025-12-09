@@ -35,7 +35,7 @@ const wrapperStyles = xcss({
 	height: 'space.300',
 });
 
-export const DatasourceIcon = (props: GlyphProps) => {
+export const DatasourceIcon = (props: GlyphProps): React.JSX.Element => {
 	return (
 		<Flex xcss={wrapperStyles}>
 			<SmartLinkListIcon LEGACY_fallbackIcon={IconDatasourceGlyph} label={props?.label} />

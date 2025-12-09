@@ -293,7 +293,7 @@ export const ContentComponent = ({
 	isTableSelectorEnabled,
 	defaultGetEditorContainerWidth,
 	defaultGetEditorFeatureFlags,
-}: ContentComponentProps) => {
+}: ContentComponentProps): React.JSX.Element => {
 	return (
 		<ErrorBoundary
 			component={ACTION_SUBJECT.TABLES_PLUGIN}

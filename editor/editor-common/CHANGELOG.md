@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 110.41.2
+
+### Patch Changes
+
+- [`4ac3023fb991b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ac3023fb991b) -
+  EDITOR-2478 Clean up experiment `platform_editor_nested_table_detection`
+- Updated dependencies
+
+## 110.41.1
+
+### Patch Changes
+
+- [`4a36acece29b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a36acece29b9) -
+  [ux] Fix synced block label id collision
+- [`b083a0f3cd801`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b083a0f3cd801) -
+  EDITOR-3869 Update experiment flag check to fire exposures in expand keymap and update variable
+  names
+- Updated dependencies
+
+## 110.41.0
+
+### Minor Changes
+
+- [`6ecbe7ee10388`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ecbe7ee10388) -
+  Started an experiment on image editing, added a button in the floating toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 110.40.1
 
 ### Patch Changes

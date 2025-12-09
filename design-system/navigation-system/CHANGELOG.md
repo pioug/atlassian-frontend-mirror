@@ -1,5 +1,14 @@
 # @atlassian/navigation-system
 
+## 5.11.1
+
+### Patch Changes
+
+- [`64bc203524295`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64bc203524295) -
+  Adds a patch behind the feature flag `platform-dst-nav-app-icon-height-fix`, enforcing a
+  max-height on AppLogo to prevent custom App Logos from extending beyond the edges of the
+  container. This flag will be cleaned up in an upcoming release.
+
 ## 5.11.0
 
 ### Minor Changes

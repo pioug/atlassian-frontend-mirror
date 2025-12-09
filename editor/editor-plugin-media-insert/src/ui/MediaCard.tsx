@@ -18,7 +18,7 @@ type Props = {
 	mediaProvider: MediaProvider;
 };
 
-export const MediaCard = ({ attrs, mediaProvider }: Props) => {
+export const MediaCard = ({ attrs, mediaProvider }: Props): React.JSX.Element => {
 	const intl = useIntl();
 	const mediaAlt = intl.formatMessage(mediaInsertMessages.mediaAlt);
 

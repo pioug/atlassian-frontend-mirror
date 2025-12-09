@@ -344,10 +344,7 @@ export class EditorCardProvider
 		// Replace directly with isJiraPlan(url) on cleanup
 		const isJiraPlanEvaluated = isJiraPlan(url);
 
-		let isJiraFormEvaluated;
-		if (fg('smartlink_jira_software_form')) {
-			isJiraFormEvaluated = isJiraForm(url);
-		}
+		const isJiraFormEvaluated = isJiraForm(url);
 
 		const isJiraSummaryEvaluated = isJiraSummary(url);
 

@@ -64,13 +64,15 @@ const ModalWithState = ({ api, editorView }: ModalWithStateProps) => {
 	);
 };
 
-const SafeModalWithState = React.memo(({ api, editorView }: ModalWithStateProps) => {
-	return (
-		<EditorSmartCardProviderValueGuard>
-			<ModalWithState api={api} editorView={editorView} />
-		</EditorSmartCardProviderValueGuard>
-	);
-});
+const SafeModalWithState = React.memo(
+	({ api, editorView }: ModalWithStateProps): React.JSX.Element => {
+		return (
+			<EditorSmartCardProviderValueGuard>
+				<ModalWithState api={api} editorView={editorView} />
+			</EditorSmartCardProviderValueGuard>
+		);
+	},
+);
 
 export type ModalTypeToComponentMap = {
 	componentType: React.ComponentType<

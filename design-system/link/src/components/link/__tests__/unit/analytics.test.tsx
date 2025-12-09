@@ -76,15 +76,15 @@ describe('Analytics:', () => {
 			analyticsContext?: Record<string, any>;
 		}) {
 			return (
-			<AnalyticsListener onEvent={onEvent} channel={channel}>
-				<Link
-					href="https://www.atlassian.com"
-					testId={testId}
-					analyticsContext={analyticsContext}
-					onClick={(_event, analyticsEvent) => {
-						analyticsEvent.fire();
-					}}
-				>
+				<AnalyticsListener onEvent={onEvent} channel={channel}>
+					<Link
+						href="https://www.atlassian.com"
+						testId={testId}
+						analyticsContext={analyticsContext}
+						onClick={(_event, analyticsEvent) => {
+							analyticsEvent.fire();
+						}}
+					>
 						Hello world
 					</Link>
 				</AnalyticsListener>

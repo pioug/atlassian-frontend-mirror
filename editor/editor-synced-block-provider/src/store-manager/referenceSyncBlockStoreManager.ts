@@ -66,6 +66,13 @@ export class ReferenceSyncBlockStoreManager {
 		this.fireAnalyticsEvent = fireAnalyticsEvent;
 	}
 
+	public getInitialSyncBlockData(resourceId: ResourceId): SyncBlockInstance | undefined {
+		const syncBlockNode = createSyncBlockNode('', resourceId);
+		return (
+			this.getFromCache(resourceId) || this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data
+		);
+	}
+
 	/**
 	 * Refreshes the subscriptions for all sync blocks.
 	 * @returns {Promise<void>}
@@ -268,12 +275,17 @@ export class ReferenceSyncBlockStoreManager {
 		const resourceSubscriptions = this.subscriptions.get(resourceId) || {};
 		this.subscriptions.set(resourceId, { ...resourceSubscriptions, [localId]: callback });
 
+		const syncBlockNode = createSyncBlockNode(localId, resourceId);
+
 		// call the callback immediately if we have cached data
-		const cachedData = this.getFromCache(resourceId);
+		// prefer cache from store manager first, should update data provider to use the same cache
+		const cachedData =
+			this.getFromCache(resourceId) || this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
+
 		if (cachedData) {
 			callback(cachedData);
 		} else {
-			this.fetchSyncBlocksData([createSyncBlockNode(localId, resourceId)]).catch((error) => {
+			this.fetchSyncBlocksData([syncBlockNode]).catch((error) => {
 				logException(error, {
 					location: 'editor-synced-block-provider/referenceSyncBlockStoreManager',
 				});

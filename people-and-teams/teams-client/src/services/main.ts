@@ -4,9 +4,14 @@ import {
 	TEAMS_CLIENT_EXPERIENCES,
 	type TeamsClientExperienceKeys,
 } from '../common/utils/ufo/constants';
-import { type MembershipState, type TeamMembership, type TeamWithImageUrls } from '../types';
+import {
+	type MembershipState,
+	type TeamMembership,
+	type TeamWithImageUrls,
+	type TeamWithMemberships,
+} from '../types';
 
-import { aggClient } from './agg-client';
+import { aggClient, type TeamContainers } from './agg-client';
 import { type AGGPageInfoVariables, type ResultWithPageInfo } from './agg-client/types';
 import collaborationGraphClient from './collaborationgraph-client';
 import { directoryClient } from './directory-client';
@@ -198,6 +203,66 @@ export class TeamsClient {
 		teamId: string,
 	): Promise<AwaitedReturn<typeof aggClient.queryTeamHasAgents>> {
 		return this._aggClient.queryTeamHasAgents(teamId);
+	}
+
+	/**
+	 * Get containers associated with the team
+	 * @param {string} teamId
+	 * @returns {Promise<TeamContainers>}
+	 */
+	async getTeamContainers(teamId: string): Promise<TeamContainers> {
+		return this._aggClient.getTeamContainers(teamId);
+	}
+
+	/**
+	 * Unlink a container from a team
+	 * @param {string} teamId
+	 * @param {string} containerId
+	 * @returns {Promise}
+	 */
+	async unlinkTeamContainer(
+		teamId: string,
+		containerId: string,
+	): Promise<AwaitedReturn<typeof aggClient.unlinkTeamContainer>> {
+		return this._aggClient.unlinkTeamContainer(teamId, containerId);
+	}
+
+	/**
+	 * Get the number of teams connected to a container
+	 * @param {string} containerId
+	 * @returns {Promise<number>}
+	 */
+	async queryNumberOfTeamConnectedToContainer(
+		containerId: string,
+	): Promise<AwaitedReturn<typeof aggClient.queryNumberOfTeamConnectedToContainer>> {
+		return this._aggClient.queryNumberOfTeamConnectedToContainer(containerId);
+	}
+
+	/**
+	 * Get the number of teams connected to a container (Confluence space or Jira project)
+	 * @param {string} containerId
+	 * @returns {Promise<number>}
+	 */
+	async getNumberOfConnectedTeams(containerId: string): Promise<number> {
+		return this.queryNumberOfTeamConnectedToContainer(containerId);
+	}
+
+	/**
+	 * Get teams connected to a container
+	 * @param {string} containerId
+	 * @returns {Promise<TeamWithMemberships[]>}
+	 */
+	async queryTeamsConnectedToContainer(containerId: string): Promise<TeamWithMemberships[]> {
+		return this._aggClient.queryTeamsConnectedToContainer(containerId);
+	}
+
+	/**
+	 * Get teams connected to a container (Confluence space or Jira project)
+	 * @param {string} containerId
+	 * @returns {Promise<TeamWithMemberships[]>}
+	 */
+	async getConnectedTeams(containerId: string): Promise<TeamWithMemberships[]> {
+		return this.queryTeamsConnectedToContainer(containerId);
 	}
 
 	/**

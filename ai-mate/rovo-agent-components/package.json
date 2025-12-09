@@ -14,7 +14,7 @@
 			"category": "Components"
 		}
 	},
-	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"main": "dist/cjs/index.js",
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
@@ -117,9 +117,6 @@
 			"type": "boolean"
 		},
 		"should-render-to-parent-should-be-true-ai-mate": {
-			"type": "boolean"
-		},
-		"agent_studio_permissions_settings_m3_profiles": {
 			"type": "boolean"
 		},
 		"jira_ai_force_rovo_dev_avatar": {

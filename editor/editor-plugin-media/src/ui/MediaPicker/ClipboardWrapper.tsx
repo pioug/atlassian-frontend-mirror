@@ -15,7 +15,7 @@ type Props = {
 	featureFlags?: MediaFeatureFlags;
 };
 
-export const ClipboardWrapper = ({ api, container, featureFlags }: Props) => (
+export const ClipboardWrapper = ({ api, container, featureFlags }: Props): React.JSX.Element => (
 	<PickerFacadeProvider api={api} analyticsName="clipboard">
 		{({ mediaClientConfig, config, pickerFacadeInstance }) => {
 			const clipboardConfig = Object.assign({}, config) as ClipboardConfig;

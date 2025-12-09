@@ -14,7 +14,7 @@ const reducer = (_state: TaskItemsDone, action: TaskItemsFormatReducerAction) =>
 	return action;
 };
 
-export function TaskItemsFormatProvider({ children }: { children: ReactNode }) {
+export function TaskItemsFormatProvider({ children }: { children: ReactNode }): React.JSX.Element {
 	const value = React.useReducer(reducer, undefined);
 
 	return (
@@ -30,6 +30,6 @@ export function TaskItemsFormatConsumer({
 	children,
 }: {
 	children: ([isChecked, dispatch]: TaskItemsStateContext) => ReactNode;
-}) {
+}): React.JSX.Element {
 	return <TaskItemsFormatContext.Consumer>{children}</TaskItemsFormatContext.Consumer>;
 }

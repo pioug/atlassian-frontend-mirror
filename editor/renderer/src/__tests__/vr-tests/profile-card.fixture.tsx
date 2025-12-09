@@ -3,7 +3,7 @@ import React from 'react';
 import { RendererStyleContainer } from '../../ui/Renderer/RendererStyleContainer';
 import { ProfileCard } from '@atlaskit/profilecard';
 
-export const ProfileCardInRenderer = () => {
+export const ProfileCardInRenderer = (): React.JSX.Element => {
 	return (
 		<RendererStyleContainer
 			appearance="full-page"

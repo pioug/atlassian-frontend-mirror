@@ -1,5 +1,13 @@
 # @atlaskit/editor-tables
 
+## 2.9.20
+
+### Patch Changes
+
+- [`4ac3023fb991b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ac3023fb991b) -
+  EDITOR-2478 Clean up experiment `platform_editor_nested_table_detection`
+- Updated dependencies
+
 ## 2.9.19
 
 ### Patch Changes

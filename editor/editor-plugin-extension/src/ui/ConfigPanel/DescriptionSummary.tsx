@@ -21,7 +21,9 @@ type DescriptionSummaryProps = {
 	extensionManifest: ExtensionManifest;
 };
 
-export function DescriptionSummary({ extensionManifest }: DescriptionSummaryProps) {
+export function DescriptionSummary({
+	extensionManifest,
+}: DescriptionSummaryProps): React.JSX.Element {
 	const { formatMessage } = useIntl();
 	const { description, deprecation, documentationUrl } = extensionManifest;
 	// Use a temporary allowlist of top 3 macros to test out a new "Documentation" CTA ("Need help?")

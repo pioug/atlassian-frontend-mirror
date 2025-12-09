@@ -49,7 +49,7 @@ const Date = memo(function Date(props: Props & WrappedComponentProps) {
 
 export const DateComponent = injectIntl(Date);
 
-function DateWithFormatContext(props: Props) {
+function DateWithFormatContext(props: Props): React.JSX.Element {
 	const [isChecked] = useTaskItemsFormatContext();
 	let parentIsIncompleteTask = props.parentIsIncompleteTask;
 	if (typeof isChecked !== 'undefined') {

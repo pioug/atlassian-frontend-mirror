@@ -25,7 +25,7 @@ export const DatasourceModal = ({
 	cardContext,
 	datasourceId: defaultDatasourceId,
 	componentType: Component,
-}: DatasourceModalProps) => {
+}: DatasourceModalProps): React.JSX.Element | null => {
 	const { state } = view;
 
 	const existingNode = getExistingNode(state);

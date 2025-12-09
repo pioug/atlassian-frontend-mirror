@@ -155,7 +155,7 @@ interface LoomInitContext {
 }
 const LoomInitContext = createContext<LoomInitContext | undefined>(undefined);
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [finishedInit, setFinishedInit] = useState(false);
 	return (
 		<LoomInitContext.Provider value={{ finishedInit, setFinishedInit }}>

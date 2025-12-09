@@ -5,7 +5,8 @@
 		"target": "es5",
 		"outDir": "../../../../../confluence/tsDist/@atlaskit__collab-provider",
 		"rootDir": "../",
-		"composite": true
+		"composite": true,
+		"noCheck": true
 	},
 	"include": [
 		"../src/**/*.ts",
@@ -34,6 +35,9 @@
 		},
 		{
 			"path": "../../../elements/anonymous-assets/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../uip/atlassian-context/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../editor-json-transformer/afm-cc/tsconfig.json"

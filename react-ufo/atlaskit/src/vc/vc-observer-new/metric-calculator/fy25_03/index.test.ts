@@ -10,7 +10,6 @@ import {
 
 import VCCalculator_FY25_03 from './index';
 
-
 // Mock feature flags
 jest.mock('@atlaskit/platform-feature-flags', () => ({
 	fg: jest.fn(),

@@ -10,4 +10,4 @@ const styles = xcss({
 	borderBlockStart: `${token('border.width')} solid ${token('color.border')}`,
 	borderInline: 'none',
 });
-export const Divider = () => <Box as="hr" xcss={styles} role="presentation" />;
+export const Divider = (): React.JSX.Element => <Box as="hr" xcss={styles} role="presentation" />;

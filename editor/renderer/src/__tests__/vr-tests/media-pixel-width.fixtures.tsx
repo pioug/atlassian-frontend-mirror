@@ -22,10 +22,10 @@ const Media = ({ adf, appearance }: { adf: Record<string, unknown>; appearance: 
 	);
 };
 
-export const MediaWrappedLeftFullWidth = () => {
+export const MediaWrappedLeftFullWidth = (): React.JSX.Element => {
 	return <Media adf={adfMediaWrappedLeft} appearance={'full-width'} />;
 };
 
-export const MediaWrappedLeftFullPage = () => {
+export const MediaWrappedLeftFullPage = (): React.JSX.Element => {
 	return <Media adf={adfMediaWrappedLeft} appearance={'full-page'} />;
 };

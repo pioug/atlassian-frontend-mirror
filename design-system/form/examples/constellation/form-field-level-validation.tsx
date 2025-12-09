@@ -18,26 +18,22 @@ interface Option {
 	value: string;
 }
 
-const colors = [
-	{ label: 'blue', value: 'blue' },
-	{ label: 'red', value: 'red' },
-	{ label: 'purple', value: 'purple' },
-	{ label: 'black', value: 'black' },
-	{ label: 'white', value: 'white' },
-	{ label: 'gray', value: 'gray' },
-	{ label: 'yellow', value: 'yellow' },
-	{ label: 'orange', value: 'orange' },
-	{ label: 'teal', value: 'teal' },
+const members = [
+	{ label: 'Arni Singh', value: 'asingh' },
+	{ label: 'Hermione Walters', value: 'hwalters' },
+	{ label: 'Parvi Karan', value: 'pkaran' },
+	{ label: 'Charlie Li', value: 'cli' },
+	{ label: 'Silus Graham', value: 'sgraham' },
+	{ label: 'Jorge Oroza', value: 'joroza' },
 ];
 
 const userNameData = ['jsmith', 'mchan'];
 
 const errorMessages = {
-	shortUsername: 'Please enter a username longer than 4 characters',
-	validUsername: 'Nice one, this username is available',
-	usernameInUse: 'This username is already taken, try entering another one',
-	usernameIsRequired: 'A username is required.',
-	selectError: 'Please select a color',
+	shortUsername: 'Enter a team name longer than 4 characters.',
+	usernameInUse: 'This team name is already taken. Use a different name',
+	usernameIsRequired: 'A team name is required.',
+	selectError: 'Select at least one team member.',
 };
 
 const checkUserName = (value: string | undefined) => {
@@ -51,15 +47,15 @@ export default function FieldLevelValidationExample(): React.JSX.Element {
 
 	return (
 		<Flex direction="column">
-			<Form onSubmit={handleSubmit}>
-				<FormHeader title="Log In">
+			<Form noValidate onSubmit={handleSubmit}>
+				<FormHeader title="Create team">
 					<Text as="p" aria-hidden={true}>
 						Required fields are marked with an asterisk <RequiredAsterisk />
 					</Text>
 				</FormHeader>
 				<Field
-					name="username"
-					label="Username"
+					name="team"
+					label="Team name"
 					defaultValue=""
 					isRequired
 					validate={(value) => {
@@ -71,16 +67,15 @@ export default function FieldLevelValidationExample(): React.JSX.Element {
 							return errorMessages.usernameInUse;
 						}
 					}}
-					validMessage={errorMessages.validUsername}
 					component={({ fieldProps }) => <TextField {...fieldProps} />}
 				/>
-				<Field<ValueType<Option>>
-					name="colors"
-					label="Select a color"
-					defaultValue={null}
+				<Field<ValueType<Option, true>>
+					name="members"
+					label="Team members"
+					defaultValue={[]}
 					isRequired
 					validate={(value) => {
-						if (!value) {
+						if (!value || value.length === 0) {
 							return errorMessages.selectError;
 						}
 					}}
@@ -88,10 +83,12 @@ export default function FieldLevelValidationExample(): React.JSX.Element {
 					{({ fieldProps: { id, ...rest }, error }) => {
 						return (
 							<Fragment>
-								<Select<Option>
+								<Select<Option, true>
+									placeholder=""
 									inputId={id}
 									{...rest}
-									options={colors}
+									options={members}
+									isMulti
 									isClearable
 									clearControlLabel="Clear color"
 									descriptionId={error ? `${id}-error` : undefined}
@@ -101,8 +98,10 @@ export default function FieldLevelValidationExample(): React.JSX.Element {
 						);
 					}}
 				</Field>
-				<FormFooter>
-					<Button type="submit">Next</Button>
+				<FormFooter align="start">
+					<Button type="submit" appearance="primary">
+						Create
+					</Button>
 				</FormFooter>
 			</Form>
 		</Flex>

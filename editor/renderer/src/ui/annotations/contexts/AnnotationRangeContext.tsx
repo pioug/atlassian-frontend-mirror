@@ -167,7 +167,7 @@ export const AnnotationRangeProviderInner = ({
 }: {
 	allowCommentsOnMedia?: boolean;
 	children?: ReactNode;
-}) => {
+}): React.JSX.Element => {
 	const [
 		{
 			selectionRange,
@@ -279,7 +279,7 @@ export const AnnotationRangeProvider = ({
 	allowCommentsOnMedia?: boolean;
 	children?: ReactNode;
 	isNestedRender?: boolean;
-}) => {
+}): React.JSX.Element => {
 	/*
 	 * If this is a nested render, we do not provide the context
 	 * because it has already been provided higher up the component tree

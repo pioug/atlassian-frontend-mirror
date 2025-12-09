@@ -14,7 +14,7 @@ type ImageButtonProps = {
 	api?: ExtractInjectionAPI<InsertBlockPlugin>;
 };
 
-export const ImageButton = ({ api }: ImageButtonProps) => {
+export const ImageButton = ({ api }: ImageButtonProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const { connectivityMode, imageUploadEnabled } = useSharedPluginStateWithSelector(

@@ -16,7 +16,11 @@ declare global {
  * before main JavaScript bundle is ready.
  * More info: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1216218119/Renderer+SSR+for+Breakout+Nodes
  */
-export function BreakoutSSRInlineScript({ noOpSSRInlineScript }: { noOpSSRInlineScript: Boolean }) {
+export function BreakoutSSRInlineScript({
+	noOpSSRInlineScript,
+}: {
+	noOpSSRInlineScript: Boolean;
+}): React.JSX.Element | null {
 	/**
 	 * Should only inline this script while SSR,
 	 * not needed on the client side.

@@ -5,7 +5,8 @@
 		"target": "es5",
 		"outDir": "../../../../../tsDist/@atlaskit__progress-indicator/app",
 		"rootDir": "../",
-		"composite": true
+		"composite": true,
+		"noCheck": true
 	},
 	"include": [
 		"../src/**/*.ts",

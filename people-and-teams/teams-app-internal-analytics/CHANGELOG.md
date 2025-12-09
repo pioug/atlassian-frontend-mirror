@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.20.3
+
+### Patch Changes
+
+- [`26143b0e223ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26143b0e223ed) -
+  Add test for accessibility violations
+
 ## 1.20.2
 
 ### Patch Changes

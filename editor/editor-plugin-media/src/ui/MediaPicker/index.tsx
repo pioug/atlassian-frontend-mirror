@@ -117,7 +117,7 @@ export class MediaPickerComponents extends React.Component<Props, State> {
 		setBrowseFn(nativeBrowseFn);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { api, editorDomElement, appearance } = this.props;
 		const { isPopupOpened } = this.state;
 

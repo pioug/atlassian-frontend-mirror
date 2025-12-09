@@ -24,7 +24,7 @@ export const DeleteConfirmationModal = ({
 }: {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 	syncBlockStoreManager: SyncBlockStoreManager;
-}) => {
+}): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [syncBlockCount, setSyncBlockCount] = useState(1);
 	const { mode } = useSharedPluginStateWithSelector(api, ['connectivity'], (states) => ({

@@ -1,60 +1,6 @@
 import { print } from 'graphql';
 import gql from 'graphql-tag';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
-export const TeamContainersQuery = print(gql`
-	query TeamContainersQuery($cypherQuery: String!) {
-		graphStore @optIn(to: ["GraphStore"]) {
-			cypherQuery(query: $cypherQuery) @optIn(to: ["GraphStoreCypherQuery"]) {
-				edges {
-					__typename
-					node {
-						from {
-							id
-						}
-						to {
-							id
-							data {
-								__typename
-								... on ConfluenceSpace {
-									id
-									confluenceSpaceName: name
-									type
-									createdDate
-									links {
-										base
-										webUi
-									}
-									icon {
-										path
-									}
-								}
-								... on JiraProject {
-									id
-									jiraProjectName: name
-									webUrl
-									created
-									avatar {
-										medium
-									}
-									projectType
-									projectTypeName
-								}
-								... on LoomSpace {
-									id
-									loomSpaceName: name
-									url
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-`);
-
 export const TeamContainersQueryV2 = print(gql`
 	query TeamContainersQueryV2($cypherQuery: String!, $params: JSON!) {
 		graphStore @optIn(to: ["GraphStore", "GraphStoreCypherQueryV2"]) {
@@ -108,9 +54,7 @@ export const TeamContainersQueryV2 = print(gql`
 `);
 
 export const getTeamContainersQuery = () => {
-	return fg('teams_containers_cypher_query_v2_migration')
-		? TeamContainersQueryV2
-		: TeamContainersQuery;
+	return TeamContainersQueryV2;
 };
 
 export type TeamContainersQueryVariables = {

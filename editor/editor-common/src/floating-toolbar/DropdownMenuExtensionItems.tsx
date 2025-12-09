@@ -143,7 +143,9 @@ const DropdownMenuExtensionItem = ({
 	);
 };
 
-export const DropdownMenuExtensionItems = (props: OverflowExtensionPlaceholderProps): React.JSX.Element | null => {
+export const DropdownMenuExtensionItems = (
+	props: OverflowExtensionPlaceholderProps,
+): React.JSX.Element | null => {
 	const { node, editorView, extension, disabled, dropdownOptions, areAnyNewToolbarFlagsEnabled } =
 		props;
 

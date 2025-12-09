@@ -9,7 +9,11 @@ type PreviewInvokerProps = {
 	url: string;
 };
 
-export const PreviewInvoker = ({ url, appearance, children }: PreviewInvokerProps) => {
+export const PreviewInvoker = ({
+	url,
+	appearance,
+	children,
+}: PreviewInvokerProps): React.JSX.Element => {
 	const actions = useSmartLinkActions({ url, appearance });
 	const preview = useMemo(
 		() => actions.find((action) => action.id === 'preview-content'),

@@ -3,8 +3,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { AgentProfileCreator, getAgentCreator } from './index';
 
 describe('getAgentCreator', () => {
@@ -140,36 +138,7 @@ describe('getAgentCreator', () => {
 		});
 	});
 
-	ffTest.off('agent_studio_permissions_settings_m3_profiles', '', () => {
-		[
-			{
-				testName: 'user creator and authoring team - fg off, will ignore authoring team',
-				params: {
-					creatorType: 'CUSTOMER',
-					userCreator: { name: 'John Doe', profileLink: 'https://example.com' },
-					authoringTeam: { displayName: 'Mock Team Name', profileLink: 'https://example.com/team' },
-					forgeCreator: undefined,
-				},
-				expected: {
-					type: 'CUSTOMER',
-					name: 'John Doe',
-					profileLink: 'https://example.com',
-				},
-			},
-		].forEach(({ testName, params, expected }) => {
-			it(`should return the correct creator for ${testName}`, () => {
-				const creator = getAgentCreator({
-					creatorType: params.creatorType,
-					userCreator: params.userCreator,
-					forgeCreator: params.forgeCreator,
-					authoringTeam: params.authoringTeam,
-				});
-				expect(creator).toEqual(expected);
-			});
-		});
-	});
-
-	ffTest.on('agent_studio_permissions_settings_m3_profiles', '', () => {
+	describe('with authoring team', () => {
 		[
 			{
 				testName: 'user creator and authoring team',

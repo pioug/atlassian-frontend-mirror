@@ -64,7 +64,7 @@ const selector = (
 	};
 };
 
-export const PanelIcon = (props: PanelIconAttributes) => {
+export const PanelIcon = (props: PanelIconAttributes): React.JSX.Element | null => {
 	const {
 		allowCustomPanel,
 		providerFactory,

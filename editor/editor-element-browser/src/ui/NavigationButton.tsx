@@ -165,30 +165,36 @@ const ButtonBase = memo(
 	},
 );
 
-export const LinkNavButton = memo((props: Omit<ButtonBaseProps, 'mode' | 'isExpanded'>): React.JSX.Element => (
-	// eslint-disable-next-line react/jsx-props-no-spreading
-	<ButtonBase mode="navigation" {...props}></ButtonBase>
-));
+export const LinkNavButton = memo(
+	(props: Omit<ButtonBaseProps, 'mode' | 'isExpanded'>): React.JSX.Element => (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<ButtonBase mode="navigation" {...props}></ButtonBase>
+	),
+);
 
-export const ExpandableNavButton = memo((props: Omit<ButtonBaseProps, 'mode' | 'isSelected'>): React.JSX.Element => (
-	// eslint-disable-next-line react/jsx-props-no-spreading
-	<ButtonBase mode="expandable" {...props}></ButtonBase>
-));
+export const ExpandableNavButton = memo(
+	(props: Omit<ButtonBaseProps, 'mode' | 'isSelected'>): React.JSX.Element => (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<ButtonBase mode="expandable" {...props}></ButtonBase>
+	),
+);
 
-export const BackNavButton = memo(({ label, onClick }: { label: string; onClick: () => void }): React.JSX.Element => {
-	return (
-		<Tooltip content={label} position="top" ignoreTooltipPointerEvents={true}>
-			{(tooltipProps) => (
-				<IconButton
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					{...tooltipProps}
-					label={label}
-					icon={ArrowLeftIcon}
-					appearance="subtle"
-					spacing="compact"
-					onClick={onClick}
-				/>
-			)}
-		</Tooltip>
-	);
-});
+export const BackNavButton = memo(
+	({ label, onClick }: { label: string; onClick: () => void }): React.JSX.Element => {
+		return (
+			<Tooltip content={label} position="top" ignoreTooltipPointerEvents={true}>
+				{(tooltipProps) => (
+					<IconButton
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...tooltipProps}
+						label={label}
+						icon={ArrowLeftIcon}
+						appearance="subtle"
+						spacing="compact"
+						onClick={onClick}
+					/>
+				)}
+			</Tooltip>
+		);
+	},
+);

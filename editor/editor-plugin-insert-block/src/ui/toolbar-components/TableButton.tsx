@@ -21,7 +21,7 @@ import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 type TableButtonProps = {
 	api?: ExtractInjectionAPI<InsertBlockPlugin>;
 };
-export const TableButton = ({ api }: TableButtonProps) => {
+export const TableButton = ({ api }: TableButtonProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 
 	const { editorView } = useEditorToolbar();

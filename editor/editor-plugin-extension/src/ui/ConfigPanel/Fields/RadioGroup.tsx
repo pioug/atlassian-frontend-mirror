@@ -17,7 +17,7 @@ export default function RadioField({
 	field: EnumRadioField;
 	name: string;
 	onFieldChange: OnFieldChange;
-}) {
+}): React.JSX.Element {
 	if (field.isMultiple) {
 		return <FieldMessages error={FieldTypeError.isMultipleAndRadio} />;
 	}

@@ -9,7 +9,10 @@ type EditorHighlightIconProps = {
 	selectedColor?: string | null;
 };
 
-export const EditorHighlightIcon = ({ disabled, selectedColor }: EditorHighlightIconProps) => (
+export const EditorHighlightIcon = ({
+	disabled,
+	selectedColor,
+}: EditorHighlightIconProps): React.JSX.Element => (
 	<Box paddingInline="space.050">
 		<SteppedRainbowIconDecoration
 			selectedColor={selectedColor}

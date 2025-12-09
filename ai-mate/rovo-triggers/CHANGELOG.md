@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 4.12.0
+
+### Minor Changes
+
+- [`01661f49ef857`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01661f49ef857) -
+  [ux] Send automation rule generation prompts to Rovo chat in Studio
+
 ## 4.11.0
 
 ### Minor Changes

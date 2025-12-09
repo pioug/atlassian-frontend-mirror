@@ -28,6 +28,7 @@ export interface BasePluginOptions {
 }
 
 export type BasePluginState = {
+	allowScrollGutter?: ScrollGutterPluginOptions;
 	/** Current height of keyboard (+ custom toolbar) in iOS app */
 	keyboardHeight: number | undefined;
 };

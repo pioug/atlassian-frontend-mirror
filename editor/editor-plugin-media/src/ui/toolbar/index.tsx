@@ -47,6 +47,7 @@ import {
 	removeSelectedNode,
 } from '@atlaskit/editor-prosemirror/utils';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
+import ImageCropIcon from '@atlaskit/icon-lab/core/image-crop';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
@@ -347,6 +348,7 @@ const generateMediaSingleFloatingToolbar = (
 		allowAltTextOnImages,
 		allowMediaInline,
 		allowMediaInlineImages,
+		allowImageEditing,
 		allowImagePreview,
 		isViewOnly,
 		allowPixelResizing,
@@ -690,6 +692,29 @@ const generateMediaSingleFloatingToolbar = (
 					supportsViewMode: true,
 				});
 			}
+			// Image Editing Support
+			if (
+				allowImageEditing &&
+				expValEquals('platform_editor_add_image_editing', 'isEnabled', true)
+			) {
+				const selectedMediaSingleNode = getSelectedMediaSingle(state);
+				const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
+				if (!isVideo(mediaNode?.attrs?.__fileMimeType)) {
+					toolbarButtons.push({
+						id: 'editor.media.edit',
+						testId: 'image-edit-toolbar-button',
+						type: 'button',
+						icon: ImageCropIcon,
+						title: intl.formatMessage(commonMessages.imageEdit),
+						onClick: () => {
+							// TODO: EDITOR-3716 - Implement image editing logic
+							// console.log('Image editing clicked');
+							return true;
+						},
+						supportsViewMode: false,
+					});
+				}
+			}
 			// Preview Support
 			if (allowImagePreview) {
 				const selectedMediaSingleNode = getSelectedMediaSingle(state);
@@ -851,6 +876,36 @@ const generateMediaSingleFloatingToolbar = (
 		if (allowAdvancedToolBarOptions && allowCommentsOnMedia) {
 			updateToFullHeightSeparator(toolbarButtons);
 			toolbarButtons.push(commentButton(intl, state, pluginInjectionApi, onCommentButtonMount));
+		}
+
+		if (
+			allowAdvancedToolBarOptions &&
+			allowImageEditing &&
+			expValEquals('platform_editor_add_image_editing', 'isEnabled', true)
+		) {
+			const selectedMediaSingleNode = getSelectedMediaSingle(state);
+			const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
+			if (!isVideo(mediaNode?.attrs?.__fileMimeType)) {
+				toolbarButtons.push(
+					{
+						id: 'editor.media.edit',
+						testId: 'image-edit-toolbar-button',
+						type: 'button',
+						icon: ImageCropIcon,
+						title: intl.formatMessage(commonMessages.imageEdit),
+						onClick: () => {
+							// TODO: EDITOR-3716 - Implement image editing logic
+							// console.log('Image editing clicked');
+							return true;
+						},
+						supportsViewMode: false,
+					},
+					{
+						type: 'separator',
+						supportsViewMode: false,
+					},
+				);
+			}
 		}
 
 		return toolbarButtons;

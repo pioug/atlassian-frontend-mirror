@@ -142,7 +142,7 @@ export function MediaFromURL({
 	isOnlyExternalLinks,
 	customizedUrlValidation,
 	customizedHelperMessage,
-}: Props) {
+}: Props): React.JSX.Element {
 	const intl = useIntl();
 	const strings = {
 		loadPreview: intl.formatMessage(mediaInsertMessages.loadPreview),

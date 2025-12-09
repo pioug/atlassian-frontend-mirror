@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-base
 
+## 7.2.9
+
+### Patch Changes
+
+- [`1ba00564a98cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ba00564a98cd) -
+  Add allowScrollGutter to editor plugin base shared state
+- [`1ba00564a98cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ba00564a98cd) -
+  Moves the scroll gutter fix behind platform_editor_scroll_gutter_fix out of the hydratable ui
+  experiment
+- Updated dependencies
+
 ## 7.2.8
 
 ### Patch Changes

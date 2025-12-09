@@ -20,7 +20,7 @@ export default function Enum({
 	fieldDefaultValue?: string | string[];
 	name: string;
 	onFieldChange: OnFieldChange;
-}) {
+}): React.JSX.Element {
 	switch (field.style) {
 		case 'checkbox':
 			return <CheckboxGroup name={name} field={field} onFieldChange={onFieldChange} />;

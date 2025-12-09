@@ -29,7 +29,7 @@ const extensionProvider = combineExtensionProviders([
 	new DefaultExtensionProvider([exampleManifest]),
 ]);
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<ConfigPanelWithExtensionPicker extensionProvider={extensionProvider} parameters={parameters} />
 	);

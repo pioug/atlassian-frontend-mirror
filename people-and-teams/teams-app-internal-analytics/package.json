@@ -6,7 +6,7 @@
 			"category": "Layout and structure"
 		}
 	},
-	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"main": "dist/cjs/index.js",
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
@@ -88,7 +88,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-app-internal-analytics",
-	"version": "1.20.2",
+	"version": "1.20.3",
 	"description": "A package used by the teams app and platform packages to handle people and teams analytics",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

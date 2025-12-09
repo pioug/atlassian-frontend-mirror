@@ -2,7 +2,7 @@ import React from 'react';
 import { type FragmentAttributes } from '@atlaskit/adf-schema';
 import { type MarkProps } from '../types';
 
-export default function FragmentMark(props: MarkProps<FragmentAttributes>) {
+export default function FragmentMark(props: MarkProps<FragmentAttributes>): React.JSX.Element {
 	const WrapperElement = props.isInline ? 'span' : 'div';
 
 	return (

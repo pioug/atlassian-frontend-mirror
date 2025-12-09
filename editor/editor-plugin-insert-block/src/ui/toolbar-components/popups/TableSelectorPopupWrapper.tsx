@@ -26,7 +26,7 @@ export const TableSelectorPopupWrapper = ({
 	popupsMountPoint,
 	popupsBoundariesElement,
 	popupsScrollableElement,
-}: TableSelectorPopupWrapperProps) => {
+}: TableSelectorPopupWrapperProps): React.JSX.Element | null => {
 	if (!isOpen || !targetRef.current) {
 		return null;
 	}

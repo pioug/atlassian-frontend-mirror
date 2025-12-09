@@ -6,7 +6,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 // However, we need define a basic component to render the sync block
 export default function SyncBlock(
 	props: React.PropsWithChildren<{ content?: PMNode[]; localId?: string; resourceId?: string }>,
-) {
+): React.JSX.Element {
 	return (
 		<div data-sync-block data-local-id={props.localId} data-resource-id={props.resourceId}></div>
 	);

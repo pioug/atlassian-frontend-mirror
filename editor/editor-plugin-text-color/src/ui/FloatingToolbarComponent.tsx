@@ -41,7 +41,7 @@ export const FloatingToolbarComponent = ({
 	api,
 	editorView,
 	dispatchAnalyticsEvent,
-}: FloatingToolbarComponentProps) => {
+}: FloatingToolbarComponentProps): React.JSX.Element | null => {
 	const { color, defaultColor, palette, disabled } = useSharedPluginStateWithSelector(
 		api,
 		['textColor'],

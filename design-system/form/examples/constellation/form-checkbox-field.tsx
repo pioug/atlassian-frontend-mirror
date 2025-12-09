@@ -2,9 +2,8 @@ import React from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
-import Form, { CheckboxField, Field, Fieldset, FormFooter } from '@atlaskit/form';
+import Form, { CheckboxField, Fieldset, FormFooter } from '@atlaskit/form';
 import { Flex } from '@atlaskit/primitives/compiled';
-import { RadioGroup } from '@atlaskit/radio';
 
 const FormCheckboxExample = (): React.JSX.Element => {
 	return (
@@ -22,35 +21,7 @@ const FormCheckboxExample = (): React.JSX.Element => {
 					</CheckboxField>
 				</Fieldset>
 
-				<Field
-					name="permission"
-					defaultValue=""
-					label="Permissions"
-					component={({ fieldProps }) => (
-						<RadioGroup
-							options={[
-								{ name: 'permission', value: 'user', label: 'End user' },
-								{
-									name: 'permission',
-									value: 'project-admin',
-									label: 'Project admin',
-								},
-								{
-									name: 'permission',
-									value: 'admin',
-									label: 'Admin',
-								},
-							]}
-							{...fieldProps}
-						/>
-					)}
-				/>
-
-				<CheckboxField name="remember" defaultIsChecked>
-					{({ fieldProps }) => <Checkbox {...fieldProps} label="Remember me" />}
-				</CheckboxField>
-
-				<FormFooter>
+				<FormFooter align="start">
 					<Button type="submit" appearance="primary">
 						Submit
 					</Button>

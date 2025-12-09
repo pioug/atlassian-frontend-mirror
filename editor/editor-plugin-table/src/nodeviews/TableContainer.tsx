@@ -244,7 +244,7 @@ export const ResizableTableContainer = React.memo(
 		shouldUseIncreasedScalingPercent,
 		isCommentEditor,
 		isChromelessEditor,
-	}: PropsWithChildren<ResizableTableContainerProps>) => {
+	}: PropsWithChildren<ResizableTableContainerProps>): React.JSX.Element => {
 		const tableWidth = getTableContainerWidth(node);
 		const containerRef = useRef<HTMLDivElement | null>(null);
 		const tableWidthRef = useRef<number>(akEditorDefaultLayoutWidth);
@@ -542,7 +542,7 @@ export const TableContainer = ({
 	shouldUseIncreasedScalingPercent,
 	isCommentEditor,
 	isChromelessEditor,
-}: PropsWithChildren<TableContainerProps>) => {
+}: PropsWithChildren<TableContainerProps>): React.JSX.Element => {
 	if (isTableResizingEnabled && !isNested) {
 		return (
 			<ResizableTableContainer

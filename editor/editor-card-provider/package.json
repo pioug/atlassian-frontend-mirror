@@ -53,9 +53,6 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^"
 	},
 	"platform-feature-flags": {
-		"smartlink_jira_software_form": {
-			"type": "boolean"
-		},
 		"tc_smart_link_embed_view": {
 			"type": "boolean"
 		},

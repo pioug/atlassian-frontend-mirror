@@ -40,7 +40,7 @@ import { widthPlugin } from '@atlaskit/editor-plugins/width';
 
 import { LocalUserPreferencesProvider } from './user-preferences-provider';
 
-export default function Editor() {
+export default function Editor(): React.JSX.Element {
 	const localUserPreferencesProvider = new LocalUserPreferencesProvider();
 
 	const { preset } = usePreset((builder) =>

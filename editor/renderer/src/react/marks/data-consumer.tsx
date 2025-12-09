@@ -2,7 +2,7 @@ import React from 'react';
 import { type DataConsumerAttributes } from '@atlaskit/adf-schema';
 import { type MarkProps } from '../types';
 
-export default function DataConsumer(props: MarkProps<DataConsumerAttributes>) {
+export default function DataConsumer(props: MarkProps<DataConsumerAttributes>): React.JSX.Element {
 	const WrapperElement = props.isInline ? 'span' : 'div';
 
 	return (

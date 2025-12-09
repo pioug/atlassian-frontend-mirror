@@ -45,6 +45,9 @@
 			"path": "../../elements/anonymous-assets/tsconfig.app.json"
 		},
 		{
+			"path": "../../uip/atlassian-context/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{

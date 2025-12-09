@@ -8,7 +8,7 @@ type HelpLinkProps = {
 	label: string;
 };
 
-export const HelpLink = ({ documentationUrl, label }: HelpLinkProps) => {
+export const HelpLink = ({ documentationUrl, label }: HelpLinkProps): React.JSX.Element => {
 	return fg('dst-a11y__replace-anchor-with-link__editor-core-ex') ? (
 		<Link
 			target="_blank"

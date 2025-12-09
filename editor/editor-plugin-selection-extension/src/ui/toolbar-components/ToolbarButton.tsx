@@ -40,7 +40,7 @@ const usePluginState = conditionalHooksFactory(
 	},
 );
 
-export const ToolbarButton = ({ api, config }: ToolbarButtonProps) => {
+export const ToolbarButton = ({ api, config }: ToolbarButtonProps): React.JSX.Element | null => {
 	const { editorToolbarDockingPreference } = usePluginState(api);
 
 	const isDockedAtTop = editorToolbarDockingPreference === 'top';

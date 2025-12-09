@@ -204,6 +204,10 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 							onCancel();
 						}
 					}}
+					// Added to since field was getting focused automatically when team is restored from the banner
+					// There seems to be a fix applied below via class but it appears to be not working in our case
+					/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex */
+					{...(fg('enable-inline-edit-focus-fix') ? { tabIndex: 0 } : {})}
 					onSubmit={onSubmit}
 					ref={formRef}
 					// Below we have added a class name to the form element to prevent the default focus on the form element

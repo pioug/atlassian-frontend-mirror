@@ -66,4 +66,13 @@ describe('PeopleTeamsAnalyticsContext', () => {
 			expect.anything(),
 		);
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<TeamsAppAnalyticsContext>
+				<div>Test Child</div>
+			</TeamsAppAnalyticsContext>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

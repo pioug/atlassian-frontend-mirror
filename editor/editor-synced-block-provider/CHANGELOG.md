@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.13.1
+
+### Patch Changes
+
+- [`d04179e359d44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d04179e359d44) -
+  EDITOR-2484 fix flush return on error
+
 ## 2.13.0
 
 ### Minor Changes

@@ -165,7 +165,7 @@ const Modal = (props: ModalProps) => {
 	);
 };
 
-const PortalComplexLayeringExample = () => {
+const PortalComplexLayeringExample = (): JSX.Element => {
 	const [modals, setModals] = useState<number[]>([]);
 
 	return (

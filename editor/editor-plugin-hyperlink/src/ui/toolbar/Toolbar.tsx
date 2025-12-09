@@ -139,7 +139,7 @@ export function HyperlinkAddToolbarWithState({
 	pluginInjectionApi,
 }: HyperlinkAddToolbarProps & {
 	pluginInjectionApi: ExtractInjectionAPI<HyperlinkPlugin> | undefined;
-}) {
+}): React.JSX.Element {
 	const { timesViewed, inputMethod, searchSessionId } = useSharedPluginStateWithSelector(
 		pluginInjectionApi,
 		['hyperlink'],

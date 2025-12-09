@@ -180,10 +180,10 @@ export default function checkThemePairContrasts(
 					)
 				: (backgroundMetadata.value as string);
 
-		var contrast = 0;
-		try {
-			contrast = getContrastRatio(foregroundMetadata.value as string, backgroundValue);
-		} catch {}
+			var contrast = 0;
+			try {
+				contrast = getContrastRatio(foregroundMetadata.value as string, backgroundValue);
+			} catch {}
 
 			const isInteraction = !!(
 				foreground.match(/(hovered|pressed)/) || background.match(/(hovered|pressed)/)

@@ -2,7 +2,9 @@ import React from 'react';
 import { type IndentationMarkAttributes } from '@atlaskit/adf-schema';
 import { type MarkProps } from '../types';
 
-export default function Indentation(props: MarkProps<IndentationMarkAttributes>) {
+export default function Indentation(
+	props: MarkProps<IndentationMarkAttributes>,
+): React.JSX.Element {
 	return (
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

@@ -22,7 +22,7 @@ export const DragPreview = ({
 	direction: TableDirection;
 	height: number;
 	width: number;
-}) => {
+}): React.JSX.Element => {
 	const marginLeft = direction === 'row' ? -14 : width / 2 - 14;
 	const marginTop = direction === 'row' ? height / 2 - 14 : -10;
 	const transform = direction === 'row' ? 'rotate(90deg)' : 'none';

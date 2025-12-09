@@ -38,11 +38,7 @@ const Example = (): React.JSX.Element => {
 		setSelectedIndex((prevState) => prevState + 1);
 	};
 
-	const handleSelect = ({
-		index: selectedIndex,
-	}: {
-		index: number;
-	}): void => {
+	const handleSelect = ({ index: selectedIndex }: { index: number }): void => {
 		setSelectedIndex(selectedIndex);
 	};
 

@@ -16,7 +16,7 @@ type MentionButtonProps = {
 	api?: ExtractInjectionAPI<InsertBlockPlugin>;
 };
 
-export const MentionButton = ({ api }: MentionButtonProps) => {
+export const MentionButton = ({ api }: MentionButtonProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 	const { canInsertMention, mentionProvider, isTypeAheadAllowed } =
 		useSharedPluginStateWithSelector(api, ['mention', 'typeAhead'], (states) => ({

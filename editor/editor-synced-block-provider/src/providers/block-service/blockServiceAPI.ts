@@ -3,10 +3,7 @@ import { useMemo } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
-import {
-	generateBlockAri,
-	generateBlockAriFromReference,
-} from '../../clients/block-service/ari';
+import { generateBlockAri, generateBlockAriFromReference } from '../../clients/block-service/ari';
 import {
 	BlockError,
 	createSyncedBlock,
@@ -17,7 +14,12 @@ import {
 	type BlockContentErrorResponse,
 	type BlockContentResponse,
 } from '../../clients/block-service/blockService';
-import { SyncBlockError, type ResourceId, type SyncBlockData, type SyncBlockProduct } from '../../common/types';
+import {
+	SyncBlockError,
+	type ResourceId,
+	type SyncBlockData,
+	type SyncBlockProduct,
+} from '../../common/types';
 import { stringifyError } from '../../utils/errorHandling';
 import type {
 	ADFFetchProvider,

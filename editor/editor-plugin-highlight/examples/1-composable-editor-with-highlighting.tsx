@@ -488,7 +488,7 @@ const highlightAdfDoc = {
 
 const emitter = new AnnotationUpdateEmitter();
 
-const Editor = () => {
+const Editor = (): React.JSX.Element => {
 	const tableOptions = {
 		tableOptions: {
 			advanced: true,

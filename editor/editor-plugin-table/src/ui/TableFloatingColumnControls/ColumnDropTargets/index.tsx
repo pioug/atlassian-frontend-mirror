@@ -20,7 +20,7 @@ export const ColumnDropTargets = ({
 	colWidths,
 	isHeaderSticky,
 	getScrollOffset,
-}: Props) => {
+}: Props): React.JSX.Element | null => {
 	const dropTargetRef = useRef<HTMLDivElement>(null);
 
 	if (!tableRef) {

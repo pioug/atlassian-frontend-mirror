@@ -103,8 +103,7 @@ export class Channel extends Emitter<ChannelEvent> {
 			startMeasure(MEASURE_NAME.DOCUMENT_INIT, this.analyticsHelper);
 			this.initExperience?.start();
 		}
-		const { documentAri, url } = this.config;
-		const { createSocket, permissionTokenRefresh } = this.config;
+		const { documentAri, url, path, createSocket, permissionTokenRefresh } = this.config;
 
 		let auth: AuthCallback;
 		if (permissionTokenRefresh) {
@@ -166,6 +165,7 @@ export class Channel extends Emitter<ChannelEvent> {
 			this.config.productInfo,
 			this.config.isPresenceOnly,
 			this.analyticsHelper,
+			path,
 		) as Socket;
 
 		// Due to https://github.com/socketio/socket.io-client/issues/1473,
@@ -249,7 +249,7 @@ export class Channel extends Emitter<ChannelEvent> {
 		// Ensure the error emit to the provider has the same structure, so we can handle them unified.
 		this.socket.on('connect_error', this.onConnectError);
 		this.socket.on('permission:invalidateToken', this.handlePermissionInvalidateToken);
-		this.socket.onAnyOutgoing((_event, ...args) => this.onAnyOutgoingHandler(Date.now(), args));
+		this.socket.onAnyOutgoing((_, ...args) => this.onAnyOutgoingHandler(Date.now(), args));
 
 		// To trigger reconnection when browser comes back online
 		if (!this.network) {

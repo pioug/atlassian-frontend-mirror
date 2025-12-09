@@ -128,7 +128,7 @@ const ExtensionButton = (props: ExtensionButtonProps) => {
 	);
 };
 
-export const ExtensionsPlaceholder = (props: Props) => {
+export const ExtensionsPlaceholder = (props: Props): React.JSX.Element | null => {
 	const {
 		node,
 		editorView,

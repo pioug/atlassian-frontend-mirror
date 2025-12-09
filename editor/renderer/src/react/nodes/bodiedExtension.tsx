@@ -40,7 +40,7 @@ interface Props {
 	startPos: number;
 }
 
-const BodiedExtension = (props: React.PropsWithChildren<Props>) => {
+const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Element => {
 	const {
 		children,
 		layout = 'default',

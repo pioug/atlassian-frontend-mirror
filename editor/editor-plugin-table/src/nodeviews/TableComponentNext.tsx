@@ -19,7 +19,7 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
-import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
+import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
@@ -364,10 +364,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		}
 		this.handleWindowResizeNewDebounced.cancel();
 
-		if (expValEquals('platform_editor_table_drag_handle_hover', 'isEnabled', true)) {
-			if (isInDanger) {
-				clearHoverSelection()(view.state, view.dispatch);
-			}
+		if (isInDanger) {
+			clearHoverSelection()(view.state, view.dispatch);
 		}
 
 		if (!allowTableResizing && allowColumnResizing) {
@@ -591,7 +589,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
 	componentDidUpdate(_: any, prevState: TableState) {
 		const {
-			view,
 			getNode,
 			isMediaFullscreen,
 			allowColumnResizing,
@@ -601,10 +598,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			isTableScalingEnabled, // we could use options.isTableScalingEnabled here
 			getPos,
 			getEditorFeatureFlags,
-			isInDanger,
 		} = this.props;
-
-		const table = findTable(view.state.selection);
 
 		let shouldScale = false;
 		let shouldHandleColgroupUpdates = false;
@@ -637,13 +631,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		if (shouldHandleColgroupUpdates) {
 			this.handleColgroupUpdates();
-		}
-
-		// table is always defined so this never runs
-		if (!expValEquals('platform_editor_table_drag_handle_hover', 'isEnabled', true)) {
-			if (isInDanger && !table) {
-				clearHoverSelection()(view.state, view.dispatch);
-			}
 		}
 
 		if (

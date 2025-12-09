@@ -57,11 +57,7 @@ export const HelpPopup = (): React.JSX.Element => {
 		/>
 	);
 
-	const updateButtonLabel = ({
-		newCount,
-	}: {
-		newCount: number;
-	}) => {
+	const updateButtonLabel = ({ newCount }: { newCount: number }) => {
 		setButtonLabel(newCount || 0);
 	};
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Portal from '@atlaskit/portal';
 
-export default [
+const _default_1: React.JSX.Element[] = [
 	<Portal>
 		<div>This content is rendered in a portal</div>
 	</Portal>,
@@ -10,3 +10,4 @@ export default [
 		<div>This content has a custom z-index</div>
 	</Portal>,
 ];
+export default _default_1;

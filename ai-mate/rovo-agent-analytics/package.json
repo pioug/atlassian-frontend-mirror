@@ -6,7 +6,7 @@
 			"category": "Layout and structure"
 		}
 	},
-	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"main": "dist/cjs/index.js",
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
@@ -88,7 +88,7 @@
 		]
 	},
 	"name": "@atlaskit/rovo-agent-analytics",
-	"version": "0.4.0",
+	"version": "0.5.0",
 	"description": "Rovo Agents analytics",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

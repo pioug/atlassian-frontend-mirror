@@ -150,14 +150,14 @@ const TimePicker: React.ForwardRefExoticComponent<
 		 * Only allow custom times if timeIsEditable prop is true
 		 */
 		const onCreateOption = (inputValue: string): void => {
-		if (timeIsEditable) {
-			let sanitizedInput;
+			if (timeIsEditable) {
+				let sanitizedInput;
 
-			try {
-				sanitizedInput = parseInputValue(inputValue, timeFormat || defaultTimeFormat) as Date;
-			} catch {
-				return; // do nothing, the main validation should happen in the form
-			}
+				try {
+					sanitizedInput = parseInputValue(inputValue, timeFormat || defaultTimeFormat) as Date;
+				} catch {
+					return; // do nothing, the main validation should happen in the form
+				}
 
 				const includesSeconds = !!(timeFormat && /[:.]?(s|ss)/.test(timeFormat));
 

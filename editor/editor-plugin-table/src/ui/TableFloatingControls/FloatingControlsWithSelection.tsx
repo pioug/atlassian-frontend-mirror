@@ -37,7 +37,7 @@ export const FloatingControlsWithSelection = ({
 	selectRow,
 	tableActive,
 	api,
-}: FloatingControlsWithSelectionProps) => {
+}: FloatingControlsWithSelectionProps): React.JSX.Element => {
 	const { selection } = useSharedPluginStateWithSelector(api, ['selection'], (states) => ({
 		selection: states.selectionState?.selection,
 	}));

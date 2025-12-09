@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 15.4.21
+
+### Patch Changes
+
+- [`5935652291a5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5935652291a5f) -
+  Remove platform_editor_table_drag_handle_hover experiment and enable hover behavior permanently
+- Updated dependencies
+
 ## 15.4.20
 
 ### Patch Changes

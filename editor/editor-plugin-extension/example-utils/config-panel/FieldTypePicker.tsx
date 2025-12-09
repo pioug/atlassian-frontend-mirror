@@ -14,7 +14,7 @@ export default function ExtensionNodePicker({
 	fields: FieldDefinition[];
 	onSelect: (field: FieldDefinition) => void;
 	selectedField?: string;
-}) {
+}): React.JSX.Element {
 	const [hasSelection, setHasSelection] = useState<boolean>(false);
 
 	return (

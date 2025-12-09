@@ -1,7 +1,7 @@
 import React from 'react';
 import { type MarkProps } from '../types';
 
-export default function Strike(props: MarkProps) {
+export default function Strike(props: MarkProps): React.JSX.Element {
 	return (
 		<span
 			// Ignored via go/ees005

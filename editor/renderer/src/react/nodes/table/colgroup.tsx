@@ -297,7 +297,7 @@ const renderScaleDownColgroup = (
 	});
 };
 
-export const Colgroup = (props: SharedTableProps) => {
+export const Colgroup = (props: SharedTableProps): React.JSX.Element | null => {
 	const { isTopLevelRenderer } = useRendererContext();
 	const { columnWidths, isNumberColumnEnabled } = props;
 	const flags = useFeatureFlags() as RendererContextProps['featureFlags'] | undefined;

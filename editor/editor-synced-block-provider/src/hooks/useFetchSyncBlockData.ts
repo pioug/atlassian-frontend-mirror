@@ -23,7 +23,14 @@ export const useFetchSyncBlockData = (
 	localId?: string,
 	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
 ): UseFetchSyncBlockDataResult => {
-	const [syncBlockInstance, setSyncBlockInstance] = useState<SyncBlockInstance | null>(null);
+	const [syncBlockInstance, setSyncBlockInstance] = useState<SyncBlockInstance | null>(() => {
+		if (resourceId) {
+			const { data } = manager?.referenceManager?.getInitialSyncBlockData(resourceId) || {};
+
+			return data || null;
+		}
+		return null;
+	});
 	const [isLoading, setIsLoading] = useState(true);
 
 	const reloadData = useCallback(async () => {

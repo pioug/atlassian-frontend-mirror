@@ -15,7 +15,7 @@ type LinkButtonProps = {
 	api?: ExtractInjectionAPI<HyperlinkPlugin>;
 };
 
-export const LinkButton = ({ api }: LinkButtonProps) => {
+export const LinkButton = ({ api }: LinkButtonProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const canInsertLink = useSharedPluginStateWithSelector(
 		api,

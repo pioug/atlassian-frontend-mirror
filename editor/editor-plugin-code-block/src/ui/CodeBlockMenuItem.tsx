@@ -64,5 +64,5 @@ const CodeBlockMenuItem = ({ api }: Props) => {
 };
 
 export const createCodeBlockMenuItem = (api: ExtractInjectionAPI<CodeBlockPlugin> | undefined) => {
-	return () => <CodeBlockMenuItem api={api} />;
+	return (): React.JSX.Element => <CodeBlockMenuItem api={api} />;
 };

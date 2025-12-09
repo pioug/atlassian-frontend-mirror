@@ -1,4 +1,4 @@
-import { type ActiveTokens } from "@atlaskit/tokens";
+import { type ActiveTokens } from '@atlaskit/tokens';
 
 type MarginValue = Extract<ActiveTokens, `space.${string}`>;
 

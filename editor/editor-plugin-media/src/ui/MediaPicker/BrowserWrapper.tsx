@@ -16,7 +16,12 @@ type Props = {
 	onBrowseFn: (browse: () => void) => void;
 };
 
-export const BrowserWrapper = ({ api, isOpen, onBrowseFn, featureFlags }: Props) => (
+export const BrowserWrapper = ({
+	api,
+	isOpen,
+	onBrowseFn,
+	featureFlags,
+}: Props): React.JSX.Element => (
 	<PickerFacadeProvider api={api} analyticsName="browser">
 		{({ mediaClientConfig, config, pickerFacadeInstance }) => {
 			const browserConfig: BrowserConfig = {

@@ -227,7 +227,7 @@ export const TableResizer = ({
 	isFullWidthModeEnabled,
 	isCommentEditor,
 	disabled,
-}: PropsWithChildren<TableResizerProps>) => {
+}: PropsWithChildren<TableResizerProps>): React.JSX.Element => {
 	const currentGap = useRef(0);
 	// track resizing state - use ref over state to avoid re-render
 	const isResizing = useRef(false);

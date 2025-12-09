@@ -20,7 +20,7 @@ type MediaButtonProps = {
 	api?: ExtractInjectionAPI<InsertBlockPlugin>;
 };
 
-export const MediaButton = ({ api }: MediaButtonProps) => {
+export const MediaButton = ({ api }: MediaButtonProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 
 	const { showMediaPicker, connectivityMode, allowsUploads } = useSharedPluginStateWithSelector(

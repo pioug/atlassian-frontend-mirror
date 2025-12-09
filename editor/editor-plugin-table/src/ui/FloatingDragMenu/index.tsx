@@ -62,7 +62,7 @@ const FloatingDragMenu = ({
 	ariaNotifyPlugin,
 	api,
 	isCommentEditor,
-}: Props) => {
+}: Props): React.JSX.Element | null => {
 	if (!isOpen || !targetCellPosition || editorView.state.doc.nodeSize <= targetCellPosition) {
 		return null;
 	}

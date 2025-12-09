@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { type ProviderProps, SmartCardProvider } from '@atlaskit/link-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
 import { type DatasourceTableView } from '../src';
@@ -21,7 +21,8 @@ type JiraIssuesTableViewProps = {
 	mockDatasourceFetchRequest?: boolean;
 } & Partial<
 	Pick<DatasourceTableViewProps, 'parameters' | 'scrollableContainerHeight' | 'visibleColumnKeys'>
->;
+> &
+	Partial<Pick<ProviderProps, 'shouldControlDataExport'>>;
 
 const JiraIssuesTableView = ({
 	DatasourceTable = DataSourceTableViewNoSuspense,
@@ -86,7 +87,10 @@ export const ExampleJiraIssuesTableView = ({
 	return (
 		<DatasourceExperienceIdProvider>
 			<IntlMessagesProvider loaderFn={fetchMessagesForLocale}>
-				<SmartCardProvider client={new SmartLinkClient()}>
+				<SmartCardProvider
+					client={new SmartLinkClient()}
+					shouldControlDataExport={props.shouldControlDataExport}
+				>
 					<JiraIssuesTableView {...props} />
 				</SmartCardProvider>
 			</IntlMessagesProvider>

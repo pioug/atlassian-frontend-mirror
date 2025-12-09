@@ -29,7 +29,7 @@ export const Table = React.memo(
 		allowTableResizing,
 		isPresentational,
 		fixTableSSRResizing = false,
-	}: TableProps) => {
+	}: TableProps): React.JSX.Element => {
 		let tableWidth: number | 'inherit' = tableNode
 			? getTableContainerWidth(tableNode)
 			: akEditorDefaultLayoutWidth;

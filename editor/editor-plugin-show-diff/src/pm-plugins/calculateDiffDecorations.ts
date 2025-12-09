@@ -6,7 +6,7 @@ import type { IntlShape } from 'react-intl-next';
 
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step as ProseMirrorStep, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { type Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { getAttrChangeRanges, stepIsValidAttrChange } from './attributeDecorations';
@@ -101,9 +101,8 @@ const calculateDiffDecorationsInner = ({
 	let steppedDoc = originalDoc;
 
 	const attrSteps: ProseMirrorStep[] = [];
-	let changeset = ChangeSet.create(originalDoc);
-
 	const simplifiedSteps = simplifySteps(steps, originalDoc);
+	const stepMaps: StepMap[] = [];
 
 	for (const step of simplifiedSteps) {
 		const result = step.apply(steppedDoc);
@@ -111,8 +110,8 @@ const calculateDiffDecorationsInner = ({
 			if (stepIsValidAttrChange(step, steppedDoc, result.doc)) {
 				attrSteps.push(step);
 			}
+			stepMaps.push(step.getMap());
 			steppedDoc = result.doc;
-			changeset = changeset.addSteps(steppedDoc, [step.getMap()], step);
 		}
 	}
 
@@ -121,6 +120,7 @@ const calculateDiffDecorationsInner = ({
 	if (!areNodesEqualIgnoreAttrs(steppedDoc, tr.doc)) {
 		return DecorationSet.empty;
 	}
+	const changeset = ChangeSet.create(originalDoc).addSteps(steppedDoc, stepMaps, tr.doc);
 	const changes = simplifyChanges(changeset.changes, tr.doc);
 
 	const optimizedChanges = optimizeChanges(changes);

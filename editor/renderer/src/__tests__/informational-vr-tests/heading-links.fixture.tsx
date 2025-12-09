@@ -8,7 +8,7 @@ import {
 	adfHeadingsNestedPanel,
 } from '../__fixtures__/heading-links';
 
-export const HeadingInsidePanel = () => {
+export const HeadingInsidePanel = (): React.JSX.Element => {
 	return (
 		<Renderer
 			allowHeadingAnchorLinks={{
@@ -21,7 +21,7 @@ export const HeadingInsidePanel = () => {
 	);
 };
 
-export const HeadingInsideExpand = () => {
+export const HeadingInsideExpand = (): React.JSX.Element => {
 	return (
 		<Renderer
 			allowHeadingAnchorLinks={{
@@ -34,7 +34,7 @@ export const HeadingInsideExpand = () => {
 	);
 };
 
-export const HeadingInsideTable = () => {
+export const HeadingInsideTable = (): React.JSX.Element => {
 	return (
 		<Renderer
 			allowHeadingAnchorLinks={{
@@ -48,7 +48,7 @@ export const HeadingInsideTable = () => {
 	);
 };
 
-export const HeadingInsideLayout = () => {
+export const HeadingInsideLayout = (): React.JSX.Element => {
 	return (
 		<Renderer
 			allowHeadingAnchorLinks={{

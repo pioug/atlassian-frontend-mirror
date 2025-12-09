@@ -300,7 +300,7 @@ export class MediaCardView extends Component<
 		return undefined;
 	};
 
-	render() {
+	render(): React.JSX.Element | null {
 		const { contextIdentifierProvider, fileState } = this.state;
 		const {
 			id,
@@ -460,7 +460,7 @@ export const getClipboardAttrs = ({
 	};
 };
 
-export const MediaCardInternal = (props: MediaCardProps) => {
+export const MediaCardInternal = (props: MediaCardProps): React.JSX.Element => {
 	const mediaClient = useContext(MediaClientContext);
 
 	return (

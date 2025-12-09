@@ -14,7 +14,9 @@ type CreateSyncedBlockButtonProps = {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 };
 
-export const CreateSyncedBlockButton = ({ api }: CreateSyncedBlockButtonProps) => {
+export const CreateSyncedBlockButton = ({
+	api,
+}: CreateSyncedBlockButtonProps): React.JSX.Element => {
 	const intl = useIntl();
 	const { selection, mode } = useSharedPluginStateWithSelector(
 		api,

@@ -4,7 +4,8 @@
 		"target": "es5",
 		"outDir": "../../../../../tsDist/@atlaskit__editor-plugin-composition/app",
 		"rootDir": "../",
-		"composite": true
+		"composite": true,
+		"noCheck": true
 	},
 	"include": [
 		"../src/**/*.ts",

@@ -35,7 +35,7 @@ const usePluginState = conditionalHooksFactory(
 	},
 );
 
-export const MenuSection = ({ children, api }: MenuSectionProps) => {
+export const MenuSection = ({ children, api }: MenuSectionProps): React.JSX.Element | null => {
 	const { editorViewMode } = usePluginState(api);
 	const isEdit = editorViewMode === 'edit';
 

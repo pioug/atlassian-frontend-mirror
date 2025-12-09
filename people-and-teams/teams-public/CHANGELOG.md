@@ -1,5 +1,16 @@
 # @atlaskit/teams-public
 
+## 0.65.0
+
+### Minor Changes
+
+- [`c64239609fe7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c64239609fe7a) -
+  Use agg-client exported from teams-client in teams-public
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.64.0
 
 ### Minor Changes

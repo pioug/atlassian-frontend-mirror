@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { teamIdToAri } from '../../common/utils/team-id-to-ari';
 import { toUserId } from '../../common/utils/user-ari';
 import { type ClientConfig } from '../base-client';
@@ -23,12 +21,9 @@ import {
 	type TeamConnectedToContainerQueryVariables,
 } from './utils/queries/team-connected-to-container-query';
 import {
-	TeamContainersQuery,
-	type TeamContainersQueryResponse,
 	TeamContainersQueryV2,
 	type TeamContainersQueryV2Response,
 	type TeamContainersQueryV2Variables,
-	type TeamContainersQueryVariables,
 } from './utils/queries/team-containers-query';
 
 export class AGGClient extends BaseGraphQlClient {
@@ -43,55 +38,35 @@ export class AGGClient extends BaseGraphQlClient {
 		const teamAri = teamIdToAri(teamId);
 		const cypherQuery = `MATCH (team:IdentityTeam {ari: '${teamAri}'})-[:team_connected_to_container]->(container) RETURN container`;
 
-		if (fg('teams_containers_cypher_query_v2_migration')) {
-			const response = await this.makeGraphQLRequest<
-				'graphStore',
-				TeamContainersQueryV2Response,
-				TeamContainersQueryV2Variables
-			>(
-				{
-					query: TeamContainersQueryV2,
-					variables: {
-						cypherQuery,
-						params: {
-							id: teamAri,
-						},
+		const response = await this.makeGraphQLRequest<
+			'graphStore',
+			TeamContainersQueryV2Response,
+			TeamContainersQueryV2Variables
+		>(
+			{
+				query: TeamContainersQueryV2,
+				variables: {
+					cypherQuery,
+					params: {
+						id: teamAri,
 					},
 				},
-				{
-					operationName: 'TeamContainersQueryV2',
-				},
-			);
+			},
+			{
+				operationName: 'TeamContainersQueryV2',
+			},
+		);
 
-			return this.processV2Response(response);
-		} else {
-			const response = await this.makeGraphQLRequest<
-				'graphStore',
-				TeamContainersQueryResponse,
-				TeamContainersQueryVariables
-			>(
-				{
-					query: TeamContainersQuery,
-					variables: {
-						cypherQuery,
-					},
-				},
-				{
-					operationName: 'TeamContainersQuery',
-				},
-			);
-
-			return this.processV1Response(response);
-		}
+		return this.processResponse(response);
 	}
 
-	private processV2Response(response: { graphStore: TeamContainersQueryV2Response }) {
+	private processResponse(response: { graphStore: TeamContainersQueryV2Response }) {
 		const containersResult = response.graphStore.cypherQueryV2.edges.reduce<TeamContainers>(
 			(containers, edge) => {
 				edge.node.columns.forEach((column) => {
 					const containerData = column.value?.data;
 
-					if (!containerData && fg('enable_team_containers_null_check')) {
+					if (!containerData) {
 						return;
 					}
 
@@ -131,56 +106,6 @@ export class AGGClient extends BaseGraphQlClient {
 						});
 					}
 				});
-				return containers;
-			},
-			[],
-		);
-
-		return containersResult;
-	}
-
-	private processV1Response(response: { graphStore: TeamContainersQueryResponse }) {
-		const containersResult = response.graphStore.cypherQuery.edges.reduce<TeamContainers>(
-			(containers, edge) => {
-				if (!edge.node.to.data && fg('enable_team_containers_null_check')) {
-					return containers;
-				}
-
-				if (edge.node.to.data.__typename === 'ConfluenceSpace') {
-					containers.push({
-						id: edge.node.to.id,
-						type: edge.node.to.data.__typename,
-						name: edge.node.to.data.confluenceSpaceName || '',
-						icon: `${edge.node.to.data.links.base}${edge.node.to.data.icon.path}`,
-						createdDate: new Date(edge.node.to.data.createdDate),
-						link: `${edge.node.to.data.links.base}${edge.node.to.data.links.webUi}`,
-						containerTypeProperties: {
-							subType: undefined,
-							name: undefined,
-						},
-					});
-				} else if (edge.node.to.data.__typename === 'JiraProject') {
-					containers.push({
-						id: edge.node.to.id,
-						type: edge.node.to.data.__typename,
-						name: edge.node.to.data.jiraProjectName,
-						icon: edge.node.to.data.avatar.medium,
-						createdDate: new Date(edge.node.to.data.created),
-						link: edge.node.to.data.webUrl,
-						containerTypeProperties: {
-							subType: edge.node.to.data.projectType || '',
-							name: edge.node.to.data.projectTypeName || '',
-						},
-					});
-				} else if (edge.node.to.data.__typename === 'LoomSpace') {
-					containers.push({
-						id: edge.node.to.id,
-						type: edge.node.to.data.__typename,
-						name: edge.node.to.data.loomSpaceName,
-						icon: '',
-						link: edge.node.to.data.url,
-					});
-				}
 				return containers;
 			},
 			[],

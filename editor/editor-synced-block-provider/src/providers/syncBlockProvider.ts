@@ -77,7 +77,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	 * @returns The data key
 	 */
 	nodeDataKey(node: SyncBlockNode) {
-		return node.attrs.localId;
+		return node.attrs.resourceId;
 	}
 
 	/**
@@ -261,8 +261,21 @@ export const useMemoizedSyncedBlockProvider = (
 	writeProvider: ADFWriteProvider,
 	sourceId: string,
 	providerOptions: SyncedBlockRendererProviderOptions,
+	getSSRData?: () => Record<string, SyncBlockInstance> | undefined,
 ) => {
 	return useMemo(() => {
-		return new SyncBlockProvider(fetchProvider, writeProvider, sourceId, providerOptions);
-	}, [fetchProvider, writeProvider, sourceId, providerOptions]);
+		const syncBlockProvider = new SyncBlockProvider(
+			fetchProvider,
+			writeProvider,
+			sourceId,
+			providerOptions,
+		);
+
+		const ssrData = getSSRData ? getSSRData() : undefined;
+		if (ssrData) {
+			syncBlockProvider.setSSRData(ssrData);
+		}
+
+		return syncBlockProvider;
+	}, [fetchProvider, writeProvider, sourceId, providerOptions, getSSRData]);
 };

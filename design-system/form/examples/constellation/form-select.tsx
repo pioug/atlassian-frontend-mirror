@@ -10,62 +10,59 @@ interface Option {
 	value: string;
 }
 interface Category {
-	colors?: Value<Option>;
-	icecream?: Value<Option[]>;
+	type?: Value<Option>;
+	owner?: Value<Option[]>;
 	suit?: Value<Option[]>;
 }
 
-const colors = [
-	{ label: 'Blue', value: 'blue' },
-	{ label: 'Red', value: 'red' },
-	{ label: 'Purple', value: 'purple' },
-	{ label: 'Black', value: 'black' },
-	{ label: 'White', value: 'white' },
-	{ label: 'Gray', value: 'gray' },
-	{ label: 'Yellow', value: 'yellow' },
+const types = [
+	{ label: 'Library', value: 'library' },
+	{ label: 'Application', value: 'application' },
+	{ label: 'Capability', value: 'capability' },
+	{ label: 'Cloud resource', value: 'cloud resource' },
+	{ label: 'Data pipeline', value: 'data pipeline' },
+	{ label: 'Machine learning model', value: 'Mmchine learning model' },
+	{ label: 'UI element', value: 'ui element' },
 ];
 
-const flavors = [
-	{ label: 'Vanilla', value: 'vanilla' },
-	{ label: 'Strawberry', value: 'strawberry' },
-	{ label: 'Chocolate', value: 'chocolate' },
-	{ label: 'Mango', value: 'mango' },
-	{ label: 'Passionfruit', value: 'passionfruit' },
-	{ label: 'Hazelnut', value: 'hazelnut' },
-	{ label: 'Durian', value: 'durian' },
+const owners = [
+	{ label: 'Design System Team', value: 'Design System Team' },
+	{ label: 'Accessibility', value: 'Accessibility' },
+	{ label: 'Design Ops', value: 'Design Ops' },
+	{ label: 'Experience', value: 'Experience' },
 ];
 
-const suits = [
-	{ label: 'Diamonds', value: 'diamonds' },
-	{ label: 'Clubs', value: 'clubs' },
-	{ label: 'Hearts', value: 'hearts' },
-	{ label: 'Spades', value: 'spades' },
+const status = [
+	{ label: 'To do', value: 'to do' },
+	{ label: 'In progress', value: 'in progress' },
+	{ label: 'In review', value: 'in review' },
+	{ label: 'Done', value: 'done' },
 ];
 
 const validateOnSubmit = (data: Category) => {
 	let errors;
-	errors = colorsValidation(data, errors);
-	errors = flavorValidation(data, errors);
+	errors = typeValidation(data, errors);
+	errors = ownerValidation(data, errors);
 	return errors;
 };
 
-const colorsValidation = (data: Category, errors?: Record<string, string>) => {
-	if (data.colors && !(data.colors instanceof Array)) {
-		return (data.colors as Option).value === 'dog'
+const typeValidation = (data: Category, errors?: Record<string, string>) => {
+	if (data.type && !(data.type instanceof Array)) {
+		return (data.type as Option).value === 'dog'
 			? {
 					...errors,
-					colors: `${(data.colors as Option).value} is not a color`,
+					type: `${(data.type as Option).value} is not a type`,
 				}
 			: errors;
 	}
 	return errors;
 };
 
-const flavorValidation = (data: Category, errors?: Record<string, string>) => {
-	if (data.icecream && data.icecream.length >= 3) {
+const ownerValidation = (data: Category, errors?: Record<string, string>) => {
+	if (data.owner && data.owner.length >= 2) {
 		return {
 			...errors,
-			icecream: `${data.icecream.length} is too many flavors, please select a maximum of 2 flavors`,
+			owner: `${data.owner.length} is too many owners. Select a maximum of 1 owner.`,
 		};
 	}
 
@@ -82,36 +79,36 @@ const FormSelectExample = (): React.JSX.Element => {
 				}}
 			>
 				<Field<Value<Option>>
-					name="colors"
-					label="Select a color"
+					name="type"
+					label="Type"
 					defaultValue={null}
 					component={({ fieldProps: { id, ...rest } }) => (
 						<Select<Option>
 							inputId={id}
 							{...rest}
-							options={colors}
+							options={types}
 							isClearable
-							clearControlLabel="Clear color"
+							clearControlLabel="Clear type"
 						/>
 					)}
 				/>
 				<Field<Value<Option, true>>
-					name="icecream"
-					label="Select a flavor"
+					name="owner"
+					label="Owner"
 					defaultValue={[]}
 					component={({ fieldProps: { id, ...rest } }) => (
-						<Select inputId={id} {...rest} options={flavors} isMulti />
+						<Select inputId={id} {...rest} options={owners} isMulti />
 					)}
 				/>
 				<Field<Value<Option, true>>
-					name="suits"
-					label="Select suits"
-					defaultValue={suits.slice(2)}
+					name="status"
+					label="Status"
+					defaultValue={status.slice(2)}
 					component={({ fieldProps: { id, ...rest } }) => (
-						<Select inputId={id} {...rest} options={suits} isMulti />
+						<Select inputId={id} {...rest} options={status} isMulti />
 					)}
 				/>
-				<FormFooter>
+				<FormFooter align="start">
 					<Button type="submit" appearance="primary">
 						Submit
 					</Button>

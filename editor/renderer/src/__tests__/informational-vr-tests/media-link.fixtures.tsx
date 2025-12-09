@@ -91,7 +91,7 @@ const adfWrappedMedia = {
 	],
 };
 
-export function RendererMediaLink() {
+export function RendererMediaLink(): React.JSX.Element {
 	return (
 		<SmartCardProvider client={smartCardClient}>
 			<MockMediaClientProvider>
@@ -110,7 +110,7 @@ export function RendererMediaLink() {
 	);
 }
 
-export function RendererMediaLinkWrapped() {
+export function RendererMediaLinkWrapped(): React.JSX.Element {
 	return (
 		<SmartCardProvider client={smartCardClient}>
 			<MockMediaClientProvider>
@@ -130,7 +130,7 @@ export function RendererMediaLinkWrapped() {
 	);
 }
 
-export function RendererMediaLinkInsideExpand() {
+export function RendererMediaLinkInsideExpand(): React.JSX.Element {
 	return (
 		<SmartCardProvider client={smartCardClient}>
 			<MockMediaClientProvider>
@@ -149,7 +149,7 @@ export function RendererMediaLinkInsideExpand() {
 	);
 }
 
-export function RendererMediaLinkInsideNestedExpand() {
+export function RendererMediaLinkInsideNestedExpand(): React.JSX.Element {
 	return (
 		<SmartCardProvider client={smartCardClient}>
 			<MockMediaClientProvider>
@@ -168,7 +168,7 @@ export function RendererMediaLinkInsideNestedExpand() {
 	);
 }
 
-export function RendererMediaLinkInsideTable() {
+export function RendererMediaLinkInsideTable(): React.JSX.Element {
 	return (
 		<SmartCardProvider client={smartCardClient}>
 			<MockMediaClientProvider>
@@ -187,7 +187,7 @@ export function RendererMediaLinkInsideTable() {
 	);
 }
 
-export function RendererLeftWrappedMediaLinkInsideTable() {
+export function RendererLeftWrappedMediaLinkInsideTable(): React.JSX.Element {
 	return (
 		<SmartCardProvider client={smartCardClient}>
 			<MockMediaClientProvider>
@@ -206,7 +206,7 @@ export function RendererLeftWrappedMediaLinkInsideTable() {
 	);
 }
 
-export function RendererRightWrappedMediaLinkInsideTable() {
+export function RendererRightWrappedMediaLinkInsideTable(): React.JSX.Element {
 	return (
 		<SmartCardProvider client={smartCardClient}>
 			<MockMediaClientProvider>
@@ -225,7 +225,7 @@ export function RendererRightWrappedMediaLinkInsideTable() {
 	);
 }
 
-export function RendererLeftAndRightWrappedMediaLinkInsideTable() {
+export function RendererLeftAndRightWrappedMediaLinkInsideTable(): React.JSX.Element {
 	return (
 		<SmartCardProvider client={smartCardClient}>
 			<MockMediaClientProvider>

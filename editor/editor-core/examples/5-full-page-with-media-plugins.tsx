@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { IntlProvider } from 'react-intl-next';
+
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
@@ -10,7 +12,7 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 
 const mediaProvider = storyMediaProviderFactory();
 
-const ImageEditor = (): React.JSX.Element => {
+const ImageEditor = () => {
 	const createPreset = () =>
 		createDefaultPreset({ featureFlags: {}, paste: {} })
 			.add(gridPlugin)
@@ -20,11 +22,18 @@ const ImageEditor = (): React.JSX.Element => {
 					provider: mediaProvider,
 					allowMediaSingle: true,
 					allowResizing: true,
+					allowAdvancedToolBarOptions: true,
+					allowImagePreview: true,
+					allowImageEditing: true,
 				},
 			])
 			.add(mediaInsertPlugin);
 	const { preset } = usePreset(createPreset);
-	return <ComposableEditor preset={preset} />;
+	return (
+		<IntlProvider locale="en">
+			<ComposableEditor preset={preset} appearance="full-page" />
+		</IntlProvider>
+	);
 };
 
 export default ImageEditor;

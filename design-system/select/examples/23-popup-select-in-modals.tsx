@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
@@ -22,15 +22,47 @@ const options = [
 	{ label: 'Sydney', value: 'sydney' },
 ];
 
+/**
+ * This example demonstrates how to use PopupSelect inside Modal and Drawer
+ * without the Modal/Drawer closing unexpectedly when interacting with the Select.
+ *
+ * Solution:
+ * - Track when PopupSelect is open using onOpen/onClose callbacks
+ * - Block Modal/Drawer from closing while PopupSelect is open
+ * - Add a small delay after PopupSelect closes before allowing Modal/Drawer to close
+ *   This ensures the dropdown closes first, then the modal/drawer on the next click.
+ */
 export default (): React.JSX.Element => {
-	const [isOpen, setIsOpen] = React.useState(false);
-	const [type, setType] = React.useState('modal');
+	const [isOpen, setIsOpen] = useState(false);
+	const [type, setType] = useState('modal');
+	const [canClose, setCanClose] = useState(true);
+
+	const handleClose = useCallback(() => {
+		if (!canClose) {
+			return;
+		}
+		setIsOpen(false);
+	}, [canClose]);
+
+	const handleSelectOpen = useCallback(() => {
+		setCanClose(false);
+	}, []);
+
+	const handleSelectClose = useCallback(() => {
+		// Add a delay before allowing modal/drawer to close
+		// This prevents the same click from closing both the dropdown and the modal/drawer
+		setTimeout(() => {
+			setCanClose(true);
+		}, 200);
+	}, []);
 
 	const select = (
 		<PopupSelect
 			isSearchable={false}
 			options={options}
 			menuPlacement="bottom"
+			onOpen={handleSelectOpen}
+			onClose={handleSelectClose}
 			popperProps={{
 				modifiers: [
 					{ name: 'offset', options: { offset: [0, 8] } },
@@ -61,7 +93,7 @@ export default (): React.JSX.Element => {
 			{select}
 
 			{type === 'drawer' && (
-				<Drawer label="Popup select inside Drawer" onClose={() => setIsOpen(false)} isOpen={isOpen}>
+				<Drawer label="Popup select inside Drawer" onClose={handleClose} isOpen={isOpen}>
 					<DrawerSidebar>
 						<DrawerCloseButton />
 					</DrawerSidebar>
@@ -71,7 +103,7 @@ export default (): React.JSX.Element => {
 
 			<ModalTransition>
 				{type === 'modal' && isOpen && (
-					<ModalDialog onClose={() => setIsOpen(false)}>
+					<ModalDialog onClose={handleClose}>
 						<ModalHeader hasCloseButton>
 							<ModalTitle>Popup select modal</ModalTitle>
 						</ModalHeader>

@@ -51,7 +51,7 @@ const FindReplaceToolbarButtonWithState = ({
 	api,
 	isButtonHidden,
 	doesNotHaveButton,
-}: FindReplaceToolbarButtonWithStateProps) => {
+}: FindReplaceToolbarButtonWithStateProps): React.JSX.Element | null => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
 
 	const { findReplaceState } = useSharedPluginStateNoDebounce(api);

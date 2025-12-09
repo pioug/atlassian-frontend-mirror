@@ -34,7 +34,7 @@ type Props = {
 	wrapperDOM: React.RefObject<HTMLDivElement>;
 };
 
-export const Mounter = React.memo((props: Props) => {
+export const Mounter = React.memo((props: Props): React.JSX.Element => {
 	const {
 		component: Component,
 		range,

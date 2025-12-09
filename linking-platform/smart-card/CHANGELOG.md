@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 43.14.3
+
+### Patch Changes
+
+- [`aa3fd21c81ee8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa3fd21c81ee8) -
+  [ux] Update assets for unauth block card experiment
+
 ## 43.14.2
 
 ### Patch Changes

@@ -7,7 +7,7 @@ interface WithRendererActionsProps {
 	render(actions: RendererActions): ReactNode | null;
 }
 
-export function WithRendererActions({ render }: WithRendererActionsProps) {
+export function WithRendererActions({ render }: WithRendererActionsProps): React.JSX.Element {
 	return (
 		<RendererActionsContextConsumer>{(actions) => render(actions)}</RendererActionsContextConsumer>
 	);

@@ -63,5 +63,5 @@ const NumberedListBlockMenuItem = ({ api }: NumberedListBlockMenuItemProps) => {
 };
 
 export const createNumberedListBlockMenuItem = ({ api }: NumberedListBlockMenuItemProps) => {
-	return () => <NumberedListBlockMenuItem api={api} />;
+	return (): React.JSX.Element => <NumberedListBlockMenuItem api={api} />;
 };

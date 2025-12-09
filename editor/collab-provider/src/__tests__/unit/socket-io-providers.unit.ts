@@ -2,19 +2,126 @@ import { SOCKET_IO_OPTIONS, SOCKET_IO_OPTIONS_WITH_HIGH_JITTER } from '../../con
 import { createSocketIOSocket } from '../../socket-io-provider';
 import { type InitAndAuthData } from '../../types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { isIsolatedCloud } from '@atlaskit/atlassian-context';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 jest.mock('@atlaskit/platform-feature-flags', () => ({
 	fg: jest.fn(),
 }));
 const fgMock = fg as jest.Mock;
 
+jest.mock('@atlaskit/atlassian-context', () => ({
+	isIsolatedCloud: jest.fn(),
+}));
+const isIsolatedCloudMock = isIsolatedCloud as jest.Mock;
+
+jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
+	expValEquals: jest.fn(),
+}));
+const expValEqualsMock = expValEquals as jest.Mock;
+
 describe('Socket io provider', () => {
 	const url = 'http://localhost:8080/ccollab/sessionId/123';
+	const path = '/ncs-presence/mock-cloud-id/mock-activation-id/confluence';
 
-	it('return io with correct path', () => {
-		const socket = createSocketIOSocket(url);
+	describe('Socket io client path', () => {
+		it('return io with correct path for ccollab', () => {
+			const socket = createSocketIOSocket(url);
 
-		expect((socket as any).io.engine.opts.path).toEqual('/ccollab/socket.io/');
+			expect((socket as any).io.engine.opts.path).toEqual('/ccollab/socket.io/');
+		});
+
+		describe.each([true, false])(
+			'return io with correct path outside IC for FG states for presence only %s',
+			(isPresenceOnly) => {
+				const permutations = [
+					[true, true, true],
+					[true, false, true],
+					[false, true, false],
+					[false, false, false],
+				];
+
+				beforeEach(() => {
+					isIsolatedCloudMock.mockReturnValue(false);
+				});
+
+				afterEach(() => {
+					jest.restoreAllMocks();
+				});
+
+				it.each(permutations)(
+					'when nonIc FG %s and ic FG %s, PMR url should be used %s',
+					(nonIcFG, icFG, shouldUsePMR) => {
+						expValEqualsMock.mockImplementation(
+							(flag: string) =>
+								(nonIcFG && flag === 'platform_editor_use_pmr_for_collab_presence_non_ic') ||
+								(icFG && flag === 'platform_editor_use_pmr_for_collab_presence_in_ic'),
+						);
+
+						const socket = createSocketIOSocket(
+							url,
+							undefined,
+							undefined,
+							isPresenceOnly,
+							undefined,
+							path,
+						);
+
+						expect((socket as any).io.engine.opts.path).toEqual(
+							isPresenceOnly && shouldUsePMR
+								? '/ncs-presence/mock-cloud-id/mock-activation-id/confluence/socket.io/'
+								: '/ccollab/socket.io/',
+						);
+					},
+				);
+			},
+		);
+
+		describe.each([true, false])(
+			'return io with correct path inside IC for FG states for presence only %s',
+			(isPresenceOnly) => {
+				const permutations = [
+					[true, true, true],
+					[true, false, false],
+					[false, true, true],
+					[false, false, false],
+				];
+
+				beforeEach(() => {
+					isIsolatedCloudMock.mockReturnValue(true);
+				});
+
+				afterEach(() => {
+					jest.restoreAllMocks();
+				});
+
+				it.each(permutations)(
+					'when nonIc FG %s and ic FG %s, PMR url should be used %s',
+					(nonIcFG, icFG, shouldUsePMR) => {
+						expValEqualsMock.mockImplementation(
+							(flag: string) =>
+								(nonIcFG && flag === 'platform_editor_use_pmr_for_collab_presence_non_ic') ||
+								(icFG && flag === 'platform_editor_use_pmr_for_collab_presence_in_ic'),
+						);
+
+						const socket = createSocketIOSocket(
+							url,
+							undefined,
+							undefined,
+							isPresenceOnly,
+							undefined,
+							path,
+						);
+
+						expect((socket as any).io.engine.opts.path).toEqual(
+							isPresenceOnly && shouldUsePMR
+								? '/ncs-presence/mock-cloud-id/mock-activation-id/confluence/socket.io/'
+								: '/ccollab/socket.io/',
+						);
+					},
+				);
+			},
+		);
 	});
 
 	it('attach `auth` tokenRefresh if tokenRefresh function exist', (done) => {

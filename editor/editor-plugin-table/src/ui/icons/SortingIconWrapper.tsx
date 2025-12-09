@@ -11,7 +11,7 @@ type SortingIconWrapperProps = SortingIconProps & {
 	api: ExtractInjectionAPI<TablePlugin>;
 };
 
-export const SortingIconWrapper = (props: SortingIconWrapperProps) => {
+export const SortingIconWrapper = (props: SortingIconWrapperProps): React.JSX.Element | null => {
 	const { mode } = useSharedPluginStateWithSelector(props.api, ['editorViewMode'], (states) => ({
 		mode: states.editorViewModeState?.mode,
 	}));

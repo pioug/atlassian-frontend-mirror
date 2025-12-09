@@ -21,7 +21,7 @@ const SyncBlockRendererWrapperComponent = ({
 	useFetchSyncBlockData,
 	localId,
 	useFetchSyncBlockTitle,
-}: Props) => {
+}: Props): React.JSX.Element => {
 	return (
 		<div>
 			<div

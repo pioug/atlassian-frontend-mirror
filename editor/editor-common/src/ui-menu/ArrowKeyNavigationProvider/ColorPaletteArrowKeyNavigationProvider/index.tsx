@@ -16,7 +16,9 @@ export const ColorPaletteArrowKeyNavigationProvider = ({
 	editorRef,
 	ignoreEscapeKey,
 	popupsMountPoint,
-}: React.PropsWithChildren<Omit<ColorPaletteArrowKeyNavigationProps, 'type'>>): React.JSX.Element => {
+}: React.PropsWithChildren<
+	Omit<ColorPaletteArrowKeyNavigationProps, 'type'>
+>): React.JSX.Element => {
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const currentSelectedColumnIndex = useRef(selectedColumnIndex === -1 ? 0 : selectedColumnIndex);
 	const currentSelectedRowIndex = useRef(selectedRowIndex === -1 ? 0 : selectedRowIndex);

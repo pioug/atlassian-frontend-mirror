@@ -162,7 +162,7 @@ export default class RawDataHandler {
 
 		let rawEventObservations = windowEventEntries.map((entry) => {
 			const windowEventEntry = entry.data as WindowEventEntryData;
-            const eventType = windowEventEntry.eventType;
+			const eventType = windowEventEntry.eventType;
 
 			let evtId = eventTypeMap.get(eventType) || 0;
 			if (evtId === 0) {

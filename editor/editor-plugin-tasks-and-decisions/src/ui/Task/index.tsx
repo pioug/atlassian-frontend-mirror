@@ -83,7 +83,7 @@ export class TaskItem extends PureComponent<TaskItemProps, Object> {
 		);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const providers: (keyof Providers)[] = ['contextIdentifierProvider'];
 
 		return (

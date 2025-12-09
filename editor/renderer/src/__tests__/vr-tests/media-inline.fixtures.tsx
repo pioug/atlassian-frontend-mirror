@@ -36,19 +36,19 @@ const Media = ({
 	);
 };
 
-export const MediaInlineADF = () => {
+export const MediaInlineADF = (): React.JSX.Element => {
 	return <Media adf={mediaInlineAdf} appearance={'full-page'} />;
 };
 
-export const MediaInlineInParagraphADF = () => {
+export const MediaInlineInParagraphADF = (): React.JSX.Element => {
 	return <Media adf={mediaInlineInParagraphAdf} appearance={'full-page'} />;
 };
 
-export const MediaInlineMultipleInParagraphADF = () => {
+export const MediaInlineMultipleInParagraphADF = (): React.JSX.Element => {
 	return <Media adf={mediaInlineMultipleInParagraphAdf} appearance={'full-page'} />;
 };
 
-export const MediaInlineADFWithReactLooselyLazy = () => {
+export const MediaInlineADFWithReactLooselyLazy = (): React.JSX.Element => {
 	return (
 		<Media
 			adf={mediaInlineMultipleInParagraphAdf}

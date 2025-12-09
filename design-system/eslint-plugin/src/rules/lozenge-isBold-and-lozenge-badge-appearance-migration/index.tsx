@@ -11,7 +11,7 @@ const rule = createLintRule({
 		docs: {
 			description:
 				'Helps migrate Lozenge isBold prop and appearance values (for both Lozenge and Badge components) as part of the Labelling System Phase 1 migration.',
-			recommended: true,
+			recommended: false,
 			severity: 'warn',
 		},
 		messages: {

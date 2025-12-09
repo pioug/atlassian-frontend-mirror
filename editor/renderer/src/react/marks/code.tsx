@@ -12,7 +12,7 @@ export const isCodeMark = (mark: Mark): boolean => {
 
 export function CodeWithIntl(
 	props: MarkProps<{ codeBidiWarningTooltipEnabled: boolean }> & WrappedComponentProps,
-) {
+): React.JSX.Element {
 	const codeBidiWarningLabel = props.intl.formatMessage(codeBidiWarningMessages.label);
 
 	return (

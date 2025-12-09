@@ -4,7 +4,8 @@
 		"target": "es5",
 		"outDir": "../../../../../confluence/tsDist/@atlaskit__editor-plugin-avatar-group",
 		"rootDir": "../",
-		"composite": true
+		"composite": true,
+		"noCheck": true
 	},
 	"include": [
 		"../src/**/*.ts",

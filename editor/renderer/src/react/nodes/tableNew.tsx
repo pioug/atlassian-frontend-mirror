@@ -457,7 +457,7 @@ export class TableContainer extends React.Component<
 	 *
 	 * @example
 	 */
-	render() {
+	render(): React.JSX.Element {
 		const {
 			isNumberColumnEnabled,
 			layout,
@@ -772,7 +772,7 @@ export class TableProcessorWithContainerStyles extends React.Component<
 	 *
 	 * @example
 	 */
-	render() {
+	render(): React.JSX.Element | null {
 		const { children } = this.props;
 		if (!children) {
 			return null;

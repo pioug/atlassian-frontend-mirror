@@ -15,7 +15,7 @@ type Props = {
 	rendererRef: React.RefObject<HTMLDivElement>;
 };
 
-export const RangeValidator = (props: Props) => {
+export const RangeValidator = (props: Props): React.JSX.Element | null => {
 	const { component, rendererRef, createAnalyticsEvent } = props;
 	const actions = useContext(ActionsContext);
 	const { clearHoverRange } = useAnnotationRangeDispatch();

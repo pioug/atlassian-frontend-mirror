@@ -14,7 +14,7 @@ import { LinkEventsBinding } from './LinkEvents';
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class EditorLinkingPlatformAnalytics extends React.PureComponent<AnalyticsBindingsProps> {
-	render() {
+	render(): React.JSX.Element | null {
 		if (
 			expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) &&
 			!this.props.editorView

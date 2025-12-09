@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-media
 
+## 8.5.0
+
+### Minor Changes
+
+- [`6ecbe7ee10388`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ecbe7ee10388) -
+  Started an experiment on image editing, added a button in the floating toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.4.19
 
 ### Patch Changes

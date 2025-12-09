@@ -192,4 +192,9 @@ export default defineMessages({
 		defaultMessage: 'View more',
 		description: 'View more options in toolbar',
 	},
+	imageEdit: {
+		id: 'fabric.editor.imageEdit',
+		defaultMessage: 'Edit image',
+		description: 'Crop, flip or rotate the image',
+	},
 });

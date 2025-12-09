@@ -1,7 +1,6 @@
 import type { NodeType, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findTable } from '@atlaskit/editor-tables';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 /*
  * Returns the level of nesting of a given `nodeType` in the current position.
@@ -73,10 +72,6 @@ export const isSelectionTableNestedInTable = (state: EditorState): boolean => {
  * ```
  */
 export const isNestedTablesSupported = (schema: Schema): boolean => {
-	if (!expValEquals('platform_editor_nested_table_detection', 'isEnabled', true)) {
-		return true;
-	}
-
 	const { table, tableCell, tableHeader } = schema.nodes;
 
 	if (!table || !tableCell || !tableHeader) {

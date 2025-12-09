@@ -46,7 +46,7 @@ export const PrimaryToolbarComponent = ({
 	popupsBoundariesElement,
 	dispatchAnalyticsEvent,
 	disabled,
-}: PrimaryToolbarComponentProps) => {
+}: PrimaryToolbarComponentProps): React.JSX.Element | null => {
 	const {
 		color,
 		defaultColor,

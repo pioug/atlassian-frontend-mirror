@@ -72,6 +72,7 @@ const basePlugin: BasePlugin = ({ config: options, api }) => {
 
 		getSharedState(editorState) {
 			return {
+				allowScrollGutter: options?.allowScrollGutter,
 				keyboardHeight: getKeyboardHeight(editorState),
 			};
 		},

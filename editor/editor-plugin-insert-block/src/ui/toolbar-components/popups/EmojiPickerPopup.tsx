@@ -48,7 +48,7 @@ export const EmojiPickerPopup = ({
 	popupsMountPoint,
 	popupsBoundariesElement,
 	popupsScrollableElement,
-}: EmojiPickerPopupProps) => {
+}: EmojiPickerPopupProps): React.JSX.Element | null => {
 	if (!isOpen || !targetRef.current || !emojiProvider) {
 		return null;
 	}

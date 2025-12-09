@@ -19,7 +19,9 @@ type ConfirmDialogChildrenListItemProps = {
 	name: string | null;
 };
 
-export const CheckboxModal = (props: ConfirmationDialogProps & WrappedComponentProps) => {
+export const CheckboxModal = (
+	props: ConfirmationDialogProps & WrappedComponentProps,
+): React.JSX.Element => {
 	const [isChecked, setCheckbox] = useState(false);
 	const {
 		onConfirm,

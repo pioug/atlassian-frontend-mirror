@@ -165,7 +165,7 @@ function Modal(props: ModalProps) {
 	);
 }
 
-function App() {
+function App(): React.JSX.Element {
 	const [modals, setModals] = useState<number[]>([]);
 
 	const nextId = modals.length + 1;

@@ -15,7 +15,7 @@ type RowDropTargetProps = {
 	style?: React.CSSProperties;
 };
 
-const RowDropTarget = ({ index, localId, style }: RowDropTargetProps) => {
+const RowDropTarget = ({ index, localId, style }: RowDropTargetProps): React.JSX.Element => {
 	const dropTargetRef = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {

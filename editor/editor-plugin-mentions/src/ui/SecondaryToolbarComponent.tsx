@@ -33,7 +33,7 @@ export function SecondaryToolbarComponent({
 	api,
 	typeAhead,
 	disabled,
-}: SecondaryToolbarComponentProps) {
+}: SecondaryToolbarComponentProps): React.JSX.Element | null {
 	const { mentionProvider } = useSharedPluginStateWithSelector(api, ['mention'], selector);
 
 	const openMentionTypeAhead = useCallback(() => {

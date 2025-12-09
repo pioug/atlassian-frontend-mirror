@@ -26,7 +26,7 @@ export const NestedTableWithOverflowRenderer = generateRendererComponent({
 	stickyHeaders: true,
 });
 
-export function StickyHeaderNestedTableRenderer() {
+export function StickyHeaderNestedTableRenderer(): React.JSX.Element {
 	return (
 		<div
 			id="testscrollcontainer"

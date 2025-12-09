@@ -52,7 +52,7 @@ export const DiscoveryPulse = ({
 	shouldShowPulse,
 	testId,
 	isInline,
-}: PulseProps) => {
+}: PulseProps): React.JSX.Element => {
 	const discovered = isLocalStorageKeyDiscovered(localStorageKey);
 	const showPulse = shouldShowPulse ?? !discovered;
 

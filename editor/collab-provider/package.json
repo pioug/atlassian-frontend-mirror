@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/collab-provider",
-	"version": "14.1.1",
+	"version": "14.1.2",
 	"description": "A provider for collaborative editing.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,6 +36,7 @@
 		"@atlaskit/analytics-gas-types": "workspace:^",
 		"@atlaskit/analytics-listeners": "workspace:^",
 		"@atlaskit/anonymous-assets": "workspace:^",
+		"@atlaskit/atlassian-context": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-prosemirror": "root:*",
 		"@atlaskit/feature-gate-js-client": "workspace:^",

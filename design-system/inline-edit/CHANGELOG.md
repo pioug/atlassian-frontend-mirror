@@ -1,5 +1,12 @@
 # @atlaskit/inline-edit
 
+## 15.3.20
+
+### Patch Changes
+
+- [`651910f627978`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/651910f627978) -
+  fixing focus issue on restoring team
+
 ## 15.3.19
 
 ### Patch Changes

@@ -39,6 +39,10 @@ export class NullDocumentService implements DocumentServiceInterface {
 		return undefined;
 	}
 
+	getUnconfirmedStepsOrigins() {
+		return undefined;
+	}
+
 	getCurrentPmVersion() {
 		return -1;
 	}

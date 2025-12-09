@@ -38,7 +38,7 @@ export default class MediaGroup extends PureComponent<MediaGroupProps, MediaGrou
 	private handleSize = ({ offset }: SizeEvent) => this.setState({ offset });
 	private handleScroll = ({ animate, offset }: ScrollEvent) => this.setState({ animate, offset });
 
-	render() {
+	render(): React.JSX.Element {
 		const numChildren = React.Children.count(this.props.children);
 
 		let content;
@@ -131,7 +131,7 @@ export default class MediaGroup extends PureComponent<MediaGroupProps, MediaGrou
 		} as MediaProps);
 	}
 
-	renderStrip() {
+	renderStrip(): React.JSX.Element {
 		const { children } = this.props;
 		const { animate, offset } = this.state;
 		const childIdentifiers = React.Children.map(children, (child) => {

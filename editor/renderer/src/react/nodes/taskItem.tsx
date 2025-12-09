@@ -76,7 +76,7 @@ export default class TaskItem extends PureComponent<NodeProps<Props>, Object> {
 		);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<WithProviders
 				providers={['taskDecisionProvider', 'contextIdentifierProvider']}

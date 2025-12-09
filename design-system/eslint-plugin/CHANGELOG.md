@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.27.1
+
+### Patch Changes
+
+- [`1df7a843495f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1df7a843495f6) -
+  Removes eslint 'lozenge-isBold-and-lozenge-badge-appearance-migration' rule from the recommended
+  set of Design System rules.
+
 ## 13.27.0
 
 ### Minor Changes

@@ -26,7 +26,7 @@ import {
 	akEditorTableNumberColumnWidth,
 	akEditorTableToolbarSize as tableToolbarSize,
 } from '@atlaskit/editor-shared-styles';
-import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
+import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
@@ -403,10 +403,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		}
 		this.handleWindowResizeNewDebounced.cancel();
 
-		if (expValEquals('platform_editor_table_drag_handle_hover', 'isEnabled', true)) {
-			if (isInDanger) {
-				clearHoverSelection()(view.state, view.dispatch);
-			}
+		if (isInDanger) {
+			clearHoverSelection()(view.state, view.dispatch);
 		}
 
 		if (!allowTableResizing && allowColumnResizing) {
@@ -634,7 +632,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	componentDidUpdate(_: any, prevState: TableState) {
 		const {
-			view,
 			getNode,
 			isMediaFullscreen,
 			allowColumnResizing,
@@ -644,10 +641,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			isTableScalingEnabled, // we could use options.isTableScalingEnabled here
 			getPos,
 			getEditorFeatureFlags,
-			isInDanger,
 		} = this.props;
-
-		const table = findTable(view.state.selection);
 
 		let shouldScale = false;
 		let shouldHandleColgroupUpdates = false;
@@ -682,13 +676,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			this.handleColgroupUpdates();
 		}
 
-		// table is always defined so this never runs
-		if (!expValEquals('platform_editor_table_drag_handle_hover', 'isEnabled', true)) {
-			if (isInDanger && !table) {
-				clearHoverSelection()(view.state, view.dispatch);
-			}
-		}
-
 		if (
 			this.props.options?.isCommentEditor &&
 			allowTableResizing &&
@@ -700,11 +687,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		if (this.wrapper?.parentElement && this.table && !this.overflowShadowsObserver) {
 			// isDragAndDropEnabled will be false when the editorViewMode is 'live' and so the fix below is never triggered
 			// but the shadow observer must run async so its initial state is correct.
-			// note: when cleaning up platform_editor_table_drag_handle_hover entirely remove this nested if check incl. this.props.isDragAndDropEnabled
-			if (
-				this.props.isDragAndDropEnabled ||
-				expValEquals('platform_editor_table_drag_handle_hover', 'isEnabled', true)
-			) {
+			if (this.props.isDragAndDropEnabled) {
 				// requestAnimationFrame is used here to fix a race condition issue
 				// that happens when a table is nested in expand and expand's width is
 				// changed via breakout button
@@ -955,7 +938,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		let tablePos: number | undefined;
 		try {
 			tablePos = getPos ? getPos() : undefined;
-		} catch (e) {
+		} catch {
 			tablePos = undefined;
 		}
 

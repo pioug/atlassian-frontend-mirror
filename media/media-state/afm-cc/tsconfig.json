@@ -5,7 +5,8 @@
 		"target": "es5",
 		"outDir": "../../../../../confluence/tsDist/@atlaskit__media-state",
 		"rootDir": "../",
-		"composite": true
+		"composite": true,
+		"noCheck": true
 	},
 	"include": [
 		"../src/**/*.ts",

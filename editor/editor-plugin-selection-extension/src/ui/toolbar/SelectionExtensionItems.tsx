@@ -55,7 +55,7 @@ export const SelectionExtensionItemsComponent = ({
 	extensions,
 	onExtensionClick,
 	editorAnalyticsAPI,
-}: SelectionExtensionItemsProps) => {
+}: SelectionExtensionItemsProps): React.JSX.Element => {
 	const extensionsWithIdentifier = useMemo(
 		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		() => extensions.map((extension) => ({ ...extension, id: uuid() })),

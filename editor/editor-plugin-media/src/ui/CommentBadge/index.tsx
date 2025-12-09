@@ -43,7 +43,7 @@ export const CommentBadgeWrapper = ({
 	view,
 	getPos,
 	isDrafting,
-}: CommentBadgeWrapperProps) => {
+}: CommentBadgeWrapperProps): React.JSX.Element | null => {
 	const [entered, setEntered] = useState(false);
 	const { selectedAnnotations, isInlineCommentViewClosed, annotations } =
 		useSharedPluginStateWithSelector(api, ['annotation'], selector);

@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-analytics
 
+## 0.5.0
+
+### Minor Changes
+
+- [`93bff15d188d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93bff15d188d5) -
+  Update agent analytics create actions
+
 ## 0.4.0
 
 ### Minor Changes

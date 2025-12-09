@@ -5,7 +5,8 @@
 		"target": "es5",
 		"outDir": "../../../../../jira/tsDist/@atlaskit__page-header/app",
 		"rootDir": "../",
-		"composite": true
+		"composite": true,
+		"noCheck": true
 	},
 	"include": [
 		"../src/**/*.ts",

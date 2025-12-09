@@ -81,7 +81,7 @@ function Heading(
 		marks?: PMNode['marks'];
 		showAnchorLink?: boolean;
 	}>,
-) {
+): React.JSX.Element {
 	const { headingId, dataAttributes, allowHeadingAnchorLinks, marks, invisible, localId } = props;
 	const HX = `h${props.level}` as 'h1';
 	const mouseEntered = React.useRef(false);

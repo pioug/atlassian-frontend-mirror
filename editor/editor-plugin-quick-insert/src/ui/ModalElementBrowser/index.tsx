@@ -118,7 +118,7 @@ const Modal = ({
 	);
 };
 
-export default ({ editorView, helpUrl, pluginInjectionAPI }: Props) => {
+export default ({ editorView, helpUrl, pluginInjectionAPI }: Props): React.JSX.Element => {
 	const { lazyDefaultItems, providedItems, isElementBrowserModalOpen, emptyStateHandler, mode } =
 		useSharedPluginStateWithSelector(
 			pluginInjectionAPI,

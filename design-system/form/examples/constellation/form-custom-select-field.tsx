@@ -4,121 +4,67 @@
  */
 import { Fragment } from 'react';
 
-import { css } from '@compiled/react';
-
 import Button from '@atlaskit/button/new';
 import { jsx } from '@atlaskit/css';
 import Form, { Field, FormFooter } from '@atlaskit/form';
 import { Flex } from '@atlaskit/primitives/compiled';
-import Select, {
-	components,
-	type OptionProps,
-	type SingleValueProps,
-	type ValueType,
-} from '@atlaskit/select';
-import { token } from '@atlaskit/tokens';
+import Select, { type ValueType } from '@atlaskit/select';
 
 interface Option {
 	label: string;
 	value: string;
 }
 interface Category {
-	colors?: ValueType<Option>;
-	icecream?: ValueType<Option[]>;
-	suit?: ValueType<Option[]>;
+	type?: ValueType<Option>;
+	owner?: ValueType<Option[]>;
 }
 
-const colors = [
-	{ label: 'Blue', value: 'blue' },
-	{ label: 'Red', value: 'red' },
-	{ label: 'Purple', value: 'purple' },
-	{ label: 'Black', value: 'black' },
-	{ label: 'White', value: 'white' },
-	{ label: 'Gray', value: 'gray' },
-	{ label: 'Yellow', value: 'yellow' },
+const types = [
+	{ label: 'Library', value: 'library' },
+	{ label: 'Application', value: 'application' },
+	{ label: 'Capability', value: 'capability' },
+	{ label: 'Cloud resource', value: 'cloud resource' },
+	{ label: 'Data pipeline', value: 'data pipeline' },
+	{ label: 'Machine learning model', value: 'Mmchine learning model' },
+	{ label: 'UI element', value: 'ui element' },
 ];
 
-const flavors = [
-	{ label: 'Vanilla', value: 'vanilla' },
-	{ label: 'Strawberry', value: 'strawberry' },
-	{ label: 'Chocolate', value: 'chocolate' },
-	{ label: 'Mango', value: 'mango' },
-	{ label: 'Passionfruit', value: 'passionfruit' },
-	{ label: 'Hazelnut', value: 'hazelnut' },
-	{ label: 'Durian', value: 'durian' },
+const owners = [
+	{ label: 'Design System Team', value: 'Design System Team' },
+	{ label: 'Accessibility', value: 'Accessibility' },
+	{ label: 'Design Ops', value: 'Design Ops' },
+	{ label: 'Experience', value: 'Experience' },
 ];
 
 const validateOnSubmit = (data: Category) => {
 	let errors;
-	errors = colorsValidation(data, errors);
-	errors = flavorValidation(data, errors);
+	errors = typeValidation(data, errors);
+	errors = ownerValidation(data, errors);
 	return errors;
 };
 
-const colorsValidation = (data: Category, errors?: Record<string, string>) => {
-	if (data.colors && !(data.colors instanceof Array)) {
-		return (data.colors as Option).value === 'dog'
+const typeValidation = (data: Category, errors?: Record<string, string>) => {
+	if (data.type && !(data.type instanceof Array)) {
+		return (data.type as Option).value === 'dog'
 			? {
 					...errors,
-					colors: `${(data.colors as Option).value} is not a color`,
+					type: `${(data.type as Option).value} is not a type`,
 				}
 			: errors;
 	}
 	return errors;
 };
 
-const flavorValidation = (data: Category, errors?: Record<string, string>) => {
-	if (data.icecream && data.icecream.length >= 3) {
+const ownerValidation = (data: Category, errors?: Record<string, string>) => {
+	if (data.owner && data.owner.length >= 2) {
 		return {
 			...errors,
-			icecream: `${data.icecream.length} is too many flavors, please select a maximum of 2 flavors`,
+			owner: `${data.owner.length} is too many owners. Select a maximum of 1 owner.`,
 		};
 	}
 
 	return errors;
 };
-
-const colorBoxStyles = css({
-	display: 'inline-block',
-	width: '10px',
-	height: '10px',
-	marginBlockEnd: token('space.050'),
-	marginInlineEnd: token('space.100'),
-	verticalAlign: 'middle',
-});
-
-const ColorBox = ({ color }: { color: string }) => (
-	<span
-		css={colorBoxStyles}
-		style={{
-			backgroundColor: color,
-		}}
-	/>
-);
-
-type ColorOption = (typeof colors)[number];
-
-/**
- * NOTE: this is not declared inline with the Select
- * If you declare inline you'll have issues with refs
- */
-const CustomColorOption = ({ children, ...props }: OptionProps<ColorOption>) => (
-	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-	<components.Option {...props}>
-		<ColorBox color={children as string} /> {children}
-	</components.Option>
-);
-
-/**
- * NOTE: this is not declared inline with the Select
- * If you declare inline you'll have issues with refs
- */
-const CustomValueOption = ({ children, ...props }: SingleValueProps<Option, false>) => (
-	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-	<components.SingleValue {...props}>
-		<ColorBox color={children as string} /> {children}
-	</components.SingleValue>
-);
 
 const FormCustomSelectFieldExample = () => {
 	return (
@@ -130,33 +76,30 @@ const FormCustomSelectFieldExample = () => {
 				}}
 			>
 				<Field<ValueType<Option>>
-					name="colors"
-					label="Select a color"
+					name="type"
+					label="Type"
 					component={({ fieldProps: { id, ...rest } }) => (
 						<Fragment>
 							<Select<Option>
 								inputId={id}
-								components={{
-									Option: CustomColorOption,
-									SingleValue: CustomValueOption,
-								}}
+								components={{}}
 								{...rest}
-								options={colors}
+								options={types}
 								isClearable
-								clearControlLabel="Clear color"
+								clearControlLabel="Clear type"
 							/>
 						</Fragment>
 					)}
 				/>
 				<Field<ValueType<Option, true>>
-					name="icecream"
-					label="Select a flavor"
+					name="owner"
+					label="Owner"
 					defaultValue={[]}
 					component={({ fieldProps: { id, ...rest } }) => (
-						<Select inputId={id} {...rest} options={flavors} isMulti />
+						<Select inputId={id} {...rest} options={owners} isMulti />
 					)}
 				/>
-				<FormFooter>
+				<FormFooter align="start">
 					<Button type="submit" appearance="primary">
 						Submit
 					</Button>

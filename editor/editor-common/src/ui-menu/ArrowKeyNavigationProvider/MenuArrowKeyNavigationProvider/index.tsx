@@ -19,7 +19,9 @@ export const MenuArrowKeyNavigationProvider = ({
 	editorRef,
 	popupsMountPoint,
 	disableCloseOnArrowClick,
-}: React.PropsWithChildren<Omit<MenuArrowKeyNavigationProviderProps, 'type'>>): React.JSX.Element => {
+}: React.PropsWithChildren<
+	Omit<MenuArrowKeyNavigationProviderProps, 'type'>
+>): React.JSX.Element => {
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const [currentSelectedItemIndex, setCurrentSelectedItemIndex] = useState(-1);
 	const element = popupsMountPoint ? [popupsMountPoint, editorRef.current] : [editorRef.current];

@@ -5,7 +5,8 @@
 		"target": "es5",
 		"outDir": "../../../../../tsDist/@atlaskit__editor-jira-transformer/app",
 		"rootDir": "../",
-		"composite": true
+		"composite": true,
+		"noCheck": true
 	},
 	"include": [
 		"../src/**/*.ts",

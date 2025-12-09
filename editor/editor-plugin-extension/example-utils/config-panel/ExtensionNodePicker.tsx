@@ -36,7 +36,7 @@ export default function ExtensionNodePicker({
 	onSelect: (nodeParams: CallbackParams) => void;
 	selectedExtension?: string;
 	selectedNode?: string;
-}) {
+}): React.JSX.Element {
 	const [hasSelection, setHasSelection] = useState<boolean>(false);
 
 	// AFP-2511 TODO: Fix automatic suppressions below

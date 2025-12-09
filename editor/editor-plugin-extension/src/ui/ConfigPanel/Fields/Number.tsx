@@ -23,7 +23,7 @@ export default function Number({
 	name: string;
 	onFieldChange: OnFieldChange;
 	placeholder?: string;
-}) {
+}): React.JSX.Element {
 	const { label, description, defaultValue, isRequired, isDisabled } = field;
 
 	function validateNumber(value?: string) {

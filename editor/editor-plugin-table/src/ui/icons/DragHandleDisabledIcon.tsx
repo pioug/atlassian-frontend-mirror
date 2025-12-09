@@ -4,7 +4,9 @@ interface DragHandleDisabledIconProps {
 	style?: React.CSSProperties;
 }
 
-export const DragHandleDisabledIcon = ({ style }: DragHandleDisabledIconProps) => (
+export const DragHandleDisabledIcon = ({
+	style,
+}: DragHandleDisabledIconProps): React.JSX.Element => (
 	<svg
 		width="24"
 		height="16"

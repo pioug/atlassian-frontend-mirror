@@ -14,7 +14,7 @@ type LayoutButtonProps = {
 	api?: ExtractInjectionAPI<InsertBlockPlugin>;
 };
 
-export const LayoutButton = ({ api }: LayoutButtonProps) => {
+export const LayoutButton = ({ api }: LayoutButtonProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 	const { editorView } = useEditorToolbar();
 

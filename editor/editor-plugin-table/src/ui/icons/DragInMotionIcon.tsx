@@ -6,7 +6,7 @@ interface DragInMotionIconProps {
 	style?: React.CSSProperties;
 }
 
-export const DragInMotionIcon = ({ style }: DragInMotionIconProps) => (
+export const DragInMotionIcon = ({ style }: DragInMotionIconProps): React.JSX.Element => (
 	<svg
 		width="28"
 		height="20"

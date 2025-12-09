@@ -8,6 +8,7 @@ import {
 	TopNavigationEnlargedSearchInput,
 	TopNavigationExample,
 } from '../../../../../examples/top-navigation';
+import { TopNavigationAppLogoOversizeExample } from '../../../../../examples/top-navigation-app-logos';
 import {
 	TopNavigationCustomLogoExample,
 	TopNavigationCustomLogoImage200x200Example,
@@ -123,6 +124,11 @@ snapshot(TopNavigationCustomLogoImage200x200Example, defaultOptions);
 snapshot(TopNavigationCustomLogoImage200x20Example, defaultOptions);
 snapshot(TopNavigationCustomLogoImage20x200Example, defaultOptions);
 snapshot(TopNavigationCustomLogoImage20x20Example, defaultOptions);
+
+snapshot(TopNavigationAppLogoOversizeExample, {
+	...defaultOptions,
+	featureFlags: { 'platform-dst-nav-app-icon-height-fix': [true, false] },
+});
 
 snapshot(TopNavigationThemingLoggedOutExample, {
 	description: 'log in button',

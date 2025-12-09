@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const SplitCellIcon = () => (
+export const SplitCellIcon = (): React.JSX.Element => (
 	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<path
 			d="M19 18L14 18L14 6L19 6"

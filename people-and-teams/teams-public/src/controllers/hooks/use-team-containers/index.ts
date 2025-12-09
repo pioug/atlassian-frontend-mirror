@@ -5,15 +5,13 @@ import { type Action, createHook, createStore } from 'react-sweet-state';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
+import { teamsClient as externalTeamsClient } from '@atlaskit/teams-client';
 
 import { type TeamContainer } from '../../../common/types';
 import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
 import { teamsClient } from '../../../services';
-import {
-	type TeamContainers,
-	type TeamWithMemberships,
-	type UnlinkContainerMutationError,
-} from '../../../services/types';
+import type { UnlinkContainerMutationError } from '../../../services/agg-client/utils/mutations/unlink-container-mutation';
+import { type TeamContainers, type TeamWithMemberships } from '../../../services/types';
 
 type ConnectedTeams = {
 	containerId: string | undefined;
@@ -82,7 +80,9 @@ const actions = {
 			}
 			setState({ loading: true, error: null, teamContainers: [], teamId, hasLoaded: false });
 			try {
-				const containers = await teamsClient.getTeamContainers(teamId);
+				const containers = await (fg('enable_teams_public_migration_using_teams-client')
+					? externalTeamsClient.getTeamContainers(teamId)
+					: teamsClient.getTeamContainers(teamId));
 				if (fg('ptc-enable-teams-public-analytics-refactor')) {
 					fireAnalyticsNext('operational.fetchTeamContainers.succeeded', {
 						teamId,
@@ -117,7 +117,10 @@ const actions = {
 				return;
 			}
 			try {
-				const containers = await teamsClient.getTeamContainers(teamId);
+				const containers = await (fg('enable_teams_public_migration_using_teams-client')
+					? externalTeamsClient.getTeamContainers(teamId)
+					: teamsClient.getTeamContainers(teamId));
+
 				if (fg('ptc-enable-teams-public-analytics-refactor')) {
 					fireAnalyticsNext('operational.refetchTeamContainers.succeeded', {
 						teamId,
@@ -170,7 +173,9 @@ const actions = {
 				},
 			});
 			try {
-				const numberOfTeams = await teamsClient.getNumberOfConnectedTeams(containerId);
+				const numberOfTeams = await (fg('enable_teams_public_migration_using_teams-client')
+					? externalTeamsClient.getNumberOfConnectedTeams(containerId)
+					: teamsClient.getNumberOfConnectedTeams(containerId));
 				if (fg('ptc-enable-teams-public-analytics-refactor')) {
 					fireAnalyticsNext('operational.fetchNumberOfConnectedTeams.succeeded', {
 						numberOfTeams,
@@ -244,7 +249,9 @@ const actions = {
 				},
 			});
 			try {
-				const teams = await teamsClient.getConnectedTeams(containerId);
+				const teams = await (fg('enable_teams_public_migration_using_teams-client')
+					? externalTeamsClient.getConnectedTeams(containerId)
+					: teamsClient.getConnectedTeams(containerId));
 				if (fg('ptc-enable-teams-public-analytics-refactor')) {
 					fireAnalyticsNext('operational.fetchConnectedTeams.succeeded', {
 						numberOfTeams: numberOfTeams || null,
@@ -304,7 +311,9 @@ const actions = {
 		async ({ setState, getState }) => {
 			setState({ unlinkError: null });
 			try {
-				const mutationResult = await teamsClient.unlinkTeamContainer(teamId, containerId);
+				const mutationResult = await (fg('enable_teams_public_migration_using_teams-client')
+					? externalTeamsClient.unlinkTeamContainer(teamId, containerId)
+					: teamsClient.unlinkTeamContainer(teamId, containerId));
 				if (mutationResult.deleteTeamConnectedToContainer.errors.length) {
 					// Just handle 1 error at a time should be suffcient as we disconenct only 1 container at a time
 					setState({

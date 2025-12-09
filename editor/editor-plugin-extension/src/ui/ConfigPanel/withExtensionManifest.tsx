@@ -16,7 +16,7 @@ export function withExtensionManifest(
 		extensionKey: ExtensionKey;
 		extensionProvider: ExtensionProvider;
 		extensionType: ExtensionType;
-	}) {
+	}): React.JSX.Element | null {
 		const { extensionKey, extensionProvider, extensionType, ...restProps } = props;
 		const [extensionManifest] = useStateFromPromise<ExtensionManifest | undefined>(
 			() => extensionProvider.getExtension(extensionType, extensionKey),

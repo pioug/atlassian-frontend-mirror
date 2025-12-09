@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 3.3.2
+
+### Patch Changes
+
+- [`5c35083992b75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c35083992b75) -
+  [EDITOR-3498] Redo + view changes makes browser freeze, fixed bug.
+
 ## 3.3.1
 
 ### Patch Changes

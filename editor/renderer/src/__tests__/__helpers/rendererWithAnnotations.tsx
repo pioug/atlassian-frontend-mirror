@@ -68,7 +68,7 @@ export const annotationInlineCommentProvider: InlineCommentAnnotationProvider = 
 	updateSubscriber: new AnnotationUpdateEmitterMock(),
 };
 
-export function RendererWithAnnotations() {
+export function RendererWithAnnotations(): React.JSX.Element {
 	return (
 		<Renderer
 			adfStage={'stage0'}
@@ -83,7 +83,7 @@ export function RendererWithAnnotations() {
 	);
 }
 
-export function RendererWithTableAndAnnotations() {
+export function RendererWithTableAndAnnotations(): React.JSX.Element {
 	return (
 		<Renderer
 			adfStage={'stage0'}

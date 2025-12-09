@@ -10,7 +10,6 @@ import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 import rafSchedule from 'raf-schd';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useHighlightLines } from './internal/hooks/use-highlight';
@@ -20,18 +19,8 @@ import { normalizeLanguage } from './internal/utils/get-normalized-language';
 import SyntaxHighlighter from './syntax-highlighter';
 
 const getCodeBlockStyles = cssMap({
-	// https://product-fabric.atlassian.net/browse/DSP-22927
-	codeFontFlagOn: {
-		font: token('font.code'),
-	},
-	// https://product-fabric.atlassian.net/browse/DSP-22927
-	codeFontFlagOff: {
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		fontSize: '12px',
-		fontWeight: token('font.weight.regular'),
-		fontFamily: token('font.family.code'),
-	},
 	root: {
+		font: token('font.code'),
 		// Prevents empty code blocks from vertically collapsing
 		'code > span:only-child:empty::before, code > span:only-child > span:only-child:empty::before':
 			{
@@ -329,9 +318,6 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 	// https://product-fabric.atlassian.net/browse/DST-2472
 	const languageToUse = text ? language : 'text';
 
-	// https://product-fabric.atlassian.net/browse/DSP-22927
-	const useCodeFont = fg('platform_dst_code-token');
-
 	return (
 		<SyntaxHighlighter
 			data-code-lang={language}
@@ -339,7 +325,6 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 			testId={testId}
 			language={languageToUse}
 			css={[
-				useCodeFont ? getCodeBlockStyles.codeFontFlagOn : getCodeBlockStyles.codeFontFlagOff,
 				getCodeBlockStyles.root,
 				shouldWrapLongLines
 					? getCodeBlockStyles.shouldWrapLongLines

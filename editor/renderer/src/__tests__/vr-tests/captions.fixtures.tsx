@@ -25,14 +25,14 @@ const Media = ({ adf, appearance }: { adf: DocNode; appearance: string }) => {
 	);
 };
 
-export const Caption = () => {
+export const Caption = (): React.JSX.Element => {
 	return <Media adf={caption} appearance={'full-width'} />;
 };
 
-export const CaptionLong = () => {
+export const CaptionLong = (): React.JSX.Element => {
 	return <Media adf={captionLong} appearance={'full-width'} />;
 };
 
-export const CaptionComplicated = () => {
+export const CaptionComplicated = (): React.JSX.Element => {
 	return <Media adf={captionComplicated} appearance={'full-width'} />;
 };

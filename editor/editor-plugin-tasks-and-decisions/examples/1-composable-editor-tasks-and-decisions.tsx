@@ -7,7 +7,7 @@ import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
 import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
 
-export default function Editor() {
+export default function Editor(): React.JSX.Element {
 	const { preset } = usePreset((builder) =>
 		builder
 			.add(basePlugin)

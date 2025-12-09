@@ -4,7 +4,8 @@
 		"target": "es5",
 		"outDir": "../../../../../confluence/tsDist/@atlaskit__tile",
 		"rootDir": "../",
-		"composite": true
+		"composite": true,
+		"noCheck": true
 	},
 	"include": [
 		"../src/**/*.ts",
@@ -14,8 +15,12 @@
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
 		"../src/**/test.*",
-		"../src/**/mocks/*",
-		"../src/**/examples.*"
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
 	],
 	"references": [
 		{

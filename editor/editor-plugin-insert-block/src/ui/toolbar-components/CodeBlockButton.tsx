@@ -19,7 +19,7 @@ type CodeBlockButtonProps = {
 	api?: ExtractInjectionAPI<InsertBlockPlugin>;
 };
 
-export const CodeBlockButton = ({ api }: CodeBlockButtonProps) => {
+export const CodeBlockButton = ({ api }: CodeBlockButtonProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 	const { editorView } = useEditorToolbar();
 

@@ -64,11 +64,12 @@ export interface Config {
 	analyticsClient?: AnalyticsWebClient;
 	batchProps?: BatchProps;
 	createSocket: (
-		path: string,
+		url: string,
 		auth?: AuthCallback | InitAndAuthData,
 		productInfo?: ProductInformation,
 		isPresenceOnly?: boolean,
 		analyticsHelper?: AnalyticsHelper,
+		path?: string,
 	) => SocketIOSocket;
 	documentAri: string;
 	/**
@@ -93,6 +94,11 @@ export interface Config {
 	lifecycle?: Lifecycle;
 	// ESS-1009 Allow to opt-in into 404 response
 	need404?: boolean;
+	/**
+	 * Used for sharded routing, product passes route to collab provider
+	 * e.g. /ncs-presence/{cloudId}/{activationId}/confluence
+	 */
+	path?: string;
 	/**
 	 * If provided, permissionTokenRefresh is called whenever a new JWT token is required.
 	 */
@@ -316,6 +322,8 @@ export interface Catchupv2Options {
 
 export type ReconnectionMetadata = {
 	disconnectionPeriodSeconds: number | undefined;
+	offlineReplaceStepsLength: number | undefined;
+	offlineStepsLength: number | undefined;
 	unconfirmedStepsLength: number | undefined;
 };
 

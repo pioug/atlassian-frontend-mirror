@@ -86,7 +86,7 @@ const FormCustomFieldExample = () => {
 						</Box>
 					)}
 				/>
-				<FormFooter>
+				<FormFooter align="start">
 					<Button type="submit" appearance="primary">
 						Submit
 					</Button>

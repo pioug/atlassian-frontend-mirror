@@ -67,7 +67,7 @@ export const InsertButton = ({
 	insertMenuItems,
 	numberOfButtons,
 	onInsertBlockType,
-}: InsertButtonProps) => {
+}: InsertButtonProps): React.JSX.Element | null => {
 	const { editorView } = useEditorToolbar();
 	const { isDisabled, popupsMountPoint, popupsBoundariesElement, popupsScrollableElement } =
 		useToolbarUI();

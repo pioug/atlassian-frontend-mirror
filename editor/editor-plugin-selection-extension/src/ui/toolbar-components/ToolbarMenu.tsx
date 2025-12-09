@@ -37,7 +37,11 @@ const usePluginState = conditionalHooksFactory(
 	},
 );
 
-export const ToolbarMenu = ({ api, config, children }: ToolbarMenuProps) => {
+export const ToolbarMenu = ({
+	api,
+	config,
+	children,
+}: ToolbarMenuProps): React.JSX.Element | null => {
 	const { editorToolbarDockingPreference } = usePluginState(api);
 
 	const isDockedAtTop = editorToolbarDockingPreference === 'top';

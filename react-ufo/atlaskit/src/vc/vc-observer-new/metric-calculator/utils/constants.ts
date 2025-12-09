@@ -44,7 +44,6 @@ export const NON_VISUAL_ARIA_ATTRIBUTES: string[] = [
 	'aria-live',
 ];
 
-
 // Common third party browser extension attributes
 export const THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES: string[] = [
 	'bis_skin_checked',

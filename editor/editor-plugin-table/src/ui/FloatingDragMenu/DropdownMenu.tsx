@@ -64,7 +64,7 @@ export const DropdownMenu = ({
 	mountPoint,
 	boundariesElement,
 	scrollableElement,
-}: DropdownMenuProps) => {
+}: DropdownMenuProps): React.JSX.Element => {
 	const [popupPlacement, setPopupPlacement] = useState(['bottom', 'left']);
 	const [targetRefDiv, setTargetRefDiv] = useState<HTMLDivElement | null>(null);
 	const handleRef = (ref: HTMLDivElement | null) => {

@@ -21,7 +21,7 @@ interface Props {
 	taskId: string;
 }
 
-export default function TaskItemWithProviders(props: Props) {
+export default function TaskItemWithProviders(props: Props): React.JSX.Element {
 	const { contextIdentifierProvider, objectAri, isRenderer, ...otherProps } = props;
 
 	const [resolvedContextProvider, setResolvedContextProvider] = React.useState<

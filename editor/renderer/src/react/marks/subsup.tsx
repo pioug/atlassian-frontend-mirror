@@ -6,7 +6,7 @@ const isSub = (type: SubSupAttributes['type']): type is 'sub' => {
 	return type === 'sub';
 };
 
-export default function SubSup(props: MarkProps<SubSupAttributes>) {
+export default function SubSup(props: MarkProps<SubSupAttributes>): React.JSX.Element {
 	if (isSub(props.type)) {
 		// Ignored via go/ees005
 		// eslint-disable-next-line react/jsx-props-no-spreading

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const AddColLeftIcon = () => (
+export const AddColLeftIcon = (): React.JSX.Element => (
 	<svg
 		width="24"
 		height="24"

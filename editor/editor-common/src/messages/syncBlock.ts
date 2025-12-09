@@ -34,7 +34,7 @@ export const syncBlockMessages = defineMessages({
 		description: 'aria-label for group of sync block the floating toolbar',
 	},
 	syncedBlockLabel: {
-		id: 'fabric.editor.syncedBlock',
+		id: 'fabric.editor.syncedBlock.label.text',
 		defaultMessage: 'Synced block',
 		description: 'Label which appears above the synced block when it is selected',
 	},

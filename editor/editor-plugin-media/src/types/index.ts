@@ -44,6 +44,7 @@ export interface MediaPluginOptions {
 	allowCaptions?: boolean;
 	allowCommentsOnMedia?: boolean;
 	allowDropzoneDropLine?: boolean;
+	allowImageEditing?: boolean;
 	allowImagePreview?: boolean;
 	allowLazyLoading?: boolean;
 	allowLinking?: boolean;
@@ -192,6 +193,7 @@ export type MediaFloatingToolbarOptions = {
 	allowAdvancedToolBarOptions?: boolean;
 	allowAltTextOnImages?: boolean;
 	allowCommentsOnMedia?: boolean;
+	allowImageEditing?: boolean;
 	allowImagePreview?: boolean;
 	allowLinking?: boolean;
 	allowMediaInline?: boolean;

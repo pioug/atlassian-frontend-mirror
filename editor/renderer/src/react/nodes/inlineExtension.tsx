@@ -20,7 +20,7 @@ interface Props {
 	text?: string;
 }
 
-const InlineExtension = (props: Props) => {
+const InlineExtension = (props: Props): React.JSX.Element => {
 	const { text } = props;
 
 	return (

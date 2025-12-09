@@ -81,7 +81,7 @@ export const renderExtension = (
 	extensionViewportSizes?: ExtensionViewportSize[],
 	nodeHeight?: string,
 	localId?: string,
-) => {
+): React.JSX.Element => {
 	const overflowContainerClass = !removeOverflow
 		? RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER
 		: '';

@@ -11,7 +11,7 @@ import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { undoRedoPlugin } from '@atlaskit/editor-plugins/undo-redo';
 
-const Editor = () => {
+const Editor = (): React.JSX.Element => {
 	const { preset } = usePreset((builder) =>
 		builder
 			.add(basePlugin)

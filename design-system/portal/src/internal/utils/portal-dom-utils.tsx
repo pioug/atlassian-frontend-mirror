@@ -61,7 +61,7 @@ const isDocumentDefined = () => {
 	return document !== undefined;
 };
 
-export const createAtlaskitPortal = (zIndex: number | string) => {
+export const createAtlaskitPortal = (zIndex: number | string): HTMLDivElement | undefined => {
 	//atlaskit-portal div
 	if (isDocumentDefined()) {
 		const atlaskitportal = document.createElement('div');
@@ -73,7 +73,7 @@ export const createAtlaskitPortal = (zIndex: number | string) => {
 	return;
 };
 
-export const createPortalParent = () => {
+export const createPortalParent = (): Element | undefined => {
 	//atlaskit-portal-container div
 	if (isDocumentDefined()) {
 		const parentElement = document.querySelector(portalParentSelector);

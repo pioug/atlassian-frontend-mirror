@@ -31,7 +31,9 @@ const CustomGlyph = (props: CustomGlyphProps) => (
 
 // Ignored via go/ees005
 // eslint-disable-next-line react/jsx-props-no-spreading
-const EditorPasteIcon = (props: Omit<IconProps, 'size'> & Omit<NewCoreIconProps, 'size'>) => {
+const EditorPasteIcon = (
+	props: Omit<IconProps, 'size'> & Omit<NewCoreIconProps, 'size'>,
+): React.JSX.Element => {
 	if (fg('platform-custom-icon-migration')) {
 		// eslint-disable-next-line react/jsx-props-no-spreading
 		return <ClipboardIcon {...props} />;

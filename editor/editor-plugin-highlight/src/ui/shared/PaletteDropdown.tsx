@@ -30,7 +30,7 @@ type PaletteDropdownProps = {
 
 const HIGHLIGHT_COLOR_PICKER_COLUMNS = 8;
 
-export const PaletteDropdown = (props: PaletteDropdownProps) => {
+export const PaletteDropdown = (props: PaletteDropdownProps): React.JSX.Element => {
 	const {
 		popupsMountPoint,
 		popupsBoundariesElement,

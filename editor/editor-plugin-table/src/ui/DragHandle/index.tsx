@@ -8,9 +8,7 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable, TableMap } from '@atlaskit/editor-tables';
@@ -21,14 +19,12 @@ import { token } from '@atlaskit/tokens';
 
 import { getPluginState as getDnDPluginState } from '../../pm-plugins/drag-and-drop/plugin-factory';
 import type { TriggerType } from '../../pm-plugins/drag-and-drop/types';
-import { getPluginState } from '../../pm-plugins/plugin-factory';
 import {
 	findDuplicatePosition,
 	hasMergedCellsInSelection,
 } from '../../pm-plugins/utils/merged-cells';
-import type { TablePlugin } from '../../tablePluginType';
 import { TableCssClassName as ClassName } from '../../types';
-import type { CellHoverMeta, TableDirection, TableSharedStateInternal } from '../../types';
+import type { CellHoverMeta, TableDirection } from '../../types';
 import { dragTableInsertColumnButtonSize } from '../consts';
 import { DragPreview } from '../DragPreview';
 
@@ -42,8 +38,6 @@ type DragHandleProps = {
 	editorView: EditorView;
 	forceDefaultHandle?: boolean;
 	hoveredCell?: CellHoverMeta;
-	hoveredColumns?: number[];
-	hoveredRows?: number[];
 	indexes: number[];
 	isDragMenuTarget: boolean; // this is identify which current handle component is
 	onClick?: MouseEventHandler;
@@ -56,10 +50,6 @@ type DragHandleProps = {
 		trigger: TriggerType,
 		event?: React.MouseEvent<HTMLButtonElement, MouseEvent>,
 	) => void;
-};
-
-type DragHandleWithSharedStateProps = Exclude<DragHandleProps, 'hoveredColumns' | 'hoveredRows'> & {
-	api?: ExtractInjectionAPI<TablePlugin>;
 };
 
 const DragHandleComponent = ({
@@ -78,8 +68,6 @@ const DragHandleComponent = ({
 	onClick,
 	editorView,
 	intl: { formatMessage },
-	hoveredColumns,
-	hoveredRows,
 }: DragHandleProps & WrappedComponentProps) => {
 	const dragHandleDivRef = useRef<HTMLButtonElement>(null);
 	const [previewContainer, setPreviewContainer] = useState<HTMLElement | null>(null);
@@ -88,22 +76,11 @@ const DragHandleComponent = ({
 		state: { selection },
 	} = editorView;
 
-	if (hoveredColumns === undefined || hoveredRows === undefined) {
-		const { hoveredColumns: hoveredColumnsState, hoveredRows: hoveredRowsState } =
-			getPluginState(state);
-		hoveredColumns = hoveredColumnsState;
-		hoveredRows = hoveredRowsState;
-	}
 	const { isDragMenuOpen = false } = getDnDPluginState(state);
 	const [isHovered, setIsHovered] = useState(false);
 
 	const isRow = direction === 'row';
 	const isColumn = direction === 'column';
-
-	// Added !isDragMenuOpen check so when hover 'Delete column/row' from drag menu
-	// the handle of the next column/row does not show the 'hovered' state icon
-	const isRowHandleHovered = isRow && hoveredRows.length > 0 && !isDragMenuOpen;
-	const isColumnHandleHovered = isColumn && hoveredColumns.length > 0 && !isDragMenuOpen;
 
 	const hasMergedCells = useMemo(() => {
 		const table = findTable(selection);
@@ -163,9 +140,7 @@ const DragHandleComponent = ({
 
 	const handleIconProps = {
 		forceDefaultHandle,
-		isHandleHovered: expValEquals('platform_editor_table_drag_handle_hover', 'isEnabled', true)
-			? isHovered
-			: isColumnHandleHovered || isRowHandleHovered,
+		isHandleHovered: isHovered,
 		hasMergedCells,
 	};
 
@@ -280,16 +255,12 @@ const DragHandleComponent = ({
 				aria-haspopup="menu"
 				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 				onMouseOver={(e) => {
-					if (expValEquals('platform_editor_table_drag_handle_hover', 'isEnabled', true)) {
-						setIsHovered(true);
-					}
+					setIsHovered(true);
 					onMouseOver && onMouseOver(e);
 				}}
 				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 				onMouseOut={(e) => {
-					if (expValEquals('platform_editor_table_drag_handle_hover', 'isEnabled', true)) {
-						setIsHovered(false);
-					}
+					setIsHovered(false);
 					onMouseOut && onMouseOut(e);
 				}}
 				onMouseUp={(e) => {
@@ -334,53 +305,4 @@ const DragHandleComponent = ({
 	);
 };
 
-const DragHandleComponentWithSharedState = ({
-	isDragMenuTarget,
-	tableLocalId,
-	direction,
-	appearance,
-	indexes,
-	forceDefaultHandle,
-	previewHeight,
-	previewWidth,
-	onMouseOver,
-	onMouseOut,
-	toggleDragMenu,
-	hoveredCell,
-	onClick,
-	editorView,
-	intl,
-	api,
-}: DragHandleWithSharedStateProps & WrappedComponentProps) => {
-	const { hoveredColumns, hoveredRows } = useSharedPluginStateWithSelector(
-		api,
-		['table'],
-		(states) => ({
-			hoveredColumns: (states.tableState as TableSharedStateInternal)?.hoveredColumns,
-			hoveredRows: (states.tableState as TableSharedStateInternal)?.hoveredRows,
-		}),
-	);
-	return (
-		<DragHandleComponent
-			isDragMenuTarget={isDragMenuTarget}
-			tableLocalId={tableLocalId}
-			direction={direction}
-			appearance={appearance}
-			indexes={indexes}
-			forceDefaultHandle={forceDefaultHandle}
-			previewWidth={previewWidth}
-			previewHeight={previewHeight}
-			onMouseOver={onMouseOver}
-			onMouseOut={onMouseOut}
-			toggleDragMenu={toggleDragMenu}
-			hoveredCell={hoveredCell}
-			onClick={onClick}
-			editorView={editorView}
-			intl={intl}
-			hoveredColumns={hoveredColumns}
-			hoveredRows={hoveredRows}
-		/>
-	);
-};
-
-export const DragHandle = injectIntl(DragHandleComponentWithSharedState);
+export const DragHandle = injectIntl(DragHandleComponent);

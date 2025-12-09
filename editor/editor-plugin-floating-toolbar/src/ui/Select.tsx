@@ -21,7 +21,7 @@ export interface Props {
 	width?: number;
 }
 
-export default function Search(props: Props) {
+export default function Search(props: Props): React.JSX.Element {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const selectRef = useRef<any>(null);

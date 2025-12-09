@@ -28,7 +28,7 @@ export function ContentComponent({
 	popupsScrollableElement,
 	editorView,
 	domAtPos,
-}: ContentComponentProps) {
+}: ContentComponentProps): React.JSX.Element | null {
 	const { statusState } = useSharedPluginState(api, ['status']);
 	const { showStatusPickerAt } = statusState ?? {};
 

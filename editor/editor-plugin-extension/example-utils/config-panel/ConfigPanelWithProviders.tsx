@@ -25,7 +25,7 @@ export default function ConfigPanelWithProviders({
 	nodeKey: string;
 	onChange?: (parameters: Parameters) => void;
 	parameters: Parameters;
-}) {
+}): React.JSX.Element {
 	function _onChange(data: Parameters) {
 		if (onChange) {
 			onChange(data);

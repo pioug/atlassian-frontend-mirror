@@ -25,7 +25,7 @@ export default function SelectField({
 	name: string;
 	onFieldChange: OnFieldChange;
 	placeholder?: string;
-}) {
+}): React.JSX.Element {
 	//ignore arrays as mutli-value select fields are always clearable
 	const hasValidSingleDefaultValue =
 		!Array.isArray(fieldDefaultValue) && fieldDefaultValue !== undefined;

@@ -228,7 +228,7 @@ export const getContextPanelBodyComponent = ({
 		? processParametersBefore(parameters || {})
 		: parameters;
 
-	return () => (
+	return (): React.JSX.Element => (
 		<Box padding="space.200">
 			<SaveIndicator duration={5000} visible={true}>
 				{({ onSaveStarted, onSaveEnded }) => {

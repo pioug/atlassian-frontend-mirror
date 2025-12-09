@@ -17,7 +17,10 @@ type Props = {
  * By exposing `onNestedHeaderIdMatch` here we can control when will consumers be notified:
  * only when a `newActiveHeaderId` comes in from the Provider and the list of header ids includes it.
  */
-const ActiveHeaderIdConsumer = ({ nestedHeaderIds, onNestedHeaderIdMatch }: Props) => {
+const ActiveHeaderIdConsumer = ({
+	nestedHeaderIds,
+	onNestedHeaderIdMatch,
+}: Props): React.JSX.Element => {
 	const [activeHeaderId, setActiveHeaderId] = useState<string | undefined>();
 
 	return (

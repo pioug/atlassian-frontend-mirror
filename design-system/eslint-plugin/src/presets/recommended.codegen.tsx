@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::32a0942d7edc5a3fdc70dd0833bb8aca>>
+ * @codegen <<SignedSource::b3fadf2e122fc30002c54a922fc55a1f>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -11,7 +11,6 @@ const rules: ESLint.ConfigData = {
 		'@atlaskit/design-system/consistent-css-prop-usage': 'error',
 		'@atlaskit/design-system/ensure-design-token-usage': 'error',
 		'@atlaskit/design-system/icon-label': 'warn',
-		'@atlaskit/design-system/lozenge-isBold-and-lozenge-badge-appearance-migration': 'warn',
 		'@atlaskit/design-system/no-banned-imports': 'error',
 		'@atlaskit/design-system/no-boolean-autofocus-on-modal-dialog': 'warn',
 		'@atlaskit/design-system/no-deprecated-apis': 'error',

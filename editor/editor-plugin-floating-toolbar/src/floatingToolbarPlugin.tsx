@@ -293,7 +293,7 @@ export function ContentComponent({
 	| 'popupsScrollableElement'
 > & {
 	pluginInjectionApi: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined;
-} & { editorView: EditorView }) {
+} & { editorView: EditorView }): React.JSX.Element | null {
 	const {
 		floatingToolbarState,
 		editorDisabledState,

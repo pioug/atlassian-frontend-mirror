@@ -18,6 +18,7 @@ export type {
 	AlignmentPermission,
 	TeamSiteAssignmentOrgDetailsResponse,
 	TeamsToBeClonedToJsmSitesResponse,
+	TeamState,
 } from './team';
 
 export type { TeamsClientUser as User, EditableUserFields } from './user';

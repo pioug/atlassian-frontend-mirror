@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-expand
 
+## 7.4.16
+
+### Patch Changes
+
+- [`b083a0f3cd801`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b083a0f3cd801) -
+  EDITOR-3869 Update experiment flag check to fire exposures in expand keymap and update variable
+  names
+- Updated dependencies
+
 ## 7.4.15
 
 ### Patch Changes

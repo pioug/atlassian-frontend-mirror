@@ -72,7 +72,7 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 		this.insertRow = this.insertRow.bind(this);
 	}
 
-	render() {
+	render(): React.JSX.Element | null {
 		const {
 			tableNode,
 			editorView,

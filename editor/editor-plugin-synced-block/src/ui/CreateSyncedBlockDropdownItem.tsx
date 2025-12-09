@@ -86,7 +86,7 @@ export const CreateOrCopySyncedBlockDropdownItem = ({
 	api,
 }: {
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined;
-}) => {
+}): React.JSX.Element => {
 	const { menuTriggerByNode } = useSharedPluginStateWithSelector(
 		api,
 		['blockControls'],

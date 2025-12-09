@@ -8,7 +8,11 @@ import useIsSubsequentRender from './internal/hooks/use-is-subsequent-render';
 import useFirePortalEvent from './internal/hooks/use-portal-event';
 import type { PortalProps } from './types';
 
-export default function Portal({ zIndex = 0, children, mountStrategy = 'effect' }: PortalProps) {
+export default function Portal({
+	zIndex = 0,
+	children,
+	mountStrategy = 'effect',
+}: PortalProps): React.JSX.Element | null {
 	const isSubsequentRender = useIsSubsequentRender(mountStrategy);
 
 	useFirePortalEvent(zIndex);

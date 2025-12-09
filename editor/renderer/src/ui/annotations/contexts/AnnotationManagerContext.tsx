@@ -321,7 +321,7 @@ export const AnnotationManagerProvider = ({
 	annotationManager?: AnnotationManager;
 	children?: ReactNode;
 	updateSubscriber?: AnnotationUpdateEmitter;
-}) => {
+}): React.JSX.Element => {
 	const [state, dispatch] = useReducer(reducer, initState);
 	const actionContext = useContext(RendererContext);
 

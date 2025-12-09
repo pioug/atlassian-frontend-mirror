@@ -11,11 +11,9 @@ const GUTTER_SELECTOR_NAME = 'editor-scroll-gutter';
  * Create a gutter element that can be added or removed from the DOM.
  */
 function createGutter(gutterSize: number, parent: HTMLElement | null) {
-	if (expVal('platform_editor_hydratable_ui', 'isEnabled', false)) {
+	if (expVal('platform_editor_scroll_gutter_fix', 'isEnabled', false)) {
 		const gutterRef = document.getElementById(GUTTER_SELECTOR_NAME);
 		if (gutterRef) {
-			gutterRef.style.paddingBottom = `${gutterSize}px`;
-			gutterRef.style.display = 'block';
 			return () => parent?.removeChild(gutterRef);
 		}
 	}

@@ -28,7 +28,7 @@ const tableFullWidthLabelStyles = xcss({
 	paddingBottom: 'space.050',
 });
 
-export const FullWidthDisplay = () => {
+export const FullWidthDisplay = (): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	return (
 		<Box xcss={tableFullWidthLabelWrapperStyles}>

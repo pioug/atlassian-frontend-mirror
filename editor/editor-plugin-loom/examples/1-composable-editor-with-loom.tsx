@@ -37,6 +37,6 @@ function Editor() {
 	return <ComposableEditor appearance="full-page" preset={preset} />;
 }
 
-export default () => {
+export default (): React.JSX.Element => {
 	return <Editor />;
 };

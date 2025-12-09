@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tmp-editor-statsig",
-	"version": "15.0.0",
+	"version": "15.4.0",
 	"description": "Temp plugin to ease use of statsig feature flags until platform feature flags are available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -18,7 +18,7 @@
 			"I updated the table on https://hello.atlassian.net/wiki/spaces/EDITOR/pages/5257593537/Libra+testing+FG+override+expectations, tested my changes, and confirm that adding/removing the override is safe"
 		]
 	},
-	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"main": "dist/cjs/index.js",
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",

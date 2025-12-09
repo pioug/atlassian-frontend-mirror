@@ -111,21 +111,31 @@ export const createSyncedBlock = ({
 	return tr;
 };
 
-export const copySyncedBlockReferenceToClipboardEditorCommand: (syncBlockStore: SyncBlockStoreManager) => EditorCommand = (syncBlockStore: SyncBlockStoreManager) => ({ tr }) => {
-	if (copySyncedBlockReferenceToClipboardInternal(tr.doc.type.schema, tr.selection, syncBlockStore)) {
-		return tr;
-	}
+export const copySyncedBlockReferenceToClipboardEditorCommand: (
+	syncBlockStore: SyncBlockStoreManager,
+) => EditorCommand =
+	(syncBlockStore: SyncBlockStoreManager) =>
+	({ tr }) => {
+		if (
+			copySyncedBlockReferenceToClipboardInternal(tr.doc.type.schema, tr.selection, syncBlockStore)
+		) {
+			return tr;
+		}
 
-	return null;
-};
+		return null;
+	};
 
-export const copySyncedBlockReferenceToClipboard: (syncBlockStore: SyncBlockStoreManager) => Command = (syncBlockStore: SyncBlockStoreManager) => (
-	state: EditorState,
-	_dispatch?: CommandDispatch,
-	_view?: EditorView,
-) => {
-	return copySyncedBlockReferenceToClipboardInternal(state.tr.doc.type.schema, state.tr.selection, syncBlockStore);
-};
+export const copySyncedBlockReferenceToClipboard: (
+	syncBlockStore: SyncBlockStoreManager,
+) => Command =
+	(syncBlockStore: SyncBlockStoreManager) =>
+	(state: EditorState, _dispatch?: CommandDispatch, _view?: EditorView) => {
+		return copySyncedBlockReferenceToClipboardInternal(
+			state.tr.doc.type.schema,
+			state.tr.selection,
+			syncBlockStore,
+		);
+	};
 
 const copySyncedBlockReferenceToClipboardInternal = (
 	schema: Schema,
@@ -150,7 +160,9 @@ const copySyncedBlockReferenceToClipboardInternal = (
 
 		// create sync block reference node
 		referenceSyncBlockNode = syncBlock.createAndFill({
-			resourceId: syncBlockStore.referenceManager.generateResourceIdForReference(syncBlockFindResult.node.attrs.resourceId),
+			resourceId: syncBlockStore.referenceManager.generateResourceIdForReference(
+				syncBlockFindResult.node.attrs.resourceId,
+			),
 		});
 		if (!referenceSyncBlockNode) {
 			return false;

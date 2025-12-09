@@ -15,7 +15,7 @@ type AnnotationInfo = {
 	type: AnnotationTypes.INLINE_COMMENT;
 };
 
-const AnnotationView = (props: Props) => {
+const AnnotationView = (props: Props): React.JSX.Element | null => {
 	const providers = useContext(ProvidersContext);
 	const actionContext = useContext(RendererContext);
 	const inlineCommentProvider = providers && providers.inlineComment;

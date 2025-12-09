@@ -25,14 +25,14 @@ const Media = ({ adf, appearance }: { adf: DocNode; appearance: string }) => {
 	);
 };
 
-export const MediaBorderADF = () => {
+export const MediaBorderADF = (): React.JSX.Element => {
 	return <Media adf={borderADF} appearance={'full-page'} />;
 };
 
-export const MediaBorderWithinTableADF = () => {
+export const MediaBorderWithinTableADF = (): React.JSX.Element => {
 	return <Media adf={borderADFWithinTable} appearance={'full-page'} />;
 };
 
-export const MediaBorderWithLinkADF = () => {
+export const MediaBorderWithLinkADF = (): React.JSX.Element => {
 	return <Media adf={borderADFWithLink} appearance={'full-page'} />;
 };

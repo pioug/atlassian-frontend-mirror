@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
-import Form, { CheckboxField, Field } from '@atlaskit/form';
+import Form, { Field } from '@atlaskit/form';
 import ModalDialog, {
 	ModalBody,
 	ModalFooter,
@@ -21,7 +20,7 @@ const FormModalDialogExample = (): React.JSX.Element => {
 
 	return (
 		<>
-			<Button onClick={open}>Open Modal</Button>
+			<Button onClick={open}>Open modal</Button>
 
 			<ModalTransition>
 				{isOpen && (
@@ -33,12 +32,10 @@ const FormModalDialogExample = (): React.JSX.Element => {
 							id="form-with-id"
 						>
 							<ModalHeader hasCloseButton>
-								<ModalTitle>Modal dialog with form</ModalTitle>
+								<ModalTitle>Add permissions</ModalTitle>
 							</ModalHeader>
 
 							<ModalBody>
-								<p>Enter some text then submit the form to see the response.</p>
-
 								<Field
 									label="Name"
 									name="my-name"
@@ -50,31 +47,19 @@ const FormModalDialogExample = (): React.JSX.Element => {
 									label="Email"
 									name="my-email"
 									defaultValue=""
-									component={({ fieldProps }) => (
-										<Textfield
-											autoComplete="off"
-											placeholder="charlie@atlassian.com"
-											{...fieldProps}
-										/>
-									)}
+									component={({ fieldProps }) => <Textfield autoComplete="off" {...fieldProps} />}
 								/>
 
-								<CheckboxField name="remember" defaultIsChecked>
-									{({ fieldProps }) => (
-										<Checkbox {...fieldProps} label="Always sign in on this device" />
-									)}
-								</CheckboxField>
-
 								<Field
-									name="radiogroup"
-									label="Colors"
+									name="permission"
+									label="Permissions"
 									defaultValue=""
 									component={({ fieldProps: { value, ...others } }) => (
 										<RadioGroup
 											options={[
-												{ name: 'color', value: 'red', label: 'Red' },
-												{ name: 'color', value: 'blue', label: 'Blue' },
-												{ name: 'color', value: 'yellow', label: 'Yellow' },
+												{ name: 'permission', value: 'view-only', label: 'View only' },
+												{ name: 'permission', value: 'edit', label: 'Edit access' },
+												{ name: 'permission', value: 'admin', label: 'Admin' },
 											]}
 											{...others}
 										/>
@@ -86,7 +71,7 @@ const FormModalDialogExample = (): React.JSX.Element => {
 									Cancel
 								</Button>
 								<Button type="submit" form="form-with-id" appearance="primary">
-									Submit
+									Add
 								</Button>
 							</ModalFooter>
 						</Form>

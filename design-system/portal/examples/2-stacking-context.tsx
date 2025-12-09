@@ -4,7 +4,7 @@ import Link from '@atlaskit/link';
 import Portal from '@atlaskit/portal';
 import { token } from '@atlaskit/tokens';
 
-const StackingContextExample = () => (
+const StackingContextExample = (): React.JSX.Element => (
 	<div>
 		<p>
 			Each Portal component creates a new{' '}

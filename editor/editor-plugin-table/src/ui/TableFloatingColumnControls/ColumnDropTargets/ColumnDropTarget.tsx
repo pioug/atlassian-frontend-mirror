@@ -17,7 +17,13 @@ interface Props {
 	width?: number;
 }
 
-export const ColumnDropTarget = ({ index, localId, width, height, marginTop }: Props) => {
+export const ColumnDropTarget = ({
+	index,
+	localId,
+	width,
+	height,
+	marginTop,
+}: Props): React.JSX.Element => {
 	const dropTargetRef = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {

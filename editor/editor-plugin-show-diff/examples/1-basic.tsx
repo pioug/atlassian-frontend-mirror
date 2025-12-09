@@ -59,7 +59,7 @@ const step1 = {
 	},
 };
 
-export default function Editor() {
+export default function Editor(): React.JSX.Element {
 	const [colourScheme, setColourScheme] = useState<'standard' | 'traditional'>('traditional');
 	const { preset } = usePreset(
 		(builder) =>

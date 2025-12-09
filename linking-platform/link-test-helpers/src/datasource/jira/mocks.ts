@@ -394,7 +394,8 @@ const buildDataResponse = ({
 				};
 			}),
 			totalCount: maxItems === 0 || maxItems === 1 ? maxItems : mockJiraData.totalIssues,
-			nextPageCursor: numberOfLoads < 4 && maxItems > 1 ? 'c3RhcnRBdD01' : undefined,
+			nextPageCursor:
+				numberOfLoads < 4 && maxItems > 1 ? `${numberOfLoads + 1}-page-cursor` : undefined,
 			...(includeSchema && { schema }),
 		},
 	};

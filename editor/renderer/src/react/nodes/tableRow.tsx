@@ -68,7 +68,7 @@ export default class TableRow extends React.Component<Props, State> {
 		return childrenArray;
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { children, innerRef } = this.props;
 
 		const childrenArray = React.Children.toArray(children);

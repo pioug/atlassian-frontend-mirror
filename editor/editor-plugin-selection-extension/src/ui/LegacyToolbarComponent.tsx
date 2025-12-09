@@ -21,7 +21,7 @@ type LegacyPrimaryToolbarComponentProps = {
 
 export const LegacyPrimaryToolbarComponent = ({
 	primaryToolbarItemExtensions,
-}: LegacyPrimaryToolbarComponentProps) => {
+}: LegacyPrimaryToolbarComponentProps): React.JSX.Element => {
 	// NEXT PR: need to render a separator after – if there are extensions added
 	return (
 		<>
@@ -41,7 +41,7 @@ type LegacyExtensionToolbarItemProps = {
 export const LegacyExtensionToolbarItem = ({
 	toolbarItem,
 	getMenuItems,
-}: LegacyExtensionToolbarItemProps) => {
+}: LegacyExtensionToolbarItemProps): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const { icon: Icon, tooltip, isDisabled, onClick, label: _label } = toolbarItem;

@@ -73,7 +73,7 @@ export const ColumnControls = ({
 	isDragging,
 	getScrollOffset,
 	api,
-}: ColumnControlsProps & { api?: ExtractInjectionAPI<TablePlugin> }) => {
+}: ColumnControlsProps & { api?: ExtractInjectionAPI<TablePlugin> }): React.JSX.Element => {
 	const columnControlsRef = useRef<HTMLDivElement>(null);
 	const { selection } = useSharedPluginStateWithSelector(api, ['selection'], (states) => ({
 		selection: states.selectionState?.selection,

@@ -15,7 +15,7 @@ export const TaskListBlockMenuItem = ({
 	api,
 }: {
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
-}) => {
+}): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const selection = useSharedPluginStateWithSelector(
 		api,

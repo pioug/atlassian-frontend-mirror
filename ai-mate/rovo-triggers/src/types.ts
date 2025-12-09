@@ -28,6 +28,7 @@ export type MessageSendPayload = PayloadCore<
 	{
 		prompt: string;
 		productKey?: string;
+		minionAlias?: string;
 	}
 >;
 

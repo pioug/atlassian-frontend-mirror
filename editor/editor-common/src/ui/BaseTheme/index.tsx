@@ -31,7 +31,10 @@ declare module '@emotion/react' {
 	}
 }
 
-export function BaseThemeWrapper({ baseFontSize, children }: BaseThemeWrapperProps): React.JSX.Element {
+export function BaseThemeWrapper({
+	baseFontSize,
+	children,
+}: BaseThemeWrapperProps): React.JSX.Element {
 	const memoizedTheme = useMemo(
 		() => ({
 			baseFontSize: baseFontSize || 14,

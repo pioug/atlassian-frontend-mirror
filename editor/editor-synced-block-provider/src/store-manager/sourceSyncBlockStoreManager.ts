@@ -123,11 +123,11 @@ export class SourceSyncBlockStoreManager {
 				bodiedSyncBlockData,
 			);
 
-			if (writeResults.every((result) => !result.error)) {
+			if (writeResults.every((result) => result.resourceId !== undefined)) {
 				return true;
 			} else {
 				writeResults
-					.filter((result) => result.error)
+					.filter((result) => result.resourceId === undefined)
 					.forEach((result) => {
 						this.fireAnalyticsEvent?.(updateErrorPayload(result.error || 'Failed to write data'));
 					});

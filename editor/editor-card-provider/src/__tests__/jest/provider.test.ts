@@ -11,11 +11,7 @@ describe('EditorCardProvider', () => {
 	let mockCardClient: jest.Mocked<CardClient>;
 
 	beforeEach(() => {
-		setBooleanFeatureFlagResolver(
-			(flag) =>
-				flag === 'smartlink_jira_software_form' ||
-				flag === 'avp_unfurl_shared_charts_embed_by_default_2',
-		);
+		setBooleanFeatureFlagResolver((flag) => flag === 'avp_unfurl_shared_charts_embed_by_default_2');
 		provider = new EditorCardProvider();
 		// Access the mocked instance created in the provider's constructor
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -184,9 +180,7 @@ describe('EditorCardProvider', () => {
 		beforeEach(() => {
 			// Set up feature flag resolver for AVP tests
 			setBooleanFeatureFlagResolver(
-				(flag) =>
-					flag === 'smartlink_jira_software_form' ||
-					flag === 'avp_unfurl_shared_charts_embed_by_default_2',
+				(flag) => flag === 'avp_unfurl_shared_charts_embed_by_default_2',
 			);
 			testProvider = new TestableEditorCardProvider();
 		});
@@ -194,9 +188,7 @@ describe('EditorCardProvider', () => {
 		afterEach(() => {
 			// Restore the original resolver to prevent test pollution
 			setBooleanFeatureFlagResolver(
-				(flag) =>
-					flag === 'smartlink_jira_software_form' ||
-					flag === 'avp_unfurl_shared_charts_embed_by_default_2',
+				(flag) => flag === 'avp_unfurl_shared_charts_embed_by_default_2',
 			);
 		});
 

@@ -72,7 +72,7 @@ const runSSR = async (containerId: string, hydrate?: boolean) => {
 	}
 };
 
-export const MediaSSR = () => {
+export const MediaSSR = (): React.JSX.Element => {
 	const serverOnlyId = 'container-ssr';
 	const hydrationId = 'container-hydration';
 	useEffect(() => {

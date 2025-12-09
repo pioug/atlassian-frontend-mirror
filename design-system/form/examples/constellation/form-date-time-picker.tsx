@@ -21,7 +21,7 @@ const dobValidator = (data: FormData, errors: Record<string, string>) => {
 	if (!data.DOB) {
 		return {
 			...errors,
-			DOB: `Please select a date to continue.`,
+			DOB: `Select a date of birth.`,
 		};
 	}
 
@@ -32,7 +32,7 @@ const preferenceValidator = (data: FormData, errors: Record<string, string>) => 
 	if (!data.preference) {
 		return {
 			...errors,
-			preference: `Please select preferred appointment date & time.`,
+			preference: `Select an appointment date and time.`,
 		};
 	}
 
@@ -50,15 +50,15 @@ const FormDateTimePickerExample = (): React.JSX.Element => {
 			>
 				<Field
 					name="DOB"
-					label="Date of Birth"
+					label="Date of birth"
 					defaultValue=""
 					isRequired
 					component={({ fieldProps }) => <DatePicker shouldShowCalendarButton {...fieldProps} />}
 				/>
 				<Field
 					name="preference"
-					label="Preferred appointment date & time"
-					defaultValue=""
+					label="Preferred appointment date and time"
+					defaultValue="2025-11-01"
 					isRequired
 				>
 					{({ fieldProps: { id, ...rest }, error }) => {
@@ -70,12 +70,12 @@ const FormDateTimePickerExample = (): React.JSX.Element => {
 									datePickerProps={{
 										shouldShowCalendarButton: true,
 										selectProps: { validationState },
-										label: 'Date, Preferred appointment date & time',
+										label: 'Date, Preferred appointment date and time',
 										id,
 									}}
 									timePickerProps={{
 										selectProps: { validationState },
-										label: 'Time, Preferred appointment date & time',
+										label: 'Time, Preferred appointment date and time',
 									}}
 								/>
 								<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
@@ -83,7 +83,7 @@ const FormDateTimePickerExample = (): React.JSX.Element => {
 						);
 					}}
 				</Field>
-				<FormFooter>
+				<FormFooter align="start">
 					<Button type="submit" appearance="primary">
 						Submit
 					</Button>

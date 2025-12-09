@@ -13,7 +13,7 @@ import AbstractVCCalculatorBase from '../abstract-base-vc-calculator';
 import {
 	KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS,
 	NON_VISUAL_ARIA_ATTRIBUTES,
-	THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES
+	THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES,
 } from '../utils/constants';
 import { isEntrySmartAnswersInSearch } from '../utils/is-entry-smart-answers-in-search';
 import isViewportEntryData from '../utils/is-viewport-entry-data';
@@ -50,7 +50,6 @@ const getConsideredEntryTypes = (include3p?: boolean): VCObserverEntryType[] => 
 
 	return entryTypes;
 };
-
 
 export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 	constructor(revisionNo?: string) {

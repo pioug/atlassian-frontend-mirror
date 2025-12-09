@@ -50,7 +50,7 @@ function AlternativePackagesMessage({
 export function createEditorUseOnlyNotice(
 	componentName: string,
 	alternatePackages?: { link: string; name: string }[],
-) {
+): React.JSX.Element {
 	return (
 		<SectionMessage title="Internal Editor Use Only" appearance="error">
 			<p>

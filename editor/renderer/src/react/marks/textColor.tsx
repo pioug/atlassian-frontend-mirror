@@ -6,7 +6,7 @@ import { useThemeObserver } from '@atlaskit/tokens';
 
 import type { MarkProps } from '../types';
 
-export default function TextColor(props: MarkProps<TextColorAttributes>) {
+export default function TextColor(props: MarkProps<TextColorAttributes>): React.JSX.Element {
 	const { colorMode } = useThemeObserver();
 	// Note -- while there is no way to create custom colors using default tooling
 	// the editor does supported ad hoc color values -- and there may be content

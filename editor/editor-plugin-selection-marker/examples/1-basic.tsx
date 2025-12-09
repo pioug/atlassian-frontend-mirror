@@ -10,7 +10,7 @@ import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugins/selection-marker';
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 
-export default function Editor() {
+export default function Editor(): React.JSX.Element {
 	const { preset } = usePreset(() =>
 		new EditorPresetBuilder()
 			.add(basePlugin)

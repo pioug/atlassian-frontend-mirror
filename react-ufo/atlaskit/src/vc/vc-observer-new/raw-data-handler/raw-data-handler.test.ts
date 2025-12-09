@@ -774,7 +774,7 @@ describe('RawDataHandler', () => {
 				} as WindowEventEntryData,
 			});
 
-			for (let i =  0; i < totalEvents; i++) {
+			for (let i = 0; i < totalEvents; i++) {
 				entries.push({
 					time: startTime + i * 10,
 					data: {
@@ -793,25 +793,25 @@ describe('RawDataHandler', () => {
 
 			// Verify trimming occurred - should have first + last MAX_OBSERVATIONS
 			expect(result?.rawData?.evts).toHaveLength(MAX_OBSERVATIONS + 1);
-			
+
 			// Verify first observation is 'resize'
 			const firstEventId = result?.rawData?.evts?.[0].evt;
 			expect(result?.rawData?.evt?.[firstEventId!]).toBe('resize');
-			
+
 			// Verify last observation is 'scroll'
 			const lastEventId = result?.rawData?.evts?.[MAX_OBSERVATIONS].evt;
 			expect(result?.rawData?.evt?.[lastEventId!]).toBe('scroll');
-			
+
 			// Verify that all event IDs in observations are valid
 			const allEventIds = new Set(result?.rawData?.evts?.map((evt) => evt.evt) || []);
 			for (const evtId of allEventIds) {
 				expect(result?.rawData?.evt?.[evtId]).toBeDefined();
 			}
-			
+
 			// The important thing is that 'wheel' should not be referenced by any observation
 			// (even if it's still in the map due to a bug, it shouldn't be used)
 			const wheelEventId = Object.keys(result?.rawData?.evt || {}).find(
-				(key) => result?.rawData?.evt?.[Number(key)] === 'wheel'
+				(key) => result?.rawData?.evt?.[Number(key)] === 'wheel',
 			);
 			if (wheelEventId !== undefined) {
 				// If 'wheel' exists in the map, verify it's not used by any observation
@@ -831,7 +831,6 @@ describe('RawDataHandler', () => {
 					eventType: 'scroll',
 				} as WindowEventEntryData,
 			});
-
 
 			// Create first event with 'scroll' type
 			entries.push({
@@ -862,20 +861,20 @@ describe('RawDataHandler', () => {
 
 			// Should have first observation + last MAX_OBSERVATIONS = 101 total
 			expect(result?.rawData?.evts).toHaveLength(MAX_OBSERVATIONS + 1);
-			
+
 			// Verify first observation is 'scroll'
 			const firstEventId = result?.rawData?.evts?.[0].evt;
 			expect(result?.rawData?.evt?.[firstEventId!]).toBe('scroll');
-			
+
 			// Verify that all observations reference valid event types
 			const allEventIds = new Set(result?.rawData?.evts?.map((evt) => evt.evt) || []);
 			for (const evtId of allEventIds) {
 				expect(result?.rawData?.evt?.[evtId]).toBeDefined();
 			}
-			
+
 			// 'wheel' should not be referenced by any observation
 			const wheelEventId = Object.keys(result?.rawData?.evt || {}).find(
-				(key) => result?.rawData?.evt?.[Number(key)] === 'wheel'
+				(key) => result?.rawData?.evt?.[Number(key)] === 'wheel',
 			);
 			if (wheelEventId !== undefined) {
 				expect(allEventIds.has(Number(wheelEventId))).toBe(false);
@@ -925,27 +924,27 @@ describe('RawDataHandler', () => {
 
 			// Should have first observation + last MAX_OBSERVATIONS = 101 total
 			expect(result?.rawData?.evts).toHaveLength(MAX_OBSERVATIONS + 1);
-			
+
 			// Verify first observation is 'resize'
 			const firstEventId = result?.rawData?.evts?.[0].evt;
 			expect(result?.rawData?.evt?.[firstEventId!]).toBe('resize');
-			
+
 			// Should have resize, scroll, and keydown in the map (at minimum)
 			expect(result?.rawData?.evt).toBeDefined();
 			const eventTypeValues = Object.values(result?.rawData?.evt || {});
 			expect(eventTypeValues).toContain('resize');
 			expect(eventTypeValues).toContain('scroll');
 			expect(eventTypeValues).toContain('keydown');
-			
+
 			// Verify that all event IDs in observations are in the map
 			const allEventIds = new Set(result?.rawData?.evts?.map((evt) => evt.evt) || []);
 			for (const evtId of allEventIds) {
 				expect(result?.rawData?.evt?.[evtId]).toBeDefined();
 			}
-			
+
 			// 'wheel' should not be referenced by any remaining observation
 			const wheelEventId = Object.keys(result?.rawData?.evt || {}).find(
-				(key) => result?.rawData?.evt?.[Number(key)] === 'wheel'
+				(key) => result?.rawData?.evt?.[Number(key)] === 'wheel',
 			);
 			if (wheelEventId !== undefined) {
 				expect(allEventIds.has(Number(wheelEventId))).toBe(false);
@@ -953,4 +952,3 @@ describe('RawDataHandler', () => {
 		});
 	});
 });
-

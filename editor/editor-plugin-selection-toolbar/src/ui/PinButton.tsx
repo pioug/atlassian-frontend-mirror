@@ -10,7 +10,11 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 
-export const PinButton = ({ api }: { api?: ExtractInjectionAPI<SelectionToolbarPlugin> }) => {
+export const PinButton = ({
+	api,
+}: {
+	api?: ExtractInjectionAPI<SelectionToolbarPlugin>;
+}): React.JSX.Element => {
 	const intl = useIntl();
 	const message = intl.formatMessage(selectionToolbarMessages.toolbarPositionPinedAtTop);
 	const { isOffline } = useEditorToolbar();

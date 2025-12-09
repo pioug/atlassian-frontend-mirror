@@ -7,6 +7,7 @@ import React, { useCallback, useRef } from 'react';
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import type { LogoProps } from '@atlaskit/logo';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -84,6 +85,9 @@ const iconContainerStyles = cssMap({
 	// Prevents the icon from getting squished
 	fullHeightSidebar: {
 		flexShrink: 0,
+	},
+	maxHeightStyles: {
+		maxHeight: 24,
 	},
 });
 
@@ -184,7 +188,11 @@ export const AppLogo = ({
 				xcss={cx(logoWrapperStyles.root, isFhsEnabled && logoWrapperStyles.fullHeightSidebar)}
 			>
 				<div
-					css={[iconContainerStyles.root, isFhsEnabled && iconContainerStyles.fullHeightSidebar]}
+					css={[
+						iconContainerStyles.root,
+						isFhsEnabled && iconContainerStyles.fullHeightSidebar,
+						fg('platform-dst-nav-app-icon-height-fix') && iconContainerStyles.maxHeightStyles,
+					]}
 				>
 					<LogoRenderer
 						// Top nav always uses the new logo design

@@ -29,7 +29,7 @@ const MarkElement = ({
 	dataAttributes,
 	id,
 	useBlockLevel,
-}: MarkElementProps) => {
+}: MarkElementProps): React.JSX.Element => {
 	const updateSubscriber = useInlineCommentSubscriberContext();
 	const states = useContext(InlineCommentsStateContext);
 	const { hasFocus, isHovered } = useHasFocusEvent({ id, updateSubscriber });

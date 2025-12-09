@@ -48,7 +48,7 @@ export const RepositionOnUpdate = ({
  * @param children React.ReactNode - Returns the element to be positioned.
  * @returns React popper component
  */
-export function Popup({ referenceElement, children }: Props) {
+export function Popup({ referenceElement, children }: Props): React.JSX.Element {
 	const [targetRef, setPopupRef] = React.useState<HTMLDivElement | null>(null);
 
 	useFocusTrap({ targetRef: targetRef });

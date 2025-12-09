@@ -167,7 +167,7 @@ const getStyle = ({
 };
 
 const getWithCellProps = (WrapperComponent: React.ElementType) => {
-	return function WithCellProps(props: CellProps) {
+	return function WithCellProps(props: CellProps): React.JSX.Element {
 		const { colorMode } = useThemeObserver();
 		const {
 			children,
@@ -213,7 +213,7 @@ const getWithCellProps = (WrapperComponent: React.ElementType) => {
 const TH = getWithCellProps('th');
 
 export const withSortableColumn = (WrapperComponent: React.ElementType) => {
-	return function THWithSortableColumn(props: CellWithSortingProps) {
+	return function THWithSortableColumn(props: CellWithSortingProps): React.JSX.Element {
 		const intl = useIntl();
 		const { allowColumnSorting, onSorting, children, sortOrdered, isHeaderRow } = props;
 		const sortOrderedClassName =

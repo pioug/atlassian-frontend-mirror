@@ -154,7 +154,7 @@ export default function FieldsLoader({
 	api,
 	// Remove below prop when cleaning platform_editor_ai_object_sidebar_injection FG
 	usingObjectSidebarPanel,
-}: PublicProps) {
+}: PublicProps): React.JSX.Element {
 	const [extensionManifest] = useStateFromPromise<ExtensionManifest | undefined>(
 		() => extensionProvider.getExtension(extensionType, extensionKey),
 		[extensionProvider, extensionType, extensionKey],

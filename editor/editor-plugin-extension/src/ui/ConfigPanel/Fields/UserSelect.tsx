@@ -158,7 +158,7 @@ export default function UserSelect({
 	field: UserField;
 	name: string;
 	onFieldChange: OnFieldChange;
-}) {
+}): React.JSX.Element {
 	const [context, setContext] = useState({} as Partial<UserFieldContext>);
 	const { siteId, principalId, fieldId, productKey } = context;
 	const { label, defaultValue, description, isRequired, options, isDisabled } = field;

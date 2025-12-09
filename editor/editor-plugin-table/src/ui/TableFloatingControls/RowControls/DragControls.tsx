@@ -72,7 +72,7 @@ export const DragControls = ({
 	updateCellHoverLocation,
 	api,
 	selection,
-}: DragControlsProps) => {
+}: DragControlsProps): React.JSX.Element | null => {
 	const [isDragging, setIsDragging] = useState(false);
 	const rowHeights = getRowHeights(tableRef);
 	const rowsParams = getRowsParams(rowHeights);
@@ -377,7 +377,7 @@ export const DragControlsWithSelection = ({
 	selectRows,
 	updateCellHoverLocation,
 	api,
-}: Exclude<DragControlsProps, 'selection'>) => {
+}: Exclude<DragControlsProps, 'selection'>): React.JSX.Element => {
 	const { selection } = useSharedPluginStateWithSelector(api, ['selection'], (states) => ({
 		selection: states.selectionState?.selection,
 	}));

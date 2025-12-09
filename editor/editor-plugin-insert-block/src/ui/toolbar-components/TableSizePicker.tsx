@@ -18,7 +18,10 @@ interface TableSizePickerProps extends BaseToolbarButtonProps {
 	tableSelectorSupported?: boolean;
 }
 
-export const TableSizePicker = ({ api, tableSelectorSupported }: TableSizePickerProps) => {
+export const TableSizePicker = ({
+	api,
+	tableSelectorSupported,
+}: TableSizePickerProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 	const tableSizePickerRef = useRef<HTMLButtonElement | null>(null);
 	const { popupsMountPoint, popupsBoundariesElement, popupsScrollableElement } = useToolbarUI();

@@ -17,7 +17,8 @@
 	"compilerOptions": {
 		"outDir": "../../../../../jira/tsDist/@atlaskit__platform-feature-flags/app",
 		"rootDir": "../",
-		"composite": true
+		"composite": true,
+		"noCheck": true
 	},
 	"references": [
 		{

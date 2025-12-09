@@ -42,7 +42,7 @@ const styles = cssMap({
 	},
 });
 
-const PortalEventExample = () => {
+const PortalEventExample = (): JSX.Element => {
 	const [isMounted, setIsMounted] = useState(false);
 	const [customEventData, setCustomEventData] = useState('');
 

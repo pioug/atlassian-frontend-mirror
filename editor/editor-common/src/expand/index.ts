@@ -16,7 +16,7 @@ export const getNextNodeExpandPos = (
 	editorView: EditorView,
 	selection: Selection,
 ): number | undefined => {
-	let parentNodePos = findParentNodeOfType([
+	let parentNode = findParentNodeOfType([
 		editorView.state.schema.nodes.listItem,
 		editorView.state.schema.nodes.heading,
 		editorView.state.schema.nodes.blockquote,
@@ -24,7 +24,13 @@ export const getNextNodeExpandPos = (
 		editorView.state.schema.nodes.mediaSingle,
 	])(selection);
 
-	if (!parentNodePos) {
+	const tableRowNode = findParentNodeOfType([editorView.state.schema.nodes.tableRow])(selection);
+
+	if (tableRowNode) {
+		parentNode = tableRowNode;
+	}
+
+	if (!parentNode) {
 		const paragraphNode = findParentNodeOfType([editorView.state.schema.nodes.paragraph])(
 			selection,
 		);
@@ -32,22 +38,17 @@ export const getNextNodeExpandPos = (
 		if (!paragraphNode) {
 			return;
 		}
-		parentNodePos = paragraphNode;
+		parentNode = paragraphNode;
 	}
 
-	const tableRowNodePos = findParentNodeOfType([editorView.state.schema.nodes.tableRow])(selection);
-
-	if (tableRowNodePos) {
-		parentNodePos = tableRowNodePos;
+	if (!parentNode) {
+		return undefined;
 	}
 
 	const endPosOffset =
-		parentNodePos && ['taskItem', 'listItem', 'tableRow'].includes(parentNodePos.node.type.name)
-			? 1
-			: 0;
+		parentNode && ['taskItem', 'listItem', 'tableRow'].includes(parentNode.node.type.name) ? 1 : 0;
 
-	const endOfTextblockPos =
-		parentNodePos.start + parentNodePos.node.content.size + endPosOffset + 1;
+	const endOfTextblockPos = parentNode.start + parentNode.node.content.size + endPosOffset + 1;
 
 	if (endOfTextblockPos > editorView.state.doc.content.size) {
 		return undefined;

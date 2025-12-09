@@ -28,7 +28,7 @@ type SelectionExtensionComponentWrapperProps = {
 export const SelectionExtensionComponentWrapper = ({
 	api,
 	editorAnalyticsAPI,
-}: SelectionExtensionComponentWrapperProps) => {
+}: SelectionExtensionComponentWrapperProps): React.JSX.Element | null => {
 	const componentRef = useRef<React.ComponentType<SelectionExtensionComponentProps>>();
 	const isToolbarAIFCEnabled =
 		Boolean(api?.toolbar) &&

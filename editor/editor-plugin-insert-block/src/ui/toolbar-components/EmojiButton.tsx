@@ -12,7 +12,7 @@ import { useEmojiPickerPopup } from './hooks/useEmojiPickerPopup';
 import { EmojiPickerPopup } from './popups/EmojiPickerPopup';
 import type { BaseToolbarButtonProps } from './shared/types';
 
-export const EmojiButton = ({ api }: BaseToolbarButtonProps) => {
+export const EmojiButton = ({ api }: BaseToolbarButtonProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 	const emojiButtonRef = useRef<HTMLButtonElement | null>(null);
 	const { popupsMountPoint, popupsBoundariesElement, popupsScrollableElement } = useToolbarUI();

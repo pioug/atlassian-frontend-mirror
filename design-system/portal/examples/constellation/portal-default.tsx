@@ -2,7 +2,7 @@ import React from 'react';
 
 import Portal from '@atlaskit/portal';
 
-const PortalDefaultExample = () => {
+const PortalDefaultExample = (): React.JSX.Element => {
 	return (
 		<h1>
 			<Portal>

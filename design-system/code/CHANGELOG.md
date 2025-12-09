@@ -1,5 +1,12 @@
 # @atlaskit/code
 
+## 17.3.3
+
+### Patch Changes
+
+- [`b783aa9a00348`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b783aa9a00348) -
+  Use ADS code token for font styling.
+
 ## 17.3.2
 
 ### Patch Changes

@@ -20,7 +20,7 @@ export const ExternalDropTargets = ({
 	getScrollOffset: () => number;
 	getTableWrapperWidth: () => number;
 	node?: PMNode;
-}) => {
+}): React.JSX.Element | null => {
 	const [isDragging, setIsDragging] = useState(false);
 	const currentNodeLocalId = node?.attrs.localId;
 

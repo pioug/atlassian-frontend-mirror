@@ -1,4 +1,5 @@
-export { type UnlinkContainerMutationError } from './agg-client/utils/mutations/unlink-container-mutation';
+import type { TeamRestriction } from '@atlaskit/teams-client/types';
+
 import type { TeamContainer, TeamMembershipSettings, TeamState, UserStatus } from '../common/types';
 
 export type ClientContext = {
@@ -38,5 +39,5 @@ export type TeamWithMemberships = {
 	smallAvatarImageUrl: string;
 	largeHeaderImageUrl: string;
 	smallHeaderImageUrl: string;
-	restriction: 'ORG_MEMBERS';
+	restriction: TeamRestriction;
 };

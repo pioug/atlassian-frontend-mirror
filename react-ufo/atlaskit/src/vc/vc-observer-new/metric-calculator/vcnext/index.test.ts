@@ -100,8 +100,12 @@ describe('VCNextCalculator', () => {
 
 			it('should include mutation:display-contents-children-attribute when feature flag is enabled and attribute is visual', () => {
 				mockFg.mockImplementation((flag) => {
-					if (flag === 'platform_ufo_detect_zero_dimension_rectangles') {return true;}
-					if (flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions') {return false;}
+					if (flag === 'platform_ufo_detect_zero_dimension_rectangles') {
+						return true;
+					}
+					if (flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions') {
+						return false;
+					}
 					return false;
 				});
 				const entry: VCObserverEntry = {
@@ -119,8 +123,12 @@ describe('VCNextCalculator', () => {
 
 			it('should include mutation:display-contents-children-attribute when feature flag is enabled without attributeName', () => {
 				mockFg.mockImplementation((flag) => {
-					if (flag === 'platform_ufo_detect_zero_dimension_rectangles') {return true;}
-					if (flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions') {return false;}
+					if (flag === 'platform_ufo_detect_zero_dimension_rectangles') {
+						return true;
+					}
+					if (flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions') {
+						return false;
+					}
 					return false;
 				});
 				const entry: VCObserverEntry = {
@@ -480,8 +488,12 @@ describe('VCNextCalculator', () => {
 
 		it('should handle mutation:ssr-placeholder with mixed flags', () => {
 			mockFg.mockImplementation((flag) => {
-				if (flag === 'platform_ufo_remove_ssr_placeholder_in_ttvc_v4') {return true;}
-				if (flag === 'platform_ufo_ttvc_v4_exclude_input_name_mutation') {return false;}
+				if (flag === 'platform_ufo_remove_ssr_placeholder_in_ttvc_v4') {
+					return true;
+				}
+				if (flag === 'platform_ufo_ttvc_v4_exclude_input_name_mutation') {
+					return false;
+				}
 				return false;
 			});
 			const entry: VCObserverEntry = {

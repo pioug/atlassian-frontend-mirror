@@ -40,7 +40,7 @@ export interface BlockInsertMenuProps {
 	togglePlusMenuVisibility(): void;
 }
 
-export const BlockInsertMenu = (props: BlockInsertMenuProps) => {
+export const BlockInsertMenu = (props: BlockInsertMenuProps): React.JSX.Element | null => {
 	if (fg('platform_editor_refactor_view_more')) {
 		if (props.items.length === 0 && !props.showElementBrowserLink) {
 			return null;

@@ -13,7 +13,10 @@ type RendererActionsContextProps = PropsWithChildren<{
 	context?: RendererActions;
 }>;
 
-export function RendererActionsContext({ children, context }: RendererActionsContextProps) {
+export function RendererActionsContext({
+	children,
+	context,
+}: RendererActionsContextProps): React.JSX.Element {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const actions = useMemo(() => new RendererActions(true), []);
 

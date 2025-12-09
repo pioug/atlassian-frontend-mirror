@@ -6,7 +6,7 @@
 			"category": "Layout and structure"
 		}
 	},
-	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"main": "dist/cjs/index.js",
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
@@ -116,7 +116,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.64.0",
+	"version": "0.65.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -131,13 +131,7 @@
 		"enable_medium_size_icons_for_team_link_cards": {
 			"type": "boolean"
 		},
-		"enable_team_containers_null_check": {
-			"type": "boolean"
-		},
 		"fix_team_link_card_a11y": {
-			"type": "boolean"
-		},
-		"teams_containers_cypher_query_v2_migration": {
 			"type": "boolean"
 		},
 		"migrate-product-permissions": {
@@ -150,6 +144,9 @@
 			"type": "boolean"
 		},
 		"enable_x_query_context_header": {
+			"type": "boolean"
+		},
+		"enable_teams_public_migration_using_teams-client": {
 			"type": "boolean"
 		}
 	}

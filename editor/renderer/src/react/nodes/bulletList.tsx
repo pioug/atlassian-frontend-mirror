@@ -5,7 +5,7 @@ import type { Node } from '@atlaskit/editor-prosemirror/model';
 
 export default function BulletList(
 	props: React.PropsWithChildren<{ localId?: string; path?: Node[] }>,
-) {
+): React.JSX.Element {
 	return (
 		<ul
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

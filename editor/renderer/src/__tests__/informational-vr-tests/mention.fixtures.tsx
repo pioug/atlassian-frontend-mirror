@@ -52,7 +52,7 @@ const adfMention: DocNode = {
 	],
 };
 
-export function RendererMention() {
+export function RendererMention(): React.JSX.Element {
 	return (
 		<IntlProvider locale="en">
 			<MockMediaClientProvider>

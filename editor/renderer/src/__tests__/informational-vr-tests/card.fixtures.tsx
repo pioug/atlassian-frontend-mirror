@@ -173,7 +173,7 @@ const SmartCardTestWrapper = ({ adf, client }: { adf: unknown; client: CardClien
 	);
 };
 
-export const RendererInlineCard = () => {
+export const RendererInlineCard = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildInlineCardAdf('https://inlineCardTestUrl')}
@@ -182,7 +182,7 @@ export const RendererInlineCard = () => {
 	);
 };
 
-export const RendererInlineCardXSS = () => {
+export const RendererInlineCardXSS = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildInlineCardAdf('javascript:alert(document.domain)')}
@@ -191,7 +191,7 @@ export const RendererInlineCardXSS = () => {
 	);
 };
 
-export const RendererInlineCardResolving = () => {
+export const RendererInlineCardResolving = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildInlineCardAdf('https://inlineCardTestUrl/resolving')}
@@ -200,7 +200,7 @@ export const RendererInlineCardResolving = () => {
 	);
 };
 
-export const RendererInlineCardUnauthorized = () => {
+export const RendererInlineCardUnauthorized = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildInlineCardAdf('https://inlineCardTestUrl/unauthorized')}
@@ -209,7 +209,7 @@ export const RendererInlineCardUnauthorized = () => {
 	);
 };
 
-export const RendererInlineCardForbidden = () => {
+export const RendererInlineCardForbidden = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildInlineCardAdf('https://inlineCardTestUrl/forbidden')}
@@ -218,7 +218,7 @@ export const RendererInlineCardForbidden = () => {
 	);
 };
 
-export const RendererInlineCardNotFound = () => {
+export const RendererInlineCardNotFound = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildInlineCardAdf('https://inlineCardTestUrl/notFound')}
@@ -227,7 +227,7 @@ export const RendererInlineCardNotFound = () => {
 	);
 };
 
-export const RendererInlineCardErrored = () => {
+export const RendererInlineCardErrored = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildInlineCardAdf('https://inlineCardTestUrl/errored')}
@@ -236,7 +236,7 @@ export const RendererInlineCardErrored = () => {
 	);
 };
 
-export const RendererBlockCard = () => {
+export const RendererBlockCard = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildBlockCardAdf('https://blockCardTestUrl')}
@@ -245,7 +245,7 @@ export const RendererBlockCard = () => {
 	);
 };
 
-export const RendererBlockCardXSS = () => {
+export const RendererBlockCardXSS = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildEmbedCardAdf('javascript:alert(document.domain)')}
@@ -254,7 +254,7 @@ export const RendererBlockCardXSS = () => {
 	);
 };
 
-export const RendererBlockCardResolving = () => {
+export const RendererBlockCardResolving = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildBlockCardAdf('https://blockCardTestUrl/resolving')}
@@ -263,7 +263,7 @@ export const RendererBlockCardResolving = () => {
 	);
 };
 
-export const RendererBlockCardUnauthorized = () => {
+export const RendererBlockCardUnauthorized = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildBlockCardAdf('https://blockCardTestUrl/unauthorized')}
@@ -272,7 +272,7 @@ export const RendererBlockCardUnauthorized = () => {
 	);
 };
 
-export const RendererBlockCardForbidden = () => {
+export const RendererBlockCardForbidden = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildBlockCardAdf('https://inlineCardTestUrl/forbidden')}
@@ -281,7 +281,7 @@ export const RendererBlockCardForbidden = () => {
 	);
 };
 
-export const RendererBlockCardNotFound = () => {
+export const RendererBlockCardNotFound = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildBlockCardAdf('https://blockCardTestUrl/notFound')}
@@ -290,7 +290,7 @@ export const RendererBlockCardNotFound = () => {
 	);
 };
 
-export const RendererBlockCardErrored = () => {
+export const RendererBlockCardErrored = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildBlockCardAdf('https://blockCardTestUrl/errored')}
@@ -299,7 +299,7 @@ export const RendererBlockCardErrored = () => {
 	);
 };
 
-export const RendererEmbedCard = () => {
+export const RendererEmbedCard = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildEmbedCardAdf('https://embedCardTestUrl')}
@@ -308,7 +308,7 @@ export const RendererEmbedCard = () => {
 	);
 };
 
-export const RendererEmbedCardXSS = () => {
+export const RendererEmbedCardXSS = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildEmbedCardAdf('javascript:alert(document.domain)')}
@@ -317,7 +317,7 @@ export const RendererEmbedCardXSS = () => {
 	);
 };
 
-export const RendererEmbedCardWide = () => {
+export const RendererEmbedCardWide = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildEmbedCardAdf('https://embedCardTestUrl', 'wide')}
@@ -327,7 +327,7 @@ export const RendererEmbedCardWide = () => {
 	);
 };
 
-export const RendererEmbedCardResolving = () => {
+export const RendererEmbedCardResolving = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildEmbedCardAdf('https://embedCardTestUrl/resolving')}
@@ -335,7 +335,7 @@ export const RendererEmbedCardResolving = () => {
 		/>
 	);
 };
-export const RendererEmbedCardUnauthorized = () => {
+export const RendererEmbedCardUnauthorized = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildEmbedCardAdf('https://embedCardTestUrl/unauthorized')}
@@ -343,7 +343,7 @@ export const RendererEmbedCardUnauthorized = () => {
 		/>
 	);
 };
-export const RendererEmbedCardForbidden = () => {
+export const RendererEmbedCardForbidden = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildEmbedCardAdf('https://embedCardTestUrl/forbidden')}
@@ -351,7 +351,7 @@ export const RendererEmbedCardForbidden = () => {
 		/>
 	);
 };
-export const RendererEmbedCardNotFound = () => {
+export const RendererEmbedCardNotFound = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildEmbedCardAdf('https://embedCardTestUrl/notFound')}
@@ -359,7 +359,7 @@ export const RendererEmbedCardNotFound = () => {
 		/>
 	);
 };
-export const RendererEmbedCardErrored = () => {
+export const RendererEmbedCardErrored = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildEmbedCardAdf('https://embedCardTestUrl/errored')}
@@ -368,7 +368,7 @@ export const RendererEmbedCardErrored = () => {
 	);
 };
 
-export const RendererEmbedCardComplex = () => {
+export const RendererEmbedCardComplex = (): React.JSX.Element => {
 	const attrs = {
 		layout: 'center',
 		originalHeight: 322,
@@ -386,7 +386,7 @@ export const RendererEmbedCardComplex = () => {
 	);
 };
 
-export const RendererEmbedCardCenterLayoutAndNoWidth = () => {
+export const RendererEmbedCardCenterLayoutAndNoWidth = (): React.JSX.Element => {
 	const attrs = {
 		layout: 'center',
 		originalWidth: null,
@@ -402,7 +402,7 @@ export const RendererEmbedCardCenterLayoutAndNoWidth = () => {
 	);
 };
 
-export const RendererEmbedCardCenterLayout100PercentWidth = () => {
+export const RendererEmbedCardCenterLayout100PercentWidth = (): React.JSX.Element => {
 	const attrs = {
 		layout: 'center',
 		originalWidth: null,
@@ -419,7 +419,7 @@ export const RendererEmbedCardCenterLayout100PercentWidth = () => {
 	);
 };
 
-export const RendererEmbedCardCenterLayout88PercentWidth = () => {
+export const RendererEmbedCardCenterLayout88PercentWidth = (): React.JSX.Element => {
 	const attrs = {
 		layout: 'center',
 		originalWidth: null,
@@ -436,57 +436,60 @@ export const RendererEmbedCardCenterLayout88PercentWidth = () => {
 	);
 };
 // ------
-export const RendererEmbedCardCenterLayoutNoHeightAndNoMessageAndNoWidth = () => {
-	const attrs = {
-		layout: 'center',
-		originalWidth: null,
-		originalHeight: undefined,
-		url: 'https://embedCardTestUrl/noMessages',
+export const RendererEmbedCardCenterLayoutNoHeightAndNoMessageAndNoWidth =
+	(): React.JSX.Element => {
+		const attrs = {
+			layout: 'center',
+			originalWidth: null,
+			originalHeight: undefined,
+			url: 'https://embedCardTestUrl/noMessages',
+		};
+
+		return (
+			<SmartCardTestWrapper
+				adf={buildEmbedCardWithAttributesAdf(attrs)}
+				client={new ResolvedClient()}
+			/>
+		);
 	};
 
-	return (
-		<SmartCardTestWrapper
-			adf={buildEmbedCardWithAttributesAdf(attrs)}
-			client={new ResolvedClient()}
-		/>
-	);
-};
+export const RendererEmbedCardCenterLayoutNoHeightAndNoMessage100PercentWidth =
+	(): React.JSX.Element => {
+		const attrs = {
+			layout: 'center',
+			originalWidth: null,
+			width: 100,
+			originalHeight: undefined,
+			url: 'https://embedCardTestUrl/noMessages',
+		};
 
-export const RendererEmbedCardCenterLayoutNoHeightAndNoMessage100PercentWidth = () => {
-	const attrs = {
-		layout: 'center',
-		originalWidth: null,
-		width: 100,
-		originalHeight: undefined,
-		url: 'https://embedCardTestUrl/noMessages',
+		return (
+			<SmartCardTestWrapper
+				adf={buildEmbedCardWithAttributesAdf(attrs)}
+				client={new ResolvedClient()}
+			/>
+		);
 	};
 
-	return (
-		<SmartCardTestWrapper
-			adf={buildEmbedCardWithAttributesAdf(attrs)}
-			client={new ResolvedClient()}
-		/>
-	);
-};
+export const RendererEmbedCardCenterLayoutNoHeightAndNoMessage88PercentWidth =
+	(): React.JSX.Element => {
+		const attrs = {
+			layout: 'center',
+			originalWidth: null,
+			width: 88,
+			originalHeight: undefined,
+			url: 'https://embedCardTestUrl/noMessages',
+		};
 
-export const RendererEmbedCardCenterLayoutNoHeightAndNoMessage88PercentWidth = () => {
-	const attrs = {
-		layout: 'center',
-		originalWidth: null,
-		width: 88,
-		originalHeight: undefined,
-		url: 'https://embedCardTestUrl/noMessages',
+		return (
+			<SmartCardTestWrapper
+				adf={buildEmbedCardWithAttributesAdf(attrs)}
+				client={new ResolvedClient()}
+			/>
+		);
 	};
 
-	return (
-		<SmartCardTestWrapper
-			adf={buildEmbedCardWithAttributesAdf(attrs)}
-			client={new ResolvedClient()}
-		/>
-	);
-};
-
-export const RendererBlockCardFullWidthLayout = () => {
+export const RendererBlockCardFullWidthLayout = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildBlockCardWithAttributesAdf(buildRendererExampleAttributes('full-width'))}
@@ -495,7 +498,7 @@ export const RendererBlockCardFullWidthLayout = () => {
 	);
 };
 
-export const RendererBlockCardDefaultWidthLayout = () => {
+export const RendererBlockCardDefaultWidthLayout = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildBlockCardWithAttributesAdf(buildRendererExampleAttributes('center'))}
@@ -504,7 +507,7 @@ export const RendererBlockCardDefaultWidthLayout = () => {
 	);
 };
 
-export const RendererBlockCardWideWidthLayout = () => {
+export const RendererBlockCardWideWidthLayout = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildBlockCardWithAttributesAdf(buildRendererExampleAttributes('wide'))}
@@ -514,7 +517,7 @@ export const RendererBlockCardWideWidthLayout = () => {
 };
 
 // Inline card forbidden links with request access
-export const RendererInlineCardRequestAccess = () => {
+export const RendererInlineCardRequestAccess = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildInlineCardAdf('https://inlineCardTestUrl/forbidden/REQUEST_ACCESS')}
@@ -523,7 +526,7 @@ export const RendererInlineCardRequestAccess = () => {
 	);
 };
 
-export const RendererInlineCardForbiddenPendingRequestAccess = () => {
+export const RendererInlineCardForbiddenPendingRequestAccess = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildInlineCardAdf('https://inlineCardTestUrl/forbidden/PENDING_REQUEST_EXISTS')}
@@ -532,7 +535,7 @@ export const RendererInlineCardForbiddenPendingRequestAccess = () => {
 	);
 };
 
-export const RendererInlineCardRequestAccessForbidden = () => {
+export const RendererInlineCardRequestAccessForbidden = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildInlineCardAdf('https://inlineCardTestUrl/forbidden/FORBIDDEN')}
@@ -541,7 +544,7 @@ export const RendererInlineCardRequestAccessForbidden = () => {
 	);
 };
 
-export const RendererInlineCardRequestAccessDirectAccess = () => {
+export const RendererInlineCardRequestAccessDirectAccess = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildInlineCardAdf('https://inlineCardTestUrl/forbidden/DIRECT_ACCESS')}
@@ -550,7 +553,7 @@ export const RendererInlineCardRequestAccessDirectAccess = () => {
 	);
 };
 
-export const RendererInlineCardRequestAccessDeniedRequestExists = () => {
+export const RendererInlineCardRequestAccessDeniedRequestExists = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildInlineCardAdf('https://inlineCardTestUrl/forbidden/DENIED_REQUEST_EXISTS')}
@@ -559,7 +562,7 @@ export const RendererInlineCardRequestAccessDeniedRequestExists = () => {
 	);
 };
 
-export const RendererInlineCardForbiddenRequestApprovedRequestExists = () => {
+export const RendererInlineCardForbiddenRequestApprovedRequestExists = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildInlineCardAdf('https://inlineCardTestUrl/forbidden/APPROVED_REQUEST_EXISTS')}
@@ -568,7 +571,7 @@ export const RendererInlineCardForbiddenRequestApprovedRequestExists = () => {
 	);
 };
 
-export const RendererInlineCardRequestAccessAccessExists = () => {
+export const RendererInlineCardRequestAccessAccessExists = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildInlineCardAdf('https://inlineCardTestUrl/forbidden/ACCESS_EXISTS')}
@@ -578,7 +581,7 @@ export const RendererInlineCardRequestAccessAccessExists = () => {
 };
 
 // block card forbidden links with request access
-export const RendererBlockCardRequestAccess = () => {
+export const RendererBlockCardRequestAccess = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildBlockCardAdf('https://blockCardTestUrl/forbidden/REQUEST_ACCESS')}
@@ -587,7 +590,7 @@ export const RendererBlockCardRequestAccess = () => {
 	);
 };
 
-export const RendererBlockCardForbiddenPendingRequestAccess = () => {
+export const RendererBlockCardForbiddenPendingRequestAccess = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildBlockCardAdf('https://blockCardTestUrl/forbidden/PENDING_REQUEST_EXISTS')}
@@ -596,7 +599,7 @@ export const RendererBlockCardForbiddenPendingRequestAccess = () => {
 	);
 };
 
-export const RendererBlockCardRequestAccessForbidden = () => {
+export const RendererBlockCardRequestAccessForbidden = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildBlockCardAdf('https://blockCardTestUrl/forbidden/FORBIDDEN')}
@@ -605,7 +608,7 @@ export const RendererBlockCardRequestAccessForbidden = () => {
 	);
 };
 
-export const RendererBlockCardRequestAccessDirectAccess = () => {
+export const RendererBlockCardRequestAccessDirectAccess = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildBlockCardAdf('https://blockCardTestUrl/forbidden/DIRECT_ACCESS')}
@@ -614,7 +617,7 @@ export const RendererBlockCardRequestAccessDirectAccess = () => {
 	);
 };
 
-export const RendererBlockCardRequestAccessDeniedRequestExists = () => {
+export const RendererBlockCardRequestAccessDeniedRequestExists = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildBlockCardAdf('https://blockCardTestUrl/forbidden/DENIED_REQUEST_EXISTS')}
@@ -623,7 +626,7 @@ export const RendererBlockCardRequestAccessDeniedRequestExists = () => {
 	);
 };
 
-export const RendererBlockCardForbiddenRequestApprovedRequestExists = () => {
+export const RendererBlockCardForbiddenRequestApprovedRequestExists = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildBlockCardAdf('https://blockCardTestUrl/forbidden/APPROVED_REQUEST_EXISTS')}
@@ -632,7 +635,7 @@ export const RendererBlockCardForbiddenRequestApprovedRequestExists = () => {
 	);
 };
 
-export const RendererBlockCardRequestAccessAccessExists = () => {
+export const RendererBlockCardRequestAccessAccessExists = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildBlockCardAdf('https://blockCardTestUrl/forbidden/ACCESS_EXISTS')}
@@ -642,7 +645,7 @@ export const RendererBlockCardRequestAccessAccessExists = () => {
 };
 
 // Embed card forbidden links with request access
-export const RendererEmbedCardRequestAccess = () => {
+export const RendererEmbedCardRequestAccess = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildEmbedCardAdf('https://embedCardTestUrl/forbidden/REQUEST_ACCESS')}
@@ -651,7 +654,7 @@ export const RendererEmbedCardRequestAccess = () => {
 	);
 };
 
-export const RendererEmbedCardForbiddenPendingRequestAccess = () => {
+export const RendererEmbedCardForbiddenPendingRequestAccess = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildEmbedCardAdf('https://embedCardTestUrl/forbidden/PENDING_REQUEST_EXISTS')}
@@ -660,7 +663,7 @@ export const RendererEmbedCardForbiddenPendingRequestAccess = () => {
 	);
 };
 
-export const RendererEmbedCardRequestAccessForbidden = () => {
+export const RendererEmbedCardRequestAccessForbidden = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildEmbedCardAdf('https://embedCardTestUrl/forbidden/FORBIDDEN')}
@@ -669,7 +672,7 @@ export const RendererEmbedCardRequestAccessForbidden = () => {
 	);
 };
 
-export const RendererEmbedCardRequestAccessDirectAccess = () => {
+export const RendererEmbedCardRequestAccessDirectAccess = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildEmbedCardAdf('https://embedCardTestUrl/forbidden/DIRECT_ACCESS')}
@@ -678,7 +681,7 @@ export const RendererEmbedCardRequestAccessDirectAccess = () => {
 	);
 };
 
-export const RendererEmbedCardRequestAccessDeniedRequestExists = () => {
+export const RendererEmbedCardRequestAccessDeniedRequestExists = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildEmbedCardAdf('https://embedCardTestUrl/forbidden/DENIED_REQUEST_EXISTS')}
@@ -687,7 +690,7 @@ export const RendererEmbedCardRequestAccessDeniedRequestExists = () => {
 	);
 };
 
-export const RendererEmbedCardForbiddenRequestApprovedRequestExists = () => {
+export const RendererEmbedCardForbiddenRequestApprovedRequestExists = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildEmbedCardAdf('https://embedCardTestUrl/forbidden/APPROVED_REQUEST_EXISTS')}
@@ -696,7 +699,7 @@ export const RendererEmbedCardForbiddenRequestApprovedRequestExists = () => {
 	);
 };
 
-export const RendererEmbedCardRequestAccessAccessExists = () => {
+export const RendererEmbedCardRequestAccessAccessExists = (): React.JSX.Element => {
 	return (
 		<SmartCardTestWrapper
 			adf={buildEmbedCardAdf('https://embedCardTestUrl/forbidden/ACCESS_EXISTS')}

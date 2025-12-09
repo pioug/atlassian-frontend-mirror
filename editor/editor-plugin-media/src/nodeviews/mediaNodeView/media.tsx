@@ -240,7 +240,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { node, selected, originalDimensions, isLoading, maxDimensions, mediaOptions, api } =
 			this.props;
 

@@ -52,7 +52,7 @@ const usePluginState = conditionalHooksFactory(
 /**
  * The menu-item version of pin only appears in selection toolbar - the primary toolbar will have its own component
  */
-export const PinMenuItem = ({ api }: PinMenuItemProps) => {
+export const PinMenuItem = ({ api }: PinMenuItemProps): React.JSX.Element | null => {
 	const intl = useIntl();
 	const { editorViewMode, editorToolbarDockingPreference, isOffline } = usePluginState(api);
 	const isToolbarDocked = editorToolbarDockingPreference === 'top';

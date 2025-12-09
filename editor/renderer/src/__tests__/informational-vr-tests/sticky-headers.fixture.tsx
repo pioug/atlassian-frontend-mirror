@@ -37,62 +37,62 @@ function StickyHeaderFixture({ adf }: { adf: unknown }) {
 		</div>
 	);
 }
-export function StickyHeaderUnResizedTableRenderer() {
+export function StickyHeaderUnResizedTableRenderer(): React.JSX.Element {
 	return <StickyHeaderFixture adf={stickyHeadersUnresizedTable} />;
 }
 
-export function StickyHeaderUnResizedTableNumberedColumnRenderer() {
+export function StickyHeaderUnResizedTableNumberedColumnRenderer(): React.JSX.Element {
 	return <StickyHeaderFixture adf={stickyHeadersUnresizedTableNumberedColumn} />;
 }
 
-export function StickyHeaderUnResizedTableWithoutHeaderRowRenderer() {
+export function StickyHeaderUnResizedTableWithoutHeaderRowRenderer(): React.JSX.Element {
 	return <StickyHeaderFixture adf={stickyHeadersUnresizedTableWithoutHeaderRow} />;
 }
 
-export function StickyHeaderRowWithOnlyHeader() {
+export function StickyHeaderRowWithOnlyHeader(): React.JSX.Element {
 	return <StickyHeaderFixture adf={stickyHeadersRowWithOnlyHeader} />;
 }
 
-export function StickyHeaderRowWithOnlyNonHeader() {
+export function StickyHeaderRowWithOnlyNonHeader(): React.JSX.Element {
 	return <StickyHeaderFixture adf={stickyHeadersRowWithOnlyNonHeader} />;
 }
 
-export function StickyHeaderRowWithResizedColumns() {
+export function StickyHeaderRowWithResizedColumns(): React.JSX.Element {
 	return <StickyHeaderFixture adf={stickyHeadersRowWithResizedColumns} />;
 }
 
-export function StickyHeadersBrokenOutTableNoResize() {
+export function StickyHeadersBrokenOutTableNoResize(): React.JSX.Element {
 	return <StickyHeaderFixture adf={stickyHeadersBrokenOutTableNoResize} />;
 }
 
-export function StickyHeadersBrokenOutTableResized() {
+export function StickyHeadersBrokenOutTableResized(): React.JSX.Element {
 	return <StickyHeaderFixture adf={stickyHeadersBrokenOutTableResized} />;
 }
 
-export function StickyHeadersBrokenOutTableOverflowing() {
+export function StickyHeadersBrokenOutTableOverflowing(): React.JSX.Element {
 	return <StickyHeaderFixture adf={stickyHeadersBrokenOutTableOverflowing} />;
 }
 
-export function StickyHeadersTableOverflowing() {
+export function StickyHeadersTableOverflowing(): React.JSX.Element {
 	return <StickyHeaderFixture adf={stickyHeadersTableOverflowing} />;
 }
 
-export function StickyHeadersTableOverflowingNumberedColumn() {
+export function StickyHeadersTableOverflowingNumberedColumn(): React.JSX.Element {
 	return <StickyHeaderFixture adf={stickyHeadersTableOverflowingNumberedColumn} />;
 }
 
-export function StickyHeadersTableInsideLayout() {
+export function StickyHeadersTableInsideLayout(): React.JSX.Element {
 	return <StickyHeaderFixture adf={stickyHeadersTableInsideLayout} />;
 }
 
-export function StickyHeadersTableInsideLayoutBrokenOut() {
+export function StickyHeadersTableInsideLayoutBrokenOut(): React.JSX.Element {
 	return <StickyHeaderFixture adf={stickyHeadersTableInsideLayoutBrokenOut} />;
 }
 
-export function StickyHeadersTableMultipleHeaderRows() {
+export function StickyHeadersTableMultipleHeaderRows(): React.JSX.Element {
 	return <StickyHeaderFixture adf={stickyHeadersTableMultipleHeaderRows} />;
 }
 
-export function StickyHeadersTableMergedRows() {
+export function StickyHeadersTableMergedRows(): React.JSX.Element {
 	return <StickyHeaderFixture adf={stickyHeadersTableMergedRows} />;
 }

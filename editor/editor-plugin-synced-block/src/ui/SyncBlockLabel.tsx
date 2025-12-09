@@ -21,7 +21,7 @@ const SyncBlockLabelComponent = ({
 	isSource,
 	useFetchSyncBlockTitle,
 	localId,
-}: SyncBlockLabelProps) => {
+}: SyncBlockLabelProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const title = useFetchSyncBlockTitle?.();
 

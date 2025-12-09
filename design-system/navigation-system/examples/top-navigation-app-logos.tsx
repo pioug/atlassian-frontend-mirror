@@ -35,10 +35,13 @@ import {
 import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
 import { Stack } from '@atlaskit/primitives/compiled';
 
+import placeholder200x200 from './images/200x200.png';
 import { WithResponsiveViewport } from './utils/example-utils';
 import { MockRoot } from './utils/mock-root';
 
 const Badge = () => <AKBadge appearance="important">{5}</AKBadge>;
+
+const generateImageComponent = (image: string) => () => <img alt="" src={image} />;
 
 const TopNavigationInstance = ({ icon, name }: { icon: any; name: string }) => {
 	return (
@@ -90,7 +93,20 @@ export const TopNavigationAppLogosExample = () => (
 				icon={CustomerServiceManagementIcon}
 				name="Customer Service Management"
 			/>
+			<TopNavigationInstance
+				icon={generateImageComponent(placeholder200x200)}
+				name="Custom app logo component (oversized)"
+			/>
 		</Stack>
+	</WithResponsiveViewport>
+);
+
+export const TopNavigationAppLogoOversizeExample = () => (
+	<WithResponsiveViewport>
+		<TopNavigationInstance
+			icon={generateImageComponent(placeholder200x200)}
+			name="Custom app logo component (oversized)"
+		/>
 	</WithResponsiveViewport>
 );
 

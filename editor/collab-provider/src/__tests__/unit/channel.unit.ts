@@ -68,6 +68,7 @@ const testChannelConfig: Config = {
 	documentAri: fakeDocumentAri,
 	createSocket: createSocketIOSocket,
 	analyticsClient: fakeAnalyticsWebClient,
+	path: '/ncs/cloud-id/activ-id/confluence'
 };
 const testPresenceChannelConfig: Config = {
 	...testChannelConfig,
@@ -886,6 +887,7 @@ describe('Channel unit tests', () => {
 				{ product: 'confluence' },
 				false,
 				expect.any(Object),
+				"/ncs/cloud-id/activ-id/confluence"
 			);
 		});
 

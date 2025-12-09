@@ -1,5 +1,5 @@
 /* eslint-disable require-unicode-regexp */
-import { type SyncBlockProduct } from "../../common/types";
+import { type SyncBlockProduct } from '../../common/types';
 
 /**
  * Generates the block ARI from the source page ARI and the source block's resource ID.
@@ -7,7 +7,11 @@ import { type SyncBlockProduct } from "../../common/types";
  * @param resourceId - the resource ID of the block node. A randomly generated UUID
  * @returns the block ARI. E.G ari:cloud:blocks:<cloudId>:synced-block/<product>/<pageId>/<resourceId>
  */
-export const generateBlockAri = (sourceAri: string, resourceId: string, product: SyncBlockProduct): string => {
+export const generateBlockAri = (
+	sourceAri: string,
+	resourceId: string,
+	product: SyncBlockProduct,
+): string => {
 	const match = sourceAri.match(/ari:cloud:confluence:([^:]+):(page|blogpost)\/(\d+)/);
 	if (!match?.[1]) {
 		throw new Error(`Invalid source ARI: ${sourceAri}`);
@@ -18,7 +22,7 @@ export const generateBlockAri = (sourceAri: string, resourceId: string, product:
 };
 
 /**
- * 
+ *
  * @param sourceAri - the ARI of the document. E.G ari:cloud:confluence:cloudId:page/pageId
  * @param resourceId - the resource ID of the reference synced block. E.G confluence-page/pageId/sourceResourceId
  * @returns the block ARI. E.G ari:cloud:blocks:<cloudId>:synced-block/<product>/<pageId>/<resourceId>
@@ -30,7 +34,7 @@ export const generateBlockAriFromReference = (sourceAri: string, resourceId: str
 	}
 	const cloudId = match[1];
 	return `ari:cloud:blocks:${cloudId}:synced-block/${resourceId}`;
-}
+};
 
 /**
  * Extracts the local ID from a block ARI.

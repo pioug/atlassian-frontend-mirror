@@ -4,7 +4,8 @@
 		"target": "es5",
 		"outDir": "../../../../../confluence/tsDist/@atlaskit__editor-plugin-accessibility-utils",
 		"rootDir": "../",
-		"composite": true
+		"composite": true,
+		"noCheck": true
 	},
 	"include": [
 		"../src/**/*.ts",

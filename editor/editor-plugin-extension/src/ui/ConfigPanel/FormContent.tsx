@@ -30,7 +30,7 @@ export function FieldComponent({
 	firstVisibleFieldName,
 	onFieldChange,
 	featureFlags,
-}: FieldComponentProps) {
+}: FieldComponentProps): React.JSX.Element {
 	const { name, type } = field;
 	const autoFocus = name === firstVisibleFieldName;
 	const defaultValue = parameters[name];
@@ -231,7 +231,7 @@ export default function FormContent({
 	contextIdentifierProvider,
 	featureFlags,
 	isDisabled,
-}: FormContentProps) {
+}: FormContentProps): React.JSX.Element {
 	let mappedFields = fields;
 	if (editorExperiment('platform_editor_offline_editing_web', true)) {
 		mappedFields = fields.map((field) => ({

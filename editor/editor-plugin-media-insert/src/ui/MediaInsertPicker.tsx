@@ -60,7 +60,7 @@ export const MediaInsertPicker = ({
 	isOnlyExternalLinks = false,
 	customizedUrlValidation,
 	customizedHelperMessage,
-}: MediaInsertPickerProps) => {
+}: MediaInsertPickerProps): React.JSX.Element | null => {
 	const { mediaProvider, isOpen, mountInfo } = useSharedPluginStateWithSelector(
 		api,
 		['media', 'mediaInsert'],

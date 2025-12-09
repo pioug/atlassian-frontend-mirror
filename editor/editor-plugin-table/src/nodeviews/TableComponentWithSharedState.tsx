@@ -70,7 +70,7 @@ export const TableComponentWithSharedState = ({
 	forwardRef,
 	allowTableAlignment,
 	allowTableResizing,
-}: TableComponentWithSharedStateProps) => {
+}: TableComponentWithSharedStateProps): React.JSX.Element => {
 	const {
 		isTableResizing,
 		isHeaderColumnEnabled,

@@ -274,7 +274,7 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	 * @example
 	 * @returns
 	 */
-	render(props: LayoutSectionViewProps, forwardRef: ForwardRef) {
+	render(props: LayoutSectionViewProps, forwardRef: ForwardRef): React.JSX.Element | null {
 		this.isEmpty = isEmptyLayout(this.node);
 		if (this.layoutDOM) {
 			this.layoutDOM.setAttribute('data-empty-layout', Boolean(this.isEmpty).toString());

@@ -65,5 +65,5 @@ const BulletedListBlockMenuItem = ({ api }: BulletedListBlockMenuItemProps) => {
 };
 
 export const createBulletedListBlockMenuItem = ({ api }: BulletedListBlockMenuItemProps) => {
-	return () => <BulletedListBlockMenuItem api={api} />;
+	return (): React.JSX.Element => <BulletedListBlockMenuItem api={api} />;
 };

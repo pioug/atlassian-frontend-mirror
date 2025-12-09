@@ -179,9 +179,9 @@ type ExtensionMenuItemBaseConfiguration = {
 };
 
 /**
- * Fields for a leaf menu item (i.e., an item that does not have nested menu items)
+ * Fields for a dropdown item (i.e., an item that does not have further nested menu items)
  */
-type ExtensionMenuItemLeafConfiguration = {
+type ExtensionDropdownItemFields = {
 	/**
 	 * Optional content component to render when this menu item is selected
 	 *
@@ -198,31 +198,35 @@ type ExtensionMenuItemLeafConfiguration = {
 };
 
 /**
- * Fields for a dropdown menu item (i.e., an item that has nested menu items)
+ * Fields for a nested dropdown menu (i.e., an menu item that has further nested menu items)
  */
-type ExtensionMenuItemDropdownMenuConfiguration = {
+type ExtensionNestedDropdownMenuFields = {
 	getMenuItems: GetNestedMenuItemsFn;
 };
+
+export type ExtensionDropdownItemConfiguration = ExtensionMenuItemBaseConfiguration &
+	AllNever<ExtensionNestedDropdownMenuFields> &
+	ExtensionDropdownItemFields;
+
+export type ExtensionNestedDropdownMenuConfiguration = ExtensionMenuItemBaseConfiguration &
+	AllNever<ExtensionDropdownItemFields> &
+	ExtensionNestedDropdownMenuFields;
 
 type AllNever<T> = {
 	[K in keyof T]?: never;
 };
 
 /**
- * A type which marks all fields from ExtensionMenuItemDropdownMenuConfiguration and ExtensionMenuItemLeafConfiguration
- * as never, ensuring that only one of the two can be present at a time to avoid misconfigurations
+ * This type represents either a dropdown item or a dropdown menu, but not both.
+ *
+ * We mark all fields of the other type as `never` to enforce this exclusivity.
  */
-type ExtensionMenuItemUnsupportedConfiguration = AllNever<
-	ExtensionMenuItemDropdownMenuConfiguration | ExtensionMenuItemLeafConfiguration
->;
-
-export type ExtensionMenuItemConfiguration = ExtensionMenuItemBaseConfiguration &
-	ExtensionMenuItemUnsupportedConfiguration &
-	(ExtensionMenuItemLeafConfiguration | ExtensionMenuItemDropdownMenuConfiguration);
+export type ExtensionMenuItemConfiguration =
+	| ExtensionDropdownItemConfiguration
+	| ExtensionNestedDropdownMenuConfiguration;
 
 /**
- * We intentionally only support leaf menu items nested within dropdown menu items so that there will
- * be at max two levels of nesting from extension menu items.
+ * We intentionally only support dropdown items nested within dropdown menus, i.e. no menus nested
+ * within menus – so there will be at max two levels of nesting from extension menu items
  */
-type ExtensionMenuItemNestedConfiguration = ExtensionMenuItemBaseConfiguration &
-	ExtensionMenuItemLeafConfiguration;
+type ExtensionMenuItemNestedConfiguration = ExtensionDropdownItemConfiguration;

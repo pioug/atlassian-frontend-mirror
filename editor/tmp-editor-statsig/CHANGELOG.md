@@ -1,5 +1,34 @@
 # @atlaskit/editor-statsig-tmp
 
+## 15.4.0
+
+### Minor Changes
+
+- [`4ac3023fb991b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ac3023fb991b) -
+  EDITOR-2478 Clean up experiment `platform_editor_nested_table_detection`
+
+## 15.3.0
+
+### Minor Changes
+
+- [`1ba00564a98cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ba00564a98cd) -
+  Moves the scroll gutter fix behind platform_editor_scroll_gutter_fix out of the hydratable ui
+  experiment
+
+## 15.2.0
+
+### Minor Changes
+
+- [`6ecbe7ee10388`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ecbe7ee10388) -
+  Started an experiment on image editing, added a button in the floating toolbar
+
+## 15.1.0
+
+### Minor Changes
+
+- [`5935652291a5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5935652291a5f) -
+  Remove platform_editor_table_drag_handle_hover experiment and enable hover behavior permanently
+
 ## 15.0.0
 
 ### Major Changes

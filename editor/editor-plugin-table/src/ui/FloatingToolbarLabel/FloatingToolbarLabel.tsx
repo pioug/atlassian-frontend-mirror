@@ -13,7 +13,7 @@ interface Props {
 	zIndex?: number;
 }
 
-export const FloatingToolbarLabel = React.memo((props: Props) => {
+export const FloatingToolbarLabel = React.memo((props: Props): React.JSX.Element => {
 	const { target, content, alignX, alignY, zIndex, forcePlacement, stick, offset } = props;
 	return (
 		<Popup

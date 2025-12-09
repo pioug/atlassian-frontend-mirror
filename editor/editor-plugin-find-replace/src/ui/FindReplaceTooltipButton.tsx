@@ -29,7 +29,7 @@ export class FindReplaceTooltipButton extends React.PureComponent<Props> {
 		this.props.onClick(this.buttonRef);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			title,
 			icon: Icon,

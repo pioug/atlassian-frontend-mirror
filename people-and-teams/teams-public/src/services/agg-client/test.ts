@@ -1,12 +1,9 @@
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { DEFAULT_CONFIG } from '../constants';
 
 import {
 	MOCK_CONNECTED_TEAMS,
 	MOCK_CONNECTED_TEAMS_RESULT,
 	MOCK_NUMBER_OF_CONNECTED_TEAMS,
-	MOCK_TEAM_CONTAINERS,
 	MOCK_TEAM_CONTAINERSV2,
 } from './mocks';
 
@@ -26,109 +23,56 @@ describe('AGGClient', () => {
 	});
 
 	describe('queryTeamContainers', () => {
-		ffTest.on('teams_containers_cypher_query_v2_migration', 'cypherQueryV2', () => {
-			it('should call makeGraphQLRequest with correct parameters for V2 query', async () => {
-				const teamId = 'team-id';
+		it('should call makeGraphQLRequest with correct parameters', async () => {
+			const teamId = 'team-id';
 
-				const makeRequestSpy = jest
-					.spyOn(AGGClient.prototype, 'makeGraphQLRequest')
-					.mockResolvedValue(MOCK_TEAM_CONTAINERSV2);
+			const makeRequestSpy = jest
+				.spyOn(AGGClient.prototype, 'makeGraphQLRequest')
+				.mockResolvedValue(MOCK_TEAM_CONTAINERSV2);
 
-				await aggClient.getTeamContainers(teamId);
+			await aggClient.getTeamContainers(teamId);
 
-				expect(makeRequestSpy).toHaveBeenCalledWith(
-					{
-						query: expect.any(String),
-						variables: {
-							cypherQuery: expect.stringContaining(teamId),
-							params: expect.objectContaining({
-								id: expect.stringContaining(teamId),
-							}),
-						},
+			expect(makeRequestSpy).toHaveBeenCalledWith(
+				{
+					query: expect.any(String),
+					variables: {
+						cypherQuery: expect.stringContaining(teamId),
+						params: expect.objectContaining({
+							id: expect.stringContaining(teamId),
+						}),
 					},
-					{
-						operationName: 'TeamContainersQueryV2',
-					},
-				);
-			});
-
-			it('should process V2 response correctly', async () => {
-				const teamId = 'team-id';
-
-				jest
-					.spyOn(AGGClient.prototype, 'makeGraphQLRequest')
-					.mockResolvedValue(MOCK_TEAM_CONTAINERSV2);
-
-				const result = await aggClient.getTeamContainers(teamId);
-				expect(result).toBeDefined();
-				expect(Array.isArray(result)).toBe(true);
-				expect(result).toHaveLength(2);
-				expect(result[0]).toEqual(
-					expect.objectContaining({
-						id: '2',
-						type: 'ConfluenceSpace',
-						name: 'Confluence Space',
-					}),
-				);
-				expect(result[1]).toEqual(
-					expect.objectContaining({
-						id: '3',
-						type: 'JiraProject',
-						name: 'Jira Project',
-					}),
-				);
-			});
+				},
+				{
+					operationName: 'TeamContainersQueryV2',
+				},
+			);
 		});
 
-		ffTest.off('teams_containers_cypher_query_v2_migration', 'cypherQuery', () => {
-			it('should call makeGraphQLRequest with correct parameters for V1 query', async () => {
-				const teamId = 'team-id';
+		it('should process response correctly', async () => {
+			const teamId = 'team-id';
 
-				const makeRequestSpy = jest
-					.spyOn(AGGClient.prototype, 'makeGraphQLRequest')
-					.mockResolvedValue(MOCK_TEAM_CONTAINERS);
+			jest
+				.spyOn(AGGClient.prototype, 'makeGraphQLRequest')
+				.mockResolvedValue(MOCK_TEAM_CONTAINERSV2);
 
-				await aggClient.getTeamContainers(teamId);
-
-				expect(makeRequestSpy).toHaveBeenCalledWith(
-					{
-						query: expect.any(String),
-						variables: {
-							cypherQuery: expect.stringContaining(teamId),
-						},
-					},
-					{
-						operationName: 'TeamContainersQuery',
-					},
-				);
-			});
-
-			it('should process V1 response correctly', async () => {
-				const teamId = 'team-id';
-
-				jest
-					.spyOn(AGGClient.prototype, 'makeGraphQLRequest')
-					.mockResolvedValue(MOCK_TEAM_CONTAINERS);
-
-				const result = await aggClient.getTeamContainers(teamId);
-				expect(result).toBeDefined();
-				expect(Array.isArray(result)).toBe(true);
-				expect(result).toHaveLength(2);
-				expect(result[0]).toEqual(
-					expect.objectContaining({
-						id: '2',
-						type: 'ConfluenceSpace',
-						name: 'Confluence Space',
-					}),
-				);
-				expect(result[1]).toEqual(
-					expect.objectContaining({
-						id: '3',
-						type: 'JiraProject',
-						name: 'Jira Project',
-					}),
-				);
-			});
+			const result = await aggClient.getTeamContainers(teamId);
+			expect(result).toBeDefined();
+			expect(Array.isArray(result)).toBe(true);
+			expect(result).toHaveLength(2);
+			expect(result[0]).toEqual(
+				expect.objectContaining({
+					id: '2',
+					type: 'ConfluenceSpace',
+					name: 'Confluence Space',
+				}),
+			);
+			expect(result[1]).toEqual(
+				expect.objectContaining({
+					id: '3',
+					type: 'JiraProject',
+					name: 'Jira Project',
+				}),
+			);
 		});
 	});
 

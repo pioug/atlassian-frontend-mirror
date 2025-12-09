@@ -7,7 +7,7 @@ import { useThemeObserver } from '@atlaskit/tokens';
 import type { MarkProps } from '../types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-export default function BackgroundColor(props: MarkProps<TextColorAttributes>) {
+export default function BackgroundColor(props: MarkProps<TextColorAttributes>): React.JSX.Element {
 	const { colorMode } = useThemeObserver();
 	let paletteColorValue: string;
 

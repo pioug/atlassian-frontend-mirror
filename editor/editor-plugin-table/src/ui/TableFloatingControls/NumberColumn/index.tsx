@@ -30,7 +30,7 @@ interface Props {
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components, @typescript-eslint/no-explicit-any
 export default class NumberColumn extends Component<Props, any> {
-	render() {
+	render(): React.JSX.Element {
 		const { tableRef, hasHeaderRow, isDragAndDropEnabled, tableActive, updateCellHoverLocation } =
 			this.props;
 		const rowHeights = getRowHeights(tableRef);

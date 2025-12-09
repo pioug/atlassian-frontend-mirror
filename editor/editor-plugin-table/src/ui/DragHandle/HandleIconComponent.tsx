@@ -10,7 +10,7 @@ type HandleIconProps = {
 	isHandleHovered: boolean;
 };
 
-export const HandleIconComponent = (props: HandleIconProps) => {
+export const HandleIconComponent = (props: HandleIconProps): React.JSX.Element => {
 	const { forceDefaultHandle, isHandleHovered, hasMergedCells } = props;
 
 	if (isHandleHovered || forceDefaultHandle) {

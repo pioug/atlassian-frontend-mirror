@@ -79,43 +79,43 @@ const RendererSSR = ({
 	return <div dangerouslySetInnerHTML={{ __html: htmlString }} />;
 };
 
-export const RendererSSRTable = () => {
+export const RendererSSRTable = (): React.JSX.Element => {
 	return <RendererSSR adf={ssrTableDoc} rendererProps={{ UNSTABLE_allowTableResizing: true }} />;
 };
 
-export const RendererSSRLayout = () => {
+export const RendererSSRLayout = (): React.JSX.Element => {
 	return <RendererSSR adf={ssrLayoutDoc} />;
 };
 
-export const RendererSSRExpand = () => {
+export const RendererSSRExpand = (): React.JSX.Element => {
 	return <RendererSSR adf={ssrExpandDoc} />;
 };
 
-export const RendererSSRNestedExpandInExpand = () => {
+export const RendererSSRNestedExpandInExpand = (): React.JSX.Element => {
 	return <RendererSSR adf={ssrNestedExpandInExpandDoc} />;
 };
 
-export const RendererSSRCodeblock = () => {
+export const RendererSSRCodeblock = (): React.JSX.Element => {
 	return <RendererSSR adf={ssrCodeBlockDoc} />;
 };
 
-export const RendererSSRCodeblockInBlockquote = () => {
+export const RendererSSRCodeblockInBlockquote = (): React.JSX.Element => {
 	return <RendererSSR adf={ssrCodeBlockInBlockquoteDoc} />;
 };
 
-export const RendererSSRMediaInBlockquote = () => {
+export const RendererSSRMediaInBlockquote = (): React.JSX.Element => {
 	return <RendererSSR adf={ssrMediaInBlockquoteDoc} />;
 };
 
-export const RendererSSRResizedImage = () => {
+export const RendererSSRResizedImage = (): React.JSX.Element => {
 	return <RendererSSR adf={resizedImagedoc} />;
 };
 
-export const RendererSSRResizedMedia = () => {
+export const RendererSSRResizedMedia = (): React.JSX.Element => {
 	return <RendererSSR adf={resizedMedia} />;
 };
 
-export const RendererSSRResizedMediaInTable = () => {
+export const RendererSSRResizedMediaInTable = (): React.JSX.Element => {
 	return <RendererSSR adf={mediaInTable} />;
 };
 
@@ -126,10 +126,10 @@ const storeOptions = {
 	},
 };
 
-export const RendererSSRSmartCard = () => {
+export const RendererSSRSmartCard = (): React.JSX.Element => {
 	return <RendererSSR adf={smartCardAdf} />;
 };
 
-export const RendererSSRSmartCardUrlIcon = () => {
+export const RendererSSRSmartCardUrlIcon = (): React.JSX.Element => {
 	return <RendererSSR adf={smartCardAtlassianProjectAdf} />;
 };

@@ -417,12 +417,12 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 			);
 		},
 
-		secondaryToolbarComponent({ editorView, eventDispatcher, disabled }) {
+		secondaryToolbarComponent({ disabled }) {
 			return <ToolbarMedia isDisabled={disabled} isReducedSpacing={true} api={api} />;
 		},
 
 		pluginsOptions: {
-			quickInsert: ({ formatMessage }) => [],
+			quickInsert: () => [],
 
 			floatingToolbar: (state, intl, providerFactory) =>
 				floatingToolbar(
@@ -437,6 +437,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 						allowLinking: options && options.allowLinking,
 						allowAdvancedToolBarOptions: options && options.allowAdvancedToolBarOptions,
 						allowAltTextOnImages: options && options.allowAltTextOnImages,
+						allowImageEditing: options && options.allowImageEditing,
 						allowImagePreview: options && options.allowImagePreview,
 						altTextValidator: options && options.altTextValidator,
 						fullWidthEnabled: options && options.fullWidthEnabled,

@@ -13,7 +13,7 @@ const FormRangeFieldExample = (): React.JSX.Element => {
 					{({ fieldProps }) => <Range {...fieldProps} min={0} max={70} />}
 				</RangeField>
 
-				<FormFooter>
+				<FormFooter align="start">
 					<Button type="submit" appearance="primary">
 						Submit
 					</Button>

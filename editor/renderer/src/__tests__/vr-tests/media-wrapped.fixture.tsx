@@ -6,18 +6,18 @@ import wrappedMediaTextAdf from '../__fixtures__/wrapped-media-text.adf.json';
 import wrappedMediaAdf from '../__fixtures__/wrapped-media.adf.json';
 import { MediaBaseRenderer } from '../__helpers/mediaRenderer';
 
-export const MediaWrapped = () => {
+export const MediaWrapped = (): React.JSX.Element => {
 	return <MediaBaseRenderer adf={wrappedMediaAdf} />;
 };
 
-export const MediaWrappedText = () => {
+export const MediaWrappedText = (): React.JSX.Element => {
 	return <MediaBaseRenderer adf={wrappedMediaTextAdf} />;
 };
 
-export const MediaWrappedTextSplit = () => {
+export const MediaWrappedTextSplit = (): React.JSX.Element => {
 	return <MediaBaseRenderer adf={wrappedMediaTextSplitAdf} />;
 };
 
-export const MediaWrappedSmall = () => {
+export const MediaWrappedSmall = (): React.JSX.Element => {
 	return <MediaBaseRenderer adf={wrappedMediaSmallAdf} />;
 };

@@ -250,13 +250,13 @@ const PaletteBlock = ({
 									}}
 									label="close"
 								/>
-							<IconButton
-								icon={CheckIconWithColorOverrides}
-								onClick={() => {
-									handleChange(currentValue);
-								}}
-								label="confirm"
-							/>
+								<IconButton
+									icon={CheckIconWithColorOverrides}
+									onClick={() => {
+										handleChange(currentValue);
+									}}
+									label="confirm"
+								/>
 							</Inline>
 						</Box>
 					</Fragment>

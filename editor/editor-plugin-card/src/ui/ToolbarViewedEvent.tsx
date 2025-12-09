@@ -49,7 +49,7 @@ export const ToolbarViewedEvent = ({
 	url,
 	display,
 	editorView,
-}: ToolbarViewedEventProps & Omit<EditorAnalyticsContextProps, 'children'>) => {
+}: ToolbarViewedEventProps & Omit<EditorAnalyticsContextProps, 'children'>): React.JSX.Element => {
 	const cardContext = useSmartLinkContext();
 	return (
 		<EditorAnalyticsContext editorView={editorView}>

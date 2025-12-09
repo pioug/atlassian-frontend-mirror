@@ -12,7 +12,7 @@ type Props = {
 	textHighlighter?: TextHighlighter;
 };
 
-const TextWrapper = (props: Props) => {
+const TextWrapper = (props: Props): React.JSX.Element | null => {
 	const { startPos, endPos } = props;
 	const { children } = props;
 

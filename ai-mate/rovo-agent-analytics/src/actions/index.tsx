@@ -6,14 +6,23 @@ import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analyt
 import { getDefaultTrackEventConfig } from '../common/utils';
 
 export enum AgentActions {
+	/* View agent clicked */
 	VIEW = 'view',
+	/* Edit agent clicked */
 	EDIT = 'edit',
+	/* Create agent clicked */
 	CREATE = 'create',
+	/* Agent updated */
 	UPDATED = 'updated',
+	/* Copy link clicked */
 	COPY_LINK = 'copyLink',
+	/* Delete agent clicked */
 	DELETE = 'delete',
+	/* Duplicate agent clicked */
 	DUPLICATE = 'duplicate',
+	/* Star agent clicked */
 	STAR = 'star',
+	/* Chat with agent clicked */
 	CHAT = 'chat',
 }
 

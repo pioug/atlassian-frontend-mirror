@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/code",
-	"version": "17.3.2",
+	"version": "17.3.3",
 	"description": "Code highlights short strings of code snippets inline with body text.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -113,9 +113,5 @@
 		"./constants": "./src/entry-points/constants.tsx"
 	},
 	"homepage": "https://atlassian.design/components/code/",
-	"platform-feature-flags": {
-		"platform_dst_code-token": {
-			"type": "boolean"
-		}
-	}
+	"platform-feature-flags": {}
 }

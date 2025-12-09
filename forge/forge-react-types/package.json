@@ -5,7 +5,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"author": "Atlassian Pty Ltd",
 	"types": "dist/types/index.d.ts",
 	"typesVersions": {

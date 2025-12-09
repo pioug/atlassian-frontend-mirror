@@ -10,7 +10,7 @@ interface InternalPortalProps {
 	zIndex: number | string;
 }
 
-export default function InternalPortalNew(props: InternalPortalProps) {
+export default function InternalPortalNew(props: InternalPortalProps): React.ReactPortal | null {
 	const { zIndex, children } = props;
 	const [atlaskitPortal, setAtlaskitPortal] = useState<HTMLDivElement | undefined | null>(null);
 

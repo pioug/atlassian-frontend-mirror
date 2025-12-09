@@ -8,25 +8,25 @@ import complexMediaLayout from '../__fixtures__/renderer-media.adf.json';
 import wrappedMediaTextLeftAdf from '../__fixtures__/wrapped-media-text-left.adf.json';
 import multipleWrappedMediaInLayout from '../__fixtures__/multiple-wrapped-media-in-layout.adf.json';
 
-export const MediaWrappedLayoutSplit = () => {
+export const MediaWrappedLayoutSplit = (): React.JSX.Element => {
 	return <MediaBaseRenderer adf={wrappedMediaTextLayoutSplitAdf} />;
 };
 
-export const MediaWrappedLayout = () => {
+export const MediaWrappedLayout = (): React.JSX.Element => {
 	return <MediaBaseRenderer adf={wrappedMediaTextLayoutAdf} />;
 };
 
-export const MediaWrappedComplexLayout = () => {
+export const MediaWrappedComplexLayout = (): React.JSX.Element => {
 	return <MediaBaseRenderer adf={mediaResizeLayout} />;
 };
 
-export const MediaWrappedComplexResizeLayout = () => {
+export const MediaWrappedComplexResizeLayout = (): React.JSX.Element => {
 	return <MediaBaseRenderer adf={complexMediaLayout} />;
 };
 
 // For: ED-14454 - tests a regression where content moved beside the renderer for
 // wrapped media.
-export const MediaWrappedLayoutShiftUp = () => {
+export const MediaWrappedLayoutShiftUp = (): React.JSX.Element => {
 	return (
 		<div id="renderer-container">
 			<MediaBaseRenderer adf={wrappedMediaTextLeftAdf} />
@@ -35,6 +35,6 @@ export const MediaWrappedLayoutShiftUp = () => {
 	);
 };
 
-export const MultipleWrappedMediaInLayout = () => {
+export const MultipleWrappedMediaInLayout = (): React.JSX.Element => {
 	return <MediaBaseRenderer adf={multipleWrappedMediaInLayout} />;
 };

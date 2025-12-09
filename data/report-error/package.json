@@ -2,7 +2,7 @@
 	"atlassian": {
 		"team": "UIP Application Framework - Jupiter"
 	},
-	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"main": "dist/cjs/reportError.js",
 	"module": "dist/esm/reportError.js",
 	"module:es2019": "dist/es2019/reportError.js",

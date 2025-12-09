@@ -14,6 +14,7 @@ import {
 	type DatasourceResponseSchemaProperty,
 	type DatasourceType,
 } from '@atlaskit/linking-types/datasource';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';
 import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
@@ -27,6 +28,7 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { startUfoExperience, succeedUfoExperience } from '../../analytics/ufoExperiences';
 import { useDatasourceExperienceId } from '../../contexts/datasource-experience-id';
+import { useIsInPDFRender } from '../../hooks/useIsInPDFRender';
 
 import { ColumnPicker } from './column-picker';
 import { DragColumnPreview } from './drag-column-preview';
@@ -340,7 +342,13 @@ export const IssueLikeDataTableView = ({
 
 	const [lastRowElement, setLastRowElement] = useState<HTMLTableRowElement | null>(null);
 	const [hasFullSchema, setHasFullSchema] = useState(false);
-	const isBottomOfTableVisibleRaw = useIsOnScreen(lastRowElement);
+
+	const isInPDFRender = fg('lp_disable_datasource_table_max_height_restriction')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useIsInPDFRender()
+		: false;
+
+	const isBottomOfTableVisibleRaw = useIsOnScreen(lastRowElement) && !isInPDFRender;
 
 	const containerRef = useRef<HTMLDivElement>(null);
 
@@ -439,6 +447,17 @@ export const IssueLikeDataTableView = ({
 			});
 		}
 	}, [isBottomOfTableVisibleRaw, status, hasNextPage, onNextPage]);
+
+	useEffect(() => {
+		if (isInPDFRender && hasNextPage && status === 'resolved') {
+			setTimeout(() => {
+				onNextPage({
+					isSchemaFromData: false,
+					shouldRequestFirstPage: false,
+				});
+			}, 10);
+		}
+	}, [isInPDFRender, onNextPage, status, hasNextPage]);
 
 	const hasData = items.length > 0;
 
@@ -587,7 +606,7 @@ export const IssueLikeDataTableView = ({
 		try {
 			await onLoadDatasourceDetails();
 			setHasFullSchema(true);
-		} catch (e) {
+		} catch {
 			setHasFullSchema(false);
 		}
 	}, [experienceId, extensionKey, hasFullSchema, onLoadDatasourceDetails]);

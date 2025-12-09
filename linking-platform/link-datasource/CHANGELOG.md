@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 4.30.11
+
+### Patch Changes
+
+- [`250416a409283`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/250416a409283) -
+  Programmatically load all pages when rendered in pdf renderer
+
 ## 4.30.10
 
 ### Patch Changes

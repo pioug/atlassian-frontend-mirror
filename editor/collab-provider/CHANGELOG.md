@@ -1,5 +1,12 @@
 # @atlaskit/collab-provider
 
+## 14.1.2
+
+### Patch Changes
+
+- [`0d4df322f7f0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d4df322f7f0b) -
+  Add additional offline analytics on reconnection
+
 ## 14.1.1
 
 ### Patch Changes

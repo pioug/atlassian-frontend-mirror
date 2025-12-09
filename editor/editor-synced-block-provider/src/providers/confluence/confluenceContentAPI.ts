@@ -22,7 +22,12 @@ import {
 	type DeletePageContentPropertyResult,
 } from '../../clients/confluence/contentProperty';
 import { isBlogPageType } from '../../clients/confluence/utils';
-import { SyncBlockError, type ResourceId, type SyncBlockData, type SyncBlockProduct } from '../../common/types';
+import {
+	SyncBlockError,
+	type ResourceId,
+	type SyncBlockData,
+	type SyncBlockProduct,
+} from '../../common/types';
 import { stringifyError } from '../../utils/errorHandling';
 import type {
 	ADFFetchProvider,

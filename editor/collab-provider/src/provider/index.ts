@@ -18,6 +18,7 @@ import type {
 	UserPermitType,
 	PresenceActivity,
 } from '@atlaskit/editor-common/collab';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { createLogger, logObfuscatedSteps } from '../helpers/utils';
 import AnalyticsHelper from '../analytics/analytics-helper';
@@ -48,6 +49,8 @@ import { shouldTelepointerBeSampled } from '../analytics/performance';
 import { NullApi } from '../api/null-api';
 import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
+
+import { getOfflineStepsLength, getOfflineReplaceStepsLength } from './get-offline-steps-length';
 
 const logger = createLogger('Provider', 'black');
 
@@ -250,6 +253,21 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 						CatchupEventReason.RECONNECTED,
 						{
 							disconnectionPeriodSeconds: Math.floor((Date.now() - this.disconnectedAt) / 1000),
+							offlineStepsLength: editorExperiment('platform_editor_offline_editing_web', true)
+								? getOfflineStepsLength(
+										this.documentService.getUnconfirmedSteps(),
+										this.documentService.getUnconfirmedStepsOrigins(),
+									)
+								: undefined,
+							offlineReplaceStepsLength: editorExperiment(
+								'platform_editor_offline_editing_web',
+								true,
+							)
+								? getOfflineReplaceStepsLength(
+										this.documentService.getUnconfirmedSteps(),
+										this.documentService.getUnconfirmedStepsOrigins(),
+									)
+								: undefined,
 							unconfirmedStepsLength: unconfirmedStepsLength,
 						},
 						fg('add_session_id_to_catchup_query') ? this.sessionId : undefined,

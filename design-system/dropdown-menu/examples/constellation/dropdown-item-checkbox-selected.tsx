@@ -19,11 +19,7 @@ const DropdownItemCheckboxExample = (): React.JSX.Element => {
 	return (
 		<DropdownMenu trigger="Status" shouldRenderToParent>
 			<DropdownItemCheckboxGroup title="Categories" id="actions">
-				<DropdownItemCheckbox
-					id="todo"
-					onClick={() => toggle('todo')}
-					isSelected={checked['todo']}
-				>
+				<DropdownItemCheckbox id="todo" onClick={() => toggle('todo')} isSelected={checked['todo']}>
 					To do
 				</DropdownItemCheckbox>
 				<DropdownItemCheckbox
@@ -33,11 +29,7 @@ const DropdownItemCheckboxExample = (): React.JSX.Element => {
 				>
 					In progress
 				</DropdownItemCheckbox>
-				<DropdownItemCheckbox
-					id="done"
-					onClick={() => toggle('done')}
-					isSelected={checked['done']}
-				>
+				<DropdownItemCheckbox id="done" onClick={() => toggle('done')} isSelected={checked['done']}>
 					Done
 				</DropdownItemCheckbox>
 			</DropdownItemCheckboxGroup>

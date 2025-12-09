@@ -18,7 +18,7 @@ type MenuItemProps = {
 	extensionMenuItems: ExtensionMenuItemConfiguration[];
 };
 
-export const MenuItem = ({ extensionMenuItems, api }: MenuItemProps) => {
+export const MenuItem = ({ extensionMenuItems, api }: MenuItemProps): React.JSX.Element | null => {
 	const { editorView } = useEditorToolbar();
 	if (!extensionMenuItems?.length || !editorView || !api) {
 		return null;

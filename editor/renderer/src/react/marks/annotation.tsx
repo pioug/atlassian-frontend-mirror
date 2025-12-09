@@ -18,7 +18,7 @@ const AnnotationComponent = ({
 	allowAnnotations,
 	useBlockLevel,
 	isMediaInline,
-}: MarkProps<AnnotationMarkMeta>) => {
+}: MarkProps<AnnotationMarkMeta>): React.JSX.Element => {
 	const data: AnnotationDataAttributes = {
 		...dataAttributes,
 		...buildAnnotationMarkDataAttributes({ id, annotationType }),

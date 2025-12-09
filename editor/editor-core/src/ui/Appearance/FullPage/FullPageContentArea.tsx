@@ -25,6 +25,7 @@ import type {
 	ReactHookFactory,
 	UIComponentFactory,
 } from '@atlaskit/editor-common/types';
+import { type BasePlugin } from '@atlaskit/editor-plugins/base';
 import { type ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import { type ViewMode } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -147,11 +148,6 @@ const tableFullPageEditorStylesNew = css({
 	},
 });
 
-const scrollGutter = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	display: 'none',
-});
-
 const editorContentAreaContainerNestedDndStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.fabric-editor--full-width-mode': {
@@ -258,7 +254,7 @@ interface FullPageEditorContentAreaProps {
 	disabled: boolean | undefined;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent | undefined;
 	editorActions: EditorActions | undefined;
-	editorAPI: PublicPluginAPI<[OptionalPlugin<ContextPanelPlugin>]> | undefined;
+	editorAPI: PublicPluginAPI<[OptionalPlugin<ContextPanelPlugin>, BasePlugin]> | undefined;
 	editorDOMElement: ReactElement;
 	editorView: EditorView;
 	eventDispatcher: EventDispatcher | undefined;
@@ -287,6 +283,7 @@ const Content = React.forwardRef<
 	const scrollContainerRef = useRef(null);
 	const contentAreaRef = useRef(null);
 	const containerRef = useRef(null);
+	const allowScrollGutter = props.editorAPI?.base?.sharedState.currentState()?.allowScrollGutter;
 
 	useImperativeHandle(
 		ref,
@@ -410,9 +407,14 @@ const Content = React.forwardRef<
 								{!!props.customContentComponents && 'after' in props.customContentComponents
 									? contentComponentClickWrapper(props.customContentComponents.after)
 									: null}
-								{expVal('platform_editor_hydratable_ui', 'isEnabled', false) && (
-									<div id="editor-scroll-gutter" css={scrollGutter} data-vc="scroll-gutter"></div>
-								)}
+								{expVal('platform_editor_scroll_gutter_fix', 'isEnabled', false) &&
+									allowScrollGutter && (
+										<div
+											id="editor-scroll-gutter"
+											style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}
+											data-vc="scroll-gutter"
+										></div>
+									)}
 							</div>
 						</div>
 					</ClickAreaBlock>

@@ -20,7 +20,7 @@ type TaskListMenuItemProps = {
 	parents?: ToolbarComponentTypes;
 };
 
-export const TaskListMenuItem = ({ api }: TaskListMenuItemProps) => {
+export const TaskListMenuItem = ({ api }: TaskListMenuItemProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { isInsideTask } = useSharedPluginStateWithSelector(api, ['taskDecision'], (states) => ({
 		isInsideTask: states.taskDecisionState?.isInsideTask,

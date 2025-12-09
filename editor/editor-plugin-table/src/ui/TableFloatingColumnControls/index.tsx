@@ -61,7 +61,7 @@ const TableFloatingColumnControls = ({
 	tableWrapperHeight,
 	api,
 	isChromelessEditor,
-}: Props) => {
+}: Props): React.JSX.Element | null => {
 	const [isDragging, setIsDragging] = useState(false);
 	const containerRef = useRef<HTMLDivElement>(null);
 

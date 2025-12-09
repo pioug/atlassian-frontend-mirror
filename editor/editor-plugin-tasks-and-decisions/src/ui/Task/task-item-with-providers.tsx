@@ -69,7 +69,7 @@ export default class TaskItemWithProviders extends Component<Props, State> {
 		}
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { contextIdentifierProvider, ...otherProps } = this.props;
 		const { objectId } = this.state.resolvedContextProvider || ({} as ContextIdentifierProvider);
 		const userContext = objectId ? 'edit' : 'new';

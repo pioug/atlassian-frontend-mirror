@@ -6,7 +6,7 @@ export const WithCardContext = ({
 	children,
 }: {
 	children: (cardContext: ReturnType<typeof useSmartCardContext>) => React.ReactNode;
-}) => {
+}): React.JSX.Element => {
 	const cardContext = useSmartCardContext();
 	return <>{children(cardContext)}</>;
 };

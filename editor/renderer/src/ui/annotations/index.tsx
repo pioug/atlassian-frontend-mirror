@@ -36,7 +36,7 @@ export const AnnotationsPositionContext = React.createContext<{ startPos: number
 
 export const AnnotationsWrapperInner = (
 	props: Omit<AnnotationsWrapperProps, 'annotationProvider'>,
-) => {
+): React.JSX.Element => {
 	const { children, rendererRef, adfDocument, isNestedRender, onLoadComplete } = props;
 	const providers = useContext(ProvidersContext);
 	const updateSubscriber =
@@ -76,7 +76,7 @@ export const AnnotationsWrapperInner = (
 	);
 };
 
-export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
+export const AnnotationsWrapper = (props: AnnotationsWrapperProps): React.JSX.Element => {
 	const { children, annotationProvider, rendererRef, adfDocument, isNestedRender, onLoadComplete } =
 		props;
 

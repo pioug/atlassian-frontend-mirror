@@ -2,7 +2,7 @@ import React from 'react';
 
 import { token } from '@atlaskit/tokens';
 
-export default function EditorEmojiAddIcon() {
+export default function EditorEmojiAddIcon(): React.JSX.Element {
 	return (
 		<svg width={24} height={24} viewBox="0 0 24 24" fill="none" aria-label="editor-add-emoji">
 			<rect

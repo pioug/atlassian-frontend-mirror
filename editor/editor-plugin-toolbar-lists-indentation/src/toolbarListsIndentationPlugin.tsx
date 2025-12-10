@@ -150,7 +150,7 @@ export function PrimaryToolbarComponent({
 	showIndentationButtons,
 	pluginInjectionApi,
 	allowHeadingAndParagraphIndentation,
-}: PrimaryToolbarComponentProps & { editorView: EditorView }) {
+}: PrimaryToolbarComponentProps & { editorView: EditorView }): React.JSX.Element | null {
 	const {
 		bulletListActive,
 		bulletListDisabled,

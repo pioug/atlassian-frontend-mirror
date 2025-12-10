@@ -20,28 +20,34 @@ describe('Slider', () => {
 		};
 	};
 
-	it('should pass FieldRange values back', () => {
+	it('should pass FieldRange values back', async () => {
 		const { element, onChange } = setup();
 
 		const sliderRange = element.querySelector('input[type=range]');
 		sliderRange && fireEvent.change(sliderRange, { target: { value: 25 } });
 		expect(sliderRange).toBeInTheDocument();
 		expect(onChange).toHaveBeenCalledWith(25);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should zoom to 0 when small icon clicked', () => {
+	it('should zoom to 0 when small icon clicked', async () => {
 		const { element, onChange } = setup();
 		const zoomOutBtn = element.querySelector('.zoom_button_small');
 		zoomOutBtn && fireEvent.click(zoomOutBtn);
 		expect(onChange).toHaveBeenCalledWith(0);
 		expect(zoomOutBtn).toHaveAttribute('aria-label', 'Zoom out');
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should zoom to 100 when large icon clicked', () => {
+	it('should zoom to 100 when large icon clicked', async () => {
 		const { element, onChange } = setup();
 		const zoomInBtn = element.querySelector('.zoom_button_large');
 		zoomInBtn && fireEvent.click(zoomInBtn);
 		expect(onChange).toHaveBeenCalledWith(100);
 		expect(zoomInBtn).toHaveAttribute('aria-label', 'Zoom in');
+
+		await expect(document.body).toBeAccessible();
 	});
 });

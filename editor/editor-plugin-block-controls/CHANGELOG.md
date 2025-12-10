@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.13.3
+
+### Patch Changes
+
+- [`7c295bfea1292`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c295bfea1292) -
+  EDITOR-3380 Use preserved selection when deleting selected range
+- Updated dependencies
+
 ## 7.13.2
 
 ### Patch Changes

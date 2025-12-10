@@ -7,6 +7,7 @@ import { type CSSProperties, type FC, forwardRef, type ReactNode } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import SearchIcon from '@atlaskit/icon/core/migration/search--editor-search';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { components } from '@atlaskit/react-select';
 import { N40A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
@@ -38,6 +39,10 @@ const menuDialogStyles = css({
 	boxShadow: token('elevation.shadow.overlay', `0 0 0 1px ${N40A}, 0 4px 11px ${N40A}`),
 });
 
+const menuDialogStylesT26Shape = css({
+	borderRadius: token('radius.large', '8px'),
+});
+
 /**
  * __Menu dialog__
  * Wrapper for PopupSelect component.
@@ -48,7 +53,7 @@ export const MenuDialog: React.ForwardRefExoticComponent<
 	return (
 		<div
 			ref={ref}
-			css={menuDialogStyles}
+			css={[menuDialogStyles, fg('platform-dst-shape-theme-default') && menuDialogStylesT26Shape]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={style}
 			id={id}

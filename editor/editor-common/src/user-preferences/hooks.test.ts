@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook, waitFor } from '@testing-library/react';
 
 import { useResolvedUserPreferences } from './hooks';
 import type { PersistenceAPI } from './persistence-api';
@@ -48,16 +48,16 @@ describe('createProseMirrorMetadata', () => {
 			persistenceAPI,
 			defaultUserPreferences,
 		);
-		const { result, waitForNextUpdate } = renderHook(() =>
+		const { result } = renderHook(() =>
 			useResolvedUserPreferences(userPreferencesProvider),
 		);
 
 		expect(userPreferencesProvider.isInitialized).toBe(false);
 		expect(result.current.resolvedUserPreferences).toEqual({ toolbarDockingPosition: 'none' });
-
-		await act(() => waitForNextUpdate());
-		expect(userPreferencesProvider.isInitialized).toBe(true);
-		expect(result.current.resolvedUserPreferences).toEqual({ toolbarDockingPosition: 'top' });
+		await waitFor(() => {
+			expect(userPreferencesProvider.isInitialized).toBe(true);
+			expect(result.current.resolvedUserPreferences).toEqual({ toolbarDockingPosition: 'top' });
+		});
 	});
 
 	it('userPreferencesProvider.updatePreference will trigger an update', async () => {
@@ -65,15 +65,16 @@ describe('createProseMirrorMetadata', () => {
 			{ ...persistenceAPI, getInitialUserPreferences },
 			defaultUserPreferences,
 		);
-		const { result, waitForNextUpdate } = renderHook(() =>
+		const { result } = renderHook(() =>
 			useResolvedUserPreferences(userPreferencesProvider),
 		);
 
 		expect(userPreferencesProvider.isInitialized).toBe(true);
 		expect(result.current.resolvedUserPreferences).toEqual({ toolbarDockingPosition: 'top' });
 		userPreferencesProvider.updatePreference('toolbarDockingPosition', 'none');
-		await act(() => waitForNextUpdate());
-		expect(result.current.resolvedUserPreferences).toEqual({ toolbarDockingPosition: 'none' });
+		await waitFor(() => {	
+			expect(result.current.resolvedUserPreferences).toEqual({ toolbarDockingPosition: 'none' });
+		});
 	});
 
 	it('userPreferencesProvider.setDefaultPreferences will trigger an update', async () => {
@@ -81,7 +82,7 @@ describe('createProseMirrorMetadata', () => {
 			{ ...persistenceAPI, getInitialUserPreferences: () => ({}) },
 			defaultUserPreferences,
 		);
-		const { result, waitForNextUpdate } = renderHook(() =>
+		const { result } = renderHook(() =>
 			useResolvedUserPreferences(userPreferencesProvider),
 		);
 
@@ -90,7 +91,6 @@ describe('createProseMirrorMetadata', () => {
 
 		await act(() => {
 			userPreferencesProvider.setDefaultPreferences({ toolbarDockingPosition: 'top' });
-			waitForNextUpdate();
 		});
 		expect(result.current.resolvedUserPreferences).toEqual({ toolbarDockingPosition: 'top' });
 	});

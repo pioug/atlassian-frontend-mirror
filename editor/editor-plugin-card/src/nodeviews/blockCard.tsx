@@ -104,7 +104,7 @@ export class BlockCardComponent extends React.PureComponent<
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { node, cardContext, actionOptions, onClick, CompetitorPrompt, isPageSSRed } = this.props;
 		const { url, data } = node.attrs;
 
@@ -213,7 +213,7 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 		return super.update(node, decorations, _innerDecorations, this.validUpdate);
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			actionOptions,
 			pluginInjectionApi,

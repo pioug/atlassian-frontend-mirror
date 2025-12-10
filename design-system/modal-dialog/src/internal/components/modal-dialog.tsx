@@ -13,6 +13,7 @@ import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import { useCloseOnEscapePress, useLayering } from '@atlaskit/layering';
 import FadeIn from '@atlaskit/motion/fade-in';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
@@ -94,6 +95,12 @@ const dialogStyles = cssMap({
 	borderRadius: {
 		'@media (min-width: 30rem)': {
 			borderRadius: token('radius.small', '3px'),
+		},
+	},
+	// platform-dst-shape-theme-default TODO: Merge into base after rollout
+	borderRadiusT26Shape: {
+		'@media (min-width: 30rem)': {
+			borderRadius: token('radius.xlarge', '12px'),
 		},
 	},
 });
@@ -220,6 +227,9 @@ const ModalDialog = (props: InternalModalDialogProps) => {
 								css={[
 									dialogStyles.root,
 									!isFullScreen && dialogStyles.borderRadius,
+									!isFullScreen &&
+										fg('platform-dst-shape-theme-default') &&
+										dialogStyles.borderRadiusT26Shape,
 									shouldScrollInViewport ? viewportScrollStyles : bodyScrollStyles,
 								]}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

@@ -47,7 +47,7 @@ export default class WithDocumentActions extends PureComponent<Props> {
 		},
 	});
 
-	render() {
+	render(): React.JSX.Element {
 		return <Consumer actionsMapper={this.actionsMapper}>{this.props.render}</Consumer>;
 	}
 }

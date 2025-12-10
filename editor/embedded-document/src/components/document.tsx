@@ -61,7 +61,7 @@ export default class Document extends Component<Props> {
 		);
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { doc, isLoading, hasError, mode, editorProps, rendererProps } = this.props;
 
 		if (hasError) {

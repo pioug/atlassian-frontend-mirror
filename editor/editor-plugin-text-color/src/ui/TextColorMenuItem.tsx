@@ -28,7 +28,7 @@ interface TextColorMenuItemProps {
 	parents: ToolbarComponentTypes;
 }
 
-export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps) {
+export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps): React.JSX.Element {
 	const { color, defaultColor, palette } = useSharedPluginStateWithSelector(
 		api,
 		['textColor'],

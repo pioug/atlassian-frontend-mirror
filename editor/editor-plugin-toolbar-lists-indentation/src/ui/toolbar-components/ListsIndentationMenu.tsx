@@ -22,7 +22,7 @@ export const ListsIndentationMenu = ({
 	children,
 	api,
 	allowHeadingAndParagraphIndentation,
-}: ListsIndentationMenuProps) => {
+}: ListsIndentationMenuProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { editorView } = useEditorToolbar();
 

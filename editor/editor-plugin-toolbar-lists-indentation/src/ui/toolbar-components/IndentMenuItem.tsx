@@ -28,7 +28,7 @@ export const IndentMenuItem = ({
 	showIndentationButtons,
 	allowHeadingAndParagraphIndentation,
 	parents,
-}: IndentMenuItemType) => {
+}: IndentMenuItemType): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 	const { editorView } = useEditorToolbar();
 

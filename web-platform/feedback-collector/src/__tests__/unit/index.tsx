@@ -42,10 +42,54 @@ const renderFeedbackCollector = (props = {}) =>
 
 describe('Feedback Collector unit tests', () => {
 	describe('Feedback integration', () => {
-		test('should render visual instruction for mandatory field', () => {
-			renderFeedbackCollector({});
-			const visualInstruction = screen.getByText('Required fields are marked with an asterisk');
-			expect(visualInstruction).toBeInTheDocument();
+		describe('Required fields summary rendering behavior for undefined showRequiredFieldsSummary', () => {
+			ffTest(
+				'ak_feedback_collector_hide_required_summary',
+				async () => {
+					renderFeedbackCollector({});
+					const visualInstruction = screen.getByText('Required fields are marked with an asterisk');
+					expect(visualInstruction).toBeInTheDocument();
+				},
+				async () => {
+					renderFeedbackCollector({});
+					const visualInstruction = screen.getByText('Required fields are marked with an asterisk');
+					expect(visualInstruction).toBeInTheDocument();
+				},
+			);
+		});
+
+		describe('Required fields summary rendering behavior for false showRequiredFieldsSummary', () => {
+			ffTest(
+				'ak_feedback_collector_hide_required_summary',
+				async () => {
+					renderFeedbackCollector({ showRequiredFieldsSummary: false });
+					const visualInstruction = screen.queryByText(
+						'Required fields are marked with an asterisk',
+					);
+					expect(visualInstruction).not.toBeInTheDocument();
+				},
+				async () => {
+					renderFeedbackCollector({ showRequiredFieldsSummary: false });
+					const visualInstruction = screen.getByText('Required fields are marked with an asterisk');
+					expect(visualInstruction).toBeInTheDocument();
+				},
+			);
+		});
+
+		describe('Required fields summary rendering behavior for true showRequiredFieldsSummary', () => {
+			ffTest(
+				'ak_feedback_collector_hide_required_summary',
+				async () => {
+					renderFeedbackCollector({ showRequiredFieldsSummary: true });
+					const visualInstruction = screen.getByText('Required fields are marked with an asterisk');
+					expect(visualInstruction).toBeInTheDocument();
+				},
+				async () => {
+					renderFeedbackCollector({ showRequiredFieldsSummary: true });
+					const visualInstruction = screen.getByText('Required fields are marked with an asterisk');
+					expect(visualInstruction).toBeInTheDocument();
+				},
+			);
 		});
 
 		describe('Transforming form values into format', () => {

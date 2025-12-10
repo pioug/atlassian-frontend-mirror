@@ -380,7 +380,7 @@ export class EmbedCardComponent extends React.PureComponent<
 		this.props.view.dispatch(tr);
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			node,
 			allowResizing,
@@ -477,7 +477,7 @@ export class EmbedCardComponent extends React.PureComponent<
 	}
 }
 
-export const EmbedOrBlockCardComponent = (props: ComponentProps<typeof EmbedCardComponent>) => {
+export const EmbedOrBlockCardComponent = (props: ComponentProps<typeof EmbedCardComponent>): React.JSX.Element => {
 	const width = useSharedPluginStateSelector(props.pluginInjectionApi, 'width.width');
 	const viewAsBlockCard = width && width <= akEditorFullPageNarrowBreakout;
 
@@ -589,7 +589,7 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 		divElement.contentEditable = editorViewModeState?.mode === 'view' ? 'false' : 'true';
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			eventDispatcher,
 			allowResizing,

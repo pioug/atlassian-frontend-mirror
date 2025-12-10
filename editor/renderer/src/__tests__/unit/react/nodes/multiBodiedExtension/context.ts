@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 import {
 	getExtensionModuleNodePrivateProps,
 	getNodeRenderer,
@@ -44,13 +44,13 @@ describe('useMultiBodiedExtensionContext', () => {
 		(useProvider as jest.Mock).mockReturnValue(Promise.resolve({}));
 		(getExtensionModuleNodePrivateProps as jest.Mock).mockReturnValue(new Promise(() => {}));
 
-		const { result, waitForNextUpdate } = renderHook(() =>
+		const { result } = renderHook(() =>
 			useMultiBodiedExtensionContext({ extensionType, extensionKey }),
 		);
-		await waitForNextUpdate();
-
-		expect(result.current.loading).toBe(true);
-		expect(result.current.extensionContext).toBeNull();
+		await waitFor(() => {
+			expect(result.current.loading).toBe(true);
+			expect(result.current.extensionContext).toBeNull();
+		});
 	});
 
 	it('should return loading true if NodeRenderer is not resolved yet', async () => {
@@ -58,13 +58,13 @@ describe('useMultiBodiedExtensionContext', () => {
 		(getExtensionModuleNodePrivateProps as jest.Mock).mockResolvedValue(Promise.resolve({}));
 		(getNodeRenderer as jest.Mock).mockReturnValue(null);
 
-		const { result, waitForNextUpdate } = renderHook(() =>
+		const { result } = renderHook(() =>
 			useMultiBodiedExtensionContext({ extensionType, extensionKey }),
 		);
-		await waitForNextUpdate();
-
-		expect(result.current.loading).toBe(true);
-		expect(result.current.extensionContext).toBeNull();
+		await waitFor(() => {
+			expect(result.current.loading).toBe(true);
+			expect(result.current.extensionContext).toBeNull();
+		});
 	});
 
 	it('should return correct context when all dependencies are resolved', async () => {
@@ -76,15 +76,16 @@ describe('useMultiBodiedExtensionContext', () => {
 		);
 		(getNodeRenderer as jest.Mock).mockReturnValue(mockNodeRenderer);
 
-		const { result, waitForNextUpdate } = renderHook(() =>
+		const { result } = renderHook(() =>
 			useMultiBodiedExtensionContext({ extensionType, extensionKey }),
 		);
-		await waitForNextUpdate();
 
-		expect(result.current.loading).toBe(false);
-		expect(result.current.extensionContext).toEqual({
-			NodeRenderer: mockNodeRenderer,
-			privateProps: mockPrivateProps,
+		await waitFor(() => {
+			expect(result.current.loading).toBe(false);
+			expect(result.current.extensionContext).toEqual({
+				NodeRenderer: mockNodeRenderer,
+				privateProps: mockPrivateProps,
+			});
 		});
 	});
 });

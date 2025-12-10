@@ -35,9 +35,19 @@ export function createSocketIOSocket(
 
 		if (
 			(isIsolatedCloud() &&
-				expValEquals('platform_editor_use_pmr_for_collab_presence_in_ic', 'isEnabled', true, false)) ||
+				expValEquals(
+					'platform_editor_use_pmr_for_collab_presence_in_ic',
+					'isEnabled',
+					true,
+					false,
+				)) ||
 			(!isIsolatedCloud() &&
-				expValEquals('platform_editor_use_pmr_for_collab_presence_non_ic', 'isEnabled', true, false))
+				expValEquals(
+					'platform_editor_use_pmr_for_collab_presence_non_ic',
+					'isEnabled',
+					true,
+					false,
+				))
 		) {
 			usePMR = true;
 		}

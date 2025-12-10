@@ -142,6 +142,10 @@ const styles = cssMap({
 			textDecoration: 'none',
 		},
 	},
+	// platform-dst-shape-theme-default TODO: Merge into base after rollout
+	rootT26Shape: {
+		borderRadius: token('radius.medium', '6px'),
+	},
 	border: {
 		'&::after': {
 			content: '""',
@@ -294,6 +298,7 @@ const ThemedPressable: React.ForwardRefExoticComponent<
 			// eslint-disable-next-line @compiled/no-suppress-xcss
 			xcss={cx(
 				styles.root,
+				fg('platform-dst-shape-theme-default') && styles.rootT26Shape,
 				shapeStyles[shape],
 				hasBorder && styles.border,
 				appearanceStyles[appearance],
@@ -333,6 +338,7 @@ function ThemedAnchorFn<RouterLinkConfig extends Record<string, any> = never>(
 			// eslint-disable-next-line @compiled/no-suppress-xcss
 			xcss={cx(
 				styles.root,
+				fg('platform-dst-shape-theme-default') && styles.rootT26Shape,
 				shapeStyles[shape],
 				hasBorder && styles.border,
 				appearanceStyles[appearance],

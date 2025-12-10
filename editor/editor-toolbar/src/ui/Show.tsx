@@ -44,6 +44,6 @@ const generateClassName = (above?: Breakpoint, below?: Breakpoint) => {
  * *note:* This component must be an ancestor of a ResponsiveContainer component to work correctly
  * as it relies on CSS container queries.
  */
-export const Show = ({ children, above, below }: ShowProps) => {
+export const Show = ({ children, above, below }: ShowProps): React.JSX.Element => {
 	return <div className={generateClassName(above, below)}>{children}</div>;
 };

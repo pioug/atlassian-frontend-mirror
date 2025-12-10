@@ -49,7 +49,7 @@ export const WrapperTypeAhead = React.memo(
 		reopenQuery,
 		onUndoRedo,
 		api,
-	}: WrapperProps) => {
+	}: WrapperProps): React.JSX.Element | null => {
 		// @ts-ignore
 		const openElementBrowserModal = triggerHandler?.openElementBrowserModal;
 		let showMoreOptionsButton = false;

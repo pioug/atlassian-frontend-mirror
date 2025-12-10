@@ -9,7 +9,7 @@ import {
 	ToolbarTooltip,
 } from '@atlaskit/editor-toolbar';
 
-export const OverflowMenu = ({ children }: { children: React.ReactNode }) => {
+export const OverflowMenu = ({ children }: { children: React.ReactNode }): React.JSX.Element => {
 	const intl = useIntl();
 
 	const tooltipContent = intl.formatMessage(toolbarMessages.selectionToolbarOverflowMenuTooltip);

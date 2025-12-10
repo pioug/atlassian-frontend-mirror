@@ -7,7 +7,7 @@ import document from './helper/media-with-link.adf.json';
 const mediaProvider = storyMediaProviderFactory();
 const providerFactory = ProviderFactory.create({ mediaProvider });
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [allowLinking, setAllowLinking] = React.useState(true);
 
 	return (

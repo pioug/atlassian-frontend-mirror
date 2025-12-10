@@ -26,7 +26,7 @@ export default class ExampleRenderer extends React.Component {
 		}
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<Sidebar showSidebar={true}>
 				{(additionalProps: object) => (

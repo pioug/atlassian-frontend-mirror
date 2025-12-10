@@ -74,7 +74,7 @@ const headingSizeStylesMap = cssMap({
 	},
 });
 
-export const ExampleManuallyComposedToolbar = () => {
+export const ExampleManuallyComposedToolbar = (): React.JSX.Element => {
 	const {
 		textStyle,
 		onSetTextStyle,

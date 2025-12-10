@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "0.18.2",
+	"version": "0.18.3",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
 		"team": "Editor: Jenga",
@@ -45,7 +45,7 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"react-dom": "root:*"
 	},
 	"techstack": {

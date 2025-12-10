@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-breakout",
-	"version": "6.2.4",
+	"version": "6.2.5",
 	"description": "Breakout plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -62,7 +62,7 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {
@@ -103,9 +103,6 @@
 	},
 	"platform-feature-flags": {
 		"platform-editor-single-player-expand": {
-			"type": "boolean"
-		},
-		"platform_editor_breakout_resizing_patch_1": {
 			"type": "boolean"
 		},
 		"platform_editor_breakout_resizing_width_changes": {

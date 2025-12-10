@@ -16,7 +16,7 @@ type QuoteButtonProps = {
 	blockType: BlockTypeWithRank;
 };
 
-export const QuoteButton = ({ blockType, api }: QuoteButtonProps) => {
+export const QuoteButton = ({ blockType, api }: QuoteButtonProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 	const availableBlockTypesInDropdown = useSharedPluginStateSelector(
 		api,

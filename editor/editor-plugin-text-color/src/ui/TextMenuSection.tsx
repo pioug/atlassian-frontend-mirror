@@ -18,7 +18,7 @@ type TextMenuSectionProps = {
 	children: React.ReactNode;
 } & CommonComponentProps;
 
-export const TextMenuSection = ({ children, parents }: TextMenuSectionProps) => {
+export const TextMenuSection = ({ children, parents }: TextMenuSectionProps): React.JSX.Element => {
 	const hasSeparator = parents.some((parent) => parent.key === TEXT_COLLAPSED_MENU.key);
 
 	return (

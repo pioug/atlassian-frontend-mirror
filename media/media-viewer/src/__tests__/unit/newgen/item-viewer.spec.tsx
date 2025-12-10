@@ -874,4 +874,59 @@ describe('<ItemViewer />', () => {
 		const pdfContent = await screen.findByTestId('document-viewer');
 		expect(pdfContent).toBeDefined();
 	});
+
+	describe('Re-render optimization for native files', () => {
+		it('should render code viewer for text files and normalize to processed state', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingCode();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+
+			// Code viewer should render successfully
+			const codeBlock = await screen.findByTestId('code-block');
+			expect(codeBlock).toBeInTheDocument();
+		});
+
+		it('should render PDF viewer and normalize to processed state', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithLocalPreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+
+			// PDF viewer should render successfully
+			const pdfContent = await screen.findByTestId('document-viewer');
+			expect(pdfContent).toBeInTheDocument();
+		});
+
+		it('should still render video viewer normally (non-native file)', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+
+			// Video viewer should render successfully
+			const playButton = await screen.findByRole('button', {
+				name: /play/i,
+			});
+			expect(playButton).toBeDefined();
+		});
+	});
 });

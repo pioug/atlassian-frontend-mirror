@@ -1,11 +1,4 @@
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import { getLanguageType, getExtension, isCodeViewerItem } from '../../codeViewer';
-
-beforeEach(() => {
-	setBooleanFeatureFlagResolver(
-		(flagName) => flagName === 'platform_media-default-code-viewer-for-plain-text',
-	);
-});
 
 describe(getLanguageType, () => {
 	test.each([

@@ -1,6 +1,6 @@
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import type { TransformStep } from './types';
+import type { TransformStep } from '../types';
 
 /**
  * Given an array of nodes, processes each list removing all parent list nodes and

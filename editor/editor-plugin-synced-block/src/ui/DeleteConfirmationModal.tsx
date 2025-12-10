@@ -16,6 +16,7 @@ import ModalDialog, {
 } from '@atlaskit/modal-dialog';
 import { Text } from '@atlaskit/primitives/compiled';
 
+import { syncedBlockPluginKey } from '../pm-plugins/main';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 
 export const DeleteConfirmationModal = ({
@@ -27,9 +28,15 @@ export const DeleteConfirmationModal = ({
 }): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [syncBlockCount, setSyncBlockCount] = useState(1);
-	const { mode } = useSharedPluginStateWithSelector(api, ['connectivity'], (states) => ({
-		mode: states.connectivityState?.mode,
-	}));
+	const { mode, bodiedSyncBlockDeletionStatus, activeFlag } = useSharedPluginStateWithSelector(
+		api,
+		['connectivity', 'syncedBlock'],
+		(states) => ({
+			mode: states.connectivityState?.mode,
+			bodiedSyncBlockDeletionStatus: states.syncedBlockState?.bodiedSyncBlockDeletionStatus,
+			activeFlag: states.syncedBlockState?.activeFlag,
+		}),
+	);
 
 	const { formatMessage } = useIntl();
 
@@ -37,28 +44,49 @@ export const DeleteConfirmationModal = ({
 		undefined,
 	);
 
-	const handleClose = useCallback(
+	const handleClick = useCallback(
 		(confirm: boolean) => () => {
 			if (resolverRef.current) {
 				resolverRef.current(confirm);
 				resolverRef.current = undefined;
 			}
 
-			setIsOpen(false);
+			if (!confirm) {
+				setIsOpen(false);
+			}
+
+			api?.core?.actions.execute(({ tr }) => {
+				return tr.setMeta(syncedBlockPluginKey, {
+					bodiedSyncBlockDeletionStatus: confirm ? 'processing' : 'none',
+					activeFlag: false,
+				});
+			});
 		},
-		[],
+		[api?.core?.actions],
 	);
 
-	const confirmationCallback = useCallback((syncBlockCount: number) => {
-		setIsOpen(true);
-		setSyncBlockCount(syncBlockCount);
+	const confirmationCallback = useCallback(
+		(syncBlockCount: number) => {
+			setIsOpen(true);
+			setSyncBlockCount(syncBlockCount);
 
-		const confirmedPromise = new Promise<boolean>((resolve) => {
-			resolverRef.current = resolve;
-		});
+			const confirmedPromise = new Promise<boolean>((resolve) => {
+				resolverRef.current = resolve;
+			});
 
-		return confirmedPromise;
-	}, []);
+			if (activeFlag) {
+				api?.core?.actions.execute(({ tr }) => {
+					return tr.setMeta(syncedBlockPluginKey, {
+						// Clear flag to avoid potential retry deletion of different blocks
+						activeFlag: false,
+					});
+				});
+			}
+
+			return confirmedPromise;
+		},
+		[activeFlag, api?.core?.actions],
+	);
 
 	useEffect(() => {
 		const unregister =
@@ -69,10 +97,23 @@ export const DeleteConfirmationModal = ({
 		};
 	}, [syncBlockStoreManager, confirmationCallback]);
 
+	useEffect(() => {
+		if (bodiedSyncBlockDeletionStatus === 'completed' && isOpen) {
+			// auto close modal once deletion is successful
+			setIsOpen(false);
+			api?.core?.actions.execute(({ tr }) => {
+				return tr.setMeta(syncedBlockPluginKey, {
+					// Reset deletion status to have a clean state for next deletion
+					bodiedSyncBlockDeletionStatus: 'none',
+				});
+			});
+		}
+	}, [api?.core?.actions, bodiedSyncBlockDeletionStatus, isOpen]);
+
 	return (
 		<ModalTransition>
 			{isOpen && (
-				<ModalDialog onClose={handleClose(false)} testId="sync-block-delete-confirmation">
+				<ModalDialog onClose={handleClick(false)} testId="sync-block-delete-confirmation">
 					<ModalHeader hasCloseButton>
 						<ModalTitle appearance="warning">
 							{formatMessage(messages.deleteConfirmationModalTitle)}
@@ -80,18 +121,21 @@ export const DeleteConfirmationModal = ({
 					</ModalHeader>
 					<ModalBody>
 						<Text>
-							{formatMessage(messages.deleteConfirmationModalDescription, { syncBlockCount })}
+							{formatMessage(messages.deleteConfirmationModalDescription, {
+								syncBlockCount,
+							})}
 						</Text>
 					</ModalBody>
 					<ModalFooter>
-						<Button appearance="subtle" onClick={handleClose(false)}>
+						<Button appearance="subtle" onClick={handleClick(false)}>
 							{formatMessage(messages.deleteConfirmationModalCancelButton)}
 						</Button>
 						<Button
 							appearance="warning"
-							onClick={handleClose(true)}
+							onClick={handleClick(true)}
 							autoFocus
 							isDisabled={mode === 'offline'}
+							isLoading={bodiedSyncBlockDeletionStatus === 'processing'}
 						>
 							{formatMessage(messages.deleteConfirmationModalDeleteButton)}
 						</Button>

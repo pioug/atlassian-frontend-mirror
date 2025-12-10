@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 15.4.22
+
+### Patch Changes
+
+- [`d94330c37d126`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d94330c37d126) -
+  tidy up ff platform_editor_disable_table_overflow_shadows
+- [`1a0e740f0e18a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a0e740f0e18a) -
+  [ux] EDITOR-2818 Fix sticky header column controls and masked cell styles
+- Updated dependencies
+
 ## 15.4.21
 
 ### Patch Changes

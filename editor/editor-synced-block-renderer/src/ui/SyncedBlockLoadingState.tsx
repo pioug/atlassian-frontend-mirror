@@ -16,7 +16,7 @@ const styles = cssMap({
 	},
 });
 
-export const SyncedBlockLoadingState = () => {
+export const SyncedBlockLoadingState = (): React.JSX.Element => {
 	return (
 		<Box xcss={styles.wrapper}>
 			<Spinner size="small" label="Loading synced content" />

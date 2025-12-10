@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.14.3",
+	"version": "43.14.4",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -227,9 +227,6 @@
 			"type": "boolean"
 		},
 		"platform_deprecate_lp_cc_embed": {
-			"type": "boolean"
-		},
-		"hover-card-on-visibility-change-callback": {
 			"type": "boolean"
 		},
 		"navx-1895-new-logo-design": {

@@ -9,7 +9,7 @@ export const DragHandleMenu = ({
 	api,
 }: {
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
-}) => {
+}): React.JSX.Element | null => {
 	const { isMenuOpen } = useSharedPluginStateWithSelector(api, ['blockControls'], (states) => ({
 		isMenuOpen: states.blockControlsState?.isMenuOpen,
 	}));

@@ -7,7 +7,7 @@ const schemaWithoutExpand = createSchema({
 	nodes: defaultSchemaConfig.nodes.filter((node) => node !== 'expand'),
 });
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<RendererDemo
 			appearance="full-page"

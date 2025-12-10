@@ -416,17 +416,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-09-30
-	// variant 1: remove table overflow shadows completely, no table border shown when scrolling.
-	// variant 2: remove table overflow shadows, show table border when scrolling.
-	// variant 3: replace table overflow shadows with CSS-only solution.
-	platform_editor_disable_table_overflow_shadows: {
-		defaultValue: 'control' | 'variant1' | 'variant2' | 'variant3';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (value: unknown) => value is 'control' | 'variant1' | 'variant2' | 'variant3';
-		values: ('control' | 'variant1' | 'variant2' | 'variant3')[];
-	};
 	// Added 2025-07-30
 	platform_editor_drag_handle_aria_label: {
 		defaultValue: boolean;
@@ -748,13 +737,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-07-23
-	platform_editor_renderer_breakout_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-11-17
 	platform_editor_renderer_extension_width_fix: {
 		defaultValue: boolean;
@@ -1031,6 +1013,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2025-12-08
+	platform_editor_reduce_toolbar_vc_impact: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-03-12
 	platform_editor_nested_media_selection_fix: {
 		defaultValue: boolean;
@@ -1106,19 +1095,6 @@ export const editorExperimentsConfig: {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
-	}),
-
-	// Added 2025-09-30
-	// variant 1: remove table overflow shadows completely, no table border shown when scrolling.
-	// variant 2: remove table overflow shadows, show table border when scrolling.
-	// variant 3: replace table overflow shadows with CSS-only solution.
-	platform_editor_disable_table_overflow_shadows: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'platform_editor_disable_table_overflow_shadows',
-		},
-		param: 'cohort',
-		values: ['control', 'variant1', 'variant2', 'variant3'],
-		defaultValue: 'control',
 	}),
 
 	// Added 2025-11-26
@@ -1664,13 +1640,6 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2025-07-23
-	platform_editor_renderer_breakout_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_renderer_breakout_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-07-24
 	editor_enghealth_hyperlink_toolbar_aria_values: createBooleanExperiment({
 		productKeys: {
@@ -2215,6 +2184,14 @@ export const editorExperimentsConfig: {
 	platform_editor_add_image_editing: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_add_image_editing',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-12-08
+	platform_editor_reduce_toolbar_vc_impact: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_reduce_toolbar_vc_impact',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

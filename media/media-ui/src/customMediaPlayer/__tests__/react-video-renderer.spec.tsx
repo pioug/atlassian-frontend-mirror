@@ -282,7 +282,7 @@ describe('VideoRenderer', () => {
 	});
 
 	describe('actions', () => {
-		it('should set video current time to passed time when navigate is called', () => {
+		it('should set video current time to passed time when navigate is called', async () => {
 			const { actions, children } = setup();
 			act(() => actions.navigate(10));
 			const expectedState: Partial<VideoState> = {
@@ -294,17 +294,21 @@ describe('VideoRenderer', () => {
 				expect.anything(),
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should set audio current time to passed time when navigate is called', () => {
+		it('should set audio current time to passed time when navigate is called', async () => {
 			const { state, actions } = setup({ sourceType: 'audio' });
 			act(() => {
 				actions.navigate(10);
 			});
 			expect(state().currentTime).toEqual(10);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should play the video when play action is called', () => {
+		it('should play the video when play action is called', async () => {
 			const { actions, ref } = setup();
 			const videoElement = ref().current;
 			if (!videoElement) {
@@ -315,9 +319,11 @@ describe('VideoRenderer', () => {
 				actions.play();
 			});
 			expect(playSpy).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should pause the video when pause action is called', () => {
+		it('should pause the video when pause action is called', async () => {
 			const { actions, ref } = setup();
 			const videoElement = ref().current;
 			if (!videoElement) {
@@ -328,9 +334,11 @@ describe('VideoRenderer', () => {
 				actions.pause();
 			});
 			expect(pauseSpy).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should change video volume when setVolume is called', () => {
+		it('should change video volume when setVolume is called', async () => {
 			const { children, actions } = setup({ sourceType: 'audio' });
 
 			act(() => {
@@ -347,9 +355,11 @@ describe('VideoRenderer', () => {
 				expect.anything(),
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should change audio volume when setVolume is called', () => {
+		it('should change audio volume when setVolume is called', async () => {
 			const { children, actions } = setup({ sourceType: 'audio' });
 
 			act(() => {
@@ -366,9 +376,11 @@ describe('VideoRenderer', () => {
 				expect.anything(),
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should use previous volume value when unmute video', () => {
+		it('should use previous volume value when unmute video', async () => {
 			const { children, actions } = setup({ sourceType: 'audio' });
 
 			act(() => {
@@ -398,9 +410,11 @@ describe('VideoRenderer', () => {
 				expect.anything(),
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should change playback speed when setPlaybackSpeed is called', () => {
+		it('should change playback speed when setPlaybackSpeed is called', async () => {
 			const { actions, ref } = setup({ sourceType: 'video' });
 			const videoElement = ref().current;
 			if (!videoElement) {
@@ -410,23 +424,29 @@ describe('VideoRenderer', () => {
 				actions.setPlaybackSpeed(1.5);
 			});
 			expect(videoElement.playbackRate).toEqual(1.5);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('ref', () => {
-		it('should pass dom video ref to render callback', () => {
+		it('should pass dom video ref to render callback', async () => {
 			const { ref } = setup();
 			expect(ref().current).toBeInstanceOf(HTMLVideoElement);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should pass dom audio ref to render callback', () => {
+		it('should pass dom audio ref to render callback', async () => {
 			const { ref } = setup({ sourceType: 'audio' });
 			expect(ref().current).toBeInstanceOf(HTMLAudioElement);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('public events', () => {
-		it('should raise onCanPlay prop with event when media played', () => {
+		it('should raise onCanPlay prop with event when media played', async () => {
 			const onCanPlay = jest.fn();
 			const { elem } = setup({
 				onCanPlay,
@@ -434,18 +454,22 @@ describe('VideoRenderer', () => {
 
 			fireEvent.canPlay(elem);
 			expect(onCanPlay).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should raise onError prop with event when media errors', () => {
+		it('should raise onError prop with event when media errors', async () => {
 			const onError = jest.fn();
 			const { elem } = setup({
 				onError,
 			});
 			fireEvent.error(elem);
 			expect(onError).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should notify every other second when play time changes', () => {
+		it('should notify every other second when play time changes', async () => {
 			const onTimeChange = jest.fn<
 				ReturnType<Required<VideoProps>['onTimeChange']>,
 				Parameters<Required<VideoProps>['onTimeChange']>
@@ -480,9 +504,11 @@ describe('VideoRenderer', () => {
 			expect(onTimeChange).toHaveBeenCalledTimes(2);
 			expect(onTimeChange).toHaveBeenCalledWith(10, 25);
 			expect(onTimeChange).toHaveBeenCalledWith(11, 25);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should only fire onCanPlay once if browser fires multiple', () => {
+		it('should only fire onCanPlay once if browser fires multiple', async () => {
 			const onCanPlay = jest.fn();
 			const { elem } = setup({
 				onCanPlay,
@@ -505,9 +531,11 @@ describe('VideoRenderer', () => {
 				});
 			});
 			expect(onCanPlay).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should reset internal hasCanPlayTriggered check on src change', () => {
+		it('should reset internal hasCanPlayTriggered check on src change', async () => {
 			const onCanPlay = jest.fn();
 			const { elem, rerender } = setup({
 				onCanPlay,
@@ -542,6 +570,8 @@ describe('VideoRenderer', () => {
 			});
 
 			expect(onCanPlay).toHaveBeenCalledTimes(2);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

@@ -32,7 +32,7 @@ declare global {
 	}
 }
 
-export default function EditorWithFeedback(props: Props) {
+export default function EditorWithFeedback(props: Props): React.JSX.Element {
 	const [{ hasJquery, isExpanded }, setState] = useState<State>({
 		hasJquery: false,
 		isExpanded: false,

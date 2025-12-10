@@ -3,19 +3,15 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 
-import type { SyncBlockAttrs } from '../../syncedBlockPluginType';
-
-type syncBlockMap = {
-	[key: string]: { attrs: SyncBlockAttrs; from?: number; to?: number };
-};
+import type { SyncBlockAttrs, SyncBlockMap } from '../../types';
 
 export const trackSyncBlocks = (
 	predicate: (node: PMNode) => boolean,
 	tr: Transaction,
 	state: EditorState,
 ) => {
-	const removed: syncBlockMap = {};
-	const added: syncBlockMap = {};
+	const removed: SyncBlockMap = {};
+	const added: SyncBlockMap = {};
 
 	if (!tr.docChanged) {
 		return {
@@ -71,8 +67,8 @@ export const trackSyncBlocks = (
 		const oldDoc = state.doc;
 		const newDoc = tr.doc;
 
-		const syncBlockMapOld: syncBlockMap = {};
-		const syncBlockMapNew: syncBlockMap = {};
+		const syncBlockMapOld: SyncBlockMap = {};
+		const syncBlockMapNew: SyncBlockMap = {};
 
 		oldDoc.content.forEach((node) => {
 			if (predicate(node)) {

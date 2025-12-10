@@ -14,7 +14,7 @@ export const CopySection = ({
 }: {
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
 	children: React.ReactNode;
-}) => {
+}): React.JSX.Element => {
 	const isFormatMenuHidden = useCallback(() => {
 		return checkIsFormatMenuHidden(api);
 	}, [api]);

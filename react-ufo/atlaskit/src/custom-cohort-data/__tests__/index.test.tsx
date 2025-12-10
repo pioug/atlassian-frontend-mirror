@@ -21,7 +21,7 @@ describe('UFOCustomCohortData', () => {
 		mockGetInteractionId.mockReturnValue({ current: 'test-interaction-id' });
 	});
 
-	it('should call addCohortingCustomData with key and value', () => {
+	it('should call addCohortingCustomData with key and value', async () => {
 		const mockContext = {
 			labelStack: [],
 			segmentIdMap: new Map(),
@@ -45,9 +45,11 @@ describe('UFOCustomCohortData', () => {
 			'premium',
 		);
 		expect(mockAddCohortingCustomData).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should handle null and undefined values', () => {
+	it('should handle null and undefined values', async () => {
 		const mockContext = {
 			labelStack: [],
 			segmentIdMap: new Map(),
@@ -71,9 +73,11 @@ describe('UFOCustomCohortData', () => {
 			null,
 		);
 		expect(mockAddCohortingCustomData).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should handle different primitive types', () => {
+	it('should handle different primitive types', async () => {
 		const mockContext = {
 			labelStack: [],
 			segmentIdMap: new Map(),
@@ -97,15 +101,19 @@ describe('UFOCustomCohortData', () => {
 			38,
 		);
 		expect(mockAddCohortingCustomData).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should handle null interaction context gracefully', () => {
+	it('should handle null interaction context gracefully', async () => {
 		render(<UFOCustomCohortData dataKey="user_type" value="premium" />);
 
 		expect(mockAddCohortingCustomData).not.toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should handle null interaction ID gracefully', () => {
+	it('should handle null interaction ID gracefully', async () => {
 		mockGetInteractionId.mockReturnValue({ current: null });
 
 		const mockContext = {
@@ -126,6 +134,8 @@ describe('UFOCustomCohortData', () => {
 		);
 
 		expect(mockAddCohortingCustomData).not.toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 });
 
@@ -135,7 +145,7 @@ describe('addUFOCustomCohortData', () => {
 		mockGetInteractionId.mockReturnValue({ current: 'test-interaction-id' });
 	});
 
-	it('should call addCohortingCustomData with key and value', () => {
+	it('should call addCohortingCustomData with key and value', async () => {
 		addUFOCustomCohortData('user_type', 'premium');
 
 		expect(mockAddCohortingCustomData).toHaveBeenCalledWith(
@@ -144,9 +154,11 @@ describe('addUFOCustomCohortData', () => {
 			'premium',
 		);
 		expect(mockAddCohortingCustomData).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should handle null and undefined values', () => {
+	it('should handle null and undefined values', async () => {
 		addUFOCustomCohortData('nullValue', null);
 
 		expect(mockAddCohortingCustomData).toHaveBeenCalledWith(
@@ -155,9 +167,11 @@ describe('addUFOCustomCohortData', () => {
 			null,
 		);
 		expect(mockAddCohortingCustomData).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should handle different primitive types', () => {
+	it('should handle different primitive types', async () => {
 		addUFOCustomCohortData('ticketCount', 38);
 		addUFOCustomCohortData('isEnterprise', true);
 		addUFOCustomCohortData('plan', 'enterprise');
@@ -178,13 +192,17 @@ describe('addUFOCustomCohortData', () => {
 			'enterprise',
 		);
 		expect(mockAddCohortingCustomData).toHaveBeenCalledTimes(3);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should handle null interaction ID gracefully', () => {
+	it('should handle null interaction ID gracefully', async () => {
 		mockGetInteractionId.mockReturnValue({ current: null });
 
 		addUFOCustomCohortData('user_type', 'premium');
 
 		expect(mockAddCohortingCustomData).not.toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 });

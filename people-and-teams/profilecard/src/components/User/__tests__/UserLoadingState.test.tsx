@@ -51,6 +51,10 @@ describe('analytics', () => {
 			renderUserLoadingState();
 			expect(mockFireAnalytics).toHaveBeenCalledWith(event);
 		});
+		it('should capture and report a11y violations', async () => {
+			const { container } = renderUserLoadingState();
+			await expect(container).toBeAccessible();
+		});
 	});
 
 	ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
@@ -60,6 +64,10 @@ describe('analytics', () => {
 				`${event.eventType}.${event.actionSubject}.${event.action}.${event.actionSubjectId}`,
 				event.attributes,
 			);
+		});
+		it('should capture and report a11y violations', async () => {
+			const { container } = renderUserLoadingState();
+			await expect(container).toBeAccessible();
 		});
 	});
 });

@@ -140,7 +140,7 @@ export const ToolbarDropdownItem = ({
 	href,
 	target,
 	rel,
-}: ToolbarDropdownItemProps) => {
+}: ToolbarDropdownItemProps): React.JSX.Element => {
 	const parentContext = useToolbarDropdownMenu();
 
 	const injectedElemAfter = (() => {

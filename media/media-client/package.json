@@ -92,6 +92,9 @@
 		},
 		"platform_media_retry_edge_error": {
 			"type": "boolean"
+		},
+		"platform_media_auth_provider_analytics": {
+			"type": "boolean"
 		}
 	}
 }

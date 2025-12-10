@@ -108,6 +108,12 @@ export const syncBlockMessages = defineMessages({
 		description:
 			'Text on button which confirms deleting the sync block when user was trying to delete source synced block',
 	},
+	deleteRetryButton: {
+		id: 'fabric.editor.deleteConfirmationModalRetryButton',
+		defaultMessage: 'Try again',
+		description:
+			'Text on button which retries deleting the sync block when the previous deletion failed',
+	},
 	deleteConfirmationModalDescription: {
 		id: 'fabric.editor.deleteConfirmationModalDescriptionSingle',
 		defaultMessage:
@@ -137,6 +143,16 @@ export const syncBlockMessages = defineMessages({
 			'You appear to be offline. Please connect to the internet to delete synced content.',
 		description:
 			'Description in flag which appears when a sync block cannot be deleted in offline mode',
+	},
+	cannotDeleteTitle: {
+		id: 'fabric.editor.error.title.cannotDelete',
+		defaultMessage: "We couldn't delete the synced block",
+		description: 'Title in flag which appears when a sync block cannot be deleted',
+	},
+	cannotDeleteDescription: {
+		id: 'fabric.editor.error.description.cannotDelete',
+		defaultMessage: 'An error occurred while trying to delete this synced block. ',
+		description: 'Description in flag which appears when a sync block fails to be deleted',
 	},
 	failToEditTitle: {
 		id: 'fabric.editor.error.title.failToEdit',

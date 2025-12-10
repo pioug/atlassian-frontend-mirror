@@ -20,7 +20,6 @@ import {
 	akEditorFullWidthLayoutWidth,
 	akEditorCalculatedWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type {
 	BreakoutPlugin,
@@ -77,14 +76,11 @@ const addBreakoutToResizableNode = ({
 		} else if (breakoutMark?.attrs.width === null || breakoutMark?.attrs.width === undefined) {
 			const mode = breakoutMark.attrs.mode;
 
-			const newWidth = fg('platform_editor_breakout_resizing_patch_1')
-				? // if breakout is present on node, but page appearance is 'full width' force width to full width to maintain backwards compatibility
-					isFullWidthEnabled || mode === 'full-width'
+			// if breakout is present on node, but page appearance is 'full width' force width to full width to maintain backwards compatibility
+			const newWidth =
+				isFullWidthEnabled || mode === 'full-width'
 					? akEditorFullWidthLayoutWidth
-					: akEditorCalculatedWideLayoutWidth
-				: mode === 'wide'
-					? akEditorCalculatedWideLayoutWidth
-					: akEditorFullWidthLayoutWidth;
+					: akEditorCalculatedWideLayoutWidth;
 
 			updatedTr = newTr.setNodeMarkup(pos, node.type, node.attrs, [
 				breakout.create({ width: newWidth, mode: mode }),
@@ -196,15 +192,8 @@ export const createResizingPlugin = (
 			oldState: EditorState,
 			newState: EditorState,
 		) {
-			if (fg('platform_editor_breakout_resizing_patch_1')) {
-				if (api?.editorViewMode?.sharedState.currentState()?.mode === 'view') {
-					return;
-				}
-			} else {
-				// if editor is in live-view mode don't send transactions
-				if (api?.editorViewMode?.sharedState.currentState()?.mode !== 'edit') {
-					return;
-				}
+			if (api?.editorViewMode?.sharedState.currentState()?.mode === 'view') {
+				return;
 			}
 
 			let newTr = newState.tr;

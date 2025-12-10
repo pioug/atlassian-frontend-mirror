@@ -1,5 +1,20 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.14.1
+
+### Patch Changes
+
+- [`433b512284284`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/433b512284284) -
+  [EDITOR-2558] Update bodiedSyncBlock deletion failure flow
+- Updated dependencies
+
+## 2.14.0
+
+### Minor Changes
+
+- [`8f3a22c66ae60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f3a22c66ae60) -
+  Update to read from ssr cache
+
 ## 2.13.1
 
 ### Patch Changes

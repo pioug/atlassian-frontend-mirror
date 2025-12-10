@@ -1,4 +1,5 @@
 import { type FileState } from '@atlaskit/media-state';
+import { type AuthContext } from '@atlaskit/media-core';
 
 export type EventPayloadMap<P> = {
 	readonly [event: string]: P;
@@ -17,7 +18,22 @@ export interface MediaViewedEventPayload {
 	isUserCollection?: boolean; // This will be true only if attachment is shown in media picker
 }
 
+export interface AuthProviderSucceededEventPayload {
+	durationMs: number;
+	timeoutMs: number;
+	authContext?: AuthContext;
+}
+
+export interface AuthProviderFailedEventPayload {
+	durationMs: number;
+	timeoutMs: number;
+	authContext?: AuthContext;
+	error: Error;
+}
+
 export type UploadEventPayloadMap = {
 	'file-added': FileState;
 	'media-viewed': MediaViewedEventPayload;
+	'auth-provider-succeeded': AuthProviderSucceededEventPayload;
+	'auth-provider-failed': AuthProviderFailedEventPayload;
 };

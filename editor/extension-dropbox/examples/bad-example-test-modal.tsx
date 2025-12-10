@@ -3,7 +3,7 @@ import Button from '@atlaskit/button/new';
 import SectionMessage from '@atlaskit/section-message';
 import Modal from '../src/modal';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(true);
 
 	return (

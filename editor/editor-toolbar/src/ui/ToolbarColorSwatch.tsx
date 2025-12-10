@@ -23,7 +23,7 @@ const styles = cssMap({
 	},
 });
 
-export const ToolbarColorSwatch = ({ children, highlightColor }: ToolbarColorSwatchProps) => {
+export const ToolbarColorSwatch = ({ children, highlightColor }: ToolbarColorSwatchProps): React.JSX.Element => {
 	return (
 		<Box
 			xcss={styles.colorSwatch}

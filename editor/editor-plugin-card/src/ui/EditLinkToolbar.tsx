@@ -66,7 +66,7 @@ export function HyperlinkAddToolbarWithState({
 	onClose,
 	onEscapeCallback,
 	onClickAwayCallback,
-}: HyperlinkAddToolbarProps) {
+}: HyperlinkAddToolbarProps): React.JSX.Element {
 	return (
 		<HyperlinkToolbar
 			linkPickerOptions={linkPickerOptions}
@@ -102,7 +102,7 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
 		view.dispatch(hideLinkToolbar(view.state.tr));
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const {
 			linkPickerOptions,
 			providerFactory,

@@ -7,6 +7,7 @@ import { forwardRef, memo, useCallback, useEffect, useRef } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import noop from '@atlaskit/ds-lib/noop';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Grid } from '@atlaskit/primitives/compiled';
 import { B200, B400, B50, N0, N200, N30, N40, N500, N600, N900 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -69,7 +70,6 @@ const dateCellStyles = css({
 	flexGrow: 1,
 	backgroundColor: 'transparent',
 	borderColor: 'transparent',
-	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
 	borderStyle: 'solid',
 	borderWidth: token('border.width.selected'),
@@ -96,6 +96,10 @@ const dateCellStyles = css({
 		backgroundColor: token('color.background.neutral.subtle.pressed', B50),
 		color: token('color.text', N900),
 	},
+});
+// platform-dst-shape-theme-default TODO: Merge into base after rollout
+const dateCellStylesT26Shape = css({
+	borderRadius: token('radius.medium', '6px'),
 });
 
 interface DateProps {
@@ -178,6 +182,7 @@ const Date = memo(
 				<button
 					css={[
 						dateCellStyles,
+						fg('platform-dst-shape-theme-default') && dateCellStylesT26Shape,
 						isSibling && dateCellSiblingStyle,
 						isToday && dateCellTodayStyle,
 						isPreviouslySelected && dateCellPrevSelectedStyle,

@@ -263,9 +263,21 @@ export type UpdateTransitionRovoPayload = {
 		fromStatusCategory: StatusCategory;
 	}[];
 };
-export type DeleteTransitionRovoPayload = {
+export type DeleteTransitionRovoPayloadOld = {
 	transitionId: TransitionId;
 	transitionName: string;
+};
+export type DeleteTransitionRovoPayload = {
+	id: TransitionId;
+	name: string;
+	toStatusId: StatusId;
+	toStatusName: string;
+	toStatusCategory: StatusCategory;
+	links: {
+		fromStatusId: StatusId;
+		fromStatusName: string;
+		fromStatusCategory: StatusCategory;
+	}[];
 };
 export type AddRuleRovoPayload = {
 	ruleTemplateKey: string;
@@ -293,7 +305,8 @@ export type JiraWorkflowWizardAction =
 	| { operationType: 'DELETE_STATUS'; payload: DeleteStatusRovoPayload }
 	| { operationType: 'ADD_TRANSITION'; payload: AddNewTransitionRovoPayload }
 	| { operationType: 'UPDATE_TRANSITION'; payload: UpdateTransitionRovoPayload }
-	| { operationType: 'DELETE_TRANSITION'; payload: DeleteTransitionRovoPayload }
+	// TODO: Remove DeleteTransitionRovoPayloadOld when hix-7888_-_delete_transition_expanded_fields is cleaned up
+	| { operationType: 'DELETE_TRANSITION'; payload: DeleteTransitionRovoPayloadOld | DeleteTransitionRovoPayload }
 	| { operationType: 'ADD_RULE'; payload: AddRuleRovoPayload }
 	| { operationType: 'UPDATE_RULE'; payload: UpdateRuleRovoPayload }
 	| { operationType: 'DELETE_RULE'; payload: DeleteRuleRovoPayload };

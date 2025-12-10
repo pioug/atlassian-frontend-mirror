@@ -4,7 +4,7 @@ import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import adf from './helper/media-without-caption.adf.json';
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const mediaOptions: MediaOptions = { allowCaptions: false };
 
 	return (

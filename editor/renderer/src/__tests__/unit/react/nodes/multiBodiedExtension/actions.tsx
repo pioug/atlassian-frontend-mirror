@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import { useMultiBodiedExtensionActions } from '../../../../../react/nodes/multiBodiedExtension/actions';
 
 describe('useMultiBodiedExtensionActions', () => {

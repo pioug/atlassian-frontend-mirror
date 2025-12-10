@@ -2,12 +2,9 @@ import { expandToBlockRange } from '@atlaskit/editor-common/selection';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import {
-	type ContentNodeWithPos,
-	findParentNodeOfType,
-	hasParentNode,
-} from '@atlaskit/editor-prosemirror/utils';
+import { type ContentNodeWithPos, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables';
+import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 
 import type { NodeTypeName } from './types';
 
@@ -65,28 +62,32 @@ export const getTargetNodeTypeNameInContext = (
 };
 
 /**
- * Use common expandToBlockRange function, but account for edge cases with lists.
- *
+ * Use common expandToBlockRange function to get the correct range for the selection
+ * For example, if selection starts in a listItem, go find the bullet list or ordered list, their $from
  * @param selection
  * @param schema
  * @returns
  */
 export const expandSelectionToBlockRange = (selection: Selection, schema: Schema) => {
-	const isListInSelection = hasParentNode(
-		(node) => node.type === schema.nodes.bulletList || node.type === schema.nodes.orderedList,
-	)(selection);
+	const { nodes } = schema;
+	const nodesNeedToExpandRange = [nodes.listItem, nodes.taskItem];
 
-	const { $from, $to } = expandToBlockRange(selection.$from, selection.$to, (node) => {
-		if (!isListInSelection) {
-			return true;
+	// when adding nodes.tableRow, tableHeader, tableCell in nodesNeedToExpandRang,
+	// expandToBlockRange does not return expected table start position, sometimes even freeze editor
+	// so handle table in the below logic
+	if (isTableSelected(selection)) {
+		const table = findTable(selection);
+		if (table) {
+			const $from = selection.$from.doc.resolve(table.pos);
+			const $to = selection.$from.doc.resolve(table.pos + table.node.nodeSize - 1);
+			return { $from, $to };
 		}
+	}
 
-		if (node.type === schema.nodes.bulletList || node.type === schema.nodes.orderedList) {
-			return true;
+	return expandToBlockRange(selection.$from, selection.$to, (node) => {
+		if (nodesNeedToExpandRange.includes(node.type)) {
+			return false;
 		}
-
-		return false;
+		return true;
 	});
-
-	return { $from, $to };
 };

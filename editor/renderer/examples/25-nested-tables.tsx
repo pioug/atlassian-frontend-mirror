@@ -8,7 +8,7 @@ import { IntlProvider } from 'react-intl-next';
 const ADF_STAGE0 = 'stage0';
 const ADF_FINAL = 'final';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [adfStage, setAdfStage] = React.useState<ADFStage>(ADF_FINAL);
 	const schema = getSchemaBasedOnStage(adfStage);
 

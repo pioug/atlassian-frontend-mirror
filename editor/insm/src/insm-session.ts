@@ -169,6 +169,7 @@ export class INSMSession {
 			attributes: {
 				// Added first to ensure these don't overwrite any insm properties
 				...evaluatedAddedProperties,
+				'event:population': this.insm.options.population,
 				experienceKey: this.experienceKey,
 				initial: this.experienceProperties.initial,
 				contentId: this.experienceProperties.contentId,

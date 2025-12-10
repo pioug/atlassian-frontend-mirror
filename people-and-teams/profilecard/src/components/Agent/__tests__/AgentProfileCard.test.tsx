@@ -122,6 +122,11 @@ describe('ProfileCardTrigger', () => {
 		});
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderWithIntl({});
+		await expect(container).toBeAccessible();
+	});
+
 	describe('hideMoreActions', () => {
 		it('should pass hideMoreActions prop to AgentActions component when true', () => {
 			renderWithIntl({ hideMoreActions: true });

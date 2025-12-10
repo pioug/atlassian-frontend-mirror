@@ -48,7 +48,7 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"@testing-library/react": "root:*"
+		"@testing-library/react": "^16.3.0"
 	},
 	"platform-feature-flags": {
 		"platform_editor_ai_aifc_patch_ga": {

@@ -43,7 +43,7 @@ export interface LinkToolbarAppearanceProps {
 }
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class LinkToolbarAppearance extends React.Component<LinkToolbarAppearanceProps, Object> {
-	renderDropdown = (view?: EditorView, cardContext?: CardContext) => {
+	renderDropdown = (view?: EditorView, cardContext?: CardContext): React.JSX.Element | null => {
 		const {
 			url,
 			intl,
@@ -193,7 +193,7 @@ export class LinkToolbarAppearance extends React.Component<LinkToolbarAppearance
 		return LinkToolbarButtons;
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { editorView } = this.props;
 
 		return (

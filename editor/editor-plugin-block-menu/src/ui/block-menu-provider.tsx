@@ -44,7 +44,7 @@ export const useBlockMenu = () => {
 	return context;
 };
 
-export const BlockMenuProvider = ({ children, api }: BlockMenuProviderProps) => {
+export const BlockMenuProvider = ({ children, api }: BlockMenuProviderProps): React.JSX.Element => {
 	const moveUpRef = useRef<HTMLButtonElement | null>(null);
 	const moveDownRef = useRef<HTMLButtonElement | null>(null);
 

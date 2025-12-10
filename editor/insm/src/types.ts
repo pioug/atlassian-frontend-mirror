@@ -6,6 +6,16 @@ export type INSMOptions = {
 	 */
 	experiences: { [key: string]: { enabled: boolean } | undefined };
 	getAnalyticsWebClient: Promise<AnalyticsWebClient>;
+
+	/**
+	 * The Event Population is intended for segmenting traffic based on
+	 * overrides/segments used in Statsig for targeting.
+	 * ie. "customer-test", "internal-test", "release-tracks", "experiment-population"
+	 *
+	 * See https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/dynamic_configs/cc_ufo_group
+	 * for an example dynamic config powering the Confluence population.
+	 */
+	population?: string;
 };
 
 export type ExperienceProperties = {

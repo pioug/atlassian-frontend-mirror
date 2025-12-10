@@ -14,7 +14,7 @@ interface SyncedBlockNotFoundProps {
 	onRetry?: () => void;
 }
 
-export const SyncedBlockLoadError = ({ onRetry, isLoading }: SyncedBlockNotFoundProps) => {
+export const SyncedBlockLoadError = ({ onRetry, isLoading }: SyncedBlockNotFoundProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	return (

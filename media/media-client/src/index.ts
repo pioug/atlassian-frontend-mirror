@@ -182,6 +182,8 @@ export type {
 	EventPayloadListener,
 	UploadEventPayloadMap,
 	MediaViewedEventPayload,
+	AuthProviderSucceededEventPayload,
+	AuthProviderFailedEventPayload,
 } from './client/events';
 
 export type { MediaClientConfig } from '@atlaskit/media-core';

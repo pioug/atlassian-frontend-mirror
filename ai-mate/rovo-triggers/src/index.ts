@@ -16,6 +16,7 @@ export type {
 	AddNewTransitionRovoPayload,
 	UpdateTransitionRovoPayload,
 	DeleteTransitionRovoPayload,
+	DeleteTransitionRovoPayloadOld,
 	AddRuleRovoPayload,
 	UpdateRuleRovoPayload,
 	DeleteRuleRovoPayload,

@@ -74,7 +74,7 @@ const shortcuts: Record<HeadingName, Keymap> = {
 	heading6: toggleHeading6,
 };
 
-export const HeadingButton = ({ blockType, api }: HeadingButtonProps) => {
+export const HeadingButton = ({ blockType, api }: HeadingButtonProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 	const currentBlockType = useSharedPluginStateSelector(api, 'blockType.currentBlockType');
 	const availableBlockTypesInDropdown = useSharedPluginStateSelector(

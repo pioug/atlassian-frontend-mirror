@@ -16,7 +16,7 @@ const extensionHandlers: ExtensionHandlers = {
 	},
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<RendererDemo
 			document={document}

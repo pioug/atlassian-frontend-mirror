@@ -41,7 +41,7 @@ export const DatasourceDropdownOption = ({
 	selected,
 	inputMethod,
 	dispatchCommand,
-}: Props) => {
+}: Props): React.JSX.Element | null => {
 	const cardContext = useSmartLinkContext();
 
 	const { datasourceId, parameters } = useFetchDatasourceInfo({

@@ -20,6 +20,8 @@ export type {
 	CopiedFileEventPayload,
 	ClickedEventPayload,
 	MediaCardAnalyticsEventPayload,
+	AuthProviderSucceededAnalyticsPayload,
+	AuthProviderFailedAnalyticsPayload,
 } from './analytics';
 
 export {
@@ -41,4 +43,6 @@ export {
 	createAndFireMediaCardEvent,
 	getDownloadSucceededEventPayload,
 	getDownloadFailedEventPayload,
+	getAuthProviderSucceededPayload,
+	getAuthProviderFailedPayload,
 } from './analytics';

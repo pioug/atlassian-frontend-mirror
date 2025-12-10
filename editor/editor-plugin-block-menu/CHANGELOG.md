@@ -1,5 +1,47 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.2.3
+
+### Patch Changes
+
+- [`d0857f52fd866`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0857f52fd866) -
+  Add list-to-list transformation support in block menu
+
+## 5.2.2
+
+### Patch Changes
+
+- [`8696c9d95fe26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8696c9d95fe26) -
+  [ux] EDITOR-3382 Block menu copy link for multi select
+- Updated dependencies
+
+## 5.2.1
+
+### Patch Changes
+
+- [`e1a0f13fc5c83`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1a0f13fc5c83) -
+  Editor-2778: Table transform to expand and layout
+- Updated dependencies
+
+## 5.2.0
+
+### Minor Changes
+
+- [`0bff72d37394d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0bff72d37394d) -
+  [ux] Implement steps for bullet, task, and numbered lists transformations to container nodes
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.1.11
+
+### Patch Changes
+
+- [`7c295bfea1292`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c295bfea1292) -
+  EDITOR-3380 Use preserved selection when deleting selected range
+- Updated dependencies
+
 ## 5.1.10
 
 ### Patch Changes

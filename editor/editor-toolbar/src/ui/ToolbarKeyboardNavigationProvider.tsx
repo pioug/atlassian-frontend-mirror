@@ -18,7 +18,7 @@ export const ToolbarKeyboardNavigationProvider = ({
 	handleEscape,
 	ariaLabel,
 	ariaControls,
-}: ToolbarKeyboardNavigationProviderProps) => {
+}: ToolbarKeyboardNavigationProviderProps): React.JSX.Element => {
 	const wrapperRef = useRef<HTMLDivElement>(null);
 
 	useLayoutEffect(() => {

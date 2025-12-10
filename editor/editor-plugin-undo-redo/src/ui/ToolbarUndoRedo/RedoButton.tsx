@@ -21,7 +21,7 @@ type RedoButtonProps = {
 	api?: ExtractInjectionAPI<UndoRedoPlugin>;
 };
 
-export const RedoButton = ({ api }: RedoButtonProps) => {
+export const RedoButton = ({ api }: RedoButtonProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { editorView } = useEditorToolbar();
 	const { canRedo } = useSharedPluginStateWithSelector(api, ['history'], (states) => ({

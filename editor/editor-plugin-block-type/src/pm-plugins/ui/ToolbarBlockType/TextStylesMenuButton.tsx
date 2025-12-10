@@ -37,7 +37,7 @@ const usePluginState = conditionalHooksFactory(
 	},
 );
 
-export const TextStylesMenuButton = ({ api, children }: TextStylesMenuButtonProps) => {
+export const TextStylesMenuButton = ({ api, children }: TextStylesMenuButtonProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const { blockTypesDisabled, currentBlockType } = usePluginState(api);

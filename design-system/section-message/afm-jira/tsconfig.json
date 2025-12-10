@@ -40,6 +40,9 @@
 			"path": "../../link/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../primitives/afm-jira/tsconfig.json"
 		},
 		{

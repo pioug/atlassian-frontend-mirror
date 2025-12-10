@@ -92,7 +92,7 @@ export class CaptionNodeView extends SelectionBasedNodeView {
 		}
 	}
 
-	render(_props: never, forwardRef: ForwardRef) {
+	render(_props: never, forwardRef: ForwardRef): React.JSX.Element {
 		return (
 			<Caption selected={this.insideSelection()} hasContent={this.node.content.childCount > 0}>
 				<div ref={forwardRef} />

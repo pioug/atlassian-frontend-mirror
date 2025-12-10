@@ -1162,7 +1162,7 @@ describe('@atlaskit/editor-core', () => {
 						// Browser
 						jest.spyOn(coreUtilsModule, 'isSSR').mockReturnValue(false);
 						renderWithIntl(<ReactEditorView {...props} />);
-						const browserEditor = screen.getByRole('textbox');
+						const browserEditor = screen.getAllByRole('textbox')[0];
 						const browserTagName = ssrEditor.tagName.toLowerCase();
 						const browserAttributes = getAttributesMap(browserEditor);
 

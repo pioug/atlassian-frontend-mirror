@@ -26,7 +26,7 @@ export const TextColorIcon = ({
 	testId,
 	iconColor,
 	isDisabled,
-}: TextColorIconProps) => {
+}: TextColorIconProps): React.JSX.Element => {
 	return (
 		// for the moment the Icon is not truely centered - adding margin top as a workaround
 		<Box as="span" xcss={styles.icon}>

@@ -38,7 +38,7 @@ export const FormatMenuItem = ({
 	icon,
 	shortcut,
 	title,
-}: FormatComponentProps) => {
+}: FormatComponentProps): React.JSX.Element | null => {
 	const { isActive, isDisabled, isHidden, shortcutContent, onClick, ariaLabel, formatTitle } =
 		useComponentInfo({
 			api,
@@ -77,7 +77,7 @@ export const FormatButton = ({
 	icon,
 	shortcut,
 	title,
-}: FormatComponentProps) => {
+}: FormatComponentProps): React.JSX.Element => {
 	const { isActive, isDisabled, onClick, ariaLabel, formatTitle } = useComponentInfo({
 		api,
 		optionType,
@@ -105,7 +105,7 @@ export const FormatButton = ({
 export const ClearFormatMenuItem = ({
 	api,
 	parents,
-}: Pick<FormatComponentProps, 'api' | 'parents'>) => {
+}: Pick<FormatComponentProps, 'api' | 'parents'>): React.JSX.Element | null => {
 	const { isInitialised, isFormattingPresent } = useSharedPluginStateWithSelector(
 		api,
 		['textFormatting'],
@@ -143,7 +143,7 @@ export const ClearFormatMenuItem = ({
 	);
 };
 
-export const MoreFormattingMenu = ({ children }: { children?: ReactNode }) => {
+export const MoreFormattingMenu = ({ children }: { children?: ReactNode }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const content = formatMessage(toolbarMessages.moreFormatting);
 	return expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) ? (
@@ -173,7 +173,7 @@ export const MenuSection = ({
 	children?: ReactNode;
 	parents: CommonComponentProps['parents'];
 	title?: string;
-}) => {
+}): React.JSX.Element => {
 	const hasSeparator = parents.some((parent) => parent.key === TEXT_COLLAPSED_MENU.key);
 
 	return (

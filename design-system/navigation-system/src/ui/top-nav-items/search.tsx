@@ -7,6 +7,7 @@ import React, { Fragment } from 'react';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import type { NewIconProps } from '@atlaskit/icon';
 import SearchIcon from '@atlaskit/icon/core/search';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable, Show, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -37,6 +38,10 @@ const styles = cssMap({
 		'@media (min-width: 30rem)': {
 			display: 'grid',
 		},
+	},
+	// platform-dst-shape-theme-default TODO: Merge into base after rollout
+	rootT26Shape: {
+		borderRadius: token('radius.medium'),
 	},
 	buttonText: {
 		gridColumn: '1 / -1',
@@ -106,7 +111,11 @@ export const Search = ({
 					border: `${token('border.width')} solid ${token('color.border.input')}`,
 				}}
 				onClick={onClick}
-				xcss={cx(styles.root, isFhsEnabled && styles.fullHeightSidebar)}
+				xcss={cx(
+					styles.root,
+					fg('platform-dst-shape-theme-default') && styles.rootT26Shape,
+					isFhsEnabled && styles.fullHeightSidebar,
+				)}
 				interactionName={interactionName}
 				aria-haspopup={ariaHaspopup}
 			>

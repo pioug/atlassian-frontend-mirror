@@ -57,7 +57,7 @@ const getSortedChildren = <T extends { parents: Array<{ key: string; rank: numbe
 				(b.parents.find((p) => p.key === parentKey)?.rank || 0),
 		);
 
-export const ToolbarModelRenderer = ({ toolbar, components, fallbacks }: ToolbarProps) => {
+export const ToolbarModelRenderer = ({ toolbar, components, fallbacks }: ToolbarProps): React.JSX.Element => {
 	const sections = getSortedChildren<RegisterToolbarSection>(
 		components.filter(isSection),
 		toolbar.key,

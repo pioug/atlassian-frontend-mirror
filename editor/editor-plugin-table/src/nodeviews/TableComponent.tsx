@@ -878,11 +878,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				)}
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={classnames(
-						ClassName.TABLE_NODE_WRAPPER,
-						expValEquals('platform_editor_disable_table_overflow_shadows', 'cohort', 'variant3') &&
-							ClassName.TABLE_SCROLL_INLINE_SHADOW,
-					)}
+					className={classnames(ClassName.TABLE_NODE_WRAPPER)}
 					ref={(elem) => {
 						this.wrapper = elem;
 						if (elem) {
@@ -943,24 +939,19 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 						data-testid="sticky-scrollbar-sentinel-bottom"
 					/>
 				)}
-				{/* When table overflows, we can't see the table border, so creating this fake right boarder instead of the one from table */}
-				{expValEquals('platform_editor_disable_table_overflow_shadows', 'cohort', 'variant2') && (
-					<div
-						contentEditable={false}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className={ClassName.TABLE_LEFT_BORDER}
-						data-with-numbered-table={node.attrs.isNumberColumnEnabled}
-						data-testid="table-left-border"
-					/>
-				)}
-				{expValEquals('platform_editor_disable_table_overflow_shadows', 'cohort', 'variant2') && (
-					<div
-						contentEditable={false}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className={ClassName.TABLE_RIGHT_BORDER}
-						data-testid="table-right-border"
-					/>
-				)}
+				<div
+					contentEditable={false}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className={ClassName.TABLE_LEFT_BORDER}
+					data-with-numbered-table={node.attrs.isNumberColumnEnabled}
+					data-testid="table-left-border"
+				/>
+				<div
+					contentEditable={false}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className={ClassName.TABLE_RIGHT_BORDER}
+					data-testid="table-right-border"
+				/>
 			</TableContainer>
 		);
 	}

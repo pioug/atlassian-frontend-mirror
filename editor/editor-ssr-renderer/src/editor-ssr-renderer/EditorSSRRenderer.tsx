@@ -59,7 +59,7 @@ export function EditorSSRRenderer({
 	intl,
 	pluginInjectionAPI,
 	...divProps
-}: Props) {
+}: Props): React.JSX.Element {
 	// PMPluginFactoryParams use `getIntl` function to get current intl instance,
 	// so we don't need to add `intl` as a dependency to `useMemo`.
 	// We will store intl in ref and access to it dynamically in `getIntl` function call.

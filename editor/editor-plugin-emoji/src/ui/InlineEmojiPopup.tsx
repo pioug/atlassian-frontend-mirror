@@ -45,7 +45,7 @@ export const InlineEmojiPopupOld = ({
 	popupsScrollableElement,
 	editorView,
 	onClose,
-}: InlineEmojiPopupProps & { onClose: () => void }) => {
+}: InlineEmojiPopupProps & { onClose: () => void }): React.JSX.Element | null => {
 	const { emojiProvider, inlineEmojiPopupOpen: isOpen } =
 		useSharedPluginState(api, ['emoji'])?.emojiState ?? {};
 
@@ -211,7 +211,7 @@ export const InlineEmojiPopup = React.memo(
 		popupsBoundariesElement,
 		popupsScrollableElement,
 		editorView,
-	}: InlineEmojiPopupProps) => {
+	}: InlineEmojiPopupProps): React.JSX.Element | null => {
 		const isOpen = useSharedPluginStateSelector(api, 'emoji.inlineEmojiPopupOpen');
 
 		if (!isOpen) {

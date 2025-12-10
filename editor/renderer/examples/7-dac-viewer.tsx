@@ -106,7 +106,7 @@ export default class Example extends PureComponent<{}, State> {
 			});
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const renderedContent = this.getRendererContent();
 
 		return (

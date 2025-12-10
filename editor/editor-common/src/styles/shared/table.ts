@@ -113,9 +113,8 @@ const tableSharedStyle = () => {
 			.decisionItemView-content-wrap:first-of-type > div {
 				margin-top: 0;
 			}
-
-			${expValEquals('platform_editor_disable_table_overflow_shadows', 'cohort', 'variant2') &&
-			`.${TableSharedCssClassName.TABLE_RIGHT_BORDER}, .${TableSharedCssClassName.TABLE_LEFT_BORDER} {
+			.${TableSharedCssClassName.TABLE_RIGHT_BORDER},
+				.${TableSharedCssClassName.TABLE_LEFT_BORDER} {
 				display: block;
 				width: 1px;
 				height: calc(100% - ${token('space.300', '24px')});
@@ -129,14 +128,11 @@ const tableSharedStyle = () => {
 			.${TableSharedCssClassName.TABLE_LEFT_BORDER} {
 				left: 0;
 			}
-			${
-				fg('platform_editor_table_numbered_table_border') &&
-				`
+			${fg('platform_editor_table_numbered_table_border') &&
+			`
 				.${TableSharedCssClassName.TABLE_LEFT_BORDER}[data-with-numbered-table='true'] {
 					left: ${akEditorTableNumberColumnWidth - 1}px;
-				}`
-			}
-			`}
+				}`}
 		}
 		.${TableSharedCssClassName.TABLE_CONTAINER}[data-number-column='true'] {
 			padding-left: ${akEditorTableNumberColumnWidth - 1}px;
@@ -174,12 +170,8 @@ const tableSharedStyle = () => {
 			border-collapse: collapse;
 			border: ${tableCellBorderWidth}px solid
 				${token('color.background.accent.gray.subtler', akEditorTableBorder)};
-
-			${expValEquals('platform_editor_disable_table_overflow_shadows', 'cohort', 'variant2') &&
-			`
-				border-left-color: transparent;
-				border-right-color: transparent;
-			`}
+			border-left-color: transparent;
+			border-right-color: transparent;
 			table-layout: fixed;
 			font-size: 1em;
 			width: 100%;

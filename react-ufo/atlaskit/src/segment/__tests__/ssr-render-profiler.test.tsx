@@ -21,7 +21,7 @@ describe('SsrRenderProfilerInner', () => {
 	});
 
 	describe('rendering children', () => {
-		it('should render children correctly', () => {
+		it('should render children correctly', async () => {
 			const labelStack = [{ name: 'test-segment', segmentId: 'seg-1' }];
 
 			render(
@@ -32,9 +32,11 @@ describe('SsrRenderProfilerInner', () => {
 
 			expect(screen.getByTestId('test-child')).toBeInTheDocument();
 			expect(screen.getByText('Test Content')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render multiple children', () => {
+		it('should render multiple children', async () => {
 			const labelStack = [{ name: 'test-segment', segmentId: 'seg-1' }];
 
 			render(
@@ -48,9 +50,11 @@ describe('SsrRenderProfilerInner', () => {
 			expect(screen.getByTestId('child-1')).toBeInTheDocument();
 			expect(screen.getByTestId('child-2')).toBeInTheDocument();
 			expect(screen.getByTestId('child-3')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should handle fragment children', () => {
+		it('should handle fragment children', async () => {
 			const labelStack = [{ name: 'fragment', segmentId: 'seg-1' }];
 
 			render(
@@ -64,9 +68,11 @@ describe('SsrRenderProfilerInner', () => {
 
 			expect(screen.getByText('Item 1')).toBeInTheDocument();
 			expect(screen.getByText('Item 2')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should handle text nodes as children', () => {
+		it('should handle text nodes as children', async () => {
 			const labelStack = [{ name: 'text-content', segmentId: 'seg-1' }];
 
 			render(
@@ -76,9 +82,11 @@ describe('SsrRenderProfilerInner', () => {
 			);
 
 			expect(screen.getByText('Just plain text')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should handle mixed content types', () => {
+		it('should handle mixed content types', async () => {
 			const labelStack = [{ name: 'mixed', segmentId: 'seg-1' }];
 
 			render(
@@ -92,9 +100,11 @@ describe('SsrRenderProfilerInner', () => {
 			expect(screen.getByText('Div content')).toBeInTheDocument();
 			expect(screen.getByText('Text node')).toBeInTheDocument();
 			expect(screen.getByText('Span content')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should handle null children without throwing', () => {
+		it('should handle null children without throwing', async () => {
 			const labelStack = [{ name: 'test', segmentId: 'seg-1' }];
 
 			expect(() => {
@@ -104,9 +114,11 @@ describe('SsrRenderProfilerInner', () => {
 					</SsrRenderProfilerInner>,
 				);
 			}).not.toThrow();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should handle boolean children without throwing', () => {
+		it('should handle boolean children without throwing', async () => {
 			const labelStack = [{ name: 'test', segmentId: 'seg-1' }];
 
 			expect(() => {
@@ -116,11 +128,13 @@ describe('SsrRenderProfilerInner', () => {
 					</SsrRenderProfilerInner>,
 				);
 			}).not.toThrow();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('labelStack handling', () => {
-		it('should handle simple labelStack', () => {
+		it('should handle simple labelStack', async () => {
 			const labelStack = [{ name: 'segment1', segmentId: 'id1' }];
 
 			render(
@@ -130,9 +144,11 @@ describe('SsrRenderProfilerInner', () => {
 			);
 
 			expect(screen.getByText('Test')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should handle nested labelStack', () => {
+		it('should handle nested labelStack', async () => {
 			const labelStack = [
 				{ name: 'parent', segmentId: 'id1' },
 				{ name: 'child', segmentId: 'id2' },
@@ -146,9 +162,11 @@ describe('SsrRenderProfilerInner', () => {
 			);
 
 			expect(screen.getByText('Nested Content')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should handle labelStack with segment types', () => {
+		it('should handle labelStack with segment types', async () => {
 			const labelStack = [
 				{ name: 'segment1', segmentId: 'id1', type: 'third-party' as const },
 				{ name: 'segment2', segmentId: 'id2' },
@@ -161,9 +179,11 @@ describe('SsrRenderProfilerInner', () => {
 			);
 
 			expect(screen.getByText('Test')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should handle empty labelStack name', () => {
+		it('should handle empty labelStack name', async () => {
 			const labelStack = [{ name: '', segmentId: 'seg-1' }];
 
 			render(
@@ -173,9 +193,11 @@ describe('SsrRenderProfilerInner', () => {
 			);
 
 			expect(screen.getByText('Test')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should handle special characters in labelStack names', () => {
+		it('should handle special characters in labelStack names', async () => {
 			const labelStack = [
 				{ name: 'test-segment/with/slashes', segmentId: 'seg-1' },
 				{ name: 'test_segment_with_underscores', segmentId: 'seg-2' },
@@ -189,9 +211,11 @@ describe('SsrRenderProfilerInner', () => {
 			);
 
 			expect(screen.getByText('Test')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should handle unicode characters in names', () => {
+		it('should handle unicode characters in names', async () => {
 			const labelStack = [
 				{ name: '段落', segmentId: 'seg-1' },
 				{ name: 'セクション', segmentId: 'seg-2' },
@@ -205,9 +229,11 @@ describe('SsrRenderProfilerInner', () => {
 			);
 
 			expect(screen.getByText('Test')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should handle very large labelStack', () => {
+		it('should handle very large labelStack', async () => {
 			const labelStack = Array.from({ length: 50 }, (_, i) => ({
 				name: `segment-${i}`,
 				segmentId: `id-${i}`,
@@ -220,11 +246,13 @@ describe('SsrRenderProfilerInner', () => {
 			);
 
 			expect(screen.getByText('Test')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('component structure', () => {
-		it('should accept labelStack and onRender props', () => {
+		it('should accept labelStack and onRender props', async () => {
 			const labelStack = [{ name: 'test', segmentId: 'seg-1' }];
 
 			expect(() => {
@@ -234,19 +262,23 @@ describe('SsrRenderProfilerInner', () => {
 					</SsrRenderProfilerInner>,
 				);
 			}).not.toThrow();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should accept optional children', () => {
+		it('should accept optional children', async () => {
 			const labelStack = [{ name: 'test', segmentId: 'seg-1' }];
 
 			expect(() => {
 				render(<SsrRenderProfilerInner labelStack={labelStack} onRender={mockOnRender} />);
 			}).not.toThrow();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('useMemo for labelStack', () => {
-		it('should compute labelStack memoization correctly', () => {
+		it('should compute labelStack memoization correctly', async () => {
 			const labelStack = [
 				{ name: 'page', segmentId: 'id1' },
 				{ name: 'section', segmentId: 'id2' },
@@ -259,11 +291,13 @@ describe('SsrRenderProfilerInner', () => {
 			);
 
 			expect(screen.getByText('Test')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('deeply nested components', () => {
-		it('should handle deeply nested components', () => {
+		it('should handle deeply nested components', async () => {
 			const labelStack = [
 				{ name: 'page', segmentId: 'id1' },
 				{ name: 'section', segmentId: 'id2' },
@@ -284,11 +318,13 @@ describe('SsrRenderProfilerInner', () => {
 			);
 
 			expect(screen.getByText('Deeply nested content')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('large content', () => {
-		it('should handle large content', () => {
+		it('should handle large content', async () => {
 			const labelStack = [{ name: 'large-segment', segmentId: 'seg-1' }];
 			const items = Array.from({ length: 100 }, (_, i) => <div key={i}>{`Item ${i}`}</div>);
 
@@ -300,11 +336,13 @@ describe('SsrRenderProfilerInner', () => {
 
 			expect(screen.getByText('Item 0')).toBeInTheDocument();
 			expect(screen.getByText('Item 99')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('conditional content', () => {
-		it('should handle conditional content', () => {
+		it('should handle conditional content', async () => {
 			const labelStack = [{ name: 'conditional', segmentId: 'seg-1' }];
 			const showContent = true;
 
@@ -315,11 +353,13 @@ describe('SsrRenderProfilerInner', () => {
 			);
 
 			expect(screen.getByText('Conditional Content')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('active interaction tracking', () => {
-		it('should track active interaction', () => {
+		it('should track active interaction', async () => {
 			const interactionId = 'interaction-123';
 			mockGetActiveInteraction.mockReturnValue({ id: interactionId });
 
@@ -332,9 +372,11 @@ describe('SsrRenderProfilerInner', () => {
 			);
 
 			expect(mockGetActiveInteraction).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should handle no active interaction', () => {
+		it('should handle no active interaction', async () => {
 			mockGetActiveInteraction.mockReturnValue(undefined);
 
 			const labelStack = [{ name: 'test', segmentId: 'seg-1' }];
@@ -346,9 +388,11 @@ describe('SsrRenderProfilerInner', () => {
 			);
 
 			expect(mockGetActiveInteraction).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should handle when getActiveInteraction returns object with id', () => {
+		it('should handle when getActiveInteraction returns object with id', async () => {
 			mockGetActiveInteraction.mockReturnValue({ id: 'test-id' });
 
 			const labelStack = [{ name: 'test', segmentId: 'seg-1' }];
@@ -360,9 +404,11 @@ describe('SsrRenderProfilerInner', () => {
 			);
 
 			expect(mockGetActiveInteraction).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should handle when getActiveInteraction returns null', () => {
+		it('should handle when getActiveInteraction returns null', async () => {
 			mockGetActiveInteraction.mockReturnValue(null);
 
 			const labelStack = [{ name: 'test', segmentId: 'seg-1' }];
@@ -374,11 +420,13 @@ describe('SsrRenderProfilerInner', () => {
 			);
 
 			expect(mockGetActiveInteraction).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('rerendering', () => {
-		it('should handle rerendering with same labelStack', () => {
+		it('should handle rerendering with same labelStack', async () => {
 			const labelStack = [{ name: 'test', segmentId: 'seg-1' }];
 
 			const { rerender } = render(
@@ -394,9 +442,11 @@ describe('SsrRenderProfilerInner', () => {
 			);
 
 			expect(screen.getByText('Test 2')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should handle changing labelStack', () => {
+		it('should handle changing labelStack', async () => {
 			const labelStack1 = [{ name: 'segment1', segmentId: 'id1' }];
 			const labelStack2 = [{ name: 'segment2', segmentId: 'id2' }];
 
@@ -413,11 +463,13 @@ describe('SsrRenderProfilerInner', () => {
 			);
 
 			expect(screen.getByText('Second')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('performance', () => {
-		it('should complete rendering in reasonable time', () => {
+		it('should complete rendering in reasonable time', async () => {
 			const labelStack = [{ name: 'perf-test', segmentId: 'seg-1' }];
 			const startTime = performance.now();
 
@@ -431,11 +483,13 @@ describe('SsrRenderProfilerInner', () => {
 			const duration = endTime - startTime;
 
 			expect(duration).toBeLessThan(1000);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('Fragment and JSX', () => {
-		it('should handle React.Fragment children', () => {
+		it('should handle React.Fragment children', async () => {
 			const labelStack = [{ name: 'test', segmentId: 'seg-1' }];
 
 			render(
@@ -449,13 +503,15 @@ describe('SsrRenderProfilerInner', () => {
 
 			expect(screen.getByText('Fragment 1')).toBeInTheDocument();
 			expect(screen.getByText('Fragment 2')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('component composition', () => {
 		const ChildComponent = ({ content }: { content: string }) => <div>{content}</div>;
 
-		it('should render component children correctly', () => {
+		it('should render component children correctly', async () => {
 			const labelStack = [{ name: 'test', segmentId: 'seg-1' }];
 
 			render(
@@ -465,9 +521,11 @@ describe('SsrRenderProfilerInner', () => {
 			);
 
 			expect(screen.getByText('Component content')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render multiple component children', () => {
+		it('should render multiple component children', async () => {
 			const labelStack = [{ name: 'test', segmentId: 'seg-1' }];
 
 			render(
@@ -481,6 +539,8 @@ describe('SsrRenderProfilerInner', () => {
 			expect(screen.getByText('First')).toBeInTheDocument();
 			expect(screen.getByText('Second')).toBeInTheDocument();
 			expect(screen.getByText('Third')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

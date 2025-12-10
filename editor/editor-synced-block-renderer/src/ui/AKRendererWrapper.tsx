@@ -51,7 +51,7 @@ export const AKRendererWrapper = memo(
 		dataProviders: ProviderFactory | undefined;
 		doc: DocNode;
 		options: SyncedBlockRendererOptions | undefined;
-	}) => {
+	}): React.JSX.Element => {
 		const mergedOptions = { ...defaultOptions, ...options };
 
 		const {

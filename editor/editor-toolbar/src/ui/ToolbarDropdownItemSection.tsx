@@ -14,7 +14,7 @@ export const ToolbarDropdownItemSection = ({
 	hasSeparator,
 	title,
 	testId,
-}: ToolbarDropdownItemSectionProps) => {
+}: ToolbarDropdownItemSectionProps): React.JSX.Element => {
 	return (
 		<DropdownItemGroup
 			hasSeparator={hasSeparator}

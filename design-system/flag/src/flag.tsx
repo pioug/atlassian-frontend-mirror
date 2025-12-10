@@ -8,9 +8,10 @@ import { css } from '@compiled/react';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
-import { cssMap, jsx } from '@atlaskit/css';
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import Heading from '@atlaskit/heading';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -40,6 +41,10 @@ const styles = cssMap({
 		zIndex: 600,
 		width: '100%',
 		transition: 'background-color 200ms',
+	},
+	// platform-dst-shape-theme-default TODO: Merge into base after rollout
+	flagT26Shape: {
+		borderRadius: token('radius.large', '8px'),
 	},
 });
 
@@ -192,7 +197,11 @@ const Flag: FC<FlagProps> = (props) => {
 
 	return (
 		<div role="alert" css={flagWrapperStyles} data-testid={testId} {...autoDismissProps}>
-			<Box padding="space.200" backgroundColor={flagBackgroundColor[appearance]} xcss={styles.flag}>
+			<Box
+				padding="space.200"
+				backgroundColor={flagBackgroundColor[appearance]}
+				xcss={cx(styles.flag, fg('platform-dst-shape-theme-default') && styles.flagT26Shape)}
+			>
 				<Inline alignBlock="start" space="space.200">
 					<div
 						css={iconWrapperStyles}

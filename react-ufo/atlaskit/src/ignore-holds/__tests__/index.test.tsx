@@ -52,7 +52,7 @@ describe('UFO Interaction Ignore', () => {
 		mountCounter = 1;
 		jest.resetAllMocks();
 	});
-	it('renders the children when there is no interaction context', () => {
+	it('renders the children when there is no interaction context', async () => {
 		const { rerender } = render(<MyFixtureComponent ignore={true} />);
 
 		expect(screen.getByText('1')).not.toBeNull();
@@ -61,9 +61,11 @@ describe('UFO Interaction Ignore', () => {
 		rerender(<MyFixtureComponent ignore={false} />);
 		expect(screen.getByText('1')).not.toBeNull();
 		expect(testInteractionContext.hold).not.toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('renders the children when there is interaction context', () => {
+	it('renders the children when there is interaction context', async () => {
 		const { rerender } = render(<MyFixtureComponentWithInteractionContext ignore={true} />);
 
 		expect(screen.getByText('1')).not.toBeNull();
@@ -72,5 +74,7 @@ describe('UFO Interaction Ignore', () => {
 		rerender(<MyFixtureComponentWithInteractionContext ignore={false} />);
 		expect(screen.getByText('1')).not.toBeNull();
 		expect(testInteractionContext.hold).toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 });

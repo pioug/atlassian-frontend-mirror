@@ -1,5 +1,12 @@
 # @atlaskit/toggle
 
+## 15.2.0
+
+### Minor Changes
+
+- [`b867e641d818d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b867e641d818d) -
+  Updated border radius values behind a feature gate `platform-dst-shape-theme-default`.
+
 ## 15.1.16
 
 ### Patch Changes

@@ -4,7 +4,7 @@ import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 
 import { RendererWithAnnotationsAndBodiedExtensions } from './reference-renderer-annotation-provider/RendererWithAnnotationsAndBodiedExtensions';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<SmartCardProvider client={new CardClient('stg')}>
 			<RendererWithAnnotationsAndBodiedExtensions

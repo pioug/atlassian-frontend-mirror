@@ -66,7 +66,7 @@ export const PrimaryToolbarComponent = React.memo(
 		disabled,
 		isReducedSpacing,
 		shouldUseResponsiveToolbar,
-	}: PrimaryToolbarComponentProps) => {
+	}: PrimaryToolbarComponentProps): React.JSX.Element => {
 		const textFormattingState = useSharedPluginStateWithSelector(api, ['textFormatting'], selector);
 
 		return (

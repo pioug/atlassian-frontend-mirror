@@ -22,11 +22,16 @@ import {
 	COLLAPSE_ELEM_BEFORE,
 } from '@atlaskit/navigation-system/side-nav-items/button-menu-item';
 import Popup from '@atlaskit/popup';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	root: {
 		width: '300px',
+	},
+	menuContainer: {
+		overflow: 'hidden',
+		borderRadius: token('radius.large', '8px'),
 	},
 });
 
@@ -232,10 +237,10 @@ export const ButtonMenuItemWithPopup = () => {
 								onClose={() => setIsNestedPopupOpen(false)}
 								placement="bottom-start"
 								content={() => (
-									<div>
+									<Box xcss={styles.menuContainer}>
 										<ButtonItem>Menu item 1</ButtonItem>
 										<ButtonItem>Menu item 2</ButtonItem>
-									</div>
+									</Box>
 								)}
 								trigger={(triggerProps) => (
 									<IconButton
@@ -262,10 +267,10 @@ export const ButtonMenuItemWithPopup = () => {
 								onClose={() => setIsNestedPopup2Open(false)}
 								placement="bottom-start"
 								content={() => (
-									<div>
+									<Box xcss={styles.menuContainer}>
 										<ButtonItem>Menu item 1</ButtonItem>
 										<ButtonItem>Menu item 2</ButtonItem>
-									</div>
+									</Box>
 								)}
 								trigger={(triggerProps) => (
 									<IconButton

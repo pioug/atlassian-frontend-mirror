@@ -60,7 +60,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 		if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
 			pmPlugins.push({
 				name: 'blockControlsSelectionPreservationPlugin',
-				plugin: createSelectionPreservationPlugin,
+				plugin: createSelectionPreservationPlugin(api),
 			});
 		}
 

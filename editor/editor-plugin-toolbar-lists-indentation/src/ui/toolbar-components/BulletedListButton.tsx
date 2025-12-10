@@ -18,7 +18,7 @@ type BulletedListType = {
 	parents: ToolbarComponentTypes;
 };
 
-export const BulletedListButton = ({ api, parents }: BulletedListType) => {
+export const BulletedListButton = ({ api, parents }: BulletedListType): React.JSX.Element => {
 	const { bulletMessage, onClick, isDisabled, isSelected } = useBulletedListInfo({
 		api,
 		parents,

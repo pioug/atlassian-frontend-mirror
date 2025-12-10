@@ -225,7 +225,7 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 		this.setState({ portal: portal || undefined });
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		if (this.props.disableSidebar) {
 			return this.renderExampleContent({});
 		}

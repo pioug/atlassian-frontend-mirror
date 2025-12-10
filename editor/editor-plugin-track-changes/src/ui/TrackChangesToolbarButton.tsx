@@ -18,7 +18,7 @@ type TrackChangesToolbarButtonProps = {
 export const TrackChangesToolbarButton = ({
 	api,
 	wrapper: Wrapper,
-}: TrackChangesToolbarButtonProps) => {
+}: TrackChangesToolbarButtonProps): React.JSX.Element => {
 	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
 	const { isDisplayingChanges, isShowDiffAvailable } = useSharedPluginStateWithSelector(

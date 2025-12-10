@@ -63,5 +63,5 @@ const ExpandBlockMenuItem = ({ api }: Props) => {
 };
 
 export const createExpandBlockMenuItem = (api: ExtractInjectionAPI<ExpandPlugin> | undefined) => {
-	return () => <ExpandBlockMenuItem api={api} />;
+	return (): React.JSX.Element => <ExpandBlockMenuItem api={api} />;
 };

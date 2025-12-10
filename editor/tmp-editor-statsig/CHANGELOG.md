@@ -1,5 +1,33 @@
 # @atlaskit/editor-statsig-tmp
 
+## 15.7.1
+
+### Patch Changes
+
+- [`d94330c37d126`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d94330c37d126) -
+  tidy up ff platform_editor_disable_table_overflow_shadows
+
+## 15.7.0
+
+### Minor Changes
+
+- [`ef8a15fab8805`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef8a15fab8805) -
+  Remove platform_editor_renderer_breakout_fix experiment configuration
+
+## 15.6.0
+
+### Minor Changes
+
+- [`63c5e344d169c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63c5e344d169c) -
+  Reduce the VC impact of the editor toolbar
+
+## 15.5.0
+
+### Minor Changes
+
+- [`081b4e257529b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/081b4e257529b) -
+  Support sharded routing for collab presence socket connections
+
 ## 15.4.0
 
 ### Minor Changes

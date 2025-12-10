@@ -11,7 +11,7 @@ export const DeleteSection = ({
 }: {
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
 	children: React.ReactNode;
-}) => {
+}): React.JSX.Element | null => {
 	const selection = api?.selection?.sharedState?.currentState()?.selection;
 	const isEmptyLineSelected = !!selection?.empty;
 

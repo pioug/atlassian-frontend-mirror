@@ -12,7 +12,7 @@ export const OverflowSection = ({
 	children: React.ReactNode;
 	hasSeparator?: boolean | SeparatorPosition;
 	testId?: string;
-}) => {
+}): React.JSX.Element | null => {
 	const { editorAppearance } = useEditorToolbar();
 	if (editorAppearance === 'full-page') {
 		return null;

@@ -18,4 +18,5 @@ export type AnalyticsEventSource =
 	| 'agentProfileScreen'
 	| 'teamRestoreScreen'
 	| 'teamsPage'
-	| 'directoryScreen';
+	| 'directoryScreen'
+	| 'teamProfileCard';

@@ -75,7 +75,7 @@ const runSSR = async (containerId: string, hydrate?: boolean) => {
 	}
 };
 
-export default () => {
+export default (): React.JSX.Element => {
 	const serverOnlyId = 'container-ssr';
 	const hydrationId = 'container-hydration';
 	useEffect(() => {

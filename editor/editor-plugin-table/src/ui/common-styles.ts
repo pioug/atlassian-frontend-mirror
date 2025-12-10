@@ -27,6 +27,7 @@ import {
 	SelectionStyle,
 	relativeSizeToBaseFontSize,
 	relativeFontSizeToBase16,
+	akEditorSelectedBorderColor,
 } from '@atlaskit/editor-shared-styles';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -115,6 +116,13 @@ const rangeSelectionStyles = `
       content: '';
     }
   }
+}
+`;
+
+const rangeSelectionStylesForFakeBorders = `
+.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName} .pm-table-left-border,
+.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName} .pm-table-right-border {
+	  background: ${akEditorSelectedBorderColor};
 }
 `;
 
@@ -291,47 +299,6 @@ const tableStickyHeaderFirefoxFixStyle = () => {
 	}
 };
 
-/**
- * Styles for the table scroll inline shadow
- * inspired by https://css-scroll-shadows.vercel.app/
- */
-const tableScrollInlineShadowStyles = () => {
-	return css`
-		.${ClassName.TABLE_SCROLL_INLINE_SHADOW} {
-			--editor-table-shadow-cover: #fff;
-			--editor-table-shadow-color: ${token('elevation.shadow.overflow.spread')};
-			--editor-table-shadow-size: ${token('space.100', '8px')};
-			background-image:
-				linear-gradient(to right, var(--editor-table-shadow-cover) 33%, transparent),
-				linear-gradient(to right, transparent, var(--editor-table-shadow-cover) 66%),
-				linear-gradient(to right, var(--editor-table-shadow-color), transparent),
-				linear-gradient(to left, var(--editor-table-shadow-color), transparent);
-			background-size:
-				calc(var(--editor-table-shadow-size) * 3) 100%,
-				calc(var(--editor-table-shadow-size) * 3) 100%,
-				calc(var(--editor-table-shadow-size) * 1) 100%,
-				calc(var(--editor-table-shadow-size) * 1) 100%;
-			background-position:
-				left ${token('space.300', '24px')},
-				right ${token('space.300', '24px')},
-				left ${token('space.300', '24px')},
-				right ${token('space.300', '24px')};
-			background-attachment: local, local, scroll, scroll;
-			background-repeat: no-repeat;
-
-			th,
-			td {
-				mix-blend-mode: multiply;
-			}
-		}
-
-		.${ClassName.TABLE_STICKY} .${ClassName.TABLE_SCROLL_INLINE_SHADOW} tr.sticky th,
-		.${ClassName.TABLE_STICKY} .${ClassName.TABLE_SCROLL_INLINE_SHADOW} tr.sticky td {
-			mix-blend-mode: normal;
-		}
-	`;
-};
-
 // re-exporting these styles to use in Gemini test when table node view is rendered outside of PM
 export const baseTableStyles = (props: {
 	featureFlags?: FeatureFlags;
@@ -345,6 +312,7 @@ export const baseTableStyles = (props: {
 	${insertLine()};
 	${resizeHandle()};
 	${rangeSelectionStyles};
+	${fg('platform_editor_table_numbered_table_border') && rangeSelectionStylesForFakeBorders};
 	${viewModeSortStyles()};
 	${expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
 	expValEquals(
@@ -381,9 +349,6 @@ export const baseTableStyles = (props: {
 			}
 		}
 	}
-
-	${expValEquals('platform_editor_disable_table_overflow_shadows', 'cohort', 'variant3') &&
-	tableScrollInlineShadowStyles()}
 
 	.${ClassName.CONTROLS_FLOATING_BUTTON_COLUMN} {
 		${insertColumnButtonWrapper()}
@@ -1304,7 +1269,20 @@ export const baseTableStyles = (props: {
 		top: ${tableMarginTop}px;
 	}
 
+	${fg('platform_editor_table_sticky_header_patch_1')
+		? `
 	.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} > .${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER} {
+		/* +2px is to overlap the table border on the sides */
+		width: calc(anchor-size(width) + 2px);
+		height: ${tableMarginTop}px;
+		background: ${token('elevation.surface')};
+		top: unset;
+		position: fixed;
+		position-area: top center;
+		position-visibility: anchors-visible;
+		z-index: ${nativeStickyHeaderZIndex + 1};
+	}`
+		: `.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} > .${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER} {
 		/* +2px is to overlap the table border on the sides */
 		width: calc(anchor-size(width) + 2px);
 		height: ${tableMarginTop}px;
@@ -1313,7 +1291,7 @@ export const baseTableStyles = (props: {
 		position-area: top center;
 		position-visibility: anchors-visible;
 		z-index: ${nativeStickyHeaderZIndex + 1};
-	}
+	}`}
 
 	/** Mask for content to the left of the column controls */
 
@@ -1342,24 +1320,42 @@ export const baseTableStyles = (props: {
 		outline: 1px solid ${tableBorderColor};
 		border-left: 1px solid ${tableBorderColor};
 		background: ${token('color.background.accent.gray.subtlest')};
+		${fg('platform_editor_table_sticky_header_patch_1')
+			? `border-top: 1px solid ${tableBorderColor};`
+			: ``}
 	}
 
 	.${ClassName.TABLE_CONTAINER}[data-number-column="true"].${ClassName.TABLE_SELECTED} .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.HOVERED_CELL_IN_DANGER}):first-of-type::before, .${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.HOVERED_CELL_IN_DANGER}, .${ClassName.COLUMN_SELECTED}):first-of-type::before {
 		outline: none;
 		border-left-color: ${tableBorderSelectedColor};
+		${fg('platform_editor_table_sticky_header_patch_1')
+			? `border-top-color: ${tableBorderSelectedColor};`
+			: ``}
 		background: ${tableHeaderCellSelectedColor};
 	}
 
-	.${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.HOVERED_CELL_IN_DANGER}:not(.${ClassName.COLUMN_SELECTED}):first-of-type::before {
-		outline: none;
-		background: ${tableCellDeleteColor};
-	}
-
-	.${ClassName.TABLE_CONTAINER}[data-number-column="true"].${ClassName.HOVERED_DELETE_BUTTON} .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.COLUMN_SELECTED}):first-of-type::before {
+	${fg('platform_editor_table_sticky_header_patch_1')
+		? `.${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.HOVERED_CELL_IN_DANGER}:first-of-type::before, .${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.HOVERED_CELL_IN_DANGER}:not(.${ClassName.COLUMN_SELECTED}):first-of-type::before {
+			outline: none;
+			border-left: unset;
+			border-top: unset;
+			background: ${tableCellDeleteColor};
+		}
+		.${ClassName.TABLE_CONTAINER}[data-number-column="true"].${ClassName.TABLE_SELECTED}.${ClassName.HOVERED_DELETE_BUTTON} .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th:first-of-type::before, .${ClassName.TABLE_CONTAINER}[data-number-column="true"].${ClassName.HOVERED_DELETE_BUTTON} .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.COLUMN_SELECTED}):first-of-type::before {
 		outline: none;
 		border-left-color: ${tableBorderDeleteColor};
+		border-top-color: ${tableBorderDeleteColor};
 		background: ${tableCellDeleteColor};
-	}
+		}`
+		: `	.${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.HOVERED_CELL_IN_DANGER}:not(.${ClassName.COLUMN_SELECTED}):first-of-type::before {
+				outline: none;
+				background: ${tableCellDeleteColor};
+			}
+			.${ClassName.TABLE_CONTAINER}[data-number-column="true"].${ClassName.HOVERED_DELETE_BUTTON} .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.COLUMN_SELECTED}):first-of-type::before {
+				outline: none;
+				border-left-color: ${tableBorderDeleteColor};
+				background: ${tableCellDeleteColor};
+		}`}
 
 	.${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} .${ClassName.NATIVE_STICKY_ACTIVE} th:first-of-type::before {
 		box-shadow: 0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter')};

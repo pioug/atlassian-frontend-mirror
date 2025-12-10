@@ -83,7 +83,7 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@types/react-virtualized": "root:*"
 	},
 	"techstack": {

@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { DefaultError, GraphQLError } from '../../common/utils/error';
 import { BaseClient, type ClientConfig } from '../base-client';
 
@@ -19,10 +17,10 @@ export class BaseGraphQlClient extends BaseClient {
 	}
 
 	/**
-	 * Creates query context headers if cloudId is available and feature flag is enabled.
+	 * Creates query context headers if cloudId is available.
 	 */
 	private createQueryContextHeaders(cloudId?: string | null): Record<string, string> | undefined {
-		if (!cloudId || !fg('enable_x_query_context_header')) {
+		if (!cloudId) {
 			return undefined;
 		}
 

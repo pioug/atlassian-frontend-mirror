@@ -27,6 +27,19 @@ const styles = cssMap({
 			display: 'none',
 		},
 	},
+	// Uses ancestor to provide container query context
+	responsiveContainerFullPage: {
+		width: 'fit-content',
+
+		// @ts-expect-error - unsure why TS is failing here but not above
+		'.show-above-sm, .show-above-md, .show-above-lg, .show-above-xl': {
+			display: 'block',
+		},
+
+		'.show-below-sm, .show-below-md, .show-below-lg, .show-below-xl': {
+			display: 'none',
+		},
+	},
 	// Preset: fullpage (410, 476, 768, 1024)
 	// Used for editor full-page experiences
 	fullpage: {
@@ -465,18 +478,31 @@ export const ResponsiveContainer = ({
 	children,
 	breakpointPreset,
 	reducedBreakpoints,
-}: ResponsiveContainerProps) => {
+}: ResponsiveContainerProps): React.JSX.Element => {
 	// Use new preset-based logic when preset is provided and feature gate is enabled
 	if (breakpointPreset && fg('platform_editor_toolbar_aifc_responsive_improve')) {
 		return (
-			<Box xcss={cx(styles.responsiveContainer, presetStyleMap[breakpointPreset])}>{children}</Box>
+			<Box
+				xcss={cx(
+					expValEquals('platform_editor_reduce_toolbar_vc_impact', 'isEnabled', true) &&
+						breakpointPreset === 'fullpage'
+						? styles.responsiveContainerFullPage
+						: styles.responsiveContainer,
+					presetStyleMap[breakpointPreset],
+				)}
+			>
+				{children}
+			</Box>
 		);
 	}
 
 	return (
 		<Box
 			xcss={cx(
-				styles.responsiveContainer,
+				expValEquals('platform_editor_reduce_toolbar_vc_impact', 'isEnabled', true) &&
+					breakpointPreset === 'fullpage'
+					? styles.responsiveContainerFullPage
+					: styles.responsiveContainer,
 				reducedBreakpoints ? styles.responsiveRulesReduced : styles.responsiveRules,
 				reducedBreakpoints &&
 					expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) &&
@@ -491,6 +517,6 @@ export const ResponsiveContainer = ({
 /**
  * A wrapper that supports responsiveness with media queries. It needs to used together with Show component
  */
-export const ResponsiveWrapper = ({ children }: { children: ReactNode }) => {
+export const ResponsiveWrapper = ({ children }: { children: ReactNode }): React.JSX.Element => {
 	return <Box xcss={styles.responsiveRulesWrapper}>{children}</Box>;
 };

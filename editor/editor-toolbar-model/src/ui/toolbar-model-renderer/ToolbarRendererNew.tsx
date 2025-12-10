@@ -137,7 +137,7 @@ const ComponentRenderer = ({
 	);
 };
 
-export const ToolbarModelRenderer = ({ toolbar, components, fallbacks }: ToolbarProps) => {
+export const ToolbarModelRenderer = ({ toolbar, components, fallbacks }: ToolbarProps): React.JSX.Element => {
 	const ToolbarComponent = toolbar.component || NoOp;
 
 	const sections = getSortedChildren(components.filter(isSection), toolbar.key);

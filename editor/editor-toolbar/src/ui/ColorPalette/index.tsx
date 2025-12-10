@@ -61,7 +61,7 @@ const ColorPalette = ({
 	onKeyDown,
 	selectedColor,
 	paletteOptions,
-}: ColorPaletteProps) => {
+}: ColorPaletteProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { palette, hexToPaletteColor, paletteColorTooltipMessages } = paletteOptions;
 

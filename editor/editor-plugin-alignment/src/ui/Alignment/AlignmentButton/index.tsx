@@ -15,7 +15,7 @@ export interface Props {
 	value: AlignmentState;
 }
 
-function AlignmentButton({ label, isSelected, content, shortcut, onClick, value }: Props) {
+function AlignmentButton({ label, isSelected, content, shortcut, onClick, value }: Props): React.JSX.Element {
 	const onClickCallback = (e: React.MouseEvent<HTMLElement>) => {
 		// detect if the click event comes from keyboard where screenX and screenY are 0
 		const isMouseEvent = e instanceof MouseEvent;

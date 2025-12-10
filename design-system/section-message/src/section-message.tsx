@@ -8,6 +8,7 @@ import { IconButton } from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import CrossIcon from '@atlaskit/icon/core/migration/cross';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -20,6 +21,10 @@ const sectionMessageStyles = cssMap({
 		borderRadius: token('radius.small'),
 		paddingBlock: token('space.200'),
 		paddingInline: token('space.200'),
+	},
+	// platform-dst-shape-theme-default TODO: Merge into base after rollout
+	containerT26Shape: {
+		borderRadius: token('radius.large'),
 	},
 	iconContainer: {
 		display: 'flex',
@@ -96,7 +101,11 @@ const SectionMessage: React.ForwardRefExoticComponent<
 		<section
 			data-testid={testId}
 			ref={ref}
-			css={[sectionMessageStyles.container, appearanceStyles[appearance]]}
+			css={[
+				sectionMessageStyles.container,
+				fg('platform-dst-shape-theme-default') && sectionMessageStyles.containerT26Shape,
+				appearanceStyles[appearance],
+			]}
 		>
 			<Inline space="space.200" alignBlock="stretch">
 				<div css={sectionMessageStyles.iconContainer}>

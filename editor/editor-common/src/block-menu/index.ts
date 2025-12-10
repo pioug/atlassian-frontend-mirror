@@ -92,7 +92,8 @@ export {
 } from './rank-deprecated';
 
 export {
+	createBlockLinkHashValue,
 	DEFAULT_BLOCK_LINK_HASH_PREFIX,
-	isBlockLinkHash,
 	extractBlockIdFromLinkHash,
+	isBlockLinkHash,
 } from './block-link';

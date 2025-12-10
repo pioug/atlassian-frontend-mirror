@@ -7,6 +7,6 @@ import document from './helper/media-layout.adf.json';
 const mediaProvider = storyMediaProviderFactory();
 const providerFactory = ProviderFactory.create({ mediaProvider });
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return <Renderer dataProviders={providerFactory} document={document} appearance="full-page" />;
 }

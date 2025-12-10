@@ -1,5 +1,12 @@
 # @atlaskit/feedback-collector
 
+## 14.6.9
+
+### Patch Changes
+
+- [`8ebe198b3a2a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ebe198b3a2a1) -
+  [ux] Add an optional prop to show / hide the required fields summary
+
 ## 14.6.8
 
 ### Patch Changes

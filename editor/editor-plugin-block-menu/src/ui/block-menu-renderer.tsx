@@ -85,7 +85,7 @@ const getSortedNonNestedSections = (components: RegisterBlockMenuComponent[]) =>
 	return components.filter(isNonNestedMenuSection).sort((a, b) => (a.rank || 0) - (b.rank || 0));
 };
 
-export const BlockMenuRenderer = ({ components, fallbacks }: BlockMenuProps) => {
+export const BlockMenuRenderer = ({ components, fallbacks }: BlockMenuProps): React.JSX.Element => {
 	const menuSections = getSortedNonNestedSections(components);
 	const menuItems = components.filter(isMenuItem);
 	const nestedMenus = components.filter(isNestedMenu);

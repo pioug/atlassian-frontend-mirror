@@ -341,7 +341,7 @@ export const ExampleAnnotationProductState = ({
 	children: React.ReactNode;
 	initialAnnotationState: MockAnnotationState;
 	initialDoc: DocNode;
-}) => {
+}): React.JSX.Element => {
 	const [state, dispatch] = React.useReducer(productStateReducer, {
 		drafts: {},
 		annotationState: initialAnnotationState,

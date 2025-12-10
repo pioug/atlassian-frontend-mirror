@@ -12,7 +12,7 @@ export const MenuSection = ({
 	children?: ReactNode;
 	parents: CommonComponentProps['parents'];
 	title?: string;
-}) => {
+}): React.JSX.Element => {
 	const hasSeparator = parents.some((parent) => parent.key === TEXT_COLLAPSED_MENU.key);
 
 	return (

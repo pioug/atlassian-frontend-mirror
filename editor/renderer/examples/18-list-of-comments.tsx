@@ -40,7 +40,7 @@ const myComment = {
 	],
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<SmartCardProvider client={new CardClient('staging')}>
 			<RendererDemo

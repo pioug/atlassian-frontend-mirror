@@ -32,7 +32,7 @@ export default class Example extends Component<{}, State> {
 		});
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<div>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}

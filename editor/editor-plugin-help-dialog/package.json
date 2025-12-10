@@ -51,7 +51,7 @@
 		"react-loadable": "root:*"
 	},
 	"devDependencies": {
-		"@testing-library/react": "root:*"
+		"@testing-library/react": "^16.3.0"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",

@@ -7,6 +7,7 @@ import React, { forwardRef, useCallback, useRef } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type TextfieldProps } from './types';
@@ -222,6 +223,14 @@ const containerStyles = css({
 	},
 });
 
+const containerStylesT26Shape = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/design-system/no-nested-styles
+	'&&': {
+		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+		borderRadius: token('radius.medium', '6px'),
+	},
+});
+
 const inputDisabledStyle = css({
 	color: token('color.text.disabled'),
 	'&::placeholder': {
@@ -420,6 +429,7 @@ const Textfield: React.ForwardRefExoticComponent<
 			}}
 			css={[
 				containerStyles,
+				fg('platform-dst-shape-theme-default') && containerStylesT26Shape,
 				getContainerTextBgAndBorderColor[appearance],
 				containerStyleAppearance[appearance],
 				!isDisabled && focusWithinStyle[appearance],

@@ -5,7 +5,7 @@ import {
 	DEGRADED_SEVERITY_THRESHOLD,
 } from '../../renderer/src/ui/Renderer';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<RendererDemo
 			appearance="full-page"

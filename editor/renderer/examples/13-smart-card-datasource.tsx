@@ -8,7 +8,7 @@ import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasou
 
 mockDatasourceFetchRequests();
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<SmartCardProvider>
 			<Renderer document={document} appearance="full-page" />

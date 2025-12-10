@@ -6,7 +6,6 @@
 import { css, jsx } from '@emotion/react';
 import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import {
-	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 	akEditorMaxLayoutWidth,
 	blockNodesVerticalMargin,
@@ -36,10 +35,7 @@ const getWidth = (width: number | null, mode: BreakoutMode) => {
 		}
 
 		if (mode === 'full-width') {
-			if (expValEquals('platform_editor_renderer_breakout_fix', 'isEnabled', true)) {
-				return `min(${akEditorFullWidthLayoutWidth}px, var(--ak-editor--breakout-container-without-gutter-width))`;
-			}
-			return `max(${akEditorDefaultLayoutWidth}px, min(${akEditorFullWidthLayoutWidth}px, var(--ak-editor--breakout-container-without-gutter-width)))`;
+			return `min(${akEditorFullWidthLayoutWidth}px, var(--ak-editor--breakout-container-without-gutter-width))`;
 		}
 		if (mode === 'wide') {
 			return `min(var(--ak-editor--breakout-wide-layout-width), var(--ak-editor--breakout-container-without-gutter-width))`;

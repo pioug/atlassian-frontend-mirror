@@ -39,7 +39,6 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	platform_inline_smartcard_connect_button_exp: 'control',
 	confluence_content_mode_replace_dense_with_compact: 'control',
 	cc_editor_insm_outlier_events: 'test',
-	platform_editor_disable_table_overflow_shadows: 'control',
 	platform_editor_hoverlink_ui_fixes_exp: 'control',
 	platform_editor_table_sticky_header_improvements: 'control',
 	platform_sl_3p_unauth_paste_as_block_card: 'control',
@@ -48,7 +47,6 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_feedback_mandatory_rating: false,
 	platform_editor_preview_panel_responsiveness: false,
-	platform_editor_renderer_breakout_fix: false,
 	platform_editor_toolbar_aifc: false,
 	platform_editor_block_control_optimise_render: false,
 	'test-new-experiments-package': false,

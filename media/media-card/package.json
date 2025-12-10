@@ -104,6 +104,9 @@
 		"wait-for-expect": "root:*"
 	},
 	"platform-feature-flags": {
+		"platform_media_auth_provider_analytics": {
+			"type": "boolean"
+		},
 		"platform-filecard-ufo-trace": {
 			"type": "boolean"
 		},

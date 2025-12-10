@@ -2,6 +2,8 @@ import { resolveAuth, resolveInitialAuth } from '../../client/media-store/resolv
 import { MediaStoreError } from '../../client/media-store/error';
 import { type AsapBasedAuth, type AuthProvider } from '@atlaskit/media-core';
 import { resolveTimeout } from '../../utils/setTimeoutPromise';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { globalMediaEventEmitter } from '../../globalMediaEventEmitter';
 
 // expires in 1619827800000
 const token =
@@ -73,4 +75,135 @@ describe('resolveInitialAuth', () => {
 		}
 		expect.assertions(2);
 	});
+});
+
+describe('resolveAuth with globalMediaEventEmitter', () => {
+	let emitSpy: jest.SpyInstance;
+
+	beforeEach(() => {
+		emitSpy = jest.spyOn(globalMediaEventEmitter, 'emit');
+	});
+
+	afterEach(() => {
+		emitSpy.mockRestore();
+	});
+
+	ffTest.on(
+		'platform_media_auth_provider_analytics',
+		'when platform_media_auth_provider_analytics is enabled',
+		() => {
+			it('should emit auth-provider-succeeded event when auth resolves successfully', async () => {
+				const provider = async () => auth;
+				const authContext = { collectionName: 'test-collection' };
+
+				await resolveAuth(provider, authContext, 10000);
+
+				expect(emitSpy).toHaveBeenCalledTimes(1);
+				expect(emitSpy).toHaveBeenCalledWith('auth-provider-succeeded', {
+					durationMs: expect.any(Number),
+					timeoutMs: 10000,
+					authContext,
+				});
+			});
+
+			it('should emit auth-provider-failed event when auth provider rejects', async () => {
+				const someError = new Error('some-error');
+				const provider = () => Promise.reject(someError);
+				const authContext = { collectionName: 'test-collection' };
+
+				try {
+					await resolveAuth(provider, authContext, 10000);
+				} catch (e) {
+					// Expected error
+				}
+
+				expect(emitSpy).toHaveBeenCalledTimes(1);
+				expect(emitSpy).toHaveBeenCalledWith('auth-provider-failed', {
+					durationMs: expect.any(Number),
+					timeoutMs: 10000,
+					authContext,
+					error: someError,
+				});
+			});
+
+			it('should emit auth-provider-failed event for late arrival when auth provider times out', async () => {
+				const AUTH_PROVIDER_TIMEOUT = 1;
+				const provider = () => resolveTimeout(AUTH_PROVIDER_TIMEOUT + 50, auth);
+				const authContext = { collectionName: 'test-collection' };
+
+				try {
+					await resolveAuth(provider, authContext, AUTH_PROVIDER_TIMEOUT);
+				} catch (e) {
+					// Expected error - timeout fires first
+				}
+
+				// Wait for the authProvider to complete (late arrival)
+				await resolveTimeout(100, undefined);
+
+				// Event emitted for the late arrival
+				expect(emitSpy).toHaveBeenCalledTimes(1);
+				expect(emitSpy).toHaveBeenCalledWith('auth-provider-failed', {
+					durationMs: expect.any(Number),
+					timeoutMs: AUTH_PROVIDER_TIMEOUT,
+					authContext,
+					error: expect.any(MediaStoreError),
+				});
+			});
+
+			it('should emit auth-provider-failed event once for late failure after timeout', async () => {
+				const AUTH_PROVIDER_TIMEOUT = 10;
+				// Provider rejects after timeout
+				const provider = () =>
+					resolveTimeout(AUTH_PROVIDER_TIMEOUT + 50, undefined).then(() => {
+						throw new Error('late-failure');
+					});
+
+				try {
+					await resolveAuth(provider, {}, AUTH_PROVIDER_TIMEOUT);
+				} catch (e) {
+					// Expected error - timeout fires first
+				}
+
+				// Wait for the late failure to complete
+				await resolveTimeout(100, undefined);
+
+				// Event emitted once for the late failure
+				expect(emitSpy).toHaveBeenCalledTimes(1);
+				expect(emitSpy).toHaveBeenCalledWith(
+					'auth-provider-failed',
+					expect.objectContaining({
+						durationMs: expect.any(Number),
+						timeoutMs: AUTH_PROVIDER_TIMEOUT,
+						error: expect.any(Error),
+					}),
+				);
+			});
+		},
+	);
+
+	ffTest.off(
+		'platform_media_auth_provider_analytics',
+		'when platform_media_auth_provider_analytics is disabled',
+		() => {
+			it('should not emit events when feature flag is off', async () => {
+				const provider = async () => auth;
+				await resolveAuth(provider, {}, 10000);
+
+				expect(emitSpy).not.toHaveBeenCalled();
+			});
+
+			it('should not emit events when provider rejects and feature flag is off', async () => {
+				const someError = new Error('some-error');
+				const provider = () => Promise.reject(someError);
+
+				try {
+					await resolveAuth(provider, {}, 10000);
+				} catch (e) {
+					// Expected error
+				}
+
+				expect(emitSpy).not.toHaveBeenCalled();
+			});
+		},
+	);
 });

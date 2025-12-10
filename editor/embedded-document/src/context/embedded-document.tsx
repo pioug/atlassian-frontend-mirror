@@ -238,7 +238,7 @@ export default class EmbeddedDocument extends Component<Props, State> {
 		return this.props.children;
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { renderTitle, renderToolbar } = this.props;
 		return (
 			<Context.Provider

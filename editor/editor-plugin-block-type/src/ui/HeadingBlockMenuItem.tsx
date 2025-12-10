@@ -91,5 +91,5 @@ const HeadingBlockMenuItem = ({ level, api }: HeadingBlockMenuItemProps) => {
 };
 
 export const createHeadingBlockMenuItem = ({ level, api }: HeadingBlockMenuItemProps) => {
-	return () => <HeadingBlockMenuItem level={level} api={api} />;
+	return (): React.JSX.Element => <HeadingBlockMenuItem level={level} api={api} />;
 };

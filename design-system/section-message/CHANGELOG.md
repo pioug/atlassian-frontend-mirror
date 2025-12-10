@@ -1,5 +1,16 @@
 # @atlaskit/section-message
 
+## 8.10.0
+
+### Minor Changes
+
+- [`b867e641d818d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b867e641d818d) -
+  Updated border radius values behind a feature gate `platform-dst-shape-theme-default`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.9.4
 
 ### Patch Changes

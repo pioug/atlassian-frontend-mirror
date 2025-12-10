@@ -52,6 +52,9 @@
 			"path": "../motion/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../portal/tsconfig.app.json"
 		},
 		{

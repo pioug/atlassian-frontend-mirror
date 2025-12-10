@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/calendar",
-	"version": "17.1.27",
+	"version": "17.2.0",
 	"description": "An interactive calendar for date selection experiences.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,6 +31,7 @@
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/locale": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -91,6 +92,10 @@
 		"./types": "./src/entry-points/types.tsx",
 		".": "./src/index.tsx"
 	},
-	"platform-feature-flags": {},
+	"platform-feature-flags": {
+		"platform-dst-shape-theme-default": {
+			"type": "boolean"
+		}
+	},
 	"homepage": "https://atlassian.design/components/calendar/"
 }

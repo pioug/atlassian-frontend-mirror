@@ -17,7 +17,7 @@ const SVGContainer = ({ children }: React.PropsWithChildren<object>) => (
 	</span>
 );
 
-export const Text = () => (
+export const Text = (): React.JSX.Element => (
 	<SVGContainer>
 		<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
@@ -30,7 +30,7 @@ export const Text = () => (
 	</SVGContainer>
 );
 
-export const H1 = () => (
+export const H1 = (): React.JSX.Element => (
 	<SVGContainer>
 		<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
@@ -43,7 +43,7 @@ export const H1 = () => (
 	</SVGContainer>
 );
 
-export const H2 = () => (
+export const H2 = (): React.JSX.Element => (
 	<SVGContainer>
 		<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
@@ -57,7 +57,7 @@ export const H2 = () => (
 	</SVGContainer>
 );
 
-export const H3 = () => (
+export const H3 = (): React.JSX.Element => (
 	<SVGContainer>
 		<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
@@ -70,7 +70,7 @@ export const H3 = () => (
 	</SVGContainer>
 );
 
-export const H4 = () => (
+export const H4 = (): React.JSX.Element => (
 	<SVGContainer>
 		<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
@@ -83,7 +83,7 @@ export const H4 = () => (
 	</SVGContainer>
 );
 
-export const H5 = () => (
+export const H5 = (): React.JSX.Element => (
 	<SVGContainer>
 		<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
@@ -96,7 +96,7 @@ export const H5 = () => (
 	</SVGContainer>
 );
 
-export const H6 = () => (
+export const H6 = (): React.JSX.Element => (
 	<SVGContainer>
 		<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path

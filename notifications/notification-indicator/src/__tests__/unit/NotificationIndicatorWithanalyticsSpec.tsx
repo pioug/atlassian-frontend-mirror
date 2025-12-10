@@ -98,6 +98,8 @@ describe('NotificationIndicator', () => {
 				refreshSource: 'mount',
 			},
 		});
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('Should trigger analytics events when activating on timer', async () => {
@@ -130,6 +132,8 @@ describe('NotificationIndicator', () => {
 				refreshSource: 'timer',
 			},
 		});
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('Should not trigger an activated event more than once', async () => {
@@ -174,5 +178,7 @@ describe('NotificationIndicator', () => {
 				refreshSource: 'timer',
 			},
 		});
+
+		await expect(document.body).toBeAccessible();
 	});
 });

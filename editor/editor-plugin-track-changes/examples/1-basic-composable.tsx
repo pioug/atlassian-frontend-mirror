@@ -112,7 +112,7 @@ const createPreset = () =>
 		.add(showDiffPlugin)
 		.add(trackChangesPlugin);
 
-function Editor() {
+function Editor(): React.JSX.Element {
 	const { preset, editorApi } = usePreset(createPreset);
 
 	const isSelected = useSharedPluginStateSelector(editorApi, 'trackChanges.isDisplayingChanges');

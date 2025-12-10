@@ -3,7 +3,7 @@ import RendererDemo from './helper/RendererDemo';
 import { IntlProvider } from 'react-intl-next';
 import { getTranslations } from './helper/get-translations';
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const [locale] = useState('en');
 	const [messages, setMessages] = useState({});
 

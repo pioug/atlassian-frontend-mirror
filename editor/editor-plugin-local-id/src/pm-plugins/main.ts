@@ -1,5 +1,6 @@
 import { uuid } from '@atlaskit/adf-schema';
 import { BatchAttrsStep } from '@atlaskit/adf-schema/steps';
+import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { stepHasSlice } from '@atlaskit/editor-common/utils';
@@ -76,10 +77,12 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 				if (fg('platform_editor_localid_improvements')) {
 					if (nodesToUpdate.size > 0) {
 						batchAddLocalIdToNodes(nodesToUpdate, tr);
+						tintDirtyTransaction(tr);
 						editorView.dispatch(tr);
 					}
 				} else if (localIdWasAdded) {
 					tr.setMeta('addToHistory', false);
+					tintDirtyTransaction(tr);
 					editorView.dispatch(tr);
 				}
 			});

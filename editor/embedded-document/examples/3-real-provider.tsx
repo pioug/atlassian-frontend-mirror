@@ -38,7 +38,7 @@ const renderTitle = (mode: DocumentMode) => {
 	}
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<Container>
 			<EmbeddedDocument

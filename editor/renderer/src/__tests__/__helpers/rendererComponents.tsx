@@ -110,7 +110,7 @@ export const TableRendererOverflow = generateRendererComponent({
 	UNSTABLE_allowTableResizing: true,
 });
 
-export const TableRendererWithInlineComments = () => (
+export const TableRendererWithInlineComments = (): React.JSX.Element => (
 	<>
 		<TableRendererOverflow />
 		<div

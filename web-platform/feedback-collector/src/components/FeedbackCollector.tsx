@@ -124,6 +124,8 @@ export interface Props {
 	shouldReturnFocusRef?: React.RefObject<HTMLElement>;
 	/** Disable submit button to allow custom content to handle validation */
 	disableSubmitButton?: boolean;
+	/** Optional to show or hide the required fields summary */
+	showRequiredFieldsSummary?: boolean;
 }
 
 const MAX_SUMMARY_LENGTH_CHARS = 100;
@@ -534,6 +536,7 @@ export default class FeedbackCollector extends Component<Props> {
 					enrolInResearchLink: this.props.enrolInResearchLink,
 					canBeContactedLink: this.props.canBeContactedLink,
 				})}
+				showRequiredFieldsSummary={this.props.showRequiredFieldsSummary}
 			/>
 		);
 	}

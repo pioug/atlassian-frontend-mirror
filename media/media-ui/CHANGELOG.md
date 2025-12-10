@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 28.7.18
+
+### Patch Changes
+
+- [`f73452fffe533`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f73452fffe533) -
+  [ux] Remove feature gate to control rollout of default code viewer for text/plain files
+- Updated dependencies
+
 ## 28.7.17
 
 ### Patch Changes

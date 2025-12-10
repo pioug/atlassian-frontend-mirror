@@ -27,6 +27,10 @@ const anchorStyles = cssMap({
 	customLogoBorderRadius: {
 		borderRadius: token('radius.small', '3px'),
 	},
+	// platform-dst-shape-theme-default TODO: Merge into base after rollout
+	customLogoBorderRadiusT26Shape: {
+		borderRadius: token('radius.large', '8px'),
+	},
 	newMargin: {
 		// Additional margin is added to the left of the interactive element, to create visual alignment
 		// with the app tile icon and the other icon buttons that use normal (non-tile) icons.
@@ -223,6 +227,7 @@ export const CustomLogo = ({
 			xcss={cx(
 				anchorStyles.root,
 				anchorStyles.customLogoBorderRadius,
+				fg('platform-dst-shape-theme-default') && anchorStyles.customLogoBorderRadiusT26Shape,
 				anchorStyles.newMargin,
 				hasCustomTheme
 					? anchorStyles.newInteractionStatesCustomTheming

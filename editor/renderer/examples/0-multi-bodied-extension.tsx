@@ -12,7 +12,7 @@ const dataProviders = ProviderFactory.create({
 	extensionProvider: Promise.resolve(getExampleExtensionProviders(undefined)),
 });
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	createRendererWindowBindings(window);
 	return (
 		<div id="renderer-container">

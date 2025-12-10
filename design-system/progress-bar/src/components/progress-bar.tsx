@@ -7,6 +7,7 @@ import React from 'react';
 
 import { css, cssMap, jsx, keyframes } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { G300, N40A, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -34,6 +35,10 @@ const containerStyles = css({
 	overflow: 'hidden',
 });
 
+const containerStylesT26Shape = css({
+	borderRadius: 0,
+});
+
 const containerAppearance = cssMap({
 	default: { backgroundColor: token('color.background.neutral', N40A) },
 	success: { backgroundColor: token('color.background.neutral', N40A) },
@@ -53,6 +58,10 @@ const barStyles = css({
 	height: 6,
 	position: 'absolute',
 	borderRadius: token('radius.small', '3px'),
+});
+
+const barStylesT26Shape = css({
+	borderRadius: 0,
 });
 
 const determinateBarStyles = css({
@@ -92,7 +101,11 @@ const ProgressBar = ({
 
 	return (
 		<div
-			css={[containerStyles, containerAppearance[appearance]]}
+			css={[
+				containerStyles,
+				fg('platform-dst-shape-theme-default') && containerStylesT26Shape,
+				containerAppearance[appearance],
+			]}
 			role="progressbar"
 			aria-label={ariaLabel}
 			aria-valuemin={MIN_VALUE}
@@ -102,13 +115,32 @@ const ProgressBar = ({
 		>
 			{isIndeterminate ? (
 				<React.Fragment>
-					<span css={[barStyles, barAppearance[appearance], increasingBarStyles]} />
-					<span css={[barStyles, barAppearance[appearance], decreasingBarStyles]} />
+					<span
+						css={[
+							barStyles,
+							barAppearance[appearance],
+							increasingBarStyles,
+							fg('platform-dst-shape-theme-default') && barStylesT26Shape,
+						]}
+					/>
+					<span
+						css={[
+							barStyles,
+							barAppearance[appearance],
+							decreasingBarStyles,
+							fg('platform-dst-shape-theme-default') && barStylesT26Shape,
+						]}
+					/>
 				</React.Fragment>
 			) : (
 				<span
 					style={{ width: `${Number(value) * 100}%` }}
-					css={[barStyles, barAppearance[appearance], determinateBarStyles]}
+					css={[
+						barStyles,
+						barAppearance[appearance],
+						determinateBarStyles,
+						fg('platform-dst-shape-theme-default') && barStylesT26Shape,
+					]}
 				/>
 			)}
 		</div>

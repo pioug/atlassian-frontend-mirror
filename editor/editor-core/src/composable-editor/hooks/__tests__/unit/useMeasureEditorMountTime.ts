@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import * as measures from '@atlaskit/editor-common/performance-measures';

@@ -14,7 +14,7 @@ export const MediaBaseRenderer = ({
 	adf: DocNode;
 	appearance?: RendererProps['appearance'];
 	nodeComponents?: RendererProps['nodeComponents'];
-}) => {
+}): React.JSX.Element => {
 	return (
 		<MockMediaClientProvider>
 			<Renderer

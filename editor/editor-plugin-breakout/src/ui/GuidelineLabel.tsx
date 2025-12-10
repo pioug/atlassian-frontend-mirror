@@ -33,7 +33,7 @@ export const GuidelineLabel = ({
 	mountPoint,
 	boundariesElement,
 	scrollableElement,
-}: GuidelineLabelProps) => {
+}: GuidelineLabelProps): React.JSX.Element | null => {
 	const breakoutNode = useSharedPluginStateSelector(api, 'breakout.breakoutNode');
 	const activeGuidelineKey = useSharedPluginStateSelector(api, 'breakout.activeGuidelineKey');
 

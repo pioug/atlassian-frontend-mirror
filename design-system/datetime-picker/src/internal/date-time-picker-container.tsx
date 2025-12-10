@@ -7,6 +7,7 @@ import { forwardRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type Appearance } from '../types';
@@ -69,6 +70,10 @@ const baseContainerStyles = css({
 		cursor: 'pointer',
 	},
 });
+// platform-dst-shape-theme-default TODO: Merge into base after rollout
+const baseContainerStylesT26Shape = css({
+	borderRadius: token('radius.medium'),
+});
 
 type DateTimePickerContainerProps = {
 	children?: React.ReactNode;
@@ -94,6 +99,7 @@ export const DateTimePickerContainer: React.ForwardRefExoticComponent<
 			<div
 				css={[
 					baseContainerStyles,
+					fg('platform-dst-shape-theme-default') && baseContainerStylesT26Shape,
 					newBorderStyles,
 					isDisabled && isDisabledStyles,
 					isFocused && isFocusedStyles,

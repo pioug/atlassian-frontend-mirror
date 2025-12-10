@@ -12,7 +12,7 @@ type ToolbarKeyboardShortcutHintProps = {
 export const ToolbarKeyboardShortcutHint = ({
 	shortcut,
 	isDisabled,
-}: ToolbarKeyboardShortcutHintProps) => {
+}: ToolbarKeyboardShortcutHintProps): React.JSX.Element => {
 	if (isDisabled && expValEquals('platform_editor_toolbar_aifc_patch_5', 'isEnabled', true)) {
 		return (
 			<Badge appearance="primaryInverted">

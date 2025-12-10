@@ -227,6 +227,11 @@ describe('ProfileCard analytics', () => {
 
 			expectEventToBeFired('ui', expectedErrorWithRetryEvent);
 		});
+
+		it('should capture and report a11y violations', async () => {
+			const { container } = renderProfileCard();
+			await expect(container).toBeAccessible();
+		});
 	});
 
 	ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
@@ -321,6 +326,11 @@ describe('ProfileCard analytics', () => {
 			});
 
 			expectEventToBeFired('ui', expectedErrorWithRetryEvent);
+		});
+
+		it('should capture and report a11y violations', async () => {
+			const { container } = renderProfileCard();
+			await expect(container).toBeAccessible();
 		});
 	});
 });

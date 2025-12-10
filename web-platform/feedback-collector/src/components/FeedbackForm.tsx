@@ -66,6 +66,8 @@ interface Props {
 	shouldReturnFocusRef?: React.RefObject<HTMLElement>;
 	/** Disable submit button to allow custom content to handle validation */
 	disableSubmitButton?: boolean;
+	/** Optional to show or hide the required fields summary */
+	showRequiredFieldsSummary?: boolean;
 }
 
 export interface OptionType {
@@ -111,6 +113,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 	customFeedbackOptions = [],
 	shouldReturnFocusRef,
 	disableSubmitButton,
+	showRequiredFieldsSummary = true,
 }) => {
 	const [canBeContacted, setCanBeContacted] = useState<FormFields['canBeContacted']>(false);
 	const [description, setDescription] = useState<FormFields['description']>('');
@@ -282,7 +285,9 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 						</ModalTitle>
 					</ModalHeader>
 					<ModalBody>
-						{requiredFieldsSummary}
+						{fg('ak_feedback_collector_hide_required_summary')
+							? showRequiredFieldsSummary && requiredFieldsSummary
+							: requiredFieldsSummary}
 						{feedbackTitleDetails}
 						{customContent}
 						{showTypeField ? (
@@ -499,7 +504,9 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 								</ModalTitle>
 							</ModalHeader>
 							<ModalBody>
-								{requiredFieldsSummary}
+								{fg('ak_feedback_collector_hide_required_summary')
+									? showRequiredFieldsSummary && requiredFieldsSummary
+									: requiredFieldsSummary}
 								{feedbackTitleDetails}
 								{customContent}
 								{showTypeField ? (

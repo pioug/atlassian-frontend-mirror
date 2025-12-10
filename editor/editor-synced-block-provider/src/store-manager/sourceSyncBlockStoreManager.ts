@@ -21,6 +21,9 @@ import {
 import { convertSyncBlockPMNodeToSyncBlockData } from '../utils/utils';
 
 export type ConfirmationCallback = (syncBlockCount: number) => Promise<boolean>;
+type OnDelete = () => void;
+type OnDeleteCompleted = (success: boolean) => void;
+type DestroyCallback = () => void;
 export type CreationCallback = () => void;
 type SyncBlockData = Data & {
 	/**
@@ -41,6 +44,12 @@ export class SourceSyncBlockStoreManager {
 	private syncBlockCache: Map<ResourceId, SyncBlockData>;
 
 	private confirmationCallback?: ConfirmationCallback;
+	private deletionRetryInfo?: {
+		destroyCallback: DestroyCallback;
+		onDelete: OnDelete;
+		onDeleteCompleted: OnDeleteCompleted;
+		syncBlockIds: SyncBlockAttrs[];
+	};
 
 	private pendingResourceId?: ResourceId;
 	private creationCallback?: CreationCallback;
@@ -258,53 +267,108 @@ export class SourceSyncBlockStoreManager {
 		}
 	};
 
+	private async delete(
+		syncBlockIds: SyncBlockAttrs[],
+		onDelete: OnDelete,
+		onDeleteCompleted: OnDeleteCompleted,
+	): Promise<boolean> {
+		try {
+			if (!this.dataProvider) {
+				throw new Error('Data provider not set');
+			}
+
+			syncBlockIds.forEach((Ids) => {
+				this.setPendingDeletion(Ids, true);
+			});
+			const results = await this.dataProvider.deleteNodesData(
+				syncBlockIds.map((attrs) => attrs.resourceId),
+			);
+
+			let callback;
+			const isDeleteSuccessful = results.every((result) => result.success);
+			onDeleteCompleted(isDeleteSuccessful);
+
+			if (isDeleteSuccessful) {
+				onDelete();
+				callback = (Ids: SyncBlockAttrs) => this.syncBlockCache.delete(Ids.resourceId);
+				this.clearPendingDeletion();
+			} else {
+				callback = (Ids: SyncBlockAttrs) => {
+					this.setPendingDeletion(Ids, false);
+				};
+
+				results
+					.filter((result) => result.resourceId === undefined)
+					.forEach((result) => {
+						this.fireAnalyticsEvent?.(
+							deleteErrorPayload(result.error || 'Failed to delete synced block'),
+						);
+					});
+			}
+			syncBlockIds.forEach(callback);
+			return isDeleteSuccessful;
+		} catch (error) {
+			syncBlockIds.forEach((Ids) => {
+				this.setPendingDeletion(Ids, false);
+			});
+			logException(error as Error, {
+				location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
+			});
+			this.fireAnalyticsEvent?.(deleteErrorPayload((error as Error).message));
+			onDeleteCompleted(false);
+			return false;
+		}
+	}
+
+	public isRetryingDeletion(): boolean {
+		return !!this.deletionRetryInfo;
+	}
+
+	public async retryDeletion(): Promise<void> {
+		if (!this.deletionRetryInfo) {
+			return Promise.resolve();
+		}
+		const { syncBlockIds, onDelete, onDeleteCompleted } = this.deletionRetryInfo;
+
+		if (this.confirmationCallback) {
+			await this.delete(syncBlockIds, onDelete, onDeleteCompleted);
+		}
+	}
+
+	public clearPendingDeletion(): void {
+		this.deletionRetryInfo?.destroyCallback();
+		this.deletionRetryInfo = undefined;
+	}
+
+	/**
+	 *
+	 * @param syncBlockIds - The sync block ids to delete
+	 * @param onDelete - The callback to delete sync block node from document
+	 * @param onDeleteCompleted - The callback for after the deletion is saved to BE (whether successful or not)
+	 * @param destroyCallback - The callback to clear any reference stored for deletion (regardless if deletion is completed or abort)
+	 */
 	public async deleteSyncBlocksWithConfirmation(
 		syncBlockIds: SyncBlockAttrs[],
-		deleteCallback: () => void,
+		onDelete: OnDelete,
+		onDeleteCompleted: OnDeleteCompleted,
+		destroyCallback: DestroyCallback,
 	): Promise<void> {
 		if (this.confirmationCallback) {
 			const confirmed = await this.confirmationCallback(syncBlockIds.length);
 			if (confirmed) {
-				deleteCallback();
+				const isDeleteSuccessful = await this.delete(syncBlockIds, onDelete, onDeleteCompleted);
 
-				try {
-					if (!this.dataProvider) {
-						throw new Error('Data provider not set');
-					}
-
-					syncBlockIds.forEach((Ids) => {
-						this.setPendingDeletion(Ids, true);
-					});
-					const results = await this.dataProvider.deleteNodesData(
-						syncBlockIds.map((attrs) => attrs.resourceId),
-					);
-
-					let callback;
-					if (results.every((result) => result.success)) {
-						callback = (Ids: SyncBlockAttrs) => this.syncBlockCache.delete(Ids.resourceId);
-					} else {
-						callback = (Ids: SyncBlockAttrs) => {
-							this.setPendingDeletion(Ids, false);
-						};
-
-						results
-							.filter((result) => result.resourceId === undefined)
-							.forEach((result) => {
-								this.fireAnalyticsEvent?.(
-									deleteErrorPayload(result.error || 'Failed to delete synced block'),
-								);
-							});
-					}
-					syncBlockIds.forEach(callback);
-				} catch (error) {
-					syncBlockIds.forEach((Ids) => {
-						this.setPendingDeletion(Ids, false);
-					});
-					logException(error as Error, {
-						location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
-					});
-					this.fireAnalyticsEvent?.(deleteErrorPayload((error as Error).message));
+				if (!isDeleteSuccessful) {
+					// If deletion failed, save deletion info for potential retry
+					this.deletionRetryInfo = {
+						syncBlockIds,
+						onDelete,
+						onDeleteCompleted,
+						destroyCallback,
+					};
 				}
+			} else {
+				destroyCallback();
 			}
 		}
 	}
@@ -315,5 +379,6 @@ export class SourceSyncBlockStoreManager {
 		this.pendingResourceId = undefined;
 		this.creationCallback = undefined;
 		this.dataProvider = undefined;
+		this.clearPendingDeletion();
 	}
 }

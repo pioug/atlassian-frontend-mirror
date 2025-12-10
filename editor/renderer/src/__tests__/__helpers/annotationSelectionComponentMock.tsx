@@ -70,6 +70,6 @@ const AnnotationSelectionComponentMock = (
 };
 
 export const SelectionInlineComponentMock =
-	(setNewDocument: Callback) => (props: InlineCommentSelectionComponentProps) => {
+	(setNewDocument: Callback) => (props: InlineCommentSelectionComponentProps): React.JSX.Element => {
 		return <AnnotationSelectionComponentMock setNewDocument={setNewDocument} {...props} />;
 	};

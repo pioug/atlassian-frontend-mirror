@@ -13,7 +13,7 @@ export const FormatMenuSection = ({
 }: {
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
 	children: React.ReactNode;
-}) => {
+}): React.JSX.Element | null => {
 	const isFormatMenuHidden = useCallback(() => {
 		return checkIsFormatMenuHidden(api);
 	}, [api]);

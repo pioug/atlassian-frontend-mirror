@@ -10,7 +10,7 @@ import Sidebar from './helper/NavigationNext';
 const mediaProvider = storyMediaProviderFactory();
 const providerFactory = ProviderFactory.create({ mediaProvider });
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [height, setHeight] = React.useState(30);
 	return (
 		<>

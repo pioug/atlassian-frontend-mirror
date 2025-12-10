@@ -7,6 +7,7 @@ import { type ReactNode } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { ExpandableMenuItemLevelContext } from '../expandable-menu-item/expandable-menu-item-level-context';
@@ -41,6 +42,10 @@ const dragPreviewStyles = cssMap({
 		paddingInlineEnd: token('space.050'),
 		// cannot go above 280px (web platform limitation), so leaving a bit of room
 		maxWidth: 260,
+	},
+	// platform-dst-shape-theme-default TODO: Merge into base after rollout
+	rootT26Shape: {
+		borderRadius: token('radius.medium', '6px'),
 	},
 
 	/**
@@ -88,7 +93,13 @@ export function DragPreview({
 		// This is to prevent our hidden element from pushing
 		// the drag preview further away from the users pointer
 		<ExpandableMenuItemLevelContext.Provider value={0}>
-			<div css={[dragPreviewStyles.root, isSafari() && dragPreviewStyles.safariFix]}>
+			<div
+				css={[
+					dragPreviewStyles.root,
+					fg('platform-dst-shape-theme-default') && dragPreviewStyles.rootT26Shape,
+					isSafari() && dragPreviewStyles.safariFix,
+				]}
+			>
 				{/* For drag previews, we can collapse if there is no elemBefore as we don't
 			need to worry about vertical alignment with other elements */}
 				<MenuItemBase elemBefore={elemBefore ?? COLLAPSE_ELEM_BEFORE}>{children}</MenuItemBase>

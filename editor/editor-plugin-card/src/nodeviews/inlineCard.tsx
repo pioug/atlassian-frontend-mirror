@@ -52,7 +52,7 @@ export const InlineCard = memo(
 		provider,
 		pluginInjectionApi,
 		disablePreviewPanel,
-	}: SmartCardProps) => {
+	}: SmartCardProps): React.JSX.Element | null => {
 		const { url, data } = node.attrs;
 		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const refId = useRef(uuid());
@@ -245,7 +245,7 @@ const selector = (
  */
 export function InlineCardNodeView(
 	props: InlineNodeViewComponentProps & InlineCardNodeViewProps & InlineCardWithAwarenessProps,
-) {
+): React.JSX.Element {
 	const {
 		useAlternativePreloader,
 		node,

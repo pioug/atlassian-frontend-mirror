@@ -28,6 +28,8 @@ import {
 	getRenderErrorEventPayload,
 	extractErrorInfo,
 	type SSRStatus,
+	getAuthProviderSucceededPayload,
+	getAuthProviderFailedPayload,
 } from './analytics';
 import {
 	type FileAttributes,
@@ -309,6 +311,110 @@ describe('Media Analytics', () => {
 				expect(createdEvent).toHaveBeenCalledWith({
 					attributes: { fileAttributes: { fileId: validFileId } },
 				});
+			});
+		});
+	});
+
+	describe('Auth Provider Analytics', () => {
+		describe('getAuthProviderSucceededPayload', () => {
+			it('should return correct payload with basic attributes', () => {
+				const payload = getAuthProviderSucceededPayload(850, 10000);
+
+				expect(payload).toEqual({
+					eventType: 'operational',
+					action: 'succeeded',
+					actionSubject: 'mediaAuthProvider',
+					attributes: {
+						status: 'succeeded',
+						durationMs: 850,
+						timeoutMs: 10000,
+						collectionName: undefined,
+					},
+				});
+			});
+
+			it('should extract collectionName from deprecated authContext.collectionName', () => {
+				const authContext = { collectionName: 'my-collection' };
+				const payload = getAuthProviderSucceededPayload(500, 10000, authContext);
+
+				expect(payload.attributes.collectionName).toBe('my-collection');
+			});
+
+			it('should extract collectionName from new authContext.access array', () => {
+				const authContext = {
+					access: [{ type: 'collection', name: 'new-collection', actions: ['read'] }],
+				};
+				const payload = getAuthProviderSucceededPayload(500, 10000, authContext);
+
+				expect(payload.attributes.collectionName).toBe('new-collection');
+			});
+
+			it('should prefer access array over deprecated collectionName', () => {
+				const authContext = {
+					collectionName: 'deprecated-collection',
+					access: [{ type: 'collection', name: 'new-collection', actions: ['read'] }],
+				};
+				const payload = getAuthProviderSucceededPayload(500, 10000, authContext);
+
+				expect(payload.attributes.collectionName).toBe('new-collection');
+			});
+
+			it('should return undefined collectionName when authContext has no collection', () => {
+				const authContext = {
+					access: [{ type: 'file', id: 'some-id', actions: ['read'] }],
+				};
+				const payload = getAuthProviderSucceededPayload(500, 10000, authContext);
+
+				expect(payload.attributes.collectionName).toBeUndefined();
+			});
+		});
+
+		describe('getAuthProviderFailedPayload', () => {
+			it('should return correct payload with error info for native error', () => {
+				const error = new Error('Network timeout');
+				error.name = 'TimeoutError';
+				const payload = getAuthProviderFailedPayload(12000, 10000, error);
+
+				expect(payload).toEqual({
+					eventType: 'operational',
+					action: 'failed',
+					actionSubject: 'mediaAuthProvider',
+					attributes: {
+						status: 'failed',
+						durationMs: 12000,
+						timeoutMs: 10000,
+						collectionName: undefined,
+						failReason: 'TimeoutError',
+						error: 'TimeoutError',
+						errorDetail: 'Network timeout',
+					},
+				});
+			});
+
+			it('should extract error info from MediaStoreError', () => {
+				const mediaStoreError = createMediaStoreError();
+				const payload = getAuthProviderFailedPayload(3000, 10000, mediaStoreError);
+
+				expect(payload.attributes.failReason).toBe('missingInitialAuth');
+				expect(payload.attributes.error).toBe('missingInitialAuth');
+			});
+
+			it('should include collectionName from authContext', () => {
+				const error = new Error('Auth failed');
+				const authContext = { collectionName: 'attachments' };
+				const payload = getAuthProviderFailedPayload(5000, 10000, error, authContext);
+
+				expect(payload.attributes.collectionName).toBe('attachments');
+			});
+
+			it('should handle error with no name', () => {
+				const error = new Error('Something went wrong');
+				error.name = '';
+				const payload = getAuthProviderFailedPayload(1000, 10000, error);
+
+				expect(payload.attributes.failReason).toBe('unknown');
+				expect(payload.attributes.error).toBe('');
+				expect(payload.attributes.errorDetail).toBe('Something went wrong');
 			});
 		});
 	});

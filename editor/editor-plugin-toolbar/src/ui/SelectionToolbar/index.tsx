@@ -161,7 +161,7 @@ export const SelectionToolbar = ({
 	editorView,
 	mountPoint,
 	disableSelectionToolbarWhenPinned,
-}: SelectionToolbarProps) => {
+}: SelectionToolbarProps): React.JSX.Element | null => {
 	const {
 		connectivityStateMode,
 		editorToolbarDockingPreference,
@@ -271,7 +271,7 @@ export const SelectionToolbarWithErrorBoundary = ({
 	editorView,
 	mountPoint,
 	disableSelectionToolbarWhenPinned,
-}: SelectionToolbarProps) => {
+}: SelectionToolbarProps): React.JSX.Element => {
 	return (
 		<ErrorBoundary
 			component={ACTION_SUBJECT.TOOLBAR}

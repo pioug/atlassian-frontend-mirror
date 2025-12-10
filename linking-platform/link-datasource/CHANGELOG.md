@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 4.30.12
+
+### Patch Changes
+
+- [`0d3d41bac507d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d3d41bac507d) -
+  Add optional chaining to filter options on edit type, behind fg navx-sllv-fix-inline-edit-error
+
 ## 4.30.11
 
 ### Patch Changes

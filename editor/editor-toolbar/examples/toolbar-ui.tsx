@@ -15,7 +15,7 @@ const styles = cssMap({
 	},
 });
 
-const App = () => {
+const App = (): React.JSX.Element => {
 	return (
 		<Box xcss={styles.container} as="main">
 			<ExampleManuallyComposedToolbar />

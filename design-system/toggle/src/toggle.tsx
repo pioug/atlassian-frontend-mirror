@@ -142,7 +142,7 @@ const iconStyles = css({
 
 const sizeStyles = cssMap({
 	regular: {
-		borderRadius: token('space.200'),
+		borderRadius: token('radius.full'),
 		height: token('space.200'),
 		width: token('space.400'),
 		'&::before': {
@@ -155,7 +155,7 @@ const sizeStyles = cssMap({
 		},
 	},
 	large: {
-		borderRadius: token('space.250'),
+		borderRadius: token('radius.full'),
 		height: token('space.250'),
 		width: token('space.500'),
 		'&::before': {

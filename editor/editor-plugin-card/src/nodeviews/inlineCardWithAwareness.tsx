@@ -62,7 +62,7 @@ export const InlineCardWithAwareness = memo(
 		isPageSSRed,
 		provider,
 		appearance,
-	}: SmartCardProps & InlineCardWithAwarenessProps) => {
+	}: SmartCardProps & InlineCardWithAwarenessProps): React.JSX.Element => {
 		const [isHovered, setIsHovered] = useState(false);
 		const [isInserted, setIsInserted] = useState(false);
 		const [isResolvedViewRendered, setIsResolvedViewRendered] = useState(false);

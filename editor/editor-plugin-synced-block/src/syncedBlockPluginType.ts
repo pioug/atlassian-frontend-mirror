@@ -92,8 +92,3 @@ export type SyncedBlockPlugin = NextEditorPlugin<
 		sharedState: SyncedBlockSharedState | undefined;
 	}
 >;
-
-export type SyncBlockAttrs = {
-	localId: string;
-	resourceId: string;
-};

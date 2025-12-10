@@ -99,7 +99,7 @@ export function InlineCommentView({
 	editorAnalyticsAPI,
 	editorAPI,
 	dispatchAnalyticsEvent,
-}: InlineCommentViewProps) {
+}: InlineCommentViewProps): React.JSX.Element | null {
 	// As inlineComment is the only annotation present, this function is not generic
 	const { inlineComment: inlineCommentProvider } = providers;
 	const { state, dispatch } = editorView;

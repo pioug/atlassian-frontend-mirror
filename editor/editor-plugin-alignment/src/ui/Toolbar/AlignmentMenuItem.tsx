@@ -25,7 +25,7 @@ export const AlignmentMenuItem = ({
 	api: ExtractInjectionAPI<AlignmentPlugin> | undefined;
 	option: OptionInfo;
 	parents: ToolbarComponentTypes;
-}) => {
+}): React.JSX.Element => {
 	const { align } = useSharedPluginStateWithSelector(api, ['alignment'], (states) => {
 		return {
 			align: states.alignmentState?.align,

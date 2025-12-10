@@ -50,7 +50,7 @@ const renderToolbar = (mode: DocumentMode, editorActions?: any) => (
 	/>
 );
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const mockProvider = new MockServiceProvider();
 	return (
 		<Container>

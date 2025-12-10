@@ -5,7 +5,6 @@ import { DatePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
 import { ButtonItem } from '@atlaskit/menu';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -20,8 +19,6 @@ const styles = cssMap({
 });
 
 export default (): React.JSX.Element => {
-	setBooleanFeatureFlagResolver(() => true);
-
 	const [activePopup, setActivePopup] = useState<string | null>(null);
 
 	const onCustomItemClick = useCallback(() => {

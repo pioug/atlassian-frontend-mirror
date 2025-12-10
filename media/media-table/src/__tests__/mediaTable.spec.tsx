@@ -237,6 +237,8 @@ describe('MediaTable', () => {
 
 		expect(mediaViewer).toBeInTheDocument();
 		expect(onPreviewOpenMock).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible({violationCount: 1});
 	});
 
 	it('should open MediaViewer and call onPreviewOpen when pressing enter on a row', async () => {
@@ -264,6 +266,8 @@ describe('MediaTable', () => {
 
 		expect(mediaTable.find(MediaViewer)).toHaveLength(1);
 		expect(onPreviewOpenMock).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible({violationCount: 1});
 	});
 
 	it('should close the MediaViwer and call onPreviewClose when the preview is closed', async () => {
@@ -290,6 +294,8 @@ describe('MediaTable', () => {
 
 		expect(onPreviewOpenMock).toHaveBeenCalledTimes(1);
 		expect(onPreviewCloseMock).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible({violationCount: 1});
 	});
 
 	it('MediaViewer should display the correct items, and have the correct selected item', async () => {

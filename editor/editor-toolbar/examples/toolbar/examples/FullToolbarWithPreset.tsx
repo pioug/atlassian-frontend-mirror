@@ -857,7 +857,7 @@ const JSMToolbar = ({
 	</>
 );
 
-export const FullToolbarWithPreset = ({ breakpointPreset }: FullToolbarWithPresetProps) => {
+export const FullToolbarWithPreset = ({ breakpointPreset }: FullToolbarWithPresetProps): React.JSX.Element => {
 	const {
 		textStyle,
 		onSetTextStyle,

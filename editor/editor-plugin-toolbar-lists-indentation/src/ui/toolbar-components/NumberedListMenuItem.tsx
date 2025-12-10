@@ -24,7 +24,7 @@ type NumberedListMenuItemType = {
 	parents: ToolbarComponentTypes;
 };
 
-export const NumberedListMenuItem = ({ api, parents }: NumberedListMenuItemType) => {
+export const NumberedListMenuItem = ({ api, parents }: NumberedListMenuItemType): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { orderedListActive, orderedListDisabled, taskListActive } =
 		useSharedPluginStateWithSelector(api, ['list', 'taskDecision'], (states) => ({

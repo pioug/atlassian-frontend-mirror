@@ -8,7 +8,7 @@ import { RendererWithAnnotationsAndBodiedExtensions } from './reference-renderer
 
 setupEditorExperiments('test', { comment_on_bodied_extensions: true });
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	createRendererWindowBindings(window);
 	return (
 		<div id="renderer-container">

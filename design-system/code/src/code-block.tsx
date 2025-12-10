@@ -10,6 +10,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 import rafSchedule from 'raf-schd';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useHighlightLines } from './internal/hooks/use-highlight';
@@ -19,6 +20,10 @@ import { normalizeLanguage } from './internal/utils/get-normalized-language';
 import SyntaxHighlighter from './syntax-highlighter';
 
 const getCodeBlockStyles = cssMap({
+	// platform-dst-shape-theme-default TODO: Merge into base after rollout
+	rootT26Shape: {
+		borderRadius: token('radius.large'),
+	},
 	root: {
 		font: token('font.code'),
 		// Prevents empty code blocks from vertically collapsing
@@ -326,6 +331,7 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 			language={languageToUse}
 			css={[
 				getCodeBlockStyles.root,
+				fg('platform-dst-shape-theme-default') && getCodeBlockStyles.rootT26Shape,
 				shouldWrapLongLines
 					? getCodeBlockStyles.shouldWrapLongLines
 					: getCodeBlockStyles.dontWrapLongLines,

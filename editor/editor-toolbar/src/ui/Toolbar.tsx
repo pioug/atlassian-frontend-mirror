@@ -85,7 +85,7 @@ type ToolbarProps = {
  *
  * @note: Responsiveness support replies on container query with container editor-area and media query
  */
-export const Toolbar = ({ children, label, actionSubjectId, testId }: ToolbarProps) => {
+export const Toolbar = ({ children, label, actionSubjectId, testId }: ToolbarProps): React.JSX.Element => {
 	const isResponsiveEnabled = expValEquals(
 		'platform_editor_toolbar_aifc_responsive',
 		'isEnabled',
@@ -163,7 +163,7 @@ export const PrimaryToolbar = ({
 	label,
 	breakpointPreset,
 	reducedBreakpoints,
-}: PrimaryToolbarProps) => {
+}: PrimaryToolbarProps): React.JSX.Element => {
 	if (expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)) {
 		return (
 			<ResponsiveContainer

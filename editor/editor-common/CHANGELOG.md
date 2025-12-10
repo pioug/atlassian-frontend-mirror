@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 110.41.5
+
+### Patch Changes
+
+- [`8696c9d95fe26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8696c9d95fe26) -
+  [ux] EDITOR-3382 Block menu copy link for multi select
+- [`433b512284284`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/433b512284284) -
+  [EDITOR-2558] Update bodiedSyncBlock deletion failure flow
+- [`6a05a8776852e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a05a8776852e) -
+  Call stopEvent() on textarea as well
+- Updated dependencies
+
+## 110.41.4
+
+### Patch Changes
+
+- [`7db8f9d5f86ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7db8f9d5f86ab) -
+  fix safari browser detection issue
+- [`d94330c37d126`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d94330c37d126) -
+  tidy up ff platform_editor_disable_table_overflow_shadows
+- Updated dependencies
+
+## 110.41.3
+
+### Patch Changes
+
+- [`7c295bfea1292`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c295bfea1292) -
+  EDITOR-3380 Use preserved selection when deleting selected range
+- Updated dependencies
+
 ## 110.41.2
 
 ### Patch Changes

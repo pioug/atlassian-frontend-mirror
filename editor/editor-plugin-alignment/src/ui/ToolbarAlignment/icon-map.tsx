@@ -33,7 +33,7 @@ type Props = {
 	alignment: string;
 };
 
-export const IconMap = (props: Props) => {
+export const IconMap = (props: Props): React.JSX.Element => {
 	const { Component, label } = iconAndMessageMap[props.alignment];
 	const intl = useIntl();
 	return <Component label={intl.formatMessage(label)} color="currentColor" spacing="spacious" />;

@@ -7,6 +7,7 @@ import {
 	isFileIdentifier,
 	type ExternalImageIdentifier,
 	type NonErrorFileState,
+	type ProcessedFileState,
 	toCommonMediaClientError,
 } from '@atlaskit/media-client';
 import { Text } from '@atlaskit/primitives/compiled';
@@ -26,6 +27,7 @@ import { fireAnalytics, getFileAttributes } from './analytics';
 import { InteractiveImg } from './viewers/image/interactive-img';
 import ArchiveViewerLoader from './viewers/archiveSidebar/archiveViewerLoader';
 import { type MediaFeatureFlags, type MediaTraceContext } from '@atlaskit/media-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { ImageViewerProps } from './viewers/image';
 import type { Props as VideoViewerProps } from './viewers/video';
 import type { Props as AudioViewerProps } from './viewers/audio';
@@ -111,6 +113,57 @@ export const isFileStateItem = (fileItem: FileItem): fileItem is FileState =>
 
 export const MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER = 10 * 1024 * 1024;
 
+/**
+ * Determines if a file renders natively without backend processing artifacts.
+ * These files (text/code, PDF, SVG) can be rendered directly from the original binary
+ * without waiting for transcoded artifacts from the backend.
+ *
+ * Evidence:
+ * - CodeViewer: Uses getFileBinaryURL(id) - works with both 'processing' and 'processed' status
+ * - DocViewer: Uses getDocumentContent(id) - only needs file ID, not artifacts
+ * - SvgViewer: Uses MediaSvg with identifier - never touches status or artifacts
+ */
+const canRenderWithoutProcessing = (fileState: NonErrorFileState): boolean => {
+	const { mimeType, name, size } = fileState;
+
+	// Text/code files via CodeViewer (10MB limit)
+	if (isCodeViewerItem(name, mimeType) && size <= MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER) {
+		return true;
+	}
+
+	// PDF files via DocViewer
+	if (mimeType === 'application/pdf') {
+		return true;
+	}
+
+	// SVG files via SvgViewer
+	if (mimeType === 'image/svg+xml') {
+		return true;
+	}
+
+	return false;
+};
+
+/**
+ * Creates a synthetic ProcessedFileState for native-rendered files.
+ * These files don't need backend processing, so we normalize to 'processed'
+ * to prevent unnecessary re-renders when the actual status changes.
+ * Note: artifacts are not used by native viewers (CodeViewer, DocViewer, SvgViewer)
+ * as they fetch the original binary directly via file ID.
+ */
+const createProcessedFileState = (fileState: NonErrorFileState): ProcessedFileState =>
+	({
+		status: 'processed',
+		id: fileState.id,
+		name: fileState.name,
+		size: fileState.size,
+		mediaType: fileState.mediaType,
+		mimeType: fileState.mimeType,
+		artifacts: {},
+		preview: fileState.preview,
+		createdAt: fileState.createdAt,
+	}) as ProcessedFileState;
+
 export const ItemViewerBase = ({
 	identifier,
 	showControls,
@@ -168,38 +221,63 @@ export const ItemViewerBase = ({
 		startMediaFileUfoExperience();
 	}, [identifier, traceContext]);
 
+	const isNativeFileOptimizationEnabled = fg('media_viewer_prevent_rerender_on_polling');
+
 	useEffect(() => {
+		// External images don't need backend subscriptions
 		if (isExternalImageIdentifier(identifier)) {
-			// external images do not need to talk to our backend,
-			// so therefore no need for media-client subscriptions.
-			// just set a successful outcome of type "external-image".
 			setItem(Outcome.successful('external-image'));
 			return;
 		}
 
-		// File Subscription
-		if (fileState) {
-			const { status } = fileState;
-
-			if (fileState.status !== 'error') {
-				// updateFileStateFlag
-
-				if (status === 'processing') {
-					fileStateFlagsRef.current.wasStatusProcessing = true;
-				} else if (status === 'uploading') {
-					fileStateFlagsRef.current.wasStatusUploading = true;
-				}
-
-				setItem(Outcome.successful(fileState));
-			} else {
-				setItem(
-					Outcome.failed(
-						new MediaViewerError('itemviewer-fetch-metadata', toCommonMediaClientError(fileState)),
-					),
-				);
-			}
+		if (!fileState) {
+			return;
 		}
-	}, [fileState, identifier]);
+
+		const { status } = fileState;
+
+		// Track status flags for analytics
+		if (status === 'processing') {
+			fileStateFlagsRef.current.wasStatusProcessing = true;
+		} else if (status === 'uploading') {
+			fileStateFlagsRef.current.wasStatusUploading = true;
+		}
+
+		// Handle error state
+		if (status === 'error') {
+			setItem(
+				Outcome.failed(
+					new MediaViewerError('itemviewer-fetch-metadata', toCommonMediaClientError(fileState)),
+				),
+			);
+			return;
+		}
+
+		// Optimization: normalize native files to ProcessedFileState to prevent
+		// unnecessary re-renders when status changes (e.g., processing → processed)
+		if (isNativeFileOptimizationEnabled && canRenderWithoutProcessing(fileState)) {
+			setItem((prev) => {
+				// Keep stable reference if we already have a processed state for this file
+				if (
+					prev.status === 'SUCCESSFUL' &&
+					prev.data &&
+					isFileStateItem(prev.data) &&
+					prev.data.id === fileState.id &&
+					prev.data.status === 'processed'
+				) {
+					return prev;
+				}
+				// First load or different file: create normalized processed state
+				return Outcome.successful(createProcessedFileState(fileState));
+			});
+			return;
+		}
+
+		// Non-native files: standard behavior
+		setItem(Outcome.successful(fileState));
+		// fileState object reference changes often when polling items (especially during processing); only re-run when fileState.status changes
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isNativeFileOptimizationEnabled ? fileState?.status : fileState, identifier]);
 
 	const onSuccess = useCallback(() => {
 		item.whenSuccessful((fileItem) => {

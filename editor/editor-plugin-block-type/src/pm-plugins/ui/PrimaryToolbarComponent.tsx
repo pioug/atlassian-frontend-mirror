@@ -29,7 +29,7 @@ export function PrimaryToolbarComponent({
 	popupsBoundariesElement,
 	popupsScrollableElement,
 	shouldUseDefaultRole,
-}: PrimaryToolbarComponentProps) {
+}: PrimaryToolbarComponentProps): React.JSX.Element {
 	const {
 		currentBlockType,
 		blockTypesDisabled,

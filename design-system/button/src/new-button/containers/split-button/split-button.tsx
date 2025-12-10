@@ -6,6 +6,7 @@ import { type ReactNode } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { SplitButtonContext } from './split-button-context';
@@ -130,6 +131,10 @@ const buttonStyles = cssMap({
 		outlineStyle: 'solid',
 		outlineWidth: 1,
 	},
+	// platform-dst-shape-theme-default TODO: Merge into defaultAppearanceContainer after rollout
+	defaultAppearanceContainerT26Shape: {
+		borderRadius: token('radius.medium', '6px'),
+	},
 	defaultAppearanceDisabledContainer: {
 		outlineColor: token('color.border.disabled'),
 	},
@@ -151,6 +156,9 @@ export const SplitButtonContainer = ({
 		<div
 			css={[
 				appearance === 'default' && buttonStyles.defaultAppearanceContainer,
+				appearance === 'default' &&
+					fg('platform-dst-shape-theme-default') &&
+					buttonStyles.defaultAppearanceContainerT26Shape,
 				appearance === 'default' && isDisabled && buttonStyles.defaultAppearanceDisabledContainer,
 				buttonStyles.splitButton,
 			]}

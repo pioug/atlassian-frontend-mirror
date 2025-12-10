@@ -72,5 +72,5 @@ const ParagraphBlockMenuItem = ({ api }: ParagraphBlockMenuItemProps) => {
 };
 
 export const createParagraphBlockMenuItem = ({ api }: ParagraphBlockMenuItemProps) => {
-	return () => <ParagraphBlockMenuItem api={api} />;
+	return (): React.JSX.Element => <ParagraphBlockMenuItem api={api} />;
 };

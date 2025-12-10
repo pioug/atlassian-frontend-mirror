@@ -745,17 +745,21 @@ describe('Media', () => {
 					await jest.runAllTicks();
 				});
 				mediaFileCard.update();
-				expect(mediaFileCard.find(Card).at(0).props().mediaViewerItems).toEqual([fileIdentifier]);
+				await waitFor(() => {
+					expect(mediaFileCard.find(Card).at(0).props().mediaViewerItems).toEqual([fileIdentifier]);
+				});
 
 				const mediaExternalCard = mountExternalCard(externalIdentifier);
 				await act(async () => {
 					await jest.runAllTicks();
 				});
 				mediaExternalCard.update();
-				expect(mediaExternalCard.find(Card).at(0).props().mediaViewerItems).toEqual([
-					fileIdentifier,
-					externalIdentifier,
-				]);
+				await waitFor(() => {
+						expect(mediaExternalCard.find(Card).at(0).props().mediaViewerItems).toEqual([
+						fileIdentifier,
+						externalIdentifier,
+					]);
+				});
 
 				mediaFileCard.setProps({});
 				expect(mediaFileCard.find(Card).at(0).props()).toHaveProperty('mediaViewerItems');

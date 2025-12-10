@@ -178,53 +178,24 @@ describe('standalone hover card', () => {
 		expect(hoverCard).toHaveAttribute('aria-labelledby', 'test-titleId');
 	});
 
-	ffTest.on(
-		'hover-card-on-visibility-change-callback',
-		'when enable visibility change callback feature',
-		() => {
-			it('should call onVisibilityChange when the hover card is visible or hidden', async () => {
-				const onVisibilityChange = jest.fn();
-				await standaloneSetUp(undefined, {
-					onVisibilityChange,
-					noFadeDelay: true,
-				});
-				const triggerWrapper = await screen.findByTestId('hover-card-trigger-wrapper');
+	it('should call onVisibilityChange when the hover card is visible or hidden', async () => {
+		const onVisibilityChange = jest.fn();
+		await standaloneSetUp(undefined, {
+			onVisibilityChange,
+			noFadeDelay: true,
+		});
+		const triggerWrapper = await screen.findByTestId('hover-card-trigger-wrapper');
 
-				// Test showing the hover card
-				fireEvent.mouseOver(triggerWrapper);
-				expect(onVisibilityChange).toHaveBeenCalledWith(true);
+		// Test showing the hover card
+		fireEvent.mouseOver(triggerWrapper);
+		expect(onVisibilityChange).toHaveBeenCalledWith(true);
 
-				// Test hiding the hover card
-				fireEvent.mouseLeave(triggerWrapper);
-				expect(onVisibilityChange).toHaveBeenCalledWith(false);
+		// Test hiding the hover card
+		fireEvent.mouseLeave(triggerWrapper);
+		expect(onVisibilityChange).toHaveBeenCalledWith(false);
 
-				expect(onVisibilityChange).toHaveBeenCalledTimes(2);
-			});
-		},
-	);
-
-	ffTest.off(
-		'hover-card-on-visibility-change-callback',
-		'when disable visibility change callback feature',
-		() => {
-			it('should call onVisibilityChange when the hover card is visible or hidden', async () => {
-				const onVisibilityChange = jest.fn();
-				await standaloneSetUp(undefined, {
-					onVisibilityChange,
-					noFadeDelay: true,
-				});
-				const triggerWrapper = await screen.findByTestId('hover-card-trigger-wrapper');
-
-				// Test showing the hover card
-				fireEvent.mouseOver(triggerWrapper);
-
-				// Test hiding the hover card
-				fireEvent.mouseLeave(triggerWrapper);
-
-				expect(onVisibilityChange).toHaveBeenCalledTimes(0);
-			});
-		},
-	);
+		expect(onVisibilityChange).toHaveBeenCalledTimes(2);
+	});
 
 	it('should render a correct view of a hover card over a div', async () => {
 		await standaloneSetUp();

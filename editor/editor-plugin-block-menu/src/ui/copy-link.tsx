@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
 import type { WrappedComponentProps } from 'react-intl-next';
-import { useIntl, injectIntl } from 'react-intl-next';
+import { injectIntl, useIntl } from 'react-intl-next';
 
 import {
 	ACTION,
@@ -9,6 +9,7 @@ import {
 	EVENT_TYPE,
 	type BlockMenuEventPayload,
 } from '@atlaskit/editor-common/analytics';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { blockMenuMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
@@ -32,9 +33,28 @@ type Props = {
 const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentProps) => {
 	const { formatMessage } = useIntl();
 	const { onDropdownOpenChanged } = useBlockMenu();
-	const selection = api?.selection?.sharedState?.currentState()?.selection;
+	const { getLinkPath, blockLinkHashPrefix } = config || {};
+
+	const { preservedSelection, defaultSelection, menuTriggerBy, schema } =
+		useSharedPluginStateWithSelector(
+			api,
+			['blockControls', 'selection', 'core'],
+			({ blockControlsState, selectionState, coreState }) => {
+				return {
+					menuTriggerBy: blockControlsState?.menuTriggerBy,
+					preservedSelection: blockControlsState?.preservedSelection,
+					defaultSelection: selectionState?.selection,
+					schema: coreState?.schema,
+				};
+			},
+		);
+	const selection = preservedSelection || defaultSelection;
 
 	const handleClick = useCallback(() => {
+		if (!selection || !schema) {
+			return;
+		}
+
 		api?.core.actions.execute(({ tr }) => {
 			const payload: BlockMenuEventPayload = {
 				action: ACTION.CLICKED,
@@ -49,9 +69,10 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 			api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true })({ tr });
 			return tr;
 		});
+
 		onDropdownOpenChanged(false);
 
-		copyLink(config?.getLinkPath, config?.blockLinkHashPrefix, api).then((success) => {
+		copyLink({ getLinkPath, blockLinkHashPrefix, selection, schema }).then((success) => {
 			if (success) {
 				api?.core.actions.execute(({ tr }) => {
 					tr.setMeta(blockMenuPluginKey, {
@@ -61,19 +82,14 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 				});
 			}
 		});
-	}, [config?.getLinkPath, config?.blockLinkHashPrefix, api, onDropdownOpenChanged]);
-
-	const checkIsNestedNode = useCallback(() => {
-		const selection = api?.selection?.sharedState?.currentState()?.selection;
-		const menuTriggerBy = api?.blockControls?.sharedState?.currentState()?.menuTriggerBy;
-		if (!selection || !menuTriggerBy) {
-			return false;
-		}
-		return isNestedNode(selection, menuTriggerBy);
-	}, [api]);
+	}, [api, blockLinkHashPrefix, getLinkPath, onDropdownOpenChanged, schema, selection]);
 
 	// Hide copy link when `platform_editor_adf_with_localid` feature flag is off or when the node is nested or on empty line
-	if (!fg('platform_editor_adf_with_localid') || checkIsNestedNode() || !!selection?.empty) {
+	if (
+		!fg('platform_editor_adf_with_localid') ||
+		(!!menuTriggerBy && isNestedNode(selection, menuTriggerBy)) ||
+		selection?.empty
+	) {
 		return null;
 	}
 

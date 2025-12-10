@@ -15,7 +15,7 @@ export default class Example extends React.Component<Props, State> {
 		messages: {},
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { locale, messages } = this.state;
 		return (
 			<IntlProvider locale={locale} messages={messages}>

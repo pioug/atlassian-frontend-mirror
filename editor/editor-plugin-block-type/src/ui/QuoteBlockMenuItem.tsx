@@ -56,5 +56,5 @@ const QuoteBlockMenuItem = ({ api }: QuoteBlockMenuItemProps) => {
 };
 
 export const createQuoteBlockMenuItem = ({ api }: QuoteBlockMenuItemProps) => {
-	return () => <QuoteBlockMenuItem api={api} />;
+	return (): React.JSX.Element => <QuoteBlockMenuItem api={api} />;
 };

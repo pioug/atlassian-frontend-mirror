@@ -28,7 +28,7 @@ export const OutdentMenuItem = ({
 	allowHeadingAndParagraphIndentation,
 	showIndentationButtons,
 	parents,
-}: OutdentMenuItemType) => {
+}: OutdentMenuItemType): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 	const { editorView } = useEditorToolbar();
 

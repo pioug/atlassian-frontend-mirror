@@ -249,11 +249,17 @@ export const getBrowserInfo = memorizeOne(() => {
 			!ie && /AppleWebKit/.test(userAgent) && /Mobile\/\w+/.test(userAgent);
 
 		// Previously relied on navigator.vendor, now used userAgent
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		result.safari = /safari|applewebkit/i.test(userAgent);
+		result.safari =
+			!result.chrome &&
+			!result.ie &&
+			!result.gecko &&
+			!result.android &&
+			!userAgent.includes('CriOS') &&
+			!userAgent.includes('FxiOS') &&
+			// eslint-disable-next-line require-unicode-regexp
+			/safari|applewebkit/i.test(userAgent);
+
 		result.safari_version = parseInt(
-			// Ignored via go/ees005
 			// eslint-disable-next-line require-unicode-regexp
 			(userAgent.match(/Version\/([0-9\._]+).*Safari/) || [])[1],
 			10,

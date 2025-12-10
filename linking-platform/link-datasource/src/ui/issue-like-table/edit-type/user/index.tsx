@@ -7,6 +7,7 @@ import Avatar, { AvatarItem } from '@atlaskit/avatar';
 import { type FieldProps } from '@atlaskit/form';
 import { Layering } from '@atlaskit/layering';
 import { type User } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type FilterOptionOption } from '@atlaskit/react-select';
 import Select from '@atlaskit/select';
 import Tooltip from '@atlaskit/tooltip';
@@ -89,7 +90,7 @@ const UserEditType = (props: UserEditTypeProps): React.JSX.Element => {
 				options={options}
 				isLoading={isLoading}
 				testId="inline-edit-user"
-				filterOption={filterOption}
+				filterOption={fg('navx-sllv-fix-inline-edit-error') ? filterOptionNew : filterOptionOld}
 				menuPlacement="auto"
 				onInputChange={handleUserInputDebounced}
 				value={currentValue?.values?.[0]}
@@ -122,7 +123,13 @@ const UserEditType = (props: UserEditTypeProps): React.JSX.Element => {
 	);
 };
 
-const filterOption = (option: FilterOptionOption<User>, inputValue: string) =>
+/**
+ * Remove on navx-sllv-fix-inline-edit-error cleanup
+ */
+const filterOptionOld = (option: FilterOptionOption<User>, inputValue: string) =>
 	option.data.displayName?.toLowerCase().includes(inputValue.toLowerCase()) ?? false;
+
+const filterOptionNew = (option: FilterOptionOption<User>, inputValue: string) =>
+	option.data?.displayName?.toLowerCase?.()?.includes(inputValue?.toLowerCase?.()) ?? false;
 
 export default UserEditType;

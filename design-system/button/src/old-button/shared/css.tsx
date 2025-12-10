@@ -1,6 +1,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type CSSObject } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
@@ -237,7 +238,9 @@ export function getCss({
 		// 0px margin added to css-reset
 		alignItems: 'baseline',
 		borderWidth: 0,
-		borderRadius: token('radius.small', '3px'),
+		borderRadius: fg('platform-dst-shape-theme-default')
+			? token('radius.medium', '6px')
+			: token('radius.small', '3px'),
 		boxSizing: 'border-box',
 		display: 'inline-flex',
 		fontSize: 'inherit',

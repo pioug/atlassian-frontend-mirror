@@ -52,18 +52,13 @@ export const HoverCardComponent = ({
 	const renderers = useSmartLinkRenderers();
 	const linkState = useLinkState(url);
 
-	const handleSetIsOpen = fg('hover-card-on-visibility-change-callback')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useCallback(
-				(isOpen: boolean) => {
-					setIsOpen(isOpen);
-					if (fg('hover-card-on-visibility-change-callback')) {
-						onVisibilityChange?.(isOpen);
-					}
-				},
-				[onVisibilityChange],
-			)
-		: undefined;
+	const handleSetIsOpen = useCallback(
+		(isOpen: boolean) => {
+			setIsOpen(isOpen);
+			onVisibilityChange?.(isOpen);
+		},
+		[onVisibilityChange],
+	);
 
 	const { loadMetadata } = useSmartCardActions(id, url);
 
@@ -90,7 +85,7 @@ export const HoverCardComponent = ({
 	);
 
 	const hideCard = useCallback(() => {
-		if (handleSetIsOpen && fg('hover-card-on-visibility-change-callback')) {
+		if (handleSetIsOpen) {
 			handleSetIsOpen(false);
 		} else {
 			setIsOpen(false);
@@ -171,14 +166,14 @@ export const HoverCardComponent = ({
 			if (!isOpen && !fadeInTimeoutId.current) {
 				// setting a timeout to show a Hover Card after delay runs out
 				if (noFadeDelay) {
-					if (handleSetIsOpen && fg('hover-card-on-visibility-change-callback')) {
+					if (handleSetIsOpen) {
 						handleSetIsOpen(true);
 					} else {
 						setIsOpen(true);
 					}
 				} else {
 					fadeInTimeoutId.current = setTimeout(() => {
-						if (handleSetIsOpen && fg('hover-card-on-visibility-change-callback')) {
+						if (handleSetIsOpen) {
 							handleSetIsOpen(true);
 						} else {
 							setIsOpen(true);

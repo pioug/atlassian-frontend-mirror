@@ -46,7 +46,7 @@ const allComponents = [
 	registerOverflowToolbarComponents,
 ];
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	const registry = createComponentRegistry();
 
 	allComponents.forEach((registerComponents) => {

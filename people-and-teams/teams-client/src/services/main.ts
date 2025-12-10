@@ -1,4 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	TEAMS_CLIENT_EXPERIENCES,
@@ -133,12 +132,8 @@ export class TeamsClient {
 		product?: string,
 	): Promise<{ ['internal.browse-users-allowed']: boolean }> {
 		if (cloudId) {
-			if (fg('fix_query_settings_context')) {
-				const previousContext = this._legionClient.getContext();
-				this.setContext({ ...previousContext, cloudId });
-			} else {
-				this.setContext({ cloudId });
-			}
+			const previousContext = this._legionClient.getContext();
+			this.setContext({ ...previousContext, cloudId });
 		}
 		return this.measurePerformance('querySettings', async () => {
 			if (!product) {

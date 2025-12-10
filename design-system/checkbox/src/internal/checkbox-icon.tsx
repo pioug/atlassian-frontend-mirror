@@ -105,7 +105,14 @@ const CheckboxIcon = memo<{
 		>
 			<g fillRule="evenodd">
 				{fg('platform-visual-refresh-icons') ? (
-					<rect fill="currentColor" x="5.5" y="5.5" width="13" height="13" rx="1.5" />
+					<rect
+						fill="currentColor"
+						x="5.5"
+						y="5.5"
+						width="13"
+						height="13"
+						rx={fg('platform-dst-shape-theme-default') ? '2' : '1.5'}
+					/>
 				) : (
 					<rect fill="currentColor" x="6" y="6" width="12" height="12" rx="2" />
 				)}

@@ -24,7 +24,7 @@ export const FormatMenuComponent = ({
 }: {
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
 	children: React.ReactNode;
-}) => {
+}): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const handleClick = useCallback(() => {

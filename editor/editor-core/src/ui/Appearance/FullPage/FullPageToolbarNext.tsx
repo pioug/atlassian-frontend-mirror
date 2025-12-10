@@ -73,6 +73,12 @@ const styles = cssMap({
 		display: 'flex',
 		flexGrow: 1,
 	},
+	firstChildWrapperContainerContext: {
+		// @ts-expect-error - containerType is not typed
+		containerType: 'inline-size',
+		// @ts-expect-error - containerName is not typed
+		containerName: 'toolbar-container',
+	},
 	secondChildWrapperOneLine: {
 		display: 'flex',
 		minWidth: 'fit-content',
@@ -114,7 +120,14 @@ const MainToolbarWrapper = ({
 
 const FirstChildWrapper = ({ children }: { children: React.ReactNode }) => {
 	return (
-		<div css={styles.firstChildWrapperOneLine} data-testid="main-toolbar-first-child-wrapper">
+		<div
+			css={[
+				styles.firstChildWrapperOneLine,
+				expValEquals('platform_editor_reduce_toolbar_vc_impact', 'isEnabled', true) &&
+					styles.firstChildWrapperContainerContext,
+			]}
+			data-testid="main-toolbar-first-child-wrapper"
+		>
 			{children}
 		</div>
 	);

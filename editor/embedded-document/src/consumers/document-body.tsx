@@ -46,7 +46,7 @@ export default class DocumentBody extends PureComponent<Props> {
 		};
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<Consumer stateMapper={this.stateMapper} renderPropsMapper={this.renderPropsMapper}>
 				{this.renderChild}

@@ -11,7 +11,7 @@ import deepLinkTestADF from './helper/deep-link-test.adf.json';
  * - Links with ?deepLinkTarget=admin will open in new tab
  * - Links without deepLinkTarget query param will open normally
  */
-export default function DeepLinkTargetExample() {
+export default function DeepLinkTargetExample(): React.JSX.Element {
 	return (
 		<RendererDemo
 			serializer="react"

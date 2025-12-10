@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 
-import { useIntl, injectIntl } from 'react-intl-next';
 import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, useIntl } from 'react-intl-next';
 
 import {
 	ACTION,
@@ -41,7 +41,7 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 			};
 			api?.analytics?.actions?.attachAnalyticsEvent(payload)(tr);
 
-			deleteSelectedRange(tr);
+			deleteSelectedRange(tr, api?.blockControls?.sharedState.currentState()?.preservedSelection);
 			api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true })({ tr });
 			return tr;
 		});

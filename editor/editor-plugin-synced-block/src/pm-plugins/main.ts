@@ -6,7 +6,7 @@ import {
 } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
-import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet, Decoration } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -18,8 +18,12 @@ import {
 import { lazyBodiedSyncBlockView } from '../nodeviews/bodiedLazySyncedBlock';
 import { lazySyncBlockView } from '../nodeviews/lazySyncedBlock';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
-import { FLAG_ID } from '../types';
+import { FLAG_ID, type ActiveFlag, type BodiedSyncBlockDeletionStatus } from '../types';
 
+import {
+	handleBodiedSyncBlockRemoval,
+	type ConfirmationTransactionRef,
+} from './utils/handle-bodied-sync-block-removal';
 import { shouldIgnoreDomEvent } from './utils/ignore-dom-event';
 import { calculateDecorations } from './utils/selection-decorations';
 import { hasEditInSyncBlock, trackSyncBlocks } from './utils/track-sync-blocks';
@@ -27,8 +31,9 @@ import { hasEditInSyncBlock, trackSyncBlocks } from './utils/track-sync-blocks';
 export const syncedBlockPluginKey = new PluginKey('syncedBlockPlugin');
 
 type SyncedBlockPluginState = {
+	activeFlag: ActiveFlag;
+	bodiedSyncBlockDeletionStatus?: BodiedSyncBlockDeletionStatus;
 	selectionDecorationSet: DecorationSet;
-	showFlag: FLAG_ID | false;
 	syncBlockStore: SyncBlockStoreManager;
 };
 
@@ -39,7 +44,7 @@ export const createPlugin = (
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>,
 ) => {
 	const { useLongPressSelection = false } = options || {};
-	let confirmationTransaction: Transaction | undefined;
+	const confirmationTransactionRef: ConfirmationTransactionRef = { current: undefined };
 
 	return new SafePlugin<SyncedBlockPluginState>({
 		key: syncedBlockPluginKey,
@@ -57,23 +62,26 @@ export const createPlugin = (
 						instance.selection,
 						instance.schema,
 					),
-					showFlag: false,
+					activeFlag: false,
 					syncBlockStore: syncBlockStore,
 				};
 			},
 			apply: (tr, currentPluginState, oldEditorState) => {
 				const meta = tr.getMeta(syncedBlockPluginKey);
 
-				const { showFlag, selectionDecorationSet } = currentPluginState;
+				const { activeFlag, selectionDecorationSet, bodiedSyncBlockDeletionStatus } =
+					currentPluginState;
 
 				let newDecorationSet = selectionDecorationSet.map(tr.mapping, tr.doc);
 				if (!tr.selection.eq(oldEditorState.selection)) {
 					newDecorationSet = calculateDecorations(tr.doc, tr.selection, tr.doc.type.schema);
 				}
 				return {
-					showFlag: meta?.showFlag ?? showFlag,
+					activeFlag: meta?.activeFlag ?? activeFlag,
 					selectionDecorationSet: newDecorationSet,
 					syncBlockStore: syncBlockStore,
+					bodiedSyncBlockDeletionStatus:
+						meta?.bodiedSyncBlockDeletionStatus ?? bodiedSyncBlockDeletionStatus,
 				};
 			},
 		},
@@ -164,31 +172,14 @@ export const createPlugin = (
 
 			if (!isOffline) {
 				if (bodiedSyncBlockRemoved.length > 0) {
-					// If there are source sync blocks being removed, and we need to confirm with user before deleting,
-					// we block the transaction here, and wait for user confirmation to proceed with deletion.
-					// See editor-common/src/sync-block/sync-block-store-manager.ts for how we handle user confirmation and
-					// proceed with deletion.
-					confirmationTransaction = tr;
-					syncBlockStore.sourceManager
-						.deleteSyncBlocksWithConfirmation(
-							bodiedSyncBlockRemoved.map((node) => node.attrs),
-							() => {
-								api?.core?.actions.execute(() => {
-									const trToDispatch = tr.setMeta('isConfirmedSyncBlockDeletion', true);
-									if (!trToDispatch.getMeta(pmHistoryPluginKey)) {
-										// bodiedSyncBlock deletion is expected to be permanent (cannot undo)
-										// For a normal deletion (not triggered by undo), remove it from history so that it cannot be undone
-										trToDispatch.setMeta('addToHistory', false);
-									}
-									return trToDispatch;
-								});
-							},
-						)
-						.finally(() => {
-							confirmationTransaction = undefined;
-						});
-
-					return false;
+					confirmationTransactionRef.current = tr;
+					return handleBodiedSyncBlockRemoval(
+						tr,
+						bodiedSyncBlockRemoved,
+						syncBlockStore,
+						api,
+						confirmationTransactionRef,
+					);
 				}
 
 				if (bodiedSyncBlockAdded.length > 0) {
@@ -237,7 +228,7 @@ export const createPlugin = (
 					setTimeout(() => {
 						api?.core.actions.execute(({ tr }) => {
 							return tr.setMeta(syncedBlockPluginKey, {
-								showFlag: errorFlag,
+								activeFlag: { id: errorFlag },
 							});
 						});
 					}, 0);
@@ -251,8 +242,12 @@ export const createPlugin = (
 			trs
 				.filter((tr) => tr.docChanged)
 				.forEach((tr) => {
-					if (confirmationTransaction) {
-						confirmationTransaction = rebaseTransaction(confirmationTransaction, tr, newState);
+					if (confirmationTransactionRef.current) {
+						confirmationTransactionRef.current = rebaseTransaction(
+							confirmationTransactionRef.current,
+							tr,
+							newState,
+						);
 					}
 				});
 

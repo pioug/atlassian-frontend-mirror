@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.29.1
+
+### Patch Changes
+
+- [`8dadb76e44cfb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8dadb76e44cfb) -
+  Clean up enable_x_query_context_header
+
 ## 4.29.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar
 
+## 0.18.3
+
+### Patch Changes
+
+- [`63c5e344d169c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63c5e344d169c) -
+  Reduce the VC impact of the editor toolbar
+- Updated dependencies
+
 ## 0.18.2
 
 ### Patch Changes

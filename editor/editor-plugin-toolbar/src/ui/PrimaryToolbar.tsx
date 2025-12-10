@@ -26,7 +26,7 @@ const getBreakpointPreset = (
 	return editorAppearance && isFullPage(editorAppearance) ? 'fullpage' : 'reduced';
 };
 
-export const PrimaryToolbar = ({ children, breakpointPreset }: PrimaryToolbarProps) => {
+export const PrimaryToolbar = ({ children, breakpointPreset }: PrimaryToolbarProps): React.JSX.Element => {
 	const { editorAppearance } = useEditorToolbar();
 
 	return (

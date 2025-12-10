@@ -72,7 +72,7 @@ export class Consumer<
 		return this.props.children(props);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return <Context.Consumer>{this.renderChildren}</Context.Consumer>;
 	}
 }

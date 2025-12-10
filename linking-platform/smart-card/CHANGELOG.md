@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 43.14.4
+
+### Patch Changes
+
+- [`e1ac07831b573`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1ac07831b573) -
+  Clean up feature gate hover-card-on-visibility-change-callback
+
 ## 43.14.3
 
 ### Patch Changes

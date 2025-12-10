@@ -5,7 +5,7 @@ import codeBlockADF from './helper/codeblock.adf.json';
 import InlineEdit from '@atlaskit/inline-edit';
 import Textfield from '@atlaskit/textfield';
 
-export default function InlineEditWithRenderer() {
+export default function InlineEditWithRenderer(): React.JSX.Element {
 	const [editValue, setEditValue] = useState('Field value');
 
 	return (

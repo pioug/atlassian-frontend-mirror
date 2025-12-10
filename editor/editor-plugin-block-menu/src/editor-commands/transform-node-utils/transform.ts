@@ -6,14 +6,18 @@ import {
 
 import { getTargetNodeTypeNameInContext } from '../transform-node-utils/utils';
 
-import { flattenListStep } from './flattenListStep';
 import { flattenStep } from './flattenStep';
+import { convertBulletListToTextStep } from './steps/convertBulletListToTextStep';
+import { convertOrderedListToTextStep } from './steps/convertOrderedListToTextStep';
+import { convertTaskListToTextStep } from './steps/convertTaskListToTextStep';
+import { flattenListStep } from './steps/flattenListStep';
+import { listToListStep } from './steps/listToListStep';
 import { unwrapLayoutStep } from './steps/unwrapLayoutStep';
+import { unwrapListStep } from './steps/unwrapListStep';
 import { stubStep } from './stubStep';
 import type { NodeCategory, NodeTypeName, TransformStepContext, TransformStep } from './types';
 import { NODE_CATEGORY_BY_TYPE, toNodeTypeValue } from './types';
 import { unwrapExpandStep } from './unwrapExpandStep';
-import { unwrapListStep } from './unwrapListStep';
 import { unwrapStep } from './unwrapStep';
 import { wrapIntoLayoutStep } from './wrapIntoLayoutStep';
 import { wrapMixedContentStep } from './wrapMixedContentStep';
@@ -31,7 +35,7 @@ const wrapIntoPanelStep: TransformStep = (nodes, context) => {
 const TRANSFORM_STEPS: Record<NodeCategory, Record<NodeCategory, TransformStep[] | undefined>> = {
 	atomic: {
 		atomic: undefined,
-		container: [stubStep],
+		container: [wrapStep],
 		list: undefined,
 		text: undefined,
 	},
@@ -43,8 +47,8 @@ const TRANSFORM_STEPS: Record<NodeCategory, Record<NodeCategory, TransformStep[]
 	},
 	list: {
 		atomic: undefined,
-		container: [stubStep],
-		list: [stubStep],
+		container: [wrapStep],
+		list: [listToListStep],
 		text: [flattenListStep, unwrapListStep],
 	},
 	text: {
@@ -99,6 +103,27 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		nestedExpand: [wrapStep],
 		layoutSection: [wrapIntoLayoutStep],
 		panel: [wrapStep],
+	},
+	bulletList: {
+		// Warning: Actuall transformation logic not complete (Likelly prosemirror-markdown to be used)
+		codeBlock: [convertBulletListToTextStep, flattenStep, wrapStep],
+		layoutSection: [wrapIntoLayoutStep],
+	},
+	orderedList: {
+		// Warning: Actuall transformation logic not complete (Likelly prosemirror-markdown to be used)
+		codeBlock: [convertOrderedListToTextStep, flattenStep, wrapStep], // Warning: Actuall transformation logic not complete (Likelly prosemirror-markdown to be used)
+		layoutSection: [wrapIntoLayoutStep],
+	},
+	taskList: {
+		// Warning: Actuall transformation logic not complete (Skeptical that prosemirror-markdown can be used)
+		blockquote: [convertTaskListToTextStep, wrapStep],
+		// Warning: Actuall transformation logic not complete (Likelly prosemirror-markdown to be used)
+		codeBlock: [convertTaskListToTextStep, flattenStep, wrapStep],
+		layoutSection: [wrapIntoLayoutStep],
+	},
+	table: {
+		expand: [wrapStep],
+		layoutSection: [wrapIntoLayoutStep],
 	},
 };
 

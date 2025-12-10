@@ -55,7 +55,7 @@ export const useBulletedListInfo = ({ api, parents }: BulletedListType) => {
 		shortcut,
 	};
 };
-export const BulletedListMenuItem = ({ api, parents }: BulletedListType) => {
+export const BulletedListMenuItem = ({ api, parents }: BulletedListType): React.JSX.Element => {
 	const { bulletMessage, onClick, isDisabled, isSelected, shortcut } = useBulletedListInfo({
 		api,
 		parents,

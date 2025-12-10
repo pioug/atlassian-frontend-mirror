@@ -1,4 +1,9 @@
-import { isFileIdentifier } from '@atlaskit/media-client';
+import {
+	isFileIdentifier,
+	globalMediaEventEmitter,
+	type AuthProviderSucceededEventPayload,
+	type AuthProviderFailedEventPayload,
+} from '@atlaskit/media-client';
 import { withMediaAnalyticsContext } from '@atlaskit/media-common';
 import React, { useEffect } from 'react';
 import { IntlProvider, type WrappedComponentProps, injectIntl } from 'react-intl-next';
@@ -9,7 +14,13 @@ import {
 	startResourceObserver,
 	setAnalyticsContext,
 } from '../utils/mediaPerformanceObserver/mediaPerformanceObserver';
+import {
+	fireMediaCardEvent,
+	getAuthProviderSucceededPayload,
+	getAuthProviderFailedPayload,
+} from '../utils/analytics';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import UFOLabel from '@atlaskit/react-ufo/label';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
@@ -44,6 +55,40 @@ export const CardWithPerformanceObserver = (
 
 	useEffect(() => {
 		setAnalyticsContext(createAnalyticsEvent);
+	}, [createAnalyticsEvent]);
+
+	// Auth provider analytics listener
+	useEffect(() => {
+		if (!fg('platform_media_auth_provider_analytics')) {
+			return;
+		}
+
+		const onAuthSuccess = (payload: AuthProviderSucceededEventPayload) => {
+			fireMediaCardEvent(
+				getAuthProviderSucceededPayload(payload.durationMs, payload.timeoutMs, payload.authContext),
+				createAnalyticsEvent,
+			);
+		};
+
+		const onAuthFailed = (payload: AuthProviderFailedEventPayload) => {
+			fireMediaCardEvent(
+				getAuthProviderFailedPayload(
+					payload.durationMs,
+					payload.timeoutMs,
+					payload.error,
+					payload.authContext,
+				),
+				createAnalyticsEvent,
+			);
+		};
+
+		globalMediaEventEmitter.on('auth-provider-succeeded', onAuthSuccess);
+		globalMediaEventEmitter.on('auth-provider-failed', onAuthFailed);
+
+		return () => {
+			globalMediaEventEmitter.off('auth-provider-succeeded', onAuthSuccess);
+			globalMediaEventEmitter.off('auth-provider-failed', onAuthFailed);
+		};
 	}, [createAnalyticsEvent]);
 
 	return <CardBase {...props} />;

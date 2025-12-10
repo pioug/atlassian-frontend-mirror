@@ -214,6 +214,31 @@ export type CopiedFileEventPayload = UIEventPayload<{}, 'copied', string>;
 
 export type ClickedEventPayload = UIEventPayload<{ label?: string }, 'clicked', string>;
 
+export type AuthProviderSucceededAnalyticsPayload = OperationalEventPayload<
+	{
+		status: 'succeeded';
+		durationMs: number;
+		timeoutMs: number;
+		collectionName?: string;
+	},
+	'succeeded',
+	'mediaAuthProvider'
+>;
+
+export type AuthProviderFailedAnalyticsPayload = OperationalEventPayload<
+	{
+		status: 'failed';
+		durationMs: number;
+		timeoutMs: number;
+		collectionName?: string;
+		failReason: string;
+		error?: string;
+		errorDetail?: string;
+	},
+	'failed',
+	'mediaAuthProvider'
+>;
+
 export type MediaCardAnalyticsEventPayload =
 	| RenderSucceededEventPayload
 	| RenderFailedEventPayload
@@ -227,7 +252,9 @@ export type MediaCardAnalyticsEventPayload =
 	| RenderInlineCardFailedEventPayload
 	| RenderInlineCardSucceededEventPayload
 	| DownloadSucceededEventPayload
-	| DownloadFailedEventPayload;
+	| DownloadFailedEventPayload
+	| AuthProviderSucceededAnalyticsPayload
+	| AuthProviderFailedAnalyticsPayload;
 
 export const getFileAttributes = (
 	metadata: FileDetails,
@@ -465,6 +492,76 @@ export const getRenderFailedFileStatusPayload = (
 		metadataTraceContext,
 	},
 });
+
+// Similar to extractErrorInfo but works with raw Error (not MediaCardError)
+const extractAuthProviderErrorInfo = (error: Error) => {
+	if (isCommonMediaClientError(error)) {
+		return {
+			failReason: error.reason,
+			error: error.reason,
+			errorDetail: error.innerError?.message ?? error.message,
+		};
+	}
+	return {
+		failReason: error.name || 'unknown',
+		error: error.name || '',
+		errorDetail: error.message,
+	};
+};
+
+// Extract collection name from authContext - supports both new `access` array and deprecated `collectionName`
+const getCollectionNameFromAuthContext = (authContext?: {
+	access?: Array<{ type: string; name?: string }>;
+	collectionName?: string;
+}): string | undefined => {
+	if (!authContext) {
+		return undefined;
+	}
+	// Try new access array first
+	const collectionAccess = authContext.access?.find((a) => a.type === 'collection');
+	if (collectionAccess && 'name' in collectionAccess) {
+		return collectionAccess.name;
+	}
+	// Fallback to deprecated collectionName
+	return authContext.collectionName;
+};
+
+export const getAuthProviderSucceededPayload = (
+	durationMs: number,
+	timeoutMs: number,
+	authContext?: { access?: Array<{ type: string; name?: string }>; collectionName?: string },
+): AuthProviderSucceededAnalyticsPayload => ({
+	eventType: 'operational',
+	action: 'succeeded',
+	actionSubject: 'mediaAuthProvider',
+	attributes: {
+		status: 'succeeded',
+		durationMs,
+		timeoutMs,
+		collectionName: getCollectionNameFromAuthContext(authContext),
+	},
+});
+
+export const getAuthProviderFailedPayload = (
+	durationMs: number,
+	timeoutMs: number,
+	error: Error,
+	authContext?: { access?: Array<{ type: string; name?: string }>; collectionName?: string },
+): AuthProviderFailedAnalyticsPayload => {
+	const errorInfo = extractAuthProviderErrorInfo(error);
+	return {
+		eventType: 'operational',
+		action: 'failed',
+		actionSubject: 'mediaAuthProvider',
+		attributes: {
+			status: 'failed',
+			durationMs,
+			timeoutMs,
+			collectionName: getCollectionNameFromAuthContext(authContext),
+			...errorInfo,
+		},
+	};
+};
 
 export function fireMediaCardEvent(
 	payload: MediaCardAnalyticsEventPayload,

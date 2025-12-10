@@ -104,7 +104,7 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 		this.onComponentRendered();
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<div
 				// eslint-disable-next-line react/no-string-refs -- Ignored via go/ED-25883

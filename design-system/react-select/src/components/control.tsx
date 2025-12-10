@@ -7,6 +7,7 @@ import { type CSSProperties, type ReactNode, type Ref } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type CommonPropsAndClassName, type GroupBase } from '../types';
@@ -68,10 +69,10 @@ const styles = cssMap({
 			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.input')}`,
 		},
 		minHeight: 40,
-		paddingTop: token('space.0'),
-		paddingRight: token('space.0'),
-		paddingBottom: token('space.0'),
-		paddingLeft: token('space.0'),
+		paddingBlockStart: token('space.0'),
+		paddingInlineEnd: token('space.0'),
+		paddingBlockEnd: token('space.0'),
+		paddingInlineStart: token('space.0'),
 		transition: `background-color 200ms ease-in-out,
 border-color 200ms ease-in-out`,
 		'&::-webkit-scrollbar': {
@@ -93,6 +94,9 @@ border-color 200ms ease-in-out`,
 		'&::-webkit-scrollbar-thumb:hover': {
 			backgroundColor: 'rgba(0,0,0,0.4)',
 		},
+	},
+	defaultT26Shape: {
+		borderRadius: token('radius.medium', '6px'),
 	},
 	compact: {
 		minHeight: 32,
@@ -182,6 +186,7 @@ const Control = <Option, IsMulti extends boolean, Group extends GroupBase<Option
 		<div
 			css={[
 				styles.default,
+				fg('platform-dst-shape-theme-default') && styles.defaultT26Shape,
 				isDisabled && styles.disabled,
 				isInvalid && styles.invalid,
 				isCompact && styles.compact,

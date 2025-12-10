@@ -6,6 +6,7 @@ import { type CSSProperties, forwardRef } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B200, B300, B400, N30, N40, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -199,6 +200,23 @@ const rangeA11yStyles = css({
 	},
 });
 
+const stylesT26Shape = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&::-webkit-slider-runnable-track': {
+		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+		borderRadius: 0,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&::-moz-range-progress': {
+		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+		borderRadius: 0,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Required for this browser styling
+	'&::-moz-range-track': {
+		borderRadius: 0,
+	},
+});
+
 const Input: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<InputProps> & React.RefAttributes<HTMLInputElement>
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -218,7 +236,14 @@ const Input: React.ForwardRefExoticComponent<
 				} as CSSProperties
 			}
 			ref={ref}
-			css={[baseStyles, webkitStyles, firefoxStyles, themeStyles, rangeA11yStyles]}
+			css={[
+				baseStyles,
+				webkitStyles,
+				firefoxStyles,
+				themeStyles,
+				rangeA11yStyles,
+				fg('platform-dst-shape-theme-default') && stylesT26Shape,
+			]}
 		/>
 	);
 

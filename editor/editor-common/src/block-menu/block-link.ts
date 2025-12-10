@@ -36,3 +36,17 @@ export const extractBlockIdFromLinkHash = (
 	const normalized = hash.startsWith('#') ? hash.slice(1) : hash;
 	return normalized.slice(prefix.length);
 };
+
+/**
+ * Creates a block link hash from a given block ID.
+ *
+ * @param blockId The block ID to create the hash from (e.g., '123e4567-e89b-12d3-a456-426614174000')
+ * @param prefix The prefix to use (default is 'block-')
+ * @returns The constructed block link hash value (e.g., 'block-123e4567-e89b-12d3-a456-426614174000')
+ */
+export const createBlockLinkHashValue = (
+	blockId: string,
+	prefix = DEFAULT_BLOCK_LINK_HASH_PREFIX,
+) => {
+	return `${prefix}${blockId}`;
+};

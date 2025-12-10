@@ -20,7 +20,7 @@ export const SyncedBlockErrorComponent = ({
 	onRetry?: () => void;
 	sourceAri?: string;
 	sourceProduct?: SyncBlockProduct;
-}) => {
+}): React.JSX.Element => {
 	const getErrorContent = useMemo(() => {
 		switch (error) {
 			case SyncBlockError.Forbidden:

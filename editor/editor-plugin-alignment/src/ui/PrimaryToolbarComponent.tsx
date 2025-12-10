@@ -29,7 +29,7 @@ export function PrimaryToolbarComponent({
 	popupsBoundariesElement,
 	popupsScrollableElement,
 	isToolbarReducedSpacing,
-}: PrimaryToolbarComponentProps) {
+}: PrimaryToolbarComponentProps): React.JSX.Element {
 	const { align, isEnabled } = useSharedPluginStateWithSelector(api, ['alignment'], (states) => {
 		return {
 			align: states.alignmentState?.align,

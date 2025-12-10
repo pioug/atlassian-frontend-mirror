@@ -29,6 +29,7 @@ const tabListStyles = css({
 	'& [role="tab"]': {
 		margin: 0,
 		position: 'relative',
+		borderRadius: token('radius.medium', '6px'),
 		color: token('color.text.subtle', N500),
 		cursor: 'pointer',
 		overflow: 'hidden',

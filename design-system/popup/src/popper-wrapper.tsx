@@ -39,6 +39,10 @@ const wrapperStyles = cssMap({
 			outline: 'none',
 		},
 	},
+	// platform-dst-shape-theme-default TODO: Merge into base after rollout
+	rootT26Shape: {
+		borderRadius: token('radius.large'),
+	},
 });
 
 const scrollableStyles = css({
@@ -94,6 +98,7 @@ const DefaultPopupComponent: React.ForwardRefExoticComponent<
 		<div
 			css={[
 				wrapperStyles.root,
+				fg('platform-dst-shape-theme-default') && wrapperStyles.rootT26Shape,
 				appearance === 'UNSAFE_modal-below-sm' && modalStyles,
 				!shouldRenderToParent && scrollableStyles,
 				shouldFitContainer && fullWidthStyles,

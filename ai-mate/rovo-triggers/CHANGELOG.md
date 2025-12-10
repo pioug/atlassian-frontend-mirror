@@ -1,5 +1,39 @@
 # @atlaskit/rovo-triggers
 
+## 5.0.0
+
+### Major Changes
+
+- [`af3bc63b43fca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af3bc63b43fca) -
+  Workflow builder rovo types have been updated for the delete transition operation behind a feature
+  gate.
+
+  Type has been updated from:
+
+  ```
+  {
+  	transitionId: TransitionId;
+  	transitionName: string;
+  };
+  ```
+
+  To:
+
+  ```
+  {
+  	id: TransitionId;
+  	name: string;
+  	toStatusId: StatusId;
+  	toStatusName: string;
+  	toStatusCategory: StatusCategory;
+  	links: {
+  		fromStatusId: StatusId;
+  		fromStatusName: string;
+  		fromStatusCategory: StatusCategory;
+  	}[];
+  }
+  ```
+
 ## 4.12.0
 
 ### Minor Changes

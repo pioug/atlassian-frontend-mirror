@@ -20,7 +20,7 @@ export type SyncedBlockRendererProps = {
 const SyncedBlockRendererComponent = ({
 	useFetchSyncBlockData,
 	syncBlockRendererOptions,
-}: SyncedBlockRendererProps) => {
+}: SyncedBlockRendererProps): React.JSX.Element => {
 	const { syncBlockInstance, providerFactory, isLoading, reloadData } = useFetchSyncBlockData();
 
 	if (!syncBlockInstance) {

@@ -28,7 +28,7 @@ export interface HyperlinkToolbarAppearanceProps {
 	url: string;
 }
 
-export function HyperlinkToolbarAppearance(props: HyperlinkToolbarAppearanceProps) {
+export function HyperlinkToolbarAppearance(props: HyperlinkToolbarAppearanceProps): React.JSX.Element | null {
 	const [supportedUrlsMap, setSupportedUrlsMap] = useState<Map<string, boolean>>(new Map());
 	const cardProvider = useRef<CardProvider | undefined>(undefined);
 

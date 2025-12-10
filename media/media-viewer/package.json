@@ -126,6 +126,9 @@
 		},
 		"media_document_viewer": {
 			"type": "boolean"
+		},
+		"media_viewer_prevent_rerender_on_polling": {
+			"type": "boolean"
 		}
 	},
 	"techstack": {

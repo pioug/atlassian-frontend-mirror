@@ -115,7 +115,7 @@ function useListsIndentationHeroButtonInfo({
 export const ListsIndentationHeroButtonCollapsed = ({
 	api,
 	parents,
-}: ListsIndentationHeroButtonProps) => {
+}: ListsIndentationHeroButtonProps): React.JSX.Element => {
 	const { shortcut, keymap, message, onClick, iconBefore, isSelected, isDisabled } =
 		useListsIndentationHeroButtonInfo({ api, parents, defaultListType: 'bulletList' });
 
@@ -135,7 +135,7 @@ export const ListsIndentationHeroButtonCollapsed = ({
 export const ListsIndentationHeroButtonNew = ({
 	api,
 	parents,
-}: ListsIndentationHeroButtonProps) => {
+}: ListsIndentationHeroButtonProps): React.JSX.Element => {
 	const { shortcut, keymap, message, onClick, iconBefore, isSelected, isDisabled } =
 		useListsIndentationHeroButtonInfo({ api, parents, defaultListType: 'orderedList' });
 
@@ -152,7 +152,7 @@ export const ListsIndentationHeroButtonNew = ({
 	);
 };
 
-export const ListsIndentationHeroButton = ({ api, parents }: ListsIndentationHeroButtonProps) => {
+export const ListsIndentationHeroButton = ({ api, parents }: ListsIndentationHeroButtonProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const { bulletListActive, bulletListDisabled, orderedListActive, taskListActive } =

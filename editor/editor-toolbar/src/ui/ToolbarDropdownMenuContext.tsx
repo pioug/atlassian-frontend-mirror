@@ -34,7 +34,7 @@ export const ToolbarDropdownMenuProvider = ({
 	children,
 	isOpen,
 	setIsOpen,
-}: ToolbarDropdownMenuProviderProps) => {
+}: ToolbarDropdownMenuProviderProps): React.JSX.Element => {
 	const [isOpenInternal, setIsOpenInternal] = useState(false);
 	const { onDropdownOpenChanged } = useToolbarUI();
 

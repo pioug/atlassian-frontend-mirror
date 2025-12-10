@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 
 import EditorActions from '../../../../actions';
 import * as handleProvidersUtils from '../../../utils/handleProviders';

@@ -104,6 +104,11 @@ describe('ErrorMessage', () => {
 		});
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderAgentActions();
+		await expect(container).toBeAccessible();
+	});
+
 	describe('hideMoreActions', () => {
 		it('should render dropdown menu when hideMoreActions is false', () => {
 			renderAgentActions(false);

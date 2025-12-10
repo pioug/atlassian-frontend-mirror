@@ -7,6 +7,7 @@ import React, { forwardRef, memo, useCallback, useEffect, useMemo, useRef } from
 import { css, cssMap, jsx } from '@compiled/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B200, N0, N10, N20, N200, N30, N70, N900, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -112,26 +113,30 @@ const baseStyles = css({
 	},
 });
 
+const baseStylesT26Shape = css({
+	borderRadius: token('radius.medium', '6px'),
+});
+
 const appearanceStyles = cssMap({
 	standard: {
 		borderStyle: 'solid',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'&[data-compact]': {
-			paddingTop: token('space.025'),
-			paddingBottom: token('space.025'),
+			paddingBlockStart: token('space.025'),
+			paddingBlockEnd: token('space.025'),
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			paddingLeft: '7px',
+			paddingInlineStart: '7px',
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			paddingRight: '7px',
+			paddingInlineEnd: '7px',
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'&:not([data-compact])': {
-			paddingTop: token('space.075'),
-			paddingBottom: token('space.075'),
+			paddingBlockStart: token('space.075'),
+			paddingBlockEnd: token('space.075'),
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			paddingLeft: '7px',
+			paddingInlineStart: '7px',
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			paddingRight: '7px',
+			paddingInlineEnd: '7px',
 		},
 		'&:focus': {
 			backgroundColor: token('color.background.input.pressed'),
@@ -164,21 +169,21 @@ const appearanceStyles = cssMap({
 		borderStyle: 'solid',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'&[data-compact]': {
-			paddingTop: token('space.025'),
-			paddingBottom: token('space.025'),
+			paddingBlockStart: token('space.025'),
+			paddingBlockEnd: token('space.025'),
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			paddingLeft: '7px',
+			paddingInlineStart: '7px',
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			paddingRight: '7px',
+			paddingInlineEnd: '7px',
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'&:not([data-compact])': {
-			paddingTop: token('space.075'),
-			paddingBottom: token('space.075'),
+			paddingBlockStart: token('space.075'),
+			paddingBlockEnd: token('space.075'),
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			paddingRight: '7px',
+			paddingInlineEnd: '7px',
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			paddingLeft: '7px',
+			paddingInlineStart: '7px',
 		},
 		'&:focus': {
 			backgroundColor: token('color.background.input.pressed'),
@@ -200,17 +205,17 @@ const appearanceStyles = cssMap({
 		borderStyle: 'none',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'&[data-compact]': {
-			paddingTop: token('space.025'),
-			paddingRight: token('space.075'),
-			paddingBottom: token('space.025'),
-			paddingLeft: token('space.075'),
+			paddingBlockStart: token('space.025'),
+			paddingInlineEnd: token('space.075'),
+			paddingBlockEnd: token('space.025'),
+			paddingInlineStart: token('space.075'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'&:not([data-compact])': {
-			paddingTop: token('space.075'),
-			paddingRight: token('space.075'),
-			paddingBottom: token('space.075'),
-			paddingLeft: token('space.075'),
+			paddingBlockStart: token('space.075'),
+			paddingInlineEnd: token('space.075'),
+			paddingBlockEnd: token('space.075'),
+			paddingInlineStart: token('space.075'),
 		},
 		'&:focus': {
 			backgroundColor: 'transparent',
@@ -385,6 +390,7 @@ const InnerTextArea: React.ForwardRefExoticComponent<
 			rows={minimumRows}
 			css={[
 				baseStyles,
+				fg('platform-dst-shape-theme-default') && baseStylesT26Shape,
 				appearanceStyles[appearance],
 				fontStyles[isMonospaced ? 'monospace' : 'default'],
 				resizeStyles[resize],

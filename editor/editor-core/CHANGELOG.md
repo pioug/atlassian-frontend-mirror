@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 215.20.1
+
+### Patch Changes
+
+- [`63c5e344d169c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63c5e344d169c) -
+  Reduce the VC impact of the editor toolbar
+- Updated dependencies
+
 ## 215.20.0
 
 ### Minor Changes

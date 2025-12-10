@@ -11,6 +11,7 @@ import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AvatarContext, type AvatarContextProps } from '@atlaskit/avatar';
 import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Pressable, Text, type TextColor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -199,6 +200,10 @@ const containerStyles = cssMap({
 			backgroundColor: token('elevation.surface.hovered'),
 		},
 	},
+	// platform-dst-shape-theme-default TODO: Merge into base after rollout
+	rootT26Shape: {
+		borderRadius: token('radius.medium', '6px'),
+	},
 	removeElemAfter: {
 		[elemAfterDisplayVar]: 'none',
 	},
@@ -285,6 +290,10 @@ const buttonOrAnchorStyles = cssMap({
 		'&:active:not(:disabled)': {
 			backgroundColor: token('elevation.surface.pressed'),
 		},
+	},
+	// platform-dst-shape-theme-default TODO: Merge into base after rollout
+	rootT26Shape: {
+		borderRadius: token('radius.medium', '6px'),
 	},
 	selected: {
 		color: token('color.text.selected'),
@@ -663,6 +672,7 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 				ref={visualContentRef}
 				css={[
 					containerStyles.root,
+					fg('platform-dst-shape-theme-default') && containerStyles.rootT26Shape,
 					isSelected && containerStyles.selected,
 					isDragging && containerStyles.dragging,
 					description && containerStyles.hasDescription,
@@ -720,6 +730,7 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 								onClick={handleClick as MenuItemOnClick<HTMLAnchorElement>}
 								xcss={cx(
 									buttonOrAnchorStyles.root,
+									fg('platform-dst-shape-theme-default') && buttonOrAnchorStyles.rootT26Shape,
 									topLevelSiblingStyles.root,
 									isSelected && buttonOrAnchorStyles.selected,
 									hasDragIndicator && buttonOrAnchorStyles.hasDragIndicator,
@@ -762,6 +773,7 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 								onClick={handleClick as MenuItemOnClick<HTMLButtonElement>}
 								xcss={cx(
 									buttonOrAnchorStyles.root,
+									fg('platform-dst-shape-theme-default') && buttonOrAnchorStyles.rootT26Shape,
 									topLevelSiblingStyles.root,
 									isSelected && buttonOrAnchorStyles.selected,
 									hasDragIndicator && buttonOrAnchorStyles.hasDragIndicator,

@@ -43,7 +43,7 @@ export const FormattingTextDropdownMenu = React.memo(
 		intl,
 		toolbarType,
 		isDisabled,
-	}: DropdownMenuProps) => {
+	}: DropdownMenuProps): React.JSX.Element => {
 		const [isMenuOpen, toggleMenu, closeMenu] = useMenuState();
 		const [isOpenedByKeyboard, setIsOpenedByKeyboard] = useState(false);
 		const onItemActivated = useCallback(

@@ -13,7 +13,7 @@ type TextStylesMenuButtonProps = {
  * Basic version of existing 'Text Styles' Menu - which doesn't dynamically change icon
  * and is also placeholder to render all other menus in the collapsed state.
  */
-export const TextCollapsedMenu = ({ children }: TextStylesMenuButtonProps) => {
+export const TextCollapsedMenu = ({ children }: TextStylesMenuButtonProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	return (

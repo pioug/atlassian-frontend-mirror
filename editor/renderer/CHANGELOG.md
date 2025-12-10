@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 124.17.7
+
+### Patch Changes
+
+- [`ef8a15fab8805`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef8a15fab8805) -
+  Remove platform_editor_renderer_breakout_fix experiment - apply the enabled behavior as default
+- Updated dependencies
+
 ## 124.17.6
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @atlaskit/collab-provider
 
+## 14.2.0
+
+### Minor Changes
+
+- [`081b4e257529b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/081b4e257529b) -
+  Support sharded routing for collab presence socket connections
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.2
 
 ### Patch Changes

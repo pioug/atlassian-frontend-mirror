@@ -9,6 +9,7 @@ import { cssMap, cx, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import { useId } from '@atlaskit/ds-lib/use-id';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -122,6 +123,10 @@ const styles = cssMap({
 			pointerEvents: 'none',
 			position: 'absolute',
 		},
+	},
+	// platform-dst-shape-theme-default TODO: Merge into base after rollout
+	baseT26Shape: {
+		borderRadius: token('radius.medium', '6px'),
 	},
 	// Required due to Jira's AUI CSS reset: https://product-fabric.atlassian.net/browse/DSP-15687
 	linkDecorationUnset: {
@@ -611,6 +616,7 @@ const ButtonBase: React.ForwardRefExoticComponent<
 				ref={mergeRefs([localRef, ref])}
 				xcss={cx(
 					styles.base,
+					fg('platform-dst-shape-theme-default') && styles.baseT26Shape,
 					appearance === 'default' && defaultStyles.root,
 					appearance === 'default' && isInteractive && defaultStyles.interactive,
 					appearance === 'primary' && primaryStyles.root,

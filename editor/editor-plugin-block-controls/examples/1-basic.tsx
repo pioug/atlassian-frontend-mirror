@@ -40,7 +40,7 @@ import { widthPlugin } from '@atlaskit/editor-plugins/width';
 
 import { defaultValue } from './default-value';
 
-export default function Editor() {
+export default function Editor(): React.JSX.Element {
 	const { preset } = usePreset((builder) =>
 		builder
 			.add(basePlugin)

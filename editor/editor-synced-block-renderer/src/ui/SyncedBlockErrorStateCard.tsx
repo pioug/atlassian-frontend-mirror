@@ -38,7 +38,7 @@ export const SyncedBlockErrorStateCard = ({
 	imageSrc,
 	primaryMessage,
 	secondaryMessage,
-}: SyncedBlockErrorStateCardProps) => {
+}: SyncedBlockErrorStateCardProps): React.JSX.Element => {
 	return (
 		<Box xcss={styles.wrapper}>
 			<Image src={imageSrc} alt={imageAltText} width="48" height="48" />

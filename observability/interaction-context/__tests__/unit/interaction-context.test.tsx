@@ -14,7 +14,7 @@ describe('InteractionContext', () => {
 		};
 	});
 
-	it('should provide hold and tracePress functions', () => {
+	it('should provide hold and tracePress functions', async () => {
 		const TestComponent = () => {
 			const context = useContext(InteractionContext);
 			expect(context).toBeDefined();
@@ -28,9 +28,11 @@ describe('InteractionContext', () => {
 				<TestComponent />
 			</InteractionContext.Provider>,
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should call hold function with correct name', () => {
+	it('should call hold function with correct name', async () => {
 		const testName = 'testHold';
 		const TestComponent = () => {
 			const context = useContext(InteractionContext);
@@ -47,9 +49,11 @@ describe('InteractionContext', () => {
 		);
 
 		expect(contextValue.hold).toHaveBeenCalledWith(testName);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should call tracePress function with correct name and timestamp', () => {
+	it('should call tracePress function with correct name and timestamp', async () => {
 		const testName = 'testPress';
 		const timestamp = Date.now();
 		const TestComponent = () => {
@@ -69,5 +73,7 @@ describe('InteractionContext', () => {
 		fireEvent.click(screen.getByText('Click me'));
 
 		expect(contextValue.tracePress).toHaveBeenCalledWith(testName, timestamp);
+
+		await expect(document.body).toBeAccessible();
 	});
 });

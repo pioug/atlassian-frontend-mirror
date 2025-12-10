@@ -76,7 +76,7 @@ export const ToolbarUIProvider = ({
 	popupsScrollableElement,
 	fireAnalyticsEvent,
 	keyboardNavigation,
-}: ToolbarUIProviderProps) => {
+}: ToolbarUIProviderProps): React.JSX.Element => {
 	return (
 		<ToolbarUIContext.Provider
 			value={{

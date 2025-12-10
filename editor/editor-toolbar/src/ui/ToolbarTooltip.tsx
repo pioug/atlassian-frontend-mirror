@@ -17,7 +17,7 @@ export const ToolbarTooltip = ({
 	children,
 	position = 'top',
 	delay,
-}: ToolbarTooltipProps) => {
+}: ToolbarTooltipProps): React.JSX.Element => {
 	return (
 		<Tooltip content={content} position={position} delay={delay} shortcut={shortcut}>
 			{children}

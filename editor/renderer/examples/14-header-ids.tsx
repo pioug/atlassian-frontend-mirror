@@ -48,6 +48,6 @@ const document = {
 	],
 };
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return <RendererDemo serializer="react" document={document} allowHeadingAnchorLinks />;
 }

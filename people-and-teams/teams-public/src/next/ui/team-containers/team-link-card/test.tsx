@@ -97,6 +97,12 @@ describe('TeamLinkCard Analytics', () => {
 			await userEvent.click(link);
 			expectEventToBeFired('ui', eventWithLinkDomain);
 		});
+
+		it('should capture and report a11y violations', async () => {
+			const { container } = renderWithIntl(<TeamLinkCard {...defaultProps} />);
+			await userEvent.click(screen.getByTestId('team-link-card-linkable-content'));
+			await expect(container).toBeAccessible();
+		});
 	});
 
 	ffTest.on('ptc-enable-teams-public-analytics-refactor', 'New analytics', () => {
@@ -123,6 +129,12 @@ describe('TeamLinkCard Analytics', () => {
 			expect(link).toBeInTheDocument();
 			await userEvent.click(link);
 			expectEventToBeFired('ui', eventWithLinkDomain);
+		});
+
+		it('should capture and report a11y violations', async () => {
+			const { container } = renderWithIntl(<TeamLinkCard {...defaultProps} />);
+			await userEvent.click(screen.getByTestId('team-link-card-linkable-content'));
+			await expect(container).toBeAccessible();
 		});
 	});
 });

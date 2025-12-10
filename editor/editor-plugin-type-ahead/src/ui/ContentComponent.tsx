@@ -15,7 +15,7 @@ interface ContentComponentProps {
 	popupMountRef: PopupMountPointReference;
 }
 
-export function ContentComponent({ api, editorView, popupMountRef }: ContentComponentProps) {
+export function ContentComponent({ api, editorView, popupMountRef }: ContentComponentProps): React.JSX.Element | null {
 	const {
 		triggerHandler,
 		items,

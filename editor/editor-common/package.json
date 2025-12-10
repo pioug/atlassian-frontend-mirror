@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "110.41.2",
+	"version": "110.41.5",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -224,8 +224,7 @@
 		"@atlaskit/media-core": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/jest-dom": "root:*",
-		"@testing-library/react": "root:*",
-		"@testing-library/react-hooks": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@testing-library/user-event": "root:*",
 		"@types/linkify-it": "root:*",
 		"@types/markdown-it": "root:*",
@@ -371,6 +370,9 @@
 			"type": "boolean"
 		},
 		"rovo_chat_enable_skills_ui_m1": {
+			"type": "boolean"
+		},
+		"forge-ui-extensionnodeview-stop-event-for-textarea": {
 			"type": "boolean"
 		},
 		"platform_editor_table_numbered_table_border": {

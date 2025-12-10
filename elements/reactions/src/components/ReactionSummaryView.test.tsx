@@ -51,6 +51,8 @@ describe('ReactionSummaryView', () => {
 
 		const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
 		expect(summaryViewPopup).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should open detailed reactions view on summary click', async () => {
@@ -67,6 +69,8 @@ describe('ReactionSummaryView', () => {
 
 		await userEvent.click(reactionButtons[0]);
 		expect(onReactionClickMock).toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should handle mouse enter and focus events on reactions', async () => {
@@ -88,6 +92,8 @@ describe('ReactionSummaryView', () => {
 
 		reactionButtons[0].focus();
 		expect(onReactionFocusedMock).toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should render Reactions Dialog entrypoint and invoke dialog open if user dialog is allowed', async () => {
@@ -111,6 +117,8 @@ describe('ReactionSummaryView', () => {
 		await userEvent.click(dialogEntrypoints[0]);
 
 		expect(mockHandleOpenReactionsDialog).toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should render emoji picker button if allowSelectFromSummaryView is true and the trigger is clicked', async () => {
@@ -129,6 +137,8 @@ describe('ReactionSummaryView', () => {
 		await userEvent.click(trigger);
 		const emojiPicker = await screen.findByText('EmojiPicker');
 		expect(emojiPicker).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should not render emoji picker button if allowSelectFromSummaryView is false', async () => {
@@ -142,6 +152,8 @@ describe('ReactionSummaryView', () => {
 
 		const pickerContainer = screen.queryByTestId('reaction-summary-view-emoji-picker-container');
 		expect(pickerContainer).not.toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('hover functionality', () => {
@@ -155,6 +167,8 @@ describe('ReactionSummaryView', () => {
 			await userEvent.click(addNewButton);
 			const emojiPicker = await screen.findByText('EmojiPicker');
 			expect(emojiPicker).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should close the popup when the summary button is clicked for a second time', async () => {
@@ -166,6 +180,8 @@ describe('ReactionSummaryView', () => {
 
 			await userEvent.click(reactionSummaryButton);
 			expect(summaryViewPopup).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should open popup when hovering the summary button if hoverableSummaryView is true', async () => {
@@ -175,6 +191,8 @@ describe('ReactionSummaryView', () => {
 			await userEvent.hover(reactionSummaryButton);
 			const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
 			expect(summaryViewPopup).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should open popup when clicking the summary button if hoverableSummaryView is true', async () => {
@@ -184,6 +202,8 @@ describe('ReactionSummaryView', () => {
 			await userEvent.click(reactionSummaryButton);
 			const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
 			expect(summaryViewPopup).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should not open popup when hovering the summary button if hoverableSummaryView is false', async () => {
@@ -193,6 +213,8 @@ describe('ReactionSummaryView', () => {
 			await userEvent.hover(reactionSummaryButton);
 			const summaryViewPopup = screen.queryByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
 			expect(summaryViewPopup).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should keep popup open when moving from button to summary view', async () => {
@@ -208,6 +230,8 @@ describe('ReactionSummaryView', () => {
 			await userEvent.unhover(reactionSummaryButton);
 
 			expect(summaryViewPopup).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should close popup when mouse leaves both button and summary view', async () => {
@@ -222,6 +246,8 @@ describe('ReactionSummaryView', () => {
 
 			const closedPopup = screen.queryByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
 			expect(closedPopup).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should keep popup open when clicking summary button if hoverableSummaryView is false', async () => {
@@ -234,6 +260,8 @@ describe('ReactionSummaryView', () => {
 
 			await userEvent.unhover(reactionSummaryButton);
 			expect(summaryViewPopup).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should close the summary view when the emoji picker is opened', async () => {
@@ -246,6 +274,8 @@ describe('ReactionSummaryView', () => {
 			await userEvent.click(trigger);
 			expect(await screen.findByText('EmojiPicker')).toBeInTheDocument();
 			expect(screen.queryByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID)).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

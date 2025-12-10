@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-breakout
 
+## 6.2.5
+
+### Patch Changes
+
+- [`a774d02e0633f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a774d02e0633f) -
+  Remove platform_editor_breakout_resizing_patch_1 FG
+- Updated dependencies
+
 ## 6.2.4
 
 ### Patch Changes

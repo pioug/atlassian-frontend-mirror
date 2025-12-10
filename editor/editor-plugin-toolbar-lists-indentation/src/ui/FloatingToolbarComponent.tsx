@@ -35,7 +35,7 @@ export function FloatingToolbarComponent({
 	showIndentationButtons,
 	pluginInjectionApi,
 	allowHeadingAndParagraphIndentation,
-}: FloatingToolbarComponentProps) {
+}: FloatingToolbarComponentProps): React.JSX.Element | null {
 	const {
 		bulletListActive,
 		bulletListDisabled,

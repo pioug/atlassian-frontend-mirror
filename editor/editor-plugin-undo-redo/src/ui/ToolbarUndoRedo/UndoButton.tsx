@@ -21,7 +21,7 @@ type UndoButtonProps = {
 	api?: ExtractInjectionAPI<UndoRedoPlugin>;
 };
 
-export const UndoButton = ({ api }: UndoButtonProps) => {
+export const UndoButton = ({ api }: UndoButtonProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { editorView } = useEditorToolbar();
 

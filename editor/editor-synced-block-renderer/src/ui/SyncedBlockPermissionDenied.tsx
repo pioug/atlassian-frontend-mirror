@@ -112,7 +112,7 @@ const SyncedBlockPermissionDeniedConfluencePage = ({ sourceAri }: { sourceAri: s
 export const SyncedBlockPermissionDenied = ({
 	sourceAri,
 	sourceProduct,
-}: SyncedBlockPermissionDeniedProps) => {
+}: SyncedBlockPermissionDeniedProps): React.JSX.Element => {
 	switch (sourceProduct) {
 		case 'confluence-page':
 			return <SyncedBlockPermissionDeniedConfluencePage sourceAri={sourceAri} />;

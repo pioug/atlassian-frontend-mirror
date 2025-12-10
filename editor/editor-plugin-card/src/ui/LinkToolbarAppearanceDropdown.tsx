@@ -43,7 +43,7 @@ export const LinkAppearanceMenu = ({
 	isDatasourceView,
 	dispatchCommand,
 	settingsConfig,
-}: Props) => {
+}: Props): React.JSX.Element | null => {
 	const cardContext = useSmartCardContext();
 
 	const preview =

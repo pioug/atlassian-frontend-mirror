@@ -7,7 +7,7 @@ type OverflowMenuSectionProps = {
 	children: React.ReactNode;
 };
 
-export const OverflowMenuSection = ({ children }: OverflowMenuSectionProps) => {
+export const OverflowMenuSection = ({ children }: OverflowMenuSectionProps): React.JSX.Element => {
 	const { editorViewMode } = useEditorToolbar();
 	const isEdit = editorViewMode === 'edit';
 

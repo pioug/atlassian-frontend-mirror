@@ -43,7 +43,7 @@ describe('UFOThirdPartySegment', () => {
 		(window as any).__mockUFOSegmentProps = null;
 	});
 
-	it('should call UFOSegment with type="third-party"', () => {
+	it('should call UFOSegment with type="third-party"', async () => {
 		render(
 			<UFOThirdPartySegment name="test-segment">
 				<div>Test content</div>
@@ -57,9 +57,11 @@ describe('UFOThirdPartySegment', () => {
 		expect(ufoSegmentProps).toBeDefined();
 		expect(ufoSegmentProps.type).toBe('third-party');
 		expect(ufoSegmentProps.name).toBe('test-segment');
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render children wrapped in UFOIgnoreHolds', () => {
+	it('should render children wrapped in UFOIgnoreHolds', async () => {
 		const { getByTestId, getByText } = render(
 			<UFOThirdPartySegment name="test-segment">
 				<div>Test content</div>
@@ -74,5 +76,7 @@ describe('UFOThirdPartySegment', () => {
 
 		// Verify children were rendered
 		expect(getByText('Test content')).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 });

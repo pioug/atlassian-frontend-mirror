@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { type FieldProps } from '@atlaskit/form';
 import { Layering } from '@atlaskit/layering';
 import { type Icon } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type FilterOptionOption } from '@atlaskit/react-select';
 import Select from '@atlaskit/select';
 import Tooltip from '@atlaskit/tooltip';
@@ -59,10 +60,14 @@ const IconEditType = (props: IconEditTypeProps): React.JSX.Element => {
 				defaultMenuIsOpen
 				// We can't update this field if we don't have an ID - however the ID
 				// is typed optional.
-				options={options.filter((option) => option.id)}
+				options={
+					fg('navx-sllv-fix-inline-edit-error')
+						? options?.filter((option) => option.id)
+						: options.filter((option) => option.id)
+				}
 				menuPlacement="auto"
 				isLoading={isLoading}
-				filterOption={filterOption}
+				filterOption={fg('navx-sllv-fix-inline-edit-error') ? filterOptionNew : filterOptionOld}
 				testId="inline-edit-priority"
 				value={currentValue?.values?.[0]}
 				labelId={labelId}
@@ -88,7 +93,13 @@ const IconEditType = (props: IconEditTypeProps): React.JSX.Element => {
 	);
 };
 
-const filterOption = (option: FilterOptionOption<Icon>, inputValue: string) =>
+/**
+ * Remove on navx-sllv-fix-inline-edit-error cleanup
+ */
+const filterOptionOld = (option: FilterOptionOption<Icon>, inputValue: string) =>
 	option.label.toLowerCase().includes(inputValue.toLowerCase());
+
+const filterOptionNew = (option: FilterOptionOption<Icon>, inputValue: string) =>
+	option.label?.toLowerCase?.()?.includes(inputValue?.toLowerCase());
 
 export default IconEditType;

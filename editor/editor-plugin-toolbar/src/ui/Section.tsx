@@ -88,7 +88,7 @@ export const Section = ({
 	showSeparatorInFullPagePrimaryToolbar,
 	isSharedSection = true,
 	disableSelectionToolbar,
-}: SectionProps) => {
+}: SectionProps): React.JSX.Element | null => {
 	const { editorViewMode, editorToolbarDockingPreference, editorAppearance } = usePluginState(api);
 	const toolbar = parents.find((parent) => parent.type === 'toolbar');
 

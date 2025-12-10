@@ -21,7 +21,7 @@ const FloatingToolbarSettings = {
 	shouldUseDefaultRole: false,
 };
 
-export function FloatingToolbarComponent({ api }: FloatingToolbarComponentProps) {
+export function FloatingToolbarComponent({ api }: FloatingToolbarComponentProps): React.JSX.Element {
 	const {
 		currentBlockType,
 		blockTypesDisabled,

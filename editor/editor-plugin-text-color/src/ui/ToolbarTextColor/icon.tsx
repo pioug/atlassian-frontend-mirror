@@ -20,7 +20,7 @@ const textColorGlyph = (props: CustomGlyphProps) => (
 	</svg>
 );
 
-export const EditorTextColorIcon = () => {
+export const EditorTextColorIcon = (): React.JSX.Element => {
 	return fg('platform-custom-icon-migration') ? (
 		<TextStyleIcon label="" spacing="spacious" />
 	) : (

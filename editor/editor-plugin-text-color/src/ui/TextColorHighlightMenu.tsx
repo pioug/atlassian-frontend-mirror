@@ -59,7 +59,7 @@ const getHighlightColorIcon = (highlightColor: string | null | undefined) => {
 	return undefined;
 };
 
-export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenuProps) => {
+export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenuProps): React.JSX.Element => {
 	const isHighlightPluginExisted = !!api?.highlight;
 	const isTextColorDisabled = useSharedPluginStateSelector(api, 'textColor.disabled');
 	const { isDisabled: isToolbarDisabled } = useToolbarUI();

@@ -1,5 +1,15 @@
 # @atlaskit/teams-public
 
+## 0.65.1
+
+### Patch Changes
+
+- [`1841f3e5e7773`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1841f3e5e7773) -
+  Add test for accessibility violations
+- [`8dadb76e44cfb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8dadb76e44cfb) -
+  Clean up enable_x_query_context_header
+- Updated dependencies
+
 ## 0.65.0
 
 ### Minor Changes

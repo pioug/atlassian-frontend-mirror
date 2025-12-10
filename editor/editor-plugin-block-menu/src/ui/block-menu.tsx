@@ -296,10 +296,21 @@ const BlockMenu = ({
 	if (!isMenuOpen) {
 		return null;
 	}
-	const handleBackspaceDeleteKeydown = () => {
+
+	const handleBackspaceDeleteKeydown = (event?: KeyboardEvent) => {
+		// Pevents delete/backspace keypress being handled by editor, avoids double deletions
+		event?.preventDefault();
+		event?.stopPropagation();
+
 		api?.core.actions.execute(({ tr }) => {
-			deleteSelectedRange(tr);
+			deleteSelectedRange(tr, api?.blockControls?.sharedState.currentState()?.preservedSelection);
+
 			api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
+
+			if (editorView && !editorView.hasFocus()) {
+				// if focus is outside editor, e.g. in block menu popup, then refocus editor after delete
+				editorView.focus();
+			}
 
 			return tr;
 		});

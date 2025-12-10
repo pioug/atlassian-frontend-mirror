@@ -84,6 +84,10 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 	 * when the target of the event is an input element, so the extension can.
 	 */
 	stopEvent(event: Event) {
+		if (fg('forge-ui-extensionnodeview-stop-event-for-textarea')) {
+			return event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement;
+		}
+
 		return event.target instanceof HTMLInputElement;
 	}
 

@@ -1,7 +1,7 @@
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { type Node as PMNode, type NodeType, Fragment } from '@atlaskit/editor-prosemirror/model';
 
-import type { TransformStep } from './types';
+import type { TransformStep } from '../types';
 
 const extractNestedLists = (
 	node: PMNode,
@@ -21,12 +21,10 @@ const extractNestedLists = (
 				child.forEach((grandChild) => {
 					if (listTypes.some((type) => grandChild.type === type)) {
 						nestedLists.push(grandChild);
+					} else if (grandChild.isText) {
+						contentWithoutNestedLists.push(paragraph.createAndFill({}, grandChild) as PMNode);
 					} else {
-						if (grandChild.isText) {
-							contentWithoutNestedLists.push(paragraph.createAndFill({}, grandChild) as PMNode);
-						} else {
-							contentWithoutNestedLists.push(grandChild);
-						}
+						contentWithoutNestedLists.push(grandChild);
 					}
 				});
 

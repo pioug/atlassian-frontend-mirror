@@ -47,6 +47,16 @@ describe('ErrorMessage', () => {
 			expect(mockFireAnalytics).toHaveBeenCalledWith(event);
 			expect(mockFireAnalyticsNext).not.toHaveBeenCalled();
 		});
+
+		it('should capture and report a11y violations', async () => {
+			const { container } = render(
+				<ErrorMessage
+					fireAnalytics={mockFireAnalytics}
+					fireAnalyticsNext={mockFireAnalyticsNext}
+				/>,
+			);
+			await expect(container).toBeAccessible();
+		});
 	});
 
 	ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
@@ -62,6 +72,16 @@ describe('ErrorMessage', () => {
 				event.attributes,
 			);
 			expect(mockFireAnalytics).not.toHaveBeenCalled();
+		});
+
+		it('should capture and report a11y violations', async () => {
+			const { container } = render(
+				<ErrorMessage
+					fireAnalytics={mockFireAnalytics}
+					fireAnalyticsNext={mockFireAnalyticsNext}
+				/>,
+			);
+			await expect(container).toBeAccessible();
 		});
 	});
 });

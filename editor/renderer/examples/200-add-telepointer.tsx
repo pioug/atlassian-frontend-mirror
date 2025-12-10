@@ -15,7 +15,7 @@ type Document = {
 
 type Step = [string, Document];
 
-export default function AddTelepointerExample() {
+export default function AddTelepointerExample(): React.JSX.Element {
 	const [updateStep, setUpdateStep] = useState(0);
 
 	function updatedRendererValue() {

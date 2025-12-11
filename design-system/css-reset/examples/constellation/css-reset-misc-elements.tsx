@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/design-system/no-html-heading, @atlaskit/design-system/no-html-anchor */
 import React from 'react';
 
-const CSSResetMiscExample = () => {
+const CSSResetMiscExample = (): React.JSX.Element => {
 	return (
 		<div>
 			<h2>{`<time>`}</h2>

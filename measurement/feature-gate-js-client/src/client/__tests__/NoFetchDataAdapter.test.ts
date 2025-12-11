@@ -27,6 +27,7 @@ describe('NoFetchDataAdapter', () => {
 
 		expect(JSON.parse(JSON.stringify(adapter))).toEqual({
 			_adapterName: 'NoFetchDataAdapter',
+			_cacheLimit: 10,
 			_cacheSuffix: 'nofetch',
 			_lastModifiedStoreKey: 'statsig.last_modified_time.nofetch',
 			_sdkKey: 'mock-client-key',

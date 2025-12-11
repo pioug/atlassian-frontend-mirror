@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 4.30.13
+
+### Patch Changes
+
+- [`a5c4fbb84f7a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5c4fbb84f7a8) -
+  Feature gate cleanup: navx-1334-datasource-deep-compare-params
+
 ## 4.30.12
 
 ### Patch Changes

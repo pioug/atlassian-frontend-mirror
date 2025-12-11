@@ -10,7 +10,7 @@ import { Box } from '@atlaskit/primitives';
  * This example recreates an edge case where icon render props cause
  * the icon to render twice, causing the button to not trigger the first click.
  */
-export default function AsDropdownTriggerExample() {
+export default function AsDropdownTriggerExample(): React.JSX.Element {
 	return (
 		<Box padding="space.200">
 			<DropdownMenu<HTMLButtonElement>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CSSResetFlatListsExample = () => {
+const CSSResetFlatListsExample = (): React.JSX.Element => {
 	return (
 		<div data-testid="css-reset">
 			<h2>{`<ul>`}</h2>

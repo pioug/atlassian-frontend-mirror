@@ -1,12 +1,13 @@
-import React, { useRef, useState, useEffect, type ChangeEvent, useCallback } from 'react';
-import nullthrows from 'nullthrows';
-import sample from 'lodash/sample';
+import React, { type ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 
-import BookIcon from '../glyph/book';
-import ArrowUpIcon from '../glyph/arrow-up';
+import sample from 'lodash/sample';
+import nullthrows from 'nullthrows';
+
 import ArrowDownIcon from '../glyph/arrow-down';
 import ArrowLeftIcon from '../glyph/arrow-left';
 import ArrowRightIcon from '../glyph/arrow-right';
+import ArrowUpIcon from '../glyph/arrow-up';
+import BookIcon from '../glyph/book';
 
 const sampleComponents = [ArrowDownIcon, ArrowLeftIcon, ArrowRightIcon, ArrowUpIcon, BookIcon];
 

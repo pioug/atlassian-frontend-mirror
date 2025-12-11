@@ -582,126 +582,124 @@ describe('DatasourceTableView', () => {
 		expect(assetsLink).not.toBeInTheDocument();
 	});
 
-	ffTest.both('navx-1334-datasource-deep-compare-params', 'with fg on', () => {
-		it('should not call reset() on initial load (only when parameters change)', () => {
-			const { mockReset } = setup();
-			expect(mockReset).not.toHaveBeenCalled();
+	it('should not call reset() on initial load (only when parameters change)', () => {
+		const { mockReset } = setup();
+		expect(mockReset).not.toHaveBeenCalled();
+	});
+
+	it('should call reset() when parameters change', () => {
+		const { rerender, mockReset } = setup();
+
+		const newParameters = {
+			cloudId: 'new-cloud-id',
+			jql: 'some-jql-query',
+		};
+
+		rerender(
+			<DatasourceTableView
+				datasourceId={'some-datasource-id'}
+				parameters={newParameters}
+				visibleColumnKeys={['visible-column-1', 'visible-column-2']}
+				onVisibleColumnKeysChange={jest.fn()}
+			/>,
+		);
+
+		expect(mockReset).toHaveBeenCalledTimes(1);
+	});
+
+	it('should call reset() when refresh button is preset', () => {
+		const { getByRole, mockReset } = setup();
+
+		asMock(mockReset).mockReset();
+
+		getByRole('button', { name: 'Refresh' }).click();
+
+		expect(mockReset).toHaveBeenCalledTimes(1);
+		expect(mockReset).toHaveBeenCalledWith({
+			shouldForceRequest: true,
+			shouldResetColumns: false,
 		});
+	});
 
-		it('should call reset() when parameters change', () => {
-			const { rerender, mockReset } = setup();
-
-			const newParameters = {
-				cloudId: 'new-cloud-id',
-				jql: 'some-jql-query',
-			};
-
-			rerender(
-				<DatasourceTableView
-					datasourceId={'some-datasource-id'}
-					parameters={newParameters}
-					visibleColumnKeys={['visible-column-1', 'visible-column-2']}
-					onVisibleColumnKeysChange={jest.fn()}
-				/>,
-			);
-
-			expect(mockReset).toHaveBeenCalledTimes(1);
+	it('should call reset() with shouldResetColumns to be true when Assets Table', () => {
+		const { getByRole, mockReset } = setupAssetsTable();
+		asMock(mockReset).mockReset();
+		getByRole('button', { name: 'Refresh' }).click();
+		expect(mockReset).toHaveBeenCalledTimes(1);
+		expect(mockReset).toHaveBeenCalledWith({
+			shouldForceRequest: true,
+			shouldResetColumns: true,
 		});
+	});
 
-		it('should call reset() when refresh button is preset', () => {
-			const { getByRole, mockReset } = setup();
-
-			asMock(mockReset).mockReset();
-
-			getByRole('button', { name: 'Refresh' }).click();
-
-			expect(mockReset).toHaveBeenCalledTimes(1);
-			expect(mockReset).toHaveBeenCalledWith({
-				shouldForceRequest: true,
-				shouldResetColumns: false,
-			});
-		});
-
-		it('should call reset() with shouldResetColumns to be true when Assets Table', () => {
-			const { getByRole, mockReset } = setupAssetsTable();
-			asMock(mockReset).mockReset();
-			getByRole('button', { name: 'Refresh' }).click();
-			expect(mockReset).toHaveBeenCalledTimes(1);
-			expect(mockReset).toHaveBeenCalledWith({
-				shouldForceRequest: true,
-				shouldResetColumns: true,
-			});
-		});
-
-		it('should not show duplicate response items when a new column is added', () => {
-			const { rerender, getByTestId } = setup({
-				visibleColumnKeys: ['title'],
-				responseItems: [
-					{
-						title: {
-							data: 'title1',
-						},
-						id: {
-							data: 'id1',
-						},
-						date: {
-							data: 'date1',
-						},
+	it('should not show duplicate response items when a new column is added', () => {
+		const { rerender, getByTestId } = setup({
+			visibleColumnKeys: ['title'],
+			responseItems: [
+				{
+					title: {
+						data: 'title1',
 					},
-				],
-			});
+					id: {
+						data: 'id1',
+					},
+					date: {
+						data: 'date1',
+					},
+				},
+			],
+		});
 
-			// check there is 1 response item
-			expect(getByTestId('item-count').textContent).toEqual('1 item');
+		// check there is 1 response item
+		expect(getByTestId('item-count').textContent).toEqual('1 item');
 
-			// rerender the component with the new column added
-			rerender(
-				<DatasourceTableView
-					datasourceId={'some-datasource-id'}
-					parameters={{
-						cloudId: 'some-cloud-id',
-						jql: 'some-jql-query',
-					}}
-					visibleColumnKeys={['title', 'id']}
-					onVisibleColumnKeysChange={jest.fn()}
-				/>,
-			);
-
-			// ensure hook is called with the new column
-			expect(useDatasourceTableState).toHaveBeenCalledWith({
-				datasourceId: 'some-datasource-id',
-				parameters: {
+		// rerender the component with the new column added
+		rerender(
+			<DatasourceTableView
+				datasourceId={'some-datasource-id'}
+				parameters={{
 					cloudId: 'some-cloud-id',
 					jql: 'some-jql-query',
-				},
-				fieldKeys: ['title', 'id'],
-			});
+				}}
+				visibleColumnKeys={['title', 'id']}
+				onVisibleColumnKeysChange={jest.fn()}
+			/>,
+		);
 
-			// check there is still only 1 response item
-			expect(getByTestId('item-count').textContent).toEqual('1 item');
+		// ensure hook is called with the new column
+		expect(useDatasourceTableState).toHaveBeenCalledWith({
+			datasourceId: 'some-datasource-id',
+			parameters: {
+				cloudId: 'some-cloud-id',
+				jql: 'some-jql-query',
+			},
+			fieldKeys: ['title', 'id'],
 		});
 
-		it.each([
-			['should', true, true],
-			['should not', true, false],
-			['should not', false, true],
-			['should not', false, false],
-		])(
-			`%p call onNextPage when hasNextPage is %p and isLastItemVisible is %p`,
-			(outcome, hasNextPage, isLastItemVisible) => {
-				asMock(useIsOnScreen).mockReturnValue(isLastItemVisible);
-				const onNextPage = jest.fn();
-
-				setup({ hasNextPage, onNextPage });
-
-				if (outcome === 'should') {
-					expect(onNextPage).toHaveBeenCalled();
-				} else {
-					expect(onNextPage).not.toHaveBeenCalled();
-				}
-			},
-		);
+		// check there is still only 1 response item
+		expect(getByTestId('item-count').textContent).toEqual('1 item');
 	});
+
+	it.each([
+		['should', true, true],
+		['should not', true, false],
+		['should not', false, true],
+		['should not', false, false],
+	])(
+		`%p call onNextPage when hasNextPage is %p and isLastItemVisible is %p`,
+		(outcome, hasNextPage, isLastItemVisible) => {
+			asMock(useIsOnScreen).mockReturnValue(isLastItemVisible);
+			const onNextPage = jest.fn();
+
+			setup({ hasNextPage, onNextPage });
+
+			if (outcome === 'should') {
+				expect(onNextPage).toHaveBeenCalled();
+			} else {
+				expect(onNextPage).not.toHaveBeenCalled();
+			}
+		},
+	);
 
 	describe('when an error on /data request occurs', () => {
 		it('should show an error message on request failure', () => {

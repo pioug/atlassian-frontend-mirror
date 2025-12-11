@@ -349,7 +349,7 @@ export class Observers implements BrowserObservers {
 			}
 
 			return idString;
-		} catch (e) {
+		} catch {
 			return 'error';
 		}
 	}
@@ -387,7 +387,7 @@ export class Observers implements BrowserObservers {
 						let elementName;
 						try {
 							elementName = this.getElementName(target);
-						} catch (e) {
+						} catch {
 							elementName = 'error';
 						}
 						callback(

@@ -19,7 +19,7 @@ ReactDOM.render(
   mountNode
 );`;
 
-const CodeBlockLineNumbersExample = () => {
+const CodeBlockLineNumbersExample = (): React.JSX.Element => {
 	return <CodeBlock language="jsx" text={exampleCodeBlock} />;
 };
 

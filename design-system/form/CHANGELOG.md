@@ -1,5 +1,40 @@
 # @atlaskit/form
 
+## 14.4.0
+
+### Minor Changes
+
+- [`c19181795ec37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c19181795ec37) -
+  Introduces `CharacterCounterField`, a new field component that provides automatic character count
+  validation and display. This component wraps the standard `Field` with built-in support for
+  minimum and maximum character limits, displaying a real-time character counter to users.
+
+  **Key features:**
+  - Automatic validation for `minCharacters` and `maxCharacters` limits
+  - Integrated character counter display with error states
+  - Customizable messaging for character limit violations via `overMaximumMessage`,
+    `underMaximumMessage`, and `underMinimumMessage` props
+  - Seamless integration with existing Field validation through the `validate` prop
+  - Full accessibility support with proper ARIA announcements for screen readers
+  - Supports both `TextField` and `TextArea` components via render prop pattern
+
+  **Example usage:**
+
+  ```javascript
+  <CharacterCounterField
+  	name="description"
+  	label="Description"
+  	maxCharacters={200}
+  	minCharacters={10}
+  	helperMessage="Provide a brief description"
+  >
+  	{({ fieldProps }) => <TextArea {...fieldProps} />}
+  </CharacterCounterField>
+  ```
+
+  This component simplifies the implementation of character-limited inputs by combining validation,
+  error handling, and counter display in a single, accessible component.
+
 ## 14.3.2
 
 ### Patch Changes

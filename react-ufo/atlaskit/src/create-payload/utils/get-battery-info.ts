@@ -32,7 +32,7 @@ export default async function getBatteryInfo(): Promise<BatteryInfo> {
 				};
 			}
 		}
-	} catch (error) {
+	} catch {
 		// Silently ignore errors - battery info is optional
 	}
 

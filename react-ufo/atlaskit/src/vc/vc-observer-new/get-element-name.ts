@@ -49,7 +49,7 @@ function getElementName(selectorConfig: SelectorConfig, element: Element): strin
 		}
 		try {
 			return encodeURIComponent(s);
-		} catch (e) {
+		} catch {
 			return 'malformed_value';
 		}
 	};

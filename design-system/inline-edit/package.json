@@ -101,9 +101,6 @@
 	"platform-feature-flags": {
 		"platform_design_system_inline_edit_dont_focus": {
 			"type": "boolean"
-		},
-		"enable-inline-edit-focus-fix": {
-			"type": "boolean"
 		}
 	}
 }

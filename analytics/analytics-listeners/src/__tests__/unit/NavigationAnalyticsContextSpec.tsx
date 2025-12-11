@@ -10,7 +10,7 @@ const NavigationComponentWithAnalytics = createDummyComponentWithAnalytics(
 );
 
 describe('<NavigationAnalyticsContext />', () => {
-	it('should fire event with Navigation contextual data', () => {
+	it('should fire event with Navigation contextual data', async () => {
 		const compOnClick = jest.fn();
 		const listenerHandler = jest.fn();
 
@@ -42,5 +42,7 @@ describe('<NavigationAnalyticsContext />', () => {
 			}),
 			FabricChannel.navigation,
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 });

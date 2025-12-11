@@ -23,6 +23,7 @@ export type TitleBoxWrapperProps = {
 
 export type TitleBoxFooterProps = {
 	hasIconOverlap: boolean;
+	suppressHydrationWarning?: boolean;
 	children?: React.ReactNode;
 };
 

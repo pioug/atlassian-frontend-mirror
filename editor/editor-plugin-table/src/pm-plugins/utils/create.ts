@@ -51,7 +51,8 @@ export const createTableWithWidth =
 		}
 		if (isTableScalingEnabled && !isCommentEditor) {
 			if (
-				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) &&
+				(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)) &&
 				isMaxWidthModeEnabled
 			) {
 				attrsOverrides.tableWidth = TABLE_MAX_WIDTH;
@@ -62,7 +63,8 @@ export const createTableWithWidth =
 		if (
 			isTableAlignmentEnabled &&
 			(isFullWidthModeEnabled ||
-				(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) &&
+				((expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)) &&
 					isMaxWidthModeEnabled) ||
 				isCommentEditor)
 		) {

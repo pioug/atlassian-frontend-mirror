@@ -4,6 +4,7 @@ import {
 	syncBlockPermissionDeniedAdf,
 	syncBlockGenericErrorAdf,
 	syncBlockLoadingStateAdf,
+	syncBlockInvalidRequestErrorAdf,
 } from './__fixtures__/sync-block.adf';
 
 import { generateRendererComponent } from '../__helpers/rendererComponents';
@@ -55,6 +56,18 @@ export const SyncBlockGenericError = generateRendererComponent({
 	nodeComponents: {
 		syncBlock: getSyncedBlockNodeComponent({
 			doc: syncBlockGenericErrorAdf,
+			syncBlockProvider: mockSyncedBlockProviderWithStaticData,
+			syncBlockRendererOptions: undefined,
+		}),
+	},
+});
+
+export const SyncBlockInvalidRequestError = generateRendererComponent({
+	document: syncBlockInvalidRequestErrorAdf,
+	appearance: 'full-width',
+	nodeComponents: {
+		syncBlock: getSyncedBlockNodeComponent({
+			doc: syncBlockInvalidRequestErrorAdf,
 			syncBlockProvider: mockSyncedBlockProviderWithStaticData,
 			syncBlockRendererOptions: undefined,
 		}),

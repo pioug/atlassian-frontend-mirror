@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::342c7a0cbb4be6a44fd40226c94247f7>>
+ * @codegen <<SignedSource::beeb7e237687a19ef573366721734994>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -758,7 +758,7 @@ export type RovoAgentProfilecardTriggeredAttributesType = {
 };
 export type TeamProfileCardTriggeredAttributesType = {
 	firedAt: number;
-	method: 'hover' | 'click';
+	method: 'hover' | 'click' | 'keyboard';
 	teamId: string;
 };
 export type UserTriggeredAttributesType = {
@@ -1390,6 +1390,40 @@ export type TeamAssignedTypePickerClickedAttributesType = {
 	teamId: string;
 	teamProfileTabIndex: number;
 	consumer: string;
+};
+export type InvitePromptEligibilityCheckedAttributesType = {
+	isEligible: boolean;
+	ineligibilityReason: string;
+};
+export type InvitePromptEligibilityCheckFailedAttributesType = {
+	error: string;
+};
+export type InvitePromptShownFlagAttributesType = {
+	inviteesCount: number;
+	targetApp: string;
+};
+export type InvitePromptClickedInviteButtonAttributesType = {
+	inviteesCount: number;
+	targetApp: string;
+};
+export type InvitePromptShownSuccessFlagAttributesType = {
+	invitedCount: number;
+	requestedAccessCount: number;
+	variant: string;
+	targetApp: string;
+};
+export type InvitePromptShownFailedFlagAttributesType = {
+	invitedCount: number;
+	failedCount: number;
+	totalCount: number;
+};
+export type InvitePromptClickedDismissButtonAttributesType = {
+	inviteesCount: number;
+	targetApp: string;
+};
+export type FeatureExposedAttributesType = {
+	flagKey: string;
+	cohort: string;
 };
 
 export type AnalyticsEventAttributes = {
@@ -2376,6 +2410,30 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when team assigned type picker is clicked */
 	'ui.teamAssignedTypePicker.clicked': TeamAssignedTypePickerClickedAttributesType;
+	/**
+	 * Fired when eligibility check is performed for twcg_640_invite_prompt_on_teams_page_links */
+	'operational.invitePrompt.eligibilityChecked': InvitePromptEligibilityCheckedAttributesType;
+	/**
+	 * Fired when eligibility check is for twcg_640_invite_prompt_on_teams_page_links failes for whatever reason */
+	'operational.invitePrompt.eligibilityCheckFailed': InvitePromptEligibilityCheckFailedAttributesType;
+	/**
+	 * Fired when the invite prompt flag is displayed to the user */
+	'ui.invitePrompt.shown.flag': InvitePromptShownFlagAttributesType;
+	/**
+	 * Fired when the user clicks on Invite X team members / Invite X */
+	'ui.invitePrompt.clicked.inviteButton': InvitePromptClickedInviteButtonAttributesType;
+	/**
+	 * Fired when the invitation action is successfully completed and the success flag is shown to the user */
+	'ui.invitePrompt.shown.successFlag': InvitePromptShownSuccessFlagAttributesType;
+	/**
+	 * Fired when the invite action fails and we shown an error flag to the user */
+	'ui.invitePrompt.shown.failedFlag': InvitePromptShownFailedFlagAttributesType;
+	/**
+	 * Fired when the users dismisses the invite prompt flag */
+	'ui.invitePrompt.clicked.dismissButton': InvitePromptClickedDismissButtonAttributesType;
+	/**
+	 * Fired when a flag is exposed to a user */
+	'track.feature.exposed': FeatureExposedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

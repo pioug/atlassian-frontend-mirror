@@ -1,5 +1,14 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 4.0.3
+
+### Patch Changes
+
+- [`dcc6a3e73f414`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dcc6a3e73f414) -
+  [ux] EDITOR-3304 add offline error state for sync blocks and update other error UI to match new
+  designs
+- Updated dependencies
+
 ## 4.0.2
 
 ### Patch Changes

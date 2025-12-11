@@ -18,12 +18,14 @@ describe('useDeepEffect', () => {
 		callbackMock.mockClear();
 	});
 
-	it('should trigger callback on initial render', () => {
+	it('should trigger callback on initial render', async () => {
 		render(<TestComponent obj={{ a: 'a', b: 'b' }} />);
 		expect(callbackMock).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should trigger callback when dependencies change values', () => {
+	it('should trigger callback when dependencies change values', async () => {
 		const obj1 = { a: 'a', b: 'b' };
 		const obj2 = { a: 'a', b: 'z' };
 
@@ -32,9 +34,11 @@ describe('useDeepEffect', () => {
 
 		rerender(<TestComponent obj={obj2} />);
 		expect(callbackMock).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should not trigger callback when dependencies is the same object', () => {
+	it('should not trigger callback when dependencies is the same object', async () => {
 		const obj1 = { a: 'a', b: 'b' };
 
 		const { rerender } = render(<TestComponent obj={obj1} />);
@@ -42,9 +46,11 @@ describe('useDeepEffect', () => {
 
 		rerender(<TestComponent obj={obj1} />);
 		expect(callbackMock).not.toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should not trigger callback when dependencies is the different object with the same value', () => {
+	it('should not trigger callback when dependencies is the different object with the same value', async () => {
 		const obj1 = { a: 'a', b: 'b' };
 		const obj2 = { a: 'a', b: 'b' };
 		const obj3 = { a: 'a', b: 'b' };
@@ -56,9 +62,11 @@ describe('useDeepEffect', () => {
 		rerender(<TestComponent obj={obj3} />);
 
 		expect(callbackMock).not.toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should trigger callback when dependencies become undefined', () => {
+	it('should trigger callback when dependencies become undefined', async () => {
 		const obj1 = { a: 'a', b: 'b' };
 
 		const { rerender } = render(<TestComponent obj={obj1} />);
@@ -67,6 +75,8 @@ describe('useDeepEffect', () => {
 		rerender(<TestComponent obj={undefined} />);
 
 		expect(callbackMock).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('with ref preventing first render, mimicking datasource table', () => {
@@ -82,13 +92,15 @@ describe('useDeepEffect', () => {
 			return null;
 		};
 
-		it('should not trigger callback on initial render', () => {
+		it('should not trigger callback on initial render', async () => {
 			render(<DatasourceTableMock obj={{ a: 'a', b: 'b' }} />);
 
 			expect(callbackMock).not.toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should trigger callback when dependencies change values', () => {
+		it('should trigger callback when dependencies change values', async () => {
 			const obj1 = { a: 'a', b: 'b' };
 			const obj2 = { a: 'a', b: 'z' };
 
@@ -96,9 +108,11 @@ describe('useDeepEffect', () => {
 			rerender(<DatasourceTableMock obj={obj2} />);
 
 			expect(callbackMock).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should trigger callback every time dependencies change values', () => {
+		it('should trigger callback every time dependencies change values', async () => {
 			const obj1 = { a: 'a', b: 'b' };
 			const obj2 = { a: 'a', b: 'x' };
 			const obj3 = { a: 'a', b: 'y' };
@@ -110,26 +124,32 @@ describe('useDeepEffect', () => {
 			rerender(<DatasourceTableMock obj={obj4} />);
 
 			expect(callbackMock).toHaveBeenCalledTimes(3);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should trigger callback when dependencies become undefined', () => {
+		it('should trigger callback when dependencies become undefined', async () => {
 			const obj1 = { a: 'a', b: 'b' };
 			const { rerender } = render(<DatasourceTableMock obj={obj1} />);
 			rerender(<DatasourceTableMock obj={undefined} />);
 
 			expect(callbackMock).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not trigger callback when dependencies is the same object', () => {
+		it('should not trigger callback when dependencies is the same object', async () => {
 			const obj1 = { a: 'a', b: 'b' };
 
 			const { rerender } = render(<DatasourceTableMock obj={obj1} />);
 			rerender(<DatasourceTableMock obj={obj1} />);
 
 			expect(callbackMock).not.toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not trigger callback when dependencies is the different object with the same value', () => {
+		it('should not trigger callback when dependencies is the different object with the same value', async () => {
 			const obj1 = { a: 'a', b: 'b' };
 			const obj2 = { a: 'a', b: 'b' };
 			const obj3 = { a: 'a', b: 'b' };
@@ -139,6 +159,8 @@ describe('useDeepEffect', () => {
 			rerender(<DatasourceTableMock obj={obj3} />);
 
 			expect(callbackMock).not.toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

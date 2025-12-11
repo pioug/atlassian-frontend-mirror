@@ -1707,7 +1707,7 @@ events:
       attributes:
         <<: [*PackageMetaDataContext, *ProfileCardAttributes]
         method:
-          type: ['hover', 'click']
+          type: ['hover', 'click', 'keyboard']
           description: the method of the profilecard
         teamId:
           type: string
@@ -3126,3 +3126,89 @@ events:
         consumer:
           type: string
           description: The consumer of the team
+  - invitePrompt eligibilityChecked:
+      type: operational
+      description: Fired when eligibility check is performed for twcg_640_invite_prompt_on_teams_page_links
+      attributes:
+        isEligible:
+          type: boolean
+          description: If the user turns out to be eligible or not
+        ineligibilityReason:
+          type: string
+          description: Optional parameter in case the user is not eligible for the experiment
+  - invitePrompt eligibilityCheckFailed:
+      type: operational
+      description: Fired when eligibility check is for twcg_640_invite_prompt_on_teams_page_links failes for whatever reason
+      attributes:
+        error:
+          type: string
+          description: The error that was thrown
+  - invitePrompt shown (flag):
+      type: ui
+      description: Fired when the invite prompt flag is displayed to the user
+      attributes:
+        inviteesCount:
+          type: number
+          description: Number of possible members to be invited
+        targetApp:
+          type: string
+          description: Target app we'll invite the invitees to
+  - invitePrompt clicked (inviteButton):
+      type: ui
+      description: Fired when the user clicks on Invite X team members / Invite X
+      attributes:
+        inviteesCount:
+          type: number
+          description: Number of possible members being invited
+        targetApp:
+          type: string
+          description: Target app we'll invite the invitees to
+  - invitePrompt shown (successFlag):
+      type: ui
+      description: Fired when the invitation action is successfully completed and the success flag is shown to the user
+      attributes:
+        invitedCount:
+          type: number
+          description: Number of users invited to target app
+        requestedAccessCount:
+          type: number
+          description: Number of users whose access have been requested for target app
+        variant:
+          type: string
+          description: Which version of the flag was displayed
+        targetApp:
+          type: string
+          description: Target app to which users have been RAd or invited
+  - invitePrompt shown (failedFlag):
+      type: ui
+      description: Fired when the invite action fails and we shown an error flag to the user
+      attributes:
+        invitedCount:
+          type: number
+          description: Number of members we successfully invited or RAd
+        failedCount:
+          type: number
+          description: Number of members we failed to invited
+        totalCount:
+          type: number
+          description: Total number of members we tried to invite
+  - invitePrompt clicked (dismissButton):
+      type: ui
+      description: Fired when the users dismisses the invite prompt flag
+      attributes:
+        inviteesCount:
+          type: number
+          description: Number of possible members being invited
+        targetApp:
+          type: string
+          description: Target app to which users would have been invited to
+  - feature exposed:
+      type: track
+      description: Fired when a flag is exposed to a user
+      attributes:
+        flagKey:
+          type: string
+          description: The feature flag/experiment key on Switcheroo
+        cohort:
+          type: string
+          description: To which cohort was the user exposed to

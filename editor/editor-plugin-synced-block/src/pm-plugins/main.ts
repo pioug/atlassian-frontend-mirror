@@ -5,7 +5,8 @@ import {
 	SyncBlockStateCssClassName,
 } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
-import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
+import { mapSlice, pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet, Decoration } from '@atlaskit/editor-prosemirror/view';
@@ -144,6 +145,38 @@ export const createPlugin = (
 				mousedown(view, event) {
 					return shouldIgnoreDomEvent(view, event, api);
 				},
+			},
+			transformCopied: (slice, { state }) => {
+				const pluginState = syncedBlockPluginKey.getState(state);
+				const syncBlockStore = pluginState?.syncBlockStore;
+				const { schema } = state;
+
+				if (!syncBlockStore) {
+					return slice;
+				}
+
+				return mapSlice(slice, (node: Node) => {
+					if (node.type.name === 'bodiedSyncBlock' && node.attrs.resourceId) {
+						try {
+							const newResourceId = syncBlockStore.referenceManager.generateResourceIdForReference(
+								node.attrs.resourceId,
+							);
+							// Convert bodiedSyncBlock to syncBlock
+							// The paste transformation will regenrate the localId
+							const newAttrs = { ...node.attrs, resourceId: newResourceId };
+
+							const newMarks = schema.nodes.syncBlock.markSet
+								? node.marks.filter((mark) => schema.nodes.syncBlock.markSet?.includes(mark.type))
+								: node.marks;
+
+							return schema.nodes.syncBlock.create(newAttrs, null, newMarks);
+						} catch (error) {
+							// If generateResourceIdForReference died, return the original node
+							return node;
+						}
+					}
+					return node;
+				});
 			},
 		},
 		filterTransaction: (tr, state) => {

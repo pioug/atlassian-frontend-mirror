@@ -3,7 +3,7 @@ import React from 'react';
 import Button from '@atlaskit/button';
 import { token } from '@atlaskit/tokens';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Button
 		style={{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

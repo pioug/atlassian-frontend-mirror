@@ -28,7 +28,10 @@ const getWidth = (width: number | null, mode: BreakoutMode) => {
 	if (editorExperiment('advanced_layouts', true) && width) {
 		return `min(${width}px, var(--ak-editor--breakout-container-without-gutter-width))`;
 	} else {
-		if (expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)) {
+		if (
+			expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+			expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
+		) {
 			if (mode === 'max' || (typeof width === 'number' && width >= akEditorFullWidthLayoutWidth)) {
 				return `min(${akEditorMaxLayoutWidth}px, var(--ak-editor--breakout-container-without-gutter-width))`;
 			}

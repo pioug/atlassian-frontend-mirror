@@ -157,7 +157,7 @@ export const tableNodeSpecWithFixedToDOM = (
 								position: 'relative',
 								userSelect: 'auto',
 								boxSizing: 'border-box',
-								'--ak-editor-table-max-width': `${expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ? TABLE_MAX_WIDTH : TABLE_FULL_WIDTH}px`,
+								'--ak-editor-table-max-width': `${expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) || expValEquals('confluence_max_width_content_appearance', 'isEnabled', true) ? TABLE_MAX_WIDTH : TABLE_FULL_WIDTH}px`,
 								'--ak-editor-table-min-width': `${tableMinWidth}px`,
 								minWidth: 'var(--ak-editor-table-min-width)',
 								maxWidth: getTableResizerContainerMaxWidthInCSS(

@@ -5,7 +5,7 @@ import { FadeIn } from '@atlaskit/motion';
 
 import { Block, Centered, RetryContainer } from './utils';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const directions = [
 		undefined,
 		'top' as const,

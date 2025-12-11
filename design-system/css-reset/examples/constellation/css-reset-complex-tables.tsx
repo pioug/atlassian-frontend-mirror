@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CSSResetComplexTablesExample = () => {
+const CSSResetComplexTablesExample = (): React.JSX.Element => {
 	return (
 		<div>
 			<table>

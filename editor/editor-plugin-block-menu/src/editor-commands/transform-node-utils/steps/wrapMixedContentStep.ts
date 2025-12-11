@@ -1,32 +1,30 @@
 import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 
-import type { TransformStep, NodeTypeName, TransformStepContext } from './types';
-import { NODE_CATEGORY_BY_TYPE } from './types';
-import { unwrapStep } from './unwrapStep';
+import type { TransformStep, NodeTypeName } from '../types';
+import { NODE_CATEGORY_BY_TYPE } from '../types';
 
 /**
- * Determines if a node can be flattened (unwrapped and its contents merged).
- *
- * According to the text transformations list, flattenable nodes are:
- * - Bulleted list, Numbered list, Task list
- * - Text nodes (heading, paragraph)
- *
- * Containers (panels, expands, layouts, blockquotes) and atomic nodes (tables, media, macros) break out.
+ * Determines if a node is a text node (heading or paragraph).
+ * Text nodes can have their content converted to paragraphs when they can't be wrapped directly.
  */
-const canFlatten = (node: PMNode): boolean => {
+const isTextNode = (node: PMNode): boolean => {
 	const category = NODE_CATEGORY_BY_TYPE[node.type.name as NodeTypeName];
-	// Text and list nodes can be flattened (converted to simpler forms)
-	return category === 'text' || category === 'list';
+	return category === 'text';
 };
 
 /**
- * Flattens a node by extracting its contents using the appropriate unwrap step.
- * This is only called for text and list nodes that can be converted to simpler forms.
- * Uses unwrapStep to extract children from list containers.
+ * Converts a text node (heading, paragraph) to a paragraph preserving its inline content.
+ * This is used when a text node can't be wrapped directly in the target container
+ * (e.g., heading can't go in blockquote, so it becomes a paragraph).
  */
-const flattenNode = (node: PMNode, context: TransformStepContext): PMNode[] => {
-	return unwrapStep([node], context);
+const convertTextNodeToParagraph = (node: PMNode, schema: Schema): PMNode | null => {
+	// If it's already a paragraph, return as-is
+	if (node.type.name === 'paragraph') {
+		return node;
+	}
+	// Convert heading (or other text node) to paragraph with same inline content
+	return schema.nodes.paragraph.createAndFill({}, node.content) ?? null;
 };
 
 /**
@@ -127,12 +125,16 @@ export const wrapMixedContentStep: TransformStep = (nodes, context) => {
 			if (expandNode) {
 				result.push(expandNode);
 			}
-		} else if (canFlatten(node)) {
-			// Node cannot be wrapped but CAN be flattened - flatten and add to container
-			const flattenedNodes = flattenNode(node, context);
-			currentContainerContent.push(...flattenedNodes);
+		} else if (isTextNode(node)) {
+			// Text node (heading, paragraph) that can't be wrapped - convert to paragraph
+			// Example: heading can't go in blockquote, so convert to paragraph with same content
+			const paragraph = convertTextNodeToParagraph(node, schema);
+			if (paragraph) {
+				currentContainerContent.push(paragraph);
+			}
 		} else {
-			// Node cannot be wrapped AND cannot be flattened (containers, tables, media, macros) - break out
+			// All other nodes that cannot be wrapped (lists, containers, tables, media, macros) - break out
+			// This includes list nodes like taskList that can't be placed in certain containers
 			flushCurrentContainer();
 			result.push(node);
 		}

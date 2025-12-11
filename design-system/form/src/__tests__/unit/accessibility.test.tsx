@@ -1,14 +1,17 @@
 import React, { type ReactElement } from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
 
 import { axe } from '@af/accessibility-testing';
 import Checkbox from '@atlaskit/checkbox';
 import noop from '@atlaskit/ds-lib/noop';
 import Range from '@atlaskit/range';
+import TextField from '@atlaskit/textfield';
 
 import Form, {
+	CharacterCounterField,
 	CheckboxField,
 	ErrorMessage,
 	Field,
@@ -171,6 +174,48 @@ describe('should pass axe accessibility testing', () => {
 			);
 
 			await axe(container);
+		});
+
+		describe('CharacterCounterField', () => {
+			it('under maximum characters', async () => {
+				const { container } = render(
+					<Form onSubmit={noop}>
+						<CharacterCounterField
+							name="description"
+							label="Description"
+							maxCharacters={50}
+							testId="character-field"
+						>
+							{({ fieldProps }) => <TextField {...fieldProps} testId="text-field" />}
+						</CharacterCounterField>
+					</Form>,
+				);
+
+				const input = screen.getByTestId('text-field');
+				await userEvent.type(input, 'Valid text that meets minimum');
+
+				await axe(container);
+			});
+
+			it('over maximum characters', async () => {
+				const { container } = render(
+					<Form onSubmit={noop}>
+						<CharacterCounterField
+							name="description"
+							label="Description"
+							maxCharacters={10}
+							testId="character-field"
+						>
+							{({ fieldProps }) => <TextField {...fieldProps} testId="text-field" />}
+						</CharacterCounterField>
+					</Form>,
+				);
+
+				const input = screen.getByTestId('text-field');
+				await userEvent.type(input, 'Valid text that exceeds maximum');
+
+				await axe(container);
+			});
 		});
 	});
 });

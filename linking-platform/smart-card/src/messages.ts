@@ -1010,6 +1010,7 @@ export const messages: Messages = defineMessages({
 	},
 	user_attributes: {
 		id: 'fabric.linking.user_attributes',
+		// eslint-disable-next-line @atlassian/i18n/no-useless-message
 		defaultMessage: '{context}',
 		description: 'Displays user attributes like role, department, location, and pronouns',
 	},

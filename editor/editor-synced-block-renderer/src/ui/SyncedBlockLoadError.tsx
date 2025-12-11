@@ -5,7 +5,6 @@ import { useIntl } from 'react-intl-next';
 import Button from '@atlaskit/button/new';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 
-import ExclamationWarning from './assets/ExclamationWarning.svg';
 import { SyncedBlockErrorStateCard } from './SyncedBlockErrorStateCard';
 
 interface SyncedBlockNotFoundProps {
@@ -19,9 +18,7 @@ export const SyncedBlockLoadError = ({ onRetry, isLoading }: SyncedBlockNotFound
 
 	return (
 		<SyncedBlockErrorStateCard
-			imageSrc={ExclamationWarning}
-			imageAltText={formatMessage(messages.notFoundAltText)}
-			secondaryMessage={formatMessage(messages.notFoundDescription)}
+			description={formatMessage(messages.generalErrorDescription)}
 		>
 			{onRetry && (
 				<Button

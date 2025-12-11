@@ -9,7 +9,7 @@ import { Stack } from '@atlaskit/primitives';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import variants from '../src/utils/variants';
 
-export default function AppearancesExample() {
+export default function AppearancesExample(): React.JSX.Element {
 	return (
 		<Stack space="space.100" alignInline="start">
 			{variants.map(({ name, Component, appearances }) => (

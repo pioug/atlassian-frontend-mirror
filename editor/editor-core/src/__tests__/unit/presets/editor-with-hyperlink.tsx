@@ -27,6 +27,8 @@ describe('hyperlink lpLinkPicker flag behaviour in editor with universal preset'
 				}),
 			}),
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should initialise cardOptions to have lpLinkPicker true when feature flag is on', async () => {
@@ -45,6 +47,8 @@ describe('hyperlink lpLinkPicker flag behaviour in editor with universal preset'
 				}),
 			}),
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should initialise cardOptions to have lpLinkPicker false when feature flag is off', async () => {
@@ -63,5 +67,7 @@ describe('hyperlink lpLinkPicker flag behaviour in editor with universal preset'
 				}),
 			}),
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 });

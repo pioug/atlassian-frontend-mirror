@@ -83,6 +83,7 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 						this.api?.analytics?.actions?.fireAnalyticsEvent,
 					)
 				}
+				api={this.api}
 			/>
 		);
 	}

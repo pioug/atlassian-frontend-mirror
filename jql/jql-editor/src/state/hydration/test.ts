@@ -1,8 +1,10 @@
 import { JastBuilder } from '@atlaskit/jql-ast';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ValidQueryVisitor } from './util';
 
-const queries = [
+// Base queries that don't involve membersOf
+const baseQueries = [
 	{
 		// Incomplete list
 		original: 'assignee in (abc-123-def',
@@ -39,7 +41,7 @@ const queries = [
 		valid: 'assignee in (abc-123-def)',
 	},
 	{
-		// Ignoring function and keyword operands
+		// Ignoring function and keyword operands (except membersOf)
 		original: 'project = EM and status in (Done, currentUser(), EMPTY) and reporter in',
 		valid: 'project = EM and status in (Done)',
 	},
@@ -67,10 +69,48 @@ const queries = [
 	},
 ];
 
+// membersOf queries when feature flag is ON
+const membersOfQueriesFlagOn = [
+	{
+		// membersOf function with complete argument
+		original: 'assignee in membersOf("id: a5b5230c-5fea-4a8c-83a2-4f16d125a31c")',
+		valid: 'assignee in membersOf("id: a5b5230c-5fea-4a8c-83a2-4f16d125a31c")',
+	},
+	{
+		// membersOf function with incomplete query
+		original: 'assignee in membersOf("id: a5b5230c-5fea-4a8c-83a2-4f16d125a31c") and reporter in',
+		valid: 'assignee in membersOf("id: a5b5230c-5fea-4a8c-83a2-4f16d125a31c")',
+	},
+	{
+		// membersOf function in list
+		original: 'assignee in (user-123, membersOf("team-id"))',
+		valid: 'assignee in (user-123, membersOf("team-id"))',
+	},
+	{
+		// Multiple membersOf functions
+		original: 'assignee in membersOf("team-1") and reporter in membersOf("team-2")',
+		valid: 'assignee in membersOf("team-1") and reporter in membersOf("team-2")',
+	},
+];
+
+// membersOf queries when feature flag is OFF - membersOf should be excluded
+const membersOfQueriesFlagOff = [
+	{
+		// membersOf function should be excluded when flag is off - entire clause excluded
+		original: 'assignee in membersOf("id: a5b5230c-5fea-4a8c-83a2-4f16d125a31c")',
+		valid: '',
+	},
+	{
+		// membersOf function in list should be excluded, leaving only user value
+		original: 'assignee in (user-123, membersOf("team-id"))',
+		valid: 'assignee in (user-123)',
+	},
+];
+
 const visitor = new ValidQueryVisitor();
 
 describe('ValidQueryVisitor', () => {
-	queries.forEach(({ original, valid }) => {
+	baseQueries.forEach(({ original, valid }) => {
 		it(`generates valid query for ${original}`, () => {
 			const ast = new JastBuilder().build(original);
 			expect(ast.query).toBeDefined();
@@ -78,5 +118,41 @@ describe('ValidQueryVisitor', () => {
 				expect(ast.query.accept(visitor)).toEqual(valid);
 			}
 		});
+	});
+
+	describe('membersOf queries with flag ON', () => {
+		ffTest.on(
+			'jira_update_jql_membersof_teams',
+			'membersOf function arguments included in hydration query',
+			() => {
+				membersOfQueriesFlagOn.forEach(({ original, valid }) => {
+					it(`generates valid query for ${original}`, () => {
+						const ast = new JastBuilder().build(original);
+						expect(ast.query).toBeDefined();
+						if (ast.query) {
+							expect(ast.query.accept(visitor)).toEqual(valid);
+						}
+					});
+				});
+			},
+		);
+	});
+
+	describe('membersOf queries with flag OFF', () => {
+		ffTest.off(
+			'jira_update_jql_membersof_teams',
+			'membersOf function arguments excluded from hydration query',
+			() => {
+				membersOfQueriesFlagOff.forEach(({ original, valid }) => {
+					it(`generates valid query for ${original}`, () => {
+						const ast = new JastBuilder().build(original);
+						expect(ast.query).toBeDefined();
+						if (ast.query) {
+							expect(ast.query.accept(visitor)).toEqual(valid);
+						}
+					});
+				});
+			},
+		);
 	});
 });

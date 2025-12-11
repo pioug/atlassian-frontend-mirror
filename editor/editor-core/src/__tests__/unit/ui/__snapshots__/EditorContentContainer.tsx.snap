@@ -4075,8 +4075,8 @@ td>.emotion-0 .ak-editor-expand {
   cursor: pointer;
   border-radius: var(--ds-radius-small, 3px);
   margin-top: var(--ds-space-150, 12px);
-  margin-right: -32px;
-  margin-left: -32px;
+  margin-right: -18px;
+  margin-left: -18px;
   margin-bottom: 0;
   padding-top: var(--ds-space-050, 4px);
   padding-bottom: var(--ds-space-050, 4px);
@@ -4188,15 +4188,31 @@ td>.emotion-0 .ak-editor-expand {
   border: none;
 }
 
-
-
-.emotion-0 .ProseMirror .ak-editor-sync-blockhas(.ak-editor-sync-block__error_state):hover:not(.ak-editor-selected-node),
-.emotion-0 .ProseMirror .ak-editor-bodied-sync-blockhas(.ak-editor-sync-block__error_state):hover:not(.ak-editor-selected-node) {
-  box-shadow: none;
+.emotion-0 .ProseMirror .ak-editor-sync-block:has(.ak-editor-sync-block__error_state),
+.emotion-0 .ProseMirror .ak-editor-bodied-sync-block:has(.ak-editor-sync-block__error_state) {
+  background-color: var(--ds-background-disabled, #17171708);
+  box-shadow: 0 0 0 1px var(--ds-border, #0B120E24);
 }
 
-.emotion-0 .ProseMirror .ak-editor-sync-blockhas(.ak-editor-sync-block__error_state) .ak-editor-sync-block__label,
-.emotion-0 .ProseMirror .ak-editor-bodied-sync-blockhas(.ak-editor-sync-block__error_state) .ak-editor-sync-block__label {
+.emotion-0 .ProseMirror .ak-editor-sync-block:has(.ak-editor-sync-block__error_state) .ak-editor-sync-block__label,
+.emotion-0 .ProseMirror .ak-editor-bodied-sync-block:has(.ak-editor-sync-block__error_state) .ak-editor-sync-block__label {
+  opacity: 1;
+  visibility: visible;
+  background-color: var(--ds-surface, #FFFFFF);
+}
+
+.emotion-0 .ProseMirror .ak-editor-sync-block:has(.ak-editor-sync-block__error_state) .ak-editor-sync-block__label::before,
+.emotion-0 .ProseMirror .ak-editor-bodied-sync-block:has(.ak-editor-sync-block__error_state) .ak-editor-sync-block__label::before {
+  border: none;
+}
+
+.emotion-0 .ProseMirror .ak-editor-sync-block:has(.ak-editor-sync-block__loading_state),
+.emotion-0 .ProseMirror .ak-editor-bodied-sync-block:has(.ak-editor-sync-block__loading_state) {
+  box-shadow: 0 0 0 1px var(--ds-border, #0B120E24);
+}
+
+.emotion-0 .ProseMirror .ak-editor-sync-block:has(.ak-editor-sync-block__loading_state) .ak-editor-sync-block__label,
+.emotion-0 .ProseMirror .ak-editor-bodied-sync-block:has(.ak-editor-sync-block__loading_state) .ak-editor-sync-block__label {
   opacity: 0;
   visibility: hidden;
 }
@@ -4215,13 +4231,13 @@ td>.emotion-0 .ak-editor-expand {
 
 .emotion-0 .ProseMirror .ak-editor-sync-block .ak-editor-bodied-sync-block__content,
 .emotion-0 .ProseMirror .ak-editor-bodied-sync-block .ak-editor-bodied-sync-block__content {
-  padding: 0 32px;
+  padding: 0 18px;
   cursor: text;
 }
 
 .emotion-0 .ProseMirror .ak-editor-sync-block .ak-editor-sync-block__renderer,
 .emotion-0 .ProseMirror .ak-editor-bodied-sync-block .ak-editor-sync-block__renderer {
-  padding: 0 32px;
+  padding: 0 18px;
 }
 
 .emotion-0 .ak-editor-sync-block__label {
@@ -4687,6 +4703,32 @@ td>.emotion-0 .ak-editor-expand {
   position: sticky;
   top: var(--ds-space-150, 12px);
   bottom: var(--ds-space-150, 12px);
+}
+
+
+
+
+
+.emotion-0 .fabric-editor-breakout-mark:has([data-prosemirror-node-name="syncBlock"]) >.pm-breakout-resize-handle-container--left,
+.emotion-0 .fabric-editor-breakout-mark:has([data-prosemirror-node-name="bodiedSyncBlock"]) >.pm-breakout-resize-handle-container--left {
+  left: -20px;
+}
+
+.emotion-0 .fabric-editor-breakout-mark:has([data-prosemirror-node-name="syncBlock"]) >.pm-breakout-resize-handle-container--right,
+.emotion-0 .fabric-editor-breakout-mark:has([data-prosemirror-node-name="bodiedSyncBlock"]) >.pm-breakout-resize-handle-container--right {
+  right: -20px;
+}
+
+
+
+.emotion-0 .fabric-editor-breakout-mark:has([data-prosemirror-node-name="syncBlock"]) >.pm-breakout-resize-handle-container {
+  height: calc(100% - 12px);
+}
+
+
+
+.emotion-0 .fabric-editor-breakout-mark:has([data-prosemirror-node-name="bodiedSyncBlock"]) >.pm-breakout-resize-handle-container {
+  height: calc(100% - 2px);
 }
 
 
@@ -9431,8 +9473,8 @@ td>.emotion-0 .ak-editor-expand {
   cursor: pointer;
   border-radius: var(--ds-radius-small, 3px);
   margin-top: var(--ds-space-150, 12px);
-  margin-right: -32px;
-  margin-left: -32px;
+  margin-right: -18px;
+  margin-left: -18px;
   margin-bottom: 0;
   padding-top: var(--ds-space-050, 4px);
   padding-bottom: var(--ds-space-050, 4px);
@@ -9544,15 +9586,31 @@ td>.emotion-0 .ak-editor-expand {
   border: none;
 }
 
-
-
-.emotion-0 .ProseMirror .ak-editor-sync-blockhas(.ak-editor-sync-block__error_state):hover:not(.ak-editor-selected-node),
-.emotion-0 .ProseMirror .ak-editor-bodied-sync-blockhas(.ak-editor-sync-block__error_state):hover:not(.ak-editor-selected-node) {
-  box-shadow: none;
+.emotion-0 .ProseMirror .ak-editor-sync-block:has(.ak-editor-sync-block__error_state),
+.emotion-0 .ProseMirror .ak-editor-bodied-sync-block:has(.ak-editor-sync-block__error_state) {
+  background-color: var(--ds-background-disabled, #17171708);
+  box-shadow: 0 0 0 1px var(--ds-border, #0B120E24);
 }
 
-.emotion-0 .ProseMirror .ak-editor-sync-blockhas(.ak-editor-sync-block__error_state) .ak-editor-sync-block__label,
-.emotion-0 .ProseMirror .ak-editor-bodied-sync-blockhas(.ak-editor-sync-block__error_state) .ak-editor-sync-block__label {
+.emotion-0 .ProseMirror .ak-editor-sync-block:has(.ak-editor-sync-block__error_state) .ak-editor-sync-block__label,
+.emotion-0 .ProseMirror .ak-editor-bodied-sync-block:has(.ak-editor-sync-block__error_state) .ak-editor-sync-block__label {
+  opacity: 1;
+  visibility: visible;
+  background-color: var(--ds-surface, #FFFFFF);
+}
+
+.emotion-0 .ProseMirror .ak-editor-sync-block:has(.ak-editor-sync-block__error_state) .ak-editor-sync-block__label::before,
+.emotion-0 .ProseMirror .ak-editor-bodied-sync-block:has(.ak-editor-sync-block__error_state) .ak-editor-sync-block__label::before {
+  border: none;
+}
+
+.emotion-0 .ProseMirror .ak-editor-sync-block:has(.ak-editor-sync-block__loading_state),
+.emotion-0 .ProseMirror .ak-editor-bodied-sync-block:has(.ak-editor-sync-block__loading_state) {
+  box-shadow: 0 0 0 1px var(--ds-border, #0B120E24);
+}
+
+.emotion-0 .ProseMirror .ak-editor-sync-block:has(.ak-editor-sync-block__loading_state) .ak-editor-sync-block__label,
+.emotion-0 .ProseMirror .ak-editor-bodied-sync-block:has(.ak-editor-sync-block__loading_state) .ak-editor-sync-block__label {
   opacity: 0;
   visibility: hidden;
 }
@@ -9571,13 +9629,13 @@ td>.emotion-0 .ak-editor-expand {
 
 .emotion-0 .ProseMirror .ak-editor-sync-block .ak-editor-bodied-sync-block__content,
 .emotion-0 .ProseMirror .ak-editor-bodied-sync-block .ak-editor-bodied-sync-block__content {
-  padding: 0 32px;
+  padding: 0 18px;
   cursor: text;
 }
 
 .emotion-0 .ProseMirror .ak-editor-sync-block .ak-editor-sync-block__renderer,
 .emotion-0 .ProseMirror .ak-editor-bodied-sync-block .ak-editor-sync-block__renderer {
-  padding: 0 32px;
+  padding: 0 18px;
 }
 
 .emotion-0 .ak-editor-sync-block__label {
@@ -9818,6 +9876,32 @@ td>.emotion-0 .ak-editor-expand {
 .emotion-0 .ProseMirror:not(.blockCardView-content-wrap)>li>.code-block:first-child,
 .emotion-0 .ProseMirror:not(.blockCardView-content-wrap)>li>.ProseMirror-gapcursor:first-child+.code-block {
   margin-top: -1.714em!important;
+}
+
+
+
+
+
+.emotion-0 .fabric-editor-breakout-mark:has([data-prosemirror-node-name="syncBlock"]) >.pm-breakout-resize-handle-container--left,
+.emotion-0 .fabric-editor-breakout-mark:has([data-prosemirror-node-name="bodiedSyncBlock"]) >.pm-breakout-resize-handle-container--left {
+  left: -20px;
+}
+
+.emotion-0 .fabric-editor-breakout-mark:has([data-prosemirror-node-name="syncBlock"]) >.pm-breakout-resize-handle-container--right,
+.emotion-0 .fabric-editor-breakout-mark:has([data-prosemirror-node-name="bodiedSyncBlock"]) >.pm-breakout-resize-handle-container--right {
+  right: -20px;
+}
+
+
+
+.emotion-0 .fabric-editor-breakout-mark:has([data-prosemirror-node-name="syncBlock"]) >.pm-breakout-resize-handle-container {
+  height: calc(100% - 12px);
+}
+
+
+
+.emotion-0 .fabric-editor-breakout-mark:has([data-prosemirror-node-name="bodiedSyncBlock"]) >.pm-breakout-resize-handle-container {
+  height: calc(100% - 2px);
 }
 
 

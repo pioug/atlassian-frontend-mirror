@@ -13,7 +13,7 @@ START-OF-SELECTION.
   WRITE: / 'Name:', lv_name,
          / 'Age:', lv_age.`;
 
-export default function ExampleABAP() {
+export default function ExampleABAP(): React.JSX.Element {
 	return (
 		<div>
 			<h2>ABAP</h2>

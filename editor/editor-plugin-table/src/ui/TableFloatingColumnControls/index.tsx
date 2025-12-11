@@ -9,10 +9,10 @@ import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/ad
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
-import { isAnchorSupported } from '../../pm-plugins/utils/anchor';
 import { getColumnsWidths } from '../../pm-plugins/utils/column-controls';
 import { containsHeaderColumn } from '../../pm-plugins/utils/nodes';
 import { getRowHeights } from '../../pm-plugins/utils/row-controls';
+import { isNativeStickySupported } from '../../pm-plugins/utils/sticky-header';
 import type { CellHoverMeta, DraggableSourceData, PluginInjectionAPI } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
 
@@ -30,6 +30,7 @@ interface Props {
 	hoveredCell?: CellHoverMeta;
 	hoveredRows?: number[];
 	isChromelessEditor?: boolean;
+	isDragAndDropEnabled?: boolean;
 	isInDanger?: boolean;
 	isNumberColumnEnabled?: boolean;
 	isResizing?: boolean;
@@ -61,6 +62,7 @@ const TableFloatingColumnControls = ({
 	tableWrapperHeight,
 	api,
 	isChromelessEditor,
+	isDragAndDropEnabled,
 }: Props): React.JSX.Element | null => {
 	const [isDragging, setIsDragging] = useState(false);
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -109,8 +111,7 @@ const TableFloatingColumnControls = ({
 
 	let anchorStyles = {};
 	if (
-		isAnchorSupported() &&
-		expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
+		isNativeStickySupported(isDragAndDropEnabled ?? false) &&
 		expValEquals('platform_editor_table_sticky_header_improvements', 'cohort', 'test_with_overflow')
 	) {
 		// cast here is due to CSSProperties missing valid positionAnchor property

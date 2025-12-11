@@ -18,7 +18,7 @@ ReactDOM.render(
   mountNode
 );`;
 
-export default function Component() {
+export default function Component(): React.JSX.Element {
 	return (
 		<div>
 			<h2>Highlighting specific lines with long line wrapping </h2>

@@ -6,7 +6,7 @@ const exampleCodeBlock = `signature REGEXP = sig
   val format : regexp -> string
 end`;
 
-export default function Component() {
+export default function Component(): React.JSX.Element {
 	return (
 		<div>
 			<h2>Standard ML</h2>

@@ -21,7 +21,7 @@ const padderStyles = xcss({
 	display: 'block',
 });
 
-export default function IconButtonExample() {
+export default function IconButtonExample(): React.JSX.Element {
 	return (
 		<Stack space="space.100" xcss={stackStyles}>
 			<Heading size="xsmall">Make sure buttons don't shrink in a flex container</Heading>

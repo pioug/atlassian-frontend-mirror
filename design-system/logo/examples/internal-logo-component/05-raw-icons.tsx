@@ -22,7 +22,7 @@ const styles = cssMap({
 	},
 });
 
-export default function EncodedIconsExample() {
+export default function EncodedIconsExample(): React.JSX.Element {
 	return (
 		<Grid xcss={styles.grid} gap="space.200">
 			{Object.entries(rawIcons).map(([name, icon]) => (

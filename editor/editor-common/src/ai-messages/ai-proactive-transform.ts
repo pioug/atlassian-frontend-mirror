@@ -45,6 +45,7 @@ export const aiProactiveTransformMessages = defineMessages({
 	},
 	recommendationConvertToInfoPanelDescription: {
 		id: 'fabric.editor.ai.proactive.recommendation.convertToInfoPanel.description.non-final',
+		// eslint-disable-next-line @atlassian/i18n/no-multiple-whitespaces
 		defaultMessage: 'Use a blue info panel to make your message stand out.           ',
 		description:
 			'The description displayed in the side context panel for AI recommendations which suggest a conversion to info panel operation',

@@ -20,7 +20,7 @@ export function getVisibilityStateFromPerformance(stop: number): string | null {
 			}
 			return acc;
 		}, null);
-	} catch (e) {
+	} catch {
 		return null;
 	}
 }

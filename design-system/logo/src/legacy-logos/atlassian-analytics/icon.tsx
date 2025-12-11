@@ -56,7 +56,7 @@ export const AtlassianAnalyticsIcon = ({
 	iconColor = defaultLogoParams.iconColor,
 	textColor = defaultLogoParams.textColor,
 	testId,
-}: LogoProps) => {
+}: LogoProps): React.JSX.Element => {
 	const { colorMode } = useThemeObserver();
 	const id = useId();
 	return (

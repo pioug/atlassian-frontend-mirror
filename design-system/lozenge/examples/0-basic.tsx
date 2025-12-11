@@ -13,7 +13,7 @@ const APPEARANCES: { label: string; value: ThemeAppearance }[] = [
 	{ label: 'Moved', value: 'moved' },
 ];
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Stack testId="test-container" space="space.400">
 		<Inline space="space.400">
 			<Stack space="space.100">

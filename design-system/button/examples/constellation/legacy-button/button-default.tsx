@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button';
 
-const ButtonDefaultExample = () => {
+const ButtonDefaultExample = (): React.JSX.Element => {
 	return <Button>Default button</Button>;
 };
 

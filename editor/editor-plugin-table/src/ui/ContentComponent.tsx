@@ -152,6 +152,7 @@ const ContentComponentInternal = ({
 						stickyHeader={stickyHeader}
 						tableWrapper={tableWrapperTarget}
 						isCellMenuOpenByKeyboard={isCellMenuOpenByKeyboard}
+						isDragAndDropEnabled={isDragAndDropEnabled}
 					/>
 				)}
 			{allowControls && (

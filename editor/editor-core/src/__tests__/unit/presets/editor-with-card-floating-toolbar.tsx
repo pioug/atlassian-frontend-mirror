@@ -24,6 +24,8 @@ describe('floatingToolbar is called with the right config', () => {
 			expect.objectContaining({}),
 			undefined,
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should initialise floatingToolbar to have lpLinkPicker false if lp-link-picker feature flag is false', async () => {
@@ -43,6 +45,8 @@ describe('floatingToolbar is called with the right config', () => {
 			expect.objectContaining({}),
 			undefined,
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should initialise floatingToolbar to have lpLinkPicker true if lp-link-picker feature flag is true', async () => {
@@ -62,5 +66,7 @@ describe('floatingToolbar is called with the right config', () => {
 			expect.objectContaining({}),
 			undefined,
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 });

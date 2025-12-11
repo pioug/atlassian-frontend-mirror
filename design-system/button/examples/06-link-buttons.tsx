@@ -46,7 +46,7 @@ const MyRouterLinkComponent: React.ForwardRefExoticComponent<
 	},
 );
 
-export default function LinkButtonExample() {
+export default function LinkButtonExample(): React.JSX.Element {
 	return (
 		<Stack space="space.100" alignInline="start">
 			<h2>

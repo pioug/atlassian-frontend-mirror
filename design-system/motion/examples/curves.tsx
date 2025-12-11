@@ -4,7 +4,7 @@ import { easeIn, easeInOut, easeOut, linear } from '@atlaskit/motion';
 
 import { MovesRightBlock } from './utils/blocks';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<div>
 			<h1>Curves</h1>

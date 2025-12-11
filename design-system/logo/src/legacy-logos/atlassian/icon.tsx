@@ -36,7 +36,7 @@ export const AtlassianIcon = ({
 	iconColor = defaultLogoParams.iconColor,
 	textColor = defaultLogoParams.textColor,
 	testId,
-}: LogoProps) => {
+}: LogoProps): React.JSX.Element => {
 	const { colorMode } = useThemeObserver();
 	return (
 		<Wrapper

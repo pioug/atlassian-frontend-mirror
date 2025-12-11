@@ -6,7 +6,7 @@ const exampleCodeBlock = `unit Unit1;
 interface
 uses { these units are part of the Visual Component Library (VCL) }`;
 
-export default function Component() {
+export default function Component(): React.JSX.Element {
 	return (
 		<div>
 			<h2>Object Pascal</h2>

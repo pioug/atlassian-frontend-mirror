@@ -1,5 +1,6 @@
 import { expandToBlockRange } from '@atlaskit/editor-common/selection';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type ContentNodeWithPos, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
@@ -90,4 +91,9 @@ export const expandSelectionToBlockRange = (selection: Selection, schema: Schema
 		}
 		return true;
 	});
+};
+
+export const isListType = (node: PMNode, schema: Schema): boolean => {
+	const lists = [schema.nodes.taskList, schema.nodes.bulletList, schema.nodes.orderedList];
+	return lists.some((list) => list === node.type);
 };

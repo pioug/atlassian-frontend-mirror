@@ -3,6 +3,7 @@ import type { DocNode } from '@atlaskit/adf-schema';
 import type { SolutionDraftAgentUpdatePayload } from './common/types/agent';
 import type { JsmJourneyBuilderActionsPayload } from './common/types/jsm-journey-builder';
 import type {
+	AutomationRuleUpdatePayload,
 	SolutionArchitectAgentActivationPayload,
 	SolutionArchitectHandoffPayload,
 	SolutionPlanStateUpdatePayload,
@@ -47,7 +48,7 @@ type TargetAgentParam =
 
 type PlaceholderParam = {
 	// Overrides the default placeholder type
-	placeholderType?: 'person' | 'link' | 'generic';
+	placeholderType?: 'person' | 'link' | 'generic' | 'skill';
 };
 
 export type ChatNewPayload = PayloadCore<
@@ -383,6 +384,7 @@ export type Payload =
 	| OpenChatDebugModalPayload
 	| OpenChatFeedbackModalPayload
 	| JsmJourneyBuilderActionsPayload
+	| AutomationRuleUpdatePayload
 	| SolutionArchitectHandoffPayload
 	| SolutionPlanStateUpdatePayload
 	| SolutionDraftAgentUpdatePayload

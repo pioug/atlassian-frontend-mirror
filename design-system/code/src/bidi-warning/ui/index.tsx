@@ -21,7 +21,7 @@ export default function BidiWarning({
 	tooltipEnabled,
 	isTooltipEnabled,
 	label = 'Bidirectional characters change the order that text is rendered. This could be used to obscure malicious code.',
-}: CodeBidiWarningProps) {
+}: CodeBidiWarningProps): React.JSX.Element {
 	// Use new props if provided, otherwise fall back to deprecated props
 	const shouldEnableTooltip = isTooltipEnabled !== undefined ? isTooltipEnabled : tooltipEnabled;
 	const shouldSkip = shouldSkipChildren !== undefined ? shouldSkipChildren : skipChildren;

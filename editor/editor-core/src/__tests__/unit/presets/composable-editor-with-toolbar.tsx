@@ -34,6 +34,8 @@ describe('composable editor with toolbar', () => {
 		const editorElement = screen.getByRole('textbox');
 
 		expect(editorElement.textContent).toBe('bark');
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should not be an unknown boy as the state should always update', async () => {
@@ -47,6 +49,8 @@ describe('composable editor with toolbar', () => {
 
 		const status = screen.getByTestId('dog-status');
 		expect(status.textContent).toBe('Good boy');
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should be able to execute commands and it uses the correct editor', async () => {
@@ -73,6 +77,8 @@ describe('composable editor with toolbar', () => {
 
 		// We bark twice on the second editor
 		expect(editorElements[1].textContent).toBe('barkbark');
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should be able to read + update state', async () => {
@@ -99,6 +105,8 @@ describe('composable editor with toolbar', () => {
 		// The second dog barks and should be a bad boy now
 		expect(statuses[0].textContent).toBe('Good boy');
 		expect(statuses[1].textContent).toBe('Bad boy');
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should be able to read + update state without EditorContext', async () => {
@@ -121,6 +129,8 @@ describe('composable editor with toolbar', () => {
 		// The second dog barks and should be a bad boy now
 		expect(statuses[0].textContent).toBe('Good boy');
 		expect(statuses[1].textContent).toBe('Bad boy');
+
+		await expect(document.body).toBeAccessible();
 	});
 });
 

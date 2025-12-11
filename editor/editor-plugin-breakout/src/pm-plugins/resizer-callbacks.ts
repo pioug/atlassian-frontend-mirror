@@ -75,7 +75,10 @@ export function getProposedWidth({
 
 	const snapPoints = [WIDTHS.MIN, WIDTHS.WIDE, Math.min(containerWidth, WIDTHS.FULL)];
 
-	if (expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)) {
+	if (
+		expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+		expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
+	) {
 		snapPoints.push(Math.min(containerWidth, WIDTHS.MAX));
 	}
 
@@ -85,9 +88,11 @@ export function getProposedWidth({
 		}
 	}
 
-	const hardMax = expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
-		? Math.min(containerWidth, WIDTHS.MAX)
-		: Math.min(containerWidth, WIDTHS.FULL);
+	const hardMax =
+		expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+		expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
+			? Math.min(containerWidth, WIDTHS.MAX)
+			: Math.min(containerWidth, WIDTHS.FULL);
 
 	return Math.max(WIDTHS.MIN, Math.min(proposedWidth, hardMax));
 }
@@ -194,7 +199,10 @@ export function createResizerCallbacks({
 			);
 
 			let isResizedToMaxWidth = false;
-			if (expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)) {
+			if (
+				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+				expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
+			) {
 				isResizedToMaxWidth = !!guidelines.find(
 					(guideline) => guideline.key.startsWith('max_width') && guideline.active,
 				);
@@ -210,7 +218,10 @@ export function createResizerCallbacks({
 				? WIDTHS.FULL
 				: getProposedWidth({ initialWidth, location, api, source });
 
-			if (expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)) {
+			if (
+				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+				expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
+			) {
 				if (isResizedToMaxWidth) {
 					newWidth = WIDTHS.MAX;
 				}

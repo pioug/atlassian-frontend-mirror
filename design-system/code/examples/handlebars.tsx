@@ -9,7 +9,7 @@ Hobbies:
 - {{name}}
 {{/items}}`;
 
-export default function Component() {
+export default function Component(): React.JSX.Element {
 	return (
 		<div>
 			<h2>Handlebars</h2>

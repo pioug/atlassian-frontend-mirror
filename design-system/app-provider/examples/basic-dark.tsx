@@ -10,7 +10,7 @@ function Basic() {
 	return <Box padding="space.200">Color mode: {colorMode}</Box>;
 }
 
-export default function () {
+export default function (): React.JSX.Element {
 	return (
 		<AppProvider defaultColorMode="dark">
 			<Basic />

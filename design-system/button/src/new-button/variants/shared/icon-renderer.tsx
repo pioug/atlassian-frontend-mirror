@@ -24,7 +24,7 @@ function isIconRenderProp(
  * Used to support render props with icons.
  *
  */
-const IconRenderer = ({ icon: Icon }: { icon: IconProp }) => {
+const IconRenderer = ({ icon: Icon }: { icon: IconProp }): React.JSX.Element => {
 	const isRenderProp = isIconRenderProp(Icon);
 	let iconProps: IconProps | NewIconProps = {
 		label: '',

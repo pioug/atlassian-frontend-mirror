@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 124.17.8
+
+### Patch Changes
+
+- [`a4ada9643d4b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4ada9643d4b0) -
+  Cleanup FG platform_editor_fix_sllv_margin_renderer
+- [`dcc6a3e73f414`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dcc6a3e73f414) -
+  [ux] EDITOR-3304 add offline error state for sync blocks and update other error UI to match new
+  designs
+- Updated dependencies
+
 ## 124.17.7
 
 ### Patch Changes

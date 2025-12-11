@@ -5,7 +5,7 @@ import Button from '@atlaskit/button/new';
 import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-export default function AutoFocusExample() {
+export default function AutoFocusExample(): React.JSX.Element {
 	return (
 		// to capture focus we need the padding
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

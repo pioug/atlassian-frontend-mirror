@@ -51,22 +51,26 @@ describe('<FabricEditorsListener />', () => {
 	};
 
 	describe('Listen and fire an UI event with analyticsWebClient', () => {
-		it('should fire event with editor tag', () => {
+		it('should fire event with editor tag', async () => {
 			fireAndVerifySentEvent(DummyEditorComponent, {
 				action: 'someAction',
 				actionSubject: 'someComponent',
 				source: 'unknown',
 				tags: [EDITOR_TAG, LEGACY_EDITOR_TAG],
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should fire event without duplicating the tag', () => {
+		it('should fire event without duplicating the tag', async () => {
 			fireAndVerifySentEvent(DummyTaggedEditorComponent, {
 				action: 'someAction',
 				actionSubject: 'someComponent',
 				source: 'unknown',
 				tags: [EDITOR_TAG, 'foo', LEGACY_EDITOR_TAG],
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

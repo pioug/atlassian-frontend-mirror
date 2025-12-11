@@ -154,6 +154,7 @@ import {
 import {
 	pragmaticResizerStyles,
 	pragmaticResizerStylesNew,
+	pragmaticResizerStylesSyncedBlock,
 	pragmaticStylesLayoutFirstNodeResizeHandleFix,
 	pragmaticResizerStylesForTooltip,
 	pragmaticResizerStylesWithReducedEditorGutter,
@@ -274,7 +275,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 		const isFullPage =
 			appearance === 'full-page' ||
 			appearance === 'full-width' ||
-			(expValEqualsNoExposure('editor_tinymce_full_width_mode', 'isEnabled', true) &&
+			((expValEqualsNoExposure('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+				expValEqualsNoExposure('confluence_max_width_content_appearance', 'isEnabled', true)) &&
 				appearance === 'max');
 		const isComment = appearance === 'comment';
 
@@ -603,6 +605,9 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 								pragmaticResizerStyles
 						: undefined,
+					editorExperiment('platform_synced_block', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						pragmaticResizerStylesSyncedBlock,
 					editorExperiment('advanced_layouts', true) &&
 						expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

@@ -4,7 +4,6 @@ import { useIntl } from 'react-intl-next';
 
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 
-import ExclamationWarning from './assets/ExclamationWarning.svg';
 import { SyncedBlockErrorStateCard } from './SyncedBlockErrorStateCard';
 
 export const SyncedBlockGenericError = (): React.JSX.Element => {
@@ -12,8 +11,7 @@ export const SyncedBlockGenericError = (): React.JSX.Element => {
 
 	return (
 		<SyncedBlockErrorStateCard
-			imageSrc={ExclamationWarning}
-			secondaryMessage={formatMessage(messages.generalErrorDescription)}
+			description={formatMessage(messages.generalErrorDescription)}
 		/>
 	);
 };

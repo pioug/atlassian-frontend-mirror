@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 15.4.24
+
+### Patch Changes
+
+- [`e51da6f828fe9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e51da6f828fe9) -
+  Exclude Safari due to contenteditable in sticky positioned table header bug
+- Updated dependencies
+
+## 15.4.23
+
+### Patch Changes
+
+- [`21089bb0ca0d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21089bb0ca0d2) -
+  Only enable new table sticky header if drag and drop flag enabled
+
 ## 15.4.22
 
 ### Patch Changes

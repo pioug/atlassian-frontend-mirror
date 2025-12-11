@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 35.7.0
+
+### Minor Changes
+
+- [`a9118006d1586`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9118006d1586) -
+  Add auth provider analytics events via globalMediaEventEmitter behind
+  platform_media_auth_provider_analytics feature flag.
+
 ## 35.6.1
 
 ### Patch Changes

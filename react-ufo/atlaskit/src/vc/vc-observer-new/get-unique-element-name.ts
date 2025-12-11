@@ -20,7 +20,7 @@ function isValidSelector(selector: string): boolean {
 	try {
 		document.querySelector(selector);
 		return true;
-	} catch (err) {
+	} catch {
 		return false;
 	}
 }

@@ -33,7 +33,7 @@ const getMockEditorAPIWithToolbar = () =>
 				getComponents: () => [primaryToolbarComponent],
 			},
 		},
-	}) as PublicPluginAPI<ToolbarPlugin>;
+	} as PublicPluginAPI<ToolbarPlugin>);
 
 const getMockEditorAPIEmptyToolbar = () =>
 	({
@@ -42,7 +42,7 @@ const getMockEditorAPIEmptyToolbar = () =>
 				getComponents: () => [{}],
 			},
 		},
-	}) as PublicPluginAPI<ToolbarPlugin>;
+	} as PublicPluginAPI<ToolbarPlugin>);
 
 describe('FullPageToolbarNext', () => {
 	let editorView: EditorView;
@@ -51,7 +51,7 @@ describe('FullPageToolbarNext', () => {
 	});
 	describe('when primary toolbar is registered', () => {
 		describe('and toolbarDockingPosition is "top"', () => {
-			it('should render the primary toolbar', () => {
+			it('should render the primary toolbar', async () => {
 				const screen = render(
 					<IntlProvider locale="en">
 						<FullPageToolbarNext
@@ -63,11 +63,13 @@ describe('FullPageToolbarNext', () => {
 					</IntlProvider>,
 				);
 				expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
 		describe('and toolbarDockingPosition is "none"', () => {
-			it('should not render the primary toolbar', () => {
+			it('should not render the primary toolbar', async () => {
 				const screen = render(
 					<IntlProvider locale="en">
 						<FullPageToolbarNext
@@ -79,11 +81,13 @@ describe('FullPageToolbarNext', () => {
 					</IntlProvider>,
 				);
 				expect(screen.queryByTestId('primary-toolbar')).not.toBeInTheDocument();
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
 		describe('and toolbarDockingPosition is undefined', () => {
-			it('should render the primary toolbar', () => {
+			it('should render the primary toolbar', async () => {
 				const screen = render(
 					<IntlProvider locale="en">
 						<FullPageToolbarNext
@@ -95,13 +99,15 @@ describe('FullPageToolbarNext', () => {
 					</IntlProvider>,
 				);
 				expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 	});
 
 	describe('when primary toolbar is not registered', () => {
 		describe('and toolbarDockingPosition is "top"', () => {
-			it('should render the primary toolbar', () => {
+			it('should render the primary toolbar', async () => {
 				const screen = render(
 					<IntlProvider locale="en">
 						<FullPageToolbarNext
@@ -113,11 +119,13 @@ describe('FullPageToolbarNext', () => {
 					</IntlProvider>,
 				);
 				expect(screen.queryByTestId('primary-toolbar')).not.toBeInTheDocument();
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
 		describe('and toolbarDockingPosition is "none"', () => {
-			it('should not render the primary toolbar', () => {
+			it('should not render the primary toolbar', async () => {
 				const screen = render(
 					<IntlProvider locale="en">
 						<FullPageToolbarNext
@@ -129,11 +137,13 @@ describe('FullPageToolbarNext', () => {
 					</IntlProvider>,
 				);
 				expect(screen.queryByTestId('primary-toolbar')).not.toBeInTheDocument();
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
 		describe('and toolbarDockingPosition is undefined', () => {
-			it('should render the primary toolbar', () => {
+			it('should render the primary toolbar', async () => {
 				const screen = render(
 					<IntlProvider locale="en">
 						<FullPageToolbarNext
@@ -145,6 +155,8 @@ describe('FullPageToolbarNext', () => {
 					</IntlProvider>,
 				);
 				expect(screen.queryByTestId('primary-toolbar')).not.toBeInTheDocument();
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 	});
@@ -160,7 +172,7 @@ describe('FullPageToolbarNext', () => {
 			const afterComponent = <div data-testid="after-component">After Component</div>;
 
 			describe('when customPrimaryToolbarComponents is a React element', () => {
-				it('should render both primary toolbar and custom component', () => {
+				it('should render both primary toolbar and custom component', async () => {
 					const screen = render(
 						<IntlProvider locale="en">
 							<FullPageToolbarNext
@@ -174,11 +186,13 @@ describe('FullPageToolbarNext', () => {
 					);
 					expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
 					expect(screen.getByTestId('custom-component')).toBeInTheDocument();
+
+					await expect(document.body).toBeAccessible();
 				});
 			});
 
 			describe('when customPrimaryToolbarComponents has before and after properties', () => {
-				it('should render all components when both before/after and primary toolbar exist', () => {
+				it('should render all components when both before/after and primary toolbar exist', async () => {
 					const screen = render(
 						<IntlProvider locale="en">
 							<FullPageToolbarNext
@@ -199,11 +213,13 @@ describe('FullPageToolbarNext', () => {
 					expect(screen.getByTestId('before-component')).toBeInTheDocument();
 					expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
 					expect(screen.getByTestId('after-component')).toBeInTheDocument();
+
+					await expect(document.body).toBeAccessible();
 				});
 			});
 
 			describe('when customPrimaryToolbarComponents is undefined', () => {
-				it('should not render custom components', () => {
+				it('should not render custom components', async () => {
 					const screen = render(
 						<IntlProvider locale="en">
 							<FullPageToolbarNext
@@ -218,11 +234,13 @@ describe('FullPageToolbarNext', () => {
 						screen.queryByTestId('before-primary-toolbar-components-plugin'),
 					).not.toBeInTheDocument();
 					expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
+
+					await expect(document.body).toBeAccessible();
 				});
 			});
 
 			describe('when toolbarDockingPosition is "none" with custom components', () => {
-				it('should render custom components but not primary toolbar', () => {
+				it('should render custom components but not primary toolbar', async () => {
 					const screen = render(
 						<IntlProvider locale="en">
 							<FullPageToolbarNext
@@ -236,6 +254,8 @@ describe('FullPageToolbarNext', () => {
 					);
 					expect(screen.getByTestId('custom-component')).toBeInTheDocument();
 					expect(screen.queryByTestId('primary-toolbar')).not.toBeInTheDocument();
+
+					await expect(document.body).toBeAccessible();
 				});
 			});
 		});

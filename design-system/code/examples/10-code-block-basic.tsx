@@ -18,7 +18,7 @@ ReactDOM.render(
   mountNode
 );`;
 
-export default function Component() {
+export default function Component(): React.JSX.Element {
 	return (
 		<div>
 			<h2>Showing code without line numbers</h2>

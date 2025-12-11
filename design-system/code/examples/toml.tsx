@@ -24,7 +24,7 @@ path = "src/main.rs"
 opt-level = 3
 lto = true`;
 
-export default function Component() {
+export default function Component(): React.JSX.Element {
 	return (
 		<div>
 			<h2>TOML</h2>

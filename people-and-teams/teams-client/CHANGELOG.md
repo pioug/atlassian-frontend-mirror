@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.30.0
+
+### Minor Changes
+
+- [`8043a09b33198`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8043a09b33198) -
+  [ux] Enable editing team types for external teams
+
 ## 4.29.1
 
 ### Patch Changes

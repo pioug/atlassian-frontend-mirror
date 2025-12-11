@@ -84,7 +84,7 @@ describe('create-editor/error-boundary', () => {
 		userAgent.mockRestore();
 	});
 
-	it('should render children when no errors are thrown', () => {
+	it('should render children when no errors are thrown', async () => {
 		const { container } = render(
 			<EditorErrorBoundary
 				createAnalyticsEvent={createAnalyticsEvent as CreateUIAnalyticsEvent}
@@ -97,9 +97,11 @@ describe('create-editor/error-boundary', () => {
 		expect(componentDidCatch).not.toHaveBeenCalled();
 		expect(container).toHaveTextContent('Foo');
 		expect(createAnalyticsEvent).not.toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should catch errors via `componentDidCatch` when a child throws', () => {
+	it('should catch errors via `componentDidCatch` when a child throws', async () => {
 		render(
 			<EditorErrorBoundary
 				rethrow={false}
@@ -111,6 +113,8 @@ describe('create-editor/error-boundary', () => {
 			</EditorErrorBoundary>,
 		);
 		expect(componentDidCatch).toHaveBeenCalledTimes(2); // rerenders once
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should dispatch an analytics event when an error is caught', async () => {
@@ -166,6 +170,8 @@ describe('create-editor/error-boundary', () => {
 				nonPrivacySafeAttributes: expect.any(Object),
 			}),
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should not dispatch an analytics event when an error is caught if errorTracking is explicitly disabled', async () => {
@@ -186,6 +192,8 @@ describe('create-editor/error-boundary', () => {
 
 		// Error boundary has a async operation to get the productName
 		await waitFor(() => expect(createAnalyticsEvent).not.toHaveBeenCalled());
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should recover rendering if the problem was intermittent', async () => {
@@ -219,9 +227,11 @@ describe('create-editor/error-boundary', () => {
 		await waitFor(() => expect(componentDidCatch).toHaveBeenCalledTimes(1));
 		expect(container).toHaveTextContent('Foo');
 		expect(renderSpy).toHaveBeenCalledTimes(2);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should re-throw caught errors for products to handle', () => {
+	it('should re-throw caught errors for products to handle', async () => {
 		const error = new Error('Some Bad Error');
 		const Bad = () => {
 			throw error;
@@ -246,6 +256,8 @@ describe('create-editor/error-boundary', () => {
 		expect(container).toHaveTextContent('Stack trace rendered here');
 		expect(componentDidCatch).toHaveBeenCalledTimes(1);
 		expect(productComponentDidCatch).toHaveBeenCalledTimes(2);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('DocStructure', () => {
@@ -277,6 +289,8 @@ describe('create-editor/error-boundary', () => {
 					}),
 				),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should dispatch an analytics event without doc structure when FF is off', async () => {
@@ -312,6 +326,8 @@ describe('create-editor/error-boundary', () => {
 					}),
 				),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -341,6 +357,8 @@ describe('create-editor/error-boundary', () => {
 					}),
 				),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

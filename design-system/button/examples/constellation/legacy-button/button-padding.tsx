@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
 
-const ButtonPaddingExample = () => {
+const ButtonPaddingExample = (): React.JSX.Element => {
 	return (
 		<ButtonGroup>
 			<Button appearance="primary">Default</Button>

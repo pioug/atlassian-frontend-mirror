@@ -61,32 +61,42 @@ describe('useEditorViewHasWarnings', () => {
 		useExternalMessagesMock.mockReturnValue([normalizedExternalMessagesEmpty, {}]);
 	});
 
-	it('should return true when useHydratedDeprecations are present', () => {
+	it('should return true when useHydratedDeprecations are present', async () => {
 		useHydratedDeprecationsMock.mockReturnValue([hydratedDeprecatedFields, {}]);
 		renderConsumer();
 		expect(assertEditorViewHasWarnings).toHaveBeenLastCalledWith(true);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should return false when useHydratedDeprecations are empty', () => {
+	it('should return false when useHydratedDeprecations are empty', async () => {
 		renderConsumer();
 		expect(assertEditorViewHasWarnings).toHaveBeenLastCalledWith(false);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should return true when externalMessages contain warning messages', () => {
+	it('should return true when externalMessages contain warning messages', async () => {
 		useExternalMessagesMock.mockReturnValue([normalizedExternalMessages, {}]);
 		renderConsumer();
 		expect(assertEditorViewHasWarnings).toHaveBeenLastCalledWith(true);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should return false when externalMessages does not contain info messages', () => {
+	it('should return false when externalMessages does not contain info messages', async () => {
 		renderConsumer();
 		expect(assertEditorViewHasWarnings).toHaveBeenLastCalledWith(false);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should return true when both useHydratedDeprecations and externalMessages are not empty', () => {
+	it('should return true when both useHydratedDeprecations and externalMessages are not empty', async () => {
 		useHydratedDeprecationsMock.mockReturnValue([hydratedDeprecatedFields, {}]);
 		useExternalMessagesMock.mockReturnValue([normalizedExternalMessages, {}]);
 		renderConsumer();
 		expect(assertEditorViewHasWarnings).toHaveBeenLastCalledWith(true);
+
+		await expect(document.body).toBeAccessible();
 	});
 });

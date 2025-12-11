@@ -1,15 +1,17 @@
 import React from 'react';
 
 import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { UseFetchSyncBlockDataResult } from '@atlaskit/editor-synced-block-provider';
 
-import type { SyncedBlockRendererProps } from '../syncedBlockPluginType';
+import type { SyncedBlockPlugin, SyncedBlockRendererProps } from '../syncedBlockPluginType';
 
 import { SyncBlockLabel } from './SyncBlockLabel';
 
 type Props = {
-	syncedBlockRenderer: (props: SyncedBlockRendererProps) => React.JSX.Element;
+	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 	localId: string;
+	syncedBlockRenderer: (props: SyncedBlockRendererProps) => React.JSX.Element;
 	useFetchSyncBlockData: () => UseFetchSyncBlockDataResult;
 	useFetchSyncBlockTitle: () => string | undefined;
 };
@@ -21,6 +23,7 @@ const SyncBlockRendererWrapperComponent = ({
 	useFetchSyncBlockData,
 	localId,
 	useFetchSyncBlockTitle,
+	api,
 }: Props): React.JSX.Element => {
 	return (
 		<div>
@@ -31,6 +34,7 @@ const SyncBlockRendererWrapperComponent = ({
 			>
 				{syncedBlockRenderer({
 					useFetchSyncBlockData,
+					api,
 				})}
 			</div>
 			<SyncBlockLabel

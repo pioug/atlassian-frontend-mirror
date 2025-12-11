@@ -31,7 +31,7 @@ describe('getContainerProperties', () => {
 		(fg as jest.Mock).mockReturnValue(false);
 	});
 
-	it('should return correct properties for confluence container type', () => {
+	it('should return correct properties for confluence container type', async () => {
 		const properties = getContainerProperties({
 			containerType: 'ConfluenceSpace',
 		});
@@ -44,9 +44,11 @@ describe('getContainerProperties', () => {
 		expect(
 			screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
 		).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should return correct properties for jira container type', () => {
+	it('should return correct properties for jira container type', async () => {
 		const properties = getContainerProperties({
 			containerType: 'JiraProject',
 		});
@@ -55,9 +57,11 @@ describe('getContainerProperties', () => {
 		expect(properties.icon).toBeTruthy();
 		renderWithIntl(properties.title);
 		expect(screen.getByText(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should return correct properties for web link container type in empty state', () => {
+	it('should return correct properties for web link container type in empty state', async () => {
 		const properties = getContainerProperties({
 			containerType: 'WebLink',
 			isEmptyContainer: true,
@@ -66,17 +70,21 @@ describe('getContainerProperties', () => {
 		expect(
 			screen.getByText(messages.emptyLinkContainerDescription.defaultMessage),
 		).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
-	it('should return correct properties for web link container type', () => {
+	it('should return correct properties for web link container type', async () => {
 		const properties = getContainerProperties({
 			containerType: 'WebLink',
 			isEmptyContainer: false,
 		});
 		renderWithIntl(properties.description);
 		expect(screen.getByText(messages.linkContainerDescription.defaultMessage)).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should return correct properties for web link container type when displayed on profile card', () => {
+	it('should return correct properties for web link container type when displayed on profile card', async () => {
 		const properties = getContainerProperties({
 			containerType: 'WebLink',
 			isEmptyContainer: false,
@@ -88,9 +96,11 @@ describe('getContainerProperties', () => {
 		renderWithIntl(properties.icon);
 		expect(screen.getByTestId('team-link-card-external-link-icon')).toBeInTheDocument();
 		expect(screen.queryByTestId('team-link-card-globe-icon')).not.toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should return correct properties for web link container type when NOT displayed on profile card', () => {
+	it('should return correct properties for web link container type when NOT displayed on profile card', async () => {
 		const properties = getContainerProperties({
 			containerType: 'WebLink',
 			isEmptyContainer: false,
@@ -102,9 +112,11 @@ describe('getContainerProperties', () => {
 		renderWithIntl(properties.icon);
 		expect(screen.getByTestId('team-link-card-globe-icon')).toBeInTheDocument();
 		expect(screen.queryByTestId('team-link-card-external-link-icon')).not.toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should use new title for confluence when new team profile is on', () => {
+	it('should use new title for confluence when new team profile is on', async () => {
 		(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 			exp === 'new_team_profile' ? true : false,
 		);
@@ -114,9 +126,11 @@ describe('getContainerProperties', () => {
 		});
 		renderWithIntl(properties.title);
 		expect(screen.getByText(messages.addConfluenceSpace.defaultMessage)).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should return correct titles for loom container type when flag off and on', () => {
+	it('should return correct titles for loom container type when flag off and on', async () => {
 		// Off by default from beforeEach
 		(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue(false);
 		let properties = getContainerProperties({
@@ -134,9 +148,11 @@ describe('getContainerProperties', () => {
 		});
 		renderWithIntl(properties.title);
 		expect(screen.getByText(messages.addLoomSpace.defaultMessage)).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should use new title for jira when new team profile is on', () => {
+	it('should use new title for jira when new team profile is on', async () => {
 		(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 			exp === 'new_team_profile' ? true : false,
 		);
@@ -145,9 +161,11 @@ describe('getContainerProperties', () => {
 		});
 		renderWithIntl(properties.title);
 		expect(screen.getByText(messages.addJiraProject.defaultMessage)).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should set weblink title to null when flag is off and to Add Web Link when flag is on', () => {
+	it('should set weblink title to null when flag is off and to Add Web Link when flag is on', async () => {
 		// Off
 		(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue(false);
 		let properties = getContainerProperties({
@@ -163,5 +181,7 @@ describe('getContainerProperties', () => {
 		});
 		renderWithIntl(properties.title);
 		expect(screen.getByText(messages.addLink.defaultMessage)).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 });

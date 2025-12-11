@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianIcon } from '@atlaskit/logo';
 
-const LogoSmall = () => {
+const LogoSmall = (): React.JSX.Element => {
 	return <AtlassianIcon size="small" appearance="brand" />;
 };
 

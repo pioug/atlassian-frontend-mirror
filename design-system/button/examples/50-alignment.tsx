@@ -12,7 +12,7 @@ import variants from '../src/utils/variants';
 /**
  * Tests alignment of Button with inline text
  */
-export default function AlignmentExample() {
+export default function AlignmentExample(): React.JSX.Element {
 	return (
 		<Stack space="space.300">
 			{variants.map(({ name, Component, spacing }) => (

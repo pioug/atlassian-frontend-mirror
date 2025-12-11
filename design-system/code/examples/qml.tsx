@@ -5,7 +5,7 @@ import { CodeBlock } from '@atlaskit/code';
 const exampleCodeBlock = `import QtQuick 1.0
 Rectangle {}`;
 
-export default function Component() {
+export default function Component(): React.JSX.Element {
 	return (
 		<div>
 			<h2>QML</h2>

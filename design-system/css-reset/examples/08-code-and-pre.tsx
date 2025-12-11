@@ -6,7 +6,7 @@ import React from 'react';
  * please include the stylesheet in head as `<link href="<path to css-reset>" rel="stylesheet" />`
  * or import '@atlaskit/css-reset' in your application code
  */
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<h2>Preformatted text using {`<pre>`}</h2>
 		<pre> Item | Qty ------------------- Apples | 5 Oranges | 10 Grapes | 99</pre>

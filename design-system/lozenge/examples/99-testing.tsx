@@ -5,7 +5,7 @@ import Lozenge from '@atlaskit/lozenge';
 import { Box, Stack, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<Stack space="space.100">
 			<Box>

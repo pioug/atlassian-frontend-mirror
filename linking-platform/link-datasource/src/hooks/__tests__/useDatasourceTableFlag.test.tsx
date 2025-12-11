@@ -47,14 +47,16 @@ describe('useDatasourceTableFlag', () => {
 		fireEvent.click(button);
 	};
 
-	it('throws when FlagProvider is not provided', () => {
+	it('throws when FlagProvider is not provided', async () => {
 		const { result } = renderHook(() => useDatasourceTableFlag(), {
 			wrapper: ({ children }) => <IntlProvider locale="en">{children}</IntlProvider>,
 		});
 		expect(result.error).toEqual(Error('Unable to find FlagProviderContext'));
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('shows error flag', () => {
+	it('shows error flag', async () => {
 		setup();
 
 		expect(screen.getByRole('alert')).toBeInTheDocument();
@@ -79,9 +81,11 @@ describe('useDatasourceTableFlag', () => {
 			},
 			EVENT_CHANNEL,
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('shows 403 error flag', () => {
+	it('shows 403 error flag', async () => {
 		setup({ flag: { status: 403 } });
 
 		expect(screen.getByRole('alert')).toBeInTheDocument();
@@ -104,9 +108,11 @@ describe('useDatasourceTableFlag', () => {
 			},
 			EVENT_CHANNEL,
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('shows error flag for inline edit errors', () => {
+	it('shows error flag for inline edit errors', async () => {
 		setup({ options: { isFetchAction: true } });
 
 		expect(screen.getByRole('alert')).toBeInTheDocument();
@@ -116,5 +122,7 @@ describe('useDatasourceTableFlag', () => {
 				'Wait a few minutes, then try again. Check your project settings or contact support if this keeps happening.',
 			),
 		).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 });

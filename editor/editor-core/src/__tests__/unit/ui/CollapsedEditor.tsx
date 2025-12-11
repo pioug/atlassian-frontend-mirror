@@ -16,7 +16,7 @@ function ComposableEditorWrapped(props: Parameters<typeof ComposableEditor>[0]) 
 }
 
 describe('CollapsedEditor', () => {
-	it('should load even if IntlProvider is not provided', () => {
+	it('should load even if IntlProvider is not provided', async () => {
 		const { container } = render(
 			<CollapsedEditor isExpanded={false}>
 				<Editor />
@@ -26,9 +26,11 @@ describe('CollapsedEditor', () => {
 		const editorElement = container.getElementsByClassName('akEditor');
 		expect(editorElement.length).toBe(0);
 		expect(screen.queryByTestId('chrome-collapsed')).not.toBeNull();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should have the label for chrome-collapsed', () => {
+	it('should have the label for chrome-collapsed', async () => {
 		const { container } = render(
 			<CollapsedEditor isExpanded={false} assistiveLabel="Test Label">
 				<Editor />
@@ -37,9 +39,11 @@ describe('CollapsedEditor', () => {
 		const editorElement = container.getElementsByClassName('akEditor');
 		expect(editorElement.length).toBe(0);
 		expect(screen.getByLabelText('Test Label')).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should not render the editor when isExpanded is false', () => {
+	it('should not render the editor when isExpanded is false', async () => {
 		const { container } = renderWithIntl(
 			<CollapsedEditor isExpanded={false}>
 				<Editor />
@@ -49,9 +53,11 @@ describe('CollapsedEditor', () => {
 		const editorElement = container.getElementsByClassName('akEditor');
 		expect(editorElement.length).toBe(0);
 		expect(screen.queryByTestId('chrome-collapsed')).not.toBeNull();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render the editor when isExpanded is true', () => {
+	it('should render the editor when isExpanded is true', async () => {
 		const { container } = renderWithIntl(
 			<CollapsedEditor isExpanded={true}>
 				<Editor />
@@ -60,9 +66,11 @@ describe('CollapsedEditor', () => {
 		const editorElement = container.getElementsByClassName('akEditor');
 		expect(editorElement.length).toBe(1);
 		expect(screen.queryByTestId('chrome-collapsed')).toBeNull();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should call onFocus when collapsed editor is clicked', () => {
+	it('should call onFocus when collapsed editor is clicked', async () => {
 		const onFocus = jest.fn();
 		renderWithIntl(
 			<CollapsedEditor onFocus={onFocus}>
@@ -76,9 +84,11 @@ describe('CollapsedEditor', () => {
 		// TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
 		// fireEvent.focusIn(textbox); // Removed after upgrading to jest 29
 		expect(onFocus).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should not call onExpand when the editor is initially expanded', () => {
+	it('should not call onExpand when the editor is initially expanded', async () => {
 		const onExpand = jest.fn();
 		renderWithIntl(
 			<CollapsedEditor isExpanded={true} onExpand={onExpand}>
@@ -86,9 +96,11 @@ describe('CollapsedEditor', () => {
 			</CollapsedEditor>,
 		);
 		expect(onExpand).toHaveBeenCalledTimes(0);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should call onExpand after the editor is expanded and mounted', () => {
+	it('should call onExpand after the editor is expanded and mounted', async () => {
 		const onExpand = jest.fn();
 		const { rerender } = render(
 			<IntlProvider locale="en">
@@ -105,9 +117,11 @@ describe('CollapsedEditor', () => {
 			</IntlProvider>,
 		);
 		expect(onExpand).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should allow setting a ref on the editor component', () => {
+	it('should allow setting a ref on the editor component', async () => {
 		let editorRef = {};
 		const setRef = (ref: Editor) => {
 			editorRef = ref;
@@ -118,6 +132,8 @@ describe('CollapsedEditor', () => {
 			</CollapsedEditor>,
 		);
 		expect(editorRef instanceof Editor).toBe(true);
+
+		await expect(document.body).toBeAccessible();
 	});
 });
 
@@ -127,7 +143,7 @@ describe('CollapsedEditor with ComposableEditor', () => {
 		props: { paste: {} },
 		featureFlags: {},
 	});
-	it('should load even if IntlProvider is not provided', () => {
+	it('should load even if IntlProvider is not provided', async () => {
 		const { container } = render(
 			<CollapsedEditor isExpanded={false}>
 				<ComposableEditor preset={preset} />
@@ -137,9 +153,11 @@ describe('CollapsedEditor with ComposableEditor', () => {
 		const editorElement = container.getElementsByClassName('akEditor');
 		expect(editorElement.length).toBe(0);
 		expect(screen.queryByTestId('chrome-collapsed')).not.toBeNull();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should not render the editor when isExpanded is false', () => {
+	it('should not render the editor when isExpanded is false', async () => {
 		const { container } = renderWithIntl(
 			<CollapsedEditor isExpanded={false}>
 				<ComposableEditor preset={preset} />
@@ -149,9 +167,11 @@ describe('CollapsedEditor with ComposableEditor', () => {
 		const editorElement = container.getElementsByClassName('akEditor');
 		expect(editorElement.length).toBe(0);
 		expect(screen.queryByTestId('chrome-collapsed')).not.toBeNull();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render the editor when isExpanded is true', () => {
+	it('should render the editor when isExpanded is true', async () => {
 		const { container } = renderWithIntl(
 			<CollapsedEditor isExpanded={true}>
 				<ComposableEditor preset={preset} />
@@ -160,9 +180,11 @@ describe('CollapsedEditor with ComposableEditor', () => {
 		const editorElement = container.getElementsByClassName('akEditor');
 		expect(editorElement.length).toBe(1);
 		expect(screen.queryByTestId('chrome-collapsed')).toBeNull();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should call onFocus when collapsed editor is clicked', () => {
+	it('should call onFocus when collapsed editor is clicked', async () => {
 		const onFocus = jest.fn();
 		renderWithIntl(
 			<CollapsedEditor onFocus={onFocus}>
@@ -176,9 +198,11 @@ describe('CollapsedEditor with ComposableEditor', () => {
 		// TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
 		// fireEvent.focusIn(textbox); // Removed after upgrading to jest 29
 		expect(onFocus).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should not call onExpand when the editor is initially expanded', () => {
+	it('should not call onExpand when the editor is initially expanded', async () => {
 		const onExpand = jest.fn();
 		renderWithIntl(
 			<CollapsedEditor isExpanded={true} onExpand={onExpand}>
@@ -186,9 +210,11 @@ describe('CollapsedEditor with ComposableEditor', () => {
 			</CollapsedEditor>,
 		);
 		expect(onExpand).toHaveBeenCalledTimes(0);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should call onExpand after the editor is expanded and mounted', () => {
+	it('should call onExpand after the editor is expanded and mounted', async () => {
 		const onExpand = jest.fn();
 		const { rerender } = render(
 			<IntlProvider locale="en">
@@ -205,10 +231,12 @@ describe('CollapsedEditor with ComposableEditor', () => {
 			</IntlProvider>,
 		);
 		expect(onExpand).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('for a wrapped editor (ie. Editor variant is a child)', () => {
-		it('should not call onExpand when the editor is initially expanded', () => {
+		it('should not call onExpand when the editor is initially expanded', async () => {
 			const onExpand = jest.fn();
 			renderWithIntl(
 				<CollapsedEditor isExpanded={true} onExpand={onExpand}>
@@ -216,9 +244,11 @@ describe('CollapsedEditor with ComposableEditor', () => {
 				</CollapsedEditor>,
 			);
 			expect(onExpand).toHaveBeenCalledTimes(0);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should call onExpand after the editor is expanded and mounted', () => {
+		it('should call onExpand after the editor is expanded and mounted', async () => {
 			const onExpand = jest.fn();
 			const { rerender } = render(
 				<IntlProvider locale="en">
@@ -235,6 +265,8 @@ describe('CollapsedEditor with ComposableEditor', () => {
 				</IntlProvider>,
 			);
 			expect(onExpand).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

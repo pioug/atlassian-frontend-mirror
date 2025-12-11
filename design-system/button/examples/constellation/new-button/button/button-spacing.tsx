@@ -3,7 +3,7 @@ import React from 'react';
 import { ButtonGroup } from '@atlaskit/button';
 import Button from '@atlaskit/button/new';
 
-const ButtonSpacingExample = () => {
+const ButtonSpacingExample = (): React.JSX.Element => {
 	return (
 		<ButtonGroup>
 			<Button appearance="primary">Default</Button>

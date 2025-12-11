@@ -9,7 +9,7 @@ import { Stack } from '@atlaskit/primitives';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import variants from '../src/utils/variants';
 
-export default function SpacingExample() {
+export default function SpacingExample(): React.JSX.Element {
 	return (
 		<Stack space="space.200">
 			{variants.map(({ name, Component, spacing }) => {

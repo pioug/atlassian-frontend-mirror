@@ -106,10 +106,11 @@ const titleBoxFooterStyles = css({
 });
 
 export const TitleBoxFooter = (props: TitleBoxFooterProps) => {
-	const { hasIconOverlap } = props;
+	const { hasIconOverlap, suppressHydrationWarning } = props;
 	return (
 		<div
 			id="titleBoxFooter"
+			suppressHydrationWarning={suppressHydrationWarning}
 			data-testid="title-box-footer"
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={[titleBoxFooterStyles, infoStyles, hasIconOverlap && iconOverlapStyle]}

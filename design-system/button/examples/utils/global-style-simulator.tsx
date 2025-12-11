@@ -7,7 +7,7 @@ import React from 'react';
  * in apps like Jira and Confluence, that Link Button
  * needs to have a higher style specificity to override.
  */
-const GlobalStyleSimulator = () => {
+const GlobalStyleSimulator = (): React.JSX.Element => {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- This is only for testing purposes
 		<style>

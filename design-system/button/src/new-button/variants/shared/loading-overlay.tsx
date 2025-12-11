@@ -43,7 +43,7 @@ export default function renderLoadingOverlay({
 	isDisabled?: boolean;
 	isSelected?: boolean;
 	testId?: string;
-}) {
+}): React.JSX.Element {
 	return (
 		<Spinner
 			size={getIconSpacing(spacing)}

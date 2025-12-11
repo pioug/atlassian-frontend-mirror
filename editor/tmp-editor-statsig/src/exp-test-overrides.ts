@@ -25,7 +25,6 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	'platform_editor_ai-prompts-placeholder': 'control',
 	platform_editor_ai_proactive_ai_nudge_parameters: 'control',
 	platform_editor_controls: 'control',
-	confluence_whiteboards_quick_insert_aa: 'control',
 	confluence_whiteboards_quick_insert: 'control',
 	confluence_whiteboards_quick_insert_localised: 'control',
 	confluence_whiteboards_quick_insert_localised_aa: 'control',
@@ -45,6 +44,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 };
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
+	cc_editor_hover_link_overlay_css_fix: false,
 	platform_editor_feedback_mandatory_rating: false,
 	platform_editor_preview_panel_responsiveness: false,
 	platform_editor_toolbar_aifc: false,

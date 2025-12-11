@@ -104,48 +104,58 @@ describe(`Editor`, () => {
 
 			instance?.appendText('hello');
 			expect(handleChange).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		describe('Comment appearance', () => {
-			it('should fire onSave when Save is clicked', () => {
+			it('should fire onSave when Save is clicked', async () => {
 				const handleSave = jest.fn();
 				render(<Editor onSave={handleSave} appearance="comment" />);
 
 				const saveButton = screen.getByRole('button', { name: 'Save' });
 				fireEvent.click(saveButton);
 				expect(handleSave).toHaveBeenCalled();
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should minHeight default 150px', () => {
+			it('should minHeight default 150px', async () => {
 				const { container } = render(<Editor appearance="comment" />);
 
 				const editorElement = container.getElementsByClassName('akEditor');
 
 				expect(editorElement.length).toBe(1);
 				expect(editorElement[0]).toHaveStyleRule('min-height', '150px');
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should set minHeight', () => {
+			it('should set minHeight', async () => {
 				const { container } = render(<Editor appearance="comment" minHeight={250} />);
 
 				const editorElement = container.getElementsByClassName('akEditor');
 
 				expect(editorElement.length).toBe(1);
 				expect(editorElement[0]).toHaveStyleRule('min-height', '250px');
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should set minHeight for chromeless', () => {
+			it('should set minHeight for chromeless', async () => {
 				render(<Editor appearance="chromeless" minHeight={250} />);
 
 				const editorElement = screen.getByTestId('chromeless-editor');
 
 				expect(editorElement).toHaveStyle('min-height: 250px');
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			// Testing prop-types has some issues due to `loggedTypeFailures` preventing multiple errors of the same code being logged
 			// github.com/facebook/react/issues/7047
 			// https://github.com/facebook/prop-types/blob/be165febc8133dfbe2c45133db6d25664dd68ad8/checkPropTypes.js#L47-L50
-			it('should minHeight prop error for full-page', () => {
+			it('should minHeight prop error for full-page', async () => {
 				const consoleErrorSpy = global.console.error as jest.Mock;
 				render(<Editor appearance="full-page" minHeight={250} />);
 
@@ -159,34 +169,42 @@ describe(`Editor`, () => {
 						),
 					]),
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should fire onCancel when Cancel is clicked', () => {
+			it('should fire onCancel when Cancel is clicked', async () => {
 				const cancelled = jest.fn();
 				render(<Editor onCancel={cancelled} appearance="comment" />);
 
 				const cancelButton = screen.getByRole('button', { name: 'Cancel' });
 				fireEvent.click(cancelButton);
 				expect(cancelled).toHaveBeenCalled();
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			// When maxHeight is set, content area should have overflow-y as auto
 			// So when content exceeds maxHeight, content area should show vertical scroll
-			it('content area should have overflow-y as auto when maxHeight is set', () => {
+			it('content area should have overflow-y as auto when maxHeight is set', async () => {
 				const { container } = render(<Editor appearance="comment" maxHeight={500} />);
 
 				const editorElement = container.getElementsByClassName('ak-editor-content-area');
 
 				expect(editorElement.length).toBe(1);
 				expect(editorElement[0]).toHaveStyleRule('overflow-y', 'auto');
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
-		it('should fire onEditorReady when ready', () => {
+		it('should fire onEditorReady when ready', async () => {
 			const onEditorReady = jest.fn();
 			render(<Editor onEditorReady={onEditorReady} />);
 
 			expect(onEditorReady).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -201,13 +219,17 @@ describe(`Editor`, () => {
 		});
 		describe('when IntlProvider is not in component ancestry', () => {
 			const renderEditor = () => render(<Editor onSave={() => {}} />);
-			it('should not throw an error', () => {
+			it('should not throw an error', async () => {
 				expect(() => renderEditor()).not.toThrow();
+
+				await expect(document.body).toBeAccessible();
 			});
-			it('should setup a default IntlProvider with locale "en"', () => {
+			it('should setup a default IntlProvider with locale "en"', async () => {
 				renderEditor();
 				const saveButton = screen.getByTestId('comment-save-button');
 				expect(saveButton.textContent).toBe('Save');
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 		describe('when IntlProvider is in component ancestry', () => {
@@ -217,13 +239,17 @@ describe(`Editor`, () => {
 						<Editor onSave={() => {}} />
 					</IntlProvider>,
 				);
-			it('should not throw an error', () => {
+			it('should not throw an error', async () => {
 				expect(() => renderEditorWithIntl()).not.toThrow();
+
+				await expect(document.body).toBeAccessible();
 			});
-			it('should use the provided IntlProvider, and not setup a default IntlProvider', () => {
+			it('should use the provided IntlProvider, and not setup a default IntlProvider', async () => {
 				renderEditorWithIntl();
 				const saveButton = screen.getByTestId('comment-save-button');
 				expect(saveButton.textContent).toBe('Guardar');
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 	});
@@ -237,7 +263,7 @@ describe(`Editor`, () => {
 			(global.console.error as jest.Mock).mockRestore();
 			(global.console.warn as jest.Mock).mockRestore();
 		});
-		it('should fire onSave when user presses Enter', () => {
+		it('should fire onSave when user presses Enter', async () => {
 			let instance: EditorActions | undefined;
 			const handleSave = jest.fn();
 
@@ -253,6 +279,8 @@ describe(`Editor`, () => {
 				sendKeyToPm(view, 'Enter');
 			}
 			expect(handleSave).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -265,7 +293,7 @@ describe(`Editor`, () => {
 			(global.console.error as jest.Mock).mockRestore();
 			(global.console.warn as jest.Mock).mockRestore();
 		});
-		it('should fire onSave when user presses Enter', () => {
+		it('should fire onSave when user presses Enter', async () => {
 			let instance: EditorActions | undefined;
 			const handleSave = jest.fn();
 
@@ -281,6 +309,8 @@ describe(`Editor`, () => {
 				sendKeyToPm(view, 'Mod-Enter');
 			}
 			expect(handleSave).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -326,7 +356,7 @@ describe(`Editor`, () => {
 			},
 		];
 		appearances.forEach((appearance) => {
-			it(`adds appearance analytics context to all editor events for ${appearance.appearance} editor`, () => {
+			it(`adds appearance analytics context to all editor events for ${appearance.appearance} editor`, async () => {
 				// editor fires an editor started event that should trigger the listener from
 				// just mount the component
 				render(
@@ -334,6 +364,8 @@ describe(`Editor`, () => {
 						<Editor appearance={appearance.appearance} allowAnalyticsGASV3 />
 					</FabricAnalyticsListeners>,
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
@@ -390,12 +422,14 @@ describe(`Editor`, () => {
 		});
 
 		describe('running the constructor once', () => {
-			it('should start measure', () => {
+			it('should start measure', async () => {
 				const startMeasureSpy = jest.spyOn(measure, 'startMeasure');
 				render(<Editor />);
 
 				expect(startMeasureSpy).toHaveBeenCalledWith(measurements.EDITOR_MOUNTED);
 				startMeasureSpy.mockRestore();
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 	});
@@ -410,7 +444,7 @@ describe(`Editor`, () => {
 			(global.console.warn as jest.Mock).mockRestore();
 		});
 
-		it('should call setProvider with providers', () => {
+		it('should call setProvider with providers', async () => {
 			const setProviderSpy = jest.spyOn(ProviderFactory.prototype, 'setProvider');
 			setProviderSpy.mockClear();
 			// These `any` is not a problem. We later assert by using `toBe` method
@@ -501,6 +535,8 @@ describe(`Editor`, () => {
 			);
 
 			setProviderSpy.mockRestore();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		describe('destroy the provider factory', () => {
@@ -508,36 +544,44 @@ describe(`Editor`, () => {
 				jest.clearAllMocks();
 			});
 
-			it('should destroy if unmounting', () => {
+			it('should destroy if unmounting', async () => {
 				const destroySpy = jest.spyOn(ProviderFactory.prototype, 'destroy');
 				const { unmount } = render(<Editor />);
 				unmount();
 				expect(destroySpy).toHaveBeenCalledTimes(1);
 				destroySpy.mockRestore();
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should not destroy the provider if not unmounting', () => {
+			it('should not destroy the provider if not unmounting', async () => {
 				const destroySpy = jest.spyOn(ProviderFactory.prototype, 'destroy');
 				const { rerender } = render(<Editor />);
 				rerender(<Editor placeholder="different" />);
 				expect(destroySpy).toHaveBeenCalledTimes(0);
 				destroySpy.mockRestore();
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
-		it('should unregister editor actions if unmounting', () => {
+		it('should unregister editor actions if unmounting', async () => {
 			const unregisterSpy = jest.spyOn(EditorActions.prototype, '_privateUnregisterEditor');
 			const { unmount } = render(<Editor />);
 			unmount();
 			expect(unregisterSpy).toHaveBeenCalled();
 			unregisterSpy.mockRestore();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not unregister editor actions if not unmounting', () => {
+		it('should not unregister editor actions if not unmounting', async () => {
 			const unregisterSpy = jest.spyOn(EditorActions.prototype, '_privateUnregisterEditor');
 			render(<Editor />);
 			expect(unregisterSpy).toHaveBeenCalledTimes(0);
 			unregisterSpy.mockRestore();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });
@@ -560,12 +604,14 @@ describe('setting default props as expected', () => {
 		expect(componentSpy).toHaveBeenLastCalledWith(undefined);
 	});
 
-	it('should receive feature flags if passed', () => {
+	it('should receive feature flags if passed', async () => {
 		const componentSpy = jest.spyOn(featureFlagsFromProps, 'createFeatureFlagsFromProps');
 		render(<Editor featureFlags={{ errorBoundaryDocStructure: true }} />);
 
 		expect(componentSpy).toHaveBeenLastCalledWith(
 			expect.objectContaining({ errorBoundaryDocStructure: true }),
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 });

@@ -91,6 +91,7 @@ import {
 	denseEmojiHeightH4,
 } from '@atlaskit/editor-common/emoji';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 
 const wrappedMediaBreakoutPoint = 410;
 const TELEPOINTER_ID = 'ai-streaming-telepointer';
@@ -2348,6 +2349,18 @@ const denseStyles = css({
 	},
 });
 
+const syncBlockStyles = css({
+	[`.${SyncBlockSharedCssClassName.error}`]: {
+		backgroundColor: token('color.background.disabled'),
+		borderRadius: token('radius.small', '3px'),
+	},
+
+	[`.${SyncBlockSharedCssClassName.loading}`]: {
+		boxShadow: `0 0 0 1px ${token('color.border')}`,
+		borderRadius: token('radius.small', '3px'),
+	}
+});
+
 type RendererStyleContainerProps = Pick<
 	RendererWrapperProps,
 	| 'onClick'
@@ -2430,11 +2443,13 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				appearance === 'full-width' && rendererFullWidthStyles,
 				(appearance === 'full-width' ||
 					(appearance === 'max' &&
-						expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true))) &&
+						(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+							expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)))) &&
 					!isTableResizingEnabled(appearance) &&
 					rendererFullWidthStylesForTableResizing,
 				appearance === 'max' &&
-					expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) &&
+					(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)) &&
 					rendererMaxWidthStyles,
 				!fg('platform_editor_ai_generic_prep_for_aifc_2') && telepointerStyles,
 				fg('platform_editor_ai_generic_prep_for_aifc_2') && rovoTelepointerStyles,
@@ -2515,7 +2530,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					responsiveBreakoutWidthWithReducedPadding,
 				(appearance === 'full-width' ||
 					(appearance === 'max' &&
-						expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true))) &&
+						(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+							expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)))) &&
 					responsiveBreakoutWidthFullWidth,
 				expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
 					? isCompactModeEnabled
@@ -2524,6 +2540,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					: isCompactModeEnabled
 						? denseStyles
 						: undefined,
+				expValEquals('platform_synced_block', 'isEnabled', true) &&
+						syncBlockStyles,
 			]}
 			data-testid={testId}
 		>

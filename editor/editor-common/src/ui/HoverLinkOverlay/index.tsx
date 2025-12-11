@@ -220,13 +220,36 @@ const HoverLinkOverlayOriginal = ({
 
 		const openTextWidth = openTextWidthRef.current || DEFAULT_OPEN_TEXT_WIDTH;
 
-		const canShowLabel =
+		let canShowLabel =
 			cardWidth - openTextWidth > MIN_AVAILABLE_SPACE_WITH_LABEL_OVERLAY + ICON_WIDTH;
+
+		// When a smart link wraps to multiple lines in a constrained container (e.g. table cell),
+		// the hover button can overflow beyond the container bounds. We detect this by comparing
+		// the button's right edge to the container's right edge, and hide the label if it overflows.
+		if (editorExperiment('cc_editor_hover_link_overlay_css_fix', true)) {
+			if (containerRef.current && hoverLinkButtonRef.current) {
+				const containerRight = containerRef.current.getBoundingClientRect().right;
+				const buttonRight = hoverLinkButtonRef.current.getBoundingClientRect().right;
+
+				if (buttonRight > containerRight) {
+					canShowLabel = false;
+				}
+			}
+		}
+
 		setShowLabel(canShowLabel);
 	}, [isVisible, isHovered]);
 
 	const handleOverlayChange = (isHovered: boolean) => {
 		setHovered(isHovered);
+
+		// Reset label visibility on hover start so we can measure if it overflows.
+		// Without this, the label stays hidden from a previous hover and won't be re-measured.
+		if (editorExperiment('cc_editor_hover_link_overlay_css_fix', true)) {
+			if (isHovered) {
+				setShowLabel(true);
+			}
+		}
 	};
 
 	const sendVisitLinkAnalytics = (inputMethod: INPUT_METHOD.DOUBLE_CLICK | INPUT_METHOD.BUTTON) => {

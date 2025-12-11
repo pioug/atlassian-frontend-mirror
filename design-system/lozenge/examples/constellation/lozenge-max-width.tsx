@@ -2,7 +2,7 @@ import React from 'react';
 
 import Lozenge from '@atlaskit/lozenge';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<p>
 			<Lozenge appearance="success">default max width with long text which truncates</Lozenge>

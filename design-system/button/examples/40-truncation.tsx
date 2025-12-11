@@ -21,7 +21,7 @@ const ContrainedWidthCell = ({ children }: { children: React.ReactNode }) => {
 
 const label = 'A really long text label';
 
-export default function TruncationExample() {
+export default function TruncationExample(): React.JSX.Element {
 	return (
 		<table>
 			<thead>

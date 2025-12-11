@@ -47,7 +47,7 @@ const FadeIn = ({
 	distance = 'proportional',
 	onFinish,
 	isPaused,
-}: FadeKeyframesMotionProps) => {
+}: FadeKeyframesMotionProps): React.JSX.Element => {
 	const invertedEntranceDirection =
 		entranceDirection !== undefined ? invertedDirection[entranceDirection] : undefined;
 	const isExitDirect: Animations = Boolean(exitDirection || invertedEntranceDirection)

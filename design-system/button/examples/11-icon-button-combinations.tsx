@@ -15,7 +15,7 @@ import { iconButtonShapes, iconButtonVariants } from '../src/utils/variants';
 
 const iconSizes: IconSize[] = ['small', 'large', 'xlarge'];
 
-export default function IconButtonExample() {
+export default function IconButtonExample(): React.JSX.Element {
 	const [showLegacyButton, setShowLegacyButton] = useState(false);
 
 	return (

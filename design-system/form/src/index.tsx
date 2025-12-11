@@ -16,3 +16,5 @@ export { default as Fieldset } from './fieldset';
 export { default as RequiredAsterisk } from './required-asterisk';
 export type { OnSubmitHandler, FormApi } from './types';
 export { useFormState } from './use-form-state';
+export { default as CharacterCounterField } from './character-counter-field';
+export type { CharacterCounterFieldProps } from './character-counter-field';

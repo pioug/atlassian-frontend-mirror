@@ -6,7 +6,7 @@ import EditIcon from '@atlaskit/icon/core/edit';
 import { Inline, Stack } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
 
-const IconButtonLoadingExample = () => {
+const IconButtonLoadingExample = (): React.JSX.Element => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	const toggleLoading = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {

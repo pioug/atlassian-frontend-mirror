@@ -8,7 +8,7 @@ const tooltipOptions: IconButtonProps['tooltip'] = {
 	hideTooltipOnClick: true,
 };
 
-const IconButtonPrimaryExample = () => {
+const IconButtonPrimaryExample = (): React.JSX.Element => {
 	return (
 		<IconButton
 			icon={AddIcon}

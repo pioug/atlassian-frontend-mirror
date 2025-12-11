@@ -8,7 +8,7 @@ import { createAri } from '@atlassian/jira-platform-ari';
 import { createRelayResource } from '@atlassian/jira-relay-utils';
 import QUERY, {type criticalDataQuery} from '@atlassian/jira-software-backlog/src/__generated__/criticalDataQuery.graphql';`;
 
-export default function Component() {
+export default function Component(): React.JSX.Element {
 	return (
 		<Stack space="space.600">
 			<Stack space="space.075">

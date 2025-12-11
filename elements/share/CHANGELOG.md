@@ -1,5 +1,13 @@
 # @atlaskit/share
 
+## 6.16.21
+
+### Patch Changes
+
+- [`a33163de47ff4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a33163de47ff4) -
+  Suppress i18n phase 2 rules
+- Updated dependencies
+
 ## 6.16.20
 
 ### Patch Changes

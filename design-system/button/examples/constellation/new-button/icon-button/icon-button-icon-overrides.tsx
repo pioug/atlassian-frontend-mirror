@@ -4,7 +4,7 @@ import { IconButton } from '@atlaskit/button/new';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import { token } from '@atlaskit/tokens';
 
-const IconButtonIconOverridesExample = () => {
+const IconButtonIconOverridesExample = (): React.JSX.Element => {
 	return (
 		<IconButton
 			icon={(iconProps) => (

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "124.17.7",
+	"version": "124.17.8",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -231,9 +231,6 @@
 			"type": "boolean"
 		},
 		"media-perf-uplift-mutation-fix": {
-			"type": "boolean"
-		},
-		"platform_editor_fix_sllv_margin_renderer": {
 			"type": "boolean"
 		},
 		"platform_editor_table_height_analytics_event": {

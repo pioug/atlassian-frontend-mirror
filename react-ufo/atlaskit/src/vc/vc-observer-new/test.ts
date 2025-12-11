@@ -5,7 +5,7 @@ import { getActiveInteraction } from '../../interaction-metrics';
 import EntriesTimeline from './entries-timeline';
 import * as getElementNameModule from './get-element-name';
 import VCCalculator_FY25_03 from './metric-calculator/fy25_03';
-import VCNextCalculator from './metric-calculator/vcnext';
+import VCCalculator_FY26_04 from './metric-calculator/fy26_04';
 import type { VCObserverEntry } from './types';
 import ViewportObserver from './viewport-observer';
 import WindowEventObserver from './window-event-observer';
@@ -17,7 +17,7 @@ jest.mock('./viewport-observer');
 jest.mock('./window-event-observer');
 jest.mock('./entries-timeline');
 jest.mock('./metric-calculator/fy25_03');
-jest.mock('./metric-calculator/vcnext');
+jest.mock('./metric-calculator/fy26_04');
 jest.mock('./get-element-name');
 jest.mock('@atlaskit/platform-feature-flags');
 jest.mock('../../interaction-metrics');
@@ -429,7 +429,7 @@ describe('VCObserverNew', () => {
 
 			mockEntriesTimeline.getOrderedEntries.mockReturnValue(mockEntries);
 			(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue(mockResult);
-			(VCNextCalculator.prototype.calculate as jest.Mock).mockResolvedValue(mockResult);
+			(VCCalculator_FY26_04.prototype.calculate as jest.Mock).mockResolvedValue(mockResult);
 
 			const result = await vcObserver.getVCResult({
 				start: 0,
@@ -461,7 +461,7 @@ describe('VCObserverNew', () => {
 		it('should handle empty calculator results', async () => {
 			mockEntriesTimeline.getOrderedEntries.mockReturnValue([]);
 			(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue(undefined);
-			(VCNextCalculator.prototype.calculate as jest.Mock).mockResolvedValue(undefined);
+			(VCCalculator_FY26_04.prototype.calculate as jest.Mock).mockResolvedValue(undefined);
 
 			const result = await vcObserver.getVCResult({
 				start: 0,

@@ -547,6 +547,39 @@ export const pragmaticResizerStylesNew: SerializedStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const pragmaticResizerStylesSyncedBlock: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.fabric-editor-breakout-mark': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:has([data-prosemirror-node-name="syncBlock"]), &:has([data-prosemirror-node-name="bodiedSyncBlock"])':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'> .pm-breakout-resize-handle-container--left': {
+					left: '-20px',
+				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'> .pm-breakout-resize-handle-container--right': {
+					right: '-20px',
+				},
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:has([data-prosemirror-node-name="syncBlock"])': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'> .pm-breakout-resize-handle-container': {
+				height: 'calc(100% - 12px)',
+			},
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:has([data-prosemirror-node-name="bodiedSyncBlock"])': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'> .pm-breakout-resize-handle-container': {
+				height: 'calc(100% - 2px)',
+			},
+		},
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const pragmaticResizerStylesWithReducedEditorGutter: SerializedStyles = css({
 	/* container editor-area is defined in platform/packages/editor/editor-core/src/ui/Appearance/FullPage/StyledComponents.ts */
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values

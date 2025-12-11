@@ -21,7 +21,7 @@ ReactDOM.render(
   mountNode
 );`;
 
-export default function Component() {
+export default function Component(): React.JSX.Element {
 	return (
 		<div>
 			<p>

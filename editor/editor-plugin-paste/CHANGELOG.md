@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-paste
 
+## 7.4.15
+
+### Patch Changes
+
+- [`d23b93a4296a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d23b93a4296a9) -
+  [ux] Clean FG for platform_editor_paste_code_fence_spaces
+
 ## 7.4.14
 
 ### Patch Changes

@@ -22,7 +22,7 @@ function handleQueryParams(urlString: string): string {
 			}
 		}
 		return url.toString();
-	} catch (e) {
+	} catch {
 		return urlString;
 	}
 }

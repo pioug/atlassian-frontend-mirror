@@ -56,7 +56,7 @@ type RouterLinkProviderProps = {
 const RouterLinkProvider = ({
 	routerLinkComponent,
 	children,
-}: RouterLinkProviderProps & { children: React.ReactNode }) => {
+}: RouterLinkProviderProps & { children: React.ReactNode }): React.JSX.Element => {
 	return (
 		<RouterLinkProviderContext.Provider
 			value={{

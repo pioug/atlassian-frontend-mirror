@@ -56,5 +56,5 @@ export const addPerformanceMeasures = (start: number, measures: RevisionPayload)
 				});
 			});
 		});
-	} catch (error) {}
+	} catch {}
 };

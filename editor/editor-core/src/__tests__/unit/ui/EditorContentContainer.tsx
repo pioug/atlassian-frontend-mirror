@@ -48,7 +48,7 @@ describe('Editor Content styles', () => {
 	});
 
 	describe('chromeless editor', () => {
-		it('renders correct styles for new editor content styles for chromeless editor with experiments on', () => {
+		it('renders correct styles for new editor content styles for chromeless editor with experiments on', async () => {
 			setupEditorExperiments('test', {
 				advanced_layouts: true,
 				platform_editor_breakout_resizing: true,
@@ -72,9 +72,11 @@ describe('Editor Content styles', () => {
 			const results = screen.getByTestId('editor-content-container');
 			expect(results).toBeInTheDocument();
 			expect(results).toMatchSnapshot('new styles with experiments on');
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('renders correct styles for new editor content styles for chromeless editor', () => {
+		it('renders correct styles for new editor content styles for chromeless editor', async () => {
 			render(
 				<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
 					<EditorContentContainer
@@ -93,11 +95,13 @@ describe('Editor Content styles', () => {
 			const results = screen.getByTestId('editor-content-container');
 			expect(results).toBeInTheDocument();
 			expect(results).toMatchSnapshot('new styles');
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('full page editor', () => {
-		it('should render scroll container styles in new editor styles', () => {
+		it('should render scroll container styles in new editor styles', async () => {
 			render(
 				<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
 					<EditorContentContainer
@@ -126,47 +130,58 @@ describe('Editor Content styles', () => {
 				// style from scrollbarStyles
 				'-ms-overflow-style': '-ms-autohiding-scrollbar',
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	eeTest
 		.describe('editor_tinymce_full_width_mode', 'when max width mode feature is enabled')
 		.variant(true, () => {
-			describe('max width editor', () => {
-				it('should render scroll container styles in new editor styles', () => {
-					render(
-						<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
-							<EditorContentContainer
-								appearance="max"
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-								className="fabric-editor-popup-scroll-parent"
-								viewMode={'edit'}
-								isScrollable
-							>
-								<div data-testid="child-component">Full page</div>
-							</EditorContentContainer>
-						</BaseTheme>,
-					);
+			eeTest
+				.describe(
+					'confluence_max_width_content_appearance',
+					'when max width mode feature is enabled',
+				)
+				.variant(true, () => {
+					describe('max width editor', () => {
+						it('should render scroll container styles in new editor styles', async () => {
+							render(
+								<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
+									<EditorContentContainer
+										appearance="max"
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+										className="fabric-editor-popup-scroll-parent"
+										viewMode={'edit'}
+										isScrollable
+									>
+										<div data-testid="child-component">Full page</div>
+									</EditorContentContainer>
+								</BaseTheme>,
+							);
 
-					const results = screen.getByTestId('editor-content-container');
-					expect(results).toBeInTheDocument();
-					expect(results).toHaveCompiledCss({
-						flexGrow: '1',
-						height: '100%',
-						overflowY: 'scroll',
-						position: 'relative',
-						display: 'flex',
-						flexDirection: 'column',
-						scrollBehavior: 'smooth',
-						// style from scrollbarStyles
-						'-ms-overflow-style': '-ms-autohiding-scrollbar',
+							const results = screen.getByTestId('editor-content-container');
+							expect(results).toBeInTheDocument();
+							expect(results).toHaveCompiledCss({
+								flexGrow: '1',
+								height: '100%',
+								overflowY: 'scroll',
+								position: 'relative',
+								display: 'flex',
+								flexDirection: 'column',
+								scrollBehavior: 'smooth',
+								// style from scrollbarStyles
+								'-ms-overflow-style': '-ms-autohiding-scrollbar',
+							});
+
+							await expect(document.body).toBeAccessible();
+						});
 					});
 				});
-			});
 		});
 
 	describe('comment editor', () => {
-		it('should render comment specific styles in new editor styles', () => {
+		it('should render comment specific styles in new editor styles', async () => {
 			render(
 				<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
 					<EditorContentContainer
@@ -204,6 +219,8 @@ describe('Editor Content styles', () => {
 			expect(tableCommentEditorEmotionStyles[0]).toContain(
 				'margin-left:0;margin-right:0;-ms-overflow-style:-ms-autohiding-scrollbar;',
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

@@ -1,6 +1,7 @@
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type {
 	EditorCommand,
+	ExtractInjectionAPI,
 	LongPressSelectionPluginOptions,
 	NextEditorPlugin,
 	OptionalPlugin,
@@ -53,6 +54,7 @@ export type SyncedBlockEditorProps = {
 };
 
 export type SyncedBlockRendererProps = {
+	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 	useFetchSyncBlockData: () => UseFetchSyncBlockDataResult;
 };
 export interface SyncedBlockPluginOptions extends LongPressSelectionPluginOptions {

@@ -5,7 +5,7 @@ import Button from '@atlaskit/button/new';
 import { Inline, Stack } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
 
-const ButtonLoadingExample = () => {
+const ButtonLoadingExample = (): React.JSX.Element => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	const toggleLoading = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {

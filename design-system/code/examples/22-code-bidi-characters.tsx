@@ -4,7 +4,7 @@ import { Code, CodeBlock } from '@atlaskit/code';
 
 import { characters, codeSnippets } from './example-data/bidi-examples';
 
-export default function Component() {
+export default function Component(): React.JSX.Element {
 	return (
 		<div>
 			<div data-testid="bidi-code-warning">

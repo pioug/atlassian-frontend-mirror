@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-local-id
 
+## 4.3.1
+
+### Patch Changes
+
+- [`65e23b9169d24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65e23b9169d24) -
+  Do not pre-load local ids with collab
+- Updated dependencies
+
+## 4.3.0
+
+### Minor Changes
+
+- [`8557b67bb48de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8557b67bb48de) -
+  Set isDirty to true for dirty transaction
+
 ## 4.2.7
 
 ### Patch Changes

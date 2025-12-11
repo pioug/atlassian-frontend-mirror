@@ -147,7 +147,7 @@ export const createPlugin = (
 				isCommentEditor,
 				isChromelessEditor,
 			}),
-			tableRow: tableRowView({ eventDispatcher, pluginInjectionApi }),
+			tableRow: tableRowView({ eventDispatcher, pluginInjectionApi, isDragAndDropEnabled: dragAndDropEnabled }),
 			tableCell: tableCellView({ eventDispatcher, pluginInjectionApi }),
 			tableHeader: tableHeaderView({ eventDispatcher, pluginInjectionApi }),
 		};

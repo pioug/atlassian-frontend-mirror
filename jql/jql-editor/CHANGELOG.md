@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor
 
+## 5.9.1
+
+### Patch Changes
+
+- [`965e86d051f6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/965e86d051f6d) -
+  [ux] Lozenege support(avatar + disaply name) added for membersOf(id:<team_id>) in JQL
+
 ## 5.9.0
 
 ### Minor Changes

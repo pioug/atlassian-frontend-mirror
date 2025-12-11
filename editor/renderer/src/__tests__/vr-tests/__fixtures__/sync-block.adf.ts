@@ -56,6 +56,20 @@ export const syncBlockGenericErrorAdf: DocNode = {
 	],
 };
 
+export const syncBlockInvalidRequestErrorAdf: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'syncBlock',
+			attrs: {
+				resourceId: 'ari:cloud:confluence:test-sync-block-invalid-request-error:page/1234/abc',
+				localId: 'dadba259-8f2c-45cb-9140-ce23278c5bbc',
+			},
+		},
+	],
+};
+
 export const syncBlockLoadingStateAdf: DocNode = {
 	version: 1,
 	type: 'doc',

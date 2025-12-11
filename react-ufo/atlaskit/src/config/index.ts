@@ -55,7 +55,7 @@ type Rates = {
 	readonly [key: string]: number;
 };
 
-export type TTVCRevision = 'fy25.01' | 'fy25.02' | 'fy25.03' | 'next';
+export type TTVCRevision = 'fy25.01' | 'fy25.02' | 'fy25.03' | 'fy26.04' | 'next';
 export const DEFAULT_TTVC_REVISION = 'fy25.03';
 
 export const UNKNOWN_INTERACTION_RATE = 1000;
@@ -341,7 +341,7 @@ export function getInteractionRate(name: string, interactionKind: InteractionKin
 		}
 
 		return 0;
-	} catch (e: any) {
+	} catch {
 		// Fallback
 		return 0;
 	}
@@ -375,7 +375,7 @@ export function getExperimentalInteractionRate(
 		}
 
 		return 0;
-	} catch (e: any) {
+	} catch {
 		return 0;
 	}
 }
@@ -444,7 +444,7 @@ function getConfigRate(
 		}
 
 		return 0;
-	} catch (e: any) {
+	} catch {
 		return 0;
 	}
 }
@@ -469,7 +469,7 @@ export function getTypingPerformanceTracingMethod(): ValidTypingMethod {
 		} else {
 			return defaultMethod;
 		}
-	} catch (e: any) {
+	} catch {
 		return defaultMethod;
 	}
 }
@@ -487,7 +487,7 @@ export function getAwaitBM3TTIList(): string[] {
 		} else {
 			return [];
 		}
-	} catch (e: any) {
+	} catch {
 		return [];
 	}
 }
@@ -506,7 +506,7 @@ export function getUfoNameOverrides(): UFONameOverride | undefined {
 			return ufoNameOverrides;
 		}
 		return undefined;
-	} catch (e: any) {
+	} catch {
 		return undefined;
 	}
 }
@@ -519,7 +519,7 @@ export function getMinorInteractions(): string[] | undefined {
 		const { minorInteractions } = config;
 
 		return minorInteractions;
-	} catch (e: any) {
+	} catch {
 		return undefined;
 	}
 }
@@ -533,7 +533,7 @@ export function getDoNotAbortActivePressInteraction(): string[] | undefined {
 		const { doNotAbortActivePressInteraction } = config;
 
 		return doNotAbortActivePressInteraction;
-	} catch (e: any) {
+	} catch {
 		return undefined;
 	}
 }
@@ -547,7 +547,7 @@ export function getDoNotAbortActivePressInteractionOnTransition(): string[] | un
 		const { doNotAbortActivePressInteractionOnTransition } = config;
 
 		return doNotAbortActivePressInteractionOnTransition;
-	} catch (e: any) {
+	} catch {
 		return undefined;
 	}
 }
@@ -561,7 +561,7 @@ export function getFinishInteractionOnTransition(): string[] | undefined {
 		const { finishInteractionOnTransition } = config;
 
 		return finishInteractionOnTransition;
-	} catch (e: any) {
+	} catch {
 		return undefined;
 	}
 }
@@ -583,7 +583,7 @@ export function getInteractionTimeout(ufoName: string): number {
 		} else {
 			return CLEANUP_TIMEOUT;
 		}
-	} catch (e: any) {
+	} catch {
 		return CLEANUP_TIMEOUT;
 	}
 }

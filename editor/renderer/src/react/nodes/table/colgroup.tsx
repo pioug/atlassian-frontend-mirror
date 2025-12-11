@@ -313,7 +313,8 @@ export const Colgroup = (props: SharedTableProps): React.JSX.Element | null => {
 			props.rendererAppearance === 'full-page' ||
 			props.rendererAppearance === 'full-width' ||
 			(props.rendererAppearance === 'max' &&
-				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)) ||
+				(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))) ||
 			(props.rendererAppearance === 'comment' &&
 				editorExperiment('support_table_in_comment', true, { exposure: true })) ||
 			(props.rendererAppearance === 'comment' &&
@@ -327,7 +328,8 @@ export const Colgroup = (props: SharedTableProps): React.JSX.Element | null => {
 			(props.rendererAppearance === 'full-page' ||
 				props.rendererAppearance === 'full-width' ||
 				(props.rendererAppearance === 'max' &&
-					expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true))),
+					(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)))),
 	});
 
 	if (!colStyles) {

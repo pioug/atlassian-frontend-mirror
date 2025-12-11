@@ -158,12 +158,14 @@ export const getTableResizerContainerMaxWidthInCSS = (
 ): string => {
 	const maxResizerWidthForNonCommentEditor = isTableScalingEnabled
 		? `min(calc(100cqw - calc(var(--ak-editor--large-gutter-padding) * 2)), ${
-				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+				expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
 					? TABLE_MAX_WIDTH
 					: TABLE_FULL_WIDTH
 			}px)`
 		: `min(calc(100cqw - calc(var(--ak-editor--large-gutter-padding) * 2) - var(--ak-editor--resizer-handle-spacing)), ${
-				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+				expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
 					? TABLE_MAX_WIDTH
 					: TABLE_FULL_WIDTH
 			}px)`;

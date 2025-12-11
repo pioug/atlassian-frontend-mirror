@@ -1,5 +1,6 @@
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
 /* eslint-disable compat/compat */
+/* eslint-disable no-unused-vars */
 import type { PlaywrightCoverageOptions } from 'build/test-tooling/integration-testing/src/fixtures';
 import type {
 	PlaywrightTestArgs,
@@ -644,7 +645,7 @@ const customMatchers = {
 		try {
 			baseExpect(receivedInSeconds).toBeCloseTo(expectedInSeconds, 1);
 			pass = true;
-		} catch (e: any) {
+		} catch {
 			pass = false;
 		}
 

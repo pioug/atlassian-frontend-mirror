@@ -12,7 +12,7 @@ export function isElementVisible(element: Element): boolean {
 		});
 
 		return visible;
-	} catch (e) {
+	} catch {
 		// there is no support for checkVisibility
 		return true;
 	}

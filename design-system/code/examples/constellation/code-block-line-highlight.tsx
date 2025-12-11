@@ -19,7 +19,7 @@ ReactDOM.render(
   mountNode
 );`;
 
-const CodeBlockLineHighlightExample = () => {
+const CodeBlockLineHighlightExample = (): React.JSX.Element => {
 	return <CodeBlock language="jsx" text={exampleCodeBlock} highlight="2,5-7" />;
 };
 

@@ -1,5 +1,16 @@
 # @atlaskit/editor-core
 
+## 215.20.2
+
+### Patch Changes
+
+- [`dcc6a3e73f414`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dcc6a3e73f414) -
+  [ux] EDITOR-3304 add offline error state for sync blocks and update other error UI to match new
+  designs
+- [`0c0f8207e7294`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c0f8207e7294) -
+  Added sync block resizing
+- Updated dependencies
+
 ## 215.20.1
 
 ### Patch Changes

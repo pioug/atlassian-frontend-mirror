@@ -4,6 +4,7 @@ import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import LockFilledIcon from '@atlaskit/icon/core/migration/lock-locked--lock-filled';
 import { Truncate } from '@atlaskit/media-ui/truncateText';
 import { formatDate } from '@atlaskit/media-ui/formatDate';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type TitleBoxProps } from './types';
 import {
@@ -31,7 +32,12 @@ export const TitleBox = injectIntl(
 			<TitleBoxHeader hasIconOverlap={!!titleBoxIcon && !createdAt}>
 				<Truncate text={name ?? placeholderText} />
 			</TitleBoxHeader>
-			<TitleBoxFooter hasIconOverlap={!!titleBoxIcon}>
+			<TitleBoxFooter
+				hasIconOverlap={!!titleBoxIcon}
+				// Suppressing it here because of a timezone mismatch in the createdAt text
+				// that can cause a late mutation in the attachments strip view
+				suppressHydrationWarning={fg('jfp-magma-fix-attachments-hydration-error') ? true : false}
+			>
 				{createdAt !== undefined && isValidTimestamp(createdAt)
 					? formatDate(createdAt, intl?.locale ?? 'en')
 					: placeholderText}

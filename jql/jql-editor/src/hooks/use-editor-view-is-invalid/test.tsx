@@ -70,28 +70,34 @@ describe('useEditorViewIsInvalid', () => {
 		useEditorStateHasJqlErrorMock.mockReturnValue([false, {}]);
 	});
 
-	it('should return true when jqlError is present', () => {
+	it('should return true when jqlError is present', async () => {
 		const unknownError = new JQLParseError('Some unknown error occurred.');
 		useJqlErrorMock.mockReturnValue([unknownError, {}]);
 		useEditorStateHasJqlErrorMock.mockReturnValue([true, {}]);
 
 		renderConsumer();
 		expect(assertUseEditorViewIsInvalid).toHaveBeenLastCalledWith(true);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should return true when externalMessages have errors', () => {
+	it('should return true when externalMessages have errors', async () => {
 		useExternalMessagesMock.mockReturnValue([normalizedExternalMessages, {}]);
 
 		renderConsumer();
 		expect(assertUseEditorViewIsInvalid).toHaveBeenLastCalledWith(true);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should return false when jqlError and errors from externalMessages are absent', () => {
+	it('should return false when jqlError and errors from externalMessages are absent', async () => {
 		renderConsumer();
 		expect(assertUseEditorViewIsInvalid).toHaveBeenLastCalledWith(false);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should return false when jqlError is present and the error is fixed in editor', () => {
+	it('should return false when jqlError is present and the error is fixed in editor', async () => {
 		const unknownError = new JQLParseError('Some unknown error occurred.');
 		useJqlErrorMock.mockReturnValue([unknownError, {}]);
 		useEditorStateHasJqlErrorMock.mockReturnValue([true, {}]);
@@ -102,9 +108,11 @@ describe('useEditorViewIsInvalid', () => {
 		useEditorStateHasJqlErrorMock.mockReturnValue([false, {}]);
 		rerender(<Consumer />);
 		expect(assertUseEditorViewIsInvalid).toHaveBeenLastCalledWith(false);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should return false when the error has been fixed and externalMessages have errors', () => {
+	it('should return false when the error has been fixed and externalMessages have errors', async () => {
 		const unknownError = new JQLParseError('Some unknown error occurred.');
 		useJqlErrorMock.mockReturnValue([unknownError, {}]);
 		useExternalMessagesMock.mockReturnValue([normalizedExternalMessages, {}]);
@@ -116,9 +124,11 @@ describe('useEditorViewIsInvalid', () => {
 		useEditorStateHasJqlErrorMock.mockReturnValue([false, {}]);
 		rerender(<Consumer />);
 		expect(assertUseEditorViewIsInvalid).toHaveBeenLastCalledWith(false);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should return false when the error has been fixed and a new error is added', () => {
+	it('should return false when the error has been fixed and a new error is added', async () => {
 		const unknownError = new JQLParseError('Some unknown error occurred.');
 		useJqlErrorMock.mockReturnValue([unknownError, {}]);
 		useEditorStateHasJqlErrorMock.mockReturnValue([true, {}]);
@@ -133,5 +143,7 @@ describe('useEditorViewIsInvalid', () => {
 		useEditorStateHasJqlErrorMock.mockReturnValue([true, {}]);
 		rerender(<Consumer />);
 		expect(assertUseEditorViewIsInvalid).toHaveBeenLastCalledWith(false);
+
+		await expect(document.body).toBeAccessible();
 	});
 });

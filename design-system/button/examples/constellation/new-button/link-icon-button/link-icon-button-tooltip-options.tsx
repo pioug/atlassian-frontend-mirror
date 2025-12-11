@@ -8,7 +8,7 @@ const tooltipOptions: LinkIconButtonProps['tooltip'] = {
 	hideTooltipOnClick: true,
 };
 
-const LinkIconButtonTooltipOptionsExample = () => {
+const LinkIconButtonTooltipOptionsExample = (): React.JSX.Element => {
 	return (
 		<LinkIconButton
 			href="https://atlassian.com"

@@ -116,7 +116,7 @@ export class CHRReporter {
 			};
 
 			return CHRData;
-		} catch (error: unknown) {
+		} catch {
 			return null;
 		}
 	}

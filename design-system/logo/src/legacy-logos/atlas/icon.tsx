@@ -34,7 +34,7 @@ export const AtlasIcon = ({
 	label = 'Atlas',
 	size = defaultLogoParams.size,
 	testId,
-}: LogoPropsAppearanceRequired) => {
+}: LogoPropsAppearanceRequired): React.JSX.Element => {
 	const { colorMode } = useThemeObserver();
 	return (
 		<Wrapper

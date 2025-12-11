@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-card",
-	"version": "79.9.1",
+	"version": "79.10.0",
 	"description": "Includes all media card related components, CardView, CardViewSmall, Card...",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -147,6 +147,9 @@
 			"type": "boolean"
 		},
 		"media-perf-ratio-calc-fix": {
+			"type": "boolean"
+		},
+		"jfp-magma-fix-attachments-hydration-error": {
 			"type": "boolean"
 		}
 	},

@@ -4,7 +4,7 @@ import { RovoIcon, RovoLogo } from '@atlaskit/logo';
 
 import LogoTable from '../utils/logo-table';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<LogoTable
 		logo={<RovoLogo appearance="brand" shouldUseNewLogoDesign />}
 		icon={<RovoIcon appearance="brand" shouldUseNewLogoDesign />}

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.5.0
+
+### Minor Changes
+
+- [`4daaa6358e6fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4daaa6358e6fb) -
+  Update resourceId generation for create reference from browser copy + pasting source block
+
+### Patch Changes
+
+- [`dcc6a3e73f414`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dcc6a3e73f414) -
+  [ux] EDITOR-3304 add offline error state for sync blocks and update other error UI to match new
+  designs
+- Updated dependencies
+
 ## 4.4.1
 
 ### Patch Changes

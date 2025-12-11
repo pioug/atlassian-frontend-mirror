@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.22.0
+
+### Minor Changes
+
+- [`b1ec68ffd476e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1ec68ffd476e) -
+  Added new method attribute value to the team profile card triggered event
+
 ## 1.21.0
 
 ### Minor Changes

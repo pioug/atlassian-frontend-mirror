@@ -1,25 +1,27 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
+import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
-import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	wrapper: {
 		minHeight: '64px',
-		border: `${token('border.width')} solid ${token('color.border')}`,
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
-		borderRadius: token('radius.small'),
 	},
 });
 
 export const SyncedBlockLoadingState = (): React.JSX.Element => {
 	return (
-		<Box xcss={styles.wrapper}>
-			<Spinner size="small" label="Loading synced content" />
-		</Box>
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides
+		<div className={SyncBlockSharedCssClassName.loading}>
+			<Box xcss={styles.wrapper}>
+				<Spinner size="small" label="Loading synced content" />
+			</Box>
+		</div>
+
 	);
 };

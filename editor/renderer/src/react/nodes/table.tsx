@@ -584,7 +584,8 @@ export class TableContainer extends React.Component<
 		const lineLength = isFullWidthAppearance(rendererAppearance)
 			? fullWidthLineLength
 			: isMaxWidthAppearance(rendererAppearance) &&
-				  expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+				  (expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))
 				? maxWidthLineLength
 				: isCommentAppearanceAndTableAlignmentEnabled
 					? commentLineLength
@@ -592,7 +593,8 @@ export class TableContainer extends React.Component<
 		const lineLengthCSS = isFullWidthAppearance(rendererAppearance)
 			? fullWidthLineLengthCSS
 			: isMaxWidthAppearance(rendererAppearance) &&
-				  expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+				  (expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))
 				? maxWidthLineLengthCSS
 				: isCommentAppearanceAndTableAlignmentEnabled
 					? renderWidthCSS
@@ -607,7 +609,8 @@ export class TableContainer extends React.Component<
 			isTableAlignStart &&
 			((isFullPageAppearance(rendererAppearance) && tableWidthNew <= lineLengthFixedWidth) ||
 				isFullWidthAppearance(rendererAppearance) ||
-				(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) &&
+				((expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)) &&
 					isMaxWidthAppearance(rendererAppearance)) ||
 				isCommentAppearanceAndTableAlignmentEnabled);
 

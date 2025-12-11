@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 33.8.2
+
+### Patch Changes
+
+- [`a33163de47ff4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a33163de47ff4) -
+  Suppress i18n phase 2 rules
+
 ## 33.8.1
 
 ### Patch Changes

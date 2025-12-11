@@ -46,14 +46,18 @@ describe('useEditorViewHasInfos', () => {
 		useExternalMessagesMock.mockReturnValue([normalizedExternalMessagesEmpty, {}]);
 	});
 
-	it('should return true when externalMessages contain info messages', () => {
+	it('should return true when externalMessages contain info messages', async () => {
 		useExternalMessagesMock.mockReturnValue([normalizedExternalMessages, {}]);
 		renderConsumer();
 		expect(assertEditorViewHasInfos).toHaveBeenLastCalledWith(true);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should return false when externalMessages does not contain info messages', () => {
+	it('should return false when externalMessages does not contain info messages', async () => {
 		renderConsumer();
 		expect(assertEditorViewHasInfos).toHaveBeenLastCalledWith(false);
+
+		await expect(document.body).toBeAccessible();
 	});
 });

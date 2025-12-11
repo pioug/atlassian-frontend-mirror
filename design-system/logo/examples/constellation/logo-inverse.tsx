@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianLogo } from '@atlaskit/logo';
 
-const LogoInverse = () => {
+const LogoInverse = (): React.JSX.Element => {
 	return <AtlassianLogo appearance="inverse" />;
 };
 

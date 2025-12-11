@@ -951,7 +951,8 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 	// In this case we can't set the container-type = inline-size as it will collapse width to 0.
 	return (appearance === 'full-page' ||
 		appearance === 'full-width' ||
-		(expValEqualsNoExposure('editor_tinymce_full_width_mode', 'isEnabled', true) &&
+		((expValEqualsNoExposure('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+			expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)) &&
 			appearance === 'max')) &&
 		// In case of having excerpt-include on page there are multiple renderers nested.
 		// Make sure only the root renderer is set to be query container.
@@ -1028,7 +1029,8 @@ const RendererWithAnnotationSelection = (props: RendererProps) => {
 	// @see https://hello.jira.atlassian.cloud/browse/EDITOR-3389
 	if (
 		props.appearance === 'max' &&
-		!expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+		!expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) &&
+		!expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
 	) {
 		props.appearance = 'full-width';
 	}

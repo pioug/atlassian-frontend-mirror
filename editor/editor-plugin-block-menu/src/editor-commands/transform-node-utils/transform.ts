@@ -7,20 +7,19 @@ import {
 import { getTargetNodeTypeNameInContext } from '../transform-node-utils/utils';
 
 import { flattenStep } from './flattenStep';
-import { convertBulletListToTextStep } from './steps/convertBulletListToTextStep';
-import { convertOrderedListToTextStep } from './steps/convertOrderedListToTextStep';
-import { convertTaskListToTextStep } from './steps/convertTaskListToTextStep';
+import { decisionListToListStep } from './steps/decisionListToListStep';
 import { flattenListStep } from './steps/flattenListStep';
+import { listToDecisionListStep } from './steps/listToDecisionListStep';
 import { listToListStep } from './steps/listToListStep';
 import { unwrapLayoutStep } from './steps/unwrapLayoutStep';
 import { unwrapListStep } from './steps/unwrapListStep';
+import { wrapMixedContentStep } from './steps/wrapMixedContentStep';
 import { stubStep } from './stubStep';
 import type { NodeCategory, NodeTypeName, TransformStepContext, TransformStep } from './types';
 import { NODE_CATEGORY_BY_TYPE, toNodeTypeValue } from './types';
 import { unwrapExpandStep } from './unwrapExpandStep';
 import { unwrapStep } from './unwrapStep';
 import { wrapIntoLayoutStep } from './wrapIntoLayoutStep';
-import { wrapMixedContentStep } from './wrapMixedContentStep';
 import { wrapStep } from './wrapStep';
 
 // Exampled step for overrides:
@@ -70,6 +69,7 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 	panel: {
 		layoutSection: [unwrapStep, wrapIntoLayoutStep],
 		codeBlock: [unwrapStep, flattenStep, wrapStep],
+		blockquote: [unwrapStep, wrapMixedContentStep],
 	},
 	expand: {
 		panel: [unwrapExpandStep, wrapMixedContentStep],
@@ -105,25 +105,32 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		panel: [wrapStep],
 	},
 	bulletList: {
-		// Warning: Actuall transformation logic not complete (Likelly prosemirror-markdown to be used)
-		codeBlock: [convertBulletListToTextStep, flattenStep, wrapStep],
+		// Text transformations currently not in scope > options will be disabled > stubbing in case
+		codeBlock: [stubStep],
 		layoutSection: [wrapIntoLayoutStep],
+		decisionList: [flattenListStep, listToDecisionListStep],
 	},
 	orderedList: {
-		// Warning: Actuall transformation logic not complete (Likelly prosemirror-markdown to be used)
-		codeBlock: [convertOrderedListToTextStep, flattenStep, wrapStep], // Warning: Actuall transformation logic not complete (Likelly prosemirror-markdown to be used)
+		// Text transformations currently not in scope > options will be disabled > stubbing in case
+		codeBlock: [stubStep],
 		layoutSection: [wrapIntoLayoutStep],
+		decisionList: [flattenListStep, listToDecisionListStep],
 	},
 	taskList: {
-		// Warning: Actuall transformation logic not complete (Skeptical that prosemirror-markdown can be used)
-		blockquote: [convertTaskListToTextStep, wrapStep],
-		// Warning: Actuall transformation logic not complete (Likelly prosemirror-markdown to be used)
-		codeBlock: [convertTaskListToTextStep, flattenStep, wrapStep],
+		// Text transformations currently not in scope > options will be disabled > stubbing in case
+		blockquote: [stubStep],
+		codeBlock: [stubStep],
 		layoutSection: [wrapIntoLayoutStep],
+		decisionList: [flattenListStep, listToDecisionListStep],
 	},
 	table: {
 		expand: [wrapStep],
 		layoutSection: [wrapIntoLayoutStep],
+	},
+	decisionList: {
+		bulletList: [decisionListToListStep],
+		orderedList: [decisionListToListStep],
+		taskList: [decisionListToListStep],
 	},
 };
 

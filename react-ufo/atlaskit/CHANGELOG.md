@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.15.17
+
+### Patch Changes
+
+- [`3171d275a7161`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3171d275a7161) -
+  FG cleanup - platform_ufo_detect_zero_dimension_rectangles
+
+## 4.15.16
+
+### Patch Changes
+
+- [`1f10952beb116`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f10952beb116) -
+  replace 'next' revision with 'fy26.04'
+
 ## 4.15.15
 
 ### Patch Changes

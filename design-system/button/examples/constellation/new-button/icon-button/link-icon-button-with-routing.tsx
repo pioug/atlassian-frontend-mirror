@@ -8,7 +8,7 @@ type MyRouterLinkConfig = {
 	replace?: boolean;
 };
 
-const LinkIconButtonExample = () => {
+const LinkIconButtonExample = (): React.JSX.Element => {
 	return (
 		<LinkIconButton<MyRouterLinkConfig>
 			href={{

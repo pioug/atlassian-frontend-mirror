@@ -3,7 +3,6 @@ import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
 import { NodeDataProvider } from '@atlaskit/node-data-provider';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import {
 	type BlockCardAdf,
 	type EmbedCardAdf,
@@ -539,16 +538,10 @@ export class EditorCardProvider
 					);
 				}
 
-				const isUnauthPasteAsBlockCardEnabledNoExposure = !expValEqualsNoExposure(
-					'platform_sl_3p_unauth_paste_as_block_card',
-					'cohort',
-					'control',
-					'control',
-				);
 				if (
-					isUnauthPasteAsBlockCardEnabledNoExposure &&
 					isEmbedFriendlyLocationEvaluated &&
-					!userPreference
+					!userPreference &&
+					fg('platform_sl_3p_unauth_experiment_gate')
 				) {
 					const authStatus = await this.getAuthStatusFromResolveResponse(url);
 					if (authStatus) {
@@ -560,6 +553,7 @@ export class EditorCardProvider
 								'control',
 								'control',
 							);
+
 							if (isUnauthPasteAsBlockCardEnabled) {
 								return this.transformer.toSmartlinkAdf(url, 'block');
 							}

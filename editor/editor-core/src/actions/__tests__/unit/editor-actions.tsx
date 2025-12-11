@@ -44,7 +44,7 @@ describe('Editor Actions', () => {
 		afterEach(() => {
 			jest.clearAllMocks();
 		});
-		it('scrolls into view when scroll into view is not disabled', () => {
+		it('scrolls into view when scroll into view is not disabled', async () => {
 			const { editorView, eventDispatcher } = createEditorFactory()({
 				doc: doc(p('Hello World!')),
 			});
@@ -55,9 +55,11 @@ describe('Editor Actions', () => {
 
 			editorActions.focus();
 			expect(scrollIntoViewSpy).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('does not scroll into view when scroll into view is disabled', () => {
+		it('does not scroll into view when scroll into view is disabled', async () => {
 			const { editorView, eventDispatcher } = createEditorFactory()({
 				doc: doc(p('Hello World!')),
 			});
@@ -68,6 +70,8 @@ describe('Editor Actions', () => {
 
 			editorActions.focus({ scrollIntoView: false });
 			expect(scrollIntoViewSpy).not.toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -123,6 +127,8 @@ describe('Editor Actions', () => {
 			  "version": 1,
 			}
 		`);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('sends error analytics when contentEncode errors', async () => {
@@ -159,6 +165,8 @@ describe('Editor Actions', () => {
 				},
 				eventType: 'operational',
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -338,7 +346,7 @@ describe('Editor Actions', () => {
 			},
 			autoConvert: () => null,
 		};
-		it('resolves a node selection', () => {
+		it('resolves a node selection', async () => {
 			const { editorView, eventDispatcher } = createEditorFactory()({
 				doc: doc(expand()(p('Line {<>} one'))),
 				editorProps: {
@@ -350,8 +358,10 @@ describe('Editor Actions', () => {
 			const node = editorAction.getSelectedNode() as Node;
 			expect(node).toBeInstanceOf(Node);
 			expect(node?.type?.name).toEqual('expand');
+
+			await expect(document.body).toBeAccessible();
 		});
-		it('resolves a text selection to the parent node', () => {
+		it('resolves a text selection to the parent node', async () => {
 			const { editorView, eventDispatcher } = createEditorFactory()({
 				doc: doc(
 					bodiedExtension({
@@ -370,8 +380,10 @@ describe('Editor Actions', () => {
 			const node = editorAction.getSelectedNode();
 			expect(node).toBeInstanceOf(Node);
 			expect(node?.type?.name).toEqual('bodiedExtension');
+
+			await expect(document.body).toBeAccessible();
 		});
-		it('returns undefined for no selectable nodes', () => {
+		it('returns undefined for no selectable nodes', async () => {
 			const { editorView, eventDispatcher } = createEditorFactory()({
 				doc: doc(p('123', '456')),
 			});
@@ -379,11 +391,13 @@ describe('Editor Actions', () => {
 
 			const node = editorAction.getSelectedNode();
 			expect(node).toBeUndefined();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('replaceSelection', () => {
-		it('replaces the selection with a node', () => {
+		it('replaces the selection with a node', async () => {
 			const { editorView, eventDispatcher } = createEditorFactory()({
 				doc: doc(p('')),
 			});
@@ -401,9 +415,11 @@ describe('Editor Actions', () => {
 			});
 
 			expect(editorView.state.doc).toEqualDocument(doc(p('Hello World!')));
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('replaces the selection with a fragment', () => {
+		it('replaces the selection with a fragment', async () => {
 			const { editorView, eventDispatcher } = createEditorFactory()({
 				doc: doc(p('')),
 			});
@@ -432,6 +448,8 @@ describe('Editor Actions', () => {
 			]);
 
 			expect(editorView.state.doc).toEqualDocument(doc(p('Hello'), p('World!')));
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

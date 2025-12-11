@@ -483,7 +483,7 @@ export const TableResizer = ({
 			let pos: number | undefined;
 			try {
 				pos = getPos();
-			} catch (e) {
+			} catch {
 				return;
 			}
 			if (typeof pos !== 'number') {
@@ -528,17 +528,16 @@ export const TableResizer = ({
 				excludeGuidelineConfig,
 			).filter((guideline) => guideline.isFullWidth)[0];
 
-			const isFullWidthGuidelineActive = expValEquals(
-				'editor_tinymce_full_width_mode',
-				'isEnabled',
-				true,
-			)
-				? closestSnap && fullWidthGuideline && closestSnap.keys.includes(fullWidthGuideline.key)
-				: closestSnap && closestSnap.keys.includes(fullWidthGuideline.key);
+			const isFullWidthGuidelineActive =
+				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+				expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
+					? closestSnap && fullWidthGuideline && closestSnap.keys.includes(fullWidthGuideline.key)
+					: closestSnap && closestSnap.keys.includes(fullWidthGuideline.key);
 
 			const tableMaxWidth = isCommentEditor
 				? Math.floor(containerWidth - TABLE_OFFSET_IN_COMMENT_EDITOR)
-				: expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+				: expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+					  expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
 					? TABLE_MAX_WIDTH
 					: TABLE_FULL_WIDTH;
 
@@ -608,7 +607,8 @@ export const TableResizer = ({
 
 			const tableMaxWidth = isCommentEditor
 				? undefined // Table's full-width in comment appearance inherit the width of the Editor/Renderer
-				: expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+				: expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+					  expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
 					? TABLE_MAX_WIDTH
 					: TABLE_FULL_WIDTH;
 

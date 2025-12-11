@@ -29,7 +29,7 @@ class HelloMessage extends React.Component {
 
 ReactDOM.render(<HelloMessage name="Taylor" />, document.body);`;
 
-export default function Component() {
+export default function Component(): React.JSX.Element {
 	return (
 		<div>
 			<h2>JSX</h2>

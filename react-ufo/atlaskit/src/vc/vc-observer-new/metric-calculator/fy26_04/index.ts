@@ -8,9 +8,6 @@ import {
 	THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES,
 } from '../utils/constants';
 
-// NOTE: `next` to be renamed `fy26.04` once stable
-const REVISION_NO = 'next';
-
 const getConsideredEntryTypes = () => {
 	const consideredEntryTypes: VCObserverEntryType[] = [
 		'mutation:display-contents-children-element',
@@ -20,9 +17,7 @@ const getConsideredEntryTypes = () => {
 		consideredEntryTypes.push('mutation:ssr-placeholder');
 	}
 
-	if (fg('platform_ufo_detect_zero_dimension_rectangles')) {
-		consideredEntryTypes.push('mutation:display-contents-children-attribute');
-	}
+	consideredEntryTypes.push('mutation:display-contents-children-attribute');
 
 	return consideredEntryTypes;
 };
@@ -37,10 +32,9 @@ const getExcludedEntryTypes = () => {
 	return excludedEntryTypes;
 };
 
-// NOTE: `VCNext` to be renamed `FY26_04` once stable
-export default class VCNextCalculator extends VCCalculator_FY25_03 {
+export default class VCCalculator_FY26_04 extends VCCalculator_FY25_03 {
 	constructor() {
-		super(REVISION_NO);
+		super('fy26.04');
 	}
 
 	protected isEntryIncluded(entry: VCObserverEntry, include3p?: boolean): boolean {

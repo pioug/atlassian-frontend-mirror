@@ -8,19 +8,19 @@ import {
 	THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES,
 } from '../utils/constants';
 
-import VCNextCalculator from './index';
+import VCCalculator_FY26_04 from './index';
 
 // Mock feature flags
 jest.mock('@atlaskit/platform-feature-flags', () => ({
 	fg: jest.fn(),
 }));
 
-describe('VCNextCalculator', () => {
-	let calculator: VCNextCalculator;
+describe('VCCalculator_FY26_04', () => {
+	let calculator: VCCalculator_FY26_04;
 	const mockFg = fg as jest.Mock;
 
 	beforeEach(() => {
-		calculator = new VCNextCalculator();
+		calculator = new VCCalculator_FY26_04();
 		mockFg.mockImplementation(() => false);
 	});
 
@@ -30,8 +30,8 @@ describe('VCNextCalculator', () => {
 
 	describe('constructor', () => {
 		it('should create an instance with revision "next"', () => {
-			const instance = new VCNextCalculator();
-			expect(instance).toBeInstanceOf(VCNextCalculator);
+			const instance = new VCCalculator_FY26_04();
+			expect(instance).toBeInstanceOf(VCCalculator_FY26_04);
 		});
 	});
 
@@ -83,31 +83,11 @@ describe('VCNextCalculator', () => {
 			});
 		});
 
-		describe('platform_ufo_detect_zero_dimension_rectangles feature flag', () => {
-			it('should not include mutation:display-contents-children-attribute when feature flag is disabled', () => {
-				mockFg.mockImplementation(() => false);
-				const entry: VCObserverEntry = {
-					time: 0,
-					data: {
-						type: 'mutation:display-contents-children-attribute',
-						elementName: 'div',
-						rect: new DOMRect(),
-						visible: true,
-					} as ViewportEntryData,
-				};
-				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
-			});
-
-			it('should include mutation:display-contents-children-attribute when feature flag is enabled and attribute is visual', () => {
-				mockFg.mockImplementation((flag) => {
-					if (flag === 'platform_ufo_detect_zero_dimension_rectangles') {
-						return true;
-					}
-					if (flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions') {
-						return false;
-					}
-					return false;
-				});
+		describe('mutation:display-contents-children-attribute', () => {
+			it('should include mutation:display-contents-children-attribute with visual attribute', () => {
+				mockFg.mockImplementation((flag) =>
+					flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions' ? false : false,
+				);
 				const entry: VCObserverEntry = {
 					time: 0,
 					data: {
@@ -121,16 +101,8 @@ describe('VCNextCalculator', () => {
 				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
 			});
 
-			it('should include mutation:display-contents-children-attribute when feature flag is enabled without attributeName', () => {
-				mockFg.mockImplementation((flag) => {
-					if (flag === 'platform_ufo_detect_zero_dimension_rectangles') {
-						return true;
-					}
-					if (flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions') {
-						return false;
-					}
-					return false;
-				});
+			it('should include mutation:display-contents-children-attribute without attributeName', () => {
+				mockFg.mockImplementation(() => false);
 				const entry: VCObserverEntry = {
 					time: 0,
 					data: {
@@ -199,32 +171,10 @@ describe('VCNextCalculator', () => {
 	});
 
 	describe('isEntryIncluded with mutation:display-contents-children-attribute and platform_ufo_fix_ttvc_v4_attribute_exclusions', () => {
-		describe('when feature flag is disabled', () => {
-			beforeEach(() => {
-				mockFg.mockImplementation(() => false);
-			});
-
-			it('should not exclude mutation:display-contents-children-attribute entries', () => {
-				const entry: VCObserverEntry = {
-					time: 0,
-					data: {
-						type: 'mutation:display-contents-children-attribute',
-						elementName: 'div',
-						rect: new DOMRect(),
-						visible: true,
-						attributeName: 'class',
-					} as ViewportEntryData,
-				};
-				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
-			});
-		});
-
 		describe('when feature flag is enabled', () => {
 			beforeEach(() => {
 				mockFg.mockImplementation(
-					(flag) =>
-						flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions' ||
-						flag === 'platform_ufo_detect_zero_dimension_rectangles',
+					(flag) => flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions',
 				);
 			});
 
@@ -524,12 +474,8 @@ describe('VCNextCalculator', () => {
 	});
 
 	describe('isEntryIncluded with combination of feature flags for display-contents-children-attribute', () => {
-		it('should exclude when both feature flags are enabled and attribute is in exclusion list', () => {
-			mockFg.mockImplementation(
-				(flag) =>
-					flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions' ||
-					flag === 'platform_ufo_detect_zero_dimension_rectangles',
-			);
+		it('should exclude when attribute exclusion flag is enabled and attribute is in exclusion list', () => {
+			mockFg.mockImplementation((flag) => flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions');
 			const entry: VCObserverEntry = {
 				time: 0,
 				data: {
@@ -543,8 +489,8 @@ describe('VCNextCalculator', () => {
 			expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
 		});
 
-		it('should handle only detect flag enabled with visual attribute', () => {
-			mockFg.mockImplementation((flag) => flag === 'platform_ufo_detect_zero_dimension_rectangles');
+		it('should include with visual attribute', () => {
+			mockFg.mockImplementation(() => false);
 			const entry: VCObserverEntry = {
 				time: 0,
 				data: {
@@ -561,11 +507,7 @@ describe('VCNextCalculator', () => {
 
 	describe('edge cases', () => {
 		it('should handle entry with empty string attributeName', () => {
-			mockFg.mockImplementation(
-				(flag) =>
-					flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions' ||
-					flag === 'platform_ufo_detect_zero_dimension_rectangles',
-			);
+			mockFg.mockImplementation((flag) => flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions');
 			const entry: VCObserverEntry = {
 				time: 0,
 				data: {
@@ -580,11 +522,7 @@ describe('VCNextCalculator', () => {
 		});
 
 		it('should handle entry with very long attributeName', () => {
-			mockFg.mockImplementation(
-				(flag) =>
-					flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions' ||
-					flag === 'platform_ufo_detect_zero_dimension_rectangles',
-			);
+			mockFg.mockImplementation((flag) => flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions');
 			const entry: VCObserverEntry = {
 				time: 0,
 				data: {
@@ -599,11 +537,7 @@ describe('VCNextCalculator', () => {
 		});
 
 		it('should handle entry with data-test in middle of attributeName', () => {
-			mockFg.mockImplementation(
-				(flag) =>
-					flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions' ||
-					flag === 'platform_ufo_detect_zero_dimension_rectangles',
-			);
+			mockFg.mockImplementation((flag) => flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions');
 			const entry: VCObserverEntry = {
 				time: 0,
 				data: {
@@ -619,11 +553,7 @@ describe('VCNextCalculator', () => {
 		});
 
 		it('should handle entry with case-sensitive attributeName check', () => {
-			mockFg.mockImplementation(
-				(flag) =>
-					flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions' ||
-					flag === 'platform_ufo_detect_zero_dimension_rectangles',
-			);
+			mockFg.mockImplementation((flag) => flag === 'platform_ufo_fix_ttvc_v4_attribute_exclusions');
 			const entry: VCObserverEntry = {
 				time: 0,
 				data: {

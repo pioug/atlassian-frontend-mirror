@@ -74,7 +74,7 @@ const appRoutes = [
 	},
 ];
 
-function LinkReactResourceRouterExample() {
+function LinkReactResourceRouterExample(): React.JSX.Element {
 	return (
 		<AppProvider routerLinkComponent={MyRouterLinkComponent}>
 			<Router routes={appRoutes} history={history}>

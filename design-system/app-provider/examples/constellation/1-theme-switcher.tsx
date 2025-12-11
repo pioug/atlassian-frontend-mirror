@@ -105,7 +105,7 @@ function ThemeSwitcher() {
 	);
 }
 
-function AppProviderTheme() {
+function AppProviderTheme(): React.JSX.Element {
 	return (
 		<>
 			<ColorModeSwitcher />

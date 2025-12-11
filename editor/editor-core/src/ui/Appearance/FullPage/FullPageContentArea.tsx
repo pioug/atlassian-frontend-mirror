@@ -351,7 +351,8 @@ const Content = React.forwardRef<
 								{
 									'--ak-editor-content-area-max-width': !fullWidthMode
 										? Boolean(maxWidthMode) &&
-											expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+											(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+												expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))
 											? // @ts-ignore
 												`${akEditorUltraWideLayoutWidth + getTotalPadding()}px`
 											: // @ts-ignore

@@ -1,12 +1,7 @@
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { type Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
 
 import type { TransformStep } from '../types';
-
-const isListType = (node: PMNode, schema: Schema): boolean => {
-	const lists = [schema.nodes.taskList, schema.nodes.bulletList, schema.nodes.orderedList];
-	return lists.some((list) => list === node.type);
-};
+import { isListType } from '../utils';
 
 /**
  * Converts FROM taskList structure TO bulletList/orderedList structure.

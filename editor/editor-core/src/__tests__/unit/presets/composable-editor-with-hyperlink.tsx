@@ -27,6 +27,8 @@ describe('hyperlink lpLinkPicker flag behaviour in composable editor with defaul
 		// check that the link picker is rendered
 		await screen.findByTestId('link-picker');
 		expect(screen.queryByTestId('hyperlink-add-toolbar')).not.toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('check that new link picker is used when lpLinkPicker is undefined', async () => {
@@ -43,6 +45,8 @@ describe('hyperlink lpLinkPicker flag behaviour in composable editor with defaul
 		// check that the link picker is rendered
 		await screen.findByTestId('link-picker');
 		expect(screen.queryByTestId('hyperlink-add-toolbar')).not.toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('check link picker not shown when lpLinkPicker is false', async () => {
@@ -59,6 +63,8 @@ describe('hyperlink lpLinkPicker flag behaviour in composable editor with defaul
 		// check that the old link picker is rendered
 		await screen.findByTestId('hyperlink-add-toolbar');
 		expect(screen.queryByTestId('link-picker')).not.toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible({ violationCount: 1 });
 	});
 });
 

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-breakout
 
+## 6.2.6
+
+### Patch Changes
+
+- [`0c0f8207e7294`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c0f8207e7294) -
+  Added sync block resizing
+- Updated dependencies
+
 ## 6.2.5
 
 ### Patch Changes

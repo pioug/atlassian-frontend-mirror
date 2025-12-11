@@ -1,5 +1,21 @@
 # @atlaskit/media-card
 
+## 79.10.0
+
+### Minor Changes
+
+- [`84bb4ddb6b05a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84bb4ddb6b05a) -
+  Adding a suppressHydrationWarning prop
+
+## 79.9.2
+
+### Patch Changes
+
+- [`a9118006d1586`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9118006d1586) -
+  Subscribe to auth provider events from media-client and fire analytics with actionSubject
+  mediaAuthProvider.
+- Updated dependencies
+
 ## 79.9.1
 
 ### Patch Changes

@@ -4,7 +4,7 @@ import Button, { IconButton, SplitButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 
-const SplitButtonPrimaryExample = () => {
+const SplitButtonPrimaryExample = (): React.JSX.Element => {
 	return (
 		<SplitButton spacing="compact">
 			<Button>Link work item</Button>

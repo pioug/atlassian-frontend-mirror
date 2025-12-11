@@ -33,28 +33,34 @@ describe('PopupTrigger', () => {
 		jest.clearAllMocks();
 	});
 
-	it('should call showProfilecard on mouse enter when trigger is hover', () => {
+	it('should call showProfilecard on mouse enter when trigger is hover', async () => {
 		const { getByText } = renderWithIntl({ trigger: 'hover' });
 
 		fireEvent.mouseEnter(getByText('popup trigger'));
 		expect(showProfilecard).toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should call hideProfilecard on mouse leave when trigger is hover', () => {
+	it('should call hideProfilecard on mouse leave when trigger is hover', async () => {
 		const { getByText } = renderWithIntl({ trigger: 'hover' });
 
 		fireEvent.mouseLeave(getByText('popup trigger'));
 		expect(hideProfilecard).toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should call showProfilecard on click when trigger is click', () => {
+	it('should call showProfilecard on click when trigger is click', async () => {
 		const { getByText } = renderWithIntl({ trigger: 'click' });
 
 		fireEvent.click(getByText('popup trigger'));
 		expect(showProfilecard).toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should call showProfilecard on key press Enter or Space', () => {
+	it('should call showProfilecard on key press Enter or Space', async () => {
 		const { getByText } = renderWithIntl({ trigger: 'click' });
 		fireEvent.keyPress(getByText('popup trigger'), {
 			key: 'Enter',
@@ -69,9 +75,11 @@ describe('PopupTrigger', () => {
 			charCode: 32,
 		});
 		expect(showProfilecard).toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should stop propagation on click', () => {
+	it('should stop propagation on click', async () => {
 		const { getByText } = renderWithIntl({ trigger: 'click' });
 
 		const event = new MouseEvent('click', { bubbles: true });
@@ -79,5 +87,7 @@ describe('PopupTrigger', () => {
 
 		fireEvent(getByText('popup trigger'), event);
 		expect(stopPropagation).toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 });

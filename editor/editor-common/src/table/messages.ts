@@ -18,6 +18,7 @@ export const sortingIconMessages = defineMessages({
 	},
 	invalidLabel: {
 		id: 'fabric.editor.headingLink.invalidLabel',
+		// eslint-disable-next-line @atlassian/i18n/no-multiple-whitespaces
 		defaultMessage: `⚠️  You can't sort a table with merged cells`,
 		description: 'this sort is invalid for merged cells',
 	},

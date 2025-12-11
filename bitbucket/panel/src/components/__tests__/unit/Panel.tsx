@@ -39,8 +39,10 @@ describe('Panel component', () => {
 
 		await userEvent.click(getByText('Header'));
 		await waitFor(() => expect(panelContent[0]).toHaveStyle({ height: 'auto' }));
+
+		await expect(document.body).toBeAccessible();
 	});
-	it('is expanded by default when isDefaultExpanded is passed', () => {
+	it('is expanded by default when isDefaultExpanded is passed', async () => {
 		const { container } = render(
 			<TestWrapper>
 				<Panel header={Header} isDefaultExpanded>
@@ -51,5 +53,7 @@ describe('Panel component', () => {
 
 		const panelContent = container.getElementsByClassName('panel-content');
 		expect(panelContent[0]).toHaveStyle({ height: 'auto' });
+
+		await expect(document.body).toBeAccessible();
 	});
 });

@@ -23,7 +23,7 @@ const getMockEditorAPIWithToolbar = () =>
 				getComponents: () => [primaryToolbarComponent],
 			},
 		},
-	}) as PublicPluginAPI<ToolbarPlugin>;
+	} as PublicPluginAPI<ToolbarPlugin>);
 
 const getMockEditorAPIEmptyToolbar = () =>
 	({
@@ -32,24 +32,28 @@ const getMockEditorAPIEmptyToolbar = () =>
 				getComponents: () => [{}],
 			},
 		},
-	}) as PublicPluginAPI<ToolbarPlugin>;
+	} as PublicPluginAPI<ToolbarPlugin>);
 
 describe('CommentToolbar', () => {
 	describe('when primary toolbar is registered', () => {
-		it('should render the primary toolbar', () => {
+		it('should render the primary toolbar', async () => {
 			const screen = render(
 				<CommentToolbar editorAPI={getMockEditorAPIWithToolbar()} editorAppearance="comment" />,
 			);
 			expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('when primary toolbar is not registered', () => {
-		it('should note render the primary toolbar', () => {
+		it('should note render the primary toolbar', async () => {
 			const screen = render(
 				<CommentToolbar editorAPI={getMockEditorAPIEmptyToolbar()} editorAppearance="comment" />,
 			);
 			expect(screen.queryByTestId('primary-toolbar')).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

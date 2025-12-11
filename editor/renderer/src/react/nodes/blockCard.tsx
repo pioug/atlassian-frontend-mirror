@@ -25,16 +25,6 @@ import { N40 } from '@atlaskit/theme/colors';
 import { calcBreakoutWidth, canRenderDatasource } from '@atlaskit/editor-common/utils';
 import { usePortal } from '../../ui/Renderer/PortalContext';
 
-const datasourceContainerStyle = css({
-	borderRadius: `${token('radius.large', '8px')}`,
-	border: `${token('border.width')} solid ${token('color.border', N40)}`,
-	overflow: 'hidden',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	marginLeft: '50%',
-	marginBottom: `${token('space.150', '0.75rem')}`,
-	transform: 'translateX(-50%)',
-});
-
 const datasourceContainerStyleWithMarginTop = css({
 	borderRadius: `${token('radius.large', '8px')}`,
 	border: `${token('border.width')} solid ${token('color.border', N40)}`,
@@ -122,11 +112,7 @@ export default function BlockCard(props: {
 						<WidthConsumer>
 							{({ width }) => (
 								<div
-									css={
-										fg('platform_editor_fix_sllv_margin_renderer')
-											? datasourceContainerStyleWithMarginTop
-											: datasourceContainerStyle
-									}
+									css={datasourceContainerStyleWithMarginTop}
 									data-testid="renderer-datasource-table"
 									data-local-id={localId}
 									style={{

@@ -1,15 +1,16 @@
 import React, { type ComponentProps } from 'react';
+
 import OldButton from '@atlaskit/button';
 import Button, { IconButton } from '@atlaskit/button/new';
+import Heading from '@atlaskit/heading';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Inline, Stack, xcss } from '@atlaskit/primitives';
 
 import AddIcon from '../../core/add';
 import ChevronDownIcon from '../../core/chevron-down';
 import AddIconOld from '../../glyph/add';
 import ChevronDownOld from '../../glyph/hipchat/chevron-down';
 
-import Heading from '@atlaskit/heading';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const FFAddIcon = (props: ComponentProps<typeof AddIcon>) => (
 	<AddIcon

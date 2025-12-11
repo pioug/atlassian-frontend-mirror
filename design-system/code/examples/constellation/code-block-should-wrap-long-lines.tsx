@@ -24,7 +24,7 @@ ReactDOM.render(
   mountNode
 );`;
 
-const CodeBlockShouldWrapLongLinesExample = () => {
+const CodeBlockShouldWrapLongLinesExample = (): React.JSX.Element => {
 	const [lineWrapState, setLineWrapState] = useState(true);
 	return (
 		<>

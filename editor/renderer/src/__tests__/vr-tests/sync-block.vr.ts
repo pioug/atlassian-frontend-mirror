@@ -1,6 +1,7 @@
 import { snapshot } from '@af/visual-regression';
 import {
 	SyncBlockGenericError,
+	SyncBlockInvalidRequestError,
 	SyncBlockLoadingState,
 	SyncBlockNotFound,
 	SyncBlockWithParagraphAndPanelRenderer,
@@ -49,6 +50,11 @@ snapshot(SyncBlockNotFound, {
 
 snapshot(SyncBlockGenericError, {
 	description: 'should render sync block generic error',
+	mockRequests: mockRequest,
+});
+
+snapshot(SyncBlockInvalidRequestError, {
+	description: 'should render sync block invalid request error',
 	mockRequests: mockRequest,
 });
 

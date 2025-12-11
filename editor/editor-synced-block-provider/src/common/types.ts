@@ -25,6 +25,7 @@ export enum SyncBlockError {
 	Conflict = 'conflict', // attempt to create block that already exists
 	ServerError = 'server_error',
 	InvalidContent = 'invalid_content', // content is not a valid JSON
+	Offline = "offline",
 }
 
 export interface SyncBlockData {

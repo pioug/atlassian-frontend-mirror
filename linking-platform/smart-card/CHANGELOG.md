@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 43.14.5
+
+### Patch Changes
+
+- [`26c3e5a39fee6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26c3e5a39fee6) -
+  Suppress i18n phase 2 rules
+
 ## 43.14.4
 
 ### Patch Changes

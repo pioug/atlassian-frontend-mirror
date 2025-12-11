@@ -165,11 +165,13 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
  */
 class BlockServiceADFWriteProvider implements ADFWriteProvider {
 	private sourceAri: string;
+	private sourceDocumentId: string;
 	product: SyncBlockProduct;
 
-	constructor(sourceAri: string, product: SyncBlockProduct) {
+	constructor(sourceAri: string, product: SyncBlockProduct, sourceDocumentId: string) {
 		this.sourceAri = sourceAri;
 		this.product = product;
+		this.sourceDocumentId = sourceDocumentId;
 	}
 
 	// it will first try to update and if it can't (404) then it will try to create
@@ -227,12 +229,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 
 	// the sourceId is the resourceId of the source synced block.
 	generateResourceIdForReference(sourceId: ResourceId): ResourceId {
-		const match = this.sourceAri.match(/ari:cloud:confluence:([^:]+):(page|blogpost)\/(\d+)/);
-		if (!match?.[1]) {
-			throw new Error(`Invalid source ARI: ${this.sourceAri}`);
-		}
-		const pageId = match[3];
-		return `${this.product}/${pageId}/${sourceId}`;
+		return `${this.product}/${this.sourceDocumentId}/${sourceId}`;
 	}
 
 	generateResourceId(): ResourceId {
@@ -243,9 +240,9 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 /**
  * Factory function to create both providers with shared configuration
  */
-const createBlockServiceAPIProviders = (sourceAri: string, product: SyncBlockProduct) => {
+const createBlockServiceAPIProviders = (sourceAri: string, product: SyncBlockProduct, sourceDocumentId: string) => {
 	const fetchProvider = new BlockServiceADFFetchProvider(sourceAri);
-	const writeProvider = new BlockServiceADFWriteProvider(sourceAri, product);
+	const writeProvider = new BlockServiceADFWriteProvider(sourceAri, product, sourceDocumentId);
 
 	return {
 		fetchProvider,
@@ -256,6 +253,7 @@ const createBlockServiceAPIProviders = (sourceAri: string, product: SyncBlockPro
 export const useMemoizedBlockServiceAPIProviders = (
 	sourceAri: string,
 	product: SyncBlockProduct,
+	sourceDocumentId: string,
 ) => {
-	return useMemo(() => createBlockServiceAPIProviders(sourceAri, product), [sourceAri, product]);
+	return useMemo(() => createBlockServiceAPIProviders(sourceAri, product, sourceDocumentId), [sourceAri, product, sourceDocumentId]);
 };

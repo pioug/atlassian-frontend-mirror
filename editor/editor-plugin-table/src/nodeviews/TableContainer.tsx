@@ -389,7 +389,8 @@ export const ResizableTableContainer = React.memo(
 				? responsiveContainerWidth
 				: Math.min(
 						responsiveContainerWidth,
-						expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+						expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+							expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
 							? TABLE_MAX_WIDTH
 							: TABLE_FULL_WIDTH,
 					);

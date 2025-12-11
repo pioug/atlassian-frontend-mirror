@@ -6,7 +6,7 @@ function startsAsObject(value: any): boolean {
 		if (value.charAt(0) === '{') {
 			return true;
 		}
-	} catch (e) {
+	} catch {
 		return false;
 	}
 	return false;
@@ -20,7 +20,7 @@ function isString(input: any): boolean {
 	let result;
 	try {
 		result = typeof input === 'string' || input instanceof String;
-	} catch (err) {
+	} catch {
 		// swallow any errors
 		result = false;
 	}

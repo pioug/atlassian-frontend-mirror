@@ -27,7 +27,7 @@ main > .side-menu li::before {
   padding-right: 5px;
 }`;
 
-export default function Component() {
+export default function Component(): React.JSX.Element {
 	return (
 		<div>
 			<h2>CSS</h2>

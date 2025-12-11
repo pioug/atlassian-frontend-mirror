@@ -49,7 +49,7 @@ function AppProvider({
 	defaultTheme,
 	routerLinkComponent,
 	UNSAFE_isThemingDisabled,
-}: AppProviderProps) {
+}: AppProviderProps): React.JSX.Element {
 	const isInsideAppProvider = useContext(InsideAppProviderContext);
 
 	if (isInsideAppProvider) {

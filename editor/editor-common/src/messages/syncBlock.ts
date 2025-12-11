@@ -40,13 +40,13 @@ export const syncBlockMessages = defineMessages({
 	},
 	permissionDeniedHeading: {
 		id: 'fabric.editor.syncedBlockPermissionDeniedHeading',
-		defaultMessage: "You don't have permission to view this synced block",
+		defaultMessage: "Request access to view synced block",
 		description:
 			'Heading for error state where the user does not have permission to view the synced block',
 	},
 	permissionDeniedDescription: {
 		id: 'fabric.editor.syncedBlockPermissionDeniedDescription',
-		defaultMessage: "The source of this synced block is a content item you don't have access to.",
+		defaultMessage: "You don't have access to view the source content of this synced block.",
 		description:
 			'Description for error state where the user does not have permission to view the synced block',
 	},
@@ -180,14 +180,8 @@ export const syncBlockMessages = defineMessages({
 	},
 	generalErrorDescription: {
 		id: 'fabric.editor.syncedBlockGeneralErrorDescription',
-		defaultMessage: 'Something went wrong while loading this synced block.',
+		defaultMessage: `We're unable to display this content at the moment.`,
 		description: 'Description for general error state of the synced block',
-	},
-	notFoundDescription: {
-		id: 'fabric.editor.syncedBlockNotFoundDescription',
-		defaultMessage: 'We’re unable to load this synced block.',
-		description:
-			'Description for error state where the synced block cannot be found or no longer exists',
 	},
 	notFoundAltText: {
 		id: 'fabric.editor.syncedBlockNotFoundIconAltText',
@@ -197,7 +191,13 @@ export const syncBlockMessages = defineMessages({
 	},
 	retryButton: {
 		id: 'fabric.editor.retrySyncedBlock',
-		defaultMessage: 'Retry',
+		defaultMessage: 'Try again',
 		description: 'Label for button which retries loading the synced block',
 	},
+
+	offlineError: {
+		id: 'fabric.editor.error.description.offline',
+		defaultMessage: `We're unable to display this content at the moment because you are offline.`,
+		description: 'Error message which is shown over sync block when the editor is offline'
+	}
 });

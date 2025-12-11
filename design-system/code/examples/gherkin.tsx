@@ -12,7 +12,7 @@ const exampleCodeBlock = `Scenario Outline: eating
     |    12 |   5 |    7 |
     |    20 |   5 |   15 |`;
 
-export default function Component() {
+export default function Component(): React.JSX.Element {
 	return (
 		<div>
 			<h2>Gherkin</h2>

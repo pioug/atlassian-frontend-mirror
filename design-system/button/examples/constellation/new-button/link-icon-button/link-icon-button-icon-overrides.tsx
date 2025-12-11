@@ -4,7 +4,7 @@ import { LinkIconButton } from '@atlaskit/button/new';
 import CompassIcon from '@atlaskit/icon/core/compass';
 import { token } from '@atlaskit/tokens';
 
-const LinkIconButtonOverridesExample = () => {
+const LinkIconButtonOverridesExample = (): React.JSX.Element => {
 	return (
 		<LinkIconButton
 			href="https://atlassian.com"

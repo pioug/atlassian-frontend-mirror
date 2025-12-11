@@ -2,7 +2,7 @@ import React from 'react';
 
 import { code } from '@atlaskit/docs';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const exampleCode = code`highlight=5-7
   import React from 'react';
   

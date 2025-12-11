@@ -2,7 +2,7 @@ import React from 'react';
 
 import Lozenge from '@atlaskit/lozenge';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		<div>
 			<Lozenge appearance="removed">Removed</Lozenge>

@@ -6,6 +6,7 @@ import type { SyncBlockProduct } from '@atlaskit/editor-synced-block-provider';
 
 import { SyncedBlockGenericError } from './SyncedBlockGenericError';
 import { SyncedBlockLoadError } from './SyncedBlockLoadError';
+import { SyncedBlockOfflineError } from './SyncedBlockOfflineError';
 import { SyncedBlockPermissionDenied } from './SyncedBlockPermissionDenied';
 
 export const SyncedBlockErrorComponent = ({
@@ -23,6 +24,8 @@ export const SyncedBlockErrorComponent = ({
 }): React.JSX.Element => {
 	const getErrorContent = useMemo(() => {
 		switch (error) {
+			case SyncBlockError.Offline:
+				return <SyncedBlockOfflineError />
 			case SyncBlockError.Forbidden:
 				if (!sourceAri || !sourceProduct) {
 					return <SyncedBlockGenericError />;

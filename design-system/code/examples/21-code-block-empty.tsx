@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Code, CodeBlock } from '@atlaskit/code';
 
-export default function Component() {
+export default function Component(): React.JSX.Element {
 	return (
 		<div>
 			<div data-testid="empty-codeblocks">

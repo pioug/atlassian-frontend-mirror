@@ -8,7 +8,7 @@ const containerStyles = xcss({
 	maxWidth: 'size.1000',
 });
 
-const ButtonTruncationExample = () => {
+const ButtonTruncationExample = (): React.JSX.Element => {
 	return (
 		<Box xcss={containerStyles}>
 			<Button>This text is truncated to fit within the container</Button>

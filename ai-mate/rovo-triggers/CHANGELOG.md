@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 5.1.0
+
+### Minor Changes
+
+- [`acb6725dc1ece`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acb6725dc1ece) -
+  [ux] Add UI action to receive generated rule from workflow builder minion and send to Automation
+
 ## 5.0.0
 
 ### Major Changes

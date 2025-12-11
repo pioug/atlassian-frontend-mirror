@@ -47,7 +47,7 @@ describe('Editor Content styles in FullPageContentArea', () => {
 	});
 
 	describe('fullpage editor', () => {
-		it('renders correct styles for new editor content styles for chromeless editor with experiments on', () => {
+		it('renders correct styles for new editor content styles for chromeless editor with experiments on', async () => {
 			setupEditorExperiments('test', {
 				advanced_layouts: true,
 				platform_editor_breakout_resizing: true,
@@ -71,9 +71,11 @@ describe('Editor Content styles in FullPageContentArea', () => {
 			const results = screen.getByTestId('editor-content-container');
 			expect(results).toBeInTheDocument();
 			expect(results).toMatchSnapshot('new styles with experiments on');
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('renders correct styles for new editor content styles for fullpage editor', () => {
+		it('renders correct styles for new editor content styles for fullpage editor', async () => {
 			render(
 				<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
 					<EditorContentContainer
@@ -92,6 +94,8 @@ describe('Editor Content styles in FullPageContentArea', () => {
 			const results = screen.getByTestId('editor-content-container');
 			expect(results).toBeInTheDocument();
 			expect(results).toMatchSnapshot('new styles');
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

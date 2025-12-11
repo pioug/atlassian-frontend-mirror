@@ -450,6 +450,7 @@ describe('In SCIM-synced teams', () => {
 					'REMOVE_AGENT_FROM_TEAM',
 					'ADD_AGENT_TO_TEAM',
 					'ARCHIVE_TEAM',
+					'EDIT_TEAM_TYPE',
 				].some((s) => a.includes(s)),
 			),
 		)('members can perform %s', (action) => {
@@ -482,6 +483,7 @@ describe('In SCIM-synced teams', () => {
 						'REMOVE_AGENT_FROM_TEAM',
 						'ADD_AGENT_TO_TEAM',
 						'ARCHIVE_TEAM',
+						'EDIT_TEAM_TYPE',
 					].some((s) => a.includes(s)),
 			),
 		)('members cannot perform %s', (action) => {

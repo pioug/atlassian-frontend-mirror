@@ -75,7 +75,7 @@ export default function getNavigationMetrics(type: InteractionType): NavigationM
 			//   * loadEventEnd
 			//   * loadEventStart
 		};
-	} catch (error) {
+	} catch {
 		// Return null if there's any error accessing navigation timing
 		return null;
 	}

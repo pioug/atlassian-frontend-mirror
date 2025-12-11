@@ -3,6 +3,7 @@ export const SyncBlockSharedCssClassName = {
 	prefix,
 	renderer: `${prefix}__renderer`,
 	error: `${prefix}__error_state`,
+	loading: `${prefix}__loading_state`,
 };
 
 const bodiedPrefix = 'ak-editor-bodied-sync-block';

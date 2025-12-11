@@ -62,7 +62,7 @@ describe('<FabricAnalyticsListeners />', () => {
 	});
 
 	describe('FabricAnalyticsListener', () => {
-		it('should not throw an error when no client is provided', () => {
+		it('should not throw an error when no client is provided', async () => {
 			const compOnClick = jest.fn();
 			expect(() =>
 				render(
@@ -72,6 +72,8 @@ describe('<FabricAnalyticsListeners />', () => {
 					</FabricAnalyticsListeners>,
 				),
 			).not.toThrow();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should accept and handle a promise-like client', async () => {
@@ -95,9 +97,11 @@ describe('<FabricAnalyticsListeners />', () => {
 			expect(dummyComponent).toBeInTheDocument();
 
 			await fireEvent.click(dummyComponent);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not explode if something explodes in callback', () => {
+		it('should not explode if something explodes in callback', async () => {
 			const promiseLikeClient = {
 				sendUIEvent: jest.fn(() => {
 					throw new Error('Boom!');
@@ -115,9 +119,11 @@ describe('<FabricAnalyticsListeners />', () => {
 			expect(dummyComponent).toBeInTheDocument();
 
 			fireEvent.click(dummyComponent);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should log an error when an invalid event type is captured and error logging is enabled', () => {
+		it('should log an error when an invalid event type is captured and error logging is enabled', async () => {
 			const compOnClick = jest.fn();
 			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock} logLevel={LOG_LEVEL.ERROR}>
@@ -130,9 +136,11 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			fireEvent.click(dummyComponent);
 			expect(global.console.error).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render all listeners', () => {
+		it('should render all listeners', async () => {
 			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<div>Child</div>
@@ -140,9 +148,11 @@ describe('<FabricAnalyticsListeners />', () => {
 			);
 
 			expect(screen.getByText('Child')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render a FabricElementsListener', () => {
+		it('should render a FabricElementsListener', async () => {
 			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<DummyElementsCompWithAnalytics onClick={() => {}} />
@@ -151,9 +161,11 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			const dummyComponent = screen.getByRole('button', { name: 'fabric-elements' });
 			expect(dummyComponent).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render an AtlaskitListener', () => {
+		it('should render an AtlaskitListener', async () => {
 			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<DummyAtlaskitCompWithAnalytics onClick={() => {}} />
@@ -162,9 +174,11 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			const dummyComponent = screen.getByRole('button', { name: 'atlaskit' });
 			expect(dummyComponent).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render a NavigationListener', () => {
+		it('should render a NavigationListener', async () => {
 			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<DummyNavigationCompWithAnalytics onClick={() => {}} />
@@ -173,9 +187,11 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			const dummyComponent = screen.getByRole('button', { name: 'navigation' });
 			expect(dummyComponent).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render a PostOfficeListener', () => {
+		it('should render a PostOfficeListener', async () => {
 			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<DummyPostOfficeCompWithAnalytics onClick={() => {}} />
@@ -184,9 +200,11 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			const dummyComponent = screen.getByRole('button', { name: 'postOffice' });
 			expect(dummyComponent).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should exclude the AtlaskitListener if excludedChannels includes atlaskit', () => {
+		it('should exclude the AtlaskitListener if excludedChannels includes atlaskit', async () => {
 			render(
 				<FabricAnalyticsListeners
 					client={analyticsWebClientMock}
@@ -202,9 +220,11 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			const dummyAtlaskitComponent = screen.queryByRole('dummy-atlaskit');
 			expect(dummyAtlaskitComponent).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should exclude the ElementsListener if excludedChannels includes elements', () => {
+		it('should exclude the ElementsListener if excludedChannels includes elements', async () => {
 			render(
 				<FabricAnalyticsListeners
 					client={analyticsWebClientMock}
@@ -220,9 +240,11 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			const dummyElementsComponent = screen.queryByRole('fabric-elements');
 			expect(dummyElementsComponent).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should exclude the NavigationListener if excludedChannels includes navigation', () => {
+		it('should exclude the NavigationListener if excludedChannels includes navigation', async () => {
 			render(
 				<FabricAnalyticsListeners
 					client={analyticsWebClientMock}
@@ -242,9 +264,11 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			const dummyNavigationComponent = screen.queryByRole('dummy-navigation');
 			expect(dummyNavigationComponent).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should exclude both atlaskit and elements listeners if excludedChannels includes both their channels', () => {
+		it('should exclude both atlaskit and elements listeners if excludedChannels includes both their channels', async () => {
 			render(
 				<FabricAnalyticsListeners
 					client={analyticsWebClientMock}
@@ -263,9 +287,11 @@ describe('<FabricAnalyticsListeners />', () => {
 			expect(dummyAtlaskitComponent).not.toBeInTheDocument();
 
 			expect(screen.getByText('Child')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not exclude any listeners if excludeChannels is empty', () => {
+		it('should not exclude any listeners if excludeChannels is empty', async () => {
 			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock} excludedChannels={[]}>
 					<DummyElementsCompWithAnalytics onClick={() => {}} />
@@ -278,6 +304,8 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			const dummyAtlaskitComponent = screen.getByRole('button', { name: 'atlaskit' });
 			expect(dummyAtlaskitComponent).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -296,6 +324,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
@@ -314,6 +344,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -332,6 +364,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
@@ -350,6 +384,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -368,6 +404,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
@@ -386,6 +424,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -404,6 +444,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
@@ -422,6 +464,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -440,6 +484,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
@@ -458,6 +504,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -476,6 +524,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
@@ -494,6 +544,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -512,6 +564,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
@@ -530,6 +584,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -548,6 +604,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
@@ -566,6 +624,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -584,6 +644,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
@@ -602,6 +664,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -620,6 +684,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
@@ -638,6 +704,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -656,6 +724,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
@@ -674,6 +744,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -692,6 +764,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
@@ -710,6 +784,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -728,6 +804,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
@@ -746,6 +824,8 @@ describe('<FabricAnalyticsListeners />', () => {
 			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

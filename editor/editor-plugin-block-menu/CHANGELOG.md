@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.2.5
+
+### Patch Changes
+
+- [`c125e9935090b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c125e9935090b) -
+  Add decision list transformation support in block menu
+
+## 5.2.4
+
+### Patch Changes
+
+- [`dbbf4fabef4fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbbf4fabef4fe) -
+  [ux] Scope change | Remove text transformations for incompatible nodes
+- [`bb7cbcb12ae4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb7cbcb12ae4f) -
+  [ux] Implement transformation steps for panel to other nodes
+
 ## 5.2.3
 
 ### Patch Changes

@@ -3,7 +3,7 @@ import React from 'react';
 import { LinkIconButton } from '@atlaskit/button/new';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 
-const LinkIconButtonSubtleExample = () => {
+const LinkIconButtonSubtleExample = (): React.JSX.Element => {
 	return (
 		<LinkIconButton
 			href="https://atlassian.com"

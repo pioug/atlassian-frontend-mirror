@@ -12,7 +12,7 @@ const wrapperStyles = xcss({
 	padding: 'space.100',
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Box xcss={wrapperStyles}>
 			<Inline alignBlock="stretch" alignInline="center" grow="fill">

@@ -117,7 +117,7 @@ const createPlugin = (
 								}
 							}
 
-							const { width, ...rest } = node.attrs;
+							const { width: _width, ...rest } = node.attrs;
 
 							if (tableWidthCal) {
 								tr.step(
@@ -140,14 +140,16 @@ const createPlugin = (
 								if (
 									shouldPatchTableWidth &&
 									node.attrs.width !==
-										expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
-										? TABLE_MAX_WIDTH
-										: TABLE_FULL_WIDTH
+										(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+										expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
+											? TABLE_MAX_WIDTH
+											: TABLE_FULL_WIDTH)
 								) {
 									tr.setNodeAttribute(
 										pos,
 										'width',
-										expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+										expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+											expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
 											? TABLE_MAX_WIDTH
 											: TABLE_FULL_WIDTH,
 									);

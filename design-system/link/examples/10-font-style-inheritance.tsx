@@ -11,19 +11,19 @@ import GlobalStyleSimulator from './utils/global-style-simulator';
 const styles = cssMap({
 	fontFamily: {
 		fontFamily: 'var(--ds-font-family-body)',
-		marginTop: token('space.0'),
-		marginRight: token('space.0'),
-		marginBottom: token('space.0'),
-		marginLeft: token('space.0'),
+		marginBlockStart: token('space.0'),
+		marginInlineEnd: token('space.0'),
+		marginBlockEnd: token('space.0'),
+		marginInlineStart: token('space.0'),
 	},
 
 	letterSpacing: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		letterSpacing: 2 as any,
-		marginTop: token('space.0'),
-		marginRight: token('space.0'),
-		marginBottom: token('space.0'),
-		marginLeft: token('space.0'),
+		marginBlockStart: token('space.0'),
+		marginInlineEnd: token('space.0'),
+		marginBlockEnd: token('space.0'),
+		marginInlineStart: token('space.0'),
 	},
 });
 

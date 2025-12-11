@@ -5,7 +5,7 @@ import Lozenge from '@atlaskit/lozenge';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, Text } from '@atlaskit/primitives';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Stack space="space.200" testId="test-container">
 		<Box>
 			<Heading size="xlarge" as="span">

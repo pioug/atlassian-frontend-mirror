@@ -16,7 +16,7 @@ ORDER BY
     created_at DESC
 LIMIT 10;`;
 
-export default function ExampleSQL() {
+export default function ExampleSQL(): React.JSX.Element {
 	return (
 		<div>
 			<h2>SQL</h2>

@@ -10,7 +10,7 @@ import { Box, Stack } from '@atlaskit/primitives';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import variants from '../src/utils/variants';
 
-export default function DisabledExample() {
+export default function DisabledExample(): React.JSX.Element {
 	const [isDisabled, setIsDisabled] = useState(true);
 	const [isDisabledTimer, setIsDisabledTimer] = useState(false);
 	const disabledTimerInterval = useRef<NodeJS.Timeout>();

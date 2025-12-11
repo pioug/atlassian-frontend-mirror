@@ -12,7 +12,7 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 
 const mediaProvider = storyMediaProviderFactory();
 
-const ImageEditor = () => {
+const ImageEditor = (): React.JSX.Element => {
 	const createPreset = () =>
 		createDefaultPreset({ featureFlags: {}, paste: {} })
 			.add(gridPlugin)

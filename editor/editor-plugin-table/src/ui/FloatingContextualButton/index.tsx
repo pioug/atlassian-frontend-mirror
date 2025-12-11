@@ -25,7 +25,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { toggleContextualMenu } from '../../pm-plugins/commands';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
-import { isAnchorSupported } from '../../pm-plugins/utils/anchor';
+import { isNativeStickySupported } from '../../pm-plugins/utils/sticky-header';
 import { TableCssClassName as ClassName } from '../../types';
 
 // Ignored via go/ees005
@@ -38,6 +38,7 @@ export interface Props {
 	editorView: EditorView;
 	isCellMenuOpenByKeyboard?: boolean;
 	isContextualMenuOpen?: boolean;
+	isDragAndDropEnabled?: boolean;
 	isNumberColumnEnabled?: boolean;
 	mountPoint?: HTMLElement;
 	scrollableElement?: HTMLElement;
@@ -66,6 +67,7 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 		tableWrapper,
 		targetCellPosition,
 		isCellMenuOpenByKeyboard,
+		isDragAndDropEnabled,
 		intl: { formatMessage },
 	} = props; //  : Props & WrappedComponentProps
 
@@ -129,15 +131,10 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 		targetCellRef.parentElement.classList.contains(ClassName.NATIVE_STICKY);
 
 	if (
-		expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
-		expValEquals(
-			'platform_editor_table_sticky_header_improvements',
-			'cohort',
-			'test_with_overflow',
-		) &&
-		isAnchorSupported() &&
+		parentStickyNative &&
 		targetCellRef.nodeName === 'TH' &&
-		parentStickyNative
+		isNativeStickySupported(isDragAndDropEnabled ?? false) &&
+		expValEquals('platform_editor_table_sticky_header_improvements', 'cohort', 'test_with_overflow')
 	) {
 		const anchorName = targetCellRef.dataset.nodeAnchor ?? '';
 		const rowAnchorName = targetCellRef.parentElement?.dataset.nodeAnchor ?? '';
@@ -154,6 +151,7 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 						positionAnchor: anchorName,
 					} as CSSProperties
 				} // need to do this because CSSProperties doesn't have positionAnchor property even though it's a valid CSS property
+				data-testid="table-cell-options-anchor-wrapper"
 			>
 				{button}
 			</div>

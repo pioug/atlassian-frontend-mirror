@@ -6,7 +6,7 @@ const exampleCodeBlock = `Function AddNumbers(ByVal X As Integer, ByVal Y As Int
   AddNumbers = X + Y
 End Function`;
 
-export default function Component() {
+export default function Component(): React.JSX.Element {
 	return (
 		<div>
 			<h2>Visual Basic</h2>

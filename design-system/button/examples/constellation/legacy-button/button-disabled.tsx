@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button';
 
-const ButtonDisabledExample = () => {
+const ButtonDisabledExample = (): React.JSX.Element => {
 	return (
 		<Button appearance="primary" isDisabled>
 			Disabled button

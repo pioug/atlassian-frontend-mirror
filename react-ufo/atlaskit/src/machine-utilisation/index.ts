@@ -154,7 +154,7 @@ export function initialisePressureObserver(): void {
 				// This prevents unhandled promise rejections from being reported to Sentry
 			});
 		}
-	} catch (err) {
+	} catch {
 		/* do nothing, this is a best efforts metric */
 	}
 }

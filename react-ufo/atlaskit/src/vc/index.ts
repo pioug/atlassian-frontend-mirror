@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { RevisionPayload, VCRawDataType, VCResult } from '../common/vc/types';
 import { isVCRevisionEnabled } from '../config';
 
@@ -28,7 +30,9 @@ export class VCObserverWrapper implements VCObserverInterface {
 			enablePageLayoutPlaceholder: opts.ssrEnablePageLayoutPlaceholder ?? false,
 		});
 
-		if (isVCRevisionEnabled('fy25.03') || isVCRevisionEnabled('next')) {
+		const ttvcV4RevisionName = fg('platform_ufo_vcnext_to_fy26_04_revision_update') ? 'fy26.04' : 'next';
+
+		if (isVCRevisionEnabled('fy25.03') || isVCRevisionEnabled(ttvcV4RevisionName)) {
 			this.newVCObserver = new VCObserverNew({
 				selectorConfig: opts.selectorConfig,
 				isPostInteraction: opts.isPostInteraction,

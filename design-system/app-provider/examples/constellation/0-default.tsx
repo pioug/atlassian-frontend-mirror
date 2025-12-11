@@ -34,7 +34,7 @@ function ThemedComponent() {
 	);
 }
 
-function AppProviderTheme() {
+function AppProviderTheme(): React.JSX.Element {
 	return <ThemedComponent />;
 }
 

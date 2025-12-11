@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import * as colors from '@atlaskit/theme/colors';
-import HomeCircleIcon from '../glyph/home-circle';
+
 import { Label } from '@atlaskit/form';
+import * as colors from '@atlaskit/theme/colors';
 import Toggle from '@atlaskit/toggle';
+
+import HomeCircleIcon from '../glyph/home-circle';
 
 const purple = '.purple { color: rebeccapurple; fill: yellow; }';
 const blue = `.blue { color: ${colors.B500}; fill: ${colors.B75}; }`;

@@ -9,7 +9,7 @@ import { createDummyComponentWithAnalytics } from '../_testUtils';
 const ElementsComponentWithAnalytics = createDummyComponentWithAnalytics(FabricChannel.elements);
 
 describe('<FabricElementsAnalyticsContext />', () => {
-	it('should fire event with Fabric Elements contextual data', () => {
+	it('should fire event with Fabric Elements contextual data', async () => {
 		const compOnClick = jest.fn();
 		const listenerHandler = jest.fn();
 
@@ -41,5 +41,7 @@ describe('<FabricElementsAnalyticsContext />', () => {
 			}),
 			FabricChannel.elements,
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 });

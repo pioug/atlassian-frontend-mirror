@@ -66,6 +66,8 @@ describe('<CardSSR />', () => {
 		const resolvedCard = await screen.findByTestId('inline-card-resolved-view');
 		expect(resolvedCard).toBeVisible();
 		expect(resolvedCard).toHaveAttribute('href', url);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should render error fallback component with correct props', async () => {
@@ -75,10 +77,12 @@ describe('<CardSSR />', () => {
 
 		setup();
 		expect(await screen.findByTestId('lazy-render-placeholder')).toBeVisible();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('props', () => {
-		it('should pass down id prop if there is one', () => {
+		it('should pass down id prop if there is one', async () => {
 			const id = 'abc';
 
 			setup({
@@ -89,15 +93,19 @@ describe('<CardSSR />', () => {
 				expect.objectContaining({ id }),
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should provide random uuid for id prop if there is not one provided', () => {
+		it('should provide random uuid for id prop if there is not one provided', async () => {
 			setup();
 
 			expect(cardWithUrlContentMock).toHaveBeenCalledWith(
 				expect.objectContaining({ id: expect.any(String) }),
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -113,6 +121,8 @@ describe('<CardSSR />', () => {
 					attributes: expect.objectContaining({}),
 				}),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should fire link clicked event with attributes from SmartLinkAnalyticsContext', async () => {
@@ -133,6 +143,8 @@ describe('<CardSSR />', () => {
 					}),
 				}),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

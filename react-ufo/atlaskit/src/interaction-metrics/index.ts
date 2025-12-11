@@ -266,7 +266,7 @@ export function addCustomTiming(
 							},
 						},
 					});
-				} catch (e) {
+				} catch {
 					// do nothing
 				}
 			}
@@ -353,7 +353,7 @@ export function addSpan(
 						},
 					},
 				});
-			} catch (e) {
+			} catch {
 				// do nothing
 			}
 		}
@@ -384,7 +384,7 @@ export function addSpanToAll(
 					},
 				},
 			});
-		} catch (e) {
+		} catch {
 			// do nothing
 		}
 	}
@@ -485,7 +485,7 @@ export function addHold(
 							},
 						},
 					});
-				} catch (e) {
+				} catch {
 					// do nothing
 				}
 			}
@@ -693,7 +693,7 @@ export function addProfilerTimings(
 					},
 				},
 			});
-		} catch (e) {
+		} catch {
 			// do nothing
 		}
 	}
@@ -759,7 +759,7 @@ function finishInteraction(
 				},
 			},
 		});
-	} catch (e) {
+	} catch {
 		// do nothing
 	}
 	if (data.featureFlags) {
@@ -848,7 +848,7 @@ function finishInteraction(
 					},
 				});
 			}
-		} catch (e) {
+		} catch {
 			// do nothing
 		}
 	}
@@ -858,7 +858,7 @@ function finishInteraction(
 		window.dispatchEvent(
 			new CustomEvent<InteractionMetrics>('UFO_FINISH_INTERACTION', { detail: data }),
 		);
-	} catch (error) {
+	} catch {
 		// do nothing
 	}
 }
@@ -1277,7 +1277,7 @@ export function addApdexToAll(apdex: ApdexType): void {
 					},
 				},
 			});
-		} catch (e) {
+		} catch {
 			// do nothing
 		}
 		if (interaction.type === 'page_load' || interaction.type === 'transition') {
@@ -1320,7 +1320,7 @@ export function addApdex(
 					},
 				},
 			});
-		} catch (e) {
+		} catch {
 			// do nothing
 		}
 		if (interaction.type === 'page_load' || interaction.type === 'transition') {
@@ -1415,7 +1415,7 @@ export function addRedirect(
 						},
 					},
 				});
-			} catch (e) {
+			} catch {
 				// do nothing
 			}
 		}

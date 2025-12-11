@@ -9,7 +9,7 @@ import { Box, Inline, Stack } from '@atlaskit/primitives';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { SplitButtonWithSlots } from '../src/new-button/containers/split-button';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box padding="space.250">
 		<Stack space="space.200">
 			<Heading size="medium">Visual variants</Heading>

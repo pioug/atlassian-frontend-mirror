@@ -32,7 +32,7 @@ const icons = [
 
 const iconSizes: IconSize[] = ['small', 'large', 'xlarge'];
 
-export default function ButtonsWithIconBeforeOrAfterExample() {
+export default function ButtonsWithIconBeforeOrAfterExample(): React.JSX.Element {
 	return (
 		<Stack space="space.200" alignInline="start">
 			{buttonSpacing.map((s) => (

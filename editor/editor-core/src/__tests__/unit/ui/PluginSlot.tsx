@@ -33,42 +33,52 @@ const defaultProps = {
 };
 
 describe('PluginSlot Component', () => {
-	it('should not render anything when items and pluginHooks are empty and editorView is missing', () => {
+	it('should not render anything when items and pluginHooks are empty and editorView is missing', async () => {
 		const { container } = render(<PluginSlot {...defaultProps} editorView={undefined} />);
 		expect(container.firstChild).toBeNull();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render when items and pluginHooks are empty and editorView is missing', () => {
+	it('should render when items and pluginHooks are empty and editorView is missing', async () => {
 		render(<PluginSlot {...defaultProps} items={[() => <p>hi</p>]} />);
 		expect(screen.getByText('hi')).toBeVisible();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render items once if props do not change', () => {
+	it('should render items once if props do not change', async () => {
 		const testItem = jest.fn(() => <p>hi</p>);
 		const items = [testItem];
 		const { rerender } = render(<PluginSlot {...defaultProps} items={items} />);
 		rerender(<PluginSlot {...defaultProps} items={items} />);
 		rerender(<PluginSlot {...defaultProps} items={items} />);
 		expect(testItem).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should re-render items if specific props change (ie. disabled)', () => {
+	it('should re-render items if specific props change (ie. disabled)', async () => {
 		const testItem = jest.fn(() => <p>hi</p>);
 		const items = [testItem];
 		const { rerender } = render(<PluginSlot {...defaultProps} items={items} />);
 		rerender(<PluginSlot {...defaultProps} items={items} />);
 		rerender(<PluginSlot {...defaultProps} items={items} disabled={true} />);
 		expect(testItem).toHaveBeenCalledTimes(2);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should not re-render if items updates but has the same component', () => {
+	it('should not re-render if items updates but has the same component', async () => {
 		const testItem = jest.fn(() => <p>hi</p>);
 		const { rerender } = render(<PluginSlot {...defaultProps} items={[testItem]} />);
 		rerender(<PluginSlot {...defaultProps} items={[testItem]} />);
 		expect(testItem).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should not items if event unrelated to width fires', () => {
+	it('should not items if event unrelated to width fires', async () => {
 		const testItem = jest.fn(() => <p>hi</p>);
 		const items = [testItem];
 		const event = new Event('transitionend');
@@ -79,5 +89,7 @@ describe('PluginSlot Component', () => {
 			defaultProps.contentArea.dispatchEvent(event);
 		});
 		expect(testItem).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 });

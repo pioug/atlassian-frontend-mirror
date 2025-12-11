@@ -39,7 +39,7 @@ export class SSRPlaceholderHandlers {
 			try {
 				// Collect initial placeholders using SSR dimensions
 				this.collectPlaceholdersInternal();
-			} catch (e) {
+			} catch {
 			} finally {
 				delete window.__SSR_PLACEHOLDERS_DIMENSIONS__;
 			}
@@ -127,7 +127,7 @@ export class SSRPlaceholderHandlers {
 		try {
 			// Collect placeholders using SSR dimensions or fallback to live dimensions
 			this.collectPlaceholdersInternal();
-		} catch (e) {
+		} catch {
 			// Silently fail if there are any issues
 		} finally {
 			delete window.__SSR_PLACEHOLDERS_DIMENSIONS__;

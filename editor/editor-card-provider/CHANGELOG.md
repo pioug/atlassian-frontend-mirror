@@ -1,5 +1,13 @@
 # @atlaskit/editor-card-provider
 
+## 6.2.2
+
+### Patch Changes
+
+- [`da38c8bc48aed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da38c8bc48aed) -
+  Correct how experiment value is read. Fixing problem where exposure for an experiment is not sent
+  for one of the variants
+
 ## 6.2.1
 
 ### Patch Changes

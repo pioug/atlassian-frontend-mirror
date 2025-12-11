@@ -152,6 +152,7 @@ const getActiveTeamPermissionMap = (
 			ADD_AGENT_TO_TEAM: newTeamProfileEnabled && (isMember || isOrgAdmin),
 			REMOVE_AGENT_FROM_TEAM: newTeamProfileEnabled && (isMember || isOrgAdmin),
 			ARCHIVE_TEAM: isArchiveTeamEnabled && isOrgAdmin,
+			EDIT_TEAM_TYPE: isOrgAdmin,
 		};
 	} else if (settings === 'ORG_ADMIN_MANAGED') {
 		// NOTE: Only org admins will received FULL_WRITE permission

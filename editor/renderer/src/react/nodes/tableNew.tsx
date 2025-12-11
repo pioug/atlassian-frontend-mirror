@@ -497,7 +497,8 @@ export class TableContainer extends React.Component<
 			if (
 				rendererAppearance === 'max' &&
 				!tableNode?.attrs.width &&
-				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+				(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))
 			) {
 				return `min(${akEditorMaxWidthLayoutWidth}px, ${renderWidthCSS})`;
 			} else if (rendererAppearance === 'full-width' && !tableNode?.attrs.width) {
@@ -531,7 +532,8 @@ export class TableContainer extends React.Component<
 		const lineLengthCSS = isFullWidthAppearance(rendererAppearance)
 			? fullWidthLineLengthCSS
 			: isMaxWidthAppearance(rendererAppearance) &&
-				  expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+				  (expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))
 				? maxWidthLineLengthCSS
 				: isCommentAppearanceAndTableAlignmentEnabled
 					? renderWidthCSS
@@ -545,7 +547,8 @@ export class TableContainer extends React.Component<
 			((isFullPageAppearance(rendererAppearance) && tableWidthNew <= lineLengthFixedWidth) ||
 				isFullWidthAppearance(rendererAppearance) ||
 				(isMaxWidthAppearance(rendererAppearance) &&
-					expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)) ||
+					(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))) ||
 				isCommentAppearanceAndTableAlignmentEnabled);
 
 		let leftCSS: string | undefined;
@@ -585,7 +588,8 @@ export class TableContainer extends React.Component<
 			rendererAppearance === 'full-page' ||
 			rendererAppearance === 'full-width' ||
 			(rendererAppearance === 'max' &&
-				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true))
+				(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)))
 		) {
 			finalTableContainerWidth = allowTableResizing ? `calc(${tableWidthCSS})` : 'inherit';
 		}

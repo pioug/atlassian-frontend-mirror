@@ -6,7 +6,7 @@ import React from 'react';
  * please include the stylesheet in head as `<link href="<path to css-reset>" rel="stylesheet" />`
  * or import '@atlaskit/css-reset' in your application code
  */
-export default () => (
+export default (): React.JSX.Element => (
 	<div data-testid="css-reset">
 		<h1>Heading h1</h1>
 		<h2>Heading h2</h2>

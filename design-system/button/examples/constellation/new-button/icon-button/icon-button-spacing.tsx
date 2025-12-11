@@ -5,7 +5,7 @@ import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline } from '@atlaskit/primitives';
 
-const IconButtonSpacingExample = () => {
+const IconButtonSpacingExample = (): React.JSX.Element => {
 	return (
 		<Inline space="space.200">
 			<IconButton icon={MoreIcon} appearance="primary" label="More actions" />

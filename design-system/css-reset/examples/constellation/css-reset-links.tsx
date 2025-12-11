@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/design-system/no-html-heading, @atlaskit/design-system/no-html-anchor */
 import React from 'react';
 
-const CSSResetLinksExample = () => (
+const CSSResetLinksExample = (): React.JSX.Element => (
 	<div data-testid="css-reset">
 		<p>
 			<a href=".">Standard link</a>

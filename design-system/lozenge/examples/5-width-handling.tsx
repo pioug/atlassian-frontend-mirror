@@ -20,7 +20,7 @@ const percentageWidthStyles = xcss({
 	overflow: 'hidden',
 });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Stack space="space.100" testId="test-container">
 		<Text>
 			<Lozenge appearance="success" testId="lozenge-truncated-default-short">

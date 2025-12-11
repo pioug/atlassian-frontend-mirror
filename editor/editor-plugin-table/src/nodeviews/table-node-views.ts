@@ -6,7 +6,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { isAnchorSupported } from '../pm-plugins/utils/anchor';
+import { isNativeStickySupported } from '../pm-plugins/utils/sticky-header';
 import type { PluginInjectionAPI } from '../types';
 
 // TODO: ED-23976 - Clean up
@@ -46,6 +46,7 @@ export const tableView = (options: TableViewOptions) => {
 
 type TableCellViewOptions = {
 	eventDispatcher: EventDispatcher;
+	isDragAndDropEnabled?: boolean;
 	pluginInjectionApi?: PluginInjectionAPI;
 };
 export const tableCellView = (options: TableCellViewOptions) => {
@@ -75,8 +76,7 @@ export const tableHeaderView = (options: TableCellViewOptions) => {
 export const tableRowView = (options: TableCellViewOptions) => {
 	return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
 		if (
-			isAnchorSupported() &&
-			expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
+			isNativeStickySupported(options.isDragAndDropEnabled ?? false) &&
 			expValEquals(
 				'platform_editor_table_sticky_header_improvements',
 				'cohort',

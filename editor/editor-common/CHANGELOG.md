@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 110.41.7
+
+### Patch Changes
+
+- [`a33163de47ff4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a33163de47ff4) -
+  Suppress i18n phase 2 rules
+- Updated dependencies
+
+## 110.41.6
+
+### Patch Changes
+
+- [`dcc6a3e73f414`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dcc6a3e73f414) -
+  [ux] EDITOR-3304 add offline error state for sync blocks and update other error UI to match new
+  designs
+
 ## 110.41.5
 
 ### Patch Changes
@@ -1982,8 +1998,6 @@
 
 ### Patch Changes
 
-- [`9383d1ef58fe1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9383d1ef58fe1) -
-  Cleanup feature gate cc_mention_ssr_placeholder
 - Updated dependencies
 
 ## 107.32.0

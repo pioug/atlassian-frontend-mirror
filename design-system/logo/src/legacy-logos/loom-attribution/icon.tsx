@@ -20,7 +20,7 @@ export const LoomAttributionIcon = ({
 	testId,
 	iconColor = defaultLogoParams.iconColor,
 	textColor = defaultLogoParams.textColor,
-}: LogoProps) => {
+}: LogoProps): React.JSX.Element => {
 	return (
 		<LoomIcon
 			appearance={appearance}

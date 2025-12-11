@@ -20,6 +20,7 @@ import {
 	akEditorFullWidthLayoutWidth,
 	akEditorCalculatedWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
 	BreakoutPlugin,
@@ -199,8 +200,18 @@ export const createResizingPlugin = (
 			let newTr = newState.tr;
 			let hasDocChanged = false;
 
-			const { expand, codeBlock, layoutSection } = newState.schema.nodes;
-			const breakoutResizableNodes = new Set([expand, codeBlock, layoutSection]);
+			const { expand, codeBlock, layoutSection, syncBlock, bodiedSyncBlock } =
+				newState.schema.nodes;
+			const breakoutResizableNodes = new Set([
+				expand,
+				codeBlock,
+				layoutSection,
+			]);
+
+			if (editorExperiment('platform_synced_block', true)) {
+				breakoutResizableNodes.add(syncBlock);
+				breakoutResizableNodes.add(bodiedSyncBlock);
+			}
 
 			const isFullWidthEnabled = !(options?.allowBreakoutButton === true);
 

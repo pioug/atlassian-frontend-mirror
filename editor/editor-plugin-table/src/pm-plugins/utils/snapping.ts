@@ -66,7 +66,10 @@ export const calculateDefaultTablePreserveSnappings = (
 
 	const guides = [dynamicFullWidthLine - lengthOffset];
 
-	if (expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)) {
+	if (
+		expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+		expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
+	) {
 		guides.push(dynamicMaxWidthLine - lengthOffset);
 	}
 

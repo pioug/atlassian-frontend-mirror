@@ -19,7 +19,7 @@ export const createFeatureFlaggedComponent = (
 ) => {
 	// Note: textColor and iconColor aren't supported on all new logos
 	// These props will be deprecated in the future
-	return ({ size, shouldUseNewLogoDesign, ...props }: LogoProps) => {
+	return ({ size, shouldUseNewLogoDesign, ...props }: LogoProps): React.JSX.Element => {
 		if (fg('platform-logo-rebrand') || shouldUseNewLogoDesign) {
 			// Size defaults need to be set, as the temp library had different defaults
 			return <NewComponent size={size || 'medium'} {...props} />;
@@ -43,7 +43,7 @@ export const createFeatureFlaggedServiceCollectionComponent = (
 ) => {
 	// Note: textColor and iconColor aren't supported on all new logos
 	// These props will be deprecated in the future
-	return ({ size, shouldUseNewLogoDesign, ...props }: LogoProps) => {
+	return ({ size, shouldUseNewLogoDesign, ...props }: LogoProps): React.JSX.Element => {
 		if (
 			fg('platform-logo-rebrand-servco') ||
 			fg('platform-logo-rebrand') ||
@@ -81,7 +81,7 @@ export const createFeatureFlaggedRovoComponent = (
 		 * Forces the new rovo hex logo to be used.
 		 */
 		shouldUseHexLogo?: boolean;
-	}) => {
+	}): React.JSX.Element => {
 		// Return hex logo if feature flag enabled. Otherwise revert to old set of components
 		if (fg('platform-logo-rebrand-rovo-hex') || shouldUseHexLogo) {
 			return <RovoHexWrapped {...props} />;
@@ -99,7 +99,7 @@ export const createFeatureFlaggedRovoComponent = (
 export const tempSizeWrapper = (
 	NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
 ) => {
-	return ({ size, ...props }: LogoProps) => {
+	return ({ size, ...props }: LogoProps): React.JSX.Element => {
 		return <NewComponent size={size || 'medium'} {...props} />;
 	};
 };
@@ -108,7 +108,7 @@ export const teamEUFlaggedIcon = (
 	LegacyComponent: React.ComponentType<AppIconProps> | React.ComponentType<AppLogoProps>,
 	NewComponent: React.ComponentType<AppIconProps> | React.ComponentType<AppLogoProps>,
 ) => {
-	return (props: LogoProps) => {
+	return (props: LogoProps): React.JSX.Element => {
 		const Logo = fg('platform-logo-rebrand-team-eu')
 			? tempSizeWrapper(NewComponent)
 			: tempSizeWrapper(LegacyComponent);

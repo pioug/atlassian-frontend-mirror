@@ -9,7 +9,7 @@ const wrapperStyles = xcss({
 	padding: 'space.200',
 });
 
-export default function IconButtonExample() {
+export default function IconButtonExample(): React.JSX.Element {
 	return (
 		<Inline space="space.200" xcss={wrapperStyles}>
 			<IconButton

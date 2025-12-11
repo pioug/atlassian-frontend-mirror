@@ -42,7 +42,7 @@ const routes = [
 	},
 ];
 
-function App() {
+function App(): React.JSX.Element {
 	return (
 		<AppProvider routerLinkComponent={MyRouterLinkComponent}>
 			<Router routes={routes}>

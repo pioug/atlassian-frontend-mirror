@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CSSResetCodeAndPreExample = () => {
+const CSSResetCodeAndPreExample = (): React.JSX.Element => {
 	return (
 		<div>
 			<h2>Preformatted text using {`<pre>`}</h2>

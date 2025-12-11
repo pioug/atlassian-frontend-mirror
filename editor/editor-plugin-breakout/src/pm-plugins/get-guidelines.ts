@@ -85,7 +85,9 @@ export const getGuidelines = memoizeOne(
 			: undefined;
 
 		const maxWidth =
-			width && expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true)
+			width &&
+			(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+				expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))
 				? Math.min(WIDTHS.MAX, width - 2 * padding - akEditorGutterPadding)
 				: undefined;
 

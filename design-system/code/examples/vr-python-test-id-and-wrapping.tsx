@@ -21,7 +21,7 @@ if n == 0:
 else:
     return n * factorial(n-1)`;
 
-const CodeBlockShouldWrapLongLinesExample = () => {
+const CodeBlockShouldWrapLongLinesExample = (): React.JSX.Element => {
 	return (
 		<Stack testId="testid-and-wrapping-with-python">
 			<h2>Wrapping on, with a testId</h2>

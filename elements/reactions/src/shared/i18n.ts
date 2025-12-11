@@ -74,6 +74,7 @@ export const messages = defineMessages({
 	},
 	emojiName: {
 		id: 'reactions.dialog.emoji.name',
+		// eslint-disable-next-line @atlassian/i18n/no-useless-message
 		defaultMessage: '{emojiName}',
 		description: 'Description of the emoji',
 	},

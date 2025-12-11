@@ -53,6 +53,13 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'test';
 		values: ('control' | 'test')[];
 	};
+	// Added 2025-12-09
+	cc_editor_hover_link_overlay_css_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	cc_editor_insm_doc_size_stats: {
 		defaultValue: boolean;
 		param: string;
@@ -148,14 +155,6 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'test_blank' | 'test_diagram';
 		values: ('control' | 'test_blank' | 'test_diagram')[];
 	};
-	// Added 2025-06-20
-	confluence_whiteboards_quick_insert_aa: {
-		defaultValue: 'control' | 'test_blank' | 'test_diagram';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (value: unknown) => value is 'control' | 'test_blank' | 'test_diagram';
-		values: ('control' | 'test_blank' | 'test_diagram')[];
-	};
 	// Added 2025-10-20
 	confluence_whiteboards_quick_insert_localised: {
 		defaultValue: 'control' | 'test_blank' | 'test_diagram';
@@ -202,6 +201,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-11-03
 	editor_tinymce_full_width_mode: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-12-10
+	confluence_max_width_content_appearance: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1071,6 +1077,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-12-10
+	confluence_max_width_content_appearance: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_max_width_content_appearance',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	cc_editor_insm_doc_size_stats: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_editor_insm_doc_size_stats',
@@ -1086,6 +1100,15 @@ export const editorExperimentsConfig: {
 		param: 'cohort',
 		values: ['control', 'test'],
 		defaultValue: 'control',
+	}),
+
+	// Added 2025-12-09
+	cc_editor_hover_link_overlay_css_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_editor_hover_link_overlay_css_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
 	}),
 
 	// Added 2025-11-17
@@ -1509,15 +1532,6 @@ export const editorExperimentsConfig: {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
-	}),
-	// Added 2025-06-20
-	confluence_whiteboards_quick_insert_aa: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'confluence_whiteboards_quick_insert_aa',
-		},
-		param: 'cohort',
-		values: ['control', 'test_blank', 'test_diagram'],
-		defaultValue: 'control',
 	}),
 	// Added 2025-06-24
 	platform_editor_find_and_replace_improvements: createBooleanExperiment({

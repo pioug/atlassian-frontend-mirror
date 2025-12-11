@@ -35,7 +35,7 @@ const AnimateIn = ({
 	onFinish,
 	isPaused,
 	animationTimingFunction,
-}: AnimateKeyframesMotionProps) => {
+}: AnimateKeyframesMotionProps): React.JSX.Element => {
 	return (
 		<KeyframesMotion
 			duration={duration}

@@ -6,7 +6,7 @@ import { Stack } from '@atlaskit/primitives';
 
 import LogoTable from '../utils/logo-table';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Stack space="space.100">
 		<LogoTable
 			logo={[

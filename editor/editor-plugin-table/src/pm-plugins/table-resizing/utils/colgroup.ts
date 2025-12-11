@@ -4,7 +4,6 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	COLUMN_MIN_WIDTH,
@@ -124,7 +123,7 @@ export const generateColgroupFromNode = (
 				}
 			});
 		} else {
-			if (!isTableScalingEnabled && fg('platform_editor_table_width_refactor')) {
+			if (!isTableScalingEnabled) {
 				cols.push(
 					...Array.from({ length: colspan }, (_) => [
 						'col',

@@ -16,7 +16,7 @@ import { buttonSpacing } from '../src/utils/spacing';
 
 const icons = [ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon, ChevronUpIcon];
 
-export default function ChevronIconSizingExample() {
+export default function ChevronIconSizingExample(): React.JSX.Element {
 	return (
 		<Stack space="space.200" alignInline="start">
 			{buttonSpacing.map((s) => (

@@ -30,3 +30,7 @@ export type SolutionArchitectAgentActivationPayload = PayloadCore<
 		draftBuildId: string;
 	}
 >;
+
+export type AutomationRuleUpdatePayload = PayloadCore<'automation-rule-update'> & {
+	data: { rule: string };
+};

@@ -15,7 +15,7 @@ const ConstrainedRow = (props: { children: React.ReactNode }) => (
 	<Box xcss={constrainedRowStyles}>{props.children}</Box>
 );
 
-export default function ButtonGroupExample() {
+export default function ButtonGroupExample(): React.JSX.Element {
 	return (
 		<Stack alignInline="start" space="space.100">
 			<h2 id="heading-appearance">Button appearance</h2>

@@ -4,7 +4,7 @@ import { MentionItem } from '../src/item';
 import { generateMentionItem, onSelection, sampleAvatarUrl as avatarUrl } from '../example-helpers';
 import { IntlProvider } from 'react-intl-next';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const agentMention = {
 		// SSR workaround Avatar not 1:1 between server and client (rest to avatarUrl when fixed)
 		avatarUrl: typeof jest === 'undefined' ? avatarUrl : undefined,

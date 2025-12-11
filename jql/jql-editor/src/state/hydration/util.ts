@@ -2,12 +2,14 @@ import {
 	AbstractJastVisitor,
 	type Clause,
 	type CompoundClause,
+	type FunctionOperand,
 	type ListOperand,
 	type NotClause,
 	type Query,
 	type TerminalClause,
 	type ValueOperand,
 } from '@atlaskit/jql-ast';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  * Given an AST with parse errors, this visitor returns a valid query that is equivalent for hydration purposes
@@ -62,6 +64,17 @@ export class ValidQueryVisitor extends AbstractJastVisitor<string> {
 			.map((value) => value.accept(this))
 			.filter((value) => !!value)
 			.join(', ')})`;
+	};
+
+	visitFunctionOperand = (functionOperand: FunctionOperand): string => {
+		// Only include membersOf function as it has arguments that need hydration
+		// Other functions like currentUser() don't have hydratable arguments
+		const functionName = functionOperand.function.value.toLowerCase();
+		if (functionName !== 'membersof' || !fg('jira_update_jql_membersof_teams')) {
+			return '';
+		}
+		const args = functionOperand.arguments.map((arg) => arg.text).join(', ');
+		return `${functionOperand.function.text}(${args})`;
 	};
 
 	protected defaultResult(): string {

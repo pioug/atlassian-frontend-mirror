@@ -21,7 +21,6 @@ const transformSyncBlockNode = (
 
 const transformBodiedSyncBlockNode = (
 	node: Node,
-	schema: Schema,
 	isFromEditor: boolean,
 ): Node | Fragment => {
 	// if copying from renderer, flatten out the content and remove the bodied sync block
@@ -29,15 +28,8 @@ const transformBodiedSyncBlockNode = (
 		return node.content;
 	}
 
-	// bodied sync blocks need a unique localId and convert to a reference sync block
-	// when converting we want to be specific about attributes and marks we carry over
-	const newAttrs = { resourceId: node.attrs.resourceId, localId: uuid.generate() };
-
-	const newMarks = schema.nodes.syncBlock.markSet
-		? node.marks.filter((mark) => schema.nodes.syncBlock.markSet?.includes(mark.type))
-		: node.marks; // schema.nodes.syncBlock.markSet is null meaning all marks are allowed
-
-	return schema.nodes.syncBlock.create(newAttrs, null, newMarks);
+	// this is not possible.
+	return node;
 };
 
 /**
@@ -55,7 +47,7 @@ export const transformSyncBlock: (
 		if (node.type === schema.nodes.syncBlock) {
 			return transformSyncBlockNode(node, schema, isFromEditor);
 		} else if (node.type === schema.nodes.bodiedSyncBlock) {
-			return transformBodiedSyncBlockNode(node, schema, isFromEditor);
+			return transformBodiedSyncBlockNode(node, isFromEditor);
 		}
 
 		return node;

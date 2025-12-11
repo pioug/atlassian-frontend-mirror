@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianLogo } from '@atlaskit/logo';
 
-const AtlassianLogoDefault = () => {
+const AtlassianLogoDefault = (): React.JSX.Element => {
 	return <AtlassianLogo />;
 };
 

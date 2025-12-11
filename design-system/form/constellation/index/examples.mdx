@@ -4,6 +4,7 @@ order: 0
 
 import FormDateTimePicker from '../../examples/constellation/form-date-time-picker.tsx';
 import FormCustomField from '../../examples/constellation/form-custom-field.tsx';
+import FormCharacterCounter from '../../examples/constellation/form-character-counter.tsx';
 import FormDefaultComplex from '../../examples/constellation/form-default-complex.tsx';
 import FormDefaultSimple from '../../examples/constellation/form-default-simple.tsx';
 import FormFieldComplex from '../../examples/constellation/form-field-complex.tsx';
@@ -139,6 +140,36 @@ numeric range. This component supports validation and required fields through th
 `isRequired` props respectively.
 
 <Example Component={FormRangeField} packageName="@atlaskit/form" />
+
+### Character counter field
+
+A character counter field provides real-time feedback about text length as people type, showing how
+many characters are remaining or have been exceeded.
+
+Use it when there are constraints on text length, such as database limits, technical requirements,
+or design constraints.
+
+Configure minimum length with `minCharacters` and maximum length with `maxCharacters`. With these
+props, the counter automatically updates its message and styling based, showing either:
+
+- characters needed when under the minimum
+- remaining characters within range
+- error states when limits are exceeded
+
+This field is more accessible than using native HTML `maxLength` and `minLength` attributes, as it
+provides clear visual feedback and screen reader announcements about character count changes,
+helping users stay within limits before form submission.
+
+#### Feedback messages and validation
+
+You can customize feedback messages using the `underMinimumMessage`,`underMaximumMessage`, and
+`overMaximumMessage` props.
+
+For validation beyond character limits, combine the character counter logic with the `validate` prop
+to implement custom validation rules (such as checking for specific patterns, forbidden characters,
+or business logic requirements).
+
+<Example Component={FormCharacterCounter} packageName="@atlaskit/form" />
 
 ## Layout
 

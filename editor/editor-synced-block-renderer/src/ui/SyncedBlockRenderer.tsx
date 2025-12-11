@@ -1,6 +1,9 @@
 import React, { memo } from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { SyncedBlockPlugin } from '@atlaskit/editor-plugin-synced-block';
 import {
 	SyncBlockError,
 	type UseFetchSyncBlockDataResult,
@@ -13,6 +16,7 @@ import { SyncedBlockErrorComponent } from './SyncedBlockErrorComponent';
 import { SyncedBlockLoadingState } from './SyncedBlockLoadingState';
 
 export type SyncedBlockRendererProps = {
+	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 	syncBlockRendererOptions: SyncedBlockRendererOptions | undefined;
 	useFetchSyncBlockData: () => UseFetchSyncBlockDataResult;
 };
@@ -20,8 +24,20 @@ export type SyncedBlockRendererProps = {
 const SyncedBlockRendererComponent = ({
 	useFetchSyncBlockData,
 	syncBlockRendererOptions,
+	api,
 }: SyncedBlockRendererProps): React.JSX.Element => {
 	const { syncBlockInstance, providerFactory, isLoading, reloadData } = useFetchSyncBlockData();
+	const { isOffline } = useSharedPluginStateWithSelector(
+		api,
+		['connectivity'],
+		({ connectivityState }) => ({ isOffline: connectivityState?.mode === 'offline' })
+	);
+
+	if (isOffline) {
+		return (
+			<SyncedBlockErrorComponent error={SyncBlockError.Offline} />
+		);
+	}
 
 	if (!syncBlockInstance) {
 		return <SyncedBlockLoadingState />;

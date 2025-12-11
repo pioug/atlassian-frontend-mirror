@@ -4,7 +4,7 @@ import { TrelloIcon, TrelloLogo } from '@atlaskit/logo';
 
 import LogoTable from '../utils/logo-table';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<LogoTable
 		logo={<TrelloLogo appearance="brand" shouldUseNewLogoDesign />}
 		icon={<TrelloIcon appearance="brand" shouldUseNewLogoDesign />}

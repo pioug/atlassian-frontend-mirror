@@ -20,7 +20,6 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -623,12 +622,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			shouldHandleColgroupUpdates = true;
 		}
 
-		if (!fg('platform_editor_table_width_refactor')) {
-			if (this.state.windowResized) {
-				shouldHandleColgroupUpdates = true;
-			}
-		}
-
 		if (shouldHandleColgroupUpdates) {
 			this.handleColgroupUpdates();
 		}
@@ -794,6 +787,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				tableWrapperHeight={this.state.tableWrapperHeight}
 				api={pluginInjectionApi}
 				isChromelessEditor={options?.isChromelessEditor}
+				isDragAndDropEnabled={isDragAndDropEnabled}
 			/>
 		) : null;
 

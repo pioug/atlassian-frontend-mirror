@@ -45,6 +45,8 @@ describe('Analytics on Tigger', () => {
 		await userEvent.click(getByLabelText('Red'));
 		expect(mockFn.mock.calls.length).toBe(1);
 		expect(mockFn).toBeCalledWith('red', expect.any(UIAnalyticsEvent));
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('FFs true', () => {
@@ -67,6 +69,8 @@ describe('Analytics on Tigger', () => {
 			await userEvent.click(getByLabelText('Red'));
 			expect(mockFn.mock.calls.length).toBe(1);
 			expect(mockFn).toBeCalledWith('red', expect.any(UIAnalyticsEvent));
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

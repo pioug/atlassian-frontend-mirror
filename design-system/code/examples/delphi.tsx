@@ -5,7 +5,7 @@ import { CodeBlock } from '@atlaskit/code';
 const exampleCodeBlock = `procedure ShowTime;
 // A procedure with no parameters`;
 
-export default function Component() {
+export default function Component(): React.JSX.Element {
 	return (
 		<div>
 			<h2>Delphi</h2>

@@ -11,7 +11,7 @@ import Link from '@atlaskit/link';
  * please include the stylesheet in head as `<link href="<path to css-reset>" rel="stylesheet" />`
  * or import '@atlaskit/css-reset' in your application code
  */
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		<Banner appearance="warning" icon={<WarningIcon label="Warning" secondaryColor="inherit" />}>
 			You should not rely on the default styles of links in your application. Use the{' '}

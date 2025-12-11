@@ -28,7 +28,7 @@ export default function LoadingSpinner({
 	isDisabled,
 	isSelected,
 	spacing = 'default',
-}: LoadingSpinnerProps) {
+}: LoadingSpinnerProps): React.JSX.Element {
 	const size: Size = spacing === 'default' ? 'medium' : 'small';
 
 	return (

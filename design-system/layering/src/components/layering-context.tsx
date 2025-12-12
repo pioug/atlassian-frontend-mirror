@@ -84,7 +84,7 @@ export const Layering = ({
 }: {
 	children: ReactNode;
 	isDisabled?: boolean;
-}) => {
+}): React.JSX.Element => {
 	const currentLevel = useContext(LevelContext);
 	const parentNode = useContext(LevelNodeContext);
 

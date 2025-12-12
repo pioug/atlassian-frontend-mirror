@@ -5,7 +5,8 @@ import { useIntl, type MessageDescriptor } from 'react-intl-next';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import AkFlag, { FlagGroup } from '@atlaskit/flag';
+import AkFlag, { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
+import ImageIcon from '@atlaskit/icon/core/image';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
 import { token } from '@atlaskit/tokens';
 
@@ -16,27 +17,41 @@ type Props = {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 };
 
+type FlagType = 'error' | 'info';
+
 type FlagConfig = {
+	action?: MessageDescriptor;
 	description: MessageDescriptor;
 	title: MessageDescriptor;
+	type: FlagType;
 };
 
 const flagMap: Record<FLAG_ID, FlagConfig> = {
 	[FLAG_ID.CANNOT_DELETE_WHEN_OFFLINE]: {
 		title: messages.failToDeleteTitle,
 		description: messages.failToDeleteWhenOfflineDescription,
+		type: 'error',
 	},
 	[FLAG_ID.CANNOT_EDIT_WHEN_OFFLINE]: {
 		title: messages.failToEditTitle,
 		description: messages.failToEditWhenOfflineDescription,
+		type: 'error',
 	},
 	[FLAG_ID.CANNOT_CREATE_WHEN_OFFLINE]: {
 		title: messages.failToCreateTitle,
 		description: messages.failToCreateWhenOfflineDescription,
+		type: 'error',
 	},
 	[FLAG_ID.FAIL_TO_DELETE]: {
 		title: messages.cannotDeleteTitle,
 		description: messages.cannotDeleteDescription,
+		type: 'error',
+	},
+	[FLAG_ID.SYNC_BLOCK_COPIED]: {
+		title: messages.syncBlockCopiedTitle,
+		description: messages.syncBlockCopiedDescription,
+		action: messages.syncBlockCopiedAction,
+		type: 'info',
 	},
 };
 
@@ -57,7 +72,7 @@ export const Flag = ({ api }: Props) => {
 		return;
 	}
 
-	const { title, description } = flagMap[activeFlag.id];
+	const { title, description, action, type } = flagMap[activeFlag.id];
 	const { onRetry, onDismissed: onDismissedCallback } = activeFlag;
 
 	// Retry button often involves network request, hence we dismiss the flag in offline mode to avoid retry
@@ -84,26 +99,48 @@ export const Flag = ({ api }: Props) => {
 		api?.core.actions.focus();
 	};
 
+	const typeToActions = () => {
+		if (type === 'error') {
+			if (onRetry) {
+				return  [
+					{
+						content: formatMessage(messages.deleteRetryButton),
+						onClick: onRetry,
+					},
+				]
+			}
+		} else if (type === 'info' && action) {
+			return [
+				{
+					content: formatMessage(action),
+					href: 'https://atlaskit.atlassian.com/',
+					target: '_blank',
+				}
+			];
+		}
+		return undefined;
+	}
+
+	const FlagComponent = type === 'info' ? AutoDismissFlag : AkFlag;
+
 	return (
 		<FlagGroup>
-			<AkFlag
+			<FlagComponent
 				onDismissed={onDismissed}
 				title={formatMessage(title)}
 				description={formatMessage(description)}
 				id={activeFlag.id}
 				testId={activeFlag.id}
-				icon={<StatusWarningIcon label="" color={token('color.icon.warning')} />}
-				actions={
-					onRetry
-						? [
-								{
-									content: formatMessage(messages.deleteRetryButton),
-									onClick: onRetry,
-								},
-							]
-						: undefined
-				}
+				icon={typeToIcon(type)}
+				actions={typeToActions()}
 			/>
 		</FlagGroup>
 	);
 };
+
+const typeToIcon = (type: FlagType) => {
+	if (type === 'error') {
+		return <StatusWarningIcon label="" color={token('color.icon.warning')} />;
+	}
+	return <ImageIcon label="" />;
+}

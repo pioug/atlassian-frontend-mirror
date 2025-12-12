@@ -8,7 +8,7 @@ import { Inline, Stack } from '@atlaskit/primitives/compiled';
 const sizes: IconTileProps['size'][] = ['xsmall', 'small', 'medium', 'large', 'xlarge'];
 const legacySizes: IconTileProps['size'][] = ['16', '24', '32', '40', '48'];
 
-const IconSizeExample = () => {
+const IconSizeExample = (): React.JSX.Element => {
 	return (
 		<Stack space="space.200">
 			<Stack space="space.100">

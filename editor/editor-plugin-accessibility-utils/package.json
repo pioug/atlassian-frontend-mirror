@@ -30,7 +30,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
 		"@babel/runtime": "root:*"
 	},

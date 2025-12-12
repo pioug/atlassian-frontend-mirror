@@ -34,7 +34,7 @@
 	"dependencies": {
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-quick-insert": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",

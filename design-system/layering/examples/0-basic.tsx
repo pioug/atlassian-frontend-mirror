@@ -15,7 +15,7 @@ const SomeLayerWrapper = () => {
 	);
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Layering isDisabled={false}>
 		<SomeLayerWrapper />
 	</Layering>

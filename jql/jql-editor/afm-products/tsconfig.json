@@ -36,6 +36,9 @@
 			"path": "../../../design-system/button/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../editor/editor-prosemirror/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/form/afm-products/tsconfig.json"
 		},
 		{

@@ -30,6 +30,10 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__rovo-triggers/app"
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../../editor/adf-schema/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

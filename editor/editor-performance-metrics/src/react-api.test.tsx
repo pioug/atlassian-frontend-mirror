@@ -56,16 +56,20 @@ describe('PerformanceMetrics Component', () => {
 	});
 
 	describe('when using onTTVC', () => {
-		it('should set up the observer on mount', () => {
+		it('should set up the observer on mount', async () => {
 			render(<PerformanceMetrics onTTVC={jest.fn()} />);
 			expect(mockObserver.onceNextIdle).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('when using onUserLatency', () => {
-		it('should set up the observer on mount', () => {
+		it('should set up the observer on mount', async () => {
 			render(<PerformanceMetrics onUserLatency={jest.fn()} />);
 			expect(mockObserver.onIdleBuffer).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -79,6 +83,8 @@ describe('PerformanceMetrics Component', () => {
 		unmount();
 
 		expect(unsubscribe).toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should call onUserLatency with calculated latency', async () => {
@@ -97,6 +103,8 @@ describe('PerformanceMetrics Component', () => {
 		});
 
 		expect(onUserLatency).toHaveBeenCalledWith({ latency: mockLatency });
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should call onTTVC with calculated TTVC and relative TTVC', async () => {
@@ -123,19 +131,25 @@ describe('PerformanceMetrics Component', () => {
 				'99': expect.any(Number),
 			},
 		});
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should not set up observer if it is not available', () => {
+	it('should not set up observer if it is not available', async () => {
 		(getGlobalEditorMetricsObserver as jest.Mock).mockReturnValue(null);
 		render(<PerformanceMetrics />);
 		expect(mockObserver.onIdleBuffer).not.toHaveBeenCalled();
 		expect(mockObserver.onceNextIdle).not.toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('when using onTTAI', () => {
-		it('should set up the observer on mount', () => {
+		it('should set up the observer on mount', async () => {
 			render(<PerformanceMetrics onTTAI={jest.fn()} />);
 			expect(mockObserver.onceNextIdle).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should call onTTAI with idleAt time', async () => {
@@ -154,6 +168,8 @@ describe('PerformanceMetrics Component', () => {
 			});
 
 			expect(onTTAI).toHaveBeenCalledWith({ idleAt });
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -169,17 +185,19 @@ describe('PerformanceMetrics Component', () => {
 			process.env = originalEnv;
 		});
 
-		it('should not set up observer in SSR mode', () => {
+		it('should not set up observer in SSR mode', async () => {
 			render(
 				<PerformanceMetrics onTTVC={jest.fn()} onUserLatency={jest.fn()} onTTAI={jest.fn()} />,
 			);
 			expect(getGlobalEditorMetricsObserver).not.toHaveBeenCalled();
 			expect(mockObserver.onIdleBuffer).not.toHaveBeenCalled();
 			expect(mockObserver.onceNextIdle).not.toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
-	it('should handle null observer gracefully', () => {
+	it('should handle null observer gracefully', async () => {
 		(getGlobalEditorMetricsObserver as jest.Mock).mockReturnValue(null);
 		const onTTVC = jest.fn();
 		const onUserLatency = jest.fn();
@@ -190,23 +208,29 @@ describe('PerformanceMetrics Component', () => {
 		expect(onTTVC).not.toHaveBeenCalled();
 		expect(onUserLatency).not.toHaveBeenCalled();
 		expect(onTTAI).not.toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('when mounting the component', () => {
-		it('should start the observer', () => {
+		it('should start the observer', async () => {
 			render(<PerformanceMetrics />);
 
 			expect(mockObserver.start).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('when unmounting the component', () => {
-		it('should stop the observer', () => {
+		it('should stop the observer', async () => {
 			const { unmount } = render(<PerformanceMetrics />);
 
 			unmount();
 
 			expect(mockObserver.stop).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

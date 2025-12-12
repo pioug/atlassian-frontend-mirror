@@ -30,7 +30,7 @@ const boldAppearances: IconTileProps['appearance'][] = [
 	'magentaBold',
 ];
 
-const IconSizeExample = () => {
+const IconSizeExample = (): React.JSX.Element => {
 	return (
 		<Stack space="space.100">
 			{[appearances, boldAppearances].map((appearance) => (

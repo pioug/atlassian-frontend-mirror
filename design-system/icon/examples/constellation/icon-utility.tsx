@@ -7,7 +7,7 @@ import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import { Inline } from '@atlaskit/primitives/compiled';
 
-const IconUtilityExample = () => {
+const IconUtilityExample = (): React.JSX.Element => {
 	return (
 		<Inline space="space.100">
 			<ChevronDownIcon label="" />

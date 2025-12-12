@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.14.0
+
+### Minor Changes
+
+- [`5f21c5a85f65a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f21c5a85f65a) -
+  ED-29714 fix some alignment issues
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.13.3
 
 ### Patch Changes

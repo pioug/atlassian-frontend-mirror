@@ -69,17 +69,21 @@ function setupMentionItem(mention: MentionDescription, props?: Props): ReturnTyp
 }
 
 describe('MentionItem', () => {
-	it('should display @-nickname if nickname is present', () => {
+	it('should display @-nickname if nickname is present', async () => {
 		setupMentionItem(mentionWithNickname);
 
 		expect(screen.getByText(`@${mentionWithNickname.nickname}`)).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should not display @-name if nickname is not present', () => {
+	it('should not display @-name if nickname is not present', async () => {
 		setupMentionItem(mentionWithoutNickname);
 
 		const nicknameAt = screen.queryByText('@');
 		expect(nicknameAt).toBeNull();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should display access restriction if accessLevel is NONE', async () => {
@@ -92,6 +96,8 @@ describe('MentionItem', () => {
 		});
 
 		expect(await screen.findByLabelText('No access')).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should not display access restriction if accessLevel is CONTAINER', async () => {
@@ -105,9 +111,11 @@ describe('MentionItem', () => {
 
 		const lockIcon = screen.queryByLabelText('No access');
 		expect(lockIcon).toBeNull();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should not display access restriction if no accessLevel data', () => {
+	it('should not display access restriction if no accessLevel data', async () => {
 		setupMentionItem({
 			id: '1',
 			name: 'Kaitlyn Prouty',
@@ -117,10 +125,12 @@ describe('MentionItem', () => {
 
 		const lockIcon = screen.queryByLabelText('No access');
 		expect(lockIcon).toBeNull();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	lozengeExamples.forEach((example) => {
-		it(`should render lozenge when passing in text of type ${typeof example} within LozengeProps`, () => {
+		it(`should render lozenge when passing in text of type ${typeof example} within LozengeProps`, async () => {
 			setupMentionItem({
 				id: '1',
 				name: 'Pranay Marella',
@@ -130,11 +140,15 @@ describe('MentionItem', () => {
 			});
 
 			expect(screen.getByText(`GUEST`)).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
-	it('should display mention description if the mentioned user is x-product user in confluence', () => {
+	it('should display mention description if the mentioned user is x-product user in confluence', async () => {
 		setupMentionItem(xProductUserMention);
 		expect(screen.getByText(`Needs access to Confluence`)).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 });

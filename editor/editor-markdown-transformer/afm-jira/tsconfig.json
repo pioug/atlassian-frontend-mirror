@@ -23,5 +23,12 @@
 		"../src/**/stories/*",
 		"../src/**/stories/**/*"
 	],
-	"references": []
+	"references": [
+		{
+			"path": "../../adf-schema/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-prosemirror/afm-jira/tsconfig.json"
+		}
+	]
 }

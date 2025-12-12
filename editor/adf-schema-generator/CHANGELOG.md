@@ -1,0 +1,1 @@
+# @atlaskit/adf-schema-generator

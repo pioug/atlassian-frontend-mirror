@@ -40,7 +40,7 @@
 		"@atlaskit/editor-plugin-collab-edit": "workspace:^",
 		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
 		"@atlaskit/editor-plugin-primary-toolbar": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/theme": "workspace:^",

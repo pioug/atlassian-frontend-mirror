@@ -73,15 +73,17 @@ describe('SingleValue', () => {
 	const shallowSingleValue = (props = {}) =>
 		shallow(<SingleValue {...defaultSingleValueProps} {...props} />);
 
-	it('should render SingleValue', () => {
+	it('should render SingleValue', async () => {
 		const component = shallowSingleValue();
 		expect(component.find(SizeableAvatar).props()).toMatchObject({
 			src: 'http://avatars.atlassian.com/jace.png',
 			appearance: 'normal',
 		});
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render SizeableAvatar when the appearance is compact', () => {
+	it('should render SizeableAvatar when the appearance is compact', async () => {
 		const component = shallowSingleValue({
 			selectProps: {
 				appearance: 'compact',
@@ -91,6 +93,8 @@ describe('SingleValue', () => {
 			src: 'http://avatars.atlassian.com/jace.png',
 			appearance: 'compact',
 		});
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('TeamValue', () => {
@@ -112,9 +116,11 @@ describe('SingleValue', () => {
 				/>,
 			);
 
-		it('should render team name', () => {
+		it('should render team name', async () => {
 			renderTeamValue(mockTeam);
 			expect(screen.getByText('team name')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should render SizeableAvatar with team type', async () => {
@@ -129,6 +135,8 @@ describe('SingleValue', () => {
 					'SizeableAvatar - {"src":"avatar-url","appearance":"normal","type":"team"}',
 				),
 			).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should render verified team icon if team is verified', async () => {
@@ -139,15 +147,19 @@ describe('SingleValue', () => {
 			});
 
 			expect(await screen.findByText('VerifiedTeamIcon')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not render verified team icon if team is not verified', () => {
+		it('should not render verified team icon if team is not verified', async () => {
 			(fg as jest.Mock).mockReturnValue(true);
 			renderTeamValue({
 				...mockTeam,
 				verified: false,
 			});
 			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -177,12 +189,16 @@ describe('SingleValue', () => {
 			renderGroupValue(mockGroup, true);
 
 			expect(await screen.findByText('VerifiedTeamIcon')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not render verified icon for group when includeTeamsUpdates is false', () => {
+		it('should not render verified icon for group when includeTeamsUpdates is false', async () => {
 			renderGroupValue(mockGroup, false);
 
 			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -210,9 +226,11 @@ describe('SingleValue', () => {
 
 			expect(shouldShowVerifiedIcon).toHaveBeenCalledWith(mockUser);
 			expect(await screen.findByText('VerifiedTeamIcon')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not render verified icon when shouldShowVerifiedIcon returns false', () => {
+		it('should not render verified icon when shouldShowVerifiedIcon returns false', async () => {
 			const shouldShowVerifiedIcon = jest.fn().mockReturnValue(false);
 
 			render(
@@ -229,6 +247,8 @@ describe('SingleValue', () => {
 
 			expect(shouldShowVerifiedIcon).toHaveBeenCalledWith(mockUser);
 			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should prioritize shouldShowVerifiedIcon over default logic', async () => {
@@ -254,6 +274,8 @@ describe('SingleValue', () => {
 
 			expect(shouldShowVerifiedIcon).toHaveBeenCalledWith(mockTeam);
 			expect(await screen.findByText('VerifiedTeamIcon')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -288,6 +310,8 @@ describe('SingleValue', () => {
 						'SizeableAvatar - {"src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person","avatarAppearanceShape":"hexagon"}',
 					),
 				).toBeInTheDocument();
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
@@ -317,6 +341,8 @@ describe('SingleValue', () => {
 						'SizeableAvatar - {"src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person"}',
 					),
 				).toBeInTheDocument();
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 	});

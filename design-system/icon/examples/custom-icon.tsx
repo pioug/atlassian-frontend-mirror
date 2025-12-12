@@ -19,7 +19,7 @@ function CanonicalIcon({ label, size, primaryColor }: GlyphProps) {
 	return <Icon glyph={CanonicalGlyph} label={label} size={size} primaryColor={primaryColor} />;
 }
 
-export default function CustomIcon() {
+export default function CustomIcon(): React.JSX.Element {
 	return (
 		<div id="icon">
 			<CanonicalIcon label="" size="small" />

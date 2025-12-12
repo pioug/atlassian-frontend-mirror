@@ -1,5 +1,12 @@
 # @atlaskit/badge
 
+## 18.3.0
+
+### Minor Changes
+
+- [`7fe3ef93439b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fe3ef93439b5) -
+  [ux] Adds new badge UI uplifts behind a feature flag.
+
 ## 18.2.4
 
 ### Patch Changes

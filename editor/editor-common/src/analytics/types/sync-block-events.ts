@@ -26,6 +26,13 @@ export type SyncedBlockUpdateErrorAEP = OperationalAEP<
 	SyncedBlockErrorAttributes
 >;
 
+export type ReferenceSyncedBlockUpdateErrorAEP = OperationalAEP<
+	ACTION.ERROR,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_UPDATE,
+	SyncedBlockErrorAttributes
+>;
+
 export type SyncedBlockCreateErrorAEP = OperationalAEP<
 	ACTION.ERROR,
 	ACTION_SUBJECT.SYNCED_BLOCK,
@@ -61,8 +68,10 @@ export type SyncBlockEventPayload =
 	| SyncedBlockCreateErrorAEP
 	| SyncedBlockDeleteErrorAEP
 	| SyncedBlockGetSourceInfoErrorAEP
-	| SyncedBlockFetchErrorAEP;
+	| SyncedBlockFetchErrorAEP
+	| ReferenceSyncedBlockUpdateErrorAEP
 
 export type RendererSyncBlockEventPayload =
 	| SyncedBlockGetSourceInfoErrorAEP
-	| SyncedBlockFetchErrorAEP;
+	| SyncedBlockFetchErrorAEP
+	| ReferenceSyncedBlockUpdateErrorAEP;

@@ -12,7 +12,7 @@ import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
 import { Inline, Stack, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-const IconLabelExample = () => {
+const IconLabelExample = (): React.JSX.Element => {
 	return (
 		<Inline space="space.1000">
 			<Stack space="space.200" alignBlock="center">

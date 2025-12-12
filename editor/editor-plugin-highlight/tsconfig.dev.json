@@ -41,6 +41,9 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../adf-schema/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{

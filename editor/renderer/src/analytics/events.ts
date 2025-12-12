@@ -342,6 +342,13 @@ type SyncedBlockGetSourceInfoErrorAEP = OperationalAEP<
 	{ error: string }
 >;
 
+type ReferenceSyncedBlockUpdateErrorAEP = OperationalAEP<
+	ACTION.ERROR,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_UPDATE,
+	{error: string}
+>;
+
 export type AnalyticsEventPayload<_T = void> =
 	| RendererStartAEP
 	| RendererRenderedAEP
@@ -371,7 +378,8 @@ export type AnalyticsEventPayload<_T = void> =
 	| NestedTableTransformedAEP
 	| MediaRenderErrorEvent
 	| SyncedBlockFetchErrorAEP
-	| SyncedBlockGetSourceInfoErrorAEP;
+	| SyncedBlockGetSourceInfoErrorAEP
+	| ReferenceSyncedBlockUpdateErrorAEP
 
 export type FireAnalyticsCallback = <T = void>(
 	payload: AnalyticsEventPayload<T>,

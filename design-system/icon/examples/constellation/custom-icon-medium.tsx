@@ -20,7 +20,7 @@ const CustomGlyph = (props: CustomGlyphProps) => (
 	</svg>
 );
 
-const CustomIconExample = () => {
+const CustomIconExample = (): React.JSX.Element => {
 	return <Icon glyph={CustomGlyph} label="" size="medium" />;
 };
 

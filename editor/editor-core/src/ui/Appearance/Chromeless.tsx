@@ -14,7 +14,6 @@ import type {
 	MaxContentSizePlugin,
 	MaxContentSizePluginState,
 } from '@atlaskit/editor-plugins/max-content-size';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { EditorAppearanceComponentProps } from '../../types';
@@ -63,9 +62,6 @@ const chromelessEditorStylesNew = css({
 			paddingBottom: token('space.100', '0.5em'),
 		},
 	},
-});
-
-const extraSpaceLastLineFix = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
@@ -206,7 +202,6 @@ export function ChromelessEditorContainer({
 			css={[
 				chromelessEditorStylesNew,
 				scrollbarStylesNew,
-				fg('platform_fix_extra_space_last_line_comment_editor') && extraSpaceLastLineFix,
 			]}
 			style={{
 				maxHeight: maxHeight ? `${maxHeight}px` : undefined,

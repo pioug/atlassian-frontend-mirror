@@ -5,7 +5,7 @@ import { Box } from '@atlaskit/primitives/compiled';
 
 import GlobalStyleSimulator from './utils/global-style-simulator';
 
-export default function SubtleExample() {
+export default function SubtleExample(): React.JSX.Element {
 	return (
 		<>
 			<GlobalStyleSimulator />

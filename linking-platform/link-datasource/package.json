@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.30.13",
+	"version": "4.30.14",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,7 @@
 		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.{svg,png}"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/afm-i18n-platform-linking-platform-link-datasource": "root:*",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/atlassian-context": "workspace:^",
@@ -47,7 +47,7 @@
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/datetime-picker": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/empty-state": "workspace:^",
 		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/flag": "workspace:^",

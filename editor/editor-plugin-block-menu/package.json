@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-menu",
-	"version": "5.2.5",
+	"version": "5.2.8",
 	"description": "BlockMenu plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,7 +38,7 @@
 		"@atlaskit/editor-plugin-decorations": "workspace:^",
 		"@atlaskit/editor-plugin-selection": "workspace:^",
 		"@atlaskit/editor-plugin-user-intent": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-tables": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",

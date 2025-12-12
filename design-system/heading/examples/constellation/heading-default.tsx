@@ -3,7 +3,7 @@ import React from 'react';
 import Heading from '@atlaskit/heading';
 import { Stack } from '@atlaskit/primitives/compiled';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Stack testId="headings" space="space.100">
 			<Heading size="xxlarge">Heading XXLarge</Heading>

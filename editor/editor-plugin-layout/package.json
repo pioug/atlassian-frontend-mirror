@@ -32,7 +32,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-block-menu": "workspace:^",
 		"@atlaskit/editor-plugin-decorations": "workspace:^",
@@ -42,7 +42,7 @@
 		"@atlaskit/editor-plugin-selection": "workspace:^",
 		"@atlaskit/editor-plugin-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-width": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
@@ -101,9 +101,6 @@
 	},
 	"platform-feature-flags": {
 		"platform-visual-refresh-icons": {
-			"type": "boolean"
-		},
-		"platform_editor_convert_multiple_columns_to_single": {
 			"type": "boolean"
 		},
 		"platform_editor_column_count_analytics": {

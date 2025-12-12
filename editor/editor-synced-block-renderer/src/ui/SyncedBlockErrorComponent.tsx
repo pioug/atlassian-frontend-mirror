@@ -1,36 +1,51 @@
 import React, { useMemo } from 'react';
 
+import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
+import { logException } from '@atlaskit/editor-common/monitoring';
 import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
-import { SyncBlockError } from '@atlaskit/editor-synced-block-provider';
-import type { SyncBlockProduct } from '@atlaskit/editor-synced-block-provider';
+import { fetchErrorPayload, getContentIdAndProductFromResourceId, SyncBlockError } from '@atlaskit/editor-synced-block-provider';
 
 import { SyncedBlockGenericError } from './SyncedBlockGenericError';
 import { SyncedBlockLoadError } from './SyncedBlockLoadError';
 import { SyncedBlockOfflineError } from './SyncedBlockOfflineError';
 import { SyncedBlockPermissionDenied } from './SyncedBlockPermissionDenied';
 
+const getForbiddenErrorContent = (resourceId?: string, fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void) => {
+	try {
+		if (!resourceId) {
+			throw new Error('Missing resource id');
+		}
+
+		const { sourceContentId, sourceProduct } = getContentIdAndProductFromResourceId(resourceId);
+		return <SyncedBlockPermissionDenied sourceContentId={sourceContentId} sourceProduct={sourceProduct} />;
+	} catch (error) {
+		logException(error as Error, {
+				location: 'editor-synced-block-renderer/SyncedBlockErrorComponent'
+			});
+		fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message))
+		return <SyncedBlockGenericError />;
+	}
+};
+
 export const SyncedBlockErrorComponent = ({
 	error,
 	isLoading,
 	onRetry,
-	sourceAri,
-	sourceProduct,
+	resourceId,
+	fireAnalyticsEvent,
 }: {
 	error: SyncBlockError;
+	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void;
 	isLoading?: boolean;
 	onRetry?: () => void;
-	sourceAri?: string;
-	sourceProduct?: SyncBlockProduct;
+	resourceId?: string;
 }): React.JSX.Element => {
 	const getErrorContent = useMemo(() => {
 		switch (error) {
 			case SyncBlockError.Offline:
 				return <SyncedBlockOfflineError />
 			case SyncBlockError.Forbidden:
-				if (!sourceAri || !sourceProduct) {
-					return <SyncedBlockGenericError />;
-				}
-				return <SyncedBlockPermissionDenied sourceAri={sourceAri} sourceProduct={sourceProduct} />;
+				return getForbiddenErrorContent(resourceId, fireAnalyticsEvent);
 			case SyncBlockError.NotFound:
 			case SyncBlockError.Errored:
 			case SyncBlockError.RateLimited:
@@ -39,7 +54,7 @@ export const SyncedBlockErrorComponent = ({
 			default:
 				return <SyncedBlockGenericError />;
 		}
-	}, [error, isLoading, onRetry, sourceAri, sourceProduct]);
+	}, [error, isLoading, onRetry, resourceId, fireAnalyticsEvent]);
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

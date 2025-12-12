@@ -32,7 +32,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/adf-schema": "workspace:^",
 		"@babel/runtime": "root:*",
 		"bind-event-listener": "root:*"
 	},

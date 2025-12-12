@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-breakout
 
+## 6.3.1
+
+### Patch Changes
+
+- [`d0a60ac78aa7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0a60ac78aa7e) -
+  Remove platform_editor_breakout_resizing_width_changes FG
+- Updated dependencies
+
+## 6.3.0
+
+### Minor Changes
+
+- [`8677e7b660127`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8677e7b660127) -
+  EDITOR-3792 Rollup max width changes previously gated with editor_tinymce_full_width_mode into
+  combined frontend/backend flag confluence_max_width_content_appearance
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.6
 
 ### Patch Changes

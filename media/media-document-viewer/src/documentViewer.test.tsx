@@ -193,6 +193,8 @@ describe('DocumentViewer', () => {
 			await waitFor(async () => await makeAllIntersectionObserversVisible());
 			await screen.findByTestId('page-0-image');
 			expect(getPageImageUrlSpy).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		it('should handle multiple pages with lazy loading', async () => {
@@ -254,6 +256,8 @@ describe('DocumentViewer', () => {
 
 			await screen.findByTestId('page-0-image');
 			expect(getPageImageUrlSpy).toHaveBeenCalledWith(expect.any(Number), 2);
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		ffTest.on(
@@ -280,6 +284,8 @@ describe('DocumentViewer', () => {
 					await screen.findByTestId('page-0-image');
 					// Should be limited to maxPageImageZoom (6) instead of zoom * devicePixelRatio (20)
 					expect(getPageImageUrlSpy).toHaveBeenCalledWith(expect.any(Number), 6);
+
+					await expect(document.body).toBeAccessible({ violationCount: 2 });
 				});
 			},
 		);
@@ -291,6 +297,8 @@ describe('DocumentViewer', () => {
 
 			const image = await screen.findByTestId('page-0-image');
 			expect(image).toHaveAttribute('data-zoom', '2');
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		it('should adjust scroll position when zoom changes with custom scroll element', async () => {
@@ -319,6 +327,8 @@ describe('DocumentViewer', () => {
 
 			expect(mockScrollElement.scrollLeft).toBe(100 + expectedScrollLeftAdjustment);
 			expect(mockScrollElement.scrollTop).toBe(100 + expectedScrollTopAdjustment);
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		it('should not adjust scroll position when no custom scroll element exists', async () => {
@@ -332,6 +342,8 @@ describe('DocumentViewer', () => {
 			expect(() => {
 				rerender(<DocumentViewer {...createMockProps({ zoom: 2 })} />);
 			}).not.toThrow();
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 	});
 
@@ -365,6 +377,8 @@ describe('DocumentViewer', () => {
 
 			// Should not throw any errors and render normally
 			expect(screen.getByTestId('document-viewer')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		it('should only call onSuccess for the first page, not subsequent pages', async () => {
@@ -397,6 +411,8 @@ describe('DocumentViewer', () => {
 
 			// onSuccess should only be called once for the first page
 			expect(onSuccessSpy).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 	});
 
@@ -418,6 +434,8 @@ describe('DocumentViewer', () => {
 			const textLayer = await screen.findByTestId('page-0-text-layer');
 			expect(textLayer).toBeInTheDocument();
 			expect(textLayer.textContent).toContain('Sample text');
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		it('should render text spans with correct properties', async () => {
@@ -430,6 +448,8 @@ describe('DocumentViewer', () => {
 			expect(tspanElement).toHaveAttribute('x', '10');
 			expect(tspanElement).toHaveAttribute('y', '-20');
 			expect(tspanElement).toHaveAttribute('textLength', '100');
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		it('should render lines with proper test IDs', async () => {
@@ -441,6 +461,8 @@ describe('DocumentViewer', () => {
 				// Check that the first line of the first page has the correct test ID
 				expect(screen.getByTestId('page-0-line-0')).toBeInTheDocument();
 			});
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		it('should render images with proper alt text', async () => {
@@ -450,6 +472,8 @@ describe('DocumentViewer', () => {
 
 			const image = await screen.findByTestId('page-0-image');
 			expect(image).toHaveAttribute('alt', '');
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		it('should show spinner while image is loading', async () => {
@@ -465,6 +489,8 @@ describe('DocumentViewer', () => {
 
 			// Should not show image yet
 			expect(screen.queryByTestId('page-0-image')).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		it('should hide spinner when image loads', async () => {
@@ -476,6 +502,8 @@ describe('DocumentViewer', () => {
 			const image = await screen.findByTestId('page-0-image');
 			expect(image).toBeInTheDocument();
 			expect(screen.queryByTestId('spinner-wrapper')).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		it('should use A4 dimensions as fallback when no content or image dimensions are available', async () => {
@@ -583,6 +611,8 @@ describe('DocumentViewer', () => {
 			expect(input).toBeInTheDocument();
 			expect(input).toHaveAttribute('readonly');
 			expect(input).toHaveAttribute('type', 'text');
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		it('should render combobox form fields', async () => {
@@ -597,6 +627,8 @@ describe('DocumentViewer', () => {
 			expect(input).toBeInTheDocument();
 			expect(input).toHaveAttribute('readonly');
 			expect(input).toHaveAttribute('type', 'text');
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		it('should render empty annotations when no form fields exist', async () => {
@@ -647,6 +679,8 @@ describe('DocumentViewer', () => {
 			await userEvent.keyboard('{arrowleft}');
 			await userEvent.keyboard('{arrowright}');
 			expect(onKeyUpSpy).toHaveBeenCalledTimes(0);
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		it('should stop propagation of key up and down events for combobox form fields', async () => {
@@ -671,6 +705,8 @@ describe('DocumentViewer', () => {
 			await userEvent.keyboard('{arrowleft}');
 			await userEvent.keyboard('{arrowright}');
 			expect(onKeyUpSpy).toHaveBeenCalledTimes(0);
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		it('should render annotations when annotations feature flag is enabled', async () => {
@@ -680,6 +716,8 @@ describe('DocumentViewer', () => {
 
 			const textFormField = await screen.findByTestId('text-form-field-0');
 			expect(textFormField).toBeInTheDocument();
+
+			// await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		ffTest.on(
@@ -729,6 +767,8 @@ describe('DocumentViewer', () => {
 			expect(anchor).toHaveAttribute('href', 'https://example.com');
 			expect(anchor).toHaveAttribute('target', '_blank');
 			expect(anchor).toHaveAttribute('rel', 'noopener noreferrer');
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		it('should render local page links', async () => {
@@ -741,6 +781,8 @@ describe('DocumentViewer', () => {
 
 			const anchor = localLink.querySelector('a');
 			expect(anchor).toHaveAttribute('href', '#page-3'); // p_num 2 + 1 = page-3
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		it('should render empty links when no links exist', async () => {
@@ -778,6 +820,8 @@ describe('DocumentViewer', () => {
 
 					const image = await screen.findByTestId('page-0-image');
 					expect(image).toHaveStyle('image-rendering: pixelated');
+
+					await expect(document.body).toBeAccessible({ violationCount: 2 });
 				});
 			},
 		);
@@ -793,6 +837,8 @@ describe('DocumentViewer', () => {
 
 					const image = await screen.findByTestId('page-0-image');
 					expect(image).not.toHaveStyle('image-rendering: pixelated');
+
+					await expect(document.body).toBeAccessible({ violationCount: 2 });
 				});
 			},
 		);
@@ -810,6 +856,8 @@ describe('DocumentViewer', () => {
 			expect(global.fetch).toHaveBeenCalledWith('mock-image-url');
 			// Verify blob URL was created
 			expect(global.URL.createObjectURL).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		it('should reuse cached URLs for same page and zoom', async () => {
@@ -828,6 +876,8 @@ describe('DocumentViewer', () => {
 			expect(getPageImageUrlSpy).toHaveBeenCalled();
 			// Verify that the function was called with some zoom value
 			expect(getPageImageUrlSpy.mock.calls.length).toBeGreaterThan(0);
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 	});
 
@@ -864,6 +914,8 @@ describe('DocumentViewer', () => {
 			expect(tspanElement).toHaveAttribute('x', '10');
 			expect(tspanElement).toHaveAttribute('y', '-20');
 			expect(tspanElement).toHaveAttribute('textLength', '100');
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 	});
 
@@ -903,6 +955,8 @@ describe('DocumentViewer', () => {
 
 			const line = await screen.findByTestId('page-0-line-0');
 			expect(line).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 	});
 
@@ -930,6 +984,8 @@ describe('DocumentViewer', () => {
 
 			// Should call getPageImageUrl when page becomes visible
 			expect(getPageImageUrlSpy).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 	});
 });

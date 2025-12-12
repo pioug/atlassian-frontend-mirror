@@ -30,10 +30,10 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/editor-plugin-context-identifier": "workspace:^",
 		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/prosemirror-history": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*"

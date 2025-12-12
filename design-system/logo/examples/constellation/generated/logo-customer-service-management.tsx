@@ -4,7 +4,7 @@ import { CustomerServiceManagementIcon, CustomerServiceManagementLogo } from '@a
 
 import LogoTable from '../utils/logo-table';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<LogoTable
 		logo={<CustomerServiceManagementLogo appearance="brand" />}
 		icon={<CustomerServiceManagementIcon appearance="brand" />}

@@ -1,5 +1,17 @@
 # @atlaskit/ads-mcp
 
+## 0.11.0
+
+### Minor Changes
+
+- [`fb3c14e64741b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb3c14e64741b) -
+  Create 'ads-migration-guides' tool, to facilitate `@atlaskit/onboarding` -> `@atlaskit/spotlight`
+  migration, and any future migrations.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.10.1
 
 ### Patch Changes

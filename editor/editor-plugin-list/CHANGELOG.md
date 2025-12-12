@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-list
 
+## 8.2.19
+
+### Patch Changes
+
+- [`fa963aec58f3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa963aec58f3d) -
+  EDITOR-3064 Clean up feature gate platform_editor_split_list_item_for_gap_cursor
+- Updated dependencies
+
 ## 8.2.18
 
 ### Patch Changes

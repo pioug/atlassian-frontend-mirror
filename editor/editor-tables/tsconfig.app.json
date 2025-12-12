@@ -33,6 +33,9 @@
 	},
 	"references": [
 		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{

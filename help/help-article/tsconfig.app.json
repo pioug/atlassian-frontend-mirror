@@ -32,6 +32,9 @@
 	},
 	"references": [
 		{
+			"path": "../../editor/adf-schema/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/css-reset/tsconfig.app.json"
 		},
 		{

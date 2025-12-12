@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4d6daab6c18f6607b508ad6a232f29d2>>
+ * @codegen <<SignedSource::a3355823a402cad3913abd70a763f50d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -28,7 +28,7 @@ const Epic16Icon: {
 	displayName: string;
 } = ({ label, testId }) => {
 	// Feature flag to migrate to new object package
-	if (fg('platform_dst_icon_object_to_object')) {
+	if (fg('platform_dst_icon_object_to_object') || fg('platform_dst_icon_object_to_object_stage2')) {
 		// Map props based on size: 16px -> object (medium), 24px -> tile (small)
 		return <NewObjectComponent label={label} testId={testId} size="medium" />;
 	}

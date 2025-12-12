@@ -71,6 +71,9 @@
 			"path": "../editor-plugins/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-test-helpers/tsconfig.app.json"
 		},
 		{

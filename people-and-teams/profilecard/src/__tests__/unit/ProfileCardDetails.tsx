@@ -49,24 +49,28 @@ describe('ProfileCardDetails', () => {
 			['active user', false],
 			['bot account', true],
 		])('for %s', (_, isBot) => {
-			it('should include nickname if applicable', () => {
+			it('should include nickname if applicable', async () => {
 				const { getByTestId } = renderComponent({
 					isBot,
 				});
 				const component = getByTestId('profilecard-name');
 				expect(component.textContent).toMatchInlineSnapshot(`"full name test (jscrazy) "`);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should only show name if no nickname', () => {
+			it('should only show name if no nickname', async () => {
 				const { getByTestId } = renderComponent({
 					isBot,
 					nickname: undefined,
 				});
 				const component = getByTestId('profilecard-name');
 				expect(component.textContent).toMatchInlineSnapshot(`"full name test"`);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should show only once if nickname and full name match', () => {
+			it('should show only once if nickname and full name match', async () => {
 				const { getByTestId } = renderComponent({
 					isBot,
 					fullName: 'Same name',
@@ -74,9 +78,11 @@ describe('ProfileCardDetails', () => {
 				});
 				const component = getByTestId('profilecard-name');
 				expect(component.textContent).toMatchInlineSnapshot(`"Same name"`);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should show nothing if no name or nickname provided', () => {
+			it('should show nothing if no name or nickname provided', async () => {
 				const { queryByTestId } = renderComponent({
 					isBot,
 					fullName: undefined,
@@ -84,9 +90,11 @@ describe('ProfileCardDetails', () => {
 				});
 				const component = queryByTestId('profilecard-name');
 				expect(component).toBeNull();
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should render name as a heading', () => {
+			it('should render name as a heading', async () => {
 				const { getByRole } = renderComponent({
 					isBot,
 					fullName: 'Same name',
@@ -95,49 +103,59 @@ describe('ProfileCardDetails', () => {
 				const component = getByRole('heading', { level: 2 });
 				expect(component).toBeVisible();
 				expect(component).toHaveTextContent('Same name');
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
 		describe('for inactive user', () => {
-			it('should show full name if available', () => {
+			it('should show full name if available', async () => {
 				const { getByTestId } = renderComponent({
 					status: 'inactive',
 				});
 				const component = getByTestId('profilecard-name');
 				expect(component.textContent).toMatchInlineSnapshot(`"full name test"`);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should show nickname if no full name', () => {
+			it('should show nickname if no full name', async () => {
 				const { getByTestId } = renderComponent({
 					status: 'inactive',
 					fullName: undefined,
 				});
 				const component = getByTestId('profilecard-name');
 				expect(component.textContent).toMatchInlineSnapshot(`"jscrazy"`);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
 		describe('for deleted user', () => {
-			it('should show nickname if available', () => {
+			it('should show nickname if available', async () => {
 				const { getByTestId } = renderComponent({
 					status: 'closed',
 				});
 				const component = getByTestId('profilecard-name');
 				expect(component.textContent).toMatchInlineSnapshot(`"jscrazy"`);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should show "Former user" if no nickname', () => {
+			it('should show "Former user" if no nickname', async () => {
 				const { getByTestId } = renderComponent({
 					status: 'closed',
 					nickname: undefined,
 				});
 				const component = getByTestId('profilecard-name');
 				expect(component.textContent).toMatchInlineSnapshot(`"Former user"`);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
 		describe('for service account', () => {
-			it('should show "SERVICE ACCOUNT" tag', () => {
+			it('should show "SERVICE ACCOUNT" tag', async () => {
 				const { getByTestId, getByText } = renderComponent({
 					fullName: 'Service account name',
 					nickname: 'sa',
@@ -146,6 +164,8 @@ describe('ProfileCardDetails', () => {
 				const component = getByTestId('profilecard-name');
 				expect(component.textContent).toMatchInlineSnapshot(`"Service account name (sa) "`);
 				expect(getByText('SERVICE ACCOUNT')).toBeDefined();
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
@@ -178,6 +198,8 @@ describe('ProfileCardDetails', () => {
 					const tooltip = await screen.findByRole('tooltip');
 					expect(tooltip).toBeInTheDocument();
 					expect(tooltip).toHaveTextContent(longName);
+
+					await expect(document.body).toBeAccessible();
 				});
 			});
 			ffTest.off('enable_profilecard_text_truncation_tooltip', 'disabled', () => {
@@ -206,6 +228,8 @@ describe('ProfileCardDetails', () => {
 					});
 
 					expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+
+					await expect(document.body).toBeAccessible();
 				});
 			});
 		});
@@ -215,15 +239,17 @@ describe('ProfileCardDetails', () => {
 		describe.each(['inactive', 'closed'] as Props['status'][])(
 			'%s user',
 			(status: Props['status']) => {
-				it('should show provided message', () => {
+				it('should show provided message', async () => {
 					const { getByText } = renderComponent({
 						status,
 						disabledAccountMessage: 'This account is disabled',
 					});
 					expect(getByText('This account is disabled')).toBeDefined();
+
+					await expect(document.body).toBeAccessible();
 				});
 
-				it(`should show "just now" message for ${status} user`, () => {
+				it(`should show "just now" message for ${status} user`, async () => {
 					const { getByTestId } = renderComponent({
 						status,
 						statusModifiedDate: Date.now() / 1000,
@@ -234,9 +260,11 @@ describe('ProfileCardDetails', () => {
 							status === 'inactive' ? 'deactivated' : 'deleted'
 						} this week.`,
 					);
+
+					await expect(document.body).toBeAccessible();
 				});
 
-				it(`should show message for ${status} user when modified date is not available`, () => {
+				it(`should show message for ${status} user when modified date is not available`, async () => {
 					const { getByTestId } = renderComponent({
 						status,
 						statusModifiedDate: undefined,
@@ -247,9 +275,11 @@ describe('ProfileCardDetails', () => {
 							status === 'inactive' ? 'deactivated' : 'deleted'
 						}.`,
 					);
+
+					await expect(document.body).toBeAccessible();
 				});
 
-				it('should show lozenge if enabled', () => {
+				it('should show lozenge if enabled', async () => {
 					const { getByText } = renderComponent({
 						status,
 						hasDisabledAccountLozenge: true,
@@ -258,9 +288,11 @@ describe('ProfileCardDetails', () => {
 					expect(
 						getByText(`Account ${status === 'closed' ? 'deleted' : 'deactivated'}`),
 					).toBeDefined();
+
+					await expect(document.body).toBeAccessible();
 				});
 
-				it('should not show lozenge if disabled', () => {
+				it('should not show lozenge if disabled', async () => {
 					const { queryByText } = renderComponent({
 						status,
 						hasDisabledAccountLozenge: false,
@@ -269,9 +301,11 @@ describe('ProfileCardDetails', () => {
 					expect(
 						queryByText(`Account ${status === 'closed' ? 'deleted' : 'deactivated'}`),
 					).toBeNull();
+
+					await expect(document.body).toBeAccessible();
 				});
 
-				it('should render name as a heading', () => {
+				it('should render name as a heading', async () => {
 					const { getByRole } = renderComponent({
 						fullName: 'Same name',
 						nickname: 'Same name',
@@ -279,6 +313,8 @@ describe('ProfileCardDetails', () => {
 					const component = getByRole('heading', { level: 2 });
 					expect(component).toBeVisible();
 					expect(component).toHaveTextContent('Same name');
+
+					await expect(document.body).toBeAccessible();
 				});
 			},
 		);
@@ -314,7 +350,7 @@ describe('ProfileCardDetails', () => {
 			return getTextOf(elem.props.children);
 		};
 
-		it('should render multiple lozenges as expected', () => {
+		it('should render multiple lozenges as expected', async () => {
 			const { getByText } = renderComponent({
 				customLozenges,
 			});
@@ -324,9 +360,11 @@ describe('ProfileCardDetails', () => {
 
 				expect(getByText(childText)).not.toBeNull();
 			}
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render only one lozenge if only one provided', () => {
+		it('should render only one lozenge if only one provided', async () => {
 			const { getByText } = renderComponent({
 				customLozenges: [customLozenges[0]],
 			});
@@ -334,6 +372,8 @@ describe('ProfileCardDetails', () => {
 			const childText = getTextOf(customLozenges[0].text as React.ReactElement | string);
 
 			expect(getByText(childText)).not.toBeNull();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

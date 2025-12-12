@@ -41,6 +41,9 @@
 			"path": "../editor-plugin-limited-mode/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{

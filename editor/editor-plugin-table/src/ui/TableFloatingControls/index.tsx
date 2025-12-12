@@ -162,13 +162,11 @@ export const TableFloatingControls = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={wrapperClassName}
 			css={[
-				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
-					expValEquals(
-						'platform_editor_table_sticky_header_improvements',
-						'cohort',
-						'test_with_overflow',
-					) &&
-					styles,
+				expValEquals(
+					'platform_editor_table_sticky_header_improvements',
+					'cohort',
+					'test_with_overflow',
+				) && styles,
 			]}
 		>
 			{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions */}

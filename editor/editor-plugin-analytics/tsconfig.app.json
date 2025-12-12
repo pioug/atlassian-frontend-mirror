@@ -32,6 +32,9 @@
 	},
 	"references": [
 		{
+			"path": "../adf-schema/tsconfig.app.json"
+		},
+		{
 			"path": "../../analytics/analytics-listeners/tsconfig.app.json"
 		},
 		{
@@ -42,6 +45,9 @@
 		},
 		{
 			"path": "../editor-plugin-feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-tables/tsconfig.app.json"

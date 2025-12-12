@@ -68,6 +68,8 @@ describe('<MediaViewer />', () => {
 			);
 			expect(blanketComponent).toBeInTheDocument();
 		});
+
+		await expect(document.body).toBeAccessible({ violationCount: 1 });
 	});
 
 	it('should have the role dialog for blanket', async () => {
@@ -89,6 +91,8 @@ describe('<MediaViewer />', () => {
 		expect(blanketComponent).toBeVisible();
 		expect(blanketComponent).toHaveAttribute('aria-modal', 'true');
 		expect(blanketComponent).toHaveAttribute('aria-labelledby', 'media.media-viewer.file.name');
+
+		await expect(document.body).toBeAccessible({ violationCount: 1 });
 	});
 
 	describe('Closing Media Viewer', () => {
@@ -114,6 +118,8 @@ describe('<MediaViewer />', () => {
 			expect(closeButton).toBeInTheDocument();
 			await user.keyboard('{Escape}');
 			expect(closeButton).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should not trigger onClose function Media Viewer when clicking on other button on Header', async () => {
@@ -142,6 +148,8 @@ describe('<MediaViewer />', () => {
 			expect(closeButton).toBeInTheDocument();
 			fireEvent.click(downloadButton); // since default state of headerWrapperStyles is pointerEvents: 'none', we need to use fireEvent.click instead of user.click
 			expect(closeButton).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible({ violationCount: 1 });
 		});
 
 		it('should trigger onClose function the Media Viewer when clicking on the Close button', async () => {
@@ -166,11 +174,13 @@ describe('<MediaViewer />', () => {
 			expect(closeButton).toBeInTheDocument();
 			fireEvent.click(closeButton);
 			expect(closeButton).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('Analytics', () => {
-		it('should trigger the screen event when the component loads', () => {
+		it('should trigger the screen event when the component loads', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
@@ -192,6 +202,8 @@ describe('<MediaViewer />', () => {
 				eventType: 'screen',
 				name: 'mediaViewerModal',
 			});
+
+			await expect(document.body).toBeAccessible({ violationCount: 1 });
 		});
 
 		it('should send analytics when closed with button', async () => {
@@ -243,6 +255,10 @@ describe('<MediaViewer />', () => {
       const closeEvent: any =
         onEvent.mock.calls[onEvent.mock.calls.length - 1][0];
       expect(closeEvent.payload.attributes.input).toEqual('escKey');
+    
+    await expect(document.body).toBeAccessible();
+
+    
     }); */
 	});
 
@@ -285,6 +301,8 @@ describe('<MediaViewer />', () => {
 				expect(mockSidebarRenderer).toHaveBeenLastCalledWith(identifier1, {
 					close: expect.any(Function),
 				});
+
+				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 
 			it('should render sidebar with selected identifier in state', async () => {
@@ -321,6 +339,8 @@ describe('<MediaViewer />', () => {
 				expect(mockSidebarRenderer).toHaveBeenLastCalledWith(identifier1, {
 					close: expect.any(Function),
 				});
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			it("should not show sidebar if extensions is not defined or sidebar's renderer is not defined", async () => {
@@ -354,6 +374,8 @@ describe('<MediaViewer />', () => {
 					</MockedMediaClientProvider>,
 				);
 				expect(sidebarButton).not.toBeInTheDocument();
+
+				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 		});
 
@@ -377,6 +399,8 @@ describe('<MediaViewer />', () => {
 			expect(screen.queryByText('Sidebar Content')).toBeInTheDocument();
 			fireEvent.click(sidebarButton);
 			expect(screen.queryByText('Sidebar Content')).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible({ violationCount: 1 });
 		});
 	});
 
@@ -436,6 +460,8 @@ describe('<MediaViewer />', () => {
 						fileStateFlags: { wasStatusProcessing: false, wasStatusUploading: false },
 					}),
 				);
+
+				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 
 			it('should render error screen when SVG binary fails to load', async () => {
@@ -525,6 +551,8 @@ describe('<MediaViewer />', () => {
 						},
 					}),
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			it('should render error screen when SVG binary fails to convert to DataURI', async () => {
@@ -597,6 +625,8 @@ describe('<MediaViewer />', () => {
 						},
 					}),
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			it('should render error screen when image tag fails to render the file', async () => {
@@ -671,6 +701,8 @@ describe('<MediaViewer />', () => {
 						},
 					}),
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 	});
@@ -753,6 +785,8 @@ describe('<MediaViewer />', () => {
 				},
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should block downloads when DSP is enabled', async () => {
@@ -799,6 +833,8 @@ describe('<MediaViewer />', () => {
 				}),
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should download the binary when clicking download button on error view', async () => {
@@ -877,6 +913,8 @@ describe('<MediaViewer />', () => {
 				},
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should block downloads when DSP is enabled on error view', async () => {
@@ -923,6 +961,8 @@ describe('<MediaViewer />', () => {
 				}),
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should display a warning message when the downloading file is marked as abusive', async () => {
@@ -1006,6 +1046,8 @@ describe('<MediaViewer />', () => {
 				},
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should not download when cancelling from the abuse warning message', async () => {
@@ -1055,6 +1097,8 @@ describe('<MediaViewer />', () => {
 				}),
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should display a warning message when the downloading file is marked as abusive on error view', async () => {
@@ -1139,6 +1183,8 @@ describe('<MediaViewer />', () => {
 				},
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should not download when cancelling from the abuse warning message on error view', async () => {
@@ -1188,6 +1234,8 @@ describe('<MediaViewer />', () => {
 				}),
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should log failed event when download fails', async () => {
@@ -1287,6 +1335,8 @@ describe('<MediaViewer />', () => {
 					expect.anything(),
 				);
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should log failed event when download fails on error view', async () => {
@@ -1384,6 +1434,8 @@ describe('<MediaViewer />', () => {
 					expect.anything(),
 				);
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

@@ -20,6 +20,8 @@ describe('<List />', () => {
 		);
 		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
 		expect(screen.getByText('img.png')).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should show controls', async () => {
@@ -36,5 +38,7 @@ describe('<List />', () => {
 		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
 		expect(screen.getByLabelText('zoom out')).toBeInTheDocument();
 		expect(screen.getByLabelText('zoom in')).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 });

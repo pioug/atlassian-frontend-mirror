@@ -26,7 +26,6 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { StepResult } from '@atlaskit/editor-prosemirror/transform';
 import { findPositionOfNodeBefore, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { convertListType } from '../actions/conversions';
 import { wrapInListAndJoin } from '../actions/wrap-and-join-lists';
@@ -54,13 +53,10 @@ export const enterKeyCommand =
 			const { $from } = selection;
 			const { listItem, codeBlock } = state.schema.nodes;
 
-			// the list item is the parent of the gap cursor
-			// while for text, list item is the grant parent of the text node
-			const isGapCursorSelection = selection instanceof GapCursorSelection;
-			const wrapper =
-				isGapCursorSelection && fg('platform_editor_split_list_item_for_gap_cursor')
-					? $from.parent
-					: $from.node($from.depth - 1);
+		// the list item is the parent of the gap cursor
+		// while for text, list item is the grandparent of the text node
+		const isGapCursorSelection = selection instanceof GapCursorSelection;
+		const wrapper = isGapCursorSelection ? $from.parent : $from.node($from.depth - 1);
 
 			if (wrapper && wrapper.type === listItem) {
 				/** Check if the wrapper has any visible content */
@@ -253,23 +249,19 @@ function splitListItem(itemType: NodeType): Command {
 			return false;
 		}
 
-		// list item is the parent of the gap cursor instead of grant parent;
-		// rename grantParent to WrapperlistItem once we clean up platform_editor_split_list_item_for_gap_cursor
+		// list item is the parent of the gap cursor instead of grandparent
 		const isGapCursorSelection = ref instanceof GapCursorSelection;
-		const grandParent =
-			isGapCursorSelection && fg('platform_editor_split_list_item_for_gap_cursor')
-				? $from.parent
-				: $from.node(-1);
+		const wrapperListItem = isGapCursorSelection ? $from.parent : $from.node(-1);
 
-		if (grandParent.type !== itemType) {
+		if (wrapperListItem.type !== itemType) {
 			return false;
 		}
 		/** --> The following line changed from the original PM implementation to allow list additions with multiple paragraphs */
 		if (
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			(grandParent.content as any).content.length <= 1 &&
+			(wrapperListItem.content as any).content.length <= 1 &&
 			$from.parent.content.size === 0 &&
-			!(grandParent.content.size === 0)
+			!(wrapperListItem.content.size === 0)
 		) {
 			// In an empty block. If this is a nested list, the wrapping
 			// list item should be split. Otherwise, bail out and let next
@@ -308,40 +300,33 @@ function splitListItem(itemType: NodeType): Command {
 			}
 			return true;
 		}
-		const nextType = $to.pos === $from.end() ? grandParent.contentMatchAt(0).defaultType : null;
+		const nextType = $to.pos === $from.end() ? wrapperListItem.contentMatchAt(0).defaultType : null;
 		const tr = state.tr.delete($from.pos, $to.pos);
 		const types = nextType && [null, { type: nextType }];
 
-		if (fg('platform_editor_split_list_item_for_gap_cursor')) {
-			if (dispatch) {
-				if (ref instanceof TextSelection) {
-					dispatch(tr.split($from.pos, 2, types ?? undefined).scrollIntoView());
-					return true;
-				}
-
-				// create new list item with empty paragraph when user click enter on gap cursor
-				if (isGapCursorSelection && $from.nodeBefore?.isBlock) {
-					// For gap cursor selection , we can not split the list item directly
-					// We need to insert a new list item after the current list item to simulate the split behaviour
-					const { listItem, paragraph } = state.schema.nodes;
-					const newListItem = listItem.createChecked({}, paragraph.createChecked());
-					dispatch(
-						tr
-							.insert($from.pos, newListItem)
-							.setSelection(Selection.near(tr.doc.resolve($to.pos + 1)))
-							.scrollIntoView(),
-					);
-					return true;
-				}
-			}
-
-			return false;
-		} else {
-			if (dispatch) {
+		if (dispatch) {
+			if (ref instanceof TextSelection) {
 				dispatch(tr.split($from.pos, 2, types ?? undefined).scrollIntoView());
+				return true;
 			}
-			return true;
+
+			// create new list item with empty paragraph when user clicks enter on gap cursor
+			if (isGapCursorSelection && $from.nodeBefore?.isBlock) {
+				// For gap cursor selection, we cannot split the list item directly
+				// We need to insert a new list item after the current list item to simulate the split behaviour
+				const { listItem, paragraph } = state.schema.nodes;
+				const newListItem = listItem.createChecked({}, paragraph.createChecked());
+				dispatch(
+					tr
+						.insert($from.pos, newListItem)
+						.setSelection(Selection.near(tr.doc.resolve($to.pos + 1)))
+						.scrollIntoView(),
+				);
+				return true;
+			}
 		}
+
+		return false;
 	};
 }
 

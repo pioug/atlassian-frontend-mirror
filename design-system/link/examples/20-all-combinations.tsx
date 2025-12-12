@@ -6,7 +6,7 @@ import { Box } from '@atlaskit/primitives/compiled';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import variations from '../src/testutils/variations';
 
-export default function AllCombinationsExample() {
+export default function AllCombinationsExample(): React.JSX.Element {
 	return (
 		<table>
 			<thead>

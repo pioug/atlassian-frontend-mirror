@@ -10,7 +10,7 @@ import { screen, render, act } from '@testing-library/react';
 // Please refer to: https://product-fabric.atlassian.net/browse/FS-4183
 describe('MentionList', () => {
 	describe('MentionList without initial element', () => {
-		it('should have first item selected by default', () => {
+		it('should have first item selected by default', async () => {
 			const { container } = render(
 				<IntlProvider locale="en">
 					<MentionList mentions={mentionTestResult} />
@@ -19,9 +19,11 @@ describe('MentionList', () => {
 
 			const item = container.querySelector(`[data-mention-id="${mentionTestResult[0].id}"]`);
 			expect(item?.getAttribute('data-selected')).toEqual('true');
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('selectIndex selects correct item', () => {
+		it('selectIndex selects correct item', async () => {
 			const ref = React.createRef<MentionList>();
 			const { container } = render(
 				<IntlProvider locale="en">
@@ -32,9 +34,11 @@ describe('MentionList', () => {
 			act(() => ref.current?.selectIndex(2));
 			const item = container.querySelector(`[data-mention-id="${mentionTestResult[2].id}"]`);
 			expect(item?.getAttribute('data-selected')).toEqual('true');
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('selectId selects correct item', () => {
+		it('selectId selects correct item', async () => {
 			const ref = React.createRef<MentionList>();
 			const { container } = render(
 				<IntlProvider locale="en">
@@ -45,9 +49,11 @@ describe('MentionList', () => {
 			act(() => ref.current?.selectId(mentionTestResult[2].id));
 			const firstItem = container.querySelector(`[data-mention-id="${mentionTestResult[2].id}"]`);
 			expect(firstItem?.getAttribute('data-selected')).toEqual('true');
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('mentionsCount returns the number of mentions in the list', () => {
+		it('mentionsCount returns the number of mentions in the list', async () => {
 			const ref = React.createRef<MentionList>();
 			render(
 				<IntlProvider locale="en">
@@ -56,9 +62,11 @@ describe('MentionList', () => {
 			);
 
 			expect(ref.current?.mentionsCount()).toEqual(mentionTestResult.length);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should retain a deliberate selection across changing list of mentions', () => {
+		it('should retain a deliberate selection across changing list of mentions', async () => {
 			const ref = React.createRef<MentionList>();
 			const { rerender, container } = render(
 				<IntlProvider locale="en">
@@ -84,6 +92,8 @@ describe('MentionList', () => {
 				`[data-mention-id="${reducedMentionsList[1].id}"]`,
 			);
 			expect(secondItem?.getAttribute('data-selected')).toEqual('true');
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should select first item for each changing set of mentions if no deliberate selection is made', () => {
@@ -117,7 +127,7 @@ describe('MentionList', () => {
 		});
 	});
 	describe('MentionList with initial highlight', () => {
-		it('should have first item selected by default', () => {
+		it('should have first item selected by default', async () => {
 			const ref = React.createRef<MentionList>();
 			const HighlightItem = <div id="highlight">Initial highlight information</div>;
 			const { container } = render(
@@ -132,9 +142,11 @@ describe('MentionList', () => {
 
 			const item = container.querySelector(`[data-mention-id="${mentionTestResult[0].id}"]`);
 			expect(item?.getAttribute('data-selected')).toEqual('true');
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render intitialHighlight', () => {
+		it('should render intitialHighlight', async () => {
 			const ref = React.createRef<MentionList>();
 			const HighlightItem = <div data-testid="highlight">Initial highlight information</div>;
 			render(
@@ -149,6 +161,8 @@ describe('MentionList', () => {
 
 			const highlight = screen.getByTestId('highlight');
 			expect(highlight).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

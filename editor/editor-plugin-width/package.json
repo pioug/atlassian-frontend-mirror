@@ -22,7 +22,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",

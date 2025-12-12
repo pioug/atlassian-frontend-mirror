@@ -33,6 +33,8 @@ export const getSourceInfoErrorPayload = (error: string): RendererSyncBlockEvent
 	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_GET_SOURCE_INFO, error);
 export const updateErrorPayload = (error: string): SyncBlockEventPayload =>
 	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_UPDATE, error);
+export const updateReferenceErrorPayload = (error: string): RendererSyncBlockEventPayload =>
+	getErrorPayload(ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_UPDATE, error);
 export const createErrorPayload = (error: string): SyncBlockEventPayload =>
 	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE, error);
 export const deleteErrorPayload = (error: string): SyncBlockEventPayload =>

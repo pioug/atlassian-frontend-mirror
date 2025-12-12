@@ -4,7 +4,7 @@ import { IconTile } from '@atlaskit/icon';
 
 import AddIcon from '../../core/add';
 
-const IconTileCircleReplacementComponentExample = () => {
+const IconTileCircleReplacementComponentExample = (): React.JSX.Element => {
 	return (
 		<IconTile
 			icon={AddIcon}

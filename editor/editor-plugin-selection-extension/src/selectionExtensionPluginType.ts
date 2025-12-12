@@ -5,6 +5,7 @@ import type {
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
 import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { EditorViewModeEffectsPlugin } from '@atlaskit/editor-plugin-editor-viewmode-effects';
@@ -16,14 +17,14 @@ import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 
 import type {
-	SelectionAdfResult,
+	ExtensionMenuItemConfiguration,
 	InsertAdfAtEndOfDocResult,
 	ReplaceWithAdfResult,
+	SelectionAdfResult,
 	SelectionExtension,
 	SelectionExtensionPluginOptions,
 	SelectionExtensionPluginState,
 	SelectionExtensionSelectionInfo,
-	ExtensionMenuItemConfiguration,
 } from './types';
 
 export type SelectionExtensionPlugin = NextEditorPlugin<
@@ -55,6 +56,7 @@ export type SelectionExtensionPlugin = NextEditorPlugin<
 			OptionalPlugin<UserPreferencesPlugin>,
 			OptionalPlugin<UserIntentPlugin>,
 			OptionalPlugin<SelectionPlugin>,
+			OptionalPlugin<BlockControlsPlugin>,
 			OptionalPlugin<BlockMenuPlugin>,
 			OptionalPlugin<ToolbarPlugin>,
 			SelectionToolbarPlugin,

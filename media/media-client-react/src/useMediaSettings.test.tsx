@@ -9,7 +9,7 @@ import type { MediaParsedSettings } from './mediaSettings';
 import { useMediaSettings } from './useMediaSettings';
 
 describe('useMediaSettings', () => {
-	it('should return empty object when MediaContext is not provided', () => {
+	it('should return empty object when MediaContext is not provided', async () => {
 		let settings;
 		function TestComponent() {
 			settings = useMediaSettings();
@@ -18,9 +18,11 @@ describe('useMediaSettings', () => {
 
 		render(<TestComponent />);
 		expect(settings).toEqual({});
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should return empty object when settings is not provided in context', () => {
+	it('should return empty object when settings is not provided in context', async () => {
 		let settings;
 		function TestComponent() {
 			settings = useMediaSettings();
@@ -34,9 +36,11 @@ describe('useMediaSettings', () => {
 			</MediaContext.Provider>,
 		);
 		expect(settings).toEqual({});
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should return settings from context when provided', () => {
+	it('should return settings from context when provided', async () => {
 		const mockSettings: MediaParsedSettings = {
 			canUpdateVideoCaptions: true,
 			mediaUserPreferences: {
@@ -57,5 +61,7 @@ describe('useMediaSettings', () => {
 			</MediaContext.Provider>,
 		);
 		expect(settings).toEqual(mockSettings);
+
+		await expect(document.body).toBeAccessible();
 	});
 });

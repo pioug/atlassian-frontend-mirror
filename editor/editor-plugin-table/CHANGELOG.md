@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugin-table
 
+## 15.5.3
+
+### Patch Changes
+
+- [`a4ac43fb6ff37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4ac43fb6ff37) -
+  Add fallback for table row/header anchor names
+- Updated dependencies
+
+## 15.5.2
+
+### Patch Changes
+
+- [`c72c25a7b8822`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c72c25a7b8822) -
+  [ux] EDITOR-3741 Add pseudo border classes for sticky header cells
+- Updated dependencies
+
+## 15.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.5.0
+
+### Minor Changes
+
+- [`8677e7b660127`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8677e7b660127) -
+  EDITOR-3792 Rollup max width changes previously gated with editor_tinymce_full_width_mode into
+  combined frontend/backend flag confluence_max_width_content_appearance
+
+### Patch Changes
+
+- [`0882d69646f51`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0882d69646f51) -
+  tidy up fg platform_editor_table_width_refactor
+- Updated dependencies
+
 ## 15.4.24
 
 ### Patch Changes

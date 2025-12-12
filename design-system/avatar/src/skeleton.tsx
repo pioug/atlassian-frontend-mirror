@@ -87,8 +87,11 @@ const Skeleton: FC<SkeletonProps> = ({ size, appearance, color, weight }: Skelet
 			sizeStyles[size ?? 'medium'],
 			appearance === 'square' &&
 				!fg('platform_dst_avatar_tile') &&
+				!fg('platform_dst_avatar_tile_stage2') &&
 				borderRadiusMap[size ?? 'medium'],
-			appearance === 'square' && fg('platform_dst_avatar_tile') && styles.square,
+			appearance === 'square' &&
+				(fg('platform_dst_avatar_tile') || fg('platform_dst_avatar_tile_stage2')) &&
+				styles.square,
 			appearance === 'hexagon' && styles.hexagon,
 			weight === 'strong' && styles.strongOpacity,
 		]}

@@ -3,7 +3,7 @@ import React from 'react';
 import Heading from '@atlaskit/heading';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Stack space="space.100">
 			<Box padding="space.050" backgroundColor="color.background.brand.bold">

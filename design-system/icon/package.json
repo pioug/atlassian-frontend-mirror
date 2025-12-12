@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "29.0.2",
+	"version": "29.1.0",
 	"description": "An icon is a symbol representing a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -195,7 +195,13 @@
 		"platform_dst_new_icon_tile": {
 			"type": "boolean"
 		},
+		"platform_dst_new_icon_tile_stage2": {
+			"type": "boolean"
+		},
 		"platform_dst_icon_tile_circle_replacement": {
+			"type": "boolean"
+		},
+		"platform_dst_icon_tile_circle_replacement_stage2": {
 			"type": "boolean"
 		}
 	}

@@ -36,7 +36,7 @@
 		"@atlaskit/editor-plugin-primary-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-show-diff": "workspace:*",
 		"@atlaskit/editor-plugin-toolbar": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/editor-toolbar-model": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",

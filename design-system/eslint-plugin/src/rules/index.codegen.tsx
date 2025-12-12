@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::62347cf64e4ac99b927fce9d1a2bd894>>
+ * @codegen <<SignedSource::02be73e0813b6f22038f0f3f2ad6865d>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -54,10 +54,12 @@ import noUnusedCssMap from './no-unused-css-map';
 import noUtilityIcons from './no-utility-icons';
 import preferPrimitives from './prefer-primitives';
 import useButtonGroupLabel from './use-button-group-label';
+import useCharacterCounterField from './use-character-counter-field';
 import useCorrectField from './use-correct-field';
 import useCxFunctionInXcss from './use-cx-function-in-xcss';
 import useDatetimePickerCalendarButton from './use-datetime-picker-calendar-button';
 import useDrawerLabel from './use-drawer-label';
+import useFieldMessageWrapper from './use-field-message-wrapper';
 import useHeading from './use-heading';
 import useHeadingLevelInSpotlightCard from './use-heading-level-in-spotlight-card';
 import useHrefInLinkItem from './use-href-in-link-item';
@@ -128,10 +130,12 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'no-utility-icons': noUtilityIcons,
 	'prefer-primitives': preferPrimitives,
 	'use-button-group-label': useButtonGroupLabel,
+	'use-character-counter-field': useCharacterCounterField,
 	'use-correct-field': useCorrectField,
 	'use-cx-function-in-xcss': useCxFunctionInXcss,
 	'use-datetime-picker-calendar-button': useDatetimePickerCalendarButton,
 	'use-drawer-label': useDrawerLabel,
+	'use-field-message-wrapper': useFieldMessageWrapper,
 	'use-heading': useHeading,
 	'use-heading-level-in-spotlight-card': useHeadingLevelInSpotlightCard,
 	'use-href-in-link-item': useHrefInLinkItem,

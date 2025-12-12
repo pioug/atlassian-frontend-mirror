@@ -3,7 +3,7 @@ import React from 'react';
 import Link from '@atlaskit/link';
 import { Text } from '@atlaskit/primitives/compiled';
 
-export default function BodyCopy() {
+export default function BodyCopy(): React.JSX.Element {
 	return (
 		<Text>
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod{' '}

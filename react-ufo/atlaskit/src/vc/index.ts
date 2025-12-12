@@ -139,6 +139,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 					interactionAbortReason: param.interactionAbortReason,
 					includeRawData,
 					includeSSRInV3: param.includeSSRInV3,
+					rawDataStopTime: param.rawDataStopTime,
 				})
 			: [];
 

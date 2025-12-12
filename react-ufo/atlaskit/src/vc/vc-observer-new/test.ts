@@ -6,6 +6,7 @@ import EntriesTimeline from './entries-timeline';
 import * as getElementNameModule from './get-element-name';
 import VCCalculator_FY25_03 from './metric-calculator/fy25_03';
 import VCCalculator_FY26_04 from './metric-calculator/fy26_04';
+import RawDataHandler from './raw-data-handler';
 import type { VCObserverEntry } from './types';
 import ViewportObserver from './viewport-observer';
 import WindowEventObserver from './window-event-observer';
@@ -18,6 +19,7 @@ jest.mock('./window-event-observer');
 jest.mock('./entries-timeline');
 jest.mock('./metric-calculator/fy25_03');
 jest.mock('./metric-calculator/fy26_04');
+jest.mock('./raw-data-handler');
 jest.mock('./get-element-name');
 jest.mock('@atlaskit/platform-feature-flags');
 jest.mock('../../interaction-metrics');
@@ -472,6 +474,136 @@ describe('VCObserverNew', () => {
 			});
 
 			expect(result).toEqual([]);
+		});
+
+		describe('rawDataStopTime handling', () => {
+			const mockEntries: VCObserverEntry[] = [
+				{
+					time: 100,
+					data: {
+						type: 'mutation:element',
+						elementName: 'element1',
+						rect: new DOMRect(0, 0, 10, 10),
+						visible: true,
+					},
+				},
+			];
+			const mockExtendedEntries: VCObserverEntry[] = [
+				...mockEntries,
+				{
+					time: 150,
+					data: {
+						type: 'mutation:element',
+						elementName: 'element2',
+						rect: new DOMRect(0, 0, 20, 20),
+						visible: true,
+					},
+				},
+			];
+
+			beforeEach(() => {
+				(fg as jest.Mock).mockImplementation((flag: string) => {
+					return flag === 'platform_ufo_enable_vc_raw_data';
+				});
+				(RawDataHandler.prototype.getRawData as jest.Mock).mockResolvedValue({
+					revision: 'raw-handler',
+					clean: true,
+					'metric:vc90': null,
+				});
+			});
+
+			it('should use rawDataStopTime for raw data handler when provided', async () => {
+				mockEntriesTimeline.getOrderedEntries.mockImplementation(({ stop }: { start?: number | null | undefined; stop?: number | null | undefined }) => {
+					if (stop === 200) {
+						return mockExtendedEntries;
+					}
+					return mockEntries;
+				});
+				(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue({
+					revision: 'fy25.03',
+					clean: true,
+					'metric:vc90': 100,
+				});
+
+				await vcObserver.getVCResult({
+					start: 0,
+					stop: 100,
+					rawDataStopTime: 200,
+					interactionId: 'test-interaction-id',
+					interactionType: 'page_load',
+					isPageVisible: true,
+					includeRawData: true,
+				});
+
+				// VC calculators should use regular stop (100)
+				expect(VCCalculator_FY25_03.prototype.calculate).toHaveBeenCalledWith(
+					expect.objectContaining({
+						stopTime: 100,
+					}),
+				);
+				// Raw data handler should use rawDataStopTime (200)
+				expect(RawDataHandler.prototype.getRawData).toHaveBeenCalledWith(
+					expect.objectContaining({
+						stopTime: 200,
+						entries: mockExtendedEntries,
+					}),
+				);
+			});
+
+			it('should use regular stop for raw data handler when rawDataStopTime is not provided', async () => {
+				mockEntriesTimeline.getOrderedEntries.mockReturnValue(mockEntries);
+				(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue({
+					revision: 'fy25.03',
+					clean: true,
+					'metric:vc90': 100,
+				});
+
+				await vcObserver.getVCResult({
+					start: 0,
+					stop: 100,
+					interactionId: 'test-interaction-id',
+					interactionType: 'page_load',
+					isPageVisible: true,
+					includeRawData: true,
+				});
+
+				// Raw data handler should use regular stop (100)
+				expect(RawDataHandler.prototype.getRawData).toHaveBeenCalledWith(
+					expect.objectContaining({
+						stopTime: 100,
+						entries: mockEntries,
+					}),
+				);
+			});
+
+			it('should fetch extended entries only when rawDataStopTime is provided', async () => {
+				mockEntriesTimeline.getOrderedEntries.mockReturnValue(mockEntries);
+				(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue({
+					revision: 'fy25.03',
+					clean: true,
+					'metric:vc90': 100,
+				});
+
+				await vcObserver.getVCResult({
+					start: 0,
+					stop: 100,
+					rawDataStopTime: 200,
+					interactionId: 'test-interaction-id',
+					interactionType: 'page_load',
+					isPageVisible: true,
+					includeRawData: true,
+				});
+
+				// Should call getOrderedEntries twice: once for VC calculators (stop: 100) and once for raw data (stop: 200)
+				expect(mockEntriesTimeline.getOrderedEntries).toHaveBeenCalledWith({
+					start: 0,
+					stop: 100,
+				});
+				expect(mockEntriesTimeline.getOrderedEntries).toHaveBeenCalledWith({
+					start: 0,
+					stop: 200,
+				});
+			});
 		});
 	});
 

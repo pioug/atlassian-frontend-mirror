@@ -36,12 +36,12 @@
 		"./validatorTypes": "./src/types/validatorTypes.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
-		"@atlassian/adf-schema-json": "root:*",
+		"@atlassian/adf-schema-json": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"react": "root:*",
 		"wait-for-expect": "root:*"

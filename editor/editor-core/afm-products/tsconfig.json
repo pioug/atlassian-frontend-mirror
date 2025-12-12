@@ -29,6 +29,9 @@
 			"path": "../../activity-provider/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../adf-schema/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../analytics/analytics-namespaced-context/afm-products/tsconfig.json"
 		},
 		{
@@ -54,6 +57,9 @@
 		},
 		{
 			"path": "../../editor-plugins/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-shared-styles/afm-products/tsconfig.json"

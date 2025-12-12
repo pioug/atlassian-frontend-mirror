@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CSSResetNestedListsExample = () => {
+const CSSResetNestedListsExample = (): React.JSX.Element => {
 	return (
 		<div>
 			<h2>&lt;ul&gt;</h2>

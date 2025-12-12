@@ -1,9 +1,14 @@
-import { useCallback } from 'react';
+import { useCallback, useContext } from 'react';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners';
-import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import {
+	type AnalyticsEventPayload,
+	AnalyticsReactContext,
+	useAnalyticsEvents,
+} from '@atlaskit/analytics-next';
 
-import { getDefaultTrackEventConfig } from '../common/utils';
+import type { RemainingRequired } from '../common/types';
+import { getAttributesFromContexts, getDefaultTrackEventConfig } from '../common/utils';
 
 export enum AgentActions {
 	/* View agent clicked */
@@ -27,35 +32,41 @@ export enum AgentActions {
 }
 
 type CommonAnalyticsAttributes = {
-	touchPoint?: string;
-	agentId?: string;
-	scenarioId?: string;
-	canEdit?: boolean;
-	canDelete?: boolean;
-} & Record<string, any>;
+	touchPoint: string;
+	agentId: string;
+};
 
 export const ANALYTICS_CHANNEL = FabricChannel.aiMate;
 
-export const useRovoAgentActionAnalytics = (commonAttributes: CommonAnalyticsAttributes) => {
+export const useRovoAgentActionAnalytics = <T extends Partial<CommonAnalyticsAttributes>>(
+	commonAttributes: T,
+) => {
+	const analyticsContext = useContext(AnalyticsReactContext);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const eventConfig = getDefaultTrackEventConfig();
 
 	const fireAnalyticsEvent = useCallback(
 		(event: AnalyticsEventPayload) => {
+			const attributes = {
+				...getAttributesFromContexts(analyticsContext.getAtlaskitAnalyticsContext()),
+				...commonAttributes,
+				...event.attributes,
+			};
+
 			createAnalyticsEvent({
 				...eventConfig,
 				...event,
-				attributes: {
-					...commonAttributes,
-					...event.attributes,
-				},
+				attributes,
 			}).fire(ANALYTICS_CHANNEL);
 		},
-		[createAnalyticsEvent, eventConfig, commonAttributes],
+		[createAnalyticsEvent, eventConfig, commonAttributes, analyticsContext],
 	);
 
 	const trackAgentAction = useCallback(
-		(action: AgentActions, attributes?: CommonAnalyticsAttributes) => {
+		(
+			action: AgentActions,
+			attributes: RemainingRequired<CommonAnalyticsAttributes, T> & Record<string, any>,
+		) => {
 			fireAnalyticsEvent({
 				actionSubject: 'rovoAgent',
 				action,
@@ -66,7 +77,11 @@ export const useRovoAgentActionAnalytics = (commonAttributes: CommonAnalyticsAtt
 	);
 
 	const trackAgentActionError = useCallback(
-		(action: AgentActions, error: Error, attributes?: CommonAnalyticsAttributes) => {
+		(
+			action: AgentActions,
+			error: Error,
+			attributes?: RemainingRequired<CommonAnalyticsAttributes, T> & Record<string, any>,
+		) => {
 			fireAnalyticsEvent({
 				actionSubject: 'rovoAgentError',
 				action,

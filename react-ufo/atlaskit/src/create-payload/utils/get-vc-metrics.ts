@@ -56,6 +56,8 @@ async function getVCMetrics(
 	const result = await observer.getVCResult({
 		start: interaction.start,
 		stop: interaction.end,
+		// Use end3p when available to capture raw data observations during 3p holds
+		rawDataStopTime: interaction.end3p,
 		tti,
 		prefix,
 		includeSSRInV3: config.vc?.includeSSRInV3,

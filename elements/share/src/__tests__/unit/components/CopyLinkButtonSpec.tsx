@@ -58,7 +58,7 @@ describe('CopyLinkButton', () => {
 		document.execCommand = originalExecCommand;
 	});
 
-	it('should render', () => {
+	it('should render', async () => {
 		const wrapper: ReactWrapper<Props, State, any> = mount<Props, State>(
 			<CopyLinkButton {...props} />,
 		);
@@ -83,9 +83,11 @@ describe('CopyLinkButton', () => {
 			// @ts-ignore accessing private property just for testing purpose
 			wrapper.instance().inputRef.current instanceof HTMLInputElement,
 		).toBeTruthy();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render when isDisabled is true', () => {
+	it('should render when isDisabled is true', async () => {
 		const wrapper: ReactWrapper<Props, State, any> = mount<Props, State>(
 			<CopyLinkButton {...props} isDisabled={true} />,
 		);
@@ -109,9 +111,11 @@ describe('CopyLinkButton', () => {
 			// @ts-ignore accessing private property just for testing purpose
 			wrapper.instance().inputRef.current instanceof HTMLInputElement,
 		).toBeTruthy();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render a copy link tooltip if copyTooltipText prop exists', () => {
+	it('should render a copy link tooltip if copyTooltipText prop exists', async () => {
 		const wrapper: ReactWrapper<Props, State, any> = mount<Props, State>(
 			<CopyLinkButton {...props} link={mockLink} copyTooltipText={mockTooltipText} />,
 		);
@@ -119,9 +123,11 @@ describe('CopyLinkButton', () => {
 		const tooltip = wrapper.find(Tooltip);
 		expect(tooltip).toHaveLength(1);
 		expect(tooltip.prop('content')).toEqual(mockTooltipText);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should replace copyLinkButtonText if children exists', () => {
+	it('should replace copyLinkButtonText if children exists', async () => {
 		const wrapper: ReactWrapper<Props, State, any> = mount<Props, State>(
 			<CopyLinkButton {...props} link={mockLink} copyTooltipText={mockTooltipText}>
 				<div>Styled Text</div>
@@ -129,10 +135,12 @@ describe('CopyLinkButton', () => {
 		);
 
 		expect(wrapper.text()).toContain('Styled Text');
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('componentWillUnmount', () => {
-		it('should clear this.autoDismiss', () => {
+		it('should clear this.autoDismiss', async () => {
 			const wrapper: ReactWrapper<Props, State, any> = mount<Props, State>(
 				<CopyLinkButton {...props} />,
 			);
@@ -140,6 +148,8 @@ describe('CopyLinkButton', () => {
 			expect(wrapper.instance().autoDismiss).not.toBeUndefined();
 			wrapper.instance().componentWillUnmount();
 			expect(wrapper.instance().autoDismiss).toBeUndefined();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -172,6 +182,8 @@ describe('CopyLinkButton', () => {
 			expect(spiedExecCommand).toHaveBeenCalledTimes(1);
 			expect(spiedOnLinkCopy).toHaveBeenCalledTimes(1);
 			expect(spiedOnLinkCopy.mock.calls[0][0]).toEqual(mockLink);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -181,12 +193,14 @@ describe('CopyLinkButton', () => {
 			jest.clearAllTimers();
 		});
 
-		it('should have the correct aria attributes on the popup once the button is clicked', () => {
+		it('should have the correct aria attributes on the popup once the button is clicked', async () => {
 			const wrapper: ReactWrapper<Props, State, any> = mount<Props, State>(
 				<CopyLinkButton {...props} copiedToClipboardText="Copied to clipboard" />,
 			);
 
 			expect(wrapper.find('input').props()).toHaveProperty('aria-label', 'Copied to clipboard');
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

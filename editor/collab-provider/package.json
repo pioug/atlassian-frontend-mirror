@@ -38,7 +38,7 @@
 		"@atlaskit/anonymous-assets": "workspace:^",
 		"@atlaskit/atlassian-context": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/prosemirror-collab": "workspace:^",
@@ -69,7 +69,7 @@
 		}
 	},
 	"devDependencies": {
-		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/adf-schema": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^"
 	},
 	"platform-feature-flags": {

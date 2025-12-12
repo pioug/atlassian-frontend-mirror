@@ -5,7 +5,7 @@ import { P300, R300 } from '@atlaskit/theme/colors';
 
 import { appearances, logosAndIcons } from './utils/list';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		{logosAndIcons.map(({ name, logo: Logo, icon: Icon }) => (
 			<table key={name}>

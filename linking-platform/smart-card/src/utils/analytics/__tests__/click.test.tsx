@@ -62,6 +62,8 @@ describe('withLinkClickedEvent', () => {
 						},
 					},
 				});
+
+				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 
 			it('should cause wrapped component to fire `link clicked` on right click', async () => {
@@ -95,6 +97,8 @@ describe('withLinkClickedEvent', () => {
 						},
 					},
 				});
+
+				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 
 			it('should support `onClick` and `onMouseDown` props', async () => {
@@ -109,6 +113,8 @@ describe('withLinkClickedEvent', () => {
 				await user.pointer({ target: link, keys: '[MouseRight]' });
 				expect(onClick).not.toHaveBeenCalled();
 				expect(onMouseDown).toHaveBeenCalled();
+
+				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 		},
 	);
@@ -154,6 +160,8 @@ describe('withLinkClickedEvent', () => {
 						},
 					},
 				});
+
+				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 
 			it('should set isConfluenceShortLink to false when URL does not contain "/l/cp"', async () => {
@@ -186,6 +194,8 @@ describe('withLinkClickedEvent', () => {
 						},
 					},
 				});
+
+				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 
 			it('should detect "/l/cp" in URL with query parameters', async () => {
@@ -218,6 +228,8 @@ describe('withLinkClickedEvent', () => {
 						},
 					},
 				});
+
+				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 
 			it('should detect "/l/cp" in URL with hash', async () => {
@@ -250,9 +262,11 @@ describe('withLinkClickedEvent', () => {
 						},
 					},
 				});
+
+				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 
-			it('should set isConfluenceShortLink to false when currentTarget is not an HTMLAnchorElement', () => {
+			it('should set isConfluenceShortLink to false when currentTarget is not an HTMLAnchorElement', async () => {
 				const div = document.createElement('div');
 				const event = {
 					currentTarget: div,
@@ -269,6 +283,8 @@ describe('withLinkClickedEvent', () => {
 
 				// When not an anchor element, isConfluenceShortLink should be false
 				expect(payload?.attributes?.isConfluenceShortLink).toBe(false);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
@@ -307,6 +323,8 @@ describe('withLinkClickedEvent', () => {
 						},
 					},
 				});
+
+				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 		});
 	});
@@ -322,7 +340,7 @@ describe('withLinkClickedEvent', () => {
 				const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
 				expValEquals.mockReturnValue(true);
 			});
-			it('should set isConfluenceShortLink to true for URLs containing "/l/cp"', () => {
+			it('should set isConfluenceShortLink to true for URLs containing "/l/cp"', async () => {
 				const anchor = document.createElement('a');
 				anchor.href = 'https://atlassian.com/l/cp/12345';
 				const event = {
@@ -340,9 +358,11 @@ describe('withLinkClickedEvent', () => {
 
 				expect(payload?.attributes?.isConfluenceShortLink).toBe(true);
 				expect(payload?.nonPrivacySafeAttributes?.url).toBe('https://atlassian.com/l/cp/12345');
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should set isConfluenceShortLink to false for URLs not containing "/l/cp"', () => {
+			it('should set isConfluenceShortLink to false for URLs not containing "/l/cp"', async () => {
 				const anchor = document.createElement('a');
 				anchor.href = 'https://atlassian.com/page/12345';
 				const event = {
@@ -360,9 +380,11 @@ describe('withLinkClickedEvent', () => {
 
 				expect(payload?.attributes?.isConfluenceShortLink).toBe(false);
 				expect(payload?.nonPrivacySafeAttributes?.url).toBe('https://atlassian.com/page/12345');
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should detect "/l/cp" in URLs with query parameters', () => {
+			it('should detect "/l/cp" in URLs with query parameters', async () => {
 				const anchor = document.createElement('a');
 				anchor.href = 'https://atlassian.com/l/cp/12345?param=value&other=test';
 				const event = {
@@ -379,9 +401,11 @@ describe('withLinkClickedEvent', () => {
 				const payload = createLinkClickedPayload(event);
 
 				expect(payload?.attributes?.isConfluenceShortLink).toBe(true);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should detect "/l/cp" in URLs with hash fragments', () => {
+			it('should detect "/l/cp" in URLs with hash fragments', async () => {
 				const anchor = document.createElement('a');
 				anchor.href = 'https://atlassian.com/l/cp/12345#section';
 				const event = {
@@ -398,9 +422,11 @@ describe('withLinkClickedEvent', () => {
 				const payload = createLinkClickedPayload(event);
 
 				expect(payload?.attributes?.isConfluenceShortLink).toBe(true);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should set isConfluenceShortLink to false when currentTarget is not an HTMLAnchorElement', () => {
+			it('should set isConfluenceShortLink to false when currentTarget is not an HTMLAnchorElement', async () => {
 				const div = document.createElement('div');
 				const event = {
 					currentTarget: div,
@@ -417,9 +443,11 @@ describe('withLinkClickedEvent', () => {
 
 				expect(payload?.attributes?.isConfluenceShortLink).toBe(false);
 				expect(payload?.nonPrivacySafeAttributes).toBeUndefined();
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should handle case sensitivity correctly - "/l/cp" should match but "/l/CP" should not', () => {
+			it('should handle case sensitivity correctly - "/l/cp" should match but "/l/CP" should not', async () => {
 				const anchor1 = document.createElement('a');
 				anchor1.href = 'https://atlassian.com/l/cp/12345';
 				const event1 = {
@@ -451,6 +479,8 @@ describe('withLinkClickedEvent', () => {
 
 				expect(payload1?.attributes?.isConfluenceShortLink).toBe(true);
 				expect(payload2?.attributes?.isConfluenceShortLink).toBe(false);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
@@ -460,7 +490,7 @@ describe('withLinkClickedEvent', () => {
 				expValEquals.mockReturnValue(false);
 			});
 
-			it('should not include isConfluenceShortLink in payload when experiment is disabled', () => {
+			it('should not include isConfluenceShortLink in payload when experiment is disabled', async () => {
 				const anchor = document.createElement('a');
 				anchor.href = 'https://atlassian.com/l/cp/12345';
 				const event = {
@@ -477,6 +507,8 @@ describe('withLinkClickedEvent', () => {
 				const payload = createLinkClickedPayload(event);
 
 				expect(payload?.attributes?.isConfluenceShortLink).toBeUndefined();
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 	});

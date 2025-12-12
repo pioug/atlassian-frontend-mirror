@@ -143,6 +143,7 @@ export interface InteractionMetrics {
 	id: string;
 	start: number;
 	end: number;
+	end3p?: number;
 	ufoName: string;
 	previousInteractionName?: string;
 	isPreviousInteractionAborted: boolean;

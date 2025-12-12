@@ -1,5 +1,20 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.29.0
+
+### Minor Changes
+
+- [`3e6f7b52a2689`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e6f7b52a2689) -
+  Add rule to suggest usage of CharacterCounterField when using Textfield or Textarea with
+  minLength/maxLength properties
+
+## 13.28.0
+
+### Minor Changes
+
+- [`3f069f2616f1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f069f2616f1b) -
+  Add rule to enforce usage of message wrapper for field messaging components.
+
 ## 13.27.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 9.0.3
+
+### Patch Changes
+
+- [`5a3efdfff9617`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a3efdfff9617) -
+  EDITOR-3911 Fix selection extension plugin to use preserved selection for block menu actions
+- Updated dependencies
+
 ## 9.0.2
 
 ### Patch Changes

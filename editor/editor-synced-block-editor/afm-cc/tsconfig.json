@@ -33,6 +33,9 @@
 			"path": "../../editor-plugins/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-prosemirror/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tokens/afm-cc/tsconfig.json"
 		},
 		{

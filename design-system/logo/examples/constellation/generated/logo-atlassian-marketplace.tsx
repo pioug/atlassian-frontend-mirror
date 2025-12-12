@@ -4,7 +4,7 @@ import { AtlassianMarketplaceIcon, AtlassianMarketplaceLogo } from '@atlaskit/lo
 
 import LogoTable from '../utils/logo-table';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<LogoTable
 		logo={<AtlassianMarketplaceLogo appearance="brand" />}
 		icon={<AtlassianMarketplaceIcon appearance="brand" />}

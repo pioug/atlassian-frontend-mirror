@@ -7,7 +7,7 @@ import {
 
 import LogoTable from '../utils/logo-table';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<LogoTable
 		logo={<JiraServiceManagementDataCenterLogo appearance="brand" />}
 		icon={<JiraServiceManagementDataCenterIcon appearance="brand" />}

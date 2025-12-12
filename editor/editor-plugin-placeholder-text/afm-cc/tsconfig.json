@@ -24,10 +24,16 @@
 	],
 	"references": [
 		{
+			"path": "../../adf-schema/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-type-ahead/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-prosemirror/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-cc/tsconfig.json"

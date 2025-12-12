@@ -32,8 +32,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "root:*",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/adf-schema": "workspace:^",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@emotion/react": "root:*"
 	},

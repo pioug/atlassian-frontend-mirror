@@ -51,18 +51,7 @@ export const createBlockMenuRegistry = () => {
 	const components: RegisterBlockMenuComponent[] = [];
 
 	const register = (blockMenuComponents: RegisterBlockMenuComponent[]) => {
-		blockMenuComponents.forEach((newComponent) => {
-			// Find if a component with the same key already exists
-			const existingIndex = components.findIndex((comp) => comp.key === newComponent.key);
-
-			if (existingIndex !== -1) {
-				// Replace the existing component
-				components[existingIndex] = newComponent;
-			} else {
-				// Add new component
-				components.push(newComponent);
-			}
-		});
+		components.push(...blockMenuComponents);
 	};
 
 	return {

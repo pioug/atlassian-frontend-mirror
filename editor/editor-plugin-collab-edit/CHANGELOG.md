@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 7.1.10
+
+### Patch Changes
+
+- [`750abc612bfa7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/750abc612bfa7) -
+  Fixed step analytic reporting
+- Updated dependencies
+
 ## 7.1.9
 
 ### Patch Changes

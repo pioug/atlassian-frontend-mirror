@@ -26,7 +26,7 @@ const styles = {
 	},
 };
 
-const ToggleIcons = () => {
+const ToggleIcons = (): React.JSX.Element => {
 	const [isColorToggled, setIsColorToggled] = useState(false);
 	const [isFillToggled, setIsFillToggled] = useState(false);
 

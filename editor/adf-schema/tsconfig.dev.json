@@ -1,0 +1,69 @@
+{
+	"extends": "../../../tsconfig.base.json",
+	"include": [
+		"**/docs/**/*",
+		"**/__tests__/**/*",
+		"**/vr-tests/**/*",
+		"**/__perf__/**/*",
+		"**/*.test.*",
+		"**/test.*",
+		"**/test-*",
+		"**/examples.ts",
+		"**/examples.tsx",
+		"**/examples/*.ts",
+		"**/examples/*.tsx",
+		"**/examples/**/*.ts",
+		"**/examples/**/*.tsx",
+		"**/storybook/**/*",
+		"**/constellation/**/*",
+		".storybook/*",
+		"./__fixtures__/**/*",
+		"./__generated__/**/*",
+		"./mocks/**/*",
+		"./__mocks__/**/*",
+		"**/mock.*",
+		"**/codemods/**/*.ts",
+		"**/codemods/**/*.tsx",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx",
+		"codemods",
+		"schema-generators/**/*.ts"
+	],
+	"exclude": [
+		"./src/next-schema/generated/**/*",
+		"./dist/**/*",
+		"./build/**/*",
+		"./node_modules/**/*"
+	],
+	"compilerOptions": {
+		"composite": true,
+		"outDir": "../../../tsDist/@atlaskit__adf-schema/dev"
+	},
+	"references": [
+		{
+			"path": "./tsconfig.app.json"
+		},
+		{
+			"path": "../adf-test-helpers/tsconfig.app.json"
+		},
+		{
+			"path": "../adf-schema-generator/tsconfig.app.json"
+		},
+		{
+			"path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
+			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
+		},
+		{
+			"path": "../adf-schema-json/tsconfig.app.json"
+		}
+	]
+}

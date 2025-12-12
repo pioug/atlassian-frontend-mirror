@@ -24,6 +24,9 @@
 	],
 	"references": [
 		{
+			"path": "../../adf-schema/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-analytics/afm-products/tsconfig.json"
 		},
 		{
@@ -40,6 +43,9 @@
 		},
 		{
 			"path": "../../editor-plugin-user-intent/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-toolbar/afm-products/tsconfig.json"

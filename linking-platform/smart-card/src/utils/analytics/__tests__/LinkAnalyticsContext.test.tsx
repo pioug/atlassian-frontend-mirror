@@ -23,7 +23,7 @@ describe('LinkAnalyticsContext', () => {
 		return null;
 	};
 
-	it('should add analytics context to events based on url', () => {
+	it('should add analytics context to events based on url', async () => {
 		const source = 'fooScreen';
 		const display = 'url';
 		const id = 'fooId';
@@ -50,9 +50,11 @@ describe('LinkAnalyticsContext', () => {
 				},
 			],
 		});
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should not set displayCategory attribute if display is not url', () => {
+	it('should not set displayCategory attribute if display is not url', async () => {
 		const display = 'inline';
 		const spy = jest.fn();
 
@@ -75,5 +77,7 @@ describe('LinkAnalyticsContext', () => {
 				},
 			],
 		});
+
+		await expect(document.body).toBeAccessible();
 	});
 });

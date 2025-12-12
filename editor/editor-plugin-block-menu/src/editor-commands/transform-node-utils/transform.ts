@@ -13,6 +13,7 @@ import { listToDecisionListStep } from './steps/listToDecisionListStep';
 import { listToListStep } from './steps/listToListStep';
 import { unwrapLayoutStep } from './steps/unwrapLayoutStep';
 import { unwrapListStep } from './steps/unwrapListStep';
+import { wrapBlockquoteToDecisionListStep } from './steps/wrapBlockquoteToDecisionListStep';
 import { wrapMixedContentStep } from './steps/wrapMixedContentStep';
 import { stubStep } from './stubStep';
 import type { NodeCategory, NodeTypeName, TransformStepContext, TransformStep } from './types';
@@ -20,6 +21,7 @@ import { NODE_CATEGORY_BY_TYPE, toNodeTypeValue } from './types';
 import { unwrapExpandStep } from './unwrapExpandStep';
 import { unwrapStep } from './unwrapStep';
 import { wrapIntoLayoutStep } from './wrapIntoLayoutStep';
+import { wrapIntoListStep } from './wrapIntoListStep';
 import { wrapStep } from './wrapStep';
 
 // Exampled step for overrides:
@@ -35,7 +37,7 @@ const TRANSFORM_STEPS: Record<NodeCategory, Record<NodeCategory, TransformStep[]
 	atomic: {
 		atomic: undefined,
 		container: [wrapStep],
-		list: undefined,
+		list: [wrapIntoListStep],
 		text: undefined,
 	},
 	container: {
@@ -89,6 +91,7 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		nestedExpand: [wrapStep],
 		layoutSection: [wrapIntoLayoutStep],
 		codeBlock: [unwrapStep, flattenStep, wrapStep],
+		decisionList: [unwrapStep, wrapBlockquoteToDecisionListStep],
 	},
 	layoutSection: {
 		blockquote: [unwrapLayoutStep, wrapStep],
@@ -124,7 +127,12 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		decisionList: [flattenListStep, listToDecisionListStep],
 	},
 	table: {
-		expand: [wrapStep],
+		layoutSection: [wrapIntoLayoutStep],
+	},
+	mediaSingle: {
+		layoutSection: [wrapIntoLayoutStep],
+	},
+	mediaGroup: {
 		layoutSection: [wrapIntoLayoutStep],
 	},
 	decisionList: {

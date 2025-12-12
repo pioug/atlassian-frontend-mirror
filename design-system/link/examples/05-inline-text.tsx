@@ -3,7 +3,7 @@ import React from 'react';
 import Link from '@atlaskit/link';
 import { Text } from '@atlaskit/primitives/compiled';
 
-export default function InlineTextExample() {
+export default function InlineTextExample(): React.JSX.Element {
 	return (
 		<Text>
 			Meow until <Link href="http://www.catipsum.com/">belly rubs</Link>, hide behind curtain when

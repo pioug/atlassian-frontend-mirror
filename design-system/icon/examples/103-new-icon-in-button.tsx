@@ -14,7 +14,7 @@ import AddIconOld from '../glyph/add';
 import HipchatChevronDownIconOld from '../glyph/hipchat/chevron-down';
 
 const styles = xcss({ padding: 'space.200' });
-const IconSizeExample = () => {
+const IconSizeExample = (): React.JSX.Element => {
 	return (
 		<Stack space="space.200" alignInline="start" xcss={styles}>
 			<Heading size="small">Icon button examples</Heading>

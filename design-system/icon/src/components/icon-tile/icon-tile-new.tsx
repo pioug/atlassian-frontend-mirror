@@ -97,7 +97,7 @@ export default function IconTileNew(props: IconTileProps) {
 			testId={testId}
 		>
 			<span css={iconColorMap[appearance]}>
-				<ExpandedIcon color="currentColor" label={label} shouldScale={true} />
+				<ExpandedIcon color="currentColor" label="" shouldScale={true} />
 			</span>
 		</Tile>
 	);

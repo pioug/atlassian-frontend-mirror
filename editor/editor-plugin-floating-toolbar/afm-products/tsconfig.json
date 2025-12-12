@@ -66,6 +66,9 @@
 			"path": "../../editor-plugin-user-intent/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../elements/emoji/afm-products/tsconfig.json"
 		},
 		{

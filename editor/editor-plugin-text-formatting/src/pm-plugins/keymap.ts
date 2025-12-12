@@ -13,9 +13,9 @@ import {
 	toggleUnderline,
 } from '@atlaskit/editor-common/keymaps';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 

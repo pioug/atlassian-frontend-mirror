@@ -37,6 +37,9 @@
 			"path": "../activity-provider/tsconfig.app.json"
 		},
 		{
+			"path": "../adf-schema/tsconfig.app.json"
+		},
+		{
 			"path": "../../analytics/analytics-namespaced-context/tsconfig.app.json"
 		},
 		{
@@ -272,6 +275,9 @@
 		},
 		{
 			"path": "../editor-plugins/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-shared-styles/tsconfig.app.json"

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CSSResetQuotesExample = () => (
+const CSSResetQuotesExample = (): React.JSX.Element => (
 	<div>
 		<h2>
 			{`<blockquote>`} with {`<cite>`}

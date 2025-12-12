@@ -1,5 +1,17 @@
 # @atlaskit/avatar
 
+## 25.6.0
+
+### Minor Changes
+
+- [`7df690ca5c497`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7df690ca5c497) -
+  We are expanding the testing of previous changes behind an additional feature flag to more apps.
+  If this change is successful, it will be available in a later release.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.5.6
 
 ### Patch Changes

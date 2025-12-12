@@ -10,6 +10,7 @@ import {
 	deleteSyncedBlock,
 	getReferenceSyncedBlocks,
 	getSyncedBlockContent,
+	updateReferenceSyncedBlockOnDocument,
 	updateSyncedBlock,
 	type BlockContentErrorResponse,
 	type BlockContentResponse,
@@ -17,6 +18,7 @@ import {
 import {
 	SyncBlockError,
 	type ResourceId,
+	type SyncBlockAttrs,
 	type SyncBlockData,
 	type SyncBlockProduct,
 } from '../../common/types';
@@ -26,6 +28,7 @@ import type {
 	ADFWriteProvider,
 	DeleteSyncBlockResult,
 	SyncBlockInstance,
+	UpdateReferenceSyncBlockResult,
 	WriteSyncBlockResult,
 } from '../types';
 
@@ -221,6 +224,11 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			return { resourceId, success: true, error: undefined };
 		} catch (error) {
 			if (error instanceof BlockError) {
+				if (error.status === 404) {
+					// User should not be blocked by not_found error when deleting, 
+					// hence returns successful result for 404 error
+					return { resourceId, success: true };
+				}
 				return { resourceId, success: false, error: mapBlockError(error) };
 			}
 			return { resourceId, success: false, error: stringifyError(error) };
@@ -234,6 +242,25 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 
 	generateResourceId(): ResourceId {
 		return crypto.randomUUID();
+	}
+
+	async updateReferenceData(blocks: SyncBlockAttrs[], noContent?:boolean): Promise<UpdateReferenceSyncBlockResult> {
+		try {
+			await updateReferenceSyncedBlockOnDocument({
+				documentAri: this.sourceAri,
+				blocks: blocks.map((block) => ({
+					blockAri: generateBlockAriFromReference(this.sourceAri, block.resourceId),
+					blockInstanceId: block.localId,
+				}), noContent),
+			});
+			return { success: true };
+		} catch (error) {
+			if (error instanceof BlockError) {
+				return { success: false, error: mapBlockError(error) };
+			}
+			return { success: false, error: stringifyError(error) };
+		}
+		
 	}
 }
 

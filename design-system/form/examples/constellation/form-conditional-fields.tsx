@@ -81,7 +81,7 @@ function ConditionalFieldsExample(): React.JSX.Element {
 	);
 }
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Form onSubmit={(data) => console.log('form data', data)}>
 			<ConditionalFieldsExample />

@@ -3,7 +3,7 @@
  *
  * Structured content for tokens generated from token-metadata.
  *
- * @codegen <<SignedSource::41dd1fd7431557df57b792c2eb5e5f70>>
+ * @codegen <<SignedSource::71826c7e9b24620099bd0316f7a0a305>>
  * @codegenCommand yarn build structured-docs
  */
 export interface TokenStructuredContent {
@@ -214,6 +214,14 @@ export const tokenStructuredContent: TokenStructuredContent[] = [
 	},
 	{
 		content:
+			'# color.text.danger.bolder\n\nUse for text on top of danger semantic labels to ensure accessibility and desired visual appearance.\n\nExample Value: `#5D1F1A`\n',
+		name: 'color.text.danger.bolder',
+		description:
+			'Use for text on top of danger semantic labels to ensure accessibility and desired visual appearance.',
+		exampleValue: '#5D1F1A',
+	},
+	{
+		content:
 			'# color.text.warning\n\nUse for text to emphasize caution, such as in moved lozenges.\n\nExample Value: `#9E4C00`\n',
 		name: 'color.text.warning',
 		description: 'Use for text to emphasize caution, such as in moved lozenges.',
@@ -228,11 +236,27 @@ export const tokenStructuredContent: TokenStructuredContent[] = [
 	},
 	{
 		content:
+			'# color.text.warning.bolder\n\nUse for text on top of warning semantic labels to ensure accessibility and desired visual appearance.\n\nExample Value: `#693200`\n',
+		name: 'color.text.warning.bolder',
+		description:
+			'Use for text on top of warning semantic labels to ensure accessibility and desired visual appearance.',
+		exampleValue: '#693200',
+	},
+	{
+		content:
 			'# color.text.success\n\nUse for text to communicate a favorable outcome, such as input field success messaging.\n\nExample Value: `#4C6B1F`\n',
 		name: 'color.text.success',
 		description:
 			'Use for text to communicate a favorable outcome, such as input field success messaging.',
 		exampleValue: '#4C6B1F',
+	},
+	{
+		content:
+			'# color.text.success.bolder\n\nUse for text on top of success semantic labels to ensure accessibility and desired visual appearance.\n\nExample Value: `#37471F`\n',
+		name: 'color.text.success.bolder',
+		description:
+			'Use for text on top of success semantic labels to ensure accessibility and desired visual appearance.',
+		exampleValue: '#37471F',
 	},
 	{
 		content:
@@ -243,11 +267,27 @@ export const tokenStructuredContent: TokenStructuredContent[] = [
 	},
 	{
 		content:
+			'# color.text.discovery.bolder\n\nUse for text on top of discovery semantic labels to ensure accessibility and desired visual appearance.\n\nExample Value: `#48245D`\n',
+		name: 'color.text.discovery.bolder',
+		description:
+			'Use for text on top of discovery semantic labels to ensure accessibility and desired visual appearance.',
+		exampleValue: '#48245D',
+	},
+	{
+		content:
 			'# color.text.information\n\nUse for informative text or to communicate something is in progress, such as in-progress lozenges.\n\nExample Value: `#1558BC`\n',
 		name: 'color.text.information',
 		description:
 			'Use for informative text or to communicate something is in progress, such as in-progress lozenges.',
 		exampleValue: '#1558BC',
+	},
+	{
+		content:
+			'# color.text.information.bolder\n\nUse for text on top of information semantic labels to ensure accessibility and desired visual appearance.\n\nExample Value: `#123263`\n',
+		name: 'color.text.information.bolder',
+		description:
+			'Use for text on top of information semantic labels to ensure accessibility and desired visual appearance.',
+		exampleValue: '#123263',
 	},
 	{
 		content:
@@ -1776,6 +1816,28 @@ export const tokenStructuredContent: TokenStructuredContent[] = [
 	},
 	{
 		content:
+			'# color.background.danger.subtler\n\nUse for backgrounds of danger lozenges and badges to ensure accessibility and desired visual appearance.\n\nExample Value: `#FFD5D2`\n',
+		name: 'color.background.danger.subtler',
+		description:
+			'Use for backgrounds of danger lozenges and badges to ensure accessibility and desired visual appearance.',
+		exampleValue: '#FFD5D2',
+	},
+	{
+		content:
+			'# color.background.danger.subtler.hovered\n\nHovered state of color.background.danger.subtler\n\nExample Value: `#FFB8B2`\n',
+		name: 'color.background.danger.subtler.hovered',
+		description: 'Hovered state of color.background.danger.subtler',
+		exampleValue: '#FFB8B2',
+	},
+	{
+		content:
+			'# color.background.danger.subtler.pressed\n\nPressed state of color.background.danger.subtler\n\nExample Value: `#FD9891`\n',
+		name: 'color.background.danger.subtler.pressed',
+		description: 'Pressed state of color.background.danger.subtler',
+		exampleValue: '#FD9891',
+	},
+	{
+		content:
 			'# color.background.danger.bold\n\nA vibrant background option for communicating critical information, such as in danger buttons and error banners.\n\nExample Value: `#C9372C`\n',
 		name: 'color.background.danger.bold',
 		description:
@@ -1816,6 +1878,28 @@ export const tokenStructuredContent: TokenStructuredContent[] = [
 		name: 'color.background.warning.pressed',
 		description: 'Pressed state for color.background.warning',
 		exampleValue: '#FBD779',
+	},
+	{
+		content:
+			'# color.background.warning.subtler\n\nUse for backgrounds of warning lozenges and badges to ensure accessibility and desired visual appearance.\n\nExample Value: `#FCE4A6`\n',
+		name: 'color.background.warning.subtler',
+		description:
+			'Use for backgrounds of warning lozenges and badges to ensure accessibility and desired visual appearance.',
+		exampleValue: '#FCE4A6',
+	},
+	{
+		content:
+			'# color.background.warning.subtler.hovered\n\nHovered state of color.background.warning.subtler\n\nExample Value: `#FBD779`\n',
+		name: 'color.background.warning.subtler.hovered',
+		description: 'Hovered state of color.background.warning.subtler',
+		exampleValue: '#FBD779',
+	},
+	{
+		content:
+			'# color.background.warning.subtler.pressed\n\nPressed state of color.background.warning.subtler\n\nExample Value: `#FBC828`\n',
+		name: 'color.background.warning.subtler.pressed',
+		description: 'Pressed state of color.background.warning.subtler',
+		exampleValue: '#FBC828',
 	},
 	{
 		content:
@@ -1863,6 +1947,28 @@ export const tokenStructuredContent: TokenStructuredContent[] = [
 	},
 	{
 		content:
+			'# color.background.success.subtler\n\nUse for backgrounds of success lozenges and badges to ensure accessibility and desired visual appearance.\n\nExample Value: `#D3F1A7`\n',
+		name: 'color.background.success.subtler',
+		description:
+			'Use for backgrounds of success lozenges and badges to ensure accessibility and desired visual appearance.',
+		exampleValue: '#D3F1A7',
+	},
+	{
+		content:
+			'# color.background.success.subtler.hovered\n\nHovered state of color.background.success.subtler\n\nExample Value: `#BDE97C`\n',
+		name: 'color.background.success.subtler.hovered',
+		description: 'Hovered state of color.background.success.subtler',
+		exampleValue: '#BDE97C',
+	},
+	{
+		content:
+			'# color.background.success.subtler.pressed\n\nPressed state of color.background.success.subtler\n\nExample Value: `#B3DF72`\n',
+		name: 'color.background.success.subtler.pressed',
+		description: 'Pressed state of color.background.success.subtler',
+		exampleValue: '#B3DF72',
+	},
+	{
+		content:
 			'# color.background.success.bold\n\nA vibrant background option for communicating a favorable outcome, such as in checked toggles.\n\nExample Value: `#5B7F24`\n',
 		name: 'color.background.success.bold',
 		description:
@@ -1907,6 +2013,28 @@ export const tokenStructuredContent: TokenStructuredContent[] = [
 	},
 	{
 		content:
+			'# color.background.discovery.subtler\n\nUse for backgrounds of discovery lozenges and badges to ensure accessibility and desired visual appearance.\n\nExample Value: `#EED7FC`\n',
+		name: 'color.background.discovery.subtler',
+		description:
+			'Use for backgrounds of discovery lozenges and badges to ensure accessibility and desired visual appearance.',
+		exampleValue: '#EED7FC',
+	},
+	{
+		content:
+			'# color.background.discovery.subtler.hovered\n\nHovered state of color.background.discovery.subtler\n\nExample Value: `#E3BDFA`\n',
+		name: 'color.background.discovery.subtler.hovered',
+		description: 'Hovered state of color.background.discovery.subtler',
+		exampleValue: '#E3BDFA',
+	},
+	{
+		content:
+			'# color.background.discovery.subtler.pressed\n\nPressed state of color.background.discovery.subtler\n\nExample Value: `#D8A0F7`\n',
+		name: 'color.background.discovery.subtler.pressed',
+		description: 'Pressed state of color.background.discovery.subtler',
+		exampleValue: '#D8A0F7',
+	},
+	{
+		content:
 			'# color.background.discovery.bold\n\nA vibrant background option communicating change or something new, such as in onboarding spotlights.\n\nExample Value: `#964AC0`\n',
 		name: 'color.background.discovery.bold',
 		description:
@@ -1948,6 +2076,28 @@ export const tokenStructuredContent: TokenStructuredContent[] = [
 		name: 'color.background.information.pressed',
 		description: 'Pressed state of color.background.information',
 		exampleValue: '#ADCBFB',
+	},
+	{
+		content:
+			'# color.background.information.subtler\n\nUse for backgrounds of information lozenges and badges to ensure accessibility and desired visual appearance.\n\nExample Value: `#CFE1FD`\n',
+		name: 'color.background.information.subtler',
+		description:
+			'Use for backgrounds of information lozenges and badges to ensure accessibility and desired visual appearance.',
+		exampleValue: '#CFE1FD',
+	},
+	{
+		content:
+			'# color.background.information.subtler.hovered\n\nHovered state of color.background.information.subtler\n\nExample Value: `#ADCBFB`\n',
+		name: 'color.background.information.subtler.hovered',
+		description: 'Hovered state of color.background.information.subtler',
+		exampleValue: '#ADCBFB',
+	},
+	{
+		content:
+			'# color.background.information.subtler.pressed\n\nPressed state of color.background.information.subtler\n\nExample Value: `#8FB8F6`\n',
+		name: 'color.background.information.subtler.pressed',
+		description: 'Pressed state of color.background.information.subtler',
+		exampleValue: '#8FB8F6',
 	},
 	{
 		content:

@@ -314,13 +314,11 @@ export const baseTableStyles = (props: {
 	${rangeSelectionStyles};
 	${fg('platform_editor_table_numbered_table_border') && rangeSelectionStylesForFakeBorders};
 	${viewModeSortStyles()};
-	${expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
-	expValEquals(
+	${expValEquals(
 		'platform_editor_table_sticky_header_improvements',
 		'cohort',
 		'test_with_overflow',
-	) &&
-	tableAnchorStyles};
+	) && tableAnchorStyles};
 
 	.${ClassName.LAST_ITEM_IN_CELL} {
 		margin-bottom: 0;
@@ -546,6 +544,22 @@ export const baseTableStyles = (props: {
 				inset 1px -1px ${tableBorderColor},
 				0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter')};
 		}
+
+		${fg('platform_editor_table_sticky_header_patch_1')
+			? `th.${ClassName.TABLE_HEADER_CELL}::after {
+				height: 100%;
+				content: '';
+				border-left: 1px solid ${tableBorderColor};
+				border-bottom: 1px solid ${tableBorderColor};
+				position: absolute;
+				right: 0px;
+				top: 0px;
+				bottom: 0;
+				width: 100%;
+				display: inline-block;
+				pointer-events: none;
+			}`
+			: ``}
 	}
 
 	/** Adds mask above sticky header to prevent table content from bleeding through on scroll */
@@ -561,6 +575,15 @@ export const baseTableStyles = (props: {
 		border-top: ${tableMarginTop}px solid ${token('elevation.surface')};
 		z-index: ${stickyRowZIndex};
 	}
+
+	/** When cleaning up, merge this with the style above */
+	${fg('platform_editor_table_sticky_header_patch_1')
+		? `
+		.${ClassName.TABLE_NODE_WRAPPER}:has(tr.${ClassName.NATIVE_STICKY})::before {
+			margin-top: 1px;
+		}
+	`
+		: ``}
 
 	/** Corrects position of drag row controls when sticky header top mask is present */
 	.${ClassName.TABLE_CONTAINER}:has(.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW})
@@ -1438,6 +1461,10 @@ export const tableCommentEditorStyles = css`
 
 const tableAnchorStyles = css`
 	.pm-table-with-controls .pm-table-wrapper-no-overflow [data-prosemirror-node-name='tableHeader'] {
+		anchor-name: var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)));
+	}
+
+	.pm-table-with-controls .pm-table-wrapper-no-overflow [data-prosemirror-node-name='tableRow'] {
 		anchor-name: var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)));
 	}
 `;

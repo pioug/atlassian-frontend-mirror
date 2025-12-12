@@ -1,4 +1,4 @@
-import { AnalyticsStep, SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import { AnalyticsStep, SetAttrsStep, BatchAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
@@ -82,6 +82,11 @@ export const sanitizeStep = (step: Step): SanitizedStep => {
 		step instanceof AddNodeMarkStep
 	) {
 		sanitizedStep.markType = step.mark.type.name;
+	} else if (step instanceof BatchAttrsStep) {
+		const batched = step.data.map(
+			({ nodeType, attrs }) => `${nodeType}_${Object.keys(attrs).sort().join('_')}`,
+		);
+		sanitizedStep.attr = batched.sort().join('_');
 	}
 
 	return sanitizedStep;

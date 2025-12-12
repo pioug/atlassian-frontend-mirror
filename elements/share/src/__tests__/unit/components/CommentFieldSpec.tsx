@@ -34,16 +34,18 @@ jest.mock('@atlaskit/form', () => {
 });
 
 describe('CommentField', () => {
-	it('should render TextField', () => {
+	it('should render TextField', async () => {
 		render(<CommentField />);
 
 		const textArea = screen.getByRole('textbox', { name: messages.commentLabel.defaultMessage });
 
 		expect(textArea).toBeVisible();
 		expect(textArea).toHaveAttribute('placeholder', messages.commentPlaceholder.defaultMessage);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should set defaultValue in the comment field when provided', () => {
+	it('should set defaultValue in the comment field when provided', async () => {
 		const defaultValue: Comment = {
 			format: 'plain_text',
 			value: 'some comment',
@@ -55,6 +57,8 @@ describe('CommentField', () => {
 		const value = within(textArea).getByText('some comment');
 
 		expect(value).toBeVisible();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it.each([true, false])(
@@ -74,7 +78,7 @@ describe('CommentField', () => {
 		},
 	);
 
-	it('should not render textarea if extended share dialog is enabled and no users are selected', () => {
+	it('should not render textarea if extended share dialog is enabled and no users are selected', async () => {
 		mockUseFormState.mockReturnValueOnce({
 			values: {
 				users: [],
@@ -86,9 +90,11 @@ describe('CommentField', () => {
 		const textArea = screen.queryByRole('textbox');
 
 		expect(textArea).not.toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render textarea if extended share dialog is enabled and users are selected', () => {
+	it('should render textarea if extended share dialog is enabled and users are selected', async () => {
 		render(<CommentField isExtendedShareDialogEnabled />);
 
 		const textArea = screen.getByRole('textbox', {
@@ -96,5 +102,7 @@ describe('CommentField', () => {
 		});
 
 		expect(textArea).toBeVisible();
+
+		await expect(document.body).toBeAccessible();
 	});
 });

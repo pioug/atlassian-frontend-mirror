@@ -218,8 +218,14 @@ export const FullPageToolbarNext = ({
 											isToolbar(toolbar) &&
 											(!expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true) ||
 												(editorView &&
-													(!expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) ||
-														!isSSR()))) && (
+													(expValEquals(
+														'platform_editor_toolbar_delay_render_fix',
+														'isEnabled',
+														true,
+													)
+														? !isSSR()
+														: !expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) ||
+															!isSSR()))) && (
 												<ToolbarNext
 													toolbar={toolbar}
 													components={components}
@@ -255,8 +261,10 @@ export const FullPageToolbarNext = ({
 								isToolbar(toolbar) &&
 								(!expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true) ||
 									(editorView &&
-										(!expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) ||
-											!isSSR()))) && (
+										(expValEquals('platform_editor_toolbar_delay_render_fix', 'isEnabled', true)
+											? !isSSR()
+											: !expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) ||
+												!isSSR()))) && (
 									<ToolbarNext
 										toolbar={toolbar}
 										components={components}

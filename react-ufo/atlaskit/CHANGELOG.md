@@ -1,5 +1,26 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.16.0
+
+### Minor Changes
+
+- [`904c5b49342ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/904c5b49342ff) -
+  Adds event population config.
+
+## 4.15.19
+
+### Patch Changes
+
+- [`99c161ec39db8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99c161ec39db8) -
+  Send third party holds data when raw data handler is enabled
+
+## 4.15.18
+
+### Patch Changes
+
+- [`4bd92b550a0c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bd92b550a0c8) -
+  Drop vc details data when raw data event is enabled
+
 ## 4.15.17
 
 ### Patch Changes

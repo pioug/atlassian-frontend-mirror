@@ -58,7 +58,7 @@ interface HeadingLevelContextProps {
  * </HeadingContext>
  * ```
  */
-const HeadingLevelContextProvider = ({ children, value }: HeadingLevelContextProps) => {
+const HeadingLevelContextProvider = ({ children, value }: HeadingLevelContextProps): React.JSX.Element => {
 	const parentHeadingLevel = useHeadingLevel();
 	const headingLevel = (parentHeadingLevel + 1) as HeadingLevel;
 	return (

@@ -4,7 +4,7 @@ import { ConfluenceDataCenterIcon, ConfluenceDataCenterLogo } from '@atlaskit/lo
 
 import LogoTable from '../utils/logo-table';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<LogoTable
 		logo={<ConfluenceDataCenterLogo appearance="brand" />}
 		icon={<ConfluenceDataCenterIcon appearance="brand" />}

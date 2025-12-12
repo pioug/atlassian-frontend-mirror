@@ -1,4 +1,4 @@
-import { type Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { TransformStep } from '../types';
 import { isListType } from '../utils';
@@ -29,8 +29,9 @@ import { isListType } from '../utils';
 export const listToDecisionListStep: TransformStep = (nodes, context) => {
 	const { schema } = context;
 	const paragraphType = schema.nodes.paragraph;
+	const unsupportedContent: PMNode[] = [];
 
-	return nodes.map((node) => {
+	const transformedNodes = nodes.map((node) => {
 		if (!isListType(node, schema)) {
 			return node;
 		}
@@ -42,24 +43,23 @@ export const listToDecisionListStep: TransformStep = (nodes, context) => {
 			item.forEach((child) => {
 				if (child.type === paragraphType) {
 					// paragraph may contain hard breaks etc.
-					child.content.forEach((inline) => {
-						itemContent.push(inline);
-					});
-				} else {
+					itemContent.push(...child.children);
+				} else if (child.isText) {
 					itemContent.push(child);
+				} else if (!isListType(child, schema)) {
+					unsupportedContent.push(child);
 				}
-				// TODO: EDITOR-3887 - Skip mediaSingle, codeBlock, and nested lists
 			});
 
-			const decisionItem = schema.nodes.decisionItem.create({}, Fragment.from(itemContent));
+			const decisionItem = schema.nodes.decisionItem.create({}, itemContent);
 
-			if (decisionItem) {
-				decisionItems.push(decisionItem);
-			}
+			decisionItems.push(decisionItem);
 		});
 
-		const decisionList = schema.nodes.decisionList.create({}, Fragment.from(decisionItems));
+		const decisionList = schema.nodes.decisionList.create({}, decisionItems);
 
 		return decisionList || node;
 	});
+
+	return [...transformedNodes, ...unsupportedContent];
 };

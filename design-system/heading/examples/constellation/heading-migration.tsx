@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import Heading from '@atlaskit/heading';
 import { Stack } from '@atlaskit/primitives/compiled';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Fragment>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}

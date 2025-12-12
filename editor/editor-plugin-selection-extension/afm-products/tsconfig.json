@@ -33,6 +33,9 @@
 			"path": "../../editor-plugin-analytics/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-block-controls/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-block-menu/afm-products/tsconfig.json"
 		},
 		{
@@ -52,6 +55,9 @@
 		},
 		{
 			"path": "../../editor-plugin-user-preferences/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-shared-styles/afm-products/tsconfig.json"

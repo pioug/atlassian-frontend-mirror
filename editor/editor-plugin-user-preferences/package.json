@@ -32,7 +32,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
 		"bind-event-listener": "root:*"

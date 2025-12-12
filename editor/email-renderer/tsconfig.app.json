@@ -35,7 +35,13 @@
 	},
 	"references": [
 		{
+			"path": "../adf-schema/tsconfig.app.json"
+		},
+		{
 			"path": "../adf-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
 		}
 	],
 	"files": []

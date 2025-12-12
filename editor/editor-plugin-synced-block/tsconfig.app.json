@@ -35,6 +35,9 @@
 	},
 	"references": [
 		{
+			"path": "../adf-schema/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/button/tsconfig.app.json"
 		},
 		{
@@ -71,6 +74,9 @@
 			"path": "../editor-plugin-toolbar/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-shared-styles/tsconfig.app.json"
 		},
 		{
@@ -105,6 +111,9 @@
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../tmp-editor-statsig/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"

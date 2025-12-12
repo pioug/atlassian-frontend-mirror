@@ -41,8 +41,8 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "root:*",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/adf-schema": "workspace:^",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@babel/runtime": "root:*",
 		"collapse-whitespace": "root:*"

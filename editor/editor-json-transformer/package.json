@@ -35,9 +35,9 @@
 		"./types": "./src/types.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/adf-utils": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@babel/runtime": "root:*",
 		"lodash": "root:*"
 	},

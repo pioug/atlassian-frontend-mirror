@@ -24,6 +24,9 @@
 	],
 	"references": [
 		{
+			"path": "../../adf-schema/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-jira/tsconfig.json"
 		}
 	]

@@ -147,6 +147,10 @@ export type FieldComponentProps<FieldValue, Element extends SupportedElements> =
 	 * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
 	 */
 	testId?: string;
+	/**
+	 * The `aria-required` prop is disallowed. It is automatically applied when using `isRequired` via `fieldProps`.
+	 */
+	'aria-required'?: never;
 };
 
 interface State<FieldValue, Element extends SupportedElements> {

@@ -17,7 +17,7 @@ const Section = ({ size, willRenderAs, children }: any) => (
 	</HeadingContextProvider>
 );
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<HeadingContextProvider value={2}>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}

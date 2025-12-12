@@ -99,7 +99,7 @@ describe('ShareForm', () => {
 	);
 
 	describe('isSharing prop', () => {
-		it('should set isLoading prop to true to the Send button', () => {
+		it('should set isLoading prop to true to the Send button', async () => {
 			const mockLink = 'link';
 			const loadOptions = jest.fn();
 			const wrapper = shallow(
@@ -116,9 +116,11 @@ describe('ShareForm', () => {
 			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
 			const footer = form.find('[data-testid="form-footer"]');
 			expect(footer.find(Button).prop('isLoading')).toBeTruthy();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should set appearance prop to "primary" and isLoading prop to true to the Send button, and hide the tooltip', () => {
+		it('should set appearance prop to "primary" and isLoading prop to true to the Send button, and hide the tooltip', async () => {
 			const mockLink = 'link';
 			const mockShareError: ShareError = { message: 'error', retryable: true };
 			const loadOptions = jest.fn();
@@ -139,11 +141,13 @@ describe('ShareForm', () => {
 			expect(footer.find(Tooltip)).toHaveLength(0);
 			expect(footer.find(Button).prop('isLoading')).toBeTruthy();
 			expect(footer.find(Button).prop('appearance')).toEqual('primary');
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('isFetchingConfig prop', () => {
-		it('should set isLoading prop to true to the UserPickerField', () => {
+		it('should set isLoading prop to true to the UserPickerField', async () => {
 			const mockLink = 'link';
 			const loadOptions = jest.fn();
 			const wrapper = (shallowWithIntl as typeof shallow)(
@@ -160,11 +164,13 @@ describe('ShareForm', () => {
 			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
 			const userPickerField = form.find(UserPickerField);
 			expect(userPickerField.prop('isLoading')).toBeTruthy();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('shareError prop', () => {
-		it('should render Retry button with an ErrorIcon and Tooltip', () => {
+		it('should render Retry button with an ErrorIcon and Tooltip', async () => {
 			const mockShareError: ShareError = {
 				message: 'error',
 				retryable: true,
@@ -198,9 +204,11 @@ describe('ShareForm', () => {
 
 			const errorIcon = tooltip.find(ErrorIcon);
 			expect(errorIcon).toHaveLength(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render disabeld Share button with no ErrorIcon when client error', () => {
+		it('should render disabeld Share button with no ErrorIcon when client error', async () => {
 			const mockShareError: ShareError = {
 				message: 'error',
 				errorCode: 'blah',
@@ -225,11 +233,13 @@ describe('ShareForm', () => {
 			expect(button.prop('isDisabled')).toEqual(true);
 
 			expect(form.find(ErrorIcon).exists()).toBe(false);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('Additional user fields', () => {
-		it('should render additional user fields when isExtendedShareDialogEnabled is true', () => {
+		it('should render additional user fields when isExtendedShareDialogEnabled is true', async () => {
 			render(
 				<IntlProvider locale="en">
 					<ShareForm
@@ -245,9 +255,11 @@ describe('ShareForm', () => {
 			);
 
 			expect(screen.getByText('User role field')).toBeVisible();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not render additional user fields when isExtendedShareDialogEnabled is false', () => {
+		it('should not render additional user fields when isExtendedShareDialogEnabled is false', async () => {
 			render(
 				<IntlProvider locale="en">
 					<ShareForm
@@ -263,9 +275,11 @@ describe('ShareForm', () => {
 			);
 
 			expect(screen.queryByText('User role field')).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not render additional user fields when they do not exist', () => {
+		it('should not render additional user fields when they do not exist', async () => {
 			render(
 				<IntlProvider locale="en">
 					<ShareForm
@@ -280,11 +294,13 @@ describe('ShareForm', () => {
 			);
 
 			expect(screen.queryByText('User role field')).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('shareFieldsFooter prop', () => {
-		it('should render the shareForm with the fields footer content', () => {
+		it('should render the shareForm with the fields footer content', async () => {
 			const wrapper = shallow(
 				<ShareForm
 					{...defaultProps}
@@ -298,10 +314,12 @@ describe('ShareForm', () => {
 			const akForm = wrapper.find(Form);
 			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
 			expect(form.contains('Some message')).toBeTruthy();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
-	it('should set defaultValue', () => {
+	it('should set defaultValue', async () => {
 		const mockLink = 'link';
 		const loadOptions = jest.fn();
 		const defaultValue: DialogContentState = {
@@ -327,10 +345,12 @@ describe('ShareForm', () => {
 
 		expect(form.find(UserPickerField).prop('defaultValue')).toBe(defaultValue.users);
 		expect(form.find(CommentField).prop('defaultValue')).toBe(defaultValue.comment);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('isPublicLink prop', () => {
-		it('should render Share button with the correct text', () => {
+		it('should render Share button with the correct text', async () => {
 			const wrapper = shallow(
 				<ShareForm
 					{...defaultProps}
@@ -350,9 +370,11 @@ describe('ShareForm', () => {
 			const buttonLabel = button.find(FormattedMessage);
 			expect(buttonLabel).toHaveLength(1);
 			expect(buttonLabel.props()).toMatchObject(messages.formSendPublic);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render Share button with the share text for integration mode "tabs"', () => {
+		it('should render Share button with the share text for integration mode "tabs"', async () => {
 			const wrapper = shallow(
 				<ShareForm
 					{...defaultProps}
@@ -373,9 +395,11 @@ describe('ShareForm', () => {
 			const buttonLabel = button.find(FormattedMessage);
 			expect(buttonLabel).toHaveLength(1);
 			expect(buttonLabel.props()).toMatchObject(messages.formSharePublic);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should pass value to CopyLinkButton', () => {
+		it('should pass value to CopyLinkButton', async () => {
 			const wrapper = shallow(
 				<ShareForm
 					{...defaultProps}
@@ -393,11 +417,13 @@ describe('ShareForm', () => {
 			const copyLinkButton = footer.find(CopyLinkButton);
 			expect(copyLinkButton.length).toBe(1);
 			expect(copyLinkButton.prop('isDisabled')).toEqual(true);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('showTitle prop', () => {
-		it('should not render the share form header if showTitle is false', () => {
+		it('should not render the share form header if showTitle is false', async () => {
 			const wrapper = (shallowWithIntl as typeof shallow)(
 				<ShareForm
 					{...defaultProps}
@@ -412,11 +438,13 @@ describe('ShareForm', () => {
 			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
 			const shareHeader = form.find(ShareHeader);
 			expect(shareHeader).toHaveLength(0);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('integrationMode prop', () => {
-		it('should not render Tabs when integrationMode is "off" and shareIntegrations has content', () => {
+		it('should not render Tabs when integrationMode is "off" and shareIntegrations has content', async () => {
 			const wrapper = (shallowWithIntl as typeof shallow)(
 				<ShareForm
 					{...defaultProps}
@@ -438,9 +466,11 @@ describe('ShareForm', () => {
 
 			const tabs = form.find(Tabs);
 			expect(tabs).toHaveLength(0);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not render Tabs when integrationMode is "menu" and shareIntegrations has content', () => {
+		it('should not render Tabs when integrationMode is "menu" and shareIntegrations has content', async () => {
 			const wrapper = (shallowWithIntl as typeof shallow)(
 				<ShareForm
 					{...defaultProps}
@@ -462,9 +492,11 @@ describe('ShareForm', () => {
 
 			const tabs = form.find(Tabs);
 			expect(tabs).toHaveLength(0);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render the share button text as "share" when integrationMode is "tabs"', () => {
+		it('should render the share button text as "share" when integrationMode is "tabs"', async () => {
 			const wrapper = shallow(
 				<ShareForm
 					{...defaultProps}
@@ -484,9 +516,11 @@ describe('ShareForm', () => {
 			const buttonLabel = button.find(FormattedMessage);
 			expect(buttonLabel).toHaveLength(1);
 			expect(buttonLabel.props()).toMatchObject(messages.formShare);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render menu items with the share text for integration mode "menu"', () => {
+		it('should render menu items with the share text for integration mode "menu"', async () => {
 			const wrapper = shallow(
 				<ShareForm
 					{...defaultProps}
@@ -513,11 +547,13 @@ describe('ShareForm', () => {
 			expect(menuGroup).toHaveLength(1);
 			const menuItems = menuGroup.find(ShareMenuItem);
 			expect(menuItems).toHaveLength(2);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('shareIntegrations prop', () => {
-		it('should not render Tabs when shareIntegrations array is empty', () => {
+		it('should not render Tabs when shareIntegrations array is empty', async () => {
 			const wrapper = (shallowWithIntl as typeof shallow)(
 				<ShareForm
 					{...defaultProps}
@@ -533,9 +569,11 @@ describe('ShareForm', () => {
 
 			const tabs = form.find(Tabs);
 			expect(tabs).toHaveLength(0);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render Integration Tab when shareIntegrations array is filled in', () => {
+		it('should render Integration Tab when shareIntegrations array is filled in', async () => {
 			const wrapper = (shallowWithIntl as typeof shallow)(
 				<ShareForm
 					{...defaultProps}
@@ -560,19 +598,23 @@ describe('ShareForm', () => {
 			const tabList = tabs.find(TabList);
 			const childTabs = tabList.find(Tab);
 			expect(childTabs).toHaveLength(2);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
-	it('should render helper text on top to explain asterisk', () => {
+	it('should render helper text on top to explain asterisk', async () => {
 		render(
 			<IntlProvider locale="en">
 				<ShareForm {...defaultProps} title="Share" copyLink="link" product="confluence" />
 			</IntlProvider>,
 		);
 		expect(screen.getByText('Required fields are marked with an asterisk')).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should not render required fields helper text to explain asterisk when isExtendedShareDialogEnabled = true', () => {
+	it('should not render required fields helper text to explain asterisk when isExtendedShareDialogEnabled = true', async () => {
 		render(
 			<IntlProvider locale="en">
 				<ShareForm
@@ -588,6 +630,8 @@ describe('ShareForm', () => {
 		expect(
 			screen.queryByText('Required fields are marked with an asterisk'),
 		).not.toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('additionalTabs', () => {
@@ -598,7 +642,7 @@ describe('ShareForm', () => {
 			},
 		];
 
-		it('should render additional tabs when provided', () => {
+		it('should render additional tabs when provided', async () => {
 			const wrapper = shallow(
 				<ShareForm
 					{...defaultProps}
@@ -619,9 +663,11 @@ describe('ShareForm', () => {
 			const tabs = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tab);
 			expect(tabs).toHaveLength(3); // Default tab + Slack tab + Custom tab
 			expect(tabs.at(2).prop('children')).toBe('Custom Tab');
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not render additional tabs when not in tabs mode', () => {
+		it('should not render additional tabs when not in tabs mode', async () => {
 			const wrapper = shallow(
 				<ShareForm
 					{...defaultProps}
@@ -634,9 +680,11 @@ describe('ShareForm', () => {
 			const akForm = wrapper.find(Form);
 			const tabs = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tab);
 			expect(tabs).toHaveLength(0);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render additional tabs when slack integration is not present', () => {
+		it('should render additional tabs when slack integration is not present', async () => {
 			const wrapper = shallow(
 				<ShareForm
 					{...defaultProps}
@@ -650,12 +698,14 @@ describe('ShareForm', () => {
 			const tabs = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tab);
 			expect(tabs).toHaveLength(2); // Default tab + Custom tab
 			expect(tabs.at(1).prop('children')).toBe('Custom Tab');
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });
 
 describe('helperMessage prop', () => {
-	it('should pass helper message when the helperMessage prop is available', () => {
+	it('should pass helper message when the helperMessage prop is available', async () => {
 		const mockLink = 'link';
 		const loadOptions = jest.fn();
 		const onSubmit = jest.fn();
@@ -676,11 +726,13 @@ describe('helperMessage prop', () => {
 		const userPickerField = form.find(UserPickerField);
 
 		expect(userPickerField.props().helperMessage).toEqual(helperMessage);
+
+		await expect(document.body).toBeAccessible();
 	});
 });
 
 describe('orgId prop', () => {
-	it('should pass org id to userPickerField', () => {
+	it('should pass org id to userPickerField', async () => {
 		const mockLink = 'link';
 		const mockOrgId = 'org-id';
 		const loadOptions = jest.fn();
@@ -704,5 +756,7 @@ describe('orgId prop', () => {
 		const userPickerField = form.find(UserPickerField);
 
 		expect(userPickerField.props().orgId).toEqual(mockOrgId);
+
+		await expect(document.body).toBeAccessible();
 	});
 });

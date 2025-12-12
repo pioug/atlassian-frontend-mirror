@@ -31,7 +31,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
@@ -40,7 +40,7 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/adf-schema": "workspace:^",
 		"@testing-library/react": "^16.3.0",
 		"wait-for-expect": "root:*"
 	},

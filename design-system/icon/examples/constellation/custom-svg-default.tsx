@@ -18,7 +18,7 @@ const CustomSVGExample = (props: SVGProps) => {
 	);
 };
 
-const ExampleContainer = () => (
+const ExampleContainer = (): React.JSX.Element => (
 	<Box>
 		<CustomSVGExample primaryColor={B300} size="small" label="spinner" />
 		<CustomSVGExample primaryColor={B300} size="medium" label="spinner" />

@@ -168,7 +168,7 @@ const ${componentName}: {
 	testId,
 }) => {
 	// Feature flag to migrate to new object package
-	if (fg('platform_dst_icon_object_to_object')) {
+	if (fg('platform_dst_icon_object_to_object') || fg('platform_dst_icon_object_to_object_stage2')) {
 		// Map props based on size: 16px -> object (medium), 24px -> tile (small)
 		return ${size === '16' ? '<NewObjectComponent label={label} testId={testId} size="medium" />' : '<NewObjectComponent label={label} testId={testId} size="small" />'}
 	}

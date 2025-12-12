@@ -66,6 +66,8 @@ describe('<ItemViewer />', () => {
 			);
 
 			expect(await screen.findByTestId('media-viewer-image')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should load custom viewer', async () => {
@@ -88,6 +90,8 @@ describe('<ItemViewer />', () => {
 
 			expect(await screen.findByTestId('custom-test-renderer')).toBeInTheDocument();
 			expect(renderContent).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should load video viewer for video', async () => {
@@ -113,6 +117,8 @@ describe('<ItemViewer />', () => {
 				name: /play/i,
 			});
 			expect(playButton).toBeDefined();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should load audio viewer for audio', async () => {
@@ -145,6 +151,8 @@ describe('<ItemViewer />', () => {
 
 			expect(playButton).toBeDefined();
 			expect(defaultCoverImage).toBeDefined();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should load document viewer for document', async () => {
@@ -168,6 +176,8 @@ describe('<ItemViewer />', () => {
 
 			const pdfContent = await screen.findByTestId('document-viewer');
 			expect(pdfContent).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should load archive viewer for archive', async () => {
@@ -191,6 +201,8 @@ describe('<ItemViewer />', () => {
 
 			const archiveItem = await screen.findByTestId('archive-layout');
 			expect(archiveItem).toBeDefined();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should load code viewer for code', async () => {
@@ -207,6 +219,8 @@ describe('<ItemViewer />', () => {
 
 			const codeBlock = await screen.findByTestId('code-block');
 			expect(codeBlock).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should load external image', async () => {
@@ -227,11 +241,13 @@ describe('<ItemViewer />', () => {
 
 			const img = await screen.findByTestId('media-viewer-image');
 			expect(img).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('Analytics and Error Handling', () => {
-		it('should trigger commence event when the viewer mounts', () => {
+		it('should trigger commence event when the viewer mounts', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
@@ -266,6 +282,8 @@ describe('<ItemViewer />', () => {
 			);
 
 			expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should trigger success event when the file is in uploading state and the viewer loads successfully', async () => {
@@ -341,6 +359,8 @@ describe('<ItemViewer />', () => {
 					wasStatusProcessing: false,
 				},
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		// TODO: The processItem intermediate state didn’t update correctly in React 18 RTL tests causing wasStatusProcessing is always false.
@@ -470,6 +490,8 @@ describe('<ItemViewer />', () => {
 					wasStatusProcessing: false,
 				},
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should fire load fail when external image errors', async () => {
@@ -532,6 +554,8 @@ describe('<ItemViewer />', () => {
 					wasStatusUploading: false,
 				},
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should load error experience when metadata fetching ended with an error', async () => {
@@ -587,6 +611,8 @@ describe('<ItemViewer />', () => {
 				},
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should load error experience when viewer returned an error', async () => {
@@ -651,6 +677,8 @@ describe('<ItemViewer />', () => {
 				},
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should load error experience when file failed processing', async () => {
@@ -694,6 +722,8 @@ describe('<ItemViewer />', () => {
 				}),
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should load error experience when file is unsupported', async () => {
@@ -735,6 +765,8 @@ describe('<ItemViewer />', () => {
 				}),
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should load error expeience when file size exceeds the limit on code mimetype', async () => {
@@ -769,6 +801,8 @@ describe('<ItemViewer />', () => {
 				}),
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should load error when Video Viewer has playback failure', async () => {
@@ -813,6 +847,8 @@ describe('<ItemViewer />', () => {
 				}),
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should load error when Audio Viewer has playback failure', async () => {
@@ -857,6 +893,8 @@ describe('<ItemViewer />', () => {
 				}),
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -873,6 +911,8 @@ describe('<ItemViewer />', () => {
 		);
 		const pdfContent = await screen.findByTestId('document-viewer');
 		expect(pdfContent).toBeDefined();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('Re-render optimization for native files', () => {
@@ -891,6 +931,8 @@ describe('<ItemViewer />', () => {
 			// Code viewer should render successfully
 			const codeBlock = await screen.findByTestId('code-block');
 			expect(codeBlock).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should render PDF viewer and normalize to processed state', async () => {
@@ -908,6 +950,8 @@ describe('<ItemViewer />', () => {
 			// PDF viewer should render successfully
 			const pdfContent = await screen.findByTestId('document-viewer');
 			expect(pdfContent).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should still render video viewer normally (non-native file)', async () => {
@@ -927,6 +971,8 @@ describe('<ItemViewer />', () => {
 				name: /play/i,
 			});
 			expect(playButton).toBeDefined();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

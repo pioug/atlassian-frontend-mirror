@@ -24,7 +24,7 @@ jest.mock('@atlaskit/teams-avatar', () => ({
 }));
 
 describe('MentionAvatar', () => {
-	it('renders the team avatar when the user type is TEAM', () => {
+	it('renders the team avatar when the user type is TEAM', async () => {
 		const props = {
 			mention: {
 				id: '0',
@@ -36,9 +36,11 @@ describe('MentionAvatar', () => {
 		render(<MentionAvatar {...props} />);
 		expect(screen.getByText('Team Avatar')).toBeInTheDocument();
 		expect(screen.queryByText('Base avatar')).not.toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('renders the base avatar when the user type is not TEAM', () => {
+	it('renders the base avatar when the user type is not TEAM', async () => {
 		const props = {
 			mention: {
 				id: '0',
@@ -50,6 +52,8 @@ describe('MentionAvatar', () => {
 		render(<MentionAvatar {...props} />);
 		expect(screen.getByText('Base avatar')).toBeInTheDocument();
 		expect(screen.queryByText('Team Avatar')).not.toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('Avatar appearance with appType', () => {
@@ -57,7 +61,7 @@ describe('MentionAvatar', () => {
 			jest.clearAllMocks();
 		});
 
-		it('should not call getAppearanceForAppType to set the avatar appearance when feature gate jira_ai_agent_avatar_issue_view_comment_mentions is disabled', () => {
+		it('should not call getAppearanceForAppType to set the avatar appearance when feature gate jira_ai_agent_avatar_issue_view_comment_mentions is disabled', async () => {
 			(fg as jest.Mock).mockReturnValue(false);
 
 			const mockGetAppearanceForAppType = getAppearanceForAppType as jest.Mock;
@@ -79,9 +83,11 @@ describe('MentionAvatar', () => {
 
 			expect(mockGetAppearanceForAppType).not.toHaveBeenCalled();
 			expect(avatar).not.toHaveAttribute('data-appearance');
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should call getAppearanceForAppType to set the avatar appearance with appType', () => {
+		it('should call getAppearanceForAppType to set the avatar appearance with appType', async () => {
 			(fg as jest.Mock).mockReturnValue(true);
 
 			const APP_TYPE = 'agent';
@@ -105,6 +111,8 @@ describe('MentionAvatar', () => {
 
 			expect(mockGetAppearanceForAppType).toHaveBeenCalledWith(APP_TYPE);
 			expect(avatar).toHaveAttribute('data-appearance', APPEARANCE);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

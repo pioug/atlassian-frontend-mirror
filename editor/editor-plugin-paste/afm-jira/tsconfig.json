@@ -24,6 +24,9 @@
 	],
 	"references": [
 		{
+			"path": "../../adf-schema/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/code/afm-jira/tsconfig.json"
 		},
 		{
@@ -52,6 +55,9 @@
 		},
 		{
 			"path": "../../editor-plugin-mentions/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-prosemirror/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../editor-tables/afm-jira/tsconfig.json"

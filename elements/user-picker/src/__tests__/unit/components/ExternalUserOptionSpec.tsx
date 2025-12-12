@@ -41,7 +41,7 @@ describe('ExternalUserOption', () => {
 		return nodeHasText && childrenDontHaveText;
 	};
 
-	it('should name, email and avatar', () => {
+	it('should name, email and avatar', async () => {
 		render(
 			<IntlProvider messages={{}} locale="en">
 				<ExternalUserOption user={user} status="approved" isSelected={false} />
@@ -50,9 +50,11 @@ describe('ExternalUserOption', () => {
 		expect(screen.getByText(hasTextIgnoringHtml(user.email!))).toBeTruthy();
 		expect(screen.getByText(user.name)).toBeTruthy();
 		expect(screen.getByRole('img')).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render byline as the secondary text instead of email if byline is passed in', () => {
+	it('should render byline as the secondary text instead of email if byline is passed in', async () => {
 		user.byline = 'custom byline';
 
 		render(
@@ -64,10 +66,12 @@ describe('ExternalUserOption', () => {
 		expect(screen.getByText(hasTextIgnoringHtml(user.byline!))).toBeTruthy();
 		expect(screen.getByText(user.name)).toBeTruthy();
 		expect(screen.getByRole('img')).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	ffTest.on('jira_ai_agent_avatar_user_picker_user_option', 'on', () => {
-		it('should render a avatar with the appropriate shape if avatarAppearanceShape is supplied', () => {
+		it('should render a avatar with the appropriate shape if avatarAppearanceShape is supplied', async () => {
 			const getAppearanceForAppTypeSpy = jest.spyOn(
 				require('@atlaskit/avatar'),
 				'getAppearanceForAppType',
@@ -87,11 +91,13 @@ describe('ExternalUserOption', () => {
 			expect(hexagonAvatar).toBeInTheDocument();
 
 			getAppearanceForAppTypeSpy.mockRestore();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	ffTest.off('jira_ai_agent_avatar_user_picker_user_option', 'off', () => {
-		it('should not render a hexagon avatar with the appropriate shape if avatarAppearanceShape is supplied when fg jira_ai_agent_avatar_user_picker_user_option is disabled', () => {
+		it('should not render a hexagon avatar with the appropriate shape if avatarAppearanceShape is supplied when fg jira_ai_agent_avatar_user_picker_user_option is disabled', async () => {
 			const getAppearanceForAppTypeSpy = jest.spyOn(
 				require('@atlaskit/avatar'),
 				'getAppearanceForAppType',
@@ -113,6 +119,8 @@ describe('ExternalUserOption', () => {
 			// When feature flag is off, no avatarAppearanceShape is passed, so Avatar uses default circle
 			const avatarElement = screen.getByRole('img');
 			expect(avatarElement).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -137,6 +145,8 @@ describe('ExternalUserOption', () => {
 		await waitFor(() => {
 			expect(tooltip).toHaveTextContent('Google');
 		});
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should render tooltip elements and merge async sources into the tooltip contents', async () => {
@@ -174,9 +184,11 @@ describe('ExternalUserOption', () => {
 		await waitFor(() => {
 			expect(tooltip).toHaveTextContent('Slack');
 		});
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should not render tooltip elements when sources collection is empty and user is not external', () => {
+	it('should not render tooltip elements when sources collection is empty and user is not external', async () => {
 		const userWithEmptySources = {
 			...user,
 			isExternal: false,
@@ -189,9 +201,11 @@ describe('ExternalUserOption', () => {
 		);
 		// Sources info icon is not visible
 		expect(queryByTestId('source-icon')).not.toBeTruthy();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render tooltip elements when sources collection is empty and user is external', () => {
+	it('should render tooltip elements when sources collection is empty and user is external', async () => {
 		const userWithEmptySources = {
 			...user,
 			sources: [],
@@ -203,6 +217,8 @@ describe('ExternalUserOption', () => {
 		);
 		// Sources info icon is visible
 		expect(queryByTestId('source-icon')).toBeTruthy();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should not render an error in the tooltip if the fetch call fails', async () => {
@@ -232,6 +248,8 @@ describe('ExternalUserOption', () => {
 		await waitFor(() => {
 			expect(tooltip).toHaveTextContent("We can't connect you right now.");
 		});
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should not call fetch sources if user does not require source hydration', async () => {
@@ -279,6 +297,8 @@ describe('ExternalUserOption', () => {
 
 		// fetch was not called
 		expect(mockFetch).toBeCalledTimes(0);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('Analytics Events', () => {

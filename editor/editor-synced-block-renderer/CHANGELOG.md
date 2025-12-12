@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 4.0.4
+
+### Patch Changes
+
+- [`a41bf96788d92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a41bf96788d92) -
+  [ux] Fix sync block permissions denied error to show the correct state
+- Updated dependencies
+
 ## 4.0.3
 
 ### Patch Changes

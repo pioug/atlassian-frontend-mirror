@@ -28,6 +28,9 @@
 			"path": "../../activity-provider/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../adf-schema/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../adf-utils/afm-products/tsconfig.json"
 		},
 		{
@@ -62,6 +65,9 @@
 		},
 		{
 			"path": "../../editor-palette/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-shared-styles/afm-products/tsconfig.json"

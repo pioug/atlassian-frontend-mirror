@@ -26,7 +26,7 @@
 		"singleton": true
 	},
 	"dependencies": {
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"exports": {

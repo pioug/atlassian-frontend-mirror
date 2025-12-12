@@ -25,6 +25,9 @@
 	],
 	"references": [
 		{
+			"path": "../../adf-schema/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/button/afm-cc/tsconfig.json"
 		},
 		{
@@ -71,6 +74,9 @@
 		},
 		{
 			"path": "../../editor-plugin-width/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-prosemirror/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../editor-shared-styles/afm-cc/tsconfig.json"

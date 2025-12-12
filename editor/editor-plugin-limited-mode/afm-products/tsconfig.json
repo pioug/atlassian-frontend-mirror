@@ -19,6 +19,9 @@
 	],
 	"references": [
 		{
+			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
 		},
 		{

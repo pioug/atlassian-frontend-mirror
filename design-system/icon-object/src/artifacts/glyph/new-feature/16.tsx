@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e229d912fdac7d3782192a1cfea26688>>
+ * @codegen <<SignedSource::ae1dc19615dae53b2411ea0c95f5072a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -28,7 +28,7 @@ const NewFeature16Icon: {
 	displayName: string;
 } = ({ label, testId }) => {
 	// Feature flag to migrate to new object package
-	if (fg('platform_dst_icon_object_to_object')) {
+	if (fg('platform_dst_icon_object_to_object') || fg('platform_dst_icon_object_to_object_stage2')) {
 		// Map props based on size: 16px -> object (medium), 24px -> tile (small)
 		return <NewObjectComponent label={label} testId={testId} size="medium" />;
 	}

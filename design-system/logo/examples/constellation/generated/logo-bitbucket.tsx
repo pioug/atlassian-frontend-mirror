@@ -4,7 +4,7 @@ import { BitbucketIcon, BitbucketLogo } from '@atlaskit/logo';
 
 import LogoTable from '../utils/logo-table';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<LogoTable
 		logo={<BitbucketLogo appearance="brand" shouldUseNewLogoDesign />}
 		icon={<BitbucketIcon appearance="brand" shouldUseNewLogoDesign />}

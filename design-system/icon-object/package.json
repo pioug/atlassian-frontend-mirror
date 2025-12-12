@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-object",
-	"version": "7.3.4",
+	"version": "7.4.0",
 	"description": "An object icon is used to represent an Atlassian-specific content type.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -126,6 +126,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_dst_icon_object_to_object": {
+			"type": "boolean"
+		},
+		"platform_dst_icon_object_to_object_stage2": {
 			"type": "boolean"
 		}
 	}

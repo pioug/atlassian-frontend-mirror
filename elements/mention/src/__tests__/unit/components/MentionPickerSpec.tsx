@@ -89,6 +89,8 @@ describe('MentionPicker', () => {
 		const component = setupPicker();
 		expect(component).toBeDefined();
 		await hasExpectedItems(component, MAX_NOTIFIED_ITEMS);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should accept limit result to starting with s', async () => {
@@ -97,6 +99,8 @@ describe('MentionPicker', () => {
 		} as Props);
 		expect(component).toBeDefined();
 		await hasExpectedItems(component, 6);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should fire SLI analytcs after search', async () => {
@@ -108,6 +112,8 @@ describe('MentionPicker', () => {
 
 		await hasExpectedItems(component, 6);
 		expect(analytics).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should accept limit result to starting with shae', async () => {
@@ -116,6 +122,8 @@ describe('MentionPicker', () => {
 		} as Props);
 		expect(component).toBeDefined();
 		await hasExpectedItems(component, 1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should report error when service fails', async () => {
@@ -127,6 +135,8 @@ describe('MentionPicker', () => {
 		await hasSomeItems(component);
 		reRenderPicker(component, { query: 'error' });
 		await hasNoItems(component);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should display particular message for 401 HTTP response', async () => {
@@ -139,6 +149,8 @@ describe('MentionPicker', () => {
 		await hasNoItems(component);
 
 		expect(await screen.findByText('Try logging out then in again')).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should display particular message for 403 HTTP response', async () => {
@@ -151,6 +163,8 @@ describe('MentionPicker', () => {
 		await hasNoItems(component);
 
 		expect(await screen.findByText('Try entering different text')).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should display previous mention if error straight after', async () => {
@@ -160,6 +174,8 @@ describe('MentionPicker', () => {
 		await hasExpectedItems(component, 1);
 		reRenderPicker(component, { query: 'error' });
 		await hasExpectedItems(component, 1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should change selection when navigating next', async () => {
@@ -170,6 +186,8 @@ describe('MentionPicker', () => {
 
 		act(() => ref.current?.selectNext());
 		await hasSelectedMentionById(component, mentions[1].id);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should change selection when selectIndex called', async () => {
@@ -180,6 +198,8 @@ describe('MentionPicker', () => {
 
 		act(() => ref.current?.selectIndex(2));
 		await hasSelectedMentionById(component, mentions[2].id);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should change selection when selectId called', async () => {
@@ -190,6 +210,8 @@ describe('MentionPicker', () => {
 
 		act(() => ref.current?.selectId(mentions[2].id));
 		await hasSelectedMentionById(component, mentions[2].id);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should change selection when navigating previous', async () => {
@@ -203,6 +225,8 @@ describe('MentionPicker', () => {
 
 		act(() => ref.current?.selectPrevious());
 		await hasSelectedMentionById(component, mentions[0].id);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should choose current selection when chooseCurrentSelection called', async () => {
@@ -224,6 +248,8 @@ describe('MentionPicker', () => {
 		act(() => ref.current?.chooseCurrentSelection());
 		expect(spy).toHaveBeenCalled();
 		expect(spy).toHaveBeenLastCalledWith(mentions[2]);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should choose clicked selection when item clicked', async () => {
@@ -249,6 +275,8 @@ describe('MentionPicker', () => {
 
 		expect(spy).toHaveBeenCalled();
 		expect(spy).toHaveBeenLastCalledWith(mentions[1]);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should fire onOpen when first result shown', async () => {
@@ -263,6 +291,8 @@ describe('MentionPicker', () => {
 		await hasExpectedItems(component, MAX_NOTIFIED_ITEMS);
 		expect(onOpen).toHaveBeenCalledTimes(1);
 		expect(onClose).toHaveBeenCalledTimes(0);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should fire onClose when no matches', async () => {
@@ -286,6 +316,8 @@ describe('MentionPicker', () => {
 
 		expect(onOpen).toHaveBeenCalledTimes(1);
 		expect(onClose).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should fire onOpen when error to display', async () => {
@@ -307,6 +339,8 @@ describe('MentionPicker', () => {
 
 		expect(onOpen).toHaveBeenCalledTimes(1);
 		expect(onClose).toHaveBeenCalledTimes(0);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('mentionsCount returns the number of mentions in the list', async () => {
@@ -316,5 +350,7 @@ describe('MentionPicker', () => {
 		await hasExpectedItems(component, MAX_NOTIFIED_ITEMS);
 
 		await waitFor(async () => expect(ref.current?.mentionsCount()).toEqual(MAX_NOTIFIED_ITEMS));
+
+		await expect(document.body).toBeAccessible();
 	});
 });

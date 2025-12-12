@@ -31,7 +31,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-plugin-media": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {

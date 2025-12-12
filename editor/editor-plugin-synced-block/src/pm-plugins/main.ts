@@ -150,6 +150,14 @@ export const createPlugin = (
 				const pluginState = syncedBlockPluginKey.getState(state);
 				const syncBlockStore = pluginState?.syncBlockStore;
 				const { schema } = state;
+				// Use setTimeout to dispatch transaction in next tick and avoid re-entrant dispatch
+				setTimeout(() => {
+					api?.core.actions.execute(({ tr }) => {
+						return tr.setMeta(syncedBlockPluginKey, {
+							activeFlag: { id: FLAG_ID.SYNC_BLOCK_COPIED },
+						});
+					});
+				}, 0);
 
 				if (!syncBlockStore) {
 					return slice;
@@ -157,23 +165,18 @@ export const createPlugin = (
 
 				return mapSlice(slice, (node: Node) => {
 					if (node.type.name === 'bodiedSyncBlock' && node.attrs.resourceId) {
-						try {
-							const newResourceId = syncBlockStore.referenceManager.generateResourceIdForReference(
-								node.attrs.resourceId,
-							);
-							// Convert bodiedSyncBlock to syncBlock
-							// The paste transformation will regenrate the localId
-							const newAttrs = { ...node.attrs, resourceId: newResourceId };
+						const newResourceId = syncBlockStore.referenceManager.generateResourceIdForReference(
+							node.attrs.resourceId,
+						);
+						// Convert bodiedSyncBlock to syncBlock
+						// The paste transformation will regenrate the localId
+						const newAttrs = { ...node.attrs, resourceId: newResourceId };
 
-							const newMarks = schema.nodes.syncBlock.markSet
-								? node.marks.filter((mark) => schema.nodes.syncBlock.markSet?.includes(mark.type))
-								: node.marks;
+						const newMarks = schema.nodes.syncBlock.markSet
+							? node.marks.filter((mark) => schema.nodes.syncBlock.markSet?.includes(mark.type))
+							: node.marks;
 
-							return schema.nodes.syncBlock.create(newAttrs, null, newMarks);
-						} catch (error) {
-							// If generateResourceIdForReference died, return the original node
-							return node;
-						}
+						return schema.nodes.syncBlock.create(newAttrs, null, newMarks);
 					}
 					return node;
 				});

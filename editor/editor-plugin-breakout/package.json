@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-breakout",
-	"version": "6.2.6",
+	"version": "6.3.1",
 	"description": "Breakout plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,7 +32,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/editor-plugin-block-controls": "workspace:^",
 		"@atlaskit/editor-plugin-editor-disabled": "workspace:^",
 		"@atlaskit/editor-plugin-editor-viewmode": "workspace:^",
@@ -40,7 +40,7 @@
 		"@atlaskit/editor-plugin-interaction": "workspace:^",
 		"@atlaskit/editor-plugin-user-intent": "workspace:^",
 		"@atlaskit/editor-plugin-width": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
@@ -103,9 +103,6 @@
 	},
 	"platform-feature-flags": {
 		"platform-editor-single-player-expand": {
-			"type": "boolean"
-		},
-		"platform_editor_breakout_resizing_width_changes": {
 			"type": "boolean"
 		}
 	}

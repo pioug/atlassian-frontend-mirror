@@ -96,16 +96,18 @@ describe('TeamProfileCard', () => {
 	});
 
 	ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-		it('should render spinner when isLoading is true', () => {
+		it('should render spinner when isLoading is true', async () => {
 			const { getByTestId } = renderWithIntl(<TeamProfileCard isLoading {...defaultProps} />);
 
 			const spinner = getByTestId('team-profilecard-spinner');
 
 			expect(spinner).toBeDefined();
 			expect(analyticsListener).toHaveBeenCalledWith(spinnerLoadingEvent);
+
+			await expect(document.body).toBeAccessible();
 		});
 		describe('Error state', () => {
-			it('should render error content when hasError is true', () => {
+			it('should render error content when hasError is true', async () => {
 				const { getByTestId } = renderWithIntl(
 					<TeamProfileCard hasError {...defaultProps} clientFetchProfile={() => null} />,
 				);
@@ -114,9 +116,11 @@ describe('TeamProfileCard', () => {
 
 				expect(errorView).toBeDefined();
 				expect(analyticsListener).toHaveBeenCalledWith(errorEventWithRetry);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should call clientFetchProfile when re-fetch button is clicked', () => {
+			it('should call clientFetchProfile when re-fetch button is clicked', async () => {
 				const clientFetchProfile = jest.fn();
 				const { getByTestId } = renderWithIntl(
 					<TeamProfileCard hasError {...defaultProps} clientFetchProfile={clientFetchProfile} />,
@@ -128,9 +132,11 @@ describe('TeamProfileCard', () => {
 
 				expect(clientFetchProfile).toHaveBeenCalledTimes(1);
 				expect(analyticsListener).toHaveBeenCalledWith(errorRetryEvent);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should render TeamsForbiddenErrorState when errorType is TEAMS_FORBIDDEN', () => {
+			it('should render TeamsForbiddenErrorState when errorType is TEAMS_FORBIDDEN', async () => {
 				const { getByTestId } = renderWithIntl(
 					<TeamProfileCard
 						hasError
@@ -144,10 +150,12 @@ describe('TeamProfileCard', () => {
 
 				expect(teamsForbiddenErrorState).toBeDefined();
 				expect(analyticsListener).toHaveBeenCalledWith(errorEvent);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
-		it('should send content analytics when rendering successfully', () => {
+		it('should send content analytics when rendering successfully', async () => {
 			const onClick = jest.fn();
 			renderWithIntl(
 				<TeamProfileCard
@@ -163,11 +171,13 @@ describe('TeamProfileCard', () => {
 			);
 
 			expect(analyticsListener).toHaveBeenCalledWith(contentEvent);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-		it('should render spinner when isLoading is true', () => {
+		it('should render spinner when isLoading is true', async () => {
 			const { getByTestId } = renderWithIntl(<TeamProfileCard isLoading {...defaultProps} />);
 
 			const spinner = getByTestId('team-profilecard-spinner');
@@ -177,9 +187,11 @@ describe('TeamProfileCard', () => {
 				`ui.${spinnerLoadingEvent.actionSubject}.${spinnerLoadingEvent.action}.${spinnerLoadingEvent.actionSubjectId}`,
 				spinnerLoadingEvent.attributes,
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 		describe('Error state', () => {
-			it('should render error content when hasError is true', () => {
+			it('should render error content when hasError is true', async () => {
 				const { getByTestId } = renderWithIntl(
 					<TeamProfileCard hasError {...defaultProps} clientFetchProfile={() => null} />,
 				);
@@ -191,9 +203,11 @@ describe('TeamProfileCard', () => {
 					`ui.${errorEventWithRetry.actionSubject}.${errorEventWithRetry.action}.${errorEventWithRetry.actionSubjectId}`,
 					errorEventWithRetry.attributes,
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should call clientFetchProfile when re-fetch button is clicked', () => {
+			it('should call clientFetchProfile when re-fetch button is clicked', async () => {
 				const clientFetchProfile = jest.fn();
 				const { getByTestId } = renderWithIntl(
 					<TeamProfileCard hasError {...defaultProps} clientFetchProfile={clientFetchProfile} />,
@@ -208,9 +222,11 @@ describe('TeamProfileCard', () => {
 					`ui.${errorRetryEvent.actionSubject}.${errorRetryEvent.action}.${errorRetryEvent.actionSubjectId}`,
 					errorRetryEvent.attributes,
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should render TeamsForbiddenErrorState when errorType is TEAMS_FORBIDDEN', () => {
+			it('should render TeamsForbiddenErrorState when errorType is TEAMS_FORBIDDEN', async () => {
 				const { getByTestId } = renderWithIntl(
 					<TeamProfileCard
 						hasError
@@ -227,10 +243,12 @@ describe('TeamProfileCard', () => {
 					`ui.${errorEvent.actionSubject}.${errorEvent.action}.${errorEvent.actionSubjectId}`,
 					errorEvent.attributes,
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
-		it('should send content analytics when rendering successfully', () => {
+		it('should send content analytics when rendering successfully', async () => {
 			const onClick = jest.fn();
 			renderWithIntl(
 				<TeamProfileCard
@@ -249,6 +267,8 @@ describe('TeamProfileCard', () => {
 				`ui.${contentEvent.actionSubject}.${contentEvent.action}.${contentEvent.actionSubjectId}`,
 				contentEvent.attributes,
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 	describe('Action buttons', () => {
@@ -275,7 +295,7 @@ describe('TeamProfileCard', () => {
 				};
 			};
 
-			it('should call onClick for basic click', () => {
+			it('should call onClick for basic click', async () => {
 				const { button, onClick } = setupClickTest();
 
 				const basicClick = createEvent.click(button);
@@ -287,9 +307,11 @@ describe('TeamProfileCard', () => {
 
 				expect(onClick).toHaveBeenCalledTimes(1);
 				expect(basicClick.preventDefault).toHaveBeenCalledTimes(1);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should not call onClick for cmd+click', () => {
+			it('should not call onClick for cmd+click', async () => {
 				const { button, onClick } = setupClickTest();
 
 				const commandClick = createEvent.click(button, { metaKey: true });
@@ -301,9 +323,11 @@ describe('TeamProfileCard', () => {
 
 				expect(onClick).not.toHaveBeenCalled();
 				expect(commandClick.preventDefault).not.toHaveBeenCalled();
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should not call onClick for alt+click', () => {
+			it('should not call onClick for alt+click', async () => {
 				const { button, onClick } = setupClickTest();
 
 				const altClick = createEvent.click(button, { altKey: true });
@@ -315,9 +339,11 @@ describe('TeamProfileCard', () => {
 
 				expect(onClick).not.toHaveBeenCalled();
 				expect(altClick.preventDefault).not.toHaveBeenCalled();
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should not call onClick for ctrl+click', () => {
+			it('should not call onClick for ctrl+click', async () => {
 				const { button, onClick } = setupClickTest();
 
 				const controlClick = createEvent.click(button, { ctrlKey: true });
@@ -329,9 +355,11 @@ describe('TeamProfileCard', () => {
 
 				expect(onClick).not.toHaveBeenCalled();
 				expect(controlClick.preventDefault).not.toHaveBeenCalled();
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should not call onClick for shift+click', () => {
+			it('should not call onClick for shift+click', async () => {
 				const { button, onClick } = setupClickTest();
 
 				const shiftClick = createEvent.click(button, { shiftKey: true });
@@ -343,6 +371,8 @@ describe('TeamProfileCard', () => {
 
 				expect(onClick).not.toHaveBeenCalled();
 				expect(shiftClick.preventDefault).not.toHaveBeenCalled();
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
@@ -357,7 +387,7 @@ describe('TeamProfileCard', () => {
 				}),
 			);
 			ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-				it('should call viewProfileOnClick on click if provided', () => {
+				it('should call viewProfileOnClick on click if provided', async () => {
 					const onClick = jest.fn();
 					const { getByText } = renderWithIntl(
 						<TeamProfileCard
@@ -379,10 +409,12 @@ describe('TeamProfileCard', () => {
 
 					expect(onClick).toHaveBeenCalledTimes(1);
 					expect(analyticsListener).toHaveBeenCalledWith(viewProfileEvent);
+
+					await expect(document.body).toBeAccessible();
 				});
 			});
 			ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-				it('should call viewProfileOnClick on click if provided', () => {
+				it('should call viewProfileOnClick on click if provided', async () => {
 					const onClick = jest.fn();
 					const { getByText } = renderWithIntl(
 						<TeamProfileCard
@@ -407,10 +439,12 @@ describe('TeamProfileCard', () => {
 						`ui.${viewProfileEvent.actionSubject}.${viewProfileEvent.action}.${viewProfileEvent.actionSubjectId}`,
 						viewProfileEvent.attributes,
 					);
+
+					await expect(document.body).toBeAccessible();
 				});
 			});
 
-			it('should have appropriate href', () => {
+			it('should have appropriate href', async () => {
 				const link = 'http://example.com/team/abcd';
 				const { getByText } = renderWithIntl(
 					<TeamProfileCard
@@ -425,9 +459,11 @@ describe('TeamProfileCard', () => {
 				);
 
 				expect(getByText('View profile').closest('a')).toHaveAttribute('href', link);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
-		it('should not display more button if no actions provided', () => {
+		it('should not display more button if no actions provided', async () => {
 			const { getByText, queryByTestId } = renderWithIntl(
 				<TeamProfileCard
 					{...defaultProps}
@@ -442,9 +478,11 @@ describe('TeamProfileCard', () => {
 			expect(queryByTestId('more-actions-button')).toBe(null);
 
 			expect(getByText('View profile')).toBeDefined();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not display more button if one action is provided', () => {
+		it('should not display more button if one action is provided', async () => {
 			const callback = jest.fn();
 			const { getByText, queryByTestId } = renderWithIntl(
 				<TeamProfileCard
@@ -470,10 +508,12 @@ describe('TeamProfileCard', () => {
 			});
 
 			expect(callback).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-			it('should open dropdown when more button clicked', () => {
+			it('should open dropdown when more button clicked', async () => {
 				const firstCallback = jest.fn();
 				const secondCallback = jest.fn();
 				const { getByTestId, getByText, queryByText } = renderWithIntl(
@@ -562,10 +602,12 @@ describe('TeamProfileCard', () => {
 
 				expect(firstCallback).toHaveBeenCalledTimes(1);
 				expect(secondCallback).toHaveBeenCalledTimes(1);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-			it('should open dropdown when more button clicked', () => {
+			it('should open dropdown when more button clicked', async () => {
 				const firstCallback = jest.fn();
 				const secondCallback = jest.fn();
 				const { getByTestId, getByText, queryByText } = renderWithIntl(
@@ -661,12 +703,14 @@ describe('TeamProfileCard', () => {
 
 				expect(firstCallback).toHaveBeenCalledTimes(1);
 				expect(secondCallback).toHaveBeenCalledTimes(1);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 	});
 
 	describe('Member count', () => {
-		it('should include the "Team" label', () => {
+		it('should include the "Team" label', async () => {
 			const numMembers = Math.floor(randInt(0, 100));
 			const { getByText } = renderWithIntl(
 				<TeamProfileCard
@@ -682,9 +726,11 @@ describe('TeamProfileCard', () => {
 
 			// The component with the member count must start with "Team"
 			expect(getByText(/^Team .* members?$/)).toBeDefined();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should show 0 member team', () => {
+		it('should show 0 member team', async () => {
 			const { getByText } = renderWithIntl(
 				<TeamProfileCard
 					{...defaultProps}
@@ -698,9 +744,11 @@ describe('TeamProfileCard', () => {
 			);
 
 			expect(getByText('0 members', { exact: false })).toBeDefined();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should show number of members for number <50', () => {
+		it('should show number of members for number <50', async () => {
 			const numMembers = randInt(1, 50);
 			const { getByText } = renderWithIntl(
 				<TeamProfileCard
@@ -716,9 +764,11 @@ describe('TeamProfileCard', () => {
 
 			// Must be "member" not "members" to account for "1 member"
 			expect(getByText(new RegExp(`${numMembers} members?`))).toBeDefined();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should show estimate for teams with >50 members', () => {
+		it('should show estimate for teams with >50 members', async () => {
 			const numMembers = randInt(50, 150);
 			const { getByText } = renderWithIntl(
 				<TeamProfileCard
@@ -734,9 +784,11 @@ describe('TeamProfileCard', () => {
 
 			// Must be "member" not "members" to account for "1 member"
 			expect(getByText('50+ members', { exact: false })).toBeDefined();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should show member count including you for teams with <50 members', () => {
+		it('should show member count including you for teams with <50 members', async () => {
 			const numMembers = randInt(1, 50);
 			const members = generateMembers(numMembers);
 
@@ -755,9 +807,11 @@ describe('TeamProfileCard', () => {
 
 			// Must be "member" not "members" to account for "1 member"
 			expect(getByText(new RegExp(`${numMembers} members?, including you`))).toBeDefined();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should show estimate including you for teams with >50 members', () => {
+		it('should show estimate including you for teams with >50 members', async () => {
 			const numMembers = randInt(50, 150);
 			const members = generateMembers(numMembers);
 			const { getByText } = renderWithIntl(
@@ -775,10 +829,12 @@ describe('TeamProfileCard', () => {
 
 			// Must be "member" not "members" to account for "1 member"
 			expect(getByText('50+ members, including you', { exact: false })).toBeDefined();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-			it('should be able to expand to find a list of all members', () => {
+			it('should be able to expand to find a list of all members', async () => {
 				const NUM_MEMBERS = 11;
 				const members = generateMembers(NUM_MEMBERS - 1).concat({
 					id: 'abcd',
@@ -816,11 +872,13 @@ describe('TeamProfileCard', () => {
 						}),
 					),
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
 		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-			it('should be able to expand to find a list of all members', () => {
+			it('should be able to expand to find a list of all members', async () => {
 				const NUM_MEMBERS = 11;
 				const members = generateMembers(NUM_MEMBERS - 1).concat({
 					id: 'abcd',
@@ -861,6 +919,8 @@ describe('TeamProfileCard', () => {
 					`ui.${moreMembersEvent.actionSubject}.${moreMembersEvent.action}.${moreMembersEvent.actionSubjectId}`,
 					moreMembersEvent.attributes,
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 	});
@@ -871,7 +931,7 @@ describe('TeamProfileCard', () => {
 			analyticsListenerNext.mockReset();
 		});
 
-		it('should show expected href on avatars', () => {
+		it('should show expected href on avatars', async () => {
 			const members = generateMembers(3);
 
 			const generateUserLink = (userId: string) => `https://example.com/user/${userId}`;
@@ -895,10 +955,12 @@ describe('TeamProfileCard', () => {
 				'href',
 				expectedLink,
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-			it('should fire analytics on avatar click', () => {
+			it('should fire analytics on avatar click', async () => {
 				const members = generateMembers(3);
 
 				const { getByRole } = renderWithIntl(
@@ -927,9 +989,11 @@ describe('TeamProfileCard', () => {
 						}),
 					),
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should fire analytics on avatar click when href is provided', () => {
+			it('should fire analytics on avatar click when href is provided', async () => {
 				const members = generateMembers(3);
 
 				const generateUserLink = (userId: string) => `https://example.com/user/${userId}`;
@@ -961,9 +1025,11 @@ describe('TeamProfileCard', () => {
 						}),
 					),
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should fire analytics on avatar click when onClick is provided and call onClick', () => {
+			it('should fire analytics on avatar click when onClick is provided and call onClick', async () => {
 				const members = generateMembers(3);
 
 				const onUserClick = jest.fn();
@@ -997,9 +1063,11 @@ describe('TeamProfileCard', () => {
 				);
 
 				expect(onUserClick).toHaveBeenCalledWith(members[0].id, expect.anything());
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should fire analytics on avatar click when onClick and link are provided and call onClick', () => {
+			it('should fire analytics on avatar click when onClick and link are provided and call onClick', async () => {
 				const members = generateMembers(3);
 
 				const onUserClick = jest.fn();
@@ -1042,11 +1110,13 @@ describe('TeamProfileCard', () => {
 				const expectedLink = generateUserLink(members[0].id);
 
 				expect(avatarLink).toHaveAttribute('href', expectedLink);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
 		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-			it('should fire analytics on avatar click', () => {
+			it('should fire analytics on avatar click', async () => {
 				const members = generateMembers(3);
 
 				const { getByRole } = renderWithIntl(
@@ -1077,9 +1147,11 @@ describe('TeamProfileCard', () => {
 					`ui.${teamAvatarEvent.actionSubject}.${teamAvatarEvent.action}.${teamAvatarEvent.actionSubjectId}`,
 					teamAvatarEvent.attributes,
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should fire analytics on avatar click when href is provided', () => {
+			it('should fire analytics on avatar click when href is provided', async () => {
 				const members = generateMembers(3);
 
 				const generateUserLink = (userId: string) => `https://example.com/user/${userId}`;
@@ -1113,9 +1185,11 @@ describe('TeamProfileCard', () => {
 					`ui.${teamAvatarEvent.actionSubject}.${teamAvatarEvent.action}.${teamAvatarEvent.actionSubjectId}`,
 					teamAvatarEvent.attributes,
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should fire analytics on avatar click when onClick is provided and call onClick', () => {
+			it('should fire analytics on avatar click when onClick is provided and call onClick', async () => {
 				const members = generateMembers(3);
 
 				const onUserClick = jest.fn();
@@ -1151,9 +1225,11 @@ describe('TeamProfileCard', () => {
 				);
 
 				expect(onUserClick).toHaveBeenCalledWith(members[0].id, expect.anything());
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should fire analytics on avatar click when onClick and link are provided and call onClick', () => {
+			it('should fire analytics on avatar click when onClick and link are provided and call onClick', async () => {
 				const members = generateMembers(3);
 
 				const onUserClick = jest.fn();
@@ -1198,6 +1274,8 @@ describe('TeamProfileCard', () => {
 				const expectedLink = generateUserLink(members[0].id);
 
 				expect(avatarLink).toHaveAttribute('href', expectedLink);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 	});

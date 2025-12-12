@@ -83,6 +83,9 @@
 			"path": "../editor-plugin-user-intent/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
 			"path": "../../elements/emoji/tsconfig.app.json"
 		},
 		{

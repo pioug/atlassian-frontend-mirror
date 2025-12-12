@@ -31,7 +31,7 @@ const styles = (
 	</style>
 );
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [isAnimating, setIsAnimating] = useState(false);
 
 	return (

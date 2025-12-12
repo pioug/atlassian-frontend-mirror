@@ -1,10 +1,10 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { StepMap } from '@atlaskit/editor-prosemirror/dist/types/transform';
 import {
 	type EditorState,
 	PluginKey,
 	type ReadonlyTransaction,
 } from '@atlaskit/editor-prosemirror/state';
+import type { StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { addPaddingDecorations } from './add-padding-decorations';

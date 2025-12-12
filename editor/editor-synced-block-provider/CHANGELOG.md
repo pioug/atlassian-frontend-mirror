@@ -1,5 +1,28 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.15.4
+
+### Patch Changes
+
+- [`a41bf96788d92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a41bf96788d92) -
+  [ux] Fix sync block permissions denied error to show the correct state
+
+## 2.15.3
+
+### Patch Changes
+
+- [`f14e76661c943`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f14e76661c943) -
+  [EDITOR-2844] Save reference synced block on document to BE when a page is saved
+- Updated dependencies
+
+## 2.15.2
+
+### Patch Changes
+
+- [`70face9ce7f1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70face9ce7f1b) -
+  EDITOR-3778 optimise flush to only send to BE when sync block data changes
+- Updated dependencies
+
 ## 2.15.1
 
 ### Patch Changes

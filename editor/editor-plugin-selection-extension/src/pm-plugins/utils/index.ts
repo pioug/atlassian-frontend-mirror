@@ -11,7 +11,7 @@ import {
 import { Transform } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFullPageToolbarHeight } from '@atlaskit/editor-shared-styles';
-import { CellSelection, type Rect, TableMap } from '@atlaskit/editor-tables';
+import { CellSelection, TableMap, type Rect } from '@atlaskit/editor-tables';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
@@ -57,14 +57,17 @@ const getSelectionInfoFromCellSelection = (selection: CellSelection) => {
 	return { selectedNode, selectionRanges, nodePos };
 };
 
+/**
+ * @private
+ * @deprecated use getFragmentInfoFromSelectionNew instead
+ */
 export const getSelectionTextInfo = (
 	view: EditorView,
 	api?: ExtractInjectionAPI<SelectionExtensionPlugin>,
 ): SelectionExtensionSelectionInfo => {
 	const { selection: currentSelection } = view.state;
-	const toolbarDocking = fg('platform_editor_use_preferences_plugin')
-		? api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition
-		: api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking;
+	const toolbarDocking =
+		api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition;
 	const isEditMode = Boolean(api?.editorViewMode?.sharedState.currentState()?.mode === 'edit');
 	const shouldOffsetToolbarHeight = toolbarDocking === 'top' && isEditMode;
 
@@ -78,6 +81,31 @@ export const getSelectionTextInfo = (
 	return { text, from, to, coords };
 };
 
+export const getSelectionTextInfoNew = (
+	selection: Selection,
+	view: EditorView,
+	api?: ExtractInjectionAPI<SelectionExtensionPlugin>,
+): SelectionExtensionSelectionInfo => {
+	const toolbarDocking = fg('platform_editor_use_preferences_plugin')
+		? api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition
+		: api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking;
+	const isEditMode = Boolean(api?.editorViewMode?.sharedState.currentState()?.mode === 'edit');
+	const shouldOffsetToolbarHeight = toolbarDocking === 'top' && isEditMode;
+
+	const { from, to } = selection;
+	const text = view.state.doc.textBetween(from, to, '\n');
+	const coords = getBoundingBoxFromSelection(view, from, to, {
+		top: shouldOffsetToolbarHeight ? akEditorFullPageToolbarHeight : 0,
+		bottom: shouldOffsetToolbarHeight ? akEditorFullPageToolbarHeight : 0,
+	});
+
+	return { text, from, to, coords };
+};
+
+/**
+ * @private
+ * @deprecated use getFragmentInfoFromSelectionNew instead
+ */
 export const getFragmentInfoFromSelection = (
 	state: EditorState,
 ): { selectedNodeAdf: ADFEntity } => {
@@ -105,6 +133,35 @@ export const getFragmentInfoFromSelection = (
 	};
 };
 
+export const getFragmentInfoFromSelectionNew = (
+	selection: Selection,
+): { selectedNodeAdf: ADFEntity } => {
+	const { schema } = selection.$from.doc.type;
+
+	const slice = selection.content();
+	let newDoc;
+	try {
+		const doc = schema.node('doc', null, [schema.node('paragraph', null, [])]);
+		const transform = new Transform(doc);
+
+		newDoc = transform.replaceRange(0, 2, slice).doc;
+	} catch (error) {
+		newDoc = schema.nodes.doc.createChecked({}, Fragment.empty);
+		logException(error as Error, { location: 'editor-plugin-selection-extension' });
+	}
+
+	const serializer = new JSONTransformer();
+	const selectedNodeAdf = serializer.encodeNode(newDoc);
+
+	return {
+		selectedNodeAdf,
+	};
+};
+
+/**
+ * @private
+ * @deprecated use getSelectionAdfInfoNew instead
+ */
 export function getSelectionAdfInfo(state: EditorState): SelectionInfo {
 	const selection = state.selection;
 	let selectionInfo = {

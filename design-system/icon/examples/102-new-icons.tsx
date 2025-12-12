@@ -23,7 +23,7 @@ const IconContainer = ({ children }: { children: React.ReactChild }) => (
 );
 
 const styles = xcss({ padding: 'space.200' });
-const IconSizeExample = () => {
+const IconSizeExample = (): React.JSX.Element => {
 	return (
 		<Stack space="space.200" alignInline="start" xcss={styles}>
 			<Heading size="small">Icon spacing, and fallbacks</Heading>

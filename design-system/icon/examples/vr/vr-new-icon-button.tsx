@@ -32,7 +32,7 @@ const FFChevronDownIcon = (props: ComponentProps<typeof AddIcon>) => (
 );
 
 const styles = xcss({ padding: 'space.100' });
-const IconSizeExample = () => {
+const IconSizeExample = (): React.JSX.Element => {
 	return (
 		<>
 			<Stack space="space.200" alignInline="start" xcss={styles}>

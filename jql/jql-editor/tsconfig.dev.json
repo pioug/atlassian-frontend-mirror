@@ -54,6 +54,9 @@
 			"path": "../../design-system/dropdown-menu/tsconfig.app.json"
 		},
 		{
+			"path": "../../editor/editor-prosemirror/tsconfig.app.json"
+		},
+		{
 			"path": "../jql-ast/tsconfig.app.json"
 		},
 		{

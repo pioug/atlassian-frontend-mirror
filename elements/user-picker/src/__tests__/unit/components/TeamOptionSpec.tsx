@@ -39,7 +39,7 @@ describe('Team Option', () => {
 		};
 	};
 
-	it('should not render basic byline if member count is undefined', () => {
+	it('should not render basic byline if member count is undefined', async () => {
 		render(
 			<TeamOption
 				team={buildTeam({ includesYou: true })}
@@ -48,9 +48,11 @@ describe('Team Option', () => {
 			/>,
 		);
 		expect(screen.queryByTestId('user-picker-team-secondary-text')).not.toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render correct byline if includesYou is undefined and memberCount <= 50', () => {
+	it('should render correct byline if includesYou is undefined and memberCount <= 50', async () => {
 		const component = shallowOption(
 			{ isSelected: true },
 			buildTeam({
@@ -79,9 +81,11 @@ describe('Team Option', () => {
 				}}
 			/>,
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render correct byline if includesYou is undefined and memberCount > 50', () => {
+	it('should render correct byline if includesYou is undefined and memberCount > 50', async () => {
 		const component = shallowOption(
 			{ isSelected: true },
 			buildTeam({
@@ -100,9 +104,11 @@ describe('Team Option', () => {
 				id="fabric.elements.user-picker.team.member.50plus"
 			/>,
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render correct byline if includesYou = false and memberCount <= 50', () => {
+	it('should render correct byline if includesYou = false and memberCount <= 50', async () => {
 		const component = shallowOption(
 			{ isSelected: true },
 			buildTeam({
@@ -124,9 +130,11 @@ describe('Team Option', () => {
 				}}
 			/>,
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render correct byline if includesYou = false and memberCount > 50', () => {
+	it('should render correct byline if includesYou = false and memberCount > 50', async () => {
 		const component = shallowOption(
 			{ isSelected: true },
 			buildTeam({
@@ -145,9 +153,11 @@ describe('Team Option', () => {
 				id="fabric.elements.user-picker.team.member.50plus"
 			/>,
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render correct byline if includesYou = true and memberCount <= 50', () => {
+	it('should render correct byline if includesYou = true and memberCount <= 50', async () => {
 		const component = shallowOption(
 			{ isSelected: true },
 			buildTeam({
@@ -170,9 +180,11 @@ describe('Team Option', () => {
 				}}
 			/>,
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render correct byline if includesYou = true and memberCount > 50', () => {
+	it('should render correct byline if includesYou = true and memberCount > 50', async () => {
 		const component = shallowOption(
 			{ isSelected: true },
 			buildTeam({
@@ -192,9 +204,11 @@ describe('Team Option', () => {
 				id="fabric.elements.user-picker.team.member.50plus.including.you"
 			/>,
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render custom byline if byline is set on team and memberCount and includesYou is provided', () => {
+	it('should render custom byline if byline is set on team and memberCount and includesYou is provided', async () => {
 		const customByline = 'A custom byline';
 		const component = shallowOption(
 			{ isSelected: true },
@@ -210,8 +224,10 @@ describe('Team Option', () => {
 		const secondaryText = avatarOptionProps.props().secondaryText as ReactElement;
 
 		expect(secondaryText.props.children).toEqual(customByline);
+
+		await expect(document.body).toBeAccessible();
 	});
-	it('should render the verified team icon if the team is verified', () => {
+	it('should render the verified team icon if the team is verified', async () => {
 		const component = shallowOption(
 			{ isSelected: true, includeTeamsUpdates: true },
 			buildTeam({
@@ -232,9 +248,11 @@ describe('Team Option', () => {
 				}}
 			/>,
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should not render the verified team icon if the team is not verified', () => {
+	it('should not render the verified team icon if the team is not verified', async () => {
 		const component = shallowOption(
 			{ isSelected: true, includeTeamsUpdates: true },
 			buildTeam({
@@ -252,5 +270,7 @@ describe('Team Option', () => {
 				values={{ count: 2 }}
 			/>,
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 });

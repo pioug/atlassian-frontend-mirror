@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl-next';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import type { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiProvider } from '@atlaskit/emoji';
 
 import type { InsertBlockPlugin } from '../../../insertBlockPluginType';

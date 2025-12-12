@@ -1,0 +1,19 @@
+{
+  "extends": "../tsconfig",
+  "compilerOptions": {
+    "declaration": true,
+    "target": "es5",
+    "verbatimModuleSyntax": false,
+    "paths": {}
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*",
+    "../src/json-schema"
+  ]
+}

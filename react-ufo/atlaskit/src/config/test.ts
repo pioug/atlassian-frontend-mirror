@@ -14,8 +14,10 @@ import {
 	getReactHydrationStats,
 	getTypingPerformanceTracingMethod,
 	getUfoNameOverrides,
+	getVCRawDataInteractionRate,
 	isVCRevisionEnabled,
 	setUFOConfig,
+	shouldUseRawDataThirdPartyBehavior,
 } from './index';
 
 describe('UFO Configuration Module', () => {
@@ -446,6 +448,107 @@ describe('UFO Configuration Module', () => {
 				'interaction3',
 				'interaction4',
 			]);
+		});
+	});
+
+	describe('getVCRawDataInteractionRate', () => {
+		it('should return 0 when config is not set', () => {
+			expect(getVCRawDataInteractionRate('test-event', 'page_load')).toBe(0);
+		});
+
+		it('should return 0 when enableVCRawDataRates is not enabled', () => {
+			const config = {
+				product: 'testProduct',
+				region: 'testRegion',
+				enableVCRawDataRates: {
+					enabled: false,
+					rates: { 'test-event': 0.5 },
+				},
+			};
+			setUFOConfig(config);
+			expect(getVCRawDataInteractionRate('test-event', 'page_load')).toBe(0);
+		});
+
+		it('should return rate from rates config when enabled', () => {
+			const config = {
+				product: 'testProduct',
+				region: 'testRegion',
+				enableVCRawDataRates: {
+					enabled: true,
+					rates: { 'test-event': 0.5 },
+				},
+			};
+			setUFOConfig(config);
+			expect(getVCRawDataInteractionRate('test-event', 'page_load')).toBe(0.5);
+		});
+
+		it('should return rate from kind config when enabled', () => {
+			const config: Config = {
+				product: 'testProduct',
+				region: 'testRegion',
+				enableVCRawDataRates: {
+					enabled: true,
+					kind: { page_load: 0.3, transition: 0, press: 0, typing: 0, segment: 0 },
+				},
+			};
+			setUFOConfig(config);
+			expect(getVCRawDataInteractionRate('test-event', 'page_load')).toBe(0.3);
+		});
+
+		it('should return 0 for non-page_load/transition interaction types', () => {
+			const config = {
+				product: 'testProduct',
+				region: 'testRegion',
+				enableVCRawDataRates: {
+					enabled: true,
+					rates: { 'test-event': 0.5 },
+				},
+			};
+			setUFOConfig(config);
+			expect(getVCRawDataInteractionRate('test-event', 'press')).toBe(0);
+		});
+	});
+
+	describe('shouldUseRawDataThirdPartyBehavior', () => {
+		it('should return false when getVCRawDataInteractionRate returns 0', () => {
+			const config = {
+				product: 'testProduct',
+				region: 'testRegion',
+				enableVCRawDataRates: {
+					enabled: true,
+					rates: { 'other-event': 0.5 },
+				},
+			};
+			setUFOConfig(config);
+			expect(shouldUseRawDataThirdPartyBehavior('test-event', 'page_load')).toBe(false);
+		});
+
+		it('should return false when enableVCRawDataRates is not enabled', () => {
+			const config = {
+				product: 'testProduct',
+				region: 'testRegion',
+				enableVCRawDataRates: {
+					enabled: false,
+					rates: { 'test-event': 0.5 },
+				},
+			};
+			setUFOConfig(config);
+			expect(shouldUseRawDataThirdPartyBehavior('test-event', 'page_load')).toBe(false);
+		});
+
+		it('should return correct value based on feature flag and rate', () => {
+			const config = {
+				product: 'testProduct',
+				region: 'testRegion',
+				enableVCRawDataRates: {
+					enabled: true,
+					rates: { 'test-event': 0.5 },
+				},
+			};
+			setUFOConfig(config);
+			// The result depends on the feature flag value in the test environment
+			const result = shouldUseRawDataThirdPartyBehavior('test-event', 'page_load');
+			expect(typeof result).toBe('boolean');
 		});
 	});
 });

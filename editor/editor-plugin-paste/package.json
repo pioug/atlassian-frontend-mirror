@@ -30,7 +30,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/code": "workspace:^",
 		"@atlaskit/editor-markdown-transformer": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
@@ -41,7 +41,7 @@
 		"@atlaskit/editor-plugin-list": "workspace:^",
 		"@atlaskit/editor-plugin-media": "workspace:^",
 		"@atlaskit/editor-plugin-mentions": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-tables": "workspace:^",
 		"@atlaskit/insm": "workspace:^",
 		"@atlaskit/media-client": "workspace:^",

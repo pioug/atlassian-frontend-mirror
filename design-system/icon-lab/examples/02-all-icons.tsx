@@ -24,7 +24,7 @@ const coreIcons: Promise<{
 		.reduce((acc, b) => ({ ...acc, ...b })),
 );
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	const [allIcons, setAllIcons] = useState({});
 
 	useEffect(() => {

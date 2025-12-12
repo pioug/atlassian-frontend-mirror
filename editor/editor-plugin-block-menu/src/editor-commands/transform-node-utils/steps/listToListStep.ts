@@ -1,142 +1,8 @@
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { type Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
 
-import type { TransformStep } from '../types';
+import type { TransformStep, TransformStepContext } from '../types';
 import { isListType } from '../utils';
-
-/**
- * Converts FROM taskList structure TO bulletList/orderedList structure.
- */
-const convertFromTaskListStructure = (
-	node: PMNode,
-	targetListType: string,
-	targetItemType: string,
-): PMNode => {
-	const schema = node.type.schema;
-	const targetListNodeType = schema.nodes[targetListType];
-
-	const convertedItems: PMNode[] = [];
-
-	node.content.forEach((child) => {
-		if (isListType(child, schema)) {
-			// This is a nested list - it should become a child of the previous item
-			if (convertedItems.length > 0) {
-				const previousItem = convertedItems[convertedItems.length - 1];
-				// Convert the nested list and add it to the previous item's content
-				const convertedNestedList = transformList(child, targetListType, targetItemType);
-				const newContent = previousItem.content.append(Fragment.from([convertedNestedList]));
-				const updatedItem = previousItem.type.create(previousItem.attrs, newContent);
-				convertedItems[convertedItems.length - 1] = updatedItem;
-			}
-			// If there's no previous item, skip this nested list (orphaned)
-		} else {
-			const convertedItem = transformListItem(child, targetItemType, targetListType);
-			if (convertedItem) {
-				convertedItems.push(convertedItem);
-			}
-		}
-	});
-
-	return targetListNodeType.create(node.attrs, Fragment.from(convertedItems));
-};
-
-/**
- * Converts FROM bulletList/orderedList structure TO taskList structure.
- */
-const convertToTaskListStructure = (
-	node: PMNode,
-	targetListType: string,
-	targetItemType: string,
-): PMNode => {
-	const schema = node.type.schema;
-	const targetListNodeType = schema.nodes[targetListType];
-	const transformedContent: PMNode[] = [];
-
-	node.content.forEach((itemNode) => {
-		const transformedItem = transformListItem(itemNode, targetItemType, targetListType, true);
-
-		if (transformedItem) {
-			transformedContent.push(transformedItem);
-		}
-
-		itemNode.content.forEach((child) => {
-			if (isListType(child, schema)) {
-				const transformedNestedList = transformList(child, targetListType, targetItemType);
-				transformedContent.push(transformedNestedList);
-			}
-		});
-	});
-
-	return targetListNodeType.create(node.attrs, Fragment.from(transformedContent));
-};
-
-/**
- * Converts a single list item (listItem or taskItem) to the target item type.
- * Handles content transformation based on the target type's requirements.
- * @param itemNode - The list item node to convert
- * @param targetItemType - The target item type (listItem or taskItem)
- * @param targetListType - The target list type (bulletList, orderedList, or taskList)
- * @param excludeNestedLists - When true, nested lists are excluded from the item's content
- *                             (used when converting to taskList where nested lists become siblings)
- */
-const transformListItem = (
-	itemNode: PMNode,
-	targetItemType: string,
-	targetListType: string,
-	excludeNestedLists: boolean = false,
-): PMNode | null => {
-	const schema = itemNode.type.schema;
-	const targetItemNodeType = schema.nodes[targetItemType];
-	const isTargetTaskItem = targetItemType === 'taskItem';
-	const isSourceTaskItem = itemNode.type.name === 'taskItem';
-	const paragraphType = schema.nodes.paragraph;
-
-	if (!targetItemNodeType) {
-		return null;
-	}
-
-	if (isTargetTaskItem) {
-		const inlineContent: PMNode[] = [];
-
-		itemNode.content.forEach((child) => {
-			if (child.type === paragraphType) {
-				child.content.forEach((inline) => {
-					inlineContent.push(inline);
-				});
-			}
-			if (child.isText) {
-				inlineContent.push(child);
-			}
-			// TODO: EDITOR-3887 - Skip mediaSingle, codeBlock, and nested lists
-			// Nested lists will be extracted and placed as siblings in the taskList
-		});
-
-		return targetItemNodeType.create({}, Fragment.from(inlineContent));
-	} else {
-		const newContent: PMNode[] = [];
-
-		if (isSourceTaskItem) {
-			newContent.push(paragraphType.create(null, itemNode.content));
-		} else {
-			itemNode.content.forEach((child) => {
-				if (isListType(child, schema)) {
-					if (excludeNestedLists) {
-						// Skip nested lists - they will be handled separately as siblings
-						return;
-					}
-					newContent.push(transformList(child, targetListType, targetItemType));
-				} else {
-					newContent.push(child);
-				}
-			});
-		}
-
-		if (newContent.length === 0) {
-			newContent.push(paragraphType.create());
-		}
-
-		return targetItemNodeType.create({}, Fragment.from(newContent));
-	}
-};
 
 /**
  * Recursively converts nested lists to the target list type.
@@ -147,37 +13,169 @@ const transformListItem = (
  * - taskList: nested taskLists are SIBLINGS of taskItems in the parent taskList
  * - bulletList/orderedList: nested lists are CHILDREN of listItems
  */
-const transformList = (node: PMNode, targetListType: string, targetItemType: string): PMNode => {
+const transformList = (
+	node: PMNode,
+	targetListType: string,
+	targetItemType: string,
+	unsupportedContent: PMNode[],
+): PMNode => {
 	const schema = node.type.schema;
-	const targetListNodeType = schema.nodes[targetListType];
-	const targetItemNodeType = schema.nodes[targetItemType];
 	const taskListType = schema.nodes.taskList;
-
-	if (!targetListNodeType || !targetItemNodeType) {
-		return node;
-	}
 
 	const isSourceTaskList = node.type === taskListType;
 	const isTargetTaskList = targetListType === 'taskList';
+
+	const convertFromTaskListStructure = (
+		node: PMNode,
+		targetListType: string,
+		targetItemType: string,
+	): PMNode => {
+		const schema = node.type.schema;
+		const targetListNodeType = schema.nodes[targetListType];
+
+		const transformedContent: PMNode[] = [];
+
+		node.forEach((child) => {
+			if (isListType(child, schema)) {
+				// This is a nested list - it should become a child of the previous item
+				if (transformedContent.length > 0) {
+					const previousItem = transformedContent[transformedContent.length - 1];
+					// Convert the nested list and add it to the previous item's content
+					const transformedNestedList = transformList(
+						child,
+						targetListType,
+						targetItemType,
+						unsupportedContent,
+					);
+					const newContent = previousItem.content.append(Fragment.from([transformedNestedList]));
+					const updatedItem = previousItem.type.create(previousItem.attrs, newContent);
+					transformedContent[transformedContent.length - 1] = updatedItem;
+				}
+				// If there's no previous item, skip this nested list (orphaned)
+			} else {
+				const transformedItem = transformListItem(child, targetItemType, targetListType);
+				if (transformedItem) {
+					transformedContent.push(transformedItem);
+				}
+			}
+		});
+
+		return targetListNodeType.create(node.attrs, transformedContent);
+	};
+
+	const convertToTaskListStructure = (
+		node: PMNode,
+		targetListType: string,
+		targetItemType: string,
+	): PMNode => {
+		const schema = node.type.schema;
+		const targetListNodeType = schema.nodes[targetListType];
+		const transformedContent: PMNode[] = [];
+
+		node.forEach((itemNode) => {
+			const transformedItem = transformListItem(itemNode, targetItemType, targetListType, true);
+
+			if (transformedItem) {
+				transformedContent.push(transformedItem);
+			}
+
+			itemNode.forEach((child) => {
+				if (isListType(child, schema)) {
+					transformedContent.push(
+						transformList(child, targetListType, targetItemType, unsupportedContent),
+					);
+				}
+			});
+		});
+
+		return targetListNodeType.create(node.attrs, transformedContent);
+	};
+
+	const transformListItem = (
+		itemNode: PMNode,
+		targetItemType: string,
+		targetListType: string,
+		excludeNestedLists: boolean = false,
+	): PMNode | null => {
+		const schema = itemNode.type.schema;
+		const targetItemNodeType = schema.nodes[targetItemType];
+		const isTargetTaskItem = targetItemType === 'taskItem';
+		const isSourceTaskItem = itemNode.type.name === 'taskItem';
+		const paragraphType = schema.nodes.paragraph;
+
+		if (isTargetTaskItem) {
+			const inlineContent: PMNode[] = [];
+
+			itemNode.forEach((child) => {
+				if (child.type === paragraphType) {
+					inlineContent.push(...child.children);
+				} else if (child.isText) {
+					inlineContent.push(child);
+					// Nested lists will be extracted and placed as siblings in the taskList
+				} else if (!isListType(child, schema)) {
+					unsupportedContent.push(child);
+				}
+			});
+
+			return targetItemNodeType.create({}, inlineContent);
+		}
+
+		const transformedContent: PMNode[] = [];
+
+		if (isSourceTaskItem) {
+			transformedContent.push(paragraphType.create(null, itemNode.content));
+		} else {
+			itemNode.forEach((child) => {
+				if (isListType(child, schema)) {
+					if (excludeNestedLists) {
+						// Skip nested lists - they will be handled separately as siblings
+						return;
+					}
+					transformedContent.push(
+						transformList(child, targetListType, targetItemType, unsupportedContent),
+					);
+				} else {
+					transformedContent.push(child);
+				}
+			});
+		}
+
+		if (transformedContent.length === 0) {
+			transformedContent.push(paragraphType.create());
+		}
+
+		return targetItemNodeType.create({}, transformedContent);
+	};
+
+	const convertList = (
+		node: PMNode,
+		schema: Schema,
+		targetListType: string,
+		targetItemType: string,
+	): PMNode => {
+		const targetListNodeType = schema.nodes[targetListType];
+		const transformedContent: PMNode[] = [];
+
+		node.forEach((childNode) => {
+			const transformedItem = isListType(childNode, schema)
+				? transformList(childNode, targetListType, targetItemType, unsupportedContent)
+				: transformListItem(childNode, targetItemType, targetListType);
+
+			if (transformedItem) {
+				transformedContent.push(transformedItem);
+			}
+		});
+
+		return targetListNodeType.create(node.attrs, transformedContent);
+	};
 
 	if (isSourceTaskList && !isTargetTaskList) {
 		return convertFromTaskListStructure(node, targetListType, targetItemType);
 	} else if (!isSourceTaskList && isTargetTaskList) {
 		return convertToTaskListStructure(node, targetListType, targetItemType);
-	} else {
-		const transformedItems: PMNode[] = [];
-		node.content.forEach((childNode) => {
-			const transformedItem = isListType(childNode, schema)
-				? transformList(childNode, targetListType, targetItemType)
-				: transformListItem(childNode, targetItemType, targetListType);
-
-			if (transformedItem) {
-				transformedItems.push(transformedItem);
-			}
-		});
-
-		return targetListNodeType.create(node.attrs, Fragment.from(transformedItems));
 	}
+
+	return convertList(node, schema, targetListType, targetItemType);
 };
 
 /**
@@ -243,16 +241,19 @@ const transformList = (node: PMNode, targetListType: string, targetItemType: str
  * @param context - The transformation context containing schema and target node type
  * @returns The transformed nodes
  */
-export const listToListStep: TransformStep = (nodes, context) => {
+export const listToListStep: TransformStep = (nodes: PMNode[], context: TransformStepContext) => {
 	const { schema, targetNodeTypeName } = context;
+	const unsupportedContent: PMNode[] = [];
 
-	return nodes.map((node) => {
+	const transformedNodes = nodes.map((node) => {
 		if (isListType(node, schema)) {
 			const targetItemType = targetNodeTypeName === 'taskList' ? 'taskItem' : 'listItem';
 
-			return transformList(node, targetNodeTypeName, targetItemType);
+			return transformList(node, targetNodeTypeName, targetItemType, unsupportedContent);
 		}
 
 		return node;
 	});
+
+	return [...transformedNodes, ...unsupportedContent];
 };

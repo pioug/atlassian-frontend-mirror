@@ -1,40 +1,45 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
 
 import Badge from '@atlaskit/badge';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Inline, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const wrapperStyles = xcss({
-	backgroundColor: 'color.background.accent.red.subtlest',
+const wrapperStyles = css({
 	display: 'flex',
-	blockSize: 'size.600',
-	inlineSize: 'size.600',
-	padding: 'space.100',
+	backgroundColor: token('color.background.accent.red.subtlest'),
+	blockSize: '80px',
+	inlineSize: '80px',
+	paddingBlockEnd: token('space.100'),
+	paddingBlockStart: token('space.100'),
+	paddingInlineEnd: token('space.100'),
+	paddingInlineStart: token('space.100'),
 });
 
-const smallContainerStyles = xcss({
+const smallContainerStyles = css({
 	display: 'flex',
 	width: '20px',
-	backgroundColor: 'color.background.accent.lime.subtlest',
 	height: '50px',
+	backgroundColor: token('color.background.accent.lime.subtlest'),
 });
 
-export default (): React.JSX.Element => {
+export default function ContainersExample() {
 	return (
-		<React.StrictMode>
-			<Stack space="space.200">
-				<Box xcss={wrapperStyles}>
-					<Inline alignBlock="stretch" alignInline="center" grow="fill">
-						{/* this Badge should not stretch vertically */}
-						<Badge appearance="primary">{77}</Badge>
-					</Inline>
-				</Box>
+		<Stack space="space.200">
+			<div css={wrapperStyles}>
+				<Inline alignBlock="stretch" alignInline="center" grow="fill">
+					{/* this Badge should not stretch vertically */}
+					<Badge appearance="primary">{77}</Badge>
+				</Inline>
+			</div>
 
-				<Box xcss={smallContainerStyles}>
-					{/* this Badge should not break onto multiple lines */}
-					<Badge>x55</Badge>
-				</Box>
-			</Stack>
-		</React.StrictMode>
+			<div css={smallContainerStyles}>
+				{/* this Badge should not break onto multiple lines */}
+				<Badge>x55</Badge>
+			</div>
+		</Stack>
 	);
-};
+}

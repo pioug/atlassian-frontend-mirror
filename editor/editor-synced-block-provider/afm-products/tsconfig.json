@@ -30,6 +30,9 @@
 			"path": "../../editor-json-transformer/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../node-data-provider/afm-products/tsconfig.json"
 		},
 		{

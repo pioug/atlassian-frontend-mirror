@@ -65,4 +65,5 @@ export type VCObserverGetVCResultParam = {
 	interactionAbortReason?: AbortReasonType;
 	includeRawData?: boolean;
 	includeSSRInV3?: boolean;
+	rawDataStopTime?: number;
 };

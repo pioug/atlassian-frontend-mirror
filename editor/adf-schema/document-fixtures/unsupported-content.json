@@ -1,0 +1,526 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Invalid node type"
+        }
+      ]
+    },
+    {
+      "type": "codBlock",
+      "attrs": {},
+      "content": [
+        {
+          "type": "text",
+          "text": "Invalid code block"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Invalid node attributes"
+        }
+      ]
+    },
+    {
+      "type": "codeBlock",
+      "attrs": {
+        "language": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Invalid attributes on code block"
+        }
+      ]
+    },
+    {
+      "type": "codeBlock",
+      "attrs": {
+        "extraAttribute": "foo"
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Invalid attributes on code block"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Invalid node type – contentless node"
+        }
+      ]
+    },
+    {
+      "type": "awesome-extension",
+      "attrs": {
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "extensionKey": "block-eh",
+        "parameters": {
+          "macroParams": {},
+          "macroMetadata": {
+            "placeholder": [
+              {
+                "data": {
+                  "url": ""
+                },
+                "type": "icon"
+              }
+            ]
+          }
+        },
+        "text": "Block extension demo",
+        "layout": "default"
+      }
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Invalid node attributes – contentless node"
+        }
+      ]
+    },
+    {
+      "type": "extension",
+      "attrs": {
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "extensionKey": 1,
+        "parameters": {
+          "macroParams": {},
+          "macroMetadata": {
+            "placeholder": [
+              {
+                "data": {
+                  "url": ""
+                },
+                "type": "icon"
+              }
+            ]
+          }
+        },
+        "text": "Block extension demo",
+        "layout": "default"
+      }
+    },
+    {
+      "type": "extension",
+      "attrs": {
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "extensionKey": "213",
+        "extraAttribute": true,
+        "parameters": {
+          "macroParams": {},
+          "macroMetadata": {
+            "placeholder": [
+              {
+                "data": {
+                  "url": ""
+                },
+                "type": "icon"
+              }
+            ]
+          }
+        },
+        "text": "Block extension demo",
+        "layout": "default"
+      }
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Invalid inline nodes"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Some text and invalid "
+        },
+        {
+          "type": "team-mention",
+          "attrs": {
+            "id": "all",
+            "text": "@all",
+            "accessLevel": "CONTAINER",
+            "userType": "SPECIAL"
+          }
+        },
+        {
+          "type": "text",
+          "text": " and also with invalid attributes "
+        },
+        {
+          "type": "emoji",
+          "attrs": {
+            "shortName": 1,
+            "id": "1f600",
+            "text": "😀"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "emoji",
+          "attrs": {
+            "shortName": ":grinning:",
+            "id": "1f600",
+            "extraAttribute": true,
+            "text": "😀"
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Invalid block mark type"
+        }
+      ]
+    },
+    {
+      "type": "codeBlock",
+      "attrs": {},
+      "content": [
+        {
+          "type": "text",
+          "text": "Invalid block mark"
+        }
+      ],
+      "marks": [
+        {
+          "type": "breakin",
+          "attrs": {
+            "mode": "wide"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Invalid block mark attribute"
+        }
+      ]
+    },
+    {
+      "type": "codeBlock",
+      "attrs": {},
+      "content": [
+        {
+          "type": "text",
+          "text": "Invalid block mark attribute"
+        }
+      ],
+      "marks": [
+        {
+          "type": "breakout",
+          "attrs": {
+            "mode": "sideways"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Invalid block mark combination"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "attrs": {},
+      "content": [
+        {
+          "type": "text",
+          "text": "Invalid block mark combination"
+        }
+      ],
+      "marks": [
+        {
+          "type": "alignment",
+          "attrs": {
+            "align": "center"
+          }
+        },
+        {
+          "type": "indentation",
+          "attrs": {
+            "level": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Invalid block mark nesting"
+        }
+      ]
+    },
+    {
+      "type": "layoutSection",
+      "content": [
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "codeBlock",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Invalid block mark combination"
+                }
+              ],
+              "marks": [
+                {
+                  "type": "breakout",
+                  "attrs": {
+                    "mode": "wide"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Invalid inline marks"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Some text with "
+        },
+        {
+          "type": "text",
+          "text": "invalid mark",
+          "marks": [
+            {
+              "type": "strongest"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ". And some text with "
+        },
+        {
+          "type": "text",
+          "text": "invalid mark attribute",
+          "marks": [
+            {
+              "type": "strong",
+              "attrs": {
+                "extraAttribute": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ". As well as "
+        },
+        {
+          "type": "text",
+          "text": "invalid mark combination",
+          "marks": [
+            {
+              "type": "code"
+            },
+            {
+              "type": "strong"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Invalid nesting"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "attrs": {
+        "isNumberColumnEnabled": false,
+        "layout": "default"
+      },
+      "content": [
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "table",
+                  "attrs": {
+                    "isNumberColumnEnabled": false,
+                    "layout": "default"
+                  },
+                  "content": [
+                    {
+                      "type": "tableRow",
+                      "content": [
+                        {
+                          "type": "tableCell",
+                          "attrs": {},
+                          "content": [
+                            {
+                              "type": "paragraph",
+                              "content": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Invalid parent with valid children"
+        }
+      ]
+    },
+    {
+      "type": "pane",
+      "attrs": {
+        "panelType": "info"
+      },
+      "content": [
+        {
+          "type": "bulletList",
+          "content": [
+            {
+              "type": "listItem",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Hello"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

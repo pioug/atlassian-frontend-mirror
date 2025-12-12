@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "110.41.7",
+	"version": "110.42.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -132,7 +132,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "workspace:^",
-		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/adf-utils": "workspace:^",
 		"@atlaskit/afm-i18n-platform-editor-editor-common": "root:*",
 		"@atlaskit/analytics-listeners": "workspace:^",
@@ -146,7 +146,7 @@
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-palette": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-tables": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
@@ -376,6 +376,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_table_numbered_table_border": {
+			"type": "boolean"
+		},
+		"platform_fix_macro_renders_in_layouts": {
 			"type": "boolean"
 		}
 	}

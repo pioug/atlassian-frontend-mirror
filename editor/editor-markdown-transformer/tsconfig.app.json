@@ -31,5 +31,12 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__editor-markdown-transformer/app"
 	},
-	"references": []
+	"references": [
+		{
+			"path": "../adf-schema/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
+		}
+	]
 }

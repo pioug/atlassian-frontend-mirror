@@ -5,11 +5,12 @@ import { type SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import type {
-	ResourceId,
-	SyncBlockAttrs,
-	SyncBlockData as Data,
-	SyncBlockNode,
+import {
+	type ResourceId,
+	type SyncBlockAttrs,
+	type SyncBlockData as Data,
+	type SyncBlockNode,
+	SyncBlockError,
 } from '../common/types';
 import type { SyncBlockDataProvider } from '../providers/types';
 import {
@@ -26,6 +27,11 @@ type OnDeleteCompleted = (success: boolean) => void;
 type DestroyCallback = () => void;
 export type CreationCallback = () => void;
 type SyncBlockData = Data & {
+	/**
+	 * Whether the current changes have already been saved to the backend
+	 * Defaults to true, so we always flush data on the first save
+	 */
+	isDirty: boolean;
 	/**
 	 * Whether the block is waiting to be deleted in backend
 	 */
@@ -84,7 +90,7 @@ export class SourceSyncBlockStoreManager {
 			}
 
 			const syncBlockData = convertSyncBlockPMNodeToSyncBlockData(syncBlockNode);
-			this.syncBlockCache.set(resourceId, syncBlockData);
+			this.syncBlockCache.set(resourceId, {...syncBlockData, isDirty: true});
 			return true;
 		} catch (error) {
 			logException(error as Error, {
@@ -111,7 +117,8 @@ export class SourceSyncBlockStoreManager {
 
 			Array.from(this.syncBlockCache.values()).forEach((syncBlockData) => {
 				// Don't flush nodes that are waiting to be deleted to avoid nodes being re-created
-				if (!syncBlockData.pendingDeletion) {
+				// Don't flush nodes that haven't been updated since we last flushed
+				if (!syncBlockData.pendingDeletion && syncBlockData.isDirty) {
 					bodiedSyncBlockNodes.push({
 						type: 'bodiedSyncBlock',
 						attrs: {
@@ -132,11 +139,21 @@ export class SourceSyncBlockStoreManager {
 				bodiedSyncBlockData,
 			);
 
-			if (writeResults.every((result) => result.resourceId !== undefined)) {
+			writeResults.forEach((result) => {
+				// set isDirty to false on write success and unrecoverable errors like not found
+				if (result.resourceId && (result.error === SyncBlockError.NotFound || !result.error)) {
+					const cachedData = this.syncBlockCache.get(result.resourceId)
+					if (cachedData) {
+						cachedData.isDirty = false;
+					}
+				}
+			})
+
+			if (writeResults.every((result) => result.resourceId && !result.error)) {
 				return true;
 			} else {
 				writeResults
-					.filter((result) => result.resourceId === undefined)
+					.filter((result) => !result.resourceId || result.error)
 					.forEach((result) => {
 						this.fireAnalyticsEvent?.(updateErrorPayload(result.error || 'Failed to write data'));
 					});

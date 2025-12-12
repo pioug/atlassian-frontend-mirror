@@ -32,6 +32,9 @@
 	},
 	"references": [
 		{
+			"path": "../adf-schema/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
@@ -39,6 +42,9 @@
 		},
 		{
 			"path": "../editor-plugin-user-preferences/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

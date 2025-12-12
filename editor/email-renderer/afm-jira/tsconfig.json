@@ -25,7 +25,13 @@
 	],
 	"references": [
 		{
+			"path": "../../adf-schema/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../adf-utils/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-prosemirror/afm-jira/tsconfig.json"
 		}
 	]
 }

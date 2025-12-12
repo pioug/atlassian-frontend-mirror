@@ -14,7 +14,7 @@ export function OpenLayerObserverNamespaceProvider({
 }: {
 	children: React.ReactNode;
 	namespace: string;
-}) {
+}): React.JSX.Element {
 	// If there is an existing namespace context being provided, throw an invariant.
 	// This use case is not supported at this time.
 	const parentContext = useOpenLayerObserverNamespace();

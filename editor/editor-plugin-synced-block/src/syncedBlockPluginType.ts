@@ -74,6 +74,14 @@ export type SyncedBlockPlugin = NextEditorPlugin<
 			 * @returns true if saving all nodes successfully, false if fail to save some/all nodes
 			 */
 			flushBodiedSyncBlocks: () => Promise<boolean>;
+			/**
+			 * Save reference synced blocks on the document (tracked by local cache)to the backend.
+			 * This action allows syncBlock on the document to be saved in sync with product saving experience
+			 * as per {@link https://hello.atlassian.net/wiki/spaces/egcuc/pages/5932393240/Synced+Blocks+Save+refresh+principles}
+			 *
+			 * @returns true if flushing all syncBlocks successfully, false otherwise
+			 */
+			flushSyncedBlocks: () => Promise<boolean>;
 		};
 		commands: {
 			copySyncedBlockReferenceToClipboard: () => EditorCommand;

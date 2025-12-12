@@ -38,7 +38,7 @@
 		"@atlaskit/editor-plugin-extension": "workspace:^",
 		"@atlaskit/editor-plugin-interaction": "workspace:^",
 		"@atlaskit/editor-plugin-user-intent": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/emoji": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/menu": "workspace:^",

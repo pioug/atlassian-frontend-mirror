@@ -4,6 +4,6 @@ import { HomeIcon, HomeLogo } from '@atlaskit/logo';
 
 import LogoTable from '../utils/logo-table';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<LogoTable logo={<HomeLogo appearance="brand" />} icon={<HomeIcon appearance="brand" />} />
 );

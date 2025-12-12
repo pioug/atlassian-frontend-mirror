@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-synced-block",
-	"version": "4.5.0",
+	"version": "4.5.3",
 	"description": "SyncedBlock plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -31,7 +31,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/button": "workspace:*",
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
@@ -40,7 +40,7 @@
 		"@atlaskit/editor-plugin-decorations": "workspace:^",
 		"@atlaskit/editor-plugin-floating-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-selection": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-synced-block-provider": "workspace:^",
 		"@atlaskit/editor-tables": "workspace:^",
@@ -52,6 +52,7 @@
 		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:*",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",

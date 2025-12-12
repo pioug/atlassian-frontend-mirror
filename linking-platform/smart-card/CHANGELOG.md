@@ -1,5 +1,16 @@
 # @atlaskit/smart-card
 
+## 43.15.0
+
+### Minor Changes
+
+- [`972144924b62d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/972144924b62d) -
+  Adds interactionName to spinners for rovo chat
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 43.14.5
 
 ### Patch Changes

@@ -1,5 +1,6 @@
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Fragment, type NodeType } from '@atlaskit/editor-prosemirror/model';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import { isNestedNode } from '../ui/utils/isNestedNode';
@@ -20,7 +21,9 @@ export const transformNode =
 				return tr;
 			}
 
-			const { $from, $to } = expandSelectionToBlockRange(preservedSelection, tr.doc.type.schema);
+			const schema = tr.doc.type.schema;
+			const { nodes } = schema;
+			const { $from, $to } = expandSelectionToBlockRange(preservedSelection, schema);
 			const isNested = isNestedNode(preservedSelection, '');
 
 			const selectedParent = $from.parent;
@@ -47,8 +50,18 @@ export const transformNode =
 				}
 			});
 
-			// TODO: ED-12345 - selection is broken post transaction, to fix.
-			tr.replaceWith(isList ? $from.pos - 1 : $from.pos, $to.pos, fragment);
+			const nodesToDeleteAndInsert = [nodes.mediaSingle];
+			if (
+				preservedSelection instanceof NodeSelection &&
+				nodesToDeleteAndInsert.includes(preservedSelection.node.type)
+			) {
+				// when node is media single, use tr.replaceWith freeze editor, if modify position, tr.replaceWith creates duplicats
+				tr.deleteRange($from.pos, $to.pos);
+				tr.insert($from.pos, fragment);
+			} else {
+				// TODO: ED-12345 - selection is broken post transaction, to fix.
+				tr.replaceWith(isList ? $from.pos - 1 : $from.pos, $to.pos, fragment);
+			}
 
 			return tr;
 		};

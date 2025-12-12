@@ -136,8 +136,19 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 		isNativeStickySupported(isDragAndDropEnabled ?? false) &&
 		expValEquals('platform_editor_table_sticky_header_improvements', 'cohort', 'test_with_overflow')
 	) {
-		const anchorName = targetCellRef.dataset.nodeAnchor ?? '';
-		const rowAnchorName = targetCellRef.parentElement?.dataset.nodeAnchor ?? '';
+		/* We need to default to checking the anchor style because there may be a conflict with the block controls
+		 plugin not using the data attribute value and setting the `anchor-name` style property independently of the data attribute.
+		 */
+		let rowAnchorName: string | undefined =
+			targetCellRef.parentElement?.style.getPropertyValue('anchor-name');
+		let colAnchorName: string | undefined = targetCellRef.style.getPropertyValue('anchor-name');
+
+		if (rowAnchorName === '') {
+			rowAnchorName = targetCellRef.parentElement?.dataset.nodeAnchor;
+		}
+		if (colAnchorName === '') {
+			colAnchorName = targetCellRef?.dataset.nodeAnchor;
+		}
 
 		return (
 			<div
@@ -146,9 +157,9 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 					{
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 						top: `calc(${BUTTON_OFFSET}px + anchor(${rowAnchorName} top))`,
-						right: `calc(${BUTTON_OFFSET}px + anchor(${anchorName} right))`,
+						right: `calc(${BUTTON_OFFSET}px + anchor(${colAnchorName} right))`,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-						positionAnchor: anchorName,
+						positionAnchor: colAnchorName,
 					} as CSSProperties
 				} // need to do this because CSSProperties doesn't have positionAnchor property even though it's a valid CSS property
 				data-testid="table-cell-options-anchor-wrapper"

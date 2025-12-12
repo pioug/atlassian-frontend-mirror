@@ -246,8 +246,12 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 			css={[
 				unboundStyles.root,
 				styles.root,
-				!fg('platform_dst_avatar_tile') && borderRadiusMap[size],
-				appearance === 'square' && fg('platform_dst_avatar_tile') && styles.square,
+				!fg('platform_dst_avatar_tile') &&
+					!fg('platform_dst_avatar_tile_stage2') &&
+					borderRadiusMap[size],
+				appearance === 'square' &&
+					(fg('platform_dst_avatar_tile') || fg('platform_dst_avatar_tile_stage2')) &&
+					styles.square,
 				appearance === 'circle' && styles.circle,
 				appearance === 'hexagon' && unboundStyles.hexagon,
 				widthHeightMap[size],

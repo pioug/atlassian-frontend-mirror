@@ -38,6 +38,9 @@
 			"path": "../editor-json-transformer/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
 			"path": "../../elements/emoji/tsconfig.app.json"
 		}
 	],

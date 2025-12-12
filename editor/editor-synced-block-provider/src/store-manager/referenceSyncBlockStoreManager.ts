@@ -7,6 +7,7 @@ import {
 	SyncBlockError,
 	type BlockInstanceId,
 	type ResourceId,
+	type SyncBlockAttrs,
 	type SyncBlockNode,
 } from '../common/types';
 import type {
@@ -17,7 +18,7 @@ import type {
 	SyncBlockRendererProviderCreator,
 	SyncBlockSourceInfo,
 } from '../providers/types';
-import { fetchErrorPayload, getSourceInfoErrorPayload } from '../utils/errorHandling';
+import { fetchErrorPayload, getSourceInfoErrorPayload, updateReferenceErrorPayload } from '../utils/errorHandling';
 import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
 import { createSyncBlockNode } from '../utils/utils';
 
@@ -29,6 +30,10 @@ import { createSyncBlockNode } from '../utils/utils';
 export class ReferenceSyncBlockStoreManager {
 	private dataProvider?: SyncBlockDataProvider;
 	private syncBlockCache: Map<ResourceId, SyncBlockInstance>;
+	// Keeps track of addition and deletion of reference synced blocks on the document
+	// This starts as true to always flush the cache when document is saved for the first time
+	// to cater the case when a editor seesion is closed without document being updated right after reference block is deleted
+	private isCacheDirty: boolean = true;
 	private subscriptions: Map<ResourceId, { [localId: BlockInstanceId]: SubscriptionCallback }>;
 	private titleSubscriptions: Map<
 		ResourceId,
@@ -275,6 +280,9 @@ export class ReferenceSyncBlockStoreManager {
 		const resourceSubscriptions = this.subscriptions.get(resourceId) || {};
 		this.subscriptions.set(resourceId, { ...resourceSubscriptions, [localId]: callback });
 
+		// New subscription means new reference synced block is added to the document
+		this.isCacheDirty = true;
+
 		const syncBlockNode = createSyncBlockNode(localId, resourceId);
 
 		// call the callback immediately if we have cached data
@@ -296,6 +304,9 @@ export class ReferenceSyncBlockStoreManager {
 		return () => {
 			const resourceSubscriptions = this.subscriptions.get(resourceId);
 			if (resourceSubscriptions) {
+				// Unsubscription means a reference synced block is removed from the document
+				this.isCacheDirty = true;
+
 				delete resourceSubscriptions[localId];
 				if (Object.keys(resourceSubscriptions).length === 0) {
 					this.subscriptions.delete(resourceId);
@@ -469,6 +480,59 @@ export class ReferenceSyncBlockStoreManager {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Update reference synced blocks on the document with the BE
+	 * 
+	 * @returns true if the reference synced blocks are updated successfully, false otherwise
+	 */
+	public async flush() {
+		if (!this.isCacheDirty) {
+			return true;
+		}
+
+		let success = true;
+		try {
+			if (!this.dataProvider) {
+				throw new Error('Data provider not set');
+			}
+
+			const blocks: SyncBlockAttrs[] = []
+
+			// Collect all reference synced blocks on the current document
+			Array.from(this.subscriptions.entries()).forEach(([resourceId, callbacks]) => {
+				Object.keys(callbacks).forEach((localId) => {
+					blocks.push({
+						resourceId,
+						localId,
+					});
+				});
+			});
+
+			if (blocks.length === 0) {
+				return true;
+			}
+
+			const updateResult = await this.dataProvider.updateReferenceData(blocks);
+
+			if (!updateResult.success) {
+				success = false;
+				this.fireAnalyticsEvent?.(updateReferenceErrorPayload(updateResult.error || 'Failed to update reference synced blocks on the document'));
+			}
+		} catch (error) {
+			success = false;
+			logException(error as Error, {
+				location: 'editor-synced-block-provider/referenceSyncBlockStoreManager',
+			});
+			this.fireAnalyticsEvent?.(updateReferenceErrorPayload((error as Error).message));
+		} finally {
+			if (success) {
+				this.isCacheDirty = false;
+			}
+		}
+
+		return success
 	}
 
 	public destroy(): void {

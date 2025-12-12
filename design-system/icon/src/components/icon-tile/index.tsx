@@ -47,7 +47,7 @@ export default function IconTile({
 	shape,
 	LEGACY_fallbackComponent,
 	UNSAFE_circleReplacementComponent,
-}: IconTileProps) {
+}: IconTileProps): React.JSX.Element {
 	if (LEGACY_fallbackComponent && !fg('platform-visual-refresh-icons')) {
 		return LEGACY_fallbackComponent;
 	}
@@ -55,12 +55,16 @@ export default function IconTile({
 	if (
 		UNSAFE_circleReplacementComponent &&
 		shape === 'circle' &&
-		fg('platform_dst_icon_tile_circle_replacement')
+		(fg('platform_dst_icon_tile_circle_replacement') ||
+			fg('platform_dst_icon_tile_circle_replacement_stage2'))
 	) {
 		return UNSAFE_circleReplacementComponent;
 	}
 
-	if (shape !== 'circle' && fg('platform_dst_new_icon_tile')) {
+	if (
+		shape !== 'circle' &&
+		(fg('platform_dst_new_icon_tile') || fg('platform_dst_new_icon_tile_stage2'))
+	) {
 		// Handle size 16 - render icon directly without Tile
 		if (size === '16') {
 			return <Icon color={appearanceToIconColorMap[appearance]} label={label} testId={testId} />;

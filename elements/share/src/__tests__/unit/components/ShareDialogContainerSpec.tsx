@@ -209,7 +209,7 @@ describe('ShareDialogContainer', () => {
 		return wrapper.find(ShareDialogWithTrigger);
 	}
 
-	it('should render', () => {
+	it('should render', async () => {
 		const wrapper = getWrapper();
 		const shareDialogWithTrigger = getShareDialogWithTrigger(wrapper);
 		expect(shareDialogWithTrigger).toHaveLength(1);
@@ -244,11 +244,13 @@ describe('ShareDialogContainer', () => {
 		);
 		expect(mockOriginTracingFactory).toHaveBeenCalledTimes(2);
 		expect(shareDialogWithTrigger.prop('orgId')).toEqual(mockOrgId);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('internal methods', () => {
 		describe('getRawLink()', () => {
-			it('should always give priority to an explicit link', () => {
+			it('should always give priority to an explicit link', async () => {
 				const wrapper = getWrapper();
 				expect(wrapper.instance().getRawLink()).toEqual(mockShareLink);
 
@@ -257,32 +259,40 @@ describe('ShareDialogContainer', () => {
 
 				wrapper.setProps({ shareLink: 'new-share-link' });
 				expect(wrapper.instance().getRawLink()).toEqual('new-share-link');
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should default to the current page url if no explicit link provided', () => {
+			it('should default to the current page url if no explicit link provided', async () => {
 				const wrapper = getWrapper({
 					shareLink: undefined,
 				});
 				expect(wrapper.instance().getRawLink()).toEqual(window.location.href);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
 		describe('getFullCopyLink()', () => {
-			it('should includes origin', () => {
+			it('should includes origin', async () => {
 				const wrapper = getWrapper();
 
 				expect(wrapper.instance().getFullCopyLink()).toEqual(mockShareLink + '&someOrigin');
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
 		describe('getCopyLink()', () => {
-			it('should return the fullCopyLink when shortening is NOT enabled', () => {
+			it('should return the fullCopyLink when shortening is NOT enabled', async () => {
 				const wrapper = getWrapper();
 
 				expect(wrapper.instance().getCopyLink()).toEqual(wrapper.instance().getFullCopyLink());
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should return the short URL when available and shortening is enabled', () => {
+			it('should return the short URL when available and shortening is enabled', async () => {
 				const wrapper = getWrapper({
 					useUrlShortener: true,
 				});
@@ -290,14 +300,18 @@ describe('ShareDialogContainer', () => {
 				wrapper.setState({ shortenedCopyLink: SHORTENED_URL });
 
 				expect(wrapper.instance().getCopyLink()).toEqual(SHORTENED_URL);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 	});
 
 	describe('automatic default to current page URL', () => {
-		it('should be provided as default', () => {
+		it('should be provided as default', async () => {
 			const wrapper = getWrapper();
 			expect(wrapper.state().currentPageUrl).toEqual(window.location.href);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should refresh the current url only on popup reopen', async () => {
@@ -312,6 +326,8 @@ describe('ShareDialogContainer', () => {
 			wrapper.instance().handleDialogOpen();
 			await currentEventLoopEnd();
 			expect(wrapper.state().currentPageUrl).toEqual('http://localhost/test1');
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -324,9 +340,11 @@ describe('ShareDialogContainer', () => {
 		wrapper.instance().handleDialogOpen();
 
 		expect(onDialogOpenStub).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should call props.originTracingFactory only once when nothing change', () => {
+	it('should call props.originTracingFactory only once when nothing change', async () => {
 		const wrapper = getWrapper();
 		mockOriginTracingFactory.mockReset();
 
@@ -339,9 +357,11 @@ describe('ShareDialogContainer', () => {
 		expect(wrapper.instance().getFormShareOriginTracing()).toBe(previousFormShareOrigin);
 
 		expect(mockOriginTracingFactory).toHaveBeenCalledTimes(0); // still memoized
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should call props.originTracingFactory again if shareLink prop is updated', () => {
+	it('should call props.originTracingFactory again if shareLink prop is updated', async () => {
 		const wrapper = getWrapper();
 		mockOriginTracingFactory.mockReset();
 
@@ -353,9 +373,11 @@ describe('ShareDialogContainer', () => {
 		expect(mockOriginTracingFactory).toHaveBeenCalledTimes(2);
 		expect(wrapper.instance().getCopyLinkOriginTracing()).not.toBe(previousCopyOrigin);
 		expect(wrapper.instance().getFormShareOriginTracing()).not.toBe(previousFormShareOrigin);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should have default this.shareClient if props.shareClient is not given', () => {
+	it('should have default this.shareClient if props.shareClient is not given', async () => {
 		const wrapper = getWrapper({
 			shareClient: undefined,
 		});
@@ -364,10 +386,12 @@ describe('ShareDialogContainer', () => {
 			// @ts-ignore: accessing private variable for testing purpose
 			wrapper.instance().shareClient;
 		expect(shareClient.share).toEqual(mockShare);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('config', () => {
-		it('should call fetchConfig every time the dialog open', () => {
+		it('should call fetchConfig every time the dialog open', async () => {
 			const wrapper = getWrapper();
 
 			const fetchConfig = (wrapper.instance().fetchConfig = jest.fn(
@@ -379,24 +403,30 @@ describe('ShareDialogContainer', () => {
 			wrapper.instance().handleDialogOpen();
 
 			expect(fetchConfig).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should call getConfig', () => {
+		it('should call getConfig', async () => {
 			const wrapper = getWrapper();
 
 			wrapper.instance().handleDialogOpen();
 
 			expect(mockGetConfig).toHaveBeenCalledWith(mockCloudId);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		describe('isFetchingConfig state', () => {
-			it('should be false by default', () => {
+			it('should be false by default', async () => {
 				const wrapper = getWrapper();
 
 				expect(wrapper.state().isFetchingConfig).toBe(false);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should be passed into isFetchingConfig prop in ShareDialogWithTrigger', () => {
+			it('should be passed into isFetchingConfig prop in ShareDialogWithTrigger', async () => {
 				const wrapper = getWrapper();
 				let { isFetchingConfig } = wrapper.state();
 
@@ -410,6 +440,8 @@ describe('ShareDialogContainer', () => {
 				expect(getShareDialogWithTrigger(wrapper).prop('isFetchingConfig')).toEqual(
 					!isFetchingConfig,
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			it('should be set to true when fetchConfig is called, and set back to false when the network request is finished', async () => {
@@ -420,6 +452,8 @@ describe('ShareDialogContainer', () => {
 
 				await networkResolution();
 				expect(wrapper.state().isFetchingConfig).toBe(false);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
@@ -433,11 +467,13 @@ describe('ShareDialogContainer', () => {
 			await networkResolution();
 			expect(wrapper.state().config).toMatchObject(defaultConfig);
 			expect(wrapper.state().isFetchingConfig).toBe(false);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('handleSubmitShare', () => {
-		it('should call share function from this.client', () => {
+		it('should call share function from this.client', async () => {
 			const wrapper = getWrapper();
 			const mockDialogContentState = {
 				users: mockUsers,
@@ -466,6 +502,8 @@ describe('ShareDialogContainer', () => {
 				},
 				mockComment,
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should not call share action if no users are selected and extended dialog is enabled', async () => {
@@ -478,9 +516,11 @@ describe('ShareDialogContainer', () => {
 			await userEvent.click(screen.getByRole('button', { name: 'Share' }));
 
 			expect(mockShare).not.toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should send shareeAction', () => {
+		it('should send shareeAction', async () => {
 			const wrapper = getWrapper({ shareeAction: 'view' });
 			const mockDialogContentState = {
 				users: mockUsers,
@@ -509,6 +549,8 @@ describe('ShareDialogContainer', () => {
 				},
 				mockComment,
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should update shareActionCount from the state if share is successful', async () => {
@@ -525,6 +567,8 @@ describe('ShareDialogContainer', () => {
 			await wrapper.instance().handleSubmitShare(mockDialogContentState);
 
 			expect(wrapper.state().shareActionCount).toEqual(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should update the mail Origin Ids if share is successful', async () => {
@@ -545,6 +589,8 @@ describe('ShareDialogContainer', () => {
 			expect(wrapper.instance().getCopyLinkOriginTracing()).toBe(previousCopyOrigin); // no change
 			expect(wrapper.instance().getFormShareOriginTracing()).not.toBe(previousFormShareOrigin); // change
 			expect(mockOriginTracingFactory).toHaveBeenCalledTimes(1); // only once for mail
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should return a Promise Rejection if share is failed', async () => {
@@ -560,9 +606,11 @@ describe('ShareDialogContainer', () => {
 			} catch (err) {
 				expect(err).toEqual('error');
 			}
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should call props.onSubmit if provided with extra custom field values', () => {
+		it('should call props.onSubmit if provided with extra custom field values', async () => {
 			const mockOnSubmit = jest.fn();
 			const wrapper = getWrapper({ onSubmit: mockOnSubmit });
 			const mockDialogContentState = {
@@ -574,13 +622,15 @@ describe('ShareDialogContainer', () => {
 			wrapper.instance().forceUpdate();
 			expect(mockOnSubmit).toHaveBeenCalledTimes(1);
 			expect(mockOnSubmit).toHaveBeenCalledWith(mockDialogContentState);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('url shortening', () => {
 		describe('props', () => {
 			describe('urlShortenerClient', () => {
-				it('should provides a default shortening client if none given', () => {
+				it('should provides a default shortening client if none given', async () => {
 					const wrapper = getWrapper({
 						urlShortenerClient: undefined,
 					});
@@ -590,15 +640,19 @@ describe('ShareDialogContainer', () => {
 						wrapper.instance().urlShortenerClient;
 					expect(urlShortenerClient.shorten).toBeTruthy();
 					expect(urlShortenerClient.shorten).not.toEqual(mockShortenerClient.shorten);
+
+					await expect(document.body).toBeAccessible();
 				});
 
-				it('should use the given shortening client if passed as prop', () => {
+				it('should use the given shortening client if passed as prop', async () => {
 					const wrapper = getWrapper();
 
 					const urlShortenerClient =
 						// @ts-ignore: accessing private variable for testing purpose
 						wrapper.instance().urlShortenerClient;
 					expect(urlShortenerClient.shorten).toEqual(mockShortenerClient.shorten);
+
+					await expect(document.body).toBeAccessible();
 				});
 			});
 
@@ -620,6 +674,8 @@ describe('ShareDialogContainer', () => {
 				expect(mockShortenerClient.shorten).not.toHaveBeenCalled();
 				expect(wrapper.instance().getUpToDateShortenedCopyLink).not.toHaveBeenCalled();
 				expect(wrapper.instance().getCopyLink()).toEqual(wrapper.instance().getFullCopyLink());
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			it('productId: should NOT shorten if the product is not supported', async () => {
@@ -633,11 +689,13 @@ describe('ShareDialogContainer', () => {
 				await networkResolution();
 
 				expect(wrapper.instance().getCopyLink()).toEqual(wrapper.instance().getFullCopyLink());
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
 		describe('analytics', () => {
-			it('should send an analytics on short URL request', () => {
+			it('should send an analytics on short URL request', async () => {
 				const wrapper = getWrapper({
 					useUrlShortener: true,
 					shortLinkData: mockShortLinkData,
@@ -660,6 +718,8 @@ describe('ShareDialogContainer', () => {
 						source: 'shareModal',
 					},
 				});
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			it('should decorate the copy link analytics with shortUrl', async () => {
@@ -695,6 +755,8 @@ describe('ShareDialogContainer', () => {
 						shortUrl: true,
 					},
 				});
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			describe('on short URL reception', () => {
@@ -732,6 +794,8 @@ describe('ShareDialogContainer', () => {
 							tooSlow: false,
 						},
 					});
+
+					await expect(document.body).toBeAccessible();
 				});
 
 				it('should includes perf info - too slow', async () => {
@@ -769,6 +833,8 @@ describe('ShareDialogContainer', () => {
 							tooSlow: true,
 						},
 					});
+
+					await expect(document.body).toBeAccessible();
 				});
 			});
 
@@ -818,6 +884,8 @@ describe('ShareDialogContainer', () => {
 						source: 'shareModal',
 					},
 				});
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
@@ -850,6 +918,8 @@ describe('ShareDialogContainer', () => {
 			expect(wrapper.state().shortenedCopyLink).toEqual(SHORTENED_URL);
 			expect(wrapper.instance().getCopyLink()).toEqual(SHORTENED_URL);
 			expect(getShareDialogWithTrigger(wrapper).prop('copyLink')).toEqual(SHORTENED_URL);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should re-shorten the url only on link change + popup reopen', async () => {
@@ -910,6 +980,8 @@ describe('ShareDialogContainer', () => {
 			await networkResolution();
 			expect(wrapper.state().shortenedCopyLink).toEqual(NEW_SHORTENED_URL);
 			expect(wrapper.instance().getCopyLink()).toEqual(NEW_SHORTENED_URL);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should properly integrate with auto share URL when re-shortening', async () => {
@@ -961,6 +1033,8 @@ describe('ShareDialogContainer', () => {
 				type: 'page',
 				params: { contentId: '123', spaceKey: 'X' },
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should generate a short URL using shortLinkData', async () => {
@@ -986,6 +1060,8 @@ describe('ShareDialogContainer', () => {
 				...mockShortLinkData,
 				originId: 'id',
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should properly swap and refresh the passed down "copy link" to the short URL once available', async () => {
@@ -1008,6 +1084,8 @@ describe('ShareDialogContainer', () => {
 
 			expect(wrapper.instance().getCopyLink()).toEqual(SHORTENED_URL);
 			expect(getShareDialogWithTrigger(wrapper).prop('copyLink')).toEqual(SHORTENED_URL);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should be protected against race conditions', async () => {

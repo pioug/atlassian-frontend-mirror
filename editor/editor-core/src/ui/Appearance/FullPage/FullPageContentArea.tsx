@@ -333,8 +333,7 @@ const Content = React.forwardRef<
 								tableFullPageEditorStylesNew,
 								fullWidthNonChromelessBreakoutBlockTableStyle,
 								// for breakout resizing, there's no need to restrict the width of codeblocks as they're always wrapped in a breakout mark
-								expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
-								fg('platform_editor_breakout_resizing_width_changes')
+								expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)
 									? editorContentAreaContainerStyleExcludeCodeBlockNew
 									: editorContentAreaContainerStyleNew,
 								fg('platform_editor_nested_dnd_styles_changes') &&

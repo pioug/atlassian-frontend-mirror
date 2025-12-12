@@ -23,5 +23,9 @@
 		"../src/**/stories/*",
 		"../src/**/stories/**/*"
 	],
-	"references": []
+	"references": [
+		{
+			"path": "../../editor-prosemirror/afm-jira/tsconfig.json"
+		}
+	]
 }

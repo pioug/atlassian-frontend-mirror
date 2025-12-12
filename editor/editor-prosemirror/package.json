@@ -1,0 +1,72 @@
+{
+	"name": "@atlaskit/editor-prosemirror",
+	"atlassian": {
+		"team": "Editor: Lego"
+	},
+	"version": "7.2.0",
+	"description": "Package to group all prosemirror libraries in a single place ",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/adf-schema",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"atlaskit:src": "src/index.ts",
+	"sideEffects": false,
+	"scripts": {
+		"clean": "../../scripts/build-clean.sh",
+		"test": "yarn test:unit",
+		"test:unit": "yarn jest --testPathPattern=editor-prosemirror/src --config=../../jest.config.js",
+		"build:cjs": "NODE_ENV=production BABEL_ENV=production:node-cjs babel --config-file ../adf-schema/babel.config.js src --out-dir dist/cjs -x .ts,.tsx",
+		"build:esm": "NODE_ENV=production BABEL_ENV=production:esm babel --config-file ../adf-schema/babel.config.js src -d dist/esm -x .ts,.tsx",
+		"build:es2019": "NODE_ENV=production BABEL_ENV=production:es2019 babel --config-file ../adf-schema/babel.config.js src -d dist/es2019 -x .ts,.tsx",
+		"build:types": "NODE_ENV=production yarn tsc --project ./build/tsconfig.json --emitDeclarationOnly --outDir ./dist/types --rootDir ./src",
+		"build:all": "yarn build:cjs && yarn build:esm && yarn build:es2019 && yarn build:types",
+		"build": "yarn run build:all"
+	},
+	"dependencies": {
+		"@babel/runtime": "root:*",
+		"prosemirror-commands": "root:*",
+		"prosemirror-dropcursor": "root:*",
+		"prosemirror-history": "root:*",
+		"prosemirror-keymap": "root:*",
+		"prosemirror-markdown": "root:*",
+		"prosemirror-model": "root:*",
+		"prosemirror-state": "root:*",
+		"prosemirror-transform": "root:*",
+		"prosemirror-utils": "root:*",
+		"prosemirror-view": "root:*"
+	},
+	"devDependencies": {
+		"@atlaskit/adf-schema": "workspace:^",
+		"@atlassian/atlassian-frontend-prettier-config-1.0.1": "root:*",
+		"@babel/cli": "root:*",
+		"typescript": "root:*"
+	},
+	"prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+	"exports": {
+		".": "./src/index.ts",
+		"./commands": "./src/commands.ts",
+		"./dropcursor": "./src/dropcursor.ts",
+		"./history": "./src/history.ts",
+		"./keymap": "./src/keymap.ts",
+		"./markdown": "./src/markdown.ts",
+		"./model": "./src/model.ts",
+		"./state": "./src/state.ts",
+		"./transform": "./src/transform.ts",
+		"./utils": "./src/utils.ts",
+		"./view": "./src/view.ts"
+	}
+}

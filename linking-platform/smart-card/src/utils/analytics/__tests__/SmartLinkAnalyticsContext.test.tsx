@@ -71,7 +71,7 @@ describe('SL analytics context', () => {
 			);
 		};
 
-		it('adds analytics context to events', () => {
+		it('adds analytics context to events', async () => {
 			setup(resolvedCardState);
 
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith({
@@ -104,9 +104,11 @@ describe('SL analytics context', () => {
 				source: 'some-source',
 				tags: ['media'],
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('adds minimum analytics context to events when url is not in the store', () => {
+		it('adds minimum analytics context to events when url is not in the store', async () => {
 			setup();
 
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith({
@@ -140,9 +142,11 @@ describe('SL analytics context', () => {
 				source: 'some-source',
 				tags: ['media'],
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('adds analytics context with displayCategory "link" when display is "url" when the hyperlink button experiment is running', () => {
+		it('adds analytics context with displayCategory "link" when display is "url" when the hyperlink button experiment is running', async () => {
 			getExperimentValueMock.mockImplementation((experimentName: string) => {
 				if (
 					experimentName === 'platform_linking_bluelink_connect_confluence' ||
@@ -197,9 +201,11 @@ describe('SL analytics context', () => {
 				source: 'some-source',
 				tags: ['media'],
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('adds analytics context with displayCategory "smartLink" when display is not "url" when the hyperlink button experiment is running', () => {
+		it('adds analytics context with displayCategory "smartLink" when display is not "url" when the hyperlink button experiment is running', async () => {
 			getExperimentValueMock.mockImplementation((experimentName: string) => {
 				if (
 					experimentName === 'platform_linking_bluelink_connect_confluence' ||
@@ -254,6 +260,8 @@ describe('SL analytics context', () => {
 				source: 'some-source',
 				tags: ['media'],
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -267,7 +275,7 @@ describe('SL analytics context', () => {
 			});
 		};
 
-		it('returns analytics context based on url', () => {
+		it('returns analytics context based on url', async () => {
 			const { result } = setup(resolvedCardState);
 
 			expect(result.current).toEqual({
@@ -295,9 +303,11 @@ describe('SL analytics context', () => {
 					statusDetails: null,
 				},
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('returns minimal analytics context if url is not in the store', () => {
+		it('returns minimal analytics context if url is not in the store', async () => {
 			const { result } = setup();
 
 			expect(result.current).toEqual({
@@ -325,9 +335,11 @@ describe('SL analytics context', () => {
 					statusDetails: null,
 				},
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('returns pending analytics context if url is not in the store', () => {
+		it('returns pending analytics context if url is not in the store', async () => {
 			const { result } = setup({ status: 'pending' });
 
 			expect(result.current).toEqual({
@@ -355,9 +367,11 @@ describe('SL analytics context', () => {
 					statusDetails: null,
 				},
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('returns forbidden analytics context', () => {
+		it('returns forbidden analytics context', async () => {
 			const { result } = setup({ details: mocks.forbidden, status: 'pending' });
 
 			expect(result.current).toEqual({
@@ -385,9 +399,11 @@ describe('SL analytics context', () => {
 					statusDetails: null,
 				},
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('returns unauthorized analytics context', () => {
+		it('returns unauthorized analytics context', async () => {
 			const { result } = setup({ details: mocks.unauthorized, status: 'pending' });
 
 			expect(result.current).toEqual({
@@ -415,9 +431,11 @@ describe('SL analytics context', () => {
 					statusDetails: null,
 				},
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('returns analytics context with displayCategory "link" when display is "url" when the hyperlink button experiment is running', () => {
+		it('returns analytics context with displayCategory "link" when display is "url" when the hyperlink button experiment is running', async () => {
 			getExperimentValueMock.mockImplementation((experimentName: string) => {
 				if (
 					experimentName === 'platform_linking_bluelink_connect_confluence' ||
@@ -462,9 +480,11 @@ describe('SL analytics context', () => {
 					statusDetails: null,
 				},
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('returns analytics context with displayCategory "smartLink" when display is not "url" when the hyperlink button experiment is running', () => {
+		it('returns analytics context with displayCategory "smartLink" when display is not "url" when the hyperlink button experiment is running', async () => {
 			getExperimentValueMock.mockImplementation((experimentName: string) => {
 				if (
 					experimentName === 'platform_linking_bluelink_connect_confluence' ||
@@ -512,6 +532,8 @@ describe('SL analytics context', () => {
 					statusDetails: null,
 				},
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

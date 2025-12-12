@@ -13,14 +13,15 @@ import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-e
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { insertAdfAtEndOfDoc } from './pm-plugins/actions/insertAdfAtEndOfDoc';
 import { replaceWithAdf } from './pm-plugins/actions/replaceWithAdf';
 import { createPlugin, selectionExtensionPluginKey } from './pm-plugins/main';
 import {
 	getFragmentInfoFromSelection,
+	getFragmentInfoFromSelectionNew,
 	getSelectionAdfInfo,
+	getSelectionAdfInfoNew,
 	getSelectionTextInfo,
 } from './pm-plugins/utils';
 import type { SelectionExtensionPlugin } from './selectionExtensionPluginType';
@@ -58,6 +59,10 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 				),
 			});
 		}
+	}
+
+	if (expValEquals('platform_editor_block_menu', 'isEnabled', true)) {
+		registerBlockMenuItems(extensionList, api);
 	}
 
 	return {
@@ -104,6 +109,13 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 				}
 				const { state } = editorViewRef.current;
 
+				if (expValEquals('platform_editor_block_menu', 'isEnabled', true)) {
+					const selection =
+						api?.blockControls?.sharedState.currentState()?.preservedSelection || state.selection;
+
+					return getSelectionAdfInfoNew(selection);
+				}
+
 				const { selectionRanges, selectedNodeAdf } = getSelectionAdfInfo(state);
 
 				return {
@@ -115,22 +127,25 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 				if (!editorViewRef.current) {
 					return null;
 				}
+
 				const { state } = editorViewRef.current;
+
+				if (expValEquals('platform_editor_block_menu', 'isEnabled', true)) {
+					const selection =
+						api?.blockControls?.sharedState.currentState()?.preservedSelection || state.selection;
+
+					return getFragmentInfoFromSelectionNew(selection);
+				}
+
 				const { selectedNodeAdf } = getFragmentInfoFromSelection(state);
 
 				return { selectedNodeAdf };
 			},
 		},
 		usePluginHook: () => {
-			usePluginStateEffect(api, ['userIntent', 'selection'], ({ userIntentState }) => {
+			usePluginStateEffect(api, ['selection'], () => {
 				if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && isSSR()) {
 					return;
-				}
-				if (
-					userIntentState?.currentUserIntent === 'blockMenuOpen' &&
-					expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
-				) {
-					registerBlockMenuItems(extensionList, api);
 				}
 
 				if (

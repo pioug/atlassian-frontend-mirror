@@ -1,5 +1,19 @@
 # @atlaskit/form
 
+## 15.0.0
+
+### Major Changes
+
+- [`903d3e8f3b8ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/903d3e8f3b8ad) -
+  Removes `aria-required` from use directly on field. It is automatically applied via `fieldProps`
+  when using `isRequired`, so this change is purely to ensure people appropriately apply
+  accessibility props to their fields without the false sense of security of an invalid use of
+  `aria-required`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.4.0
 
 ### Minor Changes

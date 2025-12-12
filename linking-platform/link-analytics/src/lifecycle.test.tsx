@@ -116,6 +116,8 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 					EVENT_CHANNEL,
 				);
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it(`link ${action} supports deriving attributes from a source event`, async () => {
@@ -161,6 +163,8 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 					EVENT_CHANNEL,
 				);
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it(`link ${action} supports custom attributes + attributes from a source event`, async () => {
@@ -206,6 +210,8 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 					EVENT_CHANNEL,
 				);
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it(`link ${action} derives the URL domain and includes in nonPrivacySafeAttributes`, async () => {
@@ -232,6 +238,8 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 					EVENT_CHANNEL,
 				);
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it.each([
@@ -369,6 +377,8 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 					},
 				});
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should support deriving `creationMethod` and `updateMethod` as `linkpicker_paste` when pasting', async () => {
@@ -414,6 +424,8 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 					},
 				});
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should support deriving `creationMethod` and `updateMethod` as `linkpicker_searchResult` when selecting search result', async () => {
@@ -454,6 +466,8 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 					},
 				});
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should support `creationMethod` and `updateMethod` as `linkpicker_none` when saving a link without making changes', async () => {
@@ -474,6 +488,8 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 					},
 				});
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -490,6 +506,8 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 			await waitFor(() => {
 				expect(fireEventSpy).toBeCalled();
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

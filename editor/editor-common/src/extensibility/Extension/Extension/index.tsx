@@ -66,6 +66,10 @@ const hoverStyles = css({
 	},
 });
 
+const containerStyle = css({
+	containerType: 'inline-size',
+});
+
 type WidthStateProps = { widthState: EditorContainerWidth };
 interface ExtensionWithPluginStateProps extends Props, OverflowShadowProps, WidthStateProps {}
 function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
@@ -262,8 +266,11 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 					data-testid="extension-overflow-wrapper"
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 					className={overflowClassNames}
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-					css={overflowWrapperStyles}
+					css={[
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+						overflowWrapperStyles,
+						fg('platform_fix_macro_renders_in_layouts') && containerStyle,
+					]}
 				>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div className={'extension-overlay'} css={overlay} />

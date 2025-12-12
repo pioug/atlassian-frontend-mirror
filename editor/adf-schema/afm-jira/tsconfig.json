@@ -1,0 +1,33 @@
+{
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"verbatimModuleSyntax": false,
+		"outDir": "../../../../../jira/tsDist/@atlaskit__adf-schema/app",
+		"rootDir": "../",
+		"composite": true,
+		"noCheck": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/json-schema"
+	],
+	"references": [
+		{
+			"path": "../../adf-schema-generator/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-prosemirror/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-jira/tsconfig.json"
+		}
+	]
+}

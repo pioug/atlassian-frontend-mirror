@@ -24,6 +24,9 @@
 	],
 	"references": [
 		{
+			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-shared-styles/afm-products/tsconfig.json"
 		},
 		{

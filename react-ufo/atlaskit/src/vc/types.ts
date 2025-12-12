@@ -19,6 +19,7 @@ export type GetVCResultType = {
 	isPageVisible: boolean;
 	interactionAbortReason?: AbortReasonType;
 	includeRawData?: boolean;
+	rawDataStopTime?: number;
 };
 
 export type SelectorConfig = {

@@ -42,7 +42,7 @@
 		"@atlaskit/editor-plugin-selection-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-tasks-and-decisions": "workspace:^",
 		"@atlaskit/editor-plugin-toolbar": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/editor-toolbar-model": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
@@ -58,7 +58,7 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/adf-schema": "workspace:^",
 		"@testing-library/react": "^16.3.0",
 		"wait-for-expect": "root:*"
 	},

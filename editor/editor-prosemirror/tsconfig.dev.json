@@ -1,0 +1,50 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "include": [
+    "**/docs/**/*",
+    "**/__tests__/**/*",
+    "**/vr-tests/**/*",
+    "**/__perf__/**/*",
+    "**/*.test.*",
+    "**/test.*",
+    "**/test-*",
+    "**/examples.ts",
+    "**/examples.tsx",
+    "**/examples/*.ts",
+    "**/examples/*.tsx",
+    "**/examples/**/*.ts",
+    "**/examples/**/*.tsx",
+    "**/storybook/**/*",
+    "**/constellation/**/*",
+    ".storybook/*",
+    "./__fixtures__/**/*",
+    "./__generated__/**/*",
+    "./mocks/**/*",
+    "./__mocks__/**/*",
+    "**/mock.*",
+    "**/codemods/**/*.ts",
+    "**/codemods/**/*.tsx",
+    "**/stories.ts",
+    "**/stories.tsx",
+    "**/stories/*.ts",
+    "**/stories/*.tsx",
+    "**/stories/**/*.ts",
+    "**/stories/**/*.tsx"
+  ],
+  "exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "../../../tsDist/@atlaskit__editor-prosemirror/dev"
+  },
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "../adf-schema/tsconfig.app.json"
+    },
+    {
+      "path": "../../../build/website/docs/tsconfig.app.json"
+    }
+  ]
+}

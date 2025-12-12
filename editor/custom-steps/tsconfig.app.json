@@ -33,6 +33,12 @@
 	},
 	"references": [
 		{
+			"path": "../adf-schema/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-tables/tsconfig.app.json"
 		}
 	],

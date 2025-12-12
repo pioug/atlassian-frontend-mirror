@@ -1,5 +1,29 @@
 # @atlaskit/editor-statsig-tmp
 
+## 15.10.0
+
+### Minor Changes
+
+- [`31417f38e1e12`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31417f38e1e12) -
+  Update toolbar experiments configuration
+
+## 15.9.0
+
+### Minor Changes
+
+- [`cb319ae5e7782`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb319ae5e7782) -
+  EDITOR-2864 - Address HoverLinkOverlay label spilling out beyond the margins of its container on
+  hover. For example, when a smart link is inside a table, and it is broken into 1+ line, the label
+  on hover will not break and will therefore appear hovering out of the table.
+
+## 15.8.0
+
+### Minor Changes
+
+- [`8677e7b660127`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8677e7b660127) -
+  EDITOR-3792 Rollup max width changes previously gated with editor_tinymce_full_width_mode into
+  combined frontend/backend flag confluence_max_width_content_appearance
+
 ## 15.7.1
 
 ### Patch Changes

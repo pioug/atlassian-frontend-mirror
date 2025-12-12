@@ -24,6 +24,9 @@
 	],
 	"references": [
 		{
+			"path": "../../editor-prosemirror/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../input-rules/afm-jira/tsconfig.json"
 		},
 		{

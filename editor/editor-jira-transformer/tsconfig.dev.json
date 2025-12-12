@@ -42,6 +42,9 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../adf-schema/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
@@ -49,6 +52,9 @@
 		},
 		{
 			"path": "../editor-json-transformer/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-test-helpers/tsconfig.app.json"

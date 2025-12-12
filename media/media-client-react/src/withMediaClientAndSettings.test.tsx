@@ -30,10 +30,16 @@ const TestComponentBase = ({
 			<div data-testid="settingsFromProps">{`${!!mediaSettings?.mediaUserPreferences}`}</div>
 			<div data-testid="settingsFromHook">{`${!!mediaSettingsFromHook?.mediaUserPreferences}`}</div>
 			<div data-testid="other">{otherProps}</div>
-			<div data-testid="settingsFromPropsBoolean">{`${!!(mediaSettings as any)?.someBooleanSetting}`}</div>
-			<div data-testid="settingsFromHookBoolean">{`${!!(mediaSettingsFromHook as any)?.someBooleanSetting}`}</div>
-			<div data-testid="settingsFromPropsString">{`${(mediaSettings as any)?.someStringSetting || ''}`}</div>
-			<div data-testid="settingsFromHookString">{`${(mediaSettingsFromHook as any)?.someStringSetting || ''}`}</div>
+			<div data-testid="settingsFromPropsBoolean">{`${!!(mediaSettings as any)
+				?.someBooleanSetting}`}</div>
+			<div data-testid="settingsFromHookBoolean">{`${!!(mediaSettingsFromHook as any)
+				?.someBooleanSetting}`}</div>
+			<div data-testid="settingsFromPropsString">{`${
+				(mediaSettings as any)?.someStringSetting || ''
+			}`}</div>
+			<div data-testid="settingsFromHookString">{`${
+				(mediaSettingsFromHook as any)?.someStringSetting || ''
+			}`}</div>
 		</div>
 	);
 };
@@ -72,7 +78,7 @@ const mockMediaSettings = {
 } as MediaSettings;
 
 describe('withMediaClientAndSettings', () => {
-	it('should render the child component with Media Client and Settings from MediaProvider', () => {
+	it('should render the child component with Media Client and Settings from MediaProvider', async () => {
 		render(
 			<MediaProvider mediaClientConfig={mockMediaClientConfig} mediaSettings={mockMediaSettings}>
 				<TestComponent mediaClientConfig={{} as MediaClientConfig} otherProps="other-props" />
@@ -84,9 +90,11 @@ describe('withMediaClientAndSettings', () => {
 		expect(screen.getByTestId('settingsFromProps')).toHaveTextContent('true');
 		expect(screen.getByTestId('settingsFromHook')).toHaveTextContent('true');
 		expect(screen.getByTestId('other')).toHaveTextContent('other-props');
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render the child component with Media Client from MediaClientProvider and Settings from props', () => {
+	it('should render the child component with Media Client from MediaClientProvider and Settings from props', async () => {
 		render(
 			<MediaClientProvider clientConfig={mockMediaClientConfig}>
 				<TestComponent
@@ -102,9 +110,11 @@ describe('withMediaClientAndSettings', () => {
 		expect(screen.getByTestId('settingsFromProps')).toHaveTextContent('true');
 		expect(screen.getByTestId('settingsFromHook')).toHaveTextContent('true');
 		expect(screen.getByTestId('other')).toHaveTextContent('other-props');
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render the child component with Media Client and Settings from props', () => {
+	it('should render the child component with Media Client and Settings from props', async () => {
 		render(
 			<TestComponent
 				mediaClientConfig={mockMediaClientConfig}
@@ -118,9 +128,11 @@ describe('withMediaClientAndSettings', () => {
 		expect(screen.getByTestId('settingsFromProps')).toHaveTextContent('true');
 		expect(screen.getByTestId('settingsFromHook')).toHaveTextContent('true');
 		expect(screen.getByTestId('other')).toHaveTextContent('other-props');
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should combine Settings from props and MediaProvider, with priority to props', () => {
+	it('should combine Settings from props and MediaProvider, with priority to props', async () => {
 		const providerSettings: MediaSettings = {
 			someBooleanSetting: false,
 			someStringSetting: 'provider-value',
@@ -145,5 +157,7 @@ describe('withMediaClientAndSettings', () => {
 		expect(screen.getByTestId('settingsFromHookBoolean')).toHaveTextContent('true');
 		expect(screen.getByTestId('settingsFromPropsString')).toHaveTextContent('props-value');
 		expect(screen.getByTestId('settingsFromHookString')).toHaveTextContent('props-value');
+
+		await expect(document.body).toBeAccessible();
 	});
 });

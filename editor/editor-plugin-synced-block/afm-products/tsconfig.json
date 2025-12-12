@@ -24,6 +24,9 @@
 	],
 	"references": [
 		{
+			"path": "../../adf-schema/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/button/afm-products/tsconfig.json"
 		},
 		{
@@ -46,6 +49,9 @@
 		},
 		{
 			"path": "../../editor-plugin-selection/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-shared-styles/afm-products/tsconfig.json"
@@ -79,6 +85,9 @@
 		},
 		{
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-products/tsconfig.json"

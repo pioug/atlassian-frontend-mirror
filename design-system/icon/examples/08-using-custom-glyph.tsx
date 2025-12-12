@@ -21,7 +21,7 @@ const AfterPropGlyph = ({ role }: CustomGlyphProps) => (
 	</svg>
 );
 
-const IconCustomExample = () => (
+const IconCustomExample = (): React.JSX.Element => (
 	<div id="custom">
 		{([undefined, 'xlarge'] as const).map((size) => (
 			<>

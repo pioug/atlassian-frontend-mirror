@@ -1,6 +1,5 @@
 import { expandToBlockRange } from '@atlaskit/editor-common/selection';
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Schema, Node as PMNode, NodeRange } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type ContentNodeWithPos, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
@@ -80,8 +79,21 @@ export const expandSelectionToBlockRange = (selection: Selection, schema: Schema
 		const table = findTable(selection);
 		if (table) {
 			const $from = selection.$from.doc.resolve(table.pos);
-			const $to = selection.$from.doc.resolve(table.pos + table.node.nodeSize - 1);
+			const $to = selection.$from.doc.resolve(table.pos + table.node.nodeSize);
 			return { $from, $to };
+		}
+	}
+
+	// when selecting a file, selection is on media
+	// need to find media group and return its pos
+	if (selection instanceof NodeSelection) {
+		if (selection.node.type === nodes.media) {
+			const mediaGroup = findParentNodeOfType(nodes.mediaGroup)(selection);
+			if (mediaGroup) {
+				const $from = selection.$from.doc.resolve(mediaGroup.pos);
+				const $to = selection.$from.doc.resolve(mediaGroup.pos + mediaGroup.node.nodeSize);
+				return { $from, $to };
+			}
 		}
 	}
 
@@ -96,4 +108,18 @@ export const expandSelectionToBlockRange = (selection: Selection, schema: Schema
 export const isListType = (node: PMNode, schema: Schema): boolean => {
 	const lists = [schema.nodes.taskList, schema.nodes.bulletList, schema.nodes.orderedList];
 	return lists.some((list) => list === node.type);
+};
+
+export const getBlockNodesInRange = (range: NodeRange): PMNode[] => {
+	if (range.endIndex - range.startIndex <= 1) {
+		return [range.parent.child(range.startIndex)];
+	}
+	const blockNodes: PMNode[] = [];
+	for (let i = range.startIndex; i < range.endIndex; i++) {
+		if (range.parent.child(i).isBlock) {
+			blockNodes.push(range.parent.child(i));
+		}
+	}
+
+	return blockNodes;
 };

@@ -24,6 +24,9 @@
 	],
 	"references": [
 		{
+			"path": "../../adf-schema/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../analytics/analytics-namespaced-context/afm-products/tsconfig.json"
 		},
 		{
@@ -76,6 +79,9 @@
 		},
 		{
 			"path": "../../editor-plugin-width/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-shared-styles/afm-products/tsconfig.json"

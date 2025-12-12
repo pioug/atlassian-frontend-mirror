@@ -8,10 +8,7 @@
 		"composite": true,
 		"noCheck": true
 	},
-	"include": [
-		"../src/**/*.ts",
-		"../src/**/*.tsx"
-	],
+	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
 	"exclude": [
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
@@ -24,6 +21,9 @@
 		"../src/**/stories/**/*"
 	],
 	"references": [
+		{
+			"path": "../../adf-schema/afm-products/tsconfig.json"
+		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
 		}

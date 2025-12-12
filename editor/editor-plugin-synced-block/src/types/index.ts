@@ -6,6 +6,7 @@ export enum FLAG_ID {
 	CANNOT_EDIT_WHEN_OFFLINE = 'cannot-edit-when-offline',
 	CANNOT_CREATE_WHEN_OFFLINE = 'cannot-create-when-offline',
 	FAIL_TO_DELETE = 'fail-to-delete',
+	SYNC_BLOCK_COPIED = 'sync-block-copied',
 }
 
 type FlagConfig = {

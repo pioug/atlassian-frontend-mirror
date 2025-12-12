@@ -107,17 +107,18 @@ const CUSTOM_ID = '12345678-1234-1234-1234-123456789014';
 
 const getBasePicker =
 	(BasePickerComponent: React.JSXElementConstructor<BaseUserPickerProps>) =>
-	(props: Partial<BaseUserPickerProps> = {}) => (
-		<BasePickerComponent
-			inputId="test"
-			fieldId="test"
-			SelectComponent={Select}
-			styles={{}}
-			components={getComponents(props.isMulti)}
-			width="100%"
-			{...props}
-		/>
-	);
+	(props: Partial<BaseUserPickerProps> = {}) =>
+		(
+			<BasePickerComponent
+				inputId="test"
+				fieldId="test"
+				SelectComponent={Select}
+				styles={{}}
+				components={getComponents(props.isMulti)}
+				width="100%"
+				{...props}
+			/>
+		);
 
 const getBasePickerWithoutAnalytics = getBasePicker(BaseUserPickerWithoutAnalytics);
 
@@ -223,31 +224,37 @@ describe('BaseUserPicker', () => {
 		startSessionMock.mockReset();
 	});
 
-	it('should render using a Select', () => {
+	it('should render using a Select', async () => {
 		const component = shallowUserPicker({ options });
 		const select = component.find(Select);
 
 		expect(select.prop('options')).toEqual(userOptions);
 		expect(select.prop('menuPlacement')).toBeTruthy();
 		expect(select.prop('instanceId')).toEqual('test'); // match fieldId
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should disable picker if isDisabled is true', () => {
+	it('should disable picker if isDisabled is true', async () => {
 		const { getByRole } = render(getBasePickerWithoutAnalytics({ isDisabled: true }));
 
 		// enable hidden since input is disabled
 		const input = getByRole('combobox', { hidden: true });
 
 		expect(input).toBeDisabled();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should set custom placeholder', () => {
+	it('should set custom placeholder', async () => {
 		const custom = 'custom placeholder';
 		const { container } = render(getBasePickerWithoutAnalytics({ placeholder: custom }));
 
 		expect(
 			container.querySelectorAll('#react-select-test-placeholder')[0] as HTMLElement,
 		).toHaveTextContent(custom);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should set custom empty placeholder', async () => {
@@ -259,6 +266,8 @@ describe('BaseUserPicker', () => {
 		// make sure default message does not exist
 		expect(input).not.toHaveTextContent(defaultPlaceholder);
 		expect(input).toHaveTextContent(custom);
+
+		await expect(document.body).toBeAccessible({ violationCount: 2 });
 	});
 
 	describe('noOptionsMessage', () => {
@@ -273,6 +282,8 @@ describe('BaseUserPicker', () => {
 			await selectEvent.openMenu(container.querySelectorAll('#test')[0] as HTMLElement);
 
 			expect(container).toHaveTextContent(customMessage);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should pass custom no options message to picker', async () => {
@@ -286,6 +297,8 @@ describe('BaseUserPicker', () => {
 			await selectEvent.openMenu(container.querySelectorAll('#test')[0] as HTMLElement);
 
 			expect(container).toHaveTextContent(customMessage);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should pass custom no options react node to picker', async () => {
@@ -299,6 +312,8 @@ describe('BaseUserPicker', () => {
 			await selectEvent.openMenu(container.querySelectorAll('#test')[0] as HTMLElement);
 
 			expect(container).toHaveTextContent(customMessage);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -317,6 +332,8 @@ describe('BaseUserPicker', () => {
 		await waitFor(() => {
 			expect(container).toHaveTextContent('Something went wrong');
 		});
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should show custom loadOptionsErrorMessage on server error', async () => {
@@ -338,6 +355,8 @@ describe('BaseUserPicker', () => {
 		await waitFor(() => {
 			expect(container).toHaveTextContent(customLoadOptionsErrorMessage);
 		});
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should trigger onChange with User', async () => {
@@ -348,6 +367,8 @@ describe('BaseUserPicker', () => {
 		act(() => screen.getByText(options[0].name).click());
 
 		expect(onChange).toHaveBeenCalledWith(options[0], 'select-option');
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should trigger props.onSelection if onChange with select-option action', async () => {
@@ -362,6 +383,8 @@ describe('BaseUserPicker', () => {
 			'random-session-id',
 			expect.any(BaseUserPickerWithoutAnalytics),
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should trigger props.onClear if onChange with clear action', async () => {
@@ -380,6 +403,8 @@ describe('BaseUserPicker', () => {
 		await userEvent.hover(screen.getByRole('combobox'));
 		await userEvent.click(screen.getByRole('button', { name: /clear/i }));
 		expect(onClear).toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should display no loading message', async () => {
@@ -388,17 +413,21 @@ describe('BaseUserPicker', () => {
 		await selectEvent.openMenu(container.querySelectorAll('#test')[0] as HTMLElement);
 
 		expect(container).not.toHaveTextContent('No options');
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should call onFocus handler', () => {
+	it('should call onFocus handler', async () => {
 		const onFocus = jest.fn();
 		const { getByRole } = render(getBasePickerWithoutAnalytics({ onFocus }));
 
 		getByRole('combobox').focus();
 		expect(onFocus).toHaveBeenCalledWith('random-session-id');
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should call onBlur handler', () => {
+	it('should call onBlur handler', async () => {
 		const onBlur = jest.fn();
 		const { getByRole } = render(getBasePickerWithoutAnalytics({ onBlur }));
 
@@ -406,18 +435,22 @@ describe('BaseUserPicker', () => {
 		input.focus();
 		input.blur();
 		expect(onBlur).toHaveBeenCalledWith('random-session-id');
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should call onOpen handler', () => {
+	it('should call onOpen handler', async () => {
 		const onOpen = jest.fn();
 
 		render(getBasePickerWithoutAnalytics({ onOpen }));
 
 		act(() => screen.getByRole('combobox').focus());
 		expect(onOpen).toHaveBeenCalledWith('random-session-id');
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should call onClose handler', () => {
+	it('should call onClose handler', async () => {
 		const onClose = jest.fn();
 
 		const { getByRole } = render(getBasePickerWithoutAnalytics({ onClose }));
@@ -426,9 +459,11 @@ describe('BaseUserPicker', () => {
 		input.focus();
 		input.blur();
 		expect(onClose).toHaveBeenCalledWith('random-session-id');
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should call onInputChange handler', () => {
+	it('should call onInputChange handler', async () => {
 		const onInputChange = jest.fn();
 
 		const { getByRole } = render(getBasePickerWithoutAnalytics({ onInputChange }));
@@ -437,25 +472,31 @@ describe('BaseUserPicker', () => {
 		input.focus();
 		fireEvent.change(input, { target: { value: 't' } });
 		expect(onInputChange).toHaveBeenCalledWith('t', 'random-session-id');
+
+		await expect(document.body).toBeAccessible({ violationCount: 2 });
 	});
 
 	describe('Multiple users select', () => {
-		it('should set isMulti in Select', () => {
+		it('should set isMulti in Select', async () => {
 			const component = shallowUserPicker({ options, isMulti: true });
 			const select = component.find(Select);
 			expect(select.prop('isMulti')).toBeTruthy();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should call onChange with an array of users', () => {
+		it('should call onChange with an array of users', async () => {
 			const onChange = jest.fn();
 			const component = shallowUserPicker({ options, isMulti: true, onChange });
 
 			component.find(Select).simulate('change', userOptions, { action: 'select-option' });
 
 			expect(onChange).toHaveBeenCalledWith([options[0], options[1]], 'select-option');
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should call onSelection with an array of users', () => {
+		it('should call onSelection with an array of users', async () => {
 			const onSelection = jest.fn();
 			const component = shallowUserPicker({
 				options,
@@ -471,9 +512,11 @@ describe('BaseUserPicker', () => {
 				'random-session-id',
 				expect.any(BaseUserPickerWithoutAnalytics),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should remove user correctly', () => {
+		it('should remove user correctly', async () => {
 			let value = [] as Value;
 			const onChange = jest.fn();
 			const component = shallowUserPicker({
@@ -515,9 +558,11 @@ describe('BaseUserPicker', () => {
 				],
 				'select-option',
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should remove user correctly when no value props provided', () => {
+		it('should remove user correctly when no value props provided', async () => {
 			const onChange = jest.fn();
 			const component = shallowUserPicker({
 				options,
@@ -542,73 +587,95 @@ describe('BaseUserPicker', () => {
 			expect(onChange).toBeCalledWith(undefined, 'remove-value');
 
 			expect(component.find(Select).props().value).toEqual([]);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
-	it('should set hovering clear indicator', () => {
+	it('should set hovering clear indicator', async () => {
 		const component = shallowUserPicker();
 		const select = component.find(Select);
 		select.simulate('clearIndicatorHover', true);
 		expect(component.state()).toHaveProperty('hoveringClearIndicator', true);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should set isClearable to false', () => {
+	it('should set isClearable to false', async () => {
 		const component = shallowUserPicker({ isClearable: false });
 		const select = component.find(Select);
 		expect(select.prop('isClearable')).toEqual(false);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should open menu onFocus', () => {
+	it('should open menu onFocus', async () => {
 		const component = shallowUserPicker();
 		const select = component.find(Select);
 		select.simulate('focus');
 		expect(component.state()).toHaveProperty('menuIsOpen', true);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should close menu onBlur', () => {
+	it('should close menu onBlur', async () => {
 		const component = shallowUserPicker();
 		component.setState({ menuIsOpen: true });
 		const select = component.find(Select);
 		select.simulate('blur');
 		expect(component.state()).toHaveProperty('menuIsOpen', false);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('appearance', () => {
-		it('should infer normal appearance if single picker', () => {
+		it('should infer normal appearance if single picker', async () => {
 			const component = shallowUserPicker();
 
 			expect(component.find(Select).prop('appearance')).toEqual('normal');
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should pass in appearance that comes from props', () => {
+		it('should pass in appearance that comes from props', async () => {
 			const component = shallowUserPicker({
 				isMulti: true,
 				appearance: 'normal',
 			});
 
 			expect(component.find(Select).prop('appearance')).toEqual('normal');
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('auto focus', () => {
-		it('should autoFocus if open by default', () => {
+		it('should autoFocus if open by default', async () => {
 			const component = shallowUserPicker({ open: true });
 			expect(component.find(Select).prop('autoFocus')).toBeTruthy();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not autoFocus if not open by default', () => {
+		it('should not autoFocus if not open by default', async () => {
 			const component = shallowUserPicker();
 			expect(component.find(Select).prop('autoFocus')).toBeFalsy();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should always autoFocus if prop set to true', () => {
+		it('should always autoFocus if prop set to true', async () => {
 			const component = shallowUserPicker({ autoFocus: true });
 			expect(component.find(Select).prop('autoFocus')).toBeTruthy();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should never autoFocus if prop set to false', () => {
+		it('should never autoFocus if prop set to false', async () => {
 			const component = shallowUserPicker({ open: true, autoFocus: false });
 			expect(component.find(Select).prop('autoFocus')).toBeFalsy();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -616,7 +683,7 @@ describe('BaseUserPicker', () => {
 		beforeEach(() => jest.useFakeTimers());
 		afterEach(() => jest.useRealTimers());
 
-		it('should load users when picker open', () => {
+		it('should load users when picker open', async () => {
 			const usersPromise = new Promise<User[]>((resolve) =>
 				window.setTimeout(() => resolve(options), 500),
 			);
@@ -631,6 +698,8 @@ describe('BaseUserPicker', () => {
 					options,
 				});
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		describe('onInputChange', () => {
@@ -657,7 +726,7 @@ describe('BaseUserPicker', () => {
 				},
 			);
 
-			it('should replace old options after new query', () => {
+			it('should replace old options after new query', async () => {
 				const options2 = [
 					{
 						id: 'some-id',
@@ -694,9 +763,11 @@ describe('BaseUserPicker', () => {
 						});
 					});
 				});
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should finish resolving even when loadOptions errors', () => {
+			it('should finish resolving even when loadOptions errors', async () => {
 				const usersPromise = new Promise<User[]>((_, reject) =>
 					window.setTimeout(() => reject('Bad loadOptions'), 500),
 				);
@@ -714,25 +785,31 @@ describe('BaseUserPicker', () => {
 							resolving: false,
 						});
 					});
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should call props.onInputChange', () => {
+			it('should call props.onInputChange', async () => {
 				const onInputChange = jest.fn();
 				const component = shallowUserPicker({ onInputChange });
 				const select = component.find(Select);
 				select.simulate('inputChange', 'some text', { action: 'input-change' });
 				expect(onInputChange).toHaveBeenCalled();
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should call props.onInputChange with controlled search', () => {
+			it('should call props.onInputChange with controlled search', async () => {
 				const onInputChange = jest.fn();
 				const component = shallowUserPicker({ onInputChange, search: 'text' });
 				const select = component.find(Select);
 				select.simulate('inputChange', 'some text', { action: 'input-change' });
 				expect(onInputChange).toHaveBeenCalled();
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should debounce input change events', () => {
+			it('should debounce input change events', async () => {
 				const usersPromise = new Promise<User[]>((resolve) =>
 					window.setTimeout(() => resolve(options), 500),
 				);
@@ -740,6 +817,8 @@ describe('BaseUserPicker', () => {
 				shallowUserPicker({ loadOptions });
 
 				expect(mockDebounce).toHaveBeenCalledWith(expect.any(Function), 200);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
@@ -748,15 +827,17 @@ describe('BaseUserPicker', () => {
 				mockSessionId('random-session-id');
 			});
 
-			it('should pass sessionId to load option', () => {
+			it('should pass sessionId to load option', async () => {
 				const loadOptions = jest.fn(() => Promise.resolve(options));
 				const component = mount(getBasePickerWithoutAnalytics({ loadOptions }));
 				const input = component.find('input');
 				input.simulate('focus');
 				expect(loadOptions).toHaveBeenCalledWith('', 'random-session-id');
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should pass session id on select when it starts opened', () => {
+			it('should pass session id on select when it starts opened', async () => {
 				const onSelection = jest.fn();
 				const component = mount(getBasePickerWithAnalytics({ onSelection, open: true }));
 				const input = component.find(Select);
@@ -766,14 +847,18 @@ describe('BaseUserPicker', () => {
 					'random-session-id',
 					expect.any(BaseUserPickerWithoutAnalytics),
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should pass session id on focus before open', () => {
+			it('should pass session id on focus before open', async () => {
 				const onFocus = jest.fn();
 				const component = mount(getBasePickerWithAnalytics({ onFocus }));
 				const input = component.find('input');
 				input.simulate('focus');
 				expect(onFocus).toHaveBeenCalledWith('random-session-id');
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			it('should use the same session id on 2nd focus', async () => {
@@ -788,6 +873,8 @@ describe('BaseUserPicker', () => {
 				await component.update();
 				expect(onFocus).toHaveBeenCalledTimes(2);
 				expect(onFocus).toHaveBeenCalledWith('session-first');
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			it('should use new session id for on focus if open is false', async () => {
@@ -802,11 +889,13 @@ describe('BaseUserPicker', () => {
 				await component.update();
 				expect(onFocus).toHaveBeenCalledTimes(2);
 				expect(onFocus.mock.calls).toMatchObject([['session-first'], ['session-second']]);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
 		describe('with defaultOptions', () => {
-			it('should render with default options', () => {
+			it('should render with default options', async () => {
 				const component = shallowUserPicker({
 					isMulti: true,
 					defaultValue: [options[0]],
@@ -815,9 +904,11 @@ describe('BaseUserPicker', () => {
 				expect(component.find(Select).prop('value')).toEqual([
 					{ label: 'Jace Beleren', data: options[0], value: ID_1 },
 				]);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should render with default option', () => {
+			it('should render with default option', async () => {
 				const component = shallowUserPicker({
 					defaultValue: options[0],
 				});
@@ -827,33 +918,41 @@ describe('BaseUserPicker', () => {
 					data: options[0],
 					value: ID_1,
 				});
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should not render with default option if empty array', () => {
+			it('should not render with default option if empty array', async () => {
 				const component = shallowUserPicker({
 					defaultValue: [],
 				});
 
 				expect(component.find(Select).prop('value')).toEqual(undefined);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should not render with default option if null', () => {
+			it('should not render with default option if null', async () => {
 				const component = shallowUserPicker({
 					defaultValue: null,
 				});
 
 				expect(component.find(Select).prop('value')).toEqual(undefined);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should not render with default option if undefined', () => {
+			it('should not render with default option if undefined', async () => {
 				const component = shallowUserPicker({
 					defaultValue: undefined,
 				});
 
 				expect(component.find(Select).prop('value')).toEqual(undefined);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should not remove fixed options', () => {
+			it('should not remove fixed options', async () => {
 				const onChange = jest.fn();
 				const component = shallowUserPicker({
 					isMulti: true,
@@ -876,9 +975,11 @@ describe('BaseUserPicker', () => {
 				expect(onChange).not.toHaveBeenCalled();
 
 				expect(select.prop('value')).toEqual([fixedOption]);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should not remove fixed options with other values', () => {
+			it('should not remove fixed options with other values', async () => {
 				const onChange = jest.fn();
 				const fixedUser = { ...options[0], fixed: true };
 				const component = shallowUserPicker({
@@ -916,11 +1017,13 @@ describe('BaseUserPicker', () => {
 				expect(onChange).not.toHaveBeenCalled();
 
 				expect(component.find(Select).prop('value')).toEqual([fixedOption, removableOption]);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
 		describe('props.open is true', () => {
-			it('should call loadOptions', () => {
+			it('should call loadOptions', async () => {
 				const loadOptions = jest.fn(() => []);
 				shallowUserPicker({
 					open: true,
@@ -928,9 +1031,11 @@ describe('BaseUserPicker', () => {
 				});
 
 				expect(loadOptions).toHaveBeenCalledTimes(1);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should call loadOptions with props.search is passed in', () => {
+			it('should call loadOptions with props.search is passed in', async () => {
 				const loadOptions = jest.fn(() => []);
 				shallowUserPicker({
 					open: true,
@@ -939,11 +1044,13 @@ describe('BaseUserPicker', () => {
 				});
 
 				expect(loadOptions).toHaveBeenCalledWith('test', expect.any(String));
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
 		describe('maxOptions', () => {
-			it('should only pass maxOptions number of options to dropdown in single picker', () => {
+			it('should only pass maxOptions number of options to dropdown in single picker', async () => {
 				const component = shallowUserPicker({
 					options,
 					open: true,
@@ -952,9 +1059,11 @@ describe('BaseUserPicker', () => {
 
 				expect(component.prop('options')).toHaveLength(1);
 				expect(component.prop('options')[0]).toEqual(userOptions[0]);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should not display any options if maxOptions is zero', () => {
+			it('should not display any options if maxOptions is zero', async () => {
 				const component = shallowUserPicker({
 					options,
 					open: true,
@@ -962,9 +1071,11 @@ describe('BaseUserPicker', () => {
 				});
 
 				expect(component.prop('options')).toHaveLength(0);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should ignore negative number of maxOptions', () => {
+			it('should ignore negative number of maxOptions', async () => {
 				const component = shallowUserPicker({
 					options,
 					open: true,
@@ -972,9 +1083,11 @@ describe('BaseUserPicker', () => {
 				});
 
 				expect(component.prop('options')).toHaveLength(2);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should only pass #maxOptions options to dropdown in multi picker', () => {
+			it('should only pass #maxOptions options to dropdown in multi picker', async () => {
 				const component = shallowUserPicker({
 					options,
 					open: true,
@@ -984,9 +1097,11 @@ describe('BaseUserPicker', () => {
 
 				expect(component.prop('options')).toHaveLength(1);
 				expect(component.prop('options')[0]).toEqual(userOptions[0]);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should not consider selected options when passing maxOptions to dropdown', () => {
+			it('should not consider selected options when passing maxOptions to dropdown', async () => {
 				const component = shallowUserPicker({
 					options,
 					value: [options[0]],
@@ -996,51 +1111,65 @@ describe('BaseUserPicker', () => {
 				});
 				expect(component.prop('options')).toHaveLength(1);
 				expect(component.prop('options')[0]).toEqual(userOptions[1]);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
 		describe('inputValue', () => {
-			it('should set inputValue to empty string by default', () => {
+			it('should set inputValue to empty string by default', async () => {
 				const component = shallowUserPicker({ value: options[0] });
 				expect(component.find(Select).prop('inputValue')).toEqual('');
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('onInputChange: should set inputValue to query', () => {
+			it('onInputChange: should set inputValue to query', async () => {
 				const component = shallowUserPicker();
 				const select = component.find(Select);
 				select.simulate('inputChange', 'some text', { action: 'input-change' });
 				expect(component.find(Select).prop('inputValue')).toEqual('some text');
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('onBlur: should clear inputValue', () => {
+			it('onBlur: should clear inputValue', async () => {
 				const component = shallowUserPicker();
 				const select = component.find(Select);
 				select.simulate('blur');
 				expect(component.find(Select).prop('inputValue')).toEqual('');
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('onChange: should clear inputValue', () => {
+			it('onChange: should clear inputValue', async () => {
 				const component = shallowUserPicker();
 				const select = component.find(Select);
 				select.simulate('change', userOptions[0], { action: 'select-option' });
 				expect(component.find(Select).prop('inputValue')).toEqual('');
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('single onFocus with value: should set inputValue to value', () => {
+			it('single onFocus with value: should set inputValue to value', async () => {
 				const component = shallowUserPicker({ value: options[0] });
 				const select = component.find(Select);
 				select.simulate('focus', { target: {} });
 				expect(component.find(Select).prop('inputValue')).toEqual(options[0].name);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('onFocus no value: should have set empty inputValue', () => {
+			it('onFocus no value: should have set empty inputValue', async () => {
 				const component = shallowUserPicker();
 				const select = component.find(Select);
 				select.simulate('focus', { target: {} });
 				expect(component.find(Select).prop('inputValue')).toEqual('');
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('multi onFocus with value: should have empty inputValue', () => {
+			it('multi onFocus with value: should have empty inputValue', async () => {
 				const component = shallowUserPicker({
 					value: options[0],
 					isMulti: true,
@@ -1048,9 +1177,11 @@ describe('BaseUserPicker', () => {
 				const select = component.find(Select);
 				select.simulate('focus', { target: {} });
 				expect(component.find(Select).prop('inputValue')).toEqual('');
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should highlight input value on focus', () => {
+			it('should highlight input value on focus', async () => {
 				const component = shallowUserPicker({ value: options[0] });
 				const select = component.find(Select);
 				const highlightInput = jest.fn();
@@ -1059,19 +1190,23 @@ describe('BaseUserPicker', () => {
 				select.simulate('focus', { target: input });
 				expect(highlightInput).toBeCalledTimes(1);
 				expect(highlightInput).toBeCalledWith(0, 12);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should clear inputValue on change after focus', () => {
+			it('should clear inputValue on change after focus', async () => {
 				const component = shallowUserPicker({ value: options[0] });
 				const select = component.find(Select);
 				select.simulate('focus', {});
 				select.simulate('change', null, { action: 'clear' });
 				component.update();
 				expect(component.find(Select).prop('inputValue')).toBe('');
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
-		it('should blur on escape', () => {
+		it('should blur on escape', async () => {
 			const component = shallowUserPicker();
 			component.setState({ menuIsOpen: true });
 			const ref = { blur: jest.fn() };
@@ -1079,22 +1214,28 @@ describe('BaseUserPicker', () => {
 
 			component.find(Select).simulate('keyDown', { keyCode: 27 });
 			expect(ref.blur).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should prevent default selection event when user inserts space on empty input', () => {
+		it('should prevent default selection event when user inserts space on empty input', async () => {
 			const component = shallowUserPicker({ options });
 			component.setState({ menuIsOpen: true });
 			const preventDefault = jest.fn();
 			component.find(Select).simulate('keyDown', { keyCode: 32, preventDefault });
 			expect(preventDefault).toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not prevent default event when there is inputValue', () => {
+		it('should not prevent default event when there is inputValue', async () => {
 			const component = shallowUserPicker({ options });
 			component.setState({ menuIsOpen: true, inputValue: 'test' });
 			const preventDefault = jest.fn();
 			component.find(Select).simulate('keyDown', { keyCode: 32, preventDefault });
 			expect(preventDefault).toHaveBeenCalledTimes(0);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		describe('groups, teams, and custom', () => {
@@ -1129,31 +1270,39 @@ describe('BaseUserPicker', () => {
 
 			const selectableMixedOptions: Option[] = optionToSelectableOptions(mixedOptions);
 
-			it('should render select with only teams', () => {
+			it('should render select with only teams', async () => {
 				const component = shallowUserPicker({ options: teamOptions });
 				const select = component.find(Select);
 				expect(select.prop('options')).toEqual(selectableTeamOptions);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should render select with only groups', () => {
+			it('should render select with only groups', async () => {
 				const component = shallowUserPicker({ options: groupOptions });
 				const select = component.find(Select);
 				expect(select.prop('options')).toEqual(selectableGroupOptions);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should render select with only custom options', () => {
+			it('should render select with only custom options', async () => {
 				const component = shallowUserPicker({ options: customOptions });
 				const select = component.find(Select);
 				expect(select.prop('options')).toEqual(selectableCustomOptions);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should render select with teams, groups, custom, and users', () => {
+			it('should render select with teams, groups, custom, and users', async () => {
 				const component = shallowUserPicker({ options: mixedOptions });
 				const select = component.find(Select);
 				expect(select.prop('options')).toEqual(selectableMixedOptions);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should be able to multi-select a mix of teams, groups, custom, and users', () => {
+			it('should be able to multi-select a mix of teams, groups, custom, and users', async () => {
 				const onChange = jest.fn();
 				const component = shallowUserPicker({
 					options: mixedOptions,
@@ -1166,17 +1315,21 @@ describe('BaseUserPicker', () => {
 				});
 
 				expect(onChange).toHaveBeenCalledWith(mixedOptions.slice(0, 8), 'select-option');
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should not group options by type if groupByTypeOrder is undefined', () => {
+			it('should not group options by type if groupByTypeOrder is undefined', async () => {
 				const component = shallowUserPicker({
 					options: mixedOptions,
 				});
 				const select = component.find(Select);
 				expect(select.prop('options')).toEqual(selectableMixedOptions);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should group options by type if groupByTypeOrder is passed', () => {
+			it('should group options by type if groupByTypeOrder is passed', async () => {
 				const component = shallowUserPicker({
 					options: mixedOptions,
 					groupByTypeOrder: ['team', 'group'],
@@ -1199,6 +1352,8 @@ describe('BaseUserPicker', () => {
 						options: optionToSelectableOptions(groupOptions),
 					},
 				]);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
@@ -1236,7 +1391,7 @@ describe('BaseUserPicker', () => {
 				onEvent.mockClear();
 			});
 
-			it('should trigger cancel event', () => {
+			it('should trigger cancel event', async () => {
 				const input = component.find('input');
 				input.simulate('focus');
 				input.simulate('blur');
@@ -1263,9 +1418,11 @@ describe('BaseUserPicker', () => {
 					}),
 					'fabric-elements',
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should trigger pressed event', () => {
+			it('should trigger pressed event', async () => {
 				const input = component.find('input');
 				input.simulate('focus');
 				component.setProps({ options });
@@ -1303,9 +1460,11 @@ describe('BaseUserPicker', () => {
 					}),
 					'fabric-elements',
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should trigger clicked event', () => {
+			it('should trigger clicked event', async () => {
 				const input = component.find('input');
 				input.simulate('focus');
 				component.setProps({ options });
@@ -1342,9 +1501,11 @@ describe('BaseUserPicker', () => {
 					}),
 					'fabric-elements',
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should trigger clicked event for external user', () => {
+			it('should trigger clicked event for external user', async () => {
 				const input = component.find('input');
 				input.simulate('focus');
 				component.setProps({ externalOptions });
@@ -1385,9 +1546,11 @@ describe('BaseUserPicker', () => {
 					}),
 					'fabric-elements',
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should trigger clicked event for custom option with analyticsEvent override', () => {
+			it('should trigger clicked event for custom option with analyticsEvent override', async () => {
 				const input = component.find('input');
 				input.simulate('focus');
 				component.setProps({ customOptions });
@@ -1427,9 +1590,11 @@ describe('BaseUserPicker', () => {
 					}),
 					'fabric-elements',
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should trigger cleared event', () => {
+			it('should trigger cleared event', async () => {
 				const input = component.find('input');
 				input.simulate('focus');
 				component.find(Select).prop('onChange')(optionToSelectableOption(options[0]), {
@@ -1455,6 +1620,8 @@ describe('BaseUserPicker', () => {
 					}),
 					'fabric-elements',
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			it('should trigger deleted event', async () => {
@@ -1480,9 +1647,11 @@ describe('BaseUserPicker', () => {
 					}),
 					'fabric-elements',
 				);
+
+				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 
-			it('should trigger deleted event with email id set to null', () => {
+			it('should trigger deleted event with email id set to null', async () => {
 				component = mount(<AnalyticsTestComponent value={[emailValue]} isMulti />);
 				component.setProps({ isMulti: true });
 				component.find(Select).prop('onFocus')();
@@ -1502,9 +1671,11 @@ describe('BaseUserPicker', () => {
 					}),
 					'fabric-elements',
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should not trigger deleted event if there was no removed value', () => {
+			it('should not trigger deleted event if there was no removed value', async () => {
 				component.setProps({ isMulti: true });
 				component.find(Select).prop('onFocus')();
 				component.find(Select).prop('onChange')([], {
@@ -1518,9 +1689,11 @@ describe('BaseUserPicker', () => {
 						}),
 					}),
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('should trigger failed event', () => {
+			it('should trigger failed event', async () => {
 				component.setProps({
 					loadOptions: () => Promise.reject(new Error('some error')),
 				});
@@ -1549,6 +1722,8 @@ describe('BaseUserPicker', () => {
 							'fabric-elements',
 						);
 					});
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			it('should set emailId to null for focused event', async () => {
@@ -1574,10 +1749,12 @@ describe('BaseUserPicker', () => {
 					}),
 					'fabric-elements',
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			describe('searched event', () => {
-				it('should fire when opening menu with options', () => {
+				it('should fire when opening menu with options', async () => {
 					component.setProps({
 						open: true,
 						options,
@@ -1610,9 +1787,11 @@ describe('BaseUserPicker', () => {
 							'fabric-elements',
 						);
 					});
+
+					await expect(document.body).toBeAccessible();
 				});
 
-				it('should not fire searched if the menu is not open', () => {
+				it('should not fire searched if the menu is not open', async () => {
 					component.setProps({
 						options: [options[0]],
 					});
@@ -1621,9 +1800,11 @@ describe('BaseUserPicker', () => {
 					return Promise.resolve().then(() => {
 						expect(onEvent).not.toHaveBeenCalled();
 					});
+
+					await expect(document.body).toBeAccessible();
 				});
 
-				it('should not fire searched if there are no options', () => {
+				it('should not fire searched if there are no options', async () => {
 					component.setProps({
 						open: true,
 					});
@@ -1640,9 +1821,11 @@ describe('BaseUserPicker', () => {
 							}),
 						);
 					});
+
+					await expect(document.body).toBeAccessible();
 				});
 
-				it('should fire searched when options change', () => {
+				it('should fire searched when options change', async () => {
 					component.setProps({
 						open: true,
 						options,
@@ -1679,9 +1862,11 @@ describe('BaseUserPicker', () => {
 							'fabric-elements',
 						);
 					});
+
+					await expect(document.body).toBeAccessible();
 				});
 
-				it('should fire searched when value changed', () => {
+				it('should fire searched when value changed', async () => {
 					component.setProps({
 						open: true,
 						options,
@@ -1725,6 +1910,8 @@ describe('BaseUserPicker', () => {
 							'fabric-elements',
 						);
 					});
+
+					await expect(document.body).toBeAccessible();
 				});
 
 				describe('with journeyId', () => {
@@ -1744,6 +1931,8 @@ describe('BaseUserPicker', () => {
 							}),
 							'fabric-elements',
 						);
+
+						await expect(document.body).toBeAccessible();
 					});
 					it('should use different journey id on second focus', async () => {
 						const firstMockSessionId = 'session-first';
@@ -1781,8 +1970,10 @@ describe('BaseUserPicker', () => {
 							}),
 							'fabric-elements',
 						);
+
+						await expect(document.body).toBeAccessible();
 					});
-					it('should use same journey id across multiple selects', () => {
+					it('should use same journey id across multiple selects', async () => {
 						const firstMockSessionId = 'session-first';
 						const secondMockSessionId = 'session-second';
 						mockSessionId(firstMockSessionId, 'mockReturnValueOnce');
@@ -1818,11 +2009,13 @@ describe('BaseUserPicker', () => {
 							}),
 							'fabric-elements',
 						);
+
+						await expect(document.body).toBeAccessible();
 					});
 				});
 			});
 			describe('PII checks', () => {
-				it('should set invalid ids as null for events containing ids fired when option is clicked', () => {
+				it('should set invalid ids as null for events containing ids fired when option is clicked', async () => {
 					const invalidOption = mixedOptions.find((value) => value.id === INVALID_ID_1);
 					if (invalidOption) {
 						component.setProps({ options: mixedOptions, value: invalidOption });
@@ -1866,9 +2059,11 @@ describe('BaseUserPicker', () => {
 					} else {
 						fail();
 					}
+
+					await expect(document.body).toBeAccessible();
 				});
 
-				it('should set invalid ids as null for events fired when selected values are cleared', () => {
+				it('should set invalid ids as null for events fired when selected values are cleared', async () => {
 					// clear event only fired for single pickers
 					const invalidOption = mixedOptions.find((value) => value.id === INVALID_ID_1);
 					if (invalidOption) {
@@ -1901,9 +2096,11 @@ describe('BaseUserPicker', () => {
 					} else {
 						fail();
 					}
+
+					await expect(document.body).toBeAccessible();
 				});
 
-				it('should set invalid ids as null for events fired when selected user is removed', () => {
+				it('should set invalid ids as null for events fired when selected user is removed', async () => {
 					const validOption = mixedOptions.find((value) => value.id === ID_1);
 					const invalidOption = mixedOptions.find((value) => value.id === INVALID_ID_1);
 					if (validOption && invalidOption) {
@@ -1940,6 +2137,8 @@ describe('BaseUserPicker', () => {
 					} else {
 						fail();
 					}
+
+					await expect(document.body).toBeAccessible();
 				});
 
 				/**
@@ -2014,6 +2213,8 @@ describe('BaseUserPicker', () => {
 				'STARTED',
 				'SUCCEEDED',
 			]);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should send a UFO success metric when list shown after focus, with the options being loaded async', async () => {
@@ -2037,6 +2238,8 @@ describe('BaseUserPicker', () => {
 				'STARTED',
 				'SUCCEEDED',
 			]);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should send a UFO success metric when list shown after focus AND typing, with the options being loaded async', async () => {
@@ -2067,6 +2270,8 @@ describe('BaseUserPicker', () => {
 				'STARTED',
 				'SUCCEEDED',
 			]);
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
 		it('should abort the UFO metric if the input is blurred while the async options are still loading', async () => {
@@ -2092,11 +2297,13 @@ describe('BaseUserPicker', () => {
 				// Blurred
 				'ABORTED',
 			]);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('ariaProps getter', () => {
-		it('should extract aria attributes from props ', () => {
+		it('should extract aria attributes from props ', async () => {
 			const props = {
 				'aria-labelledby': 'aria-labeledby-test',
 				'test-aria-false-property': 'false-property',
@@ -2106,11 +2313,13 @@ describe('BaseUserPicker', () => {
 			const input = screen.getByRole('combobox');
 			expect(input).toHaveAttribute('aria-labelledby');
 			expect(input).not.toHaveAttribute('test-aria-false-property');
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 	});
 
 	describe('a11y', () => {
-		it('should consolidate label and description id when both custom and standard props are provided', () => {
+		it('should consolidate label and description id when both custom and standard props are provided', async () => {
 			const props: Partial<UserPickerProps> & Partial<AriaAttributes> = {
 				ariaLabelledBy: 'labelId',
 				ariaDescribedBy: 'descriptionId',
@@ -2125,9 +2334,11 @@ describe('BaseUserPicker', () => {
 			expect(select.prop('descriptionId')).toBe('descriptionId');
 			expect(select.prop('aria-labelledby')).toBe(undefined);
 			expect(select.prop('aria-describedby')).toBe(undefined);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should consolidate label and description id when custom props are provided', () => {
+		it('should consolidate label and description id when custom props are provided', async () => {
 			const props: Partial<UserPickerProps> = {
 				ariaLabelledBy: 'labelId',
 				ariaDescribedBy: 'descriptionId',
@@ -2140,9 +2351,11 @@ describe('BaseUserPicker', () => {
 			expect(select.prop('descriptionId')).toBe('descriptionId');
 			expect(select.prop('aria-labelledby')).toBe(undefined);
 			expect(select.prop('aria-describedby')).toBe(undefined);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should consolidate label and description id when standard props are provided', () => {
+		it('should consolidate label and description id when standard props are provided', async () => {
 			const props: Partial<UserPickerProps> & Partial<AriaAttributes> = {
 				'aria-labelledby': 'labelId',
 				'aria-describedby': 'descriptionId',
@@ -2155,6 +2368,8 @@ describe('BaseUserPicker', () => {
 			expect(select.prop('descriptionId')).toBe('descriptionId');
 			expect(select.prop('aria-labelledby')).toBe(undefined);
 			expect(select.prop('aria-describedby')).toBe(undefined);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

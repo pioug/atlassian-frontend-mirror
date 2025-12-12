@@ -37,7 +37,7 @@
 		"@atlaskit/editor-plugin-connectivity": "workspace:^",
 		"@atlaskit/editor-plugin-metrics": "workspace:^",
 		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",

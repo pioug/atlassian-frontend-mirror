@@ -60,6 +60,8 @@ describe('EmbedResizeMessageListener', () => {
 	it('should render children', async () => {
 		await setup();
 		expect(await screen.findByTestId('child')).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should call onHeightUpdate when iframe sends message with new size', async () => {
@@ -181,5 +183,7 @@ describe('EmbedResizeMessageListener', () => {
 
 		window.dispatchEvent(getValidMessageEvent());
 		expect(onHeightUpdate).not.toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 });

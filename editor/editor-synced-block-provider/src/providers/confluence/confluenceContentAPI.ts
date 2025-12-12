@@ -25,6 +25,7 @@ import { isBlogPageType } from '../../clients/confluence/utils';
 import {
 	SyncBlockError,
 	type ResourceId,
+	type SyncBlockAttrs,
 	type SyncBlockData,
 	type SyncBlockProduct,
 } from '../../common/types';
@@ -34,6 +35,7 @@ import type {
 	ADFWriteProvider,
 	DeleteSyncBlockResult,
 	SyncBlockInstance,
+	UpdateReferenceSyncBlockResult,
 	WriteSyncBlockResult,
 } from '../types';
 
@@ -304,6 +306,10 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 
 	generateResourceIdForReference(sourceId: ResourceId): ResourceId {
 		return sourceId;
+	}
+
+	updateReferenceData(_blocks: SyncBlockAttrs[], _noContent?: boolean): Promise<UpdateReferenceSyncBlockResult> {
+		return Promise.resolve({ success: true});
 	}
 }
 

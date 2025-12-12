@@ -12,7 +12,7 @@ type Props = React.PropsWithChildren<{
 }>;
 
 describe('createNamespaceContext', () => {
-	test('calls AnalyticsContext with proper namespace for data', () => {
+	test('calls AnalyticsContext with proper namespace for data', async () => {
 		const Component = createNamespaceContext<Props>('testNamespace');
 
 		render(
@@ -25,5 +25,7 @@ describe('createNamespaceContext', () => {
 			expect.objectContaining({ data: { testNamespace: 'test-data' } }),
 			expect.anything(),
 		);
+
+		await expect(document.body).toBeAccessible();
 	});
 });

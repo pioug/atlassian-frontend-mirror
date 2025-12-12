@@ -83,12 +83,14 @@ ffTest.both('share-compiled-migration', 'share-compiled-migration', () => {
 			);
 		};
 
-		it('should render the share dialog with trigger', () => {
+		it('should render the share dialog with trigger', async () => {
 			renderShare({});
 			expect(screen.getByRole('button', { name: 'Share' })).toBeVisible();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render the share dialog with custom trigger button if given', () => {
+		it('should render the share dialog with custom trigger button if given', async () => {
 			const mockRenderCustomTriggerButton = jest.fn(() => <button>Custom Trigger</button>);
 
 			renderShare({
@@ -96,9 +98,11 @@ ffTest.both('share-compiled-migration', 'share-compiled-migration', () => {
 			});
 
 			expect(screen.getByRole('button', { name: 'Custom Trigger' })).toBeVisible();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should pass an Icon to the custom trigger button if it is given', () => {
+		it('should pass an Icon to the custom trigger button if it is given', async () => {
 			const mockRenderCustomTriggerButton = jest.fn(() => <button>Custom Trigger</button>);
 			const mockCustomTriggerButtonIcon = jest.fn().mockReturnValue(<>Custom Icon</>);
 			renderShare({
@@ -114,18 +118,24 @@ ffTest.both('share-compiled-migration', 'share-compiled-migration', () => {
 				}),
 				expect.any(Object),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should call onTriggerButtonClick when the trigger button is clicked', async () => {
 			renderShare({});
 			await userEvent.click(screen.getByRole('button', { name: 'Share' }));
 			expect(mockOnTriggerButtonClick).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should call onDialogOpen when the dialog is opened', async () => {
 			renderShare({});
 			await userEvent.click(screen.getByRole('button', { name: 'Share' }));
 			expect(mockOnDialogOpen).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should call onDialogClose when the dialog is closed', async () => {
@@ -134,6 +144,8 @@ ffTest.both('share-compiled-migration', 'share-compiled-migration', () => {
 			await userEvent.click(trigger);
 			await userEvent.click(trigger);
 			expect(mockOnDialogClose).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should show flag on share submit success', async () => {
@@ -151,6 +163,8 @@ ffTest.both('share-compiled-migration', 'share-compiled-migration', () => {
 			await user.click(screen.getByText('ShareInDialog'));
 
 			expect(mockShowFlags).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should not show flag on share submit with no recipients and extended share dialog enabled', async () => {
@@ -166,6 +180,8 @@ ffTest.both('share-compiled-migration', 'share-compiled-migration', () => {
 			await user.click(screen.getByText('ShareInDialog'));
 
 			expect(mockShowFlags).toHaveBeenCalledTimes(0);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		describe('Share error handling', () => {
@@ -208,6 +224,8 @@ ffTest.both('share-compiled-migration', 'share-compiled-migration', () => {
 
 				await user.click(screen.getByTestId('show-clear-icon'));
 				expect(screen.queryByText('Not allowed')).toBeNull();
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 	});

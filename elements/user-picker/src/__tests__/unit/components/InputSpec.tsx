@@ -34,15 +34,17 @@ describe('ClearIndicator', () => {
 		};
 	});
 
-	it('should be enabled by default', () => {
+	it('should be enabled by default', async () => {
 		const component = shallowInput({
 			selectProps: {},
 		});
 
 		expect(component.prop('isDisabled')).toBeFalsy();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should fire event.preventDefault() if isDisabled', () => {
+	it('should fire event.preventDefault() if isDisabled', async () => {
 		//@ts-ignore react-select unsupported props
 		mockedProps.selectProps.disableInput = true;
 
@@ -59,9 +61,11 @@ describe('ClearIndicator', () => {
 			preventDefault: spiedPreventDefault,
 		});
 		expect(spiedPreventDefault).toHaveBeenCalledTimes(2);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should fire event.preventDefault() only on `Enter` key pressed', () => {
+	it('should fire event.preventDefault() only on `Enter` key pressed', async () => {
 		const spiedPreventDefault = jest.fn();
 		const component = mount(<Input {...mockedProps} />);
 		component.find('input').simulate('keyPress', {
@@ -74,20 +78,24 @@ describe('ClearIndicator', () => {
 			preventDefault: spiedPreventDefault,
 		});
 		expect(spiedPreventDefault).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('aria-describedby', () => {
 		const ariaSelector = '[aria-describedby]';
 
-		it('should have no aria-describedby by default', () => {
+		it('should have no aria-describedby by default', async () => {
 			const { baseElement } = render(<Input {...mockedProps} />);
 
 			const ariaAttr = baseElement.querySelector(ariaSelector);
 
 			expect(ariaAttr).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible({ violationCount: 1 });
 		});
 
-		it('should have aria-describedby if passed from selectProps', () => {
+		it('should have aria-describedby if passed from selectProps', async () => {
 			mockedProps.selectProps = {
 				'aria-describedby': describedById,
 			};
@@ -97,9 +105,11 @@ describe('ClearIndicator', () => {
 			const ariaAttr = baseElement.querySelector(ariaSelector);
 
 			expect(ariaAttr).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
-		it('should have aria-describedby from props if selectProps is not passed', () => {
+		it('should have aria-describedby from props if selectProps is not passed', async () => {
 			mockedProps = {
 				...mockedProps,
 				'aria-describedby': describedById,
@@ -110,21 +120,25 @@ describe('ClearIndicator', () => {
 			const ariaAttr = baseElement.querySelector(ariaSelector);
 
 			expect(ariaAttr).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 	});
 
 	describe('aria-labelledby', () => {
 		const ariaSelector = '[aria-labelledby]';
 
-		it('should have no aria-labelledby by default', () => {
+		it('should have no aria-labelledby by default', async () => {
 			const { baseElement } = render(<Input {...mockedProps} />);
 
 			const ariaAttr = baseElement.querySelector(ariaSelector);
 
 			expect(ariaAttr).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible({ violationCount: 1 });
 		});
 
-		it('should use aria-labelledby over aria-describedby if both are passed', () => {
+		it('should use aria-labelledby over aria-describedby if both are passed', async () => {
 			mockedProps = {
 				...mockedProps,
 				'aria-describedby': describedById,
@@ -136,9 +150,11 @@ describe('ClearIndicator', () => {
 			const ariaAttr = baseElement.querySelector(ariaSelector);
 
 			expect(ariaAttr?.getAttribute('aria-labelledby')).toEqual(labelledById);
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
-		it('should default to aria-describedby if aria-laballedby is not passed', () => {
+		it('should default to aria-describedby if aria-laballedby is not passed', async () => {
 			mockedProps = {
 				...mockedProps,
 				'aria-describedby': describedById,
@@ -149,6 +165,8 @@ describe('ClearIndicator', () => {
 			const ariaAttr = baseElement.querySelector(ariaSelector);
 
 			expect(ariaAttr?.getAttribute('aria-labelledby')).toEqual(describedById);
+
+			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 	});
 });

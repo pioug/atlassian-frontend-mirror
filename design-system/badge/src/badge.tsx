@@ -7,10 +7,10 @@ import { memo, type ReactNode } from 'react';
 import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
+import BadgeNew, { appearanceMapping } from './badge-new';
 import { formatValue, formatValueWithNegativeSupport } from './internal/utils';
 import type { BadgeProps } from './types';
 
@@ -34,7 +34,7 @@ const styles = cssMapUnbound({
 		justifyContent: 'center',
 		flexShrink: 0,
 		blockSize: 'min-content',
-		borderRadius: token('radius.xsmall'),
+		borderRadius: token('radius.xsmall', '2px'),
 		paddingInline: token('space.050'),
 	},
 	added: {
@@ -92,6 +92,17 @@ const Badge = memo(function Badge({
 	style,
 	testId,
 }: BadgeProps) {
+	if (fg('platform-dst-lozenge-tag-badge-visual-uplifts')) {
+		// Map old appearance names to new ones
+		const newAppearance = appearanceMapping[appearance];
+		return (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			<BadgeNew appearance={newAppearance} max={max} style={style} testId={testId}>
+				{children}
+			</BadgeNew>
+		);
+	}
+
 	return (
 		<span
 			data-testid={testId}

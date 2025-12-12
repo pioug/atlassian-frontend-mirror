@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "124.17.8",
+	"version": "124.19.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,7 +23,7 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/adf-utils": "workspace:^",
 		"@atlaskit/afm-i18n-platform-editor-renderer": "root:*",
 		"@atlaskit/analytics-listeners": "workspace:^",
@@ -34,7 +34,7 @@
 		"@atlaskit/code": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-palette": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/emoji": "workspace:^",
 		"@atlaskit/feature-gate-js-client": "workspace:^",
@@ -246,6 +246,9 @@
 			"type": "boolean"
 		},
 		"platform-custom-icon-migration": {
+			"type": "boolean"
+		},
+		"platform_fix_macro_renders_in_layouts": {
 			"type": "boolean"
 		}
 	},

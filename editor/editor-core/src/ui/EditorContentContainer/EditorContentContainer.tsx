@@ -153,7 +153,6 @@ import {
 } from './styles/placeholderStyles';
 import {
 	pragmaticResizerStyles,
-	pragmaticResizerStylesNew,
 	pragmaticResizerStylesSyncedBlock,
 	pragmaticStylesLayoutFirstNodeResizeHandleFix,
 	pragmaticResizerStylesForTooltip,
@@ -599,11 +598,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					browser.safari && listsStylesSafariFix,
 					expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)
-						? fg('platform_editor_breakout_resizing_width_changes')
-							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								pragmaticResizerStylesNew
-							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								pragmaticResizerStyles
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							pragmaticResizerStyles
 						: undefined,
 					editorExperiment('platform_synced_block', true) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

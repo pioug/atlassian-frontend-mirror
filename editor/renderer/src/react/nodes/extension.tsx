@@ -1,3 +1,11 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx, css } from '@emotion/react';
+
 import React from 'react';
 import { type Mark as PMMark, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type RendererContext, type ExtensionViewportSize } from '../types';
@@ -12,6 +20,7 @@ import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import { RendererCssClassName } from '../../consts';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { calcBreakoutWidthCss } from '../utils/breakout';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 interface Props {
 	extensionHandlers?: ExtensionHandlers;
@@ -70,6 +79,10 @@ const getViewportSize = (
 	}
 };
 
+const containerStyle = css({
+	containerType: 'inline-size',
+});
+
 export const renderExtension = (
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -118,8 +131,13 @@ export const renderExtension = (
 				data-testid="extension--wrapper"
 				data-node-type="extension"
 			>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
-				<div className={overflowContainerClass}>{content}</div>
+				<div
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+					className={overflowContainerClass}
+					css={[fg('platform_fix_macro_renders_in_layouts') && containerStyle]}
+				>
+					{content}
+				</div>
 			</div>
 		);
 	}
@@ -140,8 +158,13 @@ export const renderExtension = (
 					data-layout={layout}
 					data-local-id={localId}
 				>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
-					<div className={overflowContainerClass}>{content}</div>
+					<div
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+						className={overflowContainerClass}
+						css={[fg('platform_fix_macro_renders_in_layouts') && containerStyle]}
+					>
+						{content}
+					</div>
 				</div>
 			)}
 		</WidthConsumer>

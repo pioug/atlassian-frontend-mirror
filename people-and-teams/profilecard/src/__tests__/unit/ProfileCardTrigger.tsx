@@ -97,10 +97,12 @@ describe('ProfileCardTrigger', () => {
 		});
 
 		expect(await findByText('Give kudos')).toBeDefined();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-		it('should open "click" trigger after click', () => {
+		it('should open "click" trigger after click', async () => {
 			const { getByTestId, queryByTestId } = renderWithIntl(
 				<>
 					<ProfileCardTrigger
@@ -136,6 +138,8 @@ describe('ProfileCardTrigger', () => {
 			});
 
 			expect(queryByTestId('profilecard')).toBe(null);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should open "hover" trigger after mouse over', async () => {
@@ -172,8 +176,10 @@ describe('ProfileCardTrigger', () => {
 			});
 
 			expect(queryByTestId('profilecard')).toBe(null);
+
+			await expect(document.body).toBeAccessible();
 		});
-		it('should open "click" trigger after focus and enter keypress', () => {
+		it('should open "click" trigger after focus and enter keypress', async () => {
 			const { getByTestId, queryByTestId } = renderWithIntl(
 				<>
 					<ProfileCardTrigger
@@ -204,8 +210,10 @@ describe('ProfileCardTrigger', () => {
 				cardTriggeredClickEvent,
 			);
 			expect(queryByTestId('profilecard')).toBeDefined();
+
+			await expect(document.body).toBeAccessible();
 		});
-		it('should open "click" trigger after focus and spacebar keypress', () => {
+		it('should open "click" trigger after focus and spacebar keypress', async () => {
 			const { getByTestId, queryByTestId } = renderWithIntl(
 				<>
 					<ProfileCardTrigger
@@ -236,11 +244,13 @@ describe('ProfileCardTrigger', () => {
 				cardTriggeredClickEvent,
 			);
 			expect(queryByTestId('profilecard')).toBeDefined();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-		it('should open "click" trigger after click', () => {
+		it('should open "click" trigger after click', async () => {
 			const { getByTestId, queryByTestId } = renderWithIntl(
 				<>
 					<ProfileCardTrigger
@@ -276,6 +286,8 @@ describe('ProfileCardTrigger', () => {
 			});
 
 			expect(queryByTestId('profilecard')).toBe(null);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should open "hover" trigger after mouse over', async () => {
@@ -312,8 +324,10 @@ describe('ProfileCardTrigger', () => {
 			});
 
 			expect(queryByTestId('profilecard')).toBe(null);
+
+			await expect(document.body).toBeAccessible();
 		});
-		it('should open "click" trigger after focus and enter keypress', () => {
+		it('should open "click" trigger after focus and enter keypress', async () => {
 			const { getByTestId, queryByTestId } = renderWithIntl(
 				<>
 					<ProfileCardTrigger
@@ -344,8 +358,10 @@ describe('ProfileCardTrigger', () => {
 				cardTriggeredClickEvent.attributes,
 			);
 			expect(queryByTestId('profilecard')).toBeDefined();
+
+			await expect(document.body).toBeAccessible();
 		});
-		it('should open "click" trigger after focus and spacebar keypress', () => {
+		it('should open "click" trigger after focus and spacebar keypress', async () => {
 			const { getByTestId, queryByTestId } = renderWithIntl(
 				<>
 					<ProfileCardTrigger
@@ -376,10 +392,12 @@ describe('ProfileCardTrigger', () => {
 				cardTriggeredClickEvent.attributes,
 			);
 			expect(queryByTestId('profilecard')).toBeDefined();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
-	it('should set role="button"', () => {
+	it('should set role="button"', async () => {
 		const { getByTestId, queryByTestId } = renderWithIntl(
 			<>
 				<ProfileCardTrigger
@@ -400,6 +418,8 @@ describe('ProfileCardTrigger', () => {
 		const triggerSpan = getByTestId('profilecard-trigger');
 
 		expect(triggerSpan.getAttribute('role')).toEqual('button');
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should render based on isVisibleProp', async () => {
@@ -435,6 +455,8 @@ describe('ProfileCardTrigger', () => {
 		});
 
 		expect(screen.queryByTestId('profilecard')).toBeDefined();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should render based on trigger when isVisibleProp is undefined', async () => {
@@ -467,5 +489,7 @@ describe('ProfileCardTrigger', () => {
 		});
 
 		expect(screen.queryByTestId('profilecard')).toBeDefined();
+
+		await expect(document.body).toBeAccessible();
 	});
 });

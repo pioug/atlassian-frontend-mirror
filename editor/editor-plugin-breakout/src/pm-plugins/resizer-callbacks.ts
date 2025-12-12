@@ -13,7 +13,6 @@ import {
 	akEditorCalculatedWideLayoutWidth,
 	akEditorMaxLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { ElementDragPayload } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import type {
 	BaseEventPayload,
@@ -99,13 +98,11 @@ export function getProposedWidth({
 
 export function createResizerCallbacks({
 	dom,
-	contentDOM,
 	view,
 	mark,
 	api,
 }: {
 	api: ExtractInjectionAPI<BreakoutPlugin> | undefined;
-	contentDOM: HTMLElement;
 	dom: HTMLElement;
 	mark: Mark;
 	view: EditorView;
@@ -177,12 +174,8 @@ export function createResizerCallbacks({
 				});
 			}
 
-			if (fg('platform_editor_breakout_resizing_width_changes')) {
-				// dom is used for width calculations
-				dom.style.setProperty(LOCAL_RESIZE_PROPERTY, `${newWidth}px`);
-			} else {
-				contentDOM.style.setProperty(LOCAL_RESIZE_PROPERTY, `${newWidth}px`);
-			}
+			// dom is used for width calculations
+			dom.style.setProperty(LOCAL_RESIZE_PROPERTY, `${newWidth}px`);
 		},
 		onDrop({ location, source }) {
 			let payloads: BreakoutEventPayload[] = [];
@@ -231,11 +224,7 @@ export function createResizerCallbacks({
 
 			setBreakoutWidth(newWidth, mode, pos, isEditMode)(view.state, view.dispatch);
 
-			if (fg('platform_editor_breakout_resizing_width_changes')) {
-				dom.style.removeProperty(LOCAL_RESIZE_PROPERTY);
-			} else {
-				contentDOM.style.removeProperty(LOCAL_RESIZE_PROPERTY);
-			}
+			dom.style.removeProperty(LOCAL_RESIZE_PROPERTY);
 
 			if (node) {
 				const resizedPayload = generateResizedEventPayload({

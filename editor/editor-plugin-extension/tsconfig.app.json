@@ -33,6 +33,9 @@
 	},
 	"references": [
 		{
+			"path": "../adf-schema/tsconfig.app.json"
+		},
+		{
 			"path": "../adf-utils/tsconfig.app.json"
 		},
 		{
@@ -79,6 +82,9 @@
 		},
 		{
 			"path": "../editor-plugin-width/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-shared-styles/tsconfig.app.json"

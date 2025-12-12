@@ -65,6 +65,10 @@ export {
 	convertSyncBlockPMNodeToSyncBlockData,
 	convertSyncBlockJSONNodeToSyncBlockNode,
 	convertPMNodesToSyncBlockNodes,
+	getContentIdAndProductFromResourceId
 } from './utils/utils';
+export {
+	fetchErrorPayload
+} from './utils/errorHandling';
 
 export { fetchReferences } from './providers/block-service/blockServiceAPI';

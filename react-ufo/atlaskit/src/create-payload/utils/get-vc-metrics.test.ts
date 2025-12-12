@@ -397,4 +397,47 @@ describe('getVCMetrics', () => {
 		const result = await getVCMetrics(interaction);
 		expect(result).toEqual(expectedVCResult);
 	});
+
+	it('should pass rawDataStopTime when end3p is set on interaction', async () => {
+		const mockVCObserver = createMockVCObserver();
+		const interaction: InteractionMetrics = {
+			type: 'page_load',
+			start: 0,
+			end: 100,
+			end3p: 200,
+			ufoName: 'test',
+			vcObserver: mockVCObserver,
+		} as unknown as InteractionMetrics;
+
+		await getVCMetrics(interaction);
+
+		expect(mockVCObserver.getVCResult).toHaveBeenCalledWith(
+			expect.objectContaining({
+				start: 0,
+				stop: 100,
+				rawDataStopTime: 200,
+			}),
+		);
+	});
+
+	it('should not pass rawDataStopTime when end3p is not set on interaction', async () => {
+		const mockVCObserver = createMockVCObserver();
+		const interaction: InteractionMetrics = {
+			type: 'page_load',
+			start: 0,
+			end: 100,
+			ufoName: 'test',
+			vcObserver: mockVCObserver,
+		} as unknown as InteractionMetrics;
+
+		await getVCMetrics(interaction);
+
+		expect(mockVCObserver.getVCResult).toHaveBeenCalledWith(
+			expect.objectContaining({
+				start: 0,
+				stop: 100,
+				rawDataStopTime: undefined,
+			}),
+		);
+	});
 });

@@ -63,7 +63,7 @@ export const getToolbarConfig = (
 		title: formatMessage(messages.copySyncBlockLabel),
 		showTitle: false,
 		tooltipContent: formatMessage(messages.copySyncBlockTooltip),
-		onClick: copySyncedBlockReferenceToClipboard(syncBlockStore),
+		onClick: copySyncedBlockReferenceToClipboard(syncBlockStore, api),
 		...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
 	};
 	items.push(copyButton);

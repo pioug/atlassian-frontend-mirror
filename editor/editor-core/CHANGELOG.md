@@ -1,5 +1,49 @@
 # @atlaskit/editor-core
 
+## 215.21.4
+
+### Patch Changes
+
+- [`fa963aec58f3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa963aec58f3d) -
+  EDITOR-3064 Clean up feature gate platform_editor_split_list_item_for_gap_cursor
+- Updated dependencies
+
+## 215.21.3
+
+### Patch Changes
+
+- [`31417f38e1e12`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31417f38e1e12) -
+  Update toolbar experiments configuration
+- Updated dependencies
+
+## 215.21.2
+
+### Patch Changes
+
+- [`6ef7509a0bf5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ef7509a0bf5b) -
+  Clean up platform_fix_extra_space_last_line_comment_editor
+- Updated dependencies
+
+## 215.21.1
+
+### Patch Changes
+
+- [`d0a60ac78aa7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0a60ac78aa7e) -
+  Remove platform_editor_breakout_resizing_width_changes FG
+- Updated dependencies
+
+## 215.21.0
+
+### Minor Changes
+
+- [`8677e7b660127`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8677e7b660127) -
+  EDITOR-3792 Rollup max width changes previously gated with editor_tinymce_full_width_mode into
+  combined frontend/backend flag confluence_max_width_content_appearance
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 215.20.2
 
 ### Patch Changes

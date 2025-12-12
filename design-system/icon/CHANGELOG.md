@@ -1,5 +1,18 @@
 # @atlaskit/icon
 
+## 29.1.0
+
+### Minor Changes
+
+- [`7df690ca5c497`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7df690ca5c497) -
+  We are expanding the testing of previous changes behind an additional feature flag to more apps.
+  If this change is successful, it will be available in a later release.
+
+### Patch Changes
+
+- [`7df690ca5c497`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7df690ca5c497) -
+  Fixes a bug with the unreleased icon tile versions being dual-labelled.
+
 ## 29.0.2
 
 ### Patch Changes

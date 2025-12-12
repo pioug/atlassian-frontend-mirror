@@ -28,6 +28,7 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
+import { syncedBlockPluginKey } from '../pm-plugins/main';
 import {
 	canBeConvertedToSyncBlock,
 	findSyncBlock,
@@ -35,6 +36,7 @@ import {
 	isBodiedSyncBlockNode,
 } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
+import { FLAG_ID } from '../types';
 
 type createSyncedBlockProps = {
 	syncBlockStore: SyncBlockStoreManager;
@@ -113,11 +115,17 @@ export const createSyncedBlock = ({
 
 export const copySyncedBlockReferenceToClipboardEditorCommand: (
 	syncBlockStore: SyncBlockStoreManager,
+	api?: ExtractInjectionAPI<SyncedBlockPlugin>,
 ) => EditorCommand =
-	(syncBlockStore: SyncBlockStoreManager) =>
+	(syncBlockStore: SyncBlockStoreManager, api?: ExtractInjectionAPI<SyncedBlockPlugin>) =>
 	({ tr }) => {
 		if (
-			copySyncedBlockReferenceToClipboardInternal(tr.doc.type.schema, tr.selection, syncBlockStore)
+			copySyncedBlockReferenceToClipboardInternal(
+				tr.doc.type.schema,
+				tr.selection,
+				syncBlockStore,
+				api,
+			)
 		) {
 			return tr;
 		}
@@ -127,13 +135,15 @@ export const copySyncedBlockReferenceToClipboardEditorCommand: (
 
 export const copySyncedBlockReferenceToClipboard: (
 	syncBlockStore: SyncBlockStoreManager,
+	api?: ExtractInjectionAPI<SyncedBlockPlugin>,
 ) => Command =
-	(syncBlockStore: SyncBlockStoreManager) =>
+	(syncBlockStore: SyncBlockStoreManager, api?: ExtractInjectionAPI<SyncedBlockPlugin>) =>
 	(state: EditorState, _dispatch?: CommandDispatch, _view?: EditorView) => {
 		return copySyncedBlockReferenceToClipboardInternal(
 			state.tr.doc.type.schema,
 			state.tr.selection,
 			syncBlockStore,
+			api,
 		);
 	};
 
@@ -141,6 +151,7 @@ const copySyncedBlockReferenceToClipboardInternal = (
 	schema: Schema,
 	selection: Selection,
 	syncBlockStore: SyncBlockStoreManager,
+	api?: ExtractInjectionAPI<SyncedBlockPlugin>,
 ): boolean => {
 	const syncBlockFindResult = findSyncBlockOrBodiedSyncBlock(schema, selection);
 	if (!syncBlockFindResult) {
@@ -177,6 +188,15 @@ const copySyncedBlockReferenceToClipboardInternal = (
 
 	const domNode = toDOM(referenceSyncBlockNode, schema);
 	copyDomNode(domNode, referenceSyncBlockNode.type, selection);
+
+	// Use setTimeout to dispatch transaction in next tick and avoid re-entrant dispatch
+	setTimeout(() => {
+		api?.core.actions.execute(({ tr }) => {
+			return tr.setMeta(syncedBlockPluginKey, {
+				activeFlag: { id: FLAG_ID.SYNC_BLOCK_COPIED },
+			});
+		});
+	}, 0);
 
 	return true;
 };

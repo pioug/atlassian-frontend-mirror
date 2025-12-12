@@ -45,6 +45,9 @@
 			"path": "../../design-system/button/tsconfig.app.json"
 		},
 		{
+			"path": "../../editor/editor-prosemirror/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/form/tsconfig.app.json"
 		},
 		{

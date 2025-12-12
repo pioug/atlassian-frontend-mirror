@@ -28,7 +28,7 @@ const transformBodiedSyncBlockNode = (
 		return node.content;
 	}
 
-	// this is not possible.
+	// this is not possible as all bodiedSyncBlocks have already been converted into a syncBlock by now.
 	return node;
 };
 

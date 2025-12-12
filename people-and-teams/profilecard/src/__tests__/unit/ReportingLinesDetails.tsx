@@ -50,7 +50,7 @@ describe('ReportingLinesDetails', () => {
 			</IntlProvider>,
 		);
 
-	it('should render mangaer & reports when specified', () => {
+	it('should render mangaer & reports when specified', async () => {
 		renderComponent({ onReportingLinesClick: () => null });
 		expect(screen.getByText('Manager')).toBeInTheDocument();
 		expect(screen.getByText('manager name')).toBeInTheDocument();
@@ -58,11 +58,15 @@ describe('ReportingLinesDetails', () => {
 		// img alts
 		expect(screen.getByAltText('name2')).toBeInTheDocument();
 		expect(screen.getByAltText('name3')).toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should not render mangaer & reports when NOT specified', () => {
+	it('should not render mangaer & reports when NOT specified', async () => {
 		renderComponent({ reportingLines: {} });
 		expect(screen.queryByText('Manager')).not.toBeInTheDocument();
 		expect(screen.queryByText('Direct reports')).not.toBeInTheDocument();
+
+		await expect(document.body).toBeAccessible();
 	});
 });

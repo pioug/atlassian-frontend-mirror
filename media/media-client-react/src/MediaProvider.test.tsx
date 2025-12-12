@@ -43,7 +43,7 @@ describe('MediaProvider', () => {
 		);
 	};
 
-	it('should provide MediaClient to children', () => {
+	it('should provide MediaClient to children', async () => {
 		render(
 			<MediaProvider mediaClientConfig={mockMediaClientConfig}>
 				<TestComponent />
@@ -51,9 +51,11 @@ describe('MediaProvider', () => {
 		);
 
 		expect(screen.getByTestId('has-media-client')).toHaveTextContent('has-client');
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should provide settings to children when provided', () => {
+	it('should provide settings to children when provided', async () => {
 		render(
 			<MediaProvider mediaClientConfig={mockMediaClientConfig} mediaSettings={mockMediaSettings}>
 				<TestComponent />
@@ -61,9 +63,11 @@ describe('MediaProvider', () => {
 		);
 
 		expect(screen.getByTestId('has-settings')).toHaveTextContent('has-settings');
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should create MediaClient only once for the same config', () => {
+	it('should create MediaClient only once for the same config', async () => {
 		const { rerender } = render(
 			<MediaProvider mediaClientConfig={mockMediaClientConfig}>
 				<TestComponent />
@@ -79,5 +83,7 @@ describe('MediaProvider', () => {
 
 		// The getMediaClient mock should only be called once
 		expect(getMediaClient).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 });

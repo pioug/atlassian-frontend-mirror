@@ -116,6 +116,9 @@
 			"path": "../editor-plugin-type-ahead/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-shared-styles/tsconfig.app.json"
 		},
 		{

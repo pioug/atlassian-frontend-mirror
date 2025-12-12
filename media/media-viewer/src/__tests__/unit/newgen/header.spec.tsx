@@ -44,6 +44,8 @@ describe('<Header />', () => {
 		await waitFor(() => {
 			expect(onSetArchiveSideBarVisible).toHaveBeenCalledWith(true);
 		});
+
+		await expect(document.body).toBeAccessible();
 	});
 	it('onSetArchiveSideBarVisible to be called with false if media type is not archive', async () => {
 		const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
@@ -64,6 +66,8 @@ describe('<Header />', () => {
 		await waitFor(() => {
 			expect(onSetArchiveSideBarVisible).toHaveBeenCalledWith(false);
 		});
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('shows the download button while loading', async () => {
@@ -85,6 +89,8 @@ describe('<Header />', () => {
 		await waitFor(() => {
 			expect(screen.getByLabelText('Download')).toBeInTheDocument();
 		});
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('Metadata', () => {
@@ -108,6 +114,8 @@ describe('<Header />', () => {
 			await waitFor(() => {
 				expect(screen.getByText('some-name')).toBeInTheDocument();
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should default to dataURI as name when no name is passed in a external image identifier', async () => {
@@ -130,6 +138,8 @@ describe('<Header />', () => {
 			await waitFor(() => {
 				expect(screen.getByText('some-external-src')).toBeInTheDocument();
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should render file name as a heading level 1', async () => {
@@ -148,6 +158,8 @@ describe('<Header />', () => {
 			expect(heading).toBeVisible();
 			expect(heading).toHaveTextContent('img.png');
 			expect(heading).toHaveAttribute('id', 'media.media-viewer.file.name');
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		describe('File collectionName', () => {
@@ -171,6 +183,8 @@ describe('<Header />', () => {
 				await waitFor(() => {
 					expect(screen.getByText('img.png')).toBeInTheDocument();
 				});
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
@@ -198,6 +212,8 @@ describe('<Header />', () => {
 				expect(screen.getByTestId('media-viewer-file-metadata-text').textContent).toBe(
 					'image · 41 KB',
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			it('should not render file size if unavailable', async () => {
@@ -221,6 +237,8 @@ describe('<Header />', () => {
 					expect(screen.getByText('some-name')).toBeInTheDocument();
 				});
 				expect(screen.getByTestId('media-viewer-file-metadata-text').textContent).toBe('image');
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			it('should render unknown type', async () => {
@@ -245,6 +263,8 @@ describe('<Header />', () => {
 				expect(screen.getByTestId('media-viewer-file-metadata-text').textContent).toBe(
 					'unknown · 9.3 MB',
 				);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
@@ -280,6 +300,8 @@ describe('<Header />', () => {
 				});
 
 				expect(screen.getByLabelText('sidebar')).toBeInTheDocument();
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 	});

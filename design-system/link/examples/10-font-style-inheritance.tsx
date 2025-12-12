@@ -36,7 +36,7 @@ const textContent = (
 	</React.Fragment>
 );
 
-export default function InlineTextExample() {
+export default function InlineTextExample(): React.JSX.Element {
 	return (
 		<>
 			<GlobalStyleSimulator />

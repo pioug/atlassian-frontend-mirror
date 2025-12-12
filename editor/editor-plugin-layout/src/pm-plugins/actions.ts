@@ -242,11 +242,7 @@ function removeLastColumnInLayout(column: Node, columnPos: number, insideRightEd
 		// check if the column only contains a paragraph with a placeholder text
 		// if so, remove the whole column, otherwise just remove the paragraph
 		if (isEmptyDocument(column)) {
-			const fromPos =
-				editorExperiment('single_column_layouts', true) &&
-				fg('platform_editor_convert_multiple_columns_to_single')
-					? columnPos
-					: columnPos - 1;
+			const fromPos = editorExperiment('single_column_layouts', true) ? columnPos : columnPos - 1;
 
 			tr.replaceRange(tr.mapping.map(fromPos), tr.mapping.map(insideRightEdgePos), Slice.empty);
 		} else {

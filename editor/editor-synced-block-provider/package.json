@@ -27,10 +27,9 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "root:*",
 		"@atlaskit/adf-utils": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/node-data-provider": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
@@ -80,7 +79,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "2.15.1",
+	"version": "2.15.4",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -23,6 +23,12 @@
 	],
 	"references": [
 		{
+			"path": "../../adf-schema/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
 		}
 	]

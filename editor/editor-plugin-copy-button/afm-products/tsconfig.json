@@ -33,6 +33,9 @@
 			"path": "../../editor-plugin-decorations/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
 		},
 		{

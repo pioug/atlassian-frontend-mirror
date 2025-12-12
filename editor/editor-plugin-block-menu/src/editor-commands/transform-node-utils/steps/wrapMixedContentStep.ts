@@ -46,11 +46,7 @@ const canWrapInTarget = (
 	}
 
 	// Use the schema to determine if this node can be contained in the target
-	try {
-		return targetNodeType.validContent(Fragment.from(node));
-	} catch {
-		return false;
-	}
+	return targetNodeType.validContent(Fragment.from(node));
 };
 
 /**

@@ -31,5 +31,9 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__editor-slack-transformer/app"
 	},
-	"references": []
+	"references": [
+		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
+		}
+	]
 }

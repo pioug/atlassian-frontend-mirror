@@ -6,7 +6,7 @@ import { Stack } from '@atlaskit/primitives/compiled';
 
 const icons = [AddIcon, ChevronDownIcon];
 
-export default function SizeFunctionExample() {
+export default function SizeFunctionExample(): React.JSX.Element {
 	return (
 		<Stack space="space.200" alignInline="start">
 			{icons.map((Icon) => (

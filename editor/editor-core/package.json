@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.20.2",
+	"version": "215.21.4",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,7 +39,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "workspace:^",
-		"@atlaskit/adf-schema": "root:*",
+		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/afm-i18n-platform-editor-editor-core": "root:*",
 		"@atlaskit/analytics-namespaced-context": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
@@ -51,7 +51,7 @@
 		"@atlaskit/editor-plugin-quick-insert": "workspace:^",
 		"@atlaskit/editor-plugin-user-preferences": "workspace:^",
 		"@atlaskit/editor-plugins": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-ssr-renderer": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
@@ -110,7 +110,7 @@
 		"@atlaskit/synchrony-test-helpers": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
-		"@atlassian/adf-schema-json": "root:*",
+		"@atlassian/adf-schema-json": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/search-provider": "workspace:^",
 		"@emotion/jest": "root:*",
@@ -263,10 +263,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_split_list_item_for_gap_cursor": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_paste_full_table_inside_empty_cell": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -309,9 +305,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_breakout_resizing_width_changes": {
-			"type": "boolean"
-		},
 		"platform_editor_tables_table_selector": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -340,9 +333,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_vanilla_codebidi_warning": {
-			"type": "boolean"
-		},
-		"platform_fix_extra_space_last_line_comment_editor": {
 			"type": "boolean"
 		},
 		"platform_editor_adf_with_localid": {

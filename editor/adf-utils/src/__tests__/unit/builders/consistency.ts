@@ -35,16 +35,16 @@ const REPO_ROOT = execSync('git rev-parse --show-toplevel', {
 	encoding: 'utf-8',
 }).trim();
 
-const rootNodeModules = path.join(REPO_ROOT, 'node_modules');
-const platformNodeModules = path.join(REPO_ROOT, 'platform', 'node_modules');
-
-const adfSchemaNodesDir = path.join('@atlaskit', 'adf-schema', 'dist', 'cjs', 'schema', 'nodes');
-
-// Load 'nodes' from Platform's node_modules if available, otherwise from the root node_modules
-// This is because when Platform migrates to the global hoisted yarn.lock at the repo root, these modules will be hoisted to the root node_modules
-const adfSchemaNodesPath = fs.existsSync(path.join(platformNodeModules, adfSchemaNodesDir))
-	? path.join(platformNodeModules, adfSchemaNodesDir)
-	: path.join(rootNodeModules, adfSchemaNodesDir);
+const adfSchemaNodesPath = path.join(
+	REPO_ROOT,
+	'platform',
+	'packages',
+	'editor',
+	'adf-schema',
+	'src',
+	'schema',
+	'nodes',
+);
 
 const nodeBuildersPath = path.join(__dirname, '..', '..', '..', 'builders', 'nodes');
 
@@ -58,15 +58,16 @@ const ignoredMarks = [
 	'unsupported-node-attributes',
 ];
 
-// TODO: ADFEXP-524 - Update to correctly refer to adf-schema path
-const adfSchemaMarksDir = path.join('@atlaskit', 'adf-schema', 'dist', 'cjs', 'schema', 'marks');
-
-// Load 'marks' from Platform's node_modules if available, otherwise from the root node_modules
-// This is because when Platform migrates to the global hoisted yarn.lock at the repo root, these modules will be hoisted to the root node_modules
-const adfSchemaMarksPath = fs.existsSync(path.join(platformNodeModules, adfSchemaMarksDir))
-	? path.join(platformNodeModules, adfSchemaMarksDir)
-	: path.join(rootNodeModules, adfSchemaMarksDir);
-
+const adfSchemaMarksPath = path.join(
+	REPO_ROOT,
+	'platform',
+	'packages',
+	'editor',
+	'adf-schema',
+	'src',
+	'schema',
+	'marks',
+);
 const marksBuildersPath = path.join(__dirname, '..', '..', '..', 'builders', 'marks');
 
 function except(array: string[], excludes: string[]) {
@@ -74,13 +75,13 @@ function except(array: string[], excludes: string[]) {
 }
 
 describe('adf-utils <-> adf-schema/schema consistency', () => {
-	it('should have builders for all nodes from adf-schema/schema/nodes', () => {
+	it('should have builders for all nodes from adf-schema/src/schema/nodes', () => {
 		const nodes = buildFilesList(adfSchemaNodesPath, ignoredPaths);
 		const builders = buildFilesList(nodeBuildersPath, ignoredPaths);
 		expect(builders).toEqual(except(nodes, ignoredPaths));
 	});
 
-	it('should have builders for all marks from adf-schema/schema/marks', () => {
+	it('should have builders for all marks from adf-schema/src/schema/marks', () => {
 		const marks = buildFilesList(adfSchemaMarksPath, ignoredMarks);
 		const builders = buildFilesList(marksBuildersPath);
 		expect(builders).toEqual(except(marks, ignoredMarks));

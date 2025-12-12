@@ -32,7 +32,7 @@
 	"dependencies": {
 		"@atlaskit/editor-plugin-collab-edit": "workspace:^",
 		"@atlaskit/editor-plugin-editor-viewmode": "workspace:^",
-		"@atlaskit/editor-prosemirror": "root:*",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*"
 	},

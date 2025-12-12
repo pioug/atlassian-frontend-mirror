@@ -19,6 +19,12 @@
 	],
 	"references": [
 		{
+			"path": "../../adf-schema/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-prosemirror/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-tables/afm-cc/tsconfig.json"
 		},
 		{

@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.2.8
+
+### Patch Changes
+
+- [`0006edf16b3a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0006edf16b3a3) -
+  Editor-2778: Media wrap in container
+
+## 5.2.7
+
+### Patch Changes
+
+- [`b2e5262017fa8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2e5262017fa8) -
+  Editor-2676: Remove moveFocusTo in block menu provider
+- Updated dependencies
+
+## 5.2.6
+
+### Patch Changes
+
+- [`fa50da8ee6860`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa50da8ee6860) -
+  EDITOR-3879 [multi-select] Detect nodes from multi-selection
+- Updated dependencies
+
 ## 5.2.5
 
 ### Patch Changes

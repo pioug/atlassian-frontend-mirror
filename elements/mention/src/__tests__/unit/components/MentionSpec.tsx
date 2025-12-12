@@ -100,12 +100,16 @@ describe('<Mention />', () => {
 			await renderWait(<Mention {...mentionData} />);
 
 			expect(screen.getByText(mentionData.text)).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should render a default lozenge if no accessLevel data and is not being mentioned', async () => {
 			const { container } = await renderWait(<Mention {...mentionData} />);
 			const item = container.querySelector(`[data-mention-type="${MentionType.DEFAULT}"]`);
 			expect(item).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should render a default lozenge if the user has CONTAINER permissions but is not being mentioned', async () => {
@@ -114,18 +118,24 @@ describe('<Mention />', () => {
 			);
 			const item = container.querySelector(`[data-mention-type="${MentionType.DEFAULT}"]`);
 			expect(item).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should add a highlighted lozenge if `isHighlighted` is set to true', async () => {
 			const { container } = await renderWait(<Mention {...mentionData} isHighlighted={true} />);
 			const item = container.querySelector(`[data-mention-type="${MentionType.SELF}"]`);
 			expect(item).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should render a restricted style lozenge if the user has NONE permissions', async () => {
 			const { container } = await renderWait(<Mention {...mentionData} accessLevel={'NONE'} />);
 			const item = container.querySelector(`[data-mention-type="${MentionType.RESTRICTED}"]`);
 			expect(item).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should render a unrestricted style lozenge if the user has CONTAINER permissions', async () => {
@@ -134,6 +144,8 @@ describe('<Mention />', () => {
 			);
 			const item = container.querySelector(`[data-mention-type="${MentionType.DEFAULT}"]`);
 			expect(item).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should render a unrestricted style lozenge if the user has CONTAINER permissions', async () => {
@@ -142,24 +154,32 @@ describe('<Mention />', () => {
 			);
 			const item = container.querySelector(`[data-mention-type="${MentionType.DEFAULT}"]`);
 			expect(item).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should not display a tooltip if no accessLevel data', async () => {
 			const { container } = await renderWait(<Mention {...mentionData} />);
 			const item = container.querySelector(`[data-mention-tooltip="false"`);
 			expect(item).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should display tooltip if mentioned user does not have container permission', async () => {
 			const { container } = await renderWait(<Mention {...mentionData} accessLevel="NONE" />);
 			const item = container.querySelector(`[data-mention-tooltip="true"`);
 			expect(item).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should not display tooltip if mention is highlighted', async () => {
 			const { container } = await renderWait(<Mention {...mentionData} isHighlighted={true} />);
 			const item = container.querySelector(`[data-mention-tooltip="false"`);
 			expect(item).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should dispatch onClick-event', async () => {
@@ -180,6 +200,8 @@ describe('<Mention />', () => {
 				expect.anything(),
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should dispatch lozenge.select analytics onClick-event', async () => {
@@ -202,6 +224,8 @@ describe('<Mention />', () => {
 				expect.objectContaining(createPayload('mention', 'selected')),
 				ELEMENTS_CHANNEL,
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should dispatch onMouseEnter-event', async () => {
@@ -216,6 +240,8 @@ describe('<Mention />', () => {
 			});
 
 			expect(spy).toHaveBeenCalledWith(mentionData.id, mentionData.text, expect.anything());
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should dispatch onMouseLeave-event', async () => {
@@ -231,6 +257,8 @@ describe('<Mention />', () => {
 			});
 
 			expect(spy).toHaveBeenCalledWith(mentionData.id, mentionData.text, expect.anything());
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should dispatch lozenge.hover analytics event if hover delay is greater than the threshold', async () => {
@@ -254,6 +282,8 @@ describe('<Mention />', () => {
 				expect.objectContaining(createPayload('mention', 'hovered')),
 				ELEMENTS_CHANNEL,
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should not dispatch lozenge.hover analytics event for a hover delay bellow the threshold', async () => {
@@ -282,6 +312,8 @@ describe('<Mention />', () => {
 			jest.advanceTimersByTime(ANALYTICS_HOVER_DELAY);
 
 			expect(analyticsNextHandlerSpy).not.toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should render a stateless mention component with correct data attributes', async () => {
@@ -296,6 +328,8 @@ describe('<Mention />', () => {
 
 			const mentionByAccessLevel = container.querySelector(`[data-access-level="NONE"]`);
 			expect(mentionByAccessLevel).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should have spell check disabled', async () => {
@@ -303,12 +337,16 @@ describe('<Mention />', () => {
 
 			const mention = screen.getByTestId(`mention-${mentionData.id}`);
 			expect(mention.getAttribute('spellcheck')).toEqual('false');
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should render @... if no text attribute is supplied', async () => {
 			await renderWait(<Mention {...mentionData} text="" />);
 
 			expect(screen.getByText('@...')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		describe('UFO metrics', () => {
@@ -323,6 +361,8 @@ describe('<Mention />', () => {
 
 				expect(mockUfoStart).toHaveBeenCalled();
 				expect(mockUfoSuccess).toHaveBeenCalled();
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			it('should send a UFO failure metric when mount fails', async () => {
@@ -339,6 +379,8 @@ describe('<Mention />', () => {
 
 				expect(mockUfoStart).toHaveBeenCalled();
 				expect(mockUfoFailure).toHaveBeenCalled();
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 	});
@@ -367,6 +409,8 @@ describe('<Mention />', () => {
 			await renderWait(<ResourcedMention {...mentionData} mentionProvider={mentionProvider()} />);
 
 			expect(screen.getByText(mentionData.text)).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should render a mention and use supplied mention name even if resolving provider', async () => {
@@ -376,6 +420,8 @@ describe('<Mention />', () => {
 
 			expect(screen.getByText(mentionData.text)).toBeInTheDocument();
 			expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(0);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('prefers text from prop over mention resolver', async () => {
@@ -407,6 +453,8 @@ describe('<Mention />', () => {
 			expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(0);
 			const reRenderFirstMention = container.querySelector(`[data-mention-type]`);
 			expect(reRenderFirstMention).toHaveTextContent(mentionData.text);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should render a highlighted stateless mention component if mentionProvider.shouldHighlightMention returns true', async () => {
@@ -418,6 +466,8 @@ describe('<Mention />', () => {
 				const item = container.querySelector(`[data-mention-type="${MentionType.SELF}"]`);
 				expect(item).toBeInTheDocument();
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should not render highlighted mention component if there is no mentionProvider', async () => {
@@ -429,6 +479,8 @@ describe('<Mention />', () => {
 				const item = container.querySelector(`[data-mention-type="${MentionType.DEFAULT}"]`);
 				expect(item).toBeInTheDocument();
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should dispatch onClick-event', async () => {
@@ -451,6 +503,8 @@ describe('<Mention />', () => {
 				expect.anything(),
 				expect.anything(),
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should dispatch onMouseEnter-event', async () => {
@@ -472,6 +526,8 @@ describe('<Mention />', () => {
 
 			expect(spy).toHaveBeenCalled();
 			expect(spy).toHaveBeenLastCalledWith(mentionData.id, mentionData.text, expect.anything());
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should dispatch onMouseLeave-event', async () => {
@@ -494,6 +550,8 @@ describe('<Mention />', () => {
 
 			expect(spy).toHaveBeenCalled();
 			expect(spy).toHaveBeenLastCalledWith(mentionData.id, mentionData.text, expect.anything());
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		describe('resolving mention name', () => {
@@ -509,6 +567,8 @@ describe('<Mention />', () => {
 				expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
 				const firstMention = container.querySelector(`[data-mention-type]`);
 				expect(firstMention).toHaveTextContent('@cheese');
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			it('should render a mention and use the resolving provider to lookup the name (string result, unknown)', async () => {
@@ -526,6 +586,8 @@ describe('<Mention />', () => {
 				expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
 				const firstMention = container.querySelector(`[data-mention-type]`);
 				expect(firstMention).toHaveTextContent('@Unknown user -ABCD');
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			it('should render a mention and use the resolving provider to lookup the name (string result, service error)', async () => {
@@ -539,6 +601,8 @@ describe('<Mention />', () => {
 				expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
 				const firstMention = container.querySelector(`[data-mention-type]`);
 				expect(firstMention).toHaveTextContent('@Unknown user 123');
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			it('should render a mention and use the resolving provider to lookup the name (Promise result)', async () => {
@@ -555,6 +619,8 @@ describe('<Mention />', () => {
 				expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
 				const firstMention = container.querySelector(`[data-mention-type]`);
 				expect(firstMention).toHaveTextContent('@bacon');
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			it('should render a mention and use the resolving provider to lookup the name (Promise result, unknown)', async () => {
@@ -570,6 +636,8 @@ describe('<Mention />', () => {
 				expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
 				const firstMention = container.querySelector(`[data-mention-type]`);
 				expect(firstMention).toHaveTextContent('@Unknown user -ABCD');
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			it('should render a mention and use the resolving provider to lookup the name (Promise result, service error)', async () => {
@@ -585,6 +653,8 @@ describe('<Mention />', () => {
 				expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
 				const firstMention = container.querySelector(`[data-mention-type]`);
 				expect(firstMention).toHaveTextContent('@Unknown user');
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 	});

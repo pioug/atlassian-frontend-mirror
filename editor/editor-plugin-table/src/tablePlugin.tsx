@@ -57,6 +57,7 @@ import { createPlugin as createStickyHeadersPlugin } from './pm-plugins/sticky-h
 import { pluginKey as stickyHeadersPluginKey } from './pm-plugins/sticky-headers/plugin-key';
 import { findStickyHeaderForTable } from './pm-plugins/sticky-headers/util';
 import { createPlugin as createTableOverflowAnalyticsPlugin } from './pm-plugins/table-analytics';
+import { createPlugin as createTableAnchorNamesPlugin } from './pm-plugins/table-anchor-names/plugin';
 import { createPlugin as createTableLocalIdPlugin } from './pm-plugins/table-local-id';
 import { createPlugin as createFlexiResizingPlugin } from './pm-plugins/table-resizing/plugin';
 import { getPluginState as getFlexiResizingPlugin } from './pm-plugins/table-resizing/plugin-factory';
@@ -619,6 +620,21 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 						isTableSelectorEnabled ? createSizeSelectorPlugin(dispatch) : undefined,
 				},
 			];
+
+			if (
+				!expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
+				expValEquals(
+					'platform_editor_table_sticky_header_improvements',
+					'cohort',
+					'test_with_overflow',
+				) &&
+				fg('platform_editor_table_sticky_header_patch_1')
+			) {
+				plugins.push({
+					name: 'tableAnchorNames',
+					plugin: () => createTableAnchorNamesPlugin(),
+				});
+			}
 
 			const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
 				? getBrowserInfo()

@@ -29,7 +29,7 @@ const mockHtmlElement = (rect: Partial<DOMRect>): HTMLDivElement =>
 	({
 		getBoundingClientRect: jest.fn(() => rect),
 		scrollIntoView: jest.fn(),
-	}) as any;
+	} as any);
 
 describe('MultiValue', () => {
 	const data = {
@@ -67,20 +67,24 @@ describe('MultiValue', () => {
 		onClick.mockClear();
 	});
 
-	it('should scroll to open from bottom', () => {
+	it('should scroll to open from bottom', async () => {
 		const current = mockHtmlElement({ top: 10, height: 20 });
 		const parent = mockHtmlElement({ height: 100 });
 		scrollToValue(current, parent);
 		expect(current.scrollIntoView).toHaveBeenCalled();
 		expect(current.scrollIntoView).toHaveBeenCalledWith();
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should scroll to open from top', () => {
+	it('should scroll to open from top', async () => {
 		const current = mockHtmlElement({ top: 90, height: 20 });
 		const parent = mockHtmlElement({ height: 100 });
 		scrollToValue(current, parent);
 		expect(current.scrollIntoView).toHaveBeenCalled();
 		expect(current.scrollIntoView).toHaveBeenCalledWith(false);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('shouldComponentUpdate', () => {
@@ -159,6 +163,8 @@ describe('MultiValue', () => {
 
 			expect(emailIcon).toBeInTheDocument();
 			expect(emailIcon).toHaveAttribute('aria-hidden', 'true');
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -187,14 +193,18 @@ describe('MultiValue', () => {
 			});
 
 			expect(await screen.findByText('VerifiedTeamIcon')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not render verified team icon if team is not verified', () => {
+		it('should not render verified team icon if team is not verified', async () => {
 			renderTeamValue({
 				...team,
 				verified: false,
 			});
 			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -221,12 +231,16 @@ describe('MultiValue', () => {
 			renderGroupValue(mockGroup, true);
 
 			expect(await screen.findByText('VerifiedTeamIcon')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not render verified icon for group when includeTeamsUpdates is false', () => {
+		it('should not render verified icon for group when includeTeamsUpdates is false', async () => {
 			renderGroupValue(mockGroup, false);
 
 			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

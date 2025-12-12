@@ -13,7 +13,9 @@ export const renderWithIntl = (component: React.ReactNode): RenderResult => {
 
 describe('utils', () => {
 	// need >=1 test in each test file :eye-roll:
-	it('is a fake test', () => {
+	it('is a fake test', async () => {
 		expect(1).not.toEqual(2);
+
+		await expect(document.body).toBeAccessible();
 	});
 });

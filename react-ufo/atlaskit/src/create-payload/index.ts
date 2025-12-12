@@ -24,6 +24,7 @@ import {
 	getExperimentalInteractionRate,
 	getUfoNameOverrides,
 	type ReactHydrationStats,
+	shouldUseRawDataThirdPartyBehavior,
 } from '../config';
 import { getExperimentalVCMetrics } from '../create-experimental-interaction-metrics-payload';
 import { getBm3Timings } from '../custom-timings';
@@ -574,7 +575,9 @@ async function createInteractionMetricsPayload(
 		const spans = [...interaction.spans, ...atlaskitInteractionSpans];
 		atlaskitInteractionSpans.length = 0;
 
-		return {
+		const shouldInclude3pHolds = shouldUseRawDataThirdPartyBehavior(ufoName, type);
+
+		const basePayload = {
 			errors: interaction.errors.map(({ labelStack, ...others }) => ({
 				...others,
 				labelStack:
@@ -597,6 +600,21 @@ async function createInteractionMetricsPayload(
 			bundleEvalTimings: objectToArray(getBundleEvalTimings(start)),
 			resourceTimings: objectToArray(resourceTimings) as ResourceTiming[],
 		};
+
+		// Include third-party holds when feature flag is active
+		if (shouldInclude3pHolds) {
+			return {
+				...basePayload,
+				hold3pActive: interaction.hold3pActive ? [...interaction.hold3pActive.values()] : [],
+				hold3pInfo: optimizeHoldInfo(
+					interaction.hold3pInfo ?? [],
+					start,
+					getReactUFOPayloadVersion(interaction.type),
+				),
+			};
+		}
+
+		return basePayload;
 	};
 	// Page load & detailed payload
 	const getPageLoadDetailedInteractionMetrics = () => {
@@ -658,6 +676,7 @@ async function createInteractionMetricsPayload(
 				// basic
 				'event:hostname': window.location?.hostname || 'unknown',
 				'event:product': config.product,
+				'event:population': config.population,
 				'event:schema': '1.0.0',
 				'event:sizeInKb': 0,
 				'event:source': {
@@ -720,6 +739,7 @@ async function createInteractionMetricsPayload(
 					// performance
 					apdex: optimizeApdex(interaction.apdex, getReactUFOPayloadVersion(interaction.type)),
 					end: Math.round(end),
+					...(interaction.end3p ? { end3p: Math.round(interaction.end3p) } : {}),
 					start: Math.round(start),
 					segments:
 						getReactUFOPayloadVersion(interaction.type) === '2.0.0'

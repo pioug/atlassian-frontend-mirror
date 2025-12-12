@@ -27,7 +27,7 @@ type Props = {
 
 const MoveUpDropdownItemContent = ({ api }: Props & WrappedComponentProps) => {
 	const { formatMessage } = useIntl();
-	const { moveFocusTo, moveUpRef } = useBlockMenu();
+	const { moveUpRef, moveDownRef } = useBlockMenu();
 	const { canMoveUp } = useSharedPluginStateWithSelector(
 		api,
 		['blockControls'],
@@ -39,15 +39,15 @@ const MoveUpDropdownItemContent = ({ api }: Props & WrappedComponentProps) => {
 	);
 
 	useEffect(() => {
-		const moveUpElement = moveUpRef.current;
-		if (!moveUpElement) {
-			return;
+		if (
+			!canMoveUp &&
+			moveUpRef.current &&
+			moveUpRef.current === document.activeElement &&
+			moveDownRef.current
+		) {
+			moveDownRef.current.focus();
 		}
-
-		if (!canMoveUp && moveUpElement === document.activeElement) {
-			moveFocusTo('moveDown');
-		}
-	}, [canMoveUp, moveFocusTo, moveUpRef]);
+	}, [canMoveUp, moveDownRef, moveUpRef]);
 
 	const handleClick = () => {
 		api?.core.actions.execute(({ tr }) => {

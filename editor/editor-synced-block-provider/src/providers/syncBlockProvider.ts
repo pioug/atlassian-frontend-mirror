@@ -9,6 +9,7 @@ import {
 	SyncBlockError,
 	type BlockInstanceId,
 	type ResourceId,
+	type SyncBlockAttrs,
 	type SyncBlockData,
 	type SyncBlockNode,
 	type SyncBlockProduct,
@@ -22,6 +23,7 @@ import {
 	type SyncBlockParentInfo,
 	type SyncBlockSourceInfo,
 	type SyncedBlockRendererProviderOptions,
+	type UpdateReferenceSyncBlockResult,
 	type WriteSyncBlockResult,
 } from '../providers/types';
 
@@ -253,6 +255,10 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 			default:
 				throw new Error(`${sourceProduct} source product not supported`);
 		}
+	}
+
+	updateReferenceData(blocks: SyncBlockAttrs[], noContent?: boolean): Promise<UpdateReferenceSyncBlockResult> {
+		return this.writeProvider.updateReferenceData(blocks, noContent);
 	}
 }
 

@@ -1,0 +1,26 @@
+{
+	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"compilerOptions": {
+		"target": "es2019",
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__adf-schema-generator",
+		"rootDir": "../",
+		"composite": true,
+		"noCheck": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/mocks/*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../editor-prosemirror/afm-cc/tsconfig.json"
+		}
+	]
+}

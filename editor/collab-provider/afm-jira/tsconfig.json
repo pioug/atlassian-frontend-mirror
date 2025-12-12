@@ -43,6 +43,9 @@
 			"path": "../../editor-json-transformer/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-prosemirror/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../measurement/feature-gate-js-client/afm-jira/tsconfig.json"
 		},
 		{

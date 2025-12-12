@@ -160,7 +160,7 @@ describe('UserPickerField', () => {
 	describe.each<ProductName>(['jira', 'confluence'])(
 		'should render UserPicker in %s',
 		(product) => {
-			it('without HelperMessage when helperMessage is defined empty', () => {
+			it('without HelperMessage when helperMessage is defined empty', async () => {
 				const fieldProps = {
 					onChange: jest.fn(),
 					value: [],
@@ -180,6 +180,8 @@ describe('UserPickerField', () => {
 				const fieldHelperMessage = field.find(HelperMessage);
 
 				expect(fieldHelperMessage).toHaveLength(0);
+
+				await expect(document.body).toBeAccessible();
 			});
 
 			const helperMessage = {
@@ -187,7 +189,7 @@ describe('UserPickerField', () => {
 				confluence: 'Recipients will see the name of the page and your message',
 			};
 
-			it('with default HelperMessage when helperMessage is not defined', () => {
+			it('with default HelperMessage when helperMessage is not defined', async () => {
 				const fieldProps = {
 					onChange: jest.fn(),
 					value: [],
@@ -207,9 +209,11 @@ describe('UserPickerField', () => {
 
 				expect(fieldHelperMessage).toHaveLength(1);
 				expect(fieldHelperMessage.html()).toEqual(expect.stringContaining(helperMessage[product]));
+
+				await expect(document.body).toBeAccessible();
 			});
 
-			it('with appropriate defaultValue', () => {
+			it('with appropriate defaultValue', async () => {
 				const defaultValue: OptionData[] = [];
 				const loadOptions = jest.fn();
 				const component = mount(
@@ -220,6 +224,8 @@ describe('UserPickerField', () => {
 					/>,
 				);
 				expect(component.find(Field).prop('defaultValue')).toBe(defaultValue);
+
+				await expect(document.body).toBeAccessible();
 			});
 		},
 	);
@@ -305,7 +311,7 @@ describe('UserPickerField', () => {
 		);
 	});
 
-	it('should not call loadUsers on empty query', () => {
+	it('should not call loadUsers on empty query', async () => {
 		const loadOptions = jest.fn();
 		const fieldProps = {
 			onChange: jest.fn(),
@@ -320,10 +326,12 @@ describe('UserPickerField', () => {
 		expect(userPicker).toHaveLength(1);
 		userPicker.simulate('loadOptions', '');
 		expect(loadOptions).not.toHaveBeenCalled();
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('when extended share dialog is enabled', () => {
-		it('should not be a required field', () => {
+		it('should not be a required field', async () => {
 			renderUserPickerRTL({
 				isExtendedShareDialogEnabled: true,
 				product: 'jira',
@@ -334,9 +342,11 @@ describe('UserPickerField', () => {
 
 			expect(asterisk).not.toBeInTheDocument();
 			expect(userPicker).not.toBeRequired();
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render user field without helper message when extended share dialog is enabled', () => {
+		it('should render user field without helper message when extended share dialog is enabled', async () => {
 			renderUserPickerRTL({
 				isExtendedShareDialogEnabled: true,
 				helperMessage: 'helper message',
@@ -344,6 +354,8 @@ describe('UserPickerField', () => {
 			});
 
 			expect(screen.queryByText('helper message')).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should not throw validation errors when the field is empty', async () => {
@@ -367,11 +379,13 @@ describe('UserPickerField', () => {
 			expect(
 				screen.queryByText(messages.userPickerRequiredMessageJira.defaultMessage),
 			).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('smart user picker enabled', () => {
-		it('should render smart user picker', () => {
+		it('should render smart user picker', async () => {
 			const cloudId = 'cloud-id';
 			const orgId = 'org-id';
 
@@ -397,6 +411,8 @@ describe('UserPickerField', () => {
 			expect(smartUserPicker.prop('orgId')).toBe(orgId);
 			expect(smartUserPicker.prop('includeTeams')).toBe(true);
 			expect(smartUserPicker.prop('includeGroups')).toBe(true);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -500,7 +516,7 @@ describe('UserPickerField', () => {
 			};
 		};
 
-		it('should display warning message when product is confluence', () => {
+		it('should display warning message when product is confluence', async () => {
 			const { component } = setUpInviteWarningTest();
 
 			const helperMessage = component.find(HelperMessage);
@@ -509,9 +525,11 @@ describe('UserPickerField', () => {
 			const message = helperMessage.find(FormattedMessage);
 			expect(message).toHaveLength(1);
 			expect(message.props()).toMatchObject(messages.infoMessageDefaultConfluence);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should display warning message when product is jira', () => {
+		it('should display warning message when product is jira', async () => {
 			const { component } = setUpInviteWarningTest('jira');
 
 			const helperMessage = component.find(HelperMessage);
@@ -520,18 +538,22 @@ describe('UserPickerField', () => {
 			const message = helperMessage.find(FormattedMessage);
 			expect(message).toHaveLength(1);
 			expect(message.props()).toMatchObject(messages.infoMessageDefaultJira);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not display warning message if public link is on', () => {
+		it('should not display warning message if public link is on', async () => {
 			const { component } = setUpInviteWarningTest('confluence', true);
 
 			const helperMessage = component.find(HelperMessage);
 			expect(helperMessage).toHaveLength(0);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('onUserInputChanged prop', () => {
-		it('should be called when user pickers field input changes', () => {
+		it('should be called when user pickers field input changes', async () => {
 			const fieldProps = {
 				onChange: jest.fn(),
 				value: [],
@@ -545,11 +567,13 @@ describe('UserPickerField', () => {
 			const userPicker = field.find(UserPicker);
 			userPicker.simulate('inputChange', 'some text');
 			expect(onInputChange).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('when sharing to emails is disabled', () => {
-		it('should not allow emails in the user picker', () => {
+		it('should not allow emails in the user picker', async () => {
 			const fieldProps = {
 				onChange: jest.fn(),
 				value: [],
@@ -566,6 +590,8 @@ describe('UserPickerField', () => {
 			);
 			const smartUserPicker = field.find(SmartUserPicker);
 			expect(smartUserPicker.prop('allowEmail')).toBe(false);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -574,7 +600,7 @@ describe('UserPickerField', () => {
 			['jira', 'Invite to Jira'],
 			['confluence', 'Invite to Confluence'],
 		])('Test for product: %s', (product, expectedByline) => {
-			it('should override byline for external users', () => {
+			it('should override byline for external users', async () => {
 				const cloudId = 'cloud-id';
 				const orgId = 'org-id';
 
@@ -605,12 +631,14 @@ describe('UserPickerField', () => {
 				expect(overrideByline?.(user)).toBe('');
 				expect(overrideByline?.(externalUser)).toBe(expectedByline);
 				expect(overrideByline?.(team)).toBe('');
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 	});
 
 	describe('custom messages', () => {
-		it('should render custom messages when provided', () => {
+		it('should render custom messages when provided', async () => {
 			const customPlaceHolderMessageDescriptor: MessageDescriptor = {
 				id: 'custom.placeholder',
 				defaultMessage: 'Custom placeholder',
@@ -638,6 +666,8 @@ describe('UserPickerField', () => {
 
 			expect(getByText('Custom placeholder')).toBeInTheDocument();
 			expect(getByText('Custom label')).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

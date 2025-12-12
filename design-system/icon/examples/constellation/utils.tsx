@@ -20,13 +20,13 @@ const IconWrapperStyles = xcss({
 
 const RowHeaderStyles = xcss({ width: '180px' });
 
-export const RowHeader = ({ children }: { children: React.ReactChild }) => (
+export const RowHeader = ({ children }: { children: React.ReactChild }): React.JSX.Element => (
 	<Box xcss={RowHeaderStyles}>
 		<Text weight="bold">{children}</Text>
 	</Box>
 );
 
-export const IconContainer = ({ children }: { children: React.ReactChild }) => (
+export const IconContainer = ({ children }: { children: React.ReactChild }): React.JSX.Element => (
 	<Inline space="space.100" alignBlock="center" xcss={IconContainerStyles}>
 		<Box xcss={TextBoxStyles} />
 		<Box xcss={IconWrapperStyles}>{children}</Box>

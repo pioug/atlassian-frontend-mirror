@@ -9,7 +9,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import Lozenge from '@atlaskit/lozenge';
 
-import { flushBodiedSyncBlocks } from './editor-actions';
+import { flushBodiedSyncBlocks, flushSyncBlocks } from './editor-actions';
 import {
 	copySyncedBlockReferenceToClipboardEditorCommand,
 	createSyncedBlock,
@@ -61,7 +61,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 
 		commands: {
 			copySyncedBlockReferenceToClipboard: (): EditorCommand =>
-				copySyncedBlockReferenceToClipboardEditorCommand(syncBlockStore),
+				copySyncedBlockReferenceToClipboardEditorCommand(syncBlockStore, api),
 			insertSyncedBlock:
 				(): EditorCommand =>
 				({ tr }) =>
@@ -74,6 +74,9 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 		actions: {
 			flushBodiedSyncBlocks: () => {
 				return flushBodiedSyncBlocks(syncBlockStore);
+			},
+			flushSyncedBlocks: () => {
+				return flushSyncBlocks(syncBlockStore);
 			},
 		},
 

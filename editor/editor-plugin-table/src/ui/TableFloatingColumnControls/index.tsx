@@ -114,9 +114,14 @@ const TableFloatingColumnControls = ({
 		isNativeStickySupported(isDragAndDropEnabled ?? false) &&
 		expValEquals('platform_editor_table_sticky_header_improvements', 'cohort', 'test_with_overflow')
 	) {
+		const rowAnchorName = tableRef.querySelector('tr')?.style.getPropertyValue('anchor-name');
 		// cast here is due to CSSProperties missing valid positionAnchor property
 		anchorStyles = {
-			positionAnchor: tableRef.querySelector('tr')?.style.getPropertyValue('anchor-name'),
+			/* We need to default to checking the anchor style because there may be a conflict with the block controls
+			 plugin not using the data attribute value and setting the `anchor-name` style property independently of the data attribute.
+			 */
+			positionAnchor:
+				rowAnchorName === '' ? tableRef.querySelector('tr')?.dataset.nodeAnchor : rowAnchorName,
 		} as React.CSSProperties;
 	}
 

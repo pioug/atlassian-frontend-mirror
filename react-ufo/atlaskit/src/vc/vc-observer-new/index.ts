@@ -248,6 +248,7 @@ export default class VCObserverNew {
 			includeSSRRatio,
 			excludeSmartAnswersInSearch,
 			includeRawData,
+			rawDataStopTime,
 		} = param;
 		const results: RevisionPayloadEntry[] = [];
 		this.addStartEntry(start);
@@ -367,11 +368,20 @@ export default class VCObserverNew {
 		if (includeRawData && fg('platform_ufo_enable_vc_raw_data')) {
 			const rawVCCalculationStartTime = performance.now();
 			const rawHandler = new RawDataHandler();
+			// Use rawDataStopTime (end3p) when available to capture observations during 3p holds
+			const rawStopTime = rawDataStopTime ?? stop;
+			const rawOrderedEntries = rawDataStopTime
+				? this.entriesTimeline.getOrderedEntries({ start, stop: rawStopTime })
+				: orderedEntries;
 			const raw = await rawHandler.getRawData({
-				entries: orderedEntries,
+				entries: rawOrderedEntries,
 				startTime: start,
-				stopTime: stop,
+				stopTime: rawStopTime,
 				isPageVisible,
+			});
+			results.forEach(result => {
+				delete result.vcDetails;
+				delete result.ratios;
 			});
 
 			if (raw) {

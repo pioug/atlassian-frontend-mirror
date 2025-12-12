@@ -30,6 +30,9 @@
 			"path": "../../editor-plugin-collab-edit/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-prosemirror/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../helpers/frontend-utilities/afm-cc/tsconfig.json"
 		},
 		{

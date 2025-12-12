@@ -16,7 +16,7 @@ const RandomIcon = () => {
 	return <Icon label="Random icon" />;
 };
 
-const AnimationDemo = () => {
+const AnimationDemo = (): React.JSX.Element => {
 	const [timerId, setTimerId] = useState<number>();
 	const [, setUpdateCount] = useState(0);
 	const checkboxRef = useRef<HTMLInputElement>(null);

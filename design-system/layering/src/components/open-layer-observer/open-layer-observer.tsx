@@ -279,7 +279,7 @@ function createInternalAPI(): OpenLayerObserverInternalAPI {
  *
  * It is intended for use with the `useOpenLayerObserver` hook.
  */
-export function OpenLayerObserver({ children }: { children: React.ReactNode }) {
+export function OpenLayerObserver({ children }: { children: React.ReactNode }): React.JSX.Element {
 	// Using state to ensure a stable reference to a single instance.
 	const [internalAPI] = useState(() => createInternalAPI());
 

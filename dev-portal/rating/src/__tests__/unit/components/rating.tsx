@@ -18,7 +18,7 @@ const expectIsVisuallyHidden = (element: HTMLElement) => {
 };
 
 describe('<Rating />', () => {
-	it('should render the unchecked icon inside the unchecked container', () => {
+	it('should render the unchecked icon inside the unchecked container', async () => {
 		const { getByTestId } = render(
 			<Rating render={renderIcon} label="GREAT" testId="item" id="great" value="great" />,
 		);
@@ -30,9 +30,11 @@ describe('<Rating />', () => {
               />,
             ]
         `);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render the checked icon inside the checked container', () => {
+	it('should render the checked icon inside the checked container', async () => {
 		const { getByTestId } = render(
 			<Rating render={renderIcon} label="GREAT" testId="item" id="great" value="great" />,
 		);
@@ -44,26 +46,32 @@ describe('<Rating />', () => {
         />,
       ]
     `);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should visually hide the text inside the label', () => {
+	it('should visually hide the text inside the label', async () => {
 		const { getByText } = render(
 			<Rating render={renderIcon} label="GREAT" testId="item" id="great" value="great" />,
 		);
 
 		expectIsVisuallyHidden(getByText('GREAT'));
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should visually hide the radio button', () => {
+	it('should visually hide the radio button', async () => {
 		const { getByTestId } = render(
 			<Rating render={renderIcon} label="GREAT" testId="item" id="great" value="great" />,
 		);
 
 		const inputContainer = getByTestId('item--input').parentElement;
 		expectIsVisuallyHidden(inputContainer!);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should callback when the radio button has its value change', () => {
+	it('should callback when the radio button has its value change', async () => {
 		const callback = jest.fn();
 		const { getByTestId } = render(
 			<Rating
@@ -79,9 +87,11 @@ describe('<Rating />', () => {
 		fireEvent.click(getByTestId('item--label'));
 
 		expect(callback).toHaveBeenCalledWith('great');
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should keep the same size when unchecked', () => {
+	it('should keep the same size when unchecked', async () => {
 		const { getByTestId } = render(
 			<Rating render={renderIcon} label="GREAT" testId="item" id="great" value="great" />,
 		);
@@ -90,14 +100,18 @@ describe('<Rating />', () => {
 			'transform 100ms cubic-bezier(0.15,1,0.3,1)',
 		);
 		expect(getByTestId('item--label').style.transform).toEqual('');
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should increase the icons size when checked', () => {
+	it('should increase the icons size when checked', async () => {
 		const { getByTestId } = render(
 			<Rating render={renderIcon} label="GREAT" testId="item" id="great" value="great" isChecked />,
 		);
 
 		expect(getByTestId('item--label').style.transform).toEqual('scale(1.2)');
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	// https://ecosystem.atlassian.net/browse/OWL-1282
@@ -114,12 +128,14 @@ describe('<Rating />', () => {
 		expect(getByTestId('item--tooltip').textContent).toEqual('GREAT');
 	});
 
-	it('should forward the ref to the label element', () => {
+	it('should forward the ref to the label element', async () => {
 		const ref: RefObject<any> = createRef();
 		render(
 			<Rating render={() => null} label="GREAT" testId="item" id="great" value="great" ref={ref} />,
 		);
 
 		expect(ref.current.getAttribute('data-testid')).toEqual('item--label');
+
+		await expect(document.body).toBeAccessible();
 	});
 });

@@ -41,7 +41,13 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../adf-schema/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
+			"path": "../adf-schema-json/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"

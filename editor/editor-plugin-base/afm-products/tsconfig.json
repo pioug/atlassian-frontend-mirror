@@ -24,10 +24,16 @@
 	],
 	"references": [
 		{
+			"path": "../../adf-schema/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-context-identifier/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../prosemirror-history/afm-products/tsconfig.json"

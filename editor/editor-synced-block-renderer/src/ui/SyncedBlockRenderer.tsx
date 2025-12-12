@@ -47,10 +47,10 @@ const SyncedBlockRendererComponent = ({
 		return (
 			<SyncedBlockErrorComponent
 				error={syncBlockInstance.error ?? SyncBlockError.Errored}
-				sourceAri={syncBlockInstance.data?.sourceAri}
-				sourceProduct={syncBlockInstance.data?.product}
+				resourceId={syncBlockInstance.resourceId}
 				onRetry={reloadData}
 				isLoading={isLoading}
+				fireAnalyticsEvent={api?.analytics?.actions.fireAnalyticsEvent}
 			/>
 		);
 	}

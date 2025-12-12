@@ -12,6 +12,7 @@ import type {
 	SyncBlockNode,
 	SyncBlockProduct,
 	BlockInstanceId,
+	SyncBlockAttrs,
 } from '../common/types';
 
 /**
@@ -60,16 +61,28 @@ export type SourceInfoFetchData = {
 	sourceLocalId?: string;
 };
 
+export type UpdateReferenceSyncBlockResult = {
+	error?: string;
+	success: boolean;
+}
+
 export interface ADFFetchProvider {
 	fetchData: (resourceId: ResourceId) => Promise<SyncBlockInstance>;
 }
 export interface ADFWriteProvider {
 	createData: (data: SyncBlockData) => Promise<WriteSyncBlockResult>;
+	/**
+	 * Delete source block.
+	 * @param resourceId the resourceId of the block to be deleted
+	 * @returns Object representing the result of the deletion. {resourceId: string, success: boolean, error?: string}.
+	 * User should not be blocked by not_found error when deleting, so successful result should be returned for 404 error
+	 */
 	deleteData: (resourceId: ResourceId) => Promise<DeleteSyncBlockResult>;
 	// Note: this can be removed on cleanup of content API provider (it will just be UUID)
 	generateResourceId: (sourceId: string, localId: string) => ResourceId;
 	generateResourceIdForReference: (sourceId: ResourceId) => ResourceId;
 	product: SyncBlockProduct;
+	updateReferenceData: (blocks: SyncBlockAttrs[], noContent?: boolean) => Promise<UpdateReferenceSyncBlockResult>;
 	writeData: (data: SyncBlockData) => Promise<WriteSyncBlockResult>;
 }
 
@@ -125,6 +138,7 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 	 */
 	abstract generateResourceId(sourceId: ResourceId, localId: BlockInstanceId): ResourceId;
 	abstract generateResourceIdForReference(sourceId: ResourceId): ResourceId;
+	abstract updateReferenceData(blocks: SyncBlockAttrs[], noContent?: boolean ): Promise<UpdateReferenceSyncBlockResult>;
 }
 
 export type SubscriptionCallback = (data: SyncBlockInstance) => void;

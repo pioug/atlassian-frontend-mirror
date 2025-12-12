@@ -1,5 +1,43 @@
 # @atlaskit/editor-common
 
+## 110.42.0
+
+### Minor Changes
+
+- [`5f95a3d8edc0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f95a3d8edc0c) -
+  EDITOR-3356 fix macro renderer syle inside layout
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.41.10
+
+### Patch Changes
+
+- [`f14e76661c943`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f14e76661c943) -
+  [EDITOR-2844] Save reference synced block on document to BE when a page is saved
+- Updated dependencies
+
+## 110.41.9
+
+### Patch Changes
+
+- [`ccab9e988fb9e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ccab9e988fb9e) -
+  EDITOR-3852 show a flag on synced block reference copy
+- [`f2ec7c28a69da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2ec7c28a69da) -
+  Remove Synced Block button from selection toolbar and update position in pinned toolbar
+
+## 110.41.8
+
+### Patch Changes
+
+- [`cb319ae5e7782`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb319ae5e7782) -
+  EDITOR-2864 - Address HoverLinkOverlay label spilling out beyond the margins of its container on
+  hover. For example, when a smart link is inside a table, and it is broken into 1+ line, the label
+  on hover will not break and will therefore appear hovering out of the table.
+- Updated dependencies
+
 ## 110.41.7
 
 ### Patch Changes

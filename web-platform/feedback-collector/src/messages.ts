@@ -195,4 +195,9 @@ export const messages = defineMessages({
 		defaultMessage: 'Please provide a description',
 		description: 'Error message when description is not provided',
 	},
+	optInOptionsLegend: {
+		id: 'feedback-collector.opt-in.options.legend',
+		defaultMessage: 'Atlassian opt-in options',
+		description: 'Legend for the opt-in options on the feedback form',
+	},
 });

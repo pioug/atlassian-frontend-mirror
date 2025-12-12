@@ -1,5 +1,28 @@
 # @atlaskit/renderer
 
+## 124.19.0
+
+### Minor Changes
+
+- [`5f95a3d8edc0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f95a3d8edc0c) -
+  EDITOR-3356 fix macro renderer syle inside layout
+
+### Patch Changes
+
+- Updated dependencies
+
+## 124.18.0
+
+### Minor Changes
+
+- [`8677e7b660127`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8677e7b660127) -
+  EDITOR-3792 Rollup max width changes previously gated with editor_tinymce_full_width_mode into
+  combined frontend/backend flag confluence_max_width_content_appearance
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 124.17.8
 
 ### Patch Changes

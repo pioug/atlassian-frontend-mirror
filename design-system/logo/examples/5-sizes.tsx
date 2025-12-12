@@ -3,7 +3,7 @@ import React from 'react';
 import { Code } from '@atlaskit/code';
 import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/logo';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div data-testid="sizes">
 		<div>
 			<Code>xxsmall</Code>

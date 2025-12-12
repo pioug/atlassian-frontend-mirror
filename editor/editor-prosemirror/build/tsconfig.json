@@ -1,0 +1,21 @@
+{
+  "extends": "../tsconfig",
+  "compilerOptions": {
+    "target": "es5",
+    "paths": {}
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*",
+    "../src/**/examples.*"
+  ],
+  "files": [
+    "../typings/prosemirror-markdown.d.ts",
+    "../typings/prosemirror-state.d.ts"
+  ]
+}

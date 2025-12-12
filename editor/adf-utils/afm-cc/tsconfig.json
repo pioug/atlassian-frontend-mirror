@@ -25,6 +25,9 @@
 	],
 	"references": [
 		{
+			"path": "../../adf-schema/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
 		}
 	]

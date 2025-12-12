@@ -3,7 +3,7 @@ import React from 'react';
 import { Skeleton } from '@atlaskit/icon';
 import * as colors from '@atlaskit/theme/colors';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div>
 		<p>Basic icons of different sizes</p>
 		<Skeleton size="small" />

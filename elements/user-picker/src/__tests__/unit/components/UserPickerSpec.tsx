@@ -112,7 +112,7 @@ describe('UserPicker', () => {
 	});
 
 	describe('default picker', () => {
-		it('should render Select by default', () => {
+		it('should render Select by default', async () => {
 			const component = shallowUserPicker({ options }).dive();
 			const select = component.find(Select);
 			expect(select).toHaveLength(1);
@@ -125,9 +125,11 @@ describe('UserPicker', () => {
 				false,
 				undefined,
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should set width', () => {
+		it('should set width', async () => {
 			shallowUserPicker({ width: 500 });
 			expect(getStylesMock).toHaveBeenCalledWith(
 				500,
@@ -138,9 +140,11 @@ describe('UserPicker', () => {
 				false,
 				undefined,
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should set compact styles', () => {
+		it('should set compact styles', async () => {
 			shallowUserPicker({ appearance: 'compact' });
 			expect(getStylesMock).toHaveBeenCalledWith(
 				350,
@@ -151,9 +155,11 @@ describe('UserPicker', () => {
 				false,
 				undefined,
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should call getComponents with false if single picker', () => {
+		it('should call getComponents with false if single picker', async () => {
 			shallowUserPicker({ isMulti: false });
 			expect(getComponents).toHaveBeenCalledWith(false, undefined, false, {});
 			expect(getStylesMock).toHaveBeenCalledWith(
@@ -165,9 +171,11 @@ describe('UserPicker', () => {
 				false,
 				undefined,
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should call getComponents with true if multi picker', () => {
+		it('should call getComponents with true if multi picker', async () => {
 			shallowUserPicker({ isMulti: true });
 			expect(getComponents).toHaveBeenCalledWith(true, undefined, false, {});
 			expect(getStylesMock).toHaveBeenCalledWith(
@@ -179,9 +187,11 @@ describe('UserPicker', () => {
 				false,
 				undefined,
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should call getComponents with components if components are passed', () => {
+		it('should call getComponents with components if components are passed', async () => {
 			shallowUserPicker({
 				isMulti: false,
 				components: { Option: () => <div>Option</div> },
@@ -198,9 +208,11 @@ describe('UserPicker', () => {
 				false,
 				undefined,
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should call getComponents with empty object if no components are passed', () => {
+		it('should call getComponents with empty object if no components are passed', async () => {
 			shallowUserPicker({
 				isMulti: false,
 				components: undefined,
@@ -215,6 +227,8 @@ describe('UserPicker', () => {
 				false,
 				undefined,
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -223,38 +237,46 @@ describe('UserPicker', () => {
 			jest.unmock('@atlaskit/select');
 		});
 
-		it('should use CreatableSelect', () => {
+		it('should use CreatableSelect', async () => {
 			const component = shallowUserPicker({ allowEmail: true }).dive();
 			const select = component.find(CreatableSelect);
 			expect(select).toHaveLength(1);
 			expect(getCreatableProps).toHaveBeenCalledTimes(1);
 			expect(getCreatableProps).toHaveBeenCalledWith(undefined);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should pass creatable props as pickerProps', () => {
+		it('should pass creatable props as pickerProps', async () => {
 			const component = shallowUserPicker({ allowEmail: true }).dive();
 			expect(getCreatableProps).toHaveBeenCalledTimes(1);
 			expect(component.prop('pickerProps')).toEqual(getCreatableProps());
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('emailLabel', () => {
-		it('should pass prop if allowEmail is true', () => {
+		it('should pass prop if allowEmail is true', async () => {
 			const emailLabel = 'This is a test';
 			const component = shallowUserPicker({ allowEmail: true, emailLabel });
 			expect(component.dive().prop('emailLabel')).toBeDefined();
 			expect(component.dive().prop('emailLabel')).toEqual(emailLabel);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('recommendedEmailDomain', () => {
-		it('uses getCreatableRecommendedEmailProps instead of getCreatableProps', () => {
+		it('uses getCreatableRecommendedEmailProps instead of getCreatableProps', async () => {
 			shallowUserPicker({
 				allowEmail: true,
 				suggestEmailsForDomain: 'test.com',
 			});
 			expect(getCreatableProps).toHaveBeenCalledTimes(0);
 			expect(getCreatableSuggestedEmailProps).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -281,6 +303,8 @@ describe('UserPicker', () => {
 				'STARTED',
 				'SUCCEEDED',
 			]);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should send a UFO failure metric when mount fails', async () => {
@@ -298,6 +322,8 @@ describe('UserPicker', () => {
 				'STARTED',
 				'FAILED',
 			]);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -335,6 +361,8 @@ describe('UserPicker', () => {
 			// Close user picker
 			fireEvent.mouseDown(selectValueContainer!);
 			expect(onCloseMock).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should open user picker when openMenuOnClick is false', async () => {
@@ -350,6 +378,8 @@ describe('UserPicker', () => {
 			// Open user picker
 			fireEvent.mouseDown(selectValueContainer!);
 			expect(onOpenMock).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should not open user picker when openMenuOnClick is true', async () => {
@@ -365,6 +395,8 @@ describe('UserPicker', () => {
 			// Open user picker
 			fireEvent.mouseDown(selectValueContainer!);
 			expect(onOpenMock).toHaveBeenCalledTimes(0);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

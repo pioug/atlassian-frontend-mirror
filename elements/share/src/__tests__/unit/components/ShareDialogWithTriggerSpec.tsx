@@ -243,17 +243,19 @@ describe('ShareDialogWithTrigger', () => {
 	});
 
 	describe('default', () => {
-		it('should render', () => {
+		it('should render', async () => {
 			const wrapper = getMountWrapper();
 			expect(wrapper.find(Popup).length).toBe(1);
 			expect(wrapper.find(Popup).prop('isOpen')).toBe(false);
 			expect(wrapper.find(ShareForm).length).toBe(0);
 			expect(wrapper.find(ShareButton).length).toBe(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('orgId prop', () => {
-		it('should be passed to the ShareForm', () => {
+		it('should be passed to the ShareForm', async () => {
 			const mockOrgId = 'test-org-id';
 			const wrapper = getMountWrapper({
 				orgId: mockOrgId,
@@ -264,14 +266,18 @@ describe('ShareDialogWithTrigger', () => {
 
 			const ShareFormProps = popupContent.find(ShareForm).props();
 			expect(ShareFormProps.orgId).toBe(mockOrgId);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('onTriggerButtonClick prop', () => {
-		it('passed function should be called when share button is clicked', () => {
+		it('passed function should be called when share button is clicked', async () => {
 			const wrapper = getMountWrapper();
 			wrapper.find('button').simulate('click');
 			expect(mockOnTriggerButtonClick).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -280,12 +286,14 @@ describe('ShareDialogWithTrigger', () => {
 			jest.clearAllMocks();
 		});
 
-		it('should be false by default', () => {
+		it('should be false by default', async () => {
 			const wrapper = getMountWrapper();
 			const shareDialogWithTriggerInternal = wrapper.find(ShareDialogWithTriggerInternal);
 			expect(
 				(shareDialogWithTriggerInternal.state() as ShareDialogWithTriggerStates).isDialogOpen,
 			).toBe(false);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('opens the dialog on click', async () => {
@@ -299,9 +307,11 @@ describe('ShareDialogWithTrigger', () => {
 
 			const popup = screen.getByRole('dialog');
 			expect(popup).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible({ violationCount: 1 });
 		});
 
-		it('should be toggled if clicked on ShareButton', () => {
+		it('should be toggled if clicked on ShareButton', async () => {
 			const wrapper = getMountWrapper();
 			const shareDialogWithTriggerInternal = wrapper.find(ShareDialogWithTriggerInternal);
 			expect(
@@ -315,11 +325,13 @@ describe('ShareDialogWithTrigger', () => {
 			expect(
 				(shareDialogWithTriggerInternal.state() as ShareDialogWithTriggerStates).isDialogOpen,
 			).toEqual(false);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('triggerButtonAppearance prop', () => {
-		it('should pass to the value into ShareButton as appearance, and have a default value of "subtle"', () => {
+		it('should pass to the value into ShareButton as appearance, and have a default value of "subtle"', async () => {
 			let wrapper = getMountWrapper();
 			let shareDialogWithTriggerInternal = wrapper.find(ShareDialogWithTriggerInternal);
 			expect(
@@ -334,11 +346,13 @@ describe('ShareDialogWithTrigger', () => {
 			expect(
 				shareDialogWithTriggerInternal.find(Popup).find(ShareButton).prop('appearance'),
 			).toEqual(mockAppearance);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('triggerButtonStyle prop', () => {
-		it('should render only ShareIcon without text in the share button if the value is "icon-only"', () => {
+		it('should render only ShareIcon without text in the share button if the value is "icon-only"', async () => {
 			const wrapper = getMountWrapper({
 				triggerButtonStyle: 'icon-only',
 			});
@@ -347,9 +361,11 @@ describe('ShareDialogWithTrigger', () => {
 			const iconBefore = wrapper.find(Popup).find(ShareButton).prop('iconBefore');
 			expect(iconBefore.type).toBe(IconShare);
 			expect(wrapper.find(Popup).find(ShareButton).prop('aria-label')).toBe('Share');
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render text in the share button if the value is "icon-with-text"', () => {
+		it('should render text in the share button if the value is "icon-with-text"', async () => {
 			const wrapper = getMountWrapper({
 				triggerButtonStyle: 'icon-with-text',
 			});
@@ -362,9 +378,11 @@ describe('ShareDialogWithTrigger', () => {
 			const iconBefore = wrapper.find(Popup).find(ShareButton).prop('iconBefore');
 			expect(iconBefore.type).toBe(IconShare);
 			expect(wrapper.find(Popup).find(ShareButton).prop('aria-label')).toBe('Share');
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render only text without ShareIcon in the share button if the value is "text-only"', () => {
+		it('should render only text without ShareIcon in the share button if the value is "text-only"', async () => {
 			const wrapper = getMountWrapper({
 				triggerButtonStyle: 'text-only',
 			});
@@ -375,11 +393,13 @@ describe('ShareDialogWithTrigger', () => {
 			expect(text.props).toMatchObject(messages.shareTriggerButtonText);
 
 			expect(wrapper.find(Popup).find(ShareButton).prop('iconBefore')).toBeUndefined();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('triggerButtonIcon prop', () => {
-		it('should override the default icon when a new icon is passed', () => {
+		it('should override the default icon when a new icon is passed', async () => {
 			const wrapper = getMountWrapper({
 				triggerButtonIcon: WorldIcon,
 			});
@@ -388,20 +408,24 @@ describe('ShareDialogWithTrigger', () => {
 			const iconBefore = wrapper.find(Popup).find(ShareButton).prop('iconBefore');
 			expect(iconBefore.type).toBe(WorldIcon);
 			expect(wrapper.find(Popup).find(ShareButton).prop('aria-label')).toBe('Share');
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should show the default icon when no icon is passed', () => {
+		it('should show the default icon when no icon is passed', async () => {
 			const wrapper = getMountWrapper();
 			wrapper.setState({ isDialogOpen: true });
 
 			const iconBefore = wrapper.find(Popup).find(ShareButton).prop('iconBefore');
 			expect(iconBefore.type).toBe(IconShare);
 			expect(wrapper.find(Popup).find(ShareButton).prop('aria-label')).toBe('Share');
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('dialogPlacement prop', () => {
-		it('should be passed into Popup component as placement prop', () => {
+		it('should be passed into Popup component as placement prop', async () => {
 			const defaultPlacement: string = 'bottom-end';
 			let wrapper = getMountWrapper();
 			let shareDialogWithTriggerInternal = wrapper.find(ShareDialogWithTriggerInternal);
@@ -412,22 +436,26 @@ describe('ShareDialogWithTrigger', () => {
 			wrapper = getMountWrapper({ dialogPlacement: newPlacement });
 			shareDialogWithTriggerInternal = wrapper.find(ShareDialogWithTriggerInternal);
 			expect(shareDialogWithTriggerInternal.find(Popup).prop('placement')).toEqual(newPlacement);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('dialogZIndex prop', () => {
-		it('should be passed into Popup component as zIndex element prop', () => {
+		it('should be passed into Popup component as zIndex element prop', async () => {
 			const zIndex = layers.modal();
 			const wrapper = getWrapper();
 			expect(wrapper.find(Popup).prop('zIndex')).toEqual(zIndex);
 			const newZIndex: number = 500;
 			wrapper.setProps({ dialogZIndex: newZIndex });
 			expect(wrapper.find(Popup).prop('zIndex')).toEqual(newZIndex);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('isDisabled prop', () => {
-		it('should be passed into ShareButton', () => {
+		it('should be passed into ShareButton', async () => {
 			let isDisabled: boolean = false;
 			let wrapper = getMountWrapper({
 				isDisabled,
@@ -442,16 +470,20 @@ describe('ShareDialogWithTrigger', () => {
 
 			shareButtonProps = wrapper.find(ShareDialogWithTriggerInternal).find(ShareButton).props();
 			expect(shareButtonProps.isDisabled).toEqual(!isDisabled);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('renderCustomTriggerButton prop', () => {
-		it('should render a ShareButton if children prop is not given', () => {
+		it('should render a ShareButton if children prop is not given', async () => {
 			const wrapper = getMountWrapper();
 			expect(wrapper.find(ShareButton).length).toBe(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should call renderCustomTriggerButton prop if it is given', () => {
+		it('should call renderCustomTriggerButton prop if it is given', async () => {
 			const mockRenderCustomTriggerButton: jest.Mock = jest.fn(() => <button />);
 			const wrapper = getMountWrapper({
 				isDisabled: false,
@@ -479,11 +511,13 @@ describe('ShareDialogWithTrigger', () => {
 			);
 			expect(wrapper.find(ShareDialogWithTriggerInternal).find('button').length).toBe(1);
 			expect(wrapper.find(ShareDialogWithTriggerInternal).find(ShareButton).length).toBe(0);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('customTriggerButtonIcon prop', () => {
-		it('should pass an Icon to the CustomTriggerButton if it is given', () => {
+		it('should pass an Icon to the CustomTriggerButton if it is given', async () => {
 			const mockRenderCustomTriggerButton: jest.Mock = jest.fn(() => <button />);
 			const mockCustomTriggerButtonIcon: jest.Mock = jest.fn().mockReturnValue(<>Custom Icon</>);
 			const wrapper = getMountWrapper({
@@ -515,11 +549,13 @@ describe('ShareDialogWithTrigger', () => {
 			expect(wrapper.find(ShareDialogWithTriggerInternal).prop('customTriggerButtonIcon')).toEqual(
 				mockCustomTriggerButtonIcon,
 			);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('shareFormTitle prop', () => {
-		it('should be passed to the ShareForm', () => {
+		it('should be passed to the ShareForm', async () => {
 			const wrapper = getMountWrapper({
 				shareFormTitle: 'Share this page',
 			});
@@ -528,22 +564,26 @@ describe('ShareDialogWithTrigger', () => {
 
 			const ShareFormProps = popupContent.find(ShareForm).props();
 			expect(ShareFormProps.title).toEqual('Share this page');
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('isAutoOpenDialog prop', () => {
-		it('should open dialog if isAutoOpenDialog is true', () => {
+		it('should open dialog if isAutoOpenDialog is true', async () => {
 			const wrapper = getWrapper({
 				isAutoOpenDialog: true,
 			});
 
 			expect((wrapper.state() as ShareDialogWithTriggerStates).isDialogOpen).toEqual(true);
 			expect(mockOnDialogOpen).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('customHeader prop', () => {
-		it('should render', () => {
+		it('should render', async () => {
 			const wrapper = getWrapper({
 				customHeader: 'Header message',
 				integrationMode: 'tabs',
@@ -551,11 +591,13 @@ describe('ShareDialogWithTrigger', () => {
 			wrapper.setState({ isDialogOpen: true });
 			const popupContent = renderDialogContent(wrapper);
 			expect(popupContent.contains('Header message')).toBeTruthy();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('customFooter prop', () => {
-		it('should render', () => {
+		it('should render', async () => {
 			const wrapper = getWrapper({
 				customFooter: 'Some message',
 				integrationMode: 'tabs',
@@ -563,34 +605,42 @@ describe('ShareDialogWithTrigger', () => {
 			wrapper.setState({ isDialogOpen: true });
 			const popupContent = renderDialogContent(wrapper);
 			expect(popupContent.contains('Some message')).toBeTruthy();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('SplitButton props and functions', () => {
-		it('should render when shareIntegrations and shareIntegrationsHandler are passed and integrationMode is Split', () => {
+		it('should render when shareIntegrations and shareIntegrationsHandler are passed and integrationMode is Split', async () => {
 			const wrapper = getMountWrapper({
 				integrationMode: 'split',
 				shareIntegrations: [{ type: 'Slack', Icon: () => <div />, Content: () => <div /> }],
 			});
 			expect(wrapper.find(SplitButton)).toHaveLength(1);
+
+			await expect(document.body).toBeAccessible();
 		});
-		it('should not render when shareIntegrations is an empty array', () => {
+		it('should not render when shareIntegrations is an empty array', async () => {
 			const wrapper = getMountWrapper({
 				shareIntegrations: [],
 			});
 			expect(wrapper.find(SplitButton)).toHaveLength(0);
+
+			await expect(document.body).toBeAccessible();
 		});
-		it('should not render when integrationMode is not Split', () => {
+		it('should not render when integrationMode is not Split', async () => {
 			const wrapper = getMountWrapper({
 				integrationMode: 'tabs',
 				shareIntegrations: [{ type: 'Slack', Icon: () => <div />, Content: () => <div /> }],
 			});
 			expect(wrapper.find(SplitButton)).toHaveLength(0);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('handleOpenDialog', () => {
-		it('should set the isDialogOpen state to true', () => {
+		it('should set the isDialogOpen state to true', async () => {
 			const wrapper = getMountWrapper();
 			const shareDialogWithTriggerInternal = wrapper.find(ShareDialogWithTriggerInternal);
 			expect(
@@ -600,9 +650,11 @@ describe('ShareDialogWithTrigger', () => {
 			expect(
 				(shareDialogWithTriggerInternal.state() as ShareDialogWithTriggerStates).isDialogOpen,
 			).toEqual(true);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should call the onDialogOpen prop if present', () => {
+		it('should call the onDialogOpen prop if present', async () => {
 			const wrapper = getMountWrapper();
 			const shareDialogWithTriggerInternal = wrapper.find(ShareDialogWithTriggerInternal);
 			expect(
@@ -615,9 +667,11 @@ describe('ShareDialogWithTrigger', () => {
 				(shareDialogWithTriggerInternal.state() as ShareDialogWithTriggerStates).isDialogOpen,
 			).toEqual(true);
 			expect(mockOnDialogOpen).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should send an analytic event', () => {
+		it('should send an analytic event', async () => {
 			const wrapper = getMountWrapper();
 			expect(mockCreateAnalyticsEvent).not.toHaveBeenCalled();
 
@@ -643,20 +697,24 @@ describe('ShareDialogWithTrigger', () => {
 					packageVersion: expect.any(String),
 				},
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('handleCloseDialog', () => {
-		it('should set the isDialogOpen state to false', () => {
+		it('should set the isDialogOpen state to false', async () => {
 			const wrapper = getWrapper();
 			wrapper.setState({ isDialogOpen: true });
 			expect((wrapper.state() as ShareDialogWithTriggerStates).isDialogOpen).toEqual(true);
 			wrapper.find(Popup).simulate('close', { isOpen: false, event: { type: 'submit' } });
 			expect((wrapper.state() as ShareDialogWithTriggerStates).isDialogOpen).toEqual(false);
 			expect(mockOnDialogClose).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should be triggered when the Popup is closed', () => {
+		it('should be triggered when the Popup is closed', async () => {
 			const wrapper = getWrapper();
 			const mockClickEvent: Partial<Event> = {
 				target: document.createElement('div'),
@@ -667,15 +725,19 @@ describe('ShareDialogWithTrigger', () => {
 			wrapper.find(Popup).simulate('close', { isOpen: false, event: mockClickEvent });
 			expect((wrapper.state() as ShareDialogWithTriggerStates).isDialogOpen).toEqual(false);
 			expect(mockOnDialogClose).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should call the onDialogClose prop if present', () => {
+		it('should call the onDialogClose prop if present', async () => {
 			const wrapper = getWrapper();
 			wrapper.setState({ isDialogOpen: true });
 			expect(mockOnDialogClose).not.toHaveBeenCalled();
 			wrapper.find(Popup).simulate('close', { isOpen: false, event: { type: 'submit' } });
 			expect((wrapper.state() as ShareDialogWithTriggerStates).isDialogOpen).toEqual(false);
 			expect(mockOnDialogClose).toHaveBeenCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -689,7 +751,7 @@ describe('ShareDialogWithTrigger', () => {
 			return wrapper;
 		}
 
-		it('should preventDefault if shouldCloseOnEscapePress is false, and dialog should stay open', () => {
+		it('should preventDefault if shouldCloseOnEscapePress is false, and dialog should stay open', async () => {
 			const wrapper = getWrapperWithRef();
 			wrapper.setProps({ shouldCloseOnEscapePress: false });
 			const escapeKeyDownEvent: Partial<KeyboardEvent> = {
@@ -724,9 +786,11 @@ describe('ShareDialogWithTrigger', () => {
 				message: 'unable to share',
 				retryable: true,
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should not preventDefault if shouldCloseOnEscapePress is true, and dialog should close', () => {
+		it('should not preventDefault if shouldCloseOnEscapePress is true, and dialog should close', async () => {
 			const wrapper = getWrapperWithRef();
 			wrapper.setProps({ shouldCloseOnEscapePress: true });
 			const escapeKeyDownEvent: Partial<KeyboardEvent> = {
@@ -762,6 +826,8 @@ describe('ShareDialogWithTrigger', () => {
 			).toBeTruthy();
 			expect((wrapper.state() as ShareDialogWithTriggerStates).shareError).toBeUndefined();
 			expect((wrapper.state() as ShareDialogWithTriggerStates).isDialogOpen).toBeFalsy();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should clear the state if an escape key is pressed down on the container regardless of the event.preventDefault value', () => {
@@ -850,6 +916,8 @@ describe('ShareDialogWithTrigger', () => {
 					},
 				},
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should close inline dialog and reset the state and call props.showFlags when onSubmit resolves a value', async () => {
@@ -905,6 +973,8 @@ describe('ShareDialogWithTrigger', () => {
 					type: OBJECT_SHARED,
 				},
 			]);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should not show flag if no users are shared and extended dialog is enabled', async () => {
@@ -918,6 +988,8 @@ describe('ShareDialogWithTrigger', () => {
 			await userEvent.click(screen.getByRole('button', { name: 'Share' }));
 
 			expect(mockShowFlags).not.toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should set shareError when onShareSubmit fails', async () => {
@@ -974,11 +1046,13 @@ describe('ShareDialogWithTrigger', () => {
 				expect(shareError.helpUrl).toBe('https://example.com');
 				expect(shareError.retryable).toBe(false);
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('Aktooltip', () => {
-		it('should be rendered if the props.triggerButtonStyle is `icon-only`', () => {
+		it('should be rendered if the props.triggerButtonStyle is `icon-only`', async () => {
 			let wrapper = getMountWrapper({
 				triggerButtonStyle: 'icon-only',
 			});
@@ -1009,9 +1083,11 @@ describe('ShareDialogWithTrigger', () => {
 
 			expect(shareDialogWithTriggerInternal.find(Aktooltip)).toHaveLength(1);
 			expect(shareDialogWithTriggerInternal.find(Aktooltip).find(MockCustomButton)).toHaveLength(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should digest props.triggerButtonTooltipText as content and props.triggerButtonTooltipPosition as position', () => {
+		it('should digest props.triggerButtonTooltipText as content and props.triggerButtonTooltipPosition as position', async () => {
 			let wrapper = getMountWrapper({
 				triggerButtonStyle: 'icon-only',
 			});
@@ -1036,11 +1112,13 @@ describe('ShareDialogWithTrigger', () => {
 			expect(
 				(wrapper.find(ShareDialogWithTriggerInternal).find(Aktooltip).props() as any).position,
 			).toEqual('mouse');
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
 	describe('bottomMessage', () => {
-		it('should display the bottom message', () => {
+		it('should display the bottom message', async () => {
 			const wrapper = getWrapper({
 				bottomMessage: 'Some message',
 			});
@@ -1048,6 +1126,8 @@ describe('ShareDialogWithTrigger', () => {
 
 			const popupContent = renderDialogContent(wrapper);
 			expect(popupContent.contains('Some message')).toBeTruthy();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -1057,7 +1137,7 @@ describe('ShareDialogWithTrigger', () => {
 			fg.mockReturnValue(true);
 		});
 
-		it('should trigger jiraPageSharedEvent for copy link action', () => {
+		it('should trigger jiraPageSharedEvent for copy link action', async () => {
 			const wrapper = getWrapper({
 				shareContentType: 'issue',
 				shareContentSubType: 'task',
@@ -1100,6 +1180,8 @@ describe('ShareDialogWithTrigger', () => {
 					externalUsers: [],
 				},
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should trigger jiraPageSharedEvent on share submit', async () => {
@@ -1164,6 +1246,8 @@ describe('ShareDialogWithTrigger', () => {
 					externalUsers: [],
 				},
 			});
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

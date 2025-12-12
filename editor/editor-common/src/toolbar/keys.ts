@@ -641,11 +641,6 @@ export const SYNCED_BLOCK_BUTTON = {
 	type: 'button',
 } as const;
 
-export const SYNCED_BLOCK_ITEM = {
-	key: 'synced-block-item',
-	type: 'menu-item',
-} as const;
-
 export const SYNCED_BLOCK_SECTION = {
 	key: 'synced-block-section',
 	type: 'menu-section',

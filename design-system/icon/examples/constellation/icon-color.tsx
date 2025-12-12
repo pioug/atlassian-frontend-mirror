@@ -9,7 +9,7 @@ import { ButtonItem } from '@atlaskit/menu';
 import { Box, Inline, Stack } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-const IconColorExample = () => {
+const IconColorExample = (): React.JSX.Element => {
 	const [isMenuSelected, setIsMenuSelected] = React.useState(true);
 	return (
 		<Stack space="space.200" alignBlock="center">

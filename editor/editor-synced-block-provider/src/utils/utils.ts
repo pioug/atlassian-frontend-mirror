@@ -1,7 +1,9 @@
+/* eslint-disable require-unicode-regexp  */
+
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import type { SyncBlockData, BlockInstanceId, ResourceId, SyncBlockNode } from '../common/types';
+import type { SyncBlockData, BlockInstanceId, ResourceId, SyncBlockNode, SyncBlockProduct } from '../common/types';
 
 export const convertSyncBlockPMNodeToSyncBlockData = (node: PMNode): SyncBlockData => {
 	return {
@@ -62,3 +64,19 @@ export const convertPMNodesToSyncBlockNodes = (nodes: PMNode[]): SyncBlockNode[]
 			.filter((node: SyncBlockNode | undefined): node is SyncBlockNode => node !== undefined) || []
 	);
 };
+
+/*
+* From a reference block resource id (the resourceId stored in the node attributes)
+* e.g. confluence-page/5769323474/cdf6a1bc-b241-487a-93e9-e30bde363cbc
+* Extracts the source page content id and source product
+*/
+export const getContentIdAndProductFromResourceId = (resourceId: string) => {
+	const match = resourceId.match(/^(confluence-page|jira-work-item)\/([^/]+)/);
+	if (match?.[2]) {
+		return {
+			sourceProduct: match[1] as SyncBlockProduct,
+			sourceContentId: match[2],
+		};
+	}
+	throw new Error(`Invalid resourceId: ${resourceId}`);
+}

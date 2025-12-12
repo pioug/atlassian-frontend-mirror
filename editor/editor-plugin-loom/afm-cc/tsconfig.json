@@ -48,6 +48,9 @@
 			"path": "../../editor-plugin-width/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-prosemirror/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-toolbar/afm-cc/tsconfig.json"
 		},
 		{

@@ -1,4 +1,4 @@
-import type { SyncBlockProduct } from '../../common/types';
+import type { SyncBlockProduct} from '../../common/types';
 import { fetchWithRetry } from '../../utils/retry';
 
 export type BlockContentResponse = {
@@ -17,6 +17,11 @@ export type BlockContentErrorResponse = {
 	blockAri: string;
 	code: string;
 	reason: string;
+};
+
+type ReferenceSyncedBlockResponse = {
+	blocks?: Array<BlockContentResponse>;
+	errors?: Array<BlockContentErrorResponse>;
 };
 
 export const isBlockContentResponse = (
@@ -71,10 +76,7 @@ export const isBlockContentResponse = (
  */
 export const getReferenceSyncedBlocks = async (
 	documentAri: string,
-): Promise<{
-	blocks?: Array<BlockContentResponse>;
-	errors?: Array<BlockContentErrorResponse>;
-}> => {
+): Promise<ReferenceSyncedBlockResponse> => {
 	const response = await fetchWithRetry(
 		`${BLOCK_SERVICE_API_URL}/block/document/reference/${encodeURIComponent(documentAri)}`,
 		{
@@ -109,6 +111,17 @@ export type CreateSyncedBlockRequest = {
 	content: string;
 	product: SyncBlockProduct;
 	sourceAri: string; // the ARI of the source document (the ARI of the page or blog post)
+};
+
+type ReferenceSyncedBlockIDs = {
+	blockAri: string;
+	blockInstanceId: string;
+};
+
+type UpdateReferenceSyncedBlockOnDocumentRequest = {
+	blocks: ReferenceSyncedBlockIDs[];
+	documentAri: string; // the ARI of the document to update the synced block on
+	noContent?: boolean;
 };
 
 const COMMON_HEADERS = {
@@ -192,4 +205,30 @@ export const createSyncedBlock = async ({
 	}
 
 	return (await response.json()) as BlockContentResponse;
+};
+
+export const updateReferenceSyncedBlockOnDocument = async ({
+	documentAri,
+	blocks,
+	noContent = true,
+}: UpdateReferenceSyncedBlockOnDocumentRequest): Promise<ReferenceSyncedBlockResponse | void> => {
+	const response = await fetchWithRetry(
+		`${BLOCK_SERVICE_API_URL}/block/document/${encodeURIComponent(documentAri)}/references?noContent=${noContent}`,
+		{
+			method: 'PUT',
+			headers: COMMON_HEADERS,
+			body: JSON.stringify({ blocks }),
+		},
+	);
+
+	if (!response.ok) {
+		throw new BlockError(response.status);
+	}
+
+	if (!noContent) {
+		return (await response.json()) as {
+			blocks?: Array<BlockContentResponse>;
+			errors?: Array<BlockContentErrorResponse>;
+		};
+	}
 };

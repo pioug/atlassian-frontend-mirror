@@ -91,6 +91,7 @@ export type ReactUFOPayload = {
 		properties: ReactUFOAttributesProperties & {
 			'event:hostname': string;
 			'event:product': string;
+			'event:population': string;
 			'event:schema': '1.0.0';
 			'event:sizeInKb': number;
 			'event:source': { name: 'react-ufo/web'; version: '1.0.1' | '2.0.0' };

@@ -1026,6 +1026,12 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	platform_editor_toolbar_delay_render_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-03-12
 	platform_editor_nested_media_selection_fix: {
 		defaultValue: boolean;
@@ -2174,6 +2180,14 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_use_pmr_for_collab_presence_in_ic',
 			jira: 'platform_editor_use_pmr_for_collab_presence_in_ic',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-12-12
+	platform_editor_toolbar_delay_render_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_toolbar_delay_render_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

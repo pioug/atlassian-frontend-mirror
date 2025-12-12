@@ -8,7 +8,7 @@ import variations from '../src/testutils/variations';
 
 import GlobalStyleSimulator from './utils/global-style-simulator';
 
-export default function VisitedExample() {
+export default function VisitedExample(): React.JSX.Element {
 	return (
 		<>
 			<GlobalStyleSimulator />

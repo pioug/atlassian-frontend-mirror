@@ -1,0 +1,17 @@
+{
+	"extends": "../../../tsconfig.json",
+	"include": [
+		"__tests__/**/*.ts",
+		"__tests__/**/*.tsx",
+		"docs/**/*.ts",
+		"docs/**/*.tsx",
+		"src/**/*.ts",
+		"src/**/*.tsx",
+		"codemods/**/*.ts"
+	],
+	"compilerOptions": {},
+	"files": [
+		"typings/prosemirror-markdown.d.ts",
+		"typings/prosemirror-state.d.ts"
+	]
+}

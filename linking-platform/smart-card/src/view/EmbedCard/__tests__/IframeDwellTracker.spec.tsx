@@ -40,7 +40,7 @@ describe('Iframe Dwell Tracker', () => {
 		jest.useRealTimers();
 	});
 
-	it('should call back after every 5 seconds of dwelling, with total dwell time', () => {
+	it('should call back after every 5 seconds of dwelling, with total dwell time', async () => {
 		mouseEnter();
 		iframeLoaded();
 
@@ -54,9 +54,11 @@ describe('Iframe Dwell Tracker', () => {
 		expect(onIframeDwellMock).toHaveBeenLastCalledWith(15, 75);
 
 		expect(onIframeDwellMock).toHaveBeenCalledTimes(3);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should stop timer on mouse out', () => {
+	it('should stop timer on mouse out', async () => {
 		mouseEnter();
 		iframeLoaded();
 
@@ -73,9 +75,11 @@ describe('Iframe Dwell Tracker', () => {
 		expect(onIframeDwellMock).toHaveBeenLastCalledWith(5, 75);
 
 		expect(onIframeDwellMock).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should not start timer until iframe is loaded', () => {
+	it('should not start timer until iframe is loaded', async () => {
 		mouseEnter();
 
 		incrementSeconds(5);
@@ -90,9 +94,11 @@ describe('Iframe Dwell Tracker', () => {
 		expect(onIframeDwellMock).toHaveBeenLastCalledWith(5, 75);
 
 		expect(onIframeDwellMock).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should stop timer when visibility drops, and report last percentage', () => {
+	it('should stop timer when visibility drops, and report last percentage', async () => {
 		mouseEnter();
 		iframeLoaded();
 
@@ -114,9 +120,11 @@ describe('Iframe Dwell Tracker', () => {
 		expect(onIframeDwellMock).toHaveBeenLastCalledWith(5, 95);
 
 		expect(onIframeDwellMock).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should stop timer on window blur', () => {
+	it('should stop timer on window blur', async () => {
 		mouseEnter();
 		iframeLoaded();
 
@@ -133,6 +141,8 @@ describe('Iframe Dwell Tracker', () => {
 		expect(onIframeDwellMock).toHaveBeenLastCalledWith(5, 75);
 
 		expect(onIframeDwellMock).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
 	});
 
 	const incrementSeconds = (seconds: number) => {

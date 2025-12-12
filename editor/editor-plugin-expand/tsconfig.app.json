@@ -32,6 +32,9 @@
 	},
 	"references": [
 		{
+			"path": "../adf-schema/tsconfig.app.json"
+		},
+		{
 			"path": "../../helpers/browser-apis/tsconfig.app.json"
 		},
 		{
@@ -66,6 +69,9 @@
 		},
 		{
 			"path": "../editor-plugin-selection-marker/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-shared-styles/tsconfig.app.json"

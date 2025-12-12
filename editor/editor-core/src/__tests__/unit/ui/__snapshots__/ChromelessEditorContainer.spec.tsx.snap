@@ -23,6 +23,12 @@ exports[`ChromelessEditorContainer should have correct styles for new container 
   padding-bottom: var(--ds-space-100, 0.5em);
 }
 
+
+
+.emotion-0 .ProseMirror>p:last-of-type {
+  margin-bottom: var(--ds-space-0, 0px);
+}
+
 .emotion-0::-webkit-scrollbar-corner {
   display: none;
 }
@@ -75,6 +81,12 @@ exports[`ChromelessEditorContainer should have correct styles for new container 
 
 .emotion-0 div>.ProseMirror>:last-child {
   padding-bottom: var(--ds-space-100, 0.5em);
+}
+
+
+
+.emotion-0 .ProseMirror>p:last-of-type {
+  margin-bottom: var(--ds-space-0, 0px);
 }
 
 .emotion-0::-webkit-scrollbar-corner {

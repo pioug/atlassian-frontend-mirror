@@ -199,5 +199,20 @@ export const syncBlockMessages = defineMessages({
 		id: 'fabric.editor.error.description.offline',
 		defaultMessage: `We're unable to display this content at the moment because you are offline.`,
 		description: 'Error message which is shown over sync block when the editor is offline'
-	}
+	},
+	syncBlockCopiedTitle: {
+		id: 'fabric.editor.syncBlockCopiedTitle',
+		defaultMessage: 'Synced block copied to clipboard',
+		description: 'Title in flag which appears when a sync block is copied',
+	},
+	syncBlockCopiedDescription: {
+		id: 'fabric.editor.syncBlockCopiedDescription',
+		defaultMessage: 'Paste your synced block to keep content auto-updated. Permissions are the same.',
+		description: 'Description in flag which appears when a sync block is copied',
+	},
+	syncBlockCopiedAction: {
+		id: 'fabric.editor.syncBlockCopiedAction',
+		defaultMessage: 'Learn more',
+		description: 'Action in flag which appears when a sync block is copied to learn more',
+	},
 });

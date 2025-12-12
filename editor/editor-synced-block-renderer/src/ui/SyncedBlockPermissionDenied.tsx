@@ -7,7 +7,6 @@ import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import {
-	getPageIdAndTypeFromConfluencePageAri,
 	type SyncBlockProduct,
 } from '@atlaskit/editor-synced-block-provider';
 import Heading from '@atlaskit/heading';
@@ -41,13 +40,11 @@ enum RequestAccessState {
 }
 
 export interface SyncedBlockPermissionDeniedProps {
-	sourceAri: string;
+	sourceContentId: string;
 	sourceProduct: SyncBlockProduct;
 }
 
-const SyncedBlockPermissionDeniedConfluencePage = ({ sourceAri }: { sourceAri: string }) => {
-	const contentId = getPageIdAndTypeFromConfluencePageAri(sourceAri).id;
-
+const SyncedBlockPermissionDeniedConfluencePage = ({ sourceContentId }: { sourceContentId: string }) => {
 	const { formatMessage } = useIntl();
 	const [requestAccessState, setRequestAccessState] = useState<RequestAccessState>(
 		RequestAccessState.default,
@@ -77,7 +74,7 @@ const SyncedBlockPermissionDeniedConfluencePage = ({ sourceAri }: { sourceAri: s
 		commitMutation({
 			variables: {
 				requestPageAccessInput: {
-					pageId: contentId,
+					pageId: sourceContentId,
 					accessType: 'VIEW',
 				},
 			},
@@ -125,12 +122,12 @@ const SyncedBlockPermissionDeniedConfluencePage = ({ sourceAri }: { sourceAri: s
 };
 
 export const SyncedBlockPermissionDenied = ({
-	sourceAri,
+	sourceContentId,
 	sourceProduct,
 }: SyncedBlockPermissionDeniedProps): React.JSX.Element => {
 	switch (sourceProduct) {
 		case 'confluence-page':
-			return <SyncedBlockPermissionDeniedConfluencePage sourceAri={sourceAri} />;
+			return <SyncedBlockPermissionDeniedConfluencePage sourceContentId={sourceContentId} />;
 		default:
 			return <SyncedBlockGenericError />;
 	}

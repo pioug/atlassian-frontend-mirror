@@ -101,6 +101,8 @@ describe('@atlaskit/renderer/event-handlers', () => {
 			expect(mockMentionEventHandlers).toBeCalledTimes(0);
 			expect(mockCardEventClickHandler).toBeCalledTimes(0);
 			expect(mockSmartCardEventClickHandler).toBeCalledTimes(0);
+
+			await expect(document.body).toBeAccessible();
 		});
 		it('should fire MentionEventHandlers when clicking on a mention', async () => {
 			const mockOnUnhandledClickHandler = jest.fn();
@@ -138,6 +140,8 @@ describe('@atlaskit/renderer/event-handlers', () => {
 			expect(mockLinkEventClickHandler).toBeCalledTimes(0);
 			expect(mockCardEventClickHandler).toBeCalledTimes(0);
 			expect(mockSmartCardEventClickHandler).toBeCalledTimes(0);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should fire LinkEventClickHandler on link click but not onUnhandledClick', async () => {
@@ -177,6 +181,8 @@ describe('@atlaskit/renderer/event-handlers', () => {
 			expect(mockMentionEventHandlers).toBeCalledTimes(0);
 			expect(mockCardEventClickHandler).toBeCalledTimes(0);
 			expect(mockSmartCardEventClickHandler).toBeCalledTimes(0);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should fire CardEventClickHandler when clicking on a media card', async () => {
@@ -214,6 +220,8 @@ describe('@atlaskit/renderer/event-handlers', () => {
 			expect(mockLinkEventClickHandler).toBeCalledTimes(0);
 			expect(mockMentionEventHandlers).toBeCalledTimes(0);
 			expect(mockSmartCardEventClickHandler).toBeCalledTimes(0);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -231,6 +239,8 @@ describe('@atlaskit/renderer/event-handlers', () => {
 			link.click();
 
 			expect(mockOnUnhandledClickHandler).toBeCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should fire LinkEventClickHandler on link click but not onUnhandledClick', async () => {
@@ -252,6 +262,8 @@ describe('@atlaskit/renderer/event-handlers', () => {
 			expect(mockLinkEventClickHandler).toBeCalledTimes(1);
 
 			expect(mockOnUnhandledClickHandler).toBeCalledTimes(0);
+
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('should fire MentionEventHandlers when clicking on a mention', async () => {
@@ -273,6 +285,8 @@ describe('@atlaskit/renderer/event-handlers', () => {
 			mention.click();
 
 			expect(mockMentionEventHandlers).toBeCalledTimes(1);
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`build pm specs build mark specs should build markSpec correctly 1`] = `
+{
+  "attrs": {
+    "array1Attr": {},
+    "array2Attr": {},
+    "booleanAttr": {},
+    "enumAttr": {
+      "default": "center",
+    },
+    "nullDefaultAttr": {
+      "default": null,
+    },
+    "numberAttr": {},
+    "numberListAttr": {},
+    "objectAttr": {},
+    "stringAttr": {},
+    "undefinedDefaultAttr": {
+      "default": undefined,
+    },
+  },
+  "excludes": "sith",
+  "group": "jedi",
+  "inclusive": true,
+  "spanning": true,
+}
+`;

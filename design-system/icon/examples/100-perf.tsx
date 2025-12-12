@@ -5,7 +5,7 @@ const IconComponents = Object.keys(metadata).map((name: string) => {
 	const icon = require(`../glyph/${name}.js`);
 	return icon.default;
 });
-export default function AllIcons() {
+export default function AllIcons(): React.JSX.Element {
 	return (
 		<>
 			{IconComponents.map((Icon, index) => (

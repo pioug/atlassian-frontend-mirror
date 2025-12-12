@@ -47,6 +47,9 @@
 			"path": "../editor-plugins/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		}
 	]

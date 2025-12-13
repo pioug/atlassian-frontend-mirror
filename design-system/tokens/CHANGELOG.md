@@ -1,5 +1,19 @@
 # @atlaskit/tokens
 
+## 8.5.0
+
+### Minor Changes
+
+- [`ea92d81a4f951`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea92d81a4f951) -
+  Fixed the dark theme values for tokens bellow due to wrong base token mapping:
+  - color.background.accent.green.subtlest.hovered
+  - color.background.accent.lime.subtlest.hovered
+  - color.background.accent.purple.subtlest.hovered
+  - color.background.accent.teal.subtlest.hovered
+  - color.background.accent.magenta.subtlest.hovered
+  - color.background.accent.orange.subtlest.hovered
+  - color.background.accent.yellow.subtlest.hovered
+
 ## 8.4.1
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 124.20.0
+
+### Minor Changes
+
+- [`ffb6f2957dccf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ffb6f2957dccf) -
+  fg clean up: platform_editor_multi_body_extension_extensibility
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 124.19.0
 
 ### Minor Changes

@@ -8,7 +8,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import Blockquote from './blockquote';
 import BodiedExtension from './bodiedExtension';
-import MultiBodiedExtensionOld from './multiBodiedExtensionOld';
 import MultiBodiedExtension from './multiBodiedExtension';
 import ExtensionFrame from './extensionFrame';
 import BulletList from './bulletList';
@@ -329,7 +328,7 @@ export const toReact = (
 		...nodeComponents,
 	};
 
-	if (fg('jfp-magma-ssr-iv-editor-codeblock')) {
+		if (fg('jfp-magma-ssr-iv-editor-codeblock')) {
 		if (node.type.name === 'codeBlock') {
 			if (flags?.allowWindowedCodeBlock === true) {
 				return nodes.windowedCodeBlock ?? WindowedCodeBlock;
@@ -338,9 +337,7 @@ export const toReact = (
 		}
 	}
 
-	nodes['multiBodiedExtension'] = fg('platform_editor_multi_body_extension_extensibility')
-		? MultiBodiedExtension
-		: MultiBodiedExtensionOld;
+	nodes['multiBodiedExtension'] =  MultiBodiedExtension;
 	return nodes[node.type.name];
 };
 

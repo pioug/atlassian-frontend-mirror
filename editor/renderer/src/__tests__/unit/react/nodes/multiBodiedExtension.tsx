@@ -53,7 +53,7 @@ describe('MultiBodiedExtension node', () => {
 		render(<MultiBodiedExtension {...defaultProps}>Test Content</MultiBodiedExtension>);
 		expect(screen.getByTestId('multiBodiedExtension--container')).toBeVisible();
 
-		const wrapper = screen.getByTestId('multiBodiedExtension--wrapper');
+		const wrapper = screen.getByTestId('multiBodiedExtension--wrapper-renderer');
 		expect(wrapper).toBeVisible();
 
 		const wrapperOverflow = wrapper.querySelector('.ak-renderer-extension-overflow-container');
@@ -80,7 +80,7 @@ describe('MultiBodiedExtension node', () => {
 			render(<MultiBodiedExtension {...defaultProps}>Test Content</MultiBodiedExtension>);
 
 			expect(screen.getByTestId('multiBodiedExtension--container')).toBeVisible();
-			expect(screen.getByTestId('multiBodiedExtension--wrapper')).toBeVisible();
+			expect(screen.getByTestId('multiBodiedExtension--wrapper-renderer')).toBeVisible();
 		});
 
 		it('should render the navigation', () => {
@@ -122,7 +122,7 @@ describe('MultiBodiedExtension node', () => {
 			render(<MultiBodiedExtension {...defaultProps}>Test Content</MultiBodiedExtension>);
 
 			expect(screen.getByTestId('multiBodiedExtension--container')).toBeVisible();
-			expect(screen.getByTestId('multiBodiedExtension--wrapper')).toBeVisible();
+			expect(screen.getByTestId('multiBodiedExtension--wrapper-renderer')).toBeVisible();
 		});
 
 		it('should not render the navigation and children container', () => {

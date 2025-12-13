@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d8f99d95f365655ceed3d834c393533c>>
+ * @codegen <<SignedSource::7ba45c0facfc7e9a1ef22b6924735e40>>
  * @codegenCommand yarn build tokens
  */
 
@@ -1975,7 +1975,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.lime.subtlest."
   },
-  "value": "#3F5224",
+  "value": "#37471F",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -1985,7 +1985,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.lime.subtlest."
     },
-    "value": "Lime850"
+    "value": "Lime900"
   },
   "name": "color.background.accent.lime.subtlest.hovered",
   "path": ["color", "background", "accent", "lime", "subtlest", "hovered"],
@@ -2503,7 +2503,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.orange.subtlest."
   },
-  "value": "#7A3B00",
+  "value": "#693200",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2513,7 +2513,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.orange.subtlest."
     },
-    "value": "Orange850"
+    "value": "Orange900"
   },
   "name": "color.background.accent.orange.subtlest.hovered",
   "path": ["color", "background", "accent", "orange", "subtlest", "hovered"],
@@ -2767,7 +2767,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.yellow.subtlest."
   },
-  "value": "#614A05",
+  "value": "#533F04",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -2777,7 +2777,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.yellow.subtlest."
     },
-    "value": "Yellow850"
+    "value": "Yellow900"
   },
   "name": "color.background.accent.yellow.subtlest.hovered",
   "path": ["color", "background", "accent", "yellow", "subtlest", "hovered"],
@@ -3031,7 +3031,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.green.subtlest."
   },
-  "value": "#19573D",
+  "value": "#164B35",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3041,7 +3041,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.green.subtlest."
     },
-    "value": "Green850"
+    "value": "Green900"
   },
   "name": "color.background.accent.green.subtlest.hovered",
   "path": ["color", "background", "accent", "green", "subtlest", "hovered"],
@@ -3295,7 +3295,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.teal.subtlest."
   },
-  "value": "#1A5265",
+  "value": "#164555",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3305,7 +3305,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.teal.subtlest."
     },
-    "value": "Teal850"
+    "value": "Teal900"
   },
   "name": "color.background.accent.teal.subtlest.hovered",
   "path": ["color", "background", "accent", "teal", "subtlest", "hovered"],
@@ -3823,7 +3823,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.purple.subtlest."
   },
-  "value": "#673286",
+  "value": "#48245D",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -3833,7 +3833,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.purple.subtlest."
     },
-    "value": "Purple850"
+    "value": "Purple900"
   },
   "name": "color.background.accent.purple.subtlest.hovered",
   "path": ["color", "background", "accent", "purple", "subtlest", "hovered"],
@@ -4087,7 +4087,7 @@ var tokens = [{
     "introduced": "1.19.0",
     "description": "Hovered state of color.background.accent.magenta.subtlest."
   },
-  "value": "#77325B",
+  "value": "#50253F",
   "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
   "isSource": true,
   "original": {
@@ -4097,7 +4097,7 @@ var tokens = [{
       "introduced": "1.19.0",
       "description": "Hovered state of color.background.accent.magenta.subtlest."
     },
-    "value": "Magenta850"
+    "value": "Magenta900"
   },
   "name": "color.background.accent.magenta.subtlest.hovered",
   "path": ["color", "background", "accent", "magenta", "subtlest", "hovered"],

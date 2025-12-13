@@ -809,7 +809,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.lime.subtlest."
       },
-      "value": "#3F5224"
+      "value": "#37471F"
     },
     "Dark/color.background.accent.lime.subtlest.pressed": {
       "attributes": {
@@ -1025,7 +1025,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.orange.subtlest."
       },
-      "value": "#7A3B00"
+      "value": "#693200"
     },
     "Dark/color.background.accent.orange.subtlest.pressed": {
       "attributes": {
@@ -1133,7 +1133,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.yellow.subtlest."
       },
-      "value": "#614A05"
+      "value": "#533F04"
     },
     "Dark/color.background.accent.yellow.subtlest.pressed": {
       "attributes": {
@@ -1241,7 +1241,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.green.subtlest."
       },
-      "value": "#19573D"
+      "value": "#164B35"
     },
     "Dark/color.background.accent.green.subtlest.pressed": {
       "attributes": {
@@ -1349,7 +1349,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.teal.subtlest."
       },
-      "value": "#1A5265"
+      "value": "#164555"
     },
     "Dark/color.background.accent.teal.subtlest.pressed": {
       "attributes": {
@@ -1565,7 +1565,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.purple.subtlest."
       },
-      "value": "#673286"
+      "value": "#48245D"
     },
     "Dark/color.background.accent.purple.subtlest.pressed": {
       "attributes": {
@@ -1673,7 +1673,7 @@
         "introduced": "1.19.0",
         "description": "Hovered state of color.background.accent.magenta.subtlest."
       },
-      "value": "#77325B"
+      "value": "#50253F"
     },
     "Dark/color.background.accent.magenta.subtlest.pressed": {
       "attributes": {

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 15.5.4
+
+### Patch Changes
+
+- [`1d64ffdaa96fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d64ffdaa96fa) -
+  [ux] Fix sticky header mask overlapping adjacent node borders
+- [`1d64ffdaa96fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d64ffdaa96fa) -
+  Add fallback for table row/header anchor names
+
 ## 15.5.3
 
 ### Patch Changes

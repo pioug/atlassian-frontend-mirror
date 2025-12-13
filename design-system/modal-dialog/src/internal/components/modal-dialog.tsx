@@ -139,7 +139,7 @@ const ModalDialog = (props: InternalModalDialogProps) => {
 		width = 'medium',
 		shouldScrollInViewport = false,
 		shouldCloseOnEscapePress,
-		autoFocus,
+		autoFocus: providedAutoFocus,
 		stackIndex,
 		onClose,
 		onCloseComplete,
@@ -155,6 +155,10 @@ const ModalDialog = (props: InternalModalDialogProps) => {
 	const id = useId();
 	const titleId = `modal-dialog-title-${id}`;
 	const defaultTestId = testId || 'modal-dialog';
+	// https://product-fabric.atlassian.net/browse/DSP-24307
+	// If flag and falsy, use true instead.
+	const autoFocus =
+		!providedAutoFocus && fg('platform_dst_autofocus-never-false') ? true : providedAutoFocus;
 
 	useEffect(() => {
 		// Modal dialogs can appear on top of iframe elements that are on another domain.

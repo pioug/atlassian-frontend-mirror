@@ -1,5 +1,14 @@
 # @atlaskit/modal-dialog
 
+## 14.9.0
+
+### Minor Changes
+
+- [`5b72169f84be0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b72169f84be0) -
+  This change makes the `autoFocus` prop always `true` behind a flag. This fixes accessibility
+  issues from misuse of the `autoFocus` prop. If successful, this will be released for all consumers
+  and the flag will be removed.
+
 ## 14.8.0
 
 ### Minor Changes

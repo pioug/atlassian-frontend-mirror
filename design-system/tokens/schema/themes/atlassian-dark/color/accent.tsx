@@ -157,7 +157,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 					subtlest: {
 						'[default]': { value: 'Orange1000' },
 						hovered: {
-							value: 'Orange850',
+							value: 'Orange900',
 						},
 						pressed: {
 							value: 'Orange850',
@@ -195,7 +195,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 					subtlest: {
 						'[default]': { value: 'Yellow1000' },
 						hovered: {
-							value: 'Yellow850',
+							value: 'Yellow900',
 						},
 						pressed: {
 							value: 'Yellow850',
@@ -233,7 +233,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 					subtlest: {
 						'[default]': { value: 'Green1000' },
 						hovered: {
-							value: 'Green850',
+							value: 'Green900',
 						},
 						pressed: {
 							value: 'Green850',
@@ -271,7 +271,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 					subtlest: {
 						'[default]': { value: 'Purple1000' },
 						hovered: {
-							value: 'Purple850',
+							value: 'Purple900',
 						},
 						pressed: {
 							value: 'Purple850',
@@ -309,7 +309,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 					subtlest: {
 						'[default]': { value: 'Teal1000' },
 						hovered: {
-							value: 'Teal850',
+							value: 'Teal900',
 						},
 						pressed: {
 							value: 'Teal850',
@@ -347,7 +347,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 					subtlest: {
 						'[default]': { value: 'Magenta1000' },
 						hovered: {
-							value: 'Magenta850',
+							value: 'Magenta900',
 						},
 						pressed: {
 							value: 'Magenta850',
@@ -385,7 +385,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 					subtlest: {
 						'[default]': { value: 'Lime1000' },
 						hovered: {
-							value: 'Lime850',
+							value: 'Lime900',
 						},
 						pressed: {
 							value: 'Lime850',

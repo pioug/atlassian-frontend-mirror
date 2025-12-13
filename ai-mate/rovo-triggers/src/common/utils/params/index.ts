@@ -8,7 +8,7 @@ const isValidURL = (url: string): boolean => {
 	try {
 		new URL(url);
 		return true;
-	} catch (error) {
+	} catch {
 		return false;
 	}
 };
@@ -82,7 +82,7 @@ export const getRovoParams = (url?: string): RovoChatParams => {
 		const search = url ? new URL(url).search : window.location.search;
 		const q = new URLSearchParams(search);
 		return processParams(q).rovoParams;
-	} catch (error) {
+	} catch {
 		return {};
 	}
 };
@@ -121,6 +121,7 @@ export const encodeRovoParams = (
 	}
 
 	return Object.entries(params)
+		.filter(([_, value]) => value !== undefined)
 		.map(([key, value]) => {
 			return `${addPrefix(key as ValidParam)}=${encodeURIComponent(value)}`;
 		})

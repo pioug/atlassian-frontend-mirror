@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.2.9
+
+### Patch Changes
+
+- [`3d03e8b001dab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d03e8b001dab) -
+  Add logic to handle unsupported content for list to task/decision list
+- [`b831109342cdf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b831109342cdf) -
+  EDITOR-3880 Register block menu selection extensions statically
+
 ## 5.2.8
 
 ### Patch Changes

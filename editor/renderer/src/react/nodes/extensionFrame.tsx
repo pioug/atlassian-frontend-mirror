@@ -13,19 +13,13 @@ import type { ExtensionLayout } from '@atlaskit/adf-schema';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { token } from '@atlaskit/tokens';
-import { fg } from '@atlaskit/platform-feature-flags';
 
-const containerCSSOld = css({
-	minHeight: '100px',
-	flexBasis: '100%',
-});
-
-const containerCSSNew = css({
+const containerCSS = css({
 	padding: `${token('space.100', '8px')}`,
 	minHeight: '100px',
 	// by default all frames are hidden, this style is overridden in multiBodiedExtensions for active frame
 	display: 'none',
-});
+})
 
 type Props = React.PropsWithChildren<{
 	// Ignored via go/ees005
@@ -53,11 +47,7 @@ type Props = React.PropsWithChildren<{
 const ExtensionFrame = (props: Props) => {
 	return (
 		<div
-			css={[
-				fg('platform_editor_multi_body_extension_extensibility')
-					? containerCSSNew
-					: containerCSSOld,
-			]}
+			css={[containerCSS]}
 			data-extension-frame="true"
 		>
 			{props.children}

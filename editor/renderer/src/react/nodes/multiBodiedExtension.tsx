@@ -89,7 +89,7 @@ const MultiBodiedExtensionWrapperLegacy = ({
 				width: isTopLevel ? calcBreakoutWidth(layout, width) : '100%',
 			}}
 			data-layout={layout}
-			data-testid="multiBodiedExtension--wrapper"
+			data-testid="multiBodiedExtension--wrapper-renderer"
 		>
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
@@ -127,7 +127,7 @@ const MultiBodiedExtensionWrapperNext = ({
 					: '100%',
 			}}
 			data-layout={layout}
-			data-testid="multiBodiedExtension--wrapper"
+			data-testid="multiBodiedExtension--wrapper-renderer"
 		>
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

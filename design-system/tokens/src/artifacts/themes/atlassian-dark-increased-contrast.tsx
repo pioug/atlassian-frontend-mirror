@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5fd6e7dca52924703fc975c6186a1364>>
+ * @codegen <<SignedSource::82f3d4bf546288a2390786cab4823e24>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -98,7 +98,7 @@ html[data-color-mode="dark"][data-contrast-mode="more"][data-theme~="dark:dark"]
   --ds-border-information: #8FB8F6;
   --ds-border-bold: #A9ABAF;
   --ds-background-accent-lime-subtlest: #28311B;
-  --ds-background-accent-lime-subtlest-hovered: #3F5224;
+  --ds-background-accent-lime-subtlest-hovered: #37471F;
   --ds-background-accent-lime-subtlest-pressed: #3F5224;
   --ds-background-accent-lime-subtler: #37471F;
   --ds-background-accent-lime-subtler-hovered: #3F5224;
@@ -122,7 +122,7 @@ html[data-color-mode="dark"][data-contrast-mode="more"][data-theme~="dark:dark"]
   --ds-background-accent-red-bolder-hovered: #FFECEB;
   --ds-background-accent-red-bolder-pressed: #FFB8B2;
   --ds-background-accent-orange-subtlest: #3A2C1F;
-  --ds-background-accent-orange-subtlest-hovered: #7A3B00;
+  --ds-background-accent-orange-subtlest-hovered: #693200;
   --ds-background-accent-orange-subtlest-pressed: #7A3B00;
   --ds-background-accent-orange-subtler: #693200;
   --ds-background-accent-orange-subtler-hovered: #7A3B00;
@@ -134,7 +134,7 @@ html[data-color-mode="dark"][data-contrast-mode="more"][data-theme~="dark:dark"]
   --ds-background-accent-orange-bolder-hovered: #FFF5DB;
   --ds-background-accent-orange-bolder-pressed: #FBD779;
   --ds-background-accent-yellow-subtlest: #332E1B;
-  --ds-background-accent-yellow-subtlest-hovered: #614A05;
+  --ds-background-accent-yellow-subtlest-hovered: #533F04;
   --ds-background-accent-yellow-subtlest-pressed: #614A05;
   --ds-background-accent-yellow-subtler: #533F04;
   --ds-background-accent-yellow-subtler-hovered: #614A05;
@@ -146,7 +146,7 @@ html[data-color-mode="dark"][data-contrast-mode="more"][data-theme~="dark:dark"]
   --ds-background-accent-yellow-bolder-hovered: #FEF7C8;
   --ds-background-accent-yellow-bolder-pressed: #EFDD4E;
   --ds-background-accent-green-subtlest: #1C3329;
-  --ds-background-accent-green-subtlest-hovered: #19573D;
+  --ds-background-accent-green-subtlest-hovered: #164B35;
   --ds-background-accent-green-subtlest-pressed: #19573D;
   --ds-background-accent-green-subtler: #164B35;
   --ds-background-accent-green-subtler-hovered: #19573D;
@@ -158,7 +158,7 @@ html[data-color-mode="dark"][data-contrast-mode="more"][data-theme~="dark:dark"]
   --ds-background-accent-green-bolder-hovered: #DCFFF1;
   --ds-background-accent-green-bolder-pressed: #97EDC9;
   --ds-background-accent-teal-subtlest: #1E3137;
-  --ds-background-accent-teal-subtlest-hovered: #1A5265;
+  --ds-background-accent-teal-subtlest-hovered: #164555;
   --ds-background-accent-teal-subtlest-pressed: #1A5265;
   --ds-background-accent-teal-subtler: #164555;
   --ds-background-accent-teal-subtler-hovered: #1A5265;
@@ -182,7 +182,7 @@ html[data-color-mode="dark"][data-contrast-mode="more"][data-theme~="dark:dark"]
   --ds-background-accent-blue-bolder-hovered: #8FB8F6;
   --ds-background-accent-blue-bolder-pressed: #ADCBFB;
   --ds-background-accent-purple-subtlest: #35243F;
-  --ds-background-accent-purple-subtlest-hovered: #673286;
+  --ds-background-accent-purple-subtlest-hovered: #48245D;
   --ds-background-accent-purple-subtlest-pressed: #673286;
   --ds-background-accent-purple-subtler: #48245D;
   --ds-background-accent-purple-subtler-hovered: #673286;
@@ -194,7 +194,7 @@ html[data-color-mode="dark"][data-contrast-mode="more"][data-theme~="dark:dark"]
   --ds-background-accent-purple-bolder-hovered: #F8EEFE;
   --ds-background-accent-purple-bolder-pressed: #E3BDFA;
   --ds-background-accent-magenta-subtlest: #3D2232;
-  --ds-background-accent-magenta-subtlest-hovered: #77325B;
+  --ds-background-accent-magenta-subtlest-hovered: #50253F;
   --ds-background-accent-magenta-subtlest-pressed: #77325B;
   --ds-background-accent-magenta-subtler: #50253F;
   --ds-background-accent-magenta-subtler-hovered: #77325B;

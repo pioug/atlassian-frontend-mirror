@@ -7,7 +7,6 @@ import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { EventDispatcher } from '../event-dispatcher';
@@ -44,6 +43,28 @@ export interface Props {
 	pluginInjectionApi: ExtensionsPluginInjectionAPI;
 	references?: ReferenceEntity[];
 	rendererExtensionHandlers?: ExtensionHandlers;
+	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
+	showBodiedExtensionRendererView?: boolean;
+	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
+	showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean;
+}
+
+interface PropsInner {
+	editorAppearance?: EditorAppearance;
+	editorView: EditorView;
+	eventDispatcher?: EventDispatcher;
+	extensionHandlers: ExtensionHandlers;
+	extensionProvider?: ExtensionProvider;
+	getPos: ProsemirrorGetPosHandler;
+	handleContentDOMRef: (node: HTMLElement | null) => void;
+	isLivePageViewMode?: boolean;
+	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
+	node: PMNode;
+	pluginInjectionApi: ExtensionsPluginInjectionAPI;
+	references?: ReferenceEntity[];
+	rendererExtensionHandlers?: ExtensionHandlers;
+	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
+	showBodiedExtensionRendererView?: boolean;
 	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
 	showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean;
 }
@@ -59,16 +80,6 @@ export interface State {
 	isNodeHovered?: boolean;
 	showBodiedExtensionRendererView?: boolean; // Main state which will keep track to show the renderer or editor view of bodied macros in live pages. Controlled via the EditToggle
 }
-
-/* temporary type until FG cleaned up */
-export type PropsNew = Omit<Props, 'extensionProvider'> & {
-	extensionProvider?: ExtensionProvider;
-	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
-	showBodiedExtensionRendererView?: boolean;
-};
-
-/* temporary type until FG cleaned up */
-export type StateNew = Omit<State, 'extensionProvider' | 'showBodiedExtensionRendererView'>;
 
 const getBodiedExtensionContent = (node: PMNode): ADFEntity[] | string | undefined => {
 	const bodiedExtensionContent: ADFEntity[] = [];
@@ -103,7 +114,7 @@ export const ExtensionComponent = (props: Props): React.JSX.Element => {
 	}, []);
 
 	useEffect(() => {
-		extensionProviderResolver?.then((provider) => {
+		extensionProviderResolver?.then((provider: ExtensionProvider) => {
 			if (mountedRef.current) {
 				setExtensionProvider(provider);
 			}
@@ -124,10 +135,10 @@ export const ExtensionComponent = (props: Props): React.JSX.Element => {
 	);
 };
 
-class ExtensionComponentInner extends Component<PropsNew, StateNew> {
+class ExtensionComponentInner extends Component<PropsInner, State> {
 	private privatePropsParsed = false;
 
-	state: StateNew = {};
+	state: State = {};
 
 	componentDidUpdate() {
 		this.parsePrivateNodePropsIfNeeded();
@@ -171,13 +182,11 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 		const position = typeof getPos === 'function' && getPos();
 
 		const resolvedPosition = position && editorView.state.doc.resolve(position);
-
+ 
 		const isNodeNested = !!(resolvedPosition && resolvedPosition.depth > 0);
 
 		if (node.type.name === 'multiBodiedExtension') {
-			const allowBodiedOverride =
-				this.state._privateProps?.__allowBodiedOverride &&
-				fg('platform_editor_multi_body_extension_extensibility');
+			const allowBodiedOverride = this.state._privateProps?.__allowBodiedOverride;
 
 			return (
 				<MultiBodiedExtension

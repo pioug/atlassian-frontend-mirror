@@ -32,9 +32,11 @@ export const useMultiBodiedExtensionActions = ({
 			getChildrenCount(): number {
 				return children && Array.isArray(children) ? children.length : 0;
 			},
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			removeChild(_index: number) {
 				return false;
 			},
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			updateParameters(_parameters): boolean {
 				return false;
 			},

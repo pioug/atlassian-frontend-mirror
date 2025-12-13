@@ -296,7 +296,7 @@ const MultiBodiedExtensionWithWidth = ({
 						expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true) &&
 						hoverStyles,
 				]}
-				data-testid="multiBodiedExtension--wrapper"
+				data-testid="multiBodiedExtension--wrapper-editor"
 				data-layout={node.attrs.layout}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={mbeWrapperStyles}

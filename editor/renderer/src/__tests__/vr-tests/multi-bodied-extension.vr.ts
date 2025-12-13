@@ -1,28 +1,22 @@
 import { snapshot } from '@af/visual-regression';
-import { MultiBodiedExtensionRenderer } from './multi-bodied-extension.fixture';
-import {
-	MultiBodiedExtensionExtRenderer,
-	MultiBodiedExtensionExtRendererFullPage,
-	MultiBodiedExtensionExtRendererFullPageFullWidth,
-	MultiBodiedExtensionExtRendererFullPageWideMode,
-} from './multi-bodied-extension-ext.fixture';
+import { MultiBodiedExtensionRenderer,
+	MultiBodiedExtensionRendererFullPage,
+	MultiBodiedExtensionRendererFullPageFullWidth,
+	MultiBodiedExtensionRendererFullPageWideMode
+ } from './multi-bodied-extension.fixture';
 
 snapshot(MultiBodiedExtensionRenderer, {
 	drawsOutsideBounds: true,
 });
 
-snapshot(MultiBodiedExtensionExtRenderer, {
+snapshot(MultiBodiedExtensionRendererFullPage, {
 	drawsOutsideBounds: true,
 });
 
-snapshot(MultiBodiedExtensionExtRendererFullPage, {
+snapshot(MultiBodiedExtensionRendererFullPageWideMode, {
 	drawsOutsideBounds: true,
 });
 
-snapshot(MultiBodiedExtensionExtRendererFullPageWideMode, {
-	drawsOutsideBounds: true,
-});
-
-snapshot(MultiBodiedExtensionExtRendererFullPageFullWidth, {
+snapshot(MultiBodiedExtensionRendererFullPageFullWidth, {
 	drawsOutsideBounds: true,
 });

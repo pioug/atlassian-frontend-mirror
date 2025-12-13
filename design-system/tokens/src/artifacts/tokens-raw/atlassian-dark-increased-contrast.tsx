@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::02e75896b2dbcd5d7d6e41b240a7207f>>
+ * @codegen <<SignedSource::98d875cc2aacf781ea80d01fca27e900>>
  * @codegenCommand yarn build tokens
  */
 
@@ -2540,7 +2540,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.lime.subtlest"
   },
   {
-    "value": "#3F5224",
+    "value": "#37471F",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -2550,7 +2550,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.lime.subtlest."
     },
     "original": {
-      "value": "Lime850",
+      "value": "Lime900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3260,7 +3260,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.orange.subtlest"
   },
   {
-    "value": "#7A3B00",
+    "value": "#693200",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3270,7 +3270,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.orange.subtlest."
     },
     "original": {
-      "value": "Orange850",
+      "value": "Orange900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3620,7 +3620,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.yellow.subtlest"
   },
   {
-    "value": "#614A05",
+    "value": "#533F04",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3630,7 +3630,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.yellow.subtlest."
     },
     "original": {
-      "value": "Yellow850",
+      "value": "Yellow900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3980,7 +3980,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.green.subtlest"
   },
   {
-    "value": "#19573D",
+    "value": "#164B35",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -3990,7 +3990,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.green.subtlest."
     },
     "original": {
-      "value": "Green850",
+      "value": "Green900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -4340,7 +4340,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.teal.subtlest"
   },
   {
-    "value": "#1A5265",
+    "value": "#164555",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -4350,7 +4350,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.teal.subtlest."
     },
     "original": {
-      "value": "Teal850",
+      "value": "Teal900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -5060,7 +5060,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.purple.subtlest"
   },
   {
-    "value": "#673286",
+    "value": "#48245D",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5070,7 +5070,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.purple.subtlest."
     },
     "original": {
-      "value": "Purple850",
+      "value": "Purple900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -5420,7 +5420,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.accent.magenta.subtlest"
   },
   {
-    "value": "#77325B",
+    "value": "#50253F",
     "filePath": "schema/themes/atlassian-dark/color/accent.tsx",
     "isSource": false,
     "attributes": {
@@ -5430,7 +5430,7 @@ const tokens: Token[] = [
       "description": "Hovered state of color.background.accent.magenta.subtlest."
     },
     "original": {
-      "value": "Magenta850",
+      "value": "Magenta900",
       "attributes": {
         "group": "paint",
         "state": "active",

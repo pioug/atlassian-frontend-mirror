@@ -54,7 +54,7 @@ var themeStringToObject = exports.themeStringToObject = function themeStringToOb
     if (kind === customThemeOptions) {
       try {
         themeObject[customThemeOptions] = JSON.parse(id);
-      } catch {
+      } catch (_unused) {
         new Error('Invalid custom theme string');
       }
     }

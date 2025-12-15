@@ -1582,7 +1582,7 @@ describe('providers > editor', () => {
 		});
 
 		ffTest.on(
-			'platform_sl_3p_unauth_experiment_gate',
+			'platform_sl_3p_unauth_paste_as_block_card_gate',
 			'when feature flag is on',
 			() => {
 				it.each<EditorExperimentsConfig['platform_sl_3p_unauth_paste_as_block_card']['defaultValue']>([
@@ -1626,7 +1626,7 @@ describe('providers > editor', () => {
 		);
 
 		ffTest.off(
-			'platform_sl_3p_unauth_experiment_gate',
+			'platform_sl_3p_unauth_paste_as_block_card_gate',
 			'when feature flag is off',
 			() => {
 				const setup = async () => {

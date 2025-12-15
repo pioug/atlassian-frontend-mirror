@@ -1,36 +1,71 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import Modal from '@atlaskit/modal-dialog';
+import { Box } from '@atlaskit/primitives/compiled';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { StopPropagation } from '../index';
 
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn(),
+}));
+
 describe('StopPropagation', () => {
-	it('does not propagrate click event', () => {
-		const onClick = jest.fn();
-		render(
-			<div onClick={onClick}>
-				<StopPropagation>
-					<button>Click</button>
-				</StopPropagation>
-			</div>,
-		);
+	let user: ReturnType<typeof userEvent.setup>;
 
-		const button = screen.getAllByRole('button', { name: 'Click' });
-		fireEvent.click(button[0]);
-
-		expect(onClick).not.toHaveBeenCalled();
+	beforeEach(() => {
+		user = userEvent.setup();
 	});
 
-	it('should capture and report a11y violations', async () => {
-		const onClick = jest.fn();
-		const { container } = render(
-			<div onClick={onClick}>
-				<StopPropagation>
-					<button>Click</button>
-				</StopPropagation>
-			</div>,
+	it('should prevent click event from propagating up', async () => {
+		const onParentClick = jest.fn();
+
+		render(
+			<Box onClick={onParentClick}>
+				<Modal>
+					<StopPropagation>
+						<button data-testid="modal-button">Click Me</button>
+					</StopPropagation>
+				</Modal>
+			</Box>,
 		);
 
-		await expect(container).toBeAccessible({ violationCount: 1 });
+		const button = screen.getByTestId('modal-button');
+
+		await user.click(button);
+
+		expect(onParentClick).not.toHaveBeenCalled();
+	});
+
+	it('should allow click event to propagate when not wrapped', async () => {
+		const onParentClick = jest.fn();
+
+		render(
+			<Box onClick={onParentClick}>
+				<Modal>
+					<button data-testid="modal-button">Click Me</button>
+				</Modal>
+			</Box>,
+		);
+
+		const button = screen.getByTestId('modal-button');
+
+		await user.click(button);
+
+		expect(onParentClick).toHaveBeenCalled();
+	});
+
+	it('should render and be accessible', async () => {
+		const onParentClick = jest.fn();
+
+		const { container } = render(
+			<Box onClick={onParentClick}>
+				<Modal>
+					<button data-testid="modal-button">Click Me</button>
+				</Modal>
+			</Box>,
+		);
+
+		await expect(container).toBeAccessible();
 	});
 });

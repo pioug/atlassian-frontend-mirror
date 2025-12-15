@@ -1,5 +1,13 @@
 # @atlaskit/editor-ssr-renderer
 
+## 1.4.0
+
+### Minor Changes
+
+- [`e4f9d3c00a126`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4f9d3c00a126) -
+  [EDITOR-3919](https://hello.jira.atlassian.cloud/browse/EDITOR-3919) - use the real `getPos`
+  function as `nodeViweFactory` prop in `EditorSSRRenderer`
+
 ## 1.3.0
 
 ### Minor Changes

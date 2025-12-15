@@ -42,20 +42,19 @@ const articlesListItemWrapperStyles = css({
 	},
 });
 
-export const ArticlesListItemWrapper = ({
-	styles,
-	children,
-	...rest
-}: {
-	[rest: string]: any;
-	children: React.ReactNode;
-	styles?: React.CSSProperties;
-}): JSX.Element => (
+export const ArticlesListItemWrapper = React.forwardRef<
+	HTMLAnchorElement,
+	{
+		[rest: string]: any;
+		children: React.ReactNode;
+		styles?: React.CSSProperties;
+	}
+>(({ styles, children, ...rest }, ref): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlaskit/ui-styling-standard/enforce-style-prop
-	<a css={articlesListItemWrapperStyles} style={styles} {...rest}>
+	<a ref={ref} css={articlesListItemWrapperStyles} style={styles} {...rest}>
 		{children}
 	</a>
-);
+));
 
 const articlesListItemContainerStyles = css({
 	width: '100%',

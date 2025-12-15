@@ -70,7 +70,7 @@ export const getTargetNodeTypeNameInContext = (
  */
 export const expandSelectionToBlockRange = (selection: Selection, schema: Schema) => {
 	const { nodes } = schema;
-	const nodesNeedToExpandRange = [nodes.listItem, nodes.taskItem];
+	const nodesNeedToExpandRange = [nodes.bulletList, nodes.orderedList, nodes.taskList, nodes.listItem, nodes.taskItem];
 
 	// when adding nodes.tableRow, tableHeader, tableCell in nodesNeedToExpandRang,
 	// expandToBlockRange does not return expected table start position, sometimes even freeze editor
@@ -79,8 +79,8 @@ export const expandSelectionToBlockRange = (selection: Selection, schema: Schema
 		const table = findTable(selection);
 		if (table) {
 			const $from = selection.$from.doc.resolve(table.pos);
-			const $to = selection.$from.doc.resolve(table.pos + table.node.nodeSize);
-			return { $from, $to };
+			const $to = selection.$from.doc.resolve(table.pos + table.node.nodeSize - 1);
+			return { $from, $to, range: $from.blockRange($to) };
 		}
 	}
 
@@ -110,7 +110,39 @@ export const isListType = (node: PMNode, schema: Schema): boolean => {
 	return lists.some((list) => list === node.type);
 };
 
+/**
+ * Converts a nestedExpand to a regular expand node.
+ * NestedExpands can only exist inside expands, so when breaking out or placing
+ * in containers that don't support nesting, they must be converted.
+ */
+export const convertNestedExpandToExpand = (node: PMNode, schema: Schema): PMNode | null => {
+	const expandType = schema.nodes.expand;
+	if (!expandType) {
+		return null;
+	}
+
+	return expandType.createAndFill({ title: node.attrs?.title || '' }, node.content);
+};
+
+/**
+ * Converts an expand to a nestedExpand node.
+ * When placing an expand inside another expand, it must become a nestedExpand
+ * since expand cannot be a direct child of expand.
+ */
+export const convertExpandToNestedExpand = (node: PMNode, schema: Schema): PMNode | null => {
+	const nestedExpandType = schema.nodes.nestedExpand;
+	if (!nestedExpandType) {
+		return null;
+	}
+
+	return nestedExpandType.createAndFill({ title: node.attrs?.title || '' }, node.content);
+};
+
 export const getBlockNodesInRange = (range: NodeRange): PMNode[] => {
+	if (range.startIndex === range.endIndex) {
+		return [];
+	}
+
 	if (range.endIndex - range.startIndex <= 1) {
 		return [range.parent.child(range.startIndex)];
 	}

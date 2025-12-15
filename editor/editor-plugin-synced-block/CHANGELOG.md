@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.5.5
+
+### Patch Changes
+
+- [`851c90fb91330`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/851c90fb91330) -
+  [EDITOR-3951] Fix sync block flag shows up unexpectedly
+- Updated dependencies
+
 ## 4.5.4
 
 ### Patch Changes

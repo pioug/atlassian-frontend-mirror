@@ -90,7 +90,7 @@ const HelpContentButton = ({
 				)}
 				{!openInSameTab && href != null && (
 					<HelpContentButtonExternalLinkIcon dataTestId="shortcutIcon">
-						<ShortcutIcon color="currentColor" LEGACY_size="small" label="" />
+						<ShortcutIcon color="currentColor" LEGACY_size="small" label="Opens in a new window" />
 					</HelpContentButtonExternalLinkIcon>
 				)}
 			</HelpContentButtonText>

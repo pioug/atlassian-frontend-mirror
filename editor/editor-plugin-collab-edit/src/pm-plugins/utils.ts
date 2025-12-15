@@ -279,7 +279,9 @@ export const isOrganicChange = (tr: ReadonlyTransaction) => {
 		// editor-plugin-local-id uses BatchAttrStep to set the localId attribute
 		if (step instanceof BatchAttrsStep && fg('platform_editor_inorganic_batchattrsstep_localid')) {
 			const allAttributes = step.data.map((data) => Object.keys(data.attrs)).flat();
-			return allAttributes.some((attr) => attr !== 'localId');
+			return (
+				allAttributes.some((attr) => !blockedAttrsList.includes(attr)) && !tr.doc.eq(tr.before)
+			);
 		}
 
 		// If a step is not an instance of SetAttrsStep, it is considered organic
@@ -291,13 +293,7 @@ export const isOrganicChange = (tr: ReadonlyTransaction) => {
 		// If a step is an instance of SetAttrsStep, it checks if the attributes in the step
 		// are not in the `blockedAttributes`. If one of the attributes not on the list, it considers the change
 		// organic but only if the entire document is not equal to the previous state.
-		return (
-			allAttributes.some((attr) => {
-				if (!blockedAttrsList.includes(attr)) {
-					return true;
-				}
-			}) && !tr.doc.eq(tr.before)
-		);
+		return allAttributes.some((attr) => !blockedAttrsList.includes(attr)) && !tr.doc.eq(tr.before);
 	});
 };
 

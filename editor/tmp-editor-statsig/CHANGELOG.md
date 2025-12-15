@@ -1,5 +1,18 @@
 # @atlaskit/editor-statsig-tmp
 
+## 15.11.0
+
+### Minor Changes
+
+- [`810632761780a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/810632761780a) -
+  EDITOR-3937 Cleanup usage of confluence_content_mode_replace_dense_with_compact from the frontend
+  as this is now only needed in the Confluence backend
+
+### Patch Changes
+
+- [`d0cc21488265c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0cc21488265c) -
+  NO-ISSUE: Fix undefined typeof check for process
+
 ## 15.10.0
 
 ### Minor Changes

@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.16.1
+
+### Patch Changes
+
+- [`bfcf360d7d973`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfcf360d7d973) -
+  FG cleanup - platform_ufo_ttvc_v4_exclude_input_name_mutation
+
 ## 4.16.0
 
 ### Minor Changes

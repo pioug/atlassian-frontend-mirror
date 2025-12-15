@@ -1,7 +1,7 @@
 import type {
+	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
-	EditorCommand,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
@@ -118,7 +118,7 @@ type BlockMenuNested = {
 	type: 'block-menu-nested';
 };
 
-export type BlockMenuNestedComponent = (props?: { children: React.ReactNode }) => React.ReactNode;
+export type BlockMenuNestedComponent = (props: { children: React.ReactNode }) => React.ReactNode;
 
 export type BlockMenuSectionComponent = (props: { children: React.ReactNode }) => React.ReactNode;
 
@@ -148,3 +148,5 @@ export type RegisterBlockMenuComponent =
 	| RegisterBlockMenuNested
 	| RegisterBlockMenuSection
 	| RegisterBlockMenuItem;
+
+export type RegisterBlockMenuComponentType = RegisterBlockMenuComponent['type'];

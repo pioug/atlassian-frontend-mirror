@@ -1,4 +1,4 @@
-import React, { createElement } from 'react';
+import React from 'react';
 
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 
@@ -11,9 +11,10 @@ type SelectionExtensionDropdownItemProps = {
 export const SelectionExtensionDropdownItem = ({
 	dropdownItem,
 }: SelectionExtensionDropdownItemProps) => {
+	const IconComponent = dropdownItem.icon;
 	return (
 		<ToolbarDropdownItem
-			elemBefore={dropdownItem.icon ? createElement(dropdownItem.icon, { label: '' }) : undefined}
+			elemBefore={IconComponent ? <IconComponent label="" /> : undefined}
 			onClick={dropdownItem.onClick}
 			isDisabled={dropdownItem.isDisabled}
 		>

@@ -10,7 +10,7 @@ import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Button, { type ButtonProps, IconButton } from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
+import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

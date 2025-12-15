@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.2.12
+
+### Patch Changes
+
+- [`b3c4249a34e4b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3c4249a34e4b) -
+  EDITOR-3880 Improve block menu rendering to support infinite nesting
+
+## 5.2.11
+
+### Patch Changes
+
+- [`0c673432d72e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c673432d72e9) -
+  [ux] Fix bug / make wrap of expand convert to nestedExpand node
+
+## 5.2.10
+
+### Patch Changes
+
+- [`eb116a739e7c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb116a739e7c2) -
+  [ux] Fix bug / make unwrap of expand convert nestedExpand node to regular expand node
+
 ## 5.2.9
 
 ### Patch Changes

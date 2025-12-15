@@ -5,28 +5,19 @@
 
 import React from 'react';
 import { css, jsx } from '@compiled/react';
-import { fontFallback } from '@atlaskit/theme/typography';
+import Heading from '@atlaskit/heading';
 import { token } from '@atlaskit/tokens';
-import { N300, N800 } from '@atlaskit/theme/colors';
 
-const { body } = fontFallback;
-
-const whatsNewTypeTitleStyles = css({
-	textDecoration: 'none',
-	color: token('color.text.subtlest', N300),
-	font: token('font.body', body.medium),
-	verticalAlign: 'middle',
-	paddingLeft: token('space.050', '4px'),
-	whiteSpace: 'normal',
-	overflowX: 'hidden',
-});
 
 export const WhatsNewTypeTitle = ({ children }: { children: React.ReactNode }): JSX.Element => (
-	<span css={whatsNewTypeTitleStyles}>{children}</span>
+	<Heading size="xsmall" as="h3">
+		{children}
+	</Heading>
 );
 
 const whatsNewIconContainerStyles = css({
-	display: 'block',
+	display: 'flex',
+	gap: token('space.100', '8px'),
 	paddingBottom: token('space.100', '8px'),
 });
 
@@ -34,19 +25,11 @@ export const WhatsNewIconContainer = ({ children }: { children: React.ReactNode 
 	<div css={whatsNewIconContainerStyles}>{children}</div>
 );
 
-const whatsNewTitleText = css({
-	textDecoration: 'none',
-	color: token('color.text', N800),
-	font: token('font.body'),
-	fontWeight: token('font.weight.semibold'),
-	whiteSpace: 'normal',
-	overflowX: 'hidden',
-	paddingBottom: token('space.100', '8px'),
-	display: 'block',
-});
 
 export const WhatsNewTitleText = ({ children }: { children: React.ReactNode }): JSX.Element => (
-	<span css={whatsNewTitleText}>{children}</span>
+	<Heading size="xsmall" as="h4">
+		{children}
+	</Heading>
 );
 
 const relatedLinkContainerStyles = css({

@@ -541,7 +541,7 @@ export class EditorCardProvider
 				if (
 					isEmbedFriendlyLocationEvaluated &&
 					!userPreference &&
-					fg('platform_sl_3p_unauth_experiment_gate')
+					fg('platform_sl_3p_unauth_paste_as_block_card_gate')
 				) {
 					const authStatus = await this.getAuthStatusFromResolveResponse(url);
 					if (authStatus) {

@@ -38,9 +38,6 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/dropdown-menu/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{

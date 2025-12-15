@@ -285,11 +285,7 @@ function Expand({
 	const isCompactModeSupported =
 		expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 		fg('platform_editor_content_mode_button_mvp');
-	const isCompact =
-		rendererContentMode ===
-			(expValEquals('confluence_content_mode_replace_dense_with_compact', 'cohort', 'test')
-				? 'compact'
-				: 'dense') && isCompactModeSupported;
+	const isCompact = rendererContentMode === 'compact' && isCompactModeSupported;
 
 	return (
 		<Container

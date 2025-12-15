@@ -118,7 +118,7 @@ export function getDefaultPresetOptionsFromEditorProps(
 export default function createPluginsList(
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	preset: EditorPresetBuilder<any, any>,
-	props: EditorProps,
+	props: Pick<EditorProps, 'allowBlockType'>,
 	pluginInjectionAPI?: EditorPluginInjectionAPI,
 ): EditorPlugin[] {
 	const excludes = new Set<string>();

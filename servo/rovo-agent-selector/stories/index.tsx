@@ -10,7 +10,7 @@ import { IntlProvider } from 'react-intl-next';
 import { graphql, RelayEnvironmentProvider, useLazyLoadQuery } from 'react-relay';
 import { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';
 
-import RovoAgentSelector from '../src';
+import { RovoAgentSelector } from '../src';
 
 import type { storiesRovoAgentSelectorQuery } from './__generated__/storiesRovoAgentSelectorQuery.graphql';
 
@@ -32,17 +32,26 @@ const generateMockAgentEdges = (count: number) => {
 const TestRenderer = () => {
 	const data = useLazyLoadQuery<storiesRovoAgentSelectorQuery>(
 		graphql`
-			query storiesRovoAgentSelectorQuery($cloudId: String!) {
+			query storiesRovoAgentSelectorQuery($cloudId: ID!, $cloudIdString: String!) {
 				# eslint-disable-next-line @atlassian/relay/must-colocate-fragment-spreads
-				...rovoAgentSelector_AtlaskitRovoAgentSelector @arguments(cloudId: $cloudId)
+				...rovoAgentSelector_AtlaskitRovoAgentSelector_fragmentReference
+					@arguments(cloudId: $cloudId, cloudIdString: $cloudIdString)
 			}
 		`,
 		{
 			cloudId: 'mock-cloud-id',
+			cloudIdString: 'mock-cloud-id',
 		},
 	);
 
-	return <RovoAgentSelector testId="rovo-agent-selector" fragmentReference={data} cloudId="mock-cloud-id" isFeatureEnabled />;
+	return (
+		<RovoAgentSelector
+			testId="rovo-agent-selector"
+			fragmentReference={data}
+			cloudId="mock-cloud-id"
+			isFeatureEnabled
+		/>
+	);
 };
 
 function BasicTemplateComponent() {

@@ -1,6 +1,6 @@
-import React, { createElement } from 'react';
+import React from 'react';
 
-import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
+import { ToolbarDropdownItemSection, ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 
 import { type ExtensionNestedDropdownMenuConfiguration } from '../../types';
@@ -15,23 +15,22 @@ const ChildItems = ({ nestedDropdownMenu }: SelectionExtensionNestedDropdownMenu
 	const childItems = nestedDropdownMenu.getMenuItems();
 
 	return (
-		<>
+		<ToolbarDropdownItemSection>
 			{childItems.map((dropdownItem) => (
 				<SelectionExtensionDropdownItem key={dropdownItem.label} dropdownItem={dropdownItem} />
 			))}
-		</>
+		</ToolbarDropdownItemSection>
 	);
 };
 
 export const SelectionExtensionNestedDropdownMenu = ({
 	nestedDropdownMenu,
 }: SelectionExtensionNestedDropdownMenuProps) => {
+	const IconComponent = nestedDropdownMenu.icon;
 	return (
 		<ToolbarNestedDropdownMenu
 			text={nestedDropdownMenu.label}
-			elemBefore={
-				nestedDropdownMenu.icon ? createElement(nestedDropdownMenu.icon, { label: '' }) : undefined
-			}
+			elemBefore={IconComponent ? <IconComponent label="" /> : undefined}
 			elemAfter={<ChevronRightIcon label={'nested menu'} />}
 		>
 			<ChildItems nestedDropdownMenu={nestedDropdownMenu} />

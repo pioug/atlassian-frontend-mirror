@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-card-provider",
-	"version": "6.2.2",
+	"version": "6.2.3",
 	"description": "Contains the EditorCardProvider, for determining smart card behaviour in the editor.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -59,7 +59,7 @@
 		"issue-link-suggestions-in-comments": {
 			"type": "boolean"
 		},
-		"platform_sl_3p_unauth_experiment_gate": {
+		"platform_sl_3p_unauth_paste_as_block_card_gate": {
 			"type": "boolean"
 		},
 		"avp_unfurl_shared_charts_embed_by_default_2": {

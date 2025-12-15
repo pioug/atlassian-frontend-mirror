@@ -17,16 +17,15 @@ import { DRAG_HANDLE_SELECTOR, DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import {
+	ArrowKeyNavigationProvider,
+	ArrowKeyNavigationType,
+} from '@atlaskit/editor-common/ui-menu';
+import {
 	OutsideClickTargetRefContext,
 	withReactEditorViewOuterListeners,
 } from '@atlaskit/editor-common/ui-react';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
-import {
-	ToolbarDropdownItem,
-	ToolbarDropdownItemSection,
-	ToolbarNestedDropdownMenu,
-} from '@atlaskit/editor-toolbar';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -36,7 +35,7 @@ import { token } from '@atlaskit/tokens';
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
 import { useBlockMenu } from './block-menu-provider';
-import { BlockMenuRenderer } from './block-menu-renderer';
+import { BlockMenuRenderer } from './block-menu-renderer/BlockMenuRenderer';
 
 const styles = cssMap({
 	base: {
@@ -208,27 +207,9 @@ const BlockMenuContent = ({
 				editorExperiment('platform_synced_block', true) && styles.emptyMenuSectionStyles,
 			)}
 		>
-			<BlockMenuRenderer
-				components={blockMenuComponents || []}
-				fallbacks={{
-					nestedMenu: () => (
-						<ToolbarNestedDropdownMenu elemBefore={undefined} elemAfter={undefined}>
-							<ToolbarDropdownItemSection>
-								{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
-								<ToolbarDropdownItem>Block Menu Item</ToolbarDropdownItem>
-							</ToolbarDropdownItemSection>
-						</ToolbarNestedDropdownMenu>
-					),
-					section: () => (
-						<ToolbarDropdownItemSection>
-							{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
-							<ToolbarDropdownItem>Block Menu Item</ToolbarDropdownItem>
-						</ToolbarDropdownItemSection>
-					),
-					// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
-					item: () => <ToolbarDropdownItem>Block Menu Item</ToolbarDropdownItem>,
-				}}
-			/>
+			<ArrowKeyNavigationProvider type={ArrowKeyNavigationType.MENU}>
+				<BlockMenuRenderer allRegisteredComponents={blockMenuComponents || []} />
+			</ArrowKeyNavigationProvider>
 		</Box>
 	);
 };

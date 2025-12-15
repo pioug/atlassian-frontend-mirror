@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 7.0.28
+
+### Patch Changes
+
+- [`1018562d37d5d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1018562d37d5d) -
+  Add dynamic dropdown filtering for insert block button based on visible toolbar buttons at
+  different breakpoints
+
 ## 7.0.27
 
 ### Patch Changes

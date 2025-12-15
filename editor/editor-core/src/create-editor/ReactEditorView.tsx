@@ -273,7 +273,11 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				}
 			} else {
 				config.current = processPluginsList(
-					createPluginsList(options.props.preset, props.editorProps, pluginInjectionAPI.current),
+					createPluginsList(
+						options.props.preset,
+						'allowBlockType' in props.editorProps ? props.editorProps : {},
+						pluginInjectionAPI.current,
+					),
 				);
 
 				schema = createSchema(config.current);
@@ -503,7 +507,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 
 			const editorPlugins = createPluginsList(
 				props.preset,
-				props.editorProps,
+				'allowBlockType' in props.editorProps ? props.editorProps : {},
 				pluginInjectionAPI.current,
 			);
 
@@ -1031,7 +1035,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 
 	useFireFullWidthEvent(nextAppearance, dispatchAnalyticsEvent);
 
-	// This function uses as prop as `<EditorSSRRender>` so, thay should be memoized,
+	// This function uses as prop as `<EditorSSRRenderer>` so, that should be memoized,
 	// to avoid extra rerenders.
 	const buildDoc = useCallback(
 		(schema: Schema) => {
@@ -1050,37 +1054,52 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		[defaultValue, parseDoc, props.editorProps.sanitizePrivateContent, props.providerFactory],
 	);
 
+	const { assistiveLabel, assistiveDescribedBy } = props.editorProps;
+	// We need to check `allowBlockType` in props, because it is now exist in EditorNextProps type.
+	const { allowBlockType } =
+		'allowBlockType' in props.editorProps
+			? props.editorProps
+			: ({ allowBlockType: undefined } satisfies EditorProps);
+
 	const ssrEditor = useMemo(() => {
 		if (!isSSR() || !expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
 			return null;
 		}
 
+		const plugins = createPluginsList(
+			props.preset,
+			// Don't pass props.editorProps directly, because editoProps in the dependency will lead to
+			// multiple repaints, because props.editorPros is not stable object.
+			{ allowBlockType },
+			pluginInjectionAPI.current,
+		);
+		const schema = createSchema(processPluginsList(plugins));
+		const doc = buildDoc(schema);
+
 		return (
 			<EditorSSRRenderer
 				intl={props.intl}
-				preset={preset}
+				doc={doc}
+				schema={schema}
+				plugins={plugins}
 				portalProviderAPI={props.portalProviderAPI}
-				pluginInjectionAPI={pluginInjectionAPI.current}
-				buildDoc={buildDoc}
 				// IMPORTANT: Keep next props in sync with div that renders a real ProseMirror editor.
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={`ProseMirror ${getUAPrefix()}`}
 				key="ProseMirror"
-				aria-label={
-					props.editorProps.assistiveLabel ||
-					props.intl.formatMessage(editorMessages.editorAssistiveLabel)
-				}
+				aria-label={assistiveLabel || props.intl.formatMessage(editorMessages.editorAssistiveLabel)}
 				id={EDIT_AREA_ID}
-				aria-describedby={props.editorProps.assistiveDescribedBy}
+				aria-describedby={assistiveDescribedBy}
 				data-editor-id={editorId.current}
 			/>
 		);
 	}, [
+		props.preset,
+		allowBlockType,
+		assistiveLabel,
+		assistiveDescribedBy,
 		props.intl,
 		props.portalProviderAPI,
-		props.editorProps.assistiveLabel,
-		props.editorProps.assistiveDescribedBy,
-		preset,
 		buildDoc,
 	]);
 

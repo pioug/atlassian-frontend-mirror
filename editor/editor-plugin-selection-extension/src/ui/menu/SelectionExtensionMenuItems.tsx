@@ -4,7 +4,7 @@ import type { ExtensionMenuItemConfiguration } from '../../types';
 import { isNestedDropdownMenuConfiguration } from '../utils/menu-items';
 
 import { SelectionExtensionDropdownItem } from './SelectionExtensionDropdownItem';
-import { SelectionExtensionNestedDropdownMenu } from './SelectionExtensionDropdownMenu';
+import { SelectionExtensionNestedDropdownMenu } from './SelectionExtensionNestedDropdownMenu';
 
 type SelectionExtensionMenuItemsProps = {
 	getMenuItems: () => ExtensionMenuItemConfiguration[];

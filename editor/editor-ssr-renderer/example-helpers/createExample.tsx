@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
@@ -29,8 +30,9 @@ function SSREditor({ adf }: { adf: DocNode }) {
 	return (
 		<EditorSSRRenderer
 			intl={intl}
-			preset={preset}
-			buildDoc={(schema) => PMNode.fromJSON(schema, adf)}
+			doc={PMNode.fromJSON(defaultSchema, adf)}
+			plugins={preset.build({})}
+			schema={defaultSchema}
 			portalProviderAPI={new SSRPortalProviderAPI()}
 			id="ak-editor-textarea"
 			data-editor-id="6f03e411-00a8-448b-bbc0-66f350895a5e"

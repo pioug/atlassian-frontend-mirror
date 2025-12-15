@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 9.1.21
+
+### Patch Changes
+
+- [`f494ec7455464`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f494ec7455464) -
+  ED-29712: Insert a new action item on empty selection when clicking on Task list
+
 ## 9.1.20
 
 ### Patch Changes

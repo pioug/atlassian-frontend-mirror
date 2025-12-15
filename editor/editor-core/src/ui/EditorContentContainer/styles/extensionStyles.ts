@@ -419,7 +419,7 @@ export const getExtensionStyles = (contentMode?: EditorContentMode): SerializedS
 		? relativeFontSizeToBase16(akEditorFullPageDenseFontSize)
 		: undefined;
 	const denseExtensionStyles =
-		(contentMode === 'compact' || contentMode === 'dense') &&
+		contentMode === 'compact' &&
 		expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 		fg('platform_editor_content_mode_button_mvp')
 			? css({
@@ -437,8 +437,7 @@ export const getExtensionStyles = (contentMode?: EditorContentMode): SerializedS
 							fontSize: 'var(--ak-editor-base-font-size)',
 						},
 				})
-			: (contentMode === 'compact' || contentMode === 'dense') &&
-				  expValEquals('cc_editor_ai_content_mode', 'variant', 'test')
+			: contentMode === 'compact' && expValEquals('cc_editor_ai_content_mode', 'variant', 'test')
 				? css({
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 						'.extension-container a span': {

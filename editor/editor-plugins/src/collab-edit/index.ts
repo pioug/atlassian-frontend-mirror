@@ -7,6 +7,7 @@ export type {
 	CollabEditPluginOptions,
 	CollabEditPluginDependencies,
 	CollabInitializedMetadata,
+	LastOrganicChangeMetadata,
 	CollabEditPluginSharedState,
 	ReadOnlyParticipants,
 	PrivateCollabEditOptions,

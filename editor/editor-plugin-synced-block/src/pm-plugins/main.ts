@@ -38,6 +38,17 @@ type SyncedBlockPluginState = {
 	syncBlockStore: SyncBlockStoreManager;
 };
 
+const showCopiedFlag = (api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined) => {
+	// Use setTimeout to dispatch transaction in next tick and avoid re-entrant dispatch
+	setTimeout(() => {
+		api?.core.actions.execute(({ tr }) => {
+			return tr.setMeta(syncedBlockPluginKey, {
+				activeFlag: { id: FLAG_ID.SYNC_BLOCK_COPIED },
+			});
+		});
+	}, 0);
+};
+
 export const createPlugin = (
 	options: SyncedBlockPluginOptions | undefined,
 	pmPluginFactoryParams: PMPluginFactoryParams,
@@ -150,21 +161,19 @@ export const createPlugin = (
 				const pluginState = syncedBlockPluginKey.getState(state);
 				const syncBlockStore = pluginState?.syncBlockStore;
 				const { schema } = state;
-				// Use setTimeout to dispatch transaction in next tick and avoid re-entrant dispatch
-				setTimeout(() => {
-					api?.core.actions.execute(({ tr }) => {
-						return tr.setMeta(syncedBlockPluginKey, {
-							activeFlag: { id: FLAG_ID.SYNC_BLOCK_COPIED },
-						});
-					});
-				}, 0);
 
 				if (!syncBlockStore) {
 					return slice;
 				}
 
 				return mapSlice(slice, (node: Node) => {
+					if (node.type.name === 'syncBlock') {
+						showCopiedFlag(api);
+						return node;
+					}
 					if (node.type.name === 'bodiedSyncBlock' && node.attrs.resourceId) {
+						showCopiedFlag(api);
+
 						const newResourceId = syncBlockStore.referenceManager.generateResourceIdForReference(
 							node.attrs.resourceId,
 						);

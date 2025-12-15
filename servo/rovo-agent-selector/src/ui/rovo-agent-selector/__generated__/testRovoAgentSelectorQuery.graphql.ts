@@ -1,6 +1,6 @@
 /**
- * @generated SignedSource<<bb6a4009749a1e66dc659d703f002b11>>
- * @relayHash 4c899bd93f28362592f84caca67e0430
+ * @generated SignedSource<<8e3e941b141c6e112e373c7e7ce21153>>
+ * @relayHash 590a9caebabdbdf00ce9390cf00c68e0
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -10,15 +10,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-// @relayRequestID 76593c8c595064568c6b14b9d08a00e762c8436420a9cdd674814465906b7721
+// @relayRequestID 4e1430ebccae56212590a169f9caa58aa5e4e2365b6b58d8e5e3c77ccf8b7257
 
 import type { ConcreteRequest, Query } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
 export type testRovoAgentSelectorQuery$variables = {
   cloudId: string;
+  cloudIdString: string;
 };
 export type testRovoAgentSelectorQuery$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"rovoAgentSelector_AtlaskitRovoAgentSelector">;
+  readonly " $fragmentSpreads": FragmentRefs<"rovoAgentSelector_AtlaskitRovoAgentSelector_fragmentReference">;
 };
 export type testRovoAgentSelectorQuery = {
   response: testRovoAgentSelectorQuery$data;
@@ -31,6 +32,11 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "cloudId"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "cloudIdString"
   }
 ],
 v1 = {
@@ -38,8 +44,16 @@ v1 = {
   "name": "cloudId",
   "variableName": "cloudId"
 },
-v2 = [
-  (v1/*: any*/),
+v2 = {
+  "kind": "ScalarField",
+  "name": "__typename"
+},
+v3 = [
+  {
+    "kind": "Variable",
+    "name": "cloudId",
+    "variableName": "cloudIdString"
+  },
   {
     "kind": "Literal",
     "name": "first",
@@ -53,9 +67,15 @@ v2 = [
     }
   }
 ],
-v3 = {
+v4 = {
   "enumValues": null,
   "nullable": true,
+  "plural": false,
+  "type": "String"
+},
+v5 = {
+  "enumValues": null,
+  "nullable": false,
   "plural": false,
   "type": "String"
 };
@@ -67,10 +87,15 @@ return {
     "selections": [
       {
         "args": [
-          (v1/*: any*/)
+          (v1/*: any*/),
+          {
+            "kind": "Variable",
+            "name": "cloudIdString",
+            "variableName": "cloudIdString"
+          }
         ],
         "kind": "FragmentSpread",
-        "name": "rovoAgentSelector_AtlaskitRovoAgentSelector"
+        "name": "rovoAgentSelector_AtlaskitRovoAgentSelector_fragmentReference"
       }
     ],
     "type": "Query"
@@ -82,7 +107,36 @@ return {
     "name": "testRovoAgentSelectorQuery",
     "selections": [
       {
-        "args": (v2/*: any*/),
+        "args": [
+          (v1/*: any*/)
+        ],
+        "kind": "LinkedField",
+        "name": "atlassianStudio_userSiteContext",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              {
+                "concreteType": "AtlassianStudioUserProductPermissions",
+                "kind": "LinkedField",
+                "name": "userPermissions",
+                "plural": false,
+                "selections": [
+                  {
+                    "kind": "ScalarField",
+                    "name": "isAbleToCreateAgents"
+                  }
+                ]
+              }
+            ],
+            "type": "AtlassianStudioUserSiteContextOutput"
+          }
+        ]
+      },
+      {
+        "args": (v3/*: any*/),
         "concreteType": "AgentStudioAgentsConnection",
         "kind": "LinkedField",
         "name": "agentStudio_getAgents",
@@ -136,10 +190,7 @@ return {
                     "kind": "ScalarField",
                     "name": "creatorType"
                   },
-                  {
-                    "kind": "ScalarField",
-                    "name": "__typename"
-                  }
+                  (v2/*: any*/)
                 ]
               },
               {
@@ -151,7 +202,7 @@ return {
         ]
       },
       {
-        "args": (v2/*: any*/),
+        "args": (v3/*: any*/),
         "filters": [
           "cloudId",
           "input"
@@ -164,7 +215,7 @@ return {
     ]
   },
   "params": {
-    "id": "76593c8c595064568c6b14b9d08a00e762c8436420a9cdd674814465906b7721",
+    "id": "4e1430ebccae56212590a169f9caa58aa5e4e2365b6b58d8e5e3c77ccf8b7257",
     "metadata": {
       "relayTestingSelectionTypeInfo": {
         "agentStudio_getAgents": {
@@ -179,39 +230,53 @@ return {
           "plural": true,
           "type": "AgentStudioAgentEdge"
         },
-        "agentStudio_getAgents.edges.cursor": (v3/*: any*/),
+        "agentStudio_getAgents.edges.cursor": (v4/*: any*/),
         "agentStudio_getAgents.edges.node": {
           "enumValues": null,
           "nullable": true,
           "plural": false,
           "type": "AgentStudioAssistant"
         },
-        "agentStudio_getAgents.edges.node.__typename": {
-          "enumValues": null,
-          "nullable": false,
-          "plural": false,
-          "type": "String"
-        },
-        "agentStudio_getAgents.edges.node.creatorType": (v3/*: any*/),
-        "agentStudio_getAgents.edges.node.externalConfigReference": (v3/*: any*/),
+        "agentStudio_getAgents.edges.node.__typename": (v5/*: any*/),
+        "agentStudio_getAgents.edges.node.creatorType": (v4/*: any*/),
+        "agentStudio_getAgents.edges.node.externalConfigReference": (v4/*: any*/),
         "agentStudio_getAgents.edges.node.id": {
           "enumValues": null,
           "nullable": false,
           "plural": false,
           "type": "ID"
         },
-        "agentStudio_getAgents.edges.node.identityAccountId": (v3/*: any*/),
-        "agentStudio_getAgents.edges.node.name": (v3/*: any*/),
+        "agentStudio_getAgents.edges.node.identityAccountId": (v4/*: any*/),
+        "agentStudio_getAgents.edges.node.name": (v4/*: any*/),
         "agentStudio_getAgents.pageInfo": {
           "enumValues": null,
           "nullable": false,
           "plural": false,
           "type": "PageInfo"
         },
-        "agentStudio_getAgents.pageInfo.endCursor": (v3/*: any*/),
+        "agentStudio_getAgents.pageInfo.endCursor": (v4/*: any*/),
         "agentStudio_getAgents.pageInfo.hasNextPage": {
           "enumValues": null,
           "nullable": false,
+          "plural": false,
+          "type": "Boolean"
+        },
+        "atlassianStudio_userSiteContext": {
+          "enumValues": null,
+          "nullable": true,
+          "plural": false,
+          "type": "AtlassianStudioUserSiteContextResult"
+        },
+        "atlassianStudio_userSiteContext.__typename": (v5/*: any*/),
+        "atlassianStudio_userSiteContext.userPermissions": {
+          "enumValues": null,
+          "nullable": true,
+          "plural": false,
+          "type": "AtlassianStudioUserProductPermissions"
+        },
+        "atlassianStudio_userSiteContext.userPermissions.isAbleToCreateAgents": {
+          "enumValues": null,
+          "nullable": true,
           "plural": false,
           "type": "Boolean"
         }
@@ -224,6 +289,6 @@ return {
 };
 })();
 
-(node as any).hash = "b6b34bf9b0c27f8042e08b3e7de8cf06";
+(node as any).hash = "4e210e15f585c0d75bd6cf95bcfb0d6d";
 
 export default node;

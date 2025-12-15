@@ -134,25 +134,8 @@ describe('VCCalculator_FY26_04', () => {
 			});
 		});
 
-		describe('platform_ufo_ttvc_v4_exclude_input_name_mutation feature flag', () => {
-			it('should exclude mutation:attribute:non-visual-input-name when feature flag is enabled', () => {
-				mockFg.mockImplementation(
-					(flag) => flag === 'platform_ufo_ttvc_v4_exclude_input_name_mutation',
-				);
-				const entry: VCObserverEntry = {
-					time: 0,
-					data: {
-						type: 'mutation:attribute:non-visual-input-name',
-						elementName: 'input',
-						rect: new DOMRect(),
-						visible: true,
-						attributeName: 'name',
-					} as ViewportEntryData,
-				};
-				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
-			});
-
-			it('should not exclude mutation:attribute:non-visual-input-name when feature flag is disabled', () => {
+		describe('mutation:attribute:non-visual-input-name', () => {
+			it('should exclude mutation:attribute:non-visual-input-name entries', () => {
 				mockFg.mockImplementation(() => false);
 				const entry: VCObserverEntry = {
 					time: 0,
@@ -164,7 +147,6 @@ describe('VCCalculator_FY26_04', () => {
 						attributeName: 'name',
 					} as ViewportEntryData,
 				};
-				// Should fall through to parent class logic or considered entry types
 				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
 			});
 		});
@@ -436,13 +418,10 @@ describe('VCCalculator_FY26_04', () => {
 			expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
 		});
 
-		it('should handle mutation:ssr-placeholder with mixed flags', () => {
+		it('should handle mutation:ssr-placeholder when flag is enabled', () => {
 			mockFg.mockImplementation((flag) => {
 				if (flag === 'platform_ufo_remove_ssr_placeholder_in_ttvc_v4') {
 					return true;
-				}
-				if (flag === 'platform_ufo_ttvc_v4_exclude_input_name_mutation') {
-					return false;
 				}
 				return false;
 			});

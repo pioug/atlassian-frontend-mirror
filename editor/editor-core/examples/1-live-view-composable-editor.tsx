@@ -8,6 +8,7 @@ import {
 	localStorageFetchProvider,
 	localStorageWriteProvider,
 } from '@af/editor-examples-helpers/utils';
+import { TRANSFORM_MENU_SECTION } from '@atlaskit/editor-common/block-menu';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { EditorContext } from '@atlaskit/editor-core/editor-context';
@@ -17,7 +18,6 @@ import { blockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
 import { blockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
 import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
-// Commented out - see below
 import {
 	type ExtensionConfiguration,
 	type ExtensionMenuItemConfiguration,
@@ -30,8 +30,14 @@ import { getSyncedBlockRenderer } from '@atlaskit/editor-synced-block-renderer';
 import { useEditorAnnotationProviders } from '@atlaskit/editor-test-helpers/annotation-example';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
-import { AddIcon } from '@atlaskit/editor-toolbar';
+import {
+	AddIcon,
+	ToolbarDropdownItem,
+	ToolbarDropdownItemSection,
+	ToolbarNestedDropdownMenu,
+} from '@atlaskit/editor-toolbar';
 import AppIcon from '@atlaskit/icon/core/app';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled - go/akcss
@@ -56,7 +62,7 @@ const smartCardClient = new ConfluenceCardClient('staging');
 
 const EXAMPLE_NAME = 'live-view-composable-editor';
 
-// @ts-ignore @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MockProfileClient: any = simpleMockProfilecardClient();
 
 function getDefaultValue() {
@@ -68,10 +74,13 @@ function ComposableEditorPage() {
 	const [appearance, setAppearance] = React.useState<EditorAppearance>('full-page');
 	const providers = getExamplesProviders({});
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const editorApiRef: any = useRef<typeof editorApi | null>(null);
 
 	const [createButton, showCreateButton] = useState<string | null>(null);
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const selectedNodeAdfRef = React.useRef<any>(null);
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const selectionRangesRef = React.useRef<any>(null);
 	const editorAnnotationProviders = useEditorAnnotationProviders();
 
@@ -199,7 +208,7 @@ function ComposableEditorPage() {
 	const noteSelectionExtension = useNoteSelectionExtension(editorApiRef.current);
 
 	const getCreateJiraIssueMenuItem = () => {
-		const selectionResult = editorApiRef?.current.selectionExtension?.actions.getSelectionAdf();
+		const selectionResult = editorApiRef?.current?.selectionExtension?.actions.getSelectionAdf();
 
 		// Determine if multiple rows are selected
 		const multipleRowsSelected =
@@ -233,28 +242,32 @@ function ComposableEditorPage() {
 		}
 	};
 
-	const nestedMenuItemsGetMenuItem: () => Array<ExtensionMenuItemConfiguration> = () => [
-		{
-			label: 'Leaf extension item',
-			icon: AppIcon,
-			onClick: () => {
-				console.log('<<<click 1');
-			},
-		},
-		{
-			label: 'Dropdown extension item',
-			icon: AppIcon,
-			getMenuItems: () => [
-				{
-					label: 'Nested Leaf extension item',
-					icon: AppIcon,
-					onClick: () => {
-						console.log('<<<click 2');
-					},
+	const nestedMenuItemsGetMenuItem: () => Array<ExtensionMenuItemConfiguration> = () => {
+		return [
+			{
+				label: 'Leaf extension item',
+				icon: AppIcon,
+				onClick: () => {
+					console.log('<<<click 1');
 				},
-			],
-		},
-	];
+			},
+			{
+				label: 'Dropdown extension item',
+				icon: AppIcon,
+				getMenuItems: () => {
+					return [
+						{
+							label: 'Nested Leaf extension item',
+							icon: AppIcon,
+							onClick: () => {
+								console.log('<<<click 2');
+							},
+						},
+					];
+				},
+			},
+		];
+	};
 
 	const extensionWithNestedMenuItems: ExtensionConfiguration = {
 		key: 'mock-extension-with-nested-menu-items',
@@ -342,12 +355,125 @@ function ComposableEditorPage() {
 	}, [universalPreset]);
 	editorApiRef.current = editorApi;
 
-	// @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const onDocumentChanged = (adf: any) => {
 		if (adf?.state?.doc) {
 			localStorage.setItem(`${EXAMPLE_NAME}-doc`, JSON.stringify(adf?.state?.doc));
 		}
 	};
+
+	editorApi?.blockMenu?.actions.registerBlockMenuComponents([
+		// first menu
+		{
+			type: 'block-menu-nested' as const,
+			key: 'deeply-nested-menu-1',
+			parent: {
+				type: 'block-menu-section' as const,
+				key: TRANSFORM_MENU_SECTION.key,
+				rank: 9001,
+			},
+			component: ({ children }) => (
+				<ToolbarNestedDropdownMenu
+					text="First Level Menu"
+					elemBefore={<AddIcon label="" />}
+					elemAfter={<ChevronRightIcon label="" />}
+					shouldFitContainer
+					enableMaxHeight
+				>
+					{children}
+				</ToolbarNestedDropdownMenu>
+			),
+		},
+		// first section inside first menu
+		{
+			type: 'block-menu-section' as const,
+			key: 'deeply-nested-section-1',
+			parent: {
+				type: 'block-menu-nested' as const,
+				key: 'deeply-nested-menu-1',
+				rank: 0,
+			},
+			component: ({ children }) => (
+				<ToolbarDropdownItemSection title="First Section">{children}</ToolbarDropdownItemSection>
+			),
+		},
+		// second menu inside first section
+		{
+			type: 'block-menu-nested' as const,
+			key: 'deeply-nested-menu-2',
+			parent: {
+				type: 'block-menu-section' as const,
+				key: 'deeply-nested-section-1',
+				rank: 0,
+			},
+			component: ({ children }) => (
+				<ToolbarNestedDropdownMenu
+					text="Second Level Menu"
+					elemBefore={<AppIcon label="" />}
+					elemAfter={<ChevronRightIcon label="" />}
+				>
+					{children}
+				</ToolbarNestedDropdownMenu>
+			),
+		},
+		// second section inside second menu
+		{
+			type: 'block-menu-section' as const,
+			key: 'deeply-nested-section-3',
+			parent: {
+				type: 'block-menu-nested' as const,
+				key: 'deeply-nested-menu-2',
+				rank: 0,
+			},
+			component: ({ children }) => (
+				<ToolbarDropdownItemSection title="Second Section" hasSeparator>
+					{children}
+				</ToolbarDropdownItemSection>
+			),
+		},
+		// second section inside second menu
+		// this section won't render because its only child is a menu item that returns null
+		{
+			type: 'block-menu-section' as const,
+			key: 'deeply-nested-section-3-2',
+			parent: {
+				type: 'block-menu-nested' as const,
+				key: 'deeply-nested-menu-2',
+				rank: 0,
+			},
+			component: ({ children }) => (
+				<ToolbarDropdownItemSection title="Third Section" hasSeparator>
+					{children}
+				</ToolbarDropdownItemSection>
+			),
+		},
+		// finally the item inside the second section
+		{
+			type: 'block-menu-item' as const,
+			key: 'deeply-nested-item',
+			parent: {
+				type: 'block-menu-section' as const,
+				key: 'deeply-nested-section-3',
+				rank: 0,
+			},
+			component: () => (
+				<ToolbarDropdownItem elemBefore={<AddIcon label="" />}>
+					Deeply nested item
+				</ToolbarDropdownItem>
+			),
+		},
+		// This won't render because the component returns null
+		{
+			type: 'block-menu-item' as const,
+			key: 'deeply-nested-item-2',
+			parent: {
+				type: 'block-menu-section' as const,
+				key: 'deeply-nested-section-3-2',
+				rank: 0,
+			},
+			component: () => null,
+		},
+	]);
 
 	return (
 		<SmartCardProvider client={smartCardClient}>
@@ -458,6 +584,11 @@ function ComposableEditorPage() {
 	);
 }
 
+/**
+ * This example renders an example live view composable editor inside an EditorContext
+ *
+ * @returns A React component
+ */
 export default function ComposableEditorPageWrapper(): React.JSX.Element {
 	return (
 		<>
@@ -471,7 +602,7 @@ export default function ComposableEditorPageWrapper(): React.JSX.Element {
 /**
  * React component that re renders to monitor non React state changes
  */
-// @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StateMonitor({ getState, delay = 500 }: { delay?: number; getState?: () => any }) {
 	const [state, setState] = React.useState<string>();
 

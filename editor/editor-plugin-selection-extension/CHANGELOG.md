@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 9.0.5
+
+### Patch Changes
+
+- [`b3c4249a34e4b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3c4249a34e4b) -
+  EDITOR-3880 Improve block menu rendering to support infinite nesting
+- Updated dependencies
+
 ## 9.0.4
 
 ### Patch Changes

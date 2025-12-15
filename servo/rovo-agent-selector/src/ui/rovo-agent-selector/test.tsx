@@ -1,57 +1,54 @@
 import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
+import { injectable } from 'react-magnetic-di';
 import { graphql, RelayEnvironmentProvider, useLazyLoadQuery } from 'react-relay';
-import { createMockEnvironment, type MockEnvironment, MockPayloadGenerator } from 'relay-test-utils';
+import {
+	createMockEnvironment,
+	type MockEnvironment,
+	MockPayloadGenerator,
+} from 'relay-test-utils';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { render, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
+import { renderWithDi, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
+
+import { generateMockAgentEdges } from '../../common/utils/generate-mock-agent-edges';
 
 import messages from './messages';
+import type { RovoAgentSelectorProps } from './types';
+import { UnentitledState } from './unentitled';
 
-import RovoAgentSelector, { AGENT_SELECT_ID } from './index';
+import { AGENT_SELECT_ID, RovoAgentSelector } from './index';
 
 const testId = 'rovo-agent-selector';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	...jest.requireActual('@atlaskit/platform-feature-flags'),
-	fg: jest.fn().mockReturnValue(true),
-}));
+const mockFg = jest.fn().mockReturnValue(true);
+const mockOnChange = jest.fn();
 
-const mockFg = fg as jest.Mock;
-
-const generateMockAgentEdges = (count: number) => {
-	const agents = Array.from({ length: count }, (_, i) => ({
-		id: `agent-${i}`,
-		name: `Agent ${i}`,
-		externalConfigReference: `ref-${i}`,
-		identityAccountId: `account-${i}`,
-		creatorType: 'CUSTOMER' as const,
-	}));
-
-	return agents.map((node) => ({
-		node,
-		cursor: `cursor-${node.id}`,
-	}));
-};
-
-const TestRenderer = () => {
+const TestRenderer = (propOverrides: Partial<RovoAgentSelectorProps>) => {
 	const data = useLazyLoadQuery<any>(
 		graphql`
-			query testRovoAgentSelectorQuery($cloudId: String!) @relay_test_operation {
-				...rovoAgentSelector_AtlaskitRovoAgentSelector @arguments(cloudId: $cloudId)
+			query testRovoAgentSelectorQuery($cloudId: ID!, $cloudIdString: String!)
+			@relay_test_operation {
+				...rovoAgentSelector_AtlaskitRovoAgentSelector_fragmentReference
+					@arguments(cloudId: $cloudId, cloudIdString: $cloudIdString)
 			}
 		`,
 		{
 			cloudId: 'mock-cloud-id',
+			cloudIdString: 'mock-cloud-id',
 		},
 	);
 
-	return <RovoAgentSelector testId={testId} fragmentReference={data} cloudId="mock-cloud-id" isFeatureEnabled={true} />;
-};
-
-const renderWithIntl = (component: React.ReactElement) => {
-	return render(<IntlProvider locale="en">{component}</IntlProvider>);
+	return (
+		<RovoAgentSelector
+			testId={testId}
+			fragmentReference={data}
+			cloudId="mock-cloud-id"
+			isFeatureEnabled={propOverrides.isFeatureEnabled}
+			onChange={mockOnChange}
+		/>
+	);
 };
 
 describe('RovoAgentSelector', () => {
@@ -63,23 +60,40 @@ describe('RovoAgentSelector', () => {
 		environment = createMockEnvironment();
 	});
 
-	const renderComponent = (agentCount = 10) => {
+	type TestArgs = {
+		agentCount?: number;
+		isFeatureEnabled?: boolean;
+		isAbleToCreateAgents?: boolean;
+	};
+	const renderComponent = ({
+		agentCount = 10,
+		isFeatureEnabled,
+		isAbleToCreateAgents = true,
+	}: TestArgs = {}) => {
 		environment.mock.queueOperationResolver((operation) =>
 			MockPayloadGenerator.generate(operation, {
 				AgentStudioAgentsConnection: () => ({
 					pageInfo: {
-						hasNextPage: false,
+						hasNextPage: true,
 						endCursor: null,
 					},
 					edges: generateMockAgentEdges(agentCount),
 				}),
+				AtlassianStudioUserSiteContextOutput: () => ({
+					userPermissions: {
+						isAbleToCreateAgents,
+					},
+				}),
 			}),
 		);
 
-		return renderWithIntl(
+		return renderWithDi(
 			<RelayEnvironmentProvider environment={environment}>
-				<TestRenderer />
+				<IntlProvider locale="en">
+					<TestRenderer isFeatureEnabled={isFeatureEnabled} />
+				</IntlProvider>
 			</RelayEnvironmentProvider>,
+			[injectable(fg, mockFg), injectable(UnentitledState, () => <div>unentitled</div>)],
 		);
 	};
 
@@ -119,89 +133,22 @@ describe('RovoAgentSelector', () => {
 	});
 
 	it('should not render when isFeatureEnabled is false', () => {
-		// Set up mock data for Relay (even though component won't render)
-		environment.mock.queueOperationResolver((operation) =>
-			MockPayloadGenerator.generate(operation, {
-				AgentStudioAgentsConnection: () => ({
-					pageInfo: {
-						hasNextPage: false,
-						endCursor: null,
-					},
-					edges: generateMockAgentEdges(5),
-				}),
-			}),
-		);
-
-		const TestRendererDisabled = () => {
-			const data = useLazyLoadQuery<any>(
-				graphql`
-					query testRovoAgentSelectorDisabledQuery($cloudId: String!) @relay_test_operation {
-						...rovoAgentSelector_AtlaskitRovoAgentSelector @arguments(cloudId: $cloudId)
-					}
-				`,
-				{
-					cloudId: 'mock-cloud-id',
-				},
-			);
-
-			return (
-				<RovoAgentSelector
-					testId={testId}
-					isFeatureEnabled={false}
-					fragmentReference={data}
-					cloudId="mock-cloud-id"
-				/>
-			);
-		};
-
-		renderWithIntl(
-			<RelayEnvironmentProvider environment={environment}>
-				<TestRendererDisabled />
-			</RelayEnvironmentProvider>,
-		);
+		renderComponent({ isFeatureEnabled: false });
 
 		expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
 		expect(screen.queryByText(messages.selectorLabel.defaultMessage)).not.toBeInTheDocument();
 	});
 
+	it('should render correctly when user does not have permission to create agents', () => {
+		renderComponent({ isAbleToCreateAgents: false });
+
+		expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+		expect(screen.queryByText(messages.selectorLabel.defaultMessage)).not.toBeInTheDocument();
+		expect(screen.getByText('unentitled')).toBeVisible();
+	});
+
 	it('should use feature gate when isFeatureEnabled prop is not provided', async () => {
-		mockFg.mockReturnValue(true);
-		mockFg.mockClear(); // Clear previous calls
-
-		// Use existing TestRenderer but modify it to not pass isFeatureEnabled
-		const TestRendererWithoutFeatureFlag = () => {
-			const data = useLazyLoadQuery<any>(
-				graphql`
-					query testRovoAgentSelectorWithoutFeatureFlagQuery($cloudId: String!) @relay_test_operation {
-						...rovoAgentSelector_AtlaskitRovoAgentSelector @arguments(cloudId: $cloudId)
-					}
-				`,
-				{
-					cloudId: 'mock-cloud-id',
-				},
-			);
-
-			// Don't pass isFeatureEnabled prop to test feature gate usage
-			return <RovoAgentSelector testId={testId} fragmentReference={data} cloudId="mock-cloud-id" />;
-		};
-
-		environment.mock.queueOperationResolver((operation) =>
-			MockPayloadGenerator.generate(operation, {
-				AgentStudioAgentsConnection: () => ({
-					pageInfo: {
-						hasNextPage: false,
-						endCursor: null,
-					},
-					edges: generateMockAgentEdges(5),
-				}),
-			}),
-		);
-
-		renderWithIntl(
-			<RelayEnvironmentProvider environment={environment}>
-				<TestRendererWithoutFeatureFlag />
-			</RelayEnvironmentProvider>,
-		);
+		renderComponent({ isFeatureEnabled: undefined });
 
 		await waitFor(() => {
 			expect(screen.getByTestId(testId)).toBeInTheDocument();
@@ -210,59 +157,20 @@ describe('RovoAgentSelector', () => {
 		expect(screen.getByText(messages.selectorLabel.defaultMessage)).toBeVisible();
 
 		// Check that feature gate was called with the correct name
-		// Note: fg may be called by other components, so we check if it was called at all with our gate name
-		expect(mockFg.mock.calls.some((call) => call[0] === 'jsm_help_center_one-click_rovo_agent')).toBe(true);
+		expect(mockFg).toHaveBeenCalledWith('jsm_help_center_one-click_rovo_agent');
 	});
 
 	it('should not render when feature gate returns false', () => {
 		mockFg.mockReturnValue(false);
-
-		// Set up mock data for Relay (even though component won't render)
-		environment.mock.queueOperationResolver((operation) =>
-			MockPayloadGenerator.generate(operation, {
-				AgentStudioAgentsConnection: () => ({
-					pageInfo: {
-						hasNextPage: false,
-						endCursor: null,
-					},
-					edges: generateMockAgentEdges(5),
-				}),
-			}),
-		);
-
-		const TestRendererFeatureGateFalse = () => {
-			const data = useLazyLoadQuery<any>(
-				graphql`
-					query testRovoAgentSelectorFeatureGateFalseQuery($cloudId: String!) @relay_test_operation {
-						...rovoAgentSelector_AtlaskitRovoAgentSelector @arguments(cloudId: $cloudId)
-					}
-				`,
-				{
-					cloudId: 'mock-cloud-id',
-				},
-			);
-
-			return (
-				<RovoAgentSelector
-					testId={testId}
-					fragmentReference={data}
-					cloudId="mock-cloud-id"
-				/>
-			);
-		};
-
-		renderWithIntl(
-			<RelayEnvironmentProvider environment={environment}>
-				<TestRendererFeatureGateFalse />
-			</RelayEnvironmentProvider>,
-		);
+		renderComponent();
 
 		expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
 		expect(screen.queryByText(messages.selectorLabel.defaultMessage)).not.toBeInTheDocument();
+		expect(screen.queryByText('unentitled')).not.toBeInTheDocument();
 	});
 
 	it('should render agent options in the dropdown', async () => {
-		renderComponent(5);
+		renderComponent();
 
 		const combobox = screen.getByRole('combobox');
 		expect(combobox).toBeVisible();
@@ -275,13 +183,13 @@ describe('RovoAgentSelector', () => {
 		});
 
 		const options = within(screen.getByRole('listbox')).getAllByRole('option');
-		expect(options).toHaveLength(5);
+		expect(options).toHaveLength(10);
 		// Agent option name
 		expect(options[0]).toHaveTextContent('Agent 0');
 	});
 
 	it('should refetch correctly when search input changes', async () => {
-		renderComponent(30);
+		renderComponent({ agentCount: 30 });
 
 		const combobox = screen.getByRole('combobox');
 		await userEvent.type(combobox, 'search term');
@@ -322,47 +230,7 @@ describe('RovoAgentSelector', () => {
 	});
 
 	it('should call onChange when agent is selected', async () => {
-		const mockOnChange = jest.fn();
-		const TestRendererWithOnChange = () => {
-			const data = useLazyLoadQuery<any>(
-				graphql`
-					query testRovoAgentSelectorOnChangeQuery($cloudId: String!) @relay_test_operation {
-						...rovoAgentSelector_AtlaskitRovoAgentSelector @arguments(cloudId: $cloudId)
-					}
-				`,
-				{
-					cloudId: 'mock-cloud-id',
-				},
-			);
-
-			return (
-				<RovoAgentSelector
-					testId={testId}
-					fragmentReference={data}
-					cloudId="mock-cloud-id"
-					onChange={mockOnChange}
-					isFeatureEnabled={true}
-				/>
-			);
-		};
-
-		environment.mock.queueOperationResolver((operation) =>
-			MockPayloadGenerator.generate(operation, {
-				AgentStudioAgentsConnection: () => ({
-					pageInfo: {
-						hasNextPage: false,
-						endCursor: null,
-					},
-					edges: generateMockAgentEdges(5),
-				}),
-			}),
-		);
-
-		renderWithIntl(
-			<RelayEnvironmentProvider environment={environment}>
-				<TestRendererWithOnChange />
-			</RelayEnvironmentProvider>,
-		);
+		renderComponent();
 
 		// Wait for component to render
 		await waitFor(() => {
@@ -372,11 +240,11 @@ describe('RovoAgentSelector', () => {
 		// Select agent
 		const combobox = screen.getByRole('combobox');
 		await userEvent.click(combobox);
-		
+
 		await waitFor(() => {
 			expect(screen.getByRole('listbox')).toBeVisible();
 		});
-		
+
 		const options = within(screen.getByRole('listbox')).getAllByRole('option');
 		await userEvent.click(options[0]);
 
@@ -391,19 +259,7 @@ describe('RovoAgentSelector', () => {
 	});
 
 	it('should handle pagination when scrolling to bottom', async () => {
-		environment.mock.queueOperationResolver((operation) =>
-			MockPayloadGenerator.generate(operation, {
-				AgentStudioAgentsConnection: () => ({
-					pageInfo: {
-						hasNextPage: true,
-						endCursor: 'cursor-agent-29',
-					},
-					edges: generateMockAgentEdges(30),
-				}),
-			}),
-		);
-
-		renderComponent(30);
+		renderComponent({ agentCount: 30 });
 
 		// Wait for component to render
 		await waitFor(() => {

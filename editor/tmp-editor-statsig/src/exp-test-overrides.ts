@@ -36,7 +36,6 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	platform_hover_card_preview_panel_modal: 'control',
 	smart_link_confluence_short_link_analytics: 'control',
 	platform_inline_smartcard_connect_button_exp: 'control',
-	confluence_content_mode_replace_dense_with_compact: 'control',
 	cc_editor_insm_outlier_events: 'test',
 	platform_editor_hoverlink_ui_fixes_exp: 'control',
 	platform_editor_table_sticky_header_improvements: 'control',

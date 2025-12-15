@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d5c96fb06da7a96bc5df3f9ac4925786>>
+ * @generated SignedSource<<39c8992dbd5bb882f678fd6640aeaf38>>
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -9,24 +9,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import type { Fragment, ReaderFragment } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
 export type rovoAgentSelector_AtlaskitRovoAgentSelector$data = {
-  readonly agentStudio_getAgents: {
-    readonly edges: ReadonlyArray<{
-      readonly node: {
-        readonly creatorType: string | null | undefined;
-        readonly externalConfigReference: string | null | undefined;
-        readonly id: string;
-        readonly identityAccountId: string | null | undefined;
-        readonly name: string | null | undefined;
-      } | null | undefined;
-    }>;
-    readonly pageInfo: {
-      readonly endCursor: string | null | undefined;
-      readonly hasNextPage: boolean;
-    };
+  readonly atlassianStudio_userSiteContext: {
+    readonly userPermissions?: {
+      readonly isAbleToCreateAgents: boolean | null | undefined;
+    } | null | undefined;
   } | null | undefined;
+  readonly " $fragmentSpreads": FragmentRefs<"rovoAgentSelectorInternal_AtlaskitRovoAgentSelector">;
   readonly " $fragmentType": "rovoAgentSelector_AtlaskitRovoAgentSelector";
 };
 export type rovoAgentSelector_AtlaskitRovoAgentSelector$key = {
@@ -34,148 +25,69 @@ export type rovoAgentSelector_AtlaskitRovoAgentSelector$key = {
   readonly " $fragmentSpreads": FragmentRefs<"rovoAgentSelector_AtlaskitRovoAgentSelector">;
 };
 
-import rovoAgentSelector_AtlaskitRovoAgentSelectorPaginationQuery_graphql from './rovoAgentSelector_AtlaskitRovoAgentSelectorPaginationQuery.graphql';
-
-const node: ReaderFragment = (function(){
-var v0 = [
-  "agentStudio_getAgents"
-];
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [
-    {
-      "defaultValue": null,
-      "kind": "LocalArgument",
-      "name": "after"
-    },
     {
       "defaultValue": null,
       "kind": "LocalArgument",
       "name": "cloudId"
     },
     {
-      "defaultValue": 30,
+      "defaultValue": null,
       "kind": "LocalArgument",
-      "name": "first"
-    },
-    {
-      "defaultValue": {
-        "onlyEditableAgents": true
-      },
-      "kind": "LocalArgument",
-      "name": "input"
+      "name": "cloudIdString"
     }
   ],
   "kind": "Fragment",
-  "metadata": {
-    "connection": [
-      {
-        "count": "first",
-        "cursor": "after",
-        "direction": "forward",
-        "path": (v0/*: any*/)
-      }
-    ],
-    "refetch": {
-      "connection": {
-        "forward": {
-          "count": "first",
-          "cursor": "after"
-        },
-        "backward": null,
-        "path": (v0/*: any*/)
-      },
-      "fragmentPathInResult": [],
-      "operation": rovoAgentSelector_AtlaskitRovoAgentSelectorPaginationQuery_graphql
-    }
-  },
   "name": "rovoAgentSelector_AtlaskitRovoAgentSelector",
   "selections": [
     {
-      "alias": "agentStudio_getAgents",
       "args": [
         {
           "kind": "Variable",
           "name": "cloudId",
           "variableName": "cloudId"
-        },
-        {
-          "kind": "Variable",
-          "name": "input",
-          "variableName": "input"
         }
       ],
-      "concreteType": "AgentStudioAgentsConnection",
       "kind": "LinkedField",
-      "name": "__RovoAgent_agentStudio_getAgents_connection",
+      "name": "atlassianStudio_userSiteContext",
       "plural": false,
       "selections": [
         {
-          "concreteType": "PageInfo",
-          "kind": "LinkedField",
-          "name": "pageInfo",
-          "plural": false,
+          "kind": "InlineFragment",
           "selections": [
             {
-              "kind": "ScalarField",
-              "name": "hasNextPage"
-            },
-            {
-              "kind": "ScalarField",
-              "name": "endCursor"
-            }
-          ]
-        },
-        {
-          "concreteType": "AgentStudioAgentEdge",
-          "kind": "LinkedField",
-          "name": "edges",
-          "plural": true,
-          "selections": [
-            {
-              "concreteType": "AgentStudioAssistant",
+              "concreteType": "AtlassianStudioUserProductPermissions",
               "kind": "LinkedField",
-              "name": "node",
+              "name": "userPermissions",
               "plural": false,
               "selections": [
                 {
                   "kind": "ScalarField",
-                  "name": "id"
-                },
-                {
-                  "kind": "ScalarField",
-                  "name": "name"
-                },
-                {
-                  "kind": "ScalarField",
-                  "name": "externalConfigReference"
-                },
-                {
-                  "kind": "ScalarField",
-                  "name": "identityAccountId"
-                },
-                {
-                  "kind": "ScalarField",
-                  "name": "creatorType"
-                },
-                {
-                  "kind": "ScalarField",
-                  "name": "__typename"
+                  "name": "isAbleToCreateAgents"
                 }
               ]
-            },
-            {
-              "kind": "ScalarField",
-              "name": "cursor"
             }
-          ]
+          ],
+          "type": "AtlassianStudioUserSiteContextOutput"
         }
       ]
+    },
+    {
+      "args": [
+        {
+          "kind": "Variable",
+          "name": "cloudIdString",
+          "variableName": "cloudIdString"
+        }
+      ],
+      "kind": "FragmentSpread",
+      "name": "rovoAgentSelectorInternal_AtlaskitRovoAgentSelector"
     }
   ],
   "type": "Query"
 };
-})();
 
-(node as any).hash = "d7bdd1e2dc939a818cdc008295748109";
+(node as any).hash = "d57721784d3b3262aa36fe6cb5984857";
 
 export default node;

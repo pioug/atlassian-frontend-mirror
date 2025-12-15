@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 7.2.0
+
+### Minor Changes
+
+- [`c6d3be25ea8e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6d3be25ea8e1) -
+  Export LastOrganicChangeMetadata
+
+## 7.1.11
+
+### Patch Changes
+
+- [`60f37549e619c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60f37549e619c) -
+  Added exclusion list to batchattrs update
+
 ## 7.1.10
 
 ### Patch Changes

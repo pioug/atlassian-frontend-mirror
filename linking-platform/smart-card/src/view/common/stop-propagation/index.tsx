@@ -6,10 +6,10 @@ import React, { type ReactNode, useCallback } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled';
 
 const styles = cssMap({
-	pressable: {
+	wrapper: {
 		maxHeight: '0px',
 		maxWidth: '0px',
 		position: 'absolute',
@@ -18,15 +18,22 @@ const styles = cssMap({
 
 type StopPropagationProps = { children: ReactNode };
 
+/**
+ * A wrapper component that prevents click events from propagating to parent elements.
+ *
+ * This component is commonly used within modals or overlays to prevent unintended
+ * interactions with parent handlers when users interact with nested content.
+ *
+ */
 export const StopPropagation = ({ children }: StopPropagationProps) => {
 	const onClick = useCallback((e: React.MouseEvent<HTMLSpanElement>) => {
-		// Prevent click event inside modal from bubble up
+		// Prevent click events from bubbling up
 		e.stopPropagation();
 	}, []);
 
 	return (
-		<Pressable xcss={styles.pressable} onClick={onClick}>
+		<Box as="span" role="none" xcss={styles.wrapper} onClick={onClick}>
 			{children}
-		</Pressable>
+		</Box>
 	);
 };

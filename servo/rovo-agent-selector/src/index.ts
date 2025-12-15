@@ -1,1 +1,1 @@
-export { default } from './ui/rovo-agent-selector';
+export { RovoAgentSelector } from './ui/rovo-agent-selector';

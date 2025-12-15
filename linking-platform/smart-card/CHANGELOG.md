@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 43.15.1
+
+### Patch Changes
+
+- [`7fd73a7df2e12`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fd73a7df2e12) -
+  fix a11y violation detected for rule "nested-interactive" for "@atlaskit/smart-card" ->
+  StopPropagation component
+
 ## 43.15.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 124.21.0
+
+### Minor Changes
+
+- [`810632761780a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/810632761780a) -
+  EDITOR-3937 Cleanup usage of confluence_content_mode_replace_dense_with_compact from the frontend
+  as this is now only needed in the Confluence backend
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 124.20.0
 
 ### Minor Changes

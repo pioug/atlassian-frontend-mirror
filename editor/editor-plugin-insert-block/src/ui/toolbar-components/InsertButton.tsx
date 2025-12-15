@@ -25,11 +25,13 @@ import { Popup } from '@atlaskit/editor-common/ui';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+import type { Breakpoint } from '@atlaskit/editor-toolbar';
 import { ToolbarButton, ToolbarTooltip, AddIcon, useToolbarUI } from '@atlaskit/editor-toolbar';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
+import type { ToolbarInsertBlockButtonsConfig } from '../../types';
 import InsertMenu, { DEFAULT_HEIGHT } from '../ElementBrowser/InsertMenu';
 import type { OnInsert } from '../ElementBrowser/types';
 
@@ -45,6 +47,7 @@ const FIT_HEIGHT_BUFFER = 100;
 
 type InsertButtonProps = {
 	api?: ExtractInjectionAPI<InsertBlockPlugin>;
+	breakpoint?: Breakpoint | null;
 	expandEnabled?: boolean;
 	horizontalRuleEnabled?: boolean;
 	insertMenuItems?: MenuItem[];
@@ -54,10 +57,12 @@ type InsertButtonProps = {
 	onInsertBlockType?: (name: string) => Command;
 	showElementBrowserLink?: boolean;
 	tableSelectorSupported?: boolean;
+	toolbarConfig?: ToolbarInsertBlockButtonsConfig;
 };
 
 export const InsertButton = ({
 	api,
+	breakpoint,
 	showElementBrowserLink = false,
 	isFullPageAppearance = false,
 	tableSelectorSupported,
@@ -67,6 +72,7 @@ export const InsertButton = ({
 	insertMenuItems,
 	numberOfButtons,
 	onInsertBlockType,
+	toolbarConfig,
 }: InsertButtonProps): React.JSX.Element | null => {
 	const { editorView } = useEditorToolbar();
 	const { isDisabled, popupsMountPoint, popupsBoundariesElement, popupsScrollableElement } =
@@ -88,6 +94,7 @@ export const InsertButton = ({
 	const showMediaPicker = useSharedPluginStateSelector(api, 'media.showMediaPicker');
 	const { dropdownItems, emojiProvider, isTypeAheadAllowed } = useInsertButtonState({
 		api,
+		breakpoint,
 		editorView: editorView || undefined,
 		horizontalRuleEnabled,
 		insertMenuItems,
@@ -96,6 +103,7 @@ export const InsertButton = ({
 		tableSelectorSupported,
 		expandEnabled,
 		showElementBrowserLink,
+		toolbarConfig,
 	});
 
 	if (!api?.insertBlock) {

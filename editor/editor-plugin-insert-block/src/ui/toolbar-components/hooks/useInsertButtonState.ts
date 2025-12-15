@@ -1,17 +1,24 @@
+import { useMemo } from 'react';
+
 import { useIntl } from 'react-intl-next';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Breakpoint } from '@atlaskit/editor-toolbar';
 import type { EmojiProvider } from '@atlaskit/emoji';
 
 import type { InsertBlockPlugin } from '../../../insertBlockPluginType';
+import type { ToolbarInsertBlockButtonsConfig } from '../../../types';
 import type { BlockMenuItem } from '../../ToolbarInsertBlock/create-items';
 import { createItems } from '../../ToolbarInsertBlock/create-items';
 
+import { filterDropdownItemsByBreakpoint } from './filterDropdownItems';
+
 interface UseInsertButtonStateProps {
 	api?: ExtractInjectionAPI<InsertBlockPlugin>;
+	breakpoint?: Breakpoint | null;
 	editorView?: EditorView;
 	expandEnabled?: boolean;
 	horizontalRuleEnabled?: boolean;
@@ -20,6 +27,7 @@ interface UseInsertButtonStateProps {
 	numberOfButtons?: number;
 	showElementBrowserLink?: boolean;
 	tableSelectorSupported?: boolean;
+	toolbarConfig?: ToolbarInsertBlockButtonsConfig;
 }
 
 export interface InsertButtonState {
@@ -30,6 +38,7 @@ export interface InsertButtonState {
 
 export const useInsertButtonState = ({
 	api,
+	breakpoint,
 	editorView,
 	horizontalRuleEnabled,
 	insertMenuItems,
@@ -38,6 +47,7 @@ export const useInsertButtonState = ({
 	tableSelectorSupported,
 	expandEnabled,
 	showElementBrowserLink,
+	toolbarConfig,
 }: UseInsertButtonStateProps): InsertButtonState => {
 	const { formatMessage } = useIntl();
 	const isTypeAheadAllowed = useSharedPluginStateSelector(api, 'typeAhead.isAllowed');
@@ -73,7 +83,7 @@ export const useInsertButtonState = ({
 	const decisionSupported = !!editorView?.state.schema.nodes.decisionItem;
 	const layoutSectionEnabled = !!api?.layout;
 
-	const [, dropdownItems] = editorView?.state.schema
+	const [, allDropdownItems] = editorView?.state.schema
 		? createItems({
 				isTypeAheadAllowed: isTypeAheadAllowed,
 				tableSupported: !!editorView?.state.schema.nodes.table,
@@ -108,6 +118,14 @@ export const useInsertButtonState = ({
 				formatMessage,
 			})
 		: [, []];
+
+	const dropdownItems = useMemo(() => {
+		if (!breakpoint || !toolbarConfig) {
+			return allDropdownItems;
+		}
+
+		return filterDropdownItemsByBreakpoint(allDropdownItems, breakpoint, toolbarConfig);
+	}, [allDropdownItems, breakpoint, toolbarConfig]);
 
 	return {
 		dropdownItems,

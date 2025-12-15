@@ -9,6 +9,7 @@ export type {
 } from './collabEditPluginType';
 export type {
 	CollabInitializedMetadata,
+	LastOrganicChangeMetadata,
 	CollabEditPluginSharedState,
 	ReadOnlyParticipants,
 	PrivateCollabEditOptions,

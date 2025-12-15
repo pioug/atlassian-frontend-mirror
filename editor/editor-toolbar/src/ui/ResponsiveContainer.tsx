@@ -26,6 +26,10 @@ const styles = cssMap({
 		'.show-below-sm, .show-below-md, .show-below-lg, .show-below-xl': {
 			display: 'none',
 		},
+
+		'.show-only-sm, .show-only-md, .show-only-lg, .show-only-xl': {
+			display: 'none',
+		},
 	},
 	// Uses ancestor to provide container query context
 	responsiveContainerFullPage: {
@@ -39,12 +43,16 @@ const styles = cssMap({
 		'.show-below-sm, .show-below-md, .show-below-lg, .show-below-xl': {
 			display: 'none',
 		},
+
+		'.show-only-sm, .show-only-md, .show-only-lg, .show-only-xl': {
+			display: 'none',
+		},
 	},
 	// Preset: fullpage (410, 476, 768, 1024)
 	// Used for editor full-page experiences
 	fullpage: {
 		// @ts-expect-error - container queries are not typed in cssMap
-		'@container toolbar-container (max-width: 422px)': {
+		'@container toolbar-container (max-width: 421px)': {
 			'.show-above-sm': {
 				display: 'none',
 			},
@@ -52,7 +60,12 @@ const styles = cssMap({
 				display: 'block',
 			},
 		},
-		'@container toolbar-container (max-width: 722px)': {
+		'@container toolbar-container (min-width: 422px) and (max-width: 721px)': {
+			'.show-only-sm': {
+				display: 'block',
+			},
+		},
+		'@container toolbar-container (max-width: 721px)': {
 			'.show-above-md': {
 				display: 'none',
 			},
@@ -60,7 +73,12 @@ const styles = cssMap({
 				display: 'block',
 			},
 		},
-		'@container toolbar-container (max-width: 858px)': {
+		'@container toolbar-container (min-width: 722px) and (max-width: 857px)': {
+			'.show-only-md': {
+				display: 'block',
+			},
+		},
+		'@container toolbar-container (max-width: 857px)': {
 			'.show-above-lg': {
 				display: 'none',
 			},
@@ -68,11 +86,21 @@ const styles = cssMap({
 				display: 'block',
 			},
 		},
-		'@container toolbar-container (max-width: 1024px)': {
+		'@container toolbar-container (min-width: 858px) and (max-width: 1023px)': {
+			'.show-only-lg': {
+				display: 'block',
+			},
+		},
+		'@container toolbar-container (max-width: 1023px)': {
 			'.show-above-xl': {
 				display: 'none',
 			},
 			'.show-below-xl': {
+				display: 'block',
+			},
+		},
+		'@container toolbar-container (min-width: 1024px)': {
+			'.show-only-xl': {
 				display: 'block',
 			},
 		},
@@ -82,7 +110,7 @@ const styles = cssMap({
 	reduced: {
 		// @ts-expect-error - container queries are not typed in cssMap
 		'&&': {
-			'@container toolbar-container (max-width: 296px)': {
+			'@container toolbar-container (max-width: 295px)': {
 				'.show-above-sm': {
 					display: 'none',
 				},
@@ -90,7 +118,12 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
-			'@container toolbar-container (max-width: 432px)': {
+			'@container toolbar-container (min-width: 296px) and (max-width: 431px)': {
+				'.show-only-sm': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (max-width: 431px)': {
 				'.show-above-md': {
 					display: 'none',
 				},
@@ -98,7 +131,12 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
-			'@container toolbar-container (max-width: 662px)': {
+			'@container toolbar-container (min-width: 432px) and (max-width: 661px)': {
+				'.show-only-md': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (max-width: 661px)': {
 				'.show-above-lg': {
 					display: 'none',
 				},
@@ -106,11 +144,21 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
-			'@container toolbar-container (max-width: 1024px)': {
+			'@container toolbar-container (min-width: 662px) and (max-width: 1023px)': {
+				'.show-only-lg': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (max-width: 1023px)': {
 				'.show-above-xl': {
 					display: 'none',
 				},
 				'.show-below-xl': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (min-width: 1024px)': {
+				'.show-only-xl': {
 					display: 'block',
 				},
 			},
@@ -121,7 +169,7 @@ const styles = cssMap({
 	jiraIssue: {
 		// @ts-expect-error - container queries are not typed in cssMap
 		'&&': {
-			'@container toolbar-container (max-width: 280px)': {
+			'@container toolbar-container (max-width: 279px)': {
 				'.show-above-sm': {
 					display: 'none',
 				},
@@ -129,7 +177,12 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
-			'@container toolbar-container (max-width: 420px)': {
+			'@container toolbar-container (min-width: 280px) and (max-width: 419px)': {
+				'.show-only-sm': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (max-width: 419px)': {
 				'.show-above-md': {
 					display: 'none',
 				},
@@ -137,7 +190,12 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
-			'@container toolbar-container (max-width: 650px)': {
+			'@container toolbar-container (min-width: 420px) and (max-width: 649px)': {
+				'.show-only-md': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (max-width: 649px)': {
 				'.show-above-lg': {
 					display: 'none',
 				},
@@ -145,11 +203,21 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
-			'@container toolbar-container (max-width: 1024px)': {
+			'@container toolbar-container (min-width: 650px) and (max-width: 1023px)': {
+				'.show-only-lg': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (max-width: 1023px)': {
 				'.show-above-xl': {
 					display: 'none',
 				},
 				'.show-below-xl': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (min-width: 1024px)': {
+				'.show-only-xl': {
 					display: 'block',
 				},
 			},
@@ -160,7 +228,7 @@ const styles = cssMap({
 	jsmComment: {
 		// @ts-expect-error - container queries are not typed in cssMap
 		'&&': {
-			'@container toolbar-container (max-width: 365px)': {
+			'@container toolbar-container (max-width: 364px)': {
 				'.show-above-sm': {
 					display: 'none',
 				},
@@ -168,7 +236,12 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
-			'@container toolbar-container (max-width: 500px)': {
+			'@container toolbar-container (min-width: 365px) and (max-width: 499px)': {
+				'.show-only-sm': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (max-width: 499px)': {
 				'.show-above-md': {
 					display: 'none',
 				},
@@ -176,7 +249,12 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
-			'@container toolbar-container (max-width: 630px)': {
+			'@container toolbar-container (min-width: 500px) and (max-width: 629px)': {
+				'.show-only-md': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (max-width: 629px)': {
 				'.show-above-lg': {
 					display: 'none',
 				},
@@ -184,11 +262,21 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
-			'@container toolbar-container (max-width: 1024px)': {
+			'@container toolbar-container (min-width: 630px) and (max-width: 1023px)': {
+				'.show-only-lg': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (max-width: 1023px)': {
 				'.show-above-xl': {
 					display: 'none',
 				},
 				'.show-below-xl': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (min-width: 1024px)': {
+				'.show-only-xl': {
 					display: 'block',
 				},
 			},
@@ -199,7 +287,7 @@ const styles = cssMap({
 	confluenceComment: {
 		// @ts-expect-error - container queries are not typed in cssMap
 		'&&': {
-			'@container toolbar-container (max-width: 210px)': {
+			'@container toolbar-container (max-width: 209px)': {
 				'.show-above-sm': {
 					display: 'none',
 				},
@@ -207,7 +295,12 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
-			'@container toolbar-container (max-width: 408px)': {
+			'@container toolbar-container (min-width: 210px) and (max-width: 407px)': {
+				'.show-only-sm': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (max-width: 407px)': {
 				'.show-above-md': {
 					display: 'none',
 				},
@@ -215,7 +308,12 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
-			'@container toolbar-container (max-width: 648px)': {
+			'@container toolbar-container (min-width: 408px) and (max-width: 647px)': {
+				'.show-only-md': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (max-width: 647px)': {
 				'.show-above-lg': {
 					display: 'none',
 				},
@@ -223,11 +321,21 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
-			'@container toolbar-container (max-width: 1024px)': {
+			'@container toolbar-container (min-width: 648px) and (max-width: 1023px)': {
+				'.show-only-lg': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (max-width: 1023px)': {
 				'.show-above-xl': {
 					display: 'none',
 				},
 				'.show-below-xl': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (min-width: 1024px)': {
+				'.show-only-xl': {
 					display: 'block',
 				},
 			},

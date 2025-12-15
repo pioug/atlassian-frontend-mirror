@@ -12,6 +12,8 @@ import { type ArticlesList as ArticlesListInterface } from './model/ArticlesList
 import { MIN_ITEMS_TO_DISPLAY } from './constants';
 
 export interface Props {
+	/* Ref callback to capture the first expanded article element for focus management */
+	firstExpandedArticleRef?: (element: HTMLAnchorElement | null) => void;
 	/* Number of articles to display. This prop is optional (default value is 5) */
 	numberOfArticlesToDisplay?: number;
 }
@@ -41,6 +43,7 @@ const articlesList: React.FC<Partial<ArticlesListInterface> & Props> = ({
 	minItemsToDisplay = MIN_ITEMS_TO_DISPLAY,
 	numberOfArticlesToDisplay = MIN_ITEMS_TO_DISPLAY,
 	onArticlesListItemClick,
+	firstExpandedArticleRef,
 }) => {
 	const isExpanded = numberOfArticlesToDisplay > minItemsToDisplay;
 
@@ -48,6 +51,8 @@ const articlesList: React.FC<Partial<ArticlesListInterface> & Props> = ({
 		<Box as="ul" padding="space.0" role="list">
 			{articles.slice(0, numberOfArticlesToDisplay).map((article: ArticleItem, index: number) => {
 				const isVisible = index < minItemsToDisplay || isExpanded;
+				// The first expanded article is at index minItemsToDisplay
+				const isFirstExpandedArticle = index === minItemsToDisplay;
 				return (
 					<Box
 						as="li"
@@ -71,6 +76,7 @@ const articlesList: React.FC<Partial<ArticlesListInterface> & Props> = ({
 							trustFactors={article.trustFactors}
 							source={article.source}
 							lastPublished={article.lastPublished}
+							ref={isFirstExpandedArticle ? firstExpandedArticleRef : undefined}
 						/>
 					</Box>
 				);

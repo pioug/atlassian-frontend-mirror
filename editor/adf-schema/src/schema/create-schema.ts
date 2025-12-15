@@ -225,8 +225,7 @@ const marksInOrder: SchemaBuiltInItem[] = [
 export function getNodesAndMarksMap() {
 	const nodes = nodesInOrder.reduce(
 		(acc, { name, spec }) => {
-			// @ts-expect-error - Type for SchemaBuiltInItem is not correct
-			acc[name] = spec;
+			acc[name] = spec as NodeSpec;
 			return acc;
 		},
 		{} as Record<string, NodeSpec>,
@@ -234,8 +233,7 @@ export function getNodesAndMarksMap() {
 
 	const marks = marksInOrder.reduce(
 		(acc, { name, spec }) => {
-			// @ts-expect-error - Type for SchemaBuiltInItem is not correct
-			acc[name] = spec;
+			acc[name] = spec as MarkSpec;
 			return acc;
 		},
 		{} as Record<string, MarkSpec>,

@@ -1,5 +1,37 @@
 # @atlaskit/editor-core
 
+## 215.23.1
+
+### Patch Changes
+
+- [`b3c4249a34e4b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3c4249a34e4b) -
+  EDITOR-3880 Improve block menu rendering to support infinite nesting
+- Updated dependencies
+
+## 215.23.0
+
+### Minor Changes
+
+- [`e4f9d3c00a126`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4f9d3c00a126) -
+  [EDITOR-3919](https://hello.jira.atlassian.cloud/browse/EDITOR-3919) - use the real `getPos`
+  function as `nodeViweFactory` prop in `EditorSSRRenderer`
+
+### Patch Changes
+
+- Updated dependencies
+
+## 215.22.0
+
+### Minor Changes
+
+- [`810632761780a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/810632761780a) -
+  EDITOR-3937 Cleanup usage of confluence_content_mode_replace_dense_with_compact from the frontend
+  as this is now only needed in the Confluence backend
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 215.21.4
 
 ### Patch Changes

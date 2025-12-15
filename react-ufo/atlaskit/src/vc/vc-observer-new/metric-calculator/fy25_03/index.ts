@@ -44,9 +44,7 @@ const getConsideredEntryTypes = (include3p?: boolean): VCObserverEntryType[] => 
 	}
 
 	// Still included as part of TTVC v3
-	if (fg('platform_ufo_ttvc_v4_exclude_input_name_mutation')) {
-		entryTypes.push('mutation:attribute:non-visual-input-name');
-	}
+	entryTypes.push('mutation:attribute:non-visual-input-name');
 
 	return entryTypes;
 };

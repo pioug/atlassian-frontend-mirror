@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import ArticlesList from './ArticlesList';
@@ -16,6 +16,8 @@ const ArticleList: React.FC<ArticlesListInterface> = ({
 	onToggleArticlesList,
 }) => {
 	const [showMoreToggled, setShowMoreToggled] = useState<boolean>(true);
+	const firstExpandedArticleRef = useRef<HTMLAnchorElement | null>(null);
+	const isExpandingRef = useRef<boolean>(false);
 
 	const getMinItemsToDisplay = (): number => {
 		return minItemsToDisplay ? minItemsToDisplay : MIN_ITEMS_TO_DISPLAY;
@@ -33,10 +35,28 @@ const ArticleList: React.FC<ArticlesListInterface> = ({
 		return showMoreToggeled ? getMinItemsToDisplay() : getMaxItemsToDisplay();
 	};
 
+	// Focus on the first newly revealed article after expansion
+	useEffect(() => {
+		if (isExpandingRef.current && !showMoreToggled) {
+			if (firstExpandedArticleRef.current) {
+				firstExpandedArticleRef.current.focus();
+			}
+			isExpandingRef.current = false;
+		}
+	}, [showMoreToggled]);
+
+	const setFirstExpandedArticleRef = useCallback((element: HTMLAnchorElement | null) => {
+		firstExpandedArticleRef.current = element;
+	}, []);
+
 	const toggleArticlesList = (
 		event: React.MouseEvent<HTMLElement>,
 		analyticsEvent: UIAnalyticsEvent,
 	): void => {
+		// Track if we're expanding (going from collapsed to expanded)
+		if (showMoreToggled) {
+			isExpandingRef.current = true;
+		}
 		setShowMoreToggled(!showMoreToggled);
 
 		if (onToggleArticlesList) {
@@ -53,6 +73,8 @@ const ArticleList: React.FC<ArticlesListInterface> = ({
 					onArticlesListItemClick={onArticlesListItemClick}
 					articles={articles}
 					numberOfArticlesToDisplay={getNumberOfArticlesToDisplay(showMoreToggled)}
+					minItemsToDisplay={getMinItemsToDisplay()}
+					firstExpandedArticleRef={setFirstExpandedArticleRef}
 				/>
 				{articles.length > getMinItemsToDisplay() && (
 					<ShowMoreButton

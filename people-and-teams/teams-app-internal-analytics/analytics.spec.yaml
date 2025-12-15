@@ -3212,3 +3212,10 @@ events:
         cohort:
           type: string
           description: To which cohort was the user exposed to
+  - invitePrompt showContainerAddedFlagFailed:
+      type: operational
+      description: Fired when something fails horribly inside of showContainerAddedFlagFailed
+      attributes:
+        error:
+          type: string
+          description: The error that was thrown

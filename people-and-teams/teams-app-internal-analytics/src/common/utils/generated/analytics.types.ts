@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::beeb7e237687a19ef573366721734994>>
+ * @codegen <<SignedSource::965c2a41854782b5ae4f1669ee584dd3>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1425,6 +1425,9 @@ export type FeatureExposedAttributesType = {
 	flagKey: string;
 	cohort: string;
 };
+export type InvitePromptShowContainerAddedFlagFailedAttributesType = {
+	error: string;
+};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -2434,6 +2437,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * Fired when a flag is exposed to a user */
 	'track.feature.exposed': FeatureExposedAttributesType;
+	/**
+	 * Fired when something fails horribly inside of showContainerAddedFlagFailed */
+	'operational.invitePrompt.showContainerAddedFlagFailed': InvitePromptShowContainerAddedFlagFailedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

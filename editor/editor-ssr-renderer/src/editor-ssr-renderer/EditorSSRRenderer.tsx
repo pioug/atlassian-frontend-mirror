@@ -1,14 +1,12 @@
 import React, { useMemo, useRef, useLayoutEffect } from 'react';
 import type { IntlShape } from 'react-intl-next';
-import type { EditorPluginInjectionAPI, EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorView, DecorationSet, type NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer, type Mark, type Schema } from '@atlaskit/editor-prosemirror/model';
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type { PMPluginFactoryParams, EditorPlugin } from '@atlaskit/editor-common/types';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { EventDispatcher, createDispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -20,15 +18,14 @@ type MarkViewConstructor = (mark: Mark, view: EditorView, inline: boolean) => No
 interface Props {
 	'aria-describedby'?: string;
 	'aria-label': string;
-	buildDoc: (schema: Schema) => PMNode | undefined;
 	className: string;
 	'data-editor-id': string;
+	doc: PMNode | undefined;
 	id: string;
 	intl: IntlShape;
-	pluginInjectionAPI?: EditorPluginInjectionAPI;
+	plugins: EditorPlugin[];
 	portalProviderAPI: PortalProviderAPI;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	preset: EditorPresetBuilder<any, any>;
+	schema: Schema;
 }
 
 class SSREditorView extends EditorView {
@@ -53,11 +50,11 @@ class SSREventDispatcher extends EventDispatcher {
 }
 
 export function EditorSSRRenderer({
-	preset,
-	buildDoc,
+	plugins,
+	schema,
+	doc,
 	portalProviderAPI,
 	intl,
-	pluginInjectionAPI,
 	...divProps
 }: Props): React.JSX.Element {
 	// PMPluginFactoryParams use `getIntl` function to get current intl instance,
@@ -65,8 +62,6 @@ export function EditorSSRRenderer({
 	// We will store intl in ref and access to it dynamically in `getIntl` function call.
 	const intlRef = useRef(intl);
 	intlRef.current = intl;
-
-	const plugins = useMemo(() => preset.build({ pluginInjectionAPI }), [pluginInjectionAPI, preset]);
 
 	const pmPlugins = useMemo(() => {
 		const eventDispatcher = new SSREventDispatcher();
@@ -81,7 +76,7 @@ export function EditorSSRRenderer({
 			nodeViewPortalProviderAPI: portalProviderAPI,
 			portalProviderAPI: portalProviderAPI,
 			providerFactory,
-			schema: defaultSchema,
+			schema,
 		};
 
 		return plugins.reduce((acc, editorPlugin) => {
@@ -96,7 +91,7 @@ export function EditorSSRRenderer({
 
 			return acc;
 		}, [] as SafePlugin[]);
-	}, [plugins, portalProviderAPI]);
+	}, [plugins, portalProviderAPI, schema]);
 
 	const nodeViews = useMemo(() => {
 		return pmPlugins.reduce<Record<string, NodeViewConstructor>>((acc, plugin) => {
@@ -113,22 +108,25 @@ export function EditorSSRRenderer({
 	const editorView = useMemo(() => {
 		return new SSREditorView(null, {
 			state: EditorState.create({
-				schema: defaultSchema,
+				doc,
+				schema,
 				plugins: pmPlugins,
 			}),
 		});
-	}, [pmPlugins]);
+	}, [doc, pmPlugins, schema]);
 
-	const serializer = useMemo(() => {
+	const { serializer, nodePositions } = useMemo(() => {
+		const nodePositions = new WeakMap<PMNode, number>();
+
 		const toDomNodeRenderers = Object.fromEntries(
-			Object.entries(defaultSchema.nodes)
+			Object.entries(schema.nodes)
 				.map(([nodeName, nodeType]) => {
 					return [nodeName, nodeType.spec.toDOM];
 				})
 				.filter(([, toDOM]) => !!toDOM),
 		);
 		const toDomMarkRenderers = Object.fromEntries(
-			Object.entries(defaultSchema.marks)
+			Object.entries(schema.marks)
 				.map(([markName, markType]) => {
 					return [markName, markType.spec.toDOM];
 				})
@@ -143,7 +141,7 @@ export function EditorSSRRenderer({
 						const nodeViewInstance = nodeViewFactory(
 							node,
 							editorView,
-							() => 0,
+							() => nodePositions.get(node) ?? 0,
 							[],
 							DecorationSet.create(node, []),
 						);
@@ -173,7 +171,7 @@ export function EditorSSRRenderer({
 			}),
 		);
 
-		return new DOMSerializer(
+		const serializer = new DOMSerializer(
 			{
 				...toDomNodeRenderers,
 				...nodeViewRenderers,
@@ -184,20 +182,25 @@ export function EditorSSRRenderer({
 				...markViewRenderers,
 			},
 		);
-	}, [editorView, markViews, nodeViews]);
+
+		return { serializer, nodePositions };
+	}, [editorView, markViews, nodeViews, schema.marks, schema.nodes]);
 
 	const editorHTML = useMemo(() => {
-		try {
-			const pmDoc = buildDoc(editorView.state.schema);
-			if (!pmDoc) {
-				return undefined;
-			}
+		if (!doc) {
+			return undefined;
+		}
 
-			return serializer.serializeFragment(pmDoc.content);
+		try {
+			doc.descendants((node, pos) => {
+				nodePositions.set(node, pos);
+			});
+
+			return serializer.serializeFragment(doc.content);
 		} catch {
 			return undefined;
 		}
-	}, [editorView.state.schema, buildDoc, serializer]);
+	}, [doc, serializer, nodePositions]);
 
 	const containerRef = useRef<HTMLDivElement>(null);
 

@@ -1,5 +1,19 @@
 # @atlaskit/rovo-agent-components
 
+## 3.16.0
+
+### Minor Changes
+
+- [`b08b2dd7d1bb8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b08b2dd7d1bb8) -
+  [ux] fix all i18n descriptions for rovo agents packages
+
+## 3.15.1
+
+### Patch Changes
+
+- [`0025a26ae0e11`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0025a26ae0e11) -
+  Icon entrypoint migration
+
 ## 3.15.0
 
 ### Minor Changes

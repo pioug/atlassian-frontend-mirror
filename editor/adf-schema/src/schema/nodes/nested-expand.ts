@@ -106,8 +106,7 @@ export const nestedExpand = nestedExpandFactory(nestedExpandFactoryOptions);
 export const nestedExpandWithLocalId = nestedExpandFactory({
 	...nestedExpandFactoryOptions,
 	parseDOM: [
-		// @ts-expect-error
-		...nestedExpandFactoryOptions.parseDOM,
+		...(nestedExpandFactoryOptions.parseDOM || []),
 		{
 			context: 'nestedExpand//',
 			tag: '[data-node-type="nestedExpand"]',

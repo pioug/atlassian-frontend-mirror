@@ -94,9 +94,9 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		decisionList: [unwrapStep, wrapBlockquoteToDecisionListStep],
 	},
 	layoutSection: {
-		blockquote: [unwrapLayoutStep, wrapStep],
+		blockquote: [unwrapLayoutStep, wrapMixedContentStep],
 		expand: [unwrapLayoutStep, wrapStep],
-		panel: [unwrapLayoutStep, wrapStep],
+		panel: [unwrapLayoutStep, wrapMixedContentStep],
 		codeBlock: [unwrapLayoutStep, flattenStep, wrapStep],
 		paragraph: [unwrapLayoutStep],
 	},

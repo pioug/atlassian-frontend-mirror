@@ -140,14 +140,7 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-10-17
-	confluence_content_mode_replace_dense_with_compact: {
-		defaultValue: 'control' | 'test';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (value: unknown) => value is 'control' | 'test';
-		values: ('control' | 'test')[];
-	}; // Added 2025-06-24
+	// Added 2025-06-24
 	confluence_whiteboards_quick_insert: {
 		defaultValue: 'control' | 'test_blank' | 'test_diagram';
 		param: string;
@@ -2013,15 +2006,6 @@ export const editorExperimentsConfig: {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
-	}),
-	// Added 2025-10-17
-	confluence_content_mode_replace_dense_with_compact: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'confluence_content_mode_replace_dense_with_compact',
-		},
-		param: 'cohort',
-		values: ['control', 'test'],
-		defaultValue: 'control',
 	}),
 	// Added 2025-10-01
 	platform_inline_smartcard_connect_button_exp: createMultivariateExperiment({

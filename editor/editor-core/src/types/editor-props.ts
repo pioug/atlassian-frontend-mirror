@@ -115,12 +115,11 @@ interface EditorBaseProps {
 	 *
 	 * - `"standard"` | `undefined` - normal content mode <- Default
 	 * - `"compact"` - content in editor has reduced size
-	 * // TODO: EDITOR-2435 - remove `dense` when cleaning up 'confluence_content_mode_replace_dense_with_compact'
 	 *
 	 * @private
 	 * @deprecated this attribute is not supported outside of Confluence Full Page editors
 	 */
-	contentMode?: 'standard' | 'dense' | 'compact' | undefined;
+	contentMode?: 'standard' | 'compact' | undefined;
 
 	contentTransformerProvider?: (schema: Schema) => Transformer<string>;
 

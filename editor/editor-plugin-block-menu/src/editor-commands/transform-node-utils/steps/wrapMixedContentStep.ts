@@ -50,19 +50,6 @@ const canWrapInTarget = (
 };
 
 /**
- * Converts a nestedExpand to a regular expand node.
- * NestedExpands can only exist inside expands, so when breaking out they must be converted.
- */
-const convertNestedExpandToExpand = (node: PMNode, schema: Schema): PMNode | null => {
-	const expandType = schema.nodes.expand;
-	if (!expandType) {
-		return null;
-	}
-
-	return expandType.createAndFill({ title: node.attrs?.title || '' }, node.content);
-};
-
-/**
  * A wrap step that handles mixed content according to the Compatibility Matrix:
  * - Wraps consecutive compatible nodes into the target container
  * - Same-type containers break out as separate containers (preserved as-is)
@@ -113,14 +100,6 @@ export const wrapMixedContentStep: TransformStep = (nodes, context) => {
 			// This handles: "If there's a panel in the expand, it breaks out into a separate panel"
 			flushCurrentContainer();
 			result.push(node);
-		} else if (node.type.name === 'nestedExpand') {
-			// NestedExpand can't be wrapped and can't exist outside an expand
-			// Convert to regular expand and break out
-			flushCurrentContainer();
-			const expandNode = convertNestedExpandToExpand(node, schema);
-			if (expandNode) {
-				result.push(expandNode);
-			}
 		} else if (isTextNode(node)) {
 			// Text node (heading, paragraph) that can't be wrapped - convert to paragraph
 			// Example: heading can't go in blockquote, so convert to paragraph with same content

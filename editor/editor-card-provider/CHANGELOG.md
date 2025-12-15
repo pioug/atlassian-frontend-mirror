@@ -1,5 +1,13 @@
 # @atlaskit/editor-card-provider
 
+## 6.2.3
+
+### Patch Changes
+
+- [`0e6363029206d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e6363029206d) -
+  Change feature gate key
+- Updated dependencies
+
 ## 6.2.2
 
 ### Patch Changes

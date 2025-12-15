@@ -2358,7 +2358,7 @@ const syncBlockStyles = css({
 	[`.${SyncBlockSharedCssClassName.loading}`]: {
 		boxShadow: `0 0 0 1px ${token('color.border')}`,
 		borderRadius: token('radius.small', '3px'),
-	}
+	},
 });
 
 type RendererStyleContainerProps = Pick<
@@ -2460,9 +2460,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					: headingsSharedStyles,
 				headingWithAlignmentStyles,
 				ruleSharedStyles,
-				(contentMode === 'compact' || contentMode === 'dense') &&
-					isCompactModeSupported &&
-					extensionStyle,
+				contentMode === 'compact' && isCompactModeSupported && extensionStyle,
 				fg('platform_editor_typography_ugc')
 					? isCompactModeSupported
 						? paragraphStylesUGCScaledMargin
@@ -2540,8 +2538,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					: isCompactModeEnabled
 						? denseStyles
 						: undefined,
-				expValEquals('platform_synced_block', 'isEnabled', true) &&
-						syncBlockStyles,
+				expValEquals('platform_synced_block', 'isEnabled', true) && syncBlockStyles,
 			]}
 			data-testid={testId}
 		>

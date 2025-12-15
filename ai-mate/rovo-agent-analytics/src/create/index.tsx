@@ -15,6 +15,7 @@ export enum AgentCreateActions {
 	SKIP_NL = 'createFlowSkipNL',
 	REVIEW_NL = 'createFlowReviewNL',
 	ACTIVATE = 'createFlowActivate',
+	RESTART = 'createFlowRestart',
 	ERROR = 'createFlowError',
 }
 

@@ -192,5 +192,6 @@ export const expandToBlockRange = (
 	return {
 		$from: $from.doc.resolve(range.start),
 		$to: $to.doc.resolve(range.end),
+		range,
 	};
 };

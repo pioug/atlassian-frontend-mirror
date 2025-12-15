@@ -40,7 +40,8 @@ import { FormatMenuComponent } from './format-menu-nested';
 import { FormatMenuSection } from './format-menu-section';
 import { MoveDownDropdownItem } from './move-down';
 import { MoveUpDropdownItem } from './move-up';
-import { SuggestedItemsRenderer } from './suggested-items-renderer';
+import { SuggestedItemsMenuSection } from './suggested-items-menu-section';
+import { SuggestedMenuItems } from './suggested-menu-items';
 
 const getMoveUpMoveDownMenuComponents = (
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined,
@@ -93,7 +94,9 @@ const getTurnIntoMenuComponents = (
 				key: TRANSFORM_MENU_ITEM.key,
 				rank: TRANSFORM_MENU_ITEM_RANK[TRANSFORM_SUGGESTED_MENU_SECTION.key],
 			},
-			component: () => <SuggestedItemsRenderer api={api} />,
+			component: ({ children }: { children: React.ReactNode } = { children: null }) => (
+				<SuggestedItemsMenuSection api={api}>{children}</SuggestedItemsMenuSection>
+			),
 		},
 		{
 			type: 'block-menu-item' as const,
@@ -103,6 +106,7 @@ const getTurnIntoMenuComponents = (
 				key: TRANSFORM_SUGGESTED_MENU_SECTION.key,
 				rank: TRANSFORM_SUGGESTED_MENU_SECTION_RANK[TRANSFORM_SUGGESTED_MENU_ITEM.key],
 			},
+			component: () => <SuggestedMenuItems api={api} />,
 		},
 		{
 			type: 'block-menu-section' as const,

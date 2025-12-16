@@ -10,7 +10,7 @@ import {
 import { toolbarMediaMessages } from '@atlaskit/editor-common/media';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import AttachmentIcon from '@atlaskit/icon/core/migration/attachment--editor-attachment';
+import AttachmentIcon from '@atlaskit/icon/core/attachment';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 

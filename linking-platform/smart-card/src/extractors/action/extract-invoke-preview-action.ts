@@ -163,9 +163,7 @@ export const extractInvokePreviewAction = (
 							isBlanketHidden: fg('linking_platform_hide_preview_action_blanket_prop')
 								? actionOptions?.previewAction?.hideBlanket
 								: undefined,
-							size: fg('platform_linking_enable_card_preview_action_size')
-								? actionOptions?.previewAction?.size
-								: undefined,
+							size: actionOptions?.previewAction?.size,
 							...(expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') && {
 								isInPreviewPanel,
 							}),

@@ -4,8 +4,9 @@ import { useIntl } from 'react-intl-next';
 
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { SyncBlockLabelSharedCssClassName } from '@atlaskit/editor-common/sync-block';
-import { ConfluenceIcon } from '@atlaskit/logo';
+import BlockSyncedIcon from '@atlaskit/icon-lab/core/block-synced';
 import { Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -47,11 +48,11 @@ const SyncBlockLabelComponent = ({
 				className={SyncBlockLabelSharedCssClassName.labelClassName}
 				aria-describedby={ariaDescribedById}
 			>
-				<ConfluenceIcon size="xsmall" appearance="neutral" shouldUseNewLogoDesign />
+				<BlockSyncedIcon color={token('color.icon.subtle')} size="small" label=""/>
 				{isSource || !title ? (
-					<Text size="small">{formatMessage(messages.syncedBlockLabel)}</Text>
+					<Text size="small" color='color.text.subtle'>{formatMessage(messages.syncedBlockLabel)}</Text>
 				) : (
-					<Text maxLines={1} size="small">
+					<Text maxLines={1} size="small" color='color.text.subtle'>
 						{title}
 					</Text>
 				)}

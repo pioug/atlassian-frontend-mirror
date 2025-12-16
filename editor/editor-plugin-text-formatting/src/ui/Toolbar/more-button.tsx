@@ -9,7 +9,7 @@ import { css, jsx } from '@emotion/react';
 
 import { triggerWrapperStyles } from '@atlaskit/editor-common/styles';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--editor-more';
+import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 

@@ -345,7 +345,11 @@ function createPlaceHolderStateFrom({
 	withEmptyParagraph,
 	showOnEmptyParagraph,
 }: CreatePlaceholderStateProps): PlaceHolderState {
-	if (isPlaceholderHidden && withEmptyParagraph) {
+	const shouldHidePlaceholder = fg('platform_editor_ai_aifc_patch_ga_blockers')
+		? isPlaceholderHidden
+		: isPlaceholderHidden && withEmptyParagraph;
+
+	if (shouldHidePlaceholder) {
 		return {
 			...emptyPlaceholder({
 				placeholderText: defaultPlaceholderText,
@@ -613,7 +617,10 @@ export function createPlugin(
 				});
 
 				let isPlaceholderHidden = placeholderState?.isPlaceholderHidden ?? false;
-				if (meta?.isPlaceholderHidden !== undefined && withEmptyParagraph) {
+				const shouldUpdatePlaceholderHidden = fg('platform_editor_ai_aifc_patch_ga_blockers')
+					? meta?.isPlaceholderHidden !== undefined
+					: meta?.isPlaceholderHidden !== undefined && withEmptyParagraph;
+				if (shouldUpdatePlaceholderHidden) {
 					isPlaceholderHidden = meta.isPlaceholderHidden;
 				}
 

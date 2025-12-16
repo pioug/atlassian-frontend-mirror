@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.15.0
+
+### Minor Changes
+
+- [`762b79e21f96a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/762b79e21f96a) -
+  Migrated and cleaned up legacy iconography usage.
+
+### Patch Changes
+
+- [`e4dce058a2b52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4dce058a2b52) -
+  EDITOR-3793 Stop preserving selection on block menu close
+- Updated dependencies
+
+## 7.14.1
+
+### Patch Changes
+
+- [`9391799e9bdf4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9391799e9bdf4) -
+  Clean up platform_editor_elements_dnd_select_node_on_drag
+- Updated dependencies
+
 ## 7.14.0
 
 ### Minor Changes

@@ -57,13 +57,11 @@ const TestCanOpenComponent = ({
 	);
 };
 
-const TestProductComponent = ({ testId = 'hover-trigger-test-id' }: { testId?: string }) => {
-	return (
-		<HoverCard url={mockUrl} id="some-id">
-			<div data-testid={testId}>Hover</div>
-		</HoverCard>
-	);
-};
+const TestProductComponent = ({ testId = 'hover-trigger-test-id' }: { testId?: string }) => (
+	<HoverCard url={mockUrl} id="some-id">
+		<div data-testid={testId}>Hover</div>
+	</HoverCard>
+);
 
 describe('standalone hover card', () => {
 	beforeEach(() => {
@@ -121,15 +119,13 @@ describe('standalone hover card', () => {
 		const testId = 'h1-hover-card-trigger';
 		const mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
 		const mockClient = new (fakeFactory(mockFetch))();
-		const ComponentWithHoverCard = () => {
-			return (
-				<StandaloneHoverCard url={mockUrl} id={'1234'}>
-					<Heading testId={testId} size="xlarge">
-						Hover over me!
-					</Heading>
-				</StandaloneHoverCard>
-			);
-		};
+		const ComponentWithHoverCard = () => (
+			<StandaloneHoverCard url={mockUrl} id={'1234'}>
+				<Heading testId={testId} size="xlarge">
+					Hover over me!
+				</Heading>
+			</StandaloneHoverCard>
+		);
 		const FirstRenderComponent = () => (
 			<div data-testid="first">
 				<ComponentWithHoverCard />
@@ -216,15 +212,13 @@ describe('standalone hover card', () => {
 		const mockClient = new (fakeFactory(mockFetch))();
 		const event = userEvent.setup({ delay: null });
 
-		const ComponentWithHoverCard = () => {
-			return (
-				<StandaloneHoverCard url={mockUrl} id={'1234'}>
-					<Heading testId={testId} size="xlarge">
-						Hover over me!
-					</Heading>
-				</StandaloneHoverCard>
-			);
-		};
+		const ComponentWithHoverCard = () => (
+			<StandaloneHoverCard url={mockUrl} id={'1234'}>
+				<Heading testId={testId} size="xlarge">
+					Hover over me!
+				</Heading>
+			</StandaloneHoverCard>
+		);
 
 		const FirstRenderComponent = () => (
 			<div data-testid="first">
@@ -634,44 +628,28 @@ describe('standalone hover card', () => {
 		describe('custom hoverPreviewOptions render via feature flag', () => {
 			const customContentTestId = 'custom-hover-card-content';
 
-			ffTest.on('smart-link-custom-hover-card-content', 'when flag enabled', () => {
-				it('renders custom content instead of default view', async () => {
-					await standaloneSetUp(undefined, {
-						noFadeDelay: true,
-						hoverPreviewOptions: {
-							render: () => <div data-testid={customContentTestId}>Custom Content</div>,
-						},
-					});
-
-					expect(await screen.findByTestId(customContentTestId)).toBeInTheDocument();
-					expect(screen.queryByTestId('smart-block-title-resolved-view')).toBeNull();
+			it('renders custom content instead of default view', async () => {
+				await standaloneSetUp(undefined, {
+					noFadeDelay: true,
+					hoverPreviewOptions: {
+						render: () => <div data-testid={customContentTestId}>Custom Content</div>,
+					},
 				});
 
-				it('falls back to default view when render returns null', async () => {
-					await standaloneSetUp(undefined, {
-						noFadeDelay: true,
-						hoverPreviewOptions: {
-							render: () => null,
-						},
-					});
-
-					expect(screen.queryByTestId(customContentTestId)).toBeNull();
-					expect(await screen.findByTestId('smart-block-title-resolved-view')).toBeInTheDocument();
-				});
+				expect(await screen.findByTestId(customContentTestId)).toBeInTheDocument();
+				expect(screen.queryByTestId('smart-block-title-resolved-view')).toBeNull();
 			});
 
-			ffTest.off('smart-link-custom-hover-card-content', 'when flag disabled', () => {
-				it('does not render custom content and shows default view', async () => {
-					await standaloneSetUp(undefined, {
-						noFadeDelay: true,
-						hoverPreviewOptions: {
-							render: () => <div data-testid={customContentTestId}>Custom Content</div>,
-						},
-					});
-
-					expect(screen.queryByTestId(customContentTestId)).toBeNull();
-					expect(await screen.findByTestId('smart-block-title-resolved-view')).toBeInTheDocument();
+			it('falls back to default view when render returns null', async () => {
+				await standaloneSetUp(undefined, {
+					noFadeDelay: true,
+					hoverPreviewOptions: {
+						render: () => null,
+					},
 				});
+
+				expect(screen.queryByTestId(customContentTestId)).toBeNull();
+				expect(await screen.findByTestId('smart-block-title-resolved-view')).toBeInTheDocument();
 			});
 		});
 
@@ -708,44 +686,28 @@ describe('standalone hover card', () => {
 		});
 
 		describe('shouldRenderToParent and popupComponent props', () => {
-			ffTest.on('hover-card-prop-should-render-to-parent', 'when flag enabled', () => {
-				it('should render popup not in portal when shouldRenderToParent is true', async () => {
-					await standaloneSetUp(undefined, {
-						shouldRenderToParent: true,
-						noFadeDelay: true,
-					});
-
-					const hoverCard = await screen.findByTestId('hover-card');
-					expect(hoverCard).toBeInTheDocument();
-					// When shouldRenderToParent is true, the popup should NOT be in a portal
-					expect(hoverCard.closest('.atlaskit-portal')).not.toBeInTheDocument();
+			it('should render popup not in portal when shouldRenderToParent is true', async () => {
+				await standaloneSetUp(undefined, {
+					shouldRenderToParent: true,
+					noFadeDelay: true,
 				});
 
-				it('should render popup in portal when shouldRenderToParent is false', async () => {
-					await standaloneSetUp(undefined, {
-						shouldRenderToParent: false,
-						noFadeDelay: true,
-					});
-
-					const hoverCard = await screen.findByTestId('hover-card');
-					expect(hoverCard).toBeInTheDocument();
-					// When shouldRenderToParent is false, the popup should be rendered in a portal
-					expect(hoverCard.closest('.atlaskit-portal')).toBeInTheDocument();
-				});
+				const hoverCard = await screen.findByTestId('hover-card');
+				expect(hoverCard).toBeInTheDocument();
+				// When shouldRenderToParent is true, the popup should NOT be in a portal
+				expect(hoverCard.closest('.atlaskit-portal')).not.toBeInTheDocument();
 			});
 
-			ffTest.off('hover-card-prop-should-render-to-parent', 'when flag disabled', () => {
-				it('should always render popup in portal when flag is disabled', async () => {
-					await standaloneSetUp(undefined, {
-						shouldRenderToParent: true,
-						noFadeDelay: true,
-					});
-
-					const hoverCard = await screen.findByTestId('hover-card');
-					expect(hoverCard).toBeInTheDocument();
-					// When flag is disabled, the popup should always be in a portal
-					expect(hoverCard.closest('.atlaskit-portal')).toBeInTheDocument();
+			it('should render popup in portal when shouldRenderToParent is false', async () => {
+				await standaloneSetUp(undefined, {
+					shouldRenderToParent: false,
+					noFadeDelay: true,
 				});
+
+				const hoverCard = await screen.findByTestId('hover-card');
+				expect(hoverCard).toBeInTheDocument();
+				// When shouldRenderToParent is false, the popup should be rendered in a portal
+				expect(hoverCard.closest('.atlaskit-portal')).toBeInTheDocument();
 			});
 		});
 	});

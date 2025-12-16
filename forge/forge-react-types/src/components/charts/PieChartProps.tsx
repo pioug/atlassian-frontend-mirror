@@ -38,6 +38,10 @@ export type PieChartProps = {
 	 * Boolean to display labels on top of each slice. Defaults to `false`.
 	 */
 	showMarkLabels?: boolean;
+	/**
+	 * Adds a border onto the chart. Defaults to true.
+	 */
+	showBorder?: boolean;
 };
 
 /**

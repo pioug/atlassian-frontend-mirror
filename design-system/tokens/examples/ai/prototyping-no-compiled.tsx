@@ -3,7 +3,7 @@ import React from 'react';
 
 import { token } from '@atlaskit/tokens';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div
 		style={{
 			backgroundColor: token('elevation.surface'),

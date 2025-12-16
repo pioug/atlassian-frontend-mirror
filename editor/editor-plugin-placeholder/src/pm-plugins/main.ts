@@ -75,7 +75,10 @@ export default function createPlugin(
 				});
 
 				let isPlaceholderHidden = placeholderState?.isPlaceholderHidden ?? false;
-				if (meta?.isPlaceholderHidden !== undefined && withEmptyParagraph) {
+				const shouldUpdatePlaceholderHidden = fg('platform_editor_ai_aifc_patch_ga_blockers')
+					? meta?.isPlaceholderHidden !== undefined
+					: meta?.isPlaceholderHidden !== undefined && withEmptyParagraph;
+				if (shouldUpdatePlaceholderHidden) {
 					isPlaceholderHidden = meta.isPlaceholderHidden;
 				}
 

@@ -28,6 +28,7 @@ import {
 	TooltipContentWithMultipleShortcuts,
 } from '@atlaskit/editor-common/keymaps';
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
+import { expandToBlockRange } from '@atlaskit/editor-common/selection';
 import { DRAG_HANDLE_WIDTH, tableControlsSpacing } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
@@ -41,7 +42,6 @@ import {
 	relativeSizeToBaseFontSize,
 } from '@atlaskit/editor-shared-styles/consts';
 import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
-import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
@@ -439,7 +439,7 @@ const getExpandedSelectionRange = ({
 	doc,
 	resolvedStartPos,
 	isShiftPressed,
-}: CalculateSelectionBlockRangeOptions): NodeRange | null => {
+}: CalculateSelectionBlockRangeOptions) => {
 	// When not pressing shift, expand the current selection
 	// When shift selecting upwards, expand from start of node to selection end
 	// When shift selecting downwards, expand from selection start to end of node
@@ -447,7 +447,7 @@ const getExpandedSelectionRange = ({
 	const $from = isShiftPressed && selectUp ? resolvedStartPos : selection.$from;
 	const $to = isShiftPressed && !selectUp ? doc.resolve(resolvedStartPos.pos + 1) : selection.$to;
 
-	return $from.blockRange($to);
+	return expandToBlockRange($from, $to);
 };
 
 export const DragHandle = ({
@@ -528,7 +528,7 @@ export const DragHandle = ({
 					},
 				})(tr);
 
-				const range = getExpandedSelectionRange({
+				const expandedRange = getExpandedSelectionRange({
 					doc: tr.doc,
 					selection,
 					resolvedStartPos,
@@ -536,18 +536,19 @@ export const DragHandle = ({
 				});
 
 				// Set selection to expanded selection range if it encompases the clicked drag handle
-				if (range && isPosWithinRange(startPos, range) && isMultiNodeRange(range)) {
-					const collapsed = collapseToSelectionRange(
-						tr.doc.resolve(range.start),
-						tr.doc.resolve(range.end),
-					);
+				if (
+					expandedRange.range &&
+					isPosWithinRange(startPos, expandedRange.range) &&
+					isMultiNodeRange(expandedRange.range)
+				) {
+					const collapsed = collapseToSelectionRange(expandedRange.$from, expandedRange.$to);
 
 					// Then create a selection from the start of the first node to the end of the last node
 					tr.setSelection(
 						TextSelection.create(
 							tr.doc,
-							Math.min(selection.from, collapsed ? collapsed.$from.pos : range.start),
-							Math.max(selection.to, collapsed ? collapsed.$to.pos : range.end),
+							Math.min(selection.from, collapsed.$from.pos),
+							Math.max(selection.to, collapsed.$to.pos),
 						),
 					);
 				} else {
@@ -731,7 +732,7 @@ export const DragHandle = ({
 						);
 						if (!tr.selection.empty && newHandlePosCheck) {
 							api?.blockControls?.commands.setMultiSelectPositions()({ tr });
-						} else if (fg('platform_editor_elements_dnd_select_node_on_drag')) {
+						} else {
 							tr = selectNode(tr, handlePos, nodeType, api);
 						}
 
@@ -1393,13 +1394,7 @@ export const DragHandle = ({
 				// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 				onDragStart={handleIconDragStart}
 			>
-				<DragHandleVerticalIcon
-					spacing="spacious"
-					label=""
-					LEGACY_fallbackIcon={DragHandlerIcon}
-					LEGACY_size="medium"
-					size="small"
-				/>
+				<DragHandleVerticalIcon spacing="spacious" label="" size="small" />
 			</Box>
 		</button>
 	);

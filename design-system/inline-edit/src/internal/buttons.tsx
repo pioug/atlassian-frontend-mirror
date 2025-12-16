@@ -8,9 +8,8 @@
 import { css, jsx } from '@compiled/react';
 
 import { IconButton } from '@atlaskit/button/new';
+import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import CrossIcon from '@atlaskit/icon/core/cross';
-import CheckMarkIcon from '@atlaskit/icon/core/migration/check-mark--check';
-import CancelIcon from '@atlaskit/icon/glyph/cross';
 import { B400, N0, N20A, N30A, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -67,7 +66,7 @@ const Buttons = ({
 			<div css={buttonWrapperBaseStyles} tabIndex={-1}>
 				<IconButton
 					type="submit"
-					icon={(iconProps) => <CheckMarkIcon {...iconProps} LEGACY_size="small" size="small" />}
+					icon={(iconProps) => <CheckMarkIcon {...iconProps} size="small" />}
 					onMouseDown={onMouseDown}
 					label={confirmButtonLabel}
 					testId={testId && `${testId}--confirm`}
@@ -75,14 +74,7 @@ const Buttons = ({
 			</div>
 			<div css={buttonWrapperBaseStyles} tabIndex={-1}>
 				<IconButton
-					icon={(iconProps) => (
-						<CrossIcon
-							{...iconProps}
-							LEGACY_size="small"
-							LEGACY_fallbackIcon={CancelIcon}
-							size="small"
-						/>
-					)}
+					icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
 					label={cancelButtonLabel}
 					onClick={onCancelClick}
 					onMouseDown={onMouseDown}

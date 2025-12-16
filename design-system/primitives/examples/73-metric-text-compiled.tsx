@@ -6,7 +6,7 @@ import { MetricText, Stack } from '@atlaskit/primitives/compiled';
 const sizes = ['small', 'medium', 'large'] as const;
 const alignments = ['start', 'center', 'end'] as const;
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Stack space="space.300">
 			<section>

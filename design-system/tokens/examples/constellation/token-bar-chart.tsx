@@ -33,7 +33,7 @@ const options = {
 
 `;
 
-const TokenBarChart = () => {
+const TokenBarChart = (): React.JSX.Element => {
 	const theme = useThemeObserver();
 	const [chartOptions, setChartOptions] = useState({});
 	useEffect(() => {

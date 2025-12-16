@@ -49,54 +49,7 @@ describe('RovoAgentCardClient', () => {
 
 	ffTest.on('pt-deprecate-assistance-service', '', () => {
 		describe('getProfile', () => {
-			ffTest.off('agent_studio_permissions_settings_m3_profiles', '', () => {
-				test('return correct result using agentId', async () => {
-					fetchMock.get('/gateway/api/assist/rovo/v1/agents/agent-id-123', {
-						body: mockRestAgentResponse,
-					});
-
-					const mockAgentId = {
-						type: 'agent' as const,
-						value: 'agent-id-123',
-					};
-					const client = new RovoAgentCardClient(mockOptions);
-
-					const result = await client.getProfile(mockAgentId, undefined, mockAnalyticsNext);
-
-					expect(result).toEqual({
-						restData: mockRestAgentResponse,
-						aggData: null,
-					});
-					expect(mockAGGQuery).toHaveBeenCalledTimes(0);
-				});
-
-				test('return correct result using identityAccountId', async () => {
-					fetchMock.get('/gateway/api/assist/rovo/v1/agents/accountid/identity-account-id-123', {
-						body: mockRestAgentResponse,
-					});
-
-					const mockIdentityAccountId = {
-						type: 'identity' as const,
-						value: 'identity-account-id-123',
-					};
-					const client = new RovoAgentCardClient(mockOptions);
-
-					const result = await client.getProfile(
-						mockIdentityAccountId,
-						undefined,
-						mockAnalyticsNext,
-					);
-
-					expect(result).toEqual({
-						restData: mockRestAgentResponse,
-						aggData: null,
-					});
-					expect(mockAGGQuery).toHaveBeenCalledTimes(0);
-				});
-			});
-
-			ffTest.on('agent_studio_permissions_settings_m3_profiles', '', () => {
-				test('return correct result using agentId from both REST and AGG', async () => {
+			test('return correct result using agentId from both REST and AGG', async () => {
 					fetchMock.get('/gateway/api/assist/rovo/v1/agents/agent-id-123', {
 						body: mockRestAgentResponse,
 					});
@@ -249,7 +202,6 @@ describe('RovoAgentCardClient', () => {
 						}),
 					);
 				});
-			});
 		});
 	});
 });

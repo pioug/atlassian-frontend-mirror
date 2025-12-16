@@ -100,6 +100,10 @@ const BaseTag: React.ForwardRefExoticComponent<
 	const isLink = Boolean(href);
 	const isRemovable = Boolean(after);
 	const isInteractive = isLink || isRemovable;
+	if (color === 'gray') {
+		// internally we use 'grey' for gray color so that we can make migration easier behind the ff (gray will work with and without ff now)
+		color = 'grey';
+	}
 
 	return (
 		<span

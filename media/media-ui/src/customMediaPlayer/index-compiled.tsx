@@ -59,7 +59,6 @@ import { TimeSaver, type TimeSaverConfig } from './timeSaver';
 import PlaybackSpeedControls from './playbackSpeedControls';
 import { PlayPauseBlanket } from './playPauseBlanket';
 import Tooltip from '@atlaskit/tooltip';
-import { SkipTenBackwardIcon, SkipTenForwardIcon } from '@atlaskit/legacy-custom-icons';
 import { fg } from '@atlaskit/platform-feature-flags';
 import VideoSkipForwardTenIcon from '@atlaskit/icon/core/video-skip-forward-ten';
 import VideoSkipBackwardTenIcon from '@atlaskit/icon/core/video-skip-backward-ten';
@@ -518,7 +517,6 @@ export class CustomMediaPlayerBase extends Component<
 					iconBefore={
 						<VideoSkipBackwardTenIcon
 							spacing="spacious"
-							LEGACY_fallbackIcon={SkipTenBackwardIcon}
 							label={formatMessage(messages.skipBackward)}
 						/>
 					}
@@ -540,7 +538,6 @@ export class CustomMediaPlayerBase extends Component<
 					iconBefore={
 						<VideoSkipForwardTenIcon
 							spacing="spacious"
-							LEGACY_fallbackIcon={SkipTenForwardIcon}
 							label={formatMessage(messages.skipForward)}
 						/>
 					}

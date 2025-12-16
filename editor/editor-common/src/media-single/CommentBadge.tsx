@@ -12,7 +12,6 @@ import type { IntlShape } from 'react-intl-next';
 import CustomThemeButton from '@atlaskit/button/custom-theme-button';
 import { akEditorUnitZIndex } from '@atlaskit/editor-shared-styles';
 import CommentIcon from '@atlaskit/icon/core/comment';
-import LegacyCommentIcon from '@atlaskit/icon/glyph/comment';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -138,15 +137,7 @@ export const CommentBadge = forwardRef<HTMLDivElement, CommentBadgeProps>(
 						onClick={onClick}
 						onMouseEnter={onMouseEnter}
 						onMouseLeave={onMouseLeave}
-						iconAfter={
-							<CommentIcon
-								label={title}
-								spacing="spacious"
-								color="currentColor"
-								LEGACY_size={badgeSize}
-								LEGACY_fallbackIcon={LegacyCommentIcon}
-							/>
-						}
+						iconAfter={<CommentIcon label={title} spacing="spacious" color="currentColor" />}
 					/>
 				</Tooltip>
 			</div>

@@ -1,5 +1,11 @@
 # @atlaskit/pagination
 
+## 16.1.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.1.20
 
 ### Patch Changes

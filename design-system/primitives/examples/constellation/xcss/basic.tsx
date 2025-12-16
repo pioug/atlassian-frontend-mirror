@@ -17,7 +17,7 @@ const cardStyles = xcss({
 	borderRadius: 'radius.small',
 });
 
-const MyCard = () => (
+const MyCard = (): React.JSX.Element => (
 	<Box xcss={cardStyles}>
 		<Stack space="space.100">
 			<Heading size="medium">A Card</Heading>

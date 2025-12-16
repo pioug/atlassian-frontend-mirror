@@ -8,7 +8,6 @@ import { SizeableAvatar } from '../../../components/SizeableAvatar';
 import { type Team, type Group } from '../../../types';
 import { type Props as SizeableAvatarProps } from '../../../components/SizeableAvatar';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { getAppearanceForAppType } from '@atlaskit/avatar';
 
 const data = {
@@ -52,16 +51,12 @@ jest.mock('../../../components/SizeableAvatar', () => ({
 	),
 }));
 
-jest.mock('@atlaskit/people-teams-ui-public/verified-team-icon', () => ({
-	VerifiedTeamIcon: () => <div>VerifiedTeamIcon</div>,
+jest.mock('../../../components/AvatarOrIcon', () => ({
+	AvatarOrIcon: (props: any) => <div>AvatarOrIcon - {JSON.stringify(props)}</div>,
 }));
 
-/**
- * ffTest.on is causing some issues, given the mock is only temporary I'm just manually mocking the fg function
- */
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	...jest.requireActual('@atlaskit/platform-feature-flags'),
-	fg: jest.fn(),
+jest.mock('@atlaskit/people-teams-ui-public/verified-team-icon', () => ({
+	VerifiedTeamIcon: () => <div>VerifiedTeamIcon</div>,
 }));
 
 jest.mock('@atlaskit/avatar', () => ({
@@ -124,7 +119,6 @@ describe('SingleValue', () => {
 		});
 
 		it('should render SizeableAvatar with team type', async () => {
-			(fg as jest.Mock).mockReturnValue(true);
 			renderTeamValue({
 				...mockTeam,
 				avatarUrl: 'avatar-url',
@@ -140,7 +134,6 @@ describe('SingleValue', () => {
 		});
 
 		it('should render verified team icon if team is verified', async () => {
-			(fg as jest.Mock).mockReturnValue(true);
 			renderTeamValue({
 				...mockTeam,
 				verified: true,
@@ -152,7 +145,6 @@ describe('SingleValue', () => {
 		});
 
 		it('should not render verified team icon if team is not verified', async () => {
-			(fg as jest.Mock).mockReturnValue(true);
 			renderTeamValue({
 				...mockTeam,
 				verified: false,
@@ -343,6 +335,96 @@ describe('SingleValue', () => {
 				).toBeInTheDocument();
 
 				await expect(document.body).toBeAccessible();
+			});
+		});
+	});
+
+	describe('icon support', () => {
+		const mockIcon = <div data-testid="test-icon">Icon</div>;
+		const iconAsString = '{"type":"div","key":null,"ref":null,"props":{"data-testid":"test-icon","children":"Icon"},"_owner":null,"_store":{}}';
+
+		ffTest.on('atlaskit_user_picker_support_icon', 'on', () => {
+			it('should render AvatarOrIcon when feature gate is enabled and icon is provided', async () => {
+				const userWithIcon = {
+					...data.data,
+					icon: mockIcon,
+				};
+
+				render(
+					<SingleValue
+						{...defaultSingleValueProps}
+						data={{
+							...data,
+							data: userWithIcon,
+						}}
+					/>,
+				);
+
+				expect(
+					await screen.findByText(
+						`AvatarOrIcon - {"icon":${iconAsString},"src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person"}`,
+					),
+				).toBeInTheDocument();
+			});
+
+			it('should render AvatarOrIcon with iconColor when both icon and iconColor are provided', async () => {
+				const iconColor = '#FF0000';
+				const userWithIconAndColor = {
+					...data.data,
+					icon: mockIcon,
+					iconColor,
+				};
+
+				render(
+					<SingleValue
+						{...defaultSingleValueProps}
+						data={{
+							...data,
+							data: userWithIconAndColor,
+						}}
+					/>,
+				);
+
+				expect(
+					await screen.findByText(
+						`AvatarOrIcon - {"icon":${iconAsString},"iconColor":"#FF0000","src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person"}`,
+					),
+				).toBeInTheDocument();
+			});
+
+			it('should render SizeableAvatar when feature gate is enabled but no icon is provided', async () => {
+				render(<SingleValue {...defaultSingleValueProps} />);
+
+				expect(
+					await screen.findByText(
+						'SizeableAvatar - {"src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person"}',
+					),
+				).toBeInTheDocument();
+			});
+		});
+
+		ffTest.off('atlaskit_user_picker_support_icon', 'off', () => {
+			it('should render SizeableAvatar when feature gate is disabled even if icon is provided', async () => {
+				const userWithIcon = {
+					...data.data,
+					icon: mockIcon,
+				};
+
+				render(
+					<SingleValue
+						{...defaultSingleValueProps}
+						data={{
+							...data,
+							data: userWithIcon,
+						}}
+					/>,
+				);
+
+				expect(
+					await screen.findByText(
+						'SizeableAvatar - {"src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person"}',
+					),
+				).toBeInTheDocument();
 			});
 		});
 	});

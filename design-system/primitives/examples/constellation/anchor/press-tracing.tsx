@@ -99,7 +99,7 @@ const Projects = () => {
 	);
 };
 
-export default function PressTracing() {
+export default function PressTracing(): React.JSX.Element {
 	return (
 		<FlagsProvider>
 			<Projects />

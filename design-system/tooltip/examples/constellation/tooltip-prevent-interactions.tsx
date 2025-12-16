@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/new';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import Tooltip from '@atlaskit/tooltip';
 
-export default function TooltipPreventInteractionsExample() {
+export default function TooltipPreventInteractionsExample(): React.JSX.Element {
 	return (
 		<Stack space="space.100">
 			<Stack space="space.100">

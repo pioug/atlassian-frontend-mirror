@@ -1,10 +1,8 @@
-import { expandToBlockRange } from '@atlaskit/editor-common/selection';
-import type { Schema, Node as PMNode, NodeRange } from '@atlaskit/editor-prosemirror/model';
+import type { NodeRange, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type ContentNodeWithPos, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables';
-import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 
 import type { NodeTypeName } from './types';
 
@@ -59,50 +57,6 @@ export const getTargetNodeTypeNameInContext = (
 	}
 
 	return nodeTypeName;
-};
-
-/**
- * Use common expandToBlockRange function to get the correct range for the selection
- * For example, if selection starts in a listItem, go find the bullet list or ordered list, their $from
- * @param selection
- * @param schema
- * @returns
- */
-export const expandSelectionToBlockRange = (selection: Selection, schema: Schema) => {
-	const { nodes } = schema;
-	const nodesNeedToExpandRange = [nodes.bulletList, nodes.orderedList, nodes.taskList, nodes.listItem, nodes.taskItem];
-
-	// when adding nodes.tableRow, tableHeader, tableCell in nodesNeedToExpandRang,
-	// expandToBlockRange does not return expected table start position, sometimes even freeze editor
-	// so handle table in the below logic
-	if (isTableSelected(selection)) {
-		const table = findTable(selection);
-		if (table) {
-			const $from = selection.$from.doc.resolve(table.pos);
-			const $to = selection.$from.doc.resolve(table.pos + table.node.nodeSize - 1);
-			return { $from, $to, range: $from.blockRange($to) };
-		}
-	}
-
-	// when selecting a file, selection is on media
-	// need to find media group and return its pos
-	if (selection instanceof NodeSelection) {
-		if (selection.node.type === nodes.media) {
-			const mediaGroup = findParentNodeOfType(nodes.mediaGroup)(selection);
-			if (mediaGroup) {
-				const $from = selection.$from.doc.resolve(mediaGroup.pos);
-				const $to = selection.$from.doc.resolve(mediaGroup.pos + mediaGroup.node.nodeSize);
-				return { $from, $to };
-			}
-		}
-	}
-
-	return expandToBlockRange(selection.$from, selection.$to, (node) => {
-		if (nodesNeedToExpandRange.includes(node.type)) {
-			return false;
-		}
-		return true;
-	});
 };
 
 export const isListType = (node: PMNode, schema: Schema): boolean => {

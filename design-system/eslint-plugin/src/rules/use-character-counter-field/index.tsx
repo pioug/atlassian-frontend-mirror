@@ -9,7 +9,7 @@ const TEXTAREA_PACKAGE = '@atlaskit/textarea';
 const FORM_PACKAGE = '@atlaskit/form';
 
 export const message =
-	'When using `maxLength` or `minLength` props with Textfield/Textarea inside a Form, use `CharacterCounterField` from `@atlaskit/form` instead of Field and remove the props from the Textfield/Textarea. This ensures accessibility through real time feedback and aligns with the design system. Read more about [character counter fields](https://atlassian.design/components/form/examples#character-counter-field)';
+	'When using `maxLength` or `minLength` props with Textfield/Textarea inside a Form, use `CharacterCounterField` from `@atlaskit/form` instead of Field and remove the props from the Textfield/Textarea. This ensures accessibility through real time feedback and aligns with the design system. Read more about [character counter fields](https://atlassian.design/components/form/examples#charactercounterfield)';
 
 export const ruleName = __dirname.split('/').slice(-1)[0];
 

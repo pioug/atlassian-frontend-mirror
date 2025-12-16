@@ -21,7 +21,7 @@ const spaceItems = [
 	'space.1000',
 ] as const;
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box testId="stack-example" padding="space.100">
 		<Inline space="space.100">
 			{spaceItems.map((space) => (

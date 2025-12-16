@@ -100,7 +100,7 @@ export const TokenPieChartCodeBlock = `
   ];
 `;
 
-export const TokenPieChart = () => {
+export const TokenPieChart = (): React.JSX.Element => {
 	useThemeObserver();
 
 	const chartOptions = {

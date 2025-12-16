@@ -1,6 +1,6 @@
 /**
- * @generated SignedSource<<810f4c58ad0aa79246f7c7416472ad14>>
- * @relayHash 2f83a6e7be695aef46ade7f4d22e1ec8
+ * @generated SignedSource<<a73527b5cbeabe4f07a0433ff2e96d4c>>
+ * @relayHash 03c01c63fc390ee6493e1d4048a6f17c
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -10,7 +10,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-// @relayRequestID d77708fc6774db3d5beef3e2193723ed74f1c81403eb4587c565a80f2e4e6858
+// @relayRequestID 95036efb3760061f318fa5d75d641b63bac8625600f64dc289038b7673610612
 
 import type { ConcreteRequest, Query } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
@@ -106,6 +106,10 @@ return {
           {
             "kind": "InlineFragment",
             "selections": [
+              {
+                "kind": "ScalarField",
+                "name": "isCustomAgentsAvailable"
+              },
               {
                 "concreteType": "AtlassianStudioUserProductPermissions",
                 "kind": "LinkedField",
@@ -203,7 +207,7 @@ return {
     ]
   },
   "params": {
-    "id": "d77708fc6774db3d5beef3e2193723ed74f1c81403eb4587c565a80f2e4e6858",
+    "id": "95036efb3760061f318fa5d75d641b63bac8625600f64dc289038b7673610612",
     "metadata": {},
     "name": "basicRovoAgentSelectorQuery",
     "operationKind": "query",

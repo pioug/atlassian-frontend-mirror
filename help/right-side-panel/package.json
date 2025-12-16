@@ -48,7 +48,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/page": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@types/exenv": "root:*",
 		"@types/react-transition-group": "root:*",
 		"enzyme": "root:*",

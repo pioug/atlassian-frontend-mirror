@@ -91,7 +91,7 @@ import {
 	denseEmojiHeightH4,
 } from '@atlaskit/editor-common/emoji';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
+import { BodiedSyncBlockSharedCssClassName, SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 
 const wrappedMediaBreakoutPoint = 410;
 const TELEPOINTER_ID = 'ai-streaming-telepointer';
@@ -2350,15 +2350,20 @@ const denseStyles = css({
 });
 
 const syncBlockStyles = css({
+	[`.${SyncBlockSharedCssClassName.renderer}, .${BodiedSyncBlockSharedCssClassName.renderer}, .${SyncBlockSharedCssClassName.error}, .${SyncBlockSharedCssClassName.loading}`]: {
+		borderRadius: token('radius.small', '3px'),
+		marginTop: token('space.150', '12px'),
+		paddingTop: token('space.075', '6px'),
+		paddingBottom: token('space.050', '4px'),
+	},
+
 	[`.${SyncBlockSharedCssClassName.error}`]: {
 		backgroundColor: token('color.background.disabled'),
-		borderRadius: token('radius.small', '3px'),
 	},
 
 	[`.${SyncBlockSharedCssClassName.loading}`]: {
 		boxShadow: `0 0 0 1px ${token('color.border')}`,
-		borderRadius: token('radius.small', '3px'),
-	},
+	}
 });
 
 type RendererStyleContainerProps = Pick<

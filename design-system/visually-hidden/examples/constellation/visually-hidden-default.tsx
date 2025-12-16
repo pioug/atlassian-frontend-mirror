@@ -4,7 +4,7 @@ import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import ToggleVisuallyHidden from './utils/toggle-visually-hidden';
 
-const VisuallyHiddenDefaultExample = () => {
+const VisuallyHiddenDefaultExample = (): React.JSX.Element => {
 	const hiddenContent = "Can't see me!";
 
 	return (

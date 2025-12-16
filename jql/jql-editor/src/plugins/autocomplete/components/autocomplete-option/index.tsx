@@ -3,7 +3,7 @@ import React, { forwardRef, useCallback, useMemo, useState } from 'react';
 import deburr from 'lodash/deburr';
 import noop from 'lodash/noop';
 
-import { type IconProps, type NewCoreIconProps } from '@atlaskit/icon';
+import { type NewCoreIconProps } from '@atlaskit/icon';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import CalendarIcon from '@atlaskit/icon/core/calendar';
 import ClockIcon from '@atlaskit/icon/core/clock';
@@ -16,15 +16,6 @@ import CheckboxIcon from '@atlaskit/icon/core/task';
 import TextIcon from '@atlaskit/icon/core/text';
 import { normaliseJqlString } from '@atlaskit/jql-ast';
 import { type Position } from '@atlaskit/jql-autocomplete';
-import LegacyAlignLeftIcon from '@atlaskit/legacy-custom-icons/align-left-icon';
-import LegacyArrowDownIcon from '@atlaskit/legacy-custom-icons/arrow-down-circle-icon';
-import LegacyCalendarIcon from '@atlaskit/legacy-custom-icons/calendar-icon';
-import LegacyClockIcon from '@atlaskit/legacy-custom-icons/clock-icon';
-import LegacyDataNumberIcon from '@atlaskit/legacy-custom-icons/data-number-icon';
-import LegacyPersonAvatarIcon from '@atlaskit/legacy-custom-icons/person-avatar-icon';
-import LegacyTagIcon from '@atlaskit/legacy-custom-icons/tag-icon';
-import LegacyCheckboxIcon from '@atlaskit/legacy-custom-icons/task-icon';
-import LegacyTextIcon from '@atlaskit/legacy-custom-icons/text-icon';
 import { N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -51,18 +42,11 @@ type Props = {
 };
 
 type ResizedIconProps = {
-	Icon: React.FC<NewCoreIconProps>;
-	LegacyIcon: ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => JSX.Element;
+	Icon: (props: NewCoreIconProps) => JSX.Element;
 };
 
-const ResizedIcon = ({ Icon, LegacyIcon }: ResizedIconProps) => (
-	<Icon
-		LEGACY_fallbackIcon={LegacyIcon}
-		LEGACY_size="small"
-		label=""
-		testId="jql-editor-field-type-icon"
-		color="currentColor"
-	/>
+const ResizedIcon = ({ Icon }: ResizedIconProps) => (
+	<Icon label="" testId="jql-editor-field-type-icon" color="currentColor" />
 );
 
 /**
@@ -72,23 +56,23 @@ const ResizedIcon = ({ Icon, LegacyIcon }: ResizedIconProps) => (
 const getFieldTypeIcon = (type: string) => {
 	switch (type) {
 		case 'Checkboxes':
-			return <ResizedIcon Icon={CheckboxIcon} LegacyIcon={LegacyCheckboxIcon} />;
+			return <ResizedIcon Icon={CheckboxIcon} />;
 		case 'Date':
-			return <ResizedIcon Icon={CalendarIcon} LegacyIcon={LegacyCalendarIcon} />;
+			return <ResizedIcon Icon={CalendarIcon} />;
 		case 'Dropdown':
-			return <ResizedIcon Icon={FieldDropdownIcon} LegacyIcon={LegacyArrowDownIcon} />;
+			return <ResizedIcon Icon={FieldDropdownIcon} />;
 		case 'Labels':
-			return <ResizedIcon Icon={TagIcon} LegacyIcon={LegacyTagIcon} />;
+			return <ResizedIcon Icon={TagIcon} />;
 		case 'Number':
-			return <ResizedIcon Icon={DataNumberIcon} LegacyIcon={LegacyDataNumberIcon} />;
+			return <ResizedIcon Icon={DataNumberIcon} />;
 		case 'Paragraph':
-			return <ResizedIcon Icon={AlignTextLeftIcon} LegacyIcon={LegacyAlignLeftIcon} />;
+			return <ResizedIcon Icon={AlignTextLeftIcon} />;
 		case 'People':
-			return <ResizedIcon Icon={PersonAvatarIcon} LegacyIcon={LegacyPersonAvatarIcon} />;
+			return <ResizedIcon Icon={PersonAvatarIcon} />;
 		case 'Short text':
-			return <ResizedIcon Icon={TextIcon} LegacyIcon={LegacyTextIcon} />;
+			return <ResizedIcon Icon={TextIcon} />;
 		case 'Time stamp':
-			return <ResizedIcon Icon={ClockIcon} LegacyIcon={LegacyClockIcon} />;
+			return <ResizedIcon Icon={ClockIcon} />;
 		default:
 			return null;
 	}

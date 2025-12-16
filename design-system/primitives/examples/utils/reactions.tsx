@@ -10,7 +10,7 @@ export const users = [
 
 const MAX_USERS_DISPLAYED = 5;
 
-export const ReactionsList = ({ reactions }: { reactions: number }) => {
+export const ReactionsList = ({ reactions }: { reactions: number }): React.JSX.Element => {
 	const numberOfUsersDisplayed = Math.min(reactions, MAX_USERS_DISPLAYED);
 	return (
 		<Fragment>

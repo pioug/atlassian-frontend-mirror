@@ -46,7 +46,7 @@ export const TokenLineChartCodeBlock = `
   };
 `;
 
-export const TokenLineChart = () => {
+export const TokenLineChart = (): React.JSX.Element => {
 	useThemeObserver();
 
 	const chartOptions = {

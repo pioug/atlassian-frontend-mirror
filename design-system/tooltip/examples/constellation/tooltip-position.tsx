@@ -79,7 +79,7 @@ const buttonGridStyles = cssMap({
 	},
 });
 
-const PositionExample = () => {
+const PositionExample = (): React.JSX.Element => {
 	return (
 		<Box xcss={buttonGridStyles.root}>
 			{placements.map((placement) => (

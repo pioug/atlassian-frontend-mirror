@@ -60,9 +60,6 @@
 			"path": "../../design-system/icon-lab/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/legacy-custom-icons/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/locale/tsconfig.app.json"
 		},
 		{

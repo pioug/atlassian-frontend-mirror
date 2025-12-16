@@ -9,11 +9,9 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import Heading from '@atlaskit/heading';
 import DownloadIcon from '@atlaskit/icon/core/download';
+import VidFullScreenOnIcon from '@atlaskit/icon/core/fullscreen-enter';
 import FullscreenExitIcon from '@atlaskit/icon/core/fullscreen-exit';
-import VidFullScreenOnIcon from '@atlaskit/icon/core/migration/fullscreen-enter--vid-full-screen-on';
-import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
-import DownloadIconLegacy from '@atlaskit/icon/glyph/download';
-import VidFullScreenOffIcon from '@atlaskit/icon/glyph/vid-full-screen-off';
+import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { CloseButton, useModal } from '@atlaskit/modal-dialog';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -97,7 +95,6 @@ const LinkInfo = ({
 					icon={() => (
 						<DownloadIcon
 							label={messages.download.defaultMessage as string}
-							LEGACY_fallbackIcon={DownloadIconLegacy}
 							spacing="spacious"
 							color="currentColor"
 						/>
@@ -142,7 +139,6 @@ const LinkInfo = ({
 		const message = isFullScreen ? messages.preview_min_size : messages.preview_max_size;
 		const icon = isFullScreen ? (
 			<FullscreenExitIcon
-				LEGACY_fallbackIcon={VidFullScreenOffIcon}
 				label={message.defaultMessage as string}
 				spacing="spacious"
 				color="currentColor"

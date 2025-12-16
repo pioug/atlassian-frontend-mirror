@@ -33,9 +33,9 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
-import AngleBracketsIcon from '@atlaskit/icon/core/migration/angle-brackets--editor-code';
-import BoldIcon from '@atlaskit/icon/core/migration/text-bold--editor-bold';
-import ItalicIcon from '@atlaskit/icon/core/migration/text-italic--editor-italic';
+import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
+import BoldIcon from '@atlaskit/icon/core/text-bold';
+import ItalicIcon from '@atlaskit/icon/core/text-italic';
 import TextStrikethroughIcon from '@atlaskit/icon/core/text-strikethrough';
 import UnderlineIcon from '@atlaskit/icon/core/text-underline';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';

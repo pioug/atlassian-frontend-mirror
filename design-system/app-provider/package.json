@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/app-provider",
-	"version": "3.2.8",
+	"version": "3.2.9",
 	"description": "A top level provider for the Design System.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

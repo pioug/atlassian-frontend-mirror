@@ -11,7 +11,7 @@ interface PositionExampleProps {
 	color: Color;
 }
 
-export default function PositionExample({ color = 'blue' }: PositionExampleProps) {
+export default function PositionExample({ color = 'blue' }: PositionExampleProps): React.JSX.Element {
 	const [position, setPosition] = useState(0);
 
 	const changeDirection = () => {

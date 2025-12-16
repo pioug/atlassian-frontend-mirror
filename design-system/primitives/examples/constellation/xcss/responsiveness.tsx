@@ -33,7 +33,7 @@ const cardStyles = xcss({
 	},
 });
 
-const ResponsiveCard = () => (
+const ResponsiveCard = (): React.JSX.Element => (
 	<Box xcss={cardStyles} tabIndex={0}>
 		<Stack space="space.100">
 			<Heading size="medium">A Responsive Card</Heading>

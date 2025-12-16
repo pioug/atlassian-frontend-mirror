@@ -7,7 +7,7 @@ import React, { type ReactElement } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
+import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 

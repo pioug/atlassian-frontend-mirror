@@ -81,7 +81,7 @@
 		}
 	},
 	"name": "@atlaskit/audit-log-events-query-controller",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "Controller that handles both the basic filter and alql editor",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

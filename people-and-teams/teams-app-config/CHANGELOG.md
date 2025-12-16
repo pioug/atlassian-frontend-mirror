@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-config
 
+## 1.12.10
+
+### Patch Changes
+
+- [`0abc52bb79c93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0abc52bb79c93) -
+  fix: support atlassian-stg-fedm.net in isFedRampStaging check
+
 ## 1.12.9
 
 ### Patch Changes

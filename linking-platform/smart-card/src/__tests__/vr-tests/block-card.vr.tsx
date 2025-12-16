@@ -92,33 +92,28 @@ snapshot(BlockCardUnauthorisedViewWithNoAuth, {
 });
 snapshot(BlockCardJira, {
 	featureFlags: {
-		'platform-linking-enable-avatar-data-separator': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardConfluence, {
 	featureFlags: {
-		'platform-linking-enable-avatar-data-separator': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardTrello, {
 	featureFlags: {
-		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardAtlas, {
 	featureFlags: {
-		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardBitbucket, {
 	featureFlags: {
-		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 	waitForNetworkIdle: true,
 	waitForReactLazy: true,
@@ -133,7 +128,6 @@ snapshot(BlockCardLazyIcon1, {
 	description: `block card with lazy load icons, slice 1`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 	waitForReactLazy: true,
 });
@@ -141,7 +135,6 @@ snapshot(BlockCardLazyIcon2, {
 	description: `block card with lazy load icons, slice 2`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-linking-enable-avatar-data-separator': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
@@ -150,7 +143,6 @@ snapshot(BlockCardLazyIcon3, {
 	description: `block card with lazy load icons, slice 3`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-linking-enable-avatar-data-separator': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
@@ -159,7 +151,6 @@ snapshot(BlockCardLazyIcon4, {
 	description: `block card with lazy load icons, slice 4`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-linking-enable-avatar-data-separator': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
@@ -168,7 +159,6 @@ snapshot(BlockCardLazyIcon5, {
 	description: `block card with lazy load icons, slice 5`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-linking-enable-avatar-data-separator': [true, false],
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
@@ -184,7 +174,6 @@ snapshot(BlockCardLazyIconsFileType1, {
 	description: `block card with lazy load icons per file format, slice 1`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 	waitForReactLazy: true,
 });
@@ -192,7 +181,6 @@ snapshot(BlockCardLazyIconsFileType2, {
 	description: `block card with lazy load icons per file format, slice 2`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 	waitForReactLazy: true,
 });
@@ -200,7 +188,6 @@ snapshot(BlockCardLazyIconsFileType3, {
 	description: `block card with lazy load icons per file format, slice 3`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 	waitForReactLazy: true,
 });
@@ -208,14 +195,12 @@ snapshot(BlockCardLazyIconsFileType4, {
 	description: `block card with lazy load icons per file format, slice 4`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardEntities, {
 	description: `block card with entity support`,
 	featureFlags: {
-		'platform-linking-enable-avatar-data-separator': [true, false],
 	},
 	waitForReactLazy: true,
 });

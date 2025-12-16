@@ -6,7 +6,7 @@ import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import ToggleVisuallyHidden from './utils/toggle-visually-hidden';
 
-const VisuallyHiddenButtonsExample = () => {
+const VisuallyHiddenButtonsExample = (): React.JSX.Element => {
 	return (
 		<ToggleVisuallyHidden id="buttons-example">
 			{(isVisible) => (

@@ -1,5 +1,12 @@
 # @atlaskit/editor-prosemirror
 
+## 7.2.1
+
+### Patch Changes
+
+- [`cac3d6228356a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cac3d6228356a) -
+  adf-schema doc updates
+
 ## 7.2.0
 
 ### Minor Changes

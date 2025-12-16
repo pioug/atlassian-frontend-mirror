@@ -18,7 +18,7 @@ const disabledStyles = xcss({
 	backgroundColor: 'color.background.accent.gray.bolder',
 });
 
-export default function ConditionalStyles() {
+export default function ConditionalStyles(): React.JSX.Element {
 	const [isEnabled, setEnabled] = useState(false);
 
 	return (

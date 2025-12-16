@@ -17,15 +17,10 @@ import AlignImageRightIcon from '@atlaskit/icon/core/align-image-right';
 import AlignTextCenterIcon from '@atlaskit/icon/core/align-text-center';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import AlignTextRightIcon from '@atlaskit/icon/core/align-text-right';
+import ContentWidthWide from '@atlaskit/icon/core/content-width-wide';
 import ContentWrapLeftIcon from '@atlaskit/icon/core/content-wrap-left';
 import ContentWrapRightIcon from '@atlaskit/icon/core/content-wrap-right';
-import ContentWidthWide from '@atlaskit/icon/core/migration/content-width-wide--editor-media-wide';
-import FullWidthIcon from '@atlaskit/icon/core/migration/expand-horizontal--editor-media-full-width';
-import EditorAlignImageCenter from '@atlaskit/icon/glyph/editor/align-image-center';
-import EditorAlignImageLeft from '@atlaskit/icon/glyph/editor/align-image-left';
-import EditorAlignImageRight from '@atlaskit/icon/glyph/editor/align-image-right';
-import WrapLeftIcon from '@atlaskit/icon/glyph/editor/media-wrap-left';
-import WrapRightIcon from '@atlaskit/icon/glyph/editor/media-wrap-right';
+import FullWidthIcon from '@atlaskit/icon/core/expand-horizontal';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { EditorAnalyticsAPI } from '../../analytics';
@@ -70,7 +65,6 @@ export const alignmentIcons: LayoutIcon[] = [
 				color="currentColor"
 				spacing="spacious"
 				label="media-toolbar-align-left-icon"
-				LEGACY_fallbackIcon={EditorAlignImageLeft}
 			/>
 		),
 	},
@@ -82,7 +76,6 @@ export const alignmentIcons: LayoutIcon[] = [
 				color="currentColor"
 				spacing="spacious"
 				label="media-toolbar-align-center-icon"
-				LEGACY_fallbackIcon={EditorAlignImageCenter}
 			/>
 		),
 	},
@@ -94,7 +87,6 @@ export const alignmentIcons: LayoutIcon[] = [
 				color="currentColor"
 				spacing="spacious"
 				label="media-toolbar-align-right-icon"
-				LEGACY_fallbackIcon={EditorAlignImageRight}
 			/>
 		),
 	},
@@ -130,7 +122,6 @@ export const wrappingIcons: LayoutIcon[] = [
 				color="currentColor"
 				spacing="spacious"
 				label="media-toolbar-wrap-left-icon"
-				LEGACY_fallbackIcon={WrapLeftIcon}
 			/>
 		),
 	},
@@ -142,7 +133,6 @@ export const wrappingIcons: LayoutIcon[] = [
 				color="currentColor"
 				spacing="spacious"
 				label="media-toolbar-wrap-right-icon"
-				LEGACY_fallbackIcon={WrapRightIcon}
 			/>
 		),
 	},

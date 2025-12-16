@@ -12,7 +12,7 @@ const containerStyles = xcss({
 	height: 'size.1000',
 });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box testId="inline-example" padding="space.100">
 		<Inline space="space.200">
 			{alignBlockItems.map((alignBlock) => (

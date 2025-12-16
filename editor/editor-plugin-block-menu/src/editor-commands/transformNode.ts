@@ -1,3 +1,4 @@
+import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Fragment, type NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
@@ -6,7 +7,6 @@ import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import { isNestedNode } from '../ui/utils/isNestedNode';
 
 import { getOutputNodes } from './transform-node-utils/transform';
-import { expandSelectionToBlockRange } from './transform-node-utils/utils';
 import type { TransformNodeAnalyticsAttrs } from './transforms/types';
 import { isListNode } from './transforms/utils';
 
@@ -23,7 +23,7 @@ export const transformNode =
 
 			const schema = tr.doc.type.schema;
 			const { nodes } = schema;
-			const { $from, $to } = expandSelectionToBlockRange(preservedSelection, schema);
+			const { $from, $to } = expandSelectionToBlockRange(preservedSelection);
 			const isNested = isNestedNode(preservedSelection, '');
 
 			const selectedParent = $from.parent;

@@ -1,5 +1,15 @@
 # @atlaskit/notification-log-service
 
+## 6.4.0
+
+### Minor Changes
+
+- [`910016b9f1230`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/910016b9f1230) -
+  We are testing routing calls to fetch the unseen notification count via GraphQL instead of REST
+  behind a feature flag.
+
+  If this change is successful it will be released as a subsequent major version.
+
 ## 6.3.0
 
 ### Minor Changes

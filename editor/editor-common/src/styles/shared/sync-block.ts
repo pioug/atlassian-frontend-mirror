@@ -9,6 +9,7 @@ export const SyncBlockSharedCssClassName = {
 const bodiedPrefix = 'ak-editor-bodied-sync-block';
 export const BodiedSyncBlockSharedCssClassName = {
 	prefix: bodiedPrefix,
+	renderer: `${prefix}__renderer`,
 	content: `${bodiedPrefix}__content`,
 	selectionInside: `${bodiedPrefix}__selection_inside`,
 };

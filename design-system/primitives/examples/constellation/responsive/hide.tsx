@@ -5,7 +5,7 @@ import MaximizeIcon from '@atlaskit/icon/core/maximize';
 import { Stack } from '@atlaskit/primitives/compiled';
 import { Hide } from '@atlaskit/primitives/responsive';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<Stack alignInline="start" space="space.100">
 			Try resizing your browser window

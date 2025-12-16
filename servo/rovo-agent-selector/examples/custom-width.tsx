@@ -62,6 +62,7 @@ export default function CustomWidth(): React.JSX.Element {
 				userPermissions: {
 					isAbleToCreateAgents: true,
 				},
+				isCustomAgentsAvailable: true,
 			}),
 		}),
 	);

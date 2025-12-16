@@ -3,7 +3,7 @@ import React from 'react';
 import Button from '@atlaskit/button/new';
 import Tooltip from '@atlaskit/tooltip';
 
-export default function TooltipTruncateExample() {
+export default function TooltipTruncateExample(): React.JSX.Element {
 	return (
 		<Tooltip
 			truncate

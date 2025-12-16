@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 11.5.12
+
+### Patch Changes
+
+- [`90abe9b926a6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90abe9b926a6f) -
+  Icon entrypoint migration
+- Updated dependencies
+
 ## 11.5.11
 
 ### Patch Changes

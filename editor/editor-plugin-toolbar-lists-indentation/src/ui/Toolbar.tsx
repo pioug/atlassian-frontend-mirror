@@ -19,10 +19,10 @@ import {
 import { indentationMessages, listMessages as messages } from '@atlaskit/editor-common/messages';
 import { ToolbarButtonGroup, ToolbarSeparator } from '@atlaskit/editor-common/ui';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import BulletedListIcon from '@atlaskit/icon/core/migration/list-bulleted--editor-bullet-list';
-import NumberListIcon from '@atlaskit/icon/core/migration/list-numbered--editor-number-list';
-import OutdentIcon from '@atlaskit/icon/core/migration/text-indent-left--editor-outdent';
-import IndentIcon from '@atlaskit/icon/core/migration/text-indent-right--editor-indent';
+import BulletedListIcon from '@atlaskit/icon/core/list-bulleted';
+import NumberListIcon from '@atlaskit/icon/core/list-numbered';
+import OutdentIcon from '@atlaskit/icon/core/text-indent-left';
+import IndentIcon from '@atlaskit/icon/core/text-indent-right';
 
 import type { ButtonName, ToolbarProps } from '../types';
 

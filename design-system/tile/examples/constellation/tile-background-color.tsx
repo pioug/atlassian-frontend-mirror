@@ -3,7 +3,7 @@ import React from 'react';
 import { Inline } from '@atlaskit/primitives/compiled';
 import Tile from '@atlaskit/tile';
 
-export default function TileBackgroundColor() {
+export default function TileBackgroundColor(): React.JSX.Element {
 	return (
 		<Inline space="space.100">
 			<Tile label="">🌈</Tile>

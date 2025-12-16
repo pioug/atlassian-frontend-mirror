@@ -8,7 +8,7 @@ const boxStyles = xcss({
 	height: 'size.500',
 });
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	return (
 		<Box
 			backgroundColor="color.background.brand.bold"

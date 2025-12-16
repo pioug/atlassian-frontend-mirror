@@ -15,7 +15,6 @@ import type {
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import CopyIcon from '@atlaskit/icon/core/migration/copy';
-import RemoveIcon from '@atlaskit/icon/core/migration/delete--editor-remove';
 import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -184,7 +183,7 @@ export const getToolbarConfig =
 				type: 'button',
 				appearance: 'danger',
 				icon: DeleteIcon,
-				iconFallback: RemoveIcon,
+				iconFallback: DeleteIcon,
 				onMouseEnter: hoverDecoration?.(nodeType, true),
 				onMouseLeave: hoverDecoration?.(nodeType, false),
 				onFocus: hoverDecoration?.(nodeType, true),

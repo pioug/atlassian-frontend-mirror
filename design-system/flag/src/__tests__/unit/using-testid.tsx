@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
+import SuccessIcon from '@atlaskit/icon/core/status-success';
 
 import Flag from '../../flag';
 
@@ -15,7 +15,7 @@ describe('Flag should be found by data-testid', () => {
 					{ content: 'Show me', onClick: noop },
 					{ content: 'No thanks', onClick: noop },
 				]}
-				icon={<SuccessIcon label="Info" />}
+				icon={<SuccessIcon spacing="spacious" label="Info" />}
 				description="We got fun an games. We got everything you want honey, we know the names."
 				id="1"
 				key="1"
@@ -38,7 +38,7 @@ describe('Flag actions should be found by data-testid', () => {
 					},
 					{ content: 'No thanks', onClick: noop },
 				]}
-				icon={<SuccessIcon label="Info" />}
+				icon={<SuccessIcon spacing="spacious" label="Info" />}
 				description="We got fun an games. We got everything you want honey, we know the names."
 				id="1"
 				key="1"
@@ -52,7 +52,7 @@ describe('Flag icon containers should be found by data-testid', () => {
 	test('Using getByTestId()', async () => {
 		render(
 			<Flag
-				icon={<SuccessIcon label="Info" />}
+				icon={<SuccessIcon spacing="spacious" label="Info" />}
 				description="We got fun an games. We got everything you want honey, we know the names."
 				id="1"
 				key="1"

@@ -1,7 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
-import LegacyEditorFilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
 import EditorFilePreviewIcon from '@atlaskit/icon/core/grow-diagonal';
 import Button from '@atlaskit/button';
 import { messages } from '@atlaskit/media-ui';
@@ -24,11 +23,7 @@ const MediaPreviewButton = (props: Props & WrappedComponentProps) => {
 			appearance="subtle"
 			testId="preview-button"
 			iconAfter={
-				<EditorFilePreviewIcon
-					LEGACY_fallbackIcon={LegacyEditorFilePreviewIcon}
-					label={formatMessage(messages.preview)}
-					color="currentColor"
-				/>
+				<EditorFilePreviewIcon label={formatMessage(messages.preview)} color="currentColor" />
 			}
 			onKeyPress={(event) => event.stopPropagation()}
 			onClick={(event: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {

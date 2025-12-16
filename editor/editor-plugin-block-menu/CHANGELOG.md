@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.2.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.2.14
+
+### Patch Changes
+
+- [`6bf9c33a49f72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6bf9c33a49f72) -
+  [ux] Add check for empty transformation and create blank node
+- Updated dependencies
+
+## 5.2.13
+
+### Patch Changes
+
+- [`8da61d284b811`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8da61d284b811) -
+  EDITOR-3911 Expand selection to block range
+- [`010fbe9d85b12`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/010fbe9d85b12) -
+  [ux] Fix bug / make wrap of expand convert to nestedExpand node
+- Updated dependencies
+
 ## 5.2.12
 
 ### Patch Changes

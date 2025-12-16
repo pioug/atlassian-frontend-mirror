@@ -6,7 +6,7 @@ import Toggle from '@atlaskit/toggle';
 
 import ExampleBox from '../shared/example-box';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [rowSpace, setRowSpace] = useState<'space.300' | undefined>(undefined);
 	const toggleSpace = () => {
 		setRowSpace(rowSpace === 'space.300' ? undefined : 'space.300');

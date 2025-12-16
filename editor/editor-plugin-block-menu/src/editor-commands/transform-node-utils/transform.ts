@@ -139,6 +139,7 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		bulletList: [decisionListToListStep],
 		orderedList: [decisionListToListStep],
 		taskList: [decisionListToListStep],
+		layoutSection: [wrapIntoLayoutStep],
 	},
 };
 

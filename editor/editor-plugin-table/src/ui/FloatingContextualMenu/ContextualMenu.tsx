@@ -43,7 +43,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import type { Rect } from '@atlaskit/editor-tables/table-map';
 import { splitCell } from '@atlaskit/editor-tables/utils';
-import PaintBucketIcon from '@atlaskit/icon/core/migration/paint-bucket--editor-background-color';
+import PaintBucketIcon from '@atlaskit/icon/core/paint-bucket';
 import TableCellClearIcon from '@atlaskit/icon/core/table-cell-clear';
 import TableCellMergeIcon from '@atlaskit/icon/core/table-cell-merge';
 import TableCellSplitIcon from '@atlaskit/icon/core/table-cell-split';
@@ -52,8 +52,6 @@ import TableColumnDeleteIcon from '@atlaskit/icon/core/table-column-delete';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
 import TableRowAddBelowIcon from '@atlaskit/icon/core/table-row-add-below';
 import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
-import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
-import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
@@ -93,10 +91,6 @@ import {
 	contextualMenuDropdownWidth,
 	contextualMenuDropdownWidthDnD,
 } from '../consts';
-import { AddColRightIcon } from '../icons/AddColRightIcon';
-import { AddRowBelowIcon } from '../icons/AddRowBelowIcon';
-import { MergeCellsIcon } from '../icons/MergeCellsIcon';
-import { SplitCellIcon } from '../icons/SplitCellIcon';
 
 import { cellColourPreviewStyles } from './styles';
 
@@ -377,7 +371,6 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 						color="currentColor"
 						spacing="spacious"
 						label={formatMessage(messages.distributeColumns)}
-						LEGACY_fallbackIcon={MergeCellsIcon}
 					/>
 				</Box>
 			),
@@ -405,7 +398,6 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 								color="currentColor"
 								spacing="spacious"
 								label={formatMessage(messages.mergeCells)}
-								LEGACY_fallbackIcon={MergeCellsIcon}
 							/>
 						</Box>
 					) : undefined,
@@ -420,7 +412,6 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 								color="currentColor"
 								spacing="spacious"
 								label={formatMessage(messages.splitCell)}
-								LEGACY_fallbackIcon={SplitCellIcon}
 							/>
 						</Box>
 					) : undefined,
@@ -452,7 +443,6 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 						color="currentColor"
 						spacing="spacious"
 						label={formatMessage(messages.addColumnRight)}
-						LEGACY_fallbackIcon={AddColRightIcon}
 					/>
 				</Box>
 			) : undefined,
@@ -479,7 +469,6 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 						color="currentColor"
 						spacing="spacious"
 						label={formatMessage(messages.addRowBelow)}
-						LEGACY_fallbackIcon={AddRowBelowIcon}
 					/>
 				</Box>
 			) : undefined,
@@ -515,7 +504,6 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 						label={formatMessage(messages.clearCells, {
 							0: Math.max(noOfColumns, noOfRows),
 						})}
-						LEGACY_fallbackIcon={CrossCircleIcon}
 					/>
 				</Box>
 			) : undefined,
@@ -547,7 +535,6 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 						label={formatMessage(messages.removeColumns, {
 							0: noOfColumns,
 						})}
-						LEGACY_fallbackIcon={RemoveIcon}
 					/>
 				</Box>
 			) : undefined,
@@ -578,7 +565,6 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 						label={formatMessage(messages.removeRows, {
 							0: noOfRows,
 						})}
-						LEGACY_fallbackIcon={RemoveIcon}
 					/>
 				</Box>
 			) : undefined,

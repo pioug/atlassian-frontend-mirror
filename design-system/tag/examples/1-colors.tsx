@@ -5,8 +5,11 @@
 
 import { jsx } from '@compiled/react';
 
+import Avatar from '@atlaskit/avatar';
 import { css } from '@atlaskit/css';
-import { RemovableTag, SimpleTag as Tag, type TagColor } from '@atlaskit/tag';
+import Heading from '@atlaskit/heading';
+import TagIcon from '@atlaskit/icon/core/tag';
+import { AvatarTag, RemovableTag, SimpleTag as Tag, type TagColor } from '@atlaskit/tag';
 import { token } from '@atlaskit/tokens';
 
 const colors: TagColor[] = [
@@ -30,8 +33,11 @@ const tableStyles = css({
 	marginInlineStart: token('space.100', '8px'),
 });
 
-const elemBeforeStyles = css({
-	paddingInlineStart: token('space.075', '6px'),
+const avatarTagContainerStyles = css({
+	display: 'flex',
+	gap: token('space.100'),
+	flexWrap: 'wrap',
+	marginBlockEnd: token('space.200'),
 });
 
 interface TagRowProps {
@@ -91,7 +97,7 @@ function TagTable({
 	);
 }
 
-const elemBefore = <span css={elemBeforeStyles}>#</span>;
+const elemBefore = <TagIcon size="small" label="Tag" />;
 
 export default () => (
 	<div data-testid="wrapper">
@@ -166,5 +172,24 @@ export default () => (
 				/>
 			)}
 		/>
+
+		{/* AvatarTag Examples - Gray only */}
+		<Heading size="medium">AvatarTag (Gray Only)</Heading>
+		<div css={avatarTagContainerStyles}>
+			<AvatarTag text="User Name" avatar={Avatar} isRemovable={false} />
+			<AvatarTag text="Removable" avatar={Avatar} removeButtonLabel="Remove" />
+			<AvatarTag
+				text="Linked"
+				avatar={Avatar}
+				href="https://www.atlassian.com/search?query=User"
+				isRemovable={false}
+			/>
+			<AvatarTag
+				text="Linked + Removable"
+				avatar={Avatar}
+				href="https://www.atlassian.com/search?query=User"
+				removeButtonLabel="Remove"
+			/>
+		</div>
 	</div>
 );

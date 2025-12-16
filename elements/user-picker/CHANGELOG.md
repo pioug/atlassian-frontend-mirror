@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 11.18.0
+
+### Minor Changes
+
+- [`85eaa7aa9817e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85eaa7aa9817e) -
+  [ux] support for using icons as avatar
+
 ## 11.17.0
 
 ### Minor Changes

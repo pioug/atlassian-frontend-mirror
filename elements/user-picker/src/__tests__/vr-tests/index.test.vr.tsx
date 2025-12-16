@@ -19,6 +19,7 @@ import SimpleMultiWithExternalUsers from '../../../examples/simple-multi-with-ex
 import SimpleMultiWithExternalUsersWithTooltip from '../../../examples/simple-multi-with-external-users-with-tooltip';
 import SingleUserPickerWithAutoFocus from '../../../examples/single-with-auto-focus';
 import SingleUserPickerWithAgentHexagonAvatar from '../../../examples/35-agent-hexagon-avatar';
+import UserPickerWithIcon from '../../../examples/36-user-picker-with-icon';
 
 snapshot(SingleUserPickerWithAutoFocus, {
 	drawsOutsideBounds: true,
@@ -89,5 +90,12 @@ snapshot(SingleUserPickerWithAgentHexagonAvatar, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		jira_ai_agent_avatar_user_picker_user_option: true,
+	},
+});
+
+snapshot(UserPickerWithIcon, {
+	drawsOutsideBounds: true,
+	featureFlags: {	
+		atlaskit_user_picker_support_icon: true,
 	},
 });

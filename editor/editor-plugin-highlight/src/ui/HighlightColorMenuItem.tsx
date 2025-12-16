@@ -22,7 +22,7 @@ import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette'
 import { ColorPalette, useToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import Heading from '@atlaskit/heading';
-import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
+import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
 import Icon from '@atlaskit/icon/core/text-style';
 import { Stack, Text, Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

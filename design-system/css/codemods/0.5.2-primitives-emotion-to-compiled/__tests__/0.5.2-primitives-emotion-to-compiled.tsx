@@ -743,7 +743,7 @@ export default CardLink;`;
 import Anchor from '@atlaskit/primitives/anchor';
 import { Box, xcss, Text } from '@atlaskit/primitives';
 import { media } from '@atlaskit/primitives/responsive';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
+import DownloadIcon from '@atlaskit/icon/core/download';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import ThemedImg from '../themed-img';
@@ -845,7 +845,7 @@ export default AssetCard;`;
 			 * @jsxRuntime classic
 			 * @jsx jsx
 			 */
-			import DownloadIcon from '@atlaskit/icon/glyph/download';
+			import DownloadIcon from '@atlaskit/icon/core/download';
 			import VisuallyHidden from '@atlaskit/visually-hidden';
 
 			import ThemedImg from '../themed-img';

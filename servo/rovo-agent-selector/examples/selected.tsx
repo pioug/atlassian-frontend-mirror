@@ -61,6 +61,7 @@ export default function Selected(): React.JSX.Element {
 				userPermissions: {
 					isAbleToCreateAgents: true,
 				},
+				isCustomAgentsAvailable: true,
 			}),
 		}),
 	);

@@ -15,8 +15,6 @@ export enum AgentActions {
 	VIEW = 'view',
 	/* Edit agent clicked */
 	EDIT = 'edit',
-	/* Create agent clicked */
-	CREATE = 'create',
 	/* Agent updated */
 	UPDATED = 'updated',
 	/* Copy link clicked */

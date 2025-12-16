@@ -3,7 +3,7 @@ import React from 'react';
 import Avatar from '@atlaskit/avatar';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives';
-import Tag, { SimpleTag } from '@atlaskit/tag';
+import Tag, { AvatarTag, SimpleTag } from '@atlaskit/tag';
 
 export default (): React.JSX.Element => (
 	<Box role="group" aria-label="Overview examples">
@@ -13,17 +13,11 @@ export default (): React.JSX.Element => (
 		<Tag href="https://some.link" text="Removable & linked" removeButtonLabel="Remove me" />
 		<Tag text="Overflowing text that will be cut off" />
 		<Tag text="Text with button that will be cut off" removeButtonLabel="Remove me" />
-		<Tag
-			appearance="rounded"
-			text="A. Cool Name"
-			elemBefore={<Avatar size="xsmall" borderColor="transparent" />}
-			removeButtonLabel="Remove me"
-		/>
-		<Tag
-			appearance="rounded"
+		<AvatarTag text="A. Cool Name" avatar={Avatar} removeButtonLabel="Remove me" />
+		<AvatarTag
 			href="https://some.link"
 			text="A. Cool Name"
-			elemBefore={<Avatar size="xsmall" borderColor="transparent" />}
+			avatar={Avatar}
 			removeButtonLabel="Remove me"
 		/>
 		<SimpleTag text="standard color" color="standard" />

@@ -128,7 +128,7 @@ export const ResizingHeight = ({
 	...props
 }: ResizingHeightOpts & {
 	children: (opts: { ref: CallbackRef }) => React.ReactNode;
-}) => {
+}): React.JSX.Element => {
 	const resizing = useResizingHeight(props);
 	return <Fragment>{children(resizing)}</Fragment>;
 };

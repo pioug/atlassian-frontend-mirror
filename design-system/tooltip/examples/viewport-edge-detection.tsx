@@ -69,7 +69,7 @@ function getTooltipContent(position: PositionTypeBase, index: number) {
 
 const tooltipSize = ['small', 'medium', 'large', 'long words'];
 
-export default function ViewportEdgeDetectionExample() {
+export default function ViewportEdgeDetectionExample(): React.JSX.Element {
 	// store the direction as an index and pull it from the list above,
 	// just to simplify the `changeDirection` logic
 	const [state, setState] = useState({

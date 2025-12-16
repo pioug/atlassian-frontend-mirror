@@ -66,7 +66,7 @@ export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfil
 							return undefined;
 						}
 
-						if (authoringTeam && fg('agent_studio_permissions_settings_m3_profiles')) {
+						if (authoringTeam) {
 							return {
 								type: 'CUSTOMER' as const,
 								name: authoringTeam.displayName ?? '',

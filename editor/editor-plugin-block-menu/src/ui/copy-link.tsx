@@ -35,23 +35,21 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 	const { onDropdownOpenChanged } = useBlockMenu();
 	const { getLinkPath, blockLinkHashPrefix } = config || {};
 
-	const { preservedSelection, defaultSelection, menuTriggerBy, schema } =
-		useSharedPluginStateWithSelector(
-			api,
-			['blockControls', 'selection', 'core'],
-			({ blockControlsState, selectionState, coreState }) => {
-				return {
-					menuTriggerBy: blockControlsState?.menuTriggerBy,
-					preservedSelection: blockControlsState?.preservedSelection,
-					defaultSelection: selectionState?.selection,
-					schema: coreState?.schema,
-				};
-			},
-		);
+	const { preservedSelection, defaultSelection, menuTriggerBy } = useSharedPluginStateWithSelector(
+		api,
+		['blockControls', 'selection'],
+		({ blockControlsState, selectionState }) => {
+			return {
+				menuTriggerBy: blockControlsState?.menuTriggerBy,
+				preservedSelection: blockControlsState?.preservedSelection,
+				defaultSelection: selectionState?.selection,
+			};
+		},
+	);
 	const selection = preservedSelection || defaultSelection;
 
 	const handleClick = useCallback(() => {
-		if (!selection || !schema) {
+		if (!selection) {
 			return;
 		}
 
@@ -72,7 +70,7 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 
 		onDropdownOpenChanged(false);
 
-		copyLink({ getLinkPath, blockLinkHashPrefix, selection, schema }).then((success) => {
+		copyLink({ getLinkPath, blockLinkHashPrefix, selection }).then((success) => {
 			if (success) {
 				api?.core.actions.execute(({ tr }) => {
 					tr.setMeta(blockMenuPluginKey, {
@@ -82,7 +80,7 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 				});
 			}
 		});
-	}, [api, blockLinkHashPrefix, getLinkPath, onDropdownOpenChanged, schema, selection]);
+	}, [api, blockLinkHashPrefix, getLinkPath, onDropdownOpenChanged, selection]);
 
 	// Hide copy link when `platform_editor_adf_with_localid` feature flag is off or when the node is nested or on empty line
 	if (

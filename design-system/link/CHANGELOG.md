@@ -1,5 +1,11 @@
 # @atlaskit/link
 
+## 3.2.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.15
 
 ### Patch Changes

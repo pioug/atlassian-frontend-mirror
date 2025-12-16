@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-expand
 
+## 7.5.0
+
+### Minor Changes
+
+- [`762b79e21f96a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/762b79e21f96a) -
+  Migrated and cleaned up legacy iconography usage.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.4.17
+
+### Patch Changes
+
+- [`90abe9b926a6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90abe9b926a6f) -
+  Icon entrypoint migration
+- Updated dependencies
+
 ## 7.4.16
 
 ### Patch Changes

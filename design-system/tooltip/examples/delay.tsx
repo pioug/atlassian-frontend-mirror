@@ -4,7 +4,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import Tooltip from '@atlaskit/tooltip';
 
-export default function DelayExample() {
+export default function DelayExample(): React.JSX.Element {
 	return (
 		<div>
 			<h2 id="delay-options-title">Delay options</h2>

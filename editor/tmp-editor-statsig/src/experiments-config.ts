@@ -1039,6 +1039,20 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2025-12-15
+	platform_editor_ai_exp_inline_date_year_refresh: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-12-15
+	platform_editor_ai_exp_suggestion_date_comma_delim: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -2204,6 +2218,22 @@ export const editorExperimentsConfig: {
 	platform_editor_reduce_toolbar_vc_impact: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_reduce_toolbar_vc_impact',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-12-15
+	platform_editor_ai_exp_inline_date_year_refresh: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_exp_inline_date_year_refresh',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-12-15
+	platform_editor_ai_exp_suggestion_date_comma_delim: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_exp_suggestion_date_comma_delim',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

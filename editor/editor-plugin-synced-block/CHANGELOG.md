@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.6.0
+
+### Minor Changes
+
+- [`a436afb117ae3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a436afb117ae3) -
+  Update edit at source icon/tooltip
+
+### Patch Changes
+
+- [`7e1f5e6e54c20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e1f5e6e54c20) -
+  Add scrollIntoView after a bodiedSyncBlock node is inserted
+- Updated dependencies
+
+## 4.5.6
+
+### Patch Changes
+
+- [`50cf7cca6bb76`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50cf7cca6bb76) -
+  [ux] EDITOR-3896 update sync block border styles
+- [`f5c8ad92df993`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5c8ad92df993) -
+  [EDITOR-3950] Fix a bug where bodiedSyncBlock does not get inserted properly when cursor is within
+  the bodiedSyncBlock and inbetween content
+- Updated dependencies
+
 ## 4.5.5
 
 ### Patch Changes

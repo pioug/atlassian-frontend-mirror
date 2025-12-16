@@ -1,5 +1,19 @@
 # @atlaskit/tag
 
+## 14.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.2.0
+
+### Minor Changes
+
+- [`37d3ffce87619`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37d3ffce87619) -
+  [ux] Adds new tag UI uplifts behind a feature flag and adds a new AvatarTag component (EAP) to the
+  @atlaskit/tag package.
+
 ## 14.1.17
 
 ### Patch Changes

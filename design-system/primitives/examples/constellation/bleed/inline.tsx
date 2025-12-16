@@ -4,7 +4,7 @@ import { Bleed, Box, Inline } from '@atlaskit/primitives/compiled';
 
 import ExampleBox from '../shared/example-box';
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	return (
 		<Box padding="space.200" backgroundColor="color.background.neutral">
 			<Inline space="space.100">

@@ -6,7 +6,7 @@ import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 const solidBorderStyles = xcss({ borderStyle: 'solid' });
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Stack space="space.400" alignInline="start">
 			<Heading size="medium">Custom width</Heading>

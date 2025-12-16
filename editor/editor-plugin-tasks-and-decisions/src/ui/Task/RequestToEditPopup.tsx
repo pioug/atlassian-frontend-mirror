@@ -32,7 +32,7 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import Heading from '@atlaskit/heading';
-import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
+import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
 import { Box, Pressable, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

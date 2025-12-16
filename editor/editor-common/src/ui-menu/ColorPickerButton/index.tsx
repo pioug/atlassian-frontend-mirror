@@ -14,7 +14,6 @@ import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import Button from '@atlaskit/button/new';
 import LegacyButton from '@atlaskit/button/standard-button';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import LegacyExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss, Inline } from '@atlaskit/primitives';
@@ -337,7 +336,6 @@ const ColorPickerButton = (props: Props) => {
 									<ChevronDownIcon
 										color="currentColor"
 										spacing="spacious"
-										LEGACY_fallbackIcon={LegacyExpandIcon}
 										label="color-picker-chevron-down"
 										size="small"
 									/>
@@ -367,7 +365,6 @@ const ColorPickerButton = (props: Props) => {
 								<ChevronDownIcon
 									color="currentColor"
 									spacing="spacious"
-									LEGACY_fallbackIcon={LegacyExpandIcon}
 									label="color-picker-chevron-down"
 									size="small"
 								/>

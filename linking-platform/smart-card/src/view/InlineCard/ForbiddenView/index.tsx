@@ -8,7 +8,6 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
-import LegacyLockIcon from '@atlaskit/icon/glyph/lock-filled';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { N500 } from '@atlaskit/theme/colors';
@@ -64,8 +63,6 @@ const fallbackForbiddenIcon = () => {
 		<LockLockedIcon
 			label="error"
 			color={token('color.icon.danger')}
-			LEGACY_fallbackIcon={LegacyLockIcon}
-			LEGACY_size="small"
 			testId="forbidden-view-fallback-icon"
 		/>
 	);

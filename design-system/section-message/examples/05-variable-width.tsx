@@ -6,7 +6,7 @@ import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range';
 import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
 
-const Example = () => {
+const Example = (): React.JSX.Element => {
 	const [width, setWidth] = useState(800);
 
 	return (

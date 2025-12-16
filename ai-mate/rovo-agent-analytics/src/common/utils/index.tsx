@@ -11,7 +11,7 @@ export const getAttributesFromContexts = (context: unknown): Record<string, any>
 	return context.reduce((acc, x) => {
 		return {
 			...acc,
-			...x,
+			...(x.attributes ?? {}),
 		};
 	}, {});
 };

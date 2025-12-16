@@ -15,7 +15,7 @@ color: token('color.text.accent.purple', P500),
 background: token('color.background.accent.purple.subtler', P75),
 `;
 
-export const TokenTag = () => {
+export const TokenTag = (): React.JSX.Element => {
 	return (
 		<>
 			<Tag text="purple Tag" color="purple" />

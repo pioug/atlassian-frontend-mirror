@@ -15,7 +15,7 @@ const blockStyles = xcss({
 
 const Block = () => <Box backgroundColor="color.background.discovery.bold" xcss={blockStyles} />;
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	return (
 		<HeadingContextProvider>
 			<Stack space="space.200">

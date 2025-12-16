@@ -10,7 +10,7 @@ type SelectionExtensionMenuItemsProps = {
 	getMenuItems: () => ExtensionMenuItemConfiguration[];
 };
 
-export const SelectionExtensionMenuItems = ({ getMenuItems }: SelectionExtensionMenuItemsProps) => {
+export const SelectionExtensionMenuItems = ({ getMenuItems }: SelectionExtensionMenuItemsProps): React.JSX.Element | null => {
 	const extensionMenuItems = getMenuItems();
 
 	if (!extensionMenuItems?.length) {

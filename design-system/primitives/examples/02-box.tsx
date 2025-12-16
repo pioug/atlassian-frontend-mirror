@@ -44,7 +44,7 @@ const elevationStyles = xcss({
 /**
  * Box permutations
  */
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Stack space="space.400" alignInline="start">
 			<Stack space="space.200" testId="box-with-background-and-paddingBlock">

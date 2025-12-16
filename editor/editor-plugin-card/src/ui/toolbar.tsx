@@ -59,11 +59,7 @@ import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import LegacyCommentIcon from '@atlaskit/icon/core/migration/comment';
-import RemoveIcon from '@atlaskit/icon/core/migration/delete--editor-remove';
-import UnlinkIcon from '@atlaskit/icon/core/migration/link-broken--editor-unlink';
-import OpenIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
-import CogIcon from '@atlaskit/icon/core/migration/settings--editor-settings';
-import SettingsIcon from '@atlaskit/icon/core/settings';
+import CogIcon from '@atlaskit/icon/core/settings';
 import type { CardAppearance } from '@atlaskit/smart-card';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -214,7 +210,7 @@ export const floatingToolbar = (
 		const toolbarOffset: { offset: [number, number] } | Object = isEmbedCard
 			? {
 					offset: [0, 24],
-				}
+			  }
 			: {};
 
 		// Applies padding override for when link picker is currently displayed
@@ -472,7 +468,7 @@ const generateToolbarItems =
 								/>
 							),
 						},
-					]
+				  ]
 				: [
 						{
 							id: 'editor.link.edit',
@@ -485,7 +481,7 @@ const generateToolbarItems =
 							onClick: getEditLinkCallback(editorAnalyticsApi, true),
 						},
 						{ type: 'separator' },
-					];
+				  ];
 
 			const commentItems: Array<FloatingToolbarItem<Command>> = isCommentEnabled
 				? [
@@ -502,7 +498,7 @@ const generateToolbarItems =
 								pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode === 'offline',
 						},
 						{ type: 'separator' },
-					]
+				  ]
 				: [];
 
 			const openLinkInputMethod = INPUT_METHOD.FLOATING_TB;
@@ -525,7 +521,7 @@ const generateToolbarItems =
 								/>
 							),
 						},
-					]
+				  ]
 				: [
 						{
 							id: 'editor.link.edit',
@@ -537,7 +533,7 @@ const generateToolbarItems =
 							testId: 'link-toolbar-edit-link-button',
 							onClick: getEditLinkCallback(editorAnalyticsApi, true),
 						},
-					];
+				  ];
 
 			const openPreviewPanelItems: FloatingToolbarItem<Command>[] = editorExperiment(
 				'platform_editor_preview_panel_linking_exp',
@@ -557,7 +553,7 @@ const generateToolbarItems =
 								/>
 							),
 						},
-					]
+				  ]
 				: [];
 
 			const toolbarItems: Array<FloatingToolbarItem<Command>> = areAllNewToolbarFlagsDisabled
@@ -569,7 +565,7 @@ const generateToolbarItems =
 							id: 'editor.link.openLink',
 							type: 'button',
 							icon: LinkExternalIcon,
-							iconFallback: OpenIcon,
+							iconFallback: LinkExternalIcon,
 							metadata: metadata,
 							className: 'hyperlink-open-link',
 							title: intl.formatMessage(linkMessages.openLink),
@@ -605,7 +601,7 @@ const generateToolbarItems =
 							type: 'button',
 							appearance: 'danger',
 							icon: DeleteIcon,
-							iconFallback: RemoveIcon,
+							iconFallback: DeleteIcon,
 							onMouseEnter: hoverDecoration?.(node.type, true),
 							onMouseLeave: hoverDecoration?.(node.type, false),
 							onFocus: hoverDecoration?.(node.type, true),
@@ -613,7 +609,7 @@ const generateToolbarItems =
 							title: intl.formatMessage(commonMessages.remove),
 							onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
 						},
-					]
+				  ]
 				: [
 						...editButtonItems,
 						...([
@@ -632,7 +628,7 @@ const generateToolbarItems =
 							id: 'editor.link.openLink',
 							type: 'button',
 							icon: LinkExternalIcon,
-							iconFallback: OpenIcon,
+							iconFallback: LinkExternalIcon,
 							metadata: metadata,
 							className: 'hyperlink-open-link',
 							title: intl.formatMessage(linkMessages.openLink),
@@ -643,7 +639,7 @@ const generateToolbarItems =
 						...(commentItems.length > 1
 							? [{ type: 'separator', fullHeight: true } as const, commentItems[0]]
 							: commentItems),
-					];
+				  ];
 
 			if (currentAppearance === 'embed') {
 				const alignmentOptions = buildAlignmentOptions(
@@ -690,7 +686,7 @@ const generateToolbarItems =
 										areAnyNewToolbarFlagsEnabled={false}
 									/>
 								),
-							}
+						  }
 						: getLinkAppearanceDropdown({
 								url,
 								intl,
@@ -708,7 +704,7 @@ const generateToolbarItems =
 								),
 								isDatasourceView: isDatasource,
 								areAnyNewToolbarFlagsEnabled: !areAllNewToolbarFlagsDisabled,
-							}),
+						  }),
 					...(showDatasourceAppearance && areAllNewToolbarFlagsDisabled
 						? [
 								{
@@ -726,7 +722,7 @@ const generateToolbarItems =
 										/>
 									),
 								} satisfies FloatingToolbarItem<never>,
-							]
+						  ]
 						: []),
 					...(!areAllNewToolbarFlagsDisabled
 						? []
@@ -798,11 +794,11 @@ const getUnlinkButtonGroup = (
 					type: 'button',
 					title: intl.formatMessage(linkToolbarMessages.unlink),
 					icon: LinkBrokenIcon,
-					iconFallback: UnlinkIcon,
+					iconFallback: LinkBrokenIcon,
 					onClick: withToolbarMetadata(unlinkCard(node, state, editorAnalyticsApi)),
 				},
 				...(areAnyNewToolbarFlagsEnabled ? [] : [{ type: 'separator' }]),
-			] as Array<FloatingToolbarItem<Command>>)
+		  ] as Array<FloatingToolbarItem<Command>>)
 		: [];
 };
 
@@ -814,7 +810,7 @@ export const getSettingsButton = (
 	return {
 		id: 'editor.link.settings',
 		type: 'button',
-		icon: SettingsIcon,
+		icon: CogIcon,
 		iconFallback: CogIcon,
 		title: intl.formatMessage(linkToolbarMessages.settingsLink),
 		onClick: openLinkSettings(editorAnalyticsApi),
@@ -947,7 +943,7 @@ const getDatasourceButtonGroup = (
 			id: 'editor.link.openLink',
 			type: 'button',
 			icon: LinkExternalIcon,
-			iconFallback: OpenIcon,
+			iconFallback: LinkExternalIcon,
 			metadata: metadata,
 			className: 'hyperlink-open-link',
 			title: intl.formatMessage(linkMessages.openLink),
@@ -982,7 +978,7 @@ const getDatasourceButtonGroup = (
 				type: 'button',
 				appearance: 'danger',
 				icon: DeleteIcon,
-				iconFallback: RemoveIcon,
+				iconFallback: DeleteIcon,
 				onMouseEnter: hoverDecoration?.(node.type, true),
 				onMouseLeave: hoverDecoration?.(node.type, false),
 				onFocus: hoverDecoration?.(node.type, true),
@@ -1100,7 +1096,7 @@ export const getStartingToolbarItems = (
 							);
 						},
 					},
-				]
+			  ]
 			: [
 					{
 						id: 'editor.link.edit',
@@ -1115,7 +1111,7 @@ export const getStartingToolbarItems = (
 					{
 						type: 'separator',
 					},
-				];
+			  ];
 
 		if (!areAllNewToolbarFlagsDisabled) {
 			const hyperlinkAppearance = [

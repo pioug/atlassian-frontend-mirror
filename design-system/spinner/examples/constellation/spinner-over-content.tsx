@@ -78,7 +78,7 @@ const rows: RowType[] = [
 	},
 ];
 
-const SpinnerOverContentExample = () => {
+const SpinnerOverContentExample = (): React.JSX.Element => {
 	const [isLoading, setIsLoading] = useState(false);
 
 	return (

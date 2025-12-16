@@ -16,7 +16,7 @@ const ActionsMenu = () => (
 	</DropdownMenu>
 );
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<Inline alignBlock="center" spread="space-between">
 			<Inline space="space.100" alignBlock="center">

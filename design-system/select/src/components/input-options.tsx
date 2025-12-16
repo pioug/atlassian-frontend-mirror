@@ -7,8 +7,6 @@ import { useCallback, useMemo, useState } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 
 import { type IconProps } from '@atlaskit/icon';
-import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
-import RadioIcon from '@atlaskit/icon/glyph/radio';
 import PrimitiveSVGIcon from '@atlaskit/icon/svg';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
@@ -214,7 +212,7 @@ const NewCheckboxIcon = (props: IconProps) => {
 				viewBox="0 0 24 24"
 				style={{ color: primaryColor, fill: secondaryColor }}
 				css={svgStyles}
-				aria-label={label}
+				aria-label={label ? label : undefined}
 				role={label ? 'img' : 'presentation'}
 			>
 				{newCheckboxIconPath}
@@ -244,7 +242,7 @@ const NewRadioIcon = (props: IconProps) => {
 				viewBox="0 0 24 24"
 				style={{ color: primaryColor, fill: secondaryColor }}
 				css={svgStyles}
-				aria-label={label}
+				aria-label={label ? label : undefined}
 				role={label ? 'img' : 'presentation'}
 			>
 				{newRadioIconPath}
@@ -264,12 +262,7 @@ export const CheckboxOption = <OptionT extends OptionType>(
 	props: OptionProps<OptionT, true>,
 ): JSX.Element => (
 	<ControlOption<OptionT, true>
-		Icon={
-			fg('platform-visual-refresh-icons')
-				? NewCheckboxIcon
-				: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-					CheckboxIcon
-		}
+		Icon={NewCheckboxIcon}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
 	/>
@@ -281,12 +274,7 @@ export const CheckboxOption = <OptionT extends OptionType>(
 export const RadioOption = <OptionT extends OptionType>(props: OptionProps<OptionT, false>) => (
 	// TODO https://product-fabric.atlassian.net/browse/DSP-20769
 	<ControlOption
-		Icon={
-			fg('platform-visual-refresh-icons')
-				? NewRadioIcon
-				: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-					RadioIcon
-		}
+		Icon={NewRadioIcon}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
 	/>

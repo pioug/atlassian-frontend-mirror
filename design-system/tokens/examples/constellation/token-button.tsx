@@ -19,7 +19,7 @@ background: token('color.background.selected.bold', B400),
   background: token('color.background.selected.bold.pressed', B500),
 }`;
 
-const TokenButton = () => {
+const TokenButton = (): React.JSX.Element => {
 	return <Button appearance="primary">Default button</Button>;
 };
 

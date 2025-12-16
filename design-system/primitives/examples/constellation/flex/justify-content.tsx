@@ -9,7 +9,7 @@ import ExampleBox from '../shared/example-box';
 
 const alignmentValues = ['start', 'center', 'end'] as const;
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [alignmentIndex, setAlignmentIndex] = useState<0 | 1 | 2>(0);
 	const nextIndex = ((alignmentIndex + 1) % alignmentValues.length) as 0 | 1 | 2;
 	const changeAlignment = useCallback(() => {

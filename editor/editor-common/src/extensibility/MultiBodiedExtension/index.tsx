@@ -12,7 +12,7 @@ import classnames from 'classnames';
 
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import EditorFileIcon from '@atlaskit/icon/core/migration/file--editor-file';
+import EditorFileIcon from '@atlaskit/icon/core/file';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 

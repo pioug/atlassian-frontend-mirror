@@ -29,7 +29,7 @@ const visualMarginStyles = xcss({
 	marginInlineEnd: 'space.400',
 });
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	return (
 		<Box xcss={containerStyles}>
 			<Stack alignInline="center" testId="xcss-margin" space="space.100">

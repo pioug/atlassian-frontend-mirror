@@ -12,7 +12,6 @@ import { SpotlightContext } from '../../../controllers/context';
 const styles = cssMap({
 	root: {
 		backgroundColor: token('color.background.neutral.bold'),
-		borderEndStartRadius: '1px',
 		clipPath: 'polygon(0 0,100% 100%,0 100%)',
 		height: '15px',
 		position: 'relative',
@@ -70,5 +69,14 @@ export const Caret: React.ForwardRefExoticComponent<
 > = forwardRef<HTMLDivElement, CaretProps>(({ testId }: CaretProps, ref) => {
 	const { card } = useContext(SpotlightContext);
 
-	return <div data-testid={testId} ref={ref} css={[styles.root, styles[card.placement]]}></div>;
+	return (
+		<div
+			data-testid={testId}
+			ref={ref}
+			css={[styles.root, styles[card.placement]]}
+			// Growth Pattern Library designs dictate 1px radius. cssMap only allows tokens
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={{ borderEndStartRadius: '1px' }}
+		></div>
+	);
 });

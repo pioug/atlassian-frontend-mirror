@@ -79,7 +79,7 @@ function Tooltip({
 	ignoreTooltipPointerEvents = false,
 	isScreenReaderAnnouncementDisabled = false,
 	shortcut,
-}: TooltipProps) {
+}: TooltipProps): React.JSX.Element {
 	const tooltipPosition = position === 'mouse' ? mousePosition : position;
 	const onShowHandler = usePlatformLeafSyntheticEventHandler({
 		fn: onShow,

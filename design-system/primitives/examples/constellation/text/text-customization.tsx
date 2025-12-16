@@ -17,7 +17,7 @@ const styles = cssMap({
 	customSlashedZero: { fontVariantNumeric: 'slashed-zero' },
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Stack space="space.100">
 			<Text xcss={styles.customTabularNums}>Tabular numbers: 1234567890</Text>

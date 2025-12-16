@@ -37,7 +37,7 @@ const containerStyles = xcss({
 	borderRadius: 'radius.xsmall',
 });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box padding="space.200" xcss={pageContainerStyles}>
 		<Stack space="space.400">
 			<Heading size="large" as="h2">

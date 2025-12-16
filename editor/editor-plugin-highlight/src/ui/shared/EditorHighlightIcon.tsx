@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SteppedRainbowIconDecoration } from '@atlaskit/editor-common/icons';
-import EditFilledIcon from '@atlaskit/icon/core/migration/edit--edit-filled';
+import EditFilledIcon from '@atlaskit/icon/core/edit';
 import { Box } from '@atlaskit/primitives/compiled';
 
 type EditorHighlightIconProps = {

@@ -22,7 +22,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Box xcss={styles.container}>
 			<Inline space="space.200" xcss={styles.statsCard} grow="hug" alignBlock="center">

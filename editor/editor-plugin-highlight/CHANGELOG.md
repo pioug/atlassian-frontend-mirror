@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-highlight
 
+## 6.3.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.3.16
+
+### Patch Changes
+
+- [`90abe9b926a6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90abe9b926a6f) -
+  Icon entrypoint migration
+- Updated dependencies
+
 ## 6.3.15
 
 ### Patch Changes

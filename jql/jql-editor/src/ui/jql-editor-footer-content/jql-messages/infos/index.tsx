@@ -4,7 +4,6 @@ import { di } from 'react-magnetic-di';
 
 import { HelperMessage } from '@atlaskit/form';
 import StatusInformationIcon from '@atlaskit/icon/core/status-information';
-import LegacyInfoIcon from '@atlaskit/icon/glyph/info';
 import { Box } from '@atlaskit/primitives/compiled';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -38,9 +37,6 @@ export const InfoMessages = (): React.JSX.Element | null => {
 					<StatusInformationIcon
 						label=""
 						color={token('color.icon.information', colors.B500)}
-						LEGACY_size="small"
-						LEGACY_fallbackIcon={LegacyInfoIcon}
-						LEGACY_margin="0 -4px 0 0"
 						size="small"
 					/>
 				</Box>

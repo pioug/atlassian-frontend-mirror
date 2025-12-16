@@ -1,5 +1,14 @@
 # @atlaskit/form
 
+## 15.0.1
+
+### Patch Changes
+
+- [`1f2184e410650`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f2184e410650) -
+  Updates internal useEffect depenedency array to include isRequired. This fixes an issue where
+  validation was not rerun when the prop was dynamically updated.
+- Updated dependencies
+
 ## 15.0.0
 
 ### Major Changes

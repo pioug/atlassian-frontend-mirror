@@ -8,7 +8,6 @@ import { css, cssMap, cx, jsx, type XCSSProp } from '@compiled/react';
 
 import type { XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/core/cross';
-import LegacySelectClearIcon from '@atlaskit/icon/glyph/select-clear';
 import { token } from '@atlaskit/tokens';
 
 import { type SelectProps } from '../select';
@@ -252,15 +251,7 @@ export function MultiValueRemove<Option, IsMulti extends boolean, Group extends 
 				css={[isDisabled && disabledStyles, !isDisabled && enabledStyles]}
 				data-testid={isDisabled ? 'hide-clear-icon' : 'show-clear-icon'}
 			>
-				<CrossIcon
-					label=""
-					color="currentColor"
-					LEGACY_fallbackIcon={LegacySelectClearIcon}
-					LEGACY_primaryColor="transparent"
-					LEGACY_secondaryColor="inherit"
-					LEGACY_size="small"
-					size="small"
-				/>
+				<CrossIcon label="" color="currentColor" size="small" />
 			</div>
 		</div>
 	);

@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-20398 */
 import React, { forwardRef } from 'react';
 
-import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
+import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 
 import Button from '../new-button/variants/default/button';
 import LinkButton, { type LinkButtonProps } from '../new-button/variants/default/link';
@@ -87,7 +87,7 @@ const IconButtonRender: React.ForwardRefExoticComponent<
 > = forwardRef(
 	(
 		{
-			icon = StarFilledIcon,
+			icon = StarStarredIcon,
 			label = 'Label',
 			...rest
 		}: Omit<IconButtonProps, 'icon' | 'label'> & {
@@ -111,7 +111,7 @@ const LinkIconButtonRender: React.ForwardRefExoticComponent<
 	(
 		{
 			href = 'home',
-			icon = StarFilledIcon,
+			icon = StarStarredIcon,
 			label = 'Label',
 			...rest
 		}: Omit<LinkIconButtonProps, 'href' | 'icon' | 'label'> & {

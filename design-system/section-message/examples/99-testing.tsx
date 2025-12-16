@@ -22,7 +22,7 @@ const definitionListStyles = cssMap({
 	},
 });
 
-const Example = () => (
+const Example = (): React.JSX.Element => (
 	<Box padding="space.100">
 		<Stack space="space.200">
 			<SectionMessage

@@ -15,7 +15,7 @@ import {
 } from '@atlaskit/editor-common/styles';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
-import ItalicIcon from '@atlaskit/icon/core/migration/text-italic--editor-italic';
+import ItalicIcon from '@atlaskit/icon/core/text-italic';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ToolbarType } from './types';

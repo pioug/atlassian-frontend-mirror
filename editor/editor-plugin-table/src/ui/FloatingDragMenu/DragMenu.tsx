@@ -46,7 +46,7 @@ import {
 	getSelectionRect,
 	isSelectionType,
 } from '@atlaskit/editor-tables/utils';
-import PaintBucketIcon from '@atlaskit/icon/core/migration/paint-bucket--editor-background-color';
+import PaintBucketIcon from '@atlaskit/icon/core/paint-bucket';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -245,7 +245,6 @@ const convertToDropdownItems = (
 						color="currentColor"
 						spacing="spacious"
 						label={formatMessage(MapDragMenuOptionIdToMessage[item.id].message, options)}
-						LEGACY_fallbackIcon={item.iconFallback ? item.iconFallback : undefined}
 					/>
 				</Box>
 			) : undefined,

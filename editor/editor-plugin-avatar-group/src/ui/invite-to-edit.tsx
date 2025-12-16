@@ -9,7 +9,7 @@ import { jsx } from '@emotion/react';
 
 import type { InviteToEditComponentProps } from '@atlaskit/editor-common/collab';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import AddIcon from '@atlaskit/icon/core/migration/add--editor-add';
+import AddIcon from '@atlaskit/icon/core/add';
 
 import { inviteTeamWrapperStyles } from './styles';
 

@@ -7,6 +7,7 @@ import { type LozengeProps } from '../../../types';
 import { AvatarItemOption, textWrapper } from '../../../components/AvatarItemOption';
 import { HighlightText } from '../../../components/HighlightText';
 import { SizeableAvatar } from '../../../components/SizeableAvatar';
+import { AvatarOrIcon } from '../../../components/AvatarOrIcon';
 import { UserOption, type UserOptionProps } from '../../../components/UserOption';
 
 jest.mock('../../../components/AvatarItemOption', () => ({
@@ -268,6 +269,68 @@ describe('User Option', () => {
 			expect(avatar.props.avatarAppearanceShape).toBeUndefined();
 
 			getAppearanceForAppTypeSpy.mockRestore();
+		});
+	});
+
+	describe('icon support', () => {
+		const mockIcon = <div data-testid="test-icon">Icon</div>;
+
+		ffTest.on('atlaskit_user_picker_support_icon', 'on', () => {
+			it('should render AvatarOrIcon when feature gate is enabled and icon is provided', () => {
+				const userWithIcon = {
+					...user,
+					icon: mockIcon,
+				};
+
+				const component = shallowOption({ user: userWithIcon });
+				const avatarItemOption = component.find(AvatarItemOption);
+				const avatar = avatarItemOption.props().avatar as ReactElement;
+
+				expect(avatar.type).toBe(AvatarOrIcon);
+				expect(avatar.props.icon).toEqual(mockIcon);
+				expect(avatar.props.src).toEqual(user.avatarUrl);
+			});
+
+			it('should render AvatarOrIcon with iconColor when both icon and iconColor are provided', () => {
+				const iconColor = '#FF0000';
+				const userWithIconAndColor = {
+					...user,
+					icon: mockIcon,
+					iconColor,
+				};
+
+				const component = shallowOption({ user: userWithIconAndColor });
+				const avatarItemOption = component.find(AvatarItemOption);
+				const avatar = avatarItemOption.props().avatar as ReactElement;
+
+				expect(avatar.type).toBe(AvatarOrIcon);
+				expect(avatar.props.icon).toEqual(mockIcon);
+				expect(avatar.props.iconColor).toEqual(iconColor);
+			});
+		});
+
+		it('should render SizeableAvatar when feature gate is enabled but no icon is provided', () => {
+			const component = shallowOption();
+			const avatarItemOption = component.find(AvatarItemOption);
+			const avatar = avatarItemOption.props().avatar as ReactElement;
+
+			expect(avatar.type).toBe(SizeableAvatar);
+		});
+
+		ffTest.off('atlaskit_user_picker_support_icon', 'off', () => {
+			it('should render SizeableAvatar when feature gate is disabled even if icon is provided', () => {
+				const userWithIcon = {
+					...user,
+					icon: mockIcon,
+				};
+
+				const component = shallowOption({ user: userWithIcon });
+				const avatarItemOption = component.find(AvatarItemOption);
+				const avatar = avatarItemOption.props().avatar as ReactElement;
+
+				expect(avatar.type).toBe(SizeableAvatar);
+				expect(avatar.props.src).toEqual(user.avatarUrl);
+			});
 		});
 	});
 });

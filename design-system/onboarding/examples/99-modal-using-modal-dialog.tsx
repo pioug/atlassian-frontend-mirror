@@ -20,9 +20,9 @@ const closeContainerStyles = xcss({
 	insetInlineEnd: 'space.100',
 	backgroundColor: 'color.background.accent.gray.subtlest',
 	borderColor: 'color.border.input',
-	borderRadius: token('space.050'),
+	borderRadius: token('radius.small'),
 	borderStyle: 'solid',
-	borderWidth: token('space.025'),
+	borderWidth: 'border.width.selected',
 });
 
 export default function Example(): React.JSX.Element {

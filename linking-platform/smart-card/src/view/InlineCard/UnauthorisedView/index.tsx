@@ -8,7 +8,6 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { jsx } from '@atlaskit/css';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
-import LegacyLockIcon from '@atlaskit/icon/glyph/lock-filled';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -46,14 +45,7 @@ export interface InlineCardUnauthorizedViewProps {
 }
 
 const fallbackUnauthorizedIcon = () => {
-	return (
-		<LockLockedIcon
-			color={token('color.icon.danger')}
-			label="error"
-			LEGACY_fallbackIcon={LegacyLockIcon}
-			LEGACY_size="small"
-		/>
-	);
+	return <LockLockedIcon color={token('color.icon.danger')} label="error" />;
 };
 
 export const InlineCardUnauthorizedView = ({

@@ -16,7 +16,7 @@ const styles = cssMap({
 	},
 });
 
-export default function AnchorCompiledGlobalStylesExample() {
+export default function AnchorCompiledGlobalStylesExample(): React.JSX.Element {
 	return (
 		<Box xcss={styles.root}>
 			<GlobalStyleSimulator />

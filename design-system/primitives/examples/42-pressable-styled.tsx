@@ -8,7 +8,7 @@ const pressableStyles = xcss({
 	color: 'color.text.inverse',
 });
 
-export default function Styled() {
+export default function Styled(): React.JSX.Element {
 	return (
 		<Pressable
 			testId="pressable-styled"

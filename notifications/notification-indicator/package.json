@@ -47,6 +47,6 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@testing-library/react": "root:*"
+		"@testing-library/react": "^16.3.0"
 	}
 }

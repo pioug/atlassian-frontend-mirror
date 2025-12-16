@@ -28,6 +28,9 @@
 			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../avatar/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../css/afm-jira/tsconfig.json"
 		},
 		{
@@ -35,6 +38,9 @@
 		},
 		{
 			"path": "../../icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../link/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../motion/afm-jira/tsconfig.json"

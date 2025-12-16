@@ -6,7 +6,6 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { transformNonTextNodesToText } from '@atlaskit/editor-common/mark';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	ExtractInjectionAPI,
@@ -15,7 +14,6 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { createRule, inputRuleWithAnalytics } from '@atlaskit/editor-common/utils';
 import type { MarkType, Schema } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -118,11 +116,7 @@ function addMark(
 		}
 
 		if (markType.name === 'code') {
-			if (fg('platform_editor_resolve_marks')) {
 				api?.base?.actions?.resolveMarks(tr.mapping.map(start), tr.mapping.map(end), tr);
-			} else {
-				transformNonTextNodesToText(tr.mapping.map(start), tr.mapping.map(end), tr);
-			}
 		}
 
 		const mappedStart = tr.mapping.map(start);

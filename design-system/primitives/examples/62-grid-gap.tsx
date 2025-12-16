@@ -14,7 +14,7 @@ const Block = () => (
 	<Box xcss={customBorderStyles} backgroundColor="color.background.neutral" padding="space.600" />
 );
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	return (
 		<Grid gap="space.200" alignItems="center">
 			<Grid testId="grid-basic" gap="space.100">

@@ -15,7 +15,7 @@ const gridStyles = cssMap({
 	},
 });
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	return (
 		<Grid testId="grid-basic" gap="space.200" xcss={gridStyles.root}>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}

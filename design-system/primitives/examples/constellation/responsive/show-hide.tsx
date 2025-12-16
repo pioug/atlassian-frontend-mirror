@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Hide, Show } from '@atlaskit/primitives/responsive';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<p>
 			Please connect using your{' '}

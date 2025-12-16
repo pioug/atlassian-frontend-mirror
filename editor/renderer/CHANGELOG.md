@@ -1,5 +1,32 @@
 # @atlaskit/renderer
 
+## 124.22.0
+
+### Minor Changes
+
+- [`762b79e21f96a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/762b79e21f96a) -
+  Migrated and cleaned up legacy iconography usage.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 124.21.2
+
+### Patch Changes
+
+- [`90abe9b926a6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90abe9b926a6f) -
+  Icon entrypoint migration
+- Updated dependencies
+
+## 124.21.1
+
+### Patch Changes
+
+- [`50cf7cca6bb76`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50cf7cca6bb76) -
+  [ux] EDITOR-3896 update sync block border styles
+- Updated dependencies
+
 ## 124.21.0
 
 ### Minor Changes

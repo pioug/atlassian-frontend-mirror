@@ -66,9 +66,6 @@
 			"path": "../jql-parser/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/legacy-custom-icons/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/link/tsconfig.app.json"
 		},
 		{

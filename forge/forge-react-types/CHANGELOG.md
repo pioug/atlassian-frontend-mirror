@@ -1,5 +1,17 @@
 # @atlaskit/forge-react-types
 
+## 0.52.0
+
+### Minor Changes
+
+- [`324a6ff3651be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/324a6ff3651be) -
+  Changes unreleased property name margin -> plotMargin and adds new property showBorder to UI Kit
+  chart components
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.51.1
 
 ### Patch Changes

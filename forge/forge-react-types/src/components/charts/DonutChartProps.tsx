@@ -9,6 +9,10 @@ export type DonutChartProps = PieChartProps & {
 	 * The radius of the outer circle of the donut chart in pixels. If this is not specified, the radius is responsive.
 	 */
 	outerRadius?: number;
+	/**
+	 * Adds a border onto the chart. Defaults to true.
+	 */
+	showBorder?: boolean; 
 };
 
 /**

@@ -16,8 +16,7 @@ import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages';
 import { Label } from '@atlaskit/form';
 import TextLetterCaseIcon from '@atlaskit/icon-lab/core/text-letter-case';
-import MatchCaseIcon from '@atlaskit/icon/core/migration/text-style--emoji-keyboard';
-import EditorTextStyleIcon from '@atlaskit/icon/glyph/editor/text-style';
+import MatchCaseIcon from '@atlaskit/icon/core/text-style';
 import type { IconProps } from '@atlaskit/icon/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Textfield from '@atlaskit/textfield';
@@ -239,14 +238,9 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 
 	matchCaseIconEle = (iconProps: IconProps) => {
 		return expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) ? (
-			<TextLetterCaseIcon
-				LEGACY_size={'small'}
-				LEGACY_fallbackIcon={EditorTextStyleIcon}
-				label={iconProps.label}
-				size="small"
-			/>
+			<TextLetterCaseIcon label={iconProps.label} size="small" />
 		) : (
-			<MatchCaseIcon LEGACY_size={'small'} label={this.matchCase} />
+			<MatchCaseIcon label={this.matchCase} />
 		);
 	};
 

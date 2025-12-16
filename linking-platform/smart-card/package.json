@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.15.1",
+	"version": "43.17.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -48,7 +48,6 @@
 		"@atlaskit/icon-priority": "root:*",
 		"@atlaskit/image": "workspace:^",
 		"@atlaskit/json-ld-types": "workspace:^",
-		"@atlaskit/legacy-custom-icons": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/link-analytics": "workspace:^",
 		"@atlaskit/link-client-extension": "workspace:^",
@@ -178,9 +177,6 @@
 		"linking_platform_hide_preview_action_blanket_prop": {
 			"type": "boolean"
 		},
-		"platform_linking_enable_card_preview_action_size": {
-			"type": "boolean"
-		},
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		},
@@ -214,9 +210,6 @@
 		"product-terminology-refresh": {
 			"type": "boolean"
 		},
-		"platform-linking-enable-avatar-data-separator": {
-			"type": "boolean"
-		},
 		"platform_editor_inline_card_selected_state_fix": {
 			"type": "boolean"
 		},
@@ -244,16 +237,7 @@
 		"townsquare-same-tab-alignment-gcko-849": {
 			"type": "boolean"
 		},
-		"hover-card-prop-should-render-to-parent": {
-			"type": "boolean"
-		},
-		"lozenge-dropdown-prop-should-render-to-parent": {
-			"type": "boolean"
-		},
 		"platform-linking-smart-card-layered-link-a11y": {
-			"type": "boolean"
-		},
-		"smart-link-custom-hover-card-content": {
 			"type": "boolean"
 		},
 		"navx-2825-eslint-translation-fix-linking-platform": {

@@ -1,5 +1,13 @@
 # @atlaskit/spotlight
 
+## 0.9.8
+
+### Patch Changes
+
+- [`14e6e700928ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14e6e700928ef) -
+  Internal changes to how border width and radius are applied.
+- Updated dependencies
+
 ## 0.9.7
 
 ### Patch Changes

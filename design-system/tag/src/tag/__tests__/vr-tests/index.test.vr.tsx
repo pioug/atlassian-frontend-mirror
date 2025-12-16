@@ -17,21 +17,41 @@ const themeVariants: SnapshotTestOptions<any>['variants'] = [
 			colorScheme: 'light',
 		},
 	},
-	{
-		name: 'none',
-		environment: {
-			colorScheme: 'no-preference',
-		},
-	},
 ];
 
-// Basic tag
+// Basic tag - with ff on
 snapshot(Basic, {
+	description: 'tag-basic-visual-uplifts-ff-on',
+	featureFlags: {
+		'platform-dst-lozenge-tag-badge-visual-uplifts': true,
+	},
 	variants: themeVariants,
 });
 
-// Color variations
+// Basic tag - with ff off
+snapshot(Basic, {
+	description: 'tag-basic-visual-uplifts-ff-off',
+	featureFlags: {
+		'platform-dst-lozenge-tag-badge-visual-uplifts': false,
+	},
+	variants: themeVariants,
+});
+
+// Colors tag - with ff on
 snapshot(Colors, {
+	description: 'tag-colors-visual-uplifts-ff-on',
+	featureFlags: {
+		'platform-dst-lozenge-tag-badge-visual-uplifts': true,
+	},
+	variants: themeVariants,
+});
+
+// Colors tag - with ff off
+snapshot(Colors, {
+	description: 'tag-colors-visual-uplifts-ff-off',
+	featureFlags: {
+		'platform-dst-lozenge-tag-badge-visual-uplifts': false,
+	},
 	variants: themeVariants,
 });
 

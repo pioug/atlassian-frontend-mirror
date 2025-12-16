@@ -4,7 +4,7 @@ import React from 'react';
 import { Pressable } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
-export default function DisabledWithTooltip() {
+export default function DisabledWithTooltip(): React.JSX.Element {
 	return (
 		// Tooltip should not display
 		<Tooltip content="Tooltip content">

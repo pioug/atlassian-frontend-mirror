@@ -261,6 +261,19 @@ describe('teams app navigation utils', () => {
 					const expectedPath = `https://teams.stg.atlassian-us-gov-mod.com/${path}?cloudId=${config.cloudId}`;
 					expect(generatePath(path, config)).toEqual(expectedPath);
 				});
+
+				ffTest.on('teams-app-fedramp-stg-fedm-hostname-support', 'with feature flag on', () => {
+					it('should generate a staging path for Confluence', () => {
+						(hostname as jest.Mock).mockReturnValue('hello-fedm.atlassian-stg-fedm.net');
+						const config: NavigationActionCommon = {
+							...baseConfig,
+							hostProduct: 'confluence',
+						};
+						const path = 'somepath';
+						const expectedPath = `https://teams.stg.atlassian-us-gov-mod.com/${path}?cloudId=${config.cloudId}`;
+						expect(generatePath(path, config)).toEqual(expectedPath);
+					});
+				});
 			});
 		});
 	});

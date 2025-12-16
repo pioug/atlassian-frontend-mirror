@@ -3,7 +3,7 @@ import React from 'react';
 import { Text } from '@atlaskit/primitives/compiled';
 import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
 
-const Example = () => (
+const Example = (): React.JSX.Element => (
 	<SectionMessage
 		title="Editing is restricted"
 		testId="section-message"

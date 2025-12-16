@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useGlobalTheme } from '@atlaskit/theme';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const tokens = useGlobalTheme();
 	return (
 		<div>

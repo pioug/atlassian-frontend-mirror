@@ -38,7 +38,7 @@ const RadiusCard = ({
 	);
 };
 
-const Cards = () => (
+const Cards = (): React.JSX.Element => (
 	<RadiusCard heading="radius.xlarge">
 		<RadiusCard heading="radius.large">
 			<RadiusCard heading="radius.small" />

@@ -10,7 +10,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-type RemoveButtonProps = {
+export type RemoveButtonProps = {
 	'aria-label'?: string;
 	onClick?: MouseEventHandler<HTMLButtonElement>;
 	onFocus?: FocusEventHandler<HTMLButtonElement>;
@@ -18,7 +18,12 @@ type RemoveButtonProps = {
 	onKeyPress?: KeyboardEventHandler<HTMLButtonElement>;
 	onMouseOver?: MouseEventHandler<HTMLButtonElement>;
 	onMouseOut?: MouseEventHandler<HTMLButtonElement>;
+	onMouseDown?: MouseEventHandler<HTMLButtonElement>;
+	onMouseUp?: MouseEventHandler<HTMLButtonElement>;
+	onMouseEnter?: MouseEventHandler<HTMLButtonElement>;
+	onMouseLeave?: MouseEventHandler<HTMLButtonElement>;
 	testId?: string;
+	shape?: 'default' | 'circle';
 };
 
 const removeButtonStyles = cssMap({
@@ -45,7 +50,7 @@ const removeButtonStyles = cssMap({
 		marginInlineEnd: token('space.negative.025'),
 
 		'&:focus-visible': {
-			outlineOffset: token('space.negative.025'),
+			outlineOffset: '0',
 		},
 
 		'&:hover': {
@@ -54,6 +59,12 @@ const removeButtonStyles = cssMap({
 
 		'&:active': {
 			backgroundColor: token('color.background.neutral.subtle.pressed'),
+		},
+	},
+	circle: {
+		borderRadius: token('radius.full'),
+		'&:focus-visible': {
+			outlineOffset: 0,
 		},
 	},
 });
@@ -77,12 +88,18 @@ const RemoveButton = ({
 	onKeyPress,
 	onMouseOver,
 	onMouseOut,
+	onMouseDown,
+	onMouseUp,
+	onMouseEnter,
+	onMouseLeave,
 	testId,
+	shape = 'default',
 }: RemoveButtonProps) => {
 	return (
 		<Pressable
 			xcss={cx(
 				removeButtonStyles.root,
+				shape === 'circle' && removeButtonStyles.circle,
 				removeButtonStylesOldIcon.root,
 				fg('platform-visual-refresh-icons') && removeButtonStylesNewIcon.root,
 			)}
@@ -93,6 +110,10 @@ const RemoveButton = ({
 			onKeyPress={onKeyPress}
 			onMouseOver={onMouseOver}
 			onMouseOut={onMouseOut}
+			onMouseDown={onMouseDown}
+			onMouseUp={onMouseUp}
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
 			testId={testId}
 		>
 			<CloseIcon color="currentColor" label="" LEGACY_size="small" size="small" />

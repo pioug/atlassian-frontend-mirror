@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-expand",
-	"version": "7.4.16",
+	"version": "7.5.0",
 	"description": "Expand plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

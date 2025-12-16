@@ -6,7 +6,7 @@ import React, { useCallback, memo } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
+import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
 import { token } from '@atlaskit/tokens';
 import type { IconColor } from '@atlaskit/tokens/css-type-schema';
 import Tooltip from '@atlaskit/tooltip';

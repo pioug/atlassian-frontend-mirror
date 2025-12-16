@@ -9,6 +9,7 @@ import { components, type OptionType } from '@atlaskit/select';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { AddOptionAvatar } from './AddOptionAvatar';
+import { AvatarOrIcon } from './AvatarOrIcon';
 import { SizeableAvatar } from './SizeableAvatar';
 import { getAvatarUrl, isEmail, isGroup, isTeam } from './utils';
 import { type Option, type UserPickerProps } from '../types';
@@ -16,6 +17,7 @@ import PeopleIcon from '@atlaskit/icon/core/migration/people-group--people';
 import { type MultiValueProps } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const scrollToValue = (valueContainer: HTMLDivElement, control: HTMLElement) => {
 	const { top, height } = valueContainer.getBoundingClientRect();
@@ -116,6 +118,19 @@ export class MultiValue extends React.Component<Props> {
 			);
 		}
 
+		// Only use icon if feature gate is enabled
+		if (data.icon && fg('atlaskit_user_picker_support_icon')) {
+			return (
+				<AvatarOrIcon
+					appearance="multi"
+					icon={data.icon}
+					iconColor={data.iconColor}
+					src={getAvatarUrl(data)}
+					type={isTeam(data) ? 'team' : 'person'}
+				/>
+			);
+		}
+		// Fallback to original behavior
 		return (
 			<SizeableAvatar
 				appearance="multi"

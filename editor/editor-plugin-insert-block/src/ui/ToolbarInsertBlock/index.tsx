@@ -43,6 +43,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { OnInsert } from '../ElementBrowser/types';
+import { LINK_BUTTON_KEY } from '../toolbar-components/hooks/filterDropdownItems';
 
 import { BlockInsertMenu } from './block-insert-menu';
 import type { BlockMenuItem } from './create-items';
@@ -373,7 +374,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 	};
 
 	private toggleTableSelector = (
-		inputMethod: TOOLBAR_MENU_TYPE | INPUT_METHOD.KEYBOARD = INPUT_METHOD.TOOLBAR,
+		_inputMethod: TOOLBAR_MENU_TYPE | INPUT_METHOD.KEYBOARD = INPUT_METHOD.TOOLBAR,
 	) => {
 		this.setState((prevState) => ({
 			isTableSelectorOpen: !prevState.isTableSelectorOpen,
@@ -813,7 +814,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 		}
 
 		switch (item.value.name) {
-			case 'link':
+			case LINK_BUTTON_KEY:
 				this.toggleLinkPanel(inputMethod);
 				break;
 			case 'table':

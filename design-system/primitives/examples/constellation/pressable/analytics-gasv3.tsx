@@ -8,7 +8,7 @@ import {
 	fireUIAnalytics,
 } from '@atlassian/analytics-bridge';
 
-export default function AnalyticsGASv3() {
+export default function AnalyticsGASv3(): React.JSX.Element {
 	const handleEvent = useCallback((event: UIAnalyticsEvent, channel?: string) => {
 		console.log(`Channel: '${channel}'`, extractAWCDataFromEvent(event));
 	}, []);

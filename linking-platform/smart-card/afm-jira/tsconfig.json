@@ -82,9 +82,6 @@
 			"path": "../../json-ld-types/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/legacy-custom-icons/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/link/afm-jira/tsconfig.json"
 		},
 		{

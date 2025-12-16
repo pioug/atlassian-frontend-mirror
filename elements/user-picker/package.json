@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/user-picker",
-	"version": "11.17.0",
+	"version": "11.18.0",
 	"description": "Fabric component for display a dropdown to select a user from",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -132,6 +132,9 @@
 			"type": "boolean"
 		},
 		"a11y-create-team-is-not-focusable-and-has-no-btn": {
+			"type": "boolean"
+		},
+		"atlaskit_user_picker_support_icon": {
 			"type": "boolean"
 		}
 	}

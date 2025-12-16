@@ -5,7 +5,7 @@ import { Box, Flex } from '@atlaskit/primitives';
 
 const Block = () => <Box backgroundColor="color.background.neutral" padding="space.600" />;
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	return (
 		<Flex testId="flex-basic" wrap="wrap" gap="space.200">
 			<Block />

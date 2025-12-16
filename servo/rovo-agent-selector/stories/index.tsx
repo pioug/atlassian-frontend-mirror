@@ -66,6 +66,12 @@ function BasicTemplateComponent() {
 				},
 				edges: generateMockAgentEdges(10),
 			}),
+			AtlassianStudioUserSiteContextOutput: () => ({
+				userPermissions: {
+					isAbleToCreateAgents: true,
+				},
+				isCustomAgentsAvailable: true,
+			}),
 		}),
 	);
 

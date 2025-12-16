@@ -1,5 +1,11 @@
 # @atlassian/anonymous-assets
 
+## 0.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.0.14
 
 ### Patch Changes

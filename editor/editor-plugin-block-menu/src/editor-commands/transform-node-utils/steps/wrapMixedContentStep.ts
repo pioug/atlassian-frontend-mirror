@@ -50,6 +50,46 @@ const canWrapInTarget = (
 };
 
 /**
+ * Handles the edge case where transforming from a container to another container results in
+ * all content breaking out (no valid children for the target). In this case, creates an empty
+ * container to ensure the target container type is created.
+ *
+ * We can determine if there were no valid children by checking if no container was created
+ * (`!hasCreatedContainer`) and there are nodes in the result (`result.length > 0`), which
+ * means all content broke out rather than being wrapped.
+ *
+ * @param result - The current result nodes after processing
+ * @param hasCreatedContainer - Whether a container was already created during processing
+ * @param fromNode - The original source node (before unwrapping)
+ * @param targetNodeType - The target container type
+ * @param targetNodeTypeName - The target container type name
+ * @param schema - The schema
+ * @returns The result nodes with an empty container prepended if needed, or the original result
+ */
+const handleEmptyContainerEdgeCase = (
+	result: PMNode[],
+	hasCreatedContainer: boolean,
+	fromNode: PMNode,
+	targetNodeType: NodeType,
+	targetNodeTypeName: NodeTypeName,
+	schema: Schema,
+): PMNode[] => {
+	const isFromContainer = NODE_CATEGORY_BY_TYPE[fromNode.type.name as NodeTypeName] === 'container';
+	const isTargetContainer = NODE_CATEGORY_BY_TYPE[targetNodeTypeName] === 'container';
+	// If no container was created but we have nodes in result, all content broke out
+	// (meaning there were no valid children that could be wrapped)
+	const allContentBrokeOut = !hasCreatedContainer && result.length > 0;
+
+	const shouldCreateEmptyTarget = isFromContainer && isTargetContainer && allContentBrokeOut;
+	if (shouldCreateEmptyTarget) {
+		const emptyParagraph = schema.nodes.paragraph.create();
+		const emptyContainer = targetNodeType.create({}, emptyParagraph);
+		return [emptyContainer, ...result];
+	}
+	return result;
+};
+
+/**
  * A wrap step that handles mixed content according to the Compatibility Matrix:
  * - Wraps consecutive compatible nodes into the target container
  * - Same-type containers break out as separate containers (preserved as-is)
@@ -66,9 +106,10 @@ const canWrapInTarget = (
  * Example: expand(p('a'), table(), p('b')) → panel: [panel(p('a')), table(), panel(p('b'))]
  * Example: expand(p('a'), panel(p('x')), p('b')) → panel: [panel(p('a')), panel(p('x')), panel(p('b'))]
  * Example: expand(p('a'), nestedExpand({title: 'inner'})(p('x')), p('b')) → panel: [panel(p('a')), expand({title: 'inner'})(p('x')), panel(p('b'))]
+ * Example: expand(nestedExpand()(p())) → panel: [panel(), expand()(p())] (empty panel when all content breaks out)
  */
 export const wrapMixedContentStep: TransformStep = (nodes, context) => {
-	const { schema, targetNodeTypeName } = context;
+	const { schema, targetNodeTypeName, fromNode } = context;
 	const targetNodeType = schema.nodes[targetNodeTypeName];
 
 	if (!targetNodeType) {
@@ -77,6 +118,7 @@ export const wrapMixedContentStep: TransformStep = (nodes, context) => {
 
 	const result: PMNode[] = [];
 	let currentContainerContent: PMNode[] = [];
+	let hasCreatedContainer = false;
 
 	const flushCurrentContainer = () => {
 		if (currentContainerContent.length > 0) {
@@ -86,6 +128,7 @@ export const wrapMixedContentStep: TransformStep = (nodes, context) => {
 			);
 			if (containerNode) {
 				result.push(containerNode);
+				hasCreatedContainer = true;
 			}
 			currentContainerContent = [];
 		}
@@ -118,5 +161,15 @@ export const wrapMixedContentStep: TransformStep = (nodes, context) => {
 	// Flush any remaining content into a container
 	flushCurrentContainer();
 
-	return result.length > 0 ? result : nodes;
+	// Handle edge case: create empty container if all content broke out
+	const finalResult = handleEmptyContainerEdgeCase(
+		result,
+		hasCreatedContainer,
+		fromNode,
+		targetNodeType,
+		targetNodeTypeName,
+		schema,
+	);
+
+	return finalResult.length > 0 ? finalResult : nodes;
 };

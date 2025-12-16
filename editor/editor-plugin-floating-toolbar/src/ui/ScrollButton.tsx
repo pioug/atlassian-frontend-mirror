@@ -7,8 +7,8 @@ import type { IntlShape } from 'react-intl-next';
 import { IconButton } from '@atlaskit/button/new';
 import { messages } from '@atlaskit/editor-common/floating-toolbar';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
-import ChevronLeftLargeIcon from '@atlaskit/icon/core/migration/chevron-left--chevron-left-large';
-import ChevronRightLargeIcon from '@atlaskit/icon/core/migration/chevron-right--chevron-right-large';
+import ChevronLeftLargeIcon from '@atlaskit/icon/core/chevron-left';
+import ChevronRightLargeIcon from '@atlaskit/icon/core/chevron-right';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';

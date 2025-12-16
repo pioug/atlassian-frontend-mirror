@@ -3,7 +3,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Anchor, Stack } from '@atlaskit/primitives';
 
-export default function AnchorNewWindow() {
+export default function AnchorNewWindow(): React.JSX.Element {
 	return (
 		<Stack>
 			<table>

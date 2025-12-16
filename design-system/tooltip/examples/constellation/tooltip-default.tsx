@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/new';
 import { Inline } from '@atlaskit/primitives/compiled';
 import Tooltip from '@atlaskit/tooltip';
 
-export default function TooltipDefaultExample() {
+export default function TooltipDefaultExample(): React.JSX.Element {
 	return (
 		<Inline space="space.100">
 			<Tooltip content="This is a tooltip">

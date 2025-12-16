@@ -1,5 +1,29 @@
 # @atlaskit/lozenge
 
+## 13.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.0
+
+### Minor Changes
+
+- [`59ff6a9633c8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59ff6a9633c8b) - -
+  New Component: Introduced `LozengeDropdownTrigger`, a specialized component designed to act as a
+  trigger for dropdown or popup menus. It includes built-in accessibility supports (focus rings,
+  aria attributes) and interactive states, keeping the base `Lozenge` purely presentational.
+  - Visual Refresh (Opt-in): Implemented the North Star visual uplift for Lozenge behind the feature
+    flag `platform-dst-lozenge-tag-badge-visual-uplifts`.
+    - New API: The appearance prop now supports AccentColor values (e.g., `'accent-red'`,
+      `'accent-blue'`) alongside updated SemanticColor values：`'neutral'`, `'danger'`, `'success'`,
+      `'discovery'`, `'information'`, `'warning'`.
+
+    - Deprecation: The `isBold` prop is now deprecated. The new visual style is bold by default.
+
+    - Icons: Added support for the `iconBefore` prop to reinforce status visually.
+
 ## 13.1.2
 
 ### Patch Changes

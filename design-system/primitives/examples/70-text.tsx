@@ -8,7 +8,7 @@ const sizes = ['small', 'UNSAFE_small', 'medium', 'large'] as const;
 const weights = ['regular', 'medium', 'semibold', 'bold'] as const;
 const alignments = ['start', 'center', 'end'] as const;
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Stack space="space.300">
 			<section>

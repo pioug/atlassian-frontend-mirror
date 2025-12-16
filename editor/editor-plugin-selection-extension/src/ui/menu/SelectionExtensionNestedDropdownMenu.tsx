@@ -25,7 +25,7 @@ const ChildItems = ({ nestedDropdownMenu }: SelectionExtensionNestedDropdownMenu
 
 export const SelectionExtensionNestedDropdownMenu = ({
 	nestedDropdownMenu,
-}: SelectionExtensionNestedDropdownMenuProps) => {
+}: SelectionExtensionNestedDropdownMenuProps) : React.JSX.Element=> {
 	const IconComponent = nestedDropdownMenu.icon;
 	return (
 		<ToolbarNestedDropdownMenu

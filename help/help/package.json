@@ -48,7 +48,6 @@
 		"@atlaskit/help-article": "workspace:^",
 		"@atlaskit/help-layout": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
-		"@atlaskit/legacy-custom-icons": "workspace:^",
 		"@atlaskit/notification-indicator": "workspace:^",
 		"@atlaskit/notification-log-client": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
@@ -75,7 +74,7 @@
 		"react-intl-next": "*"
 	},
 	"devDependencies": {
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@types/react-transition-group": "root:*",
 		"algoliasearch": "root:*",
 		"enzyme": "root:*",

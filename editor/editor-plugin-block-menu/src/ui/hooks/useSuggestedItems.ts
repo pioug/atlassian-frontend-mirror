@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import type { BlockMenuPlugin, RegisterBlockMenuItem } from '../../blockMenuPluginType';
-import { getBlockNodesInRange, expandSelectionToBlockRange } from '../../editor-commands/transform-node-utils/utils';
+import { getBlockNodesInRange } from '../../editor-commands/transform-node-utils/utils';
 import { getSortedSuggestedItems } from '../utils/suggested-items-rank';
 
 export const useSuggestedItems = (
@@ -38,17 +39,24 @@ export const useSuggestedItems = (
 		if (menuItemsMap.size === 0 || !currentSelection) {
 			return [];
 		}
-		const { range } = expandSelectionToBlockRange(currentSelection, currentSelection.$from.doc.type.schema);
+		const { range } = expandSelectionToBlockRange(currentSelection);
 		if (!range) {
 			return [];
 		}
 		const blockNodes = getBlockNodesInRange(range);
-		const singleNode = blockNodes.length === 1 ? blockNodes[0] : undefined;
-		if (!singleNode) {
+
+		if (blockNodes.length === 0) {
 			return [];
 		}
 
-		const nodeTypeName = singleNode.type.name;
+		const firstNodeType = blockNodes[0].type.name;
+		const allSameType = blockNodes.every((node) => node.type.name === firstNodeType);
+
+		if (!allSameType) {
+			return [];
+		}
+
+		const nodeTypeName = firstNodeType;
 		const sortedKeys = getSortedSuggestedItems(nodeTypeName);
 
 		return sortedKeys
@@ -58,4 +66,3 @@ export const useSuggestedItems = (
 
 	return suggestedItems;
 };
-

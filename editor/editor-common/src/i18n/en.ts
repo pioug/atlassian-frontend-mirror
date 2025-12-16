@@ -604,7 +604,7 @@ export default {
   'fabric.editor.editLink': 'Edit link',
   'fabric.editor.editMode.inviteToEditButton.title': 'Invite to edit',
   'fabric.editor.editSourceLabel': 'Edit source',
-  'fabric.editor.editSourceTooltip': 'Navigate to source page of the sync block',
+  'fabric.editor.editSourceTooltip': 'Edit at the source location',
   'fabric.editor.editSourceTooltipDisabled': 'Source link is not currently available',
   'fabric.editor.editStatusColor': 'Edit Status Color',
   'fabric.editor.editStatusText': 'Edit Status',

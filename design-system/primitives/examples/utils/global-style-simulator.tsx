@@ -6,7 +6,7 @@ import React from 'react';
  * Sets global styles to replicate existing styles in apps like Jira and Confluence, that our
  * primitives need to have a higher style specificity to override.
  */
-export function GlobalStyleSimulator() {
+export function GlobalStyleSimulator(): React.JSX.Element {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- This is only for testing purposes
 		<style>

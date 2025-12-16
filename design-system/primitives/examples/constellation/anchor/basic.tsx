@@ -41,7 +41,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	return (
 		<Anchor
 			href="https://www.atlassian.com/software/atlas"

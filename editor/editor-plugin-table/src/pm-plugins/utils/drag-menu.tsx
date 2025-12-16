@@ -41,22 +41,9 @@ import TableRowAddBelowIcon from '@atlaskit/icon/core/table-row-add-below';
 import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
 import TableRowMoveDownIcon from '@atlaskit/icon/core/table-row-move-down';
 import TableRowMoveUpIcon from '@atlaskit/icon/core/table-row-move-up';
-import ArrowDownIcon from '@atlaskit/icon/glyph/arrow-down';
-import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
-import ArrowRightIcon from '@atlaskit/icon/glyph/arrow-right';
-import ArrowUpIcon from '@atlaskit/icon/glyph/arrow-up';
-import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
-import EditorLayoutThreeEqualIcon from '@atlaskit/icon/glyph/editor/layout-three-equal';
-import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
-import HipchatChevronDoubleDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-double-down';
-import HipchatChevronDoubleUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-double-up';
 import type { NewIconProps, IconProps } from '@atlaskit/icon/types';
 
 import type { DraggableData, DraggableType, PluginInjectionAPI, TableDirection } from '../../types';
-import { AddColLeftIcon } from '../../ui/icons/AddColLeftIcon';
-import { AddColRightIcon } from '../../ui/icons/AddColRightIcon';
-import { AddRowAboveIcon } from '../../ui/icons/AddRowAboveIcon';
-import { AddRowBelowIcon } from '../../ui/icons/AddRowBelowIcon';
 import { getClosestSelectionRect } from '../../ui/toolbar';
 import {
 	deleteColumnsWithAnalytics,
@@ -183,25 +170,13 @@ export const getDragMenuConfig = (
 					{
 						label: 'above',
 						offset: 0,
-						icon: () => (
-							<TableRowAddAboveIcon
-								LEGACY_fallbackIcon={AddRowAboveIcon}
-								spacing={'spacious'}
-								label={''}
-							/>
-						),
+						icon: () => <TableRowAddAboveIcon spacing={'spacious'} label={''} />,
 						keymap: addRowBefore,
 					},
 					{
 						label: 'below',
 						offset: 1,
-						icon: () => (
-							<TableRowAddBelowIcon
-								LEGACY_fallbackIcon={AddRowBelowIcon}
-								spacing={'spacious'}
-								label={''}
-							/>
-						),
+						icon: () => <TableRowAddBelowIcon spacing={'spacious'} label={''} />,
 						keymap: addRowAfter,
 					},
 				]
@@ -209,25 +184,13 @@ export const getDragMenuConfig = (
 					{
 						label: 'left',
 						offset: 0,
-						icon: () => (
-							<TableColumnAddLeftIcon
-								LEGACY_fallbackIcon={AddColLeftIcon}
-								spacing={'spacious'}
-								label={''}
-							/>
-						),
+						icon: () => <TableColumnAddLeftIcon spacing={'spacious'} label={''} />,
 						keymap: addColumnBefore,
 					},
 					{
 						label: 'right',
 						offset: 1,
-						icon: () => (
-							<TableColumnAddRightIcon
-								LEGACY_fallbackIcon={AddColRightIcon}
-								spacing={'spacious'}
-								label={''}
-							/>
-						),
+						icon: () => <TableColumnAddRightIcon spacing={'spacious'} label={''} />,
 						keymap: addColumnAfter,
 					},
 				];
@@ -236,13 +199,7 @@ export const getDragMenuConfig = (
 			? [
 					{
 						label: 'up',
-						icon: () => (
-							<TableRowMoveUpIcon
-								LEGACY_fallbackIcon={ArrowUpIcon}
-								spacing={'spacious'}
-								label={''}
-							/>
-						),
+						icon: () => <TableRowMoveUpIcon spacing={'spacious'} label={''} />,
 						keymap: moveRowUp,
 						canMove: canMove('table-row', -1, tableMap?.height ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedRowIndexes,
@@ -250,13 +207,7 @@ export const getDragMenuConfig = (
 					},
 					{
 						label: 'down',
-						icon: () => (
-							<TableRowMoveDownIcon
-								LEGACY_fallbackIcon={ArrowDownIcon}
-								spacing={'spacious'}
-								label={''}
-							/>
-						),
+						icon: () => <TableRowMoveDownIcon spacing={'spacious'} label={''} />,
 						keymap: moveRowDown,
 						canMove: canMove('table-row', 1, tableMap?.height ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedRowIndexes,
@@ -266,13 +217,7 @@ export const getDragMenuConfig = (
 			: [
 					{
 						label: 'left',
-						icon: () => (
-							<TableColumnMoveLeftIcon
-								LEGACY_fallbackIcon={ArrowLeftIcon}
-								spacing={'spacious'}
-								label={''}
-							/>
-						),
+						icon: () => <TableColumnMoveLeftIcon spacing={'spacious'} label={''} />,
 						keymap: moveColumnLeft,
 						canMove: canMove('table-column', -1, tableMap?.width ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedColumnIndexes,
@@ -280,13 +225,7 @@ export const getDragMenuConfig = (
 					},
 					{
 						label: 'right',
-						icon: () => (
-							<TableColumnMoveRightIcon
-								LEGACY_fallbackIcon={ArrowRightIcon}
-								spacing={'spacious'}
-								label={''}
-							/>
-						),
+						icon: () => <TableColumnMoveRightIcon spacing={'spacious'} label={''} />,
 						keymap: moveColumnRight,
 						canMove: canMove('table-column', 1, tableMap?.width ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedColumnIndexes,
@@ -299,24 +238,12 @@ export const getDragMenuConfig = (
 					{
 						label: 'increasing',
 						order: SortOrder.ASC,
-						icon: () => (
-							<SortAscendingIcon
-								LEGACY_fallbackIcon={HipchatChevronDoubleUpIcon}
-								spacing={'spacious'}
-								label={''}
-							/>
-						),
+						icon: () => <SortAscendingIcon spacing={'spacious'} label={''} />,
 					},
 					{
 						label: 'decreasing',
 						order: SortOrder.DESC,
-						icon: () => (
-							<SortDescendingIcon
-								LEGACY_fallbackIcon={HipchatChevronDoubleDownIcon}
-								spacing={'spacious'}
-								label={''}
-							/>
-						),
+						icon: () => <SortDescendingIcon spacing={'spacious'} label={''} />,
 					},
 				]
 			: [];
@@ -389,13 +316,7 @@ export const getDragMenuConfig = (
 						}
 						return false;
 					},
-					icon: () => (
-						<TableColumnsDistributeIcon
-							LEGACY_fallbackIcon={EditorLayoutThreeEqualIcon}
-							spacing={'spacious'}
-							label={''}
-						/>
-					),
+					icon: () => <TableColumnsDistributeIcon spacing={'spacious'} label={''} />,
 				}
 			: undefined,
 		{
@@ -408,9 +329,7 @@ export const getDragMenuConfig = (
 				)(state, dispatch);
 				return true;
 			},
-			icon: () => (
-				<TableCellClearIcon LEGACY_fallbackIcon={CrossCircleIcon} spacing={'spacious'} label={''} />
-			),
+			icon: () => <TableCellClearIcon spacing={'spacious'} label={''} />,
 			keymap: tooltip(backspace),
 		},
 		{
@@ -441,20 +360,8 @@ export const getDragMenuConfig = (
 			},
 			icon:
 				direction === 'row'
-					? () => (
-							<TableRowDeleteIcon
-								LEGACY_fallbackIcon={RemoveIcon}
-								spacing={'spacious'}
-								label={''}
-							/>
-						)
-					: () => (
-							<TableColumnDeleteIcon
-								LEGACY_fallbackIcon={RemoveIcon}
-								spacing={'spacious'}
-								label={''}
-							/>
-						),
+					? () => <TableRowDeleteIcon spacing={'spacious'} label={''} />
+					: () => <TableColumnDeleteIcon spacing={'spacious'} label={''} />,
 			keymap: direction === 'row' ? tooltip(deleteRow) : tooltip(deleteColumn),
 		},
 		...moveOptions.map(({ label, canMove, icon, keymap, getOriginIndexes, getTargetIndex }) => ({

@@ -12,7 +12,7 @@ const overrideBoldBackgroundStyles = xcss({
 	backgroundColor: 'color.background.information',
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Stack space="space.300">
 			<section>

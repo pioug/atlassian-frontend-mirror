@@ -13,7 +13,7 @@ const containerStyles = xcss({
 
 const blockStyles = xcss({ borderRadius: 'radius.xsmall' });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box testId="stack-example" padding="space.100">
 		<Inline space="space.100">
 			{growItems.map((grow) => (

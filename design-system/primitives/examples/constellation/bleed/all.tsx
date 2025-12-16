@@ -11,7 +11,7 @@ const gridStyles = cssMap({
 	},
 });
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	return (
 		<Box padding="space.200" backgroundColor="color.background.neutral">
 			<Grid gap="space.100" xcss={gridStyles.root}>

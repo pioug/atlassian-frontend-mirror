@@ -35,6 +35,7 @@ import type { ToolbarInsertBlockButtonsConfig } from '../../types';
 import InsertMenu, { DEFAULT_HEIGHT } from '../ElementBrowser/InsertMenu';
 import type { OnInsert } from '../ElementBrowser/types';
 
+import { LINK_BUTTON_KEY } from './hooks/filterDropdownItems';
 import { useEmojiPickerPopup } from './hooks/useEmojiPickerPopup';
 import { useInsertButtonState } from './hooks/useInsertButtonState';
 import { useTableSelectorPopup } from './hooks/useTableSelectorPopup';
@@ -141,7 +142,7 @@ export const InsertButton = ({
 		}
 
 		switch (item.value.name) {
-			case 'link':
+			case LINK_BUTTON_KEY:
 				api?.core?.actions.execute(api?.hyperlink?.commands.showLinkToolbar(inputMethod));
 				break;
 			case 'table':

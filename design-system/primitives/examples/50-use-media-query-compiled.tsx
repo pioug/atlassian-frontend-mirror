@@ -2,7 +2,7 @@ import React from 'react';
 
 import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/compiled';
 
-export default () => {
+export default (): React.JSX.Element => {
 	const mq = useMediaQuery('above.sm', (event) => setIsAbove(event.matches));
 	const [isAbove, setIsAbove] = React.useState(mq?.matches);
 

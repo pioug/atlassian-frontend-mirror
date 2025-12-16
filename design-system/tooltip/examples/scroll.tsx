@@ -48,7 +48,7 @@ const shimStyles = cssMap({
 	},
 });
 
-export default function ScrollExample() {
+export default function ScrollExample(): React.JSX.Element {
 	return (
 		<Box>
 			<Box

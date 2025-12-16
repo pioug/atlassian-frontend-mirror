@@ -14,7 +14,6 @@ import { useSmartLinkModal } from '../../../../../state/modal';
 import Action from '../action';
 import { type LinkActionProps } from '../types';
 
-import AutomationManualTriggersGlyph from './manual-triggers-icon';
 import { getModalContent } from './utils';
 
 const AutomationModal = lazy(
@@ -94,7 +93,6 @@ const AutomationAction = (props: LinkActionProps): React.JSX.Element | null => {
 				icon={
 					<AutomationIcon
 						spacing="spacious"
-						LEGACY_fallbackIcon={AutomationManualTriggersGlyph}
 						color="currentColor"
 						label={automationActionIconLabel}
 					/>

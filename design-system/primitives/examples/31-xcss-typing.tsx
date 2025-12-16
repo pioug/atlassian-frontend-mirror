@@ -38,6 +38,6 @@ const rawValuesStyles = xcss({
 	height: '100px',
 });
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	return <Box testId="box-xcss" xcss={[onlyTokenisedStyles, rawValuesStyles]} />;
 }

@@ -21,7 +21,7 @@ const headerStyles = xcss({
 	boxShadow: 'elevation.shadow.overflow',
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Box backgroundColor="elevation.surface.raised" padding="space.200" xcss={containerStyles}>
 			<Box

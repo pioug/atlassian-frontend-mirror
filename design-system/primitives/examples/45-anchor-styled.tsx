@@ -13,7 +13,7 @@ const anchorStyles = xcss({
 	},
 });
 
-export default function Default() {
+export default function Default(): React.JSX.Element {
 	return (
 		<Anchor
 			testId="anchor-styled"

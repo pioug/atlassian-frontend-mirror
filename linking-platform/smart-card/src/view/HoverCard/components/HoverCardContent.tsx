@@ -144,9 +144,7 @@ const HoverCardContent = ({
 	const onClickStopPropagation = useCallback((e: any) => e.stopPropagation(), []);
 
 	const getCardView = (cardState: CardState) => {
-		const overrideView = fg('smart-link-custom-hover-card-content')
-			? hoverPreviewOptions?.render?.()
-			: undefined;
+		const overrideView = hoverPreviewOptions?.render?.();
 		if (overrideView) {
 			return overrideView;
 		}

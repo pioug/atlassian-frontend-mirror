@@ -13,7 +13,7 @@ import { getEmojiRepository } from '@atlaskit/util-data-test/get-emoji-repositor
 const emojiService = getEmojiRepository();
 const blush = emojiService.findByShortName(':blush:');
 
-export default function TileSkeletonExample() {
+export default function TileSkeletonExample(): React.JSX.Element {
 	const [isLoading, setIsLoading] = useState(true);
 
 	if (!blush) {

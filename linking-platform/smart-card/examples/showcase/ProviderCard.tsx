@@ -10,8 +10,6 @@ import Avatar from '@atlaskit/avatar';
 import { IconButton } from '@atlaskit/button/new';
 import ExpandIcon from '@atlaskit/icon/core/chevron-down';
 import CollapseIcon from '@atlaskit/icon/core/chevron-up';
-import ExpandIconLegacy from '@atlaskit/icon/glyph/hipchat/chevron-down';
-import CollapseIconLegacy from '@atlaskit/icon/glyph/hipchat/chevron-up';
 import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge';
 import { N40A, N50A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -131,21 +129,9 @@ export const ProviderCard = ({
 					onClick={handleClick}
 					icon={(props) =>
 						expanded ? (
-							<CollapseIcon
-								{...props}
-								LEGACY_size="small"
-								label="collapse"
-								LEGACY_fallbackIcon={CollapseIconLegacy}
-								size="small"
-							/>
+							<CollapseIcon {...props} label="collapse" size="small" />
 						) : (
-							<ExpandIcon
-								{...props}
-								LEGACY_size="small"
-								label="expand"
-								LEGACY_fallbackIcon={ExpandIconLegacy}
-								size="small"
-							/>
+							<ExpandIcon {...props} label="expand" size="small" />
 						)
 					}
 					label={''}

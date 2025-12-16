@@ -4,7 +4,7 @@ import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import ToggleVisuallyHidden from './constellation/utils/toggle-visually-hidden';
 
-const VisuallyHiddenDefaultExample = () => {
+const VisuallyHiddenDefaultExample = (): React.JSX.Element => {
 	const hiddenContent = 'Hidden text';
 
 	return (

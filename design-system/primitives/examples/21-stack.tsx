@@ -37,7 +37,7 @@ const containerStyles = xcss({
 /**
  * Stack permutations.
  */
-export default () => (
+export default (): React.JSX.Element => (
 	<Box padding="space.200">
 		<Stack space="space.400">
 			<Stack space="space.300" alignInline="start">

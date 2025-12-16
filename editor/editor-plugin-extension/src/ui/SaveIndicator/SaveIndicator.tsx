@@ -9,7 +9,7 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { messages } from '@atlaskit/editor-common/extensions';
-import CheckCircleIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
+import CheckCircleIcon from '@atlaskit/icon/core/status-success';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Text, xcss } from '@atlaskit/primitives';
 import { G300, N0 } from '@atlaskit/theme/colors';
@@ -39,7 +39,7 @@ const saveIndicatorContentStyles = css({
 		'elevation.shadow.overlay',
 		`0px 8px 12px rgba(9, 30, 66, 0.15), 0px 0px 1px rgba(9, 30, 66, 0.31)`,
 	),
-	borderRadius: '16px',
+	borderRadius: token('radius.xxlarge'),
 });
 
 const saveIndicatorTextStyles = xcss({

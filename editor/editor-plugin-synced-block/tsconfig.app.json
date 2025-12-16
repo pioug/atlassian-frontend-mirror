@@ -101,9 +101,6 @@
 			"path": "../../design-system/icon-lab/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/logo/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/lozenge/tsconfig.app.json"
 		},
 		{

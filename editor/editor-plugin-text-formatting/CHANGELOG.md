@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 6.1.16
+
+### Patch Changes
+
+- [`90abe9b926a6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90abe9b926a6f) -
+  Icon entrypoint migration
+- Updated dependencies
+
 ## 6.1.15
 
 ### Patch Changes

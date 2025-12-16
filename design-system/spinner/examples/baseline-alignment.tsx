@@ -2,7 +2,7 @@ import React from 'react';
 
 import Spinner from '@atlaskit/spinner';
 
-export default function Alignment() {
+export default function Alignment(): React.JSX.Element {
 	return (
 		<div>
 			<div>

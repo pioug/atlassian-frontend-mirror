@@ -34,6 +34,9 @@
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
+			"path": "../avatar/tsconfig.app.json"
+		},
+		{
 			"path": "../css/tsconfig.app.json"
 		},
 		{
@@ -41,6 +44,9 @@
 		},
 		{
 			"path": "../icon/tsconfig.app.json"
+		},
+		{
+			"path": "../link/tsconfig.app.json"
 		},
 		{
 			"path": "../motion/tsconfig.app.json"

@@ -7,7 +7,7 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import DecisionIcon from '@atlaskit/icon/core/migration/decision--editor-decision';
+import DecisionIcon from '@atlaskit/icon/core/decision';
 
 import { insertTaskDecisionCommand } from '../../pm-plugins/insert-commands';
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';

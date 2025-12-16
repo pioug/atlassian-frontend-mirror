@@ -102,7 +102,7 @@ export function Popper<CustomModifiers>({
 	modifiers,
 	strategy = 'fixed',
 	shouldFitViewport = false,
-}: CustomPopperProps<CustomModifiers>) {
+}: CustomPopperProps<CustomModifiers>): React.JSX.Element {
 	const [offsetX, offsetY] = offset;
 
 	type CombinedModifiers = Partial<Modifier<InternalModifierNames | CustomModifiers>>[];

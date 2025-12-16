@@ -87,7 +87,7 @@ const LozengeAction = ({
 							);
 							setIsLoaded(false);
 						}
-					} catch (err) {
+					} catch {
 						setErrorMessage(LozengeActionErrorMessages.unknown);
 						setIsLoaded(false);
 						fireEvent('track.smartLinkQuickAction.failed', unknownLoadErrorAnalyticsPayload);
@@ -184,9 +184,7 @@ const LozengeAction = ({
 			testId={testId}
 			trigger={trigger}
 			zIndex={zIndex}
-			{...(fg('lozenge-dropdown-prop-should-render-to-parent')
-				? { shouldRenderToParent: true }
-				: {})}
+			shouldRenderToParent
 		>
 			{dropdownItemGroup}
 		</DropdownMenu>

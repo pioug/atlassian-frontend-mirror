@@ -5,6 +5,7 @@
 import React from 'react';
 import { components, type ValueContainerProps } from '@atlaskit/select';
 import { type Option, type User } from '../types';
+import { AvatarOrIcon } from './AvatarOrIcon';
 import { SizeableAvatar } from './SizeableAvatar';
 import ValueContainerWrapper from './ValueContainerWrapper';
 import { token } from '@atlaskit/tokens';
@@ -51,20 +52,37 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 		} = this.props;
 
 		if (isFocused || !hasValue) {
+			const userData = showUserAvatar(inputValue, value as Option<User>)
+				? (value as Option<User>).data
+				: undefined;
+			// Only use icon if feature gate is enabled
+			if (userData?.icon && fg('atlaskit_user_picker_support_icon')) {
+				return (
+					<AvatarOrIcon
+						appearance={appearance}
+						icon={userData.icon}
+						iconColor={userData.iconColor}
+						type={placeholderAvatar}
+						src={userData.avatarUrl}
+						avatarAppearanceShape={
+							userData &&
+							fg('jira_ai_agent_avatar_user_picker_user_option')
+								? getAppearanceForAppType(userData.appType)
+								: undefined
+						}
+					/>
+				);
+			}
+			// Fallback to original behavior
 			return (
 				<SizeableAvatar
 					appearance={appearance}
 					type={placeholderAvatar}
-					src={
-						showUserAvatar(inputValue, value as Option<User>)
-							? (value as Option<User>).data.avatarUrl
-							: undefined
-					}
+					src={userData?.avatarUrl}
 					avatarAppearanceShape={
-						value &&
-						(value as Option<User>).data &&
+						userData &&
 						fg('jira_ai_agent_avatar_user_picker_user_option')
-							? getAppearanceForAppType((value as Option<User>).data.appType)
+							? getAppearanceForAppType(userData.appType)
 							: undefined
 					}
 				/>

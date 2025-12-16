@@ -6,6 +6,9 @@ import { forwardRef, memo } from 'react';
 
 import { jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import TagNew, { colorMapping } from '../../../tag-new';
 import BaseTag from '../shared/base';
 import Before from '../shared/before';
 import Content from '../shared/content';
@@ -26,6 +29,24 @@ const SimpleTagComponent: React.ForwardRefExoticComponent<
 		}: SimpleTagProps,
 		ref: React.Ref<any>,
 	) => {
+		// Use new TagNew component behind feature flag
+		if (fg('platform-dst-lozenge-tag-badge-visual-uplifts')) {
+			const newColor = colorMapping[color || 'standard'];
+
+			return (
+				<TagNew
+					ref={ref}
+					color={newColor}
+					text={text}
+					elemBefore={elemBefore}
+					href={href}
+					testId={testId}
+					isRemovable={false}
+				/>
+			);
+		}
+
+		// Original implementation
 		const content = (
 			<Content
 				elemBefore={elemBefore}

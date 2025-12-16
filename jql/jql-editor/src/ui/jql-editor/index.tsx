@@ -7,6 +7,7 @@ import { useJqlEditorAnalytics } from '../../analytics';
 import { EditorThemeContext, useEditorTheme } from '../../hooks/use-editor-theme';
 import { EditorStateContainer } from '../../state';
 // eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
+import type { ExternalMessage } from '../../types';
 import { JQLEditorPortalRenderer } from '../jql-editor-portal-provider';
 // eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import JQLEditorView from '../jql-editor-view';
@@ -19,11 +20,11 @@ export type JQLEditorInnerProps = JQLEditorUIProps & {
 	 */
 	intl: IntlShape;
 };
-
+const emptyArray: ExternalMessage[] = []
 const JQLEditorInner = ({
 	analyticsSource,
 	query,
-	messages = [],
+	messages = emptyArray,
 	inputRef,
 	isSearching,
 	onEditorMounted,

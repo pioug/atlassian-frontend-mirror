@@ -54,12 +54,9 @@ import {
 import AlignImageCenterIcon from '@atlaskit/icon/core/align-image-center';
 import AlignImageLeftIcon from '@atlaskit/icon/core/align-image-left';
 import CopyIcon from '@atlaskit/icon/core/copy';
-import CustomizeIcon from '@atlaskit/icon/core/migration/customize--preferences';
-import DeleteIcon from '@atlaskit/icon/core/migration/delete--editor-remove';
+import CustomizeIcon from '@atlaskit/icon/core/customize';
+import DeleteIcon from '@atlaskit/icon/core/delete';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
-import EditorAlignImageCenter from '@atlaskit/icon/glyph/editor/align-image-center';
-import EditorAlignImageLeft from '@atlaskit/icon/glyph/editor/align-image-left';
-import DistributeColumnIcon from '@atlaskit/icon/glyph/editor/layout-three-equal';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -963,13 +960,7 @@ const getColumnSettingItems = (
 			id: 'editor.table.distributeColumns',
 			type: 'button',
 			title: formatMessage(messages.distributeColumns),
-			icon: () => (
-				<TableColumnsDistributeIcon
-					LEGACY_fallbackIcon={DistributeColumnIcon}
-					spacing={'spacious'}
-					label={''}
-				/>
-			),
+			icon: () => <TableColumnsDistributeIcon spacing={'spacious'} label={''} />,
 			onClick: (state, dispatch, view) =>
 				getDistributeConfig(
 					getEditorContainerWidth,
@@ -1106,7 +1097,6 @@ const getAlignmentOptionsConfig = (
 					color="currentColor"
 					spacing="spacious"
 					label="table-align-start-icon"
-					LEGACY_fallbackIcon={EditorAlignImageLeft}
 				/>
 			),
 		},
@@ -1118,7 +1108,6 @@ const getAlignmentOptionsConfig = (
 					color="currentColor"
 					spacing="spacious"
 					label="table-align-center-icon"
-					LEGACY_fallbackIcon={EditorAlignImageCenter}
 				/>
 			),
 		},

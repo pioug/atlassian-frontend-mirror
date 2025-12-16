@@ -6,7 +6,7 @@ import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 const containerStyles = xcss({ display: 'flex' });
 const blockStyles = xcss({ borderRadius: 'radius.xsmall' });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box testId="inline-example" padding="space.100" xcss={containerStyles}>
 		<Stack alignInline="center">
 			space-between

@@ -26,7 +26,7 @@ const cardStyles = xcss({
 	},
 });
 
-const InteractiveCard = () => (
+const InteractiveCard = (): React.JSX.Element => (
 	<Box xcss={cardStyles} tabIndex={0}>
 		<Stack space="space.100">
 			<Heading size="medium">A Card</Heading>

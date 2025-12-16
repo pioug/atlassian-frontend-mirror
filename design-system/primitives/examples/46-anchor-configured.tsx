@@ -195,7 +195,7 @@ const Table = ({
 	);
 };
 
-export default function Configured() {
+export default function Configured(): React.JSX.Element {
 	return (
 		<Box padding="space.200">
 			<Table title="Anchor primitives outside an AppProvider" id="outside-app-provider" />

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { waitFor } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { DEFAULT_LOCALE_STATE } from '../../common/constants';

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-insert-block",
-	"version": "7.0.28",
+	"version": "7.1.0",
 	"description": "Insert block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

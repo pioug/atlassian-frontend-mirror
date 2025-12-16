@@ -2,4 +2,4 @@ import React from 'react';
 
 import Spinner from '@atlaskit/spinner';
 
-export default () => <Spinner interactionName="load" label="Loading" />;
+export default (): React.JSX.Element => <Spinner interactionName="load" label="Loading" />;

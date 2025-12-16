@@ -29,7 +29,6 @@ import {
 import type { DropdownItem } from '@atlaskit/editor-plugin-block-type';
 import ListBulletedIcon from '@atlaskit/icon/core/list-bulleted';
 import ListNumberedIcon from '@atlaskit/icon/core/list-numbered';
-import BulletListIcon from '@atlaskit/icon/core/migration/list-bulleted--editor-bullet-list';
 import TextIndentLeftIcon from '@atlaskit/icon/core/text-indent-left';
 import TextIndentRightIcon from '@atlaskit/icon/core/text-indent-right';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -106,7 +105,7 @@ export function ToolbarDropdown(props: DropdownProps) {
 			<ListBulletedIcon spacing="spacious" label="" />
 		);
 	} else {
-		activeListIcon = <BulletListIcon color="currentColor" spacing="spacious" label={labelLists} />;
+		activeListIcon = <ListBulletedIcon color="currentColor" spacing="spacious" label={labelLists} />;
 		isSelected = bulletListActive || orderedListActive || isDropdownOpen;
 	}
 

@@ -20,7 +20,7 @@ export const syncBlockMessages = defineMessages({
 	},
 	editSourceTooltip: {
 		id: 'fabric.editor.editSourceTooltip',
-		defaultMessage: 'Navigate to source page of the sync block',
+		defaultMessage: 'Edit at the source location',
 		description: 'Tooltip for the button to navigate to the source page of the sync block element',
 	},
 	editSourceTooltipDisabled: {

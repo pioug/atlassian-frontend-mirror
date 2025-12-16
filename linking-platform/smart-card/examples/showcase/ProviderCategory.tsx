@@ -3,9 +3,7 @@ import React, { useCallback, useState } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import ExpandIcon from '@atlaskit/icon/core/chevron-down';
 import CollapseIcon from '@atlaskit/icon/core/chevron-up';
-import CopyIcon from '@atlaskit/icon/core/migration/copy';
-import ExpandIconLegacy from '@atlaskit/icon/glyph/hipchat/chevron-down';
-import CollapseIconLegacy from '@atlaskit/icon/glyph/hipchat/chevron-up';
+import CopyIcon from '@atlaskit/icon/core/copy';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -108,12 +106,7 @@ export const ProviderCategory = ({
 				<div className="right">
 					<Button
 						iconBefore={
-							<CopyIcon
-								LEGACY_size="small"
-								label=""
-								spacing="spacious"
-								color={token('color.icon', '#44546F')}
-							/>
+							<CopyIcon label="" spacing="spacious" color={token('color.icon', '#44546F')} />
 						}
 						onClick={handleCopyToClipboard}
 						style={{
@@ -125,30 +118,14 @@ export const ProviderCategory = ({
 					</Button>
 					{Object.entries(expanded).every(([, isExpanded]) => isExpanded) ? (
 						<Button
-							iconBefore={
-								<CollapseIcon
-									LEGACY_size="small"
-									label=""
-									LEGACY_fallbackIcon={CollapseIconLegacy}
-									color="currentColor"
-									size="small"
-								/>
-							}
+							iconBefore={<CollapseIcon label="" color="currentColor" size="small" />}
 							onClick={handleCollapseAll}
 						>
 							Collapse all
 						</Button>
 					) : (
 						<Button
-							iconBefore={
-								<ExpandIcon
-									LEGACY_size="small"
-									label=""
-									LEGACY_fallbackIcon={ExpandIconLegacy}
-									color="currentColor"
-									size="small"
-								/>
-							}
+							iconBefore={<ExpandIcon label="" color="currentColor" size="small" />}
 							onClick={handleExpandAll}
 						>
 							Expand all

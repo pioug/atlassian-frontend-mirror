@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 15.12.0
+
+### Minor Changes
+
+- [`5df3069459bbe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5df3069459bbe) -
+  [NO-ISSUE] Moving platform_editor_ai_suggestions_date_year_refresh and
+  platform_editor_ai_suggestions_date_comma_delim to experiment
+
 ## 15.11.0
 
 ### Minor Changes

@@ -4,23 +4,26 @@ import { fireEvent, queryByAttribute, render, screen } from '@testing-library/re
 import userEvent from '@testing-library/user-event';
 
 import noop from '@atlaskit/ds-lib/noop';
-import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
-import InfoIcon from '@atlaskit/icon/glyph/info';
-import JiraLabsIcon from '@atlaskit/icon/glyph/jira/labs';
-import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import JiraLabsIcon from '@atlaskit/icon/core/flask';
+import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
+import ErrorIcon from '@atlaskit/icon/core/status-error';
+import InfoIcon from '@atlaskit/icon/core/status-information';
+import CheckCircleIcon from '@atlaskit/icon/core/status-success';
+import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import SectionMessage, { SectionMessageAction } from '../../index';
 import { type Appearance } from '../../types';
 
 const appearances: [Appearance, ({}) => JSX.Element][] = [
-	['information', (props: {}) => <InfoIcon {...props} label="information" />],
-	['warning', (props: {}) => <WarningIcon {...props} label="warning" />],
-	['error', (props: {}) => <ErrorIcon {...props} label="error" />],
-	['success', (props: {}) => <CheckCircleIcon {...props} label="success" />],
-	['discovery', (props: {}) => <QuestionCircleIcon {...props} label="discovery" />],
+	['information', (props: {}) => <InfoIcon {...props} spacing="spacious" label="information" />],
+	['warning', (props: {}) => <WarningIcon {...props} spacing="spacious" label="warning" />],
+	['error', (props: {}) => <ErrorIcon {...props} spacing="spacious" label="error" />],
+	['success', (props: {}) => <CheckCircleIcon {...props} spacing="spacious" label="success" />],
+	[
+		'discovery',
+		(props: {}) => <QuestionCircleIcon {...props} spacing="spacious" label="discovery" />,
+	],
 ];
 
 const CustomLinkComponent: React.ForwardRefExoticComponent<
@@ -49,7 +52,9 @@ describe('SectionMessage', () => {
 	});
 
 	it('should render a custom icon and label if one is given', () => {
-		const CustomIcon = () => <JiraLabsIcon label="some label" testId="custom-icon" />;
+		const CustomIcon = () => (
+			<JiraLabsIcon spacing="spacious" label="some label" testId="custom-icon" />
+		);
 		render(
 			<SectionMessage title="things" icon={CustomIcon}>
 				boo

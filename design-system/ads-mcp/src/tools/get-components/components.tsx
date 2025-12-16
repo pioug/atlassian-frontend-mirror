@@ -321,7 +321,7 @@ export const components: Component[] = [
 			'A banner displays a prominent message at the top of the screen to communicate important information to users.',
 		status: 'general-availability',
 		examples: [
-			'import Banner from \'@atlaskit/banner\';\nimport WarningIcon from \'@atlaskit/icon/glyph/warning\';\nimport Box from \'@atlaskit/primitives/box\';\nexport default () => (\n\t<Box>\n\t\t<Banner\n\t\t\ticon={<WarningIcon label="Warning" secondaryColor="inherit" size="medium" />}\n\t\t\ttestId="basicTestId"\n\t\t>\n\t\t\tYour license is about to expire. Please renew your license within the next week.\n\t\t</Banner>\n\t</Box>\n);',
+			'import Banner from \'@atlaskit/banner\';\nimport WarningIcon from \'@atlaskit/icon/core/status-warning\';\nimport Box from \'@atlaskit/primitives/box\';\nexport default () => (\n\t<Box>\n\t\t<Banner\n\t\t\ticon={<WarningIcon label="Warning" secondaryColor="inherit" size="medium" />}\n\t\t\ttestId="basicTestId"\n\t\t>\n\t\t\tYour license is about to expire. Please renew your license within the next week.\n\t\t</Banner>\n\t</Box>\n);',
 		],
 		accessibilityGuidelines: [
 			'Ensure banner content is announced by screen readers',

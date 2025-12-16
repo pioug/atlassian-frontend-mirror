@@ -10,7 +10,7 @@ const containerStyles = xcss({
 	borderRadius: 'radius.xsmall',
 });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box testId="stack-example" padding="space.100" xcss={flexStyles}>
 		<Stack alignInline="center">
 			space-between

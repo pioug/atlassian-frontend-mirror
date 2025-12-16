@@ -203,23 +203,12 @@ const ToolbarItems = React.memo(
 							href={item.href}
 							icon={
 								item.icon ? (
-									item.iconFallback ? (
-										<ButtonIcon
-											color={getIconColor(item.disabled, item.selected)}
-											spacing="spacious"
-											label={undefined}
-											LEGACY_fallbackIcon={item.iconFallback}
-											LEGACY_primaryColor="currentColor"
-											Legacy_secondaryColor={token('elevation.surface')}
-											aria-hidden={true} // Icon is described by the button for screen readers
-										/>
-									) : (
-										<ButtonIcon
-											spacing="spacious"
-											label={undefined}
-											aria-hidden={true} // Icon is described by the button for screen readers
-										/>
-									)
+									<ButtonIcon
+										color={getIconColor(item.disabled, item.selected)}
+										spacing="spacious"
+										label={undefined}
+										aria-hidden={true} // Icon is described by the button for screen readers
+									/>
 								) : undefined
 							}
 							iconAfter={item.iconAfter ? <item.iconAfter label="" /> : undefined}

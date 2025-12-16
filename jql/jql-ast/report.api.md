@@ -559,6 +559,8 @@ export type JqlInsightsAttributes = {
 		or: number;
 	};
 	jqlMaxCompoundClauseDepth: number;
+	membersOfTeamCount: number;
+	membersOfTeamIds: string[];
 };
 
 // @public

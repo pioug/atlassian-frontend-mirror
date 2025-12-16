@@ -1,6 +1,6 @@
 /**
- * @generated SignedSource<<8e3e941b141c6e112e373c7e7ce21153>>
- * @relayHash 590a9caebabdbdf00ce9390cf00c68e0
+ * @generated SignedSource<<d856514f903fc2c14f8d5a0bb7a2d021>>
+ * @relayHash 7a7b0c7a13dd43e79e9721045c2885b6
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -10,7 +10,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-// @relayRequestID 4e1430ebccae56212590a169f9caa58aa5e4e2365b6b58d8e5e3c77ccf8b7257
+// @relayRequestID 1731ae6337e3bcab5b567501711ca779630a6cf26dbc71d9afb84797e3aaadab
 
 import type { ConcreteRequest, Query } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
@@ -78,6 +78,12 @@ v5 = {
   "nullable": false,
   "plural": false,
   "type": "String"
+},
+v6 = {
+  "enumValues": null,
+  "nullable": true,
+  "plural": false,
+  "type": "Boolean"
 };
 return {
   "fragment": {
@@ -118,6 +124,10 @@ return {
           {
             "kind": "InlineFragment",
             "selections": [
+              {
+                "kind": "ScalarField",
+                "name": "isCustomAgentsAvailable"
+              },
               {
                 "concreteType": "AtlassianStudioUserProductPermissions",
                 "kind": "LinkedField",
@@ -215,7 +225,7 @@ return {
     ]
   },
   "params": {
-    "id": "4e1430ebccae56212590a169f9caa58aa5e4e2365b6b58d8e5e3c77ccf8b7257",
+    "id": "1731ae6337e3bcab5b567501711ca779630a6cf26dbc71d9afb84797e3aaadab",
     "metadata": {
       "relayTestingSelectionTypeInfo": {
         "agentStudio_getAgents": {
@@ -268,18 +278,14 @@ return {
           "type": "AtlassianStudioUserSiteContextResult"
         },
         "atlassianStudio_userSiteContext.__typename": (v5/*: any*/),
+        "atlassianStudio_userSiteContext.isCustomAgentsAvailable": (v6/*: any*/),
         "atlassianStudio_userSiteContext.userPermissions": {
           "enumValues": null,
           "nullable": true,
           "plural": false,
           "type": "AtlassianStudioUserProductPermissions"
         },
-        "atlassianStudio_userSiteContext.userPermissions.isAbleToCreateAgents": {
-          "enumValues": null,
-          "nullable": true,
-          "plural": false,
-          "type": "Boolean"
-        }
+        "atlassianStudio_userSiteContext.userPermissions.isAbleToCreateAgents": (v6/*: any*/)
       }
     },
     "name": "testRovoAgentSelectorQuery",

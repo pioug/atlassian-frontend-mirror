@@ -2,7 +2,7 @@ import React from 'react';
 
 import Theme from '@atlaskit/theme';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Theme.Consumer>
 		{(tokens) => (
 			<div>

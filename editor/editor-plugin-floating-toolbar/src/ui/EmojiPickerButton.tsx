@@ -28,8 +28,6 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { type FloatingToolbarPlugin } from '../floatingToolbarPluginType';
 
-import EditorEmojiAddIcon from './EditorEmojiAddIcon';
-
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const emojiPickerButtonWrapper = css({
 	position: 'relative', // helps adjusts position of popup
@@ -216,12 +214,7 @@ export const EmojiPickerButton: EmojiPickerButtonReturnType = (props) => {
 						label={title}
 						spacing="compact"
 						icon={() => (
-							<EmojiAddIcon
-								color="currentColor"
-								LEGACY_fallbackIcon={EditorEmojiAddIcon}
-								label="emoji-picker-button"
-								spacing="spacious"
-							/>
+							<EmojiAddIcon color="currentColor" label="emoji-picker-button" spacing="spacious" />
 						)}
 					/>
 				}

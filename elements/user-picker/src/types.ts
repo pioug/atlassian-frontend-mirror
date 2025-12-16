@@ -84,6 +84,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	isClearable?: boolean;
 	/** Disable all interactions with the picker, putting it in a read-only state. */
 	isDisabled?: boolean;
+	/** Checks if the footer is focused or not. This is needed to keep the menu open when the footer is focused */
+	isFooterFocused?: boolean;
 	/** Display the  picker with a style to show the value is invalid */
 	isInvalid?: boolean;
 	/** Show the loading indicator. */
@@ -113,10 +115,10 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	loadUserSource?: LoadUserSource;
 	/** The maximum number options to be displayed in the dropdown menu during any state of search. The value should be non-negative. */
 	maxOptions?: number;
-	/** Whether the menu is open or not. */
-	menuIsOpen?: boolean;
 	/** Sets max height of the user picker. If not set, the height will grow based on number of picked users. */
 	maxPickerHeight?: number;
+	/** Whether the menu is open or not. */
+	menuIsOpen?: boolean;
 	/** Sets the minimum width for the menu. If not set, menu will always have the same width of the field. */
 	menuMinWidth?: number;
 	/** Whether the menu should use a portal, and where it should attach. */
@@ -171,6 +173,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	required?: boolean;
 	/** Input text value. */
 	search?: string;
+	/** Sets if the footer is focused or not. This is needed to keep the menu open when the footer is focused */
+	setIsFooterFocused?: React.Dispatch<React.SetStateAction<boolean>>;
 	/** Override default behavior and show the clear indicator. */
 	showClearIndicator?: boolean;
 	/** Positioning strategy for the popper element */
@@ -197,10 +201,6 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	value?: Value;
 	/** Width of the user picker field. It can be the amount of pixels as numbers or a string with the percentage. */
 	width?: number | string;
-	/** Checks if the footer is focused or not. This is needed to keep the menu open when the footer is focused */
-	isFooterFocused?: boolean;
-	/** Sets if the footer is focused or not. This is needed to keep the menu open when the footer is focused */
-	setIsFooterFocused?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type UserPickerRef = { blur: () => void; focus: () => void };
@@ -287,6 +287,8 @@ export interface OptionData {
 	appType?: string | null;
 	avatarUrl?: any;
 	fixed?: boolean;
+	icon?: ReactNode;
+	iconColor?: string;
 	id: string;
 	includeTeamsUpdates?: boolean;
 	isDisabled?: boolean;
@@ -322,6 +324,7 @@ export interface User extends OptionData {
 	byline?: string;
 	email?: string;
 	highlight?: UserHighlight;
+	icon?: ReactNode;
 	isExternal?: boolean;
 	publicName?: string;
 	title?: string;
@@ -349,6 +352,7 @@ export interface Team extends OptionData {
 	byline?: string;
 	description?: string;
 	highlight?: TeamHighlight;
+	icon?: ReactNode;
 	includesYou?: boolean;
 	includeTeamsUpdates?: boolean;
 	memberCount?: number;
@@ -375,6 +379,7 @@ export interface Custom extends OptionData {
 	avatarUrl?: string;
 	byline?: string;
 	highlight?: CustomHighlight;
+	icon?: ReactNode;
 	type: 'custom';
 }
 

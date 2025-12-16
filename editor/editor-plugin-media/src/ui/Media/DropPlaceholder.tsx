@@ -9,7 +9,7 @@ import { injectIntl } from 'react-intl-next';
 
 import { hexToRgba } from '@atlaskit/adf-schema';
 import { dropPlaceholderMessages } from '@atlaskit/editor-common/media';
-import DocumentFilledIcon from '@atlaskit/icon/core/migration/file--document-filled';
+import DocumentFilledIcon from '@atlaskit/icon/core/file';
 import { B200, B300, B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

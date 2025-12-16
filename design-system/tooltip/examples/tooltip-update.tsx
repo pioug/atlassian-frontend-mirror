@@ -6,7 +6,7 @@ import Tooltip from '@atlaskit/tooltip';
 const shortMessage = "I'm a short tooltip";
 const longMessage = 'I am a longer tooltip with a decent amount of content inside';
 
-export default function TooltipUpdateExample() {
+export default function TooltipUpdateExample(): React.JSX.Element {
 	const [message, setMessage] = React.useState(shortMessage);
 	const updateTooltip = React.useRef<() => void>();
 

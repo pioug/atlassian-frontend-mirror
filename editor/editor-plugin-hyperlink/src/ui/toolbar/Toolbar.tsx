@@ -51,8 +51,8 @@ import { TextSelection, type EditorState } from '@atlaskit/editor-prosemirror/st
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditIcon from '@atlaskit/icon/core/edit';
-import LinkBrokenIcon from '@atlaskit/icon/core/migration/link-broken--editor-unlink';
-import LinkExternalIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
+import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 

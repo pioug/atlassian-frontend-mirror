@@ -31,7 +31,7 @@ const InlineDialog = styled<TooltipPrimitiveProps>(TooltipPrimitive)({
 	paddingLeft: token('space.150', '12px'),
 });
 
-export default function RenderPropsExample() {
+export default function RenderPropsExample(): React.JSX.Element {
 	const [message, setMessage] = React.useState(shortMessage);
 	const [position, setPosition] = useState(0);
 

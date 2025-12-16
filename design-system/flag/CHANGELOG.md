@@ -1,5 +1,16 @@
 # @atlaskit/flag
 
+## 17.7.0
+
+### Minor Changes
+
+- [`762b79e21f96a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/762b79e21f96a) -
+  Migrated and cleaned up legacy iconography usage.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.6.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block
 
+## 8.1.21
+
+### Patch Changes
+
+- [`90abe9b926a6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90abe9b926a6f) -
+  Icon entrypoint migration
+- Updated dependencies
+
 ## 8.1.20
 
 ### Patch Changes

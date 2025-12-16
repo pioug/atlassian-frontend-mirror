@@ -11,7 +11,7 @@ const gridStyles = cssMap({
 	},
 });
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	return (
 		<Grid testId="grid-basic" rowGap="space.200" columnGap="space.400" xcss={gridStyles.root}>
 			<ExampleBox />

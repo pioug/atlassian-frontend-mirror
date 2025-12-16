@@ -63,11 +63,13 @@ describe('RovoAgentSelector', () => {
 	type TestArgs = {
 		agentCount?: number;
 		isFeatureEnabled?: boolean;
+		isCustomAgentsAvailable?: boolean;
 		isAbleToCreateAgents?: boolean;
 	};
 	const renderComponent = ({
 		agentCount = 10,
 		isFeatureEnabled,
+		isCustomAgentsAvailable = true,
 		isAbleToCreateAgents = true,
 	}: TestArgs = {}) => {
 		environment.mock.queueOperationResolver((operation) =>
@@ -83,6 +85,7 @@ describe('RovoAgentSelector', () => {
 					userPermissions: {
 						isAbleToCreateAgents,
 					},
+					isCustomAgentsAvailable,
 				}),
 			}),
 		);
@@ -141,6 +144,14 @@ describe('RovoAgentSelector', () => {
 
 	it('should render correctly when user does not have permission to create agents', () => {
 		renderComponent({ isAbleToCreateAgents: false });
+
+		expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+		expect(screen.queryByText(messages.selectorLabel.defaultMessage)).not.toBeInTheDocument();
+		expect(screen.getByText('unentitled')).toBeVisible();
+	});
+
+	it('should render correctly when site has no have rovo entitlement', () => {
+		renderComponent({ isCustomAgentsAvailable: false });
 
 		expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
 		expect(screen.queryByText(messages.selectorLabel.defaultMessage)).not.toBeInTheDocument();

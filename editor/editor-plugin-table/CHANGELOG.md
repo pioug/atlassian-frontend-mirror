@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-table
 
+## 15.6.0
+
+### Minor Changes
+
+- [`762b79e21f96a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/762b79e21f96a) -
+  Migrated and cleaned up legacy iconography usage.
+
+### Patch Changes
+
+- [`7e1f5e6e54c20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e1f5e6e54c20) -
+  [EDITOR-3962] Update check for if a table is nested so it covers all cases
+- Updated dependencies
+
+## 15.5.6
+
+### Patch Changes
+
+- [`90abe9b926a6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90abe9b926a6f) -
+  Icon entrypoint migration
+- Updated dependencies
+
+## 15.5.5
+
+### Patch Changes
+
+- [`f5fb826bac3cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5fb826bac3cd) -
+  fix eslint disable in editor table plugin get cell position
+- Updated dependencies
+
 ## 15.5.4
 
 ### Patch Changes

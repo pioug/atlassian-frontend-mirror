@@ -57,7 +57,7 @@ export function getAppearanceIconStyles(appearance: Appearance, icon: SectionMes
 		size: string;
 		primaryColor: string;
 		secondaryColor: string;
-	}) => (
+	}): React.JSX.Element => (
 		<appearanceIconStyles.Icon
 			LEGACY_size={size}
 			color={primaryColor}

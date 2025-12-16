@@ -7,7 +7,6 @@ import Banner from '@atlaskit/banner';
 import { IconButton } from '@atlaskit/button/new';
 import MenuIcon from '@atlaskit/icon/core/menu';
 import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
-import LegacyRoomMenuIcon from '@atlaskit/icon/glyph/room-menu';
 
 import MobileHeader from '../src';
 
@@ -46,16 +45,7 @@ export default class BannerMobileHeaderDemo extends Component<{}, State> {
 	render(): React.JSX.Element {
 		return (
 			<div>
-				<Banner
-					icon={
-						<WarningIcon
-							color="currentColor"
-							spacing="spacious"
-							label="Warning icon"
-							LEGACY_secondaryColor="inherit"
-						/>
-					}
-				>
+				<Banner icon={<WarningIcon color="currentColor" spacing="spacious" label="Warning icon" />}>
 					This is a warning banner
 				</Banner>
 				<MobileHeader
@@ -64,13 +54,7 @@ export default class BannerMobileHeaderDemo extends Component<{}, State> {
 					navigation={(isOpen) => isOpen && 'Nav'}
 					secondaryContent={
 						<IconButton
-							icon={() => (
-								<MenuIcon
-									LEGACY_fallbackIcon={LegacyRoomMenuIcon}
-									label={''}
-									color="currentColor"
-								/>
-							)}
+							icon={() => <MenuIcon label={''} color="currentColor" />}
 							onClick={this.sidebarOpened}
 							label="Show sidebar"
 						/>

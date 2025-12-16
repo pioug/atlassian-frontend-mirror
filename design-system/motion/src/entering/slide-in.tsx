@@ -58,7 +58,7 @@ const SlideIn = ({
 	onFinish,
 	animationTimingFunction = 'ease-out',
 	animationTimingFunctionExiting = 'ease-in',
-}: SlideInProps) => {
+}: SlideInProps): React.JSX.Element => {
 	return (
 		<KeyframesMotion
 			duration={duration}

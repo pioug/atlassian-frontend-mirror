@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
-import IconError from '@atlaskit/icon/glyph/cross-circle';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics';
@@ -69,7 +68,7 @@ const ErrorMessage = (props: Props): React.JSX.Element => {
 
 	return (
 		<ErrorWrapper testId="profilecard-error">
-			<CrossCircleIcon label="icon error" LEGACY_fallbackIcon={IconError} LEGACY_size="xlarge" />
+			<CrossCircleIcon label="icon error" />
 			{errorContent()}
 			{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 			{reload && <Button onClick={reload}>Try again</Button>}

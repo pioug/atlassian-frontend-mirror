@@ -6,7 +6,7 @@ import Toggle from '@atlaskit/toggle';
 
 import ExampleBox from '../shared/example-box';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [spread, setSpread] = useState<'space-between' | undefined>(undefined);
 	const toggleSpread = useCallback(() => {
 		setSpread(spread === 'space-between' ? undefined : 'space-between');

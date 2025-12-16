@@ -24,6 +24,7 @@ import {
 	findSelectedNodeOfType,
 	removeParentNodeOfType,
 	removeSelectedNode,
+	safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
@@ -75,7 +76,7 @@ export const createSyncedBlock = ({
 		if (typeAheadInsert) {
 			tr = typeAheadInsert(newBodiedSyncBlockNode);
 		} else {
-			tr = tr.replaceSelectionWith(newBodiedSyncBlockNode).scrollIntoView();
+			tr = safeInsert(newBodiedSyncBlockNode)(tr).scrollIntoView();
 		}
 	} else {
 		const conversionInfo = canBeConvertedToSyncBlock(tr.selection);

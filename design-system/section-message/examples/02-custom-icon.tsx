@@ -4,7 +4,7 @@ import JiraLabsIcon from '@atlaskit/icon/glyph/jira/labs';
 import { Text } from '@atlaskit/primitives/compiled';
 import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
 
-const Example = () => (
+const Example = (): React.JSX.Element => (
 	<SectionMessage
 		title="The Modern Prometheus"
 		actions={[

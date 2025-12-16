@@ -17,6 +17,7 @@ import {
 import { createAndFireEventInElementsChannel, userInfoEvent } from '../../analytics';
 import { type ExternalUser } from '../../types';
 import { textWrapper } from '../AvatarItemOption';
+import { AvatarOrIcon } from '../AvatarOrIcon';
 import { SizeableAvatar } from '../SizeableAvatar';
 import { ExternalUserSourcesContainer } from '../ExternalUserSourcesContainer';
 import InfoIcon from './InfoIcon';
@@ -113,9 +114,27 @@ class ExternalUserOptionImpl extends React.PureComponent<ExternalUserOptionProps
 
 	private renderAvatar = () => {
 		const {
-			user: { avatarUrl, appType },
+			user: { avatarUrl, appType, icon, iconColor },
 			status,
 		} = this.props;
+		// Only use icon if feature gate is enabled
+		if (icon && fg('atlaskit_user_picker_support_icon')) {
+			return (
+				<AvatarOrIcon
+					appearance="big"
+					icon={icon}
+					iconColor={iconColor}
+					src={avatarUrl}
+					presence={status}
+					avatarAppearanceShape={
+						fg('jira_ai_agent_avatar_user_picker_user_option')
+							? getAppearanceForAppType(appType)
+							: undefined
+					}
+				/>
+			);
+		}
+		// Fallback to original behavior
 		return (
 			<SizeableAvatar
 				appearance="big"

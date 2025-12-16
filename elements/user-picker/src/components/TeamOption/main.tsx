@@ -10,10 +10,12 @@ import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team
 import { jsx } from '@emotion/react';
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type Team } from '../../types';
 import { AvatarItemOption, textWrapper } from '../AvatarItemOption';
 import { HighlightText } from '../HighlightText';
 import { messages } from '../i18n';
+import { AvatarOrIcon } from '../AvatarOrIcon';
 import { SizeableAvatar } from '../SizeableAvatar';
 
 export type TeamOptionProps = {
@@ -133,8 +135,15 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
 
 	private renderAvatar = () => {
 		const {
-			team: { avatarUrl },
+			team: { avatarUrl, icon, iconColor },
 		} = this.props;
+		// Only use icon if feature gate is enabled
+		if (icon && fg('atlaskit_user_picker_support_icon')) {
+			return (
+				<AvatarOrIcon appearance="big" icon={icon} iconColor={iconColor} src={avatarUrl} type="team" />
+			);
+		}
+		// Fallback to original behavior
 		return <SizeableAvatar appearance="big" src={avatarUrl} type="team" />;
 	};
 

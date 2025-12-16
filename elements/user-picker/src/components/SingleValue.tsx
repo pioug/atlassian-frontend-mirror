@@ -5,6 +5,7 @@
 import { cssMap, jsx } from '@compiled/react';
 import { type Option, type OptionData } from '../types';
 import { components, type SingleValueProps } from '@atlaskit/select';
+import { AvatarOrIcon } from './AvatarOrIcon';
 import { SizeableAvatar } from './SizeableAvatar';
 import { getAvatarUrl, isTeam, isGroup } from './utils';
 import { getAppearanceForAppType } from '@atlaskit/avatar';
@@ -66,16 +67,32 @@ export const SingleValue = (props: Props) => {
 	return !isFocused ? (
 		<components.SingleValue {...(props as any)}>
 			<Flex xcss={styles.avatarItem}>
-				<SizeableAvatar
-					src={getAvatarUrl(data)}
-					appearance={appearance}
-					type={isTeam(data) ? 'team' : 'person'}
-					avatarAppearanceShape={
-						fg('jira_ai_agent_avatar_user_picker_user_option')
-							? getAppearanceForAppType(data.appType)
-							: undefined
-					}
-				/>
+				{/* Only use icon if feature gate is enabled */}
+				{data.icon && fg('atlaskit_user_picker_support_icon') ? (
+					<AvatarOrIcon
+						icon={data.icon}
+						iconColor={data.iconColor}
+						src={getAvatarUrl(data)}
+						appearance={appearance}
+						type={isTeam(data) ? 'team' : 'person'}
+						avatarAppearanceShape={
+							fg('jira_ai_agent_avatar_user_picker_user_option')
+								? getAppearanceForAppType(data.appType)
+								: undefined
+						}
+					/>
+				) : (
+					<SizeableAvatar
+						src={getAvatarUrl(data)}
+						appearance={appearance}
+						type={isTeam(data) ? 'team' : 'person'}
+						avatarAppearanceShape={
+							fg('jira_ai_agent_avatar_user_picker_user_option')
+								? getAppearanceForAppType(data.appType)
+								: undefined
+						}
+					/>
+				)}
 				<Box xcss={styles.avatarItem}>
 					<div css={styles.avatarItemTextWrapper}>
 						<Box xcss={styles.avatarItemText}>

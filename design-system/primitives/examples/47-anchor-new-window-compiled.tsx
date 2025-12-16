@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Anchor, Stack } from '@atlaskit/primitives/compiled';
 
-export default function AnchorNewWindow() {
+export default function AnchorNewWindow(): React.JSX.Element {
 	return (
 		<Stack>
 			<table>

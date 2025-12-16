@@ -8,7 +8,7 @@ import FeedbackIcon from '@atlaskit/icon/core/feedback';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<Box backgroundColor="elevation.surface" padding="space.150">
 			<Stack space="space.150">

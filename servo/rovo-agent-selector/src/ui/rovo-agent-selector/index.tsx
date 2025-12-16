@@ -223,6 +223,7 @@ export const RovoAgentSelector = (props: RovoAgentSelectorProps) => {
 				@argumentDefinitions(cloudIdString: { type: "String!" }, cloudId: { type: "ID!" }) {
 					atlassianStudio_userSiteContext(cloudId: $cloudId) {
 						... on AtlassianStudioUserSiteContextOutput {
+							isCustomAgentsAvailable
 							userPermissions {
 								isAbleToCreateAgents
 							}
@@ -238,10 +239,11 @@ export const RovoAgentSelector = (props: RovoAgentSelectorProps) => {
 	const canCreateAgents =
 		permissionsData?.atlassianStudio_userSiteContext?.userPermissions?.isAbleToCreateAgents ??
 		false;
+	const isRovoEnabled =
+		permissionsData?.atlassianStudio_userSiteContext?.isCustomAgentsAvailable ?? false;
 
-	// TODO: add check here for rovo entitlement
-	if (!canCreateAgents) {
-		return <UnentitledState canCreateAgents={canCreateAgents} />;
+	if (!canCreateAgents || !isRovoEnabled) {
+		return <UnentitledState isRovoEnabled={isRovoEnabled} />;
 	}
 
 	return <RovoAgentSelectorInternal {...restProps} fragmentReference={permissionsData} />;

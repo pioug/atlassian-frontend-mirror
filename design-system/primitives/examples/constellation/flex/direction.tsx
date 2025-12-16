@@ -7,7 +7,7 @@ import { Box, Flex, Stack } from '@atlaskit/primitives/compiled';
 
 import ExampleBox from '../shared/example-box';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [direction, setDirection] = useState<'row' | 'column'>('row');
 
 	return (

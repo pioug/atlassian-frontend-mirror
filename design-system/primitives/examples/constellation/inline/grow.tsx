@@ -5,7 +5,7 @@ import { Inline, Stack } from '@atlaskit/primitives/compiled';
 
 import ExampleBox from '../shared/example-box';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<Stack alignInline="start" space="space.100">
 			<Inline grow="hug">

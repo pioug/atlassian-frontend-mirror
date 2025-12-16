@@ -186,3 +186,7 @@ traverse(doc, {
 ### Terminology
 
 - `@DSLCompatibilityException`: This annotation marks special cases made by transformers during DSL conversion that address temporary compatibility issues with specific target schemas. It serves as a tracking mechanism to identify, prioritize, and eliminate these exceptions as the DSL evolves to encompass these special cases.
+
+## Publishing
+
+Version bumps and publishing are managed through the changesets workflow.

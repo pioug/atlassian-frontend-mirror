@@ -188,10 +188,6 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 			).then((response) => response.json());
 		}
 
-		if (!fg('agent_studio_permissions_settings_m3_profiles')) {
-			return restPromise.then((restData) => ({ restData, aggData: null }));
-		}
-
 		const aggStartTime = getPageTime();
 		const aggPromise = this.getActivationId(
 			this.options.cloudId || '',

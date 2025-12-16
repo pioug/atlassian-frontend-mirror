@@ -16,7 +16,7 @@ const styles = cssMap({
 //
 // DO NOT ALTER THIS UNLESS YOU KNOW WHAT YOU ARE DOING
 //
-export default function Default() {
+export default function Default(): React.JSX.Element {
 	return (
 		<Box xcss={styles.outerBox} backgroundColor="color.background.accent.lime.subtlest">
 			<Grid>

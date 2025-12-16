@@ -226,7 +226,7 @@ const EnteringMotion = ({
 	isPaused,
 	onFinish: onFinishMotion,
 	duration = 'large',
-}: InternalKeyframesMotionProps) => {
+}: InternalKeyframesMotionProps): React.JSX.Element => {
 	const staggered = useStaggeredEntrance();
 	const { isExiting, onFinish: onExitFinished, appear } = useExitingPersistence();
 	const setTimeout = useSetTimeout();

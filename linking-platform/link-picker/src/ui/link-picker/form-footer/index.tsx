@@ -10,7 +10,6 @@ import { defineMessages, type MessageDescriptor, useIntl } from 'react-intl-next
 import { ButtonGroup } from '@atlaskit/button';
 import Button from '@atlaskit/button/new';
 import EditorAddIcon from '@atlaskit/icon/core/add';
-import EditorAddIconLegacy from '@atlaskit/icon/glyph/editor/add';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -99,15 +98,7 @@ export const FormFooter = memo(
 				testId={testIds.actionButton}
 				onClick={pluginAction.callback}
 				appearance="default"
-				iconBefore={() => (
-					<EditorAddIcon
-						label=""
-						LEGACY_size="medium"
-						LEGACY_fallbackIcon={EditorAddIconLegacy}
-						color="currentColor"
-						size="small"
-					/>
-				)}
+				iconBefore={() => <EditorAddIcon label="" color="currentColor" size="small" />}
 				isDisabled={isSubmitting}
 				aria-labelledby={isSubmitting ? submitMessageId : undefined}
 			>

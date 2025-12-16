@@ -8,18 +8,18 @@ import { Box, Text } from '@atlaskit/primitives/compiled';
 import messages from './messages';
 
 export const UnentitledState = ({
-	canCreateAgents,
+	isRovoEnabled,
 }: {
-	canCreateAgents: boolean;
+	isRovoEnabled: boolean;
 }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	return (
 		<Box>
-			<Text>
+			<Text weight="bold">
 				{/* this component is only rendered when site has no rovo entitlement or user cannot create agents */}
 				{formatMessage(
-					canCreateAgents ? messages.noRovoEntitlementText : messages.noCreateAgentsPermissionText,
+					isRovoEnabled ? messages.noCreateAgentsPermissionText : messages.noRovoEntitlementText,
 					{
 						link: (chunks: ReactNode[]) => (
 							<Link target="_blank" href="https://support.atlassian.com/rovo/docs/what-is-rovo/">

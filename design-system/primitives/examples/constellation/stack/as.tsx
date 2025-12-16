@@ -3,7 +3,7 @@ import React from 'react';
 import Heading from '@atlaskit/heading';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<Inline spread="space-between">
 			<Stack space="space.150">

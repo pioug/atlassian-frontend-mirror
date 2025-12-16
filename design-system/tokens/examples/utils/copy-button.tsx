@@ -7,7 +7,7 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
-import CopyIcon from '@atlaskit/icon/glyph/copy';
+import CopyIcon from '@atlaskit/icon/core/copy';
 import Tooltip from '@atlaskit/tooltip';
 
 const copyMessages = {

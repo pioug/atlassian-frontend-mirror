@@ -9,12 +9,12 @@ import { css, jsx } from '@emotion/react';
 
 import { NavigationSkeleton as TopNavigationSkeleton } from '@atlaskit/atlassian-navigation/skeleton';
 import Button, { IconButton } from '@atlaskit/button/new';
+import WatchFilledIcon from '@atlaskit/icon/core/eye-open-filled';
 import ChevronDown from '@atlaskit/icon/core/migration/chevron-down';
-import WatchFilledIcon from '@atlaskit/icon/core/migration/eye-open-filled--watch-filled';
 import FeedbackIcon from '@atlaskit/icon/core/migration/feedback';
 import ShareIcon from '@atlaskit/icon/core/migration/share';
-import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
-import LikeIcon from '@atlaskit/icon/core/migration/thumbs-up--like';
+import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
+import LikeIcon from '@atlaskit/icon/core/thumbs-up';
 import { RightSidebar, TopNavigation } from '@atlaskit/page-layout';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';

@@ -57,9 +57,6 @@
 			"path": "../../jql-parser/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/legacy-custom-icons/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/link/afm-cc/tsconfig.json"
 		},
 		{

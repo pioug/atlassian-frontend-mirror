@@ -7,7 +7,7 @@ import Tile from '@atlaskit/tile';
 
 import FigmaLogo from '../images/figma.png';
 
-export default function TileLabelling() {
+export default function TileLabelling(): React.JSX.Element {
 	return (
 		<Stack space="space.200">
 			<Heading size="medium">Non-decorative tile with a label</Heading>

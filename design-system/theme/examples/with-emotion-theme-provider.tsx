@@ -24,7 +24,7 @@ declare module '@emotion/react' {
 	}
 }
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div id="emotion-theming">
 		<h2>Components wrapped in emotion theme provider</h2>
 		<ThemeProvider theme={{}}>

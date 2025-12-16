@@ -10,11 +10,13 @@ import { jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
+import NewLozenge from './new/lozenge';
+import { type NewLozengeProps } from './new/types';
 /**
  * TODO: We should be using our bounded `cssMap` here, but most of
  * these styles from the visual refresh are not in the Design System.
  */
-const stylesNew = cssMapUnbounded({
+const styles = cssMapUnbounded({
 	container: {
 		display: 'inline-flex',
 		boxSizing: 'border-box',
@@ -91,6 +93,7 @@ export interface LozengeProps {
 
 	/**
 	 * Determines whether to apply the bold style or not.
+	 * @deprecated This prop is deprecated and will be removed in an upcoming major release. Use Tag component for non-bold styles.
 	 */
 	isBold?: boolean;
 
@@ -101,6 +104,7 @@ export interface LozengeProps {
 
 	/**
 	 * Style customization to apply to the badge. Only `backgroundColor` and `color` are supported.
+	 * @deprecated This prop is deprecated and will be removed in an upcoming major release. Accent colors will be supported through the `appearance` prop in a future release.
 	 */
 	style?: Pick<CSSProperties, 'backgroundColor' | 'color'>;
 
@@ -121,7 +125,7 @@ export interface LozengeProps {
  * - [Code](https://atlassian.design/components/lozenge/code)
  * - [Usage](https://atlassian.design/components/lozenge/usage)
  */
-const Lozenge = memo(
+const LegacyLozenge = memo(
 	({
 		children,
 		testId,
@@ -146,18 +150,18 @@ const Lozenge = memo(
 					maxWidth: maxWidthIsPc ? maxWidth : '100%',
 				}}
 				css={[
-					stylesNew.container,
-					stylesNew[`bg.${appearanceStyle}.${appearanceType}`],
-					appearanceStyle === 'subtle' && stylesNew[`outline.subtle.${appearanceType}`],
-					appearanceStyle === 'subtle' && stylesNew.containerSubtle,
+					styles.container,
+					styles[`bg.${appearanceStyle}.${appearanceType}`],
+					appearanceStyle === 'subtle' && styles[`outline.subtle.${appearanceType}`],
+					appearanceStyle === 'subtle' && styles.containerSubtle,
 				]}
 				data-testid={testId}
 			>
 				<span
 					css={[
-						stylesNew.text,
-						fg('platform-lozenge-custom-letterspacing') && stylesNew.customLetterspacing,
-						stylesNew[`text.${appearanceStyle}`],
+						styles.text,
+						fg('platform-lozenge-custom-letterspacing') && styles.customLetterspacing,
+						styles[`text.${appearanceStyle}`],
 					]}
 					style={{
 						color: style?.color,
@@ -175,6 +179,18 @@ const Lozenge = memo(
 	},
 );
 
-Lozenge.displayName = 'Lozenge';
+LegacyLozenge.displayName = 'Lozenge';
 
-export default Lozenge;
+/**
+ * Wrapper component that switches between old and new Lozenge based on feature flag
+ */
+const LozengeWrapper = memo((props: LozengeProps | NewLozengeProps) => {
+	if (fg('platform-dst-lozenge-tag-badge-visual-uplifts')) {
+		return <NewLozenge {...props} />;
+	}
+	return <LegacyLozenge {...(props as LozengeProps)} />;
+});
+
+LozengeWrapper.displayName = 'Lozenge';
+
+export default LozengeWrapper;

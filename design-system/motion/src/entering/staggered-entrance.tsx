@@ -58,7 +58,7 @@ const StaggeredEntrance = ({
 	column,
 	columns = 'responsive',
 	delayStep = 50,
-}: StaggeredEntranceProps) => {
+}: StaggeredEntranceProps): React.JSX.Element => {
 	const elementRefs = useRef<(HTMLElement | null)[]>([]);
 	const indexes: string[] = [];
 

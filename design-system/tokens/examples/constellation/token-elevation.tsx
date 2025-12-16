@@ -46,7 +46,7 @@ const elevationStyles = {
 	},
 };
 
-export const TokenElevation = () => {
+export const TokenElevation = (): React.JSX.Element => {
 	return (
 		<div
 			style={{

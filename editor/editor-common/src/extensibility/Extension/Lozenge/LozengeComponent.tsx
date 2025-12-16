@@ -8,7 +8,7 @@ import { Fragment } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import EditorFileIcon from '@atlaskit/icon/core/migration/file--editor-file';
+import EditorFileIcon from '@atlaskit/icon/core/file';
 
 import { type ExtensionsPluginInjectionAPI } from '../../types';
 import { placeholderFallback, placeholderFallbackParams } from '../styles';

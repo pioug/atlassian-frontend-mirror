@@ -57,7 +57,7 @@ const DisplayThemeColors = () => (
 	</Theme.Consumer>
 );
 
-export default () => (
+export default (): React.JSX.Element => (
 	<React.Fragment>
 		<DisplayThemeColors />
 		<Theme.Provider value={(themeFn) => ({ ...themeFn(), backgroundColor: 'palevioletred' })}>

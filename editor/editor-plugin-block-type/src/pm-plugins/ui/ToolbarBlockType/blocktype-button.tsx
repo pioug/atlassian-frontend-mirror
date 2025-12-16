@@ -12,9 +12,8 @@ import { FormattedMessage } from 'react-intl-next';
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { expandIconContainerStyle, wrapperStyle } from '@atlaskit/editor-common/styles';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import TextIcon from '@atlaskit/icon/core/text';
-import { default as TextStyleIconLegacy } from '@atlaskit/icon/glyph/editor/text-style';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
@@ -64,12 +63,7 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 		props.blockTypeIcon ? (
 			props.blockTypeIcon
 		) : (
-			<TextIcon
-				label={labelTextStyles}
-				spacing="spacious"
-				color="currentColor"
-				LEGACY_fallbackIcon={TextStyleIconLegacy}
-			/>
+			<TextIcon label={labelTextStyles} spacing="spacious" color="currentColor" />
 		);
 
 	const chevronIconSpacing = expValEqualsNoExposure(
@@ -113,7 +107,6 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 									spacing={chevronIconSpacing}
 									label=""
 									color="currentColor"
-									LEGACY_margin="0 0 0 -8px"
 									size="small"
 								/>
 							</span>

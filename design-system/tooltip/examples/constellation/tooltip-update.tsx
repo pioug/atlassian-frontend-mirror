@@ -20,7 +20,7 @@ function TooltipContent({ update }: { update?: () => void }): ReactNode {
 	return isLoading ? 'Loading...' : 'I am a lazy loaded tooltip, with a lot of content';
 }
 
-export default function TooltipUpdateContentExample() {
+export default function TooltipUpdateContentExample(): React.JSX.Element {
 	return (
 		<Inline space="space.100">
 			<Tooltip content={({ update }) => <TooltipContent update={update} />}>

@@ -4,7 +4,6 @@ import { di } from 'react-magnetic-di';
 
 import { HelperMessage } from '@atlaskit/form';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
-import LegacyWarningIcon from '@atlaskit/icon/glyph/warning';
 import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -150,9 +149,6 @@ export const WarningMessages = (): React.JSX.Element | null => {
 					<StatusWarningIcon
 						label=""
 						color={token('color.icon.warning', colors.Y400)}
-						LEGACY_size="small"
-						LEGACY_fallbackIcon={LegacyWarningIcon}
-						LEGACY_margin="0 -4px 0 0"
 						size="small"
 					/>
 				</Box>

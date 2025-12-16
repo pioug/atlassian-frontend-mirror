@@ -88,7 +88,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-app-config",
-	"version": "1.12.9",
+	"version": "1.12.10",
 	"description": "Teams App related config",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -103,6 +103,9 @@
 			"type": "boolean"
 		},
 		"teams-app-migration-exclusions": {
+			"type": "boolean"
+		},
+		"teams-app-fedramp-stg-fedm-hostname-support": {
 			"type": "boolean"
 		}
 	}

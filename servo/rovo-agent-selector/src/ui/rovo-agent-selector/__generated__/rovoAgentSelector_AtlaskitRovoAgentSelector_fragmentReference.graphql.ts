@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<edf5a57651b5998d16e4cbfd0afce2cd>>
+ * @generated SignedSource<<1f4f32857f85d387b5c83de3ccb41965>>
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -13,6 +13,7 @@ import type { Fragment, ReaderFragment } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
 export type rovoAgentSelector_AtlaskitRovoAgentSelector_fragmentReference$data = {
   readonly atlassianStudio_userSiteContext: {
+    readonly isCustomAgentsAvailable?: boolean | null | undefined;
     readonly userPermissions?: {
       readonly isAbleToCreateAgents: boolean | null | undefined;
     } | null | undefined;
@@ -57,6 +58,10 @@ const node: ReaderFragment = {
           "kind": "InlineFragment",
           "selections": [
             {
+              "kind": "ScalarField",
+              "name": "isCustomAgentsAvailable"
+            },
+            {
               "concreteType": "AtlassianStudioUserProductPermissions",
               "kind": "LinkedField",
               "name": "userPermissions",
@@ -88,6 +93,6 @@ const node: ReaderFragment = {
   "type": "Query"
 };
 
-(node as any).hash = "927b61a2b0a85b3615d08271f29ed286";
+(node as any).hash = "8142c244d3311e8ac714f20dff658129";
 
 export default node;

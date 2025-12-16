@@ -10,8 +10,10 @@ import { useCallbackWithAnalytics, type WithAnalyticsEventsProps } from '@atlask
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
 import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
+import TagNew, { colorMapping } from '../../../tag-new';
 import BaseTag from '../shared/base';
 import Before from '../shared/before';
 import Content from '../shared/content';
@@ -149,6 +151,27 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 			/>
 		) : undefined;
 
+		// Use new TagNew component behind feature flag
+		if (fg('platform-dst-lozenge-tag-badge-visual-uplifts')) {
+			const newColor = colorMapping[color || 'standard'];
+
+			return (
+				<TagNew
+					ref={ref}
+					color={newColor}
+					text={text}
+					elemBefore={elemBefore}
+					href={href}
+					testId={testId}
+					isRemovable={isRemovable}
+					removeButtonLabel={removeButtonLabel}
+					onBeforeRemoveAction={onBeforeRemoveAction}
+					onAfterRemoveAction={onAfterRemoveAction}
+				/>
+			);
+		}
+
+		// Original implementation
 		const content = (
 			<Content
 				elemBefore={elemBefore}

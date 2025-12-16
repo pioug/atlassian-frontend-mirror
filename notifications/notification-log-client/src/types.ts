@@ -6,3 +6,11 @@ export interface NotificationCountResponse {
 export interface NotificationLogProvider {
 	countUnseenNotifications(options?: RequestServiceOptions): Promise<NotificationCountResponse>;
 }
+
+export interface NotificationLogGraphQLResponse {
+	data: {
+		notifications: {
+			unseenNotificationCount: number;
+		};
+	};
+}

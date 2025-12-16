@@ -4,7 +4,7 @@ import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<Stack space="space.100">
 			<Heading size="xsmall">Common folders</Heading>

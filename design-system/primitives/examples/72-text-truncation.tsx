@@ -12,7 +12,7 @@ const truncationWidthStyles = xcss({
 	backgroundColor: 'color.background.accent.lime.subtlest',
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Stack space="space.100">
 			<Inline space="space.100">

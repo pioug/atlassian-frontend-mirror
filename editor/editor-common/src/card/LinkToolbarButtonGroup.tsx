@@ -8,7 +8,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import type { NewCoreIconProps, IconProps } from '@atlaskit/icon/types';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 
 import { FloatingToolbarButton as Button } from '../ui';
 
@@ -26,7 +26,7 @@ type DisallowedWrapperProps = React.HTMLAttributes<HTMLDivElement> & {
 	disabled?: boolean;
 };
 
-const DisallowedWrapper = ({ disabled, ...props }: DisallowedWrapperProps) => {
+const DisallowedWrapper = ({ disabled: _disabled, ...props }: DisallowedWrapperProps) => {
 	// adding this ignore to avoid having to use compiled (can be fixed at a later date)
 	// @ts-ignore
 	// Ignored via go/ees005
@@ -49,7 +49,6 @@ export interface ButtonOptionProps {
 	areAnyNewToolbarFlagsEnabled: boolean;
 	disabled: boolean;
 	icon: (props: NewCoreIconProps) => JSX.Element;
-	iconFallback: (props: IconProps) => JSX.Element;
 	onClick: () => void;
 	selected: boolean;
 	testId: string;
@@ -73,7 +72,6 @@ export const LinkToolbarButtonGroup = ({ options }: LinkToolbarButtonGroupProps)
 					tooltipContent,
 					title,
 					icon,
-					iconFallback,
 					areAnyNewToolbarFlagsEnabled,
 				}) => {
 					const ButtonIcon = icon as (props: NewCoreIconProps) => JSX.Element;
@@ -86,14 +84,7 @@ export const LinkToolbarButtonGroup = ({ options }: LinkToolbarButtonGroupProps)
 							<Button
 								css={disabled ? buttonStyleNoneEvent : buttonStyle}
 								title={title}
-								icon={
-									<ButtonIcon
-										label={title}
-										spacing="spacious"
-										LEGACY_size="medium"
-										LEGACY_fallbackIcon={iconFallback}
-									/>
-								}
+								icon={<ButtonIcon label={title} spacing="spacious" />}
 								selected={selected}
 								onClick={onClick}
 								testId={testId}

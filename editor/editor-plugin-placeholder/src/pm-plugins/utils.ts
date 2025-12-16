@@ -102,7 +102,11 @@ export function createPlaceHolderStateFrom({
 	withEmptyParagraph,
 	showOnEmptyParagraph,
 }: CreatePlaceholderStateProps): PlaceHolderState {
-	if (isPlaceholderHidden && withEmptyParagraph) {
+	const shouldHidePlaceholder = fg('platform_editor_ai_aifc_patch_ga_blockers')
+		? isPlaceholderHidden
+		: isPlaceholderHidden && withEmptyParagraph;
+
+	if (shouldHidePlaceholder) {
 		return {
 			...emptyPlaceholder({
 				placeholderText: defaultPlaceholderText,

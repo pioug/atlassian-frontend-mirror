@@ -5,9 +5,9 @@ import { useIntl } from 'react-intl-next';
 
 import { alignmentMessages as messages } from '@atlaskit/editor-common/messages';
 import type { GlyphProps, NewCoreIconProps } from '@atlaskit/icon';
-import AlignTextCenterIcon from '@atlaskit/icon/core/migration/align-text-center--editor-align-center';
-import AlignTextLeftIcon from '@atlaskit/icon/core/migration/align-text-left--editor-align-left';
-import AlignTextRightIcon from '@atlaskit/icon/core/migration/align-text-right--editor-align-right';
+import AlignTextCenterIcon from '@atlaskit/icon/core/align-text-center';
+import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
+import AlignTextRightIcon from '@atlaskit/icon/core/align-text-right';
 
 const iconAndMessageMap: {
 	[key: string]: {

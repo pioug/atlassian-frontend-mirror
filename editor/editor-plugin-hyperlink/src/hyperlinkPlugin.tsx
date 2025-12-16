@@ -22,7 +22,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { canLinkBeCreatedInRange } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import LinkIcon from '@atlaskit/icon/core/migration/link--editor-link';
+import LinkIcon from '@atlaskit/icon/core/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 

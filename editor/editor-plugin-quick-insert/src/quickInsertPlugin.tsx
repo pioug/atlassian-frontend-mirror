@@ -22,7 +22,7 @@ import type {
 	QuickInsertPluginStateKeys,
 	TypeAheadHandler,
 } from '@atlaskit/editor-common/types';
-import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--editor-more';
+import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

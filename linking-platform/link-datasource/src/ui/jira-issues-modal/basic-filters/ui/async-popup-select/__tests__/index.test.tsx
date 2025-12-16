@@ -12,7 +12,6 @@ import {
 	mockSite,
 } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { token } from '@atlaskit/tokens';
 
 import { EVENT_CHANNEL } from '../../../../../../analytics/constants';
 import { type SelectOption } from '../../../../../common/modal/popup-select/types';
@@ -538,8 +537,8 @@ describe('Testing AsyncPopupSelect', () => {
 
 		const [firstOption] = queryAllByTestId('basic-filter-popup-select-option--lozenge');
 
-		expect(firstOption?.parentElement?.parentElement?.querySelector('div span')).toHaveStyle(
-			`--icon-secondary-color: ${token('elevation.surface', '#FFFFFF')}`,
+		expect(firstOption?.parentElement?.parentElement?.querySelector('div svg')).toHaveStyle(
+			`color: var(--ds-background-selected-bold-hovered, #1558BC)`,
 		);
 	});
 

@@ -17,7 +17,7 @@ export default function TileSkeleton({
 	shimmeringEndColor,
 	size = 'medium',
 	testId,
-}: TileSkeletonProps) {
+}: TileSkeletonProps): React.JSX.Element {
 	return (
 		<Tile label="" size={size} testId={testId} backgroundColor="transparent">
 			<Skeleton

@@ -10,31 +10,23 @@ import type { Command } from '../types';
 
 import type { ButtonOptionProps } from './LinkToolbarButtonGroup';
 import type { OptionConfig } from './types';
-import { IconCard } from './ui/assets/card';
-import { IconEmbed } from './ui/assets/embed';
-import { IconInline } from './ui/assets/inline';
-import { IconUrl } from './ui/assets/url';
 
 export const appearancePropsMap = {
 	url: {
 		title: messages.urlTitle,
 		icon: MinusIcon,
-		iconFallback: IconUrl,
 	},
 	inline: {
 		title: messages.inlineTitle,
 		icon: SmartLinkInlineIcon,
-		iconFallback: IconInline,
 	},
 	block: {
 		title: messages.blockTitle,
 		icon: SmartLinkCardIcon,
-		iconFallback: IconCard,
 	},
 	embed: {
 		title: messages.embedTitle,
 		icon: SmartLinkEmbedIcon,
-		iconFallback: IconEmbed,
 	},
 };
 
@@ -44,12 +36,11 @@ export const getButtonGroupOption = (
 	dispatchCommand: (command: Command) => void,
 	{ disabled, onClick, selected, appearance, testId, tooltip }: OptionConfig,
 ): ButtonOptionProps => {
-	const { title, icon, iconFallback } = appearancePropsMap[appearance ?? 'url'];
+	const { title, icon } = appearancePropsMap[appearance ?? 'url'];
 
 	return {
 		title: intl.formatMessage(title),
 		icon,
-		iconFallback,
 		onClick: () => dispatchCommand(onClick),
 		disabled: Boolean(disabled),
 		tooltipContent: tooltip || null,

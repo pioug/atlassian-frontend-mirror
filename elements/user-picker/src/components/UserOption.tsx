@@ -11,6 +11,7 @@ import React from 'react';
 import { type User } from '../types';
 import { AvatarItemOption, textWrapper } from './AvatarItemOption';
 import { HighlightText } from './HighlightText';
+import { AvatarOrIcon } from './AvatarOrIcon';
 import { SizeableAvatar } from './SizeableAvatar';
 import { hasValue } from './utils';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -89,13 +90,32 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 
 	private renderAvatar = () => {
 		const {
-			user: { avatarUrl, appType },
+			user: { avatarUrl, appType, icon, iconColor },
 			status,
 		} = this.props;
 
+		const appearance = fg('platform-component-visual-refresh') ? 'medium' : 'big';
+		// Only use icon if feature gate is enabled
+		if (icon && fg('atlaskit_user_picker_support_icon')) {
+			return (
+				<AvatarOrIcon
+					appearance={appearance}
+					icon={icon}
+					iconColor={iconColor}
+					src={avatarUrl}
+					presence={status}
+					avatarAppearanceShape={
+						fg('jira_ai_agent_avatar_user_picker_user_option')
+							? getAppearanceForAppType(appType)
+							: undefined
+					}
+				/>
+			);
+		}
+		// Fallback to original behavior
 		return (
 			<SizeableAvatar
-				appearance={fg('platform-component-visual-refresh') ? 'medium' : 'big'}
+				appearance={appearance}
 				src={avatarUrl}
 				presence={status}
 				avatarAppearanceShape={

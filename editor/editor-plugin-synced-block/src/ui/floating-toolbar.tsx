@@ -17,7 +17,7 @@ import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles/co
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
-import LinkExternalIcon from '@atlaskit/icon/core/link-external';
+import EditIcon from '@atlaskit/icon/core/edit';
 
 import {
 	copySyncedBlockReferenceToClipboard,
@@ -78,9 +78,9 @@ export const getToolbarConfig = (
 			type: 'button',
 			disabled,
 			appearance: 'subtle',
-			icon: LinkExternalIcon,
+			icon: EditIcon,
 			title: formatMessage(messages.editSourceLabel),
-			showTitle: true,
+			showTitle: false,
 			tooltipContent: disabled
 				? formatMessage(messages.editSourceTooltipDisabled)
 				: formatMessage(messages.editSourceTooltip),

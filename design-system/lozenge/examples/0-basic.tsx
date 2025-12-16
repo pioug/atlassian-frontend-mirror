@@ -21,7 +21,7 @@ export default (): React.JSX.Element => (
 				<>
 					{APPEARANCES.map((a) => (
 						<Box key={a.value}>
-							<Lozenge appearance={a.value} testId="lozenge-subtle">
+							<Lozenge isBold={false} appearance={a.value} testId="lozenge-subtle">
 								{a.label}
 							</Lozenge>
 						</Box>

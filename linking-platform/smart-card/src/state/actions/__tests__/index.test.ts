@@ -3,7 +3,6 @@ import * as testMocks from './index.test.mock';
 
 import { renderHook } from '@testing-library/react-hooks';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
 import { ACTION_RESOLVING, APIError, type APIErrorKind } from '@atlaskit/linking-common';
@@ -11,7 +10,6 @@ import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { auth } from '@atlaskit/outbound-auth-flow-client';
 
 import { mocks } from '../../../utils/mocks';
-import { AUTH_WINDOW_HEIGHT, AUTH_WINDOW_WIDTH } from '../../../utils/window-open-features';
 import { type CardState } from '../../types';
 import { useSmartCardActions } from '../index';
 
@@ -39,7 +37,6 @@ describe('Smart Card: Actions', () => {
 			[url]: state,
 		}));
 	};
-	const getExperimentValueMock = jest.spyOn(FeatureGates, 'getExperimentValue');
 
 	beforeEach(() => {
 		mockContext = testMocks.mockGetContext();
@@ -432,109 +429,6 @@ describe('Smart Card: Actions', () => {
 				url: url,
 				error: undefined,
 				metadataStatus: 'errored',
-			});
-		});
-	});
-
-	describe('authorize()', () => {
-		const clientWidth = document.documentElement.clientWidth;
-		const clientHeight = document.documentElement.clientHeight;
-
-		beforeEach(() => {
-			Object.defineProperties(document.documentElement, {
-				clientHeight: { value: AUTH_WINDOW_HEIGHT + 200, writable: true },
-				clientWidth: { value: AUTH_WINDOW_WIDTH + 200, writable: true },
-			});
-		});
-
-		afterEach(() => {
-			Object.defineProperties(document.documentElement, {
-				clientWidth: { value: clientWidth },
-				clientHeight: { value: clientHeight },
-			});
-		});
-
-		describe('when platform_sl_3p_auth_window_experiment is control', () => {
-			beforeEach(() => {
-				getExperimentValueMock.mockImplementation((experimentName: string) => {
-					if (experimentName === 'platform_sl_3p_auth_window_experiment') {
-						return 'control';
-					}
-				});
-			});
-
-			it('should call auth() with no window features on forbidden status', () => {
-				const { result } = renderHook(() => {
-					return useSmartCardActions(id, url);
-				});
-
-				mockFetchData(Promise.resolve(mocks.forbidden));
-				mockState({
-					status: 'forbidden',
-					details: mocks.forbidden,
-				});
-
-				result.current.authorize('inline');
-
-				expect(auth).toHaveBeenCalledWith(mocks.unauthorized.meta.auth?.[0].url, undefined);
-			});
-
-			it('should call auth() with no window features on unauthorized status', () => {
-				const { result } = renderHook(() => {
-					return useSmartCardActions(id, url);
-				});
-
-				mockFetchData(Promise.resolve(mocks.unauthorized));
-				mockState({
-					status: 'unauthorized',
-					details: mocks.unauthorized,
-				});
-
-				result.current.authorize('inline');
-
-				expect(auth).toHaveBeenCalledWith(mocks.unauthorized.meta.auth?.[0].url, undefined);
-			});
-		});
-
-		describe('when platform_sl_3p_auth_window_experiment is test', () => {
-			beforeEach(() => {
-				getExperimentValueMock.mockImplementation((experimentName: string) => {
-					if (experimentName === 'platform_sl_3p_auth_window_experiment') {
-						return 'test';
-					}
-				});
-			});
-
-			it('should call auth() with no window features on forbidden status', () => {
-				const { result } = renderHook(() => {
-					return useSmartCardActions(id, url);
-				});
-
-				mockFetchData(Promise.resolve(mocks.forbidden));
-				mockState({
-					status: 'forbidden',
-					details: mocks.forbidden,
-				});
-
-				result.current.authorize('inline');
-
-				expect(auth).toHaveBeenCalledWith(mocks.forbidden.meta.auth?.[0].url, undefined);
-			});
-
-			it('should call auth() with window features on unauthorized status', () => {
-				const { result } = renderHook(() => {
-					return useSmartCardActions(id, url);
-				});
-
-				mockFetchData(Promise.resolve(mocks.unauthorized));
-				mockState({
-					status: 'unauthorized',
-					details: mocks.unauthorized,
-				});
-
-				result.current.authorize('inline');
-
-				expect(auth).toHaveBeenCalledWith(mocks.forbidden.meta.auth?.[0].url, expect.any(String));
 			});
 		});
 	});

@@ -28,6 +28,9 @@
 			"path": "../../../analytics/analytics-next/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../avatar/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../css/afm-products/tsconfig.json"
 		},
 		{
@@ -35,6 +38,9 @@
 		},
 		{
 			"path": "../../icon/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../link/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../motion/afm-products/tsconfig.json"

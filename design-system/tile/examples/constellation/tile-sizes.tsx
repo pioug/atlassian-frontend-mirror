@@ -8,7 +8,7 @@ import { getEmojiRepository } from '@atlaskit/util-data-test/get-emoji-repositor
 const emojiService = getEmojiRepository();
 const blush = emojiService.findByShortName(':blush:');
 
-export default function TileSizes() {
+export default function TileSizes(): React.JSX.Element {
 	if (!blush) {
 		return <span>Blush emoji not found</span>;
 	}

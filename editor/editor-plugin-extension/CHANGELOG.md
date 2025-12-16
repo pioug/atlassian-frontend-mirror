@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-extension
 
+## 9.2.13
+
+### Patch Changes
+
+- [`90abe9b926a6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90abe9b926a6f) -
+  Icon entrypoint migration
+- Updated dependencies
+
 ## 9.2.12
 
 ### Patch Changes

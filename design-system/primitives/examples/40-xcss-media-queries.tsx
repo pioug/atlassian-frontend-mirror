@@ -37,7 +37,7 @@ const aboveStyles = xcss({
 	},
 });
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	return (
 		<Box testId="media-query-example" padding="space.200">
 			<Stack space="space.200">

@@ -5,7 +5,7 @@ import { Box, Inline, xcss } from '@atlaskit/primitives';
 
 const blockStyles = xcss({ borderRadius: 'radius.xsmall' });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box testId="inline-example" padding="space.100">
 		<Inline>
 			<Box

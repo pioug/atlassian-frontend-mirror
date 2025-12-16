@@ -52,9 +52,6 @@
 			"path": "../../../design-system/icon-lab/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/legacy-custom-icons/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/locale/afm-products/tsconfig.json"
 		},
 		{

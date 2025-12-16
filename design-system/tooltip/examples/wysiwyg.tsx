@@ -44,7 +44,7 @@ const ACTIONS: { [key: string]: React.ReactElement } = {
 	Source: <CodeIcon label="Source" />,
 };
 
-export default function WysiwygExample() {
+export default function WysiwygExample(): React.JSX.Element {
 	return (
 		<Toolbar>
 			{Object.keys(ACTIONS).map((a) => (

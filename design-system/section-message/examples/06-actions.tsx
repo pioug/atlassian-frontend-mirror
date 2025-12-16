@@ -4,7 +4,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import { Text } from '@atlaskit/primitives/compiled';
 import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
 
-const Example = () => (
+const Example = (): React.JSX.Element => (
 	<SectionMessage
 		title="Section Message actions"
 		testId="section-message"

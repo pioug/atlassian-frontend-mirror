@@ -82,7 +82,7 @@ const Button: FC<ButtonProps> = ({ children, theme }) => {
 	);
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<>
 		<Button>Default</Button>
 		<Theme.Provider value={contextButtonTheme}>

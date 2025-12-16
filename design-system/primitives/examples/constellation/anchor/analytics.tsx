@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { Anchor, Inline } from '@atlaskit/primitives/compiled';
 
-export default function Analytics() {
+export default function Analytics(): React.JSX.Element {
 	const handleEvent = useCallback((event: UIAnalyticsEvent, channel?: string) => {
 		console.log(`Channel: '${channel}'`, event);
 	}, []);

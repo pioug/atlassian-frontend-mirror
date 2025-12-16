@@ -2,7 +2,7 @@ import React from 'react';
 
 import { MetricText, Stack, Text } from '@atlaskit/primitives/compiled';
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<Stack space="space.100">
 			<Stack space="space.0">

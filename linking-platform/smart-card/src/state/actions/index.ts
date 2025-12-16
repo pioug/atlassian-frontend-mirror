@@ -1,6 +1,5 @@
 import { useCallback, useMemo } from 'react';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import {
@@ -14,11 +13,6 @@ import { auth, type AuthError } from '@atlaskit/outbound-auth-flow-client';
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { SmartLinkStatus } from '../../constants';
 import { type InvokeClientOpts, type InvokeServerOpts } from '../../model/invoke-opts';
-import {
-	AUTH_WINDOW_HEIGHT,
-	AUTH_WINDOW_WIDTH,
-	getWindowOpenFeatures,
-} from '../../utils/window-open-features';
 import { type CardInnerAppearance } from '../../view/Card/types';
 import { startUfoExperience } from '../analytics';
 import { getByDefinitionId, getDefinitionId, getExtensionKey, getServices } from '../helpers';
@@ -107,17 +101,7 @@ export const useSmartCardActions = (id: string, url: string) => {
 					definitionId: definitionId ?? null,
 				});
 
-				const shouldShowInPopupWindow =
-					status === 'unauthorized' &&
-					FeatureGates.getExperimentValue<'control' | 'test'>(
-						'platform_sl_3p_auth_window_experiment',
-						'cohort',
-						'control',
-					) === 'test';
-				const windowFeatures = shouldShowInPopupWindow
-					? getWindowOpenFeatures(AUTH_WINDOW_HEIGHT, AUTH_WINDOW_WIDTH)
-					: undefined;
-				auth(services[0].url, windowFeatures).then(
+				auth(services[0].url).then(
 					() => {
 						fireEvent('track.applicationAccount.connected', {
 							definitionId: definitionId ?? null,

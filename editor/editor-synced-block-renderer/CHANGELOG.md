@@ -1,5 +1,19 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 4.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.5
+
+### Patch Changes
+
+- [`50cf7cca6bb76`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50cf7cca6bb76) -
+  [ux] EDITOR-3896 update sync block border styles
+- Updated dependencies
+
 ## 4.0.4
 
 ### Patch Changes

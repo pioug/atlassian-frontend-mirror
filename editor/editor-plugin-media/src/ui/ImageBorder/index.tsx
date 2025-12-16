@@ -9,7 +9,6 @@ import { jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next';
 
 import type { BorderMarkAttributes } from '@atlaskit/adf-schema';
-import { BorderIcon as LegacyBorderIcon } from '@atlaskit/editor-common/icons';
 import { imageBorderMessages as messages } from '@atlaskit/editor-common/media';
 import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { type Icon } from '@atlaskit/editor-common/types';
@@ -32,7 +31,6 @@ import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import StrokeWeightLargeIcon from '@atlaskit/icon/core/stroke-weight-large';
 import StrokeWeightMediumIcon from '@atlaskit/icon/core/stroke-weight-medium';
 import StrokeWeightSmallIcon from '@atlaskit/icon/core/stroke-weight-small';
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -357,14 +355,7 @@ const ImageBorder = ({
 					aria-label={
 						enabled ? formatMessage(messages.removeBorder) : formatMessage(messages.addBorder)
 					}
-					iconBefore={
-						<BorderIcon
-							color="currentColor"
-							label=""
-							spacing="spacious"
-							LEGACY_fallbackIcon={LegacyBorderIcon}
-						/>
-					}
+					iconBefore={<BorderIcon color="currentColor" label="" spacing="spacious" />}
 					title={enabled ? formatMessage(messages.removeBorder) : formatMessage(messages.addBorder)}
 				/>
 				<div ref={popupTarget}>
@@ -378,13 +369,7 @@ const ImageBorder = ({
 						title={formatMessage(messages.borderOptions)}
 						spacing="compact"
 						iconBefore={
-							<ChevronDownIcon
-								color="currentColor"
-								spacing="spacious"
-								label=""
-								LEGACY_fallbackIcon={ExpandIcon}
-								size="small"
-							/>
+							<ChevronDownIcon color="currentColor" spacing="spacious" label="" size="small" />
 						}
 						onClick={() => {
 							setIsOpen(!isOpen);

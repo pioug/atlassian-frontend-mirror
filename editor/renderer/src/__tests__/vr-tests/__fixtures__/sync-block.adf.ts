@@ -21,7 +21,7 @@ export const syncBlockPermissionDeniedAdf: DocNode = {
 		{
 			type: 'syncBlock',
 			attrs: {
-				resourceId: 'ari:cloud:confluence:test-sync-block-permission-denied:page/1234/abc',
+				resourceId: 'confluence-page/4974777015/permission-denied',
 				localId: 'dadba259-8f2c-45cb-9140-ce23278c5bbc',
 			},
 		},

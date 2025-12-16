@@ -156,6 +156,12 @@ export function isFedRampStaging(): boolean {
 	if (host.match(/stg\.atlassian-us-gov-mod\.(com|net)/)) {
 		return true;
 	}
+
+	// *.atlassian-stg-fedm.net
+	if (host.match(/atlassian-stg-fedm\.net/) && fg('teams-app-fedramp-stg-fedm-hostname-support')) {
+		return true;
+	}
+
 	return false;
 }
 

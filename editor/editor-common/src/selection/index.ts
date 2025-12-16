@@ -38,10 +38,11 @@ export {
 	deleteSelectedRange,
 	endPositionOfParent,
 	expandSelectionBounds,
+	expandSelectionToBlockRange,
+	expandToBlockRange,
 	isSelectionAtEndOfNode,
 	isSelectionAtStartOfNode,
 	startPositionOfParent,
-	expandToBlockRange,
 } from './utils';
 
 export function getNodeSelectionAnalyticsPayload(

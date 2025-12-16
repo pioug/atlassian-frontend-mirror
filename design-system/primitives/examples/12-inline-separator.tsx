@@ -4,7 +4,7 @@ import Link from '@atlaskit/link';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline } from '@atlaskit/primitives';
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box testId="inline-example" padding="space.100">
 		<Inline space="space.150" separator="/">
 			<Link href="/">breadcrumbs</Link>

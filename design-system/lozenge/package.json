@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/lozenge",
-	"version": "13.1.2",
+	"version": "13.2.1",
 	"description": "A lozenge is a visual indicator used to highlight an item's status for quick recognition.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,7 +35,10 @@
 		}
 	},
 	"dependencies": {
+		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/css": "workspace:^",
+		"@atlaskit/ds-lib": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -50,9 +53,11 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "root:*",
 		"jscodeshift": "root:*",
@@ -82,6 +87,9 @@
 	},
 	"platform-feature-flags": {
 		"platform-lozenge-custom-letterspacing": {
+			"type": "boolean"
+		},
+		"platform-dst-lozenge-tag-badge-visual-uplifts": {
 			"type": "boolean"
 		}
 	},

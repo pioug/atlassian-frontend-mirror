@@ -6,7 +6,7 @@ import { injectIntl } from 'react-intl-next';
 import { mentionMessages as messages } from '@atlaskit/editor-common/messages';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import MentionIcon from '@atlaskit/icon/core/migration/mention--editor-mention';
+import MentionIcon from '@atlaskit/icon/core/mention';
 
 interface Props {
 	editorView?: EditorView;

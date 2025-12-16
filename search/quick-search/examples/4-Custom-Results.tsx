@@ -1,6 +1,5 @@
 import React from 'react';
 import AudioCircleIcon from '@atlaskit/icon/core/audio';
-import LegacyAudioCircleIcon from '@atlaskit/icon/glyph/audio-circle';
 import { ResultBase, ResultItemGroup } from '../src';
 
 const defaultProps = {
@@ -26,16 +25,7 @@ export default class extends React.Component {
 					<ResultBase
 						{...defaultProps}
 						caption="#:notsureif:"
-						icon={
-							<AudioCircleIcon
-								label="a"
-								LEGACY_size="large"
-								color="currentColor"
-								LEGACY_primaryColor="#FFEBE5"
-								LEGACY_secondaryColor="RebeccaPurple"
-								LEGACY_fallbackIcon={LegacyAudioCircleIcon}
-							/>
-						}
+						icon={<AudioCircleIcon label="a" color="currentColor" />}
 						text="Cronenberg result"
 						subText="Anything goes!"
 					/>

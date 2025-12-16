@@ -65,6 +65,7 @@ export default function NoCreatePermission(): React.JSX.Element {
 				userPermissions: {
 					isAbleToCreateAgents: false,
 				},
+				isCustomAgentsAvailable: true,
 			}),
 		}),
 	);

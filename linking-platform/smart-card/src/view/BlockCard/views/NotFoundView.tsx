@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
-import LegacyLockIcon from '@atlaskit/icon/glyph/lock';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { token } from '@atlaskit/tokens';
 
@@ -64,8 +63,6 @@ const NotFoundView = ({
 			<LockLockedIcon
 				label="not-found-lock-icon"
 				color={token('color.icon.danger')}
-				LEGACY_fallbackIcon={LegacyLockIcon}
-				LEGACY_size="small"
 				testId={`${testId}-lock-icon`}
 			/>
 			<Text message={description} testId={`${testId}-message`} maxLines={3} css={[textStyles]} />

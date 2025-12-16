@@ -51,6 +51,7 @@ export default function Basic(): React.JSX.Element {
 				userPermissions: {
 					isAbleToCreateAgents: true,
 				},
+				isCustomAgentsAvailable: true,
 			}),
 		}),
 	);

@@ -24,7 +24,6 @@ import Form, {
 	MessageWrapper,
 } from '@atlaskit/form';
 import ExpandIcon from '@atlaskit/icon/core/grow-diagonal';
-import { default as EditorFilePreviewIconLegacy } from '@atlaskit/icon/glyph/editor/file-preview';
 import { getMediaClient } from '@atlaskit/media-client-react';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -391,12 +390,7 @@ export function MediaFromURL({
 													onClick={() => formProps.onSubmit()}
 													isLoading={previewState.isLoading}
 													isDisabled={!!error || !meta.dirty}
-													iconBefore={() => (
-														<ExpandIcon
-															label=""
-															LEGACY_fallbackIcon={EditorFilePreviewIconLegacy}
-														/>
-													)}
+													iconBefore={() => <ExpandIcon label="" />}
 												>
 													{strings.loadPreview}
 												</Button>

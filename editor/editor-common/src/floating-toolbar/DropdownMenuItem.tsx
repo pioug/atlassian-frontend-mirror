@@ -11,7 +11,7 @@ import type { IntlShape } from 'react-intl-next';
 
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
+import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
 import type { ButtonItemProps } from '@atlaskit/menu';
 import { ButtonItem } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';

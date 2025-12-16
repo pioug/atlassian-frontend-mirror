@@ -45,7 +45,7 @@
 	"devDependencies": {
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"
 	},

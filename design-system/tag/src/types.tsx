@@ -7,6 +7,7 @@ export type TagColor =
 	| 'purple'
 	| 'magenta'
 	| 'grey'
+	| 'gray'
 	| 'teal'
 	| 'orange'
 	| 'yellow'

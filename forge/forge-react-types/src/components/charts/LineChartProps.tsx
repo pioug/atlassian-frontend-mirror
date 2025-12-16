@@ -41,23 +41,27 @@ export type LineChartProps = {
 	/**
 	 * Margin applied to the plot area of the chart.
 	 */
-	margin?: MarginValue;
+	plotMargin?: MarginValue;
 	/**
 	 * Margin applied to the top of the plot area of the chart.
 	 */
-	marginTop?: MarginValue;
+	plotMarginTop?: MarginValue;
 	/**
 	 * Margin applied to the right of the plot area of the chart.
 	 */
-	marginRight?: MarginValue;
+	plotMarginRight?: MarginValue;
 	/**
 	 * Margin applied to the bottom of the plot area of the chart.
 	 */
-	marginBottom?: MarginValue;
+	plotMarginBottom?: MarginValue;
 	/**
 	 * Margin applied to the left of the plot area of the chart.
 	 */
-	marginLeft?: MarginValue;
+	plotMarginLeft?: MarginValue;
+	/**
+	 * Adds a border onto the chart. Defaults to true.
+	 */
+	showBorder?: boolean;
 };
 
 /**

@@ -4,15 +4,12 @@ import {
 } from '@atlaskit/editor-common/block-menu';
 import { copyToClipboard } from '@atlaskit/editor-common/clipboard';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
-
-import { expandSelectionToBlockRange } from '../../editor-commands/transform-node-utils/utils';
 
 type CopyLinkOptions = {
 	blockLinkHashPrefix?: string;
 	getLinkPath?: () => string | null;
-	schema: Schema;
 	selection: Selection;
 };
 
@@ -20,9 +17,8 @@ export const copyLink = async ({
 	getLinkPath,
 	blockLinkHashPrefix = DEFAULT_BLOCK_LINK_HASH_PREFIX,
 	selection,
-	schema,
 }: CopyLinkOptions): Promise<boolean> => {
-	const blockRange = expandSelectionToBlockRange(selection, schema);
+	const blockRange = expandSelectionToBlockRange(selection);
 
 	if (!blockRange) {
 		return false;

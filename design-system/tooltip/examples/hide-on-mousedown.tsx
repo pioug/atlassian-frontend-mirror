@@ -3,7 +3,7 @@ import React from 'react';
 import Button from '@atlaskit/button/new';
 import Tooltip from '@atlaskit/tooltip';
 
-export default function HideOnMouseDownExample() {
+export default function HideOnMouseDownExample(): React.JSX.Element {
 	return (
 		<React.Fragment>
 			<Tooltip content="This is a tooltip" hideTooltipOnMouseDown>

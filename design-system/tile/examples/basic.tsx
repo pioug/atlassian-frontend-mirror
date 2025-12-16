@@ -2,7 +2,7 @@ import React from 'react';
 
 import Tile from '@atlaskit/tile';
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	const insetCloudSVG = (
 		<svg width="33" height="23" viewBox="0 0 33 23" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path

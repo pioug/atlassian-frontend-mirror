@@ -239,34 +239,36 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 
 	private getCellPosition(type: 'column' | 'row', tableNode: PmNode): number | null {
 		const { insertColumnButtonIndex, insertRowButtonIndex } = this.props;
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		const tableMap = TableMap.get(tableNode!);
+		const tableMap = TableMap.get(tableNode);
 
 		if (type === 'column') {
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			const columnIndex = insertColumnButtonIndex === 0 ? 0 : insertColumnButtonIndex! - 1;
+			// This condition is to make typescript happy.
+			// Previously insertColumnButtonIndex - 1 would produce NaN and return null anyway.
+			if (insertColumnButtonIndex === undefined) {
+				return null;
+			}
+
+			const columnIndex = insertColumnButtonIndex === 0 ? 0 : insertColumnButtonIndex - 1;
 
 			if (columnIndex > tableMap.width - 1) {
 				return null;
 			}
 
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			return tableMap.positionAt(0, columnIndex!, tableNode!);
+			return tableMap.positionAt(0, columnIndex, tableNode);
 		} else {
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			const rowIndex = insertRowButtonIndex === 0 ? 0 : insertRowButtonIndex! - 1;
+			// This condition is to make typescript happy.
+			// Previously insertRowButtonIndex - 1 would produce NaN and return null anyway.
+			if (insertRowButtonIndex === undefined) {
+				return null;
+			}
+
+			const rowIndex = insertRowButtonIndex === 0 ? 0 : insertRowButtonIndex - 1;
 
 			if (rowIndex > tableMap.height - 1) {
 				return null;
 			}
 
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			return tableMap.positionAt(rowIndex!, 0, tableNode!);
+			return tableMap.positionAt(rowIndex, 0, tableNode);
 		}
 	}
 

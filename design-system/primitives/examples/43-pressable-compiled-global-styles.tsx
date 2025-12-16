@@ -16,7 +16,7 @@ const styles = cssMap({
 	},
 });
 
-export default function PressableCompiledGlobalStylesExample() {
+export default function PressableCompiledGlobalStylesExample(): React.JSX.Element {
 	return (
 		<Box xcss={styles.root}>
 			<GlobalStyleSimulator />

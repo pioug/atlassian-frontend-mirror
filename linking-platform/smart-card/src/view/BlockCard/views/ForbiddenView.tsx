@@ -9,7 +9,6 @@ import { useIntl } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
-import LegacyLockIcon from '@atlaskit/icon/glyph/lock';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { token } from '@atlaskit/tokens';
 
@@ -104,8 +103,6 @@ const ForbiddenView = ({
 			<LockLockedIcon
 				label="forbidden-lock-icon"
 				color={token('color.icon.danger')}
-				LEGACY_fallbackIcon={LegacyLockIcon}
-				LEGACY_size="small"
 				testId={`${testId}-lock-icon`}
 			/>
 			<Text

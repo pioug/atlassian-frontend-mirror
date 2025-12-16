@@ -1,2 +1,6 @@
-tsconfig.json
 src/
+babel.config.js
+build/
+tsconfig.json
+tsconfig.*.json
+copy-dist-to-afe.js

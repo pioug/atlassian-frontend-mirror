@@ -59,7 +59,7 @@ const MyRouterLinkComponent: React.ForwardRefExoticComponent<
 	},
 );
 
-export default function RouterLinkConfiguration() {
+export default function RouterLinkConfiguration(): React.JSX.Element {
 	return (
 		<AppProvider routerLinkComponent={MyRouterLinkComponent}>
 			<Router

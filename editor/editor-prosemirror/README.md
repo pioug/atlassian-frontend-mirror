@@ -80,3 +80,7 @@ Remove the token babel plugin from the `babel.config.shared.js` file.
       ],
     },
 ```
+
+## Publishing
+
+Version bumps and publishing are managed through the changesets workflow.

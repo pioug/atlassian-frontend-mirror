@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box } from '@atlaskit/primitives/compiled';
 
-const SSRTestingExample = () => {
+const SSRTestingExample = (): React.JSX.Element => {
 	return (
 		<Box id="ssr-example">
 			<Box id="ssr"></Box>

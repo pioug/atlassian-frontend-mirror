@@ -6,7 +6,7 @@ import Tile from '@atlaskit/tile';
 
 import FigmaLogo from '../images/figma.png';
 
-export default function TileInset() {
+export default function TileInset(): React.JSX.Element {
 	return (
 		<Inline space="space.100">
 			<Tile

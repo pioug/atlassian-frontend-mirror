@@ -1,5 +1,42 @@
 # @atlaskit/editor-common
 
+## 110.45.0
+
+### Minor Changes
+
+- [`762b79e21f96a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/762b79e21f96a) -
+  Migrated and cleaned up legacy iconography usage.
+- [`a436afb117ae3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a436afb117ae3) -
+  Update edit at source icon/tooltip
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.44.3
+
+### Patch Changes
+
+- [`90abe9b926a6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90abe9b926a6f) -
+  Icon entrypoint migration
+- Updated dependencies
+
+## 110.44.2
+
+### Patch Changes
+
+- [`50cf7cca6bb76`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50cf7cca6bb76) -
+  [ux] EDITOR-3896 update sync block border styles
+- Updated dependencies
+
+## 110.44.1
+
+### Patch Changes
+
+- [`8da61d284b811`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8da61d284b811) -
+  EDITOR-3911 Expand selection to block range
+- Updated dependencies
+
 ## 110.44.0
 
 ### Minor Changes

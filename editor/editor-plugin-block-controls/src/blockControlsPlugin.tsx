@@ -125,6 +125,8 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 						api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
 					}
 
+					stopPreservingSelection({ tr });
+
 					return tr;
 				}
 

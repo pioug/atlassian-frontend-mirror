@@ -23,125 +23,147 @@ import FormAllOptions from '../../examples/constellation/form-all-options.tsx';
 import FormStatePreview from '../../examples/constellation/form-state-preview.tsx';
 import FormConditionalFields from '../../examples/constellation/form-conditional-fields.tsx';
 
-## Default
+## Building a form
 
-A form is a group of related fields. You can customize the fields with components such as
-[text field](/components/textfield/examples), [range field](/components/form/examples#range-field),
-and [checkbox field](/components/form/examples#checkbox-field). You can also pass in default values.
-Submitting the form calls a callback function.
+The form component is a wrapper that doesn't render anything itself. Child elements must be added
+for it to function as a form.
 
-Form is a wrapper that does not render anything itself. Instead, it passes props and information
-down into the `<form>` element and its children. This includes information about whether the form is
-`dirty`, `disabled`, `reset` or `submitting`.
+The form component passes props and information down into the `<form>` element and its children.
+This includes information about whether the form is `dirty`, `disabled`, `reset` or `submitting`.
 
-People can submit the form when all fields are valid (see
-[validation](/components/form/examples#validation)). The current state of the fields is the single
-source of truth for the form.
+Each form needs a header and footer, and form sections can be added to the body of a form. 'Field'
+is used as a container for form fields and 'Fieldset' groups related fields and form controls.
+
+People can submit a form when all fields are valid. Submitting the form calls the 'onSubmit'
+function.
 
 <Example Component={FormDefaultComplex} packageName="@atlaskit/form" />
 
-### Simple implementation
+### Simple implementation of a form
 
 If your form component only requires spreading `formProps` on the HTML `<form>` element and doesn't
 utilize any of the other render props like `submitting`, you can simplify how it's written in your
 code.
 
-Props can be added to the underlying `<form>` element by applying them to the form component
-directly or the `formProps` object if not directly supported.
+Props can be added to the underlying `<form>` element by applying valid props to the atlaskit `Form`
+component. If the prop is not directly supported by the atlaskit `Form` component, you can add any
+other props to `formProps`.
 
-All of the form component's childen are wrapped within an HTML `<form>` element under the hood that
-includes all necessary props, including those provided on the form component.
+In the simplified form, all of the form component's children are already wrapped within an HTML
+`<form>` element, including all necessary props as well as those provided on the form component.
 
 <Example Component={FormDefaultSimple} packageName="@atlaskit/form" />
 
-## Custom
+## Form structure
 
-You can customize a form field. Any component with a value and `onChange` handler can be a field.
-The component renders inside a field and adds an entry to the form state.
+### Layout
 
-<Example Component={FormCustomField} packageName="@atlaskit/form" />
+The layout of a form is made up of 3 main areas: header, section, and footer.
 
-### Select
+#### Form header
 
-<Example Component={FormCustomSelectField} packageName="@atlaskit/form" />
+A form header includes the title and an optional description of the form content.
 
-### Other components
+If your form contains required fields, the form header should include the legend 'Required fields
+are marked with an asterisk `*`' so sighted users know that an asterisk `*` indicates a required
+field.
 
-You can also use form with other components, such as
-[datetime picker](/components/datetime-picker/examples), [modal](/components/modal-dialog/examples),
-and [select](/components/select/examples).
+#### Form section
 
-#### Datetime picker
+Use a form section to group related information together and make longer forms easier to understand.
+Form section is a higher-level wrapper than `Fieldset`.
 
-<Example Component={FormDateTimePicker} packageName="@atlaskit/form" />
+An optional description can be added to a section and multiple form sections can be used in one
+form.
 
-#### Modal dialog
+#### Form footer
 
-<Example Component={FormModalDialog} packageName="@atlaskit/form" />
+Use a form footer to set buttons at the end of the form. The footer is positioned after the form's
+last field.
 
-#### Select
+##### Alignment
 
-<Example Component={FormSelect} packageName="@atlaskit/form" />
+- **Left-aligned**: buttons align to the left on single page and multi-page forms. The primary
+  button sits to the left of the secondary button.
+- **Right-aligned**: align buttons on the right for forms in a modal dialog. A primary buttons sits
+  to the right of the secondary button.
+- **Center-aligned**: for log in/sign-in forms, buttons are full width and center-aligned.
 
-## Field
+[Read more about button positioning](/components/form/usage#button-positioning).
 
-Each field is an entry in the form. Fields come with props that give more information about the
-field state. The state can be passed onto the inner component.
+<Example Component={FormLayout} packageName="@atlaskit/form" />
 
-When a user focuses on a field and starts changing content, the focus color becomes blue.
+### `Field`
+
+`Field` allows for an entry in the form. It comes with props that give more information about the
+field state, which can be passed on to the inner component.
+
+[`CheckboxField`](#checkboxfield), [`RangeField`](#rangefield), and
+[`CharacterCounterField`](#charactercounterfield) are part of the form package.
+
+When a person focuses on a `Field` and starts changing content, the focus color becomes blue.
 
 <Example Component={FormFieldComplex} packageName="@atlaskit/form" />
 
-### Simple implementation
+### Simplified `Field`
 
-If your field only requires spreading `fieldProps` on the input element and doesn't utilize any
-other render props like `meta`, you can simplify how it's written in your code by putting the
-contents of your field within the `component` prop and omitting the messaging component (for
-example, `ErrorMessage`).
+If your field only requires spreading `fieldProps` on the input element and doesn't use any other
+render props like `meta`, you can simplify how it's written in your code by putting the contents of
+your field within the `component` prop and omitting the messaging component (for example,
+`ErrorMessage`).
 
 This simplified implementation will provide greater accessibility and more consistent styling
 through rendering components of your field internally.
-
-To use the simplified implementation, put the contents of your field within the `component` prop and
-omit the messaging components (e.g. `ErrorMessage`, etc.).
 
 If an error is returned by the function provided in the `validate` prop, it will be rendered
 automatically in an internal `ErrorMessage` component. Content that would previously go in the
 `HelperMessage` and `ValidMessage` components will be rendered when provided using the
 `helperMessage` and `validMessage` props.
 
-If you need more control of how messaging or labeling renders, we recommend against using the simple
-implementation.
+If you need more control of how messaging or labeling renders, don't use this simple implementation
+of a `Field`.
 
 <Example Component={FormFieldSimple} packageName="@atlaskit/form" />
 
-### Checkbox field
+### `Fieldset`
 
-Use a [checkbox](/components/checkbox/examples) or [radio](/components/radio/examples) component
-when you want to let people choose from a small number of predefined options.
+Use a `Fieldset` element to group related fields under a heading. It's useful to group components
+like checkboxes and text inputs that are related, like the fields that make up an address.
 
-By default, the value of a checkbox field is `true` or `false`. Use the `value` prop to pass a value
-when the field is checked. This will return an array that contains `value`.
-
-<Example Component={FormCheckboxField} packageName="@atlaskit/form" />
-
-### Fieldset
-
-Fieldset groups related fields under the same name or heading. Use `legend` to assign a caption to
-the fieldset – this improves accessibility for when the fieldset is rendered non-visually for screen
-readers.
+Use `legend` to assign a caption to the `Fieldset`, as this improves accessibility for when the
+`Fieldset` is rendered non-visually for screen readers.
 
 <Example Component={FormFieldset} packageName="@atlaskit/form" />
 
-### Range field
+### `CheckboxField`
 
-Use a [range](/components/range/examples) slider when you want people to select from a predefined
-numeric range. This component supports validation and required fields through the `isInvalid` and
-`isRequired` props respectively.
+`CheckboxField` lets people select one or more options from a number of choices. It should have a
+`label` prop that renders the label inline with the checkbox.
+
+By default, the value of a `CheckboxField` is `true` or `false`. Use the `value` prop to pass a
+value when the field is checked. This will return an array that contains `value`.
+
+#### Grouping `CheckboxField`
+
+When grouping checkboxes using `Fieldset`, they should all have the same `name` prop value so
+they're grouped properly. For example, in a `Fieldset` that allows multiple selections, submitting
+the form will show the chosen options as the value of that field.
+
+<Example Component={FormCheckboxField} packageName="@atlaskit/form" />
+
+### `RangeField`
+
+`RangeField` allows people to choose an approximate value on a slider.
+
+It requires `defaultValue` to set the initial state, as well as a `name` prop so that it defines the
+`RangeField` for form submission.
+
+Default values for the range component are from 0 to 100 with increments of 1. This can be adjusted
+by specifying the `min`, `max`, and `step` props.
 
 <Example Component={FormRangeField} packageName="@atlaskit/form" />
 
-### Character counter field
+### `CharacterCounterField`
 
 A character counter field provides real-time feedback about text length as people type, showing how
 many characters are remaining or have been exceeded.
@@ -171,65 +193,97 @@ or business logic requirements).
 
 <Example Component={FormCharacterCounter} packageName="@atlaskit/form" />
 
-## Layout
+## Form fields
 
-### Form header
+Fields in a form are made up of components and rendered by using `field`. Any component with a value
+and `onChange` handler can be a field. The component renders inside a field and adds an entry to the
+form state.
 
-Use a form header to describe the contents of the form. This is the title and description of the
-form. If your form contains required fields, the form header is also where you should include a
-legend for sighted users to know that `*` indicates a required field.
+### Text field
 
-### Form section
+A [text field component](/components/textfield/examples) is a space for people to write or edit
+text. Use for text that spans one line.
 
-Use a form section to group related information together, so that longer forms are easier to
-understand. There can be multiple form sections in one form.
+At a minimum, use a `name` prop to provide the form component with the name of the field. The props
+allowed on a text field also
+[extend the native HTML input element](/components/textfield/code#html-input-props).
 
-### Form footer
+### Text area field
 
-Use a form footer to set the content at the end of the form. This is used for a
-[button](/components/button/examples) that submits the form. Content should be left-aligned in
-single-page forms, flags, cards, and section messages with the primary button on the left. See the
-[button positioning](/components/form/usage#button-positioning) for more details.
+When there's a need for long-form plain text that spans multiple lines, use a
+[text area component](/components/textarea/examples).
 
-This is positioned after the last field in the form.
+### Select field
 
-<Example Component={FormLayout} packageName="@atlaskit/form" />
+A [select component](/components/select/examples) allows people to make single or multiple
+selections from a dropdown list of options.
+
+To show options in the list, the select component needs the passing in of listed options in the
+`options` prop. An empty `options` prop will render the words 'No options' in the drop down.
+
+<Example Component={FormSelect} packageName="@atlaskit/form" />
+
+### Radio field
+
+Use a [radio component](/components/radio/examples) if people need to choose only one option from a
+number of choices.
+
+Provide the `label` prop to add an inline label. Provide the `value` prop to define the value that
+is submitted to the form.
+
+#### Grouping radios
+
+To group radios, wrap them in a [radio group component](/components/radio/radio-group/examples) to
+semantically indicate the radios are together.
+
+To ensure correct grouping, either use the `name` prop on the radio group component or make sure all
+radios within the group have the same name. Failure to do so will cause incorrect grouping.
+
+### Date time picker field
+
+A [date time picker component](/components/datetime-picker/examples) lets someone easily select a
+date and/or time.
+
+To define specific props for the underlying pickers (date and time), use `datePicker` props and
+`timePicker` props.
+
+<Example Component={FormDateTimePicker} packageName="@atlaskit/form" />
+
+### Toggle field
+
+A [toggle component](/components/toggle/examples) allows someone to turn something on or off.
+
+Include a visible label with the toggle. When there isn't a visible label you can pair a toggle
+with, use the `label` prop to tell people who use assistive technology what the toggle is for.
+
+### Form with all fields and labels
+
+This example shows you how a form could look with every possible input included and with required
+fields.
+
+<Example Component={FormAllOptions} packageName="@atlaskit/form" />
 
 ## Validation
 
-Use [validation and error messages](/content/designing-messages) to indicate when a form submission
-fails or requires more information. Keep helper text as short as possible. For complex information,
-provide a link to more information in a new browser tab. Use the
-[messaging guidelines](/content/messaging-guidelines) for more help.
+Use validation messages to show when a form submission fails or requires more information. Keep
+messages short and for help writing them, use
+[error messaging guidelines](/content/designing-messages).
 
-When validating text fields in real-time, the message icons will switch depending on the message
-type. For example, the helper text turns into an error message when the user input doesn't fit the
-criteria. These error and warning messages disappear when the criteria is met.
+When validating text fields, styles will switch depending on whether it’s an error or warning
+message type. For example, helper text turns into an error message when someone's input doesn't fit
+the criteria. Error and warning messages disappear when the criteria is met.
 
-To ensure error messages are rendered through assistive technologies, like a screen reader, use
-`MessageWrapper` to wrap error messages. This must be in the DOM at the time the form is rendered.
+To ensure error messages are rendered through assistive technologies, wrap them in `MessageWrapper`
+and make sure they're in the DOM at the time the form is rendered.
 
 ### Field-level validation
 
-Validate a field’s value using the `validate` prop. This accepts a function that receives the
+Validate a field's value using the `validate` prop. This accepts a function that receives the
 current field value and is called whenever a field value changes.
 
 Return an error when it is invalid. Otherwise, return `undefined`.
 
 <Example Component={FormFieldLevelValidation} packageName="@atlaskit/form" />
-
-### Asynchronous validation
-
-If the validation requires an async check, the validation function can return a promise. Note that
-the promise should resolve with the error, rather than reject with the error.
-
-Use the `validating` status in the `meta` prop to help with asynchronous validation. This provides a
-better user experience.
-
-For example, a [spinner](/components/spinner/examples) tells the user that something is happening
-under the hood when `validating`.
-
-<Example Component={FormAsyncValidation} packageName="@atlaskit/form" />
 
 ### Submission validation
 
@@ -239,29 +293,66 @@ For submission errors, the `onSubmit` handler should return an object. For examp
 problem with the password field, the object should contain the key and the error as the value. If
 the submission succeeds, the `onSubmit` handler should return `undefined`.
 
-The `onSubmit` handler can return synchronously or return a promise that resolves to the result.
-Note that the promise should resolve with the error, rather than reject with the error.
+The `onSubmit` handler can return synchronously or return a promise that resolves with the error.
+For successful asynchronous validation, the `onSubmit` handler would return a promise that resolves
+to `undefined` as there are no errors.
 
 <Example Component={FormSubmissionValidation} packageName="@atlaskit/form" />
 
-## Form with all fields and labels
+### Asynchronous validation
 
-This form has every possible input, and all required field labels.
+If validation requires an async check, the validation function can return a promise. The promise
+should resolve with the error rather than reject with the error.
 
-<Example Component={FormAllOptions} packageName="@atlaskit/form" />
+Field-level and submission validation can also have async validation where they return promises.
 
-## Listening to form state with `useFormState`
+Using the `validating` status in the `meta` prop helps with asynchronous validation and provides a
+better user experience. For example, a [spinner](/components/spinner/examples) reassures someone
+that validation is happening.
 
-### Form previews
+<Example Component={FormAsyncValidation} packageName="@atlaskit/form" />
 
-A somewhat common need is to utilize the current form state to generate a preview while the user is
-filling their form in. This can be achieved with the `useFormState` hook. Do not use these values
-for any permanent storage or state. You should rely on form submission for the final values.
+## Types of forms
+
+### Forms in modal dialogs
+
+To display a form in a layer above the page, use it within a
+[modal dialog component](/components/modal-dialog/examples).
+
+Keep the context of the form inside the modal, as people can't access anything outside of it while
+it's being filled in.
+
+Buttons to submit the form should be aligned to the right, with the primary button to the right of a
+secondary button.
+
+<Example Component={FormModalDialog} packageName="@atlaskit/form" />
+
+### Single page forms
+
+Use when you have a small amount of information to capture.
+
+Buttons to submit the form should be aligned to the left, with the primary button to the left of a
+secondary button. This alignment aids scanning and helps people using screen magnifiers and who have
+a limited field of vision.
+
+### Listening to form state
+
+#### Form previews
+
+To use the current form state to generate a preview while someone is filling a form in, use the
+`useFormState` hook.
+
+Don't use these values for any permanent storage or state. You should rely on form submission for
+the final values.
 
 <Example Component={FormStatePreview} packageName="@atlaskit/form" />
 
-### Conditional fields
+#### Conditional fields
 
-You can include conditional fields in your form by checking the form state with `useFormState`.
+Include conditional fields in your form by checking the form state with `useFormState`.
+
+This is particularly useful for building forms that have progressive disclosure.
 
 <Example Component={FormConditionalFields} packageName="@atlaskit/form" />
+
+[def]: #characterCounterField

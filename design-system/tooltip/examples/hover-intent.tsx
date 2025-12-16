@@ -7,7 +7,7 @@ import { Target } from './styled';
 
 const colors = ['teal', 'blue', 'purple'];
 
-export default function HoverIntentExample() {
+export default function HoverIntentExample(): React.JSX.Element {
 	const [position, setPosition] = useState<PositionType>('bottom');
 
 	return (

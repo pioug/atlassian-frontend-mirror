@@ -29,7 +29,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
-import LightbulbIcon from '@atlaskit/icon/core/migration/lightbulb--editor-hint';
+import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
 
 import type { PanelPlugin, PanelPluginOptions } from '../panelPluginType';
 import { panelAttrsToDom } from '../pm-plugins/utils/utils';

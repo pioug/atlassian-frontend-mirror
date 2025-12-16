@@ -20,25 +20,22 @@ import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { type NewCoreIconProps } from '@atlaskit/icon';
 import FieldTextIcon from '@atlaskit/icon-lab/core/field-text';
 import LozengeIcon from '@atlaskit/icon-lab/core/lozenge';
-import AngleBracketsIcon from '@atlaskit/icon/core/migration/angle-brackets--editor-code';
-import CalendarIcon from '@atlaskit/icon/core/migration/calendar--editor-date';
+import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
+import CalendarIcon from '@atlaskit/icon/core/calendar';
+import ExpandNodeIcon from '@atlaskit/icon/core/chevron-right';
+import DecisionIcon from '@atlaskit/icon/core/decision';
+import EmojiIcon from '@atlaskit/icon/core/emoji';
+import GridIcon from '@atlaskit/icon/core/grid';
+import ImageIcon from '@atlaskit/icon/core/image';
+import LayoutTwoColumnsIcon from '@atlaskit/icon/core/layout-two-columns';
+import LinkIcon from '@atlaskit/icon/core/link';
+import MentionIcon from '@atlaskit/icon/core/mention';
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
-import ExpandNodeIcon from '@atlaskit/icon/core/migration/chevron-right--chevron-right-circle';
-import DecisionIcon from '@atlaskit/icon/core/migration/decision--editor-decision';
-import EmojiIcon from '@atlaskit/icon/core/migration/emoji--editor-emoji';
-import GridIcon from '@atlaskit/icon/core/migration/grid--editor-table';
-import ImageIcon from '@atlaskit/icon/core/migration/image--editor-image';
-import LayoutTwoColumnsIcon from '@atlaskit/icon/core/migration/layout-two-columns--editor-layout-two-equal';
-import LinkIcon from '@atlaskit/icon/core/migration/link--editor-link';
-import MentionIcon from '@atlaskit/icon/core/migration/mention--editor-mention';
-import HorizontalRuleIcon from '@atlaskit/icon/core/migration/minus--editor-horizontal-rule';
-import QuotationMarkIcon from '@atlaskit/icon/core/migration/quotation-mark--quote';
-import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--editor-more';
-import InformationIcon from '@atlaskit/icon/core/migration/status-information--editor-info';
+import HorizontalRuleIcon from '@atlaskit/icon/core/minus';
+import QuotationMarkIcon from '@atlaskit/icon/core/quotation-mark';
+import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
+import InformationIcon from '@atlaskit/icon/core/status-information';
 import TaskIcon from '@atlaskit/icon/core/task';
-import CheckboxCheckedIconLegacy from '@atlaskit/icon/glyph/editor/task';
-import PlaceholderTextIcon from '@atlaskit/icon/glyph/media-services/text';
-import StatusIconLegacy from '@atlaskit/icon/glyph/status';
 
 import { shallowEquals } from './shallow-equals';
 
@@ -49,7 +46,7 @@ interface ItemInit {
 	content: string;
 	disabled: boolean;
 	Icon: React.ComponentType<
-		Omit<NewCoreIconProps, 'LEGACY_fallbackIcon' | 'spacing'> & {
+		Omit<NewCoreIconProps, 'spacing'> & {
 			label: string;
 			spacing: 'spacious';
 		}
@@ -93,14 +90,7 @@ export const action = mem((init: CreateInit) => {
 		disabled: init.disabled,
 		name: 'action',
 		shortcut: '[]',
-		Icon: () => (
-			<TaskIcon
-				label=""
-				color="currentColor"
-				spacing="spacious"
-				LEGACY_fallbackIcon={CheckboxCheckedIconLegacy}
-			/>
-		),
+		Icon: () => <TaskIcon label="" color="currentColor" spacing="spacious" />,
 		'aria-keyshortcuts': '[ ] Space',
 	});
 });
@@ -284,14 +274,7 @@ export const placeholder = mem((init: CreateInit) =>
 		tooltipDescription: init.tooltipDescription,
 		disabled: init.disabled,
 		name: 'placeholder text',
-		Icon: () => (
-			<FieldTextIcon
-				label=""
-				spacing="spacious"
-				color="currentColor"
-				LEGACY_fallbackIcon={PlaceholderTextIcon}
-			/>
-		),
+		Icon: () => <FieldTextIcon label="" spacing="spacious" color="currentColor" />,
 	}),
 );
 
@@ -301,14 +284,7 @@ export const status = mem((init: CreateInit) =>
 		tooltipDescription: init.tooltipDescription,
 		disabled: init.disabled,
 		name: 'status',
-		Icon: () => (
-			<LozengeIcon
-				label=""
-				color="currentColor"
-				spacing="spacious"
-				LEGACY_fallbackIcon={StatusIconLegacy}
-			/>
-		),
+		Icon: () => <LozengeIcon label="" color="currentColor" spacing="spacious" />,
 	}),
 );
 

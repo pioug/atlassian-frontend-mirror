@@ -14,6 +14,8 @@ const ITEM_TO_BUTTON_MAP: Record<string, keyof ToolbarInsertBlockButtonsConfig> 
 	codeblock: 'codeBlock',
 };
 
+export const LINK_BUTTON_KEY = 'link';
+
 const BREAKPOINT_ORDER: Breakpoint[] = ['sm', 'md', 'lg', 'xl'];
 
 /**
@@ -40,6 +42,10 @@ export function filterDropdownItemsByBreakpoint(
 ): BlockMenuItem[] {
 	return items.filter((item) => {
 		const itemName = item.value.name;
+		// filter out link button because it's always visible on the toolbar
+		if (itemName === LINK_BUTTON_KEY) {
+			return false;
+		}
 		const buttonKey = ITEM_TO_BUTTON_MAP[itemName];
 
 		if (!buttonKey) {

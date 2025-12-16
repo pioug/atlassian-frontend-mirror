@@ -7,7 +7,6 @@ import { defineMessages, useIntl } from 'react-intl-next';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import AutomationIcon from '@atlaskit/icon/core/automation';
-import LegacyManualTriggerIcon from '@atlaskit/legacy-custom-icons/manual-trigger-icon';
 import { ModalHeader, useModal } from '@atlaskit/modal-dialog';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -64,8 +63,6 @@ export const AutomationModalHeader = ({
 							label={formatMessage(i18n.modalHeaderIconLabel)}
 							color={token('color.icon.accent.green')}
 							spacing="compact"
-							LEGACY_fallbackIcon={LegacyManualTriggerIcon}
-							LEGACY_size="small"
 						/>
 					</Box>
 					<Heading size="medium" id={titleId}>

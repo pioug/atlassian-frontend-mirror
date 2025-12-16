@@ -4,7 +4,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
 
-const Example = () => (
+const Example = (): React.JSX.Element => (
 	<Box testId="appearance-example" padding="space.100">
 		<Stack space="space.200">
 			<SectionMessage appearance="information" title="More">

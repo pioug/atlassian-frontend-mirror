@@ -27,8 +27,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFullPageNarrowBreakout } from '@atlaskit/editor-shared-styles';
 import GrowHorizontalIcon from '@atlaskit/icon/core/grow-horizontal';
 import ShrinkHorizontalIcon from '@atlaskit/icon/core/shrink-horizontal';
-import CollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
-import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
 import { B300, N20A, N300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -216,17 +214,9 @@ const LayoutButton = ({
 					onClick={() => handleClick(nextBreakoutMode)}
 					iconBefore={
 						breakoutMode === 'full-width' ? (
-							<ShrinkHorizontalIcon
-								label={title}
-								LEGACY_fallbackIcon={CollapseIcon}
-								spacing="spacious"
-							/>
+							<ShrinkHorizontalIcon label={title} spacing="spacious" />
 						) : (
-							<GrowHorizontalIcon
-								label={title}
-								LEGACY_fallbackIcon={ExpandIcon}
-								spacing="spacious"
-							/>
+							<GrowHorizontalIcon label={title} spacing="spacious" />
 						)
 					}
 				/>

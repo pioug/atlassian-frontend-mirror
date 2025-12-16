@@ -1,6 +1,7 @@
 import React from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
+import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { SyncBlockError, useFetchSyncBlockData } from '@atlaskit/editor-synced-block-provider';
 import { type NodeProps } from '@atlaskit/renderer';
@@ -63,7 +64,8 @@ export const SyncedBlockNodeComponentRenderer = ({
 	} as DocNode;
 
 	return (
-		<div data-sync-block-renderer>
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+		<div className={SyncBlockSharedCssClassName.renderer} data-sync-block-renderer>
 			<AKRendererWrapper
 				doc={syncBlockDoc}
 				dataProviders={providerFactory}

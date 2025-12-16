@@ -4,7 +4,11 @@ import {
 	utils,
 } from '@atlaskit/util-service-support';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { type NotificationLogProvider, type NotificationCountResponse } from './types';
+import {
+	type NotificationLogProvider,
+	type NotificationCountResponse,
+	type NotificationLogGraphQLResponse,
+} from './types';
 
 export const DEFAULT_SOURCE = 'atlaskitNotificationLogClient';
 
@@ -39,16 +43,58 @@ export default class NotificationLogClient implements NotificationLogProvider {
 			},
 		};
 
-		//switcheroo.atlassian.com/ui/gates/4fd47923-2911-4f71-86df-f97a5b2b9ed8/key/post-office_enable_fetching_unseen-count_dummy
+		// https://switcheroo.atlassian.com/ui/gates/4fd47923-2911-4f71-86df-f97a5b2b9ed8/key/post-office_enable_fetching_unseen-count_dummy
 		if (fg('post-office_enable_fetching_unseen-count_dummy')) {
-			void utils
+			utils
 				.requestService(
 					{
 						url: '/gateway/api/post-office',
 					},
 					{ ...mergedOptions, path: '/api/v1/in-app-notifications/unseen/count' },
 				)
+				.then(() => {})
 				.catch(() => {});
+		}
+
+		// https://switcheroo.atlassian.com/ui/gates/2bb857fa-a92c-43b4-9f07-79ab8b9f7610/key/post-office_enable-notification-components-graphql
+		if (fg('post-office_enable-notification-components-graphql')) {
+			const query = `
+query NotificationLogClientUnseenCount($workspaceId: String) {
+  notifications {
+    unseenNotificationCount(workspaceId: $workspaceId)
+  }
+}`;
+			const response = await utils.requestService<NotificationLogGraphQLResponse>(
+				{
+					// Base URL cannot be overridden until REST API is removed
+					url: '/gateway/api/graphql',
+				},
+				{
+					// Don't add trailing slash, it causes 404s
+					path: '',
+					...options,
+					queryParams: {
+						query: this.source,
+						...options.queryParams,
+					},
+					requestInit: {
+						mode: 'cors',
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							...options.requestInit?.headers,
+						},
+						body: JSON.stringify({
+							query: query,
+							variables: {
+								workspaceId: this.cloudId,
+							},
+						}),
+						...options.requestInit,
+					},
+				},
+			);
+			return { count: response.data.notifications.unseenNotificationCount };
 		}
 
 		return utils.requestService(

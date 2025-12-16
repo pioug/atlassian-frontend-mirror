@@ -10,7 +10,7 @@ type SelectionExtensionDropdownItemProps = {
 
 export const SelectionExtensionDropdownItem = ({
 	dropdownItem,
-}: SelectionExtensionDropdownItemProps) => {
+}: SelectionExtensionDropdownItemProps): React.JSX.Element => {
 	const IconComponent = dropdownItem.icon;
 	return (
 		<ToolbarDropdownItem

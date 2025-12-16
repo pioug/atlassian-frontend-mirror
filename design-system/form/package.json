@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/form",
-	"version": "15.0.0",
-	"description": "A form allows users to input information.",
+	"version": "15.0.1",
+	"description": "A form allows people to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
@@ -64,6 +64,7 @@
 		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/react-hooks": "root:*",
 		"@testing-library/user-event": "root:*",
@@ -129,6 +130,9 @@
 			"type": "boolean"
 		},
 		"platform-form-reset-field-state": {
+			"type": "boolean"
+		},
+		"platform_dst_form_fix_isrequired_effect": {
 			"type": "boolean"
 		}
 	}

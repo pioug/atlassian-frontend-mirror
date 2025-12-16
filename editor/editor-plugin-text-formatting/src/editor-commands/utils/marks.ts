@@ -1,7 +1,4 @@
-import {
-	entireSelectionContainsMark,
-	transformNonTextNodesToText,
-} from '@atlaskit/editor-common/mark';
+import { entireSelectionContainsMark } from '@atlaskit/editor-common/mark';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Mark, MarkType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -91,12 +88,9 @@ export const nextApplyMarkOnRange = (
 ) => {
 	const { schema } = tr.doc.type;
 	const { code } = schema.marks;
+
 	if (mark.type === code) {
-		if (fg('platform_editor_resolve_marks')) {
-			api?.base?.actions.resolveMarks(from, to, tr);
-		} else {
-			transformNonTextNodesToText(from, to, tr);
-		}
+		api?.base?.actions?.resolveMarks(from, to, tr);
 	}
 
 	/**

@@ -14,7 +14,7 @@ import { useIntl } from 'react-intl-next';
 import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace';
 import type { Size } from '@atlaskit/icon';
-import CustomizeIcon from '@atlaskit/icon/core/migration/customize--preferences';
+import CustomizeIcon from '@atlaskit/icon/core/customize';
 import { B100, N0, N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

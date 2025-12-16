@@ -1,5 +1,11 @@
 # @atlaskit/color-picker
 
+## 5.2.19
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.2.18
 
 ### Patch Changes

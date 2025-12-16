@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -9,9 +8,7 @@ import { useSmartCardActions } from '../../../state/actions';
 import { useSmartLinkRenderers } from '../../../state/renderers';
 import { useSmartCardState as useLinkState } from '../../../state/store';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
-import CustomPopupContainer, {
-	createCustomPopupContainer,
-} from '../components/CustomPopupContainer';
+import { createCustomPopupContainer } from '../components/CustomPopupContainer';
 import HoverCardContent from '../components/HoverCardContent';
 import { CARD_GAP_PX, HOVER_CARD_Z_INDEX } from '../styled';
 import { type HoverCardComponentProps, type HoverCardContentProps } from '../types';
@@ -115,8 +112,8 @@ export const HoverCardComponent = ({
 
 	// clearing out the timeouts in order to avoid memory leaks
 	// in case the component unmounts before they execute
-	useEffect(() => {
-		return () => {
+	useEffect(
+		() => () => {
 			if (fadeOutTimeoutId.current) {
 				clearTimeout(fadeOutTimeoutId.current);
 			}
@@ -134,8 +131,9 @@ export const HoverCardComponent = ({
 				// we want to clear out the reference to signify that there's no in-progress resolve event
 				resolveTimeOutId.current = undefined;
 			}
-		};
-	}, []);
+		},
+		[],
+	);
 
 	// we want to initiate resolve a bit earlier for standalone cards
 	// to minimize the loading state
@@ -255,6 +253,7 @@ export const HoverCardComponent = ({
 	);
 
 	const trigger = useCallback(
+		// eslint-disable-next-line no-unused-vars
 		({ 'aria-haspopup': ariaHasPopup, 'aria-expanded': ariaExpanded, ...triggerProps }: any) => (
 			<span ref={parentSpan}>
 				{/* eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlaskit/design-system/no-html-button, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions*/}
@@ -279,14 +278,12 @@ export const HoverCardComponent = ({
 		[children, initHideCard, initShowCard, onChildClick, onContextMenuClick, setMousePosition],
 	);
 
-	const popupComponent = fg('hover-card-prop-should-render-to-parent')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useMemo(() => {
-				// Within the Popup component, if shouldRenderToParent, the zIndex prop is ignored
-				// as it is assumed that the custom popup container has the desired styles
-				return createCustomPopupContainer(shouldRenderToParent ? zIndex : undefined);
-			}, [zIndex, shouldRenderToParent])
-		: CustomPopupContainer;
+	const popupComponent = useMemo(
+		// Within the Popup component, if shouldRenderToParent, the zIndex prop is ignored
+		// as it is assumed that the custom popup container has the desired styles
+		() => createCustomPopupContainer(shouldRenderToParent ? zIndex : undefined),
+		[zIndex, shouldRenderToParent],
+	);
 
 	return (
 		<Popup
@@ -302,7 +299,7 @@ export const HoverCardComponent = ({
 			role={role}
 			titleId={titleId}
 			label={label}
-			{...(fg('hover-card-prop-should-render-to-parent') ? { shouldRenderToParent } : {})}
+			shouldRenderToParent={shouldRenderToParent}
 			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 			popupComponent={popupComponent}
 		/>

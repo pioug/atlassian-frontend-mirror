@@ -6,7 +6,6 @@ import styled from '@emotion/styled';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button, { IconButton } from '@atlaskit/button/new';
 import MenuIcon from '@atlaskit/icon/core/menu';
-import LegacyDetailViewIcon from '@atlaskit/icon/glyph/detail-view';
 
 import MobileHeader from '../src';
 
@@ -55,13 +54,7 @@ class MobileHeaderDemo extends Component<{}, State> {
 							<ButtonGroup>
 								<Button>One</Button>
 								<IconButton
-									icon={() => (
-										<MenuIcon
-											LEGACY_fallbackIcon={LegacyDetailViewIcon}
-											label={''}
-											color="currentColor"
-										/>
-									)}
+									icon={() => <MenuIcon label={''} color="currentColor" />}
 									onClick={this.sidebarOpened}
 									label="Show sidebar"
 								/>

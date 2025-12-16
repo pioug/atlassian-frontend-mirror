@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 7.0.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.25
+
+### Patch Changes
+
+- [`90abe9b926a6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90abe9b926a6f) -
+  Icon entrypoint migration
+- Updated dependencies
+
 ## 7.0.24
 
 ### Patch Changes

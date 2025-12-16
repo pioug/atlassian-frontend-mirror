@@ -18,7 +18,6 @@ import {
 	akEditorSwoopCubicBezier,
 	akLayoutGutterOffset,
 } from '@atlaskit/editor-shared-styles';
-import { default as ChevronRightIconLegacy } from '@atlaskit/icon/glyph/chevron-right';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -333,12 +332,7 @@ function Expand({
 			>
 				{isMobile ? (
 					<ExpandIconWrapper expanded={expanded}>
-						<ChevronRightIcon
-							label={label}
-							LEGACY_fallbackIcon={ChevronRightIconLegacy}
-							spacing="spacious"
-							size="small"
-						/>
+						<ChevronRightIcon label={label} spacing="spacious" size="small" />
 					</ExpandIconWrapper>
 				) : (
 					<Tooltip
@@ -349,12 +343,7 @@ function Expand({
 						testId={'tooltip'}
 					>
 						<ExpandIconWrapper expanded={expanded}>
-							<ChevronRightIcon
-								label={label}
-								LEGACY_fallbackIcon={ChevronRightIconLegacy}
-								spacing="spacious"
-								size="small"
-							/>
+							<ChevronRightIcon label={label} spacing="spacious" size="small" />
 						</ExpandIconWrapper>
 					</Tooltip>
 				)}

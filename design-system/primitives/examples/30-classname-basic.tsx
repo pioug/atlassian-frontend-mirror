@@ -20,7 +20,7 @@ const defaultStyles = xcss({
 	opacity: 'opacity.disabled',
 });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Box xcss={containerStyles} padding="space.100">
 		<Inline space="space.100" testId="classname-examples">
 			<Box backgroundColor="color.background.discovery.bold" padding="space.200" xcss={boxStyles} />

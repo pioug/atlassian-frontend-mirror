@@ -1,5 +1,31 @@
 # @atlaskit/smart-card
 
+## 43.17.0
+
+### Minor Changes
+
+- [`762b79e21f96a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/762b79e21f96a) -
+  Migrated and cleaned up legacy iconography usage.
+- [`186c8d9124a31`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/186c8d9124a31) -
+  Clean up hover-card-prop-should-render-to-parent FG
+
+### Patch Changes
+
+- [`f47b71714d62c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f47b71714d62c) -
+  Experiment cleanup: platform_sl_3p_auth_window_experiment (control)
+- [`b26030fcc5100`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b26030fcc5100) -
+  Remove the FF for platform_linking_enable_card_preview_action_size
+- Updated dependencies
+
+## 43.16.0
+
+### Minor Changes
+
+- [`f3cfbeec50b23`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3cfbeec50b23) -
+  clean up fg smart-link-custom-hover-card-content
+- [`09516f971a4fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09516f971a4fb) -
+  Tidy lozenge-dropdown-prop-should-render-to-parent FG
+
 ## 43.15.1
 
 ### Patch Changes

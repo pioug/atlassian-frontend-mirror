@@ -4,7 +4,7 @@ import React from 'react';
 import { Stack, Text } from '@atlaskit/primitives';
 import Skeleton from '@atlaskit/skeleton';
 
-export default function All() {
+export default function All(): React.JSX.Element {
 	return (
 		<Stack space="space.300" testId="skeleton-group">
 			<Stack space="space.050" testId="skeleton-default">

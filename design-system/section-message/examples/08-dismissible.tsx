@@ -3,7 +3,7 @@ import React from 'react';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
 
-const Example = () => (
+const Example = (): React.JSX.Element => (
 	<Box padding="space.250">
 		<Stack space="space.150">
 			<SectionMessage

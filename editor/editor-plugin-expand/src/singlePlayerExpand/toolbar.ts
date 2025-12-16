@@ -1,7 +1,7 @@
 import commonMessages from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI, FloatingToolbarHandler } from '@atlaskit/editor-common/types';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
-import DeleteIcon from '@atlaskit/icon/core/migration/delete--editor-remove';
+import DeleteIcon from '@atlaskit/icon/core/delete';
 
 import type { ExpandPlugin } from '../types';
 

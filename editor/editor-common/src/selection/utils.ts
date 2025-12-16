@@ -1,4 +1,4 @@
-import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection, type Selection } from '@atlaskit/editor-prosemirror/state';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
@@ -169,9 +169,35 @@ export const deleteSelectedRange = (tr: Transaction, selectionToUse?: Selection)
 	return tr;
 };
 
+const getDefaultPredicate = ({ nodes }: Schema) => {
+	const requiresFurtherExpansion = new Set([
+		nodes.bulletList,
+		nodes.orderedList,
+		nodes.taskList,
+		nodes.listItem,
+		nodes.taskItem,
+
+		nodes.tableHeader,
+		nodes.tableRow,
+		nodes.tableCell,
+		nodes.table,
+
+		nodes.mediaGroup,
+		nodes.mediaSingle,
+	]);
+
+	return (node: PMNode) => {
+		return !requiresFurtherExpansion.has(node.type);
+	};
+};
+
 /**
  * This expands the given $from and $to resolved positions to the block boundaries
  * spanning all nodes in the range up to the nearest common ancestor.
+ *
+ * By default, it will further expand the range when encountering specific node types
+ * that require full block selection (like lists and tables). A custom predicate
+ * can be provided to modify this behavior.
  *
  * @param $from The resolved start position
  * @param $to The resolved end position
@@ -181,7 +207,7 @@ export const deleteSelectedRange = (tr: Transaction, selectionToUse?: Selection)
 export const expandToBlockRange = (
 	$from: ResolvedPos,
 	$to: ResolvedPos,
-	predicate?: (node: PMNode) => boolean,
+	predicate: (node: PMNode) => boolean = getDefaultPredicate($from.doc.type.schema),
 ) => {
 	const range = $from.blockRange($to, predicate);
 
@@ -194,4 +220,20 @@ export const expandToBlockRange = (
 		$to: $to.doc.resolve(range.end),
 		range,
 	};
+};
+
+/**
+ * Expands a given selection to a block range, considering specific node types that require expansion.
+ *
+ * E.g. if the selection starts/ends at list items or table cells, the selection will be expanded
+ * to encompass the entire list or table.
+ *
+ * Used mostly for block menu / drag handle related selections, where we want to ensure the selection
+ * being acted upon covers the entire block range selected by the user.
+ *
+ * @param selection The selection to expand
+ * @returns The expanded selection
+ */
+export const expandSelectionToBlockRange = ({ $from, $to }: Selection) => {
+	return expandToBlockRange($from, $to);
 };

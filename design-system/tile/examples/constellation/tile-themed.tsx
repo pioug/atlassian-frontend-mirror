@@ -10,7 +10,7 @@ import Tile from '@atlaskit/tile';
 import cloudDark from '../images/cloud-dark.svg';
 import cloudLight from '../images/cloud-light.svg';
 
-export default function TileThemed() {
+export default function TileThemed(): React.JSX.Element {
 	const colorMode = useColorMode();
 
 	return (

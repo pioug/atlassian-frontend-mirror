@@ -78,7 +78,7 @@ const PageLink = ({ href, title, space, lastVisited, icon: Icon }: PageLinkProps
 	);
 };
 
-export default function Styled() {
+export default function Styled(): React.JSX.Element {
 	return (
 		<Stack space="space.200">
 			<Heading as="h2" size="small">

@@ -40,7 +40,7 @@ const SomeParts = ({
 	</SectionMessage>
 );
 
-const Example = () => (
+const Example = (): React.JSX.Element => (
 	<>
 		<Text>
 			This example has been constructed for ease-of-reference and comparison in developing section

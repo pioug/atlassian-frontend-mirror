@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 6.6.3
+
+### Patch Changes
+
+- [`a6bb2551e12c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a6bb2551e12c5) -
+  [ux] EDITOR-3970 fixed bug where placeholder is showing when ai modal is open in comment editor
+
 ## 6.6.2
 
 ### Patch Changes

@@ -13,8 +13,8 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages';
 import { ValidMessage } from '@atlaskit/form';
-import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down--hipchat-chevron-down';
-import ChevronUpIcon from '@atlaskit/icon/core/migration/chevron-up--hipchat-chevron-up';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import ChevronUpIcon from '@atlaskit/icon/core/chevron-up';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';

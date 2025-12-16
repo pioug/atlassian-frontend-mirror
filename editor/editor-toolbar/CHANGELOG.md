@@ -1,5 +1,18 @@
 # @atlaskit/editor-toolbar
 
+## 0.18.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.18.4
+
+### Patch Changes
+
+- [`90abe9b926a6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90abe9b926a6f) -
+  Icon entrypoint migration
+
 ## 0.18.3
 
 ### Patch Changes

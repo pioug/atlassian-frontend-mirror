@@ -7,7 +7,7 @@ import {
 import safeLocalStorage from './safe-local-storage';
 import { type DimensionNames } from './types';
 
-const mergeGridStateIntoStorage = (key: string, value: any) => {
+const mergeGridStateIntoStorage = (key: string, value: any): void => {
 	const storageValue = JSON.parse(safeLocalStorage().getItem(PAGE_LAYOUT_LS_KEY) || '{}');
 
 	if (value !== null && typeof value === 'object') {
@@ -25,7 +25,7 @@ const getGridStateFromStorage = (key: string) => {
 	return storageValue[key];
 };
 
-const removeFromGridStateInStorage = (key: string, secondKey?: string) => {
+const removeFromGridStateInStorage = (key: string, secondKey?: string): void => {
 	const storageValue = JSON.parse(safeLocalStorage().getItem(PAGE_LAYOUT_LS_KEY) || '{}');
 
 	if (secondKey && storageValue[key]) {

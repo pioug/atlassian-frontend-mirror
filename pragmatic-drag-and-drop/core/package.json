@@ -70,7 +70,7 @@
 		"@atlaskit/link": "workspace:^",
 		"@emotion/react": "root:*",
 		"@testing-library/dom": "root:*",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@types/raf-schd": "root:*",
 		"globby": "root:*",
 		"react": "root:*",

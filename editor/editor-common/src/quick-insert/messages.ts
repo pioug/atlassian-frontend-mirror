@@ -6,6 +6,16 @@ export const messages = defineMessages({
 		defaultMessage: 'Help',
 		description: 'Element browser help button label',
 	},
+	insert: {
+		id: 'fabric.editor.elementbrowser.modal.insert',
+		defaultMessage: 'Insert',
+		description: 'Element browser insert button label',
+	},
+	close: {
+		id: 'fabric.editor.elementbrowser.modal.close',
+		defaultMessage: 'Close',
+		description: 'Element browser close button label',
+	},
 	all: {
 		id: 'fabric.editor.elementbrowser.categorylist.category-all',
 		defaultMessage: 'All',

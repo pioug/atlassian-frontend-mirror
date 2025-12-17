@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-insert-block",
-	"version": "7.1.0",
+	"version": "7.1.1",
 	"description": "Insert block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -139,9 +139,6 @@
 			"type": "boolean"
 		},
 		"confluence-whiteboards-quick-insert-l10n-eligible": {
-			"type": "boolean"
-		},
-		"platform_editor_remove_unused_block_insert_props": {
 			"type": "boolean"
 		},
 		"platform_editor_toolbar_aifc_undo_redo_confluence": {

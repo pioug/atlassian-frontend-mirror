@@ -9,21 +9,23 @@ test.describe(`action item`, () => {
 		},
 	});
 
-	test('should render active action item', async ({ editor }) => {
+	test('should render active action item', async ({ editor, page }) => {
 		await editor.keyboard.type('[x] ');
 		await editor.keyboard.type('active action item');
 
 		await expect(editor).toMatchDocument(
 			doc(taskList({})(taskItem({ state: 'DONE' })('active action item'))),
 		);
+		await expect(page).toBeAccessible();
 	});
 
-	test('should render not active action item', async ({ editor }) => {
+	test('should render not active action item', async ({ editor, page }) => {
 		await editor.keyboard.type('[] ');
 		await editor.keyboard.type('not active action item');
 
 		await expect(editor).toMatchDocument(
 			doc(taskList({})(taskItem({ state: 'TODO' })('not active action item'))),
 		);
+		await expect(page).toBeAccessible();
 	});
 });

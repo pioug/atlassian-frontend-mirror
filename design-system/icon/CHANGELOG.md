@@ -1,5 +1,29 @@
 # @atlaskit/icon
 
+## 29.3.0
+
+### Minor Changes
+
+- [`792573921f7ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/792573921f7ec) -
+  This release updates icons in `@atlaskit/icon`.
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+  - `automation`
+  - `basketball`
+  - `chart-pie`
+  - `epic`
+  - `list-checklist`
+  - `paint-palette`
+  - `problem`
+  - `send`
+  - `target`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.2.0
 
 ### Minor Changes

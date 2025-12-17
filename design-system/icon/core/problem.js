@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1c3166f2fe0f47ea82d95571c4b7ab84>>
+ * @codegen <<SignedSource::010a733faf4fb49b1b7a157f3ee10630>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -22,7 +22,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const ProblemIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
   name: "ProblemIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M2.343 2.343a8 8 0 1 1 11.314 11.315A8 8 0 0 1 2.343 2.343m.561 1.622a6.5 6.5 0 0 0 9.13 9.13zm9.693-.562a6.5 6.5 0 0 0-8.632-.499l9.13 9.13a6.5 6.5 0 0 0-.498-8.63"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M2.343 2.343A8 8 0 1 1 13.658 13.66 8 8 0 0 1 2.343 2.343m.562 1.622a6.5 6.5 0 0 0 9.13 9.13zm9.692-.561a6.5 6.5 0 0 0-8.632-.5l9.13 9.13a6.5 6.5 0 0 0-.498-8.63"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ProblemIcon.displayName = 'ProblemIcon';

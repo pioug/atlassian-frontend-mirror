@@ -12,7 +12,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type IconButtonProps } from '@atlaskit/button/new';
-import WorldIcon from '@atlaskit/icon/core/migration/globe--world';
+import WorldIcon from '@atlaskit/icon/core/globe';
 import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 import SectionMessage from '@atlaskit/section-message';

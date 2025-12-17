@@ -1,5 +1,16 @@
 # @atlaskit/ads-mcp
 
+## 0.13.0
+
+### Minor Changes
+
+- [`1fa31caed8915`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1fa31caed8915) -
+  Add mcp for i18n hardcoded string conversion
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.12.0
 
 ### Minor Changes

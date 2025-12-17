@@ -29,7 +29,7 @@ export const lintObjectForSpacing = (
 	ruleConfig: RuleConfig,
 	fontSize: any,
 	tokenNode: ImportDeclaration | null,
-) => {
+): void => {
 	if (isNodeOfType(node.value, 'Literal') && !isValidSpacingValue(node.value.value, fontSize)) {
 		context.report({
 			node,

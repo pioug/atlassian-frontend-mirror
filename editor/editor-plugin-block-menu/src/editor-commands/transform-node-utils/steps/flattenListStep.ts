@@ -1,16 +1,13 @@
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { type Node as PMNode, type NodeType, Fragment } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
 
+import { isListWithIndentation } from '../nodeChecks';
 import type { TransformStep } from '../types';
 
-const extractNestedLists = (
-	node: PMNode,
-	listTypes: NodeType[],
-	itemTypes: NodeType[],
-	schema: Schema,
-): PMNode[] => {
+const extractNestedLists = (node: PMNode, schema: Schema): PMNode[] => {
 	const items: PMNode[] = [];
 	const paragraph = schema.nodes.paragraph;
+	const itemTypes = [schema.nodes.listItem, schema.nodes.taskItem];
 
 	const extract = (currentNode: PMNode): void => {
 		currentNode.forEach((child) => {
@@ -19,7 +16,7 @@ const extractNestedLists = (
 				const nestedLists: PMNode[] = [];
 
 				child.forEach((grandChild) => {
-					if (listTypes.some((type) => grandChild.type === type)) {
+					if (isListWithIndentation(grandChild.type.name, schema)) {
 						nestedLists.push(grandChild);
 					} else if (grandChild.isText) {
 						contentWithoutNestedLists.push(paragraph.createAndFill({}, grandChild) as PMNode);
@@ -33,7 +30,7 @@ const extractNestedLists = (
 				nestedLists.forEach((nestedList) => {
 					extract(nestedList);
 				});
-			} else if (listTypes.some((type) => child.type === type)) {
+			} else if (isListWithIndentation(child.type.name, schema)) {
 				extract(child);
 			}
 		});
@@ -74,24 +71,9 @@ const extractNestedLists = (
  * TODO: Lists with mixed types (e.g. bulletList with a taskItem) doesn't full flatten
  */
 export const flattenListStep: TransformStep = (nodes, context) => {
-	const listTypes = [
-		context.schema.nodes.bulletList,
-		context.schema.nodes.orderedList,
-		context.schema.nodes.taskList,
-	];
-
 	return nodes.map((node) => {
-		if (listTypes.some((type) => node.type === type)) {
-			return node.copy(
-				Fragment.from(
-					extractNestedLists(
-						node,
-						listTypes,
-						[context.schema.nodes.listItem, context.schema.nodes.taskItem],
-						context.schema,
-					),
-				),
-			);
+		if (isListWithIndentation(node.type.name, context.schema)) {
+			return node.copy(Fragment.from(extractNestedLists(node, context.schema)));
 		}
 
 		return node;

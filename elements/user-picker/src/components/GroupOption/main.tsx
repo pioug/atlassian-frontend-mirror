@@ -9,7 +9,7 @@ import { css, jsx } from '@emotion/react';
 
 import { N20, B400, N800, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import PeopleIcon from '@atlaskit/icon/core/migration/people-group--people';
+import PeopleIcon from '@atlaskit/icon/core/people-group';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
 
 import { type Group } from '../../types';

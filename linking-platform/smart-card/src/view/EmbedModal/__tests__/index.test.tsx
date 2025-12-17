@@ -16,6 +16,7 @@ import uuid from 'uuid';
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { flushPromises } from '@atlaskit/link-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { ActionName } from '../../../index';
@@ -587,6 +588,42 @@ describe('EmbedModal', () => {
 				EXPERIENCE_TEST_ID,
 			);
 			expect(ufoStartSpy).toHaveBeenCalledBefore(ufoSucceedSpy as jest.Mock);
+		});
+	});
+
+	describe('a11y', () => {
+		ffTest.off('platform_navx_flex_card_status_dropdown_a11y_fix', '', () => {
+			it.each([
+				['Close full screen', EmbedModalSize.Large],
+				['View full screen', EmbedModalSize.Small],
+				['View Original'],
+				['Download'],
+			])(
+				'should render both button text and aria-label for %s button',
+				(buttonText: string, size = EmbedModalSize.Large) => {
+					renderEmbedModal({ invokeViewAction, invokeDownloadAction, size });
+
+					expect(screen.queryByText(buttonText)).toBeInTheDocument();
+					expect(screen.queryByLabelText(buttonText)).toBeInTheDocument();
+				},
+			);
+		});
+
+		ffTest.on('platform_navx_flex_card_status_dropdown_a11y_fix', '', () => {
+			it.each([
+				['Close full screen', EmbedModalSize.Large],
+				['View full screen', EmbedModalSize.Small],
+				['View Original'],
+				['Download'],
+			])(
+				'should render both button text and aria-label for %s button',
+				(buttonText: string, size = EmbedModalSize.Large) => {
+					renderEmbedModal({ invokeViewAction, invokeDownloadAction, size });
+
+					expect(screen.queryByText(buttonText)).toBeInTheDocument();
+					expect(screen.queryByLabelText(buttonText)).not.toBeInTheDocument();
+				},
+			);
 		});
 	});
 });

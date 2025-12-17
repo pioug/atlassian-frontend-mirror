@@ -11,7 +11,7 @@ test.describe('collab', () => {
 		exampleName: 'collab',
 	});
 
-	test('collab should work', async ({ firstEditor, secondEditor, thirdEditor }) => {
+	test('collab should work', async ({ firstEditor, secondEditor, thirdEditor, page }) => {
 		fixTest({
 			jiraIssueId: 'TODO-123',
 			reason: 'Firefox is skipped as it is a very slow browser on this test',
@@ -33,9 +33,10 @@ test.describe('collab', () => {
 		await expect(firstEditor).toHaveDocument(doc(p('I am MalcolmI am Rosa')));
 		await expect(secondEditor).toHaveDocument(doc(p('I am MalcolmI am Rosa')));
 		await expect(thirdEditor).toHaveDocument(doc(p('I am MalcolmI am Rosa')));
+		await expect(page).toBeAccessible({ violationCount: 1 });
 	});
 
-	test('rich text collab should work', async ({ firstEditor, secondEditor, thirdEditor }) => {
+	test('rich text collab should work', async ({ firstEditor, secondEditor, thirdEditor, page }) => {
 		await firstEditor.focus();
 		await firstEditor.typeAhead.searchAndInsert('table');
 
@@ -57,9 +58,10 @@ test.describe('collab', () => {
 				),
 			),
 		);
+		await expect(page).toBeAccessible({ violationCount: 4 });
 	});
 
-	test('offline should resync', async ({ firstEditor, secondEditor, thirdEditor }) => {
+	test('offline should resync', async ({ firstEditor, secondEditor, thirdEditor, page }) => {
 		fixTest({
 			jiraIssueId: 'TODO-123',
 			reason: 'Firefox is skipped as it is a very slow browser on this test',
@@ -92,6 +94,7 @@ test.describe('collab', () => {
 		await expect(firstEditor).toHaveDocument(doc(p('HelloWorld!!!')));
 		await expect(thirdEditor).toHaveDocument(doc(p('HelloWorld!!!')));
 		await expect(secondEditor).toHaveDocument(doc(p('HelloWorld!!!')));
+		await expect(page).toBeAccessible();
 	});
 
 	test.describe('telepointer', () => {
@@ -99,6 +102,7 @@ test.describe('collab', () => {
 			firstEditor,
 			secondEditor,
 			thirdEditor,
+			page,
 		}) => {
 			fixTest({
 				jiraIssueId: 'TODO-123',
@@ -125,6 +129,7 @@ test.describe('collab', () => {
 
 			await expect(firstEditor).toHaveDocument(doc(p('HellWorldo')));
 			await expect(thirdEditor).toHaveDocument(doc(p('HellWorldo')));
+			await expect(page).toBeAccessible({ violationCount: 2 });
 		});
 	});
 });

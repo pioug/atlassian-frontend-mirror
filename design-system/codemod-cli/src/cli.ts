@@ -4,7 +4,7 @@ import meow from 'meow';
 import main from './main';
 import { type CliFlags, NoTransformsExistError, ValidationError } from './types';
 
-export async function run() {
+export async function run(): Promise<void> {
 	const cli = meow(
 		`
 Usage

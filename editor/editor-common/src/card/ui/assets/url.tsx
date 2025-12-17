@@ -1,11 +1,7 @@
-/* eslint-disable @atlaskit/design-system/no-custom-icons */
-import React from 'react';
+import React, { type ComponentProps } from 'react';
 
-import Icon from '@atlaskit/icon';
-import type { CustomGlyphProps, IconProps } from '@atlaskit/icon/types';
-import { fg } from '@atlaskit/platform-feature-flags';
-
-const IconUrlGlyph = (props: CustomGlyphProps) => {
+// Custom icon ejection - these icons have been migrated away from the deprecated Custom / SVG components to native SVG. Please review whether this icon should be contributed to @atlaskit/icon-lab or whether it can be replaced by an existing icon from either @atlaskit/icon or @atlaskit/icon-lab
+const IconUrlGlyph = (props: ComponentProps<'svg'>) => {
 	return (
 		<svg
 			width="32"
@@ -22,10 +18,10 @@ const IconUrlGlyph = (props: CustomGlyphProps) => {
 	);
 };
 
-export const IconUrl = (props: IconProps): React.JSX.Element => {
-	return fg('platform-custom-icon-migration') ? (
+export const IconUrl = ({ label }: { label: string }): React.JSX.Element => {
+	return (
 		<IconUrlGlyph
-			aria-label={props.label}
+			aria-label={label}
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				width: '24px',
@@ -33,9 +29,5 @@ export const IconUrl = (props: IconProps): React.JSX.Element => {
 				height: '24px',
 			}}
 		/>
-	) : (
-		// Ignored via go/ees005
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<Icon glyph={IconUrlGlyph} {...props} />
 	);
 };

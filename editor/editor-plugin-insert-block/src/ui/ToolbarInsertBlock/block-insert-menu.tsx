@@ -1,7 +1,6 @@
 import React from 'react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -20,10 +19,7 @@ export interface BlockInsertMenuProps {
 	label: string;
 	onClick: React.MouseEventHandler;
 	onInsert: OnInsert;
-	onItemActivated?: (attrs: { item: MenuItem }) => void; // Remove when platform_editor_remove_unused_block_insert_props is cleaned up
 	onKeyDown?: React.KeyboardEventHandler;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	onOpenChange?: (attrs: any) => void; // Remove when platform_editor_remove_unused_block_insert_props is cleaned up
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	onPlusButtonRef(el: HTMLElement): void;
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)

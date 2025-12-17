@@ -54,7 +54,7 @@ class SpotlightTransition extends React.Component<SpotlightTransitionProps, Stat
 		currentChildren: undefined,
 	};
 
-	onExited = () => {
+	onExited = (): void => {
 		this.setState({
 			currentChildren: this.props.children,
 		});

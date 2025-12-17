@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 24.26.0
+
+### Minor Changes
+
+- [`c9f385b701b64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9f385b701b64) -
+  Remove agent_studio_permissions_settings_m3_profiles in people-and-teams
+
 ## 24.25.0
 
 ### Minor Changes

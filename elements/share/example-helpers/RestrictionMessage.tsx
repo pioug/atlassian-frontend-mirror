@@ -6,7 +6,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import LockFilledIcon from '@atlaskit/icon/core/migration/lock-locked--lock-filled';
+import LockFilledIcon from '@atlaskit/icon/core/lock-locked';
 import { token } from '@atlaskit/tokens';
 
 const message = 'Restrictions on this page may prevent people from viewing or editing';

@@ -1,7 +1,7 @@
-import { generateTheme } from '@atlaskit/atlassian-navigation';
+import { generateTheme, type NavigationTheme } from '@atlaskit/atlassian-navigation';
 import { B400, G300, N0, N800, P300, R300, T300, Y300 } from '@atlaskit/theme/colors';
 
-export const theme = [
+export const theme: NavigationTheme[] = [
 	generateTheme({
 		name: 'atlassian',
 		backgroundColor: B400,
@@ -54,7 +54,7 @@ export const theme = [
 	}),
 ];
 
-export const themes = [
+export const themes: NavigationTheme[] = [
 	generateTheme({
 		name: 'huge',
 		backgroundColor: '#FFFFFF',

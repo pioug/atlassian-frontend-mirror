@@ -129,4 +129,4 @@ export const AppSwitcherNav4: React.ForwardRefExoticComponent<
 
 // exists only to extract props
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (_props: AppSwitcherProps) => {};
+export default (_props: AppSwitcherProps): void => {};

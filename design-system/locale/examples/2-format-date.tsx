@@ -24,7 +24,7 @@ export default class Example extends Component<Props, State> {
 
 	interval = -1;
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.interval = window.setInterval(
 			() =>
 				this.setState({
@@ -38,7 +38,7 @@ export default class Example extends Component<Props, State> {
 		window.clearInterval(this.interval);
 	}
 
-	onLocaleChange = (locale: Locale) => {
+	onLocaleChange = (locale: Locale): void => {
 		const { l10n } = this.props;
 		if (!l10n) {
 			this.setState({

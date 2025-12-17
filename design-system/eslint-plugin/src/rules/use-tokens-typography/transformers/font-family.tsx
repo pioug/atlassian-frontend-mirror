@@ -16,7 +16,7 @@ interface MetaData {
 }
 
 export const FontFamily = {
-	lint(node: Rule.Node, { context, config }: MetaData) {
+	lint(node: Rule.Node, { context, config }: MetaData): void {
 		// Check whether all criteria needed to make a transformation are met
 		const success = FontFamily._check(node, { context, config });
 		if (success) {

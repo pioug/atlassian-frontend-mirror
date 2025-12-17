@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 8.6.1
+
+### Patch Changes
+
+- [`8f904ca860b20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f904ca860b20) -
+  Updated radius token descriptions to provide more guidance.
+
 ## 8.6.0
 
 ### Minor Changes

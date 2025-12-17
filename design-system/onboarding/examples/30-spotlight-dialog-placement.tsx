@@ -51,11 +51,11 @@ interface State {
 export default class SpotlightDialogPlacementExample extends Component<{}, State> {
 	state: State = {};
 
-	next = () => this.setState((state) => ({ index: (state.index || 0) + 1 }));
+	next = (): void => this.setState((state) => ({ index: (state.index || 0) + 1 }));
 
-	start = () => this.setState({ index: 0 });
+	start = (): void => this.setState({ index: 0 });
 
-	finish = () => this.setState({ index: undefined });
+	finish = (): void => this.setState({ index: undefined });
 
 	render() {
 		const { index } = this.state;

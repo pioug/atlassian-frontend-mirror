@@ -17,7 +17,7 @@ export function useResizingWidthCssVarOnRootElement({
 	isEnabled?: boolean;
 	cssVar: string;
 	panelId: symbol;
-}) {
+}): void {
 	useEffect(() => {
 		if (!isEnabled) {
 			return;

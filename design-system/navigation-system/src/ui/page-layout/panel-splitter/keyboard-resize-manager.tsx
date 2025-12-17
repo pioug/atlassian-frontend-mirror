@@ -62,7 +62,7 @@ export function createKeyboardResizeManager({
 		};
 	}
 
-	function onResize({ initialWidth, finalWidth }: Parameters<ResizeEndCallback>[0]) {
+	function onResize({ initialWidth, finalWidth }: Parameters<ResizeEndCallback>[0]): void {
 		if (resizingState.type === 'idle') {
 			// If the state was idle, this counts as a resize start event.
 			onResizeStart({ initialWidth });

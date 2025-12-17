@@ -24,7 +24,7 @@ export default function useAutoFocus(
 		| MutableRefObject<HTMLElement | null | undefined>
 		| undefined,
 	autoFocus: boolean,
-) {
+): void {
 	const initialMount = useRef(true);
 
 	useEffect(() => {

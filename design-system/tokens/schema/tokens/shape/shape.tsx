@@ -41,7 +41,8 @@ const shape: AttributeSchema<ShapeTokenSchema<ShapePaletteToken>> = {
 				state: 'active',
 				suggest: ['2px'],
 				introduced: '6.1.0',
-				description: 'Used for small containers such as badges.',
+				description:
+					'Use for small detail elements: badges, checkboxes, avatar labels, keyboard shortcuts.',
 			},
 		},
 		small: {
@@ -50,7 +51,8 @@ const shape: AttributeSchema<ShapeTokenSchema<ShapePaletteToken>> = {
 				state: 'active',
 				suggest: ['4px'],
 				introduced: '6.1.0',
-				description: 'Used for labels.',
+				description:
+					'Use for supporting elements: labels, lozenges, timestamps, tags, dates, tooltip containers, imagery inside a table, compact buttons.',
 			},
 		},
 		medium: {
@@ -59,7 +61,8 @@ const shape: AttributeSchema<ShapeTokenSchema<ShapePaletteToken>> = {
 				state: 'active',
 				suggest: ['6px'],
 				introduced: '6.1.0',
-				description: 'Used for buttons and inputs.',
+				description:
+					'Use for interactive elements: buttons, inputs, text areas, selects, navigation items, smart links.',
 			},
 		},
 		large: {
@@ -68,7 +71,8 @@ const shape: AttributeSchema<ShapeTokenSchema<ShapePaletteToken>> = {
 				state: 'active',
 				suggest: ['8px'],
 				introduced: '6.1.0',
-				description: 'Used for cards and small containers.',
+				description:
+					'Use for containment elements: cards, in-page containers, floating UI, dropdown menus.',
 			},
 		},
 		xlarge: {
@@ -77,7 +81,8 @@ const shape: AttributeSchema<ShapeTokenSchema<ShapePaletteToken>> = {
 				state: 'active',
 				suggest: ['12px'],
 				introduced: '6.1.0',
-				description: 'Used for modals and large containers.',
+				description:
+					'Use for large page elements: full-page containers, large containers, modals, Kanban columns, tables.',
 			},
 		},
 		xxlarge: {
@@ -86,7 +91,7 @@ const shape: AttributeSchema<ShapeTokenSchema<ShapePaletteToken>> = {
 				state: 'active',
 				suggest: ['12px'],
 				introduced: '8.1.0',
-				description: 'Used for the largest containers.',
+				description: 'Use for video player containers.',
 			},
 		},
 		full: {
@@ -95,7 +100,8 @@ const shape: AttributeSchema<ShapeTokenSchema<ShapePaletteToken>> = {
 				state: 'active',
 				suggest: ['50%'],
 				introduced: '6.1.0',
-				description: 'Used for circular containers, like a rounded button.',
+				description:
+					'Use for circular elements (user/people related): avatars, names, user-related UI, emoji reactions.',
 			},
 		},
 		tile: {
@@ -103,7 +109,7 @@ const shape: AttributeSchema<ShapeTokenSchema<ShapePaletteToken>> = {
 				group: 'shape',
 				state: 'active',
 				introduced: '6.2.0',
-				description: 'Used for tiles only.',
+				description: 'Use this specific radius token exclusively for the tile component system.',
 			},
 		},
 	},

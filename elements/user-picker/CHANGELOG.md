@@ -1,5 +1,13 @@
 # @atlaskit/user-picker
 
+## 11.18.1
+
+### Patch Changes
+
+- [`d14ea5f60b689`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d14ea5f60b689) -
+  chore: migrate platform UI & component libraries icon imports from migration paths to core
+- Updated dependencies
+
 ## 11.18.0
 
 ### Minor Changes

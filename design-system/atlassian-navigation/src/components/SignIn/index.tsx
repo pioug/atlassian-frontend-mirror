@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LogInIcon from '@atlaskit/icon/core/migration/log-in--sign-in';
+import LogInIcon from '@atlaskit/icon/core/log-in';
 
 import { IconButton } from '../IconButton';
 

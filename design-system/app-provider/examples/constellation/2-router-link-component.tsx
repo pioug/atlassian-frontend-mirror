@@ -116,4 +116,8 @@ function App() {
   );
 }`;
 
-export default { example: App, code: CodeBlock };
+const _default_1: {
+    example: typeof App;
+    code: string;
+} = { example: App, code: CodeBlock };
+export default _default_1;

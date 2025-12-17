@@ -24,7 +24,7 @@ const completeTriplet = (colors: string[]) => `#${repeat(colors[1], 6)}`;
 
 const isTriplet = (colors: string[]) => colors[0] === colors[1] && colors[1] === colors[2];
 
-export const convertHexShorthand = (color: string) => {
+export const convertHexShorthand = (color: string): string => {
 	if (isShortHexColor(color)) {
 		// when color = '#ccc', matches is structured as ['#ccc', 'c', 'c', 'c', ...]
 		const matches = color.match(shortHandHexColorPattern);
@@ -42,10 +42,10 @@ export const convertHexShorthand = (color: string) => {
 	return color;
 };
 
-export const generateTextColor = (color: string) => {
+export const generateTextColor = (color: string): string => {
 	const converted = convertHexShorthand(color);
 	return chromatism.contrastRatio(converted).hex;
 };
 
-export const getContrastColor = (contrastValue: number, opacityValue: number, color: string) =>
+export const getContrastColor = (contrastValue: number, opacityValue: number, color: string): string =>
 	hexToRGBA(chromatism.contrast(contrastValue, color).hex, opacityValue);

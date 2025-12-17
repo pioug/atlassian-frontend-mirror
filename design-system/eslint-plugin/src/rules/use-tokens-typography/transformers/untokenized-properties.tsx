@@ -14,7 +14,7 @@ interface MetaData {
 }
 
 export const UntokenizedProperties = {
-	lint(node: Rule.Node, { context, config }: MetaData) {
+	lint(node: Rule.Node, { context, config }: MetaData): void {
 		// Check whether all criteria needed to make a transformation are met
 		const success = UntokenizedProperties._check(node, { context, config });
 		if (success) {

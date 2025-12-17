@@ -37,7 +37,7 @@ const contentStyles = cssMap({
  * within different parts of your application. Each ThemeProvider creates its own theme
  * scope that can override the parent theme settings.
  */
-export function SubTreeThemingExample() {
+export function SubTreeThemingExample(): JSX.Element {
 	return (
 		<AppProvider
 			defaultTheme={{ light: 'light', dark: 'dark', typography: 'typography' }}

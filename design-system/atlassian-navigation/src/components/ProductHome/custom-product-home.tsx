@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, type MouseEvent } from 'react';
+import React, { Fragment, type MouseEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -115,7 +115,7 @@ const siteTitleStyles = css({
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#custom-product-home)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-const CustomProductHome = (props: CustomProductHomeProps) => {
+const CustomProductHome = (props: CustomProductHomeProps): React.JSX.Element => {
 	const {
 		href,
 		iconAlt,

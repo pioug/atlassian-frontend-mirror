@@ -7,7 +7,7 @@ import { useCallback, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import { injectIntl, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
 import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
@@ -160,6 +160,7 @@ const Footer = ({
 	beforeElement?: JSX.Element;
 	onInsert: () => void;
 }) => {
+	const intl = useIntl();
 	const { onClose } = useModal();
 	return (
 		<div css={modalFooterStyles}>
@@ -170,15 +171,21 @@ const Footer = ({
 						appearance="primary"
 						onClick={onInsert}
 						testId="ModalElementBrowser__insert-button"
-						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 					>
-						Insert
+						{fg('platform_editor_dec_a11y_fixes')
+							? intl.formatMessage(messages.insert)
+							: 'Insert'}
 					</Button>
 				</div>
 				<div css={actionItemStyles}>
-					{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
-					<Button appearance="subtle" onClick={onClose} testId="ModalElementBrowser__close-button">
-						Close
+					<Button
+						appearance="subtle"
+						onClick={onClose}
+						testId="ModalElementBrowser__close-button"
+					>
+						{fg('platform_editor_dec_a11y_fixes')
+							? intl.formatMessage(messages.close)
+							: 'Close'}
 					</Button>
 				</div>
 			</div>

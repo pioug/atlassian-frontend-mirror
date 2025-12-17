@@ -21,6 +21,11 @@ export const findReplaceMessages = defineMessages({
 		defaultMessage: 'Find previous',
 		description: 'Locate the previous occurrence of the word or phrase that was searched for',
 	},
+	findReplaceDialogAriaLabel: {
+		id: 'fabric.editor.findReplaceDialogAriaLabel',
+		defaultMessage: 'Find and Replace',
+		description: 'Aria label for the "Find and Replace" dialog',
+	},
 	closeFindReplaceDialog: {
 		id: 'fabric.editor.closeFindReplaceDialog',
 		defaultMessage: 'Close',

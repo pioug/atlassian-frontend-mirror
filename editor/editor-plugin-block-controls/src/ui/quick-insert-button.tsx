@@ -149,7 +149,6 @@ export const TypeAheadControl = ({
 	api,
 	formatMessage,
 	getPos,
-	nodeType,
 	anchorName,
 	rootAnchorName,
 	rootNodeType,
@@ -371,8 +370,9 @@ export const TypeAheadControl = ({
 				aria-label={formatMessage(messages.insert)}
 				xcss={[
 					stickyButtonStyles,
-					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-						fg('platform_editor_content_mode_button_mvp') &&
+					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+							fg('platform_editor_content_mode_button_mvp'))) &&
 						stickyButtonDenseModeStyles,
 				]}
 				onClick={handleQuickInsert}

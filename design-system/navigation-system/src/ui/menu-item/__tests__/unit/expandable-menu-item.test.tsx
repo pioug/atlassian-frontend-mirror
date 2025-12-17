@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
 import { IconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/core/add';
 import HomeIcon from '@atlaskit/icon/core/home';
@@ -947,6 +948,39 @@ describe('ExpandableMenuItemTrigger', () => {
 			// Should scroll into view now
 			expect(scrollIntoViewIfNeededMock).toHaveBeenCalledWith(
 				true, // The arg is for centering the element
+			);
+		});
+
+		it('should accept router link configurations', () => {
+			const RouterLink = React.forwardRef<
+				HTMLAnchorElement,
+				RouterLinkComponentProps<{ href: string; replace?: boolean }>
+			>(({ href, children, ...rest }, ref) => (
+				<a
+					{...rest}
+					href={`${typeof href === 'string' ? href : href.href}?from=router-link`}
+					ref={ref}
+				>
+					{children}
+				</a>
+			));
+
+			render(
+				<AppProvider routerLinkComponent={RouterLink}>
+					<ExpandableMenuItem>
+						<ExpandableMenuItemTrigger href={{ href: '/test', replace: true }}>
+							Parent menu item
+						</ExpandableMenuItemTrigger>
+						<ExpandableMenuItemContent>
+							<ButtonMenuItem>Test content</ButtonMenuItem>
+						</ExpandableMenuItemContent>
+					</ExpandableMenuItem>
+				</AppProvider>,
+			);
+
+			expect(screen.getByRole('link', { name: /Parent menu item/ })).toHaveAttribute(
+				'href',
+				'/test?from=router-link',
 			);
 		});
 	});

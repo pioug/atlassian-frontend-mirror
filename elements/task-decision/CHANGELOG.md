@@ -1,5 +1,12 @@
 # @atlaskit/task-decision
 
+## 19.2.16
+
+### Patch Changes
+
+- [`d14ea5f60b689`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d14ea5f60b689) -
+  chore: migrate platform UI & component libraries icon imports from migration paths to core
+
 ## 19.2.15
 
 ### Patch Changes

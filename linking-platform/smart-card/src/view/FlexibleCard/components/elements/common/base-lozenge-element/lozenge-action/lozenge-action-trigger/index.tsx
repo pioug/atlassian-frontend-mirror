@@ -6,6 +6,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { css, cx, jsx } from '@compiled/react';
+import { useIntl } from 'react-intl-next';
+
 
 import { cssMap } from '@atlaskit/css';
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
@@ -13,6 +15,8 @@ import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+import { messages } from '../../../../../../../../messages';
 
 import { type LozengeActionTriggerProps } from './type';
 
@@ -79,6 +83,7 @@ const LozengeActionTrigger = ({
 	triggerRef,
 	...props
 }: LozengeActionTriggerProps) => {
+	const intl = useIntl();
 	const [isHovering, setIsHovering] = useState(false);
 	const [isPressing, setIsPressing] = useState(false);
 	const [lozengeBackgroundColor, setLozengeBackgroundColor] = useState<string | undefined>(
@@ -171,6 +176,11 @@ const LozengeActionTrigger = ({
 			onKeyDown={onMouseOrKeyDown}
 			onKeyUp={onMouseOrKeyUp}
 			ref={triggerRef}
+			aria-label={
+				fg('platform_navx_flex_card_status_dropdown_a11y_fix')
+					? (intl.formatMessage(messages.change_status, { status: text }) as string)
+					: undefined
+			}
 		>
 			{lozenge}
 		</button>

@@ -59,11 +59,6 @@ export const getTargetNodeTypeNameInContext = (
 	return nodeTypeName;
 };
 
-export const isListType = (node: PMNode, schema: Schema): boolean => {
-	const lists = [schema.nodes.taskList, schema.nodes.bulletList, schema.nodes.orderedList];
-	return lists.some((list) => list === node.type);
-};
-
 /**
  * Converts a nestedExpand to a regular expand node.
  * NestedExpands can only exist inside expands, so when breaking out or placing
@@ -108,4 +103,23 @@ export const getBlockNodesInRange = (range: NodeRange): PMNode[] => {
 	}
 
 	return blockNodes;
+};
+
+/**
+ * Iterates over a nodes children and extracting text content, removing all other inline content and converting
+ * hardbreaks to newlines.
+ *
+ * @param node - The node to create text content from (should be paragraph)
+ * @returns The text content string.
+ */
+export const createTextContent = (node: PMNode): string => {
+	const textContent = node.children.map((child) => {
+		if (child.isText) {
+			return child.text;
+		} else if (child.type.name === 'hardBreak') {
+			return '\n';
+		}
+		return '';
+	});
+	return textContent.join('');
 };

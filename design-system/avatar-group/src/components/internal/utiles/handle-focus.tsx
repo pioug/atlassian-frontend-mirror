@@ -48,7 +48,7 @@ const getPrevFocusableElement = (refs: FocusableElement[], currentFocusedIdx: nu
 };
 
 export default function handleFocus(refs: Array<FocusableElement>) {
-	return (e: KeyboardEvent) => {
+	return (e: KeyboardEvent): void => {
 		const currentFocusedIdx = refs.findIndex((el: HTMLButtonElement | HTMLAnchorElement) =>
 			document.activeElement?.isSameNode(el),
 		);

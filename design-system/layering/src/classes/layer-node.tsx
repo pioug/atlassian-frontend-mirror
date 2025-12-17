@@ -9,11 +9,11 @@ export class LayerNode {
 		this.parent = parent;
 	}
 
-	addChild(node: LayerNode) {
+	addChild(node: LayerNode): void {
 		this.childNodes.push(node);
 	}
 
-	removeChild(node: LayerNode) {
+	removeChild(node: LayerNode): void {
 		this.childNodes = this.childNodes.filter((child) => child.id !== node.id);
 	}
 

@@ -11,7 +11,7 @@ export const getPageRows = (
 	return allRows.slice((pageNumber - 1) * rowsPerPage, pageNumber * rowsPerPage);
 };
 
-export const assertIsSortable = (head?: HeadType) => {
+export const assertIsSortable = (head?: HeadType): void => {
 	if (!head || !head.cells) {
 		return;
 	}
@@ -28,7 +28,7 @@ export const assertIsSortable = (head?: HeadType) => {
 	});
 };
 
-export const validateSortKey = (sortKey?: string, head?: HeadType) => {
+export const validateSortKey = (sortKey?: string, head?: HeadType): void => {
 	if (!sortKey) {
 		return;
 	}

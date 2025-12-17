@@ -1,7 +1,7 @@
 import { type Dimensions } from '../common/types';
 import { mergeGridStateIntoStorage, removeFromGridStateInStorage } from '../common/utils';
 
-const publishGridState = (gridState: Dimensions) => {
+const publishGridState = (gridState: Dimensions): void => {
 	Object.entries(gridState).forEach(([slotName, value]) => {
 		if (!value) {
 			document.documentElement.style.removeProperty(`--${slotName}`);

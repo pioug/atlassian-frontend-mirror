@@ -18,26 +18,15 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
-import {
-	CAPTION_PLACEHOLDER_ID,
-	getMaxWidthForNestedNodeNext,
-} from '@atlaskit/editor-common/media-single';
+import { CAPTION_PLACEHOLDER_ID, getMaxWidthForNestedNodeNext, } from '@atlaskit/editor-common/media-single';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type {
-	EditorContainerWidth as WidthPluginState,
-	ExtractInjectionAPI,
-} from '@atlaskit/editor-common/types';
+import type { EditorContainerWidth as WidthPluginState, ExtractInjectionAPI, } from '@atlaskit/editor-common/types';
 import { browser, ErrorReporter } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import {
-	AllSelection,
-	NodeSelection,
-	Selection,
-	TextSelection,
-} from '@atlaskit/editor-prosemirror/state';
+import { AllSelection, NodeSelection, Selection, TextSelection, } from '@atlaskit/editor-prosemirror/state';
 import { insertPoint } from '@atlaskit/editor-prosemirror/transform';
 import {
 	findDomRefAtPos,
@@ -48,7 +37,7 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { isFileIdentifier, type Identifier } from '@atlaskit/media-client';
+import { type Identifier, isFileIdentifier } from '@atlaskit/media-client';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { UploadParams } from '@atlaskit/media-picker/types';
@@ -56,10 +45,10 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
-import { updateMediaNodeAttrs } from '../pm-plugins/commands/helpers';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
 import * as helpers from '../pm-plugins/commands/helpers';
+import { updateMediaNodeAttrs } from '../pm-plugins/commands/helpers';
 import {
 	getIdentifier,
 	getMediaFromSupportedMediaNodesFromSelection,
@@ -71,15 +60,15 @@ import { insertMediaGroupNode, insertMediaInlineNode } from '../pm-plugins/utils
 import { getMediaNodeInsertionType } from '../pm-plugins/utils/media-inline';
 import { insertMediaSingleNode } from '../pm-plugins/utils/media-single';
 import type {
+	getPosHandlerNode as ProsemirrorGetPosHandler,
 	MediaOptions,
 	MediaState,
 	MediaStateEventListener,
 	MediaStateEventSubscriber,
-	getPosHandlerNode as ProsemirrorGetPosHandler,
 } from '../types';
 import type { MediaPluginOptions } from '../types/media-plugin-options';
-import DropPlaceholder from '../ui/Media/DropPlaceholder';
 import type { PlaceholderType } from '../ui/Media/DropPlaceholder';
+import DropPlaceholder from '../ui/Media/DropPlaceholder';
 
 import { ACTIONS } from './actions';
 import { MediaTaskManager } from './mediaTaskManager';
@@ -147,6 +136,8 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	allowInlineImages = false;
 	uploadInProgressSubscriptions: { (isUploading: boolean): void }[] = [];
 	uploadInProgressSubscriptionsNotified: boolean = false;
+	isImageEditorVisible?: boolean = false;
+	imageEditorSelectedMedia?: MediaADFAttrs;
 
 	// this is only a temporary variable, which gets cleared after the last inserted node has been selected
 	lastAddedMediaSingleFileIds: { id: string; selectionPosition: number }[] = [];
@@ -231,18 +222,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		// If clone is repeatedly called, we want to proxy the underlying MediaPluginStateImplementation target, rather than the proxy itself
 		// If we proxy the proxy, then calling get in future will need to recursively unwrap proxies to find the original target, which causes performance issues
 		// Instead, we check if there is an original target stored on "this", and if so, we use that as the proxy target instead
-		// eslint-disable-next-line @typescript-eslint/no-this-alias -- This is required while this is behind a feature-gate. Once the feature-gate is removed, we can inline proxyTarget as "(this as unknown as { originalTarget?: typeof proxyTarget }).originalTarget ?? this"
-		let proxyTarget = this;
-		const originalTarget = (this as unknown as { originalTarget?: typeof proxyTarget })
-			.originalTarget;
-		if (
-			originalTarget !== undefined &&
-			expValEquals('platform_editor_fix_clone_nesting_exp', 'isEnabled', true)
-		) {
-			proxyTarget = originalTarget;
-		}
-
-		return new Proxy(proxyTarget, {
+		return new Proxy((this as unknown as { originalTarget?: MediaPluginStateImplementation }).originalTarget ?? this, {
 			get(target, prop, receiver) {
 				if (prop === 'singletonCreatedAt') {
 					return clonedAt;
@@ -370,6 +350,10 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 	setResizingWidth(width: number) {
 		this.resizingWidth = width;
+	}
+
+	setImageEditorVisibility(isVisible: boolean) {
+		this.isImageEditorVisible = isVisible;
 	}
 
 	updateElement(): void {
@@ -1006,6 +990,16 @@ export const createPlugin = (
 							pluginState.trackOutOfScopeIdentifier(identifier);
 							nextPluginState = pluginState.clone();
 						}
+						break;
+					case ACTIONS.SHOW_IMAGE_EDITOR:
+						pluginState.imageEditorSelectedMedia = meta.imageEditorSelectedMedia;
+						pluginState.isImageEditorVisible = meta.isImageEditorVisible;
+						nextPluginState = nextPluginState.clone();
+						break;
+					case ACTIONS.HIDE_IMAGE_EDITOR:
+						pluginState.imageEditorSelectedMedia = undefined;
+						pluginState.isImageEditorVisible = meta.isImageEditorVisible;
+						nextPluginState = nextPluginState.clone();
 						break;
 				}
 

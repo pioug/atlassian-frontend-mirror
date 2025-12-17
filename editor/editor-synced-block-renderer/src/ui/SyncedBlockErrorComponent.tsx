@@ -7,6 +7,7 @@ import { fetchErrorPayload, getContentIdAndProductFromResourceId, SyncBlockError
 
 import { SyncedBlockGenericError } from './SyncedBlockGenericError';
 import { SyncedBlockLoadError } from './SyncedBlockLoadError';
+import { SyncedBlockNotFoundError } from './SyncedBlockNotFoundError';
 import { SyncedBlockOfflineError } from './SyncedBlockOfflineError';
 import { SyncedBlockPermissionDenied } from './SyncedBlockPermissionDenied';
 
@@ -47,6 +48,7 @@ export const SyncedBlockErrorComponent = ({
 			case SyncBlockError.Forbidden:
 				return getForbiddenErrorContent(resourceId, fireAnalyticsEvent);
 			case SyncBlockError.NotFound:
+				return <SyncedBlockNotFoundError />;
 			case SyncBlockError.Errored:
 			case SyncBlockError.RateLimited:
 			case SyncBlockError.ServerError:

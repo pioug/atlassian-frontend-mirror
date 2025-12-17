@@ -24,6 +24,7 @@ import { NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from './mediaPluginType';
 import { lazyMediaView } from './nodeviews/lazy-media';
@@ -36,7 +37,7 @@ import { mediaInlineSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/mediaInli
 import { mediaSingleSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/mediaSingle';
 import { createPlugin as createMediaAltTextPlugin } from './pm-plugins/alt-text';
 import keymapMediaAltTextPlugin from './pm-plugins/alt-text/keymap';
-import { hideMediaViewer, showMediaViewer, trackMediaPaste } from './pm-plugins/commands';
+import { hideMediaViewer, showMediaViewer, trackMediaPaste, hideImageEditor, showImageEditor } from './pm-plugins/commands';
 import keymapPlugin from './pm-plugins/keymap';
 import keymapMediaSinglePlugin from './pm-plugins/keymap-media';
 import linkingPlugin from './pm-plugins/linking';
@@ -46,6 +47,7 @@ import { createPlugin as createMediaPixelResizingPlugin } from './pm-plugins/pix
 import { stateKey } from './pm-plugins/plugin-key';
 import { createMediaIdentifierArray, extractMediaNodes } from './pm-plugins/utils/media-common';
 import { insertMediaAsMediaSingle } from './pm-plugins/utils/media-single';
+import { RenderImageEditor } from './ui/ImageEditor/ModalWrapper';
 import { MediaPickerComponents } from './ui/MediaPicker';
 import { RenderMediaViewer } from './ui/MediaViewer/PortalWrapper';
 import { floatingToolbar } from './ui/toolbar';
@@ -58,6 +60,11 @@ type MediaPickerFunctionalComponentProps = {
 };
 
 type MediaViewerFunctionalComponentProps = {
+	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
+	editorView: EditorView;
+};
+
+type ImageEditorFunctionalComponentProps = {
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	editorView: EditorView;
 };
@@ -145,6 +152,42 @@ const MediaViewerFunctionalComponent = ({
 	);
 };
 
+const imageEditorStateSelector = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<MediaNextEditorPluginType>,
+		'media'
+	>,
+) => {
+	return {
+		isImageEditorVisible: states.mediaState?.isImageEditorVisible,
+		imageEditorSelectedMedia: states.mediaState?.imageEditorSelectedMedia,
+		mediaClientConfig: states.mediaState?.mediaClientConfig,
+	};
+};
+
+const ImageEditorFunctionalComponent = ({
+	api,
+}: ImageEditorFunctionalComponentProps) => {
+	const { isImageEditorVisible, imageEditorSelectedMedia, mediaClientConfig } =
+		useSharedPluginStateWithSelector(api, ['media'], imageEditorStateSelector);
+
+	if (!isImageEditorVisible || !imageEditorSelectedMedia || !mediaClientConfig) {
+		return null;
+	}
+
+	const handleOnClose = () => {
+		api?.core.actions.execute(api?.media.commands.hideImageEditor);
+	};
+
+	return (
+		<RenderImageEditor
+			mediaClientConfig={mediaClientConfig}
+			onClose={handleOnClose}
+			selectedNodeAttrs={imageEditorSelectedMedia}
+		/>
+	);
+};
+
 export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, api }) => {
 	let previousMediaProvider: Promise<MediaProvider> | undefined;
 	const mediaErrorLocalIds = new Set<string>();
@@ -202,6 +245,8 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 			showMediaViewer,
 			hideMediaViewer,
 			trackMediaPaste,
+			showImageEditor,
+			hideImageEditor,
 		},
 
 		nodes() {
@@ -407,6 +452,9 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 
 			return (
 				<>
+					{options?.allowImageEditing && expValEquals('platform_editor_add_image_editing', 'isEnabled', true) && (
+						<ImageEditorFunctionalComponent api={api} editorView={editorView} />
+					)}
 					<MediaViewerFunctionalComponent api={api} editorView={editorView} />
 					<MediaPickerFunctionalComponent
 						editorDomElement={editorView.dom}

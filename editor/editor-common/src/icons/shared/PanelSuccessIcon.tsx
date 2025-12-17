@@ -2,11 +2,9 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { css, jsx } from '@compiled/react';
+import { type ComponentProps } from 'react';
 
-import Icon from '@atlaskit/icon';
-import type { CustomGlyphProps, GlyphProps } from '@atlaskit/icon/types';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { css, jsx } from '@compiled/react';
 
 const iconStyles = css({
 	display: 'inline-block',
@@ -17,7 +15,8 @@ const iconStyles = css({
 	},
 });
 
-const PanelSuccessGlyph = (props: CustomGlyphProps) => {
+// Custom icon ejection - these icons have been migrated away from the deprecated Custom / SVG components to native SVG. Please review whether this icon should be contributed to @atlaskit/icon-lab or whether it can be replaced by an existing icon from either @atlaskit/icon or @atlaskit/icon-lab
+const PanelSuccessGlyph = (props: ComponentProps<'svg'>) => {
 	return (
 		<svg
 			width="24"
@@ -39,19 +38,15 @@ const PanelSuccessGlyph = (props: CustomGlyphProps) => {
 	);
 };
 
-export const PanelSuccessIcon = (props: GlyphProps) => {
-	return fg('platform-custom-icon-migration') ? (
+export const PanelSuccessIcon = ({ label }: { label: string }) => {
+	return (
 		<span
-			role={props.label ? 'img' : undefined}
-			aria-label={props.label ? props.label : undefined}
-			aria-hidden={props.label ? undefined : true}
+			role={label ? 'img' : undefined}
+			aria-label={label ? label : undefined}
+			aria-hidden={label ? undefined : true}
 			css={iconStyles}
 		>
-			<PanelSuccessGlyph aria-label={props.label} />
+			<PanelSuccessGlyph role="presentation" />
 		</span>
-	) : (
-		// Ignored via go/ees005
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<Icon glyph={PanelSuccessGlyph} {...props} />
 	);
 };

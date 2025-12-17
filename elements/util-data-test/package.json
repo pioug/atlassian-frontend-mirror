@@ -58,7 +58,7 @@
 		"./user-picker-data": "./src/user-picker/user-picker-data.ts"
 	},
 	"atlassian": {
-		"team": "UIP: Test Foundations"
+		"team": "UIP - Test Foundations"
 	},
 	"scripts": {
 		"ak-postbuild": "ls -d dist/* | xargs -n 1 cp -v -r src/json-data"

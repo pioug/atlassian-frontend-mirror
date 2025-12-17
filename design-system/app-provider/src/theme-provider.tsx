@@ -159,7 +159,7 @@ interface ThemeProviderProps {
  *
  * @internal
  */
-function ThemeProvider({ children, defaultColorMode, defaultTheme }: ThemeProviderProps) {
+function ThemeProvider({ children, defaultColorMode, defaultTheme }: ThemeProviderProps): JSX.Element {
 	const [chosenColorMode, setChosenColorMode] = useState<ColorMode>(defaultColorMode);
 	const [reconciledColorMode, setReconciledColorMode] = useState<ReconciledColorMode>(
 		getReconciledColorMode(defaultColorMode),

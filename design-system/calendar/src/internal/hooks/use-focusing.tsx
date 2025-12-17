@@ -9,14 +9,14 @@ export default function useFocusing({
 	onFocus: React.FocusEventHandler;
 }) {
 	const handleContainerBlur = useCallback(
-		(event: React.FocusEvent) => {
+		(event: React.FocusEvent): void => {
 			onBlur(event);
 		},
 		[onBlur],
 	);
 
 	const handleContainerFocus = useCallback(
-		(event: React.FocusEvent) => {
+		(event: React.FocusEvent): void => {
 			onFocus(event);
 		},
 		[onFocus],

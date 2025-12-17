@@ -3,7 +3,7 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
+import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { type IconProps } from '@atlaskit/icon/types';
 
 import { IconButton } from '../../../new';

@@ -30,19 +30,19 @@ interface State {
 export default class SpotlightTargetBackgroundExample extends Component<Object, State> {
 	state: State = { active: null };
 
-	start = () => this.setState({ active: 0 });
+	start = (): void => this.setState({ active: 0 });
 
-	next = () =>
+	next = (): void =>
 		this.setState((state) => ({
 			active: state.active != null ? state.active + 1 : null,
 		}));
 
-	prev = () =>
+	prev = (): void =>
 		this.setState((state) => ({
 			active: state.active != null ? state.active - 1 : null,
 		}));
 
-	finish = () => this.setState({ active: null });
+	finish = (): void => this.setState({ active: null });
 
 	renderActiveSpotlight() {
 		const variants = [

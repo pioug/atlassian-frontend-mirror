@@ -65,7 +65,7 @@ export default function handleFocus(
 	isLayerDisabled: () => boolean,
 	onClose: (e: KeyboardEvent) => void,
 ) {
-	return (e: KeyboardEvent) => {
+	return (e: KeyboardEvent): void => {
 		const currentRefs = refs.current ?? [];
 		const currentFocusedIdx = currentRefs.findIndex(
 			({ current: el }) => el && document.activeElement?.isSameNode(el),

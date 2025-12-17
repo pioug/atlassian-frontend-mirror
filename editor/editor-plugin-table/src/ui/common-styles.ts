@@ -576,14 +576,22 @@ export const baseTableStyles = (props: {
 		z-index: ${stickyRowZIndex};
 	}
 
-	/** When cleaning up, merge this with the style above */
-	${fg('platform_editor_table_sticky_header_patch_1')
+	/** When cleaning up, merge this with the mask style above */
+	${fg('platform_editor_table_sticky_header_patch_2')
 		? `
 		.${ClassName.TABLE_NODE_WRAPPER}:has(tr.${ClassName.NATIVE_STICKY})::before {
-			margin-top: 1px;
+			border-top: ${tableMarginTop}px solid transparent;
 		}
-	`
-		: ``}
+
+		.${ClassName.TABLE_NODE_WRAPPER}:has(tr.${ClassName.NATIVE_STICKY_ACTIVE})::before {
+			border-top: ${tableMarginTop}px solid ${token('elevation.surface')};
+		}`
+		: fg('platform_editor_table_sticky_header_patch_1')
+			? `
+			.${ClassName.TABLE_NODE_WRAPPER}:has(tr.${ClassName.NATIVE_STICKY})::before {
+				margin-top: 1px;
+			}`
+			: ``}
 
 	/** Corrects position of drag row controls when sticky header top mask is present */
 	.${ClassName.TABLE_CONTAINER}:has(.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW})
@@ -1043,14 +1051,16 @@ export const baseTableStyles = (props: {
 		box-sizing: border-box;
 		margin-top: -1px;
 		padding-bottom: 2px;
-		padding: ${expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-			fg('platform_editor_content_mode_button_mvp')
+		padding: ${expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+			(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+				fg('platform_editor_content_mode_button_mvp'))
 				? relativeSizeToBaseFontSize(10)
 				: `10px`}
 			2px;
 		text-align: center;
-		font-size: ${expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-		fg('platform_editor_content_mode_button_mvp')
+		font-size: ${expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+		(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+			fg('platform_editor_content_mode_button_mvp'))
 			? relativeSizeToBaseFontSize(14)
 			: relativeFontSizeToBase16(14)};
 		background-color: ${tableHeaderCellBackgroundColor};

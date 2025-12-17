@@ -8,6 +8,7 @@ import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AddMarkStep, AddNodeMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	collab,
 	getCollabState,
@@ -24,6 +25,7 @@ import { filterAnalyticsSteps } from './pm-plugins/filterAnalytics';
 import { createPlugin } from './pm-plugins/main';
 import { pluginKey as mainPluginKey } from './pm-plugins/main/plugin-key';
 import { mergeUnconfirmedSteps } from './pm-plugins/mergeUnconfirmed';
+import { monitorOrganic } from './pm-plugins/monitor-organic-changes';
 import { nativeCollabProviderPlugin } from './pm-plugins/native-collab-provider-plugin';
 import {
 	sanitizeFilteredStep,
@@ -178,7 +180,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 				return content.every((node) => {
 					try {
 						node.check(); // this will throw an error if the node is invalid
-					} catch (error) {
+					} catch {
 						return false;
 					}
 					return true;
@@ -314,6 +316,23 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 					});
 				},
 			});
+
+			if (fg('platform_editor_collab_organic_change_reporting')) {
+				monitorOrganic({
+					api,
+					...props,
+					onDataProcessed: (data) => {
+						api?.analytics?.actions?.fireAnalyticsEvent({
+							action: ACTION.ORGANIC_CHANGES_TRACKED,
+							actionSubject: ACTION_SUBJECT.COLLAB,
+							attributes: {
+								organicChanges: data,
+							},
+							eventType: EVENT_TYPE.OPERATIONAL,
+						});
+					},
+				});
+			}
 		},
 
 		commands: {

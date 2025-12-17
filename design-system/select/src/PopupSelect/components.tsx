@@ -6,7 +6,7 @@ import { type CSSProperties, type FC, forwardRef, type ReactNode } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import SearchIcon from '@atlaskit/icon/core/migration/search--editor-search';
+import SearchIcon from '@atlaskit/icon/core/search';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { components } from '@atlaskit/react-select';
 import { N40A } from '@atlaskit/theme/colors';

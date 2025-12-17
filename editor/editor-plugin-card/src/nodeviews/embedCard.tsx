@@ -110,7 +110,6 @@ const CardInner = ({
 		return null;
 	}
 	const lineLength = getLineLength(view, pos, widthStateLineLength);
-
 	const containerWidth = isRichMediaInsideOfBlockNode(view, pos) ? lineLength : widthStateWidth;
 
 	if (!allowResizing || !hasPreview) {
@@ -207,7 +206,7 @@ export class EmbedCardComponent extends React.PureComponent<
 		}
 		try {
 			return getPos();
-		} catch (e) {
+		} catch {
 			// Can blow up in rare cases, when node has been removed.
 		}
 	};
@@ -258,7 +257,7 @@ export class EmbedCardComponent extends React.PureComponent<
 					hasPreview: false,
 				});
 			}
-		} catch (e) {}
+		} catch {}
 	};
 
 	updateSize = (pctWidth: number | null, layout: RichMediaLayout) => {
@@ -276,6 +275,22 @@ export class EmbedCardComponent extends React.PureComponent<
 		dispatch(tr);
 		return true;
 	};
+
+	/**
+	 * Defers line-length measurement until the embed card DOM has fully rendered.
+	 *
+	 * When put embed in the expand, reload the page and open that expand, the embed was collapsed.
+	 * Because the `.rich-media-item` can temporarily report `offsetWidth = 1`, as proportional width styles have not been applied yet.
+	 * Measuring at that moment would cache the bogus width and break resize calculations.
+	 * Scheduling a measurement on the next animation frame ensures layout has
+	 * settled. We then force the node view to re-render so `getLineLength`
+	 * re-runs and captures the correct width.
+	 */
+	private scheduleLineLengthRemeasureRaf = rafSchedule((view: EditorView) => {
+		if (view) {
+			this.forceUpdate();
+		}
+	});
 
 	private getLineLength = (
 		view: EditorView,
@@ -296,7 +311,15 @@ export class EmbedCardComponent extends React.PureComponent<
 			}
 
 			if (domNode instanceof HTMLElement) {
-				return domNode.offsetWidth;
+				const measuredWidth = domNode.offsetWidth;
+				if (
+					measuredWidth <= 1 &&
+					expValEquals('editor_fix_embed_width_expand', 'isEnabled', true)
+				) {
+					this.scheduleLineLengthRemeasureRaf(view);
+					return originalLineLength;
+				}
+				return measuredWidth;
 			}
 		}
 
@@ -477,7 +500,9 @@ export class EmbedCardComponent extends React.PureComponent<
 	}
 }
 
-export const EmbedOrBlockCardComponent = (props: ComponentProps<typeof EmbedCardComponent>): React.JSX.Element => {
+export const EmbedOrBlockCardComponent = (
+	props: ComponentProps<typeof EmbedCardComponent>,
+): React.JSX.Element => {
 	const width = useSharedPluginStateSelector(props.pluginInjectionApi, 'width.width');
 	const viewAsBlockCard = width && width <= akEditorFullPageNarrowBreakout;
 

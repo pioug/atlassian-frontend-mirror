@@ -1,8 +1,8 @@
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { type Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
 
+import { isListWithIndentation } from '../nodeChecks';
 import type { TransformStep, TransformStepContext } from '../types';
-import { isListType } from '../utils';
 
 /**
  * Recursively converts nested lists to the target list type.
@@ -23,7 +23,7 @@ const transformList = (
 	const taskListType = schema.nodes.taskList;
 
 	const isSourceTaskList = node.type === taskListType;
-	const isTargetTaskList = targetListType === 'taskList';
+	const isTargetTaskList = targetListType === taskListType.name;
 
 	const convertFromTaskListStructure = (
 		node: PMNode,
@@ -36,7 +36,7 @@ const transformList = (
 		const transformedContent: PMNode[] = [];
 
 		node.forEach((child) => {
-			if (isListType(child, schema)) {
+			if (isListWithIndentation(child.type.name, schema)) {
 				// This is a nested list - it should become a child of the previous item
 				if (transformedContent.length > 0) {
 					const previousItem = transformedContent[transformedContent.length - 1];
@@ -53,7 +53,7 @@ const transformList = (
 				}
 				// If there's no previous item, skip this nested list (orphaned)
 			} else {
-				const transformedItem = transformListItem(child, targetItemType, targetListType);
+				const transformedItem = transformListItem(child, targetListType, targetItemType);
 				if (transformedItem) {
 					transformedContent.push(transformedItem);
 				}
@@ -73,14 +73,14 @@ const transformList = (
 		const transformedContent: PMNode[] = [];
 
 		node.forEach((itemNode) => {
-			const transformedItem = transformListItem(itemNode, targetItemType, targetListType, true);
+			const transformedItem = transformListItem(itemNode, targetListType, targetItemType, true);
 
 			if (transformedItem) {
 				transformedContent.push(transformedItem);
 			}
 
 			itemNode.forEach((child) => {
-				if (isListType(child, schema)) {
+				if (isListWithIndentation(child.type.name, schema)) {
 					transformedContent.push(
 						transformList(child, targetListType, targetItemType, unsupportedContent),
 					);
@@ -93,8 +93,8 @@ const transformList = (
 
 	const transformListItem = (
 		itemNode: PMNode,
-		targetItemType: string,
 		targetListType: string,
+		targetItemType: string,
 		excludeNestedLists: boolean = false,
 	): PMNode | null => {
 		const schema = itemNode.type.schema;
@@ -112,7 +112,7 @@ const transformList = (
 				} else if (child.isText) {
 					inlineContent.push(child);
 					// Nested lists will be extracted and placed as siblings in the taskList
-				} else if (!isListType(child, schema)) {
+				} else if (!isListWithIndentation(child.type.name, schema)) {
 					unsupportedContent.push(child);
 				}
 			});
@@ -126,7 +126,7 @@ const transformList = (
 			transformedContent.push(paragraphType.create(null, itemNode.content));
 		} else {
 			itemNode.forEach((child) => {
-				if (isListType(child, schema)) {
+				if (isListWithIndentation(child.type.name, schema)) {
 					if (excludeNestedLists) {
 						// Skip nested lists - they will be handled separately as siblings
 						return;
@@ -157,9 +157,9 @@ const transformList = (
 		const transformedContent: PMNode[] = [];
 
 		node.forEach((childNode) => {
-			const transformedItem = isListType(childNode, schema)
+			const transformedItem = isListWithIndentation(childNode.type.name, schema)
 				? transformList(childNode, targetListType, targetItemType, unsupportedContent)
-				: transformListItem(childNode, targetItemType, targetListType);
+				: transformListItem(childNode, targetListType, targetItemType);
 
 			if (transformedItem) {
 				transformedContent.push(transformedItem);
@@ -246,7 +246,7 @@ export const listToListStep: TransformStep = (nodes: PMNode[], context: Transfor
 	const unsupportedContent: PMNode[] = [];
 
 	const transformedNodes = nodes.map((node) => {
-		if (isListType(node, schema)) {
+		if (isListWithIndentation(node.type.name, schema)) {
 			const targetItemType = targetNodeTypeName === 'taskList' ? 'taskItem' : 'listItem';
 
 			return transformList(node, targetNodeTypeName, targetItemType, unsupportedContent);

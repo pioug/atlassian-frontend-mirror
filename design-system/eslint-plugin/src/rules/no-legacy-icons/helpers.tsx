@@ -270,7 +270,7 @@ export const createCantMigrateReExportError = (
 	packageName: string,
 	exportName: string,
 	errors: ErrorListManual,
-) => {
+): void => {
 	const myError: IconMigrationError = {
 		node,
 		messageId: 'cantMigrateReExport',
@@ -287,7 +287,7 @@ export const createCantMigrateIdentifierMapOrArrayError = (
 	packageName: string,
 	exportName: string,
 	errors: ErrorListManual,
-) => {
+): void => {
 	const myError: IconMigrationError = {
 		node,
 		messageId: 'cantMigrateIdentifierMapOrArray',
@@ -304,7 +304,7 @@ export const createCantMigrateIdentifierError = (
 	packageName: string,
 	exportName: string,
 	errors: ErrorListManual,
-) => {
+): void => {
 	const myError: IconMigrationError = {
 		node,
 		messageId: 'cantMigrateIdentifier',
@@ -322,7 +322,7 @@ export const createCantFindSuitableReplacementError = (
 	iconName: string,
 	errors: ErrorListManual,
 	sizeIssue?: boolean,
-) => {
+): void => {
 	const myError: IconMigrationError = {
 		node,
 		messageId: 'cantFindSuitableReplacement',
@@ -339,7 +339,7 @@ export const createCantMigrateFunctionUnknownError = (
 	importSource: string,
 	iconName: string,
 	errors: ErrorListManual,
-) => {
+): void => {
 	const myError: IconMigrationError = {
 		node,
 		messageId: 'cantMigrateFunctionUnknown',
@@ -357,7 +357,7 @@ export const createCantMigrateColorError = (
 	errors: ErrorListManual,
 	importSource: string,
 	iconName: string,
-) => {
+): void => {
 	const myError: IconMigrationError = {
 		node,
 		messageId: 'cantMigrateColor',
@@ -374,7 +374,7 @@ export const createCantMigrateSpreadPropsError = (
 	errors: ErrorListManual,
 	importSource: string,
 	iconName: string,
-) => {
+): void => {
 	const myError: IconMigrationError = {
 		node,
 		messageId: 'cantMigrateSpreadProps',
@@ -390,7 +390,7 @@ export const createCantMigrateSizeUnknown = (
 	errors: ErrorListManual,
 	importSource: string,
 	iconName: string,
-) => {
+): void => {
 	const myError: IconMigrationError = { node, messageId: 'cantMigrateSizeUnknown' };
 	pushManualError(locToString(node), errors, myError, importSource, iconName);
 };
@@ -411,7 +411,7 @@ export const createAutoMigrationError = ({
 	spacing?: string;
 	insideNewButton?: boolean;
 	shouldForceSmallIcon?: boolean;
-}) => {
+}): void => {
 	const myError: IconMigrationError = {
 		node,
 		messageId: 'noLegacyIconsAutoMigration',
@@ -521,7 +521,7 @@ export const createHelpers = (ctx: Rule.RuleContext) => {
 	};
 };
 
-export const addToListOfRanges = (node: Node, sortedListOfRangesForErrors: RangeList) => {
+export const addToListOfRanges = (node: Node, sortedListOfRangesForErrors: RangeList): void => {
 	if (node.range && node.range.length >= 2) {
 		sortedListOfRangesForErrors.push({ start: node.range[0], end: node.range[1] });
 	}
@@ -879,7 +879,7 @@ export const throwManualErrors = ({
 	guidance: GuidanceList;
 	context: Rule.RuleContext;
 	isQuietMode: boolean;
-}) => {
+}): void => {
 	for (const [key, errorList] of Object.entries(errorsManual)) {
 		const node: Node | null = 'node' in errorList.errors[0] ? errorList.errors[0].node : null;
 		if (!node) {
@@ -948,7 +948,7 @@ export const throwAutoErrors = ({
 	migrationIconImports: MigrationIconImportList;
 	shouldUseMigrationPath: boolean;
 	context: Rule.RuleContext;
-}) => {
+}): void => {
 	// Set of all the import sources that have manual errors (required later to check if a source has both manual and auto
 	// errors in one file making it impossible to just remove the legacy import)
 	const allManualErrorSources = Object.entries(errorsManual).reduce<Set<string>>(

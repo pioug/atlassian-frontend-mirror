@@ -30,7 +30,7 @@ type Check = {
 };
 
 export const CompiledStyled = {
-	lint(node: Rule.Node, { context, config }: MetaData) {
+	lint(node: Rule.Node, { context, config }: MetaData): void {
 		if (!isNodeOfType(node, 'CallExpression')) {
 			return;
 		}

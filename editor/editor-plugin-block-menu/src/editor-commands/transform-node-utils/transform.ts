@@ -15,6 +15,7 @@ import { unwrapLayoutStep } from './steps/unwrapLayoutStep';
 import { unwrapListStep } from './steps/unwrapListStep';
 import { wrapBlockquoteToDecisionListStep } from './steps/wrapBlockquoteToDecisionListStep';
 import { wrapMixedContentStep } from './steps/wrapMixedContentStep';
+import { wrapTextToCodeblockStep } from './steps/wrapTextToCodeblock';
 import { stubStep } from './stubStep';
 import type { NodeCategory, NodeTypeName, TransformStepContext, TransformStep } from './types';
 import { NODE_CATEGORY_BY_TYPE, toNodeTypeValue } from './types';
@@ -23,14 +24,6 @@ import { unwrapStep } from './unwrapStep';
 import { wrapIntoLayoutStep } from './wrapIntoLayoutStep';
 import { wrapIntoListStep } from './wrapIntoListStep';
 import { wrapStep } from './wrapStep';
-
-// Exampled step for overrides:
-// - open Block menu on a paragraph, click 'Panel' in the Turn into'
-// - expected to put paragraph into a panel
-const wrapIntoPanelStep: TransformStep = (nodes, context) => {
-	const newNode = context.schema.nodes.panel.createAndFill({}, nodes);
-	return newNode ? [newNode] : [];
-};
 
 // Transform steps for combinations of node categories (block/container/list/text)
 const TRANSFORM_STEPS: Record<NodeCategory, Record<NodeCategory, TransformStep[] | undefined>> = {
@@ -54,8 +47,8 @@ const TRANSFORM_STEPS: Record<NodeCategory, Record<NodeCategory, TransformStep[]
 	},
 	text: {
 		atomic: undefined,
-		container: [stubStep],
-		list: [stubStep],
+		container: [wrapStep],
+		list: [wrapIntoListStep],
 		text: [stubStep],
 	},
 };
@@ -66,7 +59,8 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 	Record<NodeTypeName, Partial<Record<NodeTypeName, TransformStep[] | undefined>>>
 > = {
 	paragraph: {
-		panel: [wrapIntoPanelStep],
+		codeBlock: [wrapTextToCodeblockStep],
+		layoutSection: [wrapIntoLayoutStep],
 	},
 	panel: {
 		layoutSection: [unwrapStep, wrapIntoLayoutStep],
@@ -139,6 +133,12 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		bulletList: [decisionListToListStep],
 		orderedList: [decisionListToListStep],
 		taskList: [decisionListToListStep],
+		layoutSection: [wrapIntoLayoutStep],
+	},
+	blockCard: {
+		layoutSection: [wrapIntoLayoutStep],
+	},
+	embedCard: {
 		layoutSection: [wrapIntoLayoutStep],
 	},
 };

@@ -6,7 +6,25 @@ import { searchComponentsTool } from '../search-components';
 import { searchIconsTool } from '../search-icons';
 import { searchTokensTool } from '../search-tokens';
 
-export const planInputSchema = z.object({
+export const planInputSchema: z.ZodObject<{
+    tokens: z.ZodArray<z.ZodString, "many">;
+    icons: z.ZodArray<z.ZodString, "many">;
+    components: z.ZodArray<z.ZodString, "many">;
+    limit: z.ZodOptional<z.ZodDefault<z.ZodNumber>>;
+    exactName: z.ZodOptional<z.ZodDefault<z.ZodBoolean>>;
+}, "strip", z.ZodTypeAny, {
+    tokens: string[];
+    icons: string[];
+    components: string[];
+    limit?: number | undefined;
+    exactName?: boolean | undefined;
+}, {
+    tokens: string[];
+    icons: string[];
+    components: string[];
+    limit?: number | undefined;
+    exactName?: boolean | undefined;
+}> = z.object({
 	tokens: z
 		.array(z.string())
 		.describe(
@@ -72,7 +90,19 @@ import AddIcon from '@atlaskit/icon/core/add';
 	inputSchema: zodToJsonSchema(planInputSchema),
 };
 
-export const planTool = async (params: z.infer<typeof planInputSchema>) => {
+export const planTool = async (params: z.infer<typeof planInputSchema>): Promise<{
+    isError: boolean;
+    content: {
+        type: string;
+        text: string;
+    }[];
+} | {
+    content: {
+        type: string;
+        text: string;
+    }[];
+    isError?: undefined;
+}> => {
 	const {
 		tokens: tokens_search,
 		icons: icons_search,

@@ -21,6 +21,7 @@ import { autoUpdate } from '@floating-ui/dom';
 import { createPortal } from 'react-dom';
 import useLayoutEffect from 'use-isomorphic-layout-effect';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -301,6 +302,9 @@ const menuStyles = cssMap({
 			'0 0 0 1px hsl(0deg 0% 0% / 10%), 0 4px 11px hsl(0deg 0% 0% / 10%)',
 		),
 	},
+	rootT26Shape: {
+		borderRadius: token('radius.large'),
+	},
 	bottom: {
 		insetBlockStart: '100%',
 	},
@@ -387,7 +391,11 @@ const Menu = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 
 	return (
 		<div
-			css={[menuStyles.root, menuStyles[placement]]}
+			css={[
+				menuStyles.root,
+				menuStyles[placement],
+				fg('platform-dst-shape-theme-default') && menuStyles.rootT26Shape,
+			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 			className={cx(xcss, className as any, '-menu')}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

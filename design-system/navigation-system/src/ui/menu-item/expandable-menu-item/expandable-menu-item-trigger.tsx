@@ -3,12 +3,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { forwardRef, type ReactNode, useCallback, useId, useRef } from 'react';
+import React, { type ReactNode, useCallback, useId, useRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { RouterLinkComponentProps } from '@atlaskit/app-provider';
 import { IconButton } from '@atlaskit/button/new';
+import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
 import type { IconProps } from '@atlaskit/icon';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
@@ -132,10 +134,13 @@ const ExpandableMenuItemIcon = ({
 	);
 };
 
-export type ExpandableMenuItemTriggerProps = MenuItemCommonProps &
+export type ExpandableMenuItemTriggerProps<RouterLinkConfig extends Record<string, any> = never> =
+	MenuItemCommonProps &
+	Omit<RouterLinkComponentProps<RouterLinkConfig>, 'href'> &
 	// Overriding `MenuItemSlots` that have distinct behaviour in expandable menu items.
 	// Using `Omit` prevents the jsdoc from MenuItemSlots also being merged in.
-	Omit<MenuItemSlots, 'actionsOnHover' | 'elemBefore'> & {
+	Omit<MenuItemSlots, 'actionsOnHover' | 'elemBefore'> &
+	{
 		// Overriding the `actionsOnHover` prop to add specific JSDOCs for expandable behaviour.
 		/**
 		 * `ReactNode` to be placed visually after the `children` and will
@@ -175,7 +180,7 @@ export type ExpandableMenuItemTriggerProps = MenuItemCommonProps &
 		 *
 		 * If a `href` is not provided, the chevron icon is rendered as part of the element.
 		 */
-		href?: string;
+		href?: RouterLinkComponentProps<RouterLinkConfig>['href'];
 
 		// Not using the shared `MenuItemOnClick` type here as we need to support additional arguments (analyticsAttributes)
 		/**
@@ -200,11 +205,11 @@ export type ExpandableMenuItemTriggerProps = MenuItemCommonProps &
  *
  * The trigger component for an `ExpandableMenuItem`. Interacting with it will expand or collapse the expandable.
  */
-export const ExpandableMenuItemTrigger: React.ForwardRefExoticComponent<
-	React.PropsWithoutRef<ExpandableMenuItemTriggerProps> &
-		React.RefAttributes<HTMLButtonElement | HTMLAnchorElement>
-> = forwardRef<HTMLButtonElement | HTMLAnchorElement, ExpandableMenuItemTriggerProps>(
-	(
+export const ExpandableMenuItemTrigger: <RouterLinkConfig extends Record<string, any> = never>(
+	props: ExpandableMenuItemTriggerProps<RouterLinkConfig> &
+		React.RefAttributes<HTMLButtonElement | HTMLAnchorElement>,
+) => React.ReactElement | null = forwardRefWithGeneric(
+	<RouterLinkConfig extends Record<string, any> = never>(
 		{
 			actions,
 			isSelected,
@@ -221,8 +226,8 @@ export const ExpandableMenuItemTrigger: React.ForwardRefExoticComponent<
 			isDragging,
 			hasDragIndicator,
 			dropIndicator,
-		},
-		forwardedRef,
+		}: ExpandableMenuItemTriggerProps<RouterLinkConfig>,
+		forwardedRef: React.ForwardedRef<HTMLButtonElement | HTMLAnchorElement>,
 	) => {
 		const id = useId();
 		const onExpansionToggle = useOnExpansionToggle();

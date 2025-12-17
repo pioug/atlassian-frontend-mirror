@@ -6,7 +6,22 @@ import { z } from 'zod';
 
 import { zodToJsonSchema } from '../../helpers';
 
-export const analyzeA11yInputSchema = z.object({
+export const analyzeA11yInputSchema: z.ZodObject<{
+    code: z.ZodString;
+    componentName: z.ZodOptional<z.ZodString>;
+    context: z.ZodOptional<z.ZodString>;
+    includePatternAnalysis: z.ZodOptional<z.ZodDefault<z.ZodBoolean>>;
+}, "strip", z.ZodTypeAny, {
+    code: string;
+    componentName?: string | undefined;
+    context?: string | undefined;
+    includePatternAnalysis?: boolean | undefined;
+}, {
+    code: string;
+    componentName?: string | undefined;
+    context?: string | undefined;
+    includePatternAnalysis?: boolean | undefined;
+}> = z.object({
 	code: z.string().describe('React component code to analyze for accessibility'),
 	componentName: z.string().describe('Name of the component being analyzed').optional(),
 	context: z.string().describe('Additional context about the component usage').optional(),
@@ -31,7 +46,22 @@ export const listAnalyzeA11yTool: Tool = {
 	inputSchema: zodToJsonSchema(analyzeA11yInputSchema),
 };
 
-export const analyzeA11yLocalhostInputSchema = z.object({
+export const analyzeA11yLocalhostInputSchema: z.ZodObject<{
+    url: z.ZodString;
+    componentName: z.ZodOptional<z.ZodString>;
+    context: z.ZodOptional<z.ZodString>;
+    selector: z.ZodOptional<z.ZodString>;
+}, "strip", z.ZodTypeAny, {
+    url: string;
+    componentName?: string | undefined;
+    context?: string | undefined;
+    selector?: string | undefined;
+}, {
+    url: string;
+    componentName?: string | undefined;
+    context?: string | undefined;
+    selector?: string | undefined;
+}> = z.object({
 	url: z.string().describe('The URL to analyze for accessibility (e.g. `http://localhost:9000`)'),
 	componentName: z.string().optional().describe('Name of the component being analyzed'),
 	context: z.string().optional().describe('Additional context about the component usage'),
@@ -191,7 +221,12 @@ function generateADSFixForViolation(violation: any): any {
 	};
 }
 
-export const analyzeA11yTool = async (params: z.infer<typeof analyzeA11yInputSchema>) => {
+export const analyzeA11yTool = async (params: z.infer<typeof analyzeA11yInputSchema>): Promise<{
+    content: {
+        type: string;
+        text: string;
+    }[];
+}> => {
 	const { code, componentName, context, includePatternAnalysis = true } = params;
 	const violations: any[] = [];
 	const suggestions: any[] = [];
@@ -371,7 +406,12 @@ export const analyzeA11yTool = async (params: z.infer<typeof analyzeA11yInputSch
 
 export const analyzeLocalhostA11yTool = async (
 	params: z.infer<typeof analyzeA11yLocalhostInputSchema>,
-) => {
+): Promise<{
+        content: {
+            type: string;
+            text: string;
+        }[];
+    }> => {
 	const { url, componentName, context, selector } = params;
 	const violations: any[] = [];
 	const suggestions: any[] = [];

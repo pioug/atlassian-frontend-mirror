@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ChangeEvent, Fragment, useState } from 'react';
+import React, { type ChangeEvent, Fragment, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -36,7 +36,7 @@ const inputStyles = css({
 	width: '3rem',
 });
 
-const InteractiveSkeletonExample = () => {
+const InteractiveSkeletonExample = (): React.JSX.Element => {
 	const [isSkeleton, setIsSkeleton] = useState(true);
 	const [itemCounts, setItemCounts] = useState({ primary: 4, secondary: 4 });
 	const { primary, secondary } = itemCounts;

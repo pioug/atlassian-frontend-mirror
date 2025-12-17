@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
-import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down--hipchat-chevron-down';
-import ChevronUpIcon from '@atlaskit/icon/core/migration/chevron-up--hipchat-chevron-up';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import ChevronUpIcon from '@atlaskit/icon/core/chevron-up';
 import CrossIcon from '@atlaskit/icon/core/migration/cross';
 
 import { flagTextColorToken } from '../theme';

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 15.6.1
+
+### Patch Changes
+
+- [`53aef9589ca55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53aef9589ca55) -
+  [EDITOR-3786] Make sure that for any check of `cc_editor_ai_content_mode` &&
+  `platform_editor_content_mode_button_mvp` in the code we are also checking
+  `confluence_compact_text_format`
+- [`dab46476d6a9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dab46476d6a9c) -
+  Remove top margin change when native table sticky headers are enabled
+- Updated dependencies
+
 ## 15.6.0
 
 ### Minor Changes

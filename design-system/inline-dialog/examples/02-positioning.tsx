@@ -23,7 +23,7 @@ export default class InlineDialogPositioningExample extends Component<{}, State>
 		placementIndex: 0,
 	};
 
-	cyclePlacement = () => {
+	cyclePlacement = (): void => {
 		const { placementIndex } = this.state;
 		if (placementIndex < Placements.length - 1) {
 			this.setState({ placementIndex: placementIndex + 1 });

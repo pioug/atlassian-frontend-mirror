@@ -32,9 +32,9 @@ interface State {
 export default class SpotlightButtonAppearanceExample extends Component<{}, State> {
 	state: State = { active: false };
 
-	start = () => this.setState({ active: true });
+	start = (): void => this.setState({ active: true });
 
-	finish = () => this.setState({ active: false });
+	finish = (): void => this.setState({ active: false });
 
 	render() {
 		const { active } = this.state;

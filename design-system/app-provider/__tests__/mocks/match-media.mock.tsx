@@ -14,6 +14,6 @@ Object.defineProperty(window, 'matchMedia', {
 	}),
 });
 
-export function setMatchMediaPrefersDark(prefersDark: boolean) {
+export function setMatchMediaPrefersDark(prefersDark: boolean): void {
 	matchMediaObject.matches = prefersDark;
 }

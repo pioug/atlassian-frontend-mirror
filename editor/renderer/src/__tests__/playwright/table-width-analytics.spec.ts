@@ -59,6 +59,7 @@ test.describe('table width information analytics', () => {
 					}),
 				}),
 			);
+			await expect(page).toBeAccessible();
 		});
 	});
 
@@ -102,6 +103,7 @@ test.describe('table width information analytics', () => {
 					}),
 				}),
 			);
+			await expect(page).toBeAccessible();
 		});
 	});
 

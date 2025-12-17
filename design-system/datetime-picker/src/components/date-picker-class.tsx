@@ -77,9 +77,9 @@ const datePickerDefaultProps = {
 	// These disables are here for proper typing when used as defaults. They
 	// should *not* use the `noop` function.
 	/* eslint-disable @repo/internal/react/use-noop */
-	onBlur: (_event: React.FocusEvent<HTMLInputElement>) => {},
-	onChange: (_value: string) => {},
-	onFocus: (_event: React.FocusEvent<HTMLInputElement>) => {},
+	onBlur: (_event: React.FocusEvent<HTMLInputElement>): void => {},
+	onChange: (_value: string): void => {},
+	onFocus: (_event: React.FocusEvent<HTMLInputElement>): void => {},
 	/* eslint-enable @repo/internal/react/use-noop */
 	// Not including a default prop for value as it will
 	// Make the component a controlled component
@@ -159,11 +159,11 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 	getValue = () => this.props.value ?? this.state.value;
 	getIsOpen = () => this.props.isOpen ?? this.state.isOpen;
 
-	onCalendarChange = ({ iso }: { iso: string }) => {
+	onCalendarChange = ({ iso }: { iso: string }): void => {
 		this.setState({ calendarValue: getParsedISO({ iso }) });
 	};
 
-	onCalendarSelect = ({ iso }: { iso: string }) => {
+	onCalendarSelect = ({ iso }: { iso: string }): void => {
 		this.setState({
 			selectInputValue: '',
 			isOpen: false,
@@ -190,13 +190,13 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		this.setState({ isOpen: false });
 	};
 
-	onInputClick = () => {
+	onInputClick = (): void => {
 		if (!this.props.isDisabled && !this.getIsOpen()) {
 			this.setState({ isOpen: true, wasOpenedFromCalendarButton: false });
 		}
 	};
 
-	onContainerBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+	onContainerBlur = (event: React.FocusEvent<HTMLInputElement>): void => {
 		const newlyFocusedElement = event.relatedTarget as HTMLElement;
 
 		if (!this.containerRef?.contains(newlyFocusedElement)) {
@@ -209,11 +209,11 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		}
 	};
 
-	onContainerFocus = () => {
+	onContainerFocus = (): void => {
 		this.setState({ shouldSetFocusOnCurrentDay: false });
 	};
 
-	onSelectBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+	onSelectBlur = (event: React.FocusEvent<HTMLInputElement>): void => {
 		const newlyFocusedElement = event.relatedTarget as HTMLElement;
 
 		if (this.state.clearingFromIcon) {
@@ -226,7 +226,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		}
 	};
 
-	onSelectFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+	onSelectFocus = (event: React.FocusEvent<HTMLInputElement>): void => {
 		const { clearingFromIcon } = this.state;
 		const value = this.getValue();
 
@@ -246,7 +246,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		this.props.onFocus(event);
 	};
 
-	onTextInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+	onTextInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
 		const inputValue = event.target.value;
 
 		if (inputValue) {
@@ -266,7 +266,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		this.setState({ isOpen: true, wasOpenedFromCalendarButton: false });
 	};
 
-	onInputKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+	onInputKeyDown = (event: React.KeyboardEvent<HTMLElement>): void => {
 		const { calendarValue } = this.state;
 		const value = this.getValue();
 
@@ -351,7 +351,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		}
 	};
 
-	onCalendarButtonKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+	onCalendarButtonKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>): void => {
 		// Don't allow an arrow up or down to open the menu, since the input key
 		// down handler is actually on the parent.
 		if (e.type === 'keydown' && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
@@ -367,7 +367,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 	};
 
 	// This event handler is triggered from both keydown and click. It's weird.
-	onCalendarButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+	onCalendarButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
 		this.setState({ isOpen: !this.state.isOpen, wasOpenedFromCalendarButton: true }, () => {
 			// We don't want the focus to move if this is a click event
 			if (!this.state.isKeyDown) {
@@ -383,7 +383,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		e.stopPropagation();
 	};
 
-	onClear = () => {
+	onClear = (): void => {
 		let changedState: {} = {
 			value: '',
 			calendarValue: this.props.defaultValue || getShortISOString(new Date()),
@@ -400,7 +400,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 	};
 
 	// `unknown` is used because `value` is unused so it does not matter.
-	onSelectChange = (_value: unknown, action: ActionMeta) => {
+	onSelectChange = (_value: unknown, action: ActionMeta): void => {
 		// Used for native clear event in React Select
 		// Triggered when clicking ClearIndicator or backspace with no value
 		if (action.action === 'clear') {
@@ -408,7 +408,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		}
 	};
 
-	handleSelectInputChange = (selectInputValue: string, actionMeta: InputActionMeta) => {
+	handleSelectInputChange = (selectInputValue: string, actionMeta: InputActionMeta): void => {
 		const onInputChange = this.props.selectProps?.onInputChange;
 		if (onInputChange) {
 			onInputChange(selectInputValue, actionMeta);
@@ -416,7 +416,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		this.setState({ selectInputValue });
 	};
 
-	getContainerRef = (ref: HTMLElement | null) => {
+	getContainerRef = (ref: HTMLElement | null): void => {
 		const oldRef = this.containerRef;
 		this.containerRef = ref;
 		// Cause a re-render if we're getting the container ref for the first time

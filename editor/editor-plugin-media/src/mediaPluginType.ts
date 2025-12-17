@@ -68,7 +68,9 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 			setProvider: (provider: Promise<MediaProvider>) => boolean;
 		};
 		commands: {
+			hideImageEditor: EditorCommand;
 			hideMediaViewer: EditorCommand;
+			showImageEditor: (media: MediaADFAttrs) => EditorCommand;
 			showMediaViewer: (media: MediaADFAttrs) => EditorCommand;
 			trackMediaPaste: (attrs: MediaADFAttrs) => EditorCommand;
 		};

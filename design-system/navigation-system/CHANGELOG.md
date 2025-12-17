@@ -1,5 +1,14 @@
 # @atlassian/navigation-system
 
+## 5.12.2
+
+### Patch Changes
+
+- [`fd574581c5176`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd574581c5176) -
+  Refactor ExpandableMenuItemTrigger props type to use RouterLinkComponentProps generic instead of
+  explicit href prop definition
+- Updated dependencies
+
 ## 5.12.1
 
 ### Patch Changes

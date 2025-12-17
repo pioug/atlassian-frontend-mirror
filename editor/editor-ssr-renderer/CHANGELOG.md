@@ -1,5 +1,17 @@
 # @atlaskit/editor-ssr-renderer
 
+## 1.5.0
+
+### Minor Changes
+
+- [`cbf58f8500db4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cbf58f8500db4) -
+  [https://hello.jira.atlassian.cloud/browse/EDITOR-3893](EDITOR-3893) - fix mussing <br /> in empty
+  textblocks in the `EditorSSRRenderer`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.4.0
 
 ### Minor Changes

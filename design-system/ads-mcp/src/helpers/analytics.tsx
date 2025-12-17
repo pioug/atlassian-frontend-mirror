@@ -27,7 +27,7 @@ export const agent: AGENT = (process.env.ADSMCP_AGENT as AGENT) || 'unknown';
  * This could be anything, do not rely on it!
  * @default `'unknown'`
  */
-export const configPath = process.env.ADSMCP_CONFIG_PATH || 'unknown';
+export const configPath: string = process.env.ADSMCP_CONFIG_PATH || 'unknown';
 
 // Check if user has opted out of analytics
 const isAnalyticsOptedOut =

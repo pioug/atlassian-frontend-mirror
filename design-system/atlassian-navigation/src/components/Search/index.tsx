@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment } from 'react';
+import React, { Fragment } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -146,7 +146,7 @@ const SearchComponent = (props: SearchComponentProps) => {
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#search)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const Search = (props: SearchProps) => {
+export const Search = (props: SearchProps): React.JSX.Element => {
 	const {
 		component,
 		href,

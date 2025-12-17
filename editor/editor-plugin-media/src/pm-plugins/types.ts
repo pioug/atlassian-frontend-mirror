@@ -45,6 +45,7 @@ export interface MediaPluginState {
 	handleMediaNodeRemoval: (node: PMNode | undefined, getPos: ProsemirrorGetPosHandler) => void;
 	handleMediaNodeUnmount: (oldNode: PMNode) => void;
 	ignoreLinks: boolean;
+	imageEditorSelectedMedia?: MediaADFAttrs;
 	insertFile: (
 		mediaState: MediaState,
 		onMediaStateChanged: MediaStateEventSubscriber,
@@ -53,6 +54,8 @@ export interface MediaPluginState {
 	) => void;
 	isFullscreen: boolean;
 	isIdentifierInEditorScope: (identifier: Identifier) => boolean;
+	// Image Editor State
+	isImageEditorVisible?: boolean;
 	// Media Viewer State
 	isMediaViewerVisible?: boolean;
 	isResizing: boolean;
@@ -72,6 +75,7 @@ export interface MediaPluginState {
 	resizingWidth: number;
 	selectedMediaContainerNode: () => PMNode | undefined;
 	setBrowseFn: (browseFn: () => void) => void;
+	setImageEditorVisibility: (isVisible: boolean) => void;
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	setIsResizing(isResizing: boolean): void;
 	setMediaProvider: (mediaProvider?: Promise<MediaProvider>) => Promise<void>;

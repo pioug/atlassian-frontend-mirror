@@ -6,7 +6,8 @@ import { token } from '@atlaskit/tokens';
 const blockNodesVerticalMargin = '0.75rem';
 const scaledBlockNodesVerticalMargin = '0.75em';
 
-// When cleaning up `platform_editor_content_mode_button_mvp` simplify the name/ use the other paragraph style name
+// When both platform_editor_content_mode_button_mvp & confluence_compact_text_format are cleaned up,
+// simplify the name/ use the other paragraph style name
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const paragraphStylesWithScaledMargin: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -21,7 +22,8 @@ export const paragraphStylesWithScaledMargin: SerializedStyles = css({
 	},
 });
 
-// When cleaning up `platform_editor_content_mode_button_mvp` simplify the name/ use the other paragraph style name
+// When both platform_editor_content_mode_button_mvp & confluence_compact_text_format are cleaned up,
+// simplify the name/ use the other paragraph style name
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const paragraphStylesOldWithScaledMargin: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766

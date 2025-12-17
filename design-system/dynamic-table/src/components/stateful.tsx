@@ -60,7 +60,7 @@ export default class DynamicTable extends React.Component<StatefulProps, State> 
 		rows: this.props.rows,
 	};
 
-	UNSAFE_componentWillReceiveProps(newProps: StatefulProps) {
+	UNSAFE_componentWillReceiveProps(newProps: StatefulProps): void {
 		const sortKey = newProps.sortKey || this.state.sortKey;
 		const sortOrder = newProps.sortOrder || this.state.sortOrder;
 		const page = newProps.page || this.state.page;
@@ -72,7 +72,7 @@ export default class DynamicTable extends React.Component<StatefulProps, State> 
 		});
 	}
 
-	onSetPageHandler = (page: number, analyticsEvent?: UIAnalyticsEvent) => {
+	onSetPageHandler = (page: number, analyticsEvent?: UIAnalyticsEvent): void => {
 		const { onSetPage } = this.props;
 		if (onSetPage) {
 			onSetPage(page, analyticsEvent);
@@ -80,7 +80,7 @@ export default class DynamicTable extends React.Component<StatefulProps, State> 
 		}
 	};
 
-	onSortHandler = ({ key, item, sortOrder }: any, analyticsEvent?: UIAnalyticsEvent) => {
+	onSortHandler = ({ key, item, sortOrder }: any, analyticsEvent?: UIAnalyticsEvent): void => {
 		const { onSort } = this.props;
 		if (onSort) {
 			onSort({ key, item, sortOrder }, analyticsEvent);
@@ -88,13 +88,13 @@ export default class DynamicTable extends React.Component<StatefulProps, State> 
 		}
 	};
 
-	onRankEndIfExistsHandler = (params: RankEnd) => {
+	onRankEndIfExistsHandler = (params: RankEnd): void => {
 		if (this.props.onRankEnd) {
 			this.props.onRankEnd(params);
 		}
 	};
 
-	onRankEndHandler = (params: RankEnd) => {
+	onRankEndHandler = (params: RankEnd): void => {
 		const { destination } = params;
 		const { rows, page } = this.state;
 		const { rowsPerPage } = this.props;

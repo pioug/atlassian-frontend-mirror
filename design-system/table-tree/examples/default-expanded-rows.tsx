@@ -11,7 +11,7 @@ export default class extends PureComponent {
 		isExpanded: true,
 	};
 
-	onExpandToggle = () => {
+	onExpandToggle = (): void => {
 		this.setState({
 			isExpanded: !this.state.isExpanded,
 		});

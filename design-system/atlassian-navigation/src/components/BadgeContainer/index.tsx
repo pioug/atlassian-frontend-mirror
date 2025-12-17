@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
@@ -22,7 +24,7 @@ const containerStyles = css({
 
 // Not exported to consumers
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const BadgeContainer = (props: BadgeProps) => {
+export const BadgeContainer = (props: BadgeProps): React.JSX.Element => {
 	const { id: badgeId, badge: Badge, children, role } = props;
 	return (
 		<div css={containerStyles} role={role}>

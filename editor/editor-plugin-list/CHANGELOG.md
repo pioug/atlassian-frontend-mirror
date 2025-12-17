@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-list
 
+## 8.2.20
+
+### Patch Changes
+
+- [`73a49fd4c204c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73a49fd4c204c) -
+  Cleanup FG platform_editor_new_list_decorations_logic
+- Updated dependencies
+
 ## 8.2.19
 
 ### Patch Changes

@@ -10,7 +10,7 @@ import { setGlobalTheme } from '@atlaskit/tokens';
 import { RendererStyleContainer } from '../../../../ui/Renderer/RendererStyleContainer';
 
 describe('Renderer - React/Marks/BackgroundColor', () => {
-	it('should render a background color mark', () => {
+	it('should render a background color mark', async () => {
 		render(
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			<RendererStyleContainer
@@ -30,6 +30,7 @@ describe('Renderer - React/Marks/BackgroundColor', () => {
 		expect(mark).toContainHTML(
 			`<span data-renderer-mark=\"true\" data-background-custom-color=\"#fedec8\" class=\"fabric-background-color-mark\" style=\"--custom-palette-color: var(--ds-background-accent-yellow-subtler, #F8E6A0);\">Highlight this!</span>`,
 		);
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('custom colors', () => {
@@ -49,6 +50,7 @@ describe('Renderer - React/Marks/BackgroundColor', () => {
 			expect(mark).toHaveClass('fabric-background-color-mark');
 			expect(mark).toHaveAttribute('data-background-custom-color', '#ff00cc');
 			expect(mark).toHaveAttribute('data-renderer-mark', 'true');
+			await expect(document.body).toBeAccessible();
 		});
 
 		it('has automatic color inversion in dark mode', async () => {
@@ -67,6 +69,7 @@ describe('Renderer - React/Marks/BackgroundColor', () => {
 			expect(mark).toHaveClass('fabric-background-color-mark');
 			expect(mark).toHaveAttribute('data-background-custom-color', '#ff00cc');
 			expect(mark).toHaveAttribute('data-renderer-mark', 'true');
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

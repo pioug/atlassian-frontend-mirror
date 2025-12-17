@@ -49,14 +49,14 @@ export default function useHandleDateSelect({
 	);
 
 	const handleClickDay = useCallback(
-		({ year, month, day }: DateObj) => {
+		({ year, month, day }: DateObj): void => {
 			triggerOnSelect({ year, month, day });
 		},
 		[triggerOnSelect],
 	);
 
 	const handleContainerKeyDown = useCallback(
-		(e: React.KeyboardEvent<HTMLDivElement>) => {
+		(e: React.KeyboardEvent<HTMLDivElement>): void => {
 			const { key } = e;
 			const arrowKey = arrowKeys[key];
 

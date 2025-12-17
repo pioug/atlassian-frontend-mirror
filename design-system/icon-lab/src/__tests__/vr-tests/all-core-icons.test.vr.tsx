@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::c438321cc40b206feda5f046fd3ed6cf>>
+ * @codegen <<SignedSource::b03225bba0af9dde26d0700075902486>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import { snapshot } from '@af/visual-regression';
@@ -16,6 +16,8 @@ import {
 	MediumIconGroup4,
 	MediumIconGroup5,
 	MediumIconGroup6,
+	MediumIconGroup7,
+	MediumIconGroup8,
 	SmallIconGroup0,
 	SmallIconGroup1,
 	SmallIconGroup2,
@@ -23,6 +25,8 @@ import {
 	SmallIconGroup4,
 	SmallIconGroup5,
 	SmallIconGroup6,
+	SmallIconGroup7,
+	SmallIconGroup8,
 } from './examples/all-core-icons';
 
 snapshot(MediumIconGroup0, {
@@ -95,6 +99,26 @@ snapshot(MediumIconGroup6, {
 		},
 	],
 });
+snapshot(MediumIconGroup7, {
+	variants: [
+		{
+			name: 'Medium Group 7',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(MediumIconGroup8, {
+	variants: [
+		{
+			name: 'Medium Group 8',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
 
 snapshot(SmallIconGroup0, {
 	variants: [
@@ -160,6 +184,26 @@ snapshot(SmallIconGroup6, {
 	variants: [
 		{
 			name: 'Small Group 6',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup7, {
+	variants: [
+		{
+			name: 'Small Group 7',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup8, {
+	variants: [
+		{
+			name: 'Small Group 8',
 			environment: {
 				colorScheme: 'light',
 			},

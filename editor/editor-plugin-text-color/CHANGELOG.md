@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-color
 
+## 6.3.23
+
+### Patch Changes
+
+- [`9f03725ffb7b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f03725ffb7b8) -
+  Removing feature flag with changing internal use of custom icons.
+- Updated dependencies
+
 ## 6.3.22
 
 ### Patch Changes

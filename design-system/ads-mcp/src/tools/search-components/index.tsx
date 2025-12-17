@@ -6,7 +6,19 @@ import { cleanQuery, zodToJsonSchema } from '../../helpers';
 import { components } from '../get-components/components';
 import { type Component } from '../get-components/types';
 
-export const searchComponentsInputSchema = z.object({
+export const searchComponentsInputSchema: z.ZodObject<{
+    terms: z.ZodArray<z.ZodString, "many">;
+    limit: z.ZodOptional<z.ZodDefault<z.ZodNumber>>;
+    exactName: z.ZodOptional<z.ZodDefault<z.ZodBoolean>>;
+}, "strip", z.ZodTypeAny, {
+    terms: string[];
+    limit?: number | undefined;
+    exactName?: boolean | undefined;
+}, {
+    terms: string[];
+    limit?: number | undefined;
+    exactName?: boolean | undefined;
+}> = z.object({
 	terms: z
 		.array(z.string())
 		.describe(

@@ -2,7 +2,7 @@ import themeImportMap from '../artifacts/theme-import-map';
 import { CUSTOM_THEME_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from '../constants';
 import { type ThemeIdsWithOverrides } from '../theme-config';
 
-export const loadAndAppendThemeCss = async (themeId: ThemeIdsWithOverrides) => {
+export const loadAndAppendThemeCss = async (themeId: ThemeIdsWithOverrides): Promise<void> => {
 	if (
 		document.head.querySelector(
 			`style[${THEME_DATA_ATTRIBUTE}="${themeId}"]:not([${CUSTOM_THEME_ATTRIBUTE}])`,

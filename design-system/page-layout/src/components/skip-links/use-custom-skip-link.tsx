@@ -10,7 +10,7 @@ export const useCustomSkipLink = (
 	id: SkipLinkData['id'],
 	skipLinkTitle: SkipLinkData['skipLinkTitle'],
 	listIndex: SkipLinkData['listIndex'] = 0,
-) => {
+): void => {
 	const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
 
 	useEffect(() => {

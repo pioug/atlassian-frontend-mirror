@@ -8,21 +8,21 @@ export function createRegistry() {
 
 	function registerProject({ projectId, element }: { projectId: string; element: HTMLElement }) {
 		projectRegistry.set(projectId, element);
-		return function cleanup() {
+		return function cleanup(): void {
 			projectRegistry.delete(projectId);
 		};
 	}
 
 	function registerFilter({ filterId, element }: { filterId: string; element: HTMLElement }) {
 		filterRegistry.set(filterId, element);
-		return function cleanup() {
+		return function cleanup(): void {
 			filterRegistry.delete(filterId);
 		};
 	}
 
 	function registerTopLevelItem({ item, element }: { item: TTopLevelItem; element: HTMLElement }) {
 		filterRegistry.set(item, element);
-		return function cleanup() {
+		return function cleanup(): void {
 			filterRegistry.delete(item);
 		};
 	}

@@ -13,6 +13,7 @@ import VidFullScreenOnIcon from '@atlaskit/icon/core/fullscreen-enter';
 import FullscreenExitIcon from '@atlaskit/icon/core/fullscreen-exit';
 import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { CloseButton, useModal } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -94,7 +95,11 @@ const LinkInfo = ({
 					content={<FormattedMessage {...messages.download} />}
 					icon={() => (
 						<DownloadIcon
-							label={messages.download.defaultMessage as string}
+							label={
+								fg('platform_navx_flex_card_status_dropdown_a11y_fix')
+									? ''
+									: (messages.download.defaultMessage as string)
+							}
 							spacing="spacious"
 							color="currentColor"
 						/>
@@ -121,7 +126,11 @@ const LinkInfo = ({
 					content={content}
 					icon={() => (
 						<ShortcutIcon
-							label={messages.viewOriginal.defaultMessage as string}
+							label={
+								fg('platform_navx_flex_card_status_dropdown_a11y_fix')
+									? ''
+									: (messages.viewOriginal.defaultMessage as string)
+							}
 							spacing="spacious"
 							color="currentColor"
 						/>
@@ -139,13 +148,21 @@ const LinkInfo = ({
 		const message = isFullScreen ? messages.preview_min_size : messages.preview_max_size;
 		const icon = isFullScreen ? (
 			<FullscreenExitIcon
-				label={message.defaultMessage as string}
+				label={
+					fg('platform_navx_flex_card_status_dropdown_a11y_fix')
+						? ''
+						: (message.defaultMessage as string)
+				}
 				spacing="spacious"
 				color="currentColor"
 			/>
 		) : (
 			<VidFullScreenOnIcon
-				label={message.defaultMessage as string}
+				label={
+					fg('platform_navx_flex_card_status_dropdown_a11y_fix')
+						? ''
+						: (message.defaultMessage as string)
+				}
 				spacing="spacious"
 				color="currentColor"
 			/>

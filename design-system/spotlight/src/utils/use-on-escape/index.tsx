@@ -15,7 +15,7 @@ const onKeyDown = (event: KeyboardEvent, { onEscape }: { onEscape: () => void })
 	}
 };
 
-export const useOnEscape = (onEscape: (event: KeyboardEvent) => void) => {
+export const useOnEscape = (onEscape: (event: KeyboardEvent) => void): void => {
 	useEffect(() => {
 		const doc = getDocument();
 		if (!doc) {

@@ -6,7 +6,6 @@
 import React from 'react';
 
 import { css, jsx } from '@atlaskit/css';
-import SVGIcon from '@atlaskit/icon/svg';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { B400, N10, N100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -25,79 +24,21 @@ const svgStyles = css({
  * @internal
  */
 const CheckboxIcon = ({ checked }: { checked: boolean }): React.JSX.Element => {
-	if (fg('platform-custom-icon-migration')) {
-		return (
-			<svg
-				width={24}
-				height={24}
-				viewBox="0 0 24 24"
-				style={{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					color: checked
-						? token('color.background.selected.bold', B400)
-						: token('color.background.input', N10),
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					fill: checked ? token('color.icon.inverse', N10) : 'transparent',
-				}}
-				css={svgStyles}
-				role="presentation"
-			>
-				<g fillRule="evenodd">
-					{fg('platform-visual-refresh-icons') ? (
-						<>
-							<rect
-								stroke={
-									checked ? token('color.border.selected', B400) : token('color.border.input', N100)
-								}
-								x="5.5"
-								y="5.5"
-								width="13"
-								height="13"
-								rx="1.5"
-								fill="currentColor"
-							/>
-							<path
-								fillRule="evenodd"
-								clipRule="evenodd"
-								d="M16.3262 9.48011L15.1738 8.51984L10.75 13.8284L8.82616 11.5198L7.67383 12.4801L10.1738 15.4801C10.3163 15.6511 10.5274 15.75 10.75 15.75C10.9726 15.75 11.1837 15.6511 11.3262 15.4801L16.3262 9.48011Z"
-								fill="inherit"
-							/>
-						</>
-					) : (
-						<>
-							<rect
-								fill="currentColor"
-								x="6"
-								y="6"
-								width="12"
-								height="12"
-								rx="2"
-								stroke={
-									checked ? token('color.border.selected', B400) : token('color.border.input', N100)
-								}
-								strokeWidth={1}
-							/>
-							<path
-								d="M9.707 11.293a1 1 0 10-1.414 1.414l2 2a1 1 0 001.414 0l4-4a1 1 0 10-1.414-1.414L11 12.586l-1.293-1.293z"
-								fill="inherit"
-							/>
-						</>
-					)}
-				</g>
-			</svg>
-		);
-	}
-
 	return (
-		<SVGIcon
-			label=""
-			size="medium"
-			primaryColor={
-				checked
+		<svg
+			width={24}
+			height={24}
+			viewBox="0 0 24 24"
+			style={{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				color: checked
 					? token('color.background.selected.bold', B400)
-					: token('color.background.input', N10)
-			}
-			secondaryColor={checked ? token('color.icon.inverse', N10) : 'transparent'}
+					: token('color.background.input', N10),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				fill: checked ? token('color.icon.inverse', N10) : 'transparent',
+			}}
+			css={svgStyles}
+			role="presentation"
 		>
 			<g fillRule="evenodd">
 				{fg('platform-visual-refresh-icons') ? (
@@ -141,7 +82,7 @@ const CheckboxIcon = ({ checked }: { checked: boolean }): React.JSX.Element => {
 					</>
 				)}
 			</g>
-		</SVGIcon>
+		</svg>
 	);
 };
 

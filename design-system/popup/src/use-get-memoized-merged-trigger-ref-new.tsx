@@ -4,8 +4,8 @@ import memoizeOne from 'memoize-one';
 
 /**
  * Here setting ref is not dependent on isOpen flag which is failing in React 18 strict mode
- * Implemented behind ff `platform-design-system-popup-ref` (for regular popup) and
- * `platform-dst-popup-compositional-trigger-ref` (for compositional popup)
+ * Used behind ff `platform-design-system-popup-ref` for regular popup.
+ * Compositional popup always uses this variant.
  * @returns Function to set trigger ref
  */
 export const useGetMemoizedMergedTriggerRefNew = () => {

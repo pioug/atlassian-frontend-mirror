@@ -4,7 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import DecisionIcon from '@atlaskit/icon/core/migration/decision--editor-decision';
+import DecisionIcon from '@atlaskit/icon/core/decision';
 
 import Item from './Item';
 import { type Appearance, type ContentRef } from '../types';

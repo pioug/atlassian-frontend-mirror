@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::61a2fc1e1081c41b25a3c8a8fdebf5bd>>
+ * @codegen <<SignedSource::1398bb897102d78f4fd838bd496b18cf>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -22,7 +22,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const DiagramSymbolConnectorOffPageIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
   name: "DiagramSymbolConnectorOffPageIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M13.5 3a.5.5 0 0 0-.5-.5H3a.5.5 0 0 0-.5.5v5.658a.5.5 0 0 0 .183.387L8 13.405l5.317-4.36.078-.08a.5.5 0 0 0 .105-.307zM15 8.658a2 2 0 0 1-.567 1.396l-.164.151-5.397 4.425a1.38 1.38 0 0 1-1.646.073l-.098-.073-5.397-4.425A2 2 0 0 1 1 8.658V3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M14.5 4a.5.5 0 0 0-.5-.5H2a.5.5 0 0 0-.5.5v4.534a.5.5 0 0 0 .247.43l6 3.518a.5.5 0 0 0 .506 0l6-3.517a.5.5 0 0 0 .247-.43zM16 8.534a2 2 0 0 1-.988 1.725l-6 3.517a2 2 0 0 1-2.024 0l-6-3.517A2 2 0 0 1 0 8.534V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 DiagramSymbolConnectorOffPageIcon.displayName = 'DiagramSymbolConnectorOffPageIcon';

@@ -1,8 +1,5 @@
 import React from 'react';
 
-import Icon from '@atlaskit/icon';
-import { fg } from '@atlaskit/platform-feature-flags';
-
 const CustomGlyph = () => (
 	<svg width="24" height="24" fill="none" viewBox="0 0 24 24">
 		<g fill="currentColor" clipPath="url(#clip0_654_431)">
@@ -16,10 +13,6 @@ const CustomGlyph = () => (
 );
 
 export const WrapIcon = (): React.JSX.Element => {
-	return fg('platform-custom-icon-migration') ? (
-		// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
-		<CustomGlyph aria-label="wrapIcon" />
-	) : (
-		<Icon glyph={CustomGlyph} label="wrapIcon" />
-	);
+	// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
+	return <CustomGlyph aria-label="wrapIcon" />;
 };

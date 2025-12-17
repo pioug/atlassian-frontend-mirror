@@ -160,6 +160,7 @@ export enum ACTION {
 	SORT_COLUMN_NOT_ALLOWED = 'sortColumnNotAllowed',
 	NCS_SESSION_STEP_METRICS = 'ncsSessionStepMetrics',
 	STEPS_TRACKED = 'stepsTracked',
+	ORGANIC_CHANGES_TRACKED = 'organicChangesTracked',
 	STEPS_FILTERED = 'stepsFiltered',
 	CREATE_NOT_ALLOWED = 'createNotAllowed',
 	UNSUPPORTED_CONTENT_LEVELS_TRACKING_SUCCEEDED = 'unsupportedContentLevelsTrackingSucceeded',

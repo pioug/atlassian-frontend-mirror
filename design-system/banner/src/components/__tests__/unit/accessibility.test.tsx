@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
-import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
+import WarningIcon from '@atlaskit/icon/core/status-warning';
 
 import Banner from '../../banner';
 

@@ -46,7 +46,7 @@ const fireButtonEvents = async (button: HTMLElement, user: UserEvent) => {
 export default function testEventBlocking<ButtonProps = CommonButtonProps<any>>(
 	Component: Variant['Component'],
 	props: ButtonProps,
-) {
+): void {
 	events.forEach(async (eventName) => {
 		it(`should not fire '${eventName}' events`, async () => {
 			const user = userEvent.setup();

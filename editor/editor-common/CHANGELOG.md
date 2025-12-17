@@ -1,5 +1,45 @@
 # @atlaskit/editor-common
 
+## 110.46.2
+
+### Patch Changes
+
+- [`53aef9589ca55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53aef9589ca55) -
+  [EDITOR-3786] Make sure that for any check of `cc_editor_ai_content_mode` &&
+  `platform_editor_content_mode_button_mvp` in the code we are also checking
+  `confluence_compact_text_format`
+- [`06de6cb74b477`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06de6cb74b477) -
+  [ux] [ENGHEALTH-47507] internationalise strings behind feature gate platform_editor_dec_a11y_fixes
+- [`c32dc3155a31a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c32dc3155a31a) -
+  Added an organic changes monitor which will reported anayltics when an organic change occurs. The
+  new analytic will contain extra information regarding only the transaction which caused the
+  organic change.
+- Updated dependencies
+
+## 110.46.1
+
+### Patch Changes
+
+- [`9f03725ffb7b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f03725ffb7b8) -
+  Removing feature flag with changing internal use of custom icons.
+- Updated dependencies
+
+## 110.46.0
+
+### Minor Changes
+
+- [`cbf58f8500db4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cbf58f8500db4) -
+  [https://hello.jira.atlassian.cloud/browse/EDITOR-3893](EDITOR-3893) - fix mussing <br /> in empty
+  textblocks in the `EditorSSRRenderer`
+
+## 110.45.1
+
+### Patch Changes
+
+- [`099f1ef94c7c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/099f1ef94c7c2) -
+  Not found error will not be retryable in UI (expected behaviour)
+- Updated dependencies
+
 ## 110.45.0
 
 ### Minor Changes

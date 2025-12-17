@@ -11,7 +11,7 @@ export default class SlowLoad extends Component {
 
 	dataTimeoutId: number = 0;
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.dataTimeoutId = setTimeout(() => {
 			this.setState({
 				tableData: staticData.children,
@@ -19,7 +19,7 @@ export default class SlowLoad extends Component {
 		}, 3000) as any;
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		clearTimeout(this.dataTimeoutId);
 	}
 

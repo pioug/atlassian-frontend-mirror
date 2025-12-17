@@ -15,11 +15,11 @@ export default class InlineDialogDatepickerExample extends Component<{}, State> 
 		isDialogOpen: true,
 	};
 
-	openDialog = () => {
+	openDialog = (): void => {
 		this.setState({ isDialogOpen: true });
 	};
 
-	dialogClosed = () => {
+	dialogClosed = (): void => {
 		this.setState((prevState) => ({ isDialogOpen: !prevState.isDialogOpen }));
 	};
 

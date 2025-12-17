@@ -27,11 +27,11 @@ class TableHead extends React.Component<TableHeadProps, { activeSortButtonId: st
 		};
 	}
 
-	UNSAFE_componentWillMount() {
+	UNSAFE_componentWillMount(): void {
 		validateSortKey(this.props.sortKey, this.props.head);
 	}
 
-	UNSAFE_componentWillReceiveProps(nextProps: TableHeadProps) {
+	UNSAFE_componentWillReceiveProps(nextProps: TableHeadProps): void {
 		if (this.props.sortKey !== nextProps.sortKey || this.props.head !== nextProps.head) {
 			validateSortKey(nextProps.sortKey, nextProps.head);
 		}

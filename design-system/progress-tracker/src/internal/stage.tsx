@@ -123,14 +123,14 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 		};
 	}
 
-	UNSAFE_componentWillMount() {
+	UNSAFE_componentWillMount(): void {
 		this.setState({
 			...this.state,
 			transitioning: true,
 		});
 	}
 
-	UNSAFE_componentWillReceiveProps() {
+	UNSAFE_componentWillReceiveProps(): void {
 		this.setState({
 			...this.state,
 			transitioning: true,
@@ -145,7 +145,7 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 		);
 	}
 
-	onEntered = () => {
+	onEntered = (): void => {
 		this.setState({
 			transitioning: false,
 			oldMarkerColor: getMarkerColor({

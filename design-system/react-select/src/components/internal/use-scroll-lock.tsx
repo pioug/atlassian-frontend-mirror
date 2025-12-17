@@ -172,7 +172,7 @@ export default function useScrollLock({ isEnabled, accountForScrollbars = true }
 		};
 	}, [isEnabled, addScrollLock, removeScrollLock]);
 
-	return (element: HTMLElement | null) => {
+	return (element: HTMLElement | null): void => {
 		scrollTarget.current = element;
 	};
 }

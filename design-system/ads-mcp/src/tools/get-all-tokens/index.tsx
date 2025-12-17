@@ -21,7 +21,14 @@ export const listGetAllTokensTool: Tool = {
 	inputSchema: zodToJsonSchema(inputSchema),
 };
 
-export const getAllTokensTool = async () => ({
+export const getAllTokensTool = async (): Promise<{
+    content: {
+        // NOTE: Ideally one day the MCP would support structured content…
+        // eg. `type: 'object', data: token`
+        type: string;
+        text: string;
+    }[];
+}> => ({
 	content: tokens.map((token) => ({
 		// NOTE: Ideally one day the MCP would support structured content…
 		// eg. `type: 'object', data: token`

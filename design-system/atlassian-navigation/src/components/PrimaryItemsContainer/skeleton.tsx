@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, memo } from 'react';
+import React, { Fragment, memo, type MemoExoticComponent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -20,8 +20,8 @@ const primaryButtonSkeletonStyles = css({
 
 // Internal only
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const PrimaryItemsContainerSkeleton = memo(
-	({ count }: PrimaryItemsContainerSkeletonProps) => (
+export const PrimaryItemsContainerSkeleton: MemoExoticComponent<({ count }: PrimaryItemsContainerSkeletonProps) => React.JSX.Element> = memo(
+	({ count }: PrimaryItemsContainerSkeletonProps): React.JSX.Element => (
 		<Fragment>
 			{Array.from({ length: count }, (_, index) => (
 				<PrimaryButtonSkeleton key={index} css={primaryButtonSkeletonStyles} />

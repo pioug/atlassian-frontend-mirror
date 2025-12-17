@@ -1,5 +1,17 @@
 # @atlaskit/codemod-cli
 
+## 0.33.0
+
+### Minor Changes
+
+- [`ddad767837bd1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddad767837bd1) -
+  [ux] Add a new codemod `tag-to-newTag-migration` to migrate deprecated Tag to new Tag appearance
+  and API or PeopleTag as part of the Labelling System Phase 1 migration.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.32.2
 
 ### Patch Changes

@@ -211,7 +211,7 @@ const FormBase = <FormValues extends Record<string, any>>(
 
 		createDecorator<FormValues>(
 			() => (formRef.current ? Array.from(formRef.current.querySelectorAll('input')) : []),
-			fg('platform-form-field-error-focus') ? getFirstErrorField : undefined,
+			getFirstErrorField,
 		)(finalForm);
 
 		return finalForm;

@@ -8,7 +8,13 @@ import { getAvailableMigrationIds, getAvailableMigrationsDescription, migrationR
 // Build the enum dynamically from the registry
 const migrationIds = getAvailableMigrationIds();
 
-export const migrationGuidesInputSchema = z.object({
+export const migrationGuidesInputSchema: z.ZodObject<{
+    migration: z.ZodEnum<[string, ...string[]]>;
+}, "strip", z.ZodTypeAny, {
+    migration: string;
+}, {
+    migration: string;
+}> = z.object({
 	migration: z
 		.enum(migrationIds as [string, ...string[]])
 		.describe(
@@ -33,7 +39,12 @@ Available migrations:\n${getAvailableMigrationsDescription()}`,
 
 export const migrationGuidesTool = async (
 	params: z.infer<typeof migrationGuidesInputSchema>,
-) => {
+): Promise<{
+        content: {
+            type: string;
+            text: string;
+        }[];
+    }> => {
 	const { migration } = params;
 
 	const guide = migrationRegistry[migration];

@@ -8,7 +8,7 @@ interface MetaData {
 }
 
 export const JSXElement = {
-	lint(node: Rule.Node, { context }: MetaData) {
+	lint(node: Rule.Node, { context }: MetaData): void {
 		if (!isSupportedForLint(node)) {
 			return;
 		}

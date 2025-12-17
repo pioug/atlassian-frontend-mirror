@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 7.2.1
+
+### Patch Changes
+
+- [`c32dc3155a31a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c32dc3155a31a) -
+  Added an organic changes monitor which will reported anayltics when an organic change occurs. The
+  new analytic will contain extra information regarding only the transaction which caused the
+  organic change.
+- Updated dependencies
+
 ## 7.2.0
 
 ### Minor Changes

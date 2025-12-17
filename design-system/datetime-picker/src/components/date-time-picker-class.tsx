@@ -13,7 +13,7 @@ import {
 	withAnalyticsContext,
 	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import SelectClearIcon from '@atlaskit/icon/core/migration/cross-circle--select-clear';
+import SelectClearIcon from '@atlaskit/icon/core/cross-circle';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { mergeStyles, type StylesConfig } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
@@ -165,7 +165,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 			: { dateValue, timeValue, zoneValue };
 	}
 
-	onDateBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+	onDateBlur = (event: React.FocusEvent<HTMLInputElement>): void => {
 		this.setState({ isFocused: false });
 		this.props.onBlur?.(event);
 		if (this.props.datePickerProps?.onBlur) {
@@ -173,7 +173,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 		}
 	};
 
-	onTimeBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+	onTimeBlur = (event: React.FocusEvent<HTMLInputElement>): void => {
 		this.setState({ isFocused: false });
 		this.props.onBlur?.(event);
 		if (this.props.timePickerProps?.onBlur) {
@@ -181,7 +181,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 		}
 	};
 
-	onDateFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+	onDateFocus = (event: React.FocusEvent<HTMLInputElement>): void => {
 		this.setState({ isFocused: true });
 		this.props.onFocus?.(event);
 		if (this.props.datePickerProps?.onFocus) {
@@ -189,7 +189,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 		}
 	};
 
-	onTimeFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+	onTimeFocus = (event: React.FocusEvent<HTMLInputElement>): void => {
 		this.setState({ isFocused: true });
 		this.props.onFocus?.(event);
 		if (this.props.timePickerProps?.onFocus) {
@@ -197,7 +197,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 		}
 	};
 
-	onDateChange = (dateValue: string) => {
+	onDateChange = (dateValue: string): void => {
 		const parsedValues = this.getParsedValues();
 		this.onValueChange({
 			dateValue,
@@ -209,7 +209,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 		}
 	};
 
-	onTimeChange = (timeValue: string) => {
+	onTimeChange = (timeValue: string): void => {
 		const parsedValues = this.getParsedValues();
 		this.onValueChange({
 			dateValue: parsedValues.dateValue,
@@ -221,7 +221,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 		}
 	};
 
-	onClear = () => {
+	onClear = (): void => {
 		const parsedValues = this.getParsedValues();
 		this.onValueChange({
 			dateValue: '',
@@ -244,7 +244,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 		dateValue: string;
 		timeValue: string;
 		zoneValue: string;
-	}) {
+	}): void {
 		this.setState({ dateValue, timeValue, zoneValue });
 		if (dateValue && timeValue) {
 			const value = formatDateTimeZoneIntoIso(dateValue, timeValue, zoneValue);

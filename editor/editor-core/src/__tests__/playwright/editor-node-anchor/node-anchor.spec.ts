@@ -11,7 +11,7 @@ test.describe('native node anchor', () => {
 		adf: adfWithParagraph,
 	});
 
-	test('should render node anchor correct', async ({ editor }) => {
+	test('should render node anchor correct', async ({ editor, page }) => {
 		const editorModel = EditorNodeContainerModel.from(editor);
 
 		// Check if the date node has the correct attributes data-node-anchor
@@ -23,9 +23,10 @@ test.describe('native node anchor', () => {
 			'data-node-anchor',
 			'--anchor-paragraph-41',
 		);
+		await expect(page).toBeAccessible();
 	});
 
-	test('should render node anchor correctly when collision', async ({ editor }) => {
+	test('should render node anchor correctly when collision', async ({ editor, page }) => {
 		const editorModel = EditorNodeContainerModel.from(editor);
 
 		await editor.selection.set({ anchor: 40, head: 40 });
@@ -44,5 +45,6 @@ test.describe('native node anchor', () => {
 			'data-node-anchor',
 			'--anchor-paragraph-41',
 		);
+		await expect(page).toBeAccessible();
 	});
 });

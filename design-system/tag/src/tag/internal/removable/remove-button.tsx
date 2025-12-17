@@ -5,7 +5,7 @@
 import { type FocusEventHandler, type KeyboardEventHandler, type MouseEventHandler } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import CloseIcon from '@atlaskit/icon/core/migration/cross--editor-close';
+import CloseIcon from '@atlaskit/icon/core/cross';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

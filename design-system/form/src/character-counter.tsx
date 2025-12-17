@@ -6,7 +6,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 
 import { css, jsx } from '@atlaskit/css';
-import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
+import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';

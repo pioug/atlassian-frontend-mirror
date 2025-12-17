@@ -77,7 +77,7 @@ export const usePageLayoutResize = () => {
  * you are rendering. This way the left sidebar will be locked for
  * as long as the popup is open.
  */
-export const useLeftSidebarFlyoutLock = () => {
+export const useLeftSidebarFlyoutLock = (): void => {
 	const { setLeftSidebarState } = useContext(SidebarResizeContext);
 
 	useEffect(() => {

@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
@@ -110,7 +112,7 @@ export const SkeletonPrimaryButton = ({
 	text,
 	children,
 	testId,
-}: SkeletonPrimaryButtonProps) => {
+}: SkeletonPrimaryButtonProps): React.JSX.Element => {
 	const theme = useTheme();
 	const primaryButton = theme.mode.primaryButton;
 

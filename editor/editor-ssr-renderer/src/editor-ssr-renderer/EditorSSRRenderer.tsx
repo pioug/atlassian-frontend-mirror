@@ -146,6 +146,32 @@ export function EditorSSRRenderer({
 							DecorationSet.create(node, []),
 						);
 
+						// ProseMirror View adds <br class="ProseMirror-trailingBreak" /> to empty nodes. Because we are using
+						// DOMSerializer, we should simulate the same behaviour to get the same HTML document.
+						//
+						// There are a lot of conditions that check for adding `<br />` but we could implement only the case when we
+						// are adding `<br />` to empty texblock, because if we add `<br />` in other cases it will change order of DOM nodes inside
+						// this node (`<br />`) will be the first, after will be other nodes. It's because we are adding `<br />` to root node before
+						// we are rendering child node.
+						//
+						// See: https://discuss.prosemirror.net/t/where-can-i-read-about-prosemirror-trailingbreak/6665
+						// See: https://github.com/ProseMirror/prosemirror-view/blob/76c7c47f03730b18397b94bd269ece8a9cb7f486/src/viewdesc.ts#L803
+						// See: https://github.com/ProseMirror/prosemirror-view/blob/76c7c47f03730b18397b94bd269ece8a9cb7f486/src/viewdesc.ts#L1365
+						if (
+							nodeViewInstance.contentDOM &&
+							// if (this.node.isTextblock) updater.addTextblockHacks()
+							node.isTextblock &&
+							// !lastChild || // Empty textblock
+							!node.lastChild
+							// NOT IMPLEMENTED CASE !(lastChild instanceof TextViewDesc) ||
+							// NOT IMPLEMENTED CASE /\n$/.test(lastChild.node.text!) ||
+							// NOT IMPLEMENTED CASE (this.view.requiresGeckoHackNode && /\s$/.test(lastChild.node.text!))
+						) {
+							const br = document.createElement('br');
+							br.classList.add('ProseMirror-trailingBreak');
+							nodeViewInstance.contentDOM.appendChild(br);
+						}
+
 						return {
 							dom: nodeViewInstance.dom,
 							contentDOM: nodeViewInstance.contentDOM,

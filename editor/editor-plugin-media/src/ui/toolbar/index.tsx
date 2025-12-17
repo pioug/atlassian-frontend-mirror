@@ -188,6 +188,20 @@ export const handleShowMediaViewer = ({
 	api?.core.actions.execute(api?.media.commands.showMediaViewer(selectedNodeAttrs));
 };
 
+export const handleShowImageEditor = ({
+	api,
+	mediaPluginState,
+}: {
+	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
+	mediaPluginState: MediaPluginState;
+}) => {
+	const selectedNodeAttrs = getSelectedNearestMediaContainerNodeAttrs(mediaPluginState);
+	if (!selectedNodeAttrs) {
+		return false;
+	}
+	api?.core.actions.execute(api?.media.commands.showImageEditor(selectedNodeAttrs));
+};
+
 const generateMediaCardFloatingToolbar = (
 	state: EditorState,
 	intl: IntlShape,
@@ -707,9 +721,12 @@ const generateMediaSingleFloatingToolbar = (
 						icon: ImageCropIcon,
 						title: intl.formatMessage(commonMessages.imageEdit),
 						onClick: () => {
-							// TODO: EDITOR-3716 - Implement image editing logic
-							// console.log('Image editing clicked');
-							return true;
+							return (
+								handleShowImageEditor({
+									api: pluginInjectionApi,
+									mediaPluginState: pluginState,
+								}) ?? false
+							);
 						},
 						supportsViewMode: false,
 					});
@@ -894,9 +911,12 @@ const generateMediaSingleFloatingToolbar = (
 						icon: ImageCropIcon,
 						title: intl.formatMessage(commonMessages.imageEdit),
 						onClick: () => {
-							// TODO: EDITOR-3716 - Implement image editing logic
-							// console.log('Image editing clicked');
-							return true;
+							return (
+								handleShowImageEditor({
+									api: pluginInjectionApi,
+									mediaPluginState: pluginState,
+								}) ?? false
+							);
 						},
 						supportsViewMode: false,
 					},

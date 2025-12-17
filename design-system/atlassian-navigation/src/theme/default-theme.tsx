@@ -134,7 +134,7 @@ const defaultThemeCopy = JSON.parse(JSON.stringify(defaultTheme));
 defaultThemeCopy.mode.productHome.iconColor = undefined;
 defaultThemeCopy.mode.productHome.textColor = undefined;
 
-export const defaultThemeBrandRefresh = defaultThemeCopy;
+export const defaultThemeBrandRefresh: any = defaultThemeCopy;
 
 export const DEFAULT_THEME_NAME = 'atlassian';
 export default defaultTheme;

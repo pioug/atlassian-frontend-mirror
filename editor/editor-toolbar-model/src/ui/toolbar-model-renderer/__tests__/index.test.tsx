@@ -219,23 +219,24 @@ const createDefaultFallbacks = (): ToolbarProps['fallbacks'] => ({
 });
 
 ffTest.both('platform_editor_toolbar_aifc_renderer_rewrite', 'ToolbarModeRenderer', () => {
-	it('should render toolbar component correctly', () => {
+	it('should render toolbar component correctly', async () => {
 		const toolbar = createTestToolbar();
 		const components = createTestComponents();
 		const fallbacks = createDefaultFallbacks();
-		render(
+		const { container } = render(
 			<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
 		);
 
 		expect(screen.getByTestId('toolbar')).toBeInTheDocument();
 		expect(screen.getByTestId('toolbar')).toHaveAttribute('data-type', 'toolbar');
+		await expect(container).toBeAccessible();
 	});
 
-	it('should render sections in correct order based on rank', () => {
+	it('should render sections in correct order based on rank', async () => {
 		const toolbar = createTestToolbar();
 		const components = createTestComponents();
 		const fallbacks = createDefaultFallbacks();
-		render(
+		const { container } = render(
 			<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
 		);
 
@@ -245,13 +246,14 @@ ffTest.both('platform_editor_toolbar_aifc_renderer_rewrite', 'ToolbarModeRendere
 		expect(firstSection).toHaveAttribute('data-rank', '100');
 		const secondSection = sections[1];
 		expect(secondSection).toHaveAttribute('data-rank', '200');
+		await expect(container).toBeAccessible();
 	});
 
-	it('should render groups within sections in correct order', () => {
+	it('should render groups within sections in correct order', async () => {
 		const toolbar = createTestToolbar();
 		const components = createTestComponents();
 		const fallbacks = createDefaultFallbacks();
-		render(
+		const { container } = render(
 			<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
 		);
 
@@ -262,13 +264,14 @@ ffTest.both('platform_editor_toolbar_aifc_renderer_rewrite', 'ToolbarModeRendere
 		expect(firstGroup).toHaveAttribute('data-rank', '100');
 		const secondGroup = groups[1];
 		expect(secondGroup).toHaveAttribute('data-rank', '200');
+		await expect(container).toBeAccessible();
 	});
 
-	it('should render buttons within groups in correct order', () => {
+	it('should render buttons within groups in correct order', async () => {
 		const toolbar = createTestToolbar();
 		const components = createTestComponents();
 		const fallbacks = createDefaultFallbacks();
-		render(
+		const { container } = render(
 			<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
 		);
 
@@ -286,13 +289,14 @@ ffTest.both('platform_editor_toolbar_aifc_renderer_rewrite', 'ToolbarModeRendere
 			expect(parents[2].type).toBe('group');
 			expect(parents[2].key).toBe('group-first');
 		});
+		await expect(container).toBeAccessible();
 	});
 
-	it('should render menu structure correctly', () => {
+	it('should render menu structure correctly', async () => {
 		const toolbar = createTestToolbar();
 		const components = createTestComponents();
 		const fallbacks = createDefaultFallbacks();
-		render(
+		const { container } = render(
 			<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
 		);
 
@@ -307,13 +311,14 @@ ffTest.both('platform_editor_toolbar_aifc_renderer_rewrite', 'ToolbarModeRendere
 		expect(menuParents[1].type).toBe('section');
 		expect(menuParents[2].key).toBe('group-second');
 		expect(menuParents[2].type).toBe('group');
+		await expect(container).toBeAccessible();
 	});
 
-	it('should render menu sections within menus', () => {
+	it('should render menu sections within menus', async () => {
 		const toolbar = createTestToolbar();
 		const components = createTestComponents();
 		const fallbacks = createDefaultFallbacks();
-		render(
+		const { container } = render(
 			<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
 		);
 
@@ -324,13 +329,14 @@ ffTest.both('platform_editor_toolbar_aifc_renderer_rewrite', 'ToolbarModeRendere
 		expect(menuSectionParents).toHaveLength(4);
 		expect(menuSectionParents[0].key).toBe('test-toolbar');
 		expect(menuSectionParents[0].type).toBe('toolbar');
+		await expect(container).toBeAccessible();
 	});
 
-	it('should render menu items within menu sections in correct order', () => {
+	it('should render menu items within menu sections in correct order', async () => {
 		const toolbar = createTestToolbar();
 		const components = createTestComponents();
 		const fallbacks = createDefaultFallbacks();
-		render(
+		const { container } = render(
 			<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
 		);
 
@@ -345,15 +351,16 @@ ffTest.both('platform_editor_toolbar_aifc_renderer_rewrite', 'ToolbarModeRendere
 		const secondMenuItem = menuItems[1];
 		expect(firstMenuItem).toHaveAttribute('data-type', 'menu-item');
 		expect(secondMenuItem).toHaveAttribute('data-rank', '200');
+		await expect(container).toBeAccessible();
 	});
 
-	it('should respect rank ordering within the same parent', () => {
+	it('should respect rank ordering within the same parent', async () => {
 		const toolbar = createTestToolbar();
 		const sections = createTestSections();
 		const groups = createTestGroups();
 		const buttons = createTestButtons();
 
-		render(
+		const { container } = render(
 			<ToolbarModelRenderer
 				toolbar={toolbar}
 				components={[...sections, ...groups, ...buttons]}
@@ -371,44 +378,48 @@ ffTest.both('platform_editor_toolbar_aifc_renderer_rewrite', 'ToolbarModeRendere
 			const parents = JSON.parse(button.getAttribute('data-parents') || '[]');
 			expect(parents[0].key).toBe('test-toolbar');
 		});
+		await expect(container).toBeAccessible();
 	});
 
-	it('should handle empty components array', () => {
+	it('should handle empty components array', async () => {
 		const toolbar = createTestToolbar();
 		const fallbacks = createDefaultFallbacks();
-		render(<ToolbarModelRenderer toolbar={toolbar} components={[]} fallbacks={fallbacks} />);
+		const { container } = render(<ToolbarModelRenderer toolbar={toolbar} components={[]} fallbacks={fallbacks} />);
 
 		expect(screen.getByTestId('toolbar')).toBeInTheDocument();
 		expect(screen.queryByTestId('section')).not.toBeInTheDocument();
+		await expect(container).toBeAccessible();
 	});
 
-	it('should use fallback components when component prop is missing', () => {
+	it('should use fallback components when component prop is missing', async () => {
 		const toolbar = createTestToolbar();
 		const components = createTestComponents().map((comp) =>
 			comp.type === 'section' ? { ...comp, component: undefined } : comp,
 		);
 		const fallbacks = createDefaultFallbacks();
 
-		render(
+		const { container } = render(
 			<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
 		);
 		expect(screen.getByTestId('toolbar')).toBeInTheDocument();
 		expect(screen.getAllByTestId('section')).toHaveLength(2); // Should use fallback
+		await expect(container).toBeAccessible();
 	});
 
-	it('should not render empty menus', () => {
+	it('should not render empty menus', async () => {
 		const toolbar = createTestToolbar();
 		const components = createTestComponents().filter((comp) => comp.type !== 'menu-section');
 		const fallbacks = createDefaultFallbacks();
 
-		render(
+		const { container } = render(
 			<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
 		);
 		expect(screen.getByTestId('toolbar')).toBeInTheDocument();
 		expect(screen.queryByTestId('menu')).not.toBeInTheDocument();
+		await expect(container).toBeAccessible();
 	});
 
-	it('should not render empty groups', () => {
+	it('should not render empty groups', async () => {
 		const toolbar = createTestToolbar();
 		const components = createTestComponents().filter(
 			(comp) =>
@@ -419,18 +430,19 @@ ffTest.both('platform_editor_toolbar_aifc_renderer_rewrite', 'ToolbarModeRendere
 		);
 		const fallbacks = createDefaultFallbacks();
 
-		render(
+		const { container } = render(
 			<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
 		);
 		expect(screen.getByTestId('toolbar')).toBeInTheDocument();
 		expect(screen.queryByTestId('group')).not.toBeInTheDocument();
+		await expect(container).toBeAccessible();
 	});
 
-	it('should pass down correct parents to components', () => {
+	it('should pass down correct parents to components', async () => {
 		const toolbar = createTestToolbar();
 		const components = createTestComponents();
 		const fallbacks = createDefaultFallbacks();
-		render(
+		const { container } = render(
 			<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
 		);
 
@@ -455,5 +467,6 @@ ffTest.both('platform_editor_toolbar_aifc_renderer_rewrite', 'ToolbarModeRendere
 			'menu',
 			'menu-section',
 		]);
+		await expect(container).toBeAccessible();
 	});
 });

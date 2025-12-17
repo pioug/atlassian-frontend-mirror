@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
@@ -69,7 +71,7 @@ const skeletonSwitcherButtonStyles = css({
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#skeleton-button)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const SkeletonSwitcherButton = ({ label = '', testId }: SkeletonSwitcherButtonProps) => {
+export const SkeletonSwitcherButton = ({ label = '', testId }: SkeletonSwitcherButtonProps): React.JSX.Element => {
 	const theme = useTheme();
 
 	return (
@@ -90,7 +92,7 @@ export const SkeletonSwitcherButton = ({ label = '', testId }: SkeletonSwitcherB
  *
  * A nav 4 skeleton switcher button
  */
-export const Nav4SkeletonSwitcherButton = ({ label = '' }: SkeletonSwitcherButtonProps) => (
+export const Nav4SkeletonSwitcherButton = ({ label = '' }: SkeletonSwitcherButtonProps): React.JSX.Element => (
 	<SkeletonIconButton>
 		<Nav4AppSwitcherIcon label={label} spacing="spacious" color={token('color.icon')} />
 	</SkeletonIconButton>

@@ -20,7 +20,7 @@ export const useSorting = <ItemType extends object>(sortKey: SortKey<keyof ItemT
 	}, []);
 
 	const setSortState = useCallback(
-		(key: SortKey<keyof ItemType>) => {
+		(key: SortKey<keyof ItemType>): void => {
 			setLocalSortKey((localSortKey) => {
 				if (key !== localSortKey) {
 					// sorting by different column

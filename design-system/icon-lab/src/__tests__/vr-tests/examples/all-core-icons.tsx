@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::f2da11be100d1dd7eca9486a93b24543>>
+ * @codegen <<SignedSource::b0daafad8acf8e6c244e81376f927c58>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -25,6 +25,7 @@ import AiGenerativeRemoveIcon from '../../../../core/ai-generative-remove';
 import AiGenerativeRemoveSilenceIcon from '../../../../core/ai-generative-remove-silence';
 import AiGenerativeTextIcon from '../../../../core/ai-generative-text';
 import AiGenerativeTextTitleIcon from '../../../../core/ai-generative-text-title';
+import AiModelIcon from '../../../../core/ai-model';
 import AlignContentBottomIcon from '../../../../core/align-content-bottom';
 import AlignContentCenterHorizontalIcon from '../../../../core/align-content-center-horizontal';
 import AlignContentCenterVerticalIcon from '../../../../core/align-content-center-vertical';
@@ -61,6 +62,8 @@ import BookOpenIcon from '../../../../core/book-open';
 import BooleanIcon from '../../../../core/boolean';
 import BrowserExtensionIcon from '../../../../core/browser-extension';
 import CalculateIcon from '../../../../core/calculate';
+import CapabilityIcon from '../../../../core/capability';
+import CartIcon from '../../../../core/cart';
 import ChartAreaIcon from '../../../../core/chart-area';
 import ChartBarLineIcon from '../../../../core/chart-bar-line';
 import ChartBoxPlotIcon from '../../../../core/chart-box-plot';
@@ -68,6 +71,7 @@ import ChartBulletIcon from '../../../../core/chart-bullet';
 import ChartExtrapolateIcon from '../../../../core/chart-extrapolate';
 import ChartFunnelIcon from '../../../../core/chart-funnel';
 import ChartScatterPlotIcon from '../../../../core/chart-scatter-plot';
+import CloudIcon from '../../../../core/cloud';
 import CloudOfflineIcon from '../../../../core/cloud-offline';
 import CloudSavedIcon from '../../../../core/cloud-saved';
 import CoinsIcon from '../../../../core/coins';
@@ -75,10 +79,13 @@ import ColourNoneIcon from '../../../../core/colour-none';
 import CompareIcon from '../../../../core/compare';
 import CompassHingedIcon from '../../../../core/compass-hinged';
 import ContinueWhenIcon from '../../../../core/continue-when';
+import CornerRadiusRoundedIcon from '../../../../core/corner-radius-rounded';
+import CornerRadiusSquaredIcon from '../../../../core/corner-radius-squared';
 import CrossOctagonIcon from '../../../../core/cross-octagon';
 import CursorIcon from '../../../../core/cursor';
 import CursorStrikethroughIcon from '../../../../core/cursor-strikethrough';
 import DashDoubleIcon from '../../../../core/dash-double';
+import DataAppIcon from '../../../../core/data-app';
 import DataBucketIcon from '../../../../core/data-bucket';
 import DataFormulaIcon from '../../../../core/data-formula';
 import DataFunctionIcon from '../../../../core/data-function';
@@ -90,34 +97,132 @@ import DataVisualizationMetricIcon from '../../../../core/data-visualization-met
 import DataZeroFillIcon from '../../../../core/data-zero-fill';
 import DatabaseStorageIcon from '../../../../core/database-storage';
 import DatabaseStorageCacheIcon from '../../../../core/database-storage-cache';
+import DiagramArrowheadAggregationLeftIcon from '../../../../core/diagram-arrowhead-aggregation-left';
+import DiagramArrowheadAggregationRightIcon from '../../../../core/diagram-arrowhead-aggregation-right';
+import DiagramArrowheadAggregationUpRightIcon from '../../../../core/diagram-arrowhead-aggregation-up-right';
+import DiagramArrowheadAssociationLeftIcon from '../../../../core/diagram-arrowhead-association-left';
+import DiagramArrowheadAssociationRightIcon from '../../../../core/diagram-arrowhead-association-right';
+import DiagramArrowheadAssociationUpRightIcon from '../../../../core/diagram-arrowhead-association-up-right';
+import DiagramArrowheadCircleLeftIcon from '../../../../core/diagram-arrowhead-circle-left';
+import DiagramArrowheadCircleRightIcon from '../../../../core/diagram-arrowhead-circle-right';
+import DiagramArrowheadCircleUpRightIcon from '../../../../core/diagram-arrowhead-circle-up-right';
+import DiagramArrowheadCompositionLeftIcon from '../../../../core/diagram-arrowhead-composition-left';
+import DiagramArrowheadCompositionRightIcon from '../../../../core/diagram-arrowhead-composition-right';
+import DiagramArrowheadCompositionUpRightIcon from '../../../../core/diagram-arrowhead-composition-up-right';
+import DiagramArrowheadDefaultFlowLeftIcon from '../../../../core/diagram-arrowhead-default-flow-left';
+import DiagramArrowheadDefaultFlowRightIcon from '../../../../core/diagram-arrowhead-default-flow-right';
+import DiagramArrowheadDefaultFlowUpRightIcon from '../../../../core/diagram-arrowhead-default-flow-up-right';
+import DiagramArrowheadInheritanceLeftIcon from '../../../../core/diagram-arrowhead-inheritance-left';
+import DiagramArrowheadInheritanceRightIcon from '../../../../core/diagram-arrowhead-inheritance-right';
+import DiagramArrowheadInheritanceUpRightIcon from '../../../../core/diagram-arrowhead-inheritance-up-right';
+import DiagramArrowheadManyLeftIcon from '../../../../core/diagram-arrowhead-many-left';
+import DiagramArrowheadManyRightIcon from '../../../../core/diagram-arrowhead-many-right';
+import DiagramArrowheadManyUpRightIcon from '../../../../core/diagram-arrowhead-many-up-right';
+import DiagramArrowheadOneLeftIcon from '../../../../core/diagram-arrowhead-one-left';
+import DiagramArrowheadOneOrManyLeftIcon from '../../../../core/diagram-arrowhead-one-or-many-left';
+import DiagramArrowheadOneOrManyRightIcon from '../../../../core/diagram-arrowhead-one-or-many-right';
+import DiagramArrowheadOneOrManyUpRightIcon from '../../../../core/diagram-arrowhead-one-or-many-up-right';
+import DiagramArrowheadOneRightIcon from '../../../../core/diagram-arrowhead-one-right';
+import DiagramArrowheadOneUpRightIcon from '../../../../core/diagram-arrowhead-one-up-right';
+import DiagramArrowheadOnlyOneLeftIcon from '../../../../core/diagram-arrowhead-only-one-left';
+import DiagramArrowheadOnlyOneRightIcon from '../../../../core/diagram-arrowhead-only-one-right';
+import DiagramArrowheadOnlyOneUpRightIcon from '../../../../core/diagram-arrowhead-only-one-up-right';
+import DiagramArrowheadSequenceLeftIcon from '../../../../core/diagram-arrowhead-sequence-left';
+import DiagramArrowheadSequenceRightIcon from '../../../../core/diagram-arrowhead-sequence-right';
+import DiagramArrowheadSequenceUpRightIcon from '../../../../core/diagram-arrowhead-sequence-up-right';
+import DiagramArrowheadZeroOrManyLeftIcon from '../../../../core/diagram-arrowhead-zero-or-many-left';
+import DiagramArrowheadZeroOrManyRightIcon from '../../../../core/diagram-arrowhead-zero-or-many-right';
+import DiagramArrowheadZeroOrManyUpRightIcon from '../../../../core/diagram-arrowhead-zero-or-many-up-right';
+import DiagramArrowheadZeroOrOneLeftIcon from '../../../../core/diagram-arrowhead-zero-or-one-left';
+import DiagramArrowheadZeroOrOneRightIcon from '../../../../core/diagram-arrowhead-zero-or-one-right';
+import DiagramArrowheadZeroOrOneUpRightIcon from '../../../../core/diagram-arrowhead-zero-or-one-up-right';
 import DiagramSymbolActionIcon from '../../../../core/diagram-symbol-action';
+import DiagramSymbolActivationIcon from '../../../../core/diagram-symbol-activation';
+import DiagramSymbolActorIcon from '../../../../core/diagram-symbol-actor';
+import DiagramSymbolAdHocIcon from '../../../../core/diagram-symbol-ad-hoc';
 import DiagramSymbolAlternateProcessIcon from '../../../../core/diagram-symbol-alternate-process';
+import DiagramSymbolArrowLeftIcon from '../../../../core/diagram-symbol-arrow-left';
+import DiagramSymbolArrowLeftFilledIcon from '../../../../core/diagram-symbol-arrow-left-filled';
+import DiagramSymbolArrowRightIcon from '../../../../core/diagram-symbol-arrow-right';
+import DiagramSymbolArrowRightFilledIcon from '../../../../core/diagram-symbol-arrow-right-filled';
+import DiagramSymbolAssemblyIcon from '../../../../core/diagram-symbol-assembly';
+import DiagramSymbolBrowserIcon from '../../../../core/diagram-symbol-browser';
+import DiagramSymbolClassIcon from '../../../../core/diagram-symbol-class';
+import DiagramSymbolCloudIcon from '../../../../core/diagram-symbol-cloud';
+import DiagramSymbolCollaborationIcon from '../../../../core/diagram-symbol-collaboration';
 import DiagramSymbolCollateIcon from '../../../../core/diagram-symbol-collate';
 import DiagramSymbolCommentLeftIcon from '../../../../core/diagram-symbol-comment-left';
 import DiagramSymbolCommentRightIcon from '../../../../core/diagram-symbol-comment-right';
+import DiagramSymbolComplexIcon from '../../../../core/diagram-symbol-complex';
+import DiagramSymbolComponentIcon from '../../../../core/diagram-symbol-component';
+import DiagramSymbolComponentBoxIcon from '../../../../core/diagram-symbol-component-box';
+import DiagramSymbolComputeIcon from '../../../../core/diagram-symbol-compute';
 import DiagramSymbolConnectorOffPageIcon from '../../../../core/diagram-symbol-connector-off-page';
 import DiagramSymbolConnectorOnPageIcon from '../../../../core/diagram-symbol-connector-on-page';
+import DiagramSymbolContainerIcon from '../../../../core/diagram-symbol-container';
 import DiagramSymbolDatabaseIcon from '../../../../core/diagram-symbol-database';
+import DiagramSymbolDatabaseSourceIcon from '../../../../core/diagram-symbol-database-source';
 import DiagramSymbolDecisionIcon from '../../../../core/diagram-symbol-decision';
 import DiagramSymbolDelayIcon from '../../../../core/diagram-symbol-delay';
 import DiagramSymbolDisplayIcon from '../../../../core/diagram-symbol-display';
 import DiagramSymbolDocumentIcon from '../../../../core/diagram-symbol-document';
 import DiagramSymbolDocumentsIcon from '../../../../core/diagram-symbol-documents';
+import DiagramSymbolEndIcon from '../../../../core/diagram-symbol-end';
+import DiagramSymbolErrorIcon from '../../../../core/diagram-symbol-error';
+import DiagramSymbolErrorFilledIcon from '../../../../core/diagram-symbol-error-filled';
+import DiagramSymbolEventBasedIcon from '../../../../core/diagram-symbol-event-based';
+import DiagramSymbolEventBasedFilledIcon from '../../../../core/diagram-symbol-event-based-filled';
+import DiagramSymbolExclusiveIcon from '../../../../core/diagram-symbol-exclusive';
+import DiagramSymbolExclusiveFilledIcon from '../../../../core/diagram-symbol-exclusive-filled';
+import DiagramSymbolFileIcon from '../../../../core/diagram-symbol-file';
+import DiagramSymbolForkHorizontalIcon from '../../../../core/diagram-symbol-fork-horizontal';
+import DiagramSymbolForkVerticalIcon from '../../../../core/diagram-symbol-fork-vertical';
+import DiagramSymbolFrameIcon from '../../../../core/diagram-symbol-frame';
+import DiagramSymbolFrontendIcon from '../../../../core/diagram-symbol-frontend';
 import DiagramSymbolHardDiskIcon from '../../../../core/diagram-symbol-hard-disk';
+import DiagramSymbolHistoryIcon from '../../../../core/diagram-symbol-history';
 import DiagramSymbolInputOutputIcon from '../../../../core/diagram-symbol-input-output';
+import DiagramSymbolInterfaceAttributesIcon from '../../../../core/diagram-symbol-interface-attributes';
 import DiagramSymbolInternalStorageIcon from '../../../../core/diagram-symbol-internal-storage';
 import DiagramSymbolLoopLimitIcon from '../../../../core/diagram-symbol-loop-limit';
+import DiagramSymbolManualIcon from '../../../../core/diagram-symbol-manual';
 import DiagramSymbolManualInputIcon from '../../../../core/diagram-symbol-manual-input';
 import DiagramSymbolManualOperationIcon from '../../../../core/diagram-symbol-manual-operation';
 import DiagramSymbolMergeIcon from '../../../../core/diagram-symbol-merge';
 import DiagramSymbolMindMapIcon from '../../../../core/diagram-symbol-mind-map';
+import DiagramSymbolNodeIcon from '../../../../core/diagram-symbol-node';
+import DiagramSymbolNoteIcon from '../../../../core/diagram-symbol-note';
 import DiagramSymbolOrIcon from '../../../../core/diagram-symbol-or';
+import DiagramSymbolPackageIcon from '../../../../core/diagram-symbol-package';
+import DiagramSymbolParallelEvenBasedIcon from '../../../../core/diagram-symbol-parallel-even-based';
+import DiagramSymbolParallelEvenBasedFilledIcon from '../../../../core/diagram-symbol-parallel-even-based-filled';
+import DiagramSymbolParallelMiIcon from '../../../../core/diagram-symbol-parallel-mi';
+import DiagramSymbolPinLeftIcon from '../../../../core/diagram-symbol-pin-left';
+import DiagramSymbolPinLeftFilledIcon from '../../../../core/diagram-symbol-pin-left-filled';
+import DiagramSymbolPinRightIcon from '../../../../core/diagram-symbol-pin-right';
+import DiagramSymbolPinRightFilledIcon from '../../../../core/diagram-symbol-pin-right-filled';
+import DiagramSymbolPoolHorizontalIcon from '../../../../core/diagram-symbol-pool-horizontal';
+import DiagramSymbolPoolVerticalIcon from '../../../../core/diagram-symbol-pool-vertical';
 import DiagramSymbolPredefinedProcessIcon from '../../../../core/diagram-symbol-predefined-process';
 import DiagramSymbolPreparationIcon from '../../../../core/diagram-symbol-preparation';
+import DiagramSymbolProvidedInterfaceIcon from '../../../../core/diagram-symbol-provided-interface';
+import DiagramSymbolReceiveSignalIcon from '../../../../core/diagram-symbol-receive-signal';
+import DiagramSymbolRequiredInterfaceIcon from '../../../../core/diagram-symbol-required-interface';
+import DiagramSymbolSendIcon from '../../../../core/diagram-symbol-send';
+import DiagramSymbolSendSignalIcon from '../../../../core/diagram-symbol-send-signal';
+import DiagramSymbolShieldIcon from '../../../../core/diagram-symbol-shield';
+import DiagramSymbolSignalIcon from '../../../../core/diagram-symbol-signal';
+import DiagramSymbolSignalFilledIcon from '../../../../core/diagram-symbol-signal-filled';
 import DiagramSymbolSortIcon from '../../../../core/diagram-symbol-sort';
+import DiagramSymbolStartIcon from '../../../../core/diagram-symbol-start';
 import DiagramSymbolStoredDataIcon from '../../../../core/diagram-symbol-stored-data';
 import DiagramSymbolSummingJunctionIcon from '../../../../core/diagram-symbol-summing-junction';
+import DiagramSymbolSwimlanesHorizontalIcon from '../../../../core/diagram-symbol-swimlanes-horizontal';
+import DiagramSymbolSwimlanesVerticalIcon from '../../../../core/diagram-symbol-swimlanes-vertical';
+import DiagramSymbolSwitchIcon from '../../../../core/diagram-symbol-switch';
+import DiagramSymbolTemplateIcon from '../../../../core/diagram-symbol-template';
 import DiagramSymbolTerminatorIcon from '../../../../core/diagram-symbol-terminator';
+import DiagramSymbolUseCaseIcon from '../../../../core/diagram-symbol-use-case';
 import DirectoryIcon from '../../../../core/directory';
 import DistributeSpacingHorizontalIcon from '../../../../core/distribute-spacing-horizontal';
 import DistributeSpacingVerticalIcon from '../../../../core/distribute-spacing-vertical';
@@ -129,6 +234,7 @@ import DuplicateIcon from '../../../../core/duplicate';
 import EditionsIcon from '../../../../core/editions';
 import ExpandElementIcon from '../../../../core/expand-element';
 import EyedropperIcon from '../../../../core/eyedropper';
+import FieldSelectIcon from '../../../../core/field-select';
 import FieldTextIcon from '../../../../core/field-text';
 import FolderSharedIcon from '../../../../core/folder-shared';
 import GenerativeDateIcon from '../../../../core/generative-date';
@@ -301,12 +407,15 @@ import VideoCaptionsStylizedIcon from '../../../../core/video-captions-stylized'
 import VideoClipIcon from '../../../../core/video-clip';
 import VideoClosedCaptionsIcon from '../../../../core/video-closed-captions';
 import VideoClosedCaptionsFilledIcon from '../../../../core/video-closed-captions-filled';
+import VideoFastForwardIcon from '../../../../core/video-fast-forward';
+import VideoFastForwardOverlayIcon from '../../../../core/video-fast-forward-overlay';
 import VideoHdIcon from '../../../../core/video-hd';
 import VideoHdFilledIcon from '../../../../core/video-hd-filled';
 import VideoMiniplayerIcon from '../../../../core/video-miniplayer';
 import VideoOverlayToolsIcon from '../../../../core/video-overlay-tools';
 import VideoPlayCircleIcon from '../../../../core/video-play-circle';
 import VideoRecordIcon from '../../../../core/video-record';
+import VideoRewindIcon from '../../../../core/video-rewind';
 import VideoRewindOverlayIcon from '../../../../core/video-rewind-overlay';
 import VideoSkipBackwardFiveIcon from '../../../../core/video-skip-backward-five';
 import VideoSkipForwardFiveIcon from '../../../../core/video-skip-forward-five';
@@ -329,6 +438,7 @@ import WorkItemAddIcon from '../../../../core/work-item-add';
 import WorkflowControlsIcon from '../../../../core/workflow-controls';
 import WorldIcon from '../../../../core/world';
 import WrenchIcon from '../../../../core/wrench';
+
 // eslint-disable-next-line import/order
 import type { NewCoreIconProps } from '@atlaskit/icon';
 
@@ -644,6 +754,115 @@ const Icons = [
 	StatusWorkflowStoppedIcon,
 	StatusWorkflowSuccessIcon,
 	StatusWorkflowWarningIcon,
+	AiModelIcon,
+	CapabilityIcon,
+	CartIcon,
+	CloudIcon,
+	CornerRadiusRoundedIcon,
+	CornerRadiusSquaredIcon,
+	DataAppIcon,
+	DiagramArrowheadAggregationLeftIcon,
+	DiagramArrowheadAggregationRightIcon,
+	DiagramArrowheadAggregationUpRightIcon,
+	DiagramArrowheadAssociationLeftIcon,
+	DiagramArrowheadAssociationRightIcon,
+	DiagramArrowheadAssociationUpRightIcon,
+	DiagramArrowheadCircleLeftIcon,
+	DiagramArrowheadCircleRightIcon,
+	DiagramArrowheadCircleUpRightIcon,
+	DiagramArrowheadCompositionLeftIcon,
+	DiagramArrowheadCompositionRightIcon,
+	DiagramArrowheadCompositionUpRightIcon,
+	DiagramArrowheadDefaultFlowLeftIcon,
+	DiagramArrowheadDefaultFlowRightIcon,
+	DiagramArrowheadDefaultFlowUpRightIcon,
+	DiagramArrowheadInheritanceLeftIcon,
+	DiagramArrowheadInheritanceRightIcon,
+	DiagramArrowheadInheritanceUpRightIcon,
+	DiagramArrowheadManyLeftIcon,
+	DiagramArrowheadManyRightIcon,
+	DiagramArrowheadManyUpRightIcon,
+	DiagramArrowheadOneLeftIcon,
+	DiagramArrowheadOneOrManyLeftIcon,
+	DiagramArrowheadOneOrManyRightIcon,
+	DiagramArrowheadOneOrManyUpRightIcon,
+	DiagramArrowheadOneRightIcon,
+	DiagramArrowheadOneUpRightIcon,
+	DiagramArrowheadOnlyOneLeftIcon,
+	DiagramArrowheadOnlyOneRightIcon,
+	DiagramArrowheadOnlyOneUpRightIcon,
+	DiagramArrowheadSequenceLeftIcon,
+	DiagramArrowheadSequenceRightIcon,
+	DiagramArrowheadSequenceUpRightIcon,
+	DiagramArrowheadZeroOrManyLeftIcon,
+	DiagramArrowheadZeroOrManyRightIcon,
+	DiagramArrowheadZeroOrManyUpRightIcon,
+	DiagramArrowheadZeroOrOneLeftIcon,
+	DiagramArrowheadZeroOrOneRightIcon,
+	DiagramArrowheadZeroOrOneUpRightIcon,
+	DiagramSymbolActivationIcon,
+	DiagramSymbolActorIcon,
+	DiagramSymbolAdHocIcon,
+	DiagramSymbolArrowLeftIcon,
+	DiagramSymbolArrowLeftFilledIcon,
+	DiagramSymbolArrowRightIcon,
+	DiagramSymbolArrowRightFilledIcon,
+	DiagramSymbolAssemblyIcon,
+	DiagramSymbolBrowserIcon,
+	DiagramSymbolClassIcon,
+	DiagramSymbolCloudIcon,
+	DiagramSymbolCollaborationIcon,
+	DiagramSymbolComplexIcon,
+	DiagramSymbolComponentIcon,
+	DiagramSymbolComponentBoxIcon,
+	DiagramSymbolComputeIcon,
+	DiagramSymbolContainerIcon,
+	DiagramSymbolDatabaseSourceIcon,
+	DiagramSymbolEndIcon,
+	DiagramSymbolErrorIcon,
+	DiagramSymbolErrorFilledIcon,
+	DiagramSymbolEventBasedIcon,
+	DiagramSymbolEventBasedFilledIcon,
+	DiagramSymbolExclusiveIcon,
+	DiagramSymbolExclusiveFilledIcon,
+	DiagramSymbolFileIcon,
+	DiagramSymbolForkHorizontalIcon,
+	DiagramSymbolForkVerticalIcon,
+	DiagramSymbolFrameIcon,
+	DiagramSymbolFrontendIcon,
+	DiagramSymbolHistoryIcon,
+	DiagramSymbolInterfaceAttributesIcon,
+	DiagramSymbolManualIcon,
+	DiagramSymbolNodeIcon,
+	DiagramSymbolNoteIcon,
+	DiagramSymbolPackageIcon,
+	DiagramSymbolParallelEvenBasedIcon,
+	DiagramSymbolParallelEvenBasedFilledIcon,
+	DiagramSymbolParallelMiIcon,
+	DiagramSymbolPinLeftIcon,
+	DiagramSymbolPinLeftFilledIcon,
+	DiagramSymbolPinRightIcon,
+	DiagramSymbolPinRightFilledIcon,
+	DiagramSymbolPoolHorizontalIcon,
+	DiagramSymbolPoolVerticalIcon,
+	DiagramSymbolProvidedInterfaceIcon,
+	DiagramSymbolReceiveSignalIcon,
+	DiagramSymbolRequiredInterfaceIcon,
+	DiagramSymbolSendIcon,
+	DiagramSymbolSendSignalIcon,
+	DiagramSymbolShieldIcon,
+	DiagramSymbolSignalIcon,
+	DiagramSymbolSignalFilledIcon,
+	DiagramSymbolStartIcon,
+	DiagramSymbolSwimlanesHorizontalIcon,
+	DiagramSymbolSwimlanesVerticalIcon,
+	DiagramSymbolSwitchIcon,
+	DiagramSymbolTemplateIcon,
+	DiagramSymbolUseCaseIcon,
+	FieldSelectIcon,
+	VideoFastForwardIcon,
+	VideoFastForwardOverlayIcon,
+	VideoRewindIcon,
 ];
 
 const groupSize = 50;
@@ -690,6 +909,10 @@ export const MediumIconGroup4: () => React.JSX.Element = allMediumExamples[4];
 export const MediumIconGroup5: () => React.JSX.Element = allMediumExamples[5];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const MediumIconGroup6: () => React.JSX.Element = allMediumExamples[6];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const MediumIconGroup7: () => React.JSX.Element = allMediumExamples[7];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const MediumIconGroup8: () => React.JSX.Element = allMediumExamples[8];
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SmallIconGroup0: () => React.JSX.Element = allSmallExamples[0];
@@ -705,3 +928,7 @@ export const SmallIconGroup4: () => React.JSX.Element = allSmallExamples[4];
 export const SmallIconGroup5: () => React.JSX.Element = allSmallExamples[5];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SmallIconGroup6: () => React.JSX.Element = allSmallExamples[6];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup7: () => React.JSX.Element = allSmallExamples[7];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup8: () => React.JSX.Element = allSmallExamples[8];

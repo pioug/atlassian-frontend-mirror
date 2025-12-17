@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -79,7 +79,7 @@ const SwitcherData = ({ update }: SwitcherDataProps) => {
 
 const SwitcherContent = withIntlProvider(withAnalyticsLogger(SwitcherData));
 
-export const SwitcherPopup = () => {
+export const SwitcherPopup = (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const onClick = () => {

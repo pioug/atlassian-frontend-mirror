@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
+import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
 import { token } from '@atlaskit/tokens';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { PureComponent } from 'react';

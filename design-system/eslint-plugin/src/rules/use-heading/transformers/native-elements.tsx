@@ -32,7 +32,7 @@ interface ValidHeadingElement extends JSXElement {
 type CheckResult = { success: boolean; autoFixable?: boolean };
 
 export const NativeElements = {
-	lint(node: Rule.Node, { context, config }: MetaData) {
+	lint(node: Rule.Node, { context, config }: MetaData): void {
 		// Check whether all criteria needed to make a transformation are met
 		const { success, autoFixable } = NativeElements._check(node, { context, config });
 		if (success && autoFixable) {

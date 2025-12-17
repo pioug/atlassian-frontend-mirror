@@ -22,7 +22,7 @@ type Check =
 	  };
 
 export const StyleProperty = {
-	lint(node: Rule.Node, { context }: { context: Rule.RuleContext }) {
+	lint(node: Rule.Node, { context }: { context: Rule.RuleContext }): void {
 		const { success, ref } = StyleProperty._check(node, { context });
 
 		if (!success) {

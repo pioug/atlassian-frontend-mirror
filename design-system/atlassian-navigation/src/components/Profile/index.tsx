@@ -72,4 +72,4 @@ export const Profile: React.ForwardRefExoticComponent<
 
 // This exists only to extract props.
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (_props: ProfileProps) => {};
+export default (_props: ProfileProps): void => {};

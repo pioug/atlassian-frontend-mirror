@@ -14,13 +14,13 @@ interface State {
 export default class SpotlightBlanketTintExample extends Component<Object, State> {
 	state: State = { active: null };
 
-	start = () => this.setState({ active: 0 });
+	start = (): void => this.setState({ active: 0 });
 
-	next = () => this.setState((state) => ({ active: (state.active || 0) + 1 }));
+	next = (): void => this.setState((state) => ({ active: (state.active || 0) + 1 }));
 
-	prev = () => this.setState((state) => ({ active: (state.active || 0) - 1 }));
+	prev = (): void => this.setState((state) => ({ active: (state.active || 0) - 1 }));
 
-	finish = () => this.setState({ active: null });
+	finish = (): void => this.setState({ active: null });
 
 	renderActiveSpotlight = (): React.JSX.Element | null => {
 		const variants = [

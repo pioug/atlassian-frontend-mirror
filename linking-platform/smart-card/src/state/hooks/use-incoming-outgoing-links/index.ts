@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react';
 
 import { request } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { queryIncomingOutgoingLinks as queryIncomingOutgoingAris } from './query';
 
@@ -37,6 +38,37 @@ const useIncomingOutgoingAri = (baseUriWithNoTrailingSlash = '') => {
 		[baseUriWithNoTrailingSlash],
 	);
 
+	const getCurrentSiteId = useCallback(async () => {
+		try {
+			const response = await request<{ cloudId: string }>('get', baseUriWithNoTrailingSlash + '/_edge/tenant_info');
+			return response?.cloudId;
+		} catch {
+			return undefined;
+		}
+	}, [baseUriWithNoTrailingSlash]);
+
+	const getSiteId = useCallback(async (resourceAri: string) => {
+		// ARI pattern that matches both formats:
+		// - New format: ari:cloud:<resource_owner>::<resource_type>/<resource_id>
+		// - Legacy format: ari:cloud:<resource_owner>:<cloud_id>:<resource_type>/<resource_id>
+		//
+		// Capture groups:
+		// 1: resource_owner - [a-z][a-z.-]+
+		// 2: cloud_id (siteId) - [a-zA-Z0-9_.-]+ (empty for new format, but since we need to return the siteId, we only use legacy one)
+		// 3: resource_type - [a-z][a-zA-Z.-]
+		// 4: resource_id
+		//
+		// See https://developer.atlassian.com/platform/atlassian-resource-identifier/spec/ari-latest/#syntax for more details
+		const ariPattern = /^ari:cloud:([a-z][a-z.-]+):([a-zA-Z0-9_.-]+):([a-z][a-zA-Z.-]+)\/(.+)$/;
+
+		const match = resourceAri.match(ariPattern);
+		if (match && match[2]) {
+			return match[2]; // Return the cloud_id (siteId)
+		}
+
+		return await getCurrentSiteId();
+	}, [getCurrentSiteId]);
+
 	const getIncomingOutgoingAris = useCallback(
 		/**
 		 * Returning aris linking to (outgoing) and from (incoming) a given ari from AGS using
@@ -47,6 +79,15 @@ const useIncomingOutgoingAri = (baseUriWithNoTrailingSlash = '') => {
 		 *
 		 */
 		async (ari: string, firstIncoming: number = 50, firstOutgoing: number = 50) => {
+			let headers: HeadersInit | undefined;
+			if (fg('platform_navx_send_context_to_ugs_for_rel_links')) {
+				const siteId = await getSiteId(ari);
+				if(!siteId) {
+					return { incomingAris: [], outgoingAris: [] };
+				}
+				headers = { 'X-Query-Context': `ari:cloud:platform::site/${siteId}` };
+			}
+
 			const response = await aggRequestCall<RelatedLinksAgsResponse>({
 				variables: {
 					id: ari,
@@ -54,7 +95,7 @@ const useIncomingOutgoingAri = (baseUriWithNoTrailingSlash = '') => {
 					firstOutgoing,
 				},
 				query: queryIncomingOutgoingAris,
-			});
+			}, headers);
 
 			const incomingAris =
 				response?.data?.graphStore?.incoming?.aris
@@ -68,7 +109,7 @@ const useIncomingOutgoingAri = (baseUriWithNoTrailingSlash = '') => {
 
 			return { incomingAris, outgoingAris };
 		},
-		[aggRequestCall],
+		[aggRequestCall, getSiteId],
 	);
 
 	return useMemo(

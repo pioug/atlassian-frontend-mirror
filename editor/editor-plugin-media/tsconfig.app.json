@@ -143,6 +143,9 @@
 			"path": "../../media/media-viewer/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/modal-dialog/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{

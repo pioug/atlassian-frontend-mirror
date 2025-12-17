@@ -10,7 +10,7 @@ import { getDimension } from '../../../components/__tests__/unit/__utils__/get-d
  * Helper function that checks if the flyout is open and valid,
  * based on the DOM state.
  */
-export const expectThatFlyoutIsOpenAndValid = (leftSidebar: HTMLElement) => {
+export const expectThatFlyoutIsOpenAndValid = (leftSidebar: HTMLElement): void => {
 	const leftSidebarInner = leftSidebar.querySelector('div');
 
 	/**

@@ -7,8 +7,8 @@ import { type ReactNode } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { type NewIconProps } from '@atlaskit/icon';
-import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
-import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
+import ErrorIcon from '@atlaskit/icon/core/status-error';
+import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { token } from '@atlaskit/tokens';
 
 import { useModal } from './hooks';

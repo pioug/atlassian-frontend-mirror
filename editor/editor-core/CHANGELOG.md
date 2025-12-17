@@ -1,5 +1,31 @@
 # @atlaskit/editor-core
 
+## 215.23.7
+
+### Patch Changes
+
+- [`53aef9589ca55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53aef9589ca55) -
+  [EDITOR-3786] Make sure that for any check of `cc_editor_ai_content_mode` &&
+  `platform_editor_content_mode_button_mvp` in the code we are also checking
+  `confluence_compact_text_format`
+- Updated dependencies
+
+## 215.23.6
+
+### Patch Changes
+
+- [`9f03725ffb7b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f03725ffb7b8) -
+  Removing feature flag with changing internal use of custom icons.
+- Updated dependencies
+
+## 215.23.5
+
+### Patch Changes
+
+- [`4cb9e393d31fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cb9e393d31fb) -
+  ENGHEALTH-40105: add missing a117 coverage
+- Updated dependencies
+
 ## 215.23.4
 
 ### Patch Changes

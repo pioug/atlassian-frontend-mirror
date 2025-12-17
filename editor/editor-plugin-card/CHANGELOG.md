@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 11.5.13
+
+### Patch Changes
+
+- [`722f272e8b78f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/722f272e8b78f) -
+  Editor-2778: Smartlink card and embed transform
+- Updated dependencies
+
 ## 11.5.12
 
 ### Patch Changes

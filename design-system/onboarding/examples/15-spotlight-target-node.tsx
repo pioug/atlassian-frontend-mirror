@@ -26,15 +26,15 @@ export default class SpotlightNodeExample extends Component<Object, State> {
 	drawer = React.createRef<HTMLElement>();
 	state = { drawerIsVisible: false, spotlightIsVisible: false };
 
-	showDrawer = () => {
+	showDrawer = (): void => {
 		this.setState({ drawerIsVisible: true });
 	};
 
-	hideDrawer = () => {
+	hideDrawer = (): void => {
 		this.setState({ drawerIsVisible: false });
 	};
 
-	toggleDrawer = () => {
+	toggleDrawer = (): void => {
 		if (this.state.drawerIsVisible) {
 			this.hideDrawer();
 		} else {
@@ -42,11 +42,11 @@ export default class SpotlightNodeExample extends Component<Object, State> {
 		}
 	};
 
-	showSpotlight = () => {
+	showSpotlight = (): void => {
 		this.setState({ spotlightIsVisible: true });
 	};
 
-	hideSpotlight = () => {
+	hideSpotlight = (): void => {
 		this.setState({ spotlightIsVisible: false });
 	};
 

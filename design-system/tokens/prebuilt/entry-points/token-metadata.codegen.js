@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::d2c7d478f4be0c1217d656e8c1c6ce83>>
+ * @codegen <<SignedSource::a85a9bd0f3daa1c66cd9447d776bd89f>>
  * @codegenCommand yarn build tokens
  */
 
@@ -2306,42 +2306,42 @@ var tokens = exports.tokens = [{
 }, {
   name: 'radius.xsmall',
   path: ['radius', 'xsmall'],
-  description: 'Used for small containers such as badges.',
+  description: 'Use for small detail elements: badges, checkboxes, avatar labels, keyboard shortcuts.',
   exampleValue: '0.125rem'
 }, {
   name: 'radius.small',
   path: ['radius', 'small'],
-  description: 'Used for labels.',
+  description: 'Use for supporting elements: labels, lozenges, timestamps, tags, dates, tooltip containers, imagery inside a table, compact buttons.',
   exampleValue: '0.25rem'
 }, {
   name: 'radius.medium',
   path: ['radius', 'medium'],
-  description: 'Used for buttons and inputs.',
+  description: 'Use for interactive elements: buttons, inputs, text areas, selects, navigation items, smart links.',
   exampleValue: '0.375rem'
 }, {
   name: 'radius.large',
   path: ['radius', 'large'],
-  description: 'Used for cards and small containers.',
+  description: 'Use for containment elements: cards, in-page containers, floating UI, dropdown menus.',
   exampleValue: '0.5rem'
 }, {
   name: 'radius.xlarge',
   path: ['radius', 'xlarge'],
-  description: 'Used for modals and large containers.',
+  description: 'Use for large page elements: full-page containers, large containers, modals, Kanban columns, tables.',
   exampleValue: '0.75rem'
 }, {
   name: 'radius.xxlarge',
   path: ['radius', 'xxlarge'],
-  description: 'Used for the largest containers.',
+  description: 'Use for video player containers.',
   exampleValue: '1rem'
 }, {
   name: 'radius.full',
   path: ['radius', 'full'],
-  description: 'Used for circular containers, like a rounded button.',
+  description: 'Use for circular elements (user/people related): avatars, names, user-related UI, emoji reactions.',
   exampleValue: '624.9375rem'
 }, {
   name: 'radius.tile',
   path: ['radius', 'tile'],
-  description: 'Used for tiles only.',
+  description: 'Use this specific radius token exclusively for the tile component system.',
   exampleValue: '25%'
 }, {
   name: 'border.width',

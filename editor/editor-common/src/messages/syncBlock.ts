@@ -189,6 +189,11 @@ export const syncBlockMessages = defineMessages({
 		description:
 			'Alt text for icon on error state where the synced block cannot be found or no longer exists',
 	},
+	notFoundDescription: {
+		id: 'fabric.editor.syncedBlockNotFoundDescription.non-final',
+		defaultMessage: 'We’re unable to display this content as its source has been deleted or archived.',
+		description: 'Description for error state where the synced block cannot be found',
+	},
 	retryButton: {
 		id: 'fabric.editor.retrySyncedBlock',
 		defaultMessage: 'Try again',

@@ -1,6 +1,6 @@
 import { darkResults, lightResults } from './check-pair-contrasts';
 
-export const downloadResultsAsCSV = (customResults?: typeof lightResults.fullResults) => {
+export const downloadResultsAsCSV = (customResults?: typeof lightResults.fullResults): void => {
 	const fullResults = [
 		...Object.values(customResults || {}),
 		...Object.values(lightResults.fullResults),

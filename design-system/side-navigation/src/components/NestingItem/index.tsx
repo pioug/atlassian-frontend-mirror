@@ -6,7 +6,7 @@ import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } fr
 
 import { cssMap, jsx } from '@compiled/react';
 
-import ArrowRightIcon from '@atlaskit/icon/core/migration/arrow-right--arrow-right-circle';
+import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
 import { type ButtonItemProps, type CustomItemComponentProps } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';

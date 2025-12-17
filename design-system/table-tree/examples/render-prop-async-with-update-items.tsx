@@ -94,11 +94,11 @@ export default class extends Component {
 		items: [],
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.loadTableData();
 	}
 
-	loadTableData = (parentItem?: any) => {
+	loadTableData = (parentItem?: any): void => {
 		if (parentItem && parentItem.childIds) {
 			return;
 		}

@@ -33,7 +33,7 @@ export const useSkipLinkInternal = ({
 	listIndex,
 	onBeforeNavigate,
 	isHidden,
-}: SkipLinkData) => {
+}: SkipLinkData): void => {
 	const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
 	useEffect(() => {
 		if (isHidden) {
@@ -69,6 +69,6 @@ export const useSkipLink = (
 	 * Positions are zero-indexed.
 	 */
 	listIndex?: number,
-) => {
+): void => {
 	useSkipLinkInternal({ id, label, listIndex });
 };

@@ -67,8 +67,9 @@ export const CaptionPlaceholder = React.forwardRef<HTMLSpanElement, CaptionPlace
 				// This id is just used for setting styles at the moment, if it's needed for anything more specific
 				// It may need to be generated to avoid overlap
 				id={
-					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-					fg('platform_editor_content_mode_button_mvp')
+					expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+					(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+						fg('platform_editor_content_mode_button_mvp'))
 						? CAPTION_PLACEHOLDER_ID
 						: undefined
 				}
@@ -109,8 +110,9 @@ export const CaptionPlaceholderButton = React.forwardRef<
 			padding="space.0"
 			xcss={placeholderButton}
 		>
-			{expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-			fg('platform_editor_content_mode_button_mvp') ? (
+			{expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+			(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+				fg('platform_editor_content_mode_button_mvp')) ? (
 				// This id is just used for setting styles at the moment, if it's needed for anything more specific
 				// It may need to be generated to avoid overlap
 				// eslint-disable-next-line @atlaskit/design-system/use-primitives-text

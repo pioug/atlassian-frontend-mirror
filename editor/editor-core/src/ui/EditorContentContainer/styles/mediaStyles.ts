@@ -491,7 +491,8 @@ export const mediaAlignmentStyles: SerializedStyles = css({
 	},
 });
 
-// When cleaning up platform_editor_content_mode_button_mvp, move this style into mediaStyles variable ⬆️
+// When both platform_editor_content_mode_button_mvp & confluence_compact_text_format are cleaned up,
+// move this style into mediaStyles variable ⬆️
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const mediaCaptionStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a57391685aea849d48e03c69bfd5b0f6>>
+ * @codegen <<SignedSource::db6aeea69ff8feff6f6db33cfebf432d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -22,7 +22,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const DiagramSymbolInputOutputIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
   name: "DiagramSymbolInputOutputIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M14.633 2c.88 0 1.517.808 1.348 1.643l-.043.167-3.085 9.25c-.187.561-.711.94-1.303.94H1.367C.43 14-.234 13.08.062 12.19l3.084-9.25.039-.103C3.399 2.333 3.895 2 4.45 2zM1.54 12.5h9.919l3-9H4.542z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M14.642 2c.88 0 1.517.808 1.349 1.643l-.044.167-3.084 9.25c-.188.561-.713.94-1.304.94H1.376c-.938 0-1.601-.92-1.304-1.81l3.083-9.25.039-.103C3.408 2.333 3.904 2 4.459 2zM1.549 12.5h9.919l3.001-9H4.55z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 DiagramSymbolInputOutputIcon.displayName = 'DiagramSymbolInputOutputIcon';

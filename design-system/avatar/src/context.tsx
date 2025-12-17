@@ -71,7 +71,7 @@ export const useAvatarContent = () => useContext(AvatarContentContext);
  */
 export const EnsureIsInsideAvatarContext = createContext<boolean>(false);
 
-export const useEnsureIsInsideAvatar = () => {
+export const useEnsureIsInsideAvatar = (): void => {
 	const context = useContext(EnsureIsInsideAvatarContext);
 	if (!context) {
 		throw new Error('Avatar sub-components must be used within a Avatar component.');

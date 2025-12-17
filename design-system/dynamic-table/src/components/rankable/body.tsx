@@ -62,7 +62,7 @@ const computeRankDestination = (
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class RankableBody extends React.Component<RankableBodyProps, {}> {
-	onBeforeDragStart = (dragStart: DragStart) => {
+	onBeforeDragStart = (dragStart: DragStart): void => {
 		const {
 			draggableId: key,
 			source: { index },
@@ -75,7 +75,7 @@ export class RankableBody extends React.Component<RankableBodyProps, {}> {
 		this.props.onRankStart(rankStartProps);
 	};
 
-	onDragEnd = (result: DropResult) => {
+	onDragEnd = (result: DropResult): void => {
 		const { pageRows, onRankEnd } = this.props;
 		const {
 			draggableId: sourceKey,

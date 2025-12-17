@@ -106,8 +106,8 @@ export const CompassProductHome = (): React.JSX.Element => (
 	/>
 );
 
-export const DefaultProductHome = JiraProductHome;
-export const DefaultAppHome = JiraAppHome;
+export const DefaultProductHome: () => React.JSX.Element = JiraProductHome;
+export const DefaultAppHome: () => React.JSX.Element = JiraAppHome;
 
 export const DefaultCustomProductHome = (): React.JSX.Element => (
 	<CustomProductHome

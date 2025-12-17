@@ -10,7 +10,7 @@ interface MetaData {
 }
 
 export const RestrictedCapitalisation = {
-	lint(node: Rule.Node, { context, config }: MetaData) {
+	lint(node: Rule.Node, { context, config }: MetaData): void {
 		if (RestrictedCapitalisation._check(node, { context, config })) {
 			context.report({
 				node,

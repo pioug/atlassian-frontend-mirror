@@ -1,5 +1,146 @@
 # @atlaskit/icon-lab
 
+## 5.13.0
+
+### Minor Changes
+
+- [`792573921f7ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/792573921f7ec) -
+  This release adds and updates icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `ai-model`
+  - `capability`
+  - `cart`
+  - `cloud`
+  - `corner-radius-rounded`
+  - `corner-radius-squared`
+  - `data-app`
+  - `diagram-arrowhead-aggregation-left`
+  - `diagram-arrowhead-aggregation-right`
+  - `diagram-arrowhead-aggregation-up-right`
+  - `diagram-arrowhead-association-left`
+  - `diagram-arrowhead-association-right`
+  - `diagram-arrowhead-association-up-right`
+  - `diagram-arrowhead-circle-left`
+  - `diagram-arrowhead-circle-right`
+  - `diagram-arrowhead-circle-up-right`
+  - `diagram-arrowhead-composition-left`
+  - `diagram-arrowhead-composition-right`
+  - `diagram-arrowhead-composition-up-right`
+  - `diagram-arrowhead-default-flow-left`
+  - `diagram-arrowhead-default-flow-right`
+  - `diagram-arrowhead-default-flow-up-right`
+  - `diagram-arrowhead-inheritance-left`
+  - `diagram-arrowhead-inheritance-right`
+  - `diagram-arrowhead-inheritance-up-right`
+  - `diagram-arrowhead-many-left`
+  - `diagram-arrowhead-many-right`
+  - `diagram-arrowhead-many-up-right`
+  - `diagram-arrowhead-one-left`
+  - `diagram-arrowhead-one-or-many-left`
+  - `diagram-arrowhead-one-or-many-right`
+  - `diagram-arrowhead-one-or-many-up-right`
+  - `diagram-arrowhead-one-right`
+  - `diagram-arrowhead-one-up-right`
+  - `diagram-arrowhead-only-one-left`
+  - `diagram-arrowhead-only-one-right`
+  - `diagram-arrowhead-only-one-up-right`
+  - `diagram-arrowhead-sequence-left`
+  - `diagram-arrowhead-sequence-right`
+  - `diagram-arrowhead-sequence-up-right`
+  - `diagram-arrowhead-zero-or-many-left`
+  - `diagram-arrowhead-zero-or-many-right`
+  - `diagram-arrowhead-zero-or-many-up-right`
+  - `diagram-arrowhead-zero-or-one-left`
+  - `diagram-arrowhead-zero-or-one-right`
+  - `diagram-arrowhead-zero-or-one-up-right`
+  - `diagram-symbol-activation`
+  - `diagram-symbol-actor`
+  - `diagram-symbol-ad-hoc`
+  - `diagram-symbol-arrow-left-filled`
+  - `diagram-symbol-arrow-left`
+  - `diagram-symbol-arrow-right-filled`
+  - `diagram-symbol-arrow-right`
+  - `diagram-symbol-assembly`
+  - `diagram-symbol-browser`
+  - `diagram-symbol-class`
+  - `diagram-symbol-cloud`
+  - `diagram-symbol-collaboration`
+  - `diagram-symbol-complex`
+  - `diagram-symbol-component-box`
+  - `diagram-symbol-component`
+  - `diagram-symbol-compute`
+  - `diagram-symbol-container`
+  - `diagram-symbol-database-source`
+  - `diagram-symbol-end`
+  - `diagram-symbol-error-filled`
+  - `diagram-symbol-error`
+  - `diagram-symbol-event-based-filled`
+  - `diagram-symbol-event-based`
+  - `diagram-symbol-exclusive-filled`
+  - `diagram-symbol-exclusive`
+  - `diagram-symbol-file`
+  - `diagram-symbol-fork-horizontal`
+  - `diagram-symbol-fork-vertical`
+  - `diagram-symbol-frame`
+  - `diagram-symbol-frontend`
+  - `diagram-symbol-history`
+  - `diagram-symbol-interface-attributes`
+  - `diagram-symbol-manual`
+  - `diagram-symbol-node`
+  - `diagram-symbol-note`
+  - `diagram-symbol-package`
+  - `diagram-symbol-parallel-even-based-filled`
+  - `diagram-symbol-parallel-even-based`
+  - `diagram-symbol-parallel-mi`
+  - `diagram-symbol-pin-left-filled`
+  - `diagram-symbol-pin-left`
+  - `diagram-symbol-pin-right-filled`
+  - `diagram-symbol-pin-right`
+  - `diagram-symbol-pool-horizontal`
+  - `diagram-symbol-pool-vertical`
+  - `diagram-symbol-provided-interface`
+  - `diagram-symbol-receive-signal`
+  - `diagram-symbol-required-interface`
+  - `diagram-symbol-send-signal`
+  - `diagram-symbol-send`
+  - `diagram-symbol-shield`
+  - `diagram-symbol-signal-filled`
+  - `diagram-symbol-signal`
+  - `diagram-symbol-start`
+  - `diagram-symbol-swimlanes-horizontal`
+  - `diagram-symbol-swimlanes-vertical`
+  - `diagram-symbol-switch`
+  - `diagram-symbol-template`
+  - `diagram-symbol-use-case`
+  - `field-select`
+  - `video-fast-forward-overlay`
+  - `video-fast-forward`
+  - `video-rewind`
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+  - `diagram-symbol-connector-off-page`
+  - `diagram-symbol-input-output`
+  - `diagram-symbol-internal-storage`
+  - `diagram-symbol-predefined-process`
+  - `editions`
+  - `folder-shared`
+  - `history`
+  - `plus-circle`
+  - `teamwork-graph`
+  - `vehicle-airplane`
+  - `video-play-circle`
+  - `video-rewind-overlay`
+  - `video-timeline-clip-split`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.12.2
 
 ### Patch Changes

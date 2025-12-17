@@ -7,7 +7,7 @@ import { type MetaData } from './common';
 const messageId = 'noWrappedTokenTypographyValues';
 
 export const WrappedTokenValue = {
-	lint(node: Rule.Node, { context, config }: MetaData) {
+	lint(node: Rule.Node, { context, config }: MetaData): void {
 		if (WrappedTokenValue._check(node, { context, config })) {
 			context.report({
 				node,

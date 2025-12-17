@@ -1,6 +1,8 @@
 import 'jest-extended';
 import { renderHook } from '@testing-library/react-hooks';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import useIncomingOutgoingAri from '../index';
 import { queryIncomingOutgoingLinks } from '../query';
 
@@ -184,6 +186,120 @@ describe('useIncomingOutgoingLinks', () => {
 				const { incomingAris, outgoingAris } = await getIncomingOutgoingAris('test-ari', 50, 50);
 				expect(incomingAris).toEqual(expectedIncomingAris);
 				expect(outgoingAris).toEqual(expectedOutgoingAris);
+			},
+		);
+	});
+
+	describe('X-Query-Context header', () => {
+		const EXPECTED_SITE_ID = 'a436116f-02ce-4520-8fbb-7301462a1674';
+		const JIRA_ARI = `ari:cloud:jira:${EXPECTED_SITE_ID}:issue/10532973`;
+		const CONFLUENCE_ARI = `ari:cloud:confluence:${EXPECTED_SITE_ID}:page/6214783529`;
+		const CLOUD_ARI_WITHOUT_SITE_ID =
+			'ari:cloud:graph::customer-org-category/activation/5fd9b3db-3a95-4c43-b119-79d12ab4182e/bc2c8785-dddb-4406-8c2c-060f11e5fbcc';
+		const THIRD_PARTY_ARI =
+			'ari:third-party:google.google-drive::document/spreadsheetId/1XR-jbjSqdOY_cP2wqKTe4gljZnwLoXAUWCafOSRkQcg';
+		const FALLBACK_CLOUD_ID = 'fallback-cloud-id-123';
+
+		ffTest.off(
+			'platform_navx_send_context_to_ugs_for_rel_links',
+			'when feature flag is disabled',
+			() => {
+				it('should not send X-Query-Context header and not call tenant_info', async () => {
+					const { getIncomingOutgoingAris } = setup();
+					fetchMock.mockOnce('{}');
+					await getIncomingOutgoingAris(JIRA_ARI);
+
+					// Verify only one call was made (graphql, not tenant_info)
+					expect(fetchMock).toHaveBeenCalledTimes(1);
+					expect(fetchMock).toHaveBeenCalledWith(
+						'/gateway/api/graphql',
+						expect.objectContaining({
+							headers: expect.not.objectContaining({
+								'X-Query-Context': expect.any(String),
+							}),
+						}),
+					);
+				});
+			},
+		);
+
+		ffTest.on(
+			'platform_navx_send_context_to_ugs_for_rel_links',
+			'when feature flag is enabled',
+			() => {
+				it.each([
+					['Jira', JIRA_ARI],
+					['Confluence', CONFLUENCE_ARI],
+				])(
+					'should send X-Query-Context header with siteId extracted from %s ARI',
+					async (_, ari) => {
+						const { getIncomingOutgoingAris } = setup();
+						fetchMock.mockOnce('{}');
+						await getIncomingOutgoingAris(ari);
+
+						expect(fetchMock).toHaveBeenCalledTimes(1);
+						expect(fetchMock).toHaveBeenCalledWith(
+							'/gateway/api/graphql',
+							expect.objectContaining({
+								headers: expect.objectContaining({
+									'X-Query-Context': `ari:cloud:platform::site/${EXPECTED_SITE_ID}`,
+								}),
+							}),
+						);
+					},
+				);
+
+				describe.each([
+					['third-party ARI', THIRD_PARTY_ARI],
+					['cloud ARI without siteId', CLOUD_ARI_WITHOUT_SITE_ID],
+				])('with %s', (_, ari) => {
+
+					it(`should call /_edge/tenant_info`, async () => {
+						const { getIncomingOutgoingAris } = setup();
+
+						// First call is to /_edge/tenant_info to get the fallback cloudId
+						fetchMock.mockOnceIf(
+							'/_edge/tenant_info',
+							JSON.stringify({ cloudId: FALLBACK_CLOUD_ID }),
+						);
+						// Second call is to /gateway/api/graphql
+						fetchMock.mockOnce('{}');
+
+						await getIncomingOutgoingAris(ari);
+
+						expect(fetchMock).toHaveBeenCalledTimes(2);
+						expect(fetchMock).toHaveBeenNthCalledWith(
+							1,
+							'/_edge/tenant_info',
+							expect.any(Object),
+						);
+						expect(fetchMock).toHaveBeenNthCalledWith(
+							2,
+							'/gateway/api/graphql',
+							expect.objectContaining({
+								headers: expect.objectContaining({
+									'X-Query-Context': `ari:cloud:platform::site/${FALLBACK_CLOUD_ID}`,
+								}),
+							}),
+						);
+					});
+
+					it(`should return empty arrays when tenant_info fails`, async () => {
+						const { getIncomingOutgoingAris } = setup();
+
+						// Call to /_edge/tenant_info fails
+						fetchMock.mockRejectOnce(new Error('Failed to fetch tenant info'));
+
+						const result = await getIncomingOutgoingAris(ari);
+
+						// Verify it returns empty arrays without making the graphql call
+						expect(result).toEqual({ incomingAris: [], outgoingAris: [] });
+
+						// Verify only the tenant_info endpoint was called (no graphql call)
+						expect(fetchMock).toHaveBeenCalledTimes(1);
+						expect(fetchMock).toHaveBeenCalledWith('/_edge/tenant_info', expect.any(Object));
+					});
+				});
 			},
 		);
 	});

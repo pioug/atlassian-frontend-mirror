@@ -8,7 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import AiAgentIcon from '@atlaskit/icon/core/ai-agent';
 import PersonIcon from '@atlaskit/icon/core/migration/person';
-import ReleaseIcon from '@atlaskit/icon/core/migration/release--ship';
+import ReleaseIcon from '@atlaskit/icon/core/release';
 import { token } from '@atlaskit/tokens';
 
 import { type AppearanceType, type SizeType } from '../types';

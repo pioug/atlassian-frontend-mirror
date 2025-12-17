@@ -6,9 +6,7 @@ import { type CSSProperties, memo } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
-import AKIcon from '@atlaskit/icon';
 import type { IconProps } from '@atlaskit/icon/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 /**
@@ -140,65 +138,61 @@ const secondaryTransparentHcmStyles = css({
  * Duplicated implementation of the Icon component from @atlaskit/icon.
  */
 export const Icon = memo(function Icon(props: IconProps) {
-	if (fg('platform-custom-icon-migration')) {
-		const {
-			glyph: Glyph,
-			dangerouslySetGlyph,
-			primaryColor = 'currentColor',
-			secondaryColor,
-			size,
-			testId,
-			label,
-			width,
-			height,
-			UNSAFE_margin,
-		} = props as InternalIconProps;
+	const {
+		glyph: Glyph,
+		dangerouslySetGlyph,
+		primaryColor = 'currentColor',
+		secondaryColor,
+		size,
+		testId,
+		label,
+		width,
+		height,
+		UNSAFE_margin,
+	} = props as InternalIconProps;
 
-		const glyphProps = dangerouslySetGlyph
-			? {
-					dangerouslySetInnerHTML: {
-						__html: dangerouslySetGlyph,
-					},
-				}
-			: { children: Glyph ? <Glyph role="presentation" /> : null };
-		const customDimensions =
-			width && height ? { width: width + 'px', height: height + 'px' } : null;
+	const glyphProps = dangerouslySetGlyph
+		? {
+			dangerouslySetInnerHTML: {
+				__html: dangerouslySetGlyph,
+			},
+		}
+		: { children: Glyph ? <Glyph role="presentation" /> : null };
+	const customDimensions =
+		width && height ? { width: width + 'px', height: height + 'px' } : null;
 
-		return (
-			<span
-				data-testid={testId}
-				data-vc={`icon-${testId}`}
-				role={label ? 'img' : undefined}
-				aria-label={label ? label : undefined}
-				aria-hidden={label ? undefined : true}
-				style={
-					{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-						...customDimensions,
+	return (
+		<span
+			data-testid={testId}
+			data-vc={`icon-${testId}`}
+			role={label ? 'img' : undefined}
+			aria-label={label ? label : undefined}
+			aria-hidden={label ? undefined : true}
+			style={
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					...customDimensions,
 
-						'--icon-primary-color': primaryColor,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						'--icon-secondary-color': secondaryColor,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						margin: UNSAFE_margin,
-					} as CSSProperties
-				}
-				{...glyphProps}
-				css={[
-					iconStyles,
-					baseHcmStyles,
-					primaryColor === secondaryColor && primaryEqualsSecondaryHcmStyles,
-					secondaryColor === 'transparent' && secondaryTransparentHcmStyles,
-					// NB: This can be resolved if this component, composes base SVG / and/or skeleton
-					// We could then simplify how common styles are dealt with simply by encapsulating them
-					// at their appropriate level and/or having a singular approach to css variables in the package
-					size && sizeStyles[size],
-				]}
-			/>
-		);
-	}
-
-	return <AKIcon {...props} />;
+					'--icon-primary-color': primaryColor,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					'--icon-secondary-color': secondaryColor,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					margin: UNSAFE_margin,
+				} as CSSProperties
+			}
+			{...glyphProps}
+			css={[
+				iconStyles,
+				baseHcmStyles,
+				primaryColor === secondaryColor && primaryEqualsSecondaryHcmStyles,
+				secondaryColor === 'transparent' && secondaryTransparentHcmStyles,
+				// NB: This can be resolved if this component, composes base SVG / and/or skeleton
+				// We could then simplify how common styles are dealt with simply by encapsulating them
+				// at their appropriate level and/or having a singular approach to css variables in the package
+				size && sizeStyles[size],
+			]}
+		/>
+	);
 });
 
 export default Icon;

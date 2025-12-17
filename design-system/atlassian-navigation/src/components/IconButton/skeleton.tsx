@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
@@ -25,7 +27,7 @@ export const IconButtonSkeleton = ({
 	marginLeft,
 	marginRight,
 	size,
-}: IconButtonSkeletonProps) => {
+}: IconButtonSkeletonProps): React.JSX.Element => {
 	const theme = useTheme();
 
 	const dynamicStyles = {

@@ -1,10 +1,10 @@
 import React, { type ComponentType } from 'react';
 
-import DiscoveryIcon from '@atlaskit/icon/core/migration/discovery--editor-note';
-import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
-import InfoIcon from '@atlaskit/icon/core/migration/status-information--info';
-import SuccessIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
-import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
+import StatusDiscoveryIcon from '@atlaskit/icon/core/status-discovery';
+import ErrorIcon from '@atlaskit/icon/core/status-error';
+import InfoIcon from '@atlaskit/icon/core/status-information';
+import SuccessIcon from '@atlaskit/icon/core/status-success';
+import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { B50, B500, G50, G500, P50, P500, R50, R500, Y50, Y500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -42,7 +42,7 @@ const appearanceIconSchema: {
 	},
 	discovery: {
 		backgroundColor: token('color.background.discovery', P50),
-		Icon: DiscoveryIcon,
+		Icon: StatusDiscoveryIcon,
 		primaryIconColor: token('color.icon.discovery', P500),
 	},
 };

@@ -15,21 +15,21 @@ export default class DrawersExample extends Component<{}, State> {
 		isDrawerOpen: false,
 	};
 
-	openDrawer = () =>
+	openDrawer = (): void =>
 		this.setState({
 			isDrawerOpen: true,
 		});
 
-	onClose = (...args: [SyntheticEvent<HTMLElement>, any]) => {
+	onClose = (...args: [SyntheticEvent<HTMLElement>, any]): void => {
 		console.log('onClose', args);
 		this.setState({
 			isDrawerOpen: false,
 		});
 	};
 
-	onCloseComplete = (args: any) => console.log('onCloseComplete', args);
+	onCloseComplete = (args: any): void => console.log('onCloseComplete', args);
 
-	onOpenComplete = (args: any) => console.log('onOpenComplete', args);
+	onOpenComplete = (args: any): void => console.log('onOpenComplete', args);
 
 	render(): React.JSX.Element {
 		return (

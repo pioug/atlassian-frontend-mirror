@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 7.1.1
+
+### Patch Changes
+
+- [`5302333ef3404`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5302333ef3404) -
+  Clean up feature gate platform_editor_remove_unused_block_insert_props
+- Updated dependencies
+
 ## 7.1.0
 
 ### Minor Changes

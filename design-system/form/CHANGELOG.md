@@ -1,5 +1,23 @@
 # @atlaskit/form
 
+## 15.1.1
+
+### Patch Changes
+
+- [`d14ea5f60b689`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d14ea5f60b689) -
+  chore: migrate platform UI & component libraries icon imports from migration paths to core
+
+## 15.1.0
+
+### Minor Changes
+
+- [`8b640226a78b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b640226a78b9) -
+  [ux] Improved focusing behavior on submit for fields with errors
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.0.1
 
 ### Patch Changes

@@ -17,7 +17,7 @@ export function useSideNavToggleKeyboardShortcut({
 	canToggleWithShortcut,
 }: {
 	canToggleWithShortcut?: () => boolean;
-}) {
+}): void {
 	const isFhsEnabled = useIsFhsEnabled();
 	const openLayerObserver = useOpenLayerObserver();
 	const toggleVisibilityByShortcut = useToggleSideNav({ trigger: 'keyboard' });

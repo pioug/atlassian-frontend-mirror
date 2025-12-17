@@ -9,7 +9,7 @@
           "2px"
         ],
         "introduced": "6.1.0",
-        "description": "Used for small containers such as badges."
+        "description": "Use for small detail elements: badges, checkboxes, avatar labels, keyboard shortcuts."
       },
       "value": 2
     },
@@ -21,7 +21,7 @@
           "4px"
         ],
         "introduced": "6.1.0",
-        "description": "Used for labels."
+        "description": "Use for supporting elements: labels, lozenges, timestamps, tags, dates, tooltip containers, imagery inside a table, compact buttons."
       },
       "value": 4
     },
@@ -33,7 +33,7 @@
           "6px"
         ],
         "introduced": "6.1.0",
-        "description": "Used for buttons and inputs."
+        "description": "Use for interactive elements: buttons, inputs, text areas, selects, navigation items, smart links."
       },
       "value": 6
     },
@@ -45,7 +45,7 @@
           "8px"
         ],
         "introduced": "6.1.0",
-        "description": "Used for cards and small containers."
+        "description": "Use for containment elements: cards, in-page containers, floating UI, dropdown menus."
       },
       "value": 8
     },
@@ -57,7 +57,7 @@
           "12px"
         ],
         "introduced": "6.1.0",
-        "description": "Used for modals and large containers."
+        "description": "Use for large page elements: full-page containers, large containers, modals, Kanban columns, tables."
       },
       "value": 12
     },
@@ -69,7 +69,7 @@
           "12px"
         ],
         "introduced": "8.1.0",
-        "description": "Used for the largest containers."
+        "description": "Use for video player containers."
       },
       "value": 16
     },
@@ -81,7 +81,7 @@
           "50%"
         ],
         "introduced": "6.1.0",
-        "description": "Used for circular containers, like a rounded button."
+        "description": "Use for circular elements (user/people related): avatars, names, user-related UI, emoji reactions."
       },
       "value": 9999
     },
@@ -90,7 +90,7 @@
         "group": "shape",
         "state": "active",
         "introduced": "6.2.0",
-        "description": "Used for tiles only."
+        "description": "Use this specific radius token exclusively for the tile component system."
       },
       "value": "25%"
     },

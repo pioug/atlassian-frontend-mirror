@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::965c2a41854782b5ae4f1669ee584dd3>>
+ * @codegen <<SignedSource::d2a39b1d157be340e104617a17e26a18>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -53,6 +53,7 @@ export type TeamCreateDialogClickedTeamLinkSuccessFlagAttributesType = {
 export type TeamCreateDialogSucceededAttributesType = {
 	teamId: string;
 	numberOfMembers: number;
+	numberOfSuggestedMembers: number;
 	defaultTeamType: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL' | 'ORG_ADMIN_MANAGED' | null;
 	chosenTeamType: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL' | 'ORG_ADMIN_MANAGED';
 	teamTypeChoiceEnabled: boolean | null;
@@ -77,6 +78,13 @@ export type AddToTeamServiceFailedAttributesType = {
 	integration: string;
 	message: string | null;
 	errorsCount: number | null;
+	errors: unknown[] | null;
+};
+export type TeamSuggestionsRecommendedUsersSucceededAttributesType = {
+	recommendedUsers: number;
+};
+export type TeamSuggestionsRecommendedUsersFailedAttributesType = {
+	recommendedUsers: number;
 	errors: unknown[] | null;
 };
 export type InvitedTeamMembersAddedAttributesType = {
@@ -1496,6 +1504,12 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the add to team service failed */
 	'track.addToTeamService.failed': AddToTeamServiceFailedAttributesType;
+	/**
+	 * fired when the team suggestions recommended users API call succeeded */
+	'operational.teamSuggestionsRecommendedUsers.succeeded': TeamSuggestionsRecommendedUsersSucceededAttributesType;
+	/**
+	 * fired when the team suggestions recommended users API call failed */
+	'operational.teamSuggestionsRecommendedUsers.failed': TeamSuggestionsRecommendedUsersFailedAttributesType;
 	/**
 	 * fired when the invited team members are added */
 	'track.invitedTeamMembers.added': InvitedTeamMembersAddedAttributesType;

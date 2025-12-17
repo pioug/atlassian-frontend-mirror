@@ -58,6 +58,7 @@ test.describe('table height information analytics', () => {
 					}),
 				}),
 			);
+			await expect(page).toBeAccessible();
 		});
 	});
 
@@ -96,6 +97,7 @@ test.describe('table height information analytics', () => {
 					}),
 				}),
 			);
+			await expect(page).toBeAccessible();
 		});
 	});
 });

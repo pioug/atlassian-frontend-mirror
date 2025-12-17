@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type IconButtonProps } from '@atlaskit/button/new';
-import WorldIcon from '@atlaskit/icon/core/migration/globe--world';
+import WorldIcon from '@atlaskit/icon/core/globe';
 import Select from '@atlaskit/select';
 import { type OptionData } from '@atlaskit/smart-user-picker';
 import { ufologger } from '@atlaskit/ufo';

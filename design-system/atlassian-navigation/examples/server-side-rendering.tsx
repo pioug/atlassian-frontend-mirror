@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -12,7 +13,7 @@ import { Stack } from '@atlaskit/primitives';
 
 import AuthenticatedExample from './10-authenticated-example';
 
-export default function Component() {
+export default function Component(): React.JSX.Element {
 	return (
 		<Stack space="space.300">
 			<Stack space="space.100">

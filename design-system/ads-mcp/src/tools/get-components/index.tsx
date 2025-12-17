@@ -18,7 +18,14 @@ export const listGetComponentsTool: Tool = {
 	inputSchema: zodToJsonSchema(z.object({})),
 };
 
-export const getComponentsTool = async () => ({
+export const getComponentsTool = async (): Promise<{
+    content: {
+        // NOTE: Ideally one day the MCP would support structured content…
+        // eg. `type: 'object', data: component`
+        type: string;
+        text: string;
+    }[];
+}> => ({
 	content: components.map((component) => ({
 		// NOTE: Ideally one day the MCP would support structured content…
 		// eg. `type: 'object', data: component`

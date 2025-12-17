@@ -28,7 +28,7 @@ export default class ThemeMutationObserver {
 		ThemeMutationObserver.callbacks.add(callback);
 	}
 
-	observe() {
+	observe(): void {
 		if (!ThemeMutationObserver.observer) {
 			ThemeMutationObserver.observer = new MutationObserver(() => {
 				const theme = getGlobalTheme();
@@ -41,7 +41,7 @@ export default class ThemeMutationObserver {
 		}
 	}
 
-	disconnect() {
+	disconnect(): void {
 		if (this.callback) {
 			ThemeMutationObserver.callbacks.delete(this.callback);
 		}

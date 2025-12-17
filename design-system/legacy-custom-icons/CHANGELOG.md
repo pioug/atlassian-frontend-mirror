@@ -1,5 +1,12 @@
 # @atlaskit/legacy-custom-icons
 
+## 0.22.18
+
+### Patch Changes
+
+- [`3503d88dece46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3503d88dece46) -
+  Removing feature flag with changing internal use of custom icons.
+
 ## 0.22.17
 
 ### Patch Changes

@@ -13,7 +13,7 @@ interface MetaData {
 }
 
 export const StyledComponent = {
-	lint(node: Rule.Node, { context }: MetaData) {
+	lint(node: Rule.Node, { context }: MetaData): void {
 		if (
 			!isNodeOfType(node, 'CallExpression') ||
 			!isNodeOfType(node.callee, 'MemberExpression') ||

@@ -8,7 +8,7 @@ import { format, isValid, parseISO } from 'date-fns';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
-import SelectClearIcon from '@atlaskit/icon/core/migration/cross-circle--select-clear';
+import SelectClearIcon from '@atlaskit/icon/core/cross-circle';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { mergeStyles, type StylesConfig } from '@atlaskit/select';

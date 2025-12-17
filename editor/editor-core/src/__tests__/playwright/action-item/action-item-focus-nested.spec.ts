@@ -18,6 +18,7 @@ test.describe(`when pressing arrow key to focus checkbox at the simple action li
 
 	test('should check first input inside nested action list when press combine ArrowLeft,ArrowRight and pressing Space', async ({
 		editor,
+		page,
 	}) => {
 		const nodes = EditorNodeContainerModel.from(editor);
 		const actionList = EditorActionListModel.from(nodes.actionList);
@@ -44,10 +45,12 @@ test.describe(`when pressing arrow key to focus checkbox at the simple action li
 				),
 			),
 		);
+		await expect(page).toBeAccessible();
 	});
 
 	test('should check first input inside nested action list, and check second input inside nested action list, when press combine ArrowLeft,ArrowRight and pressing Space', async ({
 		editor,
+		page,
 	}) => {
 		const nodes = EditorNodeContainerModel.from(editor);
 		const actionList = EditorActionListModel.from(nodes.actionList);
@@ -78,10 +81,12 @@ test.describe(`when pressing arrow key to focus checkbox at the simple action li
 				),
 			),
 		);
+		await expect(page).toBeAccessible();
 	});
 
 	test('should check first input inside nested action list, check second input inside nested action list, uncheck last input inside nested action list, when press combine ArrowLeft,ArrowRight,ArrowDown and pressing Space', async ({
 		editor,
+		page,
 	}) => {
 		const nodes = EditorNodeContainerModel.from(editor);
 		const actionList = EditorActionListModel.from(nodes.actionList);
@@ -118,10 +123,12 @@ test.describe(`when pressing arrow key to focus checkbox at the simple action li
 				),
 			),
 		);
+		await expect(page).toBeAccessible();
 	});
 
 	test('should check first input inside nested action list, check second input inside nested action list, uncheck second input inside nested action list, and should goes from nested action list and check last item out of nested list, when press combine ArrowLeft,ArrowRight,ArrowDown and pressing Space', async ({
 		editor,
+		page,
 	}) => {
 		const nodes = EditorNodeContainerModel.from(editor);
 		const actionList = EditorActionListModel.from(nodes.actionList);
@@ -166,5 +173,6 @@ test.describe(`when pressing arrow key to focus checkbox at the simple action li
 				),
 			),
 		);
+		await expect(page).toBeAccessible();
 	});
 });

@@ -20,6 +20,6 @@ const cases: Case[] = [
 	},
 ];
 
-export default function forEachType(fn: (value: Case) => void) {
+export default function forEachType(fn: (value: Case) => void): void {
 	cases.forEach((value: Case) => fn(value));
 }

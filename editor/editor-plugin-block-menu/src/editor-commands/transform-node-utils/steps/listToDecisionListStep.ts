@@ -1,7 +1,7 @@
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
+import { isListWithIndentation } from '../nodeChecks';
 import type { TransformStep } from '../types';
-import { isListType } from '../utils';
 
 /**
  * Transforms a bulletList, orderedList, or taskList into a decisionList.
@@ -32,7 +32,7 @@ export const listToDecisionListStep: TransformStep = (nodes, context) => {
 	const unsupportedContent: PMNode[] = [];
 
 	const transformedNodes = nodes.map((node) => {
-		if (!isListType(node, schema)) {
+		if (!isListWithIndentation(node.type.name, schema)) {
 			return node;
 		}
 
@@ -46,7 +46,7 @@ export const listToDecisionListStep: TransformStep = (nodes, context) => {
 					itemContent.push(...child.children);
 				} else if (child.isText) {
 					itemContent.push(child);
-				} else if (!isListType(child, schema)) {
+				} else if (!isListWithIndentation(child.type.name, schema)) {
 					unsupportedContent.push(child);
 				}
 			});

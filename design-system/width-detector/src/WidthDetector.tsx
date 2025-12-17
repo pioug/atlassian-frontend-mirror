@@ -70,7 +70,7 @@ export default class WidthDetector extends React.Component<WidthDetectorProps, S
 		containerStyle: {},
 	};
 
-	handleResize = rafSchedule(() => {
+	handleResize = rafSchedule((): void => {
 		const { container } = this;
 		if (!container) {
 			return;
@@ -87,7 +87,7 @@ export default class WidthDetector extends React.Component<WidthDetectorProps, S
 		}
 	});
 
-	componentDidMount() {
+	componentDidMount(): void {
 		if (this.resizeObject) {
 			this.resizeObject.data = 'about:blank';
 		}
@@ -96,7 +96,7 @@ export default class WidthDetector extends React.Component<WidthDetectorProps, S
 		this.handleResize();
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.handleResize.cancel();
 
 		if (this.resizeObjectDocument) {
@@ -105,21 +105,21 @@ export default class WidthDetector extends React.Component<WidthDetectorProps, S
 		}
 	}
 
-	handleContainerRef = (ref: HTMLDivElement) => {
+	handleContainerRef = (ref: HTMLDivElement): void => {
 		if (!ref) {
 			return;
 		}
 		this.container = ref;
 	};
 
-	handleObjectRef = (ref: ResizeObject) => {
+	handleObjectRef = (ref: ResizeObject): void => {
 		if (!ref) {
 			return;
 		}
 		this.resizeObject = ref;
 	};
 
-	handleObjectLoad = () => {
+	handleObjectLoad = (): void => {
 		if (!this.resizeObject) {
 			return;
 		}

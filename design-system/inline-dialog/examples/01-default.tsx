@@ -18,7 +18,7 @@ export default class InlineDialogDefaultExample extends Component<{}, State> {
 		dialogOpen: true,
 	};
 
-	toggleDialog = () => this.setState({ dialogOpen: !this.state.dialogOpen });
+	toggleDialog = (): void => this.setState({ dialogOpen: !this.state.dialogOpen });
 
 	render(): React.JSX.Element {
 		return (

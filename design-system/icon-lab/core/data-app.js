@@ -1,0 +1,29 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::1ff2c57fd3521b5f80d4c1afe7656b7b>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireDefault(require("react"));
+var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+/**
+ * Icon: "DataApp".
+ * Category: single-purpose
+ * Location: @atlaskit/icon-lab
+ * Usage guidance: Reserved for representing data products and apps.
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
+ */
+const DataAppIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "DataAppIcon",
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M13.5 4c0-.007-.002-.113-.227-.305-.223-.19-.59-.394-1.108-.58C11.135 2.742 9.662 2.5 8 2.5s-3.135.244-4.165.614c-.518.187-.885.392-1.107.581-.226.192-.228.298-.228.305s.002.113.228.305c.222.19.589.394 1.107.58C4.865 5.258 6.338 5.5 8 5.5s3.135-.244 4.165-.614c.518-.187.885-.392 1.108-.581.225-.192.227-.298.227-.305M15 7.5h-1.5V5.938a7 7 0 0 1-.826.359C11.442 6.74 9.789 7 8 7s-3.442-.26-4.674-.703a7 7 0 0 1-.826-.36V8c0 .007.002.113.228.305.222.19.589.394 1.107.58C4.865 9.258 6.338 9.5 8 9.5V11c-1.79 0-3.442-.26-4.674-.703a7 7 0 0 1-.826-.36v1.313c0 .428.352.985 1.4 1.477 1.006.473 2.453.773 4.1.773V15c-1.805 0-3.483-.325-4.738-.915C2.047 13.515 1 12.572 1 11.25V4c0-.615.348-1.101.755-1.447.41-.349.959-.63 1.571-.85C4.558 1.26 6.211 1 8 1s3.442.26 4.674.703c.613.22 1.161.501 1.571.85.407.346.755.832.755 1.447z"/><path fill="currentcolor" fill-rule="evenodd" d="M12.445 8.815a.75.75 0 0 1 .703.05l2.5 1.568a.75.75 0 0 1 .352.636v2.613a.75.75 0 0 1-.352.636l-2.5 1.568a.75.75 0 0 1-.796 0l-2.5-1.568a.75.75 0 0 1-.352-.636v-2.613l.006-.096a.75.75 0 0 1 .346-.54l2.5-1.569zM11 11.483v1.784l1.75 1.097 1.75-1.097v-1.784l-1.75-1.098z" clip-rule="evenodd"/>`
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+}, props));
+DataAppIcon.displayName = 'DataAppIcon';
+var _default = exports.default = DataAppIcon;

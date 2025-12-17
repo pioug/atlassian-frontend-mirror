@@ -28,7 +28,7 @@ class ColorModeObserver {
 		return darkModeMql?.matches ? 'dark' : 'light';
 	}
 
-	bind() {
+	bind(): void {
 		if (darkModeMql && this.unbindThemeChangeListener === null) {
 			this.unbindThemeChangeListener = bind(darkModeMql, {
 				type: 'change',
@@ -37,7 +37,7 @@ class ColorModeObserver {
 		}
 	}
 
-	unbind() {
+	unbind(): void {
 		if (this.unbindThemeChangeListener) {
 			this.unbindThemeChangeListener();
 			this.unbindThemeChangeListener = null;

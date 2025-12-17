@@ -37,7 +37,7 @@ export default function configurePage(themeState: ThemeState) {
 		document.documentElement.setAttribute(key, value);
 	});
 
-	return () => {
+	return (): void => {
 		ColorModeObserver.unbind();
 		if (fg('platform_increased-contrast-themes')) {
 			ContrastModeObserver.unbind();

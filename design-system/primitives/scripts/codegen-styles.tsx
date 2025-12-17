@@ -212,9 +212,9 @@ const forgeSourceFn = () =>
 	);
 
 // Write all generated files
-primitivesSourceFns.forEach((sourceFn, index) => {
-	const outputPath = primitivesOutputs[Math.floor(index / 9)]; // 9 configs per output
-	writeFileSync(outputPath, sourceFn());
+primitivesSourceFns.forEach((sourceFn) => {
+	writeFileSync(primitivesOutputs[0], sourceFn());
+	writeFileSync(primitivesOutputs[1], sourceFn());
 });
 
 writeFileSync(forgeOutputPath, forgeSourceFn());

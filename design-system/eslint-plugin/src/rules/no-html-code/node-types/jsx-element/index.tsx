@@ -15,7 +15,7 @@ function isImportDeclaration(node: any): node is ImportDeclaration {
 }
 
 export const JSXElement = {
-	lint(node: Rule.Node, { context }: MetaData) {
+	lint(node: Rule.Node, { context }: MetaData): void {
 		if (!isSupportedForLint(node)) {
 			return;
 		}

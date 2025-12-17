@@ -1,5 +1,97 @@
 // Comprehensive accessibility guidelines based on llms-a11y.txt
-export const accessibilityGuidelines = {
+export const accessibilityGuidelines: {
+    buttons: {
+        title: string;
+        description: string;
+        guidelines: string[];
+        codeExamples: {
+            title: string;
+            code: string;
+        }[];
+        bestPractices: string[];
+    }; forms: {
+        title: string;
+        description: string;
+        guidelines: string[];
+        codeExamples: {
+            title: string;
+            code: string;
+        }[];
+        bestPractices: string[];
+    }; images: {
+        title: string;
+        description: string;
+        guidelines: string[];
+        codeExamples: {
+            title: string;
+            code: string;
+        }[];
+        bestPractices: string[];
+    }; colors: {
+        title: string;
+        description: string;
+        guidelines: string[];
+        codeExamples: {
+            title: string;
+            code: string;
+        }[];
+        bestPractices: string[];
+    }; focus: {
+        title: string;
+        description: string;
+        guidelines: string[];
+        codeExamples: {
+            title: string;
+            code: string;
+        }[];
+        bestPractices: string[];
+    }; keyboard: {
+        title: string;
+        description: string;
+        guidelines: string[];
+        codeExamples: {
+            title: string;
+            code: string;
+        }[];
+        bestPractices: string[];
+    }; screenReaders: {
+        title: string;
+        description: string;
+        guidelines: string[];
+        codeExamples: {
+            title: string;
+            code: string;
+        }[];
+        bestPractices: string[];
+    }; aria: {
+        title: string;
+        description: string;
+        guidelines: string[];
+        codeExamples: {
+            title: string;
+            code: string;
+        }[];
+        bestPractices: string[];
+    }; wcag: {
+        title: string;
+        description: string;
+        guidelines: string[];
+        codeExamples: {
+            title: string;
+            code: string;
+        }[];
+        bestPractices: string[];
+    }; general: {
+        title: string;
+        description: string;
+        guidelines: string[];
+        codeExamples: {
+            title: string;
+            code: string;
+        }[];
+        bestPractices: string[];
+    };
+} = {
 	buttons: {
 		title: 'Button and Interactive Element Accessibility',
 		description: 'Guidelines for making buttons and interactive elements accessible',

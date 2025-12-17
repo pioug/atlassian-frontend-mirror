@@ -7,8 +7,8 @@ import { type CSSProperties, type ReactNode } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
+import CrossIcon from '@atlaskit/icon/core/cross-circle';
 import DownIcon from '@atlaskit/icon/core/migration/chevron-down';
-import CrossIcon from '@atlaskit/icon/core/migration/cross-circle--select-clear';
 import { Inline, Pressable } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -27,19 +27,19 @@ const iconContainerStyles = cssMap({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		paddingTop: token('space.025'),
-		paddingRight: token('space.025'),
-		paddingBottom: token('space.025'),
-		paddingLeft: token('space.025'),
+		paddingBlockStart: token('space.025'),
+		paddingInlineEnd: token('space.025'),
+		paddingBlockEnd: token('space.025'),
+		paddingInlineStart: token('space.025'),
 	},
 });
 
 const dropdownWrapperStyles = cssMap({
 	root: {
-		paddingTop: token('space.075'),
-		paddingRight: token('space.075'),
-		paddingBottom: token('space.075'),
-		paddingLeft: token('space.075'),
+		paddingBlockStart: token('space.075'),
+		paddingInlineEnd: token('space.075'),
+		paddingBlockEnd: token('space.075'),
+		paddingInlineStart: token('space.075'),
 	},
 });
 
@@ -76,17 +76,17 @@ const dropdownStyles = cssMap({
 		display: 'flex',
 		transition: 'color 150ms',
 		color: token('color.text.subtle'),
-		paddingTop: token('space.075'),
-		paddingRight: token('space.025'),
-		paddingBottom: token('space.075'),
-		paddingLeft: token('space.025'),
+		paddingBlockStart: token('space.075'),
+		paddingInlineEnd: token('space.025'),
+		paddingBlockEnd: token('space.075'),
+		paddingInlineStart: token('space.025'),
 		'&:hover': {
 			color: token('color.text.subtle'),
 		},
 	},
 	compact: {
-		paddingTop: 0,
-		paddingBottom: 0,
+		paddingBlockStart: 0,
+		paddingBlockEnd: 0,
 	},
 	disabled: {
 		color: token('color.text.disabled'),
@@ -167,17 +167,17 @@ const clearIndicatorStyles = cssMap({
 		display: 'flex',
 		transition: 'color 150ms',
 		color: token('color.text.subtlest'),
-		paddingTop: token('space.075'),
-		paddingRight: token('space.025'),
-		paddingBottom: token('space.075'),
-		paddingLeft: token('space.025'),
+		paddingBlockStart: token('space.075'),
+		paddingInlineEnd: token('space.025'),
+		paddingBlockEnd: token('space.075'),
+		paddingInlineStart: token('space.025'),
 		'&:hover': {
 			color: token('color.text.subtle'),
 		},
 	},
 	compact: {
-		paddingTop: 0,
-		paddingBottom: 0,
+		paddingBlockStart: 0,
+		paddingBlockEnd: 0,
 	},
 });
 
@@ -221,14 +221,14 @@ export const loadingIndicatorCSS = () => ({});
 
 const loadingIndicatorStyles = cssMap({
 	default: {
-		paddingTop: token('space.075'),
-		paddingRight: token('space.100'),
-		paddingBottom: token('space.075'),
-		paddingLeft: token('space.100'),
+		paddingBlockStart: token('space.075'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.075'),
+		paddingInlineStart: token('space.100'),
 	},
 	compact: {
-		paddingTop: 0,
-		paddingBottom: 0,
+		paddingBlockStart: 0,
+		paddingBlockEnd: 0,
 	},
 });
 

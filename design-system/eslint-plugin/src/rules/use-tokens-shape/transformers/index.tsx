@@ -27,7 +27,7 @@ type Check =
 	  };
 
 export const StyleProperty = {
-	lint(node: Rule.Node, { context }: { context: Rule.RuleContext }) {
+	lint(node: Rule.Node, { context }: { context: Rule.RuleContext }): void {
 		// Check whether all criteria needed to make a transformation are met
 		const { success, ref } = StyleProperty._check(node);
 

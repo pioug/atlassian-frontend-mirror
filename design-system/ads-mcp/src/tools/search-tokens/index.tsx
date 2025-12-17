@@ -6,7 +6,19 @@ import { type Token, tokens } from '@atlaskit/tokens/token-metadata';
 
 import { cleanQuery, zodToJsonSchema } from '../../helpers';
 
-export const searchTokensInputSchema = z.object({
+export const searchTokensInputSchema: z.ZodObject<{
+    terms: z.ZodArray<z.ZodString, "many">;
+    limit: z.ZodOptional<z.ZodDefault<z.ZodNumber>>;
+    exactName: z.ZodOptional<z.ZodDefault<z.ZodBoolean>>;
+}, "strip", z.ZodTypeAny, {
+    terms: string[];
+    limit?: number | undefined;
+    exactName?: boolean | undefined;
+}, {
+    terms: string[];
+    limit?: number | undefined;
+    exactName?: boolean | undefined;
+}> = z.object({
 	terms: z
 		.array(z.string())
 		.describe(

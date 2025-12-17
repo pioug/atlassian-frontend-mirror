@@ -27,7 +27,7 @@ export function walkCssMap({
 	program: ESTree.Program;
 	importSources: string[];
 	visitor: CssMapVisitor;
-}) {
+}): void {
 	const program = getSourceCode(context).ast;
 
 	const importDeclaration = program.body.find(

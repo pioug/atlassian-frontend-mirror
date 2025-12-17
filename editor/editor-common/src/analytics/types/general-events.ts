@@ -449,6 +449,15 @@ type CollabStepsTrackerPayloadAEP = OperationalAEP<
 	}
 >;
 
+type CollabOrganicChangesTrackerPayloadAEP = OperationalAEP<
+	ACTION.ORGANIC_CHANGES_TRACKED,
+	ACTION_SUBJECT.COLLAB,
+	undefined,
+	{
+		organicChanges: unknown[];
+	}
+>;
+
 type BlocksDragInitAEP = OperationalAEP<
 	ACTION.BLOCKS_DRAG_INIT,
 	ACTION_SUBJECT.EDITOR,
@@ -572,6 +581,7 @@ export type GeneralEventPayload<T = void> =
 	| InvalidMediaContentTransformedAEP
 	| HeadingAnchorLinkButtonAEP
 	| CollabStepsTrackerPayloadAEP
+	| CollabOrganicChangesTrackerPayloadAEP
 	| BlocksDragInitAEP
 	| CodeBlockWordWrapToggleAEP
 	| RequestToEditAEP

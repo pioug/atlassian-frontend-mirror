@@ -4,7 +4,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { N30 } from '@atlaskit/theme/colors';
 import React from 'react';
 import { token } from '@atlaskit/tokens';
-import EditorPanelIcon from '@atlaskit/icon/core/migration/status-information--editor-panel';
+import EditorPanelIcon from '@atlaskit/icon/core/status-information';
 import {
 	isRestricted,
 	type MentionDescription,

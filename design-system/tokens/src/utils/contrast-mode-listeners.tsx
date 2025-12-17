@@ -30,7 +30,7 @@ class ContrastModeObserver {
 		return contrastModeMql?.matches ? 'more' : 'no-preference';
 	}
 
-	bind() {
+	bind(): void {
 		if (contrastModeMql && this.unbindContrastChangeListener === null) {
 			this.unbindContrastChangeListener = bind(contrastModeMql, {
 				type: 'change',
@@ -39,7 +39,7 @@ class ContrastModeObserver {
 		}
 	}
 
-	unbind() {
+	unbind(): void {
 		if (this.unbindContrastChangeListener) {
 			this.unbindContrastChangeListener();
 			this.unbindContrastChangeListener = null;

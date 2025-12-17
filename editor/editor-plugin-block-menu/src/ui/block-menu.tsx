@@ -297,6 +297,15 @@ const BlockMenu = ({
 		});
 	};
 
+	const handleClickOutside = (e: MouseEvent) => {
+		// check if the clicked element was another drag handle, if so don't close the menu
+		if (e.target instanceof HTMLElement && e.target.closest(DRAG_HANDLE_SELECTOR)) {
+			return;
+		}
+
+		closeMenu();
+	};
+
 	const closeMenu = () => {
 		api?.core.actions.execute(({ tr }) => {
 			api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
@@ -325,43 +334,43 @@ const BlockMenu = ({
 		}
 	};
 
-	if (targetHandleRef instanceof HTMLElement) {
-		return (
-			<ErrorBoundary
-				component={ACTION_SUBJECT.BLOCK_MENU}
-				dispatchAnalyticsEvent={api?.analytics?.actions.fireAnalyticsEvent}
-				fallbackComponent={null}
-			>
-				<PopupWithListeners
-					alignX={'right'}
-					alignY={'start'}
-					handleClickOutside={closeMenu}
-					handleEscapeKeydown={closeMenu}
-					handleBackspaceDeleteKeydown={handleBackspaceDeleteKeydown}
-					mountTo={mountTo}
-					boundariesElement={boundariesElement}
-					scrollableElement={scrollableElement}
-					target={targetHandleRef}
-					zIndex={akEditorFloatingOverlapPanelZIndex}
-					fitWidth={DEFAULT_MENU_WIDTH}
-					fitHeight={menuHeight}
-					preventOverflow={true}
-					stick={true}
-					offset={[DRAG_HANDLE_WIDTH + DRAG_HANDLE_OFFSET_PADDING, targetHandleHeightOffset]}
-					focusTrap={
-						openedViaKeyboard
-							? // Only enable focus trap when opened via keyboard to make sure the focus is on the first focusable menu item
-								{ initialFocus: undefined }
-							: undefined
-					}
-				>
-					<BlockMenuContent api={api} setRef={setRef} />
-				</PopupWithListeners>
-			</ErrorBoundary>
-		);
-	} else {
+	if (!(targetHandleRef instanceof HTMLElement)) {
 		return null;
 	}
+
+	return (
+		<ErrorBoundary
+			component={ACTION_SUBJECT.BLOCK_MENU}
+			dispatchAnalyticsEvent={api?.analytics?.actions.fireAnalyticsEvent}
+			fallbackComponent={null}
+		>
+			<PopupWithListeners
+				alignX={'right'}
+				alignY={'start'}
+				handleClickOutside={handleClickOutside}
+				handleEscapeKeydown={closeMenu}
+				handleBackspaceDeleteKeydown={handleBackspaceDeleteKeydown}
+				mountTo={mountTo}
+				boundariesElement={boundariesElement}
+				scrollableElement={scrollableElement}
+				target={targetHandleRef}
+				zIndex={akEditorFloatingOverlapPanelZIndex}
+				fitWidth={DEFAULT_MENU_WIDTH}
+				fitHeight={menuHeight}
+				preventOverflow={true}
+				stick={true}
+				offset={[DRAG_HANDLE_WIDTH + DRAG_HANDLE_OFFSET_PADDING, targetHandleHeightOffset]}
+				focusTrap={
+					openedViaKeyboard
+						? // Only enable focus trap when opened via keyboard to make sure the focus is on the first focusable menu item
+							{ initialFocus: undefined }
+						: undefined
+				}
+			>
+				<BlockMenuContent api={api} setRef={setRef} />
+			</PopupWithListeners>
+		</ErrorBoundary>
+	);
 };
 
 export default injectIntl(BlockMenu);

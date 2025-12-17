@@ -41,13 +41,7 @@
 			"path": "../../design-system/heading/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/icon/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"

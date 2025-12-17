@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.2.17
+
+### Patch Changes
+
+- [`1da3868c8f709`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1da3868c8f709) -
+  EDITOR-3916 Fix block menu alternating on drag handle click
+- [`722f272e8b78f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/722f272e8b78f) -
+  Editor-2778: Smartlink card and embed transform
+- Updated dependencies
+
+## 5.2.16
+
+### Patch Changes
+
+- [`493a21ccda098`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/493a21ccda098) -
+  Add wrapTextToCodeblock step to handle text to codeblock step, add remaining steps for paragraph
+  to container steps
+- [`38369379f9e12`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38369379f9e12) -
+  [ux] Editor-3976: Make copy link and delete available for empty line
+- Updated dependencies
+
 ## 5.2.15
 
 ### Patch Changes

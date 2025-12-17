@@ -56,7 +56,7 @@ export function useTagRemoval(
 		setStatus(TagStatus.Removed);
 	}, [onAfterRemoveAction, text]);
 
-	const handleRemoveRequest = useCallback(() => {
+	const handleRemoveRequest = useCallback((): void => {
 		const beforeAction = onBeforeRemoveAction ?? defaultBeforeRemoveAction;
 		if (beforeAction()) {
 			handleRemoveComplete();
@@ -64,7 +64,7 @@ export function useTagRemoval(
 	}, [handleRemoveComplete, onBeforeRemoveAction]);
 
 	const onKeyPress = useCallback(
-		(e: React.KeyboardEvent<HTMLButtonElement>) => {
+		(e: React.KeyboardEvent<HTMLButtonElement>): void => {
 			const spacebarOrEnter = e.key === ' ' || e.key === 'Enter';
 
 			if (spacebarOrEnter) {
@@ -75,8 +75,8 @@ export function useTagRemoval(
 		[handleRemoveRequest],
 	);
 
-	const removingTag = useCallback(() => setStatus(TagStatus.Removing), []);
-	const showingTag = useCallback(() => setStatus(TagStatus.Showing), []);
+	const removingTag = useCallback((): void => setStatus(TagStatus.Removing), []);
+	const showingTag = useCallback((): void => setStatus(TagStatus.Showing), []);
 
 	return {
 		status,
@@ -112,12 +112,12 @@ export function useButtonInteraction() {
 	// Button handlers
 	const buttonHandlers = useMemo(
 		() => ({
-			onMouseEnter: () => setIsOverButton(true),
-			onMouseLeave: () => setIsOverButton(false),
-			onMouseDown: () => {
+			onMouseEnter: (): void => setIsOverButton(true),
+			onMouseLeave: (): void => setIsOverButton(false),
+			onMouseDown: (): void => {
 				hadMouseDownRef.current = true;
 			},
-			onFocus: () => {
+			onFocus: (): void => {
 				// Only track keyboard focus for focus ring styles
 				// If mousedown happened just before focus, it's mouse focus (not keyboard)
 				if (!hadMouseDownRef.current) {
@@ -125,7 +125,7 @@ export function useButtonInteraction() {
 				}
 				hadMouseDownRef.current = false;
 			},
-			onBlur: () => setIsButtonFocused(false),
+			onBlur: (): void => setIsButtonFocused(false),
 		}),
 		[],
 	);
@@ -133,12 +133,12 @@ export function useButtonInteraction() {
 	// Link handlers - includes hover tracking
 	const linkHandlers = useMemo(
 		() => ({
-			onMouseEnter: () => setIsLinkHovered(true),
-			onMouseLeave: () => setIsLinkHovered(false),
-			onMouseDown: () => {
+			onMouseEnter: (): void => setIsLinkHovered(true),
+			onMouseLeave: (): void => setIsLinkHovered(false),
+			onMouseDown: (): void => {
 				hadMouseDownRef.current = true;
 			},
-			onFocus: () => {
+			onFocus: (): void => {
 				// Only track keyboard focus for focus ring styles
 				// If mousedown happened just before focus, it's mouse focus (not keyboard)
 				if (!hadMouseDownRef.current) {
@@ -146,7 +146,7 @@ export function useButtonInteraction() {
 				}
 				hadMouseDownRef.current = false;
 			},
-			onBlur: () => setIsLinkFocused(false),
+			onBlur: (): void => setIsLinkFocused(false),
 		}),
 		[],
 	);

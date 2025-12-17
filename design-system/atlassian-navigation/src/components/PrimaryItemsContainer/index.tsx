@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -53,7 +53,7 @@ export const PrimaryItemsContainer = ({
 	items,
 	create: Create,
 	testId,
-}: PrimaryItemsContainerProps & { theme?: NavigationTheme }) => {
+}: PrimaryItemsContainerProps & { theme?: NavigationTheme }): React.JSX.Element => {
 	const [isMoreOpen, setIsMoreOpen] = useState(false);
 	const { updateWidth, visibleItems, overflowItems } = useOverflowController(items);
 

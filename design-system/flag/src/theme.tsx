@@ -1,9 +1,9 @@
 import React, { type ReactElement } from 'react';
 
-import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
-import InformationIcon from '@atlaskit/icon/core/migration/status-information--info';
-import SuccessIcon from '@atlaskit/icon/core/migration/status-success--check-circle';
-import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
+import ErrorIcon from '@atlaskit/icon/core/status-error';
+import InformationIcon from '@atlaskit/icon/core/status-information';
+import SuccessIcon from '@atlaskit/icon/core/status-success';
+import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { type BackgroundColor } from '@atlaskit/primitives/compiled';
 import { B400, N0, N30A, N500, N700, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

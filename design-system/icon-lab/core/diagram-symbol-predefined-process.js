@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b6c5c4c9843c3a69971ceaee04d1971f>>
+ * @codegen <<SignedSource::2cdf9d7389f70d417f1c4646d6f6f47c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -22,7 +22,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const DiagramSymbolPredefinedProcessIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
   name: "DiagramSymbolPredefinedProcessIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M14.5 4a.5.5 0 0 0-.4-.49L14 3.5h-1v9h1a.5.5 0 0 0 .5-.5zm-10 8.5h7v-9h-7zm-3-.5a.5.5 0 0 0 .5.5h1v-9H2a.5.5 0 0 0-.5.5zM16 12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h12l.204.01A2 2 0 0 1 16 4z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M14.5 3.5a.5.5 0 0 0-.4-.49L14 3h-1v10h1a.5.5 0 0 0 .5-.5zM4.5 13h7V3h-7zm-3-.5a.5.5 0 0 0 .5.5h1V3H2a.5.5 0 0 0-.5.5zm14.5 0a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h12l.204.01A2 2 0 0 1 16 3.5z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 DiagramSymbolPredefinedProcessIcon.displayName = 'DiagramSymbolPredefinedProcessIcon';

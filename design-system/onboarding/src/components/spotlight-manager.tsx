@@ -103,7 +103,7 @@ export default class SpotlightManager extends PureComponent<
 		blanketIsTinted: true,
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		if (
 			typeof process !== 'undefined' &&
 			process.env.NODE_ENV !== 'production' &&
@@ -130,7 +130,7 @@ export default class SpotlightManager extends PureComponent<
 	 * This is to fix this error by wrapping the state update in startTransition as suggested by React: https://react.dev/errors/421?invariant=421
 	 */
 	getTargetRef = fg('platform_fix_component_state_update_for_suspense')
-		? (name: string) => (element: HTMLElement | null | undefined) => {
+		? (name: string) => (element: HTMLElement | null | undefined): void => {
 				startTransition(() => {
 					this.setState((state) => ({
 						targets: {
@@ -149,11 +149,11 @@ export default class SpotlightManager extends PureComponent<
 				}));
 			};
 
-	spotlightOpen = () => {
+	spotlightOpen = (): void => {
 		this.setState((state) => ({ spotlightCount: state.spotlightCount + 1 }));
 	};
 
-	spotlightClose = () => {
+	spotlightClose = (): void => {
 		this.setState((state) => ({ spotlightCount: state.spotlightCount - 1 }));
 	};
 

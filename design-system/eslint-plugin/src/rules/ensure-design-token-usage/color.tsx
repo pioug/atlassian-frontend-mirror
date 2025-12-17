@@ -28,7 +28,7 @@ export const lintTemplateIdentifierForColor = (
 	node: Rule.Node,
 	context: Rule.RuleContext,
 	config: RuleConfig,
-) => {
+): void => {
 	if (node.type !== 'Identifier') {
 		return;
 	}
@@ -77,7 +77,7 @@ export const lintObjectForColor = (
 	propertyNode: Property,
 	context: Rule.RuleContext,
 	config: RuleConfig,
-) => {
+): void => {
 	let propertyKey = '';
 
 	if (propertyNode.key.type === 'Identifier') {
@@ -179,7 +179,7 @@ export const lintJSXLiteralForColor = (
 	node: Rule.Node,
 	context: Rule.RuleContext,
 	config: RuleConfig,
-) => {
+): void => {
 	// To force the correct node type
 	if (node.type !== 'Literal') {
 		return;
@@ -236,7 +236,7 @@ export const lintJSXMemberForColor = (
 	node: Rule.Node,
 	context: Rule.RuleContext,
 	config: RuleConfig,
-) => {
+): void => {
 	// To force the correct node type
 	if (node.type !== 'MemberExpression') {
 		return;
@@ -267,7 +267,7 @@ export const lintJSXIdentifierForColor = (
 	node: Rule.Node,
 	context: Rule.RuleContext,
 	config: RuleConfig,
-) => {
+): void => {
 	// To force the correct node type
 	if (node.type !== 'Identifier') {
 		return;

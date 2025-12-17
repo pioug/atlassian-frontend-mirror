@@ -1,5 +1,30 @@
 # @atlaskit/smart-card
 
+## 43.17.2
+
+### Patch Changes
+
+- [`53aef9589ca55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53aef9589ca55) -
+  [EDITOR-3786] Make sure that for any check of `cc_editor_ai_content_mode` &&
+  `platform_editor_content_mode_button_mvp` in the code we are also checking
+  `confluence_compact_text_format`
+- [`91416449bc93e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/91416449bc93e) -
+  Removed feature flag linking_platform_hide_preview_action_blanket_prop
+- [`0692ceeae7098`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0692ceeae7098) -
+  Add aria-label to status dropdown in flex card
+- [`61261257a7653`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61261257a7653) -
+  Remove embed modal unnecessary textual description on the icon button. Behind fg
+  platform_navx_flex_card_status_dropdown_a11y_fix
+- Updated dependencies
+
+## 43.17.1
+
+### Patch Changes
+
+- [`a7c44eed85fa9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7c44eed85fa9) -
+  Send X-Query-Context header to UGS when calling AGG to server related links feature
+- Updated dependencies
+
 ## 43.17.0
 
 ### Minor Changes

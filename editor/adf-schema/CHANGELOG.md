@@ -1,5 +1,12 @@
 # @atlaskit/adf-schema
 
+## 51.5.3
+
+### Patch Changes
+
+- [`18ea40790b19b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18ea40790b19b) -
+  fix missing json-schema in dist/ folder
+
 ## 51.5.2
 
 ### Patch Changes

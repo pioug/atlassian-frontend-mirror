@@ -8,7 +8,7 @@ export function walkStyleProperties(
 	referencesInScope: Scope.Reference[],
 	importSources: string[],
 	callback: (property: ESTree.Property) => void,
-) {
+): void {
 	if (!hasStyleObjectArguments(callExpression.callee, referencesInScope, importSources)) {
 		return;
 	}

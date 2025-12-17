@@ -74,7 +74,7 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 		replacementElement: null,
 	};
 
-	componentDidUpdate(prevProps: SpotlightInnerProps) {
+	componentDidUpdate(prevProps: SpotlightInnerProps): void {
 		if (prevProps.targetNode !== this.props.targetNode) {
 			scrollIntoView(this.props.targetNode, {
 				scrollMode: 'if-needed',
@@ -83,7 +83,7 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 		}
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		scrollIntoView(this.props.targetNode, {
 			scrollMode: 'if-needed',
 			block: this.props.scrollPositionBlock,
@@ -91,7 +91,7 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 		this.props.onOpened();
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.props.onClosed();
 	}
 

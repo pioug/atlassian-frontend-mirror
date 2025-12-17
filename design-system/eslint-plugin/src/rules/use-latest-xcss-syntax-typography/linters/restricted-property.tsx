@@ -5,7 +5,7 @@ import { isNodeOfType } from 'eslint-codemod-utils';
 import { isPropertyName, type MetaData } from './common';
 
 export const RestrictedProperty = {
-	lint(node: Rule.Node, { context, config }: MetaData) {
+	lint(node: Rule.Node, { context, config }: MetaData): void {
 		if (RestrictedProperty._check(node, { context, config })) {
 			let property = 'fontSize, lineHeight, fontWeight or letterSpacing';
 			if (isNodeOfType(node, 'Identifier')) {

@@ -6,7 +6,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import UnlockIcon from '@atlaskit/icon/core/migration/lock-unlocked--unlock';
+import UnlockIcon from '@atlaskit/icon/core/lock-unlocked';
 import { N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

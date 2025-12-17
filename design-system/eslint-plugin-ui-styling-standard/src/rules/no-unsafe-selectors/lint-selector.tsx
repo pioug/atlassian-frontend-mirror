@@ -13,7 +13,7 @@ type CheckArgs = {
 	isXcssCall: boolean;
 };
 
-export function lintSelector(args: CheckArgs) {
+export function lintSelector(args: CheckArgs): void {
 	checkNoAmbiguousPseudos(args);
 	checkNoRestrictedPseudos(args);
 	checkNoLegacyPseudoElementSyntax(args);

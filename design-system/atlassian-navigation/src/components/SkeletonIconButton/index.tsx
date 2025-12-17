@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
@@ -55,7 +57,7 @@ const buttonWrapperStyles = css({
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#skeleton-button)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const SkeletonIconButton = ({ children, testId }: SkeletonIconButtonProps) => {
+export const SkeletonIconButton = ({ children, testId }: SkeletonIconButtonProps): React.JSX.Element => {
 	const theme = useTheme();
 
 	return (

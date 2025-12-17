@@ -1,14 +1,14 @@
-import BasketballIcon from '@atlaskit/icon/core/migration/basketball--emoji-activity';
-import AddIcon from '@atlaskit/icon/core/migration/add--emoji-custom';
-import FlagIcon from '@atlaskit/icon/core/migration/flag--emoji-flags';
-import TakeoutFoodIcon from '@atlaskit/icon/core/migration/takeout-food--emoji-food';
-import ClockIcon from '@atlaskit/icon/core/migration/clock--emoji-frequent';
-import TreeIcon from '@atlaskit/icon/core/migration/tree--emoji-nature';
-import LightbulbIcon from '@atlaskit/icon/core/migration/lightbulb--emoji-objects';
-import EmojiIcon from '@atlaskit/icon/core/migration/emoji--emoji-people';
-import HeartIcon from '@atlaskit/icon/core/migration/heart--emoji-symbols';
-import VehicleCarIcon from '@atlaskit/icon/core/migration/vehicle-car--emoji-travel';
-import CheckCircleIcon from '@atlaskit/icon/core/migration/check-circle--emoji-productivity';
+import BasketballIcon from '@atlaskit/icon/core/basketball';
+import AddIcon from '@atlaskit/icon/core/add';
+import FlagIcon from '@atlaskit/icon/core/flag';
+import TakeoutFoodIcon from '@atlaskit/icon/core/takeout-food';
+import ClockIcon from '@atlaskit/icon/core/clock';
+import TreeIcon from '@atlaskit/icon/core/tree';
+import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
+import EmojiIcon from '@atlaskit/icon/core/emoji';
+import HeartIcon from '@atlaskit/icon/core/heart';
+import VehicleCarIcon from '@atlaskit/icon/core/vehicle-car';
+import CheckCircleIcon from '@atlaskit/icon/core/check-circle';
 
 import type { CategoryDescription } from '../../types';
 import { customCategory, userCustomTitle, customTitle } from '../../util/constants';

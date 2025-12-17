@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { IconButton } from '@atlaskit/button/new';
-import EditorMoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--editor-more';
+import EditorMoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Tooltip from '@atlaskit/tooltip';
 import { messages } from '../shared/i18n';
 

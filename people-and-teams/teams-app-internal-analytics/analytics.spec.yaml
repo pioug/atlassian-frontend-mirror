@@ -248,6 +248,9 @@ events:
         numberOfMembers:
           type: number
           description: The number of members
+        numberOfSuggestedMembers:
+          type: number
+          description: The number of suggested members
         defaultTeamType:
           type: ['OPEN', 'MEMBER_INVITE', 'EXTERNAL', 'ORG_ADMIN_MANAGED']
           required: false
@@ -329,6 +332,27 @@ events:
           type: []
           required: false
           description: the errors
+  - teamSuggestionsRecommendedUsers succeeded:
+      type: operational
+      description: fired when the team suggestions recommended users API call succeeded
+      attributes:
+        <<: *PackageMetaDataContext
+        recommendedUsers:
+          type: number
+          description: the number of recommended users returned
+  - teamSuggestionsRecommendedUsers failed:
+      type: operational
+      description: fired when the team suggestions recommended users API call failed
+      attributes:
+        <<: *PackageMetaDataContext
+        recommendedUsers:
+          type: number
+          description: the number of recommended users (0 on failure)
+        errors:
+          type: []
+          required: false
+          description: error details from the failed API call
+        
   - invitedTeamMembers added:
       type: track
       description: fired when the invited team members are added

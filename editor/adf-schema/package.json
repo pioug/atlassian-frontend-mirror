@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/adf-schema",
-	"version": "51.5.2",
+	"version": "51.5.3",
 	"description": "Shared package that contains the ADF-schema (json) and ProseMirror node/mark specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -22,7 +22,7 @@
 	"atlaskit:src": "src/index.ts",
 	"scripts": {
 		"clean:build": "rm -rf dist",
-		"ak-postbuild": "yarn build:json-schema",
+		"ak-postbuild": "yarn build:move:json-schema",
 		"test": "yarn test:unit",
 		"test:unit": "yarn workspace @atlaskit/editor-prosemirror build && jest --testPathPattern=packages/adf-schema/ --config=../../jest.config.js",
 		"test:json-schema": "yarn run jest --expand --testPathPattern=packages/adf-schema/schema-generators/__tests__/unit/json-full-schema.unit.ts --config=../../jest.config.js",

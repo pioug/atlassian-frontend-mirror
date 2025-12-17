@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { setGlobalTheme } from '@atlaskit/tokens';
 
-export const useVrGlobalTheme = () => {
+export const useVrGlobalTheme = (): void => {
 	useEffect(() => {
 		// If the theme has been set, dont do anything
 		if (document.documentElement.dataset.theme) {

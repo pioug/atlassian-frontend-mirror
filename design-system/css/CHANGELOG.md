@@ -1,5 +1,13 @@
 # @atlaskit/css
 
+## 0.18.1
+
+### Patch Changes
+
+- [`8f904ca860b20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f904ca860b20) -
+  Fixed codegen script not respecting manual changes in partially codegen'd files.
+- Updated dependencies
+
 ## 0.18.0
 
 ### Minor Changes

@@ -77,7 +77,7 @@ export default function useHandleDateChange({
 	);
 
 	const navigate = useCallback(
-		(type: ArrowKeys) => {
+		(type: ArrowKeys): void => {
 			const { day, month, year } = dateRef.current;
 
 			if (type === 'down') {
@@ -165,7 +165,7 @@ export default function useHandleDateChange({
 		[triggerOnChange],
 	);
 
-	const handleClickNextMonth = useCallback(() => {
+	const handleClickNextMonth = useCallback((): void => {
 		const { day, month, year } = {
 			...dateRef.current,
 			...getNextMonth(dateRef.current.month, dateRef.current.year),
@@ -174,13 +174,13 @@ export default function useHandleDateChange({
 		triggerOnChange({ day, month, year, type: 'nextMonth' });
 	}, [triggerOnChange]);
 
-	const handleClickNextYear = useCallback(() => {
+	const handleClickNextYear = useCallback((): void => {
 		const { day, month, year } = dateRef.current;
 
 		triggerOnChange({ day, month, year: year + 1, type: 'nextYear' });
 	}, [triggerOnChange]);
 
-	const handleClickPrevMonth = useCallback(() => {
+	const handleClickPrevMonth = useCallback((): void => {
 		const { day, month, year } = {
 			...dateRef.current,
 			...getPrevMonth(dateRef.current.month, dateRef.current.year),
@@ -189,7 +189,7 @@ export default function useHandleDateChange({
 		triggerOnChange({ day, month, year, type: 'prevMonth' });
 	}, [triggerOnChange]);
 
-	const handleClickPrevYear = useCallback(() => {
+	const handleClickPrevYear = useCallback((): void => {
 		const { day, month, year } = dateRef.current;
 
 		triggerOnChange({ day, month, year: year - 1, type: 'prevYear' });

@@ -13,7 +13,7 @@ import { IntlProvider } from 'react-intl-next';
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type IconButtonProps } from '@atlaskit/button/new';
 import { Field } from '@atlaskit/form';
-import WorldIcon from '@atlaskit/icon/core/migration/globe--world';
+import WorldIcon from '@atlaskit/icon/core/globe';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';

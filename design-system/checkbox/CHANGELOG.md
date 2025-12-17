@@ -1,5 +1,12 @@
 # @atlaskit/checkbox
 
+## 17.2.2
+
+### Patch Changes
+
+- [`3503d88dece46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3503d88dece46) -
+  Removing feature flag with changing internal use of custom icons.
+
 ## 17.2.1
 
 ### Patch Changes

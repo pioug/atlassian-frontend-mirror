@@ -140,6 +140,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Addded 2025-12-04
+	confluence_compact_text_format: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-06-24
 	confluence_whiteboards_quick_insert: {
 		defaultValue: 'control' | 'test_blank' | 'test_diagram';
@@ -505,13 +512,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-10-24
-	platform_editor_fix_clone_nesting_exp: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 20205-07-28
 	platform_editor_fix_quick_insert_consistency_exp: {
 		defaultValue: boolean;
@@ -612,13 +612,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-09-16
 	platform_editor_nested_table_refresh_width_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-10-10
-	platform_editor_new_list_decorations_logic: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -730,7 +723,7 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	// Added 2025-11-25
-	platform_editor_remove_ncsStepMetrics_plugin: {
+	platform_editor_remove_ncsstepmetrics_plugin: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -751,6 +744,12 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	platform_editor_smart_card_otp: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	editor_fix_embed_width_expand: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1488,6 +1487,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-12-17
+	editor_fix_embed_width_expand: createBooleanExperiment({
+		productKeys: {
+			confluence: 'editor_fix_embed_width_expand',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+
 	// Added 2025-05-07
 	platform_editor_ai_quickstart_command: createBooleanExperiment({
 		productKeys: {
@@ -1923,6 +1931,14 @@ export const editorExperimentsConfig: {
 		values: ['control', 'test'],
 		defaultValue: 'control',
 	}),
+	// Added 2025-12-04
+	confluence_compact_text_format: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_compact_text_format',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-09-08
 	platform_editor_editor_width_analytics: createBooleanExperiment({
 		productKeys: {
@@ -2031,14 +2047,6 @@ export const editorExperimentsConfig: {
 		values: ['control', 'test1', 'test2'],
 		defaultValue: 'control',
 	}),
-	// Added 2025-10-10
-	platform_editor_new_list_decorations_logic: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_new_list_decorations_logic',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-10-13
 	platform_editor_media_error_analytics: createBooleanExperiment({
 		productKeys: {
@@ -2077,14 +2085,6 @@ export const editorExperimentsConfig: {
 	platform_editor_remove_bidi_char_warning: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_remove_bidi_char_warning',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-10-24
-	platform_editor_fix_clone_nesting_exp: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_clone_nesting_exp',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2149,9 +2149,9 @@ export const editorExperimentsConfig: {
 		defaultValue: 'control',
 	}),
 	// Added 2025-11-25
-	platform_editor_remove_ncsStepMetrics_plugin: createBooleanExperiment({
+	platform_editor_remove_ncsstepmetrics_plugin: createBooleanExperiment({
 		productKeys: {
-			confluence: 'platform_editor_remove_ncsStepMetrics_plugin',
+			confluence: 'platform_editor_remove_ncsstepmetrics_plugin',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

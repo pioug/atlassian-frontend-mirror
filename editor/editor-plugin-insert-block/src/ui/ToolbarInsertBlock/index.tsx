@@ -569,14 +569,6 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 						onPlusButtonRef={this.handlePlusButtonRef}
 						onClick={this.handleClick}
 						onKeyDown={this.handleOpenByKeyboard}
-						onItemActivated={
-							fg('platform_editor_remove_unused_block_insert_props')
-								? undefined
-								: this.insertInsertMenuItem
-						}
-						onOpenChange={
-							fg('platform_editor_remove_unused_block_insert_props') ? undefined : this.onOpenChange
-						}
 						onInsert={this.insertInsertMenuItem as OnInsert}
 						togglePlusMenuVisibility={this.togglePlusMenuVisibility}
 						showElementBrowserLink={this.props.showElementBrowserLink || false}

@@ -27,7 +27,7 @@ interface PreloadMediaOptions {
  * @param src - The media source URL to preload
  * @param options - Configuration options including the MIME type
  */
-export const usePreloadMedia = (src: string, options: PreloadMediaOptions) => {
+export const usePreloadMedia = (src: string, options: PreloadMediaOptions): void => {
 	useEffect(() => {
 		const handler = mimeTypeHandlers[options.mimetype];
 

@@ -11,7 +11,7 @@ interface ValueChangedProps {
 // If they are different, it calls the onChange function.
 // We use this for updating Popper when the SpotlightDialog width changes.
 export default class ValueChanged extends React.Component<ValueChangedProps> {
-	componentDidUpdate(prevProps: ValueChangedProps) {
+	componentDidUpdate(prevProps: ValueChangedProps): void {
 		if (prevProps.value !== this.props.value) {
 			this.props.onChange();
 		}

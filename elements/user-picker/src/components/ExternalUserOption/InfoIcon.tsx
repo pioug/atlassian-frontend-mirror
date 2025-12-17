@@ -5,7 +5,7 @@
 import { useCallback, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import EditorPanelIcon from '@atlaskit/icon/core/migration/status-information--editor-panel';
+import EditorPanelIcon from '@atlaskit/icon/core/status-information';
 import { N50, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

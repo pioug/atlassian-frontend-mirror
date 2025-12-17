@@ -11,25 +11,9 @@ import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
-import Icon from '@atlaskit/icon';
 import Tooltip from '@atlaskit/tooltip';
 import AnalyticsContext from '../../../../analytics/analyticsContext';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../../../analytics/enums';
-import { fg } from '@atlaskit/platform-feature-flags';
-
-const WrapIcon = () => {
-	return (
-		<svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-			<g fill="currentColor" clipPath="url(#clip0_654_431)">
-				<path
-					d="M20 4h-1v16h1V4ZM3 8a1 1 0 0 1 1-1h9.5a4.5 4.5 0 1 1 0 9h-2.086l.293.293a1 1 0 0 1-1.414 1.414l-2-2a1 1 0 0 1 0-1.414l2-2a1 1 0 0 1 1.414 1.414l-.293.293H13.5a2.5 2.5 0 0 0 0-5H4a1 1 0 0 1-1-1Z"
-					clipRule="evenodd"
-					fillRule="evenodd"
-				/>
-			</g>
-		</svg>
-	);
-};
 
 type Props = {
 	setWrapLongLines: Dispatch<SetStateAction<boolean>>;
@@ -56,13 +40,7 @@ const CodeBlockWrapButton = ({
 							aria-label={wrapMessage}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={`wrap-code ${wrapLongLines ? 'clicked' : ''}`}
-							iconBefore={
-								fg('platform-custom-icon-migration') ? (
-									<TextWrapIcon label="" />
-								) : (
-									<Icon glyph={WrapIcon} label="" />
-								)
-							}
+							iconBefore={<TextWrapIcon label="" />}
 							isSelected={wrapLongLines}
 							onClick={(event) => {
 								fireAnalyticsEvent({

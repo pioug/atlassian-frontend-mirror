@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, type KeyboardEvent, useState } from 'react';
+import React, { Fragment, type KeyboardEvent, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -207,7 +207,7 @@ const SettingsDrawer = () => {
 	);
 };
 
-const NestedMenuExample = () => (
+const NestedMenuExample = (): React.JSX.Element => (
 	<div>
 		<p>To display nested menu, click 'More' button</p>
 		<AtlassianNavigation

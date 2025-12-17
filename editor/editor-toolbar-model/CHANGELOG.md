@@ -1,5 +1,12 @@
 # @atlaskit/editor-toolbar-model
 
+## 0.2.10
+
+### Patch Changes
+
+- [`4cc89b5b419fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cc89b5b419fa) -
+  NOISSUE: fix missing a11y violation coverage
+
 ## 0.2.9
 
 ### Patch Changes

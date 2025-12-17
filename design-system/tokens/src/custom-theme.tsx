@@ -75,7 +75,7 @@ export function loadAndAppendCustomThemeCss(
 	themeState: Partial<ThemeState> & {
 		UNSAFE_themeOptions: ThemeOptionsSchema;
 	},
-) {
+): void {
 	const themes = getCustomThemeStyles(themeState);
 
 	limitSizeOfCustomStyleElements(CUSTOM_STYLE_ELEMENTS_SIZE_THRESHOLD);

@@ -10,7 +10,7 @@ import {
 	type WrappedComponentProps,
 } from 'react-intl-next';
 
-import WorldIcon from '@atlaskit/icon/core/migration/globe--world';
+import WorldIcon from '@atlaskit/icon/core/globe';
 import Popup from '@atlaskit/popup';
 import { type Props as SmartUserPickerProps } from '@atlaskit/smart-user-picker';
 import { layers } from '@atlaskit/theme/constants';

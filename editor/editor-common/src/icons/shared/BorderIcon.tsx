@@ -1,10 +1,7 @@
-import React from 'react';
+import React, { type ComponentProps } from 'react';
 
-import Icon from '@atlaskit/icon';
-import type { CustomGlyphProps, GlyphProps } from '@atlaskit/icon/types';
-import { fg } from '@atlaskit/platform-feature-flags';
-
-const BorderIconGlyph = (props: CustomGlyphProps) => {
+// Custom icon ejection - these icons have been migrated away from the deprecated Custom / SVG components to native SVG. Please review whether this icon should be contributed to @atlaskit/icon-lab or whether it can be replaced by an existing icon from either @atlaskit/icon or @atlaskit/icon-lab
+const BorderIconGlyph = (props: ComponentProps<'svg'>) => {
 	return (
 		<svg
 			width="24"
@@ -30,12 +27,6 @@ const BorderIconGlyph = (props: CustomGlyphProps) => {
 	);
 };
 
-export const BorderIcon = (props: GlyphProps): React.JSX.Element => {
-	return fg('platform-custom-icon-migration') ? (
-		<BorderIconGlyph aria-label={props.label} />
-	) : (
-		// Ignored via go/ees005
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<Icon glyph={BorderIconGlyph} {...props} />
-	);
+export const BorderIcon = ({ label }: { label: string }): React.JSX.Element => {
+	return <BorderIconGlyph aria-label={label} />;
 };

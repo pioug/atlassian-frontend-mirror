@@ -13,7 +13,10 @@ export function getBaseFontSize(
 	appearance?: EditorAppearance,
 	contentMode?: EditorContentMode,
 ): number | undefined {
-	if (expValEquals('cc_editor_ai_content_mode', 'variant', 'test')) {
+	if (
+		expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+		expValEquals('cc_editor_ai_content_mode', 'variant', 'test')
+	) {
 		if (contentMode === 'compact') {
 			return akEditorFullPageDenseFontSize;
 		}

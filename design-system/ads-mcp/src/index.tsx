@@ -33,6 +33,11 @@ import { getComponentsTool, listGetComponentsTool } from './tools/get-components
 import { getIconsInputSchema, getIconsTool, listGetIconsTool } from './tools/get-icons';
 import { getTokensInputSchema, getTokensTool, listGetTokensTool } from './tools/get-tokens';
 import {
+	i18nConversionInputSchema,
+	i18nConversionTool,
+	listI18nConversionTool,
+} from './tools/i18n-conversion';
+import {
 	listMigrationGuidesTool,
 	migrationGuidesInputSchema,
 	migrationGuidesTool,
@@ -140,6 +145,11 @@ export const getToolRegistry = (): Record<
 			handler: migrationGuidesTool,
 			inputSchema: migrationGuidesInputSchema,
 			tool: listMigrationGuidesTool,
+		},
+		[listI18nConversionTool.name]: {
+			handler: i18nConversionTool,
+			inputSchema: i18nConversionInputSchema,
+			tool: listI18nConversionTool,
 		},
 	};
 

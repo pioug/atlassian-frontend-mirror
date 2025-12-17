@@ -202,7 +202,7 @@ export const getBlockMenuComponents = ({
 			key: DELETE_MENU_SECTION.key,
 			rank: MAIN_BLOCK_MENU_SECTION_RANK[DELETE_MENU_SECTION.key],
 			component: ({ children }: { children: React.ReactNode }) => {
-				return <DeleteSection api={api}>{children}</DeleteSection>;
+				return <DeleteSection>{children}</DeleteSection>;
 			},
 		},
 		{

@@ -7,7 +7,13 @@ import { accessibilityGuidelines } from './guidelines';
 
 const topics = Object.keys(accessibilityGuidelines) as (keyof typeof accessibilityGuidelines)[];
 
-export const getA11yGuidelinesInputSchema = z.object({
+export const getA11yGuidelinesInputSchema: z.ZodObject<{
+    topic: z.ZodOptional<z.ZodString>;
+}, "strip", z.ZodTypeAny, {
+    topic?: string | undefined;
+}, {
+    topic?: string | undefined;
+}> = z.object({
 	topic: z
 		.string()
 		.optional()
@@ -29,7 +35,12 @@ export const listGetA11yGuidelinesTool: Tool = {
 
 export const getA11yGuidelinesTool = async ({
 	topic,
-}: z.infer<typeof getA11yGuidelinesInputSchema>) => {
+}: z.infer<typeof getA11yGuidelinesInputSchema>): Promise<{
+        content: {
+            type: string;
+            text: string;
+        }[];
+    }> => {
 	if (topic && accessibilityGuidelines[topic as keyof typeof accessibilityGuidelines]) {
 		const guidelines = accessibilityGuidelines[topic as keyof typeof accessibilityGuidelines];
 		return {

@@ -1,0 +1,29 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::6075438d400fe7df43c18722ae2cfe06>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireDefault(require("react"));
+var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+/**
+ * Icon: "Cart".
+ * Category: single-purpose
+ * Location: @atlaskit/icon-lab
+ * Usage guidance: Reserved for representing the cart in online purchase experiences.
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
+ */
+const CartIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "CartIcon",
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M2.15.5c.69 0 1.26.51 1.36 1.18l.01.14.03.69h10.7a.75.75 0 0 1 .74.87l-.74 4.43A2.63 2.63 0 0 1 11.66 10H3.9l.05 1.02a.5.5 0 0 0 .5.48H13V13H4.44a2 2 0 0 1-2-1.91L2.03 2H0V.5zm1.68 8h7.83c.55 0 1.02-.4 1.11-.94L13.36 4H3.63zM3.5 14a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7.5 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>`
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+}, props));
+CartIcon.displayName = 'CartIcon';
+var _default = exports.default = CartIcon;

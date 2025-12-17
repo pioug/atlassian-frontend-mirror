@@ -68,7 +68,7 @@ export default class extends Component {
 		roots: [] as any[],
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		fetchRoots().then((roots) => {
 			this.setState({
 				roots,
@@ -76,7 +76,7 @@ export default class extends Component {
 		});
 	}
 
-	loadChildren = (parentItem?: any) => {
+	loadChildren = (parentItem?: any): void => {
 		if (parentItem.children) {
 			return;
 		}

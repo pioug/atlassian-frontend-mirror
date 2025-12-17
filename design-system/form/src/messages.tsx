@@ -6,8 +6,8 @@
 import { createContext, Fragment, type ReactNode, useContext, useEffect, useState } from 'react';
 
 import { css, cssMap, jsx } from '@atlaskit/css';
-import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
-import SuccessIcon from '@atlaskit/icon/core/migration/status-success--editor-success';
+import ErrorIcon from '@atlaskit/icon/core/status-error';
+import SuccessIcon from '@atlaskit/icon/core/status-success';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 

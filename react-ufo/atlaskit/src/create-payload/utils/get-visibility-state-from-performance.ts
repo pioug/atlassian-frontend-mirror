@@ -1,4 +1,6 @@
-export function getVisibilityStateFromPerformance(stop: number): string | null {
+import type { PageVisibility } from "../../common/react-ufo-payload-schema";
+
+export function getVisibilityStateFromPerformance(stop: number): PageVisibility | null {
 	try {
 		const results = performance.getEntriesByType('visibility-state');
 		if (!results || results.length === 0) {

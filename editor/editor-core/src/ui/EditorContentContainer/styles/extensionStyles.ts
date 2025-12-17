@@ -415,13 +415,16 @@ export const getExtensionStyles = (contentMode?: EditorContentMode): SerializedS
 
 	// Dense content mode extensions styling fix - addresses EDITOR-1992
 	// When cleaning up the experiment, move this logic into the baseExtensionStyles above
-	const fontSize = expValEquals('cc_editor_ai_content_mode', 'variant', 'test')
-		? relativeFontSizeToBase16(akEditorFullPageDenseFontSize)
-		: undefined;
+	const fontSize =
+		expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+		expValEquals('cc_editor_ai_content_mode', 'variant', 'test')
+			? relativeFontSizeToBase16(akEditorFullPageDenseFontSize)
+			: undefined;
 	const denseExtensionStyles =
-		contentMode === 'compact' &&
-		expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-		fg('platform_editor_content_mode_button_mvp')
+		(contentMode === 'compact' &&
+			expValEquals('confluence_compact_text_format', 'isEnabled', true)) ||
+		(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+			fg('platform_editor_content_mode_button_mvp'))
 			? css({
 					// Table of Contents Macro
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -437,7 +440,9 @@ export const getExtensionStyles = (contentMode?: EditorContentMode): SerializedS
 							fontSize: 'var(--ak-editor-base-font-size)',
 						},
 				})
-			: contentMode === 'compact' && expValEquals('cc_editor_ai_content_mode', 'variant', 'test')
+			: contentMode === 'compact' &&
+				  (expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+						expValEquals('cc_editor_ai_content_mode', 'variant', 'test'))
 				? css({
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 						'.extension-container a span': {

@@ -4,7 +4,7 @@ const backgroundSuccessRegex = /--ds-background-success:\s*([^;]+);/;
 
 export const mainThemes: ThemeIdsWithOverrides[] = ['light', 'dark'];
 
-export const verifyBrandRefreshColors = (css: string, id: ThemeIdsWithOverrides) => {
+export const verifyBrandRefreshColors = (css: string, id: ThemeIdsWithOverrides): void => {
 	switch (id) {
 		case 'light': {
 			verifyLightColor(css);
@@ -19,8 +19,8 @@ export const verifyBrandRefreshColors = (css: string, id: ThemeIdsWithOverrides)
 	}
 };
 
-export const verifyLightColor = (css: string) => verifyColors(css, '#EFFFD6');
-export const verifyDarkColor = (css: string) => verifyColors(css, '#28311B');
+export const verifyLightColor = (css: string): void => verifyColors(css, '#EFFFD6');
+export const verifyDarkColor = (css: string): void => verifyColors(css, '#28311B');
 
 const verifyColors = (css: string, color: string) => {
 	// Using the regular expression to match the string

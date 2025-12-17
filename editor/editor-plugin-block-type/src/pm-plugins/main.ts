@@ -142,9 +142,16 @@ export const createPlugin = (
 				const lastNode = pos.node(1);
 				const { paragraph } = newState.schema.nodes;
 				if (lastNode && lastNode.isBlock && lastNode.type !== paragraph) {
-					return newState.tr
-						.insert(newState.doc.content.size, newState.schema.nodes.paragraph.create())
-						.setMeta('addToHistory', false);
+					if (fg('platform_editor_fix_insert_paragraph_undo')) {
+						return newState.tr.insert(
+							newState.doc.content.size,
+							newState.schema.nodes.paragraph.create(),
+						);
+					} else {
+						return newState.tr
+							.insert(newState.doc.content.size, newState.schema.nodes.paragraph.create())
+							.setMeta('addToHistory', false);
+					}
 				}
 			}
 		},

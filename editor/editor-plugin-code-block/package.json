@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-block",
-	"version": "8.1.21",
+	"version": "8.1.22",
 	"description": "Code block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -96,9 +96,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform-custom-icon-migration": {
-			"type": "boolean"
-		},
 		"code_block_auto_insertion_bug_fix": {
 			"type": "boolean"
 		},

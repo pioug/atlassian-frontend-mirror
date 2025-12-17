@@ -7,8 +7,6 @@ import { useCallback, useMemo, useState } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 
 import { type IconProps } from '@atlaskit/icon';
-import PrimitiveSVGIcon from '@atlaskit/icon/svg';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type OptionProps, type OptionType } from '../types';
@@ -191,67 +189,46 @@ const svgStyles = css({
 	pointerEvents: 'none',
 });
 
-const newCheckboxIconPath = (
-	<g fillRule="evenodd">
-		<rect x="5.5" y="5.5" width="13" height="13" rx="1.5" fill="currentColor" />
-		<path
-			fillRule="evenodd"
-			clipRule="evenodd"
-			d="M16.3262 9.48011L15.1738 8.51984L10.75 13.8284L8.82616 11.5198L7.67383 12.4801L10.1738 15.4801C10.3163 15.6511 10.5274 15.75 10.75 15.75C10.9726 15.75 11.1837 15.6511 11.3262 15.4801L16.3262 9.48011Z"
-			fill="inherit"
-		/>
-	</g>
-);
-
-const NewCheckboxIcon = (props: IconProps) => {
-	if (fg('platform-custom-icon-migration')) {
-		const { primaryColor, secondaryColor, label } = props;
-
-		return (
-			<svg
-				viewBox="0 0 24 24"
-				style={{ color: primaryColor, fill: secondaryColor }}
-				css={svgStyles}
-				aria-label={label ? label : undefined}
-				role={label ? 'img' : 'presentation'}
-			>
-				{newCheckboxIconPath}
-			</svg>
-		);
-	}
+const CheckboxIcon = (props: IconProps) => {
+	const { primaryColor, secondaryColor, label } = props;
 
 	return (
-		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @atlaskit/design-system/no-custom-icons
-		<PrimitiveSVGIcon {...props}>{newCheckboxIconPath}</PrimitiveSVGIcon>
+		<svg
+			viewBox="0 0 24 24"
+			style={{ color: primaryColor, fill: secondaryColor }}
+			css={svgStyles}
+			aria-label={label ? label : undefined}
+			role={label ? 'img' : 'presentation'}
+		>
+			<g fillRule="evenodd">
+				<rect x="5.5" y="5.5" width="13" height="13" rx="1.5" fill="currentColor" />
+				<path
+					fillRule="evenodd"
+					clipRule="evenodd"
+					d="M16.3262 9.48011L15.1738 8.51984L10.75 13.8284L8.82616 11.5198L7.67383 12.4801L10.1738 15.4801C10.3163 15.6511 10.5274 15.75 10.75 15.75C10.9726 15.75 11.1837 15.6511 11.3262 15.4801L16.3262 9.48011Z"
+					fill="inherit"
+				/>
+			</g>
+		</svg>
 	);
 };
 
-const newRadioIconPath = (
-	<g fillRule="evenodd">
-		<circle cx="12" cy="12" r="6.75" fill="currentColor" strokeWidth="1.5" />
-		<circle cx="12" cy="12" r="3" fill="inherit" />
-	</g>
-);
+const RadioIcon = (props: IconProps) => {
+	const { primaryColor, secondaryColor, label } = props;
 
-const NewRadioIcon = (props: IconProps) => {
-	if (fg('platform-custom-icon-migration')) {
-		const { primaryColor, secondaryColor, label } = props;
-
-		return (
-			<svg
-				viewBox="0 0 24 24"
-				style={{ color: primaryColor, fill: secondaryColor }}
-				css={svgStyles}
-				aria-label={label ? label : undefined}
-				role={label ? 'img' : 'presentation'}
-			>
-				{newRadioIconPath}
-			</svg>
-		);
-	}
 	return (
-		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @atlaskit/design-system/no-custom-icons
-		<PrimitiveSVGIcon {...props}>{newRadioIconPath}</PrimitiveSVGIcon>
+		<svg
+			viewBox="0 0 24 24"
+			style={{ color: primaryColor, fill: secondaryColor }}
+			css={svgStyles}
+			aria-label={label ? label : undefined}
+			role={label ? 'img' : 'presentation'}
+		>
+			<g fillRule="evenodd">
+				<circle cx="12" cy="12" r="6.75" fill="currentColor" strokeWidth="1.5" />
+				<circle cx="12" cy="12" r="3" fill="inherit" />
+			</g>
+		</svg>
 	);
 };
 
@@ -262,7 +239,7 @@ export const CheckboxOption = <OptionT extends OptionType>(
 	props: OptionProps<OptionT, true>,
 ): JSX.Element => (
 	<ControlOption<OptionT, true>
-		Icon={NewCheckboxIcon}
+		Icon={CheckboxIcon}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
 	/>
@@ -274,7 +251,7 @@ export const CheckboxOption = <OptionT extends OptionType>(
 export const RadioOption = <OptionT extends OptionType>(props: OptionProps<OptionT, false>) => (
 	// TODO https://product-fabric.atlassian.net/browse/DSP-20769
 	<ControlOption
-		Icon={NewRadioIcon}
+		Icon={RadioIcon}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
 	/>

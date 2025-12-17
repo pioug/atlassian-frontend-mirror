@@ -1,6 +1,6 @@
 import React, { forwardRef, useCallback, useState } from 'react';
 
-import ArrowLeftIcon from '@atlaskit/icon/core/migration/arrow-left--arrow-left-circle';
+import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
 import type { ButtonItemProps } from '@atlaskit/menu';
 import { N10 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

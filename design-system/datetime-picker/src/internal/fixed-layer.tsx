@@ -53,7 +53,7 @@ interface FixedLayerProps {
 export default class FixedLayer extends React.Component<FixedLayerProps> {
 	update: () => void = noop;
 
-	componentDidUpdate(prevProps: any) {
+	componentDidUpdate(prevProps: any): void {
 		if (prevProps.inputValue !== this.props.inputValue) {
 			this.update();
 		}

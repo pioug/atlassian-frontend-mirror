@@ -1,5 +1,44 @@
 # @atlaskit/editor-statsig-tmp
 
+## 15.16.0
+
+### Minor Changes
+
+- [`722f272e8b78f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/722f272e8b78f) -
+  Editor-2778 add editor_fix_embed_width_expand experiment to fix embed width issue in expand
+
+## 15.15.0
+
+### Minor Changes
+
+- [`53aef9589ca55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53aef9589ca55) -
+  [EDITOR-3786] Make sure that for any check of `cc_editor_ai_content_mode` &&
+  `platform_editor_content_mode_button_mvp` in the code we are also checking
+  `confluence_compact_text_format`
+
+### Patch Changes
+
+- [`73a49fd4c204c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73a49fd4c204c) -
+  Cleanup FG platform_editor_new_list_decorations_logic
+
+## 15.14.0
+
+### Minor Changes
+
+- [`8f6e124ff820f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f6e124ff820f) -
+  Fix case platform_editor_remove_ncsstepmetrics_plugin
+
+## 15.13.0
+
+### Minor Changes
+
+- [`b6a737b41d065`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6a737b41d065) -
+  Clean up experiment platform_editor_fix_clone_nesting_exp
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.12.0
 
 ### Minor Changes

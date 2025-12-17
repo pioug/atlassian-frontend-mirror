@@ -63,19 +63,19 @@ type State = { value: number | null };
 export default class SpotlightDialogWidthExample extends Component<{}, State> {
 	state: State = { value: null };
 
-	start = () => this.setState({ value: 300 });
+	start = (): void => this.setState({ value: 300 });
 
-	increment = () =>
+	increment = (): void =>
 		this.setState(({ value }) => ({
 			value: Math.min((value || 0) + 100, 600),
 		}));
 
-	decrement = () =>
+	decrement = (): void =>
 		this.setState(({ value }) => ({
 			value: Math.max((value || 0) - 100, 160),
 		}));
 
-	finish = () => this.setState({ value: null });
+	finish = (): void => this.setState({ value: null });
 
 	render() {
 		const { value } = this.state;

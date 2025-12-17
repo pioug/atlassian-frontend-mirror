@@ -23,7 +23,7 @@ export default class Example extends Component<Props, State> {
 
 	interval: number;
 
-	onLocaleChange = (locale: Locale) => {
+	onLocaleChange = (locale: Locale): void => {
 		this.setState({
 			l10n: createLocalizationProvider(locale.value),
 		});

@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-media
 
+## 8.7.0
+
+### Minor Changes
+
+- [`79b6f0fef0ecb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79b6f0fef0ecb) -
+  Added a modal upon clicking the image editing button
+
+### Patch Changes
+
+- [`53aef9589ca55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53aef9589ca55) -
+  [EDITOR-3786] Make sure that for any check of `cc_editor_ai_content_mode` &&
+  `platform_editor_content_mode_button_mvp` in the code we are also checking
+  `confluence_compact_text_format`
+- Updated dependencies
+
+## 8.6.1
+
+### Patch Changes
+
+- [`b6a737b41d065`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6a737b41d065) -
+  Clean up experiment platform_editor_fix_clone_nesting_exp
+- Updated dependencies
+
 ## 8.6.0
 
 ### Minor Changes

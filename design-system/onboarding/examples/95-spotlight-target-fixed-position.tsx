@@ -18,9 +18,9 @@ interface State {
 export default class SpotlightTargetFixedPositionExample extends Component<{}, State> {
 	state: State = { active: false };
 
-	start = () => this.setState({ active: true });
+	start = (): void => this.setState({ active: true });
 
-	finish = () => this.setState({ active: false });
+	finish = (): void => this.setState({ active: false });
 
 	render(): React.JSX.Element {
 		const { active } = this.state;

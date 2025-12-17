@@ -1,5 +1,13 @@
 # @atlaskit/share
 
+## 6.16.24
+
+### Patch Changes
+
+- [`d14ea5f60b689`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d14ea5f60b689) -
+  chore: migrate platform UI & component libraries icon imports from migration paths to core
+- Updated dependencies
+
 ## 6.16.23
 
 ### Patch Changes

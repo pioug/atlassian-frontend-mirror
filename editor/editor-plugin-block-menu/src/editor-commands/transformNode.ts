@@ -24,9 +24,10 @@ export const transformNode =
 			const schema = tr.doc.type.schema;
 			const { nodes } = schema;
 			const { $from, $to } = expandSelectionToBlockRange(preservedSelection);
-			const isNested = isNestedNode(preservedSelection, '');
 
 			const selectedParent = $from.parent;
+			const isParentLayout = selectedParent.type === nodes.layoutColumn;
+			const isNestedExceptLayout = isNestedNode(preservedSelection, '') && !isParentLayout;
 
 			let fragment = Fragment.empty;
 
@@ -42,7 +43,7 @@ export const transformNode =
 					sourceNode: node,
 					targetNodeType: targetType,
 					schema: tr.doc.type.schema,
-					isNested,
+					isNested: isNestedExceptLayout,
 				});
 
 				if (outputNode) {

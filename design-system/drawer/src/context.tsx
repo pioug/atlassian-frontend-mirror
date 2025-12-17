@@ -17,7 +17,7 @@ export const useOnClose = () => useContext(OnCloseContext);
  */
 export const EnsureIsInsideDrawerContext = createContext<boolean>(false);
 
-export const useEnsureIsInsideDrawer = () => {
+export const useEnsureIsInsideDrawer = (): void => {
 	const context = useContext(EnsureIsInsideDrawerContext);
 	invariant(context, 'Drawer sub-components must be used within a Drawer component.');
 };

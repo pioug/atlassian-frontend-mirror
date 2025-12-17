@@ -13,7 +13,10 @@ test.describe(`when pressing arrow key to focus checkbox at the simple list`, ()
 		adf: simpleActionList,
 	});
 
-	test('should check first input when press ArrowLeft and pressing Space', async ({ editor }) => {
+	test('should check first input when press ArrowLeft and pressing Space', async ({
+		editor,
+		page,
+	}) => {
 		const nodes = EditorNodeContainerModel.from(editor);
 		const actionList = EditorActionListModel.from(nodes.actionList);
 		const actionItem = await actionList.actionItem(0);
@@ -31,10 +34,12 @@ test.describe(`when pressing arrow key to focus checkbox at the simple list`, ()
 				),
 			),
 		);
+		await expect(page).toBeAccessible();
 	});
 
 	test('should check second input when press ArrowDown and pressing Space to check item', async ({
 		editor,
+		page,
 	}) => {
 		const nodes = EditorNodeContainerModel.from(editor);
 		const actionList = EditorActionListModel.from(nodes.actionList);
@@ -54,10 +59,12 @@ test.describe(`when pressing arrow key to focus checkbox at the simple list`, ()
 				),
 			),
 		);
+		await expect(page).toBeAccessible();
 	});
 
 	test('should uncheck last input when press combine actions with ArrowLeft,ArrowRight,ArrowDown and pressing Space to check item', async ({
 		editor,
+		page,
 	}) => {
 		const nodes = EditorNodeContainerModel.from(editor);
 		const actionList = EditorActionListModel.from(nodes.actionList);
@@ -80,5 +87,6 @@ test.describe(`when pressing arrow key to focus checkbox at the simple list`, ()
 				),
 			),
 		);
+		await expect(page).toBeAccessible();
 	});
 });

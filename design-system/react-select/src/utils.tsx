@@ -15,7 +15,7 @@ import type {
 // NO OP
 // ==============================
 
-export const noop = () => {};
+export const noop = (): void => {};
 
 // ==============================
 // Class Name Prefixer
@@ -232,7 +232,7 @@ export function animatedScrollTo(
 	to: number,
 	duration = 200,
 	callback: (element: HTMLElement | typeof window) => void = noop,
-) {
+): void {
 	const start = getScrollTop(element);
 	const change = to - start;
 	const increment = 10;

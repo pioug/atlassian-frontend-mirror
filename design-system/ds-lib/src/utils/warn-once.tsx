@@ -9,7 +9,7 @@ const printed: PrintedMapping = {};
  *
  * @param message: The message to write as a warning
  */
-export default function warnOnce(message: string) {
+export default function warnOnce(message: string): void {
 	if (printed[message]) {
 		return;
 	}

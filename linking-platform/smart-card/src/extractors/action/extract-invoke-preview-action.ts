@@ -8,7 +8,6 @@ import {
 	extractSmartLinkUrl,
 } from '@atlaskit/link-extractors';
 import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { type FireEventFunction } from '../../common/analytics/types';
@@ -160,10 +159,8 @@ export const extractInvokePreviewAction = (
 							src: extractSmartLinkEmbed(response)?.src,
 							title: extractSmartLinkTitle(response),
 							url,
-							isBlanketHidden: fg('linking_platform_hide_preview_action_blanket_prop')
-								? actionOptions?.previewAction?.hideBlanket
-								: undefined,
 							size: actionOptions?.previewAction?.size,
+							isBlanketHidden: actionOptions?.previewAction?.hideBlanket,
 							...(expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') && {
 								isInPreviewPanel,
 							}),

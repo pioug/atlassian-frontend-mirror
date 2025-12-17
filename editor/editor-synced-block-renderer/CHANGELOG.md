@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 4.0.7
+
+### Patch Changes
+
+- [`099f1ef94c7c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/099f1ef94c7c2) -
+  Not found error will not be retryable in UI (expected behaviour)
+- Updated dependencies
+
 ## 4.0.6
 
 ### Patch Changes

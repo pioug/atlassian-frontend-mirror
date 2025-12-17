@@ -16,7 +16,7 @@ export const useSkipLinks = () => useContext(SkipLinksContext);
 export const useSkipLink = (
 	id?: SkipLinkData['id'],
 	skipLinkTitle?: SkipLinkData['skipLinkTitle'],
-) => {
+): void => {
 	const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
 	useEffect(() => {
 		if (id && skipLinkTitle) {

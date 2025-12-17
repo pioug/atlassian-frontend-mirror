@@ -9,12 +9,12 @@ export const useAnimationFrame = () => {
 		return id;
 	}, []);
 
-	const cancelFrame = useCallback((id: number) => {
+	const cancelFrame = useCallback((id: number): void => {
 		cancelAnimationFrame(id);
 		animationsRef.current = animationsRef.current.filter((frameId) => frameId !== id);
 	}, []);
 
-	const cancelAllFrames = useCallback(() => {
+	const cancelAllFrames = useCallback((): void => {
 		animationsRef.current.forEach((id) => cancelAnimationFrame(id));
 		animationsRef.current = [];
 	}, []);

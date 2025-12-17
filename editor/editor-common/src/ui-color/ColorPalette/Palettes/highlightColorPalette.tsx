@@ -3,12 +3,12 @@
  * @jsx jsx
  */
 
+import { type ComponentProps } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
 import { backgroundColorPalette, backgroundColorPaletteNext } from '@atlaskit/adf-schema';
-import Icon, { type CustomGlyphProps } from '@atlaskit/icon';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import getColorMessage from './getColorMessage';
@@ -18,7 +18,8 @@ import type { PaletteColor } from './type';
 
 export const REMOVE_HIGHLIGHT_COLOR = '#00000000';
 
-const DiagonalLineGlyph = (props: CustomGlyphProps) => (
+// Custom icon ejection - these icons have been migrated away from the deprecated Custom / SVG components to native SVG. Please review whether this icon should be contributed to @atlaskit/icon-lab or whether it can be replaced by an existing icon from either @atlaskit/icon or @atlaskit/icon-lab
+const DiagonalLineGlyph = (props: ComponentProps<'svg'>) => (
 	<svg
 		width="24"
 		height="24"
@@ -45,11 +46,9 @@ export const EditorDiagonalLineIcon = () => {
 		colorMode === 'dark'
 			? token('color.background.accent.gray.bolder', '#626F86')
 			: token('color.background.accent.gray.subtle', '#8590A2');
-	return fg('platform-custom-icon-migration') ? (
+	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 		<DiagonalLineGlyph aria-label="" style={{ color: primaryColor }} />
-	) : (
-		<Icon glyph={DiagonalLineGlyph} label="" primaryColor={primaryColor} />
 	);
 };
 

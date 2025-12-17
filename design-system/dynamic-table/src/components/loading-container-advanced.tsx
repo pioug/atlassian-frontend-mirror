@@ -33,7 +33,7 @@ export default class LoadingContainerAdvanced extends React.Component<
 		loadingLabel: 'Loading table',
 	};
 
-	componentDidMount = () => {
+	componentDidMount = (): void => {
 		if (this.props.isLoading && this.hasTargetNode()) {
 			this.attachListeners();
 
@@ -42,7 +42,7 @@ export default class LoadingContainerAdvanced extends React.Component<
 		}
 	};
 
-	UNSAFE_componentWillReceiveProps = (nextProps: LoadingContainerAdvancedProps) => {
+	UNSAFE_componentWillReceiveProps = (nextProps: LoadingContainerAdvancedProps): void => {
 		if (!nextProps.isLoading || !this.hasTargetNode(nextProps)) {
 			this.detachListeners();
 		} else if (!this.props.isLoading) {
@@ -50,7 +50,7 @@ export default class LoadingContainerAdvanced extends React.Component<
 		}
 	};
 
-	componentDidUpdate = () => {
+	componentDidUpdate = (): void => {
 		if (this.hasTargetNode()) {
 			this.updateTargetAppearance();
 
@@ -60,7 +60,7 @@ export default class LoadingContainerAdvanced extends React.Component<
 		}
 	};
 
-	componentWillUnmount = () => {
+	componentWillUnmount = (): void => {
 		this.detachListeners();
 	};
 
@@ -88,30 +88,30 @@ export default class LoadingContainerAdvanced extends React.Component<
 		return top >= 0 && bottom <= viewportHeight;
 	};
 
-	attachListeners() {
+	attachListeners(): void {
 		window.addEventListener('scroll', this.handleScroll);
 		window.addEventListener('resize', this.handleResize);
 	}
 
-	detachListeners() {
+	detachListeners(): void {
 		window.removeEventListener('scroll', this.handleScroll);
 		window.removeEventListener('resize', this.handleResize);
 	}
 
-	handleResize = () => {
+	handleResize = (): void => {
 		this.updateSpinnerPosition();
 	};
 
-	handleScroll = () => {
+	handleScroll = (): void => {
 		this.updateSpinnerPosition();
 	};
 
-	translateSpinner = (spinnerNode: HTMLElement, transformY: number, isFixed?: boolean) => {
+	translateSpinner = (spinnerNode: HTMLElement, transformY: number, isFixed?: boolean): void => {
 		spinnerNode.style.position = isFixed ? 'fixed' : '';
 		spinnerNode.style.transform = transformY !== 0 ? `translate3d(0, ${transformY}px, 0)` : '';
 	};
 
-	updateTargetAppearance = () => {
+	updateTargetAppearance = (): void => {
 		const targetNode = this.getTargetNode();
 
 		const { isLoading, contentsOpacity } = this.props;
@@ -121,7 +121,7 @@ export default class LoadingContainerAdvanced extends React.Component<
 		}
 	};
 
-	updateSpinnerPosition() {
+	updateSpinnerPosition(): void {
 		const viewportHeight = window.innerHeight;
 		const targetNode = this.getTargetNode();
 		const spinnerNode = this.spinnerRef?.current;

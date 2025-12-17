@@ -10,8 +10,8 @@ export default function useFocus() {
 
 	// ensure bindFocus has a stable ref
 	const bindFocus = useRef({
-		onFocus: () => setIsFocused(true),
-		onBlur: () => setIsFocused(false),
+		onFocus: (): void => setIsFocused(true),
+		onBlur: (): void => setIsFocused(false),
 	});
 
 	useEffect(() => {

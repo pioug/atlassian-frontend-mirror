@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, type MouseEvent } from 'react';
+import React, { Fragment, type MouseEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -168,7 +168,7 @@ export const AppHome = ({
 	siteTitle,
 	testId,
 	...rest
-}: AppHomeProps) => {
+}: AppHomeProps): React.JSX.Element => {
 	const theme = useTheme();
 	const primaryButton = theme.mode.primaryButton;
 	// After the brand refresh, iconColor and textColor should be set to 'undefined' to allow the original
@@ -272,7 +272,7 @@ const ProductHome = ({
 	siteTitle,
 	testId,
 	...rest
-}: ProductHomeProps) => {
+}: ProductHomeProps): React.JSX.Element => {
 	const theme = useTheme();
 	const primaryButton = theme.mode.primaryButton;
 

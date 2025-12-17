@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment } from 'react';
+import React, { Fragment } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -45,7 +45,7 @@ const searchIconStyles = css({
 
 // Not exported to consumers, only used in NavigationSkeleton
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SearchSkeleton = () => {
+export const SearchSkeleton = (): React.JSX.Element => {
 	const theme = useTheme();
 
 	return (

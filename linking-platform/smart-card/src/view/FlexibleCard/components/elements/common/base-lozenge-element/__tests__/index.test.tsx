@@ -5,6 +5,7 @@
 import '@testing-library/jest-dom';
 import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 
@@ -14,26 +15,49 @@ import BaseLozengeElement, { type BaseLozengeElementProps } from '../index';
 
 describe('Element: Lozenge', () => {
 	const testId = 'smart-element-lozenge';
-	const text = 'Some status';
-	const appearance = 'inprogress';
+	const defaultText = 'Some status';
+	const defaultAppearance = 'inprogress';
+
+	
+
+	const renderComponent = (props?: Partial<BaseLozengeElementProps>) => {
+		const {text = defaultText, appearance = defaultAppearance, ...rest} = props || {};
+		
+		const overrideCss = css({
+			fontStyle: 'italic',
+		});
+
+		const component = (
+			<IntlProvider locale="en">
+				<BaseLozengeElement
+					text={text}
+					appearance={appearance}
+					testId={testId}
+					css={overrideCss}
+					{...rest}
+				/>
+			</IntlProvider>
+		);
+		return render(component);
+	};
 
 	it('should capture and report a11y violations', async () => {
-		const { container } = render(<BaseLozengeElement text={text} appearance={appearance} />);
+		const { container } = renderComponent();
 
 		await expect(container).toBeAccessible();
 	});
 
 	it('renders element', async () => {
-		render(<BaseLozengeElement text={text} appearance={appearance} />);
+		renderComponent();
 
 		const element = await screen.findByTestId(testId);
 
 		expect(element).toBeTruthy();
-		expect(element).toHaveTextContent(text);
+		expect(element).toHaveTextContent(defaultText);
 	});
 
 	it('does not render when no text in element', async () => {
-		render(<BaseLozengeElement text={''} appearance={appearance} />);
+		renderComponent({ text: '' });
 		expect(screen.queryByTestId(testId)).toBeNull();
 	});
 
@@ -48,28 +72,25 @@ describe('Element: Lozenge', () => {
 		];
 		for (const appearance of appearances) {
 			it(`renders with ${appearance} appearance`, async () => {
-				render(<BaseLozengeElement text={text} appearance={appearance} />);
+				renderComponent({ appearance });
 
 				const element = await screen.findByTestId(testId);
 
 				expect(element).toBeTruthy();
-				expect(element).toHaveTextContent(text);
+				expect(element).toHaveTextContent(defaultText);
 			});
 		}
 	});
 
 	it('renders with default appearance when given an unexpected appearance', async () => {
-		render(<BaseLozengeElement text={text} appearance={'spaghetti' as any} />);
+		renderComponent({ appearance: 'spaghetti' as any });
 		const element = await screen.findByTestId(testId);
 		expect(element).toBeTruthy();
-		expect(element).toHaveTextContent(text);
+		expect(element).toHaveTextContent(defaultText);
 	});
 
 	it('renders with override css', async () => {
-		const overrideCss = css({
-			fontStyle: 'italic',
-		});
-		render(<BaseLozengeElement appearance={appearance} css={overrideCss} text={text} />);
+		renderComponent();
 
 		const element = await screen.findByTestId(testId);
 
@@ -109,9 +130,7 @@ describe('Element: Lozenge', () => {
 			jest.spyOn(useInvoke, 'default').mockReturnValue(jest.fn());
 			jest.spyOn(useResolve, 'default').mockReturnValue(jest.fn());
 
-			render(
-				<BaseLozengeElement action={action} appearance={appearance} testId={testId} text={text} />,
-			);
+			renderComponent({ action });
 
 			const element = await screen.findByTestId(triggerTestId);
 

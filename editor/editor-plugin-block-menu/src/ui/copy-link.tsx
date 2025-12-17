@@ -82,11 +82,10 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 		});
 	}, [api, blockLinkHashPrefix, getLinkPath, onDropdownOpenChanged, selection]);
 
-	// Hide copy link when `platform_editor_adf_with_localid` feature flag is off or when the node is nested or on empty line
+	// Hide copy link when `platform_editor_adf_with_localid` feature flag is off or when the node is nested
 	if (
 		!fg('platform_editor_adf_with_localid') ||
-		(!!menuTriggerBy && isNestedNode(selection, menuTriggerBy)) ||
-		selection?.empty
+		(!!menuTriggerBy && isNestedNode(selection, menuTriggerBy))
 	) {
 		return null;
 	}

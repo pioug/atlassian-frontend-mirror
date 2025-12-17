@@ -1,5 +1,13 @@
 # @atlaskit/dropdown-menu
 
+## 16.3.25
+
+### Patch Changes
+
+- [`3503d88dece46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3503d88dece46) -
+  Removing feature flag with changing internal use of custom icons.
+- Updated dependencies
+
 ## 16.3.24
 
 ### Patch Changes

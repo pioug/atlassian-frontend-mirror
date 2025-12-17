@@ -26,7 +26,7 @@ export function useSideNavVisibilityCallbacks({
 	isExpandedOnDesktop: boolean;
 	isExpandedOnMobile: boolean;
 	lastTrigger: SideNavTrigger | null;
-}) {
+}): void {
 	// Wrapping in refs so we can call them in `useEffect` without changes to them triggering the `useEffect`
 	const onExpandRef = useRef(onExpand);
 	const onCollapseRef = useRef(onCollapse);

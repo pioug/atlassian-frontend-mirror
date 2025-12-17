@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.16.2
+
+### Patch Changes
+
+- [`0a9debbd75b87`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a9debbd75b87) -
+  use getVisibilityStateFromPerformance for page visibility
+
 ## 4.16.1
 
 ### Patch Changes

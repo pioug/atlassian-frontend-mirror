@@ -58,7 +58,7 @@ export const setSearchParams = (
 	theme: { name: string; value: string }[],
 	baseTokens: BaseTokens,
 	colorMode: ColorMode,
-) => {
+): void => {
 	let objectTheme: { [index: string]: string } = {};
 	theme.forEach((value: { name: string; value: string }) => {
 		objectTheme[value.name] = value.value;

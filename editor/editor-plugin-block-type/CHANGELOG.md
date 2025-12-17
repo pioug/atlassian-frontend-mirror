@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-type
 
+## 10.3.1
+
+### Patch Changes
+
+- [`2702e8bc600ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2702e8bc600ac) -
+  Add the empty line to history so it can be part of undo stack correctly.
+- Updated dependencies
+
 ## 10.3.0
 
 ### Minor Changes

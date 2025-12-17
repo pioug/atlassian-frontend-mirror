@@ -20,6 +20,7 @@ export type RequestAccessMessageKey =
 export type MessageKey =
 	| 'assigned_to'
 	| 'ai_summarize'
+	| 'change_status'
 	| 'ai_summarized'
 	| 'ai_summarized_abbreviation'
 	| 'ai_summarized_info'
@@ -251,6 +252,11 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.linking.assigned_to',
 		defaultMessage: 'Assigned to {context}',
 		description: 'Indicates the person or entity that the resource is assigned to.',
+	},
+	change_status: {
+		id: 'fabric.linking.change_status',
+		defaultMessage: 'Change status: {status}',
+		description: 'Aria label for the button to change the status of a linked resource.',
 	},
 	automation_action_title: {
 		id: 'fabric.linking.automation-action.title',

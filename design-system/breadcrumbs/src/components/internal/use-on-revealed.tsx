@@ -24,7 +24,7 @@ interface OnRevealedParams {
  *    1) isExpanded - current state of breadcrumbs
  *    2) isDisabled - to disable the callback.
  */
-export function useOnRevealed(callback: () => void, { isExpanded, isDisabled }: OnRevealedParams) {
+export function useOnRevealed(callback: () => void, { isExpanded, isDisabled }: OnRevealedParams): void {
 	const prevExtended = usePreviousValue<boolean>(isExpanded);
 
 	useEffect(() => {

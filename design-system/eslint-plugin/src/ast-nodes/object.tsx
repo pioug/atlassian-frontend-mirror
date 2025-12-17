@@ -130,7 +130,7 @@ const ASTObjectExpression = {
 		);
 	},
 
-	recurse(node: ObjectExpression, callback: Function) {
+	recurse(node: ObjectExpression, callback: Function): void {
 		node.properties.forEach((entry: Property | SpreadElement) => {
 			// Call the callback first, in case the user wants to do something with SpreadElements
 			callback(entry);

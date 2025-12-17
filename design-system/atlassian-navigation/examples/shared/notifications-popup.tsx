@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -49,7 +49,7 @@ class MockNotificationLogClient extends NotificationLogClient {
 const client = new MockNotificationLogClient(5);
 const emptyClient = new MockNotificationLogClient(0);
 
-export const NotificationsPopup = () => {
+export const NotificationsPopup = (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [interacted, setInteracted] = useState(false);
 	const [buttonLabel, setButtonLabel] = useState<number | undefined>();

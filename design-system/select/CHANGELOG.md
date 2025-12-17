@@ -1,5 +1,20 @@
 # @atlaskit/select
 
+## 21.6.2
+
+### Patch Changes
+
+- [`d14ea5f60b689`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d14ea5f60b689) -
+  chore: migrate platform UI & component libraries icon imports from migration paths to core
+- Updated dependencies
+
+## 21.6.1
+
+### Patch Changes
+
+- [`3503d88dece46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3503d88dece46) -
+  Removing feature flag with changing internal use of custom icons.
+
 ## 21.6.0
 
 ### Minor Changes

@@ -5,7 +5,7 @@ import { addItemsToEvent, getFirstTextNode } from './_pdnd-test-utils';
 /**
  * Same as `nativeEvent.startTextSelectionDrag` but does not also step an animation frame
  */
-export function startTextSelectionDrag({ element }: { element: HTMLElement }) {
+export function startTextSelectionDrag({ element }: { element: HTMLElement }): void {
 	const text = getFirstTextNode(element);
 
 	const event = new DragEvent('dragstart', {
@@ -26,7 +26,7 @@ export function startTextSelectionDrag({ element }: { element: HTMLElement }) {
 	text.dispatchEvent(event);
 }
 
-export function clearSelection() {
+export function clearSelection(): void {
 	document.getSelection()?.empty();
 }
 

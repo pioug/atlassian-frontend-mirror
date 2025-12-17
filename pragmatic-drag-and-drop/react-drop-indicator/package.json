@@ -36,7 +36,7 @@
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"react-dom": "root:*",
 		"tiny-invariant": "root:*",
 		"wait-for-expect": "root:*"

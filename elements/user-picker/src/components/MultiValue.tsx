@@ -13,7 +13,7 @@ import { AvatarOrIcon } from './AvatarOrIcon';
 import { SizeableAvatar } from './SizeableAvatar';
 import { getAvatarUrl, isEmail, isGroup, isTeam } from './utils';
 import { type Option, type UserPickerProps } from '../types';
-import PeopleIcon from '@atlaskit/icon/core/migration/people-group--people';
+import PeopleIcon from '@atlaskit/icon/core/people-group';
 import { type MultiValueProps } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';

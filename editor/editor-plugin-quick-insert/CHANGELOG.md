@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 6.1.3
+
+### Patch Changes
+
+- [`06de6cb74b477`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06de6cb74b477) -
+  [ux] [ENGHEALTH-47507] internationalise strings behind feature gate platform_editor_dec_a11y_fixes
+- Updated dependencies
+
 ## 6.1.2
 
 ### Patch Changes

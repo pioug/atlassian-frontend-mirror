@@ -27,7 +27,7 @@ export const useChildIds = (
 	return { childIdsRef };
 };
 
-export const useChildIdsEffect = (childIds: MutableRefObject<Set<string>>, id: string) => {
+export const useChildIdsEffect = (childIds: MutableRefObject<Set<string>>, id: string): void => {
 	useEffect(() => {
 		if (!childIds || !childIds.current) {
 			return;

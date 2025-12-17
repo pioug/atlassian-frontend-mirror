@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, type KeyboardEvent, useState } from 'react';
+import React, { Fragment, type KeyboardEvent, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -239,7 +239,7 @@ const primaryItems = [
 	<PrimaryDropdown content={AppsContent} text="Apps" />,
 ];
 
-const JiraIntegrationExample = () => (
+const JiraIntegrationExample = (): React.JSX.Element => (
 	<Fragment>
 		<AtlassianNavigation
 			testId="atlassian-navigation"

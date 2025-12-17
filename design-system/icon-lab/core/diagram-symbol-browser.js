@@ -1,0 +1,29 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::1de1f060a03ea71926ba87ae3f07c606>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireDefault(require("react"));
+var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+/**
+ * Icon: "DiagramSymbolBrowser".
+ * Category: single-purpose
+ * Location: @atlaskit/icon-lab
+ * Usage guidance: Reserved for browser diagram symbol in Whiteboards.
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
+ */
+const DiagramSymbolBrowserIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "DiagramSymbolBrowserIcon",
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M14.009 1a2 2 0 0 1 1.999 1.986l.025 3.76v.007l-.027 6.256a2 2 0 0 1-2 1.991h-12a2 2 0 0 1-2-2.009l.027-6.236L.01 3.014A2 2 0 0 1 2.01 1zM1.506 12.998a.5.5 0 0 0 .5.502h12a.5.5 0 0 0 .5-.498L14.53 7.5h-13zM2.009 2.5a.5.5 0 0 0-.5.503L1.529 6h13l-.02-3.003a.5.5 0 0 0-.5-.497z"/><path fill="currentcolor" d="M3.25 3.5a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5m2.5 0a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5m2.5 0a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5"/>`
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+}, props));
+DiagramSymbolBrowserIcon.displayName = 'DiagramSymbolBrowserIcon';
+var _default = exports.default = DiagramSymbolBrowserIcon;

@@ -1,5 +1,23 @@
 # @atlaskit/react-select
 
+## 3.12.1
+
+### Patch Changes
+
+- [`d14ea5f60b689`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d14ea5f60b689) -
+  chore: migrate platform UI & component libraries icon imports from migration paths to core
+
+## 3.12.0
+
+### Minor Changes
+
+- [`fea5206ef4f36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fea5206ef4f36) -
+  Updated border radius values behind a feature gate `platform-dst-shape-theme-default`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.11.0
 
 ### Minor Changes

@@ -32,11 +32,11 @@ export default class SpotlightAutoscrollExample extends Component<{}, State> {
 		spotlight: 'off',
 	};
 
-	highlightOne = () => this.setState({ spotlight: 'target-one' });
+	highlightOne = (): void => this.setState({ spotlight: 'target-one' });
 
-	highlightTwo = () => this.setState({ spotlight: 'target-two' });
+	highlightTwo = (): void => this.setState({ spotlight: 'target-two' });
 
-	close = () => this.setState({ spotlight: 'off' });
+	close = (): void => this.setState({ spotlight: 'off' });
 
 	render(): React.JSX.Element {
 		const { spotlight } = this.state;

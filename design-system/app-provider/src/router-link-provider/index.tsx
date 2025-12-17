@@ -38,7 +38,7 @@ export type RouterLinkProviderContextProps<RouterLinkConfig extends Record<strin
 };
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const RouterLinkProviderContext = createContext<RouterLinkProviderContextProps>({});
+export const RouterLinkProviderContext: React.Context<RouterLinkProviderContextProps<never>> = createContext<RouterLinkProviderContextProps>({});
 
 type RouterLinkProviderProps = {
 	/**

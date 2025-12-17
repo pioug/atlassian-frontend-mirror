@@ -20,7 +20,7 @@ type CheckResult = {
 };
 
 export const ParagraphElements = {
-	lint(node: Rule.Node, { context, config }: MetaData) {
+	lint(node: Rule.Node, { context, config }: MetaData): void {
 		if (!isNodeOfType(node, 'JSXElement')) {
 			return;
 		}

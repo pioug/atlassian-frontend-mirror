@@ -100,9 +100,6 @@
 		"editor_a11y_announce_status_editor_open": {
 			"type": "boolean"
 		},
-		"visual-refresh_drop_5": {
-			"type": "boolean"
-		},
 		"editor_a11y_aria_label_removal_popup": {
 			"type": "boolean"
 		},

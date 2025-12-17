@@ -6,7 +6,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { R300, R400 } from '@atlaskit/theme/colors';
 import Tooltip from '@atlaskit/tooltip';
-import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
+import ErrorIcon from '@atlaskit/icon/core/status-error';
 import type { Message } from '../../types';
 import { useIntl } from 'react-intl-next';
 

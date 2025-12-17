@@ -10,7 +10,7 @@ export default class extends PureComponent {
 		lastEvent: '',
 	};
 
-	triggerEvent(name: string) {
+	triggerEvent(name: string): void {
 		this.setState({
 			lastEvent: name,
 		});

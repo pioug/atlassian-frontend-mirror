@@ -7,8 +7,8 @@ import { Fragment } from 'react';
 import Avatar from '@atlaskit/avatar';
 import { IconButton } from '@atlaskit/button/new';
 import { css, jsx } from '@atlaskit/css';
-import EditIcon from '@atlaskit/icon/glyph/edit';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import EditIcon from '@atlaskit/icon/core/edit';
+import ErrorIcon from '@atlaskit/icon/core/status-error';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
@@ -33,7 +33,7 @@ export default function ElementsBeforeAfterExample() {
 				id="after-input"
 				elemAfterInput={
 					<div css={afterStyle}>
-						<ErrorIcon label="error" />
+						<ErrorIcon spacing="spacious" label="error" />
 					</div>
 				}
 			/>

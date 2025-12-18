@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar, { AvatarItem } from '@atlaskit/avatar';
 import { Date as AKDate } from '@atlaskit/date';
-import Icon from '@atlaskit/icon/glyph/archive';
+import Icon from '@atlaskit/icon/core/archive-box';
 import Lozenge from '@atlaskit/lozenge';
 import Table, { Cell, Row, TBody } from '@atlaskit/table';
 
@@ -31,7 +31,7 @@ export default function RowExample(): React.JSX.Element {
 						<Lozenge appearance="moved">Overdue</Lozenge>
 					</Cell>
 					<Cell align="icon">
-						<Icon size="medium" label="archive" />
+						<Icon  spacing="spacious" label="archive" />
 					</Cell>
 				</Row>
 			</TBody>

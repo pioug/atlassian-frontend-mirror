@@ -1,5 +1,19 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.29.3
+
+### Patch Changes
+
+- [`da8c77a7aa301`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da8c77a7aa301) -
+  Update the use-character-counter-field rule to include guidance for when to use the standalone
+  character counter component
+
+## 13.29.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.29.1
 
 ### Patch Changes

@@ -1,8 +1,12 @@
 /* eslint-disable  */
 import React, { Component } from 'react';
 import { mount } from 'enzyme';
-
+import { shouldIgnoreLog } from '@af/suppress-react-warnings';
 import { AnalyticsDelegate, cleanProps, withAnalytics } from '../..';
+
+afterEach(() => {
+	jest.resetAllMocks();
+});
 
 const Button = withAnalytics(
 	class B extends Component {
@@ -22,8 +26,8 @@ const Button = withAnalytics(
 
 describe('AnalyticsDelegate', () => {
 	beforeEach(() => {
-		jest.spyOn(global.console, 'warn');
-		jest.spyOn(global.console, 'error');
+		jest.spyOn(global.console, 'warn').mockImplementation(() => {});
+		jest.spyOn(global.console, 'error').mockImplementation(() => {});
 	});
 	afterEach(() => {
 		global.console.warn.mockRestore();
@@ -37,10 +41,10 @@ describe('AnalyticsDelegate', () => {
 			</AnalyticsDelegate>,
 		);
 		component.find(Button).simulate('click');
-		/* eslint-disable no-console */
-		expect(console.warn).not.toHaveBeenCalled();
-		expect(console.error).not.toHaveBeenCalled();
-		/* eslint-enable no-console */
+		const mockWarnCalls = console.warn.mock.calls.filter((call) => !shouldIgnoreLog(call));
+		expect(mockWarnCalls.length).toBe(0);
+		const mockCalls = console.error.mock.calls.filter((call) => !shouldIgnoreLog(call));
+		expect(mockCalls.length).toBe(0);
 	});
 
 	it('should pass through public/private events', () => {

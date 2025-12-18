@@ -6,7 +6,7 @@ import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import RightArrow from '@atlaskit/icon/glyph/arrow-right';
+import RightArrow from '@atlaskit/icon/core/arrow-right';
 import { ButtonItem } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
 
@@ -67,7 +67,7 @@ export default () => (
 			onClick={console.log}
 			iconBefore={<ImgIcon src={koala} alt="" />}
 			description="Hover over me"
-			iconAfter={<RightArrow label="" />}
+			iconAfter={<RightArrow spacing="spacious" label="" />}
 			isSelected
 			css={[styles.buttonOne, styles.selected]}
 		>
@@ -77,7 +77,7 @@ export default () => (
 			onClick={console.log}
 			iconBefore={<ImgIcon alt="" src={koala} />}
 			description="Hover over me"
-			iconAfter={<RightArrow label="" />}
+			iconAfter={<RightArrow spacing="spacious" label="" />}
 			css={styles.buttonTwo}
 		>
 			Button item

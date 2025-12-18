@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 
-import DropboxIcon from '@atlaskit/icon/glyph/dropbox';
-import FilterIcon from '@atlaskit/icon/glyph/filter';
-import WorkIcon from '@atlaskit/icon/glyph/folder';
-import LightbulbIcon from '@atlaskit/icon/glyph/lightbulb';
-import CustomerIcon from '@atlaskit/icon/glyph/person';
-import QueueIcon from '@atlaskit/icon/glyph/queues';
-import SettingsIcon from '@atlaskit/icon/glyph/settings';
-import LanguageIcon from '@atlaskit/icon/glyph/world';
+import AppIcon from '@atlaskit/icon/core/app';
+import FilterIcon from '@atlaskit/icon/core/filter';
+import WorkIcon from '@atlaskit/icon/core/folder-closed';
+import LanguageIcon from '@atlaskit/icon/core/globe';
+import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
+import QueueIcon from '@atlaskit/icon/core/pages';
+import CustomerIcon from '@atlaskit/icon/core/person';
+import SettingsIcon from '@atlaskit/icon/core/settings';
 import {
 	ButtonItem,
 	LinkItem,
@@ -26,7 +26,7 @@ import SampleHeader from './common/sample-header';
 const LanguageSettings = () => {
 	return (
 		<NestingItem
-			iconBefore={<LanguageIcon label="" />}
+			iconBefore={<LanguageIcon spacing="spacious" label="" />}
 			id="language-menu"
 			title="Language settings"
 		>
@@ -65,8 +65,8 @@ const BasicExample = (): React.JSX.Element => {
 							id="filters"
 							testId="filter-nesting-item"
 							title="Filters"
-							iconBefore={<FilterIcon label="" />}
-							iconAfter={<LightbulbIcon label="" />}
+							iconBefore={<FilterIcon spacing="spacious" label="" />}
+							iconAfter={<LightbulbIcon spacing="spacious" label="" />}
 						>
 							<Section>
 								<ButtonItem>Search work items</ButtonItem>
@@ -91,7 +91,7 @@ const BasicExample = (): React.JSX.Element => {
 							testId="selected"
 							isSelected
 							title="Queues view"
-							iconBefore={<QueueIcon label="" />}
+							iconBefore={<QueueIcon spacing="spacious" label="" />}
 						>
 							<Section title="Queues" isList>
 								<ButtonItem>Untriaged</ButtonItem>
@@ -106,7 +106,7 @@ const BasicExample = (): React.JSX.Element => {
 						</NestingItem>
 						<NestingItem
 							id="settings"
-							iconBefore={<SettingsIcon label="" />}
+							iconBefore={<SettingsIcon spacing="spacious" label="" />}
 							title="Settings"
 							testId="settings-nesting-item"
 						>
@@ -116,16 +116,16 @@ const BasicExample = (): React.JSX.Element => {
 						</NestingItem>
 						<NestingItem
 							id="dropbox"
-							iconBefore={<DropboxIcon label="" />}
+							iconBefore={<AppIcon spacing="spacious" label="" />}
 							title="Dropbox"
 							testId="dropbox-nesting-item"
 							isDisabled
 						>
 							<Fragment />
 						</NestingItem>
-						<ButtonItem iconBefore={<WorkIcon label="" />}>Your work</ButtonItem>
+						<ButtonItem iconBefore={<WorkIcon spacing="spacious" label="" />}>Your work</ButtonItem>
 						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
-						<LinkItem href="#" iconBefore={<CustomerIcon label="" />}>
+						<LinkItem href="#" iconBefore={<CustomerIcon spacing="spacious" label="" />}>
 							Your customers
 						</LinkItem>
 					</Section>

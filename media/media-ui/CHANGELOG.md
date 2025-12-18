@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 28.7.21
+
+### Patch Changes
+
+- [`6a82d7964a37b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a82d7964a37b) -
+  Icon entrypoint migration
+- Updated dependencies
+
 ## 28.7.20
 
 ### Patch Changes

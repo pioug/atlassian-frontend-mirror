@@ -1,5 +1,11 @@
 # @atlaskit/rovo-agent-selector
 
+## 1.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.1
 
 ### Patch Changes

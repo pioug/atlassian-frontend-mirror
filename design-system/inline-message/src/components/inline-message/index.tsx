@@ -7,7 +7,6 @@ import { type FC, type ReactNode, useCallback, useState } from 'react';
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import { useId } from '@atlaskit/ds-lib/use-id';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type PopupProps } from '@atlaskit/popup';
 import { Box, Inline, Pressable, Text } from '@atlaskit/primitives/compiled';
 import { B300, G200, P200, R300, Y200 } from '@atlaskit/theme/colors';
@@ -67,11 +66,6 @@ const styles = cssMap({
 		paddingBlockStart: token('space.200'),
 		paddingBlockEnd: token('space.200'),
 	},
-	heightAndWidthConstraints: {
-		maxWidth: `${8 * 56}px`,
-		maxHeight: `${8 * 56}px`,
-		overflow: 'auto',
-	},
 	rootStyles: {
 		display: 'inline-block',
 		maxWidth: '100%',
@@ -89,6 +83,7 @@ const styles = cssMap({
 		backgroundColor: token('color.background.neutral.subtle'),
 		color: token('color.text.subtle'),
 		whiteSpace: 'nowrap',
+		borderRadius: token('radius.medium'),
 		paddingBlock: token('space.0'),
 		paddingInline: token('space.0'),
 		position: 'relative',
@@ -172,7 +167,6 @@ const InlineMessage: FC<InlineMessageProps> = ({
 					<Box
 						xcss={cx(
 							styles.contentStyles,
-							fg('add-max-width-and-height-to-inline-message') && styles.heightAndWidthConstraints,
 						)}
 					>
 						{children}

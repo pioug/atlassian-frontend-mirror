@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.23.0
+
+### Minor Changes
+
+- [`5092f69c488d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5092f69c488d8) -
+  Implemented analytics for team profilecard package
+
 ## 1.22.0
 
 ### Minor Changes

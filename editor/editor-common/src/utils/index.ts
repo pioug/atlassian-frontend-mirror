@@ -74,6 +74,8 @@ export {
 export { withImageLoader } from './imageLoader';
 export type { ImageLoaderProps, ImageLoaderState, ImageStatus } from './imageLoader';
 export {
+	breakoutResizableNodes,
+	getBreakoutResizableNodeTypes,
 	absoluteBreakoutWidth,
 	calcBreakoutWidth,
 	calcWideWidth,

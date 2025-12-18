@@ -76,26 +76,33 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 				editorHasNotBeenFocused.current = true;
 			}, [editorView]);
 
-			const { hasFocus, isOpen, editorDisabled, showToolbar, hasDangerDecorations } =
-				useSharedPluginStateWithSelector(
-					api,
-					['focus', 'typeAhead', 'editorDisabled', 'toolbar', 'decorations'],
-					(states) => {
-						return {
-							hasFocus: states.focusState?.hasFocus,
-							isOpen: states.typeAheadState?.isOpen,
-							editorDisabled: states.editorDisabledState?.editorDisabled,
-							showToolbar: states.toolbarState?.shouldShowToolbar,
-							hasDangerDecorations: expValEqualsNoExposure(
-								'platform_editor_block_menu',
-								'isEnabled',
-								true,
-							)
-								? states.decorationsState?.hasDangerDecorations
-								: undefined,
-						};
-					},
-				);
+			const {
+				hasFocus,
+				isOpen,
+				editorDisabled,
+				showToolbar,
+				hasDangerDecorations,
+				currentUserIntent,
+			} = useSharedPluginStateWithSelector(
+				api,
+				['focus', 'typeAhead', 'editorDisabled', 'toolbar', 'decorations', 'userIntent'],
+				(states) => {
+					return {
+						hasFocus: states.focusState?.hasFocus,
+						isOpen: states.typeAheadState?.isOpen,
+						editorDisabled: states.editorDisabledState?.editorDisabled,
+						showToolbar: states.toolbarState?.shouldShowToolbar,
+						hasDangerDecorations: expValEqualsNoExposure(
+							'platform_editor_block_menu',
+							'isEnabled',
+							true,
+						)
+							? states.decorationsState?.hasDangerDecorations
+							: undefined,
+						currentUserIntent: states.userIntentState?.currentUserIntent,
+					};
+				},
+			);
 			const isForcedHidden = useSharedPluginStateSelector(api, 'selectionMarker.isForcedHidden');
 			useEffect(() => {
 				// On editor init we should use this latch to keep the marker hidden until
@@ -105,6 +112,10 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 				if (hasFocus === true) {
 					editorHasNotBeenFocused.current = false;
 				}
+
+				const isBlockMenuOpen =
+					currentUserIntent === 'blockMenuOpen' &&
+					expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true);
 
 				/**
 				 * There are a number of conditions we should not show the marker,
@@ -123,7 +134,8 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 					(editorDisabled ?? false) ||
 					(showToolbar ?? false) ||
 					(!!hasDangerDecorations &&
-						expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true));
+						expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) ||
+					isBlockMenuOpen;
 
 				requestAnimationFrame(() => dispatchShouldHideDecorations(editorView, shouldHide));
 			}, [
@@ -134,6 +146,7 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 				editorDisabled,
 				showToolbar,
 				hasDangerDecorations,
+				currentUserIntent,
 			]);
 		},
 

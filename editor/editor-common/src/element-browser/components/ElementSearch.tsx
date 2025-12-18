@@ -13,6 +13,7 @@ import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext'
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import SearchIcon from '@atlaskit/icon/core/migration/search';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
@@ -65,10 +66,10 @@ function ElementSearch({
 	const onChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
 		onSearch(value);
 	};
-	const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+	const onFocus = (_e: React.FocusEvent<HTMLInputElement>) => {
 		setInputFocused(true);
 	};
-	const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+	const onBlur = (_e: React.FocusEvent<HTMLInputElement>) => {
 		setInputFocused(false);
 	};
 
@@ -131,8 +132,9 @@ function ElementSearch({
 					</div>
 				}
 				placeholder={formatMessage(commonMessages.placeHolderMessage)}
-				// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
-				aria-label="search"
+				aria-label={fg('platform_editor_dec_a11y_fixes')
+					? formatMessage(commonMessages.searchAriaLabel)
+					: "search"}
 				aria-labelledby="search-assistive"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="js-search-input"

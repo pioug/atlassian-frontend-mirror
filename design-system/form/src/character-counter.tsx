@@ -5,25 +5,24 @@
 
 import { useContext, useEffect, useRef, useState } from 'react';
 
-import { css, jsx } from '@atlaskit/css';
+import { css, cssMap, jsx } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { FieldId } from './field-id-context';
 
 // Extracted styles for character counter message container
-const messageContainerStyles = css({
-	display: 'flex',
-	justifyContent: 'baseline',
-	gap: token('space.075', '6px'),
-	color: token('color.text.danger', '#AE2A19'),
-	font: token('font.body.UNSAFE_small'),
-	marginBlockStart: token('space.050', '4px'),
+const messageContainerStyles = cssMap({
+	root: {
+		color: token('color.text.danger', '#AE2A19'),
+		font: token('font.body.UNSAFE_small'),
+		marginBlockStart: token('space.050', '4px'),
+	},
 });
 
-// Extracted styles for error icon wrapper
+// Extracted styles for error icon wrapper, need to use css to override the default height
 const errorIconWrapperStyles = css({
 	display: 'flex',
 	height: '16px',
@@ -105,7 +104,7 @@ const pluralize = (count: number) => `character${count !== 1 ? 's' : ''}`;
  * A character counter component that displays remaining characters for text input.
  * Displays messages for over or under the maximum or minimum character limits.
  */
-export const CharacterCounter = ({
+const CharacterCounter = ({
 	maxCharacters,
 	minCharacters,
 	currentValue,
@@ -177,8 +176,8 @@ export const CharacterCounter = ({
 	}
 
 	return (
-		<div data-testid={testId}>
-			<div css={messageContainerStyles}>
+		<Flex testId={testId}>
+			<Flex gap="space.075" xcss={messageContainerStyles.root}>
 				{displayAsError && <ErrorIconWithWrapper />}
 				<Text
 					color={displayAsError ? 'color.text.danger' : 'color.text.subtlest'}
@@ -187,11 +186,13 @@ export const CharacterCounter = ({
 				>
 					{displayText}
 				</Text>
-			</div>
+			</Flex>
 			{/* Screen reader announcements with debounced updates */}
 			<VisuallyHidden>
 				<div aria-live="polite">{announcementText}</div>
 			</VisuallyHidden>
-		</div>
+		</Flex>
 	);
 };
+
+export default CharacterCounter;

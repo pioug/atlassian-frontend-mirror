@@ -6,4 +6,5 @@ export {
 	SyncBlockSharedCssClassName,
 	SyncBlockLabelSharedCssClassName,
 	SyncBlockStateCssClassName,
+	SyncBlockRendererDataAttributeName,
 } from './styles/shared/sync-block';

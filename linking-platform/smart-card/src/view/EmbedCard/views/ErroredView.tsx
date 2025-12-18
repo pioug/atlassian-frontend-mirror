@@ -7,7 +7,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
-import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
+import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Textfield from '@atlaskit/textfield';
 import { type MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import { getMediaFeatureFlags, clearAllLocalFeatureFlags, setLocalFeatureFlag } from './helpers';
-import SelectClearIcon from '@atlaskit/icon/core/migration/cross-circle--select-clear';
-import HipchatChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down--hipchat-chevron-down';
+import SelectClearIcon from '@atlaskit/icon/core/cross-circle';
+import HipchatChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import Button from '@atlaskit/button/standard-button';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss

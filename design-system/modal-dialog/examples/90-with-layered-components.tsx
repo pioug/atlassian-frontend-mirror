@@ -11,8 +11,8 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdow
 import noop from '@atlaskit/ds-lib/noop';
 import Flag, { FlagGroup } from '@atlaskit/flag';
 import { Field } from '@atlaskit/form';
-import Info from '@atlaskit/icon/glyph/info';
-import AddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
+import AddCommentIcon from '@atlaskit/icon/core/comment-add';
+import Info from '@atlaskit/icon/core/status-information';
 import ModalDialog, {
 	ModalBody,
 	ModalFooter,
@@ -295,7 +295,7 @@ const FlagGroupExample = () => {
 const generateFlagData = (flags: FlagData[]): FlagData => ({
 	created: Date.now(),
 	description: 'Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod.',
-	icon: <Info label="Info icon" primaryColor={token('color.icon.discovery')} />,
+	icon: <Info spacing="spacious" label="Info icon" color={token('color.icon.discovery')} />,
 	id: flags.length,
 	key: flags.length,
 	title: `${flags.length + 1}: Whoa a new flag!`,

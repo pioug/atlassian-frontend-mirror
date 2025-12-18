@@ -7,7 +7,7 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import TrashIcon from '@atlaskit/icon/core/migration/delete--trash';
+import TrashIcon from '@atlaskit/icon/core/delete';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

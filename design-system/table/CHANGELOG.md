@@ -1,5 +1,11 @@
 # @atlaskit/table
 
+## 0.12.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.12.20
 
 ### Patch Changes

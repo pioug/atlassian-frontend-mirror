@@ -3,13 +3,13 @@ import React, { useCallback, useState } from 'react';
 import Button, { IconButton, SplitButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import Heading from '@atlaskit/heading';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
-import LinkIcon from '@atlaskit/icon/glyph/link';
-import MoreIcon from '@atlaskit/icon/glyph/more';
-import PageIcon from '@atlaskit/icon/glyph/page';
-import UnlockFilledIcon from '@atlaskit/icon/glyph/unlock-filled';
-import WorldIcon from '@atlaskit/icon/glyph/world';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import WorldIcon from '@atlaskit/icon/core/globe';
+import LinkIcon from '@atlaskit/icon/core/link';
+import UnlockFilledIcon from '@atlaskit/icon/core/lock-unlocked';
+import PageIcon from '@atlaskit/icon/core/page';
+import EditorSearchIcon from '@atlaskit/icon/core/search';
+import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -331,8 +331,8 @@ const JiraWorkItemViewActionsExample = () => {
 					placement="bottom-end"
 				>
 					<DropdownItemGroup>
-						<DropdownItem elemBefore={<PageIcon label="" />}>Link Confluence page</DropdownItem>
-						<DropdownItem elemBefore={<WorldIcon label="" />}>Add web link</DropdownItem>
+						<DropdownItem elemBefore={<PageIcon spacing="spacious" label="" />}>Link Confluence page</DropdownItem>
+						<DropdownItem elemBefore={<WorldIcon spacing="spacious" label="" />}>Add web link</DropdownItem>
 					</DropdownItemGroup>
 				</DropdownMenu>
 			</SplitButton>
@@ -361,8 +361,8 @@ const WithWrappersExample = () => {
 						placement="bottom-end"
 					>
 						<DropdownItemGroup>
-							<DropdownItem elemBefore={<PageIcon label="" />}>Link Confluence page</DropdownItem>
-							<DropdownItem elemBefore={<WorldIcon label="" />}>Add web link</DropdownItem>
+							<DropdownItem elemBefore={<PageIcon spacing="spacious" label="" />}>Link Confluence page</DropdownItem>
+							<DropdownItem elemBefore={<WorldIcon spacing="spacious" label="" />}>Add web link</DropdownItem>
 						</DropdownItemGroup>
 					</DropdownMenu>
 				</div>
@@ -392,8 +392,8 @@ const WithWrappersExample = () => {
 							placement="bottom-end"
 						>
 							<DropdownItemGroup>
-								<DropdownItem elemBefore={<PageIcon label="" />}>Link Confluence page</DropdownItem>
-								<DropdownItem elemBefore={<WorldIcon label="" />}>Add web link</DropdownItem>
+								<DropdownItem elemBefore={<PageIcon spacing="spacious" label="" />}>Link Confluence page</DropdownItem>
+								<DropdownItem elemBefore={<WorldIcon spacing="spacious" label="" />}>Add web link</DropdownItem>
 							</DropdownItemGroup>
 						</DropdownMenu>
 					</span>

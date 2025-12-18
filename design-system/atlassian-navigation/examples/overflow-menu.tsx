@@ -10,7 +10,7 @@ import {
 	useOverflowStatus,
 } from '@atlaskit/atlassian-navigation';
 import Button from '@atlaskit/button/new';
-import ChevronIcon from '@atlaskit/icon/glyph/chevron-down';
+import ChevronIcon from '@atlaskit/icon/core/chevron-down';
 import { ButtonItem } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
 
@@ -34,7 +34,7 @@ const ResponsivePrimaryDropdownButton = (props: PrimaryDropdownButtonProps) => {
 			iconAfter={
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				<span style={{ opacity: 0.51 }}>
-					<ChevronIcon label="" />
+					<ChevronIcon size="small" spacing="spacious" label="" />
 				</span>
 			}
 		>

@@ -18,3 +18,5 @@ export type { OnSubmitHandler, FormApi } from './types';
 export { useFormState } from './use-form-state';
 export { default as CharacterCounterField } from './character-counter-field';
 export type { CharacterCounterFieldProps } from './character-counter-field';
+export { default as CharacterCounter } from './character-counter';
+export type { CharacterCounterProps } from './character-counter';

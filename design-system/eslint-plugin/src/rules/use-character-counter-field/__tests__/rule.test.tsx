@@ -47,53 +47,6 @@ tester.run('use-character-counter-field', rule, {
 			`,
 		},
 		{
-			// TODO: DSP-24389 - Update below few tests when we export standalone CharacterCounter
-			name: 'should pass when Textfield with maxLength is outside Form context',
-			code: outdent`
-				import Textfield from '@atlaskit/textfield';
-
-				<Textfield label="Name" maxLength={50} />
-			`,
-		},
-		{
-			name: 'should pass when Textarea with maxLength is outside Form context',
-			code: outdent`
-				import Textarea from '@atlaskit/textarea';
-
-				<Textarea label="Description" maxLength={200} />
-			`,
-		},
-		{
-			name: 'should pass when Textfield with minLength is outside Form context',
-			code: outdent`
-				import Textfield from '@atlaskit/textfield';
-
-				<Textfield label="Name" minLength={10} />
-			`,
-		},
-		{
-			name: 'should pass when in custom Form component (not from @atlaskit/form)',
-			code: outdent`
-				import Textfield from '@atlaskit/textfield';
-				import { Form } from './custom-form';
-
-				<Form>
-					<Textfield label="Name" maxLength={50} />
-				</Form>
-			`,
-		},
-		{
-			name: 'should pass when in custom Field component (not from @atlaskit/form)',
-			code: outdent`
-				import Textfield from '@atlaskit/textfield';
-				import { Field } from './custom-field';
-
-				<Field>
-					<Textfield label="Name" maxLength={50} />
-				</Field>
-			`,
-		},
-		{
 			name: 'should pass when using CharacterCounterField inside Form',
 			code: outdent`
 				import Form, { CharacterCounterField } from '@atlaskit/form';
@@ -431,6 +384,104 @@ tester.run('use-character-counter-field', rule, {
 				},
 				{
 					messageId: 'useCharacterCounterField',
+				},
+			],
+		},
+		// Standalone usage tests - should use CharacterCounter
+		{
+			name: 'should warn when Textfield with maxLength is outside Form context',
+			code: outdent`
+				import Textfield from '@atlaskit/textfield';
+
+				<Textfield label="Name" maxLength={50} />
+			`,
+			errors: [
+				{
+					messageId: 'useCharacterCounter',
+				},
+			],
+		},
+		{
+			name: 'should warn when Textarea with maxLength is outside Form context',
+			code: outdent`
+				import Textarea from '@atlaskit/textarea';
+
+				<Textarea label="Description" maxLength={200} />
+			`,
+			errors: [
+				{
+					messageId: 'useCharacterCounter',
+				},
+			],
+		},
+		{
+			name: 'should warn when Textfield with minLength is outside Form context',
+			code: outdent`
+				import Textfield from '@atlaskit/textfield';
+
+				<Textfield label="Name" minLength={10} />
+			`,
+			errors: [
+				{
+					messageId: 'useCharacterCounter',
+				},
+			],
+		},
+		{
+			name: 'should warn when Textarea with minLength is outside Form context',
+			code: outdent`
+				import Textarea from '@atlaskit/textarea';
+
+				<Textarea label="Description" minLength={50} />
+			`,
+			errors: [
+				{
+					messageId: 'useCharacterCounter',
+				},
+			],
+		},
+		{
+			name: 'should warn when Textfield with both limits is outside Form context',
+			code: outdent`
+				import Textfield from '@atlaskit/textfield';
+
+				<Textfield label="Name" minLength={10} maxLength={50} />
+			`,
+			errors: [
+				{
+					messageId: 'useCharacterCounter',
+				},
+			],
+		},
+		{
+			name: 'should warn when in custom Form component (not from @atlaskit/form)',
+			code: outdent`
+				import Textfield from '@atlaskit/textfield';
+				import { Form } from './custom-form';
+
+				<Form>
+					<Textfield label="Name" maxLength={50} />
+				</Form>
+			`,
+			errors: [
+				{
+					messageId: 'useCharacterCounter',
+				},
+			],
+		},
+		{
+			name: 'should warn when in custom Field component (not from @atlaskit/form)',
+			code: outdent`
+				import Textfield from '@atlaskit/textfield';
+				import { Field } from './custom-field';
+
+				<Field>
+					<Textfield label="Name" maxLength={50} />
+				</Field>
+			`,
+			errors: [
+				{
+					messageId: 'useCharacterCounter',
 				},
 			],
 		},

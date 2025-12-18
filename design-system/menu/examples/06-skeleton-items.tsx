@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import EmojiCustomIcon from '@atlaskit/icon/glyph/emoji/custom';
-import UserAvatarCircleIcon from '@atlaskit/icon/glyph/user-avatar-circle';
+import EmojiCustomIcon from '@atlaskit/icon/core/add';
+import UserAvatarCircleIcon from '@atlaskit/icon/core/person-avatar';
 import {
 	ButtonItem,
 	HeadingItem,
@@ -23,7 +23,7 @@ const Item = ({ isLoading, ...props }: any) => {
 	let content;
 
 	if (props.hasIcon) {
-		icon = <EmojiCustomIcon label="" />;
+		icon = <EmojiCustomIcon spacing="spacious" label="" />;
 		content = 'Create';
 	} else if (props.hasAvatar) {
 		icon = (
@@ -39,7 +39,7 @@ const Item = ({ isLoading, ...props }: any) => {
 					height: 24,
 				}}
 			>
-				<UserAvatarCircleIcon primaryColor={token('color.text.subtlest')} label="" />
+				<UserAvatarCircleIcon spacing="spacious" color={token('color.text.subtlest')} label="" />
 			</span>
 		);
 		content = 'John Smith';

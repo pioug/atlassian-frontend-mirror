@@ -44,6 +44,9 @@
 			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
 		},
 		{
+			"path": "../../../build/test-tooling/suppress-react-warnings/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
 		},
 		{

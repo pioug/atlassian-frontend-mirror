@@ -9,12 +9,12 @@ import React, { useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button, { type Appearance, type ButtonProps } from '@atlaskit/button';
-import Expand from '@atlaskit/icon/glyph/arrow-down';
-import Calendar from '@atlaskit/icon/glyph/calendar';
-import Open from '@atlaskit/icon/glyph/editor/open';
-import Unlink from '@atlaskit/icon/glyph/editor/unlink';
-import Page from '@atlaskit/icon/glyph/page';
-import Question from '@atlaskit/icon/glyph/question';
+import Expand from '@atlaskit/icon/core/arrow-down';
+import Open from '@atlaskit/icon/core/arrow-up-right';
+import Calendar from '@atlaskit/icon/core/calendar';
+import Unlink from '@atlaskit/icon/core/link-broken';
+import Page from '@atlaskit/icon/core/page';
+import Question from '@atlaskit/icon/core/question-circle';
 import { token } from '@atlaskit/tokens';
 
 const styles = {
@@ -183,7 +183,7 @@ const BuildStory = (props: ButtonProps) => {
 				<Button
 					appearance={appearance}
 					href="//www.atlassian.com"
-					iconBefore={<Page label="page icon" />}
+					iconBefore={<Page spacing="spacious" label="page icon" />}
 				/>
 				<span>button with Page icon + href</span>
 			</div>
@@ -193,7 +193,7 @@ const BuildStory = (props: ButtonProps) => {
 					appearance={appearance}
 					href="//www.atlassian.com"
 					target="_blank"
-					iconBefore={<Expand label="expand icon" />}
+					iconBefore={<Expand spacing="spacious" label="expand icon" />}
 				/>
 				<span>button with icons + href + target</span>
 			</div>
@@ -201,7 +201,10 @@ const BuildStory = (props: ButtonProps) => {
 			<div css={styles.sample}>
 				<span>
 					text
-					<Button appearance={appearance} iconBefore={<Calendar label="calendar icon" />} />
+					<Button
+						appearance={appearance}
+						iconBefore={<Calendar spacing="spacious" label="calendar icon" />}
+					/>
 					text
 				</span>
 				<span>button with Calendar icon + text alignment check</span>
@@ -211,7 +214,7 @@ const BuildStory = (props: ButtonProps) => {
 				<Button
 					appearance={appearance}
 					isSelected
-					iconBefore={<Question label="question icon">Question</Question>}
+					iconBefore={<Question spacing="spacious" label="question icon" />}
 				/>
 				<span>button with Question icon + selected</span>
 			</div>
@@ -234,24 +237,24 @@ const BuildStory = (props: ButtonProps) => {
 					<Button
 						appearance={appearance}
 						spacing="none"
-						iconBefore={<Unlink label="unlink icon">unlink</Unlink>}
+						iconBefore={<Unlink spacing="spacious" label="unlink icon" />}
 					/>
 					<Button
 						appearance={appearance}
 						spacing="none"
 						isSelected
-						iconBefore={<Unlink label="unlink icon">unlink selected</Unlink>}
+						iconBefore={<Unlink spacing="spacious" label="unlink icon" />}
 					/>
 					<Button
 						appearance={appearance}
 						spacing="none"
-						iconBefore={<Open label="open icon">open</Open>}
+						iconBefore={<Open spacing="spacious" label="open icon" />}
 					/>
 					<Button
 						appearance={appearance}
 						spacing="none"
 						isSelected
-						iconBefore={<Open label="open icon">open selected</Open>}
+						iconBefore={<Open spacing="spacious" label="open icon" />}
 					/>
 				</div>
 				<span>button with icons, no spacing &amp; selected</span>
@@ -261,11 +264,7 @@ const BuildStory = (props: ButtonProps) => {
 				<Button appearance={appearance} spacing="compact">
 					Create work item
 				</Button>
-				<Button
-					appearance={appearance}
-					spacing="compact"
-					iconBefore={<Page label="">create work item</Page>}
-				>
+				<Button appearance={appearance} spacing="compact" iconBefore={<Page label="" />}>
 					Create work item
 				</Button>
 				<span>compact</span>
@@ -306,7 +305,7 @@ const BuildStory = (props: ButtonProps) => {
 			<div css={styles.sample}>
 				<Button
 					appearance={appearance}
-					iconBefore={<Page label="page icon" />}
+					iconBefore={<Page spacing="spacious" label="page icon" />}
 					shouldFitContainer
 				/>
 				<span>shouldFitContainer icon only</span>

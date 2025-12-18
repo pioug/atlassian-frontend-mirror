@@ -22,8 +22,8 @@ import invariant from 'tiny-invariant';
 import { cssMap, jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import ItemIcon from '@atlaskit/icon/glyph/editor/bullet-list';
-import RBDIcon from '@atlaskit/icon/glyph/editor/media-wide';
+import RBDIcon from '@atlaskit/icon/core/content-width-wide';
+import ItemIcon from '@atlaskit/icon/core/list-bulleted';
 import * as liveRegion from '@atlaskit/pragmatic-drag-and-drop-live-region';
 import { DragHandleButton } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-button';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
@@ -85,10 +85,10 @@ const styles = cssMap({
 	root: {
 		boxSizing: 'border-box',
 		width: '100%',
-		paddingTop: token('space.050'),
-		paddingRight: token('space.050'),
-		paddingBottom: token('space.050'),
-		paddingLeft: token('space.050'),
+		paddingBlockStart: token('space.050'),
+		paddingInlineEnd: token('space.050'),
+		paddingBlockEnd: token('space.050'),
+		paddingInlineStart: token('space.050'),
 		backgroundColor: token('elevation.surface.raised'),
 		borderRadius: token('radius.small'),
 		boxShadow: token('elevation.shadow.raised'),
@@ -356,7 +356,7 @@ const generateDraggableButtonItems = (n: number) => {
 		}, [instanceId, index, onDrop]);
 
 		return (
-			<ButtonItem iconBefore={<ItemIcon label="" />} ref={ref}>
+			<ButtonItem iconBefore={<ItemIcon spacing="spacious" label="" />} ref={ref}>
 				Item {index}
 			</ButtonItem>
 		);
@@ -517,7 +517,7 @@ const RBDExample = () => {
 						<NestableNavigationContent>
 							<NestingItem
 								id="draggable-button-items"
-								iconBefore={<RBDIcon label="" />}
+								iconBefore={<RBDIcon spacing="spacious" label="" />}
 								title="Draggable <ButtonItem/>s"
 							>
 								<Section title="Click and drag the items below to rearrange">
@@ -526,7 +526,7 @@ const RBDExample = () => {
 							</NestingItem>
 							<NestingItem
 								id="draggable-custom-items"
-								iconBefore={<RBDIcon label="" />}
+								iconBefore={<RBDIcon spacing="spacious" label="" />}
 								title="Draggable <CustomItem/>s"
 							>
 								<Section title="Click and drag the items below to rearrange">

@@ -1,5 +1,13 @@
 # @atlaskit/mobile-header
 
+## 7.0.24
+
+### Patch Changes
+
+- [`6a82d7964a37b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a82d7964a37b) -
+  Icon entrypoint migration
+- Updated dependencies
+
 ## 7.0.23
 
 ### Patch Changes

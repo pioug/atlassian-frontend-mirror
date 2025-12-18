@@ -20,7 +20,7 @@ exports[`FilmstripView .render() styles 1`] = `
       >REDACTED</style>
       <ul
         class="REDACTED"
-        style="transform: translateX(0px); transition-property: none; transition-duration: 0s;"
+        style="REDACTED"
       >
         <style
           data-cmpld="true"

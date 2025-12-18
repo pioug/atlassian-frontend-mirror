@@ -11,49 +11,49 @@ exports[`ArticleContent Should match snapshot 1`] = `
     >REDACTED</style>
     <div
       class="REDACTED"
-      style="display: inline-block; vertical-align: middle; position: relative; height: 16px; margin-top: 4px; width: 16px;"
+      style="REDACTED"
     />
     <style
       data-cmpld="true"
     >REDACTED</style>
     <div
       class="REDACTED"
-      style="height: 11px; margin-top: 4px; width: 60px;"
+      style="REDACTED"
     />
     <style
       data-cmpld="true"
     >REDACTED</style>
     <div
       class="REDACTED"
-      style="height: 1rem; margin-top: 8px; width: 100%;"
+      style="REDACTED"
     />
     <style
       data-cmpld="true"
     >REDACTED</style>
     <div
       class="REDACTED"
-      style="height: 1rem; margin-top: 16px; width: 90%;"
+      style="REDACTED"
     />
     <style
       data-cmpld="true"
     >REDACTED</style>
     <div
       class="REDACTED"
-      style="height: 1rem; width: 90%;"
+      style="REDACTED"
     />
     <style
       data-cmpld="true"
     >REDACTED</style>
     <div
       class="REDACTED"
-      style="height: 1rem; width: 80%;"
+      style="REDACTED"
     />
     <style
       data-cmpld="true"
     >REDACTED</style>
     <div
       class="REDACTED"
-      style="height: 1rem; width: 80%;"
+      style="REDACTED"
     />
   </div>
 </DocumentFragment>

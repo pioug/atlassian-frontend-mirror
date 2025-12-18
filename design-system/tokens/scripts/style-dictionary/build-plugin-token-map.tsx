@@ -8,7 +8,6 @@ import path from 'path';
 import json5 from 'json5';
 
 import { createSignedArtifact } from '@atlassian/codegen';
-import { checkGate } from '@atlassian/repo-feature-flags-statsig';
 
 // Type definitions for token structures
 interface ShadowToken {
@@ -92,13 +91,6 @@ function getThemeValues(theme: Token[]): FormattedTokens {
 }
 
 async function main() {
-	if (!(await checkGate('bundler_generate_token_map', false))) {
-		// eslint-disable-next-line no-console
-		console.log(
-			'Skipping token map generation because the gate `bundler_generate_token_map` is false',
-		);
-		return;
-	}
 	const tokenNames = requireJsonish(path.join(prebuiltRoot, 'token-names.js'));
 	const light = requireJsonish(path.join(prebuiltRoot, 'tokens-raw', 'atlassian-light.js'));
 	const legacyLight = requireJsonish(

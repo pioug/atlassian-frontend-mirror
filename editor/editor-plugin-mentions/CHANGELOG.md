@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-mentions
 
+## 8.2.24
+
+### Patch Changes
+
+- [`019e34f92a799`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/019e34f92a799) -
+  Cleanup FG platform_editor_new_mentions_detection_logic
+- Updated dependencies
+
+## 8.2.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.22
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.21
 
 ### Patch Changes

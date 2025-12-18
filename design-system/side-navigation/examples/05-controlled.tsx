@@ -7,12 +7,12 @@ import { useState } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import { Label } from '@atlaskit/form';
-import FilterIcon from '@atlaskit/icon/glyph/filter';
-import WorkIcon from '@atlaskit/icon/glyph/folder';
-import CustomerIcon from '@atlaskit/icon/glyph/person';
-import QueueIcon from '@atlaskit/icon/glyph/queues';
-import SettingsIcon from '@atlaskit/icon/glyph/settings';
-import LanguageIcon from '@atlaskit/icon/glyph/world';
+import FilterIcon from '@atlaskit/icon/core/filter';
+import WorkIcon from '@atlaskit/icon/core/folder-closed';
+import LanguageIcon from '@atlaskit/icon/core/globe';
+import QueueIcon from '@atlaskit/icon/core/pages';
+import CustomerIcon from '@atlaskit/icon/core/person';
+import SettingsIcon from '@atlaskit/icon/core/settings';
 import { Box } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select';
 import {
@@ -42,7 +42,7 @@ interface Option {
 
 const LanguageSettings = () => {
 	return (
-		<NestingItem iconBefore={<LanguageIcon label="" />} id="3-1" title="Language settings">
+		<NestingItem iconBefore={<LanguageIcon spacing="spacious" label="" />} id="3-1" title="Language settings">
 			<ButtonItem>Customize</ButtonItem>
 
 			<NestingItem id="3-1-1" title="German Settings">
@@ -111,14 +111,14 @@ const ControlledExample = () => {
 				</NavigationHeader>
 				<NestableNavigationContent onChange={setStack} stack={stack}>
 					<Section>
-						<ButtonItem isSelected iconBefore={<WorkIcon label="" />}>
+						<ButtonItem isSelected iconBefore={<WorkIcon spacing="spacious" label="" />}>
 							Your work
 						</ButtonItem>
 						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
-						<LinkItem href="#" iconBefore={<CustomerIcon label="" />}>
+						<LinkItem href="#" iconBefore={<CustomerIcon spacing="spacious" label="" />}>
 							Your customers
 						</LinkItem>
-						<NestingItem id="1" title="Queues view" iconBefore={<QueueIcon label="" />}>
+						<NestingItem id="1" title="Queues view" iconBefore={<QueueIcon spacing="spacious" label="" />}>
 							<Section>
 								<HeadingItem>Queues</HeadingItem>
 								<ButtonItem>Untriaged</ButtonItem>
@@ -135,7 +135,7 @@ const ControlledExample = () => {
 							id="2"
 							testId="filter-nesting-item"
 							title="Filters"
-							iconBefore={<FilterIcon label="" />}
+							iconBefore={<FilterIcon spacing="spacious" label="" />}
 						>
 							<Section>
 								<ButtonItem>Search work items</ButtonItem>
@@ -157,7 +157,7 @@ const ControlledExample = () => {
 								<ButtonItem>View all filters</ButtonItem>
 							</Section>
 						</NestingItem>
-						<NestingItem id="3" iconBefore={<SettingsIcon label="" />} title="Settings">
+						<NestingItem id="3" iconBefore={<SettingsIcon spacing="spacious" label="" />} title="Settings">
 							<LanguageSettings />
 						</NestingItem>
 					</Section>

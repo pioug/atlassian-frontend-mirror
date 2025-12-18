@@ -9,6 +9,7 @@ import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getPluginState } from '../pm-plugins/plugin-factory';
@@ -402,7 +403,11 @@ export default class TableRowNativeStickyWithFallback
 				} else {
 					this.dom.classList.remove(ClassName.NATIVE_STICKY_ACTIVE);
 					if (tableContainer && tableContainer instanceof HTMLElement) {
-						tableContainer.dataset.tableHeaderIsStuck = 'false';
+						if (fg('platform_editor_table_sticky_header_patch_3')) {
+							delete tableContainer.dataset.tableHeaderIsStuck;
+						} else {
+							tableContainer.dataset.tableHeaderIsStuck = 'false';
+						}
 					}
 				}
 			});

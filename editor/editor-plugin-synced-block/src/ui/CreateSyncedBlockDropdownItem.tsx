@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl-next';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { SyncBlocksIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import Lozenge from '@atlaskit/lozenge';
 
@@ -41,7 +42,7 @@ const CreateSyncedBlockDropdownItem = ({
 		api?.core?.actions.execute(api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true }));
 	};
 
-	const isOffline = mode === 'offline';
+	const isOffline = isOfflineMode(mode);
 
 	return (
 		<ToolbarDropdownItem
@@ -74,7 +75,7 @@ const CopySyncedBlockDropdownItem = ({
 		<ToolbarDropdownItem
 			elemBefore={<SyncBlocksIcon label="" />}
 			onClick={onClick}
-			isDisabled={mode === 'offline'}
+			isDisabled={isOfflineMode(mode)}
 			elemAfter={<Lozenge appearance="new">{formatMessage(blockMenuMessages.newLozenge)}</Lozenge>}
 		>
 			{formatMessage(blockMenuMessages.copySyncedBlock)}

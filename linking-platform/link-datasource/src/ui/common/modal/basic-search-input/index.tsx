@@ -7,7 +7,7 @@ import { css, cssMap, jsx } from '@compiled/react';
 import { type MessageDescriptor, useIntl } from 'react-intl-next';
 
 import { IconButton } from '@atlaskit/button/new';
-import SearchIcon from '@atlaskit/icon/core/migration/search--editor-search';
+import SearchIcon from '@atlaskit/icon/core/search';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';

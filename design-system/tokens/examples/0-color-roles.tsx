@@ -5,7 +5,8 @@
 
 import { cssMap, type CSSProperties, jsx } from '@compiled/react';
 
-import AtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
+import StarStarredIcon from '@atlaskit/icon/core/star-starred';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import { setGlobalTheme, token } from '@atlaskit/tokens';
 
 import { useVrGlobalTheme } from './utils/use-vr-global-theme';
@@ -205,7 +206,11 @@ const Box = ({ text, style }: { text: string; style: Record<string, string> }) =
 			} as CSSProperties
 		}
 	>
-		<AtlassianIcon label="Atlassian logo" primaryColor={style.iconColor} />
+		<StarStarredIcon
+			label="Star icon"
+			color={style.iconColor as NewCoreIconProps['color']}
+			spacing="spacious"
+		/>
 		{text}
 	</button>
 );

@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl-next';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { Breakpoint } from '@atlaskit/editor-toolbar';
 import type { EmojiProvider } from '@atlaskit/emoji';
@@ -73,7 +74,7 @@ export const useInsertButtonState = ({
 	// Computed values
 	const mediaUploadsEnabled = mediaAllowsUploads;
 	const mediaSupported = mediaAllowsUploads !== undefined;
-	const isEditorOffline = connectivityMode === 'offline';
+	const isEditorOffline = isOfflineMode(connectivityMode);
 	const imageUploadSupported = !!api?.imageUpload;
 	const mentionsDisabled = !canInsertMention;
 	const linkSupported = canInsertLink !== undefined;

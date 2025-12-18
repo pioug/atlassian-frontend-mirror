@@ -1,5 +1,11 @@
 # @atlaskit/section-message
 
+## 8.11.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.11.1
 
 ### Patch Changes

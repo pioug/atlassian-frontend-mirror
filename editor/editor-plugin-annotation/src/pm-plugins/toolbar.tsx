@@ -25,6 +25,7 @@ import {
 	calculateToolbarPositionTrackHead,
 	getRangeInlineNodeNames,
 } from '@atlaskit/editor-common/utils';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { type SelectionBookmark, type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -172,7 +173,7 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 			showTitle: true,
 			disabled:
 				isCommentButtonDisabled ||
-				api?.connectivity?.sharedState?.currentState()?.mode === 'offline',
+				isOfflineMode(api?.connectivity?.sharedState?.currentState()?.mode),
 			testId: AnnotationTestIds.floatingToolbarCreateButton,
 			interactionName: 'start-inline-comment-action',
 			icon: CommentIcon,

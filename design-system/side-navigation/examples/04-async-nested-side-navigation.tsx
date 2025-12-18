@@ -1,8 +1,8 @@
 import React, { type FC, useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import AsyncIcon from '@atlaskit/icon/glyph/emoji/frequent';
-import VidBackwardIcon from '@atlaskit/icon/glyph/vid-backward';
+import VideoRewindOverlayIcon from '@atlaskit/icon-lab/core/video-rewind-overlay';
+import AsyncIcon from '@atlaskit/icon/core/clock';
 import {
 	NavigationHeader,
 	NestableNavigationContent,
@@ -36,7 +36,11 @@ const DelayedComponent: FC<{ id: number }> = ({ id }) => {
 	return showLoading ? (
 		<SkeletonItem hasIcon isShimmering />
 	) : (
-		<NestingItem title="Async Item" id={`${id}`} iconBefore={<AsyncIcon label="" />}>
+		<NestingItem
+			title="Async Item"
+			id={`${id}`}
+			iconBefore={<AsyncIcon spacing="spacious" label="" />}
+		>
 			<Section title="Heading">
 				<DelayedComponent id={id + 1} />
 			</Section>
@@ -63,7 +67,7 @@ const BasicExample = (): React.JSX.Element => {
 					</Section>
 				</NestableNavigationContent>
 				<Button
-					iconBefore={VidBackwardIcon}
+					iconBefore={VideoRewindOverlayIcon}
 					aria-label="Will load everything again"
 					onClick={reset}
 				>

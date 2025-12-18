@@ -3,8 +3,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
-import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
-import InfoIcon from '@atlaskit/icon/glyph/info';
+import InfoIcon from '@atlaskit/icon/core/status-information';
+import SuccessIcon from '@atlaskit/icon/core/status-success';
 import { token } from '@atlaskit/tokens';
 
 import Flag, { AutoDismissFlag, FlagGroup } from '../../index';
@@ -17,7 +17,7 @@ describe('Accessibility jest-axe', () => {
 				id: '1',
 				key: '1',
 				title: 'New version published',
-				icon: <InfoIcon primaryColor={token('color.icon.information')} label="Info" />,
+				icon: <InfoIcon color={token('color.icon.information')} label="Info" />,
 			},
 			{
 				description:
@@ -25,7 +25,7 @@ describe('Accessibility jest-axe', () => {
 				id: '2',
 				key: '2',
 				title: 'New version published',
-				icon: <InfoIcon primaryColor={token('color.icon.information')} label="Info" />,
+				icon: <InfoIcon color={token('color.icon.information')} label="Info" />,
 			},
 		];
 		const { container } = render(
@@ -43,9 +43,7 @@ describe('Accessibility jest-axe', () => {
 		const { container } = render(
 			<AutoDismissFlag
 				id={1}
-				icon={
-					<SuccessIcon primaryColor={token('color.icon.success')} label="Success" size="medium" />
-				}
+				icon={<SuccessIcon color={token('color.icon.success')} label="Success" size="medium" />}
 				title={`#${1} Your changes were saved`}
 				description="I will auto dismiss after 8 seconds."
 			/>,

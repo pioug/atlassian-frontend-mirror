@@ -31,7 +31,7 @@ export type {
 	NonAppHandoffPayload,
 	AppHandoffPayload,
 	SolutionArchitectAgentActivationPayload,
-	AutomationRuleUpdatePayload,
+	StudioAutomationBuildUpdatePayload,
 } from './common/types/solution-architect';
 export type {
 	JsmJourneyBuilderActionsPayload,

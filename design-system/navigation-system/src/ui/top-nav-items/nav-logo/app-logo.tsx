@@ -35,6 +35,9 @@ const anchorStyles = cssMap({
 		// with the app tile icon and the other icon buttons that use normal (non-tile) icons.
 		marginInlineStart: token('space.050'),
 	},
+	rootT26Shape: {
+		borderRadius: token('radius.large'),
+	},
 	// This is the same between app-logo and nav-logo
 	interactionStates: {
 		'&:hover': {
@@ -175,6 +178,7 @@ export const AppLogo = ({
 			// eslint-disable-next-line @compiled/no-suppress-xcss
 			xcss={cx(
 				anchorStyles.root,
+				fg('platform-dst-shape-theme-default') && anchorStyles.rootT26Shape,
 				hasCustomTheme
 					? anchorStyles.interactionStatesCustomTheming
 					: anchorStyles.interactionStates,

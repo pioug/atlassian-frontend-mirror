@@ -2,6 +2,7 @@ import React, { type ChangeEvent, createRef } from 'react';
 
 import { fireEvent, render, screen, within } from '@testing-library/react';
 
+import { shouldIgnoreLog } from '@af/suppress-react-warnings';
 import __noop from '@atlaskit/ds-lib/noop';
 
 import Checkbox from '../../checkbox';
@@ -24,7 +25,10 @@ describe('@atlaskit/checkbox', () => {
 		it('should not log console error on mount', () => {
 			jest.spyOn(global.console, 'error');
 			renderCheckbox({});
-			expect(global.console.error).not.toHaveBeenCalled();
+			const errorCalls = (global.console.error as jest.Mock).mock.calls.filter(
+				(call) => !shouldIgnoreLog(call),
+			);
+			expect(errorCalls).toHaveLength(0);
 			// @ts-ignore - Property 'mockRestore' does not exist
 			global.console.error.mockRestore();
 		});

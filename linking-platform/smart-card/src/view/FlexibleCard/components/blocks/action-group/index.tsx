@@ -13,7 +13,7 @@ import { type Appearance } from '@atlaskit/button';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu from '@atlaskit/dropdown-menu';
-import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
+import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 

@@ -3,10 +3,10 @@ import type { DocNode } from '@atlaskit/adf-schema';
 import type { SolutionDraftAgentUpdatePayload } from './common/types/agent';
 import type { JsmJourneyBuilderActionsPayload } from './common/types/jsm-journey-builder';
 import type {
-	AutomationRuleUpdatePayload,
 	SolutionArchitectAgentActivationPayload,
 	SolutionArchitectHandoffPayload,
 	SolutionPlanStateUpdatePayload,
+	StudioAutomationBuildUpdatePayload,
 } from './common/types/solution-architect';
 import type { ChatContextPayload } from './common/utils/chat-context';
 
@@ -307,7 +307,10 @@ export type JiraWorkflowWizardAction =
 	| { operationType: 'ADD_TRANSITION'; payload: AddNewTransitionRovoPayload }
 	| { operationType: 'UPDATE_TRANSITION'; payload: UpdateTransitionRovoPayload }
 	// TODO: Remove DeleteTransitionRovoPayloadOld when hix-7888_-_delete_transition_expanded_fields is cleaned up
-	| { operationType: 'DELETE_TRANSITION'; payload: DeleteTransitionRovoPayloadOld | DeleteTransitionRovoPayload }
+	| {
+			operationType: 'DELETE_TRANSITION';
+			payload: DeleteTransitionRovoPayloadOld | DeleteTransitionRovoPayload;
+	  }
 	| { operationType: 'ADD_RULE'; payload: AddRuleRovoPayload }
 	| { operationType: 'UPDATE_RULE'; payload: UpdateRuleRovoPayload }
 	| { operationType: 'DELETE_RULE'; payload: DeleteRuleRovoPayload };
@@ -384,7 +387,7 @@ export type Payload =
 	| OpenChatDebugModalPayload
 	| OpenChatFeedbackModalPayload
 	| JsmJourneyBuilderActionsPayload
-	| AutomationRuleUpdatePayload
+	| StudioAutomationBuildUpdatePayload
 	| SolutionArchitectHandoffPayload
 	| SolutionPlanStateUpdatePayload
 	| SolutionDraftAgentUpdatePayload

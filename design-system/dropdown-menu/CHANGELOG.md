@@ -1,5 +1,19 @@
 # @atlaskit/dropdown-menu
 
+## 16.3.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.3.26
+
+### Patch Changes
+
+- [`70f2d1e65958d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70f2d1e65958d) -
+  Clean up flag.
+- Updated dependencies
+
 ## 16.3.25
 
 ### Patch Changes

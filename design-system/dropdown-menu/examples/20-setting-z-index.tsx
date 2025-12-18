@@ -3,7 +3,7 @@ import React, { Fragment, useState } from 'react';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import MediaServicesAddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
+import MediaServicesAddCommentIcon from '@atlaskit/icon/core/comment-add';
 import Popup from '@atlaskit/popup';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -12,10 +12,10 @@ const styles = cssMap({
 	container: {
 		width: '12rem',
 		height: '12rem',
-		paddingTop: token('space.100', '8px'),
-		paddingRight: token('space.100', '8px'),
-		paddingBottom: token('space.100', '8px'),
-		paddingLeft: token('space.100', '8px'),
+		paddingBlockStart: token('space.100', '8px'),
+		paddingInlineEnd: token('space.100', '8px'),
+		paddingBlockEnd: token('space.100', '8px'),
+		paddingInlineStart: token('space.100', '8px'),
 	},
 });
 

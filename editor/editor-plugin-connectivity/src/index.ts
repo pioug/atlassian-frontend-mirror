@@ -8,3 +8,5 @@ export type {
 	PluginState,
 	PublicPluginState,
 } from './connectivityPluginType';
+// eslint-disable-next-line @atlaskit/editor/only-export-plugin
+export { isOfflineMode } from './connectivityPluginType';

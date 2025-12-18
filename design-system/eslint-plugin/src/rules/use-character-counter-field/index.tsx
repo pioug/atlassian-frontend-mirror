@@ -8,8 +8,11 @@ const TEXTFIELD_PACKAGE = '@atlaskit/textfield';
 const TEXTAREA_PACKAGE = '@atlaskit/textarea';
 const FORM_PACKAGE = '@atlaskit/form';
 
-export const message =
+export const messageInsideForm =
 	'When using `maxLength` or `minLength` props with Textfield/Textarea inside a Form, use `CharacterCounterField` from `@atlaskit/form` instead of Field and remove the props from the Textfield/Textarea. This ensures accessibility through real time feedback and aligns with the design system. Read more about [character counter fields](https://atlassian.design/components/form/examples#charactercounterfield)';
+
+export const messageOutsideForm =
+	'When using `maxLength` or `minLength` props with Textfield/Textarea, use `CharacterCounter` from `@atlaskit/form` alongside your input for real-time character count feedback. This ensures accessibility through screen reader announcements and visual feedback. Read more about [standalone character counter](https://atlassian.design/components/form/examples#standalone-charactercounter)';
 
 export const ruleName = __dirname.split('/').slice(-1)[0];
 
@@ -66,12 +69,13 @@ const rule = createLintRule({
 		type: 'suggestion',
 		docs: {
 			description:
-				'Suggests using CharacterCounterField when Textfield or Textarea components have maxLength or minLength props within a Form.',
+				'Suggests using CharacterCounterField or CharacterCounter when Textfield or Textarea components have maxLength or minLength props.',
 			recommended: true,
 			severity: 'warn',
 		},
 		messages: {
-			useCharacterCounterField: message,
+			useCharacterCounterField: messageInsideForm,
+			useCharacterCounter: messageOutsideForm,
 		},
 	},
 
@@ -140,11 +144,16 @@ const rule = createLintRule({
 				const hasMinLength = JSXElementHelper.getAttributeByName(node, 'minLength');
 
 				if (hasMaxLength || hasMinLength) {
-					// Only warn if inside a Form or Field component
+					// Use different messages based on whether inside Form context or not
 					if (isInsideFormOrField(node, formComponentNames)) {
 						context.report({
 							node,
 							messageId: 'useCharacterCounterField',
+						});
+					} else {
+						context.report({
+							node,
+							messageId: 'useCharacterCounter',
 						});
 					}
 				}

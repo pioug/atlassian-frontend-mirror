@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 215.23.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 215.23.8
+
+### Patch Changes
+
+- [`a4ed9f55162ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4ed9f55162ae) -
+  EDITOR-3960 Refactor Synced Blocks initialization to remove multiple re-renders and duplicated
+  fetches
+- [`a528ea956ce65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a528ea956ce65) -
+  [ux] EDITOR-3956 fix sync block resize handle padding and alignment
+- Updated dependencies
+
 ## 215.23.7
 
 ### Patch Changes

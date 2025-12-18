@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Flag, { FlagGroup } from '@atlaskit/flag';
-import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
+import SuccessIcon from '@atlaskit/icon/core/status-success';
 import Link from '@atlaskit/link';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -17,7 +17,7 @@ export default (): React.JSX.Element => (
 						<Link href="https://ecosystem.atlassian.net/browse/AK-90210">AK-90210</Link>
 					</Text>
 				}
-				icon={<SuccessIcon primaryColor={token('color.icon.success')} label="Success" />}
+				icon={<SuccessIcon spacing="spacious" color={token('color.icon.success')} label="Success" />}
 				id="1"
 				key="1"
 				title="I am a Flag"

@@ -1,5 +1,29 @@
 # @atlassian/navigation-system
 
+## 5.13.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.13.0
+
+### Minor Changes
+
+- [`51928601f0216`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51928601f0216) -
+  Updated border radius values behind a feature gate `platform-dst-shape-theme-default`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.12.3
+
+### Patch Changes
+
+- [`4026de04805f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4026de04805f9) -
+  Clean up flag.
+
 ## 5.12.2
 
 ### Patch Changes

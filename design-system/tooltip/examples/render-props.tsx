@@ -3,7 +3,7 @@ import React, { Fragment, useState } from 'react';
 import { styled } from '@compiled/react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
-import AddIcon from '@atlaskit/icon/glyph/editor/add';
+import AddIcon from '@atlaskit/icon/core/add';
 import { token } from '@atlaskit/tokens';
 import Tooltip, {
 	type PositionType,

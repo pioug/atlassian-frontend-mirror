@@ -1,5 +1,6 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { extractTitle } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { IconType } from '../../../constants';
 import { prioritiseIcon } from '../../common/icon';
@@ -69,23 +70,71 @@ function typeToIconDescriptor({
 }): IconDescriptor | undefined {
 	switch (type) {
 		case 'atlassian:Goal':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.Task, label: label || 'Goal' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.Task,
+						label,
+					}
+				: {
+						icon: IconType.Task,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: label || 'Goal',
+					};
 		case 'atlassian:Project':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.Project, label: label || 'Project' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.Project,
+						label,
+					}
+				: {
+						icon: IconType.Project,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: label || 'Project',
+					};
 		case 'atlassian:SourceCodeCommit':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.Commit, label: label || 'Commit' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.Commit,
+						label,
+					}
+				: {
+						icon: IconType.Commit,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: label || 'Commit',
+					};
 		case 'atlassian:SourceCodePullRequest':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.PullRequest, label: label || 'Pull request' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.PullRequest,
+						label,
+					}
+				: {
+						icon: IconType.PullRequest,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: label || 'Pull request',
+					};
 		case 'atlassian:SourceCodeReference':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.Branch, label: label || 'Reference' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.Branch,
+						label,
+					}
+				: {
+						icon: IconType.Branch,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: label || 'Reference',
+					};
 		case 'atlassian:SourceCodeRepository':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.Repo, label: label || 'Repository' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.Repo,
+						label,
+					}
+				: {
+						icon: IconType.Repo,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: label || 'Repository',
+					};
 		case 'atlassian:Task':
 			const taskLabel = label || 'Task';
 			const taskIconDescriptor = { icon: IconType.Task, label: taskLabel };

@@ -7,7 +7,7 @@ import { useRef, useEffect } from 'react';
 
 import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
+import ErrorIcon from '@atlaskit/icon/core/status-error';
 import Flag from '@atlaskit/flag';
 import { messages } from '@atlaskit/media-ui';
 import { useIntl } from 'react-intl-next';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import capitalize from 'lodash/capitalize';
 
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack } from '@atlaskit/primitives';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
-import ShipIcon from '@atlaskit/icon/core/migration/release--ship';
+import ShipIcon from '@atlaskit/icon/core/release';
 import { NotificationLogClient } from '@atlaskit/notification-log-client';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 

@@ -7,13 +7,13 @@ import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import { isNestedNode } from '../ui/utils/isNestedNode';
 
 import { getOutputNodes } from './transform-node-utils/transform';
-import type { TransformNodeAnalyticsAttrs } from './transforms/types';
+import type { TransformNodeMetadata } from './transforms/types';
 import { isListNode } from './transforms/utils';
 
 export const transformNode =
 	(api?: ExtractInjectionAPI<BlockMenuPlugin>) =>
 	// eslint-disable-next-line no-unused-vars
-	(targetType: NodeType, analyticsAttrs?: TransformNodeAnalyticsAttrs): EditorCommand => {
+	(targetType: NodeType, metadata?: TransformNodeMetadata): EditorCommand => {
 		return ({ tr }) => {
 			const preservedSelection = api?.blockControls?.sharedState.currentState()?.preservedSelection;
 
@@ -44,6 +44,7 @@ export const transformNode =
 					targetNodeType: targetType,
 					schema: tr.doc.type.schema,
 					isNested: isNestedExceptLayout,
+					targetAttrs: metadata?.targetAttrs,
 				});
 
 				if (outputNode) {

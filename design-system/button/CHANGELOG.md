@@ -1,5 +1,18 @@
 # @atlaskit/button
 
+## 23.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.9.0
+
+### Minor Changes
+
+- [`51928601f0216`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51928601f0216) -
+  Updated border radius values behind a feature gate `platform-dst-shape-theme-default`.
+
 ## 23.8.1
 
 ### Patch Changes

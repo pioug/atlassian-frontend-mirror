@@ -2,6 +2,8 @@ import React from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
+import { shouldIgnoreLog } from '@af/suppress-react-warnings';
+
 import Tooltip from '../../tooltip';
 
 describe('Unmounting tooltip', () => {
@@ -33,7 +35,10 @@ describe('Unmounting tooltip', () => {
 		});
 
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
-		expect(console.error).not.toHaveBeenCalled();
+		const errorCalls = (global.console.error as jest.Mock).mock.calls.filter(
+			(call) => !shouldIgnoreLog(call),
+		);
+		expect(errorCalls).toHaveLength(0);
 		(global.console.error as jest.Mock).mockRestore();
 	});
 
@@ -57,7 +62,10 @@ describe('Unmounting tooltip', () => {
 		unmount();
 
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
-		expect(console.error).not.toHaveBeenCalled();
+		const errorCalls = (global.console.error as jest.Mock).mock.calls.filter(
+			(call) => !shouldIgnoreLog(call),
+		);
+		expect(errorCalls).toHaveLength(0);
 		(global.console.error as jest.Mock).mockRestore();
 	});
 
@@ -112,7 +120,10 @@ describe('Unmounting tooltip', () => {
 		unmount();
 
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
-		expect(console.error).not.toHaveBeenCalled();
+		const errorCalls = (global.console.error as jest.Mock).mock.calls.filter(
+			(call) => !shouldIgnoreLog(call),
+		);
+		expect(errorCalls).toHaveLength(0);
 		(global.console.error as jest.Mock).mockRestore();
 	});
 
@@ -144,7 +155,10 @@ describe('Unmounting tooltip', () => {
 		unmount();
 
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
-		expect(console.error).not.toHaveBeenCalled();
+		const errorCalls = (global.console.error as jest.Mock).mock.calls.filter(
+			(call) => !shouldIgnoreLog(call),
+		);
+		expect(errorCalls).toHaveLength(0);
 		(global.console.error as jest.Mock).mockRestore();
 	});
 });

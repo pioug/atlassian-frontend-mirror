@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ButtonGroup } from '@atlaskit/button';
 import Button, { LinkButton } from '@atlaskit/button/new';
-import AudioIcon from '@atlaskit/icon/glyph/audio';
+import AudioIcon from '@atlaskit/icon/core/audio';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 

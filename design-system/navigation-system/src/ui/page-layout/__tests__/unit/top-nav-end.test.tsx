@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import SettingsIcon from '@atlaskit/icon/glyph/settings';
+import SettingsIcon from '@atlaskit/icon/core/settings';
 import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled';
 
 import { EndItem } from '../../../top-nav-items/end-item';

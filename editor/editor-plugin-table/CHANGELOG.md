@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-table
 
+## 15.6.4
+
+### Patch Changes
+
+- [`20fb93093ca02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20fb93093ca02) -
+  Remove data attribute for sticky state instead of setting false
+- Updated dependencies
+
+## 15.6.3
+
+### Patch Changes
+
+- [`dbe5bb7c0221c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbe5bb7c0221c) -
+  Only set native sticky header classes if a scroll event has occurred
+- [`dbe5bb7c0221c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbe5bb7c0221c) -
+  Remove top margin change when native table sticky headers are enabled
+- Updated dependencies
+
+## 15.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.6.1
 
 ### Patch Changes

@@ -1,5 +1,32 @@
 # @atlaskit/smart-card
 
+## 43.17.5
+
+### Patch Changes
+
+- [`191d01928004c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/191d01928004c) -
+  NAVX-2827 adding translation renderers to icon labels in smart-card to resolve
+  `no-literal-string-in-object` eslint violations
+- Updated dependencies
+
+## 43.17.4
+
+### Patch Changes
+
+- [`6a82d7964a37b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a82d7964a37b) -
+  Icon entrypoint migration
+- Updated dependencies
+
+## 43.17.3
+
+### Patch Changes
+
+- [`2dcded6de1dbd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2dcded6de1dbd) -
+  Fix standalone HoverCard not showing available unresolved view when there were no active
+  Card/CardSSR of the same url within the same SmartCardProvider, behind fg
+  navx-2478-sl-fix-hover-card-unresolved-view
+- Updated dependencies
+
 ## 43.17.2
 
 ### Patch Changes

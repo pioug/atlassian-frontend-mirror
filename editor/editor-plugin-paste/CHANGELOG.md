@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 7.4.16
+
+### Patch Changes
+
+- [`79172823f4e47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79172823f4e47) -
+  [ux] EDITOR-3961 strip breakout mark from renderer sync block html
+- Updated dependencies
+
 ## 7.4.15
 
 ### Patch Changes

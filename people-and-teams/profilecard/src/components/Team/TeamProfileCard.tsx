@@ -6,7 +6,7 @@ import Avatar from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
 import Button, { IconButton, LinkButton } from '@atlaskit/button/new';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
-import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
+import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Lozenge from '@atlaskit/lozenge';
 import { LinkItem, MenuGroup } from '@atlaskit/menu';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';

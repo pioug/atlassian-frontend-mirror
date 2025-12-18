@@ -7,9 +7,9 @@ import { css, jsx } from '@compiled/react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
-import AddItemIcon from '@atlaskit/icon/glyph/add-item';
-import JiraCaptureIcon from '@atlaskit/icon/glyph/jira/capture';
-import AddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
+import AddCommentIcon from '@atlaskit/icon/core/comment-add';
+import FocusAreaIcon from '@atlaskit/icon/core/focus-area';
+import AddItemIcon from '@atlaskit/icon/core/shortcut';
 import Popup from '@atlaskit/popup';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -35,7 +35,7 @@ const HighlightPopup = (props: { children: React.ReactNode }) => (
 				<ButtonGroup label="Triggerless popup options">
 					<IconButton icon={AddCommentIcon} label="Add comment" />
 					<IconButton icon={AddItemIcon} label="Add item" />
-					<IconButton icon={JiraCaptureIcon} label="Capture in Jira" />
+					<IconButton icon={FocusAreaIcon} label="Capture in Jira" />
 				</ButtonGroup>
 			</Box>
 		)}

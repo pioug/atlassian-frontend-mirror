@@ -5,7 +5,7 @@ import {
 	type FileState,
 	globalMediaEventEmitter,
 } from '@atlaskit/media-client';
-import AudioIcon from '@atlaskit/icon/core/migration/audio--media-services-audio';
+import AudioIcon from '@atlaskit/icon/core/audio';
 
 import { Outcome } from '../domain';
 import { MediaViewerError } from '../errors';

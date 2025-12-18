@@ -5,6 +5,7 @@ import { useIntl, type MessageDescriptor } from 'react-intl-next';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import AkFlag, { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
 import ImageIcon from '@atlaskit/icon/core/image';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
@@ -76,7 +77,7 @@ export const Flag = ({ api }: Props) => {
 	const { onRetry, onDismissed: onDismissedCallback } = activeFlag;
 
 	// Retry button often involves network request, hence we dismiss the flag in offline mode to avoid retry
-	if (mode === 'offline' && !!onRetry) {
+	if (isOfflineMode(mode) && !!onRetry) {
 		api?.core.actions.execute(({ tr }) => {
 			tr.setMeta(syncedBlockPluginKey, {
 				activeFlag: false,

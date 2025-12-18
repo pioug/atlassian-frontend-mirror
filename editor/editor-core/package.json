@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "215.23.7",
+	"version": "215.23.9",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -48,6 +48,7 @@
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-performance-metrics": "workspace:^",
+		"@atlaskit/editor-plugin-connectivity": "workspace:^",
 		"@atlaskit/editor-plugin-quick-insert": "workspace:^",
 		"@atlaskit/editor-plugin-user-preferences": "workspace:^",
 		"@atlaskit/editor-plugins": "workspace:^",
@@ -91,6 +92,7 @@
 	},
 	"devDependencies": {
 		"@af/editor-libra": "workspace:^",
+		"@af/suppress-react-warnings": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/adf-utils": "workspace:^",
 		"@atlaskit/analytics-listeners": "workspace:^",

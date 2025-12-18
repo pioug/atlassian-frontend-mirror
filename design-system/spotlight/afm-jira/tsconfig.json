@@ -45,6 +45,9 @@
 			"path": "../../image/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../popper/afm-jira/tsconfig.json"
 		},
 		{

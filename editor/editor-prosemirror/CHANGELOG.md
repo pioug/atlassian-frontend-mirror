@@ -1,5 +1,12 @@
 # @atlaskit/editor-prosemirror
 
+## 7.2.2
+
+### Patch Changes
+
+- [`6aa3d234b547c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6aa3d234b547c) -
+  clean up unused scripts
+
 ## 7.2.1
 
 ### Patch Changes

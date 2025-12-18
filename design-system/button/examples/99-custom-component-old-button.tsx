@@ -8,7 +8,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
-import Switcher from '@atlaskit/icon/glyph/app-switcher';
+import Switcher from '@atlaskit/icon/core/app-switcher';
 import { token } from '@atlaskit/tokens';
 
 const Component: React.ForwardRefExoticComponent<

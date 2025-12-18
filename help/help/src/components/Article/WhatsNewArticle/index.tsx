@@ -3,7 +3,7 @@ import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'reac
 import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
 import HelpArticleContent from '@atlaskit/help-article';
 import { token } from '@atlaskit/tokens';
-import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button';
 

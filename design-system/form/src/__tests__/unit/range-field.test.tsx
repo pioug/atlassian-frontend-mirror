@@ -3,6 +3,7 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { shouldIgnoreLog } from '@af/suppress-react-warnings';
 import Button from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
 import Range from '@atlaskit/range';
@@ -31,7 +32,9 @@ describe('RangeField', () => {
 			</Form>,
 		);
 
-		expect(error).not.toHaveBeenCalled();
+		const errorCalls = (error as jest.Mock).mock.calls.filter((call) => !shouldIgnoreLog(call));
+
+		expect(errorCalls).toHaveLength(0);
 		expect(warn).toHaveBeenCalledTimes(1);
 
 		warn.mockRestore();

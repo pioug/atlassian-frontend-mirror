@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl-next';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { syncBlockMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { ToolbarButton, ToolbarTooltip } from '@atlaskit/editor-toolbar';
 import BlockSyncedIcon from '@atlaskit/icon-lab/core/block-synced';
 
@@ -32,7 +33,7 @@ export const CreateSyncedBlockButton = ({
 	const canBeConverted = Boolean(selection && canBeConvertedToSyncBlock(selection));
 	const canInsertEmptyBlock = Boolean(selection?.empty);
 
-	const isDisabled = Boolean(mode === 'offline' || (!canBeConverted && !canInsertEmptyBlock));
+	const isDisabled = Boolean(isOfflineMode(mode) || (!canBeConverted && !canInsertEmptyBlock));
 
 	const onClick = useCallback(() => {
 		api?.core?.actions.execute(({ tr }) => api?.syncedBlock.commands.insertSyncedBlock()({ tr }));

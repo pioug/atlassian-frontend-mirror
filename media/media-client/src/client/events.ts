@@ -16,6 +16,7 @@ export interface MediaViewedEventPayload {
 		| 'full' // Full resolution / video playback
 		| 'download'; // Media was downloaded
 	isUserCollection?: boolean; // This will be true only if attachment is shown in media picker
+	childFileName?: string; // Name of the child file when downloading from an archive
 }
 
 export interface AuthProviderSucceededEventPayload {

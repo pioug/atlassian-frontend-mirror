@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.6.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.6.3
+
+### Patch Changes
+
+- [`8289826cdcae0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8289826cdcae0) -
+  [ux] EDITOR-3998 fix sync block copy when copying content inside the bodied sync block
+- Updated dependencies
+
 ## 4.6.2
 
 ### Patch Changes

@@ -33,7 +33,9 @@ export const isSpecialKey = (event: React.MouseEvent | React.KeyboardEvent) => {
 
 export const isSpecialClick = (event: React.MouseEvent) => event.button === 1;
 
-export const getIconForFileType = (fileMimeType: string): React.ReactNode | undefined => {
+export const getIconForFileType = (
+	fileMimeType: string,
+): React.ReactNode | undefined => {
 	if (!fileMimeType) {
 		return;
 	}
@@ -54,17 +56,6 @@ export const getIconForFileType = (fileMimeType: string): React.ReactNode | unde
 	}) as any; // because we're using dynamic loading here, TS will not be able to infer the type
 
 	return (<Icon label={label} testId="document-file-format-icon" />) as React.ReactNode;
-};
-
-export const getLabelForFileType = (fileMimeType: string): React.ReactNode | undefined => {
-	let icon = getTypeToIconMap(fileMimeType.toLowerCase());
-	if (!icon) {
-		return;
-	}
-
-	const [label] = icon;
-
-	return label;
 };
 
 type IconLabelMap = [string, (() => Promise<any>) | undefined];
@@ -271,7 +262,9 @@ export const getLazyIcons = (): Partial<
 	};
 };
 
-const getTypeToIconMap = (fileFormat: string): IconLabelMap | null => {
+const getTypeToIconMap = (
+	fileFormat: string,
+): IconLabelMap | null => {
 	const iconDescriptor = extractFileFormatIcon(fileFormat);
 	if (!iconDescriptor?.icon || !iconDescriptor.label) {
 		return null;

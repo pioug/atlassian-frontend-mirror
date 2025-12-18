@@ -9,7 +9,7 @@ import { transformNode } from './editor-commands/transformNode';
 import type {
 	FormatNodeTargetType,
 	FormatNodeAnalyticsAttrs,
-	TransformNodeAnalyticsAttrs,
+	TransformNodeMetadata,
 } from './editor-commands/transforms/types';
 import { blockMenuPluginKey, createPlugin } from './pm-plugins/main';
 import BlockMenu from './ui/block-menu';
@@ -44,8 +44,8 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 			formatNode: (targetType: FormatNodeTargetType, analyticsAttrs?: FormatNodeAnalyticsAttrs) => {
 				return formatNode(api)(targetType, analyticsAttrs);
 			},
-			transformNode: (targetType: NodeType, analyticsAttrs?: TransformNodeAnalyticsAttrs) => {
-				return transformNode(api)(targetType, analyticsAttrs);
+			transformNode: (targetType: NodeType, metadata?: TransformNodeMetadata) => {
+				return transformNode(api)(targetType, metadata);
 			},
 		},
 		getSharedState(editorState) {

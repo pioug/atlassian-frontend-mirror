@@ -129,9 +129,6 @@
 		},
 		{
 			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
-		},
-		{
-			"path": "../../../prebuilt-tools/repo-feature-flags-statsig/tsconfig.app.json"
 		}
 	]
 }

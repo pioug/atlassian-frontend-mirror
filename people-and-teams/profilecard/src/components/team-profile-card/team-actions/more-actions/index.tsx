@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { IconButton } from '@atlaskit/button/new';
-import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
+import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 import { Box } from '@atlaskit/primitives/compiled';

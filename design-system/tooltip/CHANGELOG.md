@@ -1,5 +1,11 @@
 # @atlaskit/tooltip
 
+## 20.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.11.0
 
 ### Minor Changes

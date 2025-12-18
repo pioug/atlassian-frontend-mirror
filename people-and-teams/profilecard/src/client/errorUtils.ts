@@ -107,6 +107,7 @@ export const getErrorAttributes = (
 		errorNumber: null,
 		errorStatusCode: null,
 		traceId: null,
+		errorStack: null,
 	};
 
 	if (error instanceof DirectoryGraphQLErrors) {

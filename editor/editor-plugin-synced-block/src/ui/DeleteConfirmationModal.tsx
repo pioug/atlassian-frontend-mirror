@@ -6,6 +6,7 @@ import Button from '@atlaskit/button/new';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import ModalDialog, {
 	ModalBody,
@@ -134,7 +135,7 @@ export const DeleteConfirmationModal = ({
 							appearance="warning"
 							onClick={handleClick(true)}
 							autoFocus
-							isDisabled={mode === 'offline'}
+							isDisabled={isOfflineMode(mode)}
 							isLoading={bodiedSyncBlockDeletionStatus === 'processing'}
 						>
 							{formatMessage(messages.deleteConfirmationModalDeleteButton)}

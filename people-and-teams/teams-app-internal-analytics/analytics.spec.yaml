@@ -1944,6 +1944,10 @@ events:
         gateway:
           type: boolean
           description: whether the request is a gateway request
+        errorStack:
+          type: string
+          required: false
+          description: The error stack trace from the failure
   - rovoAgentProfilecard succeeded (request):
       type: operational
       description: fired when the rovo agent profilecard request is succeeded
@@ -3152,7 +3156,8 @@ events:
           description: The consumer of the team
   - invitePrompt eligibilityChecked:
       type: operational
-      description: Fired when eligibility check is performed for twcg_640_invite_prompt_on_teams_page_links
+      description:
+        Fired when eligibility check is performed for twcg_640_invite_prompt_on_teams_page_links
       attributes:
         isEligible:
           type: boolean
@@ -3162,7 +3167,9 @@ events:
           description: Optional parameter in case the user is not eligible for the experiment
   - invitePrompt eligibilityCheckFailed:
       type: operational
-      description: Fired when eligibility check is for twcg_640_invite_prompt_on_teams_page_links failes for whatever reason
+      description:
+        Fired when eligibility check is for twcg_640_invite_prompt_on_teams_page_links failes for
+        whatever reason
       attributes:
         error:
           type: string
@@ -3189,7 +3196,9 @@ events:
           description: Target app we'll invite the invitees to
   - invitePrompt shown (successFlag):
       type: ui
-      description: Fired when the invitation action is successfully completed and the success flag is shown to the user
+      description:
+        Fired when the invitation action is successfully completed and the success flag is shown to
+        the user
       attributes:
         invitedCount:
           type: number

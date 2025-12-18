@@ -1,12 +1,12 @@
 import React, { Fragment, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import DropboxIcon from '@atlaskit/icon/glyph/dropbox';
-import WorkIcon from '@atlaskit/icon/glyph/folder';
-import CustomerIcon from '@atlaskit/icon/glyph/person';
-import QueueIcon from '@atlaskit/icon/glyph/queues';
-import SettingsIcon from '@atlaskit/icon/glyph/settings';
-import LanguageIcon from '@atlaskit/icon/glyph/world';
+import AppIcon from '@atlaskit/icon/core/app';
+import WorkIcon from '@atlaskit/icon/core/folder-closed';
+import LanguageIcon from '@atlaskit/icon/core/globe';
+import QueueIcon from '@atlaskit/icon/core/pages';
+import CustomerIcon from '@atlaskit/icon/core/person';
+import SettingsIcon from '@atlaskit/icon/core/settings';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Text } from '@atlaskit/primitives';
 import {
@@ -43,7 +43,7 @@ import SampleHeader from './common/sample-header';
 const LanguageSettings = () => {
 	return (
 		<NestingItem
-			iconBefore={<LanguageIcon label="" />}
+			iconBefore={<LanguageIcon spacing="spacious" label="" />}
 			id="language-settings"
 			title="Language settings"
 		>
@@ -80,7 +80,9 @@ const BasicExample = (): React.JSX.Element => {
 						<Section>
 							<PopoverProvider>
 								<PopoverTarget>
-									<ButtonItem iconBefore={<WorkIcon label="" />}>Your work</ButtonItem>
+									<ButtonItem iconBefore={<WorkIcon spacing="spacious" label="" />}>
+										Your work
+									</ButtonItem>
 								</PopoverTarget>
 								<PopoverContent
 									dismiss={dismiss}
@@ -115,7 +117,7 @@ const BasicExample = (): React.JSX.Element => {
 								<PopoverTarget>
 									<LinkItem
 										href="https://www.atlassian.design"
-										iconBefore={<CustomerIcon label="" />}
+										iconBefore={<CustomerIcon spacing="spacious" label="" />}
 									>
 										Your customers
 									</LinkItem>
@@ -156,7 +158,7 @@ const BasicExample = (): React.JSX.Element => {
 								<PopoverTarget>
 									<NestingItem
 										id="dropbox"
-										iconBefore={<DropboxIcon label="" />}
+										iconBefore={<AppIcon spacing="spacious" label="" />}
 										title="Dropbox"
 										isDisabled
 									>
@@ -197,7 +199,11 @@ const BasicExample = (): React.JSX.Element => {
 
 							<PopoverProvider>
 								<PopoverTarget>
-									<NestingItem id="3" iconBefore={<SettingsIcon label="" />} title="Settings">
+									<NestingItem
+										id="3"
+										iconBefore={<SettingsIcon spacing="spacious" label="" />}
+										title="Settings"
+									>
 										<Section>
 											<LanguageSettings />
 										</Section>
@@ -241,7 +247,7 @@ const BasicExample = (): React.JSX.Element => {
 										id="queues"
 										isSelected
 										title="Queues view"
-										iconBefore={<QueueIcon label="" />}
+										iconBefore={<QueueIcon spacing="spacious" label="" />}
 									>
 										<Section title="Queues">
 											<ButtonItem>Untriaged</ButtonItem>

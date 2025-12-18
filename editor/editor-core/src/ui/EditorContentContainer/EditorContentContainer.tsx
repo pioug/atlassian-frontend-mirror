@@ -618,13 +618,13 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					linkStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					browser.safari && listsStylesSafariFix,
+					editorExperiment('platform_synced_block', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						pragmaticResizerStylesSyncedBlock,
 					expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							pragmaticResizerStyles
 						: undefined,
-					editorExperiment('platform_synced_block', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						pragmaticResizerStylesSyncedBlock,
 					editorExperiment('advanced_layouts', true) &&
 						expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

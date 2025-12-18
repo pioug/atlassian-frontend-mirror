@@ -1,5 +1,5 @@
 import React from 'react';
-import TickIcon from '@atlaskit/icon/core/migration/check-mark--check';
+import TickIcon from '@atlaskit/icon/core/check-mark';
 import { type TickBoxProps } from './types';
 import { TickBoxWrapper } from './tickBoxWrapper';
 

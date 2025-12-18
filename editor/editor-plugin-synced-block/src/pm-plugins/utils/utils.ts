@@ -1,5 +1,5 @@
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import type { NodeType, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { NodeType, Node as PMNode, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection, type Selection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
@@ -126,3 +126,20 @@ const removeBreakoutMarks = (content: Fragment): Fragment => {
 
 	return Fragment.from(nodes);
 };
+
+export const sliceFullyContainsNode = (slice: Slice, node: PMNode): boolean => {
+	const isFirstChild = slice.content.firstChild?.type === node.type &&
+						slice.content.firstChild?.attrs.resourceId === node.attrs.resourceId;
+
+	const isLastChild = slice.content.lastChild?.type === node.type &&
+						slice.content.lastChild?.attrs.resourceId === node.attrs.resourceId;
+
+	const isOpenAtStart = isFirstChild && slice.openStart > 0;
+	const isOpenAtEnd = isLastChild && slice.openEnd > 0;
+
+	if (isOpenAtStart || isOpenAtEnd) {
+		return false;
+	}
+
+	return true;
+}

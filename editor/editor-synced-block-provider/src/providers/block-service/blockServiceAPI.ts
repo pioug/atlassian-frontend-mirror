@@ -225,7 +225,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 		} catch (error) {
 			if (error instanceof BlockError) {
 				if (error.status === 404) {
-					// User should not be blocked by not_found error when deleting, 
+					// User should not be blocked by not_found error when deleting,
 					// hence returns successful result for 404 error
 					return { resourceId, success: true };
 				}
@@ -251,7 +251,8 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 				blocks: blocks.map((block) => ({
 					blockAri: generateBlockAriFromReference(this.sourceAri, block.resourceId),
 					blockInstanceId: block.localId,
-				}), noContent),
+				})),
+				noContent,
 			});
 			return { success: true };
 		} catch (error) {
@@ -260,7 +261,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			}
 			return { success: false, error: stringifyError(error) };
 		}
-		
+
 	}
 }
 

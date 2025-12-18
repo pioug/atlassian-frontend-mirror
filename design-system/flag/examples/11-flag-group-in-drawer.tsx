@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Button from '@atlaskit/button/new';
 import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import Flag, { FlagGroup, FlagsProvider, useFlags } from '@atlaskit/flag';
-import Info from '@atlaskit/icon/glyph/info';
+import Info from '@atlaskit/icon/core/status-information';
 import { Box } from '@atlaskit/primitives/compiled';
 
 const FlagsInDrawerExample = () => {
@@ -42,7 +42,7 @@ const FlagsInDrawerExample = () => {
 							return (
 								<Flag
 									id={flagId}
-									icon={<Info label="Info" />}
+									icon={<Info spacing="spacious" label="Info" />}
 									key={flagId}
 									title={`Flag #${flagId}`}
 									description="Example flag description"
@@ -73,7 +73,7 @@ const FlagGroupInProvider = () => {
 	const addFlag = () => {
 		showFlag({
 			description: 'Example flag description',
-			icon: <Info label="Info" />,
+			icon: <Info spacing="spacious" label="Info" />,
 			title: `Example flag title`,
 		});
 	};

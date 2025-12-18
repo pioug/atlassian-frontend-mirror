@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import WarningIcon from '@atlaskit/icon/core/migration/status-warning--editor-warning';
+import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { UnhandledErrorCard } from '..';
 
-jest.mock('@atlaskit/icon/core/migration/status-warning--editor-warning', () => {
+jest.mock('@atlaskit/icon/core/status-warning', () => {
 	return jest.fn((props) => <div data-testid="warning-icon" {...props} />);
 });
 

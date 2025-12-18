@@ -4,19 +4,18 @@ import capitalize from 'lodash/capitalize';
 
 import { ButtonGroup } from '@atlaskit/button';
 import Button from '@atlaskit/button/new';
-import AddIcon from '@atlaskit/icon/glyph/add';
-import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
-import ArrowRightIcon from '@atlaskit/icon/glyph/arrow-right';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-import GraphLineIcon from '@atlaskit/icon/glyph/graph-line';
-import LightbulbIcon from '@atlaskit/icon/glyph/lightbulb';
-import MoreIcon from '@atlaskit/icon/glyph/more';
+import AddIcon from '@atlaskit/icon/core/add';
+import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
+import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
+import ChartTrendUpIcon from '@atlaskit/icon/core/chart-trend-up';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
+import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Stack } from '@atlaskit/primitives';
+import { type IconSize } from '@atlaskit/icon/types';
+import { Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { type IconSize } from '../src/new-button/variants/types';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { buttonSpacing } from '../src/utils/spacing';
 
@@ -25,12 +24,12 @@ const icons = [
 	ArrowLeftIcon,
 	ArrowRightIcon,
 	ChevronDownIcon,
-	GraphLineIcon,
+	ChartTrendUpIcon,
 	LightbulbIcon,
 	MoreIcon,
 ];
 
-const iconSizes: IconSize[] = ['small', 'large', 'xlarge'];
+const iconSizes: IconSize[] = ['small', 'medium'];
 
 export default function ButtonsWithIconBeforeOrAfterExample(): React.JSX.Element {
 	return (
@@ -64,7 +63,7 @@ export default function ButtonsWithIconBeforeOrAfterExample(): React.JSX.Element
 				<ButtonGroup key={size}>
 					<Button
 						iconBefore={(iconProps) => (
-							<AddIcon {...iconProps} size={size} primaryColor={token('color.icon.accent.blue')} />
+							<AddIcon {...iconProps} size={size} color={token('color.icon.accent.blue')} />
 						)}
 					>
 						Icon before

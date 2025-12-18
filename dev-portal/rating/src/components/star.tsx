@@ -1,7 +1,7 @@
 import React, { forwardRef, useCallback } from 'react';
 
-import StarStarredIcon from '@atlaskit/icon/core/migration/star-starred--star-filled';
-import StarUnstarredIcon from '@atlaskit/icon/core/migration/star-unstarred--star';
+import StarStarredIcon from '@atlaskit/icon/core/star-starred';
+import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import { Y200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

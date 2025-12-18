@@ -4,6 +4,7 @@ import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabl
 import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 
 export type ReleaseHiddenDecoration = () => boolean | undefined;
 
@@ -32,6 +33,7 @@ export type SelectionMarkerPlugin = NextEditorPlugin<
 			OptionalPlugin<EditorDisabledPlugin>,
 			OptionalPlugin<ToolbarPlugin>,
 			OptionalPlugin<DecorationsPlugin>,
+			OptionalPlugin<UserIntentPlugin>,
 		];
 		pluginConfiguration?: SelectionMarkerPluginOptions;
 		sharedState: { isForcedHidden: boolean; isMarkerActive: boolean } | undefined;

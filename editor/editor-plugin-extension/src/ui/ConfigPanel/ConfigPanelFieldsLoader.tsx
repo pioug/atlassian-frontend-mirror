@@ -12,6 +12,7 @@ import type {
 } from '@atlaskit/editor-common/extensions';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ExtensionPlugin, RejectSave } from '../../extensionPluginType';
@@ -190,7 +191,7 @@ export default function FieldsLoader({
 					featureFlags={featureFlags}
 					// Remove below prop when cleaning platform_editor_ai_object_sidebar_injection FG
 					usingObjectSidebarPanel={usingObjectSidebarPanel}
-					disableFields={connectivityState === 'offline'}
+					disableFields={isOfflineMode(connectivityState)}
 				/>
 			)}
 		</FieldDefinitionsPromiseResolver>

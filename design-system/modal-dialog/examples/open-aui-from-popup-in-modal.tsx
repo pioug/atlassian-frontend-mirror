@@ -5,7 +5,7 @@ import Lorem from 'react-lorem-component';
 import Banner from '@atlaskit/banner';
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import ErrorIcon from '@atlaskit/icon/core/status-error';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -67,7 +67,7 @@ const OpenAuiFromModalExample = (): React.JSX.Element => {
 
 	return (
 		<>
-			<Banner icon={<ErrorIcon label="Error" secondaryColor="inherit" />} testId="basicTestId">
+			<Banner icon={<ErrorIcon spacing="spacious" label="Error"  />} testId="basicTestId">
 				This example is intended solely for testing purposes. Please refrain from implementing it in
 				any environments, as it may lead to unintended consequences or vulnerabilities.
 			</Banner>

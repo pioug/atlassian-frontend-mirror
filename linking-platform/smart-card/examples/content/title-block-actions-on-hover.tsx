@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LikeIcon from '@atlaskit/icon/core/migration/thumbs-up--like';
+import LikeIcon from '@atlaskit/icon/core/thumbs-up';
 
 import { ActionName, TitleBlock } from '../../src';
 

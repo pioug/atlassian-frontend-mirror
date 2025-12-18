@@ -8,8 +8,8 @@ import { useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
-import ArrowRight from '@atlaskit/icon/glyph/arrow-right';
-import MenuIcon from '@atlaskit/icon/glyph/menu';
+import ArrowRight from '@atlaskit/icon/core/arrow-right';
+import MenuIcon from '@atlaskit/icon/core/menu';
 import { ButtonItem, PopupMenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 
@@ -35,7 +35,7 @@ const NestedPopup = ({ shouldRenderToParent }: { shouldRenderToParent?: boolean 
 							{...triggerProps}
 							isSelected={isOpen}
 							onClick={() => setIsOpen(true)}
-							iconAfter={<ArrowRight label="" />}
+							iconAfter={<ArrowRight spacing="spacious" label="" />}
 						>
 							More actions
 						</ButtonItem>

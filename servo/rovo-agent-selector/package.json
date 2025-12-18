@@ -45,6 +45,7 @@
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
+		"@af/suppress-react-warnings": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
@@ -91,7 +92,7 @@
 		}
 	},
 	"name": "@atlaskit/rovo-agent-selector",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "rovo agent selector",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

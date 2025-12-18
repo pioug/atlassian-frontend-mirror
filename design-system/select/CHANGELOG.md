@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 21.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.6.2
 
 ### Patch Changes

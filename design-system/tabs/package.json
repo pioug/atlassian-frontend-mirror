@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tabs",
-	"version": "18.3.0",
+	"version": "18.3.1",
 	"description": "Tabs are used to organize content by grouping similar information on the same page.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,6 +46,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
 		"@af/integration-testing": "workspace:^",
+		"@af/suppress-react-warnings": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",

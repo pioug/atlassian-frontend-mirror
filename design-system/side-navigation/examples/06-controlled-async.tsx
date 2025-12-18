@@ -7,7 +7,7 @@ import { type PropsWithChildren, useEffect, useState } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import { Label } from '@atlaskit/form';
-import AsyncIcon from '@atlaskit/icon/glyph/emoji/frequent';
+import AsyncIcon from '@atlaskit/icon/core/clock';
 import { Box } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select';
 import {
@@ -55,7 +55,7 @@ const DelayedComponent = ({ children, id }: PropsWithChildren<{ id: string }>) =
 	return showLoading ? (
 		<SkeletonItem isShimmering hasIcon />
 	) : (
-		<NestingItem title="Async Item" id={id} iconBefore={<AsyncIcon label="" />}>
+		<NestingItem title="Async Item" id={id} iconBefore={<AsyncIcon spacing="spacious" label="" />}>
 			<Section>{children}</Section>
 		</NestingItem>
 	);

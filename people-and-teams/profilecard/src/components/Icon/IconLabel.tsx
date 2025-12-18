@@ -1,6 +1,6 @@
 import React from 'react';
 
-import IconRecent from '@atlaskit/icon/core/migration/clock--recent';
+import IconRecent from '@atlaskit/icon/core/clock';
 import IconEmail from '@atlaskit/icon/core/migration/email';
 import IconLocation from '@atlaskit/icon/core/migration/location';
 import OfficeBuildingIcon from '@atlaskit/icon/core/migration/office-building';

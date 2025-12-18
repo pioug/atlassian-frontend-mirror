@@ -5,7 +5,7 @@ import Button from '@atlaskit/button/new';
 import { Code } from '@atlaskit/code';
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import WarningIcon from '@atlaskit/icon/core/status-warning';
 import Popup from '@atlaskit/popup';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -123,7 +123,7 @@ const ComponentInfo: FC<ComponentInfoProps> = ({
 							<Box paddingBlockStart="space.100">
 								<Banner
 									appearance="warning"
-									icon={<WarningIcon label="Warning" secondaryColor="inherit" />}
+									icon={<WarningIcon spacing="spacious" label="Warning"  />}
 								>
 									{alerts?.leftSide}
 								</Banner>
@@ -150,7 +150,7 @@ const ComponentInfo: FC<ComponentInfoProps> = ({
 							<Box paddingBlockStart="space.100">
 								<Banner
 									appearance="warning"
-									icon={<WarningIcon label="Warning" secondaryColor="inherit" />}
+									icon={<WarningIcon spacing="spacious" label="Warning"  />}
 								>
 									{alerts?.rightSide}
 								</Banner>

@@ -6,7 +6,7 @@ import {
 	PrimaryDropdownButton,
 	ProductHome,
 } from '@atlaskit/atlassian-navigation';
-import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
+import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
 import { ButtonItem, PopupMenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
@@ -23,9 +23,9 @@ const PopupContents = () => (
 				description="But what is an Atlassian, anyway?"
 				iconBefore={
 					<QuestionCircleIcon
-						primaryColor={token('color.icon.information')}
+						color={token('color.icon.information')}
 						label=""
-						size="medium"
+						 spacing="spacious"
 					/>
 				}
 			>

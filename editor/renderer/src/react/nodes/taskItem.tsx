@@ -11,6 +11,7 @@ import {
 export interface Props {
 	children?: ReactNode;
 	disabled?: boolean;
+	disableOnChange?: boolean;
 	localId: string;
 	providers?: ProviderFactory;
 	rendererContext?: RendererContext;
@@ -39,7 +40,8 @@ export default class TaskItem extends PureComponent<NodeProps<Props>, Object> {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private renderWithProvider = (providers: any) => {
 		const { taskDecisionProvider, contextIdentifierProvider } = providers;
-		const { children, localId, state, rendererContext, disabled, dataAttributes } = this.props;
+		const { children, localId, state, rendererContext, disabled, dataAttributes, disableOnChange } =
+			this.props;
 		let objectAri = '';
 		if (rendererContext) {
 			objectAri = rendererContext.objectAri || '';
@@ -60,6 +62,7 @@ export default class TaskItem extends PureComponent<NodeProps<Props>, Object> {
 								isDone={state === 'DONE'}
 								isRenderer
 								disabled={disabled}
+								disableOnChange={disableOnChange}
 								taskDecisionProvider={taskDecisionProvider}
 								contextIdentifierProvider={contextIdentifierProvider}
 								dataAttributes={dataAttributes}

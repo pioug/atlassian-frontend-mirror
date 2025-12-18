@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CustomerIcon from '@atlaskit/icon/glyph/person';
+import CustomerIcon from '@atlaskit/icon/core/person';
 import {
 	ButtonItem,
 	NavigationHeader,
@@ -28,7 +28,7 @@ const BasicExample = (): React.JSX.Element => {
 							<SkeletonHeadingItem />
 							<SkeletonItem hasAvatar />
 							<SkeletonItem hasIcon />
-							<ButtonItem iconBefore={<CustomerIcon label="" />}>Create</ButtonItem>
+							<ButtonItem iconBefore={<CustomerIcon spacing="spacious" label="" />}>Create</ButtonItem>
 							<SkeletonItem width="100%" />
 							<SkeletonItem />
 							<SkeletonItem />

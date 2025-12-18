@@ -119,13 +119,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-09-16
-	cc_improve_writing_on_paste_v2: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2024-10-01
 	comment_on_bodied_extensions: {
 		defaultValue: boolean;
@@ -617,13 +610,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-10-15
-	platform_editor_new_mentions_detection_logic: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-06-10
 	platform_editor_no_cursor_on_edit_page_init: {
 		defaultValue: boolean;
@@ -1052,6 +1038,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2025-12-18
+	platform_synced_blocks_offline_check_for_block: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	},
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -1865,14 +1858,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-09-16
-	cc_improve_writing_on_paste_v2: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_improve_writing_on_paste_v2',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-08-18
 	platform_editor_locale_datepicker: createBooleanExperiment({
 		productKeys: {
@@ -2055,14 +2040,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-10-15
-	platform_editor_new_mentions_detection_logic: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_new_mentions_detection_logic',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-10-20
 	confluence_whiteboards_quick_insert_localised: createMultivariateExperiment({
 		productKeys: {
@@ -2234,6 +2211,15 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_exp_suggestion_date_comma_delim: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_exp_suggestion_date_comma_delim',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-12-18
+	platform_synced_blocks_offline_check_for_block: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_synced_blocks_offline_check_for_block',
+			jira: 'platform_synced_blocks_offline_check_for_block',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

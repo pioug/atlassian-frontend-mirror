@@ -4,7 +4,8 @@ import { type ZipEntry } from 'unzipit';
 import Folder24Icon from '@atlaskit/icon-file-type/glyph/folder/24';
 import { downloadUrl } from '@atlaskit/media-common';
 import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
-import { type MediaClient } from '@atlaskit/media-client';
+import { type MediaClient, globalMediaEventEmitter } from '@atlaskit/media-client';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	ArchiveSidebarFolderWrapper,
@@ -30,6 +31,7 @@ export interface ArchiveSidebarFolderProps {
 	isArchiveEntryLoading: boolean;
 	onError: (error: ArchiveViewerError, entry?: ZipEntry) => void;
 	shouldRenderAbuseModal: boolean;
+	fileId?: string;
 }
 
 class ArchiveSidebarFolderEntryBase extends React.Component<
@@ -88,8 +90,18 @@ class ArchiveSidebarFolderEntryBase extends React.Component<
 
 	private downloadZipEntry = async (entry: ZipEntry, root: string) => {
 		try {
-			const blob = await rejectAfter(() => entry.blob());
+			const blob = await rejectAfter<Blob>(() => entry.blob());
 			const name = this.formatName(root, entry.name);
+
+			// Emit media-viewed event if feature flag is enabled
+			if (this.props.fileId && fg('download_event_for_jira_attachments')) {
+				globalMediaEventEmitter.emit('media-viewed', {
+					fileId: this.props.fileId,
+					viewingLevel: 'download',
+					childFileName: name,
+				});
+			}
+
 			downloadUrl(URL.createObjectURL(blob), { name });
 		} catch (error) {
 			this.props.onError(error as ArchiveViewerError, entry);

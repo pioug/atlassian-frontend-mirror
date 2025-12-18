@@ -1,7 +1,7 @@
 import React from 'react';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
-import LockFilledIcon from '@atlaskit/icon/core/migration/lock-locked--lock-filled';
+import LockFilledIcon from '@atlaskit/icon/core/lock-locked';
 import { Truncate } from '@atlaskit/media-ui/truncateText';
 import { formatDate } from '@atlaskit/media-ui/formatDate';
 import { fg } from '@atlaskit/platform-feature-flags';

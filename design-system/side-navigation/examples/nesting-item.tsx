@@ -6,8 +6,8 @@ import { forwardRef, Fragment, type MouseEvent } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import EmojiAtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
-import SettingsIcon from '@atlaskit/icon/glyph/settings';
+import SettingsIcon from '@atlaskit/icon/core/settings';
+import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import { Box } from '@atlaskit/primitives/compiled';
 import {
 	type CustomItemComponentProps,
@@ -60,7 +60,7 @@ const BasicExample = () => {
 						testId="selected"
 						id="1"
 						isSelected
-						iconBefore={<SettingsIcon label="" />}
+						iconBefore={<SettingsIcon spacing="spacious" label="" />}
 						title="Settings"
 					>
 						<Fragment />
@@ -70,8 +70,8 @@ const BasicExample = () => {
 					</NestingItem>
 					<NestingItem
 						id="3"
-						iconBefore={<SettingsIcon label="" />}
-						iconAfter={<EmojiAtlassianIcon label="" />}
+						iconBefore={<SettingsIcon spacing="spacious" label="" />}
+						iconAfter={<StarStarredIcon label="" spacing="spacious" />}
 						title="Settings"
 						description="I have a custom after element"
 					>
@@ -79,7 +79,7 @@ const BasicExample = () => {
 					</NestingItem>
 					<NestingItem
 						id="4"
-						iconBefore={<SettingsIcon label="" />}
+						iconBefore={<SettingsIcon spacing="spacious" label="" />}
 						title="Settings"
 						description="I have a custom back button"
 						// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
@@ -97,7 +97,7 @@ const BasicExample = () => {
 					</NestingItem>
 					<NestingItem
 						id="5"
-						iconBefore={<SettingsIcon label="" />}
+						iconBefore={<SettingsIcon spacing="spacious" label="" />}
 						title="Settings"
 						description="I'm disabled"
 						isDisabled
@@ -107,7 +107,7 @@ const BasicExample = () => {
 					<NestingItem
 						id="6"
 						href="/custom-link"
-						iconBefore={<SettingsIcon label="" />}
+						iconBefore={<SettingsIcon spacing="spacious" label="" />}
 						title="Settings"
 						css={styles.customItem}
 						description="I have a custom item"

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -57,7 +58,7 @@ export const HoverCardComponent = ({
 		[onVisibilityChange],
 	);
 
-	const { loadMetadata } = useSmartCardActions(id, url);
+	const { loadMetadata, register } = useSmartCardActions(id, url);
 
 	const setMousePosition = useCallback(
 		(event: any) => {
@@ -143,10 +144,20 @@ export const HoverCardComponent = ({
 
 		if (!resolveTimeOutId.current && isLinkUnresolved) {
 			resolveTimeOutId.current = setTimeout(() => {
-				loadMetadata();
+				if (fg('navx-2478-sl-fix-hover-card-unresolved-view')) {
+					if (linkState.status === 'pending') {
+						// Link hasn't been registered yet. Register and resolve link.
+						register();
+					} else {
+						// Link has been already been partially resolved. Load metadata.
+						loadMetadata();
+					}
+				} else {
+					loadMetadata();
+				}
 			}, RESOLVE_DELAY);
 		}
-	}, [linkState.metadataStatus, linkState.status, loadMetadata]);
+	}, [linkState.metadataStatus, linkState.status, loadMetadata, register]);
 
 	const initShowCard = useCallback(
 		(event: any) => {
@@ -253,8 +264,7 @@ export const HoverCardComponent = ({
 	);
 
 	const trigger = useCallback(
-		// eslint-disable-next-line no-unused-vars
-		({ 'aria-haspopup': ariaHasPopup, 'aria-expanded': ariaExpanded, ...triggerProps }: any) => (
+		({ 'aria-haspopup': _ariaHasPopup, 'aria-expanded': _ariaExpanded, ...triggerProps }: any) => (
 			<span ref={parentSpan}>
 				{/* eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlaskit/design-system/no-html-button, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions*/}
 				<span

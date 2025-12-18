@@ -3,10 +3,10 @@ import React, { type ReactElement } from 'react';
 import noop from '@atlaskit/ds-lib/noop';
 import Flag from '@atlaskit/flag';
 import { type AppearanceTypes } from '@atlaskit/flag/types';
-import Tick from '@atlaskit/icon/glyph/check-circle';
-import Error from '@atlaskit/icon/glyph/error';
-import Info from '@atlaskit/icon/glyph/info';
-import Warning from '@atlaskit/icon/glyph/warning';
+import Error from '@atlaskit/icon/core/status-error';
+import Info from '@atlaskit/icon/core/status-information';
+import Tick from '@atlaskit/icon/core/status-success';
+import Warning from '@atlaskit/icon/core/status-warning';
 import Stack from '@atlaskit/primitives/stack';
 import { token } from '@atlaskit/tokens';
 
@@ -39,11 +39,11 @@ const appearances: { [key: string]: { description: string; title: string } } = {
 
 const iconMap = (key: string) => {
 	const icons: { [key: string]: ReactElement } = {
-		normal: <Tick label="Normal success" primaryColor={token('color.icon.success')} />,
-		info: <Info label="Info" secondaryColor={token('color.background.neutral.bold')} />,
-		success: <Tick label="Success" secondaryColor={token('color.background.success.bold')} />,
-		warning: <Warning label="Warning" secondaryColor={token('color.background.warning.bold')} />,
-		error: <Error label="Error" secondaryColor={token('color.background.danger.bold')} />,
+		normal: <Tick spacing="spacious" label="Normal success" color={token('color.icon.success')} />,
+		info: <Info spacing="spacious" label="Info"  />,
+		success: <Tick spacing="spacious" label="Success"  />,
+		warning: <Warning spacing="spacious" label="Warning"  />,
+		error: <Error spacing="spacious" label="Error"  />,
 	};
 
 	return key ? icons[key] : icons;

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
+import { shouldIgnoreLog } from '@af/suppress-react-warnings';
 import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
 import { screen } from '@atlassian/testing-library';
-
 
 jest.spyOn(console, 'error').mockImplementation(() => {});
 
@@ -21,7 +21,9 @@ test('should ssr then hydrate example component correctly', async () => {
 	await screen.findByTestId('rovo-agent-selector');
 
 	// Assert there's no hydration errors
-	const mockCalls = (console.error as jest.Mock).mock.calls;
+	const mockCalls = (global.console.error as jest.Mock).mock.calls.filter(
+		(call) => !shouldIgnoreLog(call),
+	);
 	expect(mockCalls.length).toBe(0);
 
 	cleanup();

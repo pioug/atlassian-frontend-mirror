@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.16.0
+
+### Minor Changes
+
+- [`8f65f39e57a8f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f65f39e57a8f) -
+  ED-29716 do not observe when anchor is support
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.15.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.15.2
+
+### Patch Changes
+
+- [`a528ea956ce65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a528ea956ce65) -
+  [ux] EDITOR-3956 fix sync block resize handle padding and alignment
+- Updated dependencies
+
 ## 7.15.1
 
 ### Patch Changes

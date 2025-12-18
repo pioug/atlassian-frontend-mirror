@@ -1,4 +1,5 @@
 import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import {
 	akEditorBreakoutPadding,
 	akEditorDefaultLayoutWidth,
@@ -14,6 +15,14 @@ import { mapBreakpointToLayoutMaxWidth } from '../ui/BaseTheme';
 import { getBreakpoint } from '../ui/WidthProvider';
 
 import { parsePx } from './dom';
+
+export const breakoutResizableNodes = ['expand', 'layoutSection', 'codeBlock', 'syncBlock', 'bodiedSyncBlock']
+
+export const getBreakoutResizableNodeTypes = (schema: Schema) => {
+	const { expand, codeBlock, layoutSection, syncBlock, bodiedSyncBlock } = schema.nodes;
+
+	return new Set([expand, codeBlock, layoutSection, syncBlock, bodiedSyncBlock]);
+}
 
 /**
  * Variables required to construct a context for breakout ssr inline script.

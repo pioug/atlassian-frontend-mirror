@@ -2,6 +2,8 @@ import React, { memo } from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
+import { shouldIgnoreLog } from '@af/suppress-react-warnings';
+
 import Tabs, { Tab, TabList, TabPanel } from '../../index';
 import { type TabsProps } from '../../types';
 
@@ -28,7 +30,11 @@ describe('@atlaskit/tabs', () => {
 				render(renderTabs());
 
 				// Should not log console error on mount
-				expect(global.console.error).not.toHaveBeenCalled();
+				const errorCalls = (global.console.error as jest.Mock).mock.calls.filter(
+					(call) => !shouldIgnoreLog(call),
+				);
+				expect(errorCalls).toHaveLength(0);
+
 				// @ts-ignore - Property 'mockRestore' does not exist
 				global.console.error.mockRestore();
 

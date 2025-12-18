@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 6.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.3.0
+
+### Minor Changes
+
+- [`9323188ffa1db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9323188ffa1db) -
+  Add userIntent plugin to selection marker, add check for block menu, if opened dont render marker
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.10
 
 ### Patch Changes

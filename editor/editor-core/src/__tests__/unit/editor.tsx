@@ -35,6 +35,7 @@ import { matchers } from '@emotion/jest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import { shouldIgnoreLog } from '@af/suppress-react-warnings';
 import type * as ActivityProviderModule from '@atlaskit/activity-provider';
 import type { GasPurePayload, GasPureScreenEventPayload } from '@atlaskit/analytics-gas-types';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
@@ -72,6 +73,7 @@ describe(`Editor`, () => {
 			const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
 			render(<Editor allowAnalyticsGASV3 />);
 			const calls = consoleErrorSpy.mock.calls
+				.filter((call) => !shouldIgnoreLog(call))
 				.map((call) => call[0])
 				.filter((call) => {
 					const callMessage = typeof call === 'string' ? call : call.message;

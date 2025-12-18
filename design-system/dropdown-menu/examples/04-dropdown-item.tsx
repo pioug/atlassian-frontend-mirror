@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import CheckIcon from '@atlaskit/icon/glyph/check';
+import CheckIcon from '@atlaskit/icon/core/check-mark';
 
 // CustomComponent should be wrapped in `forwardRef` to avoid accessibility issues when controlling keyboard focus.
 const CustomComponent: React.ForwardRefExoticComponent<
@@ -31,9 +31,9 @@ export default (): React.JSX.Element => (
 			<DropdownItem description="Sydney, capital of New South Wales and one of Australia's largest cities, is best known for its harbourfront Sydney Opera House, with a distinctive sail-like design. Massive Darling Harbour and the smaller Circular Quay port are hubs of waterside life, with the arched Harbour Bridge and esteemed Royal Botanic Garden nearby. Sydney Tower’s outdoor platform, the Skywalk, offers 360-degree views of the city and suburbs.">
 				Sydney, capital of New South Wales and one of Australia's largest cities.
 			</DropdownItem>
-			<DropdownItem elemAfter={<CheckIcon label="" />}>Canberra</DropdownItem>
-			<DropdownItem elemBefore={<CheckIcon label="" />}>Hobart</DropdownItem>
-			<DropdownItem elemBefore={<CheckIcon label="" />} elemAfter={<CheckIcon label="" />}>
+			<DropdownItem elemAfter={<CheckIcon spacing="spacious" label="" />}>Canberra</DropdownItem>
+			<DropdownItem elemBefore={<CheckIcon spacing="spacious" label="" />}>Hobart</DropdownItem>
+			<DropdownItem elemBefore={<CheckIcon spacing="spacious" label="" />} elemAfter={<CheckIcon spacing="spacious" label="" />}>
 				Gold Coast
 			</DropdownItem>
 			<DropdownItem isSelected>Newcastle</DropdownItem>

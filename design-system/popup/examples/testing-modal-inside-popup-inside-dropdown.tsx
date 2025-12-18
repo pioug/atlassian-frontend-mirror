@@ -5,7 +5,7 @@ import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
-import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import Modal, { ModalBody, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import Popup from '@atlaskit/popup';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
@@ -83,7 +83,7 @@ const PopupComponent = () => {
 					testId="popup-trigger"
 					onClick={() => setIsOpen(!isOpen)}
 					isSelected={isOpen}
-					elemAfter={<ChevronRightIcon primaryColor={token('color.icon.subtle', '')} label="" />}
+					elemAfter={<ChevronRightIcon size="small" spacing="spacious" color={token('color.icon.subtle', '')} label="" />}
 				>
 					<Text>Open Popup</Text>
 				</DropdownItem>

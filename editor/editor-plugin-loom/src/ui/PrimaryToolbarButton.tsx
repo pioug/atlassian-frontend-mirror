@@ -16,6 +16,7 @@ import type {
 	ExtractInjectionAPI,
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 
 import type { LoomPlugin } from '../loomPluginType';
 import { executeRecordVideo } from '../pm-plugins/commands';
@@ -64,7 +65,7 @@ const CustomisableLoomToolbarButton = (
 				hideTooltip={!!(restProps.onMouseEnter || restProps.onMouseLeave)}
 				// Ignore href if Loom is enabled so that it doesn't interfere with recording
 				href={isLoomEnabled ? undefined : href}
-				disabled={disabled || isDisabled || connectivityMode === 'offline'}
+				disabled={disabled || isDisabled || isOfflineMode(connectivityMode)}
 				api={api}
 				appearance={appearance}
 				onClick={(e) => handleOnClick(e)}
@@ -97,7 +98,7 @@ const LoomToolbarButtonWrapper = ({
 	return (
 		<ToolbarButtonComponent
 			// Disable the icon while the SDK isn't initialised
-			disabled={disabled || !loomEnabled || connectivityMode === 'offline'}
+			disabled={disabled || !loomEnabled || isOfflineMode(connectivityMode)}
 			api={api}
 			appearance={appearance}
 			onClick={handleOnClick}

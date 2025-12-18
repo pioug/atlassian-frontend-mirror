@@ -50,6 +50,9 @@
 			"path": "../../editor-performance-metrics/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-connectivity/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-quick-insert/afm-products/tsconfig.json"
 		},
 		{

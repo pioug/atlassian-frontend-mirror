@@ -16,7 +16,7 @@ import {
 	DefaultCoverWrapper,
 	ListWrapper,
 } from '../../styleWrappers';
-import AudioIcon from '@atlaskit/icon/core/migration/audio--media-services-audio';
+import AudioIcon from '@atlaskit/icon/core/audio';
 import ErrorMessage from '../../errorMessage';
 import { BaseViewer } from '../base-viewer';
 import { InteractiveImg } from '../image/interactive-img';

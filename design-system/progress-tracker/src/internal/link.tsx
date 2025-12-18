@@ -12,6 +12,8 @@ const styles = cssMap({
 		color: token('color.text'),
 		// @ts-expect-error - inherited font is needed here
 		font: 'inherit',
+		borderRadius: token('radius.small'),
+		display: 'block',
 
 		'&:hover': {
 			textDecoration: 'underline',

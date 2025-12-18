@@ -73,6 +73,7 @@ const HeadingBlockMenuItem = ({ level, api }: HeadingBlockMenuItemProps) => {
 					inputMethod,
 					triggeredFrom,
 					targetTypeName: `heading${level}`,
+					targetAttrs: { level },
 				});
 				return command ? command({ tr }) : null;
 			});

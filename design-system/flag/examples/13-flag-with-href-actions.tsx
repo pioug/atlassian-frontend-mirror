@@ -1,12 +1,11 @@
 import React, { type ReactElement } from 'react';
 
 import Flag, { type AppearanceTypes } from '@atlaskit/flag';
-import Tick from '@atlaskit/icon/glyph/check-circle';
-import Error from '@atlaskit/icon/glyph/error';
-import Info from '@atlaskit/icon/glyph/info';
-import Warning from '@atlaskit/icon/glyph/warning';
+import Error from '@atlaskit/icon/core/status-error';
+import Info from '@atlaskit/icon/core/status-information';
+import Tick from '@atlaskit/icon/core/status-success';
+import Warning from '@atlaskit/icon/core/status-warning';
 import { Stack } from '@atlaskit/primitives/compiled';
-import { token } from '@atlaskit/tokens';
 
 type FlagVariant = {
 	appearance: AppearanceTypes;
@@ -34,31 +33,31 @@ const flagVariants: Array<FlagVariant> = [
 		appearance: 'error',
 		description: 'You need to take action, something has gone terribly wrong!',
 		title: 'error flag',
-		icon: <Error label="Error" secondaryColor={token('color.background.danger.bold')} />,
+		icon: <Error spacing="spacious" label="Error" />,
 	},
 	{
 		appearance: 'info',
 		description: "This alert needs your attention, but it's not super important.",
 		title: 'info flag',
-		icon: <Info label="Info" secondaryColor={token('color.background.discovery.bold')} />,
+		icon: <Info spacing="spacious" label="Info" />,
 	},
 	{
 		appearance: 'success',
 		description: 'Nothing to worry about, everything is going great!',
 		title: 'success flag',
-		icon: <Tick label="Success" secondaryColor={token('color.background.success.bold')} />,
+		icon: <Tick spacing="spacious" label="Success" />,
 	},
 	{
 		appearance: 'warning',
 		description: 'Pay attention to me, things are not going according to plan.',
 		title: 'warning flag',
-		icon: <Warning label="Warning" secondaryColor={token('color.background.warning.bold')} />,
+		icon: <Warning spacing="spacious" label="Warning" />,
 	},
 	{
 		appearance: 'normal',
 		description: 'There is new update available',
 		title: 'normal flag',
-		icon: <Tick label="Success" secondaryColor={token('elevation.surface.overlay')} />,
+		icon: <Tick spacing="spacious" label="Success" />,
 	},
 ];
 

@@ -1,5 +1,6 @@
 import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { getBreakoutResizableNodeTypes } from '@atlaskit/editor-common/utils';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
@@ -9,6 +10,7 @@ import {
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
 import { setBreakoutWidth } from '../editor-commands/set-breakout-width';
@@ -53,7 +55,9 @@ export const handleKeyDown =
 		const isBracketKey = event.code === 'BracketRight' || event.code === 'BracketLeft';
 		if (metaKey && event.altKey && isBracketKey) {
 			const { expand, codeBlock, layoutSection } = view.state.schema.nodes;
-			const breakoutResizableNodes = new Set([expand, codeBlock, layoutSection]);
+			const breakoutResizableNodes = editorExperiment('platform_synced_block', true)
+											? getBreakoutResizableNodeTypes(view.state.schema)
+											: new Set([expand, codeBlock, layoutSection]);
 
 			const result = getAncestorResizableNode(view, breakoutResizableNodes);
 			if (result) {

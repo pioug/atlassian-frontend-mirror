@@ -2,8 +2,8 @@
 import React from 'react';
 import { Component } from 'react';
 import { type Identifier } from '@atlaskit/media-client';
-import ArrowLeftCircleIcon from '@atlaskit/icon/core/migration/chevron-left--chevron-left-circle';
-import ArrowRightCircleIcon from '@atlaskit/icon/core/migration/chevron-right--chevron-right-circle';
+import ArrowLeftCircleIcon from '@atlaskit/icon/core/chevron-left';
+import ArrowRightCircleIcon from '@atlaskit/icon/core/chevron-right';
 import { hideControlsClassName } from '@atlaskit/media-ui';
 import { Shortcut } from '@atlaskit/media-ui';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';

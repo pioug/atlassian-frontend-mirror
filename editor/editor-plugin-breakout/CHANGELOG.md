@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-breakout
 
+## 6.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.1
+
+### Patch Changes
+
+- [`a528ea956ce65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a528ea956ce65) -
+  [ux] EDITOR-3956 fix sync block resize handle padding and alignment
+- Updated dependencies
+
 ## 6.4.0
 
 ### Minor Changes

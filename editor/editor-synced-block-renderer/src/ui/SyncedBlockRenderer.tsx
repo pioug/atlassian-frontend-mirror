@@ -27,13 +27,15 @@ const SyncedBlockRendererComponent = ({
 	api,
 }: SyncedBlockRendererProps): React.JSX.Element => {
 	const { syncBlockInstance, providerFactory, isLoading, reloadData } = useFetchSyncBlockData();
-	const { isOffline } = useSharedPluginStateWithSelector(
+	const { isInternetOffline } = useSharedPluginStateWithSelector(
 		api,
 		['connectivity'],
-		({ connectivityState }) => ({ isOffline: connectivityState?.mode === 'offline' })
+		({ connectivityState }) => ({ 
+			isInternetOffline: connectivityState?.mode === 'collab-offline'
+		})
 	);
 
-	if (isOffline) {
+	if (isInternetOffline) {
 		return (
 			<SyncedBlockErrorComponent error={SyncBlockError.Offline} />
 		);

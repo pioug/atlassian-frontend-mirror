@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 4.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.6
 
 ### Patch Changes

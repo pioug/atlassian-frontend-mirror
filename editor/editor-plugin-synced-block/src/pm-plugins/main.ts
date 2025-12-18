@@ -6,6 +6,7 @@ import {
 } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { mapSlice, pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
@@ -28,6 +29,7 @@ import {
 import { shouldIgnoreDomEvent } from './utils/ignore-dom-event';
 import { calculateDecorations } from './utils/selection-decorations';
 import { hasEditInSyncBlock, trackSyncBlocks } from './utils/track-sync-blocks';
+import { sliceFullyContainsNode } from './utils/utils';
 
 export const syncedBlockPluginKey = new PluginKey('syncedBlockPlugin');
 
@@ -115,7 +117,7 @@ export const createPlugin = (
 					syncedBlockPluginKey.getState(state)?.selectionDecorationSet ?? DecorationSet.empty;
 				const { doc } = state;
 
-				const isOffline = api?.connectivity?.sharedState.currentState()?.mode === 'offline';
+				const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
 				const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
 
 				const offlineDecorations: Decoration[] = [];
@@ -172,6 +174,12 @@ export const createPlugin = (
 						return node;
 					}
 					if (node.type.name === 'bodiedSyncBlock' && node.attrs.resourceId) {
+						// if we only selected part of the bodied sync block content,
+						// remove the sync block node and only keep the content
+						if (!sliceFullyContainsNode(slice, node)) {
+							return node.content;
+						}
+
 						showCopiedFlag(api);
 
 						const newResourceId = syncBlockStore.referenceManager.generateResourceIdForReference(
@@ -192,7 +200,7 @@ export const createPlugin = (
 			},
 		},
 		filterTransaction: (tr, state) => {
-			const isOffline = api?.connectivity?.sharedState.currentState()?.mode === 'offline';
+			const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
 			const isConfirmedSyncBlockDeletion = Boolean(tr.getMeta('isConfirmedSyncBlockDeletion'));
 			// Ignore transactions that don't change the document
 			// or are from remote (collab) or already confirmed sync block deletion

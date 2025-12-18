@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 5.2.0
+
+### Minor Changes
+
+- [`9a1069a9e2278`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a1069a9e2278) -
+  [ux] Add studio-automation-trigger-rule-build action to fetch automation rule in Studio
+
 ## 5.1.0
 
 ### Minor Changes

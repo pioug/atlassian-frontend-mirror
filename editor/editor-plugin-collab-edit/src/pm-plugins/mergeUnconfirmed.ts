@@ -1,4 +1,5 @@
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Rebaseable } from '@atlaskit/prosemirror-collab';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -29,7 +30,7 @@ export function mergeUnconfirmedSteps(
 	const mergedSteps = steps.reduce((acc, rebaseable) => {
 		const lastStep = acc[acc.length - 1];
 
-		const isOffline = api?.connectivity?.sharedState.currentState()?.mode === 'offline';
+		const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
 		const isOnlineMergeEnabled = expValEquals(
 			'platform_editor_enable_single_player_step_merging',
 			'isEnabled',

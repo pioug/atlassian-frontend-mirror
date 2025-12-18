@@ -1,6 +1,6 @@
 import React from 'react';
 
-import JiraLabsIcon from '@atlaskit/icon/glyph/jira/labs';
+import FlaskIcon from '@atlaskit/icon/core/flask';
 import { Text } from '@atlaskit/primitives/compiled';
 import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
 
@@ -15,7 +15,7 @@ const Example = (): React.JSX.Element => (
 				Villa Diodatti
 			</SectionMessageAction>,
 		]}
-		icon={JiraLabsIcon}
+		icon={FlaskIcon}
 	>
 		<Text as="p">
 			You will rejoice to hear that no disaster has accompanied the commencement of an enterprise

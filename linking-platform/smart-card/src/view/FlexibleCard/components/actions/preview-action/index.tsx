@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import MediaServicesActualSizeIcon from '@atlaskit/icon/core/migration/grow-diagonal--media-services-actual-size';
+import MediaServicesActualSizeIcon from '@atlaskit/icon/core/grow-diagonal';
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.0.1
+
+### Patch Changes
+
+- [`019e34f92a799`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/019e34f92a799) -
+  Cleanup FG platform_editor_new_mentions_detection_logic
+
+## 16.0.0
+
+### Major Changes
+
+- [`d03347df0aa57`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d03347df0aa57) -
+  [ux] Cleanup improve writing on paste experiment
+
 ## 15.16.0
 
 ### Minor Changes

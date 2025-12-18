@@ -61,5 +61,6 @@ export type TransformStep = (nodes: PMNode[], context: TransformStepContext) => 
 export interface TransformStepContext {
 	fromNode: PMNode;
 	schema: Schema;
+	targetAttrs?: Record<string, unknown>;
 	targetNodeTypeName: NodeTypeName;
 }

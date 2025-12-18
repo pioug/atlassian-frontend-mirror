@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 import type { IntlShape } from 'react-intl-next';
 
 import { INPUT_METHOD, VIEW_METHOD } from '@atlaskit/editor-common/analytics';
@@ -12,6 +13,7 @@ import type {
 	ExtractInjectionAPI,
 	FloatingToolbarButton,
 } from '@atlaskit/editor-common/types';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -78,7 +80,7 @@ export const commentButton = (
 		onClick: onClickHandler,
 		tooltipContent: <ToolTipContent description={title} />,
 		supportsViewMode: true,
-		disabled: api?.connectivity?.sharedState?.currentState()?.mode === 'offline',
+		disabled: isOfflineMode(api?.connectivity?.sharedState?.currentState()?.mode),
 		onMount: () => {
 			if (fg('confluence_frontend_preload_inline_comment_editor')) {
 				onCommentButtonMount && onCommentButtonMount();

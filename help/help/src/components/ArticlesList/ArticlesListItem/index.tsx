@@ -5,12 +5,12 @@ import {
 	type UIAnalyticsEvent,
 	AnalyticsContext,
 } from '@atlaskit/analytics-next';
-import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { token } from '@atlaskit/tokens';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import { type ArticleItem } from '../../../model/Article';
-import LikeIcon from '@atlaskit/icon/core/migration/thumbs-up--like';
+import LikeIcon from '@atlaskit/icon/core/thumbs-up';
 import {
 	ArticlesListItemWrapper,
 	ArticlesListItemContainer,

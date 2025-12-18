@@ -1203,7 +1203,13 @@ export const createPlugin = (
 				}),
 			);
 
-			if (editorContentArea) {
+			const shouldObserve =
+				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
+				fg('platform_editor_native_anchor_patch_1')
+					? !isAnchorSupported()
+					: true;
+
+			if (editorContentArea && shouldObserve) {
 				resizeObserverWidth.observe(editorContentArea);
 			}
 

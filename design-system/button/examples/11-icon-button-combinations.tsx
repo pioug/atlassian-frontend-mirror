@@ -4,16 +4,15 @@ import capitalize from 'lodash/capitalize';
 
 import LegacyButton from '@atlaskit/button';
 import Checkbox from '@atlaskit/checkbox';
-import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
+import StarStarredIcon from '@atlaskit/icon/core/star-starred';
+import { type IconSize } from '@atlaskit/icon/types';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack } from '@atlaskit/primitives';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { type IconSize } from '../src/new-button/variants/types';
-// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { iconButtonShapes, iconButtonVariants } from '../src/utils/variants';
 
-const iconSizes: IconSize[] = ['small', 'large', 'xlarge'];
+const iconSizes: IconSize[] = ['small', 'medium'];
 
 export default function IconButtonExample(): React.JSX.Element {
 	const [showLegacyButton, setShowLegacyButton] = useState(false);
@@ -57,27 +56,27 @@ export default function IconButtonExample(): React.JSX.Element {
 													<td>
 														<LegacyButton
 															appearance={appearance === 'discovery' ? undefined : appearance}
-															iconBefore={<StarFilledIcon label="Label" size="medium" />}
+															iconBefore={<StarStarredIcon label="Label" size="medium" />}
 														/>
 													</td>
 													<td>
 														<LegacyButton
 															appearance={appearance === 'discovery' ? undefined : appearance}
-															iconBefore={<StarFilledIcon label="Label" size="medium" />}
+															iconBefore={<StarStarredIcon label="Label" size="medium" />}
 															isDisabled
 														/>
 													</td>
 													<td>
 														<LegacyButton
 															appearance={appearance === 'discovery' ? undefined : appearance}
-															iconBefore={<StarFilledIcon label="Label" size="medium" />}
+															iconBefore={<StarStarredIcon label="Label" size="medium" />}
 															isSelected
 														/>
 													</td>
 													<td>
 														<LegacyButton
 															appearance={appearance === 'discovery' ? undefined : appearance}
-															iconBefore={<StarFilledIcon label="Label" size="medium" />}
+															iconBefore={<StarStarredIcon label="Label" size="medium" />}
 															isSelected
 															isDisabled
 														/>
@@ -87,7 +86,7 @@ export default function IconButtonExample(): React.JSX.Element {
 														<td>
 															<LegacyButton
 																appearance={appearance === 'discovery' ? undefined : appearance}
-																iconBefore={<StarFilledIcon label="Label" size={size} />}
+																iconBefore={<StarStarredIcon label="Label" size={size} />}
 															/>
 														</td>
 													))}
@@ -113,7 +112,7 @@ export default function IconButtonExample(): React.JSX.Element {
 													<td key={size}>
 														<Component
 															appearance={appearance}
-															icon={(iconProps) => <StarFilledIcon {...iconProps} size={size} />}
+															icon={(iconProps) => <StarStarredIcon {...iconProps} size={size} />}
 														/>
 													</td>
 												))}

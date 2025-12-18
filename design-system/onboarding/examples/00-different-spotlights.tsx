@@ -6,7 +6,7 @@
 import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
-import UndoIcon from '@atlaskit/icon/glyph/editor/undo';
+import UndoIcon from '@atlaskit/icon/core/undo';
 import { SpotlightCard } from '@atlaskit/onboarding';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

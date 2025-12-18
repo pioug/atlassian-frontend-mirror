@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import Arrow from '@atlaskit/icon/glyph/arrow-right';
+import Arrow from '@atlaskit/icon/core/arrow-right';
 import Lozenge from '@atlaskit/lozenge';
 import { Box } from '@atlaskit/primitives/compiled';
 

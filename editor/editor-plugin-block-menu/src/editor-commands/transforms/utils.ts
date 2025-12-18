@@ -1,5 +1,7 @@
+import { breakoutResizableNodes } from '@atlaskit/editor-common/utils';
 import type { Mark, Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { FormatNodeTargetType } from './types';
 
@@ -177,7 +179,9 @@ export const convertCodeBlockContentToParagraphs = (
 };
 
 const isBreakoutMarkSupported = (nodeType: NodeType) => {
-	return ['codeBlock', 'expand', 'layoutSection'].includes(nodeType.name);
+	return editorExperiment('platform_synced_block', true)
+		? breakoutResizableNodes.includes(nodeType.name)
+		: ['codeBlock', 'expand', 'layoutSection'].includes(nodeType.name);
 };
 
 export const getMarksWithBreakout = (

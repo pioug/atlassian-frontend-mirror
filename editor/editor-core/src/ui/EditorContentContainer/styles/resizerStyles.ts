@@ -426,27 +426,18 @@ export const pragmaticResizerStylesSyncedBlock: SerializedStyles = css({
 			{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 				'> .pm-breakout-resize-handle-container--left': {
-					left: '-20px',
+					left: '-24px',
 				},
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 				'> .pm-breakout-resize-handle-container--right': {
-					right: '-20px',
+					right: '-24px',
+				},
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'> .pm-breakout-resize-handle-container': {
+					height: 'calc(100% - 12px)',
 				},
 			},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:has([data-prosemirror-node-name="syncBlock"])': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'> .pm-breakout-resize-handle-container': {
-				height: 'calc(100% - 12px)',
-			},
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:has([data-prosemirror-node-name="bodiedSyncBlock"])': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'> .pm-breakout-resize-handle-container': {
-				height: 'calc(100% - 2px)',
-			},
-		},
 	},
 });
 

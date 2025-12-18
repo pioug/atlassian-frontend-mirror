@@ -1,5 +1,30 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 4.0.10
+
+### Patch Changes
+
+- [`2b78b030e4e42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b78b030e4e42) -
+  EDITOR-3952 Update style for task in destination synced block
+- Updated dependencies
+
+## 4.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.8
+
+### Patch Changes
+
+- [`79172823f4e47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79172823f4e47) -
+  [ux] EDITOR-3961 strip breakout mark from renderer sync block html
+- [`a4ed9f55162ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4ed9f55162ae) -
+  EDITOR-3960 Refactor Synced Blocks initialization to remove multiple re-renders and duplicated
+  fetches
+- Updated dependencies
+
 ## 4.0.7
 
 ### Patch Changes

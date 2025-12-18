@@ -11,7 +11,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { IconButton } from '@atlaskit/button/new';
 import { NewChatButton } from './NewChatButton';
-import ChevronLeftLargeIcon from '@atlaskit/icon/core/migration/chevron-left--chevron-left-large';
+import ChevronLeftLargeIcon from '@atlaskit/icon/core/chevron-left';
 
 const styles = cssMap({
 	container: {

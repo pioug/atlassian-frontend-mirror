@@ -158,17 +158,20 @@ const styles = cssMapUnbound({
 		// Only show focus ring when keyboard navigating (not mouse clicks)
 		'&:focus-visible': {
 			outline: `${token('border.width.focused', '2px')} solid ${token('color.border.focused')}`,
+			// @ts-ignore
 			outlineOffset: token('space.025', '2px'),
 		},
 	},
 	// Show focus ring when child link is focused via keyboard (applied conditionally via JS)
 	childFocusRingStyles: {
 		outline: `${token('border.width.focused', '2px')} solid ${token('color.border.focused')}`,
+		// @ts-ignore
 		outlineOffset: token('space.025', '2px'),
 	},
 	// Base interactive styles - always applied when link (cursor, link styling)
 	interactiveBaseStyles: {
 		cursor: 'pointer',
+		// @ts-ignore
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'& > a': {
 			display: 'inline-flex',
@@ -204,6 +207,7 @@ const styles = cssMapUnbound({
 		'&:active': {
 			backgroundColor: token('color.background.neutral.subtle.pressed'),
 		},
+		// @ts-ignore
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'& > a:hover': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles

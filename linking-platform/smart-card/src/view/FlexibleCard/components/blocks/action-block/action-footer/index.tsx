@@ -5,7 +5,7 @@
 
 import { cssMap, jsx } from '@compiled/react';
 
-import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
+import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

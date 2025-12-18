@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl-next';
 
 import { IconButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
+import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import messages from '../../messages';

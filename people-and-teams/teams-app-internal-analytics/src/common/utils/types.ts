@@ -19,4 +19,5 @@ export type AnalyticsEventSource =
 	| 'teamRestoreScreen'
 	| 'teamsPage'
 	| 'directoryScreen'
-	| 'teamProfileCard';
+	| 'teamProfileCard'
+	| 'teamProfileCardTrigger';

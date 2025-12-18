@@ -7,7 +7,7 @@ import { Fragment, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { IconButton } from '@atlaskit/button/new';
-import MediaServicesAddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
+import MediaServicesAddCommentIcon from '@atlaskit/icon/core/comment-add';
 import Popup from '@atlaskit/popup';
 import Select from '@atlaskit/select';
 

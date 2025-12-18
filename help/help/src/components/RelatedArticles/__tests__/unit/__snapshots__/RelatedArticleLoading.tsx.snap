@@ -21,47 +21,23 @@ exports[`RelatedArticlesLoading Should match snapshot 1`] = `
       >REDACTED</style>
       <div
         class="REDACTED"
-        style="height: 11px; margin-top: 0px; width: 60px;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 1rem; margin-top: 4px; width: 100%;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 1rem; margin-top: 8px; width: 100%;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 1rem; margin-top: 4px; width: 100%;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 1rem; margin-top: 4px; width: 100%;"
-      />
-    </li>
-    <li
-      class="REDACTED"
-    >
-      <div
-        class="REDACTED"
-        style="height: 11px; margin-top: 0px; width: 60px;"
-      />
-      <div
-        class="REDACTED"
-        style="height: 1rem; margin-top: 4px; width: 100%;"
-      />
-      <div
-        class="REDACTED"
-        style="height: 1rem; margin-top: 8px; width: 100%;"
-      />
-      <div
-        class="REDACTED"
-        style="height: 1rem; margin-top: 4px; width: 100%;"
-      />
-      <div
-        class="REDACTED"
-        style="height: 1rem; margin-top: 4px; width: 100%;"
+        style="REDACTED"
       />
     </li>
     <li
@@ -69,23 +45,47 @@ exports[`RelatedArticlesLoading Should match snapshot 1`] = `
     >
       <div
         class="REDACTED"
-        style="height: 11px; margin-top: 0px; width: 60px;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 1rem; margin-top: 4px; width: 100%;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 1rem; margin-top: 8px; width: 100%;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 1rem; margin-top: 4px; width: 100%;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 1rem; margin-top: 4px; width: 100%;"
+        style="REDACTED"
+      />
+    </li>
+    <li
+      class="REDACTED"
+    >
+      <div
+        class="REDACTED"
+        style="REDACTED"
+      />
+      <div
+        class="REDACTED"
+        style="REDACTED"
+      />
+      <div
+        class="REDACTED"
+        style="REDACTED"
+      />
+      <div
+        class="REDACTED"
+        style="REDACTED"
+      />
+      <div
+        class="REDACTED"
+        style="REDACTED"
       />
     </li>
     <style

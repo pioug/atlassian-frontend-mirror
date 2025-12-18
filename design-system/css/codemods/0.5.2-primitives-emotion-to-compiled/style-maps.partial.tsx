@@ -2,6 +2,7 @@
 import { css, type SerializedStyles } from '@emotion/react';
 
 import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
+import type { CSSTokenMap } from '@atlaskit/tokens/token-names';
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
@@ -1585,6 +1586,15 @@ export type MetricTextSize = keyof typeof metricTextSizeMap;
 // Margin needs some bespoke types: https://atlassian.slack.com/archives/CKRHB23K8/p1712623192772909
 type MarginSpace = AllSpace | 'auto' | '0';
 type PaddingSpace = Space | '0';
+type BorderWidthExtended = BorderWidth | 0 | '0';
+/**
+ * Token functions are currently allowed for borderRadius in xcss to ease migration.
+ * Because 'radius.small' defaults to 3px, we need a mechanism to allow for 4px values to be provided:
+ * This is done by calling the token function - token('radius.small')
+ *
+ * TODO: Remove once shape them is rolled out and fg platform-dst-shape-theme-default removed
+ */
+type BorderRadiusExtended = BorderRadius | 0 | '0' | 'inherit' | CSSTokenMap[BorderRadius];
 type GlobalValue = 'inherit' | 'initial' | 'revert' | 'revert-layer' | 'unset';
 type AutoComplete<T extends string> = T | Omit<string, T>;
 
@@ -1593,35 +1603,35 @@ export type TokenisedProps = {
 	blockSize?: Dimension | string;
 	borderBlockColor?: AutoComplete<BorderColor>;
 	borderBlockEndColor?: AutoComplete<BorderColor>;
-	borderBlockEndWidth?: BorderWidth | string;
+	borderBlockEndWidth?: BorderWidthExtended;
 	borderBlockStartColor?: AutoComplete<BorderColor>;
-	borderBlockStartWidth?: BorderWidth | string;
-	borderBlockWidth?: BorderWidth | string;
+	borderBlockStartWidth?: BorderWidthExtended;
+	borderBlockWidth?: BorderWidthExtended;
 	borderBottomColor?: AutoComplete<BorderColor>;
-	borderBottomLeftRadius?: BorderRadius | string;
-	borderBottomRightRadius?: BorderRadius | string;
-	borderBottomWidth?: BorderWidth | string;
+	borderBottomLeftRadius?: BorderRadiusExtended;
+	borderBottomRightRadius?: BorderRadiusExtended;
+	borderBottomWidth?: BorderWidthExtended;
 	borderColor?: BorderColor;
-	borderEndEndRadius?: BorderRadius | string;
-	borderEndStartRadius?: BorderRadius | string;
+	borderEndEndRadius?: BorderRadiusExtended;
+	borderEndStartRadius?: BorderRadiusExtended;
 	borderInlineColor?: AutoComplete<BorderColor>;
 	borderInlineEndColor?: AutoComplete<BorderColor>;
-	borderInlineEndWidth?: BorderWidth | string;
+	borderInlineEndWidth?: BorderWidthExtended;
 	borderInlineStartColor?: AutoComplete<BorderColor>;
-	borderInlineStartWidth?: BorderWidth | string;
-	borderInlineWidth?: BorderWidth | string;
+	borderInlineStartWidth?: BorderWidthExtended;
+	borderInlineWidth?: BorderWidthExtended;
 	borderLeftColor?: AutoComplete<BorderColor>;
-	borderLeftWidth?: BorderWidth | string;
-	borderRadius?: BorderRadius | string;
+	borderLeftWidth?: BorderWidthExtended;
+	borderRadius?: BorderRadiusExtended;
 	borderRightColor?: AutoComplete<BorderColor>;
-	borderRightWidth?: BorderWidth | string;
-	borderStartEndRadius?: BorderRadius | string;
-	borderStartStartRadius?: BorderRadius | string;
+	borderRightWidth?: BorderWidthExtended;
+	borderStartEndRadius?: BorderRadiusExtended;
+	borderStartStartRadius?: BorderRadiusExtended;
 	borderTopColor?: AutoComplete<BorderColor>;
-	borderTopLeftRadius?: BorderRadius | string;
-	borderTopRightRadius?: BorderRadius | string;
-	borderTopWidth?: BorderWidth | string;
-	borderWidth?: BorderWidth | string;
+	borderTopLeftRadius?: BorderRadiusExtended;
+	borderTopRightRadius?: BorderRadiusExtended;
+	borderTopWidth?: BorderWidthExtended;
+	borderWidth?: BorderWidthExtended;
 	bottom?: AutoComplete<AllSpace>;
 	boxShadow?: Shadow;
 	color?: TextColor;
@@ -1663,7 +1673,7 @@ export type TokenisedProps = {
 	opacity?: AutoComplete<Opacity> | number;
 	outlineColor?: BorderColor;
 	outlineOffset?: AllSpace;
-	outlineWidth?: BorderWidth | string;
+	outlineWidth?: BorderWidthExtended;
 	padding?: PaddingSpace | GlobalValue;
 	paddingBlock?: PaddingSpace | GlobalValue;
 	paddingBlockEnd?: PaddingSpace | GlobalValue;

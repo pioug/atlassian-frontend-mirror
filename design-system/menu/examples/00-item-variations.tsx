@@ -4,8 +4,8 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import EmojiCustomIcon from '@atlaskit/icon/glyph/emoji/custom';
-import StarIcon from '@atlaskit/icon/glyph/star';
+import EmojiCustomIcon from '@atlaskit/icon/core/add';
+import StarIcon from '@atlaskit/icon/core/star-unstarred';
 import {
 	ButtonItem,
 	CustomItem,
@@ -35,7 +35,7 @@ const overrideStyles = css({
 
 // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 const Emphasis = (props: CustomItemComponentProps) => <em {...props} />;
-const Star = <StarIcon label="" />;
+const Star = <StarIcon spacing="spacious" label="" />;
 
 const ItemVariants = () => {
 	return (
@@ -62,8 +62,8 @@ const ItemVariants = () => {
 				instrument.
 			</ButtonItem>
 			<ButtonItem
-				iconBefore={<StarIcon label="" />}
-				iconAfter={<StarIcon label="" />}
+				iconBefore={<StarIcon spacing="spacious" label="" />}
+				iconAfter={<StarIcon spacing="spacious" label="" />}
 				testId="item-button-at-scale-before-after"
 				description="The long title is intended to provide a summarised description of the purpose or scope of the instrument."
 			>
@@ -90,16 +90,16 @@ const ItemVariants = () => {
 				the head of a statute (such as an act of Parliament or of Congress) or other legislative
 				instrument.
 			</ButtonItem>
-			<ButtonItem testId="item-button-before" iconBefore={<EmojiCustomIcon label="" />}>
+			<ButtonItem testId="item-button-before" iconBefore={<EmojiCustomIcon spacing="spacious" label="" />}>
 				With iconBefore prop
 			</ButtonItem>
-			<ButtonItem testId="item-button-after" iconAfter={<StarIcon label="" />}>
+			<ButtonItem testId="item-button-after" iconAfter={<StarIcon spacing="spacious" label="" />}>
 				With iconAfter prop
 			</ButtonItem>
 			<ButtonItem
 				testId="item-button-before-after"
-				iconBefore={<EmojiCustomIcon label="" />}
-				iconAfter={<StarIcon label="" />}
+				iconBefore={<EmojiCustomIcon spacing="spacious" label="" />}
+				iconAfter={<StarIcon spacing="spacious" label="" />}
 			>
 				With both iconAfter and iconBefore prop
 			</ButtonItem>

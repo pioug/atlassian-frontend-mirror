@@ -37,6 +37,7 @@
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
+		"@af/suppress-react-warnings": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@testing-library/react": "^16.3.0",
@@ -81,7 +82,7 @@
 		}
 	},
 	"name": "@atlaskit/audit-log-events-query-controller",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "Controller that handles both the basic filter and alql editor",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

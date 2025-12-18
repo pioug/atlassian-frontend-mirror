@@ -25,6 +25,7 @@ export type SetUpParams = {
 	mock?: any;
 	mockFetch?: () => unknown;
 	product?: ProductType;
+	storeOptions?: React.ComponentProps<typeof Provider>['storeOptions'];
 	testId?: string;
 	userEventOptions?: {
 		advanceTimers?: typeof jest.advanceTimersByTime;
@@ -44,6 +45,7 @@ export const setup = async ({
 	component,
 	extraCardProps,
 	mockFetch = jest.fn(() => Promise.resolve(mock)),
+	storeOptions,
 	userEventOptions = { delay: null },
 	product,
 }: SetUpParams = {}) => {
@@ -63,7 +65,7 @@ export const setup = async ({
 			<FabricAnalyticsListeners client={mockAnalyticsClient}>
 				<AnalyticsListener channel={analytics.ANALYTICS_CHANNEL} onEvent={analyticsSpy}>
 					<IntlProvider locale="en">
-						<Provider client={mockClient} product={product}>
+						<Provider client={mockClient} product={product} storeOptions={storeOptions}>
 							{component ? (
 								component
 							) : (

@@ -18,7 +18,7 @@ import { useMergeRefs } from 'use-callback-ref';
 
 import { cssMap } from '@atlaskit/css';
 import { ErrorMessage, Field } from '@atlaskit/form';
-import Selectclear from '@atlaskit/icon/core/migration/cross-circle--select-clear';
+import Selectclear from '@atlaskit/icon/core/cross-circle';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import Textfield, { type TextFieldProps } from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';

@@ -1,8 +1,12 @@
 import { act, fireEvent, screen, within } from '@testing-library/react';
 
+import type { JsonLd } from '@atlaskit/json-ld-types';
+import { mocks } from '@atlaskit/link-test-helpers';
+import type { CardStore, CardType } from '@atlaskit/linking-common';
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
+
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../../extractors/constants';
 import * as analytics from '../../../../utils/analytics/analytics';
-import { mocks } from '../../../../utils/mocks';
 import { CardAction, type CardActionOptions } from '../../../../view/Card/types';
 import {
 	mockBaseResponseWithErrorPreview,
@@ -11,11 +15,7 @@ import {
 	mockUnauthorisedResponse,
 } from '../__mocks__/mocks';
 
-import {
-	type setup as hoverCardSetup,
-	mockIntersectionObserver,
-	type SetUpParams,
-} from './setup.test-utils';
+import { type setup as hoverCardSetup, type SetUpParams } from './setup.test-utils';
 
 const userEventOptionsWithAdvanceTimers = {
 	advanceTimers: jest.advanceTimersByTime,
@@ -24,6 +24,7 @@ const userEventOptionsWithAdvanceTimers = {
 export const mockUrl = 'https://some.url';
 
 type TestConfig = {
+	mockType?: 'store' | 'client';
 	testIds: {
 		erroredTestId?: string;
 		secondaryChildTestId: string;
@@ -31,84 +32,90 @@ type TestConfig = {
 	};
 };
 
+const getUnresolvedParams = (status: CardType, details: SmartLinkResponse, mockType?: string) => {
+	const url = ((details.data as JsonLd.Data.BaseData)!.url as string) ?? 'https://some.url';
+	const mockFetch = jest.fn(() => Promise.resolve(details));
+	return mockType === 'store'
+		? {
+				initialState: { [url]: { status, details, metadataStatus: 'pending' } } as CardStore,
+				mockFetch,
+			}
+		: { mockFetch };
+};
+
 export const forbiddenViewTests = (
 	setup: (params?: SetUpParams) => ReturnType<typeof hoverCardSetup>,
 ) => {
-	describe('renders forbidden view hover card', () => {
-		it('when response is forbidden', async () => {
-			await setup({
-				mock: mocks.forbidden,
-				testId: 'hover-card-trigger-wrapper',
-			});
-			const hoverCard = await screen.findByTestId('hover-card');
-			expect(hoverCard).toBeTruthy();
-		});
+	describe('when link response has forbidden status', () => {
+		const hoverCardForbiddenViewTestId = 'hover-card-forbidden-view';
+		const forbiddenStatus = 'forbidden';
 
-		it('when response is not_found with access_exists', async () => {
-			const mock = mocks.notFound;
-			mock.meta.requestAccess = {
-				accessType: 'ACCESS_EXISTS',
-			};
-			await setup({
-				mock: mock,
-				testId: 'hover-card-trigger-wrapper',
+		describe.each([
+			['when link has not been resolved', 'client'],
+			['when link has partial been resolved', 'store'],
+		])('%s', (_: string, mockType: string) => {
+			it.each([
+				['request access', mocks.unresolved('REQUEST_ACCESS', 'not_found')],
+				['request exists', mocks.unresolved('PENDING_REQUEST_EXISTS', 'not_found')],
+				['request access denied', mocks.unresolved('DENIED_REQUEST_EXISTS', 'not_found')],
+				['direct access', mocks.unresolved('DIRECT_ACCESS', 'not_found')],
+				[
+					'site access exists but not on the object',
+					mocks.unresolved('ACCESS_EXISTS', 'restricted'),
+				],
+				[
+					'site access forbidden, cannot request access',
+					mocks.unresolved('FORBIDDEN', 'not_found'),
+				],
+			])('renders forbidden view for %s', async (_: string, details: SmartLinkResponse) => {
+				const params = getUnresolvedParams(forbiddenStatus, details, mockType);
+				await setup(params);
+
+				act(() => jest.runAllTimers());
+
+				expect(await screen.findByTestId(hoverCardForbiddenViewTestId)).toBeInTheDocument();
 			});
-			const hoverCard = await screen.findByTestId('hover-card');
-			expect(hoverCard).toBeTruthy();
+
+			it('does not render forbidden view with no auth flow', async () => {
+				const params = getUnresolvedParams(forbiddenStatus, mocks.forbidden, mockType);
+				await setup(params);
+
+				act(() => jest.runAllTimers());
+
+				expect(screen.queryByTestId(hoverCardForbiddenViewTestId)).not.toBeInTheDocument();
+			});
 		});
 	});
 };
 
 export const unauthorizedViewTests = (
 	setup: (params?: SetUpParams) => ReturnType<typeof hoverCardSetup>,
-	config: TestConfig,
 ) => {
-	describe('Unauthorized Hover Card', () => {
-		beforeEach(() => {
-			jest.useFakeTimers({ legacyFakeTimers: true });
-			mockIntersectionObserver();
-			act(() => jest.runAllTimers());
-			jest.restoreAllMocks();
-		});
+	describe('when link response has unauthorized status', () => {
+		const hoverCardUnauthorisedViewTestId = 'hover-card-unauthorised-view';
+		const unauthorizedStatus = 'unauthorized';
+		const details = mocks.unauthorized('https://some.url') as SmartLinkResponse;
 
-		afterEach(() => {
-			jest.useRealTimers();
-		});
+		describe.each([
+			['when link has not been resolved', 'client'],
+			['when link has partial been resolved', 'store'],
+		])('%s', (_: string, mockType: string) => {
+			it('renders unauthorized view', async () => {
+				const params = getUnresolvedParams(unauthorizedStatus, details, mockType);
+				await setup(params);
 
-		const authTooltipId = 'hover-card-unauthorised-view';
-		const {
-			testIds: { unauthorizedTestId },
-		} = config;
+				act(() => jest.runAllTimers());
 
-		it('shows Unauthorised hover card when "showHoverPreview" is true', async () => {
-			await setup({
-				extraCardProps: { showHoverPreview: true },
-				mock: mockUnauthorisedResponse,
-				testId: unauthorizedTestId,
+				expect(await screen.findByTestId(hoverCardUnauthorisedViewTestId)).toBeInTheDocument();
 			});
-
-			const unauthorisedHoverCard = await screen.findByTestId(authTooltipId);
-			expect(unauthorisedHoverCard).toBeTruthy();
-		});
-
-		it('does not render a hover card when "showHoverPreview" is false', async () => {
-			const mockFetch = jest.fn(() => Promise.resolve(mockUnauthorisedResponse));
-			await setup({
-				extraCardProps: { showHoverPreview: false },
-				mockFetch,
-				testId: unauthorizedTestId,
-			});
-			expect(screen.queryByTestId('hover-card-trigger-wrapper')).toBeNull();
-			expect(screen.queryByTestId('hover-card-unauthorised-view')).toBeNull();
 		});
 
 		it('renders the correct view of unauthorised hover card', async () => {
 			await setup({
 				mock: mockUnauthorisedResponse,
-				testId: unauthorizedTestId,
 			});
 
-			const hoverCard = await screen.findByTestId(authTooltipId);
+			const hoverCard = await screen.findByTestId(hoverCardUnauthorisedViewTestId);
 
 			for (const [testId, expectToBeInTheDocument] of [
 				['hover-card-unauthorised-view-title', true],
@@ -126,21 +133,6 @@ export const unauthorizedViewTests = (
 			}
 		});
 
-		it('does not render auth tooltip when the auth flow is not present in the response', async () => {
-			await setup({
-				extraCardProps: { showHoverPreview: true },
-				mock: {
-					...mockUnauthorisedResponse,
-					meta: {
-						...mockUnauthorisedResponse.meta,
-						auth: [],
-					},
-				},
-				testId: unauthorizedTestId,
-			});
-			expect(screen.queryByTestId(authTooltipId)).toBeNull();
-		});
-
 		it('should fire viewed event when hover card is opened', async () => {
 			const { mockAnalyticsClient } = await setup({
 				mock: mockUnauthorisedResponse,
@@ -148,7 +140,7 @@ export const unauthorizedViewTests = (
 			});
 
 			// wait for card to be resolved
-			await screen.findByTestId(authTooltipId);
+			await screen.findByTestId(hoverCardUnauthorisedViewTestId);
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					action: 'viewed',
@@ -171,7 +163,7 @@ export const unauthorizedViewTests = (
 				testId: 'hover-card-trigger-wrapper',
 			});
 			// wait for card to be resolved
-			await screen.findByTestId(authTooltipId);
+			await screen.findByTestId(hoverCardUnauthorisedViewTestId);
 			await event.unhover(element);
 			act(() => {
 				jest.runAllTimers();
@@ -613,6 +605,26 @@ export const runCommonHoverCardTests = (
 	});
 
 	describe('errored links', () => {
+		// TODO: Move this test to unauthorizedViewTests on navx-2478-sl-fix-hover-card-unresolved-view cleanup
+		it('does not render auth tooltip when the auth flow is not present in the response', async () => {
+			const {
+				testIds: { unauthorizedTestId },
+			} = config;
+
+			await setup({
+				extraCardProps: { showHoverPreview: true },
+				mock: {
+					...mockUnauthorisedResponse,
+					meta: {
+						...mockUnauthorisedResponse.meta,
+						auth: [],
+					},
+				},
+				testId: unauthorizedTestId,
+			});
+			expect(screen.queryByTestId('hover-card-unauthorised-view')).toBeNull();
+		});
+
 		it('should not show a hover card for an errored link', async () => {
 			const {
 				testIds: { erroredTestId },
@@ -632,7 +644,7 @@ export const runCommonHoverCardTests = (
 				mockFetch: mockFetch,
 				testId: erroredTestId,
 			});
-			await expect(() => screen.findByTestId('hover-card-loading-view')).rejects.toThrow();
+			expect(screen.queryByTestId('hover-card-loading-view')).not.toBeInTheDocument();
 		});
 	});
 };

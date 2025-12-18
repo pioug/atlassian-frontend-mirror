@@ -1,5 +1,13 @@
 # @atlaskit/media-test-helpers
 
+## 39.0.12
+
+### Patch Changes
+
+- [`6a82d7964a37b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a82d7964a37b) -
+  Icon entrypoint migration
+- Updated dependencies
+
 ## 39.0.11
 
 ### Patch Changes

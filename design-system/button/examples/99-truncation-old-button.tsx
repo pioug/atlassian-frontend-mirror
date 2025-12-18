@@ -6,8 +6,8 @@
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
-import Expand from '@atlaskit/icon/glyph/arrow-down';
-import Question from '@atlaskit/icon/glyph/question';
+import Expand from '@atlaskit/icon/core/arrow-down';
+import Question from '@atlaskit/icon/core/question-circle';
 import { token } from '@atlaskit/tokens';
 
 const narrowWrapperStyles = css({

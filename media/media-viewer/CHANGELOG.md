@@ -1,5 +1,21 @@
 # @atlaskit/media-viewer
 
+## 52.5.4
+
+### Patch Changes
+
+- [`5f53f075991b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f53f075991b4) -
+  Updated archive viewer to emit media-viewed event on child file download
+- Updated dependencies
+
+## 52.5.3
+
+### Patch Changes
+
+- [`6a82d7964a37b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a82d7964a37b) -
+  Icon entrypoint migration
+- Updated dependencies
+
 ## 52.5.2
 
 ### Patch Changes

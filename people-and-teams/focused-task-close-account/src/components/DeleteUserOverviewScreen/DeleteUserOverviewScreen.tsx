@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 import Button from '@atlaskit/button';
 import SectionMessage from '@atlaskit/section-message';
-import InfoIcon from '@atlaskit/icon/core/migration/status-information--info';
+import InfoIcon from '@atlaskit/icon/core/status-information';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Text } from '@atlaskit/primitives';

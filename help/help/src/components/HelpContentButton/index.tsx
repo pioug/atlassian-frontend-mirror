@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import Tooltip from '@atlaskit/tooltip';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
 import { type NotificationLogProvider } from '@atlaskit/notification-log-client';

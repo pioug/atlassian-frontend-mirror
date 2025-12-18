@@ -25,6 +25,7 @@ export interface ArchiveSidebarProps {
 	isArchiveEntryLoading: boolean;
 	onError: (error: ArchiveViewerError, entry?: ZipEntry) => void;
 	shouldRenderAbuseModal: boolean;
+	fileId?: string;
 }
 
 export type ArchiveSidebarState = {
@@ -34,7 +35,8 @@ export type ArchiveSidebarState = {
 export class ArchiveSidebar extends React.Component<ArchiveSidebarProps, ArchiveSidebarState> {
 	constructor(props: ArchiveSidebarProps) {
 		super(props);
-		const { isArchiveEntryLoading, entries, mediaClient, onError, shouldRenderAbuseModal } = props;
+		const { isArchiveEntryLoading, entries, mediaClient, onError, shouldRenderAbuseModal, fileId } =
+			props;
 		this.state = {
 			currentArchiveSidebarFolder: {
 				isArchiveEntryLoading,
@@ -46,15 +48,17 @@ export class ArchiveSidebar extends React.Component<ArchiveSidebarProps, Archive
 				mediaClient,
 				onError,
 				shouldRenderAbuseModal,
+				fileId,
 			},
 		};
 	}
 
 	private getArchiveFromEntry = async (entry: ZipEntry): Promise<ZipInfo> => {
-		const blob = await rejectAfter(() => entry.blob());
-		const archive = await rejectAfter(() => unzip(blob));
+		const blob = await rejectAfter<Blob>(() => entry.blob());
+		const archive = await rejectAfter<ZipInfo>(() => unzip(blob));
 
-		Object.values(archive.entries).forEach((zipEntry) => {
+		Object.values(archive.entries).forEach((zipEntry: ZipEntry) => {
+			// eslint-disable-next-line no-param-reassign
 			zipEntry.name = this.state.currentArchiveSidebarFolder.name + zipEntry.name;
 		});
 		return archive;
@@ -83,7 +87,7 @@ export class ArchiveSidebar extends React.Component<ArchiveSidebarProps, Archive
 			entries = { ...entries, ...archiveEntries };
 			folderName = extractArchiveFolderName(folder.name);
 		}
-		const { isArchiveEntryLoading, onError, shouldRenderAbuseModal } = this.props;
+		const { isArchiveEntryLoading, onError, shouldRenderAbuseModal, fileId } = this.props;
 		const currentFolderName = folderName || folder.name;
 		this.setState({
 			currentArchiveSidebarFolder: {
@@ -95,6 +99,7 @@ export class ArchiveSidebar extends React.Component<ArchiveSidebarProps, Archive
 				mediaClient,
 				onError,
 				shouldRenderAbuseModal,
+				fileId,
 			},
 		});
 	};
@@ -107,6 +112,7 @@ export class ArchiveSidebar extends React.Component<ArchiveSidebarProps, Archive
 			isArchiveEntryLoading,
 			onError,
 			shouldRenderAbuseModal,
+			fileId,
 		} = this.props;
 
 		const folderParent = getFolderParent(this.state.currentArchiveSidebarFolder.root);
@@ -121,6 +127,7 @@ export class ArchiveSidebar extends React.Component<ArchiveSidebarProps, Archive
 				mediaClient,
 				onError,
 				shouldRenderAbuseModal,
+				fileId,
 			},
 		});
 

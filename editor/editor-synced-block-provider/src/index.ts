@@ -55,8 +55,11 @@ export type {
 } from './providers/types';
 
 // store managers
-export { ReferenceSyncBlockStoreManager } from './store-manager/referenceSyncBlockStoreManager';
-export { SyncBlockStoreManager } from './store-manager/syncBlockStoreManager';
+export { type ReferenceSyncBlockStoreManager } from './store-manager/referenceSyncBlockStoreManager';
+export {
+	SyncBlockStoreManager,
+	useMemoizedSyncBlockStoreManager,
+} from './store-manager/syncBlockStoreManager';
 
 // utils
 export { resolveSyncBlockInstance } from './utils/resolveSyncBlockInstance';

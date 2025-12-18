@@ -23,9 +23,14 @@ import {
 	ElementName,
 	TitleBlock,
 } from '@atlaskit/smart-card';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { analyticsTests } from './common/analytics.test-utils';
-import { runCommonHoverCardTests, unauthorizedViewTests } from './common/common.test-utils';
+import {
+	forbiddenViewTests,
+	runCommonHoverCardTests,
+	unauthorizedViewTests,
+} from './common/common.test-utils';
 import {
 	mockIntersectionObserver,
 	setup,
@@ -227,7 +232,24 @@ describe('hover card over flexible smart links', () => {
 
 	describe('Common tests', () => {
 		runCommonHoverCardTests((setupProps?: SetUpParams) => setupComponent(setupProps), testConfig);
-		unauthorizedViewTests((setupProps?: SetUpParams) => setupComponent(setupProps), testConfig);
+		ffTest.on('navx-2478-sl-fix-hover-card-unresolved-view', '', () => {
+			forbiddenViewTests((setupProps?: SetUpParams) =>
+				setupComponent({
+					...setupProps,
+					extraCardProps: { showHoverPreview: true },
+					testId: 'smart-block-title-errored-view',
+				}),
+			);
+		});
+		ffTest.both('navx-2478-sl-fix-hover-card-unresolved-view', '', () => {
+			unauthorizedViewTests((setupProps?: SetUpParams) =>
+				setupComponent({
+					...setupProps,
+					extraCardProps: { showHoverPreview: true },
+					testId: 'smart-block-title-errored-view',
+				}),
+			);
+		});
 		analyticsTests((setupProps?: SetUpParams) => setupComponent(setupProps), {
 			display: 'flexible',
 			isAnalyticsContextResolvedOnHover: true,

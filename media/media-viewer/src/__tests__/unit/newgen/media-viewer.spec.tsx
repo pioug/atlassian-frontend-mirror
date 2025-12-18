@@ -6,7 +6,7 @@ jest.mock('@atlaskit/media-client-react', () => {
 import React from 'react';
 import { type MediaClientConfig, getFileStreamsCache } from '@atlaskit/media-client';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import EditorPanelIcon from '@atlaskit/icon/core/migration/status-information--editor-panel';
+import EditorPanelIcon from '@atlaskit/icon/core/status-information';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 import { createMockedMediaClientProvider } from './utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 import { MediaViewer } from '../../../';

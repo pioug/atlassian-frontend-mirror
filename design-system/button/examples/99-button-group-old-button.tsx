@@ -9,7 +9,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
-import AudioIcon from '@atlaskit/icon/glyph/audio';
+import AudioIcon from '@atlaskit/icon/core/audio';
 import { token } from '@atlaskit/tokens';
 
 const Row = (props: { children: React.ReactNode }) => (
@@ -59,7 +59,7 @@ export default () => (
 			<ButtonGroup>
 				<Button>Good times</Button>
 				<Button iconAfter={<AudioIcon label="" />}>Boogie</Button>
-				<Button iconAfter={<AudioIcon label="Boogie more" />} />
+				<Button iconAfter={<AudioIcon spacing="spacious" label="Boogie more" />} />
 			</ButtonGroup>
 		</ConstrainedRow>
 	</Row>

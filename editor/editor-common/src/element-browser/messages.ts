@@ -10,6 +10,11 @@ export default defineMessages({
 		defaultMessage: 'Search',
 		description: 'Search field placeholder',
 	},
+	searchAriaLabel: {
+		id: 'fabric.editor.elementbrowser.searchbar.ariaLabel',
+		defaultMessage: 'Search',
+		description: 'Search field aria label',
+	},
 	assistiveTextDefault: {
 		id: 'fabric.editor.elementbrowser.searchbar.assistive.text.default',
 		defaultMessage:

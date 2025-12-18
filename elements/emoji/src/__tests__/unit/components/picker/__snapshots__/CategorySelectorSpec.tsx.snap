@@ -16,7 +16,7 @@ exports[`<CategorySelector /> active category highlighted 1`] = `
     aria-label="Activity"
     class="REDACTED"
     role="img"
-    style="color: currentColor;"
+    style="REDACTED"
   >
     <svg
       class="REDACTED"

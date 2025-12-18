@@ -5,9 +5,9 @@ import { userEvent } from '@testing-library/user-event';
 
 import Avatar from '@atlaskit/avatar';
 import { IconButton } from '@atlaskit/button/new';
+import AddIcon from '@atlaskit/icon/core/add';
 import BugIcon from '@atlaskit/icon/core/bug';
-import AddIcon from '@atlaskit/icon/glyph/add';
-import MoreIcon from '@atlaskit/icon/glyph/more';
+import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Lozenge from '@atlaskit/lozenge';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 

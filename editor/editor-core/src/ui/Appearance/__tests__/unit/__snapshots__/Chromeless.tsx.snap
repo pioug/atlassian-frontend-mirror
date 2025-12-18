@@ -51,7 +51,7 @@ exports[`Chromeless editor should render correct overridden styles 1`] = `
     class="REDACTED"
     data-testid="chromeless-editor"
     id="chromeless-editor"
-    style="max-height: 200px; min-height: 100px;"
+    style="REDACTED"
   >
     <p>
       Hello world

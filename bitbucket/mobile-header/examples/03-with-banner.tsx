@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import Banner from '@atlaskit/banner';
 import { IconButton } from '@atlaskit/button/new';
 import MenuIcon from '@atlaskit/icon/core/menu';
-import WarningIcon from '@atlaskit/icon/core/migration/status-warning--warning';
+import WarningIcon from '@atlaskit/icon/core/status-warning';
 
 import MobileHeader from '../src';
 

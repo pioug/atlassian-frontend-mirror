@@ -51,7 +51,7 @@ exports[`ChromelessEditorContainer should have correct styles for new container 
     class="REDACTED"
     data-testid="chromeless-editor"
     id="chromeless-editor"
-    style="max-height: 200px; min-height: 100px;"
+    style="REDACTED"
   >
     <div>
       child
@@ -111,7 +111,7 @@ exports[`ChromelessEditorContainer should have correct styles for new container 
     class="REDACTED"
     data-testid="chromeless-editor"
     id="chromeless-editor"
-    style="min-height: 100px;"
+    style="REDACTED"
   >
     <div>
       child

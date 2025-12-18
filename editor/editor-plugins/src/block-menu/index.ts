@@ -8,4 +8,5 @@ export type {
 	Parent,
 	BlockMenuPluginOptions,
 	BlockMenuSharedState,
+	TransformNodeMetadata,
 } from '@atlaskit/editor-plugin-block-menu';

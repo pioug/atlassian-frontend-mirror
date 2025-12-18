@@ -27,7 +27,8 @@ export type FormatNodeAnalyticsAttrs = {
 	triggeredFrom: INPUT_METHOD.MOUSE | INPUT_METHOD.KEYBOARD;
 };
 
-export type TransformNodeAnalyticsAttrs = FormatNodeAnalyticsAttrs & {
+export type TransformNodeMetadata = FormatNodeAnalyticsAttrs & {
+	targetAttrs?: Record<string, unknown>;
 	targetTypeName: TransfromNodeTargetType;
 };
 

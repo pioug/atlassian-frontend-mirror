@@ -42,7 +42,8 @@ export class ReferenceSyncBlockStoreManager {
 	private providerFactories: Map<ResourceId, ProviderFactory>;
 	private fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void;
 
-	private syncBlockURLRequests: Map<ResourceId, boolean>;
+	private syncBlockFetchDataRequests: Map<ResourceId, boolean>;
+	private syncBlockSourceInfoRequests: Map<ResourceId, boolean>;
 	private isRefreshingSubscriptions: boolean = false;
 
 	constructor(
@@ -53,7 +54,8 @@ export class ReferenceSyncBlockStoreManager {
 		this.subscriptions = new Map();
 		this.titleSubscriptions = new Map();
 		this.dataProvider = dataProvider;
-		this.syncBlockURLRequests = new Map();
+		this.syncBlockFetchDataRequests = new Map();
+		this.syncBlockSourceInfoRequests = new Map();
 		this.providerFactories = new Map();
 		this.fireAnalyticsEvent = fireAnalyticsEvent;
 	}
@@ -117,7 +119,7 @@ export class ReferenceSyncBlockStoreManager {
 				throw new Error('Data provider or resourceId not set');
 			}
 
-			if (this.syncBlockURLRequests.get(resourceId)) {
+			if (this.syncBlockSourceInfoRequests.get(resourceId)) {
 				return;
 			}
 
@@ -139,7 +141,7 @@ export class ReferenceSyncBlockStoreManager {
 				return;
 			}
 
-			this.syncBlockURLRequests.set(resourceId, true);
+			this.syncBlockSourceInfoRequests.set(resourceId, true);
 
 			this.dataProvider
 				.fetchSyncBlockSourceInfo(blockInstanceId, sourceAri, product, this.fireAnalyticsEvent)
@@ -156,7 +158,7 @@ export class ReferenceSyncBlockStoreManager {
 					this.fireAnalyticsEvent?.(getSourceInfoErrorPayload(error.message));
 				})
 				.finally(() => {
-					this.syncBlockURLRequests.delete(resourceId);
+					this.syncBlockSourceInfoRequests.delete(resourceId);
 				});
 		} catch (error) {
 			logException(error as Error, {
@@ -171,9 +173,9 @@ export class ReferenceSyncBlockStoreManager {
 	 * @param syncBlockNodes - The array of sync block nodes to fetch data for
 	 * @returns The fetched sync block data results
 	 */
-	public async fetchSyncBlocksData(syncBlockNodes: SyncBlockNode[]): Promise<SyncBlockInstance[]> {
+	public async fetchSyncBlocksData(syncBlockNodes: SyncBlockNode[]): Promise<void> {
 		if (syncBlockNodes.length === 0) {
-			return Promise.resolve([]);
+			return;
 		}
 
 		if (!this.dataProvider) {
@@ -181,19 +183,29 @@ export class ReferenceSyncBlockStoreManager {
 		}
 
 		// Don't fetch for not_found error since the source is already deleted
-		const nodesToFetch: SyncBlockNode[] = [],
-			blocksWithNotFoundError: SyncBlockInstance[] = [];
+		const nodesToFetch: SyncBlockNode[] = [];
 
 		syncBlockNodes.forEach((node) => {
+			if (this.syncBlockFetchDataRequests.get(node.attrs.resourceId)) {
+				return;
+			}
 			const existingSyncBlock = this.getFromCache(node.attrs.resourceId);
 			if (existingSyncBlock?.error === SyncBlockError.NotFound) {
-				blocksWithNotFoundError.push(existingSyncBlock);
-			} else {
-				nodesToFetch.push(node);
+				return;
 			}
+			nodesToFetch.push(node);
 		});
 
-		const data = await this.dataProvider.fetchNodesData(nodesToFetch);
+		nodesToFetch.forEach((node) => {
+			this.syncBlockFetchDataRequests.set(node.attrs.resourceId, true);
+		});
+
+		const data = await this.dataProvider.fetchNodesData(nodesToFetch).finally(() => {
+			nodesToFetch.forEach((node) => {
+				this.syncBlockFetchDataRequests.delete(node.attrs.resourceId);
+			});
+		});
+
 		const resolvedData: SyncBlockInstance[] = [];
 
 		data.forEach((syncBlockInstance) => {
@@ -222,8 +234,6 @@ export class ReferenceSyncBlockStoreManager {
 
 			this.fetchSyncBlockSourceInfo(resolvedSyncBlockInstance.resourceId);
 		});
-
-		return [...resolvedData, ...blocksWithNotFoundError];
 	}
 
 	private updateCacheWithSourceInfo(resourceId: ResourceId, sourceInfo: SyncBlockSourceInfo) {
@@ -262,7 +272,7 @@ export class ReferenceSyncBlockStoreManager {
 		}
 	}
 
-	private getFromCache(resourceId: ResourceId): SyncBlockInstance | undefined {
+	public getFromCache(resourceId: ResourceId): SyncBlockInstance | undefined {
 		return this.syncBlockCache.get(resourceId);
 	}
 
@@ -484,7 +494,7 @@ export class ReferenceSyncBlockStoreManager {
 
 	/**
 	 * Update reference synced blocks on the document with the BE
-	 * 
+	 *
 	 * @returns true if the reference synced blocks are updated successfully, false otherwise
 	 */
 	public async flush() {
@@ -498,7 +508,7 @@ export class ReferenceSyncBlockStoreManager {
 				throw new Error('Data provider not set');
 			}
 
-			const blocks: SyncBlockAttrs[] = []
+			const blocks: SyncBlockAttrs[] = [];
 
 			// Collect all reference synced blocks on the current document
 			Array.from(this.subscriptions.entries()).forEach(([resourceId, callbacks]) => {
@@ -518,7 +528,11 @@ export class ReferenceSyncBlockStoreManager {
 
 			if (!updateResult.success) {
 				success = false;
-				this.fireAnalyticsEvent?.(updateReferenceErrorPayload(updateResult.error || 'Failed to update reference synced blocks on the document'));
+				this.fireAnalyticsEvent?.(
+					updateReferenceErrorPayload(
+						updateResult.error || 'Failed to update reference synced blocks on the document',
+					),
+				);
 			}
 		} catch (error) {
 			success = false;
@@ -532,7 +546,7 @@ export class ReferenceSyncBlockStoreManager {
 			}
 		}
 
-		return success
+		return success;
 	}
 
 	public destroy(): void {
@@ -540,7 +554,8 @@ export class ReferenceSyncBlockStoreManager {
 		this.syncBlockCache.clear();
 		this.subscriptions.clear();
 		this.titleSubscriptions.clear();
-		this.syncBlockURLRequests.clear();
+		this.syncBlockFetchDataRequests.clear();
+		this.syncBlockSourceInfoRequests.clear();
 		this.providerFactories.clear();
 		this.isRefreshingSubscriptions = false;
 		this.providerFactories.forEach((providerFactory) => {

@@ -3,7 +3,7 @@
 	"atlassian": {
 		"team": "Editor: Lego"
 	},
-	"version": "7.2.1",
+	"version": "7.2.2",
 	"description": "Package to group all prosemirror libraries in a single place ",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -26,7 +26,6 @@
 	"atlaskit:src": "src/index.ts",
 	"sideEffects": false,
 	"scripts": {
-		"clean": "../../scripts/build-clean.sh",
 		"test": "yarn test:unit",
 		"test:unit": "yarn jest --testPathPattern=editor-prosemirror/src --config=../../jest.config.js",
 		"build:cjs": "NODE_ENV=production BABEL_ENV=production:node-cjs babel --config-file ../adf-schema/babel.config.js src --out-dir dist/cjs -x .ts,.tsx",

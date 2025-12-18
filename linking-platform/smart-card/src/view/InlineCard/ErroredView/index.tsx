@@ -7,7 +7,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { jsx } from '@atlaskit/css';
-import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
+import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';

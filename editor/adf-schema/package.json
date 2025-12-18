@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/adf-schema",
-	"version": "51.5.3",
+	"version": "51.5.4",
 	"description": "Shared package that contains the ADF-schema (json) and ProseMirror node/mark specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -37,9 +37,7 @@
 		"build:schema:pm": "yarn ts-node ./schema-generators/pm-full-schema.ts && prettier --write --no-editorconfig './src/next-schema/generated/**/*.ts'",
 		"build:schema:json": "mkdir -p json-schema/v1/ && yarn ts-node ./schema-generators/json-full-schema.ts && prettier --write --no-editorconfig './json-schema/v1/*.json' && yarn run build:move:json-schema",
 		"build:schema:validator": "yarn ts-node ./schema-generators/validator-full-schema.ts && prettier --write --no-editorconfig './src/validator-schema/generated/**/*.ts'",
-		"build:schema:all": "yarn build:schema:pm && yarn build:schema:json && yarn build:schema:validator",
-		"clean": "../../scripts/build-clean.sh",
-		"link:afe": "yarn build:all && node ./copy-dist-to-afe.js"
+		"build:schema:all": "yarn build:schema:pm && yarn build:schema:json && yarn build:schema:validator"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema-generator": "workspace:^",
@@ -48,7 +46,6 @@
 		"@babel/runtime": "root:*",
 		"css-color-names": "root:*",
 		"eslint": "root:*",
-		"fs-extra": "root:*",
 		"linkify-it": "root:*",
 		"memoize-one": "root:*"
 	},

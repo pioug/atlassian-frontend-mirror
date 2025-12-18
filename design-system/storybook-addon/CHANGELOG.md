@@ -1,5 +1,11 @@
 # @atlaskit/storybook-addon-design-system
 
+## 3.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.5
 
 ### Patch Changes

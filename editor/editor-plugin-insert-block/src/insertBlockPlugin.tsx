@@ -20,6 +20,7 @@ import { ToolbarSize } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
 import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '@atlaskit/editor-plugin-block-type/consts';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -411,7 +412,7 @@ function ToolbarInsertBlockWithInjectionApi({
 			mediaUploadsEnabled={mediaAllowsUploads ?? undefined}
 			onShowMediaPicker={onShowMediaPicker}
 			mediaSupported={mediaAllowsUploads !== undefined}
-			isEditorOffline={connectivityMode === 'offline'}
+			isEditorOffline={isOfflineMode(connectivityMode)}
 			imageUploadSupported={!!pluginInjectionApi?.imageUpload}
 			imageUploadEnabled={imageUploadEnabled}
 			handleImageUpload={pluginInjectionApi?.imageUpload?.actions.startUpload}

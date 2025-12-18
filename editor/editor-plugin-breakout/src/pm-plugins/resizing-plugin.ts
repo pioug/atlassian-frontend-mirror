@@ -3,7 +3,7 @@ import type { IntlShape } from 'react-intl-next';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { stepAddsOneOf } from '@atlaskit/editor-common/utils';
+import { getBreakoutResizableNodeTypes, stepAddsOneOf } from '@atlaskit/editor-common/utils';
 import { getChangedNodes, isReplaceDocOperation } from '@atlaskit/editor-common/utils/document';
 import type { Mark, Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
@@ -200,18 +200,10 @@ export const createResizingPlugin = (
 			let newTr = newState.tr;
 			let hasDocChanged = false;
 
-			const { expand, codeBlock, layoutSection, syncBlock, bodiedSyncBlock } =
-				newState.schema.nodes;
-			const breakoutResizableNodes = new Set([
-				expand,
-				codeBlock,
-				layoutSection,
-			]);
-
-			if (editorExperiment('platform_synced_block', true)) {
-				breakoutResizableNodes.add(syncBlock);
-				breakoutResizableNodes.add(bodiedSyncBlock);
-			}
+			const { expand, codeBlock, layoutSection } = newState.schema.nodes;
+			const breakoutResizableNodes = editorExperiment('platform_synced_block', true)
+											? getBreakoutResizableNodeTypes(newState.schema)
+											: new Set([expand, codeBlock, layoutSection]);
 
 			const isFullWidthEnabled = !(options?.allowBreakoutButton === true);
 

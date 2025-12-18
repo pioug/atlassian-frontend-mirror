@@ -16,6 +16,7 @@ import {
 	type TypeAheadItem,
 	type TypeAheadItemRenderProps,
 } from '@atlaskit/editor-common/types';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
@@ -245,10 +246,10 @@ export const TypeAheadListItem = React.memo(
 			},
 		);
 		const isItemDisabled = (item: TypeAheadItem | undefined) =>
-			connectivityMode === 'offline' && (item?.isDisabledOffline ?? false);
+			isOfflineMode(connectivityMode) && (item?.isDisabledOffline ?? false);
 		const itemIsDisabled = isItemDisabled(item);
 		const isFirstEnabledIndex =
-			connectivityMode === 'offline' &&
+			isOfflineMode(connectivityMode) &&
 			itemIndex === firstOnlineSupportedIndex &&
 			selectedIndex === -1;
 

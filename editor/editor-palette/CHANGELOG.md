@@ -1,5 +1,17 @@
 # @atlaskit/editor-palette
 
+## 2.1.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.19
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.18
 
 ### Patch Changes

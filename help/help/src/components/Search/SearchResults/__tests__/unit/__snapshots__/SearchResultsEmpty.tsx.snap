@@ -98,7 +98,7 @@ exports[`SearchResultsEmpty Should match snapshot 1`] = `
         
 
         <g
-          style="mix-blend-mode:multiply"
+          style="REDACTED"
         >
           
 
@@ -236,25 +236,23 @@ exports[`SearchResultsEmpty Should match snapshot 1`] = `
           <span
             aria-hidden="true"
             class="REDACTED"
-            data-vc="icon-undefined"
-            style="--icon-primary-color: var(--ds-icon-subtle, #8993A4); --icon-secondary-color: var(--ds-icon-subtle, #8993A4);"
+            style="REDACTED"
           >
+            <style
+              data-cmpld="true"
+            >REDACTED</style>
             <svg
-              height="24"
+              class="REDACTED"
+              fill="none"
               role="presentation"
-              viewBox="0 0 24 24"
-              width="24"
+              viewBox="0 0 16 16"
             >
-              <g
+              <path
+                clip-rule="evenodd"
+                d="M3 2.5a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5v-3H15v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h3v1.5zM10 1h4.25a.75.75 0 0 1 .75.75V6h-1.5V3.56L7.53 9.53 6.47 8.47l5.97-5.97H10z"
                 fill="currentcolor"
-              >
-                <path
-                  d="M5 19.01V19zM5 4.99V5zM19 19v-6h2v6a2 2 0 0 1-1.99 2H5a2 2 0 0 1-2-1.99V4.99C3 3.89 3.9 3 5 3h6v2H5v14zM5 4.99V5zM11 5H5v14h14v-6h2v6a2 2 0 0 1-1.99 2H5a2 2 0 0 1-2-1.99V4.99C3 3.89 3.9 3 5 3h6zm8 0v3a1 1 0 0 0 2 0V4a1 1 0 0 0-1-1h-4a1 1 0 0 0 0 2z"
-                />
-                <path
-                  d="m12.707 12.707 8-8a1 1 0 1 0-1.414-1.414l-8 8a1 1 0 0 0 1.414 1.414"
-                />
-              </g>
+                fill-rule="evenodd"
+              />
             </svg>
           </span>
         </span>

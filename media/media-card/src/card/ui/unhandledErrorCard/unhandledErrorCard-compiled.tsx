@@ -5,7 +5,7 @@
 import { Component } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import WarningIcon from '@atlaskit/icon/core/migration/status-warning--editor-warning';
+import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { N20, N800, Y500 } from '@atlaskit/theme/colors';
 import { type CardDimensions } from '../../../types';
 import { type UnhandledErrorCardProps } from './types';

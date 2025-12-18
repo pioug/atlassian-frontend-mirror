@@ -5,12 +5,12 @@
 import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
-import AddIcon from '@atlaskit/icon/glyph/add';
+import AddIcon from '@atlaskit/icon/core/add';
 import Tooltip from '@atlaskit/tooltip';
 
 const Icon = () => (
 	<Tooltip content="Inner tooltip" position="right" testId="inner-nesting-tooltip">
-		<AddIcon label="inner" size="small" testId="icon" />
+		<AddIcon label="inner" testId="icon" />
 	</Tooltip>
 );
 

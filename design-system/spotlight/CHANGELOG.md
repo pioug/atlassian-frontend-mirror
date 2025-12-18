@@ -1,5 +1,22 @@
 # @atlaskit/spotlight
 
+## 0.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.10.0
+
+### Minor Changes
+
+- [`51928601f0216`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51928601f0216) -
+  Updated border radius values behind a feature gate `platform-dst-shape-theme-default`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.9.8
 
 ### Patch Changes

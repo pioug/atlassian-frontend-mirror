@@ -1,6 +1,9 @@
 import React, { memo, useMemo } from 'react';
 
+import { useIntl } from 'react-intl-next';
+
 import type { DocNode } from '@atlaskit/adf-schema';
+import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
 	ReactRenderer,
@@ -8,6 +11,7 @@ import {
 	defaultNodeComponents,
 } from '@atlaskit/renderer';
 import { RendererActionsContext } from '@atlaskit/renderer/actions';
+import Tooltip from '@atlaskit/tooltip';
 
 import type { SyncedBlockRendererOptions } from '../types';
 
@@ -19,6 +23,29 @@ const ValidationContextWrapper = ({ children }: { children: React.ReactNode }) =
 
 	return (
 		<ValidationContextProvider value={validationContextValue}>{children}</ValidationContextProvider>
+	);
+};
+
+const DisabledTaskWithTooltip = <T extends keyof typeof defaultNodeComponents>({
+	componentKey,
+	...props
+}: {
+	componentKey: T;
+} & React.ComponentProps<(typeof defaultNodeComponents)[T]>) => {
+	const { formatMessage } = useIntl();
+	const tooltipContent = formatMessage(messages.taskInDestinationSyncedBlockTooltip);
+
+	const Component = defaultNodeComponents[componentKey];
+	return (
+		<Tooltip content={tooltipContent} position="auto-start">
+			{(tooltipProps) => (
+				// eslint-disable-next-line react/jsx-props-no-spreading
+				<div {...tooltipProps}>
+					{/* eslint-disable-next-line react/jsx-props-no-spreading */}
+					<Component {...props} disableOnChange={true} />
+				</div>
+			)}
+		</Tooltip>
 	);
 };
 
@@ -75,16 +102,14 @@ export const AKRendererWrapper = memo(
 		const nodeComponents = useMemo(() => {
 			return {
 				taskItem: (props: React.ComponentProps<(typeof defaultNodeComponents)['taskItem']>) => {
-					const TaskItem = defaultNodeComponents['taskItem'];
 					// eslint-disable-next-line react/jsx-props-no-spreading
-					return <TaskItem {...props} disabled={true} />;
+					return <DisabledTaskWithTooltip componentKey="taskItem" {...props} />;
 				},
 				blockTaskItem: (
 					props: React.ComponentProps<(typeof defaultNodeComponents)['blockTaskItem']>,
 				) => {
-					const BlockTaskItem = defaultNodeComponents['blockTaskItem'];
 					// eslint-disable-next-line react/jsx-props-no-spreading
-					return <BlockTaskItem {...props} disabled={true} />;
+					return <DisabledTaskWithTooltip componentKey="blockTaskItem" {...props} />;
 				},
 			};
 		}, []);

@@ -1,5 +1,13 @@
 # @atlaskit/rating
 
+## 3.0.14
+
+### Patch Changes
+
+- [`6a82d7964a37b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a82d7964a37b) -
+  Icon entrypoint migration
+- Updated dependencies
+
 ## 3.0.13
 
 ### Patch Changes

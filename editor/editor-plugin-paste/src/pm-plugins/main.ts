@@ -18,6 +18,7 @@ import { isPastedFile as isPastedFileFromEvent, md } from '@atlaskit/editor-comm
 import { measureRender } from '@atlaskit/editor-common/performance/measure-render';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { SyncBlockRendererDataAttributeName } from '@atlaskit/editor-common/sync-block';
 import {
 	transformSingleColumnLayout,
 	transformSingleLineCodeBlockToCodeMark,
@@ -27,6 +28,7 @@ import {
 	transformSliceToRemoveLegacyContentMacro,
 	transformSliceToRemoveMacroId,
 	transformSyncBlock,
+	removeBreakoutFromRendererSyncBlockHTML,
 } from '@atlaskit/editor-common/transforms';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import {
@@ -883,6 +885,12 @@ export function createPlugin(
 
 				// Fix for ED-13568: Code blocks being copied/pasted when next to each other get merged
 				pastedFromBitBucket = html.indexOf('data-qa="code-line"') >= 0;
+
+				// Remove breakout marks HTML around sync block renderer nodes
+				// so the breakout mark doesn't get applied to the wrong nodes
+				if (html.indexOf(SyncBlockRendererDataAttributeName) >= 0 && editorExperiment('platform_synced_block', true)) {
+					html = removeBreakoutFromRendererSyncBlockHTML(html);
+				}
 
 				mostRecentPasteEvent = null;
 				return html;

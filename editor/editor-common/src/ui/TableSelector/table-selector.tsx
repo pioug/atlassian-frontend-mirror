@@ -10,6 +10,7 @@ import { css, jsx } from '@emotion/react';
 import { injectIntl } from 'react-intl-next';
 import type { WrappedComponentProps } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Stack } from '@atlaskit/primitives/compiled';
 import { B100 } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -20,6 +21,8 @@ import { OutsideClickTargetRefContext } from '../../ui-react';
 
 export const TABLE_SELECTOR_BUTTON_GAP = 2;
 export const TABLE_SELECTOR_BUTTON_SIZE = 17;
+
+const MULTIPLICATION_SYMBOL = '×';
 
 export interface TableSelectorButtonProps {
 	col: number;
@@ -190,10 +193,18 @@ const TableSelectorPopup = ({
 					);
 				})}
 			</div>
-			<span css={selectionSizeTextStyles} aria-hidden={true}>
-				{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
-				{`${selectedCol} x ${selectedRow}`}
-			</span>
+			{fg('platform_editor_dec_a11y_fixes')
+				? (
+					<span css={selectionSizeTextStyles} aria-hidden={true}>
+						{`${selectedCol} ${MULTIPLICATION_SYMBOL} ${selectedRow}`}
+					</span>
+				) : (
+					<span css={selectionSizeTextStyles} aria-hidden={true}>
+						{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
+						{`${selectedCol} x ${selectedRow}`}
+					</span>
+				)
+			}
 		</Stack>
 	);
 };

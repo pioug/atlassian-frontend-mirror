@@ -1,5 +1,18 @@
 # @atlaskit/toggle
 
+## 15.2.4
+
+### Patch Changes
+
+- [`162f2dbd88f1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/162f2dbd88f1b) -
+  Fix icon shifting bug
+
+## 15.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.2.2
 
 ### Patch Changes

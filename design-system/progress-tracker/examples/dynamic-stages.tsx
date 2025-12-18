@@ -6,8 +6,8 @@ import { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
-import ArrowLeftCircleIcon from '@atlaskit/icon/glyph/arrow-left';
-import ArrowRightCircleIcon from '@atlaskit/icon/glyph/arrow-right';
+import ArrowLeftCircleIcon from '@atlaskit/icon/core/arrow-left';
+import ArrowRightCircleIcon from '@atlaskit/icon/core/arrow-right';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { ProgressTracker, type Stages } from '@atlaskit/progress-tracker';
 import { token } from '@atlaskit/tokens';
@@ -37,8 +37,8 @@ const Tracker = ({ itemsNumber, currentStage }: { itemsNumber: number; currentSt
 	const trackerItems = createTrackerItems(itemsNumber, currentStage);
 	return <ProgressTracker testId="tracker" items={trackerItems} />;
 };
-const PrevIcon = () => <ArrowLeftCircleIcon label="prev" />;
-const NextIcon = () => <ArrowRightCircleIcon label="next" />;
+const PrevIcon = () => <ArrowLeftCircleIcon spacing="spacious" label="prev" />;
+const NextIcon = () => <ArrowRightCircleIcon spacing="spacious" label="next" />;
 const MAX_STAGES = 5;
 
 export default () => {

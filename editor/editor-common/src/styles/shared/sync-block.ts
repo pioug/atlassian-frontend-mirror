@@ -6,6 +6,8 @@ export const SyncBlockSharedCssClassName = {
 	loading: `${prefix}__loading_state`,
 };
 
+export const SyncBlockRendererDataAttributeName = 'data-sync-block-renderer';
+
 const bodiedPrefix = 'ak-editor-bodied-sync-block';
 export const BodiedSyncBlockSharedCssClassName = {
 	prefix: bodiedPrefix,

@@ -1,5 +1,18 @@
 # @atlaskit/progress-tracker
 
+## 10.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.4.0
+
+### Minor Changes
+
+- [`51928601f0216`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51928601f0216) -
+  Updated border radius values behind a feature gate `platform-dst-shape-theme-default`.
+
 ## 10.3.12
 
 ### Patch Changes

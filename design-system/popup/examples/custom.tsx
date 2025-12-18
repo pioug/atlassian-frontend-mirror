@@ -7,7 +7,7 @@ import { forwardRef, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { IconButton } from '@atlaskit/button/new';
-import MoreIcon from '@atlaskit/icon/glyph/more';
+import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Popup, { type PopupComponentProps } from '@atlaskit/popup';
 import { token } from '@atlaskit/tokens';
 

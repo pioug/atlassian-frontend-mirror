@@ -45,6 +45,7 @@ import type {
 	PluginDependenciesAPI,
 } from '@atlaskit/editor-common/types';
 import { canRenderDatasource } from '@atlaskit/editor-common/utils';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
@@ -495,7 +496,7 @@ const generateToolbarItems =
 							showTitle: editorExperiment('platform_editor_controls', 'control') ? undefined : true,
 							onClick: onCommentButtonClick,
 							disabled:
-								pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode === 'offline',
+								isOfflineMode(pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode),
 						},
 						{ type: 'separator' },
 				  ]

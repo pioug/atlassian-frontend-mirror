@@ -19,4 +19,5 @@ export const PROVIDER_KEYS_WITH_THEMING = [
 	'confluence-object-provider',
 	'watermelon-object-provider',
 	'legion-object-provider',
+	'avpviz-object-provider',
 ];

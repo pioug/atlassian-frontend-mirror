@@ -2,13 +2,13 @@ import React from 'react';
 
 import Archive24Icon from '@atlaskit/icon-file-type/glyph/archive/24';
 import Blog24Icon from '@atlaskit/icon-object/glyph/blog/24';
-import ArrowRightIcon from '@atlaskit/icon/glyph/arrow-right';
-import EditFilledIcon from '@atlaskit/icon/glyph/edit-filled';
-import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
-import PresenceActiveIcon from '@atlaskit/icon/glyph/presence-active';
-import StarIcon from '@atlaskit/icon/glyph/star';
-import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
-import TrashIcon from '@atlaskit/icon/glyph/trash';
+import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
+import TrashIcon from '@atlaskit/icon/core/delete';
+import EditFilledIcon from '@atlaskit/icon/core/edit';
+import EditorSearchIcon from '@atlaskit/icon/core/search';
+import StarFilledIcon from '@atlaskit/icon/core/star-starred';
+import StarIcon from '@atlaskit/icon/core/star-unstarred';
+import StrokeWeightLargeIcon from '@atlaskit/icon/core/stroke-weight-large';
 import {
 	ButtonItem,
 	LinkItem,
@@ -43,22 +43,26 @@ export default (): React.JSX.Element => {
 			>
 				<MenuGroup testId="with-adjacent-sections" maxWidth={600} maxHeight={1000}>
 					<Section title="Actions">
-						<LinkItem iconBefore={<EditorSearchIcon label="" />} href="#search">
+						<LinkItem iconBefore={<EditorSearchIcon spacing="spacious" label="" />} href="#search">
 							Search your items
 						</LinkItem>
-						<LinkItem iconBefore={<EditFilledIcon label="" />} href="#add-new-item" isDisabled>
+						<LinkItem
+							iconBefore={<EditFilledIcon spacing="spacious" label="" />}
+							href="#add-new-item"
+							isDisabled
+						>
 							Add new item (disabled)
 						</LinkItem>
 						<LinkItem
-							iconBefore={<StarFilledIcon label="" />}
-							iconAfter={<ArrowRightIcon label="" />}
+							iconBefore={<StarFilledIcon spacing="spacious" label="" />}
+							iconAfter={<ArrowRightIcon spacing="spacious" label="" />}
 							description="You have 24 starred items."
 							href="#starred"
 						>
 							Starred items
 						</LinkItem>
 						<LinkItem
-							iconAfter={<ArrowRightIcon label="" />}
+							iconAfter={<ArrowRightIcon spacing="spacious" label="" />}
 							iconBefore={<Archive24Icon label="" />}
 							description="You have 16 archived items."
 							href="#archived"
@@ -67,23 +71,27 @@ export default (): React.JSX.Element => {
 						</LinkItem>
 					</Section>
 					<Section title="More actions">
-						<LinkItem iconBefore={<EditorSearchIcon label="" />} href="#edit">
+						<LinkItem iconBefore={<EditorSearchIcon spacing="spacious" label="" />} href="#edit">
 							Edit your items
 						</LinkItem>
-						<LinkItem iconBefore={<TrashIcon label="" />} href="#delete" isDisabled>
+						<LinkItem
+							iconBefore={<TrashIcon spacing="spacious" label="" />}
+							href="#delete"
+							isDisabled
+						>
 							Delete item (disabled)
 						</LinkItem>
 						<LinkItem
-							iconBefore={<StarIcon label="" />}
-							iconAfter={<ArrowRightIcon label="" />}
+							iconBefore={<StarIcon spacing="spacious" label="" />}
+							iconAfter={<ArrowRightIcon spacing="spacious" label="" />}
 							description="You have 24 unstarred items."
 							href="#unstarred"
 						>
 							Unstarred items
 						</LinkItem>
 						<LinkItem
-							iconAfter={<ArrowRightIcon label="" />}
-							iconBefore={<PresenceActiveIcon label="" />}
+							iconAfter={<ArrowRightIcon spacing="spacious" label="" />}
+							iconBefore={<StrokeWeightLargeIcon label="" />}
 							description="You have 16 archived items."
 							href="#archive"
 						>
@@ -91,8 +99,8 @@ export default (): React.JSX.Element => {
 						</LinkItem>
 						<LinkItem
 							isDisabled={true}
-							iconAfter={<ArrowRightIcon label="" />}
-							iconBefore={<PresenceActiveIcon label="" />}
+							iconAfter={<ArrowRightIcon spacing="spacious" label="" />}
+							iconBefore={<StrokeWeightLargeIcon label="" />}
 							description="You have 4 archived items."
 							href="#active"
 						>
@@ -163,14 +171,18 @@ export default (): React.JSX.Element => {
 							<ButtonItem
 								description="Software Project"
 								iconBefore={<Blog24Icon label="" />}
-								iconAfter={<StarFilledIcon label="" primaryColor={token('color.icon.warning')} />}
+								iconAfter={
+									<StarFilledIcon spacing="spacious" label="" color={token('color.icon.warning')} />
+								}
 							>
 								Endeavour (JSPA)
 							</ButtonItem>
 							<ButtonItem
 								description="Software Project"
 								iconBefore={<Blog24Icon label="" />}
-								iconAfter={<StarFilledIcon label="" primaryColor={token('color.icon.warning')} />}
+								iconAfter={
+									<StarFilledIcon spacing="spacious" label="" color={token('color.icon.warning')} />
+								}
 							>
 								Navigation v3 (JNAV)
 							</ButtonItem>

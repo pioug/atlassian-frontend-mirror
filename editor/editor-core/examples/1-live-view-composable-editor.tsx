@@ -25,7 +25,7 @@ import {
 } from '@atlaskit/editor-plugin-selection-extension';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
 import type { SyncedBlockPluginOptions } from '@atlaskit/editor-plugin-synced-block';
-import { SyncedBlockProvider } from '@atlaskit/editor-synced-block-provider';
+import { useMemoizedSyncedBlockProvider } from '@atlaskit/editor-synced-block-provider';
 import { getSyncedBlockRenderer } from '@atlaskit/editor-synced-block-renderer';
 import { useEditorAnnotationProviders } from '@atlaskit/editor-test-helpers/annotation-example';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
@@ -84,26 +84,28 @@ function ComposableEditorPage() {
 	const selectionRangesRef = React.useRef<any>(null);
 	const editorAnnotationProviders = useEditorAnnotationProviders();
 
+	const syncBlockProvider = useMemoizedSyncedBlockProvider(
+		localStorageFetchProvider,
+		localStorageWriteProvider,
+		'sourceId',
+		{
+			parentDataProviders: {
+				mentionProvider: undefined,
+				profilecardProvider: undefined,
+				taskDecisionProvider: undefined,
+			},
+			providerCreator: {
+				createEmojiProvider: undefined,
+				createMediaProvider: undefined,
+			},
+		},
+	);
+
 	const syncedBlock: SyncedBlockPluginOptions = {
 		syncedBlockRenderer: getSyncedBlockRenderer({
 			syncBlockRendererOptions: undefined,
 		}),
-		syncBlockDataProvider: new SyncedBlockProvider(
-			localStorageFetchProvider,
-			localStorageWriteProvider,
-			'sourceId',
-			{
-				parentDataProviders: {
-					mentionProvider: undefined,
-					profilecardProvider: undefined,
-					taskDecisionProvider: undefined,
-				},
-				providerCreator: {
-					createEmojiProvider: undefined,
-					createMediaProvider: undefined,
-				},
-			},
-		),
+		syncBlockDataProvider: syncBlockProvider,
 	};
 
 	const universalPreset = useUniversalPreset({

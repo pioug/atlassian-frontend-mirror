@@ -6,7 +6,7 @@ import { jsx, css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 import { AvatarList, type Avatar } from '../avatar-list';
-import EditorMoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--editor-more';
+import EditorMoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Button from '@atlaskit/button/standard-button';
 import { useIntl } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { screen, render } from '@testing-library/react';
-import DeleteIcon from '@atlaskit/icon/core/migration/delete--trash';
+import DeleteIcon from '@atlaskit/icon/core/delete';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import EditIcon from '@atlaskit/icon/core/migration/edit';
 import userEvent from '@testing-library/user-event';

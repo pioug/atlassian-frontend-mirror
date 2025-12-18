@@ -1,5 +1,29 @@
 # @atlaskit/inline-message
 
+## 15.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.5.0
+
+### Minor Changes
+
+- [`51928601f0216`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51928601f0216) -
+  Updated border radius values behind a feature gate `platform-dst-shape-theme-default`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.4.5
+
+### Patch Changes
+
+- [`d9f1cd7b26e1a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9f1cd7b26e1a) -
+  Clean up flag.
+
 ## 15.4.4
 
 ### Patch Changes

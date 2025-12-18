@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/analytics-next';
 import Tooltip from '@atlaskit/tooltip';
 import Button from '@atlaskit/button/standard-button';
-import EditorCloseIcon from '@atlaskit/icon/core/migration/cross--editor-close';
+import EditorCloseIcon from '@atlaskit/icon/core/cross';
 
 import { messages } from '../../messages';
 

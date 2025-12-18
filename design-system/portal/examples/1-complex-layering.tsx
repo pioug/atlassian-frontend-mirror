@@ -2,7 +2,7 @@ import React, { type ReactNode, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Flag, { FlagGroup } from '@atlaskit/flag';
-import EmojiIcon from '@atlaskit/icon/glyph/emoji';
+import EmojiIcon from '@atlaskit/icon/core/emoji';
 import InlineDialog from '@atlaskit/inline-dialog';
 import ModalDialog, {
 	ModalBody,
@@ -156,7 +156,7 @@ function Modal(props: ModalProps) {
 					<Flag
 						id={id}
 						key={`${id}`}
-						icon={<EmojiIcon label="Smiley face" />}
+						icon={<EmojiIcon spacing="spacious" label="Smiley face" />}
 						title={`${id + 1}: Whoa a new flag!`}
 					/>
 				))}

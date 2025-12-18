@@ -7,6 +7,7 @@ import { EditorToolbarProvider, EditorToolbarUIProvider } from '@atlaskit/editor
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -107,7 +108,7 @@ export const ToolbarNext = ({
 	const { connectivityStateMode, editorViewMode, editorToolbarDockingPreference } =
 		usePluginState(editorAPI);
 	// remove offline check when patch6Enabled is cleaned up
-	const isOffline = connectivityStateMode === 'offline';
+	const isOffline = isOfflineMode(connectivityStateMode);
 
 	const patch6Enabled = expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true);
 

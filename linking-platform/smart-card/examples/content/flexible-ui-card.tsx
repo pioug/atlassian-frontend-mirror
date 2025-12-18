@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LikeIcon from '@atlaskit/icon/core/migration/thumbs-up--like';
+import LikeIcon from '@atlaskit/icon/core/thumbs-up';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { response1 } from '@atlaskit/link-test-helpers';

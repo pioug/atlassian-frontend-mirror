@@ -1,5 +1,14 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.15.5
+
+### Patch Changes
+
+- [`a4ed9f55162ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4ed9f55162ae) -
+  EDITOR-3960 Refactor Synced Blocks initialization to remove multiple re-renders and duplicated
+  fetches
+- Updated dependencies
+
 ## 2.15.4
 
 ### Patch Changes

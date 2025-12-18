@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-panel
 
+## 8.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.0
 
 ### Minor Changes

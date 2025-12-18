@@ -7,6 +7,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import Heading from '@atlaskit/heading';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import type { CardStore } from '@atlaskit/linking-common';
 import { CardAction } from '@atlaskit/smart-card';
 import {
 	type HoverCardProps,
@@ -21,7 +22,12 @@ import { type HoverCardInternalProps } from '../types';
 
 import { mockConfluenceResponse } from './__mocks__/mocks';
 import { analyticsTests } from './common/analytics.test-utils';
-import { forbiddenViewTests, mockUrl, runCommonHoverCardTests } from './common/common.test-utils';
+import {
+	forbiddenViewTests,
+	mockUrl,
+	runCommonHoverCardTests,
+	unauthorizedViewTests,
+} from './common/common.test-utils';
 import {
 	setup,
 	setupEventPropagationTest,
@@ -108,7 +114,10 @@ describe('standalone hover card', () => {
 
 	describe('Common tests', () => {
 		runCommonHoverCardTests((setupProps?: SetUpParams) => standaloneSetUp(setupProps), testConfig);
-		forbiddenViewTests((setupProps?: SetUpParams) => standaloneSetUp(setupProps));
+		ffTest.on('navx-2478-sl-fix-hover-card-unresolved-view', '', () => {
+			forbiddenViewTests((setupProps?: SetUpParams) => standaloneSetUp(setupProps));
+			unauthorizedViewTests((setupProps?: SetUpParams) => standaloneSetUp(setupProps));
+		});
 		analyticsTests((setupProps?: SetUpParams) => standaloneSetUp(setupProps), {
 			display: undefined,
 			isAnalyticsContextResolvedOnHover: false,
@@ -378,15 +387,17 @@ describe('standalone hover card', () => {
 	});
 
 	describe('starts resolving a link after 100ms on hover', () => {
+		const registerSpy = jest.fn();
 		let loadMetadataSpy = jest.fn();
 
 		beforeEach(() => {
+			registerSpy.mockReset();
 			loadMetadataSpy = jest.fn();
 
 			const mockedActions = {
 				authorize: jest.fn(),
 				invoke: jest.fn(),
-				register: jest.fn(),
+				register: registerSpy,
 				reload: jest.fn(),
 				loadMetadata: loadMetadataSpy,
 			};
@@ -396,7 +407,7 @@ describe('standalone hover card', () => {
 				.mockImplementation(() => mockedActions);
 		});
 
-		it('should not call loadMetadata if mouseLeave is fired before the delay runs out', async () => {
+		it('should not call loadMetadata nor register if mouseLeave is fired before the delay runs out', async () => {
 			const { event } = await standaloneSetUp({
 				userEventOptions: userEventOptionsWithAdvanceTimers,
 			});
@@ -406,6 +417,7 @@ describe('standalone hover card', () => {
 				jest.advanceTimersByTime(99);
 			});
 			expect(loadMetadataSpy).not.toHaveBeenCalled();
+			expect(registerSpy).not.toHaveBeenCalled();
 
 			// Delay completed
 			const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
@@ -415,88 +427,273 @@ describe('standalone hover card', () => {
 				jest.advanceTimersByTime(1);
 			});
 			expect(loadMetadataSpy).not.toHaveBeenCalled();
+			expect(registerSpy).not.toHaveBeenCalled();
 		});
 
-		it('should call loadMetadata if mouseLeave is fired before the delay runs out but then the mouse enters again and waits for 100ms', async () => {
-			const { event } = await standaloneSetUp({
-				userEventOptions: userEventOptionsWithAdvanceTimers,
+		ffTest.off('navx-2478-sl-fix-hover-card-unresolved-view', '', () => {
+			it('should call loadMetadata if mouseLeave is fired before the delay runs out but then the mouse enters again and waits for 100ms', async () => {
+				const { event } = await standaloneSetUp({
+					userEventOptions: userEventOptionsWithAdvanceTimers,
+				});
+
+				// Hovering on the hover area for the first time and then moving the mouse before the 100 ms elapses
+				act(() => {
+					jest.advanceTimersByTime(99);
+				});
+				expect(loadMetadataSpy).not.toHaveBeenCalled();
+
+				const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
+				await event.unhover(triggerArea);
+
+				// Making sure the loadMetadata was not called
+				act(() => {
+					jest.advanceTimersByTime(1);
+				});
+				expect(loadMetadataSpy).not.toHaveBeenCalled();
+
+				// Hover on the hover area for the second time and waiting for 100ms
+				await event.hover(triggerArea);
+				act(() => {
+					jest.advanceTimersByTime(100);
+				});
+
+				// Making sure the loadMetadata was called
+				expect(loadMetadataSpy).toHaveBeenCalled();
 			});
 
-			// Hovering on the hover area for the first time and then moving the mouse before the 100 ms elapses
-			act(() => {
-				jest.advanceTimersByTime(99);
+			it('should call loadMetadata after a delay if link state is pending', async () => {
+				const { event } = await standaloneSetUp({
+					userEventOptions: userEventOptionsWithAdvanceTimers,
+				});
+
+				const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
+				expect(triggerArea).toBeDefined();
+
+				await event.hover(triggerArea);
+
+				// Delay not completed yet
+				act(() => {
+					jest.advanceTimersByTime(99);
+				});
+
+				expect(loadMetadataSpy).not.toHaveBeenCalled();
+
+				// Delay completed
+				act(() => {
+					jest.advanceTimersByTime(1);
+				});
+
+				expect(loadMetadataSpy).toHaveBeenCalled();
 			});
-			expect(loadMetadataSpy).not.toHaveBeenCalled();
 
-			const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
-			await event.unhover(triggerArea);
+			it('should call loadMetadata only once if multiple mouseOver events are sent and if link state is pending', async () => {
+				const { event } = await standaloneSetUp({
+					userEventOptions: userEventOptionsWithAdvanceTimers,
+				});
 
-			// Making sure the loadMetadata was not called
-			act(() => {
-				jest.advanceTimersByTime(1);
+				const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
+				expect(triggerArea).toBeDefined();
+
+				// Firing the first mouseOver event
+				await event.hover(triggerArea);
+
+				// Delay not completed yet
+				act(() => {
+					jest.advanceTimersByTime(1);
+				});
+
+				// Firing the second mouseOver event
+				await event.hover(triggerArea);
+
+				// Delay completed
+				act(() => {
+					jest.advanceTimersByTime(99);
+				});
+
+				expect(loadMetadataSpy).toHaveBeenCalledTimes(1);
 			});
-			expect(loadMetadataSpy).not.toHaveBeenCalled();
-
-			// Hover on the hover area for the second time and waiting for 100ms
-			await event.hover(triggerArea);
-			act(() => {
-				jest.advanceTimersByTime(100);
-			});
-
-			// Making sure the loadMetadata was called
-			expect(loadMetadataSpy).toHaveBeenCalled();
 		});
 
-		it('should call loadMetadata after a delay if link state is pending', async () => {
-			const { event } = await standaloneSetUp({
-				userEventOptions: userEventOptionsWithAdvanceTimers,
+		ffTest.on('navx-2478-sl-fix-hover-card-unresolved-view', '', () => {
+			const storeOptions = {
+				initialState: {
+					[mockConfluenceResponse.data.url]: {
+						status: 'resolved',
+						details: mockConfluenceResponse,
+					},
+				} as CardStore,
+			};
+
+			describe('when link has already been partially resolved', () => {
+				it('should call loadMetadata if mouseLeave is fired before the delay runs out but then the mouse enters again and waits for 100ms', async () => {
+					const { event } = await standaloneSetUp({
+						storeOptions,
+						userEventOptions: userEventOptionsWithAdvanceTimers,
+					});
+
+					// Hovering on the hover area for the first time and then moving the mouse before the 100 ms elapses
+					act(() => {
+						jest.advanceTimersByTime(99);
+					});
+					expect(loadMetadataSpy).not.toHaveBeenCalled();
+
+					const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
+					await event.unhover(triggerArea);
+
+					// Making sure the loadMetadata was not called
+					act(() => {
+						jest.advanceTimersByTime(1);
+					});
+					expect(loadMetadataSpy).not.toHaveBeenCalled();
+
+					// Hover on the hover area for the second time and waiting for 100ms
+					await event.hover(triggerArea);
+					act(() => {
+						jest.advanceTimersByTime(100);
+					});
+
+					// Making sure the loadMetadata was called
+					expect(loadMetadataSpy).toHaveBeenCalled();
+				});
+
+				it('should call loadMetadata after a delay if link state is pending', async () => {
+					const { event } = await standaloneSetUp({
+						storeOptions,
+						userEventOptions: userEventOptionsWithAdvanceTimers,
+					});
+
+					const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
+					expect(triggerArea).toBeDefined();
+
+					await event.hover(triggerArea);
+
+					// Delay not completed yet
+					act(() => {
+						jest.advanceTimersByTime(99);
+					});
+
+					expect(loadMetadataSpy).not.toHaveBeenCalled();
+
+					// Delay completed
+					act(() => {
+						jest.advanceTimersByTime(1);
+					});
+
+					expect(loadMetadataSpy).toHaveBeenCalled();
+				});
+
+				it('should call loadMetadata only once if multiple mouseOver events are sent and if link state is pending', async () => {
+					const { event } = await standaloneSetUp({
+						storeOptions,
+						userEventOptions: userEventOptionsWithAdvanceTimers,
+					});
+
+					const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
+					expect(triggerArea).toBeDefined();
+
+					// Firing the first mouseOver event
+					await event.hover(triggerArea);
+
+					// Delay not completed yet
+					act(() => {
+						jest.advanceTimersByTime(1);
+					});
+
+					// Firing the second mouseOver event
+					await event.hover(triggerArea);
+
+					// Delay completed
+					act(() => {
+						jest.advanceTimersByTime(99);
+					});
+
+					expect(loadMetadataSpy).toHaveBeenCalledTimes(1);
+				});
 			});
 
-			const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
-			expect(triggerArea).toBeDefined();
+			describe('when link has not been registered', () => {
+				it('should call register if mouseLeave is fired before the delay runs out but then the mouse enters again and waits for 100ms', async () => {
+					const { event } = await standaloneSetUp({
+						userEventOptions: userEventOptionsWithAdvanceTimers,
+					});
 
-			await event.hover(triggerArea);
+					// Hovering on the hover area for the first time and then moving the mouse before the 100 ms elapses
+					act(() => {
+						jest.advanceTimersByTime(99);
+					});
+					expect(registerSpy).not.toHaveBeenCalled();
 
-			// Delay not completed yet
-			act(() => {
-				jest.advanceTimersByTime(99);
+					const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
+					await event.unhover(triggerArea);
+
+					// Making sure the loadMetadata was not called
+					act(() => {
+						jest.advanceTimersByTime(1);
+					});
+					expect(registerSpy).not.toHaveBeenCalled();
+
+					// Hover on the hover area for the second time and waiting for 100ms
+					await event.hover(triggerArea);
+					act(() => {
+						jest.advanceTimersByTime(100);
+					});
+
+					// Making sure the loadMetadata was called
+					expect(registerSpy).toHaveBeenCalled();
+				});
+
+				it('should call register after a delay if link state is pending', async () => {
+					const { event } = await standaloneSetUp({
+						userEventOptions: userEventOptionsWithAdvanceTimers,
+					});
+
+					const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
+					expect(triggerArea).toBeDefined();
+
+					await event.hover(triggerArea);
+
+					// Delay not completed yet
+					act(() => {
+						jest.advanceTimersByTime(99);
+					});
+
+					expect(registerSpy).not.toHaveBeenCalled();
+
+					// Delay completed
+					act(() => {
+						jest.advanceTimersByTime(1);
+					});
+
+					expect(registerSpy).toHaveBeenCalled();
+				});
+
+				it('should call register only once if multiple mouseOver events are sent and if link state is pending', async () => {
+					const { event } = await standaloneSetUp({
+						userEventOptions: userEventOptionsWithAdvanceTimers,
+					});
+
+					const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
+					expect(triggerArea).toBeDefined();
+
+					// Firing the first mouseOver event
+					await event.hover(triggerArea);
+
+					// Delay not completed yet
+					act(() => {
+						jest.advanceTimersByTime(1);
+					});
+
+					// Firing the second mouseOver event
+					await event.hover(triggerArea);
+
+					// Delay completed
+					act(() => {
+						jest.advanceTimersByTime(99);
+					});
+
+					expect(registerSpy).toHaveBeenCalledTimes(1);
+				});
 			});
-
-			expect(loadMetadataSpy).not.toHaveBeenCalled();
-
-			// Delay completed
-			act(() => {
-				jest.advanceTimersByTime(1);
-			});
-
-			expect(loadMetadataSpy).toHaveBeenCalled();
-		});
-
-		it('should call loadMetadata only once if multiple mouseOver events are sent and if link state is pending', async () => {
-			const { event } = await standaloneSetUp({
-				userEventOptions: userEventOptionsWithAdvanceTimers,
-			});
-
-			const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
-			expect(triggerArea).toBeDefined();
-
-			// Firing the first mouseOver event
-			await event.hover(triggerArea);
-
-			// Delay not completed yet
-			act(() => {
-				jest.advanceTimersByTime(1);
-			});
-
-			// Firing the second mouseOver event
-			await event.hover(triggerArea);
-
-			// Delay completed
-			act(() => {
-				jest.advanceTimersByTime(99);
-			});
-
-			expect(loadMetadataSpy).toHaveBeenCalledTimes(1);
 		});
 	});
 

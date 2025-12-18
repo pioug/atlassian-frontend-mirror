@@ -6,7 +6,7 @@ import { NotificationLogClient } from '@atlaskit/notification-log-client';
 import Page from '@atlaskit/page';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
-import ShipIcon from '@atlaskit/icon/core/migration/release--ship';
+import ShipIcon from '@atlaskit/icon/core/release';
 import * as colors from '@atlaskit/theme/colors';
 import { Field, HelperMessage } from '@atlaskit/form';
 

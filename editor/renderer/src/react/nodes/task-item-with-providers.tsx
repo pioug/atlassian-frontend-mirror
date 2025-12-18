@@ -12,6 +12,7 @@ interface Props {
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 	dataAttributes?: { [key: string]: string | number };
 	disabled?: boolean;
+	disableOnChange?: boolean;
 	isDone: boolean;
 	isRenderer?: boolean;
 	objectAri: string;

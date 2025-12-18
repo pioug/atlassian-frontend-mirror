@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { AsanaTask } from '@atlaskit/link-test-helpers';
 import { token } from '@atlaskit/tokens';

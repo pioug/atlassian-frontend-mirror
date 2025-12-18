@@ -9,8 +9,8 @@ import { css, jsx } from '@compiled/react';
 import Lorem from 'react-lorem-component';
 
 import { Code } from '@atlaskit/code';
-import ArrowDownIcon from '@atlaskit/icon/glyph/arrow-down';
-import ArrowUpIcon from '@atlaskit/icon/glyph/arrow-up';
+import ArrowDownIcon from '@atlaskit/icon/core/arrow-down';
+import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
 import {
 	Spotlight,
 	SpotlightManager,
@@ -82,10 +82,10 @@ export default class SpotlightDialogWidthExample extends Component<{}, State> {
 		const deltaButtons = (
 			<div css={buttonGroupStyles}>
 				<button type="button" css={buttonStyles} onClick={this.decrement}>
-					<ArrowDownIcon label="Decrement" />
+					<ArrowDownIcon spacing="spacious" label="Decrement" />
 				</button>
 				<button type="button" css={buttonStyles} onClick={this.increment}>
-					<ArrowUpIcon label="Increment" />
+					<ArrowUpIcon spacing="spacious" label="Increment" />
 				</button>
 			</div>
 		);

@@ -7,6 +7,7 @@ import {
 import { getTargetNodeTypeNameInContext } from '../transform-node-utils/utils';
 
 import { flattenStep } from './flattenStep';
+import { applyTargetTextTypeStep } from './steps/applyTargetTextTypeStep';
 import { decisionListToListStep } from './steps/decisionListToListStep';
 import { flattenListStep } from './steps/flattenListStep';
 import { listToDecisionListStep } from './steps/listToDecisionListStep';
@@ -37,19 +38,19 @@ const TRANSFORM_STEPS: Record<NodeCategory, Record<NodeCategory, TransformStep[]
 		atomic: undefined,
 		container: [unwrapStep, wrapStep],
 		list: undefined,
-		text: [unwrapStep],
+		text: [unwrapStep, applyTargetTextTypeStep],
 	},
 	list: {
 		atomic: undefined,
 		container: [wrapStep],
 		list: [listToListStep],
-		text: [flattenListStep, unwrapListStep],
+		text: [flattenListStep, unwrapListStep, applyTargetTextTypeStep],
 	},
 	text: {
 		atomic: undefined,
 		container: [wrapStep],
 		list: [wrapIntoListStep],
-		text: [stubStep],
+		text: [flattenStep, applyTargetTextTypeStep],
 	},
 };
 
@@ -141,6 +142,12 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 	embedCard: {
 		layoutSection: [wrapIntoLayoutStep],
 	},
+	extension: {
+		layoutSection: [wrapIntoLayoutStep],
+	},
+	bodiedExtension: {
+		layoutSection: [wrapIntoLayoutStep],
+	},
 };
 
 const getTransformStepsForNodeTypes = (
@@ -161,6 +168,7 @@ interface GetOutputNodesArgs {
 	isNested: boolean;
 	schema: Schema;
 	sourceNode: PMNode;
+	targetAttrs?: Record<string, unknown>;
 	targetNodeType: NodeType;
 }
 
@@ -170,6 +178,7 @@ export const getOutputNodes = ({
 	targetNodeType,
 	schema,
 	isNested,
+	targetAttrs,
 }: GetOutputNodesArgs): PMNode[] | undefined => {
 	const nodesToReplace = [sourceNode];
 
@@ -188,6 +197,7 @@ export const getOutputNodes = ({
 		fromNode: sourceNode,
 		targetNodeTypeName,
 		schema,
+		targetAttrs,
 	};
 
 	if (!steps || steps.length === 0) {

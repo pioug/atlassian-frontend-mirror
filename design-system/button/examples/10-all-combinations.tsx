@@ -12,8 +12,8 @@ import LegacyButton from '@atlaskit/button';
 import LoadingButton from '@atlaskit/button/loading-button';
 import { type Appearance, type Spacing } from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-import SettingsIcon from '@atlaskit/icon/glyph/settings';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import SettingsIcon from '@atlaskit/icon/core/settings';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 

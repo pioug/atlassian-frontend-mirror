@@ -5,6 +5,7 @@ order: 0
 import FormDateTimePicker from '../../examples/constellation/form-date-time-picker.tsx';
 import FormCustomField from '../../examples/constellation/form-custom-field.tsx';
 import FormCharacterCounter from '../../examples/constellation/form-character-counter.tsx';
+import FormCharacterCounterStandalone from '../../examples/constellation/form-character-counter-standalone.tsx';
 import FormDefaultComplex from '../../examples/constellation/form-default-complex.tsx';
 import FormDefaultSimple from '../../examples/constellation/form-default-simple.tsx';
 import FormFieldComplex from '../../examples/constellation/form-field-complex.tsx';
@@ -192,6 +193,22 @@ to implement custom validation rules (such as checking for specific patterns, fo
 or business logic requirements).
 
 <Example Component={FormCharacterCounter} packageName="@atlaskit/form" />
+
+#### Standalone `CharacterCounter`
+
+The `CharacterCounter` component can also be used for custom implementations. This is useful when
+you're building custom form layout experiences or need character counting in non-form contexts. Do
+note this should generally not be used and instead use `CharacterCounterField` for better
+consistency across forms.
+
+When using standalone, you're responsible for:
+
+- Managing the input's value state
+- Passing `currentValue` to keep the counter in sync
+- Providing an `inputId` to link the counter with the input via `aria-describedby`
+- Controlling error message styling with `shouldShowAsError` based on your validation logic
+
+<Example Component={FormCharacterCounterStandalone} packageName="@atlaskit/form" />
 
 ## Form fields
 

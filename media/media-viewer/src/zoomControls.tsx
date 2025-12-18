@@ -1,8 +1,8 @@
 import React from 'react';
 import { Component } from 'react';
 import { hideControlsClassName, MediaButton } from '@atlaskit/media-ui';
-import ZoomOutIcon from '@atlaskit/icon/core/migration/zoom-out--media-services-zoom-out';
-import ZoomInIcon from '@atlaskit/icon/core/migration/zoom-in--media-services-zoom-in';
+import ZoomOutIcon from '@atlaskit/icon/core/zoom-out';
+import ZoomInIcon from '@atlaskit/icon/core/zoom-in';
 import { type ZoomLevel } from './domain/zoomLevel';
 import {
 	ZoomWrapper,

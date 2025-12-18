@@ -19,6 +19,7 @@ import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import * as useSmartCardActions from '../../../state/actions';
 import { fakeFactory } from '../../../utils/mocks';
@@ -66,8 +67,21 @@ describe('HoverCard', () => {
 
 		describe('Common tests', () => {
 			runCommonHoverCardTests((setupProps?: SetUpParams) => setup(setupProps), testsConfig);
-			forbiddenViewTests((setupProps?: SetUpParams) => setup(setupProps));
-			unauthorizedViewTests((setupProps?: SetUpParams) => setup(setupProps), testsConfig);
+			ffTest.both('navx-2478-sl-fix-hover-card-unresolved-view', '', () => {
+				forbiddenViewTests((setupProps?: SetUpParams) =>
+					setup({
+						testId: 'inline-card-forbidden-view',
+						...setupProps,
+					}),
+				);
+				unauthorizedViewTests((setupProps?: SetUpParams) =>
+					setup({
+						testId: 'inline-card-unauthorized-view',
+						...setupProps,
+						extraCardProps: { showHoverPreview: true },
+					}),
+				);
+			});
 			analyticsTests((setupProps?: SetUpParams) => setup(setupProps), {
 				display: 'inline',
 				isAnalyticsContextResolvedOnHover: true,
@@ -184,40 +198,43 @@ describe('HoverCard', () => {
 				};
 			};
 
-			it('should render hover card view correctly', async () => {
-				const { resolveFetch } = await setupWithSSR();
+			ffTest.both('navx-2478-sl-fix-hover-card-unresolved-view', '', () => {
+				it('should render hover card view correctly', async () => {
+					const { resolveFetch } = await setupWithSSR();
 
-				await screen.findByTestId('hover-card-loading-view');
-				resolveFetch(mockConfluenceResponse);
+					await screen.findByTestId('hover-card-loading-view');
+					resolveFetch(mockConfluenceResponse);
 
-				await screen.findAllByTestId('smart-block-metadata-resolved-view');
-				const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
-				const snippetBlock = await screen.findByTestId('smart-block-snippet-resolved-view');
-				const footerBlock = await screen.findByTestId('smart-ai-footer-block-resolved-view');
-				expect(screen.queryByTestId('hover-card-loading-view')).toBeNull();
+					await screen.findAllByTestId('smart-block-metadata-resolved-view');
+					const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
+					const snippetBlock = await screen.findByTestId('smart-block-snippet-resolved-view');
+					const footerBlock = await screen.findByTestId('smart-ai-footer-block-resolved-view');
+					expect(screen.queryByTestId('hover-card-loading-view')).toBeNull();
 
-				// trim because the icons are causing new lines in the textContent
-				expect(titleBlock).toHaveTextContent(/I love cheese$/);
-				expect(snippetBlock).toHaveTextContent(/Here is your serving of cheese$/);
-				expect(footerBlock).toHaveTextContent('Confluence');
+					// trim because the icons are causing new lines in the textContent
+					expect(titleBlock).toHaveTextContent(/I love cheese$/);
+					expect(snippetBlock).toHaveTextContent(/Here is your serving of cheese$/);
+					expect(footerBlock).toHaveTextContent('Confluence');
+				});
+
+				it('should fall back to default path if fetch fails', async () => {
+					const { rejectFetch } = await setupWithSSR();
+
+					await screen.findByTestId('hover-card-loading-view');
+					rejectFetch('error');
+
+					const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
+					const snippetBlock = await screen.findByTestId('smart-block-snippet-resolved-view');
+					const footerBlock = await screen.findByTestId('smart-ai-footer-block-resolved-view');
+					expect(screen.queryByTestId('hover-card-loading-view')).toBeNull();
+
+					// trim because the icons are causing new lines in the textContent
+					expect(titleBlock).toHaveTextContent('I am a fan of cheese');
+					expect(snippetBlock).toHaveTextContent('');
+					expect(footerBlock).toHaveTextContent('');
+				});
 			});
 
-			it('should fall back to default path if fetch fails', async () => {
-				const { rejectFetch } = await setupWithSSR();
-
-				await screen.findByTestId('hover-card-loading-view');
-				rejectFetch('error');
-
-				const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
-				const snippetBlock = await screen.findByTestId('smart-block-snippet-resolved-view');
-				const footerBlock = await screen.findByTestId('smart-ai-footer-block-resolved-view');
-				expect(screen.queryByTestId('hover-card-loading-view')).toBeNull();
-
-				// trim because the icons are causing new lines in the textContent
-				expect(titleBlock).toHaveTextContent('I am a fan of cheese');
-				expect(snippetBlock).toHaveTextContent('');
-				expect(footerBlock).toHaveTextContent('');
-			});
 			it('should capture and report a11y violations', async () => {
 				const mockClient = new (fakeFactory(mockFetch))();
 				const storeOptions: any = {

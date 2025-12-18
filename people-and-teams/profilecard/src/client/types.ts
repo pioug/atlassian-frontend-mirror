@@ -22,4 +22,5 @@ export type ErrorAttributes = {
 	isSLOFailure: boolean;
 	traceId: string | null;
 	errorStatusCode: number | null;
+	errorStack: string | null;
 };

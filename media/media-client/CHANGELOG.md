@@ -1,5 +1,12 @@
 # @atlaskit/media-client
 
+## 35.7.1
+
+### Patch Changes
+
+- [`5f53f075991b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f53f075991b4) -
+  Updated archive viewer to emit media-viewed event on child file download
+
 ## 35.7.0
 
 ### Minor Changes

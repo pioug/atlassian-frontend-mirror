@@ -180,6 +180,7 @@ describe('getErrorAttributes', () => {
 		errorStatusCode: null,
 		errorType: null,
 		traceId: null,
+		errorStack: null,
 	};
 	it('should handle DirectoryGraphQLErrors', () => {
 		const errors = new DirectoryGraphQLErrors(

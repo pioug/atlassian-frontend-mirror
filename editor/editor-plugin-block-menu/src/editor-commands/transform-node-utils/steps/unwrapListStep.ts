@@ -6,6 +6,9 @@ import type { TransformStep } from '../types';
  * Given an array of nodes, processes each list removing all parent list nodes and
  * just returning their child contents.
  *
+ * For lists with block content (bulletList, orderedList), it extracts the block nodes directly.
+ * For lists with inline content (taskList, decisionList), it wraps the content in paragraphs.
+ *
  * @example
  * Input:
  * - bulletList
@@ -27,6 +30,7 @@ export const unwrapListStep: TransformStep = (nodes, context) => {
 		context.schema.nodes.bulletList,
 		context.schema.nodes.orderedList,
 		context.schema.nodes.taskList,
+		context.schema.nodes.decisionList,
 	];
 
 	return nodes.flatMap((node) => {
@@ -34,7 +38,12 @@ export const unwrapListStep: TransformStep = (nodes, context) => {
 			const listItems: PMNode[] = [];
 
 			node.forEach((listItem) => {
-				listItems.push(...listItem.children);
+				// if isTaskItem or isDecisionItem, convert to paragraph
+				if (listItem.type.name === 'taskItem' || listItem.type.name === 'decisionItem') {
+					listItems.push(context.schema.nodes.paragraph.create({}, listItem.content));
+				} else {
+					listItems.push(...listItem.children);
+				}
 			});
 
 			return listItems;

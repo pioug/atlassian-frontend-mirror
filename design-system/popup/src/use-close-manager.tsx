@@ -32,7 +32,7 @@ export const useCloseManager = ({
 			return noop;
 		}
 		const inIframe =
-			window && window.self !== window.top && fg('fix-dropdown-close-outside-iframe');
+			window && window.self !== window.top;
 
 		const closePopup = (event: Event | React.MouseEvent | React.KeyboardEvent) => {
 			if (onClose) {

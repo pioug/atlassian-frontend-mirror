@@ -7,7 +7,7 @@ import type { TransformStep } from '../types';
 const extractNestedLists = (node: PMNode, schema: Schema): PMNode[] => {
 	const items: PMNode[] = [];
 	const paragraph = schema.nodes.paragraph;
-	const itemTypes = [schema.nodes.listItem, schema.nodes.taskItem];
+	const itemTypes = [schema.nodes.listItem, schema.nodes.taskItem, schema.nodes.decisionItem];
 
 	const extract = (currentNode: PMNode): void => {
 		currentNode.forEach((child) => {
@@ -15,11 +15,21 @@ const extractNestedLists = (node: PMNode, schema: Schema): PMNode[] => {
 				const contentWithoutNestedLists: PMNode[] = [];
 				const nestedLists: PMNode[] = [];
 
+				// Check if this item type expects inline content (taskItem, decisionItem)
+				// vs block content (listItem) based on the schema definition
+				const isInlineItem = child.type.inlineContent;
+
 				child.forEach((grandChild) => {
 					if (isListWithIndentation(grandChild.type.name, schema)) {
 						nestedLists.push(grandChild);
 					} else if (grandChild.isText) {
-						contentWithoutNestedLists.push(paragraph.createAndFill({}, grandChild) as PMNode);
+						// For taskItem/decisionItem, keep text as-is (they support inline content)
+						// For listItem, wrap text in paragraph (they require block content)
+						if (isInlineItem) {
+							contentWithoutNestedLists.push(grandChild);
+						} else {
+							contentWithoutNestedLists.push(paragraph.createAndFill({}, grandChild) as PMNode);
+						}
 					} else {
 						contentWithoutNestedLists.push(grandChild);
 					}

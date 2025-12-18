@@ -149,7 +149,15 @@ const HoverCardContent = ({
 			return overrideView;
 		}
 
-		if (cardState.metadataStatus === 'pending') {
+		if (cardState.status === 'errored' && fg('navx-2478-sl-fix-hover-card-unresolved-view')) {
+			return null;
+		}
+
+		if (
+			fg('navx-2478-sl-fix-hover-card-unresolved-view')
+				? cardState.status === 'resolving' || cardState.metadataStatus === 'pending'
+				: cardState.metadataStatus === 'pending'
+		) {
 			return (
 				<HoverCardLoadingView
 					flexibleCardProps={flexibleCardProps}

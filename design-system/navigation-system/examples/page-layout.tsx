@@ -9,10 +9,10 @@ import { cssMap, jsx } from '@compiled/react';
 import AKBanner from '@atlaskit/banner';
 import { IconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/core/add';
+import BoardIcon from '@atlaskit/icon/core/board';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
-import BoardIcon from '@atlaskit/icon/glyph/board';
 import { MenuList } from '@atlaskit/navigation-system';
 import { Aside } from '@atlaskit/navigation-system/layout/aside';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
@@ -136,7 +136,7 @@ function ScrollableContent({ children }: { children: React.ReactNode }) {
 function BoardMenuItem() {
 	return (
 		<Inline space="space.050" alignBlock="center">
-			<BoardIcon label="" />
+			<BoardIcon spacing="spacious" label="" />
 			<span>Boards</span>
 		</Inline>
 	);

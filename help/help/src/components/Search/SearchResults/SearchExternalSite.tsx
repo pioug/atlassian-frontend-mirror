@@ -6,7 +6,7 @@ import {
 } from '@atlaskit/analytics-next';
 import * as colors from '@atlaskit/theme/colors';
 import Button from '@atlaskit/button';
-import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 import { Text } from '@atlaskit/primitives/compiled';
 

@@ -12,7 +12,7 @@ import {
 	videoProcessingFailedId,
 } from '@atlaskit/media-test-helpers';
 import { type HeadType } from '@atlaskit/dynamic-table/types';
-import CheckCircleOutlineIcon from '@atlaskit/icon/core/migration/check-circle--check-circle-outline';
+import CheckCircleOutlineIcon from '@atlaskit/icon/core/check-circle';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
 import dateFnsFormat from 'date-fns/format';
 

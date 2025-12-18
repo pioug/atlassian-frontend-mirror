@@ -1,10 +1,10 @@
 import React, { lazy, Suspense } from 'react';
 
-import BacklogIcon from '@atlaskit/icon/glyph/backlog';
-import BoardIcon from '@atlaskit/icon/glyph/board';
-import GraphLineIcon from '@atlaskit/icon/glyph/graph-line';
-import RoadmapIcon from '@atlaskit/icon/glyph/roadmap';
-import SettingsIcon from '@atlaskit/icon/glyph/settings';
+import BacklogIcon from '@atlaskit/icon/core/backlog';
+import BoardIcon from '@atlaskit/icon/core/board';
+import ChartTrendUpIcon from '@atlaskit/icon/core/chart-trend-up';
+import RoadmapIcon from '@atlaskit/icon/core/roadmap';
+import SettingsIcon from '@atlaskit/icon/core/settings';
 import {
 	ButtonItem,
 	HeadingItem,
@@ -51,16 +51,16 @@ const LazyRootItems = makeLazy(() => {
 	return (
 		<Section title="My project">
 			{/* eslint-disable @atlassian/a11y/anchor-is-valid */}
-			<LinkItem href="#" iconBefore={<RoadmapIcon label="" />}>
+			<LinkItem href="#" iconBefore={<RoadmapIcon spacing="spacious" label="" />}>
 				Roadmap
 			</LinkItem>
-			<LinkItem href="#" iconBefore={<BacklogIcon label="" />}>
+			<LinkItem href="#" iconBefore={<BacklogIcon spacing="spacious" label="" />}>
 				Backlog
 			</LinkItem>
-			<LinkItem href="#" iconBefore={<BoardIcon label="" />}>
+			<LinkItem href="#" iconBefore={<BoardIcon spacing="spacious" label="" />}>
 				Board
 			</LinkItem>
-			<LinkItem href="#" iconBefore={<GraphLineIcon label="" />}>
+			<LinkItem href="#" iconBefore={<ChartTrendUpIcon spacing="spacious" label="" />}>
 				Reports
 			</LinkItem>
 			{/* eslint-enable @atlassian/a11y/anchor-is-valid */}
@@ -72,7 +72,7 @@ const LazyRootItems = makeLazy(() => {
 const SettingsSection = () => {
 	return (
 		<NestingItem
-			iconBefore={<SettingsIcon label="" />}
+			iconBefore={<SettingsIcon spacing="spacious" label="" />}
 			id="settings"
 			title="Project settings"
 			isSelected

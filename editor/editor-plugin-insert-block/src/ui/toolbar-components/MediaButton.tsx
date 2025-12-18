@@ -12,6 +12,7 @@ import {
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { ToolbarButton, ToolbarTooltip, ImageIcon } from '@atlaskit/editor-toolbar';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
@@ -63,7 +64,7 @@ export const MediaButton = ({ api }: MediaButtonProps): React.JSX.Element | null
 		});
 	};
 
-	const isOffline = connectivityMode === 'offline';
+	const isOffline = isOfflineMode(connectivityMode);
 
 	return (
 		<ToolbarTooltip content={formatMessage(messages.addMediaFiles)}>

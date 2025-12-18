@@ -6,6 +6,7 @@ import { selectionToolbarMessages } from '@atlaskit/editor-common/messages';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import { PinIcon, PinnedIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -39,7 +40,7 @@ const usePluginState = conditionalHooksFactory(
 			api,
 			'userPreferences.preferences.toolbarDockingPosition',
 		);
-		const isOffline = useSharedPluginStateSelector(api, 'connectivity.mode') === 'offline';
+		const isOffline = isOfflineMode(useSharedPluginStateSelector(api, 'connectivity.mode'));
 
 		return {
 			editorViewMode,

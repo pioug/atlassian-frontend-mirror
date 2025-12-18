@@ -8,7 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { CharacterCounter } from './character-counter';
+import CharacterCounter from './character-counter';
 import Field, { type FieldComponentProps, type FieldProps, type Meta } from './field';
 import { ErrorMessage, HelperMessage, MessageWrapper } from './messages';
 

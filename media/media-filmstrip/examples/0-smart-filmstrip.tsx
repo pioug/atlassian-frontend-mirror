@@ -15,7 +15,7 @@ import {
 	defaultCollectionName,
 } from '@atlaskit/media-test-helpers';
 import { type CardEvent, type CardAction } from '@atlaskit/media-card';
-import EditorCloseIcon from '@atlaskit/icon/core/migration/cross--editor-close';
+import EditorCloseIcon from '@atlaskit/icon/core/cross';
 import {
 	type FileItem,
 	type FileState,

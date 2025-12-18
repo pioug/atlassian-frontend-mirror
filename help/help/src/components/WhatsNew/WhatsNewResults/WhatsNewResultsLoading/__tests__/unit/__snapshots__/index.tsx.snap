@@ -7,7 +7,7 @@ exports[`WhatsNewResultsLoading Should match snapshot 1`] = `
   >REDACTED</style>
   <div
     class="REDACTED"
-    style="height: 40px; margin-top: 0px; width: 152px;"
+    style="REDACTED"
   />
   <style
     data-cmpld="true"
@@ -28,7 +28,7 @@ exports[`WhatsNewResultsLoading Should match snapshot 1`] = `
       >REDACTED</style>
       <div
         class="REDACTED"
-        style="height: 11px; margin-top: 0px; width: 60px;"
+        style="REDACTED"
       />
     </div>
     <style
@@ -39,19 +39,19 @@ exports[`WhatsNewResultsLoading Should match snapshot 1`] = `
     >
       <div
         class="REDACTED"
-        style="display: inline-block; vertical-align: middle; position: relative; height: 16px; margin-top: 4px; width: 16px;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 11px; margin-top: 4px; width: 60px;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 1rem; margin-top: 8px; width: 100%;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 1rem; margin-top: 4px; width: 90%;"
+        style="REDACTED"
       />
     </li>
     <li
@@ -59,19 +59,19 @@ exports[`WhatsNewResultsLoading Should match snapshot 1`] = `
     >
       <div
         class="REDACTED"
-        style="display: inline-block; vertical-align: middle; position: relative; height: 16px; margin-top: 4px; width: 16px;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 11px; margin-top: 4px; width: 60px;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 1rem; margin-top: 8px; width: 100%;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 1rem; margin-top: 4px; width: 90%;"
+        style="REDACTED"
       />
     </li>
     <div
@@ -79,7 +79,7 @@ exports[`WhatsNewResultsLoading Should match snapshot 1`] = `
     >
       <div
         class="REDACTED"
-        style="height: 11px; margin-top: 0px; width: 60px;"
+        style="REDACTED"
       />
     </div>
     <li
@@ -87,19 +87,19 @@ exports[`WhatsNewResultsLoading Should match snapshot 1`] = `
     >
       <div
         class="REDACTED"
-        style="display: inline-block; vertical-align: middle; position: relative; height: 16px; margin-top: 4px; width: 16px;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 11px; margin-top: 4px; width: 60px;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 1rem; margin-top: 8px; width: 100%;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 1rem; margin-top: 4px; width: 90%;"
+        style="REDACTED"
       />
     </li>
     <li
@@ -107,19 +107,19 @@ exports[`WhatsNewResultsLoading Should match snapshot 1`] = `
     >
       <div
         class="REDACTED"
-        style="display: inline-block; vertical-align: middle; position: relative; height: 16px; margin-top: 4px; width: 16px;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 11px; margin-top: 4px; width: 60px;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 1rem; margin-top: 8px; width: 100%;"
+        style="REDACTED"
       />
       <div
         class="REDACTED"
-        style="height: 1rem; margin-top: 4px; width: 90%;"
+        style="REDACTED"
       />
     </li>
   </ul>

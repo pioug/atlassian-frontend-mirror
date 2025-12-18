@@ -2,9 +2,9 @@ import React, { Fragment, useState } from 'react';
 
 import Banner from '@atlaskit/banner';
 import Button from '@atlaskit/button/new';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import WarningIcon from '@atlaskit/icon/core/status-warning';
 
-const Icon = <WarningIcon label="Warning" secondaryColor="inherit" />;
+const Icon = <WarningIcon spacing="spacious" label="Warning"  />;
 
 export default (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);

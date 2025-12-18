@@ -166,6 +166,9 @@ const styles = cssMap({
 		paddingInlineStart: token('space.150'),
 		verticalAlign: 'middle',
 	},
+	spacingCompactT26Shape: {
+		borderRadius: token('radius.small'),
+	},
 	circle: {
 		borderRadius: token('radius.full'),
 	},
@@ -647,6 +650,9 @@ const ButtonBase: React.ForwardRefExoticComponent<
 					isDisabled && appearance === 'default' && defaultStyles.disabled,
 					isCircle && !isSplitButton && styles.circle,
 					spacing === 'compact' && styles.spacingCompact,
+					spacing === 'compact' &&
+						fg('platform-dst-shape-theme-default') &&
+						styles.spacingCompactT26Shape,
 					hasIconBefore && styles.buttonIconBefore,
 					shouldFitContainer && styles.fullWidth,
 					hasIconAfter && styles.buttonIconAfter,

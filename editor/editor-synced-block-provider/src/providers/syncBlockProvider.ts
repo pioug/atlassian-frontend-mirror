@@ -43,16 +43,15 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	 * @param sourceId
 	 * @param nestedRendererDataProviders
 	 */
-	constructor(
-		fetchProvider: ADFFetchProvider,
-		writeProvider: ADFWriteProvider,
-		sourceId: string,
-		providerOptions: SyncedBlockRendererProviderOptions,
-	) {
+	constructor(fetchProvider: ADFFetchProvider, writeProvider: ADFWriteProvider, sourceId: string) {
 		super();
 		this.fetchProvider = fetchProvider;
 		this.writeProvider = writeProvider;
 		this.sourceId = sourceId;
+		this.providerOptions = {};
+	}
+
+	setProviderOptions(providerOptions: SyncedBlockRendererProviderOptions) {
 		this.providerOptions = providerOptions;
 	}
 
@@ -257,7 +256,10 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		}
 	}
 
-	updateReferenceData(blocks: SyncBlockAttrs[], noContent?: boolean): Promise<UpdateReferenceSyncBlockResult> {
+	updateReferenceData(
+		blocks: SyncBlockAttrs[],
+		noContent?: boolean,
+	): Promise<UpdateReferenceSyncBlockResult> {
 		return this.writeProvider.updateReferenceData(blocks, noContent);
 	}
 }
@@ -269,19 +271,16 @@ export const useMemoizedSyncedBlockProvider = (
 	providerOptions: SyncedBlockRendererProviderOptions,
 	getSSRData?: () => Record<string, SyncBlockInstance> | undefined,
 ) => {
-	return useMemo(() => {
-		const syncBlockProvider = new SyncBlockProvider(
-			fetchProvider,
-			writeProvider,
-			sourceId,
-			providerOptions,
-		);
+	const syncBlockProvider = useMemo(
+		() => new SyncBlockProvider(fetchProvider, writeProvider, sourceId),
+		[fetchProvider, writeProvider, sourceId],
+	);
 
-		const ssrData = getSSRData ? getSSRData() : undefined;
-		if (ssrData) {
-			syncBlockProvider.setSSRData(ssrData);
-		}
+	syncBlockProvider.setProviderOptions(providerOptions);
+	const ssrData = getSSRData ? getSSRData() : undefined;
+	if (ssrData) {
+		syncBlockProvider.setSSRData(ssrData);
+	}
 
-		return syncBlockProvider;
-	}, [fetchProvider, writeProvider, sourceId, providerOptions, getSSRData]);
+	return syncBlockProvider;
 };

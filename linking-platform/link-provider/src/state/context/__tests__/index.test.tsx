@@ -37,8 +37,8 @@ describe('useSmartCardContext()', () => {
 	it('provides renderers to consumer', () => {
 		const renderersParams = {
 			renderers: {
-				emoji: (emoji?: string) => <div />,
-				adf: (adf?: string) => <div />,
+				emoji: (_emoji?: string) => <div />,
+				adf: (_adf?: string) => <div />,
 			},
 		};
 

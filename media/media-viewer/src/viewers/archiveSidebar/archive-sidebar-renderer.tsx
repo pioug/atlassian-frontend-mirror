@@ -87,6 +87,7 @@ export default class ArchiveSidebarRenderer extends Component<
 						shouldRenderAbuseModal={
 							!isErrorFileState(selectedFileState) && !!selectedFileState.abuseClassification
 						}
+						fileId={selectedFileState.id}
 					/>
 				)}
 			</>

@@ -2,6 +2,7 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl-next';
 
+
 import { INPUT_METHOD, type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { messages } from '@atlaskit/editor-common/extensions';
 import commonMessages from '@atlaskit/editor-common/messages';
@@ -19,6 +20,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { getChildrenInfo, getNodeName, isReferencedSource } from '@atlaskit/editor-common/utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { ApplyChangeHandler, ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -419,7 +421,7 @@ export const getToolbarConfig =
 			applyChangeToContextPanel,
 			editorAnalyticsAPI,
 			editorExperiment('platform_editor_offline_editing_web', true) &&
-				extensionApi?.connectivity?.sharedState?.currentState()?.mode === 'offline',
+				isOfflineMode(extensionApi?.connectivity?.sharedState?.currentState()?.mode),
 			extensionApi as ExtractInjectionAPI<ExtensionPlugin>,
 		);
 		const breakoutItems = breakoutOptions(

@@ -9,6 +9,7 @@ import { selectionToolbarMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import PinIcon from '@atlaskit/icon/core/pin';
 import PinFilledIcon from '@atlaskit/icon/core/pin-filled';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -35,7 +36,7 @@ type PrimaryToolbarComponentProps = {
 export const PrimaryToolbarComponent = ({ api, disabled }: PrimaryToolbarComponentProps) => {
 	const intl = useIntl();
 	const mode = useSharedPluginStateSelector(api, 'connectivity.mode');
-	const isOffline = mode === 'offline' || false;
+	const isOffline = isOfflineMode(mode);
 	const isDockedToTop = fg('platform_editor_use_preferences_plugin')
 		? api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition ===
 			'top'

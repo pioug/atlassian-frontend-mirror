@@ -9,6 +9,7 @@ import type {
 	QuickInsertSearchOptions,
 	QuickInsertSharedState,
 } from '@atlaskit/editor-common/types';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -142,7 +143,7 @@ export default ({ editorView, helpUrl, pluginInjectionAPI }: Props): React.JSX.E
 			}}
 			editorView={editorView}
 			helpUrl={helpUrl}
-			isOffline={mode === 'offline'}
+			isOffline={isOfflineMode(mode)}
 			insertItem={pluginInjectionAPI?.quickInsert?.actions?.insertItem}
 			getSuggestions={pluginInjectionAPI?.quickInsert?.actions?.getSuggestions}
 			api={pluginInjectionAPI}

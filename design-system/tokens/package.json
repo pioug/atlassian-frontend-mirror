@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tokens",
-	"version": "8.6.1",
+	"version": "9.0.0",
 	"description": "Design tokens are the single source of truth to name and store design decisions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -71,7 +71,6 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@atlassian/repo-feature-flags-statsig": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",
 		"@babel/core": "root:*",
 		"@compiled/react": "root:*",

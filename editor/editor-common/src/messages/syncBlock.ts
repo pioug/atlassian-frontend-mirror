@@ -40,7 +40,7 @@ export const syncBlockMessages = defineMessages({
 	},
 	permissionDeniedHeading: {
 		id: 'fabric.editor.syncedBlockPermissionDeniedHeading',
-		defaultMessage: "Request access to view synced block",
+		defaultMessage: 'Request access to view synced block',
 		description:
 			'Heading for error state where the user does not have permission to view the synced block',
 	},
@@ -89,6 +89,11 @@ export const syncBlockMessages = defineMessages({
 		id: 'fabric.editor.referenceSyncBlockTooltip',
 		defaultMessage: 'Synced from: {title}',
 		description: 'Tooltip that shows the source page title of the synced block',
+	},
+	taskInDestinationSyncedBlockTooltip: {
+		id: 'fabric.editor.taskInDestinationSyncedBlockTooltip',
+		defaultMessage: 'This content is synced. Edit it at the source.',
+		description: 'Tooltip that shows when you hover over a task in the destination synced block',
 	},
 	deleteConfirmationModalTitle: {
 		id: 'fabric.editor.deleteConfirmationModalTitle',
@@ -191,7 +196,8 @@ export const syncBlockMessages = defineMessages({
 	},
 	notFoundDescription: {
 		id: 'fabric.editor.syncedBlockNotFoundDescription.non-final',
-		defaultMessage: 'We’re unable to display this content as its source has been deleted or archived.',
+		defaultMessage:
+			'We’re unable to display this content as its source has been deleted or archived.',
 		description: 'Description for error state where the synced block cannot be found',
 	},
 	retryButton: {
@@ -203,7 +209,7 @@ export const syncBlockMessages = defineMessages({
 	offlineError: {
 		id: 'fabric.editor.error.description.offline',
 		defaultMessage: `We're unable to display this content at the moment because you are offline.`,
-		description: 'Error message which is shown over sync block when the editor is offline'
+		description: 'Error message which is shown over sync block when the editor is offline',
 	},
 	syncBlockCopiedTitle: {
 		id: 'fabric.editor.syncBlockCopiedTitle',
@@ -212,7 +218,8 @@ export const syncBlockMessages = defineMessages({
 	},
 	syncBlockCopiedDescription: {
 		id: 'fabric.editor.syncBlockCopiedDescription',
-		defaultMessage: 'Paste your synced block to keep content auto-updated. Permissions are the same.',
+		defaultMessage:
+			'Paste your synced block to keep content auto-updated. Permissions are the same.',
 		description: 'Description in flag which appears when a sync block is copied',
 	},
 	syncBlockCopiedAction: {

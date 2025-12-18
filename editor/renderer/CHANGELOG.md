@@ -1,5 +1,35 @@
 # @atlaskit/renderer
 
+## 124.22.7
+
+### Patch Changes
+
+- [`2b78b030e4e42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b78b030e4e42) -
+  EDITOR-3952 Update style for task in destination synced block
+- Updated dependencies
+
+## 124.22.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 124.22.5
+
+### Patch Changes
+
+- [`a4ed9f55162ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4ed9f55162ae) -
+  EDITOR-3960 Refactor Synced Blocks initialization to remove multiple re-renders and duplicated
+  fetches
+- Updated dependencies
+
+## 124.22.4
+
+### Patch Changes
+
+- [`253b2466695dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/253b2466695dc) -
+  Removing feature flag with changing internal use of custom icons.
+
 ## 124.22.3
 
 ### Patch Changes

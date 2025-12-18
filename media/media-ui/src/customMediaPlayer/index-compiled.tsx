@@ -4,11 +4,11 @@
 import React from 'react';
 import { Component } from 'react';
 import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import PlayIcon from '@atlaskit/icon/core/migration/video-play--vid-play';
-import PauseIcon from '@atlaskit/icon/core/migration/video-pause--vid-pause';
-import FullScreenIconOn from '@atlaskit/icon/core/migration/fullscreen-enter--vid-full-screen-on';
-import FullScreenIconOff from '@atlaskit/icon/core/migration/shrink-diagonal--vid-full-screen-off';
-import SoundIcon from '@atlaskit/icon/core/migration/volume-high--hipchat-outgoing-sound';
+import PlayIcon from '@atlaskit/icon/core/video-play';
+import PauseIcon from '@atlaskit/icon/core/video-pause';
+import FullScreenIconOn from '@atlaskit/icon/core/fullscreen-enter';
+import FullScreenIconOff from '@atlaskit/icon/core/shrink-diagonal';
+import SoundIcon from '@atlaskit/icon/core/volume-high';
 import VideoHdIcon from '@atlaskit/icon-lab/core/video-hd';
 import VideoHdFilledIcon from '@atlaskit/icon-lab/core/video-hd-filled';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';

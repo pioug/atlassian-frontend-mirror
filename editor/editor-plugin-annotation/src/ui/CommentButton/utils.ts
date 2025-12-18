@@ -8,6 +8,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { currentMediaNodeWithPos } from '@atlaskit/editor-common/media-single';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -30,7 +31,7 @@ export const isButtonDisabled = ({
 	return (
 		!canAddComments ||
 		annotationSelectionType === AnnotationSelectionType.DISABLED ||
-		api?.connectivity?.sharedState?.currentState()?.mode === 'offline'
+		isOfflineMode(api?.connectivity?.sharedState?.currentState()?.mode)
 	);
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
-import ChevronDown from '@atlaskit/icon/glyph/chevron-down';
+import ChevronDown from '@atlaskit/icon/core/chevron-down';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Stack } from '@atlaskit/primitives';
 

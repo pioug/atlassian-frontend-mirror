@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.2.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.2.18
+
+### Patch Changes
+
+- [`bfb0acc5f3d72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfb0acc5f3d72) -
+  [ux] Update list flattening steps to handle decision lists as well
+- [`a528ea956ce65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a528ea956ce65) -
+  [ux] EDITOR-3956 fix sync block resize handle padding and alignment
+- Updated dependencies
+
 ## 5.2.17
 
 ### Patch Changes

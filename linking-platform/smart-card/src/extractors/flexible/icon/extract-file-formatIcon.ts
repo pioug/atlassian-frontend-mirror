@@ -1,73 +1,181 @@
-/* eslint-disable @atlassian/i18n/no-literal-string-in-object */
+import { fg } from "@atlaskit/platform-feature-flags";
+
 import { IconType } from '../../../constants';
 
 import { type IconDescriptor } from './types';
 
-const extractFileFormatIcon = (fileFormat?: string): IconDescriptor | undefined => {
+const extractFileFormatIcon = (
+	fileFormat?: string,
+): IconDescriptor | undefined => {
 	switch (fileFormat) {
 		// Generic documents
 		case 'folder':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.Folder, label: 'Folder' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.Folder,
+					}
+				: {
+						icon: IconType.Folder,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Folder',
+					};
 		case 'text/plain':
 		case 'application/vnd.oasis.opendocument.text':
 		case 'application/vnd.apple.pages':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.Document, label: 'Document' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.Document,
+					}
+				: {
+						icon: IconType.Document,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Document',
+					};
 		case 'application/pdf':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.PDF, label: 'PDF document' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.PDF,
+					}
+				: {
+						icon: IconType.PDF,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'PDF document',
+					};
 		case 'application/vnd.oasis.opendocument.presentation':
 		case 'application/vnd.apple.keynote':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.Presentation, label: 'Presentation' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.Presentation,
+					}
+				: {
+						icon: IconType.Presentation,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Presentation',
+					};
 		case 'application/vnd.oasis.opendocument.spreadsheet':
 		case 'application/vnd.apple.numbers':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.Spreadsheet, label: 'Spreadsheet' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.Spreadsheet,
+					}
+				: {
+						icon: IconType.Spreadsheet,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Spreadsheet',
+					};
 		// Google Drive
 		case 'application/vnd.google-apps.document':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.GoogleDocs, label: 'Google Docs' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.GoogleDocs,
+					}
+				: {
+						icon: IconType.GoogleDocs,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Google Docs',
+					};
 		case 'application/vnd.google-apps.form':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.GoogleForms, label: 'Google Form' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.GoogleForms,
+					}
+				: {
+						icon: IconType.GoogleForms,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Google Form',
+					};
 		case 'application/vnd.google-apps.spreadsheet':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.GoogleSheets, label: 'Google Sheets' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.GoogleSheets,
+					}
+				: {
+						icon: IconType.GoogleSheets,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Google Sheets',
+					};
 		case 'application/vnd.google-apps.presentation':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.GoogleSlides, label: 'Google Slides' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.GoogleSlides,
+					}
+				: {
+						icon: IconType.GoogleSlides,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Google Slides',
+					};
 		// Microsoft
 		case 'application/vnd.ms-excel':
 		case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.MSExcel, label: 'Excel spreadsheet' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.MSExcel,
+					}
+				: {
+						icon: IconType.MSExcel,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Excel spreadsheet',
+					};
 		case 'application/vnd.ms-powerpoint':
 		case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.MSPowerpoint, label: 'PowerPoint presentation' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.MSPowerpoint,
+					}
+				: {
+						icon: IconType.MSPowerpoint,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'PowerPoint presentation',
+					};
 		case 'application/msword':
 		case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.MSWord, label: 'Word document' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.MSWord,
+					}
+				: {
+						icon: IconType.MSWord,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Word document',
+					};
 		case 'image/png':
 		case 'image/jpeg':
 		case 'image/bmp':
 		case 'image/webp':
 		case 'image/svg+xml':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.Image, label: 'Image' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.Image,
+					}
+				: {
+						icon: IconType.Image,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Image',
+					};
 		case 'image/gif':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.GIF, label: 'GIF' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.GIF,
+					}
+				: {
+						icon: IconType.GIF,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'GIF',
+					};
 		case 'audio/midi':
 		case 'audio/mpeg':
 		case 'audio/webm':
 		case 'audio/ogg':
 		case 'audio/wav':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.Audio, label: 'Audio' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.Audio,
+					}
+				: {
+						icon: IconType.Audio,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Audio',
+					};
 		case 'video/mp4':
 		case 'video/quicktime':
 		case 'video/mov':
@@ -75,34 +183,83 @@ const extractFileFormatIcon = (fileFormat?: string): IconDescriptor | undefined 
 		case 'video/ogg':
 		case 'video/x-ms-wmv':
 		case 'video/x-msvideo':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.Video, label: 'Video' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.Video,
+					}
+				: {
+						icon: IconType.Video,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Video',
+					};
 		// Others
 		case 'text/css':
 		case 'text/html':
 		case 'application/javascript':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.Code, label: 'Source Code' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.Code,
+					}
+				: {
+						icon: IconType.Code,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Source Code',
+					};
 		case 'application/zip':
 		case 'application/x-tar':
 		case 'application/x-gtar':
 		case 'application/x-7z-compressed':
 		case 'application/x-apple-diskimage':
 		case 'application/vnd.rar':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.Archive, label: 'Archive' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.Archive,
+					}
+				: {
+						icon: IconType.Archive,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Archive',
+					};
 		case 'application/dmg':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.Executable, label: 'Executable' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.Executable,
+					}
+				: {
+						icon: IconType.Executable,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Executable',
+					};
 		case 'application/sketch':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.Sketch, label: 'Sketch' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.Sketch,
+					}
+				: {
+						icon: IconType.Sketch,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Sketch',
+					};
 		case 'application/octet-stream':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.Generic, label: 'Binary file' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.Generic,
+					}
+				: {
+						icon: IconType.Generic,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Binary file',
+					};
 		case 'application/invision.prototype':
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-			return { icon: IconType.Generic, label: 'Prototype' };
+			return fg('navx-2827-eslint-object-translation-smart-links')
+				? {
+						icon: IconType.Generic,
+					}
+				: {
+						icon: IconType.Generic,
+						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
+						label: 'Prototype',
+					};
 		default:
 			return undefined;
 	}

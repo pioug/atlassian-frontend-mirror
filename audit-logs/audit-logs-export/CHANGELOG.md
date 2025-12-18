@@ -1,5 +1,11 @@
 # @atlaskit/audit-logs-export
 
+## 1.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.3.1
 
 ### Patch Changes

@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 
+
 import type { LinkAttributes } from '@atlaskit/adf-schema';
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import type {
@@ -46,6 +47,7 @@ import {
 } from '@atlaskit/editor-common/ui';
 import { UserIntentPopupWrapper } from '@atlaskit/editor-common/user-intent';
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection, type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
@@ -150,7 +152,7 @@ export function HyperlinkAddToolbarWithState({
 	// we don't want to dynamically change it on them as this would cause data loss if they've already
 	// started typing in the fields.
 	const isOffline = useRef(
-		pluginInjectionApi?.connectivity?.sharedState.currentState()?.mode === 'offline',
+		isOfflineMode(pluginInjectionApi?.connectivity?.sharedState.currentState()?.mode),
 	);
 
 	return (

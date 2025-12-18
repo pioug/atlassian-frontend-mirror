@@ -6,6 +6,7 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { ToolbarButton, ToolbarTooltip, ImageIcon } from '@atlaskit/editor-toolbar';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
@@ -28,7 +29,7 @@ export const ImageButton = ({ api }: ImageButtonProps): React.JSX.Element => {
 
 	const { editorView } = useEditorToolbar();
 
-	const isOffline = connectivityMode === 'offline';
+	const isOffline = isOfflineMode(connectivityMode);
 
 	const onClick = () => {
 		if (editorView) {

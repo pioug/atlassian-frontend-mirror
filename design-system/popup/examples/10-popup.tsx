@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import Banner from '@atlaskit/banner';
 import Button from '@atlaskit/button/new';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import WarningIcon from '@atlaskit/icon/core/status-warning';
 import Link from '@atlaskit/link';
 import { type Placement } from '@atlaskit/popper';
 import Popup from '@atlaskit/popup';
@@ -92,7 +92,7 @@ const PopupPlacementExample = () => {
 
 	return (
 		<Fragment>
-			<Banner appearance="warning" icon={<WarningIcon label="Warning" secondaryColor="inherit" />}>
+			<Banner appearance="warning" icon={<WarningIcon spacing="spacious" label="Warning"  />}>
 				This is an example for tests only -
 				<Link target="_blank" href="https://atlassian.design/components/popup/usage#accessibility">
 					{' '}

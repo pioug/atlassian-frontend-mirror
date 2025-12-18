@@ -1,10 +1,10 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import SelectedIcon from '@atlaskit/icon/glyph/check';
-import ButtonIcon from '@atlaskit/icon/glyph/checkbox-indeterminate';
-import CustomIcon from '@atlaskit/icon/glyph/discover';
-import LinkIcon from '@atlaskit/icon/glyph/link';
+import SelectedIcon from '@atlaskit/icon/core/check-mark';
+import ButtonIcon from '@atlaskit/icon/core/checkbox-indeterminate';
+import CustomIcon from '@atlaskit/icon/core/compass';
+import LinkIcon from '@atlaskit/icon/core/link';
 import {
 	ButtonItem,
 	HeadingItem,
@@ -30,12 +30,12 @@ const BasicExample = (): React.JSX.Element => {
 				<NavigationContent>
 					<Section>
 						<HeadingItem>This is a simple flat sidebar</HeadingItem>
-						<ButtonItem iconBefore={<ButtonIcon label="" />}>It can contain buttons</ButtonItem>
+						<ButtonItem iconBefore={<ButtonIcon spacing="spacious" label="" />}>It can contain buttons</ButtonItem>
 						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
-						<LinkItem href="#" iconBefore={<LinkIcon label="" />}>
+						<LinkItem href="#" iconBefore={<LinkIcon spacing="spacious" label="" />}>
 							Or anchor links
 						</LinkItem>
-						<ButtonItem isSelected iconBefore={<SelectedIcon label="" />}>
+						<ButtonItem isSelected iconBefore={<SelectedIcon spacing="spacious" label="" />}>
 							Or selected items
 						</ButtonItem>
 					</Section>

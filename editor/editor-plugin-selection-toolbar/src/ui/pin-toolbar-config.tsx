@@ -9,6 +9,7 @@ import type {
 	FloatingToolbarButton,
 	FloatingToolbarItem,
 } from '@atlaskit/editor-common/types';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import PinIcon from '@atlaskit/icon/core/pin';
 import PinFilledIcon from '@atlaskit/icon/core/pin-filled';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -26,7 +27,7 @@ export const getPinOptionToolbarConfig = ({
 	toolbarDocking,
 	intl,
 }: PinToobarConfig): FloatingToolbarItem<Command>[] => {
-	const isOffline = api?.connectivity?.sharedState.currentState()?.mode === 'offline';
+	const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
 	let pinButton: FloatingToolbarButton<Command> = {
 		disabled: isOffline,
 		id: 'editor.toolbar.unpined',

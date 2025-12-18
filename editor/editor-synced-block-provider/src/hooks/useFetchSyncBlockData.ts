@@ -25,7 +25,7 @@ export const useFetchSyncBlockData = (
 ): UseFetchSyncBlockDataResult => {
 	const [syncBlockInstance, setSyncBlockInstance] = useState<SyncBlockInstance | null>(() => {
 		if (resourceId) {
-			return manager?.referenceManager?.getInitialSyncBlockData(resourceId) ?? null
+			return manager?.referenceManager?.getInitialSyncBlockData(resourceId) ?? null;
 		}
 		return null;
 	});

@@ -9,6 +9,7 @@ import {
 } from '@atlaskit/editor-common/emoji';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';
@@ -159,7 +160,7 @@ export class EmojiNodeView implements NodeView {
 			const subscribeToConnection = api?.connectivity?.sharedState.onChange(
 				({ prevSharedState, nextSharedState }) => {
 					if (
-						prevSharedState?.mode === 'offline' &&
+						isOfflineMode(prevSharedState?.mode) &&
 						nextSharedState?.mode === 'online' &&
 						this.renderingFallback &&
 						editorExperiment('platform_editor_offline_editing_web', true)

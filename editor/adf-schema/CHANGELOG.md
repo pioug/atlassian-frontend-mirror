@@ -1,5 +1,13 @@
 # @atlaskit/adf-schema
 
+## 51.5.4
+
+### Patch Changes
+
+- [`6aa3d234b547c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6aa3d234b547c) -
+  clean up unused scripts
+- Updated dependencies
+
 ## 51.5.3
 
 ### Patch Changes

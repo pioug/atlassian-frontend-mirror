@@ -2,6 +2,7 @@ import React from 'react';
 
 import type { IntlShape, MessageDescriptor } from 'react-intl-next';
 
+
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -35,6 +36,7 @@ import type {
 	FloatingToolbarItem,
 	FloatingToolbarOverflowDropdownOptions,
 } from '@atlaskit/editor-common/types';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
@@ -224,7 +226,7 @@ const generateMediaCardFloatingToolbar = (
 		onClick: () => {
 			return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
 		},
-		disabled: pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode === 'offline',
+		disabled: isOfflineMode(pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode),
 		supportsViewMode: true,
 	};
 
@@ -753,7 +755,7 @@ const generateMediaSingleFloatingToolbar = (
 								);
 							},
 							disabled:
-								pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode === 'offline',
+								isOfflineMode(pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode),
 							supportsViewMode: true,
 						},
 						{
@@ -847,7 +849,7 @@ const generateMediaSingleFloatingToolbar = (
 							);
 						},
 						disabled:
-							pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode === 'offline',
+							isOfflineMode(pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode),
 						supportsViewMode: true,
 					},
 					{

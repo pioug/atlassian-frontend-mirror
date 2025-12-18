@@ -2,7 +2,7 @@ import React from 'react';
 
 import Banner from '@atlaskit/banner';
 import { Code } from '@atlaskit/code';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import WarningIcon from '@atlaskit/icon/core/status-warning';
 import Link from '@atlaskit/link';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
 
@@ -12,7 +12,7 @@ import VerticalSpace from './common/vertical-space';
 const BasicExample = (): React.JSX.Element => {
 	return (
 		<Page>
-			<Banner appearance="warning" icon={<WarningIcon label="Warning" secondaryColor="inherit" />}>
+			<Banner appearance="warning" icon={<WarningIcon spacing="spacious" label="Warning"  />}>
 				We are planning on deprecating Page component. We recommend using the Page layout component
 				instead.
 				<Link target="_blank" href="https://atlassian.design/components/page-layout">

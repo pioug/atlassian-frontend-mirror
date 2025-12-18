@@ -1,4 +1,5 @@
 import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
+import { breakoutResizableNodes as breakoutResizableNodesNew } from '@atlaskit/editor-common/utils';
 import { akEditorUnitZIndex, akRichMediaResizeZIndex } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -44,9 +45,13 @@ export const dragHandleGap = (nodeType: string, parentNodeType?: string) => {
 		return DRAG_HANDLE_NARROW_GAP;
 	}
 
+	const breakoutResizableNodesList = editorExperiment('platform_synced_block', true)
+								? breakoutResizableNodesNew
+								: breakoutResizableNodes;
+
 	if (
 		editorExperiment('platform_editor_breakout_resizing', true) &&
-		breakoutResizableNodes.includes(nodeType)
+		breakoutResizableNodesList.includes(nodeType)
 	) {
 		if (nodeType === 'layoutSection') {
 			return DRAG_HANDLE_MAX_GAP + 20;
@@ -67,10 +72,14 @@ export const dragHandleGap = (nodeType: string, parentNodeType?: string) => {
 
 // use for returning hap only for root level elements
 export const rootElementGap = (nodeType: string) => {
+	const breakoutResizableNodesList = editorExperiment('platform_synced_block', true)
+								? breakoutResizableNodesNew
+								: breakoutResizableNodes;
+
 	if (
 		nodeTypeExcludeList.includes(nodeType) ||
 		(editorExperiment('platform_editor_breakout_resizing', true) &&
-			breakoutResizableNodes.includes(nodeType))
+			breakoutResizableNodesList.includes(nodeType))
 	) {
 		if (nodeType === 'layoutSection') {
 			return DRAG_HANDLE_MAX_GAP + 20;

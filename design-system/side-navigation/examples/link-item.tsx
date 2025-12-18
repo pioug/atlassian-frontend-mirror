@@ -1,7 +1,7 @@
 import React, { type MouseEvent } from 'react';
 
-import BookIcon from '@atlaskit/icon/glyph/book';
-import EmojiAtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
+import BookIcon from '@atlaskit/icon/core/book-with-bookmark';
+import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives';
 import { LinkItem } from '@atlaskit/side-navigation';
@@ -14,30 +14,34 @@ const Example = (): React.JSX.Element => (
 		<LinkItem href="#" isDisabled>
 			My articles
 		</LinkItem>
-		<LinkItem href="#" iconAfter={<EmojiAtlassianIcon label="" />}>
+		<LinkItem href="#" iconAfter={<StarStarredIcon label="" spacing="spacious" />}>
 			My articles
 		</LinkItem>
 		<LinkItem href="#" description="Will create an article">
 			My articles
 		</LinkItem>
-		<LinkItem href="#" iconBefore={<BookIcon label="" />}>
+		<LinkItem href="#" iconBefore={<BookIcon spacing="spacious" label="" />}>
 			My articles
 		</LinkItem>
 		<LinkItem
 			href="#"
-			iconBefore={<BookIcon label="" />}
-			iconAfter={<EmojiAtlassianIcon label="" />}
+			iconBefore={<BookIcon spacing="spacious" label="" />}
+			iconAfter={<StarStarredIcon label="" spacing="spacious" />}
 		>
-			My articles
-		</LinkItem>
-		<LinkItem href="#" description="Will create an article" iconBefore={<BookIcon label="" />}>
 			My articles
 		</LinkItem>
 		<LinkItem
 			href="#"
 			description="Will create an article"
-			iconBefore={<BookIcon label="" />}
-			iconAfter={<EmojiAtlassianIcon label="" />}
+			iconBefore={<BookIcon spacing="spacious" label="" />}
+		>
+			My articles
+		</LinkItem>
+		<LinkItem
+			href="#"
+			description="Will create an article"
+			iconBefore={<BookIcon spacing="spacious" label="" />}
+			iconAfter={<StarStarredIcon label="" spacing="spacious" />}
 		>
 			My articles
 		</LinkItem>

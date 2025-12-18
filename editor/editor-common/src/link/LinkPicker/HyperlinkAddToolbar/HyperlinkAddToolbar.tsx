@@ -116,6 +116,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Clear link',
 		description: 'Clears link in the link toolbar',
 	},
+	hyperlinkAriaLabel: {
+		id: 'fabric.editor.hyperlink.ariaLabel',
+		defaultMessage: 'Hyperlink Edit',
+		description: 'Aria label for the Hyperlink Add Toolbar',
+	},
 	searchLinkAriaDescription: {
 		id: 'fabric.editor.hyperlink.searchLinkAriaDescription',
 		defaultMessage: 'Suggestions will appear below as you type into the field',
@@ -613,8 +618,10 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 
 		return (
 			<div
-				// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
-				aria-label="Hyperlink Edit"
+				aria-label={fg('platform_editor_dec_a11y_fixes')
+					? formatMessage(messages.hyperlinkAriaLabel)
+					: 'Hyperlink Edit'
+				}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="recent-list"
 				data-testid="hyperlink-add-toolbar"

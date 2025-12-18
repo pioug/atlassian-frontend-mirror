@@ -31,6 +31,7 @@ export type SolutionArchitectAgentActivationPayload = PayloadCore<
 	}
 >;
 
-export type AutomationRuleUpdatePayload = PayloadCore<'automation-rule-update'> & {
-	data: { rule: string };
-};
+export type StudioAutomationBuildUpdatePayload = PayloadCore<
+	'studio-automation-build-updated',
+	{ buildId: string }
+>;

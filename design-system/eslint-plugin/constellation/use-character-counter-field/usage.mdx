@@ -1,7 +1,7 @@
 # use-character-counter-field
 
-Suggests using `CharacterCounterField` from `@atlaskit/form` when `Textfield` or `Textarea`
-components are used with `maxLength` or `minLength` props within a Form context.
+Suggests using `CharacterCounterField` or `CharacterCounter` from `@atlaskit/form` when `Textfield`
+or `Textarea` components are used with `maxLength` or `minLength` props.
 
 ## Why is this important?
 
@@ -12,7 +12,8 @@ about:
 - Whether they've met a minimum character requirement
 - Whether they're approaching or exceeding a maximum character limit
 
-The `CharacterCounterField` component provides this accessibility benefit out of the box with:
+The `CharacterCounterField` and `CharacterCounter` components provide this accessibility benefit out
+of the box with:
 
 - Visual character count display
 - Screen reader announcements for character count changes
@@ -21,7 +22,11 @@ The `CharacterCounterField` component provides this accessibility benefit out of
 
 ## Examples
 
-### Incorrect ❌
+### Inside Form context
+
+Use `CharacterCounterField` when your input is within a Form.
+
+#### Incorrect ❌
 
 ```tsx
 import Form, { Field } from '@atlaskit/form';
@@ -34,18 +39,7 @@ import Textfield from '@atlaskit/textfield';
 </Form>;
 ```
 
-```tsx
-import Form, { Field } from '@atlaskit/form';
-import Textarea from '@atlaskit/textarea';
-
-<Form onSubmit={handleSubmit}>
-	<Field name="description" label="Description">
-		{({ fieldProps }) => <Textarea {...fieldProps} minLength={50} maxLength={200} />}
-	</Field>
-</Form>;
-```
-
-### Correct ✅
+#### Correct ✅
 
 ```tsx
 import Form, { CharacterCounterField } from '@atlaskit/form';
@@ -58,20 +52,45 @@ import Textfield from '@atlaskit/textfield';
 </Form>;
 ```
 
-```tsx
-import Form, { CharacterCounterField } from '@atlaskit/form';
-import Textarea from '@atlaskit/textarea';
+### Outside Form context (standalone)
 
-<Form onSubmit={handleSubmit}>
-	<CharacterCounterField
-		name="description"
-		label="Description"
-		minCharacters={50}
-		maxCharacters={200}
-	>
-		{({ fieldProps }) => <Textarea {...fieldProps} />}
-	</CharacterCounterField>
-</Form>;
+Use `CharacterCounter` for custom implementations outside of Form context.
+
+#### Incorrect ❌
+
+```tsx
+import Textfield from '@atlaskit/textfield';
+
+<Textfield label="Name" maxLength={50} />;
+```
+
+#### Correct ✅
+
+```tsx
+import { useState } from 'react';
+import { CharacterCounter, Label } from '@atlaskit/form';
+import Textfield from '@atlaskit/textfield';
+
+const [value, setValue] = useState('');
+const maxCharacters = 50;
+const isTooLong = value.length > maxCharacters;
+
+<>
+	<Label htmlFor="name-field">Name</Label>
+	<Textfield
+		id="name-field"
+		value={value}
+		onChange={(e) => setValue(e.currentTarget.value)}
+		aria-describedby="name-field-character-counter"
+		isInvalid={isTooLong}
+	/>
+	<CharacterCounter
+		currentValue={value}
+		maxCharacters={maxCharacters}
+		inputId="name-field"
+		shouldShowAsError={isTooLong}
+	/>
+</>;
 ```
 
 ## Options
@@ -81,11 +100,9 @@ This rule has no options.
 ## When Not To Use It
 
 - If you're not using character limits on your text inputs, this rule won't apply.
-- If your Textfield or Textarea is **not** used within a Form context, this rule doesn't apply as
-  `CharacterCounterField` requires Form context to function.
 
-However, if you are using character limits within a Form, it's strongly recommended to use
-`CharacterCounterField` for better accessibility.
+If you are using character limits, it's strongly recommended to use `CharacterCounterField` (within
+Form) or `CharacterCounter` (standalone) for better accessibility.
 
 ## Related Rules
 

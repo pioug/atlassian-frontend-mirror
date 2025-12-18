@@ -6,6 +6,7 @@ import type { ForwardRef, ReactComponentProps } from '@atlaskit/editor-common/re
 import ReactNodeView, { type getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import { BodiedSyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import { isOfflineMode, type Mode } from '@atlaskit/editor-plugin-connectivity';
 import {
 	DOMSerializer,
 	type DOMOutputSpec,
@@ -60,14 +61,14 @@ class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 		nextViewMode,
 	}: {
 		contentDOM?: HTMLElement | null;
-		nextConnectivityMode?: 'online' | 'offline';
+		nextConnectivityMode?: Mode;
 		nextViewMode?: 'view' | 'edit';
 	}) {
 		const connectivityMode =
 			nextConnectivityMode ?? this.api?.connectivity?.sharedState?.currentState()?.mode;
 		const viewMode = nextViewMode ?? this.api?.editorViewMode?.sharedState?.currentState()?.mode;
 
-		const isOnline = connectivityMode !== 'offline';
+		const isOnline = !isOfflineMode(connectivityMode);
 		const isEditMode = viewMode !== 'view';
 		const shouldBeEditable = isOnline && isEditMode;
 

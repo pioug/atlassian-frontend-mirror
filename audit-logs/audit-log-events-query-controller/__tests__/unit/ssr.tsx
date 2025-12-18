@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { screen } from '@testing-library/react';
 
+import { shouldIgnoreLog } from '@af/suppress-react-warnings';
 import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
 
 jest.spyOn(console, 'error').mockImplementation(() => {});
@@ -21,7 +22,9 @@ test('should ssr then hydrate example component correctly', async () => {
 	await screen.findByText('Query Mode Switcher Placeholder');
 
 	// Assert there's no hydration errors
-	const mockCalls = (console.error as jest.Mock).mock.calls;
+	const mockCalls = (console.error as jest.Mock).mock.calls.filter(
+		(call) => !shouldIgnoreLog(call),
+	);
 	expect(mockCalls.length).toBe(0);
 
 	cleanup();

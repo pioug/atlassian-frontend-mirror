@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import Banner from '@atlaskit/banner';
 import Button, { IconButton } from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
+import EditIcon from '@atlaskit/icon/core/edit';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
-import EditIcon from '@atlaskit/icon/glyph/edit';
 import Lozenge, { type LozengeProps } from '@atlaskit/lozenge';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Stack, Text, xcss } from '@atlaskit/primitives';

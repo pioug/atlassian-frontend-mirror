@@ -1,7 +1,7 @@
 import React from 'react';
 
-import AddItemIcon from '@atlaskit/icon/glyph/add-item';
-import OpenIcon from '@atlaskit/icon/glyph/open';
+import OpenIcon from '@atlaskit/icon/core/arrow-up-right';
+import AddItemIcon from '@atlaskit/icon/core/shortcut';
 import { ButtonItem } from '@atlaskit/side-navigation';
 
 const Example = (): React.JSX.Element => (
@@ -9,19 +9,19 @@ const Example = (): React.JSX.Element => (
 		<ButtonItem>Create article</ButtonItem>
 		<ButtonItem isSelected>Create article</ButtonItem>
 		<ButtonItem isDisabled>Create article</ButtonItem>
-		<ButtonItem iconAfter={<OpenIcon label="" />}>Create article</ButtonItem>
+		<ButtonItem iconAfter={<OpenIcon spacing="spacious" label="" />}>Create article</ButtonItem>
 		<ButtonItem description="Will create an article">Create article</ButtonItem>
-		<ButtonItem iconBefore={<AddItemIcon label="" />}>Create article</ButtonItem>
-		<ButtonItem iconBefore={<AddItemIcon label="" />} iconAfter={<OpenIcon label="" />}>
+		<ButtonItem iconBefore={<AddItemIcon spacing="spacious" label="" />}>Create article</ButtonItem>
+		<ButtonItem iconBefore={<AddItemIcon spacing="spacious" label="" />} iconAfter={<OpenIcon spacing="spacious" label="" />}>
 			Create article
 		</ButtonItem>
-		<ButtonItem description="Will create an article" iconBefore={<AddItemIcon label="" />}>
+		<ButtonItem description="Will create an article" iconBefore={<AddItemIcon spacing="spacious" label="" />}>
 			Create article
 		</ButtonItem>
 		<ButtonItem
 			description="Will create an article"
-			iconBefore={<AddItemIcon label="" />}
-			iconAfter={<OpenIcon label="" />}
+			iconBefore={<AddItemIcon spacing="spacious" label="" />}
+			iconAfter={<OpenIcon spacing="spacious" label="" />}
 		>
 			Create article
 		</ButtonItem>

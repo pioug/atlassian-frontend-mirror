@@ -7,7 +7,7 @@ import { Fragment } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
-import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
+import AppSwitcherIcon from '@atlaskit/icon/core/app-switcher';
 import { PopupSelect } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 

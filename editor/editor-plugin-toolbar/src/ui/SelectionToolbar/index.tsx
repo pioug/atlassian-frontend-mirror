@@ -20,6 +20,7 @@ import {
 	calculateToolbarPositionTrackHead,
 	calculateToolbarPositionOnCellSelection,
 } from '@atlaskit/editor-common/utils';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { AllSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -183,7 +184,7 @@ export const SelectionToolbar = ({
 	const { isDisabled } = useToolbarUI();
 
 	const patch6Enabled = expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true);
-	const isOffline = connectivityStateMode === 'offline';
+	const isOffline = isOfflineMode(connectivityStateMode);
 	const isTextSelection =
 		!editorView.state.selection.empty && editorView.state.selection instanceof TextSelection;
 

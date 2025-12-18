@@ -3,18 +3,10 @@ import React, { useEffect, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
 import { type AppearanceTypes } from '@atlaskit/flag/types';
-import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
+import SuccessIcon from '@atlaskit/icon/core/status-success';
 import { Box } from '@atlaskit/primitives/compiled';
-import { token } from '@atlaskit/tokens';
 
 const appearances: AppearanceTypes[] = ['error', 'info', 'normal', 'success', 'warning'];
-const color = {
-	error: token('color.icon.danger'),
-	info: token('color.icon.information'),
-	normal: token('color.icon.brand'),
-	success: token('color.icon.success'),
-	warning: token('color.icon.warning'),
-};
 
 const AutoDismissExample = (): React.JSX.Element => {
 	const [flags, setFlags] = useState<Array<number>>([]);
@@ -47,9 +39,7 @@ const AutoDismissExample = (): React.JSX.Element => {
 						<AutoDismissFlag
 							appearance={appearance}
 							id={flagId}
-							icon={
-								<SuccessIcon label="Success" size="medium" secondaryColor={color[appearance]} />
-							}
+							icon={<SuccessIcon label="Success" spacing="spacious" />}
 							key={flagId}
 							title={`Flag #${flagId}`}
 							description="I will auto dismiss after 8 seconds"

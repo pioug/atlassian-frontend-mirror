@@ -4,7 +4,7 @@ import Banner from '@atlaskit/banner';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import WarningIcon from '@atlaskit/icon/core/status-warning';
 
 import { head, rows } from './content/sample-data';
 
@@ -16,7 +16,7 @@ export default function TableControlled(): React.JSX.Element {
 
 	return (
 		<>
-			<Banner appearance="warning" icon={<WarningIcon label="" secondaryColor="inherit" />}>
+			<Banner appearance="warning" icon={<WarningIcon spacing="spacious" label=""  />}>
 				This is a stateless table example, which doesn't have pagination support. To navigate pages,
 				use the "Previous page" and "Next page" buttons.
 			</Banner>

@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { jsx, css } from '@compiled/react';
 import Button from '@atlaskit/button/new';
 import TextField from '@atlaskit/textfield';
-import LockIcon from '@atlaskit/icon/core/migration/lock-locked--lock';
+import LockIcon from '@atlaskit/icon/core/lock-locked';
 import Form, { Field, type OnSubmitHandler } from '@atlaskit/form';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
@@ -14,7 +14,7 @@ import { messages } from '@atlaskit/media-ui';
 import { xcss, Box, Flex, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import ErrorIcon from '@atlaskit/icon/core/migration/status-error--error';
+import ErrorIcon from '@atlaskit/icon/core/status-error';
 import Heading from '@atlaskit/heading';
 
 interface PDFPasswordInputProps {

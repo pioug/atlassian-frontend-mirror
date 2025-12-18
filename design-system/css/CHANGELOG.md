@@ -1,5 +1,18 @@
 # @atlaskit/css
 
+## 0.19.0
+
+### Minor Changes
+
+- [`55546332d4ef4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55546332d4ef4) -
+  Restricted `borderRadius` xcss and cssMap types to only accept tokens, 0, and "inherit".
+  Restricted `borderWidth` types to only accept tokens and 0. Previously any string was allowed,
+  this is no longer the case and will throw a type error.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.18.1
 
 ### Patch Changes

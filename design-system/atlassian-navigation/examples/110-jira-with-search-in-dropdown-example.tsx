@@ -20,8 +20,8 @@ import Avatar from '@atlaskit/avatar';
 import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import { DropdownItem } from '@atlaskit/dropdown-menu';
 import { Label } from '@atlaskit/form';
-import EditorAddIcon from '@atlaskit/icon/glyph/add';
-import EditorPeopleIcon from '@atlaskit/icon/glyph/people-group';
+import EditorAddIcon from '@atlaskit/icon/core/add';
+import EditorPeopleIcon from '@atlaskit/icon/core/people-group';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
 import { ButtonItem, HeadingItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
@@ -214,8 +214,8 @@ const OptionsContent = () => (
 		</Box>
 		<Box role="menu" paddingBlock="space.200">
 			<HeadingItem>Your collaborators</HeadingItem>
-			<DropdownItem elemAfter={<EditorAddIcon label="" />}>Invite collaborator</DropdownItem>
-			<DropdownItem elemAfter={<EditorPeopleIcon label="" />}>Create team</DropdownItem>
+			<DropdownItem elemAfter={<EditorAddIcon spacing="spacious" label="" />}>Invite collaborator</DropdownItem>
+			<DropdownItem elemAfter={<EditorPeopleIcon spacing="spacious" label="" />}>Create team</DropdownItem>
 		</Box>
 		<Box paddingBlock="space.200">
 			<HeadingItem>Filter menu</HeadingItem>

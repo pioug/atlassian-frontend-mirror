@@ -1,5 +1,11 @@
 # @atlaskit/editor-extension-googledrive
 
+## 4.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.6
 
 ### Patch Changes

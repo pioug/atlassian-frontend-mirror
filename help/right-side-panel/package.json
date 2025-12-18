@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/right-side-panel",
-	"version": "3.0.11",
+	"version": "3.0.12",
 	"description": "A cross-product right-side-panel component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

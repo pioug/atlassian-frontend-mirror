@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 import { Checkbox } from '@atlaskit/checkbox';
 import Select from '@atlaskit/select';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
-import TrashIcon from '@atlaskit/icon/core/migration/delete--trash';
+import TrashIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/migration/edit';
 import { type CardAction, type CardStatus } from '../src';
 import { CardView } from '../src/card/cardView';

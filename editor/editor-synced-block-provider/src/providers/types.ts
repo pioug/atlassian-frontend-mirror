@@ -107,10 +107,7 @@ export type SyncedBlockRendererProviderOptions = {
 	providerCreator?: SyncBlockRendererProviderCreator;
 };
 
-export abstract class SyncBlockDataProvider extends NodeDataProvider<
-	SyncBlockNode,
-	SyncBlockInstance
-> {
+export abstract class SyncBlockDataProvider extends NodeDataProvider<SyncBlockNode, SyncBlockInstance> {
 	abstract writeNodesData(
 		nodes: SyncBlockNode[],
 		data: SyncBlockData[],
@@ -125,6 +122,7 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 		sourceProduct: SyncBlockProduct,
 		fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
 	): Promise<SyncBlockSourceInfo | undefined>;
+	abstract setProviderOptions(providerOptions: SyncedBlockRendererProviderOptions): void;
 	abstract getSyncedBlockRendererProviderOptions(): SyncedBlockRendererProviderOptions;
 	abstract retrieveSyncBlockParentInfo(
 		sourceAri: string,
@@ -138,7 +136,10 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 	 */
 	abstract generateResourceId(sourceId: ResourceId, localId: BlockInstanceId): ResourceId;
 	abstract generateResourceIdForReference(sourceId: ResourceId): ResourceId;
-	abstract updateReferenceData(blocks: SyncBlockAttrs[], noContent?: boolean ): Promise<UpdateReferenceSyncBlockResult>;
+	abstract updateReferenceData(
+		blocks: SyncBlockAttrs[],
+		noContent?: boolean,
+	): Promise<UpdateReferenceSyncBlockResult>;
 }
 
 export type SubscriptionCallback = (data: SyncBlockInstance) => void;

@@ -2,6 +2,7 @@
 import { screen } from '@testing-library/react';
 
 import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
+import { shouldIgnoreLog } from '@af/suppress-react-warnings';
 
 test('should ssr then hydrate correctly', async () => {
 	const examplePath = require.resolve('../../../../examples/0-basic-example');
@@ -14,8 +15,11 @@ test('should ssr then hydrate correctly', async () => {
 	expect(await screen.findByText('Preview Unavailable')).toBeInTheDocument();
 
 	// NOTE: This test has issues with `act()` warnings for an unexpected reason
-	const mockCalls = (console.error as jest.Mock).mock.calls.filter(([callText]) => {
-		return !callText.includes("It looks like you're using the wrong act()");
+	const mockCalls = (console.error as jest.Mock).mock.calls.filter((args) => {
+		if (String(args).includes("It looks like you're using the wrong act()")) {
+			return true;
+		}
+		return !shouldIgnoreLog(args);
 	});
 
 	// Logs console errors if they exist to quickly surface errors for debuggin in CI

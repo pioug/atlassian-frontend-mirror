@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import TextField from '@atlaskit/textfield';
 
-import { CharacterCounter } from '../../character-counter';
+import CharacterCounter from '../../character-counter';
 
 describe('CharacterCounter', () => {
 	const user = userEvent.setup();

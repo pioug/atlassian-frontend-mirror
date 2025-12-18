@@ -13,7 +13,7 @@ import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type {
 	FormatNodeAnalyticsAttrs,
 	FormatNodeTargetType,
-	TransformNodeAnalyticsAttrs,
+	TransformNodeMetadata,
 } from './editor-commands/transforms/types';
 
 export enum FLAG_ID {
@@ -27,7 +27,7 @@ type FormatNodeCommand = (
 
 type TransformNodeCommand = (
 	targetType: NodeType,
-	analyticsAttrs?: TransformNodeAnalyticsAttrs,
+	metadata?: TransformNodeMetadata,
 ) => EditorCommand;
 
 export type BlockMenuPlugin = NextEditorPlugin<

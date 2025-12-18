@@ -2,10 +2,10 @@ import React, { type ReactElement, type ReactNode, useRef, useState } from 'reac
 
 import Button from '@atlaskit/button/new';
 import Flag, { FlagGroup } from '@atlaskit/flag';
-import Tick from '@atlaskit/icon/glyph/check-circle';
-import Error from '@atlaskit/icon/glyph/error';
-import Info from '@atlaskit/icon/glyph/info';
-import Warning from '@atlaskit/icon/glyph/warning';
+import Error from '@atlaskit/icon/core/status-error';
+import Info from '@atlaskit/icon/core/status-information';
+import Tick from '@atlaskit/icon/core/status-success';
+import Warning from '@atlaskit/icon/core/status-warning';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -25,12 +25,12 @@ const getRandomIcon = (): ReactNode => {
 	return iconArray[Math.floor(Math.random() * iconArray.length)];
 };
 
-const iconMap = (key?: string, color?: string) => {
+const iconMap = (key?: string) => {
 	const icons: { [key: string]: ReactElement } = {
-		info: <Info label="Info" primaryColor={color || token('color.icon.information')} />,
-		success: <Tick label="Success" primaryColor={color || token('color.icon.success')} />,
-		warning: <Warning label="Warning" primaryColor={color || token('color.icon.warning')} />,
-		error: <Error label="Error" primaryColor={color || token('color.icon.danger')} />,
+		info: <Info label="Info" color={token('color.icon.information')} />,
+		success: <Tick label="Success" color={token('color.icon.success')} />,
+		warning: <Warning label="Warning" color={token('color.icon.warning')} />,
+		error: <Error label="Error" color={token('color.icon.danger')} />,
 	};
 
 	return key ? icons[key] : icons;

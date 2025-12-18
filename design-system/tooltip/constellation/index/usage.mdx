@@ -48,7 +48,7 @@ keyboard.
 />
 
 1. **Trigger:** The interactive element which opens the tooltip on hover or keyboard focus.
-2. **Content:** The label or description of the interactive element.
+2. **Content:** The label or description of the interactive element (text only).
 3. **Keyboard keys (optional):** The keyboard shortcut of the mouse action.
 
 <br />
@@ -228,15 +228,19 @@ accessible alternative.
 	different devices and users.
 </DoDont>
 
-### Don’t put interactive elements in tooltips
+### Don’t put interactive or visual elements in tooltips
 
 Never place interactive elements like links or buttons inside tooltips. Tooltips are not accessible
-to keyboard navigation, so users cannot tab into or interact with these elements, making them
+via keyboard navigation, so users cannot tab into or interact with these elements, making them
 inaccessible.
 
+Similarly, visual elements like icons or images should be avoided as they can introduce clutter,
+hurt performance, obscure content, and increase cognitive load. Tooltips are meant to provide quick,
+concise clarification.
+
 Use a [popup](https://atlassian.design/components/popup/examples) or
-[modal dialog](https://atlassian.design/components/modal-dialog/examples) to display interactive
-elements instead.
+[modal dialog](https://atlassian.design/components/modal-dialog/examples) to display interactive and
+visual elements instead.
 
 <DoDont
 	type="do"
@@ -246,7 +250,7 @@ elements instead.
 		alt: 'A popup with a link inside the popup content',
 	}}
 >
-	Use popups or modals to display additional interactive components.
+	Write short and simple tooltip copy.
 </DoDont>
 <DoDont
 	type="dont"
@@ -256,7 +260,7 @@ elements instead.
 		alt: 'A tooltip with a link inside the tooltip content',
 	}}
 >
-	Never put interactive components in tooltips.
+	Never put interactive components or images into tooltips.
 </DoDont>
 
 ### Don’t rely on tooltips alone for keyboard shortcuts

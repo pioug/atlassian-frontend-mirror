@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::d2a39b1d157be340e104617a17e26a18>>
+ * @codegen <<SignedSource::765b2b92134fbe5e83d238edaf99e6b9>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -891,6 +891,7 @@ export type TeamProfileCardFailedRequestAttributesType = {
 	errorNumber: number | null;
 	isSLOFailure: boolean;
 	gateway: boolean;
+	errorStack: string | null;
 };
 export type RovoAgentProfilecardSucceededRequestAttributesType = {
 	firedAt: number;

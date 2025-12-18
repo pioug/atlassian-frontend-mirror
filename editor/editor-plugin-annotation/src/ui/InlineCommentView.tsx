@@ -25,6 +25,7 @@ import {
 	getAnnotationInlineNodeTypes,
 	getRangeInlineNodeNames,
 } from '@atlaskit/editor-common/utils';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -204,7 +205,7 @@ export function InlineCommentView({
 					}}
 					inlineNodeTypes={inlineNodeTypes}
 					isOpeningMediaCommentFromToolbar={isOpeningMediaCommentFromToolbar}
-					isOffline={networkStatusSelector === 'offline'}
+					isOffline={isOfflineMode(networkStatusSelector)}
 				/>
 			</div>
 		);
@@ -275,7 +276,7 @@ export function InlineCommentView({
 					closeComponent()(editorView.state, editorView.dispatch);
 				}}
 				isOpeningMediaCommentFromToolbar={isOpeningMediaCommentFromToolbar}
-				isOffline={networkStatusSelector === 'offline'}
+				isOffline={isOfflineMode(networkStatusSelector)}
 			/>
 		</AnnotationViewWrapper>
 	);

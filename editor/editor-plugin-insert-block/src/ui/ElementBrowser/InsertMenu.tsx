@@ -34,6 +34,7 @@ import {
 	OutsideClickTargetRefContext,
 	withReactEditorViewOuterListeners as withOuterListeners,
 } from '@atlaskit/editor-common/ui-react';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -270,7 +271,7 @@ const InsertMenu = ({
 							category,
 						})
 						?.map((item) =>
-							connectivityMode === 'offline' && item.isDisabledOffline
+							isOfflineMode(connectivityMode) && item.isDisabledOffline
 								? { ...item, isDisabled: true }
 								: item,
 						) ?? [];
@@ -282,7 +283,7 @@ const InsertMenu = ({
 							featuredItems: true,
 						})
 						?.map((item) =>
-							connectivityMode === 'offline' && item.isDisabledOffline
+							isOfflineMode(connectivityMode) && item.isDisabledOffline
 								? { ...item, isDisabled: true }
 								: item,
 						) ?? [];

@@ -12,7 +12,6 @@ import { useId } from '@atlaskit/ds-lib/use-id';
 import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import CloseIcon from '@atlaskit/icon/core/cross';
 import type { Size as IconSize } from '@atlaskit/icon/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
 import { B200, G400, G500, N0, N20, N200, N400, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -132,14 +131,6 @@ const basicStyles = css({
 	},
 });
 
-const iconStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'> span > span': {
-		width: '20px',
-		height: '20px',
-	},
-});
-
 const sizeStyles = cssMap({
 	regular: {
 		borderRadius: token('radius.full'),
@@ -254,14 +245,7 @@ const Toggle = memo(
 
 		const labelId = useId();
 		return (
-			<label
-				{...controlProps}
-				css={[
-					basicStyles,
-					size === 'large' && !fg('platform-visual-refresh-icons') && iconStyles,
-					sizeStyles[size],
-				]}
-			>
+			<label {...controlProps} css={[basicStyles, sizeStyles[size]]}>
 				{label ? (
 					<span id={labelId} hidden>
 						{isLoading ? `${label}${LOADING_LABEL}` : label}

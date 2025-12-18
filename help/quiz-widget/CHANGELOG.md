@@ -1,5 +1,13 @@
 # @atlaskit/quiz-widget
 
+## 3.0.20
+
+### Patch Changes
+
+- [`6a82d7964a37b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a82d7964a37b) -
+  Icon entrypoint migration
+- Updated dependencies
+
 ## 3.0.19
 
 ### Patch Changes

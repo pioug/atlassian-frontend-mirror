@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 
 import type { SyncBlockDataProvider } from '../providers/types';
@@ -42,3 +44,14 @@ export class SyncBlockStoreManager {
 		this.sourceSyncBlockStoreManager.destroy();
 	}
 }
+
+export const useMemoizedSyncBlockStoreManager = (
+	dataProvider?: SyncBlockDataProvider,
+	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
+) => {
+	return useMemo(() => {
+		const syncBlockStoreManager = new SyncBlockStoreManager(dataProvider, fireAnalyticsEvent);
+
+		return syncBlockStoreManager;
+	}, [dataProvider, fireAnalyticsEvent]);
+};

@@ -1,7 +1,7 @@
 import React, { forwardRef, type MouseEvent } from 'react';
 
-import AddItemIcon from '@atlaskit/icon/glyph/add-item';
-import EmojiAtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
+import AddItemIcon from '@atlaskit/icon/core/shortcut';
+import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import { Box } from '@atlaskit/primitives/compiled';
 import { CustomItem, type CustomItemComponentProps } from '@atlaskit/side-navigation';
 
@@ -34,7 +34,7 @@ const Example = (): React.JSX.Element => (
 		<CustomItem
 			href="/create-article-4"
 			component={CustomLink}
-			iconAfter={<EmojiAtlassianIcon label="" />}
+			iconAfter={<StarStarredIcon label="" spacing="spacious" />}
 		>
 			Custom create article
 		</CustomItem>
@@ -48,15 +48,15 @@ const Example = (): React.JSX.Element => (
 		<CustomItem
 			href="/create-article-6"
 			component={CustomLink}
-			iconBefore={<AddItemIcon label="" />}
+			iconBefore={<AddItemIcon spacing="spacious" label="" />}
 		>
 			Custom create article
 		</CustomItem>
 		<CustomItem
 			href="/create-article-7"
 			component={CustomLink}
-			iconBefore={<AddItemIcon label="" />}
-			iconAfter={<EmojiAtlassianIcon label="" />}
+			iconBefore={<AddItemIcon spacing="spacious" label="" />}
+			iconAfter={<StarStarredIcon label="" spacing="spacious" />}
 		>
 			Custom create article
 		</CustomItem>
@@ -64,7 +64,7 @@ const Example = (): React.JSX.Element => (
 			href="/create-article-8"
 			component={CustomLink}
 			description="Will create an article"
-			iconBefore={<AddItemIcon label="" />}
+			iconBefore={<AddItemIcon spacing="spacious" label="" />}
 		>
 			Custom create article
 		</CustomItem>
@@ -72,8 +72,8 @@ const Example = (): React.JSX.Element => (
 			href="/create-article-9"
 			component={CustomLink}
 			description="Will create an article"
-			iconBefore={<AddItemIcon label="" />}
-			iconAfter={<EmojiAtlassianIcon label="" />}
+			iconBefore={<AddItemIcon spacing="spacious" label="" />}
+			iconAfter={<StarStarredIcon label="" spacing="spacious" />}
 		>
 			Custom create article
 		</CustomItem>

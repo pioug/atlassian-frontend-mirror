@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Banner from '@atlaskit/banner';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import WarningIcon from '@atlaskit/icon/core/status-warning';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, Text } from '@atlaskit/primitives';
 
@@ -15,7 +15,7 @@ export default (): React.JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 	<Box as="span" style={{ width: 400 }}>
 		<Stack space="space.200">
-			<Banner icon={<WarningIcon label="Warning" secondaryColor="inherit" />}>
+			<Banner icon={<WarningIcon spacing="spacious" label="Warning"  />}>
 				JIRA Service Desk pricing has been updated. Please migrate within 3 months.
 			</Banner>
 			<Padded>

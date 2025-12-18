@@ -2,7 +2,7 @@ import React, { type ReactElement, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Flag, { FlagGroup } from '@atlaskit/flag';
-import InfoIcon from '@atlaskit/icon/glyph/info';
+import InfoIcon from '@atlaskit/icon/core/status-information';
 import { Box } from '@atlaskit/primitives/compiled';
 
 const ProgrammaticFlagDismissExample = (): React.JSX.Element => {
@@ -12,7 +12,7 @@ const ProgrammaticFlagDismissExample = (): React.JSX.Element => {
 			key="flag1"
 			title="Can I leave yet?"
 			description="Dismiss me by clicking the button on the page"
-			icon={<InfoIcon label="Info" />}
+			icon={<InfoIcon spacing="spacious" label="Info" />}
 			testId="MyFlagTestId"
 		/>,
 	]);

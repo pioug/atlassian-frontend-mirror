@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 110.46.5
+
+### Patch Changes
+
+- [`1efd039050d7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1efd039050d7b) -
+  [ux] [ENGHEALTH-47470] internationalise literal strings behind fg platform_editor_dec_a11y_fixes
+- [`2b78b030e4e42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b78b030e4e42) -
+  EDITOR-3952 Update style for task in destination synced block
+- [`073a50c69fb2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/073a50c69fb2e) -
+  [ux] [ENGHEALTH-47470] internationalise literal strings behind fg platform_editor_dec_a11y_fixes
+- Updated dependencies
+
+## 110.46.4
+
+### Patch Changes
+
+- [`ed3e203b8b0da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed3e203b8b0da) -
+  [ux] [ENGHEALTH-47470] internationalise literal strings behind fg platform_editor_dec_a11y_fixes
+- Updated dependencies
+
+## 110.46.3
+
+### Patch Changes
+
+- [`79172823f4e47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79172823f4e47) -
+  [ux] EDITOR-3961 strip breakout mark from renderer sync block html
+- [`a528ea956ce65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a528ea956ce65) -
+  [ux] EDITOR-3956 fix sync block resize handle padding and alignment
+- Updated dependencies
+
 ## 110.46.2
 
 ### Patch Changes

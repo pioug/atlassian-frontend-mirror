@@ -1,5 +1,18 @@
 # @atlaskit/popup
 
+## 4.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.8.1
+
+### Patch Changes
+
+- [`70f2d1e65958d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70f2d1e65958d) -
+  Clean up flag.
+
 ## 4.8.0
 
 ### Minor Changes

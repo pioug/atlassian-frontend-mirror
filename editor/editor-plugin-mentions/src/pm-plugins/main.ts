@@ -12,8 +12,6 @@ import type {
 	PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
 import type { EditorState, SafeStateField } from '@atlaskit/editor-prosemirror/state';
-import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { insm } from '@atlaskit/insm';
 import type { MentionProvider } from '@atlaskit/mention/resource';
 import { SLI_EVENT_TYPE, SMART_EVENT_TYPE } from '@atlaskit/mention/resource';
@@ -23,7 +21,6 @@ import {
 	type SliNames,
 } from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
 import { MentionNodeView } from '../nodeviews/mentionNodeView';
@@ -154,11 +151,7 @@ export function createMentionPlugin({
 					localId: string;
 				};
 
-				if (
-					expValEquals('platform_editor_new_mentions_detection_logic', 'isEnabled', true) &&
-					options?.handleMentionsChanged &&
-					tr.docChanged
-				) {
+				if (options?.handleMentionsChanged && tr.docChanged) {
 					insm.session?.startFeature('mentionDeletionDetection');
 
 					const mentionSchema = newState.schema.nodes.mention;
@@ -228,7 +221,7 @@ export function createMentionPlugin({
 		} as SafeStateField<MentionPluginState>,
 		props: {
 			nodeViews: {
-				mention: (node, view, getPos, decorations, innerDecorations) => {
+				mention: (node) => {
 					return new MentionNodeView(node, {
 						options,
 						api,
@@ -306,34 +299,6 @@ export function createMentionPlugin({
 					}
 					if (mentionProvider) {
 						mentionProvider.unsubscribe('mentionPlugin');
-					}
-				},
-				update(view: EditorView, prevState: EditorState) {
-					const newState = view.state;
-					if (
-						!expValEquals('platform_editor_new_mentions_detection_logic', 'isEnabled', true) &&
-						options?.handleMentionsChanged
-					) {
-						const mentionSchema = newState.schema.nodes.mention;
-						const mentionNodesBefore = findChildrenByType(prevState.doc, mentionSchema);
-						const mentionLocalIdsAfter = new Set(
-							findChildrenByType(newState.doc, mentionSchema).map(({ node }) => node.attrs.localId),
-						);
-
-						if (mentionNodesBefore.length > mentionLocalIdsAfter.size) {
-							const deletedMentions: { id: string; localId: string; type: 'deleted' }[] =
-								mentionNodesBefore
-									.filter(({ node }) => !mentionLocalIdsAfter.has(node.attrs.localId))
-									.map(({ node }) => ({
-										type: 'deleted',
-										id: node.attrs.id,
-										localId: node.attrs.localId,
-									}));
-
-							if (deletedMentions.length > 0) {
-								options.handleMentionsChanged(deletedMentions);
-							}
-						}
 					}
 				},
 			};

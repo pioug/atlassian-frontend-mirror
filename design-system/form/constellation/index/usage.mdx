@@ -4,6 +4,8 @@ order: 2
 
 import FormButtonFeedbackDo from '../images/form-button-feedback-do.png';
 import FormButtonFeedbackDont from '../images/form-button-feedback-dont.png';
+import FormConciseLabelDo from '../images/form-concise-label-do.png';
+import FormConciseLabelDont from '../images/form-concise-label-dont.png';
 import FormDefaultValuesDo from '../images/form-default-values-do.png';
 import FormDefaultValuesDont from '../images/form-default-values-dont.png';
 import FormGroupingDo from '../images/form-grouping-do.png';
@@ -14,157 +16,89 @@ import FormMultipleActionButtonsDo from '../images/form-multiple-action-buttons-
 import FormMultipleActionButtonsDont from '../images/form-multiple-action-buttons-dont.png';
 import FormOneColumnDo from '../images/form-one-column-do.png';
 import FormOneColumnDont from '../images/form-one-column-dont.png';
+import FormPlaceholderDo from '../images/form-placeholder-do.png';
+import FormPlaceholderDont from '../images/form-placeholder-dont.png';
+import FormReflectActionDo from '../images/form-button-reflects-action-do.png';
+import FormReflectActionDont from '../images/form-button-reflects-action-dont.png';
+import FormRequiredFieldDo from '../images/form-required-field-do.png';
+import FormRequiredFieldDont from '../images/form-required-field-dont.png';
+import FormVisibleLabelDo from '../images/form-visible-label-do.png';
+import FormVisibleLabelDont from '../images/form-visible-label-dont.png';
+
 
 ## Usage
 
-Use forms when input is required to complete an action. Forms direct people to provide and submit
-relevant information, such as changing personal settings or creating a Jira work item.
+Use a form when you want people to provide and submit relevant information, such as changing personal settings or creating a work item.
 
-Think carefully about structure, sequence, interface elements, field labels, help, and feedback.
-
-Common form components include [text fields](/components/textfield/examples),
-[selects](/components/select/examples), [radio buttons](/components/radio/examples),
-[checkboxes](/components/checkbox/examples),
-[date pickers](/components/datetime-picker/date-picker/examples),
-[toggles](/components/toggle/examples), and [buttons](/components/button/examples).
+Components that can be used within a form include [text fields](https://atlassian.design/components/textfield/examples), [text areas](https://atlassian.design/components/textarea/examples), [selects](https://atlassian.design/components/select/examples), [radio buttons](https://atlassian.design/components/radio/examples), [checkboxes](https://atlassian.design/components/checkbox/examples),
+[date and time pickers](https://atlassian.design/components/datetime-picker/date-picker/examples),
+[toggles](https://atlassian.design/components/toggle/examples), [ranges](https://atlassian.design/components/range/examples), and [buttons](https://atlassian.design/components/button/examples).
 
 ## Anatomy
 
-![The example form is "Create a project" and it has five fields: Project name, key, description, project permissions, and user access.](../images/form-anatomy.png)
+![The anatomy form example has a heading of "Create a project" and it has three fields: Project name, description, and project permissions.](../images/form-anatomy.png)
 
-1. **Title:** Use a concise form title to explain the form’s context. Make sure you follow correct
-   [heading hierarchy](/components/heading/usage#hierarchy). If needed, follow the title with a
-   short description.
-2. **Labels:** Labels are required for all form inputs. Standard label alignment is left-aligned
-   with the field underneath. Use a combination of a concise label and helper text to explain the
-   field input.
-3. **Placeholder text:** Avoid placeholders whenever possible. Never use placeholder text to
-   communicate critical information — this is not accessible. Instead, use field labels or helper
-   text to describe the purpose of the field and how to use it. Placeholders can, however, be used
-   for search fields.
-4. **Required field**: Clearly communicate fields that are required. Don’t rely on asterisks alone
-   to communicate which fields are required; make sure there is also a legend at the top of the form
-   that says: 'Required fields are marked with an asterisk'. If all fields in the form are
-   mandatory, add asterisks to every field and in the legend write 'All fields are required'.
-5. **Form section:** Use sections to group the form fields into smaller parts. Include a section
-   title to describe the group of controls and fields. Make the title concise and informative. But
-   if you need to, you can add a short description to explain the group.
-6. **Disabled fields:** Show disabled fields if users need to know what controls might not be
-   available to them.
-7. **Form footer:** Always use a submit button and distinguish primary and secondary buttons.
+1. **Title**: Use a short title to explain the form’s intention.
+2. **Description** (optional): A short description can be placed after the title.
+3. **Required fields legend**: When a form has required fields, always include the legend. View legend wording.
+4. **Required fields**: Use a red asterisk after the field label to clearly show required fields.
+5. **Helper text**: Use for information that clarifies the input and helps people fill in the field.
+6. **Labels:** Labels are required for all form inputs. Labels should be concise, left-aligned, and placed above a form field.
+7. **Character counter**: Use when a field has a character limit to show a real-time countdown of characters used. View details of the [character counter](https://atlassian.design/components/form/examples#charactercounterfield).
+8. **Form section:** Use sections to group form fields into smaller parts. Include a concise section title to describe the group of controls and fields. If needed, add a short description to explain the section.
+9. **Form footer:** Always use a submit button and distinguish primary and secondary buttons. Read about [button placement](#positioning-buttons-in-forms).
 
-**Field length**: The length of the field should reflect the intended length of content. Available
-lengths are 75px, 150px, 250px, 350px, and 500px.
 
-## Accessibility
+## Accessibility guidance for forms
 
-- Ensure there is a legend at the top of the form so people know that `*` indicates a required
-  field.
-- Autofocus the first field by default. This allows users to tab through elements in the form in a
+- Autofocus the first field by default. This allows people to tab through elements in the form in a
   logical way.
+- Make sure all fields have a visible and accessible label. The only exception to a visible label is for a search field, but only when it has an icon, placeholder, and accessible label.
 - Never disable a submit button, even if all of the required fields aren't filled in. Instead,
-  describe what needs to be done with clear instructions, and
-  [validation and error messages](#validation-and-error-messages).
-- Avoid using placeholder text wherever possible. If you do use placeholder text, don't include any
-  critical information in the placeholder text.
-- Make sure all fields have an accessible label visible. Search fields are sometimes an exception to
-  this.
+  describe what needs to be done with clear instructions and [validation and error messages](#validation-and-error-messages).
 - Use
   [standard HTML autofill tokens](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute)
   to reduce typing and user error by letting the browser suggest previously saved information.
-- Persist forms on refresh so that user data isn’t lost.
-- Validate forms inline so keyboard users don't have to navigate far to get feedback. Ideally, make
-  the interactions and written instructions clear to prevent errors happening in the first place,
-  and help people fix problems as they occur.
-- Use `MessageWrapper` to wrap error messages. This must be not be dynamically loaded but already in
-  the DOM at the time the form is rendered.
-- Match keyboard to input on mobile.
+- Persist forms on refresh so user data isn’t lost.
+- Validate forms inline so people using keyboards don't have to navigate far to get feedback.
+- Make interactions and written instructions clear to prevent errors and help people fix problems as they occur.
+- On mobile, match the keyboard to the input type. For example: if asking for a phone number, bring up the numbers keys.
 
-## Buttons
-
-- State the action that the buttons perform when clicked.
-- Use a primary button for the main action then, as required, any standard buttons followed by a
-  link button.
-- Use a link button for cancel.
-- Avoid multiple action buttons and avoid a reset button. This will reduce confusion about how to
-  submit the form.
+### Avoid placeholder text
+- Don’t use placeholder text – it isn’t accessible and won’t be read out by assistive technologies.
+- **Exception**: placeholder text can be used in search fields. But make sure you use an icon and accessible label so it’s announced to people using assistive technology.
 
 <DoDont
 	type="do"
 	image={{
-		url: FormMultipleActionButtonsDo,
-		alt: 'Form with a single "Create" action button.',
+		url: FormPlaceholderDo,
+		alt: 'Text field in a formwith helper text saying"Minimum 12 characters. Use a mix of symbols, numbers, and lower and upper case letters.',
 	}}
 >
-	Use clear, binary actions for clean form submission.
+	Use helper text to give information that helps people fill in the field.
 </DoDont>
 
 <DoDont
 	type="dont"
 	image={{
-		url: FormMultipleActionButtonsDont,
-		alt: 'Form with a "Create" action button, and a "Manage trials" action button.',
+		url: FormPlaceholderDont,
+		alt: 'Text field in a formwith placeholder text saying "Minimum 12 characters".',
 	}}
 >
-	Use multiple action buttons and a reset button at the bottom of the form.
+	Don't use placeholder text to give critical information.
 </DoDont>
-
-Ensure the primary action button provides feedback that the form is being submitted.
-
-<DoDont
-	type="do"
-	image={{
-		url: FormButtonFeedbackDo,
-		alt: 'Form where the "Create" button is replaced by a spinner.',
-	}}
->
-	Give feedback to show that form is being submitted.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: FormButtonFeedbackDont,
-		alt: 'Form where the "Create" button is disabled.',
-	}}
->
-	Provide no feedback on submit.
-</DoDont>
-
-## Button positioning
-
-In most cases buttons are sorted by importance from right to left, with the most important button
-(primary) on the **right**.
-
-![Button positioned to the right in a modal.](../images/button-positioning-1.png)
-
-![Button positioned to the right in a page.](../images/button-positioning-2.png)
-
-In some cases, **left align buttons** with the **primary button on the left**:
-
-- single-page forms
-- multi-step forms
-- flags
-- section messages
-- [Data Center forms](https://docs.atlassian.com/aui/latest/docs/forms.html)
-
-![Button positioned to the left in a form.](../images/button-positioning-3.png)
-
-In other cases, use **center-aligned buttons**:
-
-- Benefits modal
-- Login forms
 
 ## Layout
 
-Group related sections into logical sets to help people understand the information they need to
-enter.
+The width of a form typically follows the width of where it lives, for example in a modal or page.
+
+Use [form sections](https://atlassian.design/components/form/examples#form-section) to group related fields into logical sections. This helps people better understand the information they need to enter.
 
 <DoDont
 	type="do"
 	image={{
 		url: FormGroupingDo,
-		alt: 'Form example where the fields "Project" and "Work type" are grouped under a subheading "Location and type".',
+		alt: 'Form example where the fields "Project" and "Work type" are grouped under the subheading "Location and type".',
 	}}
 >
 	Group related information into form sections.
@@ -177,51 +111,46 @@ enter.
 		alt: 'Form example where the fields are not grouped.',
 	}}
 >
-	Provide one form of unrelated information.
+	Don't provide a form of unrelated information.
 </DoDont>
 
-Use one form column to enable fast field comprehension.
+Use one form column as it’s easier to follow and comprehend. People using screen magnifiers may also miss content in a second column.
 
 <DoDont
 	type="do"
 	image={{
 		url: FormOneColumnDo,
-		alt: 'Form fields are in one column.',
+		alt: 'All form fields are in one column.',
 	}}
 >
-	Use one form column.
+	Use only one column in a form.
 </DoDont>
 
 <DoDont
 	type="dont"
 	image={{
 		url: FormOneColumnDont,
-		alt: 'Form fields are in two columns',
+		alt: 'Form fields spread over two columns',
 	}}
 >
-	Use multiple form columns.
+	Don't use multiple form columns.
 </DoDont>
-
-Max-width: **624px**, recommended by the [cozy grid](/foundations/grid#gutter-spacing). In other
-cases, assume that the width typically follows where the form lives in a modal, focused task, page,
-etc.
 
 ## Fields and labels
 
-- Reduce the number of fields in your form to avoid a large cognitive load for people, and help them
-  submit the form faster.
+### Fields
+
+- Limit the number of form fields to avoid cognitive load and help people submit the form faster.
 - Avoid optional fields by only asking for relevant information.
-- Avoid using default selections, or, instead, use smart defaults. For example, preselect the user's
+- Instead of using default selections, use smart defaults where relevant. For example, preselect the user's
   country based on location data.
-- Always include a visible label with an input field. Don't use placeholder text in place of labels.
-  The only exception to this is for search fields, which often have icons or other indicators of
-  purpose.
+- The length of a field should reflect the intended length of content. Available lengths are 75px, 150px, 250px, 350px, and 500px.
 
 <DoDont
 	type="do"
 	image={{
 		url: FormDefaultValuesDo,
-		alt: 'Account preferences form with the default time zone set to Australia/Brisbane.',
+		alt: 'Account preferences form with the default language set to English (AU) and time zone set to Australia/Brisbane.',
 	}}
 >
 	Provide smart default values.
@@ -231,13 +160,11 @@ etc.
 	type="dont"
 	image={{
 		url: FormDefaultValuesDont,
-		alt: 'Account preferences form with the default time zone set to Europe/Amsterdam.',
+		alt: 'Account preferences form with the default language set to English (AU) and time zone set to Europe/Amsterdam.',
 	}}
 >
-	Provide random default values.
+	Don't give random default values.
 </DoDont>
-
-Use input masks to help users understand correct field formats.
 
 <DoDont
 	type="do"
@@ -246,45 +173,207 @@ Use input masks to help users understand correct field formats.
 		alt: 'The password field is obscured by an input mask.',
 	}}
 >
-	Use input masks.
+	Use input masks to help users understand correct field formats.
 </DoDont>
 
 <DoDont
 	type="dont"
 	image={{
 		url: FormInputMasksDont,
-		alt: 'The password field is plain text.',
+		alt: 'The password field shows plain text while typing.',
 	}}
 >
-	Use default inputs for particular fields.
+	Don’t use default inputs for particular fields.
 </DoDont>
 
-## Long forms
+### Required fields
+When a form has required fields, always include a legend at the top of the form and add an asterisk after the field label.
 
-When people access a form, it can be daunting to be shown a large number of fields.
+- In the legend, use the wording: 'Required fields are marked with an asterisk *'
+- If a form has a description, place the legend after the description.
+- Use a red asterisk (*) after the field label to clearly show which fields are required.
 
-While too long depends on the audience and context, there are several ways to make long forms easier
-for people:
+<DoDont
+	type="do"
+	image={{
+		url: FormRequiredFieldDo,
+		alt: 'A form that has the required field legend under its header.',
+	}}
+>
+	Always include the legend: Required fields are marked with an asterisk *.
+</DoDont>
 
-- break them up into multiple steps
-- use progressive disclosure
+<DoDont
+	type="dont"
+	image={{
+		url: FormRequiredFieldDont,
+		alt: 'A form that has asterisks (*) next to field labels but without a legend.',
+	}}
+>
+	Don’t forget the legend and only mark a required field with an asterisk (*).
+</DoDont>
 
-### Multi-step forms
+### Labels
+- Always include a visible label with an input field.
+- The only exception is for a search field that has an icon, placeholder, and accessible label.
 
-You can spread form fields across more than one screen using a
-[progress tracker](/components/progress-tracker).
+<DoDont
+	type="do"
+	image={{
+		url: FormVisibleLabelDo,
+		alt: 'Two text fields in a form show a visible label above them.',
+	}}
+>
+	Always include a visible label.
+</DoDont>
 
-In multi-step forms, each screen should show fields that belong together. Make sure people know
-their status at each step of a form, and make sure their progress is saved.
+<DoDont
+	type="dont"
+	image={{
+		url: FormVisibleLabelDont,
+		alt: 'Two form text fields have inaccessibleplaceholder text inside them',
+	}}
+>
+	Don’t use placeholder text instead of a visible label.
+</DoDont>
 
-### Progressive disclosure
+Write concise labels and avoid using verbs.
 
-You can configure a form to show more content as users go through the form and use its fields and
-controls.
+<DoDont
+	type="do"
+	image={{
+		url: FormConciseLabelDo,
+		alt: 'The visible label uses a noun "Description"',
+	}}
+>
+	Describe the field.
+</DoDont>
 
-Use this technique when it isn’t necessary to see all controls unless users have made specific
-decisions, for example, if they ticked a particular checkbox additional information would be
-revealed.
+<DoDont
+	type="dont"
+	image={{
+		url: FormConciseLabelDont,
+		alt: 'The visible label uses a verb before the noun "Add a description".',
+	}}
+>
+	Don’t use a verb or action in a label.
+</DoDont>
+
+## Buttons
+
+- Use a primary button for the main action. Then, if required, use a standard or a link button.
+- Use a link button for a 'cancel' action.
+- The button label should state the action the button performs when selected.
+
+Avoid multiple action buttons and reset buttons. This will reduce confusion about how to submit the form.
+
+<DoDont
+	type="do"
+	image={{
+		url: FormMultipleActionButtonsDo,
+		alt: 'Form with a single primary "Create" button and a secondary "Cancel" button.',
+	}}
+>
+	Use clear, binary actions in button labels.
+</DoDont>
+
+<DoDont
+	type="dont"
+	image={{
+		url: FormMultipleActionButtonsDont,
+		alt: 'Form with a single primary "Create" button, a secondary "Manage trials" button and a subtle "Cancel" button.',
+	}}
+>
+	Don't use multiple action buttons and a cancel button in the footer of a form.
+</DoDont>
+
+Ensure the primary action button provides feedback that the form is being submitted.
+
+<DoDont
+	type="do"
+	image={{
+		url: FormButtonFeedbackDo,
+		alt: 'Form where the "Create" button is replaced by a spinner.',
+	}}
+>
+	Give feedback, like a spinner, to show the form is being submitted.
+</DoDont>
+
+<DoDont
+	type="dont"
+	image={{
+		url: FormButtonFeedbackDont,
+		alt: 'Form where the "Create" button remains the same and shows no feedback.',
+	}}
+>
+	Don't let the user question whether their action might not have worked.
+</DoDont>
+
+The button’s label should reflect the action in the heading.
+
+<DoDont
+	type="do"
+	image={{
+		url: FormReflectActionDo,
+		alt: 'Form heading and button both give "log in" as the action.',
+	}}
+>
+	If your form has an action (verb) in the heading, use the same action in the button label.
+</DoDont>
+
+<DoDont
+	type="dont"
+	image={{
+		url: FormReflectActionDont,
+		alt: 'Form heading says "log in" but the button says "Submit".',
+	}}
+>
+	Don’t show a different action in the button label. Align it with the form’s heading.
+</DoDont>
+
+
+### Positioning buttons in forms
+
+How buttons are aligned depends on the type of form you’re designing. For detailed guidance on button positioning, view [button alignment and positioning](https://atlassian.design/components/button/usage#alignment-and-positioning).
+
+| Left-aligned buttons | Right-aligned buttons | Center-aligned buttons |
+|---------------------|-----------------------|------------------------|
+|- Single-page forms    |- Modal dialogs          | - Login forms            |
+|- Multi-step forms     |- Series of tasks, such as [spotlights](https://atlassian.design/components/spotlight/examples)| |
+|- [Data Center forms](https://docs.atlassian.com/aui/latest/docs/forms.html) |- Focussed tasks|  |
+
+![Three forms sit side-by-side: songle page form with buttons left-aligned, modal form with right-aligned buttons and a login form with center-aligned buttons.](../images/button-alignment.png)
+
+## Character counter
+
+A character counter shows people how many characters can be entered into a text field or text area. It provides real-time feedback on characters used and remaining.
+
+A counter can be set to show a maximum length, minimum length, and both a minimum and maximum length. View an [interactive example of character counter](https://atlassian.design/components/form/examples#charactercounterfield).
+
+### Maximum length
+
+Use to set a maximum number of characters for a field.
+
+![A field with a character counter showing the maximum number of characters that can be entered.](../images/character-counter-max.png)
+
+### Minimum length
+
+Use for setting a minimum number of characters on a text field or field label.
+
+![A field with a character counter showing the minimum number of characters that can be entered.](../images/character-counter-min.png)
+
+### Minimum and maximum length
+
+Use when your field has both a minimum and maximum character count.
+
+![A field with a character counter showing both the minimum and maximum number of characters that can be entered.](../images/character-counter-min-max.png)
+
+1. **Minimum length** - the first message shows the minimum number of characters that can be entered.
+2. **Maximum length** - When the minimum character length has been met, the second message displays the maximum number of characters that can be entered.
+
+### Helper text placement
+
+The placement of helper text differs on a character counter to allow for the counter to update in real time. It is designed to sit under the label of a text field or text area.
 
 ## Validation and error messages
 
@@ -300,13 +389,44 @@ additional information to be shown.
 The focus color changes to blue when a user selects the text field and starts typing or changes
 content.
 
-When validating text fields in real-time, message icons will switch depending on the message type.
-For example, helper text changes into an error message when the content being input doesn't fit the
-criteria. Error and warning messages disappear when the criteria is met.
+When validating text fields in real-time, a warning or error icon will appear when the content entered doesn't fit the criteria. If there’s helper text in text fields or text areas, it will be replaced by a warning or error message.
+
+Error and warning messages disappear when the criteria is met.
+
+## Long forms
+
+When people access a form, it can be daunting to be shown a large number of fields.
+
+While what ‘long’ is depends on audience and context, there are ways to make long forms easier for people.
+
+- Break up forms into multiple steps.
+- Use progressive disclosure.
+- Try to only use required fields.
+
+## Multi-step forms
+
+You can spread form fields across more than one screen to make a multi-step form using a
+[progress tracker](https://atlassian.design/components/progress-tracker).
+
+- Make sure each screen contains fields that belong together.
+- Ensure people know their status at each step of a form and that their progress is saved.
+
+## Progressive disclosure
+
+Use [conditional fields](https://atlassian.design/components/form/examples#conditional-fields) to configure a form to show more content as users fill in its fields.
+
+Use this technique when it isn’t necessary to see all fields unless someone has made a specific
+decision. For example, if they tick a particular checkbox, related information would be revealed.
 
 ## Related
 
-- For more guidance on buttons, see the [button component](/components/button/usage).
-- Other fields which can be used in forms include [text field](/components/textfield/examples),
-  [text area](/components/textarea/examples), [checkbox](/components/checbox/examples), and
-  [range](/components/range/examples).
+Numerous input components can be added to a form component. See the individual component pages for the details of using:
+- [buttons](https://atlassian.design/components/button/usage).
+- [checkboxes](https://atlassian.design/components/checkbox/usage)
+- [date and time pickers](https://atlassian.design/components/datetime-picker/usage)
+- [radio buttons](https://atlassian.design/components/radio/usage)
+- [ranges](https://atlassian.design/components/range/usage)
+- [selects](https://atlassian.design/components/select/usage)
+- [text areas](https://atlassian.design/components/textarea/usage)
+- [text fields](https://atlassian.design/components/textfield/usage)
+- [toggles](https://atlassian.design/components/toggle/usage)

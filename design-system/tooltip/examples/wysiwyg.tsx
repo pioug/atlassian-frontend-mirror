@@ -2,13 +2,13 @@ import React from 'react';
 
 import { styled } from '@compiled/react';
 
-import BoldIcon from '@atlaskit/icon/glyph/editor/bold';
-import BulletListIcon from '@atlaskit/icon/glyph/editor/bullet-list';
-import CodeIcon from '@atlaskit/icon/glyph/editor/code';
-import ItalicIcon from '@atlaskit/icon/glyph/editor/italic';
-import LinkIcon from '@atlaskit/icon/glyph/editor/link';
-import NumberListIcon from '@atlaskit/icon/glyph/editor/number-list';
-import UnderlineIcon from '@atlaskit/icon/glyph/editor/underline';
+import CodeIcon from '@atlaskit/icon/core/angle-brackets';
+import LinkIcon from '@atlaskit/icon/core/link';
+import BulletListIcon from '@atlaskit/icon/core/list-bulleted';
+import NumberListIcon from '@atlaskit/icon/core/list-numbered';
+import BoldIcon from '@atlaskit/icon/core/text-bold';
+import ItalicIcon from '@atlaskit/icon/core/text-italic';
+import TextUnderlineIcon from '@atlaskit/icon/core/text-underline';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -35,13 +35,13 @@ const Action = styled.button({
 });
 
 const ACTIONS: { [key: string]: React.ReactElement } = {
-	Bold: <BoldIcon label="Bold" />,
-	Italic: <ItalicIcon label="Italic" />,
-	Underline: <UnderlineIcon label="Underline" />,
-	Link: <LinkIcon label="Link" />,
-	'Bullet List': <BulletListIcon label="Bullet List" />,
-	'Number List': <NumberListIcon label="Number List" />,
-	Source: <CodeIcon label="Source" />,
+	Bold: <BoldIcon spacing="spacious" label="Bold" />,
+	Italic: <ItalicIcon spacing="spacious" label="Italic" />,
+	Underline: <TextUnderlineIcon spacing="spacious" label="Underline" />,
+	Link: <LinkIcon spacing="spacious" label="Link" />,
+	'Bullet List': <BulletListIcon spacing="spacious" label="Bullet List" />,
+	'Number List': <NumberListIcon spacing="spacious" label="Number List" />,
+	Source: <CodeIcon spacing="spacious" label="Source" />,
 };
 
 export default function WysiwygExample(): React.JSX.Element {

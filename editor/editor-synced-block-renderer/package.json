@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-synced-block-renderer",
-	"version": "4.0.7",
+	"version": "4.0.10",
 	"description": "SyncedBlockRenderer for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -43,6 +43,7 @@
 		"@atlaskit/renderer": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "root:*",
 		"react-relay": "root:*",
 		"relay-runtime": "root:*"

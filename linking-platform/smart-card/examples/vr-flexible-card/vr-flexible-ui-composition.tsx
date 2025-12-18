@@ -5,7 +5,7 @@
 import { css, jsx } from '@compiled/react';
 import { IntlProvider } from 'react-intl-next';
 
-import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { response1, response2, response3, response4 } from '@atlaskit/link-test-helpers';

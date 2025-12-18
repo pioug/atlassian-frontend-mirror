@@ -195,6 +195,7 @@ describe('UserProfileCardClient', () => {
 						errorType: null,
 						errorPath: null,
 						errorCategory: null,
+						errorStack: null,
 						errorDetails: [
 							{
 								...failedEvent.attributes.errorDetails[0],
@@ -206,6 +207,7 @@ describe('UserProfileCardClient', () => {
 								errorCount: null,
 								traceId: null,
 								errorDetails: null,
+								errorStack: null,
 							},
 						],
 					},

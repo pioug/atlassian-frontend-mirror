@@ -8,8 +8,8 @@ import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
-import ArrowRight from '@atlaskit/icon/glyph/arrow-right';
-import MenuIcon from '@atlaskit/icon/glyph/menu';
+import ArrowRight from '@atlaskit/icon/core/arrow-right';
+import MenuIcon from '@atlaskit/icon/core/menu';
 import { ButtonItem, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
@@ -62,7 +62,7 @@ const NestedPopup: FC<NestedPopupProps> = ({ level }) => {
 								testId="nested-popup-trigger"
 								isSelected={isOpen}
 								onClick={() => setIsOpen(true)}
-								iconAfter={<ArrowRight label="" />}
+								iconAfter={<ArrowRight spacing="spacious" label="" />}
 							>
 								More actions (Level {level})
 							</ButtonItem>

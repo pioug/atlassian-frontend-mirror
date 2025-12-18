@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DocumentFilledIcon from '@atlaskit/icon/core/migration/file--document-filled';
+import DocumentFilledIcon from '@atlaskit/icon/core/file';
 import { isConfluenceGenerator } from '@atlaskit/link-extractors';
 
 import BlogIcon from '../../../common/ui/icons/blog-icon';

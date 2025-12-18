@@ -10,7 +10,7 @@ import React, {
 	useImperativeHandle,
 	forwardRef,
 } from 'react';
-import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
+import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
 import Tooltip from '@atlaskit/tooltip';
 import { COLOR_PALETTE_MENU, KEY_ENTER, KEY_SPACE, KEY_TAB } from '../constants';
 import { css, jsx } from '@atlaskit/css';

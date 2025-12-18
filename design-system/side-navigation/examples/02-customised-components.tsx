@@ -6,7 +6,7 @@ import { forwardRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import NestIcon from '@atlaskit/icon/glyph/editor/number-list';
+import NestIcon from '@atlaskit/icon/core/list-numbered';
 import { type CustomItemComponentProps } from '@atlaskit/menu';
 import {
 	ButtonItem,
@@ -80,7 +80,7 @@ const CustomisedExample = () => {
 			id="1-1"
 			title={<div css={containerStyles}>Custom Title Component</div>}
 			css={customNestingItemStyles}
-			iconBefore={<NestIcon label="" />}
+			iconBefore={<NestIcon spacing="spacious" label="" />}
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
 			overrides={{
 				GoBackItem: {
@@ -96,7 +96,7 @@ const CustomisedExample = () => {
 		<NestingItem
 			id="1"
 			title="Styled using className"
-			iconBefore={<NestIcon label="" />}
+			iconBefore={<NestIcon spacing="spacious" label="" />}
 			css={customNestingItemStyles}
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
 			overrides={{
@@ -129,12 +129,12 @@ const CustomisedExample = () => {
 						id="2"
 						title="NestingItem 2"
 						component={CustomComponent}
-						iconBefore={<NestIcon label="" />}
+						iconBefore={<NestIcon spacing="spacious" label="" />}
 					>
-						<NestingItem id="2-1" title="NestingItem 2-1" iconBefore={<NestIcon label="" />}>
+						<NestingItem id="2-1" title="NestingItem 2-1" iconBefore={<NestIcon spacing="spacious" label="" />}>
 							<ButtonItem>2-1-Leaf</ButtonItem>
 						</NestingItem>
-						<NestingItem id="2-2" title="NestingItem 2-2" iconBefore={<NestIcon label="" />}>
+						<NestingItem id="2-2" title="NestingItem 2-2" iconBefore={<NestIcon spacing="spacious" label="" />}>
 							<ButtonItem>2-2-Leaf</ButtonItem>
 						</NestingItem>
 					</NestingItem>

@@ -734,11 +734,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			return;
 		}
 
-		if (
-			shouldFocus &&
-			editorView?.props.editable?.(editorView.state) &&
-			fg('platform_editor_react_18_autofocus_fix')
-		) {
+		if (shouldFocus && editorView?.props.editable?.(editorView.state)) {
 			if (!mitigateScrollJump) {
 				const liveDocWithContent =
 					(__livePage ||
@@ -849,59 +845,10 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 					transformer: contentTransformer.current,
 				});
 
-				if (fg('platform_editor_react_18_autofocus_fix')) {
-					/**
-					 * Defer using startTransition when it is available (in React 18) to fix
-					 * autofocus bug where React 18's concurrent rendering mode interferes with
-					 * setTimeout used in handleEditorFocus, causing autofocus to break.
-					 */
-					const react18OnlyStartTransition =
-						(
-							React as unknown as {
-								startTransition?: (fn: () => void) => void;
-							}
-						)?.startTransition ?? ((fn: () => void) => fn());
-
-					react18OnlyStartTransition(() => {
-						// Force React to re-render so consumers get a reference to the editor view
-						setEditorView(view);
-					});
-				} else {
-					if (shouldFocus && view.props.editable && view.props.editable(view.state)) {
-						if (!mitigateScrollJump) {
-							const isLivePageWithContent =
-								(__livePage ||
-									expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
-								!isEmptyDocument(view.state.doc);
-
-							if (
-								!isLivePageWithContent &&
-								shouldFocus &&
-								view.props.editable &&
-								view.props.editable(view.state)
-							) {
-								focusTimeoutId.current = handleEditorFocus(view);
-							}
-
-							if (
-								expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true) &&
-								fg('cc_editor_focus_before_editor_on_load')
-							) {
-								if (
-									shouldFocus &&
-									view.props.editable &&
-									view.props.editable(view.state) &&
-									!isEmptyDocument(view.state.doc)
-								) {
-									focusEditorElement(editorId.current);
-								}
-							}
-						}
-					}
-
+				React.startTransition(() => {
 					// Force React to re-render so consumers get a reference to the editor view
 					setEditorView(view);
-				}
+				});
 			} else if (viewRef.current && !node) {
 				// When the appearance is changed, React will call handleEditorViewRef with node === null
 				// to destroy the old EditorView, before calling this method again with node === div to
@@ -936,8 +883,6 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			createEditorView,
 			onEditorCreated,
 			eventDispatcher,
-			shouldFocus,
-			__livePage,
 			onEditorDestroyed,
 			handleAnalyticsEvent,
 			mitigateScrollJump,

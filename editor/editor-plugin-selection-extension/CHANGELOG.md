@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 9.0.8
+
+### Patch Changes
+
+- [`342bed74cf6e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/342bed74cf6e9) -
+  EDITOR-4037 Block menu selection extension click handling
+- Updated dependencies
+
 ## 9.0.7
 
 ### Patch Changes

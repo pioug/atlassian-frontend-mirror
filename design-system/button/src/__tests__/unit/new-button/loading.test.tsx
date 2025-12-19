@@ -2,6 +2,8 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { LOADING_LABEL } from '../../../new-button/variants/shared/constants';
 import type { AdditionalButtonVariantProps } from '../../../new-button/variants/types';
 import variants from '../../../utils/variants';
@@ -51,6 +53,71 @@ variants.forEach(({ name, Component, elementType }) => {
 
 				expect(button).not.toHaveFocus();
 			});
+
+			ffTest.on(
+				'platform-dst_fix_not_focusable_loading_button',
+				'fix not focusable loading button',
+				() => {
+					testEventBlocking(Component, { isLoading: true });
+
+					it('should not override aria-disabled passed by the consumer while not loading', () => {
+						render(
+							<Component testId={testId} aria-disabled="true">
+								Label
+							</Component>,
+						);
+						const button = screen.getByTestId(testId);
+						expect(button).toHaveAttribute('aria-disabled', 'true');
+					});
+
+					it('should set aria-disabled to true', () => {
+						render(
+							<Component testId={testId} isLoading>
+								Label
+							</Component>,
+						);
+						const button = screen.getByTestId(testId);
+						expect(button).toHaveAttribute('aria-disabled', 'true');
+					});
+
+					it('should not have "disabled" attribute', () => {
+						render(
+							<Component testId={testId} isLoading>
+								Label
+							</Component>,
+						);
+						const button = screen.getByTestId(testId);
+						expect(button).toBeEnabled();
+					});
+
+					it('is focusable', () => {
+						render(
+							<Component testId={testId} isLoading>
+								Label
+							</Component>,
+						);
+						const button = screen.getByTestId(testId);
+						button.focus();
+						expect(button).toHaveFocus();
+					});
+
+					it('should have aria-live="polite"', () => {
+						render(
+							<Component testId={testId} isLoading>
+								Label
+							</Component>,
+						);
+						const button = screen.getByTestId(testId);
+						expect(button).toHaveAttribute('aria-live', 'polite');
+					});
+
+					it('should not have aria-disabled on the button when not loading', () => {
+						render(<Component testId={testId}>Label</Component>);
+						const button = screen.getByTestId(testId);
+						expect(button).not.toHaveAttribute('aria-disabled');
+					});
+				},
+			);
 
 			describe('loading labels', () => {
 				describe('should render loading labels when `isLoading` is true', () => {

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -98,7 +98,7 @@ const ExampleRow = ({
 	);
 };
 
-export default function LoadingExample() {
+export default function LoadingExample(): React.JSX.Element {
 	const [isLoading, setIsLoading] = useState(true);
 	const [isAnimationsDisabled, setAnimationsDisabled] = useState(true);
 

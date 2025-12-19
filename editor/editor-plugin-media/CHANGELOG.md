@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-media
 
+## 8.9.0
+
+### Minor Changes
+
+- [`bb5f3706afa84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb5f3706afa84) -
+  fix media card dimensions on load for ssr
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.8.0
+
+### Minor Changes
+
+- [`82d57d01a0f61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82d57d01a0f61) -
+  Distinguish between collab offline and internet offline cases for connectivity mode
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.7.2
 
 ### Patch Changes

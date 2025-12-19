@@ -1,5 +1,12 @@
 # @atlaskit/button
 
+## 23.9.2
+
+### Patch Changes
+
+- [`ed8a227ecf6f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed8a227ecf6f5) -
+  Fixed loading buttons not being focusable
+
 ## 23.9.1
 
 ### Patch Changes

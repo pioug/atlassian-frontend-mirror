@@ -416,6 +416,7 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 		mediaProvider,
 		dispatchAnalyticsEvent,
 	});
+
 	useMediaAsyncOperations({
 		mediaNodeUpdater,
 		getPos,

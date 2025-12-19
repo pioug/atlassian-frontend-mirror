@@ -138,11 +138,10 @@ export default function NewLozengeExample() {
 				<Box xcss={styles.section}>
 					{legacyAppearances.map((appearance: ThemeAppearance) => (
 						<Box key={appearance}>
-							<Box xcss={styles.label}>{appearance}</Box>
 							<Box xcss={styles.group}>
 								<Lozenge appearance={appearance}>{appearance}</Lozenge>
-								<Lozenge appearance={appearance} iconBefore={ImageIcon}>
-									With icon
+								<Lozenge appearance={appearance} isBold>
+									{appearance} bold
 								</Lozenge>
 							</Box>
 						</Box>

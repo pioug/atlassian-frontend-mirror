@@ -1,5 +1,14 @@
 # @atlaskit/form
 
+## 15.2.0
+
+### Minor Changes
+
+- [`c6332d9f5e6de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6332d9f5e6de) -
+  Introduces standalone CharacterCounter component for more customised cases of character counting
+  on input fields. Use this component in cases where CharacterCounterField is not appropriate such
+  as non-form contexts or customised experiences
+
 ## 15.1.2
 
 ### Patch Changes

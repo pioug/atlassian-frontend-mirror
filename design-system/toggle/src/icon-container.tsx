@@ -3,7 +3,6 @@
  * @jsx jsx
  */
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -63,7 +62,7 @@ const IconContainer = ({ children, size, isHidden, position }: IconContainerProp
 			as="span"
 			xcss={cx(
 				styles.iconContainer,
-				isHidden && fg('platform-visual-refresh-icons') && styles.hidden,
+				isHidden && styles.hidden,
 				size === 'regular' && styles.iconContainerRegular,
 				size === 'large' && styles.iconContainerLarge,
 				position === 'left' && styles.left,

@@ -40,6 +40,9 @@
 			"path": "../../ds-lib/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../heading/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../icon/afm-jira/tsconfig.json"
 		},
 		{

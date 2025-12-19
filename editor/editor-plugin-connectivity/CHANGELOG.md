@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-connectivity
 
+## 6.1.0
+
+### Minor Changes
+
+- [`82d57d01a0f61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82d57d01a0f61) -
+  Distinguish between collab offline and internet offline cases for connectivity mode
+
 ## 6.0.0
 
 ### Patch Changes
@@ -57,7 +64,6 @@
   shared context or singletons.
 
   **HOW TO ADJUST:**
-
   - Consumers must now explicitly install `@atlaskit/editor-common` in their own project if they use
     any of these editor plugins.
   - Ensure the version you install matches the version required by the plugins.

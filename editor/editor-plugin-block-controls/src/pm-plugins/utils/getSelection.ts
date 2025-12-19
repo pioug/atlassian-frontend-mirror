@@ -120,7 +120,6 @@ const newGetSelection = (doc: PMNode, selectionEmpty: boolean, start: number) =>
 
 	const isParagraphHeadingEmpty =
 		['paragraph', 'heading'].includes(nodeName || '') && selectionEmpty && node?.childCount === 0;
-	const isBlockQuoteEmpty = nodeName === 'blockquote' && node?.textContent === '';
 	const isListEmpty =
 		['orderedList', 'bulletList', 'taskList'].includes(nodeName || '') &&
 		selectionEmpty &&
@@ -129,7 +128,7 @@ const newGetSelection = (doc: PMNode, selectionEmpty: boolean, start: number) =>
 	// if block menu and empty line format menu are enabled,
 	// we want to set the selection to avoid the selection goes to the top of the document
 	if (
-		(isParagraphHeadingEmpty || isBlockQuoteEmpty || isListEmpty) &&
+		(isParagraphHeadingEmpty || isListEmpty) &&
 		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 	) {
 		return TextSelection.create(doc, start + 1, start + 1);
@@ -143,7 +142,9 @@ const newGetSelection = (doc: PMNode, selectionEmpty: boolean, start: number) =>
 		(nodeName === 'orderedList' && isNodeWithMediaOrExtension(doc, start, nodeSize));
 
 	if (
-		(isNodeSelection && nodeName !== 'blockquote') ||
+		(isNodeSelection &&
+			(nodeName !== 'blockquote' ||
+				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true))) ||
 		isListWithMediaOrExtension ||
 		isBlockQuoteWithMediaOrExtension ||
 		// decisionList/layoutColumn node is not selectable, but we want to select the whole node not just text

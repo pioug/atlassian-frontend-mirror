@@ -1,5 +1,45 @@
 # @atlaskit/editor-common
 
+## 110.48.1
+
+### Patch Changes
+
+- [`342bed74cf6e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/342bed74cf6e9) -
+  EDITOR-4037 Block menu selection extension click handling
+- Updated dependencies
+
+## 110.48.0
+
+### Minor Changes
+
+- [`a1fc015297d52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a1fc015297d52) -
+  Adding another hostname for images that is exempted from external badge
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.47.2
+
+### Patch Changes
+
+- [`3d028b9805550`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d028b9805550) -
+  [ux] [ENGHEALTH-47507] internationalise strings behind feature gate platform_editor_dec_a11y_fixes
+
+## 110.47.1
+
+### Patch Changes
+
+- [`d5e222a3c15bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5e222a3c15bc) -
+  [ux] EDITOR-3945 Blockquote NodeSelection support
+
+## 110.47.0
+
+### Minor Changes
+
+- [`fdda2eb1f24ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdda2eb1f24ec) -
+  Removes remaining part of platform_editor_multi_body_extension_extensibility fg for fg cleanup
+
 ## 110.46.5
 
 ### Patch Changes

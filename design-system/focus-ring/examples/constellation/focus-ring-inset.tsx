@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -25,7 +25,7 @@ const spacerStyles = xcss({
 	padding: 'space.100',
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	const buttonRef = useRef<HTMLButtonElement | null>(null);
 	useEffect(() => {
 		if (buttonRef.current) {

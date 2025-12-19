@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "15.6.4",
+	"version": "15.6.8",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -151,6 +151,9 @@
 		"platform_editor_table_sticky_header_patch_2": {
 			"type": "boolean"
 		},
+		"platform_editor_table_sticky_header_patch_4": {
+			"type": "boolean"
+		},
 		"platform_editor_table_height_analytics_event": {
 			"type": "boolean"
 		},
@@ -164,6 +167,12 @@
 			"type": "boolean"
 		},
 		"platform_editor_table_sticky_header_patch_3": {
+			"type": "boolean"
+		},
+		"platform_editor_table_sticky_header_patch_5": {
+			"type": "boolean"
+		},
+		"platform_editor_table_sticky_header_patch_6": {
 			"type": "boolean"
 		}
 	}

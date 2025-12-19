@@ -86,6 +86,7 @@ export const AgentAvatar = ({
 	const { formatMessage } = useIntl();
 
 	const imgUrl = isForgeAgent && forgeAgentIconUrl ? forgeAgentIconUrl : imageUrl;
+
 	return (
 		<Box
 			aria-label={label}

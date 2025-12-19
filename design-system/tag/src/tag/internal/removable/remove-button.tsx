@@ -6,7 +6,6 @@ import { type FocusEventHandler, type KeyboardEventHandler, type MouseEventHandl
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import CloseIcon from '@atlaskit/icon/core/cross';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -69,11 +68,6 @@ const removeButtonStyles = cssMap({
 	},
 });
 
-const removeButtonStylesOldIcon = cssMap({
-	root: {
-		insetInlineEnd: token('space.0'),
-	},
-});
 const removeButtonStylesNewIcon = cssMap({
 	root: {
 		insetInlineEnd: token('space.025'),
@@ -100,8 +94,7 @@ const RemoveButton = ({
 			xcss={cx(
 				removeButtonStyles.root,
 				shape === 'circle' && removeButtonStyles.circle,
-				removeButtonStylesOldIcon.root,
-				fg('platform-visual-refresh-icons') && removeButtonStylesNewIcon.root,
+				removeButtonStylesNewIcon.root,
 			)}
 			aria-label={ariaLabel}
 			onClick={onClick}

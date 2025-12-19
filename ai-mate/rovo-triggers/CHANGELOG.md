@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 5.3.0
+
+### Minor Changes
+
+- [`8ae7b09b07a1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ae7b09b07a1c) -
+  Add the ability to edit already published agents by adding support for a new tool called
+  UpdateAgentConfigurationTool and refetching agent information on success of the tool
+
 ## 5.2.0
 
 ### Minor Changes

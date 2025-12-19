@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-card
 
+## 11.6.0
+
+### Minor Changes
+
+- [`82d57d01a0f61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82d57d01a0f61) -
+  Distinguish between collab offline and internet offline cases for connectivity mode
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.5.15
 
 ### Patch Changes

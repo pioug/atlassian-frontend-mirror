@@ -1,5 +1,39 @@
 # @atlaskit/editor-core
 
+## 215.25.0
+
+### Minor Changes
+
+- [`4d73a0f30526b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d73a0f30526b) -
+  Cleanup platform_editor_react_18_autofocus_fix
+
+### Patch Changes
+
+- [`b10f0252621b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b10f0252621b0) -
+  Set padding top and bottom on blockquote to avoid batch.css overrides
+- [`342bed74cf6e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/342bed74cf6e9) -
+  EDITOR-4037 Block menu selection extension click handling
+- Updated dependencies
+
+## 215.24.1
+
+### Patch Changes
+
+- [`d5e222a3c15bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5e222a3c15bc) -
+  [ux] EDITOR-3945 Blockquote NodeSelection support
+- Updated dependencies
+
+## 215.24.0
+
+### Minor Changes
+
+- [`82d57d01a0f61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82d57d01a0f61) -
+  Distinguish between collab offline and internet offline cases for connectivity mode
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 215.23.9
 
 ### Patch Changes

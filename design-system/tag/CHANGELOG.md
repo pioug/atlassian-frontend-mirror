@@ -1,5 +1,12 @@
 # @atlaskit/tag
 
+## 14.2.4
+
+### Patch Changes
+
+- [`fc55da96999c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc55da96999c2) -
+  Clean up dead FG
+
 ## 14.2.3
 
 ### Patch Changes

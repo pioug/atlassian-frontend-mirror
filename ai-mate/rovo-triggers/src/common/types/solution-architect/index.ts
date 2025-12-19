@@ -35,3 +35,12 @@ export type StudioAutomationBuildUpdatePayload = PayloadCore<
 	'studio-automation-build-updated',
 	{ buildId: string }
 >;
+export type AutomationRuleUpdatePayload = PayloadCore<'automation-rule-update'> & {
+	data: { rule: string };
+};
+
+export type UpdateAgentConfigurationPayload = PayloadCore<'agent-configuration-update'> & {
+	data: {
+		ari: string;
+	};
+};

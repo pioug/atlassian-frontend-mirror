@@ -87,6 +87,7 @@ import {
 	nodeMargins,
 	spacingBetweenNodesForPreview,
 	STICKY_CONTROLS_TOP_MARGIN,
+	STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER,
 	topPositionAdjustment,
 } from './consts';
 import type { DragPreviewContent } from './drag-preview';
@@ -301,6 +302,57 @@ const tooltipContainerStylesStickyHeaderWithMask = css({
 	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
 		{
 			top: '0',
+		},
+});
+
+const tooltipContainerStylesImprovedStickyHeaderWithMask = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	top: `${STICKY_CONTROLS_TOP_MARGIN}px`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
+		{
+			top: '0',
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
+		{
+			top: '0',
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-mark-name="fragment"] >[data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			top: tableControlsSpacing,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-mark-name="fragment"] >[data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			top: tableControlsSpacing,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] tr.pm-table-row-native-sticky.pm-table-row-native-sticky-active) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			top: `${STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER}px`,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] tr.pm-table-row-native-sticky.pm-table-row-native-sticky-active) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			top: `${STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER}px`,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-mark-name="fragment"] >[data-prosemirror-node-name="table"] tr.pm-table-row-native-sticky.pm-table-row-native-sticky-active) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			top: `${STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER}px`,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-mark-name="fragment"] > [data-prosemirror-node-name="table"] tr.pm-table-row-native-sticky.pm-table-row-native-sticky-active) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			top: `${STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER}px`,
 		},
 });
 
@@ -917,8 +969,7 @@ export const DragHandle = ({
 		const isExtension =
 			nodeType === 'extension' ||
 			nodeType === 'bodiedExtension' ||
-			(nodeType === 'multiBodiedExtension' &&
-				fg('platform_editor_multi_body_extension_extensibility'));
+			nodeType === 'multiBodiedExtension';
 		const isBlockCard = nodeType === 'blockCard';
 
 		const isEmbedCard = nodeType === 'embedCard';
@@ -1019,8 +1070,7 @@ export const DragHandle = ({
 		const isExtension =
 			nodeType === 'extension' ||
 			nodeType === 'bodiedExtension' ||
-			(nodeType === 'multiBodiedExtension' &&
-				fg('platform_editor_multi_body_extension_extensibility'));
+			nodeType === 'multiBodiedExtension';
 		const isBlockCard = nodeType === 'blockCard' && !!blockCardWidth;
 		const isEmbedCard = nodeType === 'embedCard';
 
@@ -1416,7 +1466,13 @@ export const DragHandle = ({
 				css={[
 					tooltipContainerStyles,
 					shouldMaskNodeControls(nodeType, isTopLevelNode) &&
-						tooltipContainerStylesStickyHeaderWithMask,
+						(expValEquals(
+							'platform_editor_table_sticky_header_improvements',
+							'cohort',
+							'test_with_overflow',
+						) && fg('platform_editor_table_sticky_header_patch_6')
+							? tooltipContainerStylesImprovedStickyHeaderWithMask
+							: tooltipContainerStylesStickyHeaderWithMask),
 					!shouldMaskNodeControls(nodeType, isTopLevelNode) &&
 						tooltipContainerStylesStickyHeaderWithoutMask,
 				]}

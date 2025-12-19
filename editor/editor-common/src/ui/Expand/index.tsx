@@ -13,6 +13,11 @@ import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 export const messages = defineMessages({
+	loading: {
+		id: 'fabric.editor.expand.loading',
+		defaultMessage: 'Loading...',
+		description: 'Loading text for an expand node',
+	},
 	collapseNode: {
 		id: 'fabric.editor.collapseNode',
 		defaultMessage: 'Collapse content',

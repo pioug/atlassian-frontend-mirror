@@ -21,6 +21,7 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSmallZIndex } from '@atlaskit/editor-shared-styles';
 import ExpandIcon from '@atlaskit/icon/core/migration/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { toggleContextualMenu } from '../../pm-plugins/commands';
@@ -128,7 +129,9 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 
 	const parentStickyNative =
 		targetCellRef.parentElement &&
-		targetCellRef.parentElement.classList.contains(ClassName.NATIVE_STICKY);
+		(fg('platform_editor_table_sticky_header_patch_4')
+			? tableWrapper?.classList.contains(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW)
+			: targetCellRef.parentElement.classList.contains(ClassName.NATIVE_STICKY));
 
 	if (
 		parentStickyNative &&

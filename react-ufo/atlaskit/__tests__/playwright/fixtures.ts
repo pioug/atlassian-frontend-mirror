@@ -29,7 +29,7 @@ const prepareParams = (params?: { [key: string]: string | boolean }) => {
 	if (!params) {
 		return { urlParams: {}, featureFlags: '' };
 	}
-
+   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const { featureFlag, ...rest } = params;
 
 	// url param in string format: '&featureFlag=feature-flag-key&featureFlag=feature-flag-key'
@@ -188,6 +188,7 @@ export const test: TestType<
 	},
 	featureFlags: [],
 	examplePage: 'basic',
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	page: async ({ browser, baseURL, viewport, examplePage, featureFlags }, use, testInfo) => {
 		// For the tests work properly, it is really important the page isn't cached
 		const context = await browser.newContext();
@@ -661,7 +662,7 @@ const customMatchers = {
 		};
 	},
 };
-
+// @ts-expect-error - customMatchers is not typed
 export const expect: Expect<
 	typeof baseExpect & {
 		/**

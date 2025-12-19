@@ -38,7 +38,7 @@ import { getToolbarComponents } from './ui/toolbar-components';
 import { registerBlockMenuItems } from './ui/utils/registerBlockMenuItems';
 
 export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config }) => {
-	const editorViewRef: Record<'current', EditorView | null> = { current: null };
+	const editorViewRef: { current?: EditorView } = {};
 	let cachedSelection: Selection;
 	let cachedOverflowMenuOptions: FloatingToolbarOverflowDropdown<Command>['options'] | undefined;
 	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
@@ -62,7 +62,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 	}
 
 	if (expValEquals('platform_editor_block_menu', 'isEnabled', true)) {
-		registerBlockMenuItems(extensionList, api);
+		registerBlockMenuItems({ extensionList, api, editorViewRef });
 	}
 
 	return {
@@ -335,7 +335,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 							editorViewRef.current = editorView;
 							return {
 								destroy: () => {
-									editorViewRef.current = null;
+									delete editorViewRef.current;
 								},
 							};
 						},

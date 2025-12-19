@@ -28,7 +28,6 @@ const Lozenge = ({
 		<LozengeBase
 			appearance={appearance}
 			iconBefore={iconBefore}
-			isInteractive
 			maxWidth={maxWidth}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={style}

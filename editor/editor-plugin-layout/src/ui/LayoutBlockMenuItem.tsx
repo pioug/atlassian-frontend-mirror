@@ -1,12 +1,10 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { useIntl } from 'react-intl-next';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import LayoutTwoColumnsIcon from '@atlaskit/icon/core/layout-two-columns';
 
@@ -16,21 +14,10 @@ type Props = {
 	api: ExtractInjectionAPI<LayoutPlugin> | undefined;
 };
 
+const nodeName = 'layoutSection';
+
 const LayoutBlockMenuItem = ({ api }: Props) => {
 	const { formatMessage } = useIntl();
-	const selection = useSharedPluginStateSelector(api, 'selection.selection');
-
-	const isLayoutSelected = useMemo(() => {
-		if (!selection) {
-			return false;
-		}
-
-		if (selection instanceof NodeSelection) {
-			return selection.node.type.name === 'layoutSection';
-		}
-
-		return false;
-	}, [selection]);
 
 	const handleClick = (event: React.MouseEvent | React.KeyboardEvent) => {
 		const triggeredFrom =
@@ -45,19 +32,20 @@ const LayoutBlockMenuItem = ({ api }: Props) => {
 				{
 					inputMethod,
 					triggeredFrom,
-					targetTypeName: 'layoutSection',
+					targetTypeName: nodeName,
 				},
 			);
 			return command ? command({ tr }) : null;
 		});
 	};
 
+	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(nodeName);
+	if (isTransfromToPanelDisabled) {
+		return null;
+	}
+
 	return (
-		<ToolbarDropdownItem
-			onClick={handleClick}
-			isSelected={isLayoutSelected}
-			elemBefore={<LayoutTwoColumnsIcon label="" />}
-		>
+		<ToolbarDropdownItem onClick={handleClick} elemBefore={<LayoutTwoColumnsIcon label="" />}>
 			{formatMessage(blockMenuMessages.layout)}
 		</ToolbarDropdownItem>
 	);

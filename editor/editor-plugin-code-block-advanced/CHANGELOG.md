@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 6.2.19
+
+### Patch Changes
+
+- [`e9827c9930323`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9827c9930323) -
+  NO-ISSUE, add missing gating of `confluence_compact_text_format` to advanced code blocks
+  experiment to reach parity with old cc_editor_ai_content_mode experiment.
+- Updated dependencies
+
 ## 6.2.18
 
 ### Patch Changes

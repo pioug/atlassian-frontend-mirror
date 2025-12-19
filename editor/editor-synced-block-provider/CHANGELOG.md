@@ -1,5 +1,15 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.15.6
+
+### Patch Changes
+
+- [`d40079fdeef5d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d40079fdeef5d) -
+  EDITOR-4044 Fix a race condition in source sync block dirty tracking logic
+- [`267f0abf6b4cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/267f0abf6b4cf) -
+  EDITOR-4044 Fix a race condition in reference sync block dirty tracking logic
+- Updated dependencies
+
 ## 2.15.5
 
 ### Patch Changes

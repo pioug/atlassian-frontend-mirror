@@ -17,7 +17,6 @@ import { unwrapListStep } from './steps/unwrapListStep';
 import { wrapBlockquoteToDecisionListStep } from './steps/wrapBlockquoteToDecisionListStep';
 import { wrapMixedContentStep } from './steps/wrapMixedContentStep';
 import { wrapTextToCodeblockStep } from './steps/wrapTextToCodeblock';
-import { stubStep } from './stubStep';
 import type { NodeCategory, NodeTypeName, TransformStepContext, TransformStep } from './types';
 import { NODE_CATEGORY_BY_TYPE, toNodeTypeValue } from './types';
 import { unwrapExpandStep } from './unwrapExpandStep';
@@ -48,7 +47,7 @@ const TRANSFORM_STEPS: Record<NodeCategory, Record<NodeCategory, TransformStep[]
 	},
 	text: {
 		atomic: undefined,
-		container: [wrapStep],
+		container: [wrapMixedContentStep],
 		list: [wrapIntoListStep],
 		text: [flattenStep, applyTargetTextTypeStep],
 	},
@@ -56,81 +55,117 @@ const TRANSFORM_STEPS: Record<NodeCategory, Record<NodeCategory, TransformStep[]
 
 // Transform steps for specific pairs of node types that cannot be processed
 // using generic rules/steps from TRANSFORM_STEPS.
+// Use 'null' to indicate unavailable transfrorm for a case where TRANSFORM_STEPS are not undefined.
 const TRANSFORM_STEPS_OVERRIDE: Partial<
-	Record<NodeTypeName, Partial<Record<NodeTypeName, TransformStep[] | undefined>>>
+	Record<NodeTypeName, Partial<Record<NodeTypeName, TransformStep[] | null | undefined>>>
 > = {
 	paragraph: {
+		paragraph: null,
+		codeBlock: [wrapTextToCodeblockStep],
+		layoutSection: [wrapIntoLayoutStep],
+	},
+	heading: {
 		codeBlock: [wrapTextToCodeblockStep],
 		layoutSection: [wrapIntoLayoutStep],
 	},
 	panel: {
+		panel: null,
 		layoutSection: [unwrapStep, wrapIntoLayoutStep],
 		codeBlock: [unwrapStep, flattenStep, wrapStep],
 		blockquote: [unwrapStep, wrapMixedContentStep],
+		taskList: null,
+		bulletList: null,
+		orderedList: null,
+		heading: null,
 	},
 	expand: {
+		expand: null,
 		panel: [unwrapExpandStep, wrapMixedContentStep],
 		blockquote: [unwrapExpandStep, wrapMixedContentStep],
 		layoutSection: [unwrapExpandStep, wrapIntoLayoutStep],
 		paragraph: [unwrapExpandStep],
-		codeBlock: [unwrapExpandStep, flattenStep, wrapStep],
+		codeBlock: null,
+		heading: null,
 	},
 	nestedExpand: {
+		expand: null,
+		nestedExpand: null,
 		panel: [unwrapExpandStep, wrapMixedContentStep],
 		blockquote: [unwrapExpandStep, wrapMixedContentStep],
 		paragraph: [unwrapExpandStep],
-		codeBlock: [unwrapExpandStep, flattenStep, wrapStep],
+		codeBlock: null,
+		heading: null,
 	},
 	blockquote: {
+		blockquote: null,
 		expand: [wrapStep],
 		nestedExpand: [wrapStep],
 		layoutSection: [wrapIntoLayoutStep],
-		codeBlock: [unwrapStep, flattenStep, wrapStep],
+		codeBlock: null,
 		decisionList: [unwrapStep, wrapBlockquoteToDecisionListStep],
 	},
 	layoutSection: {
+		layoutSection: null,
 		blockquote: [unwrapLayoutStep, wrapMixedContentStep],
 		expand: [unwrapLayoutStep, wrapStep],
 		panel: [unwrapLayoutStep, wrapMixedContentStep],
-		codeBlock: [unwrapLayoutStep, flattenStep, wrapStep],
+		codeBlock: null,
 		paragraph: [unwrapLayoutStep],
+		heading: null,
 	},
 	codeBlock: {
+		codeBlock: null,
 		blockquote: [wrapStep],
 		expand: [wrapStep],
 		nestedExpand: [wrapStep],
 		layoutSection: [wrapIntoLayoutStep],
 		panel: [wrapStep],
+		heading: null,
 	},
 	bulletList: {
-		// Text transformations currently not in scope > options will be disabled > stubbing in case
-		codeBlock: [stubStep],
+		bulletList: null,
+		codeBlock: null,
 		layoutSection: [wrapIntoLayoutStep],
 		decisionList: [flattenListStep, listToDecisionListStep],
+		heading: null,
 	},
 	orderedList: {
-		// Text transformations currently not in scope > options will be disabled > stubbing in case
-		codeBlock: [stubStep],
+		orderedList: null,
+		codeBlock: null,
 		layoutSection: [wrapIntoLayoutStep],
 		decisionList: [flattenListStep, listToDecisionListStep],
+		heading: null,
 	},
 	taskList: {
-		// Text transformations currently not in scope > options will be disabled > stubbing in case
-		blockquote: [stubStep],
-		codeBlock: [stubStep],
+		blockquote: null,
+		codeBlock: null,
 		layoutSection: [wrapIntoLayoutStep],
 		decisionList: [flattenListStep, listToDecisionListStep],
+		heading: null,
+		taskList: null,
 	},
 	table: {
 		layoutSection: [wrapIntoLayoutStep],
+		blockquote: null,
+		panel: null,
+		codeBlock: null,
+		orderedList: null,
+		bulletList: null,
+		taskList: null,
+		decisionList: null,
 	},
 	mediaSingle: {
 		layoutSection: [wrapIntoLayoutStep],
+		codeBlock: null,
+		decisionList: null,
+		taskList: null,
 	},
 	mediaGroup: {
 		layoutSection: [wrapIntoLayoutStep],
+		codeBlock: null,
 	},
 	decisionList: {
+		decisionList: null,
 		bulletList: [decisionListToListStep],
 		orderedList: [decisionListToListStep],
 		taskList: [decisionListToListStep],
@@ -138,15 +173,39 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 	},
 	blockCard: {
 		layoutSection: [wrapIntoLayoutStep],
+		blockquote: null,
+		codeBlock: null,
+		orderedList: null,
+		bulletList: null,
+		taskList: null,
+		decisionList: null,
 	},
 	embedCard: {
 		layoutSection: [wrapIntoLayoutStep],
+		blockquote: null,
+		panel: null,
+		codeBlock: null,
+		orderedList: null,
+		bulletList: null,
+		taskList: null,
+		decisionList: null,
 	},
 	extension: {
 		layoutSection: [wrapIntoLayoutStep],
+		codeBlock: null,
+		decisionList: null,
+		taskList: null,
 	},
 	bodiedExtension: {
 		layoutSection: [wrapIntoLayoutStep],
+		blockquote: null,
+		expand: null,
+		panel: null,
+		codeBlock: null,
+		orderedList: null,
+		bulletList: null,
+		taskList: null,
+		decisionList: null,
 	},
 };
 
@@ -157,9 +216,13 @@ const getTransformStepsForNodeTypes = (
 	const fromCategory = NODE_CATEGORY_BY_TYPE[selectedNodeTypeName];
 	const toCategory = NODE_CATEGORY_BY_TYPE[targetNodeTypeName];
 
+	const overrideSteps = TRANSFORM_STEPS_OVERRIDE[selectedNodeTypeName]?.[targetNodeTypeName];
+	if (overrideSteps === null) {
+		return null;
+	}
+
 	const steps: TransformStep[] | undefined =
-		TRANSFORM_STEPS_OVERRIDE[selectedNodeTypeName]?.[targetNodeTypeName] ??
-		TRANSFORM_STEPS[fromCategory][toCategory];
+		overrideSteps ?? TRANSFORM_STEPS[fromCategory][toCategory];
 
 	return steps;
 };
@@ -207,4 +270,15 @@ export const getOutputNodes = ({
 	return steps.reduce((nodes, step) => {
 		return step(nodes, context);
 	}, nodesToReplace);
+};
+
+export const isTransformDisabledBasedOnStepsConfig = (
+	selectedNodeType: NodeTypeName,
+	targetNodeType: NodeTypeName,
+) => {
+	const steps = getTransformStepsForNodeTypes(selectedNodeType, targetNodeType);
+	if (!steps || steps.length === 0) {
+		return true;
+	}
+	return false;
 };

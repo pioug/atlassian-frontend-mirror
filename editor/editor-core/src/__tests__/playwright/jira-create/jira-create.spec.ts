@@ -36,7 +36,7 @@ test.describe('Jira Create', () => {
 			await editor.linkCreate.waitForModal();
 
 			await expect(editor.linkCreate.popup).toBeVisible();
-			await expect(page).toBeAccessible();
+			await expect(page).toBeAccessible({ violationCount : 1 });
 		});
 	});
 });

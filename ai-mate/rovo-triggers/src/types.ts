@@ -7,6 +7,7 @@ import type {
 	SolutionArchitectHandoffPayload,
 	SolutionPlanStateUpdatePayload,
 	StudioAutomationBuildUpdatePayload,
+	UpdateAgentConfigurationPayload,
 } from './common/types/solution-architect';
 import type { ChatContextPayload } from './common/utils/chat-context';
 
@@ -391,7 +392,8 @@ export type Payload =
 	| SolutionArchitectHandoffPayload
 	| SolutionPlanStateUpdatePayload
 	| SolutionDraftAgentUpdatePayload
-	| SolutionArchitectAgentActivationPayload;
+	| SolutionArchitectAgentActivationPayload
+	| UpdateAgentConfigurationPayload;
 
 export type Callback = (payload: Payload) => void;
 

@@ -4,6 +4,7 @@ import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 
 import type { BlockMenuPlugin, RegisterBlockMenuComponent } from './blockMenuPluginType';
 import { createBlockMenuRegistry } from './editor-actions';
+import { isTrasformToTargetDisabled } from './editor-actions/isTrasformToTargetDisabled';
 import { formatNode } from './editor-commands/formatNode';
 import { transformNode } from './editor-commands/transformNode';
 import type {
@@ -16,6 +17,7 @@ import BlockMenu from './ui/block-menu';
 import { getBlockMenuComponents } from './ui/block-menu-components';
 import { BlockMenuProvider } from './ui/block-menu-provider';
 import { Flag } from './ui/flag';
+
 
 export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 	const registry = createBlockMenuRegistry();
@@ -38,6 +40,26 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 
 			getBlockMenuComponents: () => {
 				return registry.components;
+			},
+
+			isTransformOptionDisabled: (
+				optionNodeTypeName: string,
+				optionNodeTypeAttrs?: Record<string, unknown>,
+			) => {
+				const preservedSelection =
+					api?.blockControls?.sharedState.currentState()?.preservedSelection;
+				const selection = api?.selection?.sharedState?.currentState()?.selection;
+
+				const currentSelection = preservedSelection || selection;
+				if (!currentSelection) {
+					return true;
+				}
+
+				return isTrasformToTargetDisabled({
+					selection: currentSelection,
+					targetNodeTypeName: optionNodeTypeName,
+					targetNodeTypeAttrs: optionNodeTypeAttrs,
+				});
 			},
 		},
 		commands: {

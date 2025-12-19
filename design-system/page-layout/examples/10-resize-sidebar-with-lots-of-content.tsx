@@ -98,7 +98,7 @@ function getElements(): ReactElement[] {
 	});
 }
 
-const BasicGrid = () => {
+const BasicGrid = (): React.JSX.Element => {
 	const [gridState, setGridState] = useState(initialState);
 
 	const ToggleFixed = useCallback(

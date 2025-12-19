@@ -186,9 +186,7 @@ const getDefaultPredicate = ({ nodes }: Schema) => {
 		nodes.mediaSingle,
 	]);
 
-	return (node: PMNode) => {
-		return !requiresFurtherExpansion.has(node.type);
-	};
+	return (node: PMNode) => !requiresFurtherExpansion.has(node.type);
 };
 
 /**

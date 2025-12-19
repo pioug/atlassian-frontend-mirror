@@ -31,7 +31,7 @@ const ButtonWrapper = ({
 	</div>
 );
 
-const ButtonOptions = () => (
+const ButtonOptions = (): React.JSX.Element => (
 	<div>
 		<ButtonWrapper>
 			<Button autoFocus>Auto focused button</Button>

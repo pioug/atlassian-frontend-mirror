@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.17.2
+
+### Patch Changes
+
+- [`77a65164e7b77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77a65164e7b77) -
+  [ux] EDITOR-3439 update drag handle top pos for new sticky header solution
+- Updated dependencies
+
+## 7.17.1
+
+### Patch Changes
+
+- [`d5e222a3c15bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5e222a3c15bc) -
+  [ux] EDITOR-3945 Blockquote NodeSelection support
+- Updated dependencies
+
+## 7.17.0
+
+### Minor Changes
+
+- [`fdda2eb1f24ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdda2eb1f24ec) -
+  Removes remaining part of platform_editor_multi_body_extension_extensibility fg for fg cleanup
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.16.0
 
 ### Minor Changes

@@ -1,12 +1,15 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 import { bind } from 'bind-event-listener';
 import { useIntl } from 'react-intl-next';
 
 import { limitedModeMessages } from '@atlaskit/editor-common/messages';
+import { getNodeIdProvider } from '@atlaskit/editor-common/node-anchor';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { LimitedModePlugin } from './limitedModePluginType';
@@ -103,6 +106,22 @@ export const limitedModePlugin: LimitedModePlugin = ({ config: options = {}, api
 			usePluginStateEffect(api, ['limitedMode'], ({ limitedModeState }) => {
 				const isLimitedModeEnabled = limitedModeState?.enabled ?? false;
 				checkAndShowFlag(isLimitedModeEnabled);
+			});
+
+			usePluginStateEffect(api, ['limitedMode'], ({ limitedModeState }) => {
+				if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
+					if (fg('platform_editor_native_anchor_patch_2')) {
+						const isEnabled = limitedModeState?.enabled ?? false;
+
+						const nodeIdProvider = getNodeIdProvider(editorView);
+						// When limited mode is enabled first time,
+						// We need to remove all existing data-node-anchor attributes
+						// And nodeIdProvider to limited mode to prevent adding data-node-anchor on new nodes
+						if (isEnabled && nodeIdProvider && !nodeIdProvider.isLimitedMode()) {
+							nodeIdProvider.setLimitedMode();
+						}
+					}
+				}
 			});
 		},
 	};

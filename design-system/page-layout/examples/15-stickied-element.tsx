@@ -3,6 +3,8 @@
  * @jsx jsx
  */
 
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
@@ -28,7 +30,7 @@ const leftSidebarWrapperStyles = css({
 	padding: `0 ${token('space.250', '20px')}`,
 });
 
-const WithStickyElement = () => {
+const WithStickyElement = (): React.JSX.Element => {
 	return (
 		<PageLayout>
 			<TopNavigation testId="topNavigation" height={60}>

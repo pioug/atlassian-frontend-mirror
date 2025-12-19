@@ -90,7 +90,6 @@ export default class Resizer extends React.Component<ResizerProps, ResizerState>
 		const { innerPadding = 0, highlights, displayGrid, layout, width, snapPoints } = this.props;
 		// prevent creating a drag event on Firefox
 		event.preventDefault();
-
 		this.setState({ isResizing: true }, () => {
 			const newHighlights = highlights(width + innerPadding, snapPoints);
 			displayGrid?.(newHighlights.length > 0, gridTypeForLayout(layout), newHighlights);

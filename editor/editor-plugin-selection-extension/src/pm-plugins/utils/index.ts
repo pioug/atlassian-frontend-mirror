@@ -59,7 +59,7 @@ const getSelectionInfoFromCellSelection = (selection: CellSelection) => {
 
 /**
  * @private
- * @deprecated use getFragmentInfoFromSelectionNew instead
+ * @deprecated use getSelectionTextInfoNew instead
  */
 export const getSelectionTextInfo = (
 	view: EditorView,

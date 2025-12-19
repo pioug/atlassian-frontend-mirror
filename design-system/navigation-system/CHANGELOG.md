@@ -1,5 +1,17 @@
 # @atlassian/navigation-system
 
+## 5.14.0
+
+### Minor Changes
+
+- [`a910081d920cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a910081d920cc) -
+  Adds a header (with a close button), body, and footer as slot subcomponents of flyout menu item
+  content, and adjusts for body scrolling
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.13.1
 
 ### Patch Changes

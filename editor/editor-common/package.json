@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "110.46.5",
+	"version": "110.48.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -128,7 +128,8 @@
 		"./context-panel": "./src/ui/ContextPanel/context.tsx",
 		"./sync-block": "./src/sync-block.ts",
 		"./user-intent": "./src/user-intent/index.ts",
-		"./experiences": "./src/experiences/index.ts"
+		"./experiences": "./src/experiences/index.ts",
+		"./node-anchor": "./src/node-anchor/index.ts"
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "workspace:^",
@@ -282,9 +283,6 @@
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		},
-		"platform_editor_multi_body_extension_extensibility": {
-			"type": "boolean"
-		},
 		"media-perf-uplift-mutation-fix": {
 			"type": "boolean"
 		},
@@ -379,6 +377,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_dec_a11y_fixes": {
+			"type": "boolean"
+		},
+		"platform_editor_native_anchor_patch_2": {
 			"type": "boolean"
 		}
 	}

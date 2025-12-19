@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 124.22.8
+
+### Patch Changes
+
+- [`3d028b9805550`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d028b9805550) -
+  [ux] [ENGHEALTH-47507] internationalise strings behind feature gate platform_editor_dec_a11y_fixes
+- Updated dependencies
+
 ## 124.22.7
 
 ### Patch Changes

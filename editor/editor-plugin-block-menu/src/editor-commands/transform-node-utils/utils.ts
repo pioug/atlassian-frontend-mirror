@@ -87,6 +87,20 @@ export const convertExpandToNestedExpand = (node: PMNode, schema: Schema): PMNod
 	return nestedExpandType.createAndFill({ title: node.attrs?.title || '' }, node.content);
 };
 
+/**
+ * Converts a text node (heading, paragraph) to a paragraph preserving its inline content.
+ * This is used when a text node can't be wrapped directly in the target container
+ * (e.g., heading can't go in blockquote, so it becomes a paragraph).
+ */
+export const convertTextNodeToParagraph = (node: PMNode, schema: Schema): PMNode | null => {
+	// If it's already a paragraph, return as-is
+	if (node.type.name === 'paragraph') {
+		return node;
+	}
+	// Convert heading (or other text node) to paragraph with same inline content
+	return schema.nodes.paragraph.createAndFill({}, node.content) ?? null;
+};
+
 export const getBlockNodesInRange = (range: NodeRange): PMNode[] => {
 	if (range.startIndex === range.endIndex) {
 		return [];

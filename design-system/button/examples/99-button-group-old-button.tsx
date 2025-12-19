@@ -37,7 +37,7 @@ const CustomComponent = (props: { label?: string }) => {
 	return <Button>{label}</Button>;
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<Row>
 		<Row>
 			<ButtonGroup>

@@ -24,7 +24,7 @@ type ExternalImageBadgeProps = {
 	url: string | undefined;
 };
 
-const NO_EXTERNAL_BADGE_HOSTS = ['atlassian.com', 'loom.com'];
+const NO_EXTERNAL_BADGE_HOSTS = ['atlassian.com', 'loom.com', 'dam-cdn.atl.orangelogic.com'];
 
 export const isUnbadgedUrl = (url: string | undefined) => {
 	if (!url) {

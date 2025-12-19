@@ -521,8 +521,16 @@ export class ReferenceSyncBlockStoreManager {
 			});
 
 			if (blocks.length === 0) {
+				this.isCacheDirty = false;
 				return true;
 			}
+
+			// reset isCacheDirty early to prevent race condition
+			// There is a race condition where if a user makes changes (create/delete) to a reference sync block
+			// on a live page and the reference sync block is being saved while the user
+			// is still making changes, the new changes might not be saved if they all happen
+			// exactly at a time when the updateReferenceData is being executed asynchronously.
+			this.isCacheDirty = false;
 
 			const updateResult = await this.dataProvider.updateReferenceData(blocks);
 
@@ -541,8 +549,9 @@ export class ReferenceSyncBlockStoreManager {
 			});
 			this.fireAnalyticsEvent?.(updateReferenceErrorPayload((error as Error).message));
 		} finally {
-			if (success) {
-				this.isCacheDirty = false;
+			if (!success) {
+				// set isCacheDirty back to true for cases where it failed to update the reference synced blocks on the BE
+				this.isCacheDirty = true;
 			}
 		}
 

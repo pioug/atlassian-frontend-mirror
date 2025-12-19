@@ -286,6 +286,7 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 	const [isVideoFile, setIsVideoFile] = useState<boolean>(
 		!(fg('platform_editor_media_video_check_fix') || fg('platform_editor_ssr_media')),
 	);
+	const [hasResized, setHasResized] = useState<boolean>(false);
 
 	const nodePosition = useMemo(() => {
 		if (typeof getPos !== 'function') {
@@ -524,6 +525,8 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 		}),
 	);
 
+	const resizerContainerRef = useRef<HTMLDivElement>(null);
+
 	const handleResize: HandleResize = useCallback(
 		(size, delta) => {
 			const {
@@ -537,6 +540,19 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 				fullWidthMode,
 				isNestedNode: isAdjacentMode,
 			})(size, delta, false, aspectRatioRef.current);
+
+			const resizerDomEl = resizerContainerRef.current;
+			if (
+				resizerDomEl &&
+				!hasResized &&
+				expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)
+			) {
+				// dispatch resize event to media node DOM element inside resizerDom
+				const mediaDomEl = resizerDomEl.querySelector('div[data-prosemirror-node-name="media"]');
+				const event = new CustomEvent('resized');
+				mediaDomEl?.dispatchEvent(event);
+				setHasResized(true);
+			}
 
 			if (isGuidelineEnabled) {
 				const guidelineSnaps = getGuidelineSnaps(guidelinesRef.current, lineLength, layout);
@@ -567,15 +583,16 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 			}
 		},
 		[
-			view,
-			updateSize,
 			layout,
-			isGuidelineEnabled,
 			containerWidth,
 			lineLength,
 			fullWidthMode,
 			isAdjacentMode,
+			hasResized,
+			isGuidelineEnabled,
+			view,
 			updateActiveGuidelines,
+			updateSize,
 		],
 	);
 
@@ -705,6 +722,7 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={memoizedCss}
+			ref={resizerContainerRef}
 		>
 			<ResizerNext
 				minWidth={minViewWidth}

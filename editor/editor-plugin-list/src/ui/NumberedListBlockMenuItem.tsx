@@ -5,7 +5,6 @@ import { useIntl } from 'react-intl-next';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { listMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import ListNumberedIcon from '@atlaskit/icon/core/list-numbered';
 
@@ -15,48 +14,35 @@ type NumberedListBlockMenuItemProps = {
 	api: ExtractInjectionAPI<ListPlugin> | undefined;
 };
 
+const nodeName = 'orderedList';
+
 const NumberedListBlockMenuItem = ({ api }: NumberedListBlockMenuItemProps) => {
 	const { formatMessage } = useIntl();
-	const orderedListActive = useSharedPluginStateSelector(api, 'list.orderedListActive');
-	const currentSelectedNodeName = useSharedPluginStateSelector(
-		api,
-		'blockMenu.currentSelectedNodeName',
-	);
-
-	// Check if a blockquote is currently selected
-	const isBlockquoteSelected = currentSelectedNodeName?.includes('blockquote');
-
-	// Only show as selected if ordered list is active AND we're not selecting a blockquote
-	const isSelected = orderedListActive && !isBlockquoteSelected;
 
 	const handleClick = (event: React.MouseEvent | React.KeyboardEvent) => {
-		if (!orderedListActive) {
-			const triggeredFrom =
-				event.nativeEvent instanceof KeyboardEvent || event.nativeEvent.detail === 0
-					? INPUT_METHOD.KEYBOARD
-					: INPUT_METHOD.MOUSE;
-			const inputMethod = INPUT_METHOD.BLOCK_MENU;
+		const triggeredFrom =
+			event.nativeEvent instanceof KeyboardEvent || event.nativeEvent.detail === 0
+				? INPUT_METHOD.KEYBOARD
+				: INPUT_METHOD.MOUSE;
+		const inputMethod = INPUT_METHOD.BLOCK_MENU;
 
-			api?.core.actions.execute(({ tr }) => {
-				const command = api?.blockMenu?.commands.transformNode(
-					tr.doc.type.schema.nodes.orderedList,
-					{
-						inputMethod,
-						triggeredFrom,
-						targetTypeName: 'orderedList',
-					},
-				);
-				return command ? command({ tr }) : null;
+		api?.core.actions.execute(({ tr }) => {
+			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.orderedList, {
+				inputMethod,
+				triggeredFrom,
+				targetTypeName: nodeName,
 			});
-		}
+			return command ? command({ tr }) : null;
+		});
 	};
 
+	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(nodeName);
+	if (isTransfromToPanelDisabled) {
+		return null;
+	}
+
 	return (
-		<ToolbarDropdownItem
-			onClick={handleClick}
-			isSelected={isSelected}
-			elemBefore={<ListNumberedIcon label="" />}
-		>
+		<ToolbarDropdownItem onClick={handleClick} elemBefore={<ListNumberedIcon label="" />}>
 			{formatMessage(listMessages.orderedList)}
 		</ToolbarDropdownItem>
 	);

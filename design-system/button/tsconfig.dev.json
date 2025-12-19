@@ -94,6 +94,9 @@
 			"path": "../primitives/tsconfig.app.json"
 		},
 		{
+			"path": "../range/tsconfig.app.json"
+		},
+		{
 			"path": "../section-message/tsconfig.app.json"
 		},
 		{
@@ -110,6 +113,9 @@
 		},
 		{
 			"path": "../tooltip/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		},
 		{
 			"path": "../../uip/ssr-tests/tsconfig.app.json"

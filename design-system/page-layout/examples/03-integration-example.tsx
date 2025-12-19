@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -45,7 +45,7 @@ const mainContentStyles = css({
 	backgroundColor: token('color.background.neutral'),
 });
 
-export default function ProductLayout() {
+export default function ProductLayout(): React.JSX.Element {
 	const [rightPanelWidth, setRightPanelWidth] = useState(0);
 	const toggle = useCallback(() => setRightPanelWidth((c) => (c > 0 ? 0 : 360)), []);
 	const close = useCallback(() => setRightPanelWidth(0), []);
@@ -158,7 +158,7 @@ const SideNavigationContent = () => {
  * Components for composing top and side navigation
  */
 
-export const DefaultCreate = () => (
+export const DefaultCreate = (): React.JSX.Element => (
 	<Create buttonTooltip="Create" iconButtonTooltip="Create" onClick={console.log} text="Create" />
 );
 
@@ -166,7 +166,7 @@ const ProductHomeExample = () => (
 	<ProductHome onClick={console.log} icon={ConfluenceIcon} logo={ConfluenceLogo} siteTitle="App" />
 );
 
-export const HelpPopup = () => {
+export const HelpPopup = (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggle = useCallback(() => setIsOpen((c) => !c), []);

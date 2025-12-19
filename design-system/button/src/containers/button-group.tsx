@@ -39,7 +39,7 @@ const buttonGroupStyles = css({
 	},
 });
 
-export default function ButtonGroup({ children, testId, label, titleId }: ButtonGroupProps) {
+export default function ButtonGroup({ children, testId, label, titleId }: ButtonGroupProps): React.JSX.Element {
 	return (
 		<div
 			css={buttonGroupStyles}

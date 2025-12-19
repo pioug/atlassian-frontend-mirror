@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { bind } from 'bind-event-listener';
+
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
@@ -16,15 +18,18 @@ import type {
 	Providers,
 } from '@atlaskit/editor-common/provider-factory';
 import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
-import type {
-	ExtractInjectionAPI,
-	EditorContainerWidth as WidthPluginState,
-} from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { SharedInteractionState } from '@atlaskit/editor-plugin-interaction';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
+import {
+	akEditorFullWidthLayoutWidth,
+	akEditorDefaultLayoutWidth,
+	akEditorCalculatedWideLayoutWidth,
+} from '@atlaskit/editor-shared-styles';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { updateCurrentMediaNodeAttrs } from '../../pm-plugins/commands/helpers';
@@ -39,7 +44,6 @@ import MediaNode from './media';
 interface MediaNodeWithPluginStateComponentProps {
 	interactionState?: SharedInteractionState['interactionState'];
 	mediaProvider?: Promise<MediaProvider>;
-	width?: WidthPluginState;
 }
 
 interface MediaNodeWithProvidersProps {
@@ -83,6 +87,52 @@ function isMediaDecorationSpec(decoration: Decoration): decoration is Decoration
 
 class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 	private isSelected = false;
+	private hasBeenResized = false;
+	private resizeListenerBinding?: () => void;
+
+	getMediaSingleNode(getPos: getPosHandlerNode): PMNode | null {
+		const pos = getPos();
+		if (typeof pos !== 'number') {
+			return null;
+		}
+
+		const $pos = this.view.state.doc.resolve(pos);
+
+		// The parent of the media node should be mediaSingle
+		if ($pos.parent && $pos.parent.type.name === 'mediaSingle') {
+			return $pos.parent;
+		}
+
+		return null;
+	}
+
+	getMaxWidthFromMediaSingleNode(mediaSingleNode: PMNode): number {
+		const {
+			width: widthAttr,
+			widthType: widthTypeAttr,
+			layout: layoutAttr,
+		} = mediaSingleNode.attrs;
+		// for extended mediaSingle nodes with width and widthType attributes ( default behaviour )
+		if (widthAttr && widthTypeAttr === 'pixel') {
+			return widthAttr;
+		}
+		// for legacy mediaSingle nodes without widthType attribute
+		switch (layoutAttr) {
+			case 'full-width':
+				return akEditorFullWidthLayoutWidth;
+			case 'wide':
+				return akEditorCalculatedWideLayoutWidth;
+			default:
+				return akEditorDefaultLayoutWidth;
+		}
+	}
+
+	hasResizedListener = () => {
+		if (!this.hasBeenResized) {
+			this.hasBeenResized = true;
+			this.update(this.node, this.decorations);
+		}
+	};
 
 	createDomRef(): HTMLElement {
 		const domRef = document.createElement('div');
@@ -93,6 +143,13 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 			// workaround Chrome bug in https://product-fabric.atlassian.net/browse/ED-5379
 			// see also: https://github.com/ProseMirror/prosemirror/issues/884
 			domRef.contentEditable = 'true';
+		}
+
+		if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
+			this.resizeListenerBinding = bind(domRef, {
+				type: 'resized',
+				listener: this.hasResizedListener,
+			});
 		}
 		return domRef;
 	}
@@ -157,9 +214,39 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 		}
 	};
 
+	getMaxCardDimensions = () => {
+		const flexibleDimensions = { width: '100%', height: '100%' };
+
+		if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
+			const pos = (this.getPos as getPosHandlerNode)();
+			if (typeof pos !== 'number') {
+				return flexibleDimensions;
+			}
+
+			if (this.hasBeenResized) {
+				return flexibleDimensions;
+			}
+
+			const mediaSingleNodeParent = this.getMediaSingleNode(this.getPos as getPosHandlerNode);
+
+			// If media parent not found, return default
+			if (!mediaSingleNodeParent) {
+				return flexibleDimensions;
+			}
+
+			// Compute normal dimensions
+			const maxWidth = this.getMaxWidthFromMediaSingleNode(mediaSingleNodeParent);
+			return {
+				width: `${maxWidth}px`,
+				height: '100%',
+			};
+		}
+
+		return flexibleDimensions;
+	};
+
 	renderMediaNodeWithState = (contextIdentifierProvider?: Promise<ContextIdentifierProvider>) => {
 		return ({
-			width: editorWidth,
 			mediaProvider,
 			interactionState,
 		}: MediaNodeWithPluginStateComponentProps): React.JSX.Element => {
@@ -181,11 +268,10 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 			width = width || DEFAULT_IMAGE_WIDTH;
 			height = height || DEFAULT_IMAGE_HEIGHT;
 
+			const { pluginInjectionApi } = this.reactComponentProps;
+
 			// mediaSingle defines the max dimensions, so we don't need to constrain twice.
-			const maxDimensions = {
-				width: `100%`,
-				height: `100%`,
-			};
+			const maxDimensions = this.getMaxCardDimensions();
 
 			const originalDimensions = {
 				width,
@@ -194,8 +280,6 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 
 			const isSelectedAndInteracted =
 				this.nodeInsideSelection() && interactionState !== 'hasNotHadInteraction';
-
-			const { pluginInjectionApi } = this.reactComponentProps;
 
 			return (
 				<MediaNode
@@ -242,6 +326,13 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 				renderNode={this.renderMediaNodeWithProviders}
 			/>
 		);
+	}
+
+	destroy() {
+		if (this.resizeListenerBinding) {
+			this.resizeListenerBinding();
+		}
+		super.destroy();
 	}
 }
 

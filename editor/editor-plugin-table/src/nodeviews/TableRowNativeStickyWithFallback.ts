@@ -12,6 +12,7 @@ import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
+import { INITIAL_STATIC_VIEWPORT_HEIGHT } from '../pm-plugins/editor-content-area-height';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as tablePluginKey } from '../pm-plugins/plugin-key';
 import { updateStickyState } from '../pm-plugins/sticky-headers/commands';
@@ -73,6 +74,8 @@ export default class TableRowNativeStickyWithFallback
 		if (this.tableContainerObserver) {
 			this.tableContainerObserver.disconnect();
 		}
+
+		this.onEditorContentAreaHeightChange?.();
 	};
 
 	constructor(
@@ -116,6 +119,27 @@ export default class TableRowNativeStickyWithFallback
 					this.subscribeWhenRowVisible();
 				},
 			});
+		}
+
+		if (
+			this.isHeaderRow &&
+			this.isStickyHeaderEnabled &&
+			fg('platform_editor_table_sticky_header_patch_4')
+		) {
+			this.onEditorContentAreaHeightChange = api?.table?.sharedState.onChange(
+				({ nextSharedState }) => {
+					if (
+						nextSharedState?.editorContentAreaHeight &&
+						nextSharedState?.editorContentAreaHeight !== this.editorContentAreaHeight
+					) {
+						this.editorContentAreaHeight = nextSharedState.editorContentAreaHeight;
+						this.toggleDisableNativeSticky(
+							this.stickyRowHeight ?? 0,
+							nextSharedState.editorContentAreaHeight,
+						);
+					}
+				},
+			);
 		}
 	}
 
@@ -171,7 +195,15 @@ export default class TableRowNativeStickyWithFallback
 	/** Native sticky header variables */
 	private overflowObserver?: IntersectionObserver;
 	private stickyStateObserver?: IntersectionObserver;
-	private isNativeSticky: boolean = false;
+	private hasScrolledSinceLoad: boolean = false;
+	private scrollListener?: () => void;
+
+	private overflowObserverEntries?: IntersectionObserverEntry[];
+	private isNativeSticky?: boolean;
+	private disableNativeSticky: boolean = false;
+	private onEditorContentAreaHeightChange?: () => void;
+	private editorContentAreaHeight?: number;
+	private nodeVisibilityObserver?: IntersectionObserver;
 
 	/**
 	 * Methods: Nodeview Lifecycle
@@ -218,7 +250,9 @@ export default class TableRowNativeStickyWithFallback
 		if (this.isStickyHeaderEnabled) {
 			this.unsubscribe();
 			this.overflowObserver && this.overflowObserver.disconnect();
+			this.overflowObserverEntries = undefined;
 			this.stickyStateObserver && this.stickyStateObserver.disconnect();
+			this.nodeVisibilityObserver?.disconnect();
 			this.nodeVisibilityObserverCleanupFn && this.nodeVisibilityObserverCleanupFn();
 
 			const tree = getTree(this.dom);
@@ -292,6 +326,48 @@ export default class TableRowNativeStickyWithFallback
 		if (this.editorScrollableElement) {
 			this.initObservers();
 			this.topPosEditorElement = getTop(this.editorScrollableElement);
+
+			if (fg('platform_editor_table_sticky_header_patch_5')) {
+				this.scrollListener = () => {
+					if (this.hasScrolledSinceLoad) {
+						return;
+					}
+					this.hasScrolledSinceLoad = true;
+
+					if (!this.overflowObserver) {
+						return;
+					}
+
+					// Re-check intersection state now that scrolling has occurred
+					const entries = this.overflowObserverEntries ?? this.overflowObserver.takeRecords();
+					this.overflowObserverEntries = undefined;
+
+					/** NOTE: This logic is duplicated in the overflowObserver callback
+					 *  to avoid conflicting with a follow up refactor where this will
+					 *  be cleaned up.
+					 */
+					entries.forEach((entry) => {
+						const tableWrapper = this.dom.closest(`.${ClassName.TABLE_NODE_WRAPPER}`);
+						if (tableWrapper && tableWrapper instanceof HTMLElement) {
+							if (entry.isIntersecting) {
+								tableWrapper.classList.add(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
+								this.dom.classList.add(ClassName.NATIVE_STICKY);
+								this.isNativeSticky = true;
+							} else {
+								tableWrapper.classList.remove(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
+								this.dom.classList.remove(ClassName.NATIVE_STICKY);
+								this.isNativeSticky = false;
+							}
+							this.refreshLegacyStickyState();
+						}
+					});
+				};
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+				this.editorScrollableElement.addEventListener('scroll', this.scrollListener, {
+					passive: true,
+					once: true,
+				});
+			}
 		}
 
 		this.eventDispatcher.on('widthPlugin', this.updateStickyHeaderWidth.bind(this));
@@ -331,6 +407,12 @@ export default class TableRowNativeStickyWithFallback
 			this.resizeObserver.disconnect();
 		}
 
+		if (this.scrollListener && this.editorScrollableElement) {
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+			this.editorScrollableElement.removeEventListener('scroll', this.scrollListener);
+			this.scrollListener = undefined;
+		}
+
 		this.eventDispatcher.off('widthPlugin', this.updateStickyHeaderWidth);
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -362,15 +444,34 @@ export default class TableRowNativeStickyWithFallback
 				if (!(observer.root instanceof HTMLElement)) {
 					return;
 				}
+				// Only apply classes if page has scrolled since load
+				if (!this.hasScrolledSinceLoad && fg('platform_editor_table_sticky_header_patch_5')) {
+					this.overflowObserverEntries = entries;
+					return;
+				}
+
 				if (entry.isIntersecting) {
-					observer.root.classList.add(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
-					this.dom.classList.add(ClassName.NATIVE_STICKY);
+					if (fg('platform_editor_table_sticky_header_patch_4')) {
+						observer.root.classList.add(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
+						if (!this.disableNativeSticky) {
+							this.dom.classList.add(ClassName.NATIVE_STICKY);
+						}
+					} else {
+						observer.root.classList.add(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
+						this.dom.classList.add(ClassName.NATIVE_STICKY);
+					}
 					this.isNativeSticky = true;
 				} else {
-					observer.root.classList.remove(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
-					this.dom.classList.remove(ClassName.NATIVE_STICKY);
+					if (fg('platform_editor_table_sticky_header_patch_4')) {
+						observer.root.classList.remove(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
+						this.dom.classList.remove(ClassName.NATIVE_STICKY);
+					} else {
+						observer.root.classList.remove(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
+						this.dom.classList.remove(ClassName.NATIVE_STICKY);
+					}
 					this.isNativeSticky = false;
 				}
+
 				this.refreshLegacyStickyState();
 			});
 		}, options);
@@ -395,7 +496,10 @@ export default class TableRowNativeStickyWithFallback
 		this.stickyStateObserver = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {
 				const tableContainer = this.dom.closest(`.${ClassName.TABLE_CONTAINER}`);
-				if (entry.intersectionRect.top === entry.rootBounds?.top) {
+				if (
+					entry.intersectionRect.top === entry.rootBounds?.top &&
+					(!this.disableNativeSticky || !fg('platform_editor_table_sticky_header_patch_4'))
+				) {
 					this.dom.classList.add(ClassName.NATIVE_STICKY_ACTIVE);
 					if (tableContainer && tableContainer instanceof HTMLElement) {
 						tableContainer.dataset.tableHeaderIsStuck = 'true';
@@ -432,9 +536,15 @@ export default class TableRowNativeStickyWithFallback
 				this.dom.style.setProperty('anchor-name', this.dom.getAttribute('data-node-anchor') ?? '');
 			}
 			this.initOverflowObserver();
+			if (fg('platform_editor_table_sticky_header_patch_4')) {
+				this.initNodeVisibilityObserver();
+			}
 			const closestTable = this.dom.closest('table');
 			if (closestTable) {
 				this.overflowObserver?.observe(closestTable);
+				if (fg('platform_editor_table_sticky_header_patch_4')) {
+					this.nodeVisibilityObserver?.observe(closestTable);
+				}
 			}
 			this.initStickyStateObserver();
 			this.stickyStateObserver?.observe(this.dom);
@@ -528,6 +638,32 @@ export default class TableRowNativeStickyWithFallback
 		});
 	}
 
+	// initialise intersection observer to track whether table is in scroll area
+	private initNodeVisibilityObserver() {
+		this.nodeVisibilityObserver = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (!this.isNativeSticky) {
+						return;
+					}
+
+					if (entry.intersectionRatio !== 0 && entry.intersectionRatio !== 1) {
+						return;
+					}
+
+					if (this.disableNativeSticky === true) {
+						this.dom.classList.remove(ClassName.NATIVE_STICKY);
+					}
+
+					if (this.disableNativeSticky === false) {
+						this.dom.classList.add(ClassName.NATIVE_STICKY);
+					}
+				});
+			},
+			{ threshold: [0, 0.05, 0.95, 1] },
+		);
+	}
+
 	// updating bottom sentinel position if sticky header height changes
 	// to allocate for new header height
 	private createResizeObserver() {
@@ -564,6 +700,11 @@ export default class TableRowNativeStickyWithFallback
 
 						updateTableMargin(table);
 					}
+
+					if (fg('platform_editor_table_sticky_header_patch_4')) {
+						const viewportHeight = this.editorContentAreaHeight ?? INITIAL_STATIC_VIEWPORT_HEIGHT;
+						this.toggleDisableNativeSticky(newHeight, viewportHeight);
+					}
 				}
 			});
 		});
@@ -576,7 +717,6 @@ export default class TableRowNativeStickyWithFallback
 				// 0 height. In safari it will multiply all values by the window scale factor, however chrome & firfox won't.
 				// This is why i just get the scroll view bounding rect here and use it, and fallback to the entry.rootBounds if needed.
 				const rootBounds = (this.editorScrollableElement as Element)?.getBoundingClientRect?.();
-
 				entries.forEach((entry) => {
 					const { target, isIntersecting, boundingClientRect } = entry;
 					// This observer only every looks at the top/bottom sentinels, we can assume if it's not one then it's the other.
@@ -593,6 +733,7 @@ export default class TableRowNativeStickyWithFallback
 					this.sentinelData[targetKey === 'top' ? 'bottom' : targetKey].rootBounds =
 						rootBounds ?? entry.rootBounds;
 				});
+
 				this.refreshLegacyStickyState();
 			},
 			{ threshold: 0, root: this.editorScrollableElement as Element },
@@ -651,31 +792,31 @@ export default class TableRowNativeStickyWithFallback
 
 	private isHeaderSticky() {
 		/*
-    # Overview
-      I'm going to list all the view states associated with the sentinels and when they should trigger sticky headers.
-      The format of the states are;    {top|bottom}:{in|above|below}
-      ie sentinel:view-position -- both "above" and "below" are equal to out of the viewport
+	# Overview
+	  I'm going to list all the view states associated with the sentinels and when they should trigger sticky headers.
+	  The format of the states are;    {top|bottom}:{in|above|below}
+	  ie sentinel:view-position -- both "above" and "below" are equal to out of the viewport
 
-      For example; "top:in" means top sentinel is within the viewport. "bottom:above" means the bottom sentinel is
-      above and out of the viewport
+	  For example; "top:in" means top sentinel is within the viewport. "bottom:above" means the bottom sentinel is
+	  above and out of the viewport
 
-      This will hopefully simplify things and make it easier to determine when sticky should/shouldn't be triggered.
+	  This will hopefully simplify things and make it easier to determine when sticky should/shouldn't be triggered.
 
-    # States
-      top:in / bottom:in - NOT sticky
-      top:in / bottom:above - NOT sticky - NOTE: This is an inversion clause
-      top:in / bottom:below - NOT sticky
-      top:above / bottom:in - STICKY
-      top:above / bottom:above - NOT sticky
-      top:above / bottom:below - STICKY
-      top:below / bottom:in - NOT sticky - NOTE: This is an inversion clause
-      top:below / bottom:above - NOT sticky - NOTE: This is an inversion clause
-      top:below / bottom:below - NOT sticky
+	# States
+	  top:in / bottom:in - NOT sticky
+	  top:in / bottom:above - NOT sticky - NOTE: This is an inversion clause
+	  top:in / bottom:below - NOT sticky
+	  top:above / bottom:in - STICKY
+	  top:above / bottom:above - NOT sticky
+	  top:above / bottom:below - STICKY
+	  top:below / bottom:in - NOT sticky - NOTE: This is an inversion clause
+	  top:below / bottom:above - NOT sticky - NOTE: This is an inversion clause
+	  top:below / bottom:below - NOT sticky
 
-    # Summary
-      The only time the header should be sticky is when the top sentinel is above the view and the bottom sentinel
-      is in or below it.
-    */
+	# Summary
+	  The only time the header should be sticky is when the top sentinel is above the view and the bottom sentinel
+	  is in or below it.
+	*/
 
 		const { top: sentinelTop, bottom: sentinelBottom } = this.sentinelData;
 		// The rootRect is kept in sync across sentinels so it doesn't matter which one we use.
@@ -795,6 +936,19 @@ export default class TableRowNativeStickyWithFallback
 			});
 		}
 	}
+
+	private toggleDisableNativeSticky = (headerHeight: number, viewportHeight: number) => {
+		if (!this.disableNativeSticky && headerHeight > viewportHeight * 0.5) {
+			this.disableNativeSticky = true;
+			if (this.isNativeSticky === undefined) {
+				this.dom.classList.remove(ClassName.NATIVE_STICKY);
+			}
+		}
+
+		if (this.disableNativeSticky && headerHeight <= viewportHeight * 0.5) {
+			this.disableNativeSticky = false;
+		}
+	};
 
 	private makeHeaderRowLegacySticky(tree: TableDOMElements, scrollTop?: number) {
 		// If header row height is more than 50% of viewport height don't do this

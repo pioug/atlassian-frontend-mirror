@@ -12,7 +12,7 @@ import React, {
 	useState,
 } from 'react';
 
-import { jsx } from '@compiled/react';
+import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
@@ -20,7 +20,21 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { PopupContent } from '@atlaskit/popup/experimental';
 import { token } from '@atlaskit/tokens';
 
-import { SetIsOpenContext } from './flyout-menu-item-context';
+import { OnCloseProvider, SetIsOpenContext } from './flyout-menu-item-context';
+
+/**
+ * The vertical offset in px to ensure the flyout container does not exceed the bounds of
+ * the window. This matches the padding of the content container, and it's position within
+ * the viewport.
+ * 
+ * - FlyoutMenuItemContent: paddingBlock: token('space.100'); – 8px top, 8px bottom
+ * - Position: 5px top, 5px bottom
+ * 
+ * Total vertical padding:
+ * 		(8px [content top] + 8px [content bottom]) +
+ * 		(5px [position top] + 5px [position bottom]) = 26px
+ */
+const FLYOUT_MENU_VERTICAL_OFFSET_PX = 26;
 
 const flyoutMenuItemContentStyles = cssMap({
 	root: {
@@ -33,6 +47,15 @@ const flyoutMenuItemContentStyles = cssMap({
 			width: '400px',
 		},
 	},
+});
+
+const flyoutMenuItemContentContainerStyles = cssMapUnbound({
+	container: {
+		display: 'flex',
+		height: '100%',
+		maxHeight: `calc(100vh - ${FLYOUT_MENU_VERTICAL_OFFSET_PX}px)`,
+		flexDirection: 'column'
+	}
 });
 
 export type FlyoutMenuItemContentProps = {
@@ -104,7 +127,18 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 			>
 				{({ update }) => (
 					<UpdatePopperOnContentResize ref={forwardedRef} update={update}>
-						{children}
+						{
+							fg("platform_dst_nav4_flyout_menu_slots_close_button")
+							? (
+								<OnCloseProvider value={() => onClose}>
+									<div css={flyoutMenuItemContentContainerStyles.container}>
+										{children}
+									</div>
+								</OnCloseProvider>
+							) : (
+								children
+							)
+						}
 					</UpdatePopperOnContentResize>
 				)}
 			</PopupContent>

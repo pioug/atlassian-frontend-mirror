@@ -1,5 +1,13 @@
 # @atlaskit/lozenge
 
+## 13.3.0
+
+### Minor Changes
+
+- [`3f338c9019166`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f338c9019166) -
+  Added “./lozenge-dropdown-trigger” entrypoint. Mapped the new semantic values to the existing
+  appearance to ensure backward compatibility.
+
 ## 13.2.2
 
 ### Patch Changes

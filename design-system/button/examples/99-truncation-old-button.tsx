@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
@@ -25,7 +27,7 @@ const narrowWrapperStyles = css({
 	},
 });
 
-export default () => (
+export default (): React.JSX.Element => (
 	<div css={narrowWrapperStyles}>
 		<div>
 			<Button appearance="primary">I am wider than my parent</Button>

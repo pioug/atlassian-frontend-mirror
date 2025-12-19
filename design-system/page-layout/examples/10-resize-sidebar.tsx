@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, useCallback, useState } from 'react';
+import React, { Fragment, useCallback, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -64,7 +64,7 @@ const initialState = {
 	isPageLayoutShown: true,
 };
 
-const BasicGrid = () => {
+const BasicGrid = (): React.JSX.Element => {
 	const [gridState, setGridState] = useState(initialState);
 
 	const ToggleFixed = useCallback(

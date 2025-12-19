@@ -127,6 +127,13 @@ export class SourceSyncBlockStoreManager {
 						},
 					});
 					bodiedSyncBlockData.push(syncBlockData);
+
+					// reset isDirty early to prevent race condition
+					// There is a race condition where if a user makes changes to a source sync block
+					// on a live page and the source sync block is being saved while the user
+					// is still making changes, the new changes might not be saved if they all happen
+					// exactly at a time when the writeNodesData is being executed asynchronously.
+					syncBlockData.isDirty = false;
 				}
 			});
 
@@ -140,14 +147,14 @@ export class SourceSyncBlockStoreManager {
 			);
 
 			writeResults.forEach((result) => {
-				// set isDirty to false on write success and unrecoverable errors like not found
-				if (result.resourceId && (result.error === SyncBlockError.NotFound || !result.error)) {
-					const cachedData = this.syncBlockCache.get(result.resourceId)
+				// set isDirty to true for cases where it failed to save the sync block to the BE
+				if (result.resourceId && result.error && result.error !== SyncBlockError.NotFound) {
+					const cachedData = this.syncBlockCache.get(result.resourceId);
 					if (cachedData) {
-						cachedData.isDirty = false;
+						cachedData.isDirty = true;
 					}
 				}
-			})
+			});
 
 			if (writeResults.every((result) => result.resourceId && !result.error)) {
 				return true;

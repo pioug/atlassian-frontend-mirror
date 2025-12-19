@@ -24,7 +24,7 @@ const Component: React.ForwardRefExoticComponent<
 	/>
 ));
 
-export default () => (
+export default (): React.JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 	<div className="sample">
 		<Button iconBefore={<Switcher label="" />} component={Component}>

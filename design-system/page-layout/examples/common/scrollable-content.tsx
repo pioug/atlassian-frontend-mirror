@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import { Fragment, useMemo } from 'react';
+import React, { Fragment, useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -38,7 +38,7 @@ const highlightStyles = css({
 	},
 });
 
-const ScrollableContent = ({ shouldHighlightNth = false }: ScrollableContentProps) => {
+const ScrollableContent = ({ shouldHighlightNth = false }: ScrollableContentProps): React.JSX.Element => {
 	const items = useMemo(
 		() =>
 			Array.from({ length: 50 }, (_, i) => (

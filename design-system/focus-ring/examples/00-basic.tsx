@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
@@ -29,7 +29,7 @@ const stackStyles = css({
 	flexDirection: 'column',
 });
 
-export default () => {
+export default (): React.JSX.Element => {
 	const buttonRef = useRef<HTMLButtonElement | null>(null);
 	useEffect(() => {
 		if (buttonRef.current) {

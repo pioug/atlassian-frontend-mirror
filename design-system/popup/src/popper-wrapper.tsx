@@ -90,7 +90,7 @@ const DefaultPopupComponent: React.ForwardRefExoticComponent<
 		children,
 		appearance,
 		className,
-		isReferenceHidden,
+		isReferenceHidden: _isReferenceHidden,
 		...htmlAttributes
 	} = props;
 

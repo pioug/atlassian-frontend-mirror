@@ -8,6 +8,7 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getNodeIdProvider } from '@atlaskit/editor-common/node-anchor';
 import {
 	isMeasuring,
 	startMeasure,
@@ -1000,6 +1001,17 @@ export const createPlugin = (
 				},
 				mouseover: (view: EditorView, event: Event) => {
 					if (api?.limitedMode?.sharedState.currentState()?.enabled) {
+						return;
+					}
+
+					// another layer of protection to prevent handling mouseover
+					// when native anchor with dnd is enabled in limited mode
+					// in case there are descripancies between getNodeIdProvider limited mode state
+					if (
+						getNodeIdProvider(view)?.isLimitedMode() &&
+						expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
+						fg('platform_editor_native_anchor_patch_2')
+					) {
 						return;
 					}
 

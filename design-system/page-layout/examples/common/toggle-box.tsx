@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import type { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -26,7 +26,7 @@ const toggleBoxStyles = css({
 	transform: 'translate(-50%)',
 });
 
-const ToggleBox = ({ children }: ToggleBoxProps) => {
+const ToggleBox = ({ children }: ToggleBoxProps): React.JSX.Element => {
 	return <fieldset css={toggleBoxStyles}>{children}</fieldset>;
 };
 

@@ -162,6 +162,10 @@ export type BlockMenuExtensionConfiguration = {
 };
 
 export type ExtensionToolbarItemConfiguration = {
+	/**
+	 * Optional key to identify the toolbar item in analytics events
+	 */
+	key?: string;
 	icon: ComponentType<PropsWithChildren<{ label: string }>>;
 	isDisabled?: boolean;
 	label?: string;
@@ -173,6 +177,10 @@ export type ExtensionToolbarItemConfiguration = {
  * Common fields applicable to all extension menu items
  */
 type ExtensionMenuItemBaseConfiguration = {
+	/**
+	 * Optional key to identify the menu item in analytics events
+	 */
+	key?: string;
 	icon: ComponentType<PropsWithChildren<{ label: string; size?: 'small' | 'medium' }>>;
 	label: string;
 	isDisabled?: boolean;

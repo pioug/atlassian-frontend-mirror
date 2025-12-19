@@ -220,6 +220,7 @@ function ComposableEditorPage() {
 
 		if (multipleRowsSelected) {
 			return {
+				key: 'multiple-jira-issues',
 				label: 'Multiple Issues',
 				icon: AddIcon,
 				onClick: () => {
@@ -230,6 +231,7 @@ function ComposableEditorPage() {
 			};
 		} else {
 			return {
+				key: 'single-jira-issue',
 				label: 'Single Issue',
 				lozenge: {
 					label: 'TRY',
@@ -364,118 +366,126 @@ function ComposableEditorPage() {
 		}
 	};
 
-	editorApi?.blockMenu?.actions.registerBlockMenuComponents([
-		// first menu
-		{
-			type: 'block-menu-nested' as const,
-			key: 'deeply-nested-menu-1',
-			parent: {
-				type: 'block-menu-section' as const,
-				key: TRANSFORM_MENU_SECTION.key,
-				rank: 9001,
-			},
-			component: ({ children }) => (
-				<ToolbarNestedDropdownMenu
-					text="First Level Menu"
-					elemBefore={<AddIcon label="" />}
-					elemAfter={<ChevronRightIcon label="" />}
-					shouldFitContainer
-					enableMaxHeight
-				>
-					{children}
-				</ToolbarNestedDropdownMenu>
-			),
-		},
-		// first section inside first menu
-		{
-			type: 'block-menu-section' as const,
-			key: 'deeply-nested-section-1',
-			parent: {
+	const existingComponents = editorApi?.blockMenu?.actions.getBlockMenuComponents();
+	const alreadyRegistered = existingComponents?.some(
+		(component) => component.key === 'deeply-nested-menu-1',
+	);
+	if (!alreadyRegistered) {
+		editorApi?.blockMenu?.actions.registerBlockMenuComponents([
+			// first menu
+			{
 				type: 'block-menu-nested' as const,
 				key: 'deeply-nested-menu-1',
-				rank: 0,
+				parent: {
+					type: 'block-menu-section' as const,
+					key: TRANSFORM_MENU_SECTION.key,
+					rank: 9001,
+				},
+				component: ({ children }) => (
+					<ToolbarNestedDropdownMenu
+						text="First Level Menu"
+						elemBefore={<AddIcon label="" />}
+						elemAfter={<ChevronRightIcon label="" />}
+						shouldFitContainer
+						enableMaxHeight
+					>
+						{children}
+					</ToolbarNestedDropdownMenu>
+				),
 			},
-			component: ({ children }) => (
-				<ToolbarDropdownItemSection title="First Section">{children}</ToolbarDropdownItemSection>
-			),
-		},
-		// second menu inside first section
-		{
-			type: 'block-menu-nested' as const,
-			key: 'deeply-nested-menu-2',
-			parent: {
+			// first section inside first menu
+			{
 				type: 'block-menu-section' as const,
 				key: 'deeply-nested-section-1',
-				rank: 0,
+				parent: {
+					type: 'block-menu-nested' as const,
+					key: 'deeply-nested-menu-1',
+					rank: 0,
+				},
+				component: ({ children }) => (
+					<ToolbarDropdownItemSection title="First Section">{children}</ToolbarDropdownItemSection>
+				),
 			},
-			component: ({ children }) => (
-				<ToolbarNestedDropdownMenu
-					text="Second Level Menu"
-					elemBefore={<AppIcon label="" />}
-					elemAfter={<ChevronRightIcon label="" />}
-				>
-					{children}
-				</ToolbarNestedDropdownMenu>
-			),
-		},
-		// second section inside second menu
-		{
-			type: 'block-menu-section' as const,
-			key: 'deeply-nested-section-3',
-			parent: {
+			// second menu inside first section
+			{
 				type: 'block-menu-nested' as const,
 				key: 'deeply-nested-menu-2',
-				rank: 0,
+				parent: {
+					type: 'block-menu-section' as const,
+					key: 'deeply-nested-section-1',
+					rank: 0,
+				},
+				component: ({ children }) => (
+					<ToolbarNestedDropdownMenu
+						text="Second Level Menu"
+						elemBefore={<AppIcon label="" />}
+						elemAfter={<ChevronRightIcon label="" />}
+					>
+						{children}
+					</ToolbarNestedDropdownMenu>
+				),
 			},
-			component: ({ children }) => (
-				<ToolbarDropdownItemSection title="Second Section" hasSeparator>
-					{children}
-				</ToolbarDropdownItemSection>
-			),
-		},
-		// second section inside second menu
-		// this section won't render because its only child is a menu item that returns null
-		{
-			type: 'block-menu-section' as const,
-			key: 'deeply-nested-section-3-2',
-			parent: {
-				type: 'block-menu-nested' as const,
-				key: 'deeply-nested-menu-2',
-				rank: 0,
-			},
-			component: ({ children }) => (
-				<ToolbarDropdownItemSection title="Third Section" hasSeparator>
-					{children}
-				</ToolbarDropdownItemSection>
-			),
-		},
-		// finally the item inside the second section
-		{
-			type: 'block-menu-item' as const,
-			key: 'deeply-nested-item',
-			parent: {
+			// second section inside second menu
+			{
 				type: 'block-menu-section' as const,
 				key: 'deeply-nested-section-3',
-				rank: 0,
+				parent: {
+					type: 'block-menu-nested' as const,
+					key: 'deeply-nested-menu-2',
+					rank: 0,
+				},
+				component: ({ children }) => (
+					<ToolbarDropdownItemSection title="Second Section" hasSeparator>
+						{children}
+					</ToolbarDropdownItemSection>
+				),
 			},
-			component: () => (
-				<ToolbarDropdownItem elemBefore={<AddIcon label="" />}>
-					Deeply nested item
-				</ToolbarDropdownItem>
-			),
-		},
-		// This won't render because the component returns null
-		{
-			type: 'block-menu-item' as const,
-			key: 'deeply-nested-item-2',
-			parent: {
+			// second section inside second menu
+			// this section won't render because its only child is a menu item that returns null
+			{
 				type: 'block-menu-section' as const,
 				key: 'deeply-nested-section-3-2',
-				rank: 0,
+				parent: {
+					type: 'block-menu-nested' as const,
+					key: 'deeply-nested-menu-2',
+					rank: 0,
+				},
+				component: ({ children }) => (
+					<ToolbarDropdownItemSection title="Third Section" hasSeparator>
+						{children}
+					</ToolbarDropdownItemSection>
+				),
 			},
-			component: () => null,
-		},
-	]);
+			// finally the item inside the second section
+			{
+				type: 'block-menu-item' as const,
+				key: 'deeply-nested-item',
+				parent: {
+					type: 'block-menu-section' as const,
+					key: 'deeply-nested-section-3',
+					rank: 0,
+				},
+				component: () => (
+					<ToolbarDropdownItem elemBefore={<AddIcon label="" />}>
+						Deeply nested item
+					</ToolbarDropdownItem>
+				),
+			},
+			// This won't render because the component returns null
+			{
+				type: 'block-menu-item' as const,
+				key: 'deeply-nested-item-2',
+				parent: {
+					type: 'block-menu-section' as const,
+					key: 'deeply-nested-section-3-2',
+					rank: 0,
+				},
+				component: () => null,
+			},
+		]);
+	}
+
+	console.log('createButton', createButton, selectedNodeAdfRef.current);
 
 	return (
 		<SmartCardProvider client={smartCardClient}>

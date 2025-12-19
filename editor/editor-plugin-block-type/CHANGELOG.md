@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-type
 
+## 10.3.4
+
+### Patch Changes
+
+- [`b5d004bf834f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5d004bf834f8) -
+  [ux] Adds block menu action to check if 'Turn into' item should be rendered or not.
+- Updated dependencies
+
 ## 10.3.3
 
 ### Patch Changes

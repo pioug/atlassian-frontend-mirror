@@ -40,6 +40,9 @@
 			"path": "../../ds-lib/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../heading/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../icon/afm-products/tsconfig.json"
 		},
 		{

@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-table
 
+## 15.6.8
+
+### Patch Changes
+
+- [`b1ea4fa4e8e56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1ea4fa4e8e56) -
+  Remove static scroll listener
+
+## 15.6.7
+
+### Patch Changes
+
+- [`fe7b3f29093a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe7b3f29093a6) -
+  [ux] EDITOR-2990 Disable native sticky header for tables with headers greater than 50% viewport
+  height
+- [`b4a854535b851`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4a854535b851) -
+  [ux] EDITOR-2625 Add missing left border when table controls are showing and header is sticking in
+  table with numbered columns
+- Updated dependencies
+
+## 15.6.6
+
+### Patch Changes
+
+- [`8e7168f651cc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e7168f651cc2) -
+  Only set native sticky header classes if a scroll event has occurred
+- Updated dependencies
+
+## 15.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.6.4
 
 ### Patch Changes

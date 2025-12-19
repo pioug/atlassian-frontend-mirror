@@ -286,9 +286,9 @@ const tableStickyHeaderFirefoxFixStyle = () => {
 		? getBrowserInfo()
 		: browserLegacy;
 	/*
-    This is MAGIC!
-    This fixes a bug which occurs in firefox when the first row becomes sticky.
-    see https://product-fabric.atlassian.net/browse/ED-19177
+	This is MAGIC!
+	This fixes a bug which occurs in firefox when the first row becomes sticky.
+	see https://product-fabric.atlassian.net/browse/ED-19177
   */
 	if (browser.gecko) {
 		return css`
@@ -315,10 +315,10 @@ export const baseTableStyles = (props: {
 	${fg('platform_editor_table_numbered_table_border') && rangeSelectionStylesForFakeBorders};
 	${viewModeSortStyles()};
 	${expValEquals(
-		'platform_editor_table_sticky_header_improvements',
-		'cohort',
-		'test_with_overflow',
-	) && tableAnchorStyles};
+	'platform_editor_table_sticky_header_improvements',
+	'cohort',
+	'test_with_overflow',
+) && tableAnchorStyles};
 
 	.${ClassName.LAST_ITEM_IN_CELL} {
 		margin-bottom: 0;
@@ -368,11 +368,10 @@ export const baseTableStyles = (props: {
 	${fg('platform_editor_nested_tables_sticky_header_bug')
 		? `
 		.${ClassName.TABLE_STICKY} > .${props.isDragAndDropEnabled ? ClassName.DRAG_ROW_CONTROLS_WRAPPER : ClassName.ROW_CONTROLS_WRAPPER} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
-			margin-top: ${
-				fg('platform_editor_number_column_sticky_header_bug')
-					? stickyRowOffsetTop
-					: stickyRowOffsetTop + 2
-			}px;
+			margin-top: ${fg('platform_editor_number_column_sticky_header_bug')
+			? stickyRowOffsetTop
+			: stickyRowOffsetTop + 2
+		}px;
 			width: ${akEditorTableNumberColumnWidth}px;
 
 			position: fixed !important;
@@ -384,11 +383,10 @@ export const baseTableStyles = (props: {
 		`
 		: `
     	.${ClassName.TABLE_STICKY} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
-			margin-top: ${
-				fg('platform_editor_number_column_sticky_header_bug')
-					? stickyRowOffsetTop
-					: stickyRowOffsetTop + 2
-			}px;
+			margin-top: ${fg('platform_editor_number_column_sticky_header_bug')
+			? stickyRowOffsetTop
+			: stickyRowOffsetTop + 2
+		}px;
 			width: ${akEditorTableNumberColumnWidth}px;
 
 			position: fixed !important;
@@ -546,7 +544,7 @@ export const baseTableStyles = (props: {
 		}
 
 		${fg('platform_editor_table_sticky_header_patch_1')
-			? `th.${ClassName.TABLE_HEADER_CELL}::after {
+		? `th.${ClassName.TABLE_HEADER_CELL}::after {
 				height: 100%;
 				content: '';
 				border-left: 1px solid ${tableBorderColor};
@@ -559,7 +557,7 @@ export const baseTableStyles = (props: {
 				display: inline-block;
 				pointer-events: none;
 			}`
-			: ``}
+		: ``}
 	}
 
 	/** Adds mask above sticky header to prevent table content from bleeding through on scroll */
@@ -602,6 +600,9 @@ export const baseTableStyles = (props: {
 		z-index: ${aboveNativeStickyHeaderZIndex};
 	}
 
+
+
+
 	.${ClassName.TABLE_CONTAINER}[data-table-header-is-stuck='true']:has(.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW})
 		> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
 		> div
@@ -610,7 +611,7 @@ export const baseTableStyles = (props: {
 	}
 
 	/** Corrects position of numbered column when sticky header top mask is present */
-	.${ClassName.TABLE_CONTAINER}:has(.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW})
+	.${ClassName.TABLE_CONTAINER}:has(.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} ${fg('platform_editor_table_sticky_header_patch_4') ? `tr.${ClassName.NATIVE_STICKY}` : ''})
 		> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
 		> div
 		> .${ClassName.NUMBERED_COLUMN} {
@@ -651,29 +652,27 @@ export const baseTableStyles = (props: {
 		.${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY} > .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
 			.${ClassName.NUMBERED_COLUMN}
 			.${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
-			margin-top: ${
-				fg('platform_editor_number_column_sticky_header_bug')
-					? tableControlsSpacing
-					: tableControlsSpacing + 2
-			}px;
+			margin-top: ${fg('platform_editor_number_column_sticky_header_bug')
+			? tableControlsSpacing
+			: tableControlsSpacing + 2
+		}px;
 		}
 		`
 		: `
 		.${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY}
 			.${ClassName.NUMBERED_COLUMN}
 			.${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
-			margin-top: ${
-				fg('platform_editor_number_column_sticky_header_bug')
-					? tableControlsSpacing
-					: tableControlsSpacing + 2
-			}px;
+			margin-top: ${fg('platform_editor_number_column_sticky_header_bug')
+			? tableControlsSpacing
+			: tableControlsSpacing + 2
+		}px;
 		}
 		`}
 
 	.${ClassName.CORNER_CONTROLS}.sticky {
 		border-top: ${fg('platform_editor_number_column_sticky_header_bug')
-				? tableControlsSpacing - tableToolbarSize
-				: tableControlsSpacing - tableToolbarSize + 2}px
+		? tableControlsSpacing - tableToolbarSize
+		: tableControlsSpacing - tableToolbarSize + 2}px
 			solid ${token('elevation.surface', 'white')};
 	}
 
@@ -759,11 +758,11 @@ export const baseTableStyles = (props: {
 			position: relative;
 
 			${InsertMarker(
-				`
+			`
           left: -11px;
           top: 9px;
         `,
-			)};
+		)};
 		}
 	}
 
@@ -1040,8 +1039,8 @@ export const baseTableStyles = (props: {
 		float: right;
 		margin-left: ${akEditorTableToolbarSize}px;
 		top: ${props.isDragAndDropEnabled || editorExperiment('support_table_in_comment_jira', true)
-			? 0
-			: akEditorTableToolbarSize}px;
+		? 0
+		: akEditorTableToolbarSize}px;
 		width: ${akEditorTableNumberColumnWidth + 1}px;
 		box-sizing: border-box;
 	}
@@ -1052,17 +1051,17 @@ export const baseTableStyles = (props: {
 		margin-top: -1px;
 		padding-bottom: 2px;
 		padding: ${expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-			(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-				fg('platform_editor_content_mode_button_mvp'))
-				? relativeSizeToBaseFontSize(10)
-				: `10px`}
+		(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+			fg('platform_editor_content_mode_button_mvp'))
+		? relativeSizeToBaseFontSize(10)
+		: `10px`}
 			2px;
 		text-align: center;
 		font-size: ${expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
 		(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 			fg('platform_editor_content_mode_button_mvp'))
-			? relativeSizeToBaseFontSize(14)
-			: relativeFontSizeToBase16(14)};
+		? relativeSizeToBaseFontSize(14)
+		: relativeFontSizeToBase16(14)};
 		background-color: ${tableHeaderCellBackgroundColor};
 		color: ${tableTextColor};
 		border-color: ${tableBorderColor};
@@ -1279,12 +1278,12 @@ export const baseTableStyles = (props: {
 		position: absolute;
 		/* this is to fix the misalignment of the numbered column in live page view mode */
 		${props.isDragAndDropEnabled
-			? `
+		? `
 			margin-top: ${tableMarginTop}px;
 			top: 0;
 			left: -${tableToolbarSize + 1}px;
 		`
-			: `
+		: `
 			/* top of corner control is table margin top - corner control height + 1 pixel of table border. */
 			top: ${tableMarginTop - cornerControlHeight + 1}px;
 			margin-top: 0;
@@ -1354,16 +1353,16 @@ export const baseTableStyles = (props: {
 		border-left: 1px solid ${tableBorderColor};
 		background: ${token('color.background.accent.gray.subtlest')};
 		${fg('platform_editor_table_sticky_header_patch_1')
-			? `border-top: 1px solid ${tableBorderColor};`
-			: ``}
+		? `border-top: 1px solid ${tableBorderColor};`
+		: ``}
 	}
 
 	.${ClassName.TABLE_CONTAINER}[data-number-column="true"].${ClassName.TABLE_SELECTED} .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.HOVERED_CELL_IN_DANGER}):first-of-type::before, .${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.HOVERED_CELL_IN_DANGER}, .${ClassName.COLUMN_SELECTED}):first-of-type::before {
 		outline: none;
 		border-left-color: ${tableBorderSelectedColor};
 		${fg('platform_editor_table_sticky_header_patch_1')
-			? `border-top-color: ${tableBorderSelectedColor};`
-			: ``}
+		? `border-top-color: ${tableBorderSelectedColor};`
+		: ``}
 		background: ${tableHeaderCellSelectedColor};
 	}
 
@@ -1404,6 +1403,12 @@ export const baseTableStyles = (props: {
 		position: fixed;
 		/* higher zIndex than sticky header which is akEditorTableCellOnStickyHeaderZIndex - 5 */
 		z-index: ${akEditorTableCellOnStickyHeaderZIndex - 4};
+	}
+
+	${expValEquals('platform_editor_table_sticky_header_improvements', 'cohort', 'test_with_overflow') && fg('platform_editor_table_sticky_header_patch_6') ?
+		`.${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS}:has(tr.sticky) .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
+			box-shadow: 0 -5px 0 1px ${tableBorderColor};
+		}` : ``
 	}
 
 	/* nested tables */

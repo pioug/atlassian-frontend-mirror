@@ -18,22 +18,22 @@ class TableSortModel {
 		switch (type) {
 			case 'no-sort':
 				return this.page
-					.getByRole('cell', { name: columnName })
+					.getByRole('columnheader', { name: columnName })
 					.getByLabel('No sort applied to the column');
 
 			case 'asc':
 				return this.page
-					.getByRole('cell', { name: columnName })
+					.getByRole('columnheader', { name: columnName })
 					.getByLabel('Ascending sort applied');
 
 			case 'desc':
 				return this.page
-					.getByRole('cell', { name: columnName })
+					.getByRole('columnheader', { name: columnName })
 					.getByLabel('Descending sort applied');
 
 			case 'not-allowed':
 				return this.page
-					.getByRole('cell', { name: columnName })
+					.getByRole('columnheader', { name: columnName })
 					.getByLabel(" You can't sort a table with");
 		}
 	}

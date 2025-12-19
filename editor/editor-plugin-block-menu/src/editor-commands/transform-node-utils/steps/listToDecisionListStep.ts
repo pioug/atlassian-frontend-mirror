@@ -44,7 +44,7 @@ export const listToDecisionListStep: TransformStep = (nodes, context) => {
 				if (child.type === paragraphType) {
 					// paragraph may contain hard breaks etc.
 					itemContent.push(...child.children);
-				} else if (child.isText) {
+				} else if (child.isText || child.isInline) {
 					itemContent.push(child);
 				} else if (!isListWithIndentation(child.type.name, schema)) {
 					unsupportedContent.push(child);

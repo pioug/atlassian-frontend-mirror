@@ -3,7 +3,7 @@ import React from 'react';
 import type { IntlShape } from 'react-intl-next';
 import { IntlProvider } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
 
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';

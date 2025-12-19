@@ -16,6 +16,8 @@ const events: Array<keyof React.DOMAttributes<HTMLElement>> = [
 	'onTouchEnd',
 	'onPointerDown',
 	'onPointerUp',
+	'onClickCapture',
+	'onClick',
 ];
 
 const fireButtonEvents = async (button: HTMLElement, user: UserEvent) => {

@@ -11,7 +11,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import NewLozenge from './new/lozenge';
-import { type NewLozengeProps } from './new/types';
+import { type NewLozengeProps, type SemanticColor } from './new/types';
 /**
  * TODO: We should be using our bounded `cssMap` here, but most of
  * these styles from the visual refresh are not in the Design System.
@@ -71,14 +71,29 @@ const styles = cssMapUnbounded({
 });
 
 export type ThemeAppearance = 'default' | 'inprogress' | 'moved' | 'new' | 'removed' | 'success';
-const appearanceTypes: ThemeAppearance[] = [
-	'default',
-	'inprogress',
-	'moved',
-	'new',
-	'removed',
+const appearanceTypes: ThemeAppearance[] = ['default', 'inprogress', 'moved', 'new', 'removed'];
+const newSemanticColors: ThemeAppearance | SemanticColor[] = [
 	'success',
+	'discovery',
+	'warning',
+	'danger',
+	'information',
+	'neutral',
 ];
+
+const appearanceMapping: Record<ThemeAppearance | SemanticColor, ThemeAppearance> = {
+	neutral: 'default',
+	default: 'default',
+	information: 'inprogress',
+	inprogress: 'inprogress',
+	warning: 'moved',
+	moved: 'moved',
+	removed: 'removed',
+	danger: 'removed',
+	success: 'success',
+	discovery: 'new',
+	new: 'new',
+};
 
 export interface LozengeProps {
 	/**
@@ -136,7 +151,11 @@ const LegacyLozenge = memo(
 	}: LozengeProps) => {
 		const appearanceStyle = isBold ? 'bold' : 'subtle';
 		const appearanceType = useMemo(
-			() => (appearanceTypes.includes(appearance) ? appearance : 'default'),
+			() =>
+				appearanceTypes.includes(appearance as ThemeAppearance) ||
+				newSemanticColors.includes(appearance as SemanticColor)
+					? appearanceMapping[appearance]
+					: 'default',
 			[appearance],
 		);
 

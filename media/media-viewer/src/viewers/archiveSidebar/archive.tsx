@@ -40,6 +40,7 @@ import { DEFAULT_LANGUAGE } from '../codeViewer/util';
 import { MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER } from '../../item-viewer';
 import { type CustomRendererConfig } from '../../viewerOptions';
 import { NativePdfViewer } from './nativePdfViewer';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export type Props = ArchiveViewerProps & WithAnalyticsEventsProps;
 
@@ -119,7 +120,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 
 		if (!selectedArchiveEntry.isDirectory) {
 			try {
-				const blob = await rejectAfter(() => selectedArchiveEntry.blob(), 10000);
+				const blob = await rejectAfter<Blob>(() => selectedArchiveEntry.blob(), 10000);
 				const blobWithMimeType = new Blob([blob], { type: mimeType });
 				src = URL.createObjectURL(blobWithMimeType);
 				if (isCodeMimeType) {
@@ -186,6 +187,9 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 			}),
 		});
 		this.props.onSuccess();
+		if (fg('download_event_for_jira_attachments')) {
+			this.onMediaDisplayed();
+		}
 	};
 
 	protected renderSuccessful(content: Content): React.JSX.Element {

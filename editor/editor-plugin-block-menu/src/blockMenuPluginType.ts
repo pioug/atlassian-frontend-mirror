@@ -35,6 +35,10 @@ export type BlockMenuPlugin = NextEditorPlugin<
 	{
 		actions: {
 			getBlockMenuComponents: () => Array<RegisterBlockMenuComponent>;
+			isTransformOptionDisabled: (
+				optionNodeTypeName: string,
+				optionNodeTypeAttrs?: Record<string, unknown>,
+			) => boolean;
 			registerBlockMenuComponents: (blockMenuComponents: Array<RegisterBlockMenuComponent>) => void;
 		};
 		commands: {

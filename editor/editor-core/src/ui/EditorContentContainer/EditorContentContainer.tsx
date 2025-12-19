@@ -20,7 +20,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
+import { expVal, expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { getBaseFontSize } from '../../composable-editor/utils/getBaseFontSize';
@@ -42,16 +42,18 @@ import {
 } from './styles/baseStyles';
 import { blockMarksStyles } from './styles/blockMarksStyles';
 import {
+	blockquoteSelectedNodeStyles,
 	blocktypeStyles,
+	blockquoteZeroPadding,
 	blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes,
 	blocktypeStyles_fg_platform_editor_typography_ugc,
 	blocktypeStyles_without_fg_platform_editor_typography_ugc,
 } from './styles/blockTypeStyles';
 import { codeBidiWarningStyles } from './styles/codeBidiWarningStyles';
 import {
+	codeBgColorStyles,
 	codeBlockStyles,
 	codeBlockStylesWithEmUnits,
-	codeBgColorStyles,
 	firstCodeBlockWithNoMargin,
 	firstCodeBlockWithNoMarginOld,
 } from './styles/codeBlockStyles';
@@ -64,24 +66,24 @@ import { embedCardStyles } from './styles/embedCardStyles';
 import {
 	emojiDangerStyles,
 	emojiStyles,
-	scaledEmojiStyles,
 	getDenseEmojiStyles,
 	getScaledDenseEmojiStyles,
+	scaledEmojiStyles,
 } from './styles/emoji';
 import {
 	expandStyles,
-	getDenseExpandTitleStyles,
 	expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
 	expandStylesMixin_fg_platform_visual_refresh_icons,
 	expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
+	getDenseExpandTitleStyles,
 } from './styles/expandStyles';
-import { getExtensionStyles, extensionDiffStyles } from './styles/extensionStyles';
+import { extensionDiffStyles, getExtensionStyles } from './styles/extensionStyles';
 import {
 	findReplaceStyles,
-	findReplaceStylesWithCodeblockColorContrastFix,
 	findReplaceStylesNew,
-	findReplaceStylesNewWithCodeblockColorContrastFix,
 	findReplaceStylesNewWithA11Y,
+	findReplaceStylesNewWithCodeblockColorContrastFix,
+	findReplaceStylesWithCodeblockColorContrastFix,
 } from './styles/findReplaceStyles';
 import { firstBlockNodeStyles } from './styles/firstBlockNodeStyles';
 import { firstFloatingToolbarButtonStyles } from './styles/floatingToolbarStyles';
@@ -111,11 +113,11 @@ import {
 } from './styles/layout';
 import { hyperLinkFloatingToolbarStyles, linkLegacyIconStylesFix, linkStyles } from './styles/link';
 import {
+	diffListStyles,
 	getDenseListStyles,
 	listsStyles,
-	diffListStyles,
-	listsStylesSafariFix,
 	listsStylesMarginLayoutShiftFix,
+	listsStylesSafariFix,
 } from './styles/list';
 import {
 	mediaAlignmentStyles,
@@ -125,19 +127,19 @@ import {
 	mediaStyles,
 } from './styles/mediaStyles';
 import {
-	mentionsStyles,
-	mentionsSelectionStyles,
-	mentionNodeStyles,
-	mentionsSelectionStylesWithSearchMatch,
 	mentionDangerStyles,
+	mentionNodeStyles,
+	mentionsSelectionStyles,
+	mentionsSelectionStylesWithSearchMatch,
+	mentionsStyles,
 } from './styles/mentions';
 import {
+	nestedPanelBorderStylesMixin,
+	nestedPanelDangerStyles,
 	panelStyles,
 	panelStylesMixin,
-	nestedPanelBorderStylesMixin,
 	panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
 	panelViewStyles,
-	nestedPanelDangerStyles,
 } from './styles/panelStyles';
 import {
 	paragraphStylesOld,
@@ -153,10 +155,10 @@ import {
 } from './styles/placeholderStyles';
 import {
 	pragmaticResizerStyles,
-	pragmaticResizerStylesSyncedBlock,
-	pragmaticStylesLayoutFirstNodeResizeHandleFix,
 	pragmaticResizerStylesForTooltip,
+	pragmaticResizerStylesSyncedBlock,
 	pragmaticResizerStylesWithReducedEditorGutter,
+	pragmaticStylesLayoutFirstNodeResizeHandleFix,
 	resizerStyles,
 } from './styles/resizerStyles';
 import { dangerRuleStyles, ruleStyles } from './styles/rule';
@@ -171,13 +173,13 @@ import { shadowStyles } from './styles/shadowStyles';
 import {
 	editorControlsSmartCardStyles,
 	linkingVisualRefreshV1Styles,
+	showDiffDeletedNodeStyles,
+	smartCardDiffStyles,
 	smartCardStyles,
 	smartCardStylesWithSearchMatch,
 	smartCardStylesWithSearchMatchAndBlockMenuDangerStyles,
 	smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness,
 	smartLinksInLivePagesStyles,
-	smartCardDiffStyles,
-	showDiffDeletedNodeStyles,
 } from './styles/smartCardStyles';
 import {
 	statusDangerStyles,
@@ -195,14 +197,14 @@ import {
 	tableLayoutFixes,
 } from './styles/tableStyles';
 import {
-	decisionStyles,
-	tasksAndDecisionsStyles,
+	decisionDangerStyles,
 	decisionIconWithVisualRefresh,
 	decisionIconWithoutVisualRefresh,
+	decisionStyles,
+	getDenseTasksAndDecisionsStyles,
 	taskItemStyles,
 	taskItemStylesWithBlockTaskItem,
-	decisionDangerStyles,
-	getDenseTasksAndDecisionsStyles,
+	tasksAndDecisionsStyles,
 } from './styles/tasksAndDecisionsStyles';
 import { telepointerColorAndCommonStyle, telepointerStyle } from './styles/telepointerStyles';
 import { textColorStyles } from './styles/textColorStyles';
@@ -368,6 +370,13 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						editorUGCTokensRefreshed,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					blocktypeStyles,
+					expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						blockquoteSelectedNodeStyles,
+					expVal('platform_editor_blockquote_zero_padding', 'isEnabled', false)
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							blockquoteZeroPadding
+						: null,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('platform_editor_typography_ugc')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

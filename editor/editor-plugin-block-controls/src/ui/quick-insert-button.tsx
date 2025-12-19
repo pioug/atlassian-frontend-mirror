@@ -45,6 +45,7 @@ import {
 	QUICK_INSERT_LEFT_OFFSET,
 	QUICK_INSERT_WIDTH,
 	rootElementGap,
+	STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER,
 	topPositionAdjustment,
 } from './consts';
 import { refreshAnchorName } from './utils/anchor-name';
@@ -121,6 +122,33 @@ const tooltipContainerStylesStickyHeader = css({
 		},
 });
 
+const tooltipContainerImprovedStylesStickyHeader = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-blocks-quick-insert-container]:has(~ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			top: tableControlsSpacing,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-blocks-quick-insert-container]:has(~ [data-prosemirror-mark-name="fragment"] >[data-prosemirror-node-name="table"] tr.pm-table-row-native-sticky.pm-table-row-native-sticky-active) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			top: `${STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER}px`,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-blocks-quick-insert-container]:has(~ [data-prosemirror-node-name="table"] tr.pm-table-row-native-sticky.pm-table-row-native-sticky-active) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			top: `${STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER}px`,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-blocks-quick-insert-container]:has(~ [data-prosemirror-mark-name="fragment"] >[data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			top: tableControlsSpacing,
+		},
+});
+
 // We need this to work around adjacent breakout marks wrapping the controls widget decorations
 const tooltipContainerStylesStickyHeaderWithMarksFix = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -128,6 +156,34 @@ const tooltipContainerStylesStickyHeaderWithMarksFix = css({
 		{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 			top: tableControlsSpacing,
+		},
+});
+
+// We need this to work around adjacent breakout marks wrapping the controls widget decorations
+const tooltipContainerStylesImprovedStickyHeaderWithMarksFix = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-quick-insert-container]):has(~ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			top: tableControlsSpacing,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-quick-insert-container]):has(~ [data-prosemirror-mark-name="fragment"] >[data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			top: tableControlsSpacing,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-quick-insert-container]):has(~ [data-prosemirror-node-name="table"] tr.pm-table-row-native-sticky.pm-table-row-native-sticky-active) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			top: `${STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER}px`,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-quick-insert-container]):has(~ [data-prosemirror-mark-name="fragment"] >[data-prosemirror-node-name="table"] tr.pm-table-row-native-sticky.pm-table-row-native-sticky-active) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			top: `${STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER}px`,
 		},
 });
 
@@ -392,8 +448,20 @@ export const TypeAheadControl = ({
 			<span
 				css={[
 					tooltipContainerStyles,
-					tooltipContainerStylesStickyHeader,
-					tooltipContainerStylesStickyHeaderWithMarksFix,
+					expValEquals(
+						'platform_editor_table_sticky_header_improvements',
+						'cohort',
+						'test_with_overflow',
+					) && fg('platform_editor_table_sticky_header_patch_6')
+						? tooltipContainerImprovedStylesStickyHeader
+						: tooltipContainerStylesStickyHeader,
+					expValEquals(
+						'platform_editor_table_sticky_header_improvements',
+						'cohort',
+						'test_with_overflow',
+					) && fg('platform_editor_table_sticky_header_patch_6')
+						? tooltipContainerStylesImprovedStickyHeaderWithMarksFix
+						: tooltipContainerStylesStickyHeaderWithMarksFix,
 				]}
 			>
 				{tooltipPressable()}

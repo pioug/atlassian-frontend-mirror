@@ -1,5 +1,20 @@
 # @atlaskit/popup
 
+## 4.9.0
+
+### Minor Changes
+
+- [`a910081d920cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a910081d920cc) -
+  Adds a header (with a close button), body, and footer as slot subcomponents of flyout menu item
+  content, and adjusts for body scrolling
+
+## 4.8.3
+
+### Patch Changes
+
+- [`e095aea1aef52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e095aea1aef52) -
+  Remove broken iframe logic
+
 ## 4.8.2
 
 ### Patch Changes

@@ -21,7 +21,7 @@ const Cell = (props: React.HTMLProps<HTMLDivElement>) => (
 	<div css={{ display: 'table-cell', padding: token('space.050', '4px') }}>{props.children}</div>
 );
 
-const ButtonSpacing = () => (
+const ButtonSpacing = (): React.JSX.Element => (
 	<Table>
 		<Row>
 			<Cell>

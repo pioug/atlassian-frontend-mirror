@@ -1,12 +1,10 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { useIntl } from 'react-intl-next';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
 
@@ -20,20 +18,6 @@ const nodeName = 'panel';
 
 const PanelBlockMenuItem = ({ api }: Props) => {
 	const { formatMessage } = useIntl();
-	const selection = useSharedPluginStateSelector(api, 'selection.selection');
-
-	const isPanelSelected = useMemo(() => {
-		if (!selection) {
-			return false;
-		}
-
-		if (selection instanceof NodeSelection) {
-			// Note: we are checking for any type of panel, not just of type infopanel
-			return selection.node.type.name === nodeName;
-		}
-
-		return false;
-	}, [selection]);
 
 	const handleClick = (event: React.MouseEvent | React.KeyboardEvent) => {
 		const triggeredFrom =
@@ -52,12 +36,13 @@ const PanelBlockMenuItem = ({ api }: Props) => {
 		});
 	};
 
+	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(nodeName);
+	if (isTransfromToPanelDisabled) {
+		return null;
+	}
+
 	return (
-		<ToolbarDropdownItem
-			onClick={handleClick}
-			isSelected={isPanelSelected}
-			elemBefore={<InformationCircleIcon label="" />}
-		>
+		<ToolbarDropdownItem onClick={handleClick} elemBefore={<InformationCircleIcon label="" />}>
 			{formatMessage(blockTypeMessages.panel)}
 		</ToolbarDropdownItem>
 	);

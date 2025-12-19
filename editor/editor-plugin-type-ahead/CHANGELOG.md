@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 6.6.1
+
+### Patch Changes
+
+- [`a1b6e25579466`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a1b6e25579466) -
+  Fixes uuid import
+- Updated dependencies
+
+## 6.6.0
+
+### Minor Changes
+
+- [`82d57d01a0f61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82d57d01a0f61) -
+  Distinguish between collab offline and internet offline cases for connectivity mode
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.5.26
 
 ### Patch Changes

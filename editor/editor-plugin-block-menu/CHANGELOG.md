@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.2.22
+
+### Patch Changes
+
+- [`3356921b0b0ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3356921b0b0ff) -
+  [ux] Enables 'Copy link to block' feature for nested nodes
+- Updated dependencies
+
+## 5.2.21
+
+### Patch Changes
+
+- [`b5d004bf834f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5d004bf834f8) -
+  [ux] Adds block menu action to check if 'Turn into' item should be rendered or not.
+- Updated dependencies
+
+## 5.2.20
+
+### Patch Changes
+
+- [`65f1df43f39d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65f1df43f39d7) -
+  Add heading transform
+- Updated dependencies
+
 ## 5.2.19
 
 ### Patch Changes

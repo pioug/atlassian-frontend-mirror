@@ -29,6 +29,7 @@ import {
 import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { checkMediaType } from '../../pm-plugins/utils/check-media-type';
@@ -43,6 +44,8 @@ type State = {
 };
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class ResizableMediaSingle extends React.Component<Props, State> {
+	private hasResized = false;
+
 	state: State = {
 		offsetLeft: calculateOffsetLeft(
 			this.insideInlineLike,
@@ -149,6 +152,15 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 			layout,
 			view: { state },
 		} = this.props;
+
+		if (!this.hasResized && expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
+			const mediaDomEl = this.wrapper?.querySelector('div[data-prosemirror-node-name="media"]');
+			if (mediaDomEl) {
+				const event = new CustomEvent('resized');
+				mediaDomEl?.dispatchEvent(event);
+			}
+			this.hasResized = true;
+		}
 
 		const newPct = calcPctFromPx(newWidth, this.props.lineLength) * 100;
 		this.setState({ resizedPctWidth: newPct });

@@ -3,6 +3,19 @@ import { css, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
+// This style is needed to avoid Confluence's batch.css overrides that expand blockquote with extra padding after SSR.
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const blockquoteZeroPadding: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& blockquote': {
+			paddingTop: 0,
+			paddingBottom: 0,
+		},
+	},
+});
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const blocktypeStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -98,6 +111,32 @@ export const blocktypeStyles: SerializedStyles = css({
 					marginTop: '0',
 				},
 			},
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const blockquoteSelectedNodeStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& blockquote': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
+			'&.ak-editor-selected-node': {
+				background: token('color.blanket.selected'),
+				borderLeftColor: token('color.border.selected'),
+				WebkitUserSelect: 'text',
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
+				'&::selection, *::selection': {
+					backgroundColor: 'transparent',
+				},
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'&::-moz-selection, *::-moz-selection': {
+					backgroundColor: 'transparent',
+				},
+			},
+		},
 	},
 });
 

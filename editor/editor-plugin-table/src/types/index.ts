@@ -74,6 +74,7 @@ export type TableSharedStateInternal = Pick<
 > & {
 	dragMenuDirection?: TableDirection;
 	dragMenuIndex?: number;
+	editorContentAreaHeight?: number;
 	isDragMenuOpen?: boolean;
 	isResizing: boolean;
 	isSizeSelectorOpen?: boolean;
@@ -91,7 +92,8 @@ export type TableSharedState = Pick<
 	| 'wasFullWidthModeEnabled'
 	| 'isMaxWidthModeEnabled'
 	| 'wasMaxWidthModeEnabled'
->;
+> &
+	Pick<TableSharedStateInternal, 'editorContentAreaHeight'>;
 
 export type AlignmentOptions = 'center' | 'align-start';
 
@@ -166,6 +168,7 @@ export interface WidthToWidest {
 export interface TablePluginState {
 	canCollapseTable?: boolean; // enabled/disabled state of collapse option
 	editorHasFocus?: boolean;
+	editorViewportHeight?: number;
 	getIntl: () => IntlShape;
 	hoveredCell: CellHoverMeta;
 	hoveredColumns: number[];
@@ -197,17 +200,17 @@ export interface TablePluginState {
 	resizeHandleColumnIndex?: number;
 	resizeHandleIncludeTooltip?: boolean;
 	resizeHandleRowIndex?: number;
+
 	// controls need to be re-rendered when table content changes
 	// e.g. when pressing enter inside of a cell, it creates a new p and we need to update row controls
 	tableNode?: PmNode;
 
 	tablePos?: number;
-
 	tableRef?: HTMLTableElement;
 	tableWrapperTarget?: HTMLElement;
+
 	// position of a cell PM node that has cursor
 	targetCellPosition?: number;
-
 	wasFullWidthModeEnabled?: boolean;
 	wasMaxWidthModeEnabled?: boolean;
 	widthToWidest?: WidthToWidest; // is the current table set to the widest width regarding view port
@@ -336,7 +339,8 @@ export type TablePluginAction =
 				isCellMenuOpenByKeyboard: boolean;
 			};
 			type: 'SET_CELL_MENU_OPEN';
-	  };
+	  }
+	| { data: { editorViewportHeight: number }; type: 'UPDATE_EDITOR_VIEWPORT_HEIGHT' };
 
 export type ColumnResizingPluginAction =
 	| {

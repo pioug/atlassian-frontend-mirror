@@ -18,15 +18,26 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
-import { CAPTION_PLACEHOLDER_ID, getMaxWidthForNestedNodeNext, } from '@atlaskit/editor-common/media-single';
+import {
+	CAPTION_PLACEHOLDER_ID,
+	getMaxWidthForNestedNodeNext,
+} from '@atlaskit/editor-common/media-single';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { EditorContainerWidth as WidthPluginState, ExtractInjectionAPI, } from '@atlaskit/editor-common/types';
+import type {
+	EditorContainerWidth as WidthPluginState,
+	ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
 import { browser, ErrorReporter } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { AllSelection, NodeSelection, Selection, TextSelection, } from '@atlaskit/editor-prosemirror/state';
+import {
+	AllSelection,
+	NodeSelection,
+	Selection,
+	TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
 import { insertPoint } from '@atlaskit/editor-prosemirror/transform';
 import {
 	findDomRefAtPos,
@@ -222,19 +233,23 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		// If clone is repeatedly called, we want to proxy the underlying MediaPluginStateImplementation target, rather than the proxy itself
 		// If we proxy the proxy, then calling get in future will need to recursively unwrap proxies to find the original target, which causes performance issues
 		// Instead, we check if there is an original target stored on "this", and if so, we use that as the proxy target instead
-		return new Proxy((this as unknown as { originalTarget?: MediaPluginStateImplementation }).originalTarget ?? this, {
-			get(target, prop, receiver) {
-				if (prop === 'singletonCreatedAt') {
-					return clonedAt;
-				}
+		return new Proxy(
+			(this as unknown as { originalTarget?: MediaPluginStateImplementation }).originalTarget ??
+				this,
+			{
+				get(target, prop, receiver) {
+					if (prop === 'singletonCreatedAt') {
+						return clonedAt;
+					}
 
-				if (prop === 'originalTarget') {
-					return target;
-				}
+					if (prop === 'originalTarget') {
+						return target;
+					}
 
-				return Reflect.get(target, prop, receiver);
+					return Reflect.get(target, prop, receiver);
+				},
 			},
-		});
+		);
 	}
 
 	subscribeToUploadInProgressState(fn: (isUploading: boolean) => void) {

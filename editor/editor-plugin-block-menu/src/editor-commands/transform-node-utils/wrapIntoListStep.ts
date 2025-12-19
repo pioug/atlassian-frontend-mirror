@@ -2,6 +2,7 @@ import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model'
 
 import { isListWithTextContentOnly } from './nodeChecks';
 import type { NodeTypeName, TransformStep } from './types';
+import { convertTextNodeToParagraph } from './utils';
 
 const wrapIntoTaskOrDecisionList = (
 	nodes: PMNode[],
@@ -31,8 +32,20 @@ const wrapIntoBulletOrOrderedList = (
 	targetNodeTypeName: NodeTypeName,
 	schema: Schema,
 ): PMNode[] => {
-	const listItemNode = schema.nodes.listItem.createAndFill({}, nodes);
-	const outputNode = schema.nodes[targetNodeTypeName].createAndFill({}, listItemNode);
+	const listItemNodes = nodes
+		.map((node) =>
+			schema.nodes.listItem.createAndFill(
+				{},
+				node.isTextblock ? convertTextNodeToParagraph(node, schema) : node,
+			),
+		)
+		.filter((node): node is PMNode => node !== null);
+
+	if (listItemNodes.length === 0) {
+		return nodes;
+	}
+
+	const outputNode = schema.nodes[targetNodeTypeName].createAndFill({}, listItemNodes);
 	return outputNode ? [outputNode] : nodes;
 };
 

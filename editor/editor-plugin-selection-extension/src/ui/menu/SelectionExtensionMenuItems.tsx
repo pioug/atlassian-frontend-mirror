@@ -10,7 +10,9 @@ type SelectionExtensionMenuItemsProps = {
 	getMenuItems: () => ExtensionMenuItemConfiguration[];
 };
 
-export const SelectionExtensionMenuItems = ({ getMenuItems }: SelectionExtensionMenuItemsProps): React.JSX.Element | null => {
+export const SelectionExtensionMenuItems = ({
+	getMenuItems,
+}: SelectionExtensionMenuItemsProps): React.JSX.Element | null => {
 	const extensionMenuItems = getMenuItems();
 
 	if (!extensionMenuItems?.length) {
@@ -22,11 +24,14 @@ export const SelectionExtensionMenuItems = ({ getMenuItems }: SelectionExtension
 			{extensionMenuItems.map((item) => {
 				if (isNestedDropdownMenuConfiguration(item)) {
 					return (
-						<SelectionExtensionNestedDropdownMenu key={item.label} nestedDropdownMenu={item} />
+						<SelectionExtensionNestedDropdownMenu
+							key={item.key || item.label}
+							nestedDropdownMenu={item}
+						/>
 					);
 				}
 
-				return <SelectionExtensionDropdownItem key={item.label} dropdownItem={item} />;
+				return <SelectionExtensionDropdownItem key={item.key || item.label} dropdownItem={item} />;
 			})}
 		</>
 	);

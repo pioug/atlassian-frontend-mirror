@@ -95,6 +95,9 @@
 	"platform-feature-flags": {
 		"dst-a11y__replace-anchor-with-link__design-system-": {
 			"type": "boolean"
+		},
+		"add-max-width-and-height-to-inline-message": {
+			"type": "boolean"
 		}
 	}
 }

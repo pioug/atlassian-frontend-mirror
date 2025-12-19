@@ -1,12 +1,10 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { useIntl } from 'react-intl-next';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import ExpandElementIcon from '@atlaskit/icon-lab/core/expand-element';
 
@@ -20,19 +18,6 @@ const nodeName = 'expand';
 
 const ExpandBlockMenuItem = ({ api }: Props) => {
 	const { formatMessage } = useIntl();
-	const selection = useSharedPluginStateSelector(api, 'selection.selection');
-
-	const isExpandSelected = useMemo(() => {
-		if (!selection) {
-			return false;
-		}
-
-		if (selection instanceof NodeSelection) {
-			return selection.node.type.name === nodeName;
-		}
-
-		return false;
-	}, [selection]);
 
 	const handleClick = (event: React.MouseEvent | React.KeyboardEvent) => {
 		const triggeredFrom =
@@ -51,12 +36,13 @@ const ExpandBlockMenuItem = ({ api }: Props) => {
 		});
 	};
 
+	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(nodeName);
+	if (isTransfromToPanelDisabled) {
+		return null;
+	}
+
 	return (
-		<ToolbarDropdownItem
-			onClick={handleClick}
-			isSelected={isExpandSelected}
-			elemBefore={<ExpandElementIcon label="" />}
-		>
+		<ToolbarDropdownItem onClick={handleClick} elemBefore={<ExpandElementIcon label="" />}>
 			{formatMessage(toolbarInsertBlockMessages.expand)}
 		</ToolbarDropdownItem>
 	);

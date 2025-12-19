@@ -1,9 +1,8 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { useIntl } from 'react-intl-next';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
@@ -11,20 +10,14 @@ import TaskIcon from '@atlaskit/icon/core/task';
 
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
 
+const nodeName = 'taskList';
+
 export const TaskListBlockMenuItem = ({
 	api,
 }: {
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
-}): React.JSX.Element => {
+}): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
-	const selection = useSharedPluginStateWithSelector(
-		api,
-		['selection'],
-		(states) => states.selectionState?.selection,
-	);
-	const isSelected = useMemo(() => {
-		return selection && selection.$from.parent.type.name === 'taskItem';
-	}, [selection]);
 
 	const onClick = (event: React.MouseEvent | React.KeyboardEvent) => {
 		const triggeredFrom =
@@ -37,18 +30,19 @@ export const TaskListBlockMenuItem = ({
 			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.taskList, {
 				inputMethod,
 				triggeredFrom,
-				targetTypeName: 'taskList',
+				targetTypeName: nodeName,
 			});
 			return command ? command({ tr }) : null;
 		});
 	};
 
+	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(nodeName);
+	if (isTransfromToPanelDisabled) {
+		return null;
+	}
+
 	return (
-		<ToolbarDropdownItem
-			isSelected={isSelected}
-			onClick={onClick}
-			elemBefore={<TaskIcon label="" />}
-		>
+		<ToolbarDropdownItem onClick={onClick} elemBefore={<TaskIcon label="" />}>
 			{formatMessage(tasksAndDecisionsMessages.taskList)}
 		</ToolbarDropdownItem>
 	);

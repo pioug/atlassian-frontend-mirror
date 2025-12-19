@@ -662,7 +662,12 @@ const ButtonBase: React.ForwardRefExoticComponent<
 					isSplitButton && styles.splitButton,
 					isNavigationSplitButton && styles.navigationSplitButton,
 				)}
-				isDisabled={isEffectivelyDisabled}
+				isDisabled={
+					fg('platform-dst_fix_not_focusable_loading_button') ? isDisabled : isEffectivelyDisabled
+				}
+				{...(fg('platform-dst_fix_not_focusable_loading_button') && { 'aria-live': 'polite' })}
+				{...(isLoading &&
+					fg('platform-dst_fix_not_focusable_loading_button') && { 'aria-disabled': true })}
 				aria-label={
 					isLoading && ariaLabel && !ariaLabelledBy ? `${ariaLabel} ${LOADING_LABEL}` : ariaLabel
 				}

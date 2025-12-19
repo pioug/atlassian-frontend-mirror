@@ -49,6 +49,10 @@ import { pluginConfig } from './pm-plugins/create-plugin-config';
 import { createPlugin as createDecorationsPlugin } from './pm-plugins/decorations/plugin';
 import { createPlugin as createDragAndDropPlugin } from './pm-plugins/drag-and-drop/plugin';
 import { pluginKey as dragAndDropPluginKey } from './pm-plugins/drag-and-drop/plugin-key';
+import {
+	createPlugin as createContentAreaHeightPlugin,
+	pluginKey as editorContentAreaHeightPluginKey,
+} from './pm-plugins/editor-content-area-height';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
 import { pluginKey } from './pm-plugins/plugin-key';
@@ -137,6 +141,8 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 
 			const dragAndDropState = dragAndDropPluginKey.getState(editorState);
 			const sizeSelectorPluginState = sizeSelectorPluginKey.getState(editorState);
+			const editorContentAreaHeightPluginState =
+				editorContentAreaHeightPluginKey.getState(editorState);
 
 			const sharedStateInternal: TableSharedStateInternal = {
 				isFullWidthModeEnabled: !!options?.fullWidthEnabled,
@@ -178,6 +184,14 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 				isDragMenuOpen: dragAndDropState?.isDragMenuOpen,
 				isSizeSelectorOpen: sizeSelectorPluginState?.isSelectorOpen,
 				sizeSelectorTargetRef: sizeSelectorPluginState?.targetRef,
+				editorContentAreaHeight:
+					expValEquals(
+						'platform_editor_table_sticky_header_improvements',
+						'cohort',
+						'test_with_overflow',
+					) && fg('platform_editor_table_sticky_header_patch_4')
+						? editorContentAreaHeightPluginState?.height
+						: undefined,
 			};
 
 			return sharedStateInternal;
@@ -476,7 +490,7 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 				},
 				{
 					name: 'tableStickyHeaders',
-					plugin: ({ dispatch, eventDispatcher }) =>
+					plugin: ({ dispatch }) =>
 						options && options.tableOptions.stickyHeaders
 							? createStickyHeadersPlugin(dispatch, () => [])
 							: undefined,
@@ -619,6 +633,17 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 					plugin: ({ dispatch }) =>
 						isTableSelectorEnabled ? createSizeSelectorPlugin(dispatch) : undefined,
 				},
+				{
+					name: 'editorContentAreaHeightPlugin',
+					plugin: () =>
+						expValEquals(
+							'platform_editor_table_sticky_header_improvements',
+							'cohort',
+							'test_with_overflow',
+						) && fg('platform_editor_table_sticky_header_patch_1')
+							? createContentAreaHeightPlugin()
+							: undefined,
+				},
 			];
 
 			if (
@@ -628,7 +653,7 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 					'cohort',
 					'test_with_overflow',
 				) &&
-				fg('platform_editor_table_sticky_header_patch_1')
+				fg('platform_editor_table_sticky_header_patch_2')
 			) {
 				plugins.push({
 					name: 'tableAnchorNames',

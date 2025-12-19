@@ -312,30 +312,28 @@ describe('@atlaskit/editor-core', () => {
 				'platform_editor_no_cursor_on_edit_page_init is ON',
 			)
 			.variant(true, () => {
-				ffTest.on('platform_editor_react_18_autofocus_fix', '', () => {
-					ffTest.on('cc_editor_focus_before_editor_on_load', '', () => {
-						it('should focus on react-editor-view-inital-focus-element on initial load, then single tab should focus the main content area', async () => {
-							const document = doc(p('hello'))(defaultSchema);
-							const result = renderWithIntl(
-								// eslint-disable-next-line react/jsx-props-no-spreading
-								<ReactEditorView
-									{...{
-										...requiredProps(),
-										editorProps: {
-											appearance: 'full-page',
-											shouldFocus: true,
-											defaultValue: toJSON(document),
-										},
-									}}
-								/>,
-							);
-							expect(result.getByTestId('react-editor-view-inital-focus-element')).toHaveFocus();
+				ffTest.on('cc_editor_focus_before_editor_on_load', '', () => {
+					it('should focus on react-editor-view-inital-focus-element on initial load, then single tab should focus the main content area', async () => {
+						const document = doc(p('hello'))(defaultSchema);
+						const result = renderWithIntl(
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							<ReactEditorView
+								{...{
+									...requiredProps(),
+									editorProps: {
+										appearance: 'full-page',
+										shouldFocus: true,
+										defaultValue: toJSON(document),
+									},
+								}}
+							/>,
+						);
+						expect(result.getByTestId('react-editor-view-inital-focus-element')).toHaveFocus();
 
-							await userEvent.tab();
-							expect(
-								result.getByLabelText('Main content area, start typing to enter text.'),
-							).toHaveFocus();
-						});
+						await userEvent.tab();
+						expect(
+							result.getByLabelText('Main content area, start typing to enter text.'),
+						).toHaveFocus();
 					});
 				});
 

@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 52.5.5
+
+### Patch Changes
+
+- [`324d924df5712`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/324d924df5712) -
+  Emit media-viewed event for archive and document.
+
 ## 52.5.4
 
 ### Patch Changes

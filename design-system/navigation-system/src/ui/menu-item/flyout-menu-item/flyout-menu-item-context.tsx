@@ -17,3 +17,17 @@ export const IsOpenContext = createContext(false);
 export const SetIsOpenContext = createContext<(value: boolean) => void>(noop);
 export const useFlyoutMenuOpen = () => useContext(IsOpenContext);
 export const useSetFlyoutMenuOpen = () => useContext(SetIsOpenContext);
+
+/**
+ * __On close context__
+ * 
+ * A context for storing the onClose value of the FlyoutMenuItem.
+ */
+export const OnCloseContext = createContext<(() => void) | null | undefined>(null);
+
+/**
+ * __On close provider__
+ * 
+ * A context provider for supplying the testId to the FlyoutHeader.
+ */
+export const OnCloseProvider = OnCloseContext.Provider;

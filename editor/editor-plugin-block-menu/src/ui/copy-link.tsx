@@ -23,7 +23,6 @@ import { blockMenuPluginKey } from '../pm-plugins/main';
 import { useBlockMenu } from './block-menu-provider';
 import { BLOCK_MENU_ITEM_NAME } from './consts';
 import { copyLink } from './utils/copyLink';
-import { isNestedNode } from './utils/isNestedNode';
 
 type Props = {
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
@@ -35,12 +34,11 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 	const { onDropdownOpenChanged } = useBlockMenu();
 	const { getLinkPath, blockLinkHashPrefix } = config || {};
 
-	const { preservedSelection, defaultSelection, menuTriggerBy } = useSharedPluginStateWithSelector(
+	const { preservedSelection, defaultSelection } = useSharedPluginStateWithSelector(
 		api,
 		['blockControls', 'selection'],
 		({ blockControlsState, selectionState }) => {
 			return {
-				menuTriggerBy: blockControlsState?.menuTriggerBy,
 				preservedSelection: blockControlsState?.preservedSelection,
 				defaultSelection: selectionState?.selection,
 			};
@@ -82,11 +80,8 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 		});
 	}, [api, blockLinkHashPrefix, getLinkPath, onDropdownOpenChanged, selection]);
 
-	// Hide copy link when `platform_editor_adf_with_localid` feature flag is off or when the node is nested
-	if (
-		!fg('platform_editor_adf_with_localid') ||
-		(!!menuTriggerBy && isNestedNode(selection, menuTriggerBy))
-	) {
+	// Hide copy link when `platform_editor_adf_with_localid` feature flag is off
+	if (!fg('platform_editor_adf_with_localid')) {
 		return null;
 	}
 

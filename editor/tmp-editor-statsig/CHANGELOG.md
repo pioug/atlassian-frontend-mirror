@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.2.0
+
+### Minor Changes
+
+- [`b10f0252621b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b10f0252621b0) -
+  Set padding top and bottom on blockquote to avoid batch.css overrides
+
+## 16.1.0
+
+### Minor Changes
+
+- [`bb5f3706afa84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb5f3706afa84) -
+  fix media card dimensions on load for ssr
+
 ## 16.0.1
 
 ### Patch Changes

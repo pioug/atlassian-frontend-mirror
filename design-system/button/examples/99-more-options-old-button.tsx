@@ -324,7 +324,7 @@ const appearances: Appearance[] = [
 	'warning',
 ];
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	const [appearance, setAppearance] = useState<Appearance>('default');
 
 	const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

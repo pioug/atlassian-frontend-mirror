@@ -6,6 +6,7 @@ import { BaseViewer } from '../base-viewer';
 import { type MediaTraceContext } from '@atlaskit/media-common';
 import { ZoomLevel } from '../../domain/zoomLevel';
 import { DocViewer as DocViewerComponent } from './doc-viewer';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export type Props = {
 	mediaClient: MediaClient;
@@ -48,6 +49,9 @@ export class DocViewer extends BaseViewer<string, Props, State> {
 		this.setState({
 			content: Outcome.successful(item.id),
 		});
+		if (fg('download_event_for_jira_attachments')) {
+			this.onMediaDisplayed();
+		}
 	}
 
 	protected release() {

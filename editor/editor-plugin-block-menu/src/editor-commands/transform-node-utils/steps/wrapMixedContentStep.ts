@@ -3,6 +3,7 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 
 import type { TransformStep, NodeTypeName } from '../types';
 import { NODE_CATEGORY_BY_TYPE } from '../types';
+import { convertTextNodeToParagraph } from '../utils';
 
 /**
  * Determines if a node is a text node (heading or paragraph).
@@ -11,20 +12,6 @@ import { NODE_CATEGORY_BY_TYPE } from '../types';
 const isTextNode = (node: PMNode): boolean => {
 	const category = NODE_CATEGORY_BY_TYPE[node.type.name as NodeTypeName];
 	return category === 'text';
-};
-
-/**
- * Converts a text node (heading, paragraph) to a paragraph preserving its inline content.
- * This is used when a text node can't be wrapped directly in the target container
- * (e.g., heading can't go in blockquote, so it becomes a paragraph).
- */
-const convertTextNodeToParagraph = (node: PMNode, schema: Schema): PMNode | null => {
-	// If it's already a paragraph, return as-is
-	if (node.type.name === 'paragraph') {
-		return node;
-	}
-	// Convert heading (or other text node) to paragraph with same inline content
-	return schema.nodes.paragraph.createAndFill({}, node.content) ?? null;
 };
 
 /**

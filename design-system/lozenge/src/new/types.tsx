@@ -62,18 +62,6 @@ export interface NewLozengeProps {
 	iconBefore?: IconProp;
 
 	/**
-	 * Whether the lozenge is interactive (dropdown trigger). Only used internally.
-	 * @internal
-	 */
-	isInteractive?: boolean;
-
-	/**
-	 * Whether the lozenge is selected (for dropdown triggers). Only used internally.
-	 * @internal
-	 */
-	isSelected?: boolean;
-
-	/**
 	 * max-width of lozenge container. Default to 200px.
 	 */
 	maxWidth?: number | string;
@@ -83,28 +71,6 @@ export interface NewLozengeProps {
 	 * @deprecated This prop is deprecated and will be removed in a future version.
 	 */
 	style?: Pick<CSSProperties, 'backgroundColor' | 'color'>;
-
-	/**
-	 * Callback fired when the lozenge is clicked (only for interactive lozenges).
-	 * The second argument provides an Atlaskit UI analytics event.
-	 * @internal
-	 */
-	onClick?: (
-		event: React.MouseEvent<HTMLButtonElement>,
-		analyticsEvent: UIAnalyticsEvent,
-	) => void;
-
-	/**
-	 * Additional information to be included in the `context` of Atlaskit analytics events.
-	 * @internal
-	 */
-	analyticsContext?: Record<string, any>;
-
-	/**
-	 * An optional name used to identify events for React UFO press interactions.
-	 * @internal
-	 */
-	interactionName?: string;
 
 	/**
 	 * A `testId` prop is provided for specified elements, which is a unique
@@ -122,8 +88,7 @@ export interface NewLozengeProps {
 /**
  * Props for the LozengeDropdownTrigger component
  */
-export interface LozengeDropdownTriggerProps
-	extends Omit<NewLozengeProps, 'onClick' | 'isInteractive'> {
+export interface LozengeDropdownTriggerProps extends NewLozengeProps {
 	/**
 	 * Whether the dropdown is currently selected/open.
 	 */
@@ -132,10 +97,7 @@ export interface LozengeDropdownTriggerProps
 	/**
 	 * Callback fired when the trigger is clicked. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the [analytics-next documentation](https://atlaskit.atlassian.com/packages/analytics/analytics-next) for more information.
 	 */
-	onClick?: (
-		event: React.MouseEvent<HTMLButtonElement>,
-		analyticsEvent: UIAnalyticsEvent,
-	) => void;
+	onClick?: (event: React.MouseEvent<HTMLButtonElement>, analyticsEvent: UIAnalyticsEvent) => void;
 
 	/**
 	 * Additional information to be included in the `context` of Atlaskit analytics events that come from the lozenge dropdown trigger.

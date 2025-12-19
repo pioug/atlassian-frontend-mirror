@@ -13,6 +13,10 @@ import IconRenderer from './icon-renderer';
 import { type LozengeDropdownTriggerProps, type NewLozengeProps } from './types';
 import { getThemeStyles, resolveLozengeColor } from './utils';
 
+interface LozengeBaseProps extends NewLozengeProps, LozengeDropdownTriggerProps {
+	ref?: Ref<HTMLElement | HTMLButtonElement>;
+}
+
 const styles = cssMap({
 	container: {
 		display: 'inline-flex',
@@ -418,7 +422,7 @@ const styles = cssMap({
  * This is the updated version with the new North Star visual language.
  */
 const LozengeBase = memo(
-	forwardRef<HTMLElement | HTMLButtonElement, NewLozengeProps | LozengeDropdownTriggerProps>(
+	forwardRef<HTMLElement | HTMLButtonElement, LozengeBaseProps>(
 		(
 			{
 				children,
@@ -516,11 +520,7 @@ const LozengeBase = memo(
 			return (
 				<span
 					ref={ref}
-					css={[
-						styles.container,
-						styles[colorStyleKey],
-						styles.iconBorderFilter,
-					]}
+					css={[styles.container, styles[colorStyleKey], styles.iconBorderFilter]}
 					style={commonStyleOverrides}
 					data-testid={testId}
 				>

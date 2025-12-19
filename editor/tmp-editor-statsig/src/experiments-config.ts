@@ -66,6 +66,12 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	platform_editor_blockquote_zero_padding: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-09-30
 	cc_editor_insm_outlier_events: {
 		defaultValue: 'control' | 'test';
@@ -2107,6 +2113,16 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+
+	// Added 2025-12-18
+	platform_editor_blockquote_zero_padding: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_blockquote_zero_padding',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+
 	// Added 2025-11-19
 	platform_editor_lovability_navigation_fixes: createBooleanExperiment({
 		productKeys: {

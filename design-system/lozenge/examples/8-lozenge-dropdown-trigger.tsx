@@ -10,11 +10,8 @@ import { jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import Heading from '@atlaskit/heading';
 import ImageIcon from '@atlaskit/icon/core/image';
-import Lozenge, {
-	LozengeDropdownTrigger,
-	type LozengeDropdownTriggerProps,
-	type NewLozengeColor,
-} from '@atlaskit/lozenge';
+import Lozenge, { type LozengeDropdownTriggerProps, type NewLozengeColor } from '@atlaskit/lozenge';
+import LozengeDropdownTrigger from '@atlaskit/lozenge/lozenge-dropdown-trigger';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

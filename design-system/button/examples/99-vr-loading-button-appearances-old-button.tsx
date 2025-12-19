@@ -48,7 +48,7 @@ function capitalize(str: string) {
 	return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-export default function Example() {
+export default function Example(): React.JSX.Element {
 	return (
 		<div css={animationStyles}>
 			<Table>

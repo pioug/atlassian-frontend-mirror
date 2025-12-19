@@ -23,6 +23,7 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import { isNodeSelectedOrInRange } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { MEDIA_CONTENT_WRAP_CLASS_NAME } from '../pm-plugins/main';
@@ -131,6 +132,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 	forceViewUpdate = false;
 	selectionType: number | null = null;
 	unsubscribeToViewModeChange: (() => void) | undefined;
+	hasResized = false;
 
 	createDomRef(): HTMLElement {
 		const domRef = document.createElement('div');
@@ -211,7 +213,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		let pos: number | undefined;
 		try {
 			pos = getPos ? getPos() : undefined;
-		} catch (e) {
+		} catch {
 			pos = undefined;
 		}
 
@@ -264,6 +266,16 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 			isValidUpdate = (currentNode, newNode) =>
 				this.getNodeMediaId(currentNode) === this.getNodeMediaId(newNode);
 		}
+		// Detect mediaSingle width attribute changes and signal child media node to update
+		if (
+			!this.hasResized &&
+			this.node.attrs.width !== node.attrs.width &&
+			expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)
+		) {
+			const target = this.dom.querySelector('div[data-prosemirror-node-name="media"]');
+			target?.dispatchEvent(new CustomEvent('resized'));
+		}
+
 		return super.update(node, decorations, _innerDecorations, isValidUpdate);
 	}
 

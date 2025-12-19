@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/button",
-	"version": "23.9.1",
+	"version": "23.9.2",
 	"description": "A button triggers an event or action. They let users know what will happen next.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -119,6 +119,7 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
@@ -133,6 +134,9 @@
 			"type": "boolean"
 		},
 		"platform-dst-shape-theme-default": {
+			"type": "boolean"
+		},
+		"platform-dst_fix_not_focusable_loading_button": {
 			"type": "boolean"
 		}
 	}

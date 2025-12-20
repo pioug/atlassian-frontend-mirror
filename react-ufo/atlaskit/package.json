@@ -158,6 +158,9 @@
 		"platform_ufo_fix_post_interaction_check_vc_debug": {
 			"type": "boolean"
 		},
+		"platform_ufo_data-is-hovered-v4-exclusion": {
+			"type": "boolean"
+		},
 		"platform_ufo_critical_metrics_payload": {
 			"type": "boolean"
 		},

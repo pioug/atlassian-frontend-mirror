@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-limited-mode
 
+## 3.2.0
+
+### Minor Changes
+
+- [`6668fda9b38d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6668fda9b38d7) -
+  ED-29716 add limited mode support to native anchor
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.6
 
 ### Patch Changes

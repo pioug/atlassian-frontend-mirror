@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.16.3
+
+### Patch Changes
+
+- [`4f8a657618dc5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f8a657618dc5) -
+  add data-is-hovered attribute to list of non-visual excluded attributes for TTVC v4
+
 ## 4.16.2
 
 ### Patch Changes

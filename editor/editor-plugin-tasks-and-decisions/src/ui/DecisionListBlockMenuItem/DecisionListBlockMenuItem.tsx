@@ -10,7 +10,7 @@ import DecisionIcon from '@atlaskit/icon/core/decision';
 
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
 
-const nodeName = 'decisionList';
+const NODE_NAME = 'decisionList';
 
 export const DecisionListBlockMenuItem = ({
 	api,
@@ -32,14 +32,14 @@ export const DecisionListBlockMenuItem = ({
 				{
 					inputMethod,
 					triggeredFrom,
-					targetTypeName: nodeName,
+					targetTypeName: NODE_NAME,
 				},
 			);
 			return command ? command({ tr }) : null;
 		});
 	};
 
-	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(nodeName);
+	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(NODE_NAME);
 	if (isTransfromToPanelDisabled) {
 		return null;
 	}

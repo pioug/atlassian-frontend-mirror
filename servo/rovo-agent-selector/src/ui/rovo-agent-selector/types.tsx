@@ -1,4 +1,4 @@
-import type { rovoAgentSelector_AtlaskitRovoAgentSelector_fragmentReference$key } from './__generated__/rovoAgentSelector_AtlaskitRovoAgentSelector_fragmentReference.graphql';
+import type { rovoAgentSelector_AtlaskitRovoAgentSelector$key } from './__generated__/rovoAgentSelector_AtlaskitRovoAgentSelector.graphql';
 
 export type AgentOption = {
 	label: string;
@@ -25,7 +25,7 @@ export interface RovoAgentSelectorProps {
 	/**
 	 * GraphQL fragment reference for fetching agents
 	 */
-	fragmentReference: rovoAgentSelector_AtlaskitRovoAgentSelector_fragmentReference$key;
+	fragmentReference: rovoAgentSelector_AtlaskitRovoAgentSelector$key;
 
 	/**
 	 * Cloud ID for refetching agents

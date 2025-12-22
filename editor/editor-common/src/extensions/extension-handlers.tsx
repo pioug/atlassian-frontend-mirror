@@ -1,9 +1,13 @@
 import React from 'react';
 
+import { useIntl } from 'react-intl-next';
 import type { LoadingComponentProps } from 'react-loadable';
 import Loadable from 'react-loadable';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { getExtensionKeyAndNodeKey, resolveImport, resolveImportSync } from './manifest-helpers';
+import { messages } from './messages';
 import type {
 	ExtensionParams,
 	MultiBodiedExtensionActions,
@@ -101,11 +105,16 @@ export async function getExtensionModuleNodePrivateProps(
 }
 
 function ExtensionLoading(props: LoadingComponentProps) {
+	const intl = useIntl();
 	if (props.error || props.timedOut) {
 		// eslint-disable-next-line no-console
 		console.error('Error rendering extension', props.error);
-		// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
-		return <div>Error loading the extension!</div>;
+		return (
+			<div>{fg('platform_editor_dec_a11y_fixes')
+				? intl.formatMessage(messages.extensionLoadingError)
+				: 'Error loading the extension!'}
+			</div>
+		);
 	} else {
 		return null;
 	}

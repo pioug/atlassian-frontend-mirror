@@ -1,5 +1,6 @@
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
 	type EditorState,
@@ -43,6 +44,8 @@ import { getSelectionPreservationMeta, hasUserSelectionChange } from './utils';
  * is open (editor becomes non-interactive), during drag-and-drop operations (user is mid-drag), or
  * when modal dialogs are active. In these states, any selection changes are from ProseMirror's
  * internal behavior (not user input) and should be prevented. Do not use during normal editing.
+ *
+ * https://hello.atlassian.net/wiki/spaces/egcuc/pages/6170822503/Block+Menu+Solution+for+multi-select+and+selection+preservation
  */
 export const createSelectionPreservationPlugin =
 	(api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => () => {
@@ -61,7 +64,7 @@ export const createSelectionPreservationPlugin =
 					const newState = { ...pluginState };
 
 					if (meta?.type === 'startPreserving') {
-						newState.preservedSelection = tr.selection;
+						newState.preservedSelection = mapPreservedSelection(tr.selection, tr);
 					} else if (meta?.type === 'stopPreserving') {
 						newState.preservedSelection = undefined;
 					}
@@ -112,6 +115,30 @@ export const createSelectionPreservationPlugin =
 			},
 
 			props: {
+				handleClick: (view: EditorView, pos: number, event: MouseEvent) => {
+					const { preservedSelection } = selectionPreservationPluginKey.getState(view.state) || {};
+
+					// If there is no current preserved selection, do nothing
+					if (!preservedSelection) {
+						return false;
+					}
+
+					const clickedDragHandle =
+						event.target instanceof HTMLElement && event.target.closest(DRAG_HANDLE_SELECTOR);
+
+					// When clicking a drag handle we continue preserving the selection
+					if (!clickedDragHandle) {
+						return false;
+					}
+
+					// Otherwise clicking anywhere else in the editor stops preserving the selection
+					const tr = view.state.tr;
+					stopPreservingSelection({ tr });
+					view.dispatch(tr);
+
+					return false;
+				},
+
 				handleKeyDown: (view: EditorView, event: KeyboardEvent) => {
 					const { preservedSelection } = selectionPreservationPluginKey.getState(view.state) || {};
 

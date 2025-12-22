@@ -13,6 +13,7 @@ import type { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Fragment, Node, type Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DispatchAnalyticsEvent } from '../analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
@@ -251,12 +252,6 @@ export function processRawValue(
 			});
 		}
 
-		// Convert nested-table extensions into nested tables
-		({ transformedAdf } = transformNestedTablesWithAnalytics(
-			transformedAdf as ADFEntity,
-			dispatchAnalyticsEvent,
-		));
-
 		if (dispatchAnalyticsEvent) {
 			const hasSingleColumnLayout = transformedAdf.content?.some(
 				(node) => node && node.type === 'layoutSection' && node.content?.length === 1,
@@ -271,11 +266,36 @@ export function processRawValue(
 			}
 		}
 
-		const entity: ADFEntity = validateADFEntity(
-			schema,
-			transformedAdf || (node as ADFEntity),
-			dispatchAnalyticsEvent,
-		);
+		let entity: ADFEntity;
+
+		if (expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+			// Validate ADF first before converting nested-table extensions into nested tables
+			// This matches the renderer's behavior in render-document.ts
+			entity = validateADFEntity(
+				schema,
+				transformedAdf || (node as ADFEntity),
+				dispatchAnalyticsEvent,
+			);
+
+			// Convert nested-table extensions into nested tables
+			({ transformedAdf } = transformNestedTablesWithAnalytics(
+				entity as ADFEntity,
+				dispatchAnalyticsEvent,
+			));
+			entity = transformedAdf;
+		} else {
+			// Convert nested-table extensions into nested tables
+			({ transformedAdf } = transformNestedTablesWithAnalytics(
+				transformedAdf as ADFEntity,
+				dispatchAnalyticsEvent,
+			));
+
+			entity = validateADFEntity(
+				schema,
+				transformedAdf || (node as ADFEntity),
+				dispatchAnalyticsEvent,
+			);
+		}
 
 		const newEntity = maySanitizePrivateContent(
 			entity as JSONDocNode,

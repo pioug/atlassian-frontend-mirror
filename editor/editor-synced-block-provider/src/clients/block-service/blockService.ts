@@ -103,6 +103,7 @@ export type DeleteSyncedBlockRequest = {
 export type UpdateSyncedBlockRequest = {
 	blockAri: string; // the ARI of the block. E.G ari:cloud:blocks:site-123:synced-block/uuid-456
 	content: string;
+	stepVersion?: number; // the current NCS step version number
 };
 
 export type CreateSyncedBlockRequest = {
@@ -111,6 +112,7 @@ export type CreateSyncedBlockRequest = {
 	content: string;
 	product: SyncBlockProduct;
 	sourceAri: string; // the ARI of the source document (the ARI of the page or blog post)
+	stepVersion?: number; // the current NCS step version number
 };
 
 type ReferenceSyncedBlockIDs = {
@@ -172,13 +174,19 @@ export const deleteSyncedBlock = async ({ blockAri }: DeleteSyncedBlockRequest):
 export const updateSyncedBlock = async ({
 	blockAri,
 	content,
+	stepVersion,
 }: UpdateSyncedBlockRequest): Promise<void> => {
+	const requestBody: { content: string; stepVersion?: number } = { content };
+	if (stepVersion !== undefined) {
+		requestBody.stepVersion = stepVersion;
+	}
+
 	const response = await fetchWithRetry(
 		`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`,
 		{
 			method: 'PUT',
 			headers: COMMON_HEADERS,
-			body: JSON.stringify({ content }),
+			body: JSON.stringify(requestBody),
 		},
 	);
 
@@ -193,11 +201,24 @@ export const createSyncedBlock = async ({
 	sourceAri,
 	product,
 	content,
+	stepVersion,
 }: CreateSyncedBlockRequest): Promise<BlockContentResponse> => {
+	const requestBody: { blockAri: string; blockInstanceId: string; sourceAri: string; product: SyncBlockProduct; content: string; stepVersion?: number } = {
+		blockAri,
+		blockInstanceId,
+		sourceAri,
+		product,
+		content,
+	};
+	
+	if (stepVersion !== undefined) {
+		requestBody.stepVersion = stepVersion;
+	}
+
 	const response = await fetchWithRetry(`${BLOCK_SERVICE_API_URL}/block`, {
 		method: 'POST',
 		headers: COMMON_HEADERS,
-		body: JSON.stringify({ blockAri, blockInstanceId, sourceAri, product, content }),
+		body: JSON.stringify(requestBody),
 	});
 
 	if (!response.ok) {

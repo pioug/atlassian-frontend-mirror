@@ -1,0 +1,71 @@
+---
+order: 2
+title: Lozenge dropdown trigger
+description:
+  Lozenge dropdown trigger displays an item’s status and enables switching through a menu.
+---
+
+import lozengeDropdownTriggerDo from '../images/lozenge-dropdown-trigger-do.png';
+import lozengeDropdownTriggerDont from '../images/lozenge-dropdown-trigger-dont.png';
+
+## Usage
+
+Lozenge dropdown triggers indicate the status of items while also triggering a menu to enable status
+switching. They differ from lozenges in that they contain interactivity and can be selected.
+
+## Anatomy
+
+![LozengeDropdownTrigger-anatomy](../images/lozenge-dropdown-anatomy.png)
+
+1. **Label:** Text describing the status. For example, "Completed".
+2. **Dropdown icon**: Indicates that this lozenge has interactivity and can be selected to open a
+   menu
+3. **Icon (optional)**: Use an icon to add additional affordance where the icon has a clear and
+   well-established meaning. For example, a checkmark for “Completed”.
+
+## Best practices
+
+### Use lozenge dropdown trigger for status switching
+
+Lozenge dropdown trigger should only open a dropdown menu or a popup to allow for quick status
+switching.
+
+<DoDont
+	type="do"
+	image={{
+		url: lozengeDropdownTriggerDo,
+		alt: 'Use to enable quick status switching.',
+	}}
+>
+	Use to enable quick status switching.
+</DoDont>
+
+<DoDont
+	type="dont"
+	image={{
+		url: lozengeDropdownTriggerDont,
+		alt: 'Don’t use to communicate other information, such as more information about the status.',
+	}}
+>
+	Don’t use to communicate other information, such as more information about the status.
+</DoDont>
+
+## Accessibility
+
+- Don't use color alone to signify an important state or status. Instead, use clear labels and, if
+  relevant, a supporting icon. For example: for a critical status, use descriptors like ’Off track’.
+- Don't use long labels in lozenges. They have a maxWidth of 200 pixels (or a custom maxWidth value)
+  causing labels to truncate. Lozenges can’t be focused, so truncated text will not be visible.
+
+## Data Center products
+
+For all new features, we recommend using Atlassian Design System and
+other [Atlaskit components](https://atlaskit.atlassian.com/). For existing code, continue to
+use [Atlassian User Interface (AUI)](https://aui.atlassian.com/).
+
+## Related
+
+- For lozenge dropdown triggers that don’t require dropdown interactivity, use
+  [lozenge](/components/lozenge).
+- For tallies or counts, use a [badge](/components/badge).
+- To visually label content such as categories and attributes, use a [tag](/components/tag).

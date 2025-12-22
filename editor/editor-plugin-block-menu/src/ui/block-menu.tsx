@@ -207,7 +207,10 @@ const BlockMenuContent = ({
 				editorExperiment('platform_synced_block', true) && styles.emptyMenuSectionStyles,
 			)}
 		>
-			<ArrowKeyNavigationProvider type={ArrowKeyNavigationType.MENU}>
+			<ArrowKeyNavigationProvider
+				type={ArrowKeyNavigationType.MENU}
+				handleClose={(e) => e.preventDefault()}
+			>
 				<BlockMenuRenderer allRegisteredComponents={blockMenuComponents || []} />
 			</ArrowKeyNavigationProvider>
 		</Box>

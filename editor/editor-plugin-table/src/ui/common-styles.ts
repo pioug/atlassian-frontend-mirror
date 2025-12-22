@@ -299,12 +299,10 @@ const tableStickyHeaderFirefoxFixStyle = () => {
 	}
 };
 
-// re-exporting these styles to use in Gemini test when table node view is rendered outside of PM
-export const baseTableStyles = (props: {
+const baseTableStylesWithoutSharedStyle = (props: {
 	featureFlags?: FeatureFlags;
 	isDragAndDropEnabled?: boolean;
 }) => css`
-	${tableSharedStyle()};
 	${columnControlsLineMarker()};
 	${hoveredDeleteButton()};
 	${hoveredCell()};
@@ -1432,13 +1430,24 @@ export const baseTableStyles = (props: {
 	}
 `;
 
+// re-exporting these styles to use in Gemini test when table node view is rendered outside of PM
+export const baseTableStyles = (props: {
+	featureFlags?: FeatureFlags;
+	isDragAndDropEnabled?: boolean;
+}) => css`
+	${tableSharedStyle()};
+	${baseTableStylesWithoutSharedStyle(props)};
+`;
+
 // TODO: DSP-4139 - Remove this when we have a better solution for the table toolbar
 export const tableStyles = (props: {
 	featureFlags?: FeatureFlags;
 	isDragAndDropEnabled?: boolean;
 }) => css`
 	.ProseMirror {
-		${baseTableStyles(props)}
+		${expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)
+			? baseTableStylesWithoutSharedStyle(props)
+			: baseTableStyles(props)};
 	}
 
 	.ProseMirror.${ClassName.IS_RESIZING} {

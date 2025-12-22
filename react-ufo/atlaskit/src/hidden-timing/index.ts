@@ -1,5 +1,7 @@
 import { bind } from 'bind-event-listener';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { PageVisibility } from '../common/react-ufo-payload-schema';
 
 export type HiddenTimingItem = {
@@ -48,6 +50,18 @@ function handleChange() {
 }
 
 function setup() {
+	try {
+		if (fg('platform_ufo_use_native_page_visibility_api')) {
+			const results = performance.getEntriesByType('visibility-state');
+			results?.forEach((result) => {
+				pushHidden(result.name === 'hidden', result.startTime)
+			});
+		}
+	} catch {
+		/* do nothing */
+		/* note: visibility-state entry types are not available in Firefox/Safari: https://developer.mozilla.org/en-US/docs/Web/API/VisibilityStateEntry#browser_compatibility */
+	}
+
 	bind(window, {
 		type: 'pageshow',
 		listener: handleChange,

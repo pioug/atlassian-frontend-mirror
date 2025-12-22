@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-selector
 
+## 1.2.0
+
+### Minor Changes
+
+- [`22b91941f29b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22b91941f29b0) -
+  Remove the permission check and entitlement check from the package
+
 ## 1.1.2
 
 ### Patch Changes

@@ -122,8 +122,14 @@ export default function createPlugin(
 		},
 		props: {
 			decorations(editorState) {
-				const { hasPlaceholder, placeholderText, pos, typedAndDeleted, contextPlaceholderADF } =
-					getPlaceholderState(editorState);
+				const {
+					hasPlaceholder,
+					placeholderText,
+					pos,
+					typedAndDeleted,
+					contextPlaceholderADF,
+					showOnEmptyParagraph,
+				} = getPlaceholderState(editorState);
 
 				// Decorations is still called after plugin is destroyed
 				// So we need to make sure decorations is not called if plugin has been destroyed to prevent the placeholder animations' setTimeouts called infinitely
@@ -159,6 +165,7 @@ export default function createPlugin(
 						pos,
 						initialDelayWhenUserTypedAndDeleted,
 						placeholderAdfToUse,
+						showOnEmptyParagraph,
 					);
 				}
 				return;

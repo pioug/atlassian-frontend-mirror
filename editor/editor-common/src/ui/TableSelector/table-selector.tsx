@@ -193,18 +193,11 @@ const TableSelectorPopup = ({
 					);
 				})}
 			</div>
-			{fg('platform_editor_dec_a11y_fixes')
-				? (
-					<span css={selectionSizeTextStyles} aria-hidden={true}>
-						{`${selectedCol} ${MULTIPLICATION_SYMBOL} ${selectedRow}`}
-					</span>
-				) : (
-					<span css={selectionSizeTextStyles} aria-hidden={true}>
-						{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
-						{`${selectedCol} x ${selectedRow}`}
-					</span>
-				)
-			}
+			<span css={selectionSizeTextStyles} aria-hidden={true}>
+				{fg('platform_editor_dec_a11y_fixes')
+					? `${selectedCol} ${MULTIPLICATION_SYMBOL} ${selectedRow}`
+					: `${selectedCol} x ${selectedRow}`}
+			</span>
 		</Stack>
 	);
 };

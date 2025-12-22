@@ -1,0 +1,148 @@
+---
+title: Tag
+description: A tag is a compact label used to classify, organize, and categorize information.
+order: 2
+---
+
+import Image from '@atlaskit/image';
+
+import tagsAnatomyLight from './images/tags-anatomy-light.png';
+import tagsAnatomyDark from './images/tags-anatomy-dark.png';
+import tagDo1Light from './images/tag-do-1-light.png';
+import tagDo1Dark from './images/tag-do-1-dark.png';
+import tagDont1Light from './images/tag-dont-1-light.png';
+import tagDont1Dark from './images/tag-dont-1-dark.png';
+import tagDo2Light from './images/tag-do-2-light.png';
+import tagDont2Light from './images/tag-dont-2-light.png';
+import tagDo2Dark from './images/tag-do-2-dark.png';
+import tagDont2Dark from './images/tag-dont-2-dark.png';
+import tagDo3Light from './images/tag-do-3-light.png';
+import tagDont3Light from './images/tag-dont-3-light.png';
+import tagDo3Dark from './images/tag-do-3-dark.png';
+import tagDont3Dark from './images/tag-dont-3-dark.png';
+
+## Usage
+
+Use tags to classify, organize, and categorize information. Tags work best for lower priority
+metadata such as categories, attributes, or topics that support scanning and filtering. They can be
+rendered as non-interactive, or as interactive elements to support linking and removal with a close
+button. If you need to represent a status or state, for example "In progress", use a
+[lozenge](/components/lozenge/lozenge) instead.
+
+Tags are designed to be displayed within a [tag group](/components/tag-group/tag-group). Use a tag
+group to control the layout and alignment for a collection of tags.
+
+## Anatomy
+
+<Image
+	src={tagsAnatomyLight}
+	srcDark={tagsAnatomyDark}
+	alt="Tag anatomy diagram showing: 1. Label (text that describes the classification or category) and 2. Leading element (optional), an icon or avatar that adds context to the tag"
+/>
+
+1. **Label:** Text that describes the classification or category.
+2. **Leading element (optional):** Additional meaning can be added with an icon or another element.
+   If using an icon, make sure it has a clear and well-established meaning that relates to the tag
+   label.
+3. **Close button (optional):** Enable the `isRemovable` property to allow customers to remove a tag
+   by clicking the trailing close button.
+
+## Best practices
+
+### Only use tags for object-related content
+
+Tags are reserved for object related content. For people, use
+[avatar tag](/components/tag/avatar-tag).
+
+<DoDont
+	type="do"
+	image={{
+		url: tagDo1Light,
+		urlDarkMode: tagDo1Dark,
+		alt: 'Tags showing object-oriented labels: Spike, Minor fix, Project, Updated, and guidance',
+	}}
+>
+	Use tags for object-oriented elements.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: tagDont1Light,
+		urlDarkMode: tagDont1Dark,
+		alt: 'Tags with person names and avatars: Crystal Wu, John Au, and Loki Ali',
+	}}
+>
+	Don't use tags for people.
+</DoDont>
+
+### Don't use tags to communicate status or state
+
+Tags should not be used to classify, organize, and highlight information. Tags provide less visual
+prominence than lozenges to create visual hierarchy. To communicate status or state use
+[lozenge](/components/lozenge/lozenge) instead.
+
+<DoDont
+	type="do"
+	image={{
+		url: tagDo2Light,
+		urlDarkMode: tagDo2Dark,
+		alt: 'Tags showing categories: Design, Lead, Marketing, Management, Backend',
+	}}
+>
+	Use tags to classify, organize, and highlight information.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: tagDont2Light,
+		urlDarkMode: tagDont2Dark,
+		alt: 'Tags showing status labels: Off track, In progress, Completed, In review, and strikethrough with color',
+	}}
+>
+	Don't use tags to communicate the status of an item.
+</DoDont>
+
+### Use color with intention
+
+Use tag color to thematically organize related content. If the same color represents multiple
+categories, its meaning becomes ambiguous. Apply color intentionally and avoid overlap to maintain
+clarity.
+
+<DoDont
+	type="do"
+	image={{
+		url: tagDo3Light,
+		urlDarkMode: tagDo3Dark,
+		alt: 'Use color intentionally to organize content',
+	}}
+>
+	Use color intentionally to organize content.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: tagDont3Light,
+		urlDarkMode: tagDont3Dark,
+		alt: 'Don’t use color without intention',
+	}}
+>
+	Don’t use color without intention.
+</DoDont>
+
+## Content guidelines
+
+- When writing tags, avoid line wrapping.
+- Tag has a maxWidth of 200 pixels (or a custom maxWidth value) causing labels to truncate. If the
+  tag isn't user generated, keep labels short to avoid truncation.
+
+## Data Center products
+
+For all new features, we recommend using Atlassian Design System and other
+[Atlaskit components](https://atlaskit.atlassian.com/). For existing code, you can continue to use
+[Atlassian User Interface (AUI)](https://aui.atlassian.com/).
+
+## Related
+
+- For status information, use a [lozenge](/components/lozenge/lozenge).
+- For tallies or counts, use a [badge](/components/badge/badge).
+- For tagging people, use an [avatar tag](/components/tag/avatar-tag).

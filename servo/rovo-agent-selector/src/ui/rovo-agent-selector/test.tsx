@@ -16,7 +16,6 @@ import { generateMockAgentEdges } from '../../common/utils/generate-mock-agent-e
 
 import messages from './messages';
 import type { RovoAgentSelectorProps } from './types';
-import { UnentitledState } from './unentitled';
 
 import { AGENT_SELECT_ID, RovoAgentSelector } from './index';
 
@@ -28,14 +27,11 @@ const mockOnChange = jest.fn();
 const TestRenderer = (propOverrides: Partial<RovoAgentSelectorProps>) => {
 	const data = useLazyLoadQuery<any>(
 		graphql`
-			query testRovoAgentSelectorQuery($cloudId: ID!, $cloudIdString: String!)
-			@relay_test_operation {
-				...rovoAgentSelector_AtlaskitRovoAgentSelector_fragmentReference
-					@arguments(cloudId: $cloudId, cloudIdString: $cloudIdString)
+			query testRovoAgentSelectorQuery($cloudIdString: String!) @relay_test_operation {
+				...rovoAgentSelector_AtlaskitRovoAgentSelector @arguments(cloudIdString: $cloudIdString)
 			}
 		`,
 		{
-			cloudId: 'mock-cloud-id',
 			cloudIdString: 'mock-cloud-id',
 		},
 	);
@@ -63,15 +59,8 @@ describe('RovoAgentSelector', () => {
 	type TestArgs = {
 		agentCount?: number;
 		isFeatureEnabled?: boolean;
-		isCustomAgentsAvailable?: boolean;
-		isAbleToCreateAgents?: boolean;
 	};
-	const renderComponent = ({
-		agentCount = 10,
-		isFeatureEnabled,
-		isCustomAgentsAvailable = true,
-		isAbleToCreateAgents = true,
-	}: TestArgs = {}) => {
+	const renderComponent = ({ agentCount = 10, isFeatureEnabled }: TestArgs = {}) => {
 		environment.mock.queueOperationResolver((operation) =>
 			MockPayloadGenerator.generate(operation, {
 				AgentStudioAgentsConnection: () => ({
@@ -80,12 +69,6 @@ describe('RovoAgentSelector', () => {
 						endCursor: null,
 					},
 					edges: generateMockAgentEdges(agentCount),
-				}),
-				AtlassianStudioUserSiteContextOutput: () => ({
-					userPermissions: {
-						isAbleToCreateAgents,
-					},
-					isCustomAgentsAvailable,
 				}),
 			}),
 		);
@@ -96,7 +79,7 @@ describe('RovoAgentSelector', () => {
 					<TestRenderer isFeatureEnabled={isFeatureEnabled} />
 				</IntlProvider>
 			</RelayEnvironmentProvider>,
-			[injectable(fg, mockFg), injectable(UnentitledState, () => <div>unentitled</div>)],
+			[injectable(fg, mockFg)],
 		);
 	};
 
@@ -142,22 +125,6 @@ describe('RovoAgentSelector', () => {
 		expect(screen.queryByText(messages.selectorLabel.defaultMessage)).not.toBeInTheDocument();
 	});
 
-	it('should render correctly when user does not have permission to create agents', () => {
-		renderComponent({ isAbleToCreateAgents: false });
-
-		expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
-		expect(screen.queryByText(messages.selectorLabel.defaultMessage)).not.toBeInTheDocument();
-		expect(screen.getByText('unentitled')).toBeVisible();
-	});
-
-	it('should render correctly when site has no have rovo entitlement', () => {
-		renderComponent({ isCustomAgentsAvailable: false });
-
-		expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
-		expect(screen.queryByText(messages.selectorLabel.defaultMessage)).not.toBeInTheDocument();
-		expect(screen.getByText('unentitled')).toBeVisible();
-	});
-
 	it('should use feature gate when isFeatureEnabled prop is not provided', async () => {
 		renderComponent({ isFeatureEnabled: undefined });
 
@@ -177,7 +144,6 @@ describe('RovoAgentSelector', () => {
 
 		expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
 		expect(screen.queryByText(messages.selectorLabel.defaultMessage)).not.toBeInTheDocument();
-		expect(screen.queryByText('unentitled')).not.toBeInTheDocument();
 	});
 
 	it('should render agent options in the dropdown', async () => {

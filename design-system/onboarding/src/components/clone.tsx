@@ -31,7 +31,7 @@ interface CloneProps {
 	/**
 	 * The border radius of the element being highlighted.
 	 */
-	targetRadius?: number;
+	targetRadius?: number | string;
 	/**
 	 * A `testId` prop is provided for specified elements,
 	 * which is a unique string that appears as a data attribute `data-testid` in the rendered code,

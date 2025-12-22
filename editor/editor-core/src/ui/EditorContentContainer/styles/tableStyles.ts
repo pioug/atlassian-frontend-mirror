@@ -68,3 +68,18 @@ export const tableContainerOverflowY: SerializedStyles = css({
 		overflowY: 'visible',
 	},
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const tableEmptyRowStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror .pm-table-wrapper': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.pm-table-cell-content-wrap, .pm-table-header-content-wrap': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'p:empty': {
+				/* add a minimum height to empty table rows in SSR */
+				minHeight: '1.714em',
+			},
+		},
+	},
+});

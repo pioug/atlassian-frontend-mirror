@@ -152,8 +152,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 				if (
 					includeSSRRatio &&
 					ssrRatio === -1 &&
-					entries.some((e) => e.elementName === 'SSR') &&
-					fg('vc_v3_ssr_ratio_fixed_range')
+					entries.some((e) => e.elementName === 'SSR')
 				) {
 					ssrRatio = viewportPercentage;
 				}

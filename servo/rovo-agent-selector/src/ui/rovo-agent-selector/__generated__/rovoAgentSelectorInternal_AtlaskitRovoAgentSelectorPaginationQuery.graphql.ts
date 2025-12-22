@@ -1,6 +1,6 @@
 /**
- * @generated SignedSource<<91fadf86ea86a473e252405bf65cdd63>>
- * @relayHash d34bf472df601be344a6a0d0ad2f3c21
+ * @generated SignedSource<<f85c969d3da219604d3c96becb27e7c9>>
+ * @relayHash 10df1400fe5f08dbb71223dbeb55d5d0
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -10,7 +10,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-// @relayRequestID 3fa57598cb745b1f18c5165a30d9222b6cf1c721829715f13f10c77f8193b6b1
+// @relayRequestID 7250b40e01559cc3a01468d2f306020d55d0c1feef70d34478073a59ab3f8154
 
 import type { ConcreteRequest, Query } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
@@ -28,7 +28,7 @@ export type rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery$v
   input?: AgentStudioAgentQueryInput | null | undefined;
 };
 export type rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"rovoAgentSelector_AtlaskitRovoAgentSelector_RovoAgentSelectorInternal_fragmentReference">;
+  readonly " $fragmentSpreads": FragmentRefs<"rovoAgentSelector_AtlaskitRovoAgentSelector">;
 };
 export type rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery = {
   response: rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery$data;
@@ -103,7 +103,7 @@ return {
           (v3/*: any*/)
         ],
         "kind": "FragmentSpread",
-        "name": "rovoAgentSelector_AtlaskitRovoAgentSelector_RovoAgentSelectorInternal_fragmentReference"
+        "name": "rovoAgentSelector_AtlaskitRovoAgentSelector"
       }
     ],
     "type": "Query"
@@ -197,7 +197,7 @@ return {
     ]
   },
   "params": {
-    "id": "3fa57598cb745b1f18c5165a30d9222b6cf1c721829715f13f10c77f8193b6b1",
+    "id": "7250b40e01559cc3a01468d2f306020d55d0c1feef70d34478073a59ab3f8154",
     "metadata": {},
     "name": "rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery",
     "operationKind": "query",
@@ -206,6 +206,6 @@ return {
 };
 })();
 
-(node as any).hash = "141f12bb1550c1602033f3e2a0d7adfc";
+(node as any).hash = "a4b2382014625df84010cab1cb3005ca";
 
 export default node;

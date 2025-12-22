@@ -29,7 +29,24 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Tag",
-			"category": "Status indicators"
+			"category": "Status indicators",
+			"subPages": [
+				{
+					"title": "Tag",
+					"id": "tag",
+					"status": {
+						"type": "alpha",
+						"description": "This is an experiment under a feature flag. We may make frequent breaking changes with limited notice. We don't recommend using this without support from our team."
+					}
+				},
+				{
+					"title": "AvatarTag",
+					"id": "avatar-tag",
+					"status": {
+						"type": "alpha"
+					}
+				}
+			]
 		}
 	},
 	"exports": {

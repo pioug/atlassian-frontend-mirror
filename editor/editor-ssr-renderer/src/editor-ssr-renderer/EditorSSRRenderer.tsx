@@ -1,7 +1,8 @@
 import React, { useMemo, useRef, useLayoutEffect } from 'react';
 import type { IntlShape } from 'react-intl-next';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorView, DecorationSet, type NodeView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { DecorationSet, type NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -23,23 +24,95 @@ interface Props {
 	doc: PMNode | undefined;
 	id: string;
 	intl: IntlShape;
+	onEditorStateChanged?: (state: EditorState) => void;
 	plugins: EditorPlugin[];
 	portalProviderAPI: PortalProviderAPI;
 	schema: Schema;
 }
 
-class SSREditorView extends EditorView {
-	override update(): void {
-		// Skip any updates in SSR
+/**
+ * A lightweight EditorView implementation for SSR environments.
+ *
+ * It's kind of aggressive right now, we need to test and see how it works.
+ * Probably, we will need to implement more methods/properties in the future.
+ *
+ * If it doesn't work, we can extend `EditorView` directly instead of implementing `Partial<EditorView>`,
+ * but it will perform some DOM operation during the construction.
+ */
+class SSREditorView implements Pick<EditorView, keyof EditorView> {
+	readonly state: EditorState;
+	readonly dom: HTMLElement;
+	readonly editable: boolean;
+	readonly dragging: null;
+	readonly composing: boolean;
+	readonly props: { state: EditorState };
+	readonly root: Document;
+	readonly isDestroyed: boolean;
+
+	update() {
+		// No-op in SSR
 	}
-	override setProps(): void {
-		// Skip any updates in SSR
+	setProps() {
+		// No-op in SSR
 	}
-	override dispatchEvent(): void {
-		// Don't notify about events in SSR
+	dispatchEvent() {
+		// No-op in SSR
 	}
-	override dispatch(): void {
-		// Don't notify about events in SSR
+	dispatch() {
+		// No-op in SSR
+	}
+	hasFocus() {
+		return false;
+	}
+	focus() {
+		// No-op in SSR
+	}
+	updateRoot() {
+		// No-op in SSR
+	}
+	posAtCoords() {
+		return null;
+	}
+	coordsAtPos() {
+		return { left: 0, right: 0, top: 0, bottom: 0 };
+	}
+	domAtPos() {
+		return { node: this.root, offset: 0 };
+	}
+	nodeDOM() {
+		return null;
+	}
+	posAtDOM() {
+		return 0;
+	}
+	endOfTextblock() {
+		return false;
+	}
+	pasteHTML() {
+		return false;
+	}
+	pasteText() {
+		return false;
+	}
+	destroy() {
+		// No-op in SSR
+	}
+	updateState() {
+		// No-op in SSR
+	}
+	someProp() {
+		return undefined;
+	}
+
+	constructor(place: null, props: { state: EditorState }) {
+		this.state = props.state;
+		this.dom = document.createElement('div');
+		this.editable = true;
+		this.dragging = null;
+		this.composing = false;
+		this.props = props;
+		this.root = document;
+		this.isDestroyed = false;
 	}
 }
 
@@ -55,6 +128,7 @@ export function EditorSSRRenderer({
 	doc,
 	portalProviderAPI,
 	intl,
+	onEditorStateChanged,
 	...divProps
 }: Props): React.JSX.Element {
 	// PMPluginFactoryParams use `getIntl` function to get current intl instance,
@@ -105,15 +179,26 @@ export function EditorSSRRenderer({
 		}, {});
 	}, [pmPlugins]);
 
-	const editorView = useMemo(() => {
-		return new SSREditorView(null, {
-			state: EditorState.create({
-				doc,
-				schema,
-				plugins: pmPlugins,
-			}),
+	const editorState = useMemo(() => {
+		return EditorState.create({
+			doc,
+			schema,
+			plugins: pmPlugins,
 		});
 	}, [doc, pmPlugins, schema]);
+
+	// In React 19 could be replaced by `useEffectEvent` hook.
+	const onEditorStateChangedRef = useRef(onEditorStateChanged);
+	onEditorStateChangedRef.current = onEditorStateChanged;
+	useLayoutEffect(() => {
+		onEditorStateChangedRef.current?.(editorState);
+	}, [editorState]);
+
+	const editorView = useMemo(() => {
+		return new SSREditorView(null, {
+			state: editorState,
+		}) as unknown as EditorView;
+	}, [editorState]);
 
 	const { serializer, nodePositions } = useMemo(() => {
 		const nodePositions = new WeakMap<PMNode, number>();

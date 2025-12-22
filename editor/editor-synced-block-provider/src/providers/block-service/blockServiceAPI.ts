@@ -169,22 +169,25 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 class BlockServiceADFWriteProvider implements ADFWriteProvider {
 	private sourceAri: string;
 	private sourceDocumentId: string;
+	private getVersion?: () => number | undefined;
 	product: SyncBlockProduct;
 
-	constructor(sourceAri: string, product: SyncBlockProduct, sourceDocumentId: string) {
+	constructor(sourceAri: string, product: SyncBlockProduct, sourceDocumentId: string, getVersion?: () => number | undefined) {
 		this.sourceAri = sourceAri;
 		this.product = product;
 		this.sourceDocumentId = sourceDocumentId;
+		this.getVersion = getVersion;
 	}
 
 	// it will first try to update and if it can't (404) then it will try to create
 	async writeData(data: SyncBlockData): Promise<WriteSyncBlockResult> {
 		const { resourceId } = data;
 		const blockAri = generateBlockAri(this.sourceAri, resourceId, this.product);
+		const stepVersion = this.getVersion ? this.getVersion() : undefined;
 
 		try {
 			// Try update existing block's content
-			await updateSyncedBlock({ blockAri, content: JSON.stringify(data.content) });
+			await updateSyncedBlock({ blockAri, content: JSON.stringify(data.content), stepVersion });
 			return { resourceId };
 		} catch (error) {
 			if (error instanceof BlockError) {
@@ -197,6 +200,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 	async createData(data: SyncBlockData): Promise<WriteSyncBlockResult> {
 		const { resourceId } = data;
 		const blockAri = generateBlockAri(this.sourceAri, resourceId, this.product);
+		const stepVersion = this.getVersion ? this.getVersion() : undefined;
 
 		try {
 			await createSyncedBlock({
@@ -205,6 +209,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 				sourceAri: this.sourceAri,
 				product: this.product,
 				content: JSON.stringify(data.content),
+				stepVersion,
 			});
 
 			return { resourceId };
@@ -268,9 +273,9 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 /**
  * Factory function to create both providers with shared configuration
  */
-const createBlockServiceAPIProviders = (sourceAri: string, product: SyncBlockProduct, sourceDocumentId: string) => {
+const createBlockServiceAPIProviders = (sourceAri: string, product: SyncBlockProduct, sourceDocumentId: string, getVersion?: () => number | undefined) => {
 	const fetchProvider = new BlockServiceADFFetchProvider(sourceAri);
-	const writeProvider = new BlockServiceADFWriteProvider(sourceAri, product, sourceDocumentId);
+	const writeProvider = new BlockServiceADFWriteProvider(sourceAri, product, sourceDocumentId, getVersion);
 
 	return {
 		fetchProvider,
@@ -282,6 +287,7 @@ export const useMemoizedBlockServiceAPIProviders = (
 	sourceAri: string,
 	product: SyncBlockProduct,
 	sourceDocumentId: string,
+	getVersion?: () => number | undefined,
 ) => {
-	return useMemo(() => createBlockServiceAPIProviders(sourceAri, product, sourceDocumentId), [sourceAri, product, sourceDocumentId]);
+	return useMemo(() => createBlockServiceAPIProviders(sourceAri, product, sourceDocumentId, getVersion), [sourceAri, product, sourceDocumentId, getVersion]);
 };

@@ -14,7 +14,7 @@ type ParagraphBlockMenuItemProps = {
 	api: ExtractInjectionAPI<BlockTypePlugin> | undefined;
 };
 
-const nodeName = 'paragraph';
+const NODE_NAME = 'paragraph';
 
 const ParagraphBlockMenuItem = ({ api }: ParagraphBlockMenuItemProps) => {
 	const { formatMessage } = useIntl();
@@ -30,13 +30,13 @@ const ParagraphBlockMenuItem = ({ api }: ParagraphBlockMenuItemProps) => {
 			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.paragraph, {
 				inputMethod,
 				triggeredFrom,
-				targetTypeName: nodeName,
+				targetTypeName: NODE_NAME,
 			});
 			return command ? command({ tr }) : null;
 		});
 	};
 
-	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(nodeName);
+	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(NODE_NAME);
 	if (isTransfromToPanelDisabled) {
 		return null;
 	}

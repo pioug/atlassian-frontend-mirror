@@ -59,6 +59,8 @@ export const createPlugin = (
 ) => {
 	const { useLongPressSelection = false } = options || {};
 	const confirmationTransactionRef: ConfirmationTransactionRef = { current: undefined };
+	// Track if a copy event occurred to distinguish copy from drag and drop
+	let isCopyEvent: boolean = false;
 
 	return new SafePlugin<SyncedBlockPluginState>({
 		key: syncedBlockPluginKey,
@@ -158,11 +160,17 @@ export const createPlugin = (
 				mousedown(view, event) {
 					return shouldIgnoreDomEvent(view, event, api);
 				},
+				copy: () => {
+					isCopyEvent = true;
+					return false;
+				},
 			},
 			transformCopied: (slice, { state }) => {
 				const pluginState = syncedBlockPluginKey.getState(state);
 				const syncBlockStore = pluginState?.syncBlockStore;
 				const { schema } = state;
+				const isCopy = isCopyEvent;
+				isCopyEvent = false;
 
 				if (!syncBlockStore) {
 					return slice;
@@ -170,7 +178,10 @@ export const createPlugin = (
 
 				return mapSlice(slice, (node: Node) => {
 					if (node.type.name === 'syncBlock') {
-						showCopiedFlag(api);
+						if (isCopy) {
+							showCopiedFlag(api);
+						}
+
 						return node;
 					}
 					if (node.type.name === 'bodiedSyncBlock' && node.attrs.resourceId) {
@@ -180,7 +191,9 @@ export const createPlugin = (
 							return node.content;
 						}
 
-						showCopiedFlag(api);
+						if (isCopy) {
+							showCopiedFlag(api);
+						}
 
 						const newResourceId = syncBlockStore.referenceManager.generateResourceIdForReference(
 							node.attrs.resourceId,

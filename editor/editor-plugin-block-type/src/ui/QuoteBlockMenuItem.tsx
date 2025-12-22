@@ -14,7 +14,7 @@ type QuoteBlockMenuItemProps = {
 	api: ExtractInjectionAPI<BlockTypePlugin> | undefined;
 };
 
-const nodeName = 'blockquote';
+const NODE_NAME = 'blockquote';
 
 const QuoteBlockMenuItem = ({ api }: QuoteBlockMenuItemProps) => {
 	const { formatMessage } = useIntl();
@@ -30,13 +30,13 @@ const QuoteBlockMenuItem = ({ api }: QuoteBlockMenuItemProps) => {
 			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.blockquote, {
 				inputMethod,
 				triggeredFrom,
-				targetTypeName: nodeName,
+				targetTypeName: NODE_NAME,
 			});
 			return command ? command({ tr }) : null;
 		});
 	};
 
-	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(nodeName);
+	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(NODE_NAME);
 	if (isTransfromToPanelDisabled) {
 		return null;
 	}

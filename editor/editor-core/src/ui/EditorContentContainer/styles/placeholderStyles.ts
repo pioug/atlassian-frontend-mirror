@@ -1,7 +1,16 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css, type SerializedStyles } from '@emotion/react';
+import { css, keyframes, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
+
+const placeholderFadeInKeyframes = keyframes({
+	from: {
+		opacity: 0,
+	},
+	to: {
+		opacity: 1,
+	},
+});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const placeholderTextStyles: SerializedStyles = css({
@@ -86,6 +95,10 @@ export const placeholderStyles: SerializedStyles = css({
 			userSelect: 'none',
 			position: 'absolute',
 		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror .placeholder-decoration-fade-in': {
+		animation: `${placeholderFadeInKeyframes} 300ms ease-out forwards`,
 	},
 });
 

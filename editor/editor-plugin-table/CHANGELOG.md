@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 15.6.9
+
+### Patch Changes
+
+- [`f41ee46c84bb1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f41ee46c84bb1) -
+  [EDITOR-3881] Fix table styling to work with SSR renderer
+- Updated dependencies
+
 ## 15.6.8
 
 ### Patch Changes

@@ -22,14 +22,12 @@ const containerStyles = cssMap({
 const TestRenderer = () => {
 	const data = useLazyLoadQuery<customWidthRovoAgentSelectorQuery>(
 		graphql`
-			query customWidthRovoAgentSelectorQuery($cloudId: ID!, $cloudIdString: String!) {
+			query customWidthRovoAgentSelectorQuery($cloudIdString: String!) {
 				# eslint-disable-next-line @atlassian/relay/must-colocate-fragment-spreads
-				...rovoAgentSelector_AtlaskitRovoAgentSelector_fragmentReference
-					@arguments(cloudId: $cloudId, cloudIdString: $cloudIdString)
+				...rovoAgentSelector_AtlaskitRovoAgentSelector @arguments(cloudIdString: $cloudIdString)
 			}
 		`,
 		{
-			cloudId: 'mock-cloud-id',
 			cloudIdString: 'mock-cloud-id',
 		},
 	);
@@ -57,12 +55,6 @@ export default function CustomWidth(): React.JSX.Element {
 					endCursor: null,
 				},
 				edges: generateMockAgentEdges(10),
-			}),
-			AtlassianStudioUserSiteContextOutput: () => ({
-				userPermissions: {
-					isAbleToCreateAgents: true,
-				},
-				isCustomAgentsAvailable: true,
 			}),
 		}),
 	);

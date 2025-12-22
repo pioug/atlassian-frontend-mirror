@@ -14,7 +14,7 @@ type Props = {
 	api: ExtractInjectionAPI<LayoutPlugin> | undefined;
 };
 
-const nodeName = 'layoutSection';
+const NODE_NAME = 'layoutSection';
 
 const LayoutBlockMenuItem = ({ api }: Props) => {
 	const { formatMessage } = useIntl();
@@ -32,14 +32,14 @@ const LayoutBlockMenuItem = ({ api }: Props) => {
 				{
 					inputMethod,
 					triggeredFrom,
-					targetTypeName: nodeName,
+					targetTypeName: NODE_NAME,
 				},
 			);
 			return command ? command({ tr }) : null;
 		});
 	};
 
-	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(nodeName);
+	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(NODE_NAME);
 	if (isTransfromToPanelDisabled) {
 		return null;
 	}

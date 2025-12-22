@@ -1,6 +1,7 @@
 import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/analytics';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import { type ExperimentalPerformanceResourceTiming } from './types';
 import { createMediaDurationMetrics, createUfoDurationMetrics } from './durationMetrics';
 import { sendUfoDurationMetrics } from './ufo';
@@ -16,8 +17,13 @@ declare global {
 	}
 }
 
+// this should fire around 10% of the time
+const shouldSamplePerfObserver = () => 
+	Math.random() < 0.1
+
+
 const urlRegex =
-	/https:\/\/(?:media\.(?:dev|staging|prod)\.atl-paas\.net|api\.media\.atlassian\.com|media-cdn(?:\.stg\.|\.)atlassian\.com)\/file\/([^/]+)\/image.*[?&]source=mediaCard/;
+	/(?:https:\/\/(?:media\.(?:dev|staging|prod)\.atl-paas\.net|api\.media\.atlassian\.com|media-cdn(?:\.stg\.|\.)atlassian\.com)\/|media-api\/)file\/([^/]+)\/image.*[?&]source=mediaCard/;
 
 const clientIdParamRegex = /[?&]clientId=([^&]+)/;
 const ssrParamRegex = /[?&]token=([^&]+)/;
@@ -34,11 +40,14 @@ const createAndGetResourceObserver = (): PerformanceObserver => {
 				const fileId = matchFileId[1];
 				const clientId = matchClientId?.[1];
 				const ssr = matchSSR ? 'server' : undefined;
-				const navigationTime = performance.getEntriesByType('navigation')[0] as
-					| PerformanceNavigationTiming
-					| undefined;
 
-				const mediaDurationMetrics = createMediaDurationMetrics(entry, navigationTime);
+				// Get UFO interaction start time for proper timing in SPAs
+				// For page_load: start = 0 (relative to page navigation)
+				// For transitions: start = performance.now() when transition started
+				const interaction = getActiveInteraction();
+				const interactionStartTime = interaction?.start ?? 0;
+
+				const mediaDurationMetrics = createMediaDurationMetrics(entry, interactionStartTime);
 
 				const event = window[MEDIA_CARD_PERF_STATE_KEY].mediaCardCreateAnalyticsEvent({
 					eventType: 'operational',
@@ -54,10 +63,13 @@ const createAndGetResourceObserver = (): PerformanceObserver => {
 						...mediaDurationMetrics,
 					},
 				});
-				event.fire(ANALYTICS_MEDIA_CHANNEL);
+
+				if (shouldSamplePerfObserver()) {
+					event.fire(ANALYTICS_MEDIA_CHANNEL);
+				}
 
 				if (fg('platform_media_card_ufo_network_metrics')) {
-					const ufoDurationMetrics = createUfoDurationMetrics(entry, navigationTime);
+					const ufoDurationMetrics = createUfoDurationMetrics(entry, interactionStartTime);
 					const endpointName = 'image';
 					sendUfoDurationMetrics(ufoDurationMetrics, endpointName);
 				}

@@ -14,14 +14,12 @@ import type { selectedRovoAgentSelectorQuery } from './__generated__/selectedRov
 const TestRenderer = () => {
 	const data = useLazyLoadQuery<selectedRovoAgentSelectorQuery>(
 		graphql`
-			query selectedRovoAgentSelectorQuery($cloudId: ID!, $cloudIdString: String!) {
+			query selectedRovoAgentSelectorQuery($cloudIdString: String!) {
 				# eslint-disable-next-line @atlassian/relay/must-colocate-fragment-spreads
-				...rovoAgentSelector_AtlaskitRovoAgentSelector_fragmentReference
-					@arguments(cloudId: $cloudId, cloudIdString: $cloudIdString)
+				...rovoAgentSelector_AtlaskitRovoAgentSelector @arguments(cloudIdString: $cloudIdString)
 			}
 		`,
 		{
-			cloudId: 'mock-cloud-id',
 			cloudIdString: 'mock-cloud-id',
 		},
 	);
@@ -56,12 +54,6 @@ export default function Selected(): React.JSX.Element {
 					endCursor: null,
 				},
 				edges: generateMockAgentEdges(10),
-			}),
-			AtlassianStudioUserSiteContextOutput: () => ({
-				userPermissions: {
-					isAbleToCreateAgents: true,
-				},
-				isCustomAgentsAvailable: true,
 			}),
 		}),
 	);

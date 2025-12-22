@@ -49,7 +49,7 @@ export const FormatMenuComponent = ({
 			elemAfter={<ChevronRightIcon label="" />}
 			enableMaxHeight={true}
 			onClick={handleClick}
-			dropdownTestId="editor-nested-turn-into-menu"
+			dropdownTestId="editor-turn-into-menu"
 			shouldFitContainer
 		>
 			{children}

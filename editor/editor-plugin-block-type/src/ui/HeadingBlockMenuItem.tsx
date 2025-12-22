@@ -38,6 +38,8 @@ type HeadingBlockMenuItemProps = {
 	level: 1 | 2 | 3 | 4 | 5 | 6;
 };
 
+const NODE_NAME = 'heading';
+
 const HeadingBlockMenuItem = ({ level, api }: HeadingBlockMenuItemProps) => {
 	const { formatMessage } = useIntl();
 	const Icon = headingIcons[level - 1];
@@ -54,14 +56,16 @@ const HeadingBlockMenuItem = ({ level, api }: HeadingBlockMenuItemProps) => {
 			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.heading, {
 				inputMethod,
 				triggeredFrom,
-				targetTypeName: `heading${level}`,
+				targetTypeName: `${NODE_NAME}${level}`,
 				targetAttrs: { level },
 			});
 			return command ? command({ tr }) : null;
 		});
 	};
 
-	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled('heading');
+	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(NODE_NAME, {
+		level,
+	});
 	if (isTransfromToPanelDisabled) {
 		return null;
 	}

@@ -60,8 +60,9 @@ export const SelectionExtensionNestedDropdownMenu = ({
 		<ToolbarNestedDropdownMenu
 			text={nestedDropdownMenu.label}
 			elemBefore={IconComponent ? <IconComponent label="" /> : undefined}
-			elemAfter={<ChevronRightIcon label={'nested menu'} />}
+			elemAfter={<ChevronRightIcon label="" />}
 			onClick={handleClick}
+			dropdownTestId="editor-selection-extension-menu"
 		>
 			<ChildItems nestedDropdownMenu={nestedDropdownMenu} />
 		</ToolbarNestedDropdownMenu>

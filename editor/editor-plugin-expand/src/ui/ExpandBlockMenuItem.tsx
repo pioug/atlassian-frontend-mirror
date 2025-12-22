@@ -14,7 +14,7 @@ type Props = {
 	api: ExtractInjectionAPI<ExpandPlugin> | undefined;
 };
 
-const nodeName = 'expand';
+const NODE_NAME = 'expand';
 
 const ExpandBlockMenuItem = ({ api }: Props) => {
 	const { formatMessage } = useIntl();
@@ -30,13 +30,13 @@ const ExpandBlockMenuItem = ({ api }: Props) => {
 			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.expand, {
 				inputMethod,
 				triggeredFrom,
-				targetTypeName: nodeName,
+				targetTypeName: NODE_NAME,
 			});
 			return command ? command({ tr }) : null;
 		});
 	};
 
-	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(nodeName);
+	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(NODE_NAME);
 	if (isTransfromToPanelDisabled) {
 		return null;
 	}

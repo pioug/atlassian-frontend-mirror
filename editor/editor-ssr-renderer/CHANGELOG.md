@@ -1,5 +1,13 @@
 # @atlaskit/editor-ssr-renderer
 
+## 1.6.0
+
+### Minor Changes
+
+- [`595b07a99bd65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/595b07a99bd65) -
+  [https://hello.jira.atlassian.cloud/browse/EDITOR-3995](EDITOR-3995) - add toolbar supporting to
+  `EditorSSRRenderer`
+
 ## 1.5.0
 
 ### Minor Changes

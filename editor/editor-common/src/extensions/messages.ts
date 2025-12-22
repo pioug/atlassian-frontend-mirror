@@ -44,6 +44,11 @@ export const messages = defineMessages({
 		defaultMessage: 'We ran into a bit of trouble. Refresh to try again.',
 		description: 'Error message when loading the configuration panel',
 	},
+	extensionLoadingError: {
+		id: 'fabric.editor.extension.loading-error',
+		defaultMessage: 'Error loading the extension!',
+		description: 'Error message when loading an extension',
+	},
 });
 
 export const configPanelMessages = defineMessages({

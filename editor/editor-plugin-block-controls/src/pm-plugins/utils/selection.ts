@@ -117,18 +117,21 @@ export const mapPreservedSelection = (
 		const isSelectionEmpty = from === to;
 		const wasSelectionEmpty = selection.from === selection.to;
 
-		if (isSelectionEmpty) {
-			if (!wasSelectionEmpty) {
-				// If selection has become empty i.e. content has been deleted, stop preserving
-				return undefined;
-			}
-			// When preserving a cursor selection, just map the position without expanding
-			return new TextSelection(tr.doc.resolve(from));
+		if (isSelectionEmpty && !wasSelectionEmpty) {
+			// If selection has become empty i.e. content has been deleted, stop preserving
+			return undefined;
 		}
-
 		// expand the text selection range to block boundaries, so as document changes occur the
 		// selection always includes whole nodes
 		const expanded = expandToBlockRange(tr.doc.resolve(from), tr.doc.resolve(to));
+
+		// If after expanding the selection it is still empty, return a single cursor selection at 'from'
+		const nodeAfter = expanded.$from.nodeAfter;
+		const nodeBefore = expanded.$to.nodeBefore;
+		const expandedSelectionEmpty = nodeAfter === nodeBefore && nodeAfter?.content.size === 0;
+		if (isSelectionEmpty && expandedSelectionEmpty) {
+			return TextSelection.create(tr.doc, from);
+		}
 
 		// collapse the expanded range to a valid selection range
 		const { $from, $to } = collapseToSelectionRange(expanded.$from, expanded.$to);

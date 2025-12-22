@@ -4,7 +4,7 @@ import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 
 import type { BlockMenuPlugin, RegisterBlockMenuComponent } from './blockMenuPluginType';
 import { createBlockMenuRegistry } from './editor-actions';
-import { isTrasformToTargetDisabled } from './editor-actions/isTrasformToTargetDisabled';
+import { isTransformToTargetDisabled } from './editor-actions/isTransformToTargetDisabled';
 import { formatNode } from './editor-commands/formatNode';
 import { transformNode } from './editor-commands/transformNode';
 import type {
@@ -17,7 +17,6 @@ import BlockMenu from './ui/block-menu';
 import { getBlockMenuComponents } from './ui/block-menu-components';
 import { BlockMenuProvider } from './ui/block-menu-provider';
 import { Flag } from './ui/flag';
-
 
 export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 	const registry = createBlockMenuRegistry();
@@ -55,7 +54,7 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 					return true;
 				}
 
-				return isTrasformToTargetDisabled({
+				return isTransformToTargetDisabled({
 					selection: currentSelection,
 					targetNodeTypeName: optionNodeTypeName,
 					targetNodeTypeAttrs: optionNodeTypeAttrs,

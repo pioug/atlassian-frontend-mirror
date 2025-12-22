@@ -3,10 +3,8 @@ import { type ExperimentalPerformanceResourceTiming } from './types';
 export type MediaDurationMetrics = ReturnType<typeof createMediaDurationMetrics>;
 export type UfoDurationMetrics = Record<string, { start: number; end?: number; size?: number }>;
 
-const getStartedAt = (
-	entry: ExperimentalPerformanceResourceTiming,
-	navigationTime: PerformanceNavigationTiming | undefined,
-) => entry.startTime - (navigationTime?.domContentLoadedEventEnd || 0);
+const getStartedAt = (entry: ExperimentalPerformanceResourceTiming, interactionStartTime: number) =>
+	entry.startTime - interactionStartTime;
 
 type CommonDurations = Record<string, number | undefined>;
 type Marks = { start: number; end: number };
@@ -63,10 +61,10 @@ const calculateCommonDurations = (metrics: CommonMetrics): CommonDurations =>
 
 export const createMediaDurationMetrics = (
 	entry: ExperimentalPerformanceResourceTiming,
-	navigationTime: PerformanceNavigationTiming | undefined,
+	interactionStartTime: number,
 ) => {
 	return {
-		startedAt: getStartedAt(entry, navigationTime),
+		startedAt: getStartedAt(entry, interactionStartTime),
 		/**
 		 * Performance resource timing data regarding the loading of an
 		 * application's resources as described in
@@ -118,10 +116,16 @@ const filterCommonMetrics = (metrics: CommonMetrics): RequiredCommonMetrics =>
 
 export const createUfoDurationMetrics = (
 	entry: ExperimentalPerformanceResourceTiming,
-	navigationTime: PerformanceNavigationTiming | undefined,
+	interactionStartTime: number,
 ): UfoDurationMetrics => {
+	// Calculate timing relative to UFO interaction start time
+	// For page_load: interactionStartTime = 0 (relative to page navigation)
+	// For transitions: interactionStartTime = performance.now() when transition started
+	// This ensures metrics work correctly for both initial loads and SPA soft redirects
+	const relativeStartTime = entry.startTime - interactionStartTime;
+
 	return {
-		resourceTiming: { start: getStartedAt(entry, navigationTime), end: entry.responseEnd },
+		resourceTiming: { start: relativeStartTime, end: entry.responseEnd, size: entry.transferSize },
 		...filterCommonMetrics(getCommonMetrics(entry)),
 	};
 };

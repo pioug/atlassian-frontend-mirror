@@ -163,6 +163,8 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 	mediaGroup: {
 		layoutSection: [wrapIntoLayoutStep],
 		codeBlock: null,
+		decisionList: null,
+		taskList: null,
 	},
 	decisionList: {
 		decisionList: null,
@@ -195,6 +197,8 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		codeBlock: null,
 		decisionList: null,
 		taskList: null,
+		orderedList: null,
+		bulletList: null,
 	},
 	bodiedExtension: {
 		layoutSection: [wrapIntoLayoutStep],

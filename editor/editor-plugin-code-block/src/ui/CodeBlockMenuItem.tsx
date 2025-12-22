@@ -14,7 +14,7 @@ type Props = {
 	api: ExtractInjectionAPI<CodeBlockPlugin> | undefined;
 };
 
-const nodeName = 'codeBlock';
+const NODE_NAME = 'codeBlock';
 
 const CodeBlockMenuItem = ({ api }: Props) => {
 	const { formatMessage } = useIntl();
@@ -30,13 +30,13 @@ const CodeBlockMenuItem = ({ api }: Props) => {
 			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.codeBlock, {
 				inputMethod,
 				triggeredFrom,
-				targetTypeName: nodeName,
+				targetTypeName: NODE_NAME,
 			});
 			return command ? command({ tr }) : null;
 		});
 	};
 
-	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(nodeName);
+	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(NODE_NAME);
 	if (isTransfromToPanelDisabled) {
 		return null;
 	}

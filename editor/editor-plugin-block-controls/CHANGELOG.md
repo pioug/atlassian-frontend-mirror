@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.18.1
+
+### Patch Changes
+
+- [`7b47062997f9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b47062997f9b) -
+  EDITOR-3793 Stop preserving selection on click into editor
+
 ## 7.18.0
 
 ### Minor Changes

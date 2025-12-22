@@ -69,4 +69,5 @@ export interface GiveKudosDrawerProps {
 	addFlag?: (flag: any) => void;
 	onCreateKudosSuccess?: (flagEvent: FlagEvent) => void;
 	isActionsEnabled?: boolean;
+	zIndex?: number;
 }

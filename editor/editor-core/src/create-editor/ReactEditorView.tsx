@@ -159,6 +159,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 	const [editorAPI, setEditorAPI] = useState<PublicPluginAPI<ReactEditorViewPlugins> | undefined>(
 		undefined,
 	);
+	const ssrEditorStateRef = useRef<EditorState | undefined>(undefined);
 	const editorRef = useRef<HTMLDivElement | null>(null);
 	const viewRef = useRef<EditorView | undefined>();
 	const focusTimeoutId = useRef<number | undefined | void>();
@@ -184,7 +185,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		() => createFeatureFlagsFromProps(editorPropFeatureFlags),
 		[editorPropFeatureFlags],
 	);
-	const getEditorState = useCallback(() => viewRef.current?.state, []);
+	const getEditorState = useCallback(() => ssrEditorStateRef.current ?? viewRef.current?.state, []);
 	const getEditorView = useCallback(() => viewRef.current, []);
 	const dispatch = useMemo(() => createDispatch(eventDispatcher), [eventDispatcher]);
 	const errorReporter = useMemo(
@@ -999,14 +1000,15 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		[defaultValue, parseDoc, props.editorProps.sanitizePrivateContent, props.providerFactory],
 	);
 
-	const { assistiveLabel, assistiveDescribedBy } = props.editorProps;
 	// We need to check `allowBlockType` in props, because it is now exist in EditorNextProps type.
 	const { allowBlockType } =
 		'allowBlockType' in props.editorProps
 			? props.editorProps
 			: ({ allowBlockType: undefined } satisfies EditorProps);
 
-	const ssrEditor = useMemo(() => {
+	// In separate memo, because some props like `props.intl` that need only for rendering
+	// changes many times, but we don't want to process plugins and ADF document for each unnecessary changes.
+	const ssrDeps = useMemo(() => {
 		if (!isSSR() || !expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
 			return null;
 		}
@@ -1021,12 +1023,22 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		const schema = createSchema(processPluginsList(plugins));
 		const doc = buildDoc(schema);
 
+		return { plugins, schema, doc };
+	}, [allowBlockType, buildDoc, props.preset]);
+
+	const { assistiveLabel, assistiveDescribedBy } = props.editorProps;
+
+	const ssrEditor = useMemo(() => {
+		if (!ssrDeps) {
+			return null;
+		}
+
 		return (
 			<EditorSSRRenderer
 				intl={props.intl}
-				doc={doc}
-				schema={schema}
-				plugins={plugins}
+				doc={ssrDeps.doc}
+				schema={ssrDeps.schema}
+				plugins={ssrDeps.plugins}
 				portalProviderAPI={props.portalProviderAPI}
 				// IMPORTANT: Keep next props in sync with div that renders a real ProseMirror editor.
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -1036,17 +1048,12 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				id={EDIT_AREA_ID}
 				aria-describedby={assistiveDescribedBy}
 				data-editor-id={editorId.current}
+				onEditorStateChanged={(state) => {
+					ssrEditorStateRef.current = state;
+				}}
 			/>
 		);
-	}, [
-		props.preset,
-		allowBlockType,
-		assistiveLabel,
-		assistiveDescribedBy,
-		props.intl,
-		props.portalProviderAPI,
-		buildDoc,
-	]);
+	}, [ssrDeps, props.intl, props.portalProviderAPI, assistiveLabel, assistiveDescribedBy]);
 
 	const editor = useMemo(
 		() => {

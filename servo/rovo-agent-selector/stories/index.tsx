@@ -32,14 +32,12 @@ const generateMockAgentEdges = (count: number) => {
 const TestRenderer = () => {
 	const data = useLazyLoadQuery<storiesRovoAgentSelectorQuery>(
 		graphql`
-			query storiesRovoAgentSelectorQuery($cloudId: ID!, $cloudIdString: String!) {
+			query storiesRovoAgentSelectorQuery($cloudIdString: String!) {
 				# eslint-disable-next-line @atlassian/relay/must-colocate-fragment-spreads
-				...rovoAgentSelector_AtlaskitRovoAgentSelector_fragmentReference
-					@arguments(cloudId: $cloudId, cloudIdString: $cloudIdString)
+				...rovoAgentSelector_AtlaskitRovoAgentSelector @arguments(cloudIdString: $cloudIdString)
 			}
 		`,
 		{
-			cloudId: 'mock-cloud-id',
 			cloudIdString: 'mock-cloud-id',
 		},
 	);
@@ -65,12 +63,6 @@ function BasicTemplateComponent() {
 					endCursor: null,
 				},
 				edges: generateMockAgentEdges(10),
-			}),
-			AtlassianStudioUserSiteContextOutput: () => ({
-				userPermissions: {
-					isAbleToCreateAgents: true,
-				},
-				isCustomAgentsAvailable: true,
 			}),
 		}),
 	);

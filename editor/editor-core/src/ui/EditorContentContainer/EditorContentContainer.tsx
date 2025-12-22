@@ -9,7 +9,7 @@ import React from 'react';
 import { jsx, useTheme } from '@emotion/react';
 
 import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { richMediaClassName } from '@atlaskit/editor-common/styles';
+import { richMediaClassName, tableSharedStyle } from '@atlaskit/editor-common/styles';
 import type {
 	EditorAppearance,
 	EditorContentMode,
@@ -195,6 +195,7 @@ import {
 	tableContainerOverflowY,
 	tableContainerStyles,
 	tableLayoutFixes,
+	tableEmptyRowStyles,
 } from './styles/tableStyles';
 import {
 	decisionDangerStyles,
@@ -721,6 +722,11 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					tableContainerStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					!fg('platform_editor_table_container_y_overflow_fix') && tableContainerOverflowY,
+					expValEquals('platform_editor_ssr_renderer', 'isEnabled', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						tableSharedStyle(),
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					expValEquals('platform_editor_ssr_renderer', 'isEnabled', true) && tableEmptyRowStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					hyperLinkFloatingToolbarStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

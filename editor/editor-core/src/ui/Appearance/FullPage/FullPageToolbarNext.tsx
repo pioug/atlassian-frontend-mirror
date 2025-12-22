@@ -217,7 +217,9 @@ export const FullPageToolbarNext = ({
 											components &&
 											isToolbar(toolbar) &&
 											(!expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true) ||
-												(editorView &&
+												(((expValEquals('platform_editor_ssr_renderer', 'isEnabled', true) &&
+													isSSR()) ||
+													editorView) &&
 													(expValEquals(
 														'platform_editor_toolbar_delay_render_fix',
 														'isEnabled',

@@ -1,0 +1,49 @@
+---
+order: 0
+title: Tag
+description: A tag is a compact label used to classify, organize, and categorize information.
+---
+
+import TagNewDefault from '../../examples/constellation/tag-new-default';
+import TagNewColors from '../../examples/constellation/tag-new-colors';
+import TagNewLink from '../../examples/constellation/tag-new-link';
+import TagNewRemovable from '../../examples/constellation/tag-new-removable';
+import TagNewWithIcon from '../../examples/constellation/tag-new-with-icon';
+import TagNewLinkWithIcon from '../../examples/constellation/tag-new-link-with-icon';
+
+## Default
+
+The default form of a tag, where `text` is required. Tags with static text can be used as a flag or
+as a reference to an object or attribute. By default, tags are removable.
+
+<Example Component={TagNewDefault} packageName="@atlaskit/tag" />
+
+## Colors
+
+Tags are available in a range of colors to help you organize and categorize information.
+
+<Example Component={TagNewColors} packageName="@atlaskit/tag" />
+
+## Link
+
+A tag with an `href` can link to more information on the tagged item.
+
+<Example Component={TagNewLink} packageName="@atlaskit/tag" />
+
+## Non-removable
+
+Set `isRemovable` to false to prevent users from removing the tag. Tags are removable by default.
+
+<Example Component={TagNewRemovable} packageName="@atlaskit/tag" />
+
+## With icon
+
+Use `elemBefore` to add an icon or other element before the tag text.
+
+<Example Component={TagNewWithIcon} packageName="@atlaskit/tag" />
+
+## Link with icon
+
+Tags can combine both a link and an icon element.
+
+<Example Component={TagNewLinkWithIcon} packageName="@atlaskit/tag" />

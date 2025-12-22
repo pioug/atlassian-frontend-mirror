@@ -1,0 +1,160 @@
+---
+order: 2
+title: Lozenge
+description: A lozenge is a visual indicator used to communicate status.
+---
+
+import lozengeStatusDo from '../images/lozenge-status-do.png';
+import lozengeStatusDont from '../images/lozenge-status-dont.png';
+import lozengeSemanticAccentDo from '../images/lozenge-semantic-do.png';
+import lozengeSemanticAccentDont from '../images/lozenge-semantic-dont.png';
+import lozengeTriggerDo from '../images/lozenge-trigger-do.png';
+import lozengeTriggerDont from '../images/lozenge-trigger-dont.png';
+import lozengeCaseDo from '../images/lozenge-case-do.png';
+import lozengeCaseDont from '../images/lozenge-case-dont.png';
+
+## Usage
+
+Lozenges indicate the status or state of objects, such as the progress of a work item. They help
+people quickly understand an object’s state, so it’s important they are used accurately and
+consistently.
+
+## Anatomy
+
+![Lozenge-anatomy](../images/lozenge-anatomy.png)
+
+1. **Label**: Text describing the status. For example, “Completed”.
+2. **Icon (optional)**: Use an icon from the iconography library to add additional affordance where
+   the icon has a clear and well-established meaning. For example, a checkmark for “Completed”.
+
+## Best practices
+
+### Only use lozenge to communicate status or state
+
+To classify, organize, or categorize information, use a [tag](/components/tag) instead. Tags have
+lower visual prominence than lozenges to create a clear visual hierarchy that prioritizes important
+information that needs customer attention.
+
+<DoDont
+	type="do"
+	image={{
+		url: lozengeStatusDo,
+		alt: 'Use lozenges to communicate the status or state of an object, service, or workflow.',
+	}}
+>
+	Use lozenges to communicate the status or state of an object, service, or workflow.
+</DoDont>
+
+<DoDont
+	type="dont"
+	image={{
+		url: lozengeStatusDont,
+		alt: 'Don’t use lozenges to classify, organize, and highlight information — use a tag instead.',
+	}}
+>
+	Don’t use lozenges to classify, organize, and highlight information — use a tag instead.
+</DoDont>
+
+### Use accent and semantic colors correctly
+
+When choosing a lozenge color, there’s two sets of color choices available:
+
+- **Semantic colors (for example, ‘success’)**: use for status or state where color usage reflects
+  semantic intent.
+- **Accent colors (for example, ‘accent-red’)**: use when color isn’t used for semantic intent. In
+  most cases, accent colors are used for user-generated content, where customers can choose a color
+  and the text label.
+
+<DoDont
+	type="do"
+	image={{
+		url: lozengeSemanticAccentDo,
+		alt: 'Choose the right semantic color to reflect the status.',
+	}}
+>
+	Choose the right semantic color to reflect the status.
+</DoDont>
+
+<DoDont
+	type="dont"
+	image={{
+		url: lozengeSemanticAccentDont,
+		alt: 'Don’t use accents when the label has semantic meaning and isn’t user generated content.',
+	}}
+>
+	Don’t use accents when the label has semantic meaning and isn’t user generated content.
+</DoDont>
+
+### Use lozenge dropdown trigger when interactivity is required
+
+Lozenges are non-interactive. If you require a lozenge that opens a dropdown menu, for example an
+inline status switcher, use a
+[lozenge dropdown trigger](/components/lozenge/lozenge-dropdown-trigger).
+
+<DoDont
+	type="do"
+	image={{
+		url: lozengeTriggerDo,
+		alt: 'Use a lozenge dropdown trigger if interactivity is required.',
+	}}
+>
+	Use a lozenge dropdown trigger if interactivity is required.
+</DoDont>
+
+<DoDont
+	type="dont"
+	image={{
+		url: lozengeTriggerDont,
+		alt: 'Don’t add custom functionality to the lozenge.',
+	}}
+>
+	Don’t add custom functionality to the lozenge.
+</DoDont>
+
+## Content guidelines
+
+### Use sentence case capitalization
+
+Only capitalize the first letter of the label and any proper nouns. View our
+[capitalization guidance](/foundations/content/language-and-grammar#capitalization) for more
+information.
+
+<DoDont
+	type="do"
+	image={{
+		url: lozengeCaseDo,
+		alt: 'Use sentence-case capitalization.',
+	}}
+>
+	Use sentence-case capitalization.
+</DoDont>
+
+<DoDont
+	type="dont"
+	image={{
+		url: lozengeCaseDont,
+		alt: 'Don’t use title case capitalization or all caps.',
+	}}
+>
+	Don’t use title case capitalization or all caps.
+</DoDont>
+
+## Accessibility
+
+- Don't use color alone to signify an important state or status. Instead, use clear labels and, if
+  relevant, a supporting icon. For example: for a critical status, use descriptors like ’Off track’.
+- Don't use long labels in lozenge. They have a maxWidth of 200 pixels (or a custom maxWidth value)
+  causing labels to truncate. Lozenges can’t be focused, so truncated text will not be visible.
+
+## Data Center products
+
+For all new features, we recommend using Atlassian Design System and
+other [Atlaskit components](https://atlaskit.atlassian.com/). For existing code, continue to
+use [Atlassian User Interface (AUI)](https://aui.atlassian.com/).
+
+## Related
+
+- For lozenges requiring dropdown interactivity, use
+  [lozenge dropdown trigger](/components/lozenge/lozenge-dropdown-trigger).
+- For tallies or counts, use a [badge](/components/badge).
+- To visually label content such as categories and attributes, use a [tag](/components/tag).

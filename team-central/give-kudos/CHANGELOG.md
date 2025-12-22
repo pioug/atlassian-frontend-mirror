@@ -1,5 +1,12 @@
 # @atlassian/give-kudos
 
+## 4.5.0
+
+### Minor Changes
+
+- [`8e123b2ec5d04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e123b2ec5d04) -
+  Added zIndex prop to kudos launcher
+
 ## 4.4.11
 
 ### Patch Changes

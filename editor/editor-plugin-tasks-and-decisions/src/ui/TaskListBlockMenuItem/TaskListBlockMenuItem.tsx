@@ -10,7 +10,7 @@ import TaskIcon from '@atlaskit/icon/core/task';
 
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
 
-const nodeName = 'taskList';
+const NODE_NAME = 'taskList';
 
 export const TaskListBlockMenuItem = ({
 	api,
@@ -30,13 +30,13 @@ export const TaskListBlockMenuItem = ({
 			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.taskList, {
 				inputMethod,
 				triggeredFrom,
-				targetTypeName: nodeName,
+				targetTypeName: NODE_NAME,
 			});
 			return command ? command({ tr }) : null;
 		});
 	};
 
-	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(nodeName);
+	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(NODE_NAME);
 	if (isTransfromToPanelDisabled) {
 		return null;
 	}

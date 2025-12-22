@@ -1,0 +1,88 @@
+---
+title: Lozenge
+description: A lozenge is a visual indicator used to communicate status.
+order: 0
+---
+
+import NewLozengeSuccess from '../../examples/constellation/new-lozenge-success';
+import NewLozengeWarning from '../../examples/constellation/new-lozenge-warning';
+import NewLozengeDanger from '../../examples/constellation/new-lozenge-danger';
+import NewLozengeInformation from '../../examples/constellation/new-lozenge-information';
+import NewLozengeDiscovery from '../../examples/constellation/new-lozenge-discovery';
+import NewLozengeNeutral from '../../examples/constellation/new-lozenge-neutral';
+import NewLozengeWithIcon from '../../examples/constellation/new-lozenge-with-icon';
+import NewLozengeAccentColors from '../../examples/constellation/new-lozenge-accent-colors';
+import NewLozengeMaxWidth from '../../examples/constellation/new-lozenge-max-width';
+
+## Appearance
+
+### Semantic colors
+
+Lozenges use semantic colors to indicate meanings that people can learn and recognize across apps.
+
+#### Neutral
+
+Use `neutral` lozenges for general status without specific semantic meaning. For example: "default",
+"standard", "inactive", or "draft".
+
+<Example Component={NewLozengeNeutral} packageName="@atlaskit/lozenge" />
+
+#### Success
+
+Use `success` lozenges to represent a constructive or positive status. For example: "available",
+"completed", "approved", "resolved", or "added".
+
+<Example Component={NewLozengeSuccess} packageName="@atlaskit/lozenge" />
+
+#### Warning
+
+Use `warning` lozenges to represent a cautionary status that requires attention. For example:
+"pending", "needs review", "at risk", or "approaching deadline".
+
+<Example Component={NewLozengeWarning} packageName="@atlaskit/lozenge" />
+
+#### Danger
+
+Use `danger` lozenges to represent a critical or problematic status. For example: "error",
+"declined", "failed", "blocked", or "urgent".
+
+<Example Component={NewLozengeDanger} packageName="@atlaskit/lozenge" />
+
+#### Information
+
+Use `information` lozenges to represent informational or neutral status. For example: "in progress",
+"active", "open", or "modified".
+
+<Example Component={NewLozengeInformation} packageName="@atlaskit/lozenge" />
+
+#### Discovery
+
+Use `discovery` lozenges to represent new features, updates, or items that require exploration. For
+example: "new", "beta", "preview", or "experimental".
+
+<Example Component={NewLozengeDiscovery} packageName="@atlaskit/lozenge" />
+
+### Accent colors
+
+In addition to semantic colors, lozenges support accent colors for categorical labeling and
+organization. Accent colors don't carry inherent meaning and can be used for visual distinction.
+
+<Example Component={NewLozengeAccentColors} packageName="@atlaskit/lozenge" />
+
+## With icon
+
+Lozenges can include an icon before the text to provide additional visual context. Use the
+`iconBefore` prop with an [icon](/components/icon) component.
+
+<Example Component={NewLozengeWithIcon} packageName="@atlaskit/lozenge" />
+
+## Max width
+
+When the text in the lozenge exceeds the maximum width, it will be truncated with an ellipsis. By
+default, the maximum width of a lozenge is 200px. You can use the maxWidth prop to customize the
+width of the lozenge.
+
+Avoid truncation wherever possible by using shorter text in lozenges. The truncated text is not
+focusable or accessible.
+
+<Example Component={NewLozengeMaxWidth} packageName="@atlaskit/lozenge" />

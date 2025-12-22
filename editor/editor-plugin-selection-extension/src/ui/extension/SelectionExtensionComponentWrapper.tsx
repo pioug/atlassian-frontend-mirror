@@ -71,7 +71,7 @@ export const SelectionExtensionComponentWrapper = ({
 		if (!extension) {
 			return;
 		}
-		if (isToolbarAIFCEnabled) {
+		if (isToolbarAIFCEnabled || expValEquals('platform_editor_block_menu', 'isEnabled', true)) {
 			let currentComponent: React.ComponentType<SelectionExtensionComponentProps> | undefined;
 
 			if ('contentComponent' in extension && extension.contentComponent !== undefined) {
@@ -116,7 +116,7 @@ export const SelectionExtensionComponentWrapper = ({
 	if (!extension) {
 		return null;
 	}
-	if (isToolbarAIFCEnabled) {
+	if (isToolbarAIFCEnabled || expValEquals('platform_editor_block_menu', 'isEnabled', true)) {
 		const hasContentComponent = (ext: typeof extension): ext is ExtensionMenuItemConfiguration => {
 			return 'contentComponent' in ext && ext.contentComponent !== undefined;
 		};

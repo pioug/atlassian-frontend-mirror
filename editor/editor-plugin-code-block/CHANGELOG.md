@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block
 
+## 8.1.26
+
+### Patch Changes
+
+- [`9cb0ce7857313`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cb0ce7857313) -
+  Fix const name.
+- Updated dependencies
+
 ## 8.1.25
 
 ### Patch Changes

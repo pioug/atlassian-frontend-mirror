@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/give-kudos",
-	"version": "4.4.11",
+	"version": "4.5.0",
 	"description": "Give Kudos experience ",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -53,6 +53,7 @@
 		"@atlaskit/intl-messages-provider": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/portal": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
@@ -106,6 +107,11 @@
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"ptc-enable-team-profilecard-package": {
+			"type": "boolean"
 		}
 	}
 }

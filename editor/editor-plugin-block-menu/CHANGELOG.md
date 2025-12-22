@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.2.26
+
+### Patch Changes
+
+- [`7b47062997f9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b47062997f9b) -
+  EDITOR-3793 Stop preserving selection on click into editor
+- Updated dependencies
+
+## 5.2.25
+
+### Patch Changes
+
+- [`9cb0ce7857313`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cb0ce7857313) -
+  [ux] Fix contextual transform options for single node selections.
+
+## 5.2.24
+
+### Patch Changes
+
+- [`ec581339891b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec581339891b4) -
+  Fix code block transformation to remove block marks (breakout, alignment) when wrapping into
+  layout, blockquote, expand, or panel
+- Updated dependencies
+
+## 5.2.23
+
+### Patch Changes
+
+- [`6c9c4e73b1c39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c9c4e73b1c39) -
+  EDITOR-4037 Block menu selection extension tests
+
 ## 5.2.22
 
 ### Patch Changes

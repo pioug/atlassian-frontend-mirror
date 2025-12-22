@@ -8,6 +8,7 @@ import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
+import { IntlProvider } from 'react-intl-next';
 import Loadable from 'react-loadable';
 import { act } from 'react-dom/test-utils';
 
@@ -167,15 +168,17 @@ describe('Renderer - React/Nodes/Extension', () => {
 
 		it('should be able to render extensions with the extension provider', async () => {
 			const extension = mount(
-				<Extension
-					providers={providers}
-					extensionHandlers={extensionHandlers}
-					rendererContext={rendererContext}
-					extensionType="fake.confluence"
-					extensionKey="macro"
-					text="Hello extension"
-					localId="c145e554-f571-4208-a0f1-2170e1987722"
-				/>,
+				<IntlProvider locale="en">
+					<Extension
+						providers={providers}
+						extensionHandlers={extensionHandlers}
+						rendererContext={rendererContext}
+						extensionType="fake.confluence"
+						extensionKey="macro"
+						text="Hello extension"
+						localId="c145e554-f571-4208-a0f1-2170e1987722"
+					/>
+				</IntlProvider>,
 			);
 
 			await act(async () => {
@@ -195,15 +198,17 @@ describe('Renderer - React/Nodes/Extension', () => {
 			};
 
 			const extension = mount(
-				<Extension
-					providers={providers}
-					extensionHandlers={extensionHandlers}
-					rendererContext={rendererContext}
-					extensionType="fake.confluence"
-					extensionKey="macro"
-					text="Hello extension"
-					localId="c145e554-f571-4208-a0f1-2170e1987722"
-				/>,
+				<IntlProvider locale="en">
+					<Extension
+						providers={providers}
+						extensionHandlers={extensionHandlers}
+						rendererContext={rendererContext}
+						extensionType="fake.confluence"
+						extensionKey="macro"
+						text="Hello extension"
+						localId="c145e554-f571-4208-a0f1-2170e1987722"
+					/>
+				</IntlProvider>,
 			);
 
 			expect(extension.text()).toEqual('Extension handler: Hello extension');
@@ -213,19 +218,21 @@ describe('Renderer - React/Nodes/Extension', () => {
 
 		it('should fallback to extension provider if not handled by extension handler', async () => {
 			const extensionHandlers: ExtensionHandlers = {
-				'fake.confluence': (node: any) => null,
+				'fake.confluence': () => null,
 			};
 
 			const extension = mount(
-				<Extension
-					providers={providers}
-					extensionHandlers={extensionHandlers}
-					rendererContext={rendererContext}
-					extensionType="fake.confluence"
-					extensionKey="macro"
-					text="Hello extension"
-					localId="c145e554-f571-4208-a0f1-2170e1987722"
-				/>,
+				<IntlProvider locale="en">
+					<Extension
+						providers={providers}
+						extensionHandlers={extensionHandlers}
+						rendererContext={rendererContext}
+						extensionType="fake.confluence"
+						extensionKey="macro"
+						text="Hello extension"
+						localId="c145e554-f571-4208-a0f1-2170e1987722"
+					/>
+				</IntlProvider>,
 			);
 
 			await act(async () => {

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-expand
 
+## 7.5.4
+
+### Patch Changes
+
+- [`9cb0ce7857313`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cb0ce7857313) -
+  Fix const name.
+- Updated dependencies
+
 ## 7.5.3
 
 ### Patch Changes

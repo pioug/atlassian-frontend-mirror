@@ -14,7 +14,7 @@ type Props = {
 	api: ExtractInjectionAPI<PanelPlugin> | undefined;
 };
 
-const nodeName = 'panel';
+const NODE_NAME = 'panel';
 
 const PanelBlockMenuItem = ({ api }: Props) => {
 	const { formatMessage } = useIntl();
@@ -30,13 +30,13 @@ const PanelBlockMenuItem = ({ api }: Props) => {
 			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.panel, {
 				inputMethod,
 				triggeredFrom,
-				targetTypeName: nodeName,
+				targetTypeName: NODE_NAME,
 			});
 			return command ? command({ tr }) : null;
 		});
 	};
 
-	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(nodeName);
+	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(NODE_NAME);
 	if (isTransfromToPanelDisabled) {
 		return null;
 	}

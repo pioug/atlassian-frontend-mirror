@@ -14,7 +14,7 @@ type BulletedListBlockMenuItemProps = {
 	api: ExtractInjectionAPI<ListPlugin> | undefined;
 };
 
-const nodeName = 'bulletList';
+const NODE_NAME = 'bulletList';
 
 const BulletedListBlockMenuItem = ({ api }: BulletedListBlockMenuItemProps) => {
 	const { formatMessage } = useIntl();
@@ -30,13 +30,13 @@ const BulletedListBlockMenuItem = ({ api }: BulletedListBlockMenuItemProps) => {
 			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.bulletList, {
 				inputMethod,
 				triggeredFrom,
-				targetTypeName: nodeName,
+				targetTypeName: NODE_NAME,
 			});
 			return command ? command({ tr }) : null;
 		});
 	};
 
-	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(nodeName);
+	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(NODE_NAME);
 	if (isTransfromToPanelDisabled) {
 		return null;
 	}

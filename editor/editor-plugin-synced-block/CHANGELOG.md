@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.8.0
+
+### Minor Changes
+
+- [`f68624ad1f930`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f68624ad1f930) -
+  Do not show copied flag on drag and drop
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.7.1
 
 ### Patch Changes

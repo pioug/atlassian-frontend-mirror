@@ -349,7 +349,7 @@ const borderIconInteractiveFilterStyles = cssMapUnbound({
  */
 const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew(
 	{
-		color = 'grey',
+		color = 'gray',
 		text,
 		elemBefore,
 		href,

@@ -161,12 +161,16 @@ export function createPlaceholderDecoration(
 	pos: number = 1,
 	initialDelayWhenUserTypedAndDeleted: number = 0,
 	placeholderADF?: DocNode,
+	showOnEmptyParagraph?: boolean,
 ): DecorationSet {
 	const placeholderDecoration = document.createElement('span');
 	let placeholderNodeWithText = placeholderDecoration;
 
 	placeholderDecoration.setAttribute('data-testid', placeholderTestId);
-	placeholderDecoration.className = 'placeholder-decoration';
+	const shouldFadeIn = showOnEmptyParagraph && fg('platform_editor_ai_aifc_patch_ga_blockers');
+	placeholderDecoration.className = shouldFadeIn
+		? 'placeholder-decoration placeholder-decoration-fade-in'
+		: 'placeholder-decoration';
 	placeholderDecoration.setAttribute('aria-hidden', 'true');
 
 	// PM sets contenteditable to false on Decorations so Firefox doesn't display the flashing cursor
@@ -664,8 +668,14 @@ export function createPlugin(
 		},
 		props: {
 			decorations(editorState): DecorationSet | undefined {
-				const { hasPlaceholder, placeholderText, pos, typedAndDeleted, contextPlaceholderADF } =
-					getPlaceholderState(editorState);
+				const {
+					hasPlaceholder,
+					placeholderText,
+					pos,
+					typedAndDeleted,
+					contextPlaceholderADF,
+					showOnEmptyParagraph,
+				} = getPlaceholderState(editorState);
 
 				// Decorations is still called after plugin is destroyed
 				// So we need to make sure decorations is not called if plugin has been destroyed to prevent the placeholder animations' setTimeouts called infinitely
@@ -701,6 +711,7 @@ export function createPlugin(
 						pos,
 						initialDelayWhenUserTypedAndDeleted,
 						placeholderAdfToUse,
+						showOnEmptyParagraph,
 					);
 				}
 				return;

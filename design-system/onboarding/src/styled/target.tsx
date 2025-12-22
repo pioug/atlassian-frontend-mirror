@@ -17,7 +17,7 @@ type BaseProps = React.HTMLAttributes<HTMLDivElement> & {
 	bgColor?: string;
 	children?: ReactNode;
 	className?: string;
-	radius?: number;
+	radius?: number | string;
 	testId?: string;
 };
 
@@ -69,7 +69,7 @@ const Base = ({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Pass-through style is not allowed at the moment
 				...style,
 				backgroundColor: bgColor,
-				borderRadius: radius ? `${radius}px` : undefined,
+				borderRadius: radius ? (typeof radius === 'number' ? `${radius}px` : radius) : undefined,
 			} as React.CSSProperties
 		}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

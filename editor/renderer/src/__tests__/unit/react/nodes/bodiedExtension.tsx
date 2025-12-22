@@ -12,6 +12,7 @@ import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
+import { IntlProvider } from 'react-intl-next';
 import Loadable from 'react-loadable';
 import { act } from 'react-dom/test-utils';
 import { render, screen } from '@testing-library/react';
@@ -204,17 +205,19 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 
 		it('should be able to render extensions with the extension provider', async () => {
 			const extension = mount(
-				<BodiedExtension
-					providers={providers}
-					serializer={serializer}
-					extensionHandlers={extensionHandlers}
-					rendererContext={rendererContext}
-					extensionType="fake.confluence"
-					extensionKey="expand"
-					content="body"
-					localId="c145e554-f571-4208-a0f1-2170e1987722"
-					startPos={1}
-				/>,
+				<IntlProvider locale="en">
+					<BodiedExtension
+						providers={providers}
+						serializer={serializer}
+						extensionHandlers={extensionHandlers}
+						rendererContext={rendererContext}
+						extensionType="fake.confluence"
+						extensionKey="expand"
+						content="body"
+						localId="c145e554-f571-4208-a0f1-2170e1987722"
+						startPos={1}
+					/>
+				</IntlProvider>,
 			);
 
 			await act(async () => {
@@ -234,17 +237,19 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 			};
 
 			const extension = mount(
-				<BodiedExtension
-					providers={providers}
-					serializer={serializer}
-					extensionHandlers={extensionHandlers}
-					rendererContext={rendererContext}
-					extensionType="fake.confluence"
-					extensionKey="expand"
-					content="body"
-					localId="c145e554-f571-4208-a0f1-2170e1987722"
-					startPos={1}
-				/>,
+				<IntlProvider locale="en">
+					<BodiedExtension
+						providers={providers}
+						serializer={serializer}
+						extensionHandlers={extensionHandlers}
+						rendererContext={rendererContext}
+						extensionType="fake.confluence"
+						extensionKey="expand"
+						content="body"
+						localId="c145e554-f571-4208-a0f1-2170e1987722"
+						startPos={1}
+					/>
+				</IntlProvider>,
 			);
 
 			expect(extension.text()).toEqual('Extension handler: body');
@@ -254,21 +259,23 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 
 		it('should fallback to extension provider if not handled by the extension handler', async () => {
 			const extensionHandlers: ExtensionHandlers = {
-				'fake.confluence': (node: any) => null,
+				'fake.confluence': () => null,
 			};
 
 			const extension = mount(
-				<BodiedExtension
-					providers={providers}
-					serializer={serializer}
-					extensionHandlers={extensionHandlers}
-					rendererContext={rendererContext}
-					extensionType="fake.confluence"
-					extensionKey="expand"
-					content="body"
-					localId="c145e554-f571-4208-a0f1-2170e1987722"
-					startPos={1}
-				/>,
+				<IntlProvider locale="en">
+					<BodiedExtension
+						providers={providers}
+						serializer={serializer}
+						extensionHandlers={extensionHandlers}
+						rendererContext={rendererContext}
+						extensionType="fake.confluence"
+						extensionKey="expand"
+						content="body"
+						localId="c145e554-f571-4208-a0f1-2170e1987722"
+						startPos={1}
+					/>
+				</IntlProvider>,
 			);
 
 			await act(async () => {

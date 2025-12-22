@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 110.49.2
+
+### Patch Changes
+
+- [`2939bcb36abe7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2939bcb36abe7) -
+  Fix nested tables turning into unsupported block nodes under SSR renderer
+- [`f41ee46c84bb1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f41ee46c84bb1) -
+  [EDITOR-3881] Fix table styling to work with SSR renderer
+
+## 110.49.1
+
+### Patch Changes
+
+- [`bb2dc129454dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb2dc129454dc) -
+  [ux] [ENGHEALTH-47470] internationalise literal strings behind fg platform_editor_dec_a11y_fixes
+- [`517cb8568bc25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/517cb8568bc25) -
+  [ENGHEALTH-47470] refactor of code to close enghealth ticket
+
 ## 110.49.0
 
 ### Minor Changes

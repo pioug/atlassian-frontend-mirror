@@ -1,5 +1,6 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
+import { removeBlockMarks } from './marks';
 import type { TransformStep } from './types';
 import { convertExpandToNestedExpand } from './utils';
 
@@ -24,10 +25,10 @@ export const wrapStep: TransformStep = (nodes, context) => {
 		});
 	}
 
-	const outputNode = schema.nodes[targetNodeTypeName].createAndFill({}, processedNodes);
-	if (outputNode) {
-		return [outputNode];
-	}
+	const outputNode = schema.nodes[targetNodeTypeName].createAndFill(
+		{},
+		removeBlockMarks(processedNodes, schema),
+	);
 
-	return nodes;
+	return outputNode ? [outputNode] : nodes;
 };

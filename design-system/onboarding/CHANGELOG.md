@@ -1,5 +1,12 @@
 # @atlaskit/onboarding
 
+## 14.5.0
+
+### Minor Changes
+
+- [`b9f2a2ef1a82c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9f2a2ef1a82c) -
+  Target border radius props accept strings on top of number values to allow the use of tokens.
+
 ## 14.4.16
 
 ### Patch Changes

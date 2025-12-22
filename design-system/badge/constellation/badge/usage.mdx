@@ -1,0 +1,127 @@
+---
+title: Badge
+description: Badge is used to display numeric status data.
+order: 2
+---
+
+import Image from '@atlaskit/image';
+
+import badgeAnatomyLight from './images/badge-anatomy-light.png';
+import badgeAnatomyDark from './images/badge-anatomy-dark.png';
+import badgeColorLight from './images/badge-color-light.png';
+import badgeColorDark from './images/badge-color-dark.png';
+import badgeDo1Light from './images/badge-do-1-light.png';
+import badgeDo1Dark from './images/badge-do-1-dark.png';
+import badgeDont1Light from './images/badge-dont-1-light.png';
+import badgeDont1Dark from './images/badge-dont-1-dark.png';
+import badgeDo2Light from './images/badge-do-2-light.png';
+import badgeDo2Dark from './images/badge-do-2-dark.png';
+import badgeDont2Light from './images/badge-dont-2-light.png';
+import badgeDont2Dark from './images/badge-dont-2-dark.png';
+
+## Usage
+
+Use badges to represent numerical data such as counts and metrics. Leading symbols like additions
+(+) and subtractions (-) can be used to indicate change. Trailing letters like day (D), thousand
+(K), million (M) can be used to represent abbreviations.
+
+## Anatomy
+
+<Image
+	src={badgeAnatomyLight}
+	srcDark={badgeAnatomyDark}
+	alt="The anatomy of the badge component, showing two examples: one displaying +25 positioned between two numbered items, and another showing 1.3M next to a numbered item"
+/>
+
+1. **Label:** Should only contain a numeric value.
+2. **Letters or special character (optional):** leading special characters can be used to represent
+   additions (+) or subtractions (-), and trailing letters can be used to represent abbreviations (D
+   for day, K for thousand, and M for million).
+
+## Color
+
+Badges offer 6 semantic appearances: danger, warning, success, information, discovery, and neutral.
+They also include an inverse appearance for use on inverse backgrounds relative to the selected
+theme.
+
+<Image
+	src={badgeColorLight}
+	srcDark={badgeColorDark}
+	alt="Seven badge examples showing different semantic colors: -25 in danger (red), 0.5 in warning (orange), +10 in success (green), 2.3K in information (blue), 8 in discovery (purple), 30 in neutral (gray), and 15 in inverse (black/white)"
+/>
+
+## Best practices
+
+### Apply the correct semantics
+
+Ensure you use the correct semantic appearance for your particular use case to ensure consistency
+across apps. Each semantic represents a specific intent — for example, danger represents deletion,
+removal, or critical information. Using a semantic appearance that doesn’t represent the information
+being conveyed can cause confusion for users and create inconsistent experiences across apps.
+
+<DoDont
+	type="do"
+	image={{
+		url: badgeDo1Light,
+		urlDarkMode: badgeDo1Dark,
+		alt: 'Badge showing -10 with danger appearance (red)',
+	}}
+>
+	Use the correct semantic color for your use case.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: badgeDont1Light,
+		urlDarkMode: badgeDont1Dark,
+		alt: 'Badge showing -10 with information appearance (blue)',
+	}}
+>
+	Don't deviate from established semantics.
+</DoDont>
+
+### Provide additional cues to avoid ambiguity
+
+Use badges alongside a label to clearly show which item is quantified. If a badge stands alone, add
+a tooltip on hover for context.
+
+<DoDont
+	type="do"
+	image={{
+		url: badgeDo2Light,
+		urlDarkMode: badgeDo2Dark,
+		alt: 'Badges displayed alongside labels in a tab navigation, showing About and Updates with a badge showing 13',
+	}}
+>
+	Use badges alongside labels or with single items.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: badgeDont2Light,
+		urlDarkMode: badgeDont2Dark,
+		alt: 'Multiple badges shown together without context: 13, 8, and 15',
+	}}
+>
+	Don't use badges without context, unless they contain an attached tooltip.
+</DoDont>
+
+## Accessibility
+
+- Badges should include tooltips where necessary to enhance user understanding.
+- Number values are grouped and separated differently across countries and regions. Use your app's
+  internationalization library, or the browser's internationalization features. Make sure the user's
+  locale is set correctly so numbers display in a familiar format.
+
+## Data Center products
+
+For all new features, we recommend using Atlassian Design System and other
+[Atlaskit components](https://atlaskit.atlassian.com/). For existing code, you can continue to use
+[Atlassian User Interface (AUI)](https://aui.atlassian.com/).
+
+## Related
+
+- For non-numeric status information, use a [lozenge](/components/lozenge/lozenge).
+- For non-numeric status information with dropdown interactivity, use a
+  [lozenge dropdown trigger](/components/lozenge/lozenge-dropdown-trigger).
+- To visually label content such as categories and attributes, use a [tag](/components/tag/tag).

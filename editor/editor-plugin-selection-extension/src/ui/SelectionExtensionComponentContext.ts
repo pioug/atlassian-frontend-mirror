@@ -8,7 +8,7 @@ import type { SelectionExtensionPlugin } from '../selectionExtensionPluginType';
 /*
  * Common context passed down to selection extension components
  */
-export type SelectionExtensionComponentContextValue = {
+type SelectionExtensionComponentContextValue = {
 	api: ExtractInjectionAPI<SelectionExtensionPlugin>;
 	editorView: EditorView;
 	extensionKey: string;

@@ -92,7 +92,7 @@ export interface SpotlightProps {
 	/**
 	 * The border radius of the element being highlighted.
 	 */
-	targetRadius?: number;
+	targetRadius?: number | string;
 	/**
 	 * Alternative element to render than the wrapped target.
 	 */

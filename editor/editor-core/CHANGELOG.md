@@ -1,5 +1,27 @@
 # @atlaskit/editor-core
 
+## 215.26.1
+
+### Patch Changes
+
+- [`f41ee46c84bb1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f41ee46c84bb1) -
+  [EDITOR-3881] Fix table styling to work with SSR renderer
+- Updated dependencies
+
+## 215.26.0
+
+### Minor Changes
+
+- [`595b07a99bd65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/595b07a99bd65) -
+  [https://hello.jira.atlassian.cloud/browse/EDITOR-3995](EDITOR-3995) - add toolbar supporting to
+  `EditorSSRRenderer`
+
+### Patch Changes
+
+- [`58e8dc3afa08d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58e8dc3afa08d) -
+  [ux] [EDITOR-2469] add fade in animation to placeholder on empty paragraph
+- Updated dependencies
+
 ## 215.25.0
 
 ### Minor Changes

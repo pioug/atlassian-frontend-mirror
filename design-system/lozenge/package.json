@@ -32,7 +32,24 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Lozenge",
-			"category": "Status indicators"
+			"category": "Status indicators",
+			"subPages": [
+				{
+					"title": "Lozenge",
+					"id": "lozenge",
+					"status": {
+						"type": "alpha",
+						"description": "This is an experiment under a feature flag. We may make frequent breaking changes with limited notice. We don't recommend using this without support from our team."
+					}
+				},
+				{
+					"title": "Lozenge Dropdown Trigger",
+					"id": "lozenge-dropdown-trigger",
+					"status": {
+						"type": "alpha"
+					}
+				}
+			]
 		}
 	},
 	"dependencies": {

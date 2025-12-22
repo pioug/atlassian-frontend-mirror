@@ -4,6 +4,7 @@ import { browser } from '@atlaskit/editor-common/utils';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -18,12 +19,16 @@ export function createPlaceholderDecoration(
 	pos: number = 1,
 	initialDelayWhenUserTypedAndDeleted: number = 0,
 	placeholderADF?: DocNode,
+	showOnEmptyParagraph?: boolean,
 ): DecorationSet {
 	const placeholderDecoration = document.createElement('span');
 	let placeholderNodeWithText = placeholderDecoration;
 
 	placeholderDecoration.setAttribute('data-testid', placeholderTestId);
-	placeholderDecoration.className = 'placeholder-decoration';
+	const shouldFadeIn = showOnEmptyParagraph && fg('platform_editor_ai_aifc_patch_ga_blockers');
+	placeholderDecoration.className = shouldFadeIn
+		? 'placeholder-decoration placeholder-decoration-fade-in'
+		: 'placeholder-decoration';
 	placeholderDecoration.setAttribute('aria-hidden', 'true');
 
 	// PM sets contenteditable to false on Decorations so Firefox doesn't display the flashing cursor

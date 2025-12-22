@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-type
 
+## 10.3.5
+
+### Patch Changes
+
+- [`9cb0ce7857313`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cb0ce7857313) -
+  [ux] Fix contextual transform options for single node selections.
+- Updated dependencies
+
 ## 10.3.4
 
 ### Patch Changes

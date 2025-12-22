@@ -1,6 +1,6 @@
 /**
- * @generated SignedSource<<e75542b894b5fe0358c7964c3e583bf0>>
- * @relayHash 46032cf44ef1ff31fde14c44cf92332b
+ * @generated SignedSource<<516890ec5b1b08adf75227f7c489080d>>
+ * @relayHash 0f8f6fe82cd8475bf0585cfa9b62665e
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -10,16 +10,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-// @relayRequestID 15761fbadfc3b78ac5216e4dffcf6ba8536b692d7bc2f65674bce5bd006f81dc
+// @relayRequestID 2b2b7ed0483046b5342a89369d7a1b2c06c4c4352cdcaf5eb3b0208ff30acf62
 
 import type { ConcreteRequest, Query } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
 export type customWidthRovoAgentSelectorQuery$variables = {
-  cloudId: string;
   cloudIdString: string;
 };
 export type customWidthRovoAgentSelectorQuery$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"rovoAgentSelector_AtlaskitRovoAgentSelector_fragmentReference">;
+  readonly " $fragmentSpreads": FragmentRefs<"rovoAgentSelector_AtlaskitRovoAgentSelector">;
 };
 export type customWidthRovoAgentSelectorQuery = {
   response: customWidthRovoAgentSelectorQuery$data;
@@ -31,24 +30,10 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "cloudId"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
     "name": "cloudIdString"
   }
 ],
-v1 = {
-  "kind": "Variable",
-  "name": "cloudId",
-  "variableName": "cloudId"
-},
-v2 = {
-  "kind": "ScalarField",
-  "name": "__typename"
-},
-v3 = [
+v1 = [
   {
     "kind": "Variable",
     "name": "cloudId",
@@ -75,7 +60,6 @@ return {
     "selections": [
       {
         "args": [
-          (v1/*: any*/),
           {
             "kind": "Variable",
             "name": "cloudIdString",
@@ -83,7 +67,7 @@ return {
           }
         ],
         "kind": "FragmentSpread",
-        "name": "rovoAgentSelector_AtlaskitRovoAgentSelector_fragmentReference"
+        "name": "rovoAgentSelector_AtlaskitRovoAgentSelector"
       }
     ],
     "type": "Query"
@@ -95,40 +79,7 @@ return {
     "name": "customWidthRovoAgentSelectorQuery",
     "selections": [
       {
-        "args": [
-          (v1/*: any*/)
-        ],
-        "kind": "LinkedField",
-        "name": "atlassianStudio_userSiteContext",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/),
-          {
-            "kind": "InlineFragment",
-            "selections": [
-              {
-                "kind": "ScalarField",
-                "name": "isCustomAgentsAvailable"
-              },
-              {
-                "concreteType": "AtlassianStudioUserProductPermissions",
-                "kind": "LinkedField",
-                "name": "userPermissions",
-                "plural": false,
-                "selections": [
-                  {
-                    "kind": "ScalarField",
-                    "name": "isAbleToCreateAgents"
-                  }
-                ]
-              }
-            ],
-            "type": "AtlassianStudioUserSiteContextOutput"
-          }
-        ]
-      },
-      {
-        "args": (v3/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": "AgentStudioAgentsConnection",
         "kind": "LinkedField",
         "name": "agentStudio_getAgents",
@@ -182,7 +133,10 @@ return {
                     "kind": "ScalarField",
                     "name": "creatorType"
                   },
-                  (v2/*: any*/)
+                  {
+                    "kind": "ScalarField",
+                    "name": "__typename"
+                  }
                 ]
               },
               {
@@ -194,7 +148,7 @@ return {
         ]
       },
       {
-        "args": (v3/*: any*/),
+        "args": (v1/*: any*/),
         "filters": [
           "cloudId",
           "input"
@@ -207,7 +161,7 @@ return {
     ]
   },
   "params": {
-    "id": "15761fbadfc3b78ac5216e4dffcf6ba8536b692d7bc2f65674bce5bd006f81dc",
+    "id": "2b2b7ed0483046b5342a89369d7a1b2c06c4c4352cdcaf5eb3b0208ff30acf62",
     "metadata": {},
     "name": "customWidthRovoAgentSelectorQuery",
     "operationKind": "query",
@@ -216,6 +170,6 @@ return {
 };
 })();
 
-(node as any).hash = "0ba01b63c1906acd00e9b5e99b220e06";
+(node as any).hash = "365b34c85147d4cd6f31627190354aa5";
 
 export default node;

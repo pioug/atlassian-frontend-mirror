@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 6.6.6
+
+### Patch Changes
+
+- [`58e8dc3afa08d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58e8dc3afa08d) -
+  [ux] [EDITOR-2469] add fade in animation to placeholder on empty paragraph
+
 ## 6.6.5
 
 ### Patch Changes

@@ -27,10 +27,10 @@ export const SelectionExtensionDropdownItem = ({
 		useSelectionExtensionComponentContext();
 
 	const handleClick = () => {
-		if (dropdownItem.contentComponent) {
-			const preservedSelection = api?.blockControls?.sharedState.currentState()?.preservedSelection;
-			const selection = preservedSelection || editorView.state.selection;
+		const preservedSelection = api?.blockControls?.sharedState.currentState()?.preservedSelection;
+		const selection = preservedSelection || editorView.state.selection;
 
+		if (dropdownItem.contentComponent) {
 			const selectionInfo = getSelectionTextInfoNew(selection, editorView, api);
 
 			api.core.actions.execute(
@@ -42,7 +42,7 @@ export const SelectionExtensionDropdownItem = ({
 		}
 
 		api.core.actions.execute(({ tr }) => {
-			const { selectedNode, nodePos } = getSelectionAdfInfoNew(tr.selection);
+			const { selectedNode, nodePos } = getSelectionAdfInfoNew(selection);
 
 			tr.setMeta(selectionExtensionPluginKey, {
 				type: SelectionExtensionActionTypes.SET_SELECTED_NODE,
@@ -53,7 +53,7 @@ export const SelectionExtensionDropdownItem = ({
 			return tr;
 		});
 
-		dropdownItem.onClick && dropdownItem.onClick();
+		dropdownItem.onClick?.();
 
 		api.analytics?.actions.fireAnalyticsEvent({
 			action: ACTION.CLICKED,

@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.16.4
+
+### Patch Changes
+
+- [`101200422febe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/101200422febe) -
+  Clean up vc_v3_ssr_ratio_fixed_range
+
 ## 4.16.3
 
 ### Patch Changes

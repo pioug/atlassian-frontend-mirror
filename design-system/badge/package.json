@@ -28,7 +28,17 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Badge",
-			"category": "Status indicators"
+			"category": "Status indicators",
+			"subPages": [
+				{
+					"title": "Badge",
+					"id": "badge",
+					"status": {
+						"type": "alpha",
+						"description": "This is an experiment under a feature flag. We may make frequent breaking changes with limited notice. We don't recommend using this without support from our team."
+					}
+				}
+			]
 		}
 	},
 	"exports": {

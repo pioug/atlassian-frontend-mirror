@@ -1,0 +1,29 @@
+---
+order: 0
+title: Avatar Tag
+description: An avatar tag represents individuals for tagging, quick recognition and navigation.
+---
+
+import AvatarTagDefault from '../../examples/constellation/avatar-tag-default';
+import AvatarTagLink from '../../examples/constellation/avatar-tag-link';
+import AvatarTagRemovable from '../../examples/constellation/avatar-tag-removable';
+
+## Default
+
+The default form of an avatar tag, with `text` and an `avatar` component. Avatar tags are used to
+label people for quick recognition.
+
+<Example Component={AvatarTagDefault} packageName="@atlaskit/tag" />
+
+## Link
+
+An avatar tag with an `href` can link to more information about the person.
+
+<Example Component={AvatarTagLink} packageName="@atlaskit/tag" />
+
+## Non-removable
+
+Set `isRemovable` to false to prevent users from removing the avatar tag. Avatar tags are removable
+by default.
+
+<Example Component={AvatarTagRemovable} packageName="@atlaskit/tag" />

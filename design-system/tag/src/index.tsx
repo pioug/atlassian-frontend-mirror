@@ -5,4 +5,4 @@ export type { AppearanceType, TagColor } from './types';
 
 // Export new visual refresh components
 export { AvatarTag } from './tag-new';
-export type { AvatarTagProps, NewTagColor } from './tag-new';
+export type { AvatarTagProps, NewTagColor, TagNewProps } from './tag-new';

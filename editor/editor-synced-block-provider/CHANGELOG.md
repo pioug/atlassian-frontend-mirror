@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.16.0
+
+### Minor Changes
+
+- [`1e626a0fb59a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e626a0fb59a7) -
+  Can pass in get NCS step version function
+
 ## 2.15.6
 
 ### Patch Changes

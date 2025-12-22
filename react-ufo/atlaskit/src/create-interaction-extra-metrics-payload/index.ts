@@ -24,7 +24,6 @@ import getPayloadSize from '../create-payload/utils/get-payload-size';
 import { getReactUFOPayloadVersion } from '../create-payload/utils/get-react-ufo-payload-version';
 import getTTAI from '../create-payload/utils/get-ttai';
 import getVCMetrics from '../create-payload/utils/get-vc-metrics';
-import { getVisibilityStateFromPerformance } from '../create-payload/utils/get-visibility-state-from-performance';
 import { optimizeApdex } from '../create-payload/utils/optimize-apdex';
 import { optimizeCustomTimings } from '../create-payload/utils/optimize-custom-timings';
 import { optimizeHoldInfo } from '../create-payload/utils/optimize-hold-info';
@@ -185,9 +184,7 @@ async function createInteractionExtraLogPayload(
 		return null;
 	}
 
-	const pageVisibilityAtTTAI = fg('platform_ufo_use_native_page_visibility_api')
-		? (getVisibilityStateFromPerformance(interaction.end) ?? 'mixed')
-		: getPageVisibilityUpToTTAI(interaction);
+	const pageVisibilityAtTTAI = getPageVisibilityUpToTTAI(interaction);
 	const isPageLoad = type === 'page_load' || type === 'transition';
 	if (!isPageLoad || (minorInteractions !== undefined && minorInteractions.length > 0)) {
 		// Not send if aborted by minor interaction for now

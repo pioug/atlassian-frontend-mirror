@@ -1,0 +1,80 @@
+---
+title: Avatar tag
+description: An avatar tag represents individuals for tagging, quick recognition and navigation.
+order: 2
+---
+
+import Image from '@atlaskit/image';
+
+import avatarTagAnatomyLight from './images/avatar-tag-anatomy-light.png';
+import avatarTagAnatomyDark from './images/avatar-tag-anatomy-dark.png';
+import peopleTagDoLight from './images/people-tag-do-light.png';
+import peopleTagDoDark from './images/people-tag-do-dark.png';
+import peopleTagDontLight from './images/people-tag-dont-light.png';
+import peopleTagDontDark from './images/people-tag-dont-dark.png';
+
+## Usage
+
+Use an avatar tag to label a person for quick recognition and navigation. For other UI objects, use
+a [tag](/components/tag/tag). Avatar tags can be rendered as read-only, as links, or with a close
+button.
+
+Avatar tags are designed so they can be displayed within a
+[tag group](/components/tag-group/tag-group). Use a tag group to control the layout and alignment
+for a collection of avatar tags.
+
+## Anatomy
+
+<Image
+	src={avatarTagAnatomyLight}
+	srcDark={avatarTagAnatomyDark}
+	alt="Avatar tag anatomy diagram showing: 1. Name (displays the name of the person), 2. Avatar (an image representing the person, this will always be round), and 3. Close button (optional), include if the tag has a isRemovable property. The button enables the tag to be dismissed by the user"
+/>
+
+1. **Name:** Displays the name of the person.
+2. **Avatar:** An image representing the person. This will always be round.
+3. **Close button (optional):** Include if the tag has a `isRemovable` property. The button enables
+   the tag to be dismissed by the user.
+
+## Best practices
+
+### Only use avatar tags for people
+
+Avatar tags are reserved for people. Don't use them to represent any other type of content.
+
+<DoDont
+	type="do"
+	image={{
+		url: peopleTagDoLight,
+		urlDarkMode: peopleTagDoDark,
+		alt: 'Avatar tags showing person names with avatars: Brian Lin, Bella Adams, Annie Clare, Andres Ramos, and Hina Aurora',
+	}}
+>
+	Use avatar tags exclusively for people.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: peopleTagDontLight,
+		urlDarkMode: peopleTagDontDark,
+		alt: 'Avatar tags used for non-people content: Spike, Design, Document, Blog, and Minor fix',
+	}}
+>
+	Don't use avatar tags for object-oriented elements.
+</DoDont>
+
+### Use avatar tags in moderation
+
+Avatar tags increase the amount of cognitive noise, particularly when combined with other labeling
+elements, so use them in moderation.
+
+## Content guidelines
+
+Truncate names with an ellipsis if they exceed the component's maximum width and ensure the full
+text is revealed with a tooltip on hover.
+
+## Related
+
+- To visually label content such as categories and attributes, use a [tag](/components/tag/tag).
+- For status information, use a [lozenge](/components/lozenge/lozenge).
+- For tallies or counts, use a [badge](/components/badge/badge).

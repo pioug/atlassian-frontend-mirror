@@ -29,7 +29,6 @@
 	"dependencies": {
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/form": "workspace:^",
-		"@atlaskit/link": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/rovo-agent-components": "workspace:^",
@@ -92,7 +91,7 @@
 		}
 	},
 	"name": "@atlaskit/rovo-agent-selector",
-	"version": "1.1.2",
+	"version": "1.2.0",
 	"description": "rovo agent selector",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

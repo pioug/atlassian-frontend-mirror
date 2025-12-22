@@ -48,6 +48,9 @@
 			"path": "../../../design-system/modal-dialog/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/portal/afm-products/tsconfig.json"
 		},
 		{

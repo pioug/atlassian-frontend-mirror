@@ -14,7 +14,7 @@ type NumberedListBlockMenuItemProps = {
 	api: ExtractInjectionAPI<ListPlugin> | undefined;
 };
 
-const nodeName = 'orderedList';
+const NODE_NAME = 'orderedList';
 
 const NumberedListBlockMenuItem = ({ api }: NumberedListBlockMenuItemProps) => {
 	const { formatMessage } = useIntl();
@@ -30,13 +30,13 @@ const NumberedListBlockMenuItem = ({ api }: NumberedListBlockMenuItemProps) => {
 			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.orderedList, {
 				inputMethod,
 				triggeredFrom,
-				targetTypeName: nodeName,
+				targetTypeName: NODE_NAME,
 			});
 			return command ? command({ tr }) : null;
 		});
 	};
 
-	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(nodeName);
+	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(NODE_NAME);
 	if (isTransfromToPanelDisabled) {
 		return null;
 	}

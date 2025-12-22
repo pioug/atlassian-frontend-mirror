@@ -495,12 +495,8 @@ async function createInteractionMetricsPayload(
 		unknownElementHierarchy,
 		hydration,
 	} = interaction;
-	const pageVisibilityAtTTI = fg('platform_ufo_use_native_page_visibility_api')
-		? (getVisibilityStateFromPerformance(getBm3EndTimeOrFallbackValue(interaction)) ?? 'mixed')
-		: getPageVisibilityUpToTTI(interaction);
-	const pageVisibilityAtTTAI = fg('platform_ufo_use_native_page_visibility_api')
-		? (getVisibilityStateFromPerformance(interaction.end) ?? 'mixed')
-		: getPageVisibilityUpToTTAI(interaction);
+	const pageVisibilityAtTTI = getPageVisibilityUpToTTI(interaction);
+	const pageVisibilityAtTTAI = getPageVisibilityUpToTTAI(interaction);
 
 	const segments =
 		!fg('platform_ufo_remove_deprecated_config_fields') && config.killswitchNestedSegments

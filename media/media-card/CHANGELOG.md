@@ -1,5 +1,14 @@
 # @atlaskit/media-card
 
+## 79.11.2
+
+### Patch Changes
+
+- [`8eb08479e0602`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8eb08479e0602) -
+  Fixes the start time of the interaction relying on the UFO interaction start as opposed to
+  navigationTime and fixed the event emmission for path based routes
+- Updated dependencies
+
 ## 79.11.1
 
 ### Patch Changes

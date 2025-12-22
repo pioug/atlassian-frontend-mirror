@@ -6,7 +6,7 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 
 import { useIntl } from 'react-intl-next';
-import { graphql, useFragment, usePaginationFragment } from 'react-relay';
+import { graphql, usePaginationFragment } from 'react-relay';
 
 import { jsx } from '@atlaskit/css';
 import { Label } from '@atlaskit/form';
@@ -17,19 +17,12 @@ import Select from '@atlaskit/select';
 
 import { useSuspenselessRefetch } from '../../common/utils/use-suspenseless-refetch';
 
-import type { rovoAgentSelector_AtlaskitRovoAgentSelector_fragmentReference$key } from './__generated__/rovoAgentSelector_AtlaskitRovoAgentSelector_fragmentReference.graphql';
-import type { rovoAgentSelector_AtlaskitRovoAgentSelector_RovoAgentSelectorInternal_fragmentReference$key } from './__generated__/rovoAgentSelector_AtlaskitRovoAgentSelector_RovoAgentSelectorInternal_fragmentReference.graphql';
-import type { rovoAgentSelectorInternal_AtlaskitRovoAgentSelector$key } from './__generated__/rovoAgentSelectorInternal_AtlaskitRovoAgentSelector.graphql';
+import type { rovoAgentSelector_AtlaskitRovoAgentSelector$key } from './__generated__/rovoAgentSelector_AtlaskitRovoAgentSelector.graphql';
 import rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQueryNode, {
 	type rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery,
 } from './__generated__/rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery.graphql';
 import messages from './messages';
 import type { AgentOption, RovoAgentSelectorProps } from './types';
-import { UnentitledState } from './unentitled';
-
-interface RovoAgentSelectorInternalProps extends Omit<RovoAgentSelectorProps, 'fragmentReference'> {
-	fragmentReference: rovoAgentSelector_AtlaskitRovoAgentSelector_RovoAgentSelectorInternal_fragmentReference$key;
-}
 
 export const AGENT_SELECT_ID = 'rovo-agent-select';
 
@@ -54,7 +47,7 @@ function useDebouncedCallback<T extends (...args: any[]) => any>(callback: T, de
 	);
 }
 
-function RovoAgentSelectorInternal({
+export function RovoAgentSelector({
 	testId,
 	isFeatureEnabled: isFeatureEnabledOverride,
 	fragmentReference,
@@ -62,17 +55,17 @@ function RovoAgentSelectorInternal({
 	selectedAgent,
 	onChange,
 	isLoading: isLoadingOverride,
-}: RovoAgentSelectorInternalProps) {
+}: RovoAgentSelectorProps) {
 	const { formatMessage } = useIntl();
 	const isFeatureEnabled = isFeatureEnabledOverride ?? fg('jsm_help_center_one-click_rovo_agent');
 	const [, setSearchInput] = useState<string | null>(null);
 
 	const { data, loadNext, hasNext, isLoadingNext, refetch } = usePaginationFragment<
 		rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery,
-		rovoAgentSelector_AtlaskitRovoAgentSelector_RovoAgentSelectorInternal_fragmentReference$key
+		rovoAgentSelector_AtlaskitRovoAgentSelector$key
 	>(
 		graphql`
-			fragment rovoAgentSelector_AtlaskitRovoAgentSelector_RovoAgentSelectorInternal_fragmentReference on Query
+			fragment rovoAgentSelector_AtlaskitRovoAgentSelector on Query
 			@refetchable(queryName: "rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery")
 			@argumentDefinitions(
 				cloudIdString: { type: "String!" }
@@ -120,7 +113,7 @@ function RovoAgentSelectorInternal({
 
 	const [suspenselessRefetch, isRefetching] = useSuspenselessRefetch<
 		rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery,
-		rovoAgentSelectorInternal_AtlaskitRovoAgentSelector$key
+		rovoAgentSelector_AtlaskitRovoAgentSelector$key
 	>(rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQueryNode, refetch);
 
 	const debouncedRefetch = useDebouncedCallback(
@@ -212,39 +205,3 @@ function RovoAgentSelectorInternal({
 		</Box>
 	);
 }
-
-export const RovoAgentSelector = (props: RovoAgentSelectorProps) => {
-	const { fragmentReference, ...restProps } = props;
-
-	const permissionsData =
-		useFragment<rovoAgentSelector_AtlaskitRovoAgentSelector_fragmentReference$key>(
-			graphql`
-				fragment rovoAgentSelector_AtlaskitRovoAgentSelector_fragmentReference on Query
-				@argumentDefinitions(cloudIdString: { type: "String!" }, cloudId: { type: "ID!" }) {
-					atlassianStudio_userSiteContext(cloudId: $cloudId) {
-						... on AtlassianStudioUserSiteContextOutput {
-							isCustomAgentsAvailable
-							userPermissions {
-								isAbleToCreateAgents
-							}
-						}
-					}
-					...rovoAgentSelector_AtlaskitRovoAgentSelector_RovoAgentSelectorInternal_fragmentReference
-						@arguments(cloudIdString: $cloudIdString)
-				}
-			`,
-			fragmentReference,
-		);
-
-	const canCreateAgents =
-		permissionsData?.atlassianStudio_userSiteContext?.userPermissions?.isAbleToCreateAgents ??
-		false;
-	const isRovoEnabled =
-		permissionsData?.atlassianStudio_userSiteContext?.isCustomAgentsAvailable ?? false;
-
-	if (!canCreateAgents || !isRovoEnabled) {
-		return <UnentitledState isRovoEnabled={isRovoEnabled} />;
-	}
-
-	return <RovoAgentSelectorInternal {...restProps} fragmentReference={permissionsData} />;
-};

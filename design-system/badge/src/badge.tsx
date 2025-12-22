@@ -10,7 +10,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import BadgeNew, { appearanceMapping } from './badge-new';
+import BadgeNew, { appearanceMapping, appearanceMappingToOld } from './badge-new';
 import { formatValue, formatValueWithNegativeSupport } from './internal/utils';
 import type { BadgeProps } from './types';
 
@@ -102,11 +102,11 @@ const Badge = memo(function Badge({
 			</BadgeNew>
 		);
 	}
-
+	const oldAppearance = appearanceMappingToOld[appearance];
 	return (
 		<span
 			data-testid={testId}
-			css={[styles.root, styles[appearance]]}
+			css={[styles.root, styles[oldAppearance]]}
 			style={{ background: style?.backgroundColor, color: style?.color }}
 		>
 			<Text size="small" align="center" color="inherit">

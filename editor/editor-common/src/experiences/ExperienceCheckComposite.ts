@@ -12,11 +12,11 @@ export class ExperienceCheckComposite implements ExperienceCheck {
 		this.checks = checks;
 	}
 
-	start(callback: ExperienceCheckCallback) {
+	start(callback: ExperienceCheckCallback): void {
 		this.checks.forEach((check) => check.start(callback));
 	}
 
-	stop() {
+	stop(): void {
 		this.checks.forEach((check) => check.stop());
 	}
 }

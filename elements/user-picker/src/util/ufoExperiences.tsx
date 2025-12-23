@@ -23,7 +23,7 @@ export const userPickerOptionsShownUfoExperience = new ConcurrentExperience(
 );
 
 export class UfoErrorBoundary extends React.Component<React.PropsWithChildren<{ id: string }>> {
-	componentDidCatch() {
+	componentDidCatch(): void {
 		const instance = userPickerRenderedUfoExperience.getInstance(this.props.id);
 		if (instance.state.id !== UFOExperienceState.FAILED.id) {
 			instance.failure();

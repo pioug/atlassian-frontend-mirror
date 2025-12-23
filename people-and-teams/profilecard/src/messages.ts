@@ -225,6 +225,31 @@ const messages = defineMessages({
 		defaultMessage: 'Archived',
 		description: 'Lozenge to indicate that a team is archived',
 	},
+	errorUserNotFound: {
+		id: 'pt.profile-card.error.user-not-found',
+		defaultMessage: 'The user is no longer available for the site',
+		description: 'Error message shown when the user is not found',
+	},
+	errorGeneric: {
+		id: 'pt.profile-card.error.generic',
+		defaultMessage: 'Oops, looks like we’re having issues',
+		description: 'Generic error message shown when there is an issue loading the profile card',
+	},
+	errorRetrySuggestion: {
+		id: 'pt.profile-card.error.retry-suggestion',
+		defaultMessage: 'Try again and we’ll give it another shot',
+		description: 'Suggestion message shown to the user to retry loading the profile card',
+	},
+	serviceAccountLabel: {
+		id: 'pt.profile-card.service-account.label',
+		defaultMessage: 'SERVICE ACCOUNT',
+		description: 'Label to indicate that the user is a service account',
+	},
+	botAccountLabel: {
+		id: 'pt.profile-card.bot-account.label',
+		defaultMessage: 'APP',
+		description: 'Label to indicate that the user is a bot account',
+	},
 });
 
 export default messages;

@@ -29,7 +29,7 @@ export default class ProviderFactory {
 		return providerFactory;
 	}
 
-	destroy() {
+	destroy(): void {
 		this.providers.clear();
 		this.subscribers.clear();
 	}

@@ -38,7 +38,7 @@ function getMediaCountSSR() {
 	return globalMedia[key];
 }
 
-function incrementMediaCountSSR() {
+function incrementMediaCountSSR(): void {
 	const globalMedia = getMediaGlobalScope();
 	const key = 'mediaCountSsr';
 	if (!globalMedia[key]) {

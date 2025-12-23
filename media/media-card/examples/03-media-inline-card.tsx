@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import {
@@ -52,7 +53,7 @@ mediaClient.file.upload(file, undefined, uploadableFileUpfrontIds, undefined).su
 		console.log(error);
 	},
 });
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<MainWrapper disableFeatureFlagWrapper={true}>
 			<IntlProvider locale={'en'}>

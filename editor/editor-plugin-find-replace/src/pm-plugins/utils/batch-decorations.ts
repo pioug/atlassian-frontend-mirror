@@ -25,7 +25,7 @@ class BatchDecorations {
 	private addDecorations?: (decorations: Decoration[]) => void;
 	private removeDecorations?: (decorations: Decoration[]) => void;
 
-	stop() {
+	stop(): void {
 		if (this.rafId) {
 			cancelAnimationFrame(this.rafId);
 		}
@@ -40,7 +40,7 @@ class BatchDecorations {
 		containerElement: HTMLElement | null,
 		addDecorations: (decorations: Decoration[]) => void,
 		removeDecorations: (decorations: Decoration[]) => void,
-	) {
+	): Promise<void> {
 		this.stop();
 
 		this.addDecorations = addDecorations;

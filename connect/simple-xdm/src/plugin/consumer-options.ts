@@ -50,7 +50,7 @@ class ConsumerOptions {
 		return options;
 	}
 
-	_flush() {
+	_flush(): void {
 		delete this._options;
 	}
 

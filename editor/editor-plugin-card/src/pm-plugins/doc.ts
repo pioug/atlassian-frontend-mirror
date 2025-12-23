@@ -628,7 +628,7 @@ type UpdateCardArgs = {
 };
 
 // Apply an update made from a datasource ui interaction
-export const updateCardViaDatasource = (args: UpdateCardArgs) => {
+export const updateCardViaDatasource = (args: UpdateCardArgs): void => {
 	const { state, node, newAdf, view, sourceEvent, isDeletingConfig, inputMethod } = args;
 	const {
 		tr,
@@ -704,7 +704,7 @@ export const insertDatasource = (
 	adf: DatasourceAdf | InlineCardAdf,
 	view: EditorView,
 	sourceEvent?: UIAnalyticsEvent,
-) => {
+): void => {
 	const {
 		tr,
 		selection: { from },

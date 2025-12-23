@@ -7,7 +7,7 @@ import { failUfoExperience } from '../index';
 export const useColumnPickerRenderedFailedUfoExperience = (
 	status: DatasourceTableStatusType,
 	experienceId: string,
-) => {
+): void => {
 	useEffect(() => {
 		if (status === 'rejected' && experienceId) {
 			failUfoExperience(

@@ -41,7 +41,7 @@ const isExtensionNode = (node?: string) => {
 	return false;
 };
 
-export const copyToClipboard = async (textToCopy: string) => {
+export const copyToClipboard = async (textToCopy: string): Promise<void> => {
 	if (isClipboardApiSupported()) {
 		try {
 			await navigator.clipboard.writeText(textToCopy);
@@ -61,7 +61,7 @@ export const copyToClipboard = async (textToCopy: string) => {
 	}
 };
 
-export const copyHTMLToClipboard = async (elementToCopy: HTMLElement, plainTextToCopy?: string) => {
+export const copyHTMLToClipboard = async (elementToCopy: HTMLElement, plainTextToCopy?: string): Promise<void> => {
 	// @ts-ignore
 	if (isClipboardApiSupported() && typeof ClipboardItem !== 'undefined') {
 		try {
@@ -95,7 +95,7 @@ export const copyHTMLToClipboard = async (elementToCopy: HTMLElement, plainTextT
 export const copyHTMLToClipboardPolyfill = async (
 	elementToCopy: HTMLElement,
 	plainTextToCopy?: string,
-) => {
+): Promise<void> => {
 	const dt = new clipboard.ClipboardItem({
 		'text/html': new Blob([elementToCopy.innerHTML], { type: 'text/html' }),
 		'text/plain': new Blob([plainTextToCopy || elementToCopy.innerText], { type: 'text/plain' }),

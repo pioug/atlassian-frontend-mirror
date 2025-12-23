@@ -138,7 +138,7 @@ export const createPMSchemaAndPlugins =
 		};
 	};
 
-export function setTextSelection(view: EditorView, anchor: number, head?: number) {
+export function setTextSelection(view: EditorView, anchor: number, head?: number): void {
 	const { state } = view;
 	const tr = state.tr.setSelection(TextSelection.create(state.doc, anchor, head));
 	view.dispatch(tr);

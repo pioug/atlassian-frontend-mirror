@@ -149,7 +149,7 @@ export class TimelineController
 		}
 	}
 
-	attemptCleanup() {
+	attemptCleanup(): void {
 		if (this.unorderedEvents.length <= this.options.cleanup.eventsThreshold) {
 			return;
 		}
@@ -208,7 +208,7 @@ export class TimelineController
 		};
 	}
 
-	public cleanupSubscribers() {
+	public cleanupSubscribers(): void {
 		this.flushIdleBuffer(this.idleBuffer);
 
 		this.onIdleBufferFlushCallbacks.clear();
@@ -242,7 +242,7 @@ export class TimelineController
 		this.idleBuffer.eventsPerType.set(event.type, events);
 	}
 
-	public markEvent(event: TimelineEvent) {
+	public markEvent(event: TimelineEvent): void {
 		this.attemptCleanup();
 
 		this.addEventInternal(event);

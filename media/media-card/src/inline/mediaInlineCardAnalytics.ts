@@ -72,7 +72,7 @@ export const fireFailedOperationalEvent = (
 	error: MediaCardError = new MediaCardError('missing-error-data'),
 	failReason?: 'failed-processing',
 	createAnalyticsEvent?: CreateUIAnalyticsEvent,
-) => {
+): void => {
 	const payload = failReason
 		? getFailedProcessingStatusPayload(fileState?.id || 'unknown-id', fileState)
 		: getErrorStatusPayload(fileState?.id || 'unknown-id', error, fileState);
@@ -83,7 +83,7 @@ export const fireFailedOperationalEvent = (
 export const fireSucceededOperationalEvent = (
 	fileState: FileState,
 	createAnalyticsEvent?: CreateUIAnalyticsEvent,
-) => {
+): void => {
 	const payload = getSucceededStatusPayload(fileState);
 
 	fireMediaCardEvent(payload, createAnalyticsEvent);

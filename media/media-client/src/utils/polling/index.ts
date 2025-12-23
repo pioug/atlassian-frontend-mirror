@@ -94,11 +94,11 @@ export class PollingFunction {
 		return Math.min(Math.round(poll_intervalMs), this.options.poll_maxIntervalMs);
 	}
 
-	next() {
+	next(): void {
 		this.shouldIterate = true;
 	}
 
-	cancel() {
+	cancel(): void {
 		window.clearTimeout(this.timeoutId);
 		this.timeoutId = 0;
 	}

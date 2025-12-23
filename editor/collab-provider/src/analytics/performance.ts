@@ -28,7 +28,7 @@ export const measureMap = new Map<string, number>();
 export function startMeasure(
 	measureName: MEASURE_NAME,
 	analyticsHelper: AnalyticsHelper | undefined,
-) {
+): void {
 	try {
 		if (!isPerformanceAPIAvailable()) {
 			return;

@@ -37,7 +37,7 @@ export function filterChildrenBetween(
 	return results;
 }
 
-export function transformNonTextNodesToText(from: number, to: number, tr: Transaction) {
+export function transformNonTextNodesToText(from: number, to: number, tr: Transaction): void {
 	const { doc } = tr;
 	const { schema } = doc.type;
 	const {

@@ -18,7 +18,7 @@ export const useTableSelectorPopup = ({ api, buttonRef }: UseTableSelectorPopupP
 	});
 
 	const handleSelectedTableSize = useCallback(
-		(rowsCount: number, colsCount: number) => {
+		(rowsCount: number, colsCount: number): void => {
 			// workaround to solve race condition where cursor is not placed correctly inside table
 			queueMicrotask(() => {
 				api?.core?.actions.execute(
@@ -30,7 +30,7 @@ export const useTableSelectorPopup = ({ api, buttonRef }: UseTableSelectorPopupP
 		[api, popupManager],
 	);
 
-	const onPopupUnmount = useCallback(() => {
+	const onPopupUnmount = useCallback((): void => {
 		api?.core.actions.focus();
 	}, [api]);
 

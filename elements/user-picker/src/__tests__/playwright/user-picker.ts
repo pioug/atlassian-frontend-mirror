@@ -43,11 +43,11 @@ export class UserPicker extends PageRequestController {
 	 * example and
 	 * @param queryParams
 	 */
-	async goTo(example: string, params?: Record<string, string>) {
+	async goTo(example: string, params?: Record<string, string>): Promise<void> {
 		await this.page.visitExample('elements', 'user-picker', example, params);
 	}
 
-	async init(example: string, queryParams?: Record<string, string>) {
+	async init(example: string, queryParams?: Record<string, string>): Promise<void> {
 		await this.goTo(example, queryParams);
 	}
 }

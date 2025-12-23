@@ -18,7 +18,7 @@ import scrollGutter from './pm-plugins/scroll-gutter/plugin';
 import { getKeyboardHeight } from './pm-plugins/scroll-gutter/util/get-keyboard-height';
 import { inputTracking } from './pm-plugins/utils/inputTrackingConfig';
 
-export function resolveCallbacks(from: number, to: number, tr: Transaction, callbacks: Callback[]) {
+export function resolveCallbacks(from: number, to: number, tr: Transaction, callbacks: Callback[]): void {
 	const { doc } = tr;
 	doc.nodesBetween(from, to, (node, pos) => {
 		callbacks.forEach((cb) => cb({ tr, node, pos, from, to }));

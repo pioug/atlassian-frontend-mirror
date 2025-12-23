@@ -18,8 +18,8 @@ export class Story extends React.PureComponent<StoryProps, StoryState> {
 		offset: 0,
 	};
 
-	handleSizeChange = ({ offset }: Pick<FilmstripState, 'offset'>) => this.setState({ offset });
-	handleScrollChange = ({ offset, animate }: FilmstripState) => this.setState({ offset, animate });
+	handleSizeChange = ({ offset }: Pick<FilmstripState, 'offset'>): void => this.setState({ offset });
+	handleScrollChange = ({ offset, animate }: FilmstripState): void => this.setState({ offset, animate });
 
 	render(): React.JSX.Element {
 		const { animate, offset } = this.state;

@@ -136,7 +136,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 	};
 	private dropdownMenuRef = React.createRef<HTMLDivElement>();
 
-	componentDidMount() {
+	componentDidMount(): void {
 		// ArrowKeyNavigationProvider in DropdownMenu expects that menu handle will stay focused
 		// until user pressed ArrowDown.
 		// Behavior above fails the A11Y requirement about first item in menu should be focused immediately.

@@ -212,8 +212,14 @@ const ServiceAccountProfileCardDetails = (props: ProfilecardProps) => {
 	return (
 		<DetailsGroup>
 			{renderName(nickname, fullName)}
-			{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
-			<AppTitleLabel>SERVICE ACCOUNT</AppTitleLabel>
+
+			<AppTitleLabel>
+				{fg('people-teams-fix-no-literal-string-in-jsx') ? (
+					<FormattedMessage {...messages.serviceAccountLabel} />
+				) : (
+					'SERVICE ACCOUNT'
+				)}
+			</AppTitleLabel>
 		</DetailsGroup>
 	);
 };
@@ -224,8 +230,14 @@ const BotProfileCardDetails = (props: ProfilecardProps) => {
 	return (
 		<DetailsGroup>
 			{renderName(nickname, fullName)}
-			{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
-			<AppTitleLabel>APP</AppTitleLabel>
+
+			<AppTitleLabel>
+				{fg('people-teams-fix-no-literal-string-in-jsx') ? (
+					<FormattedMessage {...messages.botAccountLabel} />
+				) : (
+					'APP'
+				)}
+			</AppTitleLabel>
 		</DetailsGroup>
 	);
 };

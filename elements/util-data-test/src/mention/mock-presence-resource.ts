@@ -35,7 +35,7 @@ export class MockPresenceResource extends AbstractPresenceResource {
 		return time;
 	}
 
-	refreshPresence(ids: string[]) {
+	refreshPresence(ids: string[]): void {
 		const presences: {
 			[userId: string]: { status?: string; time?: string };
 		} = {};

@@ -57,7 +57,7 @@ export const useDatasourceTableFlag = (options?: DatasourceTableFlagOptions) => 
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
 	const showErrorFlag = useCallback(
-		(args?: Partial<CreateFlagArgs> & { status?: number }) => {
+		(args?: Partial<CreateFlagArgs> & { status?: number }): void => {
 			showFlag({
 				icon: (
 					<CrossCircleIcon spacing="spacious" label="Error" color={token('color.icon.danger')} />

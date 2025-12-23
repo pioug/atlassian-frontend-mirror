@@ -24,7 +24,7 @@ export default class CollapsedEditor extends React.Component<Props, State> {
 	previouslyExpanded?: boolean;
 	functionalEditor?: boolean;
 
-	componentDidUpdate() {
+	componentDidUpdate(): void {
 		if (
 			this.props.isExpanded &&
 			(this.editorComponent || this.functionalEditor) &&
@@ -38,7 +38,7 @@ export default class CollapsedEditor extends React.Component<Props, State> {
 	handleEditorRef = (
 		editorRef?: Editor,
 		editorRefCallback?: (editor: Editor | undefined) => void,
-	) => {
+	): void => {
 		if (editorRefCallback && typeof editorRefCallback === 'function') {
 			editorRefCallback(editorRef);
 		}

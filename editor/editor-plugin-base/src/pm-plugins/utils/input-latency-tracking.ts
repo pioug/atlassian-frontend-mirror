@@ -83,7 +83,7 @@ export default class InputLatencyTracker {
 		return end;
 	}
 
-	flush() {
+	flush(): void {
 		if (this.samples.length === 0) {
 			return;
 		}

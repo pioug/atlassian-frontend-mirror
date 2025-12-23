@@ -251,7 +251,7 @@ export default class Popup extends React.Component<Props, State> {
 		this.updatePosition(this.props);
 	});
 
-	onResize = () => this.scheduledUpdatePosition(this.props);
+	onResize = (): void => this.scheduledUpdatePosition(this.props);
 
 	resizeObserver = window?.ResizeObserver
 		? new ResizeObserver(() => {
@@ -302,7 +302,7 @@ export default class Popup extends React.Component<Props, State> {
 	/**
 	 * Handle pausing, unpausing, and initialising (if not yet initialised) of the focus trap
 	 */
-	handleChangedFocusTrapProp(prevProps: Props) {
+	handleChangedFocusTrapProp(prevProps: Props): void {
 		if (prevProps.focusTrap !== this.props.focusTrap) {
 			// If currently set to disable, then pause the trap if it exists
 			if (!this.props.focusTrap) {
@@ -319,7 +319,7 @@ export default class Popup extends React.Component<Props, State> {
 		}
 	}
 
-	componentDidUpdate(prevProps: Props) {
+	componentDidUpdate(prevProps: Props): void {
 		this.handleChangedFocusTrapProp(prevProps);
 
 		if (this.props !== prevProps) {
@@ -327,7 +327,7 @@ export default class Popup extends React.Component<Props, State> {
 		}
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.addEventListener('resize', this.onResize);
@@ -352,7 +352,7 @@ export default class Popup extends React.Component<Props, State> {
 		}
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.removeEventListener('resize', this.onResize);

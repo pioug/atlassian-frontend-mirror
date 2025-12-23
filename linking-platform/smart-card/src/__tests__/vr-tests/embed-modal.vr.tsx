@@ -8,6 +8,7 @@ snapshot(EmbedModal, {
 	description: 'renders embed modal',
 	featureFlags: {
 		'navx-1895-new-logo-design': [true, false],
+		platform_navx_sl_a11y_embed_modal: true,
 	},
 });
 

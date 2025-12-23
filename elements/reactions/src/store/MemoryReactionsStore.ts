@@ -257,7 +257,7 @@ export class MemoryReactionsStore implements Store {
 			ari: string,
 			emojiId: string,
 			onSuccess?: ReactionUpdateSuccess,
-		) => {
+		): void => {
 			this.withReadyReaction(
 				containerAri,
 				ari,

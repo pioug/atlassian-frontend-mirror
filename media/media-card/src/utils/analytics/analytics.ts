@@ -566,7 +566,7 @@ export const getAuthProviderFailedPayload = (
 export function fireMediaCardEvent(
 	payload: MediaCardAnalyticsEventPayload,
 	createAnalyticsEvent?: CreateUIAnalyticsEvent,
-) {
+): void {
 	if (createAnalyticsEvent) {
 		const event = createAnalyticsEvent(sanitiseAnalyticsPayload(payload));
 		event.fire(ANALYTICS_MEDIA_CHANNEL);

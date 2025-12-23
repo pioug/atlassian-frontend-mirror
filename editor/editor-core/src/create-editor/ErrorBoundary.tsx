@@ -128,11 +128,11 @@ export class ErrorBoundaryWithEditorView extends React.Component<
 		this.props.createAnalyticsEvent?.(event).fire(editorAnalyticsChannel);
 	};
 
-	protected logException = (error: Error, tags?: { [key: string]: Primitive }) => {
+	protected logException = (error: Error, tags?: { [key: string]: Primitive }): void => {
 		logException(error, tags);
 	};
 
-	componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+	componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
 		// Only report and re-render once, to avoid over-reporting errors and infinite rerendering
 		if (this.state.error) {
 			return;
@@ -189,7 +189,7 @@ export class ErrorBoundaryWithEditorViewWithAnalyticsReactContext extends ErrorB
 		super(props);
 	}
 
-	protected logException = (error: Error, tags?: { [key: string]: Primitive }) => {
+	protected logException = (error: Error, tags?: { [key: string]: Primitive }): void => {
 		const extraTags: Record<string, string> = {};
 		extraTags.editorSessionId =
 			this.context?.getAtlaskitAnalyticsContext()?.[0]?.fabricEditorCtx?.editorSessionId;

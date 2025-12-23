@@ -78,7 +78,7 @@ export class ExperienceCheckDomMutation implements ExperienceCheck {
 		this.observeConfig = observeConfig;
 	}
 
-	start(callback: ExperienceCheckCallback) {
+	start(callback: ExperienceCheckCallback): void {
 		this.stop();
 
 		const config = this.observeConfig();
@@ -109,7 +109,7 @@ export class ExperienceCheckDomMutation implements ExperienceCheck {
 		this.mutationObserver.observe(target, options);
 	}
 
-	stop() {
+	stop(): void {
 		if (this.mutationObserver) {
 			this.mutationObserver.disconnect();
 			this.mutationObserver = undefined;

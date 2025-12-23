@@ -11,7 +11,7 @@ export class MediaTaskManager {
 	private pendingTask = Promise.resolve<MediaState | null>(null);
 	private taskMap = new Map<string, MediaTask>();
 
-	cancelPendingTask = (id: string) => {
+	cancelPendingTask = (id: string): void => {
 		const task = this.taskMap.get(id);
 		if (task && !task.cancelController.signal.aborted) {
 			task.cancelController.abort();
@@ -55,7 +55,7 @@ export class MediaTaskManager {
 		]);
 	};
 
-	resumePendingTask = (id: string) => {
+	resumePendingTask = (id: string): void => {
 		const mediaTask = this.taskMap.get(id);
 		if (mediaTask && mediaTask.cancelController.signal.aborted) {
 			this.addPendingTask(mediaTask.task, id);

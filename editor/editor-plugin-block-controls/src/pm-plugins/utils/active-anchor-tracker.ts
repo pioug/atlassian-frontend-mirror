@@ -16,19 +16,19 @@ export class ActiveAnchorTracker {
 		return this.lastActiveAnchor;
 	}
 
-	public subscribe(anchorName: string, callback: (isActive: boolean) => void) {
+	public subscribe(anchorName: string, callback: (isActive: boolean) => void): void {
 		if (this.emitter) {
 			this.emitter.on(anchorName, callback);
 		}
 	}
 
-	public unsubscribe(anchorName: string, callback: (isActive: boolean) => void) {
+	public unsubscribe(anchorName: string, callback: (isActive: boolean) => void): void {
 		if (this.emitter) {
 			this.emitter.removeListener(anchorName, callback);
 		}
 	}
 
-	public emit(anchorName: string) {
+	public emit(anchorName: string): void {
 		if (this.lastActiveAnchor !== anchorName && this.emitter) {
 			this.emitter.emit(this.lastActiveAnchor, false);
 			this.emitter.emit(anchorName, true);
@@ -36,7 +36,7 @@ export class ActiveAnchorTracker {
 		}
 	}
 
-	public reset() {
+	public reset(): void {
 		if (this.emitter) {
 			// To prevent any potential memory leaks,
 			// we set the event emitter to null and then create a new event emitter.

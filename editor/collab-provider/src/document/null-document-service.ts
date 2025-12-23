@@ -9,19 +9,19 @@ export class NullDocumentService implements DocumentServiceInterface {
 		return this;
 	};
 
-	updateDocument() {}
+	updateDocument(): void {}
 
-	onRestore() {}
+	onRestore(): void {}
 
-	onStepsAdded() {}
+	onStepsAdded(): void {}
 
-	onStepRejectedError() {}
+	onStepRejectedError(): void {}
 
-	send() {}
+	send(): void {}
 
-	sendStepsFromCurrentState() {}
+	sendStepsFromCurrentState(): void {}
 
-	throttledCatchupv2() {}
+	throttledCatchupv2(): void {}
 
 	getCurrentState() {
 		return Promise.resolve({} as ResolvedEditorState);
@@ -47,5 +47,5 @@ export class NullDocumentService implements DocumentServiceInterface {
 		return -1;
 	}
 
-	onErrorHandled = () => {};
+	onErrorHandled = (): void => {};
 }

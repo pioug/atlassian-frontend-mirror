@@ -68,7 +68,7 @@ export const isLastItemMediaGroup = (node: Node): boolean => {
 	return !!content.lastChild && content.lastChild.type.name === 'mediaGroup';
 };
 
-export const setNodeSelection = (view: EditorView, pos: number) => {
+export const setNodeSelection = (view: EditorView, pos: number): void => {
 	const { state, dispatch } = view;
 
 	if (!isFinite(pos)) {
@@ -79,19 +79,19 @@ export const setNodeSelection = (view: EditorView, pos: number) => {
 	dispatch(tr);
 };
 
-export function setTextSelection(view: EditorView, anchor: number, head?: number) {
+export function setTextSelection(view: EditorView, anchor: number, head?: number): void {
 	const { state, dispatch } = view;
 	const tr = state.tr.setSelection(TextSelection.create(state.doc, anchor, head));
 	dispatch(tr);
 }
 
-export function setAllSelection(view: EditorView) {
+export function setAllSelection(view: EditorView): void {
 	const { state, dispatch } = view;
 	const tr = state.tr.setSelection(new AllSelection(view.state.doc));
 	dispatch(tr);
 }
 
-export function setCellSelection(view: EditorView, anchor: number, head?: number) {
+export function setCellSelection(view: EditorView, anchor: number, head?: number): void {
 	const { state, dispatch } = view;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "24.27.0",
+	"version": "24.27.1",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -170,13 +170,13 @@
 		"jira_ai_profilecard_hide_agent_actions": {
 			"type": "boolean"
 		},
-		"legion-enable-archive-teams": {
-			"type": "boolean"
-		},
 		"rovo_agent_empty_state_refresh": {
 			"type": "boolean"
 		},
 		"enable_profilecard_text_truncation_tooltip": {
+			"type": "boolean"
+		},
+		"people-teams-fix-no-literal-string-in-jsx": {
 			"type": "boolean"
 		}
 	},

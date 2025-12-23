@@ -11,7 +11,7 @@ export const generateUuid = () =>
 let staticValue: string | boolean = false;
 
 export const uuid = {
-	setStatic(value: string | boolean) {
+	setStatic(value: string | boolean): void {
 		staticValue = value;
 	},
 

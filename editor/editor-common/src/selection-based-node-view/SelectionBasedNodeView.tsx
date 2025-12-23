@@ -129,12 +129,12 @@ export class SelectionBasedNodeView<P = ReactComponentProps> extends ReactNodeVi
 		return this.isSelectedNode || this.isNodeInsideSelection(from, to);
 	};
 
-	selectNode() {
+	selectNode(): void {
 		this.isSelectedNode = true;
 		this.update(this.node, this.decorations);
 	}
 
-	deselectNode() {
+	deselectNode(): void {
 		this.isSelectedNode = false;
 		this.update(this.node, this.decorations);
 	}

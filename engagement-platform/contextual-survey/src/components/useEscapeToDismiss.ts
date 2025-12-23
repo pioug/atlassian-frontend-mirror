@@ -40,7 +40,7 @@ function shouldDismiss(target: Optional<EventTarget>): boolean {
 type Args = {
 	onDismiss: () => void;
 };
-export default function useEscapeToDismiss({ onDismiss }: Args) {
+export default function useEscapeToDismiss({ onDismiss }: Args): void {
 	const onDismissRef = useRef<() => void>(onDismiss);
 
 	// Defensively accounting for consumer passing in a new function

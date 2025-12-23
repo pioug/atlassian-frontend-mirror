@@ -15,7 +15,7 @@ export function measureTTI(
 
 	// Dependency Injection for easier testing
 	PerfObserver?: typeof window.PerformanceObserver,
-) {
+): void {
 	if (!isPerformanceObserverLongTaskAvailable()) {
 		return;
 	}

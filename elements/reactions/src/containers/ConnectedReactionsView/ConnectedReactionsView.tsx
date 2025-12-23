@@ -119,20 +119,20 @@ export const mapDispatchToPropsHelper = (
 	successCallBack?: ReactionUpdateSuccess,
 ) => {
 	return {
-		loadReaction: () => {
+		loadReaction: (): void => {
 			actions.getReactions(containerAri, ari);
 		},
-		onReactionClick: (emojiId: string) => {
+		onReactionClick: (emojiId: string): void => {
 			if (successCallBack) {
 				actions.toggleReaction(containerAri, ari, emojiId, successCallBack);
 				return;
 			}
 			actions.toggleReaction(containerAri, ari, emojiId);
 		},
-		getReactionDetails: (emojiId: string) => {
+		getReactionDetails: (emojiId: string): void => {
 			actions.getDetailedReaction(containerAri, ari, emojiId);
 		},
-		onSelection: (emojiId: string) => {
+		onSelection: (emojiId: string): void => {
 			if (successCallBack) {
 				actions.addReaction(containerAri, ari, emojiId, successCallBack);
 				return;

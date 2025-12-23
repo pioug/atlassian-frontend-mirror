@@ -37,7 +37,12 @@ const SYNCED_BLOCK_PRIMARY_TOOLBAR_GROUP = {
 
 export const getToolbarComponents = (
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>,
+	enableSourceSyncedBlockCreation?: boolean,
 ): RegisterComponent[] => {
+	if (!enableSourceSyncedBlockCreation) {
+		return [];
+	}
+
 	return [
 		SYNCED_BLOCK_PRIMARY_TOOLBAR_GROUP,
 		{

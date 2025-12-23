@@ -14,6 +14,7 @@ import FullscreenExitIcon from '@atlaskit/icon/core/fullscreen-exit';
 import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { CloseButton, useModal } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -72,6 +73,37 @@ const actionCss = css({
 		'.smart-link-resize-button': {
 			display: 'none',
 		},
+	},
+});
+
+const buttonGroupCss = css({
+	display: 'flex',
+	flex: '0 0 auto',
+	gap: token('space.050', '4px'),
+	listStyle: 'none',
+	marginTop: token('space.0'),
+	marginRight: token('space.0'),
+	marginBottom: token('space.0'),
+	marginLeft: token('space.0'),
+	marginBlockStart: token('space.0'),
+	marginBlockEnd: token('space.0'),
+	paddingTop: token('space.0'),
+	paddingRight: token('space.0'),
+	paddingBottom: token('space.0'),
+	paddingLeft: token('space.0'),
+	paddingInlineStart: token('space.0'),
+});
+
+const listItemCSS = css({
+	alignItems: 'center',
+	marginTop: 0,
+});
+
+const resizeButtonCss = css({
+	'@media only screen and (max-width: 980px)': {
+		// Hide resize button if the screen is smaller than the min width
+		// or too small to have enough impact to matter.
+		display: 'none',
 	},
 });
 
@@ -217,4 +249,107 @@ const LinkInfo = ({
 	);
 };
 
-export default LinkInfo;
+const LinkInfoNew = ({
+	focusRef,
+	icon,
+	providerName,
+	onDownloadButtonClick,
+	onResizeButtonClick,
+	onViewButtonClick,
+	size,
+	testId,
+	title,
+}: LinkInfoProps): JSX.Element => {
+	const { onClose } = useModal();
+	const { formatMessage } = useIntl();
+
+	const downloadButton = useMemo(
+		() => (
+			<LinkInfoButton
+				content={<FormattedMessage {...messages.download} />}
+				icon={() => <DownloadIcon label="" spacing="spacious" color="currentColor" />}
+				label={messages.download}
+				onClick={onDownloadButtonClick}
+				testId={`${testId}-download`}
+			/>
+		),
+		[onDownloadButtonClick, testId],
+	);
+
+	const urlButton = useMemo(() => {
+		if (onViewButtonClick) {
+			const content = providerName ? (
+				<React.Fragment>
+					<FormattedMessage {...messages.viewIn} /> {providerName}
+				</React.Fragment>
+			) : (
+				<FormattedMessage {...messages.viewOriginal} />
+			);
+			return (
+				<LinkInfoButton
+					content={content}
+					icon={() => <ShortcutIcon label="" spacing="spacious" color="currentColor" />}
+					label={messages.viewOriginal}
+					onClick={onViewButtonClick}
+					testId={`${testId}-url`}
+				/>
+			);
+		}
+	}, [onViewButtonClick, providerName, testId]);
+
+	const sizeButton = useMemo(() => {
+		const isFullScreen = size === MAX_MODAL_SIZE;
+		const message = isFullScreen ? messages.preview_min_size : messages.preview_max_size;
+		const icon = isFullScreen ? (
+			<FullscreenExitIcon label="" spacing="spacious" color="currentColor" />
+		) : (
+			<VidFullScreenOnIcon label="" spacing="spacious" color="currentColor" />
+		);
+
+		return (
+			<LinkInfoButton
+				content={<FormattedMessage {...message} />}
+				icon={() => icon}
+				label={message}
+				onClick={onResizeButtonClick}
+				testId={`${testId}-resize`}
+			/>
+		);
+	}, [onResizeButtonClick, size, testId]);
+
+	return (
+		<div css={[containerStyles]}>
+			{icon && (
+				<div css={iconCss} data-testid={`${testId}-icon`}>
+					<Icon {...icon} />
+				</div>
+			)}
+			<div css={[titleCss]}>
+				<Heading size="small" color="color.text" ref={focusRef} testId={`${testId}-title`}>
+					{title}
+				</Heading>
+			</div>
+			<ul role="list" css={buttonGroupCss}>
+				{onDownloadButtonClick && <li css={listItemCSS}>{downloadButton}</li>}
+				<li css={listItemCSS}>{urlButton}</li>
+				<li css={[listItemCSS, resizeButtonCss]}>{sizeButton}</li>
+				<li css={listItemCSS}>
+					<Tooltip
+						content={<FormattedMessage {...messages.preview_close} />}
+						hideTooltipOnClick={true}
+						tag="span"
+						testId={`${testId}-close-tooltip`}
+					>
+						<CloseButton
+							onClick={onClose as () => void}
+							label={formatMessage(messages.preview_close)}
+							testId={testId}
+						/>
+					</Tooltip>
+				</li>
+			</ul>
+		</div>
+	);
+};
+
+export default componentWithFG('platform_navx_sl_a11y_embed_modal', LinkInfoNew, LinkInfo);

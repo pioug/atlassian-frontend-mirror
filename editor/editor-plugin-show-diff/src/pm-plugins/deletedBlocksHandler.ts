@@ -324,7 +324,7 @@ export const appendBlockNodeWithWrapper = (
 	targetNode: PMNode,
 	colourScheme: 'standard' | 'traditional' | undefined,
 	intl: IntlShape,
-) => {
+): void => {
 	const blockWrapper = createBlockNodeWrapper();
 
 	if (shouldShowRemovedLozenge(targetNode.type.name)) {

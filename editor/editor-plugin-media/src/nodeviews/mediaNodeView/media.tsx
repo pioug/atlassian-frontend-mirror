@@ -105,7 +105,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		return false;
 	}
 
-	async componentDidMount() {
+	async componentDidMount(): Promise<void> {
 		this.handleNewNode(this.props);
 
 		const { contextIdentifierProvider } = this.props;
@@ -116,7 +116,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		await this.setViewMediaClientConfig();
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		const { node } = this.props;
 		this.mediaPluginState?.handleMediaNodeUnmount(node);
 		if (this.unbindKeyDown && typeof this.unbindKeyDown === 'function') {
@@ -124,7 +124,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		}
 	}
 
-	componentDidUpdate(prevProps: Readonly<MediaNodeProps>) {
+	componentDidUpdate(prevProps: Readonly<MediaNodeProps>): void {
 		if (prevProps.node.attrs.id !== this.props.node.attrs.id) {
 			this.mediaPluginState?.handleMediaNodeUnmount(prevProps.node);
 			this.handleNewNode(this.props);
@@ -142,7 +142,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		}
 	}
 
-	bindKeydown() {
+	bindKeydown(): void {
 		const onKeydown = (event: KeyboardEvent) => {
 			if (event.key === 'Tab') {
 				// Add focus trap for controls panel

@@ -196,7 +196,7 @@ const handleClosingByArrows = (
 		tr = tr.setSelection(Selection.near(state.tr.doc.resolve(showStatusPickerAt + 1)));
 	}
 };
-export const commitStatusPicker = (closingPayload?: ClosingPayload) => (editorView: EditorView) => {
+export const commitStatusPicker = (closingPayload?: ClosingPayload) => (editorView: EditorView): void => {
 	const { state, dispatch } = editorView;
 	const { showStatusPickerAt } = pluginKey.getState(state) || {};
 	const { closingMethod } = closingPayload || {};

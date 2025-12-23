@@ -144,7 +144,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 
 	private getSessionId = () => (this.session && this.session.id ? this.session.id : undefined);
 
-	private withSelectRef = (callback: (selectRef: any) => void) => () => {
+	private withSelectRef = (callback: (selectRef: any) => void) => (): void => {
 		if (this.selectRef) {
 			callback(this.selectRef);
 		}
@@ -154,13 +154,13 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 
 	public previousOption = this.withSelectRef((select) => select.focusOption('up'));
 
-	public focus = () => {
+	public focus = (): void => {
 		if (this.selectRef && this.selectRef.focus) {
 			this.selectRef.focus();
 		}
 	};
 
-	public blur = () => {
+	public blur = (): void => {
 		if (this.selectRef && this.selectRef.blur) {
 			this.selectRef.blur();
 		}
@@ -293,7 +293,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		return this.props.openMenuOnClick && !this.props.isMulti;
 	}
 
-	abortOptionsShownUfoExperience = () => {
+	abortOptionsShownUfoExperience = (): void => {
 		if (this.optionsShownUfoExperienceInstance.state.id === UFOExperienceState.STARTED.id) {
 			// There may be an existing UFO timing running from previous key entry or focus,
 			// so abort it and restart it just in case.
@@ -301,7 +301,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		}
 	};
 
-	startOptionsShownUfoExperience = () => {
+	startOptionsShownUfoExperience = (): void => {
 		this.abortOptionsShownUfoExperience();
 		this.optionsShownUfoExperienceInstance.start();
 	};
@@ -407,7 +407,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		this.fireEvent(focusEvent);
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		const { open, search } = this.props;
 		// load options when the picker open
 		if (open) {
@@ -418,7 +418,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		}
 	}
 
-	componentDidUpdate(prevProps: UserPickerProps, prevState: UserPickerState) {
+	componentDidUpdate(prevProps: UserPickerProps, prevState: UserPickerState): void {
 		const { menuIsOpen, options, resolving, count, inputValue } = this.state;
 
 		// Close menu when isFooterFocused changes from true to false
@@ -521,7 +521,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		}
 	};
 
-	handleClearIndicatorHover = (hoveringClearIndicator: boolean) => {
+	handleClearIndicatorHover = (hoveringClearIndicator: boolean): void => {
 		this.setState({ hoveringClearIndicator });
 	};
 

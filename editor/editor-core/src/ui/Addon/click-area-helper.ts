@@ -154,7 +154,7 @@ const clickAreaClickHandler = (view: EditorView, event: React.MouseEvent<HTMLEle
 export const outsideProsemirrorEditorClickHandler = (
 	view: EditorView,
 	event: React.MouseEvent<HTMLElement, MouseEvent>,
-) => {
+): void => {
 	const { dispatch, dom, state } = view;
 	const { tr } = state;
 	const isEditorFocused = !!view?.hasFocus?.();

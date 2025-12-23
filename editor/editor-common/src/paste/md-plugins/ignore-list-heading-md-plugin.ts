@@ -29,7 +29,7 @@ function handleHeadingClose(state: StateCore, token: Token, acc: Token[], index:
 	}
 }
 
-export default function (md: MarkdownIt) {
+export default function (md: MarkdownIt): void {
 	md.core.ruler.after('inline', 'ignore-list-heading-md-plugin', function (state: StateCore) {
 		state.tokens = state.tokens.reduce((acc: Token[], token, index) => {
 			const { type } = token;

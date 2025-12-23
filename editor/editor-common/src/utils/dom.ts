@@ -19,7 +19,7 @@ export function walkUpTreeUntil(
  * Takes all children out from wrapped el and puts them directly inside
  * the parent el, at the wrapped el's position
  */
-export function unwrap(parent: HTMLElement, wrapped: HTMLElement) {
+export function unwrap(parent: HTMLElement, wrapped: HTMLElement): void {
 	const docsFragment = document.createDocumentFragment();
 	Array.from(wrapped.children).forEach((child: Node) => {
 		docsFragment.appendChild(child);
@@ -31,7 +31,7 @@ export function unwrap(parent: HTMLElement, wrapped: HTMLElement) {
  * Walks up DOM removing elements if they are empty until it finds
  * one that is not
  */
-export function removeNestedEmptyEls(el: HTMLElement) {
+export function removeNestedEmptyEls(el: HTMLElement): void {
 	while (el.parentElement && el.childElementCount === 0 && el.textContent === '') {
 		const parentEl = el.parentElement;
 		parentEl.removeChild(el);

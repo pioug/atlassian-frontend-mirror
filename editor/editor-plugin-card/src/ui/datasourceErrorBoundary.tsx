@@ -29,7 +29,7 @@ export class DatasourceErrorBoundary extends React.Component<DatasourceErrorBoun
 		return { isError: true, error };
 	}
 
-	componentDidCatch(error: Error | APIError) {
+	componentDidCatch(error: Error | APIError): void {
 		if (this.props.handleError) {
 			this.props.handleError();
 		}

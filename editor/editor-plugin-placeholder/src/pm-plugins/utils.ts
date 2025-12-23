@@ -140,18 +140,21 @@ export function createPlaceHolderStateFrom({
 
 	if (withEmptyParagraph) {
 		const { from, to, $to } = editorState.selection;
-		if (
+		const isOnEmptyParagraphInNonEmptyDoc =
 			(defaultPlaceholderText || placeholderADF) &&
 			withEmptyParagraph &&
-			isEditorFocused &&
 			!isInitial &&
 			!isEmptyDocument(editorState.doc) &&
 			from === to &&
 			isEmptyParagraph($to.parent) &&
-			hasDocAsParent($to)
-		) {
-			return showOnEmptyParagraph
-				? setPlaceHolderState({
+			hasDocAsParent($to);
+
+		if (isOnEmptyParagraphInNonEmptyDoc) {
+			if (fg('platform_editor_ai_aifc_patch_ga_blockers')) {
+				// If placeholder was already shown, keep it visible even without focus
+				// This prevents the placeholder from disappearing when switching browser tabs
+				if (showOnEmptyParagraph) {
+					return setPlaceHolderState({
 						placeholderText: defaultPlaceholderText,
 						pos: to,
 						placeholderPrompts,
@@ -159,8 +162,11 @@ export function createPlaceHolderStateFrom({
 						userHadTyped,
 						canShowOnEmptyParagraph: true,
 						showOnEmptyParagraph: true,
-					})
-				: emptyPlaceholder({
+					});
+				}
+				// Focus is required to start the timeout for showing placeholder
+				if (isEditorFocused) {
+					return emptyPlaceholder({
 						placeholderText: defaultPlaceholderText,
 						placeholderPrompts,
 						userHadTyped,
@@ -168,6 +174,28 @@ export function createPlaceHolderStateFrom({
 						showOnEmptyParagraph: false,
 						pos: to,
 					});
+				}
+			} else if (isEditorFocused) {
+				// Original behavior: focus is required for both showing and keeping placeholder visible
+				return showOnEmptyParagraph
+					? setPlaceHolderState({
+							placeholderText: defaultPlaceholderText,
+							pos: to,
+							placeholderPrompts,
+							typedAndDeleted,
+							userHadTyped,
+							canShowOnEmptyParagraph: true,
+							showOnEmptyParagraph: true,
+						})
+					: emptyPlaceholder({
+							placeholderText: defaultPlaceholderText,
+							placeholderPrompts,
+							userHadTyped,
+							canShowOnEmptyParagraph: true,
+							showOnEmptyParagraph: false,
+							pos: to,
+						});
+			}
 		}
 	}
 

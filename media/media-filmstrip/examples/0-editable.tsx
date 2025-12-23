@@ -121,27 +121,27 @@ export class ViewStory extends React.Component<ViewStoryProps, ViewStoryState> {
 		offsets,
 		minOffset,
 		maxOffset,
-	}: Pick<ViewStoryState, 'offset' | 'offsets' | 'minOffset' | 'maxOffset'>) => {
+	}: Pick<ViewStoryState, 'offset' | 'offsets' | 'minOffset' | 'maxOffset'>): void => {
 		this.setState({ offset, offsets, minOffset, maxOffset });
 	};
 
-	handleScrollChange = ({ offset, animate }: Pick<ViewStoryState, 'offset' | 'animate'>) => {
+	handleScrollChange = ({ offset, animate }: Pick<ViewStoryState, 'offset' | 'animate'>): void => {
 		this.setState({ offset, animate });
 	};
 
-	handleGoToStart = () => {
+	handleGoToStart = (): void => {
 		this.setState(({ minOffset }) => ({ offset: minOffset, animate: true }));
 	};
 
-	handleGoToEnd = () => {
+	handleGoToEnd = (): void => {
 		this.setState(({ maxOffset }) => ({ offset: maxOffset, animate: true }));
 	};
 
-	handleGoTo = (offset: number) => {
+	handleGoTo = (offset: number): void => {
 		this.setState({ offset, animate: false });
 	};
 
-	handleChangeWidthType = (event: any) => {
+	handleChangeWidthType = (event: any): void => {
 		const type = event.target.value;
 		if (type === 'auto') {
 			this.setState({ containerWidth: 'auto' });
@@ -150,11 +150,11 @@ export class ViewStory extends React.Component<ViewStoryProps, ViewStoryState> {
 		}
 	};
 
-	handleChangeContainerWidth = (containerWidth: number) => {
+	handleChangeContainerWidth = (containerWidth: number): void => {
 		this.setState({ containerWidth });
 	};
 
-	handleChangeCardCount = (cardCount: number) => {
+	handleChangeCardCount = (cardCount: number): void => {
 		const children: JSX.Element[] = [];
 		for (let i = 0; i < cardCount; ++i) {
 			const idx = i % cards.length;
@@ -167,7 +167,7 @@ export class ViewStory extends React.Component<ViewStoryProps, ViewStoryState> {
 		this.setState({ children });
 	};
 
-	renderFilmstrip() {
+	renderFilmstrip(): React.JSX.Element {
 		const { animate, offset, containerWidth, children } = this.state;
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -184,7 +184,7 @@ export class ViewStory extends React.Component<ViewStoryProps, ViewStoryState> {
 		);
 	}
 
-	renderControls() {
+	renderControls(): React.JSX.Element {
 		const { containerWidth, offset, minOffset, maxOffset, children } = this.state;
 		return (
 			<div>
@@ -248,7 +248,7 @@ export class ViewStory extends React.Component<ViewStoryProps, ViewStoryState> {
 		);
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={storyWrapperStyles}>
@@ -262,4 +262,4 @@ export class ViewStory extends React.Component<ViewStoryProps, ViewStoryState> {
 	}
 }
 
-export default () => <ViewStory />;
+export default (): React.JSX.Element => <ViewStory />;

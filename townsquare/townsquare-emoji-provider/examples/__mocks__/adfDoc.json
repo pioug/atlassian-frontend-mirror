@@ -1,0 +1,150 @@
+{
+	"version": 1,
+	"type": "doc",
+	"content": [
+		{
+			"type": "paragraph",
+			"content": [
+				{
+					"type": "text",
+					"text": "Emoji provider example:"
+				}
+			]
+		},
+		{
+			"type": "paragraph",
+			"content": [
+				{
+					"type": "emoji",
+					"attrs": {
+						"shortName": ":thumbsup:",
+						"id": "1f44d",
+						"text": "👍"
+					}
+				},
+				{
+					"type": "text",
+					"text": " "
+				},
+				{
+					"type": "emoji",
+					"attrs": {
+						"shortName": ":thinking:",
+						"id": "1f914",
+						"text": "🤔"
+					}
+				},
+				{
+					"type": "text",
+					"text": " "
+				},
+				{
+					"type": "emoji",
+					"attrs": {
+						"shortName": ":raised_hand:",
+						"id": "270b",
+						"text": "✋"
+					}
+				},
+				{
+					"type": "text",
+					"text": " "
+				},
+				{
+					"type": "emoji",
+					"attrs": {
+						"shortName": ":face_with_hand_over_mouth:",
+						"id": "1f92d",
+						"text": "🤭"
+					}
+				}
+			]
+		},
+		{
+			"type": "paragraph",
+			"content": [
+				{
+					"type": "emoji",
+					"attrs": {
+						"shortName": ":yawning_face:",
+						"id": "1f971",
+						"text": "🥱"
+					}
+				},
+				{
+					"type": "text",
+					"text": " "
+				},
+				{
+					"type": "emoji",
+					"attrs": {
+						"shortName": ":shushing_face:",
+						"id": "1f92b",
+						"text": "🤫"
+					}
+				},
+				{
+					"type": "text",
+					"text": " "
+				},
+				{
+					"type": "emoji",
+					"attrs": {
+						"shortName": ":astonished:",
+						"id": "1f632",
+						"text": "😲"
+					}
+				},
+				{
+					"type": "text",
+					"text": " "
+				},
+				{
+					"type": "emoji",
+					"attrs": {
+						"shortName": ":clap:",
+						"id": "1f44f",
+						"text": "👏"
+					}
+				}
+			]
+		},
+		{
+			"type": "paragraph",
+			"content": [
+				{
+					"type": "emoji",
+					"attrs": {
+						"shortName": ":fire:",
+						"id": "1f525",
+						"text": "🔥"
+					}
+				},
+				{
+					"type": "text",
+					"text": " "
+				},
+				{
+					"type": "emoji",
+					"attrs": {
+						"shortName": ":tada:",
+						"id": "1f389",
+						"text": "🎉"
+					}
+				},
+				{
+					"type": "text",
+					"text": " "
+				},
+				{
+					"type": "emoji",
+					"attrs": {
+						"shortName": ":heart:",
+						"id": "2764",
+						"text": "❤️"
+					}
+				}
+			]
+		}
+	]
+}

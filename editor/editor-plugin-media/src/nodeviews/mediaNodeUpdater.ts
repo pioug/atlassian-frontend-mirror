@@ -69,7 +69,7 @@ export class MediaNodeUpdater {
 		this.mediaPluginState = mediaStateKey.getState(props.view.state);
 	}
 
-	setProps(newComponentProps: Partial<MediaNodeUpdaterProps>) {
+	setProps(newComponentProps: Partial<MediaNodeUpdaterProps>): void {
 		this.props = { ...this.props, ...newComponentProps };
 	}
 
@@ -80,7 +80,7 @@ export class MediaNodeUpdater {
 	}
 
 	// Updates the node with contextId if it doesn't have one already
-	updateContextId = async () => {
+	updateContextId = async (): Promise<void> => {
 		const attrs = this.getAttrs() as MediaAttributes;
 		if (!attrs || (attrs && !isMediaTypeSupported(attrs.type))) {
 			return;
@@ -97,7 +97,7 @@ export class MediaNodeUpdater {
 		});
 	};
 
-	updateNodeContextId = async (getPos: ProsemirrorGetPosHandler) => {
+	updateNodeContextId = async (getPos: ProsemirrorGetPosHandler): Promise<void> => {
 		const attrs = this.getAttrs() as MediaAttributes;
 		if (!attrs || (attrs && !isMediaTypeSupported(attrs.type))) {
 			return;
@@ -171,7 +171,7 @@ export class MediaNodeUpdater {
 		return newAttrs;
 	};
 
-	updateMediaSingleFileAttrs = async () => {
+	updateMediaSingleFileAttrs = async (): Promise<void> => {
 		const newAttrs = await this.getNewFileAttrsForNode();
 		const { id } = this.getAttrs() as MediaAttributes;
 
@@ -183,7 +183,7 @@ export class MediaNodeUpdater {
 		}
 	};
 
-	updateNodeAttrs = async (getPos: ProsemirrorGetPosHandler) => {
+	updateNodeAttrs = async (getPos: ProsemirrorGetPosHandler): Promise<void> => {
 		const newAttrs = await this.getNewFileAttrsForNode();
 
 		if (newAttrs) {
@@ -209,7 +209,7 @@ export class MediaNodeUpdater {
 		return contextIdentifierProvider?.objectId || null;
 	};
 
-	uploadExternalMedia = async (getPos: ProsemirrorGetPosHandler) => {
+	uploadExternalMedia = async (getPos: ProsemirrorGetPosHandler): Promise<void> => {
 		const { node, mediaOptions } = this.props;
 		if (mediaOptions?.isExternalMediaUploadDisabled) {
 			return;
@@ -264,7 +264,7 @@ export class MediaNodeUpdater {
 		return attrs.__contextId || null;
 	};
 
-	updateDimensions = (dimensions: RemoteDimensions) => {
+	updateDimensions = (dimensions: RemoteDimensions): void => {
 		batchMediaNodeAttrsUpdate(this.props.view, {
 			id: dimensions.id,
 			nextAttributes: {
@@ -377,7 +377,7 @@ export class MediaNodeUpdater {
 		return false;
 	};
 
-	async handleExternalMedia(getPos: ProsemirrorGetPosHandler) {
+	async handleExternalMedia(getPos: ProsemirrorGetPosHandler): Promise<void> {
 		if (this.isMediaBlobUrl()) {
 			try {
 				await this.copyNodeFromBlobUrl(getPos);
@@ -418,7 +418,7 @@ export class MediaNodeUpdater {
 		}
 	};
 
-	copyNodeFromBlobUrl = async (getPos: ProsemirrorGetPosHandler) => {
+	copyNodeFromBlobUrl = async (getPos: ProsemirrorGetPosHandler): Promise<void> => {
 		const attrs = this.getAttrs();
 
 		if (!attrs || attrs.type !== 'external') {
@@ -474,7 +474,7 @@ export class MediaNodeUpdater {
 	};
 
 	// Copies the pasted node into the current collection using a getPos handler
-	copyNodeFromPos = async (getPos: ProsemirrorGetPosHandler, traceContext?: MediaTraceContext) => {
+	copyNodeFromPos = async (getPos: ProsemirrorGetPosHandler, traceContext?: MediaTraceContext): Promise<void> => {
 		const attrs = this.getAttrs() as MediaAttributes;
 		if (!attrs || (attrs && !isMediaTypeSupported(attrs.type))) {
 			return;
@@ -492,7 +492,7 @@ export class MediaNodeUpdater {
 	};
 
 	// Copies the pasted node into the current collection
-	copyNode = async (traceContext?: MediaTraceContext) => {
+	copyNode = async (traceContext?: MediaTraceContext): Promise<void> => {
 		const attrs = this.getAttrs() as MediaAttributes;
 		const { view } = this.props;
 		if (!attrs || (attrs && !isMediaTypeSupported(attrs.type))) {

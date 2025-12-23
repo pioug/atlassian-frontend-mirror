@@ -1,8 +1,11 @@
 {
-	"extends": "../tsconfig",
+	"extends": "../../../../tsconfig.entry-points.jira.json",
 	"compilerOptions": {
 		"target": "es5",
-		"paths": {}
+		"outDir": "../../../../../jira/tsDist/@atlaskit__townsquare-emoji-provider/app",
+		"rootDir": "../",
+		"composite": true,
+		"noCheck": true
 	},
 	"include": [
 		"../src/**/*.ts",
@@ -18,5 +21,10 @@
 		"../src/**/*.stories.*",
 		"../src/**/stories/*",
 		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../../elements/emoji/afm-jira/tsconfig.json"
+		}
 	]
 }

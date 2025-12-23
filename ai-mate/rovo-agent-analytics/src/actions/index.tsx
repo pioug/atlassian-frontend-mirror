@@ -64,7 +64,7 @@ export const useRovoAgentActionAnalytics = <T extends Partial<CommonAnalyticsAtt
 		(
 			action: AgentActions,
 			attributes: RemainingRequired<CommonAnalyticsAttributes, T> & Record<string, any>,
-		) => {
+		): void => {
 			fireAnalyticsEvent({
 				actionSubject: 'rovoAgent',
 				action,
@@ -79,7 +79,7 @@ export const useRovoAgentActionAnalytics = <T extends Partial<CommonAnalyticsAtt
 			action: AgentActions,
 			error: Error,
 			attributes?: RemainingRequired<CommonAnalyticsAttributes, T> & Record<string, any>,
-		) => {
+		): void => {
 			fireAnalyticsEvent({
 				actionSubject: 'rovoAgentError',
 				action,

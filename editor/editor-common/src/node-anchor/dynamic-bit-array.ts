@@ -16,7 +16,7 @@ export class DynamicBitArray {
 		this.bitArrays = [];
 	}
 
-	public set(index: number, value: boolean) {
+	public set(index: number, value: boolean): void {
 		const bitArray = this.getChunk(index);
 		const byteOffset = index % this.chunkTotalBitSize;
 		const byteIndex = Math.floor(byteOffset / 8); // Get the byte index

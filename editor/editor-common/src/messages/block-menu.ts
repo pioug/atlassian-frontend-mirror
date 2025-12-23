@@ -82,4 +82,9 @@ export const messages = defineMessages({
 		defaultMessage: 'Decision',
 		description: 'Label for the decision option in the block menu transformation menu',
 	},
+	wrapIcon: {
+		id: 'fabric.editor.block.menu.wrap.icon',
+		defaultMessage: 'Wrap',
+		description: 'Aria label for the wrap icon in code block toolbar',
+	},
 });

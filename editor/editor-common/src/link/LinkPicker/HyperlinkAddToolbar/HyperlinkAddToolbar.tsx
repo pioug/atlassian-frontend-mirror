@@ -261,7 +261,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		this.fireCustomAnalytics = fireAnalyticsEvent(props.createAnalyticsEvent);
 	}
 
-	async componentDidMount() {
+	async componentDidMount(): Promise<void> {
 		const { timesViewed, inputMethod, searchSessionId } = this.props;
 
 		// Ignored via go/ees005
@@ -290,7 +290,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		await this.loadInitialLinkSearchResult();
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		const { searchSessionId } = this.props;
 
 		// Ignored via go/ees005

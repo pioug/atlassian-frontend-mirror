@@ -78,7 +78,7 @@ const createAndGetResourceObserver = (): PerformanceObserver => {
 	});
 };
 
-export const setAnalyticsContext = (newAnalyticsContext: CreateUIAnalyticsEvent) => {
+export const setAnalyticsContext = (newAnalyticsContext: CreateUIAnalyticsEvent): void => {
 	if (!window[MEDIA_CARD_PERF_STATE_KEY]) {
 		window[MEDIA_CARD_PERF_STATE_KEY] = {};
 	}
@@ -87,7 +87,7 @@ export const setAnalyticsContext = (newAnalyticsContext: CreateUIAnalyticsEvent)
 
 const isDefinedPerformanceObserver = () => typeof window['PerformanceObserver'] !== 'undefined';
 
-export const startResourceObserver = () => {
+export const startResourceObserver = (): void => {
 	if (!isDefinedPerformanceObserver()) {
 		return;
 	}

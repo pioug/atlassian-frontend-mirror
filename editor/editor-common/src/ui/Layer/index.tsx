@@ -61,7 +61,7 @@ export default class Layer extends Component<Props, State> {
 		zIndex: 400,
 		lockScroll: false,
 		isAlwaysFixed: false,
-		onPositioned: () => {},
+		onPositioned: (): void => {},
 	};
 
 	constructor(props: Props) {
@@ -71,11 +71,11 @@ export default class Layer extends Component<Props, State> {
 		this.extractStyles = rafSchedule(this.extractStyles.bind(this));
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.applyPopper(this.props);
 	}
 
-	componentDidUpdate(prevProps: Props, prevState: State) {
+	componentDidUpdate(prevProps: Props, prevState: State): void {
 		const { onPositioned } = this.props;
 		const { hasExtractedStyles } = this.state;
 		if (this.props !== prevProps) {
@@ -88,7 +88,7 @@ export default class Layer extends Component<Props, State> {
 		}
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		// this.extractStyles.cancel();
 		if (this.popper) {
 			this.popper.destroy();
@@ -120,7 +120,7 @@ export default class Layer extends Component<Props, State> {
 			: null;
 	}
 
-	extractStyles = (state: Data) => {
+	extractStyles = (state: Data): void => {
 		if (state) {
 			const popperHeight = state.offsets.popper.height;
 			const left = Math.round(state.offsets.popper.left);
@@ -140,7 +140,7 @@ export default class Layer extends Component<Props, State> {
 		}
 	};
 
-	applyPopper(props: Props) {
+	applyPopper(props: Props): void {
 		if (!this.targetRef.current || !this.contentRef.current) {
 			return;
 		}

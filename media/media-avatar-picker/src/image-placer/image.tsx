@@ -35,13 +35,13 @@ export class ImagePlacerImage extends React.Component<ImagePlacerImageProps, {}>
 		}
 	}
 
-	onLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+	onLoad = (e: React.SyntheticEvent<HTMLImageElement>): void => {
 		const image = e.currentTarget;
 		const { naturalWidth: width, naturalHeight: height } = image;
 		this.props.onLoad(image, width, height);
 	};
 
-	onError = () => {
+	onError = (): void => {
 		this.props.onError(IMAGE_ERRORS.LOAD_FAIL);
 	};
 

@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { Card } from '../src';
@@ -37,7 +38,7 @@ const vrFileIdentifier: FileIdentifier = {
 	collectionName: defaultCollectionName,
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<MainWrapper developmentOnly>
 		<div>
 			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}

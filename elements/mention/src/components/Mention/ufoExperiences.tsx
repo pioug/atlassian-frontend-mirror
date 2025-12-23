@@ -9,7 +9,7 @@ export const mentionRenderedUfoExperience = new ConcurrentExperience('mention-re
 });
 
 export class UfoErrorBoundary extends React.Component<React.PropsWithChildren<{ id: string }>> {
-	componentDidCatch() {
+	componentDidCatch(): void {
 		mentionRenderedUfoExperience.getInstance(this.props.id).failure();
 	}
 

@@ -20,7 +20,7 @@ export const usePopupManager = (config: PopupManagerConfig = {}) => {
 	const [isOpenedByKeyboard, setIsOpenedByKeyboard] = useState(false);
 
 	const toggle = useCallback(
-		(inputMethod?: TOOLBAR_MENU_TYPE | INPUT_METHOD) => {
+		(inputMethod?: TOOLBAR_MENU_TYPE | INPUT_METHOD): void => {
 			const newState = !isOpen;
 			setIsOpen(newState);
 
@@ -35,19 +35,19 @@ export const usePopupManager = (config: PopupManagerConfig = {}) => {
 		[isOpen, config],
 	);
 
-	const close = useCallback(() => {
+	const close = useCallback((): void => {
 		setIsOpen(false);
 		config.onClose?.();
 		config.analytics?.onToggle?.(false);
 	}, [config]);
 
-	const handleEscapeKeydown = useCallback(() => {
+	const handleEscapeKeydown = useCallback((): void => {
 		close();
 		config.focusTarget?.current?.focus();
 	}, [close, config.focusTarget]);
 
 	const handleClickOutside = useCallback(
-		(e: MouseEvent) => {
+		(e: MouseEvent): void => {
 			if (e.target instanceof HTMLElement && !isDetachedElement(e.target)) {
 				close();
 			}
@@ -55,7 +55,7 @@ export const usePopupManager = (config: PopupManagerConfig = {}) => {
 		[close],
 	);
 
-	const handleKeyboardOpen = useCallback((event: React.KeyboardEvent) => {
+	const handleKeyboardOpen = useCallback((event: React.KeyboardEvent): void => {
 		if (event.key === 'Enter' || event.key === ' ') {
 			setIsOpenedByKeyboard(true);
 			event.preventDefault();

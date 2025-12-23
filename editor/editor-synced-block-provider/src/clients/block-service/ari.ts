@@ -22,7 +22,7 @@ export const generateBlockAri = (
 };
 
 /**
- *
+ * Generates the block ARI from the reference synced block ARI and the resource ID
  * @param sourceAri - the ARI of the document. E.G ari:cloud:confluence:cloudId:page/pageId
  * @param resourceId - the resource ID of the reference synced block. E.G confluence-page/pageId/sourceResourceId
  * @returns the block ARI. E.G ari:cloud:blocks:<cloudId>:synced-block/<product>/<pageId>/<resourceId>

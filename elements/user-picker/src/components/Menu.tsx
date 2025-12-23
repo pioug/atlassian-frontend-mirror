@@ -20,7 +20,7 @@ const getFooterStyle = () => {
 };
 
 export class Menu extends React.Component<Props> {
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<components.Menu {...(this.props as any)}>
 				{this.props.selectProps.header}

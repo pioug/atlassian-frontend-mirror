@@ -25,13 +25,15 @@ import { SyncBlockRefresher } from './ui/SyncBlockRefresher';
 import { getToolbarComponents } from './ui/toolbar-components';
 
 export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
-	const syncBlockStore = new SyncBlockStoreManager(
-		config?.syncBlockDataProvider,
-		api?.analytics?.actions?.fireAnalyticsEvent,
-	);
+	const syncBlockStore = new SyncBlockStoreManager(config?.syncBlockDataProvider);
+	syncBlockStore.setFireAnalyticsEvent(api?.analytics?.actions?.fireAnalyticsEvent);
 
-	api?.blockMenu?.actions.registerBlockMenuComponents(getBlockMenuComponents(api));
-	api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
+	api?.blockMenu?.actions.registerBlockMenuComponents(
+		getBlockMenuComponents(api, config?.enableSourceCreation ?? false),
+	);
+	api?.toolbar?.actions.registerComponents(
+		getToolbarComponents(api, config?.enableSourceCreation ?? false),
+	);
 
 	return {
 		name: 'syncedBlock',
@@ -64,11 +66,18 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 				copySyncedBlockReferenceToClipboardEditorCommand(syncBlockStore, api),
 			insertSyncedBlock:
 				(): EditorCommand =>
-				({ tr }) =>
-					createSyncedBlock({
-						tr,
-						syncBlockStore,
-					}) || null,
+				({ tr }) => {
+					if (!config?.enableSourceCreation) {
+						return null;
+					}
+
+					return (
+						createSyncedBlock({
+							tr,
+							syncBlockStore,
+						}) || null
+					);
+				},
 		},
 
 		actions: {
@@ -81,38 +90,44 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 		},
 
 		pluginsOptions: {
-			quickInsert: ({ formatMessage }) => [
-				{
-					id: 'syncBlock',
-					title: formatMessage(blockTypeMessages.syncedBlock),
-					description: formatMessage(blockTypeMessages.syncedBlockDescription),
-					priority: 800,
-					keywords: [
-						'synced',
-						'block',
-						'synced-block',
-						'sync',
-						'sync-block',
-						'auto',
-						'update',
-						'excerpt',
-						'connect',
-					],
-					isDisabledOffline: true,
-					keyshortcut: '',
-					lozenge: (
-						<Lozenge appearance="new">{formatMessage(blockTypeMessages.newLozenge)}</Lozenge>
-					),
-					icon: () => <IconSyncBlock label={formatMessage(blockTypeMessages.syncedBlock)} />,
-					action: (insert: QuickInsertActionInsert, state: EditorState) => {
-						return createSyncedBlock({
-							tr: state.tr,
-							syncBlockStore,
-							typeAheadInsert: insert,
-						});
+			quickInsert: ({ formatMessage }) => {
+				if (!config?.enableSourceCreation) {
+					return [];
+				}
+
+				return [
+					{
+						id: 'syncBlock',
+						title: formatMessage(blockTypeMessages.syncedBlock),
+						description: formatMessage(blockTypeMessages.syncedBlockDescription),
+						priority: 800,
+						keywords: [
+							'synced',
+							'block',
+							'synced-block',
+							'sync',
+							'sync-block',
+							'auto',
+							'update',
+							'excerpt',
+							'connect',
+						],
+						isDisabledOffline: true,
+						keyshortcut: '',
+						lozenge: (
+							<Lozenge appearance="new">{formatMessage(blockTypeMessages.newLozenge)}</Lozenge>
+						),
+						icon: () => <IconSyncBlock label={formatMessage(blockTypeMessages.syncedBlock)} />,
+						action: (insert: QuickInsertActionInsert, state: EditorState) => {
+							return createSyncedBlock({
+								tr: state.tr,
+								syncBlockStore,
+								typeAheadInsert: insert,
+							});
+						},
 					},
-				},
-			],
+				];
+			},
 			floatingToolbar: (state, intl) => getToolbarConfig(state, intl, api, syncBlockStore),
 		},
 

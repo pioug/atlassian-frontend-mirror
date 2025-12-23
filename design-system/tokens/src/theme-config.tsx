@@ -55,7 +55,7 @@ export type DataColorModes = Exclude<ThemeColorModes, 'auto'>;
  * Contrast preferences: The system contrast preference
  */
 const themeContrastModes = ['more', 'no-preference', 'auto'] as const;
-type ThemeContrastModes = (typeof themeContrastModes)[number];
+export type ThemeContrastModes = (typeof themeContrastModes)[number];
 export type DataContrastModes = 'more' | 'no-preference' | 'auto';
 
 /**

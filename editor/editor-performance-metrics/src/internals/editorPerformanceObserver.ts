@@ -180,7 +180,7 @@ export class EditorPerformanceObserver implements ObserverInterface {
 		});
 	}
 
-	onFirstInteraction({ event, time }: { event: string; time: DOMHighResTimeStamp }) {
+	onFirstInteraction({ event, time }: { event: string; time: DOMHighResTimeStamp }): void {
 		this.timeline.markEvent({
 			type: 'abort:user-interaction',
 			startTime: time,
@@ -192,7 +192,7 @@ export class EditorPerformanceObserver implements ObserverInterface {
 		this.domObservers.disconnect();
 	}
 
-	start({ startTime }: StartProps) {
+	start({ startTime }: StartProps): void {
 		if (this.isStarted) {
 			return;
 		}
@@ -214,7 +214,7 @@ export class EditorPerformanceObserver implements ObserverInterface {
 		return this.timeline.onNextIdle(cb);
 	}
 
-	stop() {
+	stop(): void {
 		if (!this.isStarted) {
 			return;
 		}

@@ -42,7 +42,7 @@ export function MenuButton({
 	size?: 'small' | 'medium';
 	isOnlyVisibleWhenFocused?: boolean;
 	children?: ChildrenRenderFn;
-}) {
+}): React.JSX.Element {
 	const moveUp = useCallback(() => {
 		reorderItem({ id, action: 'up' });
 	}, [id, reorderItem]);

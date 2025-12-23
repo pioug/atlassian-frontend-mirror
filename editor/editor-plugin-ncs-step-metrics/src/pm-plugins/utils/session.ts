@@ -48,7 +48,7 @@ export const getNcsSessionStepMetrics = (sessionId: string): NcsSessionStepMetri
  * Clears the NCS session step metrics and the active session from storage.
  * @param sessionId - The session ID for which to clear the metrics.
  */
-export const clearNcsSessionStepMetrics = (sessionId: string) => {
+export const clearNcsSessionStepMetrics = (sessionId: string): void => {
 	if (!sessionId) {
 		return;
 	}
@@ -77,7 +77,7 @@ export const clearNcsSessionStepMetrics = (sessionId: string) => {
  * Clears the active NCS session from storage.
  * @param sessionId - The session ID for which to clear the active session.
  */
-export const clearNcsActiveSession = (sessionId?: string) => {
+export const clearNcsActiveSession = (sessionId?: string): void => {
 	if (!sessionId) {
 		return;
 	}
@@ -101,7 +101,7 @@ export const clearNcsActiveSession = (sessionId?: string) => {
  * If it finds any, and the session is not active, it sends the analytics event
  * @param api - The public plugin API to access the analytics plugin.
  */
-export const checkForUnfinishedNcsSessions = (api: PublicPluginAPI<[AnalyticsPlugin]>) => {
+export const checkForUnfinishedNcsSessions = (api: PublicPluginAPI<[AnalyticsPlugin]>): void => {
 	const ncsSessionStepMetrics = JSON.parse(
 		storageClient.getItem(NCS_STORAGE.NCS_SESSION_STEP_METRICS) || '{}',
 	);

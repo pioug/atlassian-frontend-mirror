@@ -19,7 +19,7 @@ export interface ImagePlacerContainerProps {
 export class ImagePlacerContainer extends React.Component<ImagePlacerContainerProps, {}> {
 	private dragClientStart?: Vector2;
 
-	componentDidMount() {
+	componentDidMount(): void {
 		if (this.isTouch) {
 			document.addEventListener('touchmove', this.onTouchMove);
 			document.addEventListener('touchend', this.onMouseUp);
@@ -30,7 +30,7 @@ export class ImagePlacerContainer extends React.Component<ImagePlacerContainerPr
 		}
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		if (this.isTouch) {
 			document.removeEventListener('touchmove', this.onTouchMove);
 			document.removeEventListener('touchend', this.onMouseUp);
@@ -49,7 +49,7 @@ export class ImagePlacerContainer extends React.Component<ImagePlacerContainerPr
 		return window.hasOwnProperty('ontouchstart');
 	}
 
-	onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+	onMouseDown = (e: React.MouseEvent<HTMLDivElement>): void => {
 		if (e.button === 2) {
 			return;
 		}
@@ -57,7 +57,7 @@ export class ImagePlacerContainer extends React.Component<ImagePlacerContainerPr
 		this.props.onDragStart();
 	};
 
-	onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+	onTouchStart = (e: React.TouchEvent<HTMLDivElement>): void => {
 		if (e.touches && e.touches.length >= 1) {
 			const touch = e.touches[0];
 			this.dragClientStart = new Vector2(touch.clientX, touch.clientY);
@@ -65,7 +65,7 @@ export class ImagePlacerContainer extends React.Component<ImagePlacerContainerPr
 		}
 	};
 
-	onMouseMove = (e: MouseEvent) => {
+	onMouseMove = (e: MouseEvent): void => {
 		const { dragClientStart } = this;
 		if (dragClientStart) {
 			const delta = new Vector2(e.clientX - dragClientStart.x, e.clientY - dragClientStart.y);
@@ -73,7 +73,7 @@ export class ImagePlacerContainer extends React.Component<ImagePlacerContainerPr
 		}
 	};
 
-	onTouchMove = (e: TouchEvent) => {
+	onTouchMove = (e: TouchEvent): void => {
 		const { dragClientStart } = this;
 		if (e.touches && e.touches.length >= 1) {
 			const touch = e.touches[0];
@@ -87,11 +87,11 @@ export class ImagePlacerContainer extends React.Component<ImagePlacerContainerPr
 		}
 	};
 
-	onMouseUp = () => {
+	onMouseUp = (): void => {
 		delete this.dragClientStart;
 	};
 
-	onWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+	onWheel = (e: React.WheelEvent<HTMLDivElement>): void => {
 		this.props.onWheel(e.deltaY);
 	};
 

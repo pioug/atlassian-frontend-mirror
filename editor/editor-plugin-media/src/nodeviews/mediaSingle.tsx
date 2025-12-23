@@ -186,7 +186,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		);
 	}
 
-	updateDomRefContentEditable(domRef: HTMLElement, editorViewMode?: 'edit' | 'view') {
+	updateDomRefContentEditable(domRef: HTMLElement, editorViewMode?: 'edit' | 'view'): void {
 		// if the editor is in view mode, we should not allow editing
 		if (editorViewMode === 'view') {
 			domRef.contentEditable = 'false';
@@ -341,7 +341,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		return true;
 	}
 
-	destroy() {
+	destroy(): void {
 		this.unsubscribeToViewModeChange?.();
 	}
 }

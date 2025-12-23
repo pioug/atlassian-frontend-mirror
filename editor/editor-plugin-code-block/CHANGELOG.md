@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block
 
+## 8.1.27
+
+### Patch Changes
+
+- [`3693402165994`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3693402165994) -
+  ENGHEALTH-47506: fix a11y lint warning
+- Updated dependencies
+
 ## 8.1.26
 
 ### Patch Changes

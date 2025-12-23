@@ -148,7 +148,7 @@ export function useBreakoutGuidelines(
 	}, [defaultSnappingWidths, currentLayout]);
 
 	const setCurrentWidth = useCallback(
-		(newWidth: number | null) => {
+		(newWidth: number | null): void => {
 			if (typeof newWidth !== 'number') {
 				setCurrentLayout(null);
 				return;

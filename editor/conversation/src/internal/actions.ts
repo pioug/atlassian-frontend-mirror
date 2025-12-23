@@ -38,7 +38,7 @@ export const addComment =
 		provider: ResourceProvider,
 		onSuccess?: SuccessHandler,
 	) =>
-	async () => {
+	async (): Promise<void> => {
 		const { commentId } = await provider.addComment(conversationId, parentId, value, localId);
 
 		if (typeof onSuccess === 'function') {
@@ -56,7 +56,7 @@ export const updateComment =
 		provider: ResourceProvider,
 		onSuccess?: SuccessHandler,
 	) =>
-	async () => {
+	async (): Promise<void> => {
 		await provider.updateComment(conversationId, commentId, value);
 
 		if (typeof onSuccess === 'function') {
@@ -71,7 +71,7 @@ export const deleteComment =
 		provider: ResourceProvider,
 		onSuccess?: SuccessHandler,
 	) =>
-	async () => {
+	async (): Promise<void> => {
 		await provider.deleteComment(conversationId, commentId);
 
 		if (typeof onSuccess === 'function') {
@@ -82,13 +82,13 @@ export const deleteComment =
 export const revertComment =
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-await
-	(conversationId: string, commentId: string, provider: ResourceProvider) => async () => {
-		provider.revertComment(conversationId, commentId);
+	(conversationId: string, commentId: string, provider: ResourceProvider) => async (): Promise<void> => {
+		await provider.revertComment(conversationId, commentId);
 	};
 
 // Ignored via go/ees005
 // eslint-disable-next-line require-await
-export const updateUser = (user: User, provider: ResourceProvider) => async () => {
+export const updateUser = (user: User, provider: ResourceProvider) => async (): Promise<void> => {
 	provider.updateUser(user);
 };
 
@@ -106,7 +106,7 @@ export const createConversation =
 		containerId?: string,
 		onSuccess?: SuccessHandler,
 	) =>
-	async () => {
+	async (): Promise<void> => {
 		const { conversationId } = await provider.create(localId, value, meta, objectId, containerId);
 
 		if (typeof onSuccess === 'function') {
@@ -131,6 +131,6 @@ export const saveDraft =
 	) =>
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-await
-	async () => {
+	async (): Promise<void> => {
 		provider.saveDraft(isLocal, value, conversationId, commentId, meta, objectId, containerId);
 	};

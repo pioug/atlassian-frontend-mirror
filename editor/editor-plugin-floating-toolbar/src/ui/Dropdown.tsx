@@ -304,7 +304,7 @@ export default class Dropdown extends Component<Props, State> {
 		}
 	};
 
-	componentDidUpdate(prevProps: Props, prevState: State) {
+	componentDidUpdate(prevProps: Props, prevState: State): void {
 		if (prevState.isOpen !== this.state.isOpen) {
 			if (this.props.setDisableParentScroll) {
 				this.props.setDisableParentScroll(this.state.isOpen);

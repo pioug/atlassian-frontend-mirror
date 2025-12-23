@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 6.6.7
+
+### Patch Changes
+
+- [`356fd6e2db655`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/356fd6e2db655) -
+  [ux] [EDITOR-2469] fixed placeholder getting hidden when user tabs
+- Updated dependencies
+
 ## 6.6.6
 
 ### Patch Changes

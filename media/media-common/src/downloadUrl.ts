@@ -2,7 +2,7 @@ export interface DownloadUrlOptions {
 	name?: string;
 }
 
-export const downloadUrl = (url: string, options?: DownloadUrlOptions) => {
+export const downloadUrl = (url: string, options?: DownloadUrlOptions): void => {
 	const isIE11 = !!(window as any).MSInputMethodContext && !!(document as any).documentMode;
 	const isSafari = /^((?!chrome|android).)*safari/i.test((navigator as Navigator).userAgent);
 

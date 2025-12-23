@@ -382,7 +382,7 @@ export function createPasteAnalyticsPayload(
 // so pasteCommandWithAnalytics is useless in this case.
 export const sendPasteAnalyticsEvent =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	(view: EditorView, event: ClipboardEvent, slice: Slice, pasteContext: PasteContext) => {
+	(view: EditorView, event: ClipboardEvent, slice: Slice, pasteContext: PasteContext): void => {
 		const tr = view.state.tr;
 		const payload = createPasteAnalyticsPayload(view, event, slice, pasteContext);
 

@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { Component } from 'react';
@@ -82,7 +83,7 @@ const resizeModeOptions = [
 	{ value: 'full-fit', label: 'full-fit' },
 ];
 
-export const generateStoriesForEditableCards = () => {
+export const generateStoriesForEditableCards = (): React.JSX.Element => {
 	const localStorageKeyName = 'editableCardState';
 	const metadataOptionsMap: any = {
 		fileImage: imageFileDetails,
@@ -566,4 +567,4 @@ export const generateStoriesForEditableCards = () => {
 	return <EditableCard />;
 };
 
-export default () => generateStoriesForEditableCards();
+export default (): React.JSX.Element => generateStoriesForEditableCards();

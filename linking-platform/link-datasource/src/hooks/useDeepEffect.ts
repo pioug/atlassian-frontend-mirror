@@ -2,7 +2,7 @@ import { type DependencyList, type EffectCallback, useEffect, useRef } from 'rea
 
 import isEqual from 'lodash/isEqual';
 
-export const useDeepEffect = (callback: EffectCallback, dependencies?: DependencyList) => {
+export const useDeepEffect = (callback: EffectCallback, dependencies?: DependencyList): void => {
 	const prevDependencies = useRef<DependencyList>();
 
 	useEffect(() => {

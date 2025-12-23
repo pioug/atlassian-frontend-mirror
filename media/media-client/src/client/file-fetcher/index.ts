@@ -583,7 +583,7 @@ export class FileFetcherImpl implements FileFetcher {
 		name: string = 'download',
 		collectionName?: string,
 		traceContext?: MediaTraceContext,
-	) {
+	): Promise<void> {
 		const url = await this.mediaApi.getFileBinaryURL(id, collectionName);
 		downloadUrl(url, { name });
 
@@ -596,7 +596,7 @@ export class FileFetcherImpl implements FileFetcher {
 		await this.mediaApi.testUrl(url, { traceContext });
 	}
 
-	public async registerCopyIntent(id: string, collectionName?: string) {
+	public async registerCopyIntent(id: string, collectionName?: string): Promise<void> {
 		// pre-resolving auth to add it to the key
 		const auth = await this.mediaApi.resolveAuth({ collectionName });
 		const key = {

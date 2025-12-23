@@ -37,7 +37,7 @@ export const forceFocusSelector = (selector: string | null) => (tr: Transaction)
 /**
  * If a selector is set and the element exists, focus it.
  */
-export function checkShouldForceFocusAndApply(view?: EditorView) {
+export function checkShouldForceFocusAndApply(view?: EditorView): void {
 	const state = view?.state;
 	if (state) {
 		const { selector } = forceFocusStateKey.getState(state);

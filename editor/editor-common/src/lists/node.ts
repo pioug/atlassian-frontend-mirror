@@ -176,7 +176,7 @@ const findNestedTaskListsIndexAtSameLevel = (tr: Transaction, $from: ResolvedPos
 	return nestedTaskListsIndexes;
 };
 
-export const processNestedTaskListsInSameLevel = (tr: Transaction) => {
+export const processNestedTaskListsInSameLevel = (tr: Transaction): void => {
 	const { $from } = tr.selection;
 
 	const nestedTaskListIndexes = findNestedTaskListsIndexAtSameLevel(tr, $from);

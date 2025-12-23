@@ -26,11 +26,12 @@ export {
 } from './clients/block-service/ari';
 export {
 	getConfluencePageAri,
-	getLocalIdFromConfluencePageAri,
-	getPageARIFromContentPropertyResourceId,
+	getLocalIdFromContentPropertyResourceId,
+	getPageAriFromContentPropertyResourceId,
 	getPageIdAndTypeFromConfluencePageAri,
 	resourceIdFromConfluencePageSourceIdAndLocalId,
 } from './clients/confluence/ari';
+export { getJiraWorkItemAri, getJiraWorkItemIdFromAri } from './clients/jira/ari';
 
 // providers
 export { useMemoizedBlockServiceAPIProviders } from './providers/block-service/blockServiceAPI';
@@ -52,6 +53,7 @@ export type {
 	MediaEmojiProviderOptions,
 	SyncedBlockRendererProviderOptions,
 	SyncBlockRendererProviderCreator,
+	SyncedBlockRendererDataProviders,
 } from './providers/types';
 
 // store managers

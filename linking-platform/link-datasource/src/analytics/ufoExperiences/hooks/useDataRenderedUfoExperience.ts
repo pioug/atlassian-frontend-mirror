@@ -30,7 +30,7 @@ export const useDataRenderedUfoExperience = ({
 	itemCount,
 	canBeLink,
 	extensionKey,
-}: DataRenderedUfoExperienceProps) => {
+}: DataRenderedUfoExperienceProps): void => {
 	useEffect(() => {
 		const isEmptyResult = status === 'resolved' && itemCount === 0;
 		const isLink = status === 'resolved' && (itemCount === 1 || canBeLink); // this will take care of count-mode/single-item smart-link rendering

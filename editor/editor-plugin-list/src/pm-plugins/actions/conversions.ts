@@ -17,7 +17,7 @@ export function convertListType({
 }: {
 	nextListNodeType: NodeType;
 	tr: Transaction;
-}) {
+}): void {
 	const {
 		doc,
 		selection: { $from, $to },

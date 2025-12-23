@@ -1,0 +1,1 @@
+# @atlaskit/townsquare-emoji-provider

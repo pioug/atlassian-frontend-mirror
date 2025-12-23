@@ -19,7 +19,7 @@ export const asMockFunctionResolvedValue = <T extends (...args: any[]) => any>(
 	resolveValue: jest.ResolvedValue<ReturnType<T>>,
 ) => asMockFunction(fn).mockResolvedValue(resolveValue);
 
-export const expectToEqual = <T>(actual: T, expected: T) => expect(actual).toEqual(expected);
+export const expectToEqual = <T>(actual: T, expected: T): void => expect(actual).toEqual(expected);
 
 export type ExpectFunctionToHaveBeenCalledWith = <T extends (...args: any[]) => any>(
 	func: T,

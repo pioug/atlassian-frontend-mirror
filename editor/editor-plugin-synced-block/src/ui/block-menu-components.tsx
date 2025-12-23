@@ -14,6 +14,7 @@ import { CreateOrCopySyncedBlockDropdownItem } from './CreateSyncedBlockDropdown
 
 export const getBlockMenuComponents = (
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
+	enableSourceSyncedBlockCreation: boolean,
 ): RegisterBlockMenuComponent[] => {
 	return [
 		{
@@ -24,7 +25,12 @@ export const getBlockMenuComponents = (
 				key: BLOCK_ACTIONS_MENU_SECTION.key,
 				rank: BLOCK_ACTIONS_MENU_SECTION_RANK[BLOCK_ACTIONS_CREATE_SYNCED_BLOCK_MENU_ITEM.key],
 			},
-			component: () => <CreateOrCopySyncedBlockDropdownItem api={api} />,
+			component: () => (
+				<CreateOrCopySyncedBlockDropdownItem
+					api={api}
+					enableSourceSyncedBlockCreation={enableSourceSyncedBlockCreation}
+				/>
+			),
 		},
 	];
 };

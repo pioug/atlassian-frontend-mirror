@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-status",
-	"version": "7.1.16",
+	"version": "7.1.17",
 	"description": "Status plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -104,9 +104,6 @@
 			"type": "boolean"
 		},
 		"platform-lozenge-custom-letterspacing": {
-			"type": "boolean"
-		},
-		"platform_editor_a11y_status_picker": {
 			"type": "boolean"
 		}
 	}

@@ -36,7 +36,7 @@ function addInlineCardToContent(content: any[], url: string) {
 /**
  * Helper function to add mock inline cards to table rows
  */
-export function addLinksToTable(tableAdf: any) {
+export function addLinksToTable(tableAdf: any): void {
 	for (const content of tableAdf.content) {
 		if (content.type === 'tableRow' && content.content.length > 0) {
 			const firstCell = content.content[0];
@@ -53,7 +53,7 @@ export function addLinksToTable(tableAdf: any) {
 /**
  * Helper function to add mock inline cards to task list items
  */
-export function addLinksToTaskList(taskListAdf: any) {
+export function addLinksToTaskList(taskListAdf: any): void {
 	if (taskListAdf.content) {
 		for (const item of taskListAdf.content) {
 			if (item.type === 'taskItem') {

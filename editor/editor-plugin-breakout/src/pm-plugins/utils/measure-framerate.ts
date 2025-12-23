@@ -53,7 +53,7 @@ export const measureFramerate = (config?: MeasureFramerateConfig) => {
 	let timeoutId: NodeJS.Timeout | undefined;
 	let frameRateSamples: number[] = [];
 
-	const startMeasure = () => {
+	const startMeasure = (): void => {
 		frameCount = 0;
 		lastTime = performance.now();
 	};
@@ -91,7 +91,7 @@ export const measureFramerate = (config?: MeasureFramerateConfig) => {
 	 *   requestAnimationFrame(animate);
 	 * };
 	 */
-	const countFrames = () => {
+	const countFrames = (): void => {
 		if (frameRateSamples.length >= maxSamples && timeoutId) {
 			clearTimeout(timeoutId);
 			return;

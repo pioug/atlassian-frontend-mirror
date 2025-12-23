@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 43.17.6
+
+### Patch Changes
+
+- [`d98bc05f882bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d98bc05f882bd) -
+  Fix a11y embed modal items should be in unordered list. Behind fg
+  platform_navx_sl_a11y_embed_modal
+- Updated dependencies
+
 ## 43.17.5
 
 ### Patch Changes

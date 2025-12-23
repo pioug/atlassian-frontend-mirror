@@ -38,7 +38,7 @@ export const unmountDecorations = (
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	selector: string,
 	key: string,
-) => {
+): void => {
 	// Removing decorations manually instead of using native destroy function in prosemirror API
 	// as it was more responsive and causes less re-rendering
 	const decorationsToRemove = document.querySelectorAll(`[${selector}="true"]`);

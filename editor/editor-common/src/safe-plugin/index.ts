@@ -48,7 +48,7 @@ export const attachGenericProseMirrorMetadata = ({
 	options?: {
 		anchrorId?: string;
 	};
-}) => {
+}): void => {
 	const metadata = createProseMirrorMetadata(nodeOrMark, options);
 
 	Object.entries(metadata).forEach(([name, value]) => {

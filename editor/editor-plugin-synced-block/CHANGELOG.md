@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 4.8.2
+
+### Patch Changes
+
+- [`98568bfc82648`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98568bfc82648) -
+  EDITOR-3594 Synced Block creation to be prop driven
+- Updated dependencies
+
+## 4.8.1
+
+### Patch Changes
+
+- [`36f3146f35457`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36f3146f35457) -
+  Early return on transformCopied when action is not copy
+
 ## 4.8.0
 
 ### Minor Changes

@@ -11,11 +11,11 @@ interface Props {
 interface State {}
 
 export class EmbedResizeMessageListener extends React.Component<Props, State> {
-	componentDidMount() {
+	componentDidMount(): void {
 		window.addEventListener('message', this.messageCallback);
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		window.removeEventListener('message', this.messageCallback);
 	}
 

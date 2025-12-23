@@ -27,7 +27,7 @@ type AnalyticsTestConfig = {
 export const analyticsTests = (
 	setup: (params?: SetUpParams) => ReturnType<typeof hoverCardSetup>,
 	_config: AnalyticsTestConfig,
-) => {
+): void => {
 	describe('analytics', () => {
 		beforeEach(() => {
 			jest.useFakeTimers({ legacyFakeTimers: true });

@@ -106,7 +106,7 @@ export class ReactNodeView<Props> implements NodeView {
 		return this;
 	};
 
-	destroy = () => {
+	destroy = (): void => {
 		this.portalActions.onDestroyPortal(this.portalKey);
 	};
 

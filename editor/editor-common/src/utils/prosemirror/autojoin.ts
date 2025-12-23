@@ -15,7 +15,7 @@ import { canJoin } from '@atlaskit/editor-prosemirror/transform';
 export function autoJoinTr(
 	tr: Transaction,
 	isJoinable: ((before: Node, after: Node) => boolean) | string[],
-) {
+): void {
 	if (Array.isArray(isJoinable)) {
 		const types = isJoinable;
 		isJoinable = (node: Node) => types.indexOf(node.type.name) > -1;

@@ -103,7 +103,7 @@ export class MediaPickerComponents extends React.Component<Props, State> {
 		isPopupOpened: false,
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		const { onPopupToggle } = this.props;
 		onPopupToggle((isPopupOpened) => {
 			this.setState({
@@ -112,7 +112,7 @@ export class MediaPickerComponents extends React.Component<Props, State> {
 		});
 	}
 
-	onBrowseFn = (nativeBrowseFn: () => void) => {
+	onBrowseFn = (nativeBrowseFn: () => void): void => {
 		const { setBrowseFn } = this.props;
 		setBrowseFn(nativeBrowseFn);
 	};

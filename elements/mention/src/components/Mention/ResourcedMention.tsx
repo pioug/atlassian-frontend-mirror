@@ -37,16 +37,16 @@ export default class ResourcedMention extends React.PureComponent<Props, State> 
 		};
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.handleMentionProvider(this.props);
 		this._isMounted = true;
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this._isMounted = false;
 	}
 
-	UNSAFE_componentWillReceiveProps(nextProps: Props) {
+	UNSAFE_componentWillReceiveProps(nextProps: Props): void {
 		const { props } = this;
 		if (props.id !== nextProps.id || props.mentionProvider !== nextProps.mentionProvider) {
 			this.handleMentionProvider(nextProps);

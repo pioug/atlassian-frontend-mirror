@@ -38,7 +38,7 @@ export const handleOnChange = <T extends object>(
 	propName: keyof T,
 	defaultValue?: T[keyof T] | string | boolean,
 	value?: T[keyof T] | string | boolean,
-) => {
+): void => {
 	onChange(updateObj(template, propName, defaultValue, value));
 };
 
@@ -67,7 +67,7 @@ export const getExampleFromLocalStorage = () => {
 	return DefaultTemplate;
 };
 
-export const setExampleToLocalStorage = (template: FlexibleTemplate) => {
+export const setExampleToLocalStorage = (template: FlexibleTemplate): void => {
 	localStorage.setItem(
 		ExampleStorageKey,
 		JSON.stringify(template, (key, value) => {

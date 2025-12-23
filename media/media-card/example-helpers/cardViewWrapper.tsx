@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -37,7 +38,7 @@ const cardWrapperStyles = ({ small, displayInline }: CardViewWrapperProps) =>
 		marginInline: 'space.250',
 	});
 
-export const CardViewWrapper = (props: CardViewWrapperProps) => {
+export const CardViewWrapper = (props: CardViewWrapperProps): React.JSX.Element => {
 	if (props.small) {
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 		return <Box xcss={[cardWrapperStyles(props), smallStyles]}>{props.children}</Box>;

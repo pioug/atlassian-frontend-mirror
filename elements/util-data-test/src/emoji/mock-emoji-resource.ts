@@ -76,12 +76,12 @@ export class MockEmojiResource
 		return this.uploads;
 	}
 
-	prepareForUpload() {
+	prepareForUpload(): Promise<void> {
 		return Promise.resolve();
 	}
 
 	// Make public for testing
-	notifyNotReady() {
+	notifyNotReady(): void {
 		super.notifyNotReady();
 	}
 

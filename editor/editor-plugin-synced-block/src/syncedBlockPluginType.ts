@@ -58,6 +58,7 @@ export type SyncedBlockRendererProps = {
 	useFetchSyncBlockData: () => UseFetchSyncBlockDataResult;
 };
 export interface SyncedBlockPluginOptions extends LongPressSelectionPluginOptions {
+	enableSourceCreation?: boolean;
 	syncBlockDataProvider: SyncBlockDataProvider;
 	syncedBlockRenderer: (props: SyncedBlockRendererProps) => React.JSX.Element;
 }

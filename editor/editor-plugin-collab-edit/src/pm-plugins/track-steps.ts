@@ -131,7 +131,7 @@ export const groupSteps = (sanitizedSteps: SanitizedStep[]): Record<string, numb
 export const task = (
 	cache: CacheType,
 	onTrackDataProcessed: (data: StepMetadataAnalytics[]) => void,
-) => {
+): void => {
 	const stepsMetadata: StepMetadataAnalytics[] = [];
 
 	for (const entry of cache.values()) {
@@ -210,7 +210,7 @@ const getScheduler = (
  * @param {Readonly<Transaction[]>} props.transactions - The transactions that contain the steps.
  * @param {(data: StepMetadataAnalytics[]) => void} props.onTrackDataProcessed - Callback function to be called with the processed data.
  */
-export const track = ({ api, newEditorState, transactions, onTrackDataProcessed }: TrackProps) => {
+export const track = ({ api, newEditorState, transactions, onTrackDataProcessed }: TrackProps): void => {
 	const newSteps = transactions.flatMap((t) => t.steps);
 	const collabState = sendableSteps(newEditorState);
 	const scheduler = getScheduler(window);

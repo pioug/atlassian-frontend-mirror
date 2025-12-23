@@ -25,7 +25,7 @@ export class FindReplaceTooltipButton extends React.PureComponent<Props> {
 		appearance: 'subtle',
 	};
 
-	handleClick = () => {
+	handleClick = (): void => {
 		this.props.onClick(this.buttonRef);
 	};
 

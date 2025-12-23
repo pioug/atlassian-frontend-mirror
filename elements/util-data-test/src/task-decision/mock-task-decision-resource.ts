@@ -33,9 +33,9 @@ export class MockTaskDecisionResource implements TaskDecisionProvider {
 		this.batchedKeys.clear();
 	}
 
-	unsubscribeRecentUpdates(_id: RecentUpdatesId) {}
+	unsubscribeRecentUpdates(_id: RecentUpdatesId): void {}
 
-	notifyRecentUpdates(_updateContext?: RecentUpdateContext) {}
+	notifyRecentUpdates(_updateContext?: RecentUpdateContext): void {}
 
 	getTaskState(_keys: ObjectKey[]): Promise<BaseItem<TaskState>[]> {
 		return Promise.resolve([
@@ -84,7 +84,7 @@ export class MockTaskDecisionResource implements TaskDecisionProvider {
 		});
 	}
 
-	subscribe(objectKey: ObjectKey, handler: Handler) {
+	subscribe(objectKey: ObjectKey, handler: Handler): void {
 		const key = objectKeyToString(objectKey);
 		const handlers = this.subscribers.get(key) || [];
 		handlers.push(handler);
@@ -116,7 +116,7 @@ export class MockTaskDecisionResource implements TaskDecisionProvider {
 		}, 1);
 	}
 
-	unsubscribe(objectKey: ObjectKey, handler: Handler) {
+	unsubscribe(objectKey: ObjectKey, handler: Handler): void {
 		const key = objectKeyToString(objectKey);
 		const handlers = this.subscribers.get(key);
 		if (!handlers) {
@@ -136,7 +136,7 @@ export class MockTaskDecisionResource implements TaskDecisionProvider {
 		}
 	}
 
-	notifyUpdated(objectKey: ObjectKey, state: TaskState | DecisionState) {
+	notifyUpdated(objectKey: ObjectKey, state: TaskState | DecisionState): void {
 		const key = objectKeyToString(objectKey);
 		const handlers = this.subscribers.get(key);
 		if (!handlers) {

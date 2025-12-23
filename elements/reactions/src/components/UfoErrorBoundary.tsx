@@ -14,7 +14,7 @@ export interface UfoErrorBoundaryProps {
  * Error boundary wrapper to notify "failure" for UFO events of components when there was a re-rendering exception caught inside the `componentDidCatch` event handler
  */
 export class UfoErrorBoundary extends React.Component<UfoErrorBoundaryProps> {
-	componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+	componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
 		for (const exp of this.props.experiences) {
 			exp.failure({
 				metadata: {

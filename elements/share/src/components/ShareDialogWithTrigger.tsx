@@ -113,19 +113,19 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 		isLoading: false,
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		if (this.props.isAutoOpenDialog) {
 			this.handleDialogOpen();
 		}
 	}
 
-	componentDidUpdate(prevProps: ShareDialogWithTriggerProps) {
+	componentDidUpdate(prevProps: ShareDialogWithTriggerProps): void {
 		if (this.props.isAutoOpenDialog !== prevProps.isAutoOpenDialog && this.props.isAutoOpenDialog) {
 			this.handleDialogOpen();
 		}
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		if (this.props.isAutoOpenDialog && this.props.onDialogClose) {
 			this.props.onDialogClose();
 		}
@@ -441,7 +441,7 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 		return [0, 8];
 	};
 
-	handleCopyLink = () => {
+	handleCopyLink = (): void => {
 		const {
 			copyLinkOrigin,
 			shareContentType,
@@ -483,7 +483,7 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 		}
 	};
 
-	handleIntegrationClick = (integration: Integration) => {
+	handleIntegrationClick = (integration: Integration): void => {
 		this.setState({
 			isUsingSplitButton: false,
 			isDialogOpen: true,
@@ -585,7 +585,7 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 		return button;
 	};
 
-	handleOpenSplitButton = () => {
+	handleOpenSplitButton = (): void => {
 		this.setState(
 			{
 				isUsingSplitButton: true,
@@ -595,13 +595,13 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 		this.createAndFireEvent(shareSplitButtonEvent());
 	};
 
-	handleCloseSplitButton = () => {
+	handleCloseSplitButton = (): void => {
 		this.setState({
 			isUsingSplitButton: false,
 		});
 	};
 
-	handleOnUserSelectionChange = (value: Value) => {
+	handleOnUserSelectionChange = (value: Value): void => {
 		const { onUserSelectionChange } = this.props;
 		this.setState({
 			shareError: undefined,

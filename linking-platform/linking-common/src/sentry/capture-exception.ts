@@ -4,7 +4,7 @@ export const captureException = async (
 	_error: Error,
 	_packageName: string,
 	_tags?: { [key: string]: Primitive },
-) => {
+): Promise<void> => {
 	// Re-introduce in EDM-9682
 	return;
 };

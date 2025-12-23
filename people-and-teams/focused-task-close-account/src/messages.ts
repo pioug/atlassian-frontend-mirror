@@ -530,3 +530,22 @@ export const dropDownListMessages = defineMessages({
 		description: 'Button text displaying text on collapse',
 	},
 });
+
+export const footerMessages = defineMessages({
+	cancel: {
+		id: 'focused-task-close-account.footer.cancel',
+		defaultMessage: 'Cancel',
+		description: 'Button text for cancel action in the footer',
+	},
+
+	previous: {
+		id: 'focused-task-close-account.footer.previous',
+		defaultMessage: 'Previous',
+		description: 'Button text for previous action in the footer',
+	},
+	next: {
+		id: 'focused-task-close-account.footer.next',
+		defaultMessage: 'Next',
+		description: 'Button text for next action in the footer',
+	},
+});

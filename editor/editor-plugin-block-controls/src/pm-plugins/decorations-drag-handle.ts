@@ -8,7 +8,6 @@ import uuid from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -54,52 +53,6 @@ type DragHandleDecorationParams = {
 	pos: number;
 };
 
-/**
- * Fix for widget positioning to ensure it is not placed into a previous mark's DOM structure.
- * A ProseMirror widget can appear in the wrong DOM position, specifically being added
- * to a previous mark instead of its intended location, which leads to various rendering issues.
- * For example, when nodeBefore has an alignment mark but the current node doesn't, ProseMirror may
- * incorrectly render the widget inside the previous node's alignment mark wrapper instead.
- */
-const fixWidgetSide = ($pos: ResolvedPos, defaultSide: number = -1) => {
-	const alignmentMark = $pos.doc.type.schema.marks.alignment;
-	const indentationMark = $pos.doc.type.schema.marks.indentation;
-
-	// Only apply fix for alignment and indent marks
-	if (!alignmentMark && !indentationMark) {
-		return defaultSide;
-	}
-
-	if ($pos.nodeBefore && $pos.nodeAfter) {
-		const beforeMarks =
-			$pos.nodeBefore?.marks.filter(
-				(mark) => mark.type === alignmentMark || mark.type === indentationMark,
-			) || [];
-		const afterMarks =
-			$pos.nodeAfter?.marks.filter(
-				(mark) => mark.type === alignmentMark || mark.type === indentationMark,
-			) || [];
-
-		if (beforeMarks.length === 0) {
-			return defaultSide;
-		} else if (afterMarks.length === 0) {
-			return 0;
-		}
-
-		// Check if previous node has marks that current node doesn't have
-		const hasMissingMark = beforeMarks.some((mark) => {
-			return !afterMarks.some((nextMark) => nextMark.eq(mark));
-		});
-
-		// if we have missing mark, we set side to 0 to render widget outside previous mark DOM
-		if (hasMissingMark) {
-			return 0;
-		}
-	}
-
-	return defaultSide;
-};
-
 export const dragHandleDecoration = ({
 	api,
 	formatMessage,
@@ -127,16 +80,9 @@ export const dragHandleDecoration = ({
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const key = uuid();
 
-	const $pos = editorState.doc.resolve(pos);
-	const side =
-		expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
-		fg('platform_editor_native_anchor_patch_1')
-			? fixWidgetSide($pos)
-			: -1;
-
 	const widgetSpec = editorExperiment('platform_editor_breakout_resizing', true)
 		? {
-				side,
+				side: -1,
 				type: TYPE_HANDLE_DEC,
 				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
@@ -158,10 +104,15 @@ export const dragHandleDecoration = ({
 				},
 			}
 		: {
-				side,
+				side: -1,
 				type: TYPE_HANDLE_DEC,
 				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
+				marks:
+					expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
+					fg('platform_editor_native_anchor_patch_1')
+						? getActiveBlockMarks(editorState, pos)
+						: undefined,
 				destroy: (node: Node) => {
 					unbind && unbind();
 

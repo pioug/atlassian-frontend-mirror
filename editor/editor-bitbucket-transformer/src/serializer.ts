@@ -66,7 +66,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 	 * Defines the internal flushClose method used in the markdown serializer
 	 * @see https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L202
 	 */
-	flushClose(size: number = 2) {
+	flushClose(size: number = 2): void {
 		if (this.closed) {
 			if (!this.atBlank()) {
 				this.out += '\n';
@@ -300,10 +300,10 @@ export class MarkdownSerializer extends PMMarkdownSerializer {
 }
 
 const editorNodes = {
-	blockquote(state: MarkdownSerializerState, node: PMNode) {
+	blockquote(state: MarkdownSerializerState, node: PMNode): void {
 		state.wrapBlock('> ', null, node, () => state.renderContent(node));
 	},
-	codeBlock(state: MarkdownSerializerState, node: PMNode) {
+	codeBlock(state: MarkdownSerializerState, node: PMNode): void {
 		const backticks = generateOuterBacktickChain(node.textContent, 3);
 		state.write(backticks + (node.attrs.language || '') + '\n');
 		state.text(node.textContent ? node.textContent : '\u200c', false);
@@ -311,7 +311,7 @@ const editorNodes = {
 		state.write(backticks);
 		state.closeBlock(node);
 	},
-	extension: function extension(state: MarkdownSerializerState, node: PMNode) {
+	extension: function extension(state: MarkdownSerializerState, node: PMNode): void {
 		// if the extension is a code suggestion, render it as a suggestion
 		if (node.attrs.extensionKey === 'codesuggestions:suggestion-node') {
 			const backticks = generateOuterBacktickChain(node.textContent, 3);
@@ -323,28 +323,28 @@ const editorNodes = {
 			state.closeBlock(node);
 		}
 	},
-	heading(state: MarkdownSerializerState, node: PMNode) {
+	heading(state: MarkdownSerializerState, node: PMNode): void {
 		state.write(state.repeat('#', node.attrs.level) + ' ');
 		state.renderInline(node);
 		state.closeBlock(node);
 	},
-	rule(state: MarkdownSerializerState, node: PMNode) {
+	rule(state: MarkdownSerializerState, node: PMNode): void {
 		state.write(node.attrs.markup || '---');
 		state.closeBlock(node);
 	},
-	bulletList(state: MarkdownSerializerState, node: PMNode) {
+	bulletList(state: MarkdownSerializerState, node: PMNode): void {
 		for (let i = 0; i < node.childCount; i++) {
 			const child = node.child(i);
 			state.render(child, node, i);
 		}
 	},
-	orderedList(state: MarkdownSerializerState, node: PMNode) {
+	orderedList(state: MarkdownSerializerState, node: PMNode): void {
 		for (let i = 0; i < node.childCount; i++) {
 			const child = node.child(i);
 			state.render(child, node, i);
 		}
 	},
-	listItem(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
+	listItem(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number): void {
 		const num = Number(parent?.attrs?.order);
 		const order = Number.isNaN(num) || num < 0 ? 1 : Math.floor(num);
 		const delimiter = parent.type.name === 'bulletList' ? '* ' : `${order + index}. `;
@@ -371,17 +371,17 @@ const editorNodes = {
 			state.write('\n');
 		}
 	},
-	paragraph(state: MarkdownSerializerState, node: PMNode) {
+	paragraph(state: MarkdownSerializerState, node: PMNode): void {
 		state.renderInline(node);
 		state.closeBlock(node);
 	},
-	mediaGroup(state: MarkdownSerializerState, node: PMNode) {
+	mediaGroup(state: MarkdownSerializerState, node: PMNode): void {
 		for (let i = 0; i < node.childCount; i++) {
 			const child = node.child(i);
 			state.render(child, node, i);
 		}
 	},
-	mediaSingle(state: MarkdownSerializerState, node: PMNode, parent: PMNode) {
+	mediaSingle(state: MarkdownSerializerState, node: PMNode, parent: PMNode): void {
 		// First pass: collect caption if it exists (always enabled for now - can be made configurable later)
 		let captionText = '';
 		for (let i = 0; i < node.childCount; i++) {
@@ -409,7 +409,7 @@ const editorNodes = {
 			state.write('\n');
 		}
 	},
-	media(state: MarkdownSerializerState, node: PMNode, parent: PMNode) {
+	media(state: MarkdownSerializerState, node: PMNode, parent: PMNode): void {
 		const widthAttributeMarkdown = parent.attrs.width ? ` data-width='${parent.attrs.width}'` : '';
 		const widthTypeAttributeMarkdown = parent.attrs.widthType
 			? ` data-width-type='${parent.attrs.widthType}'`
@@ -436,7 +436,7 @@ const editorNodes = {
 		// Clear caption after use to avoid leaking to subsequent media nodes
 		state.captionForMedia = '';
 	},
-	image(state: MarkdownSerializerState, node: PMNode) {
+	image(state: MarkdownSerializerState, node: PMNode): void {
 		// Note: the 'title' is not escaped in this flavor of markdown.
 		state.write(
 			'![' +
@@ -447,10 +447,10 @@ const editorNodes = {
 				')',
 		);
 	},
-	hardBreak(state: MarkdownSerializerState) {
+	hardBreak(state: MarkdownSerializerState): void {
 		state.write('  \n');
 	},
-	text(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
+	text(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number): void {
 		const previousNode = index === 0 ? null : parent.child(index - 1);
 		let text = node.textContent;
 
@@ -476,11 +476,11 @@ const editorNodes = {
 			}
 		}
 	},
-	empty_line(state: MarkdownSerializerState, node: PMNode) {
+	empty_line(state: MarkdownSerializerState, node: PMNode): void {
 		state.write('\u200c'); // zero-width-non-joiner
 		state.closeBlock(node);
 	},
-	mention(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
+	mention(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number): void {
 		const isLastNode = parent.childCount === index + 1;
 		let delimiter = '';
 		if (!isLastNode) {
@@ -491,13 +491,13 @@ const editorNodes = {
 
 		state.write(`@${node.attrs.id}${delimiter}`);
 	},
-	emoji(state: MarkdownSerializerState, node: PMNode) {
+	emoji(state: MarkdownSerializerState, node: PMNode): void {
 		state.write(node.attrs.shortName);
 	},
-	inlineCard(state: MarkdownSerializerState, node: PMNode) {
+	inlineCard(state: MarkdownSerializerState, node: PMNode): void {
 		state.write(`[${node.attrs.url}](${node.attrs.url}){: data-inline-card='' }`);
 	},
-	caption(state: MarkdownSerializerState, node: PMNode, parent: PMNode) {
+	caption(state: MarkdownSerializerState, node: PMNode, parent: PMNode): void {
 		if (parent.type.name === 'mediaSingle') {
 			// Caption is already handled by mediaSingle serializer - do nothing
 		} else {

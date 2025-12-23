@@ -8,13 +8,13 @@ export interface ErrorReportingHandler {
 export class ErrorReporter {
 	private handlerStorage: ErrorReportingHandler | null = null;
 
-	captureMessage(msg: string, tags?: ErrorReporterTags) {
+	captureMessage(msg: string, tags?: ErrorReporterTags): void {
 		if (this.handlerStorage) {
 			this.handlerStorage.captureMessage(msg, tags);
 		}
 	}
 
-	captureException(err: Error, tags?: ErrorReporterTags) {
+	captureException(err: Error, tags?: ErrorReporterTags): void {
 		if (this.handlerStorage) {
 			this.handlerStorage.captureException(err, tags);
 		}

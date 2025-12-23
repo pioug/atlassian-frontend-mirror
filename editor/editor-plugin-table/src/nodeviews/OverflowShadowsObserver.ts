@@ -84,7 +84,7 @@ export class OverflowShadowsObserver {
 		return stickyCell;
 	}
 
-	observeShadowSentinels = (isSticky?: boolean) => {
+	observeShadowSentinels = (isSticky?: boolean): void => {
 		if (this.isSticky === isSticky) {
 			return;
 		}
@@ -119,7 +119,7 @@ export class OverflowShadowsObserver {
 	 * e.g. bounds on an IntersectionObserverEntry, otherwise proceed with
 	 * reading it from sticky cell
 	 */
-	updateStickyShadows = rafSchedule((stickyRowHeight?: number) => {
+	updateStickyShadows = rafSchedule((stickyRowHeight?: number): void => {
 		if (!this.isSticky) {
 			return;
 		}
@@ -147,7 +147,7 @@ export class OverflowShadowsObserver {
 		}
 	});
 
-	dispose() {
+	dispose(): void {
 		if (this.tableIntersectionObserver) {
 			this.tableIntersectionObserver.disconnect();
 			this.tableIntersectionObserver = undefined;

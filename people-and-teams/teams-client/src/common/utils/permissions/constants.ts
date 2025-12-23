@@ -91,14 +91,13 @@ const getDisbandedTeamPermissionMap = (
 		'isEnabled',
 		false,
 	);
-	const isArchiveTeamEnabled = fg('legion-enable-archive-teams') && newTeamProfileEnabled;
 
 	// Base permission map - all actions disabled for disbanded teams
 	const basePermissions = allPermissions(false, false, false);
 
 	// UNARCHIVE_TEAM permission based on team settings
 	let canUnarchive = false;
-	if (isArchiveTeamEnabled) {
+	if (newTeamProfileEnabled) {
 		if (settings === 'EXTERNAL' || settings === 'ORG_ADMIN_MANAGED') {
 			// For EXTERNAL and ORG_ADMIN_MANAGED teams, only org admins can unarchive
 			canUnarchive = isOrgAdmin;
@@ -131,19 +130,18 @@ const getActiveTeamPermissionMap = (
 		'isEnabled',
 		false,
 	);
-	const isArchiveTeamEnabled = fg('legion-enable-archive-teams') && newTeamProfileEnabled;
 	if (settings === 'OPEN') {
 		return {
 			...allPermissions(permission === 'FULL_WRITE', isMember, isOrgAdmin),
 			...openPermissions(permission),
-			ARCHIVE_TEAM: isArchiveTeamEnabled && permission === 'FULL_WRITE' && (isMember || isOrgAdmin),
+			ARCHIVE_TEAM: newTeamProfileEnabled && permission === 'FULL_WRITE' && (isMember || isOrgAdmin),
 		};
 	}
 	if (settings === 'MEMBER_INVITE') {
 		return {
 			...allPermissions(permission === 'FULL_WRITE', isMember, isOrgAdmin),
 			...inviteOnlyPermissions(permission),
-			ARCHIVE_TEAM: isArchiveTeamEnabled && permission === 'FULL_WRITE' && (isMember || isOrgAdmin),
+			ARCHIVE_TEAM: newTeamProfileEnabled && permission === 'FULL_WRITE' && (isMember || isOrgAdmin),
 		};
 	} else if (settings === 'EXTERNAL') {
 		return {
@@ -151,7 +149,7 @@ const getActiveTeamPermissionMap = (
 			...SCIMSyncTeamPermissions(isMember, isOrgAdmin, source),
 			ADD_AGENT_TO_TEAM: newTeamProfileEnabled && (isMember || isOrgAdmin),
 			REMOVE_AGENT_FROM_TEAM: newTeamProfileEnabled && (isMember || isOrgAdmin),
-			ARCHIVE_TEAM: isArchiveTeamEnabled && isOrgAdmin,
+			ARCHIVE_TEAM: newTeamProfileEnabled && isOrgAdmin,
 			EDIT_TEAM_TYPE: isOrgAdmin,
 		};
 	} else if (settings === 'ORG_ADMIN_MANAGED') {
@@ -161,7 +159,7 @@ const getActiveTeamPermissionMap = (
 			EDIT_TEAM_LINK: isMember || permission === 'FULL_WRITE',
 			ADD_AGENT_TO_TEAM: newTeamProfileEnabled && (isMember || permission === 'FULL_WRITE'),
 			REMOVE_AGENT_FROM_TEAM: newTeamProfileEnabled && (isMember || permission === 'FULL_WRITE'),
-			ARCHIVE_TEAM: isArchiveTeamEnabled && permission === 'FULL_WRITE',
+			ARCHIVE_TEAM: newTeamProfileEnabled && permission === 'FULL_WRITE',
 			CAN_EDIT_HIERARCHY: permission === 'FULL_WRITE',
 			EDIT_TEAM_TYPE: permission === 'FULL_WRITE',
 			// ORG_ADMIN_MANAGED teams should not provide options to edit membership settings

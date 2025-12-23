@@ -44,7 +44,7 @@ export class ExperienceCheckTimeout implements ExperienceCheck {
 		this.onTimeout = onTimeout;
 	}
 
-	start(callback: ExperienceCheckCallback) {
+	start(callback: ExperienceCheckCallback): void {
 		this.stop();
 
 		this.timeoutId = setTimeout(() => {
@@ -53,7 +53,7 @@ export class ExperienceCheckTimeout implements ExperienceCheck {
 		}, this.durationMs);
 	}
 
-	stop() {
+	stop(): void {
 		if (this.timeoutId) {
 			clearTimeout(this.timeoutId);
 			this.timeoutId = undefined;

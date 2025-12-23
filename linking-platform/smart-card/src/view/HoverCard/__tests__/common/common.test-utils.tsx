@@ -45,7 +45,7 @@ const getUnresolvedParams = (status: CardType, details: SmartLinkResponse, mockT
 
 export const forbiddenViewTests = (
 	setup: (params?: SetUpParams) => ReturnType<typeof hoverCardSetup>,
-) => {
+): void => {
 	describe('when link response has forbidden status', () => {
 		const hoverCardForbiddenViewTestId = 'hover-card-forbidden-view';
 		const forbiddenStatus = 'forbidden';
@@ -90,7 +90,7 @@ export const forbiddenViewTests = (
 
 export const unauthorizedViewTests = (
 	setup: (params?: SetUpParams) => ReturnType<typeof hoverCardSetup>,
-) => {
+): void => {
 	describe('when link response has unauthorized status', () => {
 		const hoverCardUnauthorisedViewTestId = 'hover-card-unauthorised-view';
 		const unauthorizedStatus = 'unauthorized';
@@ -191,7 +191,7 @@ export const unauthorizedViewTests = (
 export const runCommonHoverCardTests = (
 	setup: (params?: SetUpParams) => ReturnType<typeof hoverCardSetup>,
 	config: TestConfig,
-) => {
+): void => {
 	describe('hover card trigger', () => {
 		it('should show incompliant hover card trigger', async () => {
 			await setup();

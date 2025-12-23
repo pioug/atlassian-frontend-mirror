@@ -56,7 +56,7 @@ export const MockIntersectionObserverFactory = (
 		unobserve = mockIntersectionObserverOpts.unobserve || jest.fn();
 	};
 
-export const mockSimpleIntersectionObserver = () => {
+export const mockSimpleIntersectionObserver = (): void => {
 	class MockIntersectionObserver implements IntersectionObserver {
 		readonly root!: Element | null;
 		readonly rootMargin!: string;

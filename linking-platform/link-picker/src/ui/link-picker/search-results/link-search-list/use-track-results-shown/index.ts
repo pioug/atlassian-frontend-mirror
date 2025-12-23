@@ -14,7 +14,7 @@ export const useTrackResultsShown = (
 	isLoading: boolean,
 	items?: LinkSearchListItemData[] | null | undefined,
 	hasSearchTerm?: boolean,
-) => {
+): void => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	const hasSearchTermRef = useRef(hasSearchTerm);

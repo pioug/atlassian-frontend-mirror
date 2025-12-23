@@ -58,7 +58,7 @@ export class RecentUpdates {
 		this.subscribeToPubSubEvents();
 	}
 
-	subscribe(objectAri: string, recentUpdatesListener: RecentUpdatesListener) {
+	subscribe(objectAri: string, recentUpdatesListener: RecentUpdatesListener): void {
 		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const id = uuid();
 		let containerIds = this.idsByContainer.get(objectAri);
@@ -75,7 +75,7 @@ export class RecentUpdates {
 		recentUpdatesListener.id(id);
 	}
 
-	unsubscribe(unsubscribeId: RecentUpdatesId) {
+	unsubscribe(unsubscribeId: RecentUpdatesId): void {
 		const listenerDetail = this.listenersById.get(unsubscribeId);
 		if (listenerDetail) {
 			this.listenersById.delete(unsubscribeId);
@@ -90,7 +90,7 @@ export class RecentUpdates {
 		}
 	}
 
-	notify(recentUpdateContext: RecentUpdateContext) {
+	notify(recentUpdateContext: RecentUpdateContext): void {
 		const { objectAri } = recentUpdateContext;
 		const subscriberIds = this.idsByContainer.get(objectAri);
 		if (subscriberIds) {
@@ -104,12 +104,12 @@ export class RecentUpdates {
 		}
 	}
 
-	onPubSubEvent = (_event: string, payload: ServiceItem) => {
+	onPubSubEvent = (_event: string, payload: ServiceItem): void => {
 		const { objectAri } = payload;
 		this.notify({ objectAri });
 	};
 
-	destroy() {
+	destroy(): void {
 		this.unsubscribeFromPubSubEvents();
 	}
 
@@ -140,7 +140,7 @@ export class ItemStateManager {
 		this.subscribeToPubSubEvents();
 	}
 
-	destroy() {
+	destroy(): void {
 		if (this.debouncedTaskStateQuery) {
 			clearTimeout(this.debouncedTaskStateQuery);
 		}
@@ -215,12 +215,12 @@ export class ItemStateManager {
 		});
 	}
 
-	refreshAllTasks() {
+	refreshAllTasks(): void {
 		this.queueAllItems();
 		this.scheduleGetTaskState();
 	}
 
-	subscribe(objectKey: ObjectKey, handler: Handler, item?: BaseItem<TaskState | DecisionState>) {
+	subscribe(objectKey: ObjectKey, handler: Handler, item?: BaseItem<TaskState | DecisionState>): void {
 		const key = objectKeyToString(objectKey);
 		const handlers = this.subscribers.get(key) || [];
 		handlers.push(handler);
@@ -243,7 +243,7 @@ export class ItemStateManager {
 		this.scheduleGetTaskState();
 	}
 
-	unsubscribe(objectKey: ObjectKey, handler: Handler) {
+	unsubscribe(objectKey: ObjectKey, handler: Handler): void {
 		const key = objectKeyToString(objectKey);
 		const handlers = this.subscribers.get(key);
 		if (!handlers) {
@@ -281,7 +281,7 @@ export class ItemStateManager {
 		return utils.requestService<ServiceTaskState[]>(this.serviceConfig, options);
 	}
 
-	notifyUpdated(objectKey: ObjectKey, state: TaskState | DecisionState) {
+	notifyUpdated(objectKey: ObjectKey, state: TaskState | DecisionState): void {
 		const key = objectKeyToString(objectKey);
 		const handlers = this.subscribers.get(key);
 		if (!handlers) {
@@ -293,7 +293,7 @@ export class ItemStateManager {
 		});
 	}
 
-	onTaskUpdatedEvent = (_event: string, payload: ServiceTask) => {
+	onTaskUpdatedEvent = (_event: string, payload: ServiceTask): void => {
 		const { objectAri, localId } = payload;
 		const objectKey = { objectAri, localId };
 
@@ -311,7 +311,7 @@ export class ItemStateManager {
 		}
 	};
 
-	onReconnect = () => {
+	onReconnect = (): void => {
 		this.refreshAllTasks();
 	};
 
@@ -384,11 +384,11 @@ export default class TaskDecisionResource implements TaskDecisionProvider {
 		this.itemStateManager = new ItemStateManager(serviceConfig);
 	}
 
-	unsubscribeRecentUpdates(id: RecentUpdatesId) {
+	unsubscribeRecentUpdates(id: RecentUpdatesId): void {
 		this.recentUpdates.unsubscribe(id);
 	}
 
-	notifyRecentUpdates(recentUpdateContext: RecentUpdateContext) {
+	notifyRecentUpdates(recentUpdateContext: RecentUpdateContext): void {
 		this.recentUpdates.notify(recentUpdateContext);
 		this.itemStateManager.refreshAllTasks();
 	}
@@ -397,11 +397,11 @@ export default class TaskDecisionResource implements TaskDecisionProvider {
 		return this.itemStateManager.toggleTask(objectKey, state);
 	}
 
-	subscribe(objectKey: ObjectKey, handler: Handler, item?: BaseItem<TaskState | DecisionState>) {
+	subscribe(objectKey: ObjectKey, handler: Handler, item?: BaseItem<TaskState | DecisionState>): void {
 		this.itemStateManager.subscribe(objectKey, handler, item);
 	}
 
-	unsubscribe(objectKey: ObjectKey, handler: Handler) {
+	unsubscribe(objectKey: ObjectKey, handler: Handler): void {
 		this.itemStateManager.unsubscribe(objectKey, handler);
 	}
 
@@ -409,7 +409,7 @@ export default class TaskDecisionResource implements TaskDecisionProvider {
 	 * Usually only needed for testing to ensure no outstanding requests
 	 * are sent to a server (typically mocked).
 	 */
-	destroy() {
+	destroy(): void {
 		this.recentUpdates.destroy();
 		this.itemStateManager.destroy();
 	}

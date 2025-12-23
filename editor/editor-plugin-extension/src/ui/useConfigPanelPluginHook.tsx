@@ -43,7 +43,7 @@ export function useConfigPanelPluginHook({
 	api?: ExtractInjectionAPI<ExtensionPlugin>;
 	configPanelId: string;
 	editorView: EditorView;
-}) {
+}): void {
 	const editorState = editorView.state;
 	const { showContextPanel, extensionProvider, processParametersAfter } =
 		useSharedPluginStateWithSelector(api, ['extension'], selector);
@@ -87,7 +87,7 @@ export function useConfigPanelPluginHook({
 export function hideConfigPanel(
 	configPanelId: string,
 	api: ExtractInjectionAPI<ExtensionPlugin> | undefined,
-) {
+): void {
 	const closePanelById = api?.contextPanel?.actions?.closePanelById;
 	if (closePanelById) {
 		closePanelById(configPanelId);
@@ -106,7 +106,7 @@ export function showConfigPanel({
 	editorView: EditorView;
 	extensionProvider: ExtensionProvider;
 	nodeWithPos: ContentNodeWithPos;
-}) {
+}): void {
 	const showContextPanel = api?.contextPanel?.actions?.showPanel;
 	if (showContextPanel) {
 		const nodeAttrs = nodeWithPos?.node.attrs;
@@ -188,7 +188,7 @@ export async function startClosingConfigPanel({
 }: {
 	api: ExtractInjectionAPI<ExtensionPlugin> | undefined;
 	editorView: EditorView;
-}) {
+}): Promise<void> {
 	const applyChange = api?.contextPanel?.actions.applyChange;
 	// Even if the save failed, we should proceed with closing the panel
 	clearEditingContext(applyChange)(editorView.state, editorView.dispatch);

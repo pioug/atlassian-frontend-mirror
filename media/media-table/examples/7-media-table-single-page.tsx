@@ -35,7 +35,7 @@ const columns: HeadType = {
 
 const mediaClientConfig = createUploadMediaClientConfig();
 
-export default () => {
+export default (): React.JSX.Element => {
 	return RenderMediaTableWithFieldRange(
 		<MediaTable
 			items={exampleItems}

@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { InlinePlayer } from '../src/card/inlinePlayer';
@@ -28,7 +29,7 @@ const inlinePlayerWrapperStyles = ({ width, height }: WrapperDimensions) =>
 		margin: `${token('space.250', '20px')} ${token('space.250', '20px')}`,
 	});
 
-export default () => {
+export default (): React.JSX.Element => {
 	const urlParams = new URLSearchParams(window.location.search);
 	const cardStatus = urlParams.get('status') as any;
 

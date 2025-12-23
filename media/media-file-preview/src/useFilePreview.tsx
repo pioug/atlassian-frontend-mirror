@@ -396,7 +396,7 @@ export const useFilePreview = ({
 	//----------------------------------------------------------------
 
 	const onImageError = useCallback(
-		(failedPreview?: MediaFilePreview) => {
+		(failedPreview?: MediaFilePreview): void => {
 			if (!failedPreview) {
 				return;
 			}
@@ -442,7 +442,7 @@ export const useFilePreview = ({
 	);
 
 	const onImageLoad = useCallback(
-		(newPreview?: MediaFilePreview) => {
+		(newPreview?: MediaFilePreview): void => {
 			if (newPreview) {
 				if (
 					isSSRClientPreview(newPreview) &&

@@ -26,7 +26,7 @@ import { replaceDocument } from './utils';
 /*
  * This is a non-op function to force ProseMirror to load and register all custom steps in the same bundle
  */
-export const registerAllCustomSteps = () => {
+export const registerAllCustomSteps = (): void => {
 	Object.entries(allAtlaskitCustomSteps).forEach(() => {});
 	Object.entries(allAdfSchemaSteps).forEach(() => {});
 };
@@ -36,7 +36,7 @@ export const handleInit = (
 	view: EditorView,
 	options?: PrivateCollabEditOptions,
 	editorAnalyticsApi?: EditorAnalyticsAPI,
-) => {
+): void => {
 	const { doc, json, version, reserveCursor } = initData;
 	if (doc) {
 		const { state } = view;
@@ -48,14 +48,14 @@ export const handleInit = (
 	}
 };
 
-export const handleConnection = (connectionData: CollabEventConnectionData, view: EditorView) => {
+export const handleConnection = (connectionData: CollabEventConnectionData, view: EditorView): void => {
 	const {
 		state: { tr },
 	} = view;
 	view.dispatch(tr.setMeta('sessionId', connectionData));
 };
 
-export const handlePresence = (presenceData: CollabEventPresenceData, view: EditorView) => {
+export const handlePresence = (presenceData: CollabEventPresenceData, view: EditorView): void => {
 	const {
 		state: { tr },
 	} = view;
@@ -66,7 +66,7 @@ export const applyRemoteData = (
 	remoteData: CollabEventRemoteData,
 	view: EditorView,
 	options: PrivateCollabEditOptions,
-) => {
+): void => {
 	const { json, userIds = [] } = remoteData;
 	if (json) {
 		applyRemoteSteps(json, view, userIds, options);
@@ -80,7 +80,7 @@ export const applyRemoteSteps = (
 	view: EditorView,
 	userIds?: (number | string)[],
 	options?: PrivateCollabEditOptions,
-) => {
+): void => {
 	if (!json || !json.length) {
 		return;
 	}
@@ -120,7 +120,7 @@ export const applyRemoteSteps = (
 	}
 };
 
-export const handleTelePointer = (telepointerData: CollabTelepointerPayload, view: EditorView) => {
+export const handleTelePointer = (telepointerData: CollabTelepointerPayload, view: EditorView): void => {
 	const {
 		state: { tr },
 	} = view;

@@ -96,7 +96,7 @@ export function measureRender(
 		duration: number;
 		startTime: number;
 	}) => void,
-) {
+): void {
 	if (!isPerformanceAPIAvailable()) {
 		return;
 	}

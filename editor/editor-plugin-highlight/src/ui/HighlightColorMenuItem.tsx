@@ -24,6 +24,7 @@ import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import Heading from '@atlaskit/heading';
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
 import Icon from '@atlaskit/icon/core/text-style';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Stack, Text, Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -127,8 +128,11 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 							handleHighlightColorChange(REMOVE_HIGHLIGHT_COLOR, event)
 						}
 					>
-						{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
-						<Text weight="medium">Remove highlight</Text>
+						<Text weight="medium">
+							{fg('platform_editor_dec_a11y_fixes')
+								? formatMessage(messages.removeHighlight)
+								: 'Remove highlight'}
+						</Text>
 					</Button>
 				</div>
 			)}

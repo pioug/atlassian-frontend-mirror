@@ -113,11 +113,11 @@ function attachResizeEvent(element, resized) {
 }
 
 export default {
-	add: function (fn) {
+	add: function (fn): void {
 		var container = documentContainer();
 		attachResizeEvent(container, fn);
 	},
-	remove: function () {
+	remove: function (): void {
 		var container = documentContainer();
 		if (container.resizeSensor) {
 			container.resizeObserver.disconnect();

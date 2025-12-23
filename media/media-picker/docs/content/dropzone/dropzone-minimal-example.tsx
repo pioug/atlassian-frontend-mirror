@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { useState } from 'react';
@@ -14,7 +15,7 @@ import { Dropzone } from '../../../src';
 const mediaClientConfig = createUploadMediaClientConfig();
 const dropzoneMediaClient = new MediaClient(mediaClientConfig);
 
-const DropzoneExample = () => {
+const DropzoneExample = (): React.JSX.Element => {
 	const [uploadEnd, setUploadEnd] = useState<boolean>(false);
 	const [isDropped, setIsDropped] = useState<boolean>(false);
 	const [identifier, setIdentifier] = useState<FileIdentifier>({

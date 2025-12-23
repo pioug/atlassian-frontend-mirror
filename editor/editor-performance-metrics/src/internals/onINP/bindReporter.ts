@@ -4,7 +4,7 @@ import { type Metric } from './index';
 export const bindReporter = (callback: (metric: Metric) => void) => {
 	let prevValue: number;
 	let delta: number;
-	return (metric: Metric) => {
+	return (metric: Metric): void => {
 		if (metric.value >= 0) {
 			delta = metric.value - (prevValue || 0);
 

@@ -82,7 +82,7 @@ export class InputEventsObserver {
 		});
 	}
 
-	observe() {
+	observe(): void {
 		this.observer?.observe({
 			type: 'event',
 			buffered: true,
@@ -91,7 +91,7 @@ export class InputEventsObserver {
 		});
 	}
 
-	disconnect() {
+	disconnect(): void {
 		this.observer?.disconnect();
 	}
 }

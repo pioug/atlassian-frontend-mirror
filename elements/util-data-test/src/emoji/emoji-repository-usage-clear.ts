@@ -10,7 +10,7 @@ export class EmojiRepositoryUsageClear extends EmojiRepository {
 		super(emojis);
 	}
 
-	clear() {
+	clear(): void {
 		this.usageTracker.clear();
 	}
 }

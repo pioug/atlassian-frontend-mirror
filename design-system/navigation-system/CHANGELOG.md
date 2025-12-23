@@ -1,5 +1,15 @@
 # @atlassian/navigation-system
 
+## 5.15.0
+
+### Minor Changes
+
+- [`d88efc1c38998`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d88efc1c38998) -
+  Fixes to issues from first implementation of FlyoutMenuItem slots and close button.
+
+  This includes fixing comments for the FlyoutMenuItemContext, cleaning up fallback strings for the
+  close button label, and fixing the positioning of the scroll container within the flyout.
+
 ## 5.14.0
 
 ### Minor Changes

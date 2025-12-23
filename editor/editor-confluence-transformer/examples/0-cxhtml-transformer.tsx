@@ -226,7 +226,7 @@ export default class ExampleWrapper extends Component<ExampleWrapperProps, Examp
 		isMediaReady: true,
 	};
 
-	handleChange = (editorActions: EditorActions) => {
+	handleChange = (editorActions: EditorActions): void => {
 		this.setState({ isMediaReady: false });
 
 		// eslint-disable-next-line no-console
@@ -242,7 +242,7 @@ export default class ExampleWrapper extends Component<ExampleWrapperProps, Examp
 		});
 	};
 
-	togglePrettify = () => {
+	togglePrettify = (): void => {
 		this.setState({ prettify: !this.state.prettify });
 	};
 

@@ -215,7 +215,7 @@ export const canShowSwitchButtons = (mediaSingleNode?: ProseMirrorNode) => {
 	return false;
 };
 
-export const updateToFullHeightSeparator = (items: FloatingToolbarItem<Command>[]) => {
+export const updateToFullHeightSeparator = (items: FloatingToolbarItem<Command>[]): void => {
 	const lastItem = items.at(-1);
 	if (lastItem?.type === 'separator') {
 		lastItem.fullHeight = true;

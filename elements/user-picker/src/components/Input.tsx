@@ -33,7 +33,7 @@ const inputStyles = cssMap({
 export class Input extends React.Component<Props & AriaAttributes> {
 	// onKeyPress is used instead as
 	// react-select is using onKeyDown for capturing keyboard input
-	handleKeyPress = (e: KeyboardEvent) => {
+	handleKeyPress = (e: KeyboardEvent): void => {
 		if (e.key === 'Enter') {
 			e.preventDefault();
 		}

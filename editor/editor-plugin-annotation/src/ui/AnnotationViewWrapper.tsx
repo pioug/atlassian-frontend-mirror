@@ -9,7 +9,7 @@ type AnnotationViewWrapperProps = {
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class AnnotationViewWrapper extends React.PureComponent<AnnotationViewWrapperProps> {
-	componentDidMount() {
+	componentDidMount(): void {
 		const { onViewed } = this.props;
 		if (onViewed) {
 			onViewed();

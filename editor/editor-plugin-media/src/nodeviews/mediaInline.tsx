@@ -110,7 +110,7 @@ const updateMediaNodeAttributes = async (
 	await mediaNodeUpdater.updateMediaSingleFileAttrs();
 };
 
-export const handleNewNode = (props: MediaInlineProps) => {
+export const handleNewNode = (props: MediaInlineProps): void => {
 	const { node, handleMediaNodeMount, getPos } = props;
 	handleMediaNodeMount(node, () => getPos());
 };

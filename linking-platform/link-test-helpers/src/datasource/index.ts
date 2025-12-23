@@ -126,7 +126,7 @@ export const mockDatasourceFetchRequests = ({
 	mockExecutionDelay = 600,
 	accessibleProductsOverride,
 	...rest
-}: MockOptions = {}) => {
+}: MockOptions = {}): void => {
 	const datasourceMatcher = '[^/]+';
 
 	// Playwright VR tests do not like setTimeout
@@ -281,7 +281,7 @@ export const mockDatasourceFetchRequests = ({
 	mockActionsExecution(mockExecutionDelay);
 };
 
-export const forceBaseUrl = (baseUrl: string) => {
+export const forceBaseUrl = (baseUrl: string): void => {
 	fetchMock.post(/^\//, ((url, init) => fetch(`${baseUrl}${url}`, init)) as typeof fetch);
 };
 

@@ -110,7 +110,7 @@ export class AbstractConversationResource implements ResourceProvider {
 		return this._store;
 	}
 
-	dispatch = (action: Action) => {
+	dispatch = (action: Action): void => {
 		this.store.dispatch(action);
 	};
 
@@ -233,7 +233,7 @@ export class AbstractConversationResource implements ResourceProvider {
 		_meta: any,
 		_objectId: string,
 		_containerId?: string,
-	) {
+	): void {
 		// Nothing to see here..
 	}
 }

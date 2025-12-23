@@ -24,7 +24,7 @@ export default class Popup extends React.PureComponent<Props, {}> {
 		};
 	}
 
-	setPortalStyles(styles: Record<string, string | number | null>) {
+	setPortalStyles(styles: Record<string, string | number | null>): void {
 		this.portalStyles = {
 			...this.portalStyles,
 			...styles,
@@ -38,11 +38,11 @@ export default class Popup extends React.PureComponent<Props, {}> {
 		zIndex: 0,
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this._applyAbsolutePosition();
 	}
 
-	_applyBelowPosition() {
+	_applyBelowPosition(): void {
 		const targetNode = this.props.target && document.getElementById(this.props.target);
 		if (targetNode) {
 			const box = targetNode.getBoundingClientRect();
@@ -52,7 +52,7 @@ export default class Popup extends React.PureComponent<Props, {}> {
 		}
 	}
 
-	_applyAbovePosition() {
+	_applyAbovePosition(): void {
 		const targetNode = this.props.target && document.getElementById(this.props.target);
 		if (targetNode) {
 			const box = targetNode.getBoundingClientRect();
@@ -62,7 +62,7 @@ export default class Popup extends React.PureComponent<Props, {}> {
 		}
 	}
 
-	_applyAbsolutePosition() {
+	_applyAbsolutePosition(): void {
 		if (this.props.relativePosition === 'above') {
 			this._applyAbovePosition();
 		} else if (this.props.relativePosition === 'below') {

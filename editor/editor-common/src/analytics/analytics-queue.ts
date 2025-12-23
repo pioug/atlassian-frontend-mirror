@@ -67,7 +67,7 @@ export class AnalyticsQueue {
 		});
 	}
 
-	public schedule(task: Function) {
+	public schedule(task: Function): void {
 		this.tasks.push(task);
 		this.process();
 	}

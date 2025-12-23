@@ -197,4 +197,14 @@ export default defineMessages({
 		defaultMessage: 'Edit image',
 		description: 'Crop, flip or rotate the image',
 	},
+	error: {
+		id: 'fabric.editor.error.message.label',
+		defaultMessage: 'Error',
+		description: 'Label for error message icon',
+	},
+	success: {
+		id: 'fabric.editor.success.message.label',
+		defaultMessage: 'Success',
+		description: 'Label for success message icon',
+	},
 });

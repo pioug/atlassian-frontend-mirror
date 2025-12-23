@@ -39,11 +39,11 @@ export class TransactionTracker {
 
 	private readonly measureListeners: MeasureListener[] = [];
 
-	public addMeasureListener(listener: MeasureListener) {
+	public addMeasureListener(listener: MeasureListener): void {
 		this.measureListeners.push(listener);
 	}
 
-	public removeMeasureListener(listener: MeasureListener) {
+	public removeMeasureListener(listener: MeasureListener): void {
 		const index = this.measureListeners.indexOf(listener);
 
 		if (index > -1) {

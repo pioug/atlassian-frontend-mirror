@@ -206,12 +206,12 @@ export class MentionNodeView implements NodeView {
 		return true;
 	}
 
-	destroy() {
+	destroy(): void {
 		this.cleanup?.();
 		this.destroyProfileCard?.();
 	}
 
-	deselectNode() {
+	deselectNode(): void {
 		this.removeProfileCard?.();
 	}
 }

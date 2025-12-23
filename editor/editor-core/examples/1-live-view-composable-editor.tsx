@@ -102,6 +102,7 @@ function ComposableEditorPage() {
 	);
 
 	const syncedBlock: SyncedBlockPluginOptions = {
+		enableSourceCreation: true,
 		syncedBlockRenderer: getSyncedBlockRenderer({
 			syncBlockRendererOptions: undefined,
 		}),

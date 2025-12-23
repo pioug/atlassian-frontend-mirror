@@ -48,7 +48,7 @@ export default abstract class ReactPluginView<ComponentProps extends {}> {
 		this.containerKey = containerKey;
 	}
 
-	init = () => {
+	init = (): void => {
 		const Component = this.getComponent();
 
 		const PortallingComponent = () => {
@@ -70,7 +70,7 @@ export default abstract class ReactPluginView<ComponentProps extends {}> {
 		this.portalActions.onCreatePortal(this.portalKey, <PortallingComponent />, this.containerKey);
 	};
 
-	destroy() {
+	destroy(): void {
 		// Dispatch onDestroyPortal which will allow the handler to remove the portalled React component.
 		this.portalActions.onDestroyPortal(this.portalKey);
 	}

@@ -63,7 +63,7 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 		this.valueContainerInnerProps = { ref: React.createRef() };
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate(): void {
 		const { previousValueSize, valueSize } = this.state;
 		//@ts-ignore react-select unsupported props
 		const { isFocused } = this.props.selectProps;
@@ -77,13 +77,13 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 		}
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		if (this.timeoutId) {
 			window.clearTimeout(this.timeoutId);
 		}
 	}
 
-	scrollToBottom = () => {
+	scrollToBottom = (): void => {
 		this.timeoutId = window.setTimeout(() => {
 			const {
 				ref: { current },

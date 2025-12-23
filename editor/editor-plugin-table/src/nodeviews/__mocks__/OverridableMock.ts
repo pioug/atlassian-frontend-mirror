@@ -16,11 +16,11 @@ export abstract class OverridableMock {
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	static setMock(thisKey: string, value: any) {
+	static setMock(thisKey: string, value: any): void {
 		OverridableMock.mockOverrides[thisKey] = value;
 	}
 
-	static resetMocks() {
+	static resetMocks(): void {
 		OverridableMock.mockOverrides = {};
 	}
 }

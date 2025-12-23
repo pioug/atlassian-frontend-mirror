@@ -1044,6 +1044,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2025-12-22
+	platform_editor_localid_ime_composition_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-12-18
 	platform_synced_blocks_offline_check_for_block: {
 		defaultValue: boolean;
@@ -2227,6 +2234,14 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_exp_suggestion_date_comma_delim: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_exp_suggestion_date_comma_delim',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-12-22
+	platform_editor_localid_ime_composition_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_localid_ime_composition_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

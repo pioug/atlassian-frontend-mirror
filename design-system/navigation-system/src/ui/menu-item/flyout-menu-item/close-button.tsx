@@ -46,7 +46,7 @@ export const CloseButton: (props: CloseButtonProps) => React.JSX.Element = ({
 		testId={testId}
 		appearance="subtle"
 		icon={CrossIcon}
-		label={label || 'Close Flyout Menu'}
+		label={label}
 		onClick={onClick}
 	/>
 );

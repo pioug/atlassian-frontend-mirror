@@ -114,7 +114,7 @@ export const monitorOrganic = ({
 	oldEditorState,
 	transactions,
 	onDataProcessed,
-}: TrackProps) => {
+}: TrackProps): void => {
 	// We can exclude analytic steps since they should never trigger an organic change.
 	const newSteps = transactions
 		.flatMap((t) => t.steps)

@@ -172,15 +172,13 @@ export const createPlugin = (
 				const isCopy = isCopyEvent;
 				isCopyEvent = false;
 
-				if (!syncBlockStore) {
+				if (!syncBlockStore || !isCopy) {
 					return slice;
 				}
 
 				return mapSlice(slice, (node: Node) => {
 					if (node.type.name === 'syncBlock') {
-						if (isCopy) {
-							showCopiedFlag(api);
-						}
+						showCopiedFlag(api);
 
 						return node;
 					}
@@ -191,9 +189,7 @@ export const createPlugin = (
 							return node.content;
 						}
 
-						if (isCopy) {
-							showCopiedFlag(api);
-						}
+						showCopiedFlag(api);
 
 						const newResourceId = syncBlockStore.referenceManager.generateResourceIdForReference(
 							node.attrs.resourceId,

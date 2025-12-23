@@ -23,7 +23,7 @@ export class NodeAnchorProvider {
 		return this.emptyDoc;
 	}
 
-	public setEmptyDoc(isEmpty: boolean) {
+	public setEmptyDoc(isEmpty: boolean): void {
 		this.emptyDoc = isEmpty;
 	}
 
@@ -66,7 +66,7 @@ export class NodeAnchorProvider {
 	// After set to limited mode, we clear the cache to free up memory
 	// and prevent further ids from being generated
 	// Once in limited mode, we won't exit it
-	public setLimitedMode() {
+	public setLimitedMode(): void {
 		this.limitedMode = true;
 		this.cache = new WeakMap<object, string>();
 		this.existingPos = new DynamicBitArray();

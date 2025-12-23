@@ -20,11 +20,11 @@ export const useDropdownEvents = (args: UseDropdownEventArgs) => {
 	const [isOpenedByKeyboard, setIsOpenedByKeyboard] = useState(false);
 
 	return {
-		handleClick: () => {
+		handleClick: (): void => {
 			setIsOpenedByKeyboard(false);
 			setIsDropdownOpen(!isDropdownOpen);
 		},
-		handleKeyDown: (event: React.KeyboardEvent) => {
+		handleKeyDown: (event: React.KeyboardEvent): void => {
 			if (event.key === 'Enter' || event.key === ' ') {
 				event.preventDefault();
 
@@ -32,20 +32,20 @@ export const useDropdownEvents = (args: UseDropdownEventArgs) => {
 				setIsDropdownOpen(!isDropdownOpen);
 			}
 		},
-		handleClickOutside: () => {
+		handleClickOutside: (): void => {
 			if (isDropdownOpen) {
 				setIsDropdownOpen(false);
 				setIsOpenedByKeyboard(false);
 			}
 		},
-		handleEscapeKeydown: () => {
+		handleEscapeKeydown: (): void => {
 			if (isDropdownOpen) {
 				setIsDropdownOpen(false);
 				setIsOpenedByKeyboard(false);
 				toolbarItemRef?.current?.focus();
 			}
 		},
-		handleColorChange: ({ color, inputMethod }: { color: string; inputMethod: INPUT_METHOD }) => {
+		handleColorChange: ({ color, inputMethod }: { color: string; inputMethod: INPUT_METHOD }): void => {
 			pluginInjectionApi?.core?.actions.execute(
 				changeColor(pluginInjectionApi?.analytics?.actions)({
 					color,

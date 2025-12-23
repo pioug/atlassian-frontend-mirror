@@ -116,7 +116,7 @@ export class ResizingMarkView implements NodeView {
 		view: EditorView,
 		mark: Mark,
 		api?: ExtractInjectionAPI<BreakoutPlugin>,
-	) {
+	): void {
 		const callbacks = createResizerCallbacks({ dom, view, mark, api });
 		const { leftHandle, rightHandle, destroy } = createPragmaticResizer({
 			target: contentDOM,
@@ -135,7 +135,7 @@ export class ResizingMarkView implements NodeView {
 		return true;
 	}
 
-	destroy() {
+	destroy(): void {
 		this.destroyFn?.();
 		this.unsubscribeToViewModeChange?.();
 	}

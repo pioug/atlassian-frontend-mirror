@@ -99,7 +99,7 @@ export default class AnalyticsHelper {
 		this.getAnalyticsClient = getAnalyticsClient;
 	}
 
-	sendErrorEvent(error: unknown, errorMessage: string) {
+	sendErrorEvent(error: unknown, errorMessage: string): void {
 		let errorExtraAttributes = {};
 		if (error instanceof CustomError) {
 			errorExtraAttributes = error.getExtraErrorEventAttributes() || {};
@@ -131,7 +131,7 @@ export default class AnalyticsHelper {
 		this.sendEvent(errorAnalyticsEvent);
 	}
 
-	sendProviderErrorEvent(error: ProviderError) {
+	sendProviderErrorEvent(error: ProviderError): void {
 		const errorAnalyticsEvent: ErrorAnalyticsEvent = {
 			eventAction: EVENT_ACTION.ERROR,
 			attributes: {
@@ -153,7 +153,7 @@ export default class AnalyticsHelper {
 			ActionAnalyticsEvent['attributes'],
 			'documentAri' | 'subProduct' | 'eventStatus'
 		>, // This breaks discriminated unions, because there is no obvious field to discriminate against any more
-	) {
+	): void {
 		const analyticsEvent = {
 			eventAction: action,
 			attributes: {

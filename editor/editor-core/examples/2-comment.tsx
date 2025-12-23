@@ -86,12 +86,12 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 		intlState: { locale: 'en', messages: enMessages },
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		delete window.jQuery;
 		this.loadJquery();
 	}
 
-	onFocus = () => this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
+	onFocus = (): void => this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
 
 	private loadLocale = async (locale: string) => {
 		const messages = await getTranslations(locale);

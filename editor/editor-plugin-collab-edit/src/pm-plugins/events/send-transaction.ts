@@ -32,7 +32,7 @@ export const sendTransaction =
 		viewMode,
 		hideTelecursorOnLoad,
 	}: Props) =>
-	(provider: CollabEditProvider) => {
+	(provider: CollabEditProvider): void => {
 		const docChangedTransaction = transactions.find((tr) => tr.docChanged);
 		const currentPluginState = pluginKey.getState(newEditorState);
 		const trNoAnalytics = oldEditorState.tr;

@@ -99,7 +99,7 @@ export class ShadowObserver {
 		});
 	};
 
-	dispose() {
+	dispose(): void {
 		if (this.intersectionObserver) {
 			this.intersectionObserver.disconnect();
 			this.intersectionObserver = undefined;

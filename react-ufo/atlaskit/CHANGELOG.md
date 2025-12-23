@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.16.5
+
+### Patch Changes
+
+- [`bf458fce99aca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf458fce99aca) -
+  refactor page visibility tracking
+
 ## 4.16.4
 
 ### Patch Changes

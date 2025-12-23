@@ -13,7 +13,7 @@ export const useJqlPackageAnalytics = <Action, ActionSubject, ActionSubjectId>(
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	const createAndFireAnalyticsEvent = useCallback(
-		(payload: JqlAnalyticsEvent<Action, ActionSubject, ActionSubjectId>) => {
+		(payload: JqlAnalyticsEvent<Action, ActionSubject, ActionSubjectId>): void => {
 			const event = createAnalyticsEvent({
 				...payload,
 				attributes: {

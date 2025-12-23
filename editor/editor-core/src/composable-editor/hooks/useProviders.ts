@@ -58,7 +58,7 @@ export const useProviders = ({
 	emojiProvider,
 	autoformattingProvider,
 	taskDecisionProvider,
-}: UseProvidersProps) => {
+}: UseProvidersProps): void => {
 	useEffect(() => {
 		async function setProvider() {
 			if (!contextIdentifierProvider) {

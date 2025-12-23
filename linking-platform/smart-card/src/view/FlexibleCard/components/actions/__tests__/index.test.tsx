@@ -17,7 +17,7 @@ interface Options {
 	NamedAction: React.ComponentType<ActionProps>;
 }
 
-export const testNamedAction = ({ name, NamedAction }: Options) => {
+export const testNamedAction = ({ name, NamedAction }: Options): void => {
 	describe(`Action: ${name}`, () => {
 		const testId = `smart-action-${name.toLocaleLowerCase()}-action}`;
 

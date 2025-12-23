@@ -15,7 +15,7 @@ export class DelayedRender extends Component<Props, State> {
 		hidden: true,
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		window.setTimeout(() => {
 			this.setState({ hidden: false });
 		}, this.props.timeout);

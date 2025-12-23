@@ -60,7 +60,7 @@ export const isSoftBreakMatch = (docText: string, match: string[]): boolean => {
 	return slicesMatch && isAlternator && isObjReplaceChar;
 };
 
-export const completeReplacements = (view: EditorView, state: CustomAutoformatState) => {
+export const completeReplacements = (view: EditorView, state: CustomAutoformatState): void => {
 	const { inlineCard } = view.state.schema.nodes;
 
 	state.matches.forEach((completedMatch) => {

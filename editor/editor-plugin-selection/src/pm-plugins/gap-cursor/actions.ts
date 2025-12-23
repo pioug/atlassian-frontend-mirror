@@ -320,7 +320,7 @@ export const setSelectionTopLevelBlocks = (
 		top: number;
 	}) => { inside: number; pos: number } | null | void,
 	editorFocused: boolean,
-) => {
+): void => {
 	const cursorCoords = captureCursorCoords(event, editorRef, posAtCoords, tr);
 	if (!cursorCoords) {
 		return;

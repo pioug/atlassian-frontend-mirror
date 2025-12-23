@@ -224,7 +224,7 @@ export default class TableView extends ReactNodeView<Props> {
 		}
 	}
 
-	setDomAttrs(node: PmNode) {
+	setDomAttrs(node: PmNode): void {
 		if (!this.table) {
 			return; // width / attribute application to actual table will happen later when table is set
 		}
@@ -346,7 +346,7 @@ export default class TableView extends ReactNodeView<Props> {
 		return !this.contentDOM.contains(mutation.target) && mutation.type !== 'selection';
 	}
 
-	destroy() {
+	destroy(): void {
 		if (this.resizeObserver) {
 			this.resizeObserver.disconnect();
 		}

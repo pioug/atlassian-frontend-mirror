@@ -99,14 +99,14 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 		return !!findParentNodeOfTypeClosestToPos(this.$pos, table);
 	}
 
-	async componentDidMount() {
+	async componentDidMount(): Promise<void> {
 		const { viewMediaClientConfig } = this.props;
 		if (viewMediaClientConfig) {
 			await this.checkVideoFile(viewMediaClientConfig);
 		}
 	}
 
-	UNSAFE_componentWillReceiveProps(nextProps: Props) {
+	UNSAFE_componentWillReceiveProps(nextProps: Props): void {
 		if (this.props.viewMediaClientConfig !== nextProps.viewMediaClientConfig) {
 			this.checkVideoFile(nextProps.viewMediaClientConfig);
 		}
@@ -115,7 +115,7 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 		}
 	}
 
-	async checkVideoFile(viewMediaClientConfig?: MediaClientConfig) {
+	async checkVideoFile(viewMediaClientConfig?: MediaClientConfig): Promise<void> {
 		const $pos = this.$pos;
 
 		if (!$pos || !viewMediaClientConfig) {
@@ -138,7 +138,7 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 	 * When returning to center layout from a wrapped/aligned layout, it might actually
 	 * be wide or full-width
 	 */
-	checkLayout(oldLayout: MediaSingleLayout, newLayout: MediaSingleLayout) {
+	checkLayout(oldLayout: MediaSingleLayout, newLayout: MediaSingleLayout): void {
 		const { resizedPctWidth } = this.state;
 		if (wrappedLayouts.indexOf(oldLayout) > -1 && newLayout === 'center' && resizedPctWidth) {
 			const layout = this.calcUnwrappedLayout(resizedPctWidth, this.calcPxWidth(newLayout));

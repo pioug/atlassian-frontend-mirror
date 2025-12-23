@@ -51,7 +51,7 @@ export const getEditInLegacyMacroBrowser = ({
 	macroProvider,
 	editorAnalyticsAPI,
 }: EditInLegacyMacroBrowserArgs) => {
-	return () => {
+	return (): void => {
 		if (!view) {
 			throw new Error(`Missing view. Can't update without EditorView`);
 		}

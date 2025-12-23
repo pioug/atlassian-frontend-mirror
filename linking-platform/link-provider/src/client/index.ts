@@ -64,7 +64,7 @@ export default class CardClient implements CardClientInterface {
 		this.baseUrlOverride = baseUrlOverride;
 	}
 
-	public setProduct(product: ProductType) {
+	public setProduct(product: ProductType): void {
 		this.product = product;
 	}
 
@@ -73,7 +73,7 @@ export default class CardClient implements CardClientInterface {
 	 *
 	 * @param headers - Object containing headers to be sent with each request.
 	 */
-	public setHeaders(headers: Record<string, string>) {
+	public setHeaders(headers: Record<string, string>): void {
 		this.headers = headers;
 	}
 

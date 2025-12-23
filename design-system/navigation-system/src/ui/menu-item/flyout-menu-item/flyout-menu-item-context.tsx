@@ -28,6 +28,6 @@ export const OnCloseContext = createContext<(() => void) | null | undefined>(nul
 /**
  * __On close provider__
  * 
- * A context provider for supplying the testId to the FlyoutHeader.
+ * A context provider for supplying the onClose function to the FlyoutHeader.
  */
 export const OnCloseProvider = OnCloseContext.Provider;

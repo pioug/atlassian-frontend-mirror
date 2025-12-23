@@ -94,7 +94,7 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
 		}
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		const { onBrowseFn, onCancelFn, isOpen } = this.props;
 
 		if (onBrowseFn) {
@@ -110,7 +110,7 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
 		}
 	}
 
-	UNSAFE_componentWillReceiveProps(nextProps: BrowserProps) {
+	UNSAFE_componentWillReceiveProps(nextProps: BrowserProps): void {
 		const { isOpen } = this.props;
 		const { isOpen: nextIsOpen } = nextProps;
 

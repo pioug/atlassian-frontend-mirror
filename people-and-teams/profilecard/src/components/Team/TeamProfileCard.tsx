@@ -420,8 +420,7 @@ const TeamProfilecardContent = ({
 		'isEnabled',
 		false,
 	);
-	const isTeamArchived =
-		team.state === 'DISBANDED' && fg('legion-enable-archive-teams') && newTeamProfileEnabled;
+	const isTeamArchived = team.state === 'DISBANDED' && newTeamProfileEnabled;
 	const allActions = [
 		{
 			label: <FormattedMessage {...messages.teamViewProfile} />,

@@ -113,7 +113,7 @@ export class AvatarPickerDialog extends PureComponent<
 		prevAltText: '',
 	};
 
-	setSelectedImageState = async (selectedImage: File) => {
+	setSelectedImageState = async (selectedImage: File): Promise<void> => {
 		// this is the main method to update the image state,
 		// it is bubbled from the ImageCropper component through ImageNavigator when the image is loaded
 		try {
@@ -123,7 +123,7 @@ export class AvatarPickerDialog extends PureComponent<
 		} catch (e) {}
 	};
 
-	setSelectedAvatarState = (avatar: Avatar) => {
+	setSelectedAvatarState = (avatar: Avatar): void => {
 		const { requireAltText } = this.props;
 
 		if (requireAltText) {
@@ -140,7 +140,7 @@ export class AvatarPickerDialog extends PureComponent<
 		}
 	};
 
-	onImageNavigatorLoad = (loadParams: LoadParameters) => {
+	onImageNavigatorLoad = (loadParams: LoadParameters): void => {
 		this.exportCroppedImage = loadParams.export;
 	};
 
@@ -150,7 +150,7 @@ export class AvatarPickerDialog extends PureComponent<
 	 */
 	exportCroppedImage = (_outputSize?: number) => '';
 
-	onSave = (event: React.FormEvent<HTMLFormElement>) => {
+	onSave = (event: React.FormEvent<HTMLFormElement>): void => {
 		event.preventDefault();
 		const {
 			onImagePicked,
@@ -183,7 +183,7 @@ export class AvatarPickerDialog extends PureComponent<
 		}
 	};
 
-	onShowMore = () => {
+	onShowMore = (): void => {
 		this.setState({
 			mode: Mode.PredefinedAvatars,
 			isSubmitted: false,
@@ -193,14 +193,14 @@ export class AvatarPickerDialog extends PureComponent<
 		});
 	};
 
-	onGoBack = () => {
+	onGoBack = (): void => {
 		this.clearErrorState();
 		requestAnimationFrame(() => {
 			this.moreRef.current?.focus();
 		});
 	};
 
-	onRemoveImage = () => {
+	onRemoveImage = (): void => {
 		const { requireAltText } = this.props;
 		const { prevAltText } = this.state;
 
@@ -214,7 +214,7 @@ export class AvatarPickerDialog extends PureComponent<
 		this.clearPrevAltText();
 	};
 
-	clearErrorState = () => {
+	clearErrorState = (): void => {
 		this.setState({
 			mode: Mode.Cropping,
 			errorMessage: undefined,
@@ -222,14 +222,14 @@ export class AvatarPickerDialog extends PureComponent<
 		});
 	};
 
-	setErrorState = (errorMessage: string) => {
+	setErrorState = (errorMessage: string): void => {
 		this.setState({
 			mode: Mode.Cropping,
 			errorMessage,
 		});
 	};
 
-	onImageUploaded = () => {
+	onImageUploaded = (): void => {
 		const { requireAltText } = this.props;
 		const { altText } = this.state;
 
@@ -240,7 +240,7 @@ export class AvatarPickerDialog extends PureComponent<
 		this.clearErrorState();
 	};
 
-	onImageError = (errorMessage: string) => {
+	onImageError = (errorMessage: string): void => {
 		this.setErrorState(errorMessage);
 	};
 
@@ -339,19 +339,19 @@ export class AvatarPickerDialog extends PureComponent<
 		}
 	}
 
-	updateAltText(altText: string) {
+	updateAltText(altText: string): void {
 		this.setState({ altText });
 	}
 
-	clearAltText() {
+	clearAltText(): void {
 		this.updateAltText('');
 	}
 
-	updatePrevAltText(prevAltText: string) {
+	updatePrevAltText(prevAltText: string): void {
 		this.setState({ prevAltText });
 	}
 
-	clearPrevAltText() {
+	clearPrevAltText(): void {
 		this.updatePrevAltText('');
 	}
 

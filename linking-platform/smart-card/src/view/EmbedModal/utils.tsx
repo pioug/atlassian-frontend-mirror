@@ -24,7 +24,7 @@ const POPUP_MOUNT_POINT_ID = 'twp-editor-preview-iframe';
 export async function openEmbedModal({
 	onClose = () => {},
 	...props
-}: Partial<EmbedModalProps> = {}) {
+}: Partial<EmbedModalProps> = {}): Promise<void> {
 	let popupMountPoint: HTMLElement | null;
 
 	popupMountPoint = document.getElementById(POPUP_MOUNT_POINT_ID);

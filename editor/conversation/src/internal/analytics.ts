@@ -48,7 +48,7 @@ export type EventData = {
 	objectId?: string;
 };
 
-export function fireEvent(analyticsEvent: UIAnalyticsEvent, eventData: EventData) {
+export function fireEvent(analyticsEvent: UIAnalyticsEvent, eventData: EventData): void {
 	analyticsEvent.update({
 		...eventData,
 		eventType: eventData.eventType || eventTypes.UI,

@@ -22,7 +22,7 @@ export function checkParse(
 	schema: Schema,
 	htmls: string[],
 	node: (schema: Schema) => Node,
-) {
+): void {
 	it(`parses HTML: ${description}`, () => {
 		for (const html of htmls) {
 			const actual = parseWithSchema(html, schema);
@@ -38,7 +38,7 @@ export function checkEncode(
 	html: string,
 	customEncoders: JIRACustomEncoders = {},
 	mediaContextInfo?: MediaContextInfo,
-) {
+): void {
 	it(`encodes HTML: ${description}`, () => {
 		const encoded = encode(node, schema, customEncoders, mediaContextInfo);
 		expect(encoded).toEqual(html);
@@ -52,7 +52,7 @@ export function checkParseEncodeRoundTrips(
 	node: (schema: Schema) => Node,
 	customEncoders: JIRACustomEncoders = {},
 	mediaContextInfo?: MediaContextInfo,
-) {
+): void {
 	it(`parses HTML: ${description}`, () => {
 		const actual = parseWithSchema(html, schema);
 		expect(actual).toEqualDocument(node);

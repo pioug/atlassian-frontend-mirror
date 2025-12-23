@@ -24,7 +24,7 @@ export const useCommentButtonMount = ({
 	api?: ExtractInjectionAPI<AnnotationPlugin>;
 	bookmark?: SelectionBookmark;
 	state: EditorState | null | undefined;
-}) => {
+}): void => {
 	useEffect(() => {
 		if (!state) {
 			return;

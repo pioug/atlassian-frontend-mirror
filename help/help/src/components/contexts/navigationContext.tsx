@@ -108,12 +108,12 @@ const getCurrentArticleItemSlim = (
 
 	if (article) {
 		if (type === ARTICLE_TYPE.HELP_ARTICLE) {
-			const { body, relatedArticles, ...articleItemData } = article as Article;
+			const { body: _body, relatedArticles: _relatedArticles, ...articleItemData } = article as Article;
 			const currentArticleSlimData: ArticleItem = articleItemData;
 
 			return currentArticleSlimData;
 		} else if (type === ARTICLE_TYPE.WHATS_NEW) {
-			const { description, ...whatsNewArticleItemData } = article as WhatsNewArticle;
+			const { description: _description, ...whatsNewArticleItemData } = article as WhatsNewArticle;
 			const currentWhatsNewArticleSlimData: WhatsNewArticleItem = whatsNewArticleItemData;
 
 			return currentWhatsNewArticleSlimData;
@@ -316,6 +316,9 @@ export const NavigationContextProvider = ({
 	const onGetHelpArticleRef = useRef(onGetHelpArticle);
 	const onGetWhatsNewArticleRef = useRef(onGetWhatsNewArticle);
 
+	// Ref to store triggering elements for focus restoration on navigate back
+	const triggerElementsRef = useRef<(HTMLElement | null)[]>([]);
+
 	// Update refs when functions change
 	onGetHelpArticleRef.current = onGetHelpArticle;
 	onGetWhatsNewArticleRef.current = onGetWhatsNewArticle;
@@ -362,7 +365,7 @@ export const NavigationContextProvider = ({
 					...(article && { article }),
 					state: REQUEST_STATE.done,
 				};
-			} catch (error) {
+			} catch {
 				return { ...historyItem, state: REQUEST_STATE.error };
 			}
 		},
@@ -407,6 +410,9 @@ export const NavigationContextProvider = ({
 
 		//  if the history is not empty and ...
 		if (currentHistory.length > 0) {
+			// Pop the trigger element before navigating back
+			const triggerElement = triggerElementsRef.current.pop();
+
 			// the history has more than one article, navigate back through the history
 			if (currentHistory.length > 1) {
 				// Remove last element
@@ -428,12 +434,25 @@ export const NavigationContextProvider = ({
 					});
 				}
 			}
+
+			// Restore focus to the element that triggered the navigation
+			if (triggerElement) {
+				// Wait for slide-out animation to complete (300ms) plus a buffer
+				const timeoutId = setTimeout(() => {
+					if (document.body.contains(triggerElement)) {
+						triggerElement.focus();
+					}
+				}, 400); // Increased from 350ms to 400ms
+				return () => clearTimeout(timeoutId);
+			}
 		}
 	}, [currentView, searchValue, currentArticleId, currentHistory, onSearch, searchResult?.length]);
 
 	const onClose = useCallback(
 		(event: React.MouseEvent<HTMLElement, MouseEvent>, analyticsEvent: UIAnalyticsEvent): void => {
 			if (onCloseButtonClick) {
+				// Clear trigger elements stack when closing
+				triggerElementsRef.current = [];
 				dispatchNavigationAction({
 					type: 'removeAllHistoryItems',
 				});
@@ -444,6 +463,12 @@ export const NavigationContextProvider = ({
 	);
 
 	const onOpenArticle = useCallback((newArticleId: articleId) => {
+		// Capture the currently focused element before opening article
+		const triggerElement = document.activeElement as HTMLElement | null;
+		if (triggerElement && triggerElement !== document.body) {
+			triggerElementsRef.current.push(triggerElement);
+		}
+
 		dispatchNavigationAction({
 			type: 'addNewHistoryItem',
 			payload: newArticleId,
@@ -491,7 +516,13 @@ export const NavigationContextProvider = ({
 			} else {
 				/**
 				 * Otherwise we need to add a new article
+				 * Capture the focused element for focus restoration when navigating back
 				 */
+				const triggerElement = document.activeElement as HTMLElement | null;
+				if (triggerElement && triggerElement !== document.body && propsArticleId.id !== '') {
+					triggerElementsRef.current.push(triggerElement);
+				}
+
 				dispatchNavigationAction({
 					type: 'newArticle',
 					payload: propsArticleId,

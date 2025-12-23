@@ -23,12 +23,12 @@ import DevelopmentUseMessage from './developmentUseMessage';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 
-export const clickHandler = (result: CardEvent) => {
+export const clickHandler = (result: CardEvent): void => {
 	result.event.preventDefault();
 	console.log('click', result.mediaItemDetails);
 };
 
-export const mouseEnterHandler = (result: CardEvent) => {
+export const mouseEnterHandler = (result: CardEvent): void => {
 	result.event.preventDefault();
 	console.log('mouseEnter', result.mediaItemDetails);
 };
@@ -70,13 +70,13 @@ export const createApiCards = (
 
 export const openAction = {
 	label: 'Open',
-	handler: () => {
+	handler: (): void => {
 		console.log('open');
 	},
 };
 export const closeAction = {
 	label: 'Close',
-	handler: () => {
+	handler: (): void => {
 		console.log('close');
 	},
 };

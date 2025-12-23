@@ -59,7 +59,7 @@ export const getNcsSessionStepMetrics = (
  * @param sessionId - The session ID to check or update in local storage.
  * @returns void
  */
-export const updateNcsActiveSessions = (sessionId: string) => {
+export const updateNcsActiveSessions = (sessionId: string): void => {
 	const currentActiveSessions = JSON.parse(
 		storageClient.getItem(NCS_STORAGE.NCS_ACTIVE_SESSIONS) || '{}',
 	);
@@ -88,7 +88,7 @@ type UpdateNcsSessionStepMetricProps = {
  * @param steps - The steps to calculate the metrics from.
  * @return void
  */
-export const updateNcsSessionStepMetrics = ({ api, steps }: UpdateNcsSessionStepMetricProps) => {
+export const updateNcsSessionStepMetrics = ({ api, steps }: UpdateNcsSessionStepMetricProps): void => {
 	const sessionId = api?.collabEdit?.sharedState.currentState()?.sessionId;
 	if (!sessionId) {
 		return;

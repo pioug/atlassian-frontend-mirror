@@ -12,7 +12,7 @@ export interface State {
 export default class Example extends React.Component<{}, State> {
 	state = { isExpanded: false };
 
-	toggleExpanded = () => {
+	toggleExpanded = (): void => {
 		this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
 	};
 

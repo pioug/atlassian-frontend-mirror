@@ -6,6 +6,7 @@ import {
 	screen,
 	waitFor,
 	waitForElementToBeRemoved,
+	within,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as jestExtendedMatchers from 'jest-extended';
@@ -26,7 +27,7 @@ import type { InvokeClientActionProps } from '../../../state/hooks/use-invoke-cl
 import { context } from '../../../utils/analytics';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
 import { mocks } from '../../../utils/mocks';
-import * as LinkInfo from '../components/link-info';
+import * as EmbedContent from '../components/embed-content';
 import { MAX_MODAL_SIZE } from '../constants';
 import EmbedModal from '../index';
 import { EmbedModalSize } from '../types';
@@ -163,171 +164,183 @@ describe('EmbedModal', () => {
 		jest.restoreAllMocks();
 	});
 
-	it('should render with size', () => {
-		renderEmbedModal({ size: EmbedModalSize.Small });
-		const modal = screen.getByTestId(testId);
-		expectModalMinSize(modal);
-	});
-
-	it('should capture and report a11y violations', async () => {
-		const { container } = render(
-			<IntlProvider locale="en">
-				<EmbedModal iframeName="iframe-name" onClose={() => {}} showModal={true} testId={testId} />
-			</IntlProvider>,
-		);
-
-		await expect(container).toBeAccessible();
-	});
-
-	it('renders embed modal', async () => {
-		renderEmbedModal();
-		const modal = await screen.findByTestId(testId);
-		expect(modal).toBeDefined();
-	});
-
-	it('renders embed modal without analytics', async () => {
-		render(
-			<IntlProvider locale="en">
-				<EmbedModal iframeName="iframe-name" onClose={() => {}} showModal={true} testId={testId} />
-			</IntlProvider>,
-		);
-		const modal = await screen.findByTestId(testId);
-		expect(modal).toBeDefined();
-	});
-
-	it('renders a link info', async () => {
-		const title = 'Link title';
-		renderEmbedModal({
-			title,
+	ffTest.both('platform_navx_sl_a11y_embed_modal', '', () => {
+		it('should render with size', () => {
+			renderEmbedModal({ size: EmbedModalSize.Small });
+			const modal = screen.getByTestId(testId);
+			expectModalMinSize(modal);
 		});
 
-		expect(await screen.findByTestId(`${testId}-title`)).toHaveTextContent(title);
-	});
+		it('should capture and report a11y violations', async () => {
+			const { container } = render(
+				<IntlProvider locale="en">
+					<EmbedModal
+						iframeName="iframe-name"
+						onClose={() => {}}
+						showModal={true}
+						testId={testId}
+					/>
+				</IntlProvider>,
+			);
 
-	it('renders an iframe', async () => {
-		const iframeName = 'iframe-name';
-		const src = 'https://link-url';
-		renderEmbedModal({ iframeName, src });
-		const iframe = await screen.findByTestId(`${testId}-embed`);
-
-		expect(iframe).toBeDefined();
-		expect(iframe.getAttribute('name')).toEqual(iframeName);
-		expect(iframe.getAttribute('src')).toEqual(src);
-		expect(iframe.getAttribute('sandbox')).toEqual(expect.any(String));
-	});
-
-	describe('with buttons', () => {
-		it('closes modal and trigger close callback when clicking close button', async () => {
-			const onClose = jest.fn();
-			renderEmbedModal({
-				onClose,
-			});
-
-			const button = await screen.findByTestId(`${testId}--close-button`);
-
-			await userEvent.hover(button);
-
-			expect(await screen.findByTestId(`${testId}-close-tooltip`)).toBeInTheDocument();
-
-			const tooltip = await screen.findByTestId(`${testId}-close-tooltip`);
-			expect(tooltip.textContent).toBe(messages.preview_close.defaultMessage);
-
-			await user.click(button);
-			await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
-			const modal = screen.queryByTestId(testId);
-			expect(modal).not.toBeInTheDocument();
-			expect(onClose).toHaveBeenCalledTimes(1);
+			await expect(container).toBeAccessible();
 		});
 
-		it('resizes modal when clicking resize button', async () => {
+		it('renders embed modal', async () => {
 			renderEmbedModal();
 			const modal = await screen.findByTestId(testId);
-			const button = await screen.findByTestId(`${testId}-resize-button`);
-
-			// Resize to min size
-			await userEvent.hover(button);
-
-			expect(await screen.findByTestId(`${testId}-resize-tooltip`)).toBeInTheDocument();
-
-			const minTooltip = await screen.findByTestId(`${testId}-resize-tooltip`);
-			expect(minTooltip.textContent).toBe(messages.preview_min_size.defaultMessage);
-			await user.click(button);
-			expectModalMinSize(modal);
-
-			// Resize to max size
-			await userEvent.hover(button);
-			expect(await screen.findByTestId(`${testId}-resize-tooltip`)).toBeInTheDocument();
-
-			const maxTooltip = await screen.findByTestId(`${testId}-resize-tooltip`);
-			expect(maxTooltip.textContent).toBe(messages.preview_max_size.defaultMessage);
-			await user.click(button);
-			expectModalMaxSize(modal);
+			expect(modal).toBeDefined();
 		});
 
-		describe('with url button', () => {
-			it('renders url button', async () => {
-				renderEmbedModal({ invokeViewAction });
-				const button = await screen.findByTestId(`${testId}-url-button`);
-				expect(button).toBeInTheDocument();
+		it('renders embed modal without analytics', async () => {
+			render(
+				<IntlProvider locale="en">
+					<EmbedModal
+						iframeName="iframe-name"
+						onClose={() => {}}
+						showModal={true}
+						testId={testId}
+					/>
+				</IntlProvider>,
+			);
+			const modal = await screen.findByTestId(testId);
+			expect(modal).toBeDefined();
+		});
 
-				await userEvent.hover(button);
-
-				expect(await screen.findByTestId(`${testId}-url-tooltip`)).toBeInTheDocument();
-
-				const tooltip = await screen.findByTestId(`${testId}-url-tooltip`);
-				expect(tooltip.textContent).toBe(messages.viewOriginal.defaultMessage);
+		it('renders a link info', async () => {
+			const title = 'Link title';
+			renderEmbedModal({
+				title,
 			});
 
-			it('renders url button with provider name', async () => {
+			expect(await screen.findByTestId(`${testId}-title`)).toHaveTextContent(title);
+		});
+
+		it('renders an iframe', async () => {
+			const iframeName = 'iframe-name';
+			const src = 'https://link-url';
+			renderEmbedModal({ iframeName, src });
+			const iframe = await screen.findByTestId(`${testId}-embed`);
+
+			expect(iframe).toBeDefined();
+			expect(iframe.getAttribute('name')).toEqual(iframeName);
+			expect(iframe.getAttribute('src')).toEqual(src);
+			expect(iframe.getAttribute('sandbox')).toEqual(expect.any(String));
+		});
+
+		describe('with buttons', () => {
+			it('closes modal and trigger close callback when clicking close button', async () => {
+				const onClose = jest.fn();
 				renderEmbedModal({
-					invokeViewAction,
-					providerName: 'Confluence',
+					onClose,
 				});
-				const button = await screen.findByTestId(`${testId}-url-button`);
+
+				const button = await screen.findByTestId(`${testId}--close-button`);
 
 				await userEvent.hover(button);
-				expect(await screen.findByTestId(`${testId}-url-tooltip`)).toBeInTheDocument();
 
-				const tooltip = await screen.findByTestId(`${testId}-url-tooltip`);
-				expect(tooltip).toHaveTextContent('View in Confluence');
+				expect(await screen.findByTestId(`${testId}-close-tooltip`)).toBeInTheDocument();
+
+				const tooltip = await screen.findByTestId(`${testId}-close-tooltip`);
+				expect(tooltip.textContent).toBe(messages.preview_close.defaultMessage);
+
+				await user.click(button);
+				await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
+				const modal = screen.queryByTestId(testId);
+				expect(modal).not.toBeInTheDocument();
+				expect(onClose).toHaveBeenCalledTimes(1);
 			});
 
-			it('does not render url button when url is not provided', () => {
+			it('resizes modal when clicking resize button', async () => {
 				renderEmbedModal();
-				const button = screen.queryByTestId(`${testId}-url-button`);
-				expect(button).not.toBeInTheDocument();
+				const modal = await screen.findByTestId(testId);
+				const button = await screen.findByTestId(`${testId}-resize-button`);
+
+				// Resize to min size
+				await userEvent.hover(button);
+
+				expect(await screen.findByTestId(`${testId}-resize-tooltip`)).toBeInTheDocument();
+
+				const minTooltip = await screen.findByTestId(`${testId}-resize-tooltip`);
+				expect(minTooltip.textContent).toBe(messages.preview_min_size.defaultMessage);
+				await user.click(button);
+				expectModalMinSize(modal);
+
+				// Resize to max size
+				await userEvent.hover(button);
+				expect(await screen.findByTestId(`${testId}-resize-tooltip`)).toBeInTheDocument();
+
+				const maxTooltip = await screen.findByTestId(`${testId}-resize-tooltip`);
+				expect(maxTooltip.textContent).toBe(messages.preview_max_size.defaultMessage);
+				await user.click(button);
+				expectModalMaxSize(modal);
+			});
+
+			describe('with url button', () => {
+				it('renders url button', async () => {
+					renderEmbedModal({ invokeViewAction });
+					const button = await screen.findByTestId(`${testId}-url-button`);
+					expect(button).toBeInTheDocument();
+
+					await userEvent.hover(button);
+
+					expect(await screen.findByTestId(`${testId}-url-tooltip`)).toBeInTheDocument();
+
+					const tooltip = await screen.findByTestId(`${testId}-url-tooltip`);
+					expect(tooltip.textContent).toBe(messages.viewOriginal.defaultMessage);
+				});
+
+				it('renders url button with provider name', async () => {
+					renderEmbedModal({
+						invokeViewAction,
+						providerName: 'Confluence',
+					});
+					const button = await screen.findByTestId(`${testId}-url-button`);
+
+					await userEvent.hover(button);
+					expect(await screen.findByTestId(`${testId}-url-tooltip`)).toBeInTheDocument();
+
+					const tooltip = await screen.findByTestId(`${testId}-url-tooltip`);
+					expect(tooltip).toHaveTextContent('View in Confluence');
+				});
+
+				it('does not render url button when url is not provided', () => {
+					renderEmbedModal();
+					const button = screen.queryByTestId(`${testId}-url-button`);
+					expect(button).not.toBeInTheDocument();
+				});
+			});
+
+			describe('with download button', () => {
+				it('renders download button', async () => {
+					renderEmbedModal({ invokeDownloadAction });
+					const button = await screen.findByTestId(`${testId}-download-button`);
+					expect(button).toBeInTheDocument();
+
+					await userEvent.hover(button);
+					expect(await screen.findByTestId(`${testId}-download-tooltip`)).toBeInTheDocument();
+
+					const tooltip = await screen.findByTestId(`${testId}-download-tooltip`);
+					expect(tooltip.textContent).toBe(messages.download.defaultMessage);
+				});
+
+				it('does not render download button when download url is not provided', () => {
+					renderEmbedModal();
+					const button = screen.queryByTestId(`${testId}-download-button`);
+					expect(button).not.toBeInTheDocument();
+				});
 			});
 		});
 
-		describe('with download button', () => {
-			it('renders download button', async () => {
-				renderEmbedModal({ invokeDownloadAction });
-				const button = await screen.findByTestId(`${testId}-download-button`);
-				expect(button).toBeInTheDocument();
+		it('triggers open failed callback when modal content throws error', async () => {
+			const onOpenFailed = jest.fn();
+			const spy = jest.spyOn(EmbedContent, 'default').mockReturnValue(<ThrowError />);
 
-				await userEvent.hover(button);
-				expect(await screen.findByTestId(`${testId}-download-tooltip`)).toBeInTheDocument();
+			renderEmbedModal({ onOpenFailed });
+			expect(onOpenFailed).toHaveBeenCalledTimes(1);
 
-				const tooltip = await screen.findByTestId(`${testId}-download-tooltip`);
-				expect(tooltip.textContent).toBe(messages.download.defaultMessage);
-			});
-
-			it('does not render download button when download url is not provided', () => {
-				renderEmbedModal();
-				const button = screen.queryByTestId(`${testId}-download-button`);
-				expect(button).not.toBeInTheDocument();
-			});
+			spy.mockRestore();
 		});
-	});
-
-	it('triggers open failed callback when modal content throws error', async () => {
-		const onOpenFailed = jest.fn();
-		const spy = jest.spyOn(LinkInfo, 'default').mockReturnValue(<ThrowError />);
-
-		renderEmbedModal({ onOpenFailed });
-		expect(onOpenFailed).toHaveBeenCalledTimes(1);
-
-		spy.mockRestore();
 	});
 
 	describe('with analytics', () => {
@@ -386,7 +399,7 @@ describe('EmbedModal', () => {
 		});
 
 		it('dispatches analytics event on modal open failed', async () => {
-			const spy = jest.spyOn(LinkInfo, 'default').mockReturnValue(<ThrowError />);
+			const spy = jest.spyOn(EmbedContent, 'default').mockReturnValue(<ThrowError />);
 			const onOpenFailed = jest.fn();
 			renderEmbedModal({ onOpenFailed });
 
@@ -609,7 +622,7 @@ describe('EmbedModal', () => {
 			);
 		});
 
-		ffTest.on('platform_navx_flex_card_status_dropdown_a11y_fix', '', () => {
+		const runA11yTests = () => {
 			it.each([
 				['Close full screen', EmbedModalSize.Large],
 				['View full screen', EmbedModalSize.Small],
@@ -624,6 +637,27 @@ describe('EmbedModal', () => {
 					expect(screen.queryByLabelText(buttonText)).not.toBeInTheDocument();
 				},
 			);
+		};
+
+		ffTest.on('platform_navx_flex_card_status_dropdown_a11y_fix', '', runA11yTests);
+
+		ffTest.on('platform_navx_sl_a11y_embed_modal', '', () => {
+			it('should should capture and report a11y violations', async () => {
+				const { container } = renderEmbedModal({ invokeViewAction, invokeDownloadAction });
+
+				await expect(container).toBeAccessible();
+			});
+
+			runA11yTests();
+
+			it('should have list for action items', async () => {
+				renderEmbedModal({ invokeViewAction, invokeDownloadAction });
+
+				const list = await screen.findByRole('list');
+
+				expect(list).toBeInTheDocument();
+				expect(within(list).queryAllByRole('button').length).toBe(4);
+			});
 		});
 	});
 });

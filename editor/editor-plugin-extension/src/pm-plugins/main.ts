@@ -76,7 +76,7 @@ const getUpdateExtensionPromise = async (
 };
 
 export const createExtensionProviderHandler =
-	(view: EditorView) => async (name: string, provider?: Promise<ExtensionProvider>) => {
+	(view: EditorView) => async (name: string, provider?: Promise<ExtensionProvider>): Promise<void> => {
 		if (name === 'extensionProvider' && provider) {
 			try {
 				const extensionProvider = await provider;

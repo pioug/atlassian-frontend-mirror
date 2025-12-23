@@ -78,7 +78,7 @@ export class CaptionNodeView extends SelectionBasedNodeView {
 		return !this.contentDOM.contains(mutation.target) && mutation.type !== 'selection';
 	}
 
-	handleEditorDisabledChanged() {
+	handleEditorDisabledChanged(): void {
 		if (this.pluginInjectionApi?.editorDisabled) {
 			this.cleanupEditorDisabledListener =
 				this.pluginInjectionApi.editorDisabled.sharedState.onChange((sharedState) => {
@@ -112,7 +112,7 @@ export class CaptionNodeView extends SelectionBasedNodeView {
 		return selectedStateChange;
 	}
 
-	destroy() {
+	destroy(): void {
 		if (this.cleanupEditorDisabledListener) {
 			this.cleanupEditorDisabledListener();
 		}

@@ -182,7 +182,7 @@ export const useMeasureFramerate = (config: UseMeasureFramerateConfig = {}) => {
 		};
 	}, []);
 
-	const startMeasure = () => {
+	const startMeasure = (): void => {
 		frameCount.current = 0;
 		lastTime.current = performance.now();
 	};
@@ -212,7 +212,7 @@ export const useMeasureFramerate = (config: UseMeasureFramerateConfig = {}) => {
 	 * Counts the number of frames that occur within a given time period. Intended to be called
 	 * inside a `requestAnimationFrame` callback.
 	 */
-	const countFrames = () => {
+	const countFrames = (): void => {
 		if (frameRateSamples.current.length >= maxSamples && timeoutId.current) {
 			clearTimeout(timeoutId.current);
 			return;

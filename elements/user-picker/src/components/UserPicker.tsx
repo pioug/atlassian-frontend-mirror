@@ -45,7 +45,7 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 		isMulti: false,
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		const experienceForId = experience.getInstance(this.ufoId);
 
 		// Send UFO success if the experience is still in progress i.e. hasn't failed

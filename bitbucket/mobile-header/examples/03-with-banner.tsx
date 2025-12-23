@@ -30,15 +30,15 @@ export default class BannerMobileHeaderDemo extends Component<{}, State> {
 		drawerState: 'none',
 	};
 
-	navOpened = () => {
+	navOpened = (): void => {
 		this.setState({ drawerState: 'navigation' });
 	};
 
-	sidebarOpened = () => {
+	sidebarOpened = (): void => {
 		this.setState({ drawerState: 'sidebar' });
 	};
 
-	drawerClosed = () => {
+	drawerClosed = (): void => {
 		this.setState({ drawerState: 'none' });
 	};
 

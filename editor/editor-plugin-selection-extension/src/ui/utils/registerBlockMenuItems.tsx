@@ -22,7 +22,7 @@ export function registerBlockMenuItems({
 	extensionList,
 	api,
 	editorViewRef,
-}: RegisterBlockMenuItemsOptions) {
+}: RegisterBlockMenuItemsOptions): void {
 	extensionList.forEach(({ source, key, blockMenu }) => {
 		if (source !== 'first-party' || !blockMenu) {
 			return;

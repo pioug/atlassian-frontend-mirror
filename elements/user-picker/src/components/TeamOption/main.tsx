@@ -180,7 +180,7 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
 		);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<AvatarItemOption
 				avatar={this.renderAvatar()}

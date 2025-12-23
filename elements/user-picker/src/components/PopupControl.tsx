@@ -28,7 +28,7 @@ const labelStyle = css({
 });
 
 export class PopupControl extends React.PureComponent<ControlProps<any> & UserPickerProps> {
-	render() {
+	render(): React.JSX.Element {
 		const {
 			//@ts-ignore react-select unsupported props
 			selectProps: { popupTitle },

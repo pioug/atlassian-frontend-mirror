@@ -2,7 +2,7 @@ import { isPerformanceAPIAvailable } from '../utils/performance/is-performance-a
 
 const measureMap = new Map<string, number>();
 
-export function startMeasure(measureName: string) {
+export function startMeasure(measureName: string): void {
 	if (!isPerformanceAPIAvailable()) {
 		return;
 	}
@@ -13,7 +13,7 @@ export function startMeasure(measureName: string) {
 export function stopMeasure(
 	measureName: string,
 	onMeasureComplete?: (duration: number, startTime: number) => void,
-) {
+): void {
 	if (!isPerformanceAPIAvailable()) {
 		return;
 	}
@@ -35,7 +35,7 @@ export function stopMeasure(
 	}
 }
 
-export function clearMeasure(measureName: string) {
+export function clearMeasure(measureName: string): void {
 	if (!isPerformanceAPIAvailable()) {
 		return;
 	}

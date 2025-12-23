@@ -170,7 +170,7 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		}
 	}
 
-	initMutationObserver() {
+	initMutationObserver(): void {
 		const { mutationObserver } = this;
 		if (mutationObserver && this.bufferElement) {
 			mutationObserver.disconnect();
@@ -178,7 +178,7 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		}
 	}
 
-	triggerScrollEvent() {
+	triggerScrollEvent(): void {
 		if (!this.windowElement) {
 			return;
 		}
@@ -226,7 +226,7 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		return Math.min(this.maxOffset, Math.max(this.minOffset, offset));
 	}
 
-	handleSizeChange = () => {
+	handleSizeChange = (): void => {
 		// get the new widths
 		const { windowElement, bufferElement } = this;
 		let bufferWidth = 0;
@@ -286,12 +286,12 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		);
 	};
 
-	handleWindowElementChange = (windowElement: HTMLDivElement) => {
+	handleWindowElementChange = (windowElement: HTMLDivElement): void => {
 		this.windowElement = windowElement;
 		this.handleSizeChange();
 	};
 
-	handleBufferElementChange = (bufferElement: HTMLUListElement) => {
+	handleBufferElementChange = (bufferElement: HTMLUListElement): void => {
 		if (!bufferElement) {
 			return;
 		}
@@ -302,13 +302,13 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		this.initMutationObserver();
 	};
 
-	handleMutation = (_mutationList: MutationRecord[]) => {
+	handleMutation = (_mutationList: MutationRecord[]): void => {
 		// there are edge cases where the DOM may change outside of the normal React life-cycle
 		// https://product-fabric.atlassian.net/browse/MSW-425
 		this.handleSizeChange();
 	};
 
-	handleLeftClick = (event: MouseEvent<HTMLDivElement, any>) => {
+	handleLeftClick = (event: MouseEvent<HTMLDivElement, any>): void => {
 		// Stop the click event from bubling up and being handled by other components
 		// See https://product-fabric.atlassian.net/browse/MSW-165
 		event.stopPropagation();
@@ -330,7 +330,7 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		}
 	};
 
-	handleRightClick = (event: MouseEvent<HTMLDivElement, any>) => {
+	handleRightClick = (event: MouseEvent<HTMLDivElement, any>): void => {
 		// Stop the click event from bubling up and being handled by other components
 		// See https://product-fabric.atlassian.net/browse/MSW-165
 		event.stopPropagation();
@@ -352,7 +352,7 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		}
 	};
 
-	handleScroll = (event: WheelEvent<HTMLDivElement>) => {
+	handleScroll = (event: WheelEvent<HTMLDivElement>): void => {
 		const isHorizontalScroll = Math.abs(event.deltaX) > Math.abs(event.deltaY);
 		if (!isHorizontalScroll) {
 			return;
@@ -376,7 +376,7 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		}
 	};
 
-	handleTouchStart = (event: React.TouchEvent) => {
+	handleTouchStart = (event: React.TouchEvent): void => {
 		if (event.touches[0]) {
 			this.setState({
 				touchMoveStartPosition: event.touches[0].clientX,
@@ -385,7 +385,7 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		}
 	};
 
-	handleTouchEnd = (event: React.TouchEvent) => {
+	handleTouchEnd = (event: React.TouchEvent): void => {
 		if (event.touches[0]) {
 			this.setState({
 				touchMoveStartPosition: event.touches[0].clientX,
@@ -394,7 +394,7 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		}
 	};
 
-	handleTouchMove = (event: React.TouchEvent) => {
+	handleTouchMove = (event: React.TouchEvent): void => {
 		const { onScroll } = this.props;
 
 		if (this.state.isTouchMoveInProgress && onScroll) {
@@ -427,12 +427,12 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		return <RightArrow onClick={this.handleRightClick} />;
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.previousOffset = this.offset;
 		window.addEventListener('resize', this.handleSizeChange);
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		const { mutationObserver } = this;
 
 		window.removeEventListener('resize', this.handleSizeChange);
@@ -442,7 +442,7 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		}
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate(): void {
 		this.previousOffset = this.offset;
 
 		if (!fg('platform_editor_disable_trigger_scroll_event')) {

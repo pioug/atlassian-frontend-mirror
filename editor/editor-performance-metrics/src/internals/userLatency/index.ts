@@ -31,7 +31,7 @@ const getGlobalUserLatencyTimeline = (): TimelineController => {
    https://product-fabric.atlassian.net/browse/PGXT-7952 */
 export const onUserLatency = (
 	handleUserLatencyEvents: (userLatencyEvents: UserLatencyEvent[]) => void,
-) => {
+): void => {
 	const timeline = getGlobalUserLatencyTimeline();
 	const observers = new UserLatencyObservers(timeline);
 

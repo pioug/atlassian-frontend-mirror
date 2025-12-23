@@ -70,7 +70,7 @@ export class CommitStepService {
 		steps: readonly ProseMirrorStep[];
 		userId: string;
 		version: number;
-	}) {
+	}): void {
 		// this timer is for waiting to send the next batch in between acks from the BE
 		let commitWaitTimer;
 		// if publishing and not waiting for an ACK, then clear the commit timer and proceed, skipping the timer

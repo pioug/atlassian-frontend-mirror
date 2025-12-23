@@ -27,7 +27,7 @@ export const fireOperationalEvent = (
 	error: MediaCardError = new MediaCardError('missing-error-data'),
 	traceContext: MediaTraceContext,
 	metadataTraceContext?: MediaTraceContext,
-) => {
+): void => {
 	const fireEvent = (payload: MediaCardAnalyticsEventPayload) =>
 		fireMediaCardEvent(payload, createAnalyticsEvent);
 
@@ -77,7 +77,7 @@ export const fireNonCriticalErrorEvent = (
 	error: MediaCardError = new MediaCardError('missing-error-data'),
 	traceContext: MediaTraceContext,
 	metadataTraceContext?: MediaTraceContext,
-) => {
+): void => {
 	const errorPayload = getErrorEventPayload(
 		cardStatus,
 		fileAttributes,
@@ -95,7 +95,7 @@ export const fireDownloadSucceededEvent = (
 	fileAttributes: FileAttributes,
 	traceContext: MediaTraceContext,
 	metadataTraceContext?: MediaTraceContext,
-) => {
+): void => {
 	const payload = getDownloadSucceededEventPayload(
 		fileAttributes,
 		traceContext,
@@ -111,7 +111,7 @@ export const fireDownloadFailedEvent = (
 	error: MediaCardError = new MediaCardError('missing-error-data'),
 	traceContext: MediaTraceContext,
 	metadataTraceContext?: MediaTraceContext,
-) => {
+): void => {
 	const payload = getDownloadFailedEventPayload(
 		fileAttributes,
 		error,

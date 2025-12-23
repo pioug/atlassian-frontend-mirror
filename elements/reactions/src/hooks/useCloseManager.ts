@@ -15,7 +15,7 @@ export function useCloseManager(
 	callback: (type: callbackType) => void,
 	useCapture: boolean = false,
 	enabled: boolean = true,
-) {
+): void {
 	useEffect(() => {
 		if (!enabled) {
 			return;
@@ -62,7 +62,7 @@ export function useCloseManagerV2(
 	callback: (type: callbackType) => void,
 	useCapture: boolean = false,
 	enabled: boolean = true,
-) {
+): void {
 	useEffect(() => {
 		if (!enabled) {
 			return;

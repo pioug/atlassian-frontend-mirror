@@ -141,13 +141,13 @@ export default class Editor extends React.Component<Props, State> {
 		this.beforeUnloadHandler = beforeUnloadHandler.bind({});
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		if (this.state.isExpanded && this.props.onOpen) {
 			this.props.onOpen();
 		}
 	}
 
-	getSnapshotBeforeUpdate(_nextProps: Props, nextState: State) {
+	getSnapshotBeforeUpdate(_nextProps: Props, nextState: State): void {
 		if (nextState.isExpanded && !this.state.isExpanded && this.props.onOpen) {
 			this.props.onOpen();
 		} else if (!nextState.isExpanded && this.state.isExpanded && this.props.onClose) {
@@ -163,7 +163,7 @@ export default class Editor extends React.Component<Props, State> {
 		}
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.removeBeforeUnloadListener();
 
 		if (this.props.onClose) {

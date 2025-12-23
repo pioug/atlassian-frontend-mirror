@@ -172,7 +172,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 	state: State = defaultState;
 	imageElement?: HTMLImageElement;
 
-	componentDidMount() {
+	componentDidMount(): void {
 		if (!exenv.canUseDOM) {
 			return;
 		}
@@ -180,12 +180,12 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 		document.addEventListener('mouseup', this.onMouseUp);
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		document.removeEventListener('mousemove', this.onMouseMove);
 		document.removeEventListener('mouseup', this.onMouseUp);
 	}
 
-	onDragStarted = (x: number, y: number) => {
+	onDragStarted = (x: number, y: number): void => {
 		this.state.viewport.startDrag();
 		this.setState({
 			isDragging: true,
@@ -193,7 +193,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 		});
 	};
 
-	moveImage = (key: string) => {
+	moveImage = (key: string): void => {
 		const { viewport } = this.state;
 		switch (key) {
 			case 'ArrowLeft':
@@ -214,7 +214,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 		this.setState({ viewport });
 	};
 
-	onMouseMove = (e: MouseEvent) => {
+	onMouseMove = (e: MouseEvent): void => {
 		if (this.state.isDragging) {
 			const { dragStartPoint, viewport } = this.state;
 			const currentMousePoint = new Vector2(e.screenX, e.screenY);
@@ -224,7 +224,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 		}
 	};
 
-	onMouseUp = () => {
+	onMouseUp = (): void => {
 		this.setState({
 			isDragging: false,
 		});
@@ -235,7 +235,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 	 * When newScale change we want to zoom in/out relative to the center of the frame.
 	 * @param newScale New scale in 0-100 format.
 	 */
-	onScaleChange = (scale: number) => {
+	onScaleChange = (scale: number): void => {
 		const { viewport } = this.state;
 		viewport.setScale(scale);
 		this.setState({ scale, viewport });
@@ -248,7 +248,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 	 * @param width the width of the image
 	 * @param height the height of the image
 	 */
-	onImageLoaded = (image: HTMLImageElement) => {
+	onImageLoaded = (image: HTMLImageElement): void => {
 		this.imageElement = image;
 		let { naturalWidth: width, naturalHeight: height } = image;
 
@@ -315,7 +315,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 		return null;
 	}
 
-	async readFile(imageFile: File) {
+	async readFile(imageFile: File): Promise<void> {
 		const { onImageUploaded } = this.props;
 
 		const [fileImageSource, imageOrientation] = await Promise.all([
@@ -345,7 +345,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 		}
 	};
 
-	onFileChange = (e: React.SyntheticEvent<HTMLInputElement>) => {
+	onFileChange = (e: React.SyntheticEvent<HTMLInputElement>): void => {
 		e.stopPropagation();
 		if (e.currentTarget.files && e.currentTarget.files.length) {
 			const file = e.currentTarget.files[0];
@@ -359,25 +359,25 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 		}
 	};
 
-	updateDroppingState(e: React.DragEvent<{}>, state: boolean) {
+	updateDroppingState(e: React.DragEvent<{}>, state: boolean): void {
 		e.stopPropagation();
 		e.preventDefault();
 		this.setState({ isDroppingFile: state });
 	}
 
-	onDragEnter = (e: React.DragEvent<{}>) => {
+	onDragEnter = (e: React.DragEvent<{}>): void => {
 		this.updateDroppingState(e, true);
 	};
 
-	onDragOver = (e: React.DragEvent<{}>) => {
+	onDragOver = (e: React.DragEvent<{}>): void => {
 		this.updateDroppingState(e, true);
 	};
 
-	onDragLeave = (e: React.DragEvent<{}>) => {
+	onDragLeave = (e: React.DragEvent<{}>): void => {
 		this.updateDroppingState(e, false);
 	};
 
-	onDrop = (e: React.DragEvent<{}>) => {
+	onDrop = (e: React.DragEvent<{}>): void => {
 		e.stopPropagation();
 		e.preventDefault();
 		const dt = e.dataTransfer;
@@ -468,7 +468,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 		);
 	}
 
-	onRemoveImage = () => {
+	onRemoveImage = (): void => {
 		this.state.viewport.clear();
 		this.setState(defaultState);
 		this.props.onRemoveImage();

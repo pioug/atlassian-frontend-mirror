@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { Component } from 'react';
@@ -17,7 +18,7 @@ export class ErrorIcon extends Component<ErrorIconProps, {}> {
 		size: 'small',
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { size } = this.props;
 
 		return (

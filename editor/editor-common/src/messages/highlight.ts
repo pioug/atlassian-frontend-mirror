@@ -19,4 +19,10 @@ export const highlightMessages = defineMessages({
 		description:
 			'Button content for the combined text highlight and color menu, removes either the applied text color or highlight color.',
 	},
+	removeHighlight: {
+		id: 'fabric.editor.highlight.removeHighlight',
+		defaultMessage: 'Remove highlight',
+		description:
+			'Button content for removing the applied highlight color.',
+	},
 });

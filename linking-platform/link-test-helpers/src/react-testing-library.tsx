@@ -7,7 +7,7 @@ export const renderWithIntl = (component: React.ReactNode): RenderResult => {
 	return render(<IntlProvider locale="en">{component}</IntlProvider>);
 };
 
-export async function asyncAct(cb: () => Promise<any> | void) {
+export async function asyncAct(cb: () => Promise<any> | void): Promise<void> {
 	try {
 		await cb(); // make all effects resolve after
 	} catch (err) {

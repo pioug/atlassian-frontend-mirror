@@ -167,7 +167,7 @@ class Example extends Component<ComponentProps, ComponentState> {
 	}
 }
 
-export default () => (
+export default (): React.JSX.Element => (
 	<MainWrapper>
 		<Example />
 	</MainWrapper>
@@ -175,4 +175,4 @@ export default () => (
 
 // We export the example without FFs dropdown for SSR test:
 // packages/media/media-card/src/__tests__/unit/server-side-hydrate.tsx
-export const SSR = () => <Example />;
+export const SSR = (): React.JSX.Element => <Example />;

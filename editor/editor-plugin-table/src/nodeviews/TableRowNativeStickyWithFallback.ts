@@ -57,7 +57,7 @@ export default class TableRowNativeStickyWithFallback
 {
 	private nodeVisibilityObserverCleanupFn?: () => void;
 
-	cleanup = () => {
+	cleanup = (): void => {
 		if (this.isStickyHeaderEnabled) {
 			this.unsubscribe();
 
@@ -143,7 +143,7 @@ export default class TableRowNativeStickyWithFallback
 		}
 	}
 
-	subscribeWhenRowVisible() {
+	subscribeWhenRowVisible(): void {
 		if (this.listening) {
 			return;
 		}
@@ -246,7 +246,7 @@ export default class TableRowNativeStickyWithFallback
 		return true;
 	}
 
-	destroy() {
+	destroy(): void {
 		if (this.isStickyHeaderEnabled) {
 			this.unsubscribe();
 			this.overflowObserver && this.overflowObserver.disconnect();

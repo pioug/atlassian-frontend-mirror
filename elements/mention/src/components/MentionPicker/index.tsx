@@ -63,9 +63,9 @@ export class MentionPicker extends React.PureComponent<
 	private mentionListRef?: ResourcedMentionList | null;
 
 	static defaultProps = {
-		onSelection: () => {},
-		onOpen: () => {},
-		onClose: () => {},
+		onSelection: (): void => {},
+		onOpen: (): void => {},
+		onClose: (): void => {},
 	};
 
 	constructor(props: Props & WithAnalyticsEventsProps & { intl: IntlShape }) {
@@ -77,24 +77,24 @@ export class MentionPicker extends React.PureComponent<
 		this.applyPropChanges({} as Props, props);
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.subscribeResourceProvider(this.props.resourceProvider);
 	}
-	UNSAFE_componentWillReceiveProps(nextProps: Props & WithAnalyticsEventsProps) {
+	UNSAFE_componentWillReceiveProps(nextProps: Props & WithAnalyticsEventsProps): void {
 		this.applyPropChanges(this.props, nextProps);
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.unsubscribeResourceProvider(this.props.resourceProvider);
 	}
 
-	selectNext = () => {
+	selectNext = (): void => {
 		if (this.mentionListRef) {
 			this.mentionListRef.selectNext();
 		}
 	};
 
-	selectPrevious = () => {
+	selectPrevious = (): void => {
 		if (this.mentionListRef) {
 			this.mentionListRef.selectPrevious();
 		}
@@ -112,7 +112,7 @@ export class MentionPicker extends React.PureComponent<
 		}
 	};
 
-	chooseCurrentSelection = () => {
+	chooseCurrentSelection = (): void => {
 		if (this.mentionListRef) {
 			this.mentionListRef.chooseCurrentSelection();
 		}

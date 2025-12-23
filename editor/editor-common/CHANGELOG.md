@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 110.50.1
+
+### Patch Changes
+
+- [`3693402165994`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3693402165994) -
+  ENGHEALTH-47506: fix a11y lint warning
+
+## 110.50.0
+
+### Minor Changes
+
+- [`909bd527e4564`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/909bd527e4564) -
+  Introduce a new createADFFromHTML function for use with the placeholder options.
+
+### Patch Changes
+
+- [`fd5c8dd25d59a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd5c8dd25d59a) -
+  [ux] [ENGHEALTH-47470] remove redundant aria-label from ErrorIcon
+
 ## 110.49.2
 
 ### Patch Changes

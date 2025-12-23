@@ -64,8 +64,8 @@ export default class Conversation extends React.PureComponent<Props, State> {
 
 	static defaultProps = {
 		placeholder: 'What do you want to say?',
-		onEditorOpen: () => {},
-		onEditorClose: () => {},
+		onEditorOpen: (): void => {},
+		onEditorClose: (): void => {},
 	};
 
 	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883

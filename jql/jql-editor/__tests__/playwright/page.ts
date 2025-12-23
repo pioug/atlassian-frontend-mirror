@@ -28,24 +28,24 @@ export class JQLEditorPage {
 		return this.page.visitExample('jql', 'jql-editor', exampleId);
 	}
 
-	appendInputValue = async (text: string) => {
+	appendInputValue = async (text: string): Promise<void> => {
 		let currentText = await this.input.textContent();
 		await this.input.fill(currentText + text);
 	};
 
-	pressKeyNTimes = async (key: string, count: number) => {
+	pressKeyNTimes = async (key: string, count: number): Promise<void> => {
 		// await this.input.focus();
 		for (let i = 0; i < count; i++) {
 			await this.page.keyboard.press(key);
 		}
 	};
 
-	selectAutocompleteOption = async (optionText: string) => {
+	selectAutocompleteOption = async (optionText: string): Promise<void> => {
 		const option = this.page.getByText(optionText);
 		await option.click();
 	};
 
-	selectAutocompleteOptionWithKeyboard = async (optionText: string) => {
+	selectAutocompleteOptionWithKeyboard = async (optionText: string): Promise<void> => {
 		const dropdown = this.getEditorLocatorByTestId('autocomplete');
 
 		const options = await dropdown.getByRole('option').all();
@@ -59,7 +59,7 @@ export class JQLEditorPage {
 		}
 	};
 
-	selectText = async (text: string) => {
+	selectText = async (text: string): Promise<void> => {
 		let currentText = await this.input.innerText();
 		const startIndex = currentText.indexOf(text);
 		const endIndex = startIndex + text.length;
@@ -69,7 +69,7 @@ export class JQLEditorPage {
 		await this.page.keyboard.up('Shift');
 	};
 
-	pasteText = async (text: string) => {
+	pasteText = async (text: string): Promise<void> => {
 		await this.input.evaluate(
 			(element, [text]) => {
 				const clipboardData = new DataTransfer();
@@ -83,14 +83,14 @@ export class JQLEditorPage {
 		);
 	};
 
-	setCursorBefore = async (text: string) => {
+	setCursorBefore = async (text: string): Promise<void> => {
 		await this.input.click();
 		const currentText = await this.input.innerText();
 		const startIndex = currentText.indexOf(text);
 		await this.pressKeyNTimes('ArrowLeft', currentText.length - startIndex);
 	};
 
-	setCursorAfter = async (text: string) => {
+	setCursorAfter = async (text: string): Promise<void> => {
 		await this.input.click();
 		const currentText = await this.input.innerText();
 		const startIndex = currentText.indexOf(text);

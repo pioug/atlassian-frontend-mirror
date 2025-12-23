@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { Card } from '../src';
@@ -18,7 +19,7 @@ import { MainWrapper } from '../example-helpers';
 const mediaClientConfig = createStorybookMediaClientConfig();
 const onClick = () => console.log('onClick');
 
-export default () => (
+export default (): React.JSX.Element => (
 	<MainWrapper>
 		<div>
 			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}

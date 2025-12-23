@@ -21,7 +21,7 @@ export class MetadataService {
 	/**
 	 * Called when a metadata is changed externally from other clients/backend.
 	 */
-	onMetadataChanged = (metadata?: Metadata) => {
+	onMetadataChanged = (metadata?: Metadata): void => {
 		if (
 			metadata !== undefined &&
 			!isEqual(this.metadata, metadata) &&
@@ -32,14 +32,14 @@ export class MetadataService {
 		}
 	};
 
-	setTitle(title: string, broadcast?: boolean) {
+	setTitle(title: string, broadcast?: boolean): void {
 		if (broadcast) {
 			this.broadcastMetadata({ title });
 		}
 		this.metadata.title = title;
 	}
 
-	setEditorWidth(editorWidth: string, broadcast?: boolean) {
+	setEditorWidth(editorWidth: string, broadcast?: boolean): void {
 		if (broadcast) {
 			this.broadcastMetadata({ editorWidth });
 		}
@@ -50,7 +50,7 @@ export class MetadataService {
 	 * Updates the local metadata and broadcasts the metadata to other clients/backend.
 	 * @param metadata
 	 */
-	setMetadata = (metadata: Metadata) => {
+	setMetadata = (metadata: Metadata): void => {
 		this.broadcastMetadata(metadata);
 		this.metadata = metadata;
 	};
@@ -59,7 +59,7 @@ export class MetadataService {
 	 * Emits a change in document's metadata
 	 * @param metadata
 	 */
-	updateMetadata = (metadata: Metadata | undefined) => {
+	updateMetadata = (metadata: Metadata | undefined): void => {
 		if (metadata && Object.keys(metadata).length > 0) {
 			this.metadata = metadata;
 			this.providerEmitCallback('metadata:changed', metadata);

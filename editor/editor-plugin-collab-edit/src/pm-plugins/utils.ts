@@ -179,7 +179,7 @@ export const scrollToCollabCursor = (
 	// analytics: AnalyticsEvent | undefined,
 	index: number,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-) => {
+): void => {
 	const selectedUser = participants[index];
 	if (
 		selectedUser &&

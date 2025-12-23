@@ -36,7 +36,7 @@ export const wrapTaskListIntoListAbove = (
 	tr: Transaction,
 	taskListStart: number,
 	previousListStart: number,
-) => {
+): void => {
 	const $taskListStart = tr.doc.resolve(taskListStart);
 
 	/* Safecheck: if not passed a taskList node, return */

@@ -14,7 +14,7 @@ class ADFTraversor {
 		this.doc = doc;
 	}
 
-	public subscribe(type: string, callback: SubscriberCallback) {
+	public subscribe(type: string, callback: SubscriberCallback): void {
 		const callbacks = this.subscribers.get(type);
 		if (!callbacks) {
 			this.subscribers.set(type, [callback]);
@@ -23,7 +23,7 @@ class ADFTraversor {
 		}
 	}
 
-	public exec() {
+	public exec(): void {
 		if (!this.doc || !Array.isArray(this.doc.content)) {
 			return;
 		}

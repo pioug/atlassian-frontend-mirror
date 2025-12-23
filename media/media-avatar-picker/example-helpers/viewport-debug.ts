@@ -33,7 +33,7 @@ export class ViewportDebugger {
 		this.pollForViewportChanges();
 	}
 
-	initCanvas() {
+	initCanvas(): void {
 		const { previewCanvas, navigationCanvasPos, previewCanvasPos, viewport } = this;
 		const { innerBounds } = viewport;
 		previewCanvas.width = innerBounds.width;
@@ -58,7 +58,7 @@ export class ViewportDebugger {
 		document.body.appendChild(this.previewCanvas);
 	}
 
-	pollForViewportChanges = () => {
+	pollForViewportChanges = (): void => {
 		const viewport = this.viewport;
 		if (viewport.isEmpty) {
 			delete this.imageElement;
@@ -78,12 +78,12 @@ export class ViewportDebugger {
 		requestAnimationFrame(this.pollForViewportChanges);
 	};
 
-	render() {
+	render(): void {
 		this.renderNavigation();
 		this.renderPreview();
 	}
 
-	renderNavigation() {
+	renderNavigation(): void {
 		const { navigationCanvas } = this;
 		const { itemBounds, outerBounds, innerBounds } = this.viewport;
 		const ctx = navigationCanvas.getContext('2d');
@@ -119,7 +119,7 @@ export class ViewportDebugger {
 		}
 	}
 
-	renderPreview() {
+	renderPreview(): void {
 		const { previewCanvas, viewport, imageElement } = this;
 		const { outerBounds } = viewport;
 		previewCanvas.width = outerBounds.width;

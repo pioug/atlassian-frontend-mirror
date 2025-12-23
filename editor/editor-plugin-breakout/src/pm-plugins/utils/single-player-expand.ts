@@ -12,7 +12,7 @@ interface UpdateExpandedStateNew {
 	tr: Transaction;
 }
 
-export const updateExpandedStateNew = ({ tr, node, pos, isLivePage }: UpdateExpandedStateNew) => {
+export const updateExpandedStateNew = ({ tr, node, pos, isLivePage }: UpdateExpandedStateNew): void => {
 	if (isLivePage || fg('platform-editor-single-player-expand')) {
 		const wasExpandExpanded = expandedState.get(node);
 		const newExpand = tr.doc.nodeAt(pos);
@@ -26,7 +26,7 @@ export const updateExpandedState = (
 	tr: Transaction,
 	node: ContentNodeWithPos,
 	isLivePage?: boolean,
-) => {
+): void => {
 	if (editorExperiment('platform_editor_breakout_resizing', true)) {
 		updateExpandedStateNew({ tr, node: node.node, pos: node.pos, isLivePage });
 	} else {

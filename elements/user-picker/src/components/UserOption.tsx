@@ -134,7 +134,7 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 				}
 			: this.props.user.lozenge;
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			<AvatarItemOption
 				avatar={this.renderAvatar()}

@@ -87,7 +87,7 @@ export const containsSameAttributes = (a: MediaAttributes, b: Partial<MediaAttri
  * 3. Searches for media nodes in the document and collects their positions and new attributes.
  * 4. If there are any media nodes to update, it applies the updates in a batch.
  */
-export const runUpdate = (editorView: EditorView, cache: MediaAttributesCache) => {
+export const runUpdate = (editorView: EditorView, cache: MediaAttributesCache): void => {
 	const toUpdateValues = cache.get(editorView) || {};
 	// clear the media attributes cache per editor view
 	cache.delete(editorView);
@@ -164,7 +164,7 @@ export const runUpdateDebounced = memoizeDebounce(
  * 4. Sets the updated cache back to the media attributes cache.
  * 5. Triggers a debounced update to apply the changes in the editor view.
  */
-export const batchMediaNodeAttrsUpdate = (editorView: EditorView, props: Props) => {
+export const batchMediaNodeAttrsUpdate = (editorView: EditorView, props: Props): void => {
 	let cachePerView: MediaAttributesCachePerView | undefined = mediaAttributesCache.get(editorView);
 	if (!cachePerView) {
 		cachePerView = {

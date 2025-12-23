@@ -48,7 +48,7 @@ export function getLinesFromSelection(state: EditorState) {
 	return { text, start, end };
 }
 
-export const forEachLine = (text: string, callback: (line: string, offset: number) => void) => {
+export const forEachLine = (text: string, callback: (line: string, offset: number) => void): void => {
 	let offset = 0;
 	text.split('\n').forEach((line) => {
 		callback(line, offset);

@@ -101,9 +101,6 @@ describe('In open teams', () => {
 	describe('When the user is a member', () => {
 		beforeEach(() => {
 			(isMember as jest.Mock).mockReturnValue(true);
-			(fg as jest.Mock).mockImplementation(
-				(flagName) => flagName === 'legion-enable-archive-teams',
-			);
 			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 				exp === 'new_team_profile' ? true : false,
 			);
@@ -153,9 +150,6 @@ describe('In open teams', () => {
 	describe('When the user is not a member', () => {
 		beforeEach(() => {
 			(isMember as jest.Mock).mockReturnValue(false);
-			(fg as jest.Mock).mockImplementation(
-				(flagName) => flagName === 'legion-enable-archive-teams',
-			);
 			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 				exp === 'new_team_profile' ? true : false,
 			);
@@ -199,9 +193,6 @@ describe('In open teams', () => {
 	describe('When the user is an org admin', () => {
 		beforeEach(() => {
 			(isMember as jest.Mock).mockReturnValue(true);
-			(fg as jest.Mock).mockImplementation(
-				(flagName) => flagName === 'legion-enable-archive-teams',
-			);
 			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 				exp === 'new_team_profile' ? true : false,
 			);
@@ -235,9 +226,6 @@ describe('In invite-only teams', () => {
 	describe('When the user is a member', () => {
 		beforeEach(() => {
 			(isMember as jest.Mock).mockReturnValue(true);
-			(fg as jest.Mock).mockImplementation(
-				(flagName) => flagName === 'legion-enable-archive-teams',
-			);
 			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 				exp === 'new_team_profile' ? true : false,
 			);
@@ -278,9 +266,6 @@ describe('In invite-only teams', () => {
 	describe('When the user is not a member', () => {
 		beforeEach(() => {
 			(isMember as jest.Mock).mockReturnValue(false);
-			(fg as jest.Mock).mockImplementation(
-				(flagName) => flagName === 'legion-enable-archive-teams',
-			);
 			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 				exp === 'new_team_profile' ? true : false,
 			);
@@ -324,9 +309,6 @@ describe('In invite-only teams', () => {
 	describe('When the user is an org admin', () => {
 		beforeEach(() => {
 			(isMember as jest.Mock).mockReturnValue(true);
-			(fg as jest.Mock).mockImplementation(
-				(flagName) => flagName === 'legion-enable-archive-teams',
-			);
 			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 				exp === 'new_team_profile' ? true : false,
 			);
@@ -359,8 +341,7 @@ describe('In SCIM-synced teams', () => {
 	beforeEach(() => {
 		(fg as jest.Mock).mockImplementation(
 			(flagName) =>
-				flagName !== 'enable_edit_team_name_external_type_teams' ||
-				flagName !== 'legion-enable-archive-teams',
+				flagName !== 'enable_edit_team_name_external_type_teams'
 		);
 		(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 			exp === 'new_team_profile' ? true : false,
@@ -434,9 +415,6 @@ describe('In SCIM-synced teams', () => {
 	describe('When the user is an org admin', () => {
 		beforeEach(() => {
 			(isMember as jest.Mock).mockReturnValue(false);
-			(fg as jest.Mock).mockImplementation(
-				(flagName) => flagName === 'legion-enable-archive-teams',
-			);
 			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 				exp === 'new_team_profile' ? true : false,
 			);
@@ -869,9 +847,6 @@ describe('ARCHIVE_TEAM and UNARCHIVE_TEAM permissions', () => {
 
 	describe('DELETE_TEAM on disbanded teams', () => {
 		beforeEach(() => {
-			(fg as jest.Mock).mockImplementation(
-				(flagName) => flagName === 'legion-enable-archive-teams',
-			);
 			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 				exp === 'new_team_profile' ? true : false,
 			);
@@ -945,7 +920,6 @@ describe('ARCHIVE_TEAM and UNARCHIVE_TEAM permissions', () => {
 
 describe('In ORG_ADMIN_MANAGED teams', () => {
 	beforeEach(() => {
-		(fg as jest.Mock).mockImplementation((flagName) => flagName === 'legion-enable-archive-teams');
 		(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 			exp === 'new_team_profile' ? true : false,
 		);
@@ -1187,9 +1161,6 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 
 	describe('Agent management permissions', () => {
 		beforeEach(() => {
-			(fg as jest.Mock).mockImplementation(
-				(flagName) => flagName === 'legion-enable-archive-teams',
-			);
 			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 				exp === 'new_team_profile' ? true : false,
 			);
@@ -1295,9 +1266,6 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 	describe('ARCHIVE_TEAM permission', () => {
 		describe('When archive teams feature is enabled', () => {
 			beforeEach(() => {
-				(fg as jest.Mock).mockImplementation(
-					(flagName) => flagName === 'legion-enable-archive-teams',
-				);
 				(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 					exp === 'new_team_profile' ? true : false,
 				);
@@ -1378,9 +1346,6 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 
 	describe('UNARCHIVE_TEAM permission on disbanded teams', () => {
 		beforeEach(() => {
-			(fg as jest.Mock).mockImplementation(
-				(flagName) => flagName === 'legion-enable-archive-teams',
-			);
 			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 				exp === 'new_team_profile' ? true : false,
 			);

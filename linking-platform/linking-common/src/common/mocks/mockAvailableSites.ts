@@ -13,14 +13,14 @@ import {
 const fetchAvailableSiteEndpoint = /\/gateway\/api\/available-sites/;
 const fetchAccessibleProductsEndpoint = /\/gateway\/api\/v2\/accessible-products/;
 
-export const mockAvailableSites = (responseData?: any) => {
+export const mockAvailableSites = (responseData?: any): void => {
 	fetchMock.post(fetchAvailableSiteEndpoint, responseData || mockedAvailableSitesResult, {
 		delay: 10,
 		overwriteRoutes: true,
 	});
 };
 
-export const mockAccessibleProducts = (responseData?: any) => {
+export const mockAccessibleProducts = (responseData?: any): void => {
 	fetchMock.post(fetchAccessibleProductsEndpoint, responseData || mockedAccessibleProductsResult, {
 		delay: 10,
 		overwriteRoutes: true,
@@ -31,7 +31,7 @@ export const mockAccessibleProducts = (responseData?: any) => {
  * Mock availableSites for a specific gatewayBaseUrl. Only matches requests with the gatewayBaseUrl in the url.
  * @param gatewayBaseUrl Base url without trailing slash
  */
-export const mockAvailableSitesForGatewayUrl = (gatewayBaseUrl: string) => {
+export const mockAvailableSitesForGatewayUrl = (gatewayBaseUrl: string): void => {
 	fetchMock.post(
 		`${gatewayBaseUrl}/gateway/api/available-sites`,
 		mockedAvailableSitesResultWithGatewayBaseUrl,
@@ -46,7 +46,7 @@ export const mockAvailableSitesForGatewayUrl = (gatewayBaseUrl: string) => {
  * Mock accessibleProducts for a specific gatewayBaseUrl. Only matches requests with the gatewayBaseUrl in the url.
  * @param gatewayBaseUrl Base url without trailing slash
  */
-export const mockAccessibleProductsForGatewayUrl = (gatewayBaseUrl: string) => {
+export const mockAccessibleProductsForGatewayUrl = (gatewayBaseUrl: string): void => {
 	fetchMock.post(
 		`${gatewayBaseUrl}/gateway/api/v2/accessible-products`,
 		mockedAccessibleResultWithGatewayBaseUrl,
@@ -57,14 +57,14 @@ export const mockAccessibleProductsForGatewayUrl = (gatewayBaseUrl: string) => {
 	);
 };
 
-export const mockAvailableSitesWithError = () => {
+export const mockAvailableSitesWithError = (): void => {
 	fetchMock.post(fetchAvailableSiteEndpoint, 503, {
 		delay: 10,
 		overwriteRoutes: true,
 	});
 };
 
-export const mockAccessibleProductsWithError = () => {
+export const mockAccessibleProductsWithError = (): void => {
 	fetchMock.post(fetchAccessibleProductsEndpoint, 503, {
 		delay: 10,
 		overwriteRoutes: true,

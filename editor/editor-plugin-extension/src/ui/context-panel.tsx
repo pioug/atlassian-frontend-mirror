@@ -165,7 +165,7 @@ export async function onChangeAction(
 	oldParameters: Parameters = {},
 	nodeWithPos: ContentNodeWithPos,
 	onSaving?: () => void,
-) {
+): Promise<void> {
 	// WARNING: editorView.state stales quickly, do not unpack
 	const { processParametersAfter, processParametersBefore } = getPluginState(
 		editorView.state,

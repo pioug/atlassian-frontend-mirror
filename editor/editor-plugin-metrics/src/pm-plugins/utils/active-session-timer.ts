@@ -13,7 +13,7 @@ export class ActiveSessionTimer {
 		this.api = api;
 	}
 
-	public startTimer = () => {
+	public startTimer = (): void => {
 		if (this.timerId) {
 			clearTimeout(this.timerId);
 		}
@@ -26,7 +26,7 @@ export class ActiveSessionTimer {
 		}, ACTIVE_SESSION_IDLE_TIME);
 	};
 
-	public cleanupTimer = () => {
+	public cleanupTimer = (): void => {
 		if (this.timerId) {
 			clearTimeout(this.timerId);
 			this.timerId = null;

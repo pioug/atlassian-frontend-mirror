@@ -27,7 +27,7 @@ export class UploadPreviews extends React.Component<PreviewsDataProps, PreviewsD
 		previewsData: [],
 	};
 
-	onUploadsStart = (event: UploadsStartEventPayload) => {
+	onUploadsStart = (event: UploadsStartEventPayload): void => {
 		const { previewsData } = this.state;
 		const { files } = event;
 
@@ -44,7 +44,7 @@ export class UploadPreviews extends React.Component<PreviewsDataProps, PreviewsD
 		});
 	};
 
-	onPreviewUpdate = (data: UploadPreviewUpdateEventPayload) => {
+	onPreviewUpdate = (data: UploadPreviewUpdateEventPayload): void => {
 		const { previewsData } = this.state;
 		const currentItem = previewsData[previewsData.length - 1];
 		currentItem.preview = data.preview;
@@ -53,7 +53,7 @@ export class UploadPreviews extends React.Component<PreviewsDataProps, PreviewsD
 		});
 	};
 
-	onError = (data: UploadErrorEventPayload) => {
+	onError = (data: UploadErrorEventPayload): void => {
 		console.log('upload error:', data);
 	};
 

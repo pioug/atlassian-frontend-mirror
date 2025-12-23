@@ -199,7 +199,7 @@ export class DOMObservers {
 		});
 	}
 
-	observe(target: HTMLElement) {
+	observe(target: HTMLElement): void {
 		this.mutations?.observe(target, {
 			attributeOldValue: true,
 			attributes: true,
@@ -220,7 +220,7 @@ export class DOMObservers {
 		this.performance?.observe({ type: 'longtask', buffered: true });
 	}
 
-	disconnect() {
+	disconnect(): void {
 		this.mutations?.disconnect();
 		this.performance?.disconnect();
 		this.intersection?.disconnect();

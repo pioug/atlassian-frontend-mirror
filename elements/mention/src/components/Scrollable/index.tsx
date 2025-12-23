@@ -8,7 +8,7 @@ export interface Props {
 export default class Scrollable extends React.PureComponent<Props, {}> {
 	private scrollableDiv?: HTMLDivElement | null;
 
-	revealRef = (ref: React.RefObject<HTMLDivElement>) => {
+	revealRef = (ref: React.RefObject<HTMLDivElement>): void => {
 		if (ref && ref.current && this.scrollableDiv) {
 			// Not using Element.scrollIntoView as it scrolls even to top/bottom of view even if
 			// already visible

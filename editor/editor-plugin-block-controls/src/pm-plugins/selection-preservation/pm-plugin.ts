@@ -156,14 +156,17 @@ export const createSelectionPreservationPlugin =
 					const blockMenuOpen =
 						api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'blockMenuOpen';
 
-					// When block menu isn't open and user presses any key, stop preserving selection
-					if (!blockMenuOpen) {
-						const tr = view.state.tr;
-						stopPreservingSelection({ tr });
-						view.dispatch(tr);
-
-						return false;
+					// When block menu is open, prevent all key events to avoid changing selection or editing content
+					if (blockMenuOpen) {
+						return true;
 					}
+
+					// When block menu isn't open and user presses any key, stop preserving selection
+					const tr = view.state.tr;
+					stopPreservingSelection({ tr });
+					view.dispatch(tr);
+
+					return false;
 				},
 			},
 		});

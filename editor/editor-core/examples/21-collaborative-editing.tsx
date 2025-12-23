@@ -264,7 +264,7 @@ export default class Example extends React.Component<Props, State> {
 		editorView: undefined,
 	};
 
-	componentDidCatch() {
+	componentDidCatch(): void {
 		this.setState({ hasError: true });
 	}
 

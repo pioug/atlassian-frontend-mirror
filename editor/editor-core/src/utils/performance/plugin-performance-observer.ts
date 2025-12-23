@@ -80,7 +80,7 @@ export class PluginPerformanceObserver implements PerformanceObserver {
 			.forEach((report) => this.callback(report));
 	};
 
-	public observe() {
+	public observe(): void {
 		if (this.isSimpleTracking) {
 			this.simpleObserver.setPluginNames(this.getPlugins());
 			this.simpleObserver.setOnObservation((entries) => {
@@ -106,7 +106,7 @@ export class PluginPerformanceObserver implements PerformanceObserver {
 		}
 	}
 
-	public disconnect() {
+	public disconnect(): void {
 		if (this.isSimpleTracking) {
 			this.getTransactionTracker &&
 				this.getTransactionTracker().removeMeasureListener(this.simpleObserver.observed);

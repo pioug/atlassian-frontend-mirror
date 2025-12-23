@@ -102,7 +102,7 @@ export class UserLatencyObservers {
 	 *
 	 * @example
 	 */
-	observe() {
+	observe(): void {
 		if (this.isObserving) {
 			return;
 		}
@@ -117,7 +117,7 @@ export class UserLatencyObservers {
 	 *
 	 * @example
 	 */
-	disconnect() {
+	disconnect(): void {
 		if (!this.isObserving) {
 			return;
 		}

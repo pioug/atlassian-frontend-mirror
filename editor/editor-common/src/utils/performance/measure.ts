@@ -6,7 +6,7 @@ const measureMap = new Map<string, number>();
 /**
  * @deprecated use 'startMeasure' from '@atlaskit/editor-common/performance-measures'
  */
-export function startMeasure(measureName: string) {
+export function startMeasure(measureName: string): void {
 	if (!isPerformanceAPIAvailable()) {
 		return;
 	}
@@ -21,7 +21,7 @@ export function startMeasure(measureName: string) {
 export function stopMeasure(
 	measureName: string,
 	onMeasureComplete?: (duration: number, startTime: number) => void,
-) {
+): void {
 	if (!isPerformanceAPIAvailable()) {
 		return;
 	}
@@ -47,7 +47,7 @@ export function stopMeasure(
 /**
  * @deprecated use 'clearMeasure' from '@atlaskit/editor-common/performance-measures'
  */
-export function clearMeasure(measureName: string) {
+export function clearMeasure(measureName: string): void {
 	if (!isPerformanceAPIAvailable()) {
 		return;
 	}

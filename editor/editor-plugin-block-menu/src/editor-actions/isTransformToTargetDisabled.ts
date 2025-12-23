@@ -18,17 +18,35 @@ type TransformDisabledArgs = {
 
 export const canParentContainNodeType = (
 	schema: Schema,
+	selectedNodeTypeName: NodeTypeName,
 	parentNode: PMNode,
 	nodeTypeName: NodeTypeName,
 	nodeTypeAttrs?: Record<string, unknown>,
 ) => {
-	const adjustedNodeTypeName = getTargetNodeTypeNameInContext(nodeTypeName, true);
+	const adjustedNodeTypeName =
+		parentNode.type.name === 'layoutColumn' || parentNode.type.name === 'bodiedSyncBlock'
+			? nodeTypeName
+			: getTargetNodeTypeNameInContext(nodeTypeName, true);
+
 	if (!adjustedNodeTypeName) {
 		return false;
 	}
 
 	const nodeType = schema.nodes[adjustedNodeTypeName];
-	return parentNode.type.validContent(Fragment.from(nodeType.createAndFill(nodeTypeAttrs)));
+
+	let content = null;
+	const nodesThatCantBeNestedInNestedExpand = ['blockCard', 'embedCard', 'table'];
+	if (
+		nodesThatCantBeNestedInNestedExpand.includes(selectedNodeTypeName) &&
+		(adjustedNodeTypeName === 'expand' || adjustedNodeTypeName === 'nestedExpand')
+	) {
+		const table = schema.nodes[selectedNodeTypeName];
+		content = table.createAndFill();
+	}
+
+	return parentNode.type.validContent(
+		Fragment.from(nodeType.createAndFill(nodeTypeAttrs, content)),
+	);
 };
 
 const isHeadingToHeadingTransformEnabled = (
@@ -72,7 +90,13 @@ const isTransformEnabledForNode = (
 
 	if (
 		isNested &&
-		!canParentContainNodeType(schema, parent, targetNodeTypeName, targetNodeTypeAttrs)
+		!canParentContainNodeType(
+			schema,
+			selectedNodeTypeName,
+			parent,
+			targetNodeTypeName,
+			targetNodeTypeAttrs,
+		)
 	) {
 		return false;
 	}

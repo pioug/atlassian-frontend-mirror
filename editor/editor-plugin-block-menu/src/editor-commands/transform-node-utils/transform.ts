@@ -18,7 +18,7 @@ import { wrapBlockquoteToDecisionListStep } from './steps/wrapBlockquoteToDecisi
 import { wrapMixedContentStep } from './steps/wrapMixedContentStep';
 import { wrapTextToCodeblockStep } from './steps/wrapTextToCodeblock';
 import type { NodeCategory, NodeTypeName, TransformStepContext, TransformStep } from './types';
-import { NODE_CATEGORY_BY_TYPE, toNodeTypeValue } from './types';
+import { getNodeName, NODE_CATEGORY_BY_TYPE, toNodeTypeValue } from './types';
 import { unwrapExpandStep } from './unwrapExpandStep';
 import { unwrapStep } from './unwrapStep';
 import { wrapIntoLayoutStep } from './wrapIntoLayoutStep';
@@ -32,24 +32,37 @@ const TRANSFORM_STEPS: Record<NodeCategory, Record<NodeCategory, TransformStep[]
 		container: [wrapStep],
 		list: [wrapIntoListStep],
 		text: undefined,
+		multi: undefined,
 	},
 	container: {
 		atomic: undefined,
 		container: [unwrapStep, wrapStep],
 		list: undefined,
 		text: [unwrapStep, applyTargetTextTypeStep],
+		multi: undefined,
 	},
 	list: {
 		atomic: undefined,
 		container: [wrapStep],
 		list: [listToListStep],
 		text: [flattenListStep, unwrapListStep, applyTargetTextTypeStep],
+		multi: undefined,
 	},
 	text: {
 		atomic: undefined,
 		container: [wrapMixedContentStep],
 		list: [wrapIntoListStep],
 		text: [flattenStep, applyTargetTextTypeStep],
+		multi: undefined,
+	},
+	multi: {
+		atomic: undefined,
+		container: [wrapMixedContentStep],
+		// TODO: EDITOR-4137 - Implement multi list transform
+		list: undefined,
+		// TODO: EDITOR-4140 - Implement multi text transform
+		text: undefined,
+		multi: undefined,
 	},
 };
 
@@ -211,6 +224,10 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		taskList: null,
 		decisionList: null,
 	},
+	multi: {
+		// TODO: EDITOR-4138 - Implement multi content to layout transform
+		layoutSection: undefined,
+	},
 };
 
 const getTransformStepsForNodeTypes = (
@@ -234,22 +251,25 @@ const getTransformStepsForNodeTypes = (
 interface GetOutputNodesArgs {
 	isNested: boolean;
 	schema: Schema;
-	sourceNode: PMNode;
+	sourceNodes: PMNode[];
 	targetAttrs?: Record<string, unknown>;
 	targetNodeType: NodeType;
 }
 
-// Note: Currently works only for single node in the selection
 export const getOutputNodes = ({
-	sourceNode,
+	sourceNodes,
 	targetNodeType,
 	schema,
 	isNested,
 	targetAttrs,
 }: GetOutputNodesArgs): PMNode[] | undefined => {
-	const nodesToReplace = [sourceNode];
+	const sourceNode = sourceNodes.at(0);
 
-	const selectedNodeTypeName = toNodeTypeValue(sourceNode.type.name);
+	if (!sourceNode) {
+		return;
+	}
+
+	const selectedNodeTypeName = toNodeTypeValue(getNodeName(sourceNodes));
 	const initialTargetNodeTypeName = toNodeTypeValue(targetNodeType.name);
 	const targetNodeTypeName = getTargetNodeTypeNameInContext(initialTargetNodeTypeName, isNested);
 
@@ -261,6 +281,7 @@ export const getOutputNodes = ({
 	const steps = getTransformStepsForNodeTypes(selectedNodeTypeName, targetNodeTypeName);
 
 	const context: TransformStepContext = {
+		// sourceNode is incorrect now - what to do here?
 		fromNode: sourceNode,
 		targetNodeTypeName,
 		schema,
@@ -273,7 +294,7 @@ export const getOutputNodes = ({
 
 	return steps.reduce((nodes, step) => {
 		return step(nodes, context);
-	}, nodesToReplace);
+	}, sourceNodes);
 };
 
 export const isTransformDisabledBasedOnStepsConfig = (

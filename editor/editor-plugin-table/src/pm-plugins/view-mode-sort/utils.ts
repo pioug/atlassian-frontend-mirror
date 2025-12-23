@@ -13,7 +13,7 @@ import {
 } from './consts';
 import type { TableSortMeta } from './types';
 
-export const unsort = (oldOrder: { index: number; value: number }[], tableElement: HTMLElement) => {
+export const unsort = (oldOrder: { index: number; value: number }[], tableElement: HTMLElement): void => {
 	const tbody = tableElement.querySelector(`:scope > tbody`);
 	const rows = tableElement.querySelectorAll(`:scope > tbody > tr`);
 
@@ -57,7 +57,7 @@ const getSortOrderFromTable = (tableNode: PMNode, sortIndex: number, direction: 
 	];
 };
 
-export const toggleSort = (view: EditorView, event: Event, pluginState: TableSortMeta) => {
+export const toggleSort = (view: EditorView, event: Event, pluginState: TableSortMeta): void => {
 	const target = event.target;
 	if (!(target instanceof HTMLElement)) {
 		return;

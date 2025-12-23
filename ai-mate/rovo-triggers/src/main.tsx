@@ -109,7 +109,7 @@ const usePubSub = () => {
 	return pubSub;
 };
 
-export const useSubscribe = ({ topic, triggerLatest }: SubscribeOptions, callback: Callback) => {
+export const useSubscribe = ({ topic, triggerLatest }: SubscribeOptions, callback: Callback): void => {
 	const { subscribe } = usePubSub();
 	const callbackRef = useRef(callback);
 	callbackRef.current = callback;
@@ -126,7 +126,7 @@ export const useSubscribe = ({ topic, triggerLatest }: SubscribeOptions, callbac
 	);
 };
 
-export const useSubscribeAll = (callback: Callback) => {
+export const useSubscribeAll = (callback: Callback): void => {
 	const { subscribeAll } = usePubSub();
 	const callbackRef = useRef(callback);
 	callbackRef.current = callback;

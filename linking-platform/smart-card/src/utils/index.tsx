@@ -286,7 +286,7 @@ export const getIframeSandboxAttribute = (isTrusted: boolean) => {
 	return sandboxPermissions;
 };
 
-export const handleOnClick = (handler: Function) => (e: React.BaseSyntheticEvent) => {
+export const handleOnClick = (handler: Function) => (e: React.BaseSyntheticEvent): void => {
 	e.preventDefault();
 	e.stopPropagation();
 	handler();
@@ -315,7 +315,7 @@ export const importWithRetry = async <T,>(
 	}
 };
 
-export const downloadUrl = async (url?: string) => {
+export const downloadUrl = async (url?: string): Promise<void> => {
 	if (!url) {
 		return;
 	}
@@ -342,7 +342,7 @@ export const downloadUrl = async (url?: string) => {
 	document.body.removeChild(link);
 };
 
-export const openUrl = async (url?: string) => {
+export const openUrl = async (url?: string): Promise<void> => {
 	if (!url) {
 		return;
 	}

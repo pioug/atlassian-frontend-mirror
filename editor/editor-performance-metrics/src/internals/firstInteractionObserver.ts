@@ -135,7 +135,7 @@ export class FirstInteractionObserver {
 		unbindCallbacks.clear();
 	}
 
-	public disconnect() {
+	public disconnect(): void {
 		this.unbindFirstInteractionEvents();
 	}
 }

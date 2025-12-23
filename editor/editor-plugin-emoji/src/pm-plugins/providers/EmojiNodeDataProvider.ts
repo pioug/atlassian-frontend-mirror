@@ -55,7 +55,7 @@ export class EmojiNodeDataProvider extends NodeDataProvider<
 				| { data: OptionalEmojiDescriptionWithVariations; error?: undefined }
 				| { data?: undefined; error: Error },
 		) => void,
-	) {
+	): void {
 		const cached = this.getNodeDataFromCache(node);
 
 		if (cached?.data) {

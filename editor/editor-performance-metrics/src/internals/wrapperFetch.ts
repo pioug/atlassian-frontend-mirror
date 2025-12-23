@@ -42,7 +42,7 @@ export const wrapperFetch = ({
 
 	globalContext.fetch = fetchProxy as typeof fetch;
 
-	return function cleanup() {
+	return function cleanup(): void {
 		globalContext.fetch = originalFetch;
 	};
 };

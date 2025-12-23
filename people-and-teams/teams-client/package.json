@@ -107,9 +107,6 @@
 	"platform-feature-flags": {
 		"enable_edit_team_name_external_type_teams": {
 			"type": "boolean"
-		},
-		"legion-enable-archive-teams": {
-			"type": "boolean"
 		}
 	}
 }

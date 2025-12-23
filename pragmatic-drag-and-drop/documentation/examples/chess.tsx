@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -56,7 +56,7 @@ export const canMove = (
 	}
 };
 
-const Chessboard = () => {
+const Chessboard = (): React.JSX.Element => {
 	const [pieces, setPieces] = useState<PieceRecord[]>([
 		{ type: 'king', location: [3, 3] },
 		{ type: 'pawn', location: [1, 6] },

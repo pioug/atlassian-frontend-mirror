@@ -110,7 +110,7 @@ export const useLinkWarningModal = () => {
 	const showSafetyWarningModal = (
 		event: MouseEvent<HTMLAnchorElement>,
 		href: string | undefined,
-	) => {
+	): void => {
 		event.preventDefault();
 		const anchor = event.currentTarget;
 		const linkText = anchor.innerText;
@@ -120,13 +120,13 @@ export const useLinkWarningModal = () => {
 		sendWarningModalViewedEvent();
 	};
 
-	const onClose = () => {
+	const onClose = (): void => {
 		setIsOpen(false);
 		setUnsafeLinkText(null);
 		setUrl(null);
 	};
 
-	const onContinue = () => {
+	const onContinue = (): void => {
 		onClose();
 		sendContinueClickedEvent();
 		url && window.open(url, '_blank', 'noopener noreferrer');

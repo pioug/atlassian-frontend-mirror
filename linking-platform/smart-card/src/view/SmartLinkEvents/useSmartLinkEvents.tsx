@@ -19,7 +19,7 @@ export function useFire3PWorkflowsClickEvent(
 ) {
 	const { createAnalyticsEvent } = useAnalyticsEventsNext();
 
-	return () => {
+	return (): void => {
 		const smartlinkClickAnalyticsEvent = createAnalyticsEvent({
 			action: 'clicked',
 			actionSubject: 'smartLink',

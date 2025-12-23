@@ -6,6 +6,6 @@ export const scheduleCallback = (cb: () => unknown, options?: IdleRequestOptions
 		: requestAnimationFrame(cb);
 };
 
-export const cancelCallback = (id: number) => {
+export const cancelCallback = (id: number): void => {
 	return hasIdleCallback ? cancelIdleCallback(id) : cancelAnimationFrame(id);
 };

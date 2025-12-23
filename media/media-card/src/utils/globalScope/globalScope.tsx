@@ -48,7 +48,7 @@ export const storeDataURI = (
 	dimensions?: Partial<NumericalCardDimensions>,
 	error?: MediaCardErrorInfo,
 	globalScope: any = window,
-) => {
+): void => {
 	const mediaCardSsr = getMediaCardSSR(globalScope);
 	mediaCardSsr[key] = { dataURI, dimensions, error };
 };

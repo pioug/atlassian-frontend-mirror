@@ -14,14 +14,14 @@ const hasPerformanceAPIAvailable = isPerformanceAPIAvailable();
 export const getMarkName = (id: string, status: CardType) => `${status}:${id}`;
 export const getMeasureName = (id: string, status: CardType) => `time-to-${status}:${id}`;
 
-export const clearMarks = (id: string) => {
+export const clearMarks = (id: string): void => {
 	if (hasPerformanceAPIAvailable) {
 		const marks = performance.getEntriesByType('mark').filter((mark) => mark.name.includes(id));
 		marks.forEach((mark) => performance.clearMarks(mark.name));
 	}
 };
 
-export const clearMeasures = (id: string) => {
+export const clearMeasures = (id: string): void => {
 	if (hasPerformanceAPIAvailable) {
 		const measures = performance
 			.getEntriesByType('measure')

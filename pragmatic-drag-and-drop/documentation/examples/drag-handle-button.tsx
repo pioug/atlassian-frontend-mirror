@@ -170,7 +170,7 @@ const exampleContainerStyles = css({
 	maxWidth: 240,
 });
 
-export default function DragHandleButtonExample() {
+export default function DragHandleButtonExample(): React.JSX.Element {
 	const [data, setData] = useState(initialData);
 
 	const reorderItem: ReorderItem = useCallback(

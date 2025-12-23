@@ -302,7 +302,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 		);
 	}
 
-	componentDidUpdate(previousProps: Props) {
+	componentDidUpdate(previousProps: Props): void {
 		const { mountTo, isOpen } = this.props;
 
 		const isOpenToggled = isOpen !== previousProps.isOpen;

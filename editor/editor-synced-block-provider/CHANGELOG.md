@@ -1,5 +1,28 @@
 # @atlaskit/editor-synced-block-provider
 
+## 2.16.3
+
+### Patch Changes
+
+- [`ef9a29c147d99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef9a29c147d99) -
+  EDITOR-4021 Ensure store manager reference remains stable when fireAnalytics callback changes.
+- Updated dependencies
+
+## 2.16.2
+
+### Patch Changes
+
+- [`98568bfc82648`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98568bfc82648) -
+  Export SyncedBlockRendererDataProviders type
+- Updated dependencies
+
+## 2.16.1
+
+### Patch Changes
+
+- [`5f9c5b4ae25c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f9c5b4ae25c7) -
+  EDITOR-3594 Add Jira ARI utility functions to synced block provider
+
 ## 2.16.0
 
 ### Minor Changes

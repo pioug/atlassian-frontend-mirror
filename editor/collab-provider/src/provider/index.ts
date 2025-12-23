@@ -464,7 +464,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	 * @param {EditorState} newState The editor state after applying the transaction
 	 * @throws {SendTransactionError} Something went wrong while sending the steps for this transaction
 	 */
-	send(_tr: Transaction | null, _oldState: EditorState | null, newState: EditorState) {
+	send(_tr: Transaction | null, _oldState: EditorState | null, newState: EditorState): void {
 		try {
 			if (this.isViewOnly()) {
 				const error: ViewOnlyStepsError = {
@@ -545,7 +545,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 			| CollabTelepointerPayload
 			| CollabActivityAIProviderChangedPayload
 			| CollabPresenceActivityChangePayload,
-	) {
+	): void {
 		const basePayload = {
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -583,7 +583,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		}
 	}
 
-	setAIProviderActiveIds(ids: string[] = []) {
+	setAIProviderActiveIds(ids: string[] = []): void {
 		this.aiProviderActiveIds = ids;
 	}
 
@@ -648,7 +648,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	 * @param {boolean} broadcast (Optional) Flag indicating whether you want to broadcast the title change to the other participants, always true for now (otherwise we would lose title changes)
 	 * @throws {SetTitleError} Something went wrong while setting the title
 	 */
-	setTitle(title: string, broadcast?: boolean) {
+	setTitle(title: string, broadcast?: boolean): void {
 		try {
 			if (this.isViewOnly()) {
 				return;
@@ -668,7 +668,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	 * @param {boolean} broadcast (Optional) Flag indicating whether you want to broadcast the editor width change
 	 * @throws {SetEditorWidthError} Something went wrong while setting the editor width
 	 */
-	setEditorWidth(editorWidth: string, broadcast?: boolean) {
+	setEditorWidth(editorWidth: string, broadcast?: boolean): void {
 		try {
 			this.metadataService.setEditorWidth(editorWidth, broadcast);
 		} catch (error) {
@@ -682,7 +682,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	 * @param {Metadata} metadata The metadata you want to update
 	 * @throws {ExampleError} Something went wrong while setting the metadata
 	 */
-	setMetadata(metadata: Metadata) {
+	setMetadata(metadata: Metadata): void {
 		try {
 			if (this.isViewOnly()) {
 				return;
@@ -791,7 +791,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		return this.participantsService.getAIProviderParticipants();
 	};
 
-	fetchMore = async (props?: { fetchSize?: number }) => {
+	fetchMore = async (props?: { fetchSize?: number }): Promise<void> => {
 		if (this.config.batchProps) {
 			await this.participantsService.enrichParticipants({
 				...this.config.batchProps,

@@ -36,7 +36,7 @@ export function useComponentRenderTracking<Props = undefined>({
 	onRender,
 	propsDiffingOptions,
 	zeroBasedCount = true,
-}: UseComponentRenderTrackingArgs<Props>) {
+}: UseComponentRenderTrackingArgs<Props>): void {
 	const propsRef = useRef<Props>();
 	const renderCountRef = useRef<number>(zeroBasedCount ? 0 : 1);
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead

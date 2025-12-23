@@ -1,7 +1,7 @@
 export class MediaNodeUpdater {
 	static instances: MediaNodeUpdater[] = [];
 	static mockOverrides = {};
-	static mockReset() {
+	static mockReset(): void {
 		this.instances.length = 0;
 		MediaNodeUpdater.mockOverrides = {};
 	}
@@ -46,31 +46,31 @@ export class MediaNodeUpdater {
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	static setMock(thisKey: string, value: any) {
+	static setMock(thisKey: string, value: any): void {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(MediaNodeUpdater.mockOverrides as any)[thisKey] = value;
 	}
 
-	setProps() {}
-	async updateContextId() {}
-	async updateNodeContextId() {}
-	getAttrs() {}
-	async getObjectId() {}
-	getNodeContextId() {}
-	updateDimensions() {}
-	async getRemoteDimensions() {}
-	async isNodeFromDifferentCollection() {}
-	async hasDifferentContextId() {}
-	async shouldNodeBeDeepCopied() {}
-	async copyNode() {}
-	async copyNodeFromPos() {}
-	async updateMediaSingleFileAttrs() {}
-	async uploadExternalMedia() {}
-	isMediaBlobUrl() {}
-	copyNodeFromBlobUrl() {}
-	updateNodeAttrs() {}
-	async handleExternalMedia() {}
+	setProps(): void {}
+	async updateContextId(): Promise<void> {}
+	async updateNodeContextId(): Promise<void> {}
+	getAttrs(): void {}
+	async getObjectId(): Promise<void> {}
+	getNodeContextId(): void {}
+	updateDimensions(): void {}
+	async getRemoteDimensions(): Promise<void> {}
+	async isNodeFromDifferentCollection(): Promise<void> {}
+	async hasDifferentContextId(): Promise<void> {}
+	async shouldNodeBeDeepCopied(): Promise<void> {}
+	async copyNode(): Promise<void> {}
+	async copyNodeFromPos(): Promise<void> {}
+	async updateMediaSingleFileAttrs(): Promise<void> {}
+	async uploadExternalMedia(): Promise<void> {}
+	isMediaBlobUrl(): void {}
+	copyNodeFromBlobUrl(): void {}
+	updateNodeAttrs(): void {}
+	async handleExternalMedia(): Promise<void> {}
 }
 
 export function createMediaNodeUpdater() {

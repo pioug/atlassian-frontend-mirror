@@ -214,7 +214,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		}
 	}
 
-	destroy() {
+	destroy(): void {
 		// ED-27428: CodeMirror gets into an infinite loop as it detects mutations on removed
 		// decorations. When we change the breakout we destroy the node and cleanup these decorations from
 		// codemirror
@@ -229,7 +229,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		}
 	}
 
-	forwardUpdate(update: ViewUpdate) {
+	forwardUpdate(update: ViewUpdate): void {
 		if (this.updating || !this.cm.hasFocus) {
 			return;
 		}
@@ -242,7 +242,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		});
 	}
 
-	setSelection(anchor: number, head: number) {
+	setSelection(anchor: number, head: number): void {
 		if (!this.maybeTryingToReachNodeSelection) {
 			this.cm.focus();
 		}

@@ -5,7 +5,6 @@ import { IntlProvider } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
-import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	type AnalyticsEventAttributes,
 	useAnalyticsEvents as useAnalyticsEventsNext,
@@ -150,9 +149,6 @@ describe('TeamProfileCard', () => {
 	describe('DISBANDED team state', () => {
 		beforeEach(() => {
 			jest.clearAllMocks();
-			(fg as jest.Mock).mockImplementation(
-				(flagName) => flagName === 'legion-enable-archive-teams',
-			);
 			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 				exp === 'new_team_profile' ? true : false,
 			);
@@ -185,19 +181,6 @@ describe('TeamProfileCard', () => {
 			expect(screen.queryByText('Archived')).not.toBeInTheDocument();
 		});
 
-		it('does not display archived lozenge when feature flag is off', () => {
-			(fg as jest.Mock)
-				.mockImplementation((flagName) => flagName === 'legion-enable-archive-teams')
-				.mockReturnValue(false);
-			const disbandedTeam = {
-				...createTeam(),
-				state: 'DISBANDED' as const,
-			};
-			renderComponent({ team: disbandedTeam });
-
-			expect(screen.queryByText('Archived')).not.toBeInTheDocument();
-		});
-
 		it('does not display archived lozenge when experiment is disabled', () => {
 			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 				exp === 'new_team_profile' ? false : true,
@@ -224,7 +207,7 @@ describe('TeamProfileCard', () => {
 			}),
 		);
 		// Payload to GASv3 does not contain eventType
-		const { eventType, ...eventWithoutType } = event;
+		const { eventType: _eventType, ...eventWithoutType } = event;
 
 		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
 			test('fires the analytics events', () => {

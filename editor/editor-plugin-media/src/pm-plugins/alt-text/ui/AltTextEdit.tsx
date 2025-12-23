@@ -133,11 +133,11 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 
 	prevValue: string | undefined;
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.prevValue = this.props.value;
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.fireAnalytics(ACTION.CLOSED);
 		if (!this.prevValue && this.state.lastValue) {
 			this.fireAnalytics(ACTION.ADDED);

@@ -10,7 +10,7 @@ import { formatFullWidthAppearance } from './formatFullWidthAppearance';
 export const useFireFullWidthEvent = (
 	appearance: EditorAppearance | undefined,
 	dispatchAnalyticsEvent: (payload: AnalyticsEventPayload) => void,
-) => {
+): void => {
 	const previousAppearance = usePreviousState(appearance);
 
 	useEffect(() => {

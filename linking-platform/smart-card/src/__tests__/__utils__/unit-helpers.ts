@@ -13,6 +13,6 @@ import { screen } from '@testing-library/react';
  * expectElementWithText('test-span','hello wo') is invalid
  *
  */
-export const expectElementWithText = async (testId: string, text: string) => {
+export const expectElementWithText = async (testId: string, text: string): Promise<void> => {
 	expect(await screen.findByTestId(testId)).toHaveTextContent(new RegExp(`^${text}$`));
 };

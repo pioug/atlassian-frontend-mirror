@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import {
 	getConfluencePageAri,
-	getLocalIdFromConfluencePageAri,
+	getLocalIdFromContentPropertyResourceId,
 	getPageIdAndTypeFromConfluencePageAri,
 	resourceIdFromConfluencePageSourceIdAndLocalId,
 	type PAGE_TYPE,
@@ -93,7 +93,7 @@ class ConfluenceADFFetchProvider implements ADFFetchProvider {
 
 	async fetchData(resourceId: string): Promise<SyncBlockInstance> {
 		const { id: pageId, type: pageType } = getPageIdAndTypeFromConfluencePageAri(resourceId);
-		const localId = getLocalIdFromConfluencePageAri(resourceId);
+		const localId = getLocalIdFromContentPropertyResourceId(resourceId);
 
 		try {
 			const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
@@ -200,7 +200,7 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 		const { id: pageId, type: pageType } = match;
 		try {
 			// Update existing content property
-			const localId = getLocalIdFromConfluencePageAri(resourceId);
+			const localId = getLocalIdFromContentPropertyResourceId(resourceId);
 			const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
 			const sourceAri = getConfluencePageAri(pageId, this.config.cloudId, pageType);
 			const syncBlockDataWithSourceDocumentAri: SyncBlockData = {
@@ -245,7 +245,7 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 		const { id: pageId, type: pageType } = match;
 
 		try {
-			const localId = getLocalIdFromConfluencePageAri(resourceId);
+			const localId = getLocalIdFromContentPropertyResourceId(resourceId);
 			const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
 			const sourceAri = getConfluencePageAri(pageId, this.config.cloudId, pageType);
 			const syncBlockDataWithSourceDocumentAri: SyncBlockData = {
@@ -277,7 +277,7 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 
 		const { id: pageId, type: pageType } = match;
 		try {
-			const localId = getLocalIdFromConfluencePageAri(resourceId);
+			const localId = getLocalIdFromContentPropertyResourceId(resourceId);
 			const key = getContentPropertyKey(this.config.contentPropertyKey, localId);
 			const options = {
 				pageId,
@@ -308,8 +308,11 @@ class ConfluenceADFWriteProvider implements ADFWriteProvider {
 		return sourceId;
 	}
 
-	updateReferenceData(_blocks: SyncBlockAttrs[], _noContent?: boolean): Promise<UpdateReferenceSyncBlockResult> {
-		return Promise.resolve({ success: true});
+	updateReferenceData(
+		_blocks: SyncBlockAttrs[],
+		_noContent?: boolean,
+	): Promise<UpdateReferenceSyncBlockResult> {
+		return Promise.resolve({ success: true });
 	}
 }
 

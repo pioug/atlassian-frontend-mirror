@@ -7,6 +7,8 @@ import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
+import { token } from '@atlaskit/tokens';
+
 const bodyStyles = cssMap({
     root: {
         display: 'flex',
@@ -14,6 +16,10 @@ const bodyStyles = cssMap({
         overflowY: 'auto',
         height: '100%',
         justifyContent: 'start',
+        marginInlineStart: token('space.negative.100'),
+        marginInlineEnd: token('space.negative.100'),
+        paddingInlineStart: token('space.100'),
+        paddingInlineEnd: token('space.100')
     }
 });
 

@@ -144,7 +144,7 @@ export class DocumentService implements DocumentServiceInterface {
 			reason?: CatchupEventReason,
 			reconnectionMetadata?: ReconnectionMetadata,
 			sessionId?: string,
-		) => this.catchupv2(reason, reconnectionMetadata, sessionId),
+		): Promise<void> => this.catchupv2(reason, reconnectionMetadata, sessionId),
 		CATCHUP_THROTTLE,
 		{
 			leading: false, // TODO: ED-26957 - why shouldn't this be leading?
@@ -485,7 +485,7 @@ export class DocumentService implements DocumentServiceInterface {
 	 * @param data
 	 * @example
 	 */
-	onStepsAdded = (data: StepsPayload) => {
+	onStepsAdded = (data: StepsPayload): void => {
 		logger(`Received steps`, { steps: data.steps, version: data.version });
 
 		if (!data.steps) {
@@ -552,7 +552,7 @@ export class DocumentService implements DocumentServiceInterface {
 	};
 
 	// Triggered when page recovery has emitted an 'init' event on a page client is currently connected to.
-	onRestore = async ({ doc, version, metadata, targetClientId }: CollabInitPayload) => {
+	onRestore = async ({ doc, version, metadata, targetClientId }: CollabInitPayload): Promise<void> => {
 		if (!targetClientId) {
 			this.hasRecovered = true;
 		}
@@ -745,7 +745,7 @@ export class DocumentService implements DocumentServiceInterface {
 		return this.isNameSpaceLocked();
 	}
 
-	updateDocument = ({ doc, version, metadata, reserveCursor, caller }: CollabInitPayload) => {
+	updateDocument = ({ doc, version, metadata, reserveCursor, caller }: CollabInitPayload): void => {
 		this.providerEmitCallback('init', {
 			doc,
 			version,
@@ -839,7 +839,7 @@ export class DocumentService implements DocumentServiceInterface {
 	 * @throws {Error} Couldn't sync the steps after retrying 30 times
 	 * @example
 	 */
-	commitUnconfirmedSteps = async (reason: GetResolvedEditorStateReason) => {
+	commitUnconfirmedSteps = async (reason: GetResolvedEditorStateReason): Promise<void> => {
 		const unconfirmedSteps = this.getUnconfirmedSteps();
 		try {
 			if (unconfirmedSteps?.length) {
@@ -965,7 +965,7 @@ export class DocumentService implements DocumentServiceInterface {
 	 * @param reason
 	 * @example
 	 */
-	sendStepsFromCurrentState(sendAnalyticsEvent?: boolean, reason?: GetResolvedEditorStateReason) {
+	sendStepsFromCurrentState(sendAnalyticsEvent?: boolean, reason?: GetResolvedEditorStateReason): void {
 		const state = this.getState?.();
 		if (!state) {
 			this.analyticsHelper?.sendErrorEvent(
@@ -978,7 +978,7 @@ export class DocumentService implements DocumentServiceInterface {
 		this.send(null, null, state, sendAnalyticsEvent, reason);
 	}
 
-	onStepRejectedError = () => {
+	onStepRejectedError = (): void => {
 		this.stepRejectCounter++;
 		logger(`Steps rejected (tries=${this.stepRejectCounter})`);
 		this.analyticsHelper?.sendActionEvent(EVENT_ACTION.SEND_STEPS_RETRY, EVENT_STATUS.INFO, {
@@ -1012,7 +1012,7 @@ export class DocumentService implements DocumentServiceInterface {
 	 * we need to lock them to ensure they don't get
 	 * mutated in: `packages/editor/editor-plugin-collab-edit/src/pm-plugins/mergeUnconfirmed.ts`
 	 */
-	lockSteps = () => {
+	lockSteps = (): void => {
 		if (
 			editorExperiment('platform_editor_offline_editing_web', true) ||
 			expValEquals('platform_editor_enable_single_player_step_merging', 'isEnabled', true)
@@ -1024,7 +1024,7 @@ export class DocumentService implements DocumentServiceInterface {
 		}
 	};
 
-	lockStepOrigins = (origins: readonly Transaction[] | undefined) => {
+	lockStepOrigins = (origins: readonly Transaction[] | undefined): void => {
 		origins?.forEach((origin) => {
 			if (origin instanceof Transaction) {
 				return origin.setMeta('mergeIsLocked', true);
@@ -1048,7 +1048,7 @@ export class DocumentService implements DocumentServiceInterface {
 		_newState: EditorState,
 		sendAnalyticsEvent?: boolean,
 		reason?: GetResolvedEditorStateReason, // only used for publish and draft-sync events - when called through getFinalAcknowledgedState
-	) {
+	): void {
 		const offlineEditingEnabled = editorExperiment('platform_editor_offline_editing_web', true);
 		const onlineStepMergingEnabled = expValEquals(
 			'platform_editor_enable_single_player_step_merging',

@@ -258,7 +258,7 @@ export class SharedStateAPI {
 		newEditorState,
 		oldEditorState,
 		plugins,
-	}: EditorStateDiff & Record<'plugins', Map<string, NextEditorPluginInitializedType>>) {
+	}: EditorStateDiff & Record<'plugins', Map<string, NextEditorPluginInitializedType>>): void {
 		const { listeners, updatesToNotifyQueue } = this;
 		const pluginsFiltered = filterPluginsWithListeners({ plugins, listeners });
 
@@ -284,7 +284,7 @@ export class SharedStateAPI {
 		});
 	}
 
-	destroy() {
+	destroy(): void {
 		this.listeners.clear();
 		this.updatesToNotifyQueue.clear();
 	}
@@ -374,7 +374,7 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 		return editorAPICache.get(this)!;
 	}
 
-	onEditorViewUpdated = ({ newEditorState, oldEditorState }: EditorStateDiff) => {
+	onEditorViewUpdated = ({ newEditorState, oldEditorState }: EditorStateDiff): void => {
 		this.sharedStateAPI.notifyListeners({
 			newEditorState,
 			oldEditorState,
@@ -382,7 +382,7 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 		});
 	};
 
-	onEditorPluginInitialized = (plugin: NextEditorPluginInitializedType) => {
+	onEditorPluginInitialized = (plugin: NextEditorPluginInitializedType): void => {
 		this.addPlugin(plugin);
 	};
 

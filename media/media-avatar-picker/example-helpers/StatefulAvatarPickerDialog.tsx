@@ -65,24 +65,24 @@ export default class StatefulAvatarPickerDialog extends React.Component<
 		altText: '',
 	};
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		clearTimeout(this.timeoutId);
 		if (this.fileURL) {
 			URL.revokeObjectURL(this.fileURL);
 		}
 	}
 
-	openPicker = () => {
+	openPicker = (): void => {
 		this.setState({ isOpen: true });
 	};
 
-	closePicker = () => {
+	closePicker = (): void => {
 		this.setState({ isOpen: false });
 	};
 
-	setIsLoading = () => this.setState({ isLoading: true });
+	setIsLoading = (): void => this.setState({ isLoading: true });
 
-	saveDataURI = (dataURI: any) => {
+	saveDataURI = (dataURI: any): void => {
 		// Fake "uploading" call by adding a delay
 		this.timeoutId = window.setTimeout(() => {
 			this.setState({
@@ -93,7 +93,7 @@ export default class StatefulAvatarPickerDialog extends React.Component<
 		}, 2000);
 	};
 
-	saveFileAndCrop = (file: File) => {
+	saveFileAndCrop = (file: File): void => {
 		// Fake "uploading" call by adding a delay
 		this.timeoutId = window.setTimeout(() => {
 			this.fileURL = URL.createObjectURL(file);
@@ -105,7 +105,7 @@ export default class StatefulAvatarPickerDialog extends React.Component<
 		}, 2000);
 	};
 
-	setAltText = (altText: string) => {
+	setAltText = (altText: string): void => {
 		this.setState({ altText });
 	};
 

@@ -28,7 +28,7 @@ export default class Mention extends PureComponent<MentionProps, Object> {
 		this.providerFactory = props.providers || new ProviderFactory();
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		if (!this.props.providers) {
 			// new ProviderFactory is created if no `providers` has been set
 			// in this case when component is unmounted it's safe to destroy this providerFactory

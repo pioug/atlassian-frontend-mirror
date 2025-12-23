@@ -140,7 +140,7 @@ export default class TeamMentionResource extends MentionResource implements Ment
 		}
 	}
 
-	notify(searchTime: number, mentionResult: MentionsResult, query?: string) {
+	notify(searchTime: number, mentionResult: MentionsResult, query?: string): void {
 		if (searchTime > this.lastReturnedSearchTeam) {
 			this.lastReturnedSearchTeam = searchTime;
 			this._notifyListeners(mentionResult, {

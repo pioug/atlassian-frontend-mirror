@@ -85,9 +85,11 @@ const CopySyncedBlockDropdownItem = ({
 
 export const CreateOrCopySyncedBlockDropdownItem = ({
 	api,
+	enableSourceSyncedBlockCreation,
 }: {
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined;
-}): React.JSX.Element => {
+	enableSourceSyncedBlockCreation: boolean;
+}): React.JSX.Element | null => {
 	const { menuTriggerByNode } = useSharedPluginStateWithSelector(
 		api,
 		['blockControls'],
@@ -101,7 +103,9 @@ export const CreateOrCopySyncedBlockDropdownItem = ({
 		menuTriggerByNode?.nodeType === 'bodiedSyncBlock'
 	) {
 		return <CopySyncedBlockDropdownItem api={api} />;
-	} else {
+	} else if (enableSourceSyncedBlockCreation) {
 		return <CreateSyncedBlockDropdownItem api={api} />;
+	} else {
+		return null;
 	}
 };

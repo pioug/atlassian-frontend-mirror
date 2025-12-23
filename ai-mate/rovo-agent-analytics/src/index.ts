@@ -1,1 +1,1 @@
-export const useRovoAgentActionAnalytics = () => {};
+export const useRovoAgentActionAnalytics = (): void => {};

@@ -5,11 +5,11 @@ export class UploadController {
 
 	constructor() {}
 
-	setAbort(abortFunction: AbortFunction) {
+	setAbort(abortFunction: AbortFunction): void {
 		this.abortFunction = abortFunction;
 	}
 
-	abort() {
+	abort(): void {
 		if (this.abortFunction) {
 			this.abortFunction();
 		}

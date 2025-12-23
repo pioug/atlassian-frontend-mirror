@@ -155,12 +155,12 @@ export class PortalManager {
 		return this.buckets;
 	}
 
-	registerBucket(id: number, updater: PortalsBucketUpdater) {
+	registerBucket(id: number, updater: PortalsBucketUpdater): void {
 		this.buckets[id].updater = updater;
 		this.buckets[id].updater?.(() => ({ ...this.buckets[id].portals }));
 	}
 
-	unregisterBucket(id: number) {
+	unregisterBucket(id: number): void {
 		this.buckets[id].updater = null;
 		// Clean up throttled updater when bucket is unregistered
 		if (this.throttledBucketUpdaters.has(id)) {
@@ -169,7 +169,7 @@ export class PortalManager {
 		}
 	}
 
-	updateBuckets(id: number, immediate = false) {
+	updateBuckets(id: number, immediate = false): void {
 		if (
 			!this.throttleActivationRAFId &&
 			expValEquals('platform_editor_debounce_portal_provider', 'isEnabled', true)
@@ -211,7 +211,7 @@ export class PortalManager {
 		}
 
 		//returns a function to unregister the portal
-		return () => {
+		return (): void => {
 			// @ts-ignore - TS2538 TypeScript 5.9.2 upgrade
 			delete this.buckets[id].portals[key];
 			this.portalToBucketMap.delete(key);
@@ -227,14 +227,14 @@ export class PortalManager {
 		};
 	}
 
-	registerPortalRenderer(updater: PortalRendererUpdater) {
+	registerPortalRenderer(updater: PortalRendererUpdater): void {
 		if (!this.portalRendererUpdater) {
 			updater(() => this.buckets);
 		}
 		this.portalRendererUpdater = updater;
 	}
 
-	unregisterPortalRenderer() {
+	unregisterPortalRenderer(): void {
 		this.portalRendererUpdater = null;
 	}
 
@@ -242,7 +242,7 @@ export class PortalManager {
 	 * Cleans up resources used by the PortalManager. This includes clearing all portals,
 	 * unregistering all buckets, and resetting internal state.
 	 */
-	destroy() {
+	destroy(): void {
 		// Cancel all pending throttled updates
 		this.throttledBucketUpdaters.forEach((updater) => {
 			updater.cancel();

@@ -7,6 +7,7 @@ import { stepHasSlice } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { LocalIdPlugin } from '../localIdPluginType';
 
@@ -53,6 +54,7 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 					update: () => {},
 				};
 			}
+
 			requestIdleCallbackWithFallback(() => {
 				const tr = editorView.state.tr;
 				let localIdWasAdded = false;
@@ -103,6 +105,10 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 		 * This ensures uniqueness of localIds on nodes being created or edited
 		 */
 		appendTransaction: (transactions, _oldState, newState) => {
+			if (api?.composition.sharedState.currentState()?.isComposing && expValEquals('platform_editor_localid_ime_composition_fix', 'isEnabled', true)) {
+				return undefined;
+			}
+
 			let modified = false;
 			const tr = newState.tr;
 			const { text, hardBreak, mediaGroup } = newState.schema.nodes;
@@ -204,7 +210,6 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 					}
 				}
 			}
-
 			// Apply local ID updates based on the improvements feature flag:
 			// - When enabled: Batch all updates into a single BatchAttrsStep
 			// - When disabled: Individual steps were already applied above during node processing
@@ -230,7 +235,7 @@ export const addLocalIdToNode = (
 	pos: number,
 	tr: Transaction,
 	node: PMNode,
-) => {
+): void => {
 	const targetNode = node || tr.doc.nodeAt(pos);
 	tr.setNodeAttribute(pos, 'localId', generateUUID(api, targetNode, pos));
 	tr.setMeta('addToHistory', false);
@@ -241,7 +246,7 @@ export const addLocalIdToNode = (
  * @param nodesToUpdate Map of position -> localId for nodes that need updates
  * @param tr
  */
-export const batchAddLocalIdToNodes = (nodesToUpdate: Map<number, string>, tr: Transaction) => {
+export const batchAddLocalIdToNodes = (nodesToUpdate: Map<number, string>, tr: Transaction): void => {
 	const batchData = Array.from(nodesToUpdate.entries()).map(([pos, localId]) => {
 		const node = tr.doc.nodeAt(pos);
 		if (!node) {

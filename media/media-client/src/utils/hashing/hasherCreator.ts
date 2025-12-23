@@ -3,7 +3,7 @@ import { ChunkHashAlgorithm } from '@atlaskit/media-core';
 let hasher: Hasher | null = null;
 let sha256Hasher: Hasher | null = null;
 
-export const destroyHashers = () => {
+export const destroyHashers = (): void => {
 	hasher = null;
 	sha256Hasher = null;
 };

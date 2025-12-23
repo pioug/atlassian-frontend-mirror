@@ -97,15 +97,15 @@ class FloatingDeleteButton extends Component<Props, State> {
 		);
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.updateWrapper();
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate(): void {
 		this.updateWrapper();
 	}
 
-	updateWrapper = () => {
+	updateWrapper = (): void => {
 		const tableWrapper = closestElement(this.props.tableRef, `.${ClassName.TABLE_NODE_WRAPPER}`);
 		if (tableWrapper) {
 			this.wrapper = tableWrapper;
@@ -133,7 +133,7 @@ class FloatingDeleteButton extends Component<Props, State> {
 		}
 	};
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		if (this.wrapper) {
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
@@ -141,7 +141,7 @@ class FloatingDeleteButton extends Component<Props, State> {
 		}
 	}
 
-	onWrapperScrolled = (e: Event) => {
+	onWrapperScrolled = (e: Event): void => {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		const wrapper = e.target as HTMLElement;

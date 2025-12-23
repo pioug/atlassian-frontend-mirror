@@ -34,6 +34,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { NodeRange, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { type Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -502,6 +503,59 @@ const getExpandedSelectionRange = ({
 	return expandToBlockRange($from, $to);
 };
 
+type expandAndUpdateSelectionOptions = {
+	api: ExtractInjectionAPI<BlockControlsPlugin>;
+	isShiftPressed: boolean;
+	nodeType: string;
+	selection: Selection;
+	startPos: number;
+	tr: Transaction;
+};
+
+/**
+ * Updates the transaction with preserved selection logic.
+ * Sets selection to expanded selection range if it encompasses the clicked drag handle,
+ * otherwise selects the clicked drag handle's node only.
+ */
+const expandAndUpdateSelection = ({
+	tr,
+	selection,
+	startPos,
+	isShiftPressed,
+	nodeType,
+	api,
+}: expandAndUpdateSelectionOptions): void => {
+	const resolvedStartPos = tr.doc.resolve(startPos);
+
+	const expandedRange = getExpandedSelectionRange({
+		doc: tr.doc,
+		selection,
+		resolvedStartPos,
+		isShiftPressed,
+	});
+
+	// Set selection to expanded selection range if it encompases the clicked drag handle
+	if (
+		expandedRange.range &&
+		isPosWithinRange(startPos, expandedRange.range) &&
+		isMultiNodeRange(expandedRange.range)
+	) {
+		const collapsed = collapseToSelectionRange(expandedRange.$from, expandedRange.$to);
+
+		// Then create a selection from the start of the first node to the end of the last node
+		tr.setSelection(
+			TextSelection.create(
+				tr.doc,
+				Math.min(selection.from, collapsed.$from.pos),
+				Math.max(selection.to, collapsed.$to.pos),
+			),
+		);
+	} else {
+		// Select the clicked drag handle's node only
+		selectNode(tr, startPos, nodeType, api);
+	}
+};
+
 export const DragHandle = ({
 	view,
 	api,
@@ -568,7 +622,6 @@ export const DragHandle = ({
 
 				const selection =
 					selectionPreservationPluginKey.getState(view.state)?.preservedSelection || tr.selection;
-
 				api?.analytics?.actions.attachAnalyticsEvent({
 					eventType: EVENT_TYPE.UI,
 					action: ACTION.CLICKED,
@@ -580,33 +633,14 @@ export const DragHandle = ({
 					},
 				})(tr);
 
-				const expandedRange = getExpandedSelectionRange({
-					doc: tr.doc,
+				expandAndUpdateSelection({
+					tr,
 					selection,
-					resolvedStartPos,
+					startPos,
 					isShiftPressed: e.shiftKey,
+					nodeType,
+					api,
 				});
-
-				// Set selection to expanded selection range if it encompases the clicked drag handle
-				if (
-					expandedRange.range &&
-					isPosWithinRange(startPos, expandedRange.range) &&
-					isMultiNodeRange(expandedRange.range)
-				) {
-					const collapsed = collapseToSelectionRange(expandedRange.$from, expandedRange.$to);
-
-					// Then create a selection from the start of the first node to the end of the last node
-					tr.setSelection(
-						TextSelection.create(
-							tr.doc,
-							Math.min(selection.from, collapsed.$from.pos),
-							Math.max(selection.to, collapsed.$to.pos),
-						),
-					);
-				} else {
-					// Select the clicked drag handle's node only
-					tr = selectNode(tr, startPos, nodeType, api);
-				}
 
 				api?.blockControls?.commands.startPreservingSelection()({ tr });
 
@@ -725,8 +759,19 @@ export const DragHandle = ({
 						return tr;
 					}
 
-					tr = selectNode(tr, startPos, nodeType, api);
-					!isMultiSelect && tr.setMeta(key, { pos: startPos });
+					const selection =
+						selectionPreservationPluginKey.getState(view.state)?.preservedSelection || tr.selection;
+
+					expandAndUpdateSelection({
+						tr,
+						selection,
+						startPos,
+						isShiftPressed: e.shiftKey,
+						nodeType,
+						api,
+					});
+
+					api?.blockControls?.commands.startPreservingSelection()({ tr });
 
 					const rootPos = editorExperiment('platform_synced_block', true)
 						? tr.doc.resolve(startPos).before(1)
@@ -748,13 +793,14 @@ export const DragHandle = ({
 					api?.userIntent?.commands.setCurrentUserIntent('blockMenuOpen')({ tr });
 					return tr;
 				});
+				view.focus();
 			} else if (![e.altKey, e.ctrlKey, e.shiftKey].some((pressed) => pressed)) {
 				// If not trying to press shortcut keys,
 				// return focus to editor to resume editing from caret position
 				view.focus();
 			}
 		},
-		[getPos, api, nodeType, isMultiSelect, anchorName, view],
+		[getPos, api, nodeType, anchorName, view],
 	);
 
 	useEffect(() => {

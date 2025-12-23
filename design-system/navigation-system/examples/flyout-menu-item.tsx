@@ -14,7 +14,7 @@ import ClockIcon from '@atlaskit/icon/core/clock';
 import FilterIcon from '@atlaskit/icon/core/filter';
 import SearchIcon from '@atlaskit/icon/core/search';
 import { ButtonItem } from '@atlaskit/menu';
-import { COLLAPSE_ELEM_BEFORE, Divider, MenuList } from '@atlaskit/navigation-system';
+import { COLLAPSE_ELEM_BEFORE, MenuList } from '@atlaskit/navigation-system';
 import { ButtonMenuItem } from '@atlaskit/navigation-system/side-nav-items/button-menu-item';
 import {
 	FlyoutBody,
@@ -118,8 +118,6 @@ const FlyoutMenuItemSlots = ({
 							))}
 						</MenuList>
 					</FlyoutBody>
-
-					<Divider />
 
 					<FlyoutFooter>
 						<MenuList>

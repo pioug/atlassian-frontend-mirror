@@ -34,7 +34,7 @@ export const cellSelectionNodesBetween = (
 	doc: Node,
 	f: (node: Node, pos: number, parent: Node | null, index: number) => void | boolean,
 	startPos?: number,
-) => {
+): void => {
 	selection.forEachCell((cell, cellPos) => {
 		doc.nodesBetween(cellPos, cellPos + cell.nodeSize, f, startPos);
 	});

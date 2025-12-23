@@ -194,7 +194,7 @@ export class TaskItemNodeView implements NodeView {
 		return !this.contentDOM.contains(mutation.target) && mutation.type !== 'selection';
 	}
 
-	destroy() {
+	destroy(): void {
 		if (this.unbindInputDom) {
 			this.unbindInputDom();
 		}

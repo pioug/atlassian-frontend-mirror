@@ -6,7 +6,7 @@ import { pluginKey } from './plugin-key';
 
 // Workaround for a firefox issue where dom selection is off sync
 // https://product-fabric.atlassian.net/browse/ED-12442
-const refreshBrowserSelection = () => {
+const refreshBrowserSelection = (): void => {
 	const domSelection = window.getSelection();
 	if (domSelection) {
 		const domRange =
@@ -21,7 +21,7 @@ const refreshBrowserSelection = () => {
 const refreshBrowserSelectionOnChange = (
 	transaction: Readonly<Transaction>,
 	editorState: EditorState,
-) => {
+): void => {
 	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
 		? getBrowserInfo()
 		: browserLegacy;

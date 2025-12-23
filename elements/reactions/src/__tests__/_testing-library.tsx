@@ -24,8 +24,8 @@ export const renderWithIntl: (
  * @param onAfterAllCallback Optional callback when jest event for afterAll has executed
  */
 export function mockReactDomWarningGlobal(
-	onBeforeAllCallback = () => {},
-	onAfterAllCallback = () => {},
+	onBeforeAllCallback = (): void => {},
+	onAfterAllCallback = (): void => {},
 ): void {
 	const originalError = global.console.error;
 	beforeAll(() => {
@@ -62,7 +62,7 @@ export interface FakeUFOInstance {
  * Jest mock reset for all different methods of a UfoExperience object
  * @param instance given instance to reset
  */
-export const mockResetUFOInstance = (instance: FakeUFOInstance) => {
+export const mockResetUFOInstance = (instance: FakeUFOInstance): void => {
 	act(() => {
 		instance.start.mockReset();
 		instance.abort.mockReset();
@@ -78,8 +78,8 @@ export const mockResetUFOInstance = (instance: FakeUFOInstance) => {
  * @param onAfterEachCallback Optional callback when jest event for afterEach has executed
  */
 export function useFakeTimers(
-	onBeforeEachCallback = () => {},
-	onAfterEachCallback = () => {},
+	onBeforeEachCallback = (): void => {},
+	onAfterEachCallback = (): void => {},
 ): void {
 	beforeEach(() => {
 		jest.useFakeTimers();

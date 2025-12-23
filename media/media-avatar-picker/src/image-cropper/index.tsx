@@ -109,12 +109,12 @@ export class ImageCropper extends Component<ImageCropperProp & WrappedComponentP
 	static defaultProps = {
 		containerSize: CONTAINER_INNER_SIZE,
 		isCircleMask: false,
-		onDragStarted: () => {},
-		onImageSize: () => {},
+		onDragStarted: (): void => {},
+		onImageSize: (): void => {},
 	};
 	state: { liveMsg: string } = { liveMsg: '' };
 
-	componentDidMount() {
+	componentDidMount(): void {
 		const {
 			imageSource,
 			onImageError,
@@ -127,7 +127,7 @@ export class ImageCropper extends Component<ImageCropperProp & WrappedComponentP
 		}
 	}
 
-	onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+	onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>): void => {
 		const {
 			intl: { formatMessage },
 		} = this.props;
@@ -154,13 +154,13 @@ export class ImageCropper extends Component<ImageCropperProp & WrappedComponentP
 		});
 	};
 
-	onDragStarted = (e: React.MouseEvent<{}>) => {
+	onDragStarted = (e: React.MouseEvent<{}>): void => {
 		if (this.props.onDragStarted) {
 			this.props.onDragStarted(e.screenX, e.screenY);
 		}
 	};
 
-	onImageError = () => {
+	onImageError = (): void => {
 		const {
 			onImageError,
 			intl: { formatMessage },

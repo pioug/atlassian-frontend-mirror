@@ -58,7 +58,7 @@ export class NodeViewSerializer {
 	 * Initializes or reinitializes the NodeViewSerializer with a new EditorView.
 	 * This allows the same serializer instance to be reused across different editor states.
 	 */
-	init(params: { editorView: EditorView }) {
+	init(params: { editorView: EditorView }): void {
 		this.serializer = DOMSerializer.fromSchema(params.editorView.state.schema);
 		if (isEditorViewWithNodeViews(params.editorView)) {
 			this.editorView = params.editorView;

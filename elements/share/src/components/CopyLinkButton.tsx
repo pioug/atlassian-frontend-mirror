@@ -97,7 +97,7 @@ export class CopyLinkButtonInner extends React.Component<Props, State> {
 		shouldShowCopiedMessage: false,
 	};
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.clearAutoDismiss();
 	}
 

@@ -1,6 +1,6 @@
 export function batch<T>(callback: (args: T[][]) => void) {
 	let calls: T[][] = [];
-	return (...args: T[]) => {
+	return (...args: T[]): void => {
 		if (calls.length === 0) {
 			window.setTimeout(() => {
 				callback(calls);

@@ -45,7 +45,7 @@ export class ContextPanelWidthProvider extends React.Component<any, ContextPanel
 		super(props);
 	}
 
-	broadcastSidebarWidth = (width: number) => {
+	broadcastSidebarWidth = (width: number): void => {
 		if (width !== this.state.width) {
 			this.setState({
 				width,
@@ -53,7 +53,7 @@ export class ContextPanelWidthProvider extends React.Component<any, ContextPanel
 		}
 	};
 
-	broadcastPosition = (positionedOverEditor: boolean) => {
+	broadcastPosition = (positionedOverEditor: boolean): void => {
 		if (positionedOverEditor !== this.state.positionedOverEditor) {
 			this.setState({
 				positionedOverEditor,

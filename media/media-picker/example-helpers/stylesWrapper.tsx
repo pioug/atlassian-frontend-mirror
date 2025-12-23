@@ -22,22 +22,22 @@ import {
 	uploadPreviewsFlexRowStyles,
 } from './styles';
 
-export const PopupContainer = ({ children }: { children: ReactNode }) => {
+export const PopupContainer = ({ children }: { children: ReactNode }): React.JSX.Element => {
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	return <div css={popupContainerStyles}>{children}</div>;
 };
 
-export const PopupHeader = ({ children }: { children: ReactNode }) => {
+export const PopupHeader = ({ children }: { children: ReactNode }): React.JSX.Element => {
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	return <div css={popupHeaderStyles}>{children}</div>;
 };
 
-export const PreviewImageWrapper = ({ children }: { children: ReactNode }) => {
+export const PreviewImageWrapper = ({ children }: { children: ReactNode }): React.JSX.Element => {
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	return <div css={previewImageWrapperStyles}>{children}</div>;
 };
 
-export const InfoWrapper = ({ children }: { children: ReactNode }) => {
+export const InfoWrapper = ({ children }: { children: ReactNode }): React.JSX.Element => {
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	return <pre css={infoWrapperStyles}>{children}</pre>;
 };
@@ -49,27 +49,27 @@ export const DropzoneContainer = forwardRef(({ isActive }: { isActive: boolean }
 	);
 });
 
-export const DropzoneContentWrapper = ({ children }: { children: ReactNode }) => {
+export const DropzoneContentWrapper = ({ children }: { children: ReactNode }): React.JSX.Element => {
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	return <div css={dropzoneContentWrapperStyles}>{children}</div>;
 };
 
-export const PreviewsWrapper = ({ children }: { children: ReactNode }) => {
+export const PreviewsWrapper = ({ children }: { children: ReactNode }): React.JSX.Element => {
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	return <div css={previewsWrapperStyles}>{children}</div>;
 };
 
-export const PreviewsTitle = ({ children }: { children: ReactNode }) => {
+export const PreviewsTitle = ({ children }: { children: ReactNode }): React.JSX.Element => {
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/use-heading -- Ignored via go/DSP-18766
 	return <h1 css={previewsTitleStyles}>{children}</h1>;
 };
 
-export const UploadPreviewsFlexRow = ({ children }: { children: ReactNode }) => {
+export const UploadPreviewsFlexRow = ({ children }: { children: ReactNode }): React.JSX.Element => {
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	return <div css={uploadPreviewsFlexRowStyles}>{children}</div>;
 };
 
-export const DropzoneItemsInfo = ({ children }: { children: ReactNode }) => {
+export const DropzoneItemsInfo = ({ children }: { children: ReactNode }): React.JSX.Element => {
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	return <div css={dropzoneItemsInfoStyles}>{children}</div>;
 };
@@ -80,12 +80,12 @@ export const ClipboardContainer = ({
 }: {
 	isWindowFocused: boolean;
 	children: ReactNode;
-}) => {
+}): React.JSX.Element => {
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	return <div css={clipboardContainerStyles({ isWindowFocused })}>{children}</div>;
 };
 
-export const InfoContainer = ({ children }: { children: ReactNode }) => {
+export const InfoContainer = ({ children }: { children: ReactNode }): React.JSX.Element => {
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	return <div css={infoContainerStyles}>{children}</div>;
 };
@@ -101,7 +101,7 @@ type PastedImageProps = {
 	style: PastedImageStyleType;
 };
 
-export const PastedImage = ({ src, style, title }: PastedImageProps) => {
+export const PastedImage = ({ src, style, title }: PastedImageProps): React.JSX.Element => {
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlassian/a11y/alt-text -- Ignored via go/DSP-18766
 	return <img src={src} title={title} css={pastedImageStyles(style)} />;
 };

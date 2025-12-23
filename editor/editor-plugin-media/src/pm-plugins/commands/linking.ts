@@ -104,7 +104,7 @@ export const hideLinkingToolbar = (
 	dispatch?: CommandDispatch,
 	view?: EditorView,
 	focusFloatingToolbar?: boolean,
-) => {
+): void => {
 	hideLinkingToolbarCommand(state, dispatch, view);
 
 	// restore focus on the editor so keyboard shortcuts aren't lost to the browser

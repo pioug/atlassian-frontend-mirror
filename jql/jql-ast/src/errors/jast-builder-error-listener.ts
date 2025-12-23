@@ -11,7 +11,7 @@ export class JastBuilderErrorListener implements ParserErrorListener {
 		line: number,
 		charPositionInLine: number,
 		msg: string,
-	) => {
+	): void => {
 		if (offendingSymbol === undefined) {
 			this.errors.push(new JQLParseError(msg));
 		} else {

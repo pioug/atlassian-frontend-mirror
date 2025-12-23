@@ -112,15 +112,15 @@ export class ShareDialogContainerInternal extends React.Component<
 		};
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this._isMounted = true;
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this._isMounted = false;
 	}
 
-	componentDidUpdate(prevProps: ShareDialogContainerProps) {
+	componentDidUpdate(prevProps: ShareDialogContainerProps): void {
 		if (!deepEqual(prevProps.shortLinkData, this.props.shortLinkData)) {
 			this.updateShortCopyLink();
 		}
@@ -133,7 +133,7 @@ export class ShareDialogContainerInternal extends React.Component<
 		}
 	};
 
-	fetchConfig = () => {
+	fetchConfig = (): void => {
 		const startTime = Date.now();
 		this.setState(
 			{
@@ -230,7 +230,7 @@ export class ShareDialogContainerInternal extends React.Component<
 		});
 	};
 
-	handleDialogOpen = async () => {
+	handleDialogOpen = async (): Promise<void> => {
 		if (this.props.onDialogOpen) {
 			this.props.onDialogOpen();
 		}
@@ -346,7 +346,7 @@ export class ShareDialogContainerInternal extends React.Component<
 		return this.getShortenedCopyLink() || this.getFullCopyLink();
 	}
 
-	updateShortCopyLink() {
+	updateShortCopyLink(): void {
 		this.setState({
 			shortenedCopyLink: null,
 		});

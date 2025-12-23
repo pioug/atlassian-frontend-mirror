@@ -60,7 +60,7 @@ export const shouldPerformanceBeSampled = () =>
 	// The condition Math.random() < SAMPLE_RATE (0.05) will be true approximately 5% of the time.
 	Math.random() < SAMPLE_RATE;
 
-export const startUfoExperience = (id: string) => {
+export const startUfoExperience = (id: string): void => {
 	getExperience(id).start();
 };
 
@@ -87,7 +87,7 @@ export const completeUfoExperience = (
 	fileStateFlags: FileStateFlags,
 	ssrReliability: SSRStatus,
 	error: MediaCardError = new MediaCardError('missing-error-data'),
-) => {
+): void => {
 	switch (status) {
 		case 'complete':
 			succeedUfoExperience(id, {
@@ -147,7 +147,7 @@ const failUfoExperience = (id: string, properties?: FailedUfoPayload) => {
 	});
 };
 
-export const abortUfoExperience = (id: string, properties?: Partial<SucceedUfoPayload>) => {
+export const abortUfoExperience = (id: string, properties?: Partial<SucceedUfoPayload>): void => {
 	// UFO won't abort if it's already in a final state (succeeded, failed, aborted, etc)
 	if (properties?.fileAttributes) {
 		properties.fileAttributes = sanitiseFileAttributes(properties.fileAttributes);

@@ -58,7 +58,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 		offsetLeft: this.calcOffsetLeft(),
 	};
 
-	componentDidUpdate(prevProps: Props) {
+	componentDidUpdate(prevProps: Props): void {
 		const offsetLeft = this.calcOffsetLeft();
 		if (offsetLeft !== this.state.offsetLeft && offsetLeft >= 0) {
 			this.setState({ offsetLeft });
@@ -76,7 +76,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 	 * When returning to center layout from a wrapped/aligned layout, it might actually
 	 * be wide or full-width
 	 */
-	checkLayout(oldLayout: RichMediaLayout, newLayout: RichMediaLayout) {
+	checkLayout(oldLayout: RichMediaLayout, newLayout: RichMediaLayout): void {
 		const { resizedPctWidth } = this.state;
 		if (wrappedLayouts.indexOf(oldLayout) > -1 && newLayout === 'center' && resizedPctWidth) {
 			const layout = this.calcUnwrappedLayout(resizedPctWidth, this.calcPxWidth(newLayout));

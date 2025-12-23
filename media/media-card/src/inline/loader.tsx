@@ -36,7 +36,7 @@ export default class MediaInlineCardLoader extends React.PureComponent<
 		ErrorBoundary: MediaInlineCardLoader.ErrorBoundary,
 	};
 
-	async componentDidMount() {
+	async componentDidMount(): Promise<void> {
 		this.mounted = true;
 		if (!this.state.MediaInlineCard) {
 			try {
@@ -67,7 +67,7 @@ export default class MediaInlineCardLoader extends React.PureComponent<
 		}
 	}
 
-	async componentWillUnmount() {
+	async componentWillUnmount(): Promise<void> {
 		this.mounted = false;
 	}
 

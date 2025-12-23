@@ -46,10 +46,7 @@ export class ReferenceSyncBlockStoreManager {
 	private syncBlockSourceInfoRequests: Map<ResourceId, boolean>;
 	private isRefreshingSubscriptions: boolean = false;
 
-	constructor(
-		dataProvider?: SyncBlockDataProvider,
-		fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
-	) {
+	constructor(dataProvider?: SyncBlockDataProvider) {
 		this.syncBlockCache = new Map();
 		this.subscriptions = new Map();
 		this.titleSubscriptions = new Map();
@@ -57,6 +54,11 @@ export class ReferenceSyncBlockStoreManager {
 		this.syncBlockFetchDataRequests = new Map();
 		this.syncBlockSourceInfoRequests = new Map();
 		this.providerFactories = new Map();
+	}
+
+	public setFireAnalyticsEvent(
+		fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
+	) {
 		this.fireAnalyticsEvent = fireAnalyticsEvent;
 	}
 

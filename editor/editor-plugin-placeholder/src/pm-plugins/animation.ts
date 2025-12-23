@@ -10,7 +10,7 @@ export const cycleThroughPlaceholderPrompts = (
 	activeTypewriterTimeouts: (() => void)[] | undefined,
 	placeholderNodeWithText: HTMLElement,
 	initialDelayWhenUserTypedAndDeleted: number = 0,
-) => {
+): void => {
 	let currentPromptIndex = 0;
 	let displayedText = '';
 	let animationTimeouts: (number | NodeJS.Timeout)[] = [];

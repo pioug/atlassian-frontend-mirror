@@ -16,6 +16,7 @@ export type { CSSToken } from './artifacts/token-names';
 export type { ActiveTokens } from './artifacts/types';
 export type {
 	ThemeColorModes,
+	ThemeContrastModes,
 	Themes,
 	ThemeFileNames,
 	ThemeIds,

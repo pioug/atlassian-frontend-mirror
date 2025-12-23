@@ -60,12 +60,12 @@ export class SourceSyncBlockStoreManager {
 	private pendingResourceId?: ResourceId;
 	private creationCallback?: CreationCallback;
 
-	constructor(
-		dataProvider?: SyncBlockDataProvider,
-		fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
-	) {
+	constructor(dataProvider?: SyncBlockDataProvider) {
 		this.dataProvider = dataProvider;
 		this.syncBlockCache = new Map();
+	}
+
+	public setFireAnalyticsEvent(fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void) {
 		this.fireAnalyticsEvent = fireAnalyticsEvent;
 	}
 
@@ -90,7 +90,7 @@ export class SourceSyncBlockStoreManager {
 			}
 
 			const syncBlockData = convertSyncBlockPMNodeToSyncBlockData(syncBlockNode);
-			this.syncBlockCache.set(resourceId, {...syncBlockData, isDirty: true});
+			this.syncBlockCache.set(resourceId, { ...syncBlockData, isDirty: true });
 			return true;
 		} catch (error) {
 			logException(error as Error, {

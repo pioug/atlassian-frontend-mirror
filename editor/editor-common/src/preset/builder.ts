@@ -1012,12 +1012,12 @@ class APIDispatcher {
 		}
 		this.eventDispatcher.on(this.key, cb);
 
-		return () => {
+		return (): void => {
 			this.eventDispatcher.off(this.key, cb);
 		};
 	}
 
-	destroy() {
+	destroy(): void {
 		this.eventDispatcher.destroy();
 	}
 }

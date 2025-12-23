@@ -59,7 +59,7 @@ export class MockConcurrentExperienceInstance extends UFOExperience {
 		this.transitions = [UFOExperienceState.NOT_STARTED.id];
 	}
 
-	async start() {
+	async start(): Promise<void> {
 		super.start();
 		this.startSpy();
 		this.transitions.push(this.state.id);
@@ -86,7 +86,7 @@ export class MockConcurrentExperienceInstance extends UFOExperience {
 		return null;
 	}
 
-	mockReset() {
+	mockReset(): void {
 		this.startSpy.mockReset();
 		this.successSpy.mockReset();
 		this.failureSpy.mockReset();

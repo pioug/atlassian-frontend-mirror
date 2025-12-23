@@ -97,7 +97,7 @@ export const LozengeActionErrorExample = {
 		details: {
 			...LozengeActionWithPreviewExample.update.details,
 			invokePreviewAction: {
-				actionFn: () => Promise.resolve(),
+				actionFn: (): Promise<void> => Promise.resolve(),
 				actionType: 'preview',
 			},
 		},

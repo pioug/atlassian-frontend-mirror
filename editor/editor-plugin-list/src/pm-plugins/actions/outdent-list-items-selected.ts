@@ -21,7 +21,7 @@ import { getRestartListsAttributes, storeRestartListsAttributes } from '../utils
 import { findFirstParentListItemNode, findRootParentListNode } from '../utils/find';
 import { createListNodeRange } from '../utils/selection';
 
-export const outdentListItemsSelected = (tr: Transaction) => {
+export const outdentListItemsSelected = (tr: Transaction): void => {
 	const originalSelection = tr.selection;
 	const normalizedSelection = normalizeListItemsSelection({
 		selection: tr.selection,

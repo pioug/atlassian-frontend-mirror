@@ -99,13 +99,13 @@ export class Editor {
 		return this;
 	}
 
-	move(before: Pos, after: Pick<Pos, 'from'>) {
+	move(before: Pos, after: Pick<Pos, 'from'>): void {
 		const { tr } = this.view.state;
 		const slice = tr.doc.slice(before.from, before.to);
 		this.sync(tr.delete(before.from, before.to).replace(after.from, undefined, slice));
 	}
 
-	rebaseWithRemoteSteps(remoteSteps: readonly Step[] | undefined) {
+	rebaseWithRemoteSteps(remoteSteps: readonly Step[] | undefined): void {
 		if (remoteSteps) {
 			this.sync(receiveTransaction(this.view.state, remoteSteps, []));
 		}

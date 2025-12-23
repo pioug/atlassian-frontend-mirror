@@ -48,14 +48,14 @@ export class ReactionConsumer<PropsFromState, PropsFromActions> extends React.Pu
 		};
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		Promise.resolve(this.props.store).then((store) => {
 			this.setState({ store });
 			store.onChange(this.handleOnChange);
 		});
 	}
 
-	async componentWillUnmount() {
+	async componentWillUnmount(): Promise<void> {
 		if (this.state.store) {
 			this.state.store.removeOnChangeListener(this.handleOnChange);
 		}

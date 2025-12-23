@@ -122,7 +122,7 @@ export const handleProvider = (
 	_: 'cardProvider',
 	provider: Promise<CardProvider> | undefined,
 	view: EditorView,
-) => {
+): void => {
 	if (!provider) {
 		return;
 	}

@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.3.0
+
+### Minor Changes
+
+- [`45270b9a8ed63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45270b9a8ed63) -
+  CONFCLOUD-83370: Fix broken IME composition
+
 ## 16.2.0
 
 ### Minor Changes

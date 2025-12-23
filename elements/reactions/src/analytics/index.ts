@@ -40,7 +40,7 @@ export const createAndFireSafe = <U extends any[], T extends (...args: U) => Ana
 	createAnalyticsEvent: CreateUIAnalyticsEvent | void,
 	creator: T,
 	...args: U
-) => {
+): void => {
 	if (createAnalyticsEvent) {
 		createAndFireEventInElementsChannel(creator(...args))(createAnalyticsEvent);
 	}

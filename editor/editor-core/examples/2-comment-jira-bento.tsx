@@ -61,15 +61,15 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
 		activityProvider: Promise.resolve(new MockActivityResource()),
 	};
 
-	onChange = (actions: EditorActions) => () => {
+	onChange = (actions: EditorActions) => (): void => {
 		actions.getValue().then((value) => {
 			localStorage.setItem(LOCALSTORAGE_DOC_KEY, JSON.stringify(value));
 		});
 	};
 
-	onFocus = () => this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
+	onFocus = (): void => this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
 
-	onAssitiveLabelInputChange = (assistiveLabel: string) => {
+	onAssitiveLabelInputChange = (assistiveLabel: string): void => {
 		this.setState({ assistiveLabel });
 	};
 

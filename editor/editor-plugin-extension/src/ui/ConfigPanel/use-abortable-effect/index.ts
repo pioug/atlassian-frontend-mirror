@@ -35,7 +35,7 @@ type AbortableEffect = (signal: AbortSignal) => void;
 export function useAbortableEffect(
 	callback: AbortableEffectWithCancel | AbortableEffect,
 	deps: React.DependencyList,
-) {
+): void {
 	const abortController = useMemo(
 		() => createAbortController(),
 		// eslint-disable-next-line react-hooks/exhaustive-deps

@@ -100,15 +100,15 @@ export default class Color extends PureComponent<ColorProps> {
 		);
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.hoverStartTime = 0;
 	}
 
-	onMouseEnter = () => {
+	onMouseEnter = (): void => {
 		this.hoverStartTime = Date.now();
 	};
 
-	onMouseLeave = () => {
+	onMouseLeave = (): void => {
 		const { onHover } = this.props;
 		const delay = Date.now() - this.hoverStartTime;
 

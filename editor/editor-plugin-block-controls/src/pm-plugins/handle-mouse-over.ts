@@ -17,6 +17,7 @@ import {
 } from '../ui/utils/dom-attr-name';
 
 import { IGNORE_NODE_DESCENDANTS_ADVANCED_LAYOUT, IGNORE_NODES_NEXT } from './decorations-anchor';
+import { selectionPreservationPluginKey } from './selection-preservation/plugin-key';
 
 const isEmptyNestedParagraphOrHeading = (target: EventTarget | null) => {
 	if (target instanceof HTMLHeadingElement || target instanceof HTMLParagraphElement) {
@@ -76,6 +77,7 @@ export const handleMouseOver = (
 		activeNode,
 		isMenuOpen,
 		menuTriggerBy: originalAnchorName,
+		blockMenuOptions,
 	} = api?.blockControls?.sharedState.currentState() || {};
 	const { editorDisabled } = api?.editorDisabled?.sharedState.currentState() || {
 		editorDisabled: false,
@@ -244,17 +246,51 @@ export const handleMouseOver = (
 		if (nodeType) {
 			// platform_editor_controls note: enables quick insert
 			if (toolbarFlagsEnabled) {
-				api?.core?.actions.execute(
-					api?.blockControls?.commands.showDragHandleAt(
-						targetPos,
-						anchorName,
-						nodeType,
-						undefined,
-						rootPos ?? targetPos,
-						rootAnchorName ?? anchorName,
-						rootNodeType ?? nodeType,
-					),
-				);
+				if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+					const selection = selectionPreservationPluginKey.getState(view.state)?.preservedSelection;
+
+					const nodeTypes: string[] = [];
+					selection?.$from.doc.nodesBetween(selection.from, selection.to, (node, pos) => {
+						if (pos < selection.from) {
+							// ignore parent node
+							return true;
+						}
+						nodeTypes.push(node.type.name);
+
+						// only care about the top level (relatively in the range) nodes
+						return false;
+					});
+					const isMultipleSelected = nodeTypes.length > 1;
+
+					// Only execute when selection is not a multi-selection, block menu is open, and menu is opened via keyboard
+					// as when it is a multi-selection, the showDragHandleAt command interfere with selection
+					// sometimes makes the multi-selection not continous after block menu is opened with keyboard
+					if (!(isMultipleSelected && isMenuOpen && blockMenuOptions?.openedViaKeyboard)) {
+						api?.core?.actions.execute(
+							api?.blockControls?.commands.showDragHandleAt(
+								targetPos,
+								anchorName,
+								nodeType,
+								undefined,
+								rootPos ?? targetPos,
+								rootAnchorName ?? anchorName,
+								rootNodeType ?? nodeType,
+							),
+						);
+					}
+				} else {
+					api?.core?.actions.execute(
+						api?.blockControls?.commands.showDragHandleAt(
+							targetPos,
+							anchorName,
+							nodeType,
+							undefined,
+							rootPos ?? targetPos,
+							rootAnchorName ?? anchorName,
+							rootNodeType ?? nodeType,
+						),
+					);
+				}
 			} else {
 				api?.core?.actions.execute(
 					api?.blockControls?.commands.showDragHandleAt(targetPos, anchorName, nodeType),

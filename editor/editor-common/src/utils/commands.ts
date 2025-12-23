@@ -328,7 +328,7 @@ export const insertContentDeleteRange = (
 	getSelectionResolvedPos: (tr: Transaction) => ResolvedPos,
 	insertions: [Fragment, number][],
 	deletions: [number, number][],
-) => {
+): void => {
 	insertions.forEach((contentInsert) => {
 		const [content, pos] = contentInsert;
 

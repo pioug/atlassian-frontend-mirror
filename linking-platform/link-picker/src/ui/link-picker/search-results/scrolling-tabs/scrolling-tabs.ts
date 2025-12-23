@@ -9,11 +9,11 @@ export interface ConditionalButtons {
 	forward: boolean;
 }
 
-export const scrollBack = (ref: RefObject<HTMLDivElement>) => {
+export const scrollBack = (ref: RefObject<HTMLDivElement>): void => {
 	moveTabsScroll(ref, findPrevious);
 };
 
-export const scrollForward = (ref: RefObject<HTMLDivElement>) => {
+export const scrollForward = (ref: RefObject<HTMLDivElement>): void => {
 	moveTabsScroll(ref, findNext);
 };
 

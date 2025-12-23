@@ -159,7 +159,7 @@ export const previewScaleTable = (
 	isTableScalingEnabled: boolean = false,
 	isTableWithFixedColumnWidthsOptionEnabled: boolean = false,
 	isCommentEditor: boolean = false,
-) => {
+): void => {
 	const { node, start, parentWidth } = options;
 
 	if (!tableRef) {

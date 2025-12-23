@@ -168,7 +168,7 @@ class PanelNodeView {
 		return isIcon || isInsideIcon;
 	}
 
-	destroy() {
+	destroy(): void {
 		this.nodeViewPortalProviderAPI.remove(this.key);
 	}
 }

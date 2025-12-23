@@ -66,7 +66,7 @@ export default class PanelTextInput extends PureComponent<Props, State> {
 		};
 	}
 
-	componentDidUpdate(prevProps: Props) {
+	componentDidUpdate(prevProps: Props): void {
 		if (prevProps.defaultValue !== this.props.defaultValue) {
 			this.setState({
 				value: this.props.defaultValue,
@@ -74,11 +74,11 @@ export default class PanelTextInput extends PureComponent<Props, State> {
 		}
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		window.clearTimeout(this.focusTimeoutId);
 	}
 
-	onMouseDown = () => {
+	onMouseDown = (): void => {
 		const { onMouseDown } = this.props;
 		if (onMouseDown) {
 			onMouseDown();
@@ -87,7 +87,7 @@ export default class PanelTextInput extends PureComponent<Props, State> {
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	onBlur = (e: FocusEvent<any>) => {
+	onBlur = (e: FocusEvent<any>): void => {
 		const { onBlur } = this.props;
 		if (onBlur) {
 			onBlur(e);
@@ -138,7 +138,7 @@ export default class PanelTextInput extends PureComponent<Props, State> {
 		);
 	}
 
-	focus() {
+	focus(): void {
 		const { input } = this;
 		if (input) {
 			const focusOpts = typeof this.props.autoFocus === 'object' ? this.props.autoFocus : {};

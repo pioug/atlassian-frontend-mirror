@@ -123,12 +123,12 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
 		dispatch(tr);
 	}
 
-	handleColumnChange = (columnKeys: string[]) => {
+	handleColumnChange = (columnKeys: string[]): void => {
 		const { wrappedColumnKeys = [], columnCustomSizes = {} } = this.getColumnsInfo();
 		this.updateTableProperties(columnKeys, columnCustomSizes, wrappedColumnKeys);
 	};
 
-	handleColumnResize = (key: string, width: number) => {
+	handleColumnResize = (key: string, width: number): void => {
 		const {
 			wrappedColumnKeys = [],
 			columnCustomSizes = {},
@@ -138,7 +138,7 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
 		this.updateTableProperties(visibleColumnKeys, newColumnCustomSizes, wrappedColumnKeys);
 	};
 
-	handleWrappedColumnChange = (key: string, shouldWrap: boolean) => {
+	handleWrappedColumnChange = (key: string, shouldWrap: boolean): void => {
 		const {
 			wrappedColumnKeys = [],
 			columnCustomSizes = {},
@@ -159,7 +159,7 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
 		);
 	};
 
-	onError = ({ err }: { err?: Error }) => {
+	onError = ({ err }: { err?: Error }): void => {
 		if (err) {
 			throw err;
 		}

@@ -28,7 +28,7 @@ export default class WithHelpTrigger extends React.Component<WithHelpTriggerProp
 	};
 	context!: { editorActions: EditorActions };
 
-	openHelp = () => {
+	openHelp = (): void => {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const { editorActions } = this.context!;

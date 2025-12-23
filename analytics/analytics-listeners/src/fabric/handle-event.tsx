@@ -11,7 +11,7 @@ export const handleEvent = (
 	tags: string | string[],
 	logger: Logger,
 	client?: AnalyticsWebClient | Promise<AnalyticsWebClient>,
-) => {
+): void => {
 	if (!event.payload) {
 		return;
 	}

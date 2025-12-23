@@ -13,7 +13,7 @@ export const omitBy = (obj: Object, predicate: Function) =>
 export const debounce = (func: Function, wait: number) => {
 	let timeout: NodeJS.Timeout;
 
-	return (...args: any[]) => {
+	return (...args: any[]): void => {
 		clearTimeout(timeout);
 		timeout = setTimeout(() => func(...args), wait);
 	};

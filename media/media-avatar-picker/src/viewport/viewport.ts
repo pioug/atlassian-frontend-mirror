@@ -128,7 +128,7 @@ export class Viewport {
 		return new Rectangle(maxWidth, maxHeight);
 	}
 
-	clear() {
+	clear(): void {
 		this.itemBounds = new Bounds(0, 0, 0, 0);
 		this.itemSourceRect = new Rectangle(0, 0);
 		delete this.item;

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -117,7 +117,7 @@ const dividerStyles = css({
 	display: 'flex',
 });
 
-export default function DrawingExample() {
+export default function DrawingExample(): React.JSX.Element {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
 	useEffect(() => {

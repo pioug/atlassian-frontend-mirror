@@ -109,7 +109,7 @@ export class CodeBlockView {
 		this.handleEditorDisabledChanged();
 	}
 
-	handleEditorDisabledChanged() {
+	handleEditorDisabledChanged(): void {
 		if (this.api?.editorDisabled) {
 			this.cleanupEditorDisabledListener = this.api.editorDisabled.sharedState.onChange(
 				(sharedState) => {
@@ -124,7 +124,7 @@ export class CodeBlockView {
 		}
 	}
 
-	updateDOMAndSelection(savedInnerHTML: string, newCursorPosition: number) {
+	updateDOMAndSelection(savedInnerHTML: string, newCursorPosition: number): void {
 		if (this.dom?.childNodes && this.dom.childNodes.length > 1) {
 			const contentWrapper = this.dom.childNodes[1];
 			const contentView = contentWrapper?.childNodes[1];
@@ -150,7 +150,7 @@ export class CodeBlockView {
 		}
 	}
 
-	coalesceDOMElements() {
+	coalesceDOMElements(): void {
 		if (this.dom?.childNodes && this.dom.childNodes.length > 1) {
 			const contentWrapper = this.dom.childNodes[1];
 			const contentView = contentWrapper?.childNodes[1];
@@ -232,7 +232,7 @@ export class CodeBlockView {
 		);
 	}
 
-	destroy() {
+	destroy(): void {
 		if (this.cleanupEditorDisabledListener) {
 			this.cleanupEditorDisabledListener();
 		}

@@ -1,5 +1,12 @@
 # @atlaskit/focused-task-close-account
 
+## 3.2.15
+
+### Patch Changes
+
+- [`b587425807b2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b587425807b2c) -
+  Add translated message for static values
+
 ## 3.2.14
 
 ### Patch Changes

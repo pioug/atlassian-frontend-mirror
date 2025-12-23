@@ -31,7 +31,7 @@ export const profileCardRenderer = ({
 	const key = uuid();
 	let cleanupSelection: (() => void) | undefined;
 
-	const removeProfileCard = () => {
+	const removeProfileCard = (): void => {
 		if (dom instanceof HTMLElement) {
 			dom.setAttribute('aria-expanded', 'false');
 		}
@@ -73,7 +73,7 @@ export const profileCardRenderer = ({
 	});
 
 	return {
-		destroyProfileCard: () => {
+		destroyProfileCard: (): void => {
 			listenerCleanup();
 			removeProfileCard?.();
 		},

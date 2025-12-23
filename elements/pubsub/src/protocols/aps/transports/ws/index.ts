@@ -33,7 +33,7 @@ export default class WebsocketTransport extends AbstractApsTransport {
 		return APSTransportType.WEBSOCKET;
 	}
 
-	onVisibilityChange() {
+	onVisibilityChange(): void {
 		this.isHidden = document.visibilityState === 'hidden';
 	}
 

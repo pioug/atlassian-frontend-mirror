@@ -23,7 +23,7 @@ export class ProviderCardExampleWithErrorBoundary extends React.Component<
 		errorInfo: null,
 	};
 
-	componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+	componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
 		this.setState({ error, errorInfo });
 	}
 

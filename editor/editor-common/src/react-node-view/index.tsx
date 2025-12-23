@@ -179,7 +179,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		return undefined;
 	}
 
-	handleRef = (node: HTMLElement | null) => this._handleRef(node);
+	handleRef = (node: HTMLElement | null): void => this._handleRef(node);
 
 	private _handleRef(node: HTMLElement | null) {
 		const contentDOM = this.contentDOMWrapper || this.contentDOM;
@@ -298,7 +298,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 	 * Copies the attributes from a ProseMirror Node to a DOM node.
 	 * @param node The Prosemirror Node from which to source the attributes
 	 */
-	setDomAttrs(node: PMNode, element: HTMLElement) {
+	setDomAttrs(node: PMNode, element: HTMLElement): void {
 		Object.keys(node.attrs || {}).forEach((attr) => {
 			element.setAttribute(attr, node.attrs[attr]);
 		});
@@ -310,7 +310,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		return this.domRef as HTMLElement;
 	}
 
-	destroy() {
+	destroy(): void {
 		if (!this.domRef) {
 			return;
 		}

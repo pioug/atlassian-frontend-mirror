@@ -13,7 +13,7 @@ import type { HeadingLevelsAndNormalText } from '../types/block-type';
 import type { Command } from '../types/command';
 
 type AlignmentState = 'start' | 'end' | 'center';
-export function addParagraphAtEnd(tr: Transaction) {
+export function addParagraphAtEnd(tr: Transaction): void {
 	const {
 		doc: {
 			type: {

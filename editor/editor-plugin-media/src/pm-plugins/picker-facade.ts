@@ -85,7 +85,7 @@ export default class PickerFacade {
 		return this.picker;
 	}
 
-	destroy() {
+	destroy(): void {
 		const { picker } = this;
 
 		if (!picker) {
@@ -106,17 +106,17 @@ export default class PickerFacade {
 		}
 	}
 
-	onNewMedia(cb: NewMediaEvent) {
+	onNewMedia(cb: NewMediaEvent): void {
 		this.onStartListeners.push(cb);
 	}
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	onDrag(cb: (state: 'enter' | 'leave') => any) {
+	onDrag(cb: (state: 'enter' | 'leave') => any): void {
 		this.onDragListeners.push(cb);
 	}
 
-	public handleUploadPreviewUpdate = (event: UploadPreviewUpdateEventPayload) => {
+	public handleUploadPreviewUpdate = (event: UploadPreviewUpdateEventPayload): void => {
 		const { file, preview } = event;
 
 		//check if upload-error was called before upload-preview-update
@@ -156,7 +156,7 @@ export default class PickerFacade {
 		subscribers.push(onStateChanged);
 	};
 
-	public handleUploadError = ({ error, fileId }: UploadErrorEventPayload) => {
+	public handleUploadError = ({ error, fileId }: UploadErrorEventPayload): void => {
 		const listeners = this.eventListeners[fileId];
 		this.erroredFiles.add(fileId);
 
@@ -176,7 +176,7 @@ export default class PickerFacade {
 		delete this.eventListeners[fileId];
 	};
 
-	public handleMobileUploadEnd = (event: MobileUploadEndEventPayload) => {
+	public handleMobileUploadEnd = (event: MobileUploadEndEventPayload): void => {
 		const { file } = event;
 
 		const listeners = this.eventListeners[file.id];
@@ -195,7 +195,7 @@ export default class PickerFacade {
 		);
 	};
 
-	public handleReady = (event: UploadEndEventPayload) => {
+	public handleReady = (event: UploadEndEventPayload): void => {
 		const { file } = event;
 
 		const listeners = this.eventListeners[file.id];

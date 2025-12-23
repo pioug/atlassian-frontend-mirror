@@ -127,7 +127,7 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 		}
 	}
 
-	hasResizedListener = () => {
+	hasResizedListener = (): void => {
 		if (!this.hasBeenResized) {
 			this.hasBeenResized = true;
 			this.update(this.node, this.decorations);
@@ -195,7 +195,7 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 		return isMediaBlobUrlFromAttrs(attrs);
 	}
 
-	onExternalImageLoaded = (dimensions: { height: number; width: number }) => {
+	onExternalImageLoaded = (dimensions: { height: number; width: number }): void => {
 		const getPos = this.getPos as getPosHandlerNode;
 		const { width, height, ...rest } = this.getAttrs();
 		if (!width || !height) {
@@ -328,7 +328,7 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 		);
 	}
 
-	destroy() {
+	destroy(): void {
 		if (this.resizeListenerBinding) {
 			this.resizeListenerBinding();
 		}

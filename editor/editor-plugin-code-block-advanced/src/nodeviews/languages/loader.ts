@@ -18,7 +18,7 @@ export class LanguageLoader {
 		) => void,
 	) {}
 
-	async updateLanguage(languageName: string) {
+	async updateLanguage(languageName: string): Promise<void> {
 		if (languageName === this.languageName) {
 			return;
 		}

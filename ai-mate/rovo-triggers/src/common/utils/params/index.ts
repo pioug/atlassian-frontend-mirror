@@ -88,7 +88,7 @@ export const getRovoParams = (url?: string): RovoChatParams => {
 };
 
 // Update the address bar without reloading the page
-export const updatePageRovoParams = (params: RovoChatParams) => {
+export const updatePageRovoParams = (params: RovoChatParams): void => {
 	window.history.pushState({}, '', addRovoParamsToUrl(window.location.pathname, params));
 };
 

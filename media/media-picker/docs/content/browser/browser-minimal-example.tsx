@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { mediaPickerAuthProvider } from '@atlaskit/media-test-helpers';
@@ -20,7 +21,7 @@ const mediaClient = new MediaClient({
 	authProvider: mediaPickerAuthProvider(),
 });
 
-const BrowserExample = () => {
+const BrowserExample = (): React.JSX.Element | null => {
 	const [showDialog, setShowDialog] = useState<boolean>(false);
 	const [uploadEnd, setUploadEnd] = useState<boolean>(false);
 	const [uploadStart, setUploadStart] = useState<boolean>(false);

@@ -180,7 +180,7 @@ export const isDatasourceNode = (node?: Node): node is DatasourceNode => {
  * Focuses the editorView if it's not already focused.
  * @param editorView The editor view to focus.
  */
-export const focusEditorView = (editorView: EditorView) => {
+export const focusEditorView = (editorView: EditorView): void => {
 	if (!editorView.hasFocus()) {
 		editorView.focus();
 	}

@@ -18,7 +18,7 @@ export default class ReconnectHelper {
 		this.failedReconnectCount = 0;
 	};
 
-	countReconnectError() {
+	countReconnectError(): void {
 		// Only count the reconnection attempts when offline
 		if (network.getStatus() === NetworkStatus.OFFLINE) {
 			this.failedReconnectCount++;
@@ -31,7 +31,7 @@ export default class ReconnectHelper {
 		return isLikelyNetworkIssue;
 	}
 
-	destroy() {
+	destroy(): void {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.removeEventListener('online', this.onlineHandler);

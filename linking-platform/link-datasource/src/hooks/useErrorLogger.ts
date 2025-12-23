@@ -52,7 +52,7 @@ type Tail<T extends any[]> = T extends [infer _A, ...infer R] ? R : never;
 export const logToSentry = (
 	error: unknown,
 	...captureExceptionParams: Tail<Parameters<typeof captureException>>
-) => {
+): void => {
 	if (error instanceof Error) {
 		captureException(error, ...captureExceptionParams);
 	}
@@ -78,7 +78,7 @@ const useErrorLogger = (loggerProps: UseErrorLoggerProps) => {
 	 * We will send to Splunk every single time, though, but we won't send PII risky fields.
 	 */
 	const captureError = useCallback(
-		(errorLocation: DatasourceOperationFailedAttributesType['errorLocation'], error: unknown) => {
+		(errorLocation: DatasourceOperationFailedAttributesType['errorLocation'], error: unknown): void => {
 			const { traceId, status, reason } = getNetworkFields(error);
 
 			fireEvent('operational.datasource.operationFailed', {

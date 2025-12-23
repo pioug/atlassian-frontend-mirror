@@ -1,5 +1,41 @@
 # @atlaskit/editor-core
 
+## 215.27.3
+
+### Patch Changes
+
+- [`d49db3470d1e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d49db3470d1e0) -
+  [ux] Editor-4040 Added danger style for quote node
+- Updated dependencies
+
+## 215.27.2
+
+### Patch Changes
+
+- [`98568bfc82648`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98568bfc82648) -
+  EDITOR-3594 Synced Block creation to be prop driven
+- Updated dependencies
+
+## 215.27.1
+
+### Patch Changes
+
+- [`356fd6e2db655`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/356fd6e2db655) -
+  [ux] [EDITOR-2469] fixed placeholder getting hidden when user tabs
+- Updated dependencies
+
+## 215.27.0
+
+### Minor Changes
+
+- [`15ae0981a01a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15ae0981a01a4) -
+  [https://hello.jira.atlassian.cloud/browse/EDITOR-4119](EDITOR-4119) - allow FullPageToolbarNext
+  without EditorView in SSR
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 215.26.1
 
 ### Patch Changes

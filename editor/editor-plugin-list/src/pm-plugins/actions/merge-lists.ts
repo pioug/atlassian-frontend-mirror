@@ -5,7 +5,7 @@ type MergeNextListAtPositionProps = {
 	listPosition: number;
 	tr: Transaction;
 };
-export function mergeNextListAtPosition({ tr, listPosition }: MergeNextListAtPositionProps) {
+export function mergeNextListAtPosition({ tr, listPosition }: MergeNextListAtPositionProps): void {
 	const listNodeAtPosition = tr.doc.nodeAt(listPosition);
 	if (!isListNode(listNodeAtPosition)) {
 		return;

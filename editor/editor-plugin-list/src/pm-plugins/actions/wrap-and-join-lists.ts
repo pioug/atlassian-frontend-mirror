@@ -11,7 +11,7 @@ import { isWrappingPossible } from '../utils/selection';
  * Wraps the selection in a list with the given type. If this results in
  * two adjacent lists of the same type, those will be joined together.
  */
-export function wrapInListAndJoin(nodeType: NodeType, tr: Transaction) {
+export function wrapInListAndJoin(nodeType: NodeType, tr: Transaction): void {
 	wrapInList(nodeType)(tr);
 	autoJoinTr(tr, (before, after) => before.type === after.type && before.type === nodeType);
 }

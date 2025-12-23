@@ -34,7 +34,4 @@ snapshot(TeamProfileCardWithDisbandedState, {
 	],
 	mockTimers: true,
 	waitForReactLazy: true,
-	featureFlags: {
-		'legion-enable-archive-teams': true,
-	},
 });

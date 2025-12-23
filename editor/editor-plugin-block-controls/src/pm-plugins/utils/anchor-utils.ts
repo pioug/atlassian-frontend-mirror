@@ -27,7 +27,7 @@ export class AnchorRectCache {
 	private isDirty = true;
 	private view: EditorView | null = null;
 
-	public clear() {
+	public clear(): void {
 		this.isDirty = true;
 		this.anchorRectMap = {};
 	}
@@ -62,7 +62,7 @@ export class AnchorRectCache {
 		return this.anchorRectMap;
 	}
 
-	public setEditorView(view: EditorView) {
+	public setEditorView(view: EditorView): void {
 		if (this.view !== view) {
 			this.view = view;
 		}

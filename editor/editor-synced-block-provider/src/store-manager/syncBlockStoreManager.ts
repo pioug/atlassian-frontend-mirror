@@ -16,20 +16,16 @@ export class SyncBlockStoreManager {
 	private referenceSyncBlockStoreManager: ReferenceSyncBlockStoreManager;
 	private sourceSyncBlockStoreManager: SourceSyncBlockStoreManager;
 
-	constructor(
-		dataProvider?: SyncBlockDataProvider,
-		fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
-	) {
+	constructor(dataProvider?: SyncBlockDataProvider) {
 		// In future, if reference manager needs to reach to source manager and read it's current in memorey cache
 		// we can pass the source manager as a parameter to the reference manager constructor
-		this.sourceSyncBlockStoreManager = new SourceSyncBlockStoreManager(
-			dataProvider,
-			fireAnalyticsEvent,
-		);
-		this.referenceSyncBlockStoreManager = new ReferenceSyncBlockStoreManager(
-			dataProvider,
-			fireAnalyticsEvent,
-		);
+		this.sourceSyncBlockStoreManager = new SourceSyncBlockStoreManager(dataProvider);
+		this.referenceSyncBlockStoreManager = new ReferenceSyncBlockStoreManager(dataProvider);
+	}
+
+	public setFireAnalyticsEvent(fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void) {
+		this.referenceSyncBlockStoreManager.setFireAnalyticsEvent(fireAnalyticsEvent);
+		this.sourceSyncBlockStoreManager.setFireAnalyticsEvent(fireAnalyticsEvent);
 	}
 
 	public get referenceManager(): ReferenceSyncBlockStoreManager {
@@ -49,9 +45,11 @@ export const useMemoizedSyncBlockStoreManager = (
 	dataProvider?: SyncBlockDataProvider,
 	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
 ) => {
-	return useMemo(() => {
-		const syncBlockStoreManager = new SyncBlockStoreManager(dataProvider, fireAnalyticsEvent);
-
+	const syncBlockStoreManager = useMemo(() => {
+		const syncBlockStoreManager = new SyncBlockStoreManager(dataProvider);
 		return syncBlockStoreManager;
-	}, [dataProvider, fireAnalyticsEvent]);
+	}, [dataProvider]);
+
+	syncBlockStoreManager.setFireAnalyticsEvent(fireAnalyticsEvent);
+	return syncBlockStoreManager;
 };

@@ -1,6 +1,6 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-export function taskItemOnChange(view: EditorView, event: Event) {
+export function taskItemOnChange(view: EditorView, event: Event): void {
 	const { target } = event;
 	if (
 		!target ||

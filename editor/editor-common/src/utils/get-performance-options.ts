@@ -44,7 +44,7 @@ export function getPerformanceOptions(view: EditorView): {
 	};
 }
 
-export function startMeasureReactNodeViewRendered({ nodeTypeName }: { nodeTypeName: string }) {
+export function startMeasureReactNodeViewRendered({ nodeTypeName }: { nodeTypeName: string }): void {
 	startMeasure(`🦉${nodeTypeName}::ReactNodeView`);
 }
 
@@ -64,7 +64,7 @@ export function stopMeasureReactNodeViewRendered({
 	// NOTE: the slow threshold means any percentile analysis of event
 	// durations is limited.
 	slowThreshold: number;
-}) {
+}): void {
 	stopMeasure(`🦉${nodeTypeName}::ReactNodeView`, (duration) => {
 		if (++nodeViewRenderedEventsCounter % samplingRate === 0 && duration > slowThreshold) {
 			dispatchAnalyticsEvent({

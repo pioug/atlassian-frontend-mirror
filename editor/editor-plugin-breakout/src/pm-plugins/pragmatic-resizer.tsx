@@ -193,7 +193,7 @@ export const createPragmaticResizer = ({
 	return {
 		rightHandle: rightHandle.handle,
 		leftHandle: leftHandle.handle,
-		destroy: (isChangeToViewMode?: boolean) => {
+		destroy: (isChangeToViewMode?: boolean): void => {
 			destroyFns.forEach((destroyFn) => destroyFn());
 			unbindFns.forEach((unbindFn) => unbindFn());
 

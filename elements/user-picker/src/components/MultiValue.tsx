@@ -19,7 +19,7 @@ import { token } from '@atlaskit/tokens';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-export const scrollToValue = (valueContainer: HTMLDivElement, control: HTMLElement) => {
+export const scrollToValue = (valueContainer: HTMLDivElement, control: HTMLElement): void => {
 	const { top, height } = valueContainer.getBoundingClientRect();
 	const { height: controlHeight } = control.getBoundingClientRect();
 
@@ -58,7 +58,7 @@ export class MultiValue extends React.Component<Props> {
 		this.containerRef = React.createRef<HTMLDivElement>();
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate(): void {
 		const { isFocused } = this.props;
 		if (
 			isFocused &&
@@ -96,7 +96,7 @@ export class MultiValue extends React.Component<Props> {
 		);
 	}
 
-	getElemBefore = () => {
+	getElemBefore = (): React.JSX.Element => {
 		const {
 			data: { data },
 		} = this.props;
@@ -140,7 +140,7 @@ export class MultiValue extends React.Component<Props> {
 		);
 	};
 
-	getElemAfter = () => {
+	getElemAfter = (): React.JSX.Element | null => {
 		const {
 			data: { data },
 		} = this.props;
@@ -150,7 +150,7 @@ export class MultiValue extends React.Component<Props> {
 		return null;
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { children, innerProps, ...rest } = this.props;
 
 		return (

@@ -17,7 +17,7 @@ export default class Logger {
 		}
 	}
 
-	setLogLevel(logLevel: number) {
+	setLogLevel(logLevel: number): void {
 		if (logLevel >= LOG_LEVEL.DEBUG && logLevel <= LOG_LEVEL.OFF) {
 			this.logLevel = +logLevel;
 		} else {
@@ -29,25 +29,25 @@ export default class Logger {
 		level: number,
 		type: keyof Pick<Console, 'log' | 'info' | 'warn' | 'error'>,
 		...args: any[]
-	) {
+	): void {
 		if (level >= this.logLevel) {
 			console[type](...args);
 		}
 	}
 
-	debug(...args: any[]) {
+	debug(...args: any[]): void {
 		this.logMessage(LOG_LEVEL.DEBUG, 'log', ...args);
 	}
 
-	info(...args: any[]) {
+	info(...args: any[]): void {
 		this.logMessage(LOG_LEVEL.INFO, 'info', ...args);
 	}
 
-	warn(...args: any[]) {
+	warn(...args: any[]): void {
 		this.logMessage(LOG_LEVEL.WARN, 'warn', ...args);
 	}
 
-	error(...args: any[]) {
+	error(...args: any[]): void {
 		this.logMessage(LOG_LEVEL.ERROR, 'error', ...args);
 	}
 }

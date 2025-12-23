@@ -150,7 +150,7 @@ export const insertLoom = (
 	);
 };
 
-export const executeRecordVideo = (api: ExtractInjectionAPI<LoomPlugin> | undefined) => {
+export const executeRecordVideo = (api: ExtractInjectionAPI<LoomPlugin> | undefined): void => {
 	api?.core?.actions.execute(
 		recordVideo({
 			inputMethod: INPUT_METHOD.TOOLBAR,

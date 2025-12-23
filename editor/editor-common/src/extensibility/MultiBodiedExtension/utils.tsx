@@ -19,7 +19,7 @@ export const sendMBEAnalyticsEvent = (
 	action: AnalyticsActionTypes,
 	node: PmNode,
 	eventDispatcher: EventDispatcher,
-) => {
+): void => {
 	const analyticsDispatch: AnalyticsDispatch = createDispatch(eventDispatcher);
 	analyticsDispatch(analyticsEventKey, {
 		payload: {

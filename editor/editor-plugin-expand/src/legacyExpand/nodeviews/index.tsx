@@ -726,7 +726,7 @@ export class ExpandNodeView implements NodeView {
 		return false;
 	}
 
-	destroy() {
+	destroy(): void {
 		if (this.dom) {
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.dom.removeEventListener('click', this.handleClick);

@@ -7,7 +7,7 @@ class ConfigurationOptions {
 		this.options = {};
 	}
 
-	_flush() {
+	_flush(): void {
 		this.options = {};
 	}
 
@@ -15,7 +15,7 @@ class ConfigurationOptions {
 		return item ? this.options[item] : this.options;
 	}
 
-	set(data, value) {
+	set(data, value): void {
 		if (!data) {
 			return;
 		}

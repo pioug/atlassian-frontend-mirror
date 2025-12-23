@@ -44,15 +44,15 @@ export class ObjectURLCache {
 		return this.cache.get(key);
 	}
 
-	set(key: string, value: MediaFilePreview) {
+	set(key: string, value: MediaFilePreview): void {
 		this.cache.set(key, value);
 	}
-	remove(key: string) {
+	remove(key: string): void {
 		const removed = this.cache.delete(key);
 		removed && URL.revokeObjectURL(removed.dataURI);
 	}
 
-	clear() {
+	clear(): void {
 		this.cache.clear();
 	}
 }

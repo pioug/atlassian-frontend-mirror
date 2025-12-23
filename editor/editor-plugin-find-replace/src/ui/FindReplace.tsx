@@ -69,25 +69,25 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 
 	state = { findTyped: false };
 
-	setFindTyped = (value: boolean) => {
+	setFindTyped = (value: boolean): void => {
 		this.setState({ findTyped: value });
 	};
 
-	setFindTextfieldRef = (findTextfieldRef: React.RefObject<HTMLInputElement>) => {
+	setFindTextfieldRef = (findTextfieldRef: React.RefObject<HTMLInputElement>): void => {
 		this.findTextfield = findTextfieldRef.current;
 	};
 
-	setReplaceTextfieldRef = (replaceTextfieldRef: React.RefObject<HTMLInputElement>) => {
+	setReplaceTextfieldRef = (replaceTextfieldRef: React.RefObject<HTMLInputElement>): void => {
 		this.replaceTextfield = replaceTextfieldRef.current;
 	};
 
-	setFocusToFind = () => {
+	setFocusToFind = (): void => {
 		if (this.findTextfield) {
 			this.findTextfield.focus();
 		}
 	};
 
-	setFocusToReplace = () => {
+	setFocusToReplace = (): void => {
 		if (this.replaceTextfield) {
 			this.replaceTextfield.focus();
 		}

@@ -24,7 +24,7 @@ const onChange = (e: ChangeEvent<HTMLInputElement>) => {
 	});
 };
 
-export default () => {
+export default (): void => {
 	<div>
 		<input type="file" onChange={onChange} />
 	</div>;

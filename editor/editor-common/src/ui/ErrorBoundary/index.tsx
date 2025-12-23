@@ -30,7 +30,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 		return this.hasFallback() && this.state.errorCaptured;
 	}
 
-	componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+	componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
 		if (this.props.dispatchAnalyticsEvent) {
 			this.props.dispatchAnalyticsEvent({
 				action: ACTION.EDITOR_CRASHED,

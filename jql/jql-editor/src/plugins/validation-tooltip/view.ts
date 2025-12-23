@@ -22,7 +22,7 @@ export class ValidationTooltipPluginView {
 		document.getElementById(mainId)?.appendChild(this.tooltip);
 	}
 
-	showTooltip = (error: JQLSyntaxError, start: Coords, end: Coords) => {
+	showTooltip = (error: JQLSyntaxError, start: Coords, end: Coords): void => {
 		// Find a center position from the selection endpoints
 		const left = (start.left + end.left) / 2;
 
@@ -36,12 +36,12 @@ export class ValidationTooltipPluginView {
 		this.tooltip.classList.add(TOOLTIP_ENTER_CLASSNAME);
 	};
 
-	hideTooltip = () => {
+	hideTooltip = (): void => {
 		this.tooltip.classList.remove(TOOLTIP_ENTER_CLASSNAME);
 		this.tooltip.classList.add(TOOLTIP_EXIT_CLASSNAME);
 	};
 
-	update(view: EditorView, lastState: EditorState) {
+	update(view: EditorView, lastState: EditorState): void {
 		const state = view.state;
 
 		const isHovered = JQLValidationTooltipPluginKey.getState(state);
@@ -67,7 +67,7 @@ export class ValidationTooltipPluginView {
 		}
 	}
 
-	destroy() {
+	destroy(): void {
 		this.tooltip.remove();
 	}
 }

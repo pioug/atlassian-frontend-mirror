@@ -3,7 +3,7 @@ import type { AnalyticsEventPayload, CreateUIAnalyticsEvent } from '@atlaskit/an
 export const FABRIC_CHANNEL = 'fabric-elements';
 
 export const createStatusAnalyticsAndFire =
-	(createAnalyticsEvent?: CreateUIAnalyticsEvent) => (payload: AnalyticsEventPayload) => {
+	(createAnalyticsEvent?: CreateUIAnalyticsEvent) => (payload: AnalyticsEventPayload): void => {
 		if (createAnalyticsEvent && payload) {
 			const statusPayload: AnalyticsEventPayload = {
 				...payload,

@@ -6,7 +6,7 @@ const mediaLabelStack = [{ name: 'media' }];
 export const sendUfoDurationMetrics = (
 	ufoDurationMetrics: UfoDurationMetrics,
 	endpoint: 'image' | 'items',
-) => {
+): void => {
 	const labelStack = [...mediaLabelStack, { name: endpoint }];
 	Object.entries(ufoDurationMetrics).map(([name, { start, end, size }]) => {
 		addCustomSpans(name, start, end, size, labelStack);

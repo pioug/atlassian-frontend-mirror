@@ -73,7 +73,7 @@ export default class MentionList extends React.PureComponent<Props, State> {
 		return this.itemsRefs.get(key);
 	}
 
-	UNSAFE_componentWillReceiveProps(nextProps: Props) {
+	UNSAFE_componentWillReceiveProps(nextProps: Props): void {
 		// adjust selection
 		const { mentions } = nextProps;
 		const { selectedKey } = this.state;
@@ -97,7 +97,7 @@ export default class MentionList extends React.PureComponent<Props, State> {
 		}
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate(): void {
 		const { mentions } = this.props;
 		const { selectedIndex } = this.state;
 		if (mentions && mentions[selectedIndex]) {
@@ -109,12 +109,12 @@ export default class MentionList extends React.PureComponent<Props, State> {
 	}
 
 	// API
-	selectNext = () => {
+	selectNext = (): void => {
 		const newIndex = wrapIndex(this.props.mentions, this.state.selectedIndex + 1);
 		this.selectIndex(newIndex);
 	};
 
-	selectPrevious = () => {
+	selectPrevious = (): void => {
 		const newIndex = wrapIndex(this.props.mentions, this.state.selectedIndex - 1);
 		this.selectIndex(newIndex);
 	};
@@ -144,7 +144,7 @@ export default class MentionList extends React.PureComponent<Props, State> {
 		}
 	};
 
-	chooseCurrentSelection = () => {
+	chooseCurrentSelection = (): void => {
 		const { mentions, onSelection } = this.props;
 		const { selectedIndex } = this.state;
 		const selectedMention = mentions && mentions[selectedIndex || 0];

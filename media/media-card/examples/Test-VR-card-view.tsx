@@ -127,4 +127,4 @@ function renderCardImageView(
 		</CardViewWrapper>
 	);
 }
-export default () => <IconsTable />;
+export default (): React.JSX.Element => <IconsTable />;

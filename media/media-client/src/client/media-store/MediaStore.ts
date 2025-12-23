@@ -799,7 +799,7 @@ export class MediaStore implements MediaApi {
 		return response;
 	}
 
-	async testUrl(url: string, options: { traceContext?: MediaTraceContext } = {}) {
+	async testUrl(url: string, options: { traceContext?: MediaTraceContext } = {}): Promise<void> {
 		const { traceContext } = options;
 		await request(url, {
 			method: 'HEAD',

@@ -252,11 +252,11 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		);
 	}
 
-	subscribeToUploadInProgressState(fn: (isUploading: boolean) => void) {
+	subscribeToUploadInProgressState(fn: (isUploading: boolean) => void): void {
 		this.uploadInProgressSubscriptions.push(fn);
 	}
 
-	unsubscribeFromUploadInProgressState(fn: (isUploading: boolean) => void) {
+	unsubscribeFromUploadInProgressState(fn: (isUploading: boolean) => void): void {
 		this.uploadInProgressSubscriptions = this.uploadInProgressSubscriptions.filter(
 			(subscribedFn) => subscribedFn !== fn,
 		);
@@ -264,7 +264,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 	private previousMediaProvider: Promise<MediaProvider> | MediaProvider | undefined;
 
-	async setMediaProvider(mediaProvider?: Promise<MediaProvider> | MediaProvider) {
+	async setMediaProvider(mediaProvider?: Promise<MediaProvider> | MediaProvider): Promise<void> {
 		// Prevent someone trying to set the exact same provider twice for performance reasons
 		if (this.previousMediaProvider === mediaProvider) {
 			return;
@@ -359,15 +359,15 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 	getMediaOptions = () => this.options;
 
-	setIsResizing(isResizing: boolean) {
+	setIsResizing(isResizing: boolean): void {
 		this.isResizing = isResizing;
 	}
 
-	setResizingWidth(width: number) {
+	setResizingWidth(width: number): void {
 		this.resizingWidth = width;
 	}
 
-	setImageEditorVisibility(isVisible: boolean) {
+	setImageEditorVisibility(isVisible: boolean): void {
 		this.isImageEditorVisible = isVisible;
 	}
 
@@ -431,7 +431,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	}
 
 	// callback to flag that a node has been inserted
-	onNodeInserted = (id: string, selectionPosition: number) => {
+	onNodeInserted = (id: string, selectionPosition: number): void => {
 		this.lastAddedMediaSingleFileIds.unshift({ id, selectionPosition });
 	};
 
@@ -445,7 +445,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		onMediaStateChanged: MediaStateEventSubscriber,
 		pickerType?: string,
 		insertMediaVia?: InsertMediaVia,
-	) => {
+	): void => {
 		const { state } = this.view;
 		const editorAnalyticsAPI = this.pluginInjectionApi?.analytics?.actions;
 
@@ -598,28 +598,28 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	addPendingTask = (task: Promise<any>) => {
+	addPendingTask = (task: Promise<any>): void => {
 		this.taskManager.addPendingTask(task);
 	};
 
 	splitMediaGroup = (): boolean => splitMediaGroup(this.view);
 
-	onPopupPickerClose = () => {
+	onPopupPickerClose = (): void => {
 		this.onPopupToggleCallback(false);
 	};
 
-	showMediaPicker = () => {
+	showMediaPicker = (): void => {
 		if (this.openMediaPickerBrowser) {
 			return this.openMediaPickerBrowser();
 		}
 		this.onPopupToggleCallback(true);
 	};
 
-	setBrowseFn = (browseFn: () => void) => {
+	setBrowseFn = (browseFn: () => void): void => {
 		this.openMediaPickerBrowser = browseFn;
 	};
 
-	onPopupToggle = (onPopupToggleCallback: (isOpen: boolean) => void) => {
+	onPopupToggle = (onPopupToggleCallback: (isOpen: boolean) => void): void => {
 		this.onPopupToggleCallback = onPopupToggleCallback;
 	};
 
@@ -631,7 +631,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	 */
 	waitForPendingTasks = this.taskManager.waitForPendingTasks;
 
-	setView(view: EditorView) {
+	setView(view: EditorView): void {
 		this.view = view;
 	}
 
@@ -639,7 +639,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	 * Called from React UI Component when user clicks on "Delete" icon
 	 * inside of it
 	 */
-	handleMediaNodeRemoval = (node: PMNode | undefined, getPos: ProsemirrorGetPosHandler) => {
+	handleMediaNodeRemoval = (node: PMNode | undefined, getPos: ProsemirrorGetPosHandler): void => {
 		let getNode = node;
 		if (!getNode) {
 			const pos = getPos();
@@ -660,7 +660,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		}
 	};
 
-	trackMediaNodeAddition = (node: PMNode) => {
+	trackMediaNodeAddition = (node: PMNode): void => {
 		const identifier = getIdentifier(node.attrs as MediaADFAttrs);
 		const key = this.getIdentifierKey(identifier);
 		const { count } = this.identifierCount.get(key) ?? { count: 0 };
@@ -670,7 +670,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		this.identifierCount.set(key, { identifier, count: count + 1 });
 	};
 
-	trackMediaNodeRemoval = (node: PMNode) => {
+	trackMediaNodeRemoval = (node: PMNode): void => {
 		const identifier = getIdentifier(node.attrs as MediaADFAttrs);
 		const key = this.getIdentifierKey(identifier);
 		const { count } = this.identifierCount.get(key) ?? { count: 0 };
@@ -693,7 +693,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	 * i.e. the pasted media was not uplaoded to the current editor.
 	 * This is to enable mediaShallowCopySope to enable only shallow copying media referenced within the edtior
 	 */
-	trackOutOfScopeIdentifier = (identifier: Identifier) => {
+	trackOutOfScopeIdentifier = (identifier: Identifier): void => {
 		const key = this.getIdentifierKey(identifier);
 
 		this.outOfEditorScopeIdentifierMap.set(key, { identifier });
@@ -702,7 +702,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	/**
 	 * Called from React UI Component on componentDidMount
 	 */
-	handleMediaNodeMount = (node: PMNode, getPos: ProsemirrorGetPosHandler) => {
+	handleMediaNodeMount = (node: PMNode, getPos: ProsemirrorGetPosHandler): void => {
 		this.trackMediaNodeAddition(node);
 
 		this.mediaNodes.unshift({ node, getPos });
@@ -712,13 +712,13 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	 * Called from React UI Component on componentWillUnmount and UNSAFE_componentWillReceiveProps
 	 * when React component's underlying node property is replaced with a new node
 	 */
-	handleMediaNodeUnmount = (oldNode: PMNode) => {
+	handleMediaNodeUnmount = (oldNode: PMNode): void => {
 		this.trackMediaNodeRemoval(oldNode);
 
 		this.mediaNodes = this.mediaNodes.filter(({ node }) => oldNode !== node);
 	};
 
-	handleMediaGroupUpdate = (oldNodes: PMNode[], newNodes: PMNode[]) => {
+	handleMediaGroupUpdate = (oldNodes: PMNode[], newNodes: PMNode[]): void => {
 		const addedNodes = newNodes.filter((node) =>
 			oldNodes.every((oldNode) => oldNode.attrs.id !== node.attrs.id),
 		);
@@ -735,7 +735,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		});
 	};
 
-	destroy() {
+	destroy(): void {
 		if (this.destroyed) {
 			return;
 		}
@@ -874,7 +874,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		return;
 	};
 
-	handleDrag = (dragState: 'enter' | 'leave') => {
+	handleDrag = (dragState: 'enter' | 'leave'): void => {
 		const isActive = dragState === 'enter';
 		if (this.showDropzone === isActive) {
 			return;
@@ -905,7 +905,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 	updateAndDispatch(
 		props: Partial<Pick<this, 'allowsUploads' | 'allUploadsFinished' | 'isFullscreen'>>,
-	) {
+	): void {
 		// update plugin state
 		Object.keys(props).forEach((_key) => {
 			const key = _key as keyof typeof props;

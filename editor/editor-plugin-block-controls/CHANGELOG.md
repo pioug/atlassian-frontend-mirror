@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 7.19.0
+
+### Minor Changes
+
+- [`cae218eb0956b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cae218eb0956b) -
+  ED-29725 fix table controls when native anchor enabled
+
+## 7.18.3
+
+### Patch Changes
+
+- [`d9c44f54ebae0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9c44f54ebae0) -
+  Editor-4011-Updated handleKeyDownNew to use the preservedSelection logic
+- Updated dependencies
+
+## 7.18.2
+
+### Patch Changes
+
+- [`275b01c2a180f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/275b01c2a180f) -
+  EDITOR-3911 fix key handling while preserving selection
+
 ## 7.18.1
 
 ### Patch Changes

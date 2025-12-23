@@ -8,7 +8,7 @@ import { getPluginState as getMainPluginState } from '../../plugin-factory';
 import { colWidthsForRow } from '../../utils/column-controls';
 import { getRowHeights } from '../../utils/row-controls';
 
-export const updateControls = () => (state: EditorState) => {
+export const updateControls = () => (state: EditorState): void => {
 	const { tableRef } = getMainPluginState(state);
 	if (!tableRef) {
 		return;
@@ -71,7 +71,7 @@ export const getResizeCellPos = (view: EditorView, event: MouseEvent): number | 
 	return cellStartPosition - 1;
 };
 
-export const updateStickyMargins = (table: HTMLElement) => {
+export const updateStickyMargins = (table: HTMLElement): void => {
 	const row = table.querySelector('tr.sticky');
 	if (!row) {
 		table.style.marginTop = '';
@@ -98,7 +98,7 @@ const applyColWidthsToStickyRow = (
 	}
 };
 
-export const syncStickyRowToTable = (tableRef?: HTMLElement | null) => {
+export const syncStickyRowToTable = (tableRef?: HTMLElement | null): void => {
 	if (!tableRef) {
 		return;
 	}

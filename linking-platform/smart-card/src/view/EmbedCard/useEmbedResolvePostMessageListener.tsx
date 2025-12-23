@@ -10,7 +10,7 @@ interface UseEmbedResolvePostMessageListenerProps {
 export const useEmbedResolvePostMessageListener = ({
 	url,
 	embedIframeRef,
-}: UseEmbedResolvePostMessageListenerProps) => {
+}: UseEmbedResolvePostMessageListenerProps): void => {
 	const resolve = useResolve();
 
 	useEffect(() => {

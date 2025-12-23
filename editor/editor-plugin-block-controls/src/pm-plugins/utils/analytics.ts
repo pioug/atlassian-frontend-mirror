@@ -47,7 +47,7 @@ export const fireInsertLayoutAnalytics = (
 	nodeTypes?: string,
 	hasSelectedMultipleNodes?: boolean,
 	columnCount?: number,
-) => {
+): void => {
 	api?.analytics?.actions?.attachAnalyticsEvent({
 		action: ACTION.INSERTED,
 		actionSubject: ACTION_SUBJECT.DOCUMENT,

@@ -28,17 +28,17 @@ export class CardPreviewCacheImpl implements MediaFilePreviewCache {
 		return this.previewCache.get(cacheKey);
 	};
 
-	set = (id: string, mode: Mode, cardPreview: MediaFilePreview) => {
+	set = (id: string, mode: Mode, cardPreview: MediaFilePreview): void => {
 		const cacheKey = getCacheKey(id, mode);
 		this.previewCache.set(cacheKey, cardPreview);
 	};
 
-	remove = (id: string, mode: Mode) => {
+	remove = (id: string, mode: Mode): void => {
 		const cacheKey = getCacheKey(id, mode);
 		this.previewCache.remove(cacheKey);
 	};
 
-	clear = () => {
+	clear = (): void => {
 		this.previewCache.clear();
 	};
 }

@@ -15,7 +15,7 @@ import {
 
 export const mockBasicFilterAGGFetchRequests = (
 	opts: { withJiraFilterHydration: boolean } = { withJiraFilterHydration: true },
-) => {
+): void => {
 	fetchMock.post(new RegExp(`/graphql`), async (_url: string, details: any) => {
 		return new Promise((resolve) => {
 			const requestBody = JSON.parse(details.body);

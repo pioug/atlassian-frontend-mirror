@@ -211,7 +211,7 @@ export class EmbedCardComponent extends React.PureComponent<
 		}
 	};
 
-	onResolve = (data: { aspectRatio?: number; title?: string; url?: string }) => {
+	onResolve = (data: { aspectRatio?: number; title?: string; url?: string }): void => {
 		const { view } = this.props;
 
 		const { title, url, aspectRatio } = data;
@@ -331,7 +331,7 @@ export class EmbedCardComponent extends React.PureComponent<
 	 * it's good idea to store latest actual height in ADF, so that when renderer (well, editor as well) is loading
 	 * we will show embed window of appropriate size and avoid unnecessary content jumping.
 	 */
-	saveOriginalDimensionsAttributes = (height: number, width: number | undefined) => {
+	saveOriginalDimensionsAttributes = (height: number, width: number | undefined): void => {
 		const { view } = this.props;
 
 		// Please, do not copy or use this kind of code below
@@ -376,12 +376,12 @@ export class EmbedCardComponent extends React.PureComponent<
 		})();
 	};
 
-	onHeightUpdate = (height: number) => {
+	onHeightUpdate = (height: number): void => {
 		this.setState({ liveHeight: height });
 		this.saveOriginalDimensionsAttributes(height, undefined);
 	};
 
-	onError = ({ err }: { err?: Error }) => {
+	onError = ({ err }: { err?: Error }): void => {
 		if (err) {
 			throw err;
 		}
@@ -646,7 +646,7 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 		);
 	}
 
-	destroy() {
+	destroy(): void {
 		this.unsubscribe?.();
 		super.destroy();
 	}

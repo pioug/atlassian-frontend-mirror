@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { useEffect, useState, useRef, type SyntheticEvent } from 'react';
@@ -10,7 +11,7 @@ import { iframeCSS } from './styles';
 import { type NotificationsProps } from './types';
 import { getNotificationsSrc } from './utils';
 
-export const Notifications = (props: NotificationsProps) => {
+export const Notifications = (props: NotificationsProps): React.JSX.Element => {
 	const { _url, locale, product, subproduct, testId, isNewExperience, ...iframeProps } = props;
 	const ref = useRef<HTMLIFrameElement>(null);
 	const [loading, setLoading] = useState(true);

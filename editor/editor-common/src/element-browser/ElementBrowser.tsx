@@ -45,7 +45,7 @@ export interface State {
 export default class ElementBrowser extends PureComponent<Props, State> {
 	static defaultProps = {
 		defaultCategory: 'all',
-		onInsertItem: () => {},
+		onInsertItem: (): void => {},
 	};
 
 	state: State = {
@@ -55,7 +55,7 @@ export default class ElementBrowser extends PureComponent<Props, State> {
 		selectedCategory: this.props.defaultCategory,
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		const items = this.fetchItems();
 		this.setState({
 			items,
@@ -83,7 +83,7 @@ export default class ElementBrowser extends PureComponent<Props, State> {
 		return this.props.getItems(query, category);
 	};
 
-	componentDidUpdate(prevProps: Props, prevState: State) {
+	componentDidUpdate(prevProps: Props, prevState: State): void {
 		const { searchTerm, selectedCategory } = this.state;
 
 		// Update both items and categories when there's a new getItems
@@ -102,12 +102,12 @@ export default class ElementBrowser extends PureComponent<Props, State> {
 		}
 	}
 
-	handleSearch = (searchTerm: string) => {
+	handleSearch = (searchTerm: string): void => {
 		const { defaultCategory } = this.props;
 		this.setState({ searchTerm, selectedCategory: defaultCategory });
 	};
 
-	handleCategorySelection = (clickedCategory: Category) => {
+	handleCategorySelection = (clickedCategory: Category): void => {
 		const { selectedCategory: stateCategoryValue } = this.state;
 
 		/**

@@ -26,7 +26,7 @@ export class SmartLinkEvents {
 		url: string,
 		type: CardInnerAppearance,
 		createAnalyticsEvent?: CreateUIAnalyticsEvent,
-	) {
+	): void {
 		fireSmartLinkEvent(
 			{
 				action: 'inserted',
@@ -47,7 +47,7 @@ export class SmartLinkEvents {
 export const fireSmartLinkEvent = (
 	payload: AnalyticsPayload,
 	createAnalyticsEvent?: CreateUIAnalyticsEvent,
-) => {
+): void => {
 	if (createAnalyticsEvent) {
 		createAnalyticsEvent(payload).fire(ANALYTICS_CHANNEL);
 	}

@@ -239,16 +239,16 @@ export const createButtonWithAnalytics = (
 };
 
 export const createAnalyticsWebClientMock = () => ({
-	sendUIEvent: (event: GasPurePayload) => {
+	sendUIEvent: (event: GasPurePayload): void => {
 		console.log('sendUIEvent: ', event);
 	},
-	sendOperationalEvent: (event: GasPurePayload) => {
+	sendOperationalEvent: (event: GasPurePayload): void => {
 		console.log('sendOperationalEvent: ', event);
 	},
-	sendTrackEvent: (event: GasPurePayload) => {
+	sendTrackEvent: (event: GasPurePayload): void => {
 		console.log('sendTrackEvent: ', event);
 	},
-	sendScreenEvent: (event: GasPureScreenEventPayload) => {
+	sendScreenEvent: (event: GasPureScreenEventPayload): void => {
 		console.log('sendScreenEvent: ', event);
 	},
 });

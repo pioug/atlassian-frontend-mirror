@@ -24,7 +24,7 @@ export const createLogger =
 	(prefix: string, color: string = 'blue') =>
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	(msg: string, data: any = null) => {
+	(msg: string, data: any = null): void => {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		if ((window as any).COLLAB_PROVIDER_LOGGER) {

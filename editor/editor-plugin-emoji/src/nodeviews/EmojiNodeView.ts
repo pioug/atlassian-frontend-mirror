@@ -62,7 +62,7 @@ export class EmojiNodeView implements NodeView {
 	private readonly intl: IntlShape;
 	private renderingFallback: boolean = false;
 
-	readonly destroy = () => {};
+	readonly destroy = (): void => {};
 
 	private static logError(error: Error) {
 		void logException(error, {

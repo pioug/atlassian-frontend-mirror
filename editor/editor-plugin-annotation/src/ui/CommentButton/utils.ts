@@ -68,7 +68,7 @@ export const fireOnClickAnalyticsEvent = ({
 	api,
 }: {
 	api: ExtractInjectionAPI<AnnotationPlugin>;
-}) => {
+}): void => {
 	api.analytics?.actions.fireAnalyticsEvent({
 		action: ACTION.CLICKED,
 		actionSubject: ACTION_SUBJECT.BUTTON,
@@ -105,7 +105,7 @@ export const fireCommentButtonViewedAnalyticsEvent = ({
 	annotationSelectionType: AnnotationSelectionType;
 	api?: ExtractInjectionAPI<AnnotationPlugin>;
 	isNonTextInlineNodeInludedInComment: boolean;
-}) => {
+}): void => {
 	api?.analytics?.actions.fireAnalyticsEvent({
 		action: ACTION.VIEWED,
 		actionSubject: ACTION_SUBJECT.BUTTON,

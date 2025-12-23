@@ -117,7 +117,7 @@ export class UserPreferencesProvider {
 	 * @param preferences
 	 * @example
 	 */
-	setDefaultPreferences(preferences: ResolvedUserPreferences) {
+	setDefaultPreferences(preferences: ResolvedUserPreferences): void {
 		this.defaultPreferences = preferences;
 		const hasUpdated = this.resolveUserPreferences();
 		if (hasUpdated) {
@@ -140,7 +140,7 @@ export class UserPreferencesProvider {
 	 * This method is used to notify the user preferences updated
 	 * @example userPreferencesProvider.notifyUserPreferencesUpdated()
 	 */
-	notifyUserPreferencesUpdated() {
+	notifyUserPreferencesUpdated(): void {
 		this.updateCallbacks.forEach((callback) => {
 			callback(this.resolvedUserPreferences);
 		});

@@ -22,7 +22,7 @@ export const startUfoExperience = (
 	experienceName: ExperienceName,
 	id: string,
 	metadata?: CustomData,
-) => {
+): void => {
 	const experience = ufoExperiences[experienceName].getInstance(id);
 	experience.start();
 	if (metadata) {
@@ -34,7 +34,7 @@ export const succeedUfoExperience = (
 	experienceName: ExperienceName,
 	id: string,
 	metadata?: CustomData,
-) => {
+): void => {
 	const experience = ufoExperiences[experienceName].getInstance(id);
 	experience.success({ metadata });
 };
@@ -43,7 +43,7 @@ export const failUfoExperience = (
 	experienceName: ExperienceName,
 	id: string,
 	metadata?: CustomData,
-) => {
+): void => {
 	const experience = ufoExperiences[experienceName].getInstance(id);
 	experience.failure({ metadata });
 };
@@ -52,7 +52,7 @@ export const abortUfoExperience = (
 	experienceName: ExperienceName,
 	id: string,
 	metadata?: CustomData,
-) => {
+): void => {
 	const experience = ufoExperiences[experienceName].getInstance(id);
 	experience.abort({ metadata });
 };

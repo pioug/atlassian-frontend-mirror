@@ -38,11 +38,11 @@ export class SimpleMeasurementLogger {
 	// callback when performance reports are ready
 	private observationCallback?: ObservationCallback;
 
-	public setPluginNames = (names: string[]) => {
+	public setPluginNames = (names: string[]): void => {
 		this.pluginNameCache = new Set(names);
 	};
 
-	public setOnObservation = (callback: ObservationCallback) => {
+	public setOnObservation = (callback: ObservationCallback): void => {
 		this.observationCallback = callback;
 	};
 
@@ -72,7 +72,7 @@ export class SimpleMeasurementLogger {
 		};
 	};
 
-	public observed = (reading: Reading) => {
+	public observed = (reading: Reading): void => {
 		// Given that this is only used for tracking transactions and
 		// transactions are synchronous, we can assume that anything measured
 		// between EVENT_NAME_DISPATCHTRANSACTION is encapsulated.

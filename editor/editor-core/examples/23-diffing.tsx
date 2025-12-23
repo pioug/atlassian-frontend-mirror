@@ -101,7 +101,7 @@ export default class DiffingExample extends React.Component<null, State> {
 		documentTwo: '',
 	};
 
-	onBtnClick = () => {
+	onBtnClick = (): void => {
 		const { documentOne, documentTwo, editMode } = this.state;
 		if (editMode) {
 			this.setState({
@@ -113,11 +113,11 @@ export default class DiffingExample extends React.Component<null, State> {
 		}
 	};
 
-	onDocumentOneChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+	onDocumentOneChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
 		this.setState({ documentOne: e.target.value });
 	};
 
-	onDocumentTwoChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+	onDocumentTwoChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
 		this.setState({ documentTwo: e.target.value });
 	};
 

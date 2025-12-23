@@ -40,7 +40,7 @@ const ufoExperiences: Record<UfoExperience['name'], ConcurrentExperience> = {
 	),
 };
 
-export const startUfoExperience = ({ name, metadata }: UfoExperience, id: string) => {
+export const startUfoExperience = ({ name, metadata }: UfoExperience, id: string): void => {
 	const experienceInstance = ufoExperiences[name].getInstance(id);
 	experienceInstance.start();
 	if (metadata) {
@@ -48,16 +48,16 @@ export const startUfoExperience = ({ name, metadata }: UfoExperience, id: string
 	}
 };
 
-export const succeedUfoExperience = ({ name, metadata }: UfoExperience, id: string) => {
+export const succeedUfoExperience = ({ name, metadata }: UfoExperience, id: string): void => {
 	const experienceInstance = ufoExperiences[name].getInstance(id);
 	experienceInstance.success({ metadata });
 };
 
-export const failUfoExperience = ({ name, metadata }: UfoExperience, id: string) => {
+export const failUfoExperience = ({ name, metadata }: UfoExperience, id: string): void => {
 	const experienceInstance = ufoExperiences[name].getInstance(id);
 	experienceInstance.failure({ metadata });
 };
 
-export const addMetadataToExperience = ({ name, metadata }: UfoExperience, id: string) => {
+export const addMetadataToExperience = ({ name, metadata }: UfoExperience, id: string): void => {
 	ufoExperiences[name].getInstance(id).addMetadata(metadata as CustomData);
 };

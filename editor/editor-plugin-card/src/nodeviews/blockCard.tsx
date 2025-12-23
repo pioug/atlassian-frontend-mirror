@@ -39,7 +39,7 @@ export class BlockCardComponent extends React.PureComponent<
 		this.scrollContainer = findOverflowScrollParent(props.view.dom as HTMLElement) || undefined;
 	}
 
-	onResolve = (data: { title?: string; url?: string }) => {
+	onResolve = (data: { title?: string; url?: string }): void => {
 		const { getPos, view } = this.props;
 		if (!getPos || typeof getPos === 'boolean') {
 			return;
@@ -98,7 +98,7 @@ export class BlockCardComponent extends React.PureComponent<
 		return <span contentEditable={true} />;
 	};
 
-	onError = ({ err }: { err?: Error }) => {
+	onError = ({ err }: { err?: Error }): void => {
 		if (err) {
 			throw err;
 		}
@@ -239,7 +239,7 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 		);
 	}
 
-	destroy() {
+	destroy(): void {
 		this.unsubscribe?.();
 		super.destroy();
 	}

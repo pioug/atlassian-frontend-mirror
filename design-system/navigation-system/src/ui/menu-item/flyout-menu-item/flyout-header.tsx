@@ -15,7 +15,7 @@ import { OnCloseContext, SetIsOpenContext } from './flyout-menu-item-context';
 
 const headerStyles = cssMap({
     root: {
-        paddingInlineStart: token('space.075'),
+        paddingInlineStart: token('space.050'),
         paddingBlockEnd: token('space.075'),
         display: 'flex',
         flexDirection: 'column',
@@ -26,7 +26,8 @@ const headerStyles = cssMap({
         gap: token('space.200'),
         flexDirection: 'row-reverse',
         alignItems: 'center',
-        width: '100%'
+        width: '100%',
+        paddingInlineStart: token('space.025')
     },
 });
 
@@ -36,10 +37,10 @@ export interface FlyoutHeaderProps {
      */
     children?: React.ReactNode;
 
-	/**
-	 * A unique string that appears as data attribute data-testid in the
+    /**
+     * A unique string that appears as data attribute data-testid in the
      * rendered code, serving as a hook for automated tests.
-	 */
+     */
     testId?: string;
 
     /**

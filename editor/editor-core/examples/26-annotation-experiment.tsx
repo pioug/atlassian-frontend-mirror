@@ -103,7 +103,7 @@ export default class ExampleAnnotationExperiment extends React.Component<any, St
 		}));
 	};
 
-	handleAnnotationChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+	handleAnnotationChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
 		const { id } = evt.target;
 		const newState = !this.state.annotationStates.get(id);
 		this.setState((prevState: State) => {
@@ -113,7 +113,7 @@ export default class ExampleAnnotationExperiment extends React.Component<any, St
 		emitter.emit(newState ? 'resolve' : 'unresolve', id);
 	};
 
-	handleOnOffChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+	handleOnOffChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
 		const { checked } = evt.target;
 
 		this.setState((prevState: State) => {
@@ -125,7 +125,7 @@ export default class ExampleAnnotationExperiment extends React.Component<any, St
 		emitter.emit('setvisibility', checked);
 	};
 
-	handleWhiteSpaceOnOffChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+	handleWhiteSpaceOnOffChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
 		const { checked } = evt.target;
 
 		this.setState((prevState: State) => {
@@ -139,7 +139,7 @@ export default class ExampleAnnotationExperiment extends React.Component<any, St
 	 * Mimics behaviour of Confluence comments button - this will look for
 	 * the first comment in the document and open it
 	 */
-	handleShowInlineComments = () => {
+	handleShowInlineComments = (): void => {
 		const firstComment = document.querySelector(
 			'.ak-editor-annotation-focus,.ak-editor-annotation-blur',
 		);

@@ -135,7 +135,7 @@ export class MockMentionResource
 		return this.config.mentionNameResolver.lookupName(id);
 	}
 
-	cacheMentionName(id: string, name: string) {
+	cacheMentionName(id: string, name: string): void {
 		debug('(mock)cacheMentionName', id, name);
 		if (this.config.mentionNameResolver) {
 			this.config.mentionNameResolver.cacheName(id, name);

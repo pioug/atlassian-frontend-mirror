@@ -1,0 +1,592 @@
+{
+	"emojis": [
+		{
+			"id": "270b",
+			"name": "raised hand",
+			"shortName": ":raised_hand:",
+			"fallback": "✋",
+			"type": "STANDARD",
+			"category": "PEOPLE",
+			"order": 10251,
+			"skinVariations": [
+				{
+					"id": "270b-1f3fb",
+					"name": "raised hand: light skin tone",
+					"shortName": ":raised_hand::skin-tone-2:",
+					"fallback": "✋\uD83C\uDFFB",
+					"type": "STANDARD",
+					"category": "PEOPLE",
+					"order": 10252,
+					"representation": {
+						"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/270b-1f3fb.png",
+						"height": 64,
+						"width": 64
+					},
+					"altRepresentations": {
+						"XXXHDPI": {
+							"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/128x128/270b-1f3fb.png",
+							"height": 128,
+							"width": 128
+						}
+					},
+					"searchable": true
+				},
+				{
+					"id": "270b-1f3fc",
+					"name": "raised hand: medium-light skin tone",
+					"shortName": ":raised_hand::skin-tone-3:",
+					"fallback": "✋\uD83C\uDFFC",
+					"type": "STANDARD",
+					"category": "PEOPLE",
+					"order": 10253,
+					"representation": {
+						"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/270b-1f3fc.png",
+						"height": 64,
+						"width": 64
+					},
+					"altRepresentations": {
+						"XXXHDPI": {
+							"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/128x128/270b-1f3fc.png",
+							"height": 128,
+							"width": 128
+						}
+					},
+					"searchable": true
+				},
+				{
+					"id": "270b-1f3fd",
+					"name": "raised hand: medium skin tone",
+					"shortName": ":raised_hand::skin-tone-4:",
+					"fallback": "✋\uD83C\uDFFD",
+					"type": "STANDARD",
+					"category": "PEOPLE",
+					"order": 10254,
+					"representation": {
+						"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/270b-1f3fd.png",
+						"height": 64,
+						"width": 64
+					},
+					"altRepresentations": {
+						"XXXHDPI": {
+							"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/128x128/270b-1f3fd.png",
+							"height": 128,
+							"width": 128
+						}
+					},
+					"searchable": true
+				},
+				{
+					"id": "270b-1f3fe",
+					"name": "raised hand: medium-dark skin tone",
+					"shortName": ":raised_hand::skin-tone-5:",
+					"fallback": "✋\uD83C\uDFFE",
+					"type": "STANDARD",
+					"category": "PEOPLE",
+					"order": 10255,
+					"representation": {
+						"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/270b-1f3fe.png",
+						"height": 64,
+						"width": 64
+					},
+					"altRepresentations": {
+						"XXXHDPI": {
+							"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/128x128/270b-1f3fe.png",
+							"height": 128,
+							"width": 128
+						}
+					},
+					"searchable": true
+				},
+				{
+					"id": "270b-1f3ff",
+					"name": "raised hand: dark skin tone",
+					"shortName": ":raised_hand::skin-tone-6:",
+					"fallback": "✋\uD83C\uDFFF",
+					"type": "STANDARD",
+					"category": "PEOPLE",
+					"order": 10256,
+					"representation": {
+						"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/270b-1f3ff.png",
+						"height": 64,
+						"width": 64
+					},
+					"altRepresentations": {
+						"XXXHDPI": {
+							"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/128x128/270b-1f3ff.png",
+							"height": 128,
+							"width": 128
+						}
+					},
+					"searchable": true
+				}
+			],
+			"representation": {
+				"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/270b.png",
+				"height": 64,
+				"width": 64
+			},
+			"altRepresentations": {
+				"XXXHDPI": {
+					"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/128x128/270b.png",
+					"height": 128,
+					"width": 128
+				}
+			},
+			"searchable": true
+		},
+		{
+			"id": "2764",
+			"name": "red heart",
+			"shortName": ":heart:",
+			"fallback": "❤️",
+			"type": "STANDARD",
+			"category": "SYMBOLS",
+			"order": 73063,
+			"representation": {
+				"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/2764.png",
+				"height": 32,
+				"width": 32
+			},
+			"altRepresentations": {
+				"XHDPI": {
+					"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/2764.png",
+					"height": 64,
+					"width": 64
+				}
+			},
+			"ascii": [
+				"<3"
+			],
+			"searchable": true
+		},
+		{
+			"id": "1f389",
+			"name": "party popper",
+			"shortName": ":tada:",
+			"fallback": "\uD83C\uDF89",
+			"type": "STANDARD",
+			"category": "OBJECTS",
+			"order": 62979,
+			"representation": {
+				"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f389.png",
+				"height": 32,
+				"width": 32
+			},
+			"altRepresentations": {
+				"XHDPI": {
+					"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f389.png",
+					"height": 64,
+					"width": 64
+				}
+			},
+			"searchable": true
+		},
+		{
+			"id": "1f44d",
+			"name": "thumbs up",
+			"shortName": ":thumbsup:",
+			"fallback": "\uD83D\uDC4D",
+			"type": "STANDARD",
+			"category": "PEOPLE",
+			"order": 10143,
+			"skinVariations": [
+				{
+					"id": "1f44d-1f3fb",
+					"name": "thumbs up: light skin tone",
+					"shortName": ":thumbsup::skin-tone-2:",
+					"fallback": "\uD83D\uDC4D\uD83C\uDFFB",
+					"type": "STANDARD",
+					"category": "PEOPLE",
+					"order": 10144,
+					"representation": {
+						"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f44d-1f3fb.png",
+						"height": 32,
+						"width": 32
+					},
+					"altRepresentations": {
+						"XHDPI": {
+							"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f44d-1f3fb.png",
+							"height": 64,
+							"width": 64
+						}
+					},
+					"searchable": true
+				},
+				{
+					"id": "1f44d-1f3fc",
+					"name": "thumbs up: medium-light skin tone",
+					"shortName": ":thumbsup::skin-tone-3:",
+					"fallback": "\uD83D\uDC4D\uD83C\uDFFC",
+					"type": "STANDARD",
+					"category": "PEOPLE",
+					"order": 10145,
+					"representation": {
+						"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f44d-1f3fc.png",
+						"height": 32,
+						"width": 32
+					},
+					"altRepresentations": {
+						"XHDPI": {
+							"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f44d-1f3fc.png",
+							"height": 64,
+							"width": 64
+						}
+					},
+					"searchable": true
+				},
+				{
+					"id": "1f44d-1f3fd",
+					"name": "thumbs up: medium skin tone",
+					"shortName": ":thumbsup::skin-tone-4:",
+					"fallback": "\uD83D\uDC4D\uD83C\uDFFD",
+					"type": "STANDARD",
+					"category": "PEOPLE",
+					"order": 10146,
+					"representation": {
+						"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f44d-1f3fd.png",
+						"height": 32,
+						"width": 32
+					},
+					"altRepresentations": {
+						"XHDPI": {
+							"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f44d-1f3fd.png",
+							"height": 64,
+							"width": 64
+						}
+					},
+					"searchable": true
+				},
+				{
+					"id": "1f44d-1f3fe",
+					"name": "thumbs up: medium-dark skin tone",
+					"shortName": ":thumbsup::skin-tone-5:",
+					"fallback": "\uD83D\uDC4D\uD83C\uDFFE",
+					"type": "STANDARD",
+					"category": "PEOPLE",
+					"order": 10147,
+					"representation": {
+						"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f44d-1f3fe.png",
+						"height": 32,
+						"width": 32
+					},
+					"altRepresentations": {
+						"XHDPI": {
+							"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f44d-1f3fe.png",
+							"height": 64,
+							"width": 64
+						}
+					},
+					"searchable": true
+				},
+				{
+					"id": "1f44d-1f3ff",
+					"name": "thumbs up: dark skin tone",
+					"shortName": ":thumbsup::skin-tone-6:",
+					"fallback": "\uD83D\uDC4D\uD83C\uDFFF",
+					"type": "STANDARD",
+					"category": "PEOPLE",
+					"order": 10148,
+					"representation": {
+						"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f44d-1f3ff.png",
+						"height": 32,
+						"width": 32
+					},
+					"altRepresentations": {
+						"XHDPI": {
+							"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f44d-1f3ff.png",
+							"height": 64,
+							"width": 64
+						}
+					},
+					"searchable": true
+				}
+			],
+			"representation": {
+				"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f44d.png",
+				"height": 32,
+				"width": 32
+			},
+			"altRepresentations": {
+				"XHDPI": {
+					"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f44d.png",
+					"height": 64,
+					"width": 64
+				}
+			},
+			"ascii": [
+				"(y)"
+			],
+			"searchable": true
+		},
+		{
+			"id": "1f44f",
+			"name": "clapping hands",
+			"shortName": ":clap:",
+			"fallback": "\uD83D\uDC4F",
+			"type": "STANDARD",
+			"category": "PEOPLE",
+			"order": 10136,
+			"skinVariations": [
+				{
+					"id": "1f44f-1f3fb",
+					"name": "clapping hands: light skin tone",
+					"shortName": ":clap::skin-tone-2:",
+					"fallback": "\uD83D\uDC4F\uD83C\uDFFB",
+					"type": "STANDARD",
+					"category": "PEOPLE",
+					"order": 10137,
+					"representation": {
+						"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f44f-1f3fb.png",
+						"height": 32,
+						"width": 32
+					},
+					"altRepresentations": {
+						"XHDPI": {
+							"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f44f-1f3fb.png",
+							"height": 64,
+							"width": 64
+						}
+					},
+					"searchable": true
+				},
+				{
+					"id": "1f44f-1f3fc",
+					"name": "clapping hands: medium-light skin tone",
+					"shortName": ":clap::skin-tone-3:",
+					"fallback": "\uD83D\uDC4F\uD83C\uDFFC",
+					"type": "STANDARD",
+					"category": "PEOPLE",
+					"order": 10138,
+					"representation": {
+						"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f44f-1f3fc.png",
+						"height": 32,
+						"width": 32
+					},
+					"altRepresentations": {
+						"XHDPI": {
+							"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f44f-1f3fc.png",
+							"height": 64,
+							"width": 64
+						}
+					},
+					"searchable": true
+				},
+				{
+					"id": "1f44f-1f3fd",
+					"name": "clapping hands: medium skin tone",
+					"shortName": ":clap::skin-tone-4:",
+					"fallback": "\uD83D\uDC4F\uD83C\uDFFD",
+					"type": "STANDARD",
+					"category": "PEOPLE",
+					"order": 10139,
+					"representation": {
+						"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f44f-1f3fd.png",
+						"height": 32,
+						"width": 32
+					},
+					"altRepresentations": {
+						"XHDPI": {
+							"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f44f-1f3fd.png",
+							"height": 64,
+							"width": 64
+						}
+					},
+					"searchable": true
+				},
+				{
+					"id": "1f44f-1f3fe",
+					"name": "clapping hands: medium-dark skin tone",
+					"shortName": ":clap::skin-tone-5:",
+					"fallback": "\uD83D\uDC4F\uD83C\uDFFE",
+					"type": "STANDARD",
+					"category": "PEOPLE",
+					"order": 10140,
+					"representation": {
+						"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f44f-1f3fe.png",
+						"height": 32,
+						"width": 32
+					},
+					"altRepresentations": {
+						"XHDPI": {
+							"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f44f-1f3fe.png",
+							"height": 64,
+							"width": 64
+						}
+					},
+					"searchable": true
+				},
+				{
+					"id": "1f44f-1f3ff",
+					"name": "clapping hands: dark skin tone",
+					"shortName": ":clap::skin-tone-6:",
+					"fallback": "\uD83D\uDC4F\uD83C\uDFFF",
+					"type": "STANDARD",
+					"category": "PEOPLE",
+					"order": 10141,
+					"representation": {
+						"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f44f-1f3ff.png",
+						"height": 32,
+						"width": 32
+					},
+					"altRepresentations": {
+						"XHDPI": {
+							"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f44f-1f3ff.png",
+							"height": 64,
+							"width": 64
+						}
+					},
+					"searchable": true
+				}
+			],
+			"representation": {
+				"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f44f.png",
+				"height": 32,
+				"width": 32
+			},
+			"altRepresentations": {
+				"XHDPI": {
+					"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f44f.png",
+					"height": 64,
+					"width": 64
+				}
+			},
+			"searchable": true
+		},
+		{
+			"id": "1f525",
+			"name": "fire",
+			"shortName": ":fire:",
+			"fallback": "\uD83D\uDD25",
+			"type": "STANDARD",
+			"category": "NATURE",
+			"order": 22206,
+			"representation": {
+				"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f525.png",
+				"height": 32,
+				"width": 32
+			},
+			"altRepresentations": {
+				"XHDPI": {
+					"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f525.png",
+					"height": 64,
+					"width": 64
+				}
+			},
+			"searchable": true
+		},
+		{
+			"id": "1f632",
+			"name": "astonished face",
+			"shortName": ":astonished:",
+			"fallback": "\uD83D\uDE32",
+			"type": "STANDARD",
+			"category": "PEOPLE",
+			"order": 10079,
+			"representation": {
+				"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f632.png",
+				"height": 32,
+				"width": 32
+			},
+			"altRepresentations": {
+				"XHDPI": {
+					"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f632.png",
+					"height": 64,
+					"width": 64
+				}
+			},
+			"searchable": true
+		},
+		{
+			"id": "1f914",
+			"name": "thinking face",
+			"shortName": ":thinking:",
+			"fallback": "\uD83E\uDD14",
+			"type": "STANDARD",
+			"category": "PEOPLE",
+			"order": 10065,
+			"representation": {
+				"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f914.png",
+				"height": 32,
+				"width": 32
+			},
+			"altRepresentations": {
+				"XHDPI": {
+					"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f914.png",
+					"height": 64,
+					"width": 64
+				}
+			},
+			"searchable": true
+		},
+		{
+			"id": "1f92d",
+			"name": "face with hand over mouth",
+			"shortName": ":face_with_hand_over_mouth:",
+			"fallback": "\uD83E\uDD2D",
+			"type": "STANDARD",
+			"category": "PEOPLE",
+			"order": 10066,
+			"representation": {
+				"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f92d.png",
+				"height": 32,
+				"width": 32
+			},
+			"altRepresentations": {
+				"XHDPI": {
+					"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f92d.png",
+					"height": 64,
+					"width": 64
+				}
+			},
+			"searchable": true
+		},
+		{
+			"id": "1f971",
+			"name": "yawning face",
+			"shortName": ":yawning_face:",
+			"fallback": "\uD83E\uDD71",
+			"type": "STANDARD",
+			"category": "PEOPLE",
+			"order": 10067,
+			"representation": {
+				"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f971.png",
+				"height": 32,
+				"width": 32
+			},
+			"altRepresentations": {
+				"XHDPI": {
+					"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f971.png",
+					"height": 64,
+					"width": 64
+				}
+			},
+			"searchable": true
+		},
+		{
+			"id": "1f92b",
+			"name": "shushing face",
+			"shortName": ":shushing_face:",
+			"fallback": "\uD83E\uDD2B",
+			"type": "STANDARD",
+			"category": "PEOPLE",
+			"order": 10068,
+			"representation": {
+				"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/32x32/1f92b.png",
+				"height": 32,
+				"width": 32
+			},
+			"altRepresentations": {
+				"XHDPI": {
+					"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f92b.png",
+					"height": 64,
+					"width": 64
+				}
+			},
+			"searchable": true
+		}
+	],
+	"meta": {
+		"spriteSheets": {}
+	},
+	"links": null
+}

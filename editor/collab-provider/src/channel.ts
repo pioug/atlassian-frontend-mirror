@@ -92,7 +92,7 @@ export class Channel extends Emitter<ChannelEvent> {
 	/**
 	 * Connect to collab service using websockets
 	 */
-	connect(shouldInitialize: boolean = false) {
+	connect(shouldInitialize: boolean = false): void {
 		startMeasure(MEASURE_NAME.SOCKET_CONNECT, this.analyticsHelper);
 		// If provider already has access to the initial draft, explicitly set channel as initialized
 		// to bypass BE doc retrieval
@@ -270,7 +270,7 @@ export class Channel extends Emitter<ChannelEvent> {
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	onAnyOutgoingHandler(currentTimeMs: number, args: any[]) {
+	onAnyOutgoingHandler(currentTimeMs: number, args: any[]): void {
 		const rateLimitType = this.config.rateLimitType || this.RATE_LIMIT_TYPE_NONE;
 		if (rateLimitType === this.RATE_LIMIT_TYPE_NONE) {
 			return;
@@ -604,7 +604,7 @@ export class Channel extends Emitter<ChannelEvent> {
 		type: K,
 		data: Omit<ChannelEvent[K], 'timestamp'>,
 		callback?: Function,
-	) => {
+	): void => {
 		if (!this.socket) {
 			throw new NotInitializedError('Cannot broadcast, not initialized yet');
 		}
@@ -623,7 +623,7 @@ export class Channel extends Emitter<ChannelEvent> {
 	 * @throws {NotInitializedError} Channel not initialized
 	 * @throws {NotConnectedError} Channel not connected
 	 */
-	sendMetadata = (metadata: Metadata) => {
+	sendMetadata = (metadata: Metadata): void => {
 		if (!this.socket) {
 			throw new NotInitializedError('Cannot send metadata, not initialized yet');
 		}
@@ -635,14 +635,14 @@ export class Channel extends Emitter<ChannelEvent> {
 		this.socket.emit('metadata', metadata);
 	};
 
-	sendPresenceJoined = () => {
+	sendPresenceJoined = (): void => {
 		if (!this.connected || !this.socket) {
 			return;
 		}
 		this.socket.emit('presence:joined');
 	};
 
-	onOnlineHandler = () => {
+	onOnlineHandler = (): void => {
 		// Force an immediate reconnect, the socket must first be closed to reset reconnection delay logic
 		if (!this.connected) {
 			this.socket?.close();
@@ -708,7 +708,7 @@ export class Channel extends Emitter<ChannelEvent> {
 		}
 	};
 
-	disconnect() {
+	disconnect(): void {
 		this.unsubscribeAll();
 		this.cleanupAutoDisconnect();
 		this.network?.destroy();

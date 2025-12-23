@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
@@ -18,7 +19,7 @@ const ValueContainerWrapper = ({
 	children: React.ReactElement;
 	isEnabled: boolean;
 	onMouseDown: () => void;
-}) => {
+}): React.JSX.Element => {
 	return isEnabled ? (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlassian/a11y/no-static-element-interactions -- Ignored via go/DSP-18766
 		<div css={css({ flexGrow: 1 })} onMouseDown={onMouseDown}>

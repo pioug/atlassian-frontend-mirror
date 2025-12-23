@@ -90,7 +90,7 @@ export class CopyLinkButton extends React.Component<Props, State> {
 		shouldShowCopiedMessage: false,
 	};
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.clearAutoDismiss();
 	}
 

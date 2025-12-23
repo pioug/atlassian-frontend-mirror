@@ -189,7 +189,7 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 	}
 
 	/* respond to prop changes */
-	async UNSAFE_componentWillReceiveProps(nextProps: ImagePlacerProps) {
+	async UNSAFE_componentWillReceiveProps(nextProps: ImagePlacerProps): Promise<void> {
 		const { imageSourceRect, state, props } = this;
 		const { zoom } = state;
 		const {
@@ -260,7 +260,7 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 		}
 	}
 
-	async preprocessFile(fileInfo: FileInfo) {
+	async preprocessFile(fileInfo: FileInfo): Promise<void> {
 		const { maxZoom } = this.props;
 		const previewInfo = await initialiseImagePreview(fileInfo, this.containerRect, maxZoom);
 		if (previewInfo) {
@@ -273,7 +273,7 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 		}
 	}
 
-	setSrc(fileInfo: FileInfo) {
+	setSrc(fileInfo: FileInfo): void {
 		this.setState({
 			errorMessage: undefined,
 			src: fileInfo.src,
@@ -293,7 +293,7 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 	}
 
 	/* reset view  */
-	reset() {
+	reset(): void {
 		const {
 			imageSourceRect: { width: imageWidth, height: imageHeight },
 		} = this;
@@ -307,7 +307,7 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 	}
 
 	/* apply zoom if required */
-	update() {
+	update(): void {
 		const { useConstraints } = this.props;
 		const { imageWidth, imageHeight } = this.state;
 		if (!useConstraints || imageWidth === 0 || imageHeight === 0) {
@@ -318,7 +318,7 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 	}
 
 	/* zoom image up or down to fit visibleBounds */
-	zoomToFit() {
+	zoomToFit(): void {
 		const { imageWidth, imageHeight } = this.state;
 		const { width: fittedWidth, height: fittedHeight } = zoomToFit(
 			imageWidth,
@@ -339,7 +339,7 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 	}
 
 	/* assuming zoom level is correct, move origin to ensure imageBounds edges stay within visibleBounds */
-	applyConstraints() {
+	applyConstraints(): void {
 		const { props, state, imageBounds, visibleBounds } = this;
 		const { useConstraints } = props;
 		const { originX, originY } = state;
@@ -353,7 +353,7 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 	}
 
 	/* set zoom but apply constraints */
-	setZoom(newZoom: number) {
+	setZoom(newZoom: number): void {
 		const { originX, originY, zoom } = this.state;
 		const lastItemBounds = this.calcImageBounds(zoom);
 		const imageBounds = this.calcImageBounds(newZoom);
@@ -411,7 +411,7 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 	};
 
 	/* image has loaded */
-	onImageLoad = (imageElement: HTMLImageElement, width: number, height: number) => {
+	onImageLoad = (imageElement: HTMLImageElement, width: number, height: number): void => {
 		const { onImageChange } = this.props;
 		this.imageSourceRect = new Rectangle(width, height);
 		this.imageElement = imageElement;
@@ -422,12 +422,12 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 	};
 
 	/* image had an error */
-	onImageError = (errorMessage: string) => {
+	onImageError = (errorMessage: string): void => {
 		this.setState({ errorMessage });
 	};
 
 	/* drag within container has started */
-	onDragStart = () => {
+	onDragStart = (): void => {
 		const { originX, originY } = this.state;
 		this.setState({
 			dragOrigin: new Vector2(originX, originY),
@@ -435,7 +435,7 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 	};
 
 	/* drag within container has started */
-	onDragMove = (delta: Vector2) => {
+	onDragMove = (delta: Vector2): void => {
 		const { dragOrigin } = this.state;
 		if (dragOrigin) {
 			const newOriginX = dragOrigin.x + delta.x;
@@ -451,7 +451,7 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 	};
 
 	/* wheel event was passed from container */
-	onWheel = (delta: number) => {
+	onWheel = (delta: number): void => {
 		const { zoom } = this.state;
 		const clampedZoom = Math.min(Math.max(0, zoom + delta / 100), 1);
 		this.setZoom(clampedZoom);

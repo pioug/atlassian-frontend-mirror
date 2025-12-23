@@ -34,7 +34,7 @@ const columns: HeadType = {
 
 const mediaClientConfig = createUploadMediaClientConfig();
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [highlightedRowIndex, setHighlighted] = useState<number[]>([]);
 	return RenderMediaTableWithFieldRange(
 		<MediaTable

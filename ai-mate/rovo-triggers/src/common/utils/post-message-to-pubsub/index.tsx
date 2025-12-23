@@ -123,7 +123,7 @@ export const useRovoPostMessageToPubsub = () => {
 			targetWindow?: Window;
 			payload: Payload;
 			onAcknowledgeTimeout: (params: { payload: Payload }) => void;
-		}) => {
+		}): void => {
 			if (!targetWindow) {
 				return;
 			}

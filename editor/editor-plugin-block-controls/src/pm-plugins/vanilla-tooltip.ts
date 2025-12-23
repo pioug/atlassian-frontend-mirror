@@ -102,7 +102,7 @@ export class VanillaTooltip {
 		});
 	}
 
-	destroy() {
+	destroy(): void {
 		this.popperInstance?.destroy();
 		this.listeners.forEach((listener) => {
 			listener();

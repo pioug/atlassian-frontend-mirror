@@ -47,7 +47,7 @@ export const useEmojiPickerPopup = ({ api, buttonRef }: UseEmojiPickerPopupProps
 		[api, popupManager],
 	);
 
-	const onPopupUnmount = useCallback(() => {
+	const onPopupUnmount = useCallback((): void => {
 		requestAnimationFrame(() => api?.core.actions.focus());
 	}, [api]);
 

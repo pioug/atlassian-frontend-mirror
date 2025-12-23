@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 
+import { FormattedMessage } from 'react-intl-next';
+
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
@@ -7,6 +9,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics';
 
+import messages from '../../messages';
 import { ErrorTitle, ErrorWrapper } from '../../styled/Error';
 import { type ProfileCardErrorType } from '../../types';
 import { PACKAGE_META_DATA, profileCardRendered } from '../../util/analytics';
@@ -49,18 +52,33 @@ const ErrorMessage = (props: Props): React.JSX.Element => {
 
 	const errorContent = () => {
 		if (errorReason === 'NotFound') {
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
-			return <ErrorTitle>The user is no longer available for the site</ErrorTitle>;
+			return (
+				<ErrorTitle>
+					{fg('people-teams-fix-no-literal-string-in-jsx') ? (
+						<FormattedMessage {...messages.errorUserNotFound} />
+					) : (
+						'The user is no longer available for the site'
+					)}
+				</ErrorTitle>
+			);
 		}
 
 		return (
-			// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 			<ErrorTitle>
-				Oops, looks like we’re having issues
+				{fg('people-teams-fix-no-literal-string-in-jsx') ? (
+					<FormattedMessage {...messages.errorGeneric} />
+				) : (
+					'Oops, looks like we’re having issues'
+				)}
 				<br />
 				{reload && (
-					// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
-					<Text color="color.text.subtlest">Try again and we’ll give it another shot</Text>
+					<Text color="color.text.subtlest">
+						{fg('people-teams-fix-no-literal-string-in-jsx') ? (
+							<FormattedMessage {...messages.errorRetrySuggestion} />
+						) : (
+							'Try again and we’ll give it another shot'
+						)}
+					</Text>
 				)}
 			</ErrorTitle>
 		);

@@ -71,13 +71,13 @@ class IconAllExample extends Component<{}, State> {
 		showIcons: true,
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		allIcons.then((iconsMap) => this.setState({ allIcons: iconsMap }));
 	}
 
-	updateQuery = (query: string) => this.setState({ query, showIcons: true });
+	updateQuery = (query: string): void => this.setState({ query, showIcons: true });
 
-	toggleShowIcons = () => this.setState({ showIcons: !this.state.showIcons });
+	toggleShowIcons = (): void => this.setState({ showIcons: !this.state.showIcons });
 
 	renderIcons = (): React.JSX.Element => {
 		if (!this.state.allIcons) {

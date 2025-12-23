@@ -108,7 +108,7 @@ const Example = () => {
 	);
 };
 
-export default () => (
+export default (): React.JSX.Element => (
 	<MainWrapper developmentOnly>
 		<Example />
 	</MainWrapper>

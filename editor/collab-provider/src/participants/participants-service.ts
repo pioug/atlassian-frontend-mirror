@@ -93,7 +93,7 @@ export class ParticipantsService {
 		private fetchAnonymousAsset?: FetchAnonymousAsset,
 	) {}
 
-	sendPresenceActivityChanged = () => {
+	sendPresenceActivityChanged = (): void => {
 		this.sendPresence();
 	};
 
@@ -104,7 +104,7 @@ export class ParticipantsService {
 		providerId?: string;
 		sessionId: string;
 		userId: string;
-	}) => {
+	}): void => {
 		if (payload.providerId) {
 			for (const propKey in payload.permit) {
 				if (payload.permit.hasOwnProperty(propKey)) {
@@ -315,7 +315,7 @@ export class ParticipantsService {
 		return;
 	};
 
-	onParticipantUpdated = async (payload: PresencePayload) => {
+	onParticipantUpdated = async (payload: PresencePayload): Promise<void> => {
 		if (this.batchProps) {
 			this.updateParticipantLazy(payload);
 		} else {
@@ -357,7 +357,7 @@ export class ParticipantsService {
 		this.emitPresence({ left: [{ sessionId }] }, 'participant leaving');
 	};
 
-	disconnect = (reason: string, sessionId: string | undefined) => {
+	disconnect = (reason: string, sessionId: string | undefined): void => {
 		const left = this.participantsState.getParticipants();
 		this.participantsState.clear();
 		try {
@@ -382,7 +382,7 @@ export class ParticipantsService {
 	 * @param userIds Users in most recent steps
 	 * @example
 	 */
-	updateLastActive = (userIds: string[] = []) =>
+	updateLastActive = (userIds: string[] = []): void =>
 		this.participantsState.updateLastActive(Date.now(), userIds);
 
 	/**
@@ -390,7 +390,7 @@ export class ParticipantsService {
 	 * @param steps Steps to extract telepointers from
 	 * @example
 	 */
-	emitTelepointersFromSteps(steps: StepJson[]) {
+	emitTelepointersFromSteps(steps: StepJson[]): void {
 		steps.forEach((step) => {
 			const event = telepointerFromStep(this.participantsState.getParticipants(), step);
 			if (event) {
@@ -441,7 +441,7 @@ export class ParticipantsService {
 	 * @param sessionId SessionId from provider's connection
 	 * @example
 	 */
-	startInactiveRemover = (sessionId: string | undefined) => {
+	startInactiveRemover = (sessionId: string | undefined): void => {
 		clearTimeout(this.participantUpdateTimeout);
 
 		try {
@@ -456,7 +456,7 @@ export class ParticipantsService {
 		);
 	};
 
-	enrichParticipants = async (props: BatchProps) => {
+	enrichParticipants = async (props: BatchProps): Promise<void> => {
 		try {
 			const participants = await fetchParticipants(this.participantsState, props);
 			if (participants.length) {
@@ -482,7 +482,7 @@ export class ParticipantsService {
 	 *  1. Fetch users until there are no more participants to hydrate
 	 * @example
 	 */
-	batchFetchUsers = async () => {
+	batchFetchUsers = async (): Promise<void> => {
 		if (!this.batchProps) {
 			return;
 		}
@@ -527,7 +527,7 @@ export class ParticipantsService {
 	 * otherwise we'll always make at least 2 calls if there's more than 1 participant
 	 * @example
 	 */
-	initializeFirstBatchFetchUsers = async () => {
+	initializeFirstBatchFetchUsers = async (): Promise<void> => {
 		await new Promise((r) =>
 			window.setTimeout(r, this.batchProps?.debounceTime ?? DEFAULT_FETCH_USERS_INTERVAL),
 		);
@@ -610,7 +610,7 @@ export class ParticipantsService {
 	 * Used when the provider is disconnected or destroyed to prevent perpetual timers from continuously running
 	 * @example
 	 */
-	clearTimers = () => {
+	clearTimers = (): void => {
 		clearTimeout(this.participantUpdateTimeout);
 		clearTimeout(this.presenceFetchTimeout);
 	};
@@ -644,7 +644,7 @@ export class ParticipantsService {
 	 * @param payload
 	 * @example
 	 */
-	onPresenceJoined = (payload: PresencePayload) => {
+	onPresenceJoined = (payload: PresencePayload): void => {
 		try {
 			logger('Participant joined with session: ', payload.sessionId);
 			// This expose existing users to the newly joined user
@@ -663,7 +663,7 @@ export class ParticipantsService {
 	 * @param payload
 	 * @example
 	 */
-	onPresence = (payload: PresencePayload) => {
+	onPresence = (payload: PresencePayload): void => {
 		try {
 			logger('onPresence userId: ', payload.userId);
 			// Ignored via go/ees005

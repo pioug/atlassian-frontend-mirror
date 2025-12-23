@@ -164,7 +164,7 @@ export const insertProseMirrorContent = ({
 	node,
 	position,
 	selectNodeInserted,
-}: InsertProseMirrorContentProps) => {
+}: InsertProseMirrorContentProps): void => {
 	if (node instanceof PMNode && node.isBlock) {
 		insertBlockNode({
 			node,

@@ -21,9 +21,10 @@ export type NodeTypeName =
 	| 'paragraph'
 	| 'nestedExpand'
 	| 'taskList'
-	| 'table';
+	| 'table'
+	| 'multi';
 
-export type NodeCategory = 'atomic' | 'container' | 'list' | 'text';
+export type NodeCategory = 'atomic' | 'container' | 'list' | 'text' | 'multi';
 
 export const NODE_CATEGORY_BY_TYPE: Record<NodeTypeName, NodeCategory> = {
 	blockquote: 'container',
@@ -47,6 +48,7 @@ export const NODE_CATEGORY_BY_TYPE: Record<NodeTypeName, NodeCategory> = {
 	nestedExpand: 'container',
 	taskList: 'list',
 	table: 'atomic',
+	multi: 'multi',
 };
 
 export const isNodeTypeName = (value: string): value is NodeTypeName =>
@@ -54,6 +56,10 @@ export const isNodeTypeName = (value: string): value is NodeTypeName =>
 
 export const toNodeTypeValue = (value?: string | null): NodeTypeName | null =>
 	value && isNodeTypeName(value) ? value : null;
+
+export const getNodeName = (nodes: PMNode[]) => {
+	return nodes.length > 1 ? 'multi' : nodes.at(0)?.type.name;
+};
 
 export type TransformStep = (nodes: PMNode[], context: TransformStepContext) => PMNode[];
 

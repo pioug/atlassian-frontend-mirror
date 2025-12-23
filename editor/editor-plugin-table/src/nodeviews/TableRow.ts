@@ -51,7 +51,7 @@ const HEADER_ROW_SCROLL_RESET_DEBOUNCE_TIMEOUT = 400;
 export default class TableRow extends TableNodeView<HTMLTableRowElement> implements NodeView {
 	private nodeVisibilityObserverCleanupFn?: () => void;
 
-	cleanup = () => {
+	cleanup = (): void => {
 		if (this.isStickyHeaderEnabled) {
 			this.unsubscribe();
 
@@ -128,7 +128,7 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		}
 	}
 
-	subscribeWhenRowVisible() {
+	subscribeWhenRowVisible(): void {
 		if (this.listening) {
 			return;
 		}
@@ -213,7 +213,7 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		return true;
 	}
 
-	destroy() {
+	destroy(): void {
 		if (this.isStickyHeaderEnabled) {
 			this.unsubscribe();
 

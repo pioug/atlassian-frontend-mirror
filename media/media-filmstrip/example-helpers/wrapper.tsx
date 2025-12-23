@@ -18,20 +18,20 @@ export const ControlLabel = ({
 }: {
 	children: ReactNode;
 	htmlFor?: string | undefined;
-}) => (
+}): React.JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	<label css={controlLabelStyles} htmlFor={htmlFor}>
 		{children}
 	</label>
 );
 
-export const EditableBox = ({ grow, children }: { grow?: number; children: ReactNode }) => (
+export const EditableBox = ({ grow, children }: { grow?: number; children: ReactNode }): React.JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	<div css={editableBoxStyles({ grow })}>{children}</div>
 );
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-export const Separator = () => <hr role="presentation" css={separatorStyles} />;
+export const Separator = (): React.JSX.Element => <hr role="presentation" css={separatorStyles} />;
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-export const PureComponentBox = () => <div css={pureComponentBoxStyles} />;
+export const PureComponentBox = (): React.JSX.Element => <div css={pureComponentBoxStyles} />;

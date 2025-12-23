@@ -76,7 +76,7 @@ export default class TableCell extends TableNodeView<HTMLElement> implements Nod
 		}
 	}
 
-	destroy = () => {
+	destroy = (): void => {
 		if (this.delayHandle && typeof window !== 'undefined') {
 			// eslint-disable-next-line compat/compat
 			window?.cancelIdleCallback?.(this.delayHandle);

@@ -84,7 +84,7 @@ export function nodesBetweenChanged(
 	tr: Transaction | ReadonlyTransaction,
 	f: ChangedFn,
 	startPos?: number,
-) {
+): void {
 	const stepRange = getStepRange(tr);
 	if (!stepRange) {
 		return;

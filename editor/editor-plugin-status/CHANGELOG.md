@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-status
 
+## 7.1.17
+
+### Patch Changes
+
+- [`77deb9b7b3c27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77deb9b7b3c27) -
+  [EDITOR-3910] clean up fg platform_editor_a11y_status_picker
+- Updated dependencies
+
 ## 7.1.16
 
 ### Patch Changes

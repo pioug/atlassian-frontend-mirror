@@ -3,14 +3,14 @@ import { type JQLEditorKeymap } from '../../schema';
 export class PluginKeymap {
 	private keymap: JQLEditorKeymap = {};
 
-	bindKey(key: string, handler: () => boolean) {
+	bindKey(key: string, handler: () => boolean): void {
 		this.keymap = {
 			...this.keymap,
 			[key]: handler,
 		};
 	}
 
-	bindMultipleKeys(keys: string[], handler: () => boolean) {
+	bindMultipleKeys(keys: string[], handler: () => boolean): void {
 		keys.forEach((key) => {
 			this.keymap = {
 				...this.keymap,
@@ -19,7 +19,7 @@ export class PluginKeymap {
 		});
 	}
 
-	unbindKey(key: string) {
+	unbindKey(key: string): void {
 		const { [key]: keyToUnbind, ...rest } = this.keymap;
 		this.keymap = rest;
 	}

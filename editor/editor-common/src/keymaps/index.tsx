@@ -436,7 +436,7 @@ export function bindKeymapWithCommand(
 	shortcut: string,
 	cmd: Command,
 	keymap: { [key: string]: Command },
-) {
+): void {
 	const oldCmd = keymap[shortcut];
 	keymap[shortcut] = oldCmd ? combineWithOldCommand(cmd, oldCmd) : cmd;
 }
@@ -446,7 +446,7 @@ export function bindKeymapArrayWithCommand(
 	shortcutsArray: Keymap[],
 	cmd: Command,
 	keymap: { [key: string]: Command },
-) {
+): void {
 	shortcutsArray.forEach((shortcut) => {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -458,7 +458,7 @@ export function bindKeymapWithEditorCommand(
 	shortcut: string,
 	cmd: EditorCommand,
 	keymap: { [key: string]: Command },
-) {
+): void {
 	bindKeymapWithCommand(shortcut, editorCommandToPMCommand(cmd), keymap);
 }
 

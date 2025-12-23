@@ -42,7 +42,7 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
 		mentionRenderedUfoExperience.getInstance(props.id).start();
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		mentionRenderedUfoExperience.getInstance(this.props.id).success();
 	}
 
@@ -87,7 +87,7 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
 		return MentionType.DEFAULT;
 	};
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		if (this.hoverTimeout) {
 			clearTimeout(this.hoverTimeout);
 		}

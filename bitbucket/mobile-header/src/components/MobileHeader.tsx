@@ -36,7 +36,7 @@ class MobileHeader extends PureComponent<MobileHeaderProps, MobileHeaderState> {
 		drawerState: '',
 	};
 
-	UNSAFE_componentWillReceiveProps(nextProps: MobileHeaderProps) {
+	UNSAFE_componentWillReceiveProps(nextProps: MobileHeaderProps): void {
 		if (nextProps.drawerState === 'none') {
 			if (this.props.drawerState === 'navigation') {
 				this.setState({ isAnimatingNavigation: true });
@@ -46,11 +46,11 @@ class MobileHeader extends PureComponent<MobileHeaderProps, MobileHeaderState> {
 		}
 	}
 
-	handleNavSlideFinish = () => {
+	handleNavSlideFinish = (): void => {
 		this.setState({ isAnimatingNavigation: false });
 	};
 
-	handleSidebarSlideFinish = () => {
+	handleSidebarSlideFinish = (): void => {
 		this.setState({ isAnimatingSidebar: false });
 	};
 

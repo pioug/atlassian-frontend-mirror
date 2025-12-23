@@ -24,7 +24,7 @@ export default class HttpTransport extends AbstractApsTransport {
 		return APSTransportType.HTTP;
 	}
 
-	onVisibilityChange() {
+	onVisibilityChange(): void {
 		this.isHidden = document.visibilityState === 'hidden';
 	}
 

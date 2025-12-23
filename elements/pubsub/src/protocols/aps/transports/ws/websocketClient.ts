@@ -57,7 +57,7 @@ export default class WebsocketClient {
 		});
 	}
 
-	public async send(message: Message) {
+	public async send(message: Message): Promise<void> {
 		const websocket = await this.promise;
 
 		if (websocket.readyState === WebSocket.OPEN) {
@@ -67,7 +67,7 @@ export default class WebsocketClient {
 		}
 	}
 
-	public async close() {
+	public async close(): Promise<void> {
 		const websocket = await this.promise;
 		if (websocket.readyState === WebSocket.OPEN || websocket.readyState === WebSocket.CONNECTING) {
 			websocket.close();

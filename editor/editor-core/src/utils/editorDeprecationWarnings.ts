@@ -1,6 +1,6 @@
 import type { EditorProps } from '../types/editor-props';
 
-export default function editorDeprecationWarnings(props: EditorProps) {
+export default function editorDeprecationWarnings(props: EditorProps): void {
 	if (process.env.NODE_ENV === 'production') {
 		return;
 	}

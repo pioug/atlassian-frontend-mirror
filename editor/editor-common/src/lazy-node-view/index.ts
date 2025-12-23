@@ -105,7 +105,7 @@ const testOnlyIgnoreLazyNodeViewSet = new WeakSet<EditorView>();
  *
  * @deprecated DO NOT USE THIS OUTSIDE TESTS.
  */
-export function testOnlyIgnoreLazyNodeView(view: EditorView) {
+export function testOnlyIgnoreLazyNodeView(view: EditorView): void {
 	testOnlyIgnoreLazyNodeViewSet.add(view);
 }
 

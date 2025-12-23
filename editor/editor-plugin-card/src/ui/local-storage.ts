@@ -18,7 +18,7 @@ export const isLocalStorageKeyDiscovered = (key: string) => {
 	}
 };
 
-export const markLocalStorageKeyDiscovered = (key: string, expiration?: number) => {
+export const markLocalStorageKeyDiscovered = (key: string, expiration?: number): void => {
 	try {
 		storageClient.setItemWithExpiry(key, LOCAL_STORAGE_DISCOVERED_KEY, expiration);
 	} catch {

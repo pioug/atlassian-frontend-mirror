@@ -34,12 +34,12 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
 		isExpanded: false,
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		delete window.jQuery;
 		this.loadJquery();
 	}
 
-	onFocus = () => this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
+	onFocus = (): void => this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
 
 	render(): React.JSX.Element {
 		if (!this.state.hasJquery) {

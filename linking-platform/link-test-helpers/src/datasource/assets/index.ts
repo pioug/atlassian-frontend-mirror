@@ -28,7 +28,7 @@ interface MockOptions {
 	delayedResponse?: boolean;
 }
 
-export const mockAssetsClientFetchRequests = ({ delayedResponse = true }: MockOptions = {}) => {
+export const mockAssetsClientFetchRequests = ({ delayedResponse = true }: MockOptions = {}): void => {
 	// Playwright VR tests do not like setTimeout
 	const setTimeoutConfigured = delayedResponse ? setTimeout : (cb: Function, _: number) => cb();
 
@@ -123,6 +123,6 @@ export const mockAssetsClientFetchRequests = ({ delayedResponse = true }: MockOp
 	);
 };
 
-export const forceCmdbBaseUrl = (baseUrl: string) => {
+export const forceCmdbBaseUrl = (baseUrl: string): void => {
 	fetchMock.mock(/^\//, ((url, init) => fetch(`${baseUrl}${url}`, init)) as typeof fetch);
 };

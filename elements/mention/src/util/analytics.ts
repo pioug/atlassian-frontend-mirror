@@ -126,7 +126,7 @@ const MENTION_ANALYTICS_PREFIX = 'atlassian.fabric.mention';
 
 export const fireAnalytics =
 	(firePrivateAnalyticsEvent?: Function) =>
-	(eventName: string, text: string, accessLevel?: string) => {
+	(eventName: string, text: string, accessLevel?: string): void => {
 		if (firePrivateAnalyticsEvent) {
 			firePrivateAnalyticsEvent(`${MENTION_ANALYTICS_PREFIX}.${eventName}`, {
 				accessLevel,

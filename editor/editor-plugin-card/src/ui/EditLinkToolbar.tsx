@@ -87,13 +87,13 @@ export function HyperlinkAddToolbarWithState({
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
-	componentDidUpdate(prevProps: EditLinkToolbarProps) {
+	componentDidUpdate(prevProps: EditLinkToolbarProps): void {
 		if (prevProps.node !== this.props.node) {
 			this.hideLinkToolbar();
 		}
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.hideLinkToolbar();
 	}
 

@@ -66,16 +66,16 @@ export class ResourcedMentionListWithoutAnalytics extends React.PureComponent<
 		this.applyPropChanges({} as Props, props);
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.subscribeMentionProvider(this.props.resourceProvider);
 		this.subscribePresenceProvider(this.props.presenceProvider);
 	}
 
-	UNSAFE_componentWillReceiveProps(nextProps: Props) {
+	UNSAFE_componentWillReceiveProps(nextProps: Props): void {
 		this.applyPropChanges(this.props, nextProps);
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.unsubscribeMentionProvider(this.props.resourceProvider);
 		this.unsubscribePresenceProvider(this.props.presenceProvider);
 	}

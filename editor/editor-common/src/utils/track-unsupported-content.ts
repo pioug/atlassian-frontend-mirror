@@ -188,7 +188,7 @@ export const fireUnsupportedEvent = (
 	actionSubjectId: ACTION_SUBJECT_ID,
 	unsupportedNode: UnsupportedNode,
 	errorCode?: string,
-) => {
+): void => {
 	const sanitizedAttrs = sanitizeAttributes(unsupportedNode.attrs);
 	const sanitizedMarks = sanitizeMarks(unsupportedNode.marks);
 	const sanitizedUnsupportedNode = {
@@ -215,7 +215,7 @@ export const trackUnsupportedContentTooltipDisplayedFor = (
 	dispatchAnalyticsEvent: DispatchAnalyticsEventTooltip,
 	unsupportedContentType: UnsupportedContentTooltipPayload['actionSubjectId'],
 	originalNodeType?: string,
-) => {
+): void => {
 	trackUnsupportedContentTooltipActionFor(
 		ACTION.UNSUPPORTED_TOOLTIP_VIEWED,
 		dispatchAnalyticsEvent,

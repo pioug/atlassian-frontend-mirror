@@ -423,7 +423,7 @@ export function getTaskItemDataToFocus(view: EditorView, direction: 'next' | 'pr
 	};
 }
 
-export function focusCheckbox(view: EditorView, taskItemData?: TaskItemData) {
+export function focusCheckbox(view: EditorView, taskItemData?: TaskItemData): void {
 	const { state, dispatch } = view;
 	const { tr } = state;
 
@@ -436,7 +436,7 @@ export function focusCheckbox(view: EditorView, taskItemData?: TaskItemData) {
 	}
 }
 
-export function focusCheckboxAndUpdateSelection(view: EditorView, taskItemData: TaskItemData) {
+export function focusCheckboxAndUpdateSelection(view: EditorView, taskItemData: TaskItemData): void {
 	const { pos, localId } = taskItemData;
 	const { state, dispatch } = view;
 	const { doc } = state;
@@ -469,7 +469,7 @@ export function focusCheckboxAndUpdateSelection(view: EditorView, taskItemData: 
 	dispatch(tr);
 }
 
-export function removeCheckboxFocus(view: EditorView) {
+export function removeCheckboxFocus(view: EditorView): void {
 	const { state, dispatch } = view;
 	const { tr } = state;
 
@@ -481,7 +481,7 @@ export function removeCheckboxFocus(view: EditorView) {
 	);
 }
 
-export function openRequestEditPopupAt(view: EditorView, pos: number) {
+export function openRequestEditPopupAt(view: EditorView, pos: number): void {
 	const { state, dispatch } = view;
 	const { tr } = state;
 
@@ -493,7 +493,7 @@ export function openRequestEditPopupAt(view: EditorView, pos: number) {
 	);
 }
 
-export function closeRequestEditPopupAt(view: EditorView) {
+export function closeRequestEditPopupAt(view: EditorView): void {
 	const { state, dispatch } = view;
 	const { tr } = state;
 

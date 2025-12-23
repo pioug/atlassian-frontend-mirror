@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 5.2.28
+
+### Patch Changes
+
+- [`8c62a0141a5fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c62a0141a5fa) -
+  [ux] Fixes contextual transform options for direct children of top level nodes.
+- Updated dependencies
+
+## 5.2.27
+
+### Patch Changes
+
+- [`6eba84d34e1a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6eba84d34e1a5) -
+  Add a new multi node type which supports multi-selected content
+- Updated dependencies
+
 ## 5.2.26
 
 ### Patch Changes

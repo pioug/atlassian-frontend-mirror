@@ -13,7 +13,7 @@ export const extendMediaApiWithBinaries = (
 	mediaApi: MediaApi,
 	getItemBase: GetItemBase,
 	getItemBinaries: GetItem,
-) => {
+): void => {
 	const baseMediaApi = { ...mediaApi };
 
 	mediaApi.getFileImageURL = async (fileId, ...args) => {

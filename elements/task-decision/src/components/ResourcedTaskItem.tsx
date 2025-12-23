@@ -49,12 +49,12 @@ export default class ResourcedTaskItem extends PureComponent<Props, State> {
 		};
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.mounted = true;
 		this.subscribe(this.props.taskDecisionProvider, this.props.objectAri, this.props.isDone);
 	}
 
-	UNSAFE_componentWillReceiveProps(nextProps: Props) {
+	UNSAFE_componentWillReceiveProps(nextProps: Props): void {
 		if (nextProps.isDone !== this.props.isDone) {
 			// This only occurs for Actions (DONE vs TODO), since Decisions only support DECIDED.
 			// If the document is refreshed or changed, we need to reset the local state to match the new
@@ -70,7 +70,7 @@ export default class ResourcedTaskItem extends PureComponent<Props, State> {
 		}
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.unsubscribe();
 		this.mounted = false;
 	}

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-local-id
 
+## 4.3.2
+
+### Patch Changes
+
+- [`45270b9a8ed63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45270b9a8ed63) -
+  CONFCLOUD-83370: Fix broken IME composition
+- Updated dependencies
+
 ## 4.3.1
 
 ### Patch Changes

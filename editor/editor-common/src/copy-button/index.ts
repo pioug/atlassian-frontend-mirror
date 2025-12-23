@@ -30,7 +30,7 @@ export const toDOM = (node: PMNode, schema: Schema): Node => {
 	return DOMSerializer.fromSchema(schema).serializeNode(node);
 };
 
-export const copyDomNode = (domNode: Node, nodeType: NodeType, selection: Selection) => {
+export const copyDomNode = (domNode: Node, nodeType: NodeType, selection: Selection): void => {
 	if (domNode) {
 		const div = document.createElement('div');
 		div.appendChild(domNode);

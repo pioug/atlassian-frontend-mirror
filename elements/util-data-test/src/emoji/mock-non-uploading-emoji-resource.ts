@@ -60,7 +60,7 @@ export class MockNonUploadingEmojiResource
 		return this.currentUser;
 	}
 
-	filter(query?: string, options?: SearchOptions) {
+	filter(query?: string, options?: SearchOptions): void {
 		if (query) {
 			this.lastQuery = query;
 		} else {
@@ -151,7 +151,7 @@ export class MockNonUploadingEmojiResource
 		return this.selectedTone;
 	}
 
-	setSelectedTone(tone: ToneSelection) {
+	setSelectedTone(tone: ToneSelection): void {
 		this.selectedTone = tone;
 		if (window.localStorage) {
 			try {

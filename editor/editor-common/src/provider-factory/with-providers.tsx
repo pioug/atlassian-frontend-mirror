@@ -33,11 +33,11 @@ export class WithProviders extends PureComponent<Props, { providers: any }> {
 		};
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.mounted = true;
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		const { providers, providerFactory } = this.props;
 
 		providers.forEach((name) => {
@@ -47,7 +47,7 @@ export class WithProviders extends PureComponent<Props, { providers: any }> {
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	handleProviderIfMounted = (name: string, provider?: Promise<any>) => {
+	handleProviderIfMounted = (name: string, provider?: Promise<any>): void => {
 		if (!this.mounted) {
 			return;
 		}
@@ -56,7 +56,7 @@ export class WithProviders extends PureComponent<Props, { providers: any }> {
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	handleProvider = (name: string, provider?: Promise<any>) => {
+	handleProvider = (name: string, provider?: Promise<any>): void => {
 		this.setState(({ providers }) => {
 			return {
 				providers: {

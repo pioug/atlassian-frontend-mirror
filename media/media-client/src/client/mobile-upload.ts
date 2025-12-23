@@ -50,7 +50,7 @@ export class MobileUploadImpl implements MobileUpload {
 		this.servicesCache = createServicesCache();
 	}
 
-	public notifyUploadStart(event: MobileUploadStartEvent) {
+	public notifyUploadStart(event: MobileUploadStartEvent): void {
 		const {
 			fileId,
 			collectionName,
@@ -97,7 +97,7 @@ export class MobileUploadImpl implements MobileUpload {
 		getFileStreamsCache().set(fileId, subject);
 	}
 
-	public notifyUploadProgress(event: MobileUploadProgressEvent) {
+	public notifyUploadProgress(event: MobileUploadProgressEvent): void {
 		const { fileId, progress } = event;
 
 		const service = this.servicesCache.get(fileId);
@@ -106,7 +106,7 @@ export class MobileUploadImpl implements MobileUpload {
 		}
 	}
 
-	public notifyUploadEnd(event: MobileUploadEndEvent) {
+	public notifyUploadEnd(event: MobileUploadEndEvent): void {
 		const { fileId } = event;
 
 		const service = this.servicesCache.get(fileId);
@@ -115,7 +115,7 @@ export class MobileUploadImpl implements MobileUpload {
 		}
 	}
 
-	public notifyUploadError(event: MobileUploadErrorEvent) {
+	public notifyUploadError(event: MobileUploadErrorEvent): void {
 		const { fileId, message } = event;
 
 		const service = this.servicesCache.get(fileId);

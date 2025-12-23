@@ -10,7 +10,7 @@ export class EmojiResourceUsageClear extends MockNonUploadingEmojiResource {
 		super(new EmojiRepositoryUsageClear(emojis));
 	}
 
-	clearFrequentlyUsed() {
+	clearFrequentlyUsed(): void {
 		if (isUsageClearEmojiRepository(this.emojiRepository)) {
 			this.emojiRepository.clear();
 		}

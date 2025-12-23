@@ -2,7 +2,11 @@ import React from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import * as Styled from './styled';
+import { FormattedMessage } from 'react-intl-next';
+import { footerMessages } from '../../messages';
 
 interface FooterProps {
 	currentScreenIdx: number;
@@ -31,17 +35,30 @@ export default class Footer extends React.Component<FooterProps> {
 
 				<ButtonGroup>
 					{currentScreenIdx < 1 ? (
-						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
-						<Button onClick={onCancel}>Cancel</Button>
+						<Button onClick={onCancel}>
+							{fg('people-teams-fix-no-literal-string-in-jsx') ? (
+								<FormattedMessage {...footerMessages.cancel} />
+							) : (
+								'Cancel'
+							)}
+						</Button>
 					) : (
-						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
-						<Button onClick={onPrevious}>Previous</Button>
+						<Button onClick={onPrevious}>
+							{fg('people-teams-fix-no-literal-string-in-jsx') ? (
+								<FormattedMessage {...footerMessages.previous} />
+							) : (
+								'Previous'
+							)}
+						</Button>
 					)}
 
 					{currentScreenIdx < numScreens - 1 ? (
-						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 						<Button appearance="primary" onClick={onNext}>
-							Next
+							{fg('people-teams-fix-no-literal-string-in-jsx') ? (
+								<FormattedMessage {...footerMessages.next} />
+							) : (
+								'Next'
+							)}
 						</Button>
 					) : (
 						submitButton

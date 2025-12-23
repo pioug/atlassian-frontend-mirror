@@ -87,7 +87,7 @@ export class UserEventsObserver {
 		});
 	}
 
-	disconnect() {
+	disconnect(): void {
 		this.observer?.disconnect();
 	}
 }

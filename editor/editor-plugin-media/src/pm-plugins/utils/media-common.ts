@@ -180,7 +180,7 @@ export const removeMediaNode = (
 	view: EditorView,
 	node: PMNode,
 	getPos: ProsemirrorGetPosHandler,
-) => {
+): void => {
 	const { id } = node.attrs;
 	const { state } = view;
 	const { tr, selection, doc } = state;
@@ -244,7 +244,7 @@ export const splitMediaGroup = (view: EditorView): boolean => {
 
 const isOptionalAttr = (attr: string) => attr.length > 1 && attr[0] === '_' && attr[1] === '_';
 
-export const copyOptionalAttrsFromMediaState = (mediaState: MediaState, node: PMNode) => {
+export const copyOptionalAttrsFromMediaState = (mediaState: MediaState, node: PMNode): void => {
 	Object.keys(node.attrs)
 		.filter(isOptionalAttr)
 		.forEach((key) => {

@@ -65,7 +65,7 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 		return prevState.doc.eq(state.doc) && prevState.selection.eq(state.selection);
 	}
 
-	onReplaceSuggestion = (option: SelectableAutocompleteOption) => {
+	onReplaceSuggestion = (option: SelectableAutocompleteOption): void => {
 		const [from, to] = option.replacePosition;
 
 		const transaction = this.view.state.tr;

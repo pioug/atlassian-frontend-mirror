@@ -119,7 +119,7 @@ export function transformHeatmap({
 	transformSource,
 	onEmptyRow,
 	entry,
-}: TransformHeatmapProps) {
+}: TransformHeatmapProps): void {
 	const { roundedBottom, roundedTop, roundedLeft, roundedRight } = {
 		roundedBottom: Math.min(Math.trunc(rect.bottom), heatmap.height),
 		roundedTop: Math.trunc(rect.top),

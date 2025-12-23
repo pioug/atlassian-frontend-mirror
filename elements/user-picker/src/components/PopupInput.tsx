@@ -4,7 +4,7 @@ import { Input, type Props } from './Input';
 export class PopupInput extends React.Component<Props> {
 	private ref: React.Ref<HTMLInputElement> = null;
 
-	componentDidMount() {
+	componentDidMount(): void {
 		if (this.ref) {
 			// @ts-ignore
 			this.ref.select();

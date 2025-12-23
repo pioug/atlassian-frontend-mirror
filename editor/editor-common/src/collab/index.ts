@@ -821,6 +821,6 @@ export const isDirtyTransaction = (tr: Transaction | ReadonlyTransaction): boole
  * This function is used to mark which commands that are dispatching
  * unnecessary changes on Editor.
  */
-export const tintDirtyTransaction = (tr: Transaction) => {
+export const tintDirtyTransaction = (tr: Transaction): void => {
 	tr.setMeta(tintKey, true);
 };

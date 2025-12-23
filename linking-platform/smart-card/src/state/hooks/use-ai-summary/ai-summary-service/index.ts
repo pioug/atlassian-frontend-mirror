@@ -156,7 +156,7 @@ export class AISummaryService implements AISummaryServiceInt {
 
 	public subscribe(stateSetter: StateSetter) {
 		this.subscribedStateSetters.add(stateSetter);
-		return () => {
+		return (): void => {
 			this.subscribedStateSetters.delete(stateSetter);
 		};
 	}

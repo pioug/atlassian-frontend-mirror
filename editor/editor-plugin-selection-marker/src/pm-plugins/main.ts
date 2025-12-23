@@ -122,7 +122,7 @@ export const createPlugin = (api: ExtractInjectionAPI<SelectionMarkerPlugin> | u
 export function dispatchShouldHideDecorations(
 	editorView: EditorView,
 	shouldHideDecorations: boolean,
-) {
+): void {
 	const { dispatch, state } = editorView;
 	dispatch(
 		state.tr.setMeta(key, {

@@ -6,10 +6,14 @@ import type { ReactNode } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { useIntl } from 'react-intl-next';
 
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
+
+import commonMessages from '../../messages';
 
 const errorColor = css({
 	color: token('color.text.danger'),
@@ -47,29 +51,41 @@ interface Props {
 
 export const HelperMessage = ({ children }: Props) => <div css={messageStyle}>{children}</div>;
 
-export const ErrorMessage = ({ children }: Props) => (
-	<div
-		css={() => {
-			return [messageStyle(), errorColor];
-		}}
-	>
-		<span css={iconWrapperStyle}>
-			{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
-			<ErrorIcon LEGACY_size="small" label="error" aria-label="error" />
-		</span>
-		{children}
-	</div>
-);
+export const ErrorMessage = ({ children }: Props) => {
+	const intl = useIntl();
+	return (
+		<div
+			css={() => {
+				return [messageStyle(), errorColor];
+			}}
+		>
+			<span css={iconWrapperStyle}>
+				{fg('platform_editor_dec_a11y_fixes')
+					? <ErrorIcon LEGACY_size="small" label={intl.formatMessage(commonMessages.error)} />
+					/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */
+					: <ErrorIcon LEGACY_size="small" label="error" aria-label="error" />
+				}
+			</span>
+			{children}
+		</div>
+	)
+};
 
-export const ValidMessage = ({ children }: Props) => (
-	<div
-		css={() => {
-			return [messageStyle(), validColor];
-		}}
-	>
-		<span css={iconWrapperStyle}>
-			<SuccessIcon LEGACY_size="small" label="success" />
-		</span>
-		{children}
-	</div>
-);
+export const ValidMessage = ({ children }: Props) => {
+	const intl = useIntl();
+	return (
+		<div
+			css={() => {
+				return [messageStyle(), validColor];
+			}}
+		>
+			<span css={iconWrapperStyle}>
+				{fg('platform_editor_dec_a11y_fixes')
+					? <SuccessIcon LEGACY_size="small" label={intl.formatMessage(commonMessages.success)} />
+					: <SuccessIcon LEGACY_size="small" label="success" />
+				}
+			</span>
+			{children}
+		</div>
+	)
+};

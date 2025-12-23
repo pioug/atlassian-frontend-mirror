@@ -179,7 +179,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 		};
 	}
 
-	componentDidUpdate(prevProps: Props) {
+	componentDidUpdate(prevProps: Props): void {
 		// If number of visible buttons changed, close emoji picker and table selector
 		if (prevProps.buttons !== this.props.buttons) {
 			this.setState({ emojiPickerOpen: false, isTableSelectorOpen: false });

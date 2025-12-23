@@ -92,7 +92,7 @@ export class MediaClient {
 		collectionName: string,
 		occurrenceKey?: string,
 		traceContext?: MediaTraceContext,
-	) {
+	): Promise<void> {
 		await this.mediaStore.removeCollectionFile(id, collectionName, occurrenceKey, traceContext);
 	}
 

@@ -45,7 +45,7 @@ export default class Network {
 		return this.status || null;
 	}
 
-	destroy() {
+	destroy(): void {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.removeEventListener('offline', this.offlineHandler);

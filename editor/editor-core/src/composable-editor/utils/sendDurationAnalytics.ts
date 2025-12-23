@@ -18,7 +18,7 @@ export default function sendDurationAnalytics(
 	props: Pick<EditorProps, 'contextIdentifierProvider' | 'featureFlags'>,
 	createAnalyticsEvent: CreateUIAnalyticsEvent | undefined,
 ) {
-	return async (duration: number, startTime: number) => {
+	return async (duration: number, startTime: number): Promise<void> => {
 		const contextIdentifier = await props.contextIdentifierProvider;
 		const objectId = contextIdentifier?.objectId;
 

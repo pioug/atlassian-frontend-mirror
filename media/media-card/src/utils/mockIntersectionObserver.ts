@@ -38,12 +38,12 @@ export class MockIntersectionObserver {
 		(window as any).IntersectionObserver = this.originalObserver;
 	}
 
-	public setup(options: SetupOptions = {}) {
+	public setup(options: SetupOptions = {}): void {
 		this.storeMockObserver(options);
 		this.addMockObserverToWindow();
 	}
 
-	public cleanup() {
+	public cleanup(): void {
 		this.removeMockObserverFromWindow();
 	}
 

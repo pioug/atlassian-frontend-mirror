@@ -8,7 +8,7 @@ export class StreamsCache<T> {
 		return !!this.streams.find(id);
 	}
 
-	set(id: string, stream: ReplaySubject<T>) {
+	set(id: string, stream: ReplaySubject<T>): void {
 		this.streams.set(id, stream);
 	}
 
@@ -23,11 +23,11 @@ export class StreamsCache<T> {
 		return this.get(id)!;
 	}
 
-	removeAll() {
+	removeAll(): void {
 		this.streams.clear();
 	}
 
-	remove(id: string) {
+	remove(id: string): void {
 		this.streams.delete(id);
 	}
 

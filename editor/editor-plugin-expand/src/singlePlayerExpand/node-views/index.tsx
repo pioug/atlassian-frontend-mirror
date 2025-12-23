@@ -611,7 +611,7 @@ export class ExpandNodeView implements NodeView {
 		return false;
 	}
 
-	updateExpandToggleIcon(node: PmNode) {
+	updateExpandToggleIcon(node: PmNode): void {
 		const expanded = expandedState.get(node) ? expandedState.get(node) : false;
 		if (this.dom && expanded !== undefined) {
 			if (expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)) {
@@ -639,7 +639,7 @@ export class ExpandNodeView implements NodeView {
 		}
 	}
 
-	updateExpandBodyContentEditable() {
+	updateExpandBodyContentEditable(): void {
 		// Disallow interaction/selection inside expand body when collapsed.
 		if (this.content) {
 			this.content.setAttribute(
@@ -661,7 +661,7 @@ export class ExpandNodeView implements NodeView {
 		});
 	}
 
-	renderIcon = (icon: HTMLElement | null, expanded: boolean) => {
+	renderIcon = (icon: HTMLElement | null, expanded: boolean): void => {
 		if (!icon) {
 			return;
 		}
@@ -679,7 +679,7 @@ export class ExpandNodeView implements NodeView {
 		);
 	};
 
-	destroy() {
+	destroy(): void {
 		if (!this.dom || !this.input || !this.titleContainer || !this.icon) {
 			return;
 		}

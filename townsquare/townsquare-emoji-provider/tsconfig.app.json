@@ -1,6 +1,7 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": [
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"exclude": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -14,11 +15,14 @@
 		"**/examples/*.tsx",
 		"**/examples/**/*.ts",
 		"**/examples/**/*.tsx",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx",
 		"**/storybook/**/*",
 		"**/constellation/**/*",
-		"../src/**/*.stories.*",
-		"../src/**/stories/*",
-		"../src/**/stories/**/*",
 		".storybook/*",
 		"./__fixtures__/**/*",
 		"./__generated__/**/*",
@@ -28,14 +32,14 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx"
 	],
-	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-synced-block-editor/dev"
+		"outDir": "../../../tsDist/@atlaskit__townsquare-emoji-provider/app"
 	},
 	"references": [
 		{
-			"path": "./tsconfig.app.json"
+			"path": "../../elements/emoji/tsconfig.app.json"
 		}
-	]
+	],
+	"files": []
 }

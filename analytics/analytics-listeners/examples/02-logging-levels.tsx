@@ -31,7 +31,7 @@ class Example extends React.Component {
 		loggingLevelIdx: 0,
 	};
 
-	changeLogLevel = () => {
+	changeLogLevel = (): void => {
 		this.setState({
 			loggingLevelIdx: (this.state.loggingLevelIdx + 1) % logLevels.length,
 		});

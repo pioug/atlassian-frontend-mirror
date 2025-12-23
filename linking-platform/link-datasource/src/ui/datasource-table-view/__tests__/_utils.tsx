@@ -14,7 +14,7 @@ export const mockFetchDatasourceDataEndpoint = (
 		data: DatasourceDataResponse['data'];
 		meta: Partial<DatasourceDataResponse['meta']>;
 	} & Omit<DatasourceDataResponse, 'meta' | 'data'>,
-) => {
+): void => {
 	fetchMock.post(
 		ORS_FETCH_DATASOURCE_DATA_ENDPOINT,
 		async (): Promise<DatasourceDataResponse> => ({
@@ -33,7 +33,7 @@ export const mockActionKey = (fieldKey: string) => `atlassian:work-item:update:$
 
 export const mockActionsDiscoveryEndpoint = (
 	overrides?: Partial<ActionsServiceDiscoveryResponse>,
-) => {
+): void => {
 	fetchMock.post(
 		ORS_ACTIONS_DISCOVERY_ENDPOINT,
 		async (): Promise<ActionsServiceDiscoveryResponse> => ({

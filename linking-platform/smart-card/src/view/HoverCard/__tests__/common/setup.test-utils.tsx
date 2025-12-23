@@ -135,7 +135,7 @@ export const setupEventPropagationTest = async ({
 	return { ...renderResult, element, event };
 };
 
-export const mockIntersectionObserver = () => {
+export const mockIntersectionObserver = (): void => {
 	const mockGetEntries = jest.fn().mockImplementation(() => [{ isIntersecting: true }]);
 	const mockIntersectionObserverOpts = {
 		disconnect: jest.fn(),

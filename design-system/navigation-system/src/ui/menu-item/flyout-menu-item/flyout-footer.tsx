@@ -7,6 +7,18 @@ import React from 'react';
 
 import { jsx } from '@compiled/react';
 
+import { cssMap } from '@atlaskit/css';
+import { token } from '@atlaskit/tokens';
+
+const footerStyles = cssMap({
+    root: {
+        borderBlockStartWidth: token('border.width'),
+        borderBlockStartStyle: 'solid',
+        borderBlockStartColor: token('color.border'),
+        paddingBlockStart: token('space.100')
+    }
+});
+
 export interface FlyoutFooterProps {
     /**
      * The content to display within the flyout footer. Typically used for
@@ -15,7 +27,7 @@ export interface FlyoutFooterProps {
     children?: React.ReactNode;
 
     /**
-	 * A unique string that appears as data attribute data-testid in the
+     * A unique string that appears as data attribute data-testid in the
      * rendered code, serving as a hook for automated tests.
      */
     testId?: string;
@@ -32,7 +44,7 @@ export const FlyoutFooter = (props: FlyoutFooterProps) => {
     const { children, testId } = props;
 
     return (
-        <div data-testid={testId}>
+        <div data-testid={testId} css={footerStyles.root}>
             {children}
         </div>
     )

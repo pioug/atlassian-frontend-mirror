@@ -154,7 +154,7 @@ export const wrapperTimers = ({
 	globalContext.setTimeout = setTimeoutProxy;
 	globalContext.clearTimeout = clearTimeoutProxy;
 
-	return function cleanup() {
+	return function cleanup(): void {
 		globalContext.setTimeout = originalSetTimeout;
 		globalContext.clearTimeout = originalClearTimeout;
 	};

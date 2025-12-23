@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-highlight
 
+## 6.3.20
+
+### Patch Changes
+
+- [`3693402165994`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3693402165994) -
+  ENGHEALTH-47506: fix a11y lint warning
+- Updated dependencies
+
 ## 6.3.19
 
 ### Patch Changes

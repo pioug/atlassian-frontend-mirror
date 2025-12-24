@@ -352,7 +352,6 @@ events:
           type: []
           required: false
           description: error details from the failed API call
-        
   - invitedTeamMembers added:
       type: track
       description: fired when the invited team members are added
@@ -1731,7 +1730,7 @@ events:
       attributes:
         <<: [*PackageMetaDataContext, *ProfileCardAttributes]
         method:
-          type: ['hover', 'click', 'keyboard']
+          type: ['hover', 'click']
           description: the method of the profilecard
         teamId:
           type: string

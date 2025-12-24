@@ -1,6 +1,7 @@
 import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 
+import { removeDisallowedMarks } from '../marks';
 import type { TransformStep, NodeTypeName } from '../types';
 import { NODE_CATEGORY_BY_TYPE } from '../types';
 import { convertTextNodeToParagraph } from '../utils';
@@ -15,7 +16,7 @@ const isTextNode = (node: PMNode): boolean => {
 };
 
 /**
- * Determines if a node can be wrapped in the target container type.
+ * Determines if a node can be wrapped in the target container type, removes block marks from the node during check.
  * Uses the schema's validContent to check if the target container can hold this node.
  *
  * Note: What can be wrapped depends on the target container type - for example:
@@ -33,7 +34,7 @@ const canWrapInTarget = (
 	}
 
 	// Use the schema to determine if this node can be contained in the target
-	return targetNodeType.validContent(Fragment.from(node));
+	return targetNodeType.validContent(Fragment.from(removeDisallowedMarks([node], targetNodeType)));
 };
 
 /**
@@ -124,7 +125,8 @@ export const wrapMixedContentStep: TransformStep = (nodes, context) => {
 	nodes.forEach((node) => {
 		if (canWrapInTarget(node, targetNodeType, targetNodeTypeName)) {
 			// Node can be wrapped - add to current container content
-			currentContainerContent.push(node);
+			// remove marks from node as nested nodes don't usually support block marks
+			currentContainerContent.push(...removeDisallowedMarks([node], targetNodeType));
 		} else if (node.type.name === targetNodeTypeName) {
 			// Same-type container - breaks out as a separate container (preserved as-is)
 			// This handles: "If there's a panel in the expand, it breaks out into a separate panel"

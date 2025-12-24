@@ -52,7 +52,6 @@ const svgStyles = css({
  * An icon is used as a visual representation of common actions and commands to provide context.
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
- * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-svgs)
  */
 const SVG = memo(function SVG({
 	size = 'medium',

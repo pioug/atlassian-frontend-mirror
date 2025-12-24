@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-card
 
+## 12.0.1
+
+### Patch Changes
+
+- [`e56d251bf0184`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e56d251bf0184) -
+  [EDITOR-3966] Fix embed sizing issue in sync block
+- Updated dependencies
+
+## 12.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.6.0
 
 ### Minor Changes

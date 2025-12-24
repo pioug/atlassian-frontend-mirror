@@ -12,7 +12,7 @@ import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { EditorToolbarProvider, EditorToolbarUIProvider } from '@atlaskit/editor-common/toolbar';
+import { EditorToolbarProvider, EditorToolbarUIProvider, shouldShowSelectionToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
@@ -173,6 +173,9 @@ export const SelectionToolbar = ({
 		selection,
 	} = usePluginState(api);
 
+	const contextualFormattingEnabled = api?.toolbar?.actions.contextualFormattingMode() ?? 'always-pinned';
+	const selectionToolbarConfigEnabled = shouldShowSelectionToolbar(contextualFormattingEnabled, editorToolbarDockingPreference);
+
 	const intl = useIntl();
 	const components = api?.toolbar?.actions.getComponents();
 	const toolbar = components?.find((component) => isToolbarComponent(component));
@@ -198,7 +201,7 @@ export const SelectionToolbar = ({
 
 	if (
 		(expValEquals('platform_editor_toolbar_aifc_template_editor', 'isEnabled', true) &&
-			editorToolbarDockingPreference === 'top' &&
+			selectionToolbarConfigEnabled &&
 			disableSelectionToolbarWhenPinned) ||
 		!components ||
 		!toolbar

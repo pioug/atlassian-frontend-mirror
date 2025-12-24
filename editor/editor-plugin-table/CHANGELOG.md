@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 16.0.1
+
+### Patch Changes
+
+- [`e96899177b5f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e96899177b5f8) -
+  [ux] EDITOR-4111 Fix masked cell alignment when table is selected
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.6.9
 
 ### Patch Changes

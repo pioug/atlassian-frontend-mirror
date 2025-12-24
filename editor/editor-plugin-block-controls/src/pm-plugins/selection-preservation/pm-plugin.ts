@@ -2,10 +2,10 @@ import { logException } from '@atlaskit/editor-common/monitoring';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	type EditorState,
-	type ReadonlyTransaction,
-	type Transaction,
+import type {
+	EditorState,
+	ReadonlyTransaction,
+	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -15,8 +15,11 @@ import { mapPreservedSelection } from '../utils/selection';
 import { stopPreservingSelection } from './editor-commands';
 import { selectionPreservationPluginKey } from './plugin-key';
 import type { SelectionPreservationPluginState } from './types';
-import { getSelectionPreservationMeta, hasUserSelectionChange } from './utils';
-
+import {
+	getSelectionPreservationMeta,
+	hasUserSelectionChange,
+	isSelectionWithinCodeBlock,
+} from './utils';
 /**
  * Selection Preservation Plugin
  *
@@ -48,7 +51,7 @@ import { getSelectionPreservationMeta, hasUserSelectionChange } from './utils';
  * https://hello.atlassian.net/wiki/spaces/egcuc/pages/6170822503/Block+Menu+Solution+for+multi-select+and+selection+preservation
  */
 export const createSelectionPreservationPlugin =
-	(api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => () => {
+	(api?: ExtractInjectionAPI<BlockControlsPlugin>) => () => {
 		return new SafePlugin<SelectionPreservationPluginState>({
 			key: selectionPreservationPluginKey,
 			state: {
@@ -89,7 +92,11 @@ export const createSelectionPreservationPlugin =
 					return null;
 				}
 
-				if (hasUserSelectionChange(transactions)) {
+				// Auto-stop if user explicitly changes selection or selection is set within a code block
+				if (
+					hasUserSelectionChange(transactions) ||
+					isSelectionWithinCodeBlock(newState.selection)
+				) {
 					// Auto-stop if user explicitly changes selection
 					return stopPreservingSelection({ tr: newState.tr });
 				}
@@ -147,26 +154,13 @@ export const createSelectionPreservationPlugin =
 						return false;
 					}
 
+					api?.core?.actions.execute(
+						api?.blockControls?.commands?.handleKeyDownWithPreservedSelection(event),
+					);
+
 					// While preserving selection, if user presses delete/backspace, prevent event from being
-					// handled by ProseMirror natively so that we can apply custom delete logic in block menu
-					if (event.key === 'Backspace' || event.key === 'Delete') {
-						return true;
-					}
-
-					const blockMenuOpen =
-						api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'blockMenuOpen';
-
-					// When block menu is open, prevent all key events to avoid changing selection or editing content
-					if (blockMenuOpen) {
-						return true;
-					}
-
-					// When block menu isn't open and user presses any key, stop preserving selection
-					const tr = view.state.tr;
-					stopPreservingSelection({ tr });
-					view.dispatch(tr);
-
-					return false;
+					// handled by ProseMirror natively so that we can apply logic using the preserved selection.
+					return ['backspace', 'delete'].includes(event.key.toLowerCase());
 				},
 			},
 		});

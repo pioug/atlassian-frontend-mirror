@@ -123,9 +123,6 @@
 			"path": "../../../media/media-viewer/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/modal-dialog/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		},
 		{

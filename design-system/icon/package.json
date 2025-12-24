@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "29.3.1",
+	"version": "29.3.2",
 	"description": "An icon is a symbol representing a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,44 +26,6 @@
 					"title": "Icon tile",
 					"id": "icon-tile",
 					"sortKey": 1
-				},
-				{
-					"title": "Custom icon (legacy)",
-					"id": "custom-icon",
-					"sortKey": 2,
-					"status": {
-						"type": "deprecated",
-						"description": "Custom icon is deprecated. We recommend using either an existing icon from @atlaskit/icon or @atlaskit/icon-lab, or contributing to @atlaskit/icon-lab directly. For third party logos, use an SVG element along with a label.",
-						"actions": [
-							{
-								"text": "View available icons",
-								"href": "/components/icon/"
-							},
-							{
-								"text": "Contribute an icon (Atlassians only)",
-								"href": "https://go.atlassian.com/ads-icon-contribution"
-							}
-						]
-					}
-				},
-				{
-					"title": "Custom SVG",
-					"id": "custom-svg",
-					"sortKey": 3,
-					"status": {
-						"type": "deprecated",
-						"description": "Custom SVG is deprecated. We recommend using either an existing icon from @atlaskit/icon or @atlaskit/icon-lab, or contributing to @atlaskit/icon-lab directly. For third party logos, use an SVG element along with a label.",
-						"actions": [
-							{
-								"text": "View available icons",
-								"href": "/components/icon/"
-							},
-							{
-								"text": "Contribute an icon (Atlassians only)",
-								"href": "https://go.atlassian.com/ads-icon-contribution"
-							}
-						]
-					}
 				}
 			]
 		}

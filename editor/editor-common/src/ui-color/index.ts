@@ -11,10 +11,7 @@ export {
 } from './ColorPalette/utils';
 export { default as cellBackgroundColorPalette } from './ColorPalette/Palettes/cellBackgroundColorPalette';
 export { default as colorPaletteMessages } from './ColorPalette/Palettes/paletteMessages';
-export {
-	panelBackgroundPalette,
-	panelDarkModeBackgroundPalette,
-} from './ColorPalette/Palettes/panelBackgroundPalette';
+export { panelBackgroundPalette } from './ColorPalette/Palettes/panelBackgroundPalette';
 export { textColorPalette } from './ColorPalette/Palettes/textColorPalette';
 export {
 	highlightColorPalette,

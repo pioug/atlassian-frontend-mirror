@@ -18,6 +18,7 @@ import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
 import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
+import type { MediaEditingPlugin } from '@atlaskit/editor-plugin-media-editing';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
@@ -45,6 +46,7 @@ export type MediaPluginDependencies = [
 	OptionalPlugin<ConnectivityPlugin>,
 	OptionalPlugin<InteractionPlugin>,
 	OptionalPlugin<ToolbarPlugin>,
+	OptionalPlugin<MediaEditingPlugin>,
 ];
 
 export type MediaNextEditorPluginType = NextEditorPlugin<
@@ -68,9 +70,7 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 			setProvider: (provider: Promise<MediaProvider>) => boolean;
 		};
 		commands: {
-			hideImageEditor: EditorCommand;
 			hideMediaViewer: EditorCommand;
-			showImageEditor: (media: MediaADFAttrs) => EditorCommand;
 			showMediaViewer: (media: MediaADFAttrs) => EditorCommand;
 			trackMediaPaste: (attrs: MediaADFAttrs) => EditorCommand;
 		};

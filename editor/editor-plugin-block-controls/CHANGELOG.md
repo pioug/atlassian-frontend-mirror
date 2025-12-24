@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.0.0
+
+### Patch Changes
+
+- [`4da819b186eaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4da819b186eaf) -
+  EDITOR-3911 selection preservation key handling
+- Updated dependencies
+
 ## 7.19.0
 
 ### Minor Changes

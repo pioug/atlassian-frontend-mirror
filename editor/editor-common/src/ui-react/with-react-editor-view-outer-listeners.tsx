@@ -1,6 +1,7 @@
 import React, { PureComponent, useCallback, useEffect, useRef, useState } from 'react';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import ReactEditorViewContext from './ReactEditorViewContext';
@@ -26,6 +27,7 @@ export interface WithOutsideClickProps {
 	handleClickOutside?: SimpleEventHandler<MouseEvent>;
 	handleEnterKeydown?: SimpleEventHandler<KeyboardEvent>;
 	handleEscapeKeydown?: SimpleEventHandler<KeyboardEvent>;
+	handleKeyDown?: SimpleEventHandler<KeyboardEvent>;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	targetRef?: any;
@@ -55,7 +57,11 @@ class WithOutsideClick extends PureComponent<
 			document.addEventListener('click', this.handleClick, options);
 		}
 
-		if (this.props.handleEscapeKeydown || this.props.handleBackspaceDeleteKeydown) {
+		if (
+			this.props.handleEscapeKeydown ||
+			this.props.handleBackspaceDeleteKeydown ||
+			(this.props.handleKeyDown && expValEquals('platform_editor_block_menu', 'isEnabled', true))
+		) {
 			// Attached event to the menu so that 'ESC' events from the opened menu also will be handled.
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
@@ -66,7 +72,7 @@ class WithOutsideClick extends PureComponent<
 			)
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				.addEventListener('keydown', this.handleKeydown as any, false);
+				.addEventListener('keydown', this.handleKeyDown as any, false);
 		}
 	}
 
@@ -81,7 +87,11 @@ class WithOutsideClick extends PureComponent<
 			document.removeEventListener('click', this.handleClick, options);
 		}
 
-		if (this.props.handleEscapeKeydown || this.props.handleBackspaceDeleteKeydown) {
+		if (
+			this.props.handleEscapeKeydown ||
+			this.props.handleBackspaceDeleteKeydown ||
+			(this.props.handleKeyDown && expValEquals('platform_editor_block_menu', 'isEnabled', true))
+		) {
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			(this.props.popupsMountPoint
@@ -91,7 +101,7 @@ class WithOutsideClick extends PureComponent<
 			)
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				.removeEventListener('keydown', this.handleKeydown as any, false);
+				.removeEventListener('keydown', this.handleKeyDown as any, false);
 		}
 	}
 
@@ -111,7 +121,7 @@ class WithOutsideClick extends PureComponent<
 		}
 	};
 
-	handleKeydown = (evt: KeyboardEvent) => {
+	handleKeyDown = (evt: KeyboardEvent) => {
 		if (!this.props.isActiveComponent) {
 			return;
 		}
@@ -132,6 +142,10 @@ class WithOutsideClick extends PureComponent<
 			this.props.handleBackspaceDeleteKeydown
 		) {
 			this.props.handleBackspaceDeleteKeydown(evt);
+		}
+
+		if (expValEquals('platform_editor_block_menu', 'isEnabled', true)) {
+			this.props.handleKeyDown?.(evt);
 		}
 	};
 
@@ -154,12 +168,13 @@ export default function withReactEditorViewOuterListeners<P extends Object>(
 	Component: React.ComponentType<React.PropsWithChildren<P>>,
 ): React.ComponentType<React.PropsWithChildren<P & WithOutsideClickProps>> {
 	return ({
+		captureClick,
+		closeOnTab,
+		handleBackspaceDeleteKeydown,
 		handleClickOutside,
 		handleEnterKeydown,
 		handleEscapeKeydown,
-		handleBackspaceDeleteKeydown,
-		closeOnTab,
-		captureClick,
+		handleKeyDown,
 		...props
 	}) => {
 		const isActiveProp = hasIsOpen(props) ? props.isOpen : true;
@@ -193,6 +208,7 @@ export default function withReactEditorViewOuterListeners<P extends Object>(
 							handleEnterKeydown={handleEnterKeydown}
 							handleEscapeKeydown={handleEscapeKeydown}
 							handleBackspaceDeleteKeydown={handleBackspaceDeleteKeydown}
+							handleKeyDown={handleKeyDown}
 							closeOnTab={closeOnTab}
 							captureClick={captureClick}
 						>

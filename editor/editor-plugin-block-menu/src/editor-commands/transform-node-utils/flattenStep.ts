@@ -2,9 +2,10 @@ import type { TransformStep } from './types';
 
 export const flattenStep: TransformStep = (nodes, context) => {
 	const { schema, targetNodeTypeName } = context;
-
+	const { paragraph } = schema.nodes;
 	const targetNodeType = schema.nodes[targetNodeTypeName];
-	if (!targetNodeType) {
+
+	if (!targetNodeType || !paragraph) {
 		return nodes;
 	}
 
@@ -23,6 +24,7 @@ export const flattenStep: TransformStep = (nodes, context) => {
 		if (!isValidWithin) {
 			return node;
 		}
-		return schema.nodes.paragraph.create({}, node.content);
+
+		return paragraph.create({}, node.content, node.marks);
 	});
 };

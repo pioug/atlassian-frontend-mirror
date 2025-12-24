@@ -1,4 +1,8 @@
-import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type {
+	ReadonlyTransaction,
+	Selection,
+	Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
 import { selectionPreservationPluginKey } from './plugin-key';
 import type { SelectionPreservationMeta } from './types';
@@ -15,4 +19,14 @@ export const hasUserSelectionChange = (transactions: readonly Transaction[]) => 
 
 export const getSelectionPreservationMeta = (tr: Transaction | ReadonlyTransaction) => {
 	return tr.getMeta(selectionPreservationPluginKey) as SelectionPreservationMeta | undefined;
+};
+
+/**
+ * Checks if the current selection is within a code block.
+ *
+ * @param selection The current selection to check.
+ * @returns True if the selection is within a code block, otherwise false.
+ */
+export const isSelectionWithinCodeBlock = ({ $from, $to }: Selection) => {
+	return $from.sameParent($to) && $from.parent.type.name === 'codeBlock';
 };

@@ -147,8 +147,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	allowInlineImages = false;
 	uploadInProgressSubscriptions: { (isUploading: boolean): void }[] = [];
 	uploadInProgressSubscriptionsNotified: boolean = false;
-	isImageEditorVisible?: boolean = false;
-	imageEditorSelectedMedia?: MediaADFAttrs;
 
 	// this is only a temporary variable, which gets cleared after the last inserted node has been selected
 	lastAddedMediaSingleFileIds: { id: string; selectionPosition: number }[] = [];
@@ -365,10 +363,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 	setResizingWidth(width: number): void {
 		this.resizingWidth = width;
-	}
-
-	setImageEditorVisibility(isVisible: boolean): void {
-		this.isImageEditorVisible = isVisible;
 	}
 
 	updateElement(): void {
@@ -1005,16 +999,6 @@ export const createPlugin = (
 							pluginState.trackOutOfScopeIdentifier(identifier);
 							nextPluginState = pluginState.clone();
 						}
-						break;
-					case ACTIONS.SHOW_IMAGE_EDITOR:
-						pluginState.imageEditorSelectedMedia = meta.imageEditorSelectedMedia;
-						pluginState.isImageEditorVisible = meta.isImageEditorVisible;
-						nextPluginState = nextPluginState.clone();
-						break;
-					case ACTIONS.HIDE_IMAGE_EDITOR:
-						pluginState.imageEditorSelectedMedia = undefined;
-						pluginState.isImageEditorVisible = meta.isImageEditorVisible;
-						nextPluginState = nextPluginState.clone();
 						break;
 				}
 

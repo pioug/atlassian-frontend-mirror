@@ -561,7 +561,9 @@ export const setSelectedCardAppearance: (
 		return false;
 	}
 
-	const attrs = getAttrsForAppearance(appearance, selectedNode);
+	const attrs = editorExperiment('platform_synced_block', true) && fg('platform_synced_block_dogfooding')
+		? getAttrsForAppearance(appearance, selectedNode, state.selection.$from.parent.type.name === 'bodiedSyncBlock')
+		: getAttrsForAppearance(appearance, selectedNode);
 
 	const { from, to } = state.selection;
 	const nodeType = getLinkNodeType(appearance, state.schema.nodes as LinkNodes);
@@ -730,11 +732,17 @@ export const insertDatasource = (
 /**
  * Get attributes for new Card Appearance
  */
-export const getAttrsForAppearance = (appearance: CardAppearance, selectedNode: Node) => {
+export const getAttrsForAppearance = (appearance: CardAppearance, selectedNode: Node, isInsideBodiedSyncBlock: boolean = false) => {
 	if (appearance === 'embed') {
 		return {
 			...selectedNode.attrs,
 			layout: 'center',
+			...(isInsideBodiedSyncBlock
+				// When converting to embed, width attribute is set to null and when the document is published, the width attribute is set to 100 as per schema default
+				// For editor, width is not required to render the embed card, but it's required in renderer
+				// Because sync block has nested renderer in editor, we need width to be defined even in editor so embed in reference sync block can be rendered properly
+				? { width: selectedNode.attrs.width ?? 100 }
+				: {}),
 		};
 	}
 

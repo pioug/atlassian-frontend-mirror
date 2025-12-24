@@ -31,6 +31,7 @@ const getMockEditorAPIWithToolbar = () =>
 		toolbar: {
 			actions: {
 				getComponents: () => [primaryToolbarComponent],
+				contextualFormattingMode: () => 'controlled',
 			},
 		},
 	} as PublicPluginAPI<ToolbarPlugin>);
@@ -40,6 +41,7 @@ const getMockEditorAPIEmptyToolbar = () =>
 		toolbar: {
 			actions: {
 				getComponents: () => [{}],
+				contextualFormattingMode: () => 'controlled',
 			},
 		},
 	} as PublicPluginAPI<ToolbarPlugin>);

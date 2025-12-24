@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 24.27.2
+
+### Patch Changes
+
+- [`613a14991e82d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/613a14991e82d) -
+  Add translated message for static values
+
 ## 24.27.1
 
 ### Patch Changes

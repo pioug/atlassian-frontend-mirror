@@ -121,7 +121,7 @@ export const toolbarPlugin: ToolbarPlugin = ({
 			},
 
 			contextualFormattingMode: () => {
-				return contextualFormattingEnabled;
+				return contextualFormattingEnabled ?? 'always-pinned';
 			},
 
 			getBreakpointPreset: () => {

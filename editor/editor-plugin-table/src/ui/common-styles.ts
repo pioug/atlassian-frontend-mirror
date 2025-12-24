@@ -1355,6 +1355,18 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		: ``}
 	}
 
+	${fg('platform_editor_table_sticky_header_patch_7') ?
+		`.ak-editor-selected-node .${ClassName.TABLE_CONTAINER}[data-number-column="true"]:not(.${ClassName.TABLE_SELECTED}) .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th:first-of-type {
+			&::before {
+				margin-top: 0;
+			}
+			&::after {
+				width: 100%;
+				border-left: 1px solid ${tableBorderSelectedColor};
+				background: ${tableCellSelectedColor};
+			}
+	}` : ''}
+
 	.${ClassName.TABLE_CONTAINER}[data-number-column="true"].${ClassName.TABLE_SELECTED} .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.HOVERED_CELL_IN_DANGER}):first-of-type::before, .${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.HOVERED_CELL_IN_DANGER}, .${ClassName.COLUMN_SELECTED}):first-of-type::before {
 		outline: none;
 		border-left-color: ${tableBorderSelectedColor};
@@ -1446,8 +1458,8 @@ export const tableStyles = (props: {
 }) => css`
 	.ProseMirror {
 		${expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)
-			? baseTableStylesWithoutSharedStyle(props)
-			: baseTableStyles(props)};
+		? baseTableStylesWithoutSharedStyle(props)
+		: baseTableStyles(props)};
 	}
 
 	.ProseMirror.${ClassName.IS_RESIZING} {

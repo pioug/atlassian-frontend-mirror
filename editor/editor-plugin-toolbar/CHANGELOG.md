@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 4.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.1
+
+### Patch Changes
+
+- [`2515f609f1288`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2515f609f1288) -
+  ED-29720 Fix the contextual toolbar config for template editor
+- Updated dependencies
+
 ## 3.5.0
 
 ### Minor Changes

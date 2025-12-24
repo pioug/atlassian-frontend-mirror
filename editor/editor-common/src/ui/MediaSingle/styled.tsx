@@ -310,7 +310,11 @@ export const MediaSingleDimensionHelper = ({
 		[data-layout-column] &,
 		[data-node-type='expand'] &,
 		[data-panel-type] &,
-		li & {
+		li &,
+		[data-prosemirror-node-name='bodiedSyncBlock'] &,
+		[data-prosemirror-node-name='syncBlock'] &,
+		[data-sync-block-renderer] &,
+		[data-bodied-sync-block] & {
 			max-width: 100%;
 		}
 

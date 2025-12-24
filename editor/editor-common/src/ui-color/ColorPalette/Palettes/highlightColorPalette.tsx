@@ -60,8 +60,7 @@ export const EditorDiagonalLineIcon = () => {
 export const highlightColorPalette: Array<PaletteColor> = [
 	{
 		value: REMOVE_HIGHLIGHT_COLOR,
-		// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-		label: 'No color', // Mostly informative, only used for analytics
+		label: 'No color' as const, // Mostly informative, only used for analytics
 		border: token('color.border', '#091E4224'),
 		message: getColorMessage(paletteMessages, 'no-color'),
 		decorator: <EditorDiagonalLineIcon />,
@@ -75,8 +74,7 @@ backgroundColorPalette.forEach((label, color) => {
 export const highlightColorPaletteNext: Array<PaletteColor> = [
 	{
 		value: REMOVE_HIGHLIGHT_COLOR,
-		// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-		label: 'No color', // Mostly informative, only used for analytics
+		label: 'No color' as const, // Mostly informative, only used for analytics
 		border: token('color.border', '#091E4224'),
 		message: getColorMessage(paletteMessages, 'no-color'),
 		decorator: <EditorDiagonalLineIcon />,

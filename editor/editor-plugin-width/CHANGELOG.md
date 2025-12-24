@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-width
 
+## 8.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.7
 
 ### Patch Changes

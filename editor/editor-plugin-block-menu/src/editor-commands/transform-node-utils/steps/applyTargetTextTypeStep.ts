@@ -37,7 +37,7 @@ export const applyTargetTextTypeStep: TransformStep = (nodes, context) => {
 	return nodes.map((node) => {
 		if (node.isTextblock) {
 			// Convert textblock nodes (paragraphs, headings) to heading with specified level
-			return headingType.create({ level: headingLevel }, node.content);
+			return headingType.create({ level: headingLevel }, node.content, node.marks);
 		}
 		// Non-textblock nodes are left unchanged
 		return node;

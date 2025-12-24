@@ -62,8 +62,7 @@ export const PaletteDropdown = (props: PaletteDropdownProps): React.JSX.Element 
 			if (item.label === 'Orange') {
 				return {
 					...item,
-					// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-					label: 'Yellow',
+					label: 'Yellow' as const,
 					message: colorPaletteMessages.yellow,
 				};
 			}

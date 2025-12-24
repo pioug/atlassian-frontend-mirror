@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 29.3.2
+
+### Patch Changes
+
+- [`0cc945286c289`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cc945286c289) -
+  Remove custom-icon and custom-svg documentation pages and navigation menu entries as part of
+  deprecation cleanup (DSP-21989)
+
 ## 29.3.1
 
 ### Patch Changes

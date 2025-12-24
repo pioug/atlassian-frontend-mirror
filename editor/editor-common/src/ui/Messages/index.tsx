@@ -60,11 +60,11 @@ export const ErrorMessage = ({ children }: Props) => {
 			}}
 		>
 			<span css={iconWrapperStyle}>
-				{fg('platform_editor_dec_a11y_fixes')
-					? <ErrorIcon LEGACY_size="small" label={intl.formatMessage(commonMessages.error)} />
-					/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */
-					: <ErrorIcon LEGACY_size="small" label="error" aria-label="error" />
-				}
+				<ErrorIcon
+					LEGACY_size="small"
+					label={fg('platform_editor_dec_a11y_fixes') ? intl.formatMessage(commonMessages.error) : "error"}
+					aria-label={fg('platform_editor_dec_a11y_fixes') ? undefined : "error"}
+				/>
 			</span>
 			{children}
 		</div>

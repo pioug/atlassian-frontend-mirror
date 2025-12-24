@@ -2,9 +2,12 @@ import type { RichMediaAttributes, RichMediaLayout } from '@atlaskit/adf-schema'
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { SnapPointsProps } from '../types';
 import { calcPxFromColumns, wrappedLayouts } from '../ui/MediaSingle/grid';
+
 
 export const shouldAddDefaultWrappedWidth = (
 	layout: RichMediaLayout,
@@ -25,7 +28,16 @@ export const isRichMediaInsideOfBlockNode = (view: EditorView, pos: number | boo
 
 	const $pos = view.state.doc.resolve(pos);
 
-	const { expand, nestedExpand, layoutColumn } = view.state.schema.nodes;
+	const { expand, nestedExpand, layoutColumn, bodiedSyncBlock } = view.state.schema.nodes;
+
+	if (editorExperiment('platform_synced_block', true) && fg('platform_synced_block_dogfooding')) {
+		return !!findParentNodeOfTypeClosestToPos($pos, [
+			expand,
+			nestedExpand,
+			layoutColumn,
+			bodiedSyncBlock,
+		]);
+	}
 	return !!findParentNodeOfTypeClosestToPos($pos, [expand, nestedExpand, layoutColumn]);
 };
 

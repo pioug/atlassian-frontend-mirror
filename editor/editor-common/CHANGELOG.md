@@ -1,5 +1,41 @@
 # @atlaskit/editor-common
 
+## 111.0.1
+
+### Patch Changes
+
+- [`e56d251bf0184`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e56d251bf0184) -
+  [EDITOR-3966] Fix embed sizing issue in sync block
+
+## 111.0.0
+
+### Major Changes
+
+- [`ae731d9e5c7e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae731d9e5c7e0) -
+  ENGHEALTH-47538: Clean up dark panel palette as it is not being used anymore and has been
+  superceded by token mapping.
+
+### Patch Changes
+
+- [`4da819b186eaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4da819b186eaf) -
+  EDITOR-3911 selection preservation key handling
+- Updated dependencies
+
+## 110.50.3
+
+### Patch Changes
+
+- [`279c76567587d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/279c76567587d) -
+  [ENGHEALTH-47470] refactor of code to close enghealth ticket
+- Updated dependencies
+
+## 110.50.2
+
+### Patch Changes
+
+- [`2515f609f1288`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2515f609f1288) -
+  ED-29720 Fix the contextual toolbar config for template editor
+
 ## 110.50.1
 
 ### Patch Changes

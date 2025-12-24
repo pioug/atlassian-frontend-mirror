@@ -4,7 +4,6 @@
 export {
 	getPanelTypeBackground,
 	getPanelTypeBackgroundNoTokens,
-	darkPanelColors,
 	PanelSharedCssClassName,
 	PanelSharedSelectors,
 } from './styles/shared/panel';

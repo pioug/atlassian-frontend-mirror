@@ -12,7 +12,6 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { deleteSelectedRange } from '@atlaskit/editor-common/selection';
 import { DRAG_HANDLE_SELECTOR, DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
@@ -281,23 +280,22 @@ const BlockMenu = ({
 		return null;
 	}
 
-	const handleBackspaceDeleteKeydown = (event?: KeyboardEvent) => {
-		// Pevents delete/backspace keypress being handled by editor, avoids double deletions
-		event?.preventDefault();
-		event?.stopPropagation();
+	const handleKeyDown = (event: KeyboardEvent) => {
+		// When the editor view has focus, the keydown will be handled by the
+		// selection preservation plugin – exit early to avoid double handling
+		if (!editorView || editorView?.hasFocus()) {
+			return;
+		}
 
-		api?.core.actions.execute(({ tr }) => {
-			deleteSelectedRange(tr, api?.blockControls?.sharedState.currentState()?.preservedSelection);
+		// Necessary to prevent the editor from handling the delete natively
+		if (['backspace', 'delete'].includes(event.key.toLowerCase())) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
 
-			api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
-
-			if (editorView && !editorView.hasFocus()) {
-				// if focus is outside editor, e.g. in block menu popup, then refocus editor after delete
-				editorView.focus();
-			}
-
-			return tr;
-		});
+		api?.core?.actions.execute(
+			api?.blockControls?.commands?.handleKeyDownWithPreservedSelection(event),
+		);
 	};
 
 	const handleClickOutside = (e: MouseEvent) => {
@@ -352,7 +350,7 @@ const BlockMenu = ({
 				alignY={'start'}
 				handleClickOutside={handleClickOutside}
 				handleEscapeKeydown={closeMenu}
-				handleBackspaceDeleteKeydown={handleBackspaceDeleteKeydown}
+				handleKeyDown={handleKeyDown}
 				mountTo={mountTo}
 				boundariesElement={boundariesElement}
 				scrollableElement={scrollableElement}

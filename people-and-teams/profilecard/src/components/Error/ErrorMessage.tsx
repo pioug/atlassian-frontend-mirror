@@ -88,8 +88,15 @@ const ErrorMessage = (props: Props): React.JSX.Element => {
 		<ErrorWrapper testId="profilecard-error">
 			<CrossCircleIcon label="icon error" />
 			{errorContent()}
-			{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
-			{reload && <Button onClick={reload}>Try again</Button>}
+			{reload && (
+				<Button onClick={reload}>
+					{fg('people-teams-fix-no-literal-string-in-jsx') ? (
+						<FormattedMessage {...messages.errorTryAgain} />
+					) : (
+						'Try again'
+					)}
+				</Button>
+			)}
 		</ErrorWrapper>
 	);
 };

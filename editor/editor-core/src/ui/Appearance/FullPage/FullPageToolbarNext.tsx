@@ -10,7 +10,7 @@ import { useIntl } from 'react-intl-next';
 import { cssMap, jsx } from '@atlaskit/css';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/context-panel';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
-import { TOOLBARS } from '@atlaskit/editor-common/toolbar';
+import { shouldShowPrimaryToolbar, TOOLBARS } from '@atlaskit/editor-common/toolbar';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
@@ -141,6 +141,7 @@ const SecondChildWrapper = ({ children }: { children: React.ReactNode }) => {
 	);
 };
 
+
 export const FullPageToolbarNext = ({
 	editorAPI,
 	beforeIcon,
@@ -152,8 +153,10 @@ export const FullPageToolbarNext = ({
 	disabled,
 }: FullPageToolbarNextProps) => {
 	const components = editorAPI?.toolbar?.actions.getComponents();
+	const contextualFormattingEnabled = editorAPI?.toolbar?.actions.contextualFormattingMode();
 	const intl = useIntl();
 	const toolbar = components?.find((component) => component.key === TOOLBARS.PRIMARY_TOOLBAR);
+	const primaryToolbarDockingConfigEnabled = shouldShowPrimaryToolbar(contextualFormattingEnabled, toolbarDockingPosition);
 
 	// When a toolbar portal context is provided, render the  toolbar inside a portal.
 	// Otherwise fall back to a fragment just to avoid forking rendering logic.
@@ -213,7 +216,7 @@ export const FullPageToolbarNext = ({
 							) ? (
 								<>
 									<FirstChildWrapper>
-										{toolbarDockingPosition !== 'none' &&
+										{primaryToolbarDockingConfigEnabled &&
 											components &&
 											isToolbar(toolbar) &&
 											(!expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true) ||
@@ -258,7 +261,7 @@ export const FullPageToolbarNext = ({
 									{fg('platform_editor_toolbar_aifc_patch_7') && <ToolbarPortalMountPoint />}
 								</>
 							) : (
-								toolbarDockingPosition !== 'none' &&
+								primaryToolbarDockingConfigEnabled &&
 								components &&
 								isToolbar(toolbar) &&
 								(!expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true) ||

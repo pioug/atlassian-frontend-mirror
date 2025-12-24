@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-highlight
 
+## 7.0.0
+
+### Patch Changes
+
+- [`ae731d9e5c7e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae731d9e5c7e0) -
+  ENGHEALTH-47538: Fix literal string a11y violation
+- Updated dependencies
+
 ## 6.3.20
 
 ### Patch Changes

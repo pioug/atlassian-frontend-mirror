@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugins
 
+## 11.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.2.0
+
+### Minor Changes
+
+- [`3323827ca91e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3323827ca91e6) -
+  [ux] EDITOR-4139 Refactor existing image editing functionality into its own plugin
+  editor-plugin-media-editing
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.191
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.190
 
 ### Patch Changes

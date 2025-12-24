@@ -8,12 +8,7 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
-import Modal, {
-	ModalBody,
-	ModalFooter,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
-
+import Modal, { ModalBody, ModalFooter, ModalTransition } from '@atlaskit/modal-dialog';
 
 interface ImageEditModalProps {
 	imageUrl?: string;
@@ -27,7 +22,7 @@ const imageWrapper = css({
 	overflow: 'hidden',
 	display: 'flex',
 	justifyContent: 'center',
-	alignItems: 'center'
+	alignItems: 'center',
 });
 
 const imageStyle = css({
@@ -35,14 +30,10 @@ const imageStyle = css({
 	maxHeight: 'calc(100vh - 250px)',
 	width: 'auto',
 	height: 'auto',
-	objectFit: 'contain'
+	objectFit: 'contain',
 });
 
-export const ImageEditor = ({ 
-	isOpen, 
-	onClose,
-	imageUrl,
- }: ImageEditModalProps) => {
+export const ImageEditor = ({ isOpen, onClose, imageUrl }: ImageEditModalProps) => {
 	return (
 		<ModalTransition>
 			{isOpen && (
@@ -50,7 +41,7 @@ export const ImageEditor = ({
 					<br></br>
 					<ModalBody>
 						<div css={imageWrapper}>
-							{imageUrl && <img src={imageUrl} alt="Edit preview" css={imageStyle}/>}
+							{imageUrl && <img src={imageUrl} alt="Edit preview" css={imageStyle} />}
 						</div>
 					</ModalBody>
 					<ModalFooter>

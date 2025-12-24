@@ -240,6 +240,11 @@ const messages = defineMessages({
 		defaultMessage: 'Try again and we’ll give it another shot',
 		description: 'Suggestion message shown to the user to retry loading the profile card',
 	},
+	errorTryAgain: {
+		id: 'pt.profile-card.error.try-again-button',
+		defaultMessage: 'Try again',
+		description: 'Label for the button to retry loading the profile card after an error',
+	},
 	serviceAccountLabel: {
 		id: 'pt.profile-card.service-account.label',
 		defaultMessage: 'SERVICE ACCOUNT',

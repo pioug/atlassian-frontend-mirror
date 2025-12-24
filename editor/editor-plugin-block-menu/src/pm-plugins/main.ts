@@ -1,7 +1,9 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { FLAG_ID } from '../blockMenuPluginType';
+import type { BlockMenuPlugin, FLAG_ID } from '../blockMenuPluginType';
 
 export const blockMenuPluginKey = new PluginKey('blockMenuPlugin');
 
@@ -9,7 +11,7 @@ type BlockMenuPluginState = {
 	showFlag: FLAG_ID | false;
 };
 
-export const createPlugin = () => {
+export const createPlugin = (api: ExtractInjectionAPI<BlockMenuPlugin> | undefined) => {
 	return new SafePlugin<BlockMenuPluginState>({
 		key: blockMenuPluginKey,
 		state: {
@@ -25,6 +27,26 @@ export const createPlugin = () => {
 				return {
 					showFlag: meta?.showFlag ?? currentPluginState.showFlag,
 				};
+			},
+		},
+		props: {
+			handleKeyDown: (_editorView: EditorView, event: KeyboardEvent) => {
+				const blockMenuOpen =
+					api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'blockMenuOpen';
+
+				// Exit early and do nothing when block menu is closed
+				if (!blockMenuOpen) {
+					return false;
+				}
+
+				// Block further handling of key events when block menu is open
+				// Except for backspace/delete/copy/cut/paste which should be handled by the selection preservation plugin
+				const key = event.key.toLowerCase();
+				const isMetaCtrl = event.metaKey || event.ctrlKey;
+				const isBackspaceDelete = ['backspace', 'delete'].includes(key);
+				const isCopyCutPaste = isMetaCtrl && ['c', 'x', 'v'].includes(key);
+				const suppressNativeHandling = !isCopyCutPaste && !isBackspaceDelete;
+				return suppressNativeHandling;
 			},
 		},
 	});

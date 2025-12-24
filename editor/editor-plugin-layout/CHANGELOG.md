@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-layout
 
+## 7.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.21
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-paste
 
+## 8.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.4.16
 
 ### Patch Changes

@@ -8,8 +8,8 @@ import { isTransformToTargetDisabled } from './editor-actions/isTransformToTarge
 import { formatNode } from './editor-commands/formatNode';
 import { transformNode } from './editor-commands/transformNode';
 import type {
-	FormatNodeTargetType,
 	FormatNodeAnalyticsAttrs,
+	FormatNodeTargetType,
 	TransformNodeMetadata,
 } from './editor-commands/transforms/types';
 import { blockMenuPluginKey, createPlugin } from './pm-plugins/main';
@@ -28,7 +28,7 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 			return [
 				{
 					name: 'blockMenuPlugin',
-					plugin: createPlugin,
+					plugin: () => createPlugin(api),
 				},
 			];
 		},

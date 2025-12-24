@@ -123,9 +123,6 @@
 			"path": "../../../media/media-viewer/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/modal-dialog/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
 		},
 		{

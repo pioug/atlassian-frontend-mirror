@@ -1,6 +1,6 @@
-import { type IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
-import { type INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	DIRECTION,
 	EditorCommand,
@@ -8,7 +8,7 @@ import type {
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils';
-import { type AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
@@ -21,8 +21,8 @@ import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
-import { type Mapping } from '@atlaskit/editor-prosemirror/transform';
-import { type DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { Mapping } from '@atlaskit/editor-prosemirror/transform';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 export type ActiveNode = {
 	anchorName: string;
@@ -139,6 +139,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 	'blockControls',
 	{
 		commands: {
+			handleKeyDownWithPreservedSelection: (event: KeyboardEvent) => EditorCommand;
 			moveNode: MoveNode;
 			moveNodeWithBlockMenu: (direction: DIRECTION.UP | DIRECTION.DOWN) => EditorCommand;
 			/**

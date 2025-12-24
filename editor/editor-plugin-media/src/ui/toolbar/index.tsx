@@ -2,7 +2,6 @@ import React from 'react';
 
 import type { IntlShape, MessageDescriptor } from 'react-intl-next';
 
-
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -201,7 +200,7 @@ export const handleShowImageEditor = ({
 	if (!selectedNodeAttrs) {
 		return false;
 	}
-	api?.core.actions.execute(api?.media.commands.showImageEditor(selectedNodeAttrs));
+	api?.core.actions.execute(api?.mediaEditing?.commands.showImageEditor(selectedNodeAttrs));
 };
 
 const generateMediaCardFloatingToolbar = (
@@ -710,6 +709,7 @@ const generateMediaSingleFloatingToolbar = (
 			}
 			// Image Editing Support
 			if (
+				!!pluginInjectionApi?.mediaEditing &&
 				allowImageEditing &&
 				expValEquals('platform_editor_add_image_editing', 'isEnabled', true)
 			) {
@@ -754,8 +754,9 @@ const generateMediaSingleFloatingToolbar = (
 									}) ?? false
 								);
 							},
-							disabled:
-								isOfflineMode(pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode),
+							disabled: isOfflineMode(
+								pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode,
+							),
 							supportsViewMode: true,
 						},
 						{
@@ -848,8 +849,9 @@ const generateMediaSingleFloatingToolbar = (
 								}) ?? false
 							);
 						},
-						disabled:
-							isOfflineMode(pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode),
+						disabled: isOfflineMode(
+							pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode,
+						),
 						supportsViewMode: true,
 					},
 					{

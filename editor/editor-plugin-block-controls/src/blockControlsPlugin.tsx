@@ -19,6 +19,7 @@ import type {
 	MultiSelectDnD,
 	TriggerByNode,
 } from './blockControlsPluginType';
+import { handleKeyDownWithPreservedSelection } from './editor-commands/handle-key-down-with-preserved-selection';
 import { moveNode } from './editor-commands/move-node';
 import { moveNodeWithBlockMenu } from './editor-commands/move-node-with-block-menu';
 import { moveToLayout } from './editor-commands/move-to-layout';
@@ -124,8 +125,6 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 					if (currentUserIntent === 'blockMenuOpen') {
 						api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
 					}
-
-					stopPreservingSelection({ tr });
 
 					return tr;
 				}
@@ -264,9 +263,9 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				const currMeta = tr.getMeta(key);
 				return tr.setMeta(key, { ...currMeta, isSelectedViaDragHandle });
 			},
-		moveNodeWithBlockMenu: (direction: DIRECTION.UP | DIRECTION.DOWN) => {
-			return moveNodeWithBlockMenu(api, direction);
-		},
+		moveNodeWithBlockMenu: (direction: DIRECTION.UP | DIRECTION.DOWN) =>
+			moveNodeWithBlockMenu(api, direction),
+		handleKeyDownWithPreservedSelection: handleKeyDownWithPreservedSelection(api),
 		startPreservingSelection: () => startPreservingSelection,
 		stopPreservingSelection: () => stopPreservingSelection,
 	},

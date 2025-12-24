@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-image-upload
 
+## 7.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.2
 
 ### Patch Changes

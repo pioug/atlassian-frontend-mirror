@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.23.1
+
+### Patch Changes
+
+- [`6cb688efd254d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cb688efd254d) -
+  Removed keyboard value from team profilecard open method attribute
+
 ## 1.23.0
 
 ### Minor Changes

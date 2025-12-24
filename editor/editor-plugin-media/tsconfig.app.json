@@ -89,6 +89,9 @@
 			"path": "../editor-plugin-interaction/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-media-editing/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-selection/tsconfig.app.json"
 		},
 		{
@@ -141,9 +144,6 @@
 		},
 		{
 			"path": "../../media/media-viewer/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/modal-dialog/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

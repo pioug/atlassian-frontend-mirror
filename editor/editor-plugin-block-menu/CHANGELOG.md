@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.1
+
+### Patch Changes
+
+- [`3ae29083b2189`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ae29083b2189) -
+  Remove block marks when wrapping nodes (fixes multi-select codeblock)
+
+## 6.0.0
+
+### Patch Changes
+
+- [`4da819b186eaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4da819b186eaf) -
+  EDITOR-3911 selection preservation key handling
+- [`2f000c01bd8ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f000c01bd8ac) -
+  Retain block marks for text -> text transforms
+- Updated dependencies
+
 ## 5.2.28
 
 ### Patch Changes

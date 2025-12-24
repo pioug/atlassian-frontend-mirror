@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "11.1.190",
+	"version": "11.2.3",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -90,6 +90,7 @@
 		"./max-content-size": "./src/max-content-size/index.ts",
 		"./media/types": "./src/media/types/index.ts",
 		"./media": "./src/media/index.ts",
+		"./media-editing": "./src/media-editing/index.ts",
 		"./media-insert": "./src/media-insert/index.ts",
 		"./mentions": "./src/mentions/index.ts",
 		"./metrics": "./src/metrics/index.ts",
@@ -195,6 +196,7 @@
 		"@atlaskit/editor-plugin-loom": "workspace:*",
 		"@atlaskit/editor-plugin-max-content-size": "workspace:*",
 		"@atlaskit/editor-plugin-media": "workspace:*",
+		"@atlaskit/editor-plugin-media-editing": "workspace:*",
 		"@atlaskit/editor-plugin-media-insert": "workspace:*",
 		"@atlaskit/editor-plugin-mentions": "workspace:*",
 		"@atlaskit/editor-plugin-metrics": "workspace:*",

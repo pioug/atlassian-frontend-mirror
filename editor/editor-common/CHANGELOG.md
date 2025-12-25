@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 111.0.2
+
+### Patch Changes
+
+- [`7b54da3c92435`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b54da3c92435) -
+  EDITOR-3993 Add analytics measure timings for transformNode function with operational events
+  tracking duration, node count, and source/target node types
+
 ## 111.0.1
 
 ### Patch Changes

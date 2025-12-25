@@ -180,6 +180,7 @@ export enum ACTION {
 	UPLOAD_SUCCEEDED = 'uploadSucceeded',
 	UPLOAD_FAILED = 'uploadFailed',
 	TOGGLE_CODE_BLOCK_WRAP = 'toggleCodeBlockWrap',
+	TRANSFORMED = 'transformed',
 	RESIZED = 'resized',
 	RESIZED_PERF_SAMPLING = 'resizedPerfSampling',
 	BLOCKS_DRAG_INIT = 'blocksDragInit',

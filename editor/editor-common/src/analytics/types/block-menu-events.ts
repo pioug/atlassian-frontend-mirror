@@ -62,8 +62,26 @@ export type ElementTransformErrorAEP = OperationalAEP<
 	ElementTransformErrorAttr
 >;
 
+interface ElementTransformPerformanceAttr {
+	duration: number;
+	isList: boolean;
+	isNested: boolean;
+	nodeCount: number;
+	sourceNodeTypes: Record<string, number>;
+	startTime: number;
+	targetNodeType: string;
+}
+
+export type ElementTransformPerformanceAEP = OperationalAEP<
+	ACTION.TRANSFORMED,
+	ACTION_SUBJECT.ELEMENT,
+	ACTION_SUBJECT_ID.TRANSFORM,
+	ElementTransformPerformanceAttr
+>;
+
 export type BlockMenuEventPayload =
 	| BlockMenuOpenedAEP
 	| BlockMenuItemClickedAEP
 	| ElementConvertedAEP
-	| ElementTransformErrorAEP;
+	| ElementTransformErrorAEP
+	| ElementTransformPerformanceAEP;

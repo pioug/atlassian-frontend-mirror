@@ -30,7 +30,7 @@ const activeTokens = Object.entries(dimensions).map(([name, value]) => ({
 
 export const createDimensionStylesFromTemplate = (
 	spacingProperty: keyof typeof dimensionProperties,
-) => {
+): string => {
 	if (!dimensionProperties[spacingProperty]) {
 		throw new Error(`[codegen] Unknown option found "${spacingProperty}"`);
 	}

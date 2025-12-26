@@ -1,4 +1,4 @@
-export const VALID_PATTERNS = [
+export const VALID_PATTERNS: string[] = [
 	// this enables the rule to look for a pattern like:
 	// const myStyles = css({...})
 	'compiled-css-function',

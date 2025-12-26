@@ -42,14 +42,14 @@ export const parseTransformPath = (transformPath: string) => path.parse(transfor
 
 export const getTransformPath = ({ dir, base }: ParsedPath) => `${dir}/${base}`;
 
-export const getTransformModule = (transform: ParsedPath) => {
+export const getTransformModule = (transform: ParsedPath): string => {
 	const pathSegments = transform.dir.split(path.sep);
 	const nodeModulesIdx = pathSegments.indexOf('node_modules');
 	// pathSegments will be of the form [node_modules, '@atlaskit', 'avatar', 'codemods']
 	return pathSegments.slice(nodeModulesIdx + 1, nodeModulesIdx + 3).join('/');
 };
 
-export const getTransformVersion = (transform: ParsedPath) => {
+export const getTransformVersion = (transform: ParsedPath): string => {
 	let transformName = transform.base;
 	if (transformName.startsWith('index.')) {
 		const pathSegments = transform.dir.split(path.sep);

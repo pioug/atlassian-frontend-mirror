@@ -202,13 +202,13 @@ export const logoDocsSchema: LogoDocsSchema[] = [
 	},
 ] as const;
 
-export const PROGRAM_LOGO_DOCS_ORDER = logoDocsSchema
+export const PROGRAM_LOGO_DOCS_ORDER: string[] = logoDocsSchema
 	.filter((logo) => logo.category === 'program' && !logo.skipExample)
 	.map((logo) => logo.name);
-export const APP_LOGO_DOCS_ORDER = logoDocsSchema
+export const APP_LOGO_DOCS_ORDER: string[] = logoDocsSchema
 	.filter((logo) => logo.category === 'app' && !logo.skipExample)
 	.map((logo) => logo.name);
-export const AGENT_LOGO_DOCS_ORDER =
+export const AGENT_LOGO_DOCS_ORDER: string[] =
 	logoDocsSchema
 		.filter((logo) => logo.category === 'agent' && !logo.skipExample)
 		.map((logo) => logo.name) || [];

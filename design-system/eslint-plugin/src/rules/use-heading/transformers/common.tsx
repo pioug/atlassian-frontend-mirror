@@ -17,4 +17,4 @@ export function updateTestIdAttributeFix(node: JSXElement, fixer: Rule.RuleFixer
 	}
 }
 
-export const allowedAttrs = ['id', 'data-testid', 'key'];
+export const allowedAttrs: string[] = ['id', 'data-testid', 'key'];

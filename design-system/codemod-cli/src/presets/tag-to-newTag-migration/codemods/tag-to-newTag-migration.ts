@@ -138,7 +138,7 @@ function findAttribute(attributes: any[], attrName: string): any {
  *    - Adds isRemovable={false} if original was SimpleTag
  *    - Adds comment for manual migration if color can't be mapped
  */
-export default function transformer(file: FileInfo, api: API) {
+export default function transformer(file: FileInfo, api: API): string {
 	const j = api.jscodeshift;
 	const source = j(file.source);
 

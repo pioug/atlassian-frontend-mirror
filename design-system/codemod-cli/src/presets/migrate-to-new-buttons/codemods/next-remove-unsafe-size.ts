@@ -3,7 +3,7 @@ import { type API, type FileInfo } from 'jscodeshift';
 
 import { NEW_BUTTON_ENTRY_POINT, PRINT_SETTINGS, UNSAFE_SIZE_PROPS_MAP } from '../utils/constants';
 
-function transformer(file: FileInfo, api: API) {
+function transformer(file: FileInfo, api: API): string {
 	const j = api.jscodeshift;
 	const source = j(file.source);
 

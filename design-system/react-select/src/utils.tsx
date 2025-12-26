@@ -44,7 +44,7 @@ export function classNames(
 	prefix?: string | null,
 	state?: ClassNamesState,
 	...classNameList: string[]
-) {
+): string {
 	const arr = [...classNameList];
 	if (state && prefix) {
 		for (let key in state) {
@@ -140,7 +140,7 @@ export function handleInputChange(
 	inputValue: string,
 	actionMeta: InputActionMeta,
 	onInputChange?: (newValue: string, actionMeta: InputActionMeta) => string | void,
-) {
+): string {
 	if (onInputChange) {
 		const newValue = onInputChange(inputValue, actionMeta);
 		if (typeof newValue === 'string') {

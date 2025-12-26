@@ -1,4 +1,4 @@
-export const PATTERNS = [
+export const PATTERNS: string[] = [
 	// <p>text</p>
 	'paragraph-elements',
 	// <span>text</span>

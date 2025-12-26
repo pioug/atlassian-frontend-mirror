@@ -32,7 +32,7 @@ export const entryPointsMapping: { [key: string]: string } = {
 	CustomThemeButton: '@atlaskit/button/custom-theme-button',
 };
 
-export const BUTTON_TYPES = [
+export const BUTTON_TYPES: string[] = [
 	'BaseOwnProps',
 	'BaseProps',
 	'ButtonProps',
@@ -51,7 +51,7 @@ export const UNSAFE_SIZE_PROPS_MAP: Record<string, string> = {
 	UNSAFE_iconBefore_size: 'iconBefore',
 };
 
-export const unsupportedProps = ['component', 'css', 'style'];
+export const unsupportedProps: string[] = ['component', 'css', 'style'];
 
 export const linkButtonMissingHrefComment = `"link" and "subtle-link" appearances are not available in the new Button, appearance should be "subtle" or "default".`;
 

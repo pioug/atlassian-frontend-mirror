@@ -240,6 +240,6 @@ for (let i = 0; i < diacritics.length; i++) {
 	}
 }
 
-export const stripDiacritics = (str: string) => {
+export const stripDiacritics = (str: string): string => {
 	return str.replace(anyDiacritic, (match) => diacriticToBase[match]);
 };

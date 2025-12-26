@@ -20,7 +20,7 @@ export const ICON_TO_OBJECT_NAME_MAPPINGS: Record<string, string> = {
 };
 
 // Available icon names (kebab-case) - icons supported in icon-object
-export const AVAILABLE_ICON_NAMES = [
+export const AVAILABLE_ICON_NAMES: string[] = [
 	'blog',
 	'branch',
 	'bug',

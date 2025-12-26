@@ -45,7 +45,7 @@ export class ADFMark<TMarkSpec extends ADFMarkSpec> {
 		return this.#spec;
 	}
 
-	getType() {
+	getType(): string {
 		return this.#type;
 	}
 

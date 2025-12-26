@@ -30,7 +30,7 @@ type BadgeElement = {
  * 2. Maps old semantic values to new semantic values (e.g. added → success, removed → danger, primary → information)
  * 3. Adds comments for dynamic values that need manual verification
  */
-export default function transformer(file: FileInfo, api: API) {
+export default function transformer(file: FileInfo, api: API): string {
 	const j = api.jscodeshift;
 	const source = j(file.source);
 

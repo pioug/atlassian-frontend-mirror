@@ -5,7 +5,7 @@ export const selectOptions = [
 	{ label: 'Legacy', value: 'legacy' },
 ] as const;
 
-export const appOrder = [
+export const appOrder: string[] = [
 	'More Atlassian Apps',
 	'Jira',
 	'Confluence',

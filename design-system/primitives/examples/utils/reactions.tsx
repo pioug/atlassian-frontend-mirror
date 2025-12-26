@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-export const users = [
+export const users: string[] = [
 	'Daniel Del Core',
 	'Greg Smith',
 	'Luke Underwood',

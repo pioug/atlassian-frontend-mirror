@@ -29,7 +29,7 @@ export const isDateDisabled = (date: string, di: { disabled: string[] }) => {
 	return disabled.indexOf(date) > -1;
 };
 
-export const getParsedISO = (di: { iso: string }) => {
+export const getParsedISO = (di: { iso: string }): string => {
 	const { iso } = di;
 	const [year, month, date] = iso.split('-');
 
@@ -91,7 +91,7 @@ export const formatDate = (
 		dateFormat: string | undefined;
 		l10n: LocalizationProvider;
 	},
-) => {
+): string => {
 	const { formatDisplayLabel, dateFormat, l10n } = di;
 	if (formatDisplayLabel) {
 		return formatDisplayLabel(value, dateFormat || defaultDateFormat);
@@ -105,7 +105,7 @@ export const formatDate = (
 export const getPlaceholder = (di: {
 	placeholder: string | undefined;
 	l10n: LocalizationProvider;
-}) => {
+}): string => {
 	const { placeholder, l10n } = di;
 	return placeholder || l10n.formatDate(placeholderDatetime);
 };

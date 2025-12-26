@@ -24,7 +24,7 @@ export const setHasCloseButtonPropToTrue = 'Set `hasCloseButton` prop to `true`.
 export const useCloseButtonOrNewProp =
 	'Set `hasCloseButton` prop to `true` in `ModalHeader` or use `CloseButton` export if customization is desired.';
 
-export const ruleName = __dirname.split('/').slice(-1)[0];
+export const ruleName: string = __dirname.split('/').slice(-1)[0];
 
 const rule = createLintRule({
 	meta: {

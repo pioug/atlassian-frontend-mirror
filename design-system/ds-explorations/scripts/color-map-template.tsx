@@ -22,7 +22,7 @@ const activeTokens = tokens
 	// @ts-ignore
 	.map((t) => ({ ...t, token: t.token.replaceAll('.[default]', '') }));
 
-export const createColorMapTemplate = () => {
+export const createColorMapTemplate = (): string => {
 	return format(
 		`
 export default {

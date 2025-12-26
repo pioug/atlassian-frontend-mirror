@@ -1,4 +1,4 @@
-export const recommendedSmallIcons = [
+export const recommendedSmallIcons: string[] = [
 	'chevron-double-left',
 	'chevron-double-right',
 	'chevron-down',

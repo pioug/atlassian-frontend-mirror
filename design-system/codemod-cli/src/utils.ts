@@ -32,7 +32,7 @@ const getLineEndingRegex = (type: string) => {
 	}
 };
 
-export const fixLineEnding = (source: string, lineEnding: string) => {
+export const fixLineEnding = (source: string, lineEnding: string): string => {
 	const current = returnLineEnding(source);
 	if (current === lineEnding) {
 		return source;

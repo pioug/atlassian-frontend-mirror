@@ -141,7 +141,7 @@ export const createGuidance = ({
 	size?: Size;
 	shouldUseMigrationPath?: boolean;
 	shouldForceSmallIcon?: boolean;
-}) => {
+}): string => {
 	const size = shouldForceSmallIcon ? 'small' : initialSize;
 
 	const migrationMapObject = getMigrationMapObject(iconPackage);
@@ -257,7 +257,7 @@ export const canMigrateColor = (color: string) => {
 	}
 };
 
-export const locToString = (node: Node) => {
+export const locToString = (node: Node): string => {
 	if (node.range && node.range.length >= 2) {
 		return `${node.range[0]}:${node.range[1]}`;
 	} else {
@@ -659,7 +659,7 @@ const getNewIconNameForRenaming = (
 	return newIconName;
 };
 
-export const getComponentName = (name: string) => {
+export const getComponentName = (name: string): string => {
 	return name
 		.split(/\W/)
 		.map((part) => `${part[0].toUpperCase()}${part.slice(1)}`)

@@ -16,7 +16,7 @@ const styleProperties: Record<'layer', Record<Layer, number>> = {
 	},
 };
 
-export const createStylesFromTemplate = (property: keyof typeof styleProperties) => {
+export const createStylesFromTemplate = (property: keyof typeof styleProperties): string => {
 	if (!styleProperties[property]) {
 		throw new Error(`[codegen] Unknown option found "${property}"`);
 	}

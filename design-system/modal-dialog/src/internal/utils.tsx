@@ -17,7 +17,7 @@ export const width: Width = {
 	defaultValue: 'medium',
 };
 
-export const dialogWidth = (input?: ModalDialogProps['width']) => {
+export const dialogWidth = (input?: ModalDialogProps['width']): string => {
 	if (!input) {
 		return 'auto';
 	}
@@ -32,7 +32,7 @@ export const dialogWidth = (input?: ModalDialogProps['width']) => {
 	return typeof input === 'number' ? `${input}px` : input;
 };
 
-export const dialogHeight = (input?: ModalDialogProps['height']) => {
+export const dialogHeight = (input?: ModalDialogProps['height']): string => {
 	if (!input) {
 		return 'auto';
 	}

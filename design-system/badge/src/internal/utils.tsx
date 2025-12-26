@@ -10,7 +10,7 @@ function getSafeValueWithNegativeSupport(value: string | number = 0) {
 	return numericValue;
 }
 
-export function formatValueWithNegativeSupport(value?: string | number, max?: number) {
+export function formatValueWithNegativeSupport(value?: string | number, max?: number): string {
 	const safeValue = getSafeValueWithNegativeSupport(value);
 	const safeMax = getSafeValueWithNegativeSupport(max);
 	let hasSafeMaxValue = false;
@@ -43,7 +43,7 @@ function getSafeValue(value: string | number = 0) {
 	return value;
 }
 
-export function formatValue(value?: string | number, max?: number) {
+export function formatValue(value?: string | number, max?: number): string {
 	const safeValue = getSafeValue(value);
 	const safeMax = getSafeValue(max);
 

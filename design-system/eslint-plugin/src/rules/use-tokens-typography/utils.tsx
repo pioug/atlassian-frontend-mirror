@@ -25,7 +25,7 @@ import { typographyAdg3 as typographyTokens } from '@atlaskit/tokens/tokens-raw'
 
 import { Import, Root } from '../../ast-nodes';
 
-export const typographyProperties = ['fontSize', 'fontWeight', 'fontFamily', 'lineHeight'];
+export const typographyProperties: string[] = ['fontSize', 'fontWeight', 'fontFamily', 'lineHeight'];
 
 export const isTypographyProperty = (propertyName: string) => {
 	return typographyProperties.includes(propertyName);
@@ -155,13 +155,13 @@ export type FontWeightMap = {
 	bold: string;
 };
 
-export const defaultFontWeight = fontWeightMap.regular;
+export const defaultFontWeight: string = fontWeightMap.regular;
 
 export const fontFamilyTokens: typeof typographyTokens = typographyTokens.filter(
 	(token) => token.attributes.group === 'fontFamily',
 );
 
-export function findFontFamilyValueForToken(tokenName: string) {
+export function findFontFamilyValueForToken(tokenName: string): string {
 	// Note this will only ever be undefined if the tokens get renamed, and should never happen.
 	return fontFamilyTokens.find((token) => token.cleanName === tokenName)?.value || '';
 }

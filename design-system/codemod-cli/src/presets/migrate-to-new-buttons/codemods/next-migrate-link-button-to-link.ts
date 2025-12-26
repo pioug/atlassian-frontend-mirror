@@ -15,7 +15,7 @@ import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
 import { modifyLinkAttributes } from '../utils/generate-link-element';
 import moveIconValueFromLinkButtonPropsToLinkChildren from '../utils/move-icon-value-from-link-button-to-link-children';
 
-function transformer(file: FileInfo, api: API) {
+function transformer(file: FileInfo, api: API): string {
 	const j = api.jscodeshift;
 	const source = j(file.source);
 

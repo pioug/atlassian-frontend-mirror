@@ -3,4 +3,4 @@
  *
  * Used in `SideNavToggleButton` and `SideNavPanelSplitter` tooltips.
  */
-export const sideNavToggleTooltipKeyboardShortcut = ['Ctrl', '['];
+export const sideNavToggleTooltipKeyboardShortcut: string[] = ['Ctrl', '['];

@@ -56,7 +56,7 @@ function buildThemingImportDeclaration(j: core.JSCodeshift, path: ASTPath<Import
 /**
  * Converts all imports of `styled-components` to `@emotion/styled`
  */
-export default function transformer(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) {
+export default function transformer(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options): string {
 	const source = j(fileInfo.source)
 		.find(j.ImportDeclaration)
 		.filter((path: any) => path.node.source.value === 'styled-components')

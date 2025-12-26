@@ -5,4 +5,4 @@ export const PRINT_SETTINGS = {
 export const LINK_ENTRY_POINT = '@atlaskit/link';
 export const LINK_EXPORT_NAME = 'Link';
 
-export const UNSUPPORTED_STYLE_PROPS = ['css', 'style', 'className'];
+export const UNSUPPORTED_STYLE_PROPS: string[] = ['css', 'style', 'className'];

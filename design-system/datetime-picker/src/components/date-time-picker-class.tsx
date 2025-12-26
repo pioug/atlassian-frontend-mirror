@@ -129,7 +129,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 			this.state.timeValue,
 			this.state.zoneValue,
 		);
-	getValue = () => this.props.value ?? this.state.value;
+	getValue = (): string => this.props.value ?? this.state.value;
 
 	parseValue(
 		value: string,

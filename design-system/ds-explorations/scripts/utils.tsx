@@ -48,4 +48,4 @@ export const or =
 	<T extends any>(...fns: BooleanCallback<T>[]) =>
 	(val: T) =>
 		fns.some((fn) => fn(val));
-export const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+export const capitalize = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);

@@ -30,7 +30,7 @@ export function addColorInheritAttributeFix(
 	return ast.JSXElement.addAttribute(node, 'color', 'inherit', fixer);
 }
 
-export const allowedAttrs = ['id', 'data-testid', 'key'];
+export const allowedAttrs: string[] = ['id', 'data-testid', 'key'];
 
 // Only allow elements with strings as children
 // The use of `<FormattedMessage ... />` component and `{formatMessage(...)}` are allowed as these are used for i18n

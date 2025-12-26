@@ -8,9 +8,9 @@ import { isFunction, isWord } from '../../utils/rules';
 
 export const ruleName = 'design-system/no-deprecated-design-token-usage';
 export const messages = stylelint.utils.ruleMessages(ruleName, {
-	invalidToken: (name, replacement) =>
+	invalidToken: (name, replacement): string =>
 		`The token '${name}' has been deprecated. Please use ${replacement} instead.`,
-	deprecatedToken: (name) =>
+	deprecatedToken: (name): string =>
 		`The token '${name}' is deprecated, Please refer to the changelog for guidance on how to migrate. https://atlassian.design/components/tokens/changelog`,
 });
 

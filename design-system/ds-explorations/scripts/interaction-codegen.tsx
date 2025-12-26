@@ -43,7 +43,7 @@ const activeTokens = tokens
 const pressedTokens = activeTokens.filter(compose(pick('token'), isPressed));
 const hoveredTokens = activeTokens.filter(compose(pick('token'), isHovered));
 
-export const createInteractionStylesFromTemplate = (colorProperty: keyof typeof colors) => {
+export const createInteractionStylesFromTemplate = (colorProperty: keyof typeof colors): string => {
 	if (!colors[colorProperty]) {
 		throw new Error(`[codegen] Unknown option found "${colorProperty}"`);
 	}

@@ -137,7 +137,7 @@ export const expectedNodes: string[] = [
 	'export const textCodeInline = createPMNodeSpecFactory<TextCodeInlineNode>({"group":"inline"})',
 ];
 
-export const expectedMarks = [
+export const expectedMarks: string[] = [
 	"import { createPMMarkSpecFactory } from '../../schema/createPMSpecFactory'",
 	"import type { Mark } from '@atlaskit/editor-prosemirror/model'",
 	'export interface AlignmentMarkAttributes {align: "center"|"end"}',

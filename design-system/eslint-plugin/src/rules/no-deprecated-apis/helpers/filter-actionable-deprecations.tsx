@@ -5,7 +5,7 @@ import { getValidatedConfig } from './validate-deprecated-apis-config';
 export const filterActionableDeprecations = (
 	originalDeprecatedConfig: string,
 	rootPackageJson: string,
-) => {
+): string => {
 	// verify the config is valid and parse it to an object
 	const validatedDeprecatedConfig = getValidatedConfig(originalDeprecatedConfig);
 

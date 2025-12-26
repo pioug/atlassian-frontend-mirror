@@ -26,7 +26,7 @@ import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
 
 type UnsupportedMigration = { name: string; reason: 'spreadProps' | 'styleProp' };
 
-export default function transformer(file: FileInfo, api: API) {
+export default function transformer(file: FileInfo, api: API): string {
 	const j = api.jscodeshift;
 	const source = j(file.source);
 

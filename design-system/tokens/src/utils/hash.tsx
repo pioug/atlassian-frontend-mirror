@@ -1,4 +1,4 @@
-export const hash = (str: string) => {
+export const hash = (str: string): string => {
 	let hash = 0;
 	for (let i = 0; i < str.length; i++) {
 		const char = str.charCodeAt(i);

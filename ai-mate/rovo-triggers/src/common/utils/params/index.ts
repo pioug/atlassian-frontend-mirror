@@ -1,8 +1,8 @@
 import { ROVO_PARAM_PREFIX, ROVO_VALID_PARAMS } from './constants';
 import { type BaseRovoChatParams, type RovoChatParams, type ValidParam } from './types';
 
-export const firstCharUpper = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
-export const firstCharLower = (str: string) => str.charAt(0).toLowerCase() + str.slice(1);
+export const firstCharUpper = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
+export const firstCharLower = (str: string): string => str.charAt(0).toLowerCase() + str.slice(1);
 
 const isValidURL = (url: string): boolean => {
 	try {

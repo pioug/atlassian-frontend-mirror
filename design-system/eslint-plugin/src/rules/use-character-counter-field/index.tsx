@@ -14,7 +14,7 @@ export const messageInsideForm =
 export const messageOutsideForm =
 	'When using `maxLength` or `minLength` props with Textfield/Textarea, use `CharacterCounter` from `@atlaskit/form` alongside your input for real-time character count feedback. This ensures accessibility through screen reader announcements and visual feedback. Read more about [standalone character counter](https://atlassian.design/components/form/examples#standalone-charactercounter)';
 
-export const ruleName = __dirname.split('/').slice(-1)[0];
+export const ruleName: string = __dirname.split('/').slice(-1)[0];
 
 /**
  * Check if a node is inside a Form component or Field component

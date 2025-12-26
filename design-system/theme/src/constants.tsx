@@ -6,7 +6,7 @@ import type { Layers } from './types';
 
 export const CHANNEL = '__ATLASKIT_THEME__';
 export const DEFAULT_THEME_MODE = 'light';
-export const THEME_MODES = ['light', 'dark'];
+export const THEME_MODES: string[] = ['light', 'dark'];
 
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}

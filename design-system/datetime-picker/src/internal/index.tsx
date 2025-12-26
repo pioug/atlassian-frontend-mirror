@@ -7,7 +7,7 @@ export const EmptyComponent = () => null;
 // e.g. 18/02/1993 vs. 2/18/1993 and 1:00 PM vs 13:00
 export const placeholderDatetime = new Date(1993, 1, 18, 13);
 
-export const defaultTimes = [
+export const defaultTimes: string[] = [
 	'09:00',
 	'09:30',
 	'10:00',
@@ -32,7 +32,7 @@ export const defaultTimes = [
 export const defaultTimeFormat = 'h:mma';
 export const defaultDateFormat = 'YYYY/MM/DD';
 
-export function padToTwo(number: number) {
+export function padToTwo(number: number): string {
 	return number <= 99 ? `0${number}`.slice(-2) : `${number}`;
 }
 

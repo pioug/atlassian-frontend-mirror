@@ -4,7 +4,7 @@ import resetStyles from './reset';
 import tableStyles from './tables';
 import utilStyles from './utils';
 
-const styleSheet = `
+const styleSheet: string = `
 ${resetStyles}
 ${baseStyles}
 ${tableStyles}

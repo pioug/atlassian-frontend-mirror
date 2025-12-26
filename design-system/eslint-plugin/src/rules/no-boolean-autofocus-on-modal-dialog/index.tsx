@@ -11,7 +11,7 @@ const PROP_NAME = 'autoFocus';
 export const message =
 	"`autoFocus` should be set to a component's `ref` or left to resolve to the default value of `true`. It is recommended to leave it as is for a maximally accessible experience.";
 
-export const ruleName = __dirname.split('/').slice(-1)[0];
+export const ruleName: string = __dirname.split('/').slice(-1)[0];
 
 const rule = createLintRule({
 	meta: {

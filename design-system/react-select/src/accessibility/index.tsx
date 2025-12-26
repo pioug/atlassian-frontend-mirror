@@ -148,7 +148,7 @@ export interface AriaLiveMessages<
 }
 
 export const defaultAriaLiveMessages = {
-	onChange: <Option, IsMulti extends boolean>(props: AriaOnChangeProps<Option, IsMulti>) => {
+	onChange: <Option, IsMulti extends boolean>(props: AriaOnChangeProps<Option, IsMulti>): string => {
 		const { action, label = '', isDisabled } = props;
 
 		switch (action) {
@@ -165,7 +165,7 @@ export const defaultAriaLiveMessages = {
 		}
 	},
 
-	onFilter: (props: AriaOnFilterProps) => {
+	onFilter: (props: AriaOnFilterProps): string => {
 		const { inputValue, resultsMessage } = props;
 		return inputValue ? `${resultsMessage} for search term ${inputValue}.` : '';
 	},

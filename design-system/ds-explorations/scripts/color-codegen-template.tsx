@@ -63,7 +63,7 @@ const activeTokens = bothTokens
 	.filter(compose(pick('token'), not(isPressed)))
 	.filter(compose(pick('token'), not(isHovered)));
 
-export const createColorStylesFromTemplate = (colorProperty: keyof typeof tokenStyles) => {
+export const createColorStylesFromTemplate = (colorProperty: keyof typeof tokenStyles): string => {
 	if (!tokenStyles[colorProperty]) {
 		throw new Error(`[codegen] Unknown option found "${colorProperty}"`);
 	}

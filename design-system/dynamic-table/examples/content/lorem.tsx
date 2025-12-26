@@ -1,4 +1,4 @@
-export const lorem = [
+export const lorem: string[] = [
 	'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 	'Suspendisse tincidunt vehicula eleifend.',
 	'Nunc tristique nisi tortor, at pretium purus interdum sed.',

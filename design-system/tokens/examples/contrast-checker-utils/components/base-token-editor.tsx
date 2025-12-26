@@ -21,7 +21,7 @@ import { getAlpha, getContrastRatio } from '../../../src/utils/color-utils';
 import { isHex } from '../utils/search-params';
 import { type BaseTokens } from '../utils/types';
 
-export const baseTokenNames = palettesBrandRefreshRaw
+export const baseTokenNames: string[] = palettesBrandRefreshRaw
 	.filter((base) => base.attributes.category !== 'opacity')
 	.map(({ path }) => path[path.length - 1]);
 

@@ -15,7 +15,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { type Appearance } from '@atlaskit/button';
 import { type NewCoreIconProps } from '@atlaskit/icon';
-import ShareIcon from '@atlaskit/icon/core/migration/share';
+import ShareIcon from '@atlaskit/icon/core/share';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
 import Portal from '@atlaskit/portal';

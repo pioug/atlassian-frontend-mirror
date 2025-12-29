@@ -3,7 +3,7 @@ import {
 	useAnalyticsEvents,
 	type UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import DownloadIcon from '@atlaskit/icon/core/migration/download';
+import DownloadIcon from '@atlaskit/icon/core/download';
 import {
 	type FileState,
 	type Identifier,

@@ -1,5 +1,12 @@
 # @atlaskit/focused-task-close-account
 
+## 3.2.16
+
+### Patch Changes
+
+- [`70898c8166c77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70898c8166c77) -
+  Icon migration entry point update
+
 ## 3.2.15
 
 ### Patch Changes

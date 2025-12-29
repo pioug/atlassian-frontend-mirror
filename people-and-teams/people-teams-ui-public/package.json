@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/people-teams-ui-public",
-	"version": "3.7.1",
+	"version": "3.7.2",
 	"description": "UI components for public packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,6 +41,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-namespaced-context": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/teams-app-internal-analytics": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -57,6 +58,7 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/react-hooks": "root:*",
 		"@testing-library/user-event": "root:*",
@@ -99,6 +101,11 @@
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"people-teams-update-verified-team-tooltip": {
+			"type": "boolean"
 		}
 	}
 }

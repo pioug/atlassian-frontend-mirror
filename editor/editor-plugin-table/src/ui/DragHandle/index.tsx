@@ -231,11 +231,7 @@ const DragHandleComponent = ({
 					}
 				}}
 				onClick={onClick}
-				aria-label={
-					expValEquals('platform_editor_enghealth_table_plugin_lable_rule', 'isEnabled', true)
-						? formatMessage(messages.dragHandleZone)
-						: undefined
-				}
+				aria-label={formatMessage(messages.dragHandleZone)}
 			/>
 			<button
 				type="button"

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FeedbackIcon from '@atlaskit/icon/core/migration/feedback';
+import FeedbackIcon from '@atlaskit/icon/core/feedback';
 
 import { CopyLinkButton } from '../src/components/CopyLinkButton';
 

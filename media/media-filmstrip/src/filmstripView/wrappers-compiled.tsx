@@ -4,8 +4,8 @@
  */
 import { jsx } from '@compiled/react';
 import React, { type ReactNode, type MouseEvent, forwardRef } from 'react';
-import ArrowLeft from '@atlaskit/icon/core/migration/arrow-left';
-import ArrowRight from '@atlaskit/icon/core/migration/arrow-right';
+import ArrowLeft from '@atlaskit/icon/core/arrow-left';
+import ArrowRight from '@atlaskit/icon/core/arrow-right';
 import { MediaFilmStripListItemSelector } from '.';
 import { css } from '@compiled/react';
 import { N20, N40, B400, B50 } from '@atlaskit/theme/colors';

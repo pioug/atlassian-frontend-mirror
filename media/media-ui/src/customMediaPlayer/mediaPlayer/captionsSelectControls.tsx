@@ -3,7 +3,7 @@ import { type VideoTextTracks } from '../react-video-renderer';
 import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import Tooltip from '@atlaskit/tooltip';
 import { SplitButton } from '@atlaskit/button/new';
-import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { messages } from '../../messages';
 import { formatLocale } from './captions';
 import { PopupSelect, type OptionType, type ValueType } from '@atlaskit/select';

@@ -1,5 +1,13 @@
 # @atlaskit/media-table
 
+## 18.1.2
+
+### Patch Changes
+
+- [`7b2a6c98563cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b2a6c98563cb) -
+  Icon entry point migration update
+- Updated dependencies
+
 ## 18.1.1
 
 ### Patch Changes

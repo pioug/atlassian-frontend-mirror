@@ -18,7 +18,7 @@ import { token } from '@atlaskit/tokens';
 import { N300 } from '@atlaskit/theme/colors';
 import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import TextField from '@atlaskit/textfield';
-import CrossIcon from '@atlaskit/icon/core/migration/cross';
+import CrossIcon from '@atlaskit/icon/core/cross';
 import AkButton from '@atlaskit/button/standard-button';
 import { Text } from '@atlaskit/primitives/compiled';
 import FocusLock from 'react-focus-lock';

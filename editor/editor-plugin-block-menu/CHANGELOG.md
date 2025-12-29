@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.3
+
+### Patch Changes
+
+- [`c94a46ce70f89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c94a46ce70f89) -
+  [ux] File can't be transformed to bullet or ordered list. Disable those options in the 'Turn into'
+  menu.
+
 ## 6.0.2
 
 ### Patch Changes

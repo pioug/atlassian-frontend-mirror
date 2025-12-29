@@ -8,7 +8,7 @@ import {
 	IconWrapper,
 	EmojiWrapper,
 } from './styled';
-import LinkIcon from '@atlaskit/icon/core/migration/link';
+import LinkIcon from '@atlaskit/icon/core/link';
 
 export interface IconAndTitleLayoutProps {
 	emoji?: React.ReactNode;

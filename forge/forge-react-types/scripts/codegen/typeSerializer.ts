@@ -4,6 +4,7 @@ import {
 	type Type as TSType,
 	type UnionTypeNode,
 	type TypeReferenceNode,
+	type Symbol as TSSymbol,
 	SyntaxKind,
 } from 'ts-morph';
 
@@ -139,10 +140,17 @@ const flattenPickType = (
 
 	const serializedProperties = properties
 		.map((prop) => {
-			const propertySignature = prop.getDeclarations()[0] as PropertySignature | undefined;
-			if (!propertySignature) {
-				return null; // Skip if no declaration
+			const propertySignatures = extractPropertySignatures(prop);
+			if (propertySignatures.length === 0) {
+				return null;
+			} else if (propertySignatures.length > 1) {
+				// Currently we only support union type with same property signatures or a superset signature
+				// as we assume this setup is to support gradual type changes behind feature flags.
+				// other use cases are not supported currently.
+				throw new Error(`Unsupported union prop type with multiple different property signatures, ${prop.getName()}`);
 			}
+
+			const propertySignature = propertySignatures[0];
 			const { jsDoc, typeCode } =
 				propertyCallback({
 					propertySignature,
@@ -160,6 +168,70 @@ const flattenPickType = (
 		return '{}'; // If no properties are serialized, return empty object
 	}
 	return `{\n${serializedProperties.map((prop) => (!!prop?.trim() ? `  ${prop}` : '')).join('\n')}\n}`;
+};
+
+// Note: ADS components uses union types to rollout new component type changes gradually (behind feature flags).
+// e.g. LozengeProps = LegacyLozengeProps | NewLozengeProps
+// In such cases, we need to consolidate property signatures from all union members.
+const extractPropertySignatures = (prop: TSSymbol): PropertySignature[] => {
+	const declarations = prop.getDeclarations();
+	if (!declarations) {
+		return [];
+	}
+	const signatures = declarations.filter((decl) => decl.getKind() === SyntaxKind.PropertySignature) as PropertySignature[];
+	if (signatures.length <= 1) {
+		return signatures;
+	}
+
+	// consolidate signatures if they are exactly the same
+	const uniqSignatures: PropertySignature[] = [];
+	const signatureTexts = new Set<string>();
+	for (const sig of signatures) {
+		const sigText = sig.getText();
+		if (!signatureTexts.has(sigText)) {
+			signatureTexts.add(sigText);
+			uniqSignatures.push(sig);
+		}
+	}
+
+	// next we should find one that's the supperset of others
+	if (uniqSignatures.length <= 1) {
+		return uniqSignatures;
+	}
+
+	const supersetSignatures: PropertySignature[] = [];
+	for (const sig of uniqSignatures) {
+		const sigType = sig.getType();
+		let isSuperset = true;
+		for (const otherSig of uniqSignatures) {
+			if (sig === otherSig) {
+				continue;
+			}
+			const otherSigType = otherSig.getType();
+			if (!isTypeAssignableTo(prop, otherSigType, sigType)) {
+				isSuperset = false;
+				break;
+			}
+		}
+		if (isSuperset) {
+			supersetSignatures.push(sig);
+		}
+	}
+
+	if (supersetSignatures.length > 0) {
+		return supersetSignatures;
+	}
+	return uniqSignatures;
+};
+
+const isTypeAssignableTo = (prop: TSSymbol, sourceType: TSType, targetType: TSType): boolean => {
+	const typeChecker = prop.getDeclarations()[0].getProject().getTypeChecker().compilerObject;
+
+	// ts typecker has an intneral method `isTypeAssignableTo` we can leverage here:
+	//   https://github.com/microsoft/TypeScript/pull/56448
+	return (typeChecker as unknown as {
+		isTypeAssignableTo: (source: unknown, target: unknown) => boolean;
+	}).isTypeAssignableTo(sourceType.compilerType, targetType.compilerType);
 };
 
 const getUnresolvableTypes = (tsType: TSType) => {

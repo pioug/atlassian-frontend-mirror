@@ -12,7 +12,7 @@ import EmojiPicker, {
 import { EmojiTypeAheadTextInput } from './03-standard-emoji-typeahead';
 import { Popup } from '@atlaskit/popup';
 import { IconButton } from '@atlaskit/button/new';
-import EmojiAddIcon from '@atlaskit/icon/core/migration/emoji-add';
+import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
 /**
  * Emoji Picker in Popup
  * @param emojiProvider

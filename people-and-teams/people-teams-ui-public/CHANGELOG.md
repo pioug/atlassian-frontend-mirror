@@ -1,5 +1,12 @@
 # @atlaskit/people-teams-ui-public
 
+## 3.7.2
+
+### Patch Changes
+
+- [`d224ac296fda5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d224ac296fda5) -
+  Update the wording in verified icon to align with team types changes
+
 ## 3.7.1
 
 ### Patch Changes

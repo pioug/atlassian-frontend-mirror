@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 17.3.0
+
+### Minor Changes
+
+- [`02ec75b8f75de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02ec75b8f75de) -
+  Updated border radius behind a feature gate.
+
 ## 17.2.3
 
 ### Patch Changes

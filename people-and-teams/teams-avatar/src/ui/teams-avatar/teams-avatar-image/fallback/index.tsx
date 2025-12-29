@@ -22,16 +22,12 @@ const styles = cssMap({
 	},
 });
 
-export function FallbackAvatar(
-	props: React.SVGProps<SVGSVGElement> & { compact?: boolean },
-): React.JSX.Element {
+export function FallbackAvatar({
+	compact,
+	...props
+}: React.SVGProps<SVGSVGElement> & { compact?: boolean }): React.JSX.Element {
 	return (
-		<Box
-			xcss={cx(
-				styles.wrapper,
-				props.compact ? styles.compactWrapperSpacing : styles.wrapperSpacing,
-			)}
-		>
+		<Box xcss={cx(styles.wrapper, compact ? styles.compactWrapperSpacing : styles.wrapperSpacing)}>
 			<svg
 				width="32"
 				height="32"

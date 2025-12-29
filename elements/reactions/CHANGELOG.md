@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 33.8.6
+
+### Patch Changes
+
+- [`7b2a6c98563cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b2a6c98563cb) -
+  Icon entry point migration update
+- Updated dependencies
+
 ## 33.8.5
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlassian/give-kudos
 
+## 4.5.1
+
+### Patch Changes
+
+- [`70898c8166c77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70898c8166c77) -
+  Icon migration entry point update
+
 ## 4.5.0
 
 ### Minor Changes

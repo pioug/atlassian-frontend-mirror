@@ -21,7 +21,7 @@ import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
-import DownloadIcon from '@atlaskit/icon/core/migration/download';
+import DownloadIcon from '@atlaskit/icon/core/download';
 import { LOCAL_WIDTH_VARIABLE } from '../../card/ui/wrapper/wrapper-compiled';
 
 const identifier = {

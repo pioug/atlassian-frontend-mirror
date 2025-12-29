@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import EmailIcon from '@atlaskit/icon/core/migration/email';
+import EmailIcon from '@atlaskit/icon/core/email';
 import { N40, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766

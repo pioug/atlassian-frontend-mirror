@@ -3,7 +3,7 @@ import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { N40 } from '@atlaskit/theme/colors';
-import DownloadIcon from '@atlaskit/icon/core/migration/download';
+import DownloadIcon from '@atlaskit/icon/core/download';
 import Button from '@atlaskit/button/custom-theme-button';
 import { messages } from '@atlaskit/media-ui';
 // eslint-disable-next-line import/no-extraneous-dependencies

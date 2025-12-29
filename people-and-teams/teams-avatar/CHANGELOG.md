@@ -1,5 +1,12 @@
 # @atlaskit/teams-avatar
 
+## 2.4.7
+
+### Patch Changes
+
+- [`691996ef8e666`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/691996ef8e666) -
+  Minor eslint formatting changes
+
 ## 2.4.6
 
 ### Patch Changes

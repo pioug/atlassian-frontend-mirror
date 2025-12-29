@@ -58,7 +58,7 @@ test.describe('collab', () => {
 				),
 			),
 		);
-		await expect(page).toBeAccessible({ violationCount: 3 });
+		await expect(page).toBeAccessible({ violationCount: 2 });
 	});
 
 	test('offline should resync', async ({ firstEditor, secondEditor, thirdEditor, page }) => {

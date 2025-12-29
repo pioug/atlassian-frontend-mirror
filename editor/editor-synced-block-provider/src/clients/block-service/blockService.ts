@@ -32,10 +32,17 @@ export const isBlockContentResponse = (
 	return typeof content === 'string';
 };
 
+type GetDocumentReferenceBlocksGraphQLResponse = {
+	data?: {
+		blockService_getDocumentReferenceBlocks: ReferenceSyncedBlockResponse;
+	};
+	errors?: Array<{ message: string }>;
+};
+
 /**
  * Retrieves all synced blocks referenced in a document.
  *
- * Calls the Block Service API endpoint: `/v1/block/document/reference/{documentAri}`
+ * Calls the Block Service GraphQL API: `blockService_getDocumentReferenceBlocks`
  *
  * @param documentAri - The ARI of the document to fetch synced blocks for
  * @returns A promise containing arrays of successfully fetched blocks and any errors encountered
@@ -72,24 +79,36 @@ export const isBlockContentResponse = (
  *   ]
  * }
  * ```
- * Check https://block-service.dev.atl-paas.net/ for latest API documentation.
  */
 export const getReferenceSyncedBlocks = async (
 	documentAri: string,
 ): Promise<ReferenceSyncedBlockResponse> => {
-	const response = await fetchWithRetry(
-		`${BLOCK_SERVICE_API_URL}/block/document/reference/${encodeURIComponent(documentAri)}`,
-		{
-			method: 'GET',
-			headers: COMMON_HEADERS,
-		},
-	);
+	const bodyData = {
+		query: buildGetDocumentReferenceBlocksQuery(documentAri),
+		operationName: GET_DOCUMENT_REFERENCE_BLOCKS_OPERATION_NAME,
+	};
+
+	const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
+		method: 'POST',
+		headers: COMMON_HEADERS,
+		body: JSON.stringify(bodyData),
+	});
 
 	if (!response.ok) {
 		throw new BlockError(response.status);
 	}
 
-	return await response.json();
+	const result = (await response.json()) as GetDocumentReferenceBlocksGraphQLResponse;
+
+	if (result.errors && result.errors.length > 0) {
+		throw new Error(result.errors.map((e) => e.message).join(', '));
+	}
+
+	if (!result.data) {
+		throw new Error('No data returned from GraphQL query');
+	}
+
+	return result.data.blockService_getDocumentReferenceBlocks;
 };
 
 export type GetSyncedBlockContentRequest = {
@@ -132,6 +151,30 @@ const COMMON_HEADERS = {
 };
 
 const BLOCK_SERVICE_API_URL = '/gateway/api/blocks/v1';
+const GRAPHQL_ENDPOINT = '/gateway/api/graphql';
+
+const GET_DOCUMENT_REFERENCE_BLOCKS_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_GET_DOCUMENT_REFERENCE_BLOCKS';
+
+const buildGetDocumentReferenceBlocksQuery = (documentAri: string) => `query ${GET_DOCUMENT_REFERENCE_BLOCKS_OPERATION_NAME} {
+	blockService_getDocumentReferenceBlocks(documentAri: "${documentAri}") {
+		blocks {
+			blockAri
+			blockInstanceId
+			content
+			createdAt
+			createdBy
+			product
+			sourceAri
+			status
+			version
+		}
+		errors {
+			blockAri
+			code
+			reason
+		}
+	}
+}`;
 
 export class BlockError extends Error {
 	constructor(public readonly status: number) {
@@ -203,7 +246,7 @@ export const createSyncedBlock = async ({
 	content,
 	stepVersion,
 }: CreateSyncedBlockRequest): Promise<BlockContentResponse> => {
-	const requestBody: { blockAri: string; blockInstanceId: string; sourceAri: string; product: SyncBlockProduct; content: string; stepVersion?: number } = {
+	const requestBody: { blockAri: string; blockInstanceId: string; content: string; product: SyncBlockProduct; sourceAri: string; stepVersion?: number } = {
 		blockAri,
 		blockInstanceId,
 		sourceAri,

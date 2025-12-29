@@ -23,13 +23,20 @@ export const useFetchSyncBlockData = (
 	localId?: string,
 	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
 ): UseFetchSyncBlockDataResult => {
-	const [syncBlockInstance, setSyncBlockInstance] = useState<SyncBlockInstance | null>(() => {
+	// Initialize both states from a single cache lookup to avoid race conditions.
+	// When a block is moved/remounted, the old component's cleanup may clear the cache
+	// before or after the new component mounts. By doing a single lookup, we ensure
+	// consistency between syncBlockInstance and isLoading initial values.
+	const [{ syncBlockInstance, isLoading }, setFetchState] = useState(() => {
 		if (resourceId) {
-			return manager?.referenceManager?.getInitialSyncBlockData(resourceId) ?? null;
+			const initialData = manager?.referenceManager?.getInitialSyncBlockData(resourceId);
+			return {
+				syncBlockInstance: initialData ?? null,
+				isLoading: initialData === undefined,
+			};
 		}
-		return null;
+		return { syncBlockInstance: null, isLoading: true };
 	});
-	const [isLoading, setIsLoading] = useState(true);
 
 	const reloadData = useCallback(async () => {
 		if (isLoading) {
@@ -42,7 +49,7 @@ export const useFetchSyncBlockData = (
 				throw new Error('Failed to create sync block node from resourceid and localid');
 			}
 
-			setIsLoading(true);
+			setFetchState((prev) => ({ ...prev, isLoading: true }));
 
 			// Fetch sync block data, the `subscribeToSyncBlock` will update the state once data is fetched
 			await manager.referenceManager.fetchSyncBlocksData([syncBlockNode]);
@@ -53,12 +60,16 @@ export const useFetchSyncBlockData = (
 			fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message));
 
 			// Set error state if fetching fails
-			setSyncBlockInstance({
-				resourceId: resourceId || '',
-				error: SyncBlockError.Errored,
+			setFetchState({
+				syncBlockInstance: {
+					resourceId: resourceId || '',
+					error: SyncBlockError.Errored,
+				},
+				isLoading: false,
 			});
+			return;
 		}
-		setIsLoading(false);
+		setFetchState((prev) => ({ ...prev, isLoading: false }));
 	}, [isLoading, localId, manager.referenceManager, resourceId, fireAnalyticsEvent]);
 
 	useEffect(() => {
@@ -66,8 +77,7 @@ export const useFetchSyncBlockData = (
 			resourceId || '',
 			localId || '',
 			(data: SyncBlockInstance) => {
-				setSyncBlockInstance(data);
-				setIsLoading(false);
+				setFetchState({ syncBlockInstance: data, isLoading: false });
 			},
 		);
 

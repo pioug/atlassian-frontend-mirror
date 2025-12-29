@@ -10,6 +10,7 @@ import { css, jsx } from '@compiled/react';
 import { IconButton } from '@atlaskit/button/new';
 import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import CrossIcon from '@atlaskit/icon/core/cross';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B400, N0, N20A, N30A, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -46,6 +47,10 @@ const buttonWrapperBaseStyles = css({
 	},
 });
 
+const buttonWrapperBaseStylesT26Shape = css({
+	borderRadius: token('radius.medium', '6px'),
+});
+
 interface ButtonsProp {
 	confirmButtonLabel: string;
 	cancelButtonLabel: string;
@@ -63,7 +68,13 @@ const Buttons = ({
 }: ButtonsProp) => {
 	return (
 		<div css={buttonsContainerStyles}>
-			<div css={buttonWrapperBaseStyles} tabIndex={-1}>
+			<div
+				css={[
+					buttonWrapperBaseStyles,
+					fg('platform-dst-shape-theme-default') && buttonWrapperBaseStylesT26Shape,
+				]}
+				tabIndex={-1}
+			>
 				<IconButton
 					type="submit"
 					icon={(iconProps) => <CheckMarkIcon {...iconProps} size="small" />}
@@ -72,7 +83,13 @@ const Buttons = ({
 					testId={testId && `${testId}--confirm`}
 				/>
 			</div>
-			<div css={buttonWrapperBaseStyles} tabIndex={-1}>
+			<div
+				css={[
+					buttonWrapperBaseStyles,
+					fg('platform-dst-shape-theme-default') && buttonWrapperBaseStylesT26Shape,
+				]}
+				tabIndex={-1}
+			>
 				<IconButton
 					icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
 					label={cancelButtonLabel}

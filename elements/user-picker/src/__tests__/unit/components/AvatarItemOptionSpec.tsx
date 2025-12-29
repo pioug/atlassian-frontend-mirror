@@ -2,7 +2,7 @@ import { mount } from 'enzyme';
 import React, { type ReactNode } from 'react';
 import { type LozengeProps } from '../../../types';
 import { AvatarItemOption } from '../../../components/AvatarItemOption';
-import ChevronRightIcon from '@atlaskit/icon/core/migration/chevron-right';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 
 jest.mock('@atlaskit/tooltip', () => ({
 	...jest.requireActual<any>('@atlaskit/tooltip'),

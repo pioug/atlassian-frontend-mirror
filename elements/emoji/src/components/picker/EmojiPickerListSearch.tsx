@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import SearchIcon from '@atlaskit/icon/core/migration/search';
+import SearchIcon from '@atlaskit/icon/core/search';
 import TextField from '@atlaskit/textfield';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 import { css, jsx } from '@compiled/react';

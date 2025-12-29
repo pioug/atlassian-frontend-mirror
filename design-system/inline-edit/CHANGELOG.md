@@ -1,5 +1,12 @@
 # @atlaskit/inline-edit
 
+## 15.5.0
+
+### Minor Changes
+
+- [`02ec75b8f75de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02ec75b8f75de) -
+  Updated border radius behind a feature gate.
+
 ## 15.4.2
 
 ### Patch Changes

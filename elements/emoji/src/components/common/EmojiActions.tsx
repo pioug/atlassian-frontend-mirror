@@ -23,7 +23,7 @@ import ToneSelector from './ToneSelector';
 import { EmojiPickerListSearch } from '../picker/EmojiPickerListSearch';
 import { messages } from '../i18n';
 import AkButton from '@atlaskit/button/standard-button';
-import AddIcon from '@atlaskit/icon/core/migration/add';
+import AddIcon from '@atlaskit/icon/core/add';
 import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
 import { emojiPickerAddEmoji } from './styles';
 import { DEFAULT_TONE } from '../../util/constants';

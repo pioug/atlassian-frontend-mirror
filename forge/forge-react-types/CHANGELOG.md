@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 0.52.2
+
+### Patch Changes
+
+- [`baaa9523c646c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/baaa9523c646c) -
+  Update Lozenge and Badge prop types
+
 ## 0.52.1
 
 ### Patch Changes

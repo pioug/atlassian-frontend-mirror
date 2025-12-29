@@ -35,6 +35,8 @@ type SelectionToolbarOpenExperienceOptions = {
  * Success: When the selection toolbar is added to the DOM within 1000ms of start
  * Failure: When 1000ms passes without the selection toolbar being added to the DOM
  * Abort: When selection transitions to empty or block menu is opened
+ *
+ * @see https://hello.atlassian.net/wiki/spaces/EDITOR/pages/6262117789/Experience+tracking+Selection+toolbar+open
  */
 export const getSelectionToolbarOpenExperiencePlugin = ({
 	refs,
@@ -122,7 +124,7 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 						experience.start({ method: START_METHOD.MOUSE_UP });
 					}
 				},
-				dblclick: (view: EditorView, e: MouseEvent) => {
+				dblclick: (view: EditorView) => {
 					if (
 						isSelectionWithoutTextContent(view.state.selection) ||
 						isSelectionWithinCodeBlock(view.state.selection) ||

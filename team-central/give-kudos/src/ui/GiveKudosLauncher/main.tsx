@@ -12,8 +12,8 @@ import { IconButton } from '@atlaskit/button/new';
 import Button from '@atlaskit/button/standard-button';
 import { cssMap, jsx } from '@atlaskit/css';
 import { Drawer } from '@atlaskit/drawer';
+import ArrowLeft from '@atlaskit/icon/core/arrow-left';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import ArrowLeft from '@atlaskit/icon/core/migration/arrow-left';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import Link from '@atlaskit/link';
 import Modal, {
@@ -240,7 +240,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 					if (eventData.eventType && isFlagEventTypeValue(eventData.eventType)) {
 						createFlagWithJsonStringifiedInput(eventData);
 					}
-				} catch (e) {
+				} catch (_e) {
 					// Swallow any errors
 				}
 			}

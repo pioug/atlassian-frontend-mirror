@@ -480,15 +480,7 @@ const DragMenu = React.memo(
 							<div css={toggleStyles}>
 								<Toggle
 									id="toggle-header-column"
-									label={
-										expValEquals(
-											'platform_editor_enghealth_table_plugin_lable_rule',
-											'isEnabled',
-											true,
-										)
-											? formatMessage(messages.headerColumn)
-											: undefined
-									}
+									label={formatMessage(messages.headerColumn)}
 									onChange={toggleHeaderColumn}
 									isChecked={checkIfHeaderColumnEnabled(selection)}
 								/>
@@ -504,15 +496,7 @@ const DragMenu = React.memo(
 							<div css={toggleStyles}>
 								<Toggle
 									id="toggle-header-row"
-									label={
-										expValEquals(
-											'platform_editor_enghealth_table_plugin_lable_rule',
-											'isEnabled',
-											true,
-										)
-											? formatMessage(messages.headerRow)
-											: undefined
-									}
+									label={formatMessage(messages.headerRow)}
 									onChange={toggleHeaderRow}
 									isChecked={checkIfHeaderRowEnabled(selection)}
 								/>
@@ -531,11 +515,7 @@ const DragMenu = React.memo(
 					<div css={toggleStyles}>
 						<Toggle
 							id="toggle-row-numbers"
-							label={
-								expValEquals('platform_editor_enghealth_table_plugin_lable_rule', 'isEnabled', true)
-									? formatMessage(messages.numberedColumn)
-									: undefined
-							}
+							label={formatMessage(messages.numberedColumn)}
 							onChange={toggleRowNumbers}
 							isChecked={checkIfNumberColumnEnabled(selection)}
 						/>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DownloadIcon from '@atlaskit/icon/core/migration/download';
+import DownloadIcon from '@atlaskit/icon/core/download';
 import {
 	ArchiveDownloadButtonWrapper,
 	DisabledArchiveDownloadButtonWrapper,

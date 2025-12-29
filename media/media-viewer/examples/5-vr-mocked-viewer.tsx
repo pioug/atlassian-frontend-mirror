@@ -1,7 +1,7 @@
 import React from 'react';
 import { canUseDOM } from 'exenv';
 import Button from '@atlaskit/button/standard-button';
-import ArrowRightIcon from '@atlaskit/icon/core/migration/arrow-right';
+import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
 import DetailViewIcon from '@atlaskit/icon/core/layout-two-columns-sidebar-left';
 import { MediaClient, type Identifier } from '@atlaskit/media-client';
 import { MediaClientContext } from '@atlaskit/media-client-react';

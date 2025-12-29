@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.3.1
+
+### Patch Changes
+
+- [`1112caa726b84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1112caa726b84) -
+  Clean up platform_editor_enghealth_table_plugin_lable_rule experiment - Add accessibility labels
+  to table drag handles and toggles by default
+
 ## 16.3.0
 
 ### Minor Changes

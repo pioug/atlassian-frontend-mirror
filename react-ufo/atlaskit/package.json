@@ -94,7 +94,7 @@
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@types/is-ci": "root:*",
 		"is-ci": "root:*"
 	},

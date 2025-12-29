@@ -40,8 +40,8 @@ export const canParentContainNodeType = (
 		nodesThatCantBeNestedInNestedExpand.includes(selectedNodeTypeName) &&
 		(adjustedNodeTypeName === 'expand' || adjustedNodeTypeName === 'nestedExpand')
 	) {
-		const table = schema.nodes[selectedNodeTypeName];
-		content = table.createAndFill();
+		const node = schema.nodes[selectedNodeTypeName];
+		content = node.createAndFill();
 	}
 
 	return parentNode.type.validContent(

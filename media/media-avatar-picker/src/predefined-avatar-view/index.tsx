@@ -8,7 +8,7 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 import { type Avatar } from '../avatar-list';
 
-import ArrowLeftIcon from '@atlaskit/icon/core/migration/arrow-left';
+import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
 import Button from '@atlaskit/button/standard-button';
 
 import { B200, B100 } from '@atlaskit/theme/colors';

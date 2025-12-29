@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ArrowLeftIcon from '@atlaskit/icon/core/migration/arrow-left';
-import HomeIcon from '@atlaskit/icon/core/migration/home';
+import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
+import HomeIcon from '@atlaskit/icon/core/home';
 
 import { getFormattedFolderName } from '../../utils';
 import { SidebarHeaderEntry, SidebarHeaderIcon, SidebarHeaderWrapper } from './styleWrappers';

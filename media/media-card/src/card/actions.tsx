@@ -1,7 +1,7 @@
 import React from 'react';
 import { type FileItem, type FileDetails } from '@atlaskit/media-client';
 import { type ReactNode } from 'react';
-import DownloadIcon from '@atlaskit/icon/core/migration/download';
+import DownloadIcon from '@atlaskit/icon/core/download';
 import { messages } from '@atlaskit/media-ui';
 import { type MessageDescriptor } from 'react-intl-next';
 import { token } from '@atlaskit/tokens';

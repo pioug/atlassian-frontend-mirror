@@ -45,6 +45,11 @@ export class ReferenceSyncBlockStoreManager {
 	private syncBlockFetchDataRequests: Map<ResourceId, boolean>;
 	private syncBlockSourceInfoRequests: Map<ResourceId, boolean>;
 	private isRefreshingSubscriptions: boolean = false;
+	// Track pending cache deletions to handle block moves (unmount/remount)
+	// When a block is moved, the old component unmounts before the new one mounts,
+	// causing the cache to be deleted prematurely. We delay deletion to allow
+	// the new component to subscribe and cancel the pending deletion.
+	private pendingCacheDeletions: Map<ResourceId, ReturnType<typeof setTimeout>>;
 
 	constructor(dataProvider?: SyncBlockDataProvider) {
 		this.syncBlockCache = new Map();
@@ -54,6 +59,7 @@ export class ReferenceSyncBlockStoreManager {
 		this.syncBlockFetchDataRequests = new Map();
 		this.syncBlockSourceInfoRequests = new Map();
 		this.providerFactories = new Map();
+		this.pendingCacheDeletions = new Map();
 	}
 
 	public setFireAnalyticsEvent(
@@ -288,6 +294,16 @@ export class ReferenceSyncBlockStoreManager {
 		localId: string,
 		callback: SubscriptionCallback,
 	): () => void {
+		// Cancel any pending cache deletion for this resourceId.
+		// This handles the case where a block is moved - the old component unmounts
+		// (scheduling deletion) but the new component mounts and subscribes before
+		// the deletion timeout fires.
+		const pendingDeletion = this.pendingCacheDeletions.get(resourceId);
+		if (pendingDeletion) {
+			clearTimeout(pendingDeletion);
+			this.pendingCacheDeletions.delete(resourceId);
+		}
+
 		// add to subscriptions map
 		const resourceSubscriptions = this.subscriptions.get(resourceId) || {};
 		this.subscriptions.set(resourceId, { ...resourceSubscriptions, [localId]: callback });
@@ -322,7 +338,19 @@ export class ReferenceSyncBlockStoreManager {
 				delete resourceSubscriptions[localId];
 				if (Object.keys(resourceSubscriptions).length === 0) {
 					this.subscriptions.delete(resourceId);
-					this.deleteFromCache(resourceId);
+					// Delay cache deletion to handle block moves (unmount/remount).
+					// When a block is moved, the old component unmounts before the new one mounts.
+					// By delaying deletion, we give the new component time to subscribe and
+					// cancel this pending deletion, preserving the cached data.
+					// TODO: EDITOR-4152 - Rework this logic 
+					const deletionTimeout = setTimeout(() => {
+						// Only delete if still no subscribers (wasn't re-subscribed)
+						if (!this.subscriptions.has(resourceId)) {
+							this.deleteFromCache(resourceId);
+						}
+						this.pendingCacheDeletions.delete(resourceId);
+					}, 1000);
+					this.pendingCacheDeletions.set(resourceId, deletionTimeout);
 				} else {
 					this.subscriptions.set(resourceId, resourceSubscriptions);
 				}

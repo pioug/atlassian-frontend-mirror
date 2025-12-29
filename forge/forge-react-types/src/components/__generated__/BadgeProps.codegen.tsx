@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - BadgeProps
  *
- * @codegen <<SignedSource::dded43c94e5bc997c5df041eeb253927>>
+ * @codegen <<SignedSource::9d4cb948f5d6ac145a3d3e82ab8cfa92>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/badge/__generated__/index.partial.tsx <<SignedSource::002a848f01b18a8dea0ea160d731edbf>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/badge/__generated__/index.partial.tsx <<SignedSource::f9bf0bacecb91875eab391c4148409c1>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -25,7 +25,7 @@ type _PlatformBadgeProps = {
   /**
 	 * Affects the visual style of the badge.
 	 */
-	appearance?: 'added' | 'default' | 'important' | 'primary' | 'primaryInverted' | 'removed';
+	appearance?: 'added' | 'default' | 'important' | 'primary' | 'primaryInverted' | 'removed' | 'warning' | 'discovery' | 'danger' | 'neutral' | 'success' | 'information' | 'inverse';
   
 	children?: React.ReactNode;
   /**

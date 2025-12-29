@@ -119,11 +119,9 @@ const newGetSelection = (doc: PMNode, selectionEmpty: boolean, start: number) =>
 	}
 
 	const isParagraphHeadingEmpty =
-		['paragraph', 'heading'].includes(nodeName || '') && selectionEmpty && node?.childCount === 0;
+		['paragraph', 'heading'].includes(nodeName || '') && node?.childCount === 0;
 	const isListEmpty =
-		['orderedList', 'bulletList', 'taskList'].includes(nodeName || '') &&
-		selectionEmpty &&
-		node?.textContent === '';
+		['orderedList', 'bulletList', 'taskList'].includes(nodeName || '') && node?.textContent === '';
 
 	// if block menu and empty line format menu are enabled,
 	// we want to set the selection to avoid the selection goes to the top of the document

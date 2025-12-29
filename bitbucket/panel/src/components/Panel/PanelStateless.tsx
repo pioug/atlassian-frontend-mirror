@@ -4,8 +4,8 @@ import AnimateHeight from 'react-animate-height';
 import { defineMessages, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
-import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
-import ChevronRightIcon from '@atlaskit/icon/core/migration/chevron-right';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import * as styles from './styledPanel';

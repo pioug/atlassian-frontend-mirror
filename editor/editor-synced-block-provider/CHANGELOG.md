@@ -1,5 +1,19 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.2.0
+
+### Minor Changes
+
+- [`b7db97837674e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7db97837674e) -
+  Use GraphQL endpoint for fetching references on a document instead of Rest API
+
+## 3.1.0
+
+### Minor Changes
+
+- [`324fe88e2a5e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/324fe88e2a5e0) -
+  EDITOR-4048 Stop flickering on repositioning of synced blocks
+
 ## 3.0.0
 
 ### Patch Changes

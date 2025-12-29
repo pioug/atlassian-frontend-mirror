@@ -177,6 +177,8 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		layoutSection: [wrapIntoLayoutStep],
 		codeBlock: null,
 		decisionList: null,
+		bulletList: null,
+		orderedList: null,
 		taskList: null,
 	},
 	decisionList: {

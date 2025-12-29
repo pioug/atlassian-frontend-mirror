@@ -3,6 +3,8 @@ import React from 'react';
 import { act, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { renderWithIntl } from '../../common/utils/test';
 
 import { VerifiedTeamIcon } from './main';
@@ -14,20 +16,47 @@ describe('VerifiedTeamIcon', () => {
 		expect(screen.getByLabelText('Verified Team')).toBeVisible();
 	});
 
-	it('should render the icon with a default tooltip if showTooltip is passed', async () => {
-		renderWithIntl(<VerifiedTeamIcon showTooltip />);
-		const verifiedTeamIcon = screen.getByTestId('verified-team-icon');
-		expect(verifiedTeamIcon).toBeVisible();
+	ffTest.off(
+		'people-teams-update-verified-team-tooltip',
+		'should render the icon with updated tooltip when feature flag is on',
+		() => {
+			it('should render the icon with a default tooltip if showTooltip is passed', async () => {
+				renderWithIntl(<VerifiedTeamIcon showTooltip />);
+				const verifiedTeamIcon = screen.getByTestId('verified-team-icon');
+				expect(verifiedTeamIcon).toBeVisible();
 
-		await act(async () => {
-			await userEvent.hover(verifiedTeamIcon);
-		});
+				await act(async () => {
+					await userEvent.hover(verifiedTeamIcon);
+				});
 
-		expect(await screen.findByRole('tooltip')).toBeInTheDocument();
-		expect(await screen.findByRole('tooltip')).toHaveTextContent(
-			/^Managed teams are verified because they can only be changed by an admin./,
-		);
-	});
+				expect(await screen.findByRole('tooltip')).toBeInTheDocument();
+				expect(await screen.findByRole('tooltip')).toHaveTextContent(
+					/managed teams are verified because they can only be changed by an admin/i,
+				);
+			});
+		},
+	);
+
+	ffTest.on(
+		'people-teams-update-verified-team-tooltip',
+		'should render the icon with updated tooltip when feature flag is on',
+		() => {
+			it('should render the icon with a default tooltip if showTooltip is passed', async () => {
+				renderWithIntl(<VerifiedTeamIcon showTooltip />);
+				const verifiedTeamIcon = screen.getByTestId('verified-team-icon');
+				expect(verifiedTeamIcon).toBeVisible();
+
+				await act(async () => {
+					await userEvent.hover(verifiedTeamIcon);
+				});
+
+				expect(await screen.findByRole('tooltip')).toBeInTheDocument();
+				expect(await screen.findByRole('tooltip')).toHaveTextContent(
+					/this team is verified because it can only be changed by admin/i,
+				);
+			});
+		},
+	);
 
 	it('should render the icon with a custom tooltip if both showTooltip and customTooltipContent are passed', async () => {
 		renderWithIntl(<VerifiedTeamIcon showTooltip customTooltipContent="Custom tooltip content" />);

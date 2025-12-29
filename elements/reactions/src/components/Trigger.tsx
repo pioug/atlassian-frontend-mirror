@@ -7,7 +7,7 @@ import { defineMessages, useIntl } from 'react-intl-next';
 import { type AnalyticsEvent, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Tooltip from '@atlaskit/tooltip';
 import { token } from '@atlaskit/tokens';
-import EmojiAddIcon from '@atlaskit/icon/core/migration/emoji-add';
+import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 

@@ -719,11 +719,12 @@ We have some formatting here
 					});
 					fireEvent.click(submitBtn);
 					await waitFor(() => {
-						if (process.env.IS_REACT_18) {
-							expect(mocked.mock.calls?.[3]?.[0]).toBe(expected);
-						} else {
-							expect(mocked.mock.calls?.[4]?.[0]).toBe(expected);
-						}
+						const calls = mocked.mock.calls;
+						const hasExpectedCall = calls.some(call => {
+							const url = typeof call[0] === 'string' ? call[0] : call[0]?.url;
+							return url === expected;
+						});
+						expect(hasExpectedCall).toBe(true);
 					});
 				},
 			);

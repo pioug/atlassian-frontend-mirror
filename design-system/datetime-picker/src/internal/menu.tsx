@@ -10,6 +10,7 @@ import { isValid, parseISO } from 'date-fns';
 import Calendar from '@atlaskit/calendar';
 import { css, jsx } from '@atlaskit/css';
 import { Layering } from '@atlaskit/layering';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type MenuProps } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
@@ -44,6 +45,10 @@ const menuStyles = css({
 	overflow: 'hidden',
 });
 
+const menuStylesT26Shape = css({
+	borderRadius: token('radius.large'),
+});
+
 /**
  * This is the menu used in the select of the date picker.
  */
@@ -74,7 +79,11 @@ export const Menu = ({ selectProps, innerProps }: MenuProps<any>) => {
 					// firing. This is passed in via the `innerProps`. Therefore, we must
 					// pass it in *after* the `innerProps` spread.
 					// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
-					<div css={menuStyles} {...innerProps} onMouseDown={onMenuMouseDown}>
+					<div
+						css={[menuStyles, fg('platform-dst-shape-theme-default') && menuStylesT26Shape]}
+						{...innerProps}
+						onMouseDown={onMenuMouseDown}
+					>
 						<Wrapper>
 							<Calendar
 								day={day}

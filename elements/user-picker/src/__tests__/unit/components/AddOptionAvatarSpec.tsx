@@ -1,4 +1,4 @@
-import EmailIcon from '@atlaskit/icon/core/migration/email';
+import EmailIcon from '@atlaskit/icon/core/email';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { shallow } from 'enzyme';

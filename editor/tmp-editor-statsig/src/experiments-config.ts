@@ -456,13 +456,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-07-24
-	platform_editor_enghealth_table_plugin_lable_rule: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2024-09-07
 	platform_editor_exp_lazy_node_views: {
 		defaultValue: boolean;
@@ -1746,14 +1739,6 @@ export const editorExperimentsConfig: {
 	platform_editor_floating_toolbar_button_aria_label: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_floating_toolbar_button_aria_label',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-07-24
-	platform_editor_enghealth_table_plugin_lable_rule: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_enghealth_table_plugin_lable_rule',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

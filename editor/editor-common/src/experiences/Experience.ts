@@ -154,12 +154,12 @@ export class Experience {
 		this.check.stop();
 	}
 
-	private getEndStateMetadata(options?: ExperienceEndOptions): CustomExperienceMetadata {
+	private getEndStateMetadata(options: ExperienceEndOptions = {}): CustomExperienceMetadata {
 		const metadata: CustomExperienceMetadata = {
-			...options?.metadata,
+			...options.metadata,
 		};
 
-		if (options?.reason) {
+		if (options.reason) {
 			metadata.experienceEndReason = options.reason;
 		}
 
@@ -257,7 +257,7 @@ export class Experience {
 	 * @param options.forceRestart - If true and experience already in progress will abort and restart
 	 * @param options.method - Optional method for experience start, e.g., how the experience was initiated
 	 */
-	start(options: ExperienceStartOptions) {
+	start(options: ExperienceStartOptions = {}) {
 		if (options.forceRestart && this.currentState === 'started') {
 			this.abort({ reason: EXPERIENCE_ABORT_REASON.RESTARTED });
 		}
@@ -276,7 +276,7 @@ export class Experience {
 	 * @param options.reason - Optional reason for success
 	 * @returns false if transition to success state was not valid
 	 */
-	success(options?: ExperienceEndOptions) {
+	success(options: ExperienceEndOptions = {}) {
 		const metadata = this.getEndStateMetadata(options);
 
 		return this.transitionTo('succeeded', metadata);
@@ -300,7 +300,7 @@ export class Experience {
 	 *
 	 * @returns false if transition to aborted state was not valid
 	 */
-	abort(options?: ExperienceEndOptions) {
+	abort(options: ExperienceEndOptions = {}) {
 		const metadata = this.getEndStateMetadata(options);
 
 		return this.transitionTo('aborted', metadata);
@@ -316,7 +316,7 @@ export class Experience {
 	 * @param options.reason - Optional reason for failure
 	 * @returns false if transition to failed state was not valid
 	 */
-	failure(options?: ExperienceEndOptions) {
+	failure(options: ExperienceEndOptions = {}) {
 		const metadata = this.getEndStateMetadata(options);
 
 		return this.transitionTo('failed', metadata);

@@ -1,6 +1,5 @@
 import { mediaGroup } from '@atlaskit/adf-schema';
-import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import type { DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * Duplicate consts from `media-card`.
@@ -59,12 +58,9 @@ export const getDefaultCardDimensions = (
 
 // @nodeSpecException:toDOM patch
 export const mediaGroupSpecWithFixedToDOM = () => {
-	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
-		return mediaGroup;
-	}
 	return {
 		...mediaGroup,
-		toDOM: (node: PMNode): DOMOutputSpec => {
+		toDOM: (): DOMOutputSpec => {
 			// Margin margin that consolidates the margin in the
 			return [
 				'div',

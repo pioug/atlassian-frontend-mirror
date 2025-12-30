@@ -637,14 +637,7 @@ export const editorExperimentsConfig: {
 		param: string;
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
-	}; // Added 2025-07-30
-	platform_editor_pasting_nested_table_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	//Added 2025-11-19
+	}; //Added 2025-11-19
 	platform_editor_pasting_text_in_panel: {
 		defaultValue: boolean;
 		param: string;
@@ -1050,7 +1043,7 @@ export const editorExperimentsConfig: {
 		param: string;
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
-	},
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -1756,14 +1749,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_toolbar_aifc_responsive',
 			jira: 'platform_editor_toolbar_aifc_responsive',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-07-30
-	platform_editor_pasting_nested_table_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_pasting_nested_table_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

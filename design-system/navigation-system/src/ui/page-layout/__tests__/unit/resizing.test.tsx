@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
-
 import Button from '@atlaskit/button/new';
 import DropdownMenu from '@atlaskit/dropdown-menu';
 import Select, { type OptionType, PopupSelect } from '@atlaskit/select';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { resetMatchMedia } from '@atlassian/test-utils';
+import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import { FlyoutMenuItem } from '../../../menu-item/flyout-menu-item/flyout-menu-item';
 import { FlyoutMenuItemContent } from '../../../menu-item/flyout-menu-item/flyout-menu-item-content';
@@ -37,7 +37,7 @@ function ControlledPopupSelect({ options }: { options: OptionType[] }) {
 			onChange={(option) => setSelectedOption(option)}
 			value={selectedOption}
 			options={options}
-			target={({ isOpen, ...triggerProps }) => (
+			target={({ isOpen: _isOpen, ...triggerProps }) => (
 				<Button {...triggerProps}>Controlled popup select</Button>
 			)}
 			defaultIsOpen
@@ -302,7 +302,7 @@ describe('Resizing layout slots', () => {
 							<PanelSplitter label="Resize side nav" testId="panel-splitter" />
 							<PopupSelect
 								options={[{ label: 'Option 1 inside side nav', value: 'option-1-inside-side-nav' }]}
-								target={({ isOpen, ...triggerProps }) => (
+								target={({ isOpen: _isOpen, ...triggerProps }) => (
 									<Button {...triggerProps}>Uncontrolled popup select</Button>
 								)}
 								defaultIsOpen
@@ -311,7 +311,7 @@ describe('Resizing layout slots', () => {
 						<Main>
 							<PopupSelect
 								options={[{ label: 'Option 1 inside main', value: 'option-1-inside-main' }]}
-								target={({ isOpen, ...triggerProps }) => (
+								target={({ isOpen: _isOpen, ...triggerProps }) => (
 									<Button {...triggerProps}>Uncontrolled popup select</Button>
 								)}
 								defaultIsOpen
@@ -376,7 +376,7 @@ describe('Resizing layout slots', () => {
 							<PanelSplitter label="Resize side nav" testId="panel-splitter" />
 							<PopupSelect
 								options={[{ label: 'Option 1 inside side nav', value: 'option-1-inside-side-nav' }]}
-								target={({ isOpen, ...triggerProps }) => (
+								target={({ isOpen: _isOpen, ...triggerProps }) => (
 									<Button {...triggerProps}>Uncontrolled popup select</Button>
 								)}
 								defaultIsOpen
@@ -385,7 +385,7 @@ describe('Resizing layout slots', () => {
 						<Main>
 							<PopupSelect
 								options={[{ label: 'Option 1 inside main', value: 'option-1-inside-main' }]}
-								target={({ isOpen, ...triggerProps }) => (
+								target={({ isOpen: _isOpen, ...triggerProps }) => (
 									<Button {...triggerProps}>Uncontrolled popup select</Button>
 								)}
 								defaultIsOpen
@@ -440,159 +440,129 @@ describe('Resizing layout slots', () => {
 				expect(screen.queryByText('Option 1 inside main')).not.toBeInTheDocument();
 			});
 		});
-	});
 
-	describe('aside resizing', () => {
-		it('should close any open layers from both inside and outside the panel when resizing the panel', async () => {
-			render(
-				<Root>
-					<Main>
-						<DropdownMenu shouldRenderToParent trigger="Dropdown in main - trigger" defaultOpen>
-							Dropdown in main - content
-						</DropdownMenu>
-					</Main>
-					<Aside testId="aside" defaultWidth={360}>
-						<DropdownMenu shouldRenderToParent trigger="Dropdown in aside - trigger" defaultOpen>
-							Dropdown in aside - content
-						</DropdownMenu>
+		ffTest.on('navx-full-height-sidebar', 'full height sidebar enabled', () => {
+			ffTest.both('platform-dst-side-nav-layering-fixes', 'side nav layering fixes', () => {
+				it('should update width when resized', () => {
+					render(
+						<Root>
+							<SideNav testId="sidenav" defaultWidth={360}>
+								sidenav
+								<PanelSplitter label="Resize Side Nav" testId="panel-splitter" />
+							</SideNav>
+							<Main>main</Main>
+						</Root>,
+					);
 
-						<PanelSplitter label="Resize aside" testId="panel-splitter" />
-					</Aside>
-					<Main>main</Main>
-				</Root>,
-			);
+					const splitter = screen.getByTestId('panel-splitter');
 
-			// Layers should be open before resizing
-			expect(screen.getByText('Dropdown in main - content')).toBeVisible();
-			expect(screen.getByText('Dropdown in aside - content')).toBeVisible();
+					fireEvent.dragStart(splitter, { clientX: 360 });
+					fireEvent.dragEnter(splitter, { clientX: 420 });
+					// Mocking computed width to be the dragged width, as it would in a browser.
+					getPixelWidthMock.mockReturnValue(420);
+					fireEvent.drop(splitter);
 
-			// Resize the aside
-			const splitter = screen.getByTestId('panel-splitter');
-			fireEvent.dragStart(splitter, { clientX: 360 });
-			fireEvent.dragEnter(splitter, { clientX: 420 });
-			fireEvent.drop(splitter);
+					expect(screen.getByTestId('sidenav')).toHaveStyle({
+						'--n_sNvw': 'clamp(240px, 420px, 50vw)',
+					});
+				});
 
-			// Layers should now be closed
-			expect(screen.queryByText('Dropdown in main - content')).not.toBeInTheDocument();
-			expect(screen.queryByText('Dropdown in aside - content')).not.toBeInTheDocument();
-		});
-	});
+				it('should hoist the CSS width variable when resized', async () => {
+					getPixelWidthMock.mockReturnValue(360);
 
-	describe('panel resizing', () => {
-		it('should close any open layers from both inside and outside the panel when resizing the panel', async () => {
-			render(
-				<Root>
-					<Main>
-						<DropdownMenu shouldRenderToParent trigger="Dropdown in main - trigger" defaultOpen>
-							Dropdown in main - content
-						</DropdownMenu>
-					</Main>
-					<Panel testId="panel" defaultWidth={360}>
-						<DropdownMenu shouldRenderToParent trigger="Dropdown in panel - trigger" defaultOpen>
-							Dropdown in panel - content
-						</DropdownMenu>
+					render(
+						<Root UNSAFE_dangerouslyHoistSlotSizes>
+							<SideNav testId="sidenav" defaultWidth={360}>
+								sidenav
+								<PanelSplitter label="Resize Side Nav" testId="panel-splitter" />
+							</SideNav>
+							<Main>main</Main>
+						</Root>,
+					);
 
-						<PanelSplitter label="Resize panel" testId="panel-splitter" />
-					</Panel>
-					<Main>main</Main>
-				</Root>,
-			);
+					expect(screen.getByTestId('sidenav')).toHaveTextContent(
+						':root { --leftSidebarWidth: var(--n_sNvlw) }',
+					);
+					expect(screen.getByTestId('sidenav')).toHaveTextContent(':root { --n_sNvlw: 0px }');
+					expect(screen.getByTestId('sidenav')).toHaveTextContent(
+						'@media (min-width: 64rem) { :root { --n_sNvlw: var(--n_snvRsz, clamp(240px, 360px, 50vw)) } }',
+					);
 
-			// Layers should be open before resizing
-			expect(screen.getByText('Dropdown in main - content')).toBeVisible();
-			expect(screen.getByText('Dropdown in panel - content')).toBeVisible();
+					const splitter = screen.getByTestId('panel-splitter');
 
-			// Resize the panel
-			const splitter = screen.getByTestId('panel-splitter');
-			fireEvent.dragStart(splitter, { clientX: 360 });
-			fireEvent.dragEnter(splitter, { clientX: 420 });
-			fireEvent.drop(splitter);
+					fireEvent.dragStart(splitter, { clientX: 360 });
+					fireEvent.dragEnter(splitter, { clientX: 420 });
+					// Mocking computed width to be the dragged width, as it would in a browser.
+					getPixelWidthMock.mockReturnValue(420);
+					fireEvent.drop(splitter);
 
-			// Layers should now be closed
-			expect(screen.queryByText('Dropdown in main - content')).not.toBeInTheDocument();
-			expect(screen.queryByText('Dropdown in panel - content')).not.toBeInTheDocument();
-		});
-	});
-});
-
-describe('Resizing layout slots', () => {
-	const getPixelWidthMock = jest.spyOn(panelSplitterWidthUtils, 'getPixelWidth');
-
-	beforeEach(() => {
-		resetMatchMedia();
-		getPixelWidthMock.mockReturnValue(360);
-	});
-
-	afterEach(() => {
-		jest.clearAllMocks();
-	});
-
-	describe('side nav resizing', () => {
-		let resetConsoleErrorSpyFn: ResetConsoleErrorFn;
-		beforeAll(() => {
-			resetConsoleErrorSpyFn = filterFromConsoleErrorOutput(parseCssErrorRegex);
-		});
-
-		afterAll(() => {
-			resetConsoleErrorSpyFn();
-		});
-
-		it('should update width when resized', () => {
-			render(
-				<Root>
-					<SideNav testId="sidenav" defaultWidth={360}>
-						sidenav
-						<PanelSplitter label="Resize Side Nav" testId="panel-splitter" />
-					</SideNav>
-					<Main>main</Main>
-				</Root>,
-			);
-
-			const splitter = screen.getByTestId('panel-splitter');
-
-			fireEvent.dragStart(splitter, { clientX: 360 });
-			fireEvent.dragEnter(splitter, { clientX: 420 });
-			// Mocking computed width to be the dragged width, as it would in a browser.
-			getPixelWidthMock.mockReturnValue(420);
-			fireEvent.drop(splitter);
-
-			expect(screen.getByTestId('sidenav')).toHaveStyle({
-				'--n_sNvw': 'clamp(240px, 420px, 50vw)',
+					expect(screen.getByTestId('sidenav')).toHaveTextContent(
+						'@media (min-width: 64rem) { :root { --n_sNvlw: var(--n_snvRsz, clamp(240px, 420px, 50vw)) } }',
+					);
+				});
 			});
 		});
 
-		it('should hoist the CSS width variable when resized', async () => {
-			getPixelWidthMock.mockReturnValue(360);
+		// This needs to be in a separate test suite. We can't use ffTest.both for the FHS flag, as the layering fixes
+		// flag is only checked when FHS is enabled, so the tests would fail as they won't evaluate the mocked flag.
+		ffTest.off('navx-full-height-sidebar', 'full height sidebar disabled', () => {
+			it('should update width when resized', () => {
+				render(
+					<Root>
+						<SideNav testId="sidenav" defaultWidth={360}>
+							sidenav
+							<PanelSplitter label="Resize Side Nav" testId="panel-splitter" />
+						</SideNav>
+						<Main>main</Main>
+					</Root>,
+				);
 
-			render(
-				<Root UNSAFE_dangerouslyHoistSlotSizes>
-					<SideNav testId="sidenav" defaultWidth={360}>
-						sidenav
-						<PanelSplitter label="Resize Side Nav" testId="panel-splitter" />
-					</SideNav>
-					<Main>main</Main>
-				</Root>,
-			);
+				const splitter = screen.getByTestId('panel-splitter');
 
-			expect(screen.getByTestId('sidenav')).toHaveTextContent(
-				':root { --leftSidebarWidth: var(--n_sNvlw) }',
-			);
-			expect(screen.getByTestId('sidenav')).toHaveTextContent(':root { --n_sNvlw: 0px }');
-			expect(screen.getByTestId('sidenav')).toHaveTextContent(
-				'@media (min-width: 64rem) { :root { --n_sNvlw: var(--n_snvRsz, clamp(240px, 360px, 50vw)) } }',
-			);
+				fireEvent.dragStart(splitter, { clientX: 360 });
+				fireEvent.dragEnter(splitter, { clientX: 420 });
+				// Mocking computed width to be the dragged width, as it would in a browser.
+				getPixelWidthMock.mockReturnValue(420);
+				fireEvent.drop(splitter);
 
-			const splitter = screen.getByTestId('panel-splitter');
+				expect(screen.getByTestId('sidenav')).toHaveStyle({
+					'--n_sNvw': 'clamp(240px, 420px, 50vw)',
+				});
+			});
 
-			fireEvent.dragStart(splitter, { clientX: 360 });
-			fireEvent.dragEnter(splitter, { clientX: 420 });
-			// Mocking computed width to be the dragged width, as it would in a browser.
-			getPixelWidthMock.mockReturnValue(420);
-			fireEvent.drop(splitter);
+			it('should hoist the CSS width variable when resized', async () => {
+				getPixelWidthMock.mockReturnValue(360);
 
-			expect(screen.getByTestId('sidenav')).toHaveTextContent(
-				'@media (min-width: 64rem) { :root { --n_sNvlw: var(--n_snvRsz, clamp(240px, 420px, 50vw)) } }',
-			);
+				render(
+					<Root UNSAFE_dangerouslyHoistSlotSizes>
+						<SideNav testId="sidenav" defaultWidth={360}>
+							sidenav
+							<PanelSplitter label="Resize Side Nav" testId="panel-splitter" />
+						</SideNav>
+						<Main>main</Main>
+					</Root>,
+				);
+
+				expect(screen.getByTestId('sidenav')).toHaveTextContent(
+					':root { --leftSidebarWidth: var(--n_sNvlw) }',
+				);
+				expect(screen.getByTestId('sidenav')).toHaveTextContent(':root { --n_sNvlw: 0px }');
+				expect(screen.getByTestId('sidenav')).toHaveTextContent(
+					'@media (min-width: 64rem) { :root { --n_sNvlw: var(--n_snvRsz, clamp(240px, 360px, 50vw)) } }',
+				);
+
+				const splitter = screen.getByTestId('panel-splitter');
+
+				fireEvent.dragStart(splitter, { clientX: 360 });
+				fireEvent.dragEnter(splitter, { clientX: 420 });
+				// Mocking computed width to be the dragged width, as it would in a browser.
+				getPixelWidthMock.mockReturnValue(420);
+				fireEvent.drop(splitter);
+
+				expect(screen.getByTestId('sidenav')).toHaveTextContent(
+					'@media (min-width: 64rem) { :root { --n_sNvlw: var(--n_snvRsz, clamp(240px, 420px, 50vw)) } }',
+				);
+			});
 		});
 	});
 
@@ -652,6 +622,40 @@ describe('Resizing layout slots', () => {
 				'@media (min-width: 64rem) { :root { --rightSidebarWidth: var(--n_asdRsz, clamp(0px, 420px, 50vw)) } }',
 			);
 		});
+
+		it('should close any open layers from both inside and outside the panel when resizing the panel', async () => {
+			render(
+				<Root>
+					<Main>
+						<DropdownMenu shouldRenderToParent trigger="Dropdown in main - trigger" defaultOpen>
+							Dropdown in main - content
+						</DropdownMenu>
+					</Main>
+					<Aside testId="aside" defaultWidth={360}>
+						<DropdownMenu shouldRenderToParent trigger="Dropdown in aside - trigger" defaultOpen>
+							Dropdown in aside - content
+						</DropdownMenu>
+
+						<PanelSplitter label="Resize aside" testId="panel-splitter" />
+					</Aside>
+					<Main>main</Main>
+				</Root>,
+			);
+
+			// Layers should be open before resizing
+			expect(screen.getByText('Dropdown in main - content')).toBeVisible();
+			expect(screen.getByText('Dropdown in aside - content')).toBeVisible();
+
+			// Resize the aside
+			const splitter = screen.getByTestId('panel-splitter');
+			fireEvent.dragStart(splitter, { clientX: 360 });
+			fireEvent.dragEnter(splitter, { clientX: 420 });
+			fireEvent.drop(splitter);
+
+			// Layers should now be closed
+			expect(screen.queryByText('Dropdown in main - content')).not.toBeInTheDocument();
+			expect(screen.queryByText('Dropdown in aside - content')).not.toBeInTheDocument();
+		});
 	});
 
 	describe('panel resizing', () => {
@@ -709,6 +713,40 @@ describe('Resizing layout slots', () => {
 			expect(screen.getByTestId('panel')).toHaveTextContent(
 				'@media (min-width: 90rem) { :root { --rightPanelWidth: var(--n_pnlRsz, clamp(360px, 420px, round(nearest, calc((100vw - var(--n_sNvlw, 0px)) / 2), 1px))) }',
 			);
+		});
+
+		it('should close any open layers from both inside and outside the panel when resizing the panel', async () => {
+			render(
+				<Root>
+					<Main>
+						<DropdownMenu shouldRenderToParent trigger="Dropdown in main - trigger" defaultOpen>
+							Dropdown in main - content
+						</DropdownMenu>
+					</Main>
+					<Panel testId="panel" defaultWidth={360}>
+						<DropdownMenu shouldRenderToParent trigger="Dropdown in panel - trigger" defaultOpen>
+							Dropdown in panel - content
+						</DropdownMenu>
+
+						<PanelSplitter label="Resize panel" testId="panel-splitter" />
+					</Panel>
+					<Main>main</Main>
+				</Root>,
+			);
+
+			// Layers should be open before resizing
+			expect(screen.getByText('Dropdown in main - content')).toBeVisible();
+			expect(screen.getByText('Dropdown in panel - content')).toBeVisible();
+
+			// Resize the panel
+			const splitter = screen.getByTestId('panel-splitter');
+			fireEvent.dragStart(splitter, { clientX: 360 });
+			fireEvent.dragEnter(splitter, { clientX: 420 });
+			fireEvent.drop(splitter);
+
+			// Layers should now be closed
+			expect(screen.queryByText('Dropdown in main - content')).not.toBeInTheDocument();
+			expect(screen.queryByText('Dropdown in panel - content')).not.toBeInTheDocument();
 		});
 	});
 });

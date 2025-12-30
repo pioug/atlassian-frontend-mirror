@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.17.6",
+	"version": "43.17.7",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -205,9 +205,6 @@
 			"type": "boolean"
 		},
 		"product-terminology-refresh": {
-			"type": "boolean"
-		},
-		"platform_editor_inline_card_selected_state_fix": {
 			"type": "boolean"
 		},
 		"rovo_chat_embed_card_dwell_and_hover_metrics": {

@@ -1,5 +1,13 @@
 # @atlaskit/analytics-listeners
 
+## 9.2.0
+
+### Minor Changes
+
+- [`63322a7032c5e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63322a7032c5e) -
+  Allowed aiMate analytics events to include objectId, objectType, containerId, and containerType
+  fields.
+
 ## 9.1.0
 
 ### Minor Changes
@@ -520,7 +528,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/analytics-next@6.3.5
   - @atlaskit/button@13.3.7
@@ -581,12 +588,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -627,7 +632,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -662,26 +666,22 @@
 ## 6.1.0
 
 - [minor][f53003a5ed](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f53003a5ed):
-
   - ED-6741 Add 'appearance' to all editor analytics events
 
 ## 6.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 5.0.5
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 ## 5.0.4
 
 - [patch][3f28e6443c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f28e6443c):
-
   - @atlaskit/analytics-next-types is deprecated. Now you can use types for @atlaskit/analytics-next
     supplied from itself.
 
@@ -696,19 +696,16 @@
 ## 5.0.2
 
 - [patch][d13fad66df](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13fad66df):
-
   - Enable esModuleInterop for typescript, this allows correct use of default exports
 
 ## 5.0.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 5.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 4.2.1
@@ -724,13 +721,11 @@
 ## 4.2.0
 
 - [minor][8c65a38bfc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8c65a38bfc):
-
   - enable noImplicitAny for elements analytics packages. Fix related issues.
 
 ## 4.1.5
 
 - [patch][a3b8046](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a3b8046):
-
   - Add more specific types to analytics-listener webclient type
 
 ## 4.1.4
@@ -745,13 +740,11 @@
 ## 4.1.3
 
 - [patch][dff4f0e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dff4f0e):
-
   - AnalyticsListeners should accept any promise-like client
 
 ## 4.1.2
 
 - [patch][e981882](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e981882):
-
   - Add media tag to analytics tags sent by media listener
 
 ## 4.1.1
@@ -765,19 +758,16 @@
 ## 4.1.0
 
 - [minor][dd0a73c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dd0a73c):
-
   - Allow consumers to pass promise of analytics web client as well as the client itself
 
 ## 4.0.7
 
 - [patch][1d30f7e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1d30f7e):
-
   - Make analytics-web-client non-mandatory
 
 ## 4.0.6
 
 - [patch][c525423](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c525423" d):
-
   - Remove unnecessary sufix in import
 
 ## 4.0.5

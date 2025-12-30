@@ -1,5 +1,20 @@
 # @atlaskit/editor-core
 
+## 216.0.2
+
+### Patch Changes
+
+- [`b429c01ce6af9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b429c01ce6af9) -
+  icon migration entry point update
+- Updated dependencies
+
+## 216.0.1
+
+### Patch Changes
+
+- [`08984e84a58de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08984e84a58de) -
+  EDITOR-3594 Improve ARIs handling to ensure correctness
+
 ## 216.0.0
 
 ### Patch Changes

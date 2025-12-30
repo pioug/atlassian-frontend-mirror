@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import CopyIcon from '@atlaskit/icon/core/migration/copy';
+import CopyIcon from '@atlaskit/icon/core/copy';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../../messages';

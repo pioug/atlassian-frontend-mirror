@@ -1,5 +1,12 @@
 # @atlaskit/help-layout
 
+## 6.3.28
+
+### Patch Changes
+
+- [`b429c01ce6af9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b429c01ce6af9) -
+  icon migration entry point update
+
 ## 6.3.27
 
 ### Patch Changes

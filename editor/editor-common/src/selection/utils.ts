@@ -1,4 +1,9 @@
-import type { Node as PMNode, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
+import type {
+	NodeRange,
+	Node as PMNode,
+	ResolvedPos,
+	Schema,
+} from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection, type Selection } from '@atlaskit/editor-prosemirror/state';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
@@ -235,3 +240,33 @@ export const expandToBlockRange = (
 export const expandSelectionToBlockRange = ({ $from, $to }: Selection) => {
 	return expandToBlockRange($from, $to);
 };
+
+export const isMultiBlockRange = (range: NodeRange) => {
+	if (range.endIndex - range.startIndex <= 1) {
+		return false; // At most one child
+	}
+
+	// Count block nodes in the range, return true if more than one
+	let blockCount = 0;
+	for (let i = range.startIndex; i < range.endIndex; i++) {
+		if (range.parent.child(i).isBlock) {
+			blockCount++;
+		}
+		if (blockCount > 1) {
+			return true;
+		}
+	}
+
+	return false;
+};
+
+/**
+ * Determines if a selection contains multiple block nodes.
+ */
+export function isMultiBlockSelection(selection: Selection): boolean {
+	const { range } = expandSelectionToBlockRange(selection);
+	if (!range) {
+		return false;
+	}
+	return isMultiBlockRange(range);
+}

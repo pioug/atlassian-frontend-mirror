@@ -80,7 +80,6 @@ export { WorkItemIcon } from './ui/icons/WorkItemIcon';
 export { WorkItemsIcon } from './ui/icons/WorkItemsIcon';
 
 export { default as ColorPalette } from './ui/ColorPalette';
-export { getContrastingBackgroundColor } from './ui/ColorPalette/utils';
 
 export type { IconComponent, ToolbarKeyboardNavigationProviderConfig } from './types';
 

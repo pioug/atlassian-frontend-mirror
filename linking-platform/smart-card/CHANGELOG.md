@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 43.17.7
+
+### Patch Changes
+
+- [`9123fad528082`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9123fad528082) -
+  Icon entry point migration update
+- [`e26f43c629062`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e26f43c629062) -
+  Clean up platform_editor_inline_card_selected_state_fix feature flag
+- Updated dependencies
+
 ## 43.17.6
 
 ### Patch Changes

@@ -84,11 +84,10 @@ function ComposableEditorPage() {
 	const selectionRangesRef = React.useRef<any>(null);
 	const editorAnnotationProviders = useEditorAnnotationProviders();
 
-	const syncBlockProvider = useMemoizedSyncedBlockProvider(
-		localStorageFetchProvider,
-		localStorageWriteProvider,
-		'sourceId',
-		{
+	const syncBlockProvider = useMemoizedSyncedBlockProvider({
+		fetchProvider: localStorageFetchProvider,
+		writeProvider: localStorageWriteProvider,
+		providerOptions: {
 			parentDataProviders: {
 				mentionProvider: undefined,
 				profilecardProvider: undefined,
@@ -99,7 +98,7 @@ function ComposableEditorPage() {
 				createMediaProvider: undefined,
 			},
 		},
-	);
+	});
 
 	const syncedBlock: SyncedBlockPluginOptions = {
 		enableSourceCreation: true,

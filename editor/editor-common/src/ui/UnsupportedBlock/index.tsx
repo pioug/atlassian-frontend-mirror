@@ -11,7 +11,7 @@ import { injectIntl } from 'react-intl-next';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
-import QuestionsIcon from '@atlaskit/icon/core/migration/question-circle';
+import QuestionsIcon from '@atlaskit/icon/core/question-circle';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 

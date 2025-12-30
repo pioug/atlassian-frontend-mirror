@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.1.0
+
+### Minor Changes
+
+- [`bf49041938d1a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf49041938d1a) -
+  EDITOR-2257 editor synced blocks ssr part 1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.0
 
 ### Patch Changes

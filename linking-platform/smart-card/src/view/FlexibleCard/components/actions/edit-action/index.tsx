@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import EditIcon from '@atlaskit/icon/core/migration/edit';
+import EditIcon from '@atlaskit/icon/core/edit';
 
 import { messages } from '../../../../../messages';
 import Action from '../action';

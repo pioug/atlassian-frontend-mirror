@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl-next';
 import uuid from 'uuid';
 
 import { type CreateFlagArgs, useFlags } from '@atlaskit/flag';
-import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
+import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';

@@ -231,7 +231,11 @@ export const PopupContent = ({
 		onClose?.(null);
 	}, [onClose]);
 
-	useNotifyOpenLayerObserver({ isOpen, onClose: handleOpenLayerObserverCloseSignal });
+	useNotifyOpenLayerObserver({
+		isOpen,
+		onClose: handleOpenLayerObserverCloseSignal,
+		type: 'popup',
+	});
 
 	if (!isOpen) {
 		return null;

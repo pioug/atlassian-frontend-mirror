@@ -1,5 +1,12 @@
 # @atlaskit/feedback-collector
 
+## 14.6.12
+
+### Patch Changes
+
+- [`9123fad528082`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9123fad528082) -
+  Icon entry point migration update
+
 ## 14.6.11
 
 ### Patch Changes

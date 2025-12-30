@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { css, jsx } from '@atlaskit/css';
-import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 
 const expandIconContainerStyle = css({
 	display: 'flex',

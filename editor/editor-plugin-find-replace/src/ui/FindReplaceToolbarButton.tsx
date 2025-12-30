@@ -29,7 +29,7 @@ import {
 	akEditorFloatingPanelZIndex,
 	akEditorMobileMaxWidth,
 } from '@atlaskit/editor-shared-styles';
-import SearchIcon from '@atlaskit/icon/core/migration/search';
+import SearchIcon from '@atlaskit/icon/core/search';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 

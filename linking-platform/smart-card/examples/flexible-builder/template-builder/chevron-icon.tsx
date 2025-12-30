@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
-import ChevronUpIcon from '@atlaskit/icon/core/migration/chevron-up';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import ChevronUpIcon from '@atlaskit/icon/core/chevron-up';
 
 const ChevronIcon = ({ open }: { open: boolean }): React.JSX.Element =>
 	open ? (

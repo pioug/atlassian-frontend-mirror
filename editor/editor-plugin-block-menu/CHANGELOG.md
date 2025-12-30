@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.4
+
+### Patch Changes
+
+- [`9d63742a083b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d63742a083b1) -
+  Fixes analytics and updates getTargeNodeTypeNameInContext to be used for transforms and contextual
+  options.
+- Updated dependencies
+
 ## 6.0.3
 
 ### Patch Changes

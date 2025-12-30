@@ -8,10 +8,13 @@ import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
 import { OpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SkipLinksProvider } from '../../context/skip-links/skip-links-provider';
 import { TopNavStartProvider } from '../../context/top-nav-start/top-nav-start-context-provider';
+import { useIsFhsEnabled } from '../fhs-rollout/use-is-fhs-enabled';
 
+import { sideNavContentScrollTimelineVar } from './constants';
 import { DangerouslyHoistSlotSizes } from './hoist-slot-sizes-context';
 import { SideNavElementProvider } from './side-nav/element-context';
 import { IsSideNavShortcutEnabledProvider } from './side-nav/is-side-nav-shortcut-enabled-context';
@@ -60,6 +63,11 @@ const styles = cssMap({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			display: 'none !important',
 		},
+	},
+	sideNavScrollTimeline: {
+		// Hoists the SideNavContent's scroll timeline scope so it can be referenced by TopNavStart
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		timelineScope: sideNavContentScrollTimelineVar,
 	},
 });
 
@@ -133,6 +141,7 @@ export function Root({
 	isSideNavShortcutEnabled?: boolean;
 }) {
 	const ref = useRef<HTMLDivElement>(null);
+	const isFhsEnabled = useIsFhsEnabled();
 
 	useEffect(() => {
 		if (process.env.NODE_ENV !== 'production') {
@@ -176,7 +185,12 @@ This message will not be displayed in production.
 									<SkipLinksProvider label={skipLinksLabel} testId={testId}>
 										<div
 											ref={ref}
-											css={styles.root}
+											css={[
+												styles.root,
+												isFhsEnabled &&
+													fg('platform-dst-side-nav-layering-fixes') &&
+													styles.sideNavScrollTimeline,
+											]}
 											className={xcss}
 											id={gridRootId}
 											data-testid={testId}

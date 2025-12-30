@@ -4,7 +4,7 @@
  */
 import React, { forwardRef, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import { cssMap, jsx } from '@compiled/react';
+import { cssMap, jsx, keyframes } from '@compiled/react';
 
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -13,6 +13,7 @@ import { token } from '@atlaskit/tokens';
 
 import { TopNavStartAttachRef } from '../../../context/top-nav-start/top-nav-start-context';
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
+import { sideNavContentScrollTimelineVar } from '../constants';
 import { useSideNavVisibility } from '../side-nav/use-side-nav-visibility';
 import { SideNavVisibilityState } from '../side-nav/visibility-context';
 
@@ -70,6 +71,7 @@ const innerStyles = cssMap({
 		},
 	},
 	fullHeightSidebar: {
+		// Note: no longer applied when fg('platform-dst-side-nav-layering-fixes') is enabled.
 		// Pointer events are disabled on the top nav
 		// So we need to restore them for the slot
 		pointerEvents: 'auto',
@@ -81,6 +83,22 @@ const innerStyles = cssMap({
 			minWidth: 'unset',
 			width: '100%',
 		},
+	},
+});
+
+/**
+ * The scroll indicator is usually applied in SideNavContent, but if there is no SideNavHeader it is
+ * applied in TopNavStart instead for layering reasons. See the comment in SideNavHeader for more details.
+ */
+const scrolledShadow = keyframes({
+	from: {
+		boxShadow: `inset 0 -1px 0 0 transparent`,
+	},
+	'0.1%': {
+		boxShadow: `inset 0 -1px 0 0 ${token('color.border')}`,
+	},
+	to: {
+		boxShadow: `inset 0 -1px 0 0 ${token('color.border')}`,
 	},
 });
 
@@ -102,6 +120,59 @@ const wrapperStyles = cssMap({
 		'@media (min-width: 64rem)': {
 			width: `var(--n_sNvlw, 100%)`,
 			paddingInlineEnd: token('space.200'),
+		},
+	},
+	fullHeightSidebarWithLayeringFixes: {
+		'@media (min-width: 64rem)': {
+			position: 'relative',
+			// We are using a pseudo-element to add a border, instead of doing it on the TopNavStart wrapper
+			// element itself, to prevent shifting the TopNavStart content (due to the border-box box-sizing).
+			// This makes the sidebar appear full height by extending the vertical border.
+			// The element is initially hidden (using opacity), and is faded in when the sidebar is expanded.
+			'&::after': {
+				content: '""',
+				position: 'absolute',
+				insetBlockStart: 0,
+				insetBlockEnd: 0,
+				insetInlineEnd: 0,
+				borderInlineEndWidth: token('border.width'),
+				borderInlineEndStyle: 'solid',
+				borderInlineEndColor: token('color.border'),
+				opacity: 0,
+			},
+		},
+	},
+	fullHeightSidebarExpandedWithLayeringFixes: {
+		'@media (min-width: 64rem)': {
+			// Set the background color to the same as the side nav, to make it appear full height.
+			backgroundColor: token('elevation.surface'),
+			// When expanded, show the pseudo element (vertical border that makes the sidebar appear full height).
+			'&::after': {
+				opacity: 1,
+			},
+			// Only apply the scroll indicator styles if supported. Otherwise, the shadow would always be applied, even when not scrolled.
+			'@supports (scroll-timeline-axis: block)': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'html:not(:has([data-private-side-nav-header])) &': {
+					// Consumes the scroll timeline from SideNavContent to show a bottom shadow when scrolled.
+					// This is only applied if there is no SideNavHeader. See the comment in SideNavHeader for more details.
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+					animationTimeline: sideNavContentScrollTimelineVar,
+					animationName: scrolledShadow,
+					// This shouldn't be required, but without it, the animation (shadow) stopped being applied at the end of the scroll timeline.
+					animationFillMode: 'both',
+				},
+			},
+		},
+	},
+	fullHeightSidebarBorderTransition: {
+		'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
+			// Fade-in animation for the pseudo element (vertical border that makes the sidebar appear full height).
+			'&::after': {
+				transitionProperty: 'opacity',
+				transitionDuration: '0.2s',
+				transitionTimingFunction: 'ease-in',
+			},
 		},
 	},
 });
@@ -278,15 +349,48 @@ const TopNavStartInnerFHS = forwardRef(function TopNavStartInnerFHS(
 	// TODO: lift `defaultCollapsed` state to `Root` (DSP-23683)
 	// then context value will be correct in SSR / from initial render
 	const { isExpandedOnDesktop } = useSideNavVisibility({ defaultCollapsed: true });
+	const sideNavState = useContext(SideNavVisibilityState);
+
+	const isFirstRenderRef = useRef(true);
+	useEffect(() => {
+		if (!fg('platform-dst-side-nav-layering-fixes')) {
+			return;
+		}
+
+		// Ignore renders until the side nav state is initialized
+		// So that apps using the legacy API for setting side nav default state do not see
+		// animations when they shouldn't
+		if (sideNavState === null) {
+			return;
+		}
+
+		if (isFirstRenderRef.current) {
+			isFirstRenderRef.current = false;
+		}
+	}, [sideNavState]);
 
 	return (
-		<div css={[wrapperStyles.root, isExpandedOnDesktop && wrapperStyles.fullHeightSidebarExpanded]}>
+		<div
+			css={[
+				wrapperStyles.root,
+				isExpandedOnDesktop && wrapperStyles.fullHeightSidebarExpanded,
+				fg('platform-dst-side-nav-layering-fixes') &&
+					wrapperStyles.fullHeightSidebarWithLayeringFixes,
+				!isFirstRenderRef.current &&
+					isExpandedOnDesktop &&
+					fg('platform-dst-side-nav-layering-fixes') &&
+					wrapperStyles.fullHeightSidebarBorderTransition,
+				isExpandedOnDesktop &&
+					fg('platform-dst-side-nav-layering-fixes') &&
+					wrapperStyles.fullHeightSidebarExpandedWithLayeringFixes,
+			]}
+		>
 			<div
 				ref={ref}
 				data-testid={testId}
 				css={[
 					innerStyles.root,
-					innerStyles.fullHeightSidebar,
+					!fg('platform-dst-side-nav-layering-fixes') && innerStyles.fullHeightSidebar,
 					// Needs to be before the expanded styles so that the min-width can be unset
 					fg('team25-eu-jira-logo-updates-csm-jsm') && innerStyles.jiraProductLogoUpdate,
 					isExpandedOnDesktop && innerStyles.fullHeightSidebarExpanded,

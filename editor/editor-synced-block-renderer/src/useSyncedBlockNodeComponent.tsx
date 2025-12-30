@@ -1,39 +1,15 @@
 import React, { useCallback, useEffect } from 'react';
 
-import type { DocNode } from '@atlaskit/adf-schema';
-import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
-import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import {
-	convertSyncBlockJSONNodeToSyncBlockNode,
 	useMemoizedSyncBlockStoreManager,
 	type SyncBlockDataProvider,
-	type SyncBlockNode,
 } from '@atlaskit/editor-synced-block-provider';
-import type { SyncedBlockProvider } from '@atlaskit/editor-synced-block-provider';
 
-import type { SyncedBlockRendererOptions } from './types';
+import type { GetSyncedBlockNodeComponentProps } from './getSyncedBlockNodeComponent';
 import {
 	SyncedBlockNodeComponentRenderer,
 	type SyncedBlockNodeProps,
 } from './ui/SyncedBlockNodeComponentRenderer';
-
-type GetSyncedBlockNodeComponentProps = {
-	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void;
-	syncBlockNodes: SyncBlockNode[];
-	syncBlockProvider: SyncedBlockProvider;
-	syncBlockRendererOptions: SyncedBlockRendererOptions | undefined;
-};
-
-export const getSyncBlockNodesFromDoc = (doc: DocNode): SyncBlockNode[] => {
-	const { content } = doc;
-	const isEmpty = !content || !Array.isArray(content) || content.length === 0;
-	const syncBlockNodes: SyncBlockNode[] = isEmpty
-		? []
-		: content
-				.map((node: JSONNode) => convertSyncBlockJSONNodeToSyncBlockNode(node))
-				.filter((node: SyncBlockNode | undefined): node is SyncBlockNode => node !== undefined);
-	return syncBlockNodes;
-};
 
 export const useMemoizedSyncedBlockNodeComponent = ({
 	syncBlockNodes,

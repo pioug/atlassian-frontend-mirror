@@ -6,11 +6,8 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
-
-import { ReactMediaInlineNode } from './mediaInline';
 
 export const lazyMediaInlineView = (
 	portalProviderAPI: PortalProviderAPI,
@@ -19,16 +16,6 @@ export const lazyMediaInlineView = (
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 ) => {
-	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
-		return ReactMediaInlineNode(
-			portalProviderAPI,
-			eventDispatcher,
-			providerFactory,
-			api,
-			dispatchAnalyticsEvent,
-		);
-	}
-
 	return withLazyLoading({
 		nodeName: 'mediaInline',
 		getNodeViewOptions: () => {},

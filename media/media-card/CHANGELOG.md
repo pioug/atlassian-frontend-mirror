@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 79.11.4
+
+### Patch Changes
+
+- [`9129ddcd87db4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9129ddcd87db4) -
+  Add 10% sampling to auth-provider-succeeded analytics events to reduce event volume while
+  maintaining visibility into auth provider failures.
+
 ## 79.11.3
 
 ### Patch Changes

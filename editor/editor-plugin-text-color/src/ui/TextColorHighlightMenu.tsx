@@ -17,7 +17,6 @@ import {
 	ToolbarDropdownMenu,
 	ToolbarDropdownMenuProvider,
 	ToolbarTooltip,
-	getContrastingBackgroundColor,
 	useToolbarUI,
 } from '@atlaskit/editor-toolbar';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -98,9 +97,6 @@ export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenu
 	}, [setIsPaletteOpen, isPaletteOpen]);
 
 	const iconColor = getIconColor(textColor, defaultColor, highlightColor);
-	const highlightColorIcon = highlightColor
-		? highlightColor
-		: getContrastingBackgroundColor(iconColor);
 
 	return (
 		<ToolbarTooltip
@@ -129,13 +125,7 @@ export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenu
 			>
 				<ToolbarDropdownMenu
 					iconBefore={
-						<ToolbarColorSwatch
-							highlightColor={
-								fg('platform_editor_toolbar_aifc_patch_8')
-									? getHighlightColorIcon(highlightColor)
-									: highlightColorIcon
-							}
-						>
+						<ToolbarColorSwatch highlightColor={getHighlightColorIcon(highlightColor)}>
 							<TextColorIcon
 								label={formatMessage(messages.textColorTooltip)}
 								iconColor={iconColor as IconColor}

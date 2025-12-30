@@ -10,7 +10,10 @@ import AKBadge from '@atlaskit/badge';
 import { Label } from '@atlaskit/form';
 import { ConfluenceIcon } from '@atlaskit/logo';
 import { Main, Root, SideNav } from '@atlaskit/navigation-system';
-import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
+import {
+	SideNavPanelSplitter,
+	SideNavToggleButton,
+} from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	TopNav,
 	TopNavEnd,
@@ -113,7 +116,10 @@ export const TopNavigationThemingWithPickerExample = () => {
 		<WithResponsiveViewport>
 			<Root>
 				<TopNavigation customTheme={{ backgroundColor, highlightColor: '#d8388a' }} />
-				<SideNav>Hello world</SideNav>
+				<SideNav>
+					Hello world
+					<SideNavPanelSplitter label="Resize side nav" />
+				</SideNav>
 				<Main>
 					<Label htmlFor="background-color">Background color</Label>
 					<input

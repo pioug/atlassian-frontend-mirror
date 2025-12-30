@@ -4,7 +4,7 @@
  */
 import Button from '@atlaskit/button/custom-theme-button';
 import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
-import CopyIcon from '@atlaskit/icon/core/migration/copy';
+import CopyIcon from '@atlaskit/icon/core/copy';
 import Tooltip from '@atlaskit/tooltip';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';

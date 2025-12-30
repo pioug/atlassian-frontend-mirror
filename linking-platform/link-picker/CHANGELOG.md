@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 4.2.2
+
+### Patch Changes
+
+- [`9123fad528082`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9123fad528082) -
+  Icon entry point migration update
+- Updated dependencies
+
 ## 4.2.1
 
 ### Patch Changes

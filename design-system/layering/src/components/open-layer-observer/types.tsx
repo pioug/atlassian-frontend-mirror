@@ -6,11 +6,10 @@ export type LayerCloseListenerFn = () => void;
 /**
  * The type of layer. This is used as a filter when requesting the count of open layers.
  */
-// Only `modal` is explictly supported for now, as that's the only layer type that we have an
-// immediate need for. We can add more types as we need them - e.g. `popup`, `tooltip`, `select`, etc.
+// We can add more types as we need them - e.g. `tooltip`, `select`, etc.
 // Disabling the eslint rule, as it semantically makes sense to include "Type" in the name.
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
-export type LayerType = 'modal';
+export type LayerType = 'modal' | 'popup';
 
 export type OpenLayerObserverInternalAPI = {
 	/**

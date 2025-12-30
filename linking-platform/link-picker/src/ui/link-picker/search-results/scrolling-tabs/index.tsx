@@ -7,8 +7,8 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { IconButton, type IconButtonProps } from '@atlaskit/button/new';
-import ChevronLeftIcon from '@atlaskit/icon/core/migration/chevron-left';
-import ChevronRightIcon from '@atlaskit/icon/core/migration/chevron-right';
+import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { N0, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

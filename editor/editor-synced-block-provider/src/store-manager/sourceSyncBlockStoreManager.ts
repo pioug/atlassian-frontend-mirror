@@ -1,6 +1,3 @@
-// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
-
 import { type SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -223,15 +220,11 @@ export class SourceSyncBlockStoreManager {
 	 * @returns attributes for a new bodiedSyncBlock node
 	 */
 	public generateBodiedSyncBlockAttrs(): SyncBlockAttrs {
-		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-		const localId = uuid();
-		const sourceId = this.dataProvider?.getSourceId();
-
-		if (!this.dataProvider || !sourceId) {
+		if (!this.dataProvider) {
 			throw new Error('Data provider not set or source id not set');
 		}
 
-		const resourceId = this.dataProvider.generateResourceId(sourceId, localId);
+		const { resourceId, localId } = this.dataProvider.generateResourceId();
 		return { resourceId, localId };
 	}
 

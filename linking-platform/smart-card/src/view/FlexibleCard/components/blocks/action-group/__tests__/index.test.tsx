@@ -6,7 +6,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
-import PremiumIcon from '@atlaskit/icon/core/migration/premium';
+import PremiumIcon from '@atlaskit/icon/core/premium';
 import { token } from '@atlaskit/tokens';
 
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';

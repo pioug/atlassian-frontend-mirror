@@ -1,5 +1,5 @@
 import React from 'react';
-import LightbulbIcon from '@atlaskit/icon/core/migration/lightbulb';
+import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
 import { Inline } from '@atlaskit/primitives/compiled';
 import { useIntl } from 'react-intl-next';
 

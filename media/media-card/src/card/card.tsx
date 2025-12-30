@@ -63,11 +63,16 @@ export const CardWithPerformanceObserver = (
 			return;
 		}
 
+		// Sample auth-provider-succeeded events at 10%
+		const shouldSampleAuthProviderSucceeded = () => Math.random() < 0.1;
+
 		const onAuthSuccess = (payload: AuthProviderSucceededEventPayload) => {
-			fireMediaCardEvent(
-				getAuthProviderSucceededPayload(payload.durationMs, payload.timeoutMs, payload.authContext),
-				createAnalyticsEvent,
-			);
+			if (shouldSampleAuthProviderSucceeded()) {
+				fireMediaCardEvent(
+					getAuthProviderSucceededPayload(payload.durationMs, payload.timeoutMs, payload.authContext),
+					createAnalyticsEvent,
+				);
+			}
 		};
 
 		const onAuthFailed = (payload: AuthProviderFailedEventPayload) => {

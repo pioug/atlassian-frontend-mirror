@@ -89,7 +89,7 @@ export const fetchConfluencePageInfo = async (
 	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
 ): Promise<SyncBlockSourceInfo | undefined> => {
 	try {
-		const { type: pageType } = getPageIdAndTypeFromConfluencePageAri(pageAri);
+		const { type: pageType } = getPageIdAndTypeFromConfluencePageAri({ ari: pageAri });
 		const response = await getConfluenceSourceInfo(pageAri);
 
 		const contentData = response.data?.content?.nodes?.[0];

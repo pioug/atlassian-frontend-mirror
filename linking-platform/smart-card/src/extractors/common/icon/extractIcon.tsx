@@ -5,7 +5,7 @@ import RepoIcon from '@atlaskit/icon-object/glyph/code/16';
 import CommitIcon from '@atlaskit/icon-object/glyph/commit/16';
 import PullRequestIcon from '@atlaskit/icon-object/glyph/pull-request/16';
 import TaskIcon from '@atlaskit/icon-object/glyph/task/16';
-import PeopleGroupIcon from '@atlaskit/icon/core/migration/people-group';
+import PeopleGroupIcon from '@atlaskit/icon/core/people-group';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import {
 	extractProvider,

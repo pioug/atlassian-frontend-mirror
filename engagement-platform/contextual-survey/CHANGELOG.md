@@ -1,5 +1,12 @@
 # @atlaskit/contextual-survey
 
+## 5.0.20
+
+### Patch Changes
+
+- [`9123fad528082`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9123fad528082) -
+  Icon entry point migration update
+
 ## 5.0.19
 
 ### Patch Changes

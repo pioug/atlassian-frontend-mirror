@@ -10,7 +10,7 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
-import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
+import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import { N80, R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';

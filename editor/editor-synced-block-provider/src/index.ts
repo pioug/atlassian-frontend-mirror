@@ -8,6 +8,7 @@ export type {
 	SyncBlockNode,
 	SyncBlockProduct,
 	BlockInstanceId,
+	SyncBlockAttrs,
 } from './common/types';
 
 // hooks
@@ -26,23 +27,22 @@ export {
 } from './clients/block-service/ari';
 export {
 	getConfluencePageAri,
-	getLocalIdFromContentPropertyResourceId,
-	getPageAriFromContentPropertyResourceId,
 	getPageIdAndTypeFromConfluencePageAri,
-	resourceIdFromConfluencePageSourceIdAndLocalId,
 } from './clients/confluence/ari';
 export { getJiraWorkItemAri, getJiraWorkItemIdFromAri } from './clients/jira/ari';
 
 // providers
-export { useMemoizedBlockServiceAPIProviders } from './providers/block-service/blockServiceAPI';
 export {
-	createContentAPIProvidersWithDefaultKey,
-	useMemoizedContentAPIProviders,
-} from './providers/confluence/confluenceContentAPI';
+	createBlockServiceAPIProviders,
+	createBlockServiceFetchOnlyAPIProvider,
+	useMemoizedBlockServiceAPIProviders,
+	useMemoizedBlockServiceFetchOnlyAPIProvider,
+} from './providers/block-service/blockServiceAPI';
 export { fetchConfluencePageInfo } from './clients/confluence/sourceInfo';
 
 export {
 	SyncBlockProvider as SyncedBlockProvider,
+	createAndInitializeSyncedBlockProvider,
 	useMemoizedSyncedBlockProvider,
 } from './providers/syncBlockProvider';
 export type {
@@ -54,12 +54,16 @@ export type {
 	SyncedBlockRendererProviderOptions,
 	SyncBlockRendererProviderCreator,
 	SyncedBlockRendererDataProviders,
+	UpdateReferenceSyncBlockResult,
+	WriteSyncBlockResult,
+	SyncBlockParentInfo,
 } from './providers/types';
 
 // store managers
 export { type ReferenceSyncBlockStoreManager } from './store-manager/referenceSyncBlockStoreManager';
 export {
 	SyncBlockStoreManager,
+	createAndInitializeSyncBlockStoreManager,
 	useMemoizedSyncBlockStoreManager,
 } from './store-manager/syncBlockStoreManager';
 
@@ -70,10 +74,8 @@ export {
 	convertSyncBlockPMNodeToSyncBlockData,
 	convertSyncBlockJSONNodeToSyncBlockNode,
 	convertPMNodesToSyncBlockNodes,
-	getContentIdAndProductFromResourceId
+	getContentIdAndProductFromResourceId,
 } from './utils/utils';
-export {
-	fetchErrorPayload
-} from './utils/errorHandling';
+export { fetchErrorPayload } from './utils/errorHandling';
 
 export { fetchReferences } from './providers/block-service/blockServiceAPI';

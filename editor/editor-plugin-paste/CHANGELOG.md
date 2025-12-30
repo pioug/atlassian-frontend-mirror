@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 8.0.1
+
+### Patch Changes
+
+- [`5812c1aff4a50`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5812c1aff4a50) -
+  Clean up platform_editor_pasting_nested_table_fix experiment - Fix nested table pasting by using
+  getLastPastedSlice
+- Updated dependencies
+
 ## 8.0.0
 
 ### Patch Changes

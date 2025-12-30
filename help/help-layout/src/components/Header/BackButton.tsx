@@ -6,7 +6,7 @@ import {
 	AnalyticsContext,
 } from '@atlaskit/analytics-next';
 import { Transition } from 'react-transition-group';
-import ArrowleftIcon from '@atlaskit/icon/core/migration/arrow-left';
+import ArrowleftIcon from '@atlaskit/icon/core/arrow-left';
 import Button from '@atlaskit/button/standard-button';
 
 import { messages } from '../../messages';

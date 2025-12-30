@@ -10,7 +10,7 @@ import { FormattedMessage, injectIntl } from 'react-intl-next';
 
 import { css, jsx } from '@atlaskit/css';
 import { mentionMessages as messages } from '@atlaskit/editor-common/messages';
-import AddIcon from '@atlaskit/icon/core/migration/add';
+import AddIcon from '@atlaskit/icon/core/add';
 import type { UserRole } from '@atlaskit/mention';
 import type { MentionDescription } from '@atlaskit/mention/resource';
 import { N30, N300 } from '@atlaskit/theme/colors';

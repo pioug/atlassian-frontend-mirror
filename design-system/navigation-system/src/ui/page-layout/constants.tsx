@@ -51,6 +51,21 @@ export const UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY = `calc(var(${UNSAFE_a
 export const localSlotLayers = {
 	topBar: 4,
 	banner: 4,
+	// With the FHS layering refactors, the banner and top nav have a lower z-index to allow layers from the side nav to overlay them.
+	// When they all have equal z-index values, the DOM order determines the layering - meaning the side nav will be layered above the rest.
+	// But, when the top bar contains an open layer, it needs to be layered above the side nav, so has a higher value.
+	topNavFHSWithOpenLayer: 3,
+	bannerFHS: 2,
+	topNavFHS: 2,
 	sideNav: 2,
 	panelSmallViewports: 1,
 };
+
+export const openLayerObserverSideNavNamespace = 'side-nav';
+export const openLayerObserverTopNavNamespace = 'top-nav';
+
+/**
+ * CSS scroll timeline variable for the side nav content scroll indicator.
+ * The scroll timeline is created in SideNavContent, and then used by TopNavStart to apply the scroll indicator line.
+ */
+export const sideNavContentScrollTimelineVar = '--sNcst';

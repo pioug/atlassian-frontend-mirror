@@ -1,40 +1,50 @@
 import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
-import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import {
+	AtlasProject,
+	overrideEmbedContent,
+	renderWithIntl,
+	ResolvedClient,
+} from '@atlaskit/link-test-helpers';
 
 import useResolve from '../../../state/hooks/use-resolve';
-import { mocks } from '../../../utils/mocks';
 import { EmbedCardErroredView } from '../../../view/EmbedCard/views/ErroredView';
 import { EmbedCardResolvedView, type EmbedCardResolvedViewProps } from '../views/ResolvedView';
 import UnresolvedView from '../views/unresolved-view';
 
-jest.mock('@atlaskit/link-provider', () => ({
-	...jest.requireActual('@atlaskit/link-provider'),
-	useSmartLinkContext: () => ({
-		store: { getState: () => ({ 'test-url': mocks.analytics }) },
-		config: { authFlow: 'disabled' },
-		connections: {
-			client: {
-				fetchData: jest.fn(),
-			},
-		},
+jest.mock('../../../state/hooks/use-resolve');
+jest.mock('react-render-image', () => ({
+	...jest.requireActual('react-render-image'),
+	__esModule: true,
+	default: jest.fn(({ src, loading, loaded, errored }: any) => {
+		switch (src) {
+			case 'src-loading':
+				return loading;
+			case 'src-loaded':
+				return loaded;
+			case 'src-error':
+				return errored;
+			default:
+				return loaded;
+		}
 	}),
 }));
-jest.mock('../../../state/hooks/use-resolve');
 
 let mockOnClick: React.MouseEventHandler = jest.fn();
 const getResolvedProps = (overrides = {}): EmbedCardResolvedViewProps => ({
-	link: 'https://www.dropbox.com/sh/0isygvcskxbdwee/AADMfqcGx4XR15DeKnRo_YzHa?dl=0',
+	link: AtlasProject.data.url,
 	preview: {
-		src: 'https://www.dropbox.com/sh/0isygvcskxbdwee/AADMfqcGx4XR15DeKnRo_YzHa?dl=0',
+		src: overrideEmbedContent,
 		aspectRatio: 0.6,
 	},
-	title: 'Smart Link Assets',
+	title: AtlasProject.data.name,
 	context: {
-		text: 'Dropbox',
-		icon: 'https://www.dropbox.com/static/30168/images/favicon.ico',
+		text: AtlasProject.data.generator.name,
+		icon: AtlasProject.data.generator.icon.url,
 	},
 	isTrusted: true,
 	onClick: mockOnClick,
@@ -57,12 +67,24 @@ describe('EmbedCard Views', () => {
 	});
 
 	describe('view: resolved', () => {
+		const setupResolved = (
+			props: React.ComponentProps<typeof EmbedCardResolvedView> = getResolvedProps(),
+		) =>
+			render(<EmbedCardResolvedView {...props} />, {
+				wrapper: ({ children }) => (
+					<IntlProvider locale="en">
+						<SmartCardProvider client={new ResolvedClient()}>{children}</SmartCardProvider>
+					</IntlProvider>
+				),
+			});
+
 		it('renders view', async () => {
-			const props = getResolvedProps();
-			render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />);
+			const title = 'Smart Link Assets';
+			const props = getResolvedProps({ title });
+			setupResolved(props);
 			const outerFrame = screen.getByTestId('embed-card-resolved-view');
 			const innerFrame = screen.getByTestId('embed-card-resolved-view-frame');
-			expect(outerFrame).toHaveTextContent('Smart Link Assets');
+			expect(outerFrame).toHaveTextContent(title);
 			expect(innerFrame).toBeTruthy();
 			expect(innerFrame.getAttribute('src')).toBe(props.preview?.src);
 
@@ -73,7 +95,7 @@ describe('EmbedCard Views', () => {
 			const props = getResolvedProps({
 				context: { icon: <MockIconElement /> },
 			});
-			render(<EmbedCardResolvedView {...props} />);
+			setupResolved(props);
 
 			expect(screen.getByTestId('mock-icon-element')).toBeDefined();
 
@@ -82,7 +104,7 @@ describe('EmbedCard Views', () => {
 
 		it('renders correct icon when icon prop is a url string', async () => {
 			const props = getResolvedProps();
-			render(<EmbedCardResolvedView {...props} />);
+			setupResolved(props);
 			const embedCardResolved = screen.getByTestId('embed-card-resolved-view');
 
 			expect(embedCardResolved.querySelector('.smart-link-icon')?.getAttribute('src')).toBe(
@@ -96,7 +118,7 @@ describe('EmbedCard Views', () => {
 			const props = getResolvedProps({
 				context: { icon: 'src-error' },
 			});
-			render(<EmbedCardResolvedView {...props} />);
+			setupResolved(props);
 
 			expect(screen.getByTestId('embed-card-fallback-icon')).toBeDefined();
 
@@ -105,17 +127,17 @@ describe('EmbedCard Views', () => {
 
 		it('should default to context text if title is missing', async () => {
 			const props = getResolvedProps({ title: undefined });
-			render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />);
+			setupResolved(props);
 			const outerFrame = screen.getByTestId('embed-card-resolved-view');
 
-			expect(outerFrame).toHaveTextContent('Dropbox');
+			expect(outerFrame).toHaveTextContent('Atlas');
 
 			await expect(document.body).toBeAccessible();
 		});
 
 		it('clicking on link should have no side-effects', async () => {
 			const props = getResolvedProps({ title: undefined });
-			render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />);
+			setupResolved(props);
 			const view = screen.getByTestId('embed-card-resolved-view');
 			const link = view.querySelector('a');
 
@@ -129,9 +151,8 @@ describe('EmbedCard Views', () => {
 		it('should pass iframe forward ref down to <iframe> element', async () => {
 			const props = getResolvedProps();
 			const ref = React.createRef<HTMLIFrameElement>();
-			const { container } = render(
-				<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} ref={ref} />,
-			);
+			const { container } = setupResolved({ ...props, ref });
+
 			const iframeEl = container.querySelector('iframe');
 			expect(iframeEl).toBe(ref.current);
 
@@ -140,9 +161,7 @@ describe('EmbedCard Views', () => {
 
 		it('renders sandbox prop on <iframe> element on untrusted link', async () => {
 			const props = getResolvedProps({ isTrusted: false });
-			const { container } = render(
-				<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
-			);
+			const { container } = setupResolved(props);
 			const iframeEl = container.querySelector('iframe');
 			expect(iframeEl?.getAttribute('sandbox')).toBe(
 				'allow-downloads allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts',
@@ -153,9 +172,8 @@ describe('EmbedCard Views', () => {
 
 		it('sandbox prop on <iframe> element on untrusted link', async () => {
 			const props = getResolvedProps({ isTrusted: false });
-			const { container } = render(
-				<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
-			);
+			const { container } = setupResolved(props);
+
 			const iframeEl = container.querySelector('iframe');
 			expect(iframeEl?.getAttribute('sandbox')).toBe(
 				'allow-downloads allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts',
@@ -166,9 +184,8 @@ describe('EmbedCard Views', () => {
 
 		it('does not renders sandbox prop on <iframe> element on trusted link', async () => {
 			const props = getResolvedProps({ isTrusted: true });
-			const { container } = render(
-				<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
-			);
+			const { container } = setupResolved(props);
+
 			const iframeEl = container.querySelector('iframe');
 			expect(iframeEl?.getAttribute('sandbox')).toBeNull();
 
@@ -177,13 +194,14 @@ describe('EmbedCard Views', () => {
 
 		it('does allow scrolling of content through wrapper', async () => {
 			const props = getResolvedProps({ isTrusted: true });
-			render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />);
+			setupResolved(props);
 			const view = screen.getByTestId('embed-content-wrapper');
 			expect(window.getComputedStyle(view).getPropertyValue('overflow')).toEqual('');
 
 			await expect(document.body).toBeAccessible();
 		});
 
+		// TODO: Different view?
 		it(`doesn't remove overflow attribute for Unresolved embeds`, async () => {
 			const props = getResolvedProps({ isTrusted: true });
 			render(
@@ -208,7 +226,7 @@ describe('EmbedCard Views', () => {
 
 			const props = getResolvedProps();
 			const ref = React.createRef<HTMLIFrameElement>();
-			render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} ref={ref} />);
+			setupResolved({ ...props, ref });
 
 			const iframeEl = ref.current;
 			fireEvent(
@@ -229,7 +247,7 @@ describe('EmbedCard Views', () => {
 
 			const props = getResolvedProps();
 			const ref = React.createRef<HTMLIFrameElement>();
-			render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} ref={ref} />);
+			setupResolved({ ...props, ref });
 			const iframeEl = ref.current;
 			fireEvent(
 				window,
@@ -249,7 +267,8 @@ describe('EmbedCard Views', () => {
 			const props = getResolvedProps();
 			const ref = React.createRef<HTMLIFrameElement>();
 			const differentRef = React.createRef<HTMLIFrameElement>();
-			render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} ref={ref} />);
+			setupResolved({ ...props, ref });
+
 			fireEvent(
 				window,
 				new MessageEvent('message', {

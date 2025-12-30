@@ -41,12 +41,28 @@ export class SyncBlockStoreManager {
 	}
 }
 
+const createSyncBlockStoreManager = (dataProvider?: SyncBlockDataProvider) => {
+	return new SyncBlockStoreManager(dataProvider);
+};
+
+export const createAndInitializeSyncBlockStoreManager = ({
+	dataProvider,
+	fireAnalyticsEvent,
+}: {
+	dataProvider?: SyncBlockDataProvider;
+	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void;
+}) => {
+	const syncBlockStoreManager = createSyncBlockStoreManager(dataProvider);
+	syncBlockStoreManager.setFireAnalyticsEvent(fireAnalyticsEvent);
+	return syncBlockStoreManager;
+};
+
 export const useMemoizedSyncBlockStoreManager = (
 	dataProvider?: SyncBlockDataProvider,
 	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
 ) => {
 	const syncBlockStoreManager = useMemo(() => {
-		const syncBlockStoreManager = new SyncBlockStoreManager(dataProvider);
+		const syncBlockStoreManager = createSyncBlockStoreManager(dataProvider);
 		return syncBlockStoreManager;
 	}, [dataProvider]);
 

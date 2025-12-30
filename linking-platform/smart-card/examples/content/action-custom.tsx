@@ -4,8 +4,8 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import DownloadIcon from '@atlaskit/icon/core/migration/download';
-import PremiumIcon from '@atlaskit/icon/core/migration/premium';
+import DownloadIcon from '@atlaskit/icon/core/download';
+import PremiumIcon from '@atlaskit/icon/core/premium';
 import { token } from '@atlaskit/tokens';
 
 import { ActionName, FooterBlock } from '../../src';

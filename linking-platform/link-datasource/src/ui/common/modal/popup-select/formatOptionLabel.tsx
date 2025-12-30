@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
 import { cssMap, cx } from '@atlaskit/css';
-import PeopleGroupIcon from '@atlaskit/icon/core/migration/people-group';
+import PeopleGroupIcon from '@atlaskit/icon/core/people-group';
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex } from '@atlaskit/primitives/compiled';

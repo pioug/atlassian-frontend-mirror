@@ -8,7 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { IconButton } from '@atlaskit/button/new';
-import RefreshIcon from '@atlaskit/icon/core/migration/refresh';
+import RefreshIcon from '@atlaskit/icon/core/refresh';
 import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

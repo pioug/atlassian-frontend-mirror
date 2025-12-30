@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 9.2.3
+
+### Patch Changes
+
+- [`b429c01ce6af9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b429c01ce6af9) -
+  icon migration entry point update
+- Updated dependencies
+
 ## 9.2.2
 
 ### Patch Changes

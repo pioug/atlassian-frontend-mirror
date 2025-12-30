@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.0.2
+
+### Patch Changes
+
+- [`4bf196f8645a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bf196f8645a7) -
+  Editor-4011: Added util function isMultiNodeSelection
+- Updated dependencies
+
+## 8.0.1
+
+### Patch Changes
+
+- [`908cbf07c65ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/908cbf07c65ac) -
+  EDITOR-4055 Fix block menu empty line handle selection
+- Updated dependencies
+
 ## 8.0.0
 
 ### Patch Changes

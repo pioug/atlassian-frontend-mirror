@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 111.0.5
+
+### Patch Changes
+
+- [`4bf196f8645a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bf196f8645a7) -
+  Editor-4011: Added util function isMultiNodeSelection
+
+## 111.0.4
+
+### Patch Changes
+
+- [`b429c01ce6af9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b429c01ce6af9) -
+  icon migration entry point update
+
+## 111.0.3
+
+### Patch Changes
+
+- [`496cc8412a7dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/496cc8412a7dc) -
+  ED-29616 Experience tracking tests and docs
+
 ## 111.0.2
 
 ### Patch Changes

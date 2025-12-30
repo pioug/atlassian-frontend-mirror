@@ -284,7 +284,7 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 	const [snaps, setSnaps] = useState<Snap>({});
 	const [isResizing, setIsResizing] = useState<boolean>(false);
 	const [isVideoFile, setIsVideoFile] = useState<boolean>(
-		!(fg('platform_editor_media_video_check_fix') || fg('platform_editor_ssr_media')),
+		!fg('platform_editor_media_video_check_fix'),
 	);
 	const [hasResized, setHasResized] = useState<boolean>(false);
 

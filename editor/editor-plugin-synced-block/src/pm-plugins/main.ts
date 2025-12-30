@@ -16,9 +16,11 @@ import {
 	rebaseTransaction,
 	type SyncBlockStoreManager,
 } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { lazyBodiedSyncBlockView } from '../nodeviews/bodiedLazySyncedBlock';
 import { lazySyncBlockView } from '../nodeviews/lazySyncedBlock';
+import { SyncBlock as SyncBlockView } from '../nodeviews/syncedBlock';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { FLAG_ID, type ActiveFlag, type BodiedSyncBlockDeletionStatus } from '../types';
 
@@ -103,11 +105,28 @@ export const createPlugin = (
 		},
 		props: {
 			nodeViews: {
-				syncBlock: lazySyncBlockView({
-					options,
-					pmPluginFactoryParams,
-					api,
-				}),
+				syncBlock: fg('platform_synced_block_dogfooding')
+					? (node, view, getPos, _decorations) => {
+							// To support SSR, pass `syncBlockStore` here
+							// and do not use lazy loading.
+							// We cannot start rendering and then load `syncBlockStore` asynchronously,
+							// because obtaining it is asynchronous (sharedPluginState.currentState() is delayed).
+							return new SyncBlockView({
+								api,
+								options,
+								node,
+								view,
+								getPos,
+								portalProviderAPI: pmPluginFactoryParams.portalProviderAPI,
+								eventDispatcher: pmPluginFactoryParams.eventDispatcher,
+								syncBlockStore: syncBlockStore,
+							}).init();
+						}
+					: lazySyncBlockView({
+							options,
+							pmPluginFactoryParams,
+							api,
+						}),
 				bodiedSyncBlock: lazyBodiedSyncBlockView({
 					pluginOptions: options,
 					pmPluginFactoryParams,

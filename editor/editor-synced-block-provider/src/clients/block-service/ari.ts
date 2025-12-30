@@ -3,37 +3,40 @@ import { type SyncBlockProduct } from '../../common/types';
 
 /**
  * Generates the block ARI from the source page ARI and the source block's resource ID.
- * @param sourceAri - the ARI of the document. E.G ari:cloud:confluence:cloudId:page/pageId
+ * @param cloudId - the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
+ * @param parentId - the parentId of the block. E.G the pageId for a confluence page, or the issueId for a Jira work item
  * @param resourceId - the resource ID of the block node. A randomly generated UUID
+ * @param product - the product of the block. E.G 'confluence-page', 'jira-work-item'
  * @returns the block ARI. E.G ari:cloud:blocks:<cloudId>:synced-block/<product>/<pageId>/<resourceId>
  */
-export const generateBlockAri = (
-	sourceAri: string,
-	resourceId: string,
-	product: SyncBlockProduct,
-): string => {
-	const match = sourceAri.match(/ari:cloud:confluence:([^:]+):(page|blogpost)\/(\d+)/);
-	if (!match?.[1]) {
-		throw new Error(`Invalid source ARI: ${sourceAri}`);
-	}
-	const cloudId = match[1];
-	const pageId = match[3];
-	return `ari:cloud:blocks:${cloudId}:synced-block/${product}/${pageId}/${resourceId}`;
+export const generateBlockAri = ({
+	cloudId,
+	parentId,
+	product,
+	resourceId,
+}: {
+	cloudId: string;
+	parentId: string;
+	product: SyncBlockProduct;
+	resourceId: string;
+}): string => {
+	return `ari:cloud:blocks:${cloudId}:synced-block/${product}/${parentId}/${resourceId}` as const;
 };
 
 /**
  * Generates the block ARI from the reference synced block ARI and the resource ID
- * @param sourceAri - the ARI of the document. E.G ari:cloud:confluence:cloudId:page/pageId
+ * @param cloudId - the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
  * @param resourceId - the resource ID of the reference synced block. E.G confluence-page/pageId/sourceResourceId
  * @returns the block ARI. E.G ari:cloud:blocks:<cloudId>:synced-block/<product>/<pageId>/<resourceId>
  */
-export const generateBlockAriFromReference = (sourceAri: string, resourceId: string): string => {
-	const match = sourceAri.match(/ari:cloud:confluence:([^:]+):(page|blogpost)\/(\d+)/);
-	if (!match?.[1]) {
-		throw new Error(`Invalid source ARI: ${sourceAri}`);
-	}
-	const cloudId = match[1];
-	return `ari:cloud:blocks:${cloudId}:synced-block/${resourceId}`;
+export const generateBlockAriFromReference = ({
+	cloudId,
+	resourceId,
+}: {
+	cloudId: string;
+	resourceId: string;
+}): string => {
+	return `ari:cloud:blocks:${cloudId}:synced-block/${resourceId}` as const;
 };
 
 /**

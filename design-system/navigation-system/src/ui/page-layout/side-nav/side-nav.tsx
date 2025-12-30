@@ -1,8 +1,9 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
+ * @jsxFrag
  */
-import {
+import React, {
 	type CSSProperties,
 	useCallback,
 	useContext,
@@ -37,6 +38,7 @@ import {
 	contentHeightWhenFixed,
 	contentInsetBlockStart,
 	localSlotLayers,
+	openLayerObserverSideNavNamespace,
 	sideNavLiveWidthVar,
 	sideNavPanelSplitterId,
 	sideNavVar,
@@ -83,14 +85,29 @@ function getResizeBounds() {
 const isFirefox: boolean =
 	typeof navigator !== 'undefined' && navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
-const openLayerObserverSideNavNamespace = 'side-nav';
-
 type FlyoutState =
 	| { type: 'open' }
 	| { type: 'is-dragging-from-flyout' }
 	| { type: 'waiting-for-close'; abort: () => void }
 	| { type: 'ready-to-close' }
 	| { type: 'not-active' };
+
+const panelSplitterPortalTargetStyles = cssMap({
+	root: {
+		position: 'absolute',
+		// Anchoring the panel splitter to the bottom-right edge of the side nav
+		insetInlineEnd: 0,
+		insetBlockEnd: 0,
+		// On small viewports, the panel splitter should take up the full height of the side nav.
+		height: '100%',
+		'@media (min-width: 64rem)': {
+			// On desktop, the height is set so it takes all available viewport space, minus the banner. This
+			// means it will overlay the top bar.
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			height: `calc(100vh - var(${bannerMountedVar}, 0px))`,
+		},
+	},
+});
 
 const styles = cssMap({
 	root: {
@@ -519,6 +536,7 @@ function SideNavInternal({
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 
 	const navRef = useRef<HTMLDivElement | null>(null);
+	const panelSplitterPortalTargetRef = useRef<HTMLDivElement | null>(null);
 	/**
 	 * Used to share the side nav element with the `Panel`,
 	 * which observes the side nav to determine its maximum width.
@@ -1214,7 +1232,10 @@ function SideNavInternal({
 					isFhsEnabled &&
 					styles.flyoutAnimateClosedFullHeightSidebar,
 				// Flyout is not using full height styles
-				isFlyoutClosed && isFhsEnabled && styles.fullHeightSidebar,
+				isFlyoutClosed &&
+					isFhsEnabled &&
+					!fg('platform-dst-side-nav-layering-fixes') &&
+					styles.fullHeightSidebar,
 			]}
 			data-testid={testId}
 		>
@@ -1243,15 +1264,30 @@ function SideNavInternal({
 			<PanelSplitterProvider
 				panelId={sideNavPanelSplitterId}
 				panelRef={navRef}
+				portalRef={
+					isFhsEnabled && fg('platform-dst-side-nav-layering-fixes')
+						? panelSplitterPortalTargetRef
+						: undefined
+				}
 				panelWidth={width}
 				onCompleteResize={setWidth}
 				getResizeBounds={getResizeBounds}
 				resizingCssVar={panelSplitterResizingVar}
-				isEnabled={isExpandedOnDesktop && !isFlyoutVisible}
+				// Not resizable when in peek (flyout) mode.
+				isEnabled={
+					fg('platform-dst-side-nav-layering-fixes')
+						? !isFlyoutVisible
+						: // Old behaviour has a bug: the panel splitter would only be visible on sm screens (between 48rem and 64rem)
+							// if the side nav was expanded on desktop.
+							isExpandedOnDesktop && !isFlyoutVisible
+				}
 				shortcut={isShortcutEnabled ? sideNavToggleTooltipKeyboardShortcut : undefined}
 			>
 				<div css={styles.flexContainer}>{children}</div>
 			</PanelSplitterProvider>
+			{isFhsEnabled && fg('platform-dst-side-nav-layering-fixes') && (
+				<div ref={panelSplitterPortalTargetRef} css={panelSplitterPortalTargetStyles.root} />
+			)}
 		</nav>
 	);
 }

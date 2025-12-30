@@ -1,7 +1,9 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
+export { useMemoizedSyncedBlockNodeComponent } from './useSyncedBlockNodeComponent';
 export {
-	useMemoizedSyncedBlockNodeComponent,
+	getSyncedBlockNodeComponent,
 	getSyncBlockNodesFromDoc,
-} from './useSyncedBlockNodeComponent';
+} from './getSyncedBlockNodeComponent';
+
 export { getSyncedBlockRenderer } from './getSyncedBlockRenderer';
 export type { SyncedBlockNodeProps } from './ui/SyncedBlockNodeComponentRenderer';

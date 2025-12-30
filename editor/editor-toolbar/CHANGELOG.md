@@ -1,5 +1,12 @@
 # @atlaskit/editor-toolbar
 
+## 0.18.8
+
+### Patch Changes
+
+- [`676d45e408322`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/676d45e408322) -
+  [ED-29726] clean up platform_editor_toolbar_aifc_patch_8
+
 ## 0.18.7
 
 ### Patch Changes

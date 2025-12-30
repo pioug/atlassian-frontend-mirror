@@ -1,5 +1,6 @@
 import memoizeOne from 'memoize-one';
 
+import { isMultiBlockSelection } from '@atlaskit/editor-common/selection';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -247,20 +248,11 @@ export const handleMouseOver = (
 			// platform_editor_controls note: enables quick insert
 			if (toolbarFlagsEnabled) {
 				if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
-					const selection = selectionPreservationPluginKey.getState(view.state)?.preservedSelection;
-
-					const nodeTypes: string[] = [];
-					selection?.$from.doc.nodesBetween(selection.from, selection.to, (node, pos) => {
-						if (pos < selection.from) {
-							// ignore parent node
-							return true;
-						}
-						nodeTypes.push(node.type.name);
-
-						// only care about the top level (relatively in the range) nodes
-						return false;
-					});
-					const isMultipleSelected = nodeTypes.length > 1;
+					const preservedSelection = selectionPreservationPluginKey.getState(
+						view.state,
+					)?.preservedSelection;
+					const selection = preservedSelection || view.state.selection;
+					const isMultipleSelected = selection && isMultiBlockSelection(selection);
 
 					// Only execute when selection is not a multi-selection, block menu is open, and menu is opened via keyboard
 					// as when it is a multi-selection, the showDragHandleAt command interfere with selection

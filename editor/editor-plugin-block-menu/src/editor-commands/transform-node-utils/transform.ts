@@ -252,6 +252,7 @@ const getTransformStepsForNodeTypes = (
 
 interface GetOutputNodesArgs {
 	isNested: boolean;
+	parentNode?: PMNode;
 	schema: Schema;
 	sourceNodes: PMNode[];
 	targetAttrs?: Record<string, unknown>;
@@ -264,6 +265,7 @@ export const getOutputNodes = ({
 	schema,
 	isNested,
 	targetAttrs,
+	parentNode,
 }: GetOutputNodesArgs): PMNode[] | undefined => {
 	const sourceNode = sourceNodes.at(0);
 
@@ -273,7 +275,11 @@ export const getOutputNodes = ({
 
 	const selectedNodeTypeName = toNodeTypeValue(getNodeName(sourceNodes));
 	const initialTargetNodeTypeName = toNodeTypeValue(targetNodeType.name);
-	const targetNodeTypeName = getTargetNodeTypeNameInContext(initialTargetNodeTypeName, isNested);
+	const targetNodeTypeName = getTargetNodeTypeNameInContext(
+		initialTargetNodeTypeName,
+		isNested,
+		parentNode,
+	);
 
 	if (!selectedNodeTypeName || !targetNodeTypeName) {
 		// We may decide to return an empty array or undefined here

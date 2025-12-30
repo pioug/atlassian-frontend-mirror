@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@atlaskit/button/standard-button';
 import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
-import AddCommentIcon from '@atlaskit/icon/core/migration/comment';
+import AddCommentIcon from '@atlaskit/icon/core/comment';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Popup } from '@atlaskit/editor-common/ui';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-copy-button
 
+## 7.0.1
+
+### Patch Changes
+
+- [`b429c01ce6af9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b429c01ce6af9) -
+  icon migration entry point update
+- Updated dependencies
+
 ## 7.0.0
 
 ### Patch Changes

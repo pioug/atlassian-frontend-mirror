@@ -18,7 +18,7 @@ import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import Page16Icon from '@atlaskit/icon-object/glyph/page/16';
-import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
+import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Pressable, xcss } from '@atlaskit/primitives';

@@ -78,6 +78,11 @@ export default (
 		actionSubjectId,
 		attributes: payloadAttributes,
 		name,
+		objectId,
+		objectType,
+		containerType,
+		containerId,
+		source: payloadSource,
 	} = event.payload;
 	const attributes = {
 		listenerVersion,
@@ -98,12 +103,16 @@ export default (
 			case TRACK_EVENT_TYPE:
 				return {
 					eventType,
-					source,
+					source: payloadSource || source,
 					actionSubject,
 					action,
 					actionSubjectId,
 					attributes,
 					tags: Array.from(tags),
+					...(objectId && { objectId }),
+					...(objectType && { objectType }),
+					...(containerType && { containerType }),
+					...(containerId && { containerId }),
 				} as any;
 			case SCREEN_EVENT_TYPE:
 				return {

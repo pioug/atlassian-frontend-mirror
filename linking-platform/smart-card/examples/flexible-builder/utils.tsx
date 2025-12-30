@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PremiumIcon from '@atlaskit/icon/core/migration/premium';
+import PremiumIcon from '@atlaskit/icon/core/premium';
 import { token } from '@atlaskit/tokens';
 
 import {

@@ -9,7 +9,7 @@ import { useMemo } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import LinkIcon from '@atlaskit/icon/core/migration/link';
+import LinkIcon from '@atlaskit/icon/core/link';
 import { Box } from '@atlaskit/primitives/compiled';
 import Tile from '@atlaskit/tile';
 import { token } from '@atlaskit/tokens';

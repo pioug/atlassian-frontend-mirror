@@ -1,5 +1,16 @@
 # @atlaskit/popup
 
+## 4.10.0
+
+### Minor Changes
+
+- [`e1393235a54cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1393235a54cb) -
+  Popup now specifies the layer type `'popup'` to the open layer observer.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.9.0
 
 ### Minor Changes

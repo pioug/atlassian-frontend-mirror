@@ -14,7 +14,7 @@ import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { messages } from '@atlaskit/editor-common/quick-insert';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
-import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
+import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import Modal, { CloseButton, ModalTransition, useModal } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N0 } from '@atlaskit/theme/colors';

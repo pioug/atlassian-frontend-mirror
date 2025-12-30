@@ -17,8 +17,8 @@ import {
 	ArrowKeyNavigationType,
 	DropdownContainer as UiDropdown,
 } from '@atlaskit/editor-common/ui-menu';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import EditIcon from '@atlaskit/icon/core/edit';
-import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import { ButtonItem } from '@atlaskit/menu';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

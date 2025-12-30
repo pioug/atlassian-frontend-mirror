@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import DownloadIcon from '@atlaskit/icon/core/migration/download';
+import DownloadIcon from '@atlaskit/icon/core/download';
 
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';

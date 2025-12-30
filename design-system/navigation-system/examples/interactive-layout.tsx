@@ -9,10 +9,11 @@ import { cssMap, jsx } from '@compiled/react';
 
 import Badge from '@atlaskit/badge';
 import AKBanner from '@atlaskit/banner';
-import Button from '@atlaskit/button/new';
+import Button, { IconButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import { FlagsProvider, useFlags } from '@atlaskit/flag';
 import Heading from '@atlaskit/heading';
+import AddIcon from '@atlaskit/icon/core/add';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import AppsIcon from '@atlaskit/icon/core/apps';
 import BoardIcon from '@atlaskit/icon/core/board';
@@ -72,6 +73,7 @@ import {
 	Search,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
+import Popup from '@atlaskit/popup';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -120,6 +122,43 @@ const defaultSlotWidths = {
 	panel: 350,
 	aside: 400,
 };
+
+const appSwitcherStyles = cssMap({
+	root: {
+		width: '400px',
+		height: '500px',
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
+	},
+});
+
+function MockAppSwitcher(): JSX.Element {
+	const [isOpen, setIsOpen] = useState(false);
+
+	return (
+		<Popup
+			isOpen={isOpen}
+			onClose={() => {
+				setIsOpen(false);
+			}}
+			content={() => <div css={appSwitcherStyles.root}>Mock app switcher</div>}
+			placement="bottom-start"
+			shouldRenderToParent
+			trigger={(triggerProps) => (
+				<AppSwitcher
+					{...triggerProps}
+					onClick={() => {
+						setIsOpen((prev) => !prev);
+					}}
+					label="Switch apps"
+					isSelected={isOpen}
+				/>
+			)}
+		/>
+	);
+}
 
 function Example() {
 	const [direction, setDirection] = useState<'ltr' | 'rtl'>('ltr');
@@ -177,7 +216,7 @@ function Example() {
 							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
 						}
 					>
-						<AppSwitcher label="Switch apps" />
+						<MockAppSwitcher />
 						<AppLogo href="" icon={ConfluenceIcon} label="Home page" name="Confluence" />
 					</TopNavStart>
 
@@ -227,7 +266,30 @@ function Example() {
 							<LinkMenuItem href="#" elemBefore={<AppsIcon label="" />}>
 								Apps
 							</LinkMenuItem>
-							<LinkMenuItem href="#" elemBefore={<ProjectIcon label="" />}>
+							<LinkMenuItem
+								href="#"
+								elemBefore={<ProjectIcon label="" />}
+								actions={
+									<DropdownMenu
+										shouldRenderToParent
+										trigger={({ triggerRef, ...props }) => (
+											<IconButton
+												ref={triggerRef}
+												{...props}
+												spacing="compact"
+												appearance="subtle"
+												label="Add"
+												icon={(iconProps) => <AddIcon {...iconProps} size="small" />}
+											/>
+										)}
+									>
+										<DropdownItemGroup>
+											<DropdownItem>Create</DropdownItem>
+											<DropdownItem>Import</DropdownItem>
+										</DropdownItemGroup>
+									</DropdownMenu>
+								}
+							>
 								Projects
 							</LinkMenuItem>
 

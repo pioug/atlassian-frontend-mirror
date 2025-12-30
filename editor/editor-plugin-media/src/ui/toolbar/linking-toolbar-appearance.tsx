@@ -16,8 +16,8 @@ import {
 	FloatingToolbarButton as ToolbarButton,
 } from '@atlaskit/editor-common/ui';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import LinkIcon from '@atlaskit/icon/core/link';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import LinkIcon from '@atlaskit/icon/core/migration/link';
 
 import {
 	currentMediaInlineNode,

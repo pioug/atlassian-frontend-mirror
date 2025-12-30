@@ -7,9 +7,13 @@ import React, { forwardRef, type ReactNode, type Ref, useMemo, useRef } from 're
 import { cssMap, jsx, keyframes } from '@compiled/react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
+import { sideNavContentScrollTimelineVar } from '../constants';
+
+import { useSideNavVisibility } from './use-side-nav-visibility';
 
 /**
  * The main content of the side nav, filling up the middle section. It acts as a scroll container.
@@ -65,6 +69,25 @@ const fullHeightSidebarStyles = cssMap({
 		animationTimeline: scrollTimelineVar,
 		animationName: scrolledBorder,
 	},
+	scrollContainerWithLayeringFixes: {
+		// Only needed when the side nav is full height, which only happens on desktop.
+		'@media (min-width: 64rem)': {
+			'@supports (scroll-timeline-axis: block)': {
+				// Creates the scroll timeline bound to the var
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+				scrollTimelineName: sideNavContentScrollTimelineVar,
+				scrollTimelineAxis: 'block',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'html:has([data-private-side-nav-header]) &': {
+					// Only applied if there is a SideNavHeader. See the comment in SideNavHeader for more details.
+					// Consumes the scroll timeline for the animation
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+					animationTimeline: sideNavContentScrollTimelineVar,
+					animationName: scrolledBorder,
+				},
+			},
+		},
+	},
 });
 
 function _SideNavContent(
@@ -75,6 +98,8 @@ function _SideNavContent(
 	const internalRef = useRef<HTMLDivElement>(null);
 	const mergedRef = useMemo(() => mergeRefs([internalRef, forwardedRef]), [forwardedRef]);
 
+	const { isExpandedOnDesktop } = useSideNavVisibility();
+
 	return (
 		/**
 		 * We are adding two `div` elements here on purpose. The padding styles are added to a nested element to make sure the padding is included in the scrollable area.
@@ -82,7 +107,16 @@ function _SideNavContent(
 		 * the scrollable area doesn't, so other non-sticky children can be seen above/below the sticky element's stick point.
 		 */
 		<div
-			css={[styles.scrollContainer, isFhsEnabled && fullHeightSidebarStyles.scrollContainer]}
+			css={[
+				styles.scrollContainer,
+				isFhsEnabled &&
+					!fg('platform-dst-side-nav-layering-fixes') &&
+					fullHeightSidebarStyles.scrollContainer,
+				isFhsEnabled &&
+					isExpandedOnDesktop &&
+					fg('platform-dst-side-nav-layering-fixes') &&
+					fullHeightSidebarStyles.scrollContainerWithLayeringFixes,
+			]}
 			ref={isFhsEnabled ? mergedRef : forwardedRef}
 			data-testid={testId}
 		>

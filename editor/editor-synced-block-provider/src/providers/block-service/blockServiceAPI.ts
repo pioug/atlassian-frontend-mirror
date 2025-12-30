@@ -61,10 +61,23 @@ const mapBlockError = (error: BlockError): SyncBlockError => {
 // - sourceTitle
 // - isSynced
 const convertToSyncBlockData = (data: BlockContentResponse): SyncBlockData => {
+	let createdAt: string | undefined;
+	if (data.createdAt) {
+		try {
+			// BE returns microseconds, convert to milliseconds
+			// BE should fix this in the future
+			createdAt = new Date(data.createdAt / 1000).toISOString();
+		} catch (e) {
+			// fallback to undefined
+			// as we don't want to block the whole process due to invalid date
+			createdAt = undefined;
+		}
+	}
+
 	return {
 		blockInstanceId: data.blockInstanceId,
 		content: JSON.parse(data.content),
-		createdAt: new Date(data.createdAt).toISOString(),
+		createdAt,
 		createdBy: data.createdBy,
 		product: data.product,
 		resourceId: data.blockAri,
@@ -118,20 +131,24 @@ export const fetchReferences = async (
 	return [...blocksInstances, ...errorInstances];
 };
 
+interface BlockServiceADFFetchProviderProps {
+	cloudId: string; // the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
+}
+
 /**
  * ADFFetchProvider implementation that fetches synced block data from Block Service API
  */
 class BlockServiceADFFetchProvider implements ADFFetchProvider {
-	private sourceAri: string;
+	private cloudId: string;
 
-	constructor(sourceAri: string) {
-		this.sourceAri = sourceAri;
+	constructor({ cloudId }: BlockServiceADFFetchProviderProps) {
+		this.cloudId = cloudId;
 	}
 
 	// resourceId of the reference synced block.
 	// the ARI must be constructed to call the block service API
 	async fetchData(resourceId: string): Promise<SyncBlockInstance> {
-		const blockAri = generateBlockAriFromReference(this.sourceAri, resourceId);
+		const blockAri = generateBlockAriFromReference({ cloudId: this.cloudId, resourceId });
 
 		try {
 			const blockContentResponse = await getSyncedBlockContent({ blockAri });
@@ -163,26 +180,48 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 	}
 }
 
+interface BlockServiceADFWriteProviderProps {
+	cloudId: string; // the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
+	getVersion?: () => number | undefined; // get the version of the block. E.G the version of the confluence page, or the version of the Jira work item
+	parentAri: string; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
+	parentId: string; // the parentId of the block. E.G the pageId for a confluence page, or the issueId for a Jira work item
+	product: SyncBlockProduct; // the product of the block. E.G 'confluence-page', 'jira-work-item'
+}
+
 /**
  * ADFWriteProvider implementation that writes synced block data to Block Service API
  */
 class BlockServiceADFWriteProvider implements ADFWriteProvider {
-	private sourceAri: string;
-	private sourceDocumentId: string;
+	private cloudId: string;
+	private parentAri: string;
+	private parentId: string;
 	private getVersion?: () => number | undefined;
+
 	product: SyncBlockProduct;
 
-	constructor(sourceAri: string, product: SyncBlockProduct, sourceDocumentId: string, getVersion?: () => number | undefined) {
-		this.sourceAri = sourceAri;
+	constructor({
+		cloudId,
+		parentAri,
+		parentId,
+		product,
+		getVersion,
+	}: BlockServiceADFWriteProviderProps) {
+		this.cloudId = cloudId;
+		this.parentAri = parentAri;
+		this.parentId = parentId;
 		this.product = product;
-		this.sourceDocumentId = sourceDocumentId;
 		this.getVersion = getVersion;
 	}
 
 	// it will first try to update and if it can't (404) then it will try to create
 	async writeData(data: SyncBlockData): Promise<WriteSyncBlockResult> {
 		const { resourceId } = data;
-		const blockAri = generateBlockAri(this.sourceAri, resourceId, this.product);
+		const blockAri = generateBlockAri({
+			cloudId: this.cloudId,
+			parentId: this.parentId,
+			product: this.product,
+			resourceId,
+		});
 		const stepVersion = this.getVersion ? this.getVersion() : undefined;
 
 		try {
@@ -199,14 +238,19 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 
 	async createData(data: SyncBlockData): Promise<WriteSyncBlockResult> {
 		const { resourceId } = data;
-		const blockAri = generateBlockAri(this.sourceAri, resourceId, this.product);
+		const blockAri = generateBlockAri({
+			cloudId: this.cloudId,
+			parentId: this.parentId,
+			product: this.product,
+			resourceId,
+		});
 		const stepVersion = this.getVersion ? this.getVersion() : undefined;
 
 		try {
 			await createSyncedBlock({
 				blockAri,
 				blockInstanceId: data.blockInstanceId,
-				sourceAri: this.sourceAri,
+				sourceAri: this.parentAri,
 				product: this.product,
 				content: JSON.stringify(data.content),
 				stepVersion,
@@ -223,7 +267,12 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 
 	// soft deletes the source synced block
 	async deleteData(resourceId: string): Promise<DeleteSyncBlockResult> {
-		const blockAri = generateBlockAri(this.sourceAri, resourceId, this.product);
+		const blockAri = generateBlockAri({
+			cloudId: this.cloudId,
+			parentId: this.parentId,
+			product: this.product,
+			resourceId,
+		});
 		try {
 			await deleteSyncedBlock({ blockAri });
 			return { resourceId, success: true, error: undefined };
@@ -242,19 +291,25 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 
 	// the sourceId is the resourceId of the source synced block.
 	generateResourceIdForReference(sourceId: ResourceId): ResourceId {
-		return `${this.product}/${this.sourceDocumentId}/${sourceId}`;
+		return `${this.product}/${this.parentId}/${sourceId}`;
 	}
 
 	generateResourceId(): ResourceId {
 		return crypto.randomUUID();
 	}
 
-	async updateReferenceData(blocks: SyncBlockAttrs[], noContent?:boolean): Promise<UpdateReferenceSyncBlockResult> {
+	async updateReferenceData(
+		blocks: SyncBlockAttrs[],
+		noContent?: boolean,
+	): Promise<UpdateReferenceSyncBlockResult> {
 		try {
 			await updateReferenceSyncedBlockOnDocument({
-				documentAri: this.sourceAri,
+				documentAri: this.parentAri,
 				blocks: blocks.map((block) => ({
-					blockAri: generateBlockAriFromReference(this.sourceAri, block.resourceId),
+					blockAri: generateBlockAriFromReference({
+						cloudId: this.cloudId,
+						resourceId: block.resourceId,
+					}),
 					blockInstanceId: block.localId,
 				})),
 				noContent,
@@ -266,28 +321,72 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			}
 			return { success: false, error: stringifyError(error) };
 		}
-
 	}
 }
 
-/**
- * Factory function to create both providers with shared configuration
- */
-const createBlockServiceAPIProviders = (sourceAri: string, product: SyncBlockProduct, sourceDocumentId: string, getVersion?: () => number | undefined) => {
-	const fetchProvider = new BlockServiceADFFetchProvider(sourceAri);
-	const writeProvider = new BlockServiceADFWriteProvider(sourceAri, product, sourceDocumentId, getVersion);
-
+interface BlockServiceAPIProvidersProps {
+	cloudId: string; // the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
+	getVersion?: () => number | undefined; // get the version of the block. E.G the version of the confluence page, or the version of the Jira work item
+	parentAri: string; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
+	parentId: string; // the parentId of the block. E.G the pageId for a confluence page, or the issueId for a Jira work item
+	product: SyncBlockProduct; // the product of the block. E.G 'confluence-page', 'jira-work-item'
+}
+export const createBlockServiceAPIProviders = ({
+	cloudId,
+	parentAri,
+	parentId,
+	product,
+	getVersion,
+}: BlockServiceAPIProvidersProps): {
+	fetchProvider: BlockServiceADFFetchProvider;
+	writeProvider: BlockServiceADFWriteProvider;
+} => {
 	return {
-		fetchProvider,
-		writeProvider,
+		fetchProvider: new BlockServiceADFFetchProvider({ cloudId }),
+		writeProvider: new BlockServiceADFWriteProvider({
+			cloudId,
+			parentAri,
+			parentId,
+			product,
+			getVersion,
+		}),
 	};
 };
 
-export const useMemoizedBlockServiceAPIProviders = (
-	sourceAri: string,
-	product: SyncBlockProduct,
-	sourceDocumentId: string,
-	getVersion?: () => number | undefined,
-) => {
-	return useMemo(() => createBlockServiceAPIProviders(sourceAri, product, sourceDocumentId, getVersion), [sourceAri, product, sourceDocumentId, getVersion]);
+export const useMemoizedBlockServiceAPIProviders = ({
+	cloudId,
+	parentAri,
+	parentId,
+	product,
+	getVersion,
+}: BlockServiceAPIProvidersProps): {
+	fetchProvider: BlockServiceADFFetchProvider;
+	writeProvider: BlockServiceADFWriteProvider;
+} => {
+	return useMemo(() => {
+		return createBlockServiceAPIProviders({ cloudId, parentAri, parentId, product, getVersion });
+	}, [cloudId, parentAri, parentId, product, getVersion]);
 };
+
+interface BlockServiceFetchOnlyAPIProviderProps {
+	cloudId: string; // the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
+}
+
+export const createBlockServiceFetchOnlyAPIProvider = ({
+	cloudId,
+}: BlockServiceFetchOnlyAPIProviderProps): {
+	fetchProvider: BlockServiceADFFetchProvider;
+	writeProvider: undefined;
+} => {
+	return {
+		fetchProvider: new BlockServiceADFFetchProvider({ cloudId }),
+		writeProvider: undefined,
+	};
+};
+
+export const useMemoizedBlockServiceFetchOnlyAPIProvider = ({
+	cloudId,
+}: BlockServiceFetchOnlyAPIProviderProps): {
+	fetchProvider: BlockServiceADFFetchProvider;
+	writeProvider: undefined;
+} => useMemo(() => createBlockServiceFetchOnlyAPIProvider({ cloudId }), [cloudId]);

@@ -16,8 +16,8 @@ import DropdownMenu, {
 	DropdownItem,
 	type DropdownMenuProps,
 } from '@atlaskit/dropdown-menu';
-import ChevronDown from '@atlaskit/icon/core/migration/chevron-down';
-import ChevronUp from '@atlaskit/icon/core/migration/chevron-up';
+import ChevronDown from '@atlaskit/icon/core/chevron-down';
+import ChevronUp from '@atlaskit/icon/core/chevron-up';
 import {
 	attachClosestEdge,
 	type Edge,

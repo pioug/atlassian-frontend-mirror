@@ -824,6 +824,11 @@ export class Client {
 			...clientOptions,
 		};
 
+		if (clientOptions.localMode) {
+			await this.initFromValues(fromValuesClientOptions, identifiers, customAttributes);
+			return;
+		}
+
 		let experimentValues: Record<string, unknown> | undefined;
 		let customAttributesFromResult: CustomAttributes | undefined;
 

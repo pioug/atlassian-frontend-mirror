@@ -1,8 +1,16 @@
-import React, { type ReactNode, useContext } from 'react';
+import React, { type ReactNode, useContext, useEffect, useState } from 'react';
 
 import invariant from 'tiny-invariant';
 
-import { sideNavPanelSplitterId } from '../constants';
+import { useOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
+import {
+	openLayerObserverSideNavNamespace,
+	openLayerObserverTopNavNamespace,
+	sideNavPanelSplitterId,
+} from '../constants';
 import { useToggleSideNav } from '../side-nav/use-toggle-side-nav';
 
 import { OnDoubleClickContext, PanelSplitterContext } from './context';
@@ -62,6 +70,64 @@ export const SideNavPanelSplitter = ({
 		'SideNavPanelSplitter must be rendered as a child of <SideNav />.',
 	);
 	const toggleSideNav = useToggleSideNav({ trigger: 'double-click' });
+	const isFhsEnabled = useIsFhsEnabled();
+
+	// The logic and state for disabling the panel splitter when there are open popups
+	// in the side nav or top nav is being placed here, instead of in `SideNav`, to prevent
+	// re-rendering the side nav anytime the number of open popups changes.
+	const [isEnabled, setIsEnabled] = useState(true);
+	const openLayerObserver = useOpenLayerObserver();
+
+	useEffect(() => {
+		if (!openLayerObserver || !isFhsEnabled || !fg('platform-dst-side-nav-layering-fixes')) {
+			return;
+		}
+
+		function checkAndSetState(): void {
+			if (!openLayerObserver) {
+				return;
+			}
+
+			// We don't technically need to check the side nav for open layers, as they wouldn't overlay the
+			// panel splitter, as it sits within the same stacking context as the side nav. For consistency however,
+			// we check it as well.
+			const openPopupsInSideNav = openLayerObserver.getCount({
+				namespace: openLayerObserverSideNavNamespace,
+				type: 'popup',
+			});
+
+			// When there is an open layer in the top nav, the top nav is given a higher z-index than the side nav.
+			// This means the part of the side nav panel splitter that was sitting above the top nav will no longer
+			// be interactive (as it is now behind the top nav). So, we need to disable the entire panel splitter.
+			const openPopupsInTopNav = openLayerObserver.getCount({
+				namespace: openLayerObserverTopNavNamespace,
+				type: 'popup',
+			});
+
+			setIsEnabled(openPopupsInSideNav + openPopupsInTopNav === 0);
+		}
+
+		// Initial check, in case the app has loaded with an open popup.
+		checkAndSetState();
+
+		// Creating separate listeners for each namespace, to avoid running them when layers in other parts of the app change.
+		const cleanupSideNavListener = openLayerObserver.onChange(checkAndSetState, {
+			namespace: openLayerObserverSideNavNamespace,
+		});
+
+		const cleanupTopNavListener = openLayerObserver.onChange(checkAndSetState, {
+			namespace: openLayerObserverTopNavNamespace,
+		});
+
+		return function cleanup() {
+			cleanupSideNavListener();
+			cleanupTopNavListener();
+		};
+	}, [isFhsEnabled, openLayerObserver]);
+
+	if (!isEnabled && isFhsEnabled && fg('platform-dst-side-nav-layering-fixes')) {
+		return null;
+	}
 
 	return (
 		<OnDoubleClickContext.Provider value={shouldCollapseOnDoubleClick ? toggleSideNav : undefined}>

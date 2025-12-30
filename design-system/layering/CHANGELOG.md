@@ -1,5 +1,12 @@
 # @atlaskit/layering
 
+## 3.5.0
+
+### Minor Changes
+
+- [`e1393235a54cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1393235a54cb) -
+  The open layer observer has been updated to support the `'popup'` layer type.
+
 ## 3.4.0
 
 ### Minor Changes

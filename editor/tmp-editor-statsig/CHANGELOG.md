@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.3.2
+
+### Patch Changes
+
+- [`5812c1aff4a50`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5812c1aff4a50) -
+  Clean up platform_editor_pasting_nested_table_fix experiment - Fix nested table pasting by using
+  getLastPastedSlice
+
 ## 16.3.1
 
 ### Patch Changes

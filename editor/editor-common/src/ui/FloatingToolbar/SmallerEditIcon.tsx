@@ -5,7 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import EditIcon from '@atlaskit/icon/core/migration/edit';
+import EditIcon from '@atlaskit/icon/core/edit';
 
 const editIconStyles = css({
 	width: '20px',

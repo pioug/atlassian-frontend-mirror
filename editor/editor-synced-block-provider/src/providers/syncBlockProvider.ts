@@ -14,6 +14,7 @@ import {
 	type SyncBlockNode,
 	type SyncBlockProduct,
 } from '../common/types';
+
 import {
 	SyncBlockDataProvider,
 	type ADFFetchProvider,
@@ -25,14 +26,12 @@ import {
 	type SyncedBlockRendererProviderOptions,
 	type UpdateReferenceSyncBlockResult,
 	type WriteSyncBlockResult,
-} from '../providers/types';
+} from './types';
 
 export class SyncBlockProvider extends SyncBlockDataProvider {
 	name = 'syncBlockProvider';
 	private fetchProvider: ADFFetchProvider;
-	private writeProvider: ADFWriteProvider;
-	// the source document ARI; that the source sync block is on.
-	private sourceId: string;
+	private writeProvider: ADFWriteProvider | undefined;
 	private providerOptions: SyncedBlockRendererProviderOptions;
 
 	/**
@@ -40,23 +39,17 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	 *
 	 * @param fetchProvider
 	 * @param writeProvider
-	 * @param sourceId
 	 * @param nestedRendererDataProviders
 	 */
-	constructor(fetchProvider: ADFFetchProvider, writeProvider: ADFWriteProvider, sourceId: string) {
+	constructor(fetchProvider: ADFFetchProvider, writeProvider: ADFWriteProvider | undefined) {
 		super();
 		this.fetchProvider = fetchProvider;
 		this.writeProvider = writeProvider;
-		this.sourceId = sourceId;
 		this.providerOptions = {};
 	}
 
 	setProviderOptions(providerOptions: SyncedBlockRendererProviderOptions) {
 		this.providerOptions = providerOptions;
-	}
-
-	getProduct(): SyncBlockProduct | undefined {
-		return this.writeProvider.product;
 	}
 
 	/**
@@ -128,12 +121,18 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		nodes: SyncBlockNode[],
 		data: SyncBlockData[],
 	): Promise<Array<WriteSyncBlockResult>> {
+		if (!this.writeProvider) {
+			return Promise.reject(new Error('Write provider not set'));
+		}
 		const results = await Promise.allSettled(
 			nodes.map((_node, index) => {
+				if (!this.writeProvider) {
+					return Promise.reject('Write provider not set');
+				}
 				if (!data[index].content) {
 					return Promise.reject('No Synced Block content to write');
 				}
-				return this.writeProvider.writeData(data[index]);
+				return this.writeProvider?.writeData(data[index]);
 			}),
 		);
 		return results.map((result) => {
@@ -146,6 +145,9 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	}
 
 	createNodeData(data: SyncBlockData): Promise<WriteSyncBlockResult> {
+		if (!this.writeProvider) {
+			return Promise.reject(new Error('Write provider not set'));
+		}
 		return this.writeProvider.createData(data).then(
 			(result) => result,
 			(error) => ({ error }),
@@ -160,8 +162,16 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	 * @returns Array of {resourceId?: string, error?: string}.
 	 */
 	async deleteNodesData(resourceIds: ResourceId[]): Promise<Array<DeleteSyncBlockResult>> {
+		if (!this.writeProvider) {
+			return Promise.reject(new Error('Write provider not set'));
+		}
 		const results = await Promise.allSettled(
-			resourceIds.map((resourceId) => this.writeProvider.deleteData(resourceId)),
+			resourceIds.map((resourceId) => {
+				if (!this.writeProvider) {
+					return Promise.reject('Write provider not set');
+				}
+				return this.writeProvider.deleteData(resourceId);
+			}),
 		);
 		return results.map((result, index) => {
 			if (result.status === 'fulfilled') {
@@ -170,15 +180,6 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 				return { resourceId: resourceIds[index], success: false, error: result.reason };
 			}
 		});
-	}
-
-	/**
-	 * Get the source id
-	 *
-	 * @returns The source id
-	 */
-	getSourceId() {
-		return this.sourceId;
 	}
 
 	/**
@@ -210,11 +211,16 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		}
 	}
 
-	generateResourceId(sourceId: string, localId: BlockInstanceId): string {
-		return this.writeProvider.generateResourceId(sourceId, localId);
+	generateResourceId(): { localId: BlockInstanceId; resourceId: ResourceId } {
+		const localId = crypto.randomUUID();
+		const resourceId = crypto.randomUUID();
+		return { localId, resourceId };
 	}
 
 	generateResourceIdForReference(sourceId: ResourceId): ResourceId {
+		if (!this.writeProvider) {
+			throw new Error('Write provider not set');
+		}
 		return this.writeProvider.generateResourceIdForReference(sourceId);
 	}
 
@@ -246,7 +252,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		switch (sourceProduct) {
 			case 'confluence-page':
 				return {
-					contentId: getPageIdAndTypeFromConfluencePageAri(sourceAri).id,
+					contentId: getPageIdAndTypeFromConfluencePageAri({ ari: sourceAri }).id,
 					contentProduct: sourceProduct,
 				};
 			case 'jira-work-item':
@@ -260,20 +266,54 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		blocks: SyncBlockAttrs[],
 		noContent?: boolean,
 	): Promise<UpdateReferenceSyncBlockResult> {
+		if (!this.writeProvider) {
+			throw new Error('Write provider not set');
+		}
 		return this.writeProvider.updateReferenceData(blocks, noContent);
 	}
 }
 
-export const useMemoizedSyncedBlockProvider = (
-	fetchProvider: ADFFetchProvider,
-	writeProvider: ADFWriteProvider,
-	sourceId: string,
-	providerOptions: SyncedBlockRendererProviderOptions,
-	getSSRData?: () => Record<string, SyncBlockInstance> | undefined,
-) => {
+type UseMemoizedSyncedBlockProviderProps = {
+	fetchProvider: ADFFetchProvider;
+	getSSRData?: () => Record<string, SyncBlockInstance> | undefined;
+	providerOptions: SyncedBlockRendererProviderOptions;
+	writeProvider: ADFWriteProvider | undefined;
+};
+
+const createSyncedBlockProvider = ({
+	fetchProvider,
+	writeProvider,
+}: {
+	fetchProvider: ADFFetchProvider;
+	writeProvider: ADFWriteProvider | undefined;
+}) => {
+	return new SyncBlockProvider(fetchProvider, writeProvider);
+};
+
+export const createAndInitializeSyncedBlockProvider = ({
+	fetchProvider,
+	writeProvider,
+	providerOptions,
+	getSSRData,
+}: UseMemoizedSyncedBlockProviderProps) => {
+	const syncBlockProvider = createSyncedBlockProvider({ fetchProvider, writeProvider });
+	syncBlockProvider.setProviderOptions(providerOptions);
+	const ssrData = getSSRData ? getSSRData() : undefined;
+	if (ssrData) {
+		syncBlockProvider.setSSRData(ssrData);
+	}
+	return syncBlockProvider;
+};
+
+export const useMemoizedSyncedBlockProvider = ({
+	fetchProvider,
+	writeProvider,
+	providerOptions,
+	getSSRData,
+}: UseMemoizedSyncedBlockProviderProps) => {
 	const syncBlockProvider = useMemo(
-		() => new SyncBlockProvider(fetchProvider, writeProvider, sourceId),
-		[fetchProvider, writeProvider, sourceId],
+		() => createSyncedBlockProvider({ fetchProvider, writeProvider }),
+		[fetchProvider, writeProvider],
 	);
 
 	syncBlockProvider.setProviderOptions(providerOptions);

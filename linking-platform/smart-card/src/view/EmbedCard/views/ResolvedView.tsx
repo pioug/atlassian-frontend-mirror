@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LinkGlyph from '@atlaskit/icon/core/migration/link';
+import LinkGlyph from '@atlaskit/icon/core/link';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import { useThemeObserver } from '@atlaskit/tokens';
 

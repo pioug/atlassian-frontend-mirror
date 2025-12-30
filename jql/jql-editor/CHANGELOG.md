@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor
 
+## 5.11.0
+
+### Minor Changes
+
+- [`1fd35e2768b70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1fd35e2768b70) -
+  fixing eslint no literal strings
+
 ## 5.10.1
 
 ### Patch Changes

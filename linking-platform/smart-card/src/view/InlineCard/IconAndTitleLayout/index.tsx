@@ -10,7 +10,7 @@ import { di } from 'react-magnetic-di';
 import ImageLoader from 'react-render-image';
 
 import { cssMap } from '@atlaskit/css';
-import LinkIcon from '@atlaskit/icon/core/migration/link';
+import LinkIcon from '@atlaskit/icon/core/link';
 import { Box } from '@atlaskit/primitives/compiled';
 import { B400 } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

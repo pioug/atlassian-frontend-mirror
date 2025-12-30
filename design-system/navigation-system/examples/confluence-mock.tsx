@@ -224,6 +224,7 @@ export default function ConfluenceMockExample() {
 				<Banner xcss={bannerStyles.root}> </Banner>
 				<TopNav>
 					<TopNavStart
+						testId="top-nav-start"
 						sideNavToggleButton={
 							<SideNavToggleButton
 								testId="side-nav-toggle-button"

@@ -26,10 +26,10 @@ import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaNextEditorPluginType } from './mediaPluginType';
-import { lazyMediaView } from './nodeviews/lazy-media';
 import { lazyMediaGroupView } from './nodeviews/lazy-media-group';
 import { lazyMediaInlineView } from './nodeviews/lazy-media-inline';
-import { lazyMediaSingleView } from './nodeviews/lazy-media-single';
+import { ReactMediaNode } from './nodeviews/mediaNodeView';
+import { ReactMediaSingleNode } from './nodeviews/mediaSingle';
 import { mediaSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/media';
 import { mediaGroupSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/mediaGroup';
 import { mediaInlineSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/mediaInline';
@@ -272,7 +272,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 										options,
 										api,
 									),
-									mediaSingle: lazyMediaSingleView(
+									mediaSingle: ReactMediaSingleNode(
 										portalProviderAPI,
 										eventDispatcher,
 										providerFactory,
@@ -280,7 +280,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 										dispatchAnalyticsEvent,
 										options,
 									),
-									media: lazyMediaView(
+									media: ReactMediaNode(
 										portalProviderAPI,
 										eventDispatcher,
 										providerFactory,

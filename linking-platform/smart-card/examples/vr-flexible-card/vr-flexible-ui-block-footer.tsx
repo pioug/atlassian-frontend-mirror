@@ -6,7 +6,7 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import PremiumIcon from '@atlaskit/icon/core/migration/premium';
+import PremiumIcon from '@atlaskit/icon/core/premium';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 

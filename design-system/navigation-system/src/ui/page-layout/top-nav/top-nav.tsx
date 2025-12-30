@@ -2,11 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useContext, useMemo } from 'react';
+import { useContext, useLayoutEffect, useMemo, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
+import {
+	OpenLayerObserverNamespaceProvider,
+	useOpenLayerObserver,
+} from '@atlaskit/layering/experimental/open-layer-observer';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useSkipLink } from '../../../context/skip-links/skip-links-context';
@@ -17,6 +22,8 @@ import { useCustomTheme } from '../../top-nav-items/themed/use-custom-theme';
 import {
 	bannerMountedVar,
 	localSlotLayers,
+	openLayerObserverTopNavNamespace,
+	sideNavLiveWidthVar,
 	topNavMountedVar,
 	UNSAFE_topNavVar,
 } from '../constants';
@@ -99,6 +106,33 @@ const styles = cssMap({
 			gridTemplateColumns: '1fr minmax(min-content, max-content) 1fr',
 		},
 	},
+	fullHeightSidebarWithLayeringFixes: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		zIndex: localSlotLayers.topNavFHS,
+		pointerEvents: 'auto',
+		backgroundColor: token('elevation.surface'),
+
+		// This pseudo element is used to apply the top nav's bottom border. It is positioned so it does not cover the side nav,
+		// to make the sidebar appear full height.
+		'&::after': {
+			content: '""',
+			position: 'absolute',
+			// Pin to the bottom of the top nav
+			insetBlockEnd: 0,
+			// Pin to the right side of the top nav
+			insetInlineEnd: 0,
+			// Push the element to the right based on the side nav width
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			insetInlineStart: `var(${sideNavLiveWidthVar}, 0px)`,
+			borderBlockEndWidth: token('border.width'),
+			borderBlockEndStyle: 'solid',
+			borderBlockEndColor: token('color.border'),
+		},
+	},
+	fullHeightSidebarWithLayeringFixesAndOpenLayer: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		zIndex: localSlotLayers.topNavFHSWithOpenLayer,
+	},
 });
 
 /**
@@ -127,7 +161,7 @@ const backgroundStyles = cssMap({
 	},
 	sideNavExpanded: {
 		'@media (min-width: 64rem)': {
-			// We want the background to appear behind the full height side nav
+			// We want the background to appear behind the full height side nav when fg('platform-dst-side-nav-layering-fixes') is disabled
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 			zIndex: localSlotLayers.sideNav,
 		},
@@ -175,6 +209,8 @@ export function TopNav({
 	const customTheme = useCustomTheme(UNSAFE_theme);
 
 	/**
+	 * Note: this is no longer the case when fg('platform-dst-side-nav-layering-fixes') is enabled.
+	 *
 	 * With the full height sidebar we have a foreground and background element,
 	 * so we need to apply the custom theme styles to the correct element.
 	 *
@@ -195,10 +231,41 @@ export function TopNav({
 	}, [customTheme]);
 
 	const { isExpandedOnDesktop } = useSideNavVisibility();
+	const openLayerObserver = useOpenLayerObserver();
+	// Setting the initial state to false, as it is unlikely that the top nav would have an open popup when the app starts.
+	const [hasOpenPopup, setHasOpenPopup] = useState(false);
+
+	useLayoutEffect(() => {
+		if (!openLayerObserver || !isFhsEnabled || !fg('platform-dst-side-nav-layering-fixes')) {
+			return;
+		}
+
+		function checkAndSetState(): void {
+			if (!openLayerObserver) {
+				return;
+			}
+
+			setHasOpenPopup(
+				openLayerObserver.getCount({
+					namespace: openLayerObserverTopNavNamespace,
+					type: 'popup',
+				}) > 0,
+			);
+		}
+
+		// Initial check
+		checkAndSetState();
+
+		// Check again whenever number of layers in the top nav change
+		return openLayerObserver.onChange(checkAndSetState, {
+			namespace: openLayerObserverTopNavNamespace,
+		});
+	}, [isFhsEnabled, openLayerObserver]);
 
 	return (
 		<HasCustomThemeContext.Provider value={customTheme.isEnabled}>
-			{isFhsEnabled && (
+			{isFhsEnabled && !fg('platform-dst-side-nav-layering-fixes') && (
+				// Note: when the layering fixes are enabled, we no longer have separate elements for the foreground and background.
 				// The separate element allows top nav items to sit in front of the sidebar, while the background sits behind.
 				// It also has a simple story around z-index and positioning.
 				<div
@@ -215,13 +282,25 @@ export function TopNav({
 				css={[
 					styles.root,
 					isFhsEnabled && styles.fullHeightSidebar,
+					isFhsEnabled &&
+						fg('platform-dst-side-nav-layering-fixes') &&
+						styles.fullHeightSidebarWithLayeringFixes,
+					hasOpenPopup &&
+						isFhsEnabled &&
+						fg('platform-dst-side-nav-layering-fixes') &&
+						styles.fullHeightSidebarWithLayeringFixesAndOpenLayer,
 					isExpandedOnDesktop && isFhsEnabled && styles.fullHeightSidebarExpanded,
 				]}
 				className={xcss}
 				data-testid={testId}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={
-					isFhsEnabled ? foregroundStyle : customTheme.isEnabled ? customTheme.style : undefined
+					// When the layering fixes are enabled, we no longer have separate elements for the foreground and background.
+					isFhsEnabled && !fg('platform-dst-side-nav-layering-fixes')
+						? foregroundStyle
+						: customTheme.isEnabled
+							? customTheme.style
+							: undefined
 				}
 			>
 				<HoistCssVarToLocalGrid variableName={topNavMountedVar} value={height} />
@@ -232,7 +311,13 @@ export function TopNav({
 					<DangerouslyHoistCssVarToDocumentRoot variableName={UNSAFE_topNavVar} value={height} />
 					// ------ END UNSAFE STYLES ------
 				)}
-				{children}
+				{fg('platform-dst-side-nav-layering-fixes') ? (
+					<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavNamespace}>
+						{children}
+					</OpenLayerObserverNamespaceProvider>
+				) : (
+					children
+				)}
 			</header>
 		</HasCustomThemeContext.Provider>
 	);

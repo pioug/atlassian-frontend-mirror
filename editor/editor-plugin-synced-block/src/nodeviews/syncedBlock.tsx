@@ -9,9 +9,11 @@ import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/edito
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
+	type SyncBlockStoreManager,
 	useFetchSyncBlockData,
 	useFetchSyncBlockTitle,
 } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { SyncBlockRendererWrapper } from '../ui/SyncBlockRendererWrapper';
@@ -24,12 +26,14 @@ export interface SyncBlockNodeViewProps extends ReactComponentProps {
 	node: PMNode;
 	options: SyncedBlockPluginOptions | undefined;
 	portalProviderAPI: PortalProviderAPI;
+	syncBlockStore?: SyncBlockStoreManager;
 	view: EditorView;
 }
 
-class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
+export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 	private options: SyncedBlockPluginOptions | undefined;
 	private api?: ExtractInjectionAPI<SyncedBlockPlugin>;
+	private syncBlockStore?: SyncBlockStoreManager;
 
 	constructor(props: SyncBlockNodeViewProps) {
 		super(
@@ -42,6 +46,7 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		);
 		this.options = props.options;
 		this.api = props.api;
+		this.syncBlockStore = props.syncBlockStore;
 	}
 
 	unsubscribe: (() => void) | undefined;
@@ -63,7 +68,12 @@ class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 			return null;
 		}
 
-		const syncBlockStore = this.api?.syncedBlock?.sharedState.currentState()?.syncBlockStore;
+		const initialSyncBlockStore = fg('platform_synced_block_dogfooding')
+			? this.syncBlockStore
+			: undefined;
+
+		const syncBlockStore =
+			this.api?.syncedBlock?.sharedState.currentState()?.syncBlockStore ?? initialSyncBlockStore;
 
 		if (!syncBlockStore) {
 			return null;

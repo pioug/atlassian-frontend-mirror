@@ -6,7 +6,7 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { selectionExtensionMessages } from '@atlaskit/editor-common/messages';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import AppsIcon from '@atlaskit/icon/core/apps';
-import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 
 type SelectionExtensionDropdownMenuButtonProps = React.ComponentProps<typeof ToolbarButton> &
 	WrappedComponentProps;

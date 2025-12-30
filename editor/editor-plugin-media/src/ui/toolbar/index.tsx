@@ -51,11 +51,11 @@ import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 import ImageCropIcon from '@atlaskit/icon-lab/core/image-crop';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
+import DownloadIcon from '@atlaskit/icon/core/download';
 import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import ImageFullscreenIcon from '@atlaskit/icon/core/image-fullscreen';
 import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
 import MaximizeIcon from '@atlaskit/icon/core/maximize';
-import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
 import { messages } from '@atlaskit/media-ui';
@@ -1003,7 +1003,7 @@ export const floatingToolbar = (
 		getDomRef: () => {
 			const element = isSelectedNodeMediaSingle
 				? mediaPluginState.element?.querySelector(`.${MediaSingleNodeSelector}`) ||
-					mediaPluginState.element
+				  mediaPluginState.element
 				: mediaPluginState.element;
 			return element as HTMLElement | undefined;
 		},

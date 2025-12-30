@@ -205,7 +205,7 @@ type MediaGroupProps = {
 	headPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
 	isCopyPasteEnabled?: boolean;
 	mediaOptions: MediaOptions;
-	mediaProvider: Promise<MediaProvider>;
+	mediaProvider?: Promise<MediaProvider>;
 	node: PMNode;
 	view: EditorView;
 } & WrappedComponentProps;

@@ -37,8 +37,7 @@ export const transformNode =
 			const { $from, $to } = expandSelectionToBlockRange(preservedSelection);
 
 			const selectedParent = $from.parent;
-			const isParentLayout = selectedParent.type === nodes.layoutColumn;
-			const isNestedExceptLayout = isNestedNode(preservedSelection, '') && !isParentLayout;
+			const isNested = isNestedNode(preservedSelection, '');
 
 			const isList = isListNode(selectedParent);
 
@@ -60,8 +59,9 @@ export const transformNode =
 				slice.content,
 				targetType,
 				schema,
-				isNestedExceptLayout,
+				isNested,
 				metadata?.targetAttrs,
+				selectedParent,
 			);
 
 			const nodesToDeleteAndInsert = [nodes.mediaSingle];
@@ -85,7 +85,7 @@ export const transformNode =
 					attributes: {
 						duration,
 						isList,
-						isNested: isNestedExceptLayout,
+						isNested,
 						nodeCount,
 						sourceNodeTypes,
 						startTime,

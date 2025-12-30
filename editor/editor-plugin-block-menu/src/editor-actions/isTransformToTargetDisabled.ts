@@ -23,11 +23,7 @@ export const canParentContainNodeType = (
 	nodeTypeName: NodeTypeName,
 	nodeTypeAttrs?: Record<string, unknown>,
 ) => {
-	const adjustedNodeTypeName =
-		parentNode.type.name === 'layoutColumn' || parentNode.type.name === 'bodiedSyncBlock'
-			? nodeTypeName
-			: getTargetNodeTypeNameInContext(nodeTypeName, true);
-
+	const adjustedNodeTypeName = getTargetNodeTypeNameInContext(nodeTypeName, true, parentNode);
 	if (!adjustedNodeTypeName) {
 		return false;
 	}

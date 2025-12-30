@@ -4,7 +4,6 @@ import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { N20, N50 } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { getAttrsFromNodeMediaSingle } from './toDOMAttrs';
@@ -313,12 +312,7 @@ export const mediaSingleSpecWithFixedToDOM = (mediaSingleOption: {
 	withExtendedWidthTypes: boolean;
 }): NodeSpec => {
 	const mediaSingleNode = mediaSingleSpec(mediaSingleOption);
-	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
-		return mediaSingleNode;
-	}
-
 	const toDOM = getToDom(mediaSingleOption.withExtendedWidthTypes);
-
 	return {
 		...mediaSingleNode,
 		toDOM,

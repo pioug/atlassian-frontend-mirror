@@ -6,7 +6,7 @@
 import { css, jsx } from '@compiled/react';
 
 import { IconButton as Button } from '@atlaskit/button/new';
-import CrossIcon from '@atlaskit/icon/core/migration/cross';
+import CrossIcon from '@atlaskit/icon/core/cross';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

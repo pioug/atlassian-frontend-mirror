@@ -51,7 +51,16 @@ export const getSelectedNode = (selection: Selection): ContentNodeWithPos | unde
 export const getTargetNodeTypeNameInContext = (
 	nodeTypeName: NodeTypeName | null,
 	isNested?: boolean,
+	parentNode?: PMNode,
 ): NodeTypeName | null => {
+	if (
+		parentNode &&
+		isNested &&
+		(parentNode.type.name === 'layoutColumn' || parentNode.type.name === 'bodiedSyncBlock')
+	) {
+		return nodeTypeName;
+	}
+
 	if (nodeTypeName === 'expand' && isNested) {
 		return 'nestedExpand';
 	}

@@ -24,8 +24,8 @@ import {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import RedoIcon from '@atlaskit/icon/core/migration/redo';
-import UndoIcon from '@atlaskit/icon/core/migration/undo';
+import RedoIcon from '@atlaskit/icon/core/redo';
+import UndoIcon from '@atlaskit/icon/core/undo';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {

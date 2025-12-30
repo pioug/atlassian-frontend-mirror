@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.0.1
+
+### Patch Changes
+
+- [`d1a28b3f74e5e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1a28b3f74e5e) -
+  EDITOR-3594 Add creator Synced Block helpers for Jira Renderer
+- Updated dependencies
+
 ## 5.0.0
 
 ### Patch Changes

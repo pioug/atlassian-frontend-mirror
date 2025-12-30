@@ -7,7 +7,7 @@ import React from 'react';
 import { css, jsx } from '@compiled/react';
 import ImageLoader from 'react-render-image';
 
-import LinkIcon from '@atlaskit/icon/core/migration/link';
+import LinkIcon from '@atlaskit/icon/core/link';
 
 export interface IconProps {
 	/* Element to be displayed as an icon if icon not provided or icon url request return error. */

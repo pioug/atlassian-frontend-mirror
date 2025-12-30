@@ -76,6 +76,7 @@ export function SideNavSlotsExample() {
 								expandLabel="Expand sidebar"
 							/>
 						}
+						testId="top-nav-start"
 					>
 						{null}
 					</TopNavStart>
@@ -91,7 +92,7 @@ export function SideNavSlotsExample() {
 						<Heading size="xsmall">Settings</Heading>
 					</SideNavHeader>
 
-					<SideNavContent>
+					<SideNavContent testId="side-nav-content">
 						<MenuList>
 							<LinkMenuItem href="#" elemBefore={<InboxIcon label="" color="currentColor" />}>
 								Your work

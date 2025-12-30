@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 8.0.1
+
+### Patch Changes
+
+- [`490ba37f8d25b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/490ba37f8d25b) -
+  Clean up platform_editor_lcm_toolbar_docking_fix feature flag
+- Updated dependencies
+
 ## 8.0.0
 
 ### Patch Changes

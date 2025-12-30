@@ -1,5 +1,7 @@
 import React, { type FocusEvent, type ReactNode } from 'react';
 
+import { useIntl } from 'react-intl-next';
+
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 
@@ -11,6 +13,7 @@ import {
 import { splitTextByNewLine } from '../../utils/split-text-by-new-line';
 // eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { ReadOnlyControlsContent } from '../jql-editor-controls-content/read-only-controls-content';
+import { messages } from '../messages';
 
 import {
 	EditorControls,
@@ -147,6 +150,8 @@ const JQLEditorReadOnlyWithoutTheme = ({ query }: ReadOnlyProps) => {
 	const blocks = splitTextByNewLine(query);
 	const lineNumbersVisible = blocks.length > 1;
 
+	const { formatMessage } = useIntl();
+
 	return (
 		<EditorMain>
 			<ReadOnlyEditorViewContainer>
@@ -165,7 +170,11 @@ const JQLEditorReadOnlyWithoutTheme = ({ query }: ReadOnlyProps) => {
 					aria-expanded={false}
 					aria-controls="dummy-jql-editor-auto-complete-id"
 					// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
-					aria-label="JQL query"
+					aria-label={
+						fg('enghealth-46329-no-literal-strings')
+							? formatMessage(messages.inputLabel)
+							: 'JQL query'
+					}
 					defaultRows={defaultRows}
 				>
 					{blocks.map((block, index) => (

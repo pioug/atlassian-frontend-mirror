@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 16.0.3
+
+### Patch Changes
+
+- [`b429c01ce6af9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b429c01ce6af9) -
+  icon migration entry point update
+- Updated dependencies
+
 ## 16.0.2
 
 ### Patch Changes

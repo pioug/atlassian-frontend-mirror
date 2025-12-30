@@ -5,7 +5,7 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import type { MediaOptions } from '../types';
@@ -19,7 +19,7 @@ export const lazyMediaGroupView = (
 	options: MediaOptions = {},
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 ) => {
-	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
+	if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
 		return ReactMediaGroupNode(portalProviderAPI, eventDispatcher, providerFactory, options, api);
 	}
 

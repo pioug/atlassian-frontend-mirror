@@ -28,7 +28,7 @@ import {
 	TooltipContentWithMultipleShortcuts,
 } from '@atlaskit/editor-common/keymaps';
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
-import { expandToBlockRange } from '@atlaskit/editor-common/selection';
+import { expandToBlockRange, isMultiBlockRange } from '@atlaskit/editor-common/selection';
 import { DRAG_HANDLE_WIDTH, tableControlsSpacing } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
@@ -453,25 +453,6 @@ type DragHandleProps = {
 	view: EditorView;
 };
 
-const isMultiNodeRange = (range: NodeRange) => {
-	if (range.endIndex - range.startIndex <= 1) {
-		return false; // At most one child
-	}
-
-	// Count block nodes in the range, return true if more than one
-	let blockCount = 0;
-	for (let i = range.startIndex; i < range.endIndex; i++) {
-		if (range.parent.child(i).isBlock) {
-			blockCount++;
-		}
-		if (blockCount > 1) {
-			return true;
-		}
-	}
-
-	return false;
-};
-
 const isPosWithinRange = (pos: number, range: NodeRange): boolean => {
 	return range.start <= pos && range.end >= pos + 1;
 };
@@ -503,7 +484,7 @@ const getExpandedSelectionRange = ({
 	return expandToBlockRange($from, $to);
 };
 
-type expandAndUpdateSelectionOptions = {
+type ExpandAndUpdateSelectionOptions = {
 	api: ExtractInjectionAPI<BlockControlsPlugin>;
 	isShiftPressed: boolean;
 	nodeType: string;
@@ -524,7 +505,7 @@ const expandAndUpdateSelection = ({
 	isShiftPressed,
 	nodeType,
 	api,
-}: expandAndUpdateSelectionOptions): void => {
+}: ExpandAndUpdateSelectionOptions): void => {
 	const resolvedStartPos = tr.doc.resolve(startPos);
 
 	const expandedRange = getExpandedSelectionRange({
@@ -538,7 +519,7 @@ const expandAndUpdateSelection = ({
 	if (
 		expandedRange.range &&
 		isPosWithinRange(startPos, expandedRange.range) &&
-		isMultiNodeRange(expandedRange.range)
+		isMultiBlockRange(expandedRange.range)
 	) {
 		const collapsed = collapseToSelectionRange(expandedRange.$from, expandedRange.$to);
 

@@ -10,7 +10,7 @@ import {
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { openHelp, tooltip } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
+import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { HelpDialogPlugin, HelpDialogPluginOptions } from './helpDialogPluginType';

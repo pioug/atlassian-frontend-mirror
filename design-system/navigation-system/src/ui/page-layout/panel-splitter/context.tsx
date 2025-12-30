@@ -30,8 +30,13 @@ export type PanelSplitterContextType = {
 	getResizeBounds: () => ResizeBounds;
 	/**
 	 * A ref to the portal element where the panel splitter will be rendered.
-	 * Internally set by the PanelSplitterProvider.
-	 * Used to render the panel splitter outside of an overflow container.
+	 * It can optionally be provided by consumers of <PanelSplitterProvider> (when the feature gate
+	 * `platform-dst-side-nav-layering-fixes` is enabled).
+	 * If not provided, it will be internally set by the PanelSplitterProvider.
+	 *
+	 * This prop is useful for:
+	 * - Rendering the panel splitter outside of an overflow container.
+	 * - Positioning the panel splitter outside the resizing panel.
 	 */
 	portalRef: MutableRefObject<HTMLDivElement | null>;
 	/**

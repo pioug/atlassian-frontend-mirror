@@ -36,6 +36,7 @@ import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
 	SideNavContent,
+	SideNavPanelSplitter,
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import {
@@ -254,11 +255,12 @@ export function ResizableSlots() {
 						</LinkMenuItem>
 					</MenuList>
 				</SideNavContent>
-				<PanelSplitter
+				<SideNavPanelSplitter
 					label="Resize sidebar"
 					onResizeStart={handleResizeStart}
 					onResizeEnd={handleResizeEnd}
 					testId="side-nav-slot-panel-splitter" // testId is used in integration tests
+					tooltipContent="Double click to collapse"
 				/>
 			</SideNav>
 			<Main id="main-container">

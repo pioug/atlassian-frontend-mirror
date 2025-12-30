@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
@@ -33,6 +33,7 @@ import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
 	SideNavContent,
+	SideNavPanelSplitter,
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import {
@@ -60,8 +61,8 @@ import {
 	Search,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Inline, Stack, Text } from '@atlaskit/primitives';
+import Popup from '@atlaskit/popup';
+import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { WithResponsiveViewport } from './utils/example-utils';
@@ -106,6 +107,44 @@ const bannerStyles = cssMap({
 		backgroundColor: token('elevation.surface.sunken'),
 	},
 });
+
+const appSwitcherStyles = cssMap({
+	root: {
+		width: '400px',
+		height: '500px',
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
+	},
+});
+
+function MockAppSwitcher(): JSX.Element {
+	const [isOpen, setIsOpen] = useState(false);
+
+	return (
+		<Popup
+			isOpen={isOpen}
+			onClose={() => {
+				setIsOpen(false);
+			}}
+			content={() => <div css={appSwitcherStyles.root}>Mock app switcher</div>}
+			placement="bottom-start"
+			shouldRenderToParent
+			trigger={(triggerProps) => (
+				<AppSwitcher
+					{...triggerProps}
+					onClick={() => {
+						setIsOpen((prev) => !prev);
+						console.log('app switcher clicked');
+					}}
+					label="Switch apps"
+					isSelected={isOpen}
+				/>
+			)}
+		/>
+	);
+}
 
 export function UnscrollableVR() {
 	return (
@@ -179,14 +218,20 @@ export function CompositionVR() {
 	return <Composition isSlotsScrollable={false} isMockProductSearch />;
 }
 
+export function CompositionNoBannerVR() {
+	return <Composition isSlotsScrollable={false} isMockProductSearch isBannerVisible={false} />;
+}
+
 export default function Composition({
 	isSlotsScrollable = true,
+	isBannerVisible = true,
 	isPanelVisible = true,
 	defaultMenuIsOpen = false,
 	shouldTestScroll = false,
 	isMockProductSearch = true,
 }: {
 	isSlotsScrollable?: boolean;
+	isBannerVisible?: boolean;
 	defaultMenuIsOpen?: boolean;
 	isPanelVisible?: boolean;
 	shouldTestScroll?: boolean;
@@ -211,7 +256,7 @@ export default function Composition({
 	return (
 		<WithResponsiveViewport>
 			<Root testId="root">
-				<Banner xcss={bannerStyles.root}> </Banner>
+				{isBannerVisible && <Banner xcss={bannerStyles.root}> </Banner>}
 				<TopNav>
 					<TopNavStart
 						sideNavToggleButton={
@@ -222,7 +267,7 @@ export default function Composition({
 							/>
 						}
 					>
-						<AppSwitcher label="Switch apps" onClick={() => console.log('app switcher clicked')} />
+						<MockAppSwitcher />
 						<AppLogo href="" icon={JiraIcon} name="Confluence" label="Home page" />
 					</TopNavStart>
 					<TopNavMiddle>
@@ -301,7 +346,7 @@ export default function Composition({
 												{...props}
 												spacing="compact"
 												appearance="subtle"
-												label="Open"
+												label="Starred more options"
 												icon={(iconProps) => (
 													<ShowMoreHorizontalCoreIcon {...iconProps} size="small" />
 												)}
@@ -328,7 +373,7 @@ export default function Composition({
 												{...props}
 												spacing="compact"
 												appearance="subtle"
-												label="Open"
+												label="Filters more options"
 												icon={(iconProps) => (
 													<ShowMoreHorizontalCoreIcon {...iconProps} size="small" />
 												)}
@@ -347,7 +392,7 @@ export default function Composition({
 							</ButtonMenuItem>
 						</MenuList>
 					</SideNavContent>
-					<PanelSplitter label="Resize side nav" testId="side-nav-panel-splitter" />
+					<SideNavPanelSplitter label="Resize side nav" testId="side-nav-panel-splitter" />
 				</SideNav>
 				<Main id="main-container">
 					<Stack space="space.100" xcss={headingStyles.root}>

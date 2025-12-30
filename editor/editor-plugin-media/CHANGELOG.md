@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-media
 
+## 9.0.1
+
+### Patch Changes
+
+- [`b429c01ce6af9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b429c01ce6af9) -
+  icon migration entry point update
+- [`1c2342ca6f2b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c2342ca6f2b0) -
+  tidy up fg platform_editor_ssr_media, clean up lazy node view for media, and fix re-mount issue in
+  media group
+- Updated dependencies
+
 ## 9.0.0
 
 ### Patch Changes

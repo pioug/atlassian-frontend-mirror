@@ -1,5 +1,32 @@
 # @atlassian/navigation-system
 
+## 5.16.0
+
+### Minor Changes
+
+- [`e1393235a54cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1393235a54cb) -
+  Layering improvements have been made to the top nav and full height sidebar:
+  - Layers inside the side nav that are rendered to parent (`shouldRenderToParent`) will now
+    correctly be layered above the top nav and banner. This includes some z-index changes to top nav
+    and banner, and changes to where the side nav panel splitter is rendered (portalled) to.
+  - The side nav panel splitter will be disabled when there the side nav or top nav contains any
+    open popups.
+  - The `portalRef` prop has also been added to `PanelSplitterProvider` to support these
+    improvements.
+
+  These changes are behind the `platform-dst-side-nav-layering-fixes` feature flag, when full height
+  sidebar is enabled.
+
+- [`e1393235a54cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1393235a54cb) -
+  Fixes a bug where the side nav would not be resizable on screen widths between 48rem and 64rem
+  (768px and 1024px) if the desktop side nav was collapsed.
+
+  This change is behind the feature flag `platform-dst-side-nav-layering-fixes`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.15.0
 
 ### Minor Changes

@@ -305,10 +305,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 				authProvider: () => ({}) as any,
 			};
 
-		let ssr: SSR | undefined;
-		if (fg('platform_editor_ssr_media')) {
-			ssr = process.env.REACT_SSR ? 'server' : 'client';
-		}
+		const ssr: SSR = process.env.REACT_SSR ? 'server' : 'client';
 
 		return (
 			<MediaCardWrapper

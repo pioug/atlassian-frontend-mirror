@@ -76,7 +76,11 @@ export const Popup: FC<PopupProps> = memo(
 			onClose?.(null);
 		}, [onClose]);
 
-		useNotifyOpenLayerObserver({ isOpen, onClose: handleOpenLayerObserverCloseSignal });
+		useNotifyOpenLayerObserver({
+			isOpen,
+			onClose: handleOpenLayerObserverCloseSignal,
+			type: 'popup',
+		});
 
 		const renderPopperWrapper = (
 			<Layering isDisabled={false}>

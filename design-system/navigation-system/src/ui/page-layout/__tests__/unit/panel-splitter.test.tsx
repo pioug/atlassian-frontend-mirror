@@ -6,7 +6,15 @@ import invariant from 'tiny-invariant';
 import { OpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { act, fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
+import {
+	act,
+	fireEvent,
+	render,
+	screen,
+	userEvent,
+	waitFor,
+	within,
+} from '@atlassian/testing-library';
 
 import * as panelSplitterWidthUtils from '../../panel-splitter/get-width';
 import { PanelSplitter, type PanelSplitterProps } from '../../panel-splitter/panel-splitter';
@@ -888,6 +896,56 @@ describe('PanelSplitter', () => {
 			screen.getByTestId('panel-splitter-parent').style.getPropertyValue(resizingCssVar),
 		).toEqual('');
 	});
+
+	ffTest.on(
+		'platform-dst-side-nav-layering-fixes',
+		'when side nav layering flag is enabled',
+		() => {
+			it('should render the panel splitter inside the custom portal when the portalRef prop is provided', () => {
+				function ComponentWithCustomPortal() {
+					const portalRef = useRef<HTMLDivElement | null>(null);
+
+					return (
+						<div>
+							<TestComponent portalRef={portalRef} />
+							<div ref={portalRef} data-testid="custom-portal" />
+						</div>
+					);
+				}
+
+				render(<ComponentWithCustomPortal />);
+
+				expect(
+					within(screen.getByTestId('custom-portal')).getByTestId('panel-splitter'),
+				).toBeInTheDocument();
+			});
+		},
+	);
+
+	ffTest.off(
+		'platform-dst-side-nav-layering-fixes',
+		'when side nav layering flag is disabled',
+		() => {
+			it('should not render the panel splitter inside the custom portal when the portalRef prop is provided', () => {
+				function ComponentWithCustomPortal() {
+					const portalRef = useRef<HTMLDivElement | null>(null);
+
+					return (
+						<div>
+							<TestComponent portalRef={portalRef} />
+							<div ref={portalRef} data-testid="custom-portal" />
+						</div>
+					);
+				}
+
+				render(<ComponentWithCustomPortal />);
+
+				const panelSplitter = screen.getByTestId('panel-splitter');
+				expect(panelSplitter).toBeInTheDocument();
+				expect(screen.getByTestId('custom-portal')).not.toContainElement(panelSplitter);
+			});
+		},
+	);
 
 	ffTest.on('navx-full-height-sidebar', 'with useIsFhsEnabled true', () => {
 		beforeEach(() => {

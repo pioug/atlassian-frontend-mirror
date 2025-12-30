@@ -65,9 +65,13 @@ const containerStyles = cssMap({
 		},
 	},
 	fullHeightSidebar: {
+		paddingInlineEnd: token('space.150'),
 		// Pointer events are disabled on the top nav
 		// So we need to restore them for the slot
 		pointerEvents: 'auto',
+	},
+	fullHeightSidebarWithLayeringFixes: {
+		// No longer need to restore pointer events when layering fixes are enabled
 		paddingInlineEnd: token('space.150'),
 	},
 });
@@ -144,7 +148,12 @@ export function TopNavEnd({
 			aria-label={label}
 			css={[
 				containerStyles.root,
-				isFhsEnabled && containerStyles.fullHeightSidebar,
+				isFhsEnabled &&
+					!fg('platform-dst-side-nav-layering-fixes') &&
+					containerStyles.fullHeightSidebar,
+				isFhsEnabled &&
+					fg('platform-dst-side-nav-layering-fixes') &&
+					containerStyles.fullHeightSidebarWithLayeringFixes,
 				fg('team25-eu-jira-logo-updates-csm-jsm') && containerStyles.jiraProductLogoUpdate,
 			]}
 		>

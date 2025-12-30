@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
 import { FlagGroup } from '@atlaskit/flag';
-import FeedbackIcon from '@atlaskit/icon/core/migration/feedback';
+import FeedbackIcon from '@atlaskit/icon/core/feedback';
 
 import { messages } from '../messages';
 

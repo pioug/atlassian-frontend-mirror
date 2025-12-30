@@ -78,11 +78,12 @@ export interface ADFWriteProvider {
 	 * User should not be blocked by not_found error when deleting, so successful result should be returned for 404 error
 	 */
 	deleteData: (resourceId: ResourceId) => Promise<DeleteSyncBlockResult>;
-	// Note: this can be removed on cleanup of content API provider (it will just be UUID)
-	generateResourceId: (sourceId: string, localId: string) => ResourceId;
 	generateResourceIdForReference: (sourceId: ResourceId) => ResourceId;
 	product: SyncBlockProduct;
-	updateReferenceData: (blocks: SyncBlockAttrs[], noContent?: boolean) => Promise<UpdateReferenceSyncBlockResult>;
+	updateReferenceData: (
+		blocks: SyncBlockAttrs[],
+		noContent?: boolean,
+	) => Promise<UpdateReferenceSyncBlockResult>;
 	writeData: (data: SyncBlockData) => Promise<WriteSyncBlockResult>;
 }
 
@@ -107,15 +108,16 @@ export type SyncedBlockRendererProviderOptions = {
 	providerCreator?: SyncBlockRendererProviderCreator;
 };
 
-export abstract class SyncBlockDataProvider extends NodeDataProvider<SyncBlockNode, SyncBlockInstance> {
+export abstract class SyncBlockDataProvider extends NodeDataProvider<
+	SyncBlockNode,
+	SyncBlockInstance
+> {
 	abstract writeNodesData(
 		nodes: SyncBlockNode[],
 		data: SyncBlockData[],
 	): Promise<Array<WriteSyncBlockResult>>;
 	abstract createNodeData(data: SyncBlockData): Promise<WriteSyncBlockResult>;
 	abstract deleteNodesData(resourceIds: string[]): Promise<Array<DeleteSyncBlockResult>>;
-	abstract getSourceId(): ResourceId;
-	abstract getProduct(): SyncBlockProduct | undefined;
 	abstract fetchSyncBlockSourceInfo(
 		localId: BlockInstanceId,
 		sourceAri: string,
@@ -129,12 +131,15 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<SyncBlockNo
 		sourceProduct: SyncBlockProduct,
 	): SyncBlockParentInfo | undefined;
 	/**
-	 * Generates a resource ID from a source ID and local ID.
-	 * @param sourceId - The source document ID (e.g., page ARI)
-	 * @param localId - The local block ID (usually a UUID)
+	 * Generates a resource ID for source synced block.
 	 * @returns The generated resource ID
 	 */
-	abstract generateResourceId(sourceId: ResourceId, localId: BlockInstanceId): ResourceId;
+	abstract generateResourceId(): { localId: BlockInstanceId; resourceId: ResourceId };
+	/**
+	 * Generates a resource ID for reference synced block.
+	 * @param sourceId - The source document ID (e.g., page ARI)
+	 * @returns The generated resource ID
+	 */
 	abstract generateResourceIdForReference(sourceId: ResourceId): ResourceId;
 	abstract updateReferenceData(
 		blocks: SyncBlockAttrs[],

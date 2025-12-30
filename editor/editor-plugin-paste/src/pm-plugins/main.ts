@@ -369,34 +369,11 @@ export function createPlugin(
 					// we make sure to call paste options toolbar
 					// only for a valid paste action
 					if (isDocChanged) {
-						if (expValEquals('platform_editor_pasting_nested_table_fix', 'isEnabled', true)) {
-							const pastedSlice = getLastPastedSlice(tr);
-							if (pastedSlice) {
-								const pasteStartPos = state.selection.from;
+						const pastedSlice = getLastPastedSlice(tr);
+						if (pastedSlice) {
+							const pasteStartPos = state.selection.from;
 
-								const pasteEndPos = tr.selection.to;
-								const contentPasted: LastContentPasted = {
-									pasteStartPos,
-									pasteEndPos,
-									text,
-									isShiftPressed: Boolean(
-										// eslint-disable-next-line @typescript-eslint/no-explicit-any
-										(view as any).shiftKey || (view as any).input?.shiftKey,
-									),
-									isPlainText: Boolean(isPlainText),
-									pastedSlice,
-									pastedAt: Date.now(),
-									pasteSource: getPasteSource(event),
-								};
-								tr.setMeta(stateKey, {
-									type: PastePluginActionTypes.ON_PASTE,
-									contentPasted,
-								});
-							}
-						} else {
-							const pasteStartPos = Math.min(state.selection.anchor, state.selection.head);
 							const pasteEndPos = tr.selection.to;
-
 							const contentPasted: LastContentPasted = {
 								pasteStartPos,
 								pasteEndPos,
@@ -406,11 +383,10 @@ export function createPlugin(
 									(view as any).shiftKey || (view as any).input?.shiftKey,
 								),
 								isPlainText: Boolean(isPlainText),
-								pastedSlice: tr.doc.slice(pasteStartPos, pasteEndPos),
+								pastedSlice,
 								pastedAt: Date.now(),
 								pasteSource: getPasteSource(event),
 							};
-
 							tr.setMeta(stateKey, {
 								type: PastePluginActionTypes.ON_PASTE,
 								contentPasted,

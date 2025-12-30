@@ -7,7 +7,7 @@ import React, { useMemo } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading';
-import LinkGlyph from '@atlaskit/icon/core/migration/link';
+import LinkGlyph from '@atlaskit/icon/core/link';
 import { token } from '@atlaskit/tokens';
 
 import { ExpandedFrame } from '../../components/ExpandedFrame';

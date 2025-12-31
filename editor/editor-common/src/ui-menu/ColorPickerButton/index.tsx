@@ -12,7 +12,6 @@ import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import Button from '@atlaskit/button/new';
-import LegacyButton from '@atlaskit/button/standard-button';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -45,13 +44,6 @@ import { ArrowKeyNavigationType } from '../ArrowKeyNavigationProvider/types';
 // helps adjusts position of popup
 const colorPickerButtonWrapper = css({
 	position: 'relative',
-});
-
-const colorPickerExpandContainer = xcss({
-	marginTop: 'space.0',
-	marginBottom: 'space.0',
-	marginLeft: 'space.negative.050',
-	marginRight: 'space.negative.050',
 });
 
 const colorPickerExpandContainerVisualRefresh = xcss({
@@ -251,35 +243,6 @@ const ColorPickerButton = (props: Props) => {
 		props.currentColor && props.hexToPaletteColor
 			? props.hexToPaletteColor(props.currentColor)
 			: props.currentColor;
-	const buttonStyle = () =>
-		css({
-			padding: `${token('space.075', '6px')} 10px`,
-			backgroundColor: token('color.background.neutral.subtle', 'transparent'),
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			height: `${!!props.size?.height ? 'inherit' : ''}`,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-			'&:before': {
-				display: 'flex',
-				justifyContent: 'center',
-				alignItems: 'center',
-				alignSelf: 'center',
-				content: "''",
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				border: `${token('border.width')} solid ${DEFAULT_BORDER_COLOR}`,
-				borderRadius: token('radius.small', '3px'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				backgroundColor: currentColor || 'transparent',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				width: props.size?.width || '14px',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				height: props.size?.height || '14px',
-				padding: 0,
-				margin: `0px ${token('space.025', '2px')}`,
-			},
-			'&:hover': {
-				background: token('color.background.neutral.subtle.hovered'),
-			},
-		});
 	const buttonStyleVisualRefresh = () =>
 		css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -306,50 +269,15 @@ const ColorPickerButton = (props: Props) => {
 	return (
 		<div css={colorPickerButtonWrapper}>
 			<Tooltip content={title} position="top">
-				{fg('platform-visual-refresh-icons') ? (
-					<div css={colorPickerButtonStyle}>
-						<Button
-							appearance={'subtle'}
-							ref={buttonRef}
-							aria-label={title}
-							aria-expanded={props.isAriaExpanded ? isPopupOpen : undefined}
-							spacing={
-								editorExperiment('platform_editor_controls', 'variant1') ? 'default' : 'compact'
-							}
-							onClick={togglePopup}
-							onKeyDown={(event: React.KeyboardEvent) => {
-								if (event.key === 'Enter' || event.key === ' ') {
-									event.preventDefault();
-									togglePopup();
-									setIsOpenedByKeyboard(true);
-								}
-							}}
-							data-selected-color={props.currentColor}
-							isSelected={isPopupOpen}
-						>
-							<Inline alignBlock="start">
-								<span
-									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-									css={buttonStyleVisualRefresh}
-								/>
-								<Box xcss={colorPickerExpandContainerVisualRefresh}>
-									<ChevronDownIcon
-										color="currentColor"
-										spacing="spacious"
-										label="color-picker-chevron-down"
-										size="small"
-									/>
-								</Box>
-							</Inline>
-						</Button>
-					</div>
-				) : (
-					<LegacyButton
+				<div css={colorPickerButtonStyle}>
+					<Button
 						appearance={'subtle'}
 						ref={buttonRef}
 						aria-label={title}
 						aria-expanded={props.isAriaExpanded ? isPopupOpen : undefined}
-						spacing="compact"
+						spacing={
+							editorExperiment('platform_editor_controls', 'variant1') ? 'default' : 'compact'
+						}
 						onClick={togglePopup}
 						onKeyDown={(event: React.KeyboardEvent) => {
 							if (event.key === 'Enter' || event.key === ' ') {
@@ -358,10 +286,15 @@ const ColorPickerButton = (props: Props) => {
 								setIsOpenedByKeyboard(true);
 							}
 						}}
-						// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
-						css={buttonStyle}
-						iconAfter={
-							<Box xcss={colorPickerExpandContainer}>
+						data-selected-color={props.currentColor}
+						isSelected={isPopupOpen}
+					>
+						<Inline alignBlock="start">
+							<span
+								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+								css={buttonStyleVisualRefresh}
+							/>
+							<Box xcss={colorPickerExpandContainerVisualRefresh}>
 								<ChevronDownIcon
 									color="currentColor"
 									spacing="spacious"
@@ -369,10 +302,9 @@ const ColorPickerButton = (props: Props) => {
 									size="small"
 								/>
 							</Box>
-						}
-						data-selected-color={props.currentColor}
-					/>
-				)}
+						</Inline>
+					</Button>
+				</div>
 			</Tooltip>
 			{renderPopup()}
 		</div>

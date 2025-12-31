@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-table
 
+## 16.1.2
+
+### Patch Changes
+
+- [`66dcfa397e97d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66dcfa397e97d) -
+  [ux] EDITOR-4197 Fix cell option menu for table header cells in table header column
+- Updated dependencies
+
+## 16.1.1
+
+### Patch Changes
+
+- [`30607f97eadae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30607f97eadae) -
+  Update table tests after sticky header changes
+- Updated dependencies
+
+## 16.1.0
+
+### Minor Changes
+
+- [`00e69e0b7c839`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00e69e0b7c839) -
+  Clean up and removal of the `platform-visual-refresh-icons` feature flag.
+
+### Patch Changes
+
+- [`a3bc4ac27ae8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3bc4ac27ae8e) -
+  [ux] EDITOR-4134 Fix firefox nightly for anchor fallback solution
+- Updated dependencies
+
 ## 16.0.3
 
 ### Patch Changes

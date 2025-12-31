@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.30.18
+
+### Patch Changes
+
+- [`b64d6ea53b75e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b64d6ea53b75e) -
+  NAVX-2867 cleaning up navx-2825-eslint-translation-fix-linking-platform
+- Updated dependencies
+
 ## 4.30.17
 
 ### Patch Changes

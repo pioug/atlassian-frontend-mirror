@@ -187,6 +187,7 @@ type TableWrapperProps = {
 	children: React.ReactNode;
 	onScroll?: () => void;
 	stickyHeaders?: StickyHeaderConfig;
+	tabIndex?: number;
 	wrapperRef: React.RefObject<HTMLDivElement>;
 };
 
@@ -194,18 +195,17 @@ type TableWrapperProps = {
  * This TableWrapper component was created to make sure that the aria-label can be
  * internationalized without needing to add `intl` to the TableContainer.
  *
- * @param {TableWrapperProps} root0 - The props object.
- * @param {React.ReactNode} root0.children - The table content to render inside the wrapper.
- * @param {React.RefObject<HTMLDivElement>} root0.wrapperRef - Ref to the wrapper div element.
- * @param {(() => void) | undefined} root0.onScroll - Optional scroll event handler.
- * @param {StickyHeaderConfig | undefined} root0.stickyHeaders - Optional sticky header configuration.
- * @returns The rendered table wrapper component.
- * @example
  * <TableWrapper wrapperRef={ref} onScroll={handleScroll} stickyHeaders={config}>
  *   <Table>...</Table>
  * </TableWrapper>
  */
-const TableWrapper = ({ children, wrapperRef, onScroll, stickyHeaders }: TableWrapperProps) => {
+const TableWrapper = ({
+	children,
+	wrapperRef,
+	onScroll,
+	stickyHeaders,
+	tabIndex,
+}: TableWrapperProps) => {
 	const { formatMessage } = useIntl();
 
 	return (
@@ -216,7 +216,7 @@ const TableWrapper = ({ children, wrapperRef, onScroll, stickyHeaders }: TableWr
 			onScroll={stickyHeaders ? onScroll : undefined}
 			// Adding tabIndex here because this is a scrollable container and it needs to be focusable so keyboard users can scroll it.
 			// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex
-			tabIndex={0}
+			tabIndex={tabIndex}
 			role="region"
 			aria-label={formatMessage(tableMessages.tableScrollRegion)}
 		>
@@ -754,11 +754,12 @@ export class TableContainer extends React.Component<
 							{[children && children[0]]}
 						</StickyTable>
 					)}
-					{fg('editor_enghealth_focusable_scrollable_tables') ? (
+					{fg('platform_editor_dec_a11y_fixes') ? (
 						<TableWrapper
 							wrapperRef={this.wrapperRef}
 							onScroll={this.props.stickyHeaders ? this.onWrapperScrolled : undefined}
 							stickyHeaders={stickyHeaders}
+							tabIndex={this.props.tabIndex}
 						>
 							<Table
 								innerRef={this.tableRef}

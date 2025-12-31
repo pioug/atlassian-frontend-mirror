@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 125.0.2
+
+### Patch Changes
+
+- [`ba0e1d49e14cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba0e1d49e14cb) -
+  ENGHEALTH-40073: Make tables and extensions focusable if they have overscroll so that they can be
+  interacted with in an accessible way.
+- Updated dependencies
+
 ## 125.0.1
 
 ### Patch Changes

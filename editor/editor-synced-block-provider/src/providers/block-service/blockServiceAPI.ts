@@ -5,6 +5,7 @@ import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import { generateBlockAri, generateBlockAriFromReference } from '../../clients/block-service/ari';
 import {
+	batchRetrieveSyncedBlocks,
 	BlockError,
 	createSyncedBlock,
 	deleteSyncedBlock,
@@ -176,6 +177,108 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 				return { error: mapBlockError(error), resourceId };
 			}
 			return { error: SyncBlockError.Errored, resourceId };
+		}
+	}
+
+	/**
+	 * Extracts the resourceId from a block ARI.
+	 * Block ARI format: ari:cloud:blocks:<cloudId>:synced-block/<resourceId>
+	 */
+	private extractResourceIdFromBlockAri(blockAri: string): string | undefined {
+		const match = blockAri.match(/ari:cloud:blocks:[^:]+:synced-block\/(.+)$/);
+		return match?.[1];
+	}
+
+	/**
+	 * Batch fetches multiple synced blocks by their resource IDs.
+	 * @param resourceIds - Array of resource IDs to fetch
+	 * @returns Array of SyncBlockInstance results
+	 */
+	async batchFetchData(resourceIds: string[]): Promise<SyncBlockInstance[]> {
+		const blockAris = resourceIds.map((resourceId) =>
+			generateBlockAriFromReference({ cloudId: this.cloudId, resourceId }),
+		);
+
+		// Create a set of valid resourceIds for validation
+		const validResourceIds = new Set(resourceIds);
+
+		// Track which resourceIds have been processed
+		const processedResourceIds = new Set<string>();
+
+		try {
+			const response = await batchRetrieveSyncedBlocks({ blockAris });
+			const results: SyncBlockInstance[] = [];
+
+			// Process successful blocks
+			if (response.success) {
+				for (const blockContentResponse of response.success) {
+					// Extract resourceId from the returned blockAri
+					const resourceId = this.extractResourceIdFromBlockAri(blockContentResponse.blockAri);
+					if (!resourceId || !validResourceIds.has(resourceId)) {
+						continue;
+					}
+
+					processedResourceIds.add(resourceId);
+
+					const value = blockContentResponse.content;
+					if (!value) {
+						results.push({ error: SyncBlockError.NotFound, resourceId });
+						continue;
+					}
+
+					try {
+						const syncedBlockData = JSON.parse(value) as Array<ADFEntity>;
+						results.push({
+							data: {
+								content: syncedBlockData,
+								resourceId: blockContentResponse.blockAri,
+								blockInstanceId: blockContentResponse.blockInstanceId,
+								sourceAri: blockContentResponse.sourceAri,
+								product: blockContentResponse.product,
+							},
+							resourceId,
+						});
+					} catch {
+						results.push({ error: SyncBlockError.Errored, resourceId });
+					}
+				}
+			}
+
+			// Process errors
+			if (response.error) {
+				for (const errorResponse of response.error) {
+					// Extract resourceId from the returned blockAri
+					const resourceId = this.extractResourceIdFromBlockAri(errorResponse.blockAri);
+					if (!resourceId || !validResourceIds.has(resourceId)) {
+						continue;
+					}
+
+					processedResourceIds.add(resourceId);
+
+					results.push({
+						error: SyncBlockError.Errored,
+						resourceId,
+					});
+				}
+			}
+
+			// Ensure all resourceIds have a result - return NotFound for any missing ones
+			for (const resourceId of resourceIds) {
+				if (!processedResourceIds.has(resourceId)) {
+					results.push({
+						error: SyncBlockError.NotFound,
+						resourceId,
+					});
+				}
+			}
+
+			return results;
+		} catch (error) {
+			// If batch request fails, return error for all resourceIds
+			return resourceIds.map((resourceId) => ({
+				error: error instanceof BlockError ? mapBlockError(error) : SyncBlockError.Errored,
+				resourceId,
+			}));
 		}
 	}
 }

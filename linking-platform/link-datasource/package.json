@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.30.17",
+	"version": "4.30.18",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -197,9 +197,6 @@
 			"type": "boolean"
 		},
 		"lp_disable_datasource_table_max_height_restriction": {
-			"type": "boolean"
-		},
-		"navx-2825-eslint-translation-fix-linking-platform": {
 			"type": "boolean"
 		}
 	},

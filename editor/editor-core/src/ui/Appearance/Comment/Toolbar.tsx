@@ -128,7 +128,7 @@ const StickyToolbar = (props: StickyToolbarProps) => {
 			css={[
 				mainToolbarWrapperStyleNew,
 				props.twoLineEditorToolbar && mainToolbarTwoLineStylesNew,
-				fg('platform-visual-refresh-icons') && mainToolbarWrapperStylesVisualRefresh,
+				mainToolbarWrapperStylesVisualRefresh,
 				stickyToolbarWrapperStyleNew,
 				props.isNewToolbarEnabled && !toolbarPatch6Enabled && mainToolbarWithoutLeftPadding,
 				props.isNewToolbarEnabled && toolbarPatch6Enabled && mainToolbarWithPadding,
@@ -156,7 +156,7 @@ const FixedToolbar = (props: FixedToolbarProps) => (
 		css={[
 			mainToolbarWrapperStyleNew,
 			props.twoLineEditorToolbar && mainToolbarTwoLineStylesNew,
-			fg('platform-visual-refresh-icons') && mainToolbarWrapperStylesVisualRefresh,
+			mainToolbarWrapperStylesVisualRefresh,
 			props.isNewToolbarEnabled && mainToolbarWithoutLeftPadding,
 			fg('platform_editor_comments_border_radius') && mainToolbarWithRadiusStyle,
 		]}

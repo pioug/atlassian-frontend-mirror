@@ -9,14 +9,12 @@ import { jsx } from '@emotion/react';
 
 import {
 	expandIconContainerStyle,
-	triggerWrapperStyles,
 	triggerWrapperStylesWithPadding,
 	disableBlueBorderStyles,
 } from '@atlaskit/editor-common/styles';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import ItalicIcon from '@atlaskit/icon/core/text-italic';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ToolbarType } from './types';
 
@@ -64,11 +62,8 @@ export const DropdownToolbarButton = ({
 			iconBefore={
 				<div
 					css={
-						fg('platform-visual-refresh-icons')
-							? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-								triggerWrapperStylesWithPadding
-							: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-								triggerWrapperStyles
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+						triggerWrapperStylesWithPadding
 					}
 					data-testid={activeIconName ? `editor-toolbar__${activeIconName}` : undefined}
 				>

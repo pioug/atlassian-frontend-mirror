@@ -3,7 +3,6 @@
  * @jsx jsx
  */
 import { jsx, css, cssMap } from '@compiled/react';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { N0, N800 } from '@atlaskit/theme/colors';
 
@@ -125,25 +124,12 @@ TitleBoxFooter.displayName = 'TitleBoxFooter';
 const titleBoxIconStyles = css({
 	position: 'absolute',
 	right: token('space.050', '4px'),
-	bottom: '0px',
-});
-
-const newTitleBoxIconStyles = css({
-	position: 'absolute',
-	right: token('space.050', '4px'),
 	bottom: token('space.050', '4px'),
 });
 
 export const TitleBoxIcon = (props: any) => {
 	return (
-		<div
-			id="titleBoxIcon"
-			data-testid="title-box-icon"
-			css={[
-				fg('platform-visual-refresh-icons') && newTitleBoxIconStyles,
-				!fg('platform-visual-refresh-icons') && titleBoxIconStyles,
-			]}
-		>
+		<div id="titleBoxIcon" data-testid="title-box-icon" css={[titleBoxIconStyles]}>
 			{props.children}
 		</div>
 	);

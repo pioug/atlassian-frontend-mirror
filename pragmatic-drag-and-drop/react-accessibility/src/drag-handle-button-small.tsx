@@ -41,7 +41,7 @@ export const DragHandleButtonSmall = forwardRef<HTMLButtonElement, DragHandleBut
 			<DragHandleButtonBase ref={ref} {...buttonProps}>
 				<Box
 					xcss={
-						fg('platform-component-visual-refresh') || fg('platform-visual-refresh-icons')
+						fg('platform-component-visual-refresh')
 							? iconSmallStylesNew
 							: iconSmallStyles
 					}

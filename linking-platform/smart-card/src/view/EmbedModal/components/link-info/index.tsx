@@ -222,9 +222,15 @@ const LinkInfo = ({
 				</div>
 			)}
 			<div css={[titleCss]}>
-				<Heading size="small" color="color.text" testId={`${testId}-title`}>
-					{title}
-				</Heading>
+				{fg('navx-2816-a11y-fix-smart-links-headings') ? (
+					<Heading as="h2" size="small" color="color.text" testId={`${testId}-title`}>
+						{title}
+					</Heading>
+				) : (
+					<Heading size="small" color="color.text" testId={`${testId}-title`}>
+						{title}
+					</Heading>
+				)}
 				{/* eslint-disable-next-line @atlassian/a11y/no-aria-hidden-on-focusable -- TODO: Focusable elements should not have aria-hidden. See https://go/a11y-no-aria-hidden-on-focusable for more details. */}
 				<span tabIndex={0} role="button" aria-hidden={true} />
 			</div>
@@ -325,9 +331,21 @@ const LinkInfoNew = ({
 				</div>
 			)}
 			<div css={[titleCss]}>
-				<Heading size="small" color="color.text" ref={focusRef} testId={`${testId}-title`}>
-					{title}
-				</Heading>
+				{fg('navx-2816-a11y-fix-smart-links-headings') ? (
+					<Heading
+						as="h2"
+						size="small"
+						color="color.text"
+						ref={focusRef}
+						testId={`${testId}-title`}
+					>
+						{title}
+					</Heading>
+				) : (
+					<Heading size="small" color="color.text" ref={focusRef} testId={`${testId}-title`}>
+						{title}
+					</Heading>
+				)}
 			</div>
 			<ul role="list" css={buttonGroupCss}>
 				{onDownloadButtonClick && <li css={listItemCSS}>{downloadButton}</li>}

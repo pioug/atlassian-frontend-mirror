@@ -5,7 +5,6 @@
 import { memo, useMemo } from 'react';
 
 import { css, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 const svgStyles = css({
@@ -16,38 +15,25 @@ const svgStyles = css({
 
 function getIcon(isIndeterminate: boolean, isChecked: boolean) {
 	if (isIndeterminate) {
-		if (fg('platform-visual-refresh-icons')) {
-			return (
-				<path
-					fillRule="evenodd"
-					clipRule="evenodd"
-					d="M7.75 12.75H16.25V11.25H7.75V12.75Z"
-					fill="inherit"
-				/>
-			);
-		} else {
-			return <rect fill="inherit" x="8" y="11" width="8" height="2" rx="1" />;
-		}
+		return (
+			<path
+				fillRule="evenodd"
+				clipRule="evenodd"
+				d="M7.75 12.75H16.25V11.25H7.75V12.75Z"
+				fill="inherit"
+			/>
+		);
 	}
 
 	if (isChecked) {
-		if (fg('platform-visual-refresh-icons')) {
-			return (
-				<path
-					fillRule="evenodd"
-					clipRule="evenodd"
-					d="M16.3262 9.48011L15.1738 8.51984L10.75 13.8284L8.82616 11.5198L7.67383 12.4801L10.1738 15.4801C10.3163 15.6511 10.5274 15.75 10.75 15.75C10.9726 15.75 11.1837 15.6511 11.3262 15.4801L16.3262 9.48011Z"
-					fill="inherit"
-				/>
-			);
-		} else {
-			return (
-				<path
-					d="M9.707 11.293a1 1 0 1 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 1 0-1.414-1.414L11 12.586l-1.293-1.293z"
-					fill="inherit"
-				/>
-			);
-		}
+		return (
+			<path
+				fillRule="evenodd"
+				clipRule="evenodd"
+				d="M16.3262 9.48011L15.1738 8.51984L10.75 13.8284L8.82616 11.5198L7.67383 12.4801L10.1738 15.4801C10.3163 15.6511 10.5274 15.75 10.75 15.75C10.9726 15.75 11.1837 15.6511 11.3262 15.4801L16.3262 9.48011Z"
+				fill="inherit"
+			/>
+		);
 	}
 
 	// No icon
@@ -83,11 +69,7 @@ const CheckboxIcon = memo<{
 			role="presentation"
 		>
 			<g fillRule="evenodd">
-				{fg('platform-visual-refresh-icons') ? (
-					<rect fill="currentColor" x="5.5" y="5.5" width="13" height="13" rx="1.5" />
-				) : (
-					<rect fill="currentColor" x="6" y="6" width="12" height="12" rx="2" />
-				)}
+				<rect fill="currentColor" x="5.5" y="5.5" width="13" height="13" rx="1.5" />
 				{icon}
 			</g>
 		</svg>

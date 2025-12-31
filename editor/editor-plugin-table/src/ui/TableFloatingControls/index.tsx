@@ -166,7 +166,9 @@ export const TableFloatingControls = ({
 					'platform_editor_table_sticky_header_improvements',
 					'cohort',
 					'test_with_overflow',
-				) && styles,
+				) &&
+					!fg('platform_editor_table_sticky_header_patch_7') &&
+					styles,
 			]}
 		>
 			{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions */}

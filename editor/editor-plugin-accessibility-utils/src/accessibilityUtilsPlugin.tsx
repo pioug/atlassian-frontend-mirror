@@ -6,6 +6,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import type {
@@ -42,6 +43,9 @@ export const accessibilityUtilsPlugin: AccessibilityUtilsPlugin = ({ api }) => {
 			},
 		},
 		contentComponent: () => {
+			if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView) {
+				return null;
+			}
 			return <ContentComponent api={api} />;
 		},
 		getSharedState(editorState) {
@@ -84,6 +88,7 @@ export const accessibilityUtilsPlugin: AccessibilityUtilsPlugin = ({ api }) => {
 
 function ContentComponent({
 	api,
+
 }: {
 	api: ExtractInjectionAPI<AccessibilityUtilsPlugin> | undefined;
 }) {
@@ -99,6 +104,7 @@ function ContentComponent({
 		},
 	);
 	const role = ariaLiveElementAttributes?.priority === 'important' ? 'alert' : 'status';
+
 
 	return (
 		<VisuallyHidden

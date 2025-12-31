@@ -132,6 +132,7 @@ export const renderExtension = (
 				data-node-type="extension"
 			>
 				<div
+					tabIndex={fg('platform_editor_dec_a11y_fixes') ? options.tabIndex : undefined}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 					className={overflowContainerClass}
 					css={[fg('platform_fix_macro_renders_in_layouts') && containerStyle]}
@@ -159,6 +160,7 @@ export const renderExtension = (
 					data-local-id={localId}
 				>
 					<div
+						tabIndex={fg('platform_editor_dec_a11y_fixes') ? options.tabIndex : undefined}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 						className={overflowContainerClass}
 						css={[fg('platform_fix_macro_renders_in_layouts') && containerStyle]}
@@ -202,6 +204,7 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 								isTopLevel: path.length < 1,
 								handleRef,
 								shadowClassNames,
+								tabIndex: fg('platform_editor_dec_a11y_fixes') ? props.tabIndex : undefined,
 							},
 							undefined,
 							parameters?.extensionId,
@@ -223,6 +226,7 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 						isTopLevel: path.length < 1,
 						handleRef,
 						shadowClassNames,
+						tabIndex: fg('platform_editor_dec_a11y_fixes') ? props.tabIndex : undefined,
 					},
 					undefined,
 					parameters?.extensionId,

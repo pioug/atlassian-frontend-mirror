@@ -20,7 +20,6 @@ import {
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import {
 	buttonGroupStyle,
-	buttonGroupStyleBeforeVisualRefresh,
 	separatorStyles,
 	wrapperStyle,
 } from '@atlaskit/editor-common/styles';
@@ -470,12 +469,8 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 		return (
 			<span
 				css={
-					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
-					fg('platform-visual-refresh-icons')
-						? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-							buttonGroupStyle
-						: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-							buttonGroupStyleBeforeVisualRefresh
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+					buttonGroupStyle
 				}
 			>
 				{toolbarButtons.map((btn) => {

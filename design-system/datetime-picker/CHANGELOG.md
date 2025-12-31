@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 17.4.0
+
+### Minor Changes
+
+- [`00e69e0b7c839`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00e69e0b7c839) -
+  Clean up and removal of the `platform-visual-refresh-icons` feature flag.
+
 ## 17.3.0
 
 ### Minor Changes

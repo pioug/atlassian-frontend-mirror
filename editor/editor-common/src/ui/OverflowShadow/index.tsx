@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { ShadowObserver, shadowObserverClassNames } from './shadowObserver';
 
 export const shadowClassNames = {
@@ -11,6 +13,7 @@ export interface OverflowShadowProps {
 	disableTableOverflowShadow?: boolean;
 	handleRef?: (ref: HTMLElement | null) => void;
 	shadowClassNames?: string;
+	tabIndex?: number;
 }
 
 export interface OverflowShadowState {
@@ -195,10 +198,24 @@ export default function overflowShadow<P>(
 				.filter(Boolean)
 				.join(' ');
 
+			/**
+			 * The widths have already been calculated to determine
+			 * showRightShadow and showLeftShadow. If either is true,
+			 * then the content is scrollable and we need to set the
+			 * tabIndex to 0 to allow the user to scroll the content
+			 * for a11y purposes.
+			 */
+			const hasOverflowScroll = showRightShadow || showLeftShadow;
+
 			return (
 				// Ignored via go/ees005
-				// eslint-disable-next-line react/jsx-props-no-spreading
-				<Component handleRef={this.handleContainer} shadowClassNames={classNames} {...this.props} />
+				<Component
+					handleRef={this.handleContainer}
+					tabIndex={hasOverflowScroll && fg('platform_editor_dec_a11y_fixes') ? 0 : undefined}
+					shadowClassNames={classNames}
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...this.props}
+				/>
 			);
 		}
 	};

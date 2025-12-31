@@ -1,5 +1,27 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.4.0
+
+### Minor Changes
+
+- [`66dcfa397e97d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66dcfa397e97d) -
+  [ux] EDITOR-4197 Fix cell option menu for table header cells in table header column
+
+## 16.3.4
+
+### Patch Changes
+
+- [`30607f97eadae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30607f97eadae) -
+  Update table tests after sticky header changes
+
+## 16.3.3
+
+### Patch Changes
+
+- [`31b6da6a9ab84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31b6da6a9ab84) -
+  Clean up platform_editor_fix_a11y_aria_posinset_0 experiment - Fix ARIA posinset to use 1-based
+  indexing
+
 ## 16.3.2
 
 ### Patch Changes

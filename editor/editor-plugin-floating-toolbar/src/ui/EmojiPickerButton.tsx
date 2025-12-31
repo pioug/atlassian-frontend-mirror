@@ -23,32 +23,9 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiId } from '@atlaskit/emoji';
 import { EmojiPicker } from '@atlaskit/emoji';
 import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Tooltip from '@atlaskit/tooltip';
 
 import { type FloatingToolbarPlugin } from '../floatingToolbarPluginType';
-
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const emojiPickerButtonWrapper = css({
-	position: 'relative', // helps adjusts position of popup
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	button: {
-		top: '-1px', // adjust position of emoji icon when using the IconButtom component
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:not([disabled])::after': {
-			border: 'none', // remove blue border when picker has been selected
-		},
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	svg: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		path: {
-			// adjust size of emoji icon when using the IconButtom component, otherwise it's too small
-			transformOrigin: '50% 50%',
-			transform: 'scale(1.14)',
-		},
-	},
-});
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const emojiPickerButtonWrapperVisualRefresh = css({
@@ -197,11 +174,7 @@ export const EmojiPickerButton: EmojiPickerButtonReturnType = (props) => {
 
 	return (
 		<div
-			css={
-				fg('platform-visual-refresh-icons')
-					? emojiPickerButtonWrapperVisualRefresh
-					: emojiPickerButtonWrapper
-			}
+			css={emojiPickerButtonWrapperVisualRefresh}
 		>
 			<Tooltip content={title} position="top">
 				{

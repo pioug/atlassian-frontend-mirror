@@ -24,13 +24,11 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import {
 	DynamicStrokeIconDecoration,
-	SteppedRainbowIconDecoration,
 } from '@atlaskit/editor-common/icons';
 import { textColorMessages as messages } from '@atlaskit/editor-common/messages';
 import {
 	expandIconContainerStyle,
 	separatorStyles,
-	triggerWrapperStyles,
 	triggerWrapperStylesWithPadding,
 	wrapperStyle,
 } from '@atlaskit/editor-common/styles';
@@ -51,7 +49,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import TextStyleIcon from '@atlaskit/icon/core/text-style';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -60,8 +57,6 @@ import type { TextColorPluginState } from '../../pm-plugins/main';
 import { getInputMethod } from '../../pm-plugins/utils/inputType';
 import type { TextColorPlugin } from '../../textColorPluginType';
 import { ToolbarType } from '../../types';
-
-import { EditorTextColorIcon } from './icon';
 
 export interface State {
 	isOpen: boolean;
@@ -153,7 +148,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 			<span
 				css={
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-					fg('platform-visual-refresh-icons') ? [wrapperStyle, addMarginToWrapper] : wrapperStyle
+					[wrapperStyle, addMarginToWrapper]
 				}
 			>
 				<Dropdown
@@ -193,28 +188,15 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 							iconBefore={
 								<div
 									css={
-										// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
-										fg('platform-visual-refresh-icons')
-											? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-												triggerWrapperStylesWithPadding
-											: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-												triggerWrapperStyles
+										// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+										triggerWrapperStylesWithPadding
 									}
 								>
-									{/* eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration */}
-									{fg('platform-visual-refresh-icons') ? (
-										<DynamicStrokeIconDecoration
-											selectedColor={selectedColor}
-											disabled={pluginState.disabled}
-											icon={<TextStyleIcon label="" color="currentColor" spacing="spacious" />}
-										/>
-									) : (
-										<SteppedRainbowIconDecoration
-											selectedColor={selectedColor}
-											disabled={pluginState.disabled}
-											icon={<EditorTextColorIcon />}
-										/>
-									)}
+									<DynamicStrokeIconDecoration
+										selectedColor={selectedColor}
+										disabled={pluginState.disabled}
+										icon={<TextStyleIcon label="" color="currentColor" spacing="spacious" />}
+									/>
 									{
 										//eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 										<span css={expandIconContainerStyle}>

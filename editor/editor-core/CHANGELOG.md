@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 216.1.0
+
+### Minor Changes
+
+- [`00e69e0b7c839`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00e69e0b7c839) -
+  Clean up and removal of the `platform-visual-refresh-icons` feature flag.
+
+### Patch Changes
+
+- [`2843f9743d50a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2843f9743d50a) -
+  ED-29683: render editor toolbar under two stage hydration
+- Updated dependencies
+
 ## 216.0.2
 
 ### Patch Changes

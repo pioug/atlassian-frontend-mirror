@@ -5,7 +5,7 @@
 import { useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
@@ -40,24 +40,13 @@ import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette'
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import HighlightIcon from '@atlaskit/icon/core/highlight';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { token } from '@atlaskit/tokens';
 
 import { setPalette } from '../editor-commands/palette';
 import type { HighlightPlugin } from '../highlightPluginType';
 
-import { EditorHighlightIcon } from './shared/EditorHighlightIcon';
 import { PaletteDropdown } from './shared/PaletteDropdown';
 import { useDropdownEvents } from './shared/useDropdownEvents';
-
-const expandIconContainerHighlightStyle = css({
-	margin: `0px ${token('space.negative.050', '-4px')}`,
-});
-
-const highlightIconContainerStyle = css({
-	marginTop: token('space.negative.050', '-4px'),
-});
 
 type FloatingToolbarHighlightColorProps = {
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
@@ -160,33 +149,20 @@ const FloatingToolbarHighlightColor = ({
 					onKeyDown={handleKeyDown}
 					ref={toolbarItemRef}
 					iconBefore={
-						fg('platform-visual-refresh-icons') ? (
-							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-							<div css={triggerWrapperStylesWithPadding}>
-								<DynamicStrokeIconDecoration
-									selectedColor={activeColorToken}
-									disabled={disabled}
-									icon={<HighlightIcon label="" color="currentColor" spacing="spacious" />}
-								/>
-								{
-									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-									<span css={expandIconContainerStyle}>
-										<ChevronDownIcon label="" color="currentColor" size="small" />
-									</span>
-								}
-							</div>
-						) : (
-							<span css={highlightIconContainerStyle}>
-								<EditorHighlightIcon selectedColor={activeColorToken} disabled={disabled} />
-							</span>
-						)
-					}
-					iconAfter={
-						fg('platform-visual-refresh-icons') ? undefined : (
-							<span css={expandIconContainerHighlightStyle}>
-								<ChevronDownIcon label="" color="currentColor" size="small" />
-							</span>
-						)
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+						<div css={triggerWrapperStylesWithPadding}>
+							<DynamicStrokeIconDecoration
+								selectedColor={activeColorToken}
+								disabled={disabled}
+								icon={<HighlightIcon label="" color="currentColor" spacing="spacious" />}
+							/>
+							{
+								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+								<span css={expandIconContainerStyle}>
+									<ChevronDownIcon label="" color="currentColor" size="small" />
+								</span>
+							}
+						</div>
 					}
 				>
 					{editorExperiment('platform_editor_controls', 'control') &&

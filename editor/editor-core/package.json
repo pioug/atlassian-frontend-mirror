@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "216.0.2",
+	"version": "216.1.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -399,6 +399,7 @@
 		"./composable-editor": "./src/composable-editor.ts",
 		"./editor-context": "./src/editor-context.ts",
 		"./editor": "./src/editor.tsx",
+		"./exclude-from-hydration": "./src/ui/ExcludeFromHydration/index.tsx",
 		"./i18n": "./src/i18n/index.ts",
 		"./i18n/*": {
 			"publish": null,

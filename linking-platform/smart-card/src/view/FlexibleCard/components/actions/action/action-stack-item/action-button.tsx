@@ -62,9 +62,7 @@ const ActionButton = ({
 	const icon =
 		iconOption && isLoading ? (
 			<ActionIcon
-				asStackItemIcon={true}
 				icon={<Spinner testId={`${testId}-loading`} />}
-				size={size}
 			/>
 		) : (
 			iconOption

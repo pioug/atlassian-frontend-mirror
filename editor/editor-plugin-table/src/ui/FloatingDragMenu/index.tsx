@@ -11,9 +11,11 @@ import {
 	akEditorFloatingOverlapPanelZIndex,
 } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
 import type { PluginConfig, PluginInjectionAPI, TableDirection } from '../../types';
+import { TableCssClassName as ClassName } from '../../types';
 import { dragMenuDropdownWidth, tablePopupMenuFitHeight } from '../consts';
 
 import DragMenu from './DragMenu';
@@ -40,6 +42,7 @@ interface Props {
 	stickyHeaders?: RowStickyState;
 	tableNode?: PmNode;
 	tableRef?: HTMLTableElement;
+	tableWrapper?: HTMLElement;
 	targetCellPosition?: number;
 }
 
@@ -62,11 +65,15 @@ const FloatingDragMenu = ({
 	ariaNotifyPlugin,
 	api,
 	isCommentEditor,
+	tableWrapper,
 }: Props): React.JSX.Element | null => {
 	if (!isOpen || !targetCellPosition || editorView.state.doc.nodeSize <= targetCellPosition) {
 		return null;
 	}
-	const inStickyMode = stickyHeaders?.sticky;
+	const inStickyMode =
+		stickyHeaders?.sticky ||
+		(tableWrapper?.classList.contains(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW) &&
+			fg('platform_editor_table_sticky_header_patch_7'));
 
 	const targetHandleRef =
 		direction === 'row'

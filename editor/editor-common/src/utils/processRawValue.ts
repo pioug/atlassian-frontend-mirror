@@ -17,6 +17,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DispatchAnalyticsEvent } from '../analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
+import { isNestedTablesSupported } from '../nesting/utilities';
 import type { ProviderFactory } from '../provider-factory';
 import type { ReplaceRawValue, Transformer } from '../types';
 
@@ -271,10 +272,12 @@ export function processRawValue(
 		if (expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
 			// Validate ADF first before converting nested-table extensions into nested tables
 			// This matches the renderer's behavior in render-document.ts
+			const allowNestedTables = isNestedTablesSupported(schema);
 			entity = validateADFEntity(
 				schema,
 				transformedAdf || (node as ADFEntity),
 				dispatchAnalyticsEvent,
+				allowNestedTables ? { allowNestedTables } : undefined,
 			);
 
 			// Convert nested-table extensions into nested tables

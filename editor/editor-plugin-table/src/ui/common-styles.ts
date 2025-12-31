@@ -599,7 +599,11 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	}
 
 
-
+	${fg('platform_editor_table_sticky_header_patch_7') ? `
+		.${ClassName.DRAG_ROW_CONTROLS_WRAPPER}:has(~ .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW}) {
+			margin-top: 0;
+		}
+	` : ``}
 
 	.${ClassName.TABLE_CONTAINER}[data-table-header-is-stuck='true']:has(.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW})
 		> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}

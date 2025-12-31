@@ -5,6 +5,9 @@ import VRTestWrapper, { type VRTestWrapperProps } from '../utils/vr-test-wrapper
 import CardView from './card-view';
 import type { MultiCardViewProps } from './card-view-props';
 
+// Statically import the component to ensure it's loaded before the test runs
+import '../../src/view/CardWithUrl/component-lazy';
+
 const VRCardView = ({
 	style,
 	...props

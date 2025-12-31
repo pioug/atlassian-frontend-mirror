@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-user-picker",
-	"version": "8.5.0",
+	"version": "8.6.0",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -70,6 +70,9 @@
 	},
 	"platform-feature-flags": {
 		"twcg-444-invite-usd-improvements-m2-gate": {
+			"type": "boolean"
+		},
+		"smart-user-picker-load-options-gate": {
 			"type": "boolean"
 		}
 	}

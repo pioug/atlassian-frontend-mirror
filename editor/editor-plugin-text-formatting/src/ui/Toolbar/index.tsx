@@ -14,7 +14,6 @@ import { usePreviousState } from '@atlaskit/editor-common/hooks';
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import {
 	buttonGroupStyle,
-	buttonGroupStyleBeforeVisualRefresh,
 	separatorStyles,
 	wrapperStyle,
 } from '@atlaskit/editor-common/styles';
@@ -25,7 +24,6 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { Announcer } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { compareItemsArrays, isArrayContainsContent } from '../../editor-commands/utils';
@@ -181,12 +179,8 @@ const ToolbarFormatting = ({
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<span
 			css={
-				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
-				fg('platform-visual-refresh-icons')
-					? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-						buttonGroupStyle
-					: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-						buttonGroupStyleBeforeVisualRefresh
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+				buttonGroupStyle
 			}
 		>
 			<div

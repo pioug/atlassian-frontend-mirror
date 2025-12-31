@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 43.18.0
+
+### Minor Changes
+
+- [`00e69e0b7c839`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00e69e0b7c839) -
+  Clean up and removal of the `platform-visual-refresh-icons` feature flag.
+
+### Patch Changes
+
+- [`7697f2dbc4508`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7697f2dbc4508) -
+  NAVX-2816 fixing the heading levels for smart links
+- [`b64d6ea53b75e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b64d6ea53b75e) -
+  NAVX-2867 cleaning up navx-2825-eslint-translation-fix-linking-platform
+- Updated dependencies
+
 ## 43.17.7
 
 ### Patch Changes

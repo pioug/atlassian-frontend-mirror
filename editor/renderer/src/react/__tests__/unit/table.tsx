@@ -1,7 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { TableContainer } from '../../nodes/table';
+
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { screen } from '@testing-library/react';
+
+import { TableContainer } from '../../nodes/table';
 
 jest.mock('../../nodes/table', () => ({
 	...jest.requireActual('../../nodes/table'),
@@ -68,7 +71,7 @@ describe('Tables with a width attribute', () => {
 				</TableContainer>
 			);
 			it('should have the correct styles and layout attribute', () => {
-				const { container } = render(<Component />);
+				const { container } = renderWithIntl(<Component />);
 
 				if (renderWidth) {
 					// Ignored via go/ees005
@@ -108,7 +111,7 @@ describe('Tables without a width attribute', () => {
 				</TableContainer>
 			);
 			it('should have the correct styles and layout attribute', () => {
-				const { container } = render(<Component />);
+				const { container } = renderWithIntl(<Component />);
 
 				if (appearance === 'full-width') {
 					if (renderWidth) {
@@ -161,12 +164,12 @@ describe('Table isPresentational prop', () => {
 	ffTest(
 		'platform_renderer_isPresentational',
 		() => {
-			render(<Component isPresentational />);
+			renderWithIntl(<Component isPresentational />);
 			const table = screen.getByTestId('renderer-table');
 			expect(table).toHaveAttribute('role', 'presentation');
 		},
 		() => {
-			render(<Component />);
+			renderWithIntl(<Component />);
 			const table = screen.getByTestId('renderer-table');
 			expect(table).not.toHaveAttribute('role', 'presentation');
 		},

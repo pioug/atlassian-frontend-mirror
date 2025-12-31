@@ -36,6 +36,9 @@
 			"path": "../../node-data-provider/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-jira/tsconfig.json"
 		}
 	]

@@ -31,7 +31,6 @@ import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import StrokeWeightLargeIcon from '@atlaskit/icon/core/stroke-weight-large';
 import StrokeWeightMediumIcon from '@atlaskit/icon/core/stroke-weight-medium';
 import StrokeWeightSmallIcon from '@atlaskit/icon/core/stroke-weight-small';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -40,12 +39,10 @@ import {
 	buttonStyle,
 	buttonWrapperStyle,
 	contextualMenuArrow,
-	contextualMenuColorIcon,
 	contextualSubMenu,
 	dropdownOptionButton,
 	dropdownWrapper,
 	itemSpacing,
-	line,
 	menuItemDimensions,
 	toolbarButtonWrapper,
 } from './styles';
@@ -151,11 +148,6 @@ const ImageBorder = ({
 		},
 	];
 
-	const borderColorSelectStyles = () =>
-		!fg('platform-visual-refresh-icons')
-			? contextualMenuColorIcon(color && hexToEditorBorderPaletteColor(color))
-			: contextualMenuArrow;
-
 	const items: MenuItem[] = [
 		{
 			content: (
@@ -174,7 +166,7 @@ const ImageBorder = ({
 					>
 						<Text>{formatMessage(messages.borderColor)}</Text>
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-						<div css={borderColorSelectStyles} />
+						<div css={contextualMenuArrow} />
 					</button>
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -296,18 +288,11 @@ const ImageBorder = ({
 															e.preventDefault();
 														}}
 													>
-														{!fg('platform-visual-refresh-icons') ? (
-															//eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-															<div css={line(value, value === size)} role="presentation" />
-														) : (
-															<ButtonIcon
-																color={
-																	value === size ? token('color.icon.inverse') : 'currentColor'
-																}
-																spacing="spacious"
-																label={name}
-															/>
-														)}
+														<ButtonIcon
+															color={value === size ? token('color.icon.inverse') : 'currentColor'}
+															spacing="spacious"
+															label=""
+														/>
 													</button>
 												</span>
 											</Tooltip>

@@ -7,7 +7,6 @@ import React from 'react';
 import { css as cssUnbounded } from '@compiled/react';
 
 import { css, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 const triggerWrapperStylesWithPadding = css({
@@ -15,9 +14,6 @@ const triggerWrapperStylesWithPadding = css({
 	paddingRight: token('space.025', '2px'),
 });
 
-const triggerWrapperStyles = css({
-	display: 'flex',
-});
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- This rule thinks this isn't a `css()` call due to the name mapping
 const triggerWrapperStylesUnbounded = cssUnbounded({
@@ -34,9 +30,7 @@ export function ToolbarDropdownTriggerWrapper({ children }: { children?: React.R
 	return (
 		<div
 			css={[
-				fg('platform-visual-refresh-icons')
-					? triggerWrapperStylesWithPadding
-					: triggerWrapperStyles,
+				triggerWrapperStylesWithPadding,
 				triggerWrapperStylesUnbounded,
 			]}
 		>

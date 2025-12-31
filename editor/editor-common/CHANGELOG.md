@@ -1,5 +1,30 @@
 # @atlaskit/editor-common
 
+## 111.2.0
+
+### Minor Changes
+
+- [`ba0e1d49e14cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba0e1d49e14cb) -
+  ENGHEALTH-40073: Make tables and extensions focusable if they have overscroll so that they can be
+  interacted with in an accessible way.
+
+### Patch Changes
+
+- [`38bc4d5d6185c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38bc4d5d6185c) -
+  Fixes nested tables in SSR renderer
+- Updated dependencies
+
+## 111.1.0
+
+### Minor Changes
+
+- [`00e69e0b7c839`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00e69e0b7c839) -
+  Clean up and removal of the `platform-visual-refresh-icons` feature flag.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.0.5
 
 ### Patch Changes

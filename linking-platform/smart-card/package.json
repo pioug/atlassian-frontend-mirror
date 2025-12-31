@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.17.7",
+	"version": "43.18.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -243,13 +243,13 @@
 		"platform_navx_sl_a11y_embed_modal": {
 			"type": "boolean"
 		},
-		"navx-2825-eslint-translation-fix-linking-platform": {
-			"type": "boolean"
-		},
 		"platform_navx_send_context_to_ugs_for_rel_links": {
 			"type": "boolean"
 		},
 		"navx-2827-eslint-object-translation-smart-links": {
+			"type": "boolean"
+		},
+		"navx-2816-a11y-fix-smart-links-headings": {
 			"type": "boolean"
 		}
 	},

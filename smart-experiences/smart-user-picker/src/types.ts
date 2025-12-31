@@ -250,6 +250,12 @@ export interface SmartProps {
 	 */
 	userResolvers?: Array<(query: string) => Promise<OptionData[]>>;
 	/**
+	 * Custom fetcher function to load options. When provided, this function will be called
+	 * instead of the default recommendation API. The function receives the search term
+	 * and should return a Promise that resolves to an array of OptionData.
+	 */
+	fetchOptions?: (query: string) => Promise<OptionData[]>;
+	/**
 	 * Whether to include teams UI updates in the resultset. @default false
 	 */
 	includeTeamsUpdates?: boolean;

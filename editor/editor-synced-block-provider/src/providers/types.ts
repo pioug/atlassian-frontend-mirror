@@ -67,6 +67,7 @@ export type UpdateReferenceSyncBlockResult = {
 }
 
 export interface ADFFetchProvider {
+	batchFetchData: (resourceIds: ResourceId[]) => Promise<SyncBlockInstance[]>;
 	fetchData: (resourceId: ResourceId) => Promise<SyncBlockInstance>;
 }
 export interface ADFWriteProvider {

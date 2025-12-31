@@ -153,24 +153,47 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 			colAnchorName = targetCellRef?.dataset.nodeAnchor;
 		}
 
-		return (
-			<div
-				css={anchorStyles}
-				style={
-					{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-						top: `calc(${BUTTON_OFFSET}px + anchor(${rowAnchorName} top))`,
-						right: `calc(${BUTTON_OFFSET}px + anchor(${colAnchorName} right))`,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-						positionAnchor: colAnchorName,
-					} as CSSProperties
-				} // need to do this because CSSProperties doesn't have positionAnchor property even though it's a valid CSS property
-				data-testid="table-cell-options-anchor-wrapper"
-			>
-				{button}
-			</div>
-		);
+		if (!expValEquals('platform_editor_table_sticky_header_patch_9', 'isEnabled', true)) {
+			return (
+				<div
+					css={anchorStyles}
+					style={
+						{
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+							top: `calc(${BUTTON_OFFSET}px + anchor(${rowAnchorName} top))`,
+							right: `calc(${BUTTON_OFFSET}px + anchor(${colAnchorName} right))`,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+							positionAnchor: colAnchorName,
+						} as CSSProperties
+					} // need to do this because CSSProperties doesn't have positionAnchor property even though it's a valid CSS property
+					data-testid="table-cell-options-anchor-wrapper"
+				>
+					{button}
+				</div>
+			);
+		}
+
+		if (rowAnchorName && colAnchorName) {
+			return (
+				<div
+					css={anchorStyles}
+					style={
+						{
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+							top: `calc(${BUTTON_OFFSET}px + anchor(${rowAnchorName} top))`,
+							right: `calc(${BUTTON_OFFSET}px + anchor(${colAnchorName} right))`,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+							positionAnchor: colAnchorName,
+						} as CSSProperties
+					} // need to do this because CSSProperties doesn't have positionAnchor property even though it's a valid CSS property
+					data-testid="table-cell-options-anchor-wrapper"
+				>
+					{button}
+				</div>
+			);
+		}
 	}
+
 	if (stickyHeader && parentSticky && tableWrapper) {
 		return (
 			<FixedButton

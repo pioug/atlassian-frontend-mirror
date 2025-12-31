@@ -21,7 +21,6 @@ import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
 import { B400, N30, N800 } from '@atlaskit/theme/colors';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -142,7 +141,7 @@ const titleWithLozengeStyle = css({
 	gap: `${token('space.050', '4px')}`,
 });
 
-const FallbackIcon = React.memo(({ label }: Record<'label', string>) => {
+const FallbackIcon = React.memo(() => {
 	return <IconFallback />;
 });
 
@@ -200,11 +199,7 @@ const CustomItemComponentWrapper = React.memo((props: CustomItemComponentWrapper
 			role="option"
 			aria-label={ariaLabel}
 			aria-setsize={itemsLength}
-			aria-posinset={
-				expValEquals('platform_editor_fix_a11y_aria_posinset_0', 'isEnabled', true)
-					? itemIndex + 1
-					: itemIndex
-			}
+			aria-posinset={itemIndex + 1}
 			tabIndex={0}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={listItemClasses}
@@ -279,10 +274,10 @@ export const TypeAheadListItem = React.memo(
 		const elementIcon = useMemo(() => {
 			return (
 				<div css={[itemIcon, moreElementsInQuickInsertViewEnabled && itemIconSizeUpdated]}>
-					{icon ? icon() : <FallbackIcon label={title} />}
+					{icon ? icon() : <FallbackIcon />}
 				</div>
 			);
-		}, [icon, title, moreElementsInQuickInsertViewEnabled]);
+		}, [icon, moreElementsInQuickInsertViewEnabled]);
 
 		const insertSelectedItem = useCallback(() => {
 			if (itemIsDisabled) {
@@ -341,11 +336,7 @@ export const TypeAheadListItem = React.memo(
 					aria-label={title}
 					aria-describedby={descriptionText || shortcutText ? descriptionId : undefined}
 					aria-setsize={itemsLength}
-					aria-posinset={
-						expValEquals('platform_editor_fix_a11y_aria_posinset_0', 'isEnabled', true)
-							? itemIndex + 1
-							: itemIndex
-					}
+					aria-posinset={itemIndex + 1}
 					role="option"
 					ref={buttonItemRef}
 					isDisabled={itemIsDisabled}

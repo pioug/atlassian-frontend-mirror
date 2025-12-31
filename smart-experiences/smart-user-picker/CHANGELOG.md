@@ -1,5 +1,14 @@
 # @atlassian/smart-user-picker
 
+## 8.6.0
+
+### Minor Changes
+
+- [`0d41d4c92fe89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d41d4c92fe89) -
+  [ux] Added `fetchOptions` prop to SmartUserPicker to support custom option fetching. When
+  provided, this function will be called instead of the default recommendation API, allowing
+  consumers to override the default fetching behavior with their own implementation.
+
 ## 8.5.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.5
+
+### Patch Changes
+
+- [`1c4801e3e64b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c4801e3e64b4) -
+  [ux] Add ability for multi selected block transformations to lists
+- Updated dependencies
+
 ## 6.0.4
 
 ### Patch Changes

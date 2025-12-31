@@ -2,8 +2,6 @@ import React from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 export const NotFoundSVG = (): React.JSX.Element => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
@@ -41,11 +39,7 @@ export const NotFoundSVG = (): React.JSX.Element => (
 			</linearGradient>
 		</defs>
 		<title>
-			{fg('navx-2825-eslint-translation-fix-linking-platform') ? (
-				<FormattedMessage defaultMessage="Search error" />
-			) : (
-				'Search error'
-			)}
+			<FormattedMessage defaultMessage="Search error" id="smart-card.not-found-svg.title" />
 		</title>
 		<g id="Layer_2" data-name="Layer 2">
 			<g id="Objects">

@@ -11,7 +11,6 @@ import {
 	akEditorFloatingDialogZIndex,
 	akEditorSwoopCubicBezier,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT } from './MainToolbar';
@@ -78,7 +77,7 @@ export const MainToolbarWrapper = ({
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 			css={[
 				baseToolbarStyles,
-				fg('platform-visual-refresh-icons') && flexibleIconSize,
+				flexibleIconSize,
 				showKeyline && mainToolbarWithKeyline,
 				twoLineEditorToolbar && mainToolbarTwoLineStyle,
 			]}

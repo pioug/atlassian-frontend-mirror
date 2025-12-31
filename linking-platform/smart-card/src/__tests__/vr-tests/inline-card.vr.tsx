@@ -75,7 +75,7 @@ snapshot(InlineCardDefault, {
 snapshot(InlineCardSelected, {
 	description: 'inline card when selected',
 	featureFlags: {
-		'jfp-magma-platform-lozenge-jump-fix': [true, false],
+		'jfp-magma-platform-lozenge-jump-fix': true,
 	},
 	ignoredErrors: [
 		{

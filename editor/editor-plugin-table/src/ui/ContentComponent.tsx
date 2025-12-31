@@ -221,6 +221,7 @@ const ContentComponentInternal = ({
 					ariaNotifyPlugin={ariaNotifyPlugin}
 					api={api}
 					isCommentEditor={options?.isCommentEditor}
+					tableWrapper={tableWrapperTarget}
 				/>
 			)}
 			{allowControls && !isDragAndDropEnabled && !isResizing && (

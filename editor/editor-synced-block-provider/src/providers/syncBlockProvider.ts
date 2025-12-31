@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getPageIdAndTypeFromConfluencePageAri } from '../clients/confluence/ari';
 import { fetchConfluencePageInfo } from '../clients/confluence/sourceInfo';
@@ -75,37 +76,49 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	}
 
 	/**
-	 * Fetch the data from the fetch provider
+	 * Fetch the data from the fetch provider using batch API
 	 *
 	 * @param nodes
 	 *
 	 * @returns Array of {resourceId?: string, error?: string}.
 	 */
-	fetchNodesData(nodes: SyncBlockNode[]): Promise<SyncBlockInstance[]> {
+	async fetchNodesData(nodes: SyncBlockNode[]): Promise<SyncBlockInstance[]> {
 		const resourceIdSet = new Set<string>(nodes.map((node) => node.attrs.resourceId));
 		const resourceIds = [...resourceIdSet];
 
-		return Promise.allSettled(
-			resourceIds.map((resourceId) => {
-				return this.fetchProvider.fetchData(resourceId).then(
-					(data) => {
-						return data;
-					},
-					() => {
-						return {
-							error: SyncBlockError.Errored,
-							resourceId,
-						};
-					},
-				);
-			}),
-		).then((results) => {
-			return results
-				.filter((result): result is PromiseFulfilledResult<SyncBlockInstance> => {
-					return result.status === 'fulfilled';
-				})
-				.map((result) => result.value);
-		});
+		if (fg('platform_synced_block_dogfooding')) {
+			try {
+				return await this.fetchProvider.batchFetchData(resourceIds);
+			} catch {
+				// If batch fetch fails, return error for all resourceIds
+				return resourceIds.map((resourceId) => ({
+					error: SyncBlockError.Errored,
+					resourceId,
+				}));
+			}
+		} else {
+			return Promise.allSettled(
+				resourceIds.map((resourceId) => {
+					return this.fetchProvider.fetchData(resourceId).then(
+						(data) => {
+							return data;
+						},
+						() => {
+							return {
+								error: SyncBlockError.Errored,
+								resourceId,
+							};
+						},
+					);
+				}),
+			).then((results) => {
+				return results
+					.filter((result): result is PromiseFulfilledResult<SyncBlockInstance> => {
+						return result.status === 'fulfilled';
+					})
+					.map((result) => result.value);
+			});
+		}
 	}
 
 	/**

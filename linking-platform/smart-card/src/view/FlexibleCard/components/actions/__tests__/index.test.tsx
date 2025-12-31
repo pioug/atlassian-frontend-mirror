@@ -5,10 +5,6 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
-import CrossIcon from '@atlaskit/icon/core/cross';
-import { token } from '@atlaskit/tokens';
-
-import { SmartLinkSize } from '../../../../../constants';
 import { type ActionProps } from '../action/types';
 import { DeleteAction, EditAction } from '../index';
 
@@ -81,31 +77,6 @@ export const testNamedAction = ({ name, NamedAction }: Options): void => {
 
 				await user.click(element);
 				expect(mockOnClick).toHaveBeenCalled();
-			});
-		});
-
-		describe('size', () => {
-			it.each([
-				[SmartLinkSize.XLarge, '1.5rem'],
-				[SmartLinkSize.Large, '1.5rem'],
-				[SmartLinkSize.Medium, '1rem'],
-				[SmartLinkSize.Small, '1rem'],
-			])('should render action in %s size', async (size: SmartLinkSize, expectedSize: string) => {
-				render(
-					<IntlProvider locale="en">
-						<NamedAction
-							onClick={() => {}}
-							size={size}
-							testId={testId}
-							icon={<CrossIcon label="test" color={token('color.icon', '#44546F')} />}
-						/>
-					</IntlProvider>,
-				);
-
-				const element = await screen.findByTestId(`${testId}-icon`);
-
-				expect(element).toHaveCompiledCss('height', expectedSize);
-				expect(element).toHaveCompiledCss('width', expectedSize);
 			});
 		});
 

@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.4.0
+
+### Minor Changes
+
+- [`f660139caa049`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f660139caa049) -
+  Use the batch retrieve endpoint instead of singular endpoint to get block
+
 ## 3.3.0
 
 ### Minor Changes

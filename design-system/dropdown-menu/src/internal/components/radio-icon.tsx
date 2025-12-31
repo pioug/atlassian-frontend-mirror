@@ -6,7 +6,6 @@
 import React from 'react';
 
 import { css, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { B400, N10, N100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -41,35 +40,17 @@ const RadioIcon = ({ checked }: { checked: boolean }): React.JSX.Element => {
 			role="presentation"
 		>
 			<g fillRule="evenodd">
-				{fg('platform-visual-refresh-icons') ? (
-					<>
-						<circle
-							cx="12"
-							cy="12"
-							r="7.5"
-							fill="currentColor"
-							stroke={
-								checked ? token('color.border.selected', B400) : token('color.border.input', N100)
-							}
-							strokeWidth="1"
-						/>
-						<circle cx="12" cy="12" r="3" fill="inherit" />
-					</>
-				) : (
-					<>
-						<circle
-							fill="currentColor"
-							cx="12"
-							cy="12"
-							r="6"
-							stroke={
-								checked ? token('color.border.selected', B400) : token('color.border.input', N100)
-							}
-							strokeWidth={1}
-						/>
-						<circle fill="inherit" cx="12" cy="12" r="2" />
-					</>
-				)}
+				<circle
+					cx="12"
+					cy="12"
+					r="7.5"
+					fill="currentColor"
+					stroke={
+						checked ? token('color.border.selected', B400) : token('color.border.input', N100)
+					}
+					strokeWidth="1"
+				/>
+				<circle cx="12" cy="12" r="3" fill="inherit" />
 			</g>
 		</svg>
 	);

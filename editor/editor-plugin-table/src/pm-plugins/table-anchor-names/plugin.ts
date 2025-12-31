@@ -2,6 +2,7 @@
 import uuid from 'uuid';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { isCSSAnchorSupported, isCSSAttrAnchorSupported } from '@atlaskit/editor-common/styles'
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	PluginKey,
@@ -9,6 +10,8 @@ import {
 	type ReadonlyTransaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 class ObjHash {
 	static cache = new WeakMap<PMNode, string>();
@@ -31,25 +34,39 @@ const getNodeAnchor = (node: PMNode): string => {
 
 const createTableAnchorDecorations = (state: EditorState): DecorationSet => {
 	const decs: Decoration[] = [];
-
+	let headerRowId: string
 	state.doc.nodesBetween(0, state.doc.content.size, (node, pos, parent, index) => {
 		const isTableHeader = node.type.name === 'tableHeader';
 		const isTableRow = node.type.name === 'tableRow';
 		const isParentTableRow = parent?.type.name === 'tableRow';
 
+		const isParentTableHeaderRow = parent?.type.name === 'tableRow' && headerRowId && parent?.attrs?.localId === headerRowId
+
+		const shouldAddDecorationToHeader = expValEquals('platform_editor_table_sticky_header_patch_9', 'isEnabled', true) ? isParentTableHeaderRow && isTableHeader : isTableHeader;
+		const isFirstRow = isTableRow && index === 0
+
+		if (isFirstRow) {
+			headerRowId = node.attrs.localId
+		}
 		// only apply to header cells and the first row of a table, for performance reasons
-		if ((isTableRow && index === 0) || isTableHeader) {
+		if (isFirstRow || shouldAddDecorationToHeader) {
 			const anchorName = getNodeAnchor(node);
+			const shouldAddAnchorNameInDecoration = !isCSSAttrAnchorSupported() && isCSSAnchorSupported() && fg('platform_editor_table_sticky_header_patch_8');
+
+			const attributes = {
+				'data-node-anchor': anchorName,
+				'style': `anchor-name: ${anchorName};`
+			}
 
 			decs.push(
-				Decoration.node(pos, pos + node.nodeSize, {
+				Decoration.node(pos, pos + node.nodeSize, shouldAddAnchorNameInDecoration ? attributes : {
 					'data-node-anchor': anchorName,
 				}),
 			);
 		}
 
 		// only decend if there is a possible table row or table header node after the current node, for performance reasons
-		return !(isTableHeader || isParentTableRow);
+		return expValEquals('platform_editor_table_sticky_header_patch_9', 'isEnabled', true) ? !(isTableHeader || isParentTableHeaderRow) : !(isTableHeader || isParentTableRow);
 	});
 
 	return DecorationSet.create(state.doc, decs);

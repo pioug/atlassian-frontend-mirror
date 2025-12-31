@@ -24,7 +24,11 @@ import {
 	flagsForVrTestsWithReducedPadding,
 } from '@atlaskit/editor-test-helpers/advanced-layouts-flags';
 
-snapshot(OverflowLayoutRenderer);
+snapshot(OverflowLayoutRenderer, {
+	featureFlags: {
+		platform_editor_dec_a11y_fixes: true,
+	},
+});
 snapshot(Layout2ColRenderer);
 snapshot(LayoutWithDefaultBreakoutMarkRenderer);
 snapshot(Layout3ColRenderer);

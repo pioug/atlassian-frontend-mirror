@@ -45,10 +45,7 @@ const Action = ({
 
 	const actionIcon = icon ? (
 		<ActionIcon
-			asStackItemIcon={isStackItem}
-			isDisabled={isDisabled}
 			icon={icon}
-			size={size}
 			testId={testId}
 		/>
 	) : undefined;

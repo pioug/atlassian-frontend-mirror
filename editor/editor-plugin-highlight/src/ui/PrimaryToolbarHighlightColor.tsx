@@ -24,7 +24,6 @@ import { highlightMessages as messages } from '@atlaskit/editor-common/messages'
 import {
 	disableBlueBorderStyles,
 	expandIconContainerStyle,
-	expandIconWrapperStyle,
 	triggerWrapperStylesWithPadding,
 } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -34,13 +33,11 @@ import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette'
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import HighlightIcon from '@atlaskit/icon/core/highlight';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives/compiled';
 
 import { setPalette } from '../editor-commands/palette';
 import type { HighlightPlugin } from '../highlightPluginType';
 
-import { EditorHighlightIcon } from './shared/EditorHighlightIcon';
 import { PaletteDropdown } from './shared/PaletteDropdown';
 import { useDropdownEvents } from './shared/useDropdownEvents';
 
@@ -146,36 +143,20 @@ const PrimaryToolbarHighlightColor = ({
 						onKeyDown={handleKeyDown}
 						ref={toolbarItemRef}
 						iconBefore={
-							fg('platform-visual-refresh-icons') ? (
-								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-								<div css={triggerWrapperStylesWithPadding}>
-									<DynamicStrokeIconDecoration
-										selectedColor={activeColorToken}
-										disabled={highlightDisabled}
-										icon={<HighlightIcon label="" color="currentColor" spacing="spacious" />}
-									/>
-									{
-										//eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-										<span css={expandIconContainerStyle}>
-											<ChevronDownIcon label="" color="currentColor" size="small" />
-										</span>
-									}
-								</div>
-							) : (
-								<Flex>
-									<EditorHighlightIcon
-										selectedColor={activeColorToken}
-										disabled={highlightDisabled}
-									/>
-
-									<span
-										// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-										css={expandIconWrapperStyle}
-									>
-										<ChevronDownIcon label="" size="small" />
+							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+							<div css={triggerWrapperStylesWithPadding}>
+								<DynamicStrokeIconDecoration
+									selectedColor={activeColorToken}
+									disabled={highlightDisabled}
+									icon={<HighlightIcon label="" color="currentColor" spacing="spacious" />}
+								/>
+								{
+									//eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+									<span css={expandIconContainerStyle}>
+										<ChevronDownIcon label="" color="currentColor" size="small" />
 									</span>
-								</Flex>
-							)
+								}
+							</div>
 						}
 					/>
 				}

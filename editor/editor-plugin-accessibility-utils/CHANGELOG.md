@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-accessibility-utils
 
+## 7.0.1
+
+### Patch Changes
+
+- [`2843f9743d50a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2843f9743d50a) -
+  ED-29683: render editor toolbar under two stage hydration
+- Updated dependencies
+
 ## 7.0.0
 
 ### Patch Changes

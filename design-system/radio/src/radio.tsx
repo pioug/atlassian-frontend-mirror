@@ -10,7 +10,6 @@ import { css, jsx } from '@compiled/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import __noop from '@atlaskit/ds-lib/noop';
-import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	B200,
 	B300,
@@ -91,16 +90,14 @@ const radioStyles = css({
 	'--radio-dot-color': token('color.icon.inverse', N10),
 	'--radio-dot-opacity': 0,
 
-	/* 24px * 7 / 12 === 14px height and width */
-	transform: 'scale(calc(7 / 12))',
+	transform: 'scale(calc(7.5 / 12))', // 15px
 	transition: 'border-color 0.2s ease-in-out, background-color 0.2s ease-in-out',
 	verticalAlign: 'top',
 	WebkitAppearance: 'none',
 
 	'&::after': {
-		/* Height and width should by 4px, multiply by 24/14 to offset scale */
-		width: 'calc(4px * 12 / 7)',
-		height: 'calc(4px * 12 / 7)',
+		width: 'calc(5.6px * 12 / 7)', // 6px
+		height: 'calc(5.6px * 12 / 7)', // 6px
 		position: 'absolute',
 		background: 'var(--radio-dot-color)',
 		// TODO Delete this comment after verifying spacing token -> previous value `'50%'`
@@ -158,14 +155,6 @@ const radioStyles = css({
 		},
 });
 
-const newRadioStyles = css({
-	transform: 'scale(calc(7.5 / 12))', // 15px
-	'&::after': {
-		width: 'calc(5.6px * 12 / 7)', // 6px
-		height: 'calc(5.6px * 12 / 7)', // 6px
-	},
-});
-
 const InnerRadio: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<RadioProps> & React.RefAttributes<HTMLInputElement>
 > = forwardRef(function Radio(props: RadioProps, ref: Ref<HTMLInputElement>) {
@@ -220,7 +209,7 @@ const InnerRadio: React.ForwardRefExoticComponent<
 				// isInvalid is used in a nonstandard way so cannot
 				// use :invalid selector
 				data-invalid={isInvalid ? 'true' : undefined}
-				css={[radioStyles, fg('platform-visual-refresh-icons') && newRadioStyles]}
+				css={[radioStyles]}
 				ref={ref}
 			/>
 			{label ? <span css={labelPaddingStyles}>{label}</span> : null}

@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl-next';
 import { type Jast } from '@atlaskit/jql-ast';
 import { JQLEditor } from '@atlaskit/jql-editor';
 import { useAutocompleteProvider } from '@atlaskit/jql-editor-autocomplete-rest';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { makeGetJqlAutocompleteData } from '../../../services/makeGetJqlAutocompleteData';
 import { makeGetJqlSuggestionsData } from '../../../services/makeGetJqlSuggestionsData';
@@ -55,12 +54,8 @@ export const JiraJQLEditor = ({
 			inputRef={inputRef}
 			query={query}
 			aria-label={
-				fg('navx-2825-eslint-translation-fix-linking-platform') ? (
-					<FormattedMessage defaultMessage="JQL Query Editor" />
-				) : (
-					'JQL Query Editor'
-				)
-			}
+			<FormattedMessage defaultMessage="JQL Query Editor" id='link-datasource.jira.jql-editor' />
+		}
 		/>
 	);
 };

@@ -18,8 +18,8 @@ export type EditorExperimentsConfig = typeof editorExperimentsConfig;
  */
 export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-		? true // Boolean: only 'true' is allowed as expected value
-		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+	? true // Boolean: only 'true' is allowed as expected value
+	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * Extract valid default values.
@@ -28,8 +28,8 @@ export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimen
  */
 export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-		? false // Boolean: only 'false' is allowed as default value
-		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+	? false // Boolean: only 'false' is allowed as default value
+	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * When adding a new experiment, you need to add it here.
@@ -490,13 +490,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-07-31
-	platform_editor_fix_a11y_aria_posinset_0: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-09-10
 	platform_editor_fix_button_name_violation_in_table: {
 		defaultValue: boolean;
@@ -926,6 +919,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-08-10
 	platform_synced_block: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-12-30
+	platform_editor_table_sticky_header_patch_9: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1769,14 +1769,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-07-31
-	platform_editor_fix_a11y_aria_posinset_0: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_a11y_aria_posinset_0',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-07-30
 	platform_editor_blocktaskitem_node_tenantid: createBooleanExperiment({
 		productKeys: {
@@ -2184,6 +2176,7 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+
 	// Added 2025-12-08
 	platform_editor_reduce_toolbar_vc_impact: createBooleanExperiment({
 		productKeys: {
@@ -2204,6 +2197,14 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_exp_suggestion_date_comma_delim: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_exp_suggestion_date_comma_delim',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-12-30
+	platform_editor_table_sticky_header_patch_9: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_sticky_header_patch_9',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

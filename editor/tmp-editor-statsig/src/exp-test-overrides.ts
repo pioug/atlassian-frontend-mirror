@@ -38,7 +38,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	platform_inline_smartcard_connect_button_exp: 'control',
 	cc_editor_insm_outlier_events: 'test',
 	platform_editor_hoverlink_ui_fixes_exp: 'control',
-	platform_editor_table_sticky_header_improvements: 'control',
+	platform_editor_table_sticky_header_improvements: 'test_with_overflow',
 	platform_sl_3p_unauth_paste_as_block_card: 'control',
 };
 

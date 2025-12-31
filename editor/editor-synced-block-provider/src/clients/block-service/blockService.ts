@@ -145,6 +145,15 @@ type UpdateReferenceSyncedBlockOnDocumentRequest = {
 	noContent?: boolean;
 };
 
+export type BatchRetrieveSyncedBlocksRequest = {
+	blockAris: string[]; // array of block ARIs to retrieve
+};
+
+export type BatchRetrieveSyncedBlocksResponse = {
+	error?: Array<BlockContentErrorResponse>;
+	success?: Array<BlockContentResponse>;
+};
+
 const COMMON_HEADERS = {
 	'Content-Type': 'application/json',
 	Accept: 'application/json',
@@ -198,6 +207,30 @@ export const getSyncedBlockContent = async ({
 	}
 
 	return (await response.json()) as BlockContentResponse;
+};
+
+/**
+ * Batch retrieves multiple synced blocks by their ARIs.
+ *
+ * Calls the Block Service API endpoint: `POST /v1/block/batch-retrieve`
+ *
+ * @param blockAris - Array of block ARIs to retrieve
+ * @returns A promise containing arrays of successfully fetched blocks and any errors encountered
+ */
+export const batchRetrieveSyncedBlocks = async ({
+	blockAris,
+}: BatchRetrieveSyncedBlocksRequest): Promise<BatchRetrieveSyncedBlocksResponse> => {
+	const response = await fetchWithRetry(`${BLOCK_SERVICE_API_URL}/block/batch-retrieve`, {
+		method: 'POST',
+		headers: COMMON_HEADERS,
+		body: JSON.stringify({ blockAris }),
+	});
+
+	if (!response.ok) {
+		throw new BlockError(response.status);
+	}
+
+	return (await response.json()) as BatchRetrieveSyncedBlocksResponse;
 };
 
 export const deleteSyncedBlock = async ({ blockAri }: DeleteSyncedBlockRequest): Promise<void> => {

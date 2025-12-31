@@ -1,10 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment editor fixed toolbar styles platform-visual-refresh-icons is on visual refresh icons platform_editor_comments_border_radius is off border radius disabled should render sticky toolbar with correct styles 1`] = `
-".css-1b7uq1-FixedToolbar{position:relative;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:var(--ds-space-100, 8px) var(--ds-space-100, 8px) 0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:auto;background-color:var(--ds-surface, white);box-shadow:none;padding-left:var(--ds-space-250, 20px);border-radius:var(--ds-radius-small, 3px) var(--ds-radius-small, 3px) 0 0;}
-.css-1b7uq1-FixedToolbar >div{}
-.css-1b7uq1-FixedToolbar >div >div:first-of-type:not(style),.css-1b7uq1-FixedToolbar >div >style:first-of-type+*{margin-left:0;}
-.css-1b7uq1-FixedToolbar .block-type-btn{padding-left:0;}
+exports[`comment editor fixed toolbar styles platform_editor_comments_border_radius is off border radius disabled should render sticky toolbar with correct styles 1`] = `
+".css-1467h5v-FixedToolbar{position:relative;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:var(--ds-space-100, 8px) var(--ds-space-100, 8px) 0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:auto;background-color:var(--ds-surface, white);box-shadow:none;padding-left:var(--ds-space-250, 20px);border-radius:var(--ds-radius-small, 3px) var(--ds-radius-small, 3px) 0 0;}
+.css-1467h5v-FixedToolbar >div{}
+.css-1467h5v-FixedToolbar >div >div:first-of-type:not(style),.css-1467h5v-FixedToolbar >div >style:first-of-type+*{margin-left:0;}
+.css-1467h5v-FixedToolbar .block-type-btn{padding-left:0;}
+.css-1467h5v-FixedToolbar span svg{max-width:100%;}
 .css-pgae24-FixedToolbar{position:relative;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:var(--ds-space-100, 8px) var(--ds-space-100, 8px) 0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:auto;background-color:var(--ds-surface, white);box-shadow:none;padding-left:var(--ds-space-250, 20px);}
 .css-pgae24-FixedToolbar >div{}
 .css-pgae24-FixedToolbar >div >div:first-of-type:not(style),.css-pgae24-FixedToolbar >div >style:first-of-type+*{margin-left:0;}
@@ -16,11 +17,12 @@ exports[`comment editor fixed toolbar styles platform-visual-refresh-icons is on
 .css-pgae24-FixedToolbar span svg{max-width:100%;}"
 `;
 
-exports[`comment editor fixed toolbar styles platform-visual-refresh-icons is on visual refresh icons platform_editor_comments_border_radius is on border radius enabled should render sticky toolbar with border radius styles 1`] = `
-".css-1b7uq1-FixedToolbar{position:relative;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:var(--ds-space-100, 8px) var(--ds-space-100, 8px) 0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:auto;background-color:var(--ds-surface, white);box-shadow:none;padding-left:var(--ds-space-250, 20px);border-radius:var(--ds-radius-small, 3px) var(--ds-radius-small, 3px) 0 0;}
-.css-1b7uq1-FixedToolbar >div{}
-.css-1b7uq1-FixedToolbar >div >div:first-of-type:not(style),.css-1b7uq1-FixedToolbar >div >style:first-of-type+*{margin-left:0;}
-.css-1b7uq1-FixedToolbar .block-type-btn{padding-left:0;}
+exports[`comment editor fixed toolbar styles platform_editor_comments_border_radius is on border radius enabled should render sticky toolbar with border radius styles 1`] = `
+".css-1467h5v-FixedToolbar{position:relative;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:var(--ds-space-100, 8px) var(--ds-space-100, 8px) 0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:auto;background-color:var(--ds-surface, white);box-shadow:none;padding-left:var(--ds-space-250, 20px);border-radius:var(--ds-radius-small, 3px) var(--ds-radius-small, 3px) 0 0;}
+.css-1467h5v-FixedToolbar >div{}
+.css-1467h5v-FixedToolbar >div >div:first-of-type:not(style),.css-1467h5v-FixedToolbar >div >style:first-of-type+*{margin-left:0;}
+.css-1467h5v-FixedToolbar .block-type-btn{padding-left:0;}
+.css-1467h5v-FixedToolbar span svg{max-width:100%;}
 .css-pgae24-FixedToolbar{position:relative;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:var(--ds-space-100, 8px) var(--ds-space-100, 8px) 0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:auto;background-color:var(--ds-surface, white);box-shadow:none;padding-left:var(--ds-space-250, 20px);}
 .css-pgae24-FixedToolbar >div{}
 .css-pgae24-FixedToolbar >div >div:first-of-type:not(style),.css-pgae24-FixedToolbar >div >style:first-of-type+*{margin-left:0;}
@@ -41,7 +43,7 @@ exports[`comment editor fixed toolbar styles platform-visual-refresh-icons is on
 .css-1ftj5hw-FixedToolbar span svg{max-width:100%;}"
 `;
 
-exports[`comment editor sticky toolbar styles platform-visual-refresh-icons is on visual refresh icons on should render sticky toolbar with correct styles 1`] = `
+exports[`comment editor sticky toolbar styles should render sticky toolbar with correct styles 1`] = `
 ".css-1haft56-StickyToolbar{position:relative;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:var(--ds-space-100, 8px) var(--ds-space-100, 8px) 0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:auto;background-color:var(--ds-surface, white);box-shadow:none;padding-left:var(--ds-space-250, 20px);position:-webkit-sticky;position:sticky;padding-bottom:var(--ds-space-100, 8px);z-index:500;-webkit-transition:box-shadow ease-in-out 0.2s;transition:box-shadow ease-in-out 0.2s;}
 .css-1haft56-StickyToolbar >div{}
 .css-1haft56-StickyToolbar >div >div:first-of-type:not(style),.css-1haft56-StickyToolbar >div >style:first-of-type+*{margin-left:0;}

@@ -1,4 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 export const iconOnlySpacing = {
@@ -28,20 +27,6 @@ const getStyles = (
 	return property[appearance][state][mode];
 };
 
-const background: Property = {
-	danger: {
-		default: { light: 'inherit', dark: 'inherit' },
-		hover: {
-			light: token('color.background.neutral.subtle.hovered'),
-			dark: token('color.background.neutral.subtle.hovered'),
-		},
-		active: {
-			light: token('color.background.neutral.pressed'),
-			dark: token('color.background.neutral.pressed'),
-		},
-	},
-};
-
 const backgroundVisualRefresh: Property = {
 	danger: {
 		default: { light: 'inherit', dark: 'inherit' },
@@ -56,22 +41,6 @@ const backgroundVisualRefresh: Property = {
 	},
 };
 
-const color = {
-	danger: {
-		default: {
-			light: token('color.icon'),
-			dark: token('color.icon'),
-		},
-		hover: {
-			light: token('color.icon.danger'),
-			dark: token('color.icon.danger'),
-		},
-		active: {
-			light: token('color.icon.danger'),
-			dark: token('color.icon.danger'),
-		},
-	},
-};
 const colorVisualRefresh = {
 	danger: {
 		default: {
@@ -93,8 +62,8 @@ const colorVisualRefresh = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getButtonStyles = (props: any) => ({
 	background: getStyles(
-		fg('platform-visual-refresh-icons') ? backgroundVisualRefresh : background,
+		backgroundVisualRefresh,
 		props,
 	),
-	color: getStyles(fg('platform-visual-refresh-icons') ? colorVisualRefresh : color, props),
+	color: getStyles(colorVisualRefresh, props),
 });

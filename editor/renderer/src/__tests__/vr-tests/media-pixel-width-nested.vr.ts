@@ -6,6 +6,9 @@ import {
 } from '../__helpers/rendererComponents';
 
 snapshot(MediaWithPixelWidthNested, {
+	featureFlags: {
+		platform_editor_dec_a11y_fixes: true,
+	},
 	variants: [
 		{
 			name: 'desktop',
@@ -19,6 +22,9 @@ snapshot(MediaWithPixelWidthNested, {
 });
 
 snapshot(MediaImageInlineWithWideLayout, {
+	featureFlags: {
+		platform_editor_dec_a11y_fixes: true,
+	},
 	variants: [
 		{
 			name: 'desktop',

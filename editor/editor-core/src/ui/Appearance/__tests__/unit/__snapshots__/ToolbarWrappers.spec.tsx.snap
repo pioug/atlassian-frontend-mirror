@@ -204,6 +204,10 @@ exports[`Toolbar wrapper components MainToolbarWrapper should match snapshot wit
   height: 0!important;
 }
 
+.emotion-0 span svg {
+  max-width: 100%;
+}
+
 <div>
   <div
     class="REDACTED"
@@ -243,6 +247,10 @@ exports[`Toolbar wrapper components MainToolbarWrapper should match snapshot –
   height: 0!important;
 }
 
+.emotion-0 span svg {
+  max-width: 100%;
+}
+
 <div>
   <div
     class="REDACTED"
@@ -279,6 +287,10 @@ exports[`Toolbar wrapper components MainToolbarWrapper should match snapshot –
 
 .emotion-0 object {
   height: 0!important;
+}
+
+.emotion-0 span svg {
+  max-width: 100%;
 }
 
 @media (max-width: 868px) {

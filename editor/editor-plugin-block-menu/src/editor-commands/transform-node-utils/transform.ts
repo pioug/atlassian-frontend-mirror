@@ -8,10 +8,12 @@ import { getTargetNodeTypeNameInContext } from '../transform-node-utils/utils';
 
 import { flattenStep } from './flattenStep';
 import { applyTargetTextTypeStep } from './steps/applyTargetTextTypeStep';
+import { convertEachNodeStep } from './steps/convertEachNodeStep';
 import { decisionListToListStep } from './steps/decisionListToListStep';
 import { flattenListStep } from './steps/flattenListStep';
 import { listToDecisionListStep } from './steps/listToDecisionListStep';
 import { listToListStep } from './steps/listToListStep';
+import { mergeNeighbourListsStep } from './steps/mergeNeighbourListsStep';
 import { unwrapLayoutStep } from './steps/unwrapLayoutStep';
 import { unwrapListStep } from './steps/unwrapListStep';
 import { wrapBlockquoteToDecisionListStep } from './steps/wrapBlockquoteToDecisionListStep';
@@ -58,10 +60,8 @@ const TRANSFORM_STEPS: Record<NodeCategory, Record<NodeCategory, TransformStep[]
 	multi: {
 		atomic: undefined,
 		container: [wrapMixedContentStep],
-		// TODO: EDITOR-4137 - Implement multi list transform
-		list: undefined,
-		// TODO: EDITOR-4140 - Implement multi text transform
-		text: undefined,
+		list: [convertEachNodeStep, mergeNeighbourListsStep],
+		text: [convertEachNodeStep],
 		multi: undefined,
 	},
 };
@@ -227,6 +227,10 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		decisionList: null,
 	},
 	multi: {
+		// TODO: EDITOR-4140 - Implement multiple paragraphs/headings/codeblocks to heading transform
+		heading: null,
+		// TODO: EDITOR-4141 - Implement multiple codeblocks/headings to paragraph transform
+		paragraph: null,
 		// TODO: EDITOR-4138 - Implement multi content to layout transform
 		layoutSection: undefined,
 	},
@@ -259,18 +263,33 @@ interface GetOutputNodesArgs {
 	targetNodeType: NodeType;
 }
 
-export const getOutputNodes = ({
+/**
+ * Convert a list of nodes to a target node type.
+ * If no steps are found, the source nodes are returned unchanged.
+ * If steps are found, they are applied to the source nodes in order.
+ * If a step returns an empty array, the source nodes are returned.
+ * If a step returns a non-empty array, that array is returned.
+ * @param args - The conversion arguments
+ * @param args.sourceNodes - The list of nodes to convert
+ * @param args.targetNodeType - The type of node to convert into
+ * @param args.schema - The schema to use for the conversion
+ * @param args.isNested - Whether the conversion is nested
+ * @param args.targetAttrs - The attributes to use for the conversion
+ * @param args.parentNode - The parent node of the selected node
+ * @returns The converted list of nodes
+ */
+export const convertNodesToTargetType = ({
 	sourceNodes,
 	targetNodeType,
 	schema,
 	isNested,
 	targetAttrs,
 	parentNode,
-}: GetOutputNodesArgs): PMNode[] | undefined => {
+}: GetOutputNodesArgs): PMNode[] => {
 	const sourceNode = sourceNodes.at(0);
 
 	if (!sourceNode) {
-		return;
+		return sourceNodes;
 	}
 
 	const selectedNodeTypeName = toNodeTypeValue(getNodeName(sourceNodes));
@@ -282,8 +301,7 @@ export const getOutputNodes = ({
 	);
 
 	if (!selectedNodeTypeName || !targetNodeTypeName) {
-		// We may decide to return an empty array or undefined here
-		return;
+		return sourceNodes;
 	}
 
 	const steps = getTransformStepsForNodeTypes(selectedNodeTypeName, targetNodeTypeName);
@@ -297,7 +315,7 @@ export const getOutputNodes = ({
 	};
 
 	if (!steps || steps.length === 0) {
-		return;
+		return sourceNodes;
 	}
 
 	return steps.reduce((nodes, step) => {

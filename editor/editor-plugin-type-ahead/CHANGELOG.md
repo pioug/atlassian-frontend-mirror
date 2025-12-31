@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 7.0.1
+
+### Patch Changes
+
+- [`31b6da6a9ab84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31b6da6a9ab84) -
+  Clean up platform_editor_fix_a11y_aria_posinset_0 experiment - Fix ARIA posinset to use 1-based
+  indexing
+- Updated dependencies
+
 ## 7.0.0
 
 ### Patch Changes

@@ -15,9 +15,8 @@ import {
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import { IdProvider } from '@atlaskit/ds-lib/use-id';
-import CalendarIcon from '@atlaskit/icon/core/migration/calendar';
+import CalendarIcon from '@atlaskit/icon/core/calendar';
 import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit/locale';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Select, {
 	type ActionMeta,
@@ -470,15 +469,12 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 
 		const showClearIndicator = Boolean((value || selectInputValue) && !hideIcon);
 
-		let clearIndicator = Icon;
-
-		if (fg('platform-visual-refresh-icons')) {
-			clearIndicator = (props: DropdownIndicatorProps<OptionType>) => (
-				<Box xcss={styles.dropdownIndicatorStyles}>
-					<Icon {...props} />
-				</Box>
-			);
-		}
+		let clearIndicator = (props: DropdownIndicatorProps<OptionType>) => (
+			<Box xcss={styles.dropdownIndicatorStyles}>
+				{/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
+				<Icon {...props} />
+			</Box>
+		);
 
 		const dropDownIcon =
 			appearance === 'subtle' || hideIcon || showClearIndicator ? null : clearIndicator;

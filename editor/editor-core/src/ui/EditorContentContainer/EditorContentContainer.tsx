@@ -112,7 +112,7 @@ import {
 	layoutSelectedStylesNotAdvanced,
 	layoutStylesForView,
 } from './styles/layout';
-import { hyperLinkFloatingToolbarStyles, linkLegacyIconStylesFix, linkStyles } from './styles/link';
+import { hyperLinkFloatingToolbarStyles, linkStyles } from './styles/link';
 import {
 	diffListStyles,
 	getDenseListStyles,
@@ -201,7 +201,6 @@ import {
 import {
 	decisionDangerStyles,
 	decisionIconWithVisualRefresh,
-	decisionIconWithoutVisualRefresh,
 	decisionStyles,
 	getDenseTasksAndDecisionsStyles,
 	taskItemStyles,
@@ -483,7 +482,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					fg('platform-visual-refresh-icons') && expandStylesMixin_fg_platform_visual_refresh_icons,
+					expandStylesMixin_fg_platform_visual_refresh_icons,
 					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							fg('platform_editor_a11y_find_replace_focus_ring')
@@ -511,12 +510,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 							taskItemStylesWithBlockTaskItem
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							taskItemStyles,
-					fg('platform-visual-refresh-icons') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						decisionIconWithVisualRefresh,
-					!fg('platform-visual-refresh-icons') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						decisionIconWithoutVisualRefresh,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					decisionIconWithVisualRefresh,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					statusStyles,
 					fg('platform-component-visual-refresh')
@@ -730,8 +725,6 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					expValEquals('platform_editor_ssr_renderer', 'isEnabled', true) && tableEmptyRowStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					hyperLinkFloatingToolbarStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					!fg('platform-visual-refresh-icons') && linkLegacyIconStylesFix,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('confluence_floating_toolbar_animation') && selectionToolbarAnimationStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

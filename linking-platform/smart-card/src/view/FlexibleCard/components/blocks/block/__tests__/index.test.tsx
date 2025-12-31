@@ -168,37 +168,6 @@ describe('Block', () => {
 
 				await expect(container).toBeAccessible();
 			});
-
-			it('renders action group with its size', async () => {
-				render(
-					<IntlProvider locale="en">
-						<Block size={SmartLinkSize.Small} testId={testId}>
-							<ActionGroup items={[{ name: ActionName.DeleteAction, onClick: () => {} }]} />
-						</Block>
-					</IntlProvider>,
-				);
-
-				const icon = await screen.findByTestId('smart-action-delete-action-icon');
-
-				expect(icon).toHaveStyle('width: 1rem');
-			});
-
-			it('does not override element group size', async () => {
-				render(
-					<IntlProvider locale="en">
-						<Block size={SmartLinkSize.Small} testId={testId}>
-							<ActionGroup
-								items={[{ name: ActionName.DeleteAction, onClick: () => {} }]}
-								size={SmartLinkSize.Large}
-							/>
-						</Block>
-					</IntlProvider>,
-				);
-
-				const icon = await screen.findByTestId('smart-action-delete-action-icon');
-
-				expect(icon).toHaveStyle('width: 1.5rem');
-			});
 		});
 
 		it('does not pass its props to non element/element group', async () => {

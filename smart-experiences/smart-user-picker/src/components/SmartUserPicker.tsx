@@ -225,6 +225,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			includeUsers,
 			includeNonLicensedUsers,
 			intl,
+			fetchOptions,
 			maxOptions,
 			objectId,
 			onEmpty,
@@ -287,7 +288,9 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			this.fireEvent(requestUsersEvent);
 
 			let recommendedUsers;
-			if (fg('twcg-444-invite-usd-improvements-m2-gate')) {
+			if (fetchOptions && fg('smart-user-picker-load-options-gate')) {
+				recommendedUsers = await fetchOptions(query);
+			} else if (fg('twcg-444-invite-usd-improvements-m2-gate')) {
 				const userRecommendationsPromise = getUserRecommendations(recommendationsRequest, intl);
 
 				const userResolversPromises = (userResolvers ?? []).map((resolver) =>
@@ -501,8 +504,13 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 	};
 
 	render(): React.JSX.Element {
-		const { allowEmail, enableEmailSearch, allowEmailSelectionWhenEmailMatched, ...restProps } =
-			this.props;
+		const {
+			allowEmail,
+			enableEmailSearch,
+			allowEmailSelectionWhenEmailMatched,
+			fetchOptions,
+			...restProps
+		} = this.props;
 
 		// Determine whether to allow email selection based on allowEmailSelectionWhenEmailMatched, if needed
 		let shouldAllowEmail = allowEmail;

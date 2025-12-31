@@ -3,7 +3,6 @@
  * @jsx jsx
  */
 import { jsx, css } from '@compiled/react';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { tickBoxClassName } from './styles';
 import { type TickBoxProps } from './types';
 import { B200 } from '@atlaskit/theme/colors';
@@ -12,18 +11,6 @@ import { token } from '@atlaskit/tokens';
 const selectedStyles = css({
 	backgroundColor: token('color.icon.information', B200),
 	color: token('color.icon.inverse', 'white'),
-});
-
-const oldWrapperStyes = css({
-	width: '14px',
-	height: '14px',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	span: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		svg: {
-			height: '14px',
-		},
-	},
 });
 
 const wrapperStyles = css({
@@ -50,7 +37,6 @@ export const TickBoxWrapper = (props: TickBoxProps) => {
 			id="tickBoxWrapper"
 			css={[
 				wrapperStyles,
-				!fg('platform-visual-refresh-icons') && oldWrapperStyes,
 				props.selected && selectedStyles,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

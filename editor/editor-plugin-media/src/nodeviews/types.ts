@@ -31,7 +31,7 @@ export interface MediaSingleNodeProps {
 	mediaProvider?: Promise<MediaProvider>;
 	node: PMNode;
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
-	selected: Function;
+	selected: () => boolean;
 	targetNodeId?: string;
 	view: EditorView;
 	width: number;

@@ -52,8 +52,8 @@ import ResizableMediaSingle from '../ui/ResizableMediaSingle';
 import ResizableMediaSingleNext from '../ui/ResizableMediaSingle/ResizableMediaSingleNext';
 
 import { hasPrivateAttrsChanged } from './helpers';
-import { createMediaNodeUpdater } from './mediaNodeUpdater';
 import type { MediaNodeUpdater } from './mediaNodeUpdater';
+import { createMediaNodeUpdater } from './mediaNodeUpdater';
 import { MediaSingleNodeSelector } from './styles';
 import type { MediaSingleNodeProps } from './types';
 
@@ -370,7 +370,7 @@ export type MediaSingleNodeNextProps = {
 	mediaProvider?: Promise<MediaProvider>;
 	node: PMNode;
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
-	selected: Function;
+	selected: () => boolean;
 	targetNodeId?: string;
 	view: EditorView;
 	width: number;

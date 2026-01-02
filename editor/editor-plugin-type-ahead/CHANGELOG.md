@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 7.0.2
+
+### Patch Changes
+
+- [`656adaeec9d0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656adaeec9d0b) -
+  [ux] EDITOR-1665 add experience tracking for create sync block
+- Updated dependencies
+
 ## 7.0.1
 
 ### Patch Changes

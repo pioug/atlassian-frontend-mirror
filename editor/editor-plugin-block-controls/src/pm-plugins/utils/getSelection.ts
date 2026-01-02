@@ -108,28 +108,19 @@ const newGetSelection = (doc: PMNode, selectionEmpty: boolean, start: number) =>
 	const nodeSize = node ? node.nodeSize : 1;
 	const nodeName = node?.type.name;
 
-	// this is a fix for empty paragraph selection - put first to avoid any extra work
-	if (
-		nodeName === 'paragraph' &&
-		selectionEmpty &&
-		node?.childCount === 0 &&
-		!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
-	) {
-		return false;
+	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+		// if mediaGroup only has a single child, we want to select the child
+		if (nodeName === 'mediaGroup' && node?.childCount === 1) {
+			const $mediaStartPos = doc.resolve(start + 1);
+			return new NodeSelection($mediaStartPos);
+		}
+
+		return new NodeSelection(doc.resolve(start));
 	}
 
-	const isParagraphHeadingEmpty =
-		['paragraph', 'heading'].includes(nodeName || '') && node?.childCount === 0;
-	const isListEmpty =
-		['orderedList', 'bulletList', 'taskList'].includes(nodeName || '') && node?.textContent === '';
-
-	// if block menu and empty line format menu are enabled,
-	// we want to set the selection to avoid the selection goes to the top of the document
-	if (
-		(isParagraphHeadingEmpty || isListEmpty) &&
-		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
-	) {
-		return TextSelection.create(doc, start + 1, start + 1);
+	// this is a fix for empty paragraph selection - put first to avoid any extra work
+	if (nodeName === 'paragraph' && selectionEmpty && node?.childCount === 0) {
+		return false;
 	}
 
 	const isBlockQuoteWithMediaOrExtension =
@@ -140,9 +131,7 @@ const newGetSelection = (doc: PMNode, selectionEmpty: boolean, start: number) =>
 		(nodeName === 'orderedList' && isNodeWithMediaOrExtension(doc, start, nodeSize));
 
 	if (
-		(isNodeSelection &&
-			(nodeName !== 'blockquote' ||
-				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true))) ||
+		(isNodeSelection && nodeName !== 'blockquote') ||
 		isListWithMediaOrExtension ||
 		isBlockQuoteWithMediaOrExtension ||
 		// decisionList/layoutColumn node is not selectable, but we want to select the whole node not just text
@@ -158,10 +147,7 @@ const newGetSelection = (doc: PMNode, selectionEmpty: boolean, start: number) =>
 		return new NodeSelection($mediaStartPos);
 	}
 
-	if (
-		nodeName === 'taskList' &&
-		!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
-	) {
+	if (nodeName === 'taskList') {
 		return TextSelection.create(doc, start, start + nodeSize);
 	}
 
@@ -174,7 +160,10 @@ export const getSelection = (
 	start: number,
 	api?: ExtractInjectionAPI<BlockControlsPlugin>,
 ) => {
-	if (areToolbarFlagsEnabled(Boolean(api?.toolbar))) {
+	if (
+		areToolbarFlagsEnabled(Boolean(api?.toolbar)) ||
+		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+	) {
 		return newGetSelection(tr.doc, tr.selection.empty, start);
 	}
 
@@ -303,30 +292,4 @@ export const rootTaskListDepth = (taskListPos: ResolvedPos) => {
 		}
 	}
 	return depth;
-};
-
-/**
- * Collapses the given $from and $to resolved positions to the nearest valid selection range.
- *
- * Will retract the from and to positions to nearest inline positions at node boundaries only if needed.
- *
- * @param $from the resolved start position
- * @param $to the resolved end position
- * @returns An object containing the collapsed $from and $to resolved positions
- */
-export const collapseToSelectionRange = ($from: ResolvedPos, $to: ResolvedPos) => {
-	// Get the selections that would be made for the first and last node in the range
-	// We re-use the getSelection logic as it already handles various node types and edge cases
-	// always pass true for selectionEmpty to emulate a cursor selection within the node
-	const firstNodeSelection = newGetSelection($from.doc, true, $from.pos);
-
-	const lastNodeSize = $to.nodeBefore?.nodeSize ?? 0;
-	const lastNodeStartPos = $to.pos - lastNodeSize;
-	const lastNodeSelection = newGetSelection($from.doc, true, lastNodeStartPos);
-
-	// Return a selection spanning from the start of the first node selection to the end of the last node selection
-	return {
-		$from: $from.doc.resolve(firstNodeSelection ? firstNodeSelection.from : $from.pos),
-		$to: $to.doc.resolve(lastNodeSelection ? lastNodeSelection.to : $to.pos),
-	};
 };

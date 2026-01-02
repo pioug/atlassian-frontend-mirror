@@ -49,6 +49,7 @@ const CreateSyncedBlockDropdownItem = ({
 			elemBefore={<SyncBlocksIcon label="" />}
 			onClick={onClick}
 			isDisabled={isOffline}
+			testId={"create-synced-block-block-menu-btn"}
 			elemAfter={<Lozenge appearance="new">{formatMessage(blockMenuMessages.newLozenge)}</Lozenge>}
 		>
 			{formatMessage(blockMenuMessages.createSyncedBlock)}

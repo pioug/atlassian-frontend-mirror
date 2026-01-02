@@ -227,12 +227,12 @@ export const FullPageToolbarNext = ({
 													(((expValEquals('platform_editor_ssr_renderer', 'isEnabled', true) &&
 														isSSR()) ||
 														editorView) &&
-														expValEquals(
+														(!expValEquals(
 															'platform_editor_toolbar_delay_render_fix',
 															'isEnabled',
 															true,
-														) &&
-														!isSSR())) && (
+														) ||
+															!isSSR()))) && (
 													<ToolbarNext
 														toolbar={toolbar}
 														components={components}
@@ -269,8 +269,12 @@ export const FullPageToolbarNext = ({
 									isToolbar(toolbar) &&
 									(!expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true) ||
 										(editorView &&
-											expValEquals('platform_editor_toolbar_delay_render_fix', 'isEnabled', true) &&
-											!isSSR())) && (
+											(!expValEquals(
+												'platform_editor_toolbar_delay_render_fix',
+												'isEnabled',
+												true,
+											) ||
+												!isSSR()))) && (
 										<ToolbarNext
 											toolbar={toolbar}
 											components={components}

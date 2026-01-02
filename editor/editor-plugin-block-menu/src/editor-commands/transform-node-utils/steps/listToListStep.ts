@@ -109,7 +109,7 @@ const transformList = (
 			itemNode.forEach((child) => {
 				if (child.type === paragraphType) {
 					inlineContent.push(...child.children);
-				} else if (child.isText) {
+				} else if (child.isInline) {
 					inlineContent.push(child);
 					// Nested lists will be extracted and placed as siblings in the taskList
 				} else if (!isListWithIndentation(child.type.name, schema)) {

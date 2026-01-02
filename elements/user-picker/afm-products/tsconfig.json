@@ -31,6 +31,9 @@
 			"path": "../../../design-system/avatar/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../measurement/feature-gate-js-client/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
 		},
 		{

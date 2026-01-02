@@ -125,26 +125,20 @@ export const blockquoteDangerStyles: SerializedStyles = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const blockquoteSelectedNodeStyles: SerializedStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.ProseMirror': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'& blockquote': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
-			'&.ak-editor-selected-node': {
-				background: token('color.blanket.selected'),
-				borderLeftColor: token('color.border.selected'),
-				WebkitUserSelect: 'text',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror blockquote.ak-editor-selected-node': {
+		background: token('color.background.accent.blue.subtler'),
+		borderLeftColor: token('color.border.selected'),
+		WebkitUserSelect: 'text',
 
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
-				'&::selection, *::selection': {
-					backgroundColor: 'transparent',
-				},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
+		'&::selection, *::selection': {
+			backgroundColor: 'transparent',
+		},
 
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&::-moz-selection, *::-moz-selection': {
-					backgroundColor: 'transparent',
-				},
-			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
+		'&::-moz-selection, *::-moz-selection': {
+			backgroundColor: 'transparent',
 		},
 	},
 });
@@ -335,5 +329,59 @@ export const blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes: Seria
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ak-editor-content-area .ak-editor-content-area .ProseMirror blockquote': {
 		paddingLeft: token('space.200', '16px'),
+	},
+});
+
+// This class applies when the node is selected directly or is included in the selected range
+const isSelectedNode = '.ak-editor-selected-node';
+const isOuterMostSelectedNode = `${isSelectedNode}:not(${isSelectedNode} *)`;
+
+// This class applies when there is a node selection on this node directly
+const isOnlySelectedNode = '.ProseMirror-selectednode';
+const isOuterMostOnlySelectedNode = `${isOnlySelectedNode}:not(${isOnlySelectedNode} *)`;
+
+const isList = ':is(ul, ol, div[data-node-type="actionList"])';
+const isOuterMostList = `${isList}:not(${isList} *)`;
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const listSelectedNodeStyles: SerializedStyles = css({
+	// only apply selected styles to the outermost list to avoid nested selection styles for lists within lists
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`.ProseMirror ${isOuterMostList}${isOuterMostSelectedNode}`]: {
+		background: token('color.background.accent.blue.subtler'),
+		WebkitUserSelect: 'text',
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
+		'&::selection, *::selection': {
+			backgroundColor: 'transparent',
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
+		'&::-moz-selection, *::-moz-selection': {
+			backgroundColor: 'transparent',
+		},
+	},
+});
+
+const isText = `:is(p, h1, h2, h3, h4, h5, h6)`;
+const isRootText = `${isText}:not(${isList} ${isText})`;
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const textSelectedNodeStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`.ProseMirror ${isRootText}${isOuterMostOnlySelectedNode}`]: {
+		background: token('color.background.accent.blue.subtler'),
+		WebkitUserSelect: 'text',
+		boxShadow: `0 -4px 0 ${token('color.background.accent.blue.subtler')}, 0 4px 0 ${token('color.background.accent.blue.subtler')}`,
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
+		'&::selection, *::selection': {
+			backgroundColor: 'transparent',
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
+		'&::-moz-selection, *::-moz-selection': {
+			backgroundColor: 'transparent',
+		},
 	},
 });

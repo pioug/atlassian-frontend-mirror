@@ -4,38 +4,7 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { removeDisallowedMarks } from '../marks';
 import type { TransformStep, NodeTypeName } from '../types';
 import { NODE_CATEGORY_BY_TYPE } from '../types';
-import { convertTextNodeToParagraph } from '../utils';
-
-/**
- * Determines if a node is a text node (heading or paragraph).
- * Text nodes can have their content converted to paragraphs when they can't be wrapped directly.
- */
-const isTextNode = (node: PMNode): boolean => {
-	const category = NODE_CATEGORY_BY_TYPE[node.type.name as NodeTypeName];
-	return category === 'text';
-};
-
-/**
- * Determines if a node can be wrapped in the target container type, removes block marks from the node during check.
- * Uses the schema's validContent to check if the target container can hold this node.
- *
- * Note: What can be wrapped depends on the target container type - for example:
- * - Tables and media CAN go inside expand nodes
- * - Tables CANNOT go inside panels or blockquotes
- */
-const canWrapInTarget = (
-	node: PMNode,
-	targetNodeType: NodeType,
-	targetNodeTypeName: NodeTypeName,
-): boolean => {
-	// Same-type containers should break out as separate containers
-	if (node.type.name === targetNodeTypeName) {
-		return false;
-	}
-
-	// Use the schema to determine if this node can be contained in the target
-	return targetNodeType.validContent(Fragment.from(removeDisallowedMarks([node], targetNodeType)));
-};
+import { convertTextNodeToParagraph, isTextNode } from '../utils';
 
 /**
  * Handles the edge case where transforming from a container to another container results in
@@ -83,18 +52,33 @@ const handleEmptyContainerEdgeCase = (
  * - Same-type containers break out as separate containers (preserved as-is)
  * - NestedExpands break out as regular expands (converted since nestedExpand can't exist outside expand)
  * - Container structures that can't be nested in target break out (not flattened)
- * - Text/list nodes that can't be wrapped are flattened and merged into the container
+ * - Text/list nodes that can't be wrapped are converted to paragraphs and merged into the container
  * - Atomic nodes (tables, media, macros) break out
+ *
+ * Special handling for layouts:
+ * - Layout sections break out as separate layouts (preserved as-is, not wrapped)
+ * - Other nodes (including headings, paragraphs, lists) are wrapped into layout columns within a layout section
+ * - Layouts always require layoutColumns as children (never paragraphs directly)
+ * - Layout columns can contain most block content including headings, paragraphs, lists, etc.
+ *
+ * Edge case handling:
+ * - For regular containers: If all content breaks out (container → container transform with no
+ *   valid children), an empty container with a paragraph is created to ensure the target type exists
+ * - For layouts: Edge case handling is skipped because layouts require columns, not direct paragraphs.
+ *   If all content breaks out, only the broken-out nodes are returned (no empty layout created)
  *
  * What can be wrapped depends on the target container's schema:
  * - expand → panel: tables break out, nestedExpands convert to expands and break out
- * - expand → blockquote: tables/media break out, nestedExpands convert to expands and break out
+ * - expand → blockquote: tables/media break out, nestedExpands convert to expands and break out, headings converted to paragraphs
  * - expand → expand: tables/media stay inside (expands can contain them)
+ * - multi → layoutSection: layout sections break out, headings/paragraphs/lists wrapped into layout columns
  *
  * Example: expand(p('a'), table(), p('b')) → panel: [panel(p('a')), table(), panel(p('b'))]
  * Example: expand(p('a'), panel(p('x')), p('b')) → panel: [panel(p('a')), panel(p('x')), panel(p('b'))]
  * Example: expand(p('a'), nestedExpand({title: 'inner'})(p('x')), p('b')) → panel: [panel(p('a')), expand({title: 'inner'})(p('x')), panel(p('b'))]
  * Example: expand(nestedExpand()(p())) → panel: [panel(), expand()(p())] (empty panel when all content breaks out)
+ * Example: [p('a'), layoutSection(...), p('b')] → layoutSection: [layoutSection(layoutColumn(p('a'))), layoutSection(...), layoutSection(layoutColumn(p('b')))]
+ * Example: [h1('heading'), p('para')] → layoutSection: [layoutSection(layoutColumn(h1('heading'), p('para')))] (headings stay as headings in layouts)
  */
 export const wrapMixedContentStep: TransformStep = (nodes, context) => {
 	const { schema, targetNodeTypeName, fromNode } = context;
@@ -104,53 +88,89 @@ export const wrapMixedContentStep: TransformStep = (nodes, context) => {
 		return nodes;
 	}
 
+	const isLayout = targetNodeTypeName === 'layoutSection';
+	const { layoutSection, layoutColumn } = schema.nodes;
+
 	const result: PMNode[] = [];
 	let currentContainerContent: PMNode[] = [];
 	let hasCreatedContainer = false;
 
 	const flushCurrentContainer = () => {
-		if (currentContainerContent.length > 0) {
-			const containerNode = targetNodeType.createAndFill(
+		if (currentContainerContent.length === 0) {
+			return;
+		}
+
+		if (isLayout) {
+			// For layouts, create layoutSection with two layoutColumns
+			const columnOne = layoutColumn.createAndFill(
 				{},
-				Fragment.fromArray(currentContainerContent),
+				removeDisallowedMarks(currentContainerContent, layoutColumn),
 			);
-			if (containerNode) {
-				result.push(containerNode);
+			const columnTwo = layoutColumn.createAndFill();
+
+			if (!columnOne || !columnTwo) {
+				currentContainerContent = [];
+				return;
+			}
+
+			const layout = layoutSection.createAndFill({}, [columnOne, columnTwo]);
+			if (layout) {
+				result.push(layout);
 				hasCreatedContainer = true;
 			}
 			currentContainerContent = [];
+			return;
 		}
+
+		// For regular containers, create directly
+		const containerNode = targetNodeType.createAndFill({}, currentContainerContent);
+		if (containerNode) {
+			result.push(containerNode);
+			hasCreatedContainer = true;
+		}
+		currentContainerContent = [];
 	};
 
-	nodes.forEach((node) => {
-		if (canWrapInTarget(node, targetNodeType, targetNodeTypeName)) {
-			// Node can be wrapped - add to current container content
+	const processNode = (node: PMNode) => {
+		const validationType = isLayout ? layoutColumn : targetNodeType;
+
+		const canWrapNode = validationType.validContent(
+			Fragment.from(removeDisallowedMarks([node], validationType)),
+		);
+
+		// Node can be wrapped - add to current container content
+		if (canWrapNode) {
 			// remove marks from node as nested nodes don't usually support block marks
-			currentContainerContent.push(...removeDisallowedMarks([node], targetNodeType));
-		} else if (node.type.name === targetNodeTypeName) {
-			// Same-type container - breaks out as a separate container (preserved as-is)
-			// This handles: "If there's a panel in the expand, it breaks out into a separate panel"
-			flushCurrentContainer();
-			result.push(node);
-		} else if (isTextNode(node)) {
-			// Text node (heading, paragraph) that can't be wrapped - convert to paragraph
-			// Example: heading can't go in blockquote, so convert to paragraph with same content
+			currentContainerContent.push(...removeDisallowedMarks([node], validationType));
+			return;
+		}
+
+		// Text node (heading, paragraph) that can't be wrapped - convert to paragraph
+		// Example: heading can't go in blockquote, so convert to paragraph with same content
+		if (isTextNode(node)) {
 			const paragraph = convertTextNodeToParagraph(node, schema);
 			if (paragraph) {
 				currentContainerContent.push(paragraph);
 			}
-		} else {
-			// All other nodes that cannot be wrapped (lists, containers, tables, media, macros) - break out
-			// This includes list nodes like taskList that can't be placed in certain containers
-			flushCurrentContainer();
-			result.push(node);
+			return;
 		}
-	});
+
+		// All other nodes that cannot be wrapped in the target node - break out
+		// Examples: same-type containers, tables in panels, layoutSections in layouts
+		flushCurrentContainer();
+		result.push(node);
+	};
+
+	nodes.forEach(processNode);
 
 	// Flush any remaining content into a container
 	flushCurrentContainer();
 
-	// Handle edge case: create empty container if all content broke out
+	// Skip edge case handling for layouts since layouts always have columns
+	if (isLayout) {
+		return result.length > 0 ? result : nodes;
+	}
+
 	const finalResult = handleEmptyContainerEdgeCase(
 		result,
 		hasCreatedContainer,
@@ -159,6 +179,5 @@ export const wrapMixedContentStep: TransformStep = (nodes, context) => {
 		targetNodeTypeName,
 		schema,
 	);
-
 	return finalResult.length > 0 ? finalResult : nodes;
 };

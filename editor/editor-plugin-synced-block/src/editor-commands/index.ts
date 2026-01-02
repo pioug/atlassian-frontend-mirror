@@ -28,6 +28,7 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { syncedBlockPluginKey } from '../pm-plugins/main';
 import {
@@ -81,7 +82,9 @@ export const createSyncedBlock = ({
 	} else {
 		const conversionInfo = canBeConvertedToSyncBlock(tr.selection);
 		if (!conversionInfo) {
-			// TODO: EDITOR-1665 - Raise an error analytics event
+			if (fg('platform_synced_block_dogfooding')) {
+				syncBlockStore.sourceManager.createExperience?.failure({ reason: 'Selection is not allowed to be converted to sync block'});
+			}
 			return false;
 		}
 

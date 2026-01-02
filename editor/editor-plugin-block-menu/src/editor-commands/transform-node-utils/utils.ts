@@ -5,6 +5,16 @@ import { type ContentNodeWithPos, findParentNodeOfType } from '@atlaskit/editor-
 import { CellSelection } from '@atlaskit/editor-tables';
 
 import type { NodeTypeName } from './types';
+import { NODE_CATEGORY_BY_TYPE } from './types';
+
+/**
+ * Determines if a node is a text node (heading or paragraph).
+ * Text nodes can have their content converted to paragraphs when they can't be wrapped directly.
+ */
+export const isTextNode = (node: PMNode): boolean => {
+	const category = NODE_CATEGORY_BY_TYPE[node.type.name as NodeTypeName];
+	return category === 'text';
+};
 
 export const getSelectedNode = (selection: Selection): ContentNodeWithPos | undefined => {
 	if (selection instanceof NodeSelection) {

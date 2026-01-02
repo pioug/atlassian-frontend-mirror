@@ -22,7 +22,7 @@ const extractNestedLists = (node: PMNode, schema: Schema): PMNode[] => {
 				child.forEach((grandChild) => {
 					if (isListWithIndentation(grandChild.type.name, schema)) {
 						nestedLists.push(grandChild);
-					} else if (grandChild.isText) {
+					} else if (grandChild.isInline) {
 						// For taskItem/decisionItem, keep text as-is (they support inline content)
 						// For listItem, wrap text in paragraph (they require block content)
 						if (isInlineItem) {
@@ -77,8 +77,6 @@ const extractNestedLists = (node: PMNode, schema: Schema): PMNode[] => {
  * @param nodes
  * @param context
  * @returns
- *
- * TODO: Lists with mixed types (e.g. bulletList with a taskItem) doesn't full flatten
  */
 export const flattenListStep: TransformStep = (nodes, context) => {
 	return nodes.map((node) => {

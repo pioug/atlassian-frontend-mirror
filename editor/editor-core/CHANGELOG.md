@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 216.1.2
+
+### Patch Changes
+
+- [`fabf67c3ca239`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fabf67c3ca239) -
+  EDITOR-4191 Use node selection for all nodes selected via drag handle
+- Updated dependencies
+
+## 216.1.1
+
+### Patch Changes
+
+- [`8691a6ca57af0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8691a6ca57af0) -
+  [ux] [A11Y-25850] update selected find/replace match focus ring color behind
+  platform_editor_a11y_find_replace_focus_ring
+- [`f0bc994a5bdf6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0bc994a5bdf6) -
+  Fixes toolbar not appearing when platform_editor_toolbar_delay_render_fix is disabled
+- Updated dependencies
+
 ## 216.1.0
 
 ### Minor Changes

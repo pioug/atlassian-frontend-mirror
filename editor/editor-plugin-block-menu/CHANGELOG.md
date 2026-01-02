@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.7
+
+### Patch Changes
+
+- [`65223704a60e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65223704a60e0) -
+  Fix hard breaks being lost in nested task lists during transformation
+- Updated dependencies
+
+## 6.0.6
+
+### Patch Changes
+
+- [`27a9a5b28e8a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27a9a5b28e8a6) -
+  [ux] Add ability to transform multiselected content to layouts
+
 ## 6.0.5
 
 ### Patch Changes

@@ -11,8 +11,6 @@ import {
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 import { getBlockControlsMeta, key } from '../main';
 
-import { collapseToSelectionRange } from './getSelection';
-
 export const getMultiSelectionIfPosInside = (
 	api: ExtractInjectionAPI<BlockControlsPlugin>,
 	pos: number,
@@ -133,8 +131,7 @@ export const mapPreservedSelection = (
 			return TextSelection.create(tr.doc, from);
 		}
 
-		// collapse the expanded range to a valid selection range
-		const { $from, $to } = collapseToSelectionRange(expanded.$from, expanded.$to);
+		const { $from, $to } = expanded;
 
 		// stop preserving if preserved selection becomes invalid
 		if ($from.pos < 0 || $to.pos > tr.doc.content.size || $from.pos >= $to.pos) {

@@ -48,6 +48,7 @@ export const CreateSyncedBlockButton = ({
 				label={message}
 				iconBefore={<BlockSyncedIcon size="small" label="" />}
 				isDisabled={isDisabled}
+				testId={"create-synced-block-toolbar-btn"}
 				onClick={onClick}
 			/>
 		</ToolbarTooltip>

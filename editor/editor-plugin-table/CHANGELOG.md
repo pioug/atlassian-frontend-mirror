@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 16.1.3
+
+### Patch Changes
+
+- [`cd1f8017b3bc0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd1f8017b3bc0) -
+  [ux] Tweak table psudoelement borders
+
 ## 16.1.2
 
 ### Patch Changes

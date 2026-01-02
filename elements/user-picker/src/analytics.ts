@@ -1,4 +1,5 @@
 import { createAndFireEvent, type AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 import { type Option, type OptionData, type UserPickerProps, type UserPickerState } from './types';
@@ -151,6 +152,8 @@ export const deleteEvent: EventCreator = (
 		journeyId,
 		value: optionData2Analytics(args[0]),
 		pickerOpen: state.menuIsOpen,
+		...(FeatureGates.getExperimentValue('team_member_suggestions_while_creating_team', 'isEnabled', false) &&
+			args[0]?.isSuggestedMember !== undefined ? { isSuggestedMember: args[0].isSuggestedMember } : {}),
 	});
 
 export const cancelEvent: EventCreator = (

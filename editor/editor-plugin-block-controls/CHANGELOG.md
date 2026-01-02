@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.0.3
+
+### Patch Changes
+
+- [`fabf67c3ca239`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fabf67c3ca239) -
+  EDITOR-4191 Use node selection for all nodes selected via drag handle
+
 ## 8.0.2
 
 ### Patch Changes

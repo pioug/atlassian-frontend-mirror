@@ -1,17 +1,7 @@
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 
-import type { TransformStep, NodeTypeName } from '../types';
-import { NODE_CATEGORY_BY_TYPE } from '../types';
-
-/**
- * Determines if a node is a text node (heading or paragraph).
- * Only text nodes should have their inline content extracted for decisionItem.
- * All other nodes should break out.
- */
-const isTextNode = (node: PMNode): boolean => {
-	const category = NODE_CATEGORY_BY_TYPE[node.type.name as NodeTypeName];
-	return category === 'text';
-};
+import type { TransformStep } from '../types';
+import { isTextNode } from '../utils';
 
 /**
  * Creates a decisionItem with the given inline content.

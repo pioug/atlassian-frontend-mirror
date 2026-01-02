@@ -42,13 +42,15 @@ import {
 } from './styles/baseStyles';
 import { blockMarksStyles } from './styles/blockMarksStyles';
 import {
-	blockquoteSelectedNodeStyles,
 	blockquoteDangerStyles,
-	blocktypeStyles,
+	blockquoteSelectedNodeStyles,
 	blockquoteZeroPadding,
+	blocktypeStyles,
 	blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes,
 	blocktypeStyles_fg_platform_editor_typography_ugc,
 	blocktypeStyles_without_fg_platform_editor_typography_ugc,
+	listSelectedNodeStyles,
+	textSelectedNodeStyles,
 } from './styles/blockTypeStyles';
 import { codeBidiWarningStyles } from './styles/codeBidiWarningStyles';
 import {
@@ -195,8 +197,8 @@ import {
 	tableCommentEditorStyles,
 	tableContainerOverflowY,
 	tableContainerStyles,
-	tableLayoutFixes,
 	tableEmptyRowStyles,
+	tableLayoutFixes,
 } from './styles/tableStyles';
 import {
 	decisionDangerStyles,
@@ -374,6 +376,12 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						blockquoteSelectedNodeStyles,
+					expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						listSelectedNodeStyles,
+					expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						textSelectedNodeStyles,
 					expVal('platform_editor_blockquote_zero_padding', 'isEnabled', false)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							blockquoteZeroPadding

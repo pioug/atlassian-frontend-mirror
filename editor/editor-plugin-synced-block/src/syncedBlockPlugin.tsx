@@ -8,12 +8,14 @@ import type { EditorCommand, PMPluginFactoryParams } from '@atlaskit/editor-comm
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { flushBodiedSyncBlocks, flushSyncBlocks } from './editor-actions';
 import {
 	copySyncedBlockReferenceToClipboardEditorCommand,
 	createSyncedBlock,
 } from './editor-commands';
+import { getExperienceTrackingPlugins } from './pm-plugins/experience-tracking/get-experience-tracking-plugins';
 import { createPlugin, syncedBlockPluginKey } from './pm-plugins/main';
 import type { SyncedBlockPlugin } from './syncedBlockPluginType';
 import type { SyncedBlockSharedState } from './types';
@@ -25,6 +27,8 @@ import { SyncBlockRefresher } from './ui/SyncBlockRefresher';
 import { getToolbarComponents } from './ui/toolbar-components';
 
 export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
+	const refs: { containerElement?: HTMLElement, popupsMountPoint?: HTMLElement; wrapperElement?: HTMLElement, } = {};
+
 	const syncBlockStore = new SyncBlockStoreManager(config?.syncBlockDataProvider);
 	syncBlockStore.setFireAnalyticsEvent(api?.analytics?.actions?.fireAnalyticsEvent);
 
@@ -58,6 +62,13 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 					plugin: (params: PMPluginFactoryParams) =>
 						createPlugin(config, params, syncBlockStore, api),
 				},
+				...(fg('platform_synced_block_dogfooding')
+					? getExperienceTrackingPlugins({
+						refs,
+						dispatchAnalyticsEvent: (payload) => api?.analytics?.actions.fireAnalyticsEvent(payload),
+						syncBlockStore
+					})
+					: []),
 			];
 		},
 
@@ -125,13 +136,18 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 								typeAheadInsert: insert,
 							});
 						},
+						testId: fg('platform_synced_block_dogfooding') ? 'create-synced-block-quick-insert-btn' : undefined
 					},
 				];
 			},
 			floatingToolbar: (state, intl) => getToolbarConfig(state, intl, api, syncBlockStore),
 		},
 
-		contentComponent: () => {
+		contentComponent: ({ containerElement, wrapperElement, popupsMountPoint }) => {
+			refs.containerElement = containerElement || undefined;
+			refs.popupsMountPoint = popupsMountPoint || undefined;
+			refs.wrapperElement = wrapperElement || undefined;
+
 			return (
 				<>
 					<SyncBlockRefresher syncBlockStoreManager={syncBlockStore} api={api} />

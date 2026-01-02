@@ -33,8 +33,8 @@ import { DRAG_HANDLE_WIDTH, tableControlsSpacing } from '@atlaskit/editor-common
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { NodeRange, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import { type Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { type Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -42,6 +42,7 @@ import {
 	akEditorTableToolbarSize,
 	relativeSizeToBaseFontSize,
 } from '@atlaskit/editor-shared-styles/consts';
+import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
 import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
@@ -69,11 +70,7 @@ import {
 	shouldBeSticky,
 	shouldMaskNodeControls,
 } from '../pm-plugins/utils/drag-handle-positions';
-import {
-	collapseToSelectionRange,
-	isHandleCorrelatedToSelection,
-	selectNode,
-} from '../pm-plugins/utils/getSelection';
+import { isHandleCorrelatedToSelection, selectNode } from '../pm-plugins/utils/getSelection';
 import {
 	alignAnchorHeadInDirectionOfPos,
 	expandSelectionHeadToNodeAtPos,
@@ -521,16 +518,16 @@ const expandAndUpdateSelection = ({
 		isPosWithinRange(startPos, expandedRange.range) &&
 		isMultiBlockRange(expandedRange.range)
 	) {
-		const collapsed = collapseToSelectionRange(expandedRange.$from, expandedRange.$to);
-
 		// Then create a selection from the start of the first node to the end of the last node
 		tr.setSelection(
 			TextSelection.create(
 				tr.doc,
-				Math.min(selection.from, collapsed.$from.pos),
-				Math.max(selection.to, collapsed.$to.pos),
+				Math.min(selection.from, expandedRange.$from.pos),
+				Math.max(selection.to, expandedRange.$to.pos),
 			),
 		);
+	} else if (nodeType === 'table') {
+		selectTableClosestToPos(tr, tr.doc.resolve(startPos + 1));
 	} else {
 		// Select the clicked drag handle's node only
 		selectNode(tr, startPos, nodeType, api);

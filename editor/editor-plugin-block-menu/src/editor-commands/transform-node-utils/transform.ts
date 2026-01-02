@@ -23,7 +23,6 @@ import type { NodeCategory, NodeTypeName, TransformStepContext, TransformStep } 
 import { getNodeName, NODE_CATEGORY_BY_TYPE, toNodeTypeValue } from './types';
 import { unwrapExpandStep } from './unwrapExpandStep';
 import { unwrapStep } from './unwrapStep';
-import { wrapIntoLayoutStep } from './wrapIntoLayoutStep';
 import { wrapIntoListStep } from './wrapIntoListStep';
 import { wrapStep } from './wrapStep';
 
@@ -75,15 +74,15 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 	paragraph: {
 		paragraph: null,
 		codeBlock: [wrapTextToCodeblockStep],
-		layoutSection: [wrapIntoLayoutStep],
+		layoutSection: [wrapMixedContentStep],
 	},
 	heading: {
 		codeBlock: [wrapTextToCodeblockStep],
-		layoutSection: [wrapIntoLayoutStep],
+		layoutSection: [wrapMixedContentStep],
 	},
 	panel: {
 		panel: null,
-		layoutSection: [unwrapStep, wrapIntoLayoutStep],
+		layoutSection: [unwrapStep, wrapMixedContentStep],
 		codeBlock: [unwrapStep, flattenStep, wrapStep],
 		blockquote: [unwrapStep, wrapMixedContentStep],
 		taskList: null,
@@ -95,7 +94,7 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		expand: null,
 		panel: [unwrapExpandStep, wrapMixedContentStep],
 		blockquote: [unwrapExpandStep, wrapMixedContentStep],
-		layoutSection: [unwrapExpandStep, wrapIntoLayoutStep],
+		layoutSection: [unwrapExpandStep, wrapMixedContentStep],
 		paragraph: [unwrapExpandStep],
 		codeBlock: null,
 		heading: null,
@@ -113,7 +112,7 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		blockquote: null,
 		expand: [wrapStep],
 		nestedExpand: [wrapStep],
-		layoutSection: [wrapIntoLayoutStep],
+		layoutSection: [wrapMixedContentStep],
 		codeBlock: null,
 		decisionList: [unwrapStep, wrapBlockquoteToDecisionListStep],
 	},
@@ -131,34 +130,34 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		blockquote: [wrapStep],
 		expand: [wrapStep],
 		nestedExpand: [wrapStep],
-		layoutSection: [wrapIntoLayoutStep],
+		layoutSection: [wrapMixedContentStep],
 		panel: [wrapStep],
 		heading: null,
 	},
 	bulletList: {
 		bulletList: null,
 		codeBlock: null,
-		layoutSection: [wrapIntoLayoutStep],
+		layoutSection: [wrapMixedContentStep],
 		decisionList: [flattenListStep, listToDecisionListStep],
 		heading: null,
 	},
 	orderedList: {
 		orderedList: null,
 		codeBlock: null,
-		layoutSection: [wrapIntoLayoutStep],
+		layoutSection: [wrapMixedContentStep],
 		decisionList: [flattenListStep, listToDecisionListStep],
 		heading: null,
 	},
 	taskList: {
 		blockquote: null,
 		codeBlock: null,
-		layoutSection: [wrapIntoLayoutStep],
+		layoutSection: [wrapMixedContentStep],
 		decisionList: [flattenListStep, listToDecisionListStep],
 		heading: null,
 		taskList: null,
 	},
 	table: {
-		layoutSection: [wrapIntoLayoutStep],
+		layoutSection: [wrapMixedContentStep],
 		blockquote: null,
 		panel: null,
 		codeBlock: null,
@@ -168,13 +167,13 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		decisionList: null,
 	},
 	mediaSingle: {
-		layoutSection: [wrapIntoLayoutStep],
+		layoutSection: [wrapMixedContentStep],
 		codeBlock: null,
 		decisionList: null,
 		taskList: null,
 	},
 	mediaGroup: {
-		layoutSection: [wrapIntoLayoutStep],
+		layoutSection: [wrapMixedContentStep],
 		codeBlock: null,
 		decisionList: null,
 		bulletList: null,
@@ -186,10 +185,10 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		bulletList: [decisionListToListStep],
 		orderedList: [decisionListToListStep],
 		taskList: [decisionListToListStep],
-		layoutSection: [wrapIntoLayoutStep],
+		layoutSection: [wrapMixedContentStep],
 	},
 	blockCard: {
-		layoutSection: [wrapIntoLayoutStep],
+		layoutSection: [wrapMixedContentStep],
 		blockquote: null,
 		codeBlock: null,
 		orderedList: null,
@@ -198,7 +197,7 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		decisionList: null,
 	},
 	embedCard: {
-		layoutSection: [wrapIntoLayoutStep],
+		layoutSection: [wrapMixedContentStep],
 		blockquote: null,
 		panel: null,
 		codeBlock: null,
@@ -208,7 +207,7 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		decisionList: null,
 	},
 	extension: {
-		layoutSection: [wrapIntoLayoutStep],
+		layoutSection: [wrapMixedContentStep],
 		codeBlock: null,
 		decisionList: null,
 		taskList: null,
@@ -216,7 +215,7 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		bulletList: null,
 	},
 	bodiedExtension: {
-		layoutSection: [wrapIntoLayoutStep],
+		layoutSection: [wrapMixedContentStep],
 		blockquote: null,
 		expand: null,
 		panel: null,
@@ -231,8 +230,6 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		heading: null,
 		// TODO: EDITOR-4141 - Implement multiple codeblocks/headings to paragraph transform
 		paragraph: null,
-		// TODO: EDITOR-4138 - Implement multi content to layout transform
-		layoutSection: undefined,
 	},
 };
 

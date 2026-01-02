@@ -72,16 +72,9 @@ export const decisionListToListStep: TransformStep = (nodes, context) => {
 		const newItems: PMNode[] = [];
 
 		node.forEach((decisionItem) => {
-			const itemContent: PMNode[] = [];
-
-			decisionItem.forEach((child) => {
-				itemContent.push(child);
-			});
-
-			const newItem =
-				targetItemType === schema.nodes.listItem
-					? targetItemType.create({}, paragraphType.create({}, itemContent))
-					: targetItemType.create({}, itemContent);
+			const newItem = targetItemType.inlineContent
+				? targetItemType.create({}, decisionItem.children)
+				: targetItemType.create({}, paragraphType.create({}, decisionItem.children));
 
 			if (newItem) {
 				newItems.push(newItem);
@@ -89,6 +82,7 @@ export const decisionListToListStep: TransformStep = (nodes, context) => {
 		});
 
 		const newList = targetListType.create({}, Fragment.from(newItems));
+
 		return newList || node;
 	});
 };

@@ -62,6 +62,7 @@ export type TypeAheadItem = {
 	keyshortcut?: string;
 	lozenge?: ReactNode;
 	render?: (props: TypeAheadItemRenderProps) => React.ReactElement<TypeAheadItemRenderProps> | null;
+	testId?: string;
 	title: string;
 };
 

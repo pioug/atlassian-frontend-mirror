@@ -1,6 +1,8 @@
 import { type SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
+import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	type ResourceId,
@@ -57,6 +59,8 @@ export class SourceSyncBlockStoreManager {
 	private pendingResourceId?: ResourceId;
 	private creationCallback?: CreationCallback;
 
+	public createExperience: Experience | undefined;
+
 	constructor(dataProvider?: SyncBlockDataProvider) {
 		this.dataProvider = dataProvider;
 		this.syncBlockCache = new Map();
@@ -64,6 +68,10 @@ export class SourceSyncBlockStoreManager {
 
 	public setFireAnalyticsEvent(fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void) {
 		this.fireAnalyticsEvent = fireAnalyticsEvent;
+	}
+
+	public setCreateExperience(createExperience: Experience) {
+		this.createExperience = createExperience;
 	}
 
 	public isSourceBlock(node: PMNode): boolean {
@@ -252,9 +260,13 @@ export class SourceSyncBlockStoreManager {
 						this.commitPendingCreation(true);
 					} else {
 						this.commitPendingCreation(false);
-						this.fireAnalyticsEvent?.(
-							createErrorPayload(result.error || 'Failed to create bodied sync block'),
-						);
+						if (fg('platform_synced_block_dogfooding')) {
+							this.createExperience?.failure({reason: result.error || 'Failed to create bodied sync block'})
+						} else {
+							this.fireAnalyticsEvent?.(
+								createErrorPayload(result.error || 'Failed to create bodied sync block'),
+							);
+						}
 					}
 				})
 				.catch((error) => {
@@ -262,7 +274,11 @@ export class SourceSyncBlockStoreManager {
 					logException(error as Error, {
 						location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
 					});
-					this.fireAnalyticsEvent?.(createErrorPayload((error as Error).message));
+					if (fg('platform_synced_block_dogfooding')) {
+						this.createExperience?.failure({reason: (error as Error).message})
+					} else {
+						this.fireAnalyticsEvent?.(createErrorPayload((error as Error).message));
+					}
 				});
 
 			this.registerPendingCreation(resourceId);
@@ -273,7 +289,11 @@ export class SourceSyncBlockStoreManager {
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
 			});
-			this.fireAnalyticsEvent?.(createErrorPayload((error as Error).message));
+			if (fg('platform_synced_block_dogfooding')) {
+				this.createExperience?.failure({reason: (error as Error).message})
+			} else {
+				this.fireAnalyticsEvent?.(createErrorPayload((error as Error).message));
+			}
 		}
 	}
 

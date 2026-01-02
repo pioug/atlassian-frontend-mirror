@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-media
 
+## 9.1.1
+
+### Patch Changes
+
+- [`fabf67c3ca239`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fabf67c3ca239) -
+  EDITOR-4191 Use node selection for all nodes selected via drag handle
+
 ## 9.1.0
 
 ### Minor Changes

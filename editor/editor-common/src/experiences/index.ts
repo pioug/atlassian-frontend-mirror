@@ -23,5 +23,6 @@ export type {
 
 export {
 	containsPopupWithNestedElement,
+	popupWithNestedElement,
 	getPopupContainerFromEditorView,
 } from './experience-utils';

@@ -1,10 +1,12 @@
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 import TaskItem from '../../../../components/TaskItem';
 import TaskList from '../../../../components/TaskList';
 import { dumpRef, action, TaskStateManager } from '../../../../../example-helpers/story-utils';
 
 export default (): React.JSX.Element => (
-	<div>
+	<IntlProvider locale="en">
+		<div>
 		<h3>Simple Completed TaskItem </h3>
 		<TaskItem taskId="task-2" isDone={true} contentRef={dumpRef} onChange={action('onChange')}>
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -51,5 +53,6 @@ export default (): React.JSX.Element => (
 				</TaskList>
 			)}
 		/>
-	</div>
+		</div>
+	</IntlProvider>
 );

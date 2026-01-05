@@ -98,10 +98,14 @@ export type JqlInsightsAttributes = {
 	jqlUsedFieldsCount: number;
 	// List of fields used in the order by clause, de-duplicated and in the order of usage.
 	jqlUsedFieldsOrderBy: string[];
-	// Number of team IDs used in membersOf function arguments
+	// Number of group names used in membersOf function arguments (values NOT starting with "id:")
+	membersOfGroupCount: number;
+	// Number of team IDs used in membersOf function arguments (values starting with "id:")
 	membersOfTeamCount: number;
 	// List of team IDs used in membersOf function arguments (not UGC, safe to log)
 	membersOfTeamIds: string[];
+	// Total number of membersOf function usages (teams + groups combined)
+	membersOfTotalCount: number;
 };
 
 class JastAnalyticsListener implements JastListener {
@@ -139,8 +143,10 @@ class JastAnalyticsListener implements JastListener {
 			or: 0,
 		},
 		jqlMaxCompoundClauseDepth: 0,
+		membersOfTotalCount: 0,
 		membersOfTeamCount: 0,
 		membersOfTeamIds: [],
+		membersOfGroupCount: 0,
 	};
 
 	private usedFields: Set<string> = new Set();
@@ -266,17 +272,23 @@ class JastAnalyticsListener implements JastListener {
 	enterFunctionOperand = (functionOperand: FunctionOperand) => {
 		this.incrementFieldValueCount();
 
-		// Track membersOf function with teamId arguments
+		// Track membersOf function usage
 		const functionName = functionOperand.function.value.toLowerCase();
 		if (functionName === 'membersof') {
+			// Track each membersOf function call
+			this.attributes.membersOfTotalCount += 1;
+
 			functionOperand.arguments.forEach((arg) => {
 				const value = arg.value.toLowerCase();
-				// Check if it's a teamId (starts with "id:")
+				// Check if it's a teamId (starts with "id:") or a group name
 				if (value.startsWith('id:')) {
 					// Extract the UUID part after "id:" and normalize whitespace
 					const teamId = arg.value.replace(/\s*:\s*/g, ':').trim();
 					this.attributes.membersOfTeamIds.push(teamId);
 					this.attributes.membersOfTeamCount += 1;
+				} else {
+					// It's a group name (not starting with "id:")
+					this.attributes.membersOfGroupCount += 1;
 				}
 			});
 		}

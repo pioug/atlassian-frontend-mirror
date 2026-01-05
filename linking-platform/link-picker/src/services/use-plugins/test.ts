@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook, waitFor } from '@testing-library/react';
 
 import { ManualPromise } from '@atlaskit/link-test-helpers';
 
@@ -61,46 +61,50 @@ describe('usePlugins', () => {
 		});
 
 		it('Should return Items', async () => {
-			const { result, waitForNextUpdate } = setUpHook({
+			const { result } = setUpHook({
 				state,
 				activeTab,
 				plugins,
 			});
 
-			await waitForNextUpdate();
-			expect(result.current.items).not.toBeNull();
-			expect(result.current.items?.length).toEqual(RECENT_SEARCH_LIST_SIZE);
+			await waitFor(() => {
+				expect(result.current.items).not.toBeNull();
+				expect(result.current.items?.length).toEqual(RECENT_SEARCH_LIST_SIZE);
+			});
 		});
 
 		it('Should filter recent Items when given a new query', async () => {
-			const { result, rerender, waitForNextUpdate } = setUpHook({
+			const { result, rerender } = setUpHook({
 				state,
 				activeTab,
 				plugins,
 			});
 
-			await waitForNextUpdate();
-			expect(result.current.items?.length).toEqual(RECENT_SEARCH_LIST_SIZE);
+			await waitFor(() => {
+				expect(result.current.items?.length).toEqual(RECENT_SEARCH_LIST_SIZE);
+			});
 
 			rerender({ state: { query: 'Editor' }, activeTab, plugins });
 
-			await waitForNextUpdate();
-			expect(result.current.items?.length).toBe(1);
+			await waitFor(() => {
+				expect(result.current.items?.length).toBe(1);
+			});
 		});
 
 		it('isLoading should be `true` while the plugin is fetching new Items', async () => {
-			const { result, waitForNextUpdate } = setUpHook({
+			const { result } = setUpHook({
 				state,
 				activeTab,
 				plugins,
 			});
 
 			expect(result.current.isLoading).toBe(true);
-			await waitForNextUpdate();
+			await waitFor(() => {
+				expect(result.current.isLoading).toBe(false);
+				expect(result.current.items).not.toBeNull();
+				expect(result.current.items?.length).toEqual(RECENT_SEARCH_LIST_SIZE);
+			});
 
-			expect(result.current.isLoading).toBe(false);
-			expect(result.current.items).not.toBeNull();
-			expect(result.current.items?.length).toEqual(RECENT_SEARCH_LIST_SIZE);
 		});
 
 		it('Should return available tabs and tabTitle', async () => {
@@ -132,17 +136,17 @@ describe('usePlugins', () => {
 				}),
 			];
 
-			const { result, waitForNextUpdate } = setUpHook({
+			const { result } = setUpHook({
 				state,
 				activeTab,
 				plugins,
 			});
 
-			await waitForNextUpdate();
-
-			expect(result.current.items).toBeNull();
-			expect(result.current.isLoading).toBe(false);
-			expect(result.current.error).not.toBeNull();
+			await waitFor(() => {
+				expect(result.current.items).toBeNull();
+				expect(result.current.isLoading).toBe(false);
+				expect(result.current.error).not.toBeNull();
+			});
 		});
 
 		it('retry function should trigger a new search when plugin throws an error', async () => {
@@ -153,23 +157,21 @@ describe('usePlugins', () => {
 				}),
 			];
 
-			const { result, waitForNextUpdate } = setUpHook({
+			const { result } = setUpHook({
 				state,
 				activeTab,
 				plugins,
 			});
 
-			await waitForNextUpdate();
-
 			const { retry } = result.current;
 			expect(retry).toBeDefined();
 			act(() => retry());
 
-			await waitForNextUpdate();
-
-			expect(result.current.error).toBeNull();
-			expect(result.current.items).not.toBe(null);
-			expect(result.current.items?.length).not.toBe(0);
+			await waitFor(() => {
+				expect(result.current.error).toBeNull();
+				expect(result.current.items).not.toBe(null);
+				expect(result.current.items?.length).not.toBe(0);
+			});
 		});
 
 		it('errorFallback should be defined when provided with Plugin', async () => {
@@ -181,16 +183,15 @@ describe('usePlugins', () => {
 				}),
 			];
 
-			const { result, waitForNextUpdate } = setUpHook({
+			const { result } = setUpHook({
 				state,
 				activeTab,
 				plugins,
 			});
 
-			await waitForNextUpdate();
-
-			const { errorFallback } = result.current;
-			expect(errorFallback).toBeDefined();
+			await waitFor(() => {
+				expect(result.current.errorFallback).toBeDefined();
+			});
 		});
 
 		it('should not dispatch state updates after unmount', async () => {

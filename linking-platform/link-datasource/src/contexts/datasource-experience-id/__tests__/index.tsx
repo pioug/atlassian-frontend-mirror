@@ -5,7 +5,7 @@ jest.mock('uuid', () => ({
 
 import React from 'react';
 
-import { renderHook, type RenderHookOptions } from '@testing-library/react-hooks';
+import { renderHook, type RenderHookOptions } from '@testing-library/react';
 
 import { DatasourceExperienceIdProvider, useDatasourceExperienceId } from '../index';
 
@@ -22,9 +22,6 @@ describe('UserInteractionsProvider', () => {
 	});
 
 	test('useDatasourceExperienceId throws if not wrapped in a provider', () => {
-		const { result } = renderHook(() => useDatasourceExperienceId());
-		expect(result.error?.message).toEqual(
-			'useDatasourceExperienceId() must be wrapped in <DatasourceExperienceIdProvider>',
-		);
+		expect(() => renderHook(() => useDatasourceExperienceId())).toThrow(new Error('useDatasourceExperienceId() must be wrapped in <DatasourceExperienceIdProvider>'));
 	});
 });

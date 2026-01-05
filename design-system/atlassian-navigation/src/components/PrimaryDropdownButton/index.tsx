@@ -7,8 +7,7 @@ import { forwardRef, type Ref } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import ChevronIconMigration from '@atlaskit/icon/core/migration/chevron-down';
-import { token } from '@atlaskit/tokens';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 
 import { PrimaryButton } from '../PrimaryButton';
 
@@ -35,14 +34,7 @@ export const PrimaryDropdownButton: React.ForwardRefExoticComponent<
 		return (
 			<PrimaryButton
 				component={component}
-				iconAfter={
-					<ChevronIconMigration
-						LEGACY_margin={`0 ${token('space.negative.050')} 0 ${token('space.negative.100')}`}
-						color="currentColor"
-						label=""
-						size="small"
-					/>
-				}
+				iconAfter={<ChevronDownIcon color="currentColor" label="" size="small" />}
 				isHighlighted={isHighlighted}
 				isLoading={isLoading}
 				onClick={onClick}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
@@ -27,7 +27,7 @@ describe('useTrackResultsShown', () => {
 	const setup = () => {
 		const onEvent = jest.fn();
 
-		const renderResult = renderHook<HookProps, unknown>(
+		const renderResult = renderHook<unknown, HookProps>(
 			(props: HookProps) => useTrackResultsShown(props.isLoading, props.items, props.hasSearchTerm),
 			{
 				initialProps: { isLoading: false, items: null, hasSearchTerm: false },

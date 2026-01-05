@@ -1,6 +1,6 @@
 // Ignored via go/ees005
 // eslint-disable-next-line require-await
-export default async (appKey: string) => {
+export default async (appKey: string): Promise<void> => {
 	if (!window.Dropbox) {
 		// The dropbox script is in no way typescript, and is not our code
 		// It attached the `Dropbox` property to window.

@@ -41,19 +41,19 @@ export default class EmojiTypeahead extends LoadingEmojiComponent<Props, Loading
 		super(props, {});
 	}
 
-	selectNext = () => {
+	selectNext = (): void => {
 		if (this.typeAheadRef.current) {
 			this.typeAheadRef.current.selectNext();
 		}
 	};
 
-	selectPrevious = () => {
+	selectPrevious = (): void => {
 		if (this.typeAheadRef.current) {
 			this.typeAheadRef.current.selectPrevious();
 		}
 	};
 
-	chooseCurrentSelection = () => {
+	chooseCurrentSelection = (): void => {
 		if (this.typeAheadRef.current) {
 			this.typeAheadRef.current.chooseCurrentSelection();
 		}
@@ -66,7 +66,7 @@ export default class EmojiTypeahead extends LoadingEmojiComponent<Props, Loading
 		return 0;
 	};
 
-	asyncLoadComponent() {
+	asyncLoadComponent(): void {
 		emojiTypeAheadComponentLoader().then((component) => {
 			EmojiTypeahead.AsyncLoadedComponent = component;
 			this.setAsyncState(component);

@@ -501,7 +501,9 @@ describe('IssueLikeDataTableView', () => {
 				</DatasourceExperienceIdProvider>,
 			);
 
-			await expect(container).toBeAccessible();
+			await waitFor(async () => {
+				await expect(container).toBeAccessible();
+			});
 		});
 
 		it('should display X rows in correct order given the data', async () => {
@@ -536,10 +538,12 @@ describe('IssueLikeDataTableView', () => {
 			});
 
 			const rows = await screen.findAllByTestId(/sometable--row-.+/);
-			expect(rows[0]).toHaveTextContent('id0');
-			expect(rows[1]).toHaveTextContent('');
-			expect(rows[2]).toHaveTextContent('id2');
-			expect(rows[3]).toHaveTextContent('id3');
+			await waitFor(async () => {
+				expect(rows[0]).toHaveTextContent('id0');
+				expect(rows[1]).toHaveTextContent('');
+				expect(rows[2]).toHaveTextContent('id2');
+				expect(rows[3]).toHaveTextContent('id3');
+			});
 		});
 
 		it('should display only selected columns', async () => {
@@ -2648,8 +2652,10 @@ describe('IssueLikeDataTableView', () => {
 						fireEvent.click(priorityCell);
 					});
 
-					expect(findByText('PriorityWithoutId')).rejects.toThrow();
-					expect(findByText('PriorityWithId')).resolves.toBeTruthy();
+					await waitFor(() => {
+						expect(findByText('PriorityWithoutId')).rejects.toThrow();
+						expect(findByText('PriorityWithId')).resolves.toBeTruthy();
+					});
 				});
 			});
 

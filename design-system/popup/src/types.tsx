@@ -118,6 +118,12 @@ export interface PopupComponentProps {
 	shouldFitContainer?: boolean;
 
 	/**
+	 * Determines if the popup will have a `max-width` and `max-height` set to
+	 * constrain it to the viewport.
+	 */
+	shouldFitViewport?: boolean;
+
+	/**
 	 * The "default" appearance is used for standard popups.
 	 * The "UNSAFE_modal-below-sm" appearance makes the popup appear as a modal when the viewport is smaller than "sm".
 	 */

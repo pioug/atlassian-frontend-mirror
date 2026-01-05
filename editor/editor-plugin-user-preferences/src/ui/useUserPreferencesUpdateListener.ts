@@ -8,7 +8,7 @@ import { userPreferencesPluginKey } from '../pm-plugins/main';
 export const useUserPreferencesUpdateListener = (
 	editorView: EditorView,
 	resolvedUserPreferences: ResolvedUserPreferences | null,
-) => {
+): void => {
 	useEffect(() => {
 		if (resolvedUserPreferences) {
 			editorView.dispatch(

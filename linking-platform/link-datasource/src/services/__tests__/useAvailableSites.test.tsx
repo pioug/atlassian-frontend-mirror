@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
@@ -31,18 +31,19 @@ describe('useAvailableSites', () => {
 	});
 
 	it.each(['confluence', 'jira'] as const)('should fetch sites for product %s', async (product) => {
-		const { waitForNextUpdate } = renderHook(() => useAvailableSites(product));
-		await waitForNextUpdate();
+		renderHook(() => useAvailableSites(product));
 
-		expect(getAccessibleProducts).toHaveBeenCalledWith(product);
+		await waitFor(() => {
+			expect(getAccessibleProducts).toHaveBeenCalledWith(product);
+		});
 	});
 
 	it('should sort found sites by displayName', async () => {
-		const { result, waitForNextUpdate } = renderHook(() => useAvailableSites('confluence'));
+		const { result } = renderHook(() => useAvailableSites('confluence'));
 
-		await waitForNextUpdate();
-
-		expect(result.current.availableSites).toStrictEqual([siteB, siteA]);
+		await waitFor(() => {
+			expect(result.current.availableSites).toStrictEqual([siteB, siteA]);
+		});
 	});
 
 	describe('selected site', () => {
@@ -55,51 +56,53 @@ describe('useAvailableSites', () => {
 
 			asMock(getAccessibleProducts).mockResolvedValue([siteB, siteA, siteC]);
 
-			const { result, waitForNextUpdate } = renderHook(() => useAvailableSites('confluence'));
+			const { result } = renderHook(() => useAvailableSites('confluence'));
 
-			await waitForNextUpdate();
-
-			expect(result.current.availableSites).toStrictEqual([siteB, siteA, siteC]);
-			expect(result.current.selectedSite).toStrictEqual(siteC);
+			await waitFor(() => {
+				expect(result.current.availableSites).toStrictEqual([siteB, siteA, siteC]);
+				expect(result.current.selectedSite).toStrictEqual(siteC);
+			});
 		});
 
 		it('should be first site when no cloud id if none match current location', async () => {
-			const { result, waitForNextUpdate } = renderHook(() => useAvailableSites('confluence'));
+			const { result } = renderHook(() => useAvailableSites('confluence'));
 
-			await waitForNextUpdate();
-
-			expect(result.current.availableSites).toStrictEqual([siteB, siteA]);
-			expect(result.current.selectedSite).toStrictEqual(siteB);
+			await waitFor(() => {
+				expect(result.current.availableSites).toStrictEqual([siteB, siteA]);
+				expect(result.current.selectedSite).toStrictEqual(siteB);
+			});
 		});
 
 		it('should be matching site when cloud id found', async () => {
-			const { result, waitForNextUpdate } = renderHook(() =>
+			const { result } = renderHook(() =>
 				useAvailableSites('confluence', siteA.cloudId),
 			);
 
-			await waitForNextUpdate();
-
-			expect(result.current.availableSites).toStrictEqual([siteB, siteA]);
-			expect(result.current.selectedSite).toStrictEqual(siteA);
+			await waitFor(() => {
+				expect(result.current.availableSites).toStrictEqual([siteB, siteA]);
+				expect(result.current.selectedSite).toStrictEqual(siteA);
+			});
 		});
 
 		it('should return correct site when cloud id changes', async () => {
-			const { result, waitForNextUpdate, rerender } = renderHook(
+			const { result, rerender } = renderHook(
 				(props: Parameters<typeof useAvailableSites>) => useAvailableSites(...props),
 				{
 					initialProps: ['confluence', siteA.cloudId],
 				},
 			);
 
-			await waitForNextUpdate();
-
-			expect(result.current.availableSites).toStrictEqual([siteB, siteA]);
-			expect(result.current.selectedSite).toStrictEqual(siteA);
+			await waitFor(() => {
+				expect(result.current.availableSites).toStrictEqual([siteB, siteA]);
+				expect(result.current.selectedSite).toStrictEqual(siteA);
+			});
 
 			rerender(['confluence', siteB.cloudId]);
 
-			expect(result.current.availableSites).toStrictEqual([siteB, siteA]);
-			expect(result.current.selectedSite).toStrictEqual(siteB);
+			await waitFor(() => {
+				expect(result.current.availableSites).toStrictEqual([siteB, siteA]);
+				expect(result.current.selectedSite).toStrictEqual(siteB);
+			});
 		});
 	});
 });

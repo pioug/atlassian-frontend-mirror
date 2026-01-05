@@ -1,7 +1,6 @@
 import React, { forwardRef, type Ref } from 'react';
 
-import Nav4AppSwitcherIcon from '@atlaskit/icon/core/app-switcher';
-import AppSwitcherIcon from '@atlaskit/icon/core/migration/app-switcher';
+import AppSwitcherIcon from '@atlaskit/icon/core/app-switcher';
 import { token } from '@atlaskit/tokens';
 
 import { IconButton } from '../IconButton';
@@ -99,7 +98,7 @@ export const AppSwitcherNav4: React.ForwardRefExoticComponent<
 	return (
 		<IconButton
 			icon={
-				<Nav4AppSwitcherIcon
+				<AppSwitcherIcon
 					label={typeof tooltip === 'string' ? tooltip : 'Switch apps'}
 					color={token('color.icon')}
 				/>

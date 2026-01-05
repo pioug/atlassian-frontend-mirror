@@ -89,18 +89,18 @@ export class PeriodTracking {
 		this.setupActiveStartInteractionListeners();
 	}
 
-	startFeature(featureName: string) {
+	startFeature(featureName: string): void {
 		this.latestPeriodFeatures.add(featureName);
 		this.periodMeasurements[this.state].features.add(featureName);
 	}
 
-	startHeavyTask(heavyTaskName: string) {
+	startHeavyTask(heavyTaskName: string): void {
 		this.latestHeavyTasks.add(heavyTaskName);
 		this.periodMeasurements[this.state].heavyTasks.add(heavyTaskName);
 		this.pause(heavyTaskName);
 	}
 
-	endHeavyTask(heavyTaskName: string) {
+	endHeavyTask(heavyTaskName: string): void {
 		this.resume(heavyTaskName);
 	}
 
@@ -108,7 +108,7 @@ export class PeriodTracking {
 	 * Sets a pause based on a key.  If this is the first pause, then it will also halt
 	 * running interactivity measures, and update the current measurements duration.
 	 */
-	pause(pauseName: string) {
+	pause(pauseName: string): void {
 		if (this.pauses.size === 0) {
 			this.periodMeasurements[this.state].duration =
 				this.periodMeasurements[this.state].duration +
@@ -127,7 +127,7 @@ export class PeriodTracking {
 	 * **NOTE**: The session will only resume if this was the only
 	 * currently tracked pause key.
 	 */
-	resume(pauseName: string) {
+	resume(pauseName: string): void {
 		this.pauses.delete(pauseName);
 
 		if (this.pauses.size === 0) {

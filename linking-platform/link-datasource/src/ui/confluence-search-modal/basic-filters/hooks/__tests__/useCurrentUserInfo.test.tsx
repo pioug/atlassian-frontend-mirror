@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import {
@@ -30,58 +30,58 @@ describe('Testing: useCurrentUserInfo', () => {
 			<IntlProvider locale="en">{children}</IntlProvider>
 		);
 
-		const { result, waitForNextUpdate, rerender } = renderHook(() => useCurrentUserInfo(), {
+		const { result, rerender } = renderHook(() => useCurrentUserInfo(), {
 			wrapper,
 		});
 
 		return {
 			getCurrentUserInfo,
 			result,
-			waitForNextUpdate,
 			rerender,
 		};
 	};
 
 	it('Should set user state correctly when success is received from AGG', async () => {
-		const { result, waitForNextUpdate } = setup({
+		const { result } = setup({
 			mockAggResponse: successfulUserQueryResponse,
 		});
 
-		await waitForNextUpdate();
-
-		expect(result.current.user).toEqual({
-			accountId: '70121:97052100-1513-42bc-a2f0-d77e71f0b7eb',
-			id: 'ari:cloud:identity::user/70121:97052100-1513-42bc-a2f0-d77e71f0b7eb',
+		await waitFor(() => {
+			expect(result.current.user).toEqual({
+				accountId: '70121:97052100-1513-42bc-a2f0-d77e71f0b7eb',
+				id: 'ari:cloud:identity::user/70121:97052100-1513-42bc-a2f0-d77e71f0b7eb',
+			});
 		});
 	});
 
 	// undefined is the default value so state will not be updated for error on initial render
 	// We set user to another value to test that the hook manually unsets user for error response
 	it('Should set user state to undefined when error is received from AGG', async () => {
-		const { result, waitForNextUpdate, getCurrentUserInfo } = setup({
+		const { result, getCurrentUserInfo } = setup({
 			mockAggResponse: successfulUserQueryResponse,
 		});
 
-		await waitForNextUpdate();
-		expect(result.current.user).toEqual({
-			accountId: '70121:97052100-1513-42bc-a2f0-d77e71f0b7eb',
-			id: 'ari:cloud:identity::user/70121:97052100-1513-42bc-a2f0-d77e71f0b7eb',
+		await waitFor(() => {
+			expect(result.current.user).toEqual({
+				accountId: '70121:97052100-1513-42bc-a2f0-d77e71f0b7eb',
+				id: 'ari:cloud:identity::user/70121:97052100-1513-42bc-a2f0-d77e71f0b7eb',
+			});
 		});
 
 		getCurrentUserInfo.mockResolvedValue(failedUserQueryResponse);
 		result.current.getCurrentUserInfo();
 
-		await waitForNextUpdate();
-
-		expect(result.current.user).toEqual(undefined);
+		await waitFor(() => {
+			expect(result.current.user).toEqual(undefined);
+		});
 	});
 
 	it('Should call AGG for user info when hook is rendered', async () => {
-		const { getCurrentUserInfo, waitForNextUpdate } = setup({
+		const { getCurrentUserInfo } = setup({
 			mockAggResponse: successfulUserQueryResponse,
 		});
-		await waitForNextUpdate();
-
-		expect(getCurrentUserInfo).toHaveBeenCalled();
+		await waitFor(() => {
+			expect(getCurrentUserInfo).toHaveBeenCalled();
+		});
 	});
 });

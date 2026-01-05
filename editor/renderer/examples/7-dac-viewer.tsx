@@ -85,7 +85,7 @@ export default class Example extends PureComponent<{}, State> {
 		return <Renderer document={json} dataProviders={providerFactory} />;
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.setState({ fetchingSchema: true });
 
 		fetch('https://unpkg.com/@atlaskit/adf-schema@latest/dist/json-schema/v1/full.json')

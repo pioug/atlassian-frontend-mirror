@@ -14,7 +14,7 @@ export default class JSONSchemaNode {
 		this.root = root;
 	}
 
-	addDefinition(name: string, definition: SchemaNode) {
+	addDefinition(name: string, definition: SchemaNode): void {
 		this.definitions.set(name, { node: definition, used: false });
 	}
 
@@ -31,11 +31,11 @@ export default class JSONSchemaNode {
 		}
 	}
 
-	markAsUsed(name: string) {
+	markAsUsed(name: string): void {
 		this.updateUsed(name, true);
 	}
 
-	markAsUnused(name: string) {
+	markAsUnused(name: string): void {
 		this.updateUsed(name, false);
 	}
 

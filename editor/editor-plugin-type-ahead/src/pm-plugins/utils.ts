@@ -157,7 +157,7 @@ type MoveSelectedIndexProps = {
 };
 export const moveSelectedIndex =
 	({ editorView, direction, api }: MoveSelectedIndexProps) =>
-	() => {
+	(): void => {
 		const typeAheadState = getPluginState(editorView.state);
 		if (!typeAheadState) {
 			return;

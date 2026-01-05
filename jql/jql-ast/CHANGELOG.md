@@ -1,5 +1,12 @@
 # @atlaskit/jql-ast
 
+## 3.3.3
+
+### Patch Changes
+
+- [`c78aa23845aee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c78aa23845aee) -
+  PTC-14519: Add analyrics for distinguishing groups and team in membersOf JQL query
+
 ## 3.3.2
 
 ### Patch Changes

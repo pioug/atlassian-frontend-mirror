@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 216.1.4
+
+### Patch Changes
+
+- [`c4a774ad462fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4a774ad462fb) -
+  EDITOR-2477 Clean up remaining usages of `platform_editor_use_nested_table_pm_nodes` which are no
+  longer needed now that `isNestedTablesSupported` is fully rolled out.
+- Updated dependencies
+
+## 216.1.3
+
+### Patch Changes
+
+- [`a9253bac47c43`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9253bac47c43) -
+  [ux] EDITOR-4208 Add background colour to pinned toolbar
+- Updated dependencies
+
 ## 216.1.2
 
 ### Patch Changes

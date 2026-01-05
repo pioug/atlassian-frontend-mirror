@@ -16,7 +16,7 @@ export const generateUuid = () =>
 let staticValue: string | false = false;
 
 export const uuid = {
-	setStatic(value: string | false) {
+	setStatic(value: string | false): void {
 		staticValue = value;
 	},
 

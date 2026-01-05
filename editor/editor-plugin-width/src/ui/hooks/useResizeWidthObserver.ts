@@ -7,7 +7,7 @@ import { pluginKey } from '../../pm-plugins/plugin-key';
 
 import { useRefreshWidthOnTransition } from './useRefreshOnTransition';
 
-export const setEditorWidth = (props: Partial<WidthPluginState>) => (editorView: EditorView) => {
+export const setEditorWidth = (props: Partial<WidthPluginState>) => (editorView: EditorView): void => {
 	const {
 		dispatch,
 		state: { tr },
@@ -30,7 +30,7 @@ export function useResizeWidthObserver({
 }: {
 	containerElement: HTMLElement | null;
 	editorView: EditorView;
-}) {
+}): void {
 	useRefreshWidthOnTransition(containerElement);
 
 	useEffect(() => {
@@ -71,7 +71,7 @@ export const useResizeWidthObserverLegacy = ({
 }: {
 	containerElement: HTMLElement | null;
 	editorView: EditorView;
-}) => {
+}): void => {
 	useRefreshWidthOnTransition(containerElement);
 
 	useEffect(() => {

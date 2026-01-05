@@ -53,7 +53,7 @@ export class INSM {
 	 * For PageLoads using the key 'PageLoad' will mean the heavy task duration
 	 * is added to the insm session event as pageLoadTime.
 	 */
-	startHeavyTask(heavyTaskName: string) {
+	startHeavyTask(heavyTaskName: string): void {
 		this.runningHeavyTasks.add(heavyTaskName);
 		this.runningSession?.periodTracking?.startHeavyTask(heavyTaskName);
 		this.runningSession?.periodTracking.pause(heavyTaskName);
@@ -63,7 +63,7 @@ export class INSM {
 	/**
 	 * Ends a heavy task in the currently running session
 	 */
-	endHeavyTask(heavyTaskName: string) {
+	endHeavyTask(heavyTaskName: string): void {
 		this.runningHeavyTasks.delete(heavyTaskName);
 		this.runningSession?.periodTracking.resume(heavyTaskName);
 
@@ -97,7 +97,7 @@ export class INSM {
 	 * insm.session.endHeavyTask('PageLoad')
 	 * ```
 	 */
-	start(experienceKey: string, experienceProperties: ExperienceProperties) {
+	start(experienceKey: string, experienceProperties: ExperienceProperties): void {
 		if (this.runningSession !== undefined) {
 			this.runningSession.end({
 				stoppedBy: 'new-experience',
@@ -118,7 +118,7 @@ export class INSM {
 	 * In the case it's been started with an unregistered name, and there is not running
 	 * session. This will also trigger the session being started.
 	 */
-	overrideExperienceKey(experienceKey: string) {
+	overrideExperienceKey(experienceKey: string): void {
 		if (this.runningSession !== undefined) {
 			// If there is a running session - we update its name
 			this.runningSession.updateExperienceKey(experienceKey);
@@ -141,7 +141,7 @@ export class INSM {
 	 * This prematurely halts any running experience measurement. It's expected to be used in
 	 * scenarios such as when error boundaries are hit.
 	 */
-	stopEarly(reasonKey: string, description: string) {
+	stopEarly(reasonKey: string, description: string): void {
 		this.runningSession?.earlyStop(reasonKey, description);
 	}
 

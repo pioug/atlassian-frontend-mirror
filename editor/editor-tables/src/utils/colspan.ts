@@ -18,7 +18,7 @@ export function removeColSpan(attrs: CellAttributes, pos: number, n = 1): CellAt
 	return result;
 }
 
-export function assertColspan(attrs: CellAttributes) {
+export function assertColspan(attrs: CellAttributes): void {
 	if (typeof attrs.colspan === 'undefined') {
 		throw new Error('addColSpan: attrs.colspan is not defined');
 	}

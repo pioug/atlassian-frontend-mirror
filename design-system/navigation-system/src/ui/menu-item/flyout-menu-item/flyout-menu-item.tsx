@@ -2,6 +2,7 @@ import React, { forwardRef, type ReactNode, useEffect } from 'react';
 
 import useControlled from '@atlaskit/ds-lib/use-controlled';
 import usePreviousValue from '@atlaskit/ds-lib/use-previous-value';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Popup } from '@atlaskit/popup/experimental';
 
 import { MenuListItem } from '../menu-list-item';
@@ -89,7 +90,11 @@ export const FlyoutMenuItem: React.ForwardRefExoticComponent<
 			<IsOpenContext.Provider value={isOpen}>
 				<SetIsOpenContext.Provider value={setIsOpen}>
 					<MenuListItem ref={forwardedRef}>
-						<Popup id={id} isOpen={isOpen}>
+						<Popup
+							id={id}
+							isOpen={isOpen}
+							role={fg('platform_dst_nav4_flyout_menu_slots_close_button') ? 'dialog' : undefined}
+						>
 							{children}
 						</Popup>
 					</MenuListItem>

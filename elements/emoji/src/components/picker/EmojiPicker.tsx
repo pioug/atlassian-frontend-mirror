@@ -43,7 +43,7 @@ const emojiPickerLoader: () => Promise<
 	React.ComponentType<React.PropsWithChildren<ComponentProps>>
 > = () => emojiPickerModuleLoader().then((module) => module.default);
 
-export const preloadEmojiPicker = () => {
+export const preloadEmojiPicker = (): void => {
 	emojiPickerLoader().then((component) => {
 		EmojiPickerInternal.AsyncLoadedComponent = component;
 	});
@@ -89,7 +89,7 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
 		ufoExperiences['emoji-picker-opened'].start();
 	}
 
-	asyncLoadComponent() {
+	asyncLoadComponent(): void {
 		emojiPickerLoader().then((component) => {
 			EmojiPickerInternal.AsyncLoadedComponent = component;
 			this.setAsyncState(component);

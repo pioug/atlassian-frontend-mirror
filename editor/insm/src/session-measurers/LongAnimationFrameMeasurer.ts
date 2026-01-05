@@ -130,14 +130,14 @@ export class LongAnimationFrameMeasurer {
 	/**
 	 * Pauses tracking
 	 */
-	pause() {
+	pause(): void {
 		this.paused = true;
 	}
 
 	/**
 	 * Resumes tracking
 	 */
-	resume() {
+	resume(): void {
 		this.paused = false;
 	}
 
@@ -154,7 +154,7 @@ export class LongAnimationFrameMeasurer {
 	/**
 	 * Cleans up the performance tracking (tracking cannot be resumed following this).
 	 */
-	cleanup() {
+	cleanup(): void {
 		this.observer?.disconnect();
 	}
 }

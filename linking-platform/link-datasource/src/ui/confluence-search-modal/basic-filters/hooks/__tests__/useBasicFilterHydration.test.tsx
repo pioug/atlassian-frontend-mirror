@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { asMock } from '@atlaskit/link-test-helpers/jest';
@@ -23,12 +23,11 @@ const setup = (mockFn: () => void = () => mockUserHydrationResponse) => {
 		getUsersFromAccountIDs: mockFn,
 	});
 
-	const { result, waitForNextUpdate, rerender } = renderHook(() => useBasicFilterHydration(), {
+	const { result, rerender } = renderHook(() => useBasicFilterHydration(), {
 		wrapper,
 	});
 	return {
 		result,
-		waitForNextUpdate,
 		rerender,
 	};
 };
@@ -52,26 +51,35 @@ describe('TESTING: useBasicFilterHydration hook', () => {
 	it('should should set the status as "loading" when hydrateUsersFromAccountIds is called and waiting for results', async () => {
 		const { result } = setup();
 
-		act(async () => {
-			await result.current.hydrateUsersFromAccountIds([]);
+		act(() => {
+			result.current.hydrateUsersFromAccountIds([]);
 		});
-
-		expect(result.current).toEqual({
-			hydrateUsersFromAccountIds: expect.any(Function),
-			reset: expect.any(Function),
-			status: 'loading',
-			users: [],
+		
+		await waitFor(() => {
+			expect(result.current).toEqual({
+				hydrateUsersFromAccountIds: expect.any(Function),
+				reset: expect.any(Function),
+				status: 'loading',
+				users: [],
+			});
 		});
 	});
 
 	it('should should return correct data when API request is resolved', async () => {
-		const { result, waitForNextUpdate } = setup();
+		const { result } = setup();
 
-		act(async () => {
-			await result.current.hydrateUsersFromAccountIds([]);
+		await act(async () => {
+			result.current.hydrateUsersFromAccountIds([]);
 		});
 
-		await waitForNextUpdate();
+		await waitFor(() => {
+			expect(result.current).toEqual({
+				hydrateUsersFromAccountIds: expect.any(Function),
+				reset: expect.any(Function),
+				status: 'resolved',
+				users: mockTransformedUserHydrationResponse,
+			});
+		});
 
 		expect(result.current).toEqual({
 			hydrateUsersFromAccountIds: expect.any(Function),
@@ -82,23 +90,23 @@ describe('TESTING: useBasicFilterHydration hook', () => {
 	});
 
 	it('should reset hook state when reset() is called', async () => {
-		const { result, waitForNextUpdate } = setup();
+		const { result } = setup();
 
-		act(async () => {
-			await result.current.hydrateUsersFromAccountIds([]);
+		await act(async () => {
+			result.current.hydrateUsersFromAccountIds([]);
 		});
 
-		await waitForNextUpdate();
-
-		expect(result.current).toEqual({
-			hydrateUsersFromAccountIds: expect.any(Function),
-			reset: expect.any(Function),
-			status: 'resolved',
-			users: mockTransformedUserHydrationResponse,
+		await waitFor(() => {
+			expect(result.current).toEqual({
+				hydrateUsersFromAccountIds: expect.any(Function),
+				reset: expect.any(Function),
+				status: 'resolved',
+				users: mockTransformedUserHydrationResponse,
+			});
 		});
 
-		act(async () => {
-			await result.current.reset();
+		await act(async () => {
+			result.current.reset();
 		});
 
 		expect(result.current).toEqual({
@@ -110,23 +118,23 @@ describe('TESTING: useBasicFilterHydration hook', () => {
 	});
 
 	it('should should set status as "rejected" when API request fails', async () => {
-		const { result, waitForNextUpdate } = setup(() => {
+		const { result } = setup(() => {
 			return {
 				errors: [{}],
 			};
 		});
 
-		act(async () => {
-			await result.current.hydrateUsersFromAccountIds([]);
+		await act(async () => {
+			result.current.hydrateUsersFromAccountIds([]);
 		});
 
-		await waitForNextUpdate();
-
-		expect(result.current).toEqual({
-			hydrateUsersFromAccountIds: expect.any(Function),
-			reset: expect.any(Function),
-			status: 'rejected',
-			users: [],
+		await waitFor(() => {
+			expect(result.current).toEqual({
+				hydrateUsersFromAccountIds: expect.any(Function),
+				reset: expect.any(Function),
+				status: 'rejected',
+				users: [],
+			});
 		});
 	});
 });

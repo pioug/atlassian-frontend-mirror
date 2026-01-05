@@ -18,7 +18,6 @@ import { unwrapLayoutStep } from './steps/unwrapLayoutStep';
 import { unwrapListStep } from './steps/unwrapListStep';
 import { wrapBlockquoteToDecisionListStep } from './steps/wrapBlockquoteToDecisionListStep';
 import { wrapMixedContentStep } from './steps/wrapMixedContentStep';
-import { wrapTextToCodeblockStep } from './steps/wrapTextToCodeblock';
 import type { NodeCategory, NodeTypeName, TransformStepContext, TransformStep } from './types';
 import { getNodeName, NODE_CATEGORY_BY_TYPE, toNodeTypeValue } from './types';
 import { unwrapExpandStep } from './unwrapExpandStep';
@@ -39,7 +38,7 @@ const TRANSFORM_STEPS: Record<NodeCategory, Record<NodeCategory, TransformStep[]
 		atomic: undefined,
 		container: [unwrapStep, wrapStep],
 		list: undefined,
-		text: [unwrapStep, applyTargetTextTypeStep],
+		text: [unwrapStep],
 		multi: undefined,
 	},
 	list: {
@@ -73,17 +72,12 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 > = {
 	paragraph: {
 		paragraph: null,
-		codeBlock: [wrapTextToCodeblockStep],
-		layoutSection: [wrapMixedContentStep],
 	},
-	heading: {
-		codeBlock: [wrapTextToCodeblockStep],
-		layoutSection: [wrapMixedContentStep],
-	},
+	heading: {},
 	panel: {
 		panel: null,
 		layoutSection: [unwrapStep, wrapMixedContentStep],
-		codeBlock: [unwrapStep, flattenStep, wrapStep],
+		codeBlock: [unwrapStep, wrapMixedContentStep],
 		blockquote: [unwrapStep, wrapMixedContentStep],
 		taskList: null,
 		bulletList: null,
@@ -115,6 +109,8 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		layoutSection: [wrapMixedContentStep],
 		codeBlock: null,
 		decisionList: [unwrapStep, wrapBlockquoteToDecisionListStep],
+		paragraph: [unwrapStep],
+		heading: [unwrapStep, applyTargetTextTypeStep],
 	},
 	layoutSection: {
 		layoutSection: null,
@@ -132,6 +128,7 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		nestedExpand: [wrapStep],
 		layoutSection: [wrapMixedContentStep],
 		panel: [wrapStep],
+		paragraph: [applyTargetTextTypeStep],
 		heading: null,
 	},
 	bulletList: {
@@ -186,6 +183,8 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		orderedList: [decisionListToListStep],
 		taskList: [decisionListToListStep],
 		layoutSection: [wrapMixedContentStep],
+		blockquote: [unwrapListStep, wrapStep],
+		codeBlock: [unwrapListStep, wrapMixedContentStep],
 	},
 	blockCard: {
 		layoutSection: [wrapMixedContentStep],
@@ -226,10 +225,11 @@ const TRANSFORM_STEPS_OVERRIDE: Partial<
 		decisionList: null,
 	},
 	multi: {
-		// TODO: EDITOR-4140 - Implement multiple paragraphs/headings/codeblocks to heading transform
-		heading: null,
-		// TODO: EDITOR-4141 - Implement multiple codeblocks/headings to paragraph transform
-		paragraph: null,
+		heading: [applyTargetTextTypeStep],
+		// Similar to heading, all structures are kept as is
+		// EG: transformed: other lists, paragarph, headings
+		// eg: not-transformed: quotes, codeblocks ... all typeof 'containers'
+		// decisionList: [],
 	},
 };
 

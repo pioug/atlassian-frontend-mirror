@@ -35,7 +35,7 @@ export default abstract class LoadingEmojiComponent<
 		this.loadEmojiProvider(this.props.emojiProvider);
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		// check for the module has not yet been loaded
 		// state.asyncLoadedComponent should be initialised
 		// with static field to prevent unnecessary rerender
@@ -44,13 +44,13 @@ export default abstract class LoadingEmojiComponent<
 		}
 	}
 
-	componentDidUpdate(prevProps: Readonly<P>) {
+	componentDidUpdate(prevProps: Readonly<P>): void {
 		if (this.props !== prevProps) {
 			this.loadEmojiProvider(this.props.emojiProvider);
 		}
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.isUnmounted = true;
 	}
 
@@ -83,7 +83,7 @@ export default abstract class LoadingEmojiComponent<
 
 	abstract asyncLoadComponent(): void;
 
-	protected setAsyncState(asyncLoadedComponent: ComponentType<React.PropsWithChildren<any>>) {
+	protected setAsyncState(asyncLoadedComponent: ComponentType<React.PropsWithChildren<any>>): void {
 		if (!this.isUnmounted) {
 			this.setState({ asyncLoadedComponent });
 		}

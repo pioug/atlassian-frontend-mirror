@@ -1,7 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 
 import ModalDialog, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../constants';
@@ -46,10 +45,6 @@ const EmbedModal = ({
 	const [isOpen, setIsOpen] = useState(showModal);
 	const [width, setWidth] = useState(defaultWidth);
 	const openAt = useRef<number>();
-	const focusRef = fg('platform_navx_sl_a11y_embed_modal')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useRef<HTMLHeadingElement>(null)
-		: undefined;
 
 	const invoke = useInvokeClientAction({ fireEvent });
 
@@ -97,7 +92,6 @@ const EmbedModal = ({
 		<ModalTransition>
 			{isOpen && (
 				<ModalDialog
-					{...(fg('platform_navx_sl_a11y_embed_modal') ? { autoFocus: focusRef } : undefined)}
 					height="100%"
 					onClose={handleOnClose}
 					onCloseComplete={handleOnCloseComplete}
@@ -114,7 +108,6 @@ const EmbedModal = ({
 								isFlexibleUi: true,
 							}
 						}
-						{...(fg('platform_navx_sl_a11y_embed_modal') ? { focusRef } : undefined)}
 						providerName={providerName}
 						onViewButtonClick={invokeViewAction ? handleOnViewActionClick : undefined}
 						onDownloadButtonClick={invokeDownloadAction ? handleOnDownloadActionClick : undefined}

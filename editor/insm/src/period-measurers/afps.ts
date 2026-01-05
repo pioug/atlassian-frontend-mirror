@@ -18,11 +18,11 @@ export class AnimationFPSIM implements PeriodMeasurer {
 		return result;
 	}
 
-	pause() {
+	pause(): void {
 		this.monitor.pause();
 	}
 
-	resume() {
+	resume(): void {
 		this.monitor.resume();
 	}
 }
@@ -147,7 +147,7 @@ class AnimationFPSMonitor {
 		}
 	}
 
-	pause() {
+	pause(): void {
 		// Note - we leave the tracking animationFrame monitoring running, and on resume
 		// simply set the currentFrameStart and paused to true
 		// This works because the tracking builds windows of tracked time rather than
@@ -155,7 +155,7 @@ class AnimationFPSMonitor {
 		this.paused = true;
 	}
 
-	resume() {
+	resume(): void {
 		// Note - We don't need to handle the gap in measurement - as the raf logic builds/increments a window time
 		// based on the currentFrameStart (and any previous measurements which can only happen while the tracking
 		// is not paused).

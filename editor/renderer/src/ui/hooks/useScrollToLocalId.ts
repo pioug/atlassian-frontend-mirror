@@ -40,7 +40,7 @@ const getLocalIdSelector = (localId: string, container: HTMLElement) => {
 export const useScrollToLocalId = (
 	containerRef?: React.RefObject<HTMLDivElement>,
 	shouldScrollToLocalId?: boolean,
-) => {
+): void => {
 	useEffect(() => {
 		// Only run in browser environment
 		if (typeof window === 'undefined' || !containerRef?.current || !shouldScrollToLocalId) {

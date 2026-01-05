@@ -67,8 +67,14 @@ export const transformNode: (
 			preservedSelection instanceof NodeSelection &&
 			preservedSelection.node.type === nodes.mediaSingle
 		) {
-			tr.deleteRange($from.pos, $to.pos);
-			tr.insert($from.pos, content);
+			// when node is media single, use tr.replaceWith freeze editor, if modify position, tr.replaceWith creates duplicats
+			const deleteFrom = $from.pos;
+			const deleteTo = $to.pos;
+			tr.delete(deleteFrom, deleteTo);
+			// After deletion, recalculate the insertion position to ensure it's valid
+			// especially when mediaSingle with caption is at the bottom of the document
+			const insertPos = Math.min(deleteFrom, tr.doc.content.size);
+			tr.insert(insertPos, content);
 		} else {
 			tr.replaceWith(sliceStart, $to.pos, content);
 		}

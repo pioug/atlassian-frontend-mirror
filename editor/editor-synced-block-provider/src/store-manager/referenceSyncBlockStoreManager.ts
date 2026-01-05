@@ -77,7 +77,7 @@ export class ReferenceSyncBlockStoreManager {
 
 	public updateFireAnalyticsEvent(
 		fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
-	) {
+	): void {
 		this.fireAnalyticsEvent = fireAnalyticsEvent;
 	}
 
@@ -92,7 +92,7 @@ export class ReferenceSyncBlockStoreManager {
 	 * Refreshes the subscriptions for all sync blocks.
 	 * @returns {Promise<void>}
 	 */
-	public async refreshSubscriptions() {
+	public async refreshSubscriptions(): Promise<void> {
 		if (this.isRefreshingSubscriptions) {
 			return;
 		}

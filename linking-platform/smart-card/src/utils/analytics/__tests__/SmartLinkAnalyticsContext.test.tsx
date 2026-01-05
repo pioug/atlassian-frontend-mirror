@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { render } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
+import { render, renderHook } from '@testing-library/react';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';

@@ -19,10 +19,10 @@ export class StatsModifier implements TypeAheadStatsModifier {
 		};
 	}
 
-	increaseArrowUp = () => {
+	increaseArrowUp = (): void => {
 		this.keyCount.arrowUp += 1;
 	};
-	increaseArrowDown = () => {
+	increaseArrowDown = (): void => {
 		this.keyCount.arrowDown += 1;
 	};
 

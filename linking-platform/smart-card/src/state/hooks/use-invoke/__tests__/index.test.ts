@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import * as jestExtendedMatchers from 'jest-extended';
 
 import { useSmartLinkClientExtension } from '@atlaskit/link-client-extension';

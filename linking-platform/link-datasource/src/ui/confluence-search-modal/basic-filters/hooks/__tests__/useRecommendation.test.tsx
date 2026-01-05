@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import {
@@ -100,13 +100,12 @@ describe('Testing: useRecommendation', () => {
 			<IntlProvider locale="en">{children}</IntlProvider>
 		);
 
-		const { result, waitForNextUpdate, rerender } = renderHook(() => useRecommendation(), {
+		const { result, rerender } = renderHook(() => useRecommendation(), {
 			wrapper,
 		});
 		return {
 			getUserRecommendations,
 			result,
-			waitForNextUpdate,
 			rerender,
 		};
 	};
@@ -132,7 +131,7 @@ describe('Testing: useRecommendation', () => {
 	});
 
 	it('should call getUserRecommendations with correct parameters for initial values', async () => {
-		const { result, waitForNextUpdate } = setup({
+		const { result } = setup({
 			mockUserRecommendations: successfulRecommendationAPIResponse.recommendedUsers,
 		});
 
@@ -140,27 +139,23 @@ describe('Testing: useRecommendation', () => {
 			result.current.fetchFilterOptions(mockFetchFilterOptionsProps());
 		});
 
-		await waitForNextUpdate();
-
-		expect(getUserRecommendations).toHaveBeenCalledWith(expectedRequestParams(), expect.anything());
+		await waitFor(() => {
+			expect(getUserRecommendations).toHaveBeenCalledWith(expectedRequestParams(), expect.anything());
+		});
 	});
 
 	it('should call getUserRecommendations with correct parameters with search after initial values', async () => {
-		const { result, waitForNextUpdate } = setup({
+		const { result } = setup({
 			mockUserRecommendations: successfulRecommendationAPIResponse.recommendedUsers,
 		});
 
 		act(() => {
 			result.current.fetchFilterOptions(mockFetchFilterOptionsProps());
 		});
-
-		await waitForNextUpdate();
 
 		act(() => {
 			result.current.fetchFilterOptions(mockFetchFilterOptionsProps('SOME_SEARCH_TERM'));
 		});
-
-		await waitForNextUpdate();
 
 		expect(getUserRecommendations).toHaveBeenLastCalledWith(
 			expectedRequestParams('SOME_SEARCH_TERM'),
@@ -169,7 +164,7 @@ describe('Testing: useRecommendation', () => {
 	});
 
 	it('should set correct state after fetchFilterOptions is called for initial values', async () => {
-		const { result, waitForNextUpdate } = setup({
+		const { result } = setup({
 			mockUserRecommendations: successfulRecommendationAPIResponse.recommendedUsers,
 		});
 
@@ -177,19 +172,20 @@ describe('Testing: useRecommendation', () => {
 			result.current.fetchFilterOptions(mockFetchFilterOptionsProps());
 		});
 
-		await waitForNextUpdate();
 
-		expect(result.current).toEqual({
-			filterOptions: transformedRecommendationMockFilterOptions,
-			reset: expect.any(Function),
-			status: 'resolved',
-			errors: [],
-			fetchFilterOptions: expect.any(Function),
+		await waitFor(() => {
+			expect(result.current).toEqual({
+				filterOptions: transformedRecommendationMockFilterOptions,
+				reset: expect.any(Function),
+				status: 'resolved',
+				errors: [],
+				fetchFilterOptions: expect.any(Function),
+			});
 		});
 	});
 
 	it('should set different correct state with search term after intial values have been set', async () => {
-		const { result, waitForNextUpdate } = setup({
+		const { result } = setup({
 			mockUserRecommendations: successfulRecommendationAPIResponse.recommendedUsers,
 		});
 
@@ -197,8 +193,9 @@ describe('Testing: useRecommendation', () => {
 			result.current.fetchFilterOptions(mockFetchFilterOptionsProps());
 		});
 
-		await waitForNextUpdate();
-		expect(result.current).toEqual(initialValuesHookState);
+		await waitFor(() => {
+			expect(result.current).toEqual(initialValuesHookState);
+		});
 
 		(getUserRecommendations as jest.Mock).mockReturnValue(
 			differentSuccessfulAPIResponse.recommendedUsers,
@@ -208,19 +205,19 @@ describe('Testing: useRecommendation', () => {
 			result.current.fetchFilterOptions(mockFetchFilterOptionsProps('SOME_SEARCH_TERM'));
 		});
 
-		await waitForNextUpdate();
-
-		expect(result.current).toEqual({
-			filterOptions: differentTransformedFilterOptions,
-			reset: expect.any(Function),
-			status: 'resolved',
-			errors: [],
-			fetchFilterOptions: expect.any(Function),
+		await waitFor(() => {
+			expect(result.current).toEqual({
+				filterOptions: differentTransformedFilterOptions,
+				reset: expect.any(Function),
+				status: 'resolved',
+				errors: [],
+				fetchFilterOptions: expect.any(Function),
+			});
 		});
 	});
 
 	it('should not call API if initial data exists searched again with no search term supplied', async () => {
-		const { result, waitForNextUpdate } = setup({
+		const { result } = setup({
 			mockUserRecommendations: successfulRecommendationAPIResponse.recommendedUsers,
 		});
 
@@ -228,9 +225,9 @@ describe('Testing: useRecommendation', () => {
 			result.current.fetchFilterOptions(mockFetchFilterOptionsProps());
 		});
 
-		await waitForNextUpdate();
-
-		expect(result.current).toEqual(initialValuesHookState);
+		await waitFor(() => {
+			expect(result.current).toEqual(initialValuesHookState);
+		});
 
 		jest.resetAllMocks();
 		act(() => {
@@ -242,7 +239,7 @@ describe('Testing: useRecommendation', () => {
 	});
 
 	it('should call API if initial data was set and then the reset method was called', async () => {
-		const { result, waitForNextUpdate } = setup({
+		const { result } = setup({
 			mockUserRecommendations: successfulRecommendationAPIResponse.recommendedUsers,
 		});
 
@@ -250,9 +247,9 @@ describe('Testing: useRecommendation', () => {
 			result.current.fetchFilterOptions(mockFetchFilterOptionsProps());
 		});
 
-		await waitForNextUpdate();
-
-		expect(result.current).toEqual(initialValuesHookState);
+		await waitFor(() => {
+			expect(result.current).toEqual(initialValuesHookState);
+		});
 
 		act(() => {
 			result.current.reset();
@@ -264,12 +261,13 @@ describe('Testing: useRecommendation', () => {
 
 		expect(getUserRecommendations).toHaveBeenCalled();
 
-		await waitForNextUpdate();
-		expect(result.current).toEqual(initialValuesHookState);
+		await waitFor(() => {
+			expect(result.current).toEqual(initialValuesHookState);
+		});
 	});
 
 	it('should reset to initial data when it exists without calling API again', async () => {
-		const { result, waitForNextUpdate } = setup({
+		const { result } = setup({
 			mockUserRecommendations: successfulRecommendationAPIResponse.recommendedUsers,
 		});
 
@@ -278,9 +276,9 @@ describe('Testing: useRecommendation', () => {
 			result.current.fetchFilterOptions(mockFetchFilterOptionsProps());
 		});
 
-		await waitForNextUpdate();
-
-		expect(result.current).toEqual(initialValuesHookState);
+		await waitFor(() => {
+			expect(result.current).toEqual(initialValuesHookState);
+		});
 
 		(getUserRecommendations as jest.Mock).mockReturnValue(
 			differentSuccessfulAPIResponse.recommendedUsers,
@@ -291,14 +289,14 @@ describe('Testing: useRecommendation', () => {
 			result.current.fetchFilterOptions(mockFetchFilterOptionsProps('SOME_SEARCH_TERM'));
 		});
 
-		await waitForNextUpdate();
-
-		expect(result.current).toEqual({
-			filterOptions: differentTransformedFilterOptions,
-			reset: expect.any(Function),
-			status: 'resolved',
-			errors: [],
-			fetchFilterOptions: expect.any(Function),
+		await waitFor(() => {
+			expect(result.current).toEqual({
+				filterOptions: differentTransformedFilterOptions,
+				reset: expect.any(Function),
+				status: 'resolved',
+				errors: [],
+				fetchFilterOptions: expect.any(Function),
+			});
 		});
 
 		// Perform requestLikeInitialSearch and expect it to be reset to initialData without calling API
@@ -312,7 +310,7 @@ describe('Testing: useRecommendation', () => {
 	});
 
 	it('should return status as rejected when an error is thrown in fetchFilterOptions', async () => {
-		const { result, waitForNextUpdate, getUserRecommendations } = setup({
+		const { result, getUserRecommendations } = setup({
 			mockUserRecommendations: successfulRecommendationAPIResponse.recommendedUsers,
 		});
 
@@ -322,19 +320,19 @@ describe('Testing: useRecommendation', () => {
 			result.current.fetchFilterOptions(mockFetchFilterOptionsProps('SOME_SEARCH_TERM'));
 		});
 
-		await waitForNextUpdate();
-
-		expect(result.current).toEqual({
-			filterOptions: [],
-			reset: expect.any(Function),
-			status: 'rejected',
-			errors: expect.any(Array),
-			fetchFilterOptions: expect.any(Function),
+		await waitFor(() => {
+			expect(result.current).toEqual({
+				filterOptions: [],
+				reset: expect.any(Function),
+				status: 'rejected',
+				errors: expect.any(Array),
+				fetchFilterOptions: expect.any(Function),
+			});
 		});
 	});
 
 	it('should return status as rejected when getUserRecommendations returns error response', async () => {
-		const { result, waitForNextUpdate } = setup({
+		const { result } = setup({
 			mockUserRecommendations: failedRecommendationAPIResponse,
 		});
 
@@ -342,19 +340,19 @@ describe('Testing: useRecommendation', () => {
 			result.current.fetchFilterOptions(mockFetchFilterOptionsProps('SOME_SEARCH_TERM'));
 		});
 
-		await waitForNextUpdate();
-
-		expect(result.current).toEqual({
-			filterOptions: [],
-			reset: expect.any(Function),
-			status: 'rejected',
-			errors: expect.any(Array),
-			fetchFilterOptions: expect.any(Function),
+		await waitFor(() => {
+			expect(result.current).toEqual({
+				filterOptions: [],
+				reset: expect.any(Function),
+				status: 'rejected',
+				errors: expect.any(Array),
+				fetchFilterOptions: expect.any(Function),
+			});
 		});
 	});
 
 	it('should reset to initial state when reset function called', async () => {
-		const { result, waitForNextUpdate } = setup({
+		const { result } = setup({
 			mockUserRecommendations: successfulRecommendationAPIResponse.recommendedUsers,
 		});
 
@@ -362,16 +360,16 @@ describe('Testing: useRecommendation', () => {
 			result.current.fetchFilterOptions(mockFetchFilterOptionsProps('SOME_SEARCH_TERM'));
 		});
 
-		await waitForNextUpdate();
 
-		expect(result.current).toEqual({
-			filterOptions: transformedRecommendationMockFilterOptions,
-			reset: expect.any(Function),
-			status: 'resolved',
-			errors: [],
-			fetchFilterOptions: expect.any(Function),
+		await waitFor(() => {
+			expect(result.current).toEqual({
+				filterOptions: transformedRecommendationMockFilterOptions,
+				reset: expect.any(Function),
+				status: 'resolved',
+				errors: [],
+				fetchFilterOptions: expect.any(Function),
+			});
 		});
-
 		act(() => {
 			result.current.reset();
 		});

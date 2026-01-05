@@ -1,5 +1,13 @@
 # @atlaskit/drawer
 
+## 11.0.23
+
+### Patch Changes
+
+- [`036c3ee917e3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/036c3ee917e3c) -
+  Icon migration entry point update
+- Updated dependencies
+
 ## 11.0.22
 
 ### Patch Changes

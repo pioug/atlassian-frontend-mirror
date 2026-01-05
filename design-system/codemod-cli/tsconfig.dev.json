@@ -57,6 +57,12 @@
 		},
 		{
 			"path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../icon/tsconfig.app.json"
+		},
+		{
+			"path": "../icon-lab/tsconfig.app.json"
 		}
 	]
 }

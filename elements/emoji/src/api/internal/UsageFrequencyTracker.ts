@@ -73,7 +73,7 @@ export class UsageFrequencyTracker {
 	/**
 	 * Exposed for testing only. Clear any recorded usage.
 	 */
-	clear() {
+	clear(): void {
 		this.queue.clear();
 	}
 }

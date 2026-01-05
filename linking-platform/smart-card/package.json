@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.18.0",
+	"version": "43.18.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -109,8 +109,7 @@
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/jest-dom": "root:*",
-		"@testing-library/react": "root:*",
-		"@testing-library/react-hooks": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@testing-library/user-event": "root:*",
 		"@types/facepaint": "root:*",
 		"@types/lorem-ipsum": "root:*",

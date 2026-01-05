@@ -21,7 +21,7 @@ export const objectToStyleString = (cssProperties: Record<string, string>) => {
 /**
  * Applies additional styling to the SVG image by adding a style attribute to the SVG element
  */
-export const addStyling = (svgRoot: Element, cssProperties: Record<string, string>) => {
+export const addStyling = (svgRoot: Element, cssProperties: Record<string, string>): void => {
 	const styleRule = new CSSStyleSheet();
 
 	const styleString = objectToStyleString(cssProperties);

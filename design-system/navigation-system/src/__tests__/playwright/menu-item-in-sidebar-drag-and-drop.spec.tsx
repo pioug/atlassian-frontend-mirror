@@ -1,40 +1,6 @@
 import invariant from 'tiny-invariant';
 
-import { expect, type Locator, type Page, test } from '@af/integration-testing';
-
-/**
- * Drag to a `box` in a way that works for all browsers.
- * Assumes a drag has already started.
- */
-async function reorderAfter({
-	page,
-	draggable,
-	dropTarget,
-}: {
-	page: Page;
-	draggable: Locator;
-	dropTarget: Locator;
-}) {
-	const draggableBox = await draggable.boundingBox();
-	invariant(draggableBox, 'unable to get bounding box for draggable');
-
-	const dropTargetBox = await dropTarget.boundingBox();
-	invariant(dropTargetBox, 'unable to get bounding box for dropTarget');
-
-	// Start a drag
-	await page.mouse.move(draggableBox.x + 1, draggableBox.y + 1);
-	await page.mouse.down();
-	await page.mouse.move(draggableBox.y + 10, draggableBox.y + 1);
-
-	// Move over drop target
-	await page.mouse.move(dropTargetBox.x, dropTargetBox.y + dropTargetBox.height - 2);
-
-	// Second movement needed for Firefox
-	await page.mouse.move(dropTargetBox.x, dropTargetBox.y + dropTargetBox.height - 1);
-
-	// Finish the drop
-	await page.mouse.up();
-}
+import { expect, test } from '@af/integration-testing';
 
 test.describe('menu item drag and drop in the sidebar', () => {
 	test.beforeEach(async ({ page }) => {
@@ -45,23 +11,20 @@ test.describe('menu item drag and drop in the sidebar', () => {
 	test('smoke test (project reordering)', async ({ page }) => {
 		const group = page.locator('[data-testid="project-group-starred"]');
 
-		// Pulled this into a function as `allInnerTexts()` sometimes returned rouge
-		// newline characters on the end of strings while on CI.
-		async function getInnerTexts() {
-			return (await group.locator('a').allInnerTexts()).map((text) => text.trim());
-		}
-
-		expect(await getInnerTexts()).toEqual([
+		await expect(group.locator('a')).toHaveText([
 			'Modernize typography',
 			'F1 sponsorship',
 			'Mobile application',
 		]);
 
-		const [first, _, last] = await group.locator('a').all();
+		const dropTargetBoundingBox = await page.getByText('Mobile application').boundingBox();
+		invariant(dropTargetBoundingBox);
 
-		await reorderAfter({ page, draggable: first, dropTarget: last });
+		await page.getByText('Modernize typography').dragTo(page.getByText('Mobile application'), {
+			targetPosition: { x: 10, y: dropTargetBoundingBox.height - 4 },
+		});
 
-		expect(await getInnerTexts()).toEqual([
+		await expect(group.locator('a')).toHaveText([
 			'F1 sponsorship',
 			'Mobile application',
 			'Modernize typography', // Moved after "Mobile application"

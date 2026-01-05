@@ -49,6 +49,23 @@ type checkRestrictedPathAndReportArgs =
 export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 	const deprecatedIconHandler = getDeprecationIconHandler(context);
 
+	const cachedConfig = (() => {
+		const config =
+			(
+				context.options[0] as unknown as {
+					deprecatedConfig: DeprecatedJSXAttributeConfig | DeprecatedImportConfig;
+				}
+			)?.deprecatedConfig || getConfig('imports');
+
+		if (!isDeprecatedImportConfig(config)) {
+			throw new Error('Config is invalid for deprecated imports');
+		}
+
+		return config;
+	})();
+
+	const deprecatedImportSources = new Set<string>(Object.keys(cachedConfig));
+
 	const throwErrors = () => {
 		deprecatedIconHandler.throwErrors();
 	};
@@ -74,21 +91,11 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 		node,
 		importNames,
 	}: checkRestrictedPathAndReportArgs): void {
-		const restrictedPathMessages =
-			// TODO: JFP-2823 - this type cast was added due to Jira's ESLint v9 migration
-			(
-				context.options[0] as unknown as {
-					deprecatedConfig: DeprecatedJSXAttributeConfig | DeprecatedImportConfig;
-				}
-			)?.deprecatedConfig || getConfig('imports');
-
-		if (!isDeprecatedImportConfig(restrictedPathMessages)) {
-			throw new Error('Config is invalid for deprecated imports');
-		}
-
-		if (!Object.prototype.hasOwnProperty.call(restrictedPathMessages, importSource)) {
+		if (!deprecatedImportSources.has(importSource)) {
 			return;
 		}
+
+		const restrictedPathMessages = cachedConfig;
 
 		const config = restrictedPathMessages[importSource];
 

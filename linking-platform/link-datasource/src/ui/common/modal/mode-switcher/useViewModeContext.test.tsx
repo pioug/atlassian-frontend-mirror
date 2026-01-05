@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react';
 
 import { type DisplayViewModes } from '../../../../common/types';
 
@@ -31,13 +31,12 @@ describe('useViewModeContext custom hook', () => {
 			);
 		};
 
-		const { result, waitForNextUpdate, rerender } = renderHook(() => useViewModeContext(), {
+		const { result, rerender } = renderHook(() => useViewModeContext(), {
 			wrapper,
 		});
 
 		return {
 			result,
-			waitForNextUpdate,
 			rerender,
 		};
 	};
@@ -63,8 +62,6 @@ describe('useViewModeContext custom hook', () => {
 		expect(result.current.disableDisplayDropdown).toBe(true);
 	});
 	it('should throw error if no context exists to wrap the component', () => {
-		jest.spyOn(console, 'error').mockImplementation(jest.fn());
-		const { result } = setup({ defaultViewMode: null });
-		expect(result.error).not.toBe(undefined);
+		expect(() => setup({ defaultViewMode: null })).toThrow(new Error('useViewModeContext must be called within DatasourceViewModeProvider'));
 	});
 });

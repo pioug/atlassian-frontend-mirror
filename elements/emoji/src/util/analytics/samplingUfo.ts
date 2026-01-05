@@ -28,7 +28,7 @@ type EndStateConfig = {
 
 type SamplingFunc = (rate: number) => boolean;
 
-export const clearSampled = () => {
+export const clearSampled = (): void => {
 	for (const prop of Object.getOwnPropertyNames(ufoExperiencesSampled)) {
 		delete ufoExperiencesSampled[prop];
 	}

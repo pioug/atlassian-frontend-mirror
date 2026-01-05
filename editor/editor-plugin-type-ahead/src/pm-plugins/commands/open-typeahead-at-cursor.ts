@@ -7,7 +7,7 @@ import type { OpenTypeAheadProps } from '../../types';
 import { ACTIONS } from '../actions';
 import { pluginKey } from '../key';
 
-export const openTypeAhead = (props: OpenTypeAheadProps) => (tr: Transaction) => {
+export const openTypeAhead = (props: OpenTypeAheadProps) => (tr: Transaction): void => {
 	const { triggerHandler, inputMethod, query, removePrefixTriggerOnCancel } = props;
 
 	tr.setMeta(pluginKey, {

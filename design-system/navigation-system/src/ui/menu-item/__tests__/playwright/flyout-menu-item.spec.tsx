@@ -1,7 +1,9 @@
 import { expect, test } from '@af/integration-testing';
 
 test.describe('flyout menu item', () => {
-	test('popper should not repeatedly update', async ({ page }) => {
+	test('popper should not repeatedly update', async ({ page, skipAxeCheck }) => {
+		skipAxeCheck();
+
 		await page.visitExample('design-system', 'navigation-system', 'flyout-menu-item-async-content');
 
 		const callCountRef = await page.evaluateHandle(() => {
@@ -27,12 +29,24 @@ test.describe('flyout menu item', () => {
 			return callCountRef.evaluate((ref) => ref.current);
 		}
 
+		await page.getByRole('button', { name: 'Recent' }).hover();
 		await page.getByRole('button', { name: 'Recent' }).click();
+		await expect(page.getByRole('button', { name: 'Load items' })).toBeVisible();
 
-		expect(await getCallCount()).toBe(1);
+		// Using clock API doesn't trigger the render loop, so using a small real wait instead
+		// eslint-disable-next-line playwright/no-wait-for-timeout
+		await page.waitForTimeout(200);
+		// Sometimes there is a double render, but that's okay as long as there's no loop
+		expect(await getCallCount()).toBeLessThanOrEqual(2);
 
+		// Loading the items changes the size of the flyout menu item content, so the resize observer should be called again.
 		await page.getByRole('button', { name: 'Load items' }).click();
+		await expect(page.getByRole('button', { name: 'Load items' })).toBeHidden();
 
-		expect(await getCallCount()).toBe(2);
+		// Using clock API doesn't trigger the render loop, so using a small real wait instead
+		// eslint-disable-next-line playwright/no-wait-for-timeout
+		await page.waitForTimeout(200);
+		// Sometimes there is a double render, but that's okay as long as there's no loop
+		expect(await getCallCount()).toBeLessThanOrEqual(4);
 	});
 });

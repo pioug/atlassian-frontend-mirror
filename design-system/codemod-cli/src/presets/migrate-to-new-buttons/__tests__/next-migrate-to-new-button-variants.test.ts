@@ -44,12 +44,12 @@ describe('Migrate to icon buttons', () => {
 		it: 'should replace default button with icon button, rename the iconBefore prop, and move the icon label prop from the new icon component to IconButton',
 		original: `
       import Button from '@atlaskit/button/standard-button';
-      import MoreIcon from '@atlaskit/icon/core/migration/more';
+      import MoreIcon from '@atlaskit/icon/core/more';
       const App = () => (<Button iconBefore={<MoreIcon color="currentColor" LEGACY_size="medium" spacing="spacious" label="more icon" />} />);
     `,
 		expected: `
       import { IconButton } from '@atlaskit/button/new';
-      import MoreIcon from '@atlaskit/icon/core/migration/more';
+      import MoreIcon from '@atlaskit/icon/core/more';
       const App = () => (<IconButton label="more icon" icon={iconProps => <MoreIcon {...iconProps} color="currentColor" LEGACY_size="medium" spacing="spacious" />} />);
     `,
 	});

@@ -1,7 +1,7 @@
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 
-export const setSelectionBeforeQuery = (rawText: string) => (tr: Transaction) => {
+export const setSelectionBeforeQuery = (rawText: string) => (tr: Transaction): void => {
 	const currentPosition = tr.selection.$from.pos;
 	const positionBeforeRawText = Math.max(currentPosition - rawText.length, 0);
 	const resolvedPositionBeforeText = tr.doc.resolve(positionBeforeRawText);

@@ -19,7 +19,7 @@ export const fireTypeAheadClosedAnalyticsEvent = (
 	hasQuery: boolean,
 	inputMethod: InputMethodType | null,
 	invocationMethod: TypeAheadInputMethod | null = null,
-) => {
+): void => {
 	api?.analytics?.actions.fireAnalyticsEvent({
 		action: ACTION.CLOSED,
 		actionSubject: ACTION_SUBJECT.TYPEAHEAD,

@@ -1,5 +1,42 @@
 # @atlassian/navigation-system
 
+## 5.18.1
+
+### Patch Changes
+
+- [`d5e528e62f16d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5e528e62f16d) -
+  clean up fg: team25-eu-jira-logo-updates-csm-jsm
+
+## 5.18.0
+
+### Minor Changes
+
+- [`67509a09876ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67509a09876ad) -
+  The side nav will no longer peek when a popup is open in `TopNavStart`, such as the app switcher.
+
+  This change is behind the `platform_dst_nav4_side_nav_resize_tooltip_feedback` and
+  `platform-dst-side-nav-layering-fixes` feature flags, when full height sidebar is enabled.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.17.0
+
+### Minor Changes
+
+- [`6f95ec25daa67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f95ec25daa67) -
+  Fixes to accessibility issues for the flyout menu.
+
+  This includes changing the `aria-haspopup` value from `"true"` to `"dialog"`, setting the `role`
+  of the popup container to `"dialog"`, adding an `aria-labelledby` to the popup container to
+  reference the `id` of the title in the header slot, and ensuring that escape dismisses the dialog
+  and places focus back on the trigger.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.16.0
 
 ### Minor Changes

@@ -106,7 +106,7 @@ const editorPlaceholderClassname = 'editor-vr-test-placeholder';
  * @param win Window objest
  * @param enableClickToEdit Swap out renderer for dummy editor on onUnhandledClick
  */
-export function createRendererWindowBindings(win: Window, enableClickToEdit?: boolean) {
+export function createRendererWindowBindings(win: Window, enableClickToEdit?: boolean): void {
 	if ((win as any).__mountRenderer) {
 		return;
 	}

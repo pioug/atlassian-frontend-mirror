@@ -6,10 +6,12 @@ import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
+import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/experimental/open-layer-observer';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
+import { openLayerObserverTopNavMiddleNamespace } from '../constants';
 
 const styles = cssMap({
 	root: {
@@ -103,7 +105,13 @@ export function TopNavMiddle({
 				isFhsEnabled && !fg('platform-dst-side-nav-layering-fixes') && styles.fullHeightSidebar,
 			]}
 		>
-			{children}
+			{fg('platform-dst-side-nav-layering-fixes') ? (
+				<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavMiddleNamespace}>
+					{children}
+				</OpenLayerObserverNamespaceProvider>
+			) : (
+				children
+			)}
 		</div>
 	);
 }

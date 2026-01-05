@@ -1,5 +1,13 @@
 # @atlaskit/page-layout
 
+## 4.2.24
+
+### Patch Changes
+
+- [`036c3ee917e3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/036c3ee917e3c) -
+  Icon migration entry point update
+- Updated dependencies
+
 ## 4.2.23
 
 ### Patch Changes

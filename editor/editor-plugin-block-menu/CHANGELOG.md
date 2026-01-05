@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.9
+
+### Patch Changes
+
+- [`c77659e594c55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c77659e594c55) -
+  [ux] Editor-4020: Fix decision to quote and code block, fixed empty panel to code block"
+
+## 6.0.8
+
+### Patch Changes
+
+- [`bdcaf574d7d2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bdcaf574d7d2d) -
+  Fix transformation of multiple headings and paragraphs to codeblocks
+- [`68ebba7ccdc1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68ebba7ccdc1b) -
+  [EDITOR-4157] Fix editor freeze when transforming mediaSingle at bottom of document
+- [`fef9134c6feb5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fef9134c6feb5) -
+  [ux] Implement multiselect transformations for text (heading, paragraph) nodes
+- Updated dependencies
+
 ## 6.0.7
 
 ### Patch Changes

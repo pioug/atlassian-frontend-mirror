@@ -1,6 +1,6 @@
 import React, { forwardRef, type Ref } from 'react';
 
-import NotificationIcon from '@atlaskit/icon/core/migration/notification';
+import NotificationIcon from '@atlaskit/icon/core/notification';
 
 import { BadgeContainer } from '../BadgeContainer';
 import { IconButton } from '../IconButton';

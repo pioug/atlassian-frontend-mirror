@@ -2,7 +2,7 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
 
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import fetchMock from 'jest-fetch-mock';
 import { IntlProvider } from 'react-intl-next';
 import TestRenderer from 'react-test-renderer';

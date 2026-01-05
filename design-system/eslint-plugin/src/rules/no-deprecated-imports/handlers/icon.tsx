@@ -53,6 +53,8 @@ export const getDeprecationIconHandler: DeprecationIconHandler = (context: Rule.
 	const importErrors: ImportIconDeprecationErrorListAuto = {};
 	const exportErrors: ExportIconDeprecationErrorListAuto = {};
 
+	const iconNameToImportSource: Map<string, string> = new Map();
+
 	const getConfigFlag = (key: string, defaultValue: boolean) => {
 		if (
 			context.options &&
@@ -95,6 +97,11 @@ export const getDeprecationIconHandler: DeprecationIconHandler = (context: Rule.
 				},
 			};
 			importErrors[node.source.value as string] = myError;
+
+			const importIconName = node.specifiers[0]?.local?.name;
+			if (importIconName) {
+				iconNameToImportSource.set(importIconName, importSource);
+			}
 		}
 	};
 
@@ -211,17 +218,14 @@ export const getDeprecationIconHandler: DeprecationIconHandler = (context: Rule.
 			return;
 		}
 
-		for (const [importSource, error] of Object.entries(importErrors)) {
-			let importIconName: string = error.node.specifiers[0].local.name;
-			const iconName = node.openingElement.name.name;
+		const iconName = node.openingElement.name.name;
+		const importSource = iconNameToImportSource.get(iconName);
 
-			if (iconName === importIconName) {
-				if (jsxElements.has(importSource)) {
-					jsxElements.get(importSource)?.push(node);
-				} else {
-					jsxElements.set(importSource, [node]);
-				}
-				break;
+		if (importSource) {
+			if (jsxElements.has(importSource)) {
+				jsxElements.get(importSource)?.push(node);
+			} else {
+				jsxElements.set(importSource, [node]);
 			}
 		}
 	};
@@ -231,17 +235,14 @@ export const getDeprecationIconHandler: DeprecationIconHandler = (context: Rule.
 			return;
 		}
 
-		for (const [importSource, error] of Object.entries(importErrors)) {
-			let importIconName: string = error.node.specifiers[0].local.name;
-			const iconName = node.name;
+		const iconName = node.name;
+		const importSource = iconNameToImportSource.get(iconName);
 
-			if (iconName === importIconName) {
-				if (identifiers.has(importSource)) {
-					identifiers.get(importSource)?.push(node);
-				} else {
-					identifiers.set(importSource, [node]);
-				}
-				break;
+		if (importSource) {
+			if (identifiers.has(importSource)) {
+				identifiers.get(importSource)?.push(node);
+			} else {
+				identifiers.set(importSource, [node]);
 			}
 		}
 	};

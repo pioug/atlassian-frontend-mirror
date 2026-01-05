@@ -82,7 +82,7 @@ export default class EmbeddedDocument extends Component<Props, State> {
 		};
 	}
 
-	async componentDidMount() {
+	async componentDidMount(): Promise<void> {
 		const { documentId, language, objectId } = this.props;
 		if (documentId) {
 			await this.getDocument(documentId, language);

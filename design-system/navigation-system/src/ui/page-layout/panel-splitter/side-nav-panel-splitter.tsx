@@ -1,20 +1,40 @@
-import React, { type ReactNode, useContext, useEffect, useState } from 'react';
+import React, { type ReactNode, useContext } from 'react';
 
 import invariant from 'tiny-invariant';
 
-import { useOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import {
 	openLayerObserverSideNavNamespace,
-	openLayerObserverTopNavNamespace,
+	openLayerObserverTopNavEndNamespace,
+	openLayerObserverTopNavMiddleNamespace,
+	openLayerObserverTopNavStartNamespace,
 	sideNavPanelSplitterId,
 } from '../constants';
 import { useToggleSideNav } from '../side-nav/use-toggle-side-nav';
+import { useHasOpenLayers } from '../use-open-layer-count';
 
 import { OnDoubleClickContext, PanelSplitterContext } from './context';
 import { PanelSplitter, type PanelSplitterProps } from './panel-splitter';
+
+/**
+ * Namespaces to check for open layers that would interfere with the panel splitter.
+ *
+ * Placed outside the component for stability, as the list is used as an effect dependency.
+ */
+const openLayerNamespacesToCheck = [
+	// We don't technically need to check the side nav for open layers, as they wouldn't overlay the
+	// panel splitter, as it sits within the same stacking context as the side nav. For consistency however,
+	// we check it as well.
+	openLayerObserverSideNavNamespace,
+	// When there is an open layer in the top nav, the top nav is given a higher z-index than the side nav.
+	// This means the part of the side nav panel splitter that was sitting above the top nav will no longer
+	// be interactive (as it is now behind the top nav). So, we need to disable the entire panel splitter.
+	openLayerObserverTopNavStartNamespace,
+	openLayerObserverTopNavMiddleNamespace,
+	openLayerObserverTopNavEndNamespace,
+];
 
 type SideNavPanelSplitterProps = Omit<
 	PanelSplitterProps,
@@ -75,57 +95,12 @@ export const SideNavPanelSplitter = ({
 	// The logic and state for disabling the panel splitter when there are open popups
 	// in the side nav or top nav is being placed here, instead of in `SideNav`, to prevent
 	// re-rendering the side nav anytime the number of open popups changes.
-	const [isEnabled, setIsEnabled] = useState(true);
-	const openLayerObserver = useOpenLayerObserver();
+	const hasOpenLayers = useHasOpenLayers({
+		namespaces: openLayerNamespacesToCheck,
+		type: 'popup',
+	});
 
-	useEffect(() => {
-		if (!openLayerObserver || !isFhsEnabled || !fg('platform-dst-side-nav-layering-fixes')) {
-			return;
-		}
-
-		function checkAndSetState(): void {
-			if (!openLayerObserver) {
-				return;
-			}
-
-			// We don't technically need to check the side nav for open layers, as they wouldn't overlay the
-			// panel splitter, as it sits within the same stacking context as the side nav. For consistency however,
-			// we check it as well.
-			const openPopupsInSideNav = openLayerObserver.getCount({
-				namespace: openLayerObserverSideNavNamespace,
-				type: 'popup',
-			});
-
-			// When there is an open layer in the top nav, the top nav is given a higher z-index than the side nav.
-			// This means the part of the side nav panel splitter that was sitting above the top nav will no longer
-			// be interactive (as it is now behind the top nav). So, we need to disable the entire panel splitter.
-			const openPopupsInTopNav = openLayerObserver.getCount({
-				namespace: openLayerObserverTopNavNamespace,
-				type: 'popup',
-			});
-
-			setIsEnabled(openPopupsInSideNav + openPopupsInTopNav === 0);
-		}
-
-		// Initial check, in case the app has loaded with an open popup.
-		checkAndSetState();
-
-		// Creating separate listeners for each namespace, to avoid running them when layers in other parts of the app change.
-		const cleanupSideNavListener = openLayerObserver.onChange(checkAndSetState, {
-			namespace: openLayerObserverSideNavNamespace,
-		});
-
-		const cleanupTopNavListener = openLayerObserver.onChange(checkAndSetState, {
-			namespace: openLayerObserverTopNavNamespace,
-		});
-
-		return function cleanup() {
-			cleanupSideNavListener();
-			cleanupTopNavListener();
-		};
-	}, [isFhsEnabled, openLayerObserver]);
-
-	if (!isEnabled && isFhsEnabled && fg('platform-dst-side-nav-layering-fixes')) {
+	if (hasOpenLayers && isFhsEnabled && fg('platform-dst-side-nav-layering-fixes')) {
 		return null;
 	}
 

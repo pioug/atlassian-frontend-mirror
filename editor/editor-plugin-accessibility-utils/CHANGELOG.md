@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-accessibility-utils
 
+## 7.0.2
+
+### Patch Changes
+
+- [`95374e5a502e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95374e5a502e4) -
+  NOISSUE: Fix a11y plugin breaking hydration
+
 ## 7.0.1
 
 ### Patch Changes

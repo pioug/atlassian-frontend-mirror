@@ -34,7 +34,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 	 * Defines the internal flushClose method used in the markdown serializer
 	 * @see https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L202
 	 */
-	flushClose(size: number = 2) {
+	flushClose(size: number = 2): void {
 		if (this.closed) {
 			if (!this.atBlank()) {
 				this.out += '\n';
@@ -95,73 +95,73 @@ export class MarkdownSerializer extends PMMarkdownSerializer {
  * Stubs for unsupported nodes
  */
 const unsupportedNodes = {
-	table(state: MarkdownSerializerState, node: PMNode) {
+	table(state: MarkdownSerializerState, node: PMNode): void {
 		state.write('[table]');
 		state.closeBlock(node);
 	},
-	blockCard(state: MarkdownSerializerState, node: PMNode) {
+	blockCard(state: MarkdownSerializerState, node: PMNode): void {
 		state.write('[block card]');
 		state.closeBlock(node);
 	},
-	embedCard(state: MarkdownSerializerState, node: PMNode) {
+	embedCard(state: MarkdownSerializerState, node: PMNode): void {
 		state.write('[embedded card]');
 		state.closeBlock(node);
 	},
 	/**
 	 * Inline cards with url type attributes will be sent as a link
 	 */
-	inlineCard(state: MarkdownSerializerState, node: PMNode) {
+	inlineCard(state: MarkdownSerializerState, node: PMNode): void {
 		const content = node.attrs.url ? `[<${node.attrs.url}|inline card>]` : '[inline card]';
 
 		state.write(content);
 	},
-	inlineExtension(state: MarkdownSerializerState) {
+	inlineExtension(state: MarkdownSerializerState): void {
 		state.write('[inline extension]');
 	},
-	mediaInline(state: MarkdownSerializerState, node: PMNode) {
+	mediaInline(state: MarkdownSerializerState, node: PMNode): void {
 		const content =
 			node.attrs?.type === 'image' ? '[inline image attached]' : '[inline file attached]';
 		state.write(content);
 	},
-	extension(state: MarkdownSerializerState, node: PMNode) {
+	extension(state: MarkdownSerializerState, node: PMNode): void {
 		state.write('[extension]');
 		state.closeBlock(node);
 	},
-	bodiedExtension(state: MarkdownSerializerState, node: PMNode) {
+	bodiedExtension(state: MarkdownSerializerState, node: PMNode): void {
 		state.write('[bodied extension]');
 		state.closeBlock(node);
 	},
-	taskList(state: MarkdownSerializerState, node: PMNode) {
+	taskList(state: MarkdownSerializerState, node: PMNode): void {
 		state.write('[task list]');
 		state.closeBlock(node);
 	},
-	expand(state: MarkdownSerializerState, node: PMNode) {
+	expand(state: MarkdownSerializerState, node: PMNode): void {
 		state.write('[expand]');
 		state.closeBlock(node);
 	},
-	nestedExpand(state: MarkdownSerializerState, node: PMNode) {
+	nestedExpand(state: MarkdownSerializerState, node: PMNode): void {
 		state.write('[nested expand]');
 		state.closeBlock(node);
 	},
-	confluenceUnsupportedBlock(state: MarkdownSerializerState) {
+	confluenceUnsupportedBlock(state: MarkdownSerializerState): void {
 		state.write('');
 	},
-	confluenceUnsupportedInline(state: MarkdownSerializerState) {
+	confluenceUnsupportedInline(state: MarkdownSerializerState): void {
 		state.write('');
 	},
-	unsupportedInline(state: MarkdownSerializerState) {
+	unsupportedInline(state: MarkdownSerializerState): void {
 		state.write('');
 	},
-	unsupportedBlock(state: MarkdownSerializerState) {
+	unsupportedBlock(state: MarkdownSerializerState): void {
 		state.write('');
 	},
 };
 
 export const nodes = {
-	blockquote(state: MarkdownSerializerState, node: PMNode) {
+	blockquote(state: MarkdownSerializerState, node: PMNode): void {
 		state.wrapBlock('> ', null, node, () => state.renderContent(node));
 	},
-	codeBlock(state: MarkdownSerializerState, node: PMNode) {
+	codeBlock(state: MarkdownSerializerState, node: PMNode): void {
 		state.write('```');
 		state.ensureNewLine();
 		state.text(node.textContent ? node.textContent : '\u200c', false);
@@ -169,28 +169,28 @@ export const nodes = {
 		state.write('```');
 		state.closeBlock(node);
 	},
-	heading(state: MarkdownSerializerState, node: PMNode) {
+	heading(state: MarkdownSerializerState, node: PMNode): void {
 		state.renderInline(node);
 		state.closeBlock(node);
 	},
-	rule(state: MarkdownSerializerState, node: PMNode) {
+	rule(state: MarkdownSerializerState, node: PMNode): void {
 		state.closeBlock(node);
 	},
-	bulletList(state: MarkdownSerializerState, node: PMNode) {
+	bulletList(state: MarkdownSerializerState, node: PMNode): void {
 		for (let i = 0; i < node.childCount; i++) {
 			const child = node.child(i);
 
 			state.render(child, node, i);
 		}
 	},
-	orderedList(state: MarkdownSerializerState, node: PMNode) {
+	orderedList(state: MarkdownSerializerState, node: PMNode): void {
 		for (let i = 0; i < node.childCount; i++) {
 			const child = node.child(i);
 
 			state.render(child, node, i);
 		}
 	},
-	listItem(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
+	listItem(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number): void {
 		const delimiter = parent.type.name === 'bulletList' ? '• ' : `${index + 1}. `;
 
 		for (let i = 0; i < node.childCount; i++) {
@@ -217,18 +217,18 @@ export const nodes = {
 			state.write('\n');
 		}
 	},
-	caption(state: MarkdownSerializerState, node: PMNode) {
+	caption(state: MarkdownSerializerState, node: PMNode): void {
 		state.renderInline(node);
 		state.closeBlock(node);
 	},
-	paragraph(state: MarkdownSerializerState, node: PMNode) {
+	paragraph(state: MarkdownSerializerState, node: PMNode): void {
 		state.renderInline(node);
 		state.closeBlock(node);
 	},
-	hardBreak(state: MarkdownSerializerState) {
+	hardBreak(state: MarkdownSerializerState): void {
 		state.write('  \n');
 	},
-	text(state: MarkdownSerializerState, node: PMNode) {
+	text(state: MarkdownSerializerState, node: PMNode): void {
 		const lines = node.textContent.split('\n');
 
 		for (let i = 0; i < lines.length; i++) {
@@ -240,11 +240,11 @@ export const nodes = {
 			}
 		}
 	},
-	empty_line(state: MarkdownSerializerState, node: PMNode) {
+	empty_line(state: MarkdownSerializerState, node: PMNode): void {
 		state.write('\u200c'); // zero-width-non-joiner
 		state.closeBlock(node);
 	},
-	mention(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
+	mention(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number): void {
 		const isLastNode = parent.childCount === index + 1;
 		let delimiter = '';
 		if (!isLastNode) {
@@ -255,17 +255,17 @@ export const nodes = {
 
 		state.write(`@${node.attrs.id}${delimiter}`);
 	},
-	emoji(state: MarkdownSerializerState, node: PMNode) {
+	emoji(state: MarkdownSerializerState, node: PMNode): void {
 		state.write(node.attrs.text || node.attrs.shortName);
 	},
-	mediaGroup(state: MarkdownSerializerState, node: PMNode) {
+	mediaGroup(state: MarkdownSerializerState, node: PMNode): void {
 		for (let i = 0; i < node.childCount; i++) {
 			const child = node.child(i);
 
 			state.render(child, node, i);
 		}
 	},
-	mediaSingle(state: MarkdownSerializerState, node: PMNode) {
+	mediaSingle(state: MarkdownSerializerState, node: PMNode): void {
 		for (let i = 0; i < node.childCount; i++) {
 			const child = node.child(i);
 
@@ -277,14 +277,14 @@ export const nodes = {
 	 * Slack markdown does not have specific syntax for images/files.
 	 * We just show that there's an image attached as a link and a media just as a text.
 	 */
-	media(state: MarkdownSerializerState) {
+	media(state: MarkdownSerializerState): void {
 		state.write('[media attached]');
 		state.write('\n');
 	},
-	image(state: MarkdownSerializerState, node: PMNode) {
+	image(state: MarkdownSerializerState, node: PMNode): void {
 		state.write(`[<${node.attrs.src}|image attached>]`);
 	},
-	date(state: MarkdownSerializerState, node: PMNode) {
+	date(state: MarkdownSerializerState, node: PMNode): void {
 		/**
 		 *  The year will be omitted if the date refers to the current year.
 		 *  Timestamp should be transformed to Unix time.
@@ -295,14 +295,14 @@ export const nodes = {
 			`<!date^${unixTime}^{date_short}|${new Date(+node.attrs.timestamp).toDateString()}>`,
 		);
 	},
-	decisionList(state: MarkdownSerializerState, node: PMNode) {
+	decisionList(state: MarkdownSerializerState, node: PMNode): void {
 		for (let i = 0; i < node.childCount; i++) {
 			const child = node.child(i);
 
 			state.render(child, node, i);
 		}
 	},
-	decisionItem(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
+	decisionItem(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number): void {
 		state.write('<> ');
 		state.renderInline(node);
 		state.write('\n');
@@ -311,26 +311,26 @@ export const nodes = {
 			state.write('\n');
 		}
 	},
-	layoutSection(state: MarkdownSerializerState, node: PMNode) {
+	layoutSection(state: MarkdownSerializerState, node: PMNode): void {
 		for (let i = 0; i < node.childCount; i++) {
 			const child = node.child(i);
 
 			state.render(child, node, i);
 		}
 	},
-	layoutColumn(state: MarkdownSerializerState, node: PMNode) {
+	layoutColumn(state: MarkdownSerializerState, node: PMNode): void {
 		state.renderInline(node);
 	},
-	status(state: MarkdownSerializerState, node: PMNode) {
+	status(state: MarkdownSerializerState, node: PMNode): void {
 		state.write(`*${node.attrs.text}*`);
 	},
-	panel(state: MarkdownSerializerState, node: PMNode) {
+	panel(state: MarkdownSerializerState, node: PMNode): void {
 		state.renderInline(node);
 	},
-	placeholder(state: MarkdownSerializerState, node: PMNode) {
+	placeholder(state: MarkdownSerializerState, node: PMNode): void {
 		state.write(node.attrs.text);
 	},
-	confluenceJiraIssue(state: MarkdownSerializerState, node: PMNode) {
+	confluenceJiraIssue(state: MarkdownSerializerState, node: PMNode): void {
 		state.write(` JIRA | ${node.attrs.issueKey} `);
 	},
 	...unsupportedNodes,

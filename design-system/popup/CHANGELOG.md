@@ -1,5 +1,31 @@
 # @atlaskit/popup
 
+## 4.12.0
+
+### Minor Changes
+
+- [`2f8e40fb0a94f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f8e40fb0a94f) -
+  Popups using `shouldFitViewport` will now be scrollable even if they are rendered to parent using
+  `shouldRenderToParent`. Previously, only popups rendered in portals would be scrollable.
+
+  This change is behind the feature gate `platform_dst_nav4_flyoutmenuitem_render_to_parent`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.11.0
+
+### Minor Changes
+
+- [`6f95ec25daa67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f95ec25daa67) -
+  Fixes to accessibility issues for the flyout menu.
+
+  This includes changing the `aria-haspopup` value from `"true"` to `"dialog"`, setting the `role`
+  of the popup container to `"dialog"`, adding an `aria-labelledby` to the popup container to
+  reference the `id` of the title in the header slot, and ensuring that escape dismisses the dialog
+  and places focus back on the trigger.
+
 ## 4.10.0
 
 ### Minor Changes

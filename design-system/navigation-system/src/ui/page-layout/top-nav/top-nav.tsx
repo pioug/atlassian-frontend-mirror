@@ -2,15 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useContext, useLayoutEffect, useMemo, useState } from 'react';
+import { useContext, useMemo } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
-import {
-	OpenLayerObserverNamespaceProvider,
-	useOpenLayerObserver,
-} from '@atlaskit/layering/experimental/open-layer-observer';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -22,7 +18,9 @@ import { useCustomTheme } from '../../top-nav-items/themed/use-custom-theme';
 import {
 	bannerMountedVar,
 	localSlotLayers,
-	openLayerObserverTopNavNamespace,
+	openLayerObserverTopNavEndNamespace,
+	openLayerObserverTopNavMiddleNamespace,
+	openLayerObserverTopNavStartNamespace,
 	sideNavLiveWidthVar,
 	topNavMountedVar,
 	UNSAFE_topNavVar,
@@ -32,6 +30,7 @@ import { DangerouslyHoistCssVarToDocumentRoot, HoistCssVarToLocalGrid } from '..
 import { useLayoutId } from '../id-utils';
 import { useSideNavVisibility } from '../side-nav/use-side-nav-visibility';
 import type { CommonSlotProps } from '../types';
+import { useHasOpenLayers } from '../use-open-layer-count';
 
 /**
  * Styles for the container for the top nav items.
@@ -169,6 +168,18 @@ const backgroundStyles = cssMap({
 });
 
 /**
+ * Namespaces to check for open layers within the top nav.
+ * When there is an open layer in the top nav, the top nav is given a higher z-index than the side nav.
+ *
+ * Placed outside the component for stability, as the list is used as an effect dependency.
+ */
+const topNavOpenLayerNamespaces = [
+	openLayerObserverTopNavStartNamespace,
+	openLayerObserverTopNavMiddleNamespace,
+	openLayerObserverTopNavEndNamespace,
+];
+
+/**
  * The top nav layout area. It will display at the top of the screen, below the banner if one is present.
  */
 export function TopNav({
@@ -231,36 +242,11 @@ export function TopNav({
 	}, [customTheme]);
 
 	const { isExpandedOnDesktop } = useSideNavVisibility();
-	const openLayerObserver = useOpenLayerObserver();
-	// Setting the initial state to false, as it is unlikely that the top nav would have an open popup when the app starts.
-	const [hasOpenPopup, setHasOpenPopup] = useState(false);
 
-	useLayoutEffect(() => {
-		if (!openLayerObserver || !isFhsEnabled || !fg('platform-dst-side-nav-layering-fixes')) {
-			return;
-		}
-
-		function checkAndSetState(): void {
-			if (!openLayerObserver) {
-				return;
-			}
-
-			setHasOpenPopup(
-				openLayerObserver.getCount({
-					namespace: openLayerObserverTopNavNamespace,
-					type: 'popup',
-				}) > 0,
-			);
-		}
-
-		// Initial check
-		checkAndSetState();
-
-		// Check again whenever number of layers in the top nav change
-		return openLayerObserver.onChange(checkAndSetState, {
-			namespace: openLayerObserverTopNavNamespace,
-		});
-	}, [isFhsEnabled, openLayerObserver]);
+	const hasOpenPopup = useHasOpenLayers({
+		namespaces: topNavOpenLayerNamespaces,
+		type: 'popup',
+	});
 
 	return (
 		<HasCustomThemeContext.Provider value={customTheme.isEnabled}>
@@ -311,13 +297,7 @@ export function TopNav({
 					<DangerouslyHoistCssVarToDocumentRoot variableName={UNSAFE_topNavVar} value={height} />
 					// ------ END UNSAFE STYLES ------
 				)}
-				{fg('platform-dst-side-nav-layering-fixes') ? (
-					<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavNamespace}>
-						{children}
-					</OpenLayerObserverNamespaceProvider>
-				) : (
-					children
-				)}
+				{children}
 			</header>
 		</HasCustomThemeContext.Provider>
 	);

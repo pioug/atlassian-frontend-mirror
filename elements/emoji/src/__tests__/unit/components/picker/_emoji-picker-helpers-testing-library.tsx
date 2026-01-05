@@ -45,11 +45,11 @@ export function getUploadEmojiNameInput() {
 	return screen.getByLabelText('Enter a name for the new emoji');
 }
 
-export function typeEmojiName(value: string) {
+export function typeEmojiName(value: string): void {
 	fireEvent.change(getUploadEmojiNameInput(), { target: { value } });
 }
 
-export async function chooseFile(file: any) {
+export async function chooseFile(file: any): Promise<void> {
 	const chooseFileButton = screen.getByTestId(chooseFileButtonTestId);
 	fireEvent.click(chooseFileButton);
 	const fileUploadInput = screen.getByTestId(fileUploadInputTestId);
@@ -64,16 +64,16 @@ export function getUploadEmojiButton() {
 	return screen.getByRole('button', { name: 'Add emoji' });
 }
 
-export function uploadNewEmoji() {
+export function uploadNewEmoji(): void {
 	fireEvent.click(getUploadEmojiButton());
 }
 
-export function cancelUpload() {
+export function cancelUpload(): void {
 	const cancelUploadButton = screen.getByTestId(cancelUploadButtonTestId);
 	fireEvent.click(cancelUploadButton);
 }
 
-export function retryUpload() {
+export function retryUpload(): void {
 	const retryUploadButton = screen.getByTestId(retryUploadButtonTestId);
 	fireEvent.click(retryUploadButton);
 }
@@ -82,7 +82,7 @@ export function getVirtualList() {
 	return screen.getByRole('grid');
 }
 
-export function scrollToIndex(index: number) {
+export function scrollToIndex(index: number): void {
 	fireEvent.scroll(getVirtualList(), { target: { scrollTop: 40 * index } });
 }
 
@@ -102,7 +102,7 @@ export function getEmojiSearchInput() {
 	return screen.getByTestId(emojiPickerSearchTestId);
 }
 
-export async function searchEmoji(name: string) {
+export async function searchEmoji(name: string): Promise<void> {
 	const searchInput = getEmojiSearchInput();
 
 	await userEvent.type(searchInput, name);
@@ -124,7 +124,7 @@ export function queryEmojiCategoryHeader(title: string) {
 	return within(getVirtualList()).queryByText(title);
 }
 
-export async function selectCategory(categoryId: string) {
+export async function selectCategory(categoryId: string): Promise<void> {
 	const categoryButton = await screen.findByTestId(categorySelectorCategoryTestId(categoryId));
 	await userEvent.click(categoryButton);
 }

@@ -1,6 +1,6 @@
 import React, { type ReactPortal } from 'react';
 
-import { renderHook, type RenderHookOptions } from '@testing-library/react-hooks';
+import { renderHook, type RenderHookOptions, waitFor } from '@testing-library/react';
 import ReactDOM from 'react-dom';
 import { IntlProvider } from 'react-intl-next';
 
@@ -29,7 +29,7 @@ describe('useLoadOptions', () => {
 	const setup = (loaderProps: LoadOptionsProps<unknown>) => {
 		mockUseDatasourceTableFlag.mockReturnValue({ showErrorFlag: mockShowErrorFlag });
 
-		const { result, waitForNextUpdate, rerender } = renderHook(
+		const { result, rerender } = renderHook(
 			() => {
 				return useLoadOptions(loaderProps);
 			},
@@ -38,7 +38,6 @@ describe('useLoadOptions', () => {
 
 		return {
 			result,
-			waitForNextUpdate,
 			rerender,
 		};
 	};
@@ -70,24 +69,25 @@ describe('useLoadOptions', () => {
 				],
 			});
 
-			const { result, waitForNextUpdate } = setup({ executeFetch: mockExecuteFetch });
-			await waitForNextUpdate();
-			const { options, isLoading, hasFailed } = result.current;
+			const { result } = setup({ executeFetch: mockExecuteFetch });
+			await waitFor(() => {
+				const { options, isLoading, hasFailed } = result.current;
 
-			expect(options).toEqual(
-				expect.arrayContaining([
-					{
-						id: '1',
-						name: 'Option 1',
-					},
-					{
-						id: '2',
-						name: 'Option 2',
-					},
-				]),
-			);
-			expect(hasFailed).toEqual(false);
-			expect(isLoading).toEqual(false);
+				expect(options).toEqual(
+					expect.arrayContaining([
+						{
+							id: '1',
+							name: 'Option 1',
+						},
+						{
+							id: '2',
+							name: 'Option 2',
+						},
+					]),
+				);
+				expect(hasFailed).toEqual(false);
+				expect(isLoading).toEqual(false);
+			});
 		});
 
 		it('should call executeFetch with inputs when provided', () => {
@@ -102,7 +102,7 @@ describe('useLoadOptions', () => {
 		});
 
 		it('should return isLoading as true when the fetch is in progress', async () => {
-			const { result, rerender, waitForNextUpdate } = setup({ executeFetch: mockExecuteFetch });
+			const { result, rerender } = setup({ executeFetch: mockExecuteFetch });
 			mockExecuteFetch.mockResolvedValue({
 				operationStatus: 'SUCCESS',
 				errors: [],
@@ -118,22 +118,23 @@ describe('useLoadOptions', () => {
 				],
 			});
 			rerender({ fetchInputs: { name: 'Option 3' }, executeFetch: mockExecuteFetch });
-			waitForNextUpdate();
-
-			expect(result.current.isLoading).toEqual(true);
-			expect(result.current.options).toEqual([]);
+			await waitFor(() => {
+				expect(result.current.isLoading).toEqual(true);
+				expect(result.current.options).toEqual([]);
+			});
 		});
 	});
 
 	describe('failure', () => {
 		it('When executeFetch is not provided options should return as an empty array', async () => {
-			const { result, waitForNextUpdate } = setup({});
-			await waitForNextUpdate();
-			const { options, isLoading, hasFailed } = result.current;
+			const { result } = setup({});
 
-			expect(options).toEqual([]);
-			expect(isLoading).toEqual(false);
-			expect(hasFailed).toEqual(false);
+			await waitFor(() => {
+				const { options, isLoading, hasFailed } = result.current;
+				expect(options).toEqual([]);
+				expect(isLoading).toEqual(false);
+				expect(hasFailed).toEqual(false);
+			});
 		});
 
 		it('should return an empty array when the fetch fails with response failure', async () => {
@@ -142,23 +143,25 @@ describe('useLoadOptions', () => {
 				errors: [],
 			});
 
-			const { result, waitForNextUpdate } = setup({ executeFetch: mockExecuteFetch });
-			await waitForNextUpdate();
-			const { options, isLoading, hasFailed } = result.current;
+			const { result } = setup({ executeFetch: mockExecuteFetch });
 
-			expect(options).toEqual([]);
-			expect(isLoading).toEqual(false);
-			expect(hasFailed).toEqual(true);
+			await waitFor(() => {
+				const { options, isLoading, hasFailed } = result.current;
+				expect(options).toEqual([]);
+				expect(isLoading).toEqual(false);
+				expect(hasFailed).toEqual(true);
+			});
 		});
 
 		it('should return an empty array when the fetch fails with error', async () => {
-			const { result, waitForNextUpdate } = setup({ executeFetch: mockExecuteFetch });
-			await waitForNextUpdate();
-			const { options, isLoading, hasFailed } = result.current;
+			const { result } = setup({ executeFetch: mockExecuteFetch });
 
-			expect(options).toEqual([]);
-			expect(isLoading).toEqual(false);
-			expect(hasFailed).toEqual(true);
+			await waitFor(() => {
+				const { options, isLoading, hasFailed } = result.current;
+				expect(options).toEqual([]);
+				expect(isLoading).toEqual(false);
+				expect(hasFailed).toEqual(true);
+			});
 		});
 	});
 });

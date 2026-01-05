@@ -1,4 +1,4 @@
-export function error(message: string, _input: string, line: number, column: number) {
+export function error(message: string, _input: string, line: number, column: number): void {
 	throw createError({
 		message,
 		line,

@@ -10,7 +10,7 @@ import type { FlexibleUiDataContext } from '../../state/flexible-ui-context/type
 import type { InternalFlexibleUiOptions } from '../../view/FlexibleCard/types';
 
 export const getCardTestWrapper =
-	(): React.JSXElementConstructor<{ children: React.ReactElement }> =>
+	(): React.JSXElementConstructor<{ children: React.ReactNode }> =>
 	({ children }) => (
 		<IntlProvider locale="en">
 			<SmartCardProvider>{children}</SmartCardProvider>
@@ -22,7 +22,7 @@ export const getFlexibleCardTestWrapper =
 		data?: FlexibleUiDataContext,
 		ui?: InternalFlexibleUiOptions,
 		status?: SmartLinkStatus,
-	): React.JSXElementConstructor<{ children: React.ReactElement }> =>
+	): React.JSXElementConstructor<{ children: React.ReactNode }> =>
 	({ children }) => {
 		return (
 			<IntlProvider locale="en">

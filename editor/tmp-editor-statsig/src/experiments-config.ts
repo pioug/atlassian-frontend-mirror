@@ -18,8 +18,8 @@ export type EditorExperimentsConfig = typeof editorExperimentsConfig;
  */
 export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-	? true // Boolean: only 'true' is allowed as expected value
-	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+		? true // Boolean: only 'true' is allowed as expected value
+		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * Extract valid default values.
@@ -28,8 +28,8 @@ export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimen
  */
 export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-	? false // Boolean: only 'false' is allowed as default value
-	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+		? false // Boolean: only 'false' is allowed as default value
+		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * When adding a new experiment, you need to add it here.
@@ -604,13 +604,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-06-10
 	platform_editor_no_cursor_on_edit_page_init: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-10-15
-	platform_editor_no_ssr: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1378,14 +1371,6 @@ export const editorExperimentsConfig: {
 	platform_editor_offline_editing_web: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_offline_editing_web',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-10-15
-	platform_editor_no_ssr: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_no_ssr',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

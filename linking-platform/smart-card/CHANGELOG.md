@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 43.18.1
+
+### Patch Changes
+
+- [`127f20512b35e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/127f20512b35e) -
+  Set auto focus on embed modal on the first interaction element, behind fg
+  platform_navx_sl_a11y_embed_modal
+- Updated dependencies
+
 ## 43.18.0
 
 ### Minor Changes

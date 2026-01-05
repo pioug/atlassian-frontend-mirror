@@ -75,7 +75,7 @@ export class DefaultMentionNameResolver implements MentionNameResolver {
 		});
 	}
 
-	cacheName(id: string, name: string) {
+	cacheName(id: string, name: string): void {
 		this.nameCache.set(id, {
 			id,
 			name,

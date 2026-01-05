@@ -13,6 +13,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import { Layering } from '@atlaskit/layering';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Manager, Reference } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 
@@ -30,6 +31,7 @@ const IdContext = createContext<string | undefined>(undefined);
 const TriggerRefContext = createContext<HTMLElement | null>(null);
 const SetTriggerRefContext = createContext<Dispatch<SetStateAction<HTMLElement | null>>>(noop);
 const EnsureIsInsidePopupContext = createContext<boolean>(false);
+const RoleContext = createContext<string | undefined>(undefined);
 
 // Used to ensure popup sub-components are used within a Popup
 // and provide a useful error message if not.
@@ -42,6 +44,7 @@ export type PopupProps = {
 	children: React.ReactNode;
 	isOpen?: boolean;
 	id?: string;
+	role?: 'dialog';
 };
 
 /**
@@ -67,6 +70,7 @@ export const Popup = ({
 	children,
 	id: providedId,
 	isOpen = false,
+	role
 }: PopupProps): React.JSX.Element => {
 	const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
 
@@ -74,17 +78,19 @@ export const Popup = ({
 	const id = providedId || generatedId;
 
 	return (
-		<EnsureIsInsidePopupContext.Provider value={true}>
-			<IdContext.Provider value={id}>
-				<TriggerRefContext.Provider value={triggerRef}>
-					<SetTriggerRefContext.Provider value={setTriggerRef}>
-						<IsOpenContext.Provider value={isOpen}>
-							<Manager>{children}</Manager>
-						</IsOpenContext.Provider>
-					</SetTriggerRefContext.Provider>
-				</TriggerRefContext.Provider>
-			</IdContext.Provider>
-		</EnsureIsInsidePopupContext.Provider>
+		<RoleContext.Provider value={role}>
+			<EnsureIsInsidePopupContext.Provider value={true}>
+				<IdContext.Provider value={id}>
+					<TriggerRefContext.Provider value={triggerRef}>
+						<SetTriggerRefContext.Provider value={setTriggerRef}>
+							<IsOpenContext.Provider value={isOpen}>
+								<Manager>{children}</Manager>
+							</IsOpenContext.Provider>
+						</SetTriggerRefContext.Provider>
+					</TriggerRefContext.Provider>
+				</IdContext.Provider>
+			</EnsureIsInsidePopupContext.Provider>
+		</RoleContext.Provider>
 	);
 };
 
@@ -105,6 +111,8 @@ export const PopupTrigger = ({ children }: PopupTriggerProps): React.JSX.Element
 	const setTriggerRef = useContext(SetTriggerRefContext);
 	const isOpen = useContext(IsOpenContext);
 	const getMergedTriggerRef = useGetMemoizedMergedTriggerRefNew();
+	const role = useContext(RoleContext);
+
 	return (
 		<Reference>
 			{({ ref }) =>
@@ -112,7 +120,8 @@ export const PopupTrigger = ({ children }: PopupTriggerProps): React.JSX.Element
 					ref: getMergedTriggerRef(ref, setTriggerRef),
 					'aria-controls': id,
 					'aria-expanded': isOpen,
-					'aria-haspopup': true,
+					'aria-haspopup':
+						role === 'dialog' && fg('platform_dst_nav4_flyout_menu_slots_close_button') ? 'dialog' : true,
 				})
 			}
 		</Reference>
@@ -141,6 +150,8 @@ type CommonContentPopupProps = Pick<
 	| 'strategy'
 	| 'zIndex'
 	| 'shouldFitViewport'
+	| 'role'
+	| 'titleId'
 > & {
 	// This type has been kept the same as the Popup `content` prop for now.
 	// It could be nice to also support ReactNode e.g. `ReactNode | ((props: ContentProps) => ReactNode)`,
@@ -217,6 +228,8 @@ export const PopupContent = ({
 	shouldFitContainer,
 	shouldFitViewport,
 	shouldDisableGpuAcceleration = false,
+	role,
+	titleId
 }: PopupContentProps): React.JSX.Element | null => {
 	useEnsureIsInsidePopup();
 	const isOpen = useContext(IsOpenContext);
@@ -267,6 +280,8 @@ export const PopupContent = ({
 				strategy={strategy}
 				shouldFitViewport={shouldFitViewport}
 				modifiers={shouldDisableGpuAcceleration ? shouldDisableGpuAccelerationModifiers : undefined}
+				role={role}
+				titleId={titleId}
 			/>
 		</Layering>
 	);

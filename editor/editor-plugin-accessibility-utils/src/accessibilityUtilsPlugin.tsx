@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -43,7 +44,9 @@ export const accessibilityUtilsPlugin: AccessibilityUtilsPlugin = ({ api }) => {
 			},
 		},
 		contentComponent: () => {
-			if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView) {
+			if (
+				!editorView ||
+				(isSSR() && expValEquals('platform_editor_hydratable_ui', 'isEnabled', true))) {
 				return null;
 			}
 			return <ContentComponent api={api} />;

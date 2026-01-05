@@ -1,7 +1,6 @@
 import React, { lazy, type ReactNode, useState } from 'react';
 
-import { act, fireEvent, render, screen, within } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
+import { act, fireEvent, render, renderHook, screen, within } from '@testing-library/react';
 
 import { SmartLinkModalProvider, useSmartLinkModal } from '../index';
 

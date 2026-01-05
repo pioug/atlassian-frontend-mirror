@@ -157,13 +157,11 @@ export const StyleObject = {
 
 			if (matchingTokens.length) {
 				// If we have multiple matching tokens, try matching fontWeight
-				let matchingTokensWithWeight = matchingTokens.filter((token) =>
-					fontWeightValue ? token.values.fontWeight === fontWeightValue : token,
-				);
+				let matchingTokenWithWeight = findFontWeightTokenForValue(fontWeightValue, matchingTokens);
 
-				if (matchingTokensWithWeight.length) {
+				if (matchingTokenWithWeight) {
 					// Possibly narrowed down tokens
-					matchingTokens = matchingTokensWithWeight;
+					matchingTokens = [matchingTokenWithWeight];
 				} else {
 					// Ended up with 0 matches by matching fontWeight
 					// return body token and add fontWeight manually

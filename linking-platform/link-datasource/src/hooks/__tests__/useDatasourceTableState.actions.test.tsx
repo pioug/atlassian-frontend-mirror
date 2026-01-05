@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { renderHook, type RenderHookOptions } from '@testing-library/react-hooks';
+import { renderHook, type RenderHookOptions, waitFor } from '@testing-library/react';
 import { defaultRegistry } from 'react-sweet-state';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
@@ -73,7 +73,7 @@ describe('useDatasourceTableState', () => {
 			getDatasourceActionsAndPermissions,
 		});
 
-		const { result, waitForNextUpdate, rerender } = renderHook(
+		const { result, rerender } = renderHook(
 			({ fieldKeys, parameters, datasourceId }: Partial<DatasourceTableStateProps> = {}) =>
 				useDatasourceTableState({
 					datasourceId: datasourceId || mockDatasourceId,
@@ -88,7 +88,6 @@ describe('useDatasourceTableState', () => {
 
 		return {
 			result,
-			waitForNextUpdate,
 			rerender,
 		};
 	};
@@ -112,10 +111,10 @@ describe('useDatasourceTableState', () => {
 			});
 			mockIsFedRamp.mockReturnValueOnce(true);
 
-			const { waitForNextUpdate } = setup();
-			await waitForNextUpdate();
-
-			expect(getDatasourceActionsAndPermissions).not.toHaveBeenCalled();
+			setup();
+			await waitFor(() => {
+				expect(getDatasourceActionsAndPermissions).not.toHaveBeenCalled();
+			});
 		});
 
 		it('should call discovery when determined to be non FedRamp environment', async () => {
@@ -127,20 +126,20 @@ describe('useDatasourceTableState', () => {
 			});
 			mockIsFedRamp.mockReturnValueOnce(false);
 
-			const { waitForNextUpdate } = setup();
-			await waitForNextUpdate();
-
-			expect(getDatasourceActionsAndPermissions).toHaveBeenCalled();
+			setup();
+			await waitFor(() => {
+				expect(getDatasourceActionsAndPermissions).toHaveBeenCalled();
+			});
 		});
 
 		it('should not call discovery when objectTypesEntity is not in the datasource response', async () => {
 			asMock(getDatasourceData).mockResolvedValueOnce({
 				...mockDatasourceDataNoActionsResponse,
 			});
-			const { waitForNextUpdate } = setup();
-			await waitForNextUpdate();
-
-			expect(getDatasourceActionsAndPermissions).not.toHaveBeenCalled();
+			setup();
+			await waitFor(() => {
+				expect(getDatasourceActionsAndPermissions).not.toHaveBeenCalled();
+			});
 		});
 
 		it('should fire analytic event when `discoverActions` is successful', async () => {
@@ -152,25 +151,25 @@ describe('useDatasourceTableState', () => {
 				...mockActionsDiscoveryResponse,
 			});
 
-			const { waitForNextUpdate } = setup();
-			await waitForNextUpdate();
-
-			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-				{
-					payload: {
-						action: 'success',
-						actionSubject: 'actionDiscovery',
-						eventType: 'operational',
-						attributes: {
-							datasourceId: null,
-							entityType: 'work-item',
-							experience: 'datasource',
-							integrationKey: 'jira',
+			setup();
+			await waitFor(() => {
+				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+					{
+						payload: {
+							action: 'success',
+							actionSubject: 'actionDiscovery',
+							eventType: 'operational',
+							attributes: {
+								datasourceId: null,
+								entityType: 'work-item',
+								experience: 'datasource',
+								integrationKey: 'jira',
+							},
 						},
 					},
-				},
-				EVENT_CHANNEL,
-			);
+					EVENT_CHANNEL,
+				);
+			});
 		});
 
 		it('when `discoverActions` fails with an `Error`, it should log to Splunk and log to Sentry conditionally based on FF', async () => {
@@ -180,27 +179,28 @@ describe('useDatasourceTableState', () => {
 			});
 			asMock(getDatasourceActionsAndPermissions).mockRejectedValueOnce(mockError);
 
-			const { waitForNextUpdate } = setup();
-			await waitForNextUpdate();
+			setup();
 
-			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-				{
-					payload: {
-						action: 'operationFailed',
-						actionSubject: 'datasource',
-						eventType: 'operational',
-						attributes: {
-							errorLocation: 'actionDiscovery',
-							status: null,
-							traceId: null,
-							reason: 'internal',
+			await waitFor(() => {
+				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+					{
+						payload: {
+							action: 'operationFailed',
+							actionSubject: 'datasource',
+							eventType: 'operational',
+							attributes: {
+								errorLocation: 'actionDiscovery',
+								status: null,
+								traceId: null,
+								reason: 'internal',
+							},
 						},
 					},
-				},
-				EVENT_CHANNEL,
-			);
-			expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
-				datasourceId: mockDatasourceId,
+					EVENT_CHANNEL,
+				);
+				expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
+					datasourceId: mockDatasourceId,
+				});
 			});
 		});
 
@@ -213,28 +213,28 @@ describe('useDatasourceTableState', () => {
 				...mockActionsDiscoveryResponse,
 			});
 
-			const { waitForNextUpdate } = setup();
-			await waitForNextUpdate();
+			setup();
 
-			const actions = actionsStore.storeState.getState();
-
-			expect(actions['actionsByIntegration']['jira']).toEqual(
-				expect.objectContaining({
-					status: {
-						actionKey: 'atlassian:work-item:update:status',
-						fetchAction: {
-							actionKey: 'atlassian:work-item:get:statuses',
-							inputs: {
-								issueId: {
-									type: 'string',
+			await waitFor(() => {
+				const actions = actionsStore.storeState.getState();
+				expect(actions['actionsByIntegration']['jira']).toEqual(
+					expect.objectContaining({
+						status: {
+							actionKey: 'atlassian:work-item:update:status',
+							fetchAction: {
+								actionKey: 'atlassian:work-item:get:statuses',
+								inputs: {
+									issueId: {
+										type: 'string',
+									},
 								},
+								type: 'string',
 							},
 							type: 'string',
 						},
-						type: 'string',
-					},
-				}),
-			);
+					}),
+				);
+			});
 		});
 	});
 });

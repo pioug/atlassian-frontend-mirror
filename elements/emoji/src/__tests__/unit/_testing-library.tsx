@@ -18,8 +18,8 @@ export const renderWithIntl: (
  * @param onAfterAllCallback Optional callback when jest event for afterAll has executed
  */
 export function mockReactDomWarningGlobal(
-	onBeforeAllCallback = () => {},
-	onAfterAllCallback = () => {},
+	onBeforeAllCallback = (): void => {},
+	onAfterAllCallback = (): void => {},
 ): void {
 	const originalError = global.console.error;
 	beforeAll(() => {
@@ -48,8 +48,8 @@ export function mockReactDomWarningGlobal(
  * @param onAfterEachCallback Optional callback when jest event for afterEach has executed
  */
 export function useFakeTimers(
-	onBeforeEachCallback = () => {},
-	onAfterEachCallback = () => {},
+	onBeforeEachCallback = (): void => {},
+	onAfterEachCallback = (): void => {},
 ): void {
 	beforeEach(() => {
 		jest.useFakeTimers();

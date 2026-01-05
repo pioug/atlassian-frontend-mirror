@@ -92,7 +92,7 @@ const PopupPlacementExample = () => {
 
 	return (
 		<Fragment>
-			<Banner appearance="warning" icon={<WarningIcon spacing="spacious" label="Warning"  />}>
+			<Banner appearance="warning" icon={<WarningIcon spacing="spacious" label="Warning" />}>
 				This is an example for tests only -
 				<Link target="_blank" href="https://atlassian.design/components/popup/usage#accessibility">
 					{' '}

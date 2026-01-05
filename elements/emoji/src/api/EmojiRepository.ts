@@ -227,7 +227,7 @@ export default class EmojiRepository {
 		}
 	}
 
-	addUnknownEmoji(emoji: EmojiDescription) {
+	addUnknownEmoji(emoji: EmojiDescription): void {
 		this.emojis = [...this.emojis, emoji];
 		this.getSearchIndex().addDocuments([emoji]);
 		this.addToMaps(emoji);
@@ -268,7 +268,7 @@ export default class EmojiRepository {
 	 *
 	 * @param emoji the emoji that was just used
 	 */
-	used(emoji: EmojiDescription) {
+	used(emoji: EmojiDescription): void {
 		this.usageTracker.recordUsage(emoji);
 
 		// If this is the first usage ensure that we update the dynamic categories.
@@ -285,7 +285,7 @@ export default class EmojiRepository {
 		}
 	}
 
-	delete(emoji: EmojiDescription) {
+	delete(emoji: EmojiDescription): void {
 		const deletedIndex = findEmojiIndex(this.emojis, emoji);
 		if (deletedIndex !== -1) {
 			// Remove the deleted emojis from the internal list

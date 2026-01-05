@@ -17,7 +17,7 @@ export const uploadEmoji = (
 	onSuccess: (emojiDescription: EmojiDescription) => void,
 	fireAnalytics: (event: AnalyticsEventPayload) => void,
 	retry: boolean,
-) => {
+): void => {
 	const startTime = Date.now();
 	errorSetter(undefined);
 	if (supportsUploadFeature(emojiProvider)) {

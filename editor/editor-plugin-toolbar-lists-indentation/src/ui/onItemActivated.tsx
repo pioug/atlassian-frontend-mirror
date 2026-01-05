@@ -12,7 +12,7 @@ export const onItemActivated =
 		indentationStateNode: IndentationButtonNode | undefined,
 		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB,
 	) =>
-	({ buttonName, editorView }: { buttonName: ButtonName; editorView: EditorView }) => {
+	({ buttonName, editorView }: { buttonName: ButtonName; editorView: EditorView }): void => {
 		switch (buttonName) {
 			case 'bullet_list':
 				pluginInjectionApi?.core?.actions.execute(

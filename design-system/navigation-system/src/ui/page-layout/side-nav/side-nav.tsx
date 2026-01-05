@@ -572,6 +572,15 @@ function SideNavInternal({
 		}
 
 		function open() {
+			// Prevent the flyout from being opened if there are any open layers in the top nav start
+			if (
+				openLayerObserver &&
+				openLayerObserver.getCount({ namespace: 'top-nav-start', type: 'popup' }) > 0 &&
+				fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
+			) {
+				return;
+			}
+
 			const prevFlyoutState = flyoutStateRef.current;
 
 			tryAbortPendingClose();

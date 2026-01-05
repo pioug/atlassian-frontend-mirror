@@ -15,7 +15,7 @@ export default class ArraySchemaNode extends SchemaNodeWithValidators<ArrayValid
 		this.items = Array.isArray(items) ? items : [items];
 	}
 
-	push(items: SchemaNode | Array<SchemaNode> | undefined) {
+	push(items: SchemaNode | Array<SchemaNode> | undefined): void {
 		if (items) {
 			this.items = this.items.concat(items);
 		}

@@ -120,12 +120,92 @@ function MockAppSwitcher(): JSX.Element {
 	);
 }
 
+const createButtonStyles = cssMap({
+	root: {
+		width: '300px',
+		height: '400px',
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
+	},
+});
+
+function MockCreate(): JSX.Element {
+	const [isOpen, setIsOpen] = useState(false);
+
+	return (
+		<Popup
+			isOpen={isOpen}
+			onClose={() => {
+				setIsOpen(false);
+			}}
+			content={() => <div css={createButtonStyles.root}>Mock create button</div>}
+			placement="bottom-end"
+			shouldRenderToParent
+			trigger={(triggerProps) => (
+				<CreateButton
+					{...triggerProps}
+					onClick={() => {
+						setIsOpen((prev) => !prev);
+						console.log('create button clicked');
+					}}
+					testId="create-button"
+				>
+					Create
+				</CreateButton>
+			)}
+		/>
+	);
+}
+
+const notificationsStyles = cssMap({
+	root: {
+		width: '600px',
+		height: '700px',
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
+	},
+});
+
+function MockNotifications(): JSX.Element {
+	const [isOpen, setIsOpen] = useState(false);
+
+	return (
+		<Popup
+			isOpen={isOpen}
+			onClose={() => {
+				setIsOpen(false);
+			}}
+			shouldRenderToParent
+			content={() => <div css={notificationsStyles.root}>Mock notifications</div>}
+			placement="bottom-end"
+			trigger={(triggerProps) => (
+				<Notifications
+					{...triggerProps}
+					badge={() => (
+						<Badge max={9} appearance="important">
+							{99999}
+						</Badge>
+					)}
+					label="Notifications"
+					onClick={() => {
+						setIsOpen((prev) => !prev);
+					}}
+				/>
+			)}
+		/>
+	);
+}
+
 export function SideNavLayering() {
 	return (
 		<WithResponsiveViewport>
 			<Root testId="root" isSideNavShortcutEnabled>
 				<Banner xcss={bannerStyles.root}> </Banner>
-				<TopNav>
+				<TopNav testId="top-nav">
 					<TopNavStart
 						sideNavToggleButton={
 							<SideNavToggleButton
@@ -140,18 +220,11 @@ export function SideNavLayering() {
 					</TopNavStart>
 					<TopNavMiddle>
 						<Search label="Search" />
-						<CreateButton onClick={() => console.log('create button clicked')}>Create</CreateButton>
+						<MockCreate />
 					</TopNavMiddle>
 					<TopNavEnd>
 						<Help label="Help" onClick={() => console.log('help button clicked')} />
-						<Notifications
-							badge={() => (
-								<Badge max={9} appearance="important">
-									{99999}
-								</Badge>
-							)}
-							label="Notifications"
-						/>
+						<MockNotifications />
 						<Settings label="Settings" />
 						<DropdownMenu
 							shouldRenderToParent
@@ -165,7 +238,7 @@ export function SideNavLayering() {
 						</DropdownMenu>
 					</TopNavEnd>
 				</TopNav>
-				<SideNav>
+				<SideNav testId="side-nav">
 					<SideNavContent>
 						<MenuList>
 							<LinkMenuItem href="#" elemBefore={<InboxIcon label="" color="currentColor" />}>

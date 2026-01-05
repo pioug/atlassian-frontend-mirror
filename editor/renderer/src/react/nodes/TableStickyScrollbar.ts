@@ -22,7 +22,7 @@ export class TableStickyScrollbar {
 		this.init();
 	}
 
-	dispose() {
+	dispose(): void {
 		if (this.stickyScrollbarContainerElement) {
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
@@ -32,7 +32,7 @@ export class TableStickyScrollbar {
 		this.deleteIntersectionObserver();
 	}
 
-	scrollLeft(left: number) {
+	scrollLeft(left: number): void {
 		if (this.stickyScrollbarContainerElement) {
 			this.stickyScrollbarContainerElement.scrollLeft = left;
 		}

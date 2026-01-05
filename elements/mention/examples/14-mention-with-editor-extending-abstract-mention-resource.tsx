@@ -89,7 +89,7 @@ export class ExampleMentionResource
 	/**
 	 * Cache your resolved mentions
 	 */
-	cacheMentionName(id: string, name: string) {
+	cacheMentionName(id: string, name: string): void {
 		if (this.config.mentionNameResolver) {
 			this.config.mentionNameResolver.cacheName(id, name);
 		}
@@ -134,7 +134,7 @@ export class MentionEditor extends React.Component<Props, State> {
 		},
 	});
 
-	onFocus = () => this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
+	onFocus = (): void => this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
 
 	render(): React.JSX.Element {
 		return (

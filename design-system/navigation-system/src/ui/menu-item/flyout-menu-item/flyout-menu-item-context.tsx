@@ -31,3 +31,20 @@ export const OnCloseContext = createContext<(() => void) | null | undefined>(nul
  * A context provider for supplying the onClose function to the FlyoutHeader.
  */
 export const OnCloseProvider = OnCloseContext.Provider;
+
+/**
+ * __Title id context__
+ * 
+ * A context for storing the title id of the FlyoutMenuItem that is displayed in
+ * FlyoutHeader, and used as the aria-labelledby on the FlyoutMenuItemContent
+ * container.
+ */
+export const TitleIdContext = createContext<string | undefined>(undefined);
+export const useTitleId = () => useContext(TitleIdContext);
+
+/**
+ * __Title id provider__
+ * 
+ * A context provider for supplying the title id to the FlyoutHeader.
+ */
+export const TitleIdContextProvider = TitleIdContext.Provider;

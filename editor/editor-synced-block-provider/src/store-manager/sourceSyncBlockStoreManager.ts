@@ -181,14 +181,14 @@ export class SourceSyncBlockStoreManager {
 		}
 	}
 
-	public registerPendingCreation(resourceId: ResourceId) {
+	public registerPendingCreation(resourceId: ResourceId): void {
 		this.pendingResourceId = resourceId;
 	}
 
 	/**
 	 * Register callback function (which inserts node, handles focus etc) to be used later when creation to backend succeed
 	 */
-	public registerCreationCallback(callback: CreationCallback) {
+	public registerCreationCallback(callback: CreationCallback): void {
 		this.creationCallback = callback;
 	}
 
@@ -196,7 +196,7 @@ export class SourceSyncBlockStoreManager {
 	 *  Fires callback to insert node (if creation is successful) and clears pending creation data
 	 * @param success
 	 */
-	public commitPendingCreation(success: boolean) {
+	public commitPendingCreation(success: boolean): void {
 		if (success && this.creationCallback) {
 			this.creationCallback();
 		}
@@ -215,7 +215,7 @@ export class SourceSyncBlockStoreManager {
 	public registerConfirmationCallback(callback: ConfirmationCallback) {
 		this.confirmationCallback = callback;
 
-		return () => {
+		return (): void => {
 			this.confirmationCallback = undefined;
 		};
 	}

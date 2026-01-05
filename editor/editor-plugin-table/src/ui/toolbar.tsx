@@ -709,9 +709,7 @@ export const getToolbarConfig =
 			};
 
 			const isNestedTable =
-				isNestedTablesSupported(state.schema) &&
-				fg('platform_editor_use_nested_table_pm_nodes') &&
-				isSelectionTableNestedInTable(state);
+				isNestedTablesSupported(state.schema) && isSelectionTableNestedInTable(state);
 
 			const hoverTableProps = (isInDanger?: boolean, isSelected?: boolean) => ({
 				onMouseEnter: hoverTable(isInDanger, isSelected),

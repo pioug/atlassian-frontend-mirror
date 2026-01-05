@@ -196,7 +196,7 @@ export default class SiteEmojiResource {
 		);
 	}
 
-	prepareForUpload() {
+	prepareForUpload(): void {
 		// make sure a token is loaded from the emoji service if we don't have one
 		// as future request to uploadEmoji will use this, this to preload it, as it
 		// usually takes 1-2 seconds to generate

@@ -251,7 +251,7 @@ export class MentionResource extends AbstractMentionResource implements Resolvin
 		return false;
 	}
 
-	notify(searchTime: number, mentionResult: MentionsResult, query?: string) {
+	notify(searchTime: number, mentionResult: MentionsResult, query?: string): void {
 		if (searchTime > this.lastReturnedSearch) {
 			this.lastReturnedSearch = searchTime;
 			this._notifyListeners(mentionResult, {
@@ -265,7 +265,7 @@ export class MentionResource extends AbstractMentionResource implements Resolvin
 		this._notifyAllResultsListeners(mentionResult);
 	}
 
-	notifyError(error: Error, query?: string) {
+	notifyError(error: Error, query?: string): void {
 		this._notifyErrorListeners(error, query);
 		if (query) {
 			this.activeSearches.delete(query);
@@ -320,7 +320,7 @@ export class MentionResource extends AbstractMentionResource implements Resolvin
 		this.activeSearches.add(query);
 	}
 
-	protected verifyMentionConfig(config: MentionResourceConfig) {
+	protected verifyMentionConfig(config: MentionResourceConfig): void {
 		if (!config.url) {
 			throw new Error('config.url is a required parameter');
 		}

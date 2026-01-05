@@ -14,7 +14,7 @@ type Props = {
 	isNestedRender: boolean;
 	onLoadComplete?: LoadCompleteHandler;
 };
-export const useLoadAnnotations = ({ adfDocument, isNestedRender, onLoadComplete }: Props) => {
+export const useLoadAnnotations = ({ adfDocument, isNestedRender, onLoadComplete }: Props): void => {
 	const actions = useContext(ActionsContext);
 	const providers = useContext(ProvidersContext);
 	const { annotationManager, dispatch } = useAnnotationManagerDispatch();

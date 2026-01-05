@@ -37,7 +37,7 @@ export class ListBuilder {
 	 * Add a list item to the builder
 	 * @param {AddArgs[]} items
 	 */
-	add(items: AddArgs[]) {
+	add(items: AddArgs[]): void {
 		for (const item of items) {
 			const { style, content } = item;
 

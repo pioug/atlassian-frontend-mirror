@@ -26,7 +26,7 @@ export class CardErrorBoundary extends React.PureComponent<
 		error: null,
 	};
 
-	onClickFallback = (e: React.MouseEvent<HTMLElement>) => {
+	onClickFallback = (e: React.MouseEvent<HTMLElement>): void => {
 		const { onClick, url } = this.props;
 		e.preventDefault();
 
@@ -94,7 +94,7 @@ export class CardErrorBoundary extends React.PureComponent<
 		return this.props.children;
 	}
 
-	componentDidCatch(_error: Error) {
+	componentDidCatch(_error: Error): void {
 		this.setState({ isError: true, error: _error });
 	}
 }

@@ -162,7 +162,7 @@ type Props = {
 };
 export const insertTypeAheadItem =
 	(view: EditorView) =>
-	({ item, handler, mode, query, sourceListItem }: Props) => {
+	({ item, handler, mode, query, sourceListItem }: Props): void => {
 		const pluginState = getPluginState(view.state);
 		if (!pluginState) {
 			return;

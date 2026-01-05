@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 
 import { setGlobalTheme } from '@atlaskit/tokens';
 import { ffTest } from '@atlassian/feature-flags-test-utils';

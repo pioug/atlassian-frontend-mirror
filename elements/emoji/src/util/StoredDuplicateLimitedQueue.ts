@@ -46,7 +46,7 @@ export default class StoredDuplicateLimitedQueue<T> extends DuplicateLimitedQueu
 	/**
 	 * Exposed for storybook/testing purposes only. Clear the contents of the queue, and localStorage.
 	 */
-	clear() {
+	clear(): void {
 		super.clear();
 		this.storage.removeItem(this.prefixedStorageKey);
 	}

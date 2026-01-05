@@ -631,7 +631,7 @@ export class EmojiResource
 		return this.selectedTone;
 	}
 
-	setSelectedTone(tone: ToneSelection) {
+	setSelectedTone(tone: ToneSelection): void {
 		this.selectedTone = tone;
 		if (typeof window === 'undefined') {
 			return;
@@ -658,7 +658,7 @@ export class EmojiResource
 		return this.currentUser;
 	}
 
-	protected addUnknownEmoji(emoji: EmojiDescription) {
+	protected addUnknownEmoji(emoji: EmojiDescription): void {
 		if (this.isRepositoryAvailable<EmojiRepository>(this.emojiRepository)) {
 			this.emojiRepository.addUnknownEmoji(emoji);
 		}

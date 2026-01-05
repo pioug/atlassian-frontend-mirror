@@ -49,7 +49,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		this.providerOptions = {};
 	}
 
-	setProviderOptions(providerOptions: SyncedBlockRendererProviderOptions) {
+	setProviderOptions(providerOptions: SyncedBlockRendererProviderOptions): void {
 		this.providerOptions = providerOptions;
 	}
 

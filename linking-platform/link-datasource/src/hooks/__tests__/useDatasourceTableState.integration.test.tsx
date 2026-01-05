@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook, waitFor } from '@testing-library/react';
 import fetchMock from 'fetch-mock/cjs/client';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
@@ -55,7 +55,7 @@ describe('useDatasourceTableState', () => {
 		});
 
 		it('should not see results from multiple renders of changed props + calling reset', async () => {
-			const { result, rerender, waitForNextUpdate } = setup({
+			const { result, rerender } = setup({
 				parameters: {
 					// This cloud ID is mocked to return 1 item
 					cloudId: '11111',
@@ -87,12 +87,11 @@ describe('useDatasourceTableState', () => {
 			expect(result.current.responseItems).toHaveLength(0);
 			expect(result.current.status).toBe('loading');
 
-			await waitForNextUpdate();
-
-			expect(result.current.responseItems).toHaveLength(1);
-			expect(result.current.responseItems[0].id.data).toBe('DONUT-11721');
-
-			expect(result.current.status).toBe('resolved');
+			await waitFor(() => {
+				expect(result.current.responseItems).toHaveLength(1);
+				expect(result.current.responseItems[0].id.data).toBe('DONUT-11721');
+				expect(result.current.status).toBe('resolved');
+			});
 		});
 	});
 });

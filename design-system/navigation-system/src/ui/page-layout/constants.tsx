@@ -62,7 +62,13 @@ export const localSlotLayers = {
 };
 
 export const openLayerObserverSideNavNamespace = 'side-nav';
-export const openLayerObserverTopNavNamespace = 'top-nav';
+// We have separate OpenLayerObserver namespaces for each top nav layout area, instead of a single namespace for the entire top nav,
+// as we need to know if there are open layers in TopNavStart specifically to prevent the side nav from peeking.
+// The OpenLayerObserver doesn't support nested namespaces. We could update it, but for now it's simple enough to just have separate
+// namespaces.
+export const openLayerObserverTopNavStartNamespace = 'top-nav-start';
+export const openLayerObserverTopNavMiddleNamespace = 'top-nav-middle';
+export const openLayerObserverTopNavEndNamespace = 'top-nav-end';
 
 /**
  * CSS scroll timeline variable for the side nav content scroll indicator.

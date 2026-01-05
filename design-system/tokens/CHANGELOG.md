@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 9.1.0
+
+### Minor Changes
+
+- [`018bda95d97eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/018bda95d97eb) -
+  Added new export for ThemeContrastModes
+
 ## 9.0.0
 
 ### Major Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "5.16.0",
+	"version": "5.18.1",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -191,6 +191,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform_dst_nav4_side_nav_resize_tooltip_feedback": {
+			"type": "boolean"
+		},
 		"platform_dst_nav4_fhs_instrumentation_1": {
 			"type": "boolean"
 		},
@@ -214,9 +217,6 @@
 			"type": "boolean"
 		},
 		"navx-full-height-sidebar": {
-			"type": "boolean"
-		},
-		"team25-eu-jira-logo-updates-csm-jsm": {
 			"type": "boolean"
 		},
 		"platform_themed_button_use_icon_renderer": {

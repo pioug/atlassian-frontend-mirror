@@ -5,7 +5,7 @@ export class UfoErrorBoundary extends React.Component<{
 	children?: React.ReactNode;
 	experiences: UFOExperience[];
 }> {
-	componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+	componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
 		for (const exp of this.props.experiences) {
 			const { name, message } = error;
 			const infoStack =

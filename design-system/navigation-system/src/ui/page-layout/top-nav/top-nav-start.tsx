@@ -7,13 +7,17 @@ import React, { forwardRef, useContext, useEffect, useLayoutEffect, useRef, useS
 import { cssMap, jsx, keyframes } from '@compiled/react';
 
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
+import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/experimental/open-layer-observer';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { TopNavStartAttachRef } from '../../../context/top-nav-start/top-nav-start-context';
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
-import { sideNavContentScrollTimelineVar } from '../constants';
+import {
+	openLayerObserverTopNavStartNamespace,
+	sideNavContentScrollTimelineVar,
+} from '../constants';
 import { useSideNavVisibility } from '../side-nav/use-side-nav-visibility';
 import { SideNavVisibilityState } from '../side-nav/visibility-context';
 
@@ -57,17 +61,13 @@ const innerStyles = cssMap({
 			 * - There is an `8px` gap between TopNavStart and TopNavMiddle
 			 *
 			 * So `320px` - (`12px` + `8px`) = `300px`
+			 * Jira product logo update, added 30px for CSM logo as the size is larger than the default
+			 * https://jplat.atlassian.net/browse/BLU-8440
+			 * So `300px` + `30px` = `330px`
 			 */
-			minWidth: '300px',
+			minWidth: '330px',
 			// We want the specified width to be inclusive of padding
 			boxSizing: 'border-box',
-		},
-	},
-	jiraProductLogoUpdate: {
-		'@media (min-width: 64rem)': {
-			// Jira product logo update, added 30px for CSM logo as the size is larger than the default
-			// https://jplat.atlassian.net/browse/BLU-8440
-			minWidth: '330px',
 		},
 	},
 	fullHeightSidebar: {
@@ -328,14 +328,7 @@ const TopNavStartInnerOld = forwardRef(function TopNavStartInner(
 	ref: React.ForwardedRef<HTMLDivElement>,
 ) {
 	return (
-		<div
-			ref={ref}
-			data-testid={testId}
-			css={[
-				innerStyles.root,
-				fg('team25-eu-jira-logo-updates-csm-jsm') && innerStyles.jiraProductLogoUpdate,
-			]}
-		>
+		<div ref={ref} data-testid={testId} css={[innerStyles.root]}>
 			{children}
 		</div>
 	);
@@ -391,12 +384,16 @@ const TopNavStartInnerFHS = forwardRef(function TopNavStartInnerFHS(
 				css={[
 					innerStyles.root,
 					!fg('platform-dst-side-nav-layering-fixes') && innerStyles.fullHeightSidebar,
-					// Needs to be before the expanded styles so that the min-width can be unset
-					fg('team25-eu-jira-logo-updates-csm-jsm') && innerStyles.jiraProductLogoUpdate,
 					isExpandedOnDesktop && innerStyles.fullHeightSidebarExpanded,
 				]}
 			>
-				{children}
+				{fg('platform-dst-side-nav-layering-fixes') ? (
+					<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavStartNamespace}>
+						{children}
+					</OpenLayerObserverNamespaceProvider>
+				) : (
+					children
+				)}
 			</div>
 		</div>
 	);

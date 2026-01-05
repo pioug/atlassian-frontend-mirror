@@ -54,6 +54,32 @@ const mapBlockError = (error: BlockError): SyncBlockError => {
 	return SyncBlockError.Errored;
 };
 
+/**
+ * Extracts the ResourceId from a block ARI by returning the full path after synced-block/.
+ *
+ * Document ARI format from Block Service API:
+ * "ari:cloud:blocks:{uuid}:synced-block/{product}/{parentId}/{resourceId}"
+ *
+ * ResourceId format (extracted from ARI):
+ * "{product}/{parentId}/{resourceId}" (the full path after synced-block/)
+ *
+ * Example in context:
+ * Input:  "ari:cloud:blocks:{uuid}:synced-block/confluence-page/{pageId}/{resourceId}"
+ * Output: "confluence-page/{pageId}/{resourceId}"
+ *
+ * @param blockAri - The block ARI string from Block Service API
+ * @returns The ResourceId (full path after synced-block/)
+ */
+export const blockAriToResourceId = (blockAri: string): ResourceId | null => {
+	// Validate ARI format and extract resourceId using regex
+	// Format: ari:cloud:blocks:{uuid}:synced-block/{product}/{parentId}/{resourceId}
+	// The regex captures the full path after synced-block/
+	// e.g. ari:cloud:blocks:DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5:synced-block/confluence-page/455232061495/e8cf64e3-1b6e-489b-ad86-8465b0905bb4
+	// should return confluence-page/455232061495/e8cf64e3-1b6e-489b-ad86-8465b0905bb4
+	const match = blockAri.match(/^ari:cloud:blocks:.*:synced-block\/(.+)$/);
+	return match?.[1] || null;
+};
+
 // convert BlockContentResponse to SyncBlockData
 // throws exception if JSON parsing fails
 // what's missing from BlockContentResponse to SyncBlockData:
@@ -61,9 +87,12 @@ const mapBlockError = (error: BlockError): SyncBlockError => {
 // - sourceURL
 // - sourceTitle
 // - isSynced
-const convertToSyncBlockData = (data: BlockContentResponse): SyncBlockData => {
+export const convertToSyncBlockData = (
+	data: BlockContentResponse,
+	resourceId: ResourceId,
+): SyncBlockData => {
 	let createdAt: string | undefined;
-	if (data.createdAt) {
+	if (data.createdAt !== undefined && data.createdAt !== null) {
 		try {
 			// BE returns microseconds, convert to milliseconds
 			// BE should fix this in the future
@@ -81,7 +110,7 @@ const convertToSyncBlockData = (data: BlockContentResponse): SyncBlockData => {
 		createdAt,
 		createdBy: data.createdBy,
 		product: data.product,
-		resourceId: data.blockAri,
+		resourceId,
 		sourceAri: data.sourceAri,
 	};
 };
@@ -108,9 +137,18 @@ export const fetchReferences = async (
 
 	const blocksInstances = (blocks || []).map((blockContentResponse) => {
 		try {
+			const resourceId = blockAriToResourceId(blockContentResponse.blockAri);
+			if (!resourceId) {
+				// could not extract resourceId from blockAri, return InvalidContent error
+				return {
+					error: SyncBlockError.InvalidContent,
+					resourceId: blockContentResponse.blockAri,
+				} as SyncBlockInstance;
+			}
+
 			return {
-				data: convertToSyncBlockData(blockContentResponse),
-				resourceId: blockContentResponse.blockAri,
+				data: convertToSyncBlockData(blockContentResponse, resourceId),
+				resourceId,
 			} as SyncBlockInstance;
 		} catch {
 			// JSON parsing error, return InvalidContent error

@@ -1,5 +1,12 @@
 # @atlassian/give-kudos
 
+## 4.5.2
+
+### Patch Changes
+
+- [`88b834ac195d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88b834ac195d1) -
+  Update the FG used to rollout the kudos zindex change
+
 ## 4.5.1
 
 ### Patch Changes

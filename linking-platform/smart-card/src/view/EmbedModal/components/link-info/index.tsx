@@ -256,7 +256,6 @@ const LinkInfo = ({
 };
 
 const LinkInfoNew = ({
-	focusRef,
 	icon,
 	providerName,
 	onDownloadButtonClick,
@@ -332,17 +331,11 @@ const LinkInfoNew = ({
 			)}
 			<div css={[titleCss]}>
 				{fg('navx-2816-a11y-fix-smart-links-headings') ? (
-					<Heading
-						as="h2"
-						size="small"
-						color="color.text"
-						ref={focusRef}
-						testId={`${testId}-title`}
-					>
+					<Heading as="h2" size="small" color="color.text" testId={`${testId}-title`}>
 						{title}
 					</Heading>
 				) : (
-					<Heading size="small" color="color.text" ref={focusRef} testId={`${testId}-title`}>
+					<Heading size="small" color="color.text" testId={`${testId}-title`}>
 						{title}
 					</Heading>
 				)}

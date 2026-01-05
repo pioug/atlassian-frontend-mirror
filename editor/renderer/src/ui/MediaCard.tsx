@@ -121,7 +121,7 @@ export class MediaCardView extends Component<
 > {
 	state: State = {};
 
-	async componentDidMount() {
+	async componentDidMount(): Promise<void> {
 		const {
 			rendererContext,
 			contextIdentifierProvider,
@@ -156,14 +156,14 @@ export class MediaCardView extends Component<
 		}
 	}
 
-	componentDidUpdate(prevProps: MediaCardProps) {
+	componentDidUpdate(prevProps: MediaCardProps): void {
 		const { id: oldId } = prevProps;
 		if (this.props.id && oldId !== this.props.id) {
 			this.saveFileState(this.props.id);
 		}
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		const { id, url: dataURI } = this.props;
 
 		if (id) {
@@ -173,7 +173,7 @@ export class MediaCardView extends Component<
 		}
 	}
 
-	saveFileState = async (id: string) => {
+	saveFileState = async (id: string): Promise<void> => {
 		const { collection: collectionName, mediaClient } = this.props;
 		const options = {
 			collectionName,

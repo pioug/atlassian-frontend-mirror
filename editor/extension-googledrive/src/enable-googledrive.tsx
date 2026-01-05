@@ -19,7 +19,7 @@ function gisLoaded(clientID: string, scopes: string[]) {
 	window.clientID = clientID;
 }
 // Main function that calls required helper functions to load Google Picker library
-export default async function ({ clientID, scopes }: { clientID: string; scopes: string[] }) {
+export default async function ({ clientID, scopes }: { clientID: string; scopes: string[] }): Promise<void> {
 	await new Promise<void>((resolve, reject) => {
 		const handleLoad = () => {
 			if (!window.gapi) {

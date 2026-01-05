@@ -4,7 +4,6 @@ import { getParentOfTypeCount, isNestedTablesSupported } from '@atlaskit/editor-
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { NodeType, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export const isInsideTable = (nodeType: NodeType): Boolean => {
@@ -135,7 +134,6 @@ export function canMoveNodeToIndex(
 	const layoutColumnContent = srcNode.content;
 	const isNestingTablesSupported =
 		isNestedTablesSupported(schema) &&
-		fg('platform_editor_use_nested_table_pm_nodes') &&
 		editorExperiment('nested-tables-in-tables', true, { exposure: true });
 
 	if (activeNodeType === layoutColumn && editorExperiment('advanced_layouts', true)) {

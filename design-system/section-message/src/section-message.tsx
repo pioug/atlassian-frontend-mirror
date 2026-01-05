@@ -7,7 +7,7 @@ import { Children, forwardRef, Fragment, type ReactElement, useCallback, useStat
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import CrossIcon from '@atlaskit/icon/core/migration/cross';
+import CrossIcon from '@atlaskit/icon/core/cross';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

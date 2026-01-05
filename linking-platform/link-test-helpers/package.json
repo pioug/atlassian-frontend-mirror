@@ -43,7 +43,7 @@
 		"@atlaskit/react-ufo": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@jest/globals": "root:*",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"fetch-mock": "root:*",
 		"jest-diff": "root:*",
 		"lodash": "root:*",

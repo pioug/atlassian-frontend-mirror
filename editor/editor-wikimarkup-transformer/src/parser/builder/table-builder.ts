@@ -41,7 +41,7 @@ export class TableBuilder implements Builder {
 	 * Add new cells to the table
 	 * @param {AddCellArgs[]} cells
 	 */
-	add(cells: AddCellArgs[]) {
+	add(cells: AddCellArgs[]): void {
 		if (!cells.length) {
 			return;
 		}

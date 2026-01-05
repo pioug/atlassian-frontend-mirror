@@ -53,7 +53,7 @@ export const setupMultipleRendersTestHelper = () => {
 		timesToRender: number,
 		propsToChange: any[],
 		WrapperComponent?: (props: any) => JSX.Element,
-	) => {
+	): void => {
 		const propsToChangeReversed = propsToChange.reverse();
 		while (timesToRender > 0) {
 			act(() => {
@@ -93,7 +93,7 @@ export const setupMultipleRendersTestHelper = () => {
 		propsToChange: any[],
 		eventExpectation: any,
 		done: jest.DoneCallback,
-	) => {
+	): void => {
 		const mockAnalyticsClient = (done: jest.DoneCallback): AnalyticsWebClient => {
 			const analyticsEventHandler = (event: GasPurePayload | GasPureScreenEventPayload) => {
 				expect(event).toEqual(eventExpectation);

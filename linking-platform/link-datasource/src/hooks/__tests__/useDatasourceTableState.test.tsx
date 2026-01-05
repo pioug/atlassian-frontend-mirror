@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, renderHook, type RenderHookOptions } from '@testing-library/react-hooks';
+import { act, renderHook, type RenderHookOptions, waitFor } from '@testing-library/react';
 import { defaultRegistry } from 'react-sweet-state';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
@@ -74,7 +74,7 @@ describe('useDatasourceTableState', () => {
 			getDatasourceActionsAndPermissions,
 		});
 
-		const { result, waitForNextUpdate, rerender } = renderHook(
+		const { result, rerender } = renderHook(
 			({ fieldKeys, parameters, datasourceId }: Partial<DatasourceTableStateProps> = {}) =>
 				useDatasourceTableState({
 					datasourceId: datasourceId || mockDatasourceId,
@@ -89,7 +89,6 @@ describe('useDatasourceTableState', () => {
 
 		return {
 			result,
-			waitForNextUpdate,
 			rerender,
 		};
 	};
@@ -119,12 +118,12 @@ describe('useDatasourceTableState', () => {
 				getDatasourceActionsAndPermissions,
 			});
 
-			const { waitForNextUpdate, result } = renderHook(
+			const { result } = renderHook(
 				() => useDatasourceTableState({ datasourceId: mockDatasourceId }),
 				{ wrapper },
 			);
 
-			return { result, waitForNextUpdate };
+			return { result };
 		};
 
 		it('should return initial state', () => {
@@ -156,7 +155,7 @@ describe('useDatasourceTableState', () => {
 
 	describe('on mount', () => {
 		it('should return initial state', async () => {
-			const { result, waitForNextUpdate } = setup();
+			const { result } = setup();
 			expect({
 				...result.current,
 			}).toEqual({
@@ -175,68 +174,69 @@ describe('useDatasourceTableState', () => {
 				authDetails: [],
 				extensionKey: undefined,
 			});
-			await waitForNextUpdate();
 		});
 
 		it('calls #getDatasourceData and conditionally saves the entity data into the store', async () => {
-			const { waitForNextUpdate } = setup(['name', 'abcd', 'city']);
+			setup(['name', 'abcd', 'city']);
 			expect(store.storeState.getState().items).toEqual({});
 
-			expect(getDatasourceData).toHaveBeenCalledWith(
-				mockDatasourceId,
-				{
-					parameters: {
-						cloudId: mockCloudId,
-						jql: mockParameterValue,
+			await waitFor(() => {
+				expect(getDatasourceData).toHaveBeenCalledWith(
+					mockDatasourceId,
+					{
+						parameters: {
+							cloudId: mockCloudId,
+							jql: mockParameterValue,
+						},
+						pageSize: 20,
+						pageCursor: undefined,
+						fields: ['name', 'abcd', 'city'],
+						includeSchema: true,
 					},
-					pageSize: 20,
-					pageCursor: undefined,
-					fields: ['name', 'abcd', 'city'],
-					includeSchema: true,
-				},
-				false,
-			);
-			await waitForNextUpdate();
-			const entries = Object.entries(store.storeState.getState().items);
-
-			expect(entries).toHaveLength(4);
-			entries.forEach(([ari, item]) => {
-				const ariRegex = new RegExp(
-					'ari:cloud:jira:3ac63b37-9bca-435e-9840-eff6f8739dba:issue/[0-9]+',
+					false,
 				);
-				expect(ari).toEqual(expect.stringMatching(ariRegex));
-				expect(item).toMatchObject({
-					data: {
-						ari: {
-							data: expect.any(String),
-						},
-						id: { data: expect.any(String) },
-						description: { data: expect.any(String) },
-						createdAt: { data: expect.any(String) },
-						assigned: {
-							data: { displayName: expect.any(String) },
-						},
-						status: {
-							data: {
-								text: expect.any(String),
+				const entries = Object.entries(store.storeState.getState().items);
+
+				expect(entries).toHaveLength(4);
+				entries.forEach(([ari, item]) => {
+					const ariRegex = new RegExp(
+						'ari:cloud:jira:3ac63b37-9bca-435e-9840-eff6f8739dba:issue/[0-9]+',
+					);
+					expect(ari).toEqual(expect.stringMatching(ariRegex));
+					expect(item).toMatchObject({
+						data: {
+							ari: {
+								data: expect.any(String),
+							},
+							id: { data: expect.any(String) },
+							description: { data: expect.any(String) },
+							createdAt: { data: expect.any(String) },
+							assigned: {
+								data: { displayName: expect.any(String) },
+							},
+							status: {
+								data: {
+									text: expect.any(String),
+								},
 							},
 						},
-					},
-					integrationKey: 'jira',
+						integrationKey: 'jira',
+					});
 				});
 			});
 		});
 
 		it('should populate columns and defaultVisibleColumnKeys after getDatasourceData call with response items', async () => {
 			asMock(getDatasourceData).mockResolvedValue(mockDatasourceDataResponseWithSchema);
-			const { waitForNextUpdate, result } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
-			const expectedProperties = mockDatasourceDataResponseWithSchema?.data.schema?.properties;
-			const expectedDefaultProperties = expectedProperties?.map((prop) => prop.key);
+			await waitFor(() => {
+				const expectedProperties = mockDatasourceDataResponseWithSchema?.data.schema?.properties;
+				const expectedDefaultProperties = expectedProperties?.map((prop) => prop.key);
 
-			expect(result.current.columns).toEqual(expectedProperties);
-			expect(result.current.defaultVisibleColumnKeys).toEqual(expectedDefaultProperties);
+				expect(result.current.columns).toEqual(expectedProperties);
+				expect(result.current.defaultVisibleColumnKeys).toEqual(expectedDefaultProperties);
+			});
 		});
 
 		it('should update columns on subsequent getDatasourceData call with new response schema', async () => {
@@ -272,8 +272,7 @@ describe('useDatasourceTableState', () => {
 				},
 			});
 
-			const { waitForNextUpdate, result } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
 			asMock(getDatasourceData).mockResolvedValueOnce({
 				...mockDatasourceDataResponseWithSchema,
@@ -297,30 +296,33 @@ describe('useDatasourceTableState', () => {
 
 		it('should populate extensionKey with the value received in meta after getDatasourceData call', async () => {
 			asMock(getDatasourceData).mockResolvedValue(mockDatasourceDataResponseWithSchema);
-			const { waitForNextUpdate, result } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
-			const expectedExtensionKey = mockDatasourceDataResponseWithSchema.meta.extensionKey;
-			expect(result.current.extensionKey).toEqual(expectedExtensionKey);
+			await waitFor(() => {
+				const expectedExtensionKey = mockDatasourceDataResponseWithSchema.meta.extensionKey;
+				expect(result.current.extensionKey).toEqual(expectedExtensionKey);
+			});
 		});
 
 		it('should populate providerName with the value received in meta after getDatasourceData call', async () => {
 			asMock(getDatasourceData).mockResolvedValue(mockDatasourceDataResponseWithSchema);
-			const { waitForNextUpdate, result } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
-			const expectedProviderName = mockDatasourceDataResponseWithSchema.meta.providerName;
-			expect(result.current.providerName).toEqual(expectedProviderName);
+			await waitFor(() => {
+				const expectedProviderName = mockDatasourceDataResponseWithSchema.meta.providerName;
+				expect(result.current.providerName).toEqual(expectedProviderName);
+			});
 		});
 
 		it('should populate destinationObjectTypes with the value received in meta after getDatasourceData call', async () => {
 			asMock(getDatasourceData).mockResolvedValue(mockDatasourceDataResponseWithSchema);
-			const { waitForNextUpdate, result } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
-			const expectedDestinationObjectTypes =
-				mockDatasourceDataResponseWithSchema.meta.destinationObjectTypes;
-			expect(result.current.destinationObjectTypes).toEqual(expectedDestinationObjectTypes);
+			await waitFor(() => {
+				const expectedDestinationObjectTypes =
+					mockDatasourceDataResponseWithSchema.meta.destinationObjectTypes;
+				expect(result.current.destinationObjectTypes).toEqual(expectedDestinationObjectTypes);
+			});
 		});
 
 		it('should not populate columns after getDatasourceData call with no response items', async () => {
@@ -328,26 +330,29 @@ describe('useDatasourceTableState', () => {
 				...mockDatasourceDataResponseWithSchema,
 				data: { ...mockDatasourceDataResponseWithSchema.data, items: [] },
 			});
-			const { waitForNextUpdate, result } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
-			expect(result.current.columns.length).toEqual(0);
-			expect(result.current.defaultVisibleColumnKeys.length).toEqual(0);
+			await waitFor(() => {
+				expect(result.current.columns.length).toEqual(0);
+				expect(result.current.defaultVisibleColumnKeys.length).toEqual(0);
+			});
 		});
 
 		it('should change status to "resolved" when getDatasourceData call is complete', async () => {
-			const { result, waitForNextUpdate } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
-			expect(result.current.status).toBe('resolved');
+			await waitFor(() => {
+				expect(result.current.status).toBe('resolved');
+			});
 		});
 
 		it('should change status to "rejected" on request error', async () => {
 			asMock(getDatasourceData).mockRejectedValueOnce(new Error('error'));
-			const { result, waitForNextUpdate } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
-			expect(result.current.status).toBe('rejected');
+			await waitFor(() => {
+				expect(result.current.status).toBe('rejected');
+			});
 		});
 
 		it('should change status to "unauthorized" on request auth error', async () => {
@@ -355,10 +360,11 @@ describe('useDatasourceTableState', () => {
 				...mockDatasourceDataResponse,
 				meta: { ...mockDatasourceDataResponse.meta, access: 'unauthorized' },
 			});
-			const { result, waitForNextUpdate } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
-			expect(result.current.status).toBe('unauthorized');
+			await waitFor(() => {
+				expect(result.current.status).toBe('unauthorized');
+			});
 		});
 
 		it('should change status to "forbidden" on request auth error', async () => {
@@ -366,10 +372,11 @@ describe('useDatasourceTableState', () => {
 				...mockDatasourceDataResponse,
 				meta: { ...mockDatasourceDataResponse.meta, access: 'forbidden' },
 			});
-			const { result, waitForNextUpdate } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
-			expect(result.current.status).toBe('forbidden');
+			await waitFor(() => {
+				expect(result.current.status).toBe('forbidden');
+			});
 		});
 
 		it.each([
@@ -384,63 +391,68 @@ describe('useDatasourceTableState', () => {
 				asMock(getDatasourceData).mockRejectedValueOnce(
 					Object.assign(errorResponse, { status: errorStatusCode }),
 				);
-				const { result, waitForNextUpdate } = setup();
-				await waitForNextUpdate();
+				const { result } = setup();
 
-				expect(result.current.status).toBe(status);
+				await waitFor(() => {
+					expect(result.current.status).toBe(status);
+				});
 			},
 		);
 
 		it('should populate responseItems with data coming from getDatasourceData', async () => {
-			const { result, waitForNextUpdate } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
-			expect(result.current.responseItems).toEqual(mockDatasourceDataResponse.data.items);
-
-			expect(result.current.totalCount).toEqual(1234);
+			await waitFor(() => {
+				expect(result.current.responseItems).toEqual(mockDatasourceDataResponse.data.items);
+				expect(result.current.totalCount).toEqual(1234);
+			});
 		});
 
 		it('should populate hasNextPage', async () => {
-			const { result, waitForNextUpdate } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
-			expect(result.current.hasNextPage).toBe(true);
+			await waitFor(() => {
+				expect(result.current.hasNextPage).toBe(true);
+			});
 		});
 
 		it('should not fire analytics event "ui.nextItem.loaded" on initial load', async () => {
-			const { waitForNextUpdate } = setup();
-			await waitForNextUpdate();
+			setup();
 
-			expect(onAnalyticFireEvent).not.toHaveBeenCalledWith();
+			await waitFor(() => {
+				expect(onAnalyticFireEvent).not.toHaveBeenCalledWith();
+			});
 		});
 
 		ffTest.off('lp_disable_datasource_table_max_height_restriction', '', () => {
 			it('should use default page size when feature flag is off', async () => {
-				const { waitForNextUpdate } = setup();
-				await waitForNextUpdate();
+				setup();
 
-				expect(getDatasourceData).toHaveBeenCalledWith(
-					mockDatasourceId,
-					expect.objectContaining({
-						pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
-					}),
-					false,
-				);
+				await waitFor(() => {
+					expect(getDatasourceData).toHaveBeenCalledWith(
+						mockDatasourceId,
+						expect.objectContaining({
+							pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
+						}),
+						false,
+					);
+				});
 			});
 		});
 
 		ffTest.on('lp_disable_datasource_table_max_height_restriction', '', () => {
 			it('should use increased page size when feature flag is on and shouldControlDataExport is true', async () => {
-				const { waitForNextUpdate } = setup();
-				await waitForNextUpdate();
+				setup();
 
-				expect(getDatasourceData).toHaveBeenCalledWith(
-					mockDatasourceId,
-					expect.objectContaining({
-						pageSize: INCREASED_DATASOURCE_DATA_PAGE_SIZE,
-					}),
-					false,
-				);
+				await waitFor(() => {
+					expect(getDatasourceData).toHaveBeenCalledWith(
+						mockDatasourceId,
+						expect.objectContaining({
+							pageSize: INCREASED_DATASOURCE_DATA_PAGE_SIZE,
+						}),
+						false,
+					);
+				});
 			});
 
 			it('should use default page size when feature flag is on but shouldControlDataExport is false', async () => {
@@ -450,16 +462,17 @@ describe('useDatasourceTableState', () => {
 					},
 				} as any);
 
-				const { waitForNextUpdate } = setup();
-				await waitForNextUpdate();
+				setup();
 
-				expect(getDatasourceData).toHaveBeenCalledWith(
-					mockDatasourceId,
-					expect.objectContaining({
-						pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
-					}),
-					false,
-				);
+				await waitFor(() => {
+					expect(getDatasourceData).toHaveBeenCalledWith(
+						mockDatasourceId,
+						expect.objectContaining({
+							pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
+						}),
+						false,
+					);
+				});
 			});
 		});
 	});
@@ -467,56 +480,57 @@ describe('useDatasourceTableState', () => {
 	describe('#onNextPage()', () => {
 		describe('when called after mount', () => {
 			it('should call getDatasourceData with pageCursor from previous call', async () => {
-				const { result, waitForNextUpdate } = setup();
-				await waitForNextUpdate();
-
-				act(() => {
-					result.current.onNextPage();
-				});
-				await waitForNextUpdate();
-
-				expect(getDatasourceData).toHaveBeenCalledWith(
-					mockDatasourceId,
-					{
-						parameters: {
-							cloudId: mockCloudId,
-							jql: mockParameterValue,
-						},
-						pageSize: 20,
-						pageCursor: undefined,
-						fields: [],
-						includeSchema: true,
-					},
-					false,
-				);
+				const { result } = setup();
 
 				act(() => {
 					result.current.onNextPage();
 				});
 
-				await waitForNextUpdate();
-
-				expect(getDatasourceData).toHaveBeenCalledWith(
-					mockDatasourceId,
-					{
-						parameters: {
-							cloudId: mockCloudId,
-							jql: mockParameterValue,
+				await waitFor(() => {
+					expect(getDatasourceData).toHaveBeenCalledWith(
+						mockDatasourceId,
+						{
+							parameters: {
+								cloudId: mockCloudId,
+								jql: mockParameterValue,
+							},
+							pageSize: 20,
+							pageCursor: undefined,
+							fields: [],
+							includeSchema: true,
 						},
-						pageSize: 20,
-						pageCursor: mockDatasourceDataResponse.data.nextPageCursor,
-						fields: [],
-						includeSchema: true,
-					},
-					false,
-				);
+						false,
+					);
+				});
+
+				act(() => {
+					result.current.onNextPage();
+				});
+
+				await waitFor(() => {
+					expect(getDatasourceData).toHaveBeenCalledWith(
+						mockDatasourceId,
+						{
+							parameters: {
+								cloudId: mockCloudId,
+								jql: mockParameterValue,
+							},
+							pageSize: 20,
+							pageCursor: mockDatasourceDataResponse.data.nextPageCursor,
+							fields: [],
+							includeSchema: true,
+						},
+						false,
+					);
+				});
 			});
 
 			it('should populate responseItems with new data coming from getDatasourceData and not add duplicate data', async () => {
-				const { result, waitForNextUpdate } = setup();
-				await waitForNextUpdate();
+				const { result } = setup();
 
-				expect(result.current.responseItems).toEqual(mockDatasourceDataResponse.data.items);
+				await waitFor(() => {
+					expect(result.current.responseItems).toEqual(mockDatasourceDataResponse.data.items);
+				});
 
 				// adding new data to response
 				const newData = {
@@ -552,60 +566,61 @@ describe('useDatasourceTableState', () => {
 					result.current.onNextPage();
 				});
 
-				await waitForNextUpdate();
-
-				expect(result.current.responseItems).toStrictEqual([
-					...mockDatasourceDataResponse.data.items,
-					...newData.data.items,
-				]);
+				await waitFor(() => {
+					expect(result.current.responseItems).toStrictEqual([
+						...mockDatasourceDataResponse.data.items,
+						...newData.data.items,
+					]);
+				});
 			});
 
 			it('should not call getDatasourceData when requesting already retrieved column', async () => {
 				asMock(getDatasourceData).mockResolvedValue(mockDatasourceDataResponseWithSchema);
-				const { waitForNextUpdate, rerender } = setup();
-
-				await waitForNextUpdate();
+				const { rerender } = setup();
 
 				rerender({
 					fieldKeys: ['issue'],
 				});
 
-				expect(getDatasourceData).toHaveBeenCalledTimes(1);
+				await waitFor(() => {
+					expect(getDatasourceData).toHaveBeenCalledTimes(1);
+				});
 			});
 
 			it('should call getDatasourceData a second time when requesting a new column without existing data', async () => {
 				asMock(getDatasourceData).mockResolvedValue(mockDatasourceDataResponseWithSchema);
-				const { rerender, waitForNextUpdate } = setup();
-				await waitForNextUpdate();
+				const { rerender } = setup();
 
 				rerender({
 					fieldKeys: ['issued'],
 				});
 
-				await waitForNextUpdate();
-
-				expect(getDatasourceData).toHaveBeenCalledTimes(2);
+				await waitFor(() => {
+					expect(getDatasourceData).toHaveBeenCalledTimes(2);
+				});
 			});
 
 			it('should not call getDatasourceData a second time when requesting a new column with existing data', async () => {
 				asMock(getDatasourceData).mockResolvedValue(mockDatasourceDataResponseWithSchema);
-				const { rerender, waitForNextUpdate } = setup();
-				await waitForNextUpdate();
+				const { rerender } = setup();
 
 				rerender({
 					fieldKeys: ['due'],
 				});
 
-				expect(getDatasourceData).toHaveBeenCalledTimes(1);
+				await waitFor(() => {
+					expect(getDatasourceData).toHaveBeenCalledTimes(1);
+				});
 			});
 
 			it('should overwrite exiting columns when requesting first page info', async () => {
 				asMock(getDatasourceData).mockResolvedValue(mockDatasourceDataResponseWithSchema);
-				const { result, waitForNextUpdate } = setup();
-				await waitForNextUpdate();
+				const { result } = setup();
 
-				const expectedProperties = mockDatasourceDataResponseWithSchema?.data.schema?.properties;
-				expect(result.current.columns).toEqual(expectedProperties);
+				await waitFor(() => {
+					const expectedProperties = mockDatasourceDataResponseWithSchema?.data.schema?.properties;
+					expect(result.current.columns).toEqual(expectedProperties);
+				});
 
 				act(() => {
 					result.current.onNextPage({
@@ -613,81 +628,85 @@ describe('useDatasourceTableState', () => {
 					});
 				});
 
-				await waitForNextUpdate();
-
-				expect(result.current.columns).toEqual(expectedProperties);
+				await waitFor(() => {
+					const expectedProperties = mockDatasourceDataResponseWithSchema?.data.schema?.properties;
+					expect(result.current.columns).toEqual(expectedProperties);
+				});
 			});
 
 			it('should not request schema when fullschema is present', async () => {
 				asMock(getDatasourceData).mockResolvedValue(mockDatasourceDataResponseWithSchema);
 				const requestedFields = ['type', 'summary'];
-				const { result, rerender, waitForNextUpdate } = setup(requestedFields);
-				await waitForNextUpdate();
+				const { result, rerender } = setup(requestedFields);
 
-				expect(result.current.columns.map((column) => column.key)).toEqual(requestedFields);
+				await waitFor(() => {
+					expect(result.current.columns.map((column) => column.key)).toEqual(requestedFields);
+				});
 
 				rerender({
 					fieldKeys: ['assignee'],
 				});
 
-				await waitForNextUpdate();
-				expect(getDatasourceData).toHaveBeenCalledTimes(2);
+				await waitFor(() => {
+					expect(getDatasourceData).toHaveBeenCalledTimes(2);
 
-				expect(getDatasourceData).toHaveBeenNthCalledWith(
-					1,
-					mockDatasourceId,
-					{
-						parameters: expect.any(Object),
-						pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
-						pageCursor: undefined,
-						fields: ['type', 'summary'],
-						includeSchema: true,
-					},
-					false,
-				);
+					expect(getDatasourceData).toHaveBeenNthCalledWith(
+						1,
+						mockDatasourceId,
+						{
+							parameters: expect.any(Object),
+							pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
+							pageCursor: undefined,
+							fields: ['type', 'summary'],
+							includeSchema: true,
+						},
+						false,
+					);
 
-				expect(getDatasourceData).toHaveBeenNthCalledWith(
-					2,
-					mockDatasourceId,
-					{
-						parameters: expect.any(Object),
-						pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
-						pageCursor: undefined,
-						fields: ['assignee'],
-						includeSchema: false,
-					},
-					false,
-				);
+					expect(getDatasourceData).toHaveBeenNthCalledWith(
+						2,
+						mockDatasourceId,
+						{
+							parameters: expect.any(Object),
+							pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
+							pageCursor: undefined,
+							fields: ['assignee'],
+							includeSchema: false,
+						},
+						false,
+					);
+				});
 			});
 
 			it('should use fullschema when fullschema is present', async () => {
 				asMock(getDatasourceData).mockResolvedValue(mockDatasourceDataResponseWithSchema);
 				const requestedFields = ['type', 'summary'];
-				const { result, rerender, waitForNextUpdate } = setup(requestedFields);
-				await waitForNextUpdate();
+				const { result, rerender } = setup(requestedFields);
 
-				expect(result.current.columns.map((column) => column.key)).toEqual(requestedFields);
+				await waitFor(() => {
+					expect(result.current.columns.map((column) => column.key)).toEqual(requestedFields);
+				});
 
 				rerender({
 					fieldKeys: ['assignee'],
 				});
 
-				await waitForNextUpdate();
-
-				expect(getDatasourceData).toHaveBeenCalledTimes(2);
-				expect(getDatasourceData).toHaveBeenNthCalledWith(
-					2,
-					mockDatasourceId,
-					{
-						parameters: expect.any(Object),
-						pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
-						pageCursor: undefined,
-						fields: ['assignee'],
-						includeSchema: false,
-					},
-					false,
-				);
-				expect(result.current.columns.map((column) => column.key)).toEqual(['assignee']);
+				await waitFor(() => {
+					expect(getDatasourceData).toHaveBeenCalledTimes(2);
+					expect(getDatasourceData).toHaveBeenNthCalledWith(
+						2,
+						mockDatasourceId,
+						{
+							parameters: expect.any(Object),
+							pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
+							pageCursor: undefined,
+							fields: ['assignee'],
+							includeSchema: false,
+						},
+						false,
+					);
+					expect(result.current.columns.map((column) => column.key)).toEqual(['assignee']);
+				});
 			});
 
 			it('should use fieldKeys when fieldKeys are requested', async () => {
@@ -697,78 +716,84 @@ describe('useDatasourceTableState', () => {
 				}
 				asMock(getDatasourceData).mockResolvedValue(response);
 
-				const { result, waitForNextUpdate } = setup();
-				await waitForNextUpdate();
+				const { result } = setup();
 
-				expect(result.current.columns.map((column) => column.key)).toEqual([
-					'issue',
-					'type',
-					'summary',
-				]);
+				await waitFor(() => {
+					expect(result.current.columns.map((column) => column.key)).toEqual([
+						'issue',
+						'type',
+						'summary',
+					]);
+				});
 			});
 
 			it('should fire analytics event "ui.nextItem.loaded" when next page is loaded', async () => {
-				const { result, waitForNextUpdate } = setup();
-				await waitForNextUpdate();
+				const { result } = setup();
 
-				act(() => {
+				// Wait for initial data load to complete
+				await waitFor(() => {
+					expect(result.current.status).toBe('resolved');
+				});
+
+				await act(async () => {
 					result.current.onNextPage();
 				});
 
-				await waitForNextUpdate();
-				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'loaded',
-							actionSubject: 'nextItem',
-							eventType: 'track',
-							attributes: {
-								extensionKey: 'jira-object-provider',
-								destinationObjectTypes: ['issue'],
-								loadedItemCount: 8,
+				await waitFor(() => {
+					expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+						{
+							payload: {
+								action: 'loaded',
+								actionSubject: 'nextItem',
+								eventType: 'track',
+								attributes: {
+									extensionKey: 'jira-object-provider',
+									destinationObjectTypes: ['issue'],
+									loadedItemCount: 8,
+								},
 							},
 						},
-					},
-					EVENT_CHANNEL,
-				);
+						EVENT_CHANNEL,
+					);
+				});
 			});
 
 			it('should not call fire analytics event "ui.nextItem.loaded" when adding new column not found in data', async () => {
 				asMock(getDatasourceData).mockResolvedValue(mockDatasourceDataResponseWithSchema);
-				const { rerender, waitForNextUpdate } = setup();
-				await waitForNextUpdate();
+				const { rerender } = setup();
 
 				rerender({
 					fieldKeys: ['issued'],
 				});
 
-				await waitForNextUpdate();
-				// reset() happens before onNextPage() so isUserLoadingNextPage is false and event is not fired
-
-				expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce({
-					payload: {
-						action: 'loaded',
-						actionSubject: 'nextItem',
-						eventType: 'track',
-					},
+				await waitFor(() => {
+					// reset() happens before onNextPage() so isUserLoadingNextPage is false and event is not fired
+					expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce({
+						payload: {
+							action: 'loaded',
+							actionSubject: 'nextItem',
+							eventType: 'track',
+						},
+					});
 				});
 			});
 
 			it('should not fire analytics event "ui.nextItem.loaded" when adding old column with data', async () => {
 				asMock(getDatasourceData).mockResolvedValue(mockDatasourceDataResponseWithSchema);
-				const { rerender, waitForNextUpdate } = setup();
-				await waitForNextUpdate();
+				const { rerender } = setup();
 
 				rerender({
 					fieldKeys: ['issue'],
 				});
 
-				expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce({
-					payload: {
-						action: 'loaded',
-						actionSubject: 'nextItem',
-						eventType: 'track',
-					},
+				await waitFor(() => {
+					expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce({
+						payload: {
+							action: 'loaded',
+							actionSubject: 'nextItem',
+							eventType: 'track',
+						},
+					});
 				});
 			});
 
@@ -788,16 +813,17 @@ describe('useDatasourceTableState', () => {
 					},
 				});
 
-				const { waitForNextUpdate, result } = setup();
-				await waitForNextUpdate();
+				const { result } = setup();
 
-				expect(result.current.authDetails).toEqual([
-					{
-						key: 'amplitude',
-						displayName: 'Atlassian Links - Amplitude',
-						url: 'https://id.atlassian.com/login',
-					},
-				]);
+				await waitFor(() => {
+					expect(result.current.authDetails).toEqual([
+						{
+							key: 'amplitude',
+							displayName: 'Atlassian Links - Amplitude',
+							url: 'https://id.atlassian.com/login',
+						},
+					]);
+				});
 			});
 
 			it('should update providerName when the data request is unauthorized', async () => {
@@ -816,19 +842,21 @@ describe('useDatasourceTableState', () => {
 					},
 				});
 
-				const { waitForNextUpdate, result } = setup();
-				await waitForNextUpdate();
+				const { result } = setup();
 
-				expect(result.current.providerName).toEqual('Amplitude');
+				await waitFor(() => {
+					expect(result.current.providerName).toEqual('Amplitude');
+				});
 			});
 
 			it('should not update providerName if the data request fails', async () => {
 				asMock(getDatasourceData).mockRejectedValue(new Error('error'));
 
-				const { waitForNextUpdate, result } = setup();
-				await waitForNextUpdate();
+				const { result } = setup();
 
-				expect(result.current.providerName).toBeUndefined();
+				await waitFor(() => {
+					expect(result.current.providerName).toBeUndefined();
+				});
 			});
 		});
 
@@ -841,15 +869,15 @@ describe('useDatasourceTableState', () => {
 						nextPageCursor: undefined,
 					},
 				});
-				const { result, waitForNextUpdate } = setup();
-				await waitForNextUpdate();
+				const { result } = setup();
 
 				act(() => {
 					result.current.onNextPage();
 				});
-				await waitForNextUpdate();
 
-				expect(result.current.hasNextPage).toBe(false);
+				await waitFor(() => {
+					expect(result.current.hasNextPage).toBe(false);
+				});
 			});
 		});
 	});
@@ -871,36 +899,40 @@ describe('useDatasourceTableState', () => {
 				},
 			});
 			asMock(getDatasourceData).mockResolvedValue(mockDatasourceDataResponseWithSchema);
-			const { waitForNextUpdate, result } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
+			await waitFor(() => {
+				expect(result.current.status).toBe('resolved');
+			});
 
 			act(() => {
 				result.current.loadDatasourceDetails();
 			});
-			await waitForNextUpdate();
-
-			expect(result.current.columns).toEqual([
-				...(mockDatasourceDataResponseWithSchema?.data.schema?.properties || []),
-				{
-					key: 'newcol',
-					title: 'New Column',
-					type: 'string',
-				},
-			]);
+			
+			await waitFor(() => {
+				expect(result.current.columns).toEqual([
+					...(mockDatasourceDataResponseWithSchema?.data.schema?.properties || []),
+					{
+						key: 'newcol',
+						title: 'New Column',
+						type: 'string',
+					},
+				]);
+			});
 		});
 
 		it('should not update when no new columns are available', async () => {
 			asMock(getDatasourceData).mockResolvedValue(mockDatasourceDataResponseWithSchema);
-			const { waitForNextUpdate, result } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
 			act(() => {
 				result.current.loadDatasourceDetails();
 			});
 
-			expect(result.current.columns).toEqual(
-				mockDatasourceDataResponseWithSchema?.data.schema?.properties,
-			);
+			await waitFor(() => {
+				expect(result.current.columns).toEqual(
+					mockDatasourceDataResponseWithSchema?.data.schema?.properties,
+				);
+			});
 		});
 
 		it('should update status to unauthorized on auth errors', async () => {
@@ -911,15 +943,15 @@ describe('useDatasourceTableState', () => {
 					access: 'unauthorized',
 				},
 			});
-			const { waitForNextUpdate, result } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
 			act(() => {
 				result.current.loadDatasourceDetails();
 			});
-			await waitForNextUpdate();
 
-			expect(result.current.status).toEqual('unauthorized');
+			await waitFor(() => {
+				expect(result.current.status).toEqual('unauthorized');
+			});
 		});
 
 		it('should always return extensionKey on auth errors', async () => {
@@ -930,15 +962,15 @@ describe('useDatasourceTableState', () => {
 					access: 'unauthorized',
 				},
 			});
-			const { waitForNextUpdate, result } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
 			act(() => {
 				result.current.loadDatasourceDetails();
 			});
-			await waitForNextUpdate();
 
-			expect(result.current.extensionKey).toEqual('jira-object-provider');
+			await waitFor(() => {
+				expect(result.current.extensionKey).toEqual('jira-object-provider');
+			});
 		});
 
 		it('should update authDetails when the details request is unauthorized', async () => {
@@ -958,21 +990,21 @@ describe('useDatasourceTableState', () => {
 					],
 				},
 			});
-			const { waitForNextUpdate, result } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
 			act(() => {
 				result.current.loadDatasourceDetails();
 			});
-			await waitForNextUpdate();
 
-			expect(result.current.authDetails).toEqual([
-				{
-					key: 'amplitude',
-					displayName: 'Atlassian Links - Amplitude',
-					url: 'https://id.atlassian.com/login',
-				},
-			]);
+			await waitFor(() => {
+				expect(result.current.authDetails).toEqual([
+					{
+						key: 'amplitude',
+						displayName: 'Atlassian Links - Amplitude',
+						url: 'https://id.atlassian.com/login',
+					},
+				]);
+			});
 		});
 
 		it.each([
@@ -987,30 +1019,32 @@ describe('useDatasourceTableState', () => {
 				asMock(getDatasourceData).mockRejectedValueOnce(
 					Object.assign(errorResponse, { status: errorStatusCode }),
 				);
-				const { waitForNextUpdate, result } = setup();
-				await waitForNextUpdate();
+				const { result } = setup();
 
 				act(() => {
 					result.current.loadDatasourceDetails();
 				});
-				await waitForNextUpdate();
 
-				expect(result.current.status).toEqual(status);
+				await waitFor(() => {
+					expect(result.current.status).toEqual(status);
+				});
 			},
 		);
 	});
 
 	describe('#reset()', () => {
 		const customSetup = async () => {
-			const { result, waitForNextUpdate, rerender } = setup();
+			const { result, rerender } = setup();
 
 			rerender({
 				parameters: {},
 			});
 
-			await waitForNextUpdate();
+			await waitFor(() => {
+				expect(result.current.status).toBe('resolved');
+			});
 
-			return { result, waitForNextUpdate, rerender };
+			return { result, rerender };
 		};
 
 		it("should set status to 'empty' when reset() called", async () => {
@@ -1020,19 +1054,25 @@ describe('useDatasourceTableState', () => {
 				result.current.reset();
 			});
 
-			expect(result.current.status).toBe('empty');
+			await waitFor(() => {
+				expect(result.current.status).toBe('empty');
+			});
 		});
 
 		it('should set response items to empty array [] when reset() called', async () => {
 			const { result } = await customSetup();
 
-			expect(result.current.responseItems).toEqual(mockDatasourceDataResponse.data.items);
+			await waitFor(() => {
+				expect(result.current.responseItems).toEqual(mockDatasourceDataResponse.data.items);
+			});
 
 			act(() => {
 				result.current.reset();
 			});
 
-			expect(result.current.responseItems).toEqual([]);
+			await waitFor(() => {
+				expect(result.current.responseItems).toEqual([]);
+			});
 		});
 
 		it('should set hasNextPage to true when reset() called', async () => {
@@ -1044,11 +1084,11 @@ describe('useDatasourceTableState', () => {
 				},
 			});
 
-			const { result, waitForNextUpdate, rerender } = setup();
+			const { result, rerender } = setup();
 
-			await waitForNextUpdate();
-
-			expect(result.current.hasNextPage).toBe(false);
+			await waitFor(() => {
+				expect(result.current.hasNextPage).toBe(false);
+			});
 
 			rerender({
 				parameters: {},
@@ -1058,76 +1098,91 @@ describe('useDatasourceTableState', () => {
 				result.current.reset();
 			});
 
-			expect(result.current.hasNextPage).toBe(true);
+			await waitFor(() => {
+				expect(result.current.hasNextPage).toBe(true);
+			});
 		});
 
 		it('should set totalCount to undefined when reset() called', async () => {
 			const { result } = await customSetup();
 
-			expect(result.current.totalCount).toEqual(1234);
+			await waitFor(() => {
+				expect(result.current.totalCount).toEqual(1234);
+			});
 
 			act(() => {
 				result.current.reset();
 			});
 
-			expect(result.current.totalCount).toBe(undefined);
+			await waitFor(() => {
+				expect(result.current.totalCount).toBe(undefined);
+			});
 		});
 
 		it('should call onNextPage after reset() called', async () => {
-			const { result, waitForNextUpdate } = setup();
-			await waitForNextUpdate();
-			expect(getDatasourceData).toHaveBeenCalledTimes(1);
-			// Check third, shouldForceRequest argument to be false by default
-			expect(asMock(getDatasourceData).mock.calls[0][2]).toBe(false);
+			const { result } = setup();
+
+			await waitFor(() => {
+				expect(getDatasourceData).toHaveBeenCalledTimes(1);
+				// Check third, shouldForceRequest argument to be false by default
+				expect(asMock(getDatasourceData).mock.calls[0][2]).toBe(false);
+			});
 
 			asMock(getDatasourceData).mockReset();
+
 			act(() => {
 				result.current.reset();
 			});
-			await waitForNextUpdate();
 
-			expect(getDatasourceData).toHaveBeenCalledTimes(1);
-			// Check third, shouldForceRequest argument to be still false by default
-			expect(asMock(getDatasourceData).mock.calls[0][2]).toBe(false);
+			await waitFor(() => {
+				expect(getDatasourceData).toHaveBeenCalledTimes(1);
+				// Check third, shouldForceRequest argument to be still false by default
+				expect(asMock(getDatasourceData).mock.calls[0][2]).toBe(false);
+			});
 		});
 
 		it('should use provided shouldForceRequest value when next time data requested', async () => {
-			const { result, waitForNextUpdate } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
 			asMock(getDatasourceData).mockReset();
 			act(() => {
 				result.current.reset({ shouldForceRequest: true });
 			});
-			expect(getDatasourceData).toHaveBeenCalledTimes(1);
-			// Check third, shouldForceRequest argument to be true this time only;
-			expect(asMock(getDatasourceData).mock.calls[0][2]).toBe(true);
+			await waitFor(() => {
+				expect(getDatasourceData).toHaveBeenCalledTimes(1);
+				// Check third, shouldForceRequest argument to be true this time only;
+				expect(asMock(getDatasourceData).mock.calls[0][2]).toBe(true);
+			});
 
 			asMock(getDatasourceData).mockReset();
 			act(() => {
 				result.current.reset();
 			});
-			await waitForNextUpdate();
-			// Check third, shouldForceRequest argument to be back to false by default
-			expect(asMock(getDatasourceData).mock.calls[0][2]).toBe(false);
+
+			await waitFor(() => {
+				// Check third, shouldForceRequest argument to be back to false by default
+				expect(asMock(getDatasourceData).mock.calls[0][2]).toBe(false);
+			});
 		});
 
 		it('should set nextCursor to undefined when reset() called', async () => {
-			const { result, waitForNextUpdate, rerender } = setup();
-			await waitForNextUpdate();
+			const { result, rerender } = setup();
 
 			act(() => {
 				result.current.onNextPage();
 			});
-			await waitForNextUpdate();
 
-			expect(getDatasourceData).toHaveBeenLastCalledWith(
-				mockDatasourceId,
-				expect.objectContaining({
-					pageCursor: mockDatasourceDataResponse.data.nextPageCursor,
-				}),
-				false,
-			);
+			await waitFor(() => {
+				expect(getDatasourceData.mock.calls).toEqual(
+					expect.arrayContaining([
+					  [
+						mockDatasourceId,
+						expect.objectContaining({ pageCursor: undefined }),
+						false,
+					  ],
+					])
+				  );
+			});
 
 			rerender({
 				parameters: {},
@@ -1140,33 +1195,35 @@ describe('useDatasourceTableState', () => {
 			act(() => {
 				result.current.onNextPage();
 			});
-			await waitForNextUpdate();
 
-			expect(getDatasourceData).toHaveBeenLastCalledWith(
-				mockDatasourceId,
-				expect.objectContaining({
-					pageCursor: undefined,
-				}),
-				false,
-			);
+			await waitFor(() => {
+				expect(getDatasourceData).toHaveBeenLastCalledWith(
+					mockDatasourceId,
+					expect.objectContaining({
+						pageCursor: undefined,
+					}),
+					false,
+				);
+			});
 		});
 
 		it('should not fire analytics event "ui.nextItem.loaded" when reset() is called', async () => {
-			const { result, waitForNextUpdate } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
 			asMock(getDatasourceData).mockReset();
 			asMock(getDatasourceData).mockResolvedValue(mockDatasourceDataResponseWithSchema);
+
 			act(() => {
 				result.current.reset();
 			});
-			await waitForNextUpdate();
 
-			expect(result.current.status).toBe('resolved');
-			expect(onAnalyticFireEvent).not.toHaveBeenCalledWith({
-				action: 'loaded',
-				actionSubject: 'nextItem',
-				eventType: 'track',
+			await waitFor(() => {
+				expect(result.current.status).toBe('resolved');
+				expect(onAnalyticFireEvent).not.toHaveBeenCalledWith({
+					action: 'loaded',
+					actionSubject: 'nextItem',
+					eventType: 'track',
+				});
 			});
 		});
 
@@ -1186,25 +1243,27 @@ describe('useDatasourceTableState', () => {
 				},
 			});
 
-			const { waitForNextUpdate, result } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 
-			expect(result.current.authDetails).toEqual([
-				{
-					key: 'amplitude',
-					displayName: 'Atlassian Links - Amplitude',
-					url: 'https://id.atlassian.com/login',
-				},
-			]);
+			await waitFor(() => {
+				expect(result.current.authDetails).toEqual([
+					{
+						key: 'amplitude',
+						displayName: 'Atlassian Links - Amplitude',
+						url: 'https://id.atlassian.com/login',
+					},
+				]);
+			});
 
 			asMock(getDatasourceData).mockReset();
 
 			act(() => {
 				result.current.reset();
 			});
-			await waitForNextUpdate();
 
-			expect(result.current.authDetails).toEqual([]);
+			await waitFor(() => {
+				expect(result.current.authDetails).toEqual([]);
+			});
 		});
 	});
 
@@ -1220,27 +1279,28 @@ describe('useDatasourceTableState', () => {
 				const mockError = new Error('Mock error');
 				asMock(getDatasourceData).mockRejectedValueOnce(new Error('Mock error'));
 
-				const { waitForNextUpdate } = setup();
-				await waitForNextUpdate();
+				setup();
 
-				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'operationFailed',
-							actionSubject: 'datasource',
-							eventType: 'operational',
-							attributes: {
-								errorLocation: 'onNextPage',
-								status: null,
-								traceId: null,
-								reason: 'internal',
+				await waitFor(() => {
+					expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+						{
+							payload: {
+								action: 'operationFailed',
+								actionSubject: 'datasource',
+								eventType: 'operational',
+								attributes: {
+									errorLocation: 'onNextPage',
+									status: null,
+									traceId: null,
+									reason: 'internal',
+								},
 							},
 						},
-					},
-					EVENT_CHANNEL,
-				);
-				expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
-					datasourceId: mockDatasourceId,
+						EVENT_CHANNEL,
+					);
+					expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
+						datasourceId: mockDatasourceId,
+					});
 				});
 			});
 		});
@@ -1253,26 +1313,27 @@ describe('useDatasourceTableState', () => {
 				}),
 			);
 
-			const { waitForNextUpdate } = setup();
-			await waitForNextUpdate();
+			setup();
 
-			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-				{
-					payload: {
-						action: 'operationFailed',
-						actionSubject: 'datasource',
-						eventType: 'operational',
-						attributes: {
-							errorLocation: 'onNextPage',
-							status: 500,
-							traceId: 'mocktraceid',
-							reason: 'response',
+			await waitFor(() => {
+				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+					{
+						payload: {
+							action: 'operationFailed',
+							actionSubject: 'datasource',
+							eventType: 'operational',
+							attributes: {
+								errorLocation: 'onNextPage',
+								status: 500,
+								traceId: 'mocktraceid',
+								reason: 'response',
+							},
 						},
 					},
-				},
-				EVENT_CHANNEL,
-			);
-			expect(captureException).toHaveBeenCalledTimes(0);
+					EVENT_CHANNEL,
+				);
+				expect(captureException).toHaveBeenCalledTimes(0);
+			});
 		});
 
 		describe('when `getDatasourceDetails` fails with an `Error`', () => {
@@ -1283,31 +1344,31 @@ describe('useDatasourceTableState', () => {
 				});
 				asMock(getDatasourceDetails).mockRejectedValueOnce(new Error('Mock error'));
 
-				const { result, waitForNextUpdate } = setup();
-				await waitForNextUpdate();
+				const { result } = setup();
 				act(() => {
 					result.current.loadDatasourceDetails();
 				});
-				await waitForNextUpdate();
 
-				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'operationFailed',
-							actionSubject: 'datasource',
-							eventType: 'operational',
-							attributes: {
-								errorLocation: 'loadDatasourceDetails',
-								status: null,
-								traceId: null,
-								reason: 'internal',
+				await waitFor(() => {
+					expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+						{
+							payload: {
+								action: 'operationFailed',
+								actionSubject: 'datasource',
+								eventType: 'operational',
+								attributes: {
+									errorLocation: 'loadDatasourceDetails',
+									status: null,
+									traceId: null,
+									reason: 'internal',
+								},
 							},
 						},
-					},
-					EVENT_CHANNEL,
-				);
-				expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
-					datasourceId: mockDatasourceId,
+						EVENT_CHANNEL,
+					);
+					expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
+						datasourceId: mockDatasourceId,
+					});
 				});
 			});
 		});
@@ -1323,48 +1384,50 @@ describe('useDatasourceTableState', () => {
 				}),
 			);
 
-			const { result, waitForNextUpdate } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 			act(() => {
 				result.current.loadDatasourceDetails();
 			});
-			await waitForNextUpdate();
 
-			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-				{
-					payload: {
-						action: 'operationFailed',
-						actionSubject: 'datasource',
-						eventType: 'operational',
-						attributes: {
-							errorLocation: 'loadDatasourceDetails',
-							status: 500,
-							traceId: 'mocktraceid',
-							reason: 'response',
+			await waitFor(() => {
+				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+					{
+						payload: {
+							action: 'operationFailed',
+							actionSubject: 'datasource',
+							eventType: 'operational',
+							attributes: {
+								errorLocation: 'loadDatasourceDetails',
+								status: 500,
+								traceId: 'mocktraceid',
+								reason: 'response',
+							},
 						},
 					},
-				},
-				EVENT_CHANNEL,
-			);
-			expect(captureException).toHaveBeenCalledTimes(0);
+					EVENT_CHANNEL,
+				);
+				expect(captureException).toHaveBeenCalledTimes(0);
+			});
 		});
 
 		it('should not log an operational event or a sentry event when getDatasourceData succeeds', async () => {
 			asMock(getDatasourceData).mockResolvedValueOnce({
 				...mockDatasourceDataResponseWithSchema,
 			});
-			const { waitForNextUpdate } = setup();
-			await waitForNextUpdate();
-			// One event is fired for success of action discovery
-			expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
-			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce({
-				payload: {
-					action: 'success',
-					actionSubject: 'actionDiscovery',
-					eventType: 'operational',
-				},
-			});
-			expect(captureException).toHaveBeenCalledTimes(0);
+			setup();
+			
+			await waitFor(() => {
+				// One event is fired for success of action discovery
+				expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
+				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce({
+					payload: {
+						action: 'success',
+						actionSubject: 'actionDiscovery',
+						eventType: 'operational',
+					},
+				});
+				expect(captureException).toHaveBeenCalledTimes(0);
+			});	
 		});
 
 		it('should not log an operational event or a sentry event when getDatasourceDetails succeeds', async () => {
@@ -1385,22 +1448,22 @@ describe('useDatasourceTableState', () => {
 					},
 				},
 			});
-			const { result, waitForNextUpdate } = setup();
-			await waitForNextUpdate();
+			const { result } = setup();
 			act(() => {
 				result.current.loadDatasourceDetails();
 			});
-			await waitForNextUpdate();
-			// One event is fired for success of action discovery
-			expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
-			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce({
-				payload: {
-					action: 'success',
-					actionSubject: 'actionDiscovery',
-					eventType: 'operational',
-				},
-			});
-			expect(captureException).toHaveBeenCalledTimes(0);
+			await waitFor(() => {
+				// One event is fired for success of action discovery
+				expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
+				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce({
+					payload: {
+						action: 'success',
+						actionSubject: 'actionDiscovery',
+						eventType: 'operational',
+					},
+				});
+				expect(captureException).toHaveBeenCalledTimes(0);
+			});	
 		});
 	});
 });

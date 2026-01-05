@@ -98,9 +98,9 @@ const uniqueExactShortNameMatchIndex = (
 
 export default class EmojiTypeAheadComponent extends PureComponent<Props, State> {
 	static defaultProps = {
-		onSelection: () => {},
-		onOpen: () => {},
-		onClose: () => {},
+		onSelection: (): void => {},
+		onOpen: (): void => {},
+		onClose: (): void => {},
 		listLimit: defaultListLimit,
 	};
 
@@ -132,13 +132,13 @@ export default class EmojiTypeAheadComponent extends PureComponent<Props, State>
 		this.selected = false;
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		const { emojiProvider } = this.props;
 		emojiProvider.subscribe(this.onProviderChange);
 		this.onSearch(this.props.query);
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		const { emojiProvider, query } = this.props;
 		const { emojis } = this.state;
 		emojiProvider.unsubscribe(this.onProviderChange);
@@ -164,7 +164,7 @@ export default class EmojiTypeAheadComponent extends PureComponent<Props, State>
 		this.selected = false;
 	}
 
-	componentDidUpdate(prevProps: Props) {
+	componentDidUpdate(prevProps: Props): void {
 		if (prevProps !== this.props) {
 			const prevEmojiProvider = prevProps.emojiProvider;
 			const nextEmojiProvider = this.props.emojiProvider;
@@ -178,19 +178,19 @@ export default class EmojiTypeAheadComponent extends PureComponent<Props, State>
 		}
 	}
 
-	selectNext = () => {
+	selectNext = (): void => {
 		if (this.emojiListRef) {
 			this.emojiListRef.selectNext();
 		}
 	};
 
-	selectPrevious = () => {
+	selectPrevious = (): void => {
 		if (this.emojiListRef) {
 			this.emojiListRef.selectPrevious();
 		}
 	};
 
-	chooseCurrentSelection = () => {
+	chooseCurrentSelection = (): void => {
 		this.pressed = true;
 		if (this.emojiListRef) {
 			this.emojiListRef.chooseCurrentSelection();

@@ -27,11 +27,11 @@ export const useExampleToolbarState = () => {
 	const [pinning, setPinning] = useState<Pinning>('none');
 	const [lastAction, setLastAction] = useState<string | null>(null);
 
-	const onSetTextStyle = (style: TextStyle) => () => {
+	const onSetTextStyle = (style: TextStyle) => (): void => {
 		setTextStyle(style);
 	};
 
-	const onToggleFormatting = (format: Formatting) => () => {
+	const onToggleFormatting = (format: Formatting) => (): void => {
 		setFormatting((prev) => {
 			if (format === 'code') {
 				return {
@@ -47,7 +47,7 @@ export const useExampleToolbarState = () => {
 		});
 	};
 
-	const onToggleListOrAlignment = (newListOrAlignment: ListOrAlignment) => () => {
+	const onToggleListOrAlignment = (newListOrAlignment: ListOrAlignment) => (): void => {
 		setListOrAlignment((prev) => {
 			const isList = (value: ListOrAlignment) => value === 'bulleted' || value === 'numbered';
 			if (isList(prev) && !isList(newListOrAlignment)) {
@@ -60,11 +60,11 @@ export const useExampleToolbarState = () => {
 		});
 	};
 
-	const onTogglePinning = () => {
+	const onTogglePinning = (): void => {
 		setPinning((prev) => (prev === 'none' ? 'pinned' : 'none'));
 	};
 
-	const onClick = (action: string, callback?: () => void) => () => {
+	const onClick = (action: string, callback?: () => void) => (): void => {
 		callback?.();
 		setLastAction(action);
 	};

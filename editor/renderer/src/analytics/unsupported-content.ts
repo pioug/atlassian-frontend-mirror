@@ -75,7 +75,7 @@ export const trackUnsupportedContentLevels = (
 	item: DocumentData,
 	trackingOptions: UnsupportedContentLevelsTracking,
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent,
-) => {
+): void => {
 	const { thresholds, samplingRates } = trackingOptions;
 
 	const appearance = item.appearance ?? 'unknown';

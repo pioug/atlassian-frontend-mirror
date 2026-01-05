@@ -311,25 +311,6 @@ snapshotInformational(NavigationShellWithWideSideNav, {
 	},
 });
 
-/**
- * Ensures that the min-width is correctly set only when desired.
- *
- * There was a bug where the min-width was being applied while expanded with FHS,
- * which caused the toggle button to overflow past where it should be.
- *
- * TODO: Remove this test when `team25-eu-jira-logo-updates-csm-jsm` is cleaned up
- */
-snapshotInformational(NavigationShellExample, {
-	description: 'with increased min-width',
-	drawsOutsideBounds: true,
-	variants: [variants.desktop],
-	featureFlags: {
-		'navx-full-height-sidebar': true,
-		'platform-dst-side-nav-layering-fixes': true,
-		'team25-eu-jira-logo-updates-csm-jsm': true,
-	},
-});
-
 snapshotInformational(TopNavigationCustomLogoImageWithSideNavExample, {
 	description: 'custom logo sizing',
 	drawsOutsideBounds: true,
@@ -337,7 +318,6 @@ snapshotInformational(TopNavigationCustomLogoImageWithSideNavExample, {
 	featureFlags: {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
-		'team25-eu-jira-logo-updates-csm-jsm': true,
 	},
 });
 

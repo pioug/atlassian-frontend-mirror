@@ -23,7 +23,6 @@ import { nodeToJSON } from '@atlaskit/editor-common/utils';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import Dropdown from './Dropdown';
 interface Props {
@@ -182,7 +181,6 @@ export const ExtensionsPlaceholder = (props: Props): React.JSX.Element | null =>
 
 	const isNestedTable =
 		isNestedTablesSupported(editorView.state.schema) &&
-		fg('platform_editor_use_nested_table_pm_nodes') &&
 		isSelectionTableNestedInTable(editorView.state);
 
 	// Ignored via go/ees005

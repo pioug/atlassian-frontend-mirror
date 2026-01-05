@@ -45,7 +45,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 		return this.hasFallback() && this.state.errorCaptured;
 	}
 
-	componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+	componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
 		const additionalInfo = this.props.additionalInfo ?? '';
 
 		this.fireAnalyticsEvent({

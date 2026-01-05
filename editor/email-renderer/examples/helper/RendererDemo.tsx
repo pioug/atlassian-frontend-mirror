@@ -96,11 +96,11 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 		}
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.onComponentRendered();
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate(): void {
 		this.onComponentRendered();
 	}
 

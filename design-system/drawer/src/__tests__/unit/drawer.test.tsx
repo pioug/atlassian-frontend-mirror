@@ -8,7 +8,7 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import __noop from '@atlaskit/ds-lib/noop';
-import EmojiIcon from '@atlaskit/icon/core/migration/emoji';
+import EmojiIcon from '@atlaskit/icon/core/emoji';
 import { token } from '@atlaskit/tokens';
 
 import { Drawer } from '../../drawer';

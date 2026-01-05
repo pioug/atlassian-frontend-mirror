@@ -19,7 +19,7 @@ export const useOnForceSelect = ({
 	query,
 	editorView,
 	closePopup,
-}: Props) => {
+}: Props): void => {
 	const editorViewRef = useRef(editorView);
 
 	useLayoutEffect(() => {

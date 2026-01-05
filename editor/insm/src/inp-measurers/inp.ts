@@ -175,7 +175,7 @@ class InteractionTracker {
 		}
 	}
 
-	pause() {
+	pause(): void {
 		if (this.paused) {
 			return;
 		}
@@ -183,7 +183,7 @@ class InteractionTracker {
 		this.stopTracking();
 	}
 
-	resume() {
+	resume(): void {
 		if (!this.paused) {
 			return;
 		}

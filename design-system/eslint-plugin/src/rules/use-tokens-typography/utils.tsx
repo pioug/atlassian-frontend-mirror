@@ -21,7 +21,7 @@ import {
 } from 'eslint-codemod-utils';
 
 import { typographyPalette } from '@atlaskit/tokens/palettes-raw';
-import { typographyAdg3 as typographyTokens } from '@atlaskit/tokens/tokens-raw';
+import { typography as typographyTokens } from '@atlaskit/tokens/tokens-raw';
 
 import { Import, Root } from '../../ast-nodes';
 
@@ -65,6 +65,8 @@ export const typographyValueToToken = typographyTokens
 	// we're filtering here to remove the `font` tokens.
 	.filter((t) => t.attributes.group === 'typography')
 	.filter((t) => t.cleanName.includes('font.heading') || t.cleanName.includes('font.body'))
+	// Filtering out UNSAFE tokens that were meant for migrations, these tokens are deprecated and will be removed in the future
+	.filter((t) => !t.cleanName.includes('UNSAFE'))
 	.map((currentToken): TokenValueMap => {
 		const individualValues = {
 			fontSize: typographyPalette.find(
@@ -107,6 +109,11 @@ export function isValidTypographyToken(tokenName: string) {
 }
 
 export function findTypographyTokenForValues(fontSize: string, lineHeight?: string) {
+	// Match 11px to 12px as this is what happened when transitioning from legacy to refreshed typography
+	if (fontSize === '11px') {
+		fontSize = '12px';
+	}
+
 	let matchingTokens = typographyValueToToken
 		.filter((token) => token.values.fontSize === fontSize)
 		// If lineHeight == 1, we don't match to a token
@@ -115,30 +122,29 @@ export function findTypographyTokenForValues(fontSize: string, lineHeight?: stri
 	return matchingTokens;
 }
 
-export const fontWeightTokens: {
-	tokenName: string;
-	tokenValue: string;
-	values: {};
-}[] = typographyTokens
+export const fontWeightTokens: TokenValueMap[] = typographyTokens
 	.filter((token) => token.attributes.group === 'fontWeight')
 	.map((token) => {
 		return {
 			tokenName: token.cleanName,
 			tokenValue: token.value,
-			values: {},
+			values: {
+				fontWeight: token.value,
+			},
 		};
 	});
 
-export function findFontWeightTokenForValue(fontWeight: string) {
+export function findFontWeightTokenForValue(fontWeight: string, tokens: TokenValueMap[] = fontWeightTokens) {
 	if (fontWeight === 'normal') {
 		fontWeight = '400';
 	}
 
-	if (fontWeight === 'bold') {
-		fontWeight = '700';
+	// Match bold and 700 to 653 to match with bold weight refreshed typography
+	if (fontWeight === 'bold' || fontWeight === '700') {
+		fontWeight = '653';
 	}
 
-	return fontWeightTokens.find((token) => token.tokenValue === fontWeight);
+	return tokens.find((token) => token.values.fontWeight === fontWeight);
 }
 
 export const fontWeightMap: FontWeightMap = {

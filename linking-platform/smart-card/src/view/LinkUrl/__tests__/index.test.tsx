@@ -46,7 +46,7 @@ describe('LinkUrl', () => {
 		checkGateMock.mockReturnValue(false);
 	});
 
-	const runTest = (wrapper?: React.JSXElementConstructor<{ children: React.ReactElement }>) => {
+	const runTest = (wrapper?: React.JSXElementConstructor<{ children: React.ReactNode }>) => {
 		describe('isLinkComponent', () => {
 			it('should capture and report a11y violations', async () => {
 				const { container } = render(<TestComponent isLinkComponent />, { wrapper });

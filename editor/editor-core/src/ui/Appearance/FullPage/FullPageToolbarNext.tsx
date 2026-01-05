@@ -91,6 +91,9 @@ const styles = cssMap({
 		justifyContent: 'flex-end',
 		alignItems: 'center',
 	},
+	backgroundColor: {
+		backgroundColor: token('elevation.surface'),
+	},
 });
 
 const MainToolbarWrapper = ({
@@ -111,6 +114,13 @@ const MainToolbarWrapper = ({
 					styles.mainToolbarNew,
 				expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true) &&
 					styles.mainToolbarZIndex,
+				expValEquals(
+					'platform_editor_table_sticky_header_improvements',
+					'cohort',
+					'test_with_overflow',
+				) &&
+					expValEquals('platform_editor_table_sticky_header_patch_9', 'isEnabled', true) &&
+					styles.backgroundColor,
 			]}
 			data-testid={testId}
 		>

@@ -32,7 +32,7 @@ export class EmojiUploaderInternal extends LoadingEmojiComponent<Props, LoadingS
 		super(props, {});
 	}
 
-	asyncLoadComponent() {
+	asyncLoadComponent(): void {
 		emojiUploadLoader().then((component) => {
 			EmojiUploaderInternal.AsyncLoadedComponent = component;
 			this.setAsyncState(component);

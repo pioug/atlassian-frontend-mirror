@@ -1,6 +1,6 @@
 import { useSmartLinkContext, SmartCardProvider } from '..';
 import CardClient from '../../../client';
-import { renderHook, type RenderHookOptions } from '@testing-library/react-hooks';
+import { renderHook, type RenderHookOptions } from '@testing-library/react';
 // import { SmartCardProvider } from '@atlaskit/link-provider';
 import React from 'react';
 import type { ProductType } from '@atlaskit/linking-common';
@@ -8,8 +8,7 @@ import type { ProductType } from '@atlaskit/linking-common';
 describe('useSmartCardContext()', () => {
 	it('throws if required context not present', () => {
 		const expectedError = new Error('useSmartCard() must be wrapped in <SmartCardProvider>');
-		const { error } = renderHook(() => useSmartLinkContext()).result;
-		expect(error).toEqual(expectedError);
+		expect(() => renderHook(() => useSmartLinkContext())).toThrow(expectedError);
 	});
 
 	it('provides correct context to consumers', () => {

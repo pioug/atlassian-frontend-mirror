@@ -21,7 +21,7 @@ export default class ObjectSchemaNode extends SchemaNodeWithValidators<ObjectVal
 		this.properties = properties;
 	}
 
-	addProperty(name: string, value: SchemaNode, required: boolean = true) {
+	addProperty(name: string, value: SchemaNode, required: boolean = true): void {
 		this.properties[name] = { value, required };
 	}
 

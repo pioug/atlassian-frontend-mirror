@@ -122,7 +122,7 @@ export const useComponentInfo = ({
 	const shortcutContent = tooltip(shortcut);
 	const ariaLabel = tooltip(shortcut, formatTitle);
 
-	const onClick = () => {
+	const onClick = (): void => {
 		api?.core.actions.execute(
 			toggleMarkWithAnalyticsCallback(api?.analytics?.actions)(
 				getInputMethodFromParentKeys(parents),

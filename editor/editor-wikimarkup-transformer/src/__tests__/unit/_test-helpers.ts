@@ -17,7 +17,7 @@ export function checkParse(
 	schema: Schema,
 	markups: string[],
 	node: (schema: Schema) => Node,
-) {
+): void {
 	it(`parses WikiMarkup: ${description}`, () => {
 		for (const markup of markups) {
 			const actual = parseWithSchema(markup, schema);
@@ -31,7 +31,7 @@ export function checkEncode(
 	schema: Schema,
 	markup: string,
 	node: (schema: Schema) => Node,
-) {
+): void {
 	it(`encodes WikiMarkup: ${description}`, () => {
 		const encoded = encode(node, schema);
 		expect(encoded).toEqual(markup);
@@ -43,7 +43,7 @@ export function checkParseEncodeRoundTrips(
 	schema: Schema,
 	markup: string,
 	node: (schema: Schema) => Node,
-) {
+): void {
 	checkParse(description, schema, [markup], node);
 
 	// Ignored via go/ees007
@@ -57,13 +57,13 @@ export function checkParseEncodeRoundTrips(
 	// });
 }
 
-export const adf2wiki = (node: Node) => {
+export const adf2wiki = (node: Node): void => {
 	const transformer = new WikiMarkupTransformer();
 	const wiki = transformer.encode(node);
 	const adf = transformer.parse(wiki).toJSON();
 	expect(adf).toEqual(node.toJSON());
 };
-export const wiki2adf = (wiki: string) => {
+export const wiki2adf = (wiki: string): void => {
 	const transformer = new WikiMarkupTransformer();
 	const adf = transformer.parse(wiki);
 	const roundtripped = transformer.encode(adf);

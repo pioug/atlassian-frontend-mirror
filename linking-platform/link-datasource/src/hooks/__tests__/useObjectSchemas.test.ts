@@ -1,5 +1,4 @@
-import { waitFor } from '@testing-library/react';
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook, waitFor } from '@testing-library/react';
 
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
@@ -90,13 +89,15 @@ describe('useObjectSchemas', () => {
 	it('should return a newly constructed error when fetchObjectSchemas rejects with a non error type', async () => {
 		const mockError = { error: 'fake error message' };
 		mockFetchObjectSchemas.mockRejectedValue(mockError);
-		const { result, waitForNextUpdate } = renderHook(() => useObjectSchemas(workspaceId));
+		const { result } = renderHook(() => useObjectSchemas(workspaceId));
 		const fetchObjectSchemas = result.current.fetchObjectSchemas;
 		act(() => {
 			fetchObjectSchemas(schemaQuery);
 		});
-		await waitForNextUpdate();
-		expect(result.current.objectSchemasError?.message).toEqual(`Unexpected error occured`);
+
+		await waitFor(() => {
+			expect(result.current.objectSchemasError?.message).toEqual(`Unexpected error occured`);
+		});
 	});
 
 	it('should correctly set objectSchemasLoading when fetchObjectSchemas is called', async () => {
@@ -105,7 +106,7 @@ describe('useObjectSchemas', () => {
 		) => void = () => {};
 		const deferredPromise = new Promise((resolve) => (fetchObjectSchemasResolveFn = resolve));
 		mockFetchObjectSchemas.mockReturnValue(deferredPromise);
-		const { result, waitForNextUpdate } = renderHook(() => useObjectSchemas(workspaceId));
+		const { result } = renderHook(() => useObjectSchemas(workspaceId));
 		const fetchObjectSchemas = result.current.fetchObjectSchemas;
 		act(() => {
 			fetchObjectSchemas(schemaQuery);
@@ -114,7 +115,8 @@ describe('useObjectSchemas', () => {
 		act(() => {
 			fetchObjectSchemasResolveFn(mockFetchObjectSchemasResponse);
 		});
-		await waitForNextUpdate();
-		expect(result.current.objectSchemasLoading).toBe(false);
+		await waitFor(() => {
+			expect(result.current.objectSchemasLoading).toBe(false);
+		});
 	});
 });

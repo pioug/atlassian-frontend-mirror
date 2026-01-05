@@ -16,10 +16,12 @@ import './lozenge-appearance-semantic-migration/lozenge-appearance-semantic-migr
 import './lozenge-to-tag-migration/lozenge-to-tag-migration';
 import './badge-appearance-semantic-migration/badge-appearance-semantic-migration';
 import './tag-to-newTag-migration/tag-to-newTag-migration';
+import './migrate-deprecated-icon/migrate-deprecated-icon';
 
 const presets = [
 	'styled-to-emotion',
 	'theme-remove-deprecated-mixins',
+	'migrate-deprecated-icon',
 	'migrate-to-link',
 	'migrate-to-new-buttons',
 	'migrate-icon-object-to-object',

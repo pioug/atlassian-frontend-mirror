@@ -1,5 +1,4 @@
-import { waitFor } from '@testing-library/react';
-import { act } from '@testing-library/react-hooks';
+import { act, waitFor } from '@testing-library/react';
 
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { type DatasourceTableStatusType } from '@atlaskit/linking-types';

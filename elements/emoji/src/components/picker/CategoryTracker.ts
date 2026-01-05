@@ -14,12 +14,12 @@ export default class CategoryTracker {
 		this.reset();
 	}
 
-	reset() {
+	reset(): void {
 		this.categoryToRow = new Map();
 		this.rowToCategory = new Map();
 	}
 
-	add(category: CategoryId, row: number) {
+	add(category: CategoryId, row: number): void {
 		if (!this.categoryToRow.has(category)) {
 			this.categoryToRow.set(category, row);
 			this.rowToCategory.set(row, category);

@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 17.4.1
+
+### Patch Changes
+
+- [`036c3ee917e3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/036c3ee917e3c) -
+  Icon migration entry point update
+- Updated dependencies
+
 ## 17.4.0
 
 ### Minor Changes

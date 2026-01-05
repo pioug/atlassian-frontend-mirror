@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
 import { Code } from '@atlaskit/code';
-import CrossIcon from '@atlaskit/icon/core/migration/cross';
+import CrossIcon from '@atlaskit/icon/core/cross';
 import {
 	Spotlight,
 	SpotlightManager,

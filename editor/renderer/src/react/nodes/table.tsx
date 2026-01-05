@@ -298,7 +298,7 @@ export class TableContainer extends React.Component<
 	 *
 	 * @example
 	 */
-	componentDidMount() {
+	componentDidMount(): void {
 		this.resizeObserver = new ResizeObserver(this.applyResizerChange);
 		if (this.wrapperRef.current) {
 			this.resizeObserver.observe(this.wrapperRef.current);
@@ -328,7 +328,7 @@ export class TableContainer extends React.Component<
 	 * @param prevState
 	 * @example
 	 */
-	componentDidUpdate(prevProps: TableProps, prevState: TableState) {
+	componentDidUpdate(prevProps: TableProps, prevState: TableState): void {
 		// toggling sticky headers visiblity
 		if (this.props.stickyHeaders && !this.overflowParent) {
 			this.overflowParent = OverflowParent.fromElement(
@@ -353,7 +353,7 @@ export class TableContainer extends React.Component<
 		}
 	}
 
-	componentWillUnmount = () => {
+	componentWillUnmount = (): void => {
 		if (this.overflowParent) {
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
@@ -379,7 +379,7 @@ export class TableContainer extends React.Component<
 		return (this.overflowParent ? this.overflowParent.top : 0) + offsetTop;
 	};
 
-	updateSticky = () => {
+	updateSticky = (): void => {
 		const tableElem = this.tableRef.current;
 		const refElem = this.stickyHeaderRef.current;
 		if (!tableElem || !refElem) {
@@ -407,13 +407,13 @@ export class TableContainer extends React.Component<
 		this.nextFrame = undefined;
 	};
 
-	onScroll = () => {
+	onScroll = (): void => {
 		if (!this.nextFrame) {
 			this.nextFrame = requestAnimationFrame(this.updateSticky);
 		}
 	};
 
-	onWrapperScrolled = () => {
+	onWrapperScrolled = (): void => {
 		if (!this.wrapperRef.current || !this.stickyWrapperRef.current) {
 			return;
 		}

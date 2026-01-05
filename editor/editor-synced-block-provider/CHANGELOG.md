@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.5.0
+
+### Minor Changes
+
+- [`25da5a5d67a2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25da5a5d67a2a) -
+  EDITOR-2257 implement resourceId conversion and enable SSR
+
 ## 3.4.1
 
 ### Patch Changes

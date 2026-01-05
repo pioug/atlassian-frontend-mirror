@@ -122,7 +122,7 @@ export const chooseFile = (component: ReactWrapper, file: any) => {
 };
 
 // focusIndex of list should expect tabIndex = 0, and siblings with tabIndex = -1
-export const expectTabIndexFromList = (list: HTMLElement[], focusIndex: number) => {
+export const expectTabIndexFromList = (list: HTMLElement[], focusIndex: number): void => {
 	list.map((listItem, index) => {
 		if (index === focusIndex) {
 			expect(listItem.tabIndex).toEqual(0);

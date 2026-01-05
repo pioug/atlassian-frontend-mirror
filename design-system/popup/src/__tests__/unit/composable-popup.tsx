@@ -3,7 +3,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import Button from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { Popup, PopupContent, PopupTrigger } from '../../compositional/popup';
 import type { TriggerProps } from '../../types';
@@ -151,6 +153,38 @@ describe('Popup with composable API', () => {
 			expect(screen.getByText('trigger')).toHaveAttribute('aria-controls', id);
 
 			expect(screen.getByTestId('popup-container')).toHaveAttribute('id', id);
+		});
+
+		ffTest.on('platform_dst_nav4_flyout_menu_slots_close_button', 'includes updates to flyout menu to have slots and close button', () => {
+			it('should have aria-haspopup set to dialog if role is dialog', () => {
+				render(
+					<Popup role='dialog'>
+						<PopupTrigger>
+							{(triggerProps) => (
+								<Button {...triggerProps}>Trigger</Button>
+							)}
+						</PopupTrigger>
+						<PopupContent role='dialog' testId='popup-container'>{() => <div>content</div>}</PopupContent>
+					</Popup>
+				);
+				
+				expect(screen.getByRole('button', { name: 'Trigger' })).toHaveAttribute('aria-haspopup', 'dialog');
+			});
+			
+			it('should have aria-haspopup set to true if role is not dialog', () => {
+				render(
+					<Popup>
+						<PopupTrigger>
+							{(triggerProps) => (
+								<Button {...triggerProps}>Trigger</Button>
+							)}
+						</PopupTrigger>
+						<PopupContent testId='popup-container'>{() => <div>content</div>}</PopupContent>
+					</Popup>
+				);
+
+				expect(screen.getByRole('button', { name: 'Trigger' })).toHaveAttribute('aria-haspopup', 'true');
+			});
 		});
 	});
 

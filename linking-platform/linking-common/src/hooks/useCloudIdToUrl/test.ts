@@ -1,5 +1,5 @@
 import fetchMock from 'fetch-mock/cjs/client';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 
 import {
 	mockAvailableSites,
@@ -14,7 +14,7 @@ describe('useCloudIdToUrl', () => {
 
 	it('should return loading status and the result', async () => {
 		mockAvailableSites();
-		const { result, waitForNextUpdate } = renderHook(() =>
+		const { result } = renderHook(() =>
 			useCloudIdToUrl('0131afab-28cf-45ea-a211-963f638f99bc'),
 		);
 
@@ -25,21 +25,16 @@ describe('useCloudIdToUrl', () => {
         "loading": true,
       }
     `);
-
-		await waitForNextUpdate();
-
-		expect(result.current).toMatchInlineSnapshot(`
-      {
-        "data": "https://customdomains.jira-dev.com",
-        "error": undefined,
-        "loading": false,
-      }
-    `);
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
+      expect(result.current.error).toBeUndefined();
+      expect(result.current.data).toBe('https://customdomains.jira-dev.com');
+    })
 	});
 
 	it('should fetch relevant sites and return a different result when gatewayBaseUrl passed', async () => {
 		mockAvailableSitesForGatewayUrl('https://customgatewaybaseurl.com');
-		const { result, waitForNextUpdate } = renderHook(() =>
+		const { result } = renderHook(() =>
 			useCloudIdToUrl('cloudid-for-custom-baseurl', 'https://customgatewaybaseurl.com'),
 		);
 
@@ -50,30 +45,36 @@ describe('useCloudIdToUrl', () => {
         "loading": true,
       }
     `);
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
+    })
 
-		await waitForNextUpdate();
-
-		expect(result.current).toMatchInlineSnapshot(`
-      {
-        "data": "https://custom-domain-for-custom-baseurl.jira-dev.com",
-        "error": undefined,
-        "loading": false,
-      }
-    `);
+		await waitFor(() => {
+      expect(result.current).toMatchInlineSnapshot(`
+        {
+          "data": "https://custom-domain-for-custom-baseurl.jira-dev.com",
+          "error": undefined,
+          "loading": false,
+        }
+        `);
+    });
 	});
 
 	it('should return undefined if nothing matched', async () => {
 		mockAvailableSites();
-		const { result, waitForNextUpdate } = renderHook(() => useCloudIdToUrl('nothing-match-me'));
+		const { result } = renderHook(() => useCloudIdToUrl('nothing-match-me'));
 
-		await waitForNextUpdate();
-
-		expect(result.current).toMatchInlineSnapshot(`
-      {
-        "data": undefined,
-        "error": undefined,
-        "loading": false,
-      }
-    `);
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
+    })
+		await waitFor(() => {
+			expect(result.current).toMatchInlineSnapshot(`
+        {
+          "data": undefined,
+          "error": undefined,
+          "loading": false,
+        }
+        `);
+		});
 	});
 });

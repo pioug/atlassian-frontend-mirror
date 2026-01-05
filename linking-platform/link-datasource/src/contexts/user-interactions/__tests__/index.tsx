@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { renderHook, type RenderHookOptions } from '@testing-library/react-hooks';
+import { renderHook, type RenderHookOptions } from '@testing-library/react';
 
 import { DatasourceAction } from '../../../analytics/types';
 import { UserInteractionsProvider, useUserInteractions } from '../index';
@@ -28,9 +28,6 @@ describe('UserInteractionsProvider', () => {
 	});
 
 	test('useUserInteractions throws if the render is not wrapped in a Context', () => {
-		const { result } = renderHook(() => useUserInteractions());
-		expect(result.error?.message).toEqual(
-			'useUserInteractions() must be wrapped in <UserInteractionsProvider>',
-		);
+		expect(() => renderHook(() => useUserInteractions())).toThrow(new Error('useUserInteractions() must be wrapped in <UserInteractionsProvider>'));
 	});
 });

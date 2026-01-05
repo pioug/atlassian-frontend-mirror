@@ -1,5 +1,20 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.30.0
+
+### Minor Changes
+
+- [`24edc07c201e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24edc07c201e2) -
+  `use-tokens-typography` now only matches and supports tokens from the refreshed typography theme.
+  Changes include:
+  - `font.body.UNSAFE_small` will no longer be suggested in autofixes.
+  - Both 11px and 12px will now be autofixed to the `font.body.small` token.
+  - Heading tokens will only be suggested if bold font weights (700 or 653) are used.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.29.3
 
 ### Patch Changes

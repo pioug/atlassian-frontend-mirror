@@ -41,7 +41,7 @@ export function isMentionItemSelected(component: ReactWrapper<any, any>, itemId:
 	return selectedItem.length && selectedItem.prop('mention').id === itemId;
 }
 
-export function checkOrder(expected: MentionDescription[][], actual: MentionDescription[][]) {
+export function checkOrder(expected: MentionDescription[][], actual: MentionDescription[][]): void {
 	expect(actual).toHaveLength(expected.length);
 
 	for (let i = 0; i < expected.length; i++) {

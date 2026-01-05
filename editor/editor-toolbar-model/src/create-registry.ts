@@ -34,7 +34,7 @@ import type { RegisterComponent } from './types';
 export const createComponentRegistry = () => {
 	const components: RegisterComponent[] = [];
 
-	const register = (newComponents: RegisterComponent[]) => {
+	const register = (newComponents: RegisterComponent[]): void => {
 		components.push(...newComponents);
 	};
 
@@ -45,7 +45,7 @@ export const createComponentRegistry = () => {
 	 * Most likely you should avoid using this and just use the `register` method as it's preferred
 	 * to register components statically.
 	 */
-	const safeRegister = (newComponents: RegisterComponent[]) => {
+	const safeRegister = (newComponents: RegisterComponent[]): void => {
 		newComponents.forEach((newComponent) => {
 			const existingIndex = components.findIndex(
 				(existingComponent) =>

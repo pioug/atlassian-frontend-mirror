@@ -1,5 +1,13 @@
 # @atlaskit/layering
 
+## 3.6.0
+
+### Minor Changes
+
+- [`67509a09876ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67509a09876ad) -
+  The type `LayerType` is now being exported from
+  `@atlaskit/layering/experimental/open-layer-observer`.
+
 ## 3.5.0
 
 ### Minor Changes

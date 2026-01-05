@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { SmartCardProvider } from '@atlaskit/link-provider';

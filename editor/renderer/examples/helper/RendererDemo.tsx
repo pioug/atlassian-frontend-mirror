@@ -209,7 +209,7 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 		};
 	}
 
-	componentDidUpdate(prevProps: DemoRendererProps, prevState: DemoRendererState) {
+	componentDidUpdate(prevProps: DemoRendererProps, prevState: DemoRendererState): void {
 		if (this.state.input && prevState.input !== this.state.input && this.props.onDocumentChange) {
 			this.props.onDocumentChange();
 		}

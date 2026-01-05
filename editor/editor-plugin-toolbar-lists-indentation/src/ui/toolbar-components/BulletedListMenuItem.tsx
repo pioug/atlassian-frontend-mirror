@@ -37,7 +37,7 @@ export const useBulletedListInfo = ({ api, parents }: BulletedListType) => {
 		}),
 	);
 
-	const onClick = () => {
+	const onClick = (): void => {
 		api?.core.actions.execute(
 			taskListActive
 				? api?.taskDecision?.commands.toggleTaskList('bulletList')

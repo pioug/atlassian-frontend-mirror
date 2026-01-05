@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.5.0
+
+### Minor Changes
+
+- [`4fb60e6294885`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4fb60e6294885) -
+  Cleanup platform_editor_no_ssr flag
+
 ## 16.4.0
 
 ### Minor Changes

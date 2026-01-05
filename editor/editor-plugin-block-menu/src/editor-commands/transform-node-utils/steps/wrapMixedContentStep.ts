@@ -4,7 +4,48 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { removeDisallowedMarks } from '../marks';
 import type { TransformStep, NodeTypeName } from '../types';
 import { NODE_CATEGORY_BY_TYPE } from '../types';
-import { convertTextNodeToParagraph, isTextNode } from '../utils';
+import { convertTextNodeToParagraph, createTextContent, isTextNode } from '../utils';
+
+/**
+ * Creates a layout section with two columns, where the first column contains the provided content.
+ */
+const createLayoutSection = (
+	content: PMNode[],
+	layoutSection: NodeType,
+	layoutColumn: NodeType,
+): PMNode | null => {
+	const columnOne = layoutColumn.createAndFill({}, removeDisallowedMarks(content, layoutColumn));
+	const columnTwo = layoutColumn.createAndFill();
+
+	if (!columnOne || !columnTwo) {
+		return null;
+	}
+
+	return layoutSection.createAndFill({}, [columnOne, columnTwo]);
+};
+
+/**
+ * Creates a container with text content (for codeblocks).
+ */
+const createTextContentContainer = (
+	textContentArray: string[],
+	targetNodeType: NodeType,
+	schema: Schema,
+): PMNode | null => {
+	const textContent = textContentArray.join('\n');
+	const textNode = textContent ? schema.text(textContent) : null;
+	return targetNodeType.createAndFill({}, textNode);
+};
+
+/**
+ * Creates a regular container with node content.
+ */
+const createNodeContentContainer = (
+	nodeContent: PMNode[],
+	targetNodeType: NodeType,
+): PMNode | null => {
+	return targetNodeType.createAndFill({}, nodeContent);
+};
 
 /**
  * Handles the edge case where transforming from a container to another container results in
@@ -38,12 +79,19 @@ const handleEmptyContainerEdgeCase = (
 	const allContentBrokeOut = !hasCreatedContainer && result.length > 0;
 
 	const shouldCreateEmptyTarget = isFromContainer && isTargetContainer && allContentBrokeOut;
-	if (shouldCreateEmptyTarget) {
-		const emptyParagraph = schema.nodes.paragraph.create();
-		const emptyContainer = targetNodeType.create({}, emptyParagraph);
-		return [emptyContainer, ...result];
+
+	if (!shouldCreateEmptyTarget) {
+		return result;
 	}
-	return result;
+
+	if (targetNodeTypeName === schema.nodes.codeBlock.name) {
+		const emptyCodeBlock = createTextContentContainer([], schema.nodes.codeBlock, schema);
+		return emptyCodeBlock ? [emptyCodeBlock, ...result] : result;
+	}
+
+	const emptyParagraph = schema.nodes.paragraph.create();
+	const emptyContainer = targetNodeType.create({}, emptyParagraph);
+	return [emptyContainer, ...result];
 };
 
 /**
@@ -60,6 +108,9 @@ const handleEmptyContainerEdgeCase = (
  * - Other nodes (including headings, paragraphs, lists) are wrapped into layout columns within a layout section
  * - Layouts always require layoutColumns as children (never paragraphs directly)
  * - Layout columns can contain most block content including headings, paragraphs, lists, etc.
+ *
+ * Special handling for codeblocks:
+ * - Text nodes are converted to plain text and added to the codeblock
  *
  * Edge case handling:
  * - For regular containers: If all content breaks out (container → container transform with no
@@ -89,10 +140,11 @@ export const wrapMixedContentStep: TransformStep = (nodes, context) => {
 	}
 
 	const isLayout = targetNodeTypeName === 'layoutSection';
+	const isCodeblock = targetNodeTypeName === 'codeBlock';
 	const { layoutSection, layoutColumn } = schema.nodes;
 
 	const result: PMNode[] = [];
-	let currentContainerContent: PMNode[] = [];
+	let currentContainerContent: Array<PMNode | string> = [];
 	let hasCreatedContainer = false;
 
 	const flushCurrentContainer = () => {
@@ -100,73 +152,84 @@ export const wrapMixedContentStep: TransformStep = (nodes, context) => {
 			return;
 		}
 
+		let container: PMNode | null = null;
+
 		if (isLayout) {
-			// For layouts, create layoutSection with two layoutColumns
-			const columnOne = layoutColumn.createAndFill(
-				{},
-				removeDisallowedMarks(currentContainerContent, layoutColumn),
+			container = createLayoutSection(
+				currentContainerContent as PMNode[],
+				layoutSection,
+				layoutColumn,
 			);
-			const columnTwo = layoutColumn.createAndFill();
-
-			if (!columnOne || !columnTwo) {
-				currentContainerContent = [];
-				return;
-			}
-
-			const layout = layoutSection.createAndFill({}, [columnOne, columnTwo]);
-			if (layout) {
-				result.push(layout);
-				hasCreatedContainer = true;
-			}
-			currentContainerContent = [];
-			return;
+		} else if (isCodeblock) {
+			container = createTextContentContainer(
+				currentContainerContent as string[],
+				targetNodeType,
+				schema,
+			);
+		} else {
+			container = createNodeContentContainer(currentContainerContent as PMNode[], targetNodeType);
 		}
 
-		// For regular containers, create directly
-		const containerNode = targetNodeType.createAndFill({}, currentContainerContent);
-		if (containerNode) {
-			result.push(containerNode);
+		if (container) {
+			result.push(container);
 			hasCreatedContainer = true;
 		}
+
 		currentContainerContent = [];
 	};
 
-	const processNode = (node: PMNode) => {
+	const canNodeBeWrapped = (node: PMNode): boolean => {
 		const validationType = isLayout ? layoutColumn : targetNodeType;
-
-		const canWrapNode = validationType.validContent(
+		return validationType.validContent(
 			Fragment.from(removeDisallowedMarks([node], validationType)),
 		);
+	};
 
-		// Node can be wrapped - add to current container content
-		if (canWrapNode) {
-			// remove marks from node as nested nodes don't usually support block marks
-			currentContainerContent.push(...removeDisallowedMarks([node], validationType));
+	const handleWrappableNode = (node: PMNode) => {
+		const validationType = isLayout ? layoutColumn : targetNodeType;
+		currentContainerContent.push(...removeDisallowedMarks([node], validationType));
+	};
+
+	const handleCodeblockTextNode = (node: PMNode) => {
+		currentContainerContent.push(createTextContent(node));
+	};
+
+	const handleConvertibleTextNode = (node: PMNode) => {
+		const paragraph = convertTextNodeToParagraph(node, schema);
+		if (paragraph) {
+			currentContainerContent.push(paragraph);
+		}
+	};
+
+	const handleUnsupportedNode = (node: PMNode) => {
+		flushCurrentContainer();
+		result.push(node);
+	};
+
+	const processNode = (node: PMNode) => {
+		if (canNodeBeWrapped(node)) {
+			handleWrappableNode(node);
 			return;
 		}
 
-		// Text node (heading, paragraph) that can't be wrapped - convert to paragraph
-		// Example: heading can't go in blockquote, so convert to paragraph with same content
+		if (isTextNode(node) && isCodeblock) {
+			handleCodeblockTextNode(node);
+			return;
+		}
+
 		if (isTextNode(node)) {
-			const paragraph = convertTextNodeToParagraph(node, schema);
-			if (paragraph) {
-				currentContainerContent.push(paragraph);
-			}
+			handleConvertibleTextNode(node);
 			return;
 		}
 
 		// All other nodes that cannot be wrapped in the target node - break out
 		// Examples: same-type containers, tables in panels, layoutSections in layouts
-		flushCurrentContainer();
-		result.push(node);
+		handleUnsupportedNode(node);
 	};
 
 	nodes.forEach(processNode);
-
-	// Flush any remaining content into a container
 	flushCurrentContainer();
 
-	// Skip edge case handling for layouts since layouts always have columns
 	if (isLayout) {
 		return result.length > 0 ? result : nodes;
 	}

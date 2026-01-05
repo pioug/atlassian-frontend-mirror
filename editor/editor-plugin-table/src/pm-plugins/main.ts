@@ -27,7 +27,6 @@ import { findParentDomRefOfType, findParentNodeOfType } from '@atlaskit/editor-p
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables';
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
@@ -147,7 +146,11 @@ export const createPlugin = (
 				isCommentEditor,
 				isChromelessEditor,
 			}),
-			tableRow: tableRowView({ eventDispatcher, pluginInjectionApi, isDragAndDropEnabled: dragAndDropEnabled }),
+			tableRow: tableRowView({
+				eventDispatcher,
+				pluginInjectionApi,
+				isDragAndDropEnabled: dragAndDropEnabled,
+			}),
 			tableCell: tableCellView({ eventDispatcher, pluginInjectionApi }),
 			tableHeader: tableHeaderView({ eventDispatcher, pluginInjectionApi }),
 		};
@@ -338,7 +341,7 @@ export const createPlugin = (
 
 				slice = transformSliceToRemoveOpenNestedExpand(slice, schema);
 
-				if (isNestedTablesSupported(schema) && fg('platform_editor_use_nested_table_pm_nodes')) {
+				if (isNestedTablesSupported(schema)) {
 					slice = transformSliceToRemoveNestedTables(slice, schema, editorState.selection);
 				}
 

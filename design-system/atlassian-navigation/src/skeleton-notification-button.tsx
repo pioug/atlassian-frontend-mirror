@@ -1,7 +1,6 @@
 import React from 'react';
 
-import NotificationIcon from '@atlaskit/icon/core/migration/notification';
-import Nav4NotificationsIcon from '@atlaskit/icon/core/notification';
+import NotificationIcon from '@atlaskit/icon/core/notification';
 import { token } from '@atlaskit/tokens';
 
 import { SkeletonIconButton } from './components/SkeletonIconButton';
@@ -42,6 +41,6 @@ export const Nav4SkeletonNotificationButton = ({
 	label = '',
 }: SkeletonNotificationButtonProps): React.JSX.Element => (
 	<SkeletonIconButton>
-		<Nav4NotificationsIcon label={label} color={token('color.icon')} />
+		<NotificationIcon label={label} color={token('color.icon')} />
 	</SkeletonIconButton>
 );

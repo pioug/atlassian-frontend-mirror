@@ -26,6 +26,12 @@
 			"path": "../../../monorepo-tooling/codemod-utils/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../icon/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../icon-lab/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-products/tsconfig.json"
 		}
 	]

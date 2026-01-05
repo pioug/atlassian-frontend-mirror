@@ -46,18 +46,18 @@ export class INSMSession {
 	 * Completes the page load timing. This is called automatically when ending a heavy task
 	 * with the key 'PageLoad'.
 	 */
-	completePageLoad() {
+	completePageLoad(): void {
 		this.pageLoadTime = performance.now() - this.startedAt;
 	}
 
-	updateExperienceKey(experienceKey: string) {
+	updateExperienceKey(experienceKey: string): void {
 		this.experienceKey = experienceKey;
 	}
 
 	/**
 	 * Adds a feature to the currently running session
 	 */
-	startFeature(featureName: string) {
+	startFeature(featureName: string): void {
 		this.runningFeatures.add(featureName);
 		this.periodTracking?.startFeature(featureName);
 	}
@@ -65,7 +65,7 @@ export class INSMSession {
 	/**
 	 * Ends a features usage in the currently running session
 	 */
-	endFeature(featureName: string) {
+	endFeature(featureName: string): void {
 		this.runningFeatures.delete(featureName);
 	}
 
@@ -109,7 +109,7 @@ export class INSMSession {
 	 * { one: 'one', two: 2, three: 3 }
 	 * ```
 	 */
-	addProperties(propertiesToAdd: AddedProperties) {
+	addProperties(propertiesToAdd: AddedProperties): void {
 		this.addedProperties.push(propertiesToAdd);
 	}
 
@@ -127,7 +127,7 @@ export class INSMSession {
 	 * **Note**: The session is ended as soon as this is called, and any `addProperties` handlers will
 	 * called immediately.
 	 */
-	earlyStop(reason: string, description?: string) {
+	earlyStop(reason: string, description?: string): void {
 		this.end({ stoppedBy: 'early-stop', reason, description });
 	}
 
@@ -140,7 +140,7 @@ export class INSMSession {
 			  }
 			| { stoppedBy: 'beforeunload' }
 			| { description?: string; reason: string; stoppedBy: 'early-stop' },
-	) {
+	): void {
 		if (this.running === false) {
 			// If an experience has already been ended -- don't repeat the ending
 			return;

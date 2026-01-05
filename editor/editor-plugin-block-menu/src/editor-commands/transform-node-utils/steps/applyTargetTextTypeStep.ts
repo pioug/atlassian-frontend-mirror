@@ -1,18 +1,21 @@
 import type { TransformStep } from '../types';
 
 /**
- * Applies target text type conversion. If the target type is a heading, converts textblock nodes
- * (paragraphs, headings) to heading nodes with the specified level. Otherwise, leaves nodes unchanged.
- * Non-textblock nodes are always left unchanged.
+ * Applies target text type conversion. Converts textblock nodes to the target text type
+ * (paragraph or heading). Non-textblock nodes are left unchanged.
  *
  * @example
  * Input:
- * - paragraph "Heading 1"
- * - paragraph "Heading 2"
+ * - paragraph "Text 1"
+ * - paragraph "Text 2"
  *
  * Output (with target: heading, level: 2):
- * - heading (level: 2) "Heading 1"
- * - heading (level: 2) "Heading 2"
+ * - heading (level: 2) "Text 1"
+ * - heading (level: 2) "Text 2"
+ *
+ * Output (with target: paragraph):
+ * - paragraph "Text 1"
+ * - paragraph "Text 2"
  *
  * @param nodes
  * @param context
@@ -21,23 +24,28 @@ import type { TransformStep } from '../types';
 export const applyTargetTextTypeStep: TransformStep = (nodes, context) => {
 	const { schema, targetNodeTypeName, targetAttrs } = context;
 
-	if (targetNodeTypeName !== 'heading') {
+	if (targetNodeTypeName !== 'heading' && targetNodeTypeName !== 'paragraph') {
 		return nodes;
 	}
 
-	const headingType = schema.nodes.heading;
-	if (!headingType) {
+	const targetType = schema.nodes[targetNodeTypeName];
+	if (!targetType) {
 		return nodes;
 	}
-
-	// Default to level 1 if no level is specified
-	// The level should ideally come from targetAttrs, but if not available, use default
-	const headingLevel = typeof targetAttrs?.level === 'number' ? targetAttrs.level : 1;
 
 	return nodes.map((node) => {
+		// If codeblock, return nodes as is
+		if (targetNodeTypeName === 'heading' && node.type.name === 'codeBlock') {
+			return node;
+		}
 		if (node.isTextblock) {
-			// Convert textblock nodes (paragraphs, headings) to heading with specified level
-			return headingType.create({ level: headingLevel }, node.content, node.marks);
+			// Convert textblock nodes to the target type with content preserved
+			let attrs = {};
+			if (targetNodeTypeName === 'heading') {
+				const level = typeof targetAttrs?.level === 'number' ? targetAttrs.level : 1;
+				attrs = { level };
+			}
+			return targetType.create(attrs, node.content, node.marks);
 		}
 		// Non-textblock nodes are left unchanged
 		return node;

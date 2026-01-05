@@ -6,7 +6,7 @@ import type { Command } from '../../types';
 
 import { selectionFor } from './selection-for';
 
-export function testCommand(doc: RefsNode, command: Command, result: RefsNode | null) {
+export function testCommand(doc: RefsNode, command: Command, result: RefsNode | null): void {
 	let state = EditorState.create({ doc, selection: selectionFor(doc) });
 	const ran = command(state, (tr) => (state = state.apply(tr)));
 	if (result == null) {

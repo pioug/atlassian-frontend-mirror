@@ -314,8 +314,12 @@ export class OverflowParent {
 	 * @example
 	 */
 	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	public addEventListener(type: string, cb: EventListenerOrEventListenerObject, ...args: any[]) {
+	public addEventListener(
+		type: string,
+		cb: EventListenerOrEventListenerObject,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		...args: any[]
+	): void {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		this.ref.addEventListener(type, cb, ...args);
@@ -329,8 +333,12 @@ export class OverflowParent {
 	 * @example
 	 */
 	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	public removeEventListener(type: string, cb: EventListenerOrEventListenerObject, ...args: any[]) {
+	public removeEventListener(
+		type: string,
+		cb: EventListenerOrEventListenerObject,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		...args: any[]
+	): void {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		this.ref.removeEventListener(type, cb, ...args);

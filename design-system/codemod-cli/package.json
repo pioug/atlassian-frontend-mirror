@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/codemod-cli",
-	"version": "0.33.1",
+	"version": "0.33.2",
 	"description": "A cli for distributing codemods for atlassian-frontend components and services",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,6 +43,8 @@
 	"bin": "./bin/codemod-cli.js",
 	"dependencies": {
 		"@atlaskit/codemod-utils": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@codeshift/utils": "root:*",

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { renderHook, type RenderHookOptions } from '@testing-library/react-hooks';
+import { renderHook, type RenderHookOptions } from '@testing-library/react';
 
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { flushPromises } from '@atlaskit/link-test-helpers';

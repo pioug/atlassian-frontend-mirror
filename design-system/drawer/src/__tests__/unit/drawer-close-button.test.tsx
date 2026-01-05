@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import EmojiIcon from '@atlaskit/icon/core/migration/emoji';
+import EmojiIcon from '@atlaskit/icon/core/emoji';
 
 import { Drawer } from '../../drawer';
 import { DrawerCloseButton } from '../../drawer-panel/drawer-close-button';

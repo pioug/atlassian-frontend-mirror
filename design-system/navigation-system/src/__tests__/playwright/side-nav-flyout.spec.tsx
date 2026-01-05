@@ -19,7 +19,11 @@ test.describe('side nav flyout', () => {
 			await expect(sideNav).toBeVisible();
 
 			// Collapse side nav
+			// Separate hover before click seems to reduce flakiness specifically in Webkit
+			// Was seeing cases where the click did nothing, it seems like the page wasn't ready for interaction
+			await page.getByRole('button', { name: /Collapse sidebar/ }).hover();
 			await page.getByRole('button', { name: /Collapse sidebar/ }).click();
+			await expect(page.getByRole('button', { name: /Expand sidebar/ })).toBeVisible();
 			await expect(sideNav).toBeHidden();
 
 			// Move mouse somewhere else to re-activate the flyout mouse listeners
@@ -33,11 +37,17 @@ test.describe('side nav flyout', () => {
 		});
 
 		test('should keep the flyout open when mousing over the side nav', async ({ page }) => {
+			await page.clock.install();
+
 			const sideNav = page.getByRole('navigation', { name: /Sidebar/ });
 			await expect(sideNav).toBeVisible();
 
 			// Collapse side nav
+			// Separate hover before click seems to reduce flakiness specifically in Webkit
+			// Was seeing cases where the click did nothing, it seems like the page wasn't ready for interaction
+			await page.getByRole('button', { name: /Collapse sidebar/ }).hover();
 			await page.getByRole('button', { name: /Collapse sidebar/ }).click();
+			await expect(page.getByRole('button', { name: /Expand sidebar/ })).toBeVisible();
 			await expect(sideNav).toBeHidden();
 
 			// Move mouse somewhere else to re-activate the flyout mouse listeners
@@ -55,19 +65,24 @@ test.describe('side nav flyout', () => {
 			// Wait for the flyout "collapse" timeout to have finished.
 			// Waiting for a period of time is appropriate in this case,
 			// as the logic we are testing is timeout based.
-			// eslint-disable-next-line playwright/no-wait-for-timeout
-			await page.waitForTimeout(sideNavFlyoutCloseDelayMs * 2);
+			await page.clock.runFor(sideNavFlyoutCloseDelayMs * 2);
 
 			// Side nav (flyout) should still be visible
 			await expect(sideNav).toBeVisible();
 		});
 
 		test('should stop showing the flyout when mousing outside the side nav', async ({ page }) => {
+			await page.clock.install();
+
 			const sideNav = page.getByRole('navigation', { name: /Sidebar/ });
 			await expect(sideNav).toBeVisible();
 
 			// Collapse side nav
+			// Separate hover before click seems to reduce flakiness specifically in Webkit
+			// Was seeing cases where the click did nothing, it seems like the page wasn't ready for interaction
+			await page.getByRole('button', { name: /Collapse sidebar/ }).hover();
 			await page.getByRole('button', { name: /Collapse sidebar/ }).click();
+			await expect(page.getByRole('button', { name: /Expand sidebar/ })).toBeVisible();
 			await expect(sideNav).toBeHidden();
 
 			// Move mouse somewhere else to re-activate the flyout mouse listeners
@@ -81,6 +96,11 @@ test.describe('side nav flyout', () => {
 
 			// Move mouse outside the side nav
 			await page.getByRole('button', { name: /More settings/ }).hover();
+
+			// Wait for the flyout "collapse" timeout to have finished.
+			// Waiting for a period of time is appropriate in this case,
+			// as the logic we are testing is timeout based.
+			await page.clock.runFor(sideNavFlyoutCloseDelayMs * 2);
 
 			// Side nav (flyout) should be hidden
 			await expect(sideNav).toBeHidden();
@@ -89,11 +109,17 @@ test.describe('side nav flyout', () => {
 		test('should keep the flyout open when mousing out of the side nav and then back in before timer expires', async ({
 			page,
 		}) => {
+			await page.clock.install({ time: '2020-02-02' });
+
 			const sideNav = page.getByRole('navigation', { name: /Sidebar/ });
 			await expect(sideNav).toBeVisible();
 
 			// Collapse side nav
+			// Separate hover before click seems to reduce flakiness specifically in Webkit
+			// Was seeing cases where the click did nothing, it seems like the page wasn't ready for interaction
+			await page.getByRole('button', { name: /Collapse sidebar/ }).hover();
 			await page.getByRole('button', { name: /Collapse sidebar/ }).click();
+			await expect(page.getByRole('button', { name: /Expand sidebar/ })).toBeVisible();
 			await expect(sideNav).toBeHidden();
 
 			// Move mouse somewhere else to re-activate the flyout mouse listeners
@@ -105,8 +131,12 @@ test.describe('side nav flyout', () => {
 			// Side nav (flyout) should be visible
 			await expect(sideNav).toBeVisible();
 
+			await page.clock.pauseAt('2020-02-03');
+
 			// Move mouse outside the side nav
 			await page.getByRole('button', { name: /More settings/ }).hover();
+
+			await page.clock.runFor(sideNavFlyoutCloseDelayMs / 2);
 
 			// Move mouse back into the side nav before the flyout "collapse" timeout has finished
 			await page.getByRole('link', { name: /Your work/ }).hover();
@@ -114,21 +144,28 @@ test.describe('side nav flyout', () => {
 			// Wait for the flyout "collapse" timeout to have finished to make sure the flyout stays open.
 			// Waiting for a period of time is appropriate in this case,
 			// as the logic we are testing is timeout based.
-			// eslint-disable-next-line playwright/no-wait-for-timeout
-			await page.waitForTimeout(sideNavFlyoutCloseDelayMs * 2);
+			await page.clock.runFor(sideNavFlyoutCloseDelayMs * 2);
 
 			// Side nav (flyout) should still be visible
 			await expect(sideNav).toBeVisible();
+
+			await page.clock.resume();
 		});
 
 		test('should keep the side nav flyout open when mousing from side nav toggle button to the TopNavStart element', async ({
 			page,
 		}) => {
+			await page.clock.install();
+
 			const sideNav = page.getByRole('navigation', { name: /Sidebar/ });
 			await expect(sideNav).toBeVisible();
 
 			// Collapse side nav
+			// Separate hover before click seems to reduce flakiness specifically in Webkit
+			// Was seeing cases where the click did nothing, it seems like the page wasn't ready for interaction
+			await page.getByRole('button', { name: /Collapse sidebar/ }).hover();
 			await page.getByRole('button', { name: /Collapse sidebar/ }).click();
+			await expect(page.getByRole('button', { name: /Expand sidebar/ })).toBeVisible();
 			await expect(sideNav).toBeHidden();
 
 			// Move mouse somewhere else to re-activate the flyout mouse listeners
@@ -154,19 +191,24 @@ test.describe('side nav flyout', () => {
 			// Wait for the flyout "collapse" timeout to have finished to make sure the flyout stays open.
 			// Waiting for a period of time is appropriate in this case,
 			// as the logic we are testing is timeout based.
-			// eslint-disable-next-line playwright/no-wait-for-timeout
-			await page.waitForTimeout(sideNavFlyoutCloseDelayMs * 2);
+			await page.clock.runFor(sideNavFlyoutCloseDelayMs * 2);
 
 			// Side nav (flyout) should still be visible
 			await expect(sideNav).toBeVisible();
 		});
 
 		test('should lock the flyout open when a child layer is open', async ({ page }) => {
+			await page.clock.install();
+
 			const sideNav = page.getByRole('navigation', { name: /Sidebar/ });
 			await expect(sideNav).toBeVisible();
 
 			// Collapse side nav
+			// Separate hover before click seems to reduce flakiness specifically in Webkit
+			// Was seeing cases where the click did nothing, it seems like the page wasn't ready for interaction
+			await page.getByRole('button', { name: /Collapse sidebar/ }).hover();
 			await page.getByRole('button', { name: /Collapse sidebar/ }).click();
+			await expect(page.getByRole('button', { name: /Expand sidebar/ })).toBeVisible();
 			await expect(sideNav).toBeHidden();
 
 			// Move mouse somewhere else to re-activate the flyout mouse listeners
@@ -187,19 +229,24 @@ test.describe('side nav flyout', () => {
 			// Wait for the flyout "collapse" timeout to have finished.
 			// Waiting for a period of time is appropriate in this case,
 			// as the logic we are testing is timeout based.
-			// eslint-disable-next-line playwright/no-wait-for-timeout
-			await page.waitForTimeout(sideNavFlyoutCloseDelayMs * 2);
+			await page.clock.runFor(sideNavFlyoutCloseDelayMs * 2);
 
 			// Side nav (flyout) should still be visible
 			await expect(sideNav).toBeVisible();
 		});
 
 		test('should close the flyout after the open child layer is closed', async ({ page }) => {
+			await page.clock.install();
+
 			const sideNav = page.getByRole('navigation', { name: /Sidebar/ });
 			await expect(sideNav).toBeVisible();
 
 			// Collapse side nav
+			// Separate hover before click seems to reduce flakiness specifically in Webkit
+			// Was seeing cases where the click did nothing, it seems like the page wasn't ready for interaction
+			await page.getByRole('button', { name: /Collapse sidebar/ }).hover();
 			await page.getByRole('button', { name: /Collapse sidebar/ }).click();
+			await expect(page.getByRole('button', { name: /Expand sidebar/ })).toBeVisible();
 			await expect(sideNav).toBeHidden();
 
 			// Move mouse somewhere else to re-activate the flyout mouse listeners
@@ -220,8 +267,7 @@ test.describe('side nav flyout', () => {
 			// Wait for the flyout "collapse" timeout to have finished.
 			// Waiting for a period of time is appropriate in this case,
 			// as the logic we are testing is timeout based.
-			// eslint-disable-next-line playwright/no-wait-for-timeout
-			await page.waitForTimeout(sideNavFlyoutCloseDelayMs * 2);
+			await page.clock.runFor(sideNavFlyoutCloseDelayMs * 2);
 
 			// Side nav (flyout) should still be visible
 			await expect(sideNav).toBeVisible();
@@ -259,7 +305,11 @@ test.describe('side nav flyout', () => {
 			await expect(sideNav).toBeVisible();
 
 			// Collapse side nav
+			// Separate hover before click seems to reduce flakiness specifically in Webkit
+			// Was seeing cases where the click did nothing, it seems like the page wasn't ready for interaction
+			await page.getByRole('button', { name: /Collapse sidebar/ }).hover();
 			await page.getByRole('button', { name: /Collapse sidebar/ }).click();
+			await expect(page.getByRole('button', { name: /Expand sidebar/ })).toBeVisible();
 			await expect(sideNav).toBeHidden();
 
 			// Hover on the toggle button to [attempt to] show the flyout
@@ -277,7 +327,11 @@ test.describe('side nav flyout', () => {
 			await expect(sideNav).toBeVisible();
 
 			// Collapse side nav
+			// Separate hover before click seems to reduce flakiness specifically in Webkit
+			// Was seeing cases where the click did nothing, it seems like the page wasn't ready for interaction
+			await page.getByRole('button', { name: /Collapse sidebar/ }).hover();
 			await page.getByRole('button', { name: /Collapse sidebar/ }).click();
+			await expect(page.getByRole('button', { name: /Expand sidebar/ })).toBeVisible();
 			await expect(sideNav).toBeHidden();
 
 			// Move mouse somewhere else to re-activate the flyout mouse listeners
@@ -291,11 +345,17 @@ test.describe('side nav flyout', () => {
 		});
 
 		test('should keep the flyout open when mousing over the side nav', async ({ page }) => {
+			await page.clock.install();
+
 			const sideNav = page.getByRole('navigation', { name: /Sidebar/ });
 			await expect(sideNav).toBeVisible();
 
 			// Collapse side nav
+			// Separate hover before click seems to reduce flakiness specifically in Webkit
+			// Was seeing cases where the click did nothing, it seems like the page wasn't ready for interaction
+			await page.getByRole('button', { name: /Collapse sidebar/ }).hover();
 			await page.getByRole('button', { name: /Collapse sidebar/ }).click();
+			await expect(page.getByRole('button', { name: /Expand sidebar/ })).toBeVisible();
 			await expect(sideNav).toBeHidden();
 
 			// Move mouse somewhere else to re-activate the flyout mouse listeners
@@ -313,19 +373,24 @@ test.describe('side nav flyout', () => {
 			// Wait for the flyout "collapse" timeout to have finished.
 			// Waiting for a period of time is appropriate in this case,
 			// as the logic we are testing is timeout based.
-			// eslint-disable-next-line playwright/no-wait-for-timeout
-			await page.waitForTimeout(sideNavFlyoutCloseDelayMs * 2);
+			await page.clock.runFor(sideNavFlyoutCloseDelayMs * 2);
 
 			// Side nav (flyout) should still be visible
 			await expect(sideNav).toBeVisible();
 		});
 
 		test('should stop showing the flyout when mousing outside the side nav', async ({ page }) => {
+			await page.clock.install();
+
 			const sideNav = page.getByRole('navigation', { name: /Sidebar/ });
 			await expect(sideNav).toBeVisible();
 
 			// Collapse side nav
+			// Separate hover before click seems to reduce flakiness specifically in Webkit
+			// Was seeing cases where the click did nothing, it seems like the page wasn't ready for interaction
+			await page.getByRole('button', { name: /Collapse sidebar/ }).hover();
 			await page.getByRole('button', { name: /Collapse sidebar/ }).click();
+			await expect(page.getByRole('button', { name: /Expand sidebar/ })).toBeVisible();
 			await expect(sideNav).toBeHidden();
 
 			// Move mouse somewhere else to re-activate the flyout mouse listeners
@@ -339,6 +404,11 @@ test.describe('side nav flyout', () => {
 
 			// Move mouse outside the side nav
 			await page.getByRole('button', { name: /More settings/ }).hover();
+
+			// Wait for the flyout "collapse" timeout to have finished.
+			// Waiting for a period of time is appropriate in this case,
+			// as the logic we are testing is timeout based.
+			await page.clock.runFor(sideNavFlyoutCloseDelayMs * 2);
 
 			// Side nav (flyout) should be hidden
 			await expect(sideNav).toBeHidden();
@@ -347,11 +417,17 @@ test.describe('side nav flyout', () => {
 		test('should keep the flyout open when mousing out of the side nav and then back in before timer expires', async ({
 			page,
 		}) => {
+			await page.clock.install({ time: '2020-02-02' });
+
 			const sideNav = page.getByRole('navigation', { name: /Sidebar/ });
 			await expect(sideNav).toBeVisible();
 
 			// Collapse side nav
+			// Separate hover before click seems to reduce flakiness specifically in Webkit
+			// Was seeing cases where the click did nothing, it seems like the page wasn't ready for interaction
+			await page.getByRole('button', { name: /Collapse sidebar/ }).hover();
 			await page.getByRole('button', { name: /Collapse sidebar/ }).click();
+			await expect(page.getByRole('button', { name: /Expand sidebar/ })).toBeVisible();
 			await expect(sideNav).toBeHidden();
 
 			// Move mouse somewhere else to re-activate the flyout mouse listeners
@@ -363,8 +439,12 @@ test.describe('side nav flyout', () => {
 			// Side nav (flyout) should be visible
 			await expect(sideNav).toBeVisible();
 
+			await page.clock.pauseAt('2020-02-03');
+
 			// Move mouse outside the side nav
 			await page.getByRole('button', { name: /More settings/ }).hover();
+
+			await page.clock.runFor(sideNavFlyoutCloseDelayMs / 2);
 
 			// Move mouse back into the side nav before the flyout "collapse" timeout has finished
 			await page.getByRole('link', { name: /Your work/ }).hover();
@@ -372,21 +452,28 @@ test.describe('side nav flyout', () => {
 			// Wait for the flyout "collapse" timeout to have finished to make sure the flyout stays open.
 			// Waiting for a period of time is appropriate in this case,
 			// as the logic we are testing is timeout based.
-			// eslint-disable-next-line playwright/no-wait-for-timeout
-			await page.waitForTimeout(sideNavFlyoutCloseDelayMs * 2);
+			await page.clock.runFor(sideNavFlyoutCloseDelayMs * 2);
 
 			// Side nav (flyout) should still be visible
 			await expect(sideNav).toBeVisible();
+
+			await page.clock.resume();
 		});
 
 		test('should keep the side nav flyout open when mousing from side nav toggle button to the TopNavStart element', async ({
 			page,
 		}) => {
+			await page.clock.install();
+
 			const sideNav = page.getByRole('navigation', { name: /Sidebar/ });
 			await expect(sideNav).toBeVisible();
 
 			// Collapse side nav
+			// Separate hover before click seems to reduce flakiness specifically in Webkit
+			// Was seeing cases where the click did nothing, it seems like the page wasn't ready for interaction
+			await page.getByRole('button', { name: /Collapse sidebar/ }).hover();
 			await page.getByRole('button', { name: /Collapse sidebar/ }).click();
+			await expect(page.getByRole('button', { name: /Expand sidebar/ })).toBeVisible();
 			await expect(sideNav).toBeHidden();
 
 			// Move mouse somewhere else to re-activate the flyout mouse listeners
@@ -412,19 +499,24 @@ test.describe('side nav flyout', () => {
 			// Wait for the flyout "collapse" timeout to have finished to make sure the flyout stays open.
 			// Waiting for a period of time is appropriate in this case,
 			// as the logic we are testing is timeout based.
-			// eslint-disable-next-line playwright/no-wait-for-timeout
-			await page.waitForTimeout(sideNavFlyoutCloseDelayMs * 2);
+			await page.clock.runFor(sideNavFlyoutCloseDelayMs * 2);
 
 			// Side nav (flyout) should still be visible
 			await expect(sideNav).toBeVisible();
 		});
 
 		test('should lock the flyout open when a child layer is open', async ({ page }) => {
+			await page.clock.install();
+
 			const sideNav = page.getByRole('navigation', { name: /Sidebar/ });
 			await expect(sideNav).toBeVisible();
 
 			// Collapse side nav
+			// Separate hover before click seems to reduce flakiness specifically in Webkit
+			// Was seeing cases where the click did nothing, it seems like the page wasn't ready for interaction
+			await page.getByRole('button', { name: /Collapse sidebar/ }).hover();
 			await page.getByRole('button', { name: /Collapse sidebar/ }).click();
+			await expect(page.getByRole('button', { name: /Expand sidebar/ })).toBeVisible();
 			await expect(sideNav).toBeHidden();
 
 			// Move mouse somewhere else to re-activate the flyout mouse listeners
@@ -445,19 +537,24 @@ test.describe('side nav flyout', () => {
 			// Wait for the flyout "collapse" timeout to have finished.
 			// Waiting for a period of time is appropriate in this case,
 			// as the logic we are testing is timeout based.
-			// eslint-disable-next-line playwright/no-wait-for-timeout
-			await page.waitForTimeout(sideNavFlyoutCloseDelayMs * 2);
+			await page.clock.runFor(sideNavFlyoutCloseDelayMs * 2);
 
 			// Side nav (flyout) should still be visible
 			await expect(sideNav).toBeVisible();
 		});
 
 		test('should close the flyout after the open child layer is closed', async ({ page }) => {
+			await page.clock.install();
+
 			const sideNav = page.getByRole('navigation', { name: /Sidebar/ });
 			await expect(sideNav).toBeVisible();
 
 			// Collapse side nav
+			// Separate hover before click seems to reduce flakiness specifically in Webkit
+			// Was seeing cases where the click did nothing, it seems like the page wasn't ready for interaction
+			await page.getByRole('button', { name: /Collapse sidebar/ }).hover();
 			await page.getByRole('button', { name: /Collapse sidebar/ }).click();
+			await expect(page.getByRole('button', { name: /Expand sidebar/ })).toBeVisible();
 			await expect(sideNav).toBeHidden();
 
 			// Move mouse somewhere else to re-activate the flyout mouse listeners
@@ -478,8 +575,7 @@ test.describe('side nav flyout', () => {
 			// Wait for the flyout "collapse" timeout to have finished.
 			// Waiting for a period of time is appropriate in this case,
 			// as the logic we are testing is timeout based.
-			// eslint-disable-next-line playwright/no-wait-for-timeout
-			await page.waitForTimeout(sideNavFlyoutCloseDelayMs * 2);
+			await page.clock.runFor(sideNavFlyoutCloseDelayMs * 2);
 
 			// Side nav (flyout) should still be visible
 			await expect(sideNav).toBeVisible();

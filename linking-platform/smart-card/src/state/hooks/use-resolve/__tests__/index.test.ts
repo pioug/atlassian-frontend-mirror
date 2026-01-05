@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/order
 import * as testMocks from './index.test.mock';
 
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';

@@ -7,6 +7,7 @@ import React, {
 	useCallback,
 	useContext,
 	useEffect,
+	useId,
 	useMemo,
 	useRef,
 	useState,
@@ -20,7 +21,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { PopupContent } from '@atlaskit/popup/experimental';
 import { token } from '@atlaskit/tokens';
 
-import { OnCloseProvider, SetIsOpenContext } from './flyout-menu-item-context';
+import { OnCloseProvider, SetIsOpenContext, TitleIdContextProvider } from './flyout-menu-item-context';
 
 /**
  * The vertical offset in px to ensure the flyout container does not exceed the bounds of
@@ -96,6 +97,8 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 			setIsOpen(false);
 		}, [setIsOpen, onClose]);
 
+		const titleId = useId();
+
 		return (
 			<PopupContent
 				appearance="UNSAFE_modal-below-sm"
@@ -109,6 +112,8 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 				testId={containerTestId}
 				xcss={flyoutMenuItemContentStyles.root}
 				autoFocus={autoFocus}
+				role={fg("platform_dst_nav4_flyout_menu_slots_close_button") ? "dialog" : undefined}
+				titleId={fg("platform_dst_nav4_flyout_menu_slots_close_button") ? titleId : undefined}
 				/**
 				 * Disabling GPU acceleration removes the use of `transform` by popper.js for this popup.
 				 *
@@ -130,11 +135,13 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 						{
 							fg("platform_dst_nav4_flyout_menu_slots_close_button")
 							? (
-								<OnCloseProvider value={() => onClose}>
-									<div css={flyoutMenuItemContentContainerStyles.container}>
-										{children}
-									</div>
-								</OnCloseProvider>
+								<TitleIdContextProvider value={titleId}>
+									<OnCloseProvider value={() => onClose}>
+										<div css={flyoutMenuItemContentContainerStyles.container}>
+											{children}
+										</div>
+									</OnCloseProvider>
+								</TitleIdContextProvider>
 							) : (
 								children
 							)

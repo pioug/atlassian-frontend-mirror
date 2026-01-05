@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook, waitFor } from '@testing-library/react';
 
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
@@ -47,29 +47,31 @@ describe('useAssetsClient', () => {
 	});
 
 	it('should fetch workspaceId and object schemas when mounted', async () => {
-		const { result, waitForNextUpdate } = renderHook(() => useAssetsClient());
-		await waitForNextUpdate();
-		expect(result.current.workspaceId).toEqual(workspaceId);
-		expect(result.current.workspaceError).toEqual(undefined);
-		expect(result.current.objectSchemas).toEqual(mockFetchObjectSchemasResponse.values);
-		expect(result.current.objectSchemasError).toEqual(undefined);
-		expect(result.current.totalObjectSchemas).toEqual(mockFetchObjectSchemasResponse.total);
-		expect(mockFetchObjectSchemas).toHaveBeenCalledWith(workspaceId, undefined, mockFetchEvent);
-		expect(mockFetchObjectSchema).not.toHaveBeenCalled();
+		const { result } = renderHook(() => useAssetsClient());
+		await waitFor(() => {
+			expect(result.current.workspaceId).toEqual(workspaceId);
+			expect(result.current.workspaceError).toEqual(undefined);
+			expect(result.current.objectSchemas).toEqual(mockFetchObjectSchemasResponse.values);
+			expect(result.current.objectSchemasError).toEqual(undefined);
+			expect(result.current.totalObjectSchemas).toEqual(mockFetchObjectSchemasResponse.total);
+			expect(mockFetchObjectSchemas).toHaveBeenCalledWith(workspaceId, undefined, mockFetchEvent);
+			expect(mockFetchObjectSchema).not.toHaveBeenCalled();
+		});
 	});
 
 	it('should fetch object schema when initital schema id in parameters exists', async () => {
-		const { result, waitForNextUpdate } = renderHook(() => useAssetsClient(initialParameters));
-		await waitForNextUpdate();
-		expect(result.current.workspaceId).toEqual(workspaceId);
-		expect(mockFetchObjectSchema).toHaveBeenCalledWith(
-			workspaceId,
-			initialParameters.schemaId,
-			mockFetchEvent,
-		);
-		expect(result.current.existingObjectSchema).toMatchObject({
-			name: schemaName,
-			id: schemaId,
+		const { result } = renderHook(() => useAssetsClient(initialParameters));
+		await waitFor(() => {
+			expect(result.current.workspaceId).toEqual(workspaceId);
+			expect(mockFetchObjectSchema).toHaveBeenCalledWith(
+				workspaceId,
+				initialParameters.schemaId,
+				mockFetchEvent,
+			);
+			expect(result.current.existingObjectSchema).toMatchObject({
+				name: schemaName,
+				id: schemaId,
+			});
 		});
 	});
 
@@ -77,71 +79,77 @@ describe('useAssetsClient', () => {
 		// PermissionError and FetchError extend Error so this test verifies they propogate up
 		const mockError = new Error();
 		mockFetchObjectSchema.mockRejectedValue(mockError);
-		const { result, waitForNextUpdate } = renderHook(() => useAssetsClient(initialParameters));
-		await waitForNextUpdate();
-		expect(mockFetchObjectSchema).toHaveBeenCalledWith(
-			workspaceId,
-			initialParameters.schemaId,
-			mockFetchEvent,
-		);
-		expect(result.current.existingObjectSchema).toEqual(undefined);
-		expect(result.current.existingObjectSchemaError).toBe(mockError);
+		const { result } = renderHook(() => useAssetsClient(initialParameters));
+		await waitFor(() => {
+			expect(mockFetchObjectSchema).toHaveBeenCalledWith(
+				workspaceId,
+				initialParameters.schemaId,
+				mockFetchEvent,
+			);
+			expect(result.current.existingObjectSchema).toEqual(undefined);
+			expect(result.current.existingObjectSchemaError).toBe(mockError);
+		});
 	});
 
 	it('should set existingObjectSchemaError to a newly constructed error when fetchObjectSchema rejects with a non error type', async () => {
 		const mockError = { error: 'fake error message' };
 		mockFetchObjectSchema.mockRejectedValue(mockError);
-		const { result, waitForNextUpdate } = renderHook(() => useAssetsClient(initialParameters));
-		await waitForNextUpdate();
-		expect(mockFetchObjectSchema).toHaveBeenCalledWith(
-			workspaceId,
-			initialParameters.schemaId,
-			mockFetchEvent,
-		);
-		expect(result.current.existingObjectSchema).toEqual(undefined);
-		expect(result.current.existingObjectSchemaError?.message).toEqual(`Unexpected error occured`);
+		const { result } = renderHook(() => useAssetsClient(initialParameters));
+		await waitFor(() => {
+			expect(mockFetchObjectSchema).toHaveBeenCalledWith(
+				workspaceId,
+				initialParameters.schemaId,
+				mockFetchEvent,
+			);
+			expect(result.current.existingObjectSchema).toEqual(undefined);
+			expect(result.current.existingObjectSchemaError?.message).toEqual(`Unexpected error occured`);
+		});
 	});
 
 	it('should set workspaceError to an error when getWorkspaceId rejects', async () => {
 		// PermissionError and FetchError extend Error so this test verifies they propogate up
 		const mockError = new Error();
 		mockGetWorkspaceId.mockRejectedValue(mockError);
-		const { result, waitForNextUpdate } = renderHook(() => useAssetsClient());
-		await waitForNextUpdate();
-		expect(mockFetchObjectSchema).not.toHaveBeenCalled();
-		expect(mockFetchObjectSchemas).not.toHaveBeenCalled();
-		expect(result.current.workspaceError).toBe(mockError);
+		const { result } = renderHook(() => useAssetsClient());
+		await waitFor(() => {
+			expect(mockFetchObjectSchema).not.toHaveBeenCalled();
+			expect(mockFetchObjectSchemas).not.toHaveBeenCalled();
+			expect(result.current.workspaceError).toBe(mockError);
+		});
 	});
 
 	it('should set workspaceError to a newly constructed error when getWorkspaceId rejects with a non error type', async () => {
 		const mockError = { error: 'fake error message' };
 		mockGetWorkspaceId.mockRejectedValue(mockError);
-		const { result, waitForNextUpdate } = renderHook(() => useAssetsClient());
-		await waitForNextUpdate();
-		expect(mockFetchObjectSchema).not.toHaveBeenCalled();
-		expect(mockFetchObjectSchemas).not.toHaveBeenCalled();
-		expect(result.current.workspaceError?.message).toEqual(`Unexpected error occured`);
+		const { result } = renderHook(() => useAssetsClient());
+		await waitFor(() => {
+			expect(mockFetchObjectSchema).not.toHaveBeenCalled();
+			expect(mockFetchObjectSchemas).not.toHaveBeenCalled();
+			expect(result.current.workspaceError?.message).toEqual(`Unexpected error occured`);
+		});
 	});
 
 	it('should set objectSchemasError to an error when fetchObjectSchemas rejects', async () => {
 		// PermissionError and FetchError extend Error so this test verifies they propogate up
 		const mockError = new Error();
 		mockFetchObjectSchemas.mockRejectedValue(mockError);
-		const { result, waitForNextUpdate } = renderHook(() => useAssetsClient());
-		await waitForNextUpdate();
-		expect(mockFetchObjectSchemas).toHaveBeenCalledWith(workspaceId, undefined, mockFetchEvent);
-		expect(result.current.objectSchemas).toBe(undefined);
-		expect(result.current.objectSchemasError).toBe(mockError);
+		const { result } = renderHook(() => useAssetsClient());
+		await waitFor(() => {
+			expect(mockFetchObjectSchemas).toHaveBeenCalledWith(workspaceId, undefined, mockFetchEvent);
+			expect(result.current.objectSchemas).toBe(undefined);
+			expect(result.current.objectSchemasError).toBe(mockError);
+		});
 	});
 
 	it('should set objectSchemasError to a newly constructed error when fetchObjectSchemas rejects with a non error type', async () => {
 		const mockError = { error: 'fake error message' };
 		mockFetchObjectSchemas.mockRejectedValue(mockError);
-		const { result, waitForNextUpdate } = renderHook(() => useAssetsClient());
-		await waitForNextUpdate();
-		expect(mockFetchObjectSchemas).toHaveBeenCalledWith(workspaceId, undefined, mockFetchEvent);
-		expect(result.current.objectSchemas).toBe(undefined);
-		expect(result.current.objectSchemasError?.message).toEqual(`Unexpected error occured`);
+		const { result } = renderHook(() => useAssetsClient());
+		await waitFor(() => {
+			expect(mockFetchObjectSchemas).toHaveBeenCalledWith(workspaceId, undefined, mockFetchEvent);
+			expect(result.current.objectSchemas).toBe(undefined);
+			expect(result.current.objectSchemasError?.message).toEqual(`Unexpected error occured`);
+		});
 	});
 
 	it('should correctly set assetsClientLoading', async () => {
@@ -150,12 +158,14 @@ describe('useAssetsClient', () => {
 		) => void = () => {};
 		const deferredPromise = new Promise((resolve) => (fetchObjectSchemaPromise = resolve));
 		mockFetchObjectSchema.mockReturnValue(deferredPromise);
-		const { result, waitForNextUpdate } = renderHook(() => useAssetsClient(initialParameters));
+		const { result } = renderHook(() => useAssetsClient(initialParameters));
 		expect(result.current.assetsClientLoading).toBe(true);
 		act(() => {
 			fetchObjectSchemaPromise({ name: schemaName, id: schemaId });
 		});
-		await waitForNextUpdate();
-		expect(result.current.assetsClientLoading).toBe(false);
+
+		await waitFor(() => {
+			expect(result.current.assetsClientLoading).toBe(false);
+		});
 	});
 });

@@ -234,7 +234,7 @@ export const typographyTests: Tests = {
 			code: outdent`
 				const styles = css({
 					fontSize: '14px',
-					fontWeight: 600,
+					fontWeight: 700,
 					padding: '8px'
 				})`,
 			errors: [
@@ -258,6 +258,31 @@ export const typographyTests: Tests = {
 			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				const styles = css({
+					fontSize: '14px',
+					fontWeight: 653,
+					padding: '16px'
+				})`,
+			errors: [
+				{
+					messageId: 'noRawTypographyValues',
+					suggestions: [
+						{
+							desc: `Convert to font token`,
+							output: outdent`
+					import { token } from '@atlaskit/tokens';
+					const styles = css({
+						font: token('font.heading.xsmall'),
+						padding: '16px'
+					})`,
+						},
+					],
+				},
+			],
+		},
+		{
+			options: [{ patterns: ['style-object'] }],
+			code: outdent`
+				const styles = css({
 					fontSize: '12px',
 					lineHeight: '20px',
 				})`,
@@ -270,7 +295,7 @@ export const typographyTests: Tests = {
 							output: outdent`
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.body.UNSAFE_small'),
+									font: token('font.body.small'),
 								})`,
 						},
 					],
@@ -744,7 +769,7 @@ export const typographyTests: Tests = {
 				import { token } from '@atlaskit/tokens';
 				const styles = styled.div({
 					fontSize: '14px',
-					fontWeight: 600,
+					fontWeight: 700,
 					padding: '8px'
 				})`,
 			errors: [
@@ -820,7 +845,7 @@ export const typographyTests: Tests = {
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
-					fontWeight: token('font.weight.bold', '700'),
+					fontWeight: token('font.weight.semibold', '600'),
 					fontSize: '12px',
 				});`,
 			errors: [
@@ -832,8 +857,8 @@ export const typographyTests: Tests = {
 							output: outdent`
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.body.UNSAFE_small'),
-								fontWeight: token('font.weight.bold'),
+									font: token('font.body.small'),
+								fontWeight: token('font.weight.semibold'),
 								});`,
 						},
 					],
@@ -846,7 +871,7 @@ export const typographyTests: Tests = {
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
-					fontWeight: token('font.weight.semibold', '600'),
+					fontWeight: token('font.weight.bold', '700'),
 					fontSize: '12px',
 				});`,
 			errors: [
@@ -871,7 +896,7 @@ export const typographyTests: Tests = {
 			code: outdent`
 				const styles = css({
 					fontSize: '14px',
-					fontWeight: 600,
+					fontWeight: 700,
 				})`,
 			errors: [{ messageId: 'noRawTypographyValues' }],
 			output: outdent`

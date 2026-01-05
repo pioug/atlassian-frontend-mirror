@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { renderHook, type RenderHookOptions } from '@testing-library/react-hooks';
+import { renderHook, type RenderHookOptions } from '@testing-library/react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
@@ -32,7 +32,7 @@ describe('useErrorLogger', () => {
 	);
 
 	const setup = (loggerProps?: UseErrorLoggerProps) => {
-		const { result, waitForNextUpdate, rerender } = renderHook(
+		const { result, rerender } = renderHook(
 			() => {
 				return useErrorLogger(loggerProps ?? { datasourceId: mockDatasourceId });
 			},
@@ -41,7 +41,6 @@ describe('useErrorLogger', () => {
 
 		return {
 			result,
-			waitForNextUpdate,
 			rerender,
 		};
 	};

@@ -64,11 +64,11 @@ export class StringBuffer {
 		return this.buffer.length;
 	}
 
-	delete(start: number, end: number) {
+	delete(start: number, end: number): void {
 		this.buffer = this.buffer.substring(0, start) + this.buffer.substring(end);
 	}
 
-	append(value: string) {
+	append(value: string): void {
 		this.buffer += value;
 	}
 
@@ -76,7 +76,7 @@ export class StringBuffer {
 		return this.buffer.substring(start, end);
 	}
 
-	deleteCharAt(index: number) {
+	deleteCharAt(index: number): void {
 		this.delete(index, index + 1);
 	}
 

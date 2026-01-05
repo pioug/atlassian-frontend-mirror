@@ -35,7 +35,7 @@ export class SyncBlockStoreManager {
 		return this.sourceSyncBlockStoreManager;
 	}
 
-	destroy() {
+	destroy(): void {
 		this.referenceSyncBlockStoreManager.destroy();
 		this.sourceSyncBlockStoreManager.destroy();
 	}

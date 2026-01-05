@@ -98,7 +98,7 @@ export default class MediaGroup extends PureComponent<MediaGroupProps, MediaGrou
 		) =>
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		(event: CardEvent, analyticsEvent?: any) => {
+		(event: CardEvent, analyticsEvent?: any): void => {
 			const surroundings: CardSurroundings = {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion

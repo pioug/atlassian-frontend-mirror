@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 8.0.2
+
+### Patch Changes
+
+- [`c4a774ad462fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4a774ad462fb) -
+  EDITOR-2477 Clean up remaining usages of `platform_editor_use_nested_table_pm_nodes` which are no
+  longer needed now that `isNestedTablesSupported` is fully rolled out.
+- Updated dependencies
+
 ## 8.0.1
 
 ### Patch Changes

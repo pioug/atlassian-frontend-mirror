@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
+import { fireEvent, render, renderHook, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import '@atlaskit/link-test-helpers/jest';
@@ -48,11 +47,7 @@ describe('useDatasourceTableFlag', () => {
 	};
 
 	it('throws when FlagProvider is not provided', async () => {
-		const { result } = renderHook(() => useDatasourceTableFlag(), {
-			wrapper: ({ children }) => <IntlProvider locale="en">{children}</IntlProvider>,
-		});
-		expect(result.error).toEqual(Error('Unable to find FlagProviderContext'));
-
+		expect(() => renderHook(() => useDatasourceTableFlag())).toThrow(new Error('Unable to find FlagProviderContext'));
 		await expect(document.body).toBeAccessible();
 	});
 

@@ -52,7 +52,7 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
 	private items!: ItemReferences;
 
 	static defaultProps = {
-		onEmojiSelected: () => {},
+		onEmojiSelected: (): void => {},
 	};
 
 	constructor(props: Props) {
@@ -64,7 +64,7 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
 		};
 	}
 
-	componentDidUpdate(prevProps: Props) {
+	componentDidUpdate(prevProps: Props): void {
 		const { emojis } = this.props;
 		const { selectedIndex, selectedKey } = this.state;
 		if (emojis && emojis[selectedIndex]) {
@@ -92,17 +92,17 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
 	}
 
 	// API
-	selectNext = () => {
+	selectNext = (): void => {
 		const newIndex = wrapIndex(this.props.emojis, this.state.selectedIndex + 1);
 		this.selectIndex(newIndex);
 	};
 
-	selectPrevious = () => {
+	selectPrevious = (): void => {
 		const newIndex = wrapIndex(this.props.emojis, this.state.selectedIndex - 1);
 		this.selectIndex(newIndex);
 	};
 
-	chooseCurrentSelection = () => {
+	chooseCurrentSelection = (): void => {
 		const { emojis, onEmojiSelected } = this.props;
 		const { selectedIndex } = this.state;
 		const selectedEmoji = emojis[selectedIndex];

@@ -9,7 +9,7 @@ import { type MouseEvent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import ChevronRight from '@atlaskit/icon/core/migration/chevron-right';
+import ChevronRight from '@atlaskit/icon/core/chevron-right';
 import { easeOut } from '@atlaskit/motion/curves';
 import { durations } from '@atlaskit/motion/durations';
 import { fg } from '@atlaskit/platform-feature-flags';

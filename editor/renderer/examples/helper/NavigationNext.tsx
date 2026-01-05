@@ -139,7 +139,7 @@ type SidebarProps = { children: any; showSidebar: boolean };
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Sidebar extends React.Component<SidebarProps, { showSidebar: boolean }> {
-	componentDidUpdate(prevProps: SidebarProps) {
+	componentDidUpdate(prevProps: SidebarProps): void {
 		if (prevProps.showSidebar !== this.props.showSidebar) {
 			localStorage.setItem(
 				LOCALSTORAGE_renderer_sidebar_key,

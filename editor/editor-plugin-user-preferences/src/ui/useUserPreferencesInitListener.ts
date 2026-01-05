@@ -15,7 +15,7 @@ export const useUserPreferencesInitListener = (
 	isInitialized: boolean,
 	resolvedUserPreferences: ResolvedUserPreferences | null,
 	api?: ExtractInjectionAPI<UserPreferencesPlugin>,
-) => {
+): void => {
 	const isInitializedRef = useRef(false);
 
 	useEffect(() => {

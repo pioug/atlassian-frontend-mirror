@@ -574,8 +574,7 @@ export function createPlugin(
 				if (
 					handleNestedTablePasteWithAnalytics(
 						editorAnalyticsAPI,
-						isNestedTablesSupported(state.schema) &&
-							fg('platform_editor_use_nested_table_pm_nodes'),
+						isNestedTablesSupported(state.schema),
 					)(
 						view,
 						event,

@@ -28,7 +28,7 @@ export class Date extends React.Component<Props> {
 		color: 'grey',
 	};
 
-	handleOnClick = (event: React.SyntheticEvent<any>) => {
+	handleOnClick = (event: React.SyntheticEvent<any>): void => {
 		if (isClickable(this.props)) {
 			this.props.onClick(this.props.value, event);
 		}

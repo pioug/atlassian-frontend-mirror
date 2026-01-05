@@ -9,7 +9,7 @@ import { formatCode } from './util';
 export function generateAllPluginTests(
 	pluginToEntryPointsMap: Record<string, EntryPointData[]>,
 	testsPath: string,
-) {
+): void {
 	// Delete the files in the tests directory, leave folders alone
 	if (fs.existsSync(testsPath)) {
 		// Read the contents of the directory

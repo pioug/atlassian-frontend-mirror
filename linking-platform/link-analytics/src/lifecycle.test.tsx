@@ -3,11 +3,8 @@ import React, { useCallback, useState } from 'react';
 import '@atlaskit/link-test-helpers/jest';
 
 import { IntlProvider } from 'react-intl-next';
-import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { fireEvent, waitFor } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
-import { act } from '@testing-library/react';
+import { act, fireEvent, render, renderHook, screen, waitFor } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';

@@ -10,6 +10,8 @@ import { SideNavPanelSplitter } from '../../panel-splitter/side-nav-panel-splitt
 import { Root } from '../../root';
 import { SideNav } from '../../side-nav/side-nav';
 import { TopNav } from '../../top-nav/top-nav';
+import { TopNavEnd } from '../../top-nav/top-nav-end';
+import { TopNavMiddle } from '../../top-nav/top-nav-middle';
 import { TopNavStart } from '../../top-nav/top-nav-start';
 
 import {
@@ -271,7 +273,7 @@ describe('SideNavPanelSplitter', () => {
 				expect(screen.queryByTestId('panel-splitter')).not.toBeInTheDocument();
 			});
 
-			it('should not render the panel splitter when there are open popups in the top nav', () => {
+			it('should not render the panel splitter when there are open popups in top nav start', () => {
 				render(
 					<Root>
 						<TopNav>
@@ -287,6 +289,58 @@ describe('SideNavPanelSplitter', () => {
 									)}
 								/>
 							</TopNavStart>
+						</TopNav>
+						<SideNav testId="sidenav">
+							<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
+						</SideNav>
+					</Root>,
+				);
+
+				expect(screen.queryByTestId('panel-splitter')).not.toBeInTheDocument();
+			});
+
+			it('should not render the panel splitter when there are open popups in top nav middle', () => {
+				render(
+					<Root>
+						<TopNav>
+							<TopNavMiddle>
+								<Popup
+									shouldRenderToParent
+									isOpen
+									content={() => <div>Content</div>}
+									trigger={({ ref }) => (
+										<button type="button" ref={ref}>
+											Popup trigger
+										</button>
+									)}
+								/>
+							</TopNavMiddle>
+						</TopNav>
+						<SideNav testId="sidenav">
+							<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
+						</SideNav>
+					</Root>,
+				);
+
+				expect(screen.queryByTestId('panel-splitter')).not.toBeInTheDocument();
+			});
+
+			it('should not render the panel splitter when there are open popups in top nav end', () => {
+				render(
+					<Root>
+						<TopNav>
+							<TopNavEnd>
+								<Popup
+									shouldRenderToParent
+									isOpen
+									content={() => <div>Content</div>}
+									trigger={({ ref }) => (
+										<button type="button" ref={ref}>
+											Popup trigger
+										</button>
+									)}
+								/>
+							</TopNavEnd>
 						</TopNav>
 						<SideNav testId="sidenav">
 							<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />

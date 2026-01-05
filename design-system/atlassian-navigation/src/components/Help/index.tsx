@@ -1,6 +1,6 @@
 import React, { forwardRef, type Ref } from 'react';
 
-import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
+import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 
 import { useTheme } from '../../theme';
 import { BadgeContainer } from '../BadgeContainer';

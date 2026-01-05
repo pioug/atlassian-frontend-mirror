@@ -9,6 +9,7 @@ import { cx, jsx } from '@compiled/react';
 import { cssMap } from '@atlaskit/css';
 import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/experimental/open-layer-observer';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/compiled';
@@ -18,6 +19,7 @@ import { List } from '../../../components/list';
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { HasCustomThemeContext } from '../../top-nav-items/themed/has-custom-theme-context';
 import { IconButton } from '../../top-nav-items/themed/migration';
+import { openLayerObserverTopNavEndNamespace } from '../constants';
 
 const containerStyles = cssMap({
 	root: {
@@ -48,20 +50,15 @@ const containerStyles = cssMap({
 			// Intrinsic width of content without wrapping
 			// The actual grid column can still be larger
 			width: 'max-content',
-			// See `TopNavStart` for how the `300px` is derived
-			minWidth: '300px',
+			// See `TopNavStart` for how the `330px` is derived
+			// Jira product logo update, added 30px for CSM logo as the size is larger than the default
+			// https://jplat.atlassian.net/browse/BLU-8440
+			minWidth: '330px',
 			// We want the specified width to be inclusive of padding
 			boxSizing: 'border-box',
 			// The grid column can be larger than the content
 			// So we need to justify the content to the end of the column
 			justifySelf: 'end',
-		},
-	},
-	jiraProductLogoUpdate: {
-		'@media (min-width: 64rem)': {
-			// Jira product logo update, added 30px for CSM logo as the size is larger than the default
-			// https://jplat.atlassian.net/browse/BLU-8440
-			minWidth: '330px',
 		},
 	},
 	fullHeightSidebar: {
@@ -96,6 +93,20 @@ const listStyles = cssMap({
 		padding: token('space.100'),
 	},
 });
+
+function OpenLayerObserverNamespaceProviderBehindFG({
+	children,
+}: {
+	children: React.ReactNode;
+}): React.ReactNode {
+	return fg('platform-dst-side-nav-layering-fixes') ? (
+		<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavEndNamespace}>
+			{children}
+		</OpenLayerObserverNamespaceProvider>
+	) : (
+		children
+	);
+}
 
 /**
  * __TopNavEnd__
@@ -154,7 +165,6 @@ export function TopNavEnd({
 				isFhsEnabled &&
 					fg('platform-dst-side-nav-layering-fixes') &&
 					containerStyles.fullHeightSidebarWithLayeringFixes,
-				fg('team25-eu-jira-logo-updates-csm-jsm') && containerStyles.jiraProductLogoUpdate,
 			]}
 		>
 			{isMobile ? (
@@ -165,7 +175,11 @@ export function TopNavEnd({
 					shouldRenderToParent
 					content={() => (
 						<HasCustomThemeContext.Provider value={false}>
-							<List xcss={cx(listStyles.root, listStyles.popupContainer)}>{children}</List>
+							<List xcss={cx(listStyles.root, listStyles.popupContainer)}>
+								<OpenLayerObserverNamespaceProviderBehindFG>
+									{children}
+								</OpenLayerObserverNamespaceProviderBehindFG>
+							</List>
 						</HasCustomThemeContext.Provider>
 					)}
 					trigger={(triggerProps) => (
@@ -180,7 +194,11 @@ export function TopNavEnd({
 					)}
 				/>
 			) : (
-				<List xcss={cx(listStyles.root, listStyles.hideOnSmallViewport)}>{children}</List>
+				<List xcss={cx(listStyles.root, listStyles.hideOnSmallViewport)}>
+					<OpenLayerObserverNamespaceProviderBehindFG>
+						{children}
+					</OpenLayerObserverNamespaceProviderBehindFG>
+				</List>
 			)}
 		</nav>
 	);

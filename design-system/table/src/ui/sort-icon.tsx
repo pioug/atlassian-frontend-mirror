@@ -1,7 +1,7 @@
 import React, { type FC, memo } from 'react';
 
-import ArrowDownIcon from '@atlaskit/icon/core/migration/arrow-down';
-import ArrowUpIcon from '@atlaskit/icon/core/migration/arrow-up';
+import ArrowDownIcon from '@atlaskit/icon/core/arrow-down';
+import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
 
 import { useTable } from '../hooks/use-table';
 

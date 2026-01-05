@@ -397,7 +397,7 @@ describe('smart-card: card states, block', () => {
 						</Provider>
 					</IntlProvider>,
 				);
-				const loadingView = await screen.findByTestId('smart-block-resolving-view');
+				const loadingView = screen.queryByTestId('smart-block-resolving-view');
 				expect(loadingView).toBeInTheDocument();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 			});

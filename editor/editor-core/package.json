@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "216.1.2",
+	"version": "216.1.4",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -209,10 +209,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_use_nested_table_pm_nodes": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_ai_generic_prep_for_aifc": {
 			"type": "boolean"
 		},
@@ -241,9 +237,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_fix_media_in_renderer": {
-			"type": "boolean"
-		},
-		"platform_editor_react_18_autofocus_fix": {
 			"type": "boolean"
 		},
 		"platform_editor_track_node_types": {

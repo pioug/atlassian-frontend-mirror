@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::34a66bfc786bfa49ea7d4ad66ffe81f7>>
+ * @codegen <<SignedSource::2eab912b0c44d0fcbdc2f0b79cb42fa9>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 import type { Rule } from 'eslint';
@@ -21,6 +21,7 @@ import noNestedSelectors from './no-nested-selectors';
 import noStyled from './no-styled';
 import noUnsafeSelectors from './no-unsafe-selectors';
 import noUnsafeValues from './no-unsafe-values';
+import noUnusedCssmapProperties from './no-unused-cssmap-properties';
 import useCompiled from './use-compiled';
 
 export const rules: Record<string, Rule.RuleModule> = {
@@ -40,5 +41,6 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'no-styled': noStyled,
 	'no-unsafe-selectors': noUnsafeSelectors,
 	'no-unsafe-values': noUnsafeValues,
+	'no-unused-cssmap-properties': noUnusedCssmapProperties,
 	'use-compiled': useCompiled,
 };

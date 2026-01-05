@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-import SettingsIcon from '@atlaskit/icon/core/migration/settings';
+import SettingsIcon from '@atlaskit/icon/core/settings';
 
 import { IconButton } from '../IconButton';
 

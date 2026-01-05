@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 10.0.2
+
+### Patch Changes
+
+- [`5d14fe3afd499`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d14fe3afd499) -
+  Implement `SelectionRanges` for multiple nodes selection to indicate actual selection ranges
+- Updated dependencies
+
 ## 10.0.1
 
 ### Patch Changes

@@ -91,6 +91,7 @@ const DefaultPopupComponent: React.ForwardRefExoticComponent<
 		appearance,
 		className,
 		isReferenceHidden: _isReferenceHidden,
+		shouldFitViewport,
 		...htmlAttributes
 	} = props;
 
@@ -100,7 +101,12 @@ const DefaultPopupComponent: React.ForwardRefExoticComponent<
 				wrapperStyles.root,
 				fg('platform-dst-shape-theme-default') && wrapperStyles.rootT26Shape,
 				appearance === 'UNSAFE_modal-below-sm' && modalStyles,
-				!shouldRenderToParent && scrollableStyles,
+				// The popup creates its own scroll container when either:
+				// - It is rendered in a portal
+				// - It is constrained to fit into the viewport (behind a FG)
+				(!shouldRenderToParent ||
+					(shouldFitViewport && fg('platform_dst_nav4_flyoutmenuitem_render_to_parent'))) &&
+					scrollableStyles,
 				shouldFitContainer && fullWidthStyles,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
@@ -233,6 +239,7 @@ function PopperWrapper({
 						tabIndex={autoFocus ? 0 : undefined}
 						shouldRenderToParent={shouldRenderToParent}
 						shouldFitContainer={shouldFitContainer}
+						shouldFitViewport={shouldFitViewport}
 						isReferenceHidden={isReferenceHidden}
 					>
 						<RepositionOnUpdate update={update}>

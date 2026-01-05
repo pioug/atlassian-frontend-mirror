@@ -237,7 +237,7 @@ export const typeaheadRenderedEvent = (
 // it's used in editor typeahead to fire success record analytics
 export const recordSelectionSucceededSli =
 	(emoji: OptionalEmojiDescription, options?: { createAnalyticsEvent?: CreateUIAnalyticsEvent }) =>
-	() => {
+	(): void => {
 		if (options && options.createAnalyticsEvent) {
 			createAndFireEvent('editor')(recordSucceededEmoji(emoji)(SearchSourceTypes.TYPEAHEAD))(
 				options.createAnalyticsEvent,

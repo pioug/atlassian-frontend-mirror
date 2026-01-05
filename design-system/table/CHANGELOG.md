@@ -1,5 +1,13 @@
 # @atlaskit/table
 
+## 0.12.22
+
+### Patch Changes
+
+- [`036c3ee917e3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/036c3ee917e3c) -
+  Icon migration entry point update
+- Updated dependencies
+
 ## 0.12.21
 
 ### Patch Changes

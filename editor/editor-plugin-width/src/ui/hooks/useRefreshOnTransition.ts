@@ -12,7 +12,7 @@ const transitionEventNames = [
 /**
  * We need to refresh the page if we transition due to `full-width` -> `full-page` changes
  */
-export const useRefreshWidthOnTransition = (containerElement: HTMLElement | null) => {
+export const useRefreshWidthOnTransition = (containerElement: HTMLElement | null): void => {
 	const [_, setLastWidthEvent] = useState<TransitionEvent | undefined>();
 
 	useEffect(() => {

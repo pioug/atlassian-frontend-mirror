@@ -26,7 +26,6 @@ import {
 	findTable,
 	selectedRect,
 } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { PluginInjectionAPI } from '../../types';
@@ -391,11 +390,7 @@ export const insertTableWithNestingSupport: InsertTableWithNestingSupportCommand
 		// If the cursor is inside a table
 		let insertAt: Selection | undefined;
 		let isNestedTable = false;
-		if (
-			hasParentNodeOfType(schema.nodes.table)(tr.selection) &&
-			isNestedTablesSupported(schema) &&
-			fg('platform_editor_use_nested_table_pm_nodes')
-		) {
+		if (hasParentNodeOfType(schema.nodes.table)(tr.selection) && isNestedTablesSupported(schema)) {
 			// If the experiment is disabled, or we're trying to nest deeper than one level, we insert the table after the top table
 			if (
 				editorExperiment('nested-tables-in-tables', false, { exposure: true }) ||

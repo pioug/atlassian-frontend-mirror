@@ -74,8 +74,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 		zIndex = layers.modal(),
 	} = props;
 
-	// TODO: ptc-enable-team-profilecard-package - Remove this block when cleaning up FG
-	const zIndexNext = fg('ptc-enable-team-profilecard-package') ? zIndex : layers.modal();
+	const zIndexNext = fg('people-teams-kudos-launcher-z-index') ? zIndex : layers.modal();
 
 	const shouldBlockTransition = useCallback(
 		(e: Event & { returnValue: any }) => {
@@ -240,7 +239,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 					if (eventData.eventType && isFlagEventTypeValue(eventData.eventType)) {
 						createFlagWithJsonStringifiedInput(eventData);
 					}
-				} catch (_e) {
+				} catch {
 					// Swallow any errors
 				}
 			}

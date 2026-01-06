@@ -171,9 +171,6 @@
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},
-		"assets_as_an_app_v2": {
-			"type": "boolean"
-		},
 		"product-terminology-refresh": {
 			"type": "boolean"
 		},

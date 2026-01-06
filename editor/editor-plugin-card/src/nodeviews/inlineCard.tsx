@@ -20,7 +20,6 @@ import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type cardPlugin } from '../cardPlugin';
@@ -49,7 +48,6 @@ export const InlineCard = memo(
 		showHoverPreview,
 		hoverPreviewOptions,
 		isPageSSRed,
-		provider,
 		pluginInjectionApi,
 		disablePreviewPanel,
 	}: SmartCardProps): React.JSX.Element | null => {
@@ -158,12 +156,7 @@ export const InlineCard = memo(
 						showHoverPreview={showHoverPreview}
 						hoverPreviewOptions={hoverPreviewOptions}
 						disablePreviewPanel={disablePreviewPanel}
-						// Durin `platform_editor_smart_card_otp` cleaning up, replace this with `true`.
-						hideIconLoadingSkeleton={expValEquals(
-							'platform_editor_smart_card_otp',
-							'isEnabled',
-							true,
-						)}
+						hideIconLoadingSkeleton
 					/>
 				);
 			}

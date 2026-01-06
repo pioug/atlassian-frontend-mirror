@@ -15,6 +15,7 @@ import { type MediaCardSsr } from './types';
 
 export const GLOBAL_MEDIA_CARD_SSR = 'mediaCardSsr';
 export const GLOBAL_MEDIA_COUNT_SSR = 'mediaCountSsr';
+export const GLOBAL_MEDIA_PERFORMANCE_ENTRIES = 'performanceEntries';
 export const GLOBAL_MEDIA_NAMESPACE = '__MEDIA_INTERNAL';
 
 const MAX_EAGER_LOAD_COUNT = 6;
@@ -22,6 +23,7 @@ const MAX_EAGER_LOAD_COUNT = 6;
 export type MediaGlobalScope = {
 	[GLOBAL_MEDIA_CARD_SSR]?: MediaCardSsr;
 	[GLOBAL_MEDIA_COUNT_SSR]?: number;
+	[GLOBAL_MEDIA_PERFORMANCE_ENTRIES]?: PerformanceEntry[];
 };
 
 type MediaFeatureFlags = {
@@ -79,7 +81,7 @@ const generateScript = (
 	};
 
 	// Read originalScriptCode.ts before making changes
-	return `!function(){function e(){const e="__MEDIA_INTERNAL";return window[e]||(window[e]={}),window[e]}!function(n){var t;const i=document.currentScript,o=function(){const n=e(),t="mediaCardSsr";return n[t]||(n[t]={}),n[t]}(),r=function(){const n=e(),t="mediaCountSsr";return n[t]||(n[t]=0),n[t]}(),{key:d}=n,a=n.dataURI,s=n.mode,c=n.srcSet,{dimensions:m}=n,{error:u}=n,{featureFlags:l}=n;if(l["media-perf-uplift-mutation-fix"]){const t=o[d],f=t&&t.mode===s&&t.dimensions&&t.dimensions.width&&m&&m.width&&t.dimensions.width>m.width,w=f?t.srcSet:c,g=f?t.dataURI:a,p={dataURI:g,dimensions:m,error:u,srcSet:w,loading:"lazy",loadPromise:void 0,mode:s},S=i&&i.parentElement&&i.parentElement.querySelector("img");S&&l["media-perf-lazy-loading-optimisation"]&&r<n.maxEagerLoadCount&&(!function(){const n=e(),t="mediaCountSsr";n[t]||(n[t]=0),n[t]++}(),"lazy"===S.getAttribute("loading")&&S.removeAttribute("loading"),p.loading=""),S&&g&&(S.src=g),S&&w&&(S.srcset=w),p.loadPromise=new Promise((function(e,n){S&&(S.addEventListener("load",(function(){e(void 0)})),S.addEventListener("error",(function(){n(new Error("Failed to load image"))})))})),o[d]=f?t:p}else o[d]={dataURI:a,dimensions:m,error:u};null===(t=document.currentScript)||void 0===t||t.remove()}({replace:""})}();`.replace(
+	return `!function(e){var r=document.currentScript,i=window.__MEDIA_INTERNAL=window.__MEDIA_INTERNAL||{},n=i.mediaCardSsr=i.mediaCardSsr||{},o=e.key,t=e.dataURI,d=e.mode,a=e.srcSet,s=e.dimensions,m=e.error,l=e.featureFlags;if(l["media-perf-uplift-mutation-fix"]){var u,c,f=n[o],v=f&&f.mode===d&&(null===(u=f.dimensions)||void 0===u?void 0:u.width)&&(null==s?void 0:s.width)&&f.dimensions.width>s.width,E=v?f.srcSet:a,p=v?f.dataURI:t,w={dataURI:p,dimensions:s,error:m,srcSet:E,loading:"lazy",loadPromise:void 0,mode:d},S=null==r||null===(c=r.parentElement)||void 0===c?void 0:c.querySelector("img");if(i.mediaCountSsr=i.mediaCountSsr||0,S){if(l["media-perf-lazy-loading-optimisation"]&&i.mediaCountSsr<e.maxEagerLoadCount){i.mediaCountSsr++,S.removeAttribute("loading"),w.loading="";var g=new PerformanceObserver((function(e){e.getEntries().forEach((function(e){E.includes(e.name)&&(i.performanceEntries=i.performanceEntries||[],i.performanceEntries.push(e),g.disconnect())}))}));g.observe({type:"resource"})}p&&(S.src=p),E&&(S.srcset=E),w.loadPromise=new Promise((function(e,r){S.addEventListener("load",(function(){return e()})),S.addEventListener("error",(function(){return r(new Error("Failed to load image"))}))}))}n[o]=v?f:w}else n[o]={dataURI:t,dimensions:s,error:m};null==r||r.remove()}({replace:""});`.replace(
 		'{replace:""}',
 		JSON.stringify(params),
 	);

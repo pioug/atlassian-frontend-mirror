@@ -15,7 +15,7 @@ ${(<AtlassianInternalWarning />)}
   - a link to a list of Github issues
 
   This **Link Datasource** package exposes various UI components including:
-  - a **Smart Link List View** which dynamically displays the items found in a **Datasource**, see [<DatasourceTableView />](https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/linking-platform/link-datasource/src/ui/datasource-table-view/index.tsx)
+  - a **Smart Link List View** which dynamically displays the items found in a **Datasource**, see [<DatasourceTableView />](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/linking-platform/link-datasource/src/ui/datasource-table-view/index.tsx)
   - **Configuration Modals** which can be used to configure datasources
 
   These UI components are backed by backend capabilities offered by Object Resolver Service (ORS) and Linking Platform.

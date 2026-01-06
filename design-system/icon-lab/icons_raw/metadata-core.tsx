@@ -2892,7 +2892,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '39662:2817',
 		usage: 'Reserved for setting objects to recur (eg Work items, Forms)',
-		slackChannel: '#horizon-pandora-eng',
+		slackChannel: '#horizon-pandora-team',
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'reply-left': {

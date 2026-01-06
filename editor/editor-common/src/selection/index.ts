@@ -44,6 +44,7 @@ export {
 	isMultiBlockSelection,
 	isSelectionAtEndOfNode,
 	isSelectionAtStartOfNode,
+	selectionIsAtTheBeginningOfBlock,
 	startPositionOfParent,
 } from './utils';
 

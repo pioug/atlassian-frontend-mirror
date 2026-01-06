@@ -1,5 +1,12 @@
 # @atlaskit/media-picker
 
+## 70.1.6
+
+### Patch Changes
+
+- [`fa42797c7c89f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa42797c7c89f) -
+  Remove feature gate add_media_picker_error_detail - always include error detail in analytics
+
 ## 70.1.5
 
 ### Patch Changes

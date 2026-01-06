@@ -3,7 +3,6 @@ import React from 'react';
 import { fireEvent, screen } from '@testing-library/react';
 
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
 import { IconAndTitleLayout } from '../../index';
@@ -124,43 +123,37 @@ describe('IconAndTitleLayout', () => {
 			expect(customDefaultIcon).toBeDefined();
 		});
 
-		eeTest
-			.describe('platform_editor_smart_card_otp', 'Smart Card OTP is enabled')
-			.variant(true, () => {
-				it('NOT renders icon skeleton when hideIconLoadingSkeleton is true', () => {
-					renderWithIntl(
-						<IconAndTitleLayout title="title" icon="src-loading" hideIconLoadingSkeleton={true} />,
-					);
+		it('NOT renders icon skeleton when hideIconLoadingSkeleton is true', () => {
+			renderWithIntl(
+				<IconAndTitleLayout title="title" icon="src-loading" hideIconLoadingSkeleton={true} />,
+			);
 
-					expect(
-						screen.queryByTestId('inline-card-icon-and-title-loading'),
-					).not.toBeInTheDocument();
-				});
+			expect(screen.queryByTestId('inline-card-icon-and-title-loading')).not.toBeInTheDocument();
+		});
 
-				it('renders icon skeleton when hideIconLoadingSkeleton is false', () => {
-					renderWithIntl(
-						<IconAndTitleLayout title="title" icon="src-loading" hideIconLoadingSkeleton={false} />,
-					);
+		it('renders icon skeleton when hideIconLoadingSkeleton is false', () => {
+			renderWithIntl(
+				<IconAndTitleLayout title="title" icon="src-loading" hideIconLoadingSkeleton={false} />,
+			);
 
-					expect(screen.queryByTestId('inline-card-icon-and-title-loading')).toBeInTheDocument();
-				});
+			expect(screen.queryByTestId('inline-card-icon-and-title-loading')).toBeInTheDocument();
+		});
 
-				it('renders placeholder when hideIconLoadingSkeleton and url is broken', () => {
-					renderWithIntl(
-						<IconAndTitleLayout
-							title="title"
-							icon="src-error"
-							defaultIcon={<span data-testid="inline-card-icon-custom-default" />}
-							hideIconLoadingSkeleton={true}
-						/>,
-					);
+		it('renders placeholder when hideIconLoadingSkeleton and url is broken', () => {
+			renderWithIntl(
+				<IconAndTitleLayout
+					title="title"
+					icon="src-error"
+					defaultIcon={<span data-testid="inline-card-icon-custom-default" />}
+					hideIconLoadingSkeleton={true}
+				/>,
+			);
 
-					const img = screen.getByTestId('inline-card-icon-and-title-image');
-					fireEvent.error(img);
+			const img = screen.getByTestId('inline-card-icon-and-title-image');
+			fireEvent.error(img);
 
-					expect(screen.queryByTestId('inline-card-icon-custom-default')).toBeInTheDocument();
-				});
-			});
+			expect(screen.queryByTestId('inline-card-icon-custom-default')).toBeInTheDocument();
+		});
 	});
 
 	it('should render emoji in place of default icon when emoji is provided', () => {

@@ -30,7 +30,6 @@
 			"Use consistent terminology across lozenges",
 			"Consider text length and readability"
 		],
-		"generativeInstructions": "./docs/ai/lozenge-instructions.md",
 		"examples": ["./examples/ai/lozenge.tsx"]
 	}
 ]

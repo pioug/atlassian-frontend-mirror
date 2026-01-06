@@ -382,13 +382,11 @@ export class EditorCardProvider
 
 	private async fetchData(url: string) {
 		// it uses fetchNodesData internally and caches the result
-		return expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)
-			? // It's ok to cast any resourceUrl to inlineCard here, because only URL is important for the request.
-				await this.getDataAsPromise_DO_NOT_USE_OUTSIDE_MIGRATIONS({
-					type: 'inlineCard',
-					attrs: { url },
-				})
-			: await this.cardClient.fetchData(url);
+		return await this.getDataAsPromise_DO_NOT_USE_OUTSIDE_MIGRATIONS({
+			// It's ok to cast any resourceUrl to inlineCard here, because only URL is important for the request.
+			type: 'inlineCard',
+			attrs: { url },
+		});
 	}
 
 	/**

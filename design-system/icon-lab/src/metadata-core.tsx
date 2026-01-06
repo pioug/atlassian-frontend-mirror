@@ -4706,7 +4706,7 @@ const metadata: Record<string, metadata> = {
 		usage: 'Reserved for setting objects to recur (eg Work items, Forms)',
 		team: 'Pandora',
 		status: 'published',
-		slackChannel: '#horizon-pandora-eng',
+		slackChannel: '#horizon-pandora-team',
 	},
 	'reply-left': {
 		keywords: [

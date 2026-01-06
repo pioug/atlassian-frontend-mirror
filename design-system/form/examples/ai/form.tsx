@@ -5,7 +5,7 @@ import { Checkbox } from '@atlaskit/checkbox';
 import Form, { CheckboxField, ErrorMessage, Field, FormFooter, FormHeader } from '@atlaskit/form';
 import TextField from '@atlaskit/textfield';
 
-const _default_1: React.JSX.Element[] = [
+const Example = (): React.JSX.Element => (
 	<Form onSubmit={(data) => console.log('validated form', data)}>
 		<FormHeader title="Basic Form">
 			<p>Fill out the form below</p>
@@ -31,6 +31,6 @@ const _default_1: React.JSX.Element[] = [
 				Create Account
 			</Button>
 		</FormFooter>
-	</Form>,
-];
-export default _default_1;
+	</Form>
+);
+export default Example;

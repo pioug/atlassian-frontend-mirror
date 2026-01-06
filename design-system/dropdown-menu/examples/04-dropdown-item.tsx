@@ -21,7 +21,11 @@ export default (): React.JSX.Element => (
 			<DropdownItem href="/hello-there" title="A place west of Sydney">
 				Perth
 			</DropdownItem>
-			<DropdownItem href="#test" component={CustomComponent}>
+			<DropdownItem
+				href="#test"
+				// @ts-expect-error - Added during @types/react@~18.3.24 upgrade.
+				component={CustomComponent}
+			>
 				Custom link component
 			</DropdownItem>
 			<DropdownItem description="It's a popular destination in Australia">Melbourne</DropdownItem>
@@ -33,7 +37,10 @@ export default (): React.JSX.Element => (
 			</DropdownItem>
 			<DropdownItem elemAfter={<CheckIcon spacing="spacious" label="" />}>Canberra</DropdownItem>
 			<DropdownItem elemBefore={<CheckIcon spacing="spacious" label="" />}>Hobart</DropdownItem>
-			<DropdownItem elemBefore={<CheckIcon spacing="spacious" label="" />} elemAfter={<CheckIcon spacing="spacious" label="" />}>
+			<DropdownItem
+				elemBefore={<CheckIcon spacing="spacious" label="" />}
+				elemAfter={<CheckIcon spacing="spacious" label="" />}
+			>
 				Gold Coast
 			</DropdownItem>
 			<DropdownItem isSelected>Newcastle</DropdownItem>

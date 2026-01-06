@@ -203,6 +203,25 @@ export function EditorSSRRenderer({
 	const { serializer, nodePositions } = useMemo(() => {
 		const nodePositions = new WeakMap<PMNode, number>();
 
+		// ProseMirror View adds <br class="ProseMirror-trailingBreak" /> to empty nodes. Because we are using
+		// DOMSerializer, we should simulate the same behaviour to get the same HTML document.
+		//
+		// There are a lot of conditions that check for adding `<br />` but we could implement only the case when we
+		// are adding `<br />` to empty texblock, because if we add `<br />` in other cases it will change order of DOM nodes inside
+		// this node (`<br />`) will be the first, after will be other nodes. It's because we are adding `<br />` to root node before
+		// we are rendering child node.
+		//
+		// See: https://discuss.prosemirror.net/t/where-can-i-read-about-prosemirror-trailingbreak/6665
+		// See: https://github.com/ProseMirror/prosemirror-view/blob/76c7c47f03730b18397b94bd269ece8a9cb7f486/src/viewdesc.ts#L803
+		// See: https://github.com/ProseMirror/prosemirror-view/blob/76c7c47f03730b18397b94bd269ece8a9cb7f486/src/viewdesc.ts#L1365
+		const addTrailingBreakIfNeeded = (node: PMNode, contentDOM: HTMLElement | null | undefined) => {
+			if (contentDOM && node.isTextblock && !node.lastChild) {
+				const br = document.createElement('br');
+				br.classList.add('ProseMirror-trailingBreak');
+				contentDOM.appendChild(br);
+			}
+		};
+
 		const toDomNodeRenderers = Object.fromEntries(
 			Object.entries(schema.nodes)
 				.map(([nodeName, nodeType]) => {
@@ -231,39 +250,45 @@ export function EditorSSRRenderer({
 							DecorationSet.create(node, []),
 						);
 
-						// ProseMirror View adds <br class="ProseMirror-trailingBreak" /> to empty nodes. Because we are using
-						// DOMSerializer, we should simulate the same behaviour to get the same HTML document.
-						//
-						// There are a lot of conditions that check for adding `<br />` but we could implement only the case when we
-						// are adding `<br />` to empty texblock, because if we add `<br />` in other cases it will change order of DOM nodes inside
-						// this node (`<br />`) will be the first, after will be other nodes. It's because we are adding `<br />` to root node before
-						// we are rendering child node.
-						//
-						// See: https://discuss.prosemirror.net/t/where-can-i-read-about-prosemirror-trailingbreak/6665
-						// See: https://github.com/ProseMirror/prosemirror-view/blob/76c7c47f03730b18397b94bd269ece8a9cb7f486/src/viewdesc.ts#L803
-						// See: https://github.com/ProseMirror/prosemirror-view/blob/76c7c47f03730b18397b94bd269ece8a9cb7f486/src/viewdesc.ts#L1365
-						if (
-							nodeViewInstance.contentDOM &&
-							// if (this.node.isTextblock) updater.addTextblockHacks()
-							node.isTextblock &&
-							// !lastChild || // Empty textblock
-							!node.lastChild
-							// NOT IMPLEMENTED CASE !(lastChild instanceof TextViewDesc) ||
-							// NOT IMPLEMENTED CASE /\n$/.test(lastChild.node.text!) ||
-							// NOT IMPLEMENTED CASE (this.view.requiresGeckoHackNode && /\s$/.test(lastChild.node.text!))
-						) {
-							const br = document.createElement('br');
-							br.classList.add('ProseMirror-trailingBreak');
-							nodeViewInstance.contentDOM.appendChild(br);
-						}
+						addTrailingBreakIfNeeded(node, nodeViewInstance.contentDOM);
 
 						return {
 							dom: nodeViewInstance.dom,
-							contentDOM: nodeViewInstance.contentDOM,
+							// Leaf nodes have no content, ProseMirror will throw an error if we pass contentDOM
+							contentDOM: node.isLeaf ? undefined : nodeViewInstance.contentDOM,
 						};
 					},
 				];
 			}),
+		);
+
+		// Create renderers for textblock nodes that don't have custom NodeViews (e.g. paragraph, heading)
+		const textblockRenderers = Object.fromEntries(
+			Object.entries(schema.nodes)
+				.filter(([nodeName, nodeType]) => {
+					// Only handle textblock nodes
+					return nodeType.spec.toDOM && nodeType.isTextblock && !nodeViews[nodeName];
+				})
+				.map(([nodeName, nodeType]) => {
+					const toDOM = nodeType.spec.toDOM;
+					if (!toDOM) {
+						return [nodeName, undefined];
+					}
+
+					return [
+						nodeName,
+						(node: PMNode) => {
+							if (!node.lastChild) {
+								const result = DOMSerializer.renderSpec(document, toDOM(node));
+								addTrailingBreakIfNeeded(node, result.contentDOM);
+								return result;
+							}
+
+							return toDOM(node);
+						},
+					];
+				})
+				.filter(([, renderer]) => !!renderer),
 		);
 
 		const markViewRenderers = Object.fromEntries(
@@ -285,6 +310,7 @@ export function EditorSSRRenderer({
 		const serializer = new DOMSerializer(
 			{
 				...toDomNodeRenderers,
+				...textblockRenderers,
 				...nodeViewRenderers,
 				text: renderText,
 			},

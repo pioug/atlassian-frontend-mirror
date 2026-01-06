@@ -7,15 +7,53 @@ jest.mock('@atlaskit/analytics-next', () => {
 	};
 });
 
+// UFO mock functions - exposed for test assertions
+// We use a getter pattern to access the mocked module's internals
+let mockUfoSuccess: jest.Mock;
+let mockUfoFailure: jest.Mock;
+let mockUfoAbort: jest.Mock;
+
+jest.mock('@atlaskit/ufo', () => {
+	const actualModule = jest.requireActual('@atlaskit/ufo');
+	// Create mock functions inside the factory to avoid hoisting issues
+	const start = jest.fn();
+	const success = jest.fn();
+	const failure = jest.fn();
+	const abort = jest.fn();
+	const mark = jest.fn();
+	const addMetadata = jest.fn();
+
+	// Store references for test assertions (assigned after factory runs)
+	(global as any).__ufoMocks = { start, success, failure, abort, mark, addMetadata };
+
+	return {
+		__esModule: true,
+		...actualModule,
+		UFOExperience: jest.fn().mockImplementation(() => ({
+			start,
+			success,
+			failure,
+			abort,
+			mark,
+			addMetadata,
+		})),
+	};
+});
+
+// Get references to the mock functions after the mock is set up
+beforeAll(() => {
+	const mocks = (global as any).__ufoMocks;
+	mockUfoSuccess = mocks.success;
+	mockUfoFailure = mocks.failure;
+	mockUfoAbort = mocks.abort;
+});
+
 jest.mock('../utils/ufoExperiences', () => {
 	const actualModule = jest.requireActual('../utils/ufoExperiences');
 	return {
 		__esModule: true,
 		...actualModule,
 		shouldPerformanceBeSampled: jest.fn(actualModule.shouldPerformanceBeSampled),
-		startUfoExperience: jest.fn(actualModule.startUfoExperience),
-		completeUfoExperience: jest.fn(actualModule.completeUfoExperience),
-		abortUfoExperience: jest.fn(actualModule.abortUfoExperience),
 	};
 });
 
@@ -57,12 +95,7 @@ import {
 import * as performanceModule from './performance';
 import { getFileStreamsCache } from '@atlaskit/media-client';
 import { IntlProvider } from 'react-intl-next';
-import {
-	completeUfoExperience,
-	abortUfoExperience,
-	shouldPerformanceBeSampled,
-} from '../utils/ufoExperiences';
-import { MediaCardError } from '../errors';
+import { shouldPerformanceBeSampled } from '../utils/ufoExperiences';
 import { MockIntersectionObserver } from '../utils/mockIntersectionObserver';
 import { DateOverrideContext } from '../dateOverrideContext';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
@@ -4041,14 +4074,12 @@ describe('Card ', () => {
 					),
 				);
 
-				expect(completeUfoExperience).toHaveBeenLastCalledWith(
-					expect.any(String),
-					expect.any(String),
-					expect.any(Object),
-					{ wasStatusUploading: true, wasStatusProcessing: true },
-					expect.any(Object),
-					undefined,
-				);
+				expect(mockUfoSuccess).toHaveBeenCalledTimes(1);
+				expect(mockUfoSuccess).toHaveBeenLastCalledWith({
+					metadata: expect.objectContaining({
+						fileStateFlags: { wasStatusUploading: true, wasStatusProcessing: true },
+					}),
+				});
 			});
 
 			it('should attach a processing file status flag with value as true', async () => {
@@ -4097,15 +4128,12 @@ describe('Card ', () => {
 					{ timeout: 5_000 },
 				);
 
-				expect(completeUfoExperience).toHaveBeenCalledTimes(3);
-				expect(completeUfoExperience).toHaveBeenLastCalledWith(
-					expect.any(String),
-					expect.any(String),
-					expect.any(Object),
-					{ wasStatusUploading: false, wasStatusProcessing: true },
-					expect.any(Object),
-					undefined,
-				);
+				expect(mockUfoSuccess).toHaveBeenCalledTimes(1);
+				expect(mockUfoSuccess).toHaveBeenLastCalledWith({
+					metadata: expect.objectContaining({
+						fileStateFlags: { wasStatusUploading: false, wasStatusProcessing: true },
+					}),
+				});
 			});
 
 			it('should attach uploading and processing file status flags with values as false', async () => {
@@ -4136,15 +4164,12 @@ describe('Card ', () => {
 						'complete',
 					),
 				);
-				expect(completeUfoExperience).toHaveBeenCalledTimes(2);
-				expect(completeUfoExperience).toHaveBeenLastCalledWith(
-					expect.any(String),
-					expect.any(String),
-					expect.any(Object),
-					{ wasStatusUploading: false, wasStatusProcessing: false },
-					expect.any(Object),
-					undefined,
-				);
+				expect(mockUfoSuccess).toHaveBeenCalledTimes(1);
+				expect(mockUfoSuccess).toHaveBeenLastCalledWith({
+					metadata: expect.objectContaining({
+						fileStateFlags: { wasStatusUploading: false, wasStatusProcessing: false },
+					}),
+				});
 			});
 
 			it('should attach uploading and processing file status flags with values as false for external image identifiers', async () => {
@@ -4178,15 +4203,12 @@ describe('Card ', () => {
 						'complete',
 					),
 				);
-				expect(completeUfoExperience).toHaveBeenCalledTimes(1);
-				expect(completeUfoExperience).toHaveBeenLastCalledWith(
-					expect.any(String),
-					expect.any(String),
-					expect.any(Object),
-					{ wasStatusUploading: false, wasStatusProcessing: false },
-					expect.any(Object),
-					undefined,
-				);
+				expect(mockUfoSuccess).toHaveBeenCalledTimes(1);
+				expect(mockUfoSuccess).toHaveBeenLastCalledWith({
+					metadata: expect.objectContaining({
+						fileStateFlags: { wasStatusUploading: false, wasStatusProcessing: false },
+					}),
+				});
 			});
 		});
 
@@ -4218,26 +4240,17 @@ describe('Card ', () => {
 				);
 
 				await waitFor(() => {
-					expect(completeUfoExperience).toHaveBeenCalledTimes(1);
+					expect(mockUfoFailure).toHaveBeenCalledTimes(1);
 				});
 
-				expect(completeUfoExperience).toHaveBeenLastCalledWith(
-					expect.any(String),
-					'error',
-					{
-						fileMediatype: undefined,
-						fileMimetype: undefined,
-						fileId: fileItem.id,
-						fileSize: undefined,
-						fileStatus: undefined,
-					},
-					{ wasStatusUploading: false, wasStatusProcessing: false },
-					expect.any(Object),
-					new MediaCardError('metadata-fetch', new Error()),
-				);
-				expect((completeUfoExperience as jest.Mock).mock.calls[0][5].secondaryError).toMatchObject({
-					reason: 'serverRateLimited',
-					metadata: { statusCode: 429 },
+				expect(mockUfoFailure).toHaveBeenLastCalledWith({
+					metadata: expect.objectContaining({
+						fileAttributes: expect.objectContaining({
+							fileId: fileItem.id,
+						}),
+						fileStateFlags: { wasStatusUploading: false, wasStatusProcessing: false },
+						failReason: 'metadata-fetch',
+					}),
 				});
 			});
 
@@ -4268,26 +4281,17 @@ describe('Card ', () => {
 				);
 
 				await waitFor(() => {
-					expect(completeUfoExperience).toHaveBeenCalledTimes(1);
+					expect(mockUfoFailure).toHaveBeenCalledTimes(1);
 				});
 
-				expect(completeUfoExperience).toHaveBeenLastCalledWith(
-					expect.any(String),
-					'error',
-					{
-						fileMediatype: undefined,
-						fileMimetype: undefined,
-						fileId: fileItem.id,
-						fileSize: undefined,
-						fileStatus: undefined,
-					},
-					{ wasStatusUploading: false, wasStatusProcessing: false },
-					expect.any(Object),
-					new MediaCardError('metadata-fetch', new Error()),
-				);
-				expect((completeUfoExperience as jest.Mock).mock.calls[0][5].secondaryError).toMatchObject({
-					reason: 'pollingMaxAttemptsExceeded',
-					metadata: { attempts: 2 },
+				expect(mockUfoFailure).toHaveBeenLastCalledWith({
+					metadata: expect.objectContaining({
+						fileAttributes: expect.objectContaining({
+							fileId: fileItem.id,
+						}),
+						fileStateFlags: { wasStatusUploading: false, wasStatusProcessing: false },
+						failReason: 'metadata-fetch',
+					}),
 				});
 			});
 		});
@@ -4325,7 +4329,9 @@ describe('Card ', () => {
 						'complete',
 					),
 				);
-				expect(completeUfoExperience).not.toHaveBeenCalled();
+				// UFO experience should not have been created or completed
+				expect(mockUfoSuccess).not.toHaveBeenCalled();
+				expect(mockUfoFailure).not.toHaveBeenCalled();
 			});
 
 			it('when the event should have been aborted but has not been sampled', async () => {
@@ -4357,7 +4363,8 @@ describe('Card ', () => {
 				);
 
 				unmount();
-				expect(abortUfoExperience).not.toHaveBeenCalled();
+				// UFO experience should not have been aborted
+				expect(mockUfoAbort).not.toHaveBeenCalled();
 			});
 
 			it('when an external image is loaded but the event has not been sampled', async () => {
@@ -4391,7 +4398,9 @@ describe('Card ', () => {
 						'complete',
 					),
 				);
-				expect(completeUfoExperience).not.toHaveBeenCalled();
+				// UFO experience should not have been created or completed
+				expect(mockUfoSuccess).not.toHaveBeenCalled();
+				expect(mockUfoFailure).not.toHaveBeenCalled();
 			});
 
 			it('when the component is unmounted (external image identifier) but event has not been sampled', async () => {
@@ -4427,7 +4436,8 @@ describe('Card ', () => {
 				);
 
 				unmount();
-				expect(abortUfoExperience).not.toHaveBeenCalled();
+				// UFO experience should not have been aborted
+				expect(mockUfoAbort).not.toHaveBeenCalled();
 			});
 		});
 
@@ -5058,27 +5068,17 @@ describe('Card ', () => {
 				);
 
 				unmount();
-				expect(abortUfoExperience).toHaveBeenCalledTimes(1);
-				expect(abortUfoExperience).toHaveBeenCalledWith(expect.any(String), {
-					fileAttributes: {
-						fileId: fileItem.id,
-						fileMediatype: fileItem.details.mediaType,
-						fileMimetype: fileItem.details.mimeType,
-						fileSize: fileItem.details.size,
-						fileStatus: 'processed',
-					},
-					fileStateFlags: {
-						wasStatusProcessing: false,
-						wasStatusUploading: false,
-					},
-					ssrReliability: {
-						client: {
-							status: 'unknown',
+				expect(mockUfoAbort).toHaveBeenCalledTimes(1);
+				expect(mockUfoAbort).toHaveBeenCalledWith({
+					metadata: expect.objectContaining({
+						fileAttributes: expect.objectContaining({
+							fileId: fileItem.id,
+						}),
+						fileStateFlags: {
+							wasStatusProcessing: false,
+							wasStatusUploading: false,
 						},
-						server: {
-							status: 'unknown',
-						},
-					},
+					}),
 				});
 			});
 
@@ -5115,24 +5115,17 @@ describe('Card ', () => {
 				);
 
 				unmount();
-				expect(abortUfoExperience).toHaveBeenCalledTimes(1);
-				expect(abortUfoExperience).toHaveBeenCalledWith(expect.any(String), {
-					fileAttributes: {
-						fileMediatype: 'image',
-						fileId: extIdentifier.mediaItemType,
-					},
-					fileStateFlags: {
-						wasStatusProcessing: false,
-						wasStatusUploading: false,
-					},
-					ssrReliability: {
-						client: {
-							status: 'unknown',
+				expect(mockUfoAbort).toHaveBeenCalledTimes(1);
+				expect(mockUfoAbort).toHaveBeenCalledWith({
+					metadata: expect.objectContaining({
+						fileAttributes: expect.objectContaining({
+							fileId: extIdentifier.mediaItemType,
+						}),
+						fileStateFlags: {
+							wasStatusProcessing: false,
+							wasStatusUploading: false,
 						},
-						server: {
-							status: 'unknown',
-						},
-					},
+					}),
 				});
 			});
 		});

@@ -9,7 +9,6 @@ import { cssMap, jsx } from '@compiled/react';
 import { type MessageDescriptor } from 'react-intl-next';
 
 import { Box } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { IconType } from '../../../../../../constants';
@@ -90,15 +89,7 @@ const renderImageIcon = (
 	hideLoadingSkeleton?: boolean,
 ): React.ReactNode | undefined => {
 	if (url) {
-		return (
-			<ImageIcon
-				testId={testId}
-				url={url}
-				hideLoadingSkeleton={
-					expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) && hideLoadingSkeleton
-				}
-			/>
-		);
+		return <ImageIcon testId={testId} url={url} hideLoadingSkeleton={hideLoadingSkeleton} />;
 	}
 };
 
@@ -163,10 +154,7 @@ const BaseBadgeRefreshNew = forwardRef(
 		}: BaseBadgeElementProps,
 		ref: React.Ref<HTMLElement>,
 	) => {
-		const ui = expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)
-			? // eslint-disable-next-line react-hooks/rules-of-hooks
-				useFlexibleUiOptionContext()
-			: undefined;
+		const ui = useFlexibleUiOptionContext();
 
 		const formattedMessageOrLabel = getFormattedMessageFromIcon(icon) || label;
 		const badgeIcon =

@@ -37,7 +37,7 @@ jest.mock('@atlaskit/ufo', () => {
 			this.experienceId = experienceId;
 		}
 
-		getInstance(instanceId: string): Partial<UFOExperience> {
+		getInstance(_instanceId: string): Partial<UFOExperience> {
 			if (this.experienceId === 'smart-user-picker-rendered') {
 				return mockMounted;
 			} else if (this.experienceId === 'smart-user-picker-options-shown') {
@@ -92,6 +92,9 @@ jest.mock('lodash/debounce', () => (fn: DebounceFunction) => {
 jest.mock('@atlaskit/platform-feature-flags', () => ({
 	fg: jest.fn().mockImplementation((flag: string) => {
 		if (flag === 'twcg-444-invite-usd-improvements-m2-gate') {
+			return true;
+		}
+		if (flag === 'smart-user-picker-managed-teams-gate') {
 			return true;
 		}
 		return false;
@@ -437,29 +440,30 @@ describe('SmartUserPicker', () => {
 		});
 
 		it('should execute onError when recommendations client returns with error', async () => {
-			const request = {
-				baseUrl: '',
-				context: {
-					childObjectId: undefined,
-					containerId: undefined,
-					contextType: 'test',
-					objectId: undefined,
-					principalId: 'Context',
-					productAttributes: undefined,
-					productKey: 'jira',
-					sessionId: mockPREFETCH_SESSION_ID,
-					siteId: 'site-id',
-					organizationId: 'org-id',
-				},
-				includeGroups: false,
-				includeTeams: false,
-				includeUsers: true,
-				includeNonLicensedUsers: false,
-				maxNumberOfResults: 100,
-				query: '',
-				searchEmail: false,
-				searchQueryFilter: undefined,
-			};
+		const request = {
+			baseUrl: '',
+			context: {
+				childObjectId: undefined,
+				containerId: undefined,
+				contextType: 'test',
+				objectId: undefined,
+				principalId: 'Context',
+				productAttributes: undefined,
+				productKey: 'jira',
+				sessionId: mockPREFETCH_SESSION_ID,
+				siteId: 'site-id',
+				organizationId: 'org-id',
+			},
+			includeGroups: false,
+			includeTeams: false,
+			includeUsers: true,
+			includeNonLicensedUsers: false,
+			verifiedTeams: false,
+			maxNumberOfResults: 100,
+			query: '',
+			searchEmail: false,
+			searchQueryFilter: undefined,
+		};
 
 			const mockError = new Error();
 			getUserRecommendationsMock.mockImplementation(() => {
@@ -1953,6 +1957,242 @@ describe('SmartUserPicker', () => {
 					'STARTED',
 					'SUCCEEDED',
 				]);
+			});
+		});
+
+		describe('verifiedTeams', () => {
+			it('should filter to only verified teams when verifiedTeams is true and includeTeams is true', async () => {
+				const mockTeamsWithVerified: OptionData[] = [
+					{
+						id: 'verified-team-1',
+						name: 'Verified Team 1',
+						type: 'team',
+						verified: true,
+					},
+					{
+						id: 'unverified-team-1',
+						name: 'Unverified Team 1',
+						type: 'team',
+						verified: false,
+					},
+					{
+						id: 'verified-team-2',
+						name: 'Verified Team 2',
+						type: 'team',
+						verified: true,
+					},
+					{
+						id: 'user1',
+						name: 'User 1',
+						type: 'user',
+					},
+				];
+
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockTeamsWithVerified));
+
+				renderSmartUserPicker({
+					includeTeams: true,
+					verifiedTeams: true,
+				});
+
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				await waitFor(() => {
+					expect(screen.getByText('Verified Team 1')).toBeInTheDocument();
+					expect(screen.getByText('Verified Team 2')).toBeInTheDocument();
+					expect(screen.getByText('User 1')).toBeInTheDocument();
+				});
+
+				expect(screen.queryByText('Unverified Team 1')).not.toBeInTheDocument();
+			});
+
+			it('should not filter teams when verifiedTeams is false', async () => {
+				const mockTeamsWithVerified: OptionData[] = [
+					{
+						id: 'verified-team-1',
+						name: 'Verified Team 1',
+						type: 'team',
+						verified: true,
+					},
+					{
+						id: 'unverified-team-1',
+						name: 'Unverified Team 1',
+						type: 'team',
+						verified: false,
+					},
+				];
+
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockTeamsWithVerified));
+
+				renderSmartUserPicker({
+					includeTeams: true,
+					verifiedTeams: false,
+				});
+
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				await waitFor(() => {
+					expect(screen.getByText('Verified Team 1')).toBeInTheDocument();
+					expect(screen.getByText('Unverified Team 1')).toBeInTheDocument();
+				});
+			});
+
+			it('should not filter teams when verifiedTeams is true but includeTeams is false', async () => {
+				const mockTeamsWithVerified: OptionData[] = [
+					{
+						id: 'verified-team-1',
+						name: 'Verified Team 1',
+						type: 'team',
+						verified: true,
+					},
+					{
+						id: 'unverified-team-1',
+						name: 'Unverified Team 1',
+						type: 'team',
+						verified: false,
+					},
+					{
+						id: 'user1',
+						name: 'User 1',
+						type: 'user',
+					},
+				];
+
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockTeamsWithVerified));
+
+				renderSmartUserPicker({
+					includeTeams: false,
+					verifiedTeams: true,
+				});
+
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				// Since includeTeams is false, teams shouldn't be in the results anyway
+				// But if they are (due to server response), they shouldn't be filtered
+				await waitFor(() => {
+					expect(screen.getByText('User 1')).toBeInTheDocument();
+				});
+			});
+
+			it('should handle teams without verified property when verifiedTeams is true', async () => {
+				const mockTeamsWithoutVerified: OptionData[] = [
+					{
+						id: 'team-without-verified',
+						name: 'Team Without Verified',
+						type: 'team',
+						// verified property is missing
+					},
+					{
+						id: 'verified-team-1',
+						name: 'Verified Team 1',
+						type: 'team',
+						verified: true,
+					},
+					{
+						id: 'user1',
+						name: 'User 1',
+						type: 'user',
+					},
+				];
+
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockTeamsWithoutVerified));
+
+				renderSmartUserPicker({
+					includeTeams: true,
+					verifiedTeams: true,
+				});
+
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				await waitFor(() => {
+					expect(screen.getByText('Verified Team 1')).toBeInTheDocument();
+					expect(screen.getByText('User 1')).toBeInTheDocument();
+				});
+
+				// Team without verified property should be filtered out
+				expect(screen.queryByText('Team Without Verified')).not.toBeInTheDocument();
+			});
+
+			it('should pass verifiedTeams to recommendation request', async () => {
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve([]));
+
+				renderSmartUserPicker({
+					includeTeams: true,
+					verifiedTeams: true,
+				});
+
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				await waitFor(() => {
+					expect(getUserRecommendationsMock).toHaveBeenCalled();
+				});
+
+				const lastCall = getUserRecommendationsMock.mock.calls[
+					getUserRecommendationsMock.mock.calls.length - 1
+				];
+				const request = lastCall[0];
+
+				expect(request.verifiedTeams).toBe(true);
+				expect(request.includeTeams).toBe(true);
+			});
+
+			it('should not filter teams when feature flag is disabled even if verifiedTeams is true', async () => {
+				const { fg } = require('@atlaskit/platform-feature-flags');
+				fg.mockImplementation((flag: string) => {
+					if (flag === 'smart-user-picker-managed-teams-gate') {
+						return false;
+					}
+					if (flag === 'twcg-444-invite-usd-improvements-m2-gate') {
+						return true;
+					}
+					return false;
+				});
+
+				const mockTeamsWithVerified: OptionData[] = [
+					{
+						id: 'verified-team-1',
+						name: 'Verified Team 1',
+						type: 'team',
+						verified: true,
+					},
+					{
+						id: 'unverified-team-1',
+						name: 'Unverified Team 1',
+						type: 'team',
+						verified: false,
+					},
+				];
+
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockTeamsWithVerified));
+
+				renderSmartUserPicker({
+					includeTeams: true,
+					verifiedTeams: true,
+				});
+
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				await waitFor(() => {
+					expect(screen.getByText('Verified Team 1')).toBeInTheDocument();
+					expect(screen.getByText('Unverified Team 1')).toBeInTheDocument();
+				});
+
+				// Reset mock for other tests
+				fg.mockImplementation((flag: string) => {
+					if (flag === 'twcg-444-invite-usd-improvements-m2-gate') {
+						return true;
+					}
+					if (flag === 'smart-user-picker-managed-teams-gate') {
+						return true;
+					}
+					return false;
+				});
 			});
 		});
 	});

@@ -72,6 +72,10 @@ export function atTheEndOfBlock(state: EditorState): boolean {
 
 export function atTheBeginningOfBlock(state: EditorState): boolean {
 	const { selection } = state;
+	return selectionIsAtTheBeginningOfBlock(selection);
+}
+
+export function selectionIsAtTheBeginningOfBlock(selection: Selection): boolean {
 	const { $from } = selection;
 	if (selection instanceof GapCursorSelection) {
 		return false;

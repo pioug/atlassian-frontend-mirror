@@ -67,7 +67,14 @@ describe('DropdownMenu Item', () => {
 				const Header: React.ForwardRefExoticComponent<React.RefAttributes<HTMLElement>> =
 					forwardRef<HTMLElement>((props, ref) => <header {...props} ref={ref} />);
 
-				render(<DropdownItem component={Header}>{text}</DropdownItem>);
+				render(
+					<DropdownItem
+						// @ts-expect-error - Added during @types/react@~18.3.24 upgrade.
+						component={Header}
+					>
+						{text}
+					</DropdownItem>,
+				);
 
 				expect(screen.getByRole(role)).toHaveTextContent(text);
 			});

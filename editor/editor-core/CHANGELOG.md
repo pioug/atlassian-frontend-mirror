@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 216.1.5
+
+### Patch Changes
+
+- [`ac125345ced6b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac125345ced6b) -
+  [ux] EDITOR-4252 Fix code block background in Synced Block in Jira
+- Updated dependencies
+
 ## 216.1.4
 
 ### Patch Changes

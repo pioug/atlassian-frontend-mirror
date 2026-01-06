@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ProgressTracker } from '@atlaskit/progress-tracker';
 
-const _default_1: React.JSX.Element[] = [
+const Example = (): React.JSX.Element => (
 	<ProgressTracker
 		items={[
 			{ id: 'step1', label: 'Step 1', status: 'visited', percentageComplete: 100 },
@@ -10,6 +10,6 @@ const _default_1: React.JSX.Element[] = [
 			{ id: 'step3', label: 'Step 3', status: 'disabled', percentageComplete: 0 },
 			{ id: 'step4', label: 'Step 4', status: 'unvisited', percentageComplete: 0 },
 		]}
-	/>,
-];
-export default _default_1;
+	/>
+);
+export default Example;

@@ -102,9 +102,6 @@
 		"media-perf-uplift-mutation-fix": {
 			"type": "boolean"
 		},
-		"jfp-magma-fix-failed-ssr-preview-load": {
-			"type": "boolean"
-		},
 		"media-perf-lazy-loading-optimisation": {
 			"type": "boolean"
 		}

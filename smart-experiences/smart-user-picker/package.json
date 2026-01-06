@@ -74,6 +74,9 @@
 		},
 		"smart-user-picker-load-options-gate": {
 			"type": "boolean"
+		},
+		"smart-user-picker-managed-teams-gate": {
+			"type": "boolean"
 		}
 	}
 }

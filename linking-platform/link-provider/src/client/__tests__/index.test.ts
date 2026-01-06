@@ -15,7 +15,6 @@ import { APIError, type ErrorType, NetworkError } from '@atlaskit/linking-common
 import { flushPromises } from '@atlaskit/media-test-helpers';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 // Mock response quick-references:
 const errorResponse = {
@@ -470,29 +469,25 @@ describe('Smart Card: Client', () => {
 			});
 		});
 
-		eeTest
-			.describe('platform_editor_smart_card_otp', 'Smart Card OTP is enabled')
-			.variant(true, () => {
-				it('should support setting custom headers to the request', async () => {
-					mockRequest.mockImplementationOnce(async () => [successfulResponse]);
+		it('should support setting custom headers to the request', async () => {
+			mockRequest.mockImplementationOnce(async () => [successfulResponse]);
 
-					const client = new SmartCardClient();
-					client.setHeaders({
-						'X-Atlassian-Test-Header': 'test-header-value',
-					});
-
-					await client.fetchData(`${hostname}/some/resource/url`);
-
-					expect(mockRequest).toHaveBeenCalledWith(
-						expect.anything(),
-						expect.anything(),
-						expect.anything(),
-						expect.objectContaining({
-							'X-Atlassian-Test-Header': 'test-header-value',
-						}),
-					);
-				});
+			const client = new SmartCardClient();
+			client.setHeaders({
+				'X-Atlassian-Test-Header': 'test-header-value',
 			});
+
+			await client.fetchData(`${hostname}/some/resource/url`);
+
+			expect(mockRequest).toHaveBeenCalledWith(
+				expect.anything(),
+				expect.anything(),
+				expect.anything(),
+				expect.objectContaining({
+					'X-Atlassian-Test-Header': 'test-header-value',
+				}),
+			);
+		});
 	});
 
 	describe('search()', () => {

@@ -25,10 +25,18 @@ const DropdownItemDescriptionExample = (): React.JSX.Element => {
 	return (
 		<DropdownMenu trigger="Page actions" shouldRenderToParent>
 			<DropdownItemGroup>
-				<DropdownItem href="#test" component={CustomComponentLink}>
+				<DropdownItem
+					href="#test"
+					// @ts-expect-error - Added during @types/react@~18.3.24 upgrade.
+					component={CustomComponentLink}
+				>
 					Edit
 				</DropdownItem>
-				<DropdownItem onClick={() => console.log('button click')} component={CustomComponentButton}>
+				<DropdownItem
+					onClick={() => console.log('button click')}
+					// @ts-expect-error - Added during @types/react@~18.3.24 upgrade.
+					component={CustomComponentButton}
+				>
 					Move
 				</DropdownItem>
 				<DropdownItem>Clone</DropdownItem>

@@ -44,6 +44,7 @@ export default (): React.JSX.Element => {
 		>
 			<DropdownItemGroup>
 				<DropdownItem
+					// @ts-expect-error - Added during @types/react@~18.3.24 upgrade.
 					component={CustomComponent}
 					onClick={handleDropdownItemClick(() => console.log('Move clicked'))}
 				>

@@ -438,41 +438,40 @@ export class EmbedCardComponent extends React.PureComponent<
 			fullWidthMode,
 		};
 
-		const smartCard =
-			expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) && isPageSSRed ? (
-				<CardSSR
-					key={url}
-					url={url}
-					appearance="embed"
-					onClick={onClick}
-					onResolve={this.onResolve}
-					onError={this.onError}
-					frameStyle="show"
-					inheritDimensions={true}
-					platform={'web'}
-					container={this.scrollContainer}
-					embedIframeRef={this.embedIframeRef}
-					actionOptions={actionOptions}
-					CompetitorPrompt={CompetitorPrompt}
-					hideIconLoadingSkeleton={true}
-				/>
-			) : (
-				<SmartCard
-					key={url}
-					url={url}
-					appearance="embed"
-					onClick={onClick}
-					onResolve={this.onResolve}
-					onError={this.onError}
-					frameStyle="show"
-					inheritDimensions={true}
-					platform={'web'}
-					container={this.scrollContainer}
-					embedIframeRef={this.embedIframeRef}
-					actionOptions={actionOptions}
-					CompetitorPrompt={CompetitorPrompt}
-				/>
-			);
+		const smartCard = isPageSSRed ? (
+			<CardSSR
+				key={url}
+				url={url}
+				appearance="embed"
+				onClick={onClick}
+				onResolve={this.onResolve}
+				onError={this.onError}
+				frameStyle="show"
+				inheritDimensions={true}
+				platform={'web'}
+				container={this.scrollContainer}
+				embedIframeRef={this.embedIframeRef}
+				actionOptions={actionOptions}
+				CompetitorPrompt={CompetitorPrompt}
+				hideIconLoadingSkeleton={true}
+			/>
+		) : (
+			<SmartCard
+				key={url}
+				url={url}
+				appearance="embed"
+				onClick={onClick}
+				onResolve={this.onResolve}
+				onError={this.onError}
+				frameStyle="show"
+				inheritDimensions={true}
+				platform={'web'}
+				container={this.scrollContainer}
+				embedIframeRef={this.embedIframeRef}
+				actionOptions={actionOptions}
+				CompetitorPrompt={CompetitorPrompt}
+			/>
+		);
 
 		return (
 			<EmbedResizeMessageListener

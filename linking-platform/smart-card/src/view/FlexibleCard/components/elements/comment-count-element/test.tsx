@@ -11,6 +11,7 @@ jest.mock('../../../../../state/flexible-ui-context', () => ({
 	useFlexibleUiContext: jest.fn(() => ({
 		commentCount: 2,
 	})),
+	useFlexibleUiOptionContext: jest.fn(() => undefined),
 }));
 
 const renderOwnedByElement = (onRender?: (hasData: boolean) => void) => {

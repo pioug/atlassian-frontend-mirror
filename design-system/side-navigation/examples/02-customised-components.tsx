@@ -128,13 +128,22 @@ const CustomisedExample = () => {
 					<NestingItem
 						id="2"
 						title="NestingItem 2"
+						// @ts-expect-error - Added during @types/react@~18.3.24 upgrade.
 						component={CustomComponent}
 						iconBefore={<NestIcon spacing="spacious" label="" />}
 					>
-						<NestingItem id="2-1" title="NestingItem 2-1" iconBefore={<NestIcon spacing="spacious" label="" />}>
+						<NestingItem
+							id="2-1"
+							title="NestingItem 2-1"
+							iconBefore={<NestIcon spacing="spacious" label="" />}
+						>
 							<ButtonItem>2-1-Leaf</ButtonItem>
 						</NestingItem>
-						<NestingItem id="2-2" title="NestingItem 2-2" iconBefore={<NestIcon spacing="spacious" label="" />}>
+						<NestingItem
+							id="2-2"
+							title="NestingItem 2-2"
+							iconBefore={<NestIcon spacing="spacious" label="" />}
+						>
 							<ButtonItem>2-2-Leaf</ButtonItem>
 						</NestingItem>
 					</NestingItem>

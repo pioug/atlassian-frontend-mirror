@@ -50,6 +50,7 @@ const DisabledTaskWithTooltip = <T extends keyof typeof defaultNodeComponents>({
 };
 
 const defaultOptions: SyncedBlockRendererOptions = {
+	appearance: 'full-width',
 	allowAltTextOnImages: true,
 	allowAnnotations: true,
 	allowColumnSorting: true,
@@ -82,6 +83,7 @@ export const AKRendererWrapper = memo(
 		const mergedOptions = { ...defaultOptions, ...options };
 
 		const {
+			appearance,
 			allowAltTextOnImages,
 			allowAnnotations,
 			allowColumnSorting,
@@ -119,7 +121,7 @@ export const AKRendererWrapper = memo(
 				<ValidationContextWrapper>
 					<div data-testid="sync-block-renderer-wrapper">
 						<ReactRenderer
-							appearance="full-width"
+							appearance={appearance}
 							adfStage="stage0"
 							document={doc}
 							disableHeadingIDs={true}

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 8.0.2
+
+### Patch Changes
+
+- [`11e9e613d2d5e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11e9e613d2d5e) -
+  Remove platform_editor_migrate_toolbar_docking feature gate
+- Updated dependencies
+
 ## 8.0.1
 
 ### Patch Changes

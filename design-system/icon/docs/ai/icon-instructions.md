@@ -420,155 +420,105 @@ import COMPONENT_NAME from '@atlaskit/icon/core/ENTRYPOINT';
 | ShieldStrikethroughIcon          | shield-strikethrough             | shield-strikethrough, shieldstrikethrough, icon, core, ️security, secure, safety, defence, protection, guard, strikethrough, classification                   |
 | ShortcutIcon                     | shortcut                         | shortcut, export, icon, core, addshortcut, square, plus                                                                                                       |
 | ShowMoreHorizontalIcon           | show-more-horizontal             | show-more-horizontal, showmorehorizontal, icon, core, ellipses, three dots, meatball, more actions                                                            |
-
-<<<<<<< HEAD | ShowMoreVerticalIcon | show-more-vertical | show-more-vertical, showmorevertical,
-more, menu, options, kebab-menu, ellipsis-vertical, show-more-vertical, three-dots, vertical-dots,
-actions, overflow, settings | ======= | ShowMoreVerticalIcon | show-more-vertical |
-show-more-vertical, showmorevertical, icon, core, three dots, kebab, more actions |
-
-> > > > > > > 2feb43959334d (Updates to icons and heading) | ShrinkDiagonalIcon | shrink-diagonal |
-> > > > > > > shrink-diagonal, shrinkdiagonal, icon, core, resize, diagonal arrows | |
-> > > > > > > ShrinkHorizontalIcon | shrink-horizontal | shrink-horizontal, shrinkhorizontal, icon,
-> > > > > > > core, contract, width, horizontal arrows | | ShrinkVerticalIcon | shrink-vertical |
-> > > > > > > shrink-vertical, shrinkvertical, icon, core, contract, height, vertical arrows | |
-> > > > > > > SidebarCollapseIcon | sidebar-collapse | sidebar-collapse, sidebarcollapse, icon,
-> > > > > > > core, navigation, close sidebar | | SidebarExpandIcon | sidebar-expand |
-> > > > > > > sidebarexpand, icon, core, navigation, open sidebar | | SmartLinkIcon | smart-link |
-> > > > > > > smart-link, smartlink, icon, core, smart link | | SmartLinkCardIcon | smart-link-card
-> > > > > > > | smart-link-card, smartlinkcard, icon, core, smart link, url, card, link preview | |
-> > > > > > > SmartLinkEmbedIcon | smart-link-embed | smart-link-embed, smartlinkembed, icon, core,
-> > > > > > > smart link, url, embed | | SmartLinkInlineIcon | smart-link-inline |
-> > > > > > > smart-link-inline, smartlinkinline, icon, core, smart link, url, inline | |
-> > > > > > > SmartLinkListIcon | smart-link-list | smart-link-list, smartlinklist, icon, core,
-> > > > > > > smart link, url, embed, list, table, linked search results | | SnippetIcon | snippet |
-> > > > > > > snippet, icon, core, scissors, cut | | SortAscendingIcon | sort-ascending |
-> > > > > > > sort-ascending, sortascending, icon, core, data, sort, up | | SortDescendingIcon |
-> > > > > > > sort-descending | sort-descending, sortdescending, icon, core, data, sort, down | |
-> > > > > > > SpreadsheetIcon | spreadsheet | spreadsheet, icon, core, table, cells, data | |
-> > > > > > > SprintIcon | sprint | sprint, icon, core, loop, iterate | | StarStarredIcon |
-> > > > > > > star-starred | star-starred, starstarred, icon, core, favourite, star, starred, filled
-> > > > > > > | | StarUnstarredIcon | star-unstarred | star-unstarred, starunstarred, icon, core,
-> > > > > > > favourite, star | | StatusDiscoveryIcon | status-discovery | status-discovery,
-> > > > > > > statusdiscovery, icon, core, discovery, note, filled, onboarding, status | |
-> > > > > > > StatusErrorIcon | status-error | status-error, statuserror, icon, core, filled,
-> > > > > > > status, danger, exclamation, !, error | | StatusInformationIcon | status-information |
-> > > > > > > status-information, statusinformation, icon, core, info, filled, status, information |
-> > > > > > > | StatusSuccessIcon | status-success | status-success, statussuccess, icon, core,
-> > > > > > > tick, completed, success, filled, check mark, status | | StatusVerifiedIcon |
-> > > > > > > status-verified | status-verified, statusverified, icon, core, verified badge, status
-> > > > > > > | | StatusWarningIcon | status-warning | status-warning, statuswarning, icon, core,
-> > > > > > > alert, filled, exclamation, !, warning, status | | StopwatchIcon | stopwatch |
-> > > > > > > stopwatch, icon, core, timer | | StoryIcon | story | story, icon, core, bookmark, work
-> > > > > > > type | | StrokeWeightExtraLargeIcon | stroke-weight-extra-large |
-> > > > > > > stroke-weight-extra-large, strokeweightextralarge, icon, core, border, weight,
-> > > > > > > thickness, stroke, confluence, editor, whiteboards, thickest | | StrokeWeightLargeIcon
-> > > > > > > | stroke-weight-large | stroke-weight-large, strokeweightlarge, icon, core, border,
-> > > > > > > weight, thickness, stroke, thick, confluence, editor, whiteboards | |
-> > > > > > > StrokeWeightMediumIcon | stroke-weight-medium | stroke-weight-medium,
-> > > > > > > strokeweightmedium, icon, core, border, weight, stroke, medium, thickness, confluence,
-> > > > > > > editor, whiteboards | | StrokeWeightSmallIcon | stroke-weight-small |
-> > > > > > > stroke-weight-small, strokeweightsmall, icon, core, border, weight, thickness, stroke,
-> > > > > > > confluence, editor, whiteboards, thin | | SubtasksIcon | subtasks | subtasks, icon,
-> > > > > > > core, todo, checklist, work type | | SuccessIcon | success | success, icon, core,
-> > > > > > > tick, completed, success, filled, check mark, status | | SupportIcon | support |
-> > > > > > > support, icon, core, support, help, life raft, life ring, lifebuoy, life preserver | |
-> > > > > > > TableCellClearIcon | table-cell-clear | table-cell-clear, tablecellclear, icon, core,
-> > > > > > > table, cell, clear, empty | | TableCellMergeIcon | table-cell-merge |
-> > > > > > > table-cell-merge, tablecellmerge, icon, core, table, cell, merge, combine, join | |
-> > > > > > > TableCellSplitIcon | table-cell-split | table-cell-split, tablecellsplit, icon, core,
-> > > > > > > table, cell, split, divide, separate | | TableColumnAddLeftIcon |
-> > > > > > > table-column-add-left | table-column-add-left, tablecolumnaddleft, icon, core, table,
-> > > > > > > column, add, plus, left, before | | TableColumnAddRightIcon | table-column-add-right |
-> > > > > > > table-column-add-right, tablecolumnaddright, icon, core, table, column, add, right,
-> > > > > > > after | | TableColumnDeleteIcon | table-column-delete | table-column-delete,
-> > > > > > > tablecolumndelete, icon, core, table, column, delete, remove, x | |
-> > > > > > > TableColumnMoveLeftIcon | table-column-move-left | table-column-move-left,
-> > > > > > > tablecolumnmoveleft, icon, core, table, column, move, left, arrow | |
-> > > > > > > TableColumnMoveRightIcon | table-column-move-right | table-column-move-right,
-> > > > > > > tablecolumnmoveright, icon, core, table, column, move, right, arrow | |
-> > > > > > > TableColumnsDistributeIcon | table-columns-distribute | table-columns-distribute,
-> > > > > > > tablecolumnsdistribute, icon, core, table, columns, distribute, even, equidistant | |
-> > > > > > > TableRowAddAboveIcon | table-row-add-above | table-row-add-above, tablerowaddabove,
-> > > > > > > icon, core, table, row, add, plus, above, up | | TableRowAddBelowIcon |
-> > > > > > > table-row-add-below | table-row-add-below, tablerowaddbelow, icon, core, table, row,
-> > > > > > > add, plus, below, down | | TableRowDeleteIcon | table-row-delete | table-row-delete,
-> > > > > > > tablerowdelete, icon, core, table, row, delete, remove, x | | TableRowMoveDownIcon |
-> > > > > > > table-row-move-down | table-row-move-down, tablerowmovedown, icon, core, table, row,
-> > > > > > > move, down, arrow, after | | TableRowMoveUpIcon | table-row-move-up |
-> > > > > > > table-row-move-up, tablerowmoveup, icon, core, table, row, move, up, arrow, above | |
-> > > > > > > TagIcon | tag | tag, icon, core, label, topic | | TakeoutFoodIcon | takeout-food |
-> > > > > > > takeout-food, takeoutfood, icon, core, takeaway, takeout, food, burger, drink | |
-> > > > > > > TargetIcon | target | target, icon, core, target, bullseye | | TaskIcon | task | task,
-> > > > > > > check, tick, icon, core, single task, todo, list, check mark, tick | |
-> > > > > > > TaskInProgressIcon | task-in-progress | task-in-progress, taskinprogress, icon, core,
-> > > > > > > calendar, task, status, in progress | | TaskToDoIcon | task-to-do | task-to-do,
-> > > > > > > tasktodo, icon, core, calendar, task, to-do, todo, status | | TasksIcon | tasks |
-> > > > > > > tasks, icon, core, multiple tasks, todo, list, check mark, tick | | TeamsIcon | teams
-> > > > > > > | teams, icon, core, infinite love, people, persons, customers, users | | TextIcon |
-> > > > > > > text | text, icon, core, character, font, letter, type, typography, text | |
-> > > > > > > TextBoldIcon | text-bold | text-bold, textbold, icon, core, text, type, bold, font | |
-> > > > > > > TextHeadingIcon | text-heading | text-heading, textheading, icon, core, text, heading,
-> > > > > > > H, editor, text style | | TextIndentLeftIcon | text-indent-left | text-indent-left,
-> > > > > > > textindentleft, icon, core, text, outdent, left, arrow | | TextIndentRightIcon |
-> > > > > > > text-indent-right | text-indent-right, textindentright, icon, core, text, indent,
-> > > > > > > right, arrow | | TextItalicIcon | text-italic | text-italic, textitalic, icon, core,
-> > > > > > > text, type, italic, font | | TextShortenIcon | text-shorten | text-shorten,
-> > > > > > > textshorten, icon, core, text, shorten, abbreviate, condense, AI | |
-> > > > > > > TextSpellcheckIcon | text-spellcheck | text-spellcheck, textspellcheck, icon, core,
-> > > > > > > text, spelling, typo, spellcheck | | TextStrikethroughIcon | text-strikethrough |
-> > > > > > > text-strikethrough, textstrikethrough, icon, core, text, strikethrough, editor, cross
-> > > > > > > out | | TextStyleIcon | text-style | text-style, textstyle, icon, core, characters,
-> > > > > > > font, letters, type, typography | | TextUnderlineIcon | text-underline |
-> > > > > > > text-underline, textunderline, icon, core, text, underline, U, editor | | TextWrapIcon
-> > > > > > > | text-wrap | text-wrap, textwrap, icon, core, text, wrap, line wrap | | ThemeIcon |
-> > > > > > > theme | theme, icon, core, theme, light mode, dark mode, theme switcher | |
-> > > > > > > ThumbsDownIcon | thumbs-down | thumbs-down, thumbsdown, icon, core, vote, downvote,
-> > > > > > > dislike, feedback, hand | | ThumbsUpIcon | thumbs-up | thumbs-up, thumbsup, icon,
-> > > > > > > core, vote, upvote, like, feedback, hand | | TimelineIcon | timeline | timeline, icon,
-> > > > > > > core, gantt, calendar | | ToolsIcon | tools | tools, icon, core, tools, wrench,
-> > > > > > > spanner, screwdriver | | TransitionIcon | transition | transition, icon, core,
-> > > > > > > connector, movement | | TranslateIcon | translate | translate, icon, core, language,
-> > > > > > > translation, globe | | TreeIcon | tree | tree, icon, core, hierarchy, org chart,
-> > > > > > > structure | | UndoIcon | undo | undo, icon, core, editor, undo, backwards | |
-> > > > > > > UploadIcon | upload | upload, cloud, icon, core, up arrow, file upload | |
-> > > > > > > VehicleCarIcon | vehicle-car | vehicle-car, vehiclecar, icon, core, car,
-> > > > > > > transportation, delivery | | VideoIcon | video | video, icon, core, video file, video
-> > > > > > > content | | VideoNextIcon | video-next | video-next, videonext, icon, core, next,
-> > > > > > > skip, video control | | VideoNextOverlayIcon | video-next-overlay |
-> > > > > > > video-next-overlay, videonextoverlay, icon, core, next, skip, video control, overlay |
-> > > > > > > | VideoPauseIcon | video-pause | video-pause, videopause, icon, core, pause, video
-> > > > > > > control | | VideoPauseOverlayIcon | video-pause-overlay | video-pause-overlay,
-> > > > > > > videopauseoverlay, icon, core, pause, video control, overlay | | VideoPlayIcon |
-> > > > > > > video-play | video-play, videoplay, icon, core, play, video control | |
-> > > > > > > VideoPlayOverlayIcon | video-play-overlay | video-play-overlay, videoplayoverlay,
-> > > > > > > icon, core, play, video control, overlay | | VideoPreviousIcon | video-previous |
-> > > > > > > video-previous, videoprevious, icon, core, previous, rewind, video control | |
-> > > > > > > VideoPreviousOverlayIcon | video-previous-overlay | video-previous-overlay,
-> > > > > > > videopreviousoverlay, icon, core, previous, rewind, video control, overlay | |
-> > > > > > > VideoSkipBackwardFifteenIcon | video-skip-backward-fifteen |
-> > > > > > > video-skip-backward-fifteen, videoskipbackwardfifteen, icon, core, skip, backward, 15
-> > > > > > > seconds, video control | | VideoSkipBackwardTenIcon | video-skip-backward-ten |
-> > > > > > > video-skip-backward-ten, videoskipbackwardten, icon, core, skip, backward, 10 seconds,
-> > > > > > > video control | | VideoSkipForwardFifteenIcon | video-skip-forward-fifteen |
-> > > > > > > video-skip-forward-fifteen, videoskipforwardfifteen, icon, core, skip, forward, 15
-> > > > > > > seconds, video control | | VideoSkipForwardTenIcon | video-skip-forward-ten |
-> > > > > > > video-skip-forward-ten, videoskipforwardten, icon, core, skip, forward, 10 seconds,
-> > > > > > > video control | | VideoStopIcon | video-stop | video-stop, videostop, icon, core,
-> > > > > > > stop, video control | | VideoStopOverlayIcon | video-stop-overlay |
-> > > > > > > video-stop-overlay, videostopoverlay, icon, core, stop, video control, overlay | |
-> > > > > > > VolumeHighIcon | volume-high | volume-high, volumehigh, icon, core, volume, high,
-> > > > > > > unmuted, audio | | VolumeLowIcon | volume-low | volume-low, volumelow, icon, core,
-> > > > > > > volume, low, quiet, audio | | VolumeMutedIcon | volume-muted | volume-muted,
-> > > > > > > volumemuted, icon, core, volume, muted, no sound, audio | | WarningIcon | warning |
-> > > > > > > warning, alert, icon, core, filled, status, exclamation, !, warning | | WhiteboardIcon
-> > > > > > > | whiteboard | whiteboard, icon, core, whiteboard, canvas, drawing | | WorkItemIcon |
-> > > > > > > work-item | work-item, workitem, icon, core, work item, task, issue | | WorkItemsIcon
-> > > > > > > | work-items | work-items, workitems, icon, core, work items, tasks, issues | |
-> > > > > > > ZoomInIcon | zoom-in | zoom-in, zoomin, icon, core, zoom, magnify, enlarge | <<<<<<<
-> > > > > > > HEAD
-
-# | ZoomOutIcon | zoom-out | zoom-out, zoomout, icon, core, zoom, reduce, shrink |
-
-| ZoomOutIcon | zoom-out | zoom-out, zoomout, icon, core, zoom, reduce, shrink |
-
-> > > > > > > 2feb43959334d (Updates to icons and heading)
+| ShowMoreVerticalIcon             | show-more-vertical               | show-more-vertical, showmorevertical, more, menu, options, kebab-menu, ellipsis-vertical, three-dots, vertical-dots, actions, overflow, settings              |
+| ShrinkDiagonalIcon               | shrink-diagonal                  | shrink-diagonal, shrinkdiagonal, icon, core, resize, diagonal arrows                                                                                          |
+| ShrinkHorizontalIcon             | shrink-horizontal                | shrink-horizontal, shrinkhorizontal, icon, core, contract, width, horizontal arrows                                                                           |
+| ShrinkVerticalIcon               | shrink-vertical                  | shrink-vertical, shrinkvertical, icon, core, contract, height, vertical arrows                                                                                |
+| SidebarCollapseIcon              | sidebar-collapse                 | sidebar-collapse, sidebarcollapse, icon, core, navigation, close sidebar                                                                                      |
+| SidebarExpandIcon                | sidebar-expand                   | sidebar-expand, sidebarexpand, icon, core, navigation, open sidebar                                                                                           |
+| SmartLinkIcon                    | smart-link                       | smart-link, smartlink, icon, core, smart link                                                                                                                 |
+| SmartLinkCardIcon                | smart-link-card                  | smart-link-card, smartlinkcard, icon, core, smart link, url, card, link preview                                                                               |
+| SmartLinkEmbedIcon               | smart-link-embed                 | smart-link-embed, smartlinkembed, icon, core, smart link, url, embed                                                                                          |
+| SmartLinkInlineIcon              | smart-link-inline                | smart-link-inline, smartlinkinline, icon, core, smart link, url, inline                                                                                       |
+| SmartLinkListIcon                | smart-link-list                  | smart-link-list, smartlinklist, icon, core, smart link, url, embed, list, table, linked search results                                                        |
+| SnippetIcon                      | snippet                          | snippet, icon, core, scissors, cut                                                                                                                            |
+| SortAscendingIcon                | sort-ascending                   | sort-ascending, sortascending, icon, core, data, sort, up                                                                                                     |
+| SortDescendingIcon               | sort-descending                  | sort-descending, sortdescending, icon, core, data, sort, down                                                                                                 |
+| SpreadsheetIcon                  | spreadsheet                      | spreadsheet, icon, core, table, cells, data                                                                                                                   |
+| SprintIcon                       | sprint                           | sprint, icon, core, loop, iterate                                                                                                                             |
+| StarStarredIcon                  | star-starred                     | star-starred, starstarred, icon, core, favourite, star, starred, filled                                                                                       |
+| StarUnstarredIcon                | star-unstarred                   | star-unstarred, starunstarred, icon, core, favourite, star                                                                                                    |
+| StatusDiscoveryIcon              | status-discovery                 | status-discovery, statusdiscovery, icon, core, discovery, note, filled, onboarding, status                                                                    |
+| StatusErrorIcon                  | status-error                     | status-error, statuserror, icon, core, filled, status, danger, exclamation, !, error                                                                          |
+| StatusInformationIcon            | status-information               | status-information, statusinformation, icon, core, info, filled, status, information                                                                          |
+| StatusSuccessIcon                | status-success                   | status-success, statussuccess, icon, core, tick, completed, success, filled, check mark, status                                                               |
+| StatusVerifiedIcon               | status-verified                  | status-verified, statusverified, icon, core, verified badge, status                                                                                           |
+| StatusWarningIcon                | status-warning                   | status-warning, statuswarning, icon, core, alert, filled, exclamation, !, warning, status                                                                     |
+| StopwatchIcon                    | stopwatch                        | stopwatch, icon, core, timer                                                                                                                                  |
+| StoryIcon                        | story                            | story, icon, core, bookmark, work type                                                                                                                        |
+| StrokeWeightExtraLargeIcon       | stroke-weight-extra-large        | stroke-weight-extra-large, strokeweightextralarge, icon, core, border, weight, thickness, stroke, confluence, editor, whiteboards, thickest                   |
+| StrokeWeightLargeIcon            | stroke-weight-large              | stroke-weight-large, strokeweightlarge, icon, core, border, weight, thickness, stroke, thick, confluence, editor, whiteboards                                 |
+| StrokeWeightMediumIcon           | stroke-weight-medium             | stroke-weight-medium, strokeweightmedium, icon, core, border, weight, stroke, medium, thickness, confluence, editor, whiteboards                              |
+| StrokeWeightSmallIcon            | stroke-weight-small              | stroke-weight-small, strokeweightsmall, icon, core, border, weight, thickness, stroke, confluence, editor, whiteboards, thin                                  |
+| SubtasksIcon                     | subtasks                         | subtasks, icon, core, todo, checklist, work type                                                                                                              |
+| SuccessIcon                      | success                          | success, icon, core, tick, completed, success, filled, check mark, status                                                                                     |
+| SupportIcon                      | support                          | support, icon, core, support, help, life raft, life ring, lifebuoy, life preserver                                                                            |
+| TableCellClearIcon               | table-cell-clear                 | table-cell-clear, tablecellclear, icon, core, table, cell, clear, empty                                                                                       |
+| TableCellMergeIcon               | table-cell-merge                 | table-cell-merge, tablecellmerge, icon, core, table, cell, merge, combine, join                                                                               |
+| TableCellSplitIcon               | table-cell-split                 | table-cell-split, tablecellsplit, icon, core, table, cell, split, divide, separate                                                                            |
+| TableColumnAddLeftIcon           | table-column-add-left            | table-column-add-left, tablecolumnaddleft, icon, core, table, column, add, plus, left, before                                                                 |
+| TableColumnAddRightIcon          | table-column-add-right           | table-column-add-right, tablecolumnaddright, icon, core, table, column, add, right, after                                                                     |
+| TableColumnDeleteIcon            | table-column-delete              | table-column-delete, tablecolumndelete, icon, core, table, column, delete, remove, x                                                                          |
+| TableColumnMoveLeftIcon          | table-column-move-left           | table-column-move-left, tablecolumnmoveleft, icon, core, table, column, move, left, arrow                                                                     |
+| TableColumnMoveRightIcon         | table-column-move-right          | table-column-move-right, tablecolumnmoveright, icon, core, table, column, move, right, arrow                                                                  |
+| TableColumnsDistributeIcon       | table-columns-distribute         | table-columns-distribute, tablecolumnsdistribute, icon, core, table, columns, distribute, even, equidistant                                                   |
+| TableRowAddAboveIcon             | table-row-add-above              | table-row-add-above, tablerowaddabove, icon, core, table, row, add, plus, above, up                                                                           |
+| TableRowAddBelowIcon             | table-row-add-below              | table-row-add-below, tablerowaddbelow, icon, core, table, row, add, plus, below, down                                                                         |
+| TableRowDeleteIcon               | table-row-delete                 | table-row-delete, tablerowdelete, icon, core, table, row, delete, remove, x                                                                                   |
+| TableRowMoveDownIcon             | table-row-move-down              | table-row-move-down, tablerowmovedown, icon, core, table, row, move, down, arrow, after                                                                       |
+| TableRowMoveUpIcon               | table-row-move-up                | table-row-move-up, tablerowmoveup, icon, core, table, row, move, up, arrow, above                                                                             |
+| TagIcon                          | tag                              | tag, icon, core, label, topic                                                                                                                                 |
+| TakeoutFoodIcon                  | takeout-food                     | takeout-food, takeoutfood, icon, core, takeaway, takeout, food, burger, drink                                                                                 |
+| TargetIcon                       | target                           | target, icon, core, target, bullseye                                                                                                                          |
+| TaskIcon                         | task                             | task, check, tick, icon, core, single task, todo, list, check mark, tick                                                                                      |
+| TaskInProgressIcon               | task-in-progress                 | task-in-progress, taskinprogress, icon, core, calendar, task, status, in progress                                                                             |
+| TaskToDoIcon                     | task-to-do                       | task-to-do, tasktodo, icon, core, calendar, task, to-do, todo, status                                                                                         |
+| TasksIcon                        | tasks                            | tasks, icon, core, multiple tasks, todo, list, check mark, tick                                                                                               |
+| TeamsIcon                        | teams                            | teams, icon, core, infinite love, people, persons, customers, users                                                                                           |
+| TextIcon                         | text                             | text, icon, core, character, font, letter, type, typography, text                                                                                             |
+| TextBoldIcon                     | text-bold                        | text-bold, textbold, icon, core, text, type, bold, font                                                                                                       |
+| TextHeadingIcon                  | text-heading                     | text-heading, textheading, icon, core, text, heading, H, editor, text style                                                                                   |
+| TextIndentLeftIcon               | text-indent-left                 | text-indent-left, textindentleft, icon, core, text, outdent, left, arrow                                                                                      |
+| TextIndentRightIcon              | text-indent-right                | text-indent-right, textindentright, icon, core, text, indent, right, arrow                                                                                    |
+| TextItalicIcon                   | text-italic                      | text-italic, textitalic, icon, core, text, type, italic, font                                                                                                 |
+| TextShortenIcon                  | text-shorten                     | text-shorten, textshorten, icon, core, text, shorten, abbreviate, condense, AI                                                                                |
+| TextSpellcheckIcon               | text-spellcheck                  | text-spellcheck, textspellcheck, icon, core, text, spelling, typo, spellcheck                                                                                 |
+| TextStrikethroughIcon            | text-strikethrough               | text-strikethrough, textstrikethrough, icon, core, text, strikethrough, editor, cross out                                                                     |
+| TextStyleIcon                    | text-style                       | text-style, textstyle, icon, core, characters, font, letters, type, typography                                                                                |
+| TextUnderlineIcon                | text-underline                   | text-underline, textunderline, icon, core, text, underline, U, editor                                                                                         |
+| TextWrapIcon                     | text-wrap                        | text-wrap, textwrap, icon, core, text, wrap, line wrap                                                                                                        |
+| ThemeIcon                        | theme                            | theme, icon, core, theme, light mode, dark mode, theme switcher                                                                                               |
+| ThumbsDownIcon                   | thumbs-down                      | thumbs-down, thumbsdown, icon, core, vote, downvote, dislike, feedback, hand                                                                                  |
+| ThumbsUpIcon                     | thumbs-up                        | thumbs-up, thumbsup, icon, core, vote, upvote, like, feedback, hand                                                                                           |
+| TimelineIcon                     | timeline                         | timeline, icon, core, gantt, calendar                                                                                                                         |
+| ToolsIcon                        | tools                            | tools, icon, core, tools, wrench, spanner, screwdriver                                                                                                        |
+| TransitionIcon                   | transition                       | transition, icon, core, connector, movement                                                                                                                   |
+| TranslateIcon                    | translate                        | translate, icon, core, language, translation, globe                                                                                                           |
+| TreeIcon                         | tree                             | tree, icon, core, hierarchy, org chart, structure                                                                                                             |
+| UndoIcon                         | undo                             | undo, icon, core, editor, undo, backwards                                                                                                                     |
+| UploadIcon                       | upload                           | upload, cloud, icon, core, up arrow, file upload                                                                                                              |
+| VehicleCarIcon                   | vehicle-car                      | vehicle-car, vehiclecar, icon, core, car, transportation, delivery                                                                                            |
+| VideoIcon                        | video                            | video, icon, core, video file, video content                                                                                                                  |
+| VideoNextIcon                    | video-next                       | video-next, videonext, icon, core, next, skip, video control                                                                                                  |
+| VideoNextOverlayIcon             | video-next-overlay               | video-next-overlay, videonextoverlay, icon, core, next, skip, video control, overlay                                                                          |
+| VideoPauseIcon                   | video-pause                      | video-pause, videopause, icon, core, pause, video control                                                                                                     |
+| VideoPauseOverlayIcon            | video-pause-overlay              | video-pause-overlay, videopauseoverlay, icon, core, pause, video control, overlay                                                                             |
+| VideoPlayIcon                    | video-play                       | video-play, videoplay, icon, core, play, video control                                                                                                        |
+| VideoPlayOverlayIcon             | video-play-overlay               | video-play-overlay, videoplayoverlay, icon, core, play, video control, overlay                                                                                |
+| VideoPreviousIcon                | video-previous                   | video-previous, videoprevious, icon, core, previous, rewind, video control                                                                                    |
+| VideoPreviousOverlayIcon         | video-previous-overlay           | video-previous-overlay, videopreviousoverlay, icon, core, previous, rewind, video control, overlay                                                            |
+| VideoSkipBackwardFifteenIcon     | video-skip-backward-fifteen      | video-skip-backward-fifteen, videoskipbackwardfifteen, icon, core, skip, backward, 15 seconds, video control                                                  |
+| VideoSkipBackwardTenIcon         | video-skip-backward-ten          | video-skip-backward-ten, videoskipbackwardten, icon, core, skip, backward, 10 seconds, video control                                                          |
+| VideoSkipForwardFifteenIcon      | video-skip-forward-fifteen       | video-skip-forward-fifteen, videoskipforwardfifteen, icon, core, skip, forward, 15 seconds, video control                                                     |
+| VideoSkipForwardTenIcon          | video-skip-forward-ten           | video-skip-forward-ten, videoskipforwardten, icon, core, skip, forward, 10 seconds, video control                                                             |
+| VideoStopIcon                    | video-stop                       | video-stop, videostop, icon, core, stop, video control                                                                                                        |
+| VideoStopOverlayIcon             | video-stop-overlay               | video-stop-overlay, videostopoverlay, icon, core, stop, video control, overlay                                                                                |
+| VolumeHighIcon                   | volume-high                      | volume-high, volumehigh, icon, core, volume, high, unmuted, audio                                                                                             |
+| VolumeLowIcon                    | volume-low                       | volume-low, volumelow, icon, core, volume, low, quiet, audio                                                                                                  |
+| VolumeMutedIcon                  | volume-muted                     | volume-muted, volumemuted, icon, core, volume, muted, no sound, audio                                                                                         |
+| WarningIcon                      | warning                          | warning, alert, icon, core, filled, status, exclamation, !, warning                                                                                           |
+| WhiteboardIcon                   | whiteboard                       | whiteboard, icon, core, whiteboard, canvas, drawing                                                                                                           |
+| WorkItemIcon                     | work-item                        | work-item, workitem, icon, core, work item, task, issue                                                                                                       |
+| WorkItemsIcon                    | work-items                       | work-items, workitems, icon, core, work items, tasks, issues                                                                                                  |
+| ZoomInIcon                       | zoom-in                          | zoom-in, zoomin, icon, core, zoom, magnify, enlarge                                                                                                           |
+| ZoomOutIcon                      | zoom-out                         | zoom-out, zoomout, icon, core, zoom, reduce, shrink                                                                                                           |

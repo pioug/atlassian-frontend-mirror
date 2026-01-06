@@ -303,6 +303,17 @@ export const codeBlockStylesWithEmUnits: SerializedStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const codeBlockStylesWithNeutralBackground: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+		[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {
+			backgroundColor: token('color.background.neutral'),
+		},
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const codeBgColorStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 	[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {

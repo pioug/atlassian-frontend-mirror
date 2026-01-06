@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 43.19.0
+
+### Minor Changes
+
+- [`77df724ec737e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77df724ec737e) -
+  [https://product-fabric.atlassian.net/browse/ED-28631](ED-28631) - cleanup the
+  platform_editor_smart_card_otp Statsig experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 43.18.1
 
 ### Patch Changes

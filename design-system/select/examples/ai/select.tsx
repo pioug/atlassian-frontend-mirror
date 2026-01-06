@@ -14,8 +14,10 @@ const colorOptions = [
 	{ label: 'Blue', value: 'blue' },
 ];
 
-const _default_1: React.JSX.Element[] = [
-	<Select options={colorOptions} isMulti placeholder="Select colors" />,
-	<Select options={cityOptions} isSearchable placeholder="Search cities..." />,
-];
-export default _default_1;
+const Examples = (): React.JSX.Element => (
+	<>
+		<Select options={colorOptions} isMulti placeholder="Select colors" />
+		<Select options={cityOptions} isSearchable placeholder="Search cities..." />
+	</>
+);
+export default Examples;

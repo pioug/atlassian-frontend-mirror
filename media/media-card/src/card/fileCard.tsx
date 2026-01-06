@@ -42,10 +42,9 @@ import { resolveCardPreviewDimensions } from '../utils/getDataURIDimension';
 import { getMediaCardCursor } from '../utils/getMediaCardCursor';
 import { getFileDetails } from '../utils/metadata';
 import {
-	abortUfoExperience,
-	completeUfoExperience,
 	shouldPerformanceBeSampled,
-	startUfoExperience,
+	useMediaCardUfoExperience,
+	type SSRPreviewInfo,
 } from '../utils/ufoExperiences';
 import { useCurrentValueRef } from '../utils/useCurrentValueRef';
 import { usePrevious } from '../utils/usePrevious';
@@ -289,7 +288,13 @@ export const FileCard = ({
 		source: 'mediaCard',
 	});
 
-	const shouldSendPerformanceEventRef = useRef(shouldPerformanceBeSampled());
+	const shouldSendPerformanceEvent = useMemo(() => shouldPerformanceBeSampled(), []);
+
+	// UFO experience hook - creates a unique experience instance per card
+	const ufoExperience = useMediaCardUfoExperience({
+		instanceId: internalOccurrenceKey,
+		enabled: shouldSendPerformanceEvent,
+	});
 
 	const [error, setError] = useState<MediaCardError | undefined>();
 
@@ -440,15 +445,29 @@ export const FileCard = ({
 				fileStateValue?.metadataTraceContext,
 			);
 
-		shouldSendPerformanceEventRef.current &&
-			completeUfoExperience(
-				internalOccurrenceKey,
-				finalStatus,
-				fileAttributes,
-				fileStateFlagsRef.current,
-				ssrReliability,
-				finalError,
-			);
+		// Determine SSR preview info for UFO timing strategy
+		// wasSSRAttempted is only true when SSR was used AND preview is non-lazy
+		// because lazy SSR defers loading, so it behaves like CSR for timing purposes
+		const isSSRNonLazy = !!ssr && preview?.lazy !== true;
+		const wasSSRSuccessful =
+			isSSRNonLazy &&
+			(ssrReliability.server?.status === 'success' || ssrReliability.client?.status === 'success');
+
+		const ssrPreviewInfo: SSRPreviewInfo = {
+			dataUri: preview?.dataURI,
+			srcset: preview?.srcSet,
+			wasSSRAttempted: isSSRNonLazy,
+			wasSSRSuccessful,
+		};
+
+		ufoExperience.complete(
+			finalStatus,
+			fileAttributes,
+			fileStateFlagsRef.current,
+			ssrReliability,
+			finalError,
+			ssrPreviewInfo,
+		);
 	});
 
 	const fireNonCriticalErrorEventRef = useCurrentValueRef((error: MediaCardError) => {
@@ -471,20 +490,19 @@ export const FileCard = ({
 	}, [nonCriticalError, fireNonCriticalErrorEventRef]);
 
 	const startUfoExperienceRef = useCurrentValueRef(() => {
-		if (shouldSendPerformanceEventRef.current) {
-			startUfoExperience(internalOccurrenceKey);
-		}
+		// For non-lazy SSR previews, use interaction start time as the experience start time
+		// because the image loading started at interaction start, not at mount time
+		const isSSRNonLazy = !!ssr && preview?.lazy !== true;
+		ufoExperience.start({ useInteractionTime: isSSRNonLazy });
 	});
 
 	const fireAbortedEventRef = useCurrentValueRef(() => {
 		// UFO won't abort if it's already in a final state (succeeded, failed, aborted, etc)
-		if (shouldSendPerformanceEventRef.current) {
-			abortUfoExperience(internalOccurrenceKey, {
-				fileAttributes,
-				fileStateFlags: fileStateFlagsRef?.current,
-				ssrReliability: ssrReliability,
-			});
-		}
+		ufoExperience.abort({
+			fileAttributes,
+			fileStateFlags: fileStateFlagsRef?.current,
+			ssrReliability: ssrReliability,
+		});
 	});
 
 	//----------------------------------------------------------------//

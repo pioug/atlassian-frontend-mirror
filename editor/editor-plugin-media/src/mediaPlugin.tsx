@@ -36,7 +36,12 @@ import { mediaInlineSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/mediaInli
 import { mediaSingleSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/mediaSingle';
 import { createPlugin as createMediaAltTextPlugin } from './pm-plugins/alt-text';
 import keymapMediaAltTextPlugin from './pm-plugins/alt-text/keymap';
-import { hideMediaViewer, showMediaViewer, trackMediaPaste } from './pm-plugins/commands';
+import {
+	hideMediaViewer,
+	insertMediaAsMediaSingleCommand,
+	showMediaViewer,
+	trackMediaPaste,
+} from './pm-plugins/commands';
 import keymapPlugin from './pm-plugins/keymap';
 import keymapMediaSinglePlugin from './pm-plugins/keymap-media';
 import linkingPlugin from './pm-plugins/linking';
@@ -202,6 +207,10 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 			showMediaViewer,
 			hideMediaViewer,
 			trackMediaPaste,
+			insertMediaSingle: insertMediaAsMediaSingleCommand(
+				api?.analytics?.actions,
+				options.allowPixelResizing,
+			),
 		},
 
 		nodes() {

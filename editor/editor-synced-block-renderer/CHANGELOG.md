@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.0.2
+
+### Patch Changes
+
+- [`56260a2c9fc76`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56260a2c9fc76) -
+  EDITOR-4252 Add appearance prop to Synced Block renderer options.
+
 ## 5.0.1
 
 ### Patch Changes

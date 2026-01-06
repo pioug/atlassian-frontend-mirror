@@ -74,6 +74,7 @@ export const createMediaDurationMetrics = (
 		decodedBodySize: entry.decodedBodySize,
 		totalDuration: entry.duration,
 		initiatorType: entry.initiatorType, // value can be 'fetch' or 'img'
+		endedAt: entry.responseEnd - interactionStartTime,
 		responseEnd: entry.responseEnd,
 		browserCacheHit: entry.transferSize === 0,
 		nextHopProtocol: entry.nextHopProtocol,

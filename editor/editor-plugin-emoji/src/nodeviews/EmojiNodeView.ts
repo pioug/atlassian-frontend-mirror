@@ -88,13 +88,9 @@ export class EmojiNodeView implements NodeView {
 		this.intl = intl;
 		const { dom } = DOMSerializer.renderSpec(document, emojiToDom(this.node));
 		this.dom = dom;
-		if (expValEquals('platform_editor_emoji_otp', 'isEnabled', true)) {
-			this.domElement = this.isHTMLElement(dom) ? dom : undefined;
-		} else {
-			this.domElement = dom instanceof HTMLElement ? dom : undefined;
-		}
+		this.domElement = this.isHTMLElement(dom) ? dom : undefined;
 
-		if (expValEquals('platform_editor_emoji_otp', 'isEnabled', true) && emojiNodeDataProvider) {
+		if (emojiNodeDataProvider) {
 			let previousEmojiDescription: OptionalEmojiDescriptionWithVariations | undefined;
 
 			emojiNodeDataProvider.getData(node, (payload) => {
@@ -324,28 +320,11 @@ export class EmojiNodeView implements NodeView {
 		imageElement.loading = 'lazy';
 		imageElement.alt = emojiDescription.name || emojiDescription.shortName;
 
-		if (expValEquals('platform_editor_emoji_otp', 'isEnabled', true)) {
-			imageElement.style.minWidth = `${defaultEmojiHeight}px`;
-			imageElement.style.objectFit = 'contain';
-		}
-
-		if (representation.width && representation.height) {
-			imageElement.height = defaultEmojiHeight;
-			if (!expValEquals('platform_editor_emoji_otp', 'isEnabled', true)) {
-				// Because img.width is round to the nearest integer.
-				imageElement.setAttribute(
-					'width',
-					`${(defaultEmojiHeight / representation.height) * representation.width}`,
-				);
-			}
-		}
+		imageElement.style.minWidth = `${defaultEmojiHeight}px`;
+		imageElement.style.objectFit = 'contain';
+		imageElement.height = defaultEmojiHeight;
 
 		imageElement.onerror = () => {
-			if (expValEquals('platform_editor_emoji_otp', 'isEnabled', true)) {
-				this.renderFallback();
-				return;
-			}
-
 			if (editorExperiment('platform_editor_offline_editing_web', true)) {
 				// If there's an error (ie. offline) render the ascii fallback if possible, otherwise
 				// mark the node to refresh when returning online.
@@ -355,6 +334,8 @@ export class EmojiNodeView implements NodeView {
 				} else {
 					this.renderingFallback = true;
 				}
+			} else {
+				this.renderFallback();
 			}
 		};
 

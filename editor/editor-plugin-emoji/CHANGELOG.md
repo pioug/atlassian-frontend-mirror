@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-emoji
 
+## 8.1.0
+
+### Minor Changes
+
+- [`517f06f895cc9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/517f06f895cc9) -
+  [https://product-fabric.atlassian.net/browse/ED-29730](ED-29730) - clen up
+  platform_editor_emoji_otp Statsig experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.0
 
 ### Patch Changes

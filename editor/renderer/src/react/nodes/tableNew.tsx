@@ -54,7 +54,7 @@ const stickyContainerBaseStyles = {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 	height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
 	// Follow editor to hide by default so it does not show empty gap in SSR
-	// https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/editor/editor-plugin-table/src/nodeviews/TableComponent.tsx#957
+	// https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/editor/editor-plugin-table/src/nodeviews/TableComponent.tsx#957
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 	display: 'block',
 	width: '100%',

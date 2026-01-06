@@ -42,9 +42,6 @@
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
-		},
-		{
-			"path": "../../editor/tmp-editor-statsig/tsconfig.app.json"
 		}
 	]
 }

@@ -30,7 +30,7 @@ const imageEditorStateSelector = (
 	};
 };
 
-const ImageEditorFunctionalComponent = ({ api }: ImageEditorFunctionalComponentProps) => {
+const ImageEditorFunctionalComponent = ({ api, editorView }: ImageEditorFunctionalComponentProps) => {
 	const { isImageEditorVisible, imageEditorSelectedMedia, mediaClientConfig } =
 		useSharedPluginStateWithSelector(api, ['mediaEditing', 'media'], imageEditorStateSelector);
 
@@ -47,6 +47,7 @@ const ImageEditorFunctionalComponent = ({ api }: ImageEditorFunctionalComponentP
 			mediaClientConfig={mediaClientConfig}
 			onClose={handleOnClose}
 			selectedNodeAttrs={imageEditorSelectedMedia}
+			editorView={editorView}
 		/>
 	);
 };

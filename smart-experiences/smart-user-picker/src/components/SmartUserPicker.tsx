@@ -8,6 +8,7 @@ import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { type CustomData, type UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
 import UserPicker, {
 	type OptionData,
+	type Team,
 	isExternalUser,
 	isTeam,
 	isGroup,
@@ -119,6 +120,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 		userResolvers: [],
 		enableEmailSearch: false,
 		allowEmailSelectionWhenEmailMatched: true,
+		verifiedTeams: false,
 	};
 
 	constructor(props: Props & WrappedComponentProps) {
@@ -232,6 +234,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			onError,
 			overrideByline,
 			displayEmailInByline,
+			verifiedTeams,
 			orgId,
 			principalId,
 			productAttributes,
@@ -271,6 +274,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			maxNumberOfResults,
 			query,
 			searchEmail: isEmail,
+			verifiedTeams,
 			/*
 				For email-based searches, we have decided to filter out apps.
 				Also - because the other 2 filters ((NOT not_mentionable:true) AND (account_status:active)) are included
@@ -346,6 +350,23 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 				}
 			}
 
+			// Filter to only verified teams when verifiedTeams is true and feature flag is enabled
+			if (
+				verifiedTeams &&
+				includeTeams &&
+				fg('smart-user-picker-managed-teams-gate')
+			) {
+				recommendedUsers = recommendedUsers.filter((option) => {
+					if (isTeam(option)) {
+						// Only include teams that are verified
+						// The verified property is set by the transformer from the server response
+						const team = option as Team & { verified?: boolean };
+						return team.verified === true;
+					}
+					return true; // Keep non-team options
+				});
+			}
+
 			// Track if email search found matches for conditional allowEmail logic
 			if (isEmail) {
 				this.lastEmailSearchFoundMatches = recommendedUsers.length > 0;
@@ -397,7 +418,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			let defaultUsers: OptionData[] = [];
 			try {
 				defaultUsers = onError ? (await onError(e, recommendationsRequest)) || [] : [];
-			} catch (error) {
+			} catch {
 				onErrorProducedError = true;
 			}
 			if (onErrorProducedError && is5xxEvent) {
@@ -508,7 +529,6 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			allowEmail,
 			enableEmailSearch,
 			allowEmailSelectionWhenEmailMatched,
-			fetchOptions,
 			...restProps
 		} = this.props;
 

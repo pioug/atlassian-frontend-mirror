@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { cssMap } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
-import { AssetsIcon, JiraServiceManagementIcon } from '@atlaskit/logo';
+import { AssetsIcon } from '@atlaskit/logo';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -33,36 +33,18 @@ export const ProviderLink = ({
 
 	const anchor = useMemo(() => {
 		if (datasourceId === ASSETS_LIST_OF_LINKS_DATASOURCE_ID) {
-			return fg('assets_as_an_app_v2')
-				? {
-						content: intl.formatMessage(footerMessages.poweredByAssets),
-						extensionKey: 'jsm-cmdb-gateway',
-						icon: (
-							<AssetsIcon
-								size="xsmall"
-								{...(fg('navx-1895-new-logo-design')
-									? { shouldUseNewLogoDesign: true }
-									: undefined)}
-							/>
-						),
-						interactionName: 'atlas-link',
-						url: '/jira/assets',
-					}
-				: {
-						content: intl.formatMessage(footerMessages.powerByJSM),
-						extensionKey: 'jsm-cmdb-gateway',
-						icon: (
-							<JiraServiceManagementIcon
-								appearance="neutral"
-								size="small"
-								{...(fg('navx-1895-new-logo-design')
-									? { shouldUseNewLogoDesign: true }
-									: undefined)}
-							/>
-						),
-						interactionName: 'atlas-link',
-						url: '/jira/servicedesk/assets',
-					};
+			return {
+				content: intl.formatMessage(footerMessages.poweredByAssets),
+				extensionKey: 'jsm-cmdb-gateway',
+				icon: (
+					<AssetsIcon
+						size="xsmall"
+						{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
+					/>
+				),
+				interactionName: 'atlas-link',
+				url: '/jira/assets',
+			};
 		}
 	}, [datasourceId, intl]);
 

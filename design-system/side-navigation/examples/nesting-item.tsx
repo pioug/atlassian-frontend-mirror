@@ -111,6 +111,7 @@ const BasicExample = () => {
 						title="Settings"
 						css={styles.customItem}
 						description="I have a custom item"
+						// @ts-expect-error - Added during @types/react@~18.3.24 upgrade.
 						component={CustomNestingItem}
 					>
 						<Fragment />

@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { DatePicker } from '@atlaskit/datetime-picker';
+import __noop from '@atlaskit/ds-lib/noop'
 
-const _default_1: React.JSX.Element[] = [
+const Example = (): React.JSX.Element => (
 	<DatePicker
 		clearControlLabel="Clear select date"
-		onChange={() => {}}
+		onChange={__noop}
 		shouldShowCalendarButton
 		openCalendarLabel="open calendar"
-	/>,
-];
-export default _default_1;
+	/>
+);
+export default Example;

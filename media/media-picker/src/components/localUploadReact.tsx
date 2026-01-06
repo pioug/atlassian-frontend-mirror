@@ -6,7 +6,6 @@ import {
 	isCommonMediaClientError,
 } from '@atlaskit/media-client';
 import { ANALYTICS_MEDIA_CHANNEL, type MediaFeatureFlags } from '@atlaskit/media-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type UploadService } from '../service/types';
 import {
 	type UploadEndEventPayload,
@@ -182,15 +181,12 @@ export class LocalUploadComponentReact<
 
 		const { duration: uploadDurationMsec = -1 } = end(`MediaPicker.fireUpload.${fileId}`);
 
-		let errorDetail = 'unknown';
-		if (fg('add_media_picker_error_detail')) {
-			errorDetail =
-				rawError && isCommonMediaClientError(rawError) && rawError.innerError?.message
-					? rawError.innerError?.message
-					: rawError instanceof Error
-						? rawError.message
-						: payload.error.description;
-		}
+		const errorDetail =
+			rawError && isCommonMediaClientError(rawError) && rawError.innerError?.message
+				? rawError.innerError?.message
+				: rawError instanceof Error
+					? rawError.message
+					: payload.error.description;
 
 		const requestMetadata = !!rawError ? getRequestMetadata(rawError) : undefined;
 

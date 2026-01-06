@@ -13,9 +13,11 @@ import { type MediaCardSsr } from './types';
 
 export const GLOBAL_MEDIA_CARD_SSR = 'mediaCardSsr';
 export const GLOBAL_MEDIA_NAMESPACE = '__MEDIA_INTERNAL';
+export const GLOBAL_MEDIA_PERFORMANCE_ENTRIES = 'performanceEntries';
 
 export type MediaGlobalScope = {
 	[GLOBAL_MEDIA_CARD_SSR]?: MediaCardSsr;
+	[GLOBAL_MEDIA_PERFORMANCE_ENTRIES]?: PerformanceEntry[];
 };
 
 export function getMediaGlobalScope(globalScope: any = window): MediaGlobalScope {

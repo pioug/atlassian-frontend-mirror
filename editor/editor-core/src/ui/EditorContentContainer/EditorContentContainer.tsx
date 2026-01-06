@@ -57,6 +57,7 @@ import {
 	codeBgColorStyles,
 	codeBlockStyles,
 	codeBlockStylesWithEmUnits,
+	codeBlockStylesWithNeutralBackground,
 	firstCodeBlockWithNoMargin,
 	firstCodeBlockWithNoMarginOld,
 } from './styles/codeBlockStyles';
@@ -357,6 +358,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						placeholderWrapStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					codeBlockStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					editorExperiment('platform_synced_block', true) && codeBlockStylesWithNeutralBackground,
 					contentMode === 'compact' &&
 						(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
 							// eslint-disable-next-line @atlaskit/platform/no-preconditioning

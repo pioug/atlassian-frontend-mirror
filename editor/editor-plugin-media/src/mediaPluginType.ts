@@ -1,4 +1,5 @@
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
+import type { InputMethodInsertMedia, InsertMediaVia } from '@atlaskit/editor-common/analytics';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type {
 	EditorCommand,
@@ -57,6 +58,11 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 			 * Callback to be called when there is an error rendering a media node.
 			 */
 			handleMediaNodeRenderError: (node: PMNode, reason: string) => void;
+			/**
+			 * @private
+			 * @deprecated Use the command `insertMediaSingle` instead which is decoupled from EditorView
+			 * and easier to use.
+			 */
 			insertMediaAsMediaSingle: InsertMediaAsMediaSingle;
 			/**
 			 * Used to update the initial provider passed to the media plugin.
@@ -71,6 +77,19 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 		};
 		commands: {
 			hideMediaViewer: EditorCommand;
+			/**
+			 * Inserts a media node as a media single.
+			 * This command creates a media single node from a set of attributes
+			 *
+			 * @param attrs - The media node attributes of the node to insert
+			 * @param inputMethod - The method used to input the media
+			 * @param insertMediaVia - Optional parameter indicating how the media was inserted
+			 */
+			insertMediaSingle: (
+				attrs: MediaADFAttrs,
+				inputMethod: InputMethodInsertMedia,
+				insertMediaVia?: InsertMediaVia,
+			) => EditorCommand;
 			showMediaViewer: (media: MediaADFAttrs) => EditorCommand;
 			trackMediaPaste: (attrs: MediaADFAttrs) => EditorCommand;
 		};

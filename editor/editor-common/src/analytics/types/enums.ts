@@ -140,6 +140,7 @@ export enum ACTION {
 	VISITED = 'visited',
 	WITH_PLUGIN_STATE_CALLED = 'withPluginStateCalled',
 	RENDERED = 'rendered',
+	RENDERED_SAMPLED = 'renderedSampled',
 	ON_EDITOR_READY_CALLBACK = 'onEditorReadyCallback',
 	/**
 	 * @private

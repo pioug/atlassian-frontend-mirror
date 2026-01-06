@@ -86,6 +86,8 @@ export const DEGRADED_SEVERITY_THRESHOLD = 3000;
 // we want to calculate all the table widths (which causes reflows) after the renderer has finished loading to mitigate performance impact
 const TABLE_INFO_TIMEOUT = 10000;
 
+const RENDER_EVENT_SAMPLE_RATE = 0.2;
+
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
@@ -144,13 +146,13 @@ const handleMouseTripleClickInTables = (event: MouseEvent) => {
 
 	const elementToSelect: Element | null | undefined = anchorInCell
 		? // Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			anchorNode!.parentElement?.closest('div,p')
+		  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		  anchorNode!.parentElement?.closest('div,p')
 		: focusInCell
-			? // Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				focusNode!.parentElement?.closest('div,p')
-			: tableCell;
+		? // Ignored via go/ees005
+		  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		  focusNode!.parentElement?.closest('div,p')
+		: tableCell;
 	if (elementToSelect) {
 		selection.selectAllChildren(elementToSelect);
 	}
@@ -444,13 +446,13 @@ export const RendererFunctionalComponent = (
 										NORMAL_SEVERITY_THRESHOLD,
 									analyticsEventSeverityTracking?.severityDegradedThreshold ??
 										DEGRADED_SEVERITY_THRESHOLD,
-								)
+							  )
 							: undefined;
 
 					const isTTRTrackingExplicitlyDisabled = analyticsEventSeverityTracking?.enabled === false;
 
 					if (!isTTRTrackingExplicitlyDisabled) {
-						fireAnalyticsEvent({
+						const event = {
 							action: ACTION.RENDERED,
 							actionSubject: ACTION_SUBJECT.RENDERER,
 							attributes: {
@@ -464,7 +466,17 @@ export const RendererFunctionalComponent = (
 								severity,
 							},
 							eventType: EVENT_TYPE.OPERATIONAL,
-						});
+						} as const;
+						fireAnalyticsEvent(event);
+						if (
+							expValEquals('platform_editor_sample_renderer_rendered_event', 'isEnabled', true) &&
+							Math.random() < RENDER_EVENT_SAMPLE_RATE
+						) {
+							fireAnalyticsEvent({
+								...event,
+								action: ACTION.RENDERED_SAMPLED,
+							});
+						}
 					}
 
 					// Ignored via go/ees005

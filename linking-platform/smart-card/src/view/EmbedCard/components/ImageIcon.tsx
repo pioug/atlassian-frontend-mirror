@@ -7,7 +7,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 import ImageLoader from 'react-render-image';
 
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { Image } from './styled';
@@ -41,15 +40,11 @@ export const ImageIcon = ({
 
 	// If url changes, reset state
 	useEffect(() => {
-		if (expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)) {
-			setHasImageErrored(false);
-		}
+		setHasImageErrored(false);
 	}, [src]);
 
 	const handleError = useCallback(() => {
-		if (expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)) {
-			setHasImageErrored(true);
-		}
+		setHasImageErrored(true);
 	}, []);
 
 	// TODO: do we need this?
@@ -57,7 +52,7 @@ export const ImageIcon = ({
 		return defaultIcon || null;
 	}
 
-	if (expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) && hasImageErrored) {
+	if (hasImageErrored) {
 		return defaultIcon;
 	}
 
@@ -70,13 +65,11 @@ export const ImageIcon = ({
 			size={size}
 			title={title}
 			css={appearance === 'round' && styles.roundedImage}
-			{...(hideLoadingSkeleton && expValEquals('platform_editor_smart_card_otp', 'isEnabled', true)
-				? { onError: handleError }
-				: undefined)}
+			{...(hideLoadingSkeleton ? { onError: handleError } : undefined)}
 		/>
 	);
 
-	if (expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) && hideLoadingSkeleton) {
+	if (hideLoadingSkeleton) {
 		return LoadedImageComponent;
 	} else {
 		return (

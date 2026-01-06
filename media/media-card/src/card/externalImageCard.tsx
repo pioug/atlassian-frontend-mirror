@@ -25,10 +25,8 @@ import { type SSRStatus } from '../utils/analytics';
 import { generateUniqueId } from '../utils/generateUniqueId';
 import { getMediaCardCursor } from '../utils/getMediaCardCursor';
 import {
-	abortUfoExperience,
-	completeUfoExperience,
-	startUfoExperience,
 	shouldPerformanceBeSampled,
+	useMediaCardUfoExperience,
 } from '../utils/ufoExperiences';
 import { useCurrentValueRef } from '../utils/useCurrentValueRef';
 import { getDefaultCardDimensions } from '../utils/cardDimensions';
@@ -96,10 +94,16 @@ export const ExternalImageCard = ({
 		wasStatusProcessing: false,
 	});
 
+	const shouldSendPerformanceEvent = useMemo(() => shouldPerformanceBeSampled(), []);
+
+	// UFO experience hook - creates a unique experience instance per card
+	const ufoExperience = useMediaCardUfoExperience({
+		instanceId: internalOccurrenceKey,
+		enabled: shouldSendPerformanceEvent,
+	});
+
 	const startUfoExperienceRef = useCurrentValueRef(() => {
-		if (shouldSendPerformanceEventRef.current) {
-			startUfoExperience(internalOccurrenceKey);
-		}
+		ufoExperience.start();
 	});
 
 	const [status, setStatus] = useState<ExternalImageCardStatus>('loading-preview');
@@ -135,8 +139,6 @@ export const ExternalImageCard = ({
 
 	const [mediaViewerSelectedItem, setMediaViewerSelectedItem] = useState<Identifier | null>(null);
 
-	const shouldSendPerformanceEventRef = useRef(shouldPerformanceBeSampled());
-
 	//----------------------------------------------------------------//
 	//---------------------- Analytics  ------------------------------//
 	//----------------------------------------------------------------//
@@ -162,26 +164,24 @@ export const ExternalImageCard = ({
 				traceContext,
 				undefined,
 			);
-		shouldSendPerformanceEventRef.current &&
-			completeUfoExperience(
-				internalOccurrenceKey,
-				status,
-				fileAttributes,
-				fileStateFlagsRef.current,
-				ssrReliability,
-				error,
-			);
+		// External images don't use SSR - no ssrPreviewInfo passed
+		ufoExperience.complete(
+			status,
+			fileAttributes,
+			fileStateFlagsRef.current,
+			ssrReliability,
+			error,
+			undefined,
+		);
 	});
 
 	const fireAbortedEventRef = useCurrentValueRef(() => {
 		// UFO won't abort if it's already in a final state (succeeded, failed, aborted, etc)
-		if (shouldSendPerformanceEventRef.current) {
-			abortUfoExperience(internalOccurrenceKey, {
-				fileAttributes,
-				fileStateFlags: fileStateFlagsRef?.current,
-				ssrReliability: ssrReliability,
-			});
-		}
+		ufoExperience.abort({
+			fileAttributes,
+			fileStateFlags: fileStateFlagsRef?.current,
+			ssrReliability: ssrReliability,
+		});
 	});
 
 	//----------------------------------------------------------------//

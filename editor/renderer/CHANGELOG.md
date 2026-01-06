@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 125.1.0
+
+### Minor Changes
+
+- [`e8f5c745198b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8f5c745198b6) -
+  add sampled "renderer rendered" event
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 125.0.2
 
 ### Patch Changes

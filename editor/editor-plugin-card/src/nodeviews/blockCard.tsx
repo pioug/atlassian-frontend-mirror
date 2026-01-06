@@ -108,41 +108,40 @@ export class BlockCardComponent extends React.PureComponent<
 		const { node, cardContext, actionOptions, onClick, CompetitorPrompt, isPageSSRed } = this.props;
 		const { url, data } = node.attrs;
 
-		const cardInner =
-			expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) && isPageSSRed ? (
-				<>
-					<CardSSR
-						key={url}
-						url={url ?? data.url}
-						container={this.scrollContainer}
-						appearance="block"
-						onClick={onClick}
-						onResolve={this.onResolve}
-						onError={this.onError}
-						platform={'web'}
-						actionOptions={actionOptions}
-						CompetitorPrompt={CompetitorPrompt}
-						hideIconLoadingSkeleton={true}
-					/>
-					{this.gapCursorSpan()}
-				</>
-			) : (
-				<>
-					<SmartCard
-						key={url}
-						url={url ?? data.url}
-						container={this.scrollContainer}
-						appearance="block"
-						onClick={onClick}
-						onResolve={this.onResolve}
-						onError={this.onError}
-						platform={'web'}
-						actionOptions={actionOptions}
-						CompetitorPrompt={CompetitorPrompt}
-					/>
-					{this.gapCursorSpan()}
-				</>
-			);
+		const cardInner = isPageSSRed ? (
+			<>
+				<CardSSR
+					key={url}
+					url={url ?? data.url}
+					container={this.scrollContainer}
+					appearance="block"
+					onClick={onClick}
+					onResolve={this.onResolve}
+					onError={this.onError}
+					platform={'web'}
+					actionOptions={actionOptions}
+					CompetitorPrompt={CompetitorPrompt}
+					hideIconLoadingSkeleton={true}
+				/>
+				{this.gapCursorSpan()}
+			</>
+		) : (
+			<>
+				<SmartCard
+					key={url}
+					url={url ?? data.url}
+					container={this.scrollContainer}
+					appearance="block"
+					onClick={onClick}
+					onResolve={this.onResolve}
+					onError={this.onError}
+					platform={'web'}
+					actionOptions={actionOptions}
+					CompetitorPrompt={CompetitorPrompt}
+				/>
+				{this.gapCursorSpan()}
+			</>
+		);
 		// [WS-2307]: we only render card wrapped into a Provider when the value is ready,
 		// otherwise if we got data, we can render the card directly since it doesn't need the Provider
 		return (

@@ -12,7 +12,6 @@ import {
 	fromObservable,
 } from '@atlaskit/media-client';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { Browser } from '../../browser/browser';
 import { type BrowserConfig } from '../../../../src/types';
@@ -225,7 +224,6 @@ describe('Browser analytics instrumentation', () => {
 	});
 
 	it('should fire an uploaded fail event on end', async () => {
-		(fg as jest.Mock).mockImplementation((fgName) => fgName === 'add_media_picker_error_detail');
 		mediaClient.file.touchFiles = jest.fn(
 			(descriptors: TouchFileDescriptor[], collection?: string) =>
 				Promise.resolve({

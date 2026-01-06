@@ -137,6 +137,9 @@
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		},
+		"platform_editor_introduce_insert_media_command": {
+			"type": "boolean"
+		},
 		"confluence_frontend_media_scroll_fix": {
 			"type": "boolean"
 		},

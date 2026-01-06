@@ -3,7 +3,7 @@
  *
  * Generates TypeScript components data for AI tooling from offerings.json files
  *
- * @codegen <<SignedSource::f835c392bd49a057135d06af127f2dfa>>
+ * @codegen <<SignedSource::1d781f4539138bf6cabcd8c01b207b06>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:prototyping
  */
 import type { Component } from './types';
@@ -18,7 +18,7 @@ export const components: Component[] = [
 			'A component for displaying user avatars with support for images, initials, and status indicators. An avatar is a visual representation of a user or entity. It can display user images, initials, presence indicators, and status indicators. Avatars help users quickly identify people and entities in your application. They provide visual context and make interfaces more personal and engaging.',
 		status: 'general-availability',
 		examples: [
-			'import Avatar from \'@atlaskit/avatar\';\nexport default [\n\t<Avatar src="https://example.com/avatar.jpg" name="John Doe" />,\n\t<Avatar name="Jane Smith" appearance="hexagon" size="large" status="locked" />,\n\t<Avatar name="Bob Wilson" appearance="square" size="small" presence="online" status="approved" />,\n];',
+			'import Avatar from \'@atlaskit/avatar\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Avatar src="https://example.com/avatar.jpg" name="John Doe" />\n\t\t<Avatar name="Jane Smith" appearance="hexagon" size="large" status="locked" />\n\t\t<Avatar\n\t\t\tname="Bob Wilson"\n\t\t\tappearance="square"\n\t\t\tsize="small"\n\t\t\tpresence="online"\n\t\t\tstatus="approved"\n\t\t/>\n\t</>\n);\nexport default Examples;',
 		],
 		usageGuidelines: [
 			'Use consistent sizing within the same context',
@@ -148,7 +148,7 @@ export const components: Component[] = [
 			'A component for displaying multiple avatars in a group with overlap and overflow handling.',
 		status: 'general-availability',
 		examples: [
-			"import AvatarGroup from '@atlaskit/avatar-group';\nexport default [\n\t<AvatarGroup\n\t\tappearance=\"stack\"\n\t\tsize=\"large\"\n\t\tonAvatarClick={console.log}\n\t\tdata={[\n\t\t\t{ key: 'uid1', name: 'Bob Smith' },\n\t\t\t{ key: 'uid2', name: 'Design System Team', appearance: 'square' },\n\t\t\t{ key: 'uid3', name: 'Review Agent', appearance: 'hexagon' },\n\t\t\t{ key: 'uid4', name: 'Carol Davis' },\n\t\t]}\n\t\tmaxCount={3}\n\t/>,\n];",
+			"import AvatarGroup from '@atlaskit/avatar-group';\nconst Example = (): React.JSX.Element => (\n\t<AvatarGroup\n\t\tappearance=\"stack\"\n\t\tsize=\"large\"\n\t\tonAvatarClick={console.log}\n\t\tdata={[\n\t\t\t{ key: 'uid1', name: 'Bob Smith' },\n\t\t\t{ key: 'uid2', name: 'Design System Team', appearance: 'square' },\n\t\t\t{ key: 'uid3', name: 'Review Agent', appearance: 'hexagon' },\n\t\t\t{ key: 'uid4', name: 'Carol Davis' },\n\t\t]}\n\t\tmaxCount={3}\n\t/>\n);\nexport default Example;",
 		],
 		accessibilityGuidelines: [
 			'Provide clear labels for avatar groups',
@@ -271,7 +271,7 @@ export const components: Component[] = [
 			'A badge is a visual indicator for numeric values such as tallies and scores, providing quick visual feedback.',
 		status: 'general-availability',
 		examples: [
-			'import Badge from \'@atlaskit/badge\';\nexport default [\n\t<Badge appearance="primary">5</Badge>,\n\t<Badge appearance="important" max={99}>\n\t\t150\n\t</Badge>,\n];',
+			'import Badge from \'@atlaskit/badge\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Badge appearance="primary">5</Badge>\n\t\t<Badge appearance="important" max={99}>\n\t\t\t150\n\t\t</Badge>\n\t</>\n);\nexport default Examples;',
 		],
 		accessibilityGuidelines: [
 			'Ensure badge content is announced by screen readers',
@@ -296,7 +296,7 @@ export const components: Component[] = [
 			{
 				name: 'appearance',
 				description: 'Affects the visual style of the badge.',
-				type: '"added" | "default" | "important" | "primary" | "primaryInverted" | "removed"',
+				type: '"added" | "default" | "important" | "primary" | "primaryInverted" | "removed" | "warning" | "discovery" | "danger" | "neutral" | "success" | "information" | "inverse"',
 			},
 			{
 				name: 'children',
@@ -321,7 +321,7 @@ export const components: Component[] = [
 			'A banner displays a prominent message at the top of the screen to communicate important information to users.',
 		status: 'general-availability',
 		examples: [
-			'import Banner from \'@atlaskit/banner\';\nimport WarningIcon from \'@atlaskit/icon/core/status-warning\';\nimport Box from \'@atlaskit/primitives/box\';\nexport default () => (\n\t<Box>\n\t\t<Banner\n\t\t\ticon={<WarningIcon label="Warning" secondaryColor="inherit" size="medium" />}\n\t\t\ttestId="basicTestId"\n\t\t>\n\t\t\tYour license is about to expire. Please renew your license within the next week.\n\t\t</Banner>\n\t</Box>\n);',
+			'import Banner from \'@atlaskit/banner\';\nimport WarningIcon from \'@atlaskit/icon/core/status-warning\';\nimport Box from \'@atlaskit/primitives/box\';\nexport default (): React.JSX.Element => (\n\t<Box>\n\t\t<Banner\n\t\t\ticon={<WarningIcon label="Warning"   spacing="spacious" />}\n\t\t\ttestId="basicTestId"\n\t\t>\n\t\t\tYour license is about to expire. Please renew your license within the next week.\n\t\t</Banner>\n\t</Box>\n);',
 		],
 		accessibilityGuidelines: [
 			'Ensure banner content is announced by screen readers',
@@ -371,7 +371,7 @@ export const components: Component[] = [
 			'A component for creating overlay backgrounds behind modals and other layered content.',
 		status: 'general-availability',
 		examples: [
-			"import Blanket from '@atlaskit/blanket';\nexport default [\n\t<Blanket />,\n\t<Blanket isTinted onBlanketClicked={() => console.log('Blanket clicked')} />,\n];",
+			"import Blanket from '@atlaskit/blanket';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Blanket />\n\t\t<Blanket isTinted onBlanketClicked={() => console.log('Blanket clicked')} />\n\t</>\n);\nexport default Examples;",
 		],
 		accessibilityGuidelines: [
 			"Ensure blanket doesn't interfere with focus management",
@@ -421,7 +421,7 @@ export const components: Component[] = [
 		description: 'A navigation component showing the current page hierarchy.',
 		status: 'general-availability',
 		examples: [
-			'import Breadcrumbs, { BreadcrumbsItem } from \'@atlaskit/breadcrumbs\';\nexport default [\n\t<Breadcrumbs maxItems={3}>\n\t\t<BreadcrumbsItem href="/" text="Home" />\n\t\t<BreadcrumbsItem href="/category" text="Category" />\n\t\t<BreadcrumbsItem href="/category/products" text="Products" />\n\t\t<BreadcrumbsItem text="Current Page" />\n\t</Breadcrumbs>,\n];',
+			'import Breadcrumbs, { BreadcrumbsItem } from \'@atlaskit/breadcrumbs\';\nconst Example = (): React.JSX.Element => (\n\t<Breadcrumbs maxItems={3}>\n\t\t<BreadcrumbsItem href="/" text="Home" />\n\t\t<BreadcrumbsItem href="/category" text="Category" />\n\t\t<BreadcrumbsItem href="/category/products" text="Products" />\n\t\t<BreadcrumbsItem text="Current Page" />\n\t</Breadcrumbs>\n);\nexport default Example;',
 		],
 		accessibilityGuidelines: [
 			'Provide clear navigation labels',
@@ -501,9 +501,9 @@ export const components: Component[] = [
 			'A versatile button component with multiple appearances and states for triggering actions. A button triggers an event or action. They let users know what will happen next. Note the root entrypoint of `@atlaskit/button` is deprecated and being replaced with `@atlaskit/button/new`.',
 		status: 'general-availability',
 		examples: [
-			'import Button from \'@atlaskit/button/new\';\nexport default function ButtonDisabledExample() {\n\treturn (\n\t\t<Button appearance="primary" isDisabled>\n\t\t\tDisabled button\n\t\t</Button>\n\t);\n}',
-			'import Button from \'@atlaskit/button/new\';\nexport default function ButtonDangerExample() {\n\treturn <Button appearance="danger">Danger button</Button>;\n}',
-			"import Button from '@atlaskit/button/new';\nimport StarIcon from '@atlaskit/icon/core/star-starred';\nexport default function ButtonIconAfterExample() {\n\treturn (\n\t\t<Button iconAfter={StarIcon} appearance=\"primary\">\n\t\t\tIcon after\n\t\t</Button>\n\t);\n}",
+			'import Button from \'@atlaskit/button/new\';\nexport default function ButtonDisabledExample(): React.JSX.Element {\n\treturn (\n\t\t<Button appearance="primary" isDisabled>\n\t\t\tDisabled button\n\t\t</Button>\n\t);\n}',
+			'import Button from \'@atlaskit/button/new\';\nexport default function ButtonDangerExample(): React.JSX.Element {\n\treturn <Button appearance="danger">Danger button</Button>;\n}',
+			"import Button from '@atlaskit/button/new';\nimport StarIcon from '@atlaskit/icon/core/star-starred';\nexport default function ButtonIconAfterExample(): React.JSX.Element {\n\treturn (\n\t\t<Button iconAfter={StarIcon} appearance=\"primary\">\n\t\t\tIcon after\n\t\t</Button>\n\t);\n}",
 		],
 		accessibilityGuidelines: [
 			'Always provide meaningful labels for screen readers',
@@ -895,7 +895,7 @@ export const components: Component[] = [
 			'Legacy button component (deprecated). Use Button from @atlaskit/button/new instead.',
 		status: 'intent-to-deprecate',
 		examples: [
-			"import Button from '@atlaskit/button';\nexport default () => <Button>Button</Button>;",
+			"import Button from '@atlaskit/button';\nexport default (): React.JSX.Element => <Button>Button</Button>;",
 		],
 		accessibilityGuidelines: [
 			'Always provide meaningful labels for screen readers',
@@ -1011,7 +1011,7 @@ export const components: Component[] = [
 			"A calendar component for date selection and display. This component is in Beta phase, meaning it's stable at version 1.0+ but may receive improvements based on customer feedback.",
 		status: 'general-availability',
 		examples: [
-			"import Calendar from '@atlaskit/calendar';\nexport default [\n\t<Calendar\n\t\tselected={['2024-03-15']}\n\t\tonChange={(dates) => console.log('Selected dates:', dates)}\n\t/>,\n\t<Calendar\n\t\tselected={['2024-03-20', '2024-03-21', '2024-03-22']}\n\t\tonChange={(dates) => console.log('Multiple dates:', dates)}\n\t\tdefaultMonth={3}\n\t\tdefaultYear={2024}\n\t/>,\n\t<Calendar\n\t\tselected={[]}\n\t\tdisabled={['2024-03-10', '2024-03-11']}\n\t\tminDate=\"2024-03-01\"\n\t\tmaxDate=\"2024-03-31\"\n\t\tonChange={(dates) => console.log('Constrained dates:', dates)}\n\t/>,\n];",
+			"import Calendar from '@atlaskit/calendar';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Calendar\n\t\t\tselected={['2024-03-15']}\n\t\t\tonChange={(dates) => console.log('Selected dates:', dates)}\n\t\t/>\n\t\t<Calendar\n\t\t\tselected={['2024-03-20', '2024-03-21', '2024-03-22']}\n\t\t\tonChange={(dates) => console.log('Multiple dates:', dates)}\n\t\t\tdefaultMonth={3}\n\t\t\tdefaultYear={2024}\n\t\t/>\n\t\t<Calendar\n\t\t\tselected={[]}\n\t\t\tdisabled={['2024-03-10', '2024-03-11']}\n\t\t\tminDate=\"2024-03-01\"\n\t\t\tmaxDate=\"2024-03-31\"\n\t\t\tonChange={(dates) => console.log('Constrained dates:', dates)}\n\t\t/>\n\t</>\n);\nexport default Examples;",
 		],
 		accessibilityGuidelines: [
 			'Provide clear date selection feedback',
@@ -1184,7 +1184,7 @@ export const components: Component[] = [
 			'A checkbox is an input control that allows a user to select one or more options from a number of choices.',
 		status: 'general-availability',
 		examples: [
-			'import Checkbox from \'@atlaskit/checkbox\';\nexport default [\n\t<Checkbox label="Basic checkbox" />,\n\t<Checkbox label="Checked checkbox" isChecked />,\n];',
+			'import Checkbox from \'@atlaskit/checkbox\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Checkbox label="Basic checkbox" />\n\t\t<Checkbox label="Checked checkbox" isChecked />\n\t</>\n);\nexport default Examples;',
 		],
 		accessibilityGuidelines: [
 			'Ensure proper labeling for all checkboxes',
@@ -1432,7 +1432,7 @@ export const components: Component[] = [
 		description: 'A component for displaying comments and discussions.',
 		status: 'general-availability',
 		examples: [
-			'import Comment from \'@atlaskit/comment\';\nexport default [\n\t<Comment\n\t\tauthor="Bob Johnson"\n\t\ttime="30 minutes ago"\n\t\tcontent="Another comment in the thread"\n\t\tavatar="https://picsum.photos/32/32"\n\t/>,\n];',
+			'import Comment from \'@atlaskit/comment\';\nconst Example = (): React.JSX.Element => (\n\t<Comment\n\t\tauthor="Bob Johnson"\n\t\ttime="30 minutes ago"\n\t\tcontent="Another comment in the thread"\n\t\tavatar="https://picsum.photos/32/32"\n\t/>\n);\nexport default Example;',
 		],
 		accessibilityGuidelines: [
 			'Ensure proper comment structure',
@@ -1572,7 +1572,7 @@ export const components: Component[] = [
 		description: 'A component for selecting date values with calendar support.',
 		status: 'general-availability',
 		examples: [
-			'import { DatePicker } from \'@atlaskit/datetime-picker\';\nexport default [\n\t<DatePicker\n\t\tclearControlLabel="Clear select date"\n\t\tonChange={() => {}}\n\t\tshouldShowCalendarButton\n\t\topenCalendarLabel="open calendar"\n\t/>,\n];',
+			'import { DatePicker } from \'@atlaskit/datetime-picker\';\nconst Example = (): React.JSX.Element => (\n\t<DatePicker\n\t\tclearControlLabel="Clear select date"\n\t\tonChange={() => {}}\n\t\tshouldShowCalendarButton\n\t\topenCalendarLabel="open calendar"\n\t/>\n);\nexport default Example;',
 		],
 		accessibilityGuidelines: [
 			'Ensure proper keyboard navigation',
@@ -1791,7 +1791,7 @@ export const components: Component[] = [
 		description: 'A component for selecting time values with clock interface.',
 		status: 'general-availability',
 		examples: [
-			'import { TimePicker } from \'@atlaskit/datetime-picker\';\nexport default [\n\t<TimePicker\n\t\tclearControlLabel="Clear select time (editable)"\n\t\tdefaultValue="14:30"\n\t\tonChange={() => {}}\n\t\ttimeFormat="HH:mm:ss A"\n\t\ttimeIsEditable\n\t\tselectProps={{\n\t\t\tclassNamePrefix: \'timepicker-select\',\n\t\t}}\n\t/>,\n];',
+			'import { TimePicker } from \'@atlaskit/datetime-picker\';\nconst Example = (): React.JSX.Element => (\n\t<TimePicker\n\t\tclearControlLabel="Clear select time (editable)"\n\t\tdefaultValue="14:30"\n\t\tonChange={() => {}}\n\t\ttimeFormat="HH:mm:ss A"\n\t\ttimeIsEditable\n\t\tselectProps={{\n\t\t\tclassNamePrefix: \'timepicker-select\',\n\t\t}}\n\t/>\n);\nexport default Example;',
 		],
 		accessibilityGuidelines: [
 			'Ensure proper keyboard navigation',
@@ -1955,7 +1955,7 @@ export const components: Component[] = [
 		description: 'A component for selecting both date and time values.',
 		status: 'general-availability',
 		examples: [
-			"import { DateTimePicker } from '@atlaskit/datetime-picker';\nexport default [\n\t<DateTimePicker\n\t\tclearControlLabel=\"Clear date / time picker (editable times)\"\n\t\tdefaultValue=\"2018-01-02T14:30+10:00\"\n\t\tonChange={() => {}}\n\t\ttimePickerProps={{\n\t\t\ttimeIsEditable: true,\n\t\t\tlabel: 'Time picker (editable)',\n\t\t}}\n\t\tdatePickerProps={{\n\t\t\tlabel: 'Date picker (editable times)',\n\t\t\tshouldShowCalendarButton: true,\n\t\t\topenCalendarLabel: 'open calendar',\n\t\t}}\n\t/>,\n];",
+			"import { DateTimePicker } from '@atlaskit/datetime-picker';\nconst Example = (): React.JSX.Element => (\n\t<DateTimePicker\n\t\tclearControlLabel=\"Clear date / time picker (editable times)\"\n\t\tdefaultValue=\"2018-01-02T14:30+10:00\"\n\t\tonChange={() => {}}\n\t\ttimePickerProps={{\n\t\t\ttimeIsEditable: true,\n\t\t\tlabel: 'Time picker (editable)',\n\t\t}}\n\t\tdatePickerProps={{\n\t\t\tlabel: 'Date picker (editable times)',\n\t\t\tshouldShowCalendarButton: true,\n\t\t\topenCalendarLabel: 'open calendar',\n\t\t}}\n\t/>\n);\nexport default Example;",
 		],
 		accessibilityGuidelines: [
 			'Ensure proper keyboard navigation',
@@ -2197,7 +2197,7 @@ export const components: Component[] = [
 		description: 'The main content area of a drawer panel.',
 		status: 'intent-to-deprecate',
 		examples: [
-			"import { DrawerContent } from '@atlaskit/drawer';\nimport Heading from '@atlaskit/heading';\nimport { Text } from '@atlaskit/primitives/compiled';\nexport default [\n\t<DrawerContent>\n\t\t<Heading size=\"large\">Content Title</Heading>\n\t\t<Text>This is the main content area of the drawer.</Text>\n\t</DrawerContent>,\n\t<DrawerContent>\n\t\t<Heading size=\"medium\">Settings</Heading>\n\t\t<Text>Configure your preferences here.</Text>\n\t</DrawerContent>,\n];",
+			"import { DrawerContent } from '@atlaskit/drawer';\nimport Heading from '@atlaskit/heading';\nimport { Text } from '@atlaskit/primitives/compiled';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DrawerContent>\n\t\t\t<Heading size=\"large\">Content Title</Heading>\n\t\t\t<Text>This is the main content area of the drawer.</Text>\n\t\t</DrawerContent>\n\t\t<DrawerContent>\n\t\t\t<Heading size=\"medium\">Settings</Heading>\n\t\t\t<Text>Configure your preferences here.</Text>\n\t\t</DrawerContent>\n\t</>\n);\nexport default Examples;",
 		],
 		usageGuidelines: [
 			'Use as the main content container within a drawer',
@@ -2236,7 +2236,7 @@ export const components: Component[] = [
 		description: 'A sidebar component within a drawer for navigation or secondary content.',
 		status: 'intent-to-deprecate',
 		examples: [
-			"import { DrawerCloseButton, DrawerSidebar } from '@atlaskit/drawer';\nexport default [\n\t<DrawerSidebar>\n\t\t<DrawerCloseButton />\n\t</DrawerSidebar>,\n];",
+			"import { DrawerCloseButton, DrawerSidebar } from '@atlaskit/drawer';\nconst Example = (): React.JSX.Element => (\n\t<DrawerSidebar>\n\t\t<DrawerCloseButton />\n\t</DrawerSidebar>\n);\nexport default Example;",
 		],
 		usageGuidelines: [
 			'Use for navigation or secondary content in a drawer',
@@ -2269,7 +2269,7 @@ export const components: Component[] = [
 		description: 'A close button specifically designed for drawer components.',
 		status: 'intent-to-deprecate',
 		examples: [
-			"import { DrawerCloseButton } from '@atlaskit/drawer';\nexport default [<DrawerCloseButton />];",
+			"import { DrawerCloseButton } from '@atlaskit/drawer';\nconst Example = (): React.JSX.Element => <DrawerCloseButton />;\nexport default Example;",
 		],
 		usageGuidelines: [
 			'Use to provide clear close functionality for drawers',
@@ -2304,7 +2304,7 @@ export const components: Component[] = [
 		description: 'A dropdown menu component for displaying contextual actions and options.',
 		status: 'general-availability',
 		examples: [
-			'import { IconButton } from \'@atlaskit/button/new\';\nimport DropdownMenu, { DropdownItem, DropdownItemGroup } from \'@atlaskit/dropdown-menu\';\nimport MoreIcon from \'@atlaskit/icon/core/show-more-horizontal\';\nexport default [\n\t<DropdownMenu\n\t\tshouldRenderToParent\n\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label="More" />\n\t\t)}\n\t>\n\t\t<DropdownItemGroup>\n\t\t\t<DropdownItem href="/dashboard">Dashboard</DropdownItem>\n\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t</DropdownItemGroup>\n\t</DropdownMenu>,\n\t<DropdownMenu shouldRenderToParent trigger="Actions">\n\t\t<DropdownItemGroup>\n\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t</DropdownItemGroup>\n\t</DropdownMenu>,\n];',
+			'import { IconButton } from \'@atlaskit/button/new\';\nimport DropdownMenu, { DropdownItem, DropdownItemGroup } from \'@atlaskit/dropdown-menu\';\nimport MoreIcon from \'@atlaskit/icon/core/show-more-horizontal\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label="More" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href="/dashboard">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger="Actions">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;',
 		],
 		accessibilityGuidelines: [
 			'Provide clear labels for dropdown triggers',
@@ -2444,7 +2444,7 @@ export const components: Component[] = [
 		description: 'A component for empty states.',
 		status: 'general-availability',
 		examples: [
-			'import EmptyState from \'@atlaskit/empty-state\';\nexport default [\n\t<EmptyState header="No items" description="Add items to get started" />,\n\t<EmptyState\n\t\theader="No search results"\n\t\tdescription="Try adjusting your search criteria or browse all items."\n\t/>,\n\t<EmptyState\n\t\theader="Welcome to your dashboard"\n\t\tdescription="Create your first project to get started with the platform."\n\t/>,\n];',
+			'import EmptyState from \'@atlaskit/empty-state\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<EmptyState header="No items" description="Add items to get started" />\n\t\t<EmptyState\n\t\t\theader="No search results"\n\t\t\tdescription="Try adjusting your search criteria or browse all items."\n\t\t/>\n\t\t<EmptyState\n\t\t\theader="Welcome to your dashboard"\n\t\t\tdescription="Create your first project to get started with the platform."\n\t\t/>\n\t</>\n);\nexport default Examples;',
 		],
 		accessibilityGuidelines: [
 			'Provide clear empty state messaging',
@@ -2566,7 +2566,7 @@ export const components: Component[] = [
 		description: 'A component for displaying brief messages.',
 		status: 'general-availability',
 		examples: [
-			'import Flag, { FlagGroup } from \'@atlaskit/flag\';\nimport InfoIcon from \'@atlaskit/icon/core/status-information\';\nexport default [\n\t<FlagGroup>\n\t\t<Flag\n\t\t\tid="flag-1"\n\t\t\ticon={<InfoIcon label="Info" />}\n\t\t\ttitle="Success"\n\t\t\tdescription="Your changes have been saved successfully."\n\t\t\tappearance="success"\n\t\t/>\n\t</FlagGroup>,\n\t<FlagGroup>\n\t\t<Flag\n\t\t\tid="flag-2"\n\t\t\ticon={<InfoIcon label="Warning" />}\n\t\t\ttitle="Warning"\n\t\t\tdescription="This action cannot be undone."\n\t\t\tappearance="warning"\n\t\t\tactions={[\n\t\t\t\t{\n\t\t\t\t\tcontent: \'Proceed\',\n\t\t\t\t\tonClick: () => console.log(\'Proceed clicked\'),\n\t\t\t\t},\n\t\t\t]}\n\t\t/>\n\t</FlagGroup>,\n\t<FlagGroup>\n\t\t<Flag\n\t\t\tid="flag-3"\n\t\t\ticon={<InfoIcon label="Error" />}\n\t\t\ttitle="Error"\n\t\t\tdescription="Something went wrong. Please try again."\n\t\t\tappearance="error"\n\t\t\tactions={[\n\t\t\t\t{\n\t\t\t\t\tcontent: \'Retry\',\n\t\t\t\t\tonClick: () => console.log(\'Retry clicked\'),\n\t\t\t\t},\n\t\t\t]}\n\t\t/>\n\t</FlagGroup>,\n];',
+			'import Flag, { FlagGroup } from \'@atlaskit/flag\';\nimport InfoIcon from \'@atlaskit/icon/core/status-information\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<FlagGroup>\n\t\t\t<Flag\n\t\t\t\tid="flag-1"\n\t\t\t\ticon={<InfoIcon label="Info" />}\n\t\t\t\ttitle="Success"\n\t\t\t\tdescription="Your changes have been saved successfully."\n\t\t\t\tappearance="success"\n\t\t\t/>\n\t\t</FlagGroup>\n\t\t<FlagGroup>\n\t\t\t<Flag\n\t\t\t\tid="flag-2"\n\t\t\t\ticon={<InfoIcon label="Warning" />}\n\t\t\t\ttitle="Warning"\n\t\t\t\tdescription="This action cannot be undone."\n\t\t\t\tappearance="warning"\n\t\t\t\tactions={[\n\t\t\t\t\t{\n\t\t\t\t\t\tcontent: \'Proceed\',\n\t\t\t\t\t\tonClick: () => console.log(\'Proceed clicked\'),\n\t\t\t\t\t},\n\t\t\t\t]}\n\t\t\t/>\n\t\t</FlagGroup>\n\t\t<FlagGroup>\n\t\t\t<Flag\n\t\t\t\tid="flag-3"\n\t\t\t\ticon={<InfoIcon label="Error" />}\n\t\t\t\ttitle="Error"\n\t\t\t\tdescription="Something went wrong. Please try again."\n\t\t\t\tappearance="error"\n\t\t\t\tactions={[\n\t\t\t\t\t{\n\t\t\t\t\t\tcontent: \'Retry\',\n\t\t\t\t\t\tonClick: () => console.log(\'Retry clicked\'),\n\t\t\t\t\t},\n\t\t\t\t]}\n\t\t\t/>\n\t\t</FlagGroup>\n\t</>\n);\nexport default Examples;',
 		],
 		accessibilityGuidelines: [
 			'Ensure flag content is announced by screen readers',
@@ -2601,6 +2601,12 @@ export const components: Component[] = [
 				description:
 					"Makes the flag appearance bold. Setting this to anything other than 'normal' hides the\ndismiss button.",
 				type: '"error" | "info" | "success" | "warning" | "normal"',
+			},
+			{
+				name: 'autoDismissSeconds',
+				description:
+					'Duration in seconds before flag gets auto dismissed.\nDefault is 8 seconds. For a11y reasons 8s is also a strongly-suggested minimum.\nOnly applies to auto-dismissable flags.',
+				type: 'number',
 			},
 			{
 				name: 'delayAnnouncement',
@@ -2677,7 +2683,7 @@ export const components: Component[] = [
 		description: 'A component for building forms with validation and state management.',
 		status: 'general-availability',
 		examples: [
-			'import Button from \'@atlaskit/button/new\';\nimport { Checkbox } from \'@atlaskit/checkbox\';\nimport Form, { CheckboxField, ErrorMessage, Field, FormFooter, FormHeader } from \'@atlaskit/form\';\nimport TextField from \'@atlaskit/textfield\';\nexport default [\n\t<Form onSubmit={(data) => console.log(\'validated form\', data)}>\n\t\t<FormHeader title="Basic Form">\n\t\t\t<p>Fill out the form below</p>\n\t\t</FormHeader>\n\t\t<Field\n\t\t\tname="username"\n\t\t\tlabel="Username"\n\t\t\tisRequired\n\t\t\tvalidate={(value) => (value && value.length < 3 ? \'Too short\' : undefined)}\n\t\t>\n\t\t\t{({ fieldProps, error }) => (\n\t\t\t\t<>\n\t\t\t\t\t<TextField {...fieldProps} />\n\t\t\t\t\t{error && <ErrorMessage>Username must be at least 3 characters</ErrorMessage>}\n\t\t\t\t</>\n\t\t\t)}\n\t\t</Field>\n\t\t<CheckboxField name="terms" value="terms">\n\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="I accept the terms" />}\n\t\t</CheckboxField>\n\t\t<FormFooter>\n\t\t\t<Button type="submit" appearance="primary">\n\t\t\t\tCreate Account\n\t\t\t</Button>\n\t\t</FormFooter>\n\t</Form>,\n];',
+			'import Button from \'@atlaskit/button/new\';\nimport { Checkbox } from \'@atlaskit/checkbox\';\nimport Form, { CheckboxField, ErrorMessage, Field, FormFooter, FormHeader } from \'@atlaskit/form\';\nimport TextField from \'@atlaskit/textfield\';\nconst Example = (): React.JSX.Element => (\n\t<Form onSubmit={(data) => console.log(\'validated form\', data)}>\n\t\t<FormHeader title="Basic Form">\n\t\t\t<p>Fill out the form below</p>\n\t\t</FormHeader>\n\t\t<Field\n\t\t\tname="username"\n\t\t\tlabel="Username"\n\t\t\tisRequired\n\t\t\tvalidate={(value) => (value && value.length < 3 ? \'Too short\' : undefined)}\n\t\t>\n\t\t\t{({ fieldProps, error }) => (\n\t\t\t\t<>\n\t\t\t\t\t<TextField {...fieldProps} />\n\t\t\t\t\t{error && <ErrorMessage>Username must be at least 3 characters</ErrorMessage>}\n\t\t\t\t</>\n\t\t\t)}\n\t\t</Field>\n\t\t<CheckboxField name="terms" value="terms">\n\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="I accept the terms" />}\n\t\t</CheckboxField>\n\t\t<FormFooter>\n\t\t\t<Button type="submit" appearance="primary">\n\t\t\t\tCreate Account\n\t\t\t</Button>\n\t\t</FormFooter>\n\t</Form>\n);\nexport default Example;',
 		],
 		accessibilityGuidelines: [
 			'Provide clear labels for all form fields',
@@ -2764,7 +2770,7 @@ export const components: Component[] = [
 				name: 'xcss',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
-				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | "alignTracks" | ... 458 more ... | "vectorEffect", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 			},
 		],
 	},
@@ -3015,7 +3021,7 @@ export const components: Component[] = [
 		description: 'A component for displaying images with theme support.',
 		status: 'open-beta',
 		examples: [
-			'import Image from \'@atlaskit/image\';\nexport default [\n\t<Image src="https://picsum.photos/300/150" alt="Wide view" width={300} height={150} />,\n\t<Image src="https://picsum.photos/100/100" alt="User profile" width={100} height={100} />,\n];',
+			'import Image from \'@atlaskit/image\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Image src="https://picsum.photos/300/150" alt="Wide view" width={300} height={150} />\n\t\t<Image src="https://picsum.photos/100/100" alt="User profile" width={100} height={100} />\n\t</>\n);\nexport default Examples;',
 		],
 		accessibilityGuidelines: [
 			'Always provide meaningful alt text',
@@ -3052,7 +3058,7 @@ export const components: Component[] = [
 		description: 'A component for displaying content in an inline dialog.',
 		status: 'general-availability',
 		examples: [
-			"import Button from '@atlaskit/button/new';\nimport Heading from '@atlaskit/heading';\nimport InlineDialog from '@atlaskit/inline-dialog';\nimport { Text } from '@atlaskit/primitives/compiled';\nexport default [\n\t<InlineDialog content={<div>This is an inline dialog</div>} isOpen={true}>\n\t\t<Button>Trigger</Button>\n\t</InlineDialog>,\n\t<InlineDialog\n\t\tcontent={\n\t\t\t<div>\n\t\t\t\t<Heading size=\"large\">Dialog Title</Heading>\n\t\t\t\t<Text>Dialog content goes here</Text>\n\t\t\t</div>\n\t\t}\n\t\tisOpen={false}\n\t>\n\t\t<Button>Open Dialog</Button>\n\t</InlineDialog>,\n];",
+			"import Button from '@atlaskit/button/new';\nimport Heading from '@atlaskit/heading';\nimport InlineDialog from '@atlaskit/inline-dialog';\nimport { Text } from '@atlaskit/primitives/compiled';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<InlineDialog content={<div>This is an inline dialog</div>} isOpen={true}>\n\t\t\t<Button>Trigger</Button>\n\t\t</InlineDialog>\n\t\t<InlineDialog\n\t\t\tcontent={\n\t\t\t\t<div>\n\t\t\t\t\t<Heading size=\"large\">Dialog Title</Heading>\n\t\t\t\t\t<Text>Dialog content goes here</Text>\n\t\t\t\t</div>\n\t\t\t}\n\t\t\tisOpen={false}\n\t\t>\n\t\t\t<Button>Open Dialog</Button>\n\t\t</InlineDialog>\n\t</>\n);\nexport default Examples;",
 		],
 		accessibilityGuidelines: [
 			'Ensure proper focus management',
@@ -3135,7 +3141,7 @@ export const components: Component[] = [
 		description: 'A component for inline editing of text content.',
 		status: 'general-availability',
 		examples: [
-			'import InlineEdit from \'@atlaskit/inline-edit\';\nexport default [\n\t<InlineEdit\n\t\tonConfirm={() => {}}\n\t\tonCancel={() => {}}\n\t\tdefaultValue="Editable text"\n\t\teditView={() => <div>Edit view</div>}\n\t\treadView={() => <div>Read view</div>}\n\t/>,\n];',
+			'import InlineEdit from \'@atlaskit/inline-edit\';\nconst Example = (): React.JSX.Element => (\n\t<InlineEdit\n\t\tonConfirm={() => {}}\n\t\tonCancel={() => {}}\n\t\tdefaultValue="Editable text"\n\t\teditView={() => <div>Edit view</div>}\n\t\treadView={() => <div>Read view</div>}\n\t/>\n);\nexport default Example;',
 		],
 		accessibilityGuidelines: [
 			'Ensure proper focus management',
@@ -3270,7 +3276,7 @@ export const components: Component[] = [
 		description: 'A component for displaying inline messages and feedback.',
 		status: 'general-availability',
 		examples: [
-			'import InlineMessage from \'@atlaskit/inline-message\';\nexport default [\n\t<InlineMessage\n\t\ttitle="Success"\n\t\tsecondaryText="Your changes have been saved successfully."\n\t\tappearance="confirmation"\n\t/>,\n\t<InlineMessage\n\t\ttitle="Warning"\n\t\tsecondaryText="This action cannot be undone."\n\t\tappearance="warning"\n\t/>,\n\t<InlineMessage\n\t\ttitle="Error"\n\t\tsecondaryText="Something went wrong. Please try again."\n\t\tappearance="error"\n\t/>,\n];',
+			'import InlineMessage from \'@atlaskit/inline-message\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<InlineMessage\n\t\t\ttitle="Success"\n\t\t\tsecondaryText="Your changes have been saved successfully."\n\t\t\tappearance="confirmation"\n\t\t/>\n\t\t<InlineMessage\n\t\t\ttitle="Warning"\n\t\t\tsecondaryText="This action cannot be undone."\n\t\t\tappearance="warning"\n\t\t/>\n\t\t<InlineMessage\n\t\t\ttitle="Error"\n\t\t\tsecondaryText="Something went wrong. Please try again."\n\t\t\tappearance="error"\n\t\t/>\n\t</>\n);\nexport default Examples;',
 		],
 		accessibilityGuidelines: [
 			'Ensure message content is announced by screen readers',
@@ -3479,23 +3485,20 @@ export const components: Component[] = [
 		props: [
 			{
 				name: 'appearance',
-				description: 'The appearance type.',
-				type: '"default" | "inprogress" | "moved" | "new" | "removed" | "success"',
+				description:
+					'The appearance type.\nThe appearance of the lozenge. Supports both legacy semantic appearances and new accent/semantic colors.\nLegacy appearances (default, success, removed, inprogress, new, moved) are automatically mapped to the new semantic colors.',
+				type: 'ThemeAppearance | "warning" | "danger" | "information" | "neutral" | "discovery" | "accent-red" | "accent-orange" | "accent-yellow" | "accent-lime" | "accent-green" | ... 4 more ... | "accent-gray"',
 			},
 			{
 				name: 'children',
 				description:
-					'Elements to be rendered inside the lozenge. This should ideally be just a word or two.',
+					'Elements to be rendered inside the lozenge. This should ideally be just a word or two.\nElements to be rendered inside the lozenge. This should ideally be just a word or two.',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
 			},
 			{
-				name: 'isBold',
-				description: 'Determines whether to apply the bold style or not.',
-				type: 'boolean',
-			},
-			{
 				name: 'maxWidth',
-				description: 'max-width of lozenge container. Default to 200px.',
+				description:
+					'max-width of lozenge container. Default to 200px.\nmax-width of lozenge container. Default to 200px.',
 				type: 'string | number',
 			},
 		],
@@ -3508,7 +3511,7 @@ export const components: Component[] = [
 		description: 'A component for displaying menus with grouped items.',
 		status: 'general-availability',
 		examples: [
-			'import { ButtonItem, LinkItem, MenuGroup, Section } from \'@atlaskit/menu\';\nexport default [\n\t<MenuGroup spacing="cozy">\n\t\t<Section title="Navigation">\n\t\t\t<LinkItem href="/dashboard">Dashboard</LinkItem>\n\t\t\t<LinkItem href="/projects">Projects</LinkItem>\n\t\t\t<LinkItem href="/settings">Settings</LinkItem>\n\t\t</Section>\n\t</MenuGroup>,\n\t<MenuGroup spacing="compact">\n\t\t<Section title="Actions">\n\t\t\t<ButtonItem>Create New</ButtonItem>\n\t\t\t<ButtonItem>Import</ButtonItem>\n\t\t\t<ButtonItem>Export</ButtonItem>\n\t\t</Section>\n\t\t<Section title="Help">\n\t\t\t<LinkItem href="/docs">Documentation</LinkItem>\n\t\t\t<LinkItem href="/support">Support</LinkItem>\n\t\t</Section>\n\t</MenuGroup>,\n];',
+			'import { ButtonItem, LinkItem, MenuGroup, Section } from \'@atlaskit/menu\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<MenuGroup spacing="cozy">\n\t\t\t<Section title="Navigation">\n\t\t\t\t<LinkItem href="/dashboard">Dashboard</LinkItem>\n\t\t\t\t<LinkItem href="/projects">Projects</LinkItem>\n\t\t\t\t<LinkItem href="/settings">Settings</LinkItem>\n\t\t\t</Section>\n\t\t</MenuGroup>\n\t\t<MenuGroup spacing="compact">\n\t\t\t<Section title="Actions">\n\t\t\t\t<ButtonItem>Create New</ButtonItem>\n\t\t\t\t<ButtonItem>Import</ButtonItem>\n\t\t\t\t<ButtonItem>Export</ButtonItem>\n\t\t\t</Section>\n\t\t\t<Section title="Help">\n\t\t\t\t<LinkItem href="/docs">Documentation</LinkItem>\n\t\t\t\t<LinkItem href="/support">Support</LinkItem>\n\t\t\t</Section>\n\t\t</MenuGroup>\n\t</>\n);\nexport default Examples;',
 		],
 		accessibilityGuidelines: [
 			'Provide clear menu item labels',
@@ -3592,7 +3595,7 @@ export const components: Component[] = [
 		description: 'A modal dialog component for important content.',
 		status: 'general-availability',
 		examples: [
-			'import React, { Fragment, useCallback, useState } from \'react\';\nimport Button from \'@atlaskit/button/new\';\nimport Modal, {\n\tModalBody,\n\tModalFooter,\n\tModalHeader,\n\tModalTitle,\n\tModalTransition,\n} from \'@atlaskit/modal-dialog\';\nimport { Text } from \'@atlaskit/primitives/compiled\';\nexport default function Example() {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst openModal = useCallback(() => setIsOpen(true), []);\n\tconst closeModal = useCallback(() => setIsOpen(false), []);\n\treturn (\n\t\t<Fragment>\n\t\t\t<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<ModalTransition>\n\t\t\t\t{isOpen && (\n\t\t\t\t\t<Modal onClose={closeModal}>\n\t\t\t\t\t\t<ModalHeader hasCloseButton>\n\t\t\t\t\t\t\t<ModalTitle>Duplicate this page</ModalTitle>\n\t\t\t\t\t\t</ModalHeader>\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\tDuplicating this page will make it a child page of{\' \'}\n\t\t\t\t\t\t\t<Text weight="bold">Search - user exploration</Text>, in the{\' \'}\n\t\t\t\t\t\t\t<Text weight="bold">Search & Smarts</Text> space.\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Button appearance="subtle" onClick={closeModal}>\n\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t\t<Button appearance="primary" onClick={closeModal}>\n\t\t\t\t\t\t\t\tDuplicate\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</Fragment>\n\t);\n}',
+			'import React, { Fragment, useCallback, useState } from \'react\';\nimport Button from \'@atlaskit/button/new\';\nimport Modal, {\n\tModalBody,\n\tModalFooter,\n\tModalHeader,\n\tModalTitle,\n\tModalTransition,\n} from \'@atlaskit/modal-dialog\';\nimport { Text } from \'@atlaskit/primitives/compiled\';\nexport default function Example(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst openModal = useCallback(() => setIsOpen(true), []);\n\tconst closeModal = useCallback(() => setIsOpen(false), []);\n\treturn (\n\t\t<Fragment>\n\t\t\t<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<ModalTransition>\n\t\t\t\t{isOpen && (\n\t\t\t\t\t<Modal onClose={closeModal}>\n\t\t\t\t\t\t<ModalHeader hasCloseButton>\n\t\t\t\t\t\t\t<ModalTitle>Duplicate this page</ModalTitle>\n\t\t\t\t\t\t</ModalHeader>\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\tDuplicating this page will make it a child page of{\' \'}\n\t\t\t\t\t\t\t<Text weight="bold">Search - user exploration</Text>, in the{\' \'}\n\t\t\t\t\t\t\t<Text weight="bold">Search & Smarts</Text> space.\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Button appearance="subtle" onClick={closeModal}>\n\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t\t<Button appearance="primary" onClick={closeModal}>\n\t\t\t\t\t\t\t\tDuplicate\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</Fragment>\n\t);\n}',
 		],
 		accessibilityGuidelines: [
 			'Ensure modal content is announced by screen readers',
@@ -3616,12 +3619,6 @@ export const components: Component[] = [
 			'Provide clear next steps',
 		],
 		props: [
-			{
-				name: 'autoFocus',
-				description:
-					'Focus is moved to the first interactive element inside the modal dialog\nwhen `true`. It is not recommended to set to `false` as this creates\naccessibility regressions. Pass an element `ref` to focus on a specific element.\n\nDefault value is `true`.',
-				type: 'boolean | React.RefObject<HTMLElement>',
-			},
 			{
 				name: 'children',
 				description: 'Contents of the modal dialog.',
@@ -3714,7 +3711,7 @@ export const components: Component[] = [
 		description: 'A component for page headers.',
 		status: 'general-availability',
 		examples: [
-			'import Breadcrumbs, { BreadcrumbsItem } from \'@atlaskit/breadcrumbs\';\nimport Button from \'@atlaskit/button/new\';\nimport PageHeader from \'@atlaskit/page-header\';\nexport default [\n\t<PageHeader>Page Title</PageHeader>,\n\t<PageHeader\n\t\tbreadcrumbs={\n\t\t\t<Breadcrumbs>\n\t\t\t\t<BreadcrumbsItem href="/" text="Home" />\n\t\t\t\t<BreadcrumbsItem href="/projects" text="Projects" />\n\t\t\t\t<BreadcrumbsItem text="Current Project" />\n\t\t\t</Breadcrumbs>\n\t\t}\n\t\tactions={<Button appearance="primary">Create</Button>}\n\t>\n\t\tProject Settings\n\t</PageHeader>,\n\t<PageHeader\n\t\tactions={\n\t\t\t<>\n\t\t\t\t<Button appearance="subtle">Cancel</Button>\n\t\t\t\t<Button appearance="primary">Save Changes</Button>\n\t\t\t</>\n\t\t}\n\t>\n\t\tEdit Profile\n\t</PageHeader>,\n];',
+			'import Breadcrumbs, { BreadcrumbsItem } from \'@atlaskit/breadcrumbs\';\nimport Button from \'@atlaskit/button/new\';\nimport PageHeader from \'@atlaskit/page-header\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<PageHeader>Page Title</PageHeader>\n\t\t<PageHeader\n\t\t\tbreadcrumbs={\n\t\t\t\t<Breadcrumbs>\n\t\t\t\t\t<BreadcrumbsItem href="/" text="Home" />\n\t\t\t\t\t<BreadcrumbsItem href="/projects" text="Projects" />\n\t\t\t\t\t<BreadcrumbsItem text="Current Project" />\n\t\t\t\t</Breadcrumbs>\n\t\t\t}\n\t\t\tactions={<Button appearance="primary">Create</Button>}\n\t\t>\n\t\t\tProject Settings\n\t\t</PageHeader>\n\t\t<PageHeader\n\t\t\tactions={\n\t\t\t\t<>\n\t\t\t\t\t<Button appearance="subtle">Cancel</Button>\n\t\t\t\t\t<Button appearance="primary">Save Changes</Button>\n\t\t\t\t</>\n\t\t\t}\n\t\t>\n\t\t\tEdit Profile\n\t\t</PageHeader>\n\t</>\n);\nexport default Examples;',
 		],
 		accessibilityGuidelines: [
 			'Provide clear page titles',
@@ -3790,7 +3787,7 @@ export const components: Component[] = [
 		description: 'A component for pagination controls.',
 		status: 'general-availability',
 		examples: [
-			"import Pagination from '@atlaskit/pagination';\nexport default [\n\t<Pagination\n\t\tpages={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}\n\t\tdefaultSelectedIndex={2}\n\t\tmax={7}\n\t\tonChange={(event, page) => console.log('Page selected:', page)}\n\t/>,\n\t<Pagination\n\t\tpages={['A', 'B', 'C', 'D']}\n\t\tdefaultSelectedIndex={1}\n\t\tonChange={(event, page) => console.log('Letter page:', page)}\n\t/>,\n];",
+			"import Pagination from '@atlaskit/pagination';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Pagination\n\t\t\tpages={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}\n\t\t\tdefaultSelectedIndex={2}\n\t\t\tmax={7}\n\t\t\tonChange={(_event, page) => console.log('Page selected:', page)}\n\t\t/>\n\t\t<Pagination\n\t\t\tpages={['A', 'B', 'C', 'D']}\n\t\t\tdefaultSelectedIndex={1}\n\t\t\tonChange={(_event, page) => console.log('Letter page:', page)}\n\t\t/>\n\t</>\n);\nexport default Examples;",
 		],
 		accessibilityGuidelines: [
 			'Provide clear page navigation labels',
@@ -3890,7 +3887,7 @@ export const components: Component[] = [
 		description: 'A component for positioning elements relative to other elements.',
 		status: 'general-availability',
 		examples: [
-			'import { Manager, Popper, Reference } from \'@atlaskit/popper\';\nexport default () => (\n\t<Manager>\n\t\t<Reference>\n\t\t\t{({ ref }) => (\n\t\t\t\t<button ref={ref} type="button">\n\t\t\t\t\tReference element\n\t\t\t\t</button>\n\t\t\t)}\n\t\t</Reference>\n\t\t<Popper placement="right">\n\t\t\t{({ ref, style }) => (\n\t\t\t\t<div ref={ref} style={style} >\n\t\t\t\t\t↔ This text is a popper placed to the right\n\t\t\t\t</div>\n\t\t\t)}\n\t\t</Popper>\n\t</Manager>\n);',
+			'import { Manager, Popper, Reference } from \'@atlaskit/popper\';\nexport default (): React.JSX.Element => (\n\t<Manager>\n\t\t<Reference>\n\t\t\t{({ ref }) => (\n\t\t\t\t<button ref={ref} type="button">\n\t\t\t\t\tReference element\n\t\t\t\t</button>\n\t\t\t)}\n\t\t</Reference>\n\t\t<Popper placement="right">\n\t\t\t{({ ref, style }) => (\n\t\t\t\t<div ref={ref} style={style} >\n\t\t\t\t\t↔ This text is a popper placed to the right\n\t\t\t\t</div>\n\t\t\t)}\n\t\t</Popper>\n\t</Manager>\n);',
 		],
 		accessibilityGuidelines: [
 			'Ensure proper positioning and visibility',
@@ -3957,7 +3954,7 @@ export const components: Component[] = [
 		description: 'A component for displaying popup content relative to a trigger element.',
 		status: 'general-availability',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/new';\nimport Popup from '@atlaskit/popup';\nexport default () => {\n\tconst [isOpen, setIsOpen] = useState(false);\n\treturn (\n\t\t<Popup\n\t\t\tcontent={() => <div>Basic popup content</div>}\n\t\t\tisOpen={isOpen}\n\t\t\tonClose={() => setIsOpen(false)}\n\t\t\tplacement=\"bottom-start\"\n\t\t\ttrigger={(triggerProps) => (\n\t\t\t\t<Button {...triggerProps} onClick={() => setIsOpen(!isOpen)}>\n\t\t\t\t\tToggle Popup\n\t\t\t\t</Button>\n\t\t\t)}\n\t\t\tshouldRenderToParent\n\t\t/>\n\t);\n};",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/new';\nimport Popup from '@atlaskit/popup';\nexport default (): React.JSX.Element => {\n\tconst [isOpen, setIsOpen] = useState(false);\n\treturn (\n\t\t<Popup\n\t\t\tcontent={() => <div>Basic popup content</div>}\n\t\t\tisOpen={isOpen}\n\t\t\tonClose={() => setIsOpen(false)}\n\t\t\tplacement=\"bottom-start\"\n\t\t\ttrigger={(triggerProps) => (\n\t\t\t\t<Button {...triggerProps} onClick={() => setIsOpen(!isOpen)}>\n\t\t\t\t\tToggle Popup\n\t\t\t\t</Button>\n\t\t\t)}\n\t\t\tshouldRenderToParent\n\t\t/>\n\t);\n};",
 		],
 		accessibilityGuidelines: [
 			'Provide appropriate focus management',
@@ -4147,7 +4144,7 @@ export const components: Component[] = [
 		description: 'A component for rendering content outside the normal DOM hierarchy.',
 		status: 'general-availability',
 		examples: [
-			"import Portal from '@atlaskit/portal';\nexport default [\n\t<Portal>\n\t\t<div>This content is rendered in a portal</div>\n\t</Portal>,\n\t<Portal zIndex={1000}>\n\t\t<div>This content has a custom z-index</div>\n\t</Portal>,\n];",
+			"import Portal from '@atlaskit/portal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Portal>\n\t\t\t<div>This content is rendered in a portal</div>\n\t\t</Portal>\n\t\t<Portal zIndex={1000}>\n\t\t\t<div>This content has a custom z-index</div>\n\t\t</Portal>\n\t</>\n);\nexport default Examples;",
 		],
 		accessibilityGuidelines: [
 			'Ensure proper focus management',
@@ -4241,7 +4238,7 @@ export const components: Component[] = [
 				name: 'xcss',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "translate" | "content" | "color" | "grid" | "flex" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | ... 457 more ... | "vectorEffect", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "translate" | "content" | "color" | "grid" | "flex" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | ... 485 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 			},
 		],
 	},
@@ -4297,7 +4294,7 @@ export const components: Component[] = [
 				name: 'xcss',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
-				type: 'false | (XCSSValue<"all" | "flex" | "grid" | "fill" | "stroke" | "bottom" | "left" | "right" | "top" | "clip" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | "alignTracks" | ... 458 more ... | "vectorEffect", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"all" | "flex" | "grid" | "fill" | "stroke" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 			},
 		],
 	},
@@ -4333,13 +4330,13 @@ export const components: Component[] = [
 			{
 				name: 'backgroundColor',
 				description: 'Token representing background color with a built-in fallback value.',
-				type: '"utility.elevation.surface.current" | "elevation.surface" | "elevation.surface.overlay" | "elevation.surface.raised" | "elevation.surface.sunken" | "color.background.accent.lime.subtlest" | ... 190 more ... | "elevation.surface.raised.pressed"',
+				type: '"utility.elevation.surface.current" | "elevation.surface" | "elevation.surface.overlay" | "elevation.surface.raised" | "elevation.surface.sunken" | "color.background.accent.lime.subtlest" | ... 205 more ... | "elevation.surface.raised.pressed"',
 			},
 			{
 				name: 'xcss',
 				description:
 					"Apply a subset of permitted styles powered by Atlassian Design System design tokens.\nIt's preferred you do not use `background` in `xcss` or `cssMap()` and instead use `props.backgroundColor` for surface awareness.",
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "height" | "width" | "translate" | "content" | "color" | "border" | "grid" | "page" | "all" | "backgroundColor" | "accentColor" | ... 457 more ... | "vectorEffect", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "height" | "width" | "translate" | "content" | "color" | "border" | "grid" | "page" | "all" | "backgroundColor" | "accentColor" | ... 485 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 			},
 		],
 	},
@@ -4419,7 +4416,7 @@ export const components: Component[] = [
 				name: 'xcss',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "alignItems" | "justifyContent" | "gap" | "columnGap" | "rowGap" | "direction" | "flex" | "grid" | "fill" | "stroke" | ... 459 more ... | "vectorEffect", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "alignItems" | "justifyContent" | "gap" | "columnGap" | "rowGap" | "direction" | "flex" | "grid" | "fill" | "stroke" | ... 487 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 			},
 		],
 	},
@@ -4481,7 +4478,7 @@ export const components: Component[] = [
 				name: 'xcss',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "color" | "height" | "width" | "alignmentBaseline" | "baselineShift" | "clip" | "clipRule" | "colorInterpolation" | ... 461 more ... | "viewTimeline", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "color" | "height" | "width" | "alignmentBaseline" | "baselineShift" | "clip" | "clipRule" | "colorInterpolation" | ... 489 more ... | "viewTimeline", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 			},
 		],
 	},
@@ -4568,7 +4565,7 @@ export const components: Component[] = [
 				name: 'xcss',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "alignItems" | "alignContent" | "justifyContent" | "gap" | "columnGap" | "rowGap" | "flex" | "grid" | "fill" | "stroke" | ... 459 more ... | "vectorEffect", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "alignItems" | "alignContent" | "justifyContent" | "gap" | "columnGap" | "rowGap" | "flex" | "grid" | "fill" | "stroke" | ... 487 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 			},
 		],
 	},
@@ -4656,7 +4653,7 @@ export const components: Component[] = [
 				name: 'xcss',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "fill" | "gap" | "rowGap" | "flex" | "grid" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "accentColor" | ... 456 more ... | "vectorEffect", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "fill" | "gap" | "rowGap" | "flex" | "grid" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | ... 484 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 			},
 		],
 	},
@@ -4759,7 +4756,7 @@ export const components: Component[] = [
 				name: 'xcss',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "translate" | "content" | "color" | "grid" | "flex" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | ... 457 more ... | "vectorEffect", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "translate" | "content" | "color" | "grid" | "flex" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | ... 485 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 			},
 		],
 	},
@@ -4830,7 +4827,7 @@ export const components: Component[] = [
 				name: 'xcss',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "fill" | "gap" | "flex" | "grid" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "accentColor" | "alignContent" | ... 456 more ... | "vectorEffect", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "fill" | "gap" | "flex" | "grid" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | ... 484 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 			},
 		],
 	},
@@ -4908,7 +4905,7 @@ export const components: Component[] = [
 			{
 				name: 'xcss',
 				description: 'Bounded style overrides.',
-				type: 'false | (XCSSValue<"overflowWrap" | "textDecorationLine", DesignTokenStyles, ""> & {} & XCSSPseudo<"overflowWrap" | "textDecorationLine", never, never, DesignTokenStyles> & XCSSMediaQuery<...> & { ...; } & { ...; })',
+				type: 'false | (XCSSValue<"fontVariantNumeric" | "overflowWrap" | "textDecorationLine", DesignTokenStyles, ""> & {} & XCSSPseudo<"fontVariantNumeric" | "overflowWrap" | "textDecorationLine", never, never, DesignTokenStyles> & XCSSMediaQuery<...> & { ...; } & { ...; })',
 			},
 		],
 	},
@@ -4921,7 +4918,7 @@ export const components: Component[] = [
 			'A progress bar communicates the status of a system process, showing completion percentage or indeterminate progress.',
 		status: 'general-availability',
 		examples: [
-			'import ProgressBar from \'@atlaskit/progress-bar\';\nexport default [<ProgressBar value={0.5} />, <ProgressBar value={0.8} appearance="success" />];',
+			'import ProgressBar from \'@atlaskit/progress-bar\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<ProgressBar value={0.5} />\n\t\t<ProgressBar value={0.8} appearance="success" />\n\t</>\n);\nexport default Examples;',
 		],
 		accessibilityGuidelines: [
 			'Provide appropriate ARIA labels for progress bars',
@@ -4974,7 +4971,7 @@ export const components: Component[] = [
 		description: 'A progress bar variant that indicates successful completion of a process.',
 		status: 'general-availability',
 		examples: [
-			"import { SuccessProgressBar } from '@atlaskit/progress-bar';\nexport default [<SuccessProgressBar value={1.0} />, <SuccessProgressBar value={0.9} />];",
+			"import { SuccessProgressBar } from '@atlaskit/progress-bar';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<SuccessProgressBar value={1.0} />\n\t\t<SuccessProgressBar value={0.9} />\n\t</>\n);\nexport default Examples;",
 		],
 		usageGuidelines: [
 			'Use to indicate successful completion',
@@ -5014,7 +5011,7 @@ export const components: Component[] = [
 		description: 'A progress bar variant with transparent background for overlay contexts.',
 		status: 'general-availability',
 		examples: [
-			"import { TransparentProgressBar } from '@atlaskit/progress-bar';\nexport default [<TransparentProgressBar value={0.6} />, <TransparentProgressBar value={0.3} />];",
+			"import { TransparentProgressBar } from '@atlaskit/progress-bar';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<TransparentProgressBar value={0.6} />\n\t\t<TransparentProgressBar value={0.3} />\n\t</>\n);\nexport default Examples;",
 		],
 		usageGuidelines: [
 			'Use in overlay or modal contexts',
@@ -5054,7 +5051,7 @@ export const components: Component[] = [
 		description: 'A component for displaying progress through steps or completion status.',
 		status: 'general-availability',
 		examples: [
-			"import { ProgressIndicator } from '@atlaskit/progress-indicator';\nexport default [\n\t<ProgressIndicator selectedIndex={1} values={['Step 1', 'Step 2', 'Step 3']} />,\n\t<ProgressIndicator selectedIndex={2} values={['Start', 'In Progress', 'Complete']} />,\n];",
+			"import { ProgressIndicator } from '@atlaskit/progress-indicator';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<ProgressIndicator selectedIndex={1} values={['Step 1', 'Step 2', 'Step 3']} />\n\t\t<ProgressIndicator selectedIndex={2} values={['Start', 'In Progress', 'Complete']} />\n\t</>\n);\nexport default Examples;",
 		],
 		accessibilityGuidelines: [
 			'Ensure progress is announced by screen readers',
@@ -5127,7 +5124,7 @@ export const components: Component[] = [
 		description: 'A component for tracking progress through multi-step processes.',
 		status: 'general-availability',
 		examples: [
-			"import { ProgressTracker } from '@atlaskit/progress-tracker';\nexport default [\n\t<ProgressTracker\n\t\titems={[\n\t\t\t{ id: 'step1', label: 'Step 1', status: 'visited', percentageComplete: 100 },\n\t\t\t{ id: 'step2', label: 'Step 2', status: 'current', percentageComplete: 40 },\n\t\t\t{ id: 'step3', label: 'Step 3', status: 'disabled', percentageComplete: 0 },\n\t\t\t{ id: 'step4', label: 'Step 4', status: 'unvisited', percentageComplete: 0 },\n\t\t]}\n\t/>,\n];",
+			"import { ProgressTracker } from '@atlaskit/progress-tracker';\nconst Example = (): React.JSX.Element => (\n\t<ProgressTracker\n\t\titems={[\n\t\t\t{ id: 'step1', label: 'Step 1', status: 'visited', percentageComplete: 100 },\n\t\t\t{ id: 'step2', label: 'Step 2', status: 'current', percentageComplete: 40 },\n\t\t\t{ id: 'step3', label: 'Step 3', status: 'disabled', percentageComplete: 0 },\n\t\t\t{ id: 'step4', label: 'Step 4', status: 'unvisited', percentageComplete: 0 },\n\t\t]}\n\t/>\n);\nexport default Example;",
 		],
 		accessibilityGuidelines: [
 			'Ensure progress is announced by screen readers',
@@ -5180,7 +5177,7 @@ export const components: Component[] = [
 			'A radio button component for single selection from a set of mutually exclusive choices. Use for custom radio button presentations like options in tables or when you need fine control over individual radio buttons.',
 		status: 'general-availability',
 		examples: [
-			'import { Radio } from \'@atlaskit/radio\';\nexport default () => (\n\t<Radio value="option1" label="Option 1" name="choices" onChange={() => console.log(\'Changed!\')} />\n);',
+			'import { Radio } from \'@atlaskit/radio\';\nexport default (): React.JSX.Element => (\n\t<Radio value="option1" label="Option 1" name="choices" onChange={() => console.log(\'Changed!\')} />\n);',
 		],
 		accessibilityGuidelines: [
 			'Include error messages for required or invalid radio fields',
@@ -5263,7 +5260,7 @@ export const components: Component[] = [
 			'A radio group component that presents a list of options where only one choice can be selected. Use for most radio button scenarios where you want a simple list of mutually exclusive options.',
 		status: 'general-availability',
 		examples: [
-			"import { RadioGroup } from '@atlaskit/radio';\n// Radio group with options\nconst options = [\n\t{ name: 'color', value: 'red', label: 'Red' },\n\t{ name: 'color', value: 'blue', label: 'Blue' },\n];\nexport default () => {\n\tconst [value, setValue] = React.useState('red');\n\treturn (\n\t\t<RadioGroup options={options} value={value} onChange={(e) => setValue(e.currentTarget.value)} />\n\t);\n};",
+			"import { RadioGroup } from '@atlaskit/radio';\n// Radio group with options\nconst options = [\n\t{ name: 'color', value: 'red', label: 'Red' },\n\t{ name: 'color', value: 'blue', label: 'Blue' },\n];\nexport default (): React.JSX.Element => {\n\tconst [value, setValue] = React.useState('red');\n\treturn (\n\t\t<RadioGroup options={options} value={value} onChange={(e) => setValue(e.currentTarget.value)} />\n\t);\n};",
 		],
 		accessibilityGuidelines: [
 			'Include error messages for required or invalid radio fields',
@@ -5356,7 +5353,7 @@ export const components: Component[] = [
 		description: 'A component for selecting a value from a range of values.',
 		status: 'general-availability',
 		examples: [
-			"import Range from '@atlaskit/range';\nexport default [\n\t<Range\n\t\tvalue={25}\n\t\tmin={0}\n\t\tmax={50}\n\t\tstep={5}\n\t\tonChange={(value) => console.log('Stepped value:', value)}\n\t/>,\n];",
+			"import Range from '@atlaskit/range';\nconst Example = (): React.JSX.Element => (\n\t<Range\n\t\tvalue={25}\n\t\tmin={0}\n\t\tmax={50}\n\t\tstep={5}\n\t\tonChange={(value) => console.log('Stepped value:', value)}\n\t/>\n);\nexport default Example;",
 		],
 		accessibilityGuidelines: [
 			'Provide clear labels for range inputs',
@@ -5493,7 +5490,7 @@ export const components: Component[] = [
 		description: 'A flexible select component for single and multi-selection.',
 		status: 'general-availability',
 		examples: [
-			"import { Label } from '@atlaskit/form';\nimport Select from '@atlaskit/select';\nexport default function SelectAppearanceDefault() {\n\treturn (\n\t\t<>\n\t\t\t<Label htmlFor=\"default-appearance-example\">Favorite fruit</Label>\n\t\t\t<Select\n\t\t\t\tinputId=\"default-appearance-example\"\n\t\t\t\tappearance=\"default\"\n\t\t\t\toptions={[\n\t\t\t\t\t{ label: 'Apple', value: 'a' },\n\t\t\t\t\t{ label: 'Banana', value: 'b' },\n\t\t\t\t]}\n\t\t\t/>\n\t\t</>\n\t);\n}",
+			"import { Label } from '@atlaskit/form';\nimport Select from '@atlaskit/select';\nexport default function SelectAppearanceDefault(): React.JSX.Element {\n\treturn (\n\t\t<>\n\t\t\t<Label htmlFor=\"default-appearance-example\">Favorite fruit</Label>\n\t\t\t<Select\n\t\t\t\tinputId=\"default-appearance-example\"\n\t\t\t\tappearance=\"default\"\n\t\t\t\toptions={[\n\t\t\t\t\t{ label: 'Apple', value: 'a' },\n\t\t\t\t\t{ label: 'Banana', value: 'b' },\n\t\t\t\t]}\n\t\t\t/>\n\t\t</>\n\t);\n}",
 		],
 		accessibilityGuidelines: [
 			'Provide clear labels for all selects',
@@ -6037,7 +6034,7 @@ export const components: Component[] = [
 			'Tabs are used to organize content by grouping similar information on the same page.',
 		status: 'general-availability',
 		examples: [
-			'import Tabs, { Tab, TabList, TabPanel } from \'@atlaskit/tabs\';\nexport default [\n\t<Tabs id="tabs">\n\t\t<TabList>\n\t\t\t<Tab>Tab 1</Tab>\n\t\t\t<Tab>Tab 2</Tab>\n\t\t</TabList>\n\t\t<TabPanel>Content for Tab 1</TabPanel>\n\t\t<TabPanel>Content for Tab 2</TabPanel>\n\t</Tabs>,\n];',
+			'import Tabs, { Tab, TabList, TabPanel } from \'@atlaskit/tabs\';\nconst Example = (): React.JSX.Element => (\n\t<Tabs id="tabs">\n\t\t<TabList>\n\t\t\t<Tab>Tab 1</Tab>\n\t\t\t<Tab>Tab 2</Tab>\n\t\t</TabList>\n\t\t<TabPanel>Content for Tab 1</TabPanel>\n\t\t<TabPanel>Content for Tab 2</TabPanel>\n\t</Tabs>\n);\nexport default Example;',
 		],
 		accessibilityGuidelines: [
 			'Ensure proper keyboard navigation between tabs',
@@ -6106,7 +6103,7 @@ export const components: Component[] = [
 		description: 'A tag is a compact element used to categorize, label, or organize content.',
 		status: 'general-availability',
 		examples: [
-			'import Tag from \'@atlaskit/tag\';\nexport default [\n\t<Tag text="Basic tag" />,\n\t<Tag text="Bug" color="red" />,\n\t<Tag text="Removable tag" removeButtonLabel="Remove" />,\n];',
+			'import Tag from \'@atlaskit/tag\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Tag text="Basic tag" />\n\t\t<Tag text="Bug" color="red" />\n\t\t<Tag text="Removable tag" removeButtonLabel="Remove" />\n\t</>\n);\nexport default Examples;',
 		],
 		accessibilityGuidelines: [
 			'Provide appropriate labels for tags',
@@ -6137,7 +6134,7 @@ export const components: Component[] = [
 			{
 				name: 'color',
 				description: 'The color theme to apply. This sets both the background and text color.',
-				type: '"standard" | "green" | "lime" | "blue" | "red" | "purple" | "magenta" | "grey" | "teal" | "orange" | "yellow" | "limeLight" | "orangeLight" | "magentaLight" | "greenLight" | "blueLight" | ... 4 more ... | "yellowLight"',
+				type: '"standard" | "green" | "lime" | "blue" | "red" | "purple" | "magenta" | "grey" | "gray" | "teal" | "orange" | "yellow" | "limeLight" | "orangeLight" | "magentaLight" | "greenLight" | ... 5 more ... | "yellowLight"',
 			},
 			{
 				name: 'elemBefore',
@@ -6191,7 +6188,7 @@ export const components: Component[] = [
 		description: 'A component for managing multiple tags.',
 		status: 'general-availability',
 		examples: [
-			'import Tag from \'@atlaskit/tag\';\nimport TagGroup from \'@atlaskit/tag-group\';\nexport default [\n\t<TagGroup label="Tags for work item">\n\t\t<Tag text="Priority: High" color="red" />\n\t\t<Tag text="Status: Active" color="green" />\n\t\t<Tag text="Type: Bug" color="blue" />\n\t</TagGroup>,\n];',
+			'import Tag from \'@atlaskit/tag\';\nimport TagGroup from \'@atlaskit/tag-group\';\nconst Example = (): React.JSX.Element => (\n\t<TagGroup label="Tags for work item">\n\t\t<Tag text="Priority: High" color="red" />\n\t\t<Tag text="Status: Active" color="green" />\n\t\t<Tag text="Type: Bug" color="blue" />\n\t</TagGroup>\n);\nexport default Example;',
 		],
 		accessibilityGuidelines: [
 			'Provide clear tag labels',
@@ -6245,7 +6242,7 @@ export const components: Component[] = [
 		description: 'A textarea is a multiline text input control for longer text content.',
 		status: 'general-availability',
 		examples: [
-			'import Textarea from \'@atlaskit/textarea\';\nexport default [\n\t<Textarea placeholder="Enter your text..." />,\n\t<Textarea placeholder="Required field" isRequired resize="auto" name="comments" />,\n];',
+			'import Textarea from \'@atlaskit/textarea\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Textarea placeholder="Enter your text..." />\n\t\t<Textarea placeholder="Required field" isRequired resize="auto" name="comments" />\n\t</>\n);\nexport default Examples;',
 		],
 		accessibilityGuidelines: [
 			'Provide clear labels for all textareas',
@@ -6378,7 +6375,7 @@ export const components: Component[] = [
 		description: 'A single-line text input component.',
 		status: 'general-availability',
 		examples: [
-			'import TextField from \'@atlaskit/textfield\';\nexport default [\n\t<TextField label="Name" placeholder="Enter your name" />,\n\t<TextField label="Email" type="email" placeholder="Enter your email address" isRequired />,\n\t<TextField label="Password" type="password" placeholder="Enter your password" isRequired />,\n];',
+			'import TextField from \'@atlaskit/textfield\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<TextField label="Name" placeholder="Enter your name" />\n\t\t<TextField label="Email" type="email" placeholder="Enter your email address" isRequired />\n\t\t<TextField label="Password" type="password" placeholder="Enter your password" isRequired />\n\t</>\n);\nexport default Examples;',
 		],
 		accessibilityGuidelines: [
 			'Provide clear labels for all textfields',
@@ -6484,7 +6481,7 @@ export const components: Component[] = [
 		description: 'A toggle is used to view or switch between enabled or disabled states.',
 		status: 'general-availability',
 		examples: [
-			'import Toggle from \'@atlaskit/toggle\';\nexport default [<Toggle label="Basic toggle" />, <Toggle label="Checked toggle" isChecked />];',
+			'import Toggle from \'@atlaskit/toggle\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Toggle label="Basic toggle" />\n\t\t<Toggle label="Checked toggle" isChecked />\n\t</>\n);\nexport default Examples;',
 		],
 		accessibilityGuidelines: [
 			'Provide clear labels for all toggles',
@@ -6590,7 +6587,7 @@ export const components: Component[] = [
 			'A tooltip is a floating, non-actionable label used to explain a user interface element or feature.',
 		status: 'general-availability',
 		examples: [
-			'import Button from \'@atlaskit/button/new\';\nimport Tooltip from \'@atlaskit/tooltip\';\nexport default function DefaultTooltipExample() {\n\treturn (\n\t\t<Tooltip content="This is a tooltip" testId="default-tooltip">\n\t\t\t{(tooltipProps) => <Button {...tooltipProps}>Hover over me</Button>}\n\t\t</Tooltip>\n\t);\n}',
+			'import Button from \'@atlaskit/button/new\';\nimport Tooltip from \'@atlaskit/tooltip\';\nexport default function DefaultTooltipExample(): React.JSX.Element {\n\treturn (\n\t\t<Tooltip content="This is a tooltip" testId="default-tooltip">\n\t\t\t{(tooltipProps) => <Button {...tooltipProps}>Hover over me</Button>}\n\t\t</Tooltip>\n\t);\n}',
 		],
 		accessibilityGuidelines: [
 			'Ensure tooltip content is announced by screen readers',
@@ -6718,7 +6715,7 @@ export const components: Component[] = [
 		description: 'A utility component for accessibility.',
 		status: 'general-availability',
 		examples: [
-			"import VisuallyHidden from '@atlaskit/visually-hidden';\nexport default () => {\n\treturn (\n\t\t<div  style={{ border: '1px solid black' }}>\n\t\t\tThere is text hidden between the brackets [<VisuallyHidden>Can't see me!</VisuallyHidden>]\n\t\t</div>\n\t);\n};",
+			"import VisuallyHidden from '@atlaskit/visually-hidden';\nexport default (): React.JSX.Element => {\n\treturn (\n\t\t<div  style={{ border: '1px solid black' }}>\n\t\t\tThere is text hidden between the brackets [<VisuallyHidden>Can't see me!</VisuallyHidden>]\n\t\t</div>\n\t);\n};",
 		],
 		accessibilityGuidelines: [
 			'Use for screen reader only content',

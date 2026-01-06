@@ -18,7 +18,6 @@ import {
 	type FileSizeLimitExceededData,
 	type FileEmptyData,
 } from '../../../types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type UploadService } from '../../../service/types';
 import { SCALE_FACTOR_DEFAULT } from '../../../util/getPreviewFromImage';
 import * as ufoWrapper from '../../../util/ufoExperiences';
@@ -187,7 +186,6 @@ describe.skip('LocalUploadReact', () => {
 	});
 
 	it('should cal onError and UFO failed experience event with proper arguments', () => {
-		(fg as jest.Mock).mockImplementation((fgName) => fgName === 'add_media_picker_error_detail');
 		let uploadComponent: UploadComponent<UploadEventPayloadMap>;
 		class DummyLocalUploadComponent extends LocalUploadComponentReact<LocalUploadComponentBaseProps> {
 			constructor(props: LocalUploadComponentBaseProps) {

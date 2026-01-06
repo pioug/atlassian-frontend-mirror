@@ -1,5 +1,28 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.8.0
+
+### Minor Changes
+
+- [`517f06f895cc9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/517f06f895cc9) -
+  [https://product-fabric.atlassian.net/browse/ED-29730](ED-29730) - clen up
+  platform_editor_emoji_otp Statsig experiment
+
+## 16.7.0
+
+### Minor Changes
+
+- [`e8f5c745198b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8f5c745198b6) -
+  add sampled "renderer rendered" event
+
+## 16.6.0
+
+### Minor Changes
+
+- [`77df724ec737e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77df724ec737e) -
+  [https://product-fabric.atlassian.net/browse/ED-28631](ED-28631) - cleanup the
+  platform_editor_smart_card_otp Statsig experiment
+
 ## 16.5.0
 
 ### Minor Changes

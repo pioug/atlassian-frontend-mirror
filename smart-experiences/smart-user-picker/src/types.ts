@@ -32,6 +32,7 @@ export interface RecommendationRequest {
 	includeTeams?: boolean;
 	includeNonLicensedUsers?: boolean;
 	searchEmail?: boolean;
+	verifiedTeams?: boolean;
 }
 
 type OnError = (error: any, request: RecommendationRequest) => Promise<OptionData[]> | void;
@@ -147,6 +148,10 @@ export interface SmartProps {
 	 * Whether to include teams in the resultset. @default false
 	 */
 	includeTeams?: boolean;
+	/**
+	 * When set to true, only returns verified teams. Only applies when includeTeams is true. @default false
+	 */
+	verifiedTeams?: boolean;
 	/**
 	 * Whether to include users in the resultset. @default true
 	 */

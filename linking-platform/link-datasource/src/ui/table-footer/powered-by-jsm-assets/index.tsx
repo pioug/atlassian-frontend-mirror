@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cssMap } from '@compiled/react';
 
-import { AssetsIcon, JiraServiceManagementIcon } from '@atlaskit/logo';
+import { AssetsIcon } from '@atlaskit/logo';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -24,7 +24,6 @@ const styles = cssMap({
 });
 
 export const PoweredByJSMAssets = (props: { text: string }): React.JSX.Element => {
-	const ASSETS_LINK = '/jira/servicedesk/assets';
 	const ASSETS_APP_LINK = '/jira/assets';
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
@@ -39,7 +38,7 @@ export const PoweredByJSMAssets = (props: { text: string }): React.JSX.Element =
 						extensionKey: 'jsm-cmdb-gateway',
 					})
 				}
-				href={fg('assets_as_an_app_v2') ? ASSETS_APP_LINK : ASSETS_LINK}
+				href={ASSETS_APP_LINK}
 				rel="noreferrer"
 				target="_blank"
 				style={{
@@ -49,19 +48,10 @@ export const PoweredByJSMAssets = (props: { text: string }): React.JSX.Element =
 					alignItems: 'center',
 				}}
 			>
-				{fg('assets_as_an_app_v2') ? (
-					<AssetsIcon
-						size="small"
-						{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
-					/>
-				) : (
-					<JiraServiceManagementIcon
-						size="xxsmall"
-						appearance="brand"
-						label={props.text}
-						{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
-					/>
-				)}
+				<AssetsIcon
+					size="small"
+					{...(fg('navx-1895-new-logo-design') ? { shouldUseNewLogoDesign: true } : undefined)}
+				/>
 				<Box
 					xcss={styles.jsmTextStyles}
 					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography, @atlaskit/ui-styling-standard/enforce-style-prop

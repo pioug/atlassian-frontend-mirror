@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 0.13.2
+
+### Patch Changes
+
+- [`8810530f037cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8810530f037cc) -
+  Minor updates to components context from type and example changes.
+
 ## 0.13.1
 
 ### Patch Changes

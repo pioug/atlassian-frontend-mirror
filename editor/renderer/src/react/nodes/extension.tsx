@@ -51,7 +51,7 @@ type ViewportSizeType = (typeof viewportSizes)[number];
 type ViewportSizeObjectType = {
 	[size in ViewportSizeType]: string;
 };
-// Mirrors sizes from https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/forge/xen-editor-provider/src/render/renderers/ForgeUIExtension.tsx
+// Mirrors sizes from https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/forge/xen-editor-provider/src/render/renderers/ForgeUIExtension.tsx
 const macroHeights: ViewportSizeObjectType = {
 	small: '112px',
 	medium: '262px',

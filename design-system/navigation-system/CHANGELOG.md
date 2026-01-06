@@ -1,5 +1,13 @@
 # @atlassian/navigation-system
 
+## 5.19.0
+
+### Minor Changes
+
+- [`819adcd884291`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/819adcd884291) -
+  Tidy `platform_dst_nav4_side_nav_toggle_ref_fix` feature gate. This addresses a potential issue
+  with refs becoming stale.
+
 ## 5.18.1
 
 ### Patch Changes

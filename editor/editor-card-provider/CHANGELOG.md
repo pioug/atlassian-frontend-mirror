@@ -1,5 +1,17 @@
 # @atlaskit/editor-card-provider
 
+## 6.3.0
+
+### Minor Changes
+
+- [`77df724ec737e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77df724ec737e) -
+  [https://product-fabric.atlassian.net/browse/ED-28631](ED-28631) - cleanup the
+  platform_editor_smart_card_otp Statsig experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.5
 
 ### Patch Changes

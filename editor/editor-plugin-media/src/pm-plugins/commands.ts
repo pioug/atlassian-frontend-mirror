@@ -1,9 +1,16 @@
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
+import type {
+	EditorAnalyticsAPI,
+	InputMethodInsertMedia,
+	InsertMediaVia,
+} from '@atlaskit/editor-common/analytics';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 
 import { ACTIONS } from '../pm-plugins/actions';
 import { stateKey } from '../pm-plugins/plugin-key';
 import { getIdentifier } from '../pm-plugins/utils/media-common';
+
+import { createInsertMediaAsMediaSingleCommand } from './utils/media-single';
 
 export const showMediaViewer =
 	(media: MediaADFAttrs): EditorCommand =>
@@ -35,3 +42,18 @@ export const trackMediaPaste =
 		});
 		return tr;
 	};
+
+export const insertMediaAsMediaSingleCommand =
+	(editorAnalyticsAPI?: EditorAnalyticsAPI, allowPixelResizing?: boolean) =>
+	(
+		mediaAttrs: MediaADFAttrs,
+		inputMethod: InputMethodInsertMedia,
+		insertMediaVia?: InsertMediaVia,
+	): EditorCommand =>
+		createInsertMediaAsMediaSingleCommand(
+			mediaAttrs,
+			inputMethod,
+			editorAnalyticsAPI,
+			insertMediaVia,
+			allowPixelResizing,
+		);

@@ -1,17 +1,18 @@
 import React from 'react';
 
 import { TimePicker } from '@atlaskit/datetime-picker';
+import __noop from '@atlaskit/ds-lib/noop'
 
-const _default_1: React.JSX.Element[] = [
+const Example = (): React.JSX.Element => (
 	<TimePicker
 		clearControlLabel="Clear select time (editable)"
 		defaultValue="14:30"
-		onChange={() => {}}
+		onChange={__noop}
 		timeFormat="HH:mm:ss A"
 		timeIsEditable
 		selectProps={{
 			classNamePrefix: 'timepicker-select',
 		}}
-	/>,
-];
-export default _default_1;
+	/>
+);
+export default Example;

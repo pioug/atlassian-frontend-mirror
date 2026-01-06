@@ -96,6 +96,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "^16.3.0",
 		"@types/is-ci": "root:*",
+		"@types/scheduler": "root:*",
 		"is-ci": "root:*"
 	},
 	"techstack": {

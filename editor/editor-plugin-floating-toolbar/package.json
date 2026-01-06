@@ -115,9 +115,6 @@
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		},
-		"platform_editor_user_intent_plugin": {
-			"type": "boolean"
-		},
 		"platform_editor_fix_confirm_table_removal": {
 			"type": "boolean"
 		},

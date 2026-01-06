@@ -25,13 +25,9 @@ export const PinButton = ({
 		if (!api || isDisabled) {
 			return;
 		}
-		if (fg('platform_editor_migrate_toolbar_docking')) {
-			api?.core.actions.execute(
-				api?.userPreferences?.actions.updateUserPreference('toolbarDockingPosition', 'none'),
-			);
-			return;
-		}
-		api.selectionToolbar.actions?.setToolbarDocking?.('none');
+		api?.core.actions.execute(
+			api?.userPreferences?.actions.updateUserPreference('toolbarDockingPosition', 'none'),
+		);
 	};
 
 	return (

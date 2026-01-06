@@ -1,6 +1,5 @@
 import DataLoader from 'dataloader';
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import retry, { type Options } from 'async-retry';
 import pThrottle from 'p-throttle';
 import {
@@ -98,9 +97,7 @@ export default class CardClient implements CardClientInterface {
 			// send product source as header X-Product if defined
 			...(this.product ? { 'X-Product': this.product } : {}),
 			// add custom headers if defined
-			...(expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) && this.headers
-				? this.headers
-				: {}),
+			...(this.headers ?? {}),
 		};
 
 		try {
@@ -169,9 +166,7 @@ export default class CardClient implements CardClientInterface {
 			// send product source as header X-Product if defined
 			...(this.product ? { 'X-Product': this.product } : {}),
 			// add custom headers if defined
-			...(expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) && this.headers
-				? this.headers
-				: {}),
+			...(this.headers ? this.headers : {}),
 		};
 
 		try {
@@ -383,7 +378,7 @@ export default class CardClient implements CardClientInterface {
 
 				// Trigger callback after successful backoff.
 				return retriedResponse.body;
-			} catch (err) {
+			} catch {
 				// Do nothing in the case of an error - prefetching
 				// failures should be silent. Once a link is visible,
 				// it will be re-fetched anyhow, in which case a

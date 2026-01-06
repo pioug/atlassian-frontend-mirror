@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
@@ -115,11 +115,9 @@ export const SideNavToggleButton = ({
 	);
 
 	const ref = useContext(SideNavToggleButtonAttachRef);
-	const elementRef = useRef(null);
 
 	/**
-	 * Attempts to address HOT-121458 by ensuring that the toggle button element
-	 * in context is always up to date.
+	 * Addresses HOT-121458 by ensuring that the toggle button element in context is always up to date.
 	 *
 	 * My theory is that something to do with SSR, hydration and suspense was causing the
 	 * underlying HTML element to change but without causing the toggle button to remount.
@@ -128,16 +126,8 @@ export const SideNavToggleButton = ({
 	 */
 	const [element, setElement] = useState<HTMLButtonElement | null>(null);
 	useEffect(() => {
-		if (fg('platform_dst_nav4_side_nav_toggle_ref_fix')) {
-			ref(element);
-		}
+		ref(element);
 	}, [element, ref]);
-
-	useEffect(() => {
-		if (!fg('platform_dst_nav4_side_nav_toggle_ref_fix')) {
-			ref(elementRef.current);
-		}
-	}, [elementRef, ref]);
 
 	useEffect(() => {
 		const { matches } = window.matchMedia('(min-width: 64rem)');
@@ -243,7 +233,7 @@ export const SideNavToggleButton = ({
 			testId={testId}
 			isTooltipDisabled={false}
 			interactionName={interactionName}
-			ref={fg('platform_dst_nav4_side_nav_toggle_ref_fix') ? setElement : elementRef}
+			ref={setElement}
 			tooltip={tooltipProps}
 		/>
 	);

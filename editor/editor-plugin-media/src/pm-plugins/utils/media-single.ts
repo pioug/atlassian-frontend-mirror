@@ -1,5 +1,6 @@
 import memoizeOne from 'memoize-one';
 
+import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import type {
 	EditorAnalyticsAPI,
 	InputMethodInsertMedia,
@@ -21,9 +22,13 @@ import {
 	MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
 	MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
 } from '@atlaskit/editor-common/media-single';
-import { atTheBeginningOfBlock } from '@atlaskit/editor-common/selection';
+import {
+	atTheBeginningOfBlock,
+	selectionIsAtTheBeginningOfBlock,
+} from '@atlaskit/editor-common/selection';
 import type {
 	Command,
+	EditorCommand,
 	EditorContainerWidth as WidthPluginState,
 } from '@atlaskit/editor-common/types';
 import { checkNodeDown, isEmptyParagraph } from '@atlaskit/editor-common/utils';
@@ -32,6 +37,7 @@ import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert as pmSafeInsert, removeSelectedNode } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaState } from '../../types';
 import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
@@ -86,6 +92,19 @@ function insertNodesWithOptionalParagraph({
 }): Command {
 	return function (state, dispatch) {
 		const { tr } = state;
+		if (fg('platform_editor_introduce_insert_media_command')) {
+			const updatedTr = insertNodesWithOptionalParagraphCommand({
+				nodes,
+				analyticsAttributes,
+				editorAnalyticsAPI,
+				insertMediaVia,
+			})({ tr });
+			if (updatedTr && dispatch) {
+				dispatch?.(updatedTr);
+				return true;
+			}
+			return false;
+		}
 
 		const { inputMethod, fileExtension, newType, previousType } = analyticsAttributes;
 
@@ -126,6 +145,59 @@ function insertNodesWithOptionalParagraph({
 	};
 }
 
+function insertNodesWithOptionalParagraphCommand({
+	nodes,
+	analyticsAttributes = {},
+	editorAnalyticsAPI,
+	insertMediaVia,
+}: {
+	analyticsAttributes: {
+		fileExtension?: string;
+		inputMethod?: InputMethodInsertMedia;
+		newType?: MediaSwitchType;
+		previousType?: MediaSwitchType;
+	};
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+	insertMediaVia?: InsertMediaVia;
+	nodes: PMNode[];
+}): EditorCommand {
+	return ({ tr }) => {
+		const { inputMethod, fileExtension, newType, previousType } = analyticsAttributes;
+
+		let updatedTr = tr;
+		const openEnd = 0;
+
+		if (tr.selection.empty) {
+			const insertFrom = selectionIsAtTheBeginningOfBlock(tr.selection)
+				? tr.selection.$from.before()
+				: tr.selection.from;
+
+			// the use of pmSafeInsert causes the node selection to media single node.
+			// It leads to discrepancy between the full-page and comment editor - not sure why :shrug:
+			// When multiple images are uploaded, the node selection is set to the previous node
+			// and got overridden by the next node inserted.
+			// It also causes the images position shifted when the images are uploaded.
+			// E.g the images are uploaded after a table, the images will be inserted inside the table.
+			// so we revert to use tr.insert instead. No extra paragraph is added.
+			updatedTr = updatedTr.insert(insertFrom, nodes);
+		} else {
+			updatedTr.replaceSelection(new Slice(Fragment.from(nodes), 0, openEnd));
+		}
+
+		if (inputMethod) {
+			editorAnalyticsAPI?.attachAnalyticsEvent(
+				getInsertMediaAnalytics(inputMethod, fileExtension, insertMediaVia),
+			)(updatedTr);
+		}
+		if (newType && previousType) {
+			editorAnalyticsAPI?.attachAnalyticsEvent(
+				getChangeMediaAnalytics(previousType, newType, findChangeFromLocation(tr.selection)),
+			)(updatedTr);
+		}
+		return updatedTr;
+	};
+}
+
 export const isMediaSingle = (schema: Schema, fileMimeType?: string) =>
 	!!schema.nodes.mediaSingle && isImage(fileMimeType);
 
@@ -160,6 +232,21 @@ export const insertMediaAsMediaSingle = (
 		return false;
 	}
 
+	if (fg('platform_editor_introduce_insert_media_command')) {
+		const updatedTr = createInsertMediaAsMediaSingleCommand(
+			node.attrs as MediaADFAttrs,
+			inputMethod,
+			editorAnalyticsAPI,
+			insertMediaVia,
+			allowPixelResizing,
+		)({ tr: state.tr });
+		if (updatedTr && dispatch) {
+			dispatch?.(updatedTr);
+			return true;
+		}
+		return false;
+	}
+
 	const mediaSingleAttrs = allowPixelResizing
 		? {
 				widthType: 'pixel',
@@ -180,6 +267,52 @@ export const insertMediaAsMediaSingle = (
 		editorAnalyticsAPI,
 		insertMediaVia,
 	})(state, dispatch);
+};
+
+export const createInsertMediaAsMediaSingleCommand = (
+	mediaAttrs: MediaADFAttrs,
+	inputMethod: InputMethodInsertMedia,
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	insertMediaVia?: InsertMediaVia,
+	allowPixelResizing?: boolean,
+): EditorCommand => {
+	return ({ tr }) => {
+		const { mediaSingle, media } = tr.doc.type.schema.nodes;
+
+		if (!mediaSingle || !media) {
+			return null;
+		}
+
+		if (mediaAttrs.type !== 'external' && !isImage(mediaAttrs.__fileMimeType ?? undefined)) {
+			return null;
+		}
+
+		const mediaSingleAttrs = allowPixelResizing
+			? {
+					widthType: 'pixel',
+					width: getMediaSingleInitialWidth(mediaAttrs.width ?? DEFAULT_IMAGE_WIDTH),
+					layout: 'center',
+				}
+			: {};
+		const mediaNode = media.create(mediaAttrs);
+
+		const mediaSingleNode = mediaSingle.create(mediaSingleAttrs, mediaNode);
+		const nodes = [mediaSingleNode];
+		const analyticsAttributes = {
+			inputMethod,
+			// External images have no file extension
+			fileExtension:
+				mediaAttrs.type !== 'external' && mediaAttrs.__fileMimeType
+					? (mediaAttrs.__fileMimeType ?? undefined)
+					: undefined,
+		};
+		return insertNodesWithOptionalParagraphCommand({
+			nodes,
+			analyticsAttributes,
+			editorAnalyticsAPI,
+			insertMediaVia,
+		})({ tr });
+	};
 };
 
 const getFileExtension = (fileName: string | undefined | null) => {

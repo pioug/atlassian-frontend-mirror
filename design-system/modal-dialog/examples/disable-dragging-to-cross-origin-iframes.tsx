@@ -324,6 +324,7 @@ function Parent() {
 					<span>In parent window</span>
 					<Draggable />
 					<Box
+						as="div"
 						draggable="true"
 						xcss={unmanagedDraggableStyles.root}
 						backgroundColor="color.background.accent.orange.subtle"

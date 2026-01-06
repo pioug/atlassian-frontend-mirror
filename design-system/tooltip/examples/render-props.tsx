@@ -16,6 +16,7 @@ const VALID_POSITIONS: PositionType[] = ['mouse', 'top', 'right', 'bottom', 'lef
 const shortMessage = "I'm a short tooltip";
 const longMessage = 'I am a longer tooltip with a decent amount of content inside';
 
+// @ts-expect-error - Added during @types/react@~18.3.24 upgrade.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const InlineDialog = styled<TooltipPrimitiveProps>(TooltipPrimitive)({
 	background: 'white',

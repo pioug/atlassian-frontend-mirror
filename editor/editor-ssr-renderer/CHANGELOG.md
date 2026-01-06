@@ -1,5 +1,15 @@
 # @atlaskit/editor-ssr-renderer
 
+## 2.0.1
+
+### Patch Changes
+
+- [`45129df3fb3bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45129df3fb3bb) -
+  [EDITOR-4211] Fix missing <br /> in empty paragraphs in SSR renderer
+- [`4741ef2efc866`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4741ef2efc866) -
+  [EDITOR-4212] Fix macros in SSR renderer
+- Updated dependencies
+
 ## 2.0.0
 
 ### Patch Changes

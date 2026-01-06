@@ -442,13 +442,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-09-16
-	platform_editor_emoji_otp: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-06-16
 	platform_editor_enable_single_player_step_merging: {
 		defaultValue: boolean;
@@ -702,12 +695,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-11-26
 	platform_editor_resizer_styles_cleanup: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	platform_editor_smart_card_otp: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1032,6 +1019,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-12-18
 	platform_synced_blocks_offline_check_for_block: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-12-22
+	platform_editor_sample_renderer_rendered_event: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1572,13 +1566,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	platform_editor_smart_card_otp: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_smart_card_otp',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-07-15
 	platform_editor_preview_panel_responsiveness: createBooleanExperiment({
 		productKeys: {
@@ -1639,14 +1626,6 @@ export const editorExperimentsConfig: {
 	platform_editor_block_menu: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_block_menu',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-09-16
-	platform_editor_emoji_otp: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_emoji_otp',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2207,6 +2186,14 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_synced_blocks_offline_check_for_block',
 			jira: 'platform_synced_blocks_offline_check_for_block',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-12-22
+	platform_editor_sample_renderer_rendered_event: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_sample_renderer_rendered_event',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

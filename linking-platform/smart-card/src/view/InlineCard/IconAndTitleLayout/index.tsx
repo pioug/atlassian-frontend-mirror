@@ -13,7 +13,6 @@ import { cssMap } from '@atlaskit/css';
 import LinkIcon from '@atlaskit/icon/core/link';
 import { Box } from '@atlaskit/primitives/compiled';
 import { B400 } from '@atlaskit/theme/colors';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { isProfileType } from '../../../utils';
@@ -134,10 +133,7 @@ export const IconAndTitleLayout = ({
 				return null;
 			}
 
-			if (
-				expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) &&
-				hideIconLoadingSkeleton
-			) {
+			if (hideIconLoadingSkeleton) {
 				if (hasImageErrored) {
 					return errored;
 				}

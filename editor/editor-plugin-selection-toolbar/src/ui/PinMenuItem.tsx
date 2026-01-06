@@ -25,7 +25,7 @@ type PinMenuItemProps = {
 
 const usePluginState = conditionalHooksFactory(
 	() => expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true),
-	(api?: ExtractInjectionAPI<SelectionToolbarPlugin> | undefined) => {
+	(_api?: ExtractInjectionAPI<SelectionToolbarPlugin> | undefined) => {
 		const { editorViewMode, editorToolbarDockingPreference, isOffline } = useEditorToolbar();
 
 		return {
@@ -69,21 +69,12 @@ export const PinMenuItem = ({ api }: PinMenuItemProps): React.JSX.Element | null
 			return;
 		}
 
-		if (fg('platform_editor_migrate_toolbar_docking')) {
-			api?.core.actions.execute(
-				api?.userPreferences?.actions.updateUserPreference(
-					'toolbarDockingPosition',
-					isToolbarDocked ? 'none' : 'top',
-				),
-			);
-			return;
-		}
-
-		if (isToolbarDocked) {
-			api.selectionToolbar.actions?.setToolbarDocking?.('none');
-		} else {
-			api.selectionToolbar.actions?.setToolbarDocking?.('top');
-		}
+		api?.core.actions.execute(
+			api?.userPreferences?.actions.updateUserPreference(
+				'toolbarDockingPosition',
+				isToolbarDocked ? 'none' : 'top',
+			),
+		);
 	};
 
 	const message = intl.formatMessage(

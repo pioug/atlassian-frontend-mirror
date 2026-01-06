@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { type LozengeProps } from '../../../types';
 import type { CardActionOptions } from '../../Card/types';
@@ -104,10 +103,7 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 					title={title}
 					titleTextColor={titleTextColor}
 					type={type}
-					hideIconLoadingSkeleton={
-						expValEquals('platform_editor_smart_card_otp', 'isEnabled', true) &&
-						hideIconLoadingSkeleton
-					}
+					hideIconLoadingSkeleton={hideIconLoadingSkeleton}
 				/>
 				{this.renderLozenge()}
 			</Frame>

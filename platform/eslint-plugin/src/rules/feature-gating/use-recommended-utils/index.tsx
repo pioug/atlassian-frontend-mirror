@@ -6,7 +6,7 @@ const BANNED_IMPORTS_SET = new Set(['@atlaskit/feature-gate-js-client']);
 const rule: Rule.RuleModule = {
 	meta: {
 		docs: {
-			url: 'https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/platform/eslint-plugin/src/rules/use-recommended-utils/README.md',
+			url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin/src/rules/use-recommended-utils/README.md',
 			description: 'Prefer using the feature flag abstraction over direct statsig library.',
 		},
 		messages: {

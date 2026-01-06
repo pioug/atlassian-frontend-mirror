@@ -134,7 +134,7 @@ const rule: Rule.RuleModule = {
 		docs: {
 			description:
 				'Ensure feature flags/gates and experiments are inlined so that they can be statically analyzable.',
-			url: 'https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/platform/eslint-plugin/src/rules/inline-usage/README.md',
+			url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin/src/rules/inline-usage/README.md',
 		},
 		schema: [
 			{

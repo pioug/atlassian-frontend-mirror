@@ -25,7 +25,7 @@ const rule: Rule.RuleModule = {
 	meta: {
 		docs: {
 			description: 'Disallow feature flag usage at module level',
-			url: 'https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/platform/eslint-plugin/src/rules/no-module-level-eval/README.md',
+			url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin/src/rules/no-module-level-eval/README.md',
 		},
 		messages: {
 			noModuleLevelEval:

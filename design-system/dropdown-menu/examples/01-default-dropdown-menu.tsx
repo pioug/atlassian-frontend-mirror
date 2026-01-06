@@ -17,7 +17,12 @@ export default (): React.JSX.Element => (
 		shouldRenderToParent
 	>
 		<DropdownItemGroup>
-			<DropdownItem component={CustomComponent}>Move</DropdownItem>
+			<DropdownItem
+				// @ts-expect-error - Added during @types/react@~18.3.24 upgrade.
+				component={CustomComponent}
+			>
+				Move
+			</DropdownItem>
 			<DropdownItem>Clone</DropdownItem>
 			<DropdownItem>Delete</DropdownItem>
 		</DropdownItemGroup>
